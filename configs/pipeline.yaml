@@ -1,0 +1,21 @@
+version: 0.1.0
+seed: 20260714
+llm_cache_dir: .cache/llm
+stages:
+  extraction:
+    module: idpr.extraction
+    model: placeholder
+  reasoning:
+    module: idpr.reasoning
+    mode: deterministic_bootstrap
+    rule_roots:
+      - rules/kr
+  generation:
+    module: idpr.generation
+    model: placeholder
+  verification:
+    module: idpr.verification
+    hard_fail:
+      - inadmissible_use
+experiments:
+  registry: experiments/runs.jsonl

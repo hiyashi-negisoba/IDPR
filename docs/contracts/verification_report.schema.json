@@ -1,0 +1,29 @@
+{
+  "$id": "idpr/VerificationReport",
+  "description": "S4 output: consistency score and paragraph-level violations.",
+  "type": "object",
+  "required": ["sub_question_id", "score", "violations"],
+  "additionalProperties": false,
+  "properties": {
+    "sub_question_id": { "type": "string" },
+    "score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "violations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "paragraph_id"],
+        "additionalProperties": true,
+        "properties": {
+          "type": {
+            "enum": ["missing", "contradiction", "unsupported", "inadmissible_use"]
+          },
+          "paragraph_id": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+[project]
+name = "idpr"
+version = "0.1.0"
+description = "In Dubio Pro Reo: logic-verified long-form legal document generation"
+requires-python = ">=3.11"
+dependencies = [
+  "pydantic>=2",
+  "pyyaml",
+  "typer",
+  "jsonlines",
+  "pandas",
+  "pyarrow",
+  "pdfplumber",
+]
+
+[dependency-groups]
+dev = ["pytest", "ruff", "mypy"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

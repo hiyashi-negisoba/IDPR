@@ -1,0 +1,52 @@
+{
+  "$id": "idpr/NormCandidateBatch",
+  "description": "API output for one commentary batch before rule merging.",
+  "type": "object",
+  "required": ["request_id", "status", "candidates", "unresolved_questions"],
+  "additionalProperties": false,
+  "properties": {
+    "request_id": { "type": "string" },
+    "status": { "const": "draft" },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "candidate_id",
+          "norm_kind",
+          "proposition",
+          "source_refs",
+          "review_required"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "candidate_id": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]*$" },
+          "norm_kind": { "enum": ["element", "definition", "causal_link", "exception", "standard", "variant"] },
+          "proposition": { "type": "string", "minLength": 1 },
+          "source_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "$ref": "#/$defs/source_ref" }
+          },
+          "review_required": { "type": "boolean" }
+        }
+      }
+    },
+    "unresolved_questions": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "$defs": {
+    "source_ref": {
+      "type": "object",
+      "required": ["comment_id", "section_path", "quote"],
+      "additionalProperties": false,
+      "properties": {
+        "comment_id": { "type": "string", "minLength": 1 },
+        "section_path": { "type": "string", "minLength": 1 },
+        "quote": { "type": "string", "minLength": 1, "maxLength": 300 }
+      }
+    }
+  }
+}

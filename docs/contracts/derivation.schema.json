@@ -1,0 +1,62 @@
+{
+  "$id": "idpr/Derivation",
+  "description": "S2 output: conclusion, proof trace, and gating record.",
+  "type": "object",
+  "required": [
+    "sub_question_id",
+    "verdicts",
+    "proof_tree",
+    "fired_rules",
+    "gated_out",
+    "standard_flags"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "sub_question_id": { "type": "string" },
+    "verdicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["issue", "conclusion"],
+        "additionalProperties": false,
+        "properties": {
+          "issue": { "type": "string" },
+          "conclusion": {
+            "enum": ["established", "not_established", "admissible", "inadmissible"]
+          }
+        }
+      }
+    },
+    "proof_tree": { "type": "object" },
+    "fired_rules": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "gated_out": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["evidence_id", "fact", "reason"],
+        "additionalProperties": false,
+        "properties": {
+          "evidence_id": { "type": "string" },
+          "fact": { "type": "object" },
+          "reason": { "type": "string" }
+        }
+      }
+    },
+    "standard_flags": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["predicate_id", "llm_judgment", "rationale"],
+        "additionalProperties": true,
+        "properties": {
+          "predicate_id": { "type": "string" },
+          "llm_judgment": {},
+          "rationale": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "$id": "idpr/InventoryItem",
+  "description": "Evaluation inventory item at sub-question granularity.",
+  "type": "object",
+  "required": [
+    "sub_question_id",
+    "source",
+    "question_text",
+    "issue_tags",
+    "covered",
+    "review_status",
+    "coverage_review_status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "sub_question_id": { "type": "string" },
+    "source": {
+      "type": "object",
+      "required": ["dataset", "item_id"],
+      "additionalProperties": true,
+      "properties": {
+        "dataset": { "type": "string" },
+        "item_id": { "type": "string" }
+      }
+    },
+    "question_text": { "type": "string" },
+    "question_prompt": { "type": "string" },
+    "subject": { "type": "string" },
+    "exam_round": { "type": "integer" },
+    "paper": { "type": "string" },
+    "question_number": { "type": "string" },
+    "subpart": { "type": "string" },
+    "legal_area": { "enum": ["substantive", "procedure", "mixed"] },
+    "issue_tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "norm_types": {
+      "type": "array",
+      "items": { "enum": ["rule", "standard"] }
+    },
+    "covered": { "type": "boolean" },
+    "coverage_candidate": { "type": "string" },
+    "coverage_notes": { "type": "string" },
+    "review_status": { "enum": ["needs_review", "reviewed", "excluded"] },
+    "coverage_review_status": { "enum": ["needs_review", "reviewed"] },
+    "review_notes": { "type": "string" },
+    "rubric_count": { "type": "integer", "minimum": 0 },
+    "rubric_summary": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "notes": { "type": "string" }
+  }
+}

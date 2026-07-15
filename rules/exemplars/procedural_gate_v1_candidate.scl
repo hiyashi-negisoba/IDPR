@@ -1,0 +1,25 @@
+// rule_set_id: kr.procedure.admissibility_gate.v1_candidate
+// status: draft
+// legal_review: pending
+// This candidate uses positive completion facts; missing review never means admissible.
+
+type evidence(String)
+type supports(String, String)
+type admissibility_review_complete(String)
+
+// These predicates are outputs of separately sourced procedural rule sets.
+type hearsay_gate_satisfied(String)
+type collection_gate_satisfied(String)
+type other_exclusion_gate_satisfied(String)
+
+type admissible(String)
+type provable(String)
+
+rel admissible(e) = evidence(e) and
+  admissibility_review_complete(e) and
+  hearsay_gate_satisfied(e) and
+  collection_gate_satisfied(e) and
+  other_exclusion_gate_satisfied(e)
+
+rel provable(f) = supports(e, f) and
+  admissible(e)

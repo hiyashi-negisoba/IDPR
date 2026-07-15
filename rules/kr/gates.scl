@@ -1,0 +1,9 @@
+// Evidence gating bootstrap draft.
+// Only admissible evidence may make a supported fact provable.
+// This draft uses closed-world negation and must not be promoted as a legal rule.
+// See rules/exemplars/procedural_gate_v1_candidate.scl for the positive-gate candidate.
+
+rel admissible(e) = evidence(e) and not excluded_illegal(e) and not excluded_hearsay(e)
+rel excluded_illegal(e) = illegally_obtained(e) and violation_substantial(e)
+rel excluded_hearsay(e) = hearsay(e) and not hearsay_exception_met(e)
+rel provable(f) = supports(e, f) and admissible(e)

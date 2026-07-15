@@ -1,0 +1,10 @@
+// Fraud bootstrap draft for criminal code article 347.
+// Legal correctness requires human review before promotion from draft.
+// This minimal bootstrap is retained for initialization tests only.
+// The provenance-backed candidate is rules/exemplars/fraud_v1_candidate.scl.
+
+rel fraud_established(d, v, p) =
+  deception(d, v) and
+  mistake_caused(v) and
+  disposition_by_deceived(v, p) and
+  intent_to_defraud(d)

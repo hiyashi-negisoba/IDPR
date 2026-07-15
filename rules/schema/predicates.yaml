@@ -1,0 +1,56 @@
+# Bootstrap predicate draft retained for initialization compatibility.
+# The provenance-backed candidate schema is in the fraud RuleIR exemplar and remains pending review.
+version: 0.1.0
+entities:
+  - person
+  - evidence
+  - fact
+  - property
+  - statement
+predicates:
+  - id: deception
+    arity: [person, person]
+    kind: rule
+    status: draft
+    definition: Existence of deception by defendant against victim.
+    source: commentary placeholder for criminal code article 347.
+  - id: mistake_caused
+    arity: [person]
+    kind: rule
+    status: draft
+    definition: Victim mistake caused by deception.
+  - id: disposition_by_deceived
+    arity: [person, property]
+    kind: rule
+    status: draft
+    definition: Property disposition by deceived victim.
+  - id: intent_to_defraud
+    arity: [person]
+    kind: standard
+    status: draft
+    definition: Intent to defraud and unlawful acquisition intent.
+  - id: hearsay
+    arity: [evidence]
+    kind: rule
+    status: draft
+    definition: Evidence is hearsay.
+  - id: hearsay_exception_met
+    arity: [evidence]
+    kind: rule
+    status: draft
+    definition: Hearsay exception requirements are met.
+  - id: illegally_obtained
+    arity: [evidence]
+    kind: rule
+    status: draft
+    definition: Evidence was illegally obtained.
+  - id: violation_substantial
+    arity: [evidence]
+    kind: standard
+    status: draft
+    definition: Procedural violation is substantial.
+  - id: supports
+    arity: [evidence, fact]
+    kind: rule
+    status: draft
+    definition: Evidence supports a fact.

@@ -1,0 +1,1550 @@
+{
+  "inventory": {
+    "issue_tags": 165,
+    "path": "/data5/jaehoonjeong/IDPR/data/inventory/kcl_criminal_v1_draft.jsonl",
+    "sha256": "0b6bc6193917e12a0a17999449a22c2d40d4511389e836f188d28759d2691f1a"
+  },
+  "primary_source": {
+    "laws": [
+      {
+        "articles": 571,
+        "law_id": "001671",
+        "law_name": "형사소송법",
+        "rows": 5373
+      },
+      {
+        "articles": 251,
+        "law_id": "001692",
+        "law_name": "형법각칙",
+        "rows": 4011
+      }
+    ],
+    "parsed_rows": 9384,
+    "path": "/home/jaehoonjeong/data/sp_qwen/data/serve/commentary_chunks/docs.parquet",
+    "sha256": "f2a4092e5db0ad59d7467f71e9b9c6d0413860e0a244e8e50a54d7020e0e4552"
+  },
+  "raw_pdf_fallbacks": [
+    {
+      "article_no": "제254조",
+      "article_title": "미수범",
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "page_chunks": 1,
+      "path": "/home/jaehoonjeong/data/sp_qwen/data/raw/commentary_casenote/형법각칙/articles/제0254조_[미수범].pdf",
+      "sha256": "3e30d9a7b602073aa8d17268f6298867541833ca479398c940e85cc7a91ec01a"
+    },
+    {
+      "article_no": "제300조",
+      "article_title": "미수범",
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "page_chunks": 2,
+      "path": "/home/jaehoonjeong/data/sp_qwen/data/raw/commentary_casenote/형법각칙/articles/제0300조_[미수범].pdf",
+      "sha256": "352bd8457da4732985faf7eea3b118034e8e2188a02212743328c8b4961dff84"
+    },
+    {
+      "article_no": "제342조",
+      "article_title": "미수범",
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "page_chunks": 1,
+      "path": "/home/jaehoonjeong/data/sp_qwen/data/raw/commentary_casenote/형법각칙/articles/제0342조_[미수범].pdf",
+      "sha256": "b75b4c858e074a3562f3e9230c575a1bdba141175a001367fa8e0c802a736816"
+    },
+    {
+      "article_no": "제344조",
+      "article_title": "친족간의 범행",
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "page_chunks": 1,
+      "path": "/home/jaehoonjeong/data/sp_qwen/data/raw/commentary_casenote/형법각칙/articles/제0344조_[친족간의 범행].pdf",
+      "sha256": "d67d32a95a9fcf05c8892b140cd88f058472e0c735c0ad429470ce3acedeced2"
+    }
+  ],
+  "selected": {
+    "excluded_source_rows": 6281,
+    "metadata_targets": 102,
+    "parsed_parquet_chunks": 3103,
+    "raw_pdf_fallback_chunks": 5,
+    "unique_chunks": 3108
+  },
+  "selection_basis": "inventory.issue_tags -> explicit (law_id, article_no) metadata targets",
+  "selection_policy": {
+    "deduplicate": "comment_id; merge used_by_tags across targets",
+    "embedding_or_reranker": false,
+    "exclude": "unselected articles, embeddings.npy, search scores, KCL rubric_summary, and laws absent from the source corpus",
+    "fallback": "when a selected target has a raw article PDF but zero parsed parquet chunks, include one deterministic text chunk per PDF page",
+    "include": "all chunks under every selected metadata target",
+    "semantic_search": false,
+    "unit": [
+      "law_id",
+      "article_no"
+    ]
+  },
+  "targets": [
+    {
+      "article_no": "제122조",
+      "article_title": "직무유기",
+      "chunk_count": 25,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_122",
+      "target_path": "commentary://001692/제122조",
+      "used_by_tags": [
+        "dereliction_of_duty"
+      ]
+    },
+    {
+      "article_no": "제127조",
+      "article_title": "공무상 비밀의 누설",
+      "chunk_count": 21,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_127",
+      "target_path": "commentary://001692/제127조",
+      "used_by_tags": [
+        "official_secret_disclosure",
+        "status_offense_accomplice"
+      ]
+    },
+    {
+      "article_no": "제129조",
+      "article_title": "수뢰, 사전수뢰",
+      "chunk_count": 31,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_129",
+      "target_path": "commentary://001692/제129조",
+      "used_by_tags": [
+        "bribery",
+        "joint_principal",
+        "official_bribe_receipt"
+      ]
+    },
+    {
+      "article_no": "제130조",
+      "article_title": "제삼자뇌물제공",
+      "chunk_count": 15,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_130",
+      "target_path": "commentary://001692/제130조",
+      "used_by_tags": [
+        "third_party_receipt"
+      ]
+    },
+    {
+      "article_no": "제133조",
+      "article_title": "뇌물공여 등",
+      "chunk_count": 8,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_133",
+      "target_path": "commentary://001692/제133조",
+      "used_by_tags": [
+        "bribe_delivery",
+        "bribe_giving"
+      ]
+    },
+    {
+      "article_no": "제136조",
+      "article_title": "공무집행방해",
+      "chunk_count": 64,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_136",
+      "target_path": "commentary://001692/제136조",
+      "used_by_tags": [
+        "legality_of_official_act",
+        "mistake_of_legality",
+        "obstruction_of_official_duties"
+      ]
+    },
+    {
+      "article_no": "제137조",
+      "article_title": "위계에 의한 공무집행방해",
+      "chunk_count": 34,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_137",
+      "target_path": "commentary://001692/제137조",
+      "used_by_tags": [
+        "obstruction_by_fraud"
+      ]
+    },
+    {
+      "article_no": "제151조",
+      "article_title": "범인은닉과 친족간의 특례",
+      "chunk_count": 38,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_151",
+      "target_path": "commentary://001692/제151조",
+      "used_by_tags": [
+        "harboring_offender"
+      ]
+    },
+    {
+      "article_no": "제152조",
+      "article_title": "위증, 모해위증",
+      "chunk_count": 43,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_152",
+      "target_path": "commentary://001692/제152조",
+      "used_by_tags": [
+        "perjury"
+      ]
+    },
+    {
+      "article_no": "제164조",
+      "article_title": "현주건조물 등 방화",
+      "chunk_count": 24,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_164",
+      "target_path": "commentary://001692/제164조",
+      "used_by_tags": [
+        "arson",
+        "joint_principal"
+      ]
+    },
+    {
+      "article_no": "제225조",
+      "article_title": "공문서등의 위조변조",
+      "chunk_count": 17,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_225",
+      "target_path": "commentary://001692/제225조",
+      "used_by_tags": [
+        "false_public_document"
+      ]
+    },
+    {
+      "article_no": "제227조",
+      "article_title": "허위공문서작성등",
+      "chunk_count": 25,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_227",
+      "target_path": "commentary://001692/제227조",
+      "used_by_tags": [
+        "false_public_document",
+        "indirect_principal"
+      ]
+    },
+    {
+      "article_no": "제231조",
+      "article_title": "사문서등의 위조변조",
+      "chunk_count": 20,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_231",
+      "target_path": "commentary://001692/제231조",
+      "used_by_tags": [
+        "document_offense",
+        "private_document_forgery"
+      ]
+    },
+    {
+      "article_no": "제234조",
+      "article_title": "위조사문서등의 행사",
+      "chunk_count": 6,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_234",
+      "target_path": "commentary://001692/제234조",
+      "used_by_tags": [
+        "document_offense"
+      ]
+    },
+    {
+      "article_no": "제239조",
+      "article_title": "사인등의 위조, 부정사용",
+      "chunk_count": 7,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_239",
+      "target_path": "commentary://001692/제239조",
+      "used_by_tags": [
+        "improper_use_of_seal"
+      ]
+    },
+    {
+      "article_no": "제250조",
+      "article_title": "살인, 존속살해",
+      "chunk_count": 143,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_250",
+      "target_path": "commentary://001692/제250조",
+      "used_by_tags": [
+        "attempted_murder",
+        "instigator_liability",
+        "joint_principal",
+        "mistake_of_object",
+        "murder",
+        "murder_attempt",
+        "voluntary_abandonment"
+      ]
+    },
+    {
+      "article_no": "제254조",
+      "article_title": "미수범",
+      "chunk_count": 1,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_254",
+      "target_path": "commentary://001692/제254조",
+      "used_by_tags": [
+        "attempted_murder",
+        "joint_principal",
+        "murder_attempt",
+        "voluntary_abandonment"
+      ]
+    },
+    {
+      "article_no": "제255조",
+      "article_title": "예비, 음모",
+      "chunk_count": 8,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_255",
+      "target_path": "commentary://001692/제255조",
+      "used_by_tags": [
+        "accomplice_of_preparation",
+        "murder_preparation",
+        "withdrawal_from_preparation"
+      ]
+    },
+    {
+      "article_no": "제257조",
+      "article_title": "상해, 존속상해",
+      "chunk_count": 33,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_257",
+      "target_path": "commentary://001692/제257조",
+      "used_by_tags": [
+        "accidental_defense",
+        "mistake_of_object"
+      ]
+    },
+    {
+      "article_no": "제258조의2",
+      "article_title": "특수상해",
+      "chunk_count": 3,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_258_2",
+      "target_path": "commentary://001692/제258조의2",
+      "used_by_tags": [
+        "special_injury"
+      ]
+    },
+    {
+      "article_no": "제259조",
+      "article_title": "상해치사",
+      "chunk_count": 7,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_259",
+      "target_path": "commentary://001692/제259조",
+      "used_by_tags": [
+        "injury_resulting_death"
+      ]
+    },
+    {
+      "article_no": "제263조",
+      "article_title": "동시범",
+      "chunk_count": 12,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_263",
+      "target_path": "commentary://001692/제263조",
+      "used_by_tags": [
+        "causation_uncertainty",
+        "independent_concurrent_acts"
+      ]
+    },
+    {
+      "article_no": "제267조",
+      "article_title": "과실치사",
+      "chunk_count": 6,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_267",
+      "target_path": "commentary://001692/제267조",
+      "used_by_tags": [
+        "negligence",
+        "traffic_accident_death"
+      ]
+    },
+    {
+      "article_no": "제268조",
+      "article_title": "업무상과실·중과실 치사상",
+      "chunk_count": 113,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_268",
+      "target_path": "commentary://001692/제268조",
+      "used_by_tags": [
+        "causation",
+        "negligence",
+        "objective_attribution",
+        "traffic_accident_death"
+      ]
+    },
+    {
+      "article_no": "제297조",
+      "article_title": "강간",
+      "chunk_count": 28,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_297",
+      "target_path": "commentary://001692/제297조",
+      "used_by_tags": [
+        "residential_intrusion_rape_injury",
+        "voluntary_abandonment"
+      ]
+    },
+    {
+      "article_no": "제298조",
+      "article_title": "강제추행",
+      "chunk_count": 20,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_298",
+      "target_path": "commentary://001692/제298조",
+      "used_by_tags": [
+        "forced_indecent_act_indirect_principal"
+      ]
+    },
+    {
+      "article_no": "제299조",
+      "article_title": "준강간, 준강제추행",
+      "chunk_count": 14,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_299",
+      "target_path": "commentary://001692/제299조",
+      "used_by_tags": [
+        "attempt",
+        "mistake_of_circumstance",
+        "quasi_rape_impossible_attempt"
+      ]
+    },
+    {
+      "article_no": "제300조",
+      "article_title": "미수범",
+      "chunk_count": 2,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_300",
+      "target_path": "commentary://001692/제300조",
+      "used_by_tags": [
+        "attempt",
+        "mistake_of_circumstance",
+        "quasi_rape_impossible_attempt",
+        "voluntary_abandonment"
+      ]
+    },
+    {
+      "article_no": "제301조",
+      "article_title": "강간 등 상해·치상",
+      "chunk_count": 24,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_301",
+      "target_path": "commentary://001692/제301조",
+      "used_by_tags": [
+        "residential_intrusion_rape_injury"
+      ]
+    },
+    {
+      "article_no": "제319조",
+      "article_title": "주거침입, 퇴거불응",
+      "chunk_count": 65,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_319",
+      "target_path": "commentary://001692/제319조",
+      "used_by_tags": [
+        "joint_residential_intrusion",
+        "residential_intrusion",
+        "residential_intrusion_rape_injury"
+      ]
+    },
+    {
+      "article_no": "제323조",
+      "article_title": "권리행사방해",
+      "chunk_count": 27,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_323",
+      "target_path": "commentary://001692/제323조",
+      "used_by_tags": [
+        "interference_with_exercise_of_right",
+        "offense_subject_to_complaint",
+        "property_possession"
+      ]
+    },
+    {
+      "article_no": "제328조",
+      "article_title": "친족간의 범행과 고소",
+      "chunk_count": 26,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_328",
+      "target_path": "commentary://001692/제328조",
+      "used_by_tags": [
+        "offense_subject_to_complaint",
+        "relative_property_crime_exception"
+      ]
+    },
+    {
+      "article_no": "제329조",
+      "article_title": "절도",
+      "chunk_count": 43,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_329",
+      "target_path": "commentary://001692/제329조",
+      "used_by_tags": [
+        "credit_card_crime",
+        "information_property",
+        "justification_consent",
+        "mistake_of_consent",
+        "theft",
+        "theft_from_deceased",
+        "theft_vs_fraud",
+        "victim_consent"
+      ]
+    },
+    {
+      "article_no": "제331조",
+      "article_title": "특수절도",
+      "chunk_count": 12,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_331",
+      "target_path": "commentary://001692/제331조",
+      "used_by_tags": [
+        "joint_principal",
+        "joint_principal_mistake",
+        "joint_theft_impossible_attempt",
+        "special_theft",
+        "special_theft_joint_principal"
+      ]
+    },
+    {
+      "article_no": "제334조",
+      "article_title": "특수강도",
+      "chunk_count": 7,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_334",
+      "target_path": "commentary://001692/제334조",
+      "used_by_tags": [
+        "commencement_of_execution",
+        "special_robbery",
+        "special_robbery_attempt"
+      ]
+    },
+    {
+      "article_no": "제335조",
+      "article_title": "준강도",
+      "chunk_count": 20,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_335",
+      "target_path": "commentary://001692/제335조",
+      "used_by_tags": [
+        "joint_principal",
+        "quasi_robbery_injury"
+      ]
+    },
+    {
+      "article_no": "제337조",
+      "article_title": "강도상해, 치상",
+      "chunk_count": 19,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_337",
+      "target_path": "commentary://001692/제337조",
+      "used_by_tags": [
+        "aggravated_result",
+        "causation",
+        "joint_principal",
+        "objective_attribution",
+        "quasi_robbery_injury"
+      ]
+    },
+    {
+      "article_no": "제338조",
+      "article_title": "강도살인·치사",
+      "chunk_count": 8,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_338",
+      "target_path": "commentary://001692/제338조",
+      "used_by_tags": [
+        "aggravated_result",
+        "causation",
+        "objective_attribution"
+      ]
+    },
+    {
+      "article_no": "제342조",
+      "article_title": "미수범",
+      "chunk_count": 1,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_342",
+      "target_path": "commentary://001692/제342조",
+      "used_by_tags": [
+        "commencement_of_execution",
+        "joint_principal_mistake",
+        "joint_theft_impossible_attempt",
+        "special_robbery_attempt"
+      ]
+    },
+    {
+      "article_no": "제343조",
+      "article_title": "예비, 음모",
+      "chunk_count": 10,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_343",
+      "target_path": "commentary://001692/제343조",
+      "used_by_tags": [
+        "robbery_preparation"
+      ]
+    },
+    {
+      "article_no": "제344조",
+      "article_title": "친족간의 범행",
+      "chunk_count": 1,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_344",
+      "target_path": "commentary://001692/제344조",
+      "used_by_tags": [
+        "relative_property_crime_exception"
+      ]
+    },
+    {
+      "article_no": "제347조",
+      "article_title": "사기",
+      "chunk_count": 127,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_347",
+      "target_path": "commentary://001692/제347조",
+      "used_by_tags": [
+        "credit_card_crime",
+        "fraud",
+        "theft_vs_fraud",
+        "use_deception"
+      ]
+    },
+    {
+      "article_no": "제350조",
+      "article_title": "공갈",
+      "chunk_count": 47,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_350",
+      "target_path": "commentary://001692/제350조",
+      "used_by_tags": [
+        "extortion"
+      ]
+    },
+    {
+      "article_no": "제355조",
+      "article_title": "횡령, 배임",
+      "chunk_count": 352,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_355",
+      "target_path": "commentary://001692/제355조",
+      "used_by_tags": [
+        "breach_of_trust",
+        "embezzlement",
+        "information_property"
+      ]
+    },
+    {
+      "article_no": "제356조",
+      "article_title": "업무상의 횡령과 배임",
+      "chunk_count": 10,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_356",
+      "target_path": "commentary://001692/제356조",
+      "used_by_tags": [
+        "breach_of_trust",
+        "embezzlement",
+        "information_property",
+        "occupational_breach_of_trust"
+      ]
+    },
+    {
+      "article_no": "제357조",
+      "article_title": "배임수증재",
+      "chunk_count": 34,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_357",
+      "target_path": "commentary://001692/제357조",
+      "used_by_tags": [
+        "breach_of_trust_bribe"
+      ]
+    },
+    {
+      "article_no": "제360조",
+      "article_title": "점유이탈물횡령",
+      "chunk_count": 9,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_360",
+      "target_path": "commentary://001692/제360조",
+      "used_by_tags": [
+        "theft_from_deceased"
+      ]
+    },
+    {
+      "article_no": "제362조",
+      "article_title": "장물의 취득, 알선 등",
+      "chunk_count": 59,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_362",
+      "target_path": "commentary://001692/제362조",
+      "used_by_tags": [
+        "stolen_property"
+      ]
+    },
+    {
+      "article_no": "제366조",
+      "article_title": "재물손괴등",
+      "chunk_count": 48,
+      "law_id": "001692",
+      "law_name": "형법각칙",
+      "target_id": "CC_366",
+      "target_path": "commentary://001692/제366조",
+      "used_by_tags": [
+        "damage"
+      ]
+    },
+    {
+      "article_no": "제102조",
+      "article_title": "보석조건의 변경과 취소 등",
+      "chunk_count": 19,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_102",
+      "target_path": "commentary://001671/제102조",
+      "used_by_tags": [
+        "bail_revocation",
+        "execution_stay",
+        "ordinary_appeal"
+      ]
+    },
+    {
+      "article_no": "제106조",
+      "article_title": "압수",
+      "chunk_count": 150,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_106",
+      "target_path": "commentary://001671/제106조",
+      "used_by_tags": [
+        "copy_identity",
+        "digital_evidence_admissibility",
+        "electronic_evidence",
+        "electronic_evidence_admissibility",
+        "forensic_participation_right",
+        "participation_right",
+        "remote_cloud_search_seizure",
+        "separate_warrant",
+        "tablet_imaging",
+        "unrelated_electronic_evidence",
+        "warrant_relevance",
+        "warrant_scope"
+      ]
+    },
+    {
+      "article_no": "제108조",
+      "article_title": "임의 제출물 등의 압수",
+      "chunk_count": 5,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_108",
+      "target_path": "commentary://001671/제108조",
+      "used_by_tags": [
+        "third_party_voluntary_submission",
+        "voluntary_submission",
+        "warrantless_seizure"
+      ]
+    },
+    {
+      "article_no": "제113조",
+      "article_title": "압수·수색영장",
+      "chunk_count": 3,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_113",
+      "target_path": "commentary://001671/제113조",
+      "used_by_tags": [
+        "arrest_scene_search",
+        "electronic_evidence",
+        "participation_right",
+        "remote_cloud_search_seizure",
+        "search_warrant",
+        "separate_warrant",
+        "unrelated_electronic_evidence",
+        "warrant_relevance",
+        "warrant_scope"
+      ]
+    },
+    {
+      "article_no": "제121조",
+      "article_title": "영장집행과 당사자의 참여",
+      "chunk_count": 3,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_121",
+      "target_path": "commentary://001671/제121조",
+      "used_by_tags": [
+        "copy_identity",
+        "digital_evidence_admissibility",
+        "forensic_participation_right",
+        "participation_right",
+        "separate_warrant",
+        "tablet_imaging",
+        "unrelated_electronic_evidence"
+      ]
+    },
+    {
+      "article_no": "제122조",
+      "article_title": "영장집행과 참여권자에의 통지",
+      "chunk_count": 6,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_122",
+      "target_path": "commentary://001671/제122조",
+      "used_by_tags": [
+        "copy_identity",
+        "digital_evidence_admissibility",
+        "forensic_participation_right",
+        "participation_right",
+        "separate_warrant",
+        "tablet_imaging",
+        "unrelated_electronic_evidence"
+      ]
+    },
+    {
+      "article_no": "제129조",
+      "article_title": "압수목록의 교부",
+      "chunk_count": 4,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_129",
+      "target_path": "commentary://001671/제129조",
+      "used_by_tags": [
+        "copy_identity",
+        "digital_evidence_admissibility",
+        "forensic_participation_right"
+      ]
+    },
+    {
+      "article_no": "제139조",
+      "article_title": "검증",
+      "chunk_count": 7,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_139",
+      "target_path": "commentary://001671/제139조",
+      "used_by_tags": [
+        "inspection_report_photo",
+        "reenactment_photo"
+      ]
+    },
+    {
+      "article_no": "제161조의2",
+      "article_title": "증인신문의 방식",
+      "chunk_count": 25,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_161_2",
+      "target_path": "commentary://001671/제161조의2",
+      "used_by_tags": [
+        "witness_testimony_admissibility"
+      ]
+    },
+    {
+      "article_no": "제200조의2",
+      "article_title": "영장에 의한 체포",
+      "chunk_count": 37,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_200_2",
+      "target_path": "commentary://001671/제200조의2",
+      "used_by_tags": [
+        "arrest_method"
+      ]
+    },
+    {
+      "article_no": "제200조의3",
+      "article_title": "긴급체포",
+      "chunk_count": 23,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_200_3",
+      "target_path": "commentary://001671/제200조의3",
+      "used_by_tags": [
+        "arrest_method",
+        "complaint_before_investigation",
+        "emergency_arrest",
+        "emergency_arrest_search_seizure"
+      ]
+    },
+    {
+      "article_no": "제211조",
+      "article_title": "현행범인과 준현행범인",
+      "chunk_count": 11,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_211",
+      "target_path": "commentary://001671/제211조",
+      "used_by_tags": [
+        "arrest_method"
+      ]
+    },
+    {
+      "article_no": "제212조",
+      "article_title": "현행범인의 체포",
+      "chunk_count": 36,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_212",
+      "target_path": "commentary://001671/제212조",
+      "used_by_tags": [
+        "arrest_method"
+      ]
+    },
+    {
+      "article_no": "제215조",
+      "article_title": "압수, 수색, 검증",
+      "chunk_count": 73,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_215",
+      "target_path": "commentary://001671/제215조",
+      "used_by_tags": [
+        "arrest_scene_search",
+        "electronic_evidence",
+        "electronic_evidence_admissibility",
+        "illegal_evidence",
+        "participation_right",
+        "post_warrant_cure",
+        "remote_cloud_search_seizure",
+        "search_warrant",
+        "separate_warrant",
+        "tablet_imaging",
+        "unrelated_electronic_evidence",
+        "warrant_relevance",
+        "warrant_scope"
+      ]
+    },
+    {
+      "article_no": "제216조",
+      "article_title": "영장에 의하지 아니한 강제처분",
+      "chunk_count": 39,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_216",
+      "target_path": "commentary://001671/제216조",
+      "used_by_tags": [
+        "arrest_scene_search",
+        "emergency_arrest_search_seizure",
+        "search_warrant"
+      ]
+    },
+    {
+      "article_no": "제217조",
+      "article_title": "영장에 의하지 아니하는 강제처분",
+      "chunk_count": 9,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_217",
+      "target_path": "commentary://001671/제217조",
+      "used_by_tags": [
+        "arrest_scene_search",
+        "emergency_arrest_search_seizure",
+        "illegal_evidence",
+        "post_seizure_warrant",
+        "post_warrant_cure",
+        "search_warrant"
+      ]
+    },
+    {
+      "article_no": "제218조",
+      "article_title": "영장에 의하지 아니한 압수",
+      "chunk_count": 9,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_218",
+      "target_path": "commentary://001671/제218조",
+      "used_by_tags": [
+        "third_party_voluntary_submission",
+        "voluntary_submission",
+        "warrantless_seizure"
+      ]
+    },
+    {
+      "article_no": "제221조",
+      "article_title": "제3자의 출석요구 등",
+      "chunk_count": 23,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_221",
+      "target_path": "commentary://001671/제221조",
+      "used_by_tags": [
+        "video_recording_authenticity"
+      ]
+    },
+    {
+      "article_no": "제223조",
+      "article_title": "고소권자",
+      "chunk_count": 27,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_223",
+      "target_path": "commentary://001671/제223조",
+      "used_by_tags": [
+        "complaint_before_investigation",
+        "complaint_cure_after_indictment",
+        "offense_subject_to_complaint"
+      ]
+    },
+    {
+      "article_no": "제230조",
+      "article_title": "고소기간",
+      "chunk_count": 7,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_230",
+      "target_path": "commentary://001671/제230조",
+      "used_by_tags": [
+        "complaint_before_investigation",
+        "complaint_cure_after_indictment",
+        "offense_subject_to_complaint"
+      ]
+    },
+    {
+      "article_no": "제232조",
+      "article_title": "고소의 취소",
+      "chunk_count": 22,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_232",
+      "target_path": "commentary://001671/제232조",
+      "used_by_tags": [
+        "complaint_withdrawal",
+        "offense_subject_to_complaint"
+      ]
+    },
+    {
+      "article_no": "제244조의2",
+      "article_title": "피의자진술의 영상녹화",
+      "chunk_count": 9,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_244_2",
+      "target_path": "commentary://001671/제244조의2",
+      "used_by_tags": [
+        "video_recording_authenticity"
+      ]
+    },
+    {
+      "article_no": "제249조",
+      "article_title": "공소시효의 기간",
+      "chunk_count": 27,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_249",
+      "target_path": "commentary://001671/제249조",
+      "used_by_tags": [
+        "co_offender_suspension",
+        "counterpart_offense",
+        "statute_of_limitations"
+      ]
+    },
+    {
+      "article_no": "제253조",
+      "article_title": "시효의 정지와 효력",
+      "chunk_count": 24,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_253",
+      "target_path": "commentary://001671/제253조",
+      "used_by_tags": [
+        "co_offender_suspension",
+        "counterpart_offense",
+        "statute_of_limitations"
+      ]
+    },
+    {
+      "article_no": "제254조",
+      "article_title": "공소제기의 방식과 공소장",
+      "chunk_count": 88,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_254",
+      "target_path": "commentary://001671/제254조",
+      "used_by_tags": [
+        "complaint_cure_after_indictment"
+      ]
+    },
+    {
+      "article_no": "제266조의3",
+      "article_title": "증거서류 등의 열람·등사",
+      "chunk_count": 20,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_266_3",
+      "target_path": "commentary://001671/제266조의3",
+      "used_by_tags": [
+        "discovery_noncompliance",
+        "evidence_discovery",
+        "prosecutor_appeal"
+      ]
+    },
+    {
+      "article_no": "제266조의4",
+      "article_title": "법원의 열람·등사 결정",
+      "chunk_count": 5,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_266_4",
+      "target_path": "commentary://001671/제266조의4",
+      "used_by_tags": [
+        "discovery_noncompliance",
+        "evidence_discovery",
+        "prosecutor_appeal"
+      ]
+    },
+    {
+      "article_no": "제266조의5",
+      "article_title": "증거개시 관련 조치",
+      "chunk_count": 9,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_266_5",
+      "target_path": "commentary://001671/제266조의5",
+      "used_by_tags": [
+        "discovery_noncompliance",
+        "evidence_discovery",
+        "prosecutor_appeal"
+      ]
+    },
+    {
+      "article_no": "제298조",
+      "article_title": "공소장의 변경",
+      "chunk_count": 59,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_298",
+      "target_path": "commentary://001671/제298조",
+      "used_by_tags": [
+        "amendment_of_indictment",
+        "identity_of_facts"
+      ]
+    },
+    {
+      "article_no": "제307조",
+      "article_title": "증거재판주의",
+      "chunk_count": 49,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_307",
+      "target_path": "commentary://001671/제307조",
+      "used_by_tags": [
+        "appellate_fact_finding",
+        "direct_examination_principle",
+        "evidence_admissibility",
+        "seizure_record_photo_admissibility",
+        "trial_centered_principle"
+      ]
+    },
+    {
+      "article_no": "제308조의2",
+      "article_title": "위법수집증거의 배제",
+      "chunk_count": 40,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_308_2",
+      "target_path": "commentary://001671/제308조의2",
+      "used_by_tags": [
+        "copy_identity",
+        "digital_evidence_admissibility",
+        "electronic_evidence",
+        "electronic_evidence_admissibility",
+        "evidence_admissibility",
+        "forensic_participation_right",
+        "illegal_evidence",
+        "participation_right",
+        "post_warrant_cure",
+        "seizure_record_photo_admissibility",
+        "separate_warrant",
+        "unrelated_electronic_evidence",
+        "warrant_relevance",
+        "warrant_scope"
+      ]
+    },
+    {
+      "article_no": "제310조의2",
+      "article_title": "전문증거와 증거능력",
+      "chunk_count": 50,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_310_2",
+      "target_path": "commentary://001671/제310조의2",
+      "used_by_tags": [
+        "co_defendant_statement",
+        "defendant_statement_hearsay_exception",
+        "hearsay_exception",
+        "hearsay_statement",
+        "hearsay_vs_original_evidence",
+        "multiple_hearsay",
+        "police_statement_record",
+        "recording_admissibility",
+        "secret_recording",
+        "secret_recording_by_conversation_party",
+        "witness_testimony_admissibility"
+      ]
+    },
+    {
+      "article_no": "제312조",
+      "article_title": "검사 또는 사법경찰관의 조서 등",
+      "chunk_count": 58,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_312",
+      "target_path": "commentary://001671/제312조",
+      "used_by_tags": [
+        "hearsay_exception",
+        "inspection_report_photo",
+        "investigator_testimony",
+        "multiple_hearsay",
+        "police_interrogation_record",
+        "police_statement_record",
+        "reenactment_photo",
+        "video_recording_authenticity",
+        "witness_statement_record"
+      ]
+    },
+    {
+      "article_no": "제313조",
+      "article_title": "진술서 등",
+      "chunk_count": 19,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_313",
+      "target_path": "commentary://001671/제313조",
+      "used_by_tags": [
+        "defendant_statement_hearsay_exception",
+        "expert_report_admissibility",
+        "hearsay_exception",
+        "recording_admissibility",
+        "secret_recording",
+        "secret_recording_by_conversation_party"
+      ]
+    },
+    {
+      "article_no": "제314조",
+      "article_title": "증거능력에 대한 예외",
+      "chunk_count": 22,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_314",
+      "target_path": "commentary://001671/제314조",
+      "used_by_tags": [
+        "expert_report_admissibility",
+        "hearsay_exception",
+        "multiple_hearsay",
+        "police_statement_record",
+        "witness_statement_record"
+      ]
+    },
+    {
+      "article_no": "제315조",
+      "article_title": "당연히 증거능력이 있는 서류",
+      "chunk_count": 9,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_315",
+      "target_path": "commentary://001671/제315조",
+      "used_by_tags": [
+        "expert_report_admissibility"
+      ]
+    },
+    {
+      "article_no": "제316조",
+      "article_title": "전문의 진술",
+      "chunk_count": 9,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_316",
+      "target_path": "commentary://001671/제316조",
+      "used_by_tags": [
+        "co_defendant_statement",
+        "defendant_statement_hearsay_exception",
+        "hearsay_exception",
+        "hearsay_statement",
+        "hearsay_vs_original_evidence",
+        "investigator_testimony",
+        "police_interrogation_record",
+        "witness_testimony_admissibility"
+      ]
+    },
+    {
+      "article_no": "제318조의2",
+      "article_title": "증명력을 다투기 위한 증거",
+      "chunk_count": 32,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_318_2",
+      "target_path": "commentary://001671/제318조의2",
+      "used_by_tags": [
+        "impeachment_evidence"
+      ]
+    },
+    {
+      "article_no": "제32조",
+      "article_title": "변호인선임의 효력",
+      "chunk_count": 13,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_32",
+      "target_path": "commentary://001671/제32조",
+      "used_by_tags": [
+        "appeal_reason_statement",
+        "defense_counsel_appointment",
+        "procedural_cure"
+      ]
+    },
+    {
+      "article_no": "제327조",
+      "article_title": "공소기각의 판결",
+      "chunk_count": 23,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_327",
+      "target_path": "commentary://001671/제327조",
+      "used_by_tags": [
+        "appeal_interest",
+        "complaint_cure_after_indictment",
+        "dismissal_judgment",
+        "formal_judgment",
+        "offense_subject_to_complaint"
+      ]
+    },
+    {
+      "article_no": "제328조",
+      "article_title": "공소기각의 결정",
+      "chunk_count": 10,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_328",
+      "target_path": "commentary://001671/제328조",
+      "used_by_tags": [
+        "appeal_interest",
+        "dismissal_judgment",
+        "formal_judgment"
+      ]
+    },
+    {
+      "article_no": "제342조",
+      "article_title": "일부상소",
+      "chunk_count": 30,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_342",
+      "target_path": "commentary://001671/제342조",
+      "used_by_tags": [
+        "appellate_disposition",
+        "appellate_scope",
+        "concurrent_crimes",
+        "imaginative_concurrence",
+        "partial_appeal",
+        "remand_scope"
+      ]
+    },
+    {
+      "article_no": "제36조",
+      "article_title": "변호인의 독립소송행위권",
+      "chunk_count": 3,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_36",
+      "target_path": "commentary://001671/제36조",
+      "used_by_tags": [
+        "appeal_reason_statement",
+        "defense_counsel_appointment",
+        "procedural_cure"
+      ]
+    },
+    {
+      "article_no": "제361조의3",
+      "article_title": "항소이유서와 답변서",
+      "chunk_count": 18,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_361_3",
+      "target_path": "commentary://001671/제361조의3",
+      "used_by_tags": [
+        "appeal_reason_statement",
+        "appeal_reason_statement_period",
+        "appellate_trial_scope",
+        "defense_counsel_appointment",
+        "procedural_cure"
+      ]
+    },
+    {
+      "article_no": "제361조의4",
+      "article_title": "항소기각의 결정",
+      "chunk_count": 17,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_361_4",
+      "target_path": "commentary://001671/제361조의4",
+      "used_by_tags": [
+        "appeal_reason_statement_period",
+        "appellate_trial_scope"
+      ]
+    },
+    {
+      "article_no": "제363조",
+      "article_title": "공소기각의 결정",
+      "chunk_count": 3,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_363",
+      "target_path": "commentary://001671/제363조",
+      "used_by_tags": [
+        "appeal_interest",
+        "dismissal_judgment",
+        "formal_judgment"
+      ]
+    },
+    {
+      "article_no": "제364조",
+      "article_title": "항소법원의 심판",
+      "chunk_count": 82,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_364",
+      "target_path": "commentary://001671/제364조",
+      "used_by_tags": [
+        "appeal_reason_statement_period",
+        "appellate_disposition",
+        "appellate_fact_finding",
+        "appellate_scope",
+        "appellate_trial_scope",
+        "concurrent_crimes",
+        "direct_examination_principle",
+        "imaginative_concurrence",
+        "partial_appeal",
+        "trial_centered_principle"
+      ]
+    },
+    {
+      "article_no": "제368조",
+      "article_title": "불이익변경의 금지",
+      "chunk_count": 37,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_368",
+      "target_path": "commentary://001671/제368조",
+      "used_by_tags": [
+        "appellate_sentencing",
+        "prohibition_disadvantageous_change",
+        "remand_sentencing"
+      ]
+    },
+    {
+      "article_no": "제397조",
+      "article_title": "파기환송",
+      "chunk_count": 5,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_397",
+      "target_path": "commentary://001671/제397조",
+      "used_by_tags": [
+        "remand_scope",
+        "remand_sentencing"
+      ]
+    },
+    {
+      "article_no": "제402조",
+      "article_title": "항고",
+      "chunk_count": 18,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_402",
+      "target_path": "commentary://001671/제402조",
+      "used_by_tags": [
+        "bail_revocation",
+        "execution_stay",
+        "ordinary_appeal"
+      ]
+    },
+    {
+      "article_no": "제420조",
+      "article_title": "재심이유",
+      "chunk_count": 58,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_420",
+      "target_path": "commentary://001671/제420조",
+      "used_by_tags": [
+        "conflicting_co_offender_judgment",
+        "new_evidence",
+        "retrial"
+      ]
+    },
+    {
+      "article_no": "제435조",
+      "article_title": "재심개시의 결정",
+      "chunk_count": 4,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_435",
+      "target_path": "commentary://001671/제435조",
+      "used_by_tags": [
+        "conflicting_co_offender_judgment",
+        "new_evidence",
+        "retrial"
+      ]
+    },
+    {
+      "article_no": "제49조",
+      "article_title": "검증 등의 조서",
+      "chunk_count": 3,
+      "law_id": "001671",
+      "law_name": "형사소송법",
+      "target_id": "CP_49",
+      "target_path": "commentary://001671/제49조",
+      "used_by_tags": [
+        "inspection_report_photo",
+        "reenactment_photo",
+        "seizure_record_photo_admissibility"
+      ]
+    }
+  ],
+  "version": "1.0.0"
+}

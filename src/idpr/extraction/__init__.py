@@ -1,0 +1,1 @@
+"""Predicate extraction stage placeholder."""

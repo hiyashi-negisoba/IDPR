@@ -1,0 +1,176 @@
+// rule_set_id: kr.fraud.article347.v1_candidate
+// status: draft
+// legal_review: pending
+// generated_from: validated RuleIR; model output is never executed directly
+
+// provable: Evidence gate output: this fact may be consumed by substantive rules.
+// sources: system contract
+type provable(String)
+
+// active_policy: Exactly one human-approved legal variant is active for an evaluation run.
+// sources: system contract
+type active_policy(String)
+
+// deception_fact: Defendant conduct qualifies as deception against the deceived person.
+// sources: comm_001692_제347조_Ⅳ.1_11
+type deception_fact(String, String, String)
+
+// mistake_fact: The deceived person held a perception inconsistent with fact.
+// sources: comm_001692_제347조_Ⅳ.2_47
+type mistake_fact(String, String)
+
+// deception_mistake_causal_fact: The deception caused or materially induced the mistake.
+// sources: comm_001692_제347조_Ⅰ_0, comm_001692_제347조_Ⅳ.2_47
+type deception_mistake_causal_fact(String, String, String)
+
+// disposition_fact: The deceived person's act or omission qualifies as a property disposition.
+// sources: comm_001692_제347조_Ⅳ.3_49
+type disposition_fact(String, String, String, String)
+
+// mistake_disposition_causal_fact: The mistake caused or materially induced the disposition.
+// sources: comm_001692_제347조_Ⅰ_0, comm_001692_제347조_Ⅳ.3_49
+type mistake_disposition_causal_fact(String, String, String)
+
+// property_loss_fact: The legally selected damage theory treats the disposition as property loss.
+// sources: comm_001692_제347조_Ⅳ.4_62
+type property_loss_fact(String, String, String)
+
+// disposition_acquisition_causal_fact: The disposition caused the beneficiary's acquisition of the asset.
+// sources: comm_001692_제347조_Ⅰ_0, comm_001692_제347조_Ⅳ.5_66
+type disposition_acquisition_causal_fact(String, String, String, String)
+
+// acquisition_fact: Defendant or intended third party acquired property or a property benefit.
+// sources: comm_001692_제347조_Ⅳ.5_66
+type acquisition_fact(String, String, String, String)
+
+// intent_to_defraud_fact: Fraud intent is established at the time of the conduct.
+// sources: comm_001692_제347조_Ⅴ.1_74
+type intent_to_defraud_fact(String, String)
+
+// unlawful_gain_intent_fact: Unlawful acquisition or gain intent is established under the selected theory.
+// sources: comm_001692_제347조_Ⅴ.2_82
+type unlawful_gain_intent_fact(String, String)
+
+// proven_deception: Evidence-gated form of deception.
+// sources: comm_001692_제347조_Ⅳ.1_11
+type proven_deception(String, String)
+
+// proven_mistake: Evidence-gated form of mistake.
+// sources: comm_001692_제347조_Ⅳ.2_47
+type proven_mistake(String)
+
+// proven_deception_mistake_causal: Evidence-gated form of deception_mistake_causal.
+// sources: comm_001692_제347조_Ⅰ_0, comm_001692_제347조_Ⅳ.2_47
+type proven_deception_mistake_causal(String, String)
+
+// proven_disposition: Evidence-gated form of disposition.
+// sources: comm_001692_제347조_Ⅳ.3_49
+type proven_disposition(String, String, String)
+
+// proven_mistake_disposition_causal: Evidence-gated form of mistake_disposition_causal.
+// sources: comm_001692_제347조_Ⅰ_0, comm_001692_제347조_Ⅳ.3_49
+type proven_mistake_disposition_causal(String, String)
+
+// proven_property_loss: Evidence-gated form of property_loss.
+// sources: comm_001692_제347조_Ⅳ.4_62
+type proven_property_loss(String, String)
+
+// proven_disposition_acquisition_causal: Evidence-gated form of disposition_acquisition_causal.
+// sources: comm_001692_제347조_Ⅰ_0, comm_001692_제347조_Ⅳ.5_66
+type proven_disposition_acquisition_causal(String, String, String)
+
+// proven_acquisition: Evidence-gated form of acquisition.
+// sources: comm_001692_제347조_Ⅳ.5_66
+type proven_acquisition(String, String, String)
+
+// proven_intent_to_defraud: Evidence-gated form of intent_to_defraud.
+// sources: comm_001692_제347조_Ⅴ.1_74
+type proven_intent_to_defraud(String)
+
+// proven_unlawful_gain_intent: Evidence-gated form of unlawful_gain_intent.
+// sources: comm_001692_제347조_Ⅴ.2_82
+type proven_unlawful_gain_intent(String)
+
+// fraud_core: Common fraud elements before disputed damage and unlawful-intent variants.
+// sources: comm_001692_제347조_Ⅰ_0
+type fraud_core(String, String, String, String, String)
+
+// fraud_strict_variant: Candidate variant requiring separate loss and unlawful-gain intent.
+// sources: comm_001692_제347조_Ⅰ_0, comm_001692_제347조_Ⅳ.4_62, comm_001692_제347조_Ⅴ.2_82
+type fraud_strict_variant(String, String, String, String, String)
+
+// fraud_established: Fraud conclusion under the explicitly activated reviewed policy variant.
+// sources: comm_001692_제347조_Ⅰ_0, comm_001692_제347조_Ⅳ.4_62, comm_001692_제347조_Ⅴ.2_82
+type fraud_established(String, String, String, String, String)
+
+// rule_id: fraud.bridge.proven_deception
+// sources: comm_001692_제347조_Ⅳ.1_11
+rel proven_deception(d, v) = deception_fact(f, d, v) and
+  provable(f)
+
+// rule_id: fraud.bridge.proven_mistake
+// sources: comm_001692_제347조_Ⅳ.2_47
+rel proven_mistake(v) = mistake_fact(f, v) and
+  provable(f)
+
+// rule_id: fraud.bridge.proven_deception_mistake_causal
+// sources: comm_001692_제347조_Ⅰ_0, comm_001692_제347조_Ⅳ.2_47
+rel proven_deception_mistake_causal(d, v) = deception_mistake_causal_fact(f, d, v) and
+  provable(f)
+
+// rule_id: fraud.bridge.proven_disposition
+// sources: comm_001692_제347조_Ⅳ.3_49
+rel proven_disposition(v, o, a) = disposition_fact(f, v, o, a) and
+  provable(f)
+
+// rule_id: fraud.bridge.proven_mistake_disposition_causal
+// sources: comm_001692_제347조_Ⅰ_0, comm_001692_제347조_Ⅳ.3_49
+rel proven_mistake_disposition_causal(v, a) = mistake_disposition_causal_fact(f, v, a) and
+  provable(f)
+
+// rule_id: fraud.bridge.proven_property_loss
+// sources: comm_001692_제347조_Ⅳ.4_62
+rel proven_property_loss(o, a) = property_loss_fact(f, o, a) and
+  provable(f)
+
+// rule_id: fraud.bridge.proven_disposition_acquisition_causal
+// sources: comm_001692_제347조_Ⅰ_0, comm_001692_제347조_Ⅳ.5_66
+rel proven_disposition_acquisition_causal(v, b, a) = disposition_acquisition_causal_fact(f, v, b, a) and
+  provable(f)
+
+// rule_id: fraud.bridge.proven_acquisition
+// sources: comm_001692_제347조_Ⅳ.5_66
+rel proven_acquisition(d, b, a) = acquisition_fact(f, d, b, a) and
+  provable(f)
+
+// rule_id: fraud.bridge.proven_intent_to_defraud
+// sources: comm_001692_제347조_Ⅴ.1_74
+rel proven_intent_to_defraud(d) = intent_to_defraud_fact(f, d) and
+  provable(f)
+
+// rule_id: fraud.bridge.proven_unlawful_gain_intent
+// sources: comm_001692_제347조_Ⅴ.2_82
+rel proven_unlawful_gain_intent(d) = unlawful_gain_intent_fact(f, d) and
+  provable(f)
+
+// rule_id: fraud.core
+// sources: comm_001692_제347조_Ⅰ_0, comm_001692_제347조_Ⅳ.1_11, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.3_49, comm_001692_제347조_Ⅳ.5_66, comm_001692_제347조_Ⅴ.1_74
+rel fraud_core(d, v, o, a, b) = proven_deception(d, v) and
+  proven_mistake(v) and
+  proven_deception_mistake_causal(d, v) and
+  proven_disposition(v, o, a) and
+  proven_mistake_disposition_causal(v, a) and
+  proven_disposition_acquisition_causal(v, b, a) and
+  proven_acquisition(d, b, a) and
+  proven_intent_to_defraud(d)
+
+// rule_id: fraud.variant.strict
+// sources: comm_001692_제347조_Ⅰ_0, comm_001692_제347조_Ⅳ.4_62, comm_001692_제347조_Ⅴ.2_82
+rel fraud_strict_variant(d, v, o, a, b) = fraud_core(d, v, o, a, b) and
+  proven_property_loss(o, a) and
+  proven_unlawful_gain_intent(d)
+
+// rule_id: fraud.activate.strict
+// sources: comm_001692_제347조_Ⅰ_0, comm_001692_제347조_Ⅳ.4_62, comm_001692_제347조_Ⅴ.2_82
+rel fraud_established(d, v, o, a, b) = active_policy("kr_fraud_damage_and_unlawful_intent") and
+  fraud_strict_variant(d, v, o, a, b)
