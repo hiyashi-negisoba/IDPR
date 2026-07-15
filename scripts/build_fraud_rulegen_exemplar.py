@@ -16,6 +16,7 @@ COMMENTARY = PROJECT_ROOT / "data/commentary/kcl_criminal_v1_commentary_chunks.j
 OUT_DIR = PROJECT_ROOT / "data/rulegen/fraud"
 OUT_INDEX = OUT_DIR / "fraud_commentary_index.json"
 OUT_REQUESTS = OUT_DIR / "fraud_rulegen_requests.jsonl"
+OUT_NORM_CARDS = OUT_DIR / "fraud_norm_card_set_exemplar.json"
 OUT_IR = OUT_DIR / "fraud_rule_ir_exemplar.json"
 OUT_SCALLOP = PROJECT_ROOT / "rules/exemplars/fraud_v1_candidate.scl"
 MAX_BATCH_CHARS = 12_000
@@ -36,12 +37,16 @@ def source_ref(comment_id: str, section_path: str, quote: str) -> dict[str, str]
 SUMMARY = source_ref(
     "comm_001692_제347조_Ⅰ_0",
     "Ⅰ",
-    "사기죄의 객관적 구성요건은",
+    (
+        "사기죄는 타인을 기망하여 착오를 발생케 하고 그 착오에 기하여 재물의 "
+        "교부 기 타의 재산적 처분행위를 하게 함으로써 재물을 취득하거나 재산상의 "
+        "이익을 취득 함으로써 성립하는 범죄이다."
+    ),
 )
 DECEPTION = source_ref(
     "comm_001692_제347조_Ⅳ.1_11",
     "Ⅳ.1",
-    "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위",
+    "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
 )
 MISTAKE = source_ref(
     "comm_001692_제347조_Ⅳ.2_47",
@@ -51,28 +56,77 @@ MISTAKE = source_ref(
 DISPOSITION = source_ref(
     "comm_001692_제347조_Ⅳ.3_49",
     "Ⅳ.3",
-    "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여",
+    "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여 본인 또는 제3자 가 재물을 교부받거나 재산상의 이익을 취득함으로써 성립한다.",
 )
 LOSS = source_ref(
     "comm_001692_제347조_Ⅳ.4_62",
     "Ⅳ.4",
-    "재산상 손해",
+    "재산상 손해의 발생이 사기죄의 구성요건인지 여부에 관하여는, 부정설, 긍정설, 제한적 긍정설의 대립이 있다.",
 )
 ACQUISITION = source_ref(
     "comm_001692_제347조_Ⅳ.5_66",
     "Ⅳ.5",
-    "사기죄에서 ‘재물의 교부’란",
+    "사기죄에서 ‘재물의 교부’란 범인의 기망에 따라 피해자가 착오로 재물에 대한 사실상의 지배를 범인에게 이전하는 것을 의미한다.",
 )
 INTENT = source_ref(
     "comm_001692_제347조_Ⅴ.1_74",
     "Ⅴ.1",
-    "범의의 판단 시점은 행위 당시로 보아야 한다.",
+    "범의의 판단 시점은 행위 당시로 보아야 한다. 이에 대한 판례의 판시는 다 음과 같다.",
 )
 UNLAWFUL_INTENT = source_ref(
     "comm_001692_제347조_Ⅴ.2_82",
     "Ⅴ.2",
-    "불법영득의사가 필요한지에 관하여는",
+    (
+        "사기죄의 주관적 요건으로 고의 외에 초과주관적 구성요 건으로서 "
+        "불법영득의사가 필요한지에 관하여는 ⅰ) 불법영득의사가 필요하지 않 다는 "
+        "견해, ⅱ) 재물편취죄와 불법이득죄를 구별하지 않고 모두 불법영득의사 가 "
+        "필요하다는 견해, ⅲ) 재물편취죄와 불법이득죄를 구별하여 재물편취죄의 "
+        "경우에는 불법영득의사가 필요하고 불법이득죄의 경우에는 불법영득의사가 "
+        "필 요하지 않다는 견해가 대립한다."
+    ),
 )
+UNLAWFUL_INTENT_PRECEDENT = source_ref(
+    "comm_001692_제347조_Ⅴ.2_82",
+    "Ⅴ.2",
+    "판례는 사기죄의 주관적 요건으로서 고의 외에 불법영득의사가 필요하다는 입 장이다.",
+)
+
+
+REF_CARD_IDS = {
+    (SUMMARY["comment_id"], SUMMARY["section_path"], SUMMARY["quote"]):
+        "fraud.elements_chain",
+    (DECEPTION["comment_id"], DECEPTION["section_path"], DECEPTION["quote"]):
+        "fraud.deception",
+    (MISTAKE["comment_id"], MISTAKE["section_path"], MISTAKE["quote"]):
+        "fraud.mistake",
+    (DISPOSITION["comment_id"], DISPOSITION["section_path"], DISPOSITION["quote"]):
+        "fraud.disposition",
+    (LOSS["comment_id"], LOSS["section_path"], LOSS["quote"]):
+        "fraud.damage_requirement",
+    (ACQUISITION["comment_id"], ACQUISITION["section_path"], ACQUISITION["quote"]):
+        "fraud.acquisition",
+    (INTENT["comment_id"], INTENT["section_path"], INTENT["quote"]):
+        "fraud.intent",
+    (
+        UNLAWFUL_INTENT["comment_id"],
+        UNLAWFUL_INTENT["section_path"],
+        UNLAWFUL_INTENT["quote"],
+    ): "fraud.unlawful_gain_intent",
+    (
+        UNLAWFUL_INTENT_PRECEDENT["comment_id"],
+        UNLAWFUL_INTENT_PRECEDENT["section_path"],
+        UNLAWFUL_INTENT_PRECEDENT["quote"],
+    ): "fraud.unlawful_gain_intent",
+}
+
+
+def norm_card_ids_for_refs(refs: tuple[dict[str, str], ...]) -> list[str]:
+    return sorted(
+        {
+            REF_CARD_IDS[(ref["comment_id"], ref["section_path"], ref["quote"])]
+            for ref in refs
+        }
+    )
 
 
 def predicate(
@@ -93,6 +147,7 @@ def predicate(
         "origin": origin,
         "definition": definition,
         "source_refs": list(refs),
+        "norm_card_ids": norm_card_ids_for_refs(refs),
     }
 
 
@@ -128,11 +183,172 @@ def rule(
         "head": head,
         "body": body,
         "source_refs": list(refs),
+        "norm_card_ids": norm_card_ids_for_refs(refs),
         "review_notes": review_notes,
     }
 
 
-def build_fraud_ir(comment_ids: list[str]) -> dict[str, Any]:
+def norm_card(
+    card_id: str,
+    norm_kind: str,
+    proposition: str,
+    *,
+    formalization: str,
+    authority_basis: str,
+    doctrinal_status: str,
+    refs: tuple[dict[str, str], ...],
+    request_id_by_comment_id: dict[str, str],
+    variant_group: str | None = None,
+    review_required: bool = False,
+    review_notes: str,
+) -> dict[str, Any]:
+    return {
+        "id": card_id,
+        "norm_kind": norm_kind,
+        "proposition": proposition,
+        "formalization": formalization,
+        "authority_basis": authority_basis,
+        "doctrinal_status": doctrinal_status,
+        "polarity": "positive",
+        "source_refs": list(refs),
+        "request_ids": sorted(
+            {request_id_by_comment_id[ref["comment_id"]] for ref in refs}
+        ),
+        "variant_group": variant_group,
+        "review_required": review_required,
+        "review_notes": review_notes,
+    }
+
+
+def build_fraud_norm_card_set(
+    comment_ids: list[str],
+    request_id_by_comment_id: dict[str, str],
+) -> dict[str, Any]:
+    cards = [
+        norm_card(
+            "fraud.elements_chain",
+            "element",
+            "사기죄는 기망, 착오, 재산적 처분, 취득 및 그 인과적 연결을 요구한다.",
+            formalization="deterministic_rule",
+            authority_basis="commentary_synthesis",
+            doctrinal_status="descriptive",
+            refs=(SUMMARY,),
+            request_id_by_comment_id=request_id_by_comment_id,
+            review_notes="기본 인과 사슬의 rule skeleton 근거다.",
+        ),
+        norm_card(
+            "fraud.deception",
+            "definition",
+            "기망은 거래상 신의칙에 반하여 사람에게 착오를 일으키는 행위다.",
+            formalization="standard_input",
+            authority_basis="commentary_synthesis",
+            doctrinal_status="settled",
+            refs=(DECEPTION,),
+            request_id_by_comment_id=request_id_by_comment_id,
+            review_required=True,
+            review_notes="사실관계 포섭은 standard assessment가 필요하다.",
+        ),
+        norm_card(
+            "fraud.mistake",
+            "definition",
+            "착오는 사실과 일치하지 않는 인식이다.",
+            formalization="standard_input",
+            authority_basis="commentary_synthesis",
+            doctrinal_status="settled",
+            refs=(MISTAKE,),
+            request_id_by_comment_id=request_id_by_comment_id,
+            review_required=True,
+            review_notes="인과관계는 elements_chain 카드와 결합하되 별도 predicate로 둔다.",
+        ),
+        norm_card(
+            "fraud.disposition",
+            "definition",
+            "피기망자의 착오에 기한 재산적 처분이 취득 결과를 매개해야 한다.",
+            formalization="standard_input",
+            authority_basis="commentary_synthesis",
+            doctrinal_status="settled",
+            refs=(DISPOSITION,),
+            request_id_by_comment_id=request_id_by_comment_id,
+            review_required=True,
+            review_notes="삼각사기는 처분권한과 재산상 근접성을 별도로 검수한다.",
+        ),
+        norm_card(
+            "fraud.damage_requirement",
+            "variant",
+            "재산상 손해를 독립 구성요건으로 요구할지는 학설 대립이 있다.",
+            formalization="policy_variant",
+            authority_basis="commentary_reported_doctrine",
+            doctrinal_status="disputed",
+            refs=(LOSS,),
+            request_id_by_comment_id=request_id_by_comment_id,
+            variant_group="fraud.damage_requirement",
+            review_required=True,
+            review_notes="판례 우선 원칙에 따라 별도 권위 근거를 확인한 뒤 policy를 고른다.",
+        ),
+        norm_card(
+            "fraud.acquisition",
+            "element",
+            "재물 교부는 피해자가 재물의 사실상 지배를 범인에게 이전하는 것이다.",
+            formalization="deterministic_rule",
+            authority_basis="commentary_synthesis",
+            doctrinal_status="settled",
+            refs=(ACQUISITION,),
+            request_id_by_comment_id=request_id_by_comment_id,
+            review_notes="수익자 역할을 피고인과 분리하여 표현한다.",
+        ),
+        norm_card(
+            "fraud.intent",
+            "standard",
+            "편취의 범의는 행위 당시를 기준으로 판단한다.",
+            formalization="standard_input",
+            authority_basis="commentary_reported_precedent",
+            doctrinal_status="precedent_position",
+            refs=(INTENT,),
+            request_id_by_comment_id=request_id_by_comment_id,
+            review_required=True,
+            review_notes="모델은 유리·불리 사실과 판단 시점을 함께 제시해야 한다.",
+        ),
+        norm_card(
+            "fraud.unlawful_gain_intent",
+            "variant",
+            "불법영득·이득의사의 필요 여부에는 견해 대립이 있고 판례는 필요설이다.",
+            formalization="policy_variant",
+            authority_basis="commentary_reported_precedent",
+            doctrinal_status="disputed",
+            refs=(UNLAWFUL_INTENT, UNLAWFUL_INTENT_PRECEDENT),
+            request_id_by_comment_id=request_id_by_comment_id,
+            variant_group="fraud.unlawful_gain_intent",
+            review_required=True,
+            review_notes="모든 사기 유형에 일률 적용하지 않고 판례 기준 유형화를 검수한다.",
+        ),
+    ]
+    return {
+        "version": "1.0.0",
+        "card_set_id": "kr.fraud.article347.norms.v1_exemplar",
+        "issue_tag": "fraud",
+        "status": "draft",
+        "legal_review": "pending",
+        "construction": "human_exemplar",
+        "source_scope": {
+            "target_paths": ["commentary://001692/제347조"],
+            "comment_ids": sorted(comment_ids),
+        },
+        "cards": cards,
+        "legal_review_questions": [
+            "재산상 손해 독립요건에 관한 판례 기준을 확인해야 합니다.",
+            "불법영득·이득의사를 요구하는 사기 유형을 판례 기준으로 구분해야 합니다.",
+            "삼각사기의 처분권한·재산상 근접성 predicate를 확정해야 합니다.",
+        ],
+        "coverage_gaps": [
+            "형법총칙상 미수·공범 규범은 현재 source scope 밖입니다.",
+            "판례 원문 index 연결 전에는 commentary-reported authority입니다.",
+        ],
+    }
+
+
+def build_fraud_ir(
+    comment_ids: list[str], norm_card_set: dict[str, Any]
+) -> dict[str, Any]:
     fact = (("fact_id", "String"),)
     person_pair = (("defendant", "String"), ("victim", "String"))
     fraud_args = (
@@ -274,7 +490,7 @@ def build_fraud_ir(comment_ids: list[str]) -> dict[str, Any]:
             definition=(
                 "Unlawful acquisition or gain intent is established under the selected theory."
             ),
-            refs=(UNLAWFUL_INTENT,),
+            refs=(UNLAWFUL_INTENT, UNLAWFUL_INTENT_PRECEDENT),
         ),
     ]
     bridge_specs = [
@@ -348,7 +564,7 @@ def build_fraud_ir(comment_ids: list[str]) -> dict[str, Any]:
             (("defendant", "String"),),
             "unlawful_gain_intent_fact",
             ("f", "d"),
-            (UNLAWFUL_INTENT,),
+            (UNLAWFUL_INTENT, UNLAWFUL_INTENT_PRECEDENT),
         ),
     ]
     for predicate_id, arguments, _, _, refs in bridge_specs:
@@ -383,7 +599,7 @@ def build_fraud_ir(comment_ids: list[str]) -> dict[str, Any]:
                 role="derived",
                 origin="commentary",
                 definition="Candidate variant requiring separate loss and unlawful-gain intent.",
-                refs=(SUMMARY, LOSS, UNLAWFUL_INTENT),
+                refs=(SUMMARY, LOSS, UNLAWFUL_INTENT, UNLAWFUL_INTENT_PRECEDENT),
             ),
             predicate(
                 "fraud_established",
@@ -394,7 +610,7 @@ def build_fraud_ir(comment_ids: list[str]) -> dict[str, Any]:
                 definition=(
                     "Fraud conclusion under the explicitly activated reviewed policy variant."
                 ),
-                refs=(SUMMARY, LOSS, UNLAWFUL_INTENT),
+                refs=(SUMMARY, LOSS, UNLAWFUL_INTENT, UNLAWFUL_INTENT_PRECEDENT),
             ),
         ]
     )
@@ -443,7 +659,7 @@ def build_fraud_ir(comment_ids: list[str]) -> dict[str, Any]:
                 atom("proven_property_loss", o, a),
                 atom("proven_unlawful_gain_intent", d),
             ],
-            (SUMMARY, LOSS, UNLAWFUL_INTENT),
+            (SUMMARY, LOSS, UNLAWFUL_INTENT, UNLAWFUL_INTENT_PRECEDENT),
             "Draft strict variant; the two disputed requirements require legal selection.",
         )
     )
@@ -455,13 +671,13 @@ def build_fraud_ir(comment_ids: list[str]) -> dict[str, Any]:
                 atom("active_policy", string("kr_fraud_damage_and_unlawful_intent")),
                 atom("fraud_strict_variant", d, v, o, a, b),
             ],
-            (SUMMARY, LOSS, UNLAWFUL_INTENT),
+            (SUMMARY, LOSS, UNLAWFUL_INTENT, UNLAWFUL_INTENT_PRECEDENT),
             "Only activate after human review of the named policy variant.",
         )
     )
 
     return {
-        "version": "1.0.0",
+        "version": "1.1.0",
         "rule_set_id": "kr.fraud.article347.v1_candidate",
         "issue_tag": "fraud",
         "status": "draft",
@@ -469,6 +685,10 @@ def build_fraud_ir(comment_ids: list[str]) -> dict[str, Any]:
         "source_scope": {
             "target_paths": ["commentary://001692/제347조"],
             "comment_ids": sorted(comment_ids),
+        },
+        "norm_card_scope": {
+            "card_set_id": norm_card_set["card_set_id"],
+            "card_ids": sorted(card["id"] for card in norm_card_set["cards"]),
         },
         "predicates": predicates,
         "rules": rules,
@@ -561,8 +781,16 @@ def main() -> None:
         build_request(batch, index, len(batches))
         for index, batch in enumerate(batches, start=1)
     ]
-    rule_ir = build_fraud_ir(list(commentary_by_id))
-    scallop = compile_rule_ir(rule_ir, commentary_by_id)
+    request_id_by_comment_id = {
+        chunk["comment_id"]: request["request_id"]
+        for request in requests
+        for chunk in request["commentary_chunks"]
+    }
+    norm_card_set = build_fraud_norm_card_set(
+        list(commentary_by_id), request_id_by_comment_id
+    )
+    rule_ir = build_fraud_ir(list(commentary_by_id), norm_card_set)
+    scallop = compile_rule_ir(rule_ir, commentary_by_id, norm_card_set)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     OUT_SCALLOP.parent.mkdir(parents=True, exist_ok=True)
@@ -592,6 +820,10 @@ def main() -> None:
         ),
         encoding="utf-8",
     )
+    OUT_NORM_CARDS.write_text(
+        json.dumps(norm_card_set, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
     OUT_IR.write_text(
         json.dumps(rule_ir, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
@@ -602,6 +834,7 @@ def main() -> None:
             {
                 "chunks": len(fraud_chunks),
                 "batches": len(batches),
+                "norm_cards": str(OUT_NORM_CARDS),
                 "rule_ir": str(OUT_IR),
                 "scallop": str(OUT_SCALLOP),
             },

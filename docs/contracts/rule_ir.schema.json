@@ -9,6 +9,7 @@
     "status",
     "legal_review",
     "source_scope",
+    "norm_card_scope",
     "predicates",
     "rules",
     "legal_review_questions",
@@ -16,7 +17,7 @@
   ],
   "additionalProperties": false,
   "properties": {
-    "version": { "const": "1.0.0" },
+    "version": { "const": "1.1.0" },
     "rule_set_id": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]*$" },
     "issue_tag": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
     "status": { "const": "draft" },
@@ -36,6 +37,23 @@
           "type": "array",
           "minItems": 1,
           "items": { "type": "string" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "norm_card_scope": {
+      "type": "object",
+      "required": ["card_set_id", "card_ids"],
+      "additionalProperties": false,
+      "properties": {
+        "card_set_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_.-]*$"
+        },
+        "card_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]*$" },
           "uniqueItems": true
         }
       }
@@ -102,7 +120,8 @@
         "role",
         "origin",
         "definition",
-        "source_refs"
+        "source_refs",
+        "norm_card_ids"
       ],
       "additionalProperties": false,
       "properties": {
@@ -126,12 +145,24 @@
         "source_refs": {
           "type": "array",
           "items": { "$ref": "#/$defs/source_ref" }
+        },
+        "norm_card_ids": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]*$" },
+          "uniqueItems": true
         }
       }
     },
     "rule": {
       "type": "object",
-      "required": ["id", "head", "body", "source_refs", "review_notes"],
+      "required": [
+        "id",
+        "head",
+        "body",
+        "source_refs",
+        "norm_card_ids",
+        "review_notes"
+      ],
       "additionalProperties": false,
       "properties": {
         "id": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]*$" },
@@ -145,6 +176,12 @@
           "type": "array",
           "minItems": 1,
           "items": { "$ref": "#/$defs/source_ref" }
+        },
+        "norm_card_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]*$" },
+          "uniqueItems": true
         },
         "review_notes": { "type": "string", "minLength": 1 }
       }

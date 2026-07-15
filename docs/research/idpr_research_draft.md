@@ -243,8 +243,10 @@ NormCard는 다음을 포함한다.
 - 인정·부정 판례의 구별 사실
 - 원문 citation과 기준 시점
 
-API 모델이 `.scl`을 직접 만들지는 않는다. Source-grounded NormCandidate와 RuleIR을
-생성하고, 로컬 validator와 deterministic compiler가 Scallop candidate를 만든다.
+API 모델이 `.scl`을 직접 만들지는 않는다. Source-grounded NormCandidate를 먼저
+추출하고, 이를 독립 검수 단위인 NormCard로 병합한다. RuleIR의 각 predicate와 rule은
+근거 NormCard를 명시해야 하며, 로컬 validator와 deterministic compiler가 Scallop
+candidate를 만든다.
 
 실무 지향 원칙은 다음과 같다.
 
@@ -611,12 +613,12 @@ Rule 자체의 법률적 정확성은 판례 원문, commentary, 사람 검수�
 - KCL 형사법 61개 inventory와 사용자 승인 tag
 - Commentary target pool 3,108개
 - 기존 non-mapped 33개 수동 audit
-- 사기죄 API request 13개와 RuleIR exemplar
+- 사기죄 API request 13개, NormCard 8개와 RuleIR 1.1 exemplar
 - Rulegen input/output JSON contracts
-- RuleIR provenance validator와 deterministic compiler
+- NormCandidate·NormCard·RuleIR provenance validator와 deterministic compiler
 - Procedural positive-gate candidate
 - Bootstrap reasoning과 consistency verifier 일부
-- 전체 테스트 22개
+- 전체 테스트 25개
 
 ### 아직 구현·평가 필요
 

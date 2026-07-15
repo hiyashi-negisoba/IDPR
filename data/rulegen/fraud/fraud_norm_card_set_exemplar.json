@@ -1,0 +1,334 @@
+{
+  "card_set_id": "kr.fraud.article347.norms.v1_exemplar",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "fraud.elements_chain",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "사기죄는 기망, 착오, 재산적 처분, 취득 및 그 인과적 연결을 요구한다.",
+      "request_ids": [
+        "fraud.article347.pass1.001"
+      ],
+      "review_notes": "기본 인과 사슬의 rule skeleton 근거다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅰ_0",
+          "quote": "사기죄는 타인을 기망하여 착오를 발생케 하고 그 착오에 기하여 재물의 교부 기 타의 재산적 처분행위를 하게 함으로써 재물을 취득하거나 재산상의 이익을 취득 함으로써 성립하는 범죄이다.",
+          "section_path": "Ⅰ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "doctrinal_status": "settled",
+      "formalization": "standard_input",
+      "id": "fraud.deception",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "기망은 거래상 신의칙에 반하여 사람에게 착오를 일으키는 행위다.",
+      "request_ids": [
+        "fraud.article347.pass1.002"
+      ],
+      "review_notes": "사실관계 포섭은 standard assessment가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "doctrinal_status": "settled",
+      "formalization": "standard_input",
+      "id": "fraud.mistake",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "착오는 사실과 일치하지 않는 인식이다.",
+      "request_ids": [
+        "fraud.article347.pass1.006"
+      ],
+      "review_notes": "인과관계는 elements_chain 카드와 결합하되 별도 predicate로 둔다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+          "quote": "착오란 사실과 일치하지 않는 인식을 의미한다.",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "doctrinal_status": "settled",
+      "formalization": "standard_input",
+      "id": "fraud.disposition",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "피기망자의 착오에 기한 재산적 처분이 취득 결과를 매개해야 한다.",
+      "request_ids": [
+        "fraud.article347.pass1.006"
+      ],
+      "review_notes": "삼각사기는 처분권한과 재산상 근접성을 별도로 검수한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
+          "quote": "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여 본인 또는 제3자 가 재물을 교부받거나 재산상의 이익을 취득함으로써 성립한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "doctrinal_status": "disputed",
+      "formalization": "policy_variant",
+      "id": "fraud.damage_requirement",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "재산상 손해를 독립 구성요건으로 요구할지는 학설 대립이 있다.",
+      "request_ids": [
+        "fraud.article347.pass1.007"
+      ],
+      "review_notes": "판례 우선 원칙에 따라 별도 권위 근거를 확인한 뒤 policy를 고른다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "quote": "재산상 손해의 발생이 사기죄의 구성요건인지 여부에 관하여는, 부정설, 긍정설, 제한적 긍정설의 대립이 있다.",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "variant_group": "fraud.damage_requirement"
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "fraud.acquisition",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "재물 교부는 피해자가 재물의 사실상 지배를 범인에게 이전하는 것이다.",
+      "request_ids": [
+        "fraud.article347.pass1.008"
+      ],
+      "review_notes": "수익자 역할을 피고인과 분리하여 표현한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
+          "quote": "사기죄에서 ‘재물의 교부’란 범인의 기망에 따라 피해자가 착오로 재물에 대한 사실상의 지배를 범인에게 이전하는 것을 의미한다.",
+          "section_path": "Ⅳ.5"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "fraud.intent",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "편취의 범의는 행위 당시를 기준으로 판단한다.",
+      "request_ids": [
+        "fraud.article347.pass1.009"
+      ],
+      "review_notes": "모델은 유리·불리 사실과 판단 시점을 함께 제시해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_74",
+          "quote": "범의의 판단 시점은 행위 당시로 보아야 한다. 이에 대한 판례의 판시는 다 음과 같다.",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "doctrinal_status": "disputed",
+      "formalization": "policy_variant",
+      "id": "fraud.unlawful_gain_intent",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "불법영득·이득의사의 필요 여부에는 견해 대립이 있고 판례는 필요설이다.",
+      "request_ids": [
+        "fraud.article347.pass1.009"
+      ],
+      "review_notes": "모든 사기 유형에 일률 적용하지 않고 판례 기준 유형화를 검수한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "quote": "사기죄의 주관적 요건으로 고의 외에 초과주관적 구성요 건으로서 불법영득의사가 필요한지에 관하여는 ⅰ) 불법영득의사가 필요하지 않 다는 견해, ⅱ) 재물편취죄와 불법이득죄를 구별하지 않고 모두 불법영득의사 가 필요하다는 견해, ⅲ) 재물편취죄와 불법이득죄를 구별하여 재물편취죄의 경우에는 불법영득의사가 필요하고 불법이득죄의 경우에는 불법영득의사가 필 요하지 않다는 견해가 대립한다.",
+          "section_path": "Ⅴ.2"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "quote": "판례는 사기죄의 주관적 요건으로서 고의 외에 불법영득의사가 필요하다는 입 장이다.",
+          "section_path": "Ⅴ.2"
+        }
+      ],
+      "variant_group": "fraud.unlawful_gain_intent"
+    }
+  ],
+  "construction": "human_exemplar",
+  "coverage_gaps": [
+    "형법총칙상 미수·공범 규범은 현재 source scope 밖입니다.",
+    "판례 원문 index 연결 전에는 commentary-reported authority입니다."
+  ],
+  "issue_tag": "fraud",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "재산상 손해 독립요건에 관한 판례 기준을 확인해야 합니다.",
+    "불법영득·이득의사를 요구하는 사기 유형을 판례 기준으로 구분해야 합니다.",
+    "삼각사기의 처분권한·재산상 근접성 predicate를 확정해야 합니다."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제347조_Ⅰ_0",
+      "comm_001692_제347조_Ⅱ.1_1",
+      "comm_001692_제347조_Ⅱ.2_2",
+      "comm_001692_제347조_Ⅱ.2_3",
+      "comm_001692_제347조_Ⅱ.3_4",
+      "comm_001692_제347조_Ⅱ.3_5",
+      "comm_001692_제347조_Ⅱ.4_6",
+      "comm_001692_제347조_Ⅲ.1_8",
+      "comm_001692_제347조_Ⅲ.2_10",
+      "comm_001692_제347조_Ⅲ.2_9",
+      "comm_001692_제347조_Ⅲ_7",
+      "comm_001692_제347조_Ⅳ.1_11",
+      "comm_001692_제347조_Ⅳ.1_12",
+      "comm_001692_제347조_Ⅳ.1_13",
+      "comm_001692_제347조_Ⅳ.1_14",
+      "comm_001692_제347조_Ⅳ.1_15",
+      "comm_001692_제347조_Ⅳ.1_16",
+      "comm_001692_제347조_Ⅳ.1_17",
+      "comm_001692_제347조_Ⅳ.1_18",
+      "comm_001692_제347조_Ⅳ.1_19",
+      "comm_001692_제347조_Ⅳ.1_20",
+      "comm_001692_제347조_Ⅳ.1_21",
+      "comm_001692_제347조_Ⅳ.1_22",
+      "comm_001692_제347조_Ⅳ.1_23",
+      "comm_001692_제347조_Ⅳ.1_24",
+      "comm_001692_제347조_Ⅳ.1_25",
+      "comm_001692_제347조_Ⅳ.1_26",
+      "comm_001692_제347조_Ⅳ.1_27",
+      "comm_001692_제347조_Ⅳ.1_28",
+      "comm_001692_제347조_Ⅳ.1_29",
+      "comm_001692_제347조_Ⅳ.1_30",
+      "comm_001692_제347조_Ⅳ.1_31",
+      "comm_001692_제347조_Ⅳ.1_32",
+      "comm_001692_제347조_Ⅳ.1_33",
+      "comm_001692_제347조_Ⅳ.1_34",
+      "comm_001692_제347조_Ⅳ.1_35",
+      "comm_001692_제347조_Ⅳ.1_36",
+      "comm_001692_제347조_Ⅳ.1_37",
+      "comm_001692_제347조_Ⅳ.1_38",
+      "comm_001692_제347조_Ⅳ.1_39",
+      "comm_001692_제347조_Ⅳ.1_40",
+      "comm_001692_제347조_Ⅳ.1_41",
+      "comm_001692_제347조_Ⅳ.1_42",
+      "comm_001692_제347조_Ⅳ.1_43",
+      "comm_001692_제347조_Ⅳ.1_44",
+      "comm_001692_제347조_Ⅳ.1_45",
+      "comm_001692_제347조_Ⅳ.1_46",
+      "comm_001692_제347조_Ⅳ.2_47",
+      "comm_001692_제347조_Ⅳ.2_48",
+      "comm_001692_제347조_Ⅳ.3_49",
+      "comm_001692_제347조_Ⅳ.3_50",
+      "comm_001692_제347조_Ⅳ.3_51",
+      "comm_001692_제347조_Ⅳ.3_52",
+      "comm_001692_제347조_Ⅳ.3_53",
+      "comm_001692_제347조_Ⅳ.3_54",
+      "comm_001692_제347조_Ⅳ.3_55",
+      "comm_001692_제347조_Ⅳ.3_56",
+      "comm_001692_제347조_Ⅳ.3_57",
+      "comm_001692_제347조_Ⅳ.3_58",
+      "comm_001692_제347조_Ⅳ.3_59",
+      "comm_001692_제347조_Ⅳ.3_60",
+      "comm_001692_제347조_Ⅳ.3_61",
+      "comm_001692_제347조_Ⅳ.4_62",
+      "comm_001692_제347조_Ⅳ.4_63",
+      "comm_001692_제347조_Ⅳ.4_64",
+      "comm_001692_제347조_Ⅳ.4_65",
+      "comm_001692_제347조_Ⅳ.5_66",
+      "comm_001692_제347조_Ⅳ.5_67",
+      "comm_001692_제347조_Ⅳ.6_68",
+      "comm_001692_제347조_Ⅳ.6_69",
+      "comm_001692_제347조_Ⅳ.6_70",
+      "comm_001692_제347조_Ⅳ.6_71",
+      "comm_001692_제347조_Ⅳ.6_72",
+      "comm_001692_제347조_Ⅴ.1_74",
+      "comm_001692_제347조_Ⅴ.1_75",
+      "comm_001692_제347조_Ⅴ.1_76",
+      "comm_001692_제347조_Ⅴ.1_77",
+      "comm_001692_제347조_Ⅴ.1_78",
+      "comm_001692_제347조_Ⅴ.1_79",
+      "comm_001692_제347조_Ⅴ.1_80",
+      "comm_001692_제347조_Ⅴ.1_81",
+      "comm_001692_제347조_Ⅴ.2_82",
+      "comm_001692_제347조_Ⅴ_73",
+      "comm_001692_제347조_Ⅵ.1_83",
+      "comm_001692_제347조_Ⅵ.1_84",
+      "comm_001692_제347조_Ⅵ.1_85",
+      "comm_001692_제347조_Ⅵ.1_86",
+      "comm_001692_제347조_Ⅵ.1_87",
+      "comm_001692_제347조_Ⅵ.1_88",
+      "comm_001692_제347조_Ⅵ.1_89",
+      "comm_001692_제347조_Ⅵ.1_90",
+      "comm_001692_제347조_Ⅵ.1_91",
+      "comm_001692_제347조_Ⅵ.1_92",
+      "comm_001692_제347조_Ⅵ.2_93",
+      "comm_001692_제347조_Ⅵ.2_94",
+      "comm_001692_제347조_Ⅵ.2_95",
+      "comm_001692_제347조_Ⅵ.3_96",
+      "comm_001692_제347조_Ⅵ.3_97",
+      "comm_001692_제347조_Ⅵ.4_100",
+      "comm_001692_제347조_Ⅵ.4_98",
+      "comm_001692_제347조_Ⅵ.4_99",
+      "comm_001692_제347조_Ⅵ.5_101",
+      "comm_001692_제347조_Ⅵ.5_102",
+      "comm_001692_제347조_Ⅵ.5_103",
+      "comm_001692_제347조_Ⅵ.5_104",
+      "comm_001692_제347조_Ⅶ.1_105",
+      "comm_001692_제347조_Ⅶ.1_106",
+      "comm_001692_제347조_Ⅶ.2_107",
+      "comm_001692_제347조_Ⅶ.2_108",
+      "comm_001692_제347조_Ⅷ_109",
+      "comm_001692_제347조_Ⅸ.1_110",
+      "comm_001692_제347조_Ⅸ.2_111",
+      "comm_001692_제347조_Ⅸ.3_112",
+      "comm_001692_제347조_Ⅸ.4_113",
+      "comm_001692_제347조_Ⅸ.5_114",
+      "comm_001692_제347조_Ⅹ.1_115",
+      "comm_001692_제347조_Ⅹ.2_116",
+      "comm_001692_제347조_Ⅹ.3_117",
+      "comm_001692_제347조_Ⅹ.4_118",
+      "comm_001692_제347조_Ⅹ.5_119",
+      "comm_001692_제347조_Ⅹ.6_120",
+      "comm_001692_제347조_Ⅹ.6_121",
+      "comm_001692_제347조_Ⅹ.6_122",
+      "comm_001692_제347조_Ⅹ.6_123",
+      "comm_001692_제347조_Ⅹ.7_124",
+      "comm_001692_제347조_Ⅹ.8_125",
+      "comm_001692_제347조_Ⅹ.9_126"
+    ],
+    "target_paths": [
+      "commentary://001692/제347조"
+    ]
+  },
+  "status": "draft",
+  "version": "1.0.0"
+}

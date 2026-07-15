@@ -11,6 +11,19 @@
     "피기망자, 재산상 피해자, 처분자, 수익자가 다른 삼각사기에서 필요한 권한·근접성 predicate를 확정해야 합니다.",
     "기망·처분행위·손해·고의 중 어느 판단을 standard sub-call로 위임할지 확정해야 합니다."
   ],
+  "norm_card_scope": {
+    "card_ids": [
+      "fraud.acquisition",
+      "fraud.damage_requirement",
+      "fraud.deception",
+      "fraud.disposition",
+      "fraud.elements_chain",
+      "fraud.intent",
+      "fraud.mistake",
+      "fraud.unlawful_gain_intent"
+    ],
+    "card_set_id": "kr.fraud.article347.norms.v1_exemplar"
+  },
   "predicates": [
     {
       "arguments": [
@@ -22,6 +35,7 @@
       "definition": "Evidence gate output: this fact may be consumed by substantive rules.",
       "id": "provable",
       "kind": "rule",
+      "norm_card_ids": [],
       "origin": "system",
       "role": "input",
       "source_refs": []
@@ -36,6 +50,7 @@
       "definition": "Exactly one human-approved legal variant is active for an evaluation run.",
       "id": "active_policy",
       "kind": "rule",
+      "norm_card_ids": [],
       "origin": "system",
       "role": "policy",
       "source_refs": []
@@ -58,12 +73,15 @@
       "definition": "Defendant conduct qualifies as deception against the deceived person.",
       "id": "deception_fact",
       "kind": "standard",
+      "norm_card_ids": [
+        "fraud.deception"
+      ],
       "origin": "commentary",
       "role": "input",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.1_11",
-          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위",
+          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
           "section_path": "Ⅳ.1"
         }
       ]
@@ -82,6 +100,9 @@
       "definition": "The deceived person held a perception inconsistent with fact.",
       "id": "mistake_fact",
       "kind": "standard",
+      "norm_card_ids": [
+        "fraud.mistake"
+      ],
       "origin": "commentary",
       "role": "input",
       "source_refs": [
@@ -110,12 +131,16 @@
       "definition": "The deception caused or materially induced the mistake.",
       "id": "deception_mistake_causal_fact",
       "kind": "standard",
+      "norm_card_ids": [
+        "fraud.elements_chain",
+        "fraud.mistake"
+      ],
       "origin": "commentary",
       "role": "input",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅰ_0",
-          "quote": "사기죄의 객관적 구성요건은",
+          "quote": "사기죄는 타인을 기망하여 착오를 발생케 하고 그 착오에 기하여 재물의 교부 기 타의 재산적 처분행위를 하게 함으로써 재물을 취득하거나 재산상의 이익을 취득 함으로써 성립하는 범죄이다.",
           "section_path": "Ⅰ"
         },
         {
@@ -147,12 +172,15 @@
       "definition": "The deceived person's act or omission qualifies as a property disposition.",
       "id": "disposition_fact",
       "kind": "standard",
+      "norm_card_ids": [
+        "fraud.disposition"
+      ],
       "origin": "commentary",
       "role": "input",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여",
+          "quote": "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여 본인 또는 제3자 가 재물을 교부받거나 재산상의 이익을 취득함으로써 성립한다.",
           "section_path": "Ⅳ.3"
         }
       ]
@@ -175,17 +203,21 @@
       "definition": "The mistake caused or materially induced the disposition.",
       "id": "mistake_disposition_causal_fact",
       "kind": "standard",
+      "norm_card_ids": [
+        "fraud.disposition",
+        "fraud.elements_chain"
+      ],
       "origin": "commentary",
       "role": "input",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅰ_0",
-          "quote": "사기죄의 객관적 구성요건은",
+          "quote": "사기죄는 타인을 기망하여 착오를 발생케 하고 그 착오에 기하여 재물의 교부 기 타의 재산적 처분행위를 하게 함으로써 재물을 취득하거나 재산상의 이익을 취득 함으로써 성립하는 범죄이다.",
           "section_path": "Ⅰ"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여",
+          "quote": "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여 본인 또는 제3자 가 재물을 교부받거나 재산상의 이익을 취득함으로써 성립한다.",
           "section_path": "Ⅳ.3"
         }
       ]
@@ -208,12 +240,15 @@
       "definition": "The legally selected damage theory treats the disposition as property loss.",
       "id": "property_loss_fact",
       "kind": "standard",
+      "norm_card_ids": [
+        "fraud.damage_requirement"
+      ],
       "origin": "commentary",
       "role": "input",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.4_62",
-          "quote": "재산상 손해",
+          "quote": "재산상 손해의 발생이 사기죄의 구성요건인지 여부에 관하여는, 부정설, 긍정설, 제한적 긍정설의 대립이 있다.",
           "section_path": "Ⅳ.4"
         }
       ]
@@ -240,17 +275,21 @@
       "definition": "The disposition caused the beneficiary's acquisition of the asset.",
       "id": "disposition_acquisition_causal_fact",
       "kind": "standard",
+      "norm_card_ids": [
+        "fraud.acquisition",
+        "fraud.elements_chain"
+      ],
       "origin": "commentary",
       "role": "input",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅰ_0",
-          "quote": "사기죄의 객관적 구성요건은",
+          "quote": "사기죄는 타인을 기망하여 착오를 발생케 하고 그 착오에 기하여 재물의 교부 기 타의 재산적 처분행위를 하게 함으로써 재물을 취득하거나 재산상의 이익을 취득 함으로써 성립하는 범죄이다.",
           "section_path": "Ⅰ"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅳ.5_66",
-          "quote": "사기죄에서 ‘재물의 교부’란",
+          "quote": "사기죄에서 ‘재물의 교부’란 범인의 기망에 따라 피해자가 착오로 재물에 대한 사실상의 지배를 범인에게 이전하는 것을 의미한다.",
           "section_path": "Ⅳ.5"
         }
       ]
@@ -277,12 +316,15 @@
       "definition": "Defendant or intended third party acquired property or a property benefit.",
       "id": "acquisition_fact",
       "kind": "rule",
+      "norm_card_ids": [
+        "fraud.acquisition"
+      ],
       "origin": "commentary",
       "role": "input",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.5_66",
-          "quote": "사기죄에서 ‘재물의 교부’란",
+          "quote": "사기죄에서 ‘재물의 교부’란 범인의 기망에 따라 피해자가 착오로 재물에 대한 사실상의 지배를 범인에게 이전하는 것을 의미한다.",
           "section_path": "Ⅳ.5"
         }
       ]
@@ -301,12 +343,15 @@
       "definition": "Fraud intent is established at the time of the conduct.",
       "id": "intent_to_defraud_fact",
       "kind": "standard",
+      "norm_card_ids": [
+        "fraud.intent"
+      ],
       "origin": "commentary",
       "role": "input",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_74",
-          "quote": "범의의 판단 시점은 행위 당시로 보아야 한다.",
+          "quote": "범의의 판단 시점은 행위 당시로 보아야 한다. 이에 대한 판례의 판시는 다 음과 같다.",
           "section_path": "Ⅴ.1"
         }
       ]
@@ -325,12 +370,20 @@
       "definition": "Unlawful acquisition or gain intent is established under the selected theory.",
       "id": "unlawful_gain_intent_fact",
       "kind": "standard",
+      "norm_card_ids": [
+        "fraud.unlawful_gain_intent"
+      ],
       "origin": "commentary",
       "role": "input",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.2_82",
-          "quote": "불법영득의사가 필요한지에 관하여는",
+          "quote": "사기죄의 주관적 요건으로 고의 외에 초과주관적 구성요 건으로서 불법영득의사가 필요한지에 관하여는 ⅰ) 불법영득의사가 필요하지 않 다는 견해, ⅱ) 재물편취죄와 불법이득죄를 구별하지 않고 모두 불법영득의사 가 필요하다는 견해, ⅲ) 재물편취죄와 불법이득죄를 구별하여 재물편취죄의 경우에는 불법영득의사가 필요하고 불법이득죄의 경우에는 불법영득의사가 필 요하지 않다는 견해가 대립한다.",
+          "section_path": "Ⅴ.2"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "quote": "판례는 사기죄의 주관적 요건으로서 고의 외에 불법영득의사가 필요하다는 입 장이다.",
           "section_path": "Ⅴ.2"
         }
       ]
@@ -349,12 +402,15 @@
       "definition": "Evidence-gated form of deception.",
       "id": "proven_deception",
       "kind": "rule",
+      "norm_card_ids": [
+        "fraud.deception"
+      ],
       "origin": "commentary",
       "role": "derived",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.1_11",
-          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위",
+          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
           "section_path": "Ⅳ.1"
         }
       ]
@@ -369,6 +425,9 @@
       "definition": "Evidence-gated form of mistake.",
       "id": "proven_mistake",
       "kind": "rule",
+      "norm_card_ids": [
+        "fraud.mistake"
+      ],
       "origin": "commentary",
       "role": "derived",
       "source_refs": [
@@ -393,12 +452,16 @@
       "definition": "Evidence-gated form of deception_mistake_causal.",
       "id": "proven_deception_mistake_causal",
       "kind": "rule",
+      "norm_card_ids": [
+        "fraud.elements_chain",
+        "fraud.mistake"
+      ],
       "origin": "commentary",
       "role": "derived",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅰ_0",
-          "quote": "사기죄의 객관적 구성요건은",
+          "quote": "사기죄는 타인을 기망하여 착오를 발생케 하고 그 착오에 기하여 재물의 교부 기 타의 재산적 처분행위를 하게 함으로써 재물을 취득하거나 재산상의 이익을 취득 함으로써 성립하는 범죄이다.",
           "section_path": "Ⅰ"
         },
         {
@@ -426,12 +489,15 @@
       "definition": "Evidence-gated form of disposition.",
       "id": "proven_disposition",
       "kind": "rule",
+      "norm_card_ids": [
+        "fraud.disposition"
+      ],
       "origin": "commentary",
       "role": "derived",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여",
+          "quote": "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여 본인 또는 제3자 가 재물을 교부받거나 재산상의 이익을 취득함으로써 성립한다.",
           "section_path": "Ⅳ.3"
         }
       ]
@@ -450,17 +516,21 @@
       "definition": "Evidence-gated form of mistake_disposition_causal.",
       "id": "proven_mistake_disposition_causal",
       "kind": "rule",
+      "norm_card_ids": [
+        "fraud.disposition",
+        "fraud.elements_chain"
+      ],
       "origin": "commentary",
       "role": "derived",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅰ_0",
-          "quote": "사기죄의 객관적 구성요건은",
+          "quote": "사기죄는 타인을 기망하여 착오를 발생케 하고 그 착오에 기하여 재물의 교부 기 타의 재산적 처분행위를 하게 함으로써 재물을 취득하거나 재산상의 이익을 취득 함으로써 성립하는 범죄이다.",
           "section_path": "Ⅰ"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여",
+          "quote": "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여 본인 또는 제3자 가 재물을 교부받거나 재산상의 이익을 취득함으로써 성립한다.",
           "section_path": "Ⅳ.3"
         }
       ]
@@ -479,12 +549,15 @@
       "definition": "Evidence-gated form of property_loss.",
       "id": "proven_property_loss",
       "kind": "rule",
+      "norm_card_ids": [
+        "fraud.damage_requirement"
+      ],
       "origin": "commentary",
       "role": "derived",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.4_62",
-          "quote": "재산상 손해",
+          "quote": "재산상 손해의 발생이 사기죄의 구성요건인지 여부에 관하여는, 부정설, 긍정설, 제한적 긍정설의 대립이 있다.",
           "section_path": "Ⅳ.4"
         }
       ]
@@ -507,17 +580,21 @@
       "definition": "Evidence-gated form of disposition_acquisition_causal.",
       "id": "proven_disposition_acquisition_causal",
       "kind": "rule",
+      "norm_card_ids": [
+        "fraud.acquisition",
+        "fraud.elements_chain"
+      ],
       "origin": "commentary",
       "role": "derived",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅰ_0",
-          "quote": "사기죄의 객관적 구성요건은",
+          "quote": "사기죄는 타인을 기망하여 착오를 발생케 하고 그 착오에 기하여 재물의 교부 기 타의 재산적 처분행위를 하게 함으로써 재물을 취득하거나 재산상의 이익을 취득 함으로써 성립하는 범죄이다.",
           "section_path": "Ⅰ"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅳ.5_66",
-          "quote": "사기죄에서 ‘재물의 교부’란",
+          "quote": "사기죄에서 ‘재물의 교부’란 범인의 기망에 따라 피해자가 착오로 재물에 대한 사실상의 지배를 범인에게 이전하는 것을 의미한다.",
           "section_path": "Ⅳ.5"
         }
       ]
@@ -540,12 +617,15 @@
       "definition": "Evidence-gated form of acquisition.",
       "id": "proven_acquisition",
       "kind": "rule",
+      "norm_card_ids": [
+        "fraud.acquisition"
+      ],
       "origin": "commentary",
       "role": "derived",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.5_66",
-          "quote": "사기죄에서 ‘재물의 교부’란",
+          "quote": "사기죄에서 ‘재물의 교부’란 범인의 기망에 따라 피해자가 착오로 재물에 대한 사실상의 지배를 범인에게 이전하는 것을 의미한다.",
           "section_path": "Ⅳ.5"
         }
       ]
@@ -560,12 +640,15 @@
       "definition": "Evidence-gated form of intent_to_defraud.",
       "id": "proven_intent_to_defraud",
       "kind": "rule",
+      "norm_card_ids": [
+        "fraud.intent"
+      ],
       "origin": "commentary",
       "role": "derived",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_74",
-          "quote": "범의의 판단 시점은 행위 당시로 보아야 한다.",
+          "quote": "범의의 판단 시점은 행위 당시로 보아야 한다. 이에 대한 판례의 판시는 다 음과 같다.",
           "section_path": "Ⅴ.1"
         }
       ]
@@ -580,12 +663,20 @@
       "definition": "Evidence-gated form of unlawful_gain_intent.",
       "id": "proven_unlawful_gain_intent",
       "kind": "rule",
+      "norm_card_ids": [
+        "fraud.unlawful_gain_intent"
+      ],
       "origin": "commentary",
       "role": "derived",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.2_82",
-          "quote": "불법영득의사가 필요한지에 관하여는",
+          "quote": "사기죄의 주관적 요건으로 고의 외에 초과주관적 구성요 건으로서 불법영득의사가 필요한지에 관하여는 ⅰ) 불법영득의사가 필요하지 않 다는 견해, ⅱ) 재물편취죄와 불법이득죄를 구별하지 않고 모두 불법영득의사 가 필요하다는 견해, ⅲ) 재물편취죄와 불법이득죄를 구별하여 재물편취죄의 경우에는 불법영득의사가 필요하고 불법이득죄의 경우에는 불법영득의사가 필 요하지 않다는 견해가 대립한다.",
+          "section_path": "Ⅴ.2"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "quote": "판례는 사기죄의 주관적 요건으로서 고의 외에 불법영득의사가 필요하다는 입 장이다.",
           "section_path": "Ⅴ.2"
         }
       ]
@@ -616,12 +707,15 @@
       "definition": "Common fraud elements before disputed damage and unlawful-intent variants.",
       "id": "fraud_core",
       "kind": "rule",
+      "norm_card_ids": [
+        "fraud.elements_chain"
+      ],
       "origin": "commentary",
       "role": "derived",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅰ_0",
-          "quote": "사기죄의 객관적 구성요건은",
+          "quote": "사기죄는 타인을 기망하여 착오를 발생케 하고 그 착오에 기하여 재물의 교부 기 타의 재산적 처분행위를 하게 함으로써 재물을 취득하거나 재산상의 이익을 취득 함으로써 성립하는 범죄이다.",
           "section_path": "Ⅰ"
         }
       ]
@@ -652,22 +746,32 @@
       "definition": "Candidate variant requiring separate loss and unlawful-gain intent.",
       "id": "fraud_strict_variant",
       "kind": "rule",
+      "norm_card_ids": [
+        "fraud.damage_requirement",
+        "fraud.elements_chain",
+        "fraud.unlawful_gain_intent"
+      ],
       "origin": "commentary",
       "role": "derived",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅰ_0",
-          "quote": "사기죄의 객관적 구성요건은",
+          "quote": "사기죄는 타인을 기망하여 착오를 발생케 하고 그 착오에 기하여 재물의 교부 기 타의 재산적 처분행위를 하게 함으로써 재물을 취득하거나 재산상의 이익을 취득 함으로써 성립하는 범죄이다.",
           "section_path": "Ⅰ"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅳ.4_62",
-          "quote": "재산상 손해",
+          "quote": "재산상 손해의 발생이 사기죄의 구성요건인지 여부에 관하여는, 부정설, 긍정설, 제한적 긍정설의 대립이 있다.",
           "section_path": "Ⅳ.4"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅴ.2_82",
-          "quote": "불법영득의사가 필요한지에 관하여는",
+          "quote": "사기죄의 주관적 요건으로 고의 외에 초과주관적 구성요 건으로서 불법영득의사가 필요한지에 관하여는 ⅰ) 불법영득의사가 필요하지 않 다는 견해, ⅱ) 재물편취죄와 불법이득죄를 구별하지 않고 모두 불법영득의사 가 필요하다는 견해, ⅲ) 재물편취죄와 불법이득죄를 구별하여 재물편취죄의 경우에는 불법영득의사가 필요하고 불법이득죄의 경우에는 불법영득의사가 필 요하지 않다는 견해가 대립한다.",
+          "section_path": "Ⅴ.2"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "quote": "판례는 사기죄의 주관적 요건으로서 고의 외에 불법영득의사가 필요하다는 입 장이다.",
           "section_path": "Ⅴ.2"
         }
       ]
@@ -698,22 +802,32 @@
       "definition": "Fraud conclusion under the explicitly activated reviewed policy variant.",
       "id": "fraud_established",
       "kind": "rule",
+      "norm_card_ids": [
+        "fraud.damage_requirement",
+        "fraud.elements_chain",
+        "fraud.unlawful_gain_intent"
+      ],
       "origin": "commentary",
       "role": "derived",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅰ_0",
-          "quote": "사기죄의 객관적 구성요건은",
+          "quote": "사기죄는 타인을 기망하여 착오를 발생케 하고 그 착오에 기하여 재물의 교부 기 타의 재산적 처분행위를 하게 함으로써 재물을 취득하거나 재산상의 이익을 취득 함으로써 성립하는 범죄이다.",
           "section_path": "Ⅰ"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅳ.4_62",
-          "quote": "재산상 손해",
+          "quote": "재산상 손해의 발생이 사기죄의 구성요건인지 여부에 관하여는, 부정설, 긍정설, 제한적 긍정설의 대립이 있다.",
           "section_path": "Ⅳ.4"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅴ.2_82",
-          "quote": "불법영득의사가 필요한지에 관하여는",
+          "quote": "사기죄의 주관적 요건으로 고의 외에 초과주관적 구성요 건으로서 불법영득의사가 필요한지에 관하여는 ⅰ) 불법영득의사가 필요하지 않 다는 견해, ⅱ) 재물편취죄와 불법이득죄를 구별하지 않고 모두 불법영득의사 가 필요하다는 견해, ⅲ) 재물편취죄와 불법이득죄를 구별하여 재물편취죄의 경우에는 불법영득의사가 필요하고 불법이득죄의 경우에는 불법영득의사가 필 요하지 않다는 견해가 대립한다.",
+          "section_path": "Ⅴ.2"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "quote": "판례는 사기죄의 주관적 요건으로서 고의 외에 불법영득의사가 필요하다는 입 장이다.",
           "section_path": "Ⅴ.2"
         }
       ]
@@ -767,11 +881,14 @@
         "predicate": "proven_deception"
       },
       "id": "fraud.bridge.proven_deception",
+      "norm_card_ids": [
+        "fraud.deception"
+      ],
       "review_notes": "Mechanical evidence gate bridge; legal classification remains in the input fact.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.1_11",
-          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위",
+          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
           "section_path": "Ⅳ.1"
         }
       ]
@@ -814,6 +931,9 @@
         "predicate": "proven_mistake"
       },
       "id": "fraud.bridge.proven_mistake",
+      "norm_card_ids": [
+        "fraud.mistake"
+      ],
       "review_notes": "Mechanical evidence gate bridge; legal classification remains in the input fact.",
       "source_refs": [
         {
@@ -869,11 +989,15 @@
         "predicate": "proven_deception_mistake_causal"
       },
       "id": "fraud.bridge.proven_deception_mistake_causal",
+      "norm_card_ids": [
+        "fraud.elements_chain",
+        "fraud.mistake"
+      ],
       "review_notes": "Mechanical evidence gate bridge; legal classification remains in the input fact.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅰ_0",
-          "quote": "사기죄의 객관적 구성요건은",
+          "quote": "사기죄는 타인을 기망하여 착오를 발생케 하고 그 착오에 기하여 재물의 교부 기 타의 재산적 처분행위를 하게 함으로써 재물을 취득하거나 재산상의 이익을 취득 함으로써 성립하는 범죄이다.",
           "section_path": "Ⅰ"
         },
         {
@@ -937,11 +1061,14 @@
         "predicate": "proven_disposition"
       },
       "id": "fraud.bridge.proven_disposition",
+      "norm_card_ids": [
+        "fraud.disposition"
+      ],
       "review_notes": "Mechanical evidence gate bridge; legal classification remains in the input fact.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여",
+          "quote": "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여 본인 또는 제3자 가 재물을 교부받거나 재산상의 이익을 취득함으로써 성립한다.",
           "section_path": "Ⅳ.3"
         }
       ]
@@ -992,16 +1119,20 @@
         "predicate": "proven_mistake_disposition_causal"
       },
       "id": "fraud.bridge.proven_mistake_disposition_causal",
+      "norm_card_ids": [
+        "fraud.disposition",
+        "fraud.elements_chain"
+      ],
       "review_notes": "Mechanical evidence gate bridge; legal classification remains in the input fact.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅰ_0",
-          "quote": "사기죄의 객관적 구성요건은",
+          "quote": "사기죄는 타인을 기망하여 착오를 발생케 하고 그 착오에 기하여 재물의 교부 기 타의 재산적 처분행위를 하게 함으로써 재물을 취득하거나 재산상의 이익을 취득 함으로써 성립하는 범죄이다.",
           "section_path": "Ⅰ"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여",
+          "quote": "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여 본인 또는 제3자 가 재물을 교부받거나 재산상의 이익을 취득함으로써 성립한다.",
           "section_path": "Ⅳ.3"
         }
       ]
@@ -1052,11 +1183,14 @@
         "predicate": "proven_property_loss"
       },
       "id": "fraud.bridge.proven_property_loss",
+      "norm_card_ids": [
+        "fraud.damage_requirement"
+      ],
       "review_notes": "Mechanical evidence gate bridge; legal classification remains in the input fact.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.4_62",
-          "quote": "재산상 손해",
+          "quote": "재산상 손해의 발생이 사기죄의 구성요건인지 여부에 관하여는, 부정설, 긍정설, 제한적 긍정설의 대립이 있다.",
           "section_path": "Ⅳ.4"
         }
       ]
@@ -1115,16 +1249,20 @@
         "predicate": "proven_disposition_acquisition_causal"
       },
       "id": "fraud.bridge.proven_disposition_acquisition_causal",
+      "norm_card_ids": [
+        "fraud.acquisition",
+        "fraud.elements_chain"
+      ],
       "review_notes": "Mechanical evidence gate bridge; legal classification remains in the input fact.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅰ_0",
-          "quote": "사기죄의 객관적 구성요건은",
+          "quote": "사기죄는 타인을 기망하여 착오를 발생케 하고 그 착오에 기하여 재물의 교부 기 타의 재산적 처분행위를 하게 함으로써 재물을 취득하거나 재산상의 이익을 취득 함으로써 성립하는 범죄이다.",
           "section_path": "Ⅰ"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅳ.5_66",
-          "quote": "사기죄에서 ‘재물의 교부’란",
+          "quote": "사기죄에서 ‘재물의 교부’란 범인의 기망에 따라 피해자가 착오로 재물에 대한 사실상의 지배를 범인에게 이전하는 것을 의미한다.",
           "section_path": "Ⅳ.5"
         }
       ]
@@ -1183,11 +1321,14 @@
         "predicate": "proven_acquisition"
       },
       "id": "fraud.bridge.proven_acquisition",
+      "norm_card_ids": [
+        "fraud.acquisition"
+      ],
       "review_notes": "Mechanical evidence gate bridge; legal classification remains in the input fact.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.5_66",
-          "quote": "사기죄에서 ‘재물의 교부’란",
+          "quote": "사기죄에서 ‘재물의 교부’란 범인의 기망에 따라 피해자가 착오로 재물에 대한 사실상의 지배를 범인에게 이전하는 것을 의미한다.",
           "section_path": "Ⅳ.5"
         }
       ]
@@ -1230,11 +1371,14 @@
         "predicate": "proven_intent_to_defraud"
       },
       "id": "fraud.bridge.proven_intent_to_defraud",
+      "norm_card_ids": [
+        "fraud.intent"
+      ],
       "review_notes": "Mechanical evidence gate bridge; legal classification remains in the input fact.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_74",
-          "quote": "범의의 판단 시점은 행위 당시로 보아야 한다.",
+          "quote": "범의의 판단 시점은 행위 당시로 보아야 한다. 이에 대한 판례의 판시는 다 음과 같다.",
           "section_path": "Ⅴ.1"
         }
       ]
@@ -1277,11 +1421,19 @@
         "predicate": "proven_unlawful_gain_intent"
       },
       "id": "fraud.bridge.proven_unlawful_gain_intent",
+      "norm_card_ids": [
+        "fraud.unlawful_gain_intent"
+      ],
       "review_notes": "Mechanical evidence gate bridge; legal classification remains in the input fact.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.2_82",
-          "quote": "불법영득의사가 필요한지에 관하여는",
+          "quote": "사기죄의 주관적 요건으로 고의 외에 초과주관적 구성요 건으로서 불법영득의사가 필요한지에 관하여는 ⅰ) 불법영득의사가 필요하지 않 다는 견해, ⅱ) 재물편취죄와 불법이득죄를 구별하지 않고 모두 불법영득의사 가 필요하다는 견해, ⅲ) 재물편취죄와 불법이득죄를 구별하여 재물편취죄의 경우에는 불법영득의사가 필요하고 불법이득죄의 경우에는 불법영득의사가 필 요하지 않다는 견해가 대립한다.",
+          "section_path": "Ⅴ.2"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "quote": "판례는 사기죄의 주관적 요건으로서 고의 외에 불법영득의사가 필요하다는 입 장이다.",
           "section_path": "Ⅴ.2"
         }
       ]
@@ -1432,16 +1584,24 @@
         "predicate": "fraud_core"
       },
       "id": "fraud.core",
+      "norm_card_ids": [
+        "fraud.acquisition",
+        "fraud.deception",
+        "fraud.disposition",
+        "fraud.elements_chain",
+        "fraud.intent",
+        "fraud.mistake"
+      ],
       "review_notes": "Human review must confirm the identity constraints for triangular fraud cases.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅰ_0",
-          "quote": "사기죄의 객관적 구성요건은",
+          "quote": "사기죄는 타인을 기망하여 착오를 발생케 하고 그 착오에 기하여 재물의 교부 기 타의 재산적 처분행위를 하게 함으로써 재물을 취득하거나 재산상의 이익을 취득 함으로써 성립하는 범죄이다.",
           "section_path": "Ⅰ"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅳ.1_11",
-          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위",
+          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
           "section_path": "Ⅳ.1"
         },
         {
@@ -1451,17 +1611,17 @@
         },
         {
           "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여",
+          "quote": "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여 본인 또는 제3자 가 재물을 교부받거나 재산상의 이익을 취득함으로써 성립한다.",
           "section_path": "Ⅳ.3"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅳ.5_66",
-          "quote": "사기죄에서 ‘재물의 교부’란",
+          "quote": "사기죄에서 ‘재물의 교부’란 범인의 기망에 따라 피해자가 착오로 재물에 대한 사실상의 지배를 범인에게 이전하는 것을 의미한다.",
           "section_path": "Ⅳ.5"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_74",
-          "quote": "범의의 판단 시점은 행위 당시로 보아야 한다.",
+          "quote": "범의의 판단 시점은 행위 당시로 보아야 한다. 이에 대한 판례의 판시는 다 음과 같다.",
           "section_path": "Ⅴ.1"
         }
       ]
@@ -1546,21 +1706,31 @@
         "predicate": "fraud_strict_variant"
       },
       "id": "fraud.variant.strict",
+      "norm_card_ids": [
+        "fraud.damage_requirement",
+        "fraud.elements_chain",
+        "fraud.unlawful_gain_intent"
+      ],
       "review_notes": "Draft strict variant; the two disputed requirements require legal selection.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅰ_0",
-          "quote": "사기죄의 객관적 구성요건은",
+          "quote": "사기죄는 타인을 기망하여 착오를 발생케 하고 그 착오에 기하여 재물의 교부 기 타의 재산적 처분행위를 하게 함으로써 재물을 취득하거나 재산상의 이익을 취득 함으로써 성립하는 범죄이다.",
           "section_path": "Ⅰ"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅳ.4_62",
-          "quote": "재산상 손해",
+          "quote": "재산상 손해의 발생이 사기죄의 구성요건인지 여부에 관하여는, 부정설, 긍정설, 제한적 긍정설의 대립이 있다.",
           "section_path": "Ⅳ.4"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅴ.2_82",
-          "quote": "불법영득의사가 필요한지에 관하여는",
+          "quote": "사기죄의 주관적 요건으로 고의 외에 초과주관적 구성요 건으로서 불법영득의사가 필요한지에 관하여는 ⅰ) 불법영득의사가 필요하지 않 다는 견해, ⅱ) 재물편취죄와 불법이득죄를 구별하지 않고 모두 불법영득의사 가 필요하다는 견해, ⅲ) 재물편취죄와 불법이득죄를 구별하여 재물편취죄의 경우에는 불법영득의사가 필요하고 불법이득죄의 경우에는 불법영득의사가 필 요하지 않다는 견해가 대립한다.",
+          "section_path": "Ⅴ.2"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "quote": "판례는 사기죄의 주관적 요건으로서 고의 외에 불법영득의사가 필요하다는 입 장이다.",
           "section_path": "Ⅴ.2"
         }
       ]
@@ -1631,21 +1801,31 @@
         "predicate": "fraud_established"
       },
       "id": "fraud.activate.strict",
+      "norm_card_ids": [
+        "fraud.damage_requirement",
+        "fraud.elements_chain",
+        "fraud.unlawful_gain_intent"
+      ],
       "review_notes": "Only activate after human review of the named policy variant.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅰ_0",
-          "quote": "사기죄의 객관적 구성요건은",
+          "quote": "사기죄는 타인을 기망하여 착오를 발생케 하고 그 착오에 기하여 재물의 교부 기 타의 재산적 처분행위를 하게 함으로써 재물을 취득하거나 재산상의 이익을 취득 함으로써 성립하는 범죄이다.",
           "section_path": "Ⅰ"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅳ.4_62",
-          "quote": "재산상 손해",
+          "quote": "재산상 손해의 발생이 사기죄의 구성요건인지 여부에 관하여는, 부정설, 긍정설, 제한적 긍정설의 대립이 있다.",
           "section_path": "Ⅳ.4"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅴ.2_82",
-          "quote": "불법영득의사가 필요한지에 관하여는",
+          "quote": "사기죄의 주관적 요건으로 고의 외에 초과주관적 구성요 건으로서 불법영득의사가 필요한지에 관하여는 ⅰ) 불법영득의사가 필요하지 않 다는 견해, ⅱ) 재물편취죄와 불법이득죄를 구별하지 않고 모두 불법영득의사 가 필요하다는 견해, ⅲ) 재물편취죄와 불법이득죄를 구별하여 재물편취죄의 경우에는 불법영득의사가 필요하고 불법이득죄의 경우에는 불법영득의사가 필 요하지 않다는 견해가 대립한다.",
+          "section_path": "Ⅴ.2"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "quote": "판례는 사기죄의 주관적 요건으로서 고의 외에 불법영득의사가 필요하다는 입 장이다.",
           "section_path": "Ⅴ.2"
         }
       ]
@@ -1786,5 +1966,5 @@
     ]
   },
   "status": "draft",
-  "version": "1.0.0"
+  "version": "1.1.0"
 }

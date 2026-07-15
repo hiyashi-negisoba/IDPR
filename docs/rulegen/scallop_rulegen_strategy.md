@@ -2,18 +2,20 @@
 
 ## 결정
 
-API 모델이 주석서 원문에서 `.scl`을 바로 생성하게 하지 않는다. 모델은 먼저
-출처가 붙은 규범 후보와 중간 표현인 RuleIR만 생성하고, 로컬 compiler가 검증된
-RuleIR을 Scallop으로 변환한다.
+API 모델이 주석서 원문에서 `.scl`을 바로 생성하게 하지 않는다. 모델은 먼저 출처가
+붙은 규범 후보를 추출한다. 검증된 후보를 독립 검수 단위인 NormCard로 병합한 다음
+NormCard에만 근거한 RuleIR을 생성하고, 로컬 compiler가 이를 Scallop으로 변환한다.
 
 ```text
 issue_tag
   -> explicit (law_id, article_no) target
   -> section-preserving commentary batches
   -> API: NormCandidateBatch[]
-  -> source/proposition review and merge
+  -> deterministic candidate provenance validation
+  -> API: NormCardSet merge
+  -> deterministic NormCard validation
   -> API: RuleIR draft
-  -> deterministic validator
+  -> deterministic RuleIR + NormCard-link validator
   -> deterministic Scallop compiler
   -> golden tests
   -> human legal review
@@ -45,6 +47,23 @@ issue_tag
 | `Ⅴ.2` | 불법영득·이득의사 대립 | named policy variant |
 | `Ⅶ.1` | 실행의 착수 | 별도 attempt rule set |
 | `Ⅷ` | 공범 | 형법총칙 corpus 확보 후 별도 rule set |
+
+## NormCard와 RuleIR의 경계
+
+`NormCandidateBatch`는 한 API batch 안에서 추출한 원시 후보다. 중복 후보나 서로 다른
+학설이 섞일 수 있어 RuleIR이 직접 소비하지 않는다. `NormCardSet`은 후보를 병합하되
+다음 정보를 보존하는 법률 검수 checkpoint다.
+
+- 독립적으로 검토 가능한 하나의 proposition
+- exact commentary quote와 이를 공급한 API request ID
+- `deterministic_rule`, `standard_input`, `policy_variant`, `context_only` 구분
+- 주석서 종합, 주석서가 보고한 판례·학설, 주석서에 인용된 법문이라는 권위 성격
+- 학설 대립 여부, variant group, 사람 검수 필요 여부
+
+RuleIR 1.1의 모든 commentary-origin predicate와 rule은 `norm_card_ids`를 가져야 한다.
+RuleIR의 인용은 연결된 카드가 가진 exact source reference의 합집합을 벗어날 수 없다.
+판례를 우선하는 정책도 주석서의 판례 설명만으로 확정하지 않고, 사용자 판례 index의
+원문을 대조한 후 활성화한다.
 
 ## Predicate 설계
 
@@ -86,6 +105,7 @@ gate가 충족된 경우에만 `admissible(e)`를 만든다. 참고 구현은
 
 ## 사기죄 exemplar
 
+`data/rulegen/fraud/fraud_norm_card_set_exemplar.json`과
 `data/rulegen/fraud/fraud_rule_ir_exemplar.json`은 다음을 보여 주는 모범 초안이다.
 
 - 모든 실체법 사실이 `provable(fact_id)`를 통과하는 bridge
@@ -94,6 +114,7 @@ gate가 충족된 경우에만 `admissible(e)`를 만든다. 참고 구현은
 - `재산상 손해`와 `불법영득의사`를 묵시적으로 확정하지 않는 policy variant
 - `active_policy("kr_fraud_damage_and_unlawful_intent")`가 있어야만 최종 결론 도출
 - source quote가 실제 commentary substring인지 검사하는 provenance gate
+- predicate/rule의 source quote가 연결 NormCard 범위를 벗어나지 못하는 provenance gate
 
 현재 exemplar는 일부러 `draft/pending`이다. 제347조 주석 자체가 재산상 손해와
 불법영득의사의 독립요건성에 견해 대립을 기록하므로, 이 선택을 모델이나 개발자가
@@ -103,18 +124,25 @@ gate가 충족된 경우에만 `admissible(e)`를 만든다. 참고 구현은
 
 1. `fraud_rulegen_requests.jsonl`의 각 행과
    `prompts/rulegen_extract_norm_candidates.md`를 structured-output API에 전달한다.
-2. 응답을 `norm_candidate_batch.schema.json`으로 검증하고 exact quote를 재검사한다.
-3. 검증된 응답만 모아 `prompts/rulegen_merge_rule_ir.md`로 RuleIR을 생성한다.
-4. `rule_ir.schema.json`과 `idpr.rulegen.validate_rule_ir`을 모두 통과시킨다.
-5. `idpr.rulegen.compile_rule_ir`로 `.scl`을 생성한다.
-6. 성립·불성립·unknown·증거배제·정책 variant별 golden test를 실행한다.
-7. 사람이 조문·주석서 근거와 variant를 승인한 뒤에만 canonical predicate schema와
+2. 응답을 `norm_candidate_batch.schema.json`과
+   `idpr.rulegen.validate_norm_candidate_batch`로 검증한다.
+3. 검증된 응답만 `prompts/rulegen_merge_norm_cards.md`로 NormCardSet에 병합한다.
+4. `norm_card_set.schema.json`과 `idpr.rulegen.validate_norm_card_set`으로 exact quote,
+   request provenance, variant 표시를 검증한다.
+5. 검증된 카드와 `prompts/rulegen_merge_rule_ir.md`로 RuleIR 1.1을 생성한다.
+6. `rule_ir.schema.json`과 `idpr.rulegen.validate_rule_ir`로 predicate 및 NormCard 연결을
+   검증한다.
+7. `idpr.rulegen.compile_rule_ir`로 `.scl`을 생성한다.
+8. 성립·불성립·unknown·증거배제·정책 variant별 golden test를 실행한다.
+9. 사람이 조문·주석서·판례 원문과 variant를 승인한 뒤에만 canonical predicate와
    `verified` rule로 승격한다.
 
 ## 자동 실패 조건
 
 - source scope 밖 `comment_id`
 - commentary에 존재하지 않는 quote
+- NormCard source가 선언된 extraction request 범위 밖에 있음
+- RuleIR source가 연결된 NormCard의 source 범위 밖에 있음
 - 선언되지 않은 predicate 또는 arity/type 불일치
 - positive body에 바인딩되지 않은 head/negation 변수
 - 모델이 standard를 derived rule로 생성
@@ -125,7 +153,7 @@ gate가 충족된 경우에만 `admissible(e)`를 만든다. 참고 구현은
 ## 사용자 법률 검수 항목
 
 1. 재산상 손해를 독립한 필수요건으로 둘지
-2. 불법영득의사·불법이득의사를 모든 사기 유형에 별도 요구할지
+2. 불법영득의사·불법이득의사를 요구하는 사기 유형을 판례 기준으로 어떻게 나눌지
 3. 삼각사기의 처분권한·재산상 근접성 predicate 정의
 4. 기망·처분·손해·고의 중 standard sub-call 범위
 5. strict policy의 이름과 canonical rule 승격 여부

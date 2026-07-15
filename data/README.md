@@ -26,6 +26,7 @@ Fraud rule-generation artifacts:
 
 - `data/rulegen/fraud/fraud_commentary_index.json`: 형법 제347조 127개 chunk의 section별 index
 - `data/rulegen/fraud/fraud_rulegen_requests.jsonl`: API pass-1용 13개 metadata-bounded request
+- `data/rulegen/fraud/fraud_norm_card_set_exemplar.json`: 출처와 검수 상태가 붙은 8개 NormCard 모범 초안
 - `data/rulegen/fraud/fraud_rule_ir_exemplar.json`: 출처 검증 가능한 사기죄 RuleIR 모범 초안
 - `rules/exemplars/fraud_v1_candidate.scl`: RuleIR에서 결정론적으로 컴파일한 Scallop 초안
 

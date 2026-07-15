@@ -1,0 +1,147 @@
+{
+  "$id": "idpr/NormCardSet",
+  "description": "Reviewed bridge between raw norm candidates and RuleIR.",
+  "type": "object",
+  "required": [
+    "version",
+    "card_set_id",
+    "issue_tag",
+    "status",
+    "legal_review",
+    "construction",
+    "source_scope",
+    "cards",
+    "legal_review_questions",
+    "coverage_gaps"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": "1.0.0" },
+    "card_set_id": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]*$" },
+    "issue_tag": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "status": { "const": "draft" },
+    "legal_review": { "const": "pending" },
+    "construction": { "enum": ["api_merged", "human_exemplar"] },
+    "source_scope": { "$ref": "#/$defs/source_scope" },
+    "cards": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/norm_card" }
+    },
+    "legal_review_questions": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "coverage_gaps": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "$defs": {
+    "source_scope": {
+      "type": "object",
+      "required": ["target_paths", "comment_ids"],
+      "additionalProperties": false,
+      "properties": {
+        "target_paths": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "comment_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        }
+      }
+    },
+    "source_ref": {
+      "type": "object",
+      "required": ["comment_id", "section_path", "quote"],
+      "additionalProperties": false,
+      "properties": {
+        "comment_id": { "type": "string", "minLength": 1 },
+        "section_path": { "type": "string", "minLength": 1 },
+        "quote": { "type": "string", "minLength": 1, "maxLength": 300 }
+      }
+    },
+    "norm_card": {
+      "type": "object",
+      "required": [
+        "id",
+        "norm_kind",
+        "proposition",
+        "formalization",
+        "authority_basis",
+        "doctrinal_status",
+        "polarity",
+        "source_refs",
+        "request_ids",
+        "variant_group",
+        "review_required",
+        "review_notes"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]*$" },
+        "norm_kind": {
+          "enum": [
+            "element",
+            "definition",
+            "causal_link",
+            "exception",
+            "standard",
+            "variant"
+          ]
+        },
+        "proposition": { "type": "string", "minLength": 1 },
+        "formalization": {
+          "enum": [
+            "deterministic_rule",
+            "standard_input",
+            "policy_variant",
+            "context_only"
+          ]
+        },
+        "authority_basis": {
+          "enum": [
+            "statutory_text_in_commentary",
+            "commentary_reported_precedent",
+            "commentary_synthesis",
+            "commentary_reported_doctrine"
+          ]
+        },
+        "doctrinal_status": {
+          "enum": [
+            "settled",
+            "precedent_position",
+            "disputed",
+            "descriptive"
+          ]
+        },
+        "polarity": { "enum": ["positive", "negative", "exception"] },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/source_ref" }
+        },
+        "request_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "variant_group": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string", "pattern": "^[a-z][a-z0-9_.-]*$" }
+          ]
+        },
+        "review_required": { "type": "boolean" },
+        "review_notes": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

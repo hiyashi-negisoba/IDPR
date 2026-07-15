@@ -471,3 +471,68 @@ variant로 분리했다. 절차법 후보는 `not excluded`를 적법성으로 �
 1. Inventory 61개 각각의 `covered=false`를 유지할지, 구현 범위에 따라 `true`로 올릴지 결정
 2. 사기죄 RuleIR의 4개 legal review question, strict variant 정책 및
    `rule|standard` 판정을 검토한 뒤 `draft/pending`을 승격할지 결정
+
+---
+
+## NormCard와 RuleIR 1.1 준비물
+
+작성일: 2026-07-15
+
+### Git 기준선
+
+- `IDPR`을 독립 Git 저장소로 초기화하고 기본 브랜치를 `main`으로 설정
+- 기존 연구 자산 65개 파일을 baseline commit `d70a8be`로 기록
+- 실제 `.env`, cache, 실행 log는 `.gitignore`로 제외
+
+### 새 rulegen 경계
+
+기존 `NormCandidateBatch -> RuleIR` 직접 병합 사이에 `NormCardSet`을 추가했다.
+
+```text
+NormCandidateBatch[]
+  -> candidate provenance validation
+  -> NormCardSet merge and validation
+  -> RuleIR 1.1 with norm_card_ids
+  -> deterministic Scallop compilation
+```
+
+NormCard는 하나의 독립 proposition, exact commentary quote, 해당 quote를 공급한 API
+request, 형식화 방식, 권위 성격, 학설 대립과 검수 상태를 함께 보존한다. RuleIR 1.1의
+모든 commentary-origin predicate와 rule은 `norm_card_ids`를 가져야 하며, RuleIR 인용은
+연결된 NormCard의 source 범위를 벗어날 수 없다.
+
+추가·변경된 핵심 파일:
+
+- `docs/contracts/norm_card_set.schema.json`
+- `docs/contracts/rule_ir.schema.json` (`version=1.1.0`)
+- `prompts/rulegen_merge_norm_cards.md`
+- `prompts/rulegen_merge_rule_ir.md`
+- `src/idpr/rulegen/__init__.py`
+- `data/rulegen/fraud/fraud_norm_card_set_exemplar.json`
+- `data/rulegen/fraud/fraud_rule_ir_exemplar.json`
+
+### 사기죄 exemplar
+
+- 형법 제347조 핵심 근거를 8개 `human_exemplar` NormCard로 구성
+- 각 카드의 source가 13개 extraction request 중 어디에서 왔는지 역추적 가능
+- `deterministic_rule`, `standard_input`, `policy_variant`를 분리
+- 재산상 손해와 불법영득·이득의사 대립은 `policy_variant`와 `review_required=true` 유지
+- 판례 관련 카드는 `commentary_reported_precedent`로 표시하여 판례 원문 검증 전
+  primary authority처럼 취급하지 않음
+- 모든 RuleIR predicate와 rule에 카드 링크를 부여하고 Scallop 주석에도 카드 ID 보존
+
+### 검증 결과
+
+- 전체 테스트: `25 passed`
+- Python `py_compile`: 통과
+- JSON 파일 구문 검사: 통과
+- `git diff --check`: 통과
+- 로컬에 `jsonschema`, `ruff`, `scallopy`/`scli`가 없어 각각 일반 JSON Schema runtime
+  검증, lint, Scallop runtime 실행은 아직 수행하지 않음
+
+### 법률 검수 잔여분
+
+1. 재산상 손해 독립요건에 관한 판례 기준 확인
+2. 불법영득·이득의사를 요구하는 사기 유형의 판례 기준 분류
+3. 삼각사기의 처분권한·재산상 근접성 predicate 확정
+4. 주석서가 보고한 판례 법리를 사용자 판례 index 원문과 대조

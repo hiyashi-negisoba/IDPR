@@ -24,8 +24,9 @@ python scripts/build_fraud_rulegen_exemplar.py
 ```
 
 The commentary-to-Scallop design is documented in
-`docs/rulegen/scallop_rulegen_strategy.md`. API models emit source-grounded JSON
-IR only; `idpr.rulegen` validates and compiles it locally.
+`docs/rulegen/scallop_rulegen_strategy.md`. API models emit source-grounded norm
+candidates, NormCards, and RuleIR only; `idpr.rulegen` validates provenance and
+compiles RuleIR locally.
 
 The provisional research framing, including the standalone workshop-paper task
 and its connection to the earlier DCDE/OBJECTION work, is in
