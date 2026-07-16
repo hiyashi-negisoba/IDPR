@@ -43,6 +43,11 @@ written to run manifests. The audited first fraud batch is tracked as
 contains 62 exact-source candidates and 8 unresolved questions, and remains
 `status=draft`.
 
+Terra extraction includes the compact
+`data/rulegen/fraud/fraud_norm_candidate_fewshot_gold.json` by default. It teaches
+doctrine/precedent separation without attaching the full 62-candidate artifact to
+every request. Use `--no-fewshot` for the paper's ablation condition.
+
 The API compatibility and cost audit is in
 `docs/rulegen/skiml_api_integration.md`. Critic findings are advisory: accepted
 findings become bounded correction inputs, while final changes are applied as a

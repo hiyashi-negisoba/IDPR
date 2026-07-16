@@ -33,6 +33,10 @@ from idpr.rulegen import (  # noqa: E402
 
 REQUESTS = PROJECT_ROOT / "data/rulegen/fraud/fraud_rulegen_requests.jsonl"
 EXTRACT_PROMPT = PROJECT_ROOT / "prompts/rulegen_extract_norm_candidates.md"
+EXTRACT_FEWSHOT = (
+    PROJECT_ROOT
+    / "data/rulegen/fraud/fraud_norm_candidate_fewshot_gold.json"
+)
 CRITIC_PROMPT = PROJECT_ROOT / "prompts/rulegen_critic.md"
 NORM_CANDIDATE_SCHEMA = (
     PROJECT_ROOT / "docs/contracts/norm_candidate_batch.schema.json"
@@ -51,9 +55,21 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
 
 
 def build_extraction_jobs(
-    requests: list[dict[str, Any]], max_tokens: int
+    requests: list[dict[str, Any]],
+    max_tokens: int,
+    use_fewshot: bool = True,
 ) -> list[JSONCompletionJob]:
     prompt = prompt_with_schema(EXTRACT_PROMPT, NORM_CANDIDATE_SCHEMA)
+    if use_fewshot:
+        prompt += (
+            "\nGold structural example:\n"
+            "Learn only its source-to-structure transformation. Never copy its fraud "
+            "doctrine, candidate IDs, source IDs, output count, or conclusions into "
+            "another target. The current request remains the only legal source.\n"
+            "```json\n"
+            + EXTRACT_FEWSHOT.read_text(encoding="utf-8").rstrip()
+            + "\n```\n"
+        )
     return [
         JSONCompletionJob(
             request_id=request["request_id"],
@@ -207,7 +223,11 @@ async def execute(args: argparse.Namespace, config: GatewayConfig) -> dict[str, 
     gateway = LLMGateway(config)
 
     terra_results = await gateway.complete_many(
-        build_extraction_jobs(requests, args.terra_max_tokens)
+        build_extraction_jobs(
+            requests,
+            args.terra_max_tokens,
+            use_fewshot=not args.no_fewshot,
+        )
     )
     write_usage_manifest(run_dir / "terra_usage.jsonl", terra_results)
     valid_terra, validation_records = validate_terra_results(
@@ -242,6 +262,7 @@ async def execute(args: argparse.Namespace, config: GatewayConfig) -> dict[str, 
         "created_at": datetime.now(timezone.utc).isoformat(),
         "requests": len(requests),
         "with_critic": args.with_critic,
+        "fewshot": not args.no_fewshot,
         "terra_model": config.model_for_role("terra"),
         "sol_model": config.model_for_role("sol") if args.with_critic else None,
         "max_concurrency": config.max_concurrency,
@@ -263,6 +284,7 @@ def dry_run_summary(args: argparse.Namespace) -> dict[str, Any]:
         "commentary_chars": sum(request["batch"]["n_chars"] for request in requests),
         "planned_api_calls": len(requests) * (2 if args.with_critic else 1),
         "with_critic": args.with_critic,
+        "fewshot": not args.no_fewshot,
         "terra_model": _env_or_missing("IDPR_TERRA_MODEL"),
         "sol_model": _env_or_missing("IDPR_SOL_MODEL") if args.with_critic else None,
         "api_key": "set" if _env_or_missing("SKIML_API_KEY") != "MISSING" else "MISSING",
@@ -289,6 +311,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--with-critic", action="store_true")
+    parser.add_argument("--no-fewshot", action="store_true")
     parser.add_argument("--limit", type=int, default=1)
     parser.add_argument("--concurrency", type=int, default=1)
     parser.add_argument("--terra-max-tokens", type=int, default=6_000)

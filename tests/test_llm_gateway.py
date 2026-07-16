@@ -163,6 +163,13 @@ def test_pilot_prompt_includes_exact_output_schema() -> None:
 
     assert '"$id": "idpr/NormCandidateBatch"' in job.system_prompt
     assert "Exact output JSON Schema" in job.system_prompt
+    assert "fraud.sex-work-authority-scope.gold" in job.system_prompt
+    assert "Never copy its fraud doctrine" in job.system_prompt
+
+    without_fewshot = build_extraction_jobs(
+        [request], max_tokens=100, use_fewshot=False
+    )[0]
+    assert "fraud.sex-work-authority-scope.gold" not in without_fewshot.system_prompt
 
 
 def test_correction_jobs_keep_revision_and_critic_roles_separate() -> None:

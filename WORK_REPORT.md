@@ -592,3 +592,27 @@ dashboard를 기준으로 확인해야 한다.
 - `git diff --check`: 통과
 - 현재 Python 환경에 `ruff`가 설치되어 있지 않아 lint는 실행하지 못함
 - 실제 Scallop runtime 검증과 판례 원문 대조는 아직 수행하지 않음
+
+---
+
+## Compact gold few-shot과 전체 풀 예산 계획
+
+작성일: 2026-07-16
+
+62개 후보 전체를 매 요청에 첨부하지 않고, 학설 대립과 판례의 좁은 적용범위를 함께
+보존하는 3개 후보를 `fraud_norm_candidate_fewshot_gold.json`으로 선별했다. 이 예시는
+성매매 관련 긍정설·부정설을 별도 variant로 유지하면서 지급면탈형 판례 입장을 별도
+standard로 표현한다. Terra는 이 source-to-structure 변환만 학습하며 사기죄 법리,
+식별자, 후보 수 또는 결론을 다른 요청에 복사해서는 안 된다.
+
+- 기본 extraction: compact few-shot 사용
+- 논문 ablation: `--no-fewshot`
+- exemplar 크기: 4,467 characters
+- 테스트: `39 passed`
+
+현재 commentary pool은 3,108 chunks, 2,654,246 characters, 102 article targets이다.
+12,000 characters 단순 packing의 이론적 최소치는 222 requests이고, 조문·절 경계를
+보존하면 더 늘어난다. Terra와 Sol을 모든 batch에서 반복하는 방식은 예산에 맞지 않는다.
+Terra는 전수 실행하되 Sol은 층화표본, high-risk batch, 검증 실패 batch에 집중한다.
+NormCard merge, RuleIR 생성과 여유분을 포함한 실무 예산은 약 $60-$80으로 잡는다.
+따라서 잔액이 $97.5라면 전체 범위를 진행할 수 있지만, 문자 그대로 $7.5라면 불가능하다.

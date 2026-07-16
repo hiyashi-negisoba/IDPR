@@ -53,6 +53,10 @@ FINAL_ADJUDICATION = (
     PROJECT_ROOT
     / "data/rulegen/fraud/fraud_pass1_001_revision6_final_adjudication.json"
 )
+FEWSHOT_GOLD = (
+    PROJECT_ROOT
+    / "data/rulegen/fraud/fraud_norm_candidate_fewshot_gold.json"
+)
 RULE_IR = PROJECT_ROOT / "data/rulegen/fraud/fraud_rule_ir_exemplar.json"
 SCALLOP = PROJECT_ROOT / "rules/exemplars/fraud_v1_candidate.scl"
 PROCEDURAL_GATE = PROJECT_ROOT / "rules/exemplars/procedural_gate_v1_candidate.scl"
@@ -464,6 +468,33 @@ def test_fraud_final_candidate_exemplar_and_adjudication_are_valid() -> None:
     assert adjudication["verdict"] == "pass"
     assert not adjudication["findings"]
     assert "법률검토 완료를 의미하지 않는다" in adjudication["summary"]
+
+
+def test_fraud_gold_fewshot_is_an_exact_subset_of_final_exemplar() -> None:
+    final = json.loads(FINAL_CANDIDATES.read_text(encoding="utf-8"))
+    fewshot = json.loads(FEWSHOT_GOLD.read_text(encoding="utf-8"))
+    final_by_id = {
+        candidate["candidate_id"]: candidate
+        for candidate in final["candidates"]
+    }
+    expected = fewshot["expected_output"]
+
+    assert fewshot["exemplar_id"] == "fraud.sex-work-authority-scope.gold"
+    assert len(expected["candidates"]) == 3
+    assert all(
+        candidate == final_by_id[candidate["candidate_id"]]
+        for candidate in expected["candidates"]
+    )
+    assert all(
+        any(
+            ref["comment_id"] == source["comment_id"]
+            and ref["section_path"] == source["section_path"]
+            and ref["quote"] == source["text"]
+            for source in fewshot["source_excerpts"]
+        )
+        for candidate in expected["candidates"]
+        for ref in candidate["source_refs"]
+    )
 
 
 def test_fraud_and_procedural_exemplars_enforce_positive_evidence_gates() -> None:

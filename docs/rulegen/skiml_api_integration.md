@@ -71,3 +71,17 @@ Correction does not continue until Sol returns zero findings. Findings are adjud
 against the bounded source. Unsupported opposing views and enumerated case illustrations
 remain unresolved questions or RAG context. Accepted changes use a validated minimal patch;
 legal verification still requires human review and primary precedent comparison.
+
+## Full-pool projection
+
+The current KCL commentary pool contains 3,108 chunks and 2,654,246 characters across
+102 article targets. Packing only by 12,000 characters gives a theoretical minimum of 222
+requests; preserving article and section boundaries will produce more. Using the first
+successful Terra plus Sol pass as the reference gives roughly $42 at the theoretical
+minimum and approximately $45 to $60 after boundary overhead. NormCard merging, selective
+criticism, RuleIR generation, and contingency suggest a practical $60 to $80 envelope.
+
+Therefore a balance near $97.5 is adequate with staged execution and stop limits. A literal
+$7.5 balance is not enough for the full pool. Full iterative Sol criticism on every batch is
+not budgeted; Terra runs every batch, while Sol should audit a stratified sample and all
+high-risk or failed batches.

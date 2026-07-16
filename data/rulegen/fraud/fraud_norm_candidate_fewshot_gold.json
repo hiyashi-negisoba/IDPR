@@ -1,0 +1,80 @@
+{
+  "exemplar_id": "fraud.sex-work-authority-scope.gold",
+  "expected_output": {
+    "candidates": [
+      {
+        "candidate_id": "fraud.variant.sex-work-contract-fraud-affirmative",
+        "norm_kind": "variant",
+        "polarity": "positive",
+        "proposition": "성매매 계약이 민법상 무효라도 성매매 의사 또는 금전 지급 의사 없이 상대방을 기망한 경우 사기죄가 성립한다는 긍정설이 있다.",
+        "review_required": true,
+        "source_refs": [
+          {
+            "comment_id": "comm_001692_제347조_Ⅱ.3_4",
+            "quote": "성매매를 할 의사가 없거나 금전 지급의 의사 없이 상대방을 기망한 경우에는 사기죄가 성립한다는 긍정설",
+            "section_path": "Ⅱ.3"
+          }
+        ]
+      },
+      {
+        "candidate_id": "fraud.variant.sex-work-contract-fraud-negative",
+        "norm_kind": "variant",
+        "polarity": "negative",
+        "proposition": "성매매 관련 사취 이익은 법률상 보호받을 수 없어 재산 침해가 없으므로 사기죄가 성립하지 않는다는 부정설이 있다.",
+        "review_required": true,
+        "source_refs": [
+          {
+            "comment_id": "comm_001692_제347조_Ⅱ.3_4",
+            "quote": "사취된 이익이 법률상 보 호를 받을 수 없어 재산에 대한 침해가 없으므로 사기죄가 성립하지 않는다는 부정설이 있다.",
+            "section_path": "Ⅱ.3"
+          }
+        ]
+      },
+      {
+        "candidate_id": "fraud.standard.sex-work-payment-evasion",
+        "norm_kind": "standard",
+        "polarity": "positive",
+        "proposition": "부녀가 금품 등을 받을 것을 전제로 성행위를 하는 경우 그 대가는 사기죄 객체인 경제적 이익에 해당하므로, 부녀를 기망하여 성행위 대가 지급을 면한 경우 사기죄가 성립한다는 판례 입장이 소개되어 있다.",
+        "review_required": true,
+        "source_refs": [
+          {
+            "comment_id": "comm_001692_제347조_Ⅱ.3_5",
+            "quote": "부녀가 금품 등을 받을 것을 전제로 성행위를 하는 경우 그 행위 의 대가는 사기죄의 객체인 경제적 이익에 해당하므로, 부녀를 기망하여 성행위 대가의 지급을 면하는 경우 사기죄가 성립한다고 한다.",
+            "section_path": "Ⅱ.3"
+          }
+        ]
+      }
+    ],
+    "request_id": "fewshot.fraud.sex-work-authority-scope",
+    "status": "draft",
+    "unresolved_questions": [
+      "성매매 계약에서 기망으로 금전을 교부받는 유형에 관하여 긍정설과 부정설 중 어느 견해를 채택할 것인지.",
+      "성행위 대가 지급면탈형에는 사기죄 성립을 인정하는 판례가 소개되어 있는 가운데, 성매매 관련 계약 일반에 관한 학설 대립을 어떻게 정리할 것인지."
+    ]
+  },
+  "selection_rationale": "대립 학설을 보존하면서 특정 하위유형에 관한 판례 입장을 별도 권위와 좁은 범위로 추출하는 모범 변환이다.",
+  "source_excerpts": [
+    {
+      "comment_id": "comm_001692_제347조_Ⅱ.3_4",
+      "section_path": "Ⅱ.3",
+      "text": "성매매를 할 의사가 없거나 금전 지급의 의사 없이 상대방을 기망한 경우에는 사기죄가 성립한다는 긍정설"
+    },
+    {
+      "comment_id": "comm_001692_제347조_Ⅱ.3_4",
+      "section_path": "Ⅱ.3",
+      "text": "사취된 이익이 법률상 보 호를 받을 수 없어 재산에 대한 침해가 없으므로 사기죄가 성립하지 않는다는 부정설이 있다."
+    },
+    {
+      "comment_id": "comm_001692_제347조_Ⅱ.3_5",
+      "section_path": "Ⅱ.3",
+      "text": "부녀가 금품 등을 받을 것을 전제로 성행위를 하는 경우 그 행위 의 대가는 사기죄의 객체인 경제적 이익에 해당하므로, 부녀를 기망하여 성행위 대가의 지급을 면하는 경우 사기죄가 성립한다고 한다."
+    }
+  ],
+  "transfer_rules": [
+    "Copy the transformation pattern, never the fraud doctrine, IDs, or output count.",
+    "Preserve competing doctrine as separate variants.",
+    "Represent a reported precedent separately from doctrine and keep its factual subtype narrow.",
+    "Do not call an entire issue unresolved when the source reports a practice-oriented position for one subtype."
+  ],
+  "version": "1.0.0"
+}
