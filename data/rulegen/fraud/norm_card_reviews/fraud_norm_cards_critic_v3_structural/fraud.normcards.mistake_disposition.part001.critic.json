@@ -1,0 +1,105 @@
+{
+  "findings": [
+    {
+      "finding_id": "f1.collapsed_triangular_fraud_variants",
+      "message": "하나의 카드가 인과관계설, 계약관계설, 법적 권한설, 사실상 지위설 및 다수설의 처분능력 요건을 병합하였다. 이들은 서로 다른 기준을 제시하는 경쟁 견해이므로 단일 policy_variant로 합치면 개별 견해의 선택과 비교가 불가능하다.",
+      "recommended_action": "각 경쟁 견해를 별도 NormCard로 유지하고 동일한 삼각사기 처분권한 variant_group으로 연결하라. 다수설이라는 평가와 처분능력 요건도 해당 견해와의 관계가 명확하게 보존되도록 하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_57",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "$.cards[42]",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "f2.disposition_intent_variant_groups",
+      "message": "처분의사 불요설과 절충설이 각각 서로 다른 pending variant_group에 배치되어 경쟁 견해라는 관계가 보존되지 않았다. 같은 쟁점에 관한 처분의사 요구 명제 및 판례 카드도 별도의 공통 그룹을 사용하고 있어 정책 선택 구조가 분절되어 있다.",
+      "recommended_action": "처분의사 불요설과 절충설을 하나의 공통 처분의사 variant_group에 배치하고, 관련 일반 명제 및 판례 카드와의 관계를 검토 질문으로 명시하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_50",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "$.cards[15].variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "f3.voluntariness_variant_groups",
+      "message": "형사 사칭 압수 사안에서 자의성을 부정하는 견해와 순순한 교부 또는 묵인 시 자의성을 긍정하는 견해가 서로 다른 pending 그룹에 놓여 있다. 동일 사안의 대립 또는 조건부 구별이라는 관계가 표현되지 않는다.",
+      "recommended_action": "두 카드를 동일한 처분행위 자의성 variant_group으로 연결하고, 상반된 결론인지 사실조건에 따른 구별인지 검토하도록 하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_52",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "$.cards[20].variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "f4.triangular_precedent_interpretation_groups",
+      "message": "과거 판례의 법적 권한설 해석, 94도1575 판결의 사실상 지위설 해석, 99도484 판결에 따른 전환 단정의 유보가 각각 독립된 pending 그룹에 배치되었다. 이 카드들은 대법원 입장의 이론적 귀속과 전환 여부라는 동일한 미해결 권위 문제를 구성한다.",
+      "recommended_action": "세 해석 카드를 공통 삼각사기 판례입장 variant_group에 연결하고, 일반 학설 카드 및 관련 판례 기준 카드와의 관계를 명시하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_58",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "$.cards[45].variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "f5.missing_legal_review_questions",
+      "message": "카드 세트에는 처분의사 학설, 자의성 견해, 삼각사기 권한설 및 판례 입장 전환 여부 등 다수의 disputed policy_variant가 존재하지만 legal_review_questions가 비어 있다. pending 그룹과 review_notes에 표시된 미해결 권위 선택도 검토 질문으로 승격되지 않았다.",
+      "recommended_action": "각 경쟁 견해군별로 채택 여부, 판례와 학설의 관계, 판례 입장 전환 여부를 묻는 최소한의 법률 검토 질문을 추가하라.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "$.legal_review_questions",
+      "type": "other"
+    },
+    {
+      "finding_id": "f6.unsupported_precedent_status_false_loan",
+      "message": "제공된 후보와 인용문은 용도사기의 명제를 제시하지만 이를 판례의 입장이라고 식별하지 않는다. 그런데 카드는 doctrinal_status를 precedent_position으로 지정하였다.",
+      "recommended_action": "bounded source에서 판례 귀속을 확인할 수 없다면 doctrinal_status를 commentary 수준에 맞게 조정하고, 판례 지위는 별도 근거가 확보될 때까지 미확정으로 두라.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "target_path": "$.cards[2].doctrinal_status",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "f7.unsupported_precedent_status_bus",
+      "message": "버스 뒷문 승차 사례의 제공된 후보와 인용문은 사례 결론만 제시하며 판례라고 명시하지 않는다. precedent_position 지정은 현재의 bounded source보다 강한 권위 귀속이다.",
+      "recommended_action": "판례 귀속을 뒷받침하는 근거가 없다면 doctrinal_status를 commentary의 사례 설명에 맞게 낮추거나 판례 여부를 검토 대상으로 표시하라.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "target_path": "$.cards[5].doctrinal_status",
+      "type": "authority_mismatch"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_mistake_disposition_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "대부분의 후보 명제와 출처는 보존되었으나, 핵심 경쟁 견해들이 병합되거나 서로 다른 pending variant_group으로 분산되어 정책 선택 구조가 손상되었다. 또한 disputed 항목에 대한 법률 검토 질문이 없고 일부 사례에 근거 없는 판례 지위가 부여되어 수정이 필요하다.",
+  "target_id": "kr.fraud.article347.mistake_disposition.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

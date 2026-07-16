@@ -1,0 +1,115 @@
+{
+  "findings": [
+    {
+      "finding_id": "f1.unsupported_rationale",
+      "message": "엄격해석이 필요하다는 부분은 출처가 뒷받침하지만, 그 이유를 ‘민사소송제도 위축을 방지하기 위하여’라고 특정하는 내용은 연결된 출처 문언에 나타나지 않는다.",
+      "recommended_action": "출처가 직접 뒷받침하지 않는 목적 문구만 삭제하거나, 해당 목적을 명시한 범위 내 출처를 추가하도록 검토한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_83",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "target_path": "/cards/1/proposition",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "f2.cost_claim_added_conditions",
+      "message": "연결된 출처는 소송비용을 편취할 의사로 손해배상청구를 제기한 경우 불능범이라는 결론만 제시한다. 카드가 추가한 ‘소송비용액 확정절차를 거치지 않고’, ‘허용될 수 없는 부적법한 소이므로’라는 절차적 사실과 이유는 제공된 출처로 확인되지 않는다.",
+      "recommended_action": "출처에 없는 절차적 전제와 이유를 제거하고 출처가 지지하는 불능범 결론으로 한정하거나, 이를 뒷받침하는 출처를 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_85",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "target_path": "/cards/16/proposition",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "f3.payment_order_unsupported_clause",
+      "message": "제공된 출처는 허위 증거 없이도 충분한 허위 주장이 기망수단이 되어 사기죄가 성립할 수 있다는 부분만 뒷받침한다. ‘상대방 이의로 지급명령이 효력을 잃어도 이미 착수한 사기행위가 없어진 것은 아니다’라는 별도 명제는 연결된 출처에 포함되어 있지 않다.",
+      "recommended_action": "지원되지 않는 이의 제기 및 실행착수 유지 문구를 제거하거나 그 명제를 직접 뒷받침하는 출처를 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_90",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "target_path": "/cards/32/proposition",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "f4.case_authority_misclassified",
+      "message": "다수 카드는 출처가 ‘본 사안’이라고 보고하는 구체적 판례 결과임에도 모두 authority_basis를 commentary_synthesis로 지정했다. 특히 제권판결, 가압류, 등기, 지급명령, 강제집행 및 경매 관련 사실관계별 결론은 일반적인 주석 종합 규범과 구별하여 commentary-reported precedent로 취급해야 한다.",
+      "recommended_action": "각 카드의 출처 성격을 개별 점검하여 ‘본 사안’으로 보고된 판례 결과의 authority_basis를 commentary-reported precedent에 해당하는 값으로 정정하고, 일반론 카드만 commentary_synthesis로 유지한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_87",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_88",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_89",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_90",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_91",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "target_path": "/cards",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "f5.settled_status_unsupported",
+      "message": "정의 카드와 일부 요소 카드에 사용된 ‘settled’ 평가는 제공된 후보 또는 출처에서 확인되지 않는다. 후보의 review_required=false는 교리의 확립 여부를 의미하지 않는다.",
+      "recommended_action": "‘settled’로 지정된 정의·요소 카드 전부의 교리 상태를 출처 근거에 따라 재검토하고, 확립성을 확인할 수 없으면 미확정 또는 기술적 상태로 낮춘다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_83",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_84",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_86",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "target_path": "/cards/0/doctrinal_status",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "f6.review_questions_missing",
+      "message": "카드 집합은 legal_review가 pending이고 다수 카드가 review_required=true이며, 각 review_notes도 권위와 변형 그룹 검토가 남았다고 명시한다. 그런데 legal_review_questions가 비어 있어 필요한 권위 선택, 판례 예시와 일반 규범의 구별, variant_group 설정에 관한 검토 질문이 누락되었다.",
+      "recommended_action": "권위 분류, 사례특정 명제의 일반화 가능성, doctrinal_status, 상충하거나 관련된 긍정·부정 카드의 variant_group 필요성을 묻는 최소한의 검토 질문을 추가한다.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/legal_review_questions",
+      "type": "other"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_special_forms_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "후보는 대체로 일대일로 보존되었지만, 일부 명제에 출처 밖 이유나 효과가 추가되었고, 판례가 보고된 다수 사례를 주석 종합으로 일괄 분류했다. 또한 ‘settled’ 상태의 근거가 없고 필수적인 법률 검토 질문이 비어 있으므로 수정과 사람의 검토가 필요하다.",
+  "target_id": "kr.fraud.article347.special_forms.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

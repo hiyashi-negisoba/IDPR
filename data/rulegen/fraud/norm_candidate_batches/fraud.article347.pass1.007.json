@@ -1,0 +1,807 @@
+{
+  "candidates": [
+    {
+      "candidate_id": "fraud.standard.wallet-finder-false-ownership",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "상점 주인이 습득한 지갑을 진정한 소유자에게 반환할 지위에서 피고인의 허위 답변에 따라 이를 교부한 경우, 상점 주인의 처분권능·지위와 기망에 의한 처분행위를 인정하여 사기죄가 성립한다는 판례가 소개되어 있다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_55",
+          "quote": "상점 주인은 반지갑을 습득하여 이를 진정한 소유자에게 돌려주어야 하는 지위에 있어 피해자 를 위하여 이를 처분할 수 있는 권능을 갖거나 그 지위에 있었고, 피고인의 기망 에 의하여 상점 주인이 처분행위를 하였다고 보아 사기죄의 성립을 긍정하였다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.causal-link.disposition-caused-by-mistake",
+      "norm_kind": "causal_link",
+      "polarity": "positive",
+      "proposition": "재산적 처분행위는 착오에 의한 것이어야 하며, 사기죄에는 기망·착오·재산적 처분행위 사이의 인과관계가 필요하다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_55",
+          "quote": "재산적 처분행위는 착오에 인한 것이어야 한다. 사기죄는 타인을 기망하여 착오에 빠뜨리고 처분행위를 유발하여 재물을 교부받거나 재산상의 이익을 얻 음으로써 성립하므로, 기망, 착오, 재산적 처분행위 사이에 인과관계가 있어야 한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard.deception-disposition-causation-assessment",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "기망행위 해당 여부 및 그 기망과 재산적 처분행위 사이 인과관계는 거래 상황, 상대방의 지식·성격·경험·직업 등 행위 당시의 구체적 사정을 고려하여 일반적·객관적으로 판단한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_55",
+          "quote": "어떠한 행위가 타인을 착오에 빠지게 한 기망행위에 해당하는지 및 그러한 기망행위와 재산적 처분행위 사이에 인과관계가 있는지는 거래의 상황, 상대방의 지식, 성격, 경험, 직업 등 행위 당시의 구체적 사정을 고려하여 일반 적·객관적으로 판단하여야 한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.causal-link-no-causation-attempt",
+      "norm_kind": "causal_link",
+      "polarity": "positive",
+      "proposition": "기망과 처분행위 사이 인과관계가 인정되지 않으면 사기미수죄가 성립한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_55",
+          "quote": "인과관계가 인정되지 않으면 사기미수죄가 성립한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard.repeat-demand-after-prior-loss",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "전에 재물을 편취당한 피해자에게 다시 금원을 요구하였으나 목적을 달성하지 못한 경우에는 사기미수죄만 성립한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_55",
+          "quote": "전에 재물을 편 취당한 바 있는 피해자에게 다시 금원을 요구하여 목적을 달성하지 못한 경우 사기미수죄만 성립한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-no-disposition-capacity-theft",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "의사능력이 없는 유아 또는 정신장애인처럼 재산적 처분행위 능력이 없는 사람에게 기망적 수단을 사용하여 재물을 취득한 경우 사기죄는 성립하지 않고 절도죄가 성립한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_55",
+          "quote": "의사능 력이 없는 유아, 정신장애인은 재산적 처분행위를 할 능력이 없으므로, 기망적 수단을 사용하여 위와 같은 자로부터 재물을 취득하는 것은 사기죄가 성립하지 않고 절도죄가 성립한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-known-dishonored-check",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "피해자들이 당좌거래 정지 사실을 알면서 기존채무 지급 확보를 위하여 무거래수표를 발행받은 경우, 채무이행 일시 연기는 수표를 유거래수표로 오신한 결과가 아니므로 사기죄가 성립하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_55",
+          "quote": "당좌거래가 정지된 사실을 피해자들이 알면서 단지 기존채무의 지급을 확보하 기 위하여 거래정지가 된 무거래수표를 피고인으로부터 발행받은 경우에는 피 고인이 채무이행의 일시 연기를 얻었다고 하더라도 그것은 피해자가 위 무거래 수표를 유거래의 수표로 오신한 결과에 기인한 것이 아니므로 사기죄가 성립하 지 않는다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.element.intent-to-obtain-property-gain",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "사기죄에는 범인이 타인을 기망하여 재산적 이득을 취한다는 목적의사가 있어야 한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
+          "quote": "이 경우 범인에게 타인을 기망하여 재산적 이 득을 취한다는 목적의사가 있어야 하며",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.causal-link-mistake-not-sole-cause",
+      "norm_kind": "causal_link",
+      "polarity": "positive",
+      "proposition": "착오는 처분행위의 유일한 원인일 필요가 없고, 피해자에게 과실이 있어도 인과관계는 부정되지 않는다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
+          "quote": "그러나 착오가 처분행위의 유일한 원인이 될 것까지 요구하 는 것은 아니고, 피해자의 과실이 있어도 인과관계가 부정되지 않는다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-road-occupancy-permit-discretion",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "도로점용허가는 관리청의 재량에 따라 결정되는 것이므로, 도로부지 사실상 사용자가 누구인지에 관한 기망이 있어도 그로 인하여 허가가 이루어진 것이 아니면 사기죄가 성립하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
+          "quote": "도로의 점용허가는 오로지 관리청의 재량에 의하여 결정할 수 있는 것이므로 도로부지의 사실상 사용자가 누구인가에 관하여 기망행위가 있었다고 하더라도 이에 기인하여 도로점용허가가 이루어진 것은 아니므로, 사기죄가 성립하지 않 는다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-partnership-operator-misrepresentation",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "피해자가 운영실권자에 관한 착오가 없었더라도 동업계약을 체결하지 않았을 것이라는 합리적 사정이 없으면, 실권자에 관한 기망과 처분행위의 인과관계는 인정되지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
+          "quote": "피해자가 운영실권자에 대한 착오가 없었더라면 동업계약을 맺지 않았 을 것이라는 합리적인 사정이 없다면 실권자가 누구인가에 관하여 기망행위가 있었다고 하더라도 기망행위와 피해자의 처분행위 사이에 인과관계가 인정되지 않는다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-phishing-account-bank-withdrawal",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "보이스피싱 대포통장 명의인이 예금을 인출한 경우, 계좌이체 후 은행의 수취인에 대한 예금 지급은 예금계약 성립과 예금채권 취득에 따른 것이므로 은행의 착오에 의한 처분행위가 아니며, 은행을 피해자로 한 사기죄는 성립하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
+          "quote": "은행이 수취인에게 그 예금을 지급하는 행위는 계좌이체금액 상당의 예금계약 의 성립 및 그 예금채권 취득에 따른 것으로서 은행이 착오에 빠져 처분행위를 한 것이라고 볼 수 없으므로, 은행을 피해자로 한 사기죄가 성립하지 않는다",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-active-creditor-extension-or-waiver",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "기망으로 채권자가 적극적으로 채무변제 연기 또는 채무면제의 의사표시를 한 경우, 채무이행을 일시 면한 것은 불법이득에 해당한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
+          "quote": "기망으로 인하여 채권자가 적극적으로 채무변제의 연기 내지 채무면제의 의사표 시를 한 때에는 채무의 이행을 일시 면한 것이 불법이득에 해당하는 것이 분명 하다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-conscious-nonexercise-of-claim",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "피기망자가 착오에 빠진 결과 의식적으로 채권을 행사하지 않은 경우, 그 부작위도 재산적 처분행위가 될 수 있다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
+          "quote": "피기망자가 착오에 빠진 결과 의식적으로 채권을 행사하 지 않은 경우에는 이러한 부작위도 재산적 처분행위라고 할 수 있지만",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-debt-payment-evasion-by-leaving-hospital",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "환자가 치료비채무 이행을 임시 모면하려고 거짓말을 하고 병원을 빠져나와 도주하였더라도, 그것만으로 치료비 지급채무를 면탈한 것은 아니므로 사기죄가 성립하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
+          "quote": "환자가 부담하게 된 치료비채무의 이행을 임시 모면하기 위하여 거짓말을 하고 병원을 빠져 나와 도",
+          "section_path": "Ⅳ.3"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
+          "quote": "주하였다고 하더라도 그것만으로는 치료비의 지급채무를 면탈받은 것이 아니므 로, 사기죄가 성립하지 않는다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-hiding-after-loan",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "금품을 빌린 사람이 무단 퇴거하여 행방을 감춤으로써 사실상 채무지급을 일시 면하였더라도, 행방을 감춘 것만으로 사기죄가 성립하기에는 부족하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_57",
+          "quote": "타인으로부터 금품을 빌린 자가 무단으로 주거를 퇴거하여 행방을 감춤으 로써 사실상 채무의 지불을 일시 면한 경우 행방을 감춘 것만으로는 사기죄가 성립하기에 부족하다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-assignment-and-debt-extinguishment",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "채무이행을 위하여 채권 등 재산권리가 양도되었다는 사정만으로 처분행위를 단정해서는 안 되며, 기존채무의 확정적 소멸 또는 면제를 전제로 한 것인지 적극적으로 살펴 채무면제 목적 사기죄 성립 여부를 판단해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_57",
+          "quote": "채무의 이행을 위하여 채권 기타 재산적 권리의 양도가 있었다는 사정만으로 그러한 처분행위가 있었다고 단정하여서는 안 되고, 그것이 기존 채무의 확정적 인 소멸 내지 면제를 전제로 이루어진 것인지 여부를 적극적으로 살핀 다음, 채 무면제를 목적으로 하는 사기죄의 성립 여부를 판단하여야 한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.definition-triangular-fraud",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "피기망자와 재산상 피해자는 동일인일 필요가 없고, 피해자와 처분행위자가 다른 경우를 삼각사기라고 한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_57",
+          "quote": "피기망자와 재산상의 피해자는 동일인임을 요하지 않으므로, 피해자와 처분행위 자도 동일인일 필요는 없다. 양자가 상이한 경우를 삼각사기라고 (Dreiecksbetrug) 한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-triangular-fraud-causation-theory",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "삼각사기에서 처분행위자와 피해자의 관계에 관하여, 피기망자의 처분과 행위자의 이득 사이에 인과관계만 있으면 충분하다는 견해가 있다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_57",
+          "quote": "피기망자 의 처분과 행위자의 이득 사이에 인과관계가 있으면 족하다는 견해가 있으 나",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-triangular-fraud-contractual-authority",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "삼각사기에서 처분행위자는 계약관계에 따라 피해자 재산을 처분할 권한이 있어야 한다는 계약관계설이 있다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_57",
+          "quote": "처분행위자가 계약관 계에 의하여 피해자의 재산을 처분할 수 있는 권한이 있어야 한다는 계약관계 설",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-triangular-fraud-legal-authority",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "삼각사기에서 처분행위자는 법률·계약 또는 최소한 묵시적 위임에 따른 법적 처분권한이 있어 피해자의 재산영역에 들어와 있어야 한다는 법적 권한설이 있다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_57",
+          "quote": "처분행위자에게 법률·계약 또는 최소한 묵시적 위임에 의하여 피해 자의 재물을 처분할 수 있는 법적 권한이 있어 처분자가 피해자의 재산영역에 들어와 있어야 한다는 법적 권한설",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-triangular-fraud-factual-position",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "삼각사기에서 처분행위자가 타인 재산을 사실상 처분할 지위에 있어 피해자의 사실상 힘의 영역에 들어와 있으면 충분하다는 사실상 지위설이 있으며, 이는 다수설로 소개된다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_57",
+          "quote": "타인의 재산을 사실상 처분할 수 있 는 지위에 있어 처분자가 피해자의 사실상의 힘의 영역에 들어와 있으면 족하 다는 사실상의 지위설의 대립이 있으나, 사실상의 지위설이 다수설이다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-triangular-fraud-documents-delivered",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "피기망자가 피해자의 의사에 기하여 재산처분 서류 등을 교부받은 경우에는, 그 처분이 피해자의 진정한 의도와 어긋나더라도 피해자를 위하여 재산을 처분할 권능 또는 지위가 있는 것으로 보아야 한다는 판례가 소개되어 있다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_58",
+          "quote": "피해자의 의사에 기하여 재산을 처분할 수 있는 서류 등이 교부된 경우 에는 피기망자의 처분행위가 설사 피해자의 진정한 의도와 어긋나는 경우라고 할지 라도 위와 같은 권능을 갖거나 그 지위에 있는 것으로 보아야 한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-forged-patent-transfer-documents",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "피해자 명의의 명의변경 서류를 위조하여 일본국 특허청 공무원에게 제출해 특허 출원자 명의를 변경한 경우, 피해자의 특허를 받을 권리에 관한 처분행위도 공무원의 처분권한도 인정되기 어려워 사기죄를 구성하기 어렵다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_59",
+          "quote": "피해자의 이 사건 특허를 받을 수 있는 권리에 관한 처분행위 가 있었다고 할 수 없을 뿐만 아니라 일본국 특허청 공무원에게 이 사건 특허를 받을 수 있는 권리의 처분권한이 있다고도 볼 수 없으므로, 사기죄를 구성한다 고 보기 어렵다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-forged-promissory-note-existing-debt",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "기존채무에 관하여 위조 약속어음을 진정한 어음처럼 교부하였더라도, 피해자가 물품대금 채무를 소멸시키는 등의 처분행위를 하였다는 증거가 없으면 사기죄는 성립할 수 없다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_60",
+          "quote": "피고인이 피해자에게 위조한 약속어 음을 마치 진정한 어음인 것처럼 기망하여 밀린 물품대금 채무의 변제 명목으 로 교부하였다고 하더라도 피해자가 피고인의 물품대금 채무를 소멸시키는 등 어떠한 처분행위를 한 사실을 인정할 증거가 없다면 사기죄가 성립될 수 없다 고 본 사안",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-false-stolen-note-report",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "약속어음 발행인이 어음이 사취된 것처럼 가장하여 피사취계를 제출하였더라도, 이는 지급위탁 취소 의사표시에 불과하고 은행의 어음금 지급 처분행위를 유발한 것으로 볼 수 없어 사기죄가 성립하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_60",
+          "quote": "발행인이 어음이 사취된 것처럼 가장하 여 피사취계를 제출하였다고 하더라도 이로써 은행을 기망하여 어음금 지급에 관한 재산적 처분행위를 하게 한 것이라고 볼 수 없다는 이유로 사기죄가 성립 하지 않는다고 본 사안",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-bank-deposit-inducement-and-diversion",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "피고인들이 예금 유인행위로 피해자들을 은행에 오게 하고 은행 직원이 예금금을 변태처리하게 하였더라도, 피해자와 은행 사이 예금계약이 유효하게 성립한 경우 사기죄는 성립하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_60",
+          "quote": "피해자들과 은행 사이에 예금계약은 유효하게 성립하였으므로, 사기죄 가 성립하지 않는다고 본 사안",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-seal-delivery-for-registration",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "부동산 소유권이전등기 서류 작성에 필요한 인감도장을 용도를 속여 교부받고 등기를 마쳤더라도, 피해자의 처분행위가 없고 인감도장을 영득할 의사도 없으면 사기죄가 성립하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_61",
+          "quote": "피해자의 처분행위가 있었다고 할 수 없고 인감도장이라는 재물을 영득할 의사가 없었던 것이라면 사기죄가 성립하지 않는다고 본 사안",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-unauthorized-general-telephone-use",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "타인의 일반전화를 무단 이용한 통화는 전기통신사업자의 역무를 부당 이용한 것에 불과하고, 사업자의 기망이나 착오에 의한 처분행위가 아니므로 사기죄가 성립하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_61",
+          "quote": "전기통신사업 자에 대한 기망행위에 해당한다고 볼 수 없고, 이에 따라 제공되는 역무도 일반 전화 가입자와 한국전기통신공사 사이에 체결된 서비스이용계약에 따라 제공되 는 것으로서 한국전기통신공사가 착오에 빠져 처분행위를 한 것이라고 볼 수 없다는 이유로 사기죄가 성립하지 않는다고 본 사안",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-property-risk-as-loss-affirmative",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "재산 위험을 재산상 손해로 보는 긍정설은 지급 의사와 능력 없이 신용카드를 발급받으면 카드회사의 대금과 이자청구권이 위태로워져 그 자체로 재산상 손해가 된다고 본다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "quote": "신용카드 발급의 경우 긍정설은 지급 의사와 능력 없이 신용카드 를 발급받은 경우 그것만으로 이미 카드회사의 대금과 이자청구권이 위태롭게 되어 이를 재산상 손해로 본다.",
+          "section_path": "Ⅳ.4"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-property-loss-requirement-negative",
+      "norm_kind": "variant",
+      "polarity": "negative",
+      "proposition": "사기죄 구성요건으로 재산상 손해 발생이 필요한지에 관하여 이를 부정하는 견해가 있다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "quote": "재산상 손해의 발생이 사기죄의 구성요건인지 여부에 관하여는, 부정설, 긍정설, 제한적 긍정설의 대립이 있다.",
+          "section_path": "Ⅳ.4"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-property-loss-requirement-affirmative",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "사기죄 구성요건으로 재산상 손해 발생이 필요하다는 긍정설이 있다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "quote": "재산상 손해의 발생이 사기죄의 구성요건인지 여부에 관하여는, 부정설, 긍정설, 제한적 긍정설의 대립이 있다.",
+          "section_path": "Ⅳ.4"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-property-loss-requirement-limited-affirmative",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "사기죄 구성요건으로 재산상 손해 발생이 필요하다는 제한적 긍정설이 있다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "quote": "재산상 손해의 발생이 사기죄의 구성요건인지 여부에 관하여는, 부정설, 긍정설, 제한적 긍정설의 대립이 있다.",
+          "section_path": "Ⅳ.4"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-fictitious-claim-assignment",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "존재하지 않는 제3자 채권을 가장하여 자기 채권자에 대한 채무이행으로 허위채권을 양도하였더라도 권리이전 효력이 발생하지 않고 기존채무도 소멸하지 않으면 재산상 이득을 취한 것으로 볼 수 없어 사기죄가 성립하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_57",
+          "quote": "또한 채무자가 제3자에 대한 채권이 존재하지 않는데도 채권이 존재하는 것처럼 가장하여 자기의 채권자에 대한 채무이행으로 허위 채권을 양도하였다고 하더라도 이로써 권리이전의 효력을 발생할 수 없고, 채권자에 대한 기존의 채무도 소멸하는 것이 아니므로, 피고인이 위 채권의 양도 로 재산상의 이득을 취하였다고는 볼 수 없어 사기죄가 성립하지 않고,",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.element-third-party-acquisition-purpose",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "범인의 도구 또는 대리인 관계가 없는 제3자에게 재물을 교부하게 한 경우에는, 범인에게 그 제3자로 하여금 재물을 취득하게 할 목적이 있어야 한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_59",
+          "quote": "반면 범인의 도구 또는 대리인의 관계가 없는 제3자에게 재물을 교부하게 한 경 우에는 범인이 재물을 영득하는 것으로는 되지 않기 때문에 범인에게 그 제3자 로 하여금 재물을 취득케 할 목적이 있 (형법 제347조 제2항 사기죄의 고의와 목적) 어야 한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-nominal-trustee-sale",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "명의신탁자가 매도를 승낙한 것처럼 명의수탁자를 기망하여 매수인과 매매계약을 체결하게 하고 매매대금을 받았더라도, 명의수탁자에게 매수인에 대한 대외적 처분권한이 있으면 사기죄가 성립하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_61",
+          "quote": "피고인이 명의신탁자로부터 매도를 승낙받은 것처럼 명의수탁자를 기망하여 매수인인 피해자와 매매계약을 체결하게 하고 피고인이 그 매매대금을 교부받았다고 하더라도 피해자와의 관계에서 대외 적 처분권한이 명의수탁자에게 있으므로, 사기죄가 성립하지 않는다고 본 사안",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-triangular-fraud-majority-disposition-capacity",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "삼각사기에서 다수설은 처분행위자에게 타인의 재물을 처분할 능력이 있을 것을 요구한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_57",
+          "quote": "다수설은 처분행위자에게 타인의 재물을 처분할 능력이 있을 것을 요한다고 보고 있다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-omission-disposition-not-all-nonclaims",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "상대방이 일시적으로 채무 이행을 독촉하거나 청구하지 않은 모든 경우에 부작위에 의한 처분행위가 인정되는 것은 아니다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
+          "quote": "상대방이 일시 채무의 이행을 독촉 내지 청구하지 않았다고 하는 모든 경우에 부작위에 의한 처분행위가 있었다고 할 수 있는지의 문제는 여전히 남는다. 결국 모든 경 우에 부작위에 의한 처분행위를 인정할 것은 아니다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-property-concept-legal",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "법률적 재산개념은 민법상 개인이 갖는 모든 권리·의무를 재산으로 파악한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "quote": "법률적 재산개념은 민법상 개인이 갖는 모든 권리·의무를 재산으로 파악하는 반면",
+          "section_path": "Ⅳ.4"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-property-concept-economic",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "경제적 재산개념은 재산의 법적 측면이 아닌 경제적 교환가치를 재산으로 파악한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "quote": "경제적 재산개념은 재산의 법적 측면이 아닌 경제적 교환가치를 재산으로 파악한다.",
+          "section_path": "Ⅳ.4"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-property-concept-legal-economic",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "법률적·경제적 재산개념은 법익질서가 승인한 범위에서 개인이 가진 경제적 가치 있는 모든 재화를 재산으로 파악한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "quote": "법률적·경제적 재산개념에 의하면 법익질서의 승인된 범위 내에서 개인이 갖고 있는 모든 경제적 가치 있는 재화를 재산으로 파악하게 된 다.",
+          "section_path": "Ⅳ.4"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-property-concept-precedent-economic-interpretation",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "해당 해설은 판례가 재산상 이익을 법률상 유효하게 취득할 것을 요구하지 않는다고 판시한 점에서 경제적 재산개념에 가깝다고 평가한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "quote": "판례는 사기죄에서 재산상 이익처분은 법률상 유효하게 취득할 것을 필 요로 하지 않고 그 이익 취득이 법률상 무효라고 하여도 외형상 취득하면 족하 다고 판시하고 있어 법률적 재산개념에 한정하지 않고 있고, 경제적 재산개 념에 가깝다고 보인다.",
+          "section_path": "Ⅳ.4"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-property-risk-negative-card-as-property",
+      "norm_kind": "variant",
+      "polarity": "negative",
+      "proposition": "재산 위험을 재산상 손해로 보지 않는 견해 중에는 신용카드 자체가 형법상 재물에 해당하므로 그 편취 자체를 재산상 손해의 대상으로 보아야 한다는 견해가 있다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "quote": "이에 대하여 부정설은 신용카드가 형법상 재물",
+          "section_path": "Ⅳ.4"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "quote": "에 해당하여 신용카드의 편취 자체를 재산상 손해의 대상으로 보아야 한다는 견해",
+          "section_path": "Ⅳ.4"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-property-risk-negative-subsidiarity",
+      "norm_kind": "variant",
+      "polarity": "negative",
+      "proposition": "재산 위험을 재산상 손해로 보지 않는 견해 중에는 형법의 보충성을 중시하여 사기죄 성립을 부정하는 견해가 있다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "quote": "형법의 보충성을 중시하여 사기죄가 성립하지 않는다는 견해",
+          "section_path": "Ⅳ.4"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-property-risk-negative-prohibited-analogy",
+      "norm_kind": "variant",
+      "polarity": "negative",
+      "proposition": "재산 위험을 재산상 손해로 보는 해석은 법익 침해 또는 결과발생 요건을 해석으로 삭제하는 금지된 유추해석이므로 허용되지 않는다는 견해가 있다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "quote": "법익 침해 또는 결과발생의 요건을 해석에 의하여 삭제하는 것은 금지된 유추해석으 로 허용되지 않는다는 견해",
+          "section_path": "Ⅳ.4"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.element-deceived-person-and-disposer-identity",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "피기망자와 처분행위자는 동일인이어야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_59",
+          "quote": "피기망자와 재산상의 피해자는 동일인일 필요는 없으나, 피기망자와 처분행위자 는 동일인이어야 한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.causal-link-deceiver-disposer-nonidentity",
+      "norm_kind": "causal_link",
+      "polarity": "negative",
+      "proposition": "출처 문언상 기망자와 처분행위자가 일치하지 않으면 사기죄의 연쇄적 인과관계가 인정되지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_59",
+          "quote": "만약 기망자와 처분행위자가 일치하지 않는다면 사기 죄의 연쇄적인 인과관계가 인정되지 않는다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-property-loss-assessment",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "해설은 재산상 손해의 판정이 피해자의 개별적 경제관계를 고려한 객관적 평가에 따르며, 처분 전후 전체 재산가치를 비교하여 처분 후 가치가 감소한 때 손해가 발생한다고 설명한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "quote": "손해의 판정은 개별적·객관적 손해개념에 따른다. 즉 피해자의 개별적 경제관계 를 고려하여 객관적 평가자가 경제거래의 관점에서 판단한다는 것이다. 처분 전 후의 재산의 전체적 가치를 비교하여 처분행위 후 재산의 전체적 가치가 감소 되었을 때 재산상 손해가 발생한다고 한다.",
+          "section_path": "Ⅳ.4"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-triangular-fraud-precedent-legal-authority-interpretation",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "해설은 과거 판례가 등기공무원에게 부동산 처분권한이 없다는 이유로 사기죄 성립을 부정한 것을 법적 권한설의 입장으로 이해되었다고 소개한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_58",
+          "quote": "판례는 과거 타인 명의의 등기서류를 위조하여 등기공무원에게 제출함으로써 피고인 명의로 소유권이전등기를 마쳤다고 하더라도 피해자의 처분행위가 없을 뿐 아니라 등기공무원에게는 부동산에 관한 처분권한이 없으므로 사기죄가 성 립하지 않는다고 판시하여 법적 권한설의 입장으로 이해되었으나,",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-triangular-fraud-94do1575-factual-position-interpretation",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "해설은 94도1575 판결이 이후 사실상의 지위설 입장을 채택한 것으로 이해되고 있다고 소개한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_58",
+          "quote": "이후 다음 과 같이 판시함으로써 사실상의 지위설의 입장을 채택한 것으로 이해되고 있다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-triangular-fraud-precedent-transition-not-conclusive",
+      "norm_kind": "variant",
+      "polarity": "negative",
+      "proposition": "해설은 99도484 판결의 구체적 사안을 고려하면 대법원 입장이 사실상 지위설로 변환되었다고 단정하기 어려운 측면이 있다고 본다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_58",
+          "quote": "구체적 사안을 볼 때 대법원의 입장이 사실상 지위설로 변환되었다고 단정 하기는 어려운 측면이 있다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-triangular-fraud-commentator-factual-position-evaluation",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "해설자는 94도1575 판결이 명시적으로 사실상의 지위설에서 판시하였으므로 판례가 그 입장에 있는 것으로 이해한다고 평가한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_58",
+          "quote": "그러나 판례가 피기망자 의 처분의 능력에 관한 입장이 모호하기보다는 대법원 1994. 10. 11. 선고 94도 1575 판결에서 명시적으로 사실상의 지위설의 입장에서 판시하여 그 입장에 있 는 것으로 이해하고,",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-third-party-recipient-innocent-tool",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "재물을 교부받은 제3자가 정을 알지 못하여 범인의 기계에 지나지 않는 경우, 범인이 그 제3자를 도구로 이용한 간접정범 형태로 재물을 영득한 것으로 본다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_59",
+          "quote": "재물을 교부받은 제3자가 정을 알지 못하여 범인의 기계에 지나지 않을 때에는 범인이 제3자를 도구로서 이용한 간접정범 형태로 재물을 영득한 것으로 보아야 한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-third-party-recipient-agent-accomplice",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "재물을 교부받은 제3자가 범인의 대리인인 경우, 제3자와 범인 사이에는 공범관계가 있으므로 범인이 재물을 영득한 것으로 본다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_59",
+          "quote": "재물을 교부받은 제3자가 범인의 대리인일 때에는 그 제3자와 범인 간에는 공범관계가 있는 것이기 때문에 범인이 재물을 영득한 것이라고 보아야 한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.standard-third-party-recipient-no-acquisition-intent",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "범인의 도구 또는 대리인 관계가 없는 제3자에게 재물을 교부하게 한 경우, 범인에게 자신이 재물을 영득할 의사도 제3자에게 영득시킬 의사도 없으면 불법영득의사가 없어 사기죄가 성립하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_59",
+          "quote": "이 경우 범인에게는 자기 자신이 재물을 영득하는 의사가 없기 때문에 제3자에게 그 재물을 영득시키려는 의사도 없다면 불법영득의사가 없으 므로 사기죄가 성립하지 않는다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "candidate_id": "fraud.variant-property-risk-affirmative-infringement-offense-qualification",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "재산 위험을 재산상 손해로 보는 긍정설도 사기죄를 위험범이 아니라 침해범으로 본다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "quote": "다만 긍정설의 입장에서도 사기죄가 침해범이지 위험범이 아니라고 보고 있 다.",
+          "section_path": "Ⅳ.4"
+        }
+      ]
+    }
+  ],
+  "request_id": "fraud.article347.pass1.007",
+  "status": "draft",
+  "unresolved_questions": [
+    "삼각사기에서 처분행위자에게 요구되는 피해자 재산 처분능력의 기준으로 인과관계설, 계약관계설, 법적 권한설, 사실상의 지위설 중 어느 견해를 채택할 것인지.",
+    "재산의 위험을 재산상 손해로 볼 것인지, 특히 지급 의사와 능력 없이 신용카드를 발급받은 경우를 어떻게 평가할 것인지.",
+    "사기죄의 구성요건으로 재산상 손해 발생을 요구할지 여부에 관한 부정설, 긍정설 및 제한적 긍정설 중 어느 견해를 채택할 것인지.",
+    "삼각사기에서 처분행위자의 처분능력에 관한 판례 입장을 사실상의 지위설로 단정할 수 있는지, 후속 판결들을 고려할 때 법적 권한설과의 관계를 어떻게 이해할 것인지.",
+    "피기망자와 처분행위자의 동일성 요건을 설명하는 출처가 후문에서 ‘기망자와 처분행위자’라고 표현한 것은 오기인지, 별도의 법리를 의미하는지 확인이 필요하다."
+  ]
+}

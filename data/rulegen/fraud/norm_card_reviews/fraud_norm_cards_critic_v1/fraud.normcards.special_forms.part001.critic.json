@@ -1,0 +1,114 @@
+{
+  "findings": [
+    {
+      "finding_id": "authority.reported_precedent_mislabeled",
+      "message": "다수 카드의 근거 문언은 ‘성립한다고 본 사안’ 또는 ‘성립하지 않는다고 본 사안’과 같이 주석서가 보고한 개별 판례 결과인데, 모든 카드가 일률적으로 commentary_synthesis로 표시되어 있다. 이는 일반적인 주석 종합과 주석에 수록된 판례의 사례별 결론을 구별하지 못한다.",
+      "recommended_action": "‘본 사안’으로 제시된 카드들만 최소 범위에서 commentary-reported precedent에 해당하는 권위 유형으로 재분류하고, 일반 명제와 사례 결론을 구별하여 검토하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_87",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_88",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_89",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_90",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_91",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "target_path": "$.target.cards[*].authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "scope.unavailable_comments_included",
+      "message": "source_scope에는 현재 단계에 제공된 제한 자료에 없는 comment_id들(Ⅵ.1_92 및 Ⅵ.2~Ⅵ.5 자료)이 포함되어 있다. 이 단계에서 실제 제공된 자료는 comm_001692_제347조_Ⅵ.1_83부터 _91까지뿐이다.",
+      "recommended_action": "source_scope.comment_ids를 실제 제공된 _83~_91로 한정하거나, 나머지 자료를 이 단계의 제한 자료로 명시적으로 공급하라.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "$.target.source_scope.comment_ids",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "review_questions.out_of_scope",
+      "message": "검토 질문들은 반복 편취, 보이스피싱 역할, 보험 고지의무, 불법원인급여, 정당한 권리행사, 재산상 손해 등 현재 제공된 소송사기 후보군과 직접 연결되지 않는 쟁점을 다룬다. 반면 카드 자체가 보류한 권위 분류, 사례 규범의 일반화 범위, 관련 카드 간 variant 관계에 관한 질문은 제시되지 않았다.",
+      "recommended_action": "현재 카드 집합과 무관한 질문을 제거하고, 판례보고형 카드의 권위 분류, 사례별 결론의 일반화 가능 범위, 중첩되는 소송사기 기준과 사례의 variant 관계에 관한 최소한의 검토 질문으로 교체하라.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "$.target.legal_review_questions",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "entailment.strict_interpretation_rationale",
+      "message": "근거 문언은 소송사기 적용에 엄격해석이 필요하다는 점만 밝히며, ‘민사소송제도 위축을 방지하기 위하여’라는 목적 또는 이유는 제공된 인용 범위에서 확인되지 않는다.",
+      "recommended_action": "근거에 없는 목적 문구를 삭제하거나 그 목적을 명시하는 제한 자료를 추가하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_83",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "target_path": "$.target.cards[1].proposition",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "entailment.payment_order_second_clause",
+      "message": "제시된 근거는 허위 증거 없이도 충분한 허위 주장으로 지급명령을 신청하면 기망수단이 되어 사기죄가 성립한다는 부분까지만 뒷받침한다. ‘상대방 이의로 지급명령이 효력을 잃어도 이미 착수한 사기행위가 없어진 것은 아니다’라는 별도 명제는 해당 source_refs의 문언에 나타나지 않는다.",
+      "recommended_action": "지원되지 않는 후반 명제를 제거하거나 이를 직접 뒷받침하는 제한 자료의 locator를 추가하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_90",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "target_path": "$.target.cards[31].proposition",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "variants.all_null_despite_overlap",
+      "message": "모든 variant_group이 null이지만, 일반적인 엄격 인정 기준과 그 적용 사례들, 처분행위 대체 효력 요건과 제3자 부동산·사망자 상대 소송 사례들, 허위 주장만으로 가능한 기망과 지급명령 사례들 사이에는 명백한 일반규범-적용사례 또는 경쟁적 경계 관계가 있다.",
+      "recommended_action": "중첩 카드들을 검토하여 실제 대안·경계 변형에만 variant_group을 부여하고, 단순 적용 사례라면 review_notes에서 일반규범과의 관계를 명시하라.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_83",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_84",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_85",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_90",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "target_path": "$.target.cards[*].variant_group",
+      "type": "collapsed_variant"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_special_forms_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "카드들은 후보를 대체로 일대일로 보존했지만, 제한 자료를 벗어난 source_scope와 무관한 검토 질문, 판례보고형 사례의 일률적인 commentary_synthesis 분류, 두 개 명제의 근거 초과가 있어 수정이 필요하다. 또한 중첩 규범과 사례의 variant 관계를 검토해야 한다.",
+  "target_id": "kr.fraud.article347.special_forms.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

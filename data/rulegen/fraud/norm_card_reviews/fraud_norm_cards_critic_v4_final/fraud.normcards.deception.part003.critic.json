@@ -1,0 +1,112 @@
+{
+  "findings": [
+    {
+      "finding_id": "authority.case-card-misclassified",
+      "message": "이 카드는 출처가 특정 사안에서 사기죄 성립을 부정한 결과로 서술되어 있는데도 commentary_synthesis 및 descriptive로 분류되고 standard_input으로 형식화되었다. 일반적 논평 종합과 논평이 보고한 개별 판례 결과가 구별되지 않았다.",
+      "recommended_action": "이 카드의 authority_basis와 doctrinal_status를 개별 사안 보고에 맞게 재검토하고, 일반화가 별도로 확인되지 않으면 formalization을 context_only로 제한하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_32",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/0/authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "authority.additional-case-cards",
+      "message": "보조자 참여 미술작품 카드는 출처가 명시적으로 부작위 기망을 인정하지 않은 특정 사안으로 제시하는데 commentary_synthesis, descriptive, standard_input으로 처리되었다. 동일한 문제가 출처 문언이 특정 사안의 소개에 그치는 도시계획 및 지입차량 카드에도 나타난다.",
+      "recommended_action": "해당 카드들의 authority_basis, doctrinal_status 및 formalization을 개별 사안 보고 여부에 따라 재분류하고, 출처가 제공하지 않는 일반 규범성을 부여하지 말라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_35",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_28",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_29",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/13/authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "variants.nonmedical-clinic",
+      "message": "비의료인 개설 의료기관에 관한 실손의료보험금 부정 카드와 국민건강보험 요양급여비용 긍정 카드가 서로 다른 급부 청구 맥락에서 반대 결론을 제시하지만 양쪽 모두 variant_group이 null이다. 이 차이를 연결하지 않으면 상반된 결론의 적용 범위가 보존되지 않는다.",
+      "recommended_action": "두 카드를 하나의 명시적 변형군으로 연결하고, 실손보험자와 국민건강보험공단에 대한 청구라는 구별 기준을 검토하도록 별도 review question을 추가하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_34",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/11/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "variants.double-sale",
+      "message": "부동산 이중매매 관련 카드들이 제1·제2 매수인, 이전등기 완료 여부, 이전 의사 유무에 따라 긍정·부정 결론을 달리하지만 모두 variant_group이 null이다. 독립 카드로만 두면 경쟁하거나 조건부로 구별되는 판시들이 서로 무관한 규범처럼 처리된다.",
+      "recommended_action": "이중매매 카드들을 명시적 변형군으로 연결하고 피해자 지위, 등기 상태 및 이전 의사를 구별 기준으로 검토하는 review question을 추가하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_32",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_35",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_36",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/19/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "formalization.element-sufficiency",
+      "message": "변제 의사나 능력 없는 차용에 관한 명제를 deterministic_rule로 지정하면 그 사실만으로 사기죄의 모든 요건이 충족되는 것으로 형식화될 위험이 있다. 제공된 자료는 다른 구성요건이나 증거 게이트를 생략할 수 있음을 뒷받침하지 않는다.",
+      "recommended_action": "이 카드를 사기죄 전체 성립을 자동 도출하는 규칙으로 사용하지 않도록 formalization을 재검토하고, 기망·처분행위·재산상 손해 등 별도 요건과의 결합 필요성을 review question에 명시하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_37",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/35/formalization",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "formalization.conditional-intent-sufficiency",
+      "message": "미필적 고의도 허용된다는 명제를 deterministic_rule로 지정하면 미필적 고의의 존재만으로 사기죄 성립을 도출할 수 있다. 출처는 고의의 형태에 관한 명제일 뿐 다른 구성요건을 대체하는 충분조건을 제시하지 않는다.",
+      "recommended_action": "미필적 고의를 독립적인 사기죄 성립 충분조건으로 형식화하지 말고, 주관적 구성요건의 허용 형태로만 기능하도록 formalization과 관련 검토 질문을 수정하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_37",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/38/formalization",
+      "type": "formalization_error"
+    }
+  ],
+  "report_id": "critique.kr.fraud.article347.deception.norms.v1.part003",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "후보 누락은 보이지 않지만, 여러 개별 사안 카드가 일반 논평 종합으로 잘못 분류되었고, 비의료기관 청구 및 이중매매의 상반된 변형들이 연결되지 않았다. 또한 두 element 카드의 deterministic_rule 지정은 일부 요건만으로 사기죄 전체 성립을 도출할 위험이 있어 수정이 필요하다.",
+  "target_id": "kr.fraud.article347.deception.norms.v1.part003",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

@@ -1,0 +1,72 @@
+{
+  "findings": [
+    {
+      "finding_id": "unsupported-settled-status",
+      "message": "The bounded commentary states the proposition categorically but does not establish that its doctrinal status is legally \"settled.\" The card also marks review_required false despite noting that authority remains pending human review.",
+      "recommended_action": "Use a status no stronger than the supplied commentary supports, or mark the status for review and add a corresponding legal-review question.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_45",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.cards[2].doctrinal_status",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "unsupported-settled-status-unspecified-person",
+      "message": "The source supports the substantive proposition that an unspecified person may be the target of deception, but it does not independently support the card's stronger characterization of the doctrine as \"settled.\"",
+      "recommended_action": "Downgrade the doctrinal-status characterization or require human review of that characterization.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_45",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.cards[4].doctrinal_status",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "unsupported-settled-status-distinct-persons",
+      "message": "The two source fragments support the proposition that the deceived person and property victim need not be identical, but they do not establish that the proposition has the externally verified doctrinal status \"settled.\"",
+      "recommended_action": "Use a source-bounded descriptive status or flag the doctrinal-status assignment for legal review.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_45",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_46",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.cards[6].doctrinal_status",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "unsupported-settled-status-disposal-authority",
+      "message": "The commentary supports the stated disposal-authority requirement but does not itself verify the stronger metadata claim that this doctrine is \"settled.\"",
+      "recommended_action": "Replace the unsupported settled-status label with a source-bounded status, or set review_required true and include this authority-status issue in the review questions.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_46",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.cards[7].doctrinal_status",
+      "type": "authority_mismatch"
+    }
+  ],
+  "report_id": "critique.kr.fraud.article347.deception.norms.v1.part005",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "The candidate propositions and source coverage are preserved, but four cards assign an unverified \"settled\" doctrinal status while dispensing with review. The bounded commentary supports the propositions, not that stronger authority characterization.",
+  "target_id": "kr.fraud.article347.deception.norms.v1.part005",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

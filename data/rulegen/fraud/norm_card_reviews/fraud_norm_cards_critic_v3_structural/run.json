@@ -1,0 +1,101 @@
+{
+  "all_valid": true,
+  "api_calls": 7,
+  "cache_hits": 0,
+  "cards_per_job": 50,
+  "created_at": "2026-07-16T10:32:01.732133+00:00",
+  "modules": [
+    "general_object",
+    "mistake_disposition",
+    "damage_acquisition",
+    "concurrence"
+  ],
+  "run_id": "fraud_norm_cards_critic_v3_structural",
+  "sol_model": "openai/gpt-5.6-sol",
+  "usage": {
+    "completion_tokens": 12036,
+    "prompt_tokens": 135585,
+    "reasoning_tokens": 3396,
+    "total_tokens": 147621
+  },
+  "validation": [
+    {
+      "cards": 44,
+      "errors": [],
+      "findings": 5,
+      "module": "general_object",
+      "output_path": ".cache/llm/runs/fraud_norm_card_critics/fraud_norm_cards_critic_v3_structural/sol/fraud.normcards.general_object.part001.critic.json",
+      "part": 1,
+      "request_id": "fraud.normcards.general_object.part001.critic",
+      "valid": true,
+      "verdict": "revise"
+    },
+    {
+      "cards": 50,
+      "errors": [],
+      "findings": 7,
+      "module": "mistake_disposition",
+      "output_path": ".cache/llm/runs/fraud_norm_card_critics/fraud_norm_cards_critic_v3_structural/sol/fraud.normcards.mistake_disposition.part001.critic.json",
+      "part": 1,
+      "request_id": "fraud.normcards.mistake_disposition.part001.critic",
+      "valid": true,
+      "verdict": "revise"
+    },
+    {
+      "cards": 16,
+      "errors": [],
+      "findings": 4,
+      "module": "mistake_disposition",
+      "output_path": ".cache/llm/runs/fraud_norm_card_critics/fraud_norm_cards_critic_v3_structural/sol/fraud.normcards.mistake_disposition.part002.critic.json",
+      "part": 2,
+      "request_id": "fraud.normcards.mistake_disposition.part002.critic",
+      "valid": true,
+      "verdict": "revise"
+    },
+    {
+      "cards": 50,
+      "errors": [],
+      "findings": 8,
+      "module": "damage_acquisition",
+      "output_path": ".cache/llm/runs/fraud_norm_card_critics/fraud_norm_cards_critic_v3_structural/sol/fraud.normcards.damage_acquisition.part001.critic.json",
+      "part": 1,
+      "request_id": "fraud.normcards.damage_acquisition.part001.critic",
+      "valid": true,
+      "verdict": "revise"
+    },
+    {
+      "cards": 6,
+      "errors": [],
+      "findings": 5,
+      "module": "damage_acquisition",
+      "output_path": ".cache/llm/runs/fraud_norm_card_critics/fraud_norm_cards_critic_v3_structural/sol/fraud.normcards.damage_acquisition.part002.critic.json",
+      "part": 2,
+      "request_id": "fraud.normcards.damage_acquisition.part002.critic",
+      "valid": true,
+      "verdict": "revise"
+    },
+    {
+      "cards": 50,
+      "errors": [],
+      "findings": 4,
+      "module": "concurrence",
+      "output_path": ".cache/llm/runs/fraud_norm_card_critics/fraud_norm_cards_critic_v3_structural/sol/fraud.normcards.concurrence.part001.critic.json",
+      "part": 1,
+      "request_id": "fraud.normcards.concurrence.part001.critic",
+      "valid": true,
+      "verdict": "revise"
+    },
+    {
+      "cards": 16,
+      "errors": [],
+      "findings": 4,
+      "module": "concurrence",
+      "output_path": ".cache/llm/runs/fraud_norm_card_critics/fraud_norm_cards_critic_v3_structural/sol/fraud.normcards.concurrence.part002.critic.json",
+      "part": 2,
+      "request_id": "fraud.normcards.concurrence.part002.critic",
+      "valid": true,
+      "verdict": "revise"
+    }
+  ],
+  "version": "1.0.0"
+}

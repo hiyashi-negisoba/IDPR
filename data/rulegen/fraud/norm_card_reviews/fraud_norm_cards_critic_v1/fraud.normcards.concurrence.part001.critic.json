@@ -1,0 +1,83 @@
+{
+  "findings": [
+    {
+      "finding_id": "f001_norm_kind_reclassification",
+      "message": "These cards reclassify source candidates marked as norm_kind \"standard\" into \"exception\" solely because their propositions are negative or describe nonpunishable conduct. Norm kind and polarity are independent, and the supplied candidates do not identify these propositions as exceptions. The reclassification therefore mistranslates the validated candidates.",
+      "recommended_action": "Restore norm_kind \"standard\" for the identified cards while retaining their existing negative polarity; keep \"exception\" only where the validated candidate itself is an exception or a documented merge requires it.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅸ.4_113",
+          "section_path": "Ⅸ.4"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅸ.5_114",
+          "section_path": "Ⅸ.5"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.5_119",
+          "section_path": "Ⅹ.5"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.6_120",
+          "section_path": "Ⅹ.6"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.6_121",
+          "section_path": "Ⅹ.6"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.6_122",
+          "section_path": "Ⅹ.6"
+        }
+      ],
+      "target_path": "$.cards[4].norm_kind, $.cards[5].norm_kind, $.cards[22].norm_kind, $.cards[23].norm_kind, $.cards[24].norm_kind, $.cards[25].norm_kind, $.cards[26].norm_kind, $.cards[29].norm_kind, $.cards[32].norm_kind, $.cards[38].norm_kind",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "f002_subsidy_authority_mismatch",
+      "message": "The card labels the entire proposition as statutory text in commentary, but the source combines a reported statutory provision with the commentary's comparative conclusion that its elements differ from fraud and that the offenses should be treated as separate crimes. That conclusion is commentary synthesis, not statutory text.",
+      "recommended_action": "Classify this card's authority basis as commentary synthesis, or separate the quoted statutory content from the commentary's concurrence conclusion if the schema permits.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.9_126",
+          "section_path": "Ⅹ.9"
+        }
+      ],
+      "target_path": "$.cards[45].authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "f003_statutory_currency_review_flag",
+      "message": "These cards set review_required to false even though their own review notes state that the current statutory provisions must be checked, and the card set acknowledges that the penalty and enhancement rules are supported only by commentary quotations. The unverified currency of statutory penalties is a substantive authority issue.",
+      "recommended_action": "Set review_required to true for these three cards pending confirmation against current statutory text.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.9_126",
+          "section_path": "Ⅹ.9"
+        }
+      ],
+      "target_path": "$.cards[46].review_required, $.cards[47].review_required, $.cards[48].review_required",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "f004_out_of_scope_review_questions",
+      "message": "The question about classifying voice-phishing withdrawal, collection, and delivery actors is expressly identified elsewhere in the target as unsupported by the current source scope. The question about completion of fraud based on victim loss without acquisition of unlawful gain has no corresponding validated candidate or supplied source locator. Presenting either as a source-grounded unresolved issue exceeds this stage's bounded material.",
+      "recommended_action": "Remove these questions from the source-grounded legal review list, or relocate them to an explicitly external research backlog that is not represented as derived from this card set.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "$.legal_review_questions[1], $.legal_review_questions[4]",
+      "type": "source_scope"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_concurrence_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "The card set substantially preserves candidate propositions and competing views, but it systematically conflates negative polarity with exception norm kind, misstates the authority basis of one subsidy-law conclusion, leaves commentary-only penalty rules unflagged for required currency review, and includes two review questions outside the bounded source scope.",
+  "target_id": "kr.fraud.article347.concurrence.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

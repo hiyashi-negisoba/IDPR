@@ -1,0 +1,86 @@
+{
+  "findings": [
+    {
+      "finding_id": "future_facts_variant_group_split",
+      "message": "무제한설, 제한설, 부정설은 장래 사실이 기망의 내용이 될 수 있는지에 관한 직접적인 경쟁 견해인데도 각각 서로 다른 pending variant_group에 배정되어 있다. 이 상태로는 동일 쟁점의 대안들이 상호 배타적 정책 선택지로 보존되지 않는다.",
+      "recommended_action": "세 카드의 variant_group을 장래 사실의 기망 대상성이라는 하나의 공통 그룹 식별자로 통일하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_12",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_13",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.cards[13:16].variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "opinion_statement_variant_group_split",
+      "message": "의견표시에 관한 소극설, 적극설, 제3설이 동일 쟁점의 경쟁 견해임에도 서로 다른 variant_group에 배정되어 있다. 또한 뒤의 제3설 구체성 카드도 같은 제3설을 보충하는 내용이므로 동일 쟁점 및 동일 견해와의 관계가 표시되어야 한다.",
+      "recommended_action": "소극설·적극설·제3설 카드에 공통 variant_group을 부여하고, 제3설 구체성 카드가 같은 제3설의 보충 명제임을 그룹 또는 명시적 관계로 표시하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_13",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.cards[16:19].variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "third_view_supplement_ungrouped",
+      "message": "제3설의 추상적 표시와 구체적 허위 표시를 구별하는 카드는 앞선 제3설 카드의 판단기준을 구체화하지만 별도의 pending 그룹에 놓여 있어 동일 견해의 일부라는 관계가 소실된다.",
+      "recommended_action": "이 카드를 의견표시 쟁점의 공통 variant_group에 포함시키고 앞선 제3설 카드와의 보충 관계를 보존하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_13",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.cards[35].variant_group",
+      "type": "missing_variant"
+    },
+    {
+      "finding_id": "bid_rigging_author_view_authority",
+      "message": "출처는 '사견으로는'이라고 명시된 주석 작성자의 견해인데, 카드는 이를 일반적인 commentary_reported_doctrine으로 분류하고 proposition도 단순히 '견해가 소개되어 있다'고 표현한다. 이는 주석 작성자 자신의 견해라는 권위 성격을 약화시킨다.",
+      "recommended_action": "권위 유형과 proposition에서 해당 입장이 주석 작성자의 사견임을 명시하고, 일반 학설이나 판례 입장으로 취급하지 않도록 하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_18",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.cards[29].authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "bid_rigging_policy_question_overstates_alignment",
+      "message": "검토 질문은 입찰담합 카드에 대해 '판례에 부합하는 실무 정책'을 선택하도록 요구하지만, 제공된 판례 설명은 사기죄 성립 여부를 명시적으로 판시하지 않았다고 밝힌다. 제한된 출처만으로 특정 정책의 판례 부합성을 확정할 수 없다.",
+      "recommended_action": "입찰담합 부분의 질문을 주석 작성자 사견과 명시적 판단을 유보한 판례 설명의 관계 및 추가 권위 확인 필요성을 검토하도록 한정하라.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_18",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.legal_review_questions[2]",
+      "type": "authority_mismatch"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_deception_norms_v1_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "후보의 실질적 누락은 보이지 않지만, 장래 사실 및 의견표시의 경쟁 견해들이 공통 variant group으로 구성되지 않았고, 입찰담합에 관한 주석 작성자의 사견이 일반 보고학설처럼 표시되었다. 경쟁 견해 구조와 권위 성격을 바로잡아야 한다.",
+  "target_id": "kr.fraud.article347.deception.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

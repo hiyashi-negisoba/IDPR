@@ -20,6 +20,10 @@ from idpr.rulegen import (
     validate_rule_ir,
     validate_rulegen_critique,
 )
+from scripts.run_fraud_norm_card_merge import build_module_payloads
+from scripts.run_fraud_norm_card_critics import (
+    build_jobs as build_norm_card_critic_jobs,
+)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -56,6 +60,27 @@ FINAL_ADJUDICATION = (
 FEWSHOT_GOLD = (
     PROJECT_ROOT
     / "data/rulegen/fraud/fraud_norm_candidate_fewshot_gold.json"
+)
+CANDIDATE_MANIFEST = (
+    PROJECT_ROOT
+    / "data/rulegen/fraud/fraud_norm_candidate_manifest.json"
+)
+NORM_CARD_MANIFEST = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_norm_card_manifest.json"
+)
+NORM_CARD_CRITIC_MANIFEST = (
+    PROJECT_ROOT
+    / "data/rulegen/fraud/norm_card_reviews"
+    / "fraud_norm_cards_critic_v4_final/manifest.json"
+)
+NORM_CARD_REVIEW_QUEUE = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_norm_card_review_queue.json"
+)
+HUMAN_REVIEW_DECISIONS = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_human_review_decisions.jsonl"
+)
+RULE_IR_READINESS = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_rule_ir_readiness.json"
 )
 RULE_IR = PROJECT_ROOT / "data/rulegen/fraud/fraud_rule_ir_exemplar.json"
 SCALLOP = PROJECT_ROOT / "rules/exemplars/fraud_v1_candidate.scl"
@@ -120,7 +145,8 @@ def test_fraud_norm_cards_are_request_and_source_grounded() -> None:
         card for card in payload["cards"] if card["id"] == "fraud.unlawful_gain_intent"
     )
     assert unlawful_intent["authority_basis"] == "commentary_reported_precedent"
-    assert len(unlawful_intent["source_refs"]) == 2
+    assert len(unlawful_intent["source_refs"]) == 4
+    assert len(unlawful_intent["candidate_refs"]) == 4
     assert all(
         len(source["quote"]) <= 300
         for card in payload["cards"]
@@ -268,6 +294,76 @@ def test_ocr_interrupted_quote_repair_is_exact_and_high_confidence() -> None:
     assert not records
     with pytest.raises(NormCandidateValidationError):
         validate_norm_candidate_batch(unchanged, request)
+
+
+def test_quote_repair_handles_length_and_adjacent_chunk_boundaries() -> None:
+    long_quote = "가" * 301
+    commentary = {
+        "comment.1": {
+            "comment_id": "comment.1",
+            "section_path": "Ⅰ",
+            "document_text": long_quote + " 앞부분에 이어지는 긴 문장",
+        },
+        "comment.2": {
+            "comment_id": "comment.2",
+            "section_path": "Ⅰ",
+            "document_text": "뒷부분으로 계속되는 문장입니다.",
+        },
+    }
+    payload = {
+        "request_id": "request.1",
+        "status": "draft",
+        "candidates": [
+            {
+                "candidate_id": "fraud.long-quote",
+                "norm_kind": "definition",
+                "polarity": "positive",
+                "proposition": "긴 인용",
+                "source_refs": [
+                    {
+                        "comment_id": "comment.1",
+                        "section_path": "Ⅰ",
+                        "quote": long_quote,
+                    }
+                ],
+                "review_required": False,
+            },
+            {
+                "candidate_id": "fraud.chunk-boundary",
+                "norm_kind": "definition",
+                "polarity": "positive",
+                "proposition": "경계 인용",
+                "source_refs": [
+                    {
+                        "comment_id": "comment.2",
+                        "section_path": "Ⅰ",
+                        "quote": (
+                            "앞부분에 이어지는 긴 문장 "
+                            "뒷부분으로 계속되는 문장입니다."
+                        ),
+                    }
+                ],
+                "review_required": False,
+            },
+        ],
+        "unresolved_questions": [],
+    }
+    request = {
+        "request_id": "request.1",
+        "commentary_chunks": list(commentary.values()),
+    }
+
+    repaired, records = repair_ocr_interrupted_candidate_quotes(
+        payload, commentary
+    )
+
+    assert len(records) == 2
+    assert len(repaired["candidates"][0]["source_refs"]) == 2
+    assert [
+        ref["comment_id"]
+        for ref in repaired["candidates"][1]["source_refs"]
+    ] == ["comment.1", "comment.2"]
+    validate_norm_candidate_batch(repaired, request)
 
 
 def test_rulegen_critic_is_advisory_and_source_bounded() -> None:
@@ -495,6 +591,131 @@ def test_fraud_gold_fewshot_is_an_exact_subset_of_final_exemplar() -> None:
         for candidate in expected["candidates"]
         for ref in candidate["source_refs"]
     )
+
+
+def test_all_fraud_candidate_batches_are_source_bounded() -> None:
+    requests = {row["request_id"]: row for row in load_jsonl(REQUESTS)}
+    manifest = json.loads(CANDIDATE_MANIFEST.read_text(encoding="utf-8"))
+
+    assert len(manifest["batches"]) == 13
+    assert manifest["totals"]["candidates"] == 662
+    assert manifest["totals"]["unresolved_questions"] == 37
+    assert len(manifest["duplicate_candidate_ids"]) == 2
+    for batch in manifest["batches"]:
+        payload = json.loads(
+            (PROJECT_ROOT / batch["path"]).read_text(encoding="utf-8")
+        )
+        validate_norm_candidate_batch(payload, requests[batch["request_id"]])
+        if batch["batch_number"] == 1:
+            continue
+        critic = json.loads(
+            (
+                PROJECT_ROOT
+                / batch["review_artifacts"]["critic_pass1"]
+            ).read_text(encoding="utf-8")
+        )
+        commentary = {
+            row["comment_id"]: row
+            for row in requests[batch["request_id"]]["commentary_chunks"]
+        }
+        validate_rulegen_critique(
+            critic,
+            expected_stage="norm_candidate_batch",
+            expected_target_id=batch["request_id"],
+            commentary_by_id=commentary,
+            allowed_comment_ids=set(commentary),
+        )
+
+
+def test_fraud_norm_card_modules_partition_all_candidates() -> None:
+    payloads = build_module_payloads()
+
+    assert len(payloads) == 8
+    assert sum(
+        len(batch["candidates"])
+        for payload in payloads.values()
+        for batch in payload["validated_batches"]
+    ) == 662
+    assert all(payload["unresolved_questions"] for payload in payloads.values())
+
+
+def test_final_fraud_norm_card_modules_cover_all_candidates() -> None:
+    requests = load_jsonl(REQUESTS)
+    commentary = {
+        row["comment_id"]: row
+        for request in requests
+        for row in request["commentary_chunks"]
+    }
+    request_scope = {
+        request["request_id"]: {
+            row["comment_id"] for row in request["commentary_chunks"]
+        }
+        for request in requests
+    }
+    payloads = build_module_payloads()
+    manifest = json.loads(NORM_CARD_MANIFEST.read_text(encoding="utf-8"))
+
+    assert manifest["totals"]["candidates"] == 662
+    assert manifest["totals"]["cards"] >= 600
+    for module in manifest["modules"]:
+        card_set = json.loads(
+            (PROJECT_ROOT / module["path"]).read_text(encoding="utf-8")
+        )
+        candidate_map = {
+            (batch["request_id"], candidate["candidate_id"]): candidate
+            for batch in payloads[module["module"]]["validated_batches"]
+            for candidate in batch["candidates"]
+        }
+        validate_norm_card_set(
+            card_set,
+            commentary,
+            request_scope,
+            allowed_candidates=candidate_map,
+        )
+
+
+def test_fraud_norm_card_critic_jobs_partition_every_final_card() -> None:
+    jobs, metadata = build_norm_card_critic_jobs(
+        list(build_module_payloads()), cards_per_job=50, max_tokens=20_000
+    )
+
+    assert len(jobs) == 17
+    assert len(metadata) == len(jobs)
+    assert sum(record["cards"] for record in metadata.values()) == 636
+    assert all(job.role == "sol" for job in jobs)
+    assert all(job.payload["stage"] == "norm_card_set" for job in jobs)
+    assert all(job.payload["target"]["coverage_gaps"] == [] for job in jobs)
+    assert all(
+        job.payload["target"]["legal_review_questions"]
+        for job in jobs
+        if any(card["review_required"] for card in job.payload["target"]["cards"])
+    )
+    for job in jobs:
+        target = job.payload["target"]
+        actual_comment_ids = {
+            ref["comment_id"]
+            for card in target["cards"]
+            for ref in card["source_refs"]
+        }
+        assert set(target["source_scope"]["comment_ids"]) == actual_comment_ids
+
+
+def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> None:
+    critic = json.loads(NORM_CARD_CRITIC_MANIFEST.read_text(encoding="utf-8"))
+    queue = json.loads(NORM_CARD_REVIEW_QUEUE.read_text(encoding="utf-8"))
+    decisions = load_jsonl(HUMAN_REVIEW_DECISIONS)
+    readiness = json.loads(RULE_IR_READINESS.read_text(encoding="utf-8"))
+
+    assert critic["totals"]["reports"] == 17
+    assert critic["totals"]["cards"] == 636
+    assert critic["totals"]["findings"] == 67
+    assert len(queue["items"]) == critic["totals"]["findings"]
+    assert len({item["review_id"] for item in queue["items"]}) == 67
+    assert {item["review_id"] for item in decisions} == {
+        item["review_id"] for item in queue["items"]
+    }
+    assert readiness["full_rule_ir_generation_blocked"] is True
+    assert sum(readiness["totals"].values()) == 636
 
 
 def test_fraud_and_procedural_exemplars_enforce_positive_evidence_gates() -> None:

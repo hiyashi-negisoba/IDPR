@@ -1,0 +1,84 @@
+{
+  "findings": [
+    {
+      "finding_id": "unsupported_precedent_attribution",
+      "message": "다수 카드가 해당 후보의 인용문만으로는 판례 보고인지 해설자의 일반 서술인지 확인되지 않는데도 일률적으로 commentary_reported_precedent 및 precedent_position으로 분류되어 있다. 특히 미필적 고의의 정의, 처분행위 유발 의사, 범의 판단시점과 같은 일반 서술에는 제공된 범위에서 판례 귀속 표지가 없다.",
+      "recommended_action": "각 카드별로 제공된 후보와 인용문이 실제로 판례 입장을 보고하는지 확인하고, 확인되지 않는 카드만 commentary synthesis 또는 그에 맞는 권위·교리 상태로 최소 수정하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_74",
+          "section_path": "Ⅴ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_75",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "target_path": "$.target.cards[?(@.authority_basis=='commentary_reported_precedent')].authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "case_holdings_formalized_as_general_standards",
+      "message": "원문이 '본 사안'의 결론으로 제시된 여러 사례별 판시가 모두 standard_input으로 형식화되어 일반 평가기준처럼 사용될 위험이 있다. 사례의 구체적 사실과 결론은 일반 규범과 구별되어야 한다.",
+      "recommended_action": "원문이 사례 결과로 한정된 holding 카드의 formalization을 사례별 illustration 또는 outcome에 해당하는 형식으로 조정하고, 일반 기준으로 승격하지 않도록 하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_78",
+          "section_path": "Ⅴ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_79",
+          "section_path": "Ⅴ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_80",
+          "section_path": "Ⅴ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_81",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "target_path": "$.target.cards[?(@.candidate_refs[0].candidate_id =~ /fraud\\.holding-/)].formalization",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "practical_consequence_not_peer_policy_variant",
+      "message": "재물편취죄 한정 필요설의 실무상 귀결에 관한 설명이 세 경쟁 견해 및 판례 입장과 동일한 정책 선택지로 묶여 있다. 이는 독립된 경쟁 견해가 아니라 특정 견해에 종속된 결과 설명이므로, 현재 그룹은 정책 선택지의 구조를 왜곡한다.",
+      "recommended_action": "해당 카드를 독립 정책 선택지에서 제외하고 재물편취죄 한정 필요설에 종속된 설명 또는 관계로 표시하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "section_path": "Ⅴ.2"
+        }
+      ],
+      "target_path": "$.target.cards[?(@.id=='fraud_intent.property_only_appropriation_practical_consequence')].variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "missing_legal_review_questions",
+      "message": "다수 카드가 review_required이고 불법영득의사 필요 여부에 관한 경쟁 견해 및 commentary-reported 판례 입장을 보존하고 있는데도 법적 검토 질문이 비어 있다. 따라서 후속 단계가 권위 확인과 정책 선택을 검토 없이 진행할 수 있다.",
+      "recommended_action": "최소한 불법영득의사 필요 여부의 경쟁 견해 중 어떤 입장을 채택할지, 보고된 판례 입장을 원판례로 확인할지, 그리고 그 선택이 재물편취죄와 불법이득죄에 각각 어떻게 적용되는지를 묻는 검토 질문을 추가하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "section_path": "Ⅴ.2"
+        }
+      ],
+      "target_path": "$.target.legal_review_questions",
+      "type": "other"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_intent_norms_v1_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "후보의 내용상 범위는 대체로 보존되었으나, 판례 권위의 일률적 부여, 사례 판시의 일반 표준 형식화, 종속적 설명의 정책 변형군 편입, 필수 검토 질문 누락을 수정해야 한다.",
+  "target_id": "kr.fraud.article347.intent.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

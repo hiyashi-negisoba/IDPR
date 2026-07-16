@@ -1,0 +1,82 @@
+{
+  "findings": [
+    {
+      "finding_id": "partial_consideration_omitted_condition",
+      "message": "병합된 후보는 상당한 대가가 지급되거나 피해자의 전체 재산에 손해가 없더라도 사기죄 성립에 영향이 없다는 규범까지 포함하지만, 카드 명제는 일부 대가 지급 시 편취액 산정만 보존하여 독립적인 성립 규범을 누락했다.",
+      "recommended_action": "후보가 포함한 대가 지급 및 전체재산 손해 부재의 성립 영향 규범을 이 카드에 정확히 보존하거나 별도 카드로 분리한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.1_1",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "target_path": "$.cards[5].proposition",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "triangular_fraud_case_overgeneralization",
+      "message": "출처는 재산상 권리가 없는 자는 피해자가 될 수 없다는 일반 명제와, 피기망자인 법원이 피해자가 아니었던 특정 사례를 제시한다. 카드가 이를 모든 삼각사기에서 피기망자는 피해자가 아니고 제3자가 피해자라는 일반 규범으로 확장했다.",
+      "recommended_action": "피해자 판단을 재산상 권리 보유 여부에 한정하고, 법원과 제3자에 관한 부분은 해당 사례의 결과로 명시한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.2_2",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "target_path": "$.cards[12].proposition",
+      "type": "overgeneralization"
+    },
+    {
+      "finding_id": "nonproperty_examples_unsupported_common_rationale",
+      "message": "혼인빙자 간음 사례는 재물 또는 재산상 이익의 취득이 없다는 이유가 명시되어 있지만, 허위기재 여권 사례의 출처는 불성립 결론만 제시한다. 두 사례 모두 같은 비재산성 이유로 불성립한다는 병합 명제는 여권 사례의 출처 범위를 넘는다.",
+      "recommended_action": "두 사례를 분리하거나, 여권 사례에는 출처가 명시한 불성립 결론만 기록하고 공통 이유를 부여하지 않는다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.3_4",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "target_path": "$.cards[17].proposition",
+      "type": "overgeneralization"
+    },
+    {
+      "finding_id": "completion_view_categorized_as_descriptive",
+      "message": "출처는 사기로 인한 처분 시점에 기수가 된다는 내용을 하나의 견해로 제시하고 그 견해를 전제로 사후 취소의 영향을 논한다. 카드는 이를 침해범이라는 설명과 병합한 뒤 전체를 확정적인 commentary_synthesis/descriptive 명제로 표시하여 견해성과 조건 관계를 소거했다.",
+      "recommended_action": "침해범 설명과 처분시 기수 견해를 분리하고, 후자는 견해임과 사후 취소 결론의 전제 관계를 보존하도록 권위 및 doctrinal_status를 조정한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.4_6",
+          "section_path": "Ⅱ.4"
+        }
+      ],
+      "target_path": "$.cards[21]",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "road_permit_authority_conflation",
+      "message": "카드는 판례가 보고된 인과관계 판단과 주석서 자체의 대안적·유보적 분석을 함께 담으면서 authority_basis 전체를 commentary_reported_precedent로 지정했다. 이로 인해 주석서의 재산상 이익 부정 가능성까지 판례 권위로 오인될 수 있다.",
+      "recommended_action": "판례의 인과관계 판단과 주석서의 유보적 대안 분석을 권위별 카드로 분리하거나, 각 부분의 서로 다른 권위가 명시되도록 구조를 최소 조정한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅲ.2_10",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "target_path": "$.cards[31].authority_basis",
+      "type": "authority_mismatch"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_general_object_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "대부분의 후보와 출처는 보존되었으나, 일부 카드에서 후보 규범 누락, 사례의 일반화, 견해의 확정 규범화 및 판례와 주석서 분석의 권위 혼동이 발생했다.",
+  "target_id": "kr.fraud.article347.general_object.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

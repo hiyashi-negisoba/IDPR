@@ -616,3 +616,71 @@ standard로 표현한다. Terra는 이 source-to-structure 변환만 학습하�
 Terra는 전수 실행하되 Sol은 층화표본, high-risk batch, 검증 실패 batch에 집중한다.
 NormCard merge, RuleIR 생성과 여유분을 포함한 실무 예산은 약 $60-$80으로 잡는다.
 따라서 잔액이 $97.5라면 전체 범위를 진행할 수 있지만, 문자 그대로 $7.5라면 불가능하다.
+
+---
+
+## 사기죄 제347조 전체 NormCandidate/NormCard 준비 실행
+
+작성일: 2026-07-16
+
+### 범위와 결과
+
+이번 API 실행 범위는 형법 제347조 사기죄 주석서 13개 배치로 한정했다. 다른 죄명,
+형법총칙, 특별법, 형사소송법에는 API 호출을 확장하지 않았다.
+
+- 최종 NormCandidate: 662개, unresolved question 37개
+- 최종 NormCard: 636개
+- 후보 계보: 662개가 중복 없이 정확히 한 번씩 카드에 연결
+- 형식화: standard_input 334, context_only 179, policy_variant 67,
+  deterministic_rule 56
+- 법률검토 필요: 551개
+- Sol 최종 비평: 17개 보고서 모두 계약 검증 통과
+- 최종 지적: 67개, pass 2개 묶음, revise 15개 묶음
+
+NormCardSet 계약을 1.1로 올려 모든 카드가 `candidate_refs`를 갖게 했다. 카드가 후보를
+누락하거나 알 수 없는 후보·출처를 참조하면 실패한다. 서로 다른 `norm_kind` 또는
+`polarity`를 한 카드에 병합하는 것도 실패하도록 validator를 강화했다.
+
+Terra merge가 기망 후보 211개 중 181개를 누락하고 특수유형 101개를 4개 카드로
+과도 병합한 실행을 확인했다. 이 두 모듈은 API 병합 결과를 폐기하고 후보별 카드로
+복원했다. 다른 모듈도 반대 polarity나 다른 authority class를 섞은 병합은 자동
+분리했다. 주석서가 보고한 판례로 추정되는 카드 179개는 원판례 확인 전
+`context_only`로 제한했다.
+
+### RuleIR 게이트
+
+형식상 61개 카드는 잠정 RuleIR 진입 가능하지만, 사기죄 전체 결론을 구성할 핵심
+법리의 출처·권위·학설 선택이 승인되지 않았다. 따라서 636개 전체 RuleIR 생성은
+의도적으로 차단했다. 기존 8장짜리 NormCard/RuleIR/Scallop은 API에 제공할 구조적
+모범답안이며 전체 사기죄 법리 승인본이 아니다.
+
+사용자 검수 시작점:
+
+- `data/rulegen/fraud/fraud_legal_review_guide.md`
+- `data/rulegen/fraud/fraud_norm_card_review_queue.json`
+- `data/rulegen/fraud/fraud_human_review_decisions.jsonl`
+- `data/rulegen/fraud/fraud_rule_ir_readiness.json`
+
+### API 사용량
+
+사기죄 전체 준비 실행의 기록된 누적 사용량은 약 2,885,006 tokens, 122 API calls다.
+여기에는 extraction calibration, 후보 교정, NormCard merge v1/v2, 중간 및 최종 Sol
+감사가 포함된다. Gateway가 모델별 실제 청구액을 응답하지 않으므로 USD 비용은
+dashboard를 기준으로 확인해야 한다.
+
+직접적인 실행기 실수로 낭비된 사용량은 최소 428,553 tokens다.
+
+- partial critic target에 모듈 전체 source scope를 넣은 v1: 399,052 tokens
+- 허용 타입이 없던 `missing_variant` 응답을 같은 run ID로 재호출: 29,501 tokens
+
+두 문제의 원인과 재발 방지는
+`docs/research/agent_mistakes_postmortem.md`에 기록했다.
+
+### 검증
+
+- 전체 테스트: `48 passed`
+- Python `py_compile`: 통과
+- 후보 662개 및 카드 636개 lineage/provenance 검증: 통과
+- 최종 Sol 비평 17개 JSON contract 검증: 통과
+- `ruff`: 현재 환경에 설치되어 있지 않아 실행하지 못함
+- Scallop runtime: 현재 환경에 `scallopy`/`scli`가 없어 실행하지 못함

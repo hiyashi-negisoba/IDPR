@@ -37,11 +37,9 @@ def source_ref(comment_id: str, section_path: str, quote: str) -> dict[str, str]
 SUMMARY = source_ref(
     "comm_001692_제347조_Ⅰ_0",
     "Ⅰ",
-    (
-        "사기죄는 타인을 기망하여 착오를 발생케 하고 그 착오에 기하여 재물의 "
-        "교부 기 타의 재산적 처분행위를 하게 함으로써 재물을 취득하거나 재산상의 "
-        "이익을 취득 함으로써 성립하는 범죄이다."
-    ),
+    "사기죄의 객관적 구성요건은 ⅰ) 기망행위, ⅱ) 피기망자의 착오, "
+    "ⅲ) 재산적 처분행위, ⅳ) 재산상 손해의 발 생, ⅴ) 재물 또는 "
+    "재산상 이익의 취득과 ⅵ) 그 사이의 인과관계이고",
 )
 DECEPTION = source_ref(
     "comm_001692_제347조_Ⅳ.1_11",
@@ -71,19 +69,22 @@ ACQUISITION = source_ref(
 INTENT = source_ref(
     "comm_001692_제347조_Ⅴ.1_74",
     "Ⅴ.1",
-    "범의의 판단 시점은 행위 당시로 보아야 한다. 이에 대한 판례의 판시는 다 음과 같다.",
+    "범의의 판단 시점은 행위 당시로 보아야 한다.",
 )
 UNLAWFUL_INTENT = source_ref(
     "comm_001692_제347조_Ⅴ.2_82",
     "Ⅴ.2",
-    (
-        "사기죄의 주관적 요건으로 고의 외에 초과주관적 구성요 건으로서 "
-        "불법영득의사가 필요한지에 관하여는 ⅰ) 불법영득의사가 필요하지 않 다는 "
-        "견해, ⅱ) 재물편취죄와 불법이득죄를 구별하지 않고 모두 불법영득의사 가 "
-        "필요하다는 견해, ⅲ) 재물편취죄와 불법이득죄를 구별하여 재물편취죄의 "
-        "경우에는 불법영득의사가 필요하고 불법이득죄의 경우에는 불법영득의사가 "
-        "필 요하지 않다는 견해가 대립한다."
-    ),
+    "ⅰ) 불법영득의사가 필요하지 않 다는 견해",
+)
+UNLAWFUL_INTENT_REQUIRED_ALL = source_ref(
+    "comm_001692_제347조_Ⅴ.2_82",
+    "Ⅴ.2",
+    "ⅱ) 재물편취죄와 불법이득죄를 구별하지 않고 모두 불법영득의사 가 필요하다는 견해",
+)
+UNLAWFUL_INTENT_PROPERTY_ONLY = source_ref(
+    "comm_001692_제347조_Ⅴ.2_82",
+    "Ⅴ.2",
+    "ⅲ) 재물편취죄와 불법이득죄를 구별하여 재물편취죄의 경우에는 불법영득의사가 필요하고 불법이득죄의 경우에는 불법영득의사가 필 요하지 않다는 견해",
 )
 UNLAWFUL_INTENT_PRECEDENT = source_ref(
     "comm_001692_제347조_Ⅴ.2_82",
@@ -116,6 +117,16 @@ REF_CARD_IDS = {
         UNLAWFUL_INTENT_PRECEDENT["comment_id"],
         UNLAWFUL_INTENT_PRECEDENT["section_path"],
         UNLAWFUL_INTENT_PRECEDENT["quote"],
+    ): "fraud.unlawful_gain_intent",
+    (
+        UNLAWFUL_INTENT_REQUIRED_ALL["comment_id"],
+        UNLAWFUL_INTENT_REQUIRED_ALL["section_path"],
+        UNLAWFUL_INTENT_REQUIRED_ALL["quote"],
+    ): "fraud.unlawful_gain_intent",
+    (
+        UNLAWFUL_INTENT_PROPERTY_ONLY["comment_id"],
+        UNLAWFUL_INTENT_PROPERTY_ONLY["section_path"],
+        UNLAWFUL_INTENT_PROPERTY_ONLY["quote"],
     ): "fraud.unlawful_gain_intent",
 }
 
@@ -197,6 +208,7 @@ def norm_card(
     authority_basis: str,
     doctrinal_status: str,
     refs: tuple[dict[str, str], ...],
+    candidate_refs: tuple[tuple[str, str], ...],
     request_id_by_comment_id: dict[str, str],
     variant_group: str | None = None,
     review_required: bool = False,
@@ -204,6 +216,10 @@ def norm_card(
 ) -> dict[str, Any]:
     return {
         "id": card_id,
+        "candidate_refs": [
+            {"request_id": request_id, "candidate_id": candidate_id}
+            for request_id, candidate_id in candidate_refs
+        ],
         "norm_kind": norm_kind,
         "proposition": proposition,
         "formalization": formalization,
@@ -228,11 +244,12 @@ def build_fraud_norm_card_set(
         norm_card(
             "fraud.elements_chain",
             "element",
-            "사기죄는 기망, 착오, 재산적 처분, 취득 및 그 인과적 연결을 요구한다.",
+            "사기죄의 객관적 구성요건은 기망, 착오, 재산적 처분, 손해, 취득 및 그 인과관계이다.",
             formalization="deterministic_rule",
             authority_basis="commentary_synthesis",
             doctrinal_status="descriptive",
             refs=(SUMMARY,),
+            candidate_refs=(("fraud.article347.pass1.001", "fraud.elements.objective"),),
             request_id_by_comment_id=request_id_by_comment_id,
             review_notes="기본 인과 사슬의 rule skeleton 근거다.",
         ),
@@ -244,6 +261,12 @@ def build_fraud_norm_card_set(
             authority_basis="commentary_synthesis",
             doctrinal_status="settled",
             refs=(DECEPTION,),
+            candidate_refs=(
+                (
+                    "fraud.article347.pass1.002",
+                    "fraud.definition.deception-good-faith-mistake",
+                ),
+            ),
             request_id_by_comment_id=request_id_by_comment_id,
             review_required=True,
             review_notes="사실관계 포섭은 standard assessment가 필요하다.",
@@ -256,6 +279,12 @@ def build_fraud_norm_card_set(
             authority_basis="commentary_synthesis",
             doctrinal_status="settled",
             refs=(MISTAKE,),
+            candidate_refs=(
+                (
+                    "fraud.article347.pass1.006",
+                    "fraud.definition.error-inconsistent-cognition",
+                ),
+            ),
             request_id_by_comment_id=request_id_by_comment_id,
             review_required=True,
             review_notes="인과관계는 elements_chain 카드와 결합하되 별도 predicate로 둔다.",
@@ -268,6 +297,12 @@ def build_fraud_norm_card_set(
             authority_basis="commentary_synthesis",
             doctrinal_status="settled",
             refs=(DISPOSITION,),
+            candidate_refs=(
+                (
+                    "fraud.article347.pass1.006",
+                    "fraud.element.property-disposition",
+                ),
+            ),
             request_id_by_comment_id=request_id_by_comment_id,
             review_required=True,
             review_notes="삼각사기는 처분권한과 재산상 근접성을 별도로 검수한다.",
@@ -280,6 +315,17 @@ def build_fraud_norm_card_set(
             authority_basis="commentary_reported_doctrine",
             doctrinal_status="disputed",
             refs=(LOSS,),
+            candidate_refs=(
+                ("fraud.article347.pass1.007", "fraud.variant-property-loss-requirement-negative"),
+                (
+                    "fraud.article347.pass1.007",
+                    "fraud.variant-property-loss-requirement-affirmative",
+                ),
+                (
+                    "fraud.article347.pass1.007",
+                    "fraud.variant-property-loss-requirement-limited-affirmative",
+                ),
+            ),
             request_id_by_comment_id=request_id_by_comment_id,
             variant_group="fraud.damage_requirement",
             review_required=True,
@@ -293,6 +339,12 @@ def build_fraud_norm_card_set(
             authority_basis="commentary_synthesis",
             doctrinal_status="settled",
             refs=(ACQUISITION,),
+            candidate_refs=(
+                (
+                    "fraud.article347.pass1.008",
+                    "fraud.definition-delivery-of-property",
+                ),
+            ),
             request_id_by_comment_id=request_id_by_comment_id,
             review_notes="수익자 역할을 피고인과 분리하여 표현한다.",
         ),
@@ -304,6 +356,12 @@ def build_fraud_norm_card_set(
             authority_basis="commentary_reported_precedent",
             doctrinal_status="precedent_position",
             refs=(INTENT,),
+            candidate_refs=(
+                (
+                    "fraud.article347.pass1.009",
+                    "fraud.standard.intent-time-of-conduct",
+                ),
+            ),
             request_id_by_comment_id=request_id_by_comment_id,
             review_required=True,
             review_notes="모델은 유리·불리 사실과 판단 시점을 함께 제시해야 한다.",
@@ -315,7 +373,24 @@ def build_fraud_norm_card_set(
             formalization="policy_variant",
             authority_basis="commentary_reported_precedent",
             doctrinal_status="disputed",
-            refs=(UNLAWFUL_INTENT, UNLAWFUL_INTENT_PRECEDENT),
+            refs=(
+                UNLAWFUL_INTENT,
+                UNLAWFUL_INTENT_REQUIRED_ALL,
+                UNLAWFUL_INTENT_PROPERTY_ONLY,
+                UNLAWFUL_INTENT_PRECEDENT,
+            ),
+            candidate_refs=(
+                ("fraud.article347.pass1.009", "fraud.variant-illegal-appropriation-not-required"),
+                ("fraud.article347.pass1.009", "fraud.variant-illegal-appropriation-required-all"),
+                (
+                    "fraud.article347.pass1.009",
+                    "fraud.variant-illegal-appropriation-required-property-only",
+                ),
+                (
+                    "fraud.article347.pass1.009",
+                    "fraud.standard-precedent-illegal-appropriation-intent",
+                ),
+            ),
             request_id_by_comment_id=request_id_by_comment_id,
             variant_group="fraud.unlawful_gain_intent",
             review_required=True,
@@ -323,7 +398,7 @@ def build_fraud_norm_card_set(
         ),
     ]
     return {
-        "version": "1.0.0",
+        "version": "1.1.0",
         "card_set_id": "kr.fraud.article347.norms.v1_exemplar",
         "issue_tag": "fraud",
         "status": "draft",

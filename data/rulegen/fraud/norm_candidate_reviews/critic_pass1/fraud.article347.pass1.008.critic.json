@@ -1,0 +1,130 @@
+{
+  "findings": [
+    {
+      "finding_id": "missing.disposition.results",
+      "message": "처분행위 결과에 관한 명시적 규범들이 누락되었다. 가압류 해제로 아파트 매도·대금수령이 용이해진 이익과 가압류청구금액 상당 이익, 투자금 편취 과정의 미지급 이자에 관한 처분행위 부정, 명의대여 후 세금·채무 부담만으로 채무면제 이익에 대한 처분행위를 인정하기 어렵다는 각각의 규범이 추출되지 않았다.",
+      "recommended_action": "누락된 세 규범을 서로 구분하여 후보로 추가하고, 사례에 한정된 사실조건과 긍정·부정 결론을 그대로 보존한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.5_67",
+          "section_path": "Ⅳ.5"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "missing.gain.calculation.rules",
+      "message": "이득액 산정에 관한 다수의 독립 규범이 누락되었다. 유가증권 사기의 액면가액 기준, 엄격·신중한 산정 및 죄형균형·책임주의 고려, 정당한 권리 상당액 공제와 불가분인 경우 전액 산정이라는 학설, 계산적으로 산출할 수 없는 이익도 재산상 이익이 될 수 있다는 규범, 현실 교부액 기준, 담보 제공 대출에서 담보가액을 공제하지 않는 규범이 포함되지 않았다.",
+      "recommended_action": "각 산정 규범을 별도 후보로 추가하고, 학설과 판례의 규범을 합치지 말며 일반 기준과 구체적 사례를 구분한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_68",
+          "section_path": "Ⅳ.6"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_69",
+          "section_path": "Ⅳ.6"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_70",
+          "section_path": "Ⅳ.6"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_71",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "missing.mortgage.priority.variant",
+      "message": "근저당권 설정에 따른 이득액 후보가 기본 원칙만 추출하고 후순위 근저당권의 한도 및 특별사정 예외를 누락했다. 원칙적으로 선순위 근저당권의 채권최고액을 공제하지만, 담보가치가 실제 피담보채권액만큼만 파악된 특별사정에서는 실제 피담보채권액을 공제한다는 구별이 보존되어야 한다.",
+      "recommended_action": "현재 후보는 기본 원칙으로 한정하고, 후순위 한도와 특별사정 예외를 별도 후보 또는 명시적으로 연결된 변형 후보로 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_71",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "target_path": "$.candidates[29]",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "unsupported.money.full.amount",
+      "message": "인용문은 금원 교부로 사기죄가 성립하고 대가 지급이나 전체재산 손해 부재가 영향을 주지 않는다는 부분까지만 담고 있으며, 후보 명제의 마지막 내용인 편취액이 교부받은 금원 전부라는 점은 포함하지 않는다.",
+      "recommended_action": "같은 출처에서 전액 산정 부분까지 직접 뒷받침하는 정확한 인용문을 추가하거나, 해당 내용을 이 후보에서 제거하고 바로 다음의 전액 산정 후보에만 둔다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_63",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "target_path": "$.candidates[4].source_refs[0].quote",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "unsupported.repeated.investment",
+      "message": "인용문은 반환 원금과 수익금을 공제하지 않는다는 결론만 뒷받침한다. 무자력·무의사 상태, 반환 후 재투자 방식, 각 교부 시 별개의 사기죄 성립 및 투자금 합계액 산정이라는 후보의 나머지 조건과 결론은 현재 인용문에 나타나지 않는다.",
+      "recommended_action": "같은 출처에서 후보 전체를 직접 뒷받침하는 범위의 정확한 인용문으로 보완하거나 후보를 현재 인용문이 지지하는 공제 부정 명제로 한정한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_72",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "target_path": "$.candidates[32].source_refs[0].quote",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "unsupported.letter.credit",
+      "message": "인용문은 사후 결제대금을 공제하지 않는다는 점만 뒷받침하고, 임원들의 사기행위, 수회의 신용장 개설, 지급보증 이익 취득 및 신용장 대금 합계액을 이득액으로 보는 나머지 명제를 뒷받침하지 않는다.",
+      "recommended_action": "동일 출처에서 사실조건과 이득액 산정 결론 전체를 포함하는 정확한 인용문을 추가하거나 후보를 사후 결제액 공제 부정에 한정한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_72",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "target_path": "$.candidates[33].source_refs[0].quote",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "case.illustrations.as.standards",
+      "message": "면세유류공급확인서 사건의 구체적 결론을 일반적인 standard로 분류했다. 출처는 특정 사안을 일반 규범의 적용 사례로 제시하며, 이 사례 자체가 독립된 일반 기준이라는 근거는 없다. 같은 문제가 항소취하, 무효 가등기 말소, 연대보증 서명 및 보증서 발급 등 사실관계 중심 후보에도 반복된다.",
+      "recommended_action": "해당 후보들을 사례별 illustration 성격으로 분류할 수 있는지 검토하고, 일반 기준과 사례 결론을 별도 후보로 유지한다.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_64",
+          "section_path": "Ⅳ.4"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
+          "section_path": "Ⅳ.5"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.5_67",
+          "section_path": "Ⅳ.5"
+        }
+      ],
+      "target_path": "$.candidates[6]",
+      "type": "overgeneralization"
+    }
+  ],
+  "report_id": "critique.fraud.article347.pass1.008",
+  "review_required": true,
+  "stage": "norm_candidate_batch",
+  "status": "draft",
+  "summary": "재산상 손해에 관한 대립 견해는 대체로 보존되었으나, 처분행위와 이득액 산정의 여러 명시적 규범 및 예외가 누락되었다. 또한 일부 복합 후보의 필수 인용문이 명제 전체를 뒷받침하지 않고, 사례별 결론이 일반 기준처럼 분류되어 수정이 필요하다.",
+  "target_id": "fraud.article347.pass1.008",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

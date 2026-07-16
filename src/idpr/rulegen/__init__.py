@@ -157,8 +157,31 @@ def repair_ocr_interrupted_candidate_quotes(
             quote = ref.get("quote", "")
             commentary = commentary_by_id.get(comment_id)
             source_text = commentary.get("document_text", "") if commentary else ""
-            if not quote or quote in source_text:
+            if not quote:
                 replacement_refs.append(ref)
+                continue
+
+            if quote in source_text:
+                if len(quote) <= 300:
+                    replacement_refs.append(ref)
+                    continue
+                fragments = _split_exact_quote(quote)
+                replacement_refs.extend(
+                    {
+                        "comment_id": comment_id,
+                        "section_path": ref.get("section_path", ""),
+                        "quote": fragment,
+                    }
+                    for fragment in fragments
+                )
+                repair_records.append(
+                    {
+                        "candidate_id": candidate.get("candidate_id", ""),
+                        "comment_id": comment_id,
+                        "original_quote": quote,
+                        "replacement_quotes": fragments,
+                    }
+                )
                 continue
 
             fragments = _ocr_quote_fragments(
@@ -168,7 +191,26 @@ def repair_ocr_interrupted_candidate_quotes(
                 minimum_coverage=minimum_coverage,
             )
             if not fragments:
-                replacement_refs.append(ref)
+                adjacent_refs = _adjacent_chunk_quote_refs(
+                    quote,
+                    ref.get("section_path", ""),
+                    comment_id,
+                    commentary_by_id,
+                    minimum_fragment_length=minimum_fragment_length,
+                    minimum_coverage=minimum_coverage,
+                )
+                if not adjacent_refs:
+                    replacement_refs.append(ref)
+                    continue
+                replacement_refs.extend(adjacent_refs)
+                repair_records.append(
+                    {
+                        "candidate_id": candidate.get("candidate_id", ""),
+                        "comment_id": comment_id,
+                        "original_quote": quote,
+                        "replacement_refs": adjacent_refs,
+                    }
+                )
                 continue
 
             replacement_refs.extend(
@@ -189,6 +231,77 @@ def repair_ocr_interrupted_candidate_quotes(
             )
         candidate["source_refs"] = replacement_refs
     return repaired, repair_records
+
+
+def _split_exact_quote(quote: str, *, max_length: int = 300) -> list[str]:
+    return [
+        quote[start : start + max_length].strip()
+        for start in range(0, len(quote), max_length)
+        if quote[start : start + max_length].strip()
+    ]
+
+
+def _adjacent_chunk_quote_refs(
+    quote: str,
+    section_path: str,
+    comment_id: str,
+    commentary_by_id: Mapping[str, Mapping[str, Any]],
+    *,
+    minimum_fragment_length: int,
+    minimum_coverage: float,
+) -> list[dict[str, Any]]:
+    rows = list(commentary_by_id.items())
+    current_index = next(
+        (index for index, (row_id, _) in enumerate(rows) if row_id == comment_id),
+        None,
+    )
+    if current_index is None:
+        return []
+
+    matches: list[tuple[int, int, str, str, str]] = []
+    lower = max(0, current_index - 1)
+    upper = min(len(rows), current_index + 2)
+    for row_index in range(lower, upper):
+        row_id, row = rows[row_index]
+        if row.get("section_path") != section_path:
+            continue
+        source_text = row.get("document_text", "")
+        matcher = SequenceMatcher(None, quote, source_text, autojunk=False)
+        blocks = [
+            block
+            for block in matcher.get_matching_blocks()
+            if block.size >= minimum_fragment_length
+        ]
+        if not blocks:
+            continue
+        block = max(blocks, key=lambda item: item.size)
+        matches.append(
+            (
+                block.a,
+                row_index,
+                row_id,
+                row.get("section_path", ""),
+                source_text[block.b : block.b + block.size].strip(),
+            )
+        )
+
+    matches.sort(key=lambda item: item[0])
+    if len(matches) < 2:
+        return []
+    row_indexes = [item[1] for item in matches]
+    if row_indexes != sorted(row_indexes):
+        return []
+    covered = sum(len(item[4]) for item in matches)
+    if covered / len(quote) < minimum_coverage:
+        return []
+    return [
+        {
+            "comment_id": row_id,
+            "section_path": row_section,
+            "quote": fragment,
+        }
+        for _, _, row_id, row_section, fragment in matches
+    ]
 
 
 def apply_norm_candidate_patch(
@@ -267,7 +380,7 @@ def _ocr_quote_fragments(
         for block in matcher.get_matching_blocks()
         if block.size >= minimum_fragment_length
     ]
-    if len(blocks) < 2:
+    if not blocks:
         return []
     covered = sum(block.size for block in blocks)
     if covered / len(quote) < minimum_coverage:
@@ -276,7 +389,7 @@ def _ocr_quote_fragments(
         source_text[block.b : block.b + block.size].strip() for block in blocks
     ]
     fragments = [fragment for fragment in fragments if fragment]
-    if len(fragments) < 2 or any(fragment not in source_text for fragment in fragments):
+    if not fragments or any(fragment not in source_text for fragment in fragments):
         return []
     return fragments
 
@@ -285,6 +398,10 @@ def validate_norm_card_set(
     payload: Mapping[str, Any],
     commentary_by_id: Mapping[str, Mapping[str, Any]],
     request_comment_ids: Mapping[str, set[str]] | None = None,
+    allowed_source_refs: set[tuple[str, str, str]] | None = None,
+    allowed_candidates: Mapping[
+        tuple[str, str], Mapping[str, Any]
+    ] | None = None,
 ) -> None:
     """Validate normalized cards before any model is allowed to emit RuleIR."""
 
@@ -303,6 +420,7 @@ def validate_norm_card_set(
             errors.append(f"source_scope contains unknown comment_id {comment_id}")
 
     card_ids: set[str] = set()
+    covered_candidate_refs: set[tuple[str, str]] = set()
     for index, card in enumerate(payload.get("cards", [])):
         card_id = card.get("id", "")
         label = f"cards[{index}]"
@@ -311,6 +429,24 @@ def validate_norm_card_set(
         elif card_id in card_ids:
             errors.append(f"duplicate norm card id {card_id}")
         card_ids.add(card_id)
+
+        candidate_refs = card.get("candidate_refs", [])
+        linked_candidates: list[Mapping[str, Any]] = []
+        for candidate_ref in candidate_refs:
+            candidate_key = (
+                candidate_ref.get("request_id", ""),
+                candidate_ref.get("candidate_id", ""),
+            )
+            covered_candidate_refs.add(candidate_key)
+            if allowed_candidates is None:
+                continue
+            candidate = allowed_candidates.get(candidate_key)
+            if candidate is None:
+                errors.append(
+                    f"norm card {card_id} links an unknown candidate {candidate_key}"
+                )
+            else:
+                linked_candidates.append(candidate)
 
         formalization = card.get("formalization")
         doctrinal_status = card.get("doctrinal_status")
@@ -325,6 +461,7 @@ def validate_norm_card_set(
         if card.get("norm_kind") == "standard" and formalization not in {
             "standard_input",
             "policy_variant",
+            "context_only",
         }:
             errors.append(f"standard norm card {card_id} has invalid formalization")
 
@@ -338,6 +475,59 @@ def validate_norm_card_set(
             commentary_by_id,
             errors,
         )
+        if allowed_source_refs is not None:
+            for ref in refs:
+                source_key = (
+                    ref.get("comment_id", ""),
+                    ref.get("section_path", ""),
+                    ref.get("quote", ""),
+                )
+                if source_key not in allowed_source_refs:
+                    errors.append(
+                        f"norm card {card_id} source is outside validated candidates"
+                    )
+        if allowed_candidates is not None:
+            linked_norm_kinds = {
+                candidate.get("norm_kind") for candidate in linked_candidates
+            }
+            linked_polarities = {
+                candidate.get("polarity") for candidate in linked_candidates
+            }
+            if len(linked_norm_kinds) > 1:
+                errors.append(
+                    f"norm card {card_id} merges candidates with different norm_kind"
+                )
+            elif linked_norm_kinds and card.get("norm_kind") not in linked_norm_kinds:
+                errors.append(
+                    f"norm card {card_id} changes its candidates' norm_kind"
+                )
+            if len(linked_polarities) > 1:
+                errors.append(
+                    f"norm card {card_id} merges candidates with different polarity"
+                )
+            elif linked_polarities and card.get("polarity") not in linked_polarities:
+                errors.append(
+                    f"norm card {card_id} changes its candidates' polarity"
+                )
+            linked_source_refs = {
+                (
+                    ref.get("comment_id", ""),
+                    ref.get("section_path", ""),
+                    ref.get("quote", ""),
+                )
+                for candidate in linked_candidates
+                for ref in candidate.get("source_refs", [])
+            }
+            for ref in refs:
+                source_key = (
+                    ref.get("comment_id", ""),
+                    ref.get("section_path", ""),
+                    ref.get("quote", ""),
+                )
+                if source_key not in linked_source_refs:
+                    errors.append(
+                        f"norm card {card_id} source is outside linked candidates"
+                    )
 
         request_ids = card.get("request_ids", [])
         if not request_ids:
@@ -357,6 +547,23 @@ def validate_norm_card_set(
                         f"norm card {card_id} source is outside its request_ids: "
                         f"{ref.get('comment_id', '')}"
                     )
+        linked_request_ids = {
+            candidate_ref.get("request_id", "")
+            for candidate_ref in candidate_refs
+        }
+        if not linked_request_ids.issubset(set(request_ids)):
+            errors.append(
+                f"norm card {card_id} request_ids omit a linked candidate request"
+            )
+
+    if allowed_candidates is not None:
+        missing_candidates = sorted(
+            set(allowed_candidates) - covered_candidate_refs
+        )
+        if missing_candidates:
+            errors.append(
+                f"NormCardSet omits {len(missing_candidates)} validated candidates"
+            )
 
     if errors:
         raise NormCardValidationError(errors)

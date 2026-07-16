@@ -1,0 +1,82 @@
+{
+  "findings": [
+    {
+      "finding_id": "goods_nonpayment_source_mismatch",
+      "message": "연결된 출처 문구는 후속 물품대금 미변제가 채무불이행에 불과하고 별도의 재산상 이익 편취가 아니라는 부분만 뒷받침한다. 카드가 추가한 최초의 변제의사·능력 없는 기망, 물품 공급, 재물 사기죄 성립 부분은 제공된 출처 문구에서 확인되지 않는다.",
+      "recommended_action": "제공된 출처가 직접 뒷받침하는 후속 미변제의 효과로 명제를 한정하거나, 추가된 선행 요건과 최초 사기 성립을 뒷받침하는 범위 내 출처를 연결하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅸ.5_114",
+          "section_path": "Ⅸ.5"
+        }
+      ],
+      "target_path": "/cards/5/proposition",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "counterfeit_reason_unsupported",
+      "message": "출처는 위조통화행사죄와 사기죄의 실체적 경합을 인정한다는 결론만 제시한다. 카드가 그 근거로 추가한 '보호법익이 달라'는 설명은 제공된 문구로 뒷받침되지 않는다.",
+      "recommended_action": "근거 설명을 삭제하여 출처가 지지하는 결론으로 한정하거나, 해당 근거를 명시하는 범위 내 출처를 연결하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.8_125",
+          "section_path": "Ⅹ.8"
+        }
+      ],
+      "target_path": "/cards/39/proposition",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "counterfeit_variant_group_incomplete",
+      "message": "실체적 경합 입장과 바로 다음 카드의 상상적 경합 견해가 동일 쟁점의 경쟁 입장인데, 상상적 경합 카드만 variant_group에 포함되고 실체적 경합 카드는 null이다. 이로 인해 경쟁 관계가 구조적으로 보존되지 않는다.",
+      "recommended_action": "실체적 경합 카드와 상상적 경합 견해 카드를 동일한 변형 그룹에 연결하고, 어느 입장도 자동 선택하지 않도록 유지하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.8_125",
+          "section_path": "Ⅹ.8"
+        }
+      ],
+      "target_path": "/cards/39/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "agent_competing_position_group_incomplete",
+      "message": "사기죄만 성립, 배임죄만 성립, 상상적 경합이라는 학설 카드들은 동일 그룹에 묶였으나, 같은 쟁점에 관한 판례 소개 카드는 variant_group이 null이다. 권위 차이는 authority_basis와 doctrinal_status로 보존할 수 있으므로, 쟁점상 경쟁·해결 관계까지 분리할 이유는 제시되지 않았다.",
+      "recommended_action": "판례 소개 카드도 동일 쟁점 그룹에 연결하되, 학설과 판례의 권위 차이는 기존 authority_basis 및 doctrinal_status로 유지하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.6_121",
+          "section_path": "Ⅹ.6"
+        }
+      ],
+      "target_path": "/cards/35/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "commentary_penalties_deterministic_before_verification",
+      "message": "마지막 세 카드의 법정형·미수 및 상습 가중·특정경제범죄 가중 기준은 모두 commentary_synthesis로 표시되고 review_notes도 현행 법령 확인이 필요하다고 명시하지만, deterministic_rule로 형식화되고 review_required=false이다. 확인되지 않은 해설 인용을 확정적 법령 규칙처럼 취급한다.",
+      "recommended_action": "카드 43부터 45까지 현행 법령 확인 전에는 비결정적 또는 문맥 전용 형식화로 낮추고 review_required=true로 설정하거나, 현행 법령의 직접 권위를 확보한 뒤 결정 규칙으로 유지하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.9_126",
+          "section_path": "Ⅹ.9"
+        }
+      ],
+      "target_path": "/cards/43/formalization",
+      "type": "formalization_error"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_concurrence_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "대부분의 카드는 후보를 충실히 승계하지만, 두 명제에 출처가 뒷받침하지 않는 요소가 추가되었고, 두 경쟁 쟁점의 variant_group이 불완전하다. 또한 현행 법령 확인이 필요하다고 적힌 세 처벌 카드가 검토 없이 결정 규칙으로 형식화되어 수정이 필요하다.",
+  "target_id": "kr.fraud.article347.concurrence.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

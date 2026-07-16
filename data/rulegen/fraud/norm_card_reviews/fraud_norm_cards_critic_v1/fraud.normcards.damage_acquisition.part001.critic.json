@@ -1,0 +1,90 @@
+{
+  "findings": [
+    {
+      "finding_id": "f1.third_party_intent_object_mistranslated",
+      "message": "출처와 후보는 범인에게 '제3자로 하여금 재물을 취득하게 할 의사'가 있어야 한다고 하지만, 카드는 '제3자를 취득하게 할 의사'라고 하여 취득의 객체를 제3자 자체로 변경했다.",
+      "recommended_action": "취득의 객체가 재물임을 복원하여 출처와 후보의 의미에 맞게 해당 문구만 수정한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
+          "section_path": "Ⅳ.5"
+        }
+      ],
+      "target_path": "$.cards[22].proposition",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "f2.property_loss_views_polarity_merge",
+      "message": "하나의 카드가 negative 후보인 부정설과 positive 후보인 긍정설·제한적 긍정설을 병합하면서 카드 polarity를 positive로 지정했다. norm_kind와 polarity는 독립적으로 보존되어야 하므로, 이 표시는 병합된 경쟁 견해 전체의 극성을 정확히 나타내지 못한다. 같은 variant_group에 각 견해의 구체 카드도 별도로 존재하여 이 통합 카드가 선택 가능한 정책 변형인지 단순 쟁점 요약인지도 불명확하다.",
+      "recommended_action": "이 카드를 선택 가능한 단일 policy variant로 취급하지 말고 쟁점 요약으로 명확히 구별하거나, 경쟁 견해별 카드에서 각 후보의 polarity를 그대로 유지한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "section_path": "Ⅳ.4"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_63",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "target_path": "$.cards[0]",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "f3.negative_norms_recast_as_exceptions",
+      "message": "원 후보는 별도 사기죄가 성립하지 않는 negative standard인데, 카드가 연결된 일반 규범이나 적용 제외 관계를 밝히지 않은 채 norm_kind와 polarity를 모두 exception으로 변경했다. 이는 후보의 독립적인 부정 규범을 예외로 재분류하여 의미 구조를 바꾼다.",
+      "recommended_action": "후보의 negative polarity와 독립 규범 성격을 보존하거나, 실제 예외로 모델링하려면 예외가 적용되는 명시적 일반 규범과 관계를 기록한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_64",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "target_path": "$.cards[17]",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "f4.irrelevance_rule_recast_as_exception",
+      "message": "상당한 대가, 사후 반환·변상, 전체재산 손해 부재 및 사후 합의가 성립에 영향을 주지 않는다는 positive standard 후보를 근거 없이 exception/exception으로 변경했다. 출처는 특정 일반 규범에 대한 예외 관계를 제시하지 않는다.",
+      "recommended_action": "후보의 standard/positive 분류를 보존하거나, 예외 분류를 유지하려면 출처로 뒷받침되는 부모 규범과 예외 관계를 명시한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_64",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "target_path": "$.cards[18]",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "f5.out_of_scope_triangular_fraud_questions",
+      "message": "두 질문은 삼각사기의 처분능력에 관한 네 가지 학설과 판례의 사실상 지위설·법적 권한설 관계를 전제로 하지만, target의 coverage_gaps 자체가 해당 기준의 후보 규범이 현재 source scope에 없다고 밝힌다. 제공된 후보와 출처에도 이러한 학설 또는 판례 입장이 없다.",
+      "recommended_action": "현재 카드 세트의 법률검토 질문에서 해당 두 질문을 제거하고 coverage gap으로만 유지하거나, 관련 출처와 후보를 별도 추출한 후 다시 포함한다.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "$.legal_review_questions[3:5]",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "f6.out_of_scope_identity_question",
+      "message": "피기망자와 처분행위자의 동일성 및 '기망자와 처분행위자'라는 표현의 오기 여부에 관한 질문은 제공된 후보나 bounded source material에 근거가 없다. 현재 source scope에서 확인할 수 없는 문구를 전제로 한다.",
+      "recommended_action": "해당 질문을 현재 세트에서 제거하여 미확인 사항으로 남기거나, 문제된 문구가 포함된 정확한 출처를 범위에 추가한 뒤 검토 질문으로 복원한다.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "$.legal_review_questions[6]",
+      "type": "source_scope"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_damage_acquisition_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "대부분의 카드가 후보와 출처를 충실히 보존하지만, 제3자 취득 의사의 객체가 잘못 번역되었고 일부 규범의 norm_kind·polarity가 근거 없이 exception으로 변경되었다. 또한 재산상 손해 견해 통합 카드의 polarity와 정책 변형 역할이 불명확하며, 삼각사기 관련 검토 질문들은 명시된 source scope 밖의 학설과 판례를 전제로 한다.",
+  "target_id": "kr.fraud.article347.damage_acquisition.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

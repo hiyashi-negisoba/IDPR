@@ -1,0 +1,110 @@
+{
+  "findings": [
+    {
+      "finding_id": "f1.collapsed-gold-wallet-cases",
+      "message": "서로 다른 사실관계인 금괴 운반 사례와 유실 지갑 사례를 하나의 후보로 결합하였다. 각 사례는 재산적 처분행위가 부정되는 이유와 적용 사실을 독립적으로 보존해야 하며, 현재 인용문도 두 사례의 사실관계를 포함하지 않고 공통 결론만 제시한다.",
+      "recommended_action": "두 사례를 별개의 사례 적용 후보로 분리하고, 각 후보의 인용문이 해당 사실관계와 결론을 직접 뒷받침하도록 최소한으로 조정한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_12",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates[7]",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "f2.excess-insurance-quote-underinclusive",
+      "message": "후보 명제는 초과보험의 의도적 유발, 보험자의 인식 여부, 계약 또는 보험금 지급에 관한 반사실적 관계까지 조건으로 포함하지만, 제시된 인용문은 목적물 가액을 묵비한 보험금 청구가 기망이라는 결론만 담고 있어 전체 조건을 뒷받침하지 않는다.",
+      "recommended_action": "명제의 모든 조건을 직접 포함하는 범위의 실제 원문 인용으로 provenance를 보완하거나, 명제를 현재 인용문이 지지하는 범위로 한정한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_14",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates[25].source_refs[0]",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "f3.missing-opinion-issue-qualifications",
+      "message": "가치판단·의견 표시 논쟁에서 공통적으로 중요한 한계가 누락되었다. 원문은 막연한 추측이나 의견 제시는 기망이 될 수 없다고 서술하고, 제3설에 관해서는 추상적 고지는 부족하지만 구체적인 허위 고지는 착오 유발에 충분할 수 있다고 구별한다.",
+      "recommended_action": "막연한 추측·의견에 관한 부정 규범과 제3설의 추상적 고지·구체적 허위 고지 구별을 별도 후보로 추출하되, 학설상의 지위와 polarity를 보존한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_13",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "f4.missing-opinion-precedent-status",
+      "message": "가치판단·의견 표시 문제에 관하여 정면으로 판단한 판례가 보이지 않고 과장·허위광고 사례의 긍정례와 부정례가 나뉜다는 권위 상태가 보존되지 않았다. 현재 질문은 학설 선택만 제시하여 판례 권위의 미해결 상태를 누락한다.",
+      "recommended_action": "정면 판례의 부재와 광고 판례의 분열을 나타내는 후보 또는 검토 질문을 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_13",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.unresolved_questions[1]",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "f5.missing-transaction-purpose-applications",
+      "message": "거래 목적 달성에 지장이 없으면 기망을 인정하기 어렵다는 일반 기준에 이어 제시된 독립적인 적용례들이 누락되었다. 유효한 소유권 취득, 자동차 이전서류 교부, 유효한 담보 제공의 경우에는 성립이 부정되고, 현금 결제를 약속한 뒤 다투어지는 채권으로 상계하려 한 경우에는 성립이 긍정된다는 서로 반대되는 사례가 보존되어야 한다.",
+      "recommended_action": "각 독립 적용례를 case-specific 후보로 추출하고 긍정·부정 polarity를 각각 유지한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_14",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "f6.missing-bid-rigging-precedent-position",
+      "message": "담합 후보는 저자의 사견만 추출하였다. 같은 원문은 판례가 사기죄 성립 여부를 명시적으로 판단하지 않았지만 입찰방해죄와 사기죄가 모두 성립한다는 전제에서 상상적 경합을 다루었다고 별도로 설명한다. 사견과 판례의 제한적인 권위 상태를 함께 보존하지 않으면 논쟁 구조가 왜곡된다.",
+      "recommended_action": "저자의 사견과 별도로, 판례가 명시 판단을 하지 않았다는 한계 및 양죄 성립을 전제로 한 판시를 commentary-reported precedent 후보로 추출하고 관련 검토 질문에 반영한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_18",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates[32]",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "f7.missing-deception-means-applications",
+      "message": "기망 수단에 제한이 없다는 일반론만 추출하고, 원문이 명시적 기망행위로 제시한 문자메시지 유료접속, 승패가 조작된 사기도박, 위법 개설 의료기관의 요양급여 청구 사례를 누락하였다.",
+      "recommended_action": "후속 형식화에 필요한 사례 범위라면 각 사례를 독립적인 사례 적용 후보로 추가하고, 일반 정의와 병합하지 않는다.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_18",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    }
+  ],
+  "report_id": "critique.fraud.article347.pass1.002",
+  "review_required": true,
+  "stage": "norm_candidate_batch",
+  "status": "draft",
+  "summary": "주요 일반 기준과 학설 대립은 상당 부분 추출되었으나, 서로 다른 사례의 결합, 조건 전체를 지지하지 않는 인용문, 가치판단 논쟁의 한계와 판례 상태 누락, 담합에 관한 사견과 판례 설명의 권위 구별 누락이 있어 수정이 필요하다.",
+  "target_id": "fraud.article347.pass1.002",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

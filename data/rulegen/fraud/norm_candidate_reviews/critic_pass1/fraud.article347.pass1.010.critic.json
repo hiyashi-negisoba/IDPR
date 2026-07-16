@@ -1,0 +1,90 @@
+{
+  "findings": [
+    {
+      "finding_id": "commencement.intent-omitted",
+      "message": "실행착수 명제에서 원문이 요구하는 ‘적극적인 방법으로 법원을 기망할 의사’를 누락하여, 해당 서류나 서면을 제출하기만 하면 실행착수가 되는 것처럼 범위를 넓혔다.",
+      "recommended_action": "실행착수 요건에 적극적인 방법으로 법원을 기망할 의사가 필요하다는 한정만 추가하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_86",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "target_path": "$.candidates[19].proposition",
+      "type": "overgeneralization"
+    },
+    {
+      "finding_id": "false-loss-instrument-source-mismatch",
+      "message": "명제는 약속어음까지 포함하지만 연결된 인용문은 가계수표 및 자기앞수표에 관한 내용만 뒷받침한다. 약속어음 사례는 다른 공급 자료에 있으며 현재 source_refs의 인용문으로는 명제 전체가 입증되지 않는다.",
+      "recommended_action": "약속어음 부분을 이를 직접 뒷받침하는 출처와 인용문에 연결하거나, 현재 인용문이 뒷받침하는 수표 사례로 명제를 한정하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_86",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_87",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "target_path": "$.candidates[23]",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "third-party-property-quote-underinclusive",
+      "message": "명제는 소유권 확인판결뿐 아니라 이전등기소송의 청구인낙 및 소송상 화해에 기초한 등기까지 포괄하지만, 제시된 인용문은 소유권 확인소송 사례만 담고 있어 명제의 나머지 유형을 직접 뒷받침하지 않는다.",
+      "recommended_action": "같은 자료에서 청구인낙과 소송상 화해 유형까지 포함하는 정확한 인용문을 추가하거나, 명제를 현재 인용 범위로 한정하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_85",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "target_path": "$.candidates[15].source_refs[0].quote",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "omitted-known-false-claim-attempt",
+      "message": "권리가 존재하지 않음을 알면서 가등기·소유권이전등기를 원인무효라고 허위 주장하여 패소한 경우에도 사기미수죄가 성립한다고 한 구체적 사례가 후보에서 누락되었다. 이는 일반적인 착오 배제 원칙과 별도로 실행착수 및 미수의 사례를 제시한다.",
+      "recommended_action": "해당 판례 결과를 사례 한정 후보로 추가할지 검토하라.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_86",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "omitted-promissory-note-public-summons-variant",
+      "message": "약속어음 소지 사실을 알면서 허위 분실사유로 제권판결을 받아 어음채무를 면한 경우의 유죄 규범이 독립적으로 추출되지 않았다. 실질채무가 없는 경우 무죄라는 반대 변형은 추출되어 있으므로, 실질채무가 있는 유죄 변형도 보존할 필요가 있다.",
+      "recommended_action": "실질채무가 존재하는 약속어음 제권판결 유죄 사례를 별도 후보로 추가하고, 실질채무가 없는 무죄 사례와 변형 관계를 유지하라.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_86",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_87",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    }
+  ],
+  "report_id": "critique.fraud.article347.pass1.010",
+  "review_required": true,
+  "stage": "norm_candidate_batch",
+  "status": "draft",
+  "summary": "대체로 주요 일반 원칙과 사례를 폭넓게 추출했으나, 실행착수 요건의 기망 의사가 누락되어 범위가 넓어졌고 일부 명제는 제시된 인용문보다 넓다. 또한 약속어음 제권판결의 상반된 변형과 알려진 허위청구 미수 사례가 완전하게 보존되지 않았다.",
+  "target_id": "fraud.article347.pass1.010",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

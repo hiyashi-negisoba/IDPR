@@ -1,0 +1,62 @@
+{
+  "findings": [
+    {
+      "finding_id": "variant_group.illegal_cause_split",
+      "message": "불법원인급여에 관한 다수설과 소수설은 동일 쟁점의 상반된 견해인데 서로 다른 pending variant_group 값이 부여되어 경쟁 관계가 표현되지 않는다. 판례의 긍정설 카드도 같은 쟁점의 권위 선택에 관련되지만 variant_group이 null이다.",
+      "recommended_action": "긍정설·부정설 카드에 하나의 공통 variant_group을 부여하고, 판례 긍정설 카드가 같은 쟁점의 권위상 위치를 나타내도록 해당 그룹과 연결하되 견해들을 병합하지 않는다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.3_96",
+          "section_path": "Ⅵ.3"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.3_97",
+          "section_path": "Ⅵ.3"
+        }
+      ],
+      "target_path": "$.cards[?(@.id=='special_forms.fraud.variant.illegal-cause-benefit-affirmative' || @.id=='special_forms.fraud.variant.illegal-cause-benefit-negative')].variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "variant_group.right_exercise_split",
+      "message": "기망수단에 의한 권리행사의 허용 범위와 사기죄 성립에 관한 경쟁 견해들이 각각 별개의 variant_group에 놓여 있어 상호 대립 및 중첩 관계를 추적할 수 없다. 관련 판례 입장 카드들도 그룹과 연결되어 있지 않다.",
+      "recommended_action": "세 학설 카드를 공통 쟁점의 variant_group으로 묶고, 사회통념상 허용 여부를 제시하는 관련 판례 카드와의 관계를 표시한다. 각 학설의 독립된 명제와 다수설·소수설 표지는 그대로 보존한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.4_98",
+          "section_path": "Ⅵ.4"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.4_99",
+          "section_path": "Ⅵ.4"
+        }
+      ],
+      "target_path": "$.cards[?(@.id=='special_forms.fraud.variant.right-exercise-within-scope-negative' || @.id=='special_forms.fraud.variant.right-exercise-social-acceptability' || @.id=='special_forms.fraud.variant.right-exercise-abuse-positive')].variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "authority_status.settled_unsupported",
+      "message": "두 카드는 commentary_synthesis만을 authority_basis로 제시하면서 doctrinal_status를 settled로 확정한다. 제공된 주석 문구는 해당 명제를 단정적으로 설명하지만, 그것만으로 법적 권위의 확정성 또는 무쟁송성을 'settled'로 분류할 근거는 없다.",
+      "recommended_action": "제공된 범위만 사용하는 경우 doctrinal_status를 주석 종합에 맞는 비확정적 상태로 낮추고 review_required를 활성화하거나, settled 분류를 유지하려면 별도의 권위 근거 검토가 필요하다는 명시적 검토 질문을 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.2_95",
+          "section_path": "Ⅵ.2"
+        }
+      ],
+      "target_path": "$.cards[?(@.id=='special_forms.fraud.causal-link.insurance-completion-payment' || @.id=='special_forms.fraud.exception.insurance-special-act-temporal-application')].doctrinal_status",
+      "type": "authority_mismatch"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_special_forms_part002",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "후보의 명제와 출처는 대체로 충실히 승계되었으나, 불법원인급여 및 기망수단에 의한 권리행사에 관한 경쟁 견해가 서로 다른 variant_group으로 분리되어 핵심적인 견해 대립 구조가 구현되지 않았다. 또한 주석 종합만으로 두 보험사기 명제를 settled로 확정한 권위 분류는 근거 범위를 초과한다.",
+  "target_id": "kr.fraud.article347.special_forms.norms.v1.part002",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

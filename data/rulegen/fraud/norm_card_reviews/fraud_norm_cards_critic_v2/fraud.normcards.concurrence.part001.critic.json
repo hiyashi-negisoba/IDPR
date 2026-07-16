@@ -1,0 +1,105 @@
+{
+  "findings": [
+    {
+      "finding_id": "f1.missing_review_questions",
+      "message": "다수 카드가 review_required=true이고 학설 대립, 판례 원문 확인, 평가적 요건 및 현행 법령 확인이 명시되어 있는데도 법적 검토 질문이 비어 있다. 특히 variant_group별 권위 선택과 현행 법정형 확인 문제가 검토 항목으로 보존되지 않았다.",
+      "recommended_action": "각 미해결 권위 선택 및 확인 필요 사항에 대응하는 최소한의 법적 검토 질문을 추가하라.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "$.legal_review_questions",
+      "type": "other"
+    },
+    {
+      "finding_id": "f2.norm_kind_post_disposal",
+      "message": "연결된 후보의 norm_kind는 standard인데 카드에서 exception으로 변경되었다. 명제는 새로운 법익 침해가 없는 경우의 일반적인 불가벌적 사후행위 기준을 기술하며, 공급된 자료에는 이를 다른 규범의 예외로 재분류할 근거가 없다.",
+      "recommended_action": "후보와 일치하도록 norm_kind를 standard로 복원하거나, 예외로 분류할 명시적 근거와 기준 규범의 연결을 제시하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅸ.4_113",
+          "section_path": "Ⅸ.4"
+        }
+      ],
+      "target_path": "$.cards[?(@.id=='fraud_concurrence.post_disposal_no_separate_offense')].norm_kind",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "f3.norm_kind_goods_nonpayment",
+      "message": "연결된 후보의 norm_kind는 standard인데 카드에서 exception으로 변경되었다. 단순 미변제가 별도의 이익 편취가 아니라는 독립적인 부정 기준이며, 예외로 재분류할 출처상 근거가 제시되지 않았다.",
+      "recommended_action": "norm_kind를 standard로 복원하거나 명시적인 기준 규범과 예외 관계를 기록하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅸ.5_114",
+          "section_path": "Ⅸ.5"
+        }
+      ],
+      "target_path": "$.cards[?(@.id=='fraud_concurrence.goods_nonpayment_no_benefit_fraud')].norm_kind",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "f4.goods_nonpayment_source_mismatch",
+      "message": "제시된 출처는 후속 물품대금 미변제가 채무불이행에 불과하고 별도 재산상 이익 편취가 아니라는 부분만 뒷받침한다. 명제 앞부분의 변제의사·능력 부재, 기망에 의한 물품 공급, 물품 교부 시 재물 사기죄 성립은 현재 연결된 문구로 뒷받침되지 않는다.",
+      "recommended_action": "명제를 출처가 뒷받침하는 후속 미변제 규범으로 한정하거나, 앞부분을 직접 뒷받침하는 범위 내 출처를 연결하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅸ.5_114",
+          "section_path": "Ⅸ.5"
+        }
+      ],
+      "target_path": "$.cards[?(@.id=='fraud_concurrence.goods_nonpayment_no_benefit_fraud')].proposition",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "f5.mistaken_transfer_unsupported_condition",
+      "message": "명제는 '송금·이체 원인 법률관계 없이'라는 조건을 추가하지만 연결된 출처 문구는 송금·이체로 계좌명의인이 예금채권을 취득하고 영득의사로 인출하는 경우만 제시한다. 해당 원인관계 부재 조건은 현재 출처로 확인되지 않는다.",
+      "recommended_action": "확인되지 않은 원인관계 부재 조건을 제거하거나 이를 직접 뒷받침하는 범위 내 출처를 연결하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.6_121",
+          "section_path": "Ⅹ.6"
+        }
+      ],
+      "target_path": "$.cards[?(@.id=='fraud_concurrence.mistaken_transfer_account_withdrawal')].proposition",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "f6.subsidy_misuse_authority",
+      "message": "출처에는 보조금 목적외 사용 처벌규정의 소개뿐 아니라 사기죄와 구성요건이 다르고 별개의 죄라는 해석적 결론이 포함된다. 카드 전체를 statutory_text_in_commentary로 표시하면 그 경합 결론까지 법문 자체인 것처럼 취급하게 된다.",
+      "recommended_action": "경합 결론의 권위 기반을 commentary_synthesis로 표시하거나 법문 소개와 해석적 결론을 별도 카드로 분리하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.9_126",
+          "section_path": "Ⅹ.9"
+        }
+      ],
+      "target_path": "$.cards[?(@.id=='fraud_concurrence.subsidy_misuse_separate')].authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "f7.statutory_cards_review_flag",
+      "message": "세 카드의 review_notes는 모두 현행 조문 또는 현행 법령 확인이 필요하다고 명시하지만 review_required는 false이다. 댓글에 인용된 법령 내용만으로 현행성을 확정하지 않는다는 카드 자체의 판단과 모순된다.",
+      "recommended_action": "현행 법령 확인이 끝날 때까지 해당 카드의 review_required를 true로 설정하고 대응하는 검토 질문을 추가하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.9_126",
+          "section_path": "Ⅹ.9"
+        }
+      ],
+      "target_path": "$.cards[?(@.id=='fraud_concurrence.general_fraud_penalty' || @.id=='fraud_concurrence.attempt_habitual_punishment' || @.id=='fraud_concurrence.aggravated_economic_value_thresholds')].review_required",
+      "type": "other"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_concurrence_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "후보는 대체로 포괄되었으나, 일부 norm_kind 변경에 근거가 없고, 두 명제는 연결된 출처보다 넓거나 확인되지 않은 조건을 포함한다. 또한 해석적 결론의 권위 표시가 잘못된 카드가 있으며, 다수의 명시적 검토 필요 사항에도 legal_review_questions가 비어 있고 일부 법령 카드의 review_required가 false로 설정되어 있다.",
+  "target_id": "kr.fraud.article347.concurrence.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

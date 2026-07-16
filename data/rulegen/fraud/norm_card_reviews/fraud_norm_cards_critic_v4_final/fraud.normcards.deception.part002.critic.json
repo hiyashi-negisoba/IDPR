@@ -1,0 +1,72 @@
+{
+  "findings": [
+    {
+      "finding_id": "variant_group.disposition_views",
+      "message": "The two cards are expressly competing classifications of the same disposition-related conduct, but each has a different candidate-specific pending variant group. This fails to preserve their relationship as alternatives within one disputed issue.",
+      "recommended_action": "Assign both cards to one shared variant group without selecting either view.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_19",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.cards[?(@.id=='deception.fraud.variant.disposition-implied-representation' || @.id=='deception.fraud.variant.disposition-omission-deception')].variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "variant_group.dine_stay_views",
+      "message": "The source expressly presents the implied-deception and omission-deception treatments of unpaid dining or lodging as competing views, but the cards use separate pending groups. Their shared disputed issue is therefore not represented.",
+      "recommended_action": "Place these two cards in one shared variant group while retaining the majority-view designation and the competing classification.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_19",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.cards[?(@.id=='deception.fraud.variant.dine-stay-implicit-deception-majority' || @.id=='deception.fraud.variant.dine-stay-omission-deception')].variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "authority.explicit_denial_opinion",
+      "message": "The proposition and source identify this position as a view ('견해'), but the card labels it as commentary synthesis with descriptive status. That classification obscures its status as commentary-reported doctrine rather than an unqualified synthesis.",
+      "recommended_action": "Classify the card as commentary-reported doctrine and preserve its unresolved doctrinal status; do not treat it as an adopted general rule.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_22",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.cards[?(@.id=='deception.fraud.standard.explicit-denial-encumbrance')].authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "status.unsupported_settled",
+      "message": "These commentary-synthesis cards are marked 'settled', but the bounded sources state the propositions without establishing that their authority is settled. The status is stronger than the supplied material supports.",
+      "recommended_action": "Use a non-settled descriptive status or add a focused review question requiring confirmation of settled status from an authorized source.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_20",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_21",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.cards[?(@.id=='deception.fraud.element.omission-deception-legal-notice-duty' || @.id=='deception.fraud.element.omission-deception-independent-error' || @.id=='deception.fraud.definition.notice-duty-violation-omission')].doctrinal_status",
+      "type": "authority_mismatch"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_deception_part002",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "The candidate coverage is complete, but two expressly competing pairs are not assigned shared variant groups, one stated doctrinal view is misclassified as commentary synthesis, and several cards claim settled status without bounded-source support.",
+  "target_id": "kr.fraud.article347.deception.norms.v1.part002",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

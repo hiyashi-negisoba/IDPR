@@ -1,0 +1,82 @@
+{
+  "findings": [
+    {
+      "finding_id": "missing_review_questions",
+      "message": "모든 카드가 검토 필요로 표시되어 있고 학설상 견해 카드에는 판례 확인 필요성까지 기재되어 있으나, 법적 검토 질문이 비어 있다. 특히 해당 학설의 권위·경합 견해와 특경법상 이득액 산정 기준의 적용 범위를 확인할 질문이 필요하다.",
+      "recommended_action": "이미 표시된 불확실성만을 대상으로 최소한의 검토 질문을 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_69",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "target_path": "/legal_review_questions",
+      "type": "other"
+    },
+    {
+      "finding_id": "unsupported_precedent_authority_securities",
+      "message": "제공된 출처 범위는 유가증권 사기 이득액이 액면가액이라는 명제만 제시하며 이를 판례가 취한 입장이라고 식별하지 않는다. 따라서 commentary_reported_precedent 및 precedent_position이라는 권위 분류는 현재 자료로 뒷받침되지 않는다.",
+      "recommended_action": "판례 귀속을 확인할 수 있는 범위 내 출처를 확보하거나, 현재 자료만으로 확정할 수 없는 권위 상태로 표시하여 검토 대상으로 남긴다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_68",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "target_path": "/cards/0/authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "unsupported_precedent_authority_strict_calculation",
+      "message": "엄격하고 신중한 산정 원칙을 담은 출처에는 해당 원칙이 판례 입장이라는 표시가 없다. commentary_reported_precedent 및 precedent_position으로 확정한 것은 제공된 자료의 권위 정보를 넘어선다.",
+      "recommended_action": "판례 귀속을 별도로 확인하거나 권위 상태를 미확정으로 유지한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_68",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "target_path": "/cards/1/authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "unsupported_precedent_authority_repeated_investment",
+      "message": "반환 후 재투자 구조에 관한 인용문은 결론을 제시하지만, 제공된 범위 안에서는 이를 판례라고 명시하지 않는다. 판례 권위로의 분류가 출처 범위를 초과한다.",
+      "recommended_action": "해당 결론의 판례 귀속을 확인할 수 있는 출처를 확보하거나 권위 분류를 미확정 상태로 둔다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_72",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "target_path": "/cards/4/authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "unsupported_precedent_authority_letter_of_credit",
+      "message": "신용장 지급보증 이익 및 사후 결제대금 불공제에 관한 인용문은 제공된 범위에서 판례로 식별되지 않는다. commentary_reported_precedent 및 precedent_position이라는 분류는 직접적인 출처 지원이 없다.",
+      "recommended_action": "판례 귀속을 확인하는 출처를 추가로 확인하거나 현재 카드의 권위 상태를 미확정으로 표시한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_72",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "target_path": "/cards/5/authority_basis",
+      "type": "authority_mismatch"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_damage_acquisition_part002",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "후보 명제의 카드화와 학설·판례의 기본 구별은 대체로 유지되었으나, 네 카드의 판례 권위 분류가 제공된 출처 범위에서 확인되지 않고 필수적인 법적 검토 질문도 누락되었다.",
+  "target_id": "kr.fraud.article347.damage_acquisition.norms.v1.part002",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

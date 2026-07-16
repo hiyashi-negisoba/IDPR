@@ -14,7 +14,12 @@ from idpr.llm import (
     LLMGateway,
     write_usage_manifest,
 )
-from scripts.run_fraud_rulegen_pilot import build_extraction_jobs
+from scripts.run_fraud_rulegen_pilot import build_extraction_jobs, select_requests
+from scripts.run_fraud_rulegen_critics import (
+    build_jobs as build_critic_only_jobs,
+    selected_requests as select_critic_requests,
+)
+from scripts.run_fraud_rulegen_patches import repair_patch_quotes
 from scripts.run_fraud_rulegen_correction import (
     build_final_critic_job,
     build_revision_job,
@@ -163,6 +168,7 @@ def test_pilot_prompt_includes_exact_output_schema() -> None:
 
     assert '"$id": "idpr/NormCandidateBatch"' in job.system_prompt
     assert "Exact output JSON Schema" in job.system_prompt
+    assert "Do not omit a holding merely because it is case-specific" in job.system_prompt
     assert "fraud.sex-work-authority-scope.gold" in job.system_prompt
     assert "Never copy its fraud doctrine" in job.system_prompt
 
@@ -170,6 +176,133 @@ def test_pilot_prompt_includes_exact_output_schema() -> None:
         [request], max_tokens=100, use_fewshot=False
     )[0]
     assert "fraud.sex-work-authority-scope.gold" not in without_fewshot.system_prompt
+
+
+def test_pilot_selects_a_one_based_request_window() -> None:
+    requests = [{"request_id": f"request.{index}"} for index in range(1, 6)]
+
+    selected = select_requests(requests, start=2, limit=2)
+
+    assert [request["request_id"] for request in selected] == [
+        "request.2",
+        "request.3",
+    ]
+
+
+def test_critic_only_job_uses_a_tracked_candidate(tmp_path: Path) -> None:
+    request = {
+        "request_id": "fraud.article347.pass1.999",
+        "commentary_chunks": [
+            {
+                "comment_id": "comment.1",
+                "section_path": "Ⅰ",
+                "document_text": "기망행위가 필요하다.",
+            }
+        ],
+    }
+    target = {
+        "request_id": request["request_id"],
+        "status": "draft",
+        "candidates": [
+            {
+                "candidate_id": "fraud.element.deception",
+                "norm_kind": "element",
+                "polarity": "positive",
+                "proposition": "기망행위가 필요하다.",
+                "source_refs": [
+                    {
+                        "comment_id": "comment.1",
+                        "section_path": "Ⅰ",
+                        "quote": "기망행위가 필요하다.",
+                    }
+                ],
+                "review_required": False,
+            }
+        ],
+        "unresolved_questions": [],
+    }
+    path = tmp_path / "candidate.json"
+    path.write_text(json.dumps(target, ensure_ascii=False), encoding="utf-8")
+
+    job = build_critic_only_jobs(
+        [request], {request["request_id"]: path}, max_tokens=123
+    )[0]
+
+    assert job.role == "sol"
+    assert job.max_tokens == 123
+    assert job.payload["target"] == target
+
+
+def test_critic_runner_accepts_non_contiguous_request_ids() -> None:
+    args = type(
+        "Args",
+        (),
+        {
+            "request_id": [
+                "fraud.article347.pass1.003",
+                "fraud.article347.pass1.012",
+            ],
+            "start": 1,
+            "limit": 1,
+        },
+    )()
+
+    requests = select_critic_requests(args)
+
+    assert [request["request_id"] for request in requests] == args.request_id
+
+
+def test_patch_quote_repair_preserves_patch_metadata() -> None:
+    request = {
+        "request_id": "fraud.article347.pass1.999",
+        "commentary_chunks": [
+            {
+                "comment_id": "comment.1",
+                "section_path": "Ⅰ",
+                "document_text": (
+                    "기망행위가 상대방에게 착오를 일으키는 요 소이고 "
+                    "재산적 처분행위를 하게 한다."
+                ),
+            }
+        ],
+    }
+    patch = {
+        "version": "1.0.0",
+        "patch_id": "fraud.patch.999",
+        "target_id": request["request_id"],
+        "status": "draft",
+        "remove_candidate_ids": [],
+        "add_candidates": [
+            {
+                "candidate_id": "fraud.element.deception",
+                "norm_kind": "element",
+                "polarity": "positive",
+                "proposition": "기망행위가 착오와 처분행위를 일으킨다.",
+                "source_refs": [
+                    {
+                        "comment_id": "comment.1",
+                        "section_path": "Ⅰ",
+                        "quote": (
+                            "기망행위가 상대방에게 착오를 일으키는 요소이고 "
+                            "재산적 처분행위를 하게 한다."
+                        ),
+                    }
+                ],
+                "review_required": False,
+            }
+        ],
+        "append_unresolved_questions": [],
+    }
+
+    repaired, records = repair_patch_quotes(patch, request)
+
+    assert repaired["patch_id"] == patch["patch_id"]
+    assert records
+    assert len(repaired["add_candidates"][0]["source_refs"]) == 2
+    assert all(
+        ref["quote"] in request["commentary_chunks"][0]["document_text"]
+        for ref in repaired["add_candidates"][0]["source_refs"]
+    )
 
 
 def test_correction_jobs_keep_revision_and_critic_roles_separate() -> None:

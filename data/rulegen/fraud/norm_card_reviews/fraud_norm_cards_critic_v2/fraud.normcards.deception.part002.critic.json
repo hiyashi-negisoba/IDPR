@@ -1,0 +1,93 @@
+{
+  "findings": [
+    {
+      "finding_id": "authority.pass004.precedent",
+      "message": "The cards lifted from request fraud.article347.pass1.004 describe case-specific judicial outcomes, repeatedly framed as matters in which fraud or deception was or was not recognized, but classify their authority as commentary_synthesis and their doctrinal status as descriptive. This obscures the commentary-reported-precedent character already apparent from the validated candidates and propositions.",
+      "recommended_action": "Correct only the authority and doctrinal-status fields of cards 36 through 49 to preserve their status as commentary-reported case outcomes; retain context-only treatment unless a broader rule is separately supported.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_28",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_29",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_30",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_31",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/36 through /cards/49/authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "variant.group.disposition",
+      "message": "The two cards state opposing classifications of the same disposition-related nondisclosure: implied active representation versus deception by omission. Assigning each a different pending variant group fails to preserve them as alternatives within one disputed policy choice.",
+      "recommended_action": "Assign cards 0 and 1 to one shared variant group without selecting either view.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_19",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/0/variant_group and /cards/1/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "variant.group.dine_stay",
+      "message": "The source expressly presents competing classifications of 무전취식ㆍ무전숙박 as implied active deception or deception by omission. Separate one-card pending groups do not encode that dispute as a single variant set.",
+      "recommended_action": "Place cards 25 and 26 in one shared variant group while preserving both propositions.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_19",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/25/variant_group and /cards/26/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "status.settled.unsupported",
+      "message": "These commentary-synthesis cards are labeled settled, although the bounded material supplies doctrinal statements but no support for the stronger proposition that their authority is settled. The status therefore exceeds the supplied authority.",
+      "recommended_action": "Use a status no stronger than the bounded commentary supports, or mark settlement as an explicit legal-review question.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_20",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_21",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/3/doctrinal_status, /cards/4/doctrinal_status, and /cards/11/doctrinal_status",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "review.questions.missing",
+      "message": "The array is empty even though numerous cards are disputed policy variants, variant grouping is expressly pending, and authority review is expressly noted as pending. The card set therefore omits required review questions for unresolved authority and grouping choices.",
+      "recommended_action": "Add narrowly framed review questions covering the unresolved shared variant groups and the disputed authority or doctrinal-status classifications, without choosing the answers.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/legal_review_questions",
+      "type": "other"
+    }
+  ],
+  "report_id": "critique.kr.fraud.article347.deception.norms.v1.part002",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "The candidate coverage is complete, but the card set requires revision because reported case outcomes in the second batch are misclassified as commentary synthesis, opposing views are not joined into shared variant groups, several commentary statements are unsupportedly labeled settled, and no legal-review questions capture the acknowledged unresolved choices.",
+  "target_id": "kr.fraud.article347.deception.norms.v1.part002",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

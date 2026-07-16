@@ -1,0 +1,109 @@
+{
+  "findings": [
+    {
+      "finding_id": "source_scope.exceeds_bounded_material",
+      "message": "공급된 bounded source material에는 Ⅳ.1_11부터 Ⅳ.1_19까지의 후보만 존재하지만, target은 Ⅳ.1_20부터 Ⅳ.1_46까지를 source scope에 포함한다. 이 범위는 현재 단계에 제공된 자료로 확인할 수 없다.",
+      "recommended_action": "source_scope를 실제 제공된 comment_id인 Ⅳ.1_11부터 Ⅳ.1_19까지로 제한하거나, Ⅳ.1_20 이후 자료를 별도의 bounded source material로 다시 공급하여 재추출하라.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/source_scope/comment_ids",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "review_questions.unsourced_topics",
+      "message": "과다 거스름돈, 부동산거래상 고지의무, 처분의사 학설, 허위서류 예산 인출, 형사를 가장한 압수 등 여러 질문은 제공된 validated candidates에 근거가 없다. 무전취식·무전숙박 질문도 공급된 자료는 사후 지불불능의 처리만 제시할 뿐 일반적인 견해 대립까지 뒷받침하지 않는다.",
+      "recommended_action": "현재 후보에서 직접 도출되지 않는 질문을 삭제하거나, 해당 질문을 뒷받침하는 후보와 bounded source material을 추가한 후 다시 생성하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_19",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/legal_review_questions",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "variant_group.future_facts_split",
+      "message": "장래 사실에 관한 무제한설, 제한설, 부정설이 동일 쟁점의 경쟁 견해인데 각 카드에 서로 다른 variant_group이 부여되어 상호 배타적 정책 선택 관계가 보존되지 않는다.",
+      "recommended_action": "세 장래 사실 견해 카드의 variant_group을 하나의 공통 쟁점 그룹으로 통일하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_12",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_13",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/13/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "variant_group.opinion_views_split",
+      "message": "의견 표시의 소극설, 적극설 및 제3설 관련 카드들이 동일 쟁점의 경쟁 견해임에도 각각 별도 variant_group에 배치되었다. 특히 제3설의 일반 기준과 구체성 기준을 설명하는 두 카드는 같은 견해의 연계된 명제인데도 서로 분리되어 있다.",
+      "recommended_action": "의견 표시 관련 경쟁 견해를 하나의 공통 variant_group으로 연결하고, 제3설의 두 카드는 동일 견해에 속한다는 관계를 보존하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_13",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/16/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "authority.painting_precedent",
+      "message": "출처는 해당 결론을 판례가 판시하였다고 명시하지만 카드는 일반적인 commentary_synthesis로 분류한다. 이는 논평자의 종합과 논평에 보고된 판례를 구별하지 못한다.",
+      "recommended_action": "authority_basis를 commentary-reported precedent에 해당하는 값으로 정정하고 doctrinal_status와 formalization도 그 권위 수준에 맞는지 함께 확인하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_13",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/19/authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "authority.development_plan_precedent",
+      "message": "출처는 대법원 2008도6549 판결의 구체적 사안을 보고하고 있으나 카드는 commentary_synthesis로 처리한다.",
+      "recommended_action": "이 카드를 commentary-reported precedent로 분류하고, 구체적 판례 결과라는 성격을 유지하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_17",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/29/authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "authority.bid_rigging_personal_view",
+      "message": "출처는 '사견으로는'이라고 하여 논평자 자신의 견해임을 명시한다. 이를 commentary_reported_doctrine으로 표시하면 외부 학설을 보고한 것처럼 권위가 달라진다.",
+      "recommended_action": "논평자의 개인적 견해임을 나타내는 authority 분류로 정정하고, 판례 카드와 구별된 채 검토 대상으로 유지하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_18",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/32/authority_basis",
+      "type": "authority_mismatch"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_deception_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "카드 대부분은 후보를 일대일로 보존하지만, bounded source를 넘는 source scope와 검토 질문이 포함되어 현재 산출물의 출처 범위가 유효하지 않다. 또한 장래 사실 및 의견 표시의 경쟁 견해가 공통 variant group으로 묶이지 않았고, 일부 판례와 논평자 사견의 권위가 잘못 분류되었다.",
+  "target_id": "kr.fraud.article347.deception.norms.v1.part001",
+  "verdict": "reject",
+  "version": "1.1.0"
+}

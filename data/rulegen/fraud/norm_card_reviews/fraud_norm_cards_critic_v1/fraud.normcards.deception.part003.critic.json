@@ -1,0 +1,106 @@
+{
+  "findings": [
+    {
+      "finding_id": "f_source_scope_overstatement",
+      "message": "The declared source scope includes comment IDs from Ⅳ.1_11 through Ⅳ.1_46, but the bounded material supplied to this stage contains validated candidates only from Ⅳ.1_28, Ⅳ.1_29, and Ⅳ.1_31 through Ⅳ.1_38. The broader scope is unsupported at this stage.",
+      "recommended_action": "Limit source_scope to the comment IDs actually present in the bounded candidate material.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/source_scope/comment_ids",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "f_authority_classification",
+      "message": "All cards classify their authority as commentary_synthesis, although many supporting candidate excerpts expressly report a decided case or holding using formulations such as '본 사안' or '판시함.' This collapses commentary-reported precedent into commentary synthesis and obscures the authority type.",
+      "recommended_action": "Review each card's authority_basis and distinguish commentary-reported precedent from commentary synthesis; do not apply one authority label mechanically to the full set.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_32",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_34",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_35",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "f_unsubstantiated_settled_status",
+      "message": "The card marks the loan-without-repayment-intent-or-ability proposition as 'settled,' but the bounded candidate establishes only the proposition and does not support that doctrinal-status assessment.",
+      "recommended_action": "Treat the doctrinal status as unresolved pending authority review, or provide bounded support specifically establishing settled status.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_37",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/33/doctrinal_status",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "f_unsubstantiated_conditional_intent_status",
+      "message": "The card marks the conditional-intent proposition as 'settled,' although the bounded candidate does not establish the proposition's doctrinal status or authority level.",
+      "recommended_action": "Remove the unsupported settled-status determination or flag it for authority review.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_37",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/36/doctrinal_status",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "f_missing_variant_groups",
+      "message": "Every variant_group is null despite visible related and contrasting candidates, including private indemnity insurance versus National Health Insurance claims at nonmedical clinics, multiple double-sale configurations, and positive and negative loan-fraud patterns. Leaving all groups null loses relationships needed to preserve distinctions and prevent later overgeneralization.",
+      "recommended_action": "Assign narrowly scoped variant groups to the visibly related cards while preserving each candidate as a distinct proposition.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_34",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_35",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_37",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_38",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "f_review_questions_outside_bounded_batch",
+      "message": "The review questions principally concern topics such as advertising, bid collusion, excess change, free dining or lodging, future facts, disposition intent, and sham seizure that do not appear in the supplied bounded candidate batches. Conversely, the questions do not directly address the authority and variant choices visible in the cards actually supplied.",
+      "recommended_action": "Remove questions derived from unavailable commentary and add only narrowly framed questions arising from the bounded candidates, especially authority classification and treatment of the identified contrasting variants.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/legal_review_questions",
+      "type": "source_scope"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_deception_part003",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "The one-to-one card propositions generally track the validated candidates, but the set overstates its source scope, mechanically labels reported case outcomes as commentary synthesis, assigns unsupported settled status to two cards, omits evident variant groups, and includes review questions outside the bounded material.",
+  "target_id": "kr.fraud.article347.deception.norms.v1.part003",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

@@ -1,0 +1,72 @@
+{
+  "findings": [
+    {
+      "finding_id": "authority.commentator_evaluation",
+      "message": "이 카드는 판례 자체의 법리나 일반 도그마가 아니라 94도1575 판결의 입장에 관한 해설자의 평가를 명시적으로 진술한다. 이를 commentary_reported_doctrine으로 분류하면 해설자 평가와 판례·도그마의 권위 층위가 혼동된다.",
+      "recommended_action": "authority_basis를 해설자의 종합·평가임을 나타내는 분류로 바로잡고, 판례 자체의 확정된 법리로 승격하지 말라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_58",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "/cards/0/authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "formalization.case_outcomes",
+      "message": "위조 약속어음 카드는 출처가 '본 사안'의 증거 부재와 결론을 보고한 사례별 판결 결과인데 standard_input으로 지정되어 일반 규범처럼 실행될 위험이 있다. 같은 문제가 사례 결과로 표시된 다른 commentary_reported_precedent 카드들에도 나타난다.",
+      "recommended_action": "이 카드를 사례별 판결 결과 또는 문맥 전용 입력으로 제한하라. 일반 표준으로 사용할 경우에는 해당 일반 명제를 직접 뒷받침하는 출처를 별도로 확보하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_60",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "/cards/1/formalization",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "variant.group_placeholder",
+      "message": "variant 카드의 variant_group이 candidate_id를 붙인 pending 자리표시자일 뿐 실제 쟁점군을 식별하지 않으며, 대응하는 경쟁 견해도 카드 세트에 보존되어 있지 않다. 현재 자료만으로 어느 견해들과 대립하는지 알 수 없다.",
+      "recommended_action": "실제 쟁점 기반 variant_group을 부여하고, 경쟁 견해가 현재 범위에 없다면 이를 coverage gap과 검토 질문으로 명시하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_58",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "/cards/0/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "review.questions_missing",
+      "message": "legal_review가 pending이고 다수 카드가 review_required=true인데도 검토 질문이 비어 있다. 특히 사실상의 지위설의 경쟁 견해와 Ⅳ.3 문언 중 '기망자와 처분행위자'가 직전의 '피기망자와 처분행위자'와 불일치하는 문제는 명시적인 권위·문언 선택 없이는 해결되지 않는다.",
+      "recommended_action": "최소한 경쟁 학설의 범위와 선택 여부, 94도1575에 대한 해설자 평가의 권위, 그리고 '기망자' 문언이 오기인지 독립 법리인지 확인하는 검토 질문을 추가하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_58",
+          "section_path": "Ⅳ.3"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_59",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "/legal_review_questions",
+      "type": "other"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_part002",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "후보의 누락은 없지만, 해설자 평가의 권위 분류, 사례별 판결 결과의 일반 표준화, 미완성 variant 그룹, 빈 법률검토 질문을 수정해야 한다.",
+  "target_id": "kr.fraud.article347.mistake_disposition.norms.v1.part002",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

@@ -1,0 +1,77 @@
+{
+  "findings": [
+    {
+      "finding_id": "missing_review_questions",
+      "message": "법적 검토 상태가 pending이고 각 카드의 review_notes가 권위 분류와 variant grouping의 인적 검토가 남았다고 명시하지만 legal_review_questions가 비어 있다. 이로 인해 미해결 권위 선택과 예외·대립 규범의 연결 여부가 검토 항목으로 보존되지 않는다.",
+      "recommended_action": "권위 분류가 commentary synthesis인지 commentary-reported precedent인지, 그리고 관련 긍정·부정·예외 카드들을 variant group으로 묶을지 묻는 최소한의 검토 질문을 추가한다.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/legal_review_questions",
+      "type": "other"
+    },
+    {
+      "finding_id": "missing_medical_corporation_variant_group",
+      "message": "비의료인의 의료법인 관여만으로는 사기죄가 성립하지 않는다는 기본 카드와, 실체 없는 의료법인 악용 또는 재산 유출의 예외 사유를 담은 카드가 직접 대응하지만 모두 variant_group이 null이다. 예외가 어느 기본 규범을 제한하는지 카드 집합에서 보존되지 않는다.",
+      "recommended_action": "해당 기본 카드와 예외 카드에 동일한 variant_group을 부여하거나, 그 연결 여부를 legal_review_questions에 명시적으로 남긴다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_43",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/25/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "missing_religious_practice_variant_group",
+      "message": "기도 제공과 상당한 보수 수령만으로 사기죄가 반드시 성립하지 않는다는 부정 규범은 종교행위 허용 한계를 벗어난 경우 사기죄가 성립한다는 긍정 규범들과 함께 적용 범위와 경계를 형성한다. 그러나 관련 카드들이 모두 독립 카드로만 남아 있어 competing qualification이 표시되지 않는다.",
+      "recommended_action": "종교행위의 허용 범위에 관한 부정 카드와 한계 일탈 긍정 카드들을 하나의 variant_group으로 연결하거나, 연결 여부를 검토 질문으로 추가한다.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_41",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/16/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "subsidy_definition_authority",
+      "message": "보조금과 간접보조금의 정의는 제공된 문언상 조문이 각 용어를 정의한다고 보고된 내용인데, 카드가 이를 일반적인 commentary_synthesis로만 분류한다. 이는 논평자의 종합과 주석서가 전달하는 법정 정의를 구별하지 못한다.",
+      "recommended_action": "사용 가능한 권위 분류 체계에서 주석서를 통해 보고된 법정 정의임을 반영하도록 authority_basis와 doctrinal_status를 재검토하고, 직접 법령 근거가 현재 범위에 없다는 점은 검토 질문으로 남긴다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_39",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/35/authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "subsidy_definition_formalization",
+      "message": "norm_kind가 definition인 보조금·간접보조금 카드가 standard_input으로 지정되어 있다. 동일 카드 집합의 다른 정의 카드들은 deterministic_rule로 지정되어 있어, 정의 규범의 형식화가 일관되지 않고 후속 규칙 변환에서 재량적 판단 기준으로 오해될 수 있다.",
+      "recommended_action": "이 정의를 결정적 정의 규칙으로 형식화할 수 있는지 검토하여 formalization을 정정하거나, 불확실성 때문에 standard_input을 유지해야 한다면 그 이유를 review_notes와 legal_review_questions에 명시한다.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_39",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/35/formalization",
+      "type": "formalization_error"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_part004",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "후보들은 대체로 일대일로 보존되었으나, 명시적으로 남아 있는 권위·variant 검토 과제가 질문으로 기록되지 않았고 의료법인 예외 및 종교행위 경계 규범의 연결이 누락되었다. 또한 법정 정의로 보고된 보조금 정의의 권위 및 형식화 분류를 재검토해야 한다.",
+  "target_id": "kr.fraud.article347.deception.norms.v1.part004",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

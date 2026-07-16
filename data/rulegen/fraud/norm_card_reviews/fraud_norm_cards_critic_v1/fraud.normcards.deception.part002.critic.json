@@ -1,0 +1,98 @@
+{
+  "findings": [
+    {
+      "finding_id": "source_scope.exceeds_bounded_material",
+      "message": "The declared scope includes comment IDs from sections Ⅳ.1_11 through Ⅳ.1_46, while the bounded material supplied to this stage contains validated candidates only from comment IDs Ⅳ.1_19 through Ⅳ.1_31. The broader scope cannot be substantiated at this stage.",
+      "recommended_action": "Restrict source_scope to comment IDs represented in the supplied validated candidates, or resupply the omitted bounded source material.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/source_scope/comment_ids",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "review_questions.out_of_scope",
+      "message": "Several review questions concern topics absent from the supplied candidates, including value judgments and advertising, bid collusion, future facts, disposition intent, budget withdrawals, and seizure by a person posing as an investigator. These questions rely on source material outside this stage's bounded input.",
+      "recommended_action": "Remove the out-of-scope questions from this card set or supply the bounded candidates and source material that support them.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/legal_review_questions",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "variant_group.disposition_views_split",
+      "message": "The implied-representation view and the expressly identified contrary omission-deception view are assigned different pending variant groups, so the target does not preserve their direct policy conflict as one variant group.",
+      "recommended_action": "Assign cards 0 and 1 to the same unresolved variant group without selecting either view.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_19",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/0/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "variant_group.dine_stay_views_split",
+      "message": "The competing classifications of unpaid dining or lodging as implied active deception and as omission-based deception are assigned separate pending groups, despite the source expressly presenting them as opposing views on the same issue.",
+      "recommended_action": "Assign cards 25 and 26 to a single unresolved variant group.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_19",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/25/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "variant_group.notice_duty_views_split",
+      "message": "The broad good-faith and transactional-practice approach to legal notice duties and the restrictive real-estate view requiring an explicit statutory or contractual duty are placed in separate groups. The card set's own review question recognizes them as a disputed authority choice.",
+      "recommended_action": "Link cards 6 and 7 in one unresolved variant group, preserving the real-estate-specific scope of the restrictive view.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_20",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/6/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "authority.pass004_case_cards",
+      "message": "The cards lifted from request fraud.article347.pass1.004 describe individual judicial outcomes using case-specific language such as '본 사안', but they are uniformly labeled commentary_synthesis rather than commentary_reported_precedent. This obscures the distinction between commentary synthesis and commentary-reported case outcomes.",
+      "recommended_action": "Review cards 35 through 48 individually and relabel case-outcome cards as commentary_reported_precedent; make only the corresponding minimal doctrinal-status and formalization adjustments.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_28",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_29",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_30",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_31",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/35-48/authority_basis",
+      "type": "authority_mismatch"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_deception_norms_v1_part002",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "The one-to-one lifts generally preserve candidate propositions, but the card set exceeds the bounded source scope, includes unsupported review questions, fails to group several expressly competing views, and misclassifies the pass1.004 case outcomes as commentary synthesis.",
+  "target_id": "kr.fraud.article347.deception.norms.v1.part002",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

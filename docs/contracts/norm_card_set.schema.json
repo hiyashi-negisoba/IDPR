@@ -16,12 +16,14 @@
   ],
   "additionalProperties": false,
   "properties": {
-    "version": { "const": "1.0.0" },
+    "version": { "const": "1.1.0" },
     "card_set_id": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]*$" },
     "issue_tag": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
     "status": { "const": "draft" },
     "legal_review": { "const": "pending" },
-    "construction": { "enum": ["api_merged", "human_exemplar"] },
+    "construction": {
+      "enum": ["api_merged", "deterministic_candidate_lift", "human_exemplar"]
+    },
     "source_scope": { "$ref": "#/$defs/source_scope" },
     "cards": {
       "type": "array",
@@ -71,6 +73,7 @@
       "type": "object",
       "required": [
         "id",
+        "candidate_refs",
         "norm_kind",
         "proposition",
         "formalization",
@@ -86,6 +89,12 @@
       "additionalProperties": false,
       "properties": {
         "id": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]*$" },
+        "candidate_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/candidate_ref" }
+        },
         "norm_kind": {
           "enum": [
             "element",
@@ -141,6 +150,18 @@
         },
         "review_required": { "type": "boolean" },
         "review_notes": { "type": "string", "minLength": 1 }
+      }
+    },
+    "candidate_ref": {
+      "type": "object",
+      "required": ["request_id", "candidate_id"],
+      "additionalProperties": false,
+      "properties": {
+        "request_id": { "type": "string", "minLength": 1 },
+        "candidate_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_.-]*$"
+        }
       }
     }
   }

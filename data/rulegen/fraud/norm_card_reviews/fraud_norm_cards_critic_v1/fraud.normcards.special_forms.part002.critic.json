@@ -1,0 +1,86 @@
+{
+  "findings": [
+    {
+      "finding_id": "variant_group.illegal_cause_split",
+      "message": "불법원인급여에 관한 긍정 다수설과 부정 소수설이 서로 대립하는 동일 쟁점인데 각각 다른 variant_group으로 분리되어 있어 대안 관계가 보존되지 않는다.",
+      "recommended_action": "두 카드에 동일한 variant_group 식별자를 부여하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.3_96",
+          "section_path": "Ⅵ.3"
+        }
+      ],
+      "target_path": "$.cards[?(@.id=='special_forms.fraud.variant.illegal-cause-benefit-affirmative' || @.id=='special_forms.fraud.variant.illegal-cause-benefit-negative')].variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "variant_group.right_exercise_split",
+      "message": "기망을 수단으로 한 권리행사의 허용 범위와 사기죄 성립을 둘러싼 관련 학설들이 서로 다른 variant_group에 놓여 있어 동일 권리행사 쟁점의 경쟁 관계를 추적할 수 없다.",
+      "recommended_action": "동일한 권리행사 쟁점에서 경쟁하는 카드들에 공통 variant_group을 부여하되, 실제로 별개의 하위 쟁점이라면 그 관계를 검토 질문에 명시하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.4_98",
+          "section_path": "Ⅵ.4"
+        }
+      ],
+      "target_path": "$.cards[?(@.id=='special_forms.fraud.variant.right-exercise-within-scope-negative' || @.id=='special_forms.fraud.variant.right-exercise-social-acceptability' || @.id=='special_forms.fraud.variant.right-exercise-abuse-positive')].variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "authority.case_outcomes_as_synthesis",
+      "message": "두 근거문은 모두 특정 사실관계에 관하여 사기죄 또는 사기미수죄가 성립한다고 본 사안을 서술한다. 이를 일반적인 commentary_synthesis/descriptive 카드로 분류하면 사례 결과와 일반 규범의 권위가 혼동된다.",
+      "recommended_action": "두 카드의 authority_basis와 doctrinal_status를 사례를 보고한 판례 수준에 맞게 조정하고, 사례 카드에 적합한 formalization을 사용하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_86",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "target_path": "$.cards[?(@.id=='special_forms.fraud.standard.known-invalid-registration-claim-attempt' || @.id=='special_forms.fraud.standard.promissory-note-false-loss-public-summons')].authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "status.settled_unsupported",
+      "message": "제공된 주석 문구는 각 명제를 진술하지만 그 권위가 확정적이거나 다툼 없이 정착되었다는 점까지 뒷받침하지 않는다. 따라서 doctrinal_status를 settled로 지정한 것은 출처보다 강한 권위 평가이다.",
+      "recommended_action": "settled 지정을 출처가 직접 뒷받침하는 더 중립적인 상태로 낮추거나, settled 판단을 별도 법률 검토 대상으로 표시하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.2_95",
+          "section_path": "Ⅵ.2"
+        }
+      ],
+      "target_path": "$.cards[?(@.id=='special_forms.fraud.causal-link.insurance-completion-payment' || @.id=='special_forms.fraud.exception.insurance-special-act-temporal-application')].doctrinal_status",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "source_scope.unavailable_comments",
+      "message": "source_scope에는 comm_001692_제347조_Ⅵ.1_83부터 _85 및 _87부터 _91까지가 포함되어 있으나, 이 단계에 공급된 bounded source material에는 해당 comment_id의 후보나 본문이 없다. 카드 세트가 실제 이용 가능한 출처보다 넓은 범위를 주장한다.",
+      "recommended_action": "source_scope.comment_ids를 이 단계에 실제 공급된 comment_id로 제한하라.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "$.source_scope.comment_ids",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "review_questions.out_of_scope",
+      "message": "반복 편취의 포괄일죄 판단, 보이스피싱 가담 형태, 행위자의 불법이득 없는 기수 문제에 관한 질문은 제공된 validated_candidates와 연결되지 않는다. 이 카드 세트의 근거 범위를 벗어난 쟁점을 검토 대상으로 포함하고 있다.",
+      "recommended_action": "제공된 후보에서 발생하는 쟁점만 남기거나, 해당 질문을 뒷받침하는 후보가 공급되는 별도 카드 세트로 이동하라.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "$.legal_review_questions",
+      "type": "source_scope"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_special_forms_part002",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "후보의 일대일 수록은 대체로 유지되었지만, 대립 학설의 variant_group이 분리되어 있고 사례 결과 및 주석 진술의 권위가 과대 분류되었다. 또한 source_scope와 일부 검토 질문이 실제 bounded source material을 벗어나므로 수정이 필요하다.",
+  "target_id": "kr.fraud.article347.special_forms.norms.v1.part002",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

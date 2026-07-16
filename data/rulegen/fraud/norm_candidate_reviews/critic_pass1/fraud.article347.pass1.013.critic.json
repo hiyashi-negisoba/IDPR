@@ -1,0 +1,90 @@
+{
+  "findings": [
+    {
+      "finding_id": "missing.section6.account-and-double-sale-norms",
+      "message": "Section Ⅹ.6 contains additional material norms not extracted, including the changed precedent concerning disposition of title-trusted real property, the absence of embezzlement against the telecommunications-fraud perpetrator, and the rule that double-sale nondisclosure alone does not establish fraud against the second buyer under the stated conditions.",
+      "recommended_action": "Add separate candidates for each omitted proposition, preserving the changed-precedent qualification and the distinct victims and offense relationships.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.6_120",
+          "section_path": "Ⅹ.6"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.6_121",
+          "section_path": "Ⅹ.6"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "missing.section6.concurrence-and-incompatibility-norms",
+      "message": "The extraction omits several distinct concurrence and incompatibility norms: breach of duty against the principal combined with fraud against a third party; no fraud where the third-party transferee obtains ownership or otherwise suffers no loss; the general description of a mutually incompatible offense relationship; and multiple reported applications involving assigned claims, provisional registration, trust-account proceeds, and telecommunications-fraud withdrawals.",
+      "recommended_action": "Extract the general norms separately from the commentary-reported case applications, without collapsing the applications into a single unconditional rule.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.6_122",
+          "section_path": "Ⅹ.6"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.6_123",
+          "section_path": "Ⅹ.6"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "source.account-holder-stolen-property-quote",
+      "message": "The quoted provenance states only that the withdrawal cannot be punished as acquisition of stolen property. It does not itself support the proposition's factual conditions or reasoning that the account holder did not receive possession and factual disposal authority from the principal offender.",
+      "recommended_action": "Replace or supplement the quote with exact source text covering the account-transfer facts and the absence of transferred possession and disposal authority.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.7_124",
+          "section_path": "Ⅹ.7"
+        }
+      ],
+      "target_path": "$.candidates[22].source_refs[0].quote",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "kind.compound-fraud-possession-candidate",
+      "message": "The candidate is labeled as a definition but combines a description of fraud's essential structure with a negative offense-outcome rule and the positive conclusion that only embezzlement is established. The negative polarity also does not represent the entire compound proposition.",
+      "recommended_action": "Split the definitional proposition from the offense-outcome proposition, or reclassify the compound candidate so that norm kind and polarity accurately represent its operative content.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.6_120",
+          "section_path": "Ⅹ.6"
+        }
+      ],
+      "target_path": "$.candidates[5]",
+      "type": "other"
+    },
+    {
+      "finding_id": "missing.section9-sanctions",
+      "message": "The sanctions portion of section Ⅹ.9 is only partially extracted. Omitted norms include the optional value-based fine under the aggravated economic-crime provision, insurance-fraud punishment and value-based aggravation, and the distinct military-property fraud sanctions and statutory qualifications.",
+      "recommended_action": "Add separate sanction candidates for the omitted fine, insurance-fraud, and military-property provisions, preserving each threshold, penalty range, optional fine, and stated limitation.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.9_126",
+          "section_path": "Ⅹ.9"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    }
+  ],
+  "report_id": "critique.fraud.article347.pass1.013",
+  "review_required": true,
+  "stage": "norm_candidate_batch",
+  "status": "draft",
+  "summary": "The batch captures many offense-relation rules and preserves the two principal doctrinal disagreements, but it omits multiple material norms from sections Ⅹ.6 and Ⅹ.9, contains one inadequately supporting provenance quote, and conflates a definition with an offense-outcome rule. Targeted re-extraction and candidate correction are required.",
+  "target_id": "fraud.article347.pass1.013",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

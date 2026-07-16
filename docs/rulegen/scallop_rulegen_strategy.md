@@ -67,6 +67,11 @@ exception을 나타낸다. 일반적 불성립 규범을 전부 exception으로 
 - 주석서 종합, 주석서가 보고한 판례·학설, 주석서에 인용된 법문이라는 권위 성격
 - 학설 대립 여부, variant group, 사람 검수 필요 여부
 
+NormCardSet 1.1은 모든 카드에 `candidate_refs(request_id, candidate_id)`를 강제한다.
+따라서 병합 단계가 후보를 조용히 누락할 수 없고, 카드의 exact quote도 연결 후보의
+source_refs 합집합 안에 있어야 한다. 서로 다른 `norm_kind` 또는 `polarity`를 가진
+후보를 한 카드에 병합하면 validator가 실패한다.
+
 RuleIR 1.1의 모든 commentary-origin predicate와 rule은 `norm_card_ids`를 가져야 한다.
 RuleIR의 인용은 연결된 카드가 가진 exact source reference의 합집합을 벗어날 수 없다.
 판례를 우선하는 정책도 주석서의 판례 설명만으로 확정하지 않고, 사용자 판례 index의
@@ -127,6 +132,24 @@ gate가 충족된 경우에만 `admissible(e)`를 만든다. 참고 구현은
 불법영득의사의 독립요건성에 견해 대립을 기록하므로, 이 선택을 모델이나 개발자가
 임의로 `verified`로 승격할 수 없다.
 
+### 제347조 전체 준비 현황
+
+2026-07-16 기준 사기죄 주석서 13개 배치에서 검증 후보 662개를 확보했고, 후보 계보를
+보존한 NormCard 636개로 정규화했다. 주석서가 보고한 판례로 추정되는 카드는 원판례
+확인 전 `context_only`로 제한했다. Sol 최종 비평 17개 묶음은 모두 계약 검증을
+통과했으며 67개 검토 지적을 남겼다.
+
+상세 상태는 다음 파일이 단일 진실 원천이다.
+
+- `data/rulegen/fraud/fraud_norm_candidate_manifest.json`
+- `data/rulegen/fraud/fraud_norm_card_manifest.json`
+- `data/rulegen/fraud/fraud_norm_card_review_queue.json`
+- `data/rulegen/fraud/fraud_rule_ir_readiness.json`
+
+전체 RuleIR 생성은 사람 법률 검수 전까지 차단한다. 형식상 61개 카드가 잠정 진입
+가능하지만, 사기죄 전체 AND gate를 구성하는 핵심 법리의 출처·권위·정책 선택이
+승인되지 않았으므로 부분 카드 수만으로 coverage를 주장하지 않는다.
+
 ## API 실행 순서
 
 1. `fraud_rulegen_requests.jsonl`의 각 행과
@@ -149,10 +172,11 @@ gate가 충족된 경우에만 `admissible(e)`를 만든다. 참고 구현은
 11. 사람이 조문·주석서·판례 원문과 variant를 승인한 뒤에만 canonical predicate와
    `verified` rule로 승격한다.
 
-critic을 반복 호출해 finding 수가 0이 될 때까지 사례를 후보화하지 않는다. 열거된
-판례 사실과 적용례가 독립 규범을 제공하지 않으면 commentary/precedent RAG context로
-남긴다. critic이 구체 내용을 제시하지 않은 반대설을 요구해도 모델이 이를 발명하지
-않고 unresolved question으로 보존한다.
+critic의 finding 수를 억지로 0으로 만들기 위해 재생성하지 않는다. 지적은 출처와
+대조해 자동 구조 수정, 사람 법률 검수, 기각으로 adjudicate한다. 열거된 판례 사실과
+적용례가 독립 규범을 제공하지 않으면 commentary/precedent RAG context로 남긴다.
+critic이 구체 내용을 제시하지 않은 반대설을 요구해도 모델이 이를 발명하지 않고
+unresolved question으로 보존한다.
 
 ## 자동 실패 조건
 
@@ -161,6 +185,8 @@ critic을 반복 호출해 finding 수가 0이 될 때까지 사례를 후보화
 - `norm_kind=exception`인데 `polarity=exception`이 아닌 후보
 - 존재하지 않는 candidate를 제거하거나 기존 ID를 덮어쓰는 patch
 - NormCard source가 선언된 extraction request 범위 밖에 있음
+- NormCard가 validated candidate를 누락하거나 알 수 없는 candidate를 참조
+- 서로 다른 `norm_kind` 또는 `polarity` 후보를 한 NormCard에 병합
 - RuleIR source가 연결된 NormCard의 source 범위 밖에 있음
 - 선언되지 않은 predicate 또는 arity/type 불일치
 - positive body에 바인딩되지 않은 head/negation 변수

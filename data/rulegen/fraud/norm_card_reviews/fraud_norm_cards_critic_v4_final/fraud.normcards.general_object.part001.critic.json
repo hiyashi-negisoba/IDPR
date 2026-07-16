@@ -1,0 +1,104 @@
+{
+  "findings": [
+    {
+      "finding_id": "nonproperty_examples_overgeneralized",
+      "message": "통합 명제는 허위기재 여권 교부 사례까지 재물 또는 재산상 이익을 취득하지 않은 경우라고 이유를 부여하지만, 해당 출처는 그 사례에서 사기죄가 성립하지 않는다는 결론만 제시한다. 재산상 객체가 없다는 명시적 이유는 혼인빙자 간음 사례에만 제시되어 있다.",
+      "recommended_action": "두 사례를 분리하거나, 여권 사례에 대해서는 출처가 명시한 불성립 결론만 유지하고 재산상 이익 부재라는 공통 이유를 삭제한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.3_4",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "target_path": "$.cards[20].proposition",
+      "type": "overgeneralization"
+    },
+    {
+      "finding_id": "triangular_fraud_case_generalized",
+      "message": "출처는 재산상 권리가 없는 자는 피해자가 될 수 없다는 일반 명제와, 특정 사례에서 피기망자인 법원은 피해자가 아니고 재물을 편취당한 제3자가 피해자라는 결론을 제시한다. 이를 삼각사기 일반에서 피기망자가 피해자가 아니라고 표현하면 피기망자가 재산상 권리자이기도 한 경우까지 배제할 수 있어 범위가 넓다.",
+      "recommended_action": "일반 기준은 재산상 권리 보유 여부로 한정하고, 법원이 피기망자였던 부분은 해당 사례의 예시로 명시한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.2_2",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "target_path": "$.cards[13].proposition",
+      "type": "overgeneralization"
+    },
+    {
+      "finding_id": "sex_work_variants_not_grouped",
+      "message": "성매매 관련 사기죄의 긍정설과 부정설이 서로 직접 경쟁하는 견해인데 각각 다른 pending variant_group에 배치되어 동일한 정책 선택지로 연결되지 않는다.",
+      "recommended_action": "긍정설과 부정설 카드에 동일한 variant_group을 지정하고, 두 견해 중 선택이 미해결임을 유지한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.3_4",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "target_path": "$.cards[22:24].variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "subjective_elements_formalization",
+      "message": "고의와 불법영득의 의사를 주관적 구성요건으로 열거한 명제는 평가자료를 제공하는 standard가 아니라 구성요건의 필수요소를 선언하는 규범이다. standard_input으로 지정하면 후속 단계에서 요건 규칙으로 구현되지 않을 위험이 있다.",
+      "recommended_action": "해당 카드의 formalization을 필수요건을 보존하는 형식으로 수정하되, 불법영득의사 범위에 관한 검토 필요성은 그대로 유지한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅰ_0",
+          "section_path": "Ⅰ"
+        }
+      ],
+      "target_path": "$.cards[1].formalization",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "unquantified_value_authority_unsupported",
+      "message": "제공된 후보와 인용문은 이익 가액을 판시하지 않아도 잘못이 아니라는 명제만 제시하며 이를 판례라고 식별하지 않는다. 그런데 카드는 commentary_reported_precedent 및 precedent_position으로 확정하였다.",
+      "recommended_action": "bounded source만으로 확인 가능한 권위 수준으로 낮추거나, 판례 귀속은 미확정으로 표시하여 별도 검토 대상으로 둔다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅲ.2_10",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "target_path": "$.cards[40].authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "settled_status_not_supported",
+      "message": "객체, 재산상 이익의 정의, 구체성 및 수치 산출 불요 카드에 settled 상태를 부여했지만 제공된 자료는 주석서 서술과 검증된 후보일 뿐 법적 확립 정도를 독립적으로 뒷받침하지 않는다. 후보의 review_required=false는 settled 권위의 근거가 아니다.",
+      "recommended_action": "settled 지정을 descriptive 등 출처가 뒷받침하는 수준으로 조정하거나, settled 여부를 확인할 명시적 검토 질문을 추가한다.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅲ_7",
+          "section_path": "Ⅲ"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅲ.2_9",
+          "section_path": "Ⅲ.2"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅲ.2_10",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "target_path": "$.cards[27].doctrinal_status, $.cards[34:37].doctrinal_status",
+      "type": "authority_mismatch"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_general_object_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "대부분의 후보는 출처와 권위 유형을 보존했으나, 여권 사례와 삼각사기의 일반화, 성매매 긍정·부정설의 variant grouping 누락, 주관적 구성요건의 형식화, 일부 판례·확립성 권위 지정에 수정이 필요하다.",
+  "target_id": "kr.fraud.article347.general_object.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

@@ -1,0 +1,53 @@
+{
+  "findings": [
+    {
+      "finding_id": "source_scope.unbounded_comment_ids",
+      "message": "The supplied bounded material contains validated candidates sourced only from comments comm_001692_제347조_Ⅳ.6_69 and comm_001692_제347조_Ⅳ.6_72, but the target declares eight additional comments as part of its source scope. Those additional comments were not supplied to this stage and cannot support this card set.",
+      "recommended_action": "Limit source_scope.comment_ids to the comments represented in the supplied validated candidates.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/source_scope/comment_ids",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "scope.unbounded_review_questions",
+      "message": "The review questions introduce disputes about property-loss theories, triangular fraud, disposition authority, and credit-card issuance that are not present in the supplied candidate batch. They therefore imply unresolved norms and authority choices outside this stage's bounded source material.",
+      "recommended_action": "Remove the out-of-scope questions or retain only questions directly arising from the four supplied candidates.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/legal_review_questions",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "scope.unbounded_coverage_gaps",
+      "message": "Several asserted coverage gaps concern triangular fraud, credit-card issuance, statutory amendment history, and precedent indexing not established by the supplied bounded material. A stage cannot characterize absent topics or external source coverage based on material it did not receive.",
+      "recommended_action": "Restrict coverage_gaps to limitations demonstrable from the supplied candidates, such as the lack of primary precedent text for the commentary-reported holdings.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/coverage_gaps",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "review_note.unsupported_special_act_distinction",
+      "message": "The note affirmatively directs a distinction between fraud-law benefit and a calculable Special Act gain, but this card's supporting passage states only that fraud-law property benefit need not be computationally quantifiable and that omission of its value is not unlawful. The asserted distinction is not stated in that source.",
+      "recommended_action": "Rephrase the note as a question requiring separate authority, or remove the unsupported Special Act distinction.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_69",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "target_path": "/cards/1/review_notes",
+      "type": "source_entailment"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_damage_acquisition_part002",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "The four cards substantially preserve the supplied candidates and their reported authority types, but the card-set metadata imports source scope, coverage gaps, and review disputes from material outside the bounded candidate batch. Those scope defects require revision; one card also contains an unsupported review-note distinction.",
+  "target_id": "kr.fraud.article347.damage_acquisition.norms.v1.part002",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

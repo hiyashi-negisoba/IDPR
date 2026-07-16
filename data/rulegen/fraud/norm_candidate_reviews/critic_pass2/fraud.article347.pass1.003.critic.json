@@ -1,0 +1,82 @@
+{
+  "findings": [
+    {
+      "finding_id": "case_outcome_mislabeled_as_standard",
+      "message": "당첨 가능성이 없는 슬롯머신 설치에 관한 문장은 특정 사례의 해당 여부를 제시한 사례·결론인데 일반적인 판단기준인 standard로 분류되었다. 동일한 방식으로 여러 판례 사안도 standard로 분류되어 일반 규범과 사례별 결과의 구별이 흐려질 수 있다.",
+      "recommended_action": "이 후보의 norm_kind를 사례별 결론에 맞는 종류로 정정하고, 다른 판례 사안 후보도 같은 기준으로 점검하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_19",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/candidates/2/norm_kind",
+      "type": "other"
+    },
+    {
+      "finding_id": "restrictive_view_mislabeled_as_standard",
+      "message": "계약만으로 보증인적 지위가 생기지 않는다는 명제와 세 가지 종합판단 요소는 앞 문단의 제한설을 이어 설명하는 특정 학설이다. 이를 standard로 분류하면 대립하는 다수설 또는 판례의 일반 기준으로 오인될 수 있다.",
+      "recommended_action": "해당 후보를 학설상 variant로 분류하고 앞선 제한설 후보와의 연계를 보존하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_21",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/candidates/12/norm_kind",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "prior_conduct_view_mislabeled_as_element",
+      "message": "선행행위로 인한 고지의무의 요건은 출처에서 확정된 구성요건이 아니라 학설의 설명으로 제시된다. element로 분류하면 권위와 확정성이 과장된다.",
+      "recommended_action": "학설임을 반영하는 variant로 분류하거나, 적어도 확정된 요소로 취급되지 않도록 권위 표시를 정정하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_21",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/candidates/14/norm_kind",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "missing_competing_insurance_precedent",
+      "message": "보험계약 당시 약관상 질병 고지의무를 알면서 질병을 숨기고 그 질병을 이유로 보험금을 청구한 사안에서 기망을 인정한 판례와, 이미 발생한 질환 및 향후 추가 치료 가능성을 인식하면서 병력·치료이력을 묵비한 판례가 누락되었다. 반면 고지의무 위반만으로 사기죄가 성립하지 않는다는 제한 판례만 추출되어 보험 관련 판례의 양면이 불완전하게 보존되었다.",
+      "recommended_action": "누락된 보험 관련 긍정 판례의 사례별 결론을 별도 후보로 추가하여 제한 판례와 함께 보존하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_27",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "missing_general_deception_precedent",
+      "message": "판례가 기망을 재산상 거래관계에서 신의와 성실의 의무를 저버리는 적극적 또는 소극적 행위로 설명한 일반 명제가 독립 후보로 추출되지 않았다. 현재 후보는 그 판시 중 고지의무와 중요성 부분만 담고 있다.",
+      "recommended_action": "판례가 제시한 기망행위의 일반적 범위에 관한 명제를 별도 후보로 추가하라.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_21",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/candidates",
+      "type": "missing_norm"
+    }
+  ],
+  "report_id": "critique.fraud.article347.pass1.003",
+  "review_required": true,
+  "stage": "norm_candidate_batch",
+  "status": "draft",
+  "summary": "주요 명제의 출처 인용은 대체로 뒷받침되지만, 사례별 판결 결과와 일반 기준의 분류가 혼재하고 일부 학설이 확정적 기준 또는 요소로 표시되었다. 또한 보험 고지의무에 관한 긍정 판례가 누락되어 제한 판례와의 균형이 보존되지 않았다.",
+  "target_id": "fraud.article347.pass1.003",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

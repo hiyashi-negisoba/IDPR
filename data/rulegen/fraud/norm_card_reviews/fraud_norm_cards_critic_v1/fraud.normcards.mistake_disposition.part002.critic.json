@@ -1,0 +1,67 @@
+{
+  "findings": [
+    {
+      "finding_id": "invalid.expanded_source_scope",
+      "message": "The declared source scope includes numerous comment IDs that are absent from the bounded source material. Only comments 55, 56, 57, 59, and 61 are supplied here, so the card set cannot claim the other listed comments as within this stage's source scope.",
+      "recommended_action": "Restrict source_scope.comment_ids to locators actually supplied to this stage, or re-run the stage with the omitted commentary included as bounded source material.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "$.target.source_scope.comment_ids",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "unsupported.review_questions",
+      "message": "Most review questions introduce disputes and examples not visible in the bounded candidates, including competing theories of property loss, triangular-fraud disposition authority, property risk, disposition intent, credit-card issuance, and seizure-pretext taking. Their existence and formulations cannot be verified from this stage's supplied material.",
+      "recommended_action": "Retain only review questions grounded in the supplied candidates, such as the apparent 기망자/피기망자 wording conflict, or provide the omitted source material before including the additional disputes.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "$.target.legal_review_questions",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "unsupported.coverage_gap_details",
+      "message": "These coverage statements name a specific Supreme Court en banc decision and additional doctrines or offenses that do not appear in the bounded source material. Even a statement that material is missing cannot introduce unsupported particulars as though their relevance had been established by this stage.",
+      "recommended_action": "Remove the unsupported names and doctrinal particulars, or supply the materials from which those identified gaps were derived.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "$.target.coverage_gaps[0:3]",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "case.outcome_generalized.nominal_trustee",
+      "message": "The source expressly reports that this was the conclusion in a particular case ('사기죄가 성립하지 않는다고 본 사안'), while the proposition states a generally applicable conditional rule. The authority and doctrinal-status fields identify precedent, but they do not cure the proposition's conversion of a case-specific outcome into a general norm.",
+      "recommended_action": "Limit the proposition and formalization to a commentary-reported case outcome unless the bounded source supplies a general holding or rule.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_61",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "$.target.cards[2].proposition",
+      "type": "overgeneralization"
+    },
+    {
+      "finding_id": "missing.variant_group.third_party_recipient",
+      "message": "The third-party acquisition-purpose card and the related innocent-tool, agent, and no-acquisition-intent cards describe coordinated branches of the same third-party-recipient framework, but all have null variant groups. Their relationship may therefore be lost in later formalization.",
+      "recommended_action": "Assign these related cards a shared variant group or otherwise record their mutually conditioned branch relationship without merging their distinct propositions.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_59",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "$.target.cards[1].variant_group",
+      "type": "collapsed_variant"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_part002",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "The one-to-one cards generally preserve the validated candidate text, and the apparent 기망자/피기망자 inconsistency is appropriately withheld from executable formalization. However, the card set declares a materially broader source scope and introduces review issues and coverage details absent from the bounded material. It also generalizes a reported case outcome and omits grouping for related third-party-recipient branches. The invalid source scope requires rejection or re-extraction with the omitted commentary supplied.",
+  "target_id": "kr.fraud.article347.mistake_disposition.norms.v1.part002",
+  "verdict": "reject",
+  "version": "1.1.0"
+}

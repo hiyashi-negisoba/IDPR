@@ -1,0 +1,146 @@
+{
+  "findings": [
+    {
+      "finding_id": "incomplete_quote_loan_risk",
+      "message": "인용문은 사후 미변제만으로 기망이나 범의를 단정할 수 없다는 결론만 담고 있으며, proposition에 포함된 인적·계속적 거래관계, 대주의 신용상태 인식 및 변제위험 예상, 중요사항 허위진술 등 다른 사정의 부재라는 조건을 뒷받침하지 않는다.",
+      "recommended_action": "동일 출처에서 proposition의 모든 조건과 결론을 포함하는 정확한 인용 범위로 보완한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_74",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "target_path": "/candidates/4/source_refs/0",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "incomplete_quote_inheritance_holding",
+      "message": "인용문은 피고인이 부동산을 상속받았다고 잘못 알고 매도했다는 일부 사실만 담고 있고, 자백간주에 의한 등기 및 편취 범의가 없다는 proposition의 결론을 포함하지 않는다.",
+      "recommended_action": "동일 판례 서술에서 자백간주에 의한 승소·등기와 편취 범의 부정 결론까지 뒷받침하는 정확한 인용문으로 보완한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_79",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "target_path": "/candidates/20/source_refs/0",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "precedent_holdings_misclassified",
+      "message": "여러 후보가 특정 사실관계에 관한 판례의 인정·부정 결과인데도 norm_kind가 일반적인 standard로 표시되어 있다. 이는 사례별 holding을 일반 판단기준으로 오인하게 할 수 있다. 특히 후보 ID가 'holding-'으로 시작하는 항목들에서 분류와 내용이 불일치한다.",
+      "recommended_action": "각 후보별로 출처가 일반 판시 기준인지 특정 사안의 적용 결과인지 확인하고, 후자에 해당하는 항목만 사례 holding에 맞는 norm_kind로 재분류한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_75",
+          "section_path": "Ⅴ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_78",
+          "section_path": "Ⅴ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_79",
+          "section_path": "Ⅴ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_80",
+          "section_path": "Ⅴ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "section_path": "Ⅴ.2"
+        }
+      ],
+      "target_path": "/candidates",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "polarity_bankruptcy_caution",
+      "message": "개인파산·면책 관련 후보는 사기죄 성립을 부정하는 명제가 아니라 판단을 보다 신중히 해야 한다는 긍정적 판단지침이다. polarity를 negative로 둔 것은 norm_kind와 독립적으로 보아도 proposition의 방향과 맞지 않는다.",
+      "recommended_action": "판단지침의 명제 방향에 맞게 polarity를 수정한다.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_75",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "target_path": "/candidates/11/polarity",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "missing_negative_intent_norms",
+      "message": "출처에 명시된 일반적 부정 규범인 '행위자의 의도를 과학적으로 증명할 수 없다는 이유만으로 기망의사가 인정되는 것은 아니다'와 '기도·굿·부적을 하고 보수를 받았다는 사실만으로 곧바로 사기죄가 성립하지 않는다'가 누락되었다. 현재 기도행위의 허용 한계를 벗어난 경우라는 긍정 후보만 있어 대응하는 제한 규범이 보존되지 않았다.",
+      "recommended_action": "두 부정 규범을 각각 또는 출처가 허용하는 최소 단위로 추가하여 긍정적 한계초과 규범과 함께 보존한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_76",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "target_path": "/candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "missing_variant_consequence",
+      "message": "불법영득의사에 관한 세 견해는 추출되었지만, 재물편취죄에만 불법영득의사를 요구하는 견해에서도 영득의사 없는 기망 교부를 재산상 이익 취득으로 처벌할 수 있어 결과적으로 전면 불요설과 차이가 없어진다는 해설상의 규범적 귀결이 후보로 추출되지 않았다. unresolved_questions에만 남겨 두어서는 출처의 명제가 보존되지 않는다.",
+      "recommended_action": "해당 귀결을 세 견해 자체와 구별되는 commentary-synthesis 후보로 추가하고 관련 견해와의 연결을 유지한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "section_path": "Ⅴ.2"
+        }
+      ],
+      "target_path": "/candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "material_case_norm_omissions",
+      "message": "제공된 범위에 명시된 다수의 독립적 판례 적용 규범이 누락되었다. 예를 들어 동시대출 사실 은폐와 변제능력 부재, 허위·과다청구 외의 쇼핑몰 분양사업, 도산상황 은폐 납품 및 이중분양·담보상황 은폐, 보험사고 우연성을 해하지 않아 고의를 부정한 사례들, 단순 채무불이행이나 거래 실패만으로 범의를 부정한 여러 판례가 후보로 보존되지 않았다. 선택적으로 일부 사례만 추출한 기준도 제시되지 않아 배치의 판례 범위가 불완전하다.",
+      "recommended_action": "누락된 독립 판시를 다시 점검하여 일반 기준과 사례별 holding을 구별해 추가하되, 단순히 동일 규범을 반복하는 사례라면 그 중복 판단을 명시적으로 적용한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_75",
+          "section_path": "Ⅴ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_76",
+          "section_path": "Ⅴ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_77",
+          "section_path": "Ⅴ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_78",
+          "section_path": "Ⅴ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_79",
+          "section_path": "Ⅴ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_80",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "target_path": "/candidates",
+      "type": "missing_norm"
+    }
+  ],
+  "report_id": "fraud.article347.pass1.009.critique",
+  "review_required": true,
+  "stage": "norm_candidate_batch",
+  "status": "draft",
+  "summary": "핵심 견해 대립과 일부 일반 기준은 보존되었으나, 두 후보의 필수 인용문이 proposition 전체를 뒷받침하지 않고, 특정 판례 결과가 일반 standard로 분류되었으며, 대응 부정 규범과 해설상 귀결 및 다수 독립 판례가 누락되었다. 출처 재검토와 제한적 추가 추출·재분류가 필요하다.",
+  "target_id": "fraud.article347.pass1.009",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

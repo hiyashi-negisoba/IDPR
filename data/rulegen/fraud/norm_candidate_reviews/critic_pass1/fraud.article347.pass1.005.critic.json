@@ -1,0 +1,116 @@
+{
+  "findings": [
+    {
+      "finding_id": "missing.material-norms.38-40",
+      "message": "여러 독립 규범이 누락되었다. 예컨대 위조 등기부등본을 이용한 대출, 결제 가망 없는 약속어음을 담보로 한 편취, 지급기일을 변조한 어음의 배서양도·할인, 가계수표 허위 분실에 의한 제권판결, 변제 의사·능력을 숨긴 채 배서인을 이용한 할인, 보조금과 간접보조금의 법정 정의, 선원 가족을 가장한 생계보조금 수령, 분열된 종중의 가처분취하서 제출과 공탁금 회수에 관한 규범이 보이지만 후보가 없다.",
+      "recommended_action": "열거된 독립 규범을 해당 출처의 범위와 예외를 유지하여 별도 후보로 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_38",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_39",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_40",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "missing.material-norms.41-44",
+      "message": "후반부에도 독립 규범이 누락되었다. 누락 예에는 허용 한계를 벗어난 기도비 등 수령에 관한 일반 기준, 누락 전화요금을 직접 수령한 행위, 사무장병원 법리의 의료소비자생활협동조합 적용, 의료법인에 관한 두 가지 예외적 악용 유형, 기망 상대방은 타인이라는 기본 규범, 변제 의사·능력 없이 신용카드를 사용한 경우 법인 카드회사에 대한 사기, 공소장상 피해자와 실제 피해자가 다른 경우의 처리 규범이 포함된다.",
+      "recommended_action": "누락된 일반 기준과 사례별 규범을 서로 구별하여 후보로 추가하고, 의료법인 관련 예외 유형을 기존 후보에 흡수할지 별도 변형으로 둘지 검토한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_41",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_42",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_43",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_44",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "quote.mismatch.subsidy-group",
+      "message": "후보 proposition은 네 가지 보조금 사례를 하나로 묶지만 제시된 인용문은 자부담금 및 북한이탈주민 지원금 사례만 담고 있어, 장애인단체의 허위서류와 쌀 직불금 사례에 대한 필수 인용 provenance를 제공하지 않는다.",
+      "recommended_action": "누락된 두 사례를 실제로 뒷받침하는 범위의 출처 인용을 추가하거나, 현재 인용문이 뒷받침하는 사례만 남도록 후보를 분리한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_40",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates[27].source_refs[0].quote",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "quote.mismatch.religious-group",
+      "message": "후보 proposition은 영생 관련 설교와 자신을 하나님·구세주 등으로 지칭한 고액 헌금 사례를 함께 포함하지만, 제시된 인용문은 첫 번째 사례만 뒷받침한다.",
+      "recommended_action": "두 번째 사례를 뒷받침하는 출처 인용을 추가하거나 두 사례를 각각의 후보로 분리한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_41",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates[34].source_refs[0].quote",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "authority.unresolved-budget-withdrawal",
+      "message": "허위서류에 의한 예산 인출 후보는 사기죄를 직접 다룬 판례가 없다는 출처의 명시와 횡령 판례에서 유추한 논평자의 견해에 의존한다. 이러한 미해결 권위 선택이 있는데도 unresolved_questions가 비어 있다.",
+      "recommended_action": "해당 후보가 직접 판례 법리가 아니라 논평자의 유추라는 점과 채택 여부를 unresolved question으로 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_41",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.unresolved_questions",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "kind.quasi-fraud-classification",
+      "message": "미성년자의 지려천박 또는 심신장애 이용행위를 형법 제348조 준사기죄의 대상으로 분류하는 명제는 용어의 의미를 정하는 정의라기보다 적용범위 또는 법적 효과에 관한 규범이다.",
+      "recommended_action": "지원되는 norm_kind 중 적용 기준이나 법적 효과에 맞는 종류로 최소한 수정한다.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_44",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates[48].norm_kind",
+      "type": "formalization_error"
+    }
+  ],
+  "report_id": "critique.fraud.article347.pass1.005",
+  "review_required": true,
+  "stage": "norm_candidate_batch",
+  "status": "draft",
+  "summary": "후보 다수는 출처와 대체로 부합하지만, 여러 명시적 규범이 누락되었고 복수 사례를 묶은 일부 후보의 필수 인용문이 proposition 전체를 뒷받침하지 않는다. 또한 직접 판례가 없는 논평자 유추에 관한 검토 질문이 필요하다.",
+  "target_id": "fraud.article347.pass1.005",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

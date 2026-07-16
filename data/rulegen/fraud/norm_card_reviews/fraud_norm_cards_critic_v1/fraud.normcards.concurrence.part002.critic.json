@@ -1,0 +1,100 @@
+{
+  "findings": [
+    {
+      "finding_id": "invalid_source_scope",
+      "message": "The declared source scope includes numerous comment IDs from sections IX.1 through X.8 that are not present in the bounded source material. The supplied material supports only the comment IDs occurring in the validated candidates.",
+      "recommended_action": "Restrict source_scope.comment_ids to comment IDs actually present in the bounded validated candidates, or rerun this stage with the additional source material explicitly supplied.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/source_scope/comment_ids",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "unsupported_review_questions",
+      "message": "The questions concerning repeated fraud, voice-phishing participant liability, counterfeit currency concurrence, deception of a principal, and completion based solely on victim loss are not derived from any supplied validated candidate. They therefore introduce legal issues and competing views outside this stage's bounded source.",
+      "recommended_action": "Remove these out-of-scope questions, or supply and link bounded candidates supporting each question.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/legal_review_questions",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "norm_kind_mistranslation_card_0",
+      "message": "The linked validated candidate is classified as a standard, but the card reclassifies it as an exception without source-supported justification.",
+      "recommended_action": "Preserve norm_kind as standard unless the bounded source supplies a basis for treating the proposition as an exception.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.6_120",
+          "section_path": "Ⅹ.6"
+        }
+      ],
+      "target_path": "/cards/0/norm_kind",
+      "type": "rule_mismatch"
+    },
+    {
+      "finding_id": "norm_kind_mistranslation_card_1",
+      "message": "The linked validated candidate is classified as a standard, but the card reclassifies it as an exception without source-supported justification.",
+      "recommended_action": "Preserve norm_kind as standard unless the bounded source supplies a basis for treating the proposition as an exception.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.7_124",
+          "section_path": "Ⅹ.7"
+        }
+      ],
+      "target_path": "/cards/1/norm_kind",
+      "type": "rule_mismatch"
+    },
+    {
+      "finding_id": "norm_kind_mistranslation_card_3",
+      "message": "The linked validated candidate is classified as a standard, but the card reclassifies it as an exception without source-supported justification.",
+      "recommended_action": "Preserve norm_kind as standard unless the bounded source supplies a basis for treating the proposition as an exception.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.6_120",
+          "section_path": "Ⅹ.6"
+        }
+      ],
+      "target_path": "/cards/3/norm_kind",
+      "type": "rule_mismatch"
+    },
+    {
+      "finding_id": "norm_kind_mistranslation_card_4",
+      "message": "The linked validated candidate is classified as a standard, but the card reclassifies it as an exception without source-supported justification.",
+      "recommended_action": "Preserve norm_kind as standard unless the bounded source supplies a basis for treating the proposition as an exception.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.6_121",
+          "section_path": "Ⅹ.6"
+        }
+      ],
+      "target_path": "/cards/4/norm_kind",
+      "type": "rule_mismatch"
+    },
+    {
+      "finding_id": "norm_kind_mistranslation_card_6",
+      "message": "The linked validated candidate is classified as a standard, but the card reclassifies it as an exception without source-supported justification.",
+      "recommended_action": "Preserve norm_kind as standard unless the bounded source supplies a basis for treating the proposition as an exception.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.6_122",
+          "section_path": "Ⅹ.6"
+        }
+      ],
+      "target_path": "/cards/6/norm_kind",
+      "type": "rule_mismatch"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_concurrence_part002",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "The cards largely preserve the supplied candidate propositions and authority distinctions, but the artifact declares a source scope not supplied to this stage, introduces unsupported review issues, and changes five candidate norm kinds from standard to exception without a bounded-source basis. Because the declared source scope is invalid, re-scoping or re-extraction is required.",
+  "target_id": "kr.fraud.article347.concurrence.norms.v1.part002",
+  "verdict": "reject",
+  "version": "1.1.0"
+}

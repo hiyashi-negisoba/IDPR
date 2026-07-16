@@ -17,12 +17,18 @@ Rules:
    exclusion norms, and `exception` only for a norm that reverses a supplied general rule.
 4. Preserve disagreements. When the commentary presents competing theories, emit separate
    `variant` candidates and add the choice to `unresolved_questions`. Never select a theory.
-5. Distinguish a general norm from a case illustration. A cited case outcome is not a
-   universal rule unless the supplied commentary states the general proposition.
-6. Mark case-specific subsumption requiring evaluative judgment as `standard`. Enumerated,
-   mechanically checkable requirements may be `element` or `causal_link`.
+5. Distinguish a general norm from a reported case holding. When the commentary reports a
+   positive, negative, limiting, or exceptional legal outcome for a case subtype, extract it
+   as an independently reviewable candidate and keep its proposition no broader than that
+   factual subtype. Do not omit a holding merely because it is case-specific. Omit only a
+   bare factual illustration that supplies no legal outcome or classification.
+6. Mark case-specific subsumption or a reported holding requiring evaluative judgment as
+   `standard` and set `review_required=true`. Enumerated, mechanically checkable requirements
+   may be `element` or `causal_link`.
 7. Keep `status` equal to `draft`. Do not claim legal verification.
 8. Do not emit Scallop, Python, markdown, explanations, or fields outside the output schema.
 
-Before returning, check that all quotes occur exactly in the supplied text and that every
+Before returning, inspect every supplied commentary chunk for independent general norms,
+competing views, exceptions, and reported positive or negative holdings. There is no fixed
+candidate quota. Then check that all quotes occur exactly in the supplied text and that every
 candidate can be reviewed independently against its source.

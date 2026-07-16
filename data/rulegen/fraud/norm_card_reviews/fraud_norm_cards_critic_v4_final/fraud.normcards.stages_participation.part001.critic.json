@@ -1,0 +1,54 @@
+{
+  "findings": [
+    {
+      "finding_id": "authority.voice_phishing_commentary_view",
+      "message": "이 카드는 통일된 판례 기준이 없다고 명시한 뒤 기능적 행위지배 기준을 적용해야 한다는 필자의 견해를 소개한다. 이를 commentary_reported_precedent 및 precedent_position으로 분류하면 논평자의 제안이 판례 입장인 것처럼 표시된다.",
+      "recommended_action": "권위와 doctrinal status를 논평자의 견해 및 미해결 상태에 맞게 최소 수정하고, 통일된 판례 기준이 없다는 점을 유지한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅷ_109",
+          "section_path": "Ⅷ"
+        }
+      ],
+      "target_path": "$.cards[19].authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "authority.real_estate_combined_sources",
+      "message": "출처는 해당 기수 기준을 '학설과 판례'의 입장으로 함께 제시하지만, 카드는 commentary_reported_precedent와 precedent_position만 부여하여 학설이라는 별도 권위 성격을 누락한다.",
+      "recommended_action": "학설과 판례가 함께 보고되었다는 권위 구성을 보존하도록 권위·지위 필드를 수정하거나, 현재 스키마로 단일 선택이 불가하면 그 선택 문제를 명시적인 검토 질문으로 남긴다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.2_107",
+          "section_path": "Ⅶ.2"
+        }
+      ],
+      "target_path": "$.cards[15].authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "variant.completion_without_gain",
+      "message": "행위자의 불법이득 취득 없이도 피해자의 재산상 손해만으로 기수가 된다는 '견해'는 재물·재산상 이익의 이전을 기수 인과사슬로 제시하는 카드 및 재산상 이익 미취득을 이유로 기수를 부정하는 카드와 권위 선택상 긴장한다. 그러나 variant_group이 null이어서 경쟁 견해 관계가 표현되지 않았다.",
+      "recommended_action": "피해자 손해만으로 기수를 인정하는 견해를 관련 기수 기준 카드들과 명시적인 변형·경쟁 견해 그룹으로 연결하고, 어느 견해를 채택할지는 결정하지 않은 채 검토 질문에 남긴다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.2_107",
+          "section_path": "Ⅶ.2"
+        }
+      ],
+      "target_path": "$.cards[27].variant_group",
+      "type": "collapsed_variant"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "대부분의 카드는 검증된 후보를 그대로 보존하지만, 보이스피싱 기준을 판례 입장으로 오분류한 점, 학설과 판례의 결합 권위를 판례로 축소한 점, 불법이득 없는 기수 견해의 경쟁 관계를 표시하지 않은 점은 수정이 필요하다.",
+  "target_id": "kr.fraud.article347.stages_participation.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

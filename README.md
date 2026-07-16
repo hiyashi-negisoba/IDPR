@@ -57,3 +57,20 @@ batch.
 The provisional research framing, including the standalone workshop-paper task
 and its connection to the earlier DCDE/OBJECTION work, is in
 `docs/research/idpr_research_draft.md`.
+
+The full Article 347 fraud preparation run is source-complete but still legally
+pending. It contains 662 validated candidates and 636 candidate-linked NormCards.
+Rebuild the deterministic final artifacts and review queue with:
+
+```bash
+python scripts/finalize_fraud_norm_candidate_batches.py
+python scripts/finalize_fraud_norm_cards.py
+python scripts/finalize_fraud_norm_card_critics.py
+python scripts/build_fraud_legal_review.py
+```
+
+Start human review at
+`data/rulegen/fraud/fraud_legal_review_guide.md`. Full RuleIR generation is
+blocked until the source, authority, and policy-variant decisions in
+`fraud_human_review_decisions.jsonl` are resolved. The existing eight-card fraud
+RuleIR and Scallop files are structural exemplars, not approval of all 636 cards.

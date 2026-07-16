@@ -1,0 +1,44 @@
+{
+  "findings": [
+    {
+      "finding_id": "unsupported_disputed_status",
+      "message": "The source identifies the proposition as a scholarly view but does not establish that it is disputed or identify a competing view. Marking it as \"disputed\" asserts an unresolved conflict not shown by the bounded source.",
+      "recommended_action": "Replace the unsupported disputed characterization with a status limited to the reported doctrinal authority, or expressly leave the status unresolved for review without inferring a competing position.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_69",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "target_path": "$.cards[0].doctrinal_status",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "missing_legal_review_questions",
+      "message": "The set marks every card as review-required and identifies unresolved issues in review_notes, including the authority of the scholarly view, intent and reinvestment conditions, and the distinction between fraud benefit and the Special Economic Crimes Act benefit amount, but provides no review questions.",
+      "recommended_action": "Add narrowly framed legal-review questions corresponding to the unresolved matters already identified in the cards, without selecting answers or adding unsupported authority.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_69",
+          "section_path": "Ⅳ.6"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_72",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "target_path": "$.legal_review_questions",
+      "type": "other"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_damage_acquisition_part002",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "The cards generally preserve the validated candidates and their reported authority, but the first card unsupportedly labels a merely reported scholarly view as disputed, and the card set omits required review questions despite multiple expressly unresolved issues.",
+  "target_id": "kr.fraud.article347.damage_acquisition.norms.v1.part002",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

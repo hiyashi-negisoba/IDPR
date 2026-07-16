@@ -1,0 +1,54 @@
+{
+  "findings": [
+    {
+      "finding_id": "authority.case_outcome_mislabeled",
+      "message": "The authority is labeled commentary_synthesis, but the supplied wording presents a case-specific conclusion ('보기 어렵다고 보아') rather than a synthesized general doctrine. The bounded material does not establish commentary_synthesis as the correct authority category.",
+      "recommended_action": "Determine the source's actual authority and classify it as a commentary-reported case outcome if confirmed; otherwise leave the authority unresolved for human review rather than labeling it commentary_synthesis.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.5_104",
+          "section_path": "Ⅵ.5"
+        }
+      ],
+      "target_path": "/cards/0/authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "scope.unavailable_comments_included",
+      "message": "The declared source scope includes numerous comment IDs that are not part of the bounded source material supplied to this stage. Only comm_001692_제347조_Ⅵ.5_104 is available here, so the broader scope representation is unsupported.",
+      "recommended_action": "Restrict source_scope to the source actually supplied for this card set, or supply the omitted bounded materials before retaining the broader scope.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.5_104",
+          "section_path": "Ⅵ.5"
+        }
+      ],
+      "target_path": "/source_scope/comment_ids",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "review_questions.unrelated_to_card",
+      "message": "The listed questions concern repeated fraud, voice-phishing participation, insurance disclosure, illegal-cause benefits, exercise of rights, and completion without unlawful gain. None concerns the sole card's public-contract estimate-information scenario, and none is supported by the bounded candidate.",
+      "recommended_action": "Remove the unrelated questions and add only review questions necessary for this card, particularly whether the proposition is merely a case-specific outcome and what authority status the reported decision has.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.5_104",
+          "section_path": "Ⅵ.5"
+        }
+      ],
+      "target_path": "/legal_review_questions",
+      "type": "source_entailment"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_special_forms_part003",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "The card accurately lifts the candidate proposition, polarity, and standard classification, but its authority label, declared source scope, and legal-review questions are not supported by the bounded material. Human review is required to resolve the case-specific authority and narrow the metadata.",
+  "target_id": "kr.fraud.article347.special_forms.norms.v1.part003",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

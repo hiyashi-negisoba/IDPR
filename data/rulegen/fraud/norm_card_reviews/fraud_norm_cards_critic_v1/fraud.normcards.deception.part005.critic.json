@@ -1,0 +1,44 @@
+{
+  "findings": [
+    {
+      "finding_id": "f1.source-scope-overclaim",
+      "message": "공급된 bounded source material은 comment_id 44, 45, 46의 검증 후보만 포함하지만, target은 comment_id 11부터 43까지도 이 카드 세트의 source_scope에 포함한다. 제공되지 않은 자료를 검토 범위로 표시할 수 없다.",
+      "recommended_action": "source_scope.comment_ids를 실제 공급된 bounded source material에 나타난 comment_id 44, 45, 46으로 한정한다.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "$.source_scope.comment_ids",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "f2.unsupported-review-questions",
+      "message": "법률검토 질문들은 가치판단, 과장광고, 입찰담합, 과다 거스름돈, 무전취식, 고지의무, 장래사실, 처분의사 등 현재 공급된 검증 후보에 나타나지 않는 쟁점을 다룬다. 이 단계에 제공된 bounded source material로는 해당 질문들의 출처나 쟁점 대립을 확인할 수 없다.",
+      "recommended_action": "현재 bounded source material에서 도출되지 않은 질문을 제거하거나, 해당 질문을 뒷받침하는 자료가 공급되는 별도 카드 세트로 이동한다.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "$.legal_review_questions",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "f3.actual-victim-authority",
+      "message": "출처는 해당 입장을 명시적으로 '판례'의 견해로 보고하지만 카드는 authority_basis를 commentary_synthesis로 분류하였다. 이는 논평자의 종합과 논평에 보고된 판례를 구별하지 못한다.",
+      "recommended_action": "이 카드의 authority_basis를 commentary_reported_precedent로 정정하고, doctrinal_status도 그 권위 유형과 일관되는지 함께 확인한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_44",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.cards[0].authority_basis",
+      "type": "authority_mismatch"
+    }
+  ],
+  "report_id": "critique.kr.fraud.article347.deception.norms.v1.part005",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "11개 검증 후보는 모두 일대일 카드로 수록되었고 대체로 후보의 명제와 출처를 보존한다. 다만 제공되지 않은 comment_id와 쟁점들을 source_scope 및 legal_review_questions에 포함했고, 실제 피해자 정정 관련 카드의 판례 권위를 논평 종합으로 잘못 분류했으므로 수정이 필요하다.",
+  "target_id": "kr.fraud.article347.deception.norms.v1.part005",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

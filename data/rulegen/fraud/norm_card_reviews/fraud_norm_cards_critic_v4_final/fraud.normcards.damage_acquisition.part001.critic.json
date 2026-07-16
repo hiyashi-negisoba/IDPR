@@ -1,0 +1,138 @@
+{
+  "findings": [
+    {
+      "finding_id": "variant_group.property_loss_fragmented",
+      "message": "동일한 재산상 손해 필요성 논쟁에 속하는 부정설·긍정설·제한적 긍정설의 개괄 카드가 각각 별도의 pending 그룹에 배치되어 있고, 같은 견해를 구체화한 후속 카드들은 fraud_damage_acquisition.property_loss_requirement 그룹에 배치되어 있다. 이 구조는 하나의 경쟁 견해 집합을 분절하여 정책 선택 시 서로 독립된 변형처럼 처리하게 한다.",
+      "recommended_action": "세 개의 개괄 카드와 이에 대응하는 구체화 카드를 동일한 재산상 손해 필요성 variant_group에 연결하고, 실질적으로 중복되는 개괄·구체 카드의 병합 여부만 검토하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "section_path": "Ⅳ.4"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_63",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "target_path": "/cards[id=damage_acquisition.fraud.variant-property-loss-requirement-negative]/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "authority.case_cards_mislabeled",
+      "message": "이 카드와 다수의 유사한 사안별 결과 카드는 review_notes에서 스스로 '보고된 판례'라고 식별하면서도 authority_basis를 commentary_synthesis, doctrinal_status를 descriptive로 두었다. 가압류 해제, 무효 가등기 말소, 연대보증 서명, 보증서 발급, 명의상 가등기, 입찰계약 당사자 지위, 약속어음 전액, 부동산·담보 가액 산정 등 구체적 사건 결과는 일반 해설 종합과 해설이 보고한 판례를 구별해야 한다.",
+      "recommended_action": "각 사안별 카드가 해설이 보고한 판례인지 단순 해설 종합인지 개별 확인하고, 판례 보고 카드에 한하여 authority_basis와 doctrinal_status를 commentary_reported_precedent 및 precedent_position에 맞게 정정하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
+          "section_path": "Ⅳ.5"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.5_67",
+          "section_path": "Ⅳ.5"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_68",
+          "section_path": "Ⅳ.6"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_69",
+          "section_path": "Ⅳ.6"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_70",
+          "section_path": "Ⅳ.6"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_71",
+          "section_path": "Ⅳ.6"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_72",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "target_path": "/cards[id=fraud_damage_acquisition.provisional_seizure_release_disposition]/authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "translation.third_party_object_missing",
+      "message": "명제의 '범인에게 제3자를 취득하게 할 의사'는 범인이 제3자 자체를 취득하게 한다는 의미가 되어 원 후보와 출처의 법적 객체를 잘못 옮긴다. 출처는 범인에게 제3자로 하여금 재물을 취득하게 할 의사가 있어야 한다고 한다.",
+      "recommended_action": "의사의 객체를 제3자가 아니라 제3자로 하여금 취득하게 할 재물로 명확히 하여 원 후보의 의미를 보존하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
+          "section_path": "Ⅳ.5"
+        }
+      ],
+      "target_path": "/cards[id=fraud_damage_acquisition.third_party_acquisition_intent]/proposition",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "review_questions.reported_cases_incomplete",
+      "message": "원판결 확인과 일반화 가능성 검토 질문이 appeal_withdrawal_disposition 한 카드만 열거한다. 그러나 카드 자체의 review_notes가 다수의 다른 카드를 reported precedent로 명시하고 있고, 사안별 판결 결과로 작성된 카드도 다수 존재한다. 이들을 검토 질문에서 누락하면 판례 원문 확인 없이 일반 규칙으로 승격될 위험이 있다.",
+      "recommended_action": "사안별 판례 보고로 분류되는 모든 카드에 대해 원판결 확인과 허용 가능한 일반화 범위를 묻도록 해당 검토 질문의 카드 목록을 보완하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_64",
+          "section_path": "Ⅳ.4"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
+          "section_path": "Ⅳ.5"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.5_67",
+          "section_path": "Ⅳ.5"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_68",
+          "section_path": "Ⅳ.6"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_69",
+          "section_path": "Ⅳ.6"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_70",
+          "section_path": "Ⅳ.6"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_71",
+          "section_path": "Ⅳ.6"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_72",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "target_path": "/legal_review_questions/1",
+      "type": "other"
+    },
+    {
+      "finding_id": "exception.variant_link_missing",
+      "message": "후순위 근저당권 이득액 산정의 예외 카드는 원칙 카드와 직접 결합되어야 하지만 variant_group이 null이다. 원칙 카드는 fraud_damage_acquisition.junior_mortgage_gain_cap 그룹에 있어, 현재 구조에서는 특별한 사정이 있는 경우의 예외가 원칙과 함께 적용되지 않을 수 있다.",
+      "recommended_action": "예외 카드를 원칙 카드와 동일한 그룹 또는 명시적인 예외 관계로 연결하여 원칙만 독립 적용되지 않도록 하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_71",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "target_path": "/cards[id=fraud_damage_acquisition.mortgage_setting_junior_actual_debt_exception]/variant_group",
+      "type": "formalization_error"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_damage_acquisition_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "후보의 전반적 수록 범위는 유지되었으나, 재산상 손해 견해의 variant 그룹이 분절되어 있고, 다수의 해설 보고 판례가 commentary_synthesis로 잘못 분류되었으며, 제3자 취득 의사 명제에 의미상 오역이 있다. 또한 판례 원문 확인 질문과 후순위 근저당권 예외 연결이 불완전하므로 수정과 법률 검토가 필요하다.",
+  "target_id": "kr.fraud.article347.damage_acquisition.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

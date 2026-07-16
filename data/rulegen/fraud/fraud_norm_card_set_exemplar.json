@@ -3,12 +3,18 @@
   "cards": [
     {
       "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "fraud.elements.objective",
+          "request_id": "fraud.article347.pass1.001"
+        }
+      ],
       "doctrinal_status": "descriptive",
       "formalization": "deterministic_rule",
       "id": "fraud.elements_chain",
       "norm_kind": "element",
       "polarity": "positive",
-      "proposition": "사기죄는 기망, 착오, 재산적 처분, 취득 및 그 인과적 연결을 요구한다.",
+      "proposition": "사기죄의 객관적 구성요건은 기망, 착오, 재산적 처분, 손해, 취득 및 그 인과관계이다.",
       "request_ids": [
         "fraud.article347.pass1.001"
       ],
@@ -17,7 +23,7 @@
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅰ_0",
-          "quote": "사기죄는 타인을 기망하여 착오를 발생케 하고 그 착오에 기하여 재물의 교부 기 타의 재산적 처분행위를 하게 함으로써 재물을 취득하거나 재산상의 이익을 취득 함으로써 성립하는 범죄이다.",
+          "quote": "사기죄의 객관적 구성요건은 ⅰ) 기망행위, ⅱ) 피기망자의 착오, ⅲ) 재산적 처분행위, ⅳ) 재산상 손해의 발 생, ⅴ) 재물 또는 재산상 이익의 취득과 ⅵ) 그 사이의 인과관계이고",
           "section_path": "Ⅰ"
         }
       ],
@@ -25,6 +31,12 @@
     },
     {
       "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "fraud.definition.deception-good-faith-mistake",
+          "request_id": "fraud.article347.pass1.002"
+        }
+      ],
       "doctrinal_status": "settled",
       "formalization": "standard_input",
       "id": "fraud.deception",
@@ -47,6 +59,12 @@
     },
     {
       "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "fraud.definition.error-inconsistent-cognition",
+          "request_id": "fraud.article347.pass1.006"
+        }
+      ],
       "doctrinal_status": "settled",
       "formalization": "standard_input",
       "id": "fraud.mistake",
@@ -69,6 +87,12 @@
     },
     {
       "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "fraud.element.property-disposition",
+          "request_id": "fraud.article347.pass1.006"
+        }
+      ],
       "doctrinal_status": "settled",
       "formalization": "standard_input",
       "id": "fraud.disposition",
@@ -91,6 +115,20 @@
     },
     {
       "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "fraud.variant-property-loss-requirement-negative",
+          "request_id": "fraud.article347.pass1.007"
+        },
+        {
+          "candidate_id": "fraud.variant-property-loss-requirement-affirmative",
+          "request_id": "fraud.article347.pass1.007"
+        },
+        {
+          "candidate_id": "fraud.variant-property-loss-requirement-limited-affirmative",
+          "request_id": "fraud.article347.pass1.007"
+        }
+      ],
       "doctrinal_status": "disputed",
       "formalization": "policy_variant",
       "id": "fraud.damage_requirement",
@@ -113,6 +151,12 @@
     },
     {
       "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "fraud.definition-delivery-of-property",
+          "request_id": "fraud.article347.pass1.008"
+        }
+      ],
       "doctrinal_status": "settled",
       "formalization": "deterministic_rule",
       "id": "fraud.acquisition",
@@ -135,6 +179,12 @@
     },
     {
       "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "fraud.standard.intent-time-of-conduct",
+          "request_id": "fraud.article347.pass1.009"
+        }
+      ],
       "doctrinal_status": "precedent_position",
       "formalization": "standard_input",
       "id": "fraud.intent",
@@ -149,7 +199,7 @@
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_74",
-          "quote": "범의의 판단 시점은 행위 당시로 보아야 한다. 이에 대한 판례의 판시는 다 음과 같다.",
+          "quote": "범의의 판단 시점은 행위 당시로 보아야 한다.",
           "section_path": "Ⅴ.1"
         }
       ],
@@ -157,6 +207,24 @@
     },
     {
       "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "fraud.variant-illegal-appropriation-not-required",
+          "request_id": "fraud.article347.pass1.009"
+        },
+        {
+          "candidate_id": "fraud.variant-illegal-appropriation-required-all",
+          "request_id": "fraud.article347.pass1.009"
+        },
+        {
+          "candidate_id": "fraud.variant-illegal-appropriation-required-property-only",
+          "request_id": "fraud.article347.pass1.009"
+        },
+        {
+          "candidate_id": "fraud.standard-precedent-illegal-appropriation-intent",
+          "request_id": "fraud.article347.pass1.009"
+        }
+      ],
       "doctrinal_status": "disputed",
       "formalization": "policy_variant",
       "id": "fraud.unlawful_gain_intent",
@@ -171,7 +239,17 @@
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.2_82",
-          "quote": "사기죄의 주관적 요건으로 고의 외에 초과주관적 구성요 건으로서 불법영득의사가 필요한지에 관하여는 ⅰ) 불법영득의사가 필요하지 않 다는 견해, ⅱ) 재물편취죄와 불법이득죄를 구별하지 않고 모두 불법영득의사 가 필요하다는 견해, ⅲ) 재물편취죄와 불법이득죄를 구별하여 재물편취죄의 경우에는 불법영득의사가 필요하고 불법이득죄의 경우에는 불법영득의사가 필 요하지 않다는 견해가 대립한다.",
+          "quote": "ⅰ) 불법영득의사가 필요하지 않 다는 견해",
+          "section_path": "Ⅴ.2"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "quote": "ⅱ) 재물편취죄와 불법이득죄를 구별하지 않고 모두 불법영득의사 가 필요하다는 견해",
+          "section_path": "Ⅴ.2"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "quote": "ⅲ) 재물편취죄와 불법이득죄를 구별하여 재물편취죄의 경우에는 불법영득의사가 필요하고 불법이득죄의 경우에는 불법영득의사가 필 요하지 않다는 견해",
           "section_path": "Ⅴ.2"
         },
         {
@@ -330,5 +408,5 @@
     ]
   },
   "status": "draft",
-  "version": "1.0.0"
+  "version": "1.1.0"
 }

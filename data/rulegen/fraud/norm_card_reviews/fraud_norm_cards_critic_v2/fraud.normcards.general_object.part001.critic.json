@@ -1,0 +1,77 @@
+{
+  "findings": [
+    {
+      "finding_id": "missing_review_questions",
+      "message": "다수의 카드가 review_required=true이고 법적 검토 상태도 pending인데 legal_review_questions가 비어 있다. 특히 판례 원문·적용범위, 학설 선택, 상반된 판단근거 등 카드 자체가 명시한 미해결 사항이 검토 질문으로 보존되지 않았다.",
+      "recommended_action": "각 미해결 권위·범위·정책 선택 사항에 대응하는 최소한의 구체적 검토 질문을 legal_review_questions에 추가한다.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "$.target.legal_review_questions",
+      "type": "other"
+    },
+    {
+      "finding_id": "partial_consideration_omitted_condition",
+      "message": "연결된 후보는 상당한 대가가 지급되거나 피해자의 전체 재산에 손해가 없더라도 성립에 영향이 없다는 판례 명제까지 포함하지만, 카드 명제는 일부 대가 지급 시 편취액 산정만 남겨 해당 규범을 누락했다.",
+      "recommended_action": "누락된 대가 지급·전체재산 손해 부재의 효과를 카드에 보존하거나, 그 명제를 별도 카드로 분리하고 candidate_refs를 각 카드의 실제 내용에 맞춘다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.1_1",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "target_path": "$.target.cards[5].proposition",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "completion_norms_overmerged",
+      "message": "침해범이라는 일반 분류, 처분시점 기수라는 견해, 사후 취소의 무영향이라는 조건부 부정 규범을 하나의 positive standard 카드로 합쳤다. 이로 인해 서로 다른 polarity와 후자의 전제가 소실되고, '처분시점에 기수'가 소개된 견해라는 한정도 약화된다.",
+      "recommended_action": "침해범 분류, 처분시점 기수 견해, 사후 취소 무영향 규범을 최소한 polarity와 조건을 보존하는 별도 카드로 분리한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.4_6",
+          "section_path": "Ⅱ.4"
+        }
+      ],
+      "target_path": "$.target.cards[22]",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "object_and_alternative_offenses_overmerged",
+      "message": "객체 요건과 객체 부정 규범, 권리행사방해죄·공무상보관물무효죄 가능성, 횡령죄 성립을 하나의 positive element 카드로 병합했다. 또한 연결된 own-property-alternative-offenses 후보의 대체 범죄 명제는 proposition에 실질적으로 반영되지 않아 candidate_refs와 카드 내용이 일치하지 않는다.",
+      "recommended_action": "사기죄 객체의 적극 요건, 자기소유 재물의 객체 부정, 각 대체 범죄 결과를 별도 카드로 분리하고 각 candidate_ref를 실제 구현된 명제에만 연결한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅲ_7",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "target_path": "$.target.cards[23]",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "road_permit_authority_mixed",
+      "message": "카드는 판례의 인과관계 부정과 주석서의 대안적 재산상 이익 부정 가능성을 함께 담으면서 authority_basis를 commentary_reported_precedent 하나로 표시한다. 후자는 판례가 아니라 주석서의 유보적 분석이므로 권위 유형이 혼합되었다.",
+      "recommended_action": "판례 입장과 주석서의 유보적 분석을 권위별 별도 카드로 분리하거나, 카드 구조가 허용하는 방식으로 각 명제의 권위 차이를 명시적으로 보존한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅲ.2_10",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "target_path": "$.target.cards[31].authority_basis",
+      "type": "authority_mismatch"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_general_object_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "대부분의 후보와 출처는 보존되었으나, 필수 검토 질문이 누락되었고 일부 카드가 서로 다른 극성·조건·권위의 규범을 과도하게 병합하거나 연결 후보의 일부 명제를 빠뜨렸다. 카드 분리와 검토 질문 추가가 필요하다.",
+  "target_id": "kr.fraud.article347.general_object.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

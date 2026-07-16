@@ -1,0 +1,120 @@
+{
+  "fallback_modules": [
+    "deception",
+    "special_forms"
+  ],
+  "issue_tag": "fraud",
+  "legal_review": "pending",
+  "modules": [
+    {
+      "candidates": 62,
+      "cards": 45,
+      "construction": "api_merged",
+      "formalizations": {
+        "context_only": 10,
+        "deterministic_rule": 7,
+        "policy_variant": 9,
+        "standard_input": 19
+      },
+      "module": "general_object",
+      "path": "data/rulegen/fraud/norm_card_sets/general_object.json"
+    },
+    {
+      "candidates": 211,
+      "cards": 211,
+      "construction": "deterministic_candidate_lift",
+      "formalizations": {
+        "context_only": 54,
+        "deterministic_rule": 22,
+        "policy_variant": 18,
+        "standard_input": 117
+      },
+      "module": "deception",
+      "path": "data/rulegen/fraud/norm_card_sets/deception.json"
+    },
+    {
+      "candidates": 72,
+      "cards": 66,
+      "construction": "api_merged",
+      "formalizations": {
+        "context_only": 10,
+        "deterministic_rule": 3,
+        "policy_variant": 9,
+        "standard_input": 44
+      },
+      "module": "mistake_disposition",
+      "path": "data/rulegen/fraud/norm_card_sets/mistake_disposition.json"
+    },
+    {
+      "candidates": 59,
+      "cards": 56,
+      "construction": "api_merged",
+      "formalizations": {
+        "context_only": 2,
+        "deterministic_rule": 7,
+        "policy_variant": 18,
+        "standard_input": 29
+      },
+      "module": "damage_acquisition",
+      "path": "data/rulegen/fraud/norm_card_sets/damage_acquisition.json"
+    },
+    {
+      "candidates": 42,
+      "cards": 42,
+      "construction": "api_merged",
+      "formalizations": {
+        "context_only": 22,
+        "deterministic_rule": 2,
+        "policy_variant": 4,
+        "standard_input": 14
+      },
+      "module": "intent",
+      "path": "data/rulegen/fraud/norm_card_sets/intent.json"
+    },
+    {
+      "candidates": 101,
+      "cards": 101,
+      "construction": "deterministic_candidate_lift",
+      "formalizations": {
+        "context_only": 64,
+        "deterministic_rule": 6,
+        "policy_variant": 5,
+        "standard_input": 26
+      },
+      "module": "special_forms",
+      "path": "data/rulegen/fraud/norm_card_sets/special_forms.json"
+    },
+    {
+      "candidates": 49,
+      "cards": 49,
+      "construction": "api_merged",
+      "formalizations": {
+        "context_only": 9,
+        "deterministic_rule": 5,
+        "standard_input": 35
+      },
+      "module": "stages_participation",
+      "path": "data/rulegen/fraud/norm_card_sets/stages_participation.json"
+    },
+    {
+      "candidates": 66,
+      "cards": 66,
+      "construction": "api_merged",
+      "formalizations": {
+        "context_only": 8,
+        "deterministic_rule": 4,
+        "policy_variant": 4,
+        "standard_input": 50
+      },
+      "module": "concurrence",
+      "path": "data/rulegen/fraud/norm_card_sets/concurrence.json"
+    }
+  ],
+  "source_run_id": "fraud_norm_cards_v2",
+  "status": "draft",
+  "totals": {
+    "candidates": 662,
+    "cards": 636
+  },
+  "version": "1.0.0"
+}

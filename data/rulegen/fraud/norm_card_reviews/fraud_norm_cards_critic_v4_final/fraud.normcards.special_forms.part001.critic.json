@@ -1,0 +1,102 @@
+{
+  "findings": [
+    {
+      "finding_id": "f1.false_payment_order_unsupported_clause",
+      "message": "The proposition adds that an objection causing the payment order to lose effect does not erase the already commenced fraud. The linked bounded source supports only that a sufficiently deceptive false payment-order application can constitute a deceptive means and fraud; it does not support the added objection/effect clause.",
+      "recommended_action": "Remove the unsupported objection/effect clause or supply a bounded source locator that supports it.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_90",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "target_path": "$.cards[id='special_forms.fraud.standard.false-payment-order-application'].proposition",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "f2.litigation_costs_scope_expansion",
+      "message": "The proposition adds failure to use the litigation-cost amount determination procedure and characterizes the suit as impermissible and procedurally unlawful. The supplied source establishes only that filing a damages action seeking litigation costs with intent to defraud is an impossible offense.",
+      "recommended_action": "Limit the card to the conditions and conclusion stated in the bounded source, unless additional bounded support is supplied for the procedural explanation.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_85",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "target_path": "$.cards[id='special_forms.fraud.standard.litigation-costs-claim-impossible-offense'].proposition",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "f3.unsupported_authority_and_settled_designations",
+      "message": "This card assigns commentary_synthesis, doctrinal_status 'settled', deterministic formalization, and review_required=false even though the bounded material does not establish that the proposition is settled rather than commentary synthesis or commentary-reported doctrine. The same unsupported certainty affects the deceptive-act, judgment-substitutes-disposition, and commencement element cards.",
+      "recommended_action": "Mark these authority and doctrinal-status choices for review and avoid 'settled' or deterministic treatment unless the bounded material establishes that status.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_83",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_84",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_86",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "target_path": "$.cards[id='special_forms.fraud.element.litigation-fraud-knowing-nonexistence']",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "f4.definition_authority_mismatch",
+      "message": "The source is phrased as a general explanatory definition and does not identify a particular reported decision or case outcome. Classifying it as commentary_reported_precedent and precedent_position is unsupported by the bounded material.",
+      "recommended_action": "Use an authority classification supported by the supplied commentary or leave the classification expressly unresolved for legal review.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_83",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "target_path": "$.cards[id='special_forms.fraud.definition.litigation-fraud-triangular'].authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "f5.missing_variant_grouping",
+      "message": "Every variant_group is null despite multiple closely related norms addressing the same issues, including strict conviction standards, deceptive means without fabricated evidence, commencement, final-judgment completion, and disposition-effect exceptions. The review notes say grouping remains pending, but no review question specifically identifies which cards should be grouped or kept distinct.",
+      "recommended_action": "Add the smallest necessary variant groups for materially related cards and a focused legal-review question for any grouping that remains unresolved.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_83",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_84",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_85",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_86",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "target_path": "$.cards[*].variant_group",
+      "type": "collapsed_variant"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_special_forms_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "The candidate lift is largely complete, but two propositions contain unsupported additions, several authority and doctrinal-status assignments exceed the bounded source, and related norms lack variant grouping. These defects are repairable but require legal review.",
+  "target_id": "kr.fraud.article347.special_forms.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

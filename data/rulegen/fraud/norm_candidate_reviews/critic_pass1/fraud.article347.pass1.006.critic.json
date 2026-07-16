@@ -1,0 +1,118 @@
+{
+  "findings": [
+    {
+      "finding_id": "authority.registry_officer",
+      "message": "해당 출처 문장은 등기관 기망 사례의 결론을 해설 본문에서 제시하지만 이를 명시적으로 판례의 취지라고 표시하지 않는다. 후보가 이를 곧바로 '판례 취지'로 특정하여 출처에 표시된 권위 유형보다 강하게 서술한다.",
+      "recommended_action": "권위 표시를 해설상 명제로 낮추거나, 공급된 문언만으로 판례 귀속을 확인할 수 없음을 검토 대상으로 표시하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_46",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates[7].proposition",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "provenance.phone_case_quote",
+      "message": "인용문은 '사람을 기망하여 재산상 이득을 취득한 경우'가 아니라는 최종 결론만 담고 있으며, 후보 명제에 포함된 휴대전화 구입·대포폰 유통·USIM 제한 해제·대량 문자 발송이라는 상세 사실관계를 뒷받침하지 않는다. 상세 사실은 같은 출처의 인용문 밖에만 존재한다.",
+      "recommended_action": "후보의 상세 사실관계를 실제로 포함하는 범위로 provenance 인용문을 보완하거나, 현재 인용문이 뒷받침하는 결론 수준으로 후보 범위를 제한하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_45",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates[1].source_refs[0].quote",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "polarity.negative_relations",
+      "message": "명제는 기망행위가 유일한 원인일 필요가 없고 피기망자의 과실이 성립에 영향을 주지 않는다는 부정적 제한 규범인데 polarity가 positive로 지정되어 있다.",
+      "recommended_action": "norm_kind와 독립적으로 명제의 부정적 방향을 반영하도록 polarity를 교정하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "target_path": "$.candidates[16].polarity",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "polarity.disposition_intent_variant",
+      "message": "소극설 후보는 처분의사를 요구하지 않는다는 부정 규범인데 polarity가 positive로 지정되어 있다.",
+      "recommended_action": "소극설의 '처분의사 불요' 방향에 맞게 polarity를 교정하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_50",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "$.candidates[23].polarity",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "missing.intermediary_tool_rule",
+      "message": "피해자에 대한 사기 실행의 수단으로 타인을 단순 전달 도구로 이용한 경우 피해자에 대한 사기죄만 성립하고 그 타인에 대한 별도 사기죄는 성립하지 않는다는 일반 규범이 누락되었다.",
+      "recommended_action": "도구로 이용된 타인에 대한 별도 사기죄의 부정 규범을 독립 후보로 추출하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_46",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "missing.disposition_act_boundaries",
+      "message": "처분행위의 범위에 관한 서로 연결된 규범 중 사실행위도 처분행위가 될 수 있다는 규범과, 처분행위는 재산상 처분행위에 한정된다는 규범이 누락되었다. 현재 후보들은 부작위와 무효·취소 가능 행위만 추출하여 처분행위의 범위를 불완전하게 제시한다.",
+      "recommended_action": "사실행위의 포함 규범과 비재산적 행위의 배제 규범을 각각 독립 후보로 추가하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "missing.signature_fraud_holding",
+      "message": "2016도13362 전원합의체 판결이 종전 판례를 변경하여 처분결과 인식은 요구하지 않았고, 피해자가 기망으로 근저당권 설정 서류에 직접 서명·날인한 이른바 서명사취 사안에서 원심 무죄를 파기환송했다는 판례 규범이 누락되었다. 추상적인 처분의사 기준과 인감도장 교부의 구별 사례만으로는 이 판례 변경 및 적용 결과가 보존되지 않는다.",
+      "recommended_action": "판례 변경의 내용과 서명사취 사안의 적용 결과를 판례 귀속이 드러나는 별도 후보로 추출하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_50",
+          "section_path": "Ⅳ.3"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_51",
+          "section_path": "Ⅳ.3"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_52",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    }
+  ],
+  "report_id": "critique.fraud.article347.pass1.006",
+  "review_required": true,
+  "stage": "norm_candidate_batch",
+  "status": "draft",
+  "summary": "후보 다수는 출처의 핵심 명제를 충실히 반영하지만, 판례 권위의 과도한 귀속, 상세 사실관계를 지지하지 못하는 provenance 인용, 두 polarity 오류, 그리고 중개인을 도구로 이용한 경우·처분행위 범위·서명사취 판례 변경에 관한 중요 규범 누락이 있어 수정이 필요하다.",
+  "target_id": "fraud.article347.pass1.006",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

@@ -1,0 +1,114 @@
+{
+  "findings": [
+    {
+      "finding_id": "polarity.invalid_act",
+      "message": "카드의 polarity가 negative로 되어 있으나 연결된 검증 후보는 positive이다. 명제 자체도 무효 또는 취소 가능성이 처분행위 성립을 배제하지 않는다는 긍정적 규범을 표현한다.",
+      "recommended_action": "연결 후보와 명제에 맞도록 이 카드의 polarity만 바로잡는다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "/cards/13/polarity",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "polarity.assignment_debt",
+      "message": "카드의 polarity가 negative로 변경되어 연결된 positive 후보를 그대로 번역하지 않는다. 이 명제는 양도만으로 단정하지 말고 채무의 확정적 소멸 또는 면제 여부를 심사해야 한다는 판단 기준이다.",
+      "recommended_action": "후보의 polarity를 유지하거나, polarity를 변경할 필요가 있다면 후보와의 불일치를 명시적으로 재검토한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_57",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "/cards/39/polarity",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "variant.disposition_intent_collapsed",
+      "message": "처분의사가 불필요하다는 소극설의 negative 후보와 사기취재에서는 필요하다는 절충설의 positive 후보를 하나의 positive 카드로 합쳐 독립된 polarity와 선택 가능한 견해 단위를 상실했다.",
+      "recommended_action": "두 견해를 동일한 variant_group 아래 별도 카드로 유지하여 각 후보의 polarity와 적용 범위를 보존한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_50",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "/cards/14",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "variant.coercive_seizure_collapsed",
+      "message": "자의성을 부정하는 negative 견해와 순순한 교부 또는 묵인 시 자의성을 긍정하는 positive 견해를 하나의 positive 카드로 합쳤다. 이로 인해 대립 견해를 독립적으로 선택하거나 형식화할 수 없다.",
+      "recommended_action": "자의성 부정설과 조건부 긍정설을 같은 variant_group에 속하는 별도 카드로 분리한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_52",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "/cards/18",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "authority.false_loan_purpose",
+      "message": "제공된 출처는 해당 명제를 해설 문장으로 제시할 뿐 판례로 식별하지 않는다. 따라서 doctrinal_status를 precedent_position으로 단정할 근거가 없다.",
+      "recommended_action": "판례 근거가 별도로 확인되지 않는 한 commentary_synthesis에 부합하는 상태로 제한한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "target_path": "/cards/2/doctrinal_status",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "authority.bus_rear_door",
+      "message": "버스 뒷문 승차 사례의 제공 출처에는 판례 표지나 판결 보고라는 표시가 없으므로 precedent_position이라는 상태가 출처 범위를 초과한다.",
+      "recommended_action": "판례 출처가 확인되지 않는 한 사례형 해설 또는 commentary_synthesis 수준으로 authority 상태를 낮춘다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "target_path": "/cards/5/doctrinal_status",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "review_questions.missing",
+      "message": "여러 카드가 disputed 또는 precedent_position이고, 처분의사 학설 선택, 삼각사기 기준 선택, 전원합의체 및 후속 판례 원문 확인이 필요하다고 명시하면서도 법률검토 질문 배열이 비어 있다.",
+      "recommended_action": "처분의사 대립 견해의 처리, 2016도13362 원문 확인, 삼각사기 판례 입장 및 적용 기준 확인에 관한 최소한의 검토 질문을 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_50",
+          "section_path": "Ⅳ.3"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_58",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "/legal_review_questions",
+      "type": "other"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_mistake_disposition_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "대부분의 후보가 카드로 포괄되었지만, 두 카드의 polarity 불일치, 상반된 처분의사·자의성 견해의 병합, 근거 없는 판례 지위 부여, 필수 검토 질문 누락이 있어 수정이 필요하다.",
+  "target_id": "kr.fraud.article347.mistake_disposition.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

@@ -1,0 +1,26 @@
+{
+  "findings": [
+    {
+      "finding_id": "missing_review_questions",
+      "message": "법적 검토가 pending이고 여러 카드가 출처의 문언 불일치, 권위 분류 및 variant grouping 확인을 명시적으로 요구하는데도 legal_review_questions가 비어 있다. 특히 기망자와 처분행위자의 동일성을 말하는 문언은 직전의 피기망자와 처분행위자 동일성 명제와 충돌할 가능성이 있어, 실행 가능한 법리인지 오기인지에 관한 검토 질문이 필요하다.",
+      "recommended_action": "이미 review_notes에서 식별한 쟁점 중 최소한 기망자·피기망자·처분행위자 문언의 관계, 미확정 authority 분류, 필요한 variant grouping 여부를 구체적인 legal_review_questions로 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_59",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "/legal_review_questions",
+      "type": "other"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_part002",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "후보들은 대체로 누락 없이 개별 카드로 보존되었으나, 명시된 핵심 법적 불확실성에 대응하는 검토 질문이 전혀 없어 수정이 필요하다.",
+  "target_id": "kr.fraud.article347.mistake_disposition.norms.v1.part002",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

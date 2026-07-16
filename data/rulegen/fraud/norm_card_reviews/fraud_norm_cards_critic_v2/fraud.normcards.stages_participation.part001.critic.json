@@ -1,0 +1,58 @@
+{
+  "findings": [
+    {
+      "finding_id": "authority.insurance_false_claim",
+      "message": "근거 문구는 해당 기준을 '일반적으로' 설명할 뿐 판례가 취한 입장이라고 표시하지 않는다. 따라서 commentary_reported_precedent 및 precedent_position 분류는 제공된 자료만으로 뒷받침되지 않는다.",
+      "recommended_action": "이 카드의 authority_basis와 doctrinal_status를 근거에 드러난 권위 수준으로 낮추거나, 판례 귀속을 입증하는 범위 내 자료가 있는지 법률 검토 질문으로 남긴다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.1_105",
+          "section_path": "Ⅶ.1"
+        }
+      ],
+      "target_path": "/cards/1/authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "variant.completion_without_gain",
+      "message": "불법이득 취득 없이 피해자 손해만으로 기수를 인정하는 견해가 정책 변형으로 표시되었지만, 이와 긴장되는 일반적 기수 기준 카드는 같은 variant_group에 연결되지 않았다. 현재 그룹은 단독 변형만 포함하여 실제 권위 선택과 경쟁 관계를 보존하지 못한다.",
+      "recommended_action": "피해자 손해만으로 기수를 인정하는 견해와 재물·재산상 이익 이전을 요구하는 일반 기준의 관계를 명시적으로 연결하고, 양립 여부 또는 선택 필요성을 검토 대상으로 표시한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.2_107",
+          "section_path": "Ⅶ.2"
+        }
+      ],
+      "target_path": "/cards/28/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "review.questions_missing",
+      "message": "다수 카드가 review_required=true이고 두 카드는 disputed 또는 policy_variant로 구성되어 있으나 법률 검토 질문 배열이 비어 있다. 특히 보이스피싱 가담형태의 통일 기준 부재, 피해자 손해만으로 기수를 인정하는 견해의 채택 여부, 혼합되거나 불명확한 권위 귀속이 해결되지 않았다.",
+      "recommended_action": "이미 review_required로 표시된 실질적 권위·적용범위 쟁점에 한정하여 최소한의 구체적 법률 검토 질문을 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅷ_109",
+          "section_path": "Ⅷ"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.2_107",
+          "section_path": "Ⅶ.2"
+        }
+      ],
+      "target_path": "/legal_review_questions",
+      "type": "other"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "카드 대부분은 후보 명제와 대응하지만, 일부 권위 분류가 근거보다 강하고, 기수 기준의 경쟁 견해가 완전한 변형 그룹으로 보존되지 않았으며, 명시된 검토 필요성에도 법률 검토 질문이 없다.",
+  "target_id": "kr.fraud.article347.stages_participation.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

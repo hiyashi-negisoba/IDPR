@@ -1,0 +1,63 @@
+{
+  "findings": [
+    {
+      "finding_id": "f1.subsidy_misuse_authority",
+      "message": "The card classifies the entire proposition as statutory text, but the conclusion that the subsidy-misuse offense and fraud are separate crimes because their elements differ is commentary analysis, not the quoted statutory rule itself.",
+      "recommended_action": "Classify the card according to the commentary synthesis supporting the inter-offense relationship, or otherwise separate the statutory offense text from the commentary conclusion.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.9_126",
+          "section_path": "Ⅹ.9"
+        }
+      ],
+      "target_path": "$.cards[42].authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "f2.counterfeit_precedent_authority",
+      "message": "The bounded candidate and source state that real concurrence is recognized but do not identify the proposition as a reported precedent. Labeling it commentary_reported_precedent adds an unsupported authority characterization.",
+      "recommended_action": "Use an authority classification supported by the bounded material, unless a source within scope expressly identifies the proposition as precedent.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.8_125",
+          "section_path": "Ⅹ.8"
+        }
+      ],
+      "target_path": "$.cards[39].authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "f3.missing_review_questions",
+      "message": "The review-question list is empty despite unresolved authority choices, disputed variant groups, and multiple cards whose notes expressly require original-precedent or current-statute confirmation.",
+      "recommended_action": "Add narrowly framed review questions covering the unresolved authority classification, selection among each disputed variant group, and confirmation of the quoted statutory penalties and thresholds.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "$.legal_review_questions",
+      "type": "other"
+    },
+    {
+      "finding_id": "f4.statute_cards_review_flags",
+      "message": "The three punishment cards have review_required=false even though their own review notes state that current statutory text must be confirmed. Treating that unresolved temporal-authority issue as not requiring review is internally inconsistent.",
+      "recommended_action": "Set review_required=true for the punishment cards pending current-law confirmation and include the corresponding legal review question.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.9_126",
+          "section_path": "Ⅹ.9"
+        }
+      ],
+      "target_path": "$.cards[43:46].review_required",
+      "type": "formalization_error"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_concurrence_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "The candidate coverage is substantially preserved, but two cards overstate their authority basis and the set omits required review questions despite expressly unresolved precedent, variant, and current-law issues.",
+  "target_id": "kr.fraud.article347.concurrence.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

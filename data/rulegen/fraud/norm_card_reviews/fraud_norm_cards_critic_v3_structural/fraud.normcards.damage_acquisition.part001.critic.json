@@ -1,0 +1,131 @@
+{
+  "findings": [
+    {
+      "finding_id": "variant_group.property_loss_negative",
+      "message": "손해요건 부정설의 추상적 카드가 동일 견해의 구체적 내용을 담은 /cards/13과 별개의 pending variant group에 배치되어 경쟁 견해의 대응관계가 보존되지 않는다.",
+      "recommended_action": "두 카드가 동일 견해의 추상·구체 표현인지 검토하여 중복이면 병합하고, 별도 유지하면 적어도 동일한 손해요건 variant group과 명시적 관계를 부여한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "section_path": "Ⅳ.4"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_63",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "target_path": "/cards/0/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "variant_group.property_loss_affirmative",
+      "message": "손해요건 긍정설의 추상적 카드가 그 구체적 내용을 담은 /cards/15와 별개의 pending variant group에 배치되어 하나의 경쟁 견해가 분리되어 있다.",
+      "recommended_action": "동일 견해의 중복 카드이면 병합하고, 별도 유지가 필요하면 동일한 손해요건 variant group에 연결한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "section_path": "Ⅳ.4"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_63",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "target_path": "/cards/1/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "variant_group.property_loss_limited",
+      "message": "제한적 긍정설의 추상적 카드가 그 구체적 내용을 담은 /cards/14와 별개의 pending variant group에 배치되어 경쟁구조가 단절되어 있다.",
+      "recommended_action": "동일 견해의 중복 카드이면 병합하고, 별도 유지하면 동일한 손해요건 variant group에 연결한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "section_path": "Ⅳ.4"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_63",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "target_path": "/cards/2/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "translation.third_party_acquisition_intent",
+      "message": "명제의 '범인에게 제3자를 취득하게 할 의사'는 제3자로 하여금 재물을 취득하게 할 의사를 요구하는 원 후보와 달리, 문언상 제3자 자체를 취득 대상으로 만든다.",
+      "recommended_action": "취득 대상이 제3자가 아니라 재물 또는 재산상 이익임을 보존하도록 해당 구절만 교정한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
+          "section_path": "Ⅳ.5"
+        }
+      ],
+      "target_path": "/cards/23/proposition",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "authority.delivery_definition_settled",
+      "message": "제공된 근거는 해설 문언일 뿐 해당 정의가 법적으로 'settled'라는 권위 상태를 뒷받침하지 않는다.",
+      "recommended_action": "근거가 확인되지 않은 settled 표시는 제거하거나 해설 수준의 기술적 상태로 낮추고, 확정적 상태를 유지하려면 별도 권위 검토 대상으로 남긴다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
+          "section_path": "Ⅳ.5"
+        }
+      ],
+      "target_path": "/cards/22/doctrinal_status",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "authority.factual_control_settled",
+      "message": "현실 인도 없이 사실상 지배와 자유로운 처분 가능성으로 교부를 인정하는 설명의 출처는 commentary_synthesis이며, supplied source만으로 'settled' 상태를 확정할 수 없다.",
+      "recommended_action": "doctrinal_status를 해설이 직접 뒷받침하는 비확정적 상태로 조정하거나 권위 상태 확인 질문을 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
+          "section_path": "Ⅳ.5"
+        }
+      ],
+      "target_path": "/cards/24/doctrinal_status",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "authority.disposition_types_settled",
+      "message": "처분행위 유형에 관한 해설 문언은 명제를 지지하지만, 그것이 논쟁 없이 확립되었다는 'settled' 분류까지 지지하지 않는다.",
+      "recommended_action": "settled 분류를 비확정적 해설 상태로 조정하거나 별도 권위 확인 대상으로 표시한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
+          "section_path": "Ⅳ.5"
+        }
+      ],
+      "target_path": "/cards/25/doctrinal_status",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "review_questions.missing",
+      "message": "다수 카드가 권위, variant grouping, 평가기준 또는 판례 원문 확인을 명시적으로 pending으로 두고 있는데도 법적 검토 질문 배열이 비어 있다.",
+      "recommended_action": "최소한 손해요건 카드의 중복·variant 관계, commentary_synthesis 카드의 doctrinal_status, reported precedent의 원문 확인에 관한 구체적 검토 질문을 추가한다.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/legal_review_questions",
+      "type": "other"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_damage_acquisition_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "후보의 실질적 범위는 대체로 수록되었으나, 손해요건의 세 경쟁설이 추상 카드와 구체 카드 사이에서 서로 다른 variant group으로 분리되어 있고, 제3자 취득 의사 카드에 의미 변경이 있다. 또한 일부 해설 기반 정의를 근거 없이 settled로 분류했으며, 명시된 pending 사안에 대응하는 법적 검토 질문이 없다.",
+  "target_id": "kr.fraud.article347.damage_acquisition.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

@@ -1,0 +1,82 @@
+{
+  "findings": [
+    {
+      "finding_id": "insurance_overbilling_unsupported_condition",
+      "message": "연결된 출처는 허위·과다 진료수가 청구와 실제 발생하지 않은 진료비 수령을 언급하지만, 의료기관이 보험회사의 삭감을 예상했다는 조건은 뒷받침하지 않는다.",
+      "recommended_action": "출처가 뒷받침하지 않는 '보험회사의 삭감을 예상하고'라는 조건을 삭제하거나, 해당 조건을 명시하는 범위 내 출처가 있다면 그 출처와의 연결을 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_75",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "target_path": "$.cards[9].proposition",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "debt_assets_unsupported_conditions",
+      "message": "연결된 출처는 채무액이 적극재산보다 많다는 사실만으로 편취 범의를 인정할 수 없었다는 사안만 제시한다. 카드가 추가한 '채무이행이 급박하지 않고 자금동원능력이 있었다면'이라는 조건은 제공된 출처 문구로 확인되지 않는다.",
+      "recommended_action": "확인되지 않은 두 조건을 proposition에서 제거하여 제공된 사안 요지로 한정하거나, 그 조건을 명시하는 범위 내 출처를 연결한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_78",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "target_path": "$.cards[15].proposition",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "vehicle_sale_unsupported_document_fact",
+      "message": "연결된 출처는 자동차 소유권을 이전할 의사가 없었다고 볼 수 없다는 결론을 제시하지만, 소유권이전등록 서류를 모두 교부하여 이전등록이 가능했다는 구체적 사실은 제공된 출처 문구에 없다.",
+      "recommended_action": "서류 교부 및 이전등록 가능성에 관한 구체적 사실을 제거하고 출처에 나타난 사안 요지로 한정하거나, 그 사실을 뒷받침하는 범위 내 출처를 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_80",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "target_path": "$.cards[19].proposition",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "no_disposition_authority_unestablished",
+      "message": "제공된 문구는 일반적인 결론 형식으로 서술되어 있을 뿐 특정 판례의 사안 또는 판례 입장임을 표시하지 않는다. 따라서 bounded source만으로 commentary_reported_precedent 및 precedent_position 분류를 확정할 수 없다.",
+      "recommended_action": "추가 판례 provenance가 없는 한 authority_basis와 doctrinal_status를 commentary synthesis에 맞게 조정하고, 판례 분류가 필요하다면 이를 확인하는 검토 질문을 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_74",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "target_path": "$.cards[39].authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "practical_consequence_not_selectable_variant",
+      "message": "fraud_intent.property_only_appropriation_practical_consequence는 재물편취죄 한정 필요설의 실무상 귀결을 설명하는 명제이지, 다른 세 학설과 나란히 선택할 독립적인 경쟁 정책이 아니다. 현재 질문은 네 카드를 모두 선택 대상 variant로 취급한다.",
+      "recommended_action": "검토 질문의 정책 선택 대상을 세 경쟁 학설로 한정하고, practical consequence 카드는 재물편취죄 한정 필요설에 종속된 설명으로 별도 검토하도록 표시한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "section_path": "Ⅴ.2"
+        }
+      ],
+      "target_path": "$.legal_review_questions[2]",
+      "type": "formalization_error"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_intent_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "대부분의 카드는 검증된 후보를 보존하지만, 세 카드의 proposition에 제공된 출처 문구로 확인되지 않는 사실조건이 포함되어 있다. 또한 한 카드의 판례 권위 분류가 bounded source로 확정되지 않으며, 학설의 실무상 귀결이 독립적인 정책 선택지처럼 취급되었다. 해당 범위와 분류를 최소한으로 수정해야 한다.",
+  "target_id": "kr.fraud.article347.intent.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

@@ -26,6 +26,7 @@ from idpr.llm import (  # noqa: E402
 from idpr.rulegen import (  # noqa: E402
     NormCandidateValidationError,
     RulegenCritiqueValidationError,
+    repair_ocr_interrupted_candidate_quotes,
     validate_norm_candidate_batch,
     validate_rulegen_critique,
 )
@@ -52,6 +53,14 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
         for line in path.read_text(encoding="utf-8").splitlines()
         if line.strip()
     ]
+
+
+def select_requests(
+    requests: list[dict[str, Any]], start: int, limit: int
+) -> list[dict[str, Any]]:
+    """Select a 1-based contiguous request window for resumable runs."""
+
+    return requests[start - 1 : start - 1 + limit]
 
 
 def build_extraction_jobs(
@@ -138,11 +147,25 @@ def validate_terra_results(
     valid: list[JSONCompletionResult] = []
     records: list[dict[str, Any]] = []
     for result in results:
+        repaired_output, provenance_repairs = (
+            repair_ocr_interrupted_candidate_quotes(
+                result.output,
+                request_commentary(requests_by_id[result.request_id]),
+            )
+        )
+        validated_result = replace(result, output=repaired_output)
         output_path = run_dir / "terra" / f"{result.request_id}.json"
-        write_json(output_path, result.output)
+        if provenance_repairs:
+            raw_output_path = (
+                run_dir / "terra_raw" / f"{result.request_id}.json"
+            )
+            write_json(raw_output_path, result.output)
+        else:
+            raw_output_path = None
+        write_json(output_path, repaired_output)
         try:
             validate_norm_candidate_batch(
-                result.output, requests_by_id[result.request_id]
+                repaired_output, requests_by_id[result.request_id]
             )
         except NormCandidateValidationError as exc:
             gateway.discard_cache(result)
@@ -152,17 +175,30 @@ def validate_terra_results(
                     "stage": "norm_candidate_batch",
                     "valid": False,
                     "errors": exc.errors,
+                    "provenance_repairs": provenance_repairs,
+                    "raw_output_path": (
+                        str(raw_output_path.relative_to(PROJECT_ROOT))
+                        if raw_output_path
+                        else None
+                    ),
                     "output_path": str(output_path.relative_to(PROJECT_ROOT)),
                 }
             )
         else:
-            valid.append(result)
+            valid.append(validated_result)
             records.append(
                 {
                     "request_id": result.request_id,
                     "stage": "norm_candidate_batch",
                     "valid": True,
                     "errors": [],
+                    "candidates": len(repaired_output["candidates"]),
+                    "provenance_repairs": provenance_repairs,
+                    "raw_output_path": (
+                        str(raw_output_path.relative_to(PROJECT_ROOT))
+                        if raw_output_path
+                        else None
+                    ),
                     "output_path": str(output_path.relative_to(PROJECT_ROOT)),
                 }
             )
@@ -217,7 +253,7 @@ def validate_sol_results(
 
 
 async def execute(args: argparse.Namespace, config: GatewayConfig) -> dict[str, Any]:
-    requests = load_jsonl(REQUESTS)[: args.limit]
+    requests = select_requests(load_jsonl(REQUESTS), args.start, args.limit)
     requests_by_id = {request["request_id"]: request for request in requests}
     run_dir = RUN_ROOT / args.run_id
     gateway = LLMGateway(config)
@@ -261,6 +297,7 @@ async def execute(args: argparse.Namespace, config: GatewayConfig) -> dict[str, 
         "run_id": args.run_id,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "requests": len(requests),
+        "start": args.start,
         "with_critic": args.with_critic,
         "fewshot": not args.no_fewshot,
         "terra_model": config.model_for_role("terra"),
@@ -277,10 +314,11 @@ async def execute(args: argparse.Namespace, config: GatewayConfig) -> dict[str, 
 
 
 def dry_run_summary(args: argparse.Namespace) -> dict[str, Any]:
-    requests = load_jsonl(REQUESTS)[: args.limit]
+    requests = select_requests(load_jsonl(REQUESTS), args.start, args.limit)
     return {
         "mode": "dry_run",
         "requests": [request["request_id"] for request in requests],
+        "start": args.start,
         "commentary_chars": sum(request["batch"]["n_chars"] for request in requests),
         "planned_api_calls": len(requests) * (2 if args.with_critic else 1),
         "with_critic": args.with_critic,
@@ -312,6 +350,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--with-critic", action="store_true")
     parser.add_argument("--no-fewshot", action="store_true")
+    parser.add_argument(
+        "--start",
+        type=int,
+        default=1,
+        help="1-based index of the first request to run.",
+    )
     parser.add_argument("--limit", type=int, default=1)
     parser.add_argument("--concurrency", type=int, default=1)
     parser.add_argument("--terra-max-tokens", type=int, default=6_000)
@@ -322,8 +366,11 @@ def parse_args() -> argparse.Namespace:
         default=datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ"),
     )
     args = parser.parse_args()
-    if not 1 <= args.limit <= 13:
-        parser.error("--limit must be between 1 and 13")
+    request_count = len(load_jsonl(REQUESTS))
+    if not 1 <= args.start <= request_count:
+        parser.error(f"--start must be between 1 and {request_count}")
+    if not 1 <= args.limit <= request_count - args.start + 1:
+        parser.error("--limit exceeds the available request window")
     if args.concurrency < 1:
         parser.error("--concurrency must be positive")
     if not SAFE_RUN_ID.fullmatch(args.run_id):

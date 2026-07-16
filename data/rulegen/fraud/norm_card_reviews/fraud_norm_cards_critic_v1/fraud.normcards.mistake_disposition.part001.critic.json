@@ -1,0 +1,96 @@
+{
+  "findings": [
+    {
+      "finding_id": "f1_invalid_act_polarity_mismatch",
+      "message": "The linked candidate classifies this proposition as positive, but the NormCard changes its polarity to negative without identifying a distinct negative norm. NormCard metadata should preserve the validated candidate unless the proposition is split or re-extracted.",
+      "recommended_action": "Align the card polarity with the linked candidate, or document and separately represent any genuinely distinct negative norm.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "/cards/13/polarity",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "f2_disposition_intent_variants_collapsed",
+      "message": "The card merges the negative-polarity view that disposition intent is unnecessary and the positive-polarity compromise view into one positive-polarity policy variant. This loses the candidates' independent polarity and prevents the competing rules from being selected or implemented separately downstream.",
+      "recommended_action": "Represent the two views as separate NormCards in the same variant group, preserving each candidate's polarity.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_50",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "/cards/14",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "f3_coercive_seizure_variants_collapsed",
+      "message": "The card combines the view denying voluntariness and the opposing view recognizing voluntariness into one positive-polarity card. Although the prose mentions both positions, the formal metadata does not preserve their opposing polarities as independently selectable variants.",
+      "recommended_action": "Split the opposing positions into separate cards under the existing variant group and retain their respective negative and positive polarities.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_52",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "/cards/18",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "f4_assignment_polarity_mismatch",
+      "message": "The linked validated candidate has positive polarity, while the card assigns negative polarity. The proposition states a qualified assessment rule rather than a simple negative outcome, so the metadata change is not supported by a separately identified norm.",
+      "recommended_action": "Restore the linked candidate's positive polarity or split out a separately sourced negative proposition if one is intended.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_57",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "/cards/36/polarity",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "f5_false_loan_precedent_status_unsupported",
+      "message": "The card labels the false-loan-purpose proposition as a precedent position, but the bounded candidate and quoted commentary state the outcome without identifying it as commentary-reported precedent. The card's own authority_basis is commentary_synthesis.",
+      "recommended_action": "Use a commentary-synthesis-compatible doctrinal status unless a bounded source expressly identifying the proposition as precedent is linked.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "target_path": "/cards/2/doctrinal_status",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "f6_bus_example_precedent_status_unsupported",
+      "message": "The rear-door bus illustration is classified as a precedent position, but the supplied locator only supports the stated example and does not identify it as a reported judicial holding. This also conflicts with the card's commentary_synthesis authority basis.",
+      "recommended_action": "Classify it as a commentary illustration or other synthesis-compatible status unless a bounded precedent attribution is supplied.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "target_path": "/cards/5/doctrinal_status",
+      "type": "authority_mismatch"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_mistake_disposition_part001",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "Revision is required because two candidate polarities were changed and two pairs of opposing variants were collapsed into single positive-polarity cards. Two additional cards assign precedent status without bounded precedent attribution.",
+  "target_id": "kr.fraud.article347.mistake_disposition.norms.v1.part001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

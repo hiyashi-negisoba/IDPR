@@ -1,0 +1,180 @@
+{
+  "findings": [
+    {
+      "finding_id": "f_false_construction_rationales_collapsed",
+      "message": "후보는 정상 준공·하자 부재에 따른 공사완성 의사·능력 판단과, 주무 사무관에게서 개략 견적가 정보를 받아 가격을 수정한 사정만으로 계약이행능력 기망을 인정하기 어렵다는 별도 판단을 하나의 조건문으로 결합하였다. 특히 계약이행능력 기망에 관한 결론이 자본금·기술자 요건 가장 및 정상 준공만으로 도출된 것처럼 표현되어 정확한 판시 범위를 벗어난다.",
+      "recommended_action": "공사완성 의사·능력에 관한 판단과 견적가 정보·가격 수정에 관한 계약이행능력 기망 판단을 분리하거나, 각 결론에 대응하는 사실관계를 명시하여 proposition의 범위를 한정하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.5_104",
+          "section_path": "Ⅵ.5"
+        }
+      ],
+      "target_path": "$.candidates[9].proposition",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "f_attempt_negative_variants_omitted",
+      "message": "실행의 착수가 부정되는 여러 독립적 유형이 누락되었다. 보상금 청구권자를 지급기관에 유인한 경우, 확인서 신청에 허위 이의신청을 한 경우, 실사를 전제로 한 보조금에 허위 피해신고를 한 경우, 보조금 결정의 참고자료에 불과한 허위 정산보고서를 제출한 경우는 일반적인 기망 착수 기준의 중요한 제한 사례들이다.",
+      "recommended_action": "각 부정 유형을 사실관계와 행정절차상 단계에 맞게 별도 후보로 추출하거나, 범위를 보존하는 하나의 변형군으로 추가하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.1_105",
+          "section_path": "Ⅶ.1"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "f_litigation_attempt_rules_omitted",
+      "message": "소송사기 실행착수에 관한 다수의 독립 규범이 누락되었다. 지급명령 신청, 임차권등기명령 신청, 제소 후 별도의 허위주장, 피고의 허위 증거·답변서·준비서면 제출, 그리고 진정한 채권을 가진 채권자로 하여금 존재하지 않는 제3채무자 채권에 압류·전부명령을 신청하게 한 경우의 착수 부정이 포함되지 않았다.",
+      "recommended_action": "각 절차행위별 착수 시점과 부정 사례를 별도 후보로 추가하고 서로 상반되는 변형을 유지하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.1_106",
+          "section_path": "Ⅶ.1"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "f_litigation_attempt_termination_rule_omitted",
+      "message": "유리한 판결을 받지 못해 미수에 그친 소송사기에서 범죄행위 종료시기는 소송 종료 시점이라는 규범이 누락되었다.",
+      "recommended_action": "소송사기미수의 범죄행위 종료시점에 관한 별도 후보를 추가하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.1_106",
+          "section_path": "Ⅶ.1"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "f_completion_competing_view_omitted",
+      "message": "피해자에게 재산상 손해가 발생하면 행위자가 불법이득을 취득하지 않았어도 기수가 된다는 견해가 누락되었다. 이는 앞서 추출된 이전·취득 중심의 기수 기준과 구별하여 견해의 권위와 불확정성을 보존해야 한다.",
+      "recommended_action": "해당 내용을 확정 규범이 아닌 견해로 표시한 별도 후보로 추가하고 review_required를 설정하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.2_107",
+          "section_path": "Ⅶ.2"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "f_completion_instrument_variants_omitted",
+      "message": "기수 시점에 관한 독립 규범들이 누락되었다. 어음·수표 발행인이 상대방을 속여 할인 또는 물품을 취득한 때 사기가 완성되고 최후소지인에 대한 별도 사기가 되지 않는다는 규범, 유가증권 교부 시 기수, 지급보증서를 교부받았지만 채권자에게 제공하지 않은 경우 기수 부정, 위조 배서 약속어음을 할인해 금원을 수령한 때 기수라는 규범이 포함되지 않았다.",
+      "recommended_action": "각 금융수단별 기수·미기수 기준을 별도 후보로 추출하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.2_107",
+          "section_path": "Ⅶ.2"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "f_litigation_completion_variants_omitted",
+      "message": "일반적인 판결 확정 시 기수 후보만 있고, 소유권이전등기말소 확정판결 후 허위 등기로 부동산편취가 완성되는 경우, 소유권이전등기절차 이행소송 및 건축주 명의변경 소송, 지급명령 확정, 전부명령 송달 시 기수에 관한 구체적 규범들이 누락되었다.",
+      "recommended_action": "일반 기수 기준과 별도로 각 절차 유형의 기수 시점을 후보로 추가하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.2_108",
+          "section_path": "Ⅶ.2"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "f_accomplice_norms_omitted",
+      "message": "공범 부분에서 일반론과 다수의 구체 규범이 누락되었다. 공모한 소송사기 및 딱지어음 사건의 공동정범, 허위 감정서 제출자의 공동정범, 대출고객의 자력 과장 설명만으로 공동정범을 단정할 수 없다는 부정 규범, 포괄일죄 일부 실행 후 이탈자의 나머지 범행 책임, 사기 이용 사실을 알면서 계좌를 양도한 경우의 방조범이 추출되지 않았다.",
+      "recommended_action": "공동정범 성립·부정, 이탈 후 책임, 방조범 성립을 각각 구분하여 후보로 추가하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅷ_109",
+          "section_path": "Ⅷ"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "f_multiple_deceptions_same_victim_section_omitted",
+      "message": "수개의 기망행위로 동일인에게서 편취한 경우의 죄수를 다루는 Ⅸ.3의 규범이 전부 누락되었다. 범의·방법 동일 시 포괄일죄, 중간 확정판결이 있어도 범죄가 분리되지 않고 확정판결 후 범죄로 취급된다는 규범, 목적·방법이 다르면 실체적 경합이라는 규범, 여러 피해자의 계불입금 편취와 판결 효력에 관한 규범이 포함되어야 한다.",
+      "recommended_action": "Ⅸ.3의 각 죄수 규범을 별도 후보로 추출하고, 포괄일죄와 실체적 경합의 조건을 대립 변형으로 보존하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅸ.3_112",
+          "section_path": "Ⅸ.3"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "f_multiple_victim_concurrence_variant_omitted",
+      "message": "피해자별 별죄 성립 후보는 있으나, 각 피해자에게 개별 기망한 다수 계원 사건에서 피해자별 사기죄 상호간이 실체적 경합이라는 규범과 학부모별 공소사실 특정 필요성이 누락되었다. 이는 하나의 기망행위로 다수 피해자를 편취한 경우의 상상적 경합과 구별되는 변형이다.",
+      "recommended_action": "개별 기망에 따른 피해자별 범죄의 실체적 경합과 공소사실 특정 필요성을 각각 추가하여 단일 기망의 상상적 경합 규범과 구별하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅸ.5_114",
+          "section_path": "Ⅸ.5"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "f_separate_post_payment_offenses_omitted",
+      "message": "피해자에게 대가가 지급된 뒤 그 대가를 다시 기망하여 편취하거나 위탁받아 보관 중 횡령한 경우 별도의 사기죄 또는 횡령죄가 성립한다는 규범이 누락되었다.",
+      "recommended_action": "대가 지급 후 별개 행위에 따른 별죄 성립 규범을 별도 후보로 추가하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅸ.5_114",
+          "section_path": "Ⅸ.5"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "f_bribery_fraud_concurrence_omitted",
+      "message": "공무원이 직무에 관하여 사기적 방법으로 재물을 교부받은 경우 수뢰죄와 사기죄가 상상적 경합이 된다는 Ⅹ.2의 규범이 누락되었다.",
+      "recommended_action": "수뢰죄와 사기죄의 상상적 경합에 관한 후보를 추가하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅹ.2_116",
+          "section_path": "Ⅹ.2"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    }
+  ],
+  "report_id": "fraud.article347.pass1.012.critique",
+  "review_required": true,
+  "stage": "norm_candidate_batch",
+  "status": "draft",
+  "summary": "추출된 후보 다수는 인용문과 대체로 부합하지만, 실행착수·기수·공범·죄수·죄명 간 경합에 관한 여러 핵심 규범과 경쟁 견해가 빠져 있어 배치 범위를 충분히 포괄하지 못한다. 또한 전문건설업 부정등록 사례는 서로 다른 사실관계와 판단 근거를 결합하여 범위를 수정해야 한다.",
+  "target_id": "fraud.article347.pass1.012",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

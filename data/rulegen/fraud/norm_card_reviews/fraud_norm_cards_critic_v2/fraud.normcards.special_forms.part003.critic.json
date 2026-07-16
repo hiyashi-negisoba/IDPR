@@ -1,0 +1,40 @@
+{
+  "findings": [
+    {
+      "finding_id": "authority.reported-precedent",
+      "message": "The source wording reports a case-specific judicial assessment ('보기 어렵다고 보아'), while the card classifies it as commentary synthesis. The authority classification is therefore unsupported and obscures the proposition's reported-precedent character.",
+      "recommended_action": "Classify the authority as commentary-reported precedent if the available authority taxonomy permits, or expressly flag the authority classification for human resolution without treating it as commentary synthesis.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.5_104",
+          "section_path": "Ⅵ.5"
+        }
+      ],
+      "target_path": "$.cards[0].authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "review-question.authority",
+      "message": "The card states that authority remains pending human review, but the card set contains no review question identifying that unresolved choice.",
+      "recommended_action": "Add a focused review question asking whether this case-specific statement should be classified as commentary-reported precedent rather than commentary synthesis.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.5_104",
+          "section_path": "Ⅵ.5"
+        }
+      ],
+      "target_path": "$.legal_review_questions",
+      "type": "other"
+    }
+  ],
+  "report_id": "critique.kr.fraud.article347.part003",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "The proposition and formalization track the validated candidate, but the authority is misclassified and the expressly pending authority issue lacks a corresponding legal-review question.",
+  "target_id": "kr.fraud.article347.special_forms.norms.v1.part003",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

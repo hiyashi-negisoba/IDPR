@@ -1,0 +1,76 @@
+{
+  "findings": [
+    {
+      "finding_id": "f.source.quote.bill-check",
+      "message": "인용문이 '최후소지인'에서 중단되어, 이후 최후소지인에 대한 사기죄로 처벌할 수 없다는 proposition의 후반부를 뒷받침하지 않는다.",
+      "recommended_action": "동일한 자료 범위에서 최후소지인에 대한 처벌 부정까지 포함하는 정확한 인용문으로 보완하거나, proposition을 현재 인용문이 뒷받침하는 범위로 한정한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.2_107",
+          "section_path": "Ⅶ.2"
+        }
+      ],
+      "target_path": "$.candidates[?(@.candidate_id=='fraud.standard-bill-check-discount-completion')].source_refs[0].quote",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "f.missing.attempt-norms",
+      "message": "실행의 착수 부분에 명시된 별개의 규범들이 누락되었다. 특히 사기도박을 숨기기 위한 정상 도박도 실행행위에 포함된다는 규범, 허위 근저당권에 기한 임의경매의 착수와 피고인이 직접 낙찰받은 경우 결과적으로 미수도 성립하지 않는다는 결론, 그리고 추가 금원 대여를 가장하여 근저당권을 설정받은 사안의 착수 기준이 추출되지 않았다.",
+      "recommended_action": "각 명시적 규범을 별도 후보로 추가하고, 임의경매 사안에서는 원칙적 착수 판단과 직접 낙찰에 따른 미수 부정 결론을 서로 합치지 말고 구별한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.1_105",
+          "section_path": "Ⅶ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.1_106",
+          "section_path": "Ⅶ.1"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "f.missing.completion-complicity-counts",
+      "message": "후속 절들에서 독립적으로 제시된 여러 규범이 누락되었다. 예컨대 숙박료·음식대금 지급 의사와 능력 없이 숙박·취식한 때의 기수, 소송사기로 소유권이전등기절차 이행 승소판결 또는 건축주 명의변경 판결이 확정된 때의 기수, 보험증권과 보험금을 순차 편취한 경우의 포괄일죄, 그리고 승소확정 후 이전등기까지 포괄하여 일죄로 처단한다는 규범이 없다.",
+      "recommended_action": "누락된 기수시기 및 죄수 규범을 각각 별도 후보로 추가하되, 일반 규범과 구체적 판례 사안을 구별하여 표시한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.2_108",
+          "section_path": "Ⅶ.2"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅸ.1_110",
+          "section_path": "Ⅸ.1"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "f.incomplete-quotes.no-attempt-cases",
+      "message": "세 후보의 인용문은 각 사실관계만 담고 있고, 뒤에서 공통적으로 제시되는 '사기죄의 실행에 착수하였다고 할 수 없다'는 결론을 포함하지 않는다. 따라서 현재 인용문 자체는 각 proposition의 부정적 결론을 충분히 뒷받침하지 않는다.",
+      "recommended_action": "각 인용문을 해당 사실관계와 공통된 실행착수 부정 결론이 함께 드러나는 정확한 범위로 보완한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.1_105",
+          "section_path": "Ⅶ.1"
+        }
+      ],
+      "target_path": "$.candidates[?(@.candidate_id=='fraud.standard-compensation-claimant-inducement-no-attempt' || @.candidate_id=='fraud.standard-false-objection-certificate-no-attempt' || @.candidate_id=='fraud.standard-false-disaster-subsidy-report-no-attempt')].source_refs[0].quote",
+      "type": "source_entailment"
+    }
+  ],
+  "report_id": "critique.fraud.article347.pass1.012",
+  "review_required": true,
+  "stage": "norm_candidate_batch",
+  "status": "draft",
+  "summary": "대부분의 후보는 제공된 해설의 방향을 보존하지만, 일부 인용문이 proposition의 결론까지 뒷받침하지 못하고 실행착수·기수·죄수에 관한 명시적 규범들이 누락되어 보완이 필요하다.",
+  "target_id": "fraud.article347.pass1.012",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

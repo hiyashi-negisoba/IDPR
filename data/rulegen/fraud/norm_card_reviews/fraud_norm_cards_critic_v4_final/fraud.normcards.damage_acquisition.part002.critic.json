@@ -1,0 +1,54 @@
+{
+  "findings": [
+    {
+      "finding_id": "repeated_investment_authority",
+      "message": "이 카드는 피고인의 반복적 투자금 수수·반환 사실관계에 관한 판단을 일반적인 commentary_synthesis로 표시하고 doctrinal_status도 descriptive로 두었다. 제시된 문언은 구체적 사실관계를 전제로 한 재판례형 판단이므로, 일반 논평의 종합과 구별하고 허용되는 일반화 범위를 검토해야 한다.",
+      "recommended_action": "이 카드의 authority_basis와 doctrinal_status를 commentary-reported precedent에 맞는 분류로 재검토하고, 1차 판결 확인 전에는 구체적 사실관계에 한정된 카드임을 유지하도록 formalization도 함께 점검한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_72",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "target_path": "$.cards[4].authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "letter_credit_authority",
+      "message": "회사 임원, 수회의 신용장 개설, 지급보증 이익 및 사후 결제라는 구체적 사건 사실에 관한 판단을 commentary_synthesis/descriptive로 분류하였다. 이는 일반적인 논평 종합과 사건에서 보고된 판단을 구별하지 못해 권위와 적용 범위를 과대 표시할 수 있다.",
+      "recommended_action": "authority_basis와 doctrinal_status를 사건판단에 맞는 분류로 재검토하고, 1차 판결 및 일반화 가능성이 확인되지 않으면 standard_input 대신 사건 맥락을 보존하는 formalization을 사용한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_72",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "target_path": "$.cards[5].authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "unsupported_variant_policy_question",
+      "message": "검토 질문은 복수의 경쟁 견해를 묶고 판례에 부합하는 정책을 선택하도록 요구하지만, 제공된 범위에는 정당한 권리 상당액 공제에 관한 하나의 학설만 있고 경쟁 견해나 판례 입장은 제시되어 있지 않다. 현재 문구는 존재가 확인되지 않은 권위와 변형을 전제한다.",
+      "recommended_action": "검토 질문을 경쟁 견해와 관련 판례의 존재 여부를 확인하는 질문으로 제한하고, 추가 자료가 확보되기 전에는 특정 실무 정책의 선택을 요구하지 않는다.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_69",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "target_path": "$.legal_review_questions[2]",
+      "type": "source_scope"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_damage_acquisition_part002",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "두 개의 구체적 사건형 판단이 commentary synthesis로 분류되어 권위 및 형식화 재검토가 필요하다. 또한 단일 학설만 제시된 상태에서 경쟁 견해와 판례 정합적 정책 선택을 전제한 검토 질문은 자료 범위를 벗어난다.",
+  "target_id": "kr.fraud.article347.damage_acquisition.norms.v1.part002",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

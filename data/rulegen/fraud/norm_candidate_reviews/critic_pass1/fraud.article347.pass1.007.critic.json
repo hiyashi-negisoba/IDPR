@@ -1,0 +1,124 @@
+{
+  "findings": [
+    {
+      "finding_id": "missing.triangular-fraud-majority-rule",
+      "message": "삼각사기에서 다수설이 처분행위자에게 피해자 재산을 처분할 능력을 요구한다는 상위 명제가 누락되었다. 개별 학설 후보만으로는 다수설의 공통 요구를 온전히 보존하지 못한다.",
+      "recommended_action": "처분행위자의 처분능력을 요구하는 다수설의 상위 명제를 별도 후보로 추가하고, 기존 세부 학설 후보들과의 관계를 유지하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_57",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "missing.precedent-authority-uncertainty",
+      "message": "삼각사기상 처분권능에 관한 판례의 입장을 사실상 지위설로 이해할 수 있다는 설명뿐 아니라, 후속 판결들 때문에 그 전환을 단정하기 어렵다는 유보와 필자의 최종 해석이 함께 제시되어 있는데 이 권위·해석상의 긴장이 누락되었다.",
+      "recommended_action": "판례 입장에 관한 유보된 해석과 필자의 견해를 서로 구별한 후보 또는 unresolved question으로 추가하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_58",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "missing.omission-disposition-limit",
+      "message": "착오로 의식적으로 채권을 행사하지 않은 부작위가 처분행위가 될 수 있다는 긍정 명제는 추출되었으나, 단순히 독촉하거나 청구하지 않은 모든 경우에 부작위 처분행위를 인정할 수 없다는 제한적·부정적 명제가 누락되었다.",
+      "recommended_action": "부작위 처분행위를 모든 불청구 사례에 일반화할 수 없다는 제한 명제를 별도 음성 후보로 추가하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "missing.property-concept-variants",
+      "message": "재산의 의미에 관한 법률적 재산개념, 경제적 재산개념, 법률적·경제적 재산개념의 대립과 판례가 경제적 재산개념에 가깝다는 해석이 모두 누락되었다.",
+      "recommended_action": "세 재산개념을 구별된 variant 후보로 추가하고, 판례에 관한 평가는 판례 자체가 아니라 commentary의 해석임을 표시한 별도 후보로 보존하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "missing.property-risk-negative-variants",
+      "message": "재산 위험을 손해로 보는 긍정설만 추출되었다. 부정설 내부의 신용카드 자체 편취를 손해로 보는 견해, 형법의 보충성에 따라 사기죄를 부정하는 견해, 위험을 손해로 보는 해석이 금지된 유추해석이라는 견해가 누락되어 논쟁이 편향되었다.",
+      "recommended_action": "부정설의 세 근거를 서로 합치지 말고 각각 별도 variant 후보로 추가하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "quote.third-party-purpose-incomplete",
+      "message": "인용문이 문장 중간의 '있'에서 끝나므로 제3자 취득 목적이 '있어야 한다'는 후보 명제를 완결하여 뒷받침하지 못한다.",
+      "recommended_action": "동일 출처에서 목적요건을 완결하는 범위까지 정확한 인용문으로 확장하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_59",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "$.candidates[26].source_refs[0].quote",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "quote.fictitious-assignment-missing-antecedent",
+      "message": "인용문이 '이로써'로 시작하여 존재하지 않는 제3자 채권을 가장해 양도했다는 핵심 전제를 포함하지 않는다. 따라서 후보의 전체 사실조건을 인용문 자체가 지원하지 못한다.",
+      "recommended_action": "허위 채권의 존재 가장과 양도라는 선행 사실까지 포함하도록 인용 범위만 확장하라.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_57",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "$.candidates[15].source_refs[0].quote",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "quote.nominal-trustee-missing-facts",
+      "message": "인용문은 명의수탁자의 대외적 처분권한과 결론만 담고 있어, 명의신탁자의 승낙을 가장한 기망, 매매계약 체결 및 대금 수령이라는 후보의 사실조건을 지원하지 않는다.",
+      "recommended_action": "동일 판례 설명에서 후보에 포함된 사실조건까지 포괄하는 정확한 인용문으로 확장하라.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_61",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "target_path": "$.candidates[31].source_refs[0].quote",
+      "type": "source_entailment"
+    }
+  ],
+  "report_id": "critique.fraud.article347.pass1.007",
+  "review_required": true,
+  "stage": "norm_candidate_batch",
+  "status": "draft",
+  "summary": "핵심 후보 다수는 출처와 부합하지만, 삼각사기 판례 입장의 불확실성, 부작위 처분행위의 제한, 재산개념 및 재산위험 부정설 등 중요한 경쟁 규범이 누락되었다. 일부 필수 provenance 인용문도 후보의 전체 명제를 지원하지 못한다.",
+  "target_id": "fraud.article347.pass1.007",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

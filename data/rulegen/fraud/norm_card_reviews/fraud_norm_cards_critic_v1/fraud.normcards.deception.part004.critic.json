@@ -1,0 +1,114 @@
+{
+  "findings": [
+    {
+      "finding_id": "f_scope_exceeds_bounded_material",
+      "message": "공급된 bounded source material은 comm_001692_제347조_Ⅳ.1_38부터 _44까지의 후보만 포함하지만, 대상은 _11부터 _46까지를 출처 범위로 선언한다. 이 단계에서 확인할 수 없는 comment_id를 포함하여 출처 범위가 과도하다.",
+      "recommended_action": "source_scope.comment_ids를 실제 공급된 후보들이 참조하는 _38부터 _44까지로 한정하거나, 나머지 comment_id의 원문 또는 검증 후보를 bounded source material에 추가하라.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/source_scope/comment_ids",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "f_review_questions_outside_batch",
+      "message": "과장광고, 입찰담합, 과다 거스름돈, 무전취식, 부동산 고지의무, 장래 사실, 처분의사 및 압수 가장 취거 등에 관한 다수 질문은 공급된 _38~_44 후보에서 도출되지 않는다. 반면 현재 카드들 사이의 예외·경계 관계에 관한 검토 질문은 제시되지 않았다.",
+      "recommended_action": "공급된 후보 범위를 벗어난 질문을 제거하거나 해당 출처를 추가하고, 현재 카드들에서 실제로 발생하는 변형·예외 관계에 관한 최소한의 검토 질문으로 대체하라.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/legal_review_questions",
+      "type": "source_scope"
+    },
+    {
+      "finding_id": "f_missing_medical_corporation_variant_group",
+      "message": "의료법인 명의 의료기관에 대한 비의료인의 단순 관여만으로 사기죄가 성립하지 않는다는 카드와, 실체 없는 의료법인 악용 또는 재산 부당유출이라는 예외 카드는 직접 연결되는 일반규범·예외 관계인데도 모두 variant_group이 null이다.",
+      "recommended_action": "해당 부정 규범 카드와 예외 카드를 동일한 variant_group으로 연결하고, 예외가 사기죄 판단에 미치는 정확한 범위를 검토하는 질문을 추가하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_43",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/24/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "f_missing_false_loss_variant_group",
+      "message": "허위 분실사유로 제권판결을 받은 경우의 원칙적 사기죄 성립 카드와 실질채무가 없어 재산상 이익 취득이 부정되는 카드는 명시적인 원칙·특별사정 관계인데도 variant_group으로 연결되지 않았다.",
+      "recommended_action": "두 카드를 동일한 variant_group으로 연결하고, 실질채무 부존재가 원칙 카드의 특별한 사정에 해당하는지를 검토 질문으로 표시하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_39",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/7/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "f_missing_religious_practice_variant_group",
+      "message": "기도와 상당한 보수만으로 반드시 사기죄가 성립하지 않는다는 부정 규범과, 종교행위로 허용되는 한계를 벗어난 경우 사기죄가 성립한다는 긍정 규범 및 그 사례들이 동일한 경계 기준의 경쟁·보완 변형인데도 서로 연결되지 않았다.",
+      "recommended_action": "종교행위 허용한계에 관한 부정 규범, 일반 긍정 규범 및 구체 사례 카드들을 적절한 variant_group으로 연결하고 일반 기준과 사례를 구별하는 검토 질문을 추가하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_41",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/16/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "f_missing_corporate_decisionmaker_variant_group",
+      "message": "법인 피해에서 최종 의사결정권자를 기준으로 착오·인과관계를 판단한다는 일반 카드, 최종결재권자가 기망을 안 경우의 부정 카드, 일반 직원만 알고 최종결재권자는 몰랐던 경우의 긍정 카드는 하나의 판단기준을 구성하지만 variant_group이 모두 null이다.",
+      "recommended_action": "세 카드를 동일한 variant_group으로 연결하고, 일반 직원의 인식과 최종 의사결정권자의 인식이 각각 착오 및 인과관계에 미치는 효과를 검토 질문으로 명시하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_44",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/28/variant_group",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "f_subsidy_definition_authority",
+      "message": "보조금과 간접보조금의 proposition은 commentary의 독자적 종합이 아니라 commentary가 법률상 정의를 인용·보고한 내용이다. 이를 commentary_synthesis로만 표시하면 규범의 직접 권위가 법률 정의라는 점이 소실된다.",
+      "recommended_action": "허용된 authority 분류 중 commentary-reported statutory definition에 해당하는 값으로 조정하거나, 그런 값이 없다면 review_notes에 법률 정의를 commentary가 보고한 것임을 명시하고 권위 분류를 검토 대상으로 남겨라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_39",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/34/authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "f_false_documents_authority_overstatement",
+      "message": "출처 문구는 사기죄 성립이 부정적일 것으로 '생각된다'는 논평자의 추론이다. 이를 commentary_reported_precedent 및 precedent_position으로 분류하면 사기죄 자체에 관한 판례 입장처럼 오인될 수 있다.",
+      "recommended_action": "논평자의 유추적 견해임을 반영하도록 authority_basis와 doctrinal_status를 조정하고 context_only 및 review_required 상태는 유지하라.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_41",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/14/doctrinal_status",
+      "type": "authority_mismatch"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_deception_part004",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "후보들은 대체로 일대일로 보존되었지만, 출처 범위와 검토 질문이 bounded material을 크게 초과하고, 명백한 원칙·예외 및 판단기준 변형들이 그룹화되지 않았다. 또한 법률 정의와 논평자의 유추적 견해에 대한 권위 분류를 바로잡아야 한다.",
+  "target_id": "kr.fraud.article347.deception.norms.v1.part004",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

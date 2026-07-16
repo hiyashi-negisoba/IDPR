@@ -1,0 +1,144 @@
+{
+  "findings": [
+    {
+      "finding_id": "f1.dine_stay_overgeneralization",
+      "message": "명제는 일반적인 숙박 또는 음식 주문 자체가 묵시적 기망행위에 해당하는 것처럼 표현한다. 출처는 무전취식·무전숙박의 분류 문제에서, 특별한 반대 사정이 없을 때 주문·투숙이 대금지급 의사와 능력을 묵시적으로 표시한다는 다수설을 설명한 것이다. 표시 내용이 실제로 허위인 경우라는 맥락을 보존해야 한다.",
+      "recommended_action": "무전취식·무전숙박의 맥락과 주문·투숙 당시 대금지급 의사 또는 능력에 관한 묵시적 표시가 허위라는 조건을 명시하도록 범위를 축소한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_19",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates[3].proposition",
+      "type": "overgeneralization"
+    },
+    {
+      "finding_id": "f2.dine_stay_variant_missing",
+      "message": "무전취식·무전숙박을 부작위에 의한 기망행위로 분류하는 견해가 후보로 추출되지 않았다. 다수설 후보와 unresolved question만으로는 출처에 명시된 견해 대립의 양쪽 변형을 보존하지 못한다.",
+      "recommended_action": "무전취식·무전숙박을 부작위에 의한 기망으로 보는 대립 견해를 별도 variant 후보로 추가하고 기존 다수설 후보와 같은 변형 그룹으로 연결할 수 있게 보존한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_19",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "f3.slot_machine_case_kind",
+      "message": "당첨 가능성이 없는 슬롯머신 설치는 출처에서 묵시적 기망행위의 사례로 제시되었는데 일반적인 판단기준인 standard로 분류되었다.",
+      "recommended_action": "해당 후보를 사례·적용결과에 맞는 norm_kind로 분류하거나, 일반 기준으로 사용되지 않도록 사례 한정임을 명시한다.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_19",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates[2].norm_kind",
+      "type": "other"
+    },
+    {
+      "finding_id": "f4.implicit_omission_distinction_missing",
+      "message": "묵시적 기망과 부작위 기망의 구별 순서, 즉 침묵이 설명가치를 갖는 묵시적 기망이 아닌 경우에 한하여 보증인적 지위와 고지의무를 전제로 부작위 기망을 검토한다는 규범이 누락되었다.",
+      "recommended_action": "묵시적 기망 여부를 먼저 판단하고 이에 해당하지 않을 때 부작위 기망의 요건을 검토한다는 구별 규범을 별도 후보로 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_20",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "f5.property_transaction_quote_incomplete",
+      "message": "인용 부분은 고지의무와 사기죄 구성이라는 결론만 담고 있다. 명제에 포함된 거래 효력·채무이행의 장애 위험에 대한 인식, 거래 체결 또는 지속, 재물·이익 수령, 상대방의 거래 거절에 관한 경험칙상 명백성 등의 선행 요건은 현재 인용문으로 뒷받침되지 않는다.",
+      "recommended_action": "같은 출처에서 명제의 각 선행 요건을 직접 포함하는 정확한 인용 범위를 추가하거나, 명제를 현재 인용문이 뒷받침하는 결론 범위로 축소한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_21",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates[18].source_refs",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "f6.silence_without_duty_missing",
+      "message": "고지의무가 없는 경우에도 사실의 묵비가 보통 거동에 의한 기망의 일부가 된다는 출처의 명제가 누락되었다. 이는 고지의무 위반에 의한 부작위 기망과 거동에 의한 작위 기망의 경계를 정하는 별도 규범이다.",
+      "recommended_action": "고지의무가 없어도 묵비가 거동에 의한 기망의 일부가 될 수 있다는 명제를 별도 후보로 추가하고, 고지의무 위반에 관한 후보와 혼동되지 않게 구분한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_22",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "f7.real_estate_litigation_intent_caveat_missing",
+      "message": "재심소송 계속 사실을 숨긴 매매에 관한 긍정 판례만 추출하고, 적극적 은폐가 없으며 단순 불고지만으로는 편취의 범의를 인정할 수 없다고 한 반대 방향의 판례상 한계를 누락했다.",
+      "recommended_action": "단순 불고지만으로 편취의 범의를 인정할 수 없다고 본 판례를 별도 negative 또는 exception 후보로 추가하여 긍정 사례와 함께 보존한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_24",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates[26]",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "f8.case_outcomes_incompletely_extracted",
+      "message": "공급된 판례 목록 중 타인의 권리, 중복 담보, 계쟁·가처분, 공법상 제한, 권리·사실상 하자, 신용상태 및 보험계약 관련 다수의 구체적 긍정·부정 적용결과가 추출되지 않았다. 현재 선택 기준이 제시되지 않아 동일한 출처 범위의 사례 규범을 임의로 일부만 보존한 상태이다.",
+      "recommended_action": "나머지 판례별 적용결과를 사례 한정 후보로 추출하거나, 배치의 명시적인 추출 범위에 따라 제외된 것인지 확인하여 누락된 긍정·부정 규범만 보충한다.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_22",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_23",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_24",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_25",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_26",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_27",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    }
+  ],
+  "report_id": "critique.fraud.article347.pass1.003",
+  "review_required": true,
+  "stage": "norm_candidate_batch",
+  "status": "draft",
+  "summary": "핵심 정의와 고지의무 관련 견해 상당수는 출처에 부합하지만, 무전취식·무전숙박 후보가 과도하게 일반화되었고 대립 견해가 누락되었다. 묵시적 기망과 부작위 기망의 선후 구별, 고지의무 없는 묵비의 작위 기망 가능성, 재심소송 불고지 판례의 범의 한계도 보충해야 한다. 일부 복합 명제는 현재 인용 범위가 모든 요건을 뒷받침하지 않으며, 사례를 일반 standard로 분류하거나 판례 목록을 선택적으로 누락한 문제도 검토가 필요하다.",
+  "target_id": "fraud.article347.pass1.003",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

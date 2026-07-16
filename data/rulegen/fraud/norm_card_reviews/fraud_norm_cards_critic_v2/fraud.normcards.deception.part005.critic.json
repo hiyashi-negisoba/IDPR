@@ -1,0 +1,53 @@
+{
+  "findings": [
+    {
+      "finding_id": "authority.actual_victim_precedent",
+      "message": "The source and proposition expressly attribute this position to precedent, but the card classifies it as commentary synthesis and gives it merely descriptive doctrinal status.",
+      "recommended_action": "Classify the card as commentary-reported precedent and align its doctrinal status with that authority.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_44",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/0/authority_basis",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "authority.unsupported_settled_status",
+      "message": "The card labels the proposition as settled, but the bounded material supplies only a commentary statement and does not establish that the doctrine is settled. The same unsupported elevation appears at /cards/4/doctrinal_status, /cards/6/doctrinal_status, and /cards/7/doctrinal_status.",
+      "recommended_action": "Use a doctrinal status supported by commentary synthesis, or mark the asserted settled status for explicit authority review.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_45",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_46",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/cards/2/doctrinal_status",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "review.missing_questions",
+      "message": "The set has multiple review-required cards, and their review notes expressly leave authority and variant grouping pending, but the legal-review question list is empty.",
+      "recommended_action": "Add focused review questions covering the unresolved authority classifications and whether any cards require variant grouping.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/legal_review_questions",
+      "type": "other"
+    }
+  ],
+  "report_id": "critique.kr_fraud_article347_deception_part005",
+  "review_required": true,
+  "stage": "norm_card_set",
+  "status": "draft",
+  "summary": "The candidate lift is complete, but one precedent-derived card is misclassified, several cards assert an unsupported settled status, and identified authority and variant issues are not represented in the required review questions.",
+  "target_id": "kr.fraud.article347.deception.norms.v1.part005",
+  "verdict": "revise",
+  "version": "1.1.0"
+}
