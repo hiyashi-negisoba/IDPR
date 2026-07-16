@@ -8,12 +8,17 @@ import pytest
 
 from idpr.rulegen import (
     NormCandidateValidationError,
+    NormCandidatePatchValidationError,
     NormCardValidationError,
     RuleIRValidationError,
+    RulegenCritiqueValidationError,
     compile_rule_ir,
+    apply_norm_candidate_patch,
+    repair_ocr_interrupted_candidate_quotes,
     validate_norm_candidate_batch,
     validate_norm_card_set,
     validate_rule_ir,
+    validate_rulegen_critique,
 )
 
 
@@ -22,6 +27,32 @@ COMMENTARY = PROJECT_ROOT / "data/commentary/kcl_criminal_v1_commentary_chunks.j
 INDEX = PROJECT_ROOT / "data/rulegen/fraud/fraud_commentary_index.json"
 REQUESTS = PROJECT_ROOT / "data/rulegen/fraud/fraud_rulegen_requests.jsonl"
 NORM_CARDS = PROJECT_ROOT / "data/rulegen/fraud/fraud_norm_card_set_exemplar.json"
+REVIEW_ADDENDUM = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_pass1_001_review_addendum.json"
+)
+REVISION3_ADJUDICATION = (
+    PROJECT_ROOT
+    / "data/rulegen/fraud/fraud_pass1_001_revision3_adjudication.json"
+)
+REVISION4_ADJUDICATION = (
+    PROJECT_ROOT
+    / "data/rulegen/fraud/fraud_pass1_001_revision4_adjudication.json"
+)
+REVISION5_ADJUDICATION = (
+    PROJECT_ROOT
+    / "data/rulegen/fraud/fraud_pass1_001_revision5_adjudication.json"
+)
+REVISION5_PATCH = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_pass1_001_revision5_patch.json"
+)
+FINAL_CANDIDATES = (
+    PROJECT_ROOT
+    / "data/rulegen/fraud/fraud_norm_candidate_batch_pass1_001_exemplar.json"
+)
+FINAL_ADJUDICATION = (
+    PROJECT_ROOT
+    / "data/rulegen/fraud/fraud_pass1_001_revision6_final_adjudication.json"
+)
 RULE_IR = PROJECT_ROOT / "data/rulegen/fraud/fraud_rule_ir_exemplar.json"
 SCALLOP = PROJECT_ROOT / "rules/exemplars/fraud_v1_candidate.scl"
 PROCEDURAL_GATE = PROJECT_ROOT / "rules/exemplars/procedural_gate_v1_candidate.scl"
@@ -132,7 +163,7 @@ def test_rule_ir_validator_rejects_fabricated_quote_and_unsafe_model_code() -> N
 
     bad_identifier = copy.deepcopy(payload)
     bad_identifier["predicates"][2]["id"] = "deception); run_untrusted_code("
-    with pytest.raises(RuleIRValidationError, match="valid Scallop identifier"):
+    with pytest.raises(RuleIRValidationError, match="does not match"):
         validate_rule_ir(bad_identifier, commentary, norm_cards)
 
     bad_card_link = copy.deepcopy(payload)
@@ -166,6 +197,7 @@ def test_raw_norm_candidate_batch_is_bounded_by_its_request() -> None:
             {
                 "candidate_id": "fraud.raw.001",
                 "norm_kind": "definition",
+                "polarity": "positive",
                 "proposition": "Source-bounded test candidate.",
                 "source_refs": [
                     {
@@ -186,6 +218,254 @@ def test_raw_norm_candidate_batch_is_bounded_by_its_request() -> None:
         validate_norm_candidate_batch(payload, request)
 
 
+def test_ocr_interrupted_quote_repair_is_exact_and_high_confidence() -> None:
+    request = load_jsonl(REQUESTS)[0]
+    commentary = {
+        row["comment_id"]: row for row in request["commentary_chunks"]
+    }
+    comment_id = "comm_001692_제347조_Ⅲ_7"
+    payload = {
+        "request_id": request["request_id"],
+        "status": "draft",
+        "candidates": [
+            {
+                "candidate_id": "fraud.raw.ocr",
+                "norm_kind": "exception",
+                "polarity": "exception",
+                "proposition": "자기 점유 타인 재물에는 횡령죄 경계가 적용된다.",
+                "source_refs": [
+                    {
+                        "comment_id": comment_id,
+                        "section_path": "Ⅲ",
+                        "quote": "자기점유의 타인의 재물을 영득한 경우에는 기망행위가 있어도 횡령죄만 성립한다.",
+                    }
+                ],
+                "review_required": True,
+            }
+        ],
+        "unresolved_questions": [],
+    }
+
+    repaired, records = repair_ocr_interrupted_candidate_quotes(
+        payload, commentary
+    )
+
+    assert len(records) == 1
+    assert len(repaired["candidates"][0]["source_refs"]) == 2
+    validate_norm_candidate_batch(repaired, request)
+
+    fabricated = copy.deepcopy(payload)
+    fabricated["candidates"][0]["source_refs"][0]["quote"] = (
+        "출처에 전혀 존재하지 않는 조작된 인용문입니다. 충분히 긴 문자열입니다."
+    )
+    unchanged, records = repair_ocr_interrupted_candidate_quotes(
+        fabricated, commentary
+    )
+    assert not records
+    with pytest.raises(NormCandidateValidationError):
+        validate_norm_candidate_batch(unchanged, request)
+
+
+def test_rulegen_critic_is_advisory_and_source_bounded() -> None:
+    source_ref = json.loads(NORM_CARDS.read_text(encoding="utf-8"))["cards"][0][
+        "source_refs"
+    ][0]
+    critic_ref = {
+        "comment_id": source_ref["comment_id"],
+        "section_path": source_ref["section_path"],
+    }
+    payload = {
+        "version": "1.1.0",
+        "report_id": "fraud.critic.001",
+        "stage": "norm_card_set",
+        "target_id": "kr.fraud.article347.norms.v1_exemplar",
+        "status": "draft",
+        "verdict": "revise",
+        "findings": [
+            {
+                "finding_id": "fraud.critic.001.finding.001",
+                "severity": "hard",
+                "type": "overgeneralization",
+                "target_path": "$.cards[0].proposition",
+                "message": "The proposition is broader than its exact source.",
+                "source_refs": [critic_ref],
+                "recommended_action": "Narrow the proposition to the quoted rule.",
+            }
+        ],
+        "summary": "One source-entailment defect requires revision.",
+        "review_required": True,
+    }
+
+    validate_rulegen_critique(
+        payload,
+        expected_stage="norm_card_set",
+        expected_target_id="kr.fraud.article347.norms.v1_exemplar",
+        allowed_source_refs=[source_ref],
+    )
+
+    invalid = copy.deepcopy(payload)
+    invalid["verdict"] = "pass"
+    with pytest.raises(RulegenCritiqueValidationError, match="pass verdict"):
+        validate_rulegen_critique(
+            invalid,
+            expected_stage="norm_card_set",
+            expected_target_id="kr.fraud.article347.norms.v1_exemplar",
+            allowed_source_refs=[source_ref],
+        )
+
+
+def test_fraud_pilot_review_addendum_is_source_bounded() -> None:
+    request = load_jsonl(REQUESTS)[0]
+    commentary = {
+        row["comment_id"]: row for row in request["commentary_chunks"]
+    }
+    payload = json.loads(REVIEW_ADDENDUM.read_text(encoding="utf-8"))
+
+    validate_rulegen_critique(
+        payload,
+        expected_stage="norm_candidate_batch",
+        expected_target_id=request["request_id"],
+        commentary_by_id=commentary,
+        allowed_comment_ids=set(commentary),
+    )
+    assert len(payload["findings"]) == 13
+    assert all(finding["source_refs"] for finding in payload["findings"])
+
+
+def test_fraud_revision3_adjudication_is_source_bounded() -> None:
+    request = load_jsonl(REQUESTS)[0]
+    commentary = {
+        row["comment_id"]: row for row in request["commentary_chunks"]
+    }
+    payload = json.loads(REVISION3_ADJUDICATION.read_text(encoding="utf-8"))
+
+    validate_rulegen_critique(
+        payload,
+        expected_stage="norm_candidate_batch",
+        expected_target_id="fraud.article347.pass1.001.revision3",
+        commentary_by_id=commentary,
+        allowed_comment_ids=set(commentary),
+    )
+    assert len(payload["findings"]) == 3
+    assert "coverage gap" in payload["summary"]
+
+
+def test_fraud_revision4_adjudication_is_source_bounded() -> None:
+    request = load_jsonl(REQUESTS)[0]
+    commentary = {
+        row["comment_id"]: row for row in request["commentary_chunks"]
+    }
+    payload = json.loads(REVISION4_ADJUDICATION.read_text(encoding="utf-8"))
+
+    validate_rulegen_critique(
+        payload,
+        expected_stage="norm_candidate_batch",
+        expected_target_id="fraud.article347.pass1.001.revision4",
+        commentary_by_id=commentary,
+        allowed_comment_ids=set(commentary),
+    )
+    assert len(payload["findings"]) == 3
+    assert "사례 RAG" in payload["summary"]
+
+
+def test_fraud_revision5_adjudication_and_patch_are_source_bounded() -> None:
+    request = load_jsonl(REQUESTS)[0]
+    commentary = {
+        row["comment_id"]: row for row in request["commentary_chunks"]
+    }
+    critique = json.loads(REVISION5_ADJUDICATION.read_text(encoding="utf-8"))
+
+    validate_rulegen_critique(
+        critique,
+        expected_stage="norm_candidate_batch",
+        expected_target_id="fraud.article347.pass1.001.revision5",
+        commentary_by_id=commentary,
+        allowed_comment_ids=set(commentary),
+    )
+    assert len(critique["findings"]) == 2
+
+    source = {
+        "request_id": request["request_id"],
+        "status": "draft",
+        "candidates": [
+            {
+                "candidate_id": candidate_id,
+                "norm_kind": "variant",
+                "polarity": "positive",
+                "proposition": "Superseded candidate.",
+                "source_refs": [
+                    {
+                        "comment_id": "comm_001692_제347조_Ⅱ.1_1",
+                        "section_path": "Ⅱ.1",
+                        "quote": "다수설은 사기죄의 보호 법익을 재산",
+                    }
+                ],
+                "review_required": True,
+            }
+            for candidate_id in (
+                "fraud.variant.protected-interest-main-right",
+                "fraud.variant.protected-interest-possession-secondary",
+            )
+        ],
+        "unresolved_questions": [],
+    }
+    patch = json.loads(REVISION5_PATCH.read_text(encoding="utf-8"))
+    result = apply_norm_candidate_patch(
+        source,
+        patch,
+        request,
+        expected_target_id="fraud.article347.pass1.001.revision5",
+    )
+    assert len(result["candidates"]) == 1
+    assert result["candidates"][0]["candidate_id"].endswith(
+        "main-right-and-secondary-possession"
+    )
+    assert len(result["unresolved_questions"]) == 1
+
+    bad_patch = copy.deepcopy(patch)
+    bad_patch["remove_candidate_ids"] = ["fraud.missing"]
+    with pytest.raises(NormCandidatePatchValidationError, match="unknown IDs"):
+        apply_norm_candidate_patch(
+            source,
+            bad_patch,
+            request,
+            expected_target_id="fraud.article347.pass1.001.revision5",
+        )
+
+
+def test_fraud_final_candidate_exemplar_and_adjudication_are_valid() -> None:
+    request = load_jsonl(REQUESTS)[0]
+    commentary = {
+        row["comment_id"]: row for row in request["commentary_chunks"]
+    }
+    candidates = json.loads(FINAL_CANDIDATES.read_text(encoding="utf-8"))
+    adjudication = json.loads(FINAL_ADJUDICATION.read_text(encoding="utf-8"))
+
+    validate_norm_candidate_batch(candidates, request)
+    validate_rulegen_critique(
+        adjudication,
+        expected_stage="norm_candidate_batch",
+        expected_target_id="fraud.article347.pass1.001.revision6",
+        commentary_by_id=commentary,
+        allowed_comment_ids=set(commentary),
+    )
+    candidate_ids = {
+        candidate["candidate_id"] for candidate in candidates["candidates"]
+    }
+    assert len(candidates["candidates"]) == 62
+    assert {
+        candidate["polarity"] for candidate in candidates["candidates"]
+    } == {"positive", "negative", "exception"}
+    assert (
+        "fraud.variant.protected-interest-main-right-and-secondary-possession"
+        in candidate_ids
+    )
+    assert "fraud.variant.protected-interest-main-right" not in candidate_ids
+    assert adjudication["verdict"] == "pass"
+    assert not adjudication["findings"]
+    assert "법률검토 완료를 의미하지 않는다" in adjudication["summary"]
+
+
 def test_fraud_and_procedural_exemplars_enforce_positive_evidence_gates() -> None:
     fraud = SCALLOP.read_text(encoding="utf-8")
     procedure = PROCEDURAL_GATE.read_text(encoding="utf-8")
@@ -203,7 +483,9 @@ def test_rulegen_contracts_and_prompts_exist() -> None:
     contract_names = {
         "rulegen_request.schema.json",
         "norm_candidate_batch.schema.json",
+        "norm_candidate_patch.schema.json",
         "norm_card_set.schema.json",
+        "rulegen_critique_report.schema.json",
         "rule_ir.schema.json",
     }
     for name in contract_names:
@@ -221,6 +503,17 @@ def test_rulegen_contracts_and_prompts_exist() -> None:
     card_prompt = (
         PROJECT_ROOT / "prompts/rulegen_merge_norm_cards.md"
     ).read_text(encoding="utf-8")
+    critic_prompt = (PROJECT_ROOT / "prompts/rulegen_critic.md").read_text(
+        encoding="utf-8"
+    )
+    revision_prompt = (
+        PROJECT_ROOT / "prompts/rulegen_revise_norm_candidates.md"
+    ).read_text(encoding="utf-8")
     assert "exact source reference" in extract_prompt
     assert "independent legal-review units" in card_prompt
+    assert "authority is limited to critique" in critic_prompt
+    assert "applies only to `source_refs` in the critique report" in critic_prompt
+    assert "target quotes are mandatory provenance" in critic_prompt
+    assert "critique reports are advisory work products" in revision_prompt
+    assert "OCR noise interrupts" in revision_prompt
     assert "never output executable code directly" in merge_prompt

@@ -1,0 +1,54 @@
+{
+  "findings": [
+    {
+      "finding_id": "wrong-polarity-exchange-value",
+      "message": "재물이 교환가치 있는 재물에 한정된다는 견해는 객체 범위를 적극적으로 정하는 명제인데 negative polarity로 지정되었다.",
+      "recommended_action": "variant 구분은 유지하고 해당 후보의 polarity만 positive로 수정한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅲ.1_8",
+          "section_path": "Ⅲ.1"
+        }
+      ],
+      "target_path": "$.candidates[39].polarity",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "tax-rationale-quote-gap",
+      "message": "조세 사기죄 불성립 후보가 별도 처벌규정과 조세징수의 직접적 권력작용이라는 근거까지 주장하지만 인용은 결론만 뒷받침한다.",
+      "recommended_action": "동일 source에서 두 근거와 결론을 각각 정확히 뒷받침하는 source_refs를 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.3_4",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "target_path": "$.candidates[25].source_refs",
+      "type": "source_entailment"
+    },
+    {
+      "finding_id": "collapsed-concrete-benefit-negative-example",
+      "message": "재산상 이익은 구체적이어야 한다는 positive 요소와 단순 지급보증서 수령만으로는 이익 취득이 아니라는 negative 적용례가 하나의 positive 후보에 합쳐졌다.",
+      "recommended_action": "구체적 이익 요건을 positive element로 유지하고 단순 지급보증서 부정례를 별도 negative 후보로 분리한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅲ.2_9",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "target_path": "$.candidates[49]",
+      "type": "formalization_error"
+    }
+  ],
+  "report_id": "fraud.article347.pass1.001.revision4.adjudication",
+  "review_required": true,
+  "stage": "norm_candidate_batch",
+  "status": "draft",
+  "summary": "Sol revision4 critic 중 polarity·출처충실성·positive/negative 분리에 관한 3개 finding을 수용한다. 열거된 적극적 이익 사례 전부를 후보화하라는 요구는 규범이 아닌 사례 RAG 범위로 유보한다.",
+  "target_id": "fraud.article347.pass1.001.revision4",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

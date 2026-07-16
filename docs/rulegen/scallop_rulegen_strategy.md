@@ -12,6 +12,9 @@ issue_tag
   -> section-preserving commentary batches
   -> API: NormCandidateBatch[]
   -> deterministic candidate provenance validation
+  -> API: advisory legal critic
+  -> source-bounded finding adjudication
+  -> validated minimal candidate patch
   -> API: NormCardSet merge
   -> deterministic NormCard validation
   -> API: RuleIR draft
@@ -53,6 +56,10 @@ issue_tag
 `NormCandidateBatch`는 한 API batch 안에서 추출한 원시 후보다. 중복 후보나 서로 다른
 학설이 섞일 수 있어 RuleIR이 직접 소비하지 않는다. `NormCardSet`은 후보를 병합하되
 다음 정보를 보존하는 법률 검수 checkpoint다.
+
+NormCandidate의 `norm_kind`와 `polarity`는 독립 차원이다. `norm_kind`는 element,
+standard, variant, exception 같은 기능을 나타내고, `polarity`는 positive, negative,
+exception을 나타낸다. 일반적 불성립 규범을 전부 exception으로 분류하지 않는다.
 
 - 독립적으로 검토 가능한 하나의 proposition
 - exact commentary quote와 이를 공급한 API request ID
@@ -126,21 +133,33 @@ gate가 충족된 경우에만 `admissible(e)`를 만든다. 참고 구현은
    `prompts/rulegen_extract_norm_candidates.md`를 structured-output API에 전달한다.
 2. 응답을 `norm_candidate_batch.schema.json`과
    `idpr.rulegen.validate_norm_candidate_batch`로 검증한다.
-3. 검증된 응답만 `prompts/rulegen_merge_norm_cards.md`로 NormCardSet에 병합한다.
-4. `norm_card_set.schema.json`과 `idpr.rulegen.validate_norm_card_set`으로 exact quote,
+3. 검증된 응답만 Sol critic에 보내되 critic은 수정 권한을 갖지 않는다. finding은
+   `comment_id`, `section_path` locator 범위 안에서만 반환한다.
+4. critic finding을 원문과 대조해 수용, 기각, RAG context 유보로 adjudicate한다.
+   수용된 수정은 전체 batch 재생성보다 `NormCandidatePatch`로 최소 적용하고 전체
+   provenance를 다시 검증한다.
+5. 검증된 응답만 `prompts/rulegen_merge_norm_cards.md`로 NormCardSet에 병합한다.
+6. `norm_card_set.schema.json`과 `idpr.rulegen.validate_norm_card_set`으로 exact quote,
    request provenance, variant 표시를 검증한다.
-5. 검증된 카드와 `prompts/rulegen_merge_rule_ir.md`로 RuleIR 1.1을 생성한다.
-6. `rule_ir.schema.json`과 `idpr.rulegen.validate_rule_ir`로 predicate 및 NormCard 연결을
+7. 검증된 카드와 `prompts/rulegen_merge_rule_ir.md`로 RuleIR 1.1을 생성한다.
+8. `rule_ir.schema.json`과 `idpr.rulegen.validate_rule_ir`로 predicate 및 NormCard 연결을
    검증한다.
-7. `idpr.rulegen.compile_rule_ir`로 `.scl`을 생성한다.
-8. 성립·불성립·unknown·증거배제·정책 variant별 golden test를 실행한다.
-9. 사람이 조문·주석서·판례 원문과 variant를 승인한 뒤에만 canonical predicate와
+9. `idpr.rulegen.compile_rule_ir`로 `.scl`을 생성한다.
+10. 성립·불성립·unknown·증거배제·정책 variant별 golden test를 실행한다.
+11. 사람이 조문·주석서·판례 원문과 variant를 승인한 뒤에만 canonical predicate와
    `verified` rule로 승격한다.
+
+critic을 반복 호출해 finding 수가 0이 될 때까지 사례를 후보화하지 않는다. 열거된
+판례 사실과 적용례가 독립 규범을 제공하지 않으면 commentary/precedent RAG context로
+남긴다. critic이 구체 내용을 제시하지 않은 반대설을 요구해도 모델이 이를 발명하지
+않고 unresolved question으로 보존한다.
 
 ## 자동 실패 조건
 
 - source scope 밖 `comment_id`
 - commentary에 존재하지 않는 quote
+- `norm_kind=exception`인데 `polarity=exception`이 아닌 후보
+- 존재하지 않는 candidate를 제거하거나 기존 ID를 덮어쓰는 patch
 - NormCard source가 선언된 extraction request 범위 밖에 있음
 - RuleIR source가 연결된 NormCard의 source 범위 밖에 있음
 - 선언되지 않은 predicate 또는 arity/type 불일치

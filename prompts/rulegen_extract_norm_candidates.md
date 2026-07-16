@@ -12,7 +12,9 @@ Rules:
    `section_path` must match the input metadata, and `quote` must be a verbatim substring
    of that chunk. Keep each quote under 300 characters.
 3. Separate a legal element, definition, causal link, exception, open-textured standard,
-   and competing variant. Do not collapse them into a single prose rule.
+   and competing variant. Do not collapse them into a single prose rule. Independently set
+   `polarity=positive` for enabling norms, `negative` for general non-establishment or
+   exclusion norms, and `exception` only for a norm that reverses a supplied general rule.
 4. Preserve disagreements. When the commentary presents competing theories, emit separate
    `variant` candidates and add the choice to `unresolved_questions`. Never select a theory.
 5. Distinguish a general norm from a case illustration. A cited case outcome is not a

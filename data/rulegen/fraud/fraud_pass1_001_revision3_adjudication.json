@@ -1,0 +1,54 @@
+{
+  "findings": [
+    {
+      "finding_id": "conditional-cancellation-rule-overstated",
+      "message": "사후 의사표시 취소가 범죄성립에 영향을 미치지 않는다는 결론은 처분시점에 기수가 된다는 전제와 연결되어 있는데 후보가 그 전제를 제거했다.",
+      "recommended_action": "처분시점에 기수가 된 경우라는 전제를 후보에 포함하여 조건부 규범으로 한정한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.4_6",
+          "section_path": "Ⅱ.4"
+        }
+      ],
+      "target_path": "$.candidates[34]",
+      "type": "overgeneralization"
+    },
+    {
+      "finding_id": "road-permit-alternative-analysis-omitted",
+      "message": "도로점용허가 사례의 인과관계 부정 판례는 추출했지만 같은 문단이 제시한 재산상 이익 자체를 부정할 여지도 있다는 대안적 분석이 누락되었다.",
+      "recommended_action": "판례의 인과관계 판단과 구별되는 주석서의 유보적 분석을 별도 variant 후보로 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅲ.2_10",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "target_path": "$.candidates[56]",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "storage-receipt-quote-incomplete",
+      "message": "백미 보관증 후보의 인용이 잔존채무 불소멸까지만 뒷받침하고 채무 면탈 부정과 사기죄 불성립이라는 proposition의 최종 결론까지 포함하지 않는다.",
+      "recommended_action": "동일 source에서 사실 전제와 잔존채무 불소멸, 채무 면탈 부정 및 사기죄 불성립을 각각 정확히 뒷받침하도록 source_refs를 보완한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅲ.2_9",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "target_path": "$.candidates[54].source_refs",
+      "type": "source_entailment"
+    }
+  ],
+  "report_id": "fraud.article347.pass1.001.revision3.adjudication",
+  "review_required": true,
+  "stage": "norm_candidate_batch",
+  "status": "draft",
+  "summary": "Sol revision3 critic 중 원문으로 판정 가능한 3개 finding을 수용한다. 결론이 연결되지 않은 공공급부 판례 목록은 후보로 추론하지 않고 판례 인덱스 RAG가 필요한 coverage gap으로 유보한다.",
+  "target_id": "fraud.article347.pass1.001.revision3",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

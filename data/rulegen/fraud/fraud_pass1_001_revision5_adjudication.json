@@ -1,0 +1,40 @@
+{
+  "findings": [
+    {
+      "finding_id": "protected-interest-majority-split",
+      "message": "보호법익에 관한 하나의 다수설이 본권·재산상 이익과 제2차적 소지를 각각 독립된 견해처럼 보이는 두 후보로 분리되었다.",
+      "recommended_action": "두 후보를 본권·재산상 이익을 보호하면서 제2차적으로 소지도 포함한다는 하나의 결합된 다수설 후보로 병합한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.1_1",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "target_path": "$.candidates[14:16]",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "void-disposition-issues-omitted",
+      "message": "처분행위가 당연무효인 경우의 침해범 성격, 재산상 손해 현존 필요성, 개별재산·전체재산 기준에 관한 명시적 미해결 논점이 보존되지 않았다.",
+      "recommended_action": "현재 배치가 결론을 제시하지 않는다는 점을 유지하면서 해당 논점들을 unresolved_questions에 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.4_6",
+          "section_path": "Ⅱ.4"
+        }
+      ],
+      "target_path": "$.unresolved_questions",
+      "type": "missing_norm"
+    }
+  ],
+  "report_id": "fraud.article347.pass1.001.revision5.adjudication",
+  "review_required": true,
+  "stage": "norm_candidate_batch",
+  "status": "draft",
+  "summary": "Sol revision5 critic 중 결합된 다수설과 명시적 미해결 논점에 관한 2개 finding을 수용한다. 재산상 이익의 열거 사례는 규범 후보가 아니라 사례 RAG context로 유보한다.",
+  "target_id": "fraud.article347.pass1.001.revision5",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

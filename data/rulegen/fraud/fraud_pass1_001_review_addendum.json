@@ -1,0 +1,198 @@
+{
+  "findings": [
+    {
+      "finding_id": "missing.partial-consideration-precedent",
+      "message": "상당한 대가나 일부 대가가 지급되어도 재물편취 사기죄의 성립에 영향이 없고 편취액은 교부된 재물 전부라는 판례 규범이 누락되었다.",
+      "recommended_action": "일부 대가 지급이 성립과 편취액에 미치는 영향을 별도 판례 후보로 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.1_1",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "missing.property-concept-variants",
+      "message": "법률적, 경제적, 법률적·경제적, 기능적, 개인적 재산개념의 대립이 모두 누락되었다.",
+      "recommended_action": "각 재산개념을 동일 논쟁군에 속하는 구별된 variant 후보로 추가한다.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.1_1",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "collapsed_variant"
+    },
+    {
+      "finding_id": "missing.property-right-possession-variants",
+      "message": "사기죄의 보호법익이 재산에 관한 본권인지 소지인지에 관한 학설 대립과 명시적 판례 부재가 누락되었다.",
+      "recommended_action": "본권과 소지에 관한 견해를 별도 variant 후보로 보존하고 판례가 명시적으로 확정되지 않았다는 질문을 남긴다.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.1_1",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "missing.protected-interest-synthesis",
+      "message": "다수설과 소수설은 추출했지만 주석서가 재산만을 보호법익으로 보고 거래상 진실과 신의의무는 기망행위 판단기준으로 정리한 규범이 누락되었다.",
+      "recommended_action": "학설 variant와 별도로 주석서의 정리 및 판례상 기망 판단기준을 독립 후보로 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.2_2",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "missing.triangular-fraud-victim",
+      "message": "삼각사기에서 재산상 권리자가 피해자이고 피기망자와 피해자가 다를 수 있다는 다수설과 판례 규범이 누락되었다.",
+      "recommended_action": "재산상 권리자를 피해자로 식별하는 판례 후보를 삼각사기 범위에 한정하여 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.2_2",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "missing.tax-public-law-exclusion",
+      "message": "조세 포탈·환급·공제는 별도 처벌규정과 국가의 직접적 권력작용이라는 이유로 형법상 사기죄가 성립하지 않는다는 판례 규범이 누락되었다.",
+      "recommended_action": "일반 공공법익 규칙과 구별되는 조세 영역의 부정 규범을 별도 후보로 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.3_4",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "missing.sex-work-payment-precedent",
+      "message": "성행위 대가 지급을 기망으로 면한 경우 그 대가를 경제적 이익으로 보아 사기죄 성립을 인정한 판례 입장이 누락되었다.",
+      "recommended_action": "지급면탈형에 한정된 판례 규범을 학설 variant와 구별하여 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.3_5",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "sex-work-unresolved-question-overbroad",
+      "message": "금전 교부형과 성행위 대가 지급면탈형을 모두 판례 입장이 알려지지 않은 하나의 미해결 문제로 표시했다.",
+      "recommended_action": "두 유형을 구분하고 지급면탈형에는 판례의 긍정 입장이 있음을 명시한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.3_4",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.3_5",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "target_path": "$.unresolved_questions[2]",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "missing.completion-and-later-cancellation",
+      "message": "사기죄의 침해범 성격, 하자 있는 의사에 따른 처분 시 기수, 사후 의사표시 취소가 범죄성립에 영향을 미치지 않는다는 규범이 누락되었다.",
+      "recommended_action": "침해범 성격과 기수시점 및 사후취소 효과를 과도하게 합치지 말고 독립적으로 검토 가능한 후보로 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.4_6",
+          "section_path": "Ⅱ.4"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "missing.embezzlement-object-boundary",
+      "message": "자기 점유의 타인 재물을 영득한 경우에는 기망이 있더라도 횡령죄만 성립한다는 죄명 경계 규범이 누락되었다.",
+      "recommended_action": "자기 점유 타인 재물에 관한 횡령죄 경계를 별도 부정 후보로 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅲ_7",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "missing.property-benefit-negative-boundary",
+      "message": "변제기 연기처럼 구체적인 일시적 이익이 발생한 경우와, 단순 도주 등으로 지급을 피했지만 채무 면제·소멸·변제기 연기를 실제로 얻지 못한 경우를 구별하는 규범이 누락되었다.",
+      "recommended_action": "일시적 이익도 재산상 이익이 될 수 있음을 보존하면서, 채무 면제·소멸·변제기 연기 등 구체적 이익이 발생하지 않은 사례만 부정하는 좁은 경계 규범을 추가한다.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅲ.2_9",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "target_path": "$.candidates",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "subjective-element-review-status",
+      "message": "불법영득의사를 주관적 구성요건으로 추출하면서 검토 불필요로 표시했지만 같은 자료는 우리 형법에 명문 규정이 없음을 함께 설명한다.",
+      "recommended_action": "후속 권위 자료와의 병합 전에는 해당 후보를 확정 규범으로 취급하지 않도록 review_required를 true로 바꾼다.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅰ_0",
+          "section_path": "Ⅰ"
+        }
+      ],
+      "target_path": "$.candidates[1].review_required",
+      "type": "authority_mismatch"
+    },
+    {
+      "finding_id": "apparent-benefit-wording",
+      "message": "재산상 이익의 외형상 취득에 관한 후보가 '재산상 이익의 처분'을 주어로 삼아 행위자 취득 규범인지 피해자 처분 규범인지 불명확하다.",
+      "recommended_action": "법률상 무효라도 행위자가 재산상 이익을 외형상 취득하면 족하다는 내용으로 출처 범위 안에서 명확히 고친다.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.1_1",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "target_path": "$.candidates[6].proposition",
+      "type": "source_entailment"
+    }
+  ],
+  "report_id": "fraud.article347.pass1.001.review-addendum",
+  "review_required": true,
+  "stage": "norm_candidate_batch",
+  "status": "draft",
+  "summary": "두 차례 Sol critic의 유효 지적 합집합과 source-bounded 수동 대조에서 확인한 미탐을 correction 입력으로 고정한다.",
+  "target_id": "fraud.article347.pass1.001",
+  "verdict": "revise",
+  "version": "1.1.0"
+}

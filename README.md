@@ -28,6 +28,27 @@ The commentary-to-Scallop design is documented in
 candidates, NormCards, and RuleIR only; `idpr.rulegen` validates provenance and
 compiles RuleIR locally.
 
+The SKI-ML pilot reads credentials and model names from `.env`. Dry-run does not
+call the Gateway:
+
+```bash
+python scripts/run_fraud_rulegen_pilot.py \
+  --with-critic --limit 1 --run-id fraud-pilot-dry
+```
+
+Add `--execute` only after checking the dry-run. Valid responses and usage
+manifests are cached under `.cache/llm/`; secrets and model reasoning are never
+written to run manifests. The audited first fraud batch is tracked as
+`data/rulegen/fraud/fraud_norm_candidate_batch_pass1_001_exemplar.json`. It
+contains 62 exact-source candidates and 8 unresolved questions, and remains
+`status=draft`.
+
+The API compatibility and cost audit is in
+`docs/rulegen/skiml_api_integration.md`. Critic findings are advisory: accepted
+findings become bounded correction inputs, while final changes are applied as a
+validated `NormCandidatePatch` instead of repeatedly regenerating the full
+batch.
+
 The provisional research framing, including the standalone workshop-paper task
 and its connection to the earlier DCDE/OBJECTION work, is in
 `docs/research/idpr_research_draft.md`.

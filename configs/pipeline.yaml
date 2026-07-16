@@ -1,6 +1,14 @@
 version: 0.1.0
 seed: 20260714
 llm_cache_dir: .cache/llm
+gateway:
+  provider: skiml_litellm
+  api_base_env: SKIML_API_BASE
+  api_key_env: SKIML_API_KEY
+  terra_model_env: IDPR_TERRA_MODEL
+  sol_model_env: IDPR_SOL_MODEL
+  ssl_verify_env: SKIML_SSL_VERIFY
+  max_concurrency_env: IDPR_LLM_MAX_CONCURRENCY
 stages:
   extraction:
     module: idpr.extraction

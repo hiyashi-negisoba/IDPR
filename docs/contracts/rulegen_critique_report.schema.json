@@ -1,0 +1,84 @@
+{
+  "$id": "idpr/RulegenCritiqueReport",
+  "description": "Semantic and legal critique of one rule-generation stage output.",
+  "type": "object",
+  "required": [
+    "version",
+    "report_id",
+    "stage",
+    "target_id",
+    "status",
+    "verdict",
+    "findings",
+    "summary",
+    "review_required"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": "1.1.0" },
+    "report_id": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]*$" },
+    "stage": {
+      "enum": ["norm_candidate_batch", "norm_card_set", "rule_ir"]
+    },
+    "target_id": { "type": "string", "minLength": 1 },
+    "status": { "const": "draft" },
+    "verdict": { "enum": ["pass", "revise", "reject"] },
+    "findings": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/finding" }
+    },
+    "summary": { "type": "string", "minLength": 1 },
+    "review_required": { "type": "boolean" }
+  },
+  "$defs": {
+    "source_ref": {
+      "type": "object",
+      "required": ["comment_id", "section_path"],
+      "additionalProperties": false,
+      "properties": {
+        "comment_id": { "type": "string", "minLength": 1 },
+        "section_path": { "type": "string", "minLength": 1 }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "required": [
+        "finding_id",
+        "severity",
+        "type",
+        "target_path",
+        "message",
+        "source_refs",
+        "recommended_action"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "finding_id": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]*$" },
+        "severity": { "enum": ["hard", "soft"] },
+        "type": {
+          "enum": [
+            "source_entailment",
+            "source_scope",
+            "authority_mismatch",
+            "overgeneralization",
+            "missing_norm",
+            "collapsed_variant",
+            "formalization_error",
+            "role_conflation",
+            "evidence_gate_bypass",
+            "open_world_violation",
+            "rule_mismatch",
+            "other"
+          ]
+        },
+        "target_path": { "type": "string", "minLength": 1 },
+        "message": { "type": "string", "minLength": 1 },
+        "source_refs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/source_ref" }
+        },
+        "recommended_action": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

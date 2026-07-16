@@ -536,3 +536,59 @@ request, 형식화 방식, 권위 성격, 학설 대립과 검수 상태를 함�
 2. 불법영득·이득의사를 요구하는 사기 유형의 판례 기준 분류
 3. 삼각사기의 처분권한·재산상 근접성 predicate 확정
 4. 주석서가 보고한 판례 법리를 사용자 판례 index 원문과 대조
+
+---
+
+## SKI-ML fraud rulegen pilot 및 correction exemplar
+
+작성일: 2026-07-16
+
+### Gateway와 계약
+
+- LiteLLM 기반 SKI-ML Gateway client, deterministic cache, usage manifest 구현
+- Terra extraction/revision과 Sol advisory critic 역할 분리
+- `max_completion_tokens`와 reasoning token 기록, API key 및 hidden reasoning 비저장
+- NormCandidate/NormCard/Critique/RuleIR에 JSON Schema runtime 검증 적용
+- critic locator는 `comment_id + section_path`, 후보 provenance는 exact quote 유지
+- 4xx 반복 방지를 위해 기본 retry를 0으로 설정
+
+### 품질 교정 결과
+
+첫 Terra 출력은 21개 후보였고 exact quote 검증은 통과했지만 핵심 규범 누락이 있었다.
+Sol critic의 quote 금지 지시가 검토 대상 quote까지 금지하는 것으로 오해된 문제를
+수정한 뒤 오탐이 제거되었다. 두 Sol 실행과 수동 source 대조의 유효 finding을
+`fraud_pass1_001_review_addendum.json`으로 고정했다.
+
+전체 batch 재생성 correction은 누락을 보완하는 동시에 새 사례 누락을 계속 만들었다.
+이에 따라 다음 경계를 확정했다.
+
+1. `norm_kind`와 `polarity`를 분리해 positive, negative, exception을 명시
+2. OCR이 문장 중간을 끊은 경우 높은 일치율의 exact fragment로만 provenance 보정
+3. critic finding은 원문 대조 후 수용·기각·RAG context 유보
+4. 수용 finding은 전체 재생성 대신 검증된 `NormCandidatePatch`로 최소 적용
+5. 구체 내용 없는 반대설은 발명하지 않고 unresolved question으로 유지
+6. 열거된 사례는 독립 규범이 없으면 후보가 아니라 후속 RAG context로 유지
+
+최종 tracked exemplar:
+
+- `data/rulegen/fraud/fraud_norm_candidate_batch_pass1_001_exemplar.json`
+- 후보 62개
+- unresolved question 8개
+- polarity 분포: positive 36개, negative 24개, exception 2개
+- exact source/provenance 및 스키마 검증 통과
+- extraction-stage final adjudication은 pass이지만 법률검토 완료를 의미하지 않음
+
+### API 사용량
+
+2026-07-16 현재 cache와 failure metadata의 response ID를 중복 제거하면 Terra 7회,
+Sol 10회 응답이 기록되어 있다. 합계는 Terra 172,469 tokens, Sol 180,378 tokens이며,
+공식 standard list rate 단순 환산은 약 $2.51이다. 실제 차감액은 연구실 Gateway
+dashboard를 기준으로 확인해야 한다.
+
+### 검증
+
+- 전체 테스트: `38 passed`
+- Python `py_compile`: 통과
+- `git diff --check`: 통과
+- 현재 Python 환경에 `ruff`가 설치되어 있지 않아 lint는 실행하지 못함
+- 실제 Scallop runtime 검증과 판례 원문 대조는 아직 수행하지 않음

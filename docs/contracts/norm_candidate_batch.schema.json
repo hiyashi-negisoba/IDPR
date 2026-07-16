@@ -14,6 +14,7 @@
         "required": [
           "candidate_id",
           "norm_kind",
+          "polarity",
           "proposition",
           "source_refs",
           "review_required"
@@ -22,6 +23,7 @@
         "properties": {
           "candidate_id": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]*$" },
           "norm_kind": { "enum": ["element", "definition", "causal_link", "exception", "standard", "variant"] },
+          "polarity": { "enum": ["positive", "negative", "exception"] },
           "proposition": { "type": "string", "minLength": 1 },
           "source_refs": {
             "type": "array",

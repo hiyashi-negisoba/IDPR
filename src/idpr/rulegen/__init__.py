@@ -2,15 +2,21 @@
 
 from __future__ import annotations
 
+import copy
 import json
 import re
 from dataclasses import dataclass
+from difflib import SequenceMatcher
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Mapping
+
+from jsonschema import Draft202012Validator
 
 
 IDENTIFIER = re.compile(r"^[a-z][a-z0-9_]*$")
 RULE_ID = re.compile(r"^[a-z][a-z0-9_.-]*$")
+CONTRACT_ROOT = Path(__file__).resolve().parents[3] / "docs/contracts"
 
 
 @dataclass(frozen=True, slots=True)
@@ -44,6 +50,22 @@ class NormCardValidationError(ValueError):
         super().__init__("Invalid NormCardSet:\n- " + "\n- ".join(errors))
 
 
+class RulegenCritiqueValidationError(ValueError):
+    """Raised when a critic exceeds its contract or returns inconsistent findings."""
+
+    def __init__(self, errors: list[str]) -> None:
+        self.errors = errors
+        super().__init__("Invalid RulegenCritiqueReport:\n- " + "\n- ".join(errors))
+
+
+class NormCandidatePatchValidationError(ValueError):
+    """Raised when an adjudicated candidate patch is unsafe or inconsistent."""
+
+    def __init__(self, errors: list[str]) -> None:
+        self.errors = errors
+        super().__init__("Invalid NormCandidatePatch:\n- " + "\n- ".join(errors))
+
+
 def write_rule_draft(draft: RuleDraft, output_dir: Path) -> Path:
     output_dir.mkdir(parents=True, exist_ok=True)
     output_path = output_dir / f"{draft.rule_id}.scl"
@@ -70,7 +92,9 @@ def validate_norm_candidate_batch(
 ) -> None:
     """Validate one extraction response against the exact request commentary."""
 
-    errors: list[str] = []
+    errors = _schema_errors(payload, "norm_candidate_batch.schema.json")
+    if errors:
+        raise NormCandidateValidationError(errors)
     if payload.get("request_id") != request.get("request_id"):
         errors.append("request_id does not match the extraction request")
     if payload.get("status") != "draft":
@@ -93,6 +117,13 @@ def validate_norm_candidate_batch(
             "review_required", False
         ):
             errors.append(f"variant candidate {candidate_id} must require review")
+        if (
+            candidate.get("norm_kind") == "exception"
+            and candidate.get("polarity") != "exception"
+        ):
+            errors.append(
+                f"exception candidate {candidate_id} must have exception polarity"
+            )
         refs = candidate.get("source_refs", [])
         if not refs:
             errors.append(f"candidate {candidate_id} has no source_refs")
@@ -108,6 +139,148 @@ def validate_norm_candidate_batch(
         raise NormCandidateValidationError(errors)
 
 
+def repair_ocr_interrupted_candidate_quotes(
+    payload: Mapping[str, Any],
+    commentary_by_id: Mapping[str, Mapping[str, Any]],
+    *,
+    minimum_fragment_length: int = 8,
+    minimum_coverage: float = 0.85,
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Split only high-confidence non-verbatim quotes around OCR interruptions."""
+
+    repaired = copy.deepcopy(dict(payload))
+    repair_records: list[dict[str, Any]] = []
+    for candidate in repaired.get("candidates", []):
+        replacement_refs: list[dict[str, Any]] = []
+        for ref in candidate.get("source_refs", []):
+            comment_id = ref.get("comment_id", "")
+            quote = ref.get("quote", "")
+            commentary = commentary_by_id.get(comment_id)
+            source_text = commentary.get("document_text", "") if commentary else ""
+            if not quote or quote in source_text:
+                replacement_refs.append(ref)
+                continue
+
+            fragments = _ocr_quote_fragments(
+                quote,
+                source_text,
+                minimum_fragment_length=minimum_fragment_length,
+                minimum_coverage=minimum_coverage,
+            )
+            if not fragments:
+                replacement_refs.append(ref)
+                continue
+
+            replacement_refs.extend(
+                {
+                    "comment_id": comment_id,
+                    "section_path": ref.get("section_path", ""),
+                    "quote": fragment,
+                }
+                for fragment in fragments
+            )
+            repair_records.append(
+                {
+                    "candidate_id": candidate.get("candidate_id", ""),
+                    "comment_id": comment_id,
+                    "original_quote": quote,
+                    "replacement_quotes": fragments,
+                }
+            )
+        candidate["source_refs"] = replacement_refs
+    return repaired, repair_records
+
+
+def apply_norm_candidate_patch(
+    payload: Mapping[str, Any],
+    patch: Mapping[str, Any],
+    request: Mapping[str, Any],
+    *,
+    expected_target_id: str,
+) -> dict[str, Any]:
+    """Apply a minimal adjudicated patch and revalidate the complete batch."""
+
+    errors = _schema_errors(patch, "norm_candidate_patch.schema.json")
+    if patch.get("target_id") != expected_target_id:
+        errors.append("target_id does not match the patch request")
+    existing_ids = {
+        candidate.get("candidate_id", "")
+        for candidate in payload.get("candidates", [])
+    }
+    remove_ids = set(patch.get("remove_candidate_ids", []))
+    unknown_removals = sorted(remove_ids - existing_ids)
+    if unknown_removals:
+        errors.append(f"remove_candidate_ids contains unknown IDs: {unknown_removals}")
+
+    retained_ids = existing_ids - remove_ids
+    add_ids = [
+        candidate.get("candidate_id", "")
+        for candidate in patch.get("add_candidates", [])
+    ]
+    duplicate_adds = sorted(
+        candidate_id
+        for candidate_id in set(add_ids)
+        if add_ids.count(candidate_id) > 1 or candidate_id in retained_ids
+    )
+    if duplicate_adds:
+        errors.append(f"add_candidates contains duplicate IDs: {duplicate_adds}")
+
+    existing_questions = set(payload.get("unresolved_questions", []))
+    duplicate_questions = sorted(
+        existing_questions & set(patch.get("append_unresolved_questions", []))
+    )
+    if duplicate_questions:
+        errors.append(
+            f"append_unresolved_questions already contains: {duplicate_questions}"
+        )
+    if errors:
+        raise NormCandidatePatchValidationError(errors)
+
+    result = copy.deepcopy(dict(payload))
+    result["candidates"] = [
+        candidate
+        for candidate in result.get("candidates", [])
+        if candidate.get("candidate_id") not in remove_ids
+    ] + copy.deepcopy(list(patch.get("add_candidates", [])))
+    result["unresolved_questions"] = list(
+        result.get("unresolved_questions", [])
+    ) + list(patch.get("append_unresolved_questions", []))
+    try:
+        validate_norm_candidate_batch(result, request)
+    except NormCandidateValidationError as exc:
+        raise NormCandidatePatchValidationError(exc.errors) from exc
+    return result
+
+
+def _ocr_quote_fragments(
+    quote: str,
+    source_text: str,
+    *,
+    minimum_fragment_length: int,
+    minimum_coverage: float,
+) -> list[str]:
+    if not source_text or len(quote) < minimum_fragment_length * 2:
+        return []
+    matcher = SequenceMatcher(None, quote, source_text, autojunk=False)
+    blocks = [
+        block
+        for block in matcher.get_matching_blocks()
+        if block.size >= minimum_fragment_length
+    ]
+    if len(blocks) < 2:
+        return []
+    covered = sum(block.size for block in blocks)
+    if covered / len(quote) < minimum_coverage:
+        return []
+    fragments = [
+        source_text[block.b : block.b + block.size].strip() for block in blocks
+    ]
+    fragments = [fragment for fragment in fragments if fragment]
+    if len(fragments) < 2 or any(fragment not in source_text for fragment in fragments):
+        return []
+    return fragments
+
+
 def validate_norm_card_set(
     payload: Mapping[str, Any],
     commentary_by_id: Mapping[str, Mapping[str, Any]],
@@ -115,7 +288,9 @@ def validate_norm_card_set(
 ) -> None:
     """Validate normalized cards before any model is allowed to emit RuleIR."""
 
-    errors: list[str] = []
+    errors = _schema_errors(payload, "norm_card_set.schema.json")
+    if errors:
+        raise NormCardValidationError(errors)
     if payload.get("status") != "draft":
         errors.append("status must remain draft")
     if payload.get("legal_review") != "pending":
@@ -187,6 +362,75 @@ def validate_norm_card_set(
         raise NormCardValidationError(errors)
 
 
+def validate_rulegen_critique(
+    payload: Mapping[str, Any],
+    *,
+    expected_stage: str,
+    expected_target_id: str,
+    allowed_source_refs: list[Mapping[str, Any]] | None = None,
+    commentary_by_id: Mapping[str, Mapping[str, Any]] | None = None,
+    allowed_comment_ids: set[str] | None = None,
+) -> None:
+    """Validate a Sol critique without granting it authority to rewrite artifacts."""
+
+    errors = _schema_errors(payload, "rulegen_critique_report.schema.json")
+    if errors:
+        raise RulegenCritiqueValidationError(errors)
+    if payload.get("status") != "draft":
+        errors.append("status must remain draft")
+    if payload.get("stage") != expected_stage:
+        errors.append("stage does not match the critic request")
+    if payload.get("target_id") != expected_target_id:
+        errors.append("target_id does not match the critic request")
+
+    findings = payload.get("findings", [])
+    verdict = payload.get("verdict")
+    if verdict == "pass" and findings:
+        errors.append("pass verdict cannot contain findings")
+    if verdict in {"revise", "reject"} and not findings:
+        errors.append(f"{verdict} verdict must contain at least one finding")
+
+    allowed_ref_keys = (
+        {_critic_source_ref_key(ref) for ref in allowed_source_refs}
+        if allowed_source_refs is not None
+        else None
+    )
+    finding_ids: set[str] = set()
+    hard_finding = False
+    for index, finding in enumerate(findings):
+        finding_id = finding.get("finding_id", "")
+        label = f"findings[{index}]"
+        if not RULE_ID.fullmatch(finding_id):
+            errors.append(f"{label}.finding_id is not valid")
+        elif finding_id in finding_ids:
+            errors.append(f"duplicate finding_id {finding_id}")
+        finding_ids.add(finding_id)
+        hard_finding = hard_finding or finding.get("severity") == "hard"
+        finding_refs = finding.get("source_refs", [])
+        if commentary_by_id is not None and allowed_comment_ids is not None:
+            _validate_critic_source_refs(
+                finding_refs,
+                f"finding {finding_id}",
+                allowed_comment_ids,
+                commentary_by_id,
+                errors,
+            )
+        elif allowed_ref_keys is not None:
+            for ref in finding_refs:
+                if _critic_source_ref_key(ref) not in allowed_ref_keys:
+                    errors.append(
+                        f"finding {finding_id} cites a source outside critic scope"
+                    )
+
+    if hard_finding and verdict == "pass":
+        errors.append("hard finding forbids pass verdict")
+    if hard_finding and not payload.get("review_required", False):
+        errors.append("hard finding requires review_required=true")
+
+    if errors:
+        raise RulegenCritiqueValidationError(errors)
+
+
 def validate_rule_ir(
     payload: Mapping[str, Any],
     commentary_by_id: Mapping[str, Mapping[str, Any]],
@@ -194,7 +438,9 @@ def validate_rule_ir(
 ) -> None:
     """Validate NormCard provenance, predicate closure, and Datalog safety."""
 
-    errors: list[str] = []
+    errors = _schema_errors(payload, "rule_ir.schema.json")
+    if errors:
+        raise RuleIRValidationError(errors)
     if payload.get("status") != "draft":
         errors.append("status must remain draft")
     if payload.get("legal_review") != "pending":
@@ -408,6 +654,33 @@ def _source_ref_key(source: Mapping[str, Any]) -> tuple[str, str, str]:
     )
 
 
+def _critic_source_ref_key(source: Mapping[str, Any]) -> tuple[str, str]:
+    return (
+        str(source.get("comment_id", "")),
+        str(source.get("section_path", "")),
+    )
+
+
+@lru_cache(maxsize=None)
+def _contract_validator(schema_name: str) -> Draft202012Validator:
+    schema = json.loads((CONTRACT_ROOT / schema_name).read_text(encoding="utf-8"))
+    Draft202012Validator.check_schema(schema)
+    return Draft202012Validator(schema)
+
+
+def _schema_errors(payload: Mapping[str, Any], schema_name: str) -> list[str]:
+    errors: list[str] = []
+    for error in sorted(
+        _contract_validator(schema_name).iter_errors(payload),
+        key=lambda item: list(item.absolute_path),
+    ):
+        path = "$"
+        for part in error.absolute_path:
+            path += f"[{part}]" if isinstance(part, int) else f".{part}"
+        errors.append(f"{path}: {error.message}")
+    return errors
+
+
 def _validate_source_refs(
     refs: list[Mapping[str, Any]],
     label: str,
@@ -430,6 +703,27 @@ def _validate_source_refs(
         quote = source.get("quote", "")
         if not quote or quote not in commentary.get("document_text", ""):
             errors.append(f"{source_label} quote is not an exact commentary substring")
+
+
+def _validate_critic_source_refs(
+    refs: list[Mapping[str, Any]],
+    label: str,
+    allowed_comment_ids: set[str],
+    commentary_by_id: Mapping[str, Mapping[str, Any]],
+    errors: list[str],
+) -> None:
+    for index, source in enumerate(refs):
+        comment_id = source.get("comment_id", "")
+        source_label = f"{label}.source_refs[{index}]"
+        if comment_id not in allowed_comment_ids:
+            errors.append(f"{source_label} is outside source_scope: {comment_id}")
+            continue
+        commentary = commentary_by_id.get(comment_id)
+        if commentary is None:
+            errors.append(f"{source_label} references unknown commentary: {comment_id}")
+            continue
+        if source.get("section_path") != commentary.get("section_path"):
+            errors.append(f"{source_label} section_path does not match commentary metadata")
 
 
 def _validate_atom(
