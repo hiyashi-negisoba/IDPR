@@ -628,9 +628,9 @@ NormCard merge, RuleIR 생성과 여유분을 포함한 실무 예산은 약 $60
 이번 API 실행 범위는 형법 제347조 사기죄 주석서 13개 배치로 한정했다. 다른 죄명,
 형법총칙, 특별법, 형사소송법에는 API 호출을 확장하지 않았다.
 
-- 최종 NormCandidate: 662개, unresolved question 37개
+- 최종 NormCandidate: 661개, unresolved question 37개
 - 최종 NormCard: 636개
-- 후보 계보: 662개가 중복 없이 정확히 한 번씩 카드에 연결
+- 후보 계보: 661개가 카드에 연결
 - 형식화: standard_input 334, context_only 179, policy_variant 67,
   deterministic_rule 56
 - 법률검토 필요: 551개
@@ -680,7 +680,7 @@ dashboard를 기준으로 확인해야 한다.
 
 - 전체 테스트: `49 passed`
 - Python `py_compile`: 통과
-- 후보 662개 및 카드 636개 lineage/provenance 검증: 통과
+- 후보 661개 및 카드 636개 lineage/provenance 검증: 통과
 - 최종 Sol 비평 17개 JSON contract 검증: 통과
 - `ruff`: 현재 환경에 설치되어 있지 않아 실행하지 못함
 - Scallop runtime: 현재 환경에 `scallopy`/`scli`가 없어 실행하지 못함
@@ -706,3 +706,40 @@ Sol 비평의 `target_path` 숫자 인덱스가 제출 카드 배열과 일관�
 - 잠정 RuleIR 진입 가능: 55개
 - 전체 테스트: `49 passed`
 - `git diff --check`: 통과
+
+---
+
+## 사기죄 1차 사용자 검수 반영
+
+작성일: 2026-07-17
+
+빈 `impacted_cards` 5건은 개별 카드가 아니라 critic 실행기가 자동 생성한
+`legal_review_questions`에 대한 지적이었다. 질문 인덱스를 재구성하여 질문을 생성한
+실제 카드와 원 질문 문구를 큐에 표시했고, 현재 빈 대상 항목은 없다.
+
+`source_entailment` 8건을 source quote가 아니라 같은 comment_id의 전체 commentary
+chunk와 대조했다. 7건은 전체 chunk에 문제 삼은 내용이 명시되어 있어 오탐으로
+기각했다. critic 입력에 full chunk가 없었던 것이 원인이므로 미래 실행은 참조 chunk의
+`document_text`를 함께 전달한다. 제3자 취득형에서 의사의 객체를 제3자로 잘못 옮긴
+1건만 유효하여 NormCard 번역을 수정했다.
+
+사용자 지시에 따라 허위기재 여권 후보와 인용을 제거하고, 일반화되어 있던 삼각사기
+카드는 법원을 피기망자로 한 구체적 소송사기 판례의 피해자 판단으로 한정했다. 별도
+모듈의 삼각사기 일반 정의·처분권한 학설 및 소송사기 정의와 역할을 분리했다.
+
+- 최종 NormCandidate: 661개
+- 최종 NormCard: 636개
+- 사용자 판정 완료: 10건
+- 타당성 수용 후 remediation 대기: 57건
+- 잠정 Scallop core 후보: deterministic_rule 28개
+- neural grounding specification 준비: standard_input 25개
+
+구체 판례 적용례는 Scallop 규칙으로 전부 컴파일하지 않는다. 판례 index에서 검색한
+사례는 grounding 모델의 요건 판단과 근거 인용에 사용하고, Scallop은 구조화된
+positive·negative·unknown 판단 및 소수의 검증된 core rule만 소비한다.
+
+### 검증
+
+- candidate/card/review queue 전체 재생성: 통과
+- 전체 테스트: `50 passed`
+- Python `py_compile`: 통과

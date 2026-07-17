@@ -77,6 +77,36 @@ RuleIR의 인용은 연결된 카드가 가진 exact source reference의 합집�
 판례를 우선하는 정책도 주석서의 판례 설명만으로 확정하지 않고, 사용자 판례 index의
 원문을 대조한 후 활성화한다.
 
+## Scallop 승격과 판례 검색의 경계
+
+NormCard를 모두 Scallop 규칙으로 컴파일하지 않는다. 역할을 다음 네 층으로 분리한다.
+
+| 층 | 대상 | 런타임 역할 |
+|---|---|---|
+| core rule | 구성요건 연결, 정의, 명시적 인과관계, 검증된 예외 | Scallop의 AND gate와 파생 규칙 |
+| grounding standard | 기망, 고의, 실질적 인과관계처럼 평가가 필요한 기준 | neural/RAG 판단이 positive, negative, unknown fact를 생성 |
+| policy variant | 학설 대립 또는 판례 선택이 필요한 규범 | 이름 있는 policy branch로 유지하고 승인 후 활성화 |
+| retrieval case | 구체적 당사자, 거래, 절차와 결론을 담은 판례 적용례 | 판례 index에서 검색하여 grounding 모델의 판단 근거로만 사용 |
+
+`deterministic_rule`만 core rule 승격 후보가 된다. `standard_input`은 RuleIR에서 입력
+predicate의 의미와 판단 질문을 정의할 수 있지만, 그 자체를 결론 도출 규칙으로
+컴파일하지 않는다. `context_only`인 판례 카드는 `.scl`에 들어가지 않는다. 검색된
+판례의 구체 사실도 Scallop fact로 그대로 주입하지 않고, 현재 사건에 대한 grounding
+결과와 근거 인용을 생성하는 데만 사용한다.
+
+판례 카드에서 일반 규칙을 승격하려면 다음을 모두 만족해야 한다.
+
+1. 특정 사건의 고유명사와 우연한 사실을 제거해도 법적 조건과 결론이 유지된다.
+2. 조건을 현재 사건에서 관찰하거나 neural standard로 판단할 predicate로 표현할 수 있다.
+3. 원판례 또는 현행 법령으로 권위와 적용 범위를 확인했다.
+4. 반대 판례, 예외 및 학설 대립을 확인해 policy 선택을 숨기지 않았다.
+5. 성립, 불성립, 경계 및 unknown golden case를 만들 수 있다.
+
+따라서 세부 판례가 많다는 이유로 600여 개의 사건별 규칙을 만드는 것이 목표가 아니다.
+소수의 구조적 core rule이 일관성을 담당하고, 판례 검색과 neural grounding이 개방형
+요건의 사실평가를 담당한다. Scallop은 검색 결과 자체가 아니라 검증 가능한 구조화
+판단을 소비한다.
+
 ## Predicate 설계
 
 법률 요건과 사건 사실을 같은 predicate로 합치지 않는다. 원문에서 추출한
@@ -134,7 +164,7 @@ gate가 충족된 경우에만 `admissible(e)`를 만든다. 참고 구현은
 
 ### 제347조 전체 준비 현황
 
-2026-07-16 기준 사기죄 주석서 13개 배치에서 검증 후보 662개를 확보했고, 후보 계보를
+2026-07-17 기준 사기죄 주석서 13개 배치에서 검증 후보 661개를 확보했고, 후보 계보를
 보존한 NormCard 636개로 정규화했다. 주석서가 보고한 판례로 추정되는 카드는 원판례
 확인 전 `context_only`로 제한했다. Sol 최종 비평 17개 묶음은 모두 계약 검증을
 통과했으며 67개 검토 지적을 남겼다.
@@ -146,9 +176,11 @@ gate가 충족된 경우에만 `admissible(e)`를 만든다. 참고 구현은
 - `data/rulegen/fraud/fraud_norm_card_review_queue.json`
 - `data/rulegen/fraud/fraud_rule_ir_readiness.json`
 
-전체 RuleIR 생성은 사람 법률 검수 전까지 차단한다. 형식상 61개 카드가 잠정 진입
-가능하지만, 사기죄 전체 AND gate를 구성하는 핵심 법리의 출처·권위·정책 선택이
-승인되지 않았으므로 부분 카드 수만으로 coverage를 주장하지 않는다.
+전체 RuleIR 생성은 사람 법률 검수 전까지 차단한다. 현재 미해결 critic과 법률검수
+게이트를 통과한 것 중 28개 `deterministic_rule`만 잠정 Scallop 승격 후보이고,
+25개 `standard_input`은 neural grounding specification으로만 준비되어 있다. 사기죄
+전체 AND gate를 구성하는 핵심 법리의 출처·권위·정책 선택이 승인되지 않았으므로
+부분 카드 수만으로 coverage를 주장하지 않는다.
 
 ## API 실행 순서
 

@@ -32,6 +32,7 @@ from scripts.run_fraud_norm_card_merge import (  # noqa: E402
     MODULE_PREFIXES,
     allowed_candidates,
     build_module_payloads,
+    load_merge_context,
 )
 from scripts.run_fraud_rulegen_critics import read_json  # noqa: E402
 from scripts.run_fraud_rulegen_pilot import (  # noqa: E402
@@ -143,6 +144,12 @@ def build_jobs(
     prompt = prompt_with_schema(CRITIC_PROMPT, CRITIC_SCHEMA)
     payloads = build_module_payloads()
     card_sets = load_card_sets()
+    requests, _, _ = load_merge_context()
+    commentary_by_id = {
+        chunk["comment_id"]: chunk
+        for request in requests
+        for chunk in request["commentary_chunks"]
+    }
     jobs: list[JSONCompletionJob] = []
     metadata: dict[str, dict[str, Any]] = {}
     for module in modules:
@@ -163,7 +170,11 @@ def build_jobs(
                         "bounded_source_material": {
                             "validated_candidates": candidate_payload_for_cards(
                                 target["cards"], candidates
-                            )
+                            ),
+                            "commentary_context": [
+                                commentary_by_id[comment_id]
+                                for comment_id in target["source_scope"]["comment_ids"]
+                            ],
                         },
                     },
                     max_tokens=max_tokens,

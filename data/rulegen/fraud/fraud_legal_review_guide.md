@@ -3,9 +3,10 @@
 ## 현재 상태
 
 - 범위: 형법 제347조 사기죄 주석서 13개 배치만 포함한다.
-- 검증 후보 662개가 NormCard 636개에 중복 없이 연결되어 있다.
+- 검증 후보 661개가 NormCard 636개에 연결되어 있다.
 - Sol 최종 비평은 17개 묶음 전부 계약 검증을 통과했다.
 - 검토 지적은 67개이며, 모든 산출물은 draft/legal_review=pending이다.
+- 사용자 판정은 completed 10개, pending 57개다.
 - 주석서가 보고한 판례로 추정되는 카드는 원판례 확인 전 context_only로 격리했다.
 
 ## 지적-카드 매핑
@@ -13,7 +14,14 @@
 - Sol 보고서의 `target_path` 숫자 인덱스는 제출 배열과 일관되게 대응하지 않아 검수 대상으로 직접 사용하지 않는다.
 - 숫자 경로가 있던 40개 지적은 지적 문구, source_refs, 카드 proposition을 대조하여 카드 ID로 고정했다.
 - 검수할 실제 대상은 각 항목의 `impacted_card_ids`와 `impacted_cards`이며, 매핑 근거는 `card_mapping`에 기록했다.
+- `legal_review_questions` 지적은 질문을 생성한 카드와 원 질문을 `card_mapping.review_question`에 표시한다.
 - 이후 미등록 숫자 경로가 추가되면 큐 생성은 추측하지 않고 실패한다.
+
+## Source entailment 판정
+
+- 카드의 source quote는 provenance용 정확 인용구이지 해당 chunk의 유일한 의미 범위가 아니다.
+- source_entailment 지적은 같은 comment_id의 전체 document_text까지 대조한다.
+- 이번 8건 중 7건은 전체 chunk가 해당 문구를 명시하여 기각했고, 제3자 취득형 번역 오류 1건만 수정했다.
 
 ## 검수 순서
 
@@ -26,7 +34,7 @@
 ## 결정값
 
 `fraud_human_review_decisions.jsonl`에서 각 review_id의 status를 completed로 바꾸고 decision을 기록한다.
-허용 결정 예시는 approve_as_is, narrow_proposition, reclassify_authority, set_context_only, group_variant, select_precedent_variant, reject_card, needs_more_source이다.
+허용 결정 예시는 approve_as_is, accept_finding_pending_remediation, correct_translation, narrow_proposition, reclassify_authority, set_context_only, group_variant, select_precedent_variant, reject_card, needs_more_source이다.
 원판례를 확인한 경우 verified_authority_refs에 사용자의 판례 인덱스 식별자를 넣는다.
 
 ## 지적 분포
@@ -57,11 +65,12 @@
 
 ## RuleIR 게이트
 
-- critic_pending: 184
-- context_only_excluded: 128
-- policy_choice_pending: 38
-- human_review_pending: 231
-- provisional_rule_ir_ready: 55
+- critic_pending: 187
+- context_only_excluded: 131
+- policy_choice_pending: 33
+- human_review_pending: 232
+- neural_grounding_spec_ready: 25
+- provisional_rule_ir_ready: 28
 
 현재 전체 RuleIR 생성은 차단되어 있다. 기존 8장짜리 사기죄 모범 NormCard/RuleIR/Scallop은 구조 예시로만 유지하며, 636장 전체에 대한 법적 승인으로 간주하지 않는다.
 

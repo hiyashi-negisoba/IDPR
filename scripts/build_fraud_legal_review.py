@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
@@ -10,6 +11,9 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
 CARD_MANIFEST = PROJECT_ROOT / "data/rulegen/fraud/fraud_norm_card_manifest.json"
+CANDIDATE_MANIFEST = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_norm_candidate_manifest.json"
+)
 CRITIC_ROOT = (
     PROJECT_ROOT
     / "data/rulegen/fraud/norm_card_reviews/fraud_norm_cards_critic_v4_final"
@@ -193,6 +197,12 @@ AUDITED_CARD_MAPPINGS: dict[str, tuple[str, ...]] = {
         "fraud_stages_participation.victim_loss_completion_view",
         "fraud_stages_participation.payment_guarantee_not_provided_no_completion",
     ),
+    "fraud.normcards.concurrence.part002.critic.sanction_cards_missing_review_question": (
+        "fraud_concurrence.aggravated_economic_optional_fine",
+        "fraud_concurrence.insurance_fraud_sanctions",
+        "fraud_concurrence.military_criminal_act_sanctions",
+        "fraud_concurrence.military_property_special_act_sanctions",
+    ),
 }
 
 
@@ -209,6 +219,58 @@ def write_json(path: Path, payload: dict[str, Any]) -> None:
         json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
+
+
+def load_human_decisions() -> dict[str, dict[str, Any]]:
+    if not DECISIONS.exists():
+        return {}
+    decisions: dict[str, dict[str, Any]] = {}
+    for line in DECISIONS.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        decision = json.loads(line)
+        review_id = decision["review_id"]
+        if review_id in decisions:
+            raise ValueError(f"Duplicate human review decision: {review_id}")
+        decisions[review_id] = decision
+    return decisions
+
+
+def generated_review_question_scopes(
+    part_card_ids: list[str],
+    cards_by_id: dict[str, dict[str, Any]],
+) -> list[tuple[str, list[str]]]:
+    part_cards = [cards_by_id[card_id] for card_id in part_card_ids]
+    groups = [
+        (
+            "Verify authority, scope, polarity, and formalization for these "
+            "review-required cards: ",
+            [card["id"] for card in part_cards if card["review_required"]],
+        ),
+        (
+            "Verify the primary decisions and permissible generalization of these "
+            "commentary-reported case cards: ",
+            [
+                card["id"]
+                for card in part_cards
+                if card["formalization"] == "context_only"
+            ],
+        ),
+        (
+            "Group competing views and select the precedent-aligned practical policy "
+            "for these variant cards: ",
+            [
+                card["id"]
+                for card in part_cards
+                if card["formalization"] == "policy_variant"
+            ],
+        ),
+    ]
+    return [
+        (prefix + ", ".join(card_ids), card_ids)
+        for prefix, card_ids in groups
+        if card_ids
+    ]
 
 
 def load_cards() -> tuple[
@@ -231,9 +293,6 @@ def resolve_impacted_cards(
     cards_by_id: dict[str, dict[str, Any]],
 ) -> tuple[list[str], dict[str, Any]]:
     target_path = finding["target_path"]
-    if "legal_review_questions" in target_path or "coverage_gaps" in target_path:
-        return [], {"method": "card_set_metadata", "confidence": 1.0}
-
     if review_id in AUDITED_CARD_MAPPINGS:
         impacted = list(AUDITED_CARD_MAPPINGS[review_id])
         unknown = [card_id for card_id in impacted if card_id not in cards_by_id]
@@ -259,6 +318,26 @@ def resolve_impacted_cards(
             "audit_basis": "finding_text_source_refs_and_card_propositions",
         }
 
+    if "legal_review_questions" in target_path:
+        match = re.search(r"legal_review_questions(?:\[|/)(\d+)", target_path)
+        if not match:
+            return [], {"method": "card_set_metadata", "confidence": 1.0}
+        question_index = int(match.group(1))
+        questions = generated_review_question_scopes(part_card_ids, cards_by_id)
+        if question_index >= len(questions):
+            raise ValueError(
+                f"Unknown generated review question for {review_id}: {target_path}"
+            )
+        question, impacted = questions[question_index]
+        return impacted, {
+            "method": "generated_review_question_scope",
+            "confidence": 1.0,
+            "review_question": question,
+        }
+
+    if "coverage_gaps" in target_path:
+        return [], {"method": "card_set_metadata", "confidence": 1.0}
+
     finding_text = " ".join(
         [
             target_path,
@@ -280,6 +359,7 @@ def resolve_impacted_cards(
 
 def build_queue(
     cards_by_id: dict[str, dict[str, Any]],
+    decisions: dict[str, dict[str, Any]],
 ) -> tuple[list[dict[str, Any]], dict[str, set[str]]]:
     manifest = read_json(CRITIC_MANIFEST)
     queue: list[dict[str, Any]] = []
@@ -294,7 +374,18 @@ def build_queue(
                 report_meta["card_ids"],
                 cards_by_id,
             )
-            impacted_by_module[report_meta["module"]].update(impacted)
+            human_review = decisions.get(
+                review_id,
+                {
+                    "review_id": review_id,
+                    "status": "pending",
+                    "decision": None,
+                    "notes": "",
+                    "verified_authority_refs": [],
+                },
+            )
+            if human_review["status"] != "completed":
+                impacted_by_module[report_meta["module"]].update(impacted)
             queue.append(
                 {
                     "review_id": review_id,
@@ -308,6 +399,7 @@ def build_queue(
                     "recommended_action": finding["recommended_action"],
                     "source_refs": finding["source_refs"],
                     "card_mapping": mapping,
+                    "human_review": human_review,
                     "impacted_card_ids": impacted,
                     "impacted_cards": [
                         {
@@ -343,8 +435,14 @@ def build_readiness(
                 bucket = "policy_choice_pending"
             elif card["review_required"]:
                 bucket = "human_review_pending"
-            else:
+            elif card["formalization"] == "standard_input":
+                bucket = "neural_grounding_spec_ready"
+            elif card["formalization"] == "deterministic_rule":
                 bucket = "provisional_rule_ir_ready"
+            else:
+                raise ValueError(
+                    f"Unhandled formalization for readiness: {card['id']}"
+                )
             buckets[bucket].append(card["id"])
             totals[bucket] += 1
         modules.append(
@@ -358,7 +456,7 @@ def build_readiness(
             }
         )
     return {
-        "version": "1.0.0",
+        "version": "1.1.0",
         "issue_tag": "fraud",
         "status": "draft",
         "legal_review": "pending",
@@ -402,18 +500,25 @@ def build_guide(
     queue: list[dict[str, Any]],
     readiness: dict[str, Any],
     cards_by_module: dict[str, list[dict[str, Any]]],
+    candidate_count: int,
 ) -> str:
     by_type = Counter(row["type"] for row in queue)
     by_module = Counter(row["module"] for row in queue)
+    by_review_status = Counter(
+        row["human_review"]["status"] for row in queue
+    )
     lines = [
         "# 사기죄 NormCard 법률 검수 가이드",
         "",
         "## 현재 상태",
         "",
         "- 범위: 형법 제347조 사기죄 주석서 13개 배치만 포함한다.",
-        "- 검증 후보 662개가 NormCard 636개에 중복 없이 연결되어 있다.",
+        f"- 검증 후보 {candidate_count}개가 NormCard "
+        f"{sum(map(len, cards_by_module.values()))}개에 연결되어 있다.",
         "- Sol 최종 비평은 17개 묶음 전부 계약 검증을 통과했다.",
         f"- 검토 지적은 {len(queue)}개이며, 모든 산출물은 draft/legal_review=pending이다.",
+        f"- 사용자 판정은 completed {by_review_status['completed']}개, "
+        f"pending {by_review_status['pending']}개다.",
         "- 주석서가 보고한 판례로 추정되는 카드는 원판례 확인 전 context_only로 격리했다.",
         "",
         "## 지적-카드 매핑",
@@ -421,7 +526,14 @@ def build_guide(
         "- Sol 보고서의 `target_path` 숫자 인덱스는 제출 배열과 일관되게 대응하지 않아 검수 대상으로 직접 사용하지 않는다.",
         "- 숫자 경로가 있던 40개 지적은 지적 문구, source_refs, 카드 proposition을 대조하여 카드 ID로 고정했다.",
         "- 검수할 실제 대상은 각 항목의 `impacted_card_ids`와 `impacted_cards`이며, 매핑 근거는 `card_mapping`에 기록했다.",
+        "- `legal_review_questions` 지적은 질문을 생성한 카드와 원 질문을 `card_mapping.review_question`에 표시한다.",
         "- 이후 미등록 숫자 경로가 추가되면 큐 생성은 추측하지 않고 실패한다.",
+        "",
+        "## Source entailment 판정",
+        "",
+        "- 카드의 source quote는 provenance용 정확 인용구이지 해당 chunk의 유일한 의미 범위가 아니다.",
+        "- source_entailment 지적은 같은 comment_id의 전체 document_text까지 대조한다.",
+        "- 이번 8건 중 7건은 전체 chunk가 해당 문구를 명시하여 기각했고, 제3자 취득형 번역 오류 1건만 수정했다.",
         "",
         "## 검수 순서",
         "",
@@ -435,7 +547,9 @@ def build_guide(
         "",
         "`fraud_human_review_decisions.jsonl`에서 각 review_id의 status를 completed로 "
         "바꾸고 decision을 기록한다.",
-        "허용 결정 예시는 approve_as_is, narrow_proposition, reclassify_authority, set_context_only, "
+        "허용 결정 예시는 approve_as_is, accept_finding_pending_remediation, "
+        "correct_translation, narrow_proposition, reclassify_authority, "
+        "set_context_only, "
         "group_variant, select_precedent_variant, reject_card, needs_more_source이다.",
         "원판례를 확인한 경우 verified_authority_refs에 사용자의 판례 인덱스 식별자를 넣는다.",
         "",
@@ -469,6 +583,8 @@ def build_guide(
             f"- context_only_excluded: {readiness['totals'].get('context_only_excluded', 0)}",
             f"- policy_choice_pending: {readiness['totals'].get('policy_choice_pending', 0)}",
             f"- human_review_pending: {readiness['totals'].get('human_review_pending', 0)}",
+            "- neural_grounding_spec_ready: "
+            f"{readiness['totals'].get('neural_grounding_spec_ready', 0)}",
             "- provisional_rule_ir_ready: "
             f"{readiness['totals'].get('provisional_rule_ir_ready', 0)}",
             "",
@@ -489,12 +605,14 @@ def build_guide(
 
 def main() -> None:
     cards_by_id, cards_by_module = load_cards()
-    queue, impacted_by_module = build_queue(cards_by_id)
+    candidate_count = read_json(CANDIDATE_MANIFEST)["totals"]["candidates"]
+    decisions = load_human_decisions()
+    queue, impacted_by_module = build_queue(cards_by_id, decisions)
     readiness = build_readiness(cards_by_module, impacted_by_module)
     write_json(
         QUEUE,
         {
-            "version": "1.0.0",
+            "version": "1.1.0",
             "issue_tag": "fraud",
             "status": "draft",
             "legal_review": "pending",
@@ -504,7 +622,8 @@ def main() -> None:
     write_json(READINESS, readiness)
     write_decision_template(queue)
     GUIDE.write_text(
-        build_guide(queue, readiness, cards_by_module), encoding="utf-8"
+        build_guide(queue, readiness, cards_by_module, candidate_count),
+        encoding="utf-8",
     )
     print(
         json.dumps(

@@ -11,6 +11,7 @@
           "fraud_general_object.partial_consideration",
           "general_object.fraud.definition.property-benefit-apparent-acquisition",
           "fraud_general_object.deception_good_faith_duty",
+          "fraud_general_object.triangular_fraud_victim",
           "fraud_general_object.relative_sentence_exemption",
           "fraud_general_object.tax_fraud_exclusion",
           "fraud_general_object.sex_work_payment_evasion",
@@ -19,8 +20,6 @@
         ],
         "critic_pending": [
           "fraud_general_object.subjective_elements",
-          "fraud_general_object.triangular_fraud_victim",
-          "fraud_general_object.nonproperty_examples",
           "general_object.fraud.variant.sex-work-contract-fraud-affirmative",
           "general_object.fraud.variant.sex-work-contract-fraud-negative",
           "general_object.fraud.element.object-other-possessed-other-property",
@@ -35,6 +34,7 @@
           "general_object.fraud.definition.property-benefit-apparent-factual-gain",
           "fraud_general_object.protected_interest_commentary_position",
           "general_object.fraud.exception.public-interest-property-equivalence",
+          "fraud_general_object.nonproperty_examples",
           "fraud_general_object.marriage_money_fraud",
           "general_object.fraud.standard.invasion-offense",
           "general_object.fraud.standard.completion-at-disposition",
@@ -45,6 +45,10 @@
           "fraud_general_object.nonproperty_certificate",
           "fraud_general_object.property_benefit_examples",
           "fraud_general_object.no_concrete_benefit_examples"
+        ],
+        "neural_grounding_spec_ready": [
+          "general_object.fraud.standard.public-interest-only-no-fraud",
+          "general_object.fraud.standard.own-property-not-object"
         ],
         "policy_choice_pending": [
           "fraud_general_object.property_scope_variant",
@@ -58,18 +62,17 @@
         "provisional_rule_ir_ready": [
           "fraud_general_object.objective_elements",
           "fraud_general_object.causation_required",
-          "general_object.fraud.standard.public-interest-only-no-fraud",
-          "general_object.fraud.standard.own-property-not-object",
           "fraud_general_object.real_estate_property"
         ]
       },
       "cards": 45,
       "counts": {
-        "context_only_excluded": 8,
-        "critic_pending": 10,
-        "human_review_pending": 15,
+        "context_only_excluded": 9,
+        "critic_pending": 8,
+        "human_review_pending": 16,
+        "neural_grounding_spec_ready": 2,
         "policy_choice_pending": 7,
-        "provisional_rule_ir_ready": 5
+        "provisional_rule_ir_ready": 3
       },
       "module": "general_object"
     },
@@ -399,14 +402,14 @@
     {
       "buckets": {
         "context_only_excluded": [
-          "fraud_damage_acquisition.appeal_withdrawal_disposition",
           "fraud_damage_acquisition.unquantifiable_property_benefit"
         ],
         "critic_pending": [
           "damage_acquisition.fraud.variant-property-loss-requirement-negative",
-          "fraud_damage_acquisition.third_party_acquisition_intent",
+          "fraud_damage_acquisition.appeal_withdrawal_disposition",
           "fraud_damage_acquisition.provisional_seizure_release_disposition",
           "fraud_damage_acquisition.mortgage_setting_junior_actual_debt_exception",
+          "fraud_damage_acquisition.legitimate_right_deduction_view",
           "fraud_damage_acquisition.repeated_investment_no_return_deduction",
           "fraud_damage_acquisition.letter_of_credit_no_payment_deduction"
         ],
@@ -453,11 +456,11 @@
           "fraud_damage_acquisition.property_loss_limited_affirmative_view",
           "fraud_damage_acquisition.property_loss_affirmative_view",
           "fraud_damage_acquisition.property_loss_completion_view",
-          "fraud_damage_acquisition.mortgage_setting_junior_gain_cap",
-          "fraud_damage_acquisition.legitimate_right_deduction_view"
+          "fraud_damage_acquisition.mortgage_setting_junior_gain_cap"
         ],
         "provisional_rule_ir_ready": [
           "fraud_damage_acquisition.delivery_of_property",
+          "fraud_damage_acquisition.third_party_acquisition_intent",
           "fraud_damage_acquisition.delivery_factual_control",
           "fraud_damage_acquisition.property_disposition_types",
           "fraud_damage_acquisition.aggravated_fraud_threshold",
@@ -467,11 +470,11 @@
       },
       "cards": 56,
       "counts": {
-        "context_only_excluded": 2,
-        "critic_pending": 6,
+        "context_only_excluded": 1,
+        "critic_pending": 7,
         "human_review_pending": 25,
-        "policy_choice_pending": 17,
-        "provisional_rule_ir_ready": 6
+        "policy_choice_pending": 16,
+        "provisional_rule_ir_ready": 7
       },
       "module": "damage_acquisition"
     },
@@ -481,11 +484,14 @@
           "fraud_intent.loan_subsequent_nonpayment",
           "fraud_intent.policy_loan_false_contract",
           "fraud_intent.bill_discount_nondisclosure",
+          "fraud_intent.insurance_overbilling",
           "fraud_intent.insurance_disclosure_breach_alone",
           "fraud_intent.continuing_trade_setoff",
+          "fraud_intent.debt_exceeds_assets_alone",
           "fraud_intent.promissory_note_insolvency",
           "fraud_intent.forged_assignment_evidence",
           "fraud_intent.sale_bequeathed_property",
+          "fraud_intent.vehicle_sale_subsequent_theft",
           "fraud_intent.business_manager_bankruptcy_risk",
           "fraud_intent.precedent_illegal_appropriation_intent",
           "fraud_intent.sham_litigation_auction_price",
@@ -500,9 +506,10 @@
         ],
         "critic_pending": [
           "fraud_intent.no_disposition_inducement_intent",
-          "fraud_intent.insurance_overbilling",
-          "fraud_intent.debt_exceeds_assets_alone",
-          "fraud_intent.vehicle_sale_subsequent_theft"
+          "fraud_intent.illegal_appropriation_not_required",
+          "fraud_intent.illegal_appropriation_required_all",
+          "fraud_intent.illegal_appropriation_required_property_only",
+          "fraud_intent.property_only_appropriation_practical_consequence"
         ],
         "human_review_pending": [
           "fraud_intent.contract_breach_distinction",
@@ -520,22 +527,15 @@
           "fraud_intent.intent_not_proved_scientifically",
           "fraud_intent.prayer_fee_alone_not_fraud"
         ],
-        "policy_choice_pending": [
-          "fraud_intent.illegal_appropriation_not_required",
-          "fraud_intent.illegal_appropriation_required_all",
-          "fraud_intent.illegal_appropriation_required_property_only",
-          "fraud_intent.property_only_appropriation_practical_consequence"
-        ],
         "provisional_rule_ir_ready": [
           "fraud_intent.conditional_intent"
         ]
       },
       "cards": 42,
       "counts": {
-        "context_only_excluded": 19,
-        "critic_pending": 4,
+        "context_only_excluded": 22,
+        "critic_pending": 5,
         "human_review_pending": 14,
-        "policy_choice_pending": 4,
         "provisional_rule_ir_ready": 1
       },
       "module": "intent"
@@ -698,17 +698,13 @@
           "fraud_stages_participation.direct_auction_purchase_no_attempted_fraud",
           "fraud_stages_participation.lodging_food_no_payment_completion"
         ],
-        "provisional_rule_ir_ready": [
-          "fraud_stages_participation.attempt_deceptive_act",
+        "neural_grounding_spec_ready": [
           "fraud_stages_participation.insurance_false_claim_attempt",
           "fraud_stages_participation.gambling_fraud_attempt",
-          "fraud_stages_participation.litigation_service_not_required",
           "fraud_stages_participation.false_claim_provisional_seizure_no_attempt",
           "fraud_stages_participation.enforcement_application_attempt",
           "fraud_stages_participation.false_notarial_title_attachment_attempt",
           "fraud_stages_participation.false_lien_auction_attempt",
-          "fraud_stages_participation.no_causation_attempt",
-          "fraud_stages_participation.property_fraud_completion_control",
           "fraud_stages_participation.insurance_payment_completion",
           "fraud_stages_participation.knowing_introduction_aiding",
           "fraud_stages_participation.payment_order_attempt",
@@ -716,6 +712,12 @@
           "fraud_stages_participation.negotiable_security_delivery_completion",
           "fraud_stages_participation.forged_endorsed_note_discount_completion",
           "fraud_stages_participation.gambling_normal_gambling_included"
+        ],
+        "provisional_rule_ir_ready": [
+          "fraud_stages_participation.attempt_deceptive_act",
+          "fraud_stages_participation.litigation_service_not_required",
+          "fraud_stages_participation.no_causation_attempt",
+          "fraud_stages_participation.property_fraud_completion_control"
         ]
       },
       "cards": 49,
@@ -723,7 +725,8 @@
         "context_only_excluded": 7,
         "critic_pending": 5,
         "human_review_pending": 20,
-        "provisional_rule_ir_ready": 17
+        "neural_grounding_spec_ready": 13,
+        "provisional_rule_ir_ready": 4
       },
       "module": "stages_participation"
     },
@@ -738,7 +741,6 @@
           "fraud_concurrence.trust_account_breach_no_separate"
         ],
         "critic_pending": [
-          "fraud_concurrence.goods_nonpayment_no_benefit_fraud",
           "fraud_concurrence.agent_fraud_only_view",
           "fraud_concurrence.agent_breach_only_view",
           "fraud_concurrence.agent_imaginary_concurrence_view",
@@ -748,7 +750,11 @@
           "fraud_concurrence.general_fraud_penalty",
           "fraud_concurrence.attempt_habitual_punishment",
           "fraud_concurrence.aggravated_economic_value_thresholds",
-          "fraud_concurrence.assigned_claim_mutually_incompatible"
+          "fraud_concurrence.assigned_claim_mutually_incompatible",
+          "fraud_concurrence.aggravated_economic_optional_fine",
+          "fraud_concurrence.insurance_fraud_sanctions",
+          "fraud_concurrence.military_criminal_act_sanctions",
+          "fraud_concurrence.military_property_special_act_sanctions"
         ],
         "human_review_pending": [
           "fraud_concurrence.same_victim_repeated_inclusive",
@@ -787,40 +793,41 @@
           "fraud_concurrence.title_trust_transferee_no_loss",
           "fraud_concurrence.mutually_incompatible_definition"
         ],
-        "provisional_rule_ir_ready": [
+        "neural_grounding_spec_ready": [
           "fraud_concurrence.property_and_benefit_single_offense",
           "fraud_concurrence.one_deception_multiple_victims",
           "fraud_concurrence.post_disposal_no_separate_offense",
+          "fraud_concurrence.goods_nonpayment_no_benefit_fraud",
           "fraud_concurrence.per_victim_separate_offense",
           "fraud_concurrence.litigation_fraud_perjury_real",
           "fraud_concurrence.arson_insurance_fraud_real",
           "fraud_concurrence.cheating_gambling_excludes_gambling",
           "fraud_concurrence.bribery_fraud_imaginary",
-          "fraud_concurrence.insurance_policy_payment_inclusive",
-          "fraud_concurrence.stolen_property_acquisition_definition",
-          "fraud_concurrence.aggravated_economic_optional_fine",
-          "fraud_concurrence.insurance_fraud_sanctions",
-          "fraud_concurrence.military_criminal_act_sanctions",
-          "fraud_concurrence.military_property_special_act_sanctions"
+          "fraud_concurrence.insurance_policy_payment_inclusive"
+        ],
+        "provisional_rule_ir_ready": [
+          "fraud_concurrence.stolen_property_acquisition_definition"
         ]
       },
       "cards": 66,
       "counts": {
         "context_only_excluded": 6,
-        "critic_pending": 11,
+        "critic_pending": 14,
         "human_review_pending": 35,
-        "provisional_rule_ir_ready": 14
+        "neural_grounding_spec_ready": 10,
+        "provisional_rule_ir_ready": 1
       },
       "module": "concurrence"
     }
   ],
   "status": "draft",
   "totals": {
-    "context_only_excluded": 128,
-    "critic_pending": 184,
-    "human_review_pending": 231,
-    "policy_choice_pending": 38,
-    "provisional_rule_ir_ready": 55
+    "context_only_excluded": 131,
+    "critic_pending": 187,
+    "human_review_pending": 232,
+    "neural_grounding_spec_ready": 25,
+    "policy_choice_pending": 33,
+    "provisional_rule_ir_ready": 28
   },
-  "version": "1.0.0"
+  "version": "1.1.0"
 }

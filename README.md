@@ -59,7 +59,7 @@ and its connection to the earlier DCDE/OBJECTION work, is in
 `docs/research/idpr_research_draft.md`.
 
 The full Article 347 fraud preparation run is source-complete but still legally
-pending. It contains 662 validated candidates and 636 candidate-linked NormCards.
+pending. It contains 661 validated candidates and 636 candidate-linked NormCards.
 Rebuild the deterministic final artifacts and review queue with:
 
 ```bash

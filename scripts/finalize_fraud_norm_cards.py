@@ -30,6 +30,39 @@ OUTPUT_ROOT = PROJECT_ROOT / "data/rulegen/fraud/norm_card_sets"
 MANIFEST = PROJECT_ROOT / "data/rulegen/fraud/fraud_norm_card_manifest.json"
 FALLBACK_MODULES = {"deception", "special_forms"}
 
+HUMAN_CARD_CORRECTIONS = {
+    "fraud_general_object.nonproperty_examples": {
+        "proposition": (
+            "혼인을 빙자하여 부녀를 기망해 간음한 경우에는 재물 또는 재산상 "
+            "이익의 취득이 없어 사기죄가 성립하지 않는다고 소개되어 있다."
+        ),
+        "review_notes": (
+            "허위기재 여권 사례는 사용자 검수로 제거했다. 혼인빙자 간음 사례에 "
+            "한정한다."
+        ),
+    },
+    "fraud_general_object.triangular_fraud_victim": {
+        "proposition": (
+            "법원을 기망하여 제3자로부터 재물을 편취한 경우, 재산상 권리를 가진 "
+            "제3자가 피해자이고 피기망자인 법원은 피해자가 아니라는 판례가 "
+            "소개되어 있다."
+        ),
+        "review_notes": (
+            "법원을 피기망자로 한 소송사기 판례의 피해자 판단에 한정한다. "
+            "삼각사기 일반 법리와 분리했다."
+        ),
+    },
+    "fraud_damage_acquisition.third_party_acquisition_intent": {
+        "proposition": (
+            "제3자로 하여금 재물을 교부받거나 재산상 이익을 취득하게 한 "
+            "사기에서는 제3자가 범인의 정을 모르는 도구 또는 범인의 이익을 "
+            "위해 행동하는 대리인이거나, 적어도 범인에게 제3자로 하여금 재물을 "
+            "취득하게 할 의사가 있어야 한다."
+        ),
+        "review_notes": "제3자 취득형 의사의 객체를 재물로 바로잡았다.",
+    },
+}
+
 
 def candidate_source_refs(candidate: dict[str, Any]) -> list[dict[str, Any]]:
     return [dict(ref) for ref in candidate["source_refs"]]
@@ -206,7 +239,15 @@ def build_final_card_set(
         api_output = read_json(SOURCE_ROOT / f"{module}.json")
         cards = []
         split_cards = 0
-        for card in api_output["cards"]:
+        for source_card in api_output["cards"]:
+            card = dict(source_card)
+            card["candidate_refs"] = [
+                ref
+                for ref in source_card["candidate_refs"]
+                if (ref["request_id"], ref["candidate_id"]) in candidates
+            ]
+            if not card["candidate_refs"]:
+                continue
             linked = [
                 candidates[(ref["request_id"], ref["candidate_id"])]
                 for ref in card["candidate_refs"]
@@ -249,6 +290,11 @@ def build_final_card_set(
                 f"Split {split_cards} API cards that merged different norm kinds, "
                 "polarities, or authority classes into one-to-one candidate cards."
             )
+
+    for card in cards:
+        correction = HUMAN_CARD_CORRECTIONS.get(card["id"])
+        if correction:
+            card.update(correction)
 
     return {
         "version": "1.1.0",

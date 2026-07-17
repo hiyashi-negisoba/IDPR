@@ -554,7 +554,7 @@ def test_fraud_final_candidate_exemplar_and_adjudication_are_valid() -> None:
     candidate_ids = {
         candidate["candidate_id"] for candidate in candidates["candidates"]
     }
-    assert len(candidates["candidates"]) == 62
+    assert len(candidates["candidates"]) == 61
     assert {
         candidate["polarity"] for candidate in candidates["candidates"]
     } == {"positive", "negative", "exception"}
@@ -600,7 +600,7 @@ def test_all_fraud_candidate_batches_are_source_bounded() -> None:
     manifest = json.loads(CANDIDATE_MANIFEST.read_text(encoding="utf-8"))
 
     assert len(manifest["batches"]) == 13
-    assert manifest["totals"]["candidates"] == 662
+    assert manifest["totals"]["candidates"] == 661
     assert manifest["totals"]["unresolved_questions"] == 37
     assert len(manifest["duplicate_candidate_ids"]) == 2
     for batch in manifest["batches"]:
@@ -637,7 +637,7 @@ def test_fraud_norm_card_modules_partition_all_candidates() -> None:
         len(batch["candidates"])
         for payload in payloads.values()
         for batch in payload["validated_batches"]
-    ) == 662
+    ) == 661
     assert all(payload["unresolved_questions"] for payload in payloads.values())
 
 
@@ -657,7 +657,7 @@ def test_final_fraud_norm_card_modules_cover_all_candidates() -> None:
     payloads = build_module_payloads()
     manifest = json.loads(NORM_CARD_MANIFEST.read_text(encoding="utf-8"))
 
-    assert manifest["totals"]["candidates"] == 662
+    assert manifest["totals"]["candidates"] == 661
     assert manifest["totals"]["cards"] >= 600
     for module in manifest["modules"]:
         card_set = json.loads(
@@ -674,6 +674,49 @@ def test_final_fraud_norm_card_modules_cover_all_candidates() -> None:
             request_scope,
             allowed_candidates=candidate_map,
         )
+
+
+def test_user_adjudicated_fraud_cards_are_narrowed() -> None:
+    candidates = json.loads(FINAL_CANDIDATES.read_text(encoding="utf-8"))[
+        "candidates"
+    ]
+    candidates_by_id = {
+        candidate["candidate_id"]: candidate for candidate in candidates
+    }
+    assert "fraud.standard.false-passport-no-property-object" not in candidates_by_id
+    assert candidates_by_id[
+        "fraud.standard.triangular-fraud-victim-property-right-holder"
+    ]["proposition"].startswith("법원을 기망하여 제3자로부터 재물을 편취한 경우")
+
+    general_object = json.loads(
+        (
+            PROJECT_ROOT
+            / "data/rulegen/fraud/norm_card_sets/general_object.json"
+        ).read_text(encoding="utf-8")
+    )
+    general_cards = {card["id"]: card for card in general_object["cards"]}
+    nonproperty = general_cards["fraud_general_object.nonproperty_examples"]
+    assert len(nonproperty["candidate_refs"]) == 1
+    assert "여권" not in nonproperty["proposition"]
+    assert all("여권" not in ref["quote"] for ref in nonproperty["source_refs"])
+    triangular = general_cards["fraud_general_object.triangular_fraud_victim"]
+    assert "피기망자인 법원" in triangular["proposition"]
+    assert "삼각사기에서" not in triangular["proposition"]
+
+    damage = json.loads(
+        (
+            PROJECT_ROOT
+            / "data/rulegen/fraud/norm_card_sets/damage_acquisition.json"
+        ).read_text(encoding="utf-8")
+    )
+    damage_cards = {card["id"]: card for card in damage["cards"]}
+    third_party = damage_cards[
+        "fraud_damage_acquisition.third_party_acquisition_intent"
+    ]
+    assert "제3자로 하여금 재물을 취득하게 할 의사" in third_party[
+        "proposition"
+    ]
+    assert "제3자를 취득하게 할 의사" not in third_party["proposition"]
 
 
 def test_fraud_norm_card_critic_jobs_partition_every_final_card() -> None:
@@ -694,12 +737,38 @@ def test_fraud_norm_card_critic_jobs_partition_every_final_card() -> None:
     )
     for job in jobs:
         target = job.payload["target"]
+        commentary_context = job.payload["bounded_source_material"][
+            "commentary_context"
+        ]
         actual_comment_ids = {
             ref["comment_id"]
             for card in target["cards"]
             for ref in card["source_refs"]
         }
         assert set(target["source_scope"]["comment_ids"]) == actual_comment_ids
+        assert {
+            chunk["comment_id"] for chunk in commentary_context
+        } == actual_comment_ids
+        assert all(chunk["document_text"] for chunk in commentary_context)
+
+    counterfeit_job = next(
+        job
+        for job in jobs
+        if any(
+            card["id"]
+            == "fraud_concurrence.counterfeit_currency_real_concurrence"
+            for card in job.payload["target"]["cards"]
+        )
+    )
+    counterfeit_context = {
+        chunk["comment_id"]: chunk["document_text"]
+        for chunk in counterfeit_job.payload["bounded_source_material"][
+            "commentary_context"
+        ]
+    }
+    assert "그 보호법익을 달리하고 있으므로" in counterfeit_context[
+        "comm_001692_제347조_Ⅹ.8_125"
+    ]
 
 
 def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> None:
@@ -707,6 +776,7 @@ def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> Non
     queue = json.loads(NORM_CARD_REVIEW_QUEUE.read_text(encoding="utf-8"))
     decisions = load_jsonl(HUMAN_REVIEW_DECISIONS)
     readiness = json.loads(RULE_IR_READINESS.read_text(encoding="utf-8"))
+    card_manifest = json.loads(NORM_CARD_MANIFEST.read_text(encoding="utf-8"))
 
     assert critic["totals"]["reports"] == 17
     assert critic["totals"]["cards"] == 636
@@ -718,16 +788,40 @@ def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> Non
     }
     assert readiness["full_rule_ir_generation_blocked"] is True
     assert sum(readiness["totals"].values()) == 636
+    module_paths = {
+        module["module"]: PROJECT_ROOT / module["path"]
+        for module in card_manifest["modules"]
+    }
+    formalization_by_id = {
+        card["id"]: card["formalization"]
+        for module in readiness["modules"]
+        for card in json.loads(
+            module_paths[module["module"]].read_text(encoding="utf-8")
+        )["cards"]
+    }
+    for module in readiness["modules"]:
+        for card_id in module["buckets"].get(
+            "provisional_rule_ir_ready", []
+        ):
+            assert formalization_by_id[card_id] == "deterministic_rule"
+        for card_id in module["buckets"].get(
+            "neural_grounding_spec_ready", []
+        ):
+            assert formalization_by_id[card_id] == "standard_input"
 
     items_by_id = {item["review_id"]: item for item in queue["items"]}
     assert Counter(
         item["card_mapping"]["method"] for item in queue["items"]
     ) == {
-        "critic_text_audited_override": 40,
+        "critic_text_audited_override": 41,
         "explicit_card_id": 20,
-        "card_set_metadata": 5,
+        "generated_review_question_scope": 4,
         "explicit_wildcard": 2,
     }
+    assert Counter(
+        item["human_review"]["status"] for item in queue["items"]
+    ) == {"pending": 57, "completed": 10}
+    assert all(item["impacted_card_ids"] for item in queue["items"])
     assert {
         item["review_id"]: tuple(item["impacted_card_ids"])
         for item in queue["items"]
@@ -764,6 +858,16 @@ def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> Non
         "deception.fraud.standard.shamanistic-false-misfortune",
         "deception.fraud.standard.prayer-fee-beyond-permitted-limit",
         "deception.fraud.standard.false-religious-claims-donations",
+    ]
+    policy_question = items_by_id[
+        "fraud.normcards.damage_acquisition.part002.critic."
+        "unsupported_variant_policy_question"
+    ]
+    assert policy_question["card_mapping"]["method"] == (
+        "generated_review_question_scope"
+    )
+    assert policy_question["impacted_card_ids"] == [
+        "fraud_damage_acquisition.legitimate_right_deduction_view"
     ]
 
 

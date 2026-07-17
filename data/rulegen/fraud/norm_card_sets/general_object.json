@@ -432,11 +432,11 @@
       "id": "fraud_general_object.triangular_fraud_victim",
       "norm_kind": "standard",
       "polarity": "positive",
-      "proposition": "삼각사기에서 재산상 권리를 가진 자만 피해자가 될 수 있고, 피기망자가 아닌 재물을 편취당한 제3자가 피해자가 된다는 판례가 소개되어 있다.",
+      "proposition": "법원을 기망하여 제3자로부터 재물을 편취한 경우, 재산상 권리를 가진 제3자가 피해자이고 피기망자인 법원은 피해자가 아니라는 판례가 소개되어 있다.",
       "request_ids": [
         "fraud.article347.pass1.001"
       ],
-      "review_notes": "피기망자와 재산권자 관계를 사실관계별로 검토해야 한다. Conservatively normalized from linked candidates.",
+      "review_notes": "법원을 피기망자로 한 소송사기 판례의 피해자 판단에 한정한다. 삼각사기 일반 법리와 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -606,10 +606,6 @@
       "authority_basis": "commentary_synthesis",
       "candidate_refs": [
         {
-          "candidate_id": "fraud.standard.false-passport-no-property-object",
-          "request_id": "fraud.article347.pass1.001"
-        },
-        {
           "candidate_id": "fraud.standard.marriage-pretext-intercourse-no-property-object",
           "request_id": "fraud.article347.pass1.001"
         }
@@ -619,18 +615,13 @@
       "id": "fraud_general_object.nonproperty_examples",
       "norm_kind": "standard",
       "polarity": "negative",
-      "proposition": "허위기재 여권의 교부나 혼인을 빙자한 간음처럼 재물 또는 재산상 이익을 취득하지 않는 경우 사기죄가 성립하지 않는다고 소개되어 있다.",
+      "proposition": "혼인을 빙자하여 부녀를 기망해 간음한 경우에는 재물 또는 재산상 이익의 취득이 없어 사기죄가 성립하지 않는다고 소개되어 있다.",
       "request_ids": [
         "fraud.article347.pass1.001"
       ],
-      "review_notes": "각 사례의 다른 범죄 성립 여부는 이 카드의 범위 밖이다. Conservatively normalized from linked candidates.",
+      "review_notes": "허위기재 여권 사례는 사용자 검수로 제거했다. 혼인빙자 간음 사례에 한정한다.",
       "review_required": true,
       "source_refs": [
-        {
-          "comment_id": "comm_001692_제347조_Ⅱ.3_4",
-          "quote": "공무원을 기망해서 허위기재의 여권을 교부받은 경우에도 사기죄는 성립하지 않는다.",
-          "section_path": "Ⅱ.3"
-        },
         {
           "comment_id": "comm_001692_제347조_Ⅱ.3_4",
           "quote": "혼인을 빙자하고 부녀를 기망하여 간음하는 경우에는 재물 또는 재산상의 이익 을 취득하는 경우가 아니므로 사기죄가 성립하지 않는다.",

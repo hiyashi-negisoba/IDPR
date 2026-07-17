@@ -255,12 +255,16 @@ candidate를 만든다.
   > 판례가 채택하지 않은 학설
 ```
 
-현재 제347조 준비 실행은 13개 주석서 배치의 후보 662개와 candidate-linked NormCard
+현재 제347조 준비 실행은 13개 주석서 배치의 후보 661개와 candidate-linked NormCard
 636개까지 완료했다. 이 실행은 offline norm compilation의 실제 설계·실패 양상을
 확인하기 위한 사기죄 exemplar이며, KCL 61개 long-form generation이라는 main task를
 대체하지 않는다. Sol의 최종 지적 67개와 사람 판례 검수 대기 상태 때문에 전체
 RuleIR 생성은 차단되어 있다. 승인 전에는 기존 8장짜리 RuleIR/Scallop만 구조 예시로
 사용한다.
+
+636개 카드를 모두 규칙으로 컴파일하지 않는다. 구조적 구성요건과 검증된 예외만
+Scallop core rule 후보로 두고, 개방형 standard는 neural grounding predicate의 사양으로,
+구체 판례 적용례는 precedent RAG context로 사용한다.
 
 학설은 설명과 audit를 위해 `alternative_only`로 보존한다. Canonical conclusion에는
 현재 판례를 연결한다.

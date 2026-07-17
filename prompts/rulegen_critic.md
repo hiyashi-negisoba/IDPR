@@ -22,6 +22,11 @@ Common checks:
    target merely because its own schema requires source quotations. For a
    `norm_candidate_batch`, target quotes are mandatory provenance and are defective only
    when they are fabricated, out of scope, or do not support the proposition.
+7. When `bounded_source_material.commentary_context` is supplied, assess source
+   entailment against the full `document_text` of the referenced commentary chunk. A
+   candidate or card quote is an exact provenance excerpt, not an assertion that the
+   rest of the same bounded chunk is unavailable. Do not report an unsupported clause
+   when that clause is explicit in the referenced chunk's full text.
 
 Stage-specific checks:
 
