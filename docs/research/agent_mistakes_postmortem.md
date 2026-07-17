@@ -109,6 +109,73 @@ append-only로 기록해야 한다.
 
 ## 판단 및 진행 방식의 문제
 
+### finding 검수 큐를 전체 카드 검수처럼 설명함
+
+`fraud_norm_card_review_queue.json`의 67개 항목은 카드 목록이 아니라 Sol finding
+목록이었다. 하나의 finding이 여러 카드에 영향을 주고, 반대로 finding이 없는 카드도
+`review_required=true`일 수 있는데 이 차이를 사용자에게 먼저 설명하지 않았다. 그
+결과 사용자는 약 50여 개 finding을 검수하면 나머지 카드가 승인되는 것으로 이해할
+수밖에 없었다.
+
+더 큰 문제는 57개 finding에 대해 사용자가 “지적이 타당하다”고 판정한 뒤에도 실제
+NormCard 수정은 하지 않은 채 `status=pending`으로 남겨 두고 RuleIR 진입 가능 카드
+53개만 추렸다는 점이다. 검수 결과를 적용하는 것보다 다음 단계를 먼저 진행하려 한
+잘못이다.
+
+수정:
+
+- 57개 accepted finding을 API 없이 카드·전체 source chunk와 직접 대조해 모두 반영
+- 196개 카드 수정과 finding별 변경을 remediation ledger에 기록
+- 67개 finding 모두 `resolved=true`, 57개 `remediation_status=applied`로 검증
+- 결정 완료와 remediation 완료를 별도 상태로 검사하도록 queue builder 수정
+
+### `critic_pending`의 의미를 잘못 설명함
+
+사용자에게 187개를 “critic 자체가 끝나지 않은 카드”라고 설명했으나 실제로는 기존
+critic finding의 영향 대상으로 계산된 카드였다. 코드의 bucket 이름을 사실 확인 없이
+자연어로 확대 해석한 오류다. 게다가 당시 readiness와 최신 queue의 영향 카드 수도
+서로 일치하지 않았다.
+
+수정 후 readiness는 `critic_pending`과 포괄적인 `human_review_pending`을 제거하고,
+실행 역할에 따라 deterministic rule, standard input, policy choice, RAG context로
+전수 분류한다. 모든 수의 합이 전체 카드 수와 같지 않으면 테스트가 실패한다.
+
+### neural grounding과 사람의 법률검토를 혼동함
+
+`standard_input`은 사실관계에 대한 모델 판단이 필요하다는 뜻인데, 이를 곧바로
+`review_required=true`와 동일시했다. 그 결과 source-bounded standard까지 232개
+`human_review_pending`처럼 보였고, 사용자가 실제로 무엇을 검토해야 하는지 알 수
+없었다.
+
+수정 후 `standard_input`은 RuleIR의 neural input predicate로 승인할 수 있고,
+사람이 선택해야 하는 법적 불확실성은 `policy_variant`에만 남긴다. 사례 판례와 현행법
+미확인 내용은 `context_only`로 내려 RAG에서만 사용한다.
+
+### 경쟁 견해를 한 카드에 합친 채 사용자에게 선택을 요구함
+
+삼각사기 네 학설, 전체재산설·개별재산설, 재물 가치 기준, 보호법익 대립이 한 카드에
+합쳐져 있었다. 이 상태에서 policy 선택을 요청하면 선택 가능한 단위가 존재하지 않는다.
+또 판례 설명과 보충 논거까지 selectable policy로 포함한 그룹도 있었다.
+
+수정:
+
+- 합쳐진 네 쟁점에서 10개 독립 policy card를 source/candidate별로 분리
+- 중복 요약, 판례 설명, 보충 논거는 `context_only`로 재분류
+- corpus 안에서 판례 방향이 확인되는 보호법익·경합·불법원인급여·권리행사는 실무
+  규칙으로 확정
+- 단순 분류 차이나 사실조건 차이는 policy가 아니라 RAG 또는 standard input으로 정리
+
+### 사용자의 비용으로 remediation을 시도하려 함
+
+위 57개 수정을 직접 해야 하는 상황에서 Terra patch runner와 prompt/schema를 먼저
+작성했다. 실제 API 호출 전 사용자가 중단시켜 비용은 발생하지 않았지만, 에이전트의
+작업 오류를 사용자의 API 예산으로 고치려 한 판단 자체가 잘못이었다. 추가 파일은 즉시
+제거했고 worktree가 clean인 것을 확인한 뒤 모든 remediation을 직접 수행했다.
+
+현재 remediation ledger, 전체 audit, policy queue에는 `api_calls: 0`을 명시하고
+테스트로 고정했다. 앞으로 사용자가 명시적으로 승인하지 않은 remediation·재시도에는
+API를 사용하지 않는다.
+
 ### critic finding 0을 목표로 삼은 표현
 
 초기 전략 문서에는 finding이 0이 될 때까지 반복 호출한다는 취지의 문장이 있었다.
@@ -142,6 +209,9 @@ NormCard merge가 불안정한 상태에서도 전체 RuleIR 생성으로 빨리
 6. critic은 조언자이며 수정 권한이나 법률 승인 권한을 주지 않는다.
 7. primary authority 미확인 판례 적용례는 `context_only`로 둔다.
 8. 사람 검수 전에는 RuleIR과 Scallop coverage를 주장하지 않는다.
+9. finding 판정, 실제 artifact 수정, 법률 정책 선택을 서로 다른 상태로 기록한다.
+10. neural judgment 필요성과 사람의 법률검토 필요성을 같은 flag로 표현하지 않는다.
+11. 에이전트의 오류 remediation 비용을 사용자 API 예산에 전가하지 않는다.
 
 ## 반성
 
@@ -153,3 +223,8 @@ NormCard merge가 불안정한 상태에서도 전체 RuleIR 생성으로 빨리
 앞으로는 “모델이 잘할 것”을 전제로 진행하지 않고, 누락·과병합·권위 상승·범위 누출이
 발생해도 자동으로 멈추는 계약을 먼저 만든다. 법적 판단이 필요한 부분은 모델 출력으로
 덮지 않고 사용자가 판례 인덱스와 실무 기준으로 결정할 검수 항목으로 남긴다.
+
+이번 추가 오류는 계약이 있어도 상태의 의미를 정확히 설명하지 않고 다음 단계로
+서두르면 사용자가 검수 범위를 오인한다는 점을 보여 주었다. 앞으로는 단계 전환 전에
+`전체 대상 수 = 완료 + 제외 + 사용자 결정 필요`가 성립하는 표를 먼저 제시하고,
+사용자 결정 필요 항목을 숨긴 채 일부 ready subset으로 다음 단계를 시작하지 않는다.

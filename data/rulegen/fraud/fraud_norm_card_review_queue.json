@@ -37,6 +37,8 @@
       "part": 1,
       "priority": 1,
       "recommended_action": "근거 설명을 삭제하여 출처가 지지하는 결론으로 한정하거나, 해당 근거를 명시하는 범위 내 출처를 연결하라.",
+      "remediation_status": "not_applicable",
+      "resolved": true,
       "review_id": "fraud.normcards.concurrence.part001.critic.counterfeit_reason_unsupported",
       "severity": "hard",
       "source_refs": [
@@ -84,6 +86,8 @@
       "part": 1,
       "priority": 1,
       "recommended_action": "제공된 출처가 직접 뒷받침하는 후속 미변제의 효과로 명제를 한정하거나, 추가된 선행 요건과 최초 사기 성립을 뒷받침하는 범위 내 출처를 연결하라.",
+      "remediation_status": "not_applicable",
+      "resolved": true,
       "review_id": "fraud.normcards.concurrence.part001.critic.goods_nonpayment_source_mismatch",
       "severity": "hard",
       "source_refs": [
@@ -103,9 +107,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.concurrence.part002.critic.assigned_claim_outcome_overstated",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -116,7 +120,7 @@
           "authority_basis": "commentary_reported_precedent",
           "formalization": "context_only",
           "id": "fraud_concurrence.assigned_claim_mutually_incompatible",
-          "proposition": "차용금 편취와 담보로 양도한 채권의 추심·임의소비는 양도채권 가치와 채권양도에 관한 피고인의 진정성에 따라 비양립관계일 수 있으므로, 사기죄와 횡령죄를 모두 인정할 수 없다.",
+          "proposition": "2011도1442 사안에서는 담보 양도채권의 가치와 채권양도에 관한 피고인의 진정성 등을 심리하여 차용금 사기와 양도채권 횡령 중 어느 죄에 해당하는지 가려야 하므로, 두 죄를 모두 인정한 원심에 법리오해와 심리미진의 위법이 있다고 판단하였다.",
           "source_refs": [
             {
               "comment_id": "comm_001692_제347조_Ⅹ.6_122",
@@ -136,6 +140,8 @@
       "part": 2,
       "priority": 1,
       "recommended_action": "명제를 해당 판례가 보고한 조건부·사안별 판단과 원심의 법리오해 및 심리미진 지적 범위로 한정하고, 비양립 여부가 관련 사정에 따라 달라진다는 점을 보존한다.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.concurrence.part002.critic.assigned_claim_outcome_overstated",
       "severity": "hard",
       "source_refs": [
@@ -182,6 +188,8 @@
       "part": 1,
       "priority": 1,
       "recommended_action": "의사의 객체를 제3자가 아니라 제3자로 하여금 취득하게 할 재물로 명확히 하여 원 후보의 의미를 보존하라.",
+      "remediation_status": "not_applicable",
+      "resolved": true,
       "review_id": "fraud.normcards.damage_acquisition.part001.critic.translation.third_party_object_missing",
       "severity": "hard",
       "source_refs": [
@@ -195,15 +203,15 @@
     },
     {
       "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
         "confidence": 1.0,
-        "method": "generated_review_question_scope",
-        "review_question": "Group competing views and select the precedent-aligned practical policy for these variant cards: fraud_damage_acquisition.legitimate_right_deduction_view"
+        "method": "critic_text_audited_override"
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.damage_acquisition.part002.critic.unsupported_variant_policy_question",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -212,7 +220,7 @@
       "impacted_cards": [
         {
           "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "formalization": "context_only",
           "id": "fraud_damage_acquisition.legitimate_right_deduction_view",
           "proposition": "학설상 사기로 취득한 재산 일부에 행위자가 정당하게 취득할 권리가 있으면 권리상당액을 공제한 잔액이 피해액이지만, 불가분적으로 편취한 경우에는 해당 금원 전액에 대한 사기죄가 성립한다고 본다.",
           "source_refs": [
@@ -234,6 +242,8 @@
       "part": 2,
       "priority": 1,
       "recommended_action": "검토 질문을 경쟁 견해와 관련 판례의 존재 여부를 확인하는 질문으로 제한하고, 추가 자료가 확보되기 전에는 특정 실무 정책의 선택을 요구하지 않는다.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.damage_acquisition.part002.critic.unsupported_variant_policy_question",
       "severity": "soft",
       "source_refs": [
@@ -281,6 +291,8 @@
       "part": 1,
       "priority": 1,
       "recommended_action": "두 사례를 분리하거나, 여권 사례에 대해서는 출처가 명시한 불성립 결론만 유지하고 재산상 이익 부재라는 공통 이유를 삭제한다.",
+      "remediation_status": "not_applicable",
+      "resolved": true,
       "review_id": "fraud.normcards.general_object.part001.critic.nonproperty_examples_overgeneralized",
       "severity": "hard",
       "source_refs": [
@@ -333,6 +345,8 @@
       "part": 1,
       "priority": 1,
       "recommended_action": "일반 기준은 재산상 권리 보유 여부로 한정하고, 법원이 피기망자였던 부분은 해당 사례의 예시로 명시한다.",
+      "remediation_status": "not_applicable",
+      "resolved": true,
       "review_id": "fraud.normcards.general_object.part001.critic.triangular_fraud_case_generalized",
       "severity": "hard",
       "source_refs": [
@@ -380,6 +394,8 @@
       "part": 1,
       "priority": 1,
       "recommended_action": "확인되지 않은 두 조건을 proposition에서 제거하여 제공된 사안 요지로 한정하거나, 그 조건을 명시하는 범위 내 출처를 연결한다.",
+      "remediation_status": "not_applicable",
+      "resolved": true,
       "review_id": "fraud.normcards.intent.part001.critic.debt_assets_unsupported_conditions",
       "severity": "hard",
       "source_refs": [
@@ -427,6 +443,8 @@
       "part": 1,
       "priority": 1,
       "recommended_action": "출처가 뒷받침하지 않는 '보험회사의 삭감을 예상하고'라는 조건을 삭제하거나, 해당 조건을 명시하는 범위 내 출처가 있다면 그 출처와의 연결을 추가한다.",
+      "remediation_status": "not_applicable",
+      "resolved": true,
       "review_id": "fraud.normcards.intent.part001.critic.insurance_overbilling_unsupported_condition",
       "severity": "hard",
       "source_refs": [
@@ -474,6 +492,8 @@
       "part": 1,
       "priority": 1,
       "recommended_action": "서류 교부 및 이전등록 가능성에 관한 구체적 사실을 제거하고 출처에 나타난 사안 요지로 한정하거나, 그 사실을 뒷받침하는 범위 내 출처를 추가한다.",
+      "remediation_status": "not_applicable",
+      "resolved": true,
       "review_id": "fraud.normcards.intent.part001.critic.vehicle_sale_unsupported_document_fact",
       "severity": "hard",
       "source_refs": [
@@ -520,6 +540,8 @@
       "part": 1,
       "priority": 1,
       "recommended_action": "Remove the unsupported objection/effect clause or supply a bounded source locator that supports it.",
+      "remediation_status": "not_applicable",
+      "resolved": true,
       "review_id": "fraud.normcards.special_forms.part001.critic.f1.false_payment_order_unsupported_clause",
       "severity": "hard",
       "source_refs": [
@@ -566,6 +588,8 @@
       "part": 1,
       "priority": 1,
       "recommended_action": "Limit the card to the conditions and conclusion stated in the bounded source, unless additional bounded support is supplied for the procedural explanation.",
+      "remediation_status": "not_applicable",
+      "resolved": true,
       "review_id": "fraud.normcards.special_forms.part001.critic.f2.litigation_costs_scope_expansion",
       "severity": "hard",
       "source_refs": [
@@ -584,9 +608,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.damage_acquisition.part001.critic.authority.case_cards_mislabeled",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -594,8 +618,8 @@
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "authority_basis": "commentary_reported_precedent",
+          "formalization": "context_only",
           "id": "fraud_damage_acquisition.provisional_seizure_release_disposition",
           "proposition": "가압류 집행을 마친 자가 가압류를 해제하여 소유자가 부담 없는 부동산을 소유하는 이익을 얻는 경우 가압류 해제는 재산적 처분행위에 해당하고, 피보전채권 부존재가 밝혀져도 달리 볼 수 없다.",
           "source_refs": [
@@ -612,6 +636,8 @@
       "part": 1,
       "priority": 2,
       "recommended_action": "각 사안별 카드가 해설이 보고한 판례인지 단순 해설 종합인지 개별 확인하고, 판례 보고 카드에 한하여 authority_basis와 doctrinal_status를 commentary_reported_precedent 및 precedent_position에 맞게 정정하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.damage_acquisition.part001.critic.authority.case_cards_mislabeled",
       "severity": "hard",
       "source_refs": [
@@ -655,9 +681,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.damage_acquisition.part002.critic.letter_credit_authority",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -665,8 +691,8 @@
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "authority_basis": "commentary_reported_precedent",
+          "formalization": "context_only",
           "id": "fraud_damage_acquisition.letter_of_credit_no_payment_deduction",
           "proposition": "회사 임원들의 사기행위로 신용장 개설은행이 수회 신용장을 개설하여 회사가 지급보증 이익을 취득한 경우 신용장 대금 합계가 특경법상 이득액이고 이후 결제대금은 공제하지 않는다.",
           "source_refs": [
@@ -688,6 +714,8 @@
       "part": 2,
       "priority": 2,
       "recommended_action": "authority_basis와 doctrinal_status를 사건판단에 맞는 분류로 재검토하고, 1차 판결 및 일반화 가능성이 확인되지 않으면 standard_input 대신 사건 맥락을 보존하는 formalization을 사용한다.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.damage_acquisition.part002.critic.letter_credit_authority",
       "severity": "hard",
       "source_refs": [
@@ -707,9 +735,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.damage_acquisition.part002.critic.repeated_investment_authority",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -717,8 +745,8 @@
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "authority_basis": "commentary_reported_precedent",
+          "formalization": "context_only",
           "id": "fraud_damage_acquisition.repeated_investment_no_return_deduction",
           "proposition": "원금·수익금 지급 의사나 능력 없이 투자금을 편취한 경우 각 투자금 교부 때마다 별개의 사기죄가 성립하고, 반환 후 재투자받은 경우 각 편취범행 투자금 합계가 특경법상 이득액이며 반환 원금·수익금은 공제하지 않는다.",
           "source_refs": [
@@ -745,6 +773,8 @@
       "part": 2,
       "priority": 2,
       "recommended_action": "이 카드의 authority_basis와 doctrinal_status를 commentary-reported precedent에 맞는 분류로 재검토하고, 1차 판결 확인 전에는 구체적 사실관계에 한정된 카드임을 유지하도록 formalization도 함께 점검한다.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.damage_acquisition.part002.critic.repeated_investment_authority",
       "severity": "hard",
       "source_refs": [
@@ -764,9 +794,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part001.critic.bid_rigging_author_view_authority",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -774,8 +804,8 @@
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "authority_basis": "commentary_synthesis",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.bid-rigging-fraud-concurrence-view",
           "proposition": "담합행위가 입찰방해죄와 사기죄의 구성요건을 모두 충족하면 사기죄도 함께 성립한다는 견해가 소개되어 있다.",
           "source_refs": [
@@ -792,6 +822,8 @@
       "part": 1,
       "priority": 2,
       "recommended_action": "권위 유형과 proposition에서 해당 입장이 주석 작성자의 사견임을 명시하고, 일반 학설이나 판례 입장으로 취급하지 않도록 하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part001.critic.bid_rigging_author_view_authority",
       "severity": "hard",
       "source_refs": [
@@ -805,128 +837,30 @@
     },
     {
       "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
         "confidence": 1.0,
-        "method": "generated_review_question_scope",
-        "review_question": "Group competing views and select the precedent-aligned practical policy for these variant cards: deception.fraud.variant.future-facts-unlimited, deception.fraud.variant.future-facts-limited, deception.fraud.variant.future-facts-negative, deception.fraud.variant.opinion-statement-negative, deception.fraud.variant.opinion-statement-affirmative, deception.fraud.variant.opinion-statement-mistake-sufficiency, deception.fraud.standard.bid-rigging-fraud-concurrence-view, deception.fraud.variant.opinion-statement-third-view-concreteness"
+        "method": "critic_text_audited_override"
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part001.critic.bid_rigging_policy_question_overstates_alignment",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
-        "deception.fraud.variant.future-facts-unlimited",
-        "deception.fraud.variant.future-facts-limited",
-        "deception.fraud.variant.future-facts-negative",
-        "deception.fraud.variant.opinion-statement-negative",
-        "deception.fraud.variant.opinion-statement-affirmative",
-        "deception.fraud.variant.opinion-statement-mistake-sufficiency",
-        "deception.fraud.standard.bid-rigging-fraud-concurrence-view",
-        "deception.fraud.variant.opinion-statement-third-view-concreteness"
+        "deception.fraud.standard.bid-rigging-fraud-concurrence-view"
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
-          "id": "deception.fraud.variant.future-facts-unlimited",
-          "proposition": "무제한설은 사실에 관한 착오이면 과거·현재 사실뿐 아니라 장래 사실도 기망의 내용이 될 수 있다고 본다.",
-          "source_refs": [
-            {
-              "comment_id": "comm_001692_제347조_Ⅳ.1_12",
-              "quote": "무제한설은 사실에 관한 착오인 경우에는 그 사실이 과거의 사실이나 현재의 사 실에만 한하는 것이 아니라, 장래의 사실인 경우에도 무방하다고 한다.",
-              "section_path": "Ⅳ.1"
-            }
-          ]
-        },
-        {
-          "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
-          "id": "deception.fraud.variant.future-facts-limited",
-          "proposition": "제한설은 순전히 장래에 속하는 상태나 사건은 기망 내용이 될 수 없으나, 과거 또는 현재 사실을 속여 장래 발생 사실의 판단을 그르치게 한 경우에는 장래 사실도 기망 내용이 될 수 있다고 본다.",
-          "source_refs": [
-            {
-              "comment_id": "comm_001692_제347조_Ⅳ.1_13",
-              "quote": "제한설은 대체로 순전히 장래에 속하는 상태나 사건은 기망의 내용으로 될 수 없지만, 과거 또는 현재의 사실을 속여서 장래에 발생할 사실의 판단을 그르치 게 하였을 경우에는 장래의 사실도 기망의 내용이 될 수 있다고 한다.",
-              "section_path": "Ⅳ.1"
-            }
-          ]
-        },
-        {
-          "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
-          "id": "deception.fraud.variant.future-facts-negative",
-          "proposition": "부정설은 기망 대상 사실은 존재 증명이 가능한 과거와 현재의 사실이므로 미래 사실은 포함될 수 없다고 본다.",
-          "source_refs": [
-            {
-              "comment_id": "comm_001692_제347조_Ⅳ.1_13",
-              "quote": "부정설은 기망의 대상인 사실은 존재의 증명이 가능한 과거와 현재의 사실을 의미하므로 미래의 사실은 포함될 수 없다고 한다.",
-              "section_path": "Ⅳ.1"
-            }
-          ]
-        },
-        {
-          "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
-          "id": "deception.fraud.variant.opinion-statement-negative",
-          "proposition": "소극설은 가치판단이나 기타 의견의 표시는 사실에 관한 거짓말이 아니므로 사기죄 구성요건으로서의 기망에 해당하지 않는다고 본다.",
-          "source_refs": [
-            {
-              "comment_id": "comm_001692_제347조_Ⅳ.1_13",
-              "quote": "소극설은 가치판단 기타 의견의 표시는 사실에 관하여 거짓말하는 것이 아니므 로, 기망적인 행위라 하더라도 사기죄의 구성요건으로서의 기망에 해당하지 않 는다고 한다.",
-              "section_path": "Ⅳ.1"
-            }
-          ]
-        },
-        {
-          "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
-          "id": "deception.fraud.variant.opinion-statement-affirmative",
-          "proposition": "적극설은 사실에 관한 기망에는 가치판단에 관한 기망도 포함되며 의견 진술도 기망의 내용이 된다고 본다.",
-          "source_refs": [
-            {
-              "comment_id": "comm_001692_제347조_Ⅳ.1_13",
-              "quote": "적극설은 사실에 관한 기망인 이상 가치판단에 관한 기망을 포함하고, 사실의 진술과 의견의 진술을 구별하는 것은 곤란하며, 사실의 진술만 처벌하고 의견의 진술을 처벌하지 않는 것은 타당하지 않다는 이유로 의견의 진술도 기망의 내 용이 된다고 한다.",
-              "section_path": "Ⅳ.1"
-            }
-          ]
-        },
-        {
-          "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
-          "id": "deception.fraud.variant.opinion-statement-mistake-sufficiency",
-          "proposition": "제3설은 사실표시와 가치판단·의견표시를 구별하지 않고, 허위 표시가 타인을 착오에 빠지게 하기에 충분한지에 따라 기망 여부를 판단한다.",
-          "source_refs": [
-            {
-              "comment_id": "comm_001692_제347조_Ⅳ.1_13",
-              "quote": "제3설은 무리하게 사실의 표시나 가치판단, 의견의 표시를 구별하지 않고 오히 려 그 허위의 표시가 타인을 착오에 빠지게 하는 데 충분한 것인지에 따라 기망 에 해당하는지 여부를 판단하면 충분하다고 한다.",
-              "section_path": "Ⅳ.1"
-            }
-          ]
-        },
-        {
-          "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "authority_basis": "commentary_synthesis",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.bid-rigging-fraud-concurrence-view",
           "proposition": "담합행위가 입찰방해죄와 사기죄의 구성요건을 모두 충족하면 사기죄도 함께 성립한다는 견해가 소개되어 있다.",
           "source_refs": [
             {
               "comment_id": "comm_001692_제347조_Ⅳ.1_18",
               "quote": "사견으로는 입찰방해죄는 위계 또는 위력 기타의 방법으로 입찰의 공정을 해하는 경우에 성립하는 위태 범으로서 개인적 법인인 재산권을 보호법익으로 하는 사기죄와는 별개의 범 죄이므로, 양 구성요건을 모두 충족하는 경우 사기죄도 함께 성립한다고 보는 것이 타당하다고 생각한다.",
-              "section_path": "Ⅳ.1"
-            }
-          ]
-        },
-        {
-          "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
-          "id": "deception.fraud.variant.opinion-statement-third-view-concreteness",
-          "proposition": "제3설은 고지한 사실이 지극히 추상적이면 착오 유발에 충분하지 않아 기망이 아니지만, 허위 사실이 구체적으로 고지되면 착오 유발에 충분하여 기망에 해당한다고 본다.",
-          "source_refs": [
-            {
-              "comment_id": "comm_001692_제347조_Ⅳ.1_13",
-              "quote": "고지한 사실이 지극히 추상적 일 때에는 타인을 착오에 빠지게 함에 충분하지 않으므로 기망에 해당하지 않 지만, 허위의 사실이 구체적으로 고지된 경우에는 타인을 착오에 빠지게 하는 데 충분하기 때문에 기망에 해당한다고 한다.",
               "section_path": "Ⅳ.1"
             }
           ]
@@ -937,6 +871,8 @@
       "part": 1,
       "priority": 2,
       "recommended_action": "입찰담합 부분의 질문을 주석 작성자 사견과 명시적 판단을 유보한 판례 설명의 관계 및 추가 권위 확인 필요성을 검토하도록 한정하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part001.critic.bid_rigging_policy_question_overstates_alignment",
       "severity": "soft",
       "source_refs": [
@@ -955,9 +891,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part002.critic.authority.explicit_denial_opinion",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -965,8 +901,8 @@
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "authority_basis": "commentary_reported_doctrine",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.explicit-denial-encumbrance",
           "proposition": "매매 당시 상대방이 저당권 설정과 등기 유무를 확인 질문하였는데 없다고 답변한 경우는 단순 불고지를 넘어 작위에 의한 기망에 해당하여 고지의무를 별도로 검토할 필요 없이 사기죄가 성립한다는 견해가 제시되어 있다.",
           "source_refs": [
@@ -983,6 +919,8 @@
       "part": 2,
       "priority": 2,
       "recommended_action": "Classify the card as commentary-reported doctrine and preserve its unresolved doctrinal status; do not treat it as an adopted general rule.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part002.critic.authority.explicit_denial_opinion",
       "severity": "hard",
       "source_refs": [
@@ -1001,9 +939,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part002.critic.status.unsupported_settled",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -1057,6 +995,8 @@
       "part": 2,
       "priority": 2,
       "recommended_action": "Use a non-settled descriptive status or add a focused review question requiring confirmation of settled status from an authorized source.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part002.critic.status.unsupported_settled",
       "severity": "hard",
       "source_refs": [
@@ -1080,9 +1020,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part003.critic.authority.additional-case-cards",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -1093,8 +1033,8 @@
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "authority_basis": "commentary_reported_precedent",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.artwork-assistant-participation",
           "proposition": "화가가 완성한 그림에 부수적 작업과 자신의 서명을 한 뒤 보조자 제작 참여 사실을 알리지 않고 자신의 작품처럼 전시·판매한 경우에도, 직접 제작 여부가 구매자에게 반드시 필요하거나 중요한 정보라고 단정할 수 없으면 부작위 기망행위가 인정되지 않는다.",
           "source_refs": [
@@ -1106,8 +1046,8 @@
           ]
         },
         {
-          "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "authority_basis": "commentary_reported_precedent",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.land-sale-unknown-urban-planning-area",
           "proposition": "토지 일부의 도시계획 편입 면적을 알지 못한 매도인이 매수인에게 스스로 확인하여 매수하라고 고지한 경우, 고지의무 위반이 인정되지 않는 사안으로 소개된다.",
           "source_refs": [
@@ -1119,8 +1059,8 @@
           ]
         },
         {
-          "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "authority_basis": "commentary_reported_precedent",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.land-sale-no-known-urban-planning-conflict",
           "proposition": "매도인이 도시계획저촉 통지를 받은 바 없고 매매 직전 발급된 도시계획확인원에도 저촉사실 기재가 없어 구체적 저촉이 없다고 알고 토지를 매도한 경우, 고지의무 위반이 인정되지 않는 사안으로 소개된다.",
           "source_refs": [
@@ -1132,8 +1072,8 @@
           ]
         },
         {
-          "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "authority_basis": "commentary_reported_precedent",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.entrusted-car-unknown-arrears-direct-inquiry",
           "proposition": "지입차량 운행에 관여하지 않아 지입회사 연체채무액을 알 수 없던 매도인이 매도 당시 중개인에게 해당 채무를 직접 확인하라고 하면서 회사 전화번호를 알려준 경우, 고지의무 위반이 인정되지 않는 사안으로 소개된다.",
           "source_refs": [
@@ -1150,6 +1090,8 @@
       "part": 3,
       "priority": 2,
       "recommended_action": "해당 카드들의 authority_basis, doctrinal_status 및 formalization을 개별 사안 보고 여부에 따라 재분류하고, 출처가 제공하지 않는 일반 규범성을 부여하지 말라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part003.critic.authority.additional-case-cards",
       "severity": "hard",
       "source_refs": [
@@ -1177,9 +1119,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part003.critic.authority.case-card-misclassified",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -1187,8 +1129,8 @@
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "authority_basis": "commentary_reported_precedent",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.car-substitute-performance-reservation",
           "proposition": "제3자와 체결한 자동차매매계약이 차용금채무 담보를 위한 대물변제예약이고, 매도인이 이전등록 전 원리금을 변제하여 예약을 해제할 수 있는 경우, 그 사실을 고지하지 않은 매도인의 사기죄 성립은 부정된다.",
           "source_refs": [
@@ -1205,6 +1147,8 @@
       "part": 3,
       "priority": 2,
       "recommended_action": "이 카드의 authority_basis와 doctrinal_status를 개별 사안 보고에 맞게 재검토하고, 일반화가 별도로 확인되지 않으면 formalization을 context_only로 제한하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part003.critic.authority.case-card-misclassified",
       "severity": "hard",
       "source_refs": [
@@ -1223,9 +1167,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part004.critic.authority.classification_not_source_grounded",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -1283,7 +1227,7 @@
       "impacted_cards": [
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.accommodation-bill-false-certificate",
           "proposition": "융통어음을 상거래에 기한 어음이라는 취지의 허위 증명서를 작성·교부하여 융통어음 할인을 받으면 기망에 해당한다.",
           "source_refs": [
@@ -1296,7 +1240,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.bill-discount-nondisclosure",
           "proposition": "어음 발행인이 지급기일 결제불능을 예견하거나 지급 확신 없이 이를 수취인에게 고지하지 않고 속여 할인을 받으면 기망에 해당한다.",
           "source_refs": [
@@ -1309,7 +1253,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.reciprocal-accommodation-bills",
           "proposition": "자력 부족 발행인들이 편법 자금확보를 위하여 같은 금액의 융통어음을 발행·교환한 경우, 특별한 사정이 없으면 서로 상대방의 부실 자력을 용인한 것이므로 사기죄는 성립하지 않는다.",
           "source_refs": [
@@ -1322,7 +1266,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.bill-issued-to-extend-debt",
           "proposition": "채무자가 지급기일까지 지급 의사와 능력 없이 종전채무의 변제기를 늦출 목적으로 어음을 발행하면 사기죄가 성립한다.",
           "source_refs": [
@@ -1335,7 +1279,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.causal-link.promissory-note-no-disposition",
           "proposition": "기존채무 변제 명목으로 약속어음을 교부하였더라도 피해자가 기존채무를 소멸시키는 등 처분행위를 하였다는 증거가 없으면 사기죄는 성립하지 않는다.",
           "source_refs": [
@@ -1348,7 +1292,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.false-solvency-loan-guarantee-discount",
           "proposition": "특별한 자금공급 없이는 도산이 불가피한 상황에서 신용과대조작, 변태적 지급보증, 재력과시로 변제자력을 가장하여 대출·지급보증·어음할인을 받으면 사기죄가 성립한다.",
           "source_refs": [
@@ -1361,7 +1305,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.bad-check-punishment-no-effect",
           "proposition": "금원편취 수단으로 발행한 당좌수표가 부도되어 부정수표 단속법 위반죄로 처벌되었더라도 사기죄 성립에는 영향이 없다.",
           "source_refs": [
@@ -1400,7 +1344,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.discount-after-bill-fraud",
           "proposition": "피고인이 어음을 편취한 뒤 이를 숨기고 제3자로부터 할인받으면 그 어음할인행위는 별도의 사기죄를 구성한다.",
           "source_refs": [
@@ -1413,7 +1357,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.subsidy-fraud-concurrence",
           "proposition": "거짓 신청이나 그 밖의 부정한 방법으로 보조금 또는 간접보조금을 교부받으면 보조금 관리에 관한 법률 위반죄와 사기죄는 상상적 경합 관계가 인정된다.",
           "source_refs": [
@@ -1426,7 +1370,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.subsidy-actual-essential-work",
           "proposition": "국고보조금 신청에서 수도자들의 소임과 법적 등록 소임을 다르게 기재했더라도 실제 소임이 공동체 기능 유지와 목적 수행에 필수 업무이면 사기죄는 성립하지 않는다.",
           "source_refs": [
@@ -1439,7 +1383,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.subsidy-used-for-authorized-purpose",
           "proposition": "소음피해지역 주민 편익증진을 위한 보조금을 받아 공동구판장 설치비용으로 사용한 경우, 그 보조금이 주민 편익증진 용도로 사용되었다면 기망행위가 있었다고 볼 수 없다.",
           "source_refs": [
@@ -1452,7 +1396,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.causal-link.road-occupancy-discretion",
           "proposition": "도로점용허가는 관리청의 재량으로 결정되고 도로부지 사실상 사용자는 참고사항에 불과하므로, 그 사용자에 관한 기망이 있어도 사기죄는 성립하지 않는다.",
           "source_refs": [
@@ -1464,7 +1408,7 @@
           ]
         },
         {
-          "authority_basis": "commentary_reported_precedent",
+          "authority_basis": "commentary_synthesis",
           "formalization": "context_only",
           "id": "deception.fraud.standard.false-documents-budget-withdrawal",
           "proposition": "허용된 권한 범위에서 정당한 업무운영 경비에 충당하기 위해 허위서류로 금고에서 예산 내 현금을 인출한 경우, 판례상 불법영득의사 흠결을 이유로 사기죄 성립도 부정적일 것으로 소개된다.",
@@ -1478,7 +1422,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.causal-link.embezzlement-deception-no-disposition",
           "proposition": "자기가 점유하는 타인 재물을 횡령하기 위하여 기망수단을 쓴 경우 피기망자에 의한 재산처분행위가 없으므로 일반적으로 횡령죄만 성립하고 사기죄는 성립하지 않는다.",
           "source_refs": [
@@ -1491,7 +1435,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.religious-compensation-not-necessarily-fraud",
           "proposition": "기도를 해주고 상당한 보수를 받는다는 사정만으로 반드시 사기죄가 성립하는 것은 아니다.",
           "source_refs": [
@@ -1504,7 +1448,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.shamanistic-false-misfortune",
           "proposition": "구체적 불행이 발생할 것처럼 말하여 고액 굿값을 받는 행위가 종교행위로 허용되는 한계를 벗어나 무속행위를 가장한 편취이면 사기죄가 성립한다.",
           "source_refs": [
@@ -1517,7 +1461,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.religious-false-claim-no-extortion",
           "proposition": "금원을 교부하지 않으면 불행한 일이 일어난다고 말했더라도 행위자가 이를 좌우할 수 없다면 해악의 고지로 평가할 수 없어 공갈죄는 성립하지 않는다.",
           "source_refs": [
@@ -1530,7 +1474,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.rigged-gambling",
           "proposition": "도박 수단을 가공하여 우연성을 배제하면서 우연으로 승부가 결정되는 것처럼 상대방을 오신시키면 도박죄가 아니라 사기죄가 성립한다.",
           "source_refs": [
@@ -1543,7 +1487,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.rigged-gambling-multiple-victims",
           "proposition": "사기도박으로 여러 피해자를 유인하여 도금을 편취한 행위는 사회관념상 하나의 행위로 평가되므로 피해자들에 대한 사기죄는 상상적 경합 관계에 있다.",
           "source_refs": [
@@ -1556,7 +1500,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.unauthorized-phone-use",
           "proposition": "다른 사람의 일반전화를 무단 이용하여 통화하는 것은 전기통신사업자의 역무를 부당 이용한 것에 불과하여 전기통신사업자에 대한 사기죄는 성립하지 않는다.",
           "source_refs": [
@@ -1569,7 +1513,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.investment-principal-return-falsehood",
           "proposition": "투자사업에 실제 투자금을 사용했더라도 일정 기간 내 원금 반환 의사·능력 없이 반환하겠다고 거짓말하고, 투자자가 그 약정을 전적으로 믿고 투자했다면 기망행위에 해당할 수 있으며 편취 고의는 투자약정 당시를 기준으로 판단한다.",
           "source_refs": [
@@ -1582,7 +1526,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.telephone-treatment-insurance-claim",
           "proposition": "전화 진찰이 요양급여 대상이 아닌 기준 아래 이를 내원 진찰인 것처럼 하여 요양급여비용을 청구한 행위는 사기죄에 해당한다.",
           "source_refs": [
@@ -1595,7 +1539,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.nonmedical-owner-hospital-insurance",
           "proposition": "비의료인이 개설한 의료기관이 적법하게 개설된 요양기관인 것처럼 건강보험공단에 요양급여비용 지급을 청구하여 지급받으면 사기죄가 성립한다.",
           "source_refs": [
@@ -1608,7 +1552,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.medical-corporation-nonmedical-involvement",
           "proposition": "비의료인이 외형만 갖춘 의료법인을 탈법적으로 악용해 적법한 개설·운영으로 가장한 사정이 없는 한, 의료법인 명의 의료기관 개설·운영에 관여했다는 사정만으로 요양급여비용 수령 사기죄가 성립하지 않는다.",
           "source_refs": [
@@ -1621,7 +1565,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.nominee-medical-institution-insurance",
           "proposition": "의료인 자격·면허 보유자가 의료기관을 개설하여 요양급여를 실시하고 요양급여비용을 받았는데 다른 의료인의 명의로 개설·운영된 경우 사기죄는 성립하지 않는다.",
           "source_refs": [
@@ -1634,7 +1578,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.causal-link.illegal-hospital-auto-insurance",
           "proposition": "비의료인이 개설한 의료기관이 면허 의료인을 통해 교통사고 환자를 진료한 경우, 그 개설 위반 사정은 자동차보험진료수가 지급의무에 영향을 미치지 않으므로 이를 고지하지 않고 지급 청구해도 사기죄는 성립하지 않는다.",
           "source_refs": [
@@ -1660,7 +1604,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.corporate-victim-natural-person-identification",
           "proposition": "법인이 사기죄 피해자인 경우 현실적 피기망자와 처분행위자는 업무 담당 또는 관여 자연인으로 파악되면 충분하고, 그 자연인의 이름 등을 특정할 필요는 없다.",
           "source_refs": [
@@ -1673,7 +1617,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.corporate-victim-decisionmaker-test",
           "proposition": "사기죄 피해자가 법인·단체인 경우 기망으로 인한 착오와 인과관계는 대표 등 최종 의사결정권자 또는 실질적으로 의사결정·처분권한을 가진 사람을 기준으로 판단한다.",
           "source_refs": [
@@ -1686,7 +1630,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.causal-link.corporate-decisionmaker-aware",
           "proposition": "피해 법인·단체의 대표 또는 실질적 최종결재권자가 기망행위자와 동일하거나 공모하는 등 기망임을 알고 있었다면 착오 및 기망과 처분행위의 인과관계를 인정하기 어려워 사기죄는 성립하지 않는다.",
           "source_refs": [
@@ -1699,7 +1643,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.corporate-employee-aware-decisionmaker-unaware",
           "proposition": "피해 법인·단체의 일반 직원이나 구성원이 기망임을 알았더라도 대표 또는 실질적 최종결재권자가 알지 못한 채 착오로 처분행위에 이르면 법인에 대한 사기죄가 성립한다.",
           "source_refs": [
@@ -1712,7 +1656,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.bank-president-approval-loan-purpose",
           "proposition": "1백억 원 초과 기금대출의 승인 여부를 은행장이 결정하는 경우, 일선 담당 직원이 용도 외 사용을 알았더라도 은행장 승인 없이 지정 용도 사용 의사 없이 용도를 속여 대출받으면 사기죄가 성립한다.",
           "source_refs": [
@@ -1725,7 +1669,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.forged-register-loan",
           "proposition": "등기부등본을 위조하여 제1번 근저당권을 설정할 수 있는 것처럼 오인하게 하여 은행으로부터 융자금을 받으면 사기죄가 성립한다.",
           "source_refs": [
@@ -1738,7 +1682,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.uncollectible-promissory-note-collateral",
           "proposition": "거래정지처분을 받아 결제될 가망이 없는 약속어음을 담보로 부동산을 편취하면 사기죄가 성립한다.",
           "source_refs": [
@@ -1751,7 +1695,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.altered-bill-maturity-discount",
           "proposition": "약속어음의 지급기일을 변조하여 타인에게 배서양도하고 할인금을 교부받으면 사기죄가 성립한다.",
           "source_refs": [
@@ -1777,7 +1721,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.bill-discount-endorser-concealed-inability",
           "proposition": "변제 의사나 능력이 없음을 숨긴 채 타인에게 금원 대여를 요청하여 그 사람의 배서가 된 약속어음으로 금융기관에서 할인받고 그 어음의 상환의무를 지면, 배서인에 대한 사기죄가 성립한다.",
           "source_refs": [
@@ -1789,8 +1733,8 @@
           ]
         },
         {
-          "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "authority_basis": "statutory_text_in_commentary",
+          "formalization": "context_only",
           "id": "deception.fraud.definition.subsidy-and-indirect-subsidy",
           "proposition": "보조금은 국가 외의 자가 수행하는 사무 또는 사업을 조성하거나 재정상 원조하기 위하여 상당한 반대급부 없이 교부하는 급부금 등이고, 간접보조금은 국가 외의 자가 보조금을 재원으로 하여 교부 목적에 따라 다시 교부하는 급부금이다.",
           "source_refs": [
@@ -1813,7 +1757,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.subsidy-false-eligibility",
           "proposition": "보조금 증액을 위한 허위서류 제출, 직불금 요건을 갖추지 않은 농지에 관한 등록신청, 자부담금을 스스로 납부한 것처럼 속인 보조금 수령, 북한이탈주민이 아님을 고지하지 않은 지원금 수령은 사기죄가 성립한다.",
           "source_refs": [
@@ -1831,7 +1775,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.impersonated-sailor-family-subsidy",
           "proposition": "원양어업에 나간 선원의 가족에게 지급하는 생계보조금을 선원의 처와 간통한 사람이 선원 가족인 것처럼 가장하여 회사로부터 수령하면 회사를 기망한 경우에 해당한다.",
           "source_refs": [
@@ -1844,7 +1788,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.clan-injunction-withdrawal-deposit",
           "proposition": "하나의 종중이 사실상 두 개로 분파된 상태에서 다른 일파의 의사에 반하여 가처분취하서를 제출해 처분금지가처분등기를 말소하고 공탁금을 회수하면 사기죄가 성립한다.",
           "source_refs": [
@@ -1857,7 +1801,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.prayer-fee-beyond-permitted-limit",
           "proposition": "피고인이 불행의 고지나 길흉화복에 관한 결과 약속을 하여 기도비 등의 명목으로 대가를 받더라도, 전통적 관습 또는 종교행위로 허용되는 한계를 벗어나면 사기죄가 성립한다.",
           "source_refs": [
@@ -1870,7 +1814,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.false-religious-claims-donations",
           "proposition": "사이비교주가 헌금하지 않으면 영생할 수 없다고 설교하여 헌금 명목 금원을 받거나, 자신을 하나님·구세주 등으로 지칭하여 신도들로부터 고액 헌금을 받으면 사기죄가 성립한다.",
           "source_refs": [
@@ -1888,7 +1832,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.unpaid-phone-fee-direct-collection",
           "proposition": "일부 이용자의 전화요금 고지 누락을 사무착오인 것처럼 가장하여 그 이용자들이 피고인에게 요금을 교부하면 납부의무를 면하는 것처럼 기망하여 국제통화요금을 받으면, 횡령죄가 아니라 사기죄가 성립한다.",
           "source_refs": [
@@ -1901,7 +1845,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.consumer-cooperative-office-manager-hospital",
           "proposition": "사무장병원에 관한 사기죄 법리는 개인의원뿐 아니라 의료소비자생활협동조합 형태로 의료기관이 개설된 경우에도 적용된다.",
           "source_refs": [
@@ -1914,7 +1858,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.exception.medical-corporation-nonmedical-abuse-types",
           "proposition": "의료법인의 경우 비의료인이 실질적 재산출연이 없어 실체가 인정되지 않는 의료법인을 개설·운영 수단으로 악용하거나, 의료법인 재산을 부당 유출하여 공공성·비영리성을 일탈한 경우는 비의료인 관여만으로 의료법 위반이 성립하지 않는다는 판단의 예외 사유이다.",
           "source_refs": [
@@ -1940,7 +1884,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.credit-card-no-repayment-corporate-victim",
           "proposition": "신용카드를 발급받은 뒤 채무를 변제할 의사나 능력이 없는 상황에서 사용하면, 업무 담당 자연인이 아닌 법인인 카드회사에 대한 사기죄가 성립한다.",
           "source_refs": [
@@ -1957,6 +1901,8 @@
       "part": 4,
       "priority": 2,
       "recommended_action": "출처가 명시적으로 허용하는 범위에서만 권위를 분류하고, 판례 여부를 알 수 없는 사례 카드는 미확정으로 표시하여 법률검토 질문에 포함하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part004.critic.authority.classification_not_source_grounded",
       "severity": "hard",
       "source_refs": [],
@@ -1971,9 +1917,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part004.critic.authority.false_documents_speculative",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -1981,7 +1927,7 @@
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_reported_precedent",
+          "authority_basis": "commentary_synthesis",
           "formalization": "context_only",
           "id": "deception.fraud.standard.false-documents-budget-withdrawal",
           "proposition": "허용된 권한 범위에서 정당한 업무운영 경비에 충당하기 위해 허위서류로 금고에서 예산 내 현금을 인출한 경우, 판례상 불법영득의사 흠결을 이유로 사기죄 성립도 부정적일 것으로 소개된다.",
@@ -1999,6 +1945,8 @@
       "part": 4,
       "priority": 2,
       "recommended_action": "해당 카드의 권위 및 doctrinal_status를 논평적·잠정적 견해에 맞게 낮추거나, 판례 입장으로 유지하려면 이를 뒷받침하는 범위 내 출처를 확인하도록 명시하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part004.critic.authority.false_documents_speculative",
       "severity": "hard",
       "source_refs": [
@@ -2018,9 +1966,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part004.critic.authority.statutory_subsidy_definitions",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -2028,8 +1976,8 @@
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "authority_basis": "statutory_text_in_commentary",
+          "formalization": "context_only",
           "id": "deception.fraud.definition.subsidy-and-indirect-subsidy",
           "proposition": "보조금은 국가 외의 자가 수행하는 사무 또는 사업을 조성하거나 재정상 원조하기 위하여 상당한 반대급부 없이 교부하는 급부금 등이고, 간접보조금은 국가 외의 자가 보조금을 재원으로 하여 교부 목적에 따라 다시 교부하는 급부금이다.",
           "source_refs": [
@@ -2056,6 +2004,8 @@
       "part": 4,
       "priority": 2,
       "recommended_action": "직접 법령 출처가 현재 범위에 없다는 점을 보존하면서, 이 카드가 주석을 통해 보고된 법정 정의임을 나타내도록 권위 분류 또는 검토 질문을 최소한으로 보정하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part004.critic.authority.statutory_subsidy_definitions",
       "severity": "hard",
       "source_refs": [
@@ -2075,9 +2025,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part005.critic.unsupported-settled-status",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -2103,6 +2053,8 @@
       "part": 5,
       "priority": 2,
       "recommended_action": "Use a status no stronger than the supplied commentary supports, or mark the status for review and add a corresponding legal-review question.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part005.critic.unsupported-settled-status",
       "severity": "hard",
       "source_refs": [
@@ -2122,9 +2074,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part005.critic.unsupported-settled-status-disposal-authority",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -2150,6 +2102,8 @@
       "part": 5,
       "priority": 2,
       "recommended_action": "Replace the unsupported settled-status label with a source-bounded status, or set review_required true and include this authority-status issue in the review questions.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part005.critic.unsupported-settled-status-disposal-authority",
       "severity": "hard",
       "source_refs": [
@@ -2169,9 +2123,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part005.critic.unsupported-settled-status-distinct-persons",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -2202,6 +2156,8 @@
       "part": 5,
       "priority": 2,
       "recommended_action": "Use a source-bounded descriptive status or flag the doctrinal-status assignment for legal review.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part005.critic.unsupported-settled-status-distinct-persons",
       "severity": "hard",
       "source_refs": [
@@ -2225,9 +2181,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part005.critic.unsupported-settled-status-unspecified-person",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -2253,6 +2209,8 @@
       "part": 5,
       "priority": 2,
       "recommended_action": "Downgrade the doctrinal-status characterization or require human review of that characterization.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part005.critic.unsupported-settled-status-unspecified-person",
       "severity": "hard",
       "source_refs": [
@@ -2272,9 +2230,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.general_object.part001.critic.settled_status_not_supported",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -2342,6 +2300,8 @@
       "part": 1,
       "priority": 2,
       "recommended_action": "settled 지정을 descriptive 등 출처가 뒷받침하는 수준으로 조정하거나, settled 여부를 확인할 명시적 검토 질문을 추가한다.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.general_object.part001.critic.settled_status_not_supported",
       "severity": "soft",
       "source_refs": [
@@ -2369,9 +2329,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.general_object.part001.critic.unquantified_value_authority_unsupported",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -2379,7 +2339,7 @@
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_reported_precedent",
+          "authority_basis": "commentary_synthesis",
           "formalization": "context_only",
           "id": "fraud_general_object.unquantified_benefit_judgment",
           "proposition": "재산상 이익의 가액을 범죄사실 판시에서 명시하지 않았더라도 잘못이 아니라고 소개되어 있다.",
@@ -2397,6 +2357,8 @@
       "part": 1,
       "priority": 2,
       "recommended_action": "bounded source만으로 확인 가능한 권위 수준으로 낮추거나, 판례 귀속은 미확정으로 표시하여 별도 검토 대상으로 둔다.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.general_object.part001.critic.unquantified_value_authority_unsupported",
       "severity": "hard",
       "source_refs": [
@@ -2416,9 +2378,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.intent.part001.critic.no_disposition_authority_unestablished",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -2444,6 +2406,8 @@
       "part": 1,
       "priority": 2,
       "recommended_action": "추가 판례 provenance가 없는 한 authority_basis와 doctrinal_status를 commentary synthesis에 맞게 조정하고, 판례 분류가 필요하다면 이를 확인하는 검토 질문을 추가한다.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.intent.part001.critic.no_disposition_authority_unestablished",
       "severity": "hard",
       "source_refs": [
@@ -2462,9 +2426,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.mistake_disposition.part001.critic.f4.unsupported_settled_status",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -2474,9 +2438,9 @@
       "impacted_cards": [
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "deterministic_rule",
+          "formalization": "standard_input",
           "id": "mistake_disposition.fraud.causal-link.victim-negligence-irrelevant",
-          "proposition": "기망행위가 착오의 유일한 원인일 필요는 없으므로, 피기망자 측 과실이 착오 원인에 포함되어도 사기죄 성립에 영향이 없다.",
+          "proposition": "기망행위는 착오의 유일한 원인일 필요가 없으므로, 피기망자 측 과실이 착오 발생에 함께 작용해도 기망행위와 착오 사이 인과관계는 부정되지 않는다.",
           "source_refs": [
             {
               "comment_id": "comm_001692_제347조_Ⅳ.2_47",
@@ -2487,9 +2451,9 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "deterministic_rule",
+          "formalization": "standard_input",
           "id": "mistake_disposition.fraud.causal-link-mistake-not-sole-cause",
-          "proposition": "착오는 처분행위의 유일한 원인일 필요가 없고, 피해자에게 과실이 있어도 인과관계는 부정되지 않는다.",
+          "proposition": "착오는 처분행위의 유일한 원인일 필요가 없으므로, 피해자 과실이 함께 작용해도 착오와 처분행위 사이 인과관계는 부정되지 않는다.",
           "source_refs": [
             {
               "comment_id": "comm_001692_제347조_Ⅳ.3_56",
@@ -2504,6 +2468,8 @@
       "part": 1,
       "priority": 2,
       "recommended_action": "권위 확인 전에는 settled 및 deterministic_rule 지정을 낮추고 review_required를 true로 설정하거나, 해당 분류를 유지하려면 이를 뒷받침하는 허용된 권위 자료를 연결하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.mistake_disposition.part001.critic.f4.unsupported_settled_status",
       "severity": "hard",
       "source_refs": [
@@ -2521,29 +2487,72 @@
     },
     {
       "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
         "confidence": 1.0,
-        "method": "explicit_card_id"
+        "method": "critic_text_audited_override"
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.special_forms.part001.critic.f3.unsupported_authority_and_settled_designations",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
-        "special_forms.fraud.element.litigation-fraud-knowing-nonexistence"
+        "special_forms.fraud.element.litigation-fraud-knowing-nonexistence",
+        "special_forms.fraud.element.litigation-fraud-deceptive-act",
+        "special_forms.fraud.element.judgment-substitutes-victim-disposition",
+        "special_forms.fraud.element.litigation-fraud-commencement"
       ],
       "impacted_cards": [
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "deterministic_rule",
+          "formalization": "standard_input",
           "id": "special_forms.fraud.element.litigation-fraud-knowing-nonexistence",
           "proposition": "소송사기 성립에는 제소 당시 주장 채권이 존재하지 않는 사실을 알면서 허위 주장과 증명으로 법원을 기망한다는 인식이 필요하다.",
           "source_refs": [
             {
               "comment_id": "comm_001692_제347조_Ⅵ.1_83",
               "quote": "소송사기 가 성립하기 위하여는 제소 당시에 그 주장과 같은 채권이 존재하지 않는다는 것만으 로는 부족하고 그 주장의 채권이 존재하지 않는 사실을 잘 알면서도 허위의 주장과 증명으로써 법원을 기망한다는 인식을 하고 있어야만 하고",
+              "section_path": "Ⅵ.1"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "formalization": "standard_input",
+          "id": "special_forms.fraud.element.litigation-fraud-deceptive-act",
+          "proposition": "소송사기죄의 성립에는 기망행위가 필요하며, 증거 위조 또는 허위 준비서면·자술서의 작성ㆍ제출은 기망행위에 포함된다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅵ.1_84",
+              "quote": "소송사기죄가 성립하기 위해서는 기망행위가 있을 것을 요하고, 구체적으로는 증거의 위조, 허위의 준비서면과 자술서를 작성하여 제출한 경우도 이에 포함된다.",
+              "section_path": "Ⅵ.1"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "formalization": "standard_input",
+          "id": "special_forms.fraud.element.judgment-substitutes-victim-disposition",
+          "proposition": "소송사기에서 피기망자인 법원의 재판은 피해자의 처분행위에 갈음하는 내용과 효력이 있어야 한다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅵ.1_84",
+              "quote": "소송사기죄에서 피기망자인 법원의 재판은 피해자의 처분행위에 갈음하는 내용 과 효력이 있어야 하고",
+              "section_path": "Ⅵ.1"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "formalization": "standard_input",
+          "id": "special_forms.fraud.element.litigation-fraud-commencement",
+          "proposition": "적극적인 방법으로 법원을 기망할 의사를 가지고 허위 내용의 서류를 증거로 제출하거나 그에 따른 주장을 담은 답변서ㆍ준비서면을 제출한 경우 소송사기죄의 실행에 착수한다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅵ.1_86",
+              "quote": "소송사기죄는 적극적인 방법으로 법원을 기망할 의사를 가지고 허위내용의 서 류를 증거로 제출하거나 그에 따른 주장을 담은 답변서나 준비서면을 제출한 경우에 사기죄의 실행의 착수가 있다고 볼 수 있다.",
               "section_path": "Ⅵ.1"
             }
           ]
@@ -2554,6 +2563,8 @@
       "part": 1,
       "priority": 2,
       "recommended_action": "Mark these authority and doctrinal-status choices for review and avoid 'settled' or deterministic treatment unless the bounded material establishes that status.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.special_forms.part001.critic.f3.unsupported_authority_and_settled_designations",
       "severity": "hard",
       "source_refs": [
@@ -2580,9 +2591,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.special_forms.part001.critic.f4.definition_authority_mismatch",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -2590,7 +2601,7 @@
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_reported_precedent",
+          "authority_basis": "commentary_synthesis",
           "formalization": "context_only",
           "id": "special_forms.fraud.definition.litigation-fraud-triangular",
           "proposition": "소송사기는 법원을 기망하여 유리한 판결을 얻고 그에 기하여 소송 상대방으로부터 재물 또는 재산상 이익을 취득하는 삼각사기이다.",
@@ -2608,6 +2619,8 @@
       "part": 1,
       "priority": 2,
       "recommended_action": "Use an authority classification supported by the supplied commentary or leave the classification expressly unresolved for legal review.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.special_forms.part001.critic.f4.definition_authority_mismatch",
       "severity": "hard",
       "source_refs": [
@@ -2626,9 +2639,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.special_forms.part002.critic.authority_status.settled_unsupported",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -2651,7 +2664,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "deterministic_rule",
+          "formalization": "context_only",
           "id": "special_forms.fraud.exception.insurance-special-act-temporal-application",
           "proposition": "2016년 9월 30일 이전에 행해진 보험사기에는 형법상 사기죄가 성립하고, 그 이후 보험사기에는 보험사기방지 특별법 위반죄가 성립한다.",
           "source_refs": [
@@ -2668,6 +2681,8 @@
       "part": 2,
       "priority": 2,
       "recommended_action": "제공된 범위만 사용하는 경우 doctrinal_status를 주석 종합에 맞는 비확정적 상태로 낮추고 review_required를 활성화하거나, settled 분류를 유지하려면 별도의 권위 근거 검토가 필요하다는 명시적 검토 질문을 추가한다.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.special_forms.part002.critic.authority_status.settled_unsupported",
       "severity": "hard",
       "source_refs": [
@@ -2687,9 +2702,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.stages_participation.part001.critic.authority.real_estate_combined_sources",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -2715,6 +2730,8 @@
       "part": 1,
       "priority": 2,
       "recommended_action": "학설과 판례가 함께 보고되었다는 권위 구성을 보존하도록 권위·지위 필드를 수정하거나, 현재 스키마로 단일 선택이 불가하면 그 선택 문제를 명시적인 검토 질문으로 남긴다.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.stages_participation.part001.critic.authority.real_estate_combined_sources",
       "severity": "hard",
       "source_refs": [
@@ -2734,9 +2751,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.stages_participation.part001.critic.authority.voice_phishing_commentary_view",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -2744,7 +2761,7 @@
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_reported_precedent",
+          "authority_basis": "commentary_synthesis",
           "formalization": "context_only",
           "id": "fraud_stages_participation.voice_phishing_functional_control",
           "proposition": "보이스피싱의 인출책·수거책·전달책이 공동정범인지 방조범인지에 관한 통일적 판단기준은 정립되어 있지 않으며, 기능적 행위지배 보유 여부에 따라 사안마다 공동정범 해당 여부를 판단할 필요가 있다는 견해가 소개되어 있다.",
@@ -2762,6 +2779,8 @@
       "part": 1,
       "priority": 2,
       "recommended_action": "권위와 doctrinal status를 논평자의 견해 및 미해결 상태에 맞게 최소 수정하고, 통일된 판례 기준이 없다는 점을 유지한다.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.stages_participation.part001.critic.authority.voice_phishing_commentary_view",
       "severity": "hard",
       "source_refs": [
@@ -2781,9 +2800,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.concurrence.part001.critic.commentary_penalties_deterministic_before_verification",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -2794,7 +2813,7 @@
       "impacted_cards": [
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "deterministic_rule",
+          "formalization": "context_only",
           "id": "fraud_concurrence.general_fraud_penalty",
           "proposition": "사기죄를 범한 경우 10년 이하 징역 또는 2천만 원 이하 벌금에 처한다.",
           "source_refs": [
@@ -2807,7 +2826,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "deterministic_rule",
+          "formalization": "context_only",
           "id": "fraud_concurrence.attempt_habitual_punishment",
           "proposition": "사기죄의 미수범은 처벌하며, 상습으로 사기죄를 범하면 형의 2분의 1까지 가중한다.",
           "source_refs": [
@@ -2820,7 +2839,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "deterministic_rule",
+          "formalization": "context_only",
           "id": "fraud_concurrence.aggravated_economic_value_thresholds",
           "proposition": "사기범행으로 취득하거나 제3자로 하여금 취득하게 한 재물 또는 재산상 이익 가액이 5억 원 이상이면 3년 이상 유기징역, 50억 원 이상이면 무기 또는 5년 이상 징역으로 가중처벌된다.",
           "source_refs": [
@@ -2837,6 +2856,8 @@
       "part": 1,
       "priority": 3,
       "recommended_action": "카드 43부터 45까지 현행 법령 확인 전에는 비결정적 또는 문맥 전용 형식화로 낮추고 review_required=true로 설정하거나, 현행 법령의 직접 권위를 확보한 뒤 결정 규칙으로 유지하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.concurrence.part001.critic.commentary_penalties_deterministic_before_verification",
       "severity": "hard",
       "source_refs": [
@@ -2855,9 +2876,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.damage_acquisition.part001.critic.exception.variant_link_missing",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -2883,6 +2904,8 @@
       "part": 1,
       "priority": 3,
       "recommended_action": "예외 카드를 원칙 카드와 동일한 그룹 또는 명시적인 예외 관계로 연결하여 원칙만 독립 적용되지 않도록 하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.damage_acquisition.part001.critic.exception.variant_link_missing",
       "severity": "hard",
       "source_refs": [
@@ -2902,9 +2925,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part003.critic.formalization.conditional-intent-sufficiency",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -2913,7 +2936,7 @@
       "impacted_cards": [
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "deterministic_rule",
+          "formalization": "standard_input",
           "id": "deception.fraud.element.intent-to-defraud-conditional-intent",
           "proposition": "미필적 고의에 의해서도 사기죄가 성립한다.",
           "source_refs": [
@@ -2930,6 +2953,8 @@
       "part": 3,
       "priority": 3,
       "recommended_action": "미필적 고의를 독립적인 사기죄 성립 충분조건으로 형식화하지 말고, 주관적 구성요건의 허용 형태로만 기능하도록 formalization과 관련 검토 질문을 수정하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part003.critic.formalization.conditional-intent-sufficiency",
       "severity": "hard",
       "source_refs": [
@@ -2949,9 +2974,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part003.critic.formalization.element-sufficiency",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -2960,7 +2985,7 @@
       "impacted_cards": [
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "deterministic_rule",
+          "formalization": "standard_input",
           "id": "deception.fraud.element.loan-no-repayment-intent-or-ability",
           "proposition": "변제할 의사나 능력이 없는데도 금원을 차용하면 사기죄에 해당한다.",
           "source_refs": [
@@ -2977,6 +3002,8 @@
       "part": 3,
       "priority": 3,
       "recommended_action": "이 카드를 사기죄 전체 성립을 자동 도출하는 규칙으로 사용하지 않도록 formalization을 재검토하고, 기망·처분행위·재산상 손해 등 별도 요건과의 결합 필요성을 review question에 명시하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part003.critic.formalization.element-sufficiency",
       "severity": "hard",
       "source_refs": [
@@ -2996,9 +3023,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part004.critic.formalization.subsidy_definition",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -3006,8 +3033,8 @@
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "authority_basis": "statutory_text_in_commentary",
+          "formalization": "context_only",
           "id": "deception.fraud.definition.subsidy-and-indirect-subsidy",
           "proposition": "보조금은 국가 외의 자가 수행하는 사무 또는 사업을 조성하거나 재정상 원조하기 위하여 상당한 반대급부 없이 교부하는 급부금 등이고, 간접보조금은 국가 외의 자가 보조금을 재원으로 하여 교부 목적에 따라 다시 교부하는 급부금이다.",
           "source_refs": [
@@ -3034,6 +3061,8 @@
       "part": 4,
       "priority": 3,
       "recommended_action": "정의 규범에 맞는 형식화로 변경하거나, 법정 정의의 직접 출처 확인 전에는 context_only로 제한할지를 검토 질문으로 명시하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part004.critic.formalization.subsidy_definition",
       "severity": "hard",
       "source_refs": [
@@ -3053,9 +3082,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.general_object.part001.critic.subjective_elements_formalization",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -3064,7 +3093,7 @@
       "impacted_cards": [
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "fraud_general_object.subjective_elements",
           "proposition": "사기죄의 주관적 구성요건은 고의와 불법영득의 의사이다.",
           "source_refs": [
@@ -3081,6 +3110,8 @@
       "part": 1,
       "priority": 3,
       "recommended_action": "해당 카드의 formalization을 필수요건을 보존하는 형식으로 수정하되, 불법영득의사 범위에 관한 검토 필요성은 그대로 유지한다.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.general_object.part001.critic.subjective_elements_formalization",
       "severity": "hard",
       "source_refs": [
@@ -3094,15 +3125,15 @@
     },
     {
       "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
         "confidence": 1.0,
-        "method": "generated_review_question_scope",
-        "review_question": "Group competing views and select the precedent-aligned practical policy for these variant cards: fraud_intent.illegal_appropriation_not_required, fraud_intent.illegal_appropriation_required_all, fraud_intent.illegal_appropriation_required_property_only, fraud_intent.property_only_appropriation_practical_consequence"
+        "method": "critic_text_audited_override"
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.intent.part001.critic.practical_consequence_not_selectable_variant",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -3153,7 +3184,7 @@
         },
         {
           "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "formalization": "context_only",
           "id": "fraud_intent.property_only_appropriation_practical_consequence",
           "proposition": "재물편취죄에만 불법영득의사가 필요하다는 견해에 따르더라도, 영득의사 없이 기망으로 재물 교부를 받은 경우 재산상 이익 취득으로 처벌될 수 있으므로 결과적으로 불법영득의사 전면 불요설과 차이가 없게 된다.",
           "source_refs": [
@@ -3170,6 +3201,8 @@
       "part": 1,
       "priority": 3,
       "recommended_action": "검토 질문의 정책 선택 대상을 세 경쟁 학설로 한정하고, practical consequence 카드는 재물편취죄 한정 필요설에 종속된 설명으로 별도 검토하도록 표시한다.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.intent.part001.critic.practical_consequence_not_selectable_variant",
       "severity": "hard",
       "source_refs": [
@@ -3188,9 +3221,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.mistake_disposition.part001.critic.f2.disposition_intent_variant_groups",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -3230,6 +3263,8 @@
       "part": 1,
       "priority": 3,
       "recommended_action": "두 카드를 하나의 공통 처분의사 필요성 variant_group에 배치하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.mistake_disposition.part001.critic.f2.disposition_intent_variant_groups",
       "severity": "hard",
       "source_refs": [
@@ -3248,9 +3283,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.mistake_disposition.part001.critic.f3.voluntariness_variant_groups",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -3259,8 +3294,8 @@
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "authority_basis": "commentary_synthesis",
+          "formalization": "standard_input",
           "id": "mistake_disposition.fraud.variant.disposition-voluntariness-coercive-seizure-negative",
           "proposition": "형사를 가장하여 위조지폐 수색을 명목으로 지폐를 압수해 간 경우 처분행위의 자의성이 없다는 견해가 있다.",
           "source_refs": [
@@ -3272,8 +3307,8 @@
           ]
         },
         {
-          "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "authority_basis": "commentary_synthesis",
+          "formalization": "standard_input",
           "id": "mistake_disposition.fraud.variant.disposition-voluntariness-coercive-seizure-positive",
           "proposition": "형사를 가장한 압수행위에서 피기망자가 순순히 지폐를 내어주거나 압수행위를 묵인한 경우에는 자의성이 인정되어 사기죄가 성립한다는 견해가 있다.",
           "source_refs": [
@@ -3290,6 +3325,8 @@
       "part": 1,
       "priority": 3,
       "recommended_action": "두 카드를 공통 자의성 variant_group으로 묶고, 각 카드의 상이한 사실조건은 그대로 보존하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.mistake_disposition.part001.critic.f3.voluntariness_variant_groups",
       "severity": "hard",
       "source_refs": [
@@ -3309,9 +3346,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.concurrence.part001.critic.agent_competing_position_group_incomplete",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -3323,7 +3360,7 @@
       "impacted_cards": [
         {
           "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "formalization": "context_only",
           "id": "fraud_concurrence.agent_fraud_only_view",
           "proposition": "타인의 사무를 처리하는 자가 본인을 기망하여 재물 또는 재산상 이익을 취득해 본인에게 손해를 가한 경우 사기죄만 성립한다는 견해가 있다.",
           "source_refs": [
@@ -3336,7 +3373,7 @@
         },
         {
           "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "formalization": "context_only",
           "id": "fraud_concurrence.agent_breach_only_view",
           "proposition": "타인의 사무를 처리하는 자가 본인을 기망하여 재물 또는 재산상 이익을 취득해 본인에게 손해를 가한 경우 배임죄만 성립한다는 견해가 있다.",
           "source_refs": [
@@ -3348,8 +3385,8 @@
           ]
         },
         {
-          "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "authority_basis": "commentary_synthesis",
+          "formalization": "deterministic_rule",
           "id": "fraud_concurrence.agent_imaginary_concurrence_view",
           "proposition": "타인의 사무를 처리하는 자가 본인을 기망하여 재물 또는 재산상 이익을 취득해 본인에게 손해를 가한 경우, 배임죄와 사기죄는 상상적 경합관계라는 견해가 대체적이다.",
           "source_refs": [
@@ -3379,6 +3416,8 @@
       "part": 1,
       "priority": 4,
       "recommended_action": "판례 소개 카드도 동일 쟁점 그룹에 연결하되, 학설과 판례의 권위 차이는 기존 authority_basis 및 doctrinal_status로 유지하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.concurrence.part001.critic.agent_competing_position_group_incomplete",
       "severity": "hard",
       "source_refs": [
@@ -3398,9 +3437,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.concurrence.part001.critic.counterfeit_variant_group_incomplete",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -3423,7 +3462,7 @@
         },
         {
           "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "formalization": "context_only",
           "id": "fraud_concurrence.counterfeit_currency_imaginary_view",
           "proposition": "위조통화를 행사하는 행위가 기망행위의 내용을 이루므로 위조통화행사죄와 사기죄의 상상적 경합관계를 인정해야 한다는 견해가 있다.",
           "source_refs": [
@@ -3440,6 +3479,8 @@
       "part": 1,
       "priority": 4,
       "recommended_action": "실체적 경합 카드와 상상적 경합 견해 카드를 동일한 변형 그룹에 연결하고, 어느 입장도 자동 선택하지 않도록 유지하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.concurrence.part001.critic.counterfeit_variant_group_incomplete",
       "severity": "hard",
       "source_refs": [
@@ -3458,9 +3499,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.damage_acquisition.part001.critic.variant_group.property_loss_fragmented",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -3469,7 +3510,7 @@
       "impacted_cards": [
         {
           "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "formalization": "context_only",
           "id": "damage_acquisition.fraud.variant-property-loss-requirement-negative",
           "proposition": "사기죄 구성요건으로 재산상 손해 발생이 필요한지에 관하여 이를 부정하는 견해가 있다.",
           "source_refs": [
@@ -3486,6 +3527,8 @@
       "part": 1,
       "priority": 4,
       "recommended_action": "세 개의 개괄 카드와 이에 대응하는 구체화 카드를 동일한 재산상 손해 필요성 variant_group에 연결하고, 실질적으로 중복되는 개괄·구체 카드의 병합 여부만 검토하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.damage_acquisition.part001.critic.variant_group.property_loss_fragmented",
       "severity": "hard",
       "source_refs": [
@@ -3509,9 +3552,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part001.critic.future_facts_variant_group_split",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -3565,6 +3608,8 @@
       "part": 1,
       "priority": 4,
       "recommended_action": "세 카드의 variant_group을 장래 사실의 기망 대상성이라는 하나의 공통 그룹 식별자로 통일하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part001.critic.future_facts_variant_group_split",
       "severity": "hard",
       "source_refs": [
@@ -3588,9 +3633,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part001.critic.opinion_statement_variant_group_split",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -3641,7 +3686,7 @@
         },
         {
           "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "formalization": "context_only",
           "id": "deception.fraud.variant.opinion-statement-third-view-concreteness",
           "proposition": "제3설은 고지한 사실이 지극히 추상적이면 착오 유발에 충분하지 않아 기망이 아니지만, 허위 사실이 구체적으로 고지되면 착오 유발에 충분하여 기망에 해당한다고 본다.",
           "source_refs": [
@@ -3658,6 +3703,8 @@
       "part": 1,
       "priority": 4,
       "recommended_action": "소극설·적극설·제3설 카드에 공통 variant_group을 부여하고, 제3설 구체성 카드가 같은 제3설의 보충 명제임을 그룹 또는 명시적 관계로 표시하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part001.critic.opinion_statement_variant_group_split",
       "severity": "hard",
       "source_refs": [
@@ -3677,9 +3724,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part001.critic.third_view_supplement_ungrouped",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -3702,7 +3749,7 @@
         },
         {
           "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "formalization": "context_only",
           "id": "deception.fraud.variant.opinion-statement-third-view-concreteness",
           "proposition": "제3설은 고지한 사실이 지극히 추상적이면 착오 유발에 충분하지 않아 기망이 아니지만, 허위 사실이 구체적으로 고지되면 착오 유발에 충분하여 기망에 해당한다고 본다.",
           "source_refs": [
@@ -3719,6 +3766,8 @@
       "part": 1,
       "priority": 4,
       "recommended_action": "이 카드를 의견표시 쟁점의 공통 variant_group에 포함시키고 앞선 제3설 카드와의 보충 관계를 보존하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part001.critic.third_view_supplement_ungrouped",
       "severity": "hard",
       "source_refs": [
@@ -3737,9 +3786,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part002.critic.variant_group.dine_stay_views",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -3749,7 +3798,7 @@
       "impacted_cards": [
         {
           "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "formalization": "context_only",
           "id": "deception.fraud.variant.dine-stay-implicit-deception-majority",
           "proposition": "무전취식ㆍ무전숙박에서 특별한 반대 사정이 없으면 숙박하거나 음식을 주문하는 행위는 대금지급 의사와 능력이 있다는 묵시적 표시이고, 그 표시가 허위인 경우 묵시적 기망행위에 해당한다는 다수설이 소개되어 있다.",
           "source_refs": [
@@ -3767,7 +3816,7 @@
         },
         {
           "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "formalization": "context_only",
           "id": "deception.fraud.variant.dine-stay-omission-deception",
           "proposition": "무전취식ㆍ무전숙박을 묵시적 기망행위가 아니라 부작위에 의한 기망행위로 분류하는 견해도 대립한다.",
           "source_refs": [
@@ -3784,6 +3833,8 @@
       "part": 2,
       "priority": 4,
       "recommended_action": "Place these two cards in one shared variant group while retaining the majority-view designation and the competing classification.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part002.critic.variant_group.dine_stay_views",
       "severity": "hard",
       "source_refs": [
@@ -3802,9 +3853,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part002.critic.variant_group.disposition_views",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -3814,7 +3865,7 @@
       "impacted_cards": [
         {
           "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "formalization": "context_only",
           "id": "deception.fraud.variant.disposition-implied-representation",
           "proposition": "재물을 처분하는 자는 재물이 자신의 소유이거나 처분권한이 있음을 묵시적으로 표현하고, 목적물에 하자나 저당권ㆍ가등기 등이 없음을 묵시적으로 전제한다는 견해가 있다.",
           "source_refs": [
@@ -3827,7 +3878,7 @@
         },
         {
           "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "formalization": "context_only",
           "id": "deception.fraud.variant.disposition-omission-deception",
           "proposition": "재물 처분과 관련하여 소유권ㆍ처분권한 또는 목적물 하자ㆍ부담을 알리지 않은 경우도 부작위에 의한 기망행위로 본다는 반대설이 있다.",
           "source_refs": [
@@ -3844,6 +3895,8 @@
       "part": 2,
       "priority": 4,
       "recommended_action": "Assign both cards to one shared variant group without selecting either view.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part002.critic.variant_group.disposition_views",
       "severity": "hard",
       "source_refs": [
@@ -3863,9 +3916,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part003.critic.variants.double-sale",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -3947,6 +4000,8 @@
       "part": 3,
       "priority": 4,
       "recommended_action": "이중매매 카드들을 명시적 변형군으로 연결하고 피해자 지위, 등기 상태 및 이전 의사를 구별 기준으로 검토하는 review question을 추가하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part003.critic.variants.double-sale",
       "severity": "hard",
       "source_refs": [
@@ -3974,9 +4029,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part003.critic.variants.nonmedical-clinic",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -4016,6 +4071,8 @@
       "part": 3,
       "priority": 4,
       "recommended_action": "두 카드를 하나의 명시적 변형군으로 연결하고, 실손보험자와 국민건강보험공단에 대한 청구라는 구별 기준을 검토하도록 별도 review question을 추가하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part003.critic.variants.nonmedical-clinic",
       "severity": "hard",
       "source_refs": [
@@ -4035,9 +4092,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part004.critic.variant.medical_corporation_exception",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -4047,7 +4104,7 @@
       "impacted_cards": [
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.medical-corporation-nonmedical-involvement",
           "proposition": "비의료인이 외형만 갖춘 의료법인을 탈법적으로 악용해 적법한 개설·운영으로 가장한 사정이 없는 한, 의료법인 명의 의료기관 개설·운영에 관여했다는 사정만으로 요양급여비용 수령 사기죄가 성립하지 않는다.",
           "source_refs": [
@@ -4060,7 +4117,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.exception.medical-corporation-nonmedical-abuse-types",
           "proposition": "의료법인의 경우 비의료인이 실질적 재산출연이 없어 실체가 인정되지 않는 의료법인을 개설·운영 수단으로 악용하거나, 의료법인 재산을 부당 유출하여 공공성·비영리성을 일탈한 경우는 비의료인 관여만으로 의료법 위반이 성립하지 않는다는 판단의 예외 사유이다.",
           "source_refs": [
@@ -4077,6 +4134,8 @@
       "part": 4,
       "priority": 4,
       "recommended_action": "$.cards[24]와 $.cards[46]에 동일한 variant_group을 부여하고 기본 규범과 예외의 관계를 검토 질문에 명시하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part004.critic.variant.medical_corporation_exception",
       "severity": "hard",
       "source_refs": [
@@ -4096,9 +4155,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.deception.part004.critic.variant.religious_practice_boundary",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -4110,7 +4169,7 @@
       "impacted_cards": [
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.religious-compensation-not-necessarily-fraud",
           "proposition": "기도를 해주고 상당한 보수를 받는다는 사정만으로 반드시 사기죄가 성립하는 것은 아니다.",
           "source_refs": [
@@ -4123,7 +4182,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.shamanistic-false-misfortune",
           "proposition": "구체적 불행이 발생할 것처럼 말하여 고액 굿값을 받는 행위가 종교행위로 허용되는 한계를 벗어나 무속행위를 가장한 편취이면 사기죄가 성립한다.",
           "source_refs": [
@@ -4136,7 +4195,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.prayer-fee-beyond-permitted-limit",
           "proposition": "피고인이 불행의 고지나 길흉화복에 관한 결과 약속을 하여 기도비 등의 명목으로 대가를 받더라도, 전통적 관습 또는 종교행위로 허용되는 한계를 벗어나면 사기죄가 성립한다.",
           "source_refs": [
@@ -4149,7 +4208,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "deception.fraud.standard.false-religious-claims-donations",
           "proposition": "사이비교주가 헌금하지 않으면 영생할 수 없다고 설교하여 헌금 명목 금원을 받거나, 자신을 하나님·구세주 등으로 지칭하여 신도들로부터 고액 헌금을 받으면 사기죄가 성립한다.",
           "source_refs": [
@@ -4171,6 +4230,8 @@
       "part": 4,
       "priority": 4,
       "recommended_action": "$.cards[16], $.cards[17], $.cards[42]를 동일한 종교행위 허용한계 variant_group으로 연결하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.deception.part004.critic.variant.religious_practice_boundary",
       "severity": "soft",
       "source_refs": [
@@ -4190,9 +4251,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.general_object.part001.critic.sex_work_variants_not_grouped",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -4232,6 +4293,8 @@
       "part": 1,
       "priority": 4,
       "recommended_action": "긍정설과 부정설 카드에 동일한 variant_group을 지정하고, 두 견해 중 선택이 미해결임을 유지한다.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.general_object.part001.critic.sex_work_variants_not_grouped",
       "severity": "hard",
       "source_refs": [
@@ -4250,9 +4313,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.mistake_disposition.part001.critic.f1.collapsed_triangular_fraud_variants",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -4261,7 +4324,7 @@
       "impacted_cards": [
         {
           "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "formalization": "context_only",
           "id": "fraud_mistake.triangular_fraud_theories",
           "proposition": "삼각사기에서 처분행위자와 피해자의 관계에 관하여 인과관계설, 계약관계설, 법적 권한설 및 사실상 지위설이 대립하며, 해설은 사실상 지위설을 다수설로 소개하고 다수설은 처분행위자에게 타인의 재물을 처분할 능력을 요구한다고 한다.",
           "source_refs": [
@@ -4298,6 +4361,8 @@
       "part": 1,
       "priority": 4,
       "recommended_action": "각 경쟁 학설과 다수설 관련 명제를 별도 카드로 유지하고, 모두 동일한 삼각사기 권한기준 variant_group으로 연결하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.mistake_disposition.part001.critic.f1.collapsed_triangular_fraud_variants",
       "severity": "hard",
       "source_refs": [
@@ -4316,9 +4381,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.special_forms.part001.critic.f5.missing_variant_grouping",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -4375,7 +4440,7 @@
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_reported_precedent",
+          "authority_basis": "commentary_synthesis",
           "formalization": "context_only",
           "id": "special_forms.fraud.definition.litigation-fraud-triangular",
           "proposition": "소송사기는 법원을 기망하여 유리한 판결을 얻고 그에 기하여 소송 상대방으로부터 재물 또는 재산상 이익을 취득하는 삼각사기이다.",
@@ -4415,7 +4480,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "deterministic_rule",
+          "formalization": "standard_input",
           "id": "special_forms.fraud.element.litigation-fraud-knowing-nonexistence",
           "proposition": "소송사기 성립에는 제소 당시 주장 채권이 존재하지 않는 사실을 알면서 허위 주장과 증명으로 법원을 기망한다는 인식이 필요하다.",
           "source_refs": [
@@ -4493,7 +4558,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "deterministic_rule",
+          "formalization": "standard_input",
           "id": "special_forms.fraud.element.litigation-fraud-deceptive-act",
           "proposition": "소송사기죄의 성립에는 기망행위가 필요하며, 증거 위조 또는 허위 준비서면·자술서의 작성ㆍ제출은 기망행위에 포함된다.",
           "source_refs": [
@@ -4532,7 +4597,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "deterministic_rule",
+          "formalization": "standard_input",
           "id": "special_forms.fraud.element.judgment-substitutes-victim-disposition",
           "proposition": "소송사기에서 피기망자인 법원의 재판은 피해자의 처분행위에 갈음하는 내용과 효력이 있어야 한다.",
           "source_refs": [
@@ -5027,7 +5092,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "deterministic_rule",
+          "formalization": "standard_input",
           "id": "special_forms.fraud.element.litigation-fraud-commencement",
           "proposition": "적극적인 방법으로 법원을 기망할 의사를 가지고 허위 내용의 서류를 증거로 제출하거나 그에 따른 주장을 담은 답변서ㆍ준비서면을 제출한 경우 소송사기죄의 실행에 착수한다.",
           "source_refs": [
@@ -5080,6 +5145,8 @@
       "part": 1,
       "priority": 4,
       "recommended_action": "Add the smallest necessary variant groups for materially related cards and a focused legal-review question for any grouping that remains unresolved.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.special_forms.part001.critic.f5.missing_variant_grouping",
       "severity": "soft",
       "source_refs": [
@@ -5110,9 +5177,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.special_forms.part002.critic.variant_group.illegal_cause_split",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -5121,8 +5188,8 @@
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "authority_basis": "commentary_synthesis",
+          "formalization": "deterministic_rule",
           "id": "special_forms.fraud.variant.illegal-cause-benefit-affirmative",
           "proposition": "기망으로 급여한 재물이 불법원인급여에 해당하여 반환을 구할 수 없더라도, 기망 결과 재물을 상실한 재산상 손해 및 기망수단에 의한 행위의 위법성이 인정되므로 사기죄가 성립한다는 다수설이 있다.",
           "source_refs": [
@@ -5145,7 +5212,7 @@
         },
         {
           "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "formalization": "context_only",
           "id": "special_forms.fraud.variant.illegal-cause-benefit-negative",
           "proposition": "불법원인급여에서는 처분이 법이 금지한 목적을 실현하고 법이 보호하는 재산상 손해가 존재하지 않으므로 사기죄가 성립하지 않는다는 소수설이 있다.",
           "source_refs": [
@@ -5162,6 +5229,8 @@
       "part": 2,
       "priority": 4,
       "recommended_action": "긍정설·부정설 카드에 하나의 공통 variant_group을 부여하고, 판례 긍정설 카드가 같은 쟁점의 권위상 위치를 나타내도록 해당 그룹과 연결하되 견해들을 병합하지 않는다.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.special_forms.part002.critic.variant_group.illegal_cause_split",
       "severity": "hard",
       "source_refs": [
@@ -5184,9 +5253,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.special_forms.part002.critic.variant_group.right_exercise_split",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -5197,7 +5266,7 @@
       "impacted_cards": [
         {
           "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "formalization": "context_only",
           "id": "special_forms.fraud.variant.right-exercise-within-scope-negative",
           "proposition": "정당한 권리를 실행할 의사로 기망수단을 사용하여 권리 범위 내의 재물 또는 재산상 이익을 취득한 경우 사기죄 성립을 부정하고, 권리 범위를 초과한 경우에는 가분성에 따라 초과부분 또는 전부에 사기죄가 성립한다는 견해가 있다.",
           "source_refs": [
@@ -5210,7 +5279,7 @@
         },
         {
           "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "formalization": "context_only",
           "id": "special_forms.fraud.variant.right-exercise-social-acceptability",
           "proposition": "정당한 권리 범위 내에서 기망으로 취득한 경우 불법영득의사가 없어 사기죄가 성립하지 않고, 신의칙에 반하지 않는 경미한 기망이나 사회상당성 범위의 권리행사는 구성요건 또는 위법성이 조각된다는 소수설이 있다.",
           "source_refs": [
@@ -5227,8 +5296,8 @@
           ]
         },
         {
-          "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
+          "authority_basis": "commentary_synthesis",
+          "formalization": "deterministic_rule",
           "id": "special_forms.fraud.variant.right-exercise-abuse-positive",
           "proposition": "권리행사라 하더라도 사회통념상 허용 범위를 초과하면 권리남용이 되어 위법성이 조각되지 않는다는 다수설이 있다.",
           "source_refs": [
@@ -5245,6 +5314,8 @@
       "part": 2,
       "priority": 4,
       "recommended_action": "세 학설 카드를 공통 쟁점의 variant_group으로 묶고, 사회통념상 허용 여부를 제시하는 관련 판례 카드와의 관계를 표시한다. 각 학설의 독립된 명제와 다수설·소수설 표지는 그대로 보존한다.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.special_forms.part002.critic.variant_group.right_exercise_split",
       "severity": "hard",
       "source_refs": [
@@ -5268,9 +5339,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.stages_participation.part001.critic.variant.completion_without_gain",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -5294,7 +5365,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "policy_variant",
           "id": "fraud_stages_participation.victim_loss_completion_view",
           "proposition": "피해자에게 재산상 손해가 발생하면 행위자가 불법이득을 취득하지 않았더라도 사기죄가 기수에 이른다는 견해가 있다.",
           "source_refs": [
@@ -5324,6 +5395,8 @@
       "part": 1,
       "priority": 4,
       "recommended_action": "피해자 손해만으로 기수를 인정하는 견해를 관련 기수 기준 카드들과 명시적인 변형·경쟁 견해 그룹으로 연결하고, 어느 견해를 채택할지는 결정하지 않은 채 검토 질문에 남긴다.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.stages_participation.part001.critic.variant.completion_without_gain",
       "severity": "hard",
       "source_refs": [
@@ -5343,9 +5416,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.concurrence.part002.critic.sanction_cards_missing_review_question",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -5357,7 +5430,7 @@
       "impacted_cards": [
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "fraud_concurrence.aggravated_economic_optional_fine",
           "proposition": "특정경제범죄 가중처벌 등에 관한 법률 제3조에 따라 가중처벌되는 경우, 취득 재물 또는 재산상 이익 가액 이하에 상당하는 벌금을 병과할 수 있다.",
           "source_refs": [
@@ -5370,7 +5443,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "fraud_concurrence.insurance_fraud_sanctions",
           "proposition": "보험사기행위로 보험금을 취득하거나 제3자에게 취득하게 한 자는 10년 이하 징역 또는 5천만 원 이하 벌금에 처하며, 보험금 가액이 5억 원 이상이면 특정경제범죄 가중처벌 등에 관한 법률과 같은 법정형으로 가중처벌된다.",
           "source_refs": [
@@ -5388,7 +5461,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "fraud_concurrence.military_criminal_act_sanctions",
           "proposition": "군용 물건 또는 군의 재산상 이익에 관한 사기죄는 총포·탄약·폭발물의 경우 사형·무기 또는 5년 이상 징역, 그 밖의 경우 사형·무기 또는 1년 이상 징역에 처하고 3천만 원 이하 벌금을 병과할 수 있다.",
           "source_refs": [
@@ -5401,7 +5474,7 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
+          "formalization": "context_only",
           "id": "fraud_concurrence.military_property_special_act_sanctions",
           "proposition": "군용물에 관한 사기죄는 무기 또는 1년 이상 징역에 처하고, 10년 이하 자격정지 또는 유기징역 선고 시 3천만 원 이하 벌금을 병과할 수 있다. 다만 군용식량·군복류·군용유류는 집단적 또는 상습적 범행, 가액 1천만 원 이상, 또는 물품 1천 킬로그램 이상·유류 2천 리터 이상인 경우에만 가중처벌된다.",
           "source_refs": [
@@ -5423,6 +5496,8 @@
       "part": 2,
       "priority": 5,
       "recommended_action": "특정경제범죄법, 보험사기방지 특별법, 군형법 및 군용물 관련 특별법의 현행 법정형과 적용요건을 확인하는 검토 질문을 추가하고, 확인 전까지 관련 네 카드의 review_required 값을 true로 조정한다.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.concurrence.part002.critic.sanction_cards_missing_review_question",
       "severity": "soft",
       "source_refs": [
@@ -5438,19 +5513,90 @@
       "card_mapping": {
         "confidence": 1.0,
         "method": "generated_review_question_scope",
-        "review_question": "Verify the primary decisions and permissible generalization of these commentary-reported case cards: fraud_damage_acquisition.appeal_withdrawal_disposition"
+        "review_question": "Verify the primary decisions and permissible generalization of these commentary-reported case cards: damage_acquisition.fraud.variant-property-loss-requirement-negative, damage_acquisition.fraud.variant-property-loss-requirement-affirmative, damage_acquisition.fraud.variant-property-loss-requirement-limited-affirmative, fraud_damage_acquisition.property_concept_reported_precedent, fraud_damage_acquisition.property_risk_infringement_offense, fraud_damage_acquisition.appeal_withdrawal_disposition, fraud_damage_acquisition.provisional_seizure_release_disposition"
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.damage_acquisition.part001.critic.review_questions.reported_cases_incomplete",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
-        "fraud_damage_acquisition.appeal_withdrawal_disposition"
+        "damage_acquisition.fraud.variant-property-loss-requirement-negative",
+        "damage_acquisition.fraud.variant-property-loss-requirement-affirmative",
+        "damage_acquisition.fraud.variant-property-loss-requirement-limited-affirmative",
+        "fraud_damage_acquisition.property_concept_reported_precedent",
+        "fraud_damage_acquisition.property_risk_infringement_offense",
+        "fraud_damage_acquisition.appeal_withdrawal_disposition",
+        "fraud_damage_acquisition.provisional_seizure_release_disposition"
       ],
       "impacted_cards": [
+        {
+          "authority_basis": "commentary_reported_doctrine",
+          "formalization": "context_only",
+          "id": "damage_acquisition.fraud.variant-property-loss-requirement-negative",
+          "proposition": "사기죄 구성요건으로 재산상 손해 발생이 필요한지에 관하여 이를 부정하는 견해가 있다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+              "quote": "재산상 손해의 발생이 사기죄의 구성요건인지 여부에 관하여는, 부정설, 긍정설, 제한적 긍정설의 대립이 있다.",
+              "section_path": "Ⅳ.4"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_reported_doctrine",
+          "formalization": "context_only",
+          "id": "damage_acquisition.fraud.variant-property-loss-requirement-affirmative",
+          "proposition": "사기죄 구성요건으로 재산상 손해 발생이 필요하다는 긍정설이 있다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+              "quote": "재산상 손해의 발생이 사기죄의 구성요건인지 여부에 관하여는, 부정설, 긍정설, 제한적 긍정설의 대립이 있다.",
+              "section_path": "Ⅳ.4"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_reported_doctrine",
+          "formalization": "context_only",
+          "id": "damage_acquisition.fraud.variant-property-loss-requirement-limited-affirmative",
+          "proposition": "사기죄 구성요건으로 재산상 손해 발생이 필요하다는 제한적 긍정설이 있다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+              "quote": "재산상 손해의 발생이 사기죄의 구성요건인지 여부에 관하여는, 부정설, 긍정설, 제한적 긍정설의 대립이 있다.",
+              "section_path": "Ⅳ.4"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_reported_doctrine",
+          "formalization": "context_only",
+          "id": "fraud_damage_acquisition.property_concept_reported_precedent",
+          "proposition": "해설은 재산상 이익의 법률상 유효한 취득을 요구하지 않는다고 한 판례를 경제적 재산개념에 가까운 것으로 평가한다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+              "quote": "판례는 사기죄에서 재산상 이익처분은 법률상 유효하게 취득할 것을 필 요로 하지 않고 그 이익 취득이 법률상 무효라고 하여도 외형상 취득하면 족하 다고 판시하고 있어 법률적 재산개념에 한정하지 않고 있고, 경제적 재산개 념에 가깝다고 보인다.",
+              "section_path": "Ⅳ.4"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_reported_doctrine",
+          "formalization": "context_only",
+          "id": "fraud_damage_acquisition.property_risk_infringement_offense",
+          "proposition": "재산 위험을 재산상 손해로 보는 긍정설도 사기죄를 위험범이 아니라 침해범으로 본다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+              "quote": "다만 긍정설의 입장에서도 사기죄가 침해범이지 위험범이 아니라고 보고 있 다.",
+              "section_path": "Ⅳ.4"
+            }
+          ]
+        },
         {
           "authority_basis": "commentary_reported_precedent",
           "formalization": "context_only",
@@ -5463,6 +5609,19 @@
               "section_path": "Ⅳ.5"
             }
           ]
+        },
+        {
+          "authority_basis": "commentary_reported_precedent",
+          "formalization": "context_only",
+          "id": "fraud_damage_acquisition.provisional_seizure_release_disposition",
+          "proposition": "가압류 집행을 마친 자가 가압류를 해제하여 소유자가 부담 없는 부동산을 소유하는 이익을 얻는 경우 가압류 해제는 재산적 처분행위에 해당하고, 피보전채권 부존재가 밝혀져도 달리 볼 수 없다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.5_66",
+              "quote": "가압류를 해제하면 소유자는 가압류의 부담이 없는 부동산을 소유하는 이익을 얻게 되므로, 가압류를 해제하는 것이 사기죄에서의 재산적 처분행위에 해당하 고, 설령 그 이후 가압류의 피보전채권이 존재하지 않는 것으로 밝혀졌다고 하 더라도 가압류의 해제로 인한 재산상의 이익이 없었다고 할 수 없다.",
+              "section_path": "Ⅳ.5"
+            }
+          ]
         }
       ],
       "message": "원판결 확인과 일반화 가능성 검토 질문이 appeal_withdrawal_disposition 한 카드만 열거한다. 그러나 카드 자체의 review_notes가 다수의 다른 카드를 reported precedent로 명시하고 있고, 사안별 판결 결과로 작성된 카드도 다수 존재한다. 이들을 검토 질문에서 누락하면 판례 원문 확인 없이 일반 규칙으로 승격될 위험이 있다.",
@@ -5470,6 +5629,8 @@
       "part": 1,
       "priority": 5,
       "recommended_action": "사안별 판례 보고로 분류되는 모든 카드에 대해 원판결 확인과 허용 가능한 일반화 범위를 묻도록 해당 검토 질문의 카드 목록을 보완하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.damage_acquisition.part001.critic.review_questions.reported_cases_incomplete",
       "severity": "hard",
       "source_refs": [
@@ -5516,9 +5677,9 @@
       },
       "human_review": {
         "decision": "accept_finding_pending_remediation",
-        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다.",
+        "notes": "사용자가 지적의 타당성을 승인했다. 카드 수정, 원판례·현행법 검색 또는 policy 선택은 아직 미완료다. 승인된 지적을 수동 remediation ledger에 반영하고 검증했다.",
         "review_id": "fraud.normcards.mistake_disposition.part001.critic.f5.duplicated_negligence_norm",
-        "status": "pending",
+        "status": "completed",
         "verified_authority_refs": []
       },
       "impacted_card_ids": [
@@ -5528,9 +5689,9 @@
       "impacted_cards": [
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "deterministic_rule",
+          "formalization": "standard_input",
           "id": "mistake_disposition.fraud.causal-link.victim-negligence-irrelevant",
-          "proposition": "기망행위가 착오의 유일한 원인일 필요는 없으므로, 피기망자 측 과실이 착오 원인에 포함되어도 사기죄 성립에 영향이 없다.",
+          "proposition": "기망행위는 착오의 유일한 원인일 필요가 없으므로, 피기망자 측 과실이 착오 발생에 함께 작용해도 기망행위와 착오 사이 인과관계는 부정되지 않는다.",
           "source_refs": [
             {
               "comment_id": "comm_001692_제347조_Ⅳ.2_47",
@@ -5541,9 +5702,9 @@
         },
         {
           "authority_basis": "commentary_synthesis",
-          "formalization": "deterministic_rule",
+          "formalization": "standard_input",
           "id": "mistake_disposition.fraud.causal-link-mistake-not-sole-cause",
-          "proposition": "착오는 처분행위의 유일한 원인일 필요가 없고, 피해자에게 과실이 있어도 인과관계는 부정되지 않는다.",
+          "proposition": "착오는 처분행위의 유일한 원인일 필요가 없으므로, 피해자 과실이 함께 작용해도 착오와 처분행위 사이 인과관계는 부정되지 않는다.",
           "source_refs": [
             {
               "comment_id": "comm_001692_제347조_Ⅳ.3_56",
@@ -5558,6 +5719,8 @@
       "part": 1,
       "priority": 5,
       "recommended_action": "두 출처가 동일한 인과관계 원칙을 표현하는지 검토하여 하나의 카드로 병합하되, 기망-착오 단계와 착오-처분 단계의 차이가 의도된 것이라면 각 적용 단계를 명시적으로 한정하라.",
+      "remediation_status": "applied",
+      "resolved": true,
       "review_id": "fraud.normcards.mistake_disposition.part001.critic.f5.duplicated_negligence_norm",
       "severity": "soft",
       "source_refs": [

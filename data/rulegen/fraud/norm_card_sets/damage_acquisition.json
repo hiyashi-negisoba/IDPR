@@ -10,7 +10,7 @@
         }
       ],
       "doctrinal_status": "disputed",
-      "formalization": "policy_variant",
+      "formalization": "context_only",
       "id": "damage_acquisition.fraud.variant-property-loss-requirement-negative",
       "norm_kind": "variant",
       "polarity": "negative",
@@ -18,7 +18,7 @@
       "request_ids": [
         "fraud.article347.pass1.007"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review.",
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 재산상 손해 필요성의 개괄·구체 견해를 하나의 정책 그룹으로 연결했다. 정책 선택지가 아니라 판례 설명·중복 요약·보충 논거로 분류했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -27,7 +27,7 @@
           "section_path": "Ⅳ.4"
         }
       ],
-      "variant_group": "pending.fraud.variant-property-loss-requirement-negative"
+      "variant_group": "fraud_damage_acquisition.property_loss_requirement"
     },
     {
       "authority_basis": "commentary_reported_doctrine",
@@ -38,7 +38,7 @@
         }
       ],
       "doctrinal_status": "disputed",
-      "formalization": "policy_variant",
+      "formalization": "context_only",
       "id": "damage_acquisition.fraud.variant-property-loss-requirement-affirmative",
       "norm_kind": "variant",
       "polarity": "positive",
@@ -46,7 +46,7 @@
       "request_ids": [
         "fraud.article347.pass1.007"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review.",
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 재산상 손해 필요성의 개괄·구체 견해를 하나의 정책 그룹으로 연결했다. 정책 선택지가 아니라 판례 설명·중복 요약·보충 논거로 분류했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -55,7 +55,7 @@
           "section_path": "Ⅳ.4"
         }
       ],
-      "variant_group": "pending.fraud.variant-property-loss-requirement-affirmative"
+      "variant_group": "fraud_damage_acquisition.property_loss_requirement"
     },
     {
       "authority_basis": "commentary_reported_doctrine",
@@ -66,7 +66,7 @@
         }
       ],
       "doctrinal_status": "disputed",
-      "formalization": "policy_variant",
+      "formalization": "context_only",
       "id": "damage_acquisition.fraud.variant-property-loss-requirement-limited-affirmative",
       "norm_kind": "variant",
       "polarity": "positive",
@@ -74,7 +74,7 @@
       "request_ids": [
         "fraud.article347.pass1.007"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review.",
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 재산상 손해 필요성의 개괄·구체 견해를 하나의 정책 그룹으로 연결했다. 정책 선택지가 아니라 판례 설명·중복 요약·보충 논거로 분류했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -83,7 +83,7 @@
           "section_path": "Ⅳ.4"
         }
       ],
-      "variant_group": "pending.fraud.variant-property-loss-requirement-limited-affirmative"
+      "variant_group": "fraud_damage_acquisition.property_loss_requirement"
     },
     {
       "authority_basis": "commentary_reported_doctrine",
@@ -178,7 +178,7 @@
         }
       ],
       "doctrinal_status": "disputed",
-      "formalization": "policy_variant",
+      "formalization": "context_only",
       "id": "fraud_damage_acquisition.property_concept_reported_precedent",
       "norm_kind": "variant",
       "polarity": "positive",
@@ -186,7 +186,7 @@
       "request_ids": [
         "fraud.article347.pass1.007"
       ],
-      "review_notes": "판례 원문 확인 전에는 해설의 판례평가로만 취급한다. Conservatively normalized from linked candidates.",
+      "review_notes": "판례 원문 확인 전에는 해설의 판례평가로만 취급한다. Conservatively normalized from linked candidates. 정책 선택지가 아니라 판례 설명·중복 요약·보충 논거로 분류했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -323,7 +323,7 @@
         }
       ],
       "doctrinal_status": "disputed",
-      "formalization": "policy_variant",
+      "formalization": "context_only",
       "id": "fraud_damage_acquisition.property_risk_infringement_offense",
       "norm_kind": "variant",
       "polarity": "positive",
@@ -331,7 +331,7 @@
       "request_ids": [
         "fraud.article347.pass1.007"
       ],
-      "review_notes": "위험범과 침해범의 구별을 별도 검토해야 한다. Conservatively normalized from linked candidates.",
+      "review_notes": "위험범과 침해범의 구별을 별도 검토해야 한다. Conservatively normalized from linked candidates. 정책 선택지가 아니라 판례 설명·중복 요약·보충 논거로 분류했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -359,8 +359,8 @@
       "request_ids": [
         "fraud.article347.pass1.007"
       ],
-      "review_notes": "손해 판단에는 개별 사실관계의 평가가 필요하다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "손해 판단에는 개별 사실관계의 평가가 필요하다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.4_62",
@@ -387,7 +387,7 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "손해요건 부정설의 구체적 내용이다. Conservatively normalized from linked candidates.",
+      "review_notes": "손해요건 부정설의 구체적 내용이다. Conservatively normalized from linked candidates. 재산상 손해 필요성의 개괄·구체 견해를 하나의 정책 그룹으로 연결했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -415,7 +415,7 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "손해요건 제한적 긍정설의 구체적 내용이다. Conservatively normalized from linked candidates.",
+      "review_notes": "손해요건 제한적 긍정설의 구체적 내용이다. Conservatively normalized from linked candidates. 재산상 손해 필요성의 개괄·구체 견해를 하나의 정책 그룹으로 연결했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -448,7 +448,7 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "손해요건 긍정설의 구체적 내용이다. Conservatively normalized from linked candidates.",
+      "review_notes": "손해요건 긍정설의 구체적 내용이다. Conservatively normalized from linked candidates. 재산상 손해 필요성의 개괄·구체 견해를 하나의 정책 그룹으로 연결했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -476,7 +476,7 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "긍정설 채택 시 성립과 기수 구별을 추가 검토해야 한다. Conservatively normalized from linked candidates.",
+      "review_notes": "긍정설 채택 시 성립과 기수 구별을 추가 검토해야 한다. Conservatively normalized from linked candidates. 재산상 손해 필요성의 개괄·구체 견해를 하나의 정책 그룹으로 연결했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -508,8 +508,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "금원 교부형 사안에 한정된 reported precedent이다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "금원 교부형 사안에 한정된 reported precedent이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.4_63",
@@ -541,8 +541,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "보고된 판례의 사실관계에 한정한다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "보고된 판례의 사실관계에 한정한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.4_64",
@@ -569,8 +569,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "현실적 자금 수수와 새로운 법익 침해 여부를 검토해야 한다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "현실적 자금 수수와 새로운 법익 침해 여부를 검토해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.4_64",
@@ -597,8 +597,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "보고된 판례의 성립 판단을 보존한다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "보고된 판례의 성립 판단을 보존한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.4_64",
@@ -625,8 +625,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "경제적 이익 해당성은 개별 평가가 필요하다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "경제적 이익 해당성은 개별 평가가 필요하다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.4_64",
@@ -653,7 +653,7 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "재물 교부의 기본 정의다. Conservatively normalized from linked candidates.",
+      "review_notes": "재물 교부의 기본 정의다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
       "review_required": false,
       "source_refs": [
         {
@@ -681,7 +681,7 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "제3자 취득형 의사의 객체를 재물로 바로잡았다.",
+      "review_notes": "제3자 취득형 의사의 객체를 재물로 바로잡았다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
       "review_required": false,
       "source_refs": [
         {
@@ -709,7 +709,7 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "사실상 지배와 자유로운 처분 가능성을 확인한다. Conservatively normalized from linked candidates.",
+      "review_notes": "사실상 지배와 자유로운 처분 가능성을 확인한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
       "review_required": false,
       "source_refs": [
         {
@@ -737,7 +737,7 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "처분행위의 예시적 범위다. Conservatively normalized from linked candidates.",
+      "review_notes": "처분행위의 예시적 범위다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
       "review_required": false,
       "source_refs": [
         {
@@ -765,7 +765,7 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "보고된 판례의 소송행위형 처분행위다. Conservatively normalized from linked candidates.",
+      "review_notes": "보고된 판례의 소송행위형 처분행위다. Conservatively normalized from linked candidates. 원판결과 일반화 범위 확인 전 사안별 판례로만 사용한다.",
       "review_required": true,
       "source_refs": [
         {
@@ -777,15 +777,15 @@
       "variant_group": null
     },
     {
-      "authority_basis": "commentary_synthesis",
+      "authority_basis": "commentary_reported_precedent",
       "candidate_refs": [
         {
           "candidate_id": "fraud.standard-provisional-seizure-release-disposition",
           "request_id": "fraud.article347.pass1.008"
         }
       ],
-      "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "doctrinal_status": "precedent_position",
+      "formalization": "context_only",
       "id": "fraud_damage_acquisition.provisional_seizure_release_disposition",
       "norm_kind": "standard",
       "polarity": "positive",
@@ -793,7 +793,7 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "보고된 판례의 가압류 해제형 처분행위다. Conservatively normalized from linked candidates.",
+      "review_notes": "보고된 판례의 가압류 해제형 처분행위다. Conservatively normalized from linked candidates. 비평 지적에 따라 권위·법리상태·형식화를 보수적으로 재분류했다. 가압류 해제 판례의 사안별 결과이므로 RAG 사례로 보존한다.",
       "review_required": true,
       "source_refs": [
         {
@@ -821,8 +821,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "보고된 판례의 무효 가등기 말소 사안에 한정한다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "보고된 판례의 무효 가등기 말소 사안에 한정한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.5_66",
@@ -849,8 +849,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "제3자 이익취득형 reported precedent이다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "제3자 이익취득형 reported precedent이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.5_66",
@@ -877,8 +877,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "보증서 발급형 reported precedent이다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "보증서 발급형 reported precedent이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.5_67",
@@ -909,8 +909,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "이자 면제와 별도 처분행위의 존재를 구별한다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "이자 면제와 별도 처분행위의 존재를 구별한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.5_67",
@@ -942,8 +942,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "권리주장 배제 약정의 내용 확인이 필요하다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "권리주장 배제 약정의 내용 확인이 필요하다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.5_67",
@@ -970,7 +970,7 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "해설에 인용된 법정 금액 기준이다. Conservatively normalized from linked candidates.",
+      "review_notes": "해설에 인용된 법정 금액 기준이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
       "review_required": false,
       "source_refs": [
         {
@@ -998,7 +998,7 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "이득액 대상과 합계 범위를 검토한다. Conservatively normalized from linked candidates.",
+      "review_notes": "이득액 대상과 합계 범위를 검토한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
       "review_required": false,
       "source_refs": [
         {
@@ -1026,7 +1026,7 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "일죄와 경합범의 구별이 선행되어야 한다. Conservatively normalized from linked candidates.",
+      "review_notes": "일죄와 경합범의 구별이 선행되어야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
       "review_required": false,
       "source_refs": [
         {
@@ -1054,8 +1054,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "액수 미상 이익과 가중처벌 이득액 산정은 구별한다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "액수 미상 이익과 가중처벌 이득액 산정은 구별한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.6_68",
@@ -1082,8 +1082,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "사회통념상 용인 가능성은 평가적 판단이다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "사회통념상 용인 가능성은 평가적 판단이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.6_69",
@@ -1110,8 +1110,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "기망에 의한 불가분 취득 사안의 reported precedent이다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "기망에 의한 불가분 취득 사안의 reported precedent이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.6_69",
@@ -1138,8 +1138,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "사기죄 성립의 재산상 이익과 가중처벌 이득액 합산을 구별한다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "사기죄 성립의 재산상 이익과 가중처벌 이득액 합산을 구별한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.6_69",
@@ -1166,8 +1166,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "부담 및 특별한 사정의 사실판단이 필요하다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "부담 및 특별한 사정의 사실판단이 필요하다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.6_70",
@@ -1194,8 +1194,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "부동산 자체 편취 가액 산정과 구별한다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "부동산 자체 편취 가액 산정과 구별한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.6_70",
@@ -1222,8 +1222,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "부동산 시가와 채권최고액을 확인해야 한다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "부동산 시가와 채권최고액을 확인해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.6_71",
@@ -1241,8 +1241,8 @@
           "request_id": "fraud.article347.pass1.008"
         }
       ],
-      "doctrinal_status": "disputed",
-      "formalization": "policy_variant",
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
       "id": "fraud_damage_acquisition.mortgage_setting_junior_gain_cap",
       "norm_kind": "variant",
       "polarity": "positive",
@@ -1250,8 +1250,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "예외 카드와 함께 선순위 담보가치 평가를 검토한다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "예외 카드와 함께 선순위 담보가치 평가를 검토한다. Conservatively normalized from linked candidates. 후순위 근저당권 이득액 원칙으로 사용하고 동일 그룹의 예외 카드를 함께 적용한다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.6_71",
@@ -1278,8 +1278,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "특별한 사정의 존재를 사실관계로 검토해야 한다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "특별한 사정의 존재를 사실관계로 검토해야 한다. Conservatively normalized from linked candidates. 후순위 근저당권 이득액 원칙의 예외로 같은 그룹에 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.6_71",
@@ -1287,7 +1287,7 @@
           "section_path": "Ⅳ.6"
         }
       ],
-      "variant_group": null
+      "variant_group": "fraud_damage_acquisition.junior_mortgage_gain_cap"
     },
     {
       "authority_basis": "commentary_synthesis",
@@ -1310,8 +1310,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "현실 교부액과 요구액·액면액을 구분한다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "현실 교부액과 요구액·액면액을 구분한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.6_71",
@@ -1343,8 +1343,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "현실적 자금 수수 여부를 확인해야 한다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "현실적 자금 수수 여부를 확인해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.6_71",
@@ -1371,8 +1371,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "순차 공모와 공범별 취득액을 확인해야 한다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "순차 공모와 공범별 취득액을 확인해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.6_72",
@@ -1399,8 +1399,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "가압류청구금액과 이익 관계를 해당 사안에서 검토한다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "가압류청구금액과 이익 관계를 해당 사안에서 검토한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.5_67",
@@ -1427,8 +1427,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "명의대여와 채무 부담 사이의 처분행위를 구별한다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "명의대여와 채무 부담 사이의 처분행위를 구별한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.5_67",
@@ -1455,8 +1455,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "유가증권 해당성과 액면가를 확인한다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "유가증권 해당성과 액면가를 확인한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.6_68",
@@ -1488,8 +1488,8 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "가중처벌 이득액 산정의 평가 원칙이다. Conservatively normalized from linked candidates.",
-      "review_required": true,
+      "review_notes": "가중처벌 이득액 산정의 평가 원칙이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.6_68",
@@ -1508,7 +1508,7 @@
         }
       ],
       "doctrinal_status": "disputed",
-      "formalization": "policy_variant",
+      "formalization": "context_only",
       "id": "fraud_damage_acquisition.legitimate_right_deduction_view",
       "norm_kind": "variant",
       "polarity": "positive",
@@ -1516,7 +1516,7 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "학설상 피해액 산정 견해이며 판례 확인이 필요하다. Conservatively normalized from linked candidates.",
+      "review_notes": "학설상 피해액 산정 견해이며 판례 확인이 필요하다. Conservatively normalized from linked candidates. 단일 학설 설명으로서 판례 우선 정책을 정할 근거가 없어 RAG 자료로 보존한다.",
       "review_required": true,
       "source_refs": [
         {
@@ -1561,15 +1561,15 @@
       "variant_group": null
     },
     {
-      "authority_basis": "commentary_synthesis",
+      "authority_basis": "commentary_reported_precedent",
       "candidate_refs": [
         {
           "candidate_id": "fraud.standard-repeated-investment-no-return-deduction",
           "request_id": "fraud.article347.pass1.008"
         }
       ],
-      "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "doctrinal_status": "precedent_position",
+      "formalization": "context_only",
       "id": "fraud_damage_acquisition.repeated_investment_no_return_deduction",
       "norm_kind": "standard",
       "polarity": "positive",
@@ -1577,7 +1577,7 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "교부별 범의와 반환·재투자 구조를 검토해야 한다. Conservatively normalized from linked candidates.",
+      "review_notes": "교부별 범의와 반환·재투자 구조를 검토해야 한다. Conservatively normalized from linked candidates. 비평 지적에 따라 권위·법리상태·형식화를 보수적으로 재분류했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -1599,15 +1599,15 @@
       "variant_group": null
     },
     {
-      "authority_basis": "commentary_synthesis",
+      "authority_basis": "commentary_reported_precedent",
       "candidate_refs": [
         {
           "candidate_id": "fraud.standard-letter-of-credit-payment-no-deduction",
           "request_id": "fraud.article347.pass1.008"
         }
       ],
-      "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "doctrinal_status": "precedent_position",
+      "formalization": "context_only",
       "id": "fraud_damage_acquisition.letter_of_credit_no_payment_deduction",
       "norm_kind": "standard",
       "polarity": "positive",
@@ -1615,7 +1615,7 @@
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "신용장별 지급보증 이익과 사후 결제를 구별한다. Conservatively normalized from linked candidates.",
+      "review_notes": "신용장별 지급보증 이익과 사후 결제를 구별한다. Conservatively normalized from linked candidates. 비평 지적에 따라 권위·법리상태·형식화를 보수적으로 재분류했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -1645,11 +1645,12 @@
   "legal_review_questions": [
     "긍정설을 취할 경우 재산상 손해 발생을 사기죄 성립요건으로 볼 것인지, 기수와 미수를 구별하는 기준으로 볼 것인지.",
     "사기죄에서 재산상 손해 발생을 요구하지 않는 부정설, 불법이득죄에 한하여 요구하는 제한적 긍정설, 재물편취죄에서도 전체재산 감소를 요구하는 긍정설 중 어느 견해를 채택할 것인지.",
-    "사기죄의 구성요건으로 재산상 손해 발생을 요구할지 여부에 관한 부정설, 긍정설 및 제한적 긍정설 중 어느 견해를 채택할 것인지.",
+    "재산상 손해 필요성에 관한 부정설·긍정설·제한적 긍정설과 관련 판례의 존재 및 적용 범위를 추가 권위로 확인하고, 확인 전에는 특정 실무 정책을 선택하지 않는다.",
     "삼각사기에서 처분행위자에게 요구되는 피해자 재산 처분능력의 기준으로 인과관계설, 계약관계설, 법적 권한설, 사실상의 지위설 중 어느 견해를 채택할 것인지.",
     "삼각사기에서 처분행위자의 처분능력에 관한 판례 입장을 사실상의 지위설로 단정할 수 있는지, 후속 판결들을 고려할 때 법적 권한설과의 관계를 어떻게 이해할 것인지.",
     "재산의 위험을 재산상 손해로 볼 것인지, 특히 지급 의사와 능력 없이 신용카드를 발급받은 경우를 어떻게 평가할 것인지.",
-    "피기망자와 처분행위자의 동일성 요건을 설명하는 출처가 후문에서 ‘기망자와 처분행위자’라고 표현한 것은 오기인지, 별도의 법리를 의미하는지 확인이 필요하다."
+    "피기망자와 처분행위자의 동일성 요건을 설명하는 출처가 후문에서 ‘기망자와 처분행위자’라고 표현한 것은 오기인지, 별도의 법리를 의미하는지 확인이 필요하다.",
+    "항소취하·가압류해제·신용장·반복투자 등 사안별 판례 카드의 원판결과 허용 가능한 일반화 범위를 확인한다."
   ],
   "source_scope": {
     "comment_ids": [

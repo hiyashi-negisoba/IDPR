@@ -743,3 +743,47 @@ positive·negative·unknown 판단 및 소수의 검증된 core rule만 소비�
 - candidate/card/review queue 전체 재생성: 통과
 - 전체 테스트: `50 passed`
 - Python `py_compile`: 통과
+
+---
+
+## 사기죄 검수 상태 전면 정정 및 remediation
+
+작성일: 2026-07-18
+
+기존 67개 검수 큐는 카드 검수표가 아니라 critic finding 목록인데 이를 전체 검수처럼
+설명했고, 사용자가 타당성을 승인한 57개 finding을 카드에 반영하지 않은 채 53개 ready
+subset으로 RuleIR 생성을 진행하려 했다. 또한 `critic_pending`을 critic 미완료로 잘못
+설명하고 standard input의 neural judgment 필요성을 사람의 법률검토 필요성과 혼동했다.
+
+이번 정정에서는 API를 전혀 사용하지 않았다.
+
+- accepted finding 57개를 source chunk와 직접 대조하여 전부 수동 반영
+- 변경 카드 196개, provenance·candidate link·norm kind·polarity 불변
+- critic finding 67개 전부 resolved, remediation 57개 applied
+- 합쳐진 경쟁 견해 4개 쟁점에서 독립 policy card 10개 추가
+- 최종 NormCard 646개 전수 감사
+- deterministic rule ready 51개
+- standard input ready 285개
+- RAG context only 274개
+- policy choice pending 36개, 12개 그룹
+
+corpus에서 판례 방향이 드러난 보호법익, 일부 경합, 불법원인급여, 권리행사 쟁점은
+판례 우선 원칙으로 직접 실무 규칙화했다. 무전취식의 묵시적 기망/부작위 분류처럼 결론을
+바꾸지 않는 차이와 처분 자의성처럼 사실조건이 다른 규칙은 policy 선택에서 제거했다.
+현재 남은 12개 그룹은 corpus에 직접적인 판례 선택 근거가 없어 사용자의 판례 인덱스
+확인이 필요한 항목만 포함한다.
+
+주요 산출물:
+
+- `data/rulegen/fraud/fraud_norm_card_remediation_ledger.json`
+- `data/rulegen/fraud/fraud_norm_card_audit.json`
+- `data/rulegen/fraud/fraud_policy_review_queue.json`
+- `data/rulegen/fraud/fraud_policy_review_guide.md`
+- `data/rulegen/fraud/fraud_policy_review_decisions.jsonl`
+
+검증:
+
+- remediation/audit/policy artifact의 `api_calls`: 모두 0
+- NormCardSet 8개 source·request·schema 검증: 통과
+- 646개 카드가 네 상태 bucket에 중복·누락 없이 포함
+- 전체 테스트: `50 passed`

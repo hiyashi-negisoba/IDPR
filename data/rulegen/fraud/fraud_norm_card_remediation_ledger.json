@@ -1,0 +1,3924 @@
+{
+  "accepted_findings": 57,
+  "api_calls": 0,
+  "card_changes": [
+    {
+      "card_id": "damage_acquisition.fraud.variant-property-loss-requirement-affirmative",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 재산상 손해 필요성의 개괄·구체 견해를 하나의 정책 그룹으로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_damage_acquisition.property_loss_requirement",
+          "before": "pending.fraud.variant-property-loss-requirement-affirmative"
+        }
+      },
+      "module": "damage_acquisition"
+    },
+    {
+      "card_id": "damage_acquisition.fraud.variant-property-loss-requirement-limited-affirmative",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 재산상 손해 필요성의 개괄·구체 견해를 하나의 정책 그룹으로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_damage_acquisition.property_loss_requirement",
+          "before": "pending.fraud.variant-property-loss-requirement-limited-affirmative"
+        }
+      },
+      "module": "damage_acquisition"
+    },
+    {
+      "card_id": "damage_acquisition.fraud.variant-property-loss-requirement-negative",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 재산상 손해 필요성의 개괄·구체 견해를 하나의 정책 그룹으로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_damage_acquisition.property_loss_requirement",
+          "before": "pending.fraud.variant-property-loss-requirement-negative"
+        }
+      },
+      "module": "damage_acquisition"
+    },
+    {
+      "card_id": "deception.fraud.causal-link.corporate-decisionmaker-aware",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.causal-link.embezzlement-deception-no-disposition",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.causal-link.illegal-hospital-auto-insurance",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.causal-link.promissory-note-no-disposition",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.causal-link.road-occupancy-discretion",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.definition.deceived-person-unspecified",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.definition.deceived-person-victim-distinct",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.definition.deception-counterparty-is-other",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.definition.deception-target-human",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.definition.notice-duty-violation-omission",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.definition.other-includes-corporation",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.definition.subsidy-and-indirect-subsidy",
+      "changes": {
+        "authority_basis": {
+          "after": "statutory_text_in_commentary",
+          "before": "commentary_synthesis"
+        },
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 비평 지적에 따라 권위·법리상태·형식화를 보수적으로 재분류했다. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다. 이 카드만으로 사기죄 전체 성립을 도출하지 않도록 형식화를 수정했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.element.deceived-person-disposal-authority",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.element.intent-to-defraud-conditional-intent",
+      "changes": {
+        "formalization": {
+          "after": "standard_input",
+          "before": "deterministic_rule"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 이 카드만으로 사기죄 전체 성립을 도출하지 않도록 형식화를 수정했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.element.loan-no-repayment-intent-or-ability",
+      "changes": {
+        "formalization": {
+          "after": "standard_input",
+          "before": "deterministic_rule"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 이 카드만으로 사기죄 전체 성립을 도출하지 않도록 형식화를 수정했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.element.omission-deception-independent-error",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.element.omission-deception-legal-notice-duty",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.exception.medical-corporation-nonmedical-abuse-types",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다. 관련 경쟁 견해 또는 사실변형을 fraud_deception.medical_corporation_involvement로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.medical_corporation_involvement",
+          "before": null
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.accommodation-bill-false-certificate",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.altered-bill-maturity-discount",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.artwork-assistant-participation",
+      "changes": {
+        "authority_basis": {
+          "after": "commentary_reported_precedent",
+          "before": "commentary_synthesis"
+        },
+        "doctrinal_status": {
+          "after": "precedent_position",
+          "before": "descriptive"
+        },
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 비평 지적에 따라 권위·법리상태·형식화를 보수적으로 재분류했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.bad-check-punishment-no-effect",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.bank-president-approval-loan-purpose",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.bid-rigging-fraud-concurrence-view",
+      "changes": {
+        "authority_basis": {
+          "after": "commentary_synthesis",
+          "before": "commentary_reported_doctrine"
+        },
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "disputed"
+        },
+        "formalization": {
+          "after": "context_only",
+          "before": "policy_variant"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 일반 학설이나 판례가 아니라 주석 작성자의 사견으로 한정했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": null,
+          "before": "pending.fraud.standard.bid-rigging-fraud-concurrence-view"
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.bill-discount-endorser-concealed-inability",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.bill-discount-nondisclosure",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.bill-issued-to-extend-debt",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.car-substitute-performance-reservation",
+      "changes": {
+        "authority_basis": {
+          "after": "commentary_reported_precedent",
+          "before": "commentary_synthesis"
+        },
+        "doctrinal_status": {
+          "after": "precedent_position",
+          "before": "descriptive"
+        },
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 비평 지적에 따라 권위·법리상태·형식화를 보수적으로 재분류했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.clan-injunction-withdrawal-deposit",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.consumer-cooperative-office-manager-hospital",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.corporate-employee-aware-decisionmaker-unaware",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.corporate-victim-decisionmaker-test",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.corporate-victim-natural-person-identification",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.credit-card-no-repayment-corporate-victim",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.discount-after-bill-fraud",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.double-sale-first-buyer-registered",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_deception.double_sale_fact_variants로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.double_sale_fact_variants",
+          "before": null
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.double-sale-first-sale-unregistered",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_deception.double_sale_fact_variants로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.double_sale_fact_variants",
+          "before": null
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.double-sale-no-intent-transfer-first-buyer",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_deception.double_sale_fact_variants로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.double_sale_fact_variants",
+          "before": null
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.double-sale-second-buyer-registered",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_deception.double_sale_fact_variants로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.double_sale_fact_variants",
+          "before": null
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.entrusted-car-unknown-arrears-direct-inquiry",
+      "changes": {
+        "authority_basis": {
+          "after": "commentary_reported_precedent",
+          "before": "commentary_synthesis"
+        },
+        "doctrinal_status": {
+          "after": "precedent_position",
+          "before": "descriptive"
+        },
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 비평 지적에 따라 권위·법리상태·형식화를 보수적으로 재분류했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.explicit-denial-encumbrance",
+      "changes": {
+        "authority_basis": {
+          "after": "commentary_reported_doctrine",
+          "before": "commentary_synthesis"
+        },
+        "doctrinal_status": {
+          "after": "disputed",
+          "before": "descriptive"
+        },
+        "formalization": {
+          "after": "policy_variant",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 비평 지적에 따라 권위·법리상태·형식화를 보수적으로 재분류했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.encumbrance_disclosure_classification",
+          "before": null
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.false-documents-budget-withdrawal",
+      "changes": {
+        "authority_basis": {
+          "after": "commentary_synthesis",
+          "before": "commentary_reported_precedent"
+        },
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "precedent_position"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 비평 지적에 따라 권위·법리상태·형식화를 보수적으로 재분류했다. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.false-loss-declaration-cancellation-judgment",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.false-loss-no-property-benefit",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.false-religious-claims-donations",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다. 관련 경쟁 견해 또는 사실변형을 fraud_deception.religious_practice_boundary로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.religious_practice_boundary",
+          "before": null
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.false-solvency-loan-guarantee-discount",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.forged-register-loan",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.household-check-false-loss-cancellation",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.impersonated-sailor-family-subsidy",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.investment-principal-return-falsehood",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.land-sale-no-known-urban-planning-conflict",
+      "changes": {
+        "authority_basis": {
+          "after": "commentary_reported_precedent",
+          "before": "commentary_synthesis"
+        },
+        "doctrinal_status": {
+          "after": "precedent_position",
+          "before": "descriptive"
+        },
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 비평 지적에 따라 권위·법리상태·형식화를 보수적으로 재분류했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.land-sale-unknown-urban-planning-area",
+      "changes": {
+        "authority_basis": {
+          "after": "commentary_reported_precedent",
+          "before": "commentary_synthesis"
+        },
+        "doctrinal_status": {
+          "after": "precedent_position",
+          "before": "descriptive"
+        },
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 비평 지적에 따라 권위·법리상태·형식화를 보수적으로 재분류했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.medical-corporation-nonmedical-involvement",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다. 관련 경쟁 견해 또는 사실변형을 fraud_deception.medical_corporation_involvement로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.medical_corporation_involvement",
+          "before": null
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.nominee-medical-institution-insurance",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.nonmedical-clinic-indemnity-insurance",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_deception.nonmedical_clinic_claimant로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.nonmedical_clinic_claimant",
+          "before": null
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.nonmedical-clinic-national-health-insurance",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_deception.nonmedical_clinic_claimant로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.nonmedical_clinic_claimant",
+          "before": null
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.nonmedical-owner-hospital-insurance",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.prayer-fee-beyond-permitted-limit",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다. 관련 경쟁 견해 또는 사실변형을 fraud_deception.religious_practice_boundary로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.religious_practice_boundary",
+          "before": null
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.reciprocal-accommodation-bills",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.religious-compensation-not-necessarily-fraud",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다. 관련 경쟁 견해 또는 사실변형을 fraud_deception.religious_practice_boundary로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.religious_practice_boundary",
+          "before": null
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.religious-false-claim-no-extortion",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.rigged-gambling",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.rigged-gambling-multiple-victims",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.second-real-estate-sale-first-contract",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_deception.double_sale_fact_variants로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.double_sale_fact_variants",
+          "before": null
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.shamanistic-false-misfortune",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다. 관련 경쟁 견해 또는 사실변형을 fraud_deception.religious_practice_boundary로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.religious_practice_boundary",
+          "before": null
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.subsidy-actual-essential-work",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.subsidy-false-eligibility",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.subsidy-fraud-concurrence",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.subsidy-used-for-authorized-purpose",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.telephone-treatment-insurance-claim",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.unauthorized-phone-use",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.uncollectible-promissory-note-collateral",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.standard.unpaid-phone-fee-direct-collection",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.variant.dine-stay-implicit-deception-majority",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_deception.dine_stay_classification로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.dine_stay_classification",
+          "before": "pending.fraud.variant.dine-stay-implicit-deception-majority"
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.variant.dine-stay-omission-deception",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_deception.dine_stay_classification로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.dine_stay_classification",
+          "before": "pending.fraud.variant.dine-stay-omission-deception"
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.variant.disposition-implied-representation",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_deception.disposition_nondisclosure_classification로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.disposition_nondisclosure_classification",
+          "before": "pending.fraud.variant.disposition-implied-representation"
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.variant.disposition-omission-deception",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_deception.disposition_nondisclosure_classification로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.disposition_nondisclosure_classification",
+          "before": "pending.fraud.variant.disposition-omission-deception"
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.variant.future-facts-limited",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_deception.future_fact_scope로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.future_fact_scope",
+          "before": "pending.fraud.variant.future-facts-limited"
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.variant.future-facts-negative",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_deception.future_fact_scope로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.future_fact_scope",
+          "before": "pending.fraud.variant.future-facts-negative"
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.variant.future-facts-unlimited",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_deception.future_fact_scope로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.future_fact_scope",
+          "before": "pending.fraud.variant.future-facts-unlimited"
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.variant.opinion-statement-affirmative",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_deception.opinion_statement로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.opinion_statement",
+          "before": "pending.fraud.variant.opinion-statement-affirmative"
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.variant.opinion-statement-mistake-sufficiency",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_deception.opinion_statement로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.opinion_statement",
+          "before": "pending.fraud.variant.opinion-statement-mistake-sufficiency"
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.variant.opinion-statement-negative",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_deception.opinion_statement로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.opinion_statement",
+          "before": "pending.fraud.variant.opinion-statement-negative"
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "deception.fraud.variant.opinion-statement-third-view-concreteness",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_deception.opinion_statement로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_deception.opinion_statement",
+          "before": "pending.fraud.variant.opinion-statement-third-view-concreteness"
+        }
+      },
+      "module": "deception"
+    },
+    {
+      "card_id": "fraud_concurrence.agent_breach_only_view",
+      "changes": {
+        "review_notes": {
+          "after": "경합론에 관한 학설 대립의 한 견해로서 선택하지 않는다. Conservatively normalized from linked candidates. 관련 경쟁 견해 또는 사실변형을 fraud_concurrence.agent_deceives_principal로 연결했다.",
+          "before": "경합론에 관한 학설 대립의 한 견해로서 선택하지 않는다. Conservatively normalized from linked candidates."
+        }
+      },
+      "module": "concurrence"
+    },
+    {
+      "card_id": "fraud_concurrence.agent_fraud_only_view",
+      "changes": {
+        "review_notes": {
+          "after": "경합론에 관한 학설 대립의 한 견해로서 선택하지 않는다. Conservatively normalized from linked candidates. 관련 경쟁 견해 또는 사실변형을 fraud_concurrence.agent_deceives_principal로 연결했다.",
+          "before": "경합론에 관한 학설 대립의 한 견해로서 선택하지 않는다. Conservatively normalized from linked candidates."
+        }
+      },
+      "module": "concurrence"
+    },
+    {
+      "card_id": "fraud_concurrence.agent_imaginary_concurrence_view",
+      "changes": {
+        "review_notes": {
+          "after": "경합론에 관한 다수적 학설 소개이며 선택하지 않는다. Conservatively normalized from linked candidates. 관련 경쟁 견해 또는 사실변형을 fraud_concurrence.agent_deceives_principal로 연결했다.",
+          "before": "경합론에 관한 다수적 학설 소개이며 선택하지 않는다. Conservatively normalized from linked candidates."
+        }
+      },
+      "module": "concurrence"
+    },
+    {
+      "card_id": "fraud_concurrence.agent_precedent_imaginary_concurrence",
+      "changes": {
+        "review_notes": {
+          "after": "댓글이 소개한 판례 입장으로서 원판례 확인 전 정책 선택을 보류한다. Conservatively normalized from linked candidates. 관련 경쟁 견해 또는 사실변형을 fraud_concurrence.agent_deceives_principal로 연결했다.",
+          "before": "댓글이 소개한 판례 입장으로서 원판례 확인 전 정책 선택을 보류한다. Conservatively normalized from linked candidates."
+        },
+        "variant_group": {
+          "after": "fraud_concurrence.agent_deceives_principal",
+          "before": null
+        }
+      },
+      "module": "concurrence"
+    },
+    {
+      "card_id": "fraud_concurrence.aggravated_economic_optional_fine",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "댓글에 인용된 법정형으로서 현행 법령 확인이 필요하다. Conservatively normalized from linked candidates. 현행 특별법 법정형과 적용요건 확인 전 RAG 문맥으로만 사용한다.",
+          "before": "댓글에 인용된 법정형으로서 현행 법령 확인이 필요하다. Conservatively normalized from linked candidates."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "concurrence"
+    },
+    {
+      "card_id": "fraud_concurrence.aggravated_economic_value_thresholds",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "deterministic_rule"
+        },
+        "review_notes": {
+          "after": "댓글에 인용된 가중처벌 기준이며 현행 법령 확인이 필요하다. Conservatively normalized from linked candidates. 현행 법령 직접 확인 전 형벌 규칙을 실행하지 않는다.",
+          "before": "댓글에 인용된 가중처벌 기준이며 현행 법령 확인이 필요하다. Conservatively normalized from linked candidates."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "concurrence"
+    },
+    {
+      "card_id": "fraud_concurrence.assigned_claim_mutually_incompatible",
+      "changes": {
+        "proposition": {
+          "after": "2011도1442 사안에서는 담보 양도채권의 가치와 채권양도에 관한 피고인의 진정성 등을 심리하여 차용금 사기와 양도채권 횡령 중 어느 죄에 해당하는지 가려야 하므로, 두 죄를 모두 인정한 원심에 법리오해와 심리미진의 위법이 있다고 판단하였다.",
+          "before": "차용금 편취와 담보로 양도한 채권의 추심·임의소비는 양도채권 가치와 채권양도에 관한 피고인의 진정성에 따라 비양립관계일 수 있으므로, 사기죄와 횡령죄를 모두 인정할 수 없다."
+        },
+        "review_notes": {
+          "after": "댓글이 보고한 사안별 판례 판단으로서 원판례 확인이 필요하다. Conservatively normalized from linked candidates. 2011도1442의 사안별 판단 범위로 한정했다.",
+          "before": "댓글이 보고한 사안별 판례 판단으로서 원판례 확인이 필요하다. Conservatively normalized from linked candidates."
+        }
+      },
+      "module": "concurrence"
+    },
+    {
+      "card_id": "fraud_concurrence.attempt_habitual_punishment",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "deterministic_rule"
+        },
+        "review_notes": {
+          "after": "댓글에 인용된 처벌 규정이며 현행 조문 확인이 필요하다. Conservatively normalized from linked candidates. 현행 법령 직접 확인 전 형벌 규칙을 실행하지 않는다.",
+          "before": "댓글에 인용된 처벌 규정이며 현행 조문 확인이 필요하다. Conservatively normalized from linked candidates."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "concurrence"
+    },
+    {
+      "card_id": "fraud_concurrence.counterfeit_currency_imaginary_view",
+      "changes": {
+        "review_notes": {
+          "after": "실체적 경합 입장과 대립하는 학설 견해로서 선택하지 않는다. Conservatively normalized from linked candidates. 관련 경쟁 견해 또는 사실변형을 fraud_concurrence.counterfeit_currency_fraud로 연결했다.",
+          "before": "실체적 경합 입장과 대립하는 학설 견해로서 선택하지 않는다. Conservatively normalized from linked candidates."
+        }
+      },
+      "module": "concurrence"
+    },
+    {
+      "card_id": "fraud_concurrence.counterfeit_currency_real_concurrence",
+      "changes": {
+        "review_notes": {
+          "after": "댓글이 보고한 실체적 경합 입장으로서 원판례 확인이 필요하다. Conservatively normalized from linked candidates. 관련 경쟁 견해 또는 사실변형을 fraud_concurrence.counterfeit_currency_fraud로 연결했다.",
+          "before": "댓글이 보고한 실체적 경합 입장으로서 원판례 확인이 필요하다. Conservatively normalized from linked candidates."
+        },
+        "variant_group": {
+          "after": "fraud_concurrence.counterfeit_currency_fraud",
+          "before": null
+        }
+      },
+      "module": "concurrence"
+    },
+    {
+      "card_id": "fraud_concurrence.general_fraud_penalty",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "deterministic_rule"
+        },
+        "review_notes": {
+          "after": "댓글에 인용된 법정형이며 현행 조문 확인이 필요하다. Conservatively normalized from linked candidates. 현행 법령 직접 확인 전 형벌 규칙을 실행하지 않는다.",
+          "before": "댓글에 인용된 법정형이며 현행 조문 확인이 필요하다. Conservatively normalized from linked candidates."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "concurrence"
+    },
+    {
+      "card_id": "fraud_concurrence.insurance_fraud_sanctions",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "댓글에 인용된 특별법 법정형으로서 현행 법령 확인이 필요하다. Conservatively normalized from linked candidates. 현행 특별법 법정형과 적용요건 확인 전 RAG 문맥으로만 사용한다.",
+          "before": "댓글에 인용된 특별법 법정형으로서 현행 법령 확인이 필요하다. Conservatively normalized from linked candidates."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "concurrence"
+    },
+    {
+      "card_id": "fraud_concurrence.military_criminal_act_sanctions",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "댓글에 인용된 군형법 관련 법정형으로서 현행 법령 확인이 필요하다. Conservatively normalized from linked candidates. 현행 특별법 법정형과 적용요건 확인 전 RAG 문맥으로만 사용한다.",
+          "before": "댓글에 인용된 군형법 관련 법정형으로서 현행 법령 확인이 필요하다. Conservatively normalized from linked candidates."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "concurrence"
+    },
+    {
+      "card_id": "fraud_concurrence.military_property_special_act_sanctions",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "댓글에 인용된 특별법 법정형 및 요건으로서 현행 법령 확인이 필요하다. Conservatively normalized from linked candidates. 현행 특별법 법정형과 적용요건 확인 전 RAG 문맥으로만 사용한다.",
+          "before": "댓글에 인용된 특별법 법정형 및 요건으로서 현행 법령 확인이 필요하다. Conservatively normalized from linked candidates."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "concurrence"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.appeal_withdrawal_disposition",
+      "changes": {
+        "review_notes": {
+          "after": "보고된 판례의 소송행위형 처분행위다. Conservatively normalized from linked candidates. 원판결과 일반화 범위 확인 전 사안별 판례로만 사용한다.",
+          "before": "보고된 판례의 소송행위형 처분행위다. Conservatively normalized from linked candidates."
+        }
+      },
+      "module": "damage_acquisition"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.letter_of_credit_no_payment_deduction",
+      "changes": {
+        "authority_basis": {
+          "after": "commentary_reported_precedent",
+          "before": "commentary_synthesis"
+        },
+        "doctrinal_status": {
+          "after": "precedent_position",
+          "before": "descriptive"
+        },
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "신용장별 지급보증 이익과 사후 결제를 구별한다. Conservatively normalized from linked candidates. 비평 지적에 따라 권위·법리상태·형식화를 보수적으로 재분류했다.",
+          "before": "신용장별 지급보증 이익과 사후 결제를 구별한다. Conservatively normalized from linked candidates."
+        }
+      },
+      "module": "damage_acquisition"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.mortgage_setting_junior_actual_debt_exception",
+      "changes": {
+        "review_notes": {
+          "after": "특별한 사정의 존재를 사실관계로 검토해야 한다. Conservatively normalized from linked candidates. 후순위 근저당권 이득액 원칙의 예외로 같은 그룹에 연결했다.",
+          "before": "특별한 사정의 존재를 사실관계로 검토해야 한다. Conservatively normalized from linked candidates."
+        },
+        "variant_group": {
+          "after": "fraud_damage_acquisition.junior_mortgage_gain_cap",
+          "before": null
+        }
+      },
+      "module": "damage_acquisition"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.property_loss_affirmative_view",
+      "changes": {
+        "review_notes": {
+          "after": "손해요건 긍정설의 구체적 내용이다. Conservatively normalized from linked candidates. 재산상 손해 필요성의 개괄·구체 견해를 하나의 정책 그룹으로 연결했다.",
+          "before": "손해요건 긍정설의 구체적 내용이다. Conservatively normalized from linked candidates."
+        }
+      },
+      "module": "damage_acquisition"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.property_loss_completion_view",
+      "changes": {
+        "review_notes": {
+          "after": "긍정설 채택 시 성립과 기수 구별을 추가 검토해야 한다. Conservatively normalized from linked candidates. 재산상 손해 필요성의 개괄·구체 견해를 하나의 정책 그룹으로 연결했다.",
+          "before": "긍정설 채택 시 성립과 기수 구별을 추가 검토해야 한다. Conservatively normalized from linked candidates."
+        }
+      },
+      "module": "damage_acquisition"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.property_loss_limited_affirmative_view",
+      "changes": {
+        "review_notes": {
+          "after": "손해요건 제한적 긍정설의 구체적 내용이다. Conservatively normalized from linked candidates. 재산상 손해 필요성의 개괄·구체 견해를 하나의 정책 그룹으로 연결했다.",
+          "before": "손해요건 제한적 긍정설의 구체적 내용이다. Conservatively normalized from linked candidates."
+        }
+      },
+      "module": "damage_acquisition"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.property_loss_negative_view",
+      "changes": {
+        "review_notes": {
+          "after": "손해요건 부정설의 구체적 내용이다. Conservatively normalized from linked candidates. 재산상 손해 필요성의 개괄·구체 견해를 하나의 정책 그룹으로 연결했다.",
+          "before": "손해요건 부정설의 구체적 내용이다. Conservatively normalized from linked candidates."
+        }
+      },
+      "module": "damage_acquisition"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.provisional_seizure_release_disposition",
+      "changes": {
+        "authority_basis": {
+          "after": "commentary_reported_precedent",
+          "before": "commentary_synthesis"
+        },
+        "doctrinal_status": {
+          "after": "precedent_position",
+          "before": "descriptive"
+        },
+        "review_notes": {
+          "after": "보고된 판례의 가압류 해제형 처분행위다. Conservatively normalized from linked candidates. 비평 지적에 따라 권위·법리상태·형식화를 보수적으로 재분류했다.",
+          "before": "보고된 판례의 가압류 해제형 처분행위다. Conservatively normalized from linked candidates."
+        }
+      },
+      "module": "damage_acquisition"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.repeated_investment_no_return_deduction",
+      "changes": {
+        "authority_basis": {
+          "after": "commentary_reported_precedent",
+          "before": "commentary_synthesis"
+        },
+        "doctrinal_status": {
+          "after": "precedent_position",
+          "before": "descriptive"
+        },
+        "formalization": {
+          "after": "context_only",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "교부별 범의와 반환·재투자 구조를 검토해야 한다. Conservatively normalized from linked candidates. 비평 지적에 따라 권위·법리상태·형식화를 보수적으로 재분류했다.",
+          "before": "교부별 범의와 반환·재투자 구조를 검토해야 한다. Conservatively normalized from linked candidates."
+        }
+      },
+      "module": "damage_acquisition"
+    },
+    {
+      "card_id": "fraud_general_object.subjective_elements",
+      "changes": {
+        "formalization": {
+          "after": "policy_variant",
+          "before": "standard_input"
+        },
+        "review_notes": {
+          "after": "불법영득의사 요건의 판례상 범위는 별도 검토가 필요하다. Conservatively normalized from linked candidates. 이 카드만으로 사기죄 전체 성립을 도출하지 않도록 형식화를 수정했다.",
+          "before": "불법영득의사 요건의 판례상 범위는 별도 검토가 필요하다. Conservatively normalized from linked candidates."
+        },
+        "variant_group": {
+          "after": "fraud_intent.illegal_appropriation_requirement",
+          "before": null
+        }
+      },
+      "module": "general_object"
+    },
+    {
+      "card_id": "fraud_general_object.unquantified_benefit_judgment",
+      "changes": {
+        "authority_basis": {
+          "after": "commentary_synthesis",
+          "before": "commentary_reported_precedent"
+        },
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "precedent_position"
+        },
+        "review_notes": {
+          "after": "판시 필요성에 관한 문맥과 절차법적 범위를 검토해야 한다. Conservatively normalized from linked candidates. 비평 지적에 따라 권위·법리상태·형식화를 보수적으로 재분류했다.",
+          "before": "판시 필요성에 관한 문맥과 절차법적 범위를 검토해야 한다. Conservatively normalized from linked candidates."
+        }
+      },
+      "module": "general_object"
+    },
+    {
+      "card_id": "fraud_intent.no_disposition_inducement_intent",
+      "changes": {
+        "review_notes": {
+          "after": "처분행위를 유발하려는 의사의 존재 여부를 해당 사안에서 확인한다. Conservatively normalized from linked candidates. 일반 설명의 권위 확인 전 법률검토를 유지한다.",
+          "before": "처분행위를 유발하려는 의사의 존재 여부를 해당 사안에서 확인한다. Conservatively normalized from linked candidates."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "intent"
+    },
+    {
+      "card_id": "fraud_intent.property_only_appropriation_practical_consequence",
+      "changes": {
+        "formalization": {
+          "after": "context_only",
+          "before": "policy_variant"
+        },
+        "review_notes": {
+          "after": "재물편취죄 한정 필요설의 실무상 귀결에 관한 commentary-reported 설명이며 적용 범위를 검토해야 한다. Conservatively normalized from linked candidates. 재물편취죄 한정 필요설의 설명적 귀결로만 사용한다.",
+          "before": "재물편취죄 한정 필요설의 실무상 귀결에 관한 commentary-reported 설명이며 적용 범위를 검토해야 한다. Conservatively normalized from linked candidates."
+        }
+      },
+      "module": "intent"
+    },
+    {
+      "card_id": "fraud_mistake.triangular_fraud_theories",
+      "changes": {
+        "review_notes": {
+          "after": "삼각사기의 처분능력 기준에 관한 학설 중 어느 견해도 채택하지 않았다. Conservatively normalized from linked candidates. 삼각사기 권한기준의 개별 학설·판례해석을 하나의 정책 그룹에 보존했다.",
+          "before": "삼각사기의 처분능력 기준에 관한 학설 중 어느 견해도 채택하지 않았다. Conservatively normalized from linked candidates."
+        }
+      },
+      "module": "mistake_disposition"
+    },
+    {
+      "card_id": "fraud_stages_participation.completion_deception_disposition_transfer",
+      "changes": {
+        "review_notes": {
+          "after": "기수 판단의 기본 인과 사슬이다. Conservatively normalized from linked candidates. 관련 경쟁 견해 또는 사실변형을 fraud_stages_participation.completion_threshold로 연결했다.",
+          "before": "기수 판단의 기본 인과 사슬이다. Conservatively normalized from linked candidates."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        },
+        "variant_group": {
+          "after": "fraud_stages_participation.completion_threshold",
+          "before": null
+        }
+      },
+      "module": "stages_participation"
+    },
+    {
+      "card_id": "fraud_stages_participation.payment_guarantee_not_provided_no_completion",
+      "changes": {
+        "review_notes": {
+          "after": "지급보증서의 채권자 제공 및 재산상 이익 취득을 검토한다. Conservatively normalized from linked candidates. 관련 경쟁 견해 또는 사실변형을 fraud_stages_participation.completion_threshold로 연결했다.",
+          "before": "지급보증서의 채권자 제공 및 재산상 이익 취득을 검토한다. Conservatively normalized from linked candidates."
+        },
+        "variant_group": {
+          "after": "fraud_stages_participation.completion_threshold",
+          "before": null
+        }
+      },
+      "module": "stages_participation"
+    },
+    {
+      "card_id": "fraud_stages_participation.real_estate_fraud_completion",
+      "changes": {
+        "review_notes": {
+          "after": "점유 이전 또는 소유권취득등기 취득 여부를 검토한다. Conservatively normalized from linked candidates. 비평 지적에 따라 권위·법리상태·형식화를 보수적으로 재분류했다.",
+          "before": "점유 이전 또는 소유권취득등기 취득 여부를 검토한다. Conservatively normalized from linked candidates."
+        }
+      },
+      "module": "stages_participation"
+    },
+    {
+      "card_id": "fraud_stages_participation.victim_loss_completion_view",
+      "changes": {
+        "review_notes": {
+          "after": "견해의 판례상 채택 여부와 적용 범위를 확인해야 한다. Conservatively normalized from linked candidates. 관련 경쟁 견해 또는 사실변형을 fraud_stages_participation.completion_threshold로 연결했다.",
+          "before": "견해의 판례상 채택 여부와 적용 범위를 확인해야 한다. Conservatively normalized from linked candidates."
+        },
+        "variant_group": {
+          "after": "fraud_stages_participation.completion_threshold",
+          "before": null
+        }
+      },
+      "module": "stages_participation"
+    },
+    {
+      "card_id": "fraud_stages_participation.voice_phishing_functional_control",
+      "changes": {
+        "authority_basis": {
+          "after": "commentary_synthesis",
+          "before": "commentary_reported_precedent"
+        },
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "precedent_position"
+        },
+        "review_notes": {
+          "after": "통일적 판례 기준 부재가 보고되어 있어 기능적 행위지배 기준의 채택 여부를 검토한다. Conservatively normalized from linked candidates. 비평 지적에 따라 권위·법리상태·형식화를 보수적으로 재분류했다.",
+          "before": "통일적 판례 기준 부재가 보고되어 있어 기능적 행위지배 기준의 채택 여부를 검토한다. Conservatively normalized from linked candidates."
+        }
+      },
+      "module": "stages_participation"
+    },
+    {
+      "card_id": "general_object.fraud.definition.property-benefit",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "general_object"
+    },
+    {
+      "card_id": "general_object.fraud.definition.property-benefit-not-numerically-limited",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "general_object"
+    },
+    {
+      "card_id": "general_object.fraud.element.object-other-possessed-other-property",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "general_object"
+    },
+    {
+      "card_id": "general_object.fraud.element.property-benefit-concrete",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "general_object"
+    },
+    {
+      "card_id": "general_object.fraud.variant.sex-work-contract-fraud-affirmative",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_general_object.sex_work_contract로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_general_object.sex_work_contract",
+          "before": "pending.fraud.variant.sex-work-contract-fraud-affirmative"
+        }
+      },
+      "module": "general_object"
+    },
+    {
+      "card_id": "general_object.fraud.variant.sex-work-contract-fraud-negative",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_general_object.sex_work_contract로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_general_object.sex_work_contract",
+          "before": "pending.fraud.variant.sex-work-contract-fraud-negative"
+        }
+      },
+      "module": "general_object"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.causal-link-mistake-not-sole-cause",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "formalization": {
+          "after": "standard_input",
+          "before": "deterministic_rule"
+        },
+        "proposition": {
+          "after": "착오는 처분행위의 유일한 원인일 필요가 없으므로, 피해자 과실이 함께 작용해도 착오와 처분행위 사이 인과관계는 부정되지 않는다.",
+          "before": "착오는 처분행위의 유일한 원인일 필요가 없고, 피해자에게 과실이 있어도 인과관계는 부정되지 않는다."
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 권위 확인 전 인과관계 standard input으로 보존한다. 착오-처분행위 단계에만 적용한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "mistake_disposition"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.causal-link.victim-negligence-irrelevant",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "formalization": {
+          "after": "standard_input",
+          "before": "deterministic_rule"
+        },
+        "proposition": {
+          "after": "기망행위는 착오의 유일한 원인일 필요가 없으므로, 피기망자 측 과실이 착오 발생에 함께 작용해도 기망행위와 착오 사이 인과관계는 부정되지 않는다.",
+          "before": "기망행위가 착오의 유일한 원인일 필요는 없으므로, 피기망자 측 과실이 착오 원인에 포함되어도 사기죄 성립에 영향이 없다."
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 권위 확인 전 인과관계 standard input으로 보존한다. 기망행위-착오 단계에만 적용한다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "mistake_disposition"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 삼각사기 권한기준의 개별 학설·판례해석을 하나의 정책 그룹에 보존했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_mistake.triangular_fraud_authority",
+          "before": "pending.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation"
+        }
+      },
+      "module": "mistake_disposition"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.variant-triangular-fraud-commentator-factual-position-evaluation",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 삼각사기 권한기준의 개별 학설·판례해석을 하나의 정책 그룹에 보존했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_mistake.triangular_fraud_authority",
+          "before": "pending.fraud.variant-triangular-fraud-commentator-factual-position-evaluation"
+        }
+      },
+      "module": "mistake_disposition"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.variant-triangular-fraud-precedent-legal-authority-interpretation",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 삼각사기 권한기준의 개별 학설·판례해석을 하나의 정책 그룹에 보존했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_mistake.triangular_fraud_authority",
+          "before": "pending.fraud.variant-triangular-fraud-precedent-legal-authority-interpretation"
+        }
+      },
+      "module": "mistake_disposition"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.variant-triangular-fraud-precedent-transition-not-conclusive",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 삼각사기 권한기준의 개별 학설·판례해석을 하나의 정책 그룹에 보존했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_mistake.triangular_fraud_authority",
+          "before": "pending.fraud.variant-triangular-fraud-precedent-transition-not-conclusive"
+        }
+      },
+      "module": "mistake_disposition"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.variant.disposition-intent-compromise",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_mistake.disposition_intent_requirement로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_mistake.disposition_intent_requirement",
+          "before": "pending.fraud.variant.disposition-intent-compromise"
+        }
+      },
+      "module": "mistake_disposition"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.variant.disposition-intent-unnecessary",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_mistake.disposition_intent_requirement로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_mistake.disposition_intent_requirement",
+          "before": "pending.fraud.variant.disposition-intent-unnecessary"
+        }
+      },
+      "module": "mistake_disposition"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.variant.disposition-voluntariness-coercive-seizure-negative",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_mistake.disposition_voluntariness로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_mistake.disposition_voluntariness",
+          "before": "pending.fraud.variant.disposition-voluntariness-coercive-seizure-negative"
+        }
+      },
+      "module": "mistake_disposition"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.variant.disposition-voluntariness-coercive-seizure-positive",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_mistake.disposition_voluntariness로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_mistake.disposition_voluntariness",
+          "before": "pending.fraud.variant.disposition-voluntariness-coercive-seizure-positive"
+        }
+      },
+      "module": "mistake_disposition"
+    },
+    {
+      "card_id": "special_forms.fraud.causal-link.insurance-completion-payment",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 현재 bounded source만으로 settled를 확정하지 않는다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.definition.litigation-fraud-triangular",
+      "changes": {
+        "authority_basis": {
+          "after": "commentary_synthesis",
+          "before": "commentary_reported_precedent"
+        },
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "precedent_position"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 특정 판례가 아니라 주석의 일반 설명으로 정정했다. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_disposition_effect로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_disposition_effect",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.element.judgment-substitutes-victim-disposition",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "formalization": {
+          "after": "standard_input",
+          "before": "deterministic_rule"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 원판례 확인 전 독립 deterministic rule이 아닌 standard input으로 유지한다. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_disposition_effect로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_disposition_effect",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.element.litigation-fraud-commencement",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "formalization": {
+          "after": "standard_input",
+          "before": "deterministic_rule"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 원판례 확인 전 독립 deterministic rule이 아닌 standard input으로 유지한다. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_stage로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_stage",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.element.litigation-fraud-completion-final-judgment",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_stage로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_stage",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.element.litigation-fraud-deceptive-act",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "formalization": {
+          "after": "standard_input",
+          "before": "deterministic_rule"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 원판례 확인 전 독립 deterministic rule이 아닌 standard input으로 유지한다. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_deceptive_means로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_deceptive_means",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.element.litigation-fraud-knowing-nonexistence",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "formalization": {
+          "after": "standard_input",
+          "before": "deterministic_rule"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 원판례 확인 전 독립 deterministic rule이 아닌 standard input으로 유지한다. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_strict_proof로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_strict_proof",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.exception.insurance-special-act-temporal-application",
+      "changes": {
+        "doctrinal_status": {
+          "after": "descriptive",
+          "before": "settled"
+        },
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 현재 bounded source만으로 settled를 확정하지 않는다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "review_required": {
+          "after": true,
+          "before": false
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.exception.litigation-fraud-mistake-of-fact-or-law",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_strict_proof로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_strict_proof",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.exception.omission-of-favorable-evidence",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_deceptive_means로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_deceptive_means",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.exception.suit-against-dead-or-nonexistent-person",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_disposition_effect로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_disposition_effect",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.adverse-possession-registration-no-intent",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_disposition_effect로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_disposition_effect",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.altered-evidence-legitimate-right-exercise",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_deceptive_means로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_deceptive_means",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.assignment-order-no-property-transfer",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_disposition_effect로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_disposition_effect",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.attorney-fee-cost-claim-no-proof-fabrication",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_strict_proof로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_strict_proof",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.bill-public-summons-without-substantive-debt",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_disposition_effect로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_disposition_effect",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.building-permit-name-change-interest",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_disposition_effect로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_disposition_effect",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.changed-tenant-name-with-right-to-dividend",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_disposition_effect로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_disposition_effect",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.circular-remittance-debt-repayment-claim",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_strict_proof로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_strict_proof",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.civil-loss-alone-insufficient",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_strict_proof로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_strict_proof",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.collusive-suit-counterparty-consent",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_disposition_effect로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_disposition_effect",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.compensation-claim-farmland-no-fraud",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_disposition_effect로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_disposition_effect",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.defendant-active-deception-duty-evasion",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_deceptive_means로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_deceptive_means",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.duplicate-mortgage-legal-mistake",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_strict_proof로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_strict_proof",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.enforcement-after-full-repayment-attempt",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_stage로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_stage",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.enforcement-on-extinguished-judgment-title",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_stage로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_stage",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.enforcement-on-extinguished-notarial-note",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_stage로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_stage",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.excess-distribution-not-obvious-no-intent",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_strict_proof로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_strict_proof",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.excessive-hospitalization-damages-claim",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_strict_proof로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_strict_proof",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.false-claim-alone-can-deceive",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_deceptive_means로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_deceptive_means",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.false-guarantee-letter-withdrawn-attempt",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_stage로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_stage",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.false-illegal-occupancy-eviction",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_disposition_effect로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_disposition_effect",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.false-land-registration-cancellation-final-judgment-completion",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_stage로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_stage",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.false-loss-public-summons-note",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_disposition_effect로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_disposition_effect",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.false-payment-order-application",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_deceptive_means로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_deceptive_means",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.false-title-transfer-to-avoid-enforcement",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_disposition_effect로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_disposition_effect",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.forged-possession-title-and-perjury",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_deceptive_means로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_deceptive_means",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.illegal-cause-benefit-precedent-affirmative",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_special_forms.illegal_cause_benefit로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.illegal_cause_benefit",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.indirect-perpetration-through-unaware-third-party",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_stage로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_stage",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.inflated-construction-contract-not-clearly-proven",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_strict_proof로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_strict_proof",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.inflated-lien-auction-attempt",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_stage로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_stage",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.invalid-mortgage-auction-fraud-against-buyer",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_disposition_effect로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_disposition_effect",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.litigation-costs-claim-impossible-offense",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_disposition_effect로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_disposition_effect",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.litigation-fraud-objectively-false-or-knowing",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_strict_proof로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_strict_proof",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.litigation-fraud-strict-interpretation",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_strict_proof로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_strict_proof",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.loan-claim-lack-of-objective-materials",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_strict_proof로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_strict_proof",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.nominal-depositor-payment-suit-no-attempt",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_disposition_effect로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_disposition_effect",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.nominal-permit-holder-auction-no-fraud-against-owner",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_disposition_effect로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_disposition_effect",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.payment-order-premature-claim-no-active-deceit",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_deceptive_means로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_deceptive_means",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.provisional-attachment-alone-no-commencement",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_stage로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_stage",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.right-exercise-over-limit-fraud",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_special_forms.right_exercise_boundary로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.right_exercise_boundary",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_special_forms.right_exercise_boundary로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.right_exercise_boundary",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.sham-mortgage-voluntary-auction-attempt",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_stage로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_stage",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.third-party-real-property-judgment-no-disposition",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_disposition_effect로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_disposition_effect",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.unilateral-notice-not-evidence-fabrication",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_deceptive_means로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.litigation_deceptive_means",
+          "before": null
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.variant.illegal-cause-benefit-affirmative",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_special_forms.illegal_cause_benefit로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.illegal_cause_benefit",
+          "before": "pending.fraud.variant.illegal-cause-benefit-affirmative"
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.variant.illegal-cause-benefit-negative",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_special_forms.illegal_cause_benefit로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.illegal_cause_benefit",
+          "before": "pending.fraud.variant.illegal-cause-benefit-negative"
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.variant.right-exercise-abuse-positive",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_special_forms.right_exercise_boundary로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.right_exercise_boundary",
+          "before": "pending.fraud.variant.right-exercise-abuse-positive"
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.variant.right-exercise-social-acceptability",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_special_forms.right_exercise_boundary로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.right_exercise_boundary",
+          "before": "pending.fraud.variant.right-exercise-social-acceptability"
+        }
+      },
+      "module": "special_forms"
+    },
+    {
+      "card_id": "special_forms.fraud.variant.right-exercise-within-scope-negative",
+      "changes": {
+        "review_notes": {
+          "after": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_special_forms.right_exercise_boundary로 연결했다.",
+          "before": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review."
+        },
+        "variant_group": {
+          "after": "fraud_special_forms.right_exercise_boundary",
+          "before": "pending.fraud.variant.right-exercise-within-scope-negative"
+        }
+      },
+      "module": "special_forms"
+    }
+  ],
+  "changed_cards": 196,
+  "created_at": "2026-07-17T15:36:30.009904+00:00",
+  "finding_resolutions": [
+    {
+      "card_ids": [
+        "fraud_concurrence.agent_breach_only_view",
+        "fraud_concurrence.agent_fraud_only_view",
+        "fraud_concurrence.agent_imaginary_concurrence_view",
+        "fraud_concurrence.agent_precedent_imaginary_concurrence"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "collapsed_variant",
+      "legal_review_questions": [],
+      "module": "concurrence",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.concurrence.part001.critic.agent_competing_position_group_incomplete",
+      "summary": "관련 카드를 공통 그룹 fraud_concurrence.agent_deceives_principal로 통합했다."
+    },
+    {
+      "card_ids": [
+        "fraud_concurrence.aggravated_economic_value_thresholds",
+        "fraud_concurrence.attempt_habitual_punishment",
+        "fraud_concurrence.general_fraud_penalty"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "formalization_error",
+      "legal_review_questions": [
+        "형법 및 특정경제범죄법상 사기죄 법정형·상습·미수 규정의 현행 조문을 직접 확인한다."
+      ],
+      "module": "concurrence",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.concurrence.part001.critic.commentary_penalties_deterministic_before_verification",
+      "summary": "현행법 미확인 형벌 카드 3개를 context_only로 내렸다."
+    },
+    {
+      "card_ids": [
+        "fraud_concurrence.counterfeit_currency_imaginary_view",
+        "fraud_concurrence.counterfeit_currency_real_concurrence"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "collapsed_variant",
+      "legal_review_questions": [],
+      "module": "concurrence",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.concurrence.part001.critic.counterfeit_variant_group_incomplete",
+      "summary": "관련 카드를 공통 그룹 fraud_concurrence.counterfeit_currency_fraud로 통합했다."
+    },
+    {
+      "card_ids": [
+        "fraud_concurrence.assigned_claim_mutually_incompatible"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "overgeneralization",
+      "legal_review_questions": [],
+      "module": "concurrence",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.concurrence.part002.critic.assigned_claim_outcome_overstated",
+      "summary": "사안별 판례 결론으로 명제를 축소했다."
+    },
+    {
+      "card_ids": [
+        "fraud_concurrence.aggravated_economic_optional_fine",
+        "fraud_concurrence.insurance_fraud_sanctions",
+        "fraud_concurrence.military_criminal_act_sanctions",
+        "fraud_concurrence.military_property_special_act_sanctions"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "other",
+      "legal_review_questions": [
+        "특정경제범죄법, 보험사기방지 특별법, 군형법 및 군용물 관련 특별법의 현행 법정형과 적용요건을 직접 법령으로 확인한다."
+      ],
+      "module": "concurrence",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.concurrence.part002.critic.sanction_cards_missing_review_question",
+      "summary": "특별법 제재 카드 4개를 context_only로 내리고 현행법 확인 질문을 추가했다."
+    },
+    {
+      "card_ids": [
+        "fraud_damage_acquisition.provisional_seizure_release_disposition"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "damage_acquisition",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.damage_acquisition.part001.critic.authority.case_cards_mislabeled",
+      "summary": "권위와 법리상태를 source-bounded 수준으로 낮췄다."
+    },
+    {
+      "card_ids": [
+        "fraud_damage_acquisition.mortgage_setting_junior_actual_debt_exception"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "formalization_error",
+      "legal_review_questions": [],
+      "module": "damage_acquisition",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.damage_acquisition.part001.critic.exception.variant_link_missing",
+      "summary": "후순위 근저당권 원칙과 예외의 그룹을 연결했다."
+    },
+    {
+      "card_ids": [
+        "fraud_damage_acquisition.appeal_withdrawal_disposition"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "other",
+      "legal_review_questions": [
+        "항소취하·가압류해제·신용장·반복투자 등 사안별 판례 카드의 원판결과 허용 가능한 일반화 범위를 확인한다."
+      ],
+      "module": "damage_acquisition",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.damage_acquisition.part001.critic.review_questions.reported_cases_incomplete",
+      "summary": "누락된 사안별 판례 확인 범위를 검토 질문에 추가했다."
+    },
+    {
+      "card_ids": [
+        "damage_acquisition.fraud.variant-property-loss-requirement-affirmative",
+        "damage_acquisition.fraud.variant-property-loss-requirement-limited-affirmative",
+        "damage_acquisition.fraud.variant-property-loss-requirement-negative",
+        "fraud_damage_acquisition.property_loss_affirmative_view",
+        "fraud_damage_acquisition.property_loss_completion_view",
+        "fraud_damage_acquisition.property_loss_limited_affirmative_view",
+        "fraud_damage_acquisition.property_loss_negative_view"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "collapsed_variant",
+      "legal_review_questions": [],
+      "module": "damage_acquisition",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.damage_acquisition.part001.critic.variant_group.property_loss_fragmented",
+      "summary": "분절된 재산상 손해 필요성 카드를 공통 그룹으로 통합했다."
+    },
+    {
+      "card_ids": [
+        "fraud_damage_acquisition.letter_of_credit_no_payment_deduction"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "damage_acquisition",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.damage_acquisition.part002.critic.letter_credit_authority",
+      "summary": "권위와 법리상태를 source-bounded 수준으로 낮췄다."
+    },
+    {
+      "card_ids": [
+        "fraud_damage_acquisition.repeated_investment_no_return_deduction"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "damage_acquisition",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.damage_acquisition.part002.critic.repeated_investment_authority",
+      "summary": "권위와 법리상태를 source-bounded 수준으로 낮췄다."
+    },
+    {
+      "card_ids": [],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "source_scope",
+      "legal_review_questions": [
+        "재산상 손해 필요성에 관한 부정설·긍정설·제한적 긍정설과 관련 판례의 존재 및 적용 범위를 추가 권위로 확인하고, 확인 전에는 특정 실무 정책을 선택하지 않는다."
+      ],
+      "module": "damage_acquisition",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.damage_acquisition.part002.critic.unsupported_variant_policy_question",
+      "summary": "근거 없는 정책 선택 요구를 권위 확인 질문으로 바꿨다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.standard.bid-rigging-fraud-concurrence-view"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part001.critic.bid_rigging_author_view_authority",
+      "summary": "입찰담합 견해를 주석자 사견 및 context_only로 정정했다."
+    },
+    {
+      "card_ids": [],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [
+        "입찰담합과 사기죄의 관계는 주석 작성자의 사견과 사기죄 판단을 명시적으로 유보한 판례 설명을 구별하고, 원판례 또는 추가 권위를 확인하기 전에는 RuleIR 정책으로 선택하지 않는다."
+      ],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part001.critic.bid_rigging_policy_question_overstates_alignment",
+      "summary": "주석자 사견과 판례 유보를 구별하는 질문으로 축소했다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.variant.future-facts-limited",
+        "deception.fraud.variant.future-facts-negative",
+        "deception.fraud.variant.future-facts-unlimited"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "collapsed_variant",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part001.critic.future_facts_variant_group_split",
+      "summary": "관련 카드를 공통 그룹 fraud_deception.future_fact_scope로 통합했다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.variant.opinion-statement-affirmative",
+        "deception.fraud.variant.opinion-statement-mistake-sufficiency",
+        "deception.fraud.variant.opinion-statement-negative",
+        "deception.fraud.variant.opinion-statement-third-view-concreteness"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "collapsed_variant",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part001.critic.opinion_statement_variant_group_split",
+      "summary": "관련 카드를 공통 그룹 fraud_deception.opinion_statement로 통합했다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.variant.opinion-statement-mistake-sufficiency",
+        "deception.fraud.variant.opinion-statement-third-view-concreteness"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "missing_variant",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part001.critic.third_view_supplement_ungrouped",
+      "summary": "관련 카드를 공통 그룹 fraud_deception.opinion_statement로 통합했다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.standard.explicit-denial-encumbrance"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part002.critic.authority.explicit_denial_opinion",
+      "summary": "권위와 법리상태를 source-bounded 수준으로 낮췄다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.definition.notice-duty-violation-omission",
+        "deception.fraud.element.omission-deception-independent-error",
+        "deception.fraud.element.omission-deception-legal-notice-duty"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part002.critic.status.unsupported_settled",
+      "summary": "근거 없는 settled 지정을 descriptive로 낮췄다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.variant.dine-stay-implicit-deception-majority",
+        "deception.fraud.variant.dine-stay-omission-deception"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "collapsed_variant",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part002.critic.variant_group.dine_stay_views",
+      "summary": "관련 카드를 공통 그룹 fraud_deception.dine_stay_classification로 통합했다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.variant.disposition-implied-representation",
+        "deception.fraud.variant.disposition-omission-deception"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "collapsed_variant",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part002.critic.variant_group.disposition_views",
+      "summary": "관련 카드를 공통 그룹 fraud_deception.disposition_nondisclosure_classification로 통합했다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.standard.artwork-assistant-participation",
+        "deception.fraud.standard.entrusted-car-unknown-arrears-direct-inquiry",
+        "deception.fraud.standard.land-sale-no-known-urban-planning-conflict",
+        "deception.fraud.standard.land-sale-unknown-urban-planning-area"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part003.critic.authority.additional-case-cards",
+      "summary": "권위와 법리상태를 source-bounded 수준으로 낮췄다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.standard.car-substitute-performance-reservation"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part003.critic.authority.case-card-misclassified",
+      "summary": "권위와 법리상태를 source-bounded 수준으로 낮췄다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.element.intent-to-defraud-conditional-intent"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "formalization_error",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part003.critic.formalization.conditional-intent-sufficiency",
+      "summary": "독립 충분조건으로 오해되지 않도록 형식화를 수정했다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.element.loan-no-repayment-intent-or-ability"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "formalization_error",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part003.critic.formalization.element-sufficiency",
+      "summary": "독립 충분조건으로 오해되지 않도록 형식화를 수정했다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.standard.double-sale-first-buyer-registered",
+        "deception.fraud.standard.double-sale-first-sale-unregistered",
+        "deception.fraud.standard.double-sale-no-intent-transfer-first-buyer",
+        "deception.fraud.standard.double-sale-second-buyer-registered",
+        "deception.fraud.standard.second-real-estate-sale-first-contract"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "collapsed_variant",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part003.critic.variants.double-sale",
+      "summary": "관련 카드를 공통 그룹 fraud_deception.double_sale_fact_variants로 통합했다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.standard.nonmedical-clinic-indemnity-insurance",
+        "deception.fraud.standard.nonmedical-clinic-national-health-insurance"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "collapsed_variant",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part003.critic.variants.nonmedical-clinic",
+      "summary": "관련 카드를 공통 그룹 fraud_deception.nonmedical_clinic_claimant로 통합했다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.causal-link.corporate-decisionmaker-aware",
+        "deception.fraud.causal-link.embezzlement-deception-no-disposition",
+        "deception.fraud.causal-link.illegal-hospital-auto-insurance",
+        "deception.fraud.causal-link.promissory-note-no-disposition",
+        "deception.fraud.causal-link.road-occupancy-discretion",
+        "deception.fraud.definition.deception-counterparty-is-other",
+        "deception.fraud.definition.other-includes-corporation",
+        "deception.fraud.definition.subsidy-and-indirect-subsidy",
+        "deception.fraud.exception.medical-corporation-nonmedical-abuse-types",
+        "deception.fraud.standard.accommodation-bill-false-certificate",
+        "deception.fraud.standard.altered-bill-maturity-discount",
+        "deception.fraud.standard.bad-check-punishment-no-effect",
+        "deception.fraud.standard.bank-president-approval-loan-purpose",
+        "deception.fraud.standard.bill-discount-endorser-concealed-inability",
+        "deception.fraud.standard.bill-discount-nondisclosure",
+        "deception.fraud.standard.bill-issued-to-extend-debt",
+        "deception.fraud.standard.clan-injunction-withdrawal-deposit",
+        "deception.fraud.standard.consumer-cooperative-office-manager-hospital",
+        "deception.fraud.standard.corporate-employee-aware-decisionmaker-unaware",
+        "deception.fraud.standard.corporate-victim-decisionmaker-test",
+        "deception.fraud.standard.corporate-victim-natural-person-identification",
+        "deception.fraud.standard.credit-card-no-repayment-corporate-victim",
+        "deception.fraud.standard.discount-after-bill-fraud",
+        "deception.fraud.standard.false-documents-budget-withdrawal",
+        "deception.fraud.standard.false-loss-declaration-cancellation-judgment",
+        "deception.fraud.standard.false-loss-no-property-benefit",
+        "deception.fraud.standard.false-religious-claims-donations",
+        "deception.fraud.standard.false-solvency-loan-guarantee-discount",
+        "deception.fraud.standard.forged-register-loan",
+        "deception.fraud.standard.household-check-false-loss-cancellation",
+        "deception.fraud.standard.impersonated-sailor-family-subsidy",
+        "deception.fraud.standard.investment-principal-return-falsehood",
+        "deception.fraud.standard.medical-corporation-nonmedical-involvement",
+        "deception.fraud.standard.nominee-medical-institution-insurance",
+        "deception.fraud.standard.nonmedical-owner-hospital-insurance",
+        "deception.fraud.standard.prayer-fee-beyond-permitted-limit",
+        "deception.fraud.standard.reciprocal-accommodation-bills",
+        "deception.fraud.standard.religious-compensation-not-necessarily-fraud",
+        "deception.fraud.standard.religious-false-claim-no-extortion",
+        "deception.fraud.standard.rigged-gambling",
+        "deception.fraud.standard.rigged-gambling-multiple-victims",
+        "deception.fraud.standard.shamanistic-false-misfortune",
+        "deception.fraud.standard.subsidy-actual-essential-work",
+        "deception.fraud.standard.subsidy-false-eligibility",
+        "deception.fraud.standard.subsidy-fraud-concurrence",
+        "deception.fraud.standard.subsidy-used-for-authorized-purpose",
+        "deception.fraud.standard.telephone-treatment-insurance-claim",
+        "deception.fraud.standard.unauthorized-phone-use",
+        "deception.fraud.standard.uncollectible-promissory-note-collateral",
+        "deception.fraud.standard.unpaid-phone-fee-direct-collection"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [
+        "어음·보조금·종교·의료기관·법인 피해자 관련 사안별 카드의 원판례와 일반화 가능 범위를 확인하기 전에는 context_only/RAG 자료로만 사용한다."
+      ],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part004.critic.authority.classification_not_source_grounded",
+      "summary": "사안별 카드 44개를 context_only로 내리고 전 카드 권위검토를 표시했다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.standard.false-documents-budget-withdrawal"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part004.critic.authority.false_documents_speculative",
+      "summary": "권위와 법리상태를 source-bounded 수준으로 낮췄다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.definition.subsidy-and-indirect-subsidy"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part004.critic.authority.statutory_subsidy_definitions",
+      "summary": "권위와 법리상태를 source-bounded 수준으로 낮췄다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.definition.subsidy-and-indirect-subsidy"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "formalization_error",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part004.critic.formalization.subsidy_definition",
+      "summary": "독립 충분조건으로 오해되지 않도록 형식화를 수정했다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.exception.medical-corporation-nonmedical-abuse-types",
+        "deception.fraud.standard.medical-corporation-nonmedical-involvement"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "collapsed_variant",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part004.critic.variant.medical_corporation_exception",
+      "summary": "관련 카드를 공통 그룹 fraud_deception.medical_corporation_involvement로 통합했다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.standard.false-religious-claims-donations",
+        "deception.fraud.standard.prayer-fee-beyond-permitted-limit",
+        "deception.fraud.standard.religious-compensation-not-necessarily-fraud",
+        "deception.fraud.standard.shamanistic-false-misfortune"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "collapsed_variant",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part004.critic.variant.religious_practice_boundary",
+      "summary": "관련 카드를 공통 그룹 fraud_deception.religious_practice_boundary로 통합했다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.definition.deception-target-human"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part005.critic.unsupported-settled-status",
+      "summary": "근거 없는 settled 지정을 descriptive로 낮췄다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.element.deceived-person-disposal-authority"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part005.critic.unsupported-settled-status-disposal-authority",
+      "summary": "근거 없는 settled 지정을 descriptive로 낮췄다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.definition.deceived-person-victim-distinct"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part005.critic.unsupported-settled-status-distinct-persons",
+      "summary": "근거 없는 settled 지정을 descriptive로 낮췄다."
+    },
+    {
+      "card_ids": [
+        "deception.fraud.definition.deceived-person-unspecified"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "deception",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.deception.part005.critic.unsupported-settled-status-unspecified-person",
+      "summary": "근거 없는 settled 지정을 descriptive로 낮췄다."
+    },
+    {
+      "card_ids": [
+        "general_object.fraud.definition.property-benefit",
+        "general_object.fraud.definition.property-benefit-not-numerically-limited",
+        "general_object.fraud.element.object-other-possessed-other-property",
+        "general_object.fraud.element.property-benefit-concrete"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "general_object",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.general_object.part001.critic.settled_status_not_supported",
+      "summary": "근거 없는 settled 지정을 descriptive로 낮췄다."
+    },
+    {
+      "card_ids": [
+        "general_object.fraud.variant.sex-work-contract-fraud-affirmative",
+        "general_object.fraud.variant.sex-work-contract-fraud-negative"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "collapsed_variant",
+      "legal_review_questions": [],
+      "module": "general_object",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.general_object.part001.critic.sex_work_variants_not_grouped",
+      "summary": "관련 카드를 공통 그룹 fraud_general_object.sex_work_contract로 통합했다."
+    },
+    {
+      "card_ids": [
+        "fraud_general_object.subjective_elements"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "formalization_error",
+      "legal_review_questions": [],
+      "module": "general_object",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.general_object.part001.critic.subjective_elements_formalization",
+      "summary": "독립 충분조건으로 오해되지 않도록 형식화를 수정했다."
+    },
+    {
+      "card_ids": [
+        "fraud_general_object.unquantified_benefit_judgment"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "general_object",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.general_object.part001.critic.unquantified_value_authority_unsupported",
+      "summary": "권위와 법리상태를 source-bounded 수준으로 낮췄다."
+    },
+    {
+      "card_ids": [
+        "fraud_intent.no_disposition_inducement_intent"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "intent",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.intent.part001.critic.no_disposition_authority_unestablished",
+      "summary": "권위 미확인 상태를 명시하고 법률검토 대상으로 전환했다."
+    },
+    {
+      "card_ids": [
+        "fraud_intent.property_only_appropriation_practical_consequence"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "formalization_error",
+      "legal_review_questions": [
+        "불법영득의사 정책 선택은 불요설·전면 필요설·재물편취죄 한정 필요설의 세 견해와 판례 입장만 대상으로 하고, 설명적 귀결 카드는 선택지로 삼지 않는다."
+      ],
+      "module": "intent",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.intent.part001.critic.practical_consequence_not_selectable_variant",
+      "summary": "설명적 귀결을 정책 선택지에서 제외했다."
+    },
+    {
+      "card_ids": [
+        "fraud_mistake.triangular_fraud_theories",
+        "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation",
+        "mistake_disposition.fraud.variant-triangular-fraud-commentator-factual-position-evaluation",
+        "mistake_disposition.fraud.variant-triangular-fraud-precedent-legal-authority-interpretation",
+        "mistake_disposition.fraud.variant-triangular-fraud-precedent-transition-not-conclusive"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "collapsed_variant",
+      "legal_review_questions": [],
+      "module": "mistake_disposition",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.mistake_disposition.part001.critic.f1.collapsed_triangular_fraud_variants",
+      "summary": "이미 분리된 삼각사기 세부 카드를 공통 그룹으로 연결했다."
+    },
+    {
+      "card_ids": [
+        "mistake_disposition.fraud.variant.disposition-intent-compromise",
+        "mistake_disposition.fraud.variant.disposition-intent-unnecessary"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "formalization_error",
+      "legal_review_questions": [],
+      "module": "mistake_disposition",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.mistake_disposition.part001.critic.f2.disposition_intent_variant_groups",
+      "summary": "관련 카드를 공통 그룹 fraud_mistake.disposition_intent_requirement로 통합했다."
+    },
+    {
+      "card_ids": [
+        "mistake_disposition.fraud.variant.disposition-voluntariness-coercive-seizure-negative",
+        "mistake_disposition.fraud.variant.disposition-voluntariness-coercive-seizure-positive"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "formalization_error",
+      "legal_review_questions": [],
+      "module": "mistake_disposition",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.mistake_disposition.part001.critic.f3.voluntariness_variant_groups",
+      "summary": "관련 카드를 공통 그룹 fraud_mistake.disposition_voluntariness로 통합했다."
+    },
+    {
+      "card_ids": [
+        "mistake_disposition.fraud.causal-link-mistake-not-sole-cause",
+        "mistake_disposition.fraud.causal-link.victim-negligence-irrelevant"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "mistake_disposition",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.mistake_disposition.part001.critic.f4.unsupported_settled_status",
+      "summary": "두 인과관계 카드를 standard_input/descriptive로 낮췄다."
+    },
+    {
+      "card_ids": [
+        "mistake_disposition.fraud.causal-link-mistake-not-sole-cause",
+        "mistake_disposition.fraud.causal-link.victim-negligence-irrelevant"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "other",
+      "legal_review_questions": [],
+      "module": "mistake_disposition",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.mistake_disposition.part001.critic.f5.duplicated_negligence_norm",
+      "summary": "중복처럼 보인 두 인과관계 카드를 적용 단계별로 명확히 분리했다."
+    },
+    {
+      "card_ids": [
+        "special_forms.fraud.element.judgment-substitutes-victim-disposition",
+        "special_forms.fraud.element.litigation-fraud-commencement",
+        "special_forms.fraud.element.litigation-fraud-deceptive-act",
+        "special_forms.fraud.element.litigation-fraud-knowing-nonexistence"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "special_forms",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.special_forms.part001.critic.f3.unsupported_authority_and_settled_designations",
+      "summary": "영향받은 소송사기 요소 4개를 보수적으로 재분류했다."
+    },
+    {
+      "card_ids": [
+        "special_forms.fraud.definition.litigation-fraud-triangular"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "special_forms",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.special_forms.part001.critic.f4.definition_authority_mismatch",
+      "summary": "소송사기 정의의 권위를 commentary_synthesis로 정정했다."
+    },
+    {
+      "card_ids": [
+        "special_forms.fraud.definition.litigation-fraud-triangular",
+        "special_forms.fraud.element.judgment-substitutes-victim-disposition",
+        "special_forms.fraud.element.litigation-fraud-commencement",
+        "special_forms.fraud.element.litigation-fraud-completion-final-judgment",
+        "special_forms.fraud.element.litigation-fraud-deceptive-act",
+        "special_forms.fraud.element.litigation-fraud-knowing-nonexistence",
+        "special_forms.fraud.exception.litigation-fraud-mistake-of-fact-or-law",
+        "special_forms.fraud.exception.omission-of-favorable-evidence",
+        "special_forms.fraud.exception.suit-against-dead-or-nonexistent-person",
+        "special_forms.fraud.standard.adverse-possession-registration-no-intent",
+        "special_forms.fraud.standard.altered-evidence-legitimate-right-exercise",
+        "special_forms.fraud.standard.assignment-order-no-property-transfer",
+        "special_forms.fraud.standard.attorney-fee-cost-claim-no-proof-fabrication",
+        "special_forms.fraud.standard.bill-public-summons-without-substantive-debt",
+        "special_forms.fraud.standard.building-permit-name-change-interest",
+        "special_forms.fraud.standard.changed-tenant-name-with-right-to-dividend",
+        "special_forms.fraud.standard.circular-remittance-debt-repayment-claim",
+        "special_forms.fraud.standard.civil-loss-alone-insufficient",
+        "special_forms.fraud.standard.collusive-suit-counterparty-consent",
+        "special_forms.fraud.standard.compensation-claim-farmland-no-fraud",
+        "special_forms.fraud.standard.defendant-active-deception-duty-evasion",
+        "special_forms.fraud.standard.duplicate-mortgage-legal-mistake",
+        "special_forms.fraud.standard.enforcement-after-full-repayment-attempt",
+        "special_forms.fraud.standard.enforcement-on-extinguished-judgment-title",
+        "special_forms.fraud.standard.enforcement-on-extinguished-notarial-note",
+        "special_forms.fraud.standard.excess-distribution-not-obvious-no-intent",
+        "special_forms.fraud.standard.excessive-hospitalization-damages-claim",
+        "special_forms.fraud.standard.false-claim-alone-can-deceive",
+        "special_forms.fraud.standard.false-guarantee-letter-withdrawn-attempt",
+        "special_forms.fraud.standard.false-illegal-occupancy-eviction",
+        "special_forms.fraud.standard.false-land-registration-cancellation-final-judgment-completion",
+        "special_forms.fraud.standard.false-loss-public-summons-note",
+        "special_forms.fraud.standard.false-payment-order-application",
+        "special_forms.fraud.standard.false-title-transfer-to-avoid-enforcement",
+        "special_forms.fraud.standard.forged-possession-title-and-perjury",
+        "special_forms.fraud.standard.indirect-perpetration-through-unaware-third-party",
+        "special_forms.fraud.standard.inflated-construction-contract-not-clearly-proven",
+        "special_forms.fraud.standard.inflated-lien-auction-attempt",
+        "special_forms.fraud.standard.invalid-mortgage-auction-fraud-against-buyer",
+        "special_forms.fraud.standard.litigation-costs-claim-impossible-offense",
+        "special_forms.fraud.standard.litigation-fraud-objectively-false-or-knowing",
+        "special_forms.fraud.standard.litigation-fraud-strict-interpretation",
+        "special_forms.fraud.standard.loan-claim-lack-of-objective-materials",
+        "special_forms.fraud.standard.nominal-depositor-payment-suit-no-attempt",
+        "special_forms.fraud.standard.nominal-permit-holder-auction-no-fraud-against-owner",
+        "special_forms.fraud.standard.payment-order-premature-claim-no-active-deceit",
+        "special_forms.fraud.standard.provisional-attachment-alone-no-commencement",
+        "special_forms.fraud.standard.sham-mortgage-voluntary-auction-attempt",
+        "special_forms.fraud.standard.third-party-real-property-judgment-no-disposition",
+        "special_forms.fraud.standard.unilateral-notice-not-evidence-fabrication"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "collapsed_variant",
+      "legal_review_questions": [
+        "소송사기 카드의 strict proof, 기망수단, 처분효과, 착수·기수 사실변형은 검색용 그룹으로만 사용하고, 누적 구성요건을 상호배타적 정책으로 해석하지 않는다."
+      ],
+      "module": "special_forms",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.special_forms.part001.critic.f5.missing_variant_grouping",
+      "summary": "50개 소송사기 카드를 5개 사실변형 그룹으로 분류하고 정책그룹 오해를 금지했다."
+    },
+    {
+      "card_ids": [
+        "special_forms.fraud.causal-link.insurance-completion-payment",
+        "special_forms.fraud.exception.insurance-special-act-temporal-application"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "special_forms",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.special_forms.part002.critic.authority_status.settled_unsupported",
+      "summary": "보험사기 관련 settled 지정을 descriptive로 낮췄다."
+    },
+    {
+      "card_ids": [
+        "special_forms.fraud.standard.illegal-cause-benefit-precedent-affirmative",
+        "special_forms.fraud.variant.illegal-cause-benefit-affirmative",
+        "special_forms.fraud.variant.illegal-cause-benefit-negative"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "collapsed_variant",
+      "legal_review_questions": [],
+      "module": "special_forms",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.special_forms.part002.critic.variant_group.illegal_cause_split",
+      "summary": "관련 카드를 공통 그룹 fraud_special_forms.illegal_cause_benefit로 통합했다."
+    },
+    {
+      "card_ids": [
+        "special_forms.fraud.standard.right-exercise-over-limit-fraud",
+        "special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime",
+        "special_forms.fraud.variant.right-exercise-abuse-positive",
+        "special_forms.fraud.variant.right-exercise-social-acceptability",
+        "special_forms.fraud.variant.right-exercise-within-scope-negative"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "collapsed_variant",
+      "legal_review_questions": [],
+      "module": "special_forms",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.special_forms.part002.critic.variant_group.right_exercise_split",
+      "summary": "관련 카드를 공통 그룹 fraud_special_forms.right_exercise_boundary로 통합했다."
+    },
+    {
+      "card_ids": [
+        "fraud_stages_participation.real_estate_fraud_completion"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "stages_participation",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.stages_participation.part001.critic.authority.real_estate_combined_sources",
+      "summary": "권위와 법리상태를 source-bounded 수준으로 낮췄다."
+    },
+    {
+      "card_ids": [
+        "fraud_stages_participation.voice_phishing_functional_control"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "authority_mismatch",
+      "legal_review_questions": [],
+      "module": "stages_participation",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.stages_participation.part001.critic.authority.voice_phishing_commentary_view",
+      "summary": "권위와 법리상태를 source-bounded 수준으로 낮췄다."
+    },
+    {
+      "card_ids": [
+        "fraud_stages_participation.completion_deception_disposition_transfer",
+        "fraud_stages_participation.payment_guarantee_not_provided_no_completion",
+        "fraud_stages_participation.victim_loss_completion_view"
+      ],
+      "coverage_gaps": [],
+      "decision": "accept_finding_pending_remediation",
+      "finding_type": "collapsed_variant",
+      "legal_review_questions": [],
+      "module": "stages_participation",
+      "remediation_status": "applied",
+      "review_id": "fraud.normcards.stages_participation.part001.critic.variant.completion_without_gain",
+      "summary": "관련 카드를 공통 그룹 fraud_stages_participation.completion_threshold로 통합했다."
+    }
+  ],
+  "handled_findings": 57,
+  "issue_tag": "fraud",
+  "legal_review": "pending",
+  "method": "manual_source_and_finding_audit_no_api",
+  "status": "draft",
+  "version": "1.0.0"
+}

@@ -3,10 +3,10 @@
 ## 현재 상태
 
 - 범위: 형법 제347조 사기죄 주석서 13개 배치만 포함한다.
-- 검증 후보 661개가 NormCard 636개에 연결되어 있다.
+- 검증 후보 661개가 NormCard 646개에 연결되어 있다.
 - Sol 최종 비평은 17개 묶음 전부 계약 검증을 통과했다.
 - 검토 지적은 67개이며, 모든 산출물은 draft/legal_review=pending이다.
-- 사용자 판정은 completed 10개, pending 57개다.
+- 사용자 판정은 completed 67개, pending 0개다.
 - 주석서가 보고한 판례로 추정되는 카드는 원판례 확인 전 context_only로 격리했다.
 
 ## 지적-카드 매핑
@@ -54,25 +54,25 @@
 
 | 모듈 | 카드 | 지적 | context_only | policy_variant |
 |---|---:|---:|---:|---:|
-| general_object | 45 | 6 | 10 | 9 |
-| deception | 211 | 25 | 54 | 18 |
-| mistake_disposition | 66 | 5 | 10 | 9 |
-| damage_acquisition | 56 | 8 | 2 | 18 |
-| intent | 42 | 5 | 22 | 4 |
-| special_forms | 101 | 8 | 64 | 5 |
-| stages_participation | 49 | 3 | 9 | 0 |
-| concurrence | 66 | 7 | 8 | 4 |
+| general_object | 51 | 6 | 20 | 4 |
+| deception | 211 | 25 | 110 | 11 |
+| mistake_disposition | 70 | 5 | 15 | 6 |
+| damage_acquisition | 56 | 8 | 11 | 11 |
+| intent | 42 | 5 | 23 | 3 |
+| special_forms | 101 | 8 | 68 | 0 |
+| stages_participation | 49 | 3 | 9 | 1 |
+| concurrence | 66 | 7 | 18 | 0 |
 
 ## RuleIR 게이트
 
-- critic_pending: 187
-- context_only_excluded: 131
-- policy_choice_pending: 33
-- human_review_pending: 232
-- neural_grounding_spec_ready: 25
-- provisional_rule_ir_ready: 28
+- critic_pending: 0
+- context_only_excluded: 274
+- policy_choice_pending: 36
+- human_review_pending: 0
+- neural_grounding_spec_ready: 285
+- provisional_rule_ir_ready: 51
 
-현재 전체 RuleIR 생성은 차단되어 있다. 기존 8장짜리 사기죄 모범 NormCard/RuleIR/Scallop은 구조 예시로만 유지하며, 636장 전체에 대한 법적 승인으로 간주하지 않는다.
+승인된 critic 지적은 모두 반영되었지만, policy_variant의 active policy가 선택될 때까지 전체 RuleIR 생성과 최종 사기죄 결론을 모두 차단한다. 기존 8장짜리 모범 NormCard/RuleIR/Scallop은 구조 예시로만 유지한다.
 
 ## 파일
 

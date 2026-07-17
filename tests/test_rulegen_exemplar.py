@@ -84,6 +84,18 @@ HUMAN_REVIEW_DECISIONS = (
 RULE_IR_READINESS = (
     PROJECT_ROOT / "data/rulegen/fraud/fraud_rule_ir_readiness.json"
 )
+NORM_CARD_REMEDIATION_LEDGER = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_norm_card_remediation_ledger.json"
+)
+NORM_CARD_AUDIT = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_norm_card_audit.json"
+)
+POLICY_REVIEW_QUEUE = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_policy_review_queue.json"
+)
+POLICY_REVIEW_DECISIONS = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_policy_review_decisions.jsonl"
+)
 RULE_IR = PROJECT_ROOT / "data/rulegen/fraud/fraud_rule_ir_exemplar.json"
 SCALLOP = PROJECT_ROOT / "rules/exemplars/fraud_v1_candidate.scl"
 PROCEDURAL_GATE = PROJECT_ROOT / "rules/exemplars/procedural_gate_v1_candidate.scl"
@@ -658,7 +670,7 @@ def test_final_fraud_norm_card_modules_cover_all_candidates() -> None:
     manifest = json.loads(NORM_CARD_MANIFEST.read_text(encoding="utf-8"))
 
     assert manifest["totals"]["candidates"] == 661
-    assert manifest["totals"]["cards"] >= 600
+    assert manifest["totals"]["cards"] == 646
     for module in manifest["modules"]:
         card_set = json.loads(
             (PROJECT_ROOT / module["path"]).read_text(encoding="utf-8")
@@ -724,9 +736,9 @@ def test_fraud_norm_card_critic_jobs_partition_every_final_card() -> None:
         list(build_module_payloads()), cards_per_job=50, max_tokens=20_000
     )
 
-    assert len(jobs) == 17
+    assert len(jobs) == 18
     assert len(metadata) == len(jobs)
-    assert sum(record["cards"] for record in metadata.values()) == 636
+    assert sum(record["cards"] for record in metadata.values()) == 646
     assert all(job.role == "sol" for job in jobs)
     assert all(job.payload["stage"] == "norm_card_set" for job in jobs)
     assert all(job.payload["target"]["coverage_gaps"] == [] for job in jobs)
@@ -776,6 +788,12 @@ def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> Non
     queue = json.loads(NORM_CARD_REVIEW_QUEUE.read_text(encoding="utf-8"))
     decisions = load_jsonl(HUMAN_REVIEW_DECISIONS)
     readiness = json.loads(RULE_IR_READINESS.read_text(encoding="utf-8"))
+    remediation = json.loads(
+        NORM_CARD_REMEDIATION_LEDGER.read_text(encoding="utf-8")
+    )
+    audit = json.loads(NORM_CARD_AUDIT.read_text(encoding="utf-8"))
+    policy_queue = json.loads(POLICY_REVIEW_QUEUE.read_text(encoding="utf-8"))
+    policy_decisions = load_jsonl(POLICY_REVIEW_DECISIONS)
     card_manifest = json.loads(NORM_CARD_MANIFEST.read_text(encoding="utf-8"))
 
     assert critic["totals"]["reports"] == 17
@@ -786,8 +804,45 @@ def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> Non
     assert {item["review_id"] for item in decisions} == {
         item["review_id"] for item in queue["items"]
     }
+    assert all(item["resolved"] for item in queue["items"])
+    assert Counter(item["remediation_status"] for item in queue["items"]) == {
+        "applied": 57,
+        "not_applicable": 10,
+    }
+    assert remediation["method"] == "manual_source_and_finding_audit_no_api"
+    assert remediation["api_calls"] == 0
+    assert remediation["accepted_findings"] == 57
+    assert remediation["handled_findings"] == 57
+    assert len(remediation["finding_resolutions"]) == 57
     assert readiness["full_rule_ir_generation_blocked"] is True
-    assert sum(readiness["totals"].values()) == 636
+    assert readiness["final_policy_activation_blocked"] is True
+    assert readiness["totals"] == {
+        "context_only_excluded": 274,
+        "neural_grounding_spec_ready": 285,
+        "policy_choice_pending": 36,
+        "provisional_rule_ir_ready": 51,
+    }
+    assert sum(readiness["totals"].values()) == 646
+    assert audit["method"] == "manual_final_audit_no_api"
+    assert audit["api_calls"] == 0
+    assert audit["cards"] == 646
+    assert audit["all_cards_accounted_for"] is True
+    assert audit["status_counts"] == {
+        "deterministic_rule_ready": 51,
+        "policy_choice_pending": 36,
+        "rag_context_only": 274,
+        "standard_input_ready": 285,
+    }
+    assert len(audit["rows"]) == len({row["card_id"] for row in audit["rows"]})
+    assert policy_queue["api_calls"] == 0
+    assert policy_queue["policy_groups"] == 12
+    assert policy_queue["policy_cards"] == 36
+    assert policy_queue["collapsed_policy_sources"] == []
+    assert len(policy_queue["resolved_split_sources"]) == 3
+    assert len(policy_decisions) == policy_queue["policy_groups"]
+    assert {row["review_id"] for row in policy_decisions} == {
+        row["review_id"] for row in policy_queue["items"]
+    }
     module_paths = {
         module["module"]: PROJECT_ROOT / module["path"]
         for module in card_manifest["modules"]
@@ -813,14 +868,14 @@ def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> Non
     assert Counter(
         item["card_mapping"]["method"] for item in queue["items"]
     ) == {
-        "critic_text_audited_override": 41,
-        "explicit_card_id": 20,
-        "generated_review_question_scope": 4,
+        "critic_text_audited_override": 45,
+        "explicit_card_id": 19,
+        "generated_review_question_scope": 1,
         "explicit_wildcard": 2,
     }
     assert Counter(
         item["human_review"]["status"] for item in queue["items"]
-    ) == {"pending": 57, "completed": 10}
+    ) == {"completed": 67}
     assert all(item["impacted_card_ids"] for item in queue["items"])
     assert {
         item["review_id"]: tuple(item["impacted_card_ids"])
@@ -864,7 +919,7 @@ def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> Non
         "unsupported_variant_policy_question"
     ]
     assert policy_question["card_mapping"]["method"] == (
-        "generated_review_question_scope"
+        "critic_text_audited_override"
     )
     assert policy_question["impacted_card_ids"] == [
         "fraud_damage_acquisition.legitimate_right_deduction_view"

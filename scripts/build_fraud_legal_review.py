@@ -23,6 +23,9 @@ QUEUE = PROJECT_ROOT / "data/rulegen/fraud/fraud_norm_card_review_queue.json"
 DECISIONS = PROJECT_ROOT / "data/rulegen/fraud/fraud_human_review_decisions.jsonl"
 READINESS = PROJECT_ROOT / "data/rulegen/fraud/fraud_rule_ir_readiness.json"
 GUIDE = PROJECT_ROOT / "data/rulegen/fraud/fraud_legal_review_guide.md"
+REMEDIATION_LEDGER = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_norm_card_remediation_ledger.json"
+)
 
 
 PRIORITY = {
@@ -41,6 +44,25 @@ PRIORITY = {
 # Sol's numeric card selectors are not consistently aligned with the submitted arrays.
 # These mappings were audited against each finding, source refs, and card propositions.
 AUDITED_CARD_MAPPINGS: dict[str, tuple[str, ...]] = {
+    (
+        "fraud.normcards.damage_acquisition.part002.critic."
+        "unsupported_variant_policy_question"
+    ): ("fraud_damage_acquisition.legitimate_right_deduction_view",),
+    (
+        "fraud.normcards.deception.part001.critic."
+        "bid_rigging_policy_question_overstates_alignment"
+    ): (
+        "deception.fraud.standard.bid-rigging-fraud-concurrence-view",
+    ),
+    (
+        "fraud.normcards.intent.part001.critic."
+        "practical_consequence_not_selectable_variant"
+    ): (
+        "fraud_intent.illegal_appropriation_not_required",
+        "fraud_intent.illegal_appropriation_required_all",
+        "fraud_intent.illegal_appropriation_required_property_only",
+        "fraud_intent.property_only_appropriation_practical_consequence",
+    ),
     "fraud.normcards.concurrence.part001.critic.counterfeit_reason_unsupported": (
         "fraud_concurrence.counterfeit_currency_real_concurrence",
     ),
@@ -142,6 +164,15 @@ AUDITED_CARD_MAPPINGS: dict[str, tuple[str, ...]] = {
     "fraud.normcards.general_object.part001.critic.subjective_elements_formalization": (
         "fraud_general_object.subjective_elements",
     ),
+    (
+        "fraud.normcards.special_forms.part001.critic."
+        "f3.unsupported_authority_and_settled_designations"
+    ): (
+        "special_forms.fraud.element.litigation-fraud-knowing-nonexistence",
+        "special_forms.fraud.element.litigation-fraud-deceptive-act",
+        "special_forms.fraud.element.judgment-substitutes-victim-disposition",
+        "special_forms.fraud.element.litigation-fraud-commencement",
+    ),
     "fraud.normcards.concurrence.part001.critic.agent_competing_position_group_incomplete": (
         "fraud_concurrence.agent_fraud_only_view",
         "fraud_concurrence.agent_breach_only_view",
@@ -234,6 +265,31 @@ def load_human_decisions() -> dict[str, dict[str, Any]]:
             raise ValueError(f"Duplicate human review decision: {review_id}")
         decisions[review_id] = decision
     return decisions
+
+
+def load_applied_remediations() -> set[str]:
+    if not REMEDIATION_LEDGER.exists():
+        return set()
+    ledger = read_json(REMEDIATION_LEDGER)
+    if ledger.get("api_calls") != 0:
+        raise ValueError("Fraud NormCard remediation must not use API calls")
+    return {
+        row["review_id"]
+        for row in ledger.get("finding_resolutions", [])
+        if row.get("remediation_status") == "applied"
+    }
+
+
+def review_is_resolved(
+    review_id: str,
+    human_review: dict[str, Any],
+    applied_remediations: set[str],
+) -> bool:
+    if human_review.get("status") != "completed":
+        return False
+    if human_review.get("decision") == "accept_finding_pending_remediation":
+        return review_id in applied_remediations
+    return True
 
 
 def generated_review_question_scopes(
@@ -360,6 +416,7 @@ def resolve_impacted_cards(
 def build_queue(
     cards_by_id: dict[str, dict[str, Any]],
     decisions: dict[str, dict[str, Any]],
+    applied_remediations: set[str],
 ) -> tuple[list[dict[str, Any]], dict[str, set[str]]]:
     manifest = read_json(CRITIC_MANIFEST)
     queue: list[dict[str, Any]] = []
@@ -384,7 +441,10 @@ def build_queue(
                     "verified_authority_refs": [],
                 },
             )
-            if human_review["status"] != "completed":
+            resolved = review_is_resolved(
+                review_id, human_review, applied_remediations
+            )
+            if not resolved:
                 impacted_by_module[report_meta["module"]].update(impacted)
             queue.append(
                 {
@@ -400,6 +460,15 @@ def build_queue(
                     "source_refs": finding["source_refs"],
                     "card_mapping": mapping,
                     "human_review": human_review,
+                    "remediation_status": (
+                        "applied"
+                        if review_id in applied_remediations
+                        else "not_applicable"
+                        if human_review.get("decision")
+                        != "accept_finding_pending_remediation"
+                        else "pending"
+                    ),
+                    "resolved": resolved,
                     "impacted_card_ids": impacted,
                     "impacted_cards": [
                         {
@@ -460,10 +529,15 @@ def build_readiness(
         "issue_tag": "fraud",
         "status": "draft",
         "legal_review": "pending",
-        "full_rule_ir_generation_blocked": True,
+        "full_rule_ir_generation_blocked": bool(
+            totals.get("policy_choice_pending", 0)
+        ),
+        "final_policy_activation_blocked": bool(
+            totals.get("policy_choice_pending", 0)
+        ),
         "blocking_reason": (
-            "The practical precedent choices, source-entailment findings, and policy "
-            "variant groups require human legal review before full RuleIR generation."
+            "All accepted critic findings are remediated, but full RuleIR generation and "
+            "final policy activation remain blocked until every active policy is chosen."
         ),
         "modules": modules,
         "totals": dict(sorted(totals.items())),
@@ -588,8 +662,8 @@ def build_guide(
             "- provisional_rule_ir_ready: "
             f"{readiness['totals'].get('provisional_rule_ir_ready', 0)}",
             "",
-            "현재 전체 RuleIR 생성은 차단되어 있다. 기존 8장짜리 사기죄 모범 NormCard/RuleIR/Scallop은 구조 예시로만 유지하며, "
-            "636장 전체에 대한 법적 승인으로 간주하지 않는다.",
+            "승인된 critic 지적은 모두 반영되었지만, policy_variant의 active policy가 선택될 때까지 전체 RuleIR 생성과 "
+            "최종 사기죄 결론을 모두 차단한다. 기존 8장짜리 모범 NormCard/RuleIR/Scallop은 구조 예시로만 유지한다.",
             "",
             "## 파일",
             "",
@@ -607,7 +681,10 @@ def main() -> None:
     cards_by_id, cards_by_module = load_cards()
     candidate_count = read_json(CANDIDATE_MANIFEST)["totals"]["candidates"]
     decisions = load_human_decisions()
-    queue, impacted_by_module = build_queue(cards_by_id, decisions)
+    applied_remediations = load_applied_remediations()
+    queue, impacted_by_module = build_queue(
+        cards_by_id, decisions, applied_remediations
+    )
     readiness = build_readiness(cards_by_module, impacted_by_module)
     write_json(
         QUEUE,
