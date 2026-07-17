@@ -1,18 +1,12 @@
 from __future__ import annotations
 
 import json
-import re
-import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(PROJECT_ROOT))
-
-from scripts.run_fraud_rulegen_critics import read_json  # noqa: E402
-from scripts.run_fraud_rulegen_pilot import write_json  # noqa: E402
 
 
 CARD_MANIFEST = PROJECT_ROOT / "data/rulegen/fraud/fraud_norm_card_manifest.json"
@@ -40,6 +34,183 @@ PRIORITY = {
 }
 
 
+# Sol's numeric card selectors are not consistently aligned with the submitted arrays.
+# These mappings were audited against each finding, source refs, and card propositions.
+AUDITED_CARD_MAPPINGS: dict[str, tuple[str, ...]] = {
+    "fraud.normcards.concurrence.part001.critic.counterfeit_reason_unsupported": (
+        "fraud_concurrence.counterfeit_currency_real_concurrence",
+    ),
+    "fraud.normcards.concurrence.part001.critic.goods_nonpayment_source_mismatch": (
+        "fraud_concurrence.goods_nonpayment_no_benefit_fraud",
+    ),
+    "fraud.normcards.concurrence.part002.critic.assigned_claim_outcome_overstated": (
+        "fraud_concurrence.assigned_claim_mutually_incompatible",
+    ),
+    "fraud.normcards.general_object.part001.critic.nonproperty_examples_overgeneralized": (
+        "fraud_general_object.nonproperty_examples",
+    ),
+    "fraud.normcards.general_object.part001.critic.triangular_fraud_case_generalized": (
+        "fraud_general_object.triangular_fraud_victim",
+    ),
+    "fraud.normcards.intent.part001.critic.debt_assets_unsupported_conditions": (
+        "fraud_intent.debt_exceeds_assets_alone",
+    ),
+    "fraud.normcards.intent.part001.critic.insurance_overbilling_unsupported_condition": (
+        "fraud_intent.insurance_overbilling",
+    ),
+    "fraud.normcards.intent.part001.critic.vehicle_sale_unsupported_document_fact": (
+        "fraud_intent.vehicle_sale_subsequent_theft",
+    ),
+    "fraud.normcards.damage_acquisition.part002.critic.letter_credit_authority": (
+        "fraud_damage_acquisition.letter_of_credit_no_payment_deduction",
+    ),
+    "fraud.normcards.damage_acquisition.part002.critic.repeated_investment_authority": (
+        "fraud_damage_acquisition.repeated_investment_no_return_deduction",
+    ),
+    "fraud.normcards.deception.part001.critic.bid_rigging_author_view_authority": (
+        "deception.fraud.standard.bid-rigging-fraud-concurrence-view",
+    ),
+    "fraud.normcards.deception.part003.critic.authority.additional-case-cards": (
+        "deception.fraud.standard.artwork-assistant-participation",
+        "deception.fraud.standard.land-sale-unknown-urban-planning-area",
+        "deception.fraud.standard.land-sale-no-known-urban-planning-conflict",
+        "deception.fraud.standard.entrusted-car-unknown-arrears-direct-inquiry",
+    ),
+    "fraud.normcards.deception.part003.critic.authority.case-card-misclassified": (
+        "deception.fraud.standard.car-substitute-performance-reservation",
+    ),
+    "fraud.normcards.deception.part004.critic.authority.false_documents_speculative": (
+        "deception.fraud.standard.false-documents-budget-withdrawal",
+    ),
+    "fraud.normcards.deception.part004.critic.authority.statutory_subsidy_definitions": (
+        "deception.fraud.definition.subsidy-and-indirect-subsidy",
+    ),
+    "fraud.normcards.deception.part005.critic.unsupported-settled-status": (
+        "deception.fraud.definition.deception-target-human",
+    ),
+    "fraud.normcards.deception.part005.critic.unsupported-settled-status-disposal-authority": (
+        "deception.fraud.element.deceived-person-disposal-authority",
+    ),
+    "fraud.normcards.deception.part005.critic.unsupported-settled-status-distinct-persons": (
+        "deception.fraud.definition.deceived-person-victim-distinct",
+    ),
+    "fraud.normcards.deception.part005.critic.unsupported-settled-status-unspecified-person": (
+        "deception.fraud.definition.deceived-person-unspecified",
+    ),
+    "fraud.normcards.general_object.part001.critic.settled_status_not_supported": (
+        "general_object.fraud.element.object-other-possessed-other-property",
+        "general_object.fraud.definition.property-benefit",
+        "general_object.fraud.element.property-benefit-concrete",
+        "general_object.fraud.definition.property-benefit-not-numerically-limited",
+    ),
+    "fraud.normcards.general_object.part001.critic.unquantified_value_authority_unsupported": (
+        "fraud_general_object.unquantified_benefit_judgment",
+    ),
+    "fraud.normcards.intent.part001.critic.no_disposition_authority_unestablished": (
+        "fraud_intent.no_disposition_inducement_intent",
+    ),
+    "fraud.normcards.stages_participation.part001.critic.authority.real_estate_combined_sources": (
+        "fraud_stages_participation.real_estate_fraud_completion",
+    ),
+    (
+        "fraud.normcards.stages_participation.part001.critic.authority."
+        "voice_phishing_commentary_view"
+    ): (
+        "fraud_stages_participation.voice_phishing_functional_control",
+    ),
+    (
+        "fraud.normcards.concurrence.part001.critic."
+        "commentary_penalties_deterministic_before_verification"
+    ): (
+        "fraud_concurrence.general_fraud_penalty",
+        "fraud_concurrence.attempt_habitual_punishment",
+        "fraud_concurrence.aggravated_economic_value_thresholds",
+    ),
+    "fraud.normcards.deception.part003.critic.formalization.conditional-intent-sufficiency": (
+        "deception.fraud.element.intent-to-defraud-conditional-intent",
+    ),
+    "fraud.normcards.deception.part003.critic.formalization.element-sufficiency": (
+        "deception.fraud.element.loan-no-repayment-intent-or-ability",
+    ),
+    "fraud.normcards.deception.part004.critic.formalization.subsidy_definition": (
+        "deception.fraud.definition.subsidy-and-indirect-subsidy",
+    ),
+    "fraud.normcards.general_object.part001.critic.subjective_elements_formalization": (
+        "fraud_general_object.subjective_elements",
+    ),
+    "fraud.normcards.concurrence.part001.critic.agent_competing_position_group_incomplete": (
+        "fraud_concurrence.agent_fraud_only_view",
+        "fraud_concurrence.agent_breach_only_view",
+        "fraud_concurrence.agent_imaginary_concurrence_view",
+        "fraud_concurrence.agent_precedent_imaginary_concurrence",
+    ),
+    "fraud.normcards.concurrence.part001.critic.counterfeit_variant_group_incomplete": (
+        "fraud_concurrence.counterfeit_currency_real_concurrence",
+        "fraud_concurrence.counterfeit_currency_imaginary_view",
+    ),
+    "fraud.normcards.deception.part001.critic.future_facts_variant_group_split": (
+        "deception.fraud.variant.future-facts-unlimited",
+        "deception.fraud.variant.future-facts-limited",
+        "deception.fraud.variant.future-facts-negative",
+    ),
+    "fraud.normcards.deception.part001.critic.opinion_statement_variant_group_split": (
+        "deception.fraud.variant.opinion-statement-negative",
+        "deception.fraud.variant.opinion-statement-affirmative",
+        "deception.fraud.variant.opinion-statement-mistake-sufficiency",
+        "deception.fraud.variant.opinion-statement-third-view-concreteness",
+    ),
+    "fraud.normcards.deception.part001.critic.third_view_supplement_ungrouped": (
+        "deception.fraud.variant.opinion-statement-mistake-sufficiency",
+        "deception.fraud.variant.opinion-statement-third-view-concreteness",
+    ),
+    "fraud.normcards.deception.part003.critic.variants.double-sale": (
+        "deception.fraud.standard.double-sale-second-buyer-registered",
+        "deception.fraud.standard.double-sale-no-intent-transfer-first-buyer",
+        "deception.fraud.standard.second-real-estate-sale-first-contract",
+        "deception.fraud.standard.double-sale-first-sale-unregistered",
+        "deception.fraud.standard.double-sale-first-buyer-registered",
+    ),
+    "fraud.normcards.deception.part003.critic.variants.nonmedical-clinic": (
+        "deception.fraud.standard.nonmedical-clinic-national-health-insurance",
+        "deception.fraud.standard.nonmedical-clinic-indemnity-insurance",
+    ),
+    "fraud.normcards.deception.part004.critic.variant.medical_corporation_exception": (
+        "deception.fraud.standard.medical-corporation-nonmedical-involvement",
+        "deception.fraud.exception.medical-corporation-nonmedical-abuse-types",
+    ),
+    "fraud.normcards.deception.part004.critic.variant.religious_practice_boundary": (
+        "deception.fraud.standard.religious-compensation-not-necessarily-fraud",
+        "deception.fraud.standard.shamanistic-false-misfortune",
+        "deception.fraud.standard.prayer-fee-beyond-permitted-limit",
+        "deception.fraud.standard.false-religious-claims-donations",
+    ),
+    "fraud.normcards.general_object.part001.critic.sex_work_variants_not_grouped": (
+        "general_object.fraud.variant.sex-work-contract-fraud-negative",
+        "general_object.fraud.variant.sex-work-contract-fraud-affirmative",
+    ),
+    "fraud.normcards.stages_participation.part001.critic.variant.completion_without_gain": (
+        "fraud_stages_participation.completion_deception_disposition_transfer",
+        "fraud_stages_participation.victim_loss_completion_view",
+        "fraud_stages_participation.payment_guarantee_not_provided_no_completion",
+    ),
+}
+
+
+def read_json(path: Path) -> dict[str, Any]:
+    value = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(value, dict):
+        raise ValueError(f"Expected a JSON object: {path}")
+    return value
+
+
+def write_json(path: Path, payload: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+
 def load_cards() -> tuple[
     dict[str, dict[str, Any]], dict[str, list[dict[str, Any]]]
 ]:
@@ -53,23 +224,58 @@ def load_cards() -> tuple[
     return cards_by_id, cards_by_module
 
 
-def impacted_card_ids(target_path: str, part_card_ids: list[str]) -> list[str]:
-    direct = [card_id for card_id in part_card_ids if card_id in target_path]
-    if direct:
-        return direct
+def resolve_impacted_cards(
+    review_id: str,
+    finding: dict[str, Any],
+    part_card_ids: list[str],
+    cards_by_id: dict[str, dict[str, Any]],
+) -> tuple[list[str], dict[str, Any]]:
+    target_path = finding["target_path"]
+    if "legal_review_questions" in target_path or "coverage_gaps" in target_path:
+        return [], {"method": "card_set_metadata", "confidence": 1.0}
 
-    indexes: set[int] = set()
-    for match in re.finditer(r"cards(?:\[|/)(\d+)(?:\]|/|$)", target_path):
-        indexes.add(int(match.group(1)))
-    for match in re.finditer(r"cards\[(\d+):(\d+)\]", target_path):
-        indexes.update(range(int(match.group(1)), int(match.group(2))))
-    for match in re.finditer(r"cards\[(\d+)-(\d+)\]", target_path):
-        indexes.update(range(int(match.group(1)), int(match.group(2)) + 1))
-    if indexes:
-        return [part_card_ids[index] for index in sorted(indexes) if index < len(part_card_ids)]
-    if "cards" in target_path:
-        return part_card_ids
-    return []
+    if review_id in AUDITED_CARD_MAPPINGS:
+        impacted = list(AUDITED_CARD_MAPPINGS[review_id])
+        unknown = [card_id for card_id in impacted if card_id not in cards_by_id]
+        outside_part = [card_id for card_id in impacted if card_id not in part_card_ids]
+        finding_refs = {ref["comment_id"] for ref in finding["source_refs"]}
+        source_mismatch = [
+            card_id
+            for card_id in impacted
+            if card_id in cards_by_id
+            and not finding_refs.intersection(
+                ref["comment_id"] for ref in cards_by_id[card_id]["source_refs"]
+            )
+        ]
+        if unknown or outside_part or source_mismatch:
+            raise ValueError(
+                f"Invalid audited mapping for {review_id}: "
+                f"unknown={unknown}, outside_part={outside_part}, "
+                f"source_mismatch={source_mismatch}"
+            )
+        return impacted, {
+            "method": "critic_text_audited_override",
+            "confidence": 1.0,
+            "audit_basis": "finding_text_source_refs_and_card_propositions",
+        }
+
+    finding_text = " ".join(
+        [
+            target_path,
+            finding["message"],
+            finding["recommended_action"],
+        ]
+    )
+    direct = [card_id for card_id in part_card_ids if card_id in finding_text]
+    if direct:
+        return direct, {"method": "explicit_card_id", "confidence": 1.0}
+    if "cards" not in target_path:
+        return [], {"method": "card_set_metadata", "confidence": 1.0}
+    if "[*]" in target_path:
+        return part_card_ids, {"method": "explicit_wildcard", "confidence": 1.0}
+    raise ValueError(
+        f"Unaudited numeric card selector for {review_id}: {target_path}"
+    )
 
 
 def build_queue(
@@ -81,11 +287,14 @@ def build_queue(
     for report_meta in manifest["reports"]:
         report = read_json(PROJECT_ROOT / report_meta["path"])
         for finding in report["findings"]:
-            impacted = impacted_card_ids(
-                finding["target_path"], report_meta["card_ids"]
+            review_id = f"{report_meta['request_id']}.{finding['finding_id']}"
+            impacted, mapping = resolve_impacted_cards(
+                review_id,
+                finding,
+                report_meta["card_ids"],
+                cards_by_id,
             )
             impacted_by_module[report_meta["module"]].update(impacted)
-            review_id = f"{report_meta['request_id']}.{finding['finding_id']}"
             queue.append(
                 {
                     "review_id": review_id,
@@ -98,6 +307,7 @@ def build_queue(
                     "message": finding["message"],
                     "recommended_action": finding["recommended_action"],
                     "source_refs": finding["source_refs"],
+                    "card_mapping": mapping,
                     "impacted_card_ids": impacted,
                     "impacted_cards": [
                         {
@@ -205,6 +415,13 @@ def build_guide(
         "- Sol 최종 비평은 17개 묶음 전부 계약 검증을 통과했다.",
         f"- 검토 지적은 {len(queue)}개이며, 모든 산출물은 draft/legal_review=pending이다.",
         "- 주석서가 보고한 판례로 추정되는 카드는 원판례 확인 전 context_only로 격리했다.",
+        "",
+        "## 지적-카드 매핑",
+        "",
+        "- Sol 보고서의 `target_path` 숫자 인덱스는 제출 배열과 일관되게 대응하지 않아 검수 대상으로 직접 사용하지 않는다.",
+        "- 숫자 경로가 있던 40개 지적은 지적 문구, source_refs, 카드 proposition을 대조하여 카드 ID로 고정했다.",
+        "- 검수할 실제 대상은 각 항목의 `impacted_card_ids`와 `impacted_cards`이며, 매핑 근거는 `card_mapping`에 기록했다.",
+        "- 이후 미등록 숫자 경로가 추가되면 큐 생성은 추측하지 않고 실패한다.",
         "",
         "## 검수 순서",
         "",

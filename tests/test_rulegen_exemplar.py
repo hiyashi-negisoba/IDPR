@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import copy
 import json
+from collections import Counter
 from pathlib import Path
 
 import pytest
@@ -20,6 +21,7 @@ from idpr.rulegen import (
     validate_rule_ir,
     validate_rulegen_critique,
 )
+from scripts.build_fraud_legal_review import AUDITED_CARD_MAPPINGS
 from scripts.run_fraud_norm_card_merge import build_module_payloads
 from scripts.run_fraud_norm_card_critics import (
     build_jobs as build_norm_card_critic_jobs,
@@ -716,6 +718,53 @@ def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> Non
     }
     assert readiness["full_rule_ir_generation_blocked"] is True
     assert sum(readiness["totals"].values()) == 636
+
+    items_by_id = {item["review_id"]: item for item in queue["items"]}
+    assert Counter(
+        item["card_mapping"]["method"] for item in queue["items"]
+    ) == {
+        "critic_text_audited_override": 40,
+        "explicit_card_id": 20,
+        "card_set_metadata": 5,
+        "explicit_wildcard": 2,
+    }
+    assert {
+        item["review_id"]: tuple(item["impacted_card_ids"])
+        for item in queue["items"]
+        if item["card_mapping"]["method"] == "critic_text_audited_override"
+    } == AUDITED_CARD_MAPPINGS
+    assert items_by_id[
+        "fraud.normcards.concurrence.part001.critic.counterfeit_reason_unsupported"
+    ]["impacted_card_ids"] == [
+        "fraud_concurrence.counterfeit_currency_real_concurrence"
+    ]
+    assert items_by_id[
+        "fraud.normcards.general_object.part001.critic.nonproperty_examples_overgeneralized"
+    ]["impacted_card_ids"] == ["fraud_general_object.nonproperty_examples"]
+    assert items_by_id[
+        "fraud.normcards.deception.part003.critic.authority.additional-case-cards"
+    ]["impacted_card_ids"] == [
+        "deception.fraud.standard.artwork-assistant-participation",
+        "deception.fraud.standard.land-sale-unknown-urban-planning-area",
+        "deception.fraud.standard.land-sale-no-known-urban-planning-conflict",
+        "deception.fraud.standard.entrusted-car-unknown-arrears-direct-inquiry",
+    ]
+    assert items_by_id[
+        "fraud.normcards.concurrence.part001.critic."
+        "commentary_penalties_deterministic_before_verification"
+    ]["impacted_card_ids"] == [
+        "fraud_concurrence.general_fraud_penalty",
+        "fraud_concurrence.attempt_habitual_punishment",
+        "fraud_concurrence.aggravated_economic_value_thresholds",
+    ]
+    assert items_by_id[
+        "fraud.normcards.deception.part004.critic.variant.religious_practice_boundary"
+    ]["impacted_card_ids"] == [
+        "deception.fraud.standard.religious-compensation-not-necessarily-fraud",
+        "deception.fraud.standard.shamanistic-false-misfortune",
+        "deception.fraud.standard.prayer-fee-beyond-permitted-limit",
+        "deception.fraud.standard.false-religious-claims-donations",
+    ]
 
 
 def test_fraud_and_procedural_exemplars_enforce_positive_evidence_gates() -> None:

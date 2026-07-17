@@ -8,6 +8,13 @@
 - 검토 지적은 67개이며, 모든 산출물은 draft/legal_review=pending이다.
 - 주석서가 보고한 판례로 추정되는 카드는 원판례 확인 전 context_only로 격리했다.
 
+## 지적-카드 매핑
+
+- Sol 보고서의 `target_path` 숫자 인덱스는 제출 배열과 일관되게 대응하지 않아 검수 대상으로 직접 사용하지 않는다.
+- 숫자 경로가 있던 40개 지적은 지적 문구, source_refs, 카드 proposition을 대조하여 카드 ID로 고정했다.
+- 검수할 실제 대상은 각 항목의 `impacted_card_ids`와 `impacted_cards`이며, 매핑 근거는 `card_mapping`에 기록했다.
+- 이후 미등록 숫자 경로가 추가되면 큐 생성은 추측하지 않고 실패한다.
+
 ## 검수 순서
 
 1. 출처 의미: source_entailment, overgeneralization, missing_norm, source_scope를 먼저 본다.
@@ -50,11 +57,11 @@
 
 ## RuleIR 게이트
 
-- critic_pending: 168
-- context_only_excluded: 127
-- policy_choice_pending: 43
-- human_review_pending: 237
-- provisional_rule_ir_ready: 61
+- critic_pending: 184
+- context_only_excluded: 128
+- policy_choice_pending: 38
+- human_review_pending: 231
+- provisional_rule_ir_ready: 55
 
 현재 전체 RuleIR 생성은 차단되어 있다. 기존 8장짜리 사기죄 모범 NormCard/RuleIR/Scallop은 구조 예시로만 유지하며, 636장 전체에 대한 법적 승인으로 간주하지 않는다.
 

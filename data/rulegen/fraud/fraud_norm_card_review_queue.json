@@ -2,20 +2,25 @@
   "issue_tag": "fraud",
   "items": [
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
-        "fraud_concurrence.fraud_created_trust_no_embezzlement"
+        "fraud_concurrence.counterfeit_currency_real_concurrence"
       ],
       "impacted_cards": [
         {
           "authority_basis": "commentary_synthesis",
           "formalization": "standard_input",
-          "id": "fraud_concurrence.fraud_created_trust_no_embezzlement",
-          "proposition": "횡령죄나 배임죄의 신임관계 기초가 되는 관계가 사기죄의 기망으로 형성된 경우에는 사기죄가 성립하면 그 피해자에 대한 횡령죄나 배임죄가 별도로 성립하지 않는다.",
+          "id": "fraud_concurrence.counterfeit_currency_real_concurrence",
+          "proposition": "위조통화를 행사하여 재물을 불법영득한 경우, 위조통화행사죄와 사기죄는 보호법익이 달라 실체적 경합관계가 인정된다.",
           "source_refs": [
             {
-              "comment_id": "comm_001692_제347조_Ⅹ.6_122",
-              "quote": "횡령죄나 배임죄의 본질이 신임관계의 침해이므로, 신임관계 (위탁)(위탁) 의 기초가 되는 관계가 사기죄의 기망에 의하여 형성된 경우에는 사기죄가 성립 하는 이상 사기죄의 피해자에 대한 횡령죄나 배임죄가 별도로 성립하지 않는다.",
-              "section_path": "Ⅹ.6"
+              "comment_id": "comm_001692_제347조_Ⅹ.8_125",
+              "quote": "위조통화를 행사하여 재물을 불법영득한 때 에는 위조통화행사죄와 사기죄의 실체적 경합관계가 인정된다.",
+              "section_path": "Ⅹ.8"
             }
           ]
         }
@@ -37,6 +42,11 @@
       "type": "source_entailment"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "fraud_concurrence.goods_nonpayment_no_benefit_fraud"
       ],
@@ -72,6 +82,11 @@
       "type": "source_entailment"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "fraud_concurrence.assigned_claim_mutually_incompatible"
       ],
@@ -112,6 +127,10 @@
       "type": "overgeneralization"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_card_id"
+      },
       "impacted_card_ids": [
         "fraud_damage_acquisition.third_party_acquisition_intent"
       ],
@@ -147,6 +166,10 @@
       "type": "source_entailment"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "card_set_metadata"
+      },
       "impacted_card_ids": [],
       "impacted_cards": [],
       "message": "검토 질문은 복수의 경쟁 견해를 묶고 판례에 부합하는 정책을 선택하도록 요구하지만, 제공된 범위에는 정당한 권리 상당액 공제에 관한 하나의 학설만 있고 경쟁 견해나 판례 입장은 제시되어 있지 않다. 현재 문구는 존재가 확인되지 않은 권위와 변형을 전제한다.",
@@ -166,19 +189,29 @@
       "type": "source_scope"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
-        "fraud_general_object.marriage_money_fraud"
+        "fraud_general_object.nonproperty_examples"
       ],
       "impacted_cards": [
         {
           "authority_basis": "commentary_synthesis",
           "formalization": "standard_input",
-          "id": "fraud_general_object.marriage_money_fraud",
-          "proposition": "결혼을 가장하여 상대방을 기망하고 결혼비용·증여 등의 명목으로 금품을 사취하거나 하객으로부터 수집된 금품을 취득한 경우 사기죄가 성립한다고 소개되어 있다.",
+          "id": "fraud_general_object.nonproperty_examples",
+          "proposition": "허위기재 여권의 교부나 혼인을 빙자한 간음처럼 재물 또는 재산상 이익을 취득하지 않는 경우 사기죄가 성립하지 않는다고 소개되어 있다.",
           "source_refs": [
             {
               "comment_id": "comm_001692_제347조_Ⅱ.3_4",
-              "quote": "결혼을 가장하고 상대방을 기망하여 결혼비용·증여 등의 명목으로 금품을 사취하는 이 른바 혼인사기나 하객으로부터 수집된 금품을 취득하는 경우에는 당연히 사기 죄가 성립한다.",
+              "quote": "공무원을 기망해서 허위기재의 여권을 교부받은 경우에도 사기죄는 성립하지 않는다.",
+              "section_path": "Ⅱ.3"
+            },
+            {
+              "comment_id": "comm_001692_제347조_Ⅱ.3_4",
+              "quote": "혼인을 빙자하고 부녀를 기망하여 간음하는 경우에는 재물 또는 재산상의 이익 을 취득하는 경우가 아니므로 사기죄가 성립하지 않는다.",
               "section_path": "Ⅱ.3"
             }
           ]
@@ -201,6 +234,11 @@
       "type": "overgeneralization"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "fraud_general_object.triangular_fraud_victim"
       ],
@@ -241,6 +279,11 @@
       "type": "overgeneralization"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "fraud_intent.debt_exceeds_assets_alone"
       ],
@@ -276,6 +319,11 @@
       "type": "source_entailment"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "fraud_intent.insurance_overbilling"
       ],
@@ -311,6 +359,11 @@
       "type": "source_entailment"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "fraud_intent.vehicle_sale_subsequent_theft"
       ],
@@ -346,6 +399,10 @@
       "type": "source_entailment"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_card_id"
+      },
       "impacted_card_ids": [
         "special_forms.fraud.standard.false-payment-order-application"
       ],
@@ -381,6 +438,10 @@
       "type": "source_entailment"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_card_id"
+      },
       "impacted_card_ids": [
         "special_forms.fraud.standard.litigation-costs-claim-impossible-offense"
       ],
@@ -416,6 +477,10 @@
       "type": "source_entailment"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_card_id"
+      },
       "impacted_card_ids": [
         "fraud_damage_acquisition.provisional_seizure_release_disposition"
       ],
@@ -475,6 +540,11 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "fraud_damage_acquisition.letter_of_credit_no_payment_deduction"
       ],
@@ -515,6 +585,11 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "fraud_damage_acquisition.repeated_investment_no_return_deduction"
       ],
@@ -560,19 +635,24 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
-        "deception.fraud.standard.false-development-plan-advertising"
+        "deception.fraud.standard.bid-rigging-fraud-concurrence-view"
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_reported_precedent",
-          "formalization": "context_only",
-          "id": "deception.fraud.standard.false-development-plan-advertising",
-          "proposition": "부동산 관련 업체가 지방자치단체의 특정 용역보고서만을 근거로 확정되지 않은 개발계획을 확정된 것처럼 허위·과장하여 토지매매계약을 체결한 경우 기망행위가 인정된다.",
+          "authority_basis": "commentary_reported_doctrine",
+          "formalization": "policy_variant",
+          "id": "deception.fraud.standard.bid-rigging-fraud-concurrence-view",
+          "proposition": "담합행위가 입찰방해죄와 사기죄의 구성요건을 모두 충족하면 사기죄도 함께 성립한다는 견해가 소개되어 있다.",
           "source_refs": [
             {
-              "comment_id": "comm_001692_제347조_Ⅳ.1_17",
-              "quote": "부동산 관련 업체가 지방자치단체의 특정 용역보고서만을 근거로 확정되지도 않은 개발계획이 마치 확정된 것처럼 허위 또는 과장된 정보를 제공하여 매수인들과 토지매매계약을 체결한 사 안(대법원 2008. 10. 23. 선고 2008도6549 판결)에서는 기망행위가 인정됨",
+              "comment_id": "comm_001692_제347조_Ⅳ.1_18",
+              "quote": "사견으로는 입찰방해죄는 위계 또는 위력 기타의 방법으로 입찰의 공정을 해하는 경우에 성립하는 위태 범으로서 개인적 법인인 재산권을 보호법익으로 하는 사기죄와는 별개의 범 죄이므로, 양 구성요건을 모두 충족하는 경우 사기죄도 함께 성립한다고 보는 것이 타당하다고 생각한다.",
               "section_path": "Ⅳ.1"
             }
           ]
@@ -595,6 +675,10 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "card_set_metadata"
+      },
       "impacted_card_ids": [],
       "impacted_cards": [],
       "message": "검토 질문은 입찰담합 카드에 대해 '판례에 부합하는 실무 정책'을 선택하도록 요구하지만, 제공된 판례 설명은 사기죄 성립 여부를 명시적으로 판시하지 않았다고 밝힌다. 제한된 출처만으로 특정 정책의 판례 부합성을 확정할 수 없다.",
@@ -614,6 +698,10 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_card_id"
+      },
       "impacted_card_ids": [
         "deception.fraud.standard.explicit-denial-encumbrance"
       ],
@@ -649,6 +737,10 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_card_id"
+      },
       "impacted_card_ids": [
         "deception.fraud.element.omission-deception-legal-notice-duty",
         "deception.fraud.element.omission-deception-independent-error",
@@ -716,8 +808,16 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
-        "deception.fraud.standard.artwork-assistant-participation"
+        "deception.fraud.standard.artwork-assistant-participation",
+        "deception.fraud.standard.land-sale-unknown-urban-planning-area",
+        "deception.fraud.standard.land-sale-no-known-urban-planning-conflict",
+        "deception.fraud.standard.entrusted-car-unknown-arrears-direct-inquiry"
       ],
       "impacted_cards": [
         {
@@ -729,6 +829,45 @@
             {
               "comment_id": "comm_001692_제347조_Ⅳ.1_35",
               "quote": "미술작품 거래에서 그 작품이 화가가 직접 그린 것인지, 아니면 보조자를 사 용하여 제작되었는지 여부가 작품 구매자들에게 반드시 필요한 정보라거나 중 요한 정보라고 단정할 수는 없다는 이유로 부작위에 의한 기망행위를 인정하지 않은 사안",
+              "section_path": "Ⅳ.1"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.land-sale-unknown-urban-planning-area",
+          "proposition": "토지 일부의 도시계획 편입 면적을 알지 못한 매도인이 매수인에게 스스로 확인하여 매수하라고 고지한 경우, 고지의무 위반이 인정되지 않는 사안으로 소개된다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_28",
+              "quote": "토지매매에서 매도인이 토지의 일부 가 도시계획에 편입되었으나 몇 평이 편입되었는지 알지 못하여 매수인에게 스 스로 잘 알아보고 매수하라고 고지한 사안",
+              "section_path": "Ⅳ.1"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.land-sale-no-known-urban-planning-conflict",
+          "proposition": "매도인이 도시계획저촉 통지를 받은 바 없고 매매 직전 발급된 도시계획확인원에도 저촉사실 기재가 없어 구체적 저촉이 없다고 알고 토지를 매도한 경우, 고지의무 위반이 인정되지 않는 사안으로 소개된다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_29",
+              "quote": "관할구청으로부터 도시계획저촉에 관한 통지를 받은 바 없고 이 사건 매 매 직전에 발급받은 이 사건 대지에 대한 도시계획확인원에도 저촉사실의 기재 가 없어 구체적인 도시계획저촉은 없는 것으로 알고 토지를 매도한 사안",
+              "section_path": "Ⅳ.1"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.entrusted-car-unknown-arrears-direct-inquiry",
+          "proposition": "지입차량 운행에 관여하지 않아 지입회사 연체채무액을 알 수 없던 매도인이 매도 당시 중개인에게 해당 채무를 직접 확인하라고 하면서 회사 전화번호를 알려준 경우, 고지의무 위반이 인정되지 않는 사안으로 소개된다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_29",
+              "quote": "피고인이 지입차량의 운행에 관여 하지 않아 지입회사에 대한 연체채무액을 자세히 알 수 없어 지입차량 매도 당 시 중개인에게 지입회사에 대한 연체채무를 직접 알아보라고 하면서 회사 전화 번호까지 알려준 사안",
               "section_path": "Ⅳ.1"
             }
           ]
@@ -759,6 +898,11 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "deception.fraud.standard.car-substitute-performance-reservation"
       ],
@@ -794,6 +938,10 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_wildcard"
+      },
       "impacted_card_ids": [
         "deception.fraud.standard.accommodation-bill-false-certificate",
         "deception.fraud.standard.bill-discount-nondisclosure",
@@ -1530,6 +1678,11 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "deception.fraud.standard.false-documents-budget-withdrawal"
       ],
@@ -1565,19 +1718,34 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
-        "deception.fraud.standard.bill-discount-endorser-concealed-inability"
+        "deception.fraud.definition.subsidy-and-indirect-subsidy"
       ],
       "impacted_cards": [
         {
           "authority_basis": "commentary_synthesis",
           "formalization": "standard_input",
-          "id": "deception.fraud.standard.bill-discount-endorser-concealed-inability",
-          "proposition": "변제 의사나 능력이 없음을 숨긴 채 타인에게 금원 대여를 요청하여 그 사람의 배서가 된 약속어음으로 금융기관에서 할인받고 그 어음의 상환의무를 지면, 배서인에 대한 사기죄가 성립한다.",
+          "id": "deception.fraud.definition.subsidy-and-indirect-subsidy",
+          "proposition": "보조금은 국가 외의 자가 수행하는 사무 또는 사업을 조성하거나 재정상 원조하기 위하여 상당한 반대급부 없이 교부하는 급부금 등이고, 간접보조금은 국가 외의 자가 보조금을 재원으로 하여 교부 목적에 따라 다시 교부하는 급부금이다.",
           "source_refs": [
             {
               "comment_id": "comm_001692_제347조_Ⅳ.1_39",
-              "quote": "피고인이 변제의 의사나 능력이 없는데도 이를 숨긴 채 다른 사람에게 금원 대 여를 요청하여 그 사람의 배서가 된 약속어음으로 금융기관에서 할인받아 피고 인이 위 약속어음에 대해 상환의무를 지는 경우에도 배서인에 대한 사기죄가 성립한다.",
+              "quote": "‘보조금’을 ‘국가 외의 자가 수행하 는 사무 또는 사업에 대하여 국가가 이를 조성하거나 재정상의 원조를 하기 위 하여 교부하는 보조금",
+              "section_path": "Ⅳ.1"
+            },
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_39",
+              "quote": "그 밖에 상당한 반대급부를 받지 아니하고 교부하는 급부금으로서 대통령령 외) 으로 정하는 것’으로 정의하고 있고,",
+              "section_path": "Ⅳ.1"
+            },
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_39",
+              "quote": "제2조 제4호에서는 ‘간접보조금’을 ‘국가 외 의 자가 보조금을 재원의 전부 또는 일부로 하여 상당한 반대급부를 받지 아니 하고 그 보조금의 교부 목적에 따라 다시 교부하는 급부금’으로 정의하고 있다.",
               "section_path": "Ⅳ.1"
             }
           ]
@@ -1600,6 +1768,11 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "deception.fraud.definition.deception-target-human"
       ],
@@ -1635,6 +1808,11 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "deception.fraud.element.deceived-person-disposal-authority"
       ],
@@ -1670,6 +1848,11 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "deception.fraud.definition.deceived-person-victim-distinct"
       ],
@@ -1714,6 +1897,11 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "deception.fraud.definition.deceived-person-unspecified"
       ],
@@ -1749,11 +1937,16 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "general_object.fraud.element.object-other-possessed-other-property",
-        "fraud_general_object.cash_transfer_property",
-        "fraud_general_object.real_estate_property",
-        "general_object.fraud.definition.property-benefit"
+        "general_object.fraud.definition.property-benefit",
+        "general_object.fraud.element.property-benefit-concrete",
+        "general_object.fraud.definition.property-benefit-not-numerically-limited"
       ],
       "impacted_cards": [
         {
@@ -1770,32 +1963,6 @@
           ]
         },
         {
-          "authority_basis": "commentary_reported_precedent",
-          "formalization": "context_only",
-          "id": "fraud_general_object.cash_transfer_property",
-          "proposition": "피해자가 기망에 속아 현금을 피고인 명의 계좌로 송금한 경우 재물에 대한 사기죄가 성립한다는 판례가 소개되어 있다.",
-          "source_refs": [
-            {
-              "comment_id": "comm_001692_제347조_Ⅲ.1_8",
-              "quote": "대법원은 피해자가 기망행위에 속아 현금을 피고인 명의의 계좌로 송금한 경우 재물에 대한 사기죄의 성립을 긍정한다.",
-              "section_path": "Ⅲ.1"
-            }
-          ]
-        },
-        {
-          "authority_basis": "commentary_synthesis",
-          "formalization": "deterministic_rule",
-          "id": "fraud_general_object.real_estate_property",
-          "proposition": "부동산도 기망에 따른 재산적 처분행위와 점유 이전이 가능하므로 사기죄의 객체가 될 수 있다.",
-          "source_refs": [
-            {
-              "comment_id": "comm_001692_제347조_Ⅲ.1_8",
-              "quote": "부동산에 관하여도 기망에 인한 재산적 처분행위와 이에 의한 점유의 이전은 가능하므로 부동산은 사기죄의 객체로 될 수 있다.",
-              "section_path": "Ⅲ.1"
-            }
-          ]
-        },
-        {
           "authority_basis": "commentary_synthesis",
           "formalization": "deterministic_rule",
           "id": "general_object.fraud.definition.property-benefit",
@@ -1804,6 +1971,32 @@
             {
               "comment_id": "comm_001692_제347조_Ⅲ.2_9",
               "quote": "재산상의 이익은 재물 이외의 것으로서 재산의 경제적 가치의 증가를 의미하고, 적극적 이익이든 소극적 이익이든 일시적 이익이든 영구적 이익이든 모두 재산 상의 이익에 해당한다.",
+              "section_path": "Ⅲ.2"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "formalization": "deterministic_rule",
+          "id": "general_object.fraud.element.property-benefit-concrete",
+          "proposition": "재산상 이익은 구체적인 이익이어야 한다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅲ.2_9",
+              "quote": "재산상의 이익은 구체적인 이익일 것을 요하므로,",
+              "section_path": "Ⅲ.2"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "formalization": "deterministic_rule",
+          "id": "general_object.fraud.definition.property-benefit-not-numerically-limited",
+          "proposition": "재산상 이익은 숫자로 산출할 수 있는 이익에 한정되지 않는다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅲ.2_10",
+              "quote": "재산상의 이익은 숫자로 산출할 수 있는 이익에 한정하지 않는다.",
               "section_path": "Ⅲ.2"
             }
           ]
@@ -1834,59 +2027,24 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
-        "fraud_general_object.no_concrete_benefit_examples"
+        "fraud_general_object.unquantified_benefit_judgment"
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
-          "id": "fraud_general_object.no_concrete_benefit_examples",
-          "proposition": "단순 지급보증서 수령, 채무변제를 피한 도주, 실제 연기 없는 무거래수표 발행, 효력 없는 채권양도, 채무면제 의사 없는 허위 수표분실신고, 치료비채무 도주, 잔존채무가 소멸하지 않는 허위 변제 및 부재자재산관리인 선임만으로는 재산상 이익 취득이 부정된다고 소개되어 있다.",
+          "authority_basis": "commentary_reported_precedent",
+          "formalization": "context_only",
+          "id": "fraud_general_object.unquantified_benefit_judgment",
+          "proposition": "재산상 이익의 가액을 범죄사실 판시에서 명시하지 않았더라도 잘못이 아니라고 소개되어 있다.",
           "source_refs": [
             {
-              "comment_id": "comm_001692_제347조_Ⅲ.2_9",
-              "quote": "단순히 지급보증서를 받은 것 만으로는 기망하여 이익을 얻은 경우라고 할 수 없다.",
-              "section_path": "Ⅲ.2"
-            },
-            {
-              "comment_id": "comm_001692_제347조_Ⅲ.2_9",
-              "quote": "채무변제를 피하기 위 하여 도주한 경우에 관하여는 이익을 취득한 것이라고 할 수 없다.",
-              "section_path": "Ⅲ.2"
-            },
-            {
-              "comment_id": "comm_001692_제347조_Ⅲ.2_9",
-              "quote": "기존채무의 지급을 확보하기 위하여 무거래수표를 발행한 경우에는 그로 인하 여 채무이행의 일시 연기를 얻은 것이 아닌 때에는 그 자체만으로는 재산상의 이익이라고 할 수 없고,",
-              "section_path": "Ⅲ.2"
-            },
-            {
-              "comment_id": "comm_001692_제347조_Ⅲ.2_9",
-              "quote": "마치 다른 사람에 대한 채권이 있는 것처럼 가장하여 피해자에 대한 채무변제를 위하여 다른 사람에 대한 채권을 양도하였다고 하더 라도 권리이전의 효력이 없고 피해자에 대한 채무가 소멸하는 것이 아니므로 그 채권양도로서 재산상의 이익을 취득하였다고 볼 수 없다.",
-              "section_path": "Ⅲ.2"
-            },
-            {
-              "comment_id": "comm_001692_제347조_Ⅲ.2_9",
-              "quote": "수표금지급유예나 채무면제를 받을 의사로 한 것이 아닌 한 허위로 수표의 분 실신고를 하였다고 하더라도 재산상의 이익이 있다고 할 수 없고,",
-              "section_path": "Ⅲ.2"
-            },
-            {
-              "comment_id": "comm_001692_제347조_Ⅲ.2_9",
-              "quote": "환자가 치 료비채무의 이행을 임시 모면하기 위하여 거짓말을 하고 병원을 빠져나와 도주 하였다고 하더라도 그것만으로는 치료비의 지급채무를 면탈 받은 것은 아니므 로 사기죄가 성립하지 않으며",
-              "section_path": "Ⅲ.2"
-            },
-            {
-              "comment_id": "comm_001692_제347조_Ⅲ.2_9",
-              "quote": "한자 판독능력이 없는 피해자에게 백미 100가 마를 변제한다고 하면서 백미 10가마의 보관증을 백미 100가마의 보관증이라고 속여 교부한 경우 피해자가 100가마의 보관증이라 믿고 받았다고 하더라도 나 머지 90가마의 채무가 소멸하는 것이 아니므로",
-              "section_path": "Ⅲ.2"
-            },
-            {
-              "comment_id": "comm_001692_제347조_Ⅲ.2_9",
-              "quote": "무를 면한 것이 되지 않아 사 기죄가 성립하지 않고,",
-              "section_path": "Ⅲ.2"
-            },
-            {
-              "comment_id": "comm_001692_제347조_Ⅲ.2_9",
-              "quote": "부재자재산관리인으로 선임되었다는 것만으로는 어떤 재산권이나 재산상의 이득을 얻은 것이라고는 볼 수 없다.",
+              "comment_id": "comm_001692_제347조_Ⅲ.2_10",
+              "quote": "따라서 범죄 사실을 판시할 때 그 이익의 가액을 명시하지 않았다고 하더라도 잘못이 아니다.",
               "section_path": "Ⅲ.2"
             }
           ]
@@ -1909,19 +2067,24 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
-        "fraud_intent.tour_bus_business_failure"
+        "fraud_intent.no_disposition_inducement_intent"
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_reported_precedent",
-          "formalization": "context_only",
-          "id": "fraud_intent.tour_bus_business_failure",
-          "proposition": "관광버스 구입자금을 차용하여 실제 버스를 구입·운행하며 변제를 위해 노력했으나 운행수입이 예상에 미치지 못해 사업에 실패하고 변제하지 못한 경우, 차용 당시 변제 의사·능력이나 편취 범의를 단정하기 어렵다.",
+          "authority_basis": "commentary_synthesis",
+          "formalization": "deterministic_rule",
+          "id": "fraud_intent.no_disposition_inducement_intent",
+          "proposition": "피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.",
           "source_refs": [
             {
-              "comment_id": "comm_001692_제347조_Ⅴ.1_80",
-              "quote": "피고인은 피해자로부터 돈을 빌려 관광버스를 구입하여 그 운행 수입으로 자신의 채무도 변제해 나가고 피해자에게 이자를 지급하면서 차용금 을 3년에 걸쳐 변제할 계획을 세우고 실제로 관광버스를 구입하여 운행하면서 노력하다가 결국 운행수입이 예상에 미치지 못하고 사업에 실패하여 위 차용금 을 변제하지 못하게 된 것으로 보일 뿐 피고인이 이 사건 차용 당시 차용금을 변제할 의사와 능력이 없었다거나 피고인에게 편취의 범의가 있었다고 단정하 기 어렵다고 본 사안",
+              "comment_id": "comm_001692_제347조_Ⅴ.1_74",
+              "quote": "만약 피기망자로 하여금 처분행위를 하게 한다는 의사가 없는 경우에는 사기죄가 성립하지 않는다.",
               "section_path": "Ⅴ.1"
             }
           ]
@@ -1944,6 +2107,10 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_card_id"
+      },
       "impacted_card_ids": [
         "mistake_disposition.fraud.causal-link.victim-negligence-irrelevant",
         "mistake_disposition.fraud.causal-link-mistake-not-sole-cause"
@@ -1997,6 +2164,10 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_card_id"
+      },
       "impacted_card_ids": [
         "special_forms.fraud.element.litigation-fraud-knowing-nonexistence"
       ],
@@ -2040,6 +2211,10 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_card_id"
+      },
       "impacted_card_ids": [
         "special_forms.fraud.definition.litigation-fraud-triangular"
       ],
@@ -2075,6 +2250,10 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_card_id"
+      },
       "impacted_card_ids": [
         "special_forms.fraud.causal-link.insurance-completion-payment",
         "special_forms.fraud.exception.insurance-special-act-temporal-application"
@@ -2124,6 +2303,11 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "fraud_stages_participation.real_estate_fraud_completion"
       ],
@@ -2159,6 +2343,11 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "fraud_stages_participation.voice_phishing_functional_control"
       ],
@@ -2194,20 +2383,53 @@
       "type": "authority_mismatch"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
-        "fraud_concurrence.counterfeit_currency_imaginary_view"
+        "fraud_concurrence.general_fraud_penalty",
+        "fraud_concurrence.attempt_habitual_punishment",
+        "fraud_concurrence.aggravated_economic_value_thresholds"
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_reported_doctrine",
-          "formalization": "policy_variant",
-          "id": "fraud_concurrence.counterfeit_currency_imaginary_view",
-          "proposition": "위조통화를 행사하는 행위가 기망행위의 내용을 이루므로 위조통화행사죄와 사기죄의 상상적 경합관계를 인정해야 한다는 견해가 있다.",
+          "authority_basis": "commentary_synthesis",
+          "formalization": "deterministic_rule",
+          "id": "fraud_concurrence.general_fraud_penalty",
+          "proposition": "사기죄를 범한 경우 10년 이하 징역 또는 2천만 원 이하 벌금에 처한다.",
           "source_refs": [
             {
-              "comment_id": "comm_001692_제347조_Ⅹ.8_125",
-              "quote": "위조통화를 행사하는 행위가 기망행위의 내용을 이루므로 양죄의 상상적 경합관계를 인정해야 한다는 견해가 있다.",
-              "section_path": "Ⅹ.8"
+              "comment_id": "comm_001692_제347조_Ⅹ.9_126",
+              "quote": "형법 제347조의 사기죄를 범한 경우에는 10년 이하의 징역 또는 2천만 원 이하 의 벌금에 처한다.",
+              "section_path": "Ⅹ.9"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "formalization": "deterministic_rule",
+          "id": "fraud_concurrence.attempt_habitual_punishment",
+          "proposition": "사기죄의 미수범은 처벌하며, 상습으로 사기죄를 범하면 형의 2분의 1까지 가중한다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅹ.9_126",
+              "quote": "사기죄에 대하여는 미수범을 처벌하고, 상습으 (형법 제352조) 로 사기죄를 범하면 형의 2분의 1까지 가중한다. (제351조)",
+              "section_path": "Ⅹ.9"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "formalization": "deterministic_rule",
+          "id": "fraud_concurrence.aggravated_economic_value_thresholds",
+          "proposition": "사기범행으로 취득하거나 제3자로 하여금 취득하게 한 재물 또는 재산상 이익 가액이 5억 원 이상이면 3년 이상 유기징역, 50억 원 이상이면 무기 또는 5년 이상 징역으로 가중처벌된다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅹ.9_126",
+              "quote": "그 범죄행위로 인하여 취득하거나 제3자로 하여금 취득하게 한 재물 또는 재산 상 이익의 가액이 5억 원 이상일 때에는 3년 이상의 유기징역, 50억 원 이상일 때에는 무기 또는 5년 이상의 징역에 처하도록 가중처벌되고",
+              "section_path": "Ⅹ.9"
             }
           ]
         }
@@ -2229,6 +2451,10 @@
       "type": "formalization_error"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_card_id"
+      },
       "impacted_card_ids": [
         "fraud_damage_acquisition.mortgage_setting_junior_actual_debt_exception"
       ],
@@ -2264,6 +2490,11 @@
       "type": "formalization_error"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "deception.fraud.element.intent-to-defraud-conditional-intent"
       ],
@@ -2299,6 +2530,11 @@
       "type": "formalization_error"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "deception.fraud.element.loan-no-repayment-intent-or-ability"
       ],
@@ -2334,19 +2570,34 @@
       "type": "formalization_error"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
-        "deception.fraud.standard.bill-discount-endorser-concealed-inability"
+        "deception.fraud.definition.subsidy-and-indirect-subsidy"
       ],
       "impacted_cards": [
         {
           "authority_basis": "commentary_synthesis",
           "formalization": "standard_input",
-          "id": "deception.fraud.standard.bill-discount-endorser-concealed-inability",
-          "proposition": "변제 의사나 능력이 없음을 숨긴 채 타인에게 금원 대여를 요청하여 그 사람의 배서가 된 약속어음으로 금융기관에서 할인받고 그 어음의 상환의무를 지면, 배서인에 대한 사기죄가 성립한다.",
+          "id": "deception.fraud.definition.subsidy-and-indirect-subsidy",
+          "proposition": "보조금은 국가 외의 자가 수행하는 사무 또는 사업을 조성하거나 재정상 원조하기 위하여 상당한 반대급부 없이 교부하는 급부금 등이고, 간접보조금은 국가 외의 자가 보조금을 재원으로 하여 교부 목적에 따라 다시 교부하는 급부금이다.",
           "source_refs": [
             {
               "comment_id": "comm_001692_제347조_Ⅳ.1_39",
-              "quote": "피고인이 변제의 의사나 능력이 없는데도 이를 숨긴 채 다른 사람에게 금원 대 여를 요청하여 그 사람의 배서가 된 약속어음으로 금융기관에서 할인받아 피고 인이 위 약속어음에 대해 상환의무를 지는 경우에도 배서인에 대한 사기죄가 성립한다.",
+              "quote": "‘보조금’을 ‘국가 외의 자가 수행하 는 사무 또는 사업에 대하여 국가가 이를 조성하거나 재정상의 원조를 하기 위 하여 교부하는 보조금",
+              "section_path": "Ⅳ.1"
+            },
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_39",
+              "quote": "그 밖에 상당한 반대급부를 받지 아니하고 교부하는 급부금으로서 대통령령 외) 으로 정하는 것’으로 정의하고 있고,",
+              "section_path": "Ⅳ.1"
+            },
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_39",
+              "quote": "제2조 제4호에서는 ‘간접보조금’을 ‘국가 외 의 자가 보조금을 재원의 전부 또는 일부로 하여 상당한 반대급부를 받지 아니 하고 그 보조금의 교부 목적에 따라 다시 교부하는 급부금’으로 정의하고 있다.",
               "section_path": "Ⅳ.1"
             }
           ]
@@ -2369,6 +2620,11 @@
       "type": "formalization_error"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "fraud_general_object.subjective_elements"
       ],
@@ -2404,6 +2660,10 @@
       "type": "formalization_error"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "card_set_metadata"
+      },
       "impacted_card_ids": [],
       "impacted_cards": [],
       "message": "fraud_intent.property_only_appropriation_practical_consequence는 재물편취죄 한정 필요설의 실무상 귀결을 설명하는 명제이지, 다른 세 학설과 나란히 선택할 독립적인 경쟁 정책이 아니다. 현재 질문은 네 카드를 모두 선택 대상 variant로 취급한다.",
@@ -2423,6 +2683,10 @@
       "type": "formalization_error"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_card_id"
+      },
       "impacted_card_ids": [
         "mistake_disposition.fraud.variant.disposition-intent-unnecessary",
         "mistake_disposition.fraud.variant.disposition-intent-compromise"
@@ -2472,6 +2736,10 @@
       "type": "formalization_error"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_card_id"
+      },
       "impacted_card_ids": [
         "mistake_disposition.fraud.variant.disposition-voluntariness-coercive-seizure-negative",
         "mistake_disposition.fraud.variant.disposition-voluntariness-coercive-seizure-positive"
@@ -2521,10 +2789,31 @@
       "type": "formalization_error"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
-        "fraud_concurrence.agent_breach_only_view"
+        "fraud_concurrence.agent_fraud_only_view",
+        "fraud_concurrence.agent_breach_only_view",
+        "fraud_concurrence.agent_imaginary_concurrence_view",
+        "fraud_concurrence.agent_precedent_imaginary_concurrence"
       ],
       "impacted_cards": [
+        {
+          "authority_basis": "commentary_reported_doctrine",
+          "formalization": "policy_variant",
+          "id": "fraud_concurrence.agent_fraud_only_view",
+          "proposition": "타인의 사무를 처리하는 자가 본인을 기망하여 재물 또는 재산상 이익을 취득해 본인에게 손해를 가한 경우 사기죄만 성립한다는 견해가 있다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅹ.6_121",
+              "quote": "학설은 사기죄만이 성립한다는 견해",
+              "section_path": "Ⅹ.6"
+            }
+          ]
+        },
         {
           "authority_basis": "commentary_reported_doctrine",
           "formalization": "policy_variant",
@@ -2534,6 +2823,32 @@
             {
               "comment_id": "comm_001692_제347조_Ⅹ.6_121",
               "quote": "임무위배행위로서의 배임죄를 구성하는 이상 다시 사기죄로서의 이중평가를 할 것이 아니라 하여 배임죄만이 성립한다 는 견해",
+              "section_path": "Ⅹ.6"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_reported_doctrine",
+          "formalization": "policy_variant",
+          "id": "fraud_concurrence.agent_imaginary_concurrence_view",
+          "proposition": "타인의 사무를 처리하는 자가 본인을 기망하여 재물 또는 재산상 이익을 취득해 본인에게 손해를 가한 경우, 배임죄와 사기죄는 상상적 경합관계라는 견해가 대체적이다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅹ.6_121",
+              "quote": "대체적으로는 배임죄와 사기죄의 상상적 경합관계가 성립 한다는 입장이다.",
+              "section_path": "Ⅹ.6"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_reported_precedent",
+          "formalization": "context_only",
+          "id": "fraud_concurrence.agent_precedent_imaginary_concurrence",
+          "proposition": "1개 행위에 사기죄와 업무상배임죄의 각 구성요건이 모두 구비되면 양 죄는 상상적 경합관계라는 판례 입장이 소개되어 있다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅹ.6_121",
+              "quote": "1개의 행위에 관하여 사기죄와 업무상배임죄의 각 구성요건이 모두 구비된 때에는 양 죄의 상상적 경합관계로 보아야 한다고 보고 있다.",
               "section_path": "Ⅹ.6"
             }
           ]
@@ -2556,20 +2871,39 @@
       "type": "collapsed_variant"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
-        "fraud_concurrence.fraud_created_trust_no_embezzlement"
+        "fraud_concurrence.counterfeit_currency_real_concurrence",
+        "fraud_concurrence.counterfeit_currency_imaginary_view"
       ],
       "impacted_cards": [
         {
           "authority_basis": "commentary_synthesis",
           "formalization": "standard_input",
-          "id": "fraud_concurrence.fraud_created_trust_no_embezzlement",
-          "proposition": "횡령죄나 배임죄의 신임관계 기초가 되는 관계가 사기죄의 기망으로 형성된 경우에는 사기죄가 성립하면 그 피해자에 대한 횡령죄나 배임죄가 별도로 성립하지 않는다.",
+          "id": "fraud_concurrence.counterfeit_currency_real_concurrence",
+          "proposition": "위조통화를 행사하여 재물을 불법영득한 경우, 위조통화행사죄와 사기죄는 보호법익이 달라 실체적 경합관계가 인정된다.",
           "source_refs": [
             {
-              "comment_id": "comm_001692_제347조_Ⅹ.6_122",
-              "quote": "횡령죄나 배임죄의 본질이 신임관계의 침해이므로, 신임관계 (위탁)(위탁) 의 기초가 되는 관계가 사기죄의 기망에 의하여 형성된 경우에는 사기죄가 성립 하는 이상 사기죄의 피해자에 대한 횡령죄나 배임죄가 별도로 성립하지 않는다.",
-              "section_path": "Ⅹ.6"
+              "comment_id": "comm_001692_제347조_Ⅹ.8_125",
+              "quote": "위조통화를 행사하여 재물을 불법영득한 때 에는 위조통화행사죄와 사기죄의 실체적 경합관계가 인정된다.",
+              "section_path": "Ⅹ.8"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_reported_doctrine",
+          "formalization": "policy_variant",
+          "id": "fraud_concurrence.counterfeit_currency_imaginary_view",
+          "proposition": "위조통화를 행사하는 행위가 기망행위의 내용을 이루므로 위조통화행사죄와 사기죄의 상상적 경합관계를 인정해야 한다는 견해가 있다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅹ.8_125",
+              "quote": "위조통화를 행사하는 행위가 기망행위의 내용을 이루므로 양죄의 상상적 경합관계를 인정해야 한다는 견해가 있다.",
+              "section_path": "Ⅹ.8"
             }
           ]
         }
@@ -2591,6 +2925,10 @@
       "type": "collapsed_variant"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_card_id"
+      },
       "impacted_card_ids": [
         "damage_acquisition.fraud.variant-property-loss-requirement-negative"
       ],
@@ -2630,6 +2968,11 @@
       "type": "collapsed_variant"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "deception.fraud.variant.future-facts-unlimited",
         "deception.fraud.variant.future-facts-limited",
@@ -2697,10 +3040,16 @@
       "type": "collapsed_variant"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "deception.fraud.variant.opinion-statement-negative",
         "deception.fraud.variant.opinion-statement-affirmative",
-        "deception.fraud.variant.opinion-statement-mistake-sufficiency"
+        "deception.fraud.variant.opinion-statement-mistake-sufficiency",
+        "deception.fraud.variant.opinion-statement-third-view-concreteness"
       ],
       "impacted_cards": [
         {
@@ -2741,6 +3090,19 @@
               "section_path": "Ⅳ.1"
             }
           ]
+        },
+        {
+          "authority_basis": "commentary_reported_doctrine",
+          "formalization": "policy_variant",
+          "id": "deception.fraud.variant.opinion-statement-third-view-concreteness",
+          "proposition": "제3설은 고지한 사실이 지극히 추상적이면 착오 유발에 충분하지 않아 기망이 아니지만, 허위 사실이 구체적으로 고지되면 착오 유발에 충분하여 기망에 해당한다고 본다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_13",
+              "quote": "고지한 사실이 지극히 추상적 일 때에는 타인을 착오에 빠지게 함에 충분하지 않으므로 기망에 해당하지 않 지만, 허위의 사실이 구체적으로 고지된 경우에는 타인을 착오에 빠지게 하는 데 충분하기 때문에 기망에 해당한다고 한다.",
+              "section_path": "Ⅳ.1"
+            }
+          ]
         }
       ],
       "message": "의견표시에 관한 소극설, 적극설, 제3설이 동일 쟁점의 경쟁 견해임에도 서로 다른 variant_group에 배정되어 있다. 또한 뒤의 제3설 구체성 카드도 같은 제3설을 보충하는 내용이므로 동일 쟁점 및 동일 견해와의 관계가 표시되어야 한다.",
@@ -2760,24 +3122,38 @@
       "type": "collapsed_variant"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
-        "deception.fraud.standard.excess-insurance-nondisclosure"
+        "deception.fraud.variant.opinion-statement-mistake-sufficiency",
+        "deception.fraud.variant.opinion-statement-third-view-concreteness"
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_synthesis",
-          "formalization": "standard_input",
-          "id": "deception.fraud.standard.excess-insurance-nondisclosure",
-          "proposition": "보험계약자가 초과보험 상태를 의도적으로 유발한 뒤 이를 모르는 보험자에게 목적물 가액을 묵비하여 보험금을 청구·수령한 경우, 보험자가 이를 알았다면 같은 조건으로 보험계약을 체결하지 않고 협정보험가액에 따른 보험금도 그대로 지급하지 않았을 관계가 인정되면 기망행위에 해당한다.",
+          "authority_basis": "commentary_reported_doctrine",
+          "formalization": "policy_variant",
+          "id": "deception.fraud.variant.opinion-statement-mistake-sufficiency",
+          "proposition": "제3설은 사실표시와 가치판단·의견표시를 구별하지 않고, 허위 표시가 타인을 착오에 빠지게 하기에 충분한지에 따라 기망 여부를 판단한다.",
           "source_refs": [
             {
-              "comment_id": "comm_001692_제347조_Ⅳ.1_14",
-              "quote": "보험계약자가 보험계약을 체결할 때 보험금액이 목적물의 가액을 현저하게 초과하는 초과보험 상태를 의 도적으로 유발한 후 보험사고가 발생하자 초과보험 사실을 알지 못하는 보험자 에게 목적물의 가액을 묵비한 채 보험금을 청구하여 보험금을 교부받은 경우,",
+              "comment_id": "comm_001692_제347조_Ⅳ.1_13",
+              "quote": "제3설은 무리하게 사실의 표시나 가치판단, 의견의 표시를 구별하지 않고 오히 려 그 허위의 표시가 타인을 착오에 빠지게 하는 데 충분한 것인지에 따라 기망 에 해당하는지 여부를 판단하면 충분하다고 한다.",
               "section_path": "Ⅳ.1"
-            },
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_reported_doctrine",
+          "formalization": "policy_variant",
+          "id": "deception.fraud.variant.opinion-statement-third-view-concreteness",
+          "proposition": "제3설은 고지한 사실이 지극히 추상적이면 착오 유발에 충분하지 않아 기망이 아니지만, 허위 사실이 구체적으로 고지되면 착오 유발에 충분하여 기망에 해당한다고 본다.",
+          "source_refs": [
             {
-              "comment_id": "comm_001692_제347조_Ⅳ.1_14",
-              "quote": "보험자가 보험금액이 목적물의 가액을 현저하게 초과한다는 것을 알았더라면 같은 조건으로 보험계약을 체결하지 않았을 뿐만 아니라 협정보험가액에 따른 보험금을 그대로 지급하지 않았을 관계가 인정된다면, 보험계약자가 초과보험 사실을 알지 못하는 보험자에게 목적물의 가액을 묵비한 채 보험금을 청구한 행위는 사기죄의 실행행위로서의 기망행위에 해당한다.",
+              "comment_id": "comm_001692_제347조_Ⅳ.1_13",
+              "quote": "고지한 사실이 지극히 추상적 일 때에는 타인을 착오에 빠지게 함에 충분하지 않으므로 기망에 해당하지 않 지만, 허위의 사실이 구체적으로 고지된 경우에는 타인을 착오에 빠지게 하는 데 충분하기 때문에 기망에 해당한다고 한다.",
               "section_path": "Ⅳ.1"
             }
           ]
@@ -2800,6 +3176,10 @@
       "type": "missing_variant"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_card_id"
+      },
       "impacted_card_ids": [
         "deception.fraud.variant.dine-stay-implicit-deception-majority",
         "deception.fraud.variant.dine-stay-omission-deception"
@@ -2854,6 +3234,10 @@
       "type": "collapsed_variant"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_card_id"
+      },
       "impacted_card_ids": [
         "deception.fraud.variant.disposition-implied-representation",
         "deception.fraud.variant.disposition-omission-deception"
@@ -2903,8 +3287,17 @@
       "type": "collapsed_variant"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
-        "deception.fraud.standard.double-sale-second-buyer-registered"
+        "deception.fraud.standard.double-sale-second-buyer-registered",
+        "deception.fraud.standard.double-sale-no-intent-transfer-first-buyer",
+        "deception.fraud.standard.second-real-estate-sale-first-contract",
+        "deception.fraud.standard.double-sale-first-sale-unregistered",
+        "deception.fraud.standard.double-sale-first-buyer-registered"
       ],
       "impacted_cards": [
         {
@@ -2916,6 +3309,58 @@
             {
               "comment_id": "comm_001692_제347조_Ⅳ.1_35",
               "quote": "이중매매에서 제2 매수인이 소유권이전등기까지 마친 경우 에 제2 매수인에게는 아무런 손해가 없으므로, 매도인이 제2 매수인에게 이중매 매사실을 고지하지 않았다고 하더라도 사기죄가 성립하지 않는다.",
+              "section_path": "Ⅳ.1"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.double-sale-no-intent-transfer-first-buyer",
+          "proposition": "부동산 이중매매에서 매도인이 제1 매수인에게 소유권이전등기를 마쳐줄 의사 없이 제2 매수인과 매매계약을 체결하여 제2 매수인에게 소유권이전등기를 마쳐준 경우, 제1 매수인에 대한 사기죄가 성립할 수 있다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_32",
+              "quote": "제1 매수인에게 소유권이전등기를 마쳐줄 의사가 없이 제2 매수인과 매매계약을 체결하여 제2 매수인에 게 소유권이전등기를 마쳐준 경우에는 제1 매수인에 대한 사기죄가 성립할 수 있음",
+              "section_path": "Ⅳ.1"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_reported_precedent",
+          "formalization": "context_only",
+          "id": "deception.fraud.standard.second-real-estate-sale-first-contract",
+          "proposition": "부동산 이중매매에서 제1 매매계약을 일방적으로 해제할 수 없는 사정만으로 제2 매매계약의 효력, 이행 또는 제2 매수인의 권리실현에 장애가 된다고 볼 수 없으면, 그 사정을 제2 매수인에게 고지하지 않아도 기망이 아니다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_32",
+              "quote": "바로 제 2 매매계약의 효력이나 그 매매계약에 따르는 채무이행 또는 제2 매수인의 매 매목적물에 대한 권리의 실현에 장애가 된다고도 볼 수 없다는 이유로, 매도인 이 제2 매수인에게 그와 같은 사정을 고지하지 않았다고 하더라도 제2 매수인 을 기망한 것이라고 할 수 없다고 본 사안",
+              "section_path": "Ⅳ.1"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.double-sale-first-sale-unregistered",
+          "proposition": "이중매매에서 제1 매매에 따른 소유권이전등기가 마쳐지지 않아 이를 해약하고 다른 사람에게 매도할 수 있는 경우, 제1 매매 사실을 제2 매수인에게 고지하지 않았다고 사기죄가 성립한다고 단정할 수 없다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_35",
+              "quote": "제1 매매에 의한 소유권이전등기를 마치지 않은 이상 이를 해약하고 다른 사람에게 매도할 수 있으므로, 매도인이 제2 매수인에게 제1 매매사실을 고지하지 않았다고 하더라도 사기죄가 성립한다고 단정할 수는 없다.",
+              "section_path": "Ⅳ.1"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.double-sale-first-buyer-registered",
+          "proposition": "제1 매매에 따라 소유권이전등기를 마쳐 준 뒤 그 사실을 알리지 않고 제2 매매계약을 체결하면 사기죄가 성립한다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_36",
+              "quote": "제1 매매에 의하여 소유권이전등기를 마쳐 준 뒤 그 사실을 알리지 않고 제2 매매계약을 체결하였다면 당연히 사기죄가 성립한다.",
               "section_path": "Ⅳ.1"
             }
           ]
@@ -2946,10 +3391,29 @@
       "type": "collapsed_variant"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
+        "deception.fraud.standard.nonmedical-clinic-national-health-insurance",
         "deception.fraud.standard.nonmedical-clinic-indemnity-insurance"
       ],
       "impacted_cards": [
+        {
+          "authority_basis": "commentary_reported_precedent",
+          "formalization": "context_only",
+          "id": "deception.fraud.standard.nonmedical-clinic-national-health-insurance",
+          "proposition": "비의료인이 의료법을 위반하여 개설한 의료기관이 국민건강보험공단에 요양급여비용 지급을 청구하여 지급받은 행위에 대해서는 사기죄가 성립한다는 판시가 소개되어 있다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_34",
+              "quote": "국민건강보험공단에 요양급여비용의 지급을 청구하여 국민건강보험공단으로부터 요양급여비용을 지급받은 행위에 대하여는 사기죄 가 성립한다고 판시함",
+              "section_path": "Ⅳ.1"
+            }
+          ]
+        },
         {
           "authority_basis": "commentary_reported_precedent",
           "formalization": "context_only",
@@ -2981,19 +3445,38 @@
       "type": "collapsed_variant"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
-        "deception.fraud.standard.nonmedical-owner-hospital-insurance"
+        "deception.fraud.standard.medical-corporation-nonmedical-involvement",
+        "deception.fraud.exception.medical-corporation-nonmedical-abuse-types"
       ],
       "impacted_cards": [
         {
           "authority_basis": "commentary_synthesis",
           "formalization": "standard_input",
-          "id": "deception.fraud.standard.nonmedical-owner-hospital-insurance",
-          "proposition": "비의료인이 개설한 의료기관이 적법하게 개설된 요양기관인 것처럼 건강보험공단에 요양급여비용 지급을 청구하여 지급받으면 사기죄가 성립한다.",
+          "id": "deception.fraud.standard.medical-corporation-nonmedical-involvement",
+          "proposition": "비의료인이 외형만 갖춘 의료법인을 탈법적으로 악용해 적법한 개설·운영으로 가장한 사정이 없는 한, 의료법인 명의 의료기관 개설·운영에 관여했다는 사정만으로 요양급여비용 수령 사기죄가 성립하지 않는다.",
           "source_refs": [
             {
               "comment_id": "comm_001692_제347조_Ⅳ.1_43",
-              "quote": "비의료인이 의료법을 개설한 의료기관이 마치 의료법에 의하 (이른바 ‘사무장병원’) 여 적법하게 개설된 요양기관인 것처럼 국민건강보험공단에 요양급여비용의 지 급을 청구하여 국민건강보험공단으로부터 요양급여비용을 지급받은 경우에는 사기죄가 성립한다.",
+              "quote": "비의료인이 의료법인 명의의 의 료기관 개설·운영에 관여하였다는 사정만으로는 의료법인 명의로 요양급여비용 을 지급받았다고 하더라도 사기죄가 성립하지 않는다고 보아야 한다.",
+              "section_path": "Ⅳ.1"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "formalization": "standard_input",
+          "id": "deception.fraud.exception.medical-corporation-nonmedical-abuse-types",
+          "proposition": "의료법인의 경우 비의료인이 실질적 재산출연이 없어 실체가 인정되지 않는 의료법인을 개설·운영 수단으로 악용하거나, 의료법인 재산을 부당 유출하여 공공성·비영리성을 일탈한 경우는 비의료인 관여만으로 의료법 위반이 성립하지 않는다는 판단의 예외 사유이다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_43",
+              "quote": "ⅰ) 비의료인이 실질 적으로 재산출연이 이루어지지 않아 실체가 인정되지 않는 의료법인을 의료기 관 개설·운영을 위한 수단으로 악용한 경우 또는 ⅱ) 의료법인의 재산을 부당하 게 유출하여 의료법인의 공공성, 비영리성을 일탈한 경우가 아닌 한",
               "section_path": "Ⅳ.1"
             }
           ]
@@ -3016,8 +3499,16 @@
       "type": "collapsed_variant"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
-        "deception.fraud.standard.religious-compensation-not-necessarily-fraud"
+        "deception.fraud.standard.religious-compensation-not-necessarily-fraud",
+        "deception.fraud.standard.shamanistic-false-misfortune",
+        "deception.fraud.standard.prayer-fee-beyond-permitted-limit",
+        "deception.fraud.standard.false-religious-claims-donations"
       ],
       "impacted_cards": [
         {
@@ -3029,6 +3520,50 @@
             {
               "comment_id": "comm_001692_제347조_Ⅳ.1_41",
               "quote": "기도를 하여 주고 상당한 보수를 받는다고 하여 반드시 사기죄가 성립하는 것 은 아니다.",
+              "section_path": "Ⅳ.1"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.shamanistic-false-misfortune",
+          "proposition": "구체적 불행이 발생할 것처럼 말하여 고액 굿값을 받는 행위가 종교행위로 허용되는 한계를 벗어나 무속행위를 가장한 편취이면 사기죄가 성립한다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_41",
+              "quote": "피해자들에게 마치 여러 가지 불행한 일 이 곧 일어날 것처럼 구체적으로 이야기하며 고액의 굿 값을 받은 행위는 종교 행위로서 허용될 수 있는 한계를 벗어나 무속행위를 가장하여 피해자들로부터 돈을 편취한 것이므로, 사기죄가 성립한다.",
+              "section_path": "Ⅳ.1"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.prayer-fee-beyond-permitted-limit",
+          "proposition": "피고인이 불행의 고지나 길흉화복에 관한 결과 약속을 하여 기도비 등의 명목으로 대가를 받더라도, 전통적 관습 또는 종교행위로 허용되는 한계를 벗어나면 사기죄가 성립한다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_41",
+              "quote": "피고인이 피해자에게 불행을 고지하거나 길흉화복에 관 한 어떠한 결과를 약속하고 기도비 등의 명목으로 대가를 교부받은 경우에도 전통적인 관습 또는 종교행위로서 허용될 수 있는 한계를 벗어났다면 사기죄가 성립한다.",
+              "section_path": "Ⅳ.1"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.false-religious-claims-donations",
+          "proposition": "사이비교주가 헌금하지 않으면 영생할 수 없다고 설교하여 헌금 명목 금원을 받거나, 자신을 하나님·구세주 등으로 지칭하여 신도들로부터 고액 헌금을 받으면 사기죄가 성립한다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_41",
+              "quote": "사이비교주가 헌금하지 않는 신도는 영생할 수 없다는 설교를 통하여 신도들로부터 헌금 명목으로 금원을 교부받는 경우에는 사기죄가 성립하고,",
+              "section_path": "Ⅳ.1"
+            },
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_41",
+              "quote": "피고인이 신도들을 상대로 하여 자신을 스스로 ‘하나님’, ‘구세주’, ‘이긴 자’, ‘생 미륵불’, ‘정도령’, ‘완성자’ 등으로 지칭하면서 신도들로부터 헌금 명목으로 고액 의 금원을 교부받은 경우에도 사기죄가 성립한다.",
               "section_path": "Ⅳ.1"
             }
           ]
@@ -3051,9 +3586,14 @@
       "type": "collapsed_variant"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
         "general_object.fraud.variant.sex-work-contract-fraud-negative",
-        "fraud_general_object.sex_work_payment_evasion"
+        "general_object.fraud.variant.sex-work-contract-fraud-affirmative"
       ],
       "impacted_cards": [
         {
@@ -3070,14 +3610,14 @@
           ]
         },
         {
-          "authority_basis": "commentary_reported_precedent",
-          "formalization": "context_only",
-          "id": "fraud_general_object.sex_work_payment_evasion",
-          "proposition": "금품 등을 받을 것을 전제로 한 성행위의 대가는 사기죄 객체인 경제적 이익에 해당하여, 기망으로 그 지급을 면하면 사기죄가 성립한다는 판례 입장이 소개되어 있다.",
+          "authority_basis": "commentary_reported_doctrine",
+          "formalization": "policy_variant",
+          "id": "general_object.fraud.variant.sex-work-contract-fraud-affirmative",
+          "proposition": "성매매 계약이 민법상 무효라도 성매매 의사 또는 금전 지급 의사 없이 상대방을 기망한 경우 사기죄가 성립한다는 긍정설이 있다.",
           "source_refs": [
             {
-              "comment_id": "comm_001692_제347조_Ⅱ.3_5",
-              "quote": "부녀가 금품 등을 받을 것을 전제로 성행위를 하는 경우 그 행위 의 대가는 사기죄의 객체인 경제적 이익에 해당하므로, 부녀를 기망하여 성행위 대가의 지급을 면하는 경우 사기죄가 성립한다고 한다.",
+              "comment_id": "comm_001692_제347조_Ⅱ.3_4",
+              "quote": "성매매를 할 의사가 없거나 금전 지급의 의사 없이 상대방을 기망한 경우에는 사기죄가 성립한다는 긍정설",
               "section_path": "Ⅱ.3"
             }
           ]
@@ -3100,6 +3640,10 @@
       "type": "collapsed_variant"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_card_id"
+      },
       "impacted_card_ids": [
         "fraud_mistake.triangular_fraud_theories"
       ],
@@ -3155,6 +3699,10 @@
       "type": "collapsed_variant"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_wildcard"
+      },
       "impacted_card_ids": [
         "special_forms.fraud.definition.litigation-fraud-triangular",
         "special_forms.fraud.standard.litigation-fraud-strict-interpretation",
@@ -3938,6 +4486,10 @@
       "type": "collapsed_variant"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_card_id"
+      },
       "impacted_card_ids": [
         "special_forms.fraud.variant.illegal-cause-benefit-affirmative",
         "special_forms.fraud.variant.illegal-cause-benefit-negative"
@@ -4001,6 +4553,10 @@
       "type": "collapsed_variant"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_card_id"
+      },
       "impacted_card_ids": [
         "special_forms.fraud.variant.right-exercise-within-scope-negative",
         "special_forms.fraud.variant.right-exercise-social-acceptability",
@@ -4073,20 +4629,53 @@
       "type": "collapsed_variant"
     },
     {
+      "card_mapping": {
+        "audit_basis": "finding_text_source_refs_and_card_propositions",
+        "confidence": 1.0,
+        "method": "critic_text_audited_override"
+      },
       "impacted_card_ids": [
-        "fraud_stages_participation.litigation_attempt_termination"
+        "fraud_stages_participation.completion_deception_disposition_transfer",
+        "fraud_stages_participation.victim_loss_completion_view",
+        "fraud_stages_participation.payment_guarantee_not_provided_no_completion"
       ],
       "impacted_cards": [
         {
-          "authority_basis": "commentary_reported_precedent",
-          "formalization": "context_only",
-          "id": "fraud_stages_participation.litigation_attempt_termination",
-          "proposition": "유리한 판결을 받지 못하고 소송이 종료되어 미수에 그친 소송사기미수죄의 범죄행위 종료시기는 소송이 종료된 때이다.",
+          "authority_basis": "commentary_synthesis",
+          "formalization": "deterministic_rule",
+          "id": "fraud_stages_participation.completion_deception_disposition_transfer",
+          "proposition": "행위자의 기망으로 상대방이 착오에 빠지고, 그 착오에 기초한 재산적 처분행위로 재물 또는 재산상 이익이 이전되면 사기죄는 기수에 이른다.",
           "source_refs": [
             {
-              "comment_id": "comm_001692_제347조_Ⅶ.1_106",
-              "quote": "으로부터 유리한 판결을 받지 못하고 소송이 종료됨으로써 미수에 그친 경우, 그러한 소송사기미수죄에서 범죄행위의 종료시기는 소송이 종료된 때이다.",
-              "section_path": "Ⅶ.1"
+              "comment_id": "comm_001692_제347조_Ⅶ.2_107",
+              "quote": "행위자의 기망행위에 의하여 상대방이 착오에 빠지고 그 착오에 기하여 재산적 처분행위가 이루어지고 그 결과 재물 또는 재산상의 이익의 이전이 이루어진 때에 사기죄는 기수로 된다.",
+              "section_path": "Ⅶ.2"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "formalization": "standard_input",
+          "id": "fraud_stages_participation.victim_loss_completion_view",
+          "proposition": "피해자에게 재산상 손해가 발생하면 행위자가 불법이득을 취득하지 않았더라도 사기죄가 기수에 이른다는 견해가 있다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅶ.2_107",
+              "quote": "한편 피해자에게 재산상 손해의 발생하면 행 위자가 불법이득을 취득하지 않았다고 하여도 기수가 된다는 견해가 있다.",
+              "section_path": "Ⅶ.2"
+            }
+          ]
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "formalization": "standard_input",
+          "id": "fraud_stages_participation.payment_guarantee_not_provided_no_completion",
+          "proposition": "은행을 기망하여 지급보증서를 교부받았더라도 이를 채권자에게 제공하지 않은 경우 재산상 이익을 취득하지 않아 사기죄 기수가 아니다.",
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅶ.2_107",
+              "quote": "은행을 기망하여 지급보증서를 교부받았으나 이를 채권자 에게 제공하지 않은 경우에는 재산상의 이익을 취득하지 않은 상태이므로 사기 죄의 기수가 아니다.",
+              "section_path": "Ⅶ.2"
             }
           ]
         }
@@ -4108,6 +4697,10 @@
       "type": "collapsed_variant"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "card_set_metadata"
+      },
       "impacted_card_ids": [],
       "impacted_cards": [],
       "message": "제재 관련 네 카드의 review_notes는 현행 법령 확인이 필요하다고 명시하지만, legal_review_questions에는 그 법정형·가중요건의 현행성과 정확성을 확인하는 질문이 없다. 또한 해당 카드들은 review_required=false로 되어 있어 기록된 불확실성과 일치하지 않는다.",
@@ -4127,6 +4720,10 @@
       "type": "other"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "card_set_metadata"
+      },
       "impacted_card_ids": [],
       "impacted_cards": [],
       "message": "원판결 확인과 일반화 가능성 검토 질문이 appeal_withdrawal_disposition 한 카드만 열거한다. 그러나 카드 자체의 review_notes가 다수의 다른 카드를 reported precedent로 명시하고 있고, 사안별 판결 결과로 작성된 카드도 다수 존재한다. 이들을 검토 질문에서 누락하면 판례 원문 확인 없이 일반 규칙으로 승격될 위험이 있다.",
@@ -4174,6 +4771,10 @@
       "type": "other"
     },
     {
+      "card_mapping": {
+        "confidence": 1.0,
+        "method": "explicit_card_id"
+      },
       "impacted_card_ids": [
         "mistake_disposition.fraud.causal-link.victim-negligence-irrelevant",
         "mistake_disposition.fraud.causal-link-mistake-not-sole-cause"

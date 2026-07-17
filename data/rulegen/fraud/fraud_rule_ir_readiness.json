@@ -13,20 +13,21 @@
           "fraud_general_object.deception_good_faith_duty",
           "fraud_general_object.relative_sentence_exemption",
           "fraud_general_object.tax_fraud_exclusion",
-          "general_object.fraud.standard.road-occupancy-permit-reference-only-no-causation",
-          "fraud_general_object.unquantified_benefit_judgment"
+          "fraud_general_object.sex_work_payment_evasion",
+          "fraud_general_object.cash_transfer_property",
+          "general_object.fraud.standard.road-occupancy-permit-reference-only-no-causation"
         ],
         "critic_pending": [
           "fraud_general_object.subjective_elements",
           "fraud_general_object.triangular_fraud_victim",
-          "fraud_general_object.marriage_money_fraud",
+          "fraud_general_object.nonproperty_examples",
+          "general_object.fraud.variant.sex-work-contract-fraud-affirmative",
           "general_object.fraud.variant.sex-work-contract-fraud-negative",
-          "fraud_general_object.sex_work_payment_evasion",
           "general_object.fraud.element.object-other-possessed-other-property",
-          "fraud_general_object.cash_transfer_property",
-          "fraud_general_object.real_estate_property",
           "general_object.fraud.definition.property-benefit",
-          "fraud_general_object.no_concrete_benefit_examples"
+          "general_object.fraud.element.property-benefit-concrete",
+          "general_object.fraud.definition.property-benefit-not-numerically-limited",
+          "fraud_general_object.unquantified_benefit_judgment"
         ],
         "human_review_pending": [
           "fraud_general_object.disposition_unwritten_element",
@@ -34,7 +35,7 @@
           "general_object.fraud.definition.property-benefit-apparent-factual-gain",
           "fraud_general_object.protected_interest_commentary_position",
           "general_object.fraud.exception.public-interest-property-equivalence",
-          "fraud_general_object.nonproperty_examples",
+          "fraud_general_object.marriage_money_fraud",
           "general_object.fraud.standard.invasion-offense",
           "general_object.fraud.standard.completion-at-disposition",
           "general_object.fraud.standard.later-cancellation-no-effect",
@@ -42,14 +43,14 @@
           "general_object.fraud.standard.own-possession-other-property-embezzlement",
           "fraud_general_object.documents_as_property",
           "fraud_general_object.nonproperty_certificate",
-          "fraud_general_object.property_benefit_examples"
+          "fraud_general_object.property_benefit_examples",
+          "fraud_general_object.no_concrete_benefit_examples"
         ],
         "policy_choice_pending": [
           "fraud_general_object.property_scope_variant",
           "fraud_general_object.property_concept_variant",
           "fraud_general_object.protected_interest_truth_variant",
           "fraud_general_object.victim_responsibility_variant",
-          "general_object.fraud.variant.sex-work-contract-fraud-affirmative",
           "fraud_general_object.property_value_variant",
           "general_object.fraud.variant.road-occupancy-permit-no-property-benefit",
           "fraud_general_object.protected_interest_possession"
@@ -59,17 +60,16 @@
           "fraud_general_object.causation_required",
           "general_object.fraud.standard.public-interest-only-no-fraud",
           "general_object.fraud.standard.own-property-not-object",
-          "general_object.fraud.element.property-benefit-concrete",
-          "general_object.fraud.definition.property-benefit-not-numerically-limited"
+          "fraud_general_object.real_estate_property"
         ]
       },
       "cards": 45,
       "counts": {
-        "context_only_excluded": 7,
+        "context_only_excluded": 8,
         "critic_pending": 10,
-        "human_review_pending": 14,
-        "policy_choice_pending": 8,
-        "provisional_rule_ir_ready": 6
+        "human_review_pending": 15,
+        "policy_choice_pending": 7,
+        "provisional_rule_ir_ready": 5
       },
       "module": "general_object"
     },
@@ -78,6 +78,7 @@
         "context_only_excluded": [
           "deception.fraud.standard.painting-assistant-nondisclosure",
           "deception.fraud.standard.false-origin-restaurant-advertising",
+          "deception.fraud.standard.false-development-plan-advertising",
           "deception.fraud.standard.bid-rigging-precedent-imaginary-concurrence",
           "deception.fraud.standard.prior-transfer-real-estate",
           "deception.fraud.standard.precedent-notice-duty-materiality",
@@ -110,7 +111,6 @@
           "deception.fraud.standard.double-sale-unregistered-security-transfer",
           "deception.fraud.standard.lease-apartment-prior-sale",
           "deception.fraud.standard.real-estate-nominee-sale",
-          "deception.fraud.standard.second-real-estate-sale-first-contract",
           "deception.fraud.standard.used-car-installment-debt",
           "deception.fraud.standard.car-nominee-sale-registration",
           "deception.fraud.standard.trust-prohibition-agreement-loan",
@@ -119,7 +119,6 @@
           "deception.fraud.standard.lease-mortgage-no-foreclosure-knowledge",
           "deception.fraud.standard.apartment-right-resale-margin",
           "deception.fraud.standard.car-sale-subsequent-theft",
-          "deception.fraud.standard.nonmedical-clinic-national-health-insurance",
           "deception.fraud.standard.sale-before-company-reorganization",
           "deception.fraud.standard.actual-victim-different-from-indictment",
           "deception.fraud.standard.bank-program-automatic-processing",
@@ -132,8 +131,8 @@
           "deception.fraud.variant.opinion-statement-negative",
           "deception.fraud.variant.opinion-statement-affirmative",
           "deception.fraud.variant.opinion-statement-mistake-sufficiency",
-          "deception.fraud.standard.false-development-plan-advertising",
-          "deception.fraud.standard.excess-insurance-nondisclosure",
+          "deception.fraud.standard.bid-rigging-fraud-concurrence-view",
+          "deception.fraud.variant.opinion-statement-third-view-concreteness",
           "deception.fraud.variant.disposition-implied-representation",
           "deception.fraud.variant.disposition-omission-deception",
           "deception.fraud.element.omission-deception-legal-notice-duty",
@@ -143,9 +142,17 @@
           "deception.fraud.variant.dine-stay-implicit-deception-majority",
           "deception.fraud.variant.dine-stay-omission-deception",
           "deception.fraud.standard.car-substitute-performance-reservation",
+          "deception.fraud.standard.second-real-estate-sale-first-contract",
           "deception.fraud.standard.nonmedical-clinic-indemnity-insurance",
+          "deception.fraud.standard.nonmedical-clinic-national-health-insurance",
           "deception.fraud.standard.artwork-assistant-participation",
           "deception.fraud.standard.double-sale-second-buyer-registered",
+          "deception.fraud.standard.double-sale-first-sale-unregistered",
+          "deception.fraud.standard.double-sale-first-buyer-registered",
+          "deception.fraud.standard.land-sale-unknown-urban-planning-area",
+          "deception.fraud.standard.land-sale-no-known-urban-planning-conflict",
+          "deception.fraud.standard.entrusted-car-unknown-arrears-direct-inquiry",
+          "deception.fraud.standard.double-sale-no-intent-transfer-first-buyer",
           "deception.fraud.element.loan-no-repayment-intent-or-ability",
           "deception.fraud.element.intent-to-defraud-conditional-intent",
           "deception.fraud.standard.accommodation-bill-false-certificate",
@@ -219,6 +226,7 @@
           "deception.fraud.standard.abstract-or-immaterial-advertising",
           "deception.fraud.standard.gold-transport-taking",
           "deception.fraud.standard.lost-wallet-taking",
+          "deception.fraud.standard.excess-insurance-nondisclosure",
           "deception.fraud.standard.vague-opinion-not-deception",
           "deception.fraud.standard.valid-title-acquisition-no-fraud",
           "deception.fraud.standard.car-registration-documents-no-fraud",
@@ -241,19 +249,13 @@
           "deception.fraud.standard.third-party-property-subsequent-inability",
           "deception.fraud.standard.third-party-property-represented-as-own",
           "deception.fraud.standard.company-sale-false-balance-sheet",
-          "deception.fraud.standard.double-sale-first-sale-unregistered",
           "deception.fraud.standard.mortgage-before-transfer-registration",
-          "deception.fraud.standard.double-sale-first-buyer-registered",
           "deception.fraud.standard.contractual-collection-direct-payment",
           "deception.fraud.standard.apartment-special-supply-corrupt-assistance",
           "deception.fraud.standard.payment-deferral-special-deception",
           "deception.fraud.standard.forged-note-increased-dividend",
           "deception.fraud.standard.window-dressing-financial-loan",
           "deception.fraud.standard.inapplicable-accounting-standard-financial-statement",
-          "deception.fraud.standard.land-sale-unknown-urban-planning-area",
-          "deception.fraud.standard.land-sale-no-known-urban-planning-conflict",
-          "deception.fraud.standard.entrusted-car-unknown-arrears-direct-inquiry",
-          "deception.fraud.standard.double-sale-no-intent-transfer-first-buyer",
           "deception.fraud.standard.gye-payment-no-deception",
           "deception.fraud.standard.loan-lender-financial-institution",
           "deception.fraud.standard.intent-to-defraud-loan-inference",
@@ -274,8 +276,6 @@
           "deception.fraud.standard.intermediary-tool-no-separate-fraud"
         ],
         "policy_choice_pending": [
-          "deception.fraud.standard.bid-rigging-fraud-concurrence-view",
-          "deception.fraud.variant.opinion-statement-third-view-concreteness",
           "deception.fraud.variant.notice-duty-good-faith-transaction",
           "deception.fraud.variant.real-estate-notice-duty-explicit-duty",
           "deception.fraud.variant.guarantee-status-bases",
@@ -299,10 +299,10 @@
       },
       "cards": 211,
       "counts": {
-        "context_only_excluded": 48,
-        "critic_pending": 76,
-        "human_review_pending": 68,
-        "policy_choice_pending": 8,
+        "context_only_excluded": 47,
+        "critic_pending": 84,
+        "human_review_pending": 63,
+        "policy_choice_pending": 6,
         "provisional_rule_ir_ready": 11
       },
       "module": "deception"
@@ -495,13 +495,14 @@
           "fraud_intent.shopping_mall_no_business_plan",
           "fraud_intent.double_sale_concealed_security",
           "fraud_intent.simple_nonperformance_debt_payment",
+          "fraud_intent.tour_bus_business_failure",
           "fraud_intent.no_disposition_intent_court_or_seizure"
         ],
         "critic_pending": [
+          "fraud_intent.no_disposition_inducement_intent",
           "fraud_intent.insurance_overbilling",
           "fraud_intent.debt_exceeds_assets_alone",
-          "fraud_intent.vehicle_sale_subsequent_theft",
-          "fraud_intent.tour_bus_business_failure"
+          "fraud_intent.vehicle_sale_subsequent_theft"
         ],
         "human_review_pending": [
           "fraud_intent.contract_breach_distinction",
@@ -526,17 +527,16 @@
           "fraud_intent.property_only_appropriation_practical_consequence"
         ],
         "provisional_rule_ir_ready": [
-          "fraud_intent.no_disposition_inducement_intent",
           "fraud_intent.conditional_intent"
         ]
       },
       "cards": 42,
       "counts": {
-        "context_only_excluded": 18,
+        "context_only_excluded": 19,
         "critic_pending": 4,
         "human_review_pending": 14,
         "policy_choice_pending": 4,
-        "provisional_rule_ir_ready": 2
+        "provisional_rule_ir_ready": 1
       },
       "module": "intent"
     },
@@ -663,15 +663,18 @@
         "context_only_excluded": [
           "fraud_stages_participation.litigation_filing_attempt",
           "fraud_stages_participation.litigation_final_judgment_completion",
+          "fraud_stages_participation.litigation_attempt_termination",
           "fraud_stages_participation.registration_cancellation_completion",
           "fraud_stages_participation.payment_order_final_completion",
           "fraud_stages_participation.ownership_transfer_suit_final_judgment_completion",
           "fraud_stages_participation.building_owner_change_suit_final_judgment_completion"
         ],
         "critic_pending": [
+          "fraud_stages_participation.completion_deception_disposition_transfer",
           "fraud_stages_participation.real_estate_fraud_completion",
           "fraud_stages_participation.voice_phishing_functional_control",
-          "fraud_stages_participation.litigation_attempt_termination"
+          "fraud_stages_participation.victim_loss_completion_view",
+          "fraud_stages_participation.payment_guarantee_not_provided_no_completion"
         ],
         "human_review_pending": [
           "fraud_stages_participation.defective_insurance_contract_preparation",
@@ -682,8 +685,6 @@
           "fraud_stages_participation.post_filing_false_claim_attempt",
           "fraud_stages_participation.defendant_false_submission_attempt",
           "fraud_stages_participation.third_party_debtor_attachment_no_attempt",
-          "fraud_stages_participation.victim_loss_completion_view",
-          "fraud_stages_participation.payment_guarantee_not_provided_no_completion",
           "fraud_stages_participation.assignment_order_service_completion",
           "fraud_stages_participation.false_appraisal_joint_principal",
           "fraud_stages_participation.exaggerated_creditworthiness_no_joint_principal",
@@ -706,7 +707,6 @@
           "fraud_stages_participation.enforcement_application_attempt",
           "fraud_stages_participation.false_notarial_title_attachment_attempt",
           "fraud_stages_participation.false_lien_auction_attempt",
-          "fraud_stages_participation.completion_deception_disposition_transfer",
           "fraud_stages_participation.no_causation_attempt",
           "fraud_stages_participation.property_fraud_completion_control",
           "fraud_stages_participation.insurance_payment_completion",
@@ -720,10 +720,10 @@
       },
       "cards": 49,
       "counts": {
-        "context_only_excluded": 6,
-        "critic_pending": 3,
-        "human_review_pending": 22,
-        "provisional_rule_ir_ready": 18
+        "context_only_excluded": 7,
+        "critic_pending": 5,
+        "human_review_pending": 20,
+        "provisional_rule_ir_ready": 17
       },
       "module": "stages_participation"
     },
@@ -733,16 +733,21 @@
           "fraud_concurrence.final_judgment_inclusive_offense",
           "fraud_concurrence.mutual_savings_same_place",
           "fraud_concurrence.ownership_registration_inclusive",
-          "fraud_concurrence.agent_precedent_imaginary_concurrence",
           "fraud_concurrence.title_trust_no_embezzlement",
           "fraud_concurrence.provisional_registration_breach_no_separate",
           "fraud_concurrence.trust_account_breach_no_separate"
         ],
         "critic_pending": [
           "fraud_concurrence.goods_nonpayment_no_benefit_fraud",
+          "fraud_concurrence.agent_fraud_only_view",
           "fraud_concurrence.agent_breach_only_view",
-          "fraud_concurrence.fraud_created_trust_no_embezzlement",
+          "fraud_concurrence.agent_imaginary_concurrence_view",
+          "fraud_concurrence.agent_precedent_imaginary_concurrence",
+          "fraud_concurrence.counterfeit_currency_real_concurrence",
           "fraud_concurrence.counterfeit_currency_imaginary_view",
+          "fraud_concurrence.general_fraud_penalty",
+          "fraud_concurrence.attempt_habitual_punishment",
+          "fraud_concurrence.aggravated_economic_value_thresholds",
           "fraud_concurrence.assigned_claim_mutually_incompatible"
         ],
         "human_review_pending": [
@@ -768,8 +773,8 @@
           "fraud_concurrence.telecom_account_holder_nonaccomplice",
           "fraud_concurrence.telecom_account_holder_accomplice",
           "fraud_concurrence.building_manager_jeonse",
+          "fraud_concurrence.fraud_created_trust_no_embezzlement",
           "fraud_concurrence.vehicle_sale_third_party_entrustment",
-          "fraud_concurrence.counterfeit_currency_real_concurrence",
           "fraud_concurrence.dishonored_check_real_concurrence",
           "fraud_concurrence.subsidy_fraud_imaginary_concurrence",
           "fraud_concurrence.subsidy_misuse_separate",
@@ -782,10 +787,6 @@
           "fraud_concurrence.title_trust_transferee_no_loss",
           "fraud_concurrence.mutually_incompatible_definition"
         ],
-        "policy_choice_pending": [
-          "fraud_concurrence.agent_fraud_only_view",
-          "fraud_concurrence.agent_imaginary_concurrence_view"
-        ],
         "provisional_rule_ir_ready": [
           "fraud_concurrence.property_and_benefit_single_offense",
           "fraud_concurrence.one_deception_multiple_victims",
@@ -797,9 +798,6 @@
           "fraud_concurrence.bribery_fraud_imaginary",
           "fraud_concurrence.insurance_policy_payment_inclusive",
           "fraud_concurrence.stolen_property_acquisition_definition",
-          "fraud_concurrence.general_fraud_penalty",
-          "fraud_concurrence.attempt_habitual_punishment",
-          "fraud_concurrence.aggravated_economic_value_thresholds",
           "fraud_concurrence.aggravated_economic_optional_fine",
           "fraud_concurrence.insurance_fraud_sanctions",
           "fraud_concurrence.military_criminal_act_sanctions",
@@ -808,22 +806,21 @@
       },
       "cards": 66,
       "counts": {
-        "context_only_excluded": 7,
-        "critic_pending": 5,
+        "context_only_excluded": 6,
+        "critic_pending": 11,
         "human_review_pending": 35,
-        "policy_choice_pending": 2,
-        "provisional_rule_ir_ready": 17
+        "provisional_rule_ir_ready": 14
       },
       "module": "concurrence"
     }
   ],
   "status": "draft",
   "totals": {
-    "context_only_excluded": 127,
-    "critic_pending": 168,
-    "human_review_pending": 237,
-    "policy_choice_pending": 43,
-    "provisional_rule_ir_ready": 61
+    "context_only_excluded": 128,
+    "critic_pending": 184,
+    "human_review_pending": 231,
+    "policy_choice_pending": 38,
+    "provisional_rule_ir_ready": 55
   },
   "version": "1.0.0"
 }
