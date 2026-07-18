@@ -2,17 +2,18 @@
 
 ## 판정
 
-**구조 검증 통과, 사용자 법률 검수 승인, Sol 대기.** Terra의 원본 부분 출력은 candidate로 사용하지 않았고, 승인된 88장만으로 수동·결정적으로 재구성했다.
+**Sol 지적 수동 정정 및 에이전트 재검토 완료, 사용자 재검수 대기.** Terra의 원본 부분 출력은 candidate로 사용하지 않았고, 승인된 88장만으로 수동·결정적으로 재구성했다.
 
 ## 자동 검증
 
 - NormCard scope: 88/88
 - commentary input: 88개
-- predicate: 196개
-- rule: 338개
+- predicate: 201개
+- rule: 342개
 - 모든 input의 provable pairing: 통과
 - case variable isolation: 통과
-- negation 및 active_policy 부재: 통과
+- negation: 완결 게이트 뒤 최종 outcome stratum의 2개 검사로 제한
+- active_policy 부재: 통과
 - 피기망자=처분자 성립 head: 통과
 - module ownership: 15개 모듈, 88/88, 중복 0
 - profile activation: 기본 OFF, 사건별 0개 이상 선택, 비망라적 registry
@@ -36,4 +37,4 @@
 - 88개 assessment는 한 사건에서 전부 호출한다는 뜻이 아니다. 사건 관련성 routing 후 필요한 항목만 평가해야 한다.
 - deterministic 28개 입력은 법적 standard 판단이 아니라 규칙 antecedent의 구조화된 rule fact로 추출해야 한다.
 - profile router가 관련 모듈을 먼저 골라야 한다. 단순한 정의 카드와 실제 적용 충족을 혼동하지 않도록 feature schema와 RAG 근거가 필요하다.
-- established와 not_established가 동시에 나올 수 있다. long-form 생성 전 conflict resolution 정책을 반드시 적용해야 한다.
+- `case_assessment_complete`는 router가 관련 profile을 확정하고 모든 선택 쟁점의 평가를 수집한 뒤에만 공급해야 한다.

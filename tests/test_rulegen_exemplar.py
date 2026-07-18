@@ -1299,6 +1299,38 @@ def test_full_rule_ir_contract_accepts_complete_explicit_state_graph() -> None:
     )
     linked_cards = sorted(selected_ids)
 
+    payload["predicates"].extend(
+        [
+            {
+                "id": "case_assessment_complete",
+                "arguments": [
+                    {"name": "case_id", "type": "String"},
+                    {"name": "defendant_id", "type": "String"},
+                ],
+                "kind": "rule",
+                "role": "input",
+                "origin": "system",
+                "definition": "Synthetic closed-case gate.",
+                "source_refs": [],
+                "norm_card_ids": [],
+            },
+            {
+                "id": "distinct_entity",
+                "arguments": [
+                    {"name": "case_id", "type": "String"},
+                    {"name": "left_entity_id", "type": "String"},
+                    {"name": "right_entity_id", "type": "String"},
+                ],
+                "kind": "rule",
+                "role": "input",
+                "origin": "system",
+                "definition": "Synthetic entity-distinctness fact.",
+                "source_refs": [],
+                "norm_card_ids": [],
+            },
+        ]
+    )
+
     output_arguments = {
         "fraud_established": [
             "case_id",
@@ -1306,7 +1338,6 @@ def test_full_rule_ir_contract_accepts_complete_explicit_state_graph() -> None:
             "deceived_person_id",
             "disposer_id",
             "property_owner_id",
-            "subject_id",
             "beneficiary_id",
         ],
         "fraud_not_established": ["case_id", "defendant_id", "issue_id"],
@@ -1345,7 +1376,6 @@ def test_full_rule_ir_contract_accepts_complete_explicit_state_graph() -> None:
                 variable("deceived_person_id"),
                 variable("deceived_person_id"),
                 string("same_owner"),
-                string("subject"),
                 string("beneficiary"),
             ],
             ["deception_supported"],
@@ -1482,8 +1512,8 @@ def test_agent_reconstructed_full_fraud_rule_ir_is_complete_and_deterministic() 
     validate_full_rule_ir_generation(candidate, commentary, aggregate)
     assert build_full_fraud_rule_ir(aggregate) == candidate
     assert len(candidate["norm_card_scope"]["card_ids"]) == 88
-    assert len(candidate["predicates"]) == 196
-    assert len(candidate["rules"]) == 338
+    assert len(candidate["predicates"]) == 201
+    assert len(candidate["rules"]) == 342
 
     commentary_inputs = [
         predicate
@@ -1516,6 +1546,28 @@ def test_full_fraud_rule_ir_uses_canonical_role_and_beneficiary_adapters() -> No
     assert established["head"]["arguments"][2] == established["head"]["arguments"][3]
     final_interfaces = {atom["predicate"] for atom in established["body"]}
     assert final_interfaces == {
+        "fraud_elements_satisfied",
+        "case_assessment_complete",
+        "fraud_has_negative",
+        "fraud_has_conflict",
+    }
+    assert {
+        atom["predicate"]
+        for atom in established["body"]
+        if atom["negated"]
+    } == {"fraud_has_negative", "fraud_has_conflict"}
+    assert "subject_id" not in {
+        argument["name"]
+        for predicate in candidate["predicates"]
+        for argument in predicate["arguments"]
+    }
+
+    by_id = {rule["id"]: rule for rule in candidate["rules"]}
+    element_interfaces = {
+        atom["predicate"]
+        for atom in by_id["fraud.core.outcome.elements_satisfied"]["body"]
+    }
+    assert element_interfaces == {
         "fraud_object_satisfied",
         "fraud_deception_satisfied",
         "fraud_mistake_satisfied",
@@ -1524,7 +1576,6 @@ def test_full_fraud_rule_ir_uses_canonical_role_and_beneficiary_adapters() -> No
         "fraud_causal_chain_satisfied",
         "fraud_completion_satisfied",
         "fraud_intent_satisfied",
-        "fraud_no_separate_loss_gate",
         "fraud_role_structure_satisfied",
         "fraud_beneficiary_attribution_satisfied",
     }
@@ -1533,7 +1584,6 @@ def test_full_fraud_rule_ir_uses_canonical_role_and_beneficiary_adapters() -> No
         "fraud_third_party_acquisition_satisfied",
     } & final_interfaces
 
-    by_id = {rule["id"]: rule for rule in candidate["rules"]}
     ordinary = by_id["fraud.structure_ordinary.role_structure"]
     assert ordinary["head"]["arguments"][2] == ordinary["head"]["arguments"][3]
     assert ordinary["head"]["arguments"][2] == ordinary["head"]["arguments"][4]
@@ -1545,6 +1595,7 @@ def test_full_fraud_rule_ir_uses_canonical_role_and_beneficiary_adapters() -> No
         "fraud_deceived_disposer_identity_satisfied",
         "satisfied_fraud_mistake_triangular_fraud_definition",
         "fraud_triangular_authority_satisfied",
+        "distinct_entity",
     }
 
     self_acquisition = by_id[
@@ -1552,7 +1603,7 @@ def test_full_fraud_rule_ir_uses_canonical_role_and_beneficiary_adapters() -> No
     ]
     assert self_acquisition["head"]["arguments"][1] == self_acquisition["head"][
         "arguments"
-    ][6]
+    ][5]
     third_party = by_id[
         "fraud.structure_third_party_acquisition.beneficiary_attribution"
     ]
@@ -1560,6 +1611,63 @@ def test_full_fraud_rule_ir_uses_canonical_role_and_beneficiary_adapters() -> No
         atom["predicate"] == "fraud_third_party_acquisition_satisfied"
         for atom in third_party["body"]
     )
+    assert any(
+        atom["predicate"] == "distinct_entity"
+        for atom in third_party["body"]
+    )
+
+
+def test_full_fraud_rule_ir_encodes_post_sol_safety_corrections() -> None:
+    candidate = json.loads(FULL_RULE_IR_CANDIDATE.read_text(encoding="utf-8"))
+    by_id = {rule["id"]: rule for rule in candidate["rules"]}
+    predicate_ids = {predicate["id"] for predicate in candidate["predicates"]}
+
+    assert "fraud_no_separate_loss_gate" not in predicate_ids
+    assert not any("no_separate_loss_gate" in rule_id for rule_id in by_id)
+
+    deception = by_id[
+        "fraud.core_deception.component.fraud_deception_satisfied.01"
+    ]
+    assert {atom["predicate"] for atom in deception["body"]} == {
+        "satisfied_deception_fraud_definition_deception_good_faith_mistake",
+        "satisfied_deception_fraud_causal_link_deception_property_disposition",
+    }
+    mistake = by_id[
+        "fraud.core_mistake_disposition.component.fraud_mistake_satisfied.01"
+    ]
+    assert {atom["predicate"] for atom in mistake["body"]} == {
+        "satisfied_fraud_mistake_error_definition",
+        "satisfied_fraud_mistake_error_disposition_motivation",
+    }
+    assert not any(
+        rule["head"]["predicate"] == "fraud_acquisition_satisfied"
+        and "fraud_damage_acquisition.property_disposition_types"
+        in rule["norm_card_ids"]
+        for rule in candidate["rules"]
+    )
+
+    intent_body = {
+        atom["predicate"]
+        for atom in by_id[
+            "fraud.core_intent.component.fraud_intent_satisfied"
+        ]["body"]
+    }
+    assert {
+        "satisfied_fraud_intent_time_of_conduct",
+        "fraud_disposition_inducement_intent_satisfied",
+    } <= intent_body
+
+    established = by_id["fraud.core.outcome.established"]
+    assert any(
+        atom["predicate"] == "case_assessment_complete"
+        and not atom["negated"]
+        for atom in established["body"]
+    )
+    assert {
+        atom["predicate"]
+        for atom in established["body"]
+        if atom["negated"]
+    } == {"fraud_has_negative", "fraud_has_conflict"}
 
 
 def test_full_fraud_rule_ir_module_ownership_is_exhaustive_and_exclusive() -> None:
@@ -1615,7 +1723,7 @@ def test_full_fraud_sol_request_is_compact_and_substantively_complete() -> None:
     assert request["stage"] == "rule_ir"
     assert request["target_id"] == "kr.fraud.article347.full.v1_candidate"
     assert len(target["card_interfaces"]) == 88
-    assert len(target["substantive_rules"]) == 74
+    assert len(target["substantive_rules"]) == 78
     assert target["mechanical_card_state_contract"]["omitted_rule_count"] == 264
     assert not any(".card." in rule["id"] for rule in target["substantive_rules"])
     assert len(sources["reviewed_norm_cards"]) == 88
@@ -1665,11 +1773,13 @@ def test_terra_partial_output_is_audited_and_sol_gate_is_next() -> None:
     assert audit["terra_counts"] == {"norm_cards": 8, "predicates": 6, "rules": 4}
     assert audit["required_counts"] == {"norm_cards": 88}
     assert len(terra_output["norm_card_scope"]["card_ids"]) == 8
-    assert status["status"] == "human_review_complete_sol_authorized"
-    assert not status["human_rule_ir_review_allowed"]
-    assert status["human_rule_ir_review"] == "approved"
-    assert status["sol_critic_allowed"]
-    assert status["sol_critic_execution_authorized"]
+    assert status["status"] == "agent_post_sol_rereview_complete_human_review_pending"
+    assert status["agent_post_sol_rereview"] == "complete"
+    assert status["human_rule_ir_review_allowed"]
+    assert status["human_rule_ir_review"] == "pending_post_sol"
+    assert status["sol_critic"] == "complete"
+    assert not status["sol_critic_allowed"]
+    assert not status["sol_critic_execution_authorized"]
     assert not status["scallop_compile_allowed"]
     assert human_decision["status"] == "approved"
     assert human_decision["approved_conditions"]["type_profiles"].startswith(

@@ -49,6 +49,8 @@ TRACKED_TERRA_OUTPUT = FRAUD_ROOT / "fraud_full_rule_ir_terra_partial_output.jso
 MODULE_OWNERSHIP = FRAUD_ROOT / "fraud_rule_ir_module_ownership.json"
 MODULE_HUMAN_REVIEW = FRAUD_ROOT / "fraud_rule_ir_module_human_review.md"
 HUMAN_REVIEW_DECISION = FRAUD_ROOT / "fraud_full_rule_ir_human_review_decision.json"
+SOL_CRITIQUE = FRAUD_ROOT / "fraud_full_rule_ir_sol_critique.json"
+SOL_ADJUDICATION = FRAUD_ROOT / "fraud_full_rule_ir_sol_adjudication.md"
 
 
 ACTOR_ARGUMENTS = [
@@ -57,7 +59,6 @@ ACTOR_ARGUMENTS = [
     ("deceived_person_id", "String"),
     ("disposer_id", "String"),
     ("property_owner_id", "String"),
-    ("subject_id", "String"),
     ("beneficiary_id", "String"),
 ]
 ASSESSMENT_ARGUMENTS = [
@@ -95,11 +96,14 @@ BAR_CARD_IDS = {
 }
 
 MANDATORY_POSITIVE_CARD_IDS = {
+    "deception.fraud.causal-link.deception-property-disposition",
     "deception.fraud.definition.deception-good-faith-mistake",
     "fraud_intent.contract_breach_distinction",
+    "fraud_intent.time_of_conduct",
     "fraud_mistake.deceived_disposer_identity",
     "fraud_mistake.disposition_definition",
     "fraud_mistake.error_definition",
+    "fraud_mistake.error_disposition_motivation",
     "fraud_mistake.gain_purpose",
     "fraud_mistake.property_disposition_element",
     "fraud_mistake.sequential_causation",
@@ -113,6 +117,7 @@ COMPONENT_SOURCES = {
         "general_object.fraud.exception.public-interest-property-equivalence",
     ],
     "fraud_deception_satisfied": [
+        "deception.fraud.causal-link.deception-property-disposition",
         "deception.fraud.definition.deception-good-faith-mistake",
         "deception.fraud.definition.exploitation-existing-mistake",
         "deception.fraud.element.loan-no-repayment-intent-or-ability",
@@ -123,6 +128,7 @@ COMPONENT_SOURCES = {
     ],
     "fraud_mistake_satisfied": [
         "fraud_mistake.error_definition",
+        "fraud_mistake.error_disposition_motivation",
         "fraud_mistake.error_doubt_ignorance",
         "fraud_mistake.unaware_error",
     ],
@@ -130,7 +136,6 @@ COMPONENT_SOURCES = {
         "fraud_mistake.disposition_definition",
         "fraud_mistake.conscious_nonexercise",
         "fraud_mistake.disposition_intent_act_awareness",
-        "fraud_mistake.disposition_omission",
         "fraud_mistake.factual_act_disposition",
         "fraud_mistake.invalid_act_disposition",
     ],
@@ -138,7 +143,6 @@ COMPONENT_SOURCES = {
         "fraud_damage_acquisition.delivery_factual_control",
         "fraud_damage_acquisition.delivery_of_property",
         "fraud_damage_acquisition.property_concept_reported_precedent",
-        "fraud_damage_acquisition.property_disposition_types",
         "fraud_mistake.property_disposition_element",
     ],
     "fraud_causal_chain_satisfied": [
@@ -175,10 +179,44 @@ COMPONENT_DEFINITIONS = {
     "fraud_third_party_acquisition_satisfied": "제3자 취득을 피고인에게 귀속할 주관적·도구적 관계가 인정됨",
     "fraud_triangular_authority_satisfied": "피기망자 겸 처분자에게 피해자 재산을 처분할 권능 또는 지위가 인정됨",
     "fraud_unlawful_appropriation_intent_supported": "불법영득의사가 요구되는 유형에서 그 의사가 인정됨",
+    "fraud_disposition_inducement_intent_satisfied": "피기망자로 하여금 재산적 처분행위를 하게 할 의사가 인정됨",
     "fraud_intent_satisfied": "고의의 기망과 재산적 이득 목적이 함께 인정됨",
-    "fraud_no_separate_loss_gate": "재물 교부 또는 이익 취득 외에 현실적 재산상 손해를 별도 요건으로 요구하지 않음",
     "fraud_role_structure_satisfied": "일반형 또는 삼각사기의 역할 구조와 처분 권능 요건이 충족됨",
     "fraud_beneficiary_attribution_satisfied": "본인 또는 제3자에게 귀속되는 취득 구조가 충족됨",
+}
+
+CASE_APPLICATION_DEFINITIONS = {
+    "deception.fraud.causal-link.deception-property-disposition": (
+        "피고인의 특정 행위가 피기망자의 재산적 처분판단을 향해 있고 그 판단에 "
+        "실질적으로 작용했는지를 사건 사실에 적용한 평가"
+    ),
+    "deception.fraud.definition.deception-good-faith-mistake": (
+        "피고인의 특정 행위가 거래상 신의칙에 반하고 피기망자에게 사실과 다른 "
+        "인식을 실제로 일으켰는지를 사건 사실에 적용한 평가"
+    ),
+    "fraud_mistake.error_definition": (
+        "피기망자가 처분 당시 사실과 일치하지 않는 구체적 인식을 실제로 "
+        "가졌는지를 사건 사실에 적용한 평가"
+    ),
+    "fraud_mistake.error_disposition_motivation": (
+        "그 구체적 착오가 피기망자의 재산적 처분 동기를 형성하거나 확정했는지를 "
+        "사건 사실에 적용한 평가"
+    ),
+    "fraud_damage_acquisition.property_concept_reported_precedent": (
+        "법률행위의 유·무효와 별개로 beneficiary_id가 구체적이고 외형적인 "
+        "재산상 이익을 실제 취득했는지를 사건 사실에 적용한 평가"
+    ),
+    "fraud_intent.contract_breach_distinction": (
+        "피고인의 행위가 단순한 사후 채무불이행이 아니라 의도적인 기망으로 "
+        "평가되는지를 사건 사실에 적용한 평가"
+    ),
+    "fraud_intent.time_of_conduct": (
+        "기망의 고의가 사후가 아니라 행위 당시에 존재했는지를 사건 사실에 적용한 평가"
+    ),
+    "fraud_mistake.gain_purpose": (
+        "피고인에게 기망을 통해 본인 또는 제3자가 재산적 이득을 취득하게 할 "
+        "목적의사가 있었는지를 사건 사실에 적용한 평가"
+    ),
 }
 
 
@@ -405,7 +443,6 @@ MODULE_SPECS = [
         "description": "실행의 착수, 인과관계 단절에 따른 미수, 기수 및 사후사정",
         "emits": [
             "fraud_completion_satisfied",
-            "fraud_no_separate_loss_gate",
             "fraud_not_established",
         ],
         "card_ids": [
@@ -588,7 +625,7 @@ def build_module_ownership(aggregate: dict[str, Any]) -> dict[str, Any]:
     return {
         "version": "1.0.0",
         "rule_set_id": "kr.fraud.article347.full.v1_candidate",
-        "status": "human_review_approved_sol_pending",
+        "status": "post_sol_corrected_human_rereview_pending",
         "architecture": {
             "final_core_rule": "fraud.core.outcome.established",
             "principle": (
@@ -604,6 +641,12 @@ def build_module_ownership(aggregate: dict[str, Any]) -> dict[str, Any]:
                 "최종 성립에는 공통 canonical gate가 항상 필요하다. 다만 같은 gate를 "
                 "채우는 모든 support card를 한 사건에서 전부 평가한다는 뜻은 아니다."
             ),
+            "outcome_resolution": {
+                "candidate": "fraud_elements_satisfied",
+                "closed_case_gate": "case_assessment_complete",
+                "blocking_relations": ["fraud_has_negative", "fraud_has_conflict"],
+                "negation_scope": "final outcome stratum only",
+            },
             "profile_activation": {
                 "default": "off",
                 "selection": "case router selects zero or more relevant profiles",
@@ -631,7 +674,6 @@ def build_module_ownership(aggregate: dict[str, Any]) -> dict[str, Any]:
             "fraud_role_structure_satisfied": "일반형·삼각사기 구조 adapter의 출력",
             "fraud_beneficiary_attribution_satisfied": "본인·제3자 취득 귀속 adapter의 출력",
             "fraud_completion_satisfied": "미수·기수 module의 공통 출력",
-            "fraud_no_separate_loss_gate": "별도 현실손해를 중복 요구하지 않는 출력",
         },
         "modules": modules,
         "card_ownership": dict(sorted(owners.items())),
@@ -719,7 +761,6 @@ def build_module_human_review(aggregate: dict[str, Any]) -> str:
         "fraud_role_structure_satisfied": "일반형·삼각사기 역할구조 충족",
         "fraud_beneficiary_attribution_satisfied": "본인·제3자 취득 귀속 충족",
         "fraud_completion_satisfied": "기수 충족",
-        "fraud_no_separate_loss_gate": "현실손해 별도요건 불필요",
         "fraud_not_established": "명시적 사기 불성립 사유",
     }
 
@@ -880,7 +921,6 @@ def actor_variables(
         variable("deceived_person_id"),
         variable("deceived_person_id"),
         variable(owner),
-        variable("subject_id"),
         variable(beneficiary),
     ]
 
@@ -944,7 +984,30 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
             role="input",
             origin="system",
             definition="해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음",
-        )
+        ),
+        predicate(
+            "case_assessment_complete",
+            [("case_id", "String"), ("defendant_id", "String")],
+            kind="rule",
+            role="input",
+            origin="system",
+            definition=(
+                "사건 라우터가 선택한 공통·프로파일 쟁점의 유한한 평가 묶음이 "
+                "완결되어 최종 결론 계층의 폐쇄세계 검사를 허용함"
+            ),
+        ),
+        predicate(
+            "distinct_entity",
+            [
+                ("case_id", "String"),
+                ("left_entity_id", "String"),
+                ("right_entity_id", "String"),
+            ],
+            kind="rule",
+            role="input",
+            origin="system",
+            definition="사건의 entity resolution에서 두 역할이 서로 다른 실체임이 확인됨",
+        ),
     ]
     rules: list[dict[str, Any]] = []
     actors = generic_actor_variables()
@@ -954,7 +1017,13 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
         input_kind = (
             "standard" if card["formalization"] == "standard_input" else "rule"
         )
-        if input_kind == "standard":
+        case_application = CASE_APPLICATION_DEFINITIONS.get(card_id)
+        if case_application is not None:
+            input_definition = (
+                f"{case_application}. 단순히 법률명제 자체가 옳다는 뜻이 아니라, "
+                "현재 actor tuple의 구체적 사실이 그 요건을 충족하는지를 3상태로 판단한다."
+            )
+        elif input_kind == "standard":
             input_definition = (
                 "현재 사건 사실에 다음 개방형 법적 기준을 적용한 명시적 3상태 평가: "
                 f"{card['proposition']}"
@@ -982,7 +1051,14 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
                 kind="rule",
                 role="derived",
                 origin="commentary",
-                definition=f"증명 가능한 평가에서 다음 조건이 충족됨: {card['proposition']}",
+                definition=(
+                    (
+                        "증명 가능한 사건 적용 평가가 충족됨: "
+                        + case_application
+                    )
+                    if case_application is not None
+                    else f"증명 가능한 평가에서 다음 조건이 충족됨: {card['proposition']}"
+                ),
                 cards=[card],
             )
         )
@@ -1003,6 +1079,12 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
             )
         )
 
+    paired_component_cards = {
+        "deception.fraud.causal-link.deception-property-disposition",
+        "deception.fraud.definition.deception-good-faith-mistake",
+        "fraud_mistake.error_definition",
+        "fraud_mistake.error_disposition_motivation",
+    }
     for component_id, source_ids in COMPONENT_SOURCES.items():
         predicates.append(
             predicate(
@@ -1016,6 +1098,8 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
             )
         )
         for branch_index, card_id in enumerate(source_ids, 1):
+            if card_id in paired_component_cards:
+                continue
             owner = module_slug(module_id_for_card(card_id))
             rules.append(
                 rule(
@@ -1026,6 +1110,40 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
                     "해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.",
                 )
             )
+
+    core_deception_ids = [
+        "deception.fraud.definition.deception-good-faith-mistake",
+        "deception.fraud.causal-link.deception-property-disposition",
+    ]
+    rules.append(
+        rule(
+            "fraud.core_deception.component.fraud_deception_satisfied.01",
+            atom("fraud_deception_satisfied", *actors),
+            [condition_atom(card_id, actors) for card_id in core_deception_ids],
+            cards_for(core_deception_ids, cards_by_id),
+            (
+                "일반 기망 경로는 정의의 추상적 타당성만으로는 부족하고, 특정 행위의 "
+                "신의칙 위반·실제 착오 유발과 재산적 처분 지향성을 함께 요구한다."
+            ),
+        )
+    )
+
+    core_mistake_ids = [
+        "fraud_mistake.error_definition",
+        "fraud_mistake.error_disposition_motivation",
+    ]
+    rules.append(
+        rule(
+            "fraud.core_mistake_disposition.component.fraud_mistake_satisfied.01",
+            atom("fraud_mistake_satisfied", *actors),
+            [condition_atom(card_id, actors) for card_id in core_mistake_ids],
+            cards_for(core_mistake_ids, cards_by_id),
+            (
+                "일반 착오 경로는 구체적인 사실불일치 인식과 그 인식의 처분동기 형성·"
+                "확정을 함께 요구한다. 정의 명제만으로 착오를 인정하지 않는다."
+            ),
+        )
+    )
 
     omission_ids = [
         "deception.fraud.element.omission-deception-guarantor-equivalence",
@@ -1056,10 +1174,47 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
         )
     )
 
-    intent_ids = [
+    intent_positive_ids = [
         "fraud_intent.contract_breach_distinction",
+        "fraud_intent.time_of_conduct",
         "fraud_mistake.gain_purpose",
     ]
+    inducement_intent_card_id = "fraud_intent.no_disposition_inducement_intent"
+    intent_ids = [*intent_positive_ids, inducement_intent_card_id]
+    predicates.append(
+        predicate(
+            "fraud_disposition_inducement_intent_satisfied",
+            ACTOR_ARGUMENTS,
+            kind="rule",
+            role="derived",
+            origin="commentary",
+            definition=COMPONENT_DEFINITIONS[
+                "fraud_disposition_inducement_intent_satisfied"
+            ],
+            cards=[cards_by_id[inducement_intent_card_id]],
+        )
+    )
+    inducement_assessment = "inducement_intent_negative_condition"
+    rules.append(
+        rule(
+            "fraud.core_intent.component.disposition_inducement_intent_satisfied",
+            atom("fraud_disposition_inducement_intent_satisfied", *actors),
+            [
+                assessment_atom(
+                    inducement_intent_card_id,
+                    "not_satisfied",
+                    inducement_assessment,
+                    actors,
+                ),
+                atom("provable", actors[0], variable(inducement_assessment)),
+            ],
+            [cards_by_id[inducement_intent_card_id]],
+            (
+                "'처분행위를 하게 할 의사가 없음'이라는 배제조건이 명시적으로 "
+                "not_satisfied이고 증명 가능할 때만 처분 유도 의사를 긍정한다."
+            ),
+        )
+    )
     predicates.append(
         predicate(
             "fraud_intent_satisfied",
@@ -1075,46 +1230,26 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
         rule(
             "fraud.core_intent.component.fraud_intent_satisfied",
             atom("fraud_intent_satisfied", *actors),
-            [condition_atom(card_id, actors) for card_id in intent_ids],
+            [condition_atom(card_id, actors) for card_id in intent_positive_ids]
+            + [atom("fraud_disposition_inducement_intent_satisfied", *actors)],
             cards_for(intent_ids, cards_by_id),
             "단순 채무불이행과 구별되는 고의의 기망 및 재산적 이득 목적을 함께 요구한다.",
         )
     )
-    loan_intent_ids = [
+    loan_intent_positive_ids = [
         "deception.fraud.standard.intent-to-defraud-loan-inference",
+        "fraud_intent.time_of_conduct",
         "fraud_mistake.gain_purpose",
     ]
+    loan_intent_ids = [*loan_intent_positive_ids, inducement_intent_card_id]
     rules.append(
         rule(
             "fraud.profile_loan.component.fraud_intent_satisfied",
             atom("fraud_intent_satisfied", *actors),
-            [condition_atom(card_id, actors) for card_id in loan_intent_ids],
+            [condition_atom(card_id, actors) for card_id in loan_intent_positive_ids]
+            + [atom("fraud_disposition_inducement_intent_satisfied", *actors)],
             cards_for(loan_intent_ids, cards_by_id),
             "차용금 사건에서는 객관적 사정으로 추론한 편취 범의와 재산적 이득 목적을 결합한다.",
-        )
-    )
-
-    no_loss_card = cards_by_id[
-        "fraud_damage_acquisition.property_loss_negative_view"
-    ]
-    predicates.append(
-        predicate(
-            "fraud_no_separate_loss_gate",
-            ACTOR_ARGUMENTS,
-            kind="rule",
-            role="derived",
-            origin="commentary",
-            definition=COMPONENT_DEFINITIONS["fraud_no_separate_loss_gate"],
-            cards=[no_loss_card],
-        )
-    )
-    rules.append(
-        rule(
-            "fraud.stage_attempt_completion.component.no_separate_loss_gate",
-            atom("fraud_no_separate_loss_gate", *actors),
-            [atom("fraud_acquisition_satisfied", *actors)],
-            [no_loss_card],
-            "취득이 인정되면 현실적 손해를 별도 입력 gate로 다시 요구하지 않는다.",
         )
     )
 
@@ -1123,6 +1258,18 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
     )
     predicates.extend(
         [
+            predicate(
+                "fraud_elements_satisfied",
+                ACTOR_ARGUMENTS,
+                kind="rule",
+                role="derived",
+                origin="commentary",
+                definition=(
+                    "사기죄의 공통 구성요건·역할·귀속 component가 모두 충족된 "
+                    "잠정 성립 후보"
+                ),
+                cards=cards,
+            ),
             predicate(
                 "fraud_established",
                 ACTOR_ARGUMENTS,
@@ -1133,11 +1280,12 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
                 cards=cards_for(
                     {
                         "deception.fraud.causal-link.deception-property-disposition",
-                        "fraud_damage_acquisition.property_loss_negative_view",
                         "fraud_intent.contract_breach_distinction",
+                        "fraud_intent.time_of_conduct",
                         "fraud_mistake.deceived_disposer_identity",
                         "fraud_mistake.disposition_definition",
                         "fraud_mistake.error_definition",
+                        "fraud_mistake.error_disposition_motivation",
                         "fraud_mistake.gain_purpose",
                         "fraud_mistake.property_disposition_element",
                         "fraud_mistake.sequential_causation",
@@ -1184,6 +1332,24 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
                 role="derived",
                 origin="commentary",
                 definition="같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨",
+                cards=cards,
+            ),
+            predicate(
+                "fraud_has_negative",
+                [("case_id", "String"), ("defendant_id", "String")],
+                kind="rule",
+                role="derived",
+                origin="commentary",
+                definition="해당 피고인에 관해 하나 이상의 명시적 사기 불성립 사유가 존재함",
+                cards=not_established_cards,
+            ),
+            predicate(
+                "fraud_has_conflict",
+                [("case_id", "String"), ("defendant_id", "String")],
+                kind="rule",
+                role="derived",
+                origin="commentary",
+                definition="해당 피고인에 관해 하나 이상의 상충 평가가 존재함",
                 cards=cards,
             ),
         ]
@@ -1350,6 +1516,12 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
                     triangular_actors,
                 ),
                 atom("fraud_triangular_authority_satisfied", *triangular_actors),
+                atom(
+                    "distinct_entity",
+                    triangular_actors[0],
+                    triangular_actors[2],
+                    triangular_actors[4],
+                ),
             ],
             cards_for(triangular_required_ids, cards_by_id),
             (
@@ -1385,7 +1557,13 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
                 atom(
                     "fraud_third_party_acquisition_satisfied",
                     *third_party_actors,
-                )
+                ),
+                atom(
+                    "distinct_entity",
+                    third_party_actors[0],
+                    third_party_actors[1],
+                    third_party_actors[5],
+                ),
             ],
             cards_for(
                 COMPONENT_SOURCES["fraud_third_party_acquisition_satisfied"],
@@ -1404,7 +1582,6 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
         "fraud_causal_chain_satisfied",
         "fraud_completion_satisfied",
         "fraud_intent_satisfied",
-        "fraud_no_separate_loss_gate",
         "fraud_role_structure_satisfied",
         "fraud_beneficiary_attribution_satisfied",
     ]
@@ -1415,19 +1592,18 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
             COMPONENT_SOURCES.get(component_id, [])
             if component_id not in {
                 "fraud_intent_satisfied",
-                "fraud_no_separate_loss_gate",
                 "fraud_role_structure_satisfied",
                 "fraud_beneficiary_attribution_satisfied",
             }
             else []
         )
-    } | set(intent_ids) | {no_loss_card["id"]} | role_card_ids | beneficiary_card_ids
+    } | set(intent_ids) | role_card_ids | beneficiary_card_ids
 
     final_actors = actor_variables()
     rules.append(
         rule(
-            "fraud.core.outcome.established",
-            atom("fraud_established", *final_actors),
+            "fraud.core.outcome.elements_satisfied",
+            atom("fraud_elements_satisfied", *final_actors),
             [atom(component_id, *final_actors) for component_id in core_component_ids],
             cards_for(final_base_card_ids, cards_by_id),
             (
@@ -1448,7 +1624,7 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
                 string("established_and_not_established"),
             ),
             [
-                atom("fraud_established", *conflict_actors),
+                atom("fraud_elements_satisfied", *conflict_actors),
                 atom(
                     "fraud_not_established",
                     conflict_actors[0],
@@ -1457,7 +1633,67 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
                 ),
             ],
             cards,
-            "최종 성립과 명시적 불성립 사유가 함께 도출되면 상위 conflict를 노출한다.",
+            "성립 후보와 명시적 불성립 사유가 함께 도출되면 최종 확정 전에 conflict를 노출한다.",
+        )
+    )
+    rules.extend(
+        [
+            rule(
+                "fraud.core.outcome.has_negative",
+                atom("fraud_has_negative", actors[0], actors[1]),
+                [
+                    atom(
+                        "fraud_not_established",
+                        actors[0],
+                        actors[1],
+                        variable("negative_issue_id"),
+                    )
+                ],
+                not_established_cards,
+                "명시적 불성립 사유를 최종 결론 계층에서 검사할 2항 relation으로 모은다.",
+            ),
+            rule(
+                "fraud.core.outcome.has_conflict",
+                atom("fraud_has_conflict", actors[0], actors[1]),
+                [
+                    atom(
+                        "fraud_conflict",
+                        actors[0],
+                        actors[1],
+                        variable("conflict_issue_id"),
+                    )
+                ],
+                cards,
+                "카드·결론 충돌을 최종 결론 계층에서 검사할 2항 relation으로 모은다.",
+            ),
+        ]
+    )
+    rules.append(
+        rule(
+            "fraud.core.outcome.established",
+            atom("fraud_established", *final_actors),
+            [
+                atom("fraud_elements_satisfied", *final_actors),
+                atom("case_assessment_complete", final_actors[0], final_actors[1]),
+                atom(
+                    "fraud_has_negative",
+                    final_actors[0],
+                    final_actors[1],
+                    negated=True,
+                ),
+                atom(
+                    "fraud_has_conflict",
+                    final_actors[0],
+                    final_actors[1],
+                    negated=True,
+                ),
+            ],
+            cards_for(final_base_card_ids, cards_by_id),
+            (
+                "라우터가 선택한 사건 평가 묶음이 완결된 뒤, 성립 후보에 명시적 "
+                "불성립 사유와 충돌이 모두 없을 때만 확정 성립을 출력한다. 이 두 부정은 "
+                "완결 게이트 뒤의 최종 층에서만 사용한다."
+            ),
         )
     )
 
@@ -1509,7 +1745,8 @@ def card_logical_use(card: dict[str, Any], rule_ir: dict[str, Any]) -> str:
 
 def atom_text(value: dict[str, Any]) -> str:
     arguments = ", ".join(str(arg["value"]) for arg in value["arguments"])
-    return f"{value['predicate']}({arguments})"
+    prefix = "~" if value.get("negated", False) else ""
+    return f"{prefix}{value['predicate']}({arguments})"
 
 
 def build_explanation(rule_ir: dict[str, Any], aggregate: dict[str, Any]) -> str:
@@ -1533,7 +1770,7 @@ def build_explanation(rule_ir: dict[str, Any], aggregate: dict[str, Any]) -> str
         "## 런타임 입력",
         "",
         "각 `assess_*` predicate는 `(case_id, assessment_id, defendant_id, "
-        "deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id, "
+        "deceived_person_id, disposer_id, property_owner_id, beneficiary_id, "
         "status)`를 받는다. `status`는 `satisfied`, `not_satisfied`, `unknown`뿐이다. "
         "모델이 사실을 찾지 못했다는 이유로 `not_satisfied`를 만들면 안 된다.",
         "",
@@ -1553,6 +1790,9 @@ def build_explanation(rule_ir: dict[str, Any], aggregate: dict[str, Any]) -> str
         "모든 substantive 경로는 같은 사건과 평가 ID의 `provable(case_id, "
         "assessment_id)`를 요구한다. 따라서 증거능력·신빙성 검토를 통과하지 않은 진술은 "
         "구성요건 판단에 들어가지 않는다.",
+        "`distinct_entity`는 entity resolution이 확인한 역할 상이성을 공급한다. "
+        "`case_assessment_complete`는 라우터가 선택한 유한한 평가 묶음이 모두 수집됐다는 "
+        "실행 게이트이며, 이 게이트 뒤의 최종 결론 계층에서만 부정 검사를 허용한다.",
         "",
         "## 모듈 구조",
         "",
@@ -1569,7 +1809,7 @@ def build_explanation(rule_ir: dict[str, Any], aggregate: dict[str, Any]) -> str
         "같은 canonical interface만 출력한다. 최종 core는 차용금이나 삼각사기 같은 세부 "
         "유형명을 알지 않고 이 interface들을 한 번만 AND 결합한다. 현재는 검수를 위해 "
         "하나의 RuleIR 파일 안에서 논리적으로 분리했으며, Scallop 물리 파일 분리는 "
-        "Sol·사용자 검수 뒤에 확정한다.",
+        "Sol 정정본에 대한 사용자 재검수 뒤에 확정한다.",
         "",
     ]
     for module in module_ownership["modules"]:
@@ -1582,10 +1822,9 @@ def build_explanation(rule_ir: dict[str, Any], aggregate: dict[str, Any]) -> str
     lines.extend(
         [
             "",
-            "## 최종 성립의 AND gate와 손해 불요 규칙",
+            "## 최종 성립의 AND gate",
         "",
-        "최종 성립은 1번부터 10번까지의 사실·법적 component가 모두 있어야 한다. 11번은 "
-        "별도 사실요건이 아니라 취득 component에서 자동으로 파생되는 compilation 규칙이다.",
+        "최종 성립은 아래 10개 사실·법적 component가 모두 있어야 한다.",
         "",
         "1. 사기죄의 객체인 타인의 재물 또는 구체적 재산상 이익",
         "2. 신의칙에 반하여 착오를 일으키는 기망 또는 승인된 구체 유형의 기망",
@@ -1597,7 +1836,10 @@ def build_explanation(rule_ir: dict[str, Any], aggregate: dict[str, Any]) -> str
         "8. 미수를 넘어선 이전 또는 사실상 지배 취득",
         "9. 피기망자=처분자를 포함한 일반형 또는 삼각사기의 역할 구조",
         "10. 본인취득 또는 제3자취득의 피고인 귀속 구조",
-        "11. 취득 외에 현실적 재산상 손해를 별도 gate로 중복 요구하지 않는 판례 기준",
+        "",
+        "현실적 재산상 손해 불요 법리는 별도 사실요건이 아니므로 AND gate나 자동 파생 "
+        "predicate로 만들지 않았다. 취득을 요구하되 추가 손해 gate를 두지 않는 규칙의 "
+        "부재 자체로 구현한다.",
         "",
         "불법영득의사 평가는 별도 support predicate로 보존하지만 모든 사기 유형의 공통 "
         "AND gate로 강제하지 않았다. 이는 사용자가 앞서 정한 실무지향 정책을 반영한다.",
@@ -1617,12 +1859,13 @@ def build_explanation(rule_ir: dict[str, Any], aggregate: dict[str, Any]) -> str
         "명시적 불성립 카드가 satisfied이거나 필수 positive 카드가 not_satisfied이면 "
         "`fraud_not_established`가 쟁점 ID와 함께 나온다. 관련 평가가 unknown이면 "
         "`fraud_undetermined`, 같은 카드에 satisfied와 not_satisfied가 모두 provable이면 "
-        "`fraud_conflict`가 나온다. 부재를 부정으로 간주하는 negation은 사용하지 않는다.",
+        "`fraud_conflict`가 나온다. 이 단계까지는 개방세계의 양의 규칙만 사용한다.",
         "",
-        "`fraud_established`와 `fraud_not_established`가 동시에 나오면 "
-        "`fraud_conflict(..., established_and_not_established)`도 도출한다. 후속 long-form "
-        "generator는 conflict와 undetermined를 먼저 해소하거나 양측 논거로 표시해야 하며, "
-        "established만 선택해 유죄 결론을 써서는 안 된다.",
+        "모든 component가 모이면 먼저 `fraud_elements_satisfied`만 도출한다. 성립 후보와 "
+        "불성립 사유가 함께 있으면 `established_and_not_established` conflict를 만든다. "
+        "라우터가 `case_assessment_complete`를 공급한 뒤, `fraud_has_negative`와 "
+        "`fraud_has_conflict`가 모두 없을 때만 층화 부정으로 `fraud_established`를 확정한다. "
+        "따라서 충돌이나 불성립 사유와 확정 성립이 동시에 노출되지 않는다.",
         "",
         "## 88개 입력의 의미와 논리적 사용",
         "",
@@ -1708,8 +1951,9 @@ def build_agent_review(rule_ir: dict[str, Any], aggregate: dict[str, Any]) -> st
             "",
             "## 판정",
             "",
-            "**구조 검증 통과, 사용자 법률 검수 승인, Sol 대기.** Terra의 원본 부분 출력은 "
-            "candidate로 사용하지 않았고, 승인된 88장만으로 수동·결정적으로 재구성했다.",
+            "**Sol 지적 수동 정정 및 에이전트 재검토 완료, 사용자 재검수 대기.** Terra의 "
+            "원본 부분 출력은 candidate로 사용하지 않았고, 승인된 88장만으로 수동·"
+            "결정적으로 재구성했다.",
             "",
             "## 자동 검증",
             "",
@@ -1719,7 +1963,8 @@ def build_agent_review(rule_ir: dict[str, Any], aggregate: dict[str, Any]) -> st
             f"- rule: {len(rule_ir['rules'])}개",
             "- 모든 input의 provable pairing: 통과",
             "- case variable isolation: 통과",
-            "- negation 및 active_policy 부재: 통과",
+            "- negation: 완결 게이트 뒤 최종 outcome stratum의 2개 검사로 제한",
+            "- active_policy 부재: 통과",
             "- 피기망자=처분자 성립 head: 통과",
             f"- module ownership: {len(module_ownership['modules'])}개 모듈, 88/88, 중복 0",
             "- profile activation: 기본 OFF, 사건별 0개 이상 선택, 비망라적 registry",
@@ -1756,8 +2001,8 @@ def build_agent_review(rule_ir: dict[str, Any], aggregate: dict[str, Any]) -> st
             "구조화된 rule fact로 추출해야 한다.",
             "- profile router가 관련 모듈을 먼저 골라야 한다. 단순한 정의 카드와 실제 적용 "
             "충족을 혼동하지 않도록 feature schema와 RAG 근거가 필요하다.",
-            "- established와 not_established가 동시에 나올 수 있다. long-form 생성 전 conflict "
-            "resolution 정책을 반드시 적용해야 한다.",
+            "- `case_assessment_complete`는 router가 관련 profile을 확정하고 모든 선택 쟁점의 "
+            "평가를 수집한 뒤에만 공급해야 한다.",
             "",
         ]
     )
@@ -1768,19 +2013,19 @@ def build_human_guide(rule_ir: dict[str, Any]) -> str:
         [
             "# 사기죄 full RuleIR 사용자 검수 가이드",
             "",
-            "JSON 소유권표는 기계 검증용이므로 읽을 필요가 없다. 먼저 "
-            "`fraud_rule_ir_module_human_review.md`를 읽는다. 이 문서에는 15개 모듈의 "
-            "한국어 이름·기능·경계와 포함 카드 88장의 원문이 모듈별로 붙어 있다.",
+            "이번에는 88개 카드와 15개 모듈을 처음부터 다시 읽을 필요가 없다. 먼저 "
+            "`fraud_full_rule_ir_sol_adjudication.md`의 항목별 판정표와 마지막 사용자 "
+            "재검수 포인트 3개를 읽는다.",
             "",
-            "1. 인간 검수본의 15개 모듈과 각 모듈의 굵은 글씨 검수 질문을 확인한다.",
-            "2. 이동·분리·RAG·삭제가 필요한 카드는 인간 검수본의 `원본 N번`으로 지적한다.",
-            "3. 그 다음 `fraud_full_rule_ir_natural_language_explanation.md`의 최종 AND gate와 "
-            "역할·취득 adapter 부분만 확인한다.",
-            "4. 개별 rule까지 확인할 필요가 있을 때만 자연어 설명의 Rule별 해설이나 JSON을 본다.",
+            "1. Sol 지적 13개 중 11개 수용·수정수용, 2개 불수용 판단을 확인한다.",
+            "2. 일반형/삼각사기 역할 정책, 주관적 요건 묶음, 완결 게이트에 동의하는지 본다.",
+            "3. 더 자세한 논리가 필요할 때만 `fraud_full_rule_ir_natural_language_explanation.md`의 "
+            "최종 AND gate와 역할·취득 adapter 부분을 확인한다.",
+            "4. JSON과 342개 rule별 해설은 특정 구현을 추적할 때만 보면 된다.",
             "",
             f"현재 predicate {len(rule_ir['predicates'])}개, rule {len(rule_ir['rules'])}개다. "
-            "사용자 검수는 승인됐고 다음 gate는 Sol이다. Sol API 실행은 별도 사용자 "
-            "승인이 필요하며 Scallop compile/runtime은 Sol과 후속 사용자 검수 전까지 차단한다.",
+            "Sol 검토와 에이전트 수동 정정은 끝났고, 이 정정본에 대한 사용자 재검수가 "
+            "남았다. Scallop compile/runtime은 이 재검수 전까지 차단한다.",
             "",
         ]
     )
@@ -1836,8 +2081,8 @@ def main() -> None:
                 "unknown": "only for a relevant but underdetermined issue",
             },
             "next_sequence": [
-                "one Sol critic call",
-                "agent source-grounded re-review and manual correction",
+                "Sol critic call complete",
+                "agent source-grounded re-review and manual correction complete",
                 "human re-review",
                 "Scallop compile and runtime tests",
             ],
@@ -1865,23 +2110,40 @@ def main() -> None:
         "repair_method": "agent-authored deterministic reconstruction; no additional API call",
     }
     write_json(TERRA_AUDIT, terra_audit)
+    sol_complete = SOL_CRITIQUE.exists()
     write_json(
         POST_TERRA_STATUS,
         {
             "version": "1.0.0",
-            "status": "human_review_complete_sol_authorized",
+            "status": (
+                "agent_post_sol_rereview_complete_human_review_pending"
+                if sol_complete
+                else "human_review_complete_sol_authorized"
+            ),
             "terra_api_calls": run_summary["api_calls"],
             "terra_raw_output": "rejected_partial_output",
             "local_contract_validation": "pass",
             "agent_rule_by_rule_review": "complete",
+            "agent_post_sol_rereview": "complete" if sol_complete else "pending",
             "agent_natural_language_explanation": "complete",
-            "human_rule_ir_review_allowed": False,
-            "human_rule_ir_review": "approved",
+            "human_rule_ir_review_allowed": sol_complete,
+            "human_rule_ir_review": (
+                "pending_post_sol" if sol_complete else "approved"
+            ),
             "human_review_decision_path": str(
                 HUMAN_REVIEW_DECISION.relative_to(PROJECT_ROOT)
             ),
-            "sol_critic_allowed": True,
-            "sol_critic_execution_authorized": True,
+            "sol_critic": "complete" if sol_complete else "pending",
+            "sol_critic_allowed": not sol_complete,
+            "sol_critic_execution_authorized": not sol_complete,
+            "sol_critic_report_path": (
+                str(SOL_CRITIQUE.relative_to(PROJECT_ROOT))
+                if sol_complete
+                else None
+            ),
+            "sol_adjudication_path": str(
+                SOL_ADJUDICATION.relative_to(PROJECT_ROOT)
+            ),
             "scallop_compile_allowed": False,
             "candidate_path": str(CANDIDATE.relative_to(PROJECT_ROOT)),
             "explanation_path": str(EXPLANATION.relative_to(PROJECT_ROOT)),
@@ -1904,7 +2166,9 @@ def main() -> None:
                 "rules": len(rule_ir["rules"]),
                 "modules": len(module_ownership["modules"]),
                 "validation": "pass",
-                "next_gate": "sol_critic",
+                "next_gate": (
+                    "human_post_sol_rereview" if sol_complete else "sol_critic"
+                ),
             },
             ensure_ascii=False,
             sort_keys=True,

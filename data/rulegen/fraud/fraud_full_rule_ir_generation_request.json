@@ -6,10 +6,17 @@
       "deceived_person_id",
       "disposer_id",
       "property_owner_id",
-      "subject_id",
       "beneficiary_id"
     ],
     "case_isolation": "Every non-system predicate starts with case_id: String.",
+    "closed_case_gate": {
+      "arguments": [
+        "case_id",
+        "defendant_id"
+      ],
+      "meaning": "The router-selected assessment bundle is finite and complete; only the final outcome stratum may use negation after this gate.",
+      "predicate": "case_assessment_complete"
+    },
     "evidence_gate": {
       "arguments": [
         "case_id",
@@ -19,7 +26,7 @@
       "required_for_every_commentary_input": true
     },
     "generation_unit": "single_complete_rule_ir",
-    "negation_allowed": false,
+    "negation_allowed": "final_outcome_stratum_only_after_closed_case_gate",
     "required_output_predicates": [
       {
         "arguments": [
@@ -28,7 +35,6 @@
           "deceived_person_id",
           "disposer_id",
           "property_owner_id",
-          "subject_id",
           "beneficiary_id"
         ],
         "id": "fraud_established"

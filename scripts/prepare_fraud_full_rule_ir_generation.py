@@ -104,11 +104,15 @@ def string(value: str) -> dict[str, str]:
     return {"kind": "string", "value": value}
 
 
-def atom(predicate_id: str, *arguments: dict[str, str]) -> dict[str, Any]:
+def atom(
+    predicate_id: str,
+    *arguments: dict[str, str],
+    negated: bool = False,
+) -> dict[str, Any]:
     return {
         "predicate": predicate_id,
         "arguments": list(arguments),
-        "negated": False,
+        "negated": negated,
     }
 
 
@@ -482,7 +486,6 @@ def main() -> None:
                 "deceived_person_id",
                 "disposer_id",
                 "property_owner_id",
-                "subject_id",
                 "beneficiary_id",
             ],
         }
@@ -522,12 +525,19 @@ def main() -> None:
                 "arguments": ["case_id", "assessment_id"],
                 "required_for_every_commentary_input": True,
             },
+            "closed_case_gate": {
+                "predicate": "case_assessment_complete",
+                "arguments": ["case_id", "defendant_id"],
+                "meaning": (
+                    "The router-selected assessment bundle is finite and complete; "
+                    "only the final outcome stratum may use negation after this gate."
+                ),
+            },
             "actor_roles": [
                 "defendant_id",
                 "deceived_person_id",
                 "disposer_id",
                 "property_owner_id",
-                "subject_id",
                 "beneficiary_id",
             ],
             "role_identity": {
@@ -541,7 +551,7 @@ def main() -> None:
                 "different_owner_requires_triangular_fraud_authority_assessment": True,
             },
             "required_output_predicates": output_signatures,
-            "negation_allowed": False,
+            "negation_allowed": "final_outcome_stratum_only_after_closed_case_gate",
             "active_policy_allowed": False,
         },
         "coverage_contract": {

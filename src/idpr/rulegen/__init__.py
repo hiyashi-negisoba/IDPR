@@ -858,7 +858,6 @@ FULL_RULE_IR_OUTPUT_SIGNATURES = {
         "deceived_person_id",
         "disposer_id",
         "property_owner_id",
-        "subject_id",
         "beneficiary_id",
     ),
     "fraud_not_established": ("case_id", "defendant_id", "issue_id"),
@@ -944,24 +943,37 @@ def validate_full_rule_ir_generation(
             f"{missing_deterministic_cards}"
         )
 
-    provable = predicate_defs.get("provable")
-    expected_provable = {
-        "arguments": [
+    expected_system_inputs = {
+        "provable": [
             {"name": "case_id", "type": "String"},
             {"name": "assessment_id", "type": "String"},
         ],
-        "kind": "rule",
-        "role": "input",
-        "origin": "system",
-        "source_refs": [],
-        "norm_card_ids": [],
+        "case_assessment_complete": [
+            {"name": "case_id", "type": "String"},
+            {"name": "defendant_id", "type": "String"},
+        ],
+        "distinct_entity": [
+            {"name": "case_id", "type": "String"},
+            {"name": "left_entity_id", "type": "String"},
+            {"name": "right_entity_id", "type": "String"},
+        ],
     }
-    if provable is None or any(
-        provable.get(key) != value for key, value in expected_provable.items()
-    ):
-        errors.append(
-            "provable must be a system input with (case_id, assessment_id)"
-        )
+    for predicate_id, expected_arguments in expected_system_inputs.items():
+        system_predicate = predicate_defs.get(predicate_id)
+        expected = {
+            "arguments": expected_arguments,
+            "kind": "rule",
+            "role": "input",
+            "origin": "system",
+            "source_refs": [],
+            "norm_card_ids": [],
+        }
+        if system_predicate is None or any(
+            system_predicate.get(key) != value for key, value in expected.items()
+        ):
+            errors.append(
+                f"{predicate_id} must match the closed-case system input contract"
+            )
 
     if "active_policy" in predicate_defs:
         errors.append("active_policy is forbidden because all fraud policies are resolved")
@@ -971,9 +983,12 @@ def validate_full_rule_ir_generation(
     for predicate in predicates:
         predicate_id = predicate.get("id", "")
         arguments = predicate.get("arguments", [])
-        if predicate.get("origin") == "system" and predicate_id != "provable":
+        if (
+            predicate.get("origin") == "system"
+            and predicate_id not in expected_system_inputs
+        ):
             unexpected_system_predicates.append(predicate_id)
-        if predicate_id != "provable":
+        if predicate_id not in {"provable"}:
             if not arguments or arguments[0] != {
                 "name": "case_id",
                 "type": "String",
@@ -997,7 +1012,7 @@ def validate_full_rule_ir_generation(
             errors.append(f"commentary input {predicate_id} must end with status")
     if unexpected_system_predicates:
         errors.append(
-            "provable is the only allowed system predicate: "
+            "unexpected system predicates: "
             f"{sorted(unexpected_system_predicates)}"
         )
 
@@ -1008,8 +1023,34 @@ def validate_full_rule_ir_generation(
         head_predicate = head.get("predicate", "")
         rule_head_predicates.add(head_predicate)
         body = rule.get("body", [])
-        if any(atom.get("negated", False) for atom in body):
-            errors.append(f"rules[{rule_index}] uses forbidden open-world negation")
+        negated_predicates = {
+            atom.get("predicate", "")
+            for atom in body
+            if atom.get("negated", False)
+        }
+        if negated_predicates:
+            allowed_final_negation = {
+                "fraud_has_negative",
+                "fraud_has_conflict",
+            }
+            positive_predicates = {
+                atom.get("predicate", "")
+                for atom in body
+                if not atom.get("negated", False)
+            }
+            if rule.get("id") != "fraud.core.outcome.established":
+                errors.append(
+                    f"rules[{rule_index}] uses negation outside the final outcome stratum"
+                )
+            if negated_predicates != allowed_final_negation:
+                errors.append(
+                    f"rules[{rule_index}] must negate exactly the closed negative and "
+                    "conflict summaries"
+                )
+            if "case_assessment_complete" not in positive_predicates:
+                errors.append(
+                    f"rules[{rule_index}] uses final negation without the closed-case gate"
+                )
         head_arguments = head.get("arguments", [])
         expected_case = head_arguments[0] if head_arguments else None
         if not expected_case or expected_case.get("kind") != "variable":

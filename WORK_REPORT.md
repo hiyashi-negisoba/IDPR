@@ -956,3 +956,42 @@ gate로 요구하지 않으며 불법영득의사는 모든 유형의 공통 gat
 현재 `fraud_full_rule_ir_natural_language_explanation.md`와
 `fraud_full_rule_ir_agent_review.md`까지 작성했고 사용자 법률 검수 대기 상태다. 사용자
 검수 전에는 Sol, 사용자 재검수 전에는 Scallop compile/runtime을 계속 차단한다.
+
+---
+
+## 사기죄 full RuleIR Sol 검토 및 수동 정정
+
+작성일: 2026-07-18
+
+사용자의 명시적 승인으로 정리된 full RuleIR을 Sol에 정확히 1회 보냈다. 동시성 1,
+retry 0이었고 이 검토 뒤 추가 API 호출은 하지 않았다.
+
+- model: `openai/gpt-5.6-sol`
+- prompt tokens: 66,754
+- completion tokens: 3,322
+- reasoning tokens: 903
+- total tokens: 70,076
+- verdict: `reject`
+- findings: 13개
+
+에이전트가 13개 지적을 NormCard 원문과 승인 정책에 다시 대조했다. 11개는 수용 또는
+수정수용했고 2개는 불수용했다. 전체 판정과 이유는
+`data/rulegen/fraud/fraud_full_rule_ir_sol_adjudication.md`에 기록했다.
+
+주요 정정은 다음과 같다.
+
+- 법적 주체인 `defendant_id`와 중복되고 의미가 없던 `subject_id` 삭제
+- 현실적 재산상 손해 불요 문구를 최종 AND의 사실 gate와 자동 파생 rule에서 삭제
+- 추상적 기망·착오 정의 카드와 취득 예시 카드가 단독으로 구성요건을 충족하던 경로 제거
+- 고의를 의도적 기망, 행위시 고의, 처분 유도 의사, 재산적 이득 목적으로 구체화
+- 삼각사기의 재산소유자 및 제3자취득 수익자에 `distinct_entity` 검사 추가
+- 구성요건 AND를 `fraud_elements_satisfied` 후보로 분리하고, 완결된 사건에서 명시적
+  불성립·충돌이 모두 없을 때만 `fraud_established`를 출력하도록 최종 층화 부정 도입
+
+정정본은 NormCard 88장을 그대로 보존하며 commentary input도 standard 60개와 rule fact
+28개로 유지한다. predicate는 201개, rule은 342개다. full-generation validator와 전체
+테스트 `63 passed`를 확인했다.
+
+현재 상태는 `agent_post_sol_rereview_complete_human_review_pending`이다. 사용자가 Sol
+재검토표의 일반형/삼각사기 역할정책, 주관적 요건 묶음, `case_assessment_complete`
+실행계약을 승인하기 전까지 Scallop compile/runtime은 차단한다.

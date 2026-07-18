@@ -1,0 +1,159 @@
+{
+  "findings": [
+    {
+      "finding_id": "missing_subject_role_gate",
+      "message": "The final AND rule carries subject_id only as an unconstrained variable. No canonical predicate establishes that the defendant is a legally eligible fraud subject or otherwise connects subject_id to the required subject role. The approved common core expressly includes the subject role.",
+      "recommended_action": "Add one canonical subject-role interface and require it in fraud.core.outcome.established, with the smallest adapter needed to connect defendant_id and subject_id under the approved actor policy.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/target/substantive_rules[id=fraud.core.outcome.established]",
+      "type": "missing_norm"
+    },
+    {
+      "finding_id": "positive_survives_negative_outcome",
+      "message": "fraud_established is derived without regard to fraud_not_established. The separate conflict rule merely reports coexistence and does not prevent the system from exposing an affirmative establishment conclusion when a proved mandatory negative or profile-specific bar also applies.",
+      "recommended_action": "Make the public positive outcome unavailable when a matching fraud_not_established or outcome-level conflict exists, or separate the current conjunctive candidate from a conflict-safe final outcome predicate.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/target/substantive_rules[id=fraud.core.outcome.established]",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "card_conflict_can_feed_positive_component",
+      "message": "A card with both provable satisfied and not_satisfied assessments emits fraud_conflict, but its satisfied condition remains available to derive canonical positive components and ultimately fraud_established. Conflict exposure alone therefore does not prevent an unjustified positive conclusion.",
+      "recommended_action": "Ensure that a conflicted card condition cannot serve as positive support for a canonical component, or route all such support through a conflict-safe condition predicate.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/target/mechanical_card_state_contract/conflict_semantics",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "non_element_loss_gate_in_final",
+      "message": "The proposition that no separate actual-loss requirement exists is included as an affirmative factual conjunct in the final rule. It is a rule about omission of an additional gate, not a constitutive fact that each case must prove. Requiring it duplicates acquisition as a non-element requirement.",
+      "recommended_action": "Remove fraud_no_separate_loss_gate from the final AND body; preserve the no-additional-loss policy by simply not adding an actual-loss predicate.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_63",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "target_path": "/target/substantive_rules[id=fraud.core.outcome.established]/body[predicate=fraud_no_separate_loss_gate]",
+      "type": "rule_mismatch"
+    },
+    {
+      "finding_id": "loss_card_evidence_bypass",
+      "message": "The rule is attributed to fraud_damage_acquisition.property_loss_negative_view but derives its head solely from fraud_acquisition_satisfied, without consuming that card's condition or assessment. This bypasses the stated card-to-rule evidence contract while also making the predicate automatic whenever acquisition is present.",
+      "recommended_action": "Delete this derived gate if it is removed from the final rule. If retained only for explanatory output, do not represent it as a case-level card-supported condition unless the matching card condition is consumed.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/target/substantive_rules[id=fraud.stage_attempt_completion.component.no_separate_loss_gate]",
+      "type": "evidence_gate_bypass"
+    },
+    {
+      "finding_id": "deception_definition_sufficient_alone",
+      "message": "A single assessment of the general good-faith-and-mistake definition is sufficient by itself to establish the canonical deception element. This collapses a definition into a complete positive element path without requiring the card's disposition-directed scope or another concrete deception determination.",
+      "recommended_action": "Do not let this definition alone emit fraud_deception_satisfied; use it only within a conjunctive deception determination or as a standard supporting a separate canonical deception assessment.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "target_path": "/target/substantive_rules[id=fraud.core_deception.component.fraud_deception_satisfied.01]",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "mistake_definition_sufficient_alone",
+      "message": "The abstract definition that mistake means a perception inconsistent with fact is independently sufficient for fraud_mistake_satisfied. A definition assessment does not by itself establish that the deceived person in this case held the legally relevant mistaken perception.",
+      "recommended_action": "Remove this definition-only sufficient path and require a case-specific mistake determination; retain the definition as a standard used by that determination.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "target_path": "/target/substantive_rules[id=fraud.core_mistake_disposition.component.fraud_mistake_satisfied.01]",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "acquisition_examples_sufficient_alone",
+      "message": "The illustrative list of property-benefit disposition types independently establishes actual acquisition. Classification of an act as a contract, service, or debt-release type does not alone prove that a property benefit was acquired.",
+      "recommended_action": "Use this card only to classify a disposition form and require a separate actual property-benefit acquisition condition before emitting fraud_acquisition_satisfied.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
+          "section_path": "Ⅳ.5"
+        }
+      ],
+      "target_path": "/target/substantive_rules[id=fraud.object_property_benefit.component.fraud_acquisition_satisfied.04]",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "invalid_benefit_definition_sufficient_for_acquisition",
+      "message": "The rule treats the precedent standard that legal invalidity does not preclude an outward property benefit as independently sufficient for acquisition. The card removes a legal-validity objection but does not dispense with proof that an outward economic benefit was actually obtained.",
+      "recommended_action": "Conjoin this card with an actual property-benefit acquisition condition instead of using it as a standalone acquisition path.",
+      "severity": "hard",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "target_path": "/target/substantive_rules[id=fraud.object_property_benefit.component.fraud_acquisition_satisfied.03]",
+      "type": "formalization_error"
+    },
+    {
+      "finding_id": "ordinary_role_adapter_overunifies_owner",
+      "message": "The ordinary-role adapter unconditionally unifies property_owner_id with deceived_person_id and disposer_id. The approved actor policy mandates only deceived_person_id = disposer_id; other roles may unify only where the relevant adapter requires it. This adapter excludes non-triangular configurations in which the legally relevant property holder or interest bearer is represented separately.",
+      "recommended_action": "Keep only deceived_person_id = disposer_id in the ordinary adapter and impose owner identity only in a narrower branch that substantively requires it.",
+      "severity": "hard",
+      "source_refs": [],
+      "target_path": "/target/substantive_rules[id=fraud.structure_ordinary.role_structure]",
+      "type": "role_conflation"
+    },
+    {
+      "finding_id": "triangular_branch_lacks_distinct_owner_constraint",
+      "message": "The triangular adapter introduces property_owner_id but does not require it to differ from the deceived disposer. Consequently, an ordinary same-owner tuple can satisfy the triangular branch when triangular assessments are supplied, obscuring the branch's role semantics.",
+      "recommended_action": "Add the smallest executable distinctness guard between property_owner_id and deceived_person_id for the triangular branch, while retaining the authority/status conjunct.",
+      "severity": "soft",
+      "source_refs": [],
+      "target_path": "/target/substantive_rules[id=fraud.structure_triangular.role_structure]",
+      "type": "role_conflation"
+    },
+    {
+      "finding_id": "third_party_branch_lacks_distinct_beneficiary_constraint",
+      "message": "The third-party acquisition adapter does not require beneficiary_id to differ from defendant_id. It can therefore classify self-acquisition as third-party acquisition if the profile assessment is present.",
+      "recommended_action": "Add an executable defendant_id/beneficiary_id distinctness guard to the third-party branch; leave the self-acquisition branch as the equality path.",
+      "severity": "soft",
+      "source_refs": [],
+      "target_path": "/target/substantive_rules[id=fraud.structure_third_party_acquisition.beneficiary_attribution]",
+      "type": "role_conflation"
+    },
+    {
+      "finding_id": "intent_standard_used_as_element",
+      "message": "fraud_intent.contract_breach_distinction states a distinction standard, but its satisfied condition is used as the direct proof of intentional deception and conjoined with gain purpose to establish the canonical intent element. The rule does not separately establish intent at the time of conduct or inducement intent.",
+      "recommended_action": "Replace the distinction-standard atom with a case-specific intentional-deception determination, preserving gain purpose as the other conjunct.",
+      "severity": "soft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_74",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "target_path": "/target/substantive_rules[id=fraud.core_intent.component.fraud_intent_satisfied]",
+      "type": "formalization_error"
+    }
+  ],
+  "report_id": "sol.kr_fraud_article347_rule_ir.20260718",
+  "review_required": true,
+  "stage": "rule_ir",
+  "status": "draft",
+  "summary": "Revision is blocked by the absent subject-role gate, conflict/negative outcomes that do not suppress an affirmative conclusion, a non-element actual-loss proposition inserted into the final AND, several definition or illustrative cards used as standalone canonical elements, and unsafe role unification. The compact mechanical card-state omission is not treated as a defect.",
+  "target_id": "kr.fraud.article347.full.v1_candidate",
+  "verdict": "reject",
+  "version": "1.1.0"
+}

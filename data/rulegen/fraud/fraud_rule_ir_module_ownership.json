@@ -2,6 +2,15 @@
   "architecture": {
     "common_core_activation": "최종 성립에는 공통 canonical gate가 항상 필요하다. 다만 같은 gate를 채우는 모든 support card를 한 사건에서 전부 평가한다는 뜻은 아니다.",
     "final_core_rule": "fraud.core.outcome.established",
+    "outcome_resolution": {
+      "blocking_relations": [
+        "fraud_has_negative",
+        "fraud_has_conflict"
+      ],
+      "candidate": "fraud_elements_satisfied",
+      "closed_case_gate": "case_assessment_complete",
+      "negation_scope": "final outcome stratum only"
+    },
     "physical_layout": "현재는 단일 RuleIR 안의 논리 모듈이다. 사용자·Sol 검수 후 Scallop import 경계를 확정하면서 물리 파일 분리를 검토한다.",
     "principle": "법학적 구성요건 core는 주체·객체·객관적 행위·주관적 요건으로 구성한다. 그 아래 실행 profile과 adapter가 canonical interface를 채우고 최종 core는 세부 유형을 알지 않은 채 이를 AND 결합한다.",
     "profile_activation": {
@@ -23,7 +32,6 @@
     "fraud_disposition_satisfied": "처분 core/profile의 공통 출력",
     "fraud_intent_satisfied": "주관적 요건 core/profile의 공통 출력",
     "fraud_mistake_satisfied": "착오 core의 공통 출력",
-    "fraud_no_separate_loss_gate": "별도 현실손해를 중복 요구하지 않는 출력",
     "fraud_object_satisfied": "객체 adapter의 공통 출력",
     "fraud_role_structure_satisfied": "일반형·삼각사기 구조 adapter의 출력"
   },
@@ -405,7 +413,6 @@
       "description": "실행의 착수, 인과관계 단절에 따른 미수, 기수 및 사후사정",
       "emits": [
         "fraud_completion_satisfied",
-        "fraud_no_separate_loss_gate",
         "fraud_not_established"
       ],
       "kind": "stage_module",
@@ -414,6 +421,6 @@
     }
   ],
   "rule_set_id": "kr.fraud.article347.full.v1_candidate",
-  "status": "human_review_approved_sol_pending",
+  "status": "post_sol_corrected_human_rereview_pending",
   "version": "1.0.0"
 }
