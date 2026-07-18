@@ -1,0 +1,100 @@
+{
+  "$id": "idpr/LongFormClaimGraph",
+  "description": "Back-parsed substantive claims from one generated legal answer.",
+  "type": "object",
+  "required": [
+    "version",
+    "case_id",
+    "method_id",
+    "claims",
+    "section_conclusions",
+    "overall_conclusion"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": "1.0.0" },
+    "case_id": { "type": "string", "minLength": 1 },
+    "method_id": { "const": "m6_claim_verified" },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 80,
+      "items": {
+        "type": "object",
+        "required": [
+          "claim_id",
+          "section_id",
+          "quote",
+          "claim_type",
+          "support_kind",
+          "polarity",
+          "fact_ids",
+          "card_ids",
+          "authority_comment_ids",
+          "relation_ids"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "claim_id": { "type": "string", "pattern": "^claim_[0-9]{3}$" },
+          "section_id": { "type": "string", "minLength": 1 },
+          "quote": { "type": "string", "minLength": 1, "maxLength": 1600 },
+          "claim_type": {
+            "enum": ["fact", "rule", "application", "conclusion"]
+          },
+          "support_kind": {
+            "enum": [
+              "explicit_fact",
+              "authority_rule",
+              "derived_application",
+              "symbolic_conclusion"
+            ]
+          },
+          "polarity": { "enum": ["supports", "rebuts", "neutral"] },
+          "fact_ids": {
+            "type": "array",
+            "maxItems": 16,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "card_ids": {
+            "type": "array",
+            "maxItems": 16,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "authority_comment_ids": {
+            "type": "array",
+            "maxItems": 16,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "relation_ids": {
+            "type": "array",
+            "maxItems": 8,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "section_conclusions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "required": ["section_id", "conclusion"],
+        "additionalProperties": false,
+        "properties": {
+          "section_id": { "type": "string", "minLength": 1 },
+          "conclusion": {
+            "enum": ["satisfied", "not_satisfied", "unknown", "conflict"]
+          }
+        }
+      }
+    },
+    "overall_conclusion": {
+      "enum": ["established", "not_established", "undetermined", "conflict"]
+    }
+  }
+}

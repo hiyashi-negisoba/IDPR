@@ -1,0 +1,150 @@
+{
+  "$id": "idpr/FraudIRACPlan",
+  "description": "Deterministic paragraph plan compiled from validated fraud assessments and Scallop output.",
+  "type": "object",
+  "required": [
+    "version",
+    "case_id",
+    "rule_set_id",
+    "overall_conclusion",
+    "scallop_relations",
+    "units",
+    "generation_policy"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": "1.0.0" },
+    "case_id": { "type": "string", "minLength": 1 },
+    "rule_set_id": { "type": "string", "minLength": 1 },
+    "overall_conclusion": {
+      "enum": ["established", "not_established", "undetermined", "conflict"]
+    },
+    "scallop_relations": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "units": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "required": [
+          "unit_id",
+          "order",
+          "issue",
+          "question",
+          "component_predicates",
+          "card_assessments",
+          "required_fact_ids",
+          "required_authority_comment_ids",
+          "required_conclusion"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "unit_id": { "type": "string", "pattern": "^irac_[a-z0-9_]+$" },
+          "order": { "type": "integer", "minimum": 1, "maximum": 8 },
+          "issue": { "type": "string", "minLength": 1 },
+          "question": { "type": "string", "minLength": 1 },
+          "component_predicates": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 8,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "card_assessments": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 12,
+            "items": {
+              "type": "object",
+              "required": [
+                "assessment_id",
+                "card_id",
+                "proposition",
+                "status",
+                "basis_fact_ids",
+                "counter_fact_ids",
+                "missing_facts",
+                "authority_comment_ids",
+                "application_bridge"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "assessment_id": { "type": "string", "minLength": 1 },
+                "card_id": { "type": "string", "minLength": 1 },
+                "proposition": { "type": "string", "minLength": 1 },
+                "status": {
+                  "enum": ["satisfied", "not_satisfied", "unknown"]
+                },
+                "basis_fact_ids": {
+                  "type": "array",
+                  "maxItems": 24,
+                  "uniqueItems": true,
+                  "items": { "type": "string", "minLength": 1 }
+                },
+                "counter_fact_ids": {
+                  "type": "array",
+                  "maxItems": 24,
+                  "uniqueItems": true,
+                  "items": { "type": "string", "minLength": 1 }
+                },
+                "missing_facts": {
+                  "type": "array",
+                  "maxItems": 12,
+                  "uniqueItems": true,
+                  "items": { "type": "string", "minLength": 1 }
+                },
+                "authority_comment_ids": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 8,
+                  "uniqueItems": true,
+                  "items": { "type": "string", "minLength": 1 }
+                },
+                "application_bridge": { "type": "string", "minLength": 1 }
+              }
+            }
+          },
+          "required_fact_ids": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 24,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "required_authority_comment_ids": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 16,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "required_conclusion": {
+            "enum": ["satisfied", "not_satisfied", "unknown", "conflict"]
+          }
+        }
+      }
+    },
+    "generation_policy": {
+      "type": "object",
+      "required": [
+        "use_only_supplied_facts",
+        "use_only_supplied_authorities",
+        "preserve_unknown",
+        "match_required_conclusions"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "use_only_supplied_facts": { "const": true },
+        "use_only_supplied_authorities": { "const": true },
+        "preserve_unknown": { "const": true },
+        "match_required_conclusions": { "const": true }
+      }
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "$id": "idpr/LongFormLegalAnswer",
+  "description": "A human-readable Korean legal answer with internal provenance metadata.",
+  "type": "object",
+  "required": [
+    "version",
+    "case_id",
+    "method_id",
+    "title",
+    "sections",
+    "overall_conclusion",
+    "summary"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": "1.0.0" },
+    "case_id": { "type": "string", "minLength": 1 },
+    "method_id": {
+      "enum": [
+        "m1_direct",
+        "m2_rag",
+        "m3_factgraph_rag",
+        "m4_factgraph_scallop",
+        "m5_irac_plan",
+        "m6_claim_verified"
+      ]
+    },
+    "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "required": [
+          "section_id",
+          "heading",
+          "body",
+          "cited_fact_ids",
+          "cited_card_ids",
+          "cited_authority_comment_ids",
+          "stated_conclusion"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "section_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{2,63}$"
+          },
+          "heading": { "type": "string", "minLength": 1, "maxLength": 200 },
+          "body": { "type": "string", "minLength": 1, "maxLength": 6000 },
+          "cited_fact_ids": {
+            "type": "array",
+            "maxItems": 24,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "cited_card_ids": {
+            "type": "array",
+            "maxItems": 24,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "cited_authority_comment_ids": {
+            "type": "array",
+            "maxItems": 24,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "stated_conclusion": {
+            "enum": ["satisfied", "not_satisfied", "unknown", "not_applicable"]
+          }
+        }
+      }
+    },
+    "overall_conclusion": {
+      "enum": ["established", "not_established", "undetermined", "conflict"]
+    },
+    "summary": { "type": "string", "minLength": 1, "maxLength": 1200 }
+  }
+}

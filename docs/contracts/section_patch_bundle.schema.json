@@ -1,0 +1,56 @@
+{
+  "$id": "idpr/LongFormSectionPatchBundle",
+  "description": "Replacement sections for only the failed parts of a generated answer.",
+  "type": "object",
+  "required": ["version", "case_id", "method_id", "patches"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": "1.0.0" },
+    "case_id": { "type": "string", "minLength": 1 },
+    "method_id": { "const": "m6_claim_verified" },
+    "patches": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "required": [
+          "section_id",
+          "heading",
+          "body",
+          "cited_fact_ids",
+          "cited_card_ids",
+          "cited_authority_comment_ids",
+          "stated_conclusion"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "section_id": { "type": "string", "minLength": 1 },
+          "heading": { "type": "string", "minLength": 1, "maxLength": 200 },
+          "body": { "type": "string", "minLength": 1, "maxLength": 6000 },
+          "cited_fact_ids": {
+            "type": "array",
+            "maxItems": 24,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "cited_card_ids": {
+            "type": "array",
+            "maxItems": 24,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "cited_authority_comment_ids": {
+            "type": "array",
+            "maxItems": 24,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "stated_conclusion": {
+            "enum": ["satisfied", "not_satisfied", "unknown", "not_applicable"]
+          }
+        }
+      }
+    }
+  }
+}
