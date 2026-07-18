@@ -52,6 +52,11 @@ def test_kcl_case_is_deterministic_issue_slice_without_rubric_leakage() -> None:
     assert case["source"]["sub_question_id"] == "kcl_criminal_r14_p1_q2"
     assert case["case_text"].startswith("(2) 乙은")
     assert "\n(3)" not in case["case_text"]
+    assert case["target"]["target_transaction"] == {
+        "description": "B가 乙에게 3천만 원을 빌려준 차용 거래",
+        "transferor_hint": "B",
+        "immediate_recipient_hint": "乙",
+    }
     assert "rubric" not in json.dumps(fact_graph_request(case), ensure_ascii=False).lower()
     assert "rubric_count" not in case
     assert "rubric_summary" not in case
@@ -84,6 +89,32 @@ def test_fact_graph_rejects_unknown_fact_participant() -> None:
     invalid["facts"][0]["participants"] = ["unknown_actor"]
 
     with pytest.raises(NeuralContractError, match="unknown participants"):
+        validate_fraud_fact_graph(invalid, case)
+
+
+def test_fact_graph_allows_roleless_context_actor_but_enforces_target_transaction() -> None:
+    case, fact_graph, _, _, _ = neural_inputs()
+    with_context = copy.deepcopy(fact_graph)
+    with_context["actors"].append(
+        {"entity_id": "byeong", "mentions": ["丙"], "roles": []}
+    )
+    with_context["facts"].append(
+        {
+            "fact_id": "fact_005",
+            "fact_kind": "transfer",
+            "statement": "乙은 丙에게 돈을 전달했다.",
+            "source_quote": "乙은 평소 P1과 친분이 있는 丙에게 이러한 사정을 말하고 B에게서 빌린 3천만 원을 주면서",
+            "participants": ["eul", "byeong"],
+            "epistemic_status": "given",
+            "issue_effects": [{"issue_id": "fraud_intent", "direction": "supports"}],
+        }
+    )
+    validate_fraud_fact_graph(with_context, case)
+
+    invalid = copy.deepcopy(with_context)
+    invalid["actors"][0]["roles"].remove("beneficiary")
+    invalid["actors"][2]["roles"] = ["beneficiary"]
+    with pytest.raises(NeuralContractError, match="target transaction hint 乙"):
         validate_fraud_fact_graph(invalid, case)
 
 

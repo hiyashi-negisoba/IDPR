@@ -19,7 +19,12 @@
   "target": {
     "counterparty_hint": "B",
     "defendant_hint": "乙",
-    "issue_id": "fraud"
+    "issue_id": "fraud",
+    "target_transaction": {
+      "description": "B가 乙에게 3천만 원을 빌려준 차용 거래",
+      "immediate_recipient_hint": "乙",
+      "transferor_hint": "B"
+    }
   },
   "version": "1.0.0"
 }

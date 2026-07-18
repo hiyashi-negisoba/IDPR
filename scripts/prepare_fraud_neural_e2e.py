@@ -80,6 +80,11 @@ def build_case() -> dict[str, Any]:
             "issue_id": "fraud",
             "defendant_hint": "乙",
             "counterparty_hint": "B",
+            "target_transaction": {
+                "description": "B가 乙에게 3천만 원을 빌려준 차용 거래",
+                "transferor_hint": "B",
+                "immediate_recipient_hint": "乙",
+            },
         },
         "allowed_profiles": ["ordinary", "loan_purpose"],
         "rule_set_id": "kr.fraud.article347.full.v1_candidate",

@@ -92,6 +92,23 @@ def validate_fraud_fact_graph(
         if defendant_hint not in defendant.get("mentions", []):
             errors.append("resolved defendant does not include defendant_hint")
 
+    target_transaction = case.get("target", {}).get("target_transaction", {})
+    transaction_role_hints = {
+        "disposer": str(target_transaction.get("transferor_hint", "")),
+        "beneficiary": str(
+            target_transaction.get("immediate_recipient_hint", "")
+        ),
+    }
+    actors_by_id = {actor.get("entity_id", ""): actor for actor in actors}
+    for role, hint in transaction_role_hints.items():
+        owners = role_owners.get(role, [])
+        if hint and len(owners) == 1:
+            owner = actors_by_id.get(owners[0], {})
+            if hint not in owner.get("mentions", []):
+                errors.append(
+                    f"resolved {role} does not match target transaction hint {hint}"
+                )
+
     fact_ids: set[str] = set()
     for index, fact in enumerate(payload.get("facts", [])):
         fact_id = fact.get("fact_id", "")
