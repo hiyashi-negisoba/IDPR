@@ -1,8 +1,17 @@
 {
   "architecture": {
+    "common_core_activation": "최종 성립에는 공통 canonical gate가 항상 필요하다. 다만 같은 gate를 채우는 모든 support card를 한 사건에서 전부 평가한다는 뜻은 아니다.",
     "final_core_rule": "fraud.core.outcome.established",
     "physical_layout": "현재는 단일 RuleIR 안의 논리 모듈이다. 사용자·Sol 검수 후 Scallop import 경계를 확정하면서 물리 파일 분리를 검토한다.",
     "principle": "법학적 구성요건 core는 주체·객체·객관적 행위·주관적 요건으로 구성한다. 그 아래 실행 profile과 adapter가 canonical interface를 채우고 최종 core는 세부 유형을 알지 않은 채 이를 AND 결합한다.",
+    "profile_activation": {
+      "coverage": "open_ended_non_exhaustive",
+      "default": "off",
+      "irrelevant_profile": "emit no profile assessment relation",
+      "relevant_but_underdetermined": "emit explicit unknown relation",
+      "runtime_trigger": "a profile rule can fire only when a profile-specific assess relation and its matching provable relation exist",
+      "selection": "case router selects zero or more relevant profiles"
+    },
     "routing_semantics": "관련 없는 module은 relation을 만들지 않는다. 관련되지만 자료가 부족한 쟁점만 unknown으로 명시한다."
   },
   "canonical_interfaces": {
@@ -405,6 +414,6 @@
     }
   ],
   "rule_set_id": "kr.fraud.article347.full.v1_candidate",
-  "status": "draft_human_review_pending",
+  "status": "human_review_approved_sol_pending",
   "version": "1.0.0"
 }

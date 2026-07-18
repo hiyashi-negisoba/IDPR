@@ -157,6 +157,10 @@ FULL_RULE_IR_EXPLANATION = (
 FULL_RULE_IR_POST_STATUS = (
     PROJECT_ROOT / "data/rulegen/fraud/fraud_full_rule_ir_post_terra_status.json"
 )
+FULL_RULE_IR_HUMAN_DECISION = (
+    PROJECT_ROOT
+    / "data/rulegen/fraud/fraud_full_rule_ir_human_review_decision.json"
+)
 FULL_RULE_IR_TERRA_AUDIT = (
     PROJECT_ROOT
     / "data/rulegen/fraud/fraud_full_rule_ir_terra_failure_audit.json"
@@ -1568,6 +1572,10 @@ def test_full_fraud_rule_ir_module_ownership_is_exhaustive_and_exclusive() -> No
         "duplicate_cards": 0,
         "missing_cards": 0,
     }
+    activation = tracked["architecture"]["profile_activation"]
+    assert activation["default"] == "off"
+    assert activation["selection"] == "case router selects zero or more relevant profiles"
+    assert activation["coverage"] == "open_ended_non_exhaustive"
     assert len(tracked["modules"]) == 15
     loan = next(
         module for module in tracked["modules"] if module["module_id"] == "profile.loan"
@@ -1588,6 +1596,8 @@ def test_full_fraud_module_review_is_human_readable_and_complete() -> None:
     assert "1. 주체: 특별한 신분을 요구하지 않는 일반범" in tracked
     assert "2. 객체: 타인이 점유하는 타인의 재물 또는 재산상 이익" in tracked
     assert "변제 의사·능력은 모든 사기에 필요한 독립 구성요건이 아니다" in tracked
+    assert "사실유형 프로파일은 전부 기본 OFF" in tracked
+    assert "어느 프로파일에도 해당하지 않는 사건도 공통 코어만으로 판단" in tracked
     assert "## 1. 공통 기망" in tracked
     assert "## 15. 미수·기수 및 사후사정" in tracked
     assert tracked.count("보조 ID:") == 88
@@ -1616,10 +1626,13 @@ def test_full_fraud_rule_ir_preserves_nonbars_and_top_level_conflict() -> None:
     )
 
 
-def test_terra_partial_output_is_audited_and_human_gate_is_next() -> None:
+def test_terra_partial_output_is_audited_and_sol_gate_is_next() -> None:
     audit = json.loads(FULL_RULE_IR_TERRA_AUDIT.read_text(encoding="utf-8"))
     terra_output = json.loads(FULL_RULE_IR_TERRA_OUTPUT.read_text(encoding="utf-8"))
     status = json.loads(FULL_RULE_IR_POST_STATUS.read_text(encoding="utf-8"))
+    human_decision = json.loads(
+        FULL_RULE_IR_HUMAN_DECISION.read_text(encoding="utf-8")
+    )
     explanation = FULL_RULE_IR_EXPLANATION.read_text(encoding="utf-8")
 
     assert audit["status"] == "rejected_partial_output"
@@ -1627,9 +1640,15 @@ def test_terra_partial_output_is_audited_and_human_gate_is_next() -> None:
     assert audit["terra_counts"] == {"norm_cards": 8, "predicates": 6, "rules": 4}
     assert audit["required_counts"] == {"norm_cards": 88}
     assert len(terra_output["norm_card_scope"]["card_ids"]) == 8
-    assert status["status"] == "agent_review_complete_human_review_pending"
-    assert status["human_rule_ir_review_allowed"]
-    assert not status["sol_critic_allowed"]
+    assert status["status"] == "human_review_complete_sol_authorized"
+    assert not status["human_rule_ir_review_allowed"]
+    assert status["human_rule_ir_review"] == "approved"
+    assert status["sol_critic_allowed"]
+    assert status["sol_critic_execution_authorized"]
     assert not status["scallop_compile_allowed"]
+    assert human_decision["status"] == "approved"
+    assert human_decision["approved_conditions"]["type_profiles"].startswith(
+        "default off"
+    )
     assert "피기망자와 처분자는 같은 변수" in explanation
     assert "established_and_not_established" in explanation

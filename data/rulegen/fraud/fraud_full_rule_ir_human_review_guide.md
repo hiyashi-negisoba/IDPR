@@ -7,4 +7,4 @@ JSON 소유권표는 기계 검증용이므로 읽을 필요가 없다. 먼저 `
 3. 그 다음 `fraud_full_rule_ir_natural_language_explanation.md`의 최종 AND gate와 역할·취득 adapter 부분만 확인한다.
 4. 개별 rule까지 확인할 필요가 있을 때만 자연어 설명의 Rule별 해설이나 JSON을 본다.
 
-현재 predicate 196개, rule 338개다. 사용자 승인 전 Sol과 Scallop compile/runtime은 차단한다.
+현재 predicate 196개, rule 338개다. 사용자 검수는 승인됐고 다음 gate는 Sol이다. Sol API 실행은 별도 사용자 승인이 필요하며 Scallop compile/runtime은 Sol과 후속 사용자 검수 전까지 차단한다.

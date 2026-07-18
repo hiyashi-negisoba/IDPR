@@ -2,7 +2,7 @@
 
 ## 판정
 
-**구조 검증 통과, 사용자 법률 검수 필요.** Terra의 원본 부분 출력은 candidate로 사용하지 않았고, 승인된 88장만으로 수동·결정적으로 재구성했다.
+**구조 검증 통과, 사용자 법률 검수 승인, Sol 대기.** Terra의 원본 부분 출력은 candidate로 사용하지 않았고, 승인된 88장만으로 수동·결정적으로 재구성했다.
 
 ## 자동 검증
 
@@ -15,6 +15,7 @@
 - negation 및 active_policy 부재: 통과
 - 피기망자=처분자 성립 head: 통과
 - module ownership: 15개 모듈, 88/88, 중복 0
+- profile activation: 기본 OFF, 사건별 0개 이상 선택, 비망라적 registry
 - 최종 fraud_established rule: 1개
 - established/not_established/undetermined/conflict 구현: 통과
 
@@ -28,6 +29,7 @@
 6. 사기미수·절도·횡령·정당행위가 문제되는 bar는 현재 fraud_not_established의 issue_id로 노출한다. 후속 죄명 결론은 아직 만들지 않았다.
 7. 차용금·광고·부작위·묵시적 기망·권리행사 기준은 각각 profile 소유다. 공통 core는 이들의 세부 카드 대신 canonical component만 소비한다.
 8. 재물과 재산상 이익 모듈은 실행상 분리되어 있지만 법학적 상위 분류에서는 모두 공통 객관적 구성요건 코어에 속한다. 변제 의사·능력은 차용금 profile이 기망·고의 component로 변환한다.
+9. 사실유형 profile은 항상 켜지지 않는다. 관련 profile의 assess relation과 provable이 함께 있을 때만 작동하며, 목록은 비망라적이다.
 
 ## 남은 위험
 

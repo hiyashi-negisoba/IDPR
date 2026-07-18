@@ -48,6 +48,7 @@ TERRA_AUDIT = FRAUD_ROOT / "fraud_full_rule_ir_terra_failure_audit.json"
 TRACKED_TERRA_OUTPUT = FRAUD_ROOT / "fraud_full_rule_ir_terra_partial_output.json"
 MODULE_OWNERSHIP = FRAUD_ROOT / "fraud_rule_ir_module_ownership.json"
 MODULE_HUMAN_REVIEW = FRAUD_ROOT / "fraud_rule_ir_module_human_review.md"
+HUMAN_REVIEW_DECISION = FRAUD_ROOT / "fraud_full_rule_ir_human_review_decision.json"
 
 
 ACTOR_ARGUMENTS = [
@@ -587,7 +588,7 @@ def build_module_ownership(aggregate: dict[str, Any]) -> dict[str, Any]:
     return {
         "version": "1.0.0",
         "rule_set_id": "kr.fraud.article347.full.v1_candidate",
-        "status": "draft_human_review_pending",
+        "status": "human_review_approved_sol_pending",
         "architecture": {
             "final_core_rule": "fraud.core.outcome.established",
             "principle": (
@@ -599,6 +600,21 @@ def build_module_ownership(aggregate: dict[str, Any]) -> dict[str, Any]:
                 "관련 없는 module은 relation을 만들지 않는다. 관련되지만 자료가 "
                 "부족한 쟁점만 unknown으로 명시한다."
             ),
+            "common_core_activation": (
+                "최종 성립에는 공통 canonical gate가 항상 필요하다. 다만 같은 gate를 "
+                "채우는 모든 support card를 한 사건에서 전부 평가한다는 뜻은 아니다."
+            ),
+            "profile_activation": {
+                "default": "off",
+                "selection": "case router selects zero or more relevant profiles",
+                "coverage": "open_ended_non_exhaustive",
+                "irrelevant_profile": "emit no profile assessment relation",
+                "relevant_but_underdetermined": "emit explicit unknown relation",
+                "runtime_trigger": (
+                    "a profile rule can fire only when a profile-specific assess relation "
+                    "and its matching provable relation exist"
+                ),
+            },
             "physical_layout": (
                 "현재는 단일 RuleIR 안의 논리 모듈이다. 사용자·Sol 검수 후 Scallop "
                 "import 경계를 확정하면서 물리 파일 분리를 검토한다."
@@ -738,6 +754,19 @@ def build_module_human_review(aggregate: dict[str, Any]) -> str:
         "따라서 일반 사건에서는 공통 구성요건 코어를 쓰고, 사실관계에 해당하는 "
         "프로파일·구조·경계·단계 모듈만 추가로 연다. 아래에는 각 모듈과 그 모듈에 "
         "들어간 카드 원문을 붙여 두었다. JSON은 기계 검증용이므로 검수할 필요가 없다.",
+        "",
+        "## 실행 원칙: 공통 코어와 사실유형 프로파일",
+        "",
+        "- 공통 코어의 canonical gate는 최종 사기죄 판단에서 항상 필요하다.",
+        "- 사실유형 프로파일은 전부 기본 OFF이며, 사건 라우터가 관련성을 확인한 것만 "
+        "0개 이상 선택한다.",
+        "- 현재 다섯 프로파일은 알려진 반복 특수규칙의 초기 목록이지 사기 유형의 "
+        "완전한 목록이 아니다.",
+        "- 어느 프로파일에도 해당하지 않는 사건도 공통 코어만으로 판단할 수 있다.",
+        "- 관련 없는 프로파일에는 평가 relation을 만들지 않는다. 이는 false도 unknown도 아니다.",
+        "- 관련성은 있지만 자료가 부족한 경우에만 그 프로파일 쟁점을 unknown으로 만든다.",
+        "- 새 판례 RAG에서 반복 가능한 특수규칙이 확인되면 기존 코어를 바꾸지 않고 "
+        "새 프로파일을 추가한다.",
         "",
         "## 한눈에 보는 15개",
         "",
@@ -1516,6 +1545,10 @@ def build_explanation(rule_ir: dict[str, Any], aggregate: dict[str, Any]) -> str
         "88개 relation을 모든 사건에 전부 생성하지 않는다. 사건 유형 routing에서 관련 "
         "없는 카드는 relation을 만들지 않는다. 관련 쟁점이지만 자료가 부족할 때만 "
         "`unknown` 행을 명시적으로 만들며, relation 부재는 false도 unknown도 아니다.",
+        "공통 코어의 canonical gate는 최종 결론에 항상 필요하지만, 사실유형 profile은 "
+        "기본 OFF다. case router가 관련 profile을 0개 이상 선택하고 profile 전용 assess "
+        "relation과 `provable`이 함께 있을 때만 해당 규칙이 작동한다. 현재 profile 목록은 "
+        "비망라적이며 어느 profile에도 해당하지 않는 사건도 공통 코어로 판단한다.",
         "",
         "모든 substantive 경로는 같은 사건과 평가 ID의 `provable(case_id, "
         "assessment_id)`를 요구한다. 따라서 증거능력·신빙성 검토를 통과하지 않은 진술은 "
@@ -1675,8 +1708,8 @@ def build_agent_review(rule_ir: dict[str, Any], aggregate: dict[str, Any]) -> st
             "",
             "## 판정",
             "",
-            "**구조 검증 통과, 사용자 법률 검수 필요.** Terra의 원본 부분 출력은 candidate로 "
-            "사용하지 않았고, 승인된 88장만으로 수동·결정적으로 재구성했다.",
+            "**구조 검증 통과, 사용자 법률 검수 승인, Sol 대기.** Terra의 원본 부분 출력은 "
+            "candidate로 사용하지 않았고, 승인된 88장만으로 수동·결정적으로 재구성했다.",
             "",
             "## 자동 검증",
             "",
@@ -1689,6 +1722,7 @@ def build_agent_review(rule_ir: dict[str, Any], aggregate: dict[str, Any]) -> st
             "- negation 및 active_policy 부재: 통과",
             "- 피기망자=처분자 성립 head: 통과",
             f"- module ownership: {len(module_ownership['modules'])}개 모듈, 88/88, 중복 0",
+            "- profile activation: 기본 OFF, 사건별 0개 이상 선택, 비망라적 registry",
             "- 최종 fraud_established rule: 1개",
             "- established/not_established/undetermined/conflict 구현: 통과",
             "",
@@ -1711,6 +1745,8 @@ def build_agent_review(rule_ir: dict[str, Any], aggregate: dict[str, Any]) -> st
             "8. 재물과 재산상 이익 모듈은 실행상 분리되어 있지만 법학적 상위 분류에서는 "
             "모두 공통 객관적 구성요건 코어에 속한다. 변제 의사·능력은 차용금 profile이 "
             "기망·고의 component로 변환한다.",
+            "9. 사실유형 profile은 항상 켜지지 않는다. 관련 profile의 assess relation과 "
+            "provable이 함께 있을 때만 작동하며, 목록은 비망라적이다.",
             "",
             "## 남은 위험",
             "",
@@ -1743,7 +1779,8 @@ def build_human_guide(rule_ir: dict[str, Any]) -> str:
             "4. 개별 rule까지 확인할 필요가 있을 때만 자연어 설명의 Rule별 해설이나 JSON을 본다.",
             "",
             f"현재 predicate {len(rule_ir['predicates'])}개, rule {len(rule_ir['rules'])}개다. "
-            "사용자 승인 전 Sol과 Scallop compile/runtime은 차단한다.",
+            "사용자 검수는 승인됐고 다음 gate는 Sol이다. Sol API 실행은 별도 사용자 "
+            "승인이 필요하며 Scallop compile/runtime은 Sol과 후속 사용자 검수 전까지 차단한다.",
             "",
         ]
     )
@@ -1778,6 +1815,34 @@ def main() -> None:
         build_agent_review(rule_ir, aggregate), encoding="utf-8"
     )
     HUMAN_GUIDE.write_text(build_human_guide(rule_ir), encoding="utf-8")
+    write_json(
+        HUMAN_REVIEW_DECISION,
+        {
+            "version": "1.0.0",
+            "decision_id": "fraud.full.rule_ir.human_review.v1",
+            "status": "approved",
+            "decided_on": "2026-07-18",
+            "review_scope": [
+                "common constitutive core",
+                "module ownership and legal layers",
+                "selective profile activation",
+                "canonical role and beneficiary adapters",
+            ],
+            "approved_conditions": {
+                "common_core": "required by the final fraud conclusion",
+                "type_profiles": "default off and selected zero or more by relevance",
+                "profile_registry": "open ended and non-exhaustive",
+                "irrelevant_profile": "no relation, not false or unknown",
+                "unknown": "only for a relevant but underdetermined issue",
+            },
+            "next_sequence": [
+                "one Sol critic call",
+                "agent source-grounded re-review and manual correction",
+                "human re-review",
+                "Scallop compile and runtime tests",
+            ],
+        },
+    )
 
     terra_audit = {
         "version": "1.0.0",
@@ -1804,15 +1869,19 @@ def main() -> None:
         POST_TERRA_STATUS,
         {
             "version": "1.0.0",
-            "status": "agent_review_complete_human_review_pending",
+            "status": "human_review_complete_sol_authorized",
             "terra_api_calls": run_summary["api_calls"],
             "terra_raw_output": "rejected_partial_output",
             "local_contract_validation": "pass",
             "agent_rule_by_rule_review": "complete",
             "agent_natural_language_explanation": "complete",
-            "human_rule_ir_review_allowed": True,
-            "human_rule_ir_review": "pending",
-            "sol_critic_allowed": False,
+            "human_rule_ir_review_allowed": False,
+            "human_rule_ir_review": "approved",
+            "human_review_decision_path": str(
+                HUMAN_REVIEW_DECISION.relative_to(PROJECT_ROOT)
+            ),
+            "sol_critic_allowed": True,
+            "sol_critic_execution_authorized": True,
             "scallop_compile_allowed": False,
             "candidate_path": str(CANDIDATE.relative_to(PROJECT_ROOT)),
             "explanation_path": str(EXPLANATION.relative_to(PROJECT_ROOT)),
@@ -1835,7 +1904,7 @@ def main() -> None:
                 "rules": len(rule_ir["rules"]),
                 "modules": len(module_ownership["modules"]),
                 "validation": "pass",
-                "next_gate": "human_rule_ir_review",
+                "next_gate": "sol_critic",
             },
             ensure_ascii=False,
             sort_keys=True,

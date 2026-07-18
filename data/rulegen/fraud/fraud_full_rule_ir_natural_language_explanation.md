@@ -13,6 +13,7 @@
 60개 `kind=standard` 입력은 기망의 신의칙 위반, 고의, 인과의 실질성처럼 개방형 법적 기준을 사건에 적용한 판단이다. 28개 `kind=rule` 입력은 모델이 법적 결론을 대신 내리는 것이 아니라 동일인 여부, 이전·지배취득, 순서 같은 결정규칙의 사실적 전제를 구조화한 rule fact다.
 
 88개 relation을 모든 사건에 전부 생성하지 않는다. 사건 유형 routing에서 관련 없는 카드는 relation을 만들지 않는다. 관련 쟁점이지만 자료가 부족할 때만 `unknown` 행을 명시적으로 만들며, relation 부재는 false도 unknown도 아니다.
+공통 코어의 canonical gate는 최종 결론에 항상 필요하지만, 사실유형 profile은 기본 OFF다. case router가 관련 profile을 0개 이상 선택하고 profile 전용 assess relation과 `provable`이 함께 있을 때만 해당 규칙이 작동한다. 현재 profile 목록은 비망라적이며 어느 profile에도 해당하지 않는 사건도 공통 코어로 판단한다.
 
 모든 substantive 경로는 같은 사건과 평가 ID의 `provable(case_id, assessment_id)`를 요구한다. 따라서 증거능력·신빙성 검토를 통과하지 않은 진술은 구성요건 판단에 들어가지 않는다.
 
