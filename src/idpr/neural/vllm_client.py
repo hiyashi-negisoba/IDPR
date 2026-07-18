@@ -59,9 +59,20 @@ class VLLMClient:
             raise VLLMClientError(f"vLLM request failed: {exc}") from exc
 
         try:
-            content = response_payload["choices"][0]["message"]["content"]
+            choice = response_payload["choices"][0]
+            content = choice["message"]["content"]
             output = json.loads(content)
-        except (KeyError, IndexError, TypeError, json.JSONDecodeError) as exc:
+        except json.JSONDecodeError as exc:
+            finish_reason = response_payload.get("choices", [{}])[0].get(
+                "finish_reason"
+            )
+            content_text = content if isinstance(content, str) else repr(content)
+            raise VLLMClientError(
+                "vLLM response contains incomplete JSON: "
+                f"finish_reason={finish_reason}, characters={len(content_text)}, "
+                f"suffix={content_text[-500:]!r}"
+            ) from exc
+        except (KeyError, IndexError, TypeError) as exc:
             raise VLLMClientError("vLLM response does not contain one JSON object") from exc
         if not isinstance(output, dict):
             raise VLLMClientError("vLLM structured output must be a JSON object")
@@ -69,7 +80,7 @@ class VLLMClient:
             "id": response_payload.get("id"),
             "model": response_payload.get("model"),
             "usage": response_payload.get("usage", {}),
-            "finish_reason": response_payload["choices"][0].get("finish_reason"),
+            "finish_reason": choice.get("finish_reason"),
         }
         return output, metadata
 

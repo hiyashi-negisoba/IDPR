@@ -20,6 +20,7 @@
     "actors": {
       "type": "array",
       "minItems": 2,
+      "maxItems": 8,
       "items": {
         "type": "object",
         "required": ["entity_id", "mentions", "roles"],
@@ -32,12 +33,14 @@
           "mentions": {
             "type": "array",
             "minItems": 1,
+            "maxItems": 4,
             "uniqueItems": true,
             "items": { "type": "string", "minLength": 1 }
           },
           "roles": {
             "type": "array",
             "minItems": 1,
+            "maxItems": 5,
             "uniqueItems": true,
             "items": {
               "enum": [
@@ -55,6 +58,7 @@
     "facts": {
       "type": "array",
       "minItems": 1,
+      "maxItems": 24,
       "items": {
         "type": "object",
         "required": [
@@ -89,6 +93,7 @@
           "participants": {
             "type": "array",
             "minItems": 1,
+            "maxItems": 5,
             "uniqueItems": true,
             "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
           },
@@ -98,6 +103,7 @@
           "issue_effects": {
             "type": "array",
             "minItems": 1,
+            "maxItems": 8,
             "items": {
               "type": "object",
               "required": ["issue_id", "direction"],
@@ -114,6 +120,7 @@
     "profiles": {
       "type": "array",
       "minItems": 1,
+      "maxItems": 9,
       "uniqueItems": true,
       "items": {
         "enum": [
@@ -132,11 +139,13 @@
     "retrieval_queries": {
       "type": "array",
       "minItems": 1,
+      "maxItems": 6,
       "uniqueItems": true,
       "items": { "type": "string", "minLength": 1 }
     },
     "unresolved_questions": {
       "type": "array",
+      "maxItems": 12,
       "uniqueItems": true,
       "items": { "type": "string", "minLength": 1 }
     }

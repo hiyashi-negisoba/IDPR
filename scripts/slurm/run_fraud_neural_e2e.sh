@@ -68,6 +68,7 @@ for ATTEMPT in 1 2 3; do
         --max-num-seqs 1 \
         --gpu-memory-utilization 0.90 \
         --reasoning-parser gemma4 \
+        --structured-outputs-config '{"disable_any_whitespace":true}' \
         > "$VLLM_LOG" 2>&1 &
     VLLM_PID=$!
     for _ in $(seq 1 180); do
