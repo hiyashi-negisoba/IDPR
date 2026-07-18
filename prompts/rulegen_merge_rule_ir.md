@@ -13,6 +13,11 @@ Rules:
 2. Declare every predicate before use. Use stable snake_case identifiers and explicit
    argument names/types. Preserve actor roles such as defendant, deceived person, property
    owner, disposer, asset, evidence, and beneficiary instead of collapsing all persons.
+   Separate role slots do not imply different natural persons: reuse the same entity ID when
+   one person occupies multiple roles. In every `fraud_established` head, the deceived-person
+   and disposer positions must use the same variable. The property owner may be that person
+   or a different person; when different, the approved triangular-fraud authority standard
+   must be satisfied.
 3. Predicate `kind=rule` is for mechanically enumerable relations. Use `kind=standard` for
    open-textured legal classification, materiality, causation, intent, reasonableness, or
    other evaluative application. A standard is an input judgment and must not be derived by

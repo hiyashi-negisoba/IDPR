@@ -873,7 +873,7 @@ RAG로 내리고, 손해 불요는 2003도4914·2017도21196 출처가 연결된
 - 생성 단위: Terra 단일 호출 1회
 - 실행 ceiling: 동시성 1, retry 0, max completion 64,000 tokens
 - 준비 단계 API 호출: 0회
-- 사용자 사전 검수: 10개 pending
+- 사용자 사전 검수: 10/10 승인
 
 현재 계약은 모든 commentary input에
 `(case_id, assessment_id, ..., status)`와 같은 평가 ID의
@@ -906,3 +906,11 @@ runtime/golden test를 실행한다.
 - RuleIR 구조·full-generation contract 테스트: 통과
 - `tests/test_rulegen_exemplar.py`: `28 passed`
 - 전체 테스트: `55 passed`
+
+사용자 승인 시 역할 인자의 의미를 추가로 명확히 했다. 역할 슬롯을 분리하는 것은 각
+역할이 별개의 사람이라는 뜻이 아니며 동일인이 여러 역할을 맡으면 같은 entity ID를
+사용한다. 사기 성립 rule에서는 피기망자와 처분행위자에 반드시 같은 변수를 사용하고,
+그 사람과 재산소유자가 다른 경우 삼각사기의 처분 권능 또는 지위를 별도로 심사한다.
+해당 조건은 prompt, generation request, full-generation validator와 부정 테스트에 모두
+반영했다. 승인 반영 뒤 dry-run은 `execution_allowed=true`이나 Terra는 아직 호출하지
+않았다.

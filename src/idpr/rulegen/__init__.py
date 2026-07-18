@@ -1005,7 +1005,8 @@ def validate_full_rule_ir_generation(
     rule_head_predicates: set[str] = set()
     for rule_index, rule in enumerate(rules):
         head = rule.get("head", {})
-        rule_head_predicates.add(head.get("predicate", ""))
+        head_predicate = head.get("predicate", "")
+        rule_head_predicates.add(head_predicate)
         body = rule.get("body", [])
         if any(atom.get("negated", False) for atom in body):
             errors.append(f"rules[{rule_index}] uses forbidden open-world negation")
@@ -1013,6 +1014,16 @@ def validate_full_rule_ir_generation(
         expected_case = head_arguments[0] if head_arguments else None
         if not expected_case or expected_case.get("kind") != "variable":
             errors.append(f"rules[{rule_index}] head must start with a case variable")
+        if head_predicate == "fraud_established":
+            if (
+                len(head_arguments) < 4
+                or head_arguments[2].get("kind") != "variable"
+                or head_arguments[2] != head_arguments[3]
+            ):
+                errors.append(
+                    f"rules[{rule_index}] must use one variable for deceived person "
+                    "and disposer"
+                )
         for atom_index, atom in enumerate(body):
             arguments = atom.get("arguments", [])
             if not arguments or arguments[0] != expected_case:
@@ -1146,6 +1157,7 @@ def render_rule_ir_natural_language_scaffold(payload: Mapping[str, Any]) -> str:
             "- 구성요건별 satisfied/not_satisfied/unknown 전파 경로",
             "- negative·exception 카드가 불성립 경로에 들어가는 방식",
             "- 삼각사기에서 피기망자·처분자·재산소유자·수익자 역할 구별",
+            "- 역할 슬롯은 분리하되 동일 인물이 여러 역할을 맡을 때 같은 ID를 쓰는 방식",
             "- 차용금 사기 기준과 일반 사기 기준의 관계",
             "- 동시에 상반된 assessment가 있을 때 conflict가 도출되는 방식",
             "- RAG로 제외된 구체 유형을 언제 검색해야 하는지",

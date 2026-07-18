@@ -3,13 +3,13 @@
   "artifacts": {
     "data/commentary/kcl_criminal_v1_commentary_chunks.jsonl": "605c2bb1aa766a424d3938cbdc9e2d2b8077ce2baab5855448c81a291aeb288e",
     "data/rulegen/fraud/fraud_core_norm_card_set.json": "e9c239892d033bb69a844825a561189bcda2646dd6703fb3bbd919ebc650875a",
-    "data/rulegen/fraud/fraud_full_rule_ir_generation_request.json": "29a271537096917a45394994a308b347a5cb9706f6aa594a42167d348a7266af",
+    "data/rulegen/fraud/fraud_full_rule_ir_generation_request.json": "4159ff6712f89669d15869379a43468e06ac90ebc7786f09dca938a5fd1f628d",
     "data/rulegen/fraud/fraud_rule_ir_generation_fewshot.json": "6301ef50ce9ba05d6492cecb71f28c0f5e60c2e922d8a5b4b9a15a46a1ee3b6f",
     "docs/contracts/norm_card_set.schema.json": "3a1d2f3cefae30afb56a4e947d935cd81f09a09d2feca6e64b141a014374f12d",
     "docs/contracts/rule_ir.schema.json": "7be4edc668aa23d5620269027809c1137a8c610f769c73780da4149809f21363",
-    "prompts/rulegen_merge_rule_ir.md": "32c28e7ec8c95db85072a5d823dad6ffc3c2eba792e8b22b4d63e558f132ee78",
+    "prompts/rulegen_merge_rule_ir.md": "6e5e25a3035b0c352808b054d47ca720543d96882992205c1173dd465d9bcb55",
     "rules/exemplars/fraud_rule_ir_generation_fewshot.scl": "078602c1d17b4667a49abcc38e956a724952286d09ba7835b8478a2df848e02c",
-    "src/idpr/rulegen/__init__.py": "373cc22ffc68d1504e470496737dc91fd0343b0bf821a9399bd49899ef933788"
+    "src/idpr/rulegen/__init__.py": "51b4e93d7a972e5b30470f5594ad3eec441f535a55ccc0ade087497a4ba43c4b"
   },
   "execution_limits": {
     "max_concurrency": 1,
@@ -20,10 +20,10 @@
     "agent_natural_language_explanation_required_after_terra": true,
     "agent_preflight_review_complete": true,
     "core_human_review_complete": true,
-    "human_preflight_review_complete": false,
+    "human_preflight_review_complete": true,
     "scallop_runtime_allowed_before_sol_and_human_re_review": false,
     "sol_allowed_before_agent_and_human_review": false,
-    "terra_execution_allowed": false
+    "terra_execution_allowed": true
   },
   "input_counts": {
     "cards": 88,
@@ -67,14 +67,14 @@
     "terra_generation": 1
   },
   "prompt_size": {
-    "estimated_prompt_tokens_high": 78614,
-    "estimated_prompt_tokens_low": 29480,
+    "estimated_prompt_tokens_high": 79093,
+    "estimated_prompt_tokens_low": 29660,
     "expected_completion_tokens_high": 50000,
     "expected_completion_tokens_low": 25000,
     "note": "Korean tokenization and model output density make this a planning range, not billing data.",
-    "payload_chars": 95529,
-    "system_chars": 22391,
-    "total_chars": 117920
+    "payload_chars": 95856,
+    "system_chars": 22783,
+    "total_chars": 118639
   },
   "source_audits": [
     "data/rulegen/fraud/fraud_core_rule_human_review_audit.json",

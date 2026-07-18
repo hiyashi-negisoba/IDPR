@@ -4,7 +4,7 @@
 
 - API 사용: 0회
 - agent preflight: 완료
-- 사용자 결정: pending=10
+- 사용자 결정: completed=10
 - Terra 실행: 사용자 승인 전 차단
 - 입력 core: deterministic 28개 + standard 60개 = 88개
 - 제외 context: 558개
@@ -28,7 +28,7 @@
 | `fraud.rule_ir.prep.single_call` | generation_unit | aggregate NormCardSet 전체를 Terra 단일 호출로 생성한다. | approve |
 | `fraud.rule_ir.prep.standard_state` | standard_assessment_state | standard 결과를 satisfied, not_satisfied, unknown의 명시적 3상태로 받는다. | approve |
 | `fraud.rule_ir.prep.evidence_gate` | evidence_gate | 모든 commentary input은 같은 case_id와 assessment_id의 provable을 함께 요구한다. | approve |
-| `fraud.rule_ir.prep.actor_roles` | actor_role_signature | 피고인, 피기망자, 처분자, 재산소유자, 객체, 수익자를 별도 인자로 유지한다. | approve |
+| `fraud.rule_ir.prep.actor_roles` | actor_role_signature | 피고인, 피기망자, 처분자, 재산소유자, 객체, 수익자를 별도 역할 인자로 유지하되 서로 다른 사람이라고 가정하지 않는다. 성립 rule에서는 피기망자와 처분자에 같은 ID 변수를 사용한다. | approve |
 | `fraud.rule_ir.prep.outputs` | result_interface | 성립, 불성립, undetermined, conflict를 별도 derived predicate로 출력한다. | approve |
 | `fraud.rule_ir.prep.open_world` | open_world_policy | 생성 RuleIR에서는 negation을 금지하고 negative·exception을 명시적 조건으로 표현한다. | approve |
 | `fraud.rule_ir.prep.fewshot` | fewshot_policy | 기존 8장 법리 대신 현재 상태·증거게이트 계약만 보여 주는 2장 구조 예시를 제공한다. | approve |
@@ -46,6 +46,7 @@
 - 남은 구조·법률 질문
 - 각 standard에 필요한 positive·opposing·missing feature와 RAG 검색 시점
 - 삼각사기 역할 인자와 일반 사기에서 동일 인물 ID를 재사용하는 방식
+- 피기망자와 처분자에 동일 변수를 쓰고 재산소유자와의 관계를 나누는 방식
 
 ## 파일
 

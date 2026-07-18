@@ -76,8 +76,11 @@ deterministic rules and 60 standard inputs approved for the executable core; 558
 cards remain retrieval or future-work context. Full RuleIR generation is now
 unblocked but has not yet been run. The API-free generation preflight is tracked
 in `data/rulegen/fraud/fraud_rule_ir_generation_prep_review_guide.md`; Terra is
-hard-blocked until all ten preflight decisions are explicitly approved. After
-generation, local validation, an agent-authored rule-by-rule explanation, human
-review, Sol critique, human re-review, and only then Scallop compilation/runtime
-testing are required. The existing eight-card fraud RuleIR and Scallop files are
-historical structural exemplars rather than the full fraud rule set.
+hard-blocked until all ten preflight decisions are explicitly approved. The ten
+decisions are now approved, including the clarification that role slots do not
+imply distinct people and an established-fraud rule uses one variable for the
+deceived person and disposer. Terra has not yet been called. After generation,
+local validation, an agent-authored rule-by-rule explanation, human review, Sol
+critique, human re-review, and only then Scallop compilation/runtime testing are
+required. The existing eight-card fraud RuleIR and Scallop files are historical
+structural exemplars rather than the full fraud rule set.

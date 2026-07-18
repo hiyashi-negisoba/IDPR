@@ -1306,7 +1306,7 @@ def test_full_rule_ir_contract_accepts_complete_explicit_state_graph() -> None:
                 variable("case_id"),
                 variable("defendant_id"),
                 variable("deceived_person_id"),
-                string("same_disposer"),
+                variable("deceived_person_id"),
                 string("same_owner"),
                 string("subject"),
                 string("beneficiary"),
@@ -1392,6 +1392,29 @@ def test_full_rule_ir_contract_accepts_complete_explicit_state_graph() -> None:
     cross_case["rules"][0]["body"][1]["arguments"][0] = variable("other_case")
     with pytest.raises(RuleIRGenerationContractError, match="head case"):
         validate_full_rule_ir_generation(cross_case, commentary, tiny_aggregate)
+
+    different_deceived_and_disposer = copy.deepcopy(payload)
+    established = next(
+        rule
+        for rule in different_deceived_and_disposer["rules"]
+        if rule["id"] == "test.established"
+    )
+    established["head"]["arguments"][3] = variable("different_disposer")
+    established["body"].append(
+        {
+            "predicate": "deception_supported",
+            "arguments": [
+                variable("case_id"),
+                variable("defendant_id"),
+                variable("different_disposer"),
+            ],
+            "negated": False,
+        }
+    )
+    with pytest.raises(RuleIRGenerationContractError, match="deceived person"):
+        validate_full_rule_ir_generation(
+            different_deceived_and_disposer, commentary, tiny_aggregate
+        )
 
 
 def test_full_rule_ir_runner_is_dry_and_review_gated() -> None:

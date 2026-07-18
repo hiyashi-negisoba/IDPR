@@ -331,8 +331,15 @@ REVIEW_ITEMS = [
         "review_id": "fraud.rule_ir.prep.actor_roles",
         "topic": "actor_role_signature",
         "agent_recommendation": "approve",
-        "proposal": "피고인, 피기망자, 처분자, 재산소유자, 객체, 수익자를 별도 인자로 유지한다.",
-        "rationale": "삼각사기와 제3자 취득형에서 행위자 역할이 합쳐지는 것을 방지한다.",
+        "proposal": (
+            "피고인, 피기망자, 처분자, 재산소유자, 객체, 수익자를 별도 역할 인자로 "
+            "유지하되 서로 다른 사람이라고 가정하지 않는다. 성립 rule에서는 피기망자와 "
+            "처분자에 같은 ID 변수를 사용한다."
+        ),
+        "rationale": (
+            "피기망자와 처분행위자의 동일성을 보존하면서, 삼각사기에서 그 사람과 "
+            "재산소유자가 다른 경우의 처분 권능·지위를 별도로 심사하기 위함이다."
+        ),
     },
     {
         "review_id": "fraud.rule_ir.prep.outputs",
@@ -523,6 +530,16 @@ def main() -> None:
                 "subject_id",
                 "beneficiary_id",
             ],
+            "role_identity": {
+                "separate_slots_imply_distinct_people": False,
+                "same_entity_id_may_fill_multiple_roles": True,
+                "fraud_established_requires_same_variable": [
+                    "deceived_person_id",
+                    "disposer_id",
+                ],
+                "property_owner_may_differ_from_deceived_disposer": True,
+                "different_owner_requires_triangular_fraud_authority_assessment": True,
+            },
             "required_output_predicates": output_signatures,
             "negation_allowed": False,
             "active_policy_allowed": False,
@@ -708,6 +725,7 @@ def main() -> None:
             "- 남은 구조·법률 질문",
             "- 각 standard에 필요한 positive·opposing·missing feature와 RAG 검색 시점",
             "- 삼각사기 역할 인자와 일반 사기에서 동일 인물 ID를 재사용하는 방식",
+            "- 피기망자와 처분자에 동일 변수를 쓰고 재산소유자와의 관계를 나누는 방식",
             "",
             "## 파일",
             "",

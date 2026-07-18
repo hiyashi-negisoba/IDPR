@@ -58,6 +58,16 @@
         "id": "fraud_conflict"
       }
     ],
+    "role_identity": {
+      "different_owner_requires_triangular_fraud_authority_assessment": true,
+      "fraud_established_requires_same_variable": [
+        "deceived_person_id",
+        "disposer_id"
+      ],
+      "property_owner_may_differ_from_deceived_disposer": true,
+      "same_entity_id_may_fill_multiple_roles": true,
+      "separate_slots_imply_distinct_people": false
+    },
     "standard_assessment": {
       "input_prefix": [
         "case_id",
