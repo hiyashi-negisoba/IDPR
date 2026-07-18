@@ -35,6 +35,7 @@ from scripts.run_fraud_full_rule_ir_generation import (
     review_gate as full_rule_ir_review_gate,
 )
 from scripts.build_fraud_full_rule_ir_candidate import (
+    build_module_human_review as build_fraud_module_human_review,
     build_module_ownership as build_fraud_module_ownership,
     build_rule_ir as build_full_fraud_rule_ir,
 )
@@ -145,6 +146,9 @@ FULL_RULE_IR_CANDIDATE = (
 )
 FULL_RULE_IR_MODULE_OWNERSHIP = (
     PROJECT_ROOT / "data/rulegen/fraud/fraud_rule_ir_module_ownership.json"
+)
+FULL_RULE_IR_MODULE_HUMAN_REVIEW = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_rule_ir_module_human_review.md"
 )
 FULL_RULE_IR_EXPLANATION = (
     PROJECT_ROOT
@@ -1570,6 +1574,18 @@ def test_full_fraud_rule_ir_module_ownership_is_exhaustive_and_exclusive() -> No
     )
     assert loan["card_count"] == 6
     assert all("loan" in card_id for card_id in loan["card_ids"])
+
+
+def test_full_fraud_module_review_is_human_readable_and_complete() -> None:
+    aggregate = json.loads(CORE_NORM_CARD_SET.read_text(encoding="utf-8"))
+    tracked = FULL_RULE_IR_MODULE_HUMAN_REVIEW.read_text(encoding="utf-8")
+    assert tracked == build_fraud_module_human_review(aggregate)
+    assert "15개는 사기죄의 유형을 15개로 나눈 것이 아니다" in tracked
+    assert "## 1. 공통 기망" in tracked
+    assert "## 15. 미수·기수 및 사후사정" in tracked
+    assert tracked.count("보조 ID:") == 88
+    for card in aggregate["cards"]:
+        assert card["proposition"] in tracked
 
 
 def test_full_fraud_rule_ir_preserves_nonbars_and_top_level_conflict() -> None:

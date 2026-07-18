@@ -47,6 +47,7 @@ POST_TERRA_STATUS = FRAUD_ROOT / "fraud_full_rule_ir_post_terra_status.json"
 TERRA_AUDIT = FRAUD_ROOT / "fraud_full_rule_ir_terra_failure_audit.json"
 TRACKED_TERRA_OUTPUT = FRAUD_ROOT / "fraud_full_rule_ir_terra_partial_output.json"
 MODULE_OWNERSHIP = FRAUD_ROOT / "fraud_rule_ir_module_ownership.json"
+MODULE_HUMAN_REVIEW = FRAUD_ROOT / "fraud_rule_ir_module_human_review.md"
 
 
 ACTOR_ARGUMENTS = [
@@ -420,6 +421,100 @@ MODULE_SPECS = [
 ]
 
 
+MODULE_REVIEW_NOTES = {
+    "core.deception": {
+        "title": "공통 기망",
+        "role": "사기 유형과 관계없이 기망행위인지 판단할 때 공통으로 쓰는 정의와 한계다.",
+        "boundary": "차용금·광고·부작위·묵시적 기망·권리행사의 특수 기준은 넣지 않았다.",
+        "question": "16개가 정말 모든 사기 유형에 공통인지, 특정 유형 기준이 섞였는지 본다.",
+    },
+    "core.intent": {
+        "title": "공통 주관적 요건",
+        "role": "고의의 기망, 재산적 이득 목적, 판단 시점과 불법영득의사 논의를 맡는다.",
+        "boundary": "차용금 사건의 편취 범의 추론과 제3자 취득 의사는 별도 모듈이다.",
+        "question": "불법영득의사 두 카드가 공통 코어에 머물되 최종 공통 gate는 아닌 것이 맞는지 본다.",
+    },
+    "core.mistake_disposition": {
+        "title": "공통 착오·처분행위",
+        "role": "착오의 의미, 처분행위, 직접성, 피기망자=처분자 및 순차적 인과관계를 맡는다.",
+        "boundary": "부작위 처분, 삼각사기, 절도와의 경계는 별도 모듈로 보냈다.",
+        "question": "공통 규칙과 부작위·삼각사기 같은 특수 구조의 경계가 적절한지 본다.",
+    },
+    "profile.loan": {
+        "title": "차용금 사기",
+        "role": "변제 의사·능력, 용도 기망, 대주의 위험 인식 및 편취 범의 추론을 맡는다.",
+        "boundary": "일반적인 계약 불이행과 고의의 구별 자체는 공통 주관적 요건에 남겼다.",
+        "question": "이 여섯 기준이 차용금 사건에서 함께 검색·평가될 단위로 적절한지 본다.",
+    },
+    "profile.advertising": {
+        "title": "광고 사기",
+        "role": "불특정 상대방에 대한 광고와 허용되는 과장·허위의 경계를 맡는다.",
+        "boundary": "광고 외 일반적인 단순 거짓말·막연한 의견 기준은 공통 기망에 남겼다.",
+        "question": "불특정 상대방 카드가 광고에만 한정되는지, 더 넓은 대중 상대 기망 모듈이어야 하는지 본다.",
+    },
+    "profile.omission": {
+        "title": "부작위 기망",
+        "role": "기존 착오 이용, 보증인적 지위, 고지의무 및 부작위 처분을 맡는다.",
+        "boundary": "행동·태도 자체가 설명가치를 갖는 묵시적 기망은 다음 모듈로 분리했다.",
+        "question": "기망의 부작위와 처분행위의 부작위가 한 모듈에 함께 있는 것이 실용적인지 본다.",
+    },
+    "profile.implicit_deception": {
+        "title": "묵시적 기망",
+        "role": "행동·태도가 거래관행상 허위 내용을 표시하는 설명가치를 갖는지 판단한다.",
+        "boundary": "단순 침묵은 이 모듈에서 바로 기망이 되지 않고 고지의무가 있는 부작위 모듈로 간다.",
+        "question": "묵시적 기망과 부작위 기망의 선후 판단이 카드 세 장으로 충분히 드러나는지 본다.",
+    },
+    "profile.rights_exercise": {
+        "title": "권리행사형 사기",
+        "role": "권리행사에 사용된 기망수단이 사회통념상 허용 범위를 넘는지 판단한다.",
+        "boundary": "권리의 존재 자체가 아니라 행사수단의 허용 가능성을 다룬다.",
+        "question": "허용되는 수단과 허용 범위를 넘은 수단의 양방향 기준이 정확한지 본다.",
+    },
+    "structure.triangular": {
+        "title": "삼각사기 역할 구조",
+        "role": "피기망자=처분자와 재산상 피해자가 다를 때 처분 권능·지위를 검사한다.",
+        "boundary": "기망·착오 등 실체 요건은 공통 코어가 맡고 이 모듈은 인물 관계만 맡는다.",
+        "question": "피기망자, 처분자, 재산소유자의 동일성·상이성과 권능 요건이 정확한지 본다.",
+    },
+    "structure.third_party_acquisition": {
+        "title": "제3자 취득 구조",
+        "role": "피고인이 아닌 제3자의 취득을 피고인에게 귀속할 수 있는지 판단한다.",
+        "boundary": "삼각사기는 피해재산의 처분권한 문제이고, 여기는 취득자 귀속 문제다.",
+        "question": "도구·대리 관계 또는 제3자 취득 의사라는 단일 카드가 충분한지 본다.",
+    },
+    "boundary.other_offenses": {
+        "title": "절도·횡령과의 경계",
+        "role": "처분능력, 지배이전의 직접성, 점유관계에 따라 사기가 아닌 죄명이 문제되는 경우를 맡는다.",
+        "boundary": "현재는 사기 불성립만 출력하고 절도·횡령의 최종 성립까지 판단하지 않는다.",
+        "question": "세 기준을 사기 core의 불성립 사유로 둘지 후속 죄명 adapter로 둘지 본다.",
+    },
+    "object.property_delivery": {
+        "title": "재물의 객체·교부",
+        "role": "타인의 재물인지, 사실상 지배가 이전되었는지, 금원 편취액이 얼마인지 판단한다.",
+        "boundary": "재물 이외의 재산상 이익은 별도 객체 모듈로 분리했다.",
+        "question": "사후 반환과 상당한 대가 문제를 이 모듈에 함께 두는 것이 적절한지 본다.",
+    },
+    "object.property_benefit": {
+        "title": "재산상 이익의 객체·취득",
+        "role": "재물 외 경제적 이익의 범위, 구체성 및 취득을 가져오는 처분 형태를 맡는다.",
+        "boundary": "재물의 현실 교부·지배이전 기준은 앞 모듈에 있다.",
+        "question": "경제적 이익의 정의와 실제 취득 판단에 필요한 카드가 충분한지 본다.",
+    },
+    "object.public_interest": {
+        "title": "공공적 법익과 재산권의 경계",
+        "role": "공공적 법익 침해가 동시에 재산권 침해와 동일하게 평가되는지 판단한다.",
+        "boundary": "별도 특별법이 우선하는 경우와 재산권 침해가 없는 경우는 사기 core 밖으로 보낸다.",
+        "question": "특별법 수집이 진행 중인 현재 이 두 카드를 실행 규칙으로 유지할지 본다.",
+    },
+    "stage.attempt_completion": {
+        "title": "미수·기수 및 사후사정",
+        "role": "실행의 착수, 인과관계 단절, 재물·이익 이전 시점과 사후 취소의 영향을 맡는다.",
+        "boundary": "기망·착오·처분의 내용은 공통 코어가 맡고 여기서는 범행 단계를 판단한다.",
+        "question": "현재 fraud_not_established로 나가는 미수 사유를 별도 fraud_attempted로 분리할지 본다.",
+    },
+}
+
+
 def read_json(path: Path) -> dict[str, Any]:
     value = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(value, dict):
@@ -510,6 +605,172 @@ def build_module_ownership(aggregate: dict[str, Any]) -> dict[str, Any]:
             "missing_cards": 0,
         },
     }
+
+
+def build_module_human_review(aggregate: dict[str, Any]) -> str:
+    ownership = build_module_ownership(aggregate)
+    specs_by_id = {spec["module_id"]: spec for spec in ownership["modules"]}
+    cards_by_id = {card["id"]: card for card in aggregate["cards"]}
+    original_number = {
+        card["id"]: index for index, card in enumerate(aggregate["cards"], 1)
+    }
+    groups = [
+        (
+            "A. 모든 사기 유형에 공통인 코어",
+            ["core.deception", "core.intent", "core.mistake_disposition"],
+        ),
+        (
+            "B. 사건 사실유형에 따라 선택하는 프로파일",
+            [
+                "profile.loan",
+                "profile.advertising",
+                "profile.omission",
+                "profile.implicit_deception",
+                "profile.rights_exercise",
+            ],
+        ),
+        (
+            "C. 사람과 재산의 관계를 검사하는 구조 모듈",
+            ["structure.triangular", "structure.third_party_acquisition"],
+        ),
+        (
+            "D. 객체와 다른 죄명의 경계를 검사하는 모듈",
+            [
+                "boundary.other_offenses",
+                "object.property_delivery",
+                "object.property_benefit",
+                "object.public_interest",
+            ],
+        ),
+        ("E. 범행 단계를 검사하는 모듈", ["stage.attempt_completion"]),
+    ]
+    kind_labels = {
+        "general_core": "공통 코어",
+        "grounding_profile": "사실유형 프로파일",
+        "structural_profile": "역할구조 모듈",
+        "boundary_adapter": "죄명경계 모듈",
+        "object_adapter": "객체 모듈",
+        "stage_module": "미수·기수 모듈",
+    }
+    formalization_labels = {
+        "standard_input": "모델·RAG 법적 판단",
+        "deterministic_rule": "구조화 사실·결정규칙 전제",
+    }
+    polarity_labels = {
+        "positive": "긍정 기준",
+        "negative": "부정 기준",
+        "exception": "예외 기준",
+    }
+    output_labels = {
+        "fraud_object_satisfied": "사기죄 객체 충족",
+        "fraud_deception_satisfied": "기망 충족",
+        "fraud_mistake_satisfied": "착오 충족",
+        "fraud_disposition_satisfied": "처분행위 충족",
+        "fraud_acquisition_satisfied": "재물·이익 취득 충족",
+        "fraud_causal_chain_satisfied": "순차적 인과관계 충족",
+        "fraud_deceived_disposer_identity_satisfied": "피기망자=처분자 충족",
+        "fraud_intent_satisfied": "고의·이득목적 충족",
+        "fraud_unlawful_appropriation_intent_supported": "불법영득의사 판단 지원",
+        "fraud_role_structure_satisfied": "일반형·삼각사기 역할구조 충족",
+        "fraud_beneficiary_attribution_satisfied": "본인·제3자 취득 귀속 충족",
+        "fraud_completion_satisfied": "기수 충족",
+        "fraud_no_separate_loss_gate": "현실손해 별도요건 불필요",
+        "fraud_not_established": "명시적 사기 불성립 사유",
+    }
+
+    lines = [
+        "# 사기죄 RuleIR 15개 모듈 인간 검수본",
+        "",
+        "## 먼저: 15개가 무엇인지",
+        "",
+        "15개는 사기죄의 유형을 15개로 나눈 것이 아니다. 88개 NormCard를 실행할 때 "
+        "공통 규칙과 특정 사건에서만 필요한 규칙이 뒤섞이지 않도록 나눈 작업 단위다.",
+        "",
+        "- 공통 코어 3개: 기망 / 주관적 요건 / 착오·처분행위",
+        "- 사실유형 프로파일 5개: 차용금 / 광고 / 부작위 / 묵시적 기망 / 권리행사",
+        "- 역할구조 2개: 삼각사기 / 제3자 취득",
+        "- 객체·죄명경계 4개: 절도·횡령 경계 / 재물 / 재산상 이익 / 공공적 법익",
+        "- 범행단계 1개: 미수·기수 및 사후사정",
+        "",
+        "따라서 일반 사건에서는 공통 코어를 쓰고, 사실관계에 해당하는 프로파일과 "
+        "구조·객체·단계 모듈만 추가로 연다. 아래에는 각 모듈과 그 모듈에 들어간 카드 "
+        "원문을 붙여 두었다. JSON은 기계 검증용이므로 검수할 필요가 없다.",
+        "",
+        "## 한눈에 보는 15개",
+        "",
+    ]
+    module_number = 0
+    for group_title, module_ids in groups:
+        lines.extend([f"### {group_title}", ""])
+        for module_id in module_ids:
+            module_number += 1
+            spec = specs_by_id[module_id]
+            notes = MODULE_REVIEW_NOTES[module_id]
+            lines.append(
+                f"{module_number}. **{notes['title']}** ({spec['card_count']}장): "
+                f"{notes['role']}"
+            )
+        lines.append("")
+
+    lines.extend(["## 모듈별 카드 원문과 검수 질문", ""])
+    module_number = 0
+    for group_title, module_ids in groups:
+        lines.extend([f"# {group_title}", ""])
+        for module_id in module_ids:
+            module_number += 1
+            spec = specs_by_id[module_id]
+            notes = MODULE_REVIEW_NOTES[module_id]
+            output_text = ", ".join(
+                output_labels[output_id] for output_id in spec["emits"]
+            )
+            lines.extend(
+                [
+                    f"## {module_number}. {notes['title']}",
+                    "",
+                    f"- 분류: {kind_labels[spec['kind']]}",
+                    f"- 하는 일: {notes['role']}",
+                    f"- 다른 모듈과의 경계: {notes['boundary']}",
+                    f"- Scallop core에 전달하는 판단: {output_text}",
+                    f"- **검수 질문: {notes['question']}**",
+                    "",
+                    f"### 포함 카드 {spec['card_count']}장",
+                    "",
+                ]
+            )
+            ordered_card_ids = sorted(
+                spec["card_ids"], key=lambda card_id: original_number[card_id]
+            )
+            for card_index, card_id in enumerate(ordered_card_ids, 1):
+                card = cards_by_id[card_id]
+                lines.extend(
+                    [
+                        (
+                            f"{card_index}. **원본 {original_number[card_id]}번 · "
+                            f"{formalization_labels[card['formalization']]} · "
+                            f"{polarity_labels[card['polarity']]}**"
+                        ),
+                        "",
+                        f"   > {card['proposition']}",
+                        "",
+                        f"   보조 ID: `{card_id}`",
+                        "",
+                    ]
+                )
+    lines.extend(
+        [
+            "## 검수 결과를 적는 방법",
+            "",
+            "각 모듈 제목 아래의 검수 질문을 기준으로 다음 중 하나를 적으면 된다.",
+            "",
+            "- `승인`: 현재 묶음과 경계에 동의",
+            "- `이동`: 특정 원본 번호를 다른 모듈로 이동",
+            "- `분리`: 한 모듈을 둘 이상으로 분리",
+            "- `RAG`: 실행 규칙이 아니라 판례 검색 대상으로 전환",
+            "- `삭제`: core·profile 어디에도 두지 않음",
+            "",
+        ]
+    )
+    return "\n".join(lines)
 
 
 def module_id_for_card(card_id: str) -> str:
@@ -1417,17 +1678,15 @@ def build_human_guide(rule_ir: dict[str, Any]) -> str:
         [
             "# 사기죄 full RuleIR 사용자 검수 가이드",
             "",
-            "검수 순서는 자연어 설명을 먼저 읽고, 필요한 경우 원본 JSON의 rule ID를 "
-            "대조하는 방식이 가장 효율적이다.",
+            "JSON 소유권표는 기계 검증용이므로 읽을 필요가 없다. 먼저 "
+            "`fraud_rule_ir_module_human_review.md`를 읽는다. 이 문서에는 15개 모듈의 "
+            "한국어 이름·기능·경계와 포함 카드 88장의 원문이 모듈별로 붙어 있다.",
             "",
-            "1. 15개 모듈의 카드 소유권, 특히 profile과 RAG의 경계가 적절한지",
-            "2. 최종 10개 사실·법적 AND gate와 자동 손해불요 규칙이 적절한지",
-            "3. 일반형/삼각사기 역할 adapter와 본인/제3자취득 귀속 adapter가 맞는지",
-            "4. BAR_CARD_IDS의 각 항목이 일반 불성립인지 특정 profile 불성립인지",
-            "5. mandatory positive 10개가 명시적 부정 시 불성립으로 가도 되는지",
-            "6. 불법영득의사를 공통 gate에서 제외한 현재 정책이 맞는지",
-            "7. 사기미수·절도·횡령·정당행위 output을 지금 분리할지",
-            "8. standard assessment의 공통 actor tuple이 실제 feature extraction에 적합한지",
+            "1. 인간 검수본의 15개 모듈과 각 모듈의 굵은 글씨 검수 질문을 확인한다.",
+            "2. 이동·분리·RAG·삭제가 필요한 카드는 인간 검수본의 `원본 N번`으로 지적한다.",
+            "3. 그 다음 `fraud_full_rule_ir_natural_language_explanation.md`의 최종 AND gate와 "
+            "역할·취득 adapter 부분만 확인한다.",
+            "4. 개별 rule까지 확인할 필요가 있을 때만 자연어 설명의 Rule별 해설이나 JSON을 본다.",
             "",
             f"현재 predicate {len(rule_ir['predicates'])}개, rule {len(rule_ir['rules'])}개다. "
             "사용자 승인 전 Sol과 Scallop compile/runtime은 차단한다.",
@@ -1451,6 +1710,9 @@ def main() -> None:
 
     write_json(CANDIDATE, rule_ir)
     write_json(MODULE_OWNERSHIP, module_ownership)
+    MODULE_HUMAN_REVIEW.write_text(
+        build_module_human_review(aggregate), encoding="utf-8"
+    )
     write_json(TRACKED_TERRA_OUTPUT, raw_terra)
     SCAFFOLD.write_text(
         render_rule_ir_natural_language_scaffold(rule_ir), encoding="utf-8"
@@ -1503,6 +1765,9 @@ def main() -> None:
             "agent_review_path": str(AGENT_REVIEW.relative_to(PROJECT_ROOT)),
             "module_ownership_path": str(
                 MODULE_OWNERSHIP.relative_to(PROJECT_ROOT)
+            ),
+            "module_human_review_path": str(
+                MODULE_HUMAN_REVIEW.relative_to(PROJECT_ROOT)
             ),
         },
     )

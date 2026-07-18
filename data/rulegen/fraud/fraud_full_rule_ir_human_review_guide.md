@@ -1,14 +1,10 @@
 # 사기죄 full RuleIR 사용자 검수 가이드
 
-검수 순서는 자연어 설명을 먼저 읽고, 필요한 경우 원본 JSON의 rule ID를 대조하는 방식이 가장 효율적이다.
+JSON 소유권표는 기계 검증용이므로 읽을 필요가 없다. 먼저 `fraud_rule_ir_module_human_review.md`를 읽는다. 이 문서에는 15개 모듈의 한국어 이름·기능·경계와 포함 카드 88장의 원문이 모듈별로 붙어 있다.
 
-1. 15개 모듈의 카드 소유권, 특히 profile과 RAG의 경계가 적절한지
-2. 최종 10개 사실·법적 AND gate와 자동 손해불요 규칙이 적절한지
-3. 일반형/삼각사기 역할 adapter와 본인/제3자취득 귀속 adapter가 맞는지
-4. BAR_CARD_IDS의 각 항목이 일반 불성립인지 특정 profile 불성립인지
-5. mandatory positive 10개가 명시적 부정 시 불성립으로 가도 되는지
-6. 불법영득의사를 공통 gate에서 제외한 현재 정책이 맞는지
-7. 사기미수·절도·횡령·정당행위 output을 지금 분리할지
-8. standard assessment의 공통 actor tuple이 실제 feature extraction에 적합한지
+1. 인간 검수본의 15개 모듈과 각 모듈의 굵은 글씨 검수 질문을 확인한다.
+2. 이동·분리·RAG·삭제가 필요한 카드는 인간 검수본의 `원본 N번`으로 지적한다.
+3. 그 다음 `fraud_full_rule_ir_natural_language_explanation.md`의 최종 AND gate와 역할·취득 adapter 부분만 확인한다.
+4. 개별 rule까지 확인할 필요가 있을 때만 자연어 설명의 Rule별 해설이나 JSON을 본다.
 
 현재 predicate 196개, rule 338개다. 사용자 승인 전 Sol과 Scallop compile/runtime은 차단한다.
