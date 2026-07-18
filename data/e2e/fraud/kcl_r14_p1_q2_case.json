@@ -1,0 +1,25 @@
+{
+  "allowed_profiles": [
+    "ordinary",
+    "loan_purpose"
+  ],
+  "case_id": "kcl_r14_p1_q2_eul_fraud",
+  "case_text": "(2) 乙은 위 (1) 사건으로 수사를 받게 되자 사법경찰관 P1에게 금품을 주어 형사처벌을 면하기로 마음먹고, 그 자금을 마련하기 위해 친구 B에게 자신의 딸의 수술비 명목인 것처럼 말하여 3천만 원을 빌렸다. 乙은 평소 P1과 친분이 있는 丙에게 이러한 사정을 말하고 B에게서 빌린 3천만 원을 주면서 그 돈을 P1에게 전해 달라고 부탁하였다. 이에 동의한 丙은 위 3천만 원 중 2천만 원을 임의로 소비하고 나머지만 P1에게 전달하였다.",
+  "question_prompt": "(2)에서 乙의 B에 대한 사기죄 성부를 검토하시오.",
+  "rule_set_id": "kr.fraud.article347.full.v1_candidate",
+  "scope_note": "원 문항의 뇌물공여·횡령 쟁점은 현재 사기죄 RuleIR 범위 밖이므로 乙의 B에 대한 사기죄만 판정한다. 평가 rubric은 모델 입력에 포함하지 않는다.",
+  "source": {
+    "case_text_sha256": "2dbfb027ba7ec74f7b09cc560e18fce2306df820fd9ec30c3f0281b04840e528",
+    "dataset": "lbox_kcl_essay",
+    "full_question_sha256": "67dffdafba31190abffaf16c97b5fd235685e2cb6148cf9920bed4f978b6f9e4",
+    "inventory_path": "data/inventory/kcl_criminal_v1_draft.jsonl",
+    "source_row_index": 154,
+    "sub_question_id": "kcl_criminal_r14_p1_q2"
+  },
+  "target": {
+    "counterparty_hint": "B",
+    "defendant_hint": "乙",
+    "issue_id": "fraud"
+  },
+  "version": "1.0.0"
+}
