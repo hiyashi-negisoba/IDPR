@@ -24,7 +24,7 @@ from idpr.neural import (
     select_fraud_card_plan,
 )
 
-from scripts.run_fraud_irac_matrix import answer_request
+from scripts.run_fraud_irac_matrix import answer_contract_violations, answer_request
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -341,3 +341,31 @@ def test_direct_answer_request_declares_case_text_as_only_fact_provenance() -> N
         "card_ids": [],
         "authority_comment_ids": [],
     }
+
+
+def test_answer_contract_error_is_a_section_quality_violation() -> None:
+    plan, _, _, _, _ = compiled_plan()
+    answer = valid_answer(plan)
+    answer["sections"][0]["cited_card_ids"] = ["invented.card"]
+    violations = answer_contract_violations(
+        answer,
+        case_id=plan["case_id"],
+        method_id="m6_claim_verified",
+        allowed_fact_ids=[
+            fact_id
+            for unit in plan["units"]
+            for fact_id in unit["required_fact_ids"]
+        ],
+        allowed_card_ids=[
+            item["card_id"]
+            for unit in plan["units"]
+            for item in unit["card_assessments"]
+        ],
+        allowed_authority_ids=[
+            source_id
+            for unit in plan["units"]
+            for source_id in unit["required_authority_comment_ids"]
+        ],
+    )
+    assert violations[0]["code"] == "answer_contract_violation"
+    assert violations[0]["section_id"] == "irac_object_roles"

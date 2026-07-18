@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 import time
 from datetime import datetime, timezone
@@ -15,6 +16,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from idpr.generation import (  # noqa: E402
+    GenerationContractError,
     METHOD_IDS,
     apply_section_patches,
     assess_irac_answer_alignment,
@@ -334,7 +336,8 @@ def run_answer(
         schema=generation_schema("long_form_answer.schema.json"),
         max_tokens=6_000,
     )
-    validate_long_form_answer(
+    write_json(method_dir / "answer_model_output.json", answer)
+    violations = answer_contract_violations(
         answer,
         case_id=case["case_id"],
         method_id=method_id,
@@ -342,12 +345,52 @@ def run_answer(
         allowed_card_ids=allowed_card_ids,
         allowed_authority_ids=allowed_authority_ids,
     )
-    alignment = assess_irac_answer_alignment(answer, irac_plan) if irac_plan else []
+    if irac_plan:
+        violations.extend(assess_irac_answer_alignment(answer, irac_plan))
     write_json(method_dir / "answer.json", answer)
     (method_dir / "answer.md").write_text(
         render_long_form_markdown(answer), encoding="utf-8"
     )
-    return answer, metadata, alignment
+    return answer, metadata, violations
+
+
+def answer_contract_violations(
+    answer: Mapping[str, Any],
+    *,
+    case_id: str,
+    method_id: str,
+    allowed_fact_ids: Sequence[str],
+    allowed_card_ids: Sequence[str],
+    allowed_authority_ids: Sequence[str],
+) -> list[dict[str, str]]:
+    try:
+        validate_long_form_answer(
+            answer,
+            case_id=case_id,
+            method_id=method_id,
+            allowed_fact_ids=allowed_fact_ids,
+            allowed_card_ids=allowed_card_ids,
+            allowed_authority_ids=allowed_authority_ids,
+        )
+    except GenerationContractError as exc:
+        violations: list[dict[str, str]] = []
+        sections = list(answer.get("sections", []))
+        for message in exc.errors:
+            match = re.match(r"sections\[(\d+)\]", message)
+            section_id = "document"
+            if match and int(match.group(1)) < len(sections):
+                section_id = sections[int(match.group(1))].get(
+                    "section_id", "document"
+                )
+            violations.append(
+                {
+                    "code": "answer_contract_violation",
+                    "section_id": section_id,
+                    "message": message,
+                }
+            )
+        return violations
+    return []
 
 
 def provenance_ids(
@@ -389,7 +432,16 @@ def run_claim_verification(
         schema=generation_schema("claim_graph.schema.json"),
         max_tokens=9_000,
     )
-    violations_before = assess_irac_answer_alignment(answer, plan)
+    facts, cards, authorities = provenance_ids(fact_graph, authority_packet)
+    violations_before = answer_contract_violations(
+        answer,
+        case_id=case["case_id"],
+        method_id="m6_claim_verified",
+        allowed_fact_ids=facts,
+        allowed_card_ids=cards,
+        allowed_authority_ids=authorities,
+    )
+    violations_before.extend(assess_irac_answer_alignment(answer, plan))
     violations_before.extend(
         validate_claim_graph(
             claim_graph,
@@ -436,8 +488,7 @@ def run_claim_verification(
         final_answer, patch_audit = apply_section_patches(
             answer, patches, failed_section_ids=failed_ids
         )
-        facts, cards, authorities = provenance_ids(fact_graph, authority_packet)
-        validate_long_form_answer(
+        post_repair_contract = answer_contract_violations(
             final_answer,
             case_id=case["case_id"],
             method_id="m6_claim_verified",
@@ -462,7 +513,8 @@ def run_claim_verification(
             schema=generation_schema("claim_graph.schema.json"),
             max_tokens=9_000,
         )
-        violations_after = assess_irac_answer_alignment(final_answer, plan)
+        violations_after = post_repair_contract
+        violations_after.extend(assess_irac_answer_alignment(final_answer, plan))
         violations_after.extend(
             validate_claim_graph(
                 claim_graph_after,
@@ -647,7 +699,7 @@ def method_summary(
     answer: Mapping[str, Any],
     model_stages: Mapping[str, Any],
     host_stages: Mapping[str, float],
-    alignment: Sequence[Mapping[str, str]],
+    answer_violations: Sequence[Mapping[str, str]],
     verification: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     usages = [
@@ -655,7 +707,7 @@ def method_summary(
         for stage in model_stages.values()
         if isinstance(stage, Mapping) and "usage" in stage
     ]
-    residual_violations = list(alignment)
+    residual_violations = list(answer_violations)
     if verification:
         residual_violations.extend(verification.get("violations_after", []))
     return {
@@ -685,7 +737,7 @@ def method_summary(
                 for section in answer["sections"]
             ),
         },
-        "irac_alignment_violations": list(alignment),
+        "answer_validation_violations": list(answer_violations),
         "claim_verification": dict(verification) if verification else None,
     }
 
@@ -840,7 +892,15 @@ def run_matrix(
                     method_dir=method_dir,
                 )
                 model_stages.update(claim_stages)
-                alignment = assess_irac_answer_alignment(answer, plan)
+                alignment = answer_contract_violations(
+                    answer,
+                    case_id=case["case_id"],
+                    method_id="m6_claim_verified",
+                    allowed_fact_ids=facts,
+                    allowed_card_ids=cards,
+                    allowed_authority_ids=authorities,
+                )
+                alignment.extend(assess_irac_answer_alignment(answer, plan))
 
         method_report = method_summary(
             method_id=method_id,
@@ -848,7 +908,7 @@ def run_matrix(
             answer=answer,
             model_stages=model_stages,
             host_stages=host_stages,
-            alignment=alignment,
+            answer_violations=alignment,
             verification=verification,
         )
         published_json = report_path.parent / f"{method_id}_answer.json"
