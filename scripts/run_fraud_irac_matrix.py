@@ -25,6 +25,7 @@ from idpr.generation import (  # noqa: E402
     build_fraud_rag_queries,
     canonical_sha256,
     generation_schema,
+    normalize_claim_graph,
     render_long_form_markdown,
     validate_claim_graph,
     validate_fraud_rag_packet,
@@ -424,7 +425,7 @@ def run_claim_verification(
         "authority_packet": list(authority_packet),
         "allowed_relation_ids": plan["scallop_relations"],
     }
-    claim_graph, claim_metadata = timed_model(
+    claim_graph_raw, claim_metadata = timed_model(
         client,
         system_prompt=CLAIM_PROMPT_PATH.read_text(encoding="utf-8"),
         payload=claim_payload,
@@ -432,6 +433,8 @@ def run_claim_verification(
         schema=generation_schema("claim_graph.schema.json"),
         max_tokens=9_000,
     )
+    write_json(method_dir / "claim_graph_before_model_output.json", claim_graph_raw)
+    claim_graph, normalization_before = normalize_claim_graph(claim_graph_raw)
     facts, cards, authorities = provenance_ids(fact_graph, authority_packet)
     violations_before = answer_contract_violations(
         answer,
@@ -458,6 +461,8 @@ def run_claim_verification(
         "repair_attempted": False,
         "patch_audit": None,
         "violations_after": violations_before,
+        "claim_graph_normalization_before": normalization_before,
+        "claim_graph_normalization_after": None,
     }
     model_stages: dict[str, Any] = {"claim_graph_before": claim_metadata}
     final_answer = dict(answer)
@@ -505,13 +510,19 @@ def run_claim_verification(
         verification["patch_audit"] = patch_audit
 
         claim_payload["answer"] = final_answer
-        claim_graph_after, claim_after_metadata = timed_model(
+        claim_graph_after_raw, claim_after_metadata = timed_model(
             client,
             system_prompt=CLAIM_PROMPT_PATH.read_text(encoding="utf-8"),
             payload=claim_payload,
             schema_name="claim_graph",
             schema=generation_schema("claim_graph.schema.json"),
             max_tokens=9_000,
+        )
+        write_json(
+            method_dir / "claim_graph_after_model_output.json", claim_graph_after_raw
+        )
+        claim_graph_after, normalization_after = normalize_claim_graph(
+            claim_graph_after_raw
         )
         violations_after = post_repair_contract
         violations_after.extend(assess_irac_answer_alignment(final_answer, plan))
@@ -525,6 +536,7 @@ def run_claim_verification(
             )
         )
         verification["violations_after"] = violations_after
+        verification["claim_graph_normalization_after"] = normalization_after
         model_stages["claim_graph_after"] = claim_after_metadata
         write_json(method_dir / "claim_graph_after.json", claim_graph_after)
         write_json(

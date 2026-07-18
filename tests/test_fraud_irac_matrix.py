@@ -13,6 +13,7 @@ from idpr.generation import (
     build_fraud_irac_plan,
     build_fraud_rag_packet,
     build_fraud_rag_queries,
+    normalize_claim_graph,
     validate_claim_graph,
     validate_fraud_irac_plan,
     validate_fraud_rag_packet,
@@ -270,6 +271,52 @@ def test_claim_graph_catches_missing_application_support() -> None:
     codes = {item["code"] for item in violations}
     assert "unsupported_claim" in codes
     assert "claim_fact_coverage" in codes
+
+
+def test_claim_graph_normalizes_duplicate_provenance_ids() -> None:
+    plan, _, fact_graph, authority, _ = compiled_plan()
+    answer = valid_answer(plan)
+    graph = valid_claim_graph(answer, plan)
+    graph["claims"][0]["card_ids"] *= 2
+    normalized, audit = normalize_claim_graph(graph)
+    assert audit["change_count"] >= 1
+    assert any(
+        change["claim_id"] == "claim_001" and change["field"] == "card_ids"
+        for change in audit["changes"]
+    )
+    assert len(normalized["claims"][0]["card_ids"]) == len(
+        set(normalized["claims"][0]["card_ids"])
+    )
+    assert (
+        validate_claim_graph(
+            normalized,
+            answer=answer,
+            plan=plan,
+            fact_graph=fact_graph,
+            authority_packet=authority,
+        )
+        == []
+    )
+
+
+def test_claim_graph_uses_provenance_not_support_kind_label() -> None:
+    plan, _, fact_graph, authority, _ = compiled_plan()
+    answer = valid_answer(plan)
+    graph = valid_claim_graph(answer, plan)
+    application = next(
+        claim for claim in graph["claims"] if claim["claim_type"] == "application"
+    )
+    application["support_kind"] = "authority_rule"
+    assert (
+        validate_claim_graph(
+            graph,
+            answer=answer,
+            plan=plan,
+            fact_graph=fact_graph,
+            authority_packet=authority,
+        )
+        == []
+    )
 
 
 def test_failed_section_patch_preserves_every_unaffected_section() -> None:

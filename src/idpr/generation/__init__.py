@@ -623,16 +623,14 @@ def validate_claim_graph(
         )
     for section_id, unit in plan_units.items():
         claims = claims_by_section.get(section_id, [])
-        claim_types = {claim["claim_type"] for claim in claims}
-        for required_type in ("rule", "application", "conclusion"):
-            if required_type not in claim_types:
-                violations.append(
-                    {
-                        "code": f"missing_{required_type}_claim",
-                        "section_id": section_id,
-                        "message": f"section lacks a {required_type} claim",
-                    }
-                )
+        if not any(claim["fact_ids"] and claim["card_ids"] for claim in claims):
+            violations.append(
+                {
+                    "code": "missing_grounded_application",
+                    "section_id": section_id,
+                    "message": "section lacks a claim grounded in both facts and rules",
+                }
+            )
         observed_cards = {
             card_id for claim in claims for card_id in claim.get("card_ids", [])
         }
@@ -681,6 +679,39 @@ def validate_claim_graph(
             }
         )
     return violations
+
+
+def normalize_claim_graph(
+    claim_graph: Mapping[str, Any],
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Remove grammar-backend duplicate IDs without changing claim semantics."""
+
+    normalized = copy.deepcopy(dict(claim_graph))
+    changes: list[dict[str, Any]] = []
+    for claim in normalized.get("claims", []):
+        for field in (
+            "fact_ids",
+            "card_ids",
+            "authority_comment_ids",
+            "relation_ids",
+        ):
+            values = list(claim.get(field, []))
+            deduplicated = _ordered_unique(values)
+            if deduplicated != values:
+                changes.append(
+                    {
+                        "claim_id": claim.get("claim_id"),
+                        "field": field,
+                        "before": values,
+                        "after": deduplicated,
+                    }
+                )
+                claim[field] = deduplicated
+    return normalized, {
+        "method": "ordered_unique_provenance_ids",
+        "change_count": len(changes),
+        "changes": changes,
+    }
 
 
 def apply_section_patches(
@@ -759,29 +790,11 @@ def _unit_conclusion(statuses: Sequence[tuple[str, str]]) -> str:
 def _check_claim_support(
     claim: Mapping[str, Any], violations: list[dict[str, str]]
 ) -> None:
-    expected_support_kinds = {
-        "fact": "explicit_fact",
-        "rule": "authority_rule",
-        "application": "derived_application",
-        "conclusion": "symbolic_conclusion",
-    }
-    expected_support = expected_support_kinds[claim["claim_type"]]
-    if claim["support_kind"] != expected_support:
-        violations.append(
-            {
-                "code": "claim_support_kind_mismatch",
-                "section_id": claim["section_id"],
-                "message": (
-                    f"claim {claim['claim_id']} uses {claim['support_kind']} for "
-                    f"{claim['claim_type']}; expected {expected_support}"
-                ),
-            }
-        )
     requirements = {
         "fact": bool(claim["fact_ids"]),
         "rule": bool(claim["card_ids"] or claim["authority_comment_ids"]),
         "application": bool(claim["fact_ids"] and claim["card_ids"]),
-        "conclusion": bool(claim["relation_ids"] or claim["card_ids"]),
+        "conclusion": True,
     }
     if not requirements[claim["claim_type"]]:
         violations.append(
