@@ -1,0 +1,2750 @@
+{
+  "architecture_contract": {
+    "active_policy_allowed": false,
+    "actor_roles": [
+      "defendant_id",
+      "deceived_person_id",
+      "disposer_id",
+      "property_owner_id",
+      "subject_id",
+      "beneficiary_id"
+    ],
+    "case_isolation": "Every non-system predicate starts with case_id: String.",
+    "evidence_gate": {
+      "arguments": [
+        "case_id",
+        "assessment_id"
+      ],
+      "predicate": "provable",
+      "required_for_every_commentary_input": true
+    },
+    "generation_unit": "single_complete_rule_ir",
+    "negation_allowed": false,
+    "required_output_predicates": [
+      {
+        "arguments": [
+          "case_id",
+          "defendant_id",
+          "deceived_person_id",
+          "disposer_id",
+          "property_owner_id",
+          "subject_id",
+          "beneficiary_id"
+        ],
+        "id": "fraud_established"
+      },
+      {
+        "arguments": [
+          "case_id",
+          "defendant_id",
+          "issue_id"
+        ],
+        "id": "fraud_not_established"
+      },
+      {
+        "arguments": [
+          "case_id",
+          "defendant_id",
+          "issue_id"
+        ],
+        "id": "fraud_undetermined"
+      },
+      {
+        "arguments": [
+          "case_id",
+          "defendant_id",
+          "issue_id"
+        ],
+        "id": "fraud_conflict"
+      }
+    ],
+    "standard_assessment": {
+      "input_prefix": [
+        "case_id",
+        "assessment_id"
+      ],
+      "input_suffix": [
+        "status"
+      ],
+      "missing_is_false": false,
+      "statuses": [
+        "satisfied",
+        "not_satisfied",
+        "unknown"
+      ]
+    }
+  },
+  "bounded_source_material": {
+    "approved_norm_card_set": {
+      "card_set_id": "kr.fraud.article347.core.norms.v1",
+      "cards": [
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.causal-link.deception-property-disposition",
+              "request_id": "fraud.article347.pass1.002"
+            }
+          ],
+          "doctrinal_status": "settled",
+          "formalization": "deterministic_rule",
+          "id": "deception.fraud.causal-link.deception-property-disposition",
+          "norm_kind": "causal_link",
+          "polarity": "positive",
+          "proposition": "사기죄에서 기망은 피기망자의 재산적 처분행위를 하게 하는 행위여야 한다.",
+          "request_ids": [
+            "fraud.article347.pass1.002"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+              "quote": "사기죄에서 기망은 편취 또는 이득의 수단으로서 행하여지는 것이므로 피기망 자의 재산적 처분행위를 행하게 하는 행위가 아니면 안 된다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.causal-link.loan-purpose-not-sole-trigger",
+              "request_id": "fraud.article347.pass1.002"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "deception.fraud.causal-link.loan-purpose-not-sole-trigger",
+          "norm_kind": "causal_link",
+          "polarity": "negative",
+          "proposition": "차주가 밝힌 차용금 용도의 진실 여부가 대차 성립의 유일한 계기가 아닌 경우에는 기망행위와 재산적 처분행위 사이의 인과관계가 인정되지 않아 사기죄가 성립하지 않는다.",
+          "request_ids": [
+            "fraud.article347.pass1.002"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_12",
+              "quote": "그러나 이러한 경우에도 차주가 명시한 차용금의 용도가 진 정한지 여부가 그 대차성립의 유일한 계기가 아닌 때에는 사기죄가 성립하지 않 는다 (다만 이 경우에는 기망행위가 인정되지 않기 때문이 아니라 기망행위와 피해자의 기망의 내용이 상대방 재산적 처분행위 사이의 인과관계가 인정되지 않기 때문이다).",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.causal-link.no-disposition-no-deception",
+              "request_id": "fraud.article347.pass1.002"
+            }
+          ],
+          "doctrinal_status": "settled",
+          "formalization": "deterministic_rule",
+          "id": "deception.fraud.causal-link.no-disposition-no-deception",
+          "norm_kind": "causal_link",
+          "polarity": "negative",
+          "proposition": "상대방을 착오에 빠지게 하였더라도 그 착오에 기하여 재산적 처분행위를 하게 한 행위가 아니면 사기죄의 실행행위로서 기망이 아니다.",
+          "request_ids": [
+            "fraud.article347.pass1.002"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+              "quote": "따라서 상대방을 착오에 빠지게 하였다고 하더라도 그 착오에 기하여 상대방으로 하여금 재산적 처분행위를 하게 한 행위가 아니면 그 행위는 사기죄의 실행행위로서의 기망이 라고 할 수 없다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.deceived-person-unspecified",
+              "request_id": "fraud.article347.pass1.006"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "deterministic_rule",
+          "id": "deception.fraud.definition.deceived-person-unspecified",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "광고사기와 같이 기망행위의 상대방은 불특정인일 수 있다.",
+          "request_ids": [
+            "fraud.article347.pass1.006"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_45",
+              "quote": "기망행위의 상대방은 이른바 광고사기에 있어서와 같이 불특정인일 수도 있다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.deceived-person-victim-distinct",
+              "request_id": "fraud.article347.pass1.006"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "deterministic_rule",
+          "id": "deception.fraud.definition.deceived-person-victim-distinct",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "기망의 상대방과 재산상 피해자는 동일인일 것을 요하지 않는다.",
+          "request_ids": [
+            "fraud.article347.pass1.006"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_45",
+              "quote": "행위의 객체와 보호의 객체는 별개이므로, 기망의 상대방과 재산상의 피해자",
+              "section_path": "Ⅳ.1"
+            },
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_46",
+              "quote": "는 동일인일 것을 요하지 않는다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.deception-content-basis-fact",
+              "request_id": "fraud.article347.pass1.002"
+            }
+          ],
+          "doctrinal_status": "settled",
+          "formalization": "standard_input",
+          "id": "deception.fraud.definition.deception-content-basis-fact",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "기망의 내용은 재산적 처분행위를 하는 데 판단의 기초가 되는 사실이며, 외부적·객관적 사실과 내부적·심리적 사실을 포함한다.",
+          "request_ids": [
+            "fraud.article347.pass1.002"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_12",
+              "quote": "기망의 내용은 재산적 처분행위를 하는 데 판단의 기초가 되는 사실이다. 여기에 는 외부적·객관적 사실, 내부적·심리적 사실이 포함된다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.deception-counterparty-is-other",
+              "request_id": "fraud.article347.pass1.005"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "deterministic_rule",
+          "id": "deception.fraud.definition.deception-counterparty-is-other",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "사기죄에서 기망의 상대방은 타인이다.",
+          "request_ids": [
+            "fraud.article347.pass1.005"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_43",
+              "quote": "기망의 상대방은 ‘타인’이다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.deception-good-faith-mistake",
+              "request_id": "fraud.article347.pass1.002"
+            }
+          ],
+          "doctrinal_status": "settled",
+          "formalization": "standard_input",
+          "id": "deception.fraud.definition.deception-good-faith-mistake",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "기망은 거래관계에서 지켜야 할 신의칙에 반하여 사람으로 하여금 착오를 일으키게 하는 행위이다.",
+          "request_ids": [
+            "fraud.article347.pass1.002"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+              "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.deception-means-unrestricted",
+              "request_id": "fraud.article347.pass1.002"
+            }
+          ],
+          "doctrinal_status": "settled",
+          "formalization": "deterministic_rule",
+          "id": "deception.fraud.definition.deception-means-unrestricted",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "기망 수단에는 제한이 없으며, 언어·문서·거동, 적극적 주장·묵비, 작위·부작위 및 명시적·묵시적 방식 모두가 문제될 수 있다.",
+          "request_ids": [
+            "fraud.article347.pass1.002"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_18",
+              "quote": "기망의 수단에는 제한이 없다. 사기죄의 요건으로서의 기망은 널리 재산상의 거 래관계에 있어서 상호간 지켜야 할 신의와 성실의 의무를 배반하는 것을 본질 로 하는 일체의 것을 의미한다. 따라서 언어에 의하든, 문서에 의하든, 거동 에 의하든, 적극적으로 사실을 주장하든, 소극적으로 사실을 묵비하든, 작위에 의하든, 부작위에 의하든 이를 불문한다. 또 명시적이든 묵시적이든 묻지 않는다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.deception-object-facts",
+              "request_id": "fraud.article347.pass1.002"
+            }
+          ],
+          "doctrinal_status": "settled",
+          "formalization": "standard_input",
+          "id": "deception.fraud.definition.deception-object-facts",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "재산적 처분의 판단 기초사실이면 물건의 성질·품질 등 객관적 사실, 대금지급 의사 등 심리적 사실, 법률효력 등 법률적 사실 또는 민법상 무효인 법률행위에 관한 사실도 기망 대상이 될 수 있다.",
+          "request_ids": [
+            "fraud.article347.pass1.002"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_12",
+              "quote": "이 재산적 처분행위를 하기 위한 판단의 기초가 되는 사실이면 그것이 물건의 성질, 품질 등 외부적 객관적 사실이든, 대금지급의 의사와 같은 심리적 사실이 든, 법률적 효력과 같은 법률적 사실이든, 민법상 무효인 법률행위로서 법률상 실현할 수 없는 사실이든 이를 묻지 않고 기망행위의 대상이 될 수 있다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.deception-target-human",
+              "request_id": "fraud.article347.pass1.006"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "deception.fraud.definition.deception-target-human",
+          "norm_kind": "definition",
+          "polarity": "negative",
+          "proposition": "사실과 다른 관념을 형성하고 재산적 처분행위를 할 인식능력이 없는 사람은 기망의 상대방이 될 수 없고, 기계는 착오에 빠질 수 없어 기망행위의 대상이 될 수 없다.",
+          "request_ids": [
+            "fraud.article347.pass1.006"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다. 잔여 core 전수 교차검토에서 출처 범위와 인접 규칙의 관계에 맞게 문구를 좁혔다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_45",
+              "quote": "심신상실자 또는 유아 등은 기망의 상대방이 될 수 없고, 기계는 주어진 사 실에 따라 피동적으로 작동할 뿐 착오에 빠질 수 없으므로 기망행위의 대상이 될 수 없다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.exploitation-existing-mistake",
+              "request_id": "fraud.article347.pass1.002"
+            }
+          ],
+          "doctrinal_status": "settled",
+          "formalization": "standard_input",
+          "id": "deception.fraud.definition.exploitation-existing-mistake",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "이미 착오에 빠진 상태를 이용하는 행위가 신의칙 위반의 작위 또는 고지의무 있는 부작위로 평가되는 경우 기망행위가 될 수 있다.",
+          "request_ids": [
+            "fraud.article347.pass1.002"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다. 잔여 core 전수 교차검토에서 출처 범위와 인접 규칙의 관계에 맞게 문구를 좁혔다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+              "quote": "이미 착오에 빠져 있는 상태를 이용 하는 것도 기망에 해당한다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.implicit-deception",
+              "request_id": "fraud.article347.pass1.003"
+            }
+          ],
+          "doctrinal_status": "settled",
+          "formalization": "standard_input",
+          "id": "deception.fraud.definition.implicit-deception",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "묵시적 기망행위는 언어나 문서가 아니라 행동 또는 태도로 일정 사항에 관한 허위 외관을 표시하는 것을 의미한다.",
+          "request_ids": [
+            "fraud.article347.pass1.003"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_19",
+              "quote": "묵시적 기망행위란 언어나 문서에 의하여 표현하지 않고 행동 또는 태도를 통 하여 일정 사항에 관하여 허위의 외관을 표시하는 것을 의미한다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.notice-duty-violation-omission",
+              "request_id": "fraud.article347.pass1.003"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "deterministic_rule",
+          "id": "deception.fraud.definition.notice-duty-violation-omission",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "고지의무를 위반하여 사실을 묵비하는 것은 작위에 의한 기망이 아니라 부작위에 의한 기망행위에 해당한다.",
+          "request_ids": [
+            "fraud.article347.pass1.003"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_21",
+              "quote": "고지의무를 위반하여 사실을 묵비하는 것은 단순한 거동에 의한 기망의 일부가 아니고 기망수단의 본질적 요소를 구성하는 것이기 때문에 작위에 의한 기망행 위가 아니라 부작위에 의한 기망행위에 해당한다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.other-includes-corporation",
+              "request_id": "fraud.article347.pass1.005"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "deterministic_rule",
+          "id": "deception.fraud.definition.other-includes-corporation",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "사기죄에서 ‘타인’에는 법인이 포함되며, 법인도 사기죄의 피해자가 될 수 있다.",
+          "request_ids": [
+            "fraud.article347.pass1.005"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 사안별 판례·권위 확인 전 RuleIR 입력에서 제외하고 RAG 문맥으로 보존한다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_44",
+              "quote": "‘타인’에는 법인도 포함된다. 법인도 사기죄의 피 해자가 될 수 있고",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.element.deception-must-create-false-belief",
+              "request_id": "fraud.article347.pass1.002"
+            }
+          ],
+          "doctrinal_status": "settled",
+          "formalization": "deterministic_rule",
+          "id": "deception.fraud.element.deception-must-create-false-belief",
+          "norm_kind": "element",
+          "polarity": "negative",
+          "proposition": "기망적 수단을 사용하였더라도 상대방에게 진실과 합치하지 않는 관념을 발생시킨 행위가 아니면 사기죄 실행행위로서의 기망이 아니다.",
+          "request_ids": [
+            "fraud.article347.pass1.002"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+              "quote": "기망적인 수단을 사용하였다고 하더라도 상대방으로 하여금 진실 과 합치하지 않는 관념을 발생하게 한 행위가 아니라면 이는 사기죄의 실행행 위로서의 기망이라고 할 수 없다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.element.deception-not-legal-act-important-part",
+              "request_id": "fraud.article347.pass1.002"
+            }
+          ],
+          "doctrinal_status": "settled",
+          "formalization": "deterministic_rule",
+          "id": "deception.fraud.element.deception-not-legal-act-important-part",
+          "norm_kind": "element",
+          "polarity": "positive",
+          "proposition": "사기죄 실행행위로서의 기망은 법률행위의 중요부분에 관한 것일 필요 없이 상대방의 재산적 처분을 위한 판단의 기초사실에 관한 기망이면 충분하다.",
+          "request_ids": [
+            "fraud.article347.pass1.002"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_12",
+              "quote": "사기죄의 실행행위로 서의 기망은 반드시 법률행위의 중요부분에 관한 것일 필요는 없고, 단지 상대방 이 재산적 처분행위를 하기 위한 판단의 기초사실에 관한 기망행위이면 충분하 다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.element.loan-no-repayment-intent-or-ability",
+              "request_id": "fraud.article347.pass1.005"
+            }
+          ],
+          "doctrinal_status": "settled",
+          "formalization": "standard_input",
+          "id": "deception.fraud.element.loan-no-repayment-intent-or-ability",
+          "norm_kind": "element",
+          "polarity": "positive",
+          "proposition": "변제할 의사나 능력이 없는데도 금원을 차용하면 사기죄에 해당한다.",
+          "request_ids": [
+            "fraud.article347.pass1.005"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 이 카드만으로 사기죄 전체 성립을 도출하지 않도록 형식화를 수정했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_37",
+              "quote": "변제할 의 사나 능력이 없는데도 금원을 차용하는 행위는 사기죄에 해당하고",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.element.omission-deception-guarantor-equivalence",
+              "request_id": "fraud.article347.pass1.003"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "deception.fraud.element.omission-deception-guarantor-equivalence",
+          "norm_kind": "element",
+          "polarity": "positive",
+          "proposition": "부작위에 의한 기망행위에서는 행위자가 상대방 착오를 제거할 보증인적 지위에 있고, 부작위가 작위에 의한 기망행위와 동가치를 가져야 한다.",
+          "request_ids": [
+            "fraud.article347.pass1.003"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_20",
+              "quote": "따라서 행위자가 상대방의 착오를 제거 해야 할 보증인적 지위에 있어야 하고 그 부작위가 작위에 의한 기망행위와 동 가치를 가져야 한다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.element.omission-deception-independent-error",
+              "request_id": "fraud.article347.pass1.003"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "deterministic_rule",
+          "id": "deception.fraud.element.omission-deception-independent-error",
+          "norm_kind": "element",
+          "polarity": "positive",
+          "proposition": "부작위에 의한 기망행위에서는 상대방이 행위자와 관계없이 스스로 착오에 빠져 있어야 한다.",
+          "request_ids": [
+            "fraud.article347.pass1.003"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_20",
+              "quote": "부작위에 의한 기망행위의 경우 상대방이 행위자와 관계없이 스스로 착오 에 빠져 있을 것을 요하고",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.element.omission-deception-legal-notice-duty",
+              "request_id": "fraud.article347.pass1.003"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "deterministic_rule",
+          "id": "deception.fraud.element.omission-deception-legal-notice-duty",
+          "norm_kind": "element",
+          "polarity": "positive",
+          "proposition": "법률상 고지의무가 있는 자가 일정 사실을 고지하지 않아 상대방의 착오 상태를 계속시키고 이를 이용한 경우, 부작위에 의한 기망행위가 성립한다.",
+          "request_ids": [
+            "fraud.article347.pass1.003"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_20",
+              "quote": "법률상 고지의무 있는 자가 일정한 사 실을 고지하지 않음으로써 상대방이 착오에 빠진 상태를 계속시키고 이것을 이 용하는 경우에 부작위에 의한 기망으로서 기망행위는 성립한다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.element.transaction-purpose-no-impairment",
+              "request_id": "fraud.article347.pass1.002"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "deception.fraud.element.transaction-purpose-no-impairment",
+          "norm_kind": "element",
+          "polarity": "negative",
+          "proposition": "상대방을 착오에 빠뜨렸더라도 거래 목적 달성에 지장이 없으면 신의칙 위반의 기망행위가 있었다고 보기 어렵다.",
+          "request_ids": [
+            "fraud.article347.pass1.002"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_14",
+              "quote": "비록 상대방을 착오에 빠뜨렸다고 하더라도 그것으로 인하여 거래의 목적을 달성하는 데 지장 이 없을 때에는 기망행위가 있었다고 하기 어렵다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.element.victim-negligence-no-bar",
+              "request_id": "fraud.article347.pass1.002"
+            }
+          ],
+          "doctrinal_status": "settled",
+          "formalization": "deterministic_rule",
+          "id": "deception.fraud.element.victim-negligence-no-bar",
+          "norm_kind": "element",
+          "polarity": "positive",
+          "proposition": "착오가 상대방의 과실과 경합하더라도 사기죄는 성립할 수 있다.",
+          "request_ids": [
+            "fraud.article347.pass1.002"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_14",
+              "quote": "따라서 착오가 상대방의 과실과 경합한 경우에도 사기죄가 성립하므로",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.advertising-important-concrete-falsehood",
+              "request_id": "fraud.article347.pass1.002"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.advertising-important-concrete-falsehood",
+          "norm_kind": "standard",
+          "polarity": "positive",
+          "proposition": "거래의 중요한 사항에 관한 구체적 사실을 거래상 신의성실의무에 비추어 비난받을 정도의 방법으로 허위 고지한 경우, 과장·허위광고의 한계를 넘어 사기죄의 기망행위에 해당한다.",
+          "request_ids": [
+            "fraud.article347.pass1.002"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_15",
+              "quote": "거래에 있어서 중요한 사항에 관하여 구체적 사실을 거래상의 신의성실의 의무 에 비추어 비난받을 정도의 방법으로 허위로 고지한 경우에는 과장, 허위광고의 한 계를 넘어 사기죄의 기망행위에 해당한다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.advertising-tolerable-exaggeration",
+              "request_id": "fraud.article347.pass1.002"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.advertising-tolerable-exaggeration",
+          "norm_kind": "standard",
+          "polarity": "negative",
+          "proposition": "상품 광고·선전에 수반된 과장이나 허위가 일반 상거래 관행과 신의칙상 시인될 수 있는 정도이면 기망행위를 인정하기 어려워 사기죄가 성립하지 않는다.",
+          "request_ids": [
+            "fraud.article347.pass1.002"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_15",
+              "quote": "광고·선전이 일반 상거래의 관행과 신의칙에 비추어 시인될 수 있는 정도의 것(예컨대, 음식이 가장 맛있는 집, 물건을 가장 싸게 파는 집)이라면 기 망행위를 인정하기 어려워 사기죄가 성립하지 않는다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.deception-concrete-circumstances",
+              "request_id": "fraud.article347.pass1.002"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.deception-concrete-circumstances",
+          "norm_kind": "standard",
+          "polarity": "positive",
+          "proposition": "행위가 상대방을 착오에 빠지게 한 기망인지 여부는 거래 상황, 상대방의 지식·경험·직업 등 행위 당시 구체적 사정을 고려하여 일반적·객관적으로 판단한다.",
+          "request_ids": [
+            "fraud.article347.pass1.002"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_14",
+              "quote": "어떤 행위가 다른 사람을 착오에 빠지게 한 기망행위에 해당하는지 여부는 거 래의 상황, 상대방의 지식, 경험, 직업 등 행위 당시의 구체적 사정을 고려하여 일반적, 객관적으로 결정하여야 한다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.easily-detectable-lie",
+              "request_id": "fraud.article347.pass1.002"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.easily-detectable-lie",
+          "norm_kind": "standard",
+          "polarity": "negative",
+          "proposition": "구체적 사정에서 누구나 쉽게 허위를 간파할 수 있는 단순한 거짓말은 기망에 해당하지 않는다.",
+          "request_ids": [
+            "fraud.article347.pass1.002"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_14",
+              "quote": "그러나 이 정도에 달하지 않은 허구, 즉 구체적 사정 하에서 누구나 용이하게 그 허위를 간파할 수 있는 단순한 거짓말은 기망에 해당하지 않는다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.implicit-deception-explanatory-value",
+              "request_id": "fraud.article347.pass1.003"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.implicit-deception-explanatory-value",
+          "norm_kind": "standard",
+          "polarity": "positive",
+          "proposition": "묵시적 기망행위는 행위자 전체행위가 설명가치를 가질 때 인정되며, 그 설명가치는 거래관행과 사회통념으로 결정된다.",
+          "request_ids": [
+            "fraud.article347.pass1.003"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_19",
+              "quote": "이는 행위 자의 전체행위가 설명가치를 가질 때 인정되고, 그 설명가치는 거래관행과 사회 통념에 의하여 결정된다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.implicit-omission-deception-distinction",
+              "request_id": "fraud.article347.pass1.003"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.implicit-omission-deception-distinction",
+          "norm_kind": "standard",
+          "polarity": "positive",
+          "proposition": "행위자의 침묵이 거래관행·사회통념상 일정 사항을 표시하는 설명가치를 가져 묵시적 기망으로 평가되는지를 먼저 검토하고, 그렇지 않은 침묵은 보증인적 지위와 고지의무가 있는 경우에 한하여 부작위 기망이 될 수 있다.",
+          "request_ids": [
+            "fraud.article347.pass1.003"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자의 narrow 판정을 출처 범위에 맞는 문구로 직접 반영했다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_20",
+              "quote": "행위자의 침묵 이 설명가치를 가지는 묵시적 기망행위에 해당하지 않는 경우에 한하여 보증인 적 지위와 고지의무가 필요한 부작위에 의한 기망행위에 해당하는지 검토한 다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.intent-to-defraud-loan-inference",
+              "request_id": "fraud.article347.pass1.005"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.intent-to-defraud-loan-inference",
+          "norm_kind": "standard",
+          "polarity": "positive",
+          "proposition": "차용금 사기에서 편취의 범의는 피고인의 자백이 없으면 범행 전후 재력, 환경, 범행 내용, 거래 이행과정, 피해자와의 관계 등 객관적 사정을 종합하여 판단한다.",
+          "request_ids": [
+            "fraud.article347.pass1.005"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_37",
+              "quote": "사기죄의 주관적 구성요건인 편취의 범의 존부 는 피고인이 자백하지 않는 한 범행 전후의 피고인의 재력, 환경, 범행의 내용, 거래의 이행과정, 피해자와의 관계 등과 같은 객관적 사정을 종합하여 판단하여 야 하고",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.loan-lender-anticipated-risk",
+              "request_id": "fraud.article347.pass1.005"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.loan-lender-anticipated-risk",
+          "norm_kind": "standard",
+          "polarity": "negative",
+          "proposition": "대주가 인적·계속적 거래관계로 차주의 신용상태를 알고 변제지체·변제불능 위험을 예상했거나 충분히 예상할 수 있었고, 차주가 차용 당시 중요한 사항에 허위사실을 말한 등의 사정이 없다면 이후 미변제만으로 기망이나 편취 범의를 단정할 수 없다.",
+          "request_ids": [
+            "fraud.article347.pass1.005"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_38",
+              "quote": "차주가 그 후 제대로 변제하지 못하였다는 사실만을 가지고 변제능력에 관하여 대주를 기망하였다거나 차주에게 편취의 범의가 있었다고 단정할 수 없다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.loan-purpose-materiality",
+              "request_id": "fraud.article347.pass1.002"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.loan-purpose-materiality",
+          "norm_kind": "standard",
+          "polarity": "positive",
+          "proposition": "용도를 속여 돈을 빌린 경우, 진정한 용도를 고지했더라면 상대방이 대여하지 않았을 관계에 있으면 사기죄가 성립한다.",
+          "request_ids": [
+            "fraud.article347.pass1.002"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_12",
+              "quote": "용도를 속여서 돈을 빌린 경우에 그 진정한 용도를 고지하였더라면 상대방이 대여하여 주지 않았던 관계에 있는 때에는 사 기죄가 성립한다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.loan-subsequent-default",
+              "request_id": "fraud.article347.pass1.005"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.loan-subsequent-default",
+          "norm_kind": "standard",
+          "polarity": "negative",
+          "proposition": "소비대차에서 차주가 차용 당시 변제 의사와 능력이 있었다면, 이후 변제하지 않더라도 민사상 채무불이행일 뿐 사기죄는 성립하지 않는다.",
+          "request_ids": [
+            "fraud.article347.pass1.005"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_37",
+              "quote": "소비대차 거 래에서 차주가 돈을 빌릴 당시에는 변제할 의사와 능력을 가지고 있었다면 비 록 그 후에 변제하지 않고 있더라도 이는 민사상 채무불이행에 불과하며 사기 죄가 성립하지는 않는다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_reported_precedent",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.precedent-notice-duty-materiality",
+              "request_id": "fraud.article347.pass1.003"
+            }
+          ],
+          "doctrinal_status": "precedent_position",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.precedent-notice-duty-materiality",
+          "norm_kind": "standard",
+          "polarity": "positive",
+          "proposition": "판례는 법률상 고지의무자가 상대방의 착오를 알면서도 고지하지 않은 경우, 일반거래 경험칙상 상대방이 그 사실을 알았다면 해당 법률행위를 하지 않았을 것이 명백하면 신의칙상 고지의무가 인정된다고 본다.",
+          "request_ids": [
+            "fraud.article347.pass1.003"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 84도882 및 2018도13696의 판례 기준으로 활성화했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_21",
+              "quote": "일반거래의 경험칙상 상대방이 그 사실을 알았더라면 당해 법률행위를 하지 않았을 것이 명백한 경우에는 신의칙에 비추 어 그 사실을 고지할 법률상 의무가 인정되는 것이다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.vague-opinion-not-deception",
+              "request_id": "fraud.article347.pass1.002"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "deception.fraud.standard.vague-opinion-not-deception",
+          "norm_kind": "standard",
+          "polarity": "negative",
+          "proposition": "땅값이나 주가가 오를 것 같다는 식의 막연한 추측이나 의견 제시는 기망이 될 수 없다.",
+          "request_ids": [
+            "fraud.article347.pass1.002"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.1_13",
+              "quote": "땅값이 오를 것 같다거나 주가가 오를 것 같다는 식의 막연한 추측이나 의견제시가 기망이 될 수 없음은 자명하다.",
+              "section_path": "Ⅳ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition-delivery-factual-control",
+              "request_id": "fraud.article347.pass1.008"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_damage_acquisition.delivery_factual_control",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "재물의 현실 인도가 없더라도 재물이 범인의 사실상 지배 아래 들어가 자유로운 처분이 가능한 상태가 되면 재물의 교부가 있다.",
+          "request_ids": [
+            "fraud.article347.pass1.008"
+          ],
+          "review_notes": "사실상 지배와 자유로운 처분 가능성을 확인한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.5_66",
+              "quote": "반드시 재물의 현실의 인도가 필요한 것 은 아니고 재물이 범인의 사실상의 지배 아래에 들어가 그의 자유로운 처분이 가능한 상태에 놓인 경우에도 재물의 교부가 있었다고 보아야 한다.",
+              "section_path": "Ⅳ.5"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition-delivery-of-property",
+              "request_id": "fraud.article347.pass1.008"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_damage_acquisition.delivery_of_property",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "사기죄에서 재물의 교부는 범인의 기망에 따라 피해자가 착오로 재물에 대한 사실상 지배를 범인에게 이전하는 것이다.",
+          "request_ids": [
+            "fraud.article347.pass1.008"
+          ],
+          "review_notes": "재물 교부의 기본 정의다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.5_66",
+              "quote": "사기죄에서 ‘재물의 교부’란 범인의 기망에 따라 피해자가 착오로 재물에 대한 사실상의 지배를 범인에게 이전하는 것을 의미한다.",
+              "section_path": "Ⅳ.5"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.money-delivery-no-price-deduction",
+              "request_id": "fraud.article347.pass1.008"
+            },
+            {
+              "candidate_id": "fraud.standard.money-delivery-full-loss",
+              "request_id": "fraud.article347.pass1.008"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_damage_acquisition.money_delivery_full_amount",
+          "norm_kind": "standard",
+          "polarity": "positive",
+          "proposition": "금원 편취 사기에서 피해자가 기망으로 교부한 금원과 관련하여 상당한 대가가 일부 지급되었더라도 이를 공제하지 않고, 편취액은 교부받은 금원 전부로 본다.",
+          "request_ids": [
+            "fraud.article347.pass1.008"
+          ],
+          "review_notes": "금원 교부형 사안에 한정된 reported precedent이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자의 narrow 판정을 출처 범위에 맞는 문구로 직접 반영했다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.4_63",
+              "quote": "사기죄에 있어서 그 대가가 일부 지급된 경우에도 그 편취액은 피해자로부 터 교부된 금원으로부터 그 대가를 공제한 차액이 아니라 교부받은 금원 전부이고",
+              "section_path": "Ⅳ.4"
+            },
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.4_63",
+              "quote": "금원 편취를 내용으로 하는 사기죄에서는 기망으로 인한 금원 교부가 있으면 그 자 체로써 피해자의 재산침해가 되어 바로 사기죄가 성립하고, 상당한 대가가 지급되었 다거나 피해자의 전체 재산상에 손해가 없다 하여도 사기죄의 성립에는 그 영향이 없으므로",
+              "section_path": "Ⅳ.4"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_reported_precedent",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.variant-property-concept-precedent-economic-interpretation",
+              "request_id": "fraud.article347.pass1.007"
+            }
+          ],
+          "doctrinal_status": "precedent_position",
+          "formalization": "deterministic_rule",
+          "id": "fraud_damage_acquisition.property_concept_reported_precedent",
+          "norm_kind": "variant",
+          "polarity": "positive",
+          "proposition": "사기죄의 재산상 이익 취득은 법률상 유효할 필요가 없고, 법률상 무효라도 외형상 재산상 이익을 취득하면 족하다.",
+          "request_ids": [
+            "fraud.article347.pass1.007"
+          ],
+          "review_notes": "판례 원문 확인 전에는 해설의 판례평가로만 취급한다. Conservatively normalized from linked candidates. 정책 선택지가 아니라 판례 설명·중복 요약·보충 논거로 분류했다. 75도760 및 2001도2991의 좁은 판시 범위로 활성화했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+              "quote": "판례는 사기죄에서 재산상 이익처분은 법률상 유효하게 취득할 것을 필 요로 하지 않고 그 이익 취득이 법률상 무효라고 하여도 외형상 취득하면 족하 다고 판시하고 있어 법률적 재산개념에 한정하지 않고 있고, 경제적 재산개 념에 가깝다고 보인다.",
+              "section_path": "Ⅳ.4"
+            }
+          ],
+          "variant_group": "fraud_damage_acquisition.property_concept"
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition-property-disposition",
+              "request_id": "fraud.article347.pass1.008"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_damage_acquisition.property_disposition_types",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "재산상 이익에 대한 처분행위에는 계약 체결, 노무 제공, 채무면제 의사표시 등 이익을 취득하게 하는 일체의 행위가 포함된다.",
+          "request_ids": [
+            "fraud.article347.pass1.008"
+          ],
+          "review_notes": "처분행위의 예시적 범위다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.5_66",
+              "quote": "재산상 의 이익에 대한 처분행위로는 계약의 체결, 노무의 제공, 채무면제의 의사표 시 등 이익을 취득하게 하는 일체의 행위가 포함된다.",
+              "section_path": "Ⅳ.5"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_reported_precedent",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.variant.property-loss-negative",
+              "request_id": "fraud.article347.pass1.008"
+            }
+          ],
+          "doctrinal_status": "precedent_position",
+          "formalization": "deterministic_rule",
+          "id": "fraud_damage_acquisition.property_loss_negative_view",
+          "norm_kind": "variant",
+          "polarity": "negative",
+          "proposition": "사기죄는 기망에 의한 재물 교부 또는 재산상 이익 취득으로 성립하며, 상대방에게 현실적인 재산상 손해가 별도로 발생할 것을 요구하지 않는다.",
+          "request_ids": [
+            "fraud.article347.pass1.008"
+          ],
+          "review_notes": "손해요건 부정설의 구체적 내용이다. Conservatively normalized from linked candidates. 재산상 손해 필요성의 개괄·구체 견해를 하나의 정책 그룹으로 연결했다. 2003도4914 및 2017도21196의 판례 기준으로 활성화했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.4_63",
+              "quote": "재물편취와 불법이득의 모든 경우에 재물의 교부 또는 재산상의 이익 취득 이 있으면 족하고 피해자에게 손해가 발생하였음을 요하지 않는다고 한다.",
+              "section_path": "Ⅳ.4"
+            }
+          ],
+          "variant_group": "fraud_damage_acquisition.property_loss_requirement"
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition-protected-economic-interest",
+              "request_id": "fraud.article347.pass1.008"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_damage_acquisition.protected_economic_interest",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "사기죄의 객체인 재산상 이익은 사법상 보호되는 경제적 이익에 한정되지 않고, 사법상 보호되지 않는 경제적 이익도 경제적 이익이면 포함된다.",
+          "request_ids": [
+            "fraud.article347.pass1.008"
+          ],
+          "review_notes": "경제적 이익 해당성은 개별 평가가 필요하다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.4_64",
+              "quote": "사기죄의 객체가 되는 재산상의 이익이 반드시 사법상 보호되는 경제적 이익만 을 의미하지 않으므로, 사법상 보호되지 않은 경제적 이익이더라도 경제적 이익 에 해당하면 사기죄가 성립한다.",
+              "section_path": "Ⅳ.4"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard-right-exercise-unacceptable-deception",
+              "request_id": "fraud.article347.pass1.008"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_damage_acquisition.right_exercise_unacceptable_deception",
+          "norm_kind": "standard",
+          "polarity": "positive",
+          "proposition": "기망을 수단으로 한 권리행사라도 그 수단이 사회통념상 권리행사 수단으로 용인될 정도를 넘어서는 경우 권리행사에 속하는 행위도 사기죄에 해당한다.",
+          "request_ids": [
+            "fraud.article347.pass1.008"
+          ],
+          "review_notes": "사회통념상 용인 가능성은 평가적 판단이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.6_69",
+              "quote": "그 정도를 넘어 사회통념상 그러한 수단에 의한 권리행사를 용인할 수 없다고 평가되는 경우에는 그 행위 자체가 위법한 것이 되므로, 권리행사에 속하는 행위도 사기죄에 해당한다는 입장이다.",
+              "section_path": "Ⅳ.6"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard-consideration-return-settlement-irrelevant",
+              "request_id": "fraud.article347.pass1.008"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_damage_acquisition.subsequent_return_irrelevant",
+          "norm_kind": "standard",
+          "polarity": "positive",
+          "proposition": "기망으로 재물을 편취한 경우 상당한 대가 제공, 사후 반환·변상, 전체 재산 손해 부재 또는 사후 합의는 사기죄 성립에 영향을 주지 않는다.",
+          "request_ids": [
+            "fraud.article347.pass1.008"
+          ],
+          "review_notes": "보고된 판례의 성립 판단을 보존한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.4_64",
+              "quote": "범인이 그 재물의 가치에 상당한 또는 그 이상의 대가를 제공하였거나, 사후에 반환·변상하였거 나, 피해자의 재산전체에 손해가 없다고 하더라도 사기죄가 성립하고, 사기범 행 후 피해자와 합의하여도 사기죄의 성립에 영향이 없으며",
+              "section_path": "Ⅳ.4"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.causal-link.elements",
+              "request_id": "fraud.article347.pass1.001"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "deterministic_rule",
+          "id": "fraud_general_object.causation_required",
+          "norm_kind": "causal_link",
+          "polarity": "negative",
+          "proposition": "객관적 구성요건 요소 사이의 인과관계가 인정되지 않으면 사기죄는 기수로 성립하지 않는다.",
+          "request_ids": [
+            "fraud.article347.pass1.001"
+          ],
+          "review_notes": "인과관계 결여의 명시적 부정 규범이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅰ_0",
+              "quote": "각 객관 (ungeschriebener Tatbestand) 적 구성요건 요소 사이의 인과관계가 인정되지 않는 경우에는 사기죄는 기수로 되지 않는다.",
+              "section_path": "Ⅰ"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.causal-link.deception-error-disposition",
+              "request_id": "fraud.article347.pass1.001"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_general_object.deception_error_causation",
+          "norm_kind": "causal_link",
+          "polarity": "negative",
+          "proposition": "기망수단으로 재물을 교부받았더라도 상대방이 그 기망으로 착오에 빠진 것이 아니라 다른 동기나 이유로 교부한 경우 사기미수죄만 성립한다.",
+          "request_ids": [
+            "fraud.article347.pass1.001"
+          ],
+          "review_notes": "착오와 처분의 실제 동기 관계를 평가해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅰ_0",
+              "quote": "기망의 수단으로 재물을 교부받았다고 하더라도 상대방이 그 기망수단에 의하여 착오에 빠진 것이 아니라 다른 동기나 이유 (예컨대, 연민의 정 에 기인한 것이라면 사기미수죄만 성립한다.",
+              "section_path": "Ⅰ"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.intent-distinguishes-contract-breach",
+              "request_id": "fraud.article347.pass1.009"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_intent.contract_breach_distinction",
+          "norm_kind": "standard",
+          "polarity": "positive",
+          "proposition": "고의에 의한 기망은 단순채무불이행과 사기죄를 구별하는 표준이 된다.",
+          "request_ids": [
+            "fraud.article347.pass1.009"
+          ],
+          "review_notes": "단순 채무불이행과의 구별 적용에는 사실관계 평가가 필요하다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅴ.1_74",
+              "quote": "고의에 의한 기망은 단순채무불이행과 사기죄를 구별하는 표준이 된다.",
+              "section_path": "Ⅴ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition-illegal-appropriation-intent",
+              "request_id": "fraud.article347.pass1.009"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_intent.illegal_appropriation_definition",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "사기죄의 불법영득의사는 타인의 물건을 자기 것으로 삼으려는 의사뿐 아니라 그 경제적 용법에 따라 일시적으로 이용 또는 처분하려는 의사도 포함하며, 영구 보유 의사가 반드시 필요한 것은 아니다.",
+          "request_ids": [
+            "fraud.article347.pass1.009"
+          ],
+          "review_notes": "불법영득의사를 요구하는 정책을 채택하는 경우 그 범위를 검토한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+              "quote": "사기죄에서 불법영득의사는 타인의 물건을 자기의 것 으로 삼으려고 하는 의사뿐만 아니라 타인의 물건을 일시적으로 그 경제적 용 법에 따라 이용 또는 처분하려는 의사까지도 포함한다고 보아야 하므로, 반드시 그 물건을 영구적으로 보유할 의사가 있어야 하는 것은 아니라고 한다.",
+              "section_path": "Ⅴ.2"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.element-no-intent-to-induce-disposition",
+              "request_id": "fraud.article347.pass1.009"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "deterministic_rule",
+          "id": "fraud_intent.no_disposition_inducement_intent",
+          "norm_kind": "element",
+          "polarity": "negative",
+          "proposition": "피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.",
+          "request_ids": [
+            "fraud.article347.pass1.009"
+          ],
+          "review_notes": "처분행위를 유발하려는 의사의 존재 여부를 해당 사안에서 확인한다. Conservatively normalized from linked candidates. 일반 설명의 권위 확인 전 법률검토를 유지한다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅴ.1_74",
+              "quote": "만약 피기망자로 하여금 처분행위를 하게 한다는 의사가 없는 경우에는 사기죄가 성립하지 않는다.",
+              "section_path": "Ⅴ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_reported_precedent",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard-precedent-illegal-appropriation-intent",
+              "request_id": "fraud.article347.pass1.009"
+            }
+          ],
+          "doctrinal_status": "precedent_position",
+          "formalization": "standard_input",
+          "id": "fraud_intent.precedent_illegal_appropriation_intent",
+          "norm_kind": "standard",
+          "polarity": "positive",
+          "proposition": "판례는 사기죄의 주관적 요건으로 고의 외에 불법영득의사가 필요하다는 입장이다.",
+          "request_ids": [
+            "fraud.article347.pass1.009"
+          ],
+          "review_notes": "학설 대립과 함께 보존한 commentary-reported 판례 입장으로서 원문 판례 확인 전에는 선택하지 않는다. Conservatively normalized from linked candidates. 유형별 중복 없이 intent 모듈의 중앙 판례 기준으로 한 번만 적용한다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+              "quote": "판례는 사기죄의 주관적 요건으로서 고의 외에 불법영득의사가 필요하다는 입 장이다.",
+              "section_path": "Ⅴ.2"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.element-third-party-acquisition-intent",
+              "request_id": "fraud.article347.pass1.009"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_intent.third_party_acquisition",
+          "norm_kind": "element",
+          "polarity": "positive",
+          "proposition": "행위자가 기망으로 스스로 재물을 취득하지 않고 제3자로 하여금 교부받게 한 경우 사기죄가 성립하려면, 제3자가 정을 모르는 도구 또는 범인의 이익을 위해 행동하는 대리인이거나, 적어도 행위자에게 제3자로 하여금 재물을 취득하게 할 의사가 있어야 한다.",
+          "request_ids": [
+            "fraud.article347.pass1.009"
+          ],
+          "review_notes": "제3자의 도구·대리 관계 또는 행위자의 제3자 취득 의사를 검토해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+              "quote": "범인이 기망행위에 의해 스스로 재물을 취득하지 않고 제3자로 하여금 재물을 교부받게 한 경우에 사기죄가 성립하려면, 그 제3자가 범인과 사이에 정을 모르 는 도구 또는 범인의 이익을 위해 행동하는 대리인의 관계에 있거나, 그렇지 않 다면 적어도 불법영득의사와의 관련상 범인에게 그 제3자로 하여금 재물을 취 득하게 할 의사가 있어야 한다.",
+              "section_path": "Ⅴ.2"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.intent-time-of-conduct",
+              "request_id": "fraud.article347.pass1.009"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_intent.time_of_conduct",
+          "norm_kind": "standard",
+          "polarity": "positive",
+          "proposition": "편취의 범의는 행위 당시를 기준으로 판단한다.",
+          "request_ids": [
+            "fraud.article347.pass1.009"
+          ],
+          "review_notes": "행위 당시의 인식과 사후 사정을 구별하여 검토해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅴ.1_74",
+              "quote": "범의의 판단 시점은 행위 당시로 보아야 한다.",
+              "section_path": "Ⅴ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard-conscious-nonexercise-of-claim",
+              "request_id": "fraud.article347.pass1.007"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_mistake.conscious_nonexercise",
+          "norm_kind": "standard",
+          "polarity": "positive",
+          "proposition": "피기망자가 착오 때문에 채권을 의식적으로 행사하지 않았고 그 부작위가 행위자에게 직접 재산상 이익을 부여한 경우, 그 부작위는 재산적 처분행위가 될 수 있다.",
+          "request_ids": [
+            "fraud.article347.pass1.007"
+          ],
+          "review_notes": "의식적 권리 불행사, 착오 및 재산상 결과를 확인해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자의 narrow 판정을 출처 범위에 맞는 문구로 직접 반영했다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.3_56",
+              "quote": "피기망자가 착오에 빠진 결과 의식적으로 채권을 행사하 지 않은 경우에는 이러한 부작위도 재산적 처분행위라고 할 수 있지만",
+              "section_path": "Ⅳ.3"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.element-deceived-person-and-disposer-identity",
+              "request_id": "fraud.article347.pass1.007"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "deterministic_rule",
+          "id": "fraud_mistake.deceived_disposer_identity",
+          "norm_kind": "element",
+          "polarity": "positive",
+          "proposition": "피기망자와 처분행위자는 동일인이어야 한다.",
+          "request_ids": [
+            "fraud.article347.pass1.007"
+          ],
+          "review_notes": "피기망자와 처분행위자의 인적 동일성을 확인해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.3_59",
+              "quote": "피기망자와 재산상의 피해자는 동일인일 필요는 없으나, 피기망자와 처분행위자 는 동일인이어야 한다.",
+              "section_path": "Ⅳ.3"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.disposition-act",
+              "request_id": "fraud.article347.pass1.006"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_mistake.disposition_definition",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "처분행위란 범인 등에게 재물을 교부하거나 재산상 이익을 부여하는 재산적 처분행위이며, 피기망자가 처분의사를 가지고 그 의사에 지배된 행위를 해야 한다.",
+          "request_ids": [
+            "fraud.article347.pass1.006"
+          ],
+          "review_notes": "처분의사에 관한 대립 견해와 전원합의체 판결의 관계를 확인해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.3_49",
+              "quote": "처분행위는 범인 등에 게 재물을 교부하거나 재산상의 이익을 부여하는 재산적 처분행위를 의미하고, 피기망자가 처분의사를 가지고 그 의사에 지배된 행위를 하여야 처분행위가 된다.",
+              "section_path": "Ⅳ.3"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.causal-link.disposition-directness",
+              "request_id": "fraud.article347.pass1.006"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_mistake.disposition_directness",
+          "norm_kind": "causal_link",
+          "polarity": "positive",
+          "proposition": "재산의 감소는 처분행위로부터 직접 야기되어야 하며, 처분행위의 직접성은 기망행위가 최후 처분행위자에게까지 미치면 인정된다.",
+          "request_ids": [
+            "fraud.article347.pass1.006"
+          ],
+          "review_notes": "최후 처분행위자와 손해 사이의 직접성을 검토해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.3_53",
+              "quote": "재산의 감소는 처분행위로부터 직접 야기되어야 한다. 이와 같은 처분행위의 직접성은 기망행위가 최후의 처분행위자에게까지 미치면 인정된다.",
+              "section_path": "Ⅳ.3"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.disposition-intent-act-awareness",
+              "request_id": "fraud.article347.pass1.006"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_mistake.disposition_intent_act_awareness",
+          "norm_kind": "standard",
+          "polarity": "positive",
+          "proposition": "피기망자가 처분행위의 의미나 내용을 인식하지 못했더라도, 그 작위 또는 부작위가 직접 재산상 손해를 초래하는 재산적 처분행위로 평가되고 피기망자가 그 행위를 인식하여 한 경우에는 처분행위에 상응하는 처분의사가 인정된다.",
+          "request_ids": [
+            "fraud.article347.pass1.006"
+          ],
+          "review_notes": "판례 기준의 원문 확인 전까지 commentary-reported precedent로 취급한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.3_51",
+              "quote": "비록 피기망자가 처분 행위의 의미나 내용을 인식하지 못하였더라도, 피기망자의 작위 또는 부작위가 직접 재산상 손해를 초래하는 재산적 처분행위로 평가되고, 이러한 작위 또는 부작위를 피기망자가 인식하고 한 것이라면 처분행위에 상응하는 처분의사는 인정된다.",
+              "section_path": "Ⅳ.3"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.disposition-omission",
+              "request_id": "fraud.article347.pass1.006"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_mistake.disposition_omission",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "직접 재산상 손해를 초래하는 부작위도 처분행위가 될 수 있다.",
+          "request_ids": [
+            "fraud.article347.pass1.006"
+          ],
+          "review_notes": "부작위가 직접 재산상 손해를 초래하는지 검토해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.3_49",
+              "quote": "처분행위는 직접 재산상의 손해를 초래하는 작위 또는 부작위를 의미한다.",
+              "section_path": "Ⅳ.3"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.error-inconsistent-cognition",
+              "request_id": "fraud.article347.pass1.006"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_mistake.error_definition",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "착오란 사실과 일치하지 않는 인식을 의미한다.",
+          "request_ids": [
+            "fraud.article347.pass1.006"
+          ],
+          "review_notes": "착오 해당 여부는 구체적 인식 상태의 평가를 요구한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+              "quote": "착오란 사실과 일치하지 않는 인식을 의미한다.",
+              "section_path": "Ⅳ.2"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.error-motivates-disposition",
+              "request_id": "fraud.article347.pass1.006"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_mistake.error_disposition_motivation",
+          "norm_kind": "standard",
+          "polarity": "positive",
+          "proposition": "착오는 재산적 처분행위를 하도록 동기를 확정하게 하는 것으로 충분하며, 법률행위 내용에 관한 착오인지 동기에 관한 착오인지는 묻지 않는다.",
+          "request_ids": [
+            "fraud.article347.pass1.006"
+          ],
+          "review_notes": "착오가 처분 동기를 확정하였는지는 사실관계 평가가 필요하다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+              "quote": "착오는 재산적 처분행위를 하도 록 동기를 확정하게 하는 것으로 충분하다. 법률행위의 내용에 관한 착오이 든 동기에 관한 착오이든 이를 묻지 않는다.",
+              "section_path": "Ⅳ.2"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.error-includes-doubt-and-ignorance",
+              "request_id": "fraud.article347.pass1.006"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_mistake.error_doubt_ignorance",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "사실을 잘못 확신하는 경우뿐 아니라 어느 것이 맞는지 의심하는 경우에도 착오가 인정될 수 있고, 사실의 부지도 착오에 해당한다.",
+          "request_ids": [
+            "fraud.article347.pass1.006"
+          ],
+          "review_notes": "의심 또는 부지가 이 사건 처분에 영향을 준 착오인지 검토해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+              "quote": "어느 것 이 맞을까 의심을 하는 경우에도 일단 착오를 일으키면 사기가 성립된다. 또 사실의 부지도 착오에 해당",
+              "section_path": "Ⅳ.2"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.disposition-act-includes-factual-act",
+              "request_id": "fraud.article347.pass1.006"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "deterministic_rule",
+          "id": "fraud_mistake.factual_act_disposition",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "피기망자의 의사에 기초한 사실행위가 행위자 등에게 재물 또는 재산상 이익을 직접 이전하는 경우, 그 사실행위도 처분행위가 될 수 있다.",
+          "request_ids": [
+            "fraud.article347.pass1.006"
+          ],
+          "review_notes": "사실행위가 재산상 처분 및 착오에 기한 것인지 검토해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자의 narrow 판정을 출처 범위에 맞는 문구로 직접 반영했다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.3_49",
+              "quote": "사실행위도 처분행위가 될 수 있다. 타인을 기망하여 재물을 방기시켜 이것을 습득한 경우에도 사기죄가 성립한다 고 보아야 한다.",
+              "section_path": "Ⅳ.3"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.element.intent-to-obtain-property-gain",
+              "request_id": "fraud.article347.pass1.007"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_mistake.gain_purpose",
+          "norm_kind": "element",
+          "polarity": "positive",
+          "proposition": "사기죄에는 범인이 타인을 기망하여 재산적 이득을 취한다는 목적의사가 있어야 한다.",
+          "request_ids": [
+            "fraud.article347.pass1.007"
+          ],
+          "review_notes": "재산적 이득 취득 목적의 존재는 정황에 따라 검토해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.3_56",
+              "quote": "이 경우 범인에게 타인을 기망하여 재산적 이 득을 취한다는 목적의사가 있어야 하며",
+              "section_path": "Ⅳ.3"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.invalid-act-does-not-preclude-disposition",
+              "request_id": "fraud.article347.pass1.006"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "deterministic_rule",
+          "id": "fraud_mistake.invalid_act_disposition",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "착오에 의한 재산적 처분행위가 민법상 취소 가능하거나 그 법률행위가 무효여도 사기죄의 처분행위 성립에는 영향이 없다.",
+          "request_ids": [
+            "fraud.article347.pass1.006"
+          ],
+          "review_notes": "민사상 유효성 자체는 처분행위 성립을 배제하지 않는다는 제한된 명제다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.3_49",
+              "quote": "취소할 수 있는 법률행위, 무효인 법 률행위도 처분행위의 성립에 영향이 없다.",
+              "section_path": "Ⅳ.3"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard-no-disposition-capacity-theft",
+              "request_id": "fraud.article347.pass1.007"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_mistake.no_capacity_theft",
+          "norm_kind": "standard",
+          "polarity": "negative",
+          "proposition": "구체적으로 재산적 처분행위를 할 의사능력이 없는 사람이 기망적 수단에 반응하여 재물을 넘긴 경우에는 그 사람의 처분행위를 인정할 수 없어 사기죄가 아니라 절도죄가 문제된다.",
+          "request_ids": [
+            "fraud.article347.pass1.007"
+          ],
+          "review_notes": "당사자의 의사능력과 재산적 처분행위 능력을 구체적으로 확인해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자의 narrow 판정을 출처 범위에 맞는 문구로 직접 반영했다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.3_55",
+              "quote": "의사능 력이 없는 유아, 정신장애인은 재산적 처분행위를 할 능력이 없으므로, 기망적 수단을 사용하여 위와 같은 자로부터 재물을 취득하는 것은 사기죄가 성립하지 않고 절도죄가 성립한다.",
+              "section_path": "Ⅳ.3"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.no-thought-no-error",
+              "request_id": "fraud.article347.pass1.006"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_mistake.no_thought_no_error",
+          "norm_kind": "definition",
+          "polarity": "negative",
+          "proposition": "어떠한 생각도 갖지 않는 경우에는 착오가 인정되지 않는다.",
+          "request_ids": [
+            "fraud.article347.pass1.006"
+          ],
+          "review_notes": "단순한 부재 상태와 사실의 부지를 구별해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+              "quote": "어떠한 생각도 갖지 않는 경우에는 착오가 인정되지 않는다.",
+              "section_path": "Ⅳ.2"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard-omission-disposition-not-all-nonclaims",
+              "request_id": "fraud.article347.pass1.007"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_mistake.omission_not_all_nonclaims",
+          "norm_kind": "standard",
+          "polarity": "negative",
+          "proposition": "채권자가 일시적으로 이행을 독촉하거나 청구하지 않았다는 사정만으로는 부족하고, 착오에 기한 의식적 불행사와 그로 인한 직접 재산상 이익 부여가 있어야 부작위 처분행위가 될 수 있다.",
+          "request_ids": [
+            "fraud.article347.pass1.007"
+          ],
+          "review_notes": "단순한 일시적 불청구와 의식적 재산상 처분을 구분해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자의 narrow 판정을 출처 범위에 맞는 문구로 직접 반영했다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.3_56",
+              "quote": "상대방이 일시 채무의 이행을 독촉 내지 청구하지 않았다고 하는 모든 경우에 부작위에 의한 처분행위가 있었다고 할 수 있는지의 문제는 여전히 남는다. 결국 모든 경 우에 부작위에 의한 처분행위를 인정할 것은 아니다.",
+              "section_path": "Ⅳ.3"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.element.property-disposition",
+              "request_id": "fraud.article347.pass1.006"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "deterministic_rule",
+          "id": "fraud_mistake.property_disposition_element",
+          "norm_kind": "element",
+          "polarity": "positive",
+          "proposition": "사기죄는 피기망자의 착오에 기한 재산적 처분행위로 본인 또는 제3자가 재물을 교부받거나 재산상 이익을 취득함으로써 성립한다.",
+          "request_ids": [
+            "fraud.article347.pass1.006"
+          ],
+          "review_notes": "착오에 기한 처분, 취득 및 재산상 결과를 구분하여 검토해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.3_49",
+              "quote": "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여 본인 또는 제3자 가 재물을 교부받거나 재산상의 이익을 취득함으로써 성립한다.",
+              "section_path": "Ⅳ.3"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.disposition-act-limited-to-property",
+              "request_id": "fraud.article347.pass1.006"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "deterministic_rule",
+          "id": "fraud_mistake.property_limited_disposition",
+          "norm_kind": "definition",
+          "polarity": "negative",
+          "proposition": "처분행위는 재산상 처분행위에 한정되므로, 재산상 처분행위가 아닌 행위는 사기죄의 처분행위로 인정되지 않는다.",
+          "request_ids": [
+            "fraud.article347.pass1.006"
+          ],
+          "review_notes": "문제된 행위가 재산상 처분인지 확인해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.3_49",
+              "quote": "처분행위는 재산상 처분행위에 한정되므로, 양도증서 등 특허 관련 명의변경 서 류를 위조하여 일본국 특허청 공무원에게 제출함으로써 특허의 출원자 명의를 변경한 경우, 사업자등록 명의를 빌려주면 세금이나 채무를 모두 자신이 변 제하겠다고 속여 그로부터 사업자명의를 대여받은 경우에는 사기죄의 처분 행위가 인정되지 않는다.",
+              "section_path": "Ⅳ.3"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.causal-link.sequential-deception-error-disposition",
+              "request_id": "fraud.article347.pass1.006"
+            },
+            {
+              "candidate_id": "fraud.causal-link.disposition-caused-by-mistake",
+              "request_id": "fraud.article347.pass1.007"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "deterministic_rule",
+          "id": "fraud_mistake.sequential_causation",
+          "norm_kind": "causal_link",
+          "polarity": "positive",
+          "proposition": "사기죄 성립에는 기망행위, 상대방의 착오 및 재물 교부 또는 재산상 이익 공여 사이의 순차적 인과관계가 필요하며, 재산적 처분행위는 착오에 의한 것이어야 한다.",
+          "request_ids": [
+            "fraud.article347.pass1.006",
+            "fraud.article347.pass1.007"
+          ],
+          "review_notes": "각 단계의 구체적 인과관계와 기수 여부를 별도로 검토해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+              "quote": "사기죄의 성립을 위해서는 기망행위와 상대 방의 착오 및 재물의 교부 또는 재산상 이익의 공여와의 사이에는 순차적으로 인과관계가 있어야 한다. 이러한 2단계의 구체적 인과관계의 연쇄가 있어야 사기행위가 기수가 될 수 있다.",
+              "section_path": "Ⅳ.2"
+            },
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.3_55",
+              "quote": "재산적 처분행위는 착오에 인한 것이어야 한다. 사기죄는 타인을 기망하여 착오에 빠뜨리고 처분행위를 유발하여 재물을 교부받거나 재산상의 이익을 얻 음으로써 성립하므로, 기망, 착오, 재산적 처분행위 사이에 인과관계가 있어야 한다.",
+              "section_path": "Ⅳ.3"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition-triangular-fraud",
+              "request_id": "fraud.article347.pass1.007"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "deterministic_rule",
+          "id": "fraud_mistake.triangular_fraud_definition",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "피기망자와 재산상 피해자는 동일인일 필요가 없고, 피해자와 처분행위자가 다른 경우를 삼각사기라고 한다.",
+          "request_ids": [
+            "fraud.article347.pass1.007"
+          ],
+          "review_notes": "피기망자, 처분행위자 및 재산상 피해자를 구분하여 확인해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.3_57",
+              "quote": "피기망자와 재산상의 피해자는 동일인임을 요하지 않으므로, 피해자와 처분행위 자도 동일인일 필요는 없다. 양자가 상이한 경우를 삼각사기라고 (Dreiecksbetrug) 한다.",
+              "section_path": "Ⅳ.3"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.trick-theft-no-directness",
+              "request_id": "fraud.article347.pass1.006"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_mistake.trick_theft_directness",
+          "norm_kind": "standard",
+          "polarity": "negative",
+          "proposition": "기망적 수단이 사용됐더라도 피해자의 행위가 재물 지배 이전을 직접 초래하지 않고 행위자가 탈취한 경우에는 처분행위의 직접성이 없어 사기죄가 아니라 절도죄가 문제된다.",
+          "request_ids": [
+            "fraud.article347.pass1.006"
+          ],
+          "review_notes": "기망에 기초한 처분인지 책략절도인지 구별해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자의 narrow 판정을 출처 범위에 맞는 문구로 직접 반영했다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.3_53",
+              "quote": "책략절도의 경우에는 직접성의 흠결로 사기죄가 성 립하지 않는다.",
+              "section_path": "Ⅳ.3"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.element.error-unaware",
+              "request_id": "fraud.article347.pass1.006"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "fraud_mistake.unaware_error",
+          "norm_kind": "element",
+          "polarity": "positive",
+          "proposition": "피기망자가 진실을 알고 있어 허위임을 인식한 경우에는 착오가 아니지만, 어느 것이 진실인지 의심하는 데 그친 경우에는 착오가 인정될 수 있다.",
+          "request_ids": [
+            "fraud.article347.pass1.006"
+          ],
+          "review_notes": "피기망자의 착오 자각 여부를 사실적으로 확인해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 잔여 core 전수 교차검토에서 출처 범위와 인접 규칙의 관계에 맞게 문구를 좁혔다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+              "quote": "기망당한 사람은 자신의 착오를 인식하지 못해야 한다.",
+              "section_path": "Ⅳ.2"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.element-attempt-deceptive-act-commencement",
+              "request_id": "fraud.article347.pass1.012"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "deterministic_rule",
+          "id": "fraud_stages_participation.attempt_deceptive_act",
+          "norm_kind": "element",
+          "polarity": "positive",
+          "proposition": "사람을 기망하는 행위가 착수되면 사기죄의 실행의 착수가 있으며, 상대방이 실제 착오에 빠질 필요는 없다.",
+          "request_ids": [
+            "fraud.article347.pass1.012"
+          ],
+          "review_notes": "실행의 착수 일반 기준으로 검토한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅶ.1_105",
+              "quote": "사람을 기망하는 행위가 착수된 때에 사기죄의 실행의 착수가 있게 된다. 사람 을 착오에 빠뜨리게 하려는 행위가 있으면 족하고 상대방이 이것에 의하여 착 오에 빠진 것을 필요로 하지 않는다.",
+              "section_path": "Ⅶ.1"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.causal-link-completion-deception-disposition-transfer",
+              "request_id": "fraud.article347.pass1.012"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "deterministic_rule",
+          "id": "fraud_stages_participation.completion_deception_disposition_transfer",
+          "norm_kind": "causal_link",
+          "polarity": "positive",
+          "proposition": "행위자의 기망으로 상대방이 착오에 빠지고, 그 착오에 기초한 재산적 처분행위로 재물 또는 재산상 이익이 이전되면 사기죄는 기수에 이른다.",
+          "request_ids": [
+            "fraud.article347.pass1.012"
+          ],
+          "review_notes": "기수 판단의 기본 인과 사슬이다. Conservatively normalized from linked candidates. 관련 경쟁 견해 또는 사실변형을 fraud_stages_participation.completion_threshold로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅶ.2_107",
+              "quote": "행위자의 기망행위에 의하여 상대방이 착오에 빠지고 그 착오에 기하여 재산적 처분행위가 이루어지고 그 결과 재물 또는 재산상의 이익의 이전이 이루어진 때에 사기죄는 기수로 된다.",
+              "section_path": "Ⅶ.2"
+            }
+          ],
+          "variant_group": "fraud_stages_participation.completion_threshold"
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.causal-link-no-causation-attempt",
+              "request_id": "fraud.article347.pass1.012"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "deterministic_rule",
+          "id": "fraud_stages_participation.no_causation_attempt",
+          "norm_kind": "causal_link",
+          "polarity": "negative",
+          "proposition": "기망·착오·재산적 처분행위 사이의 인과관계가 인정되지 않으면 사기죄는 미수이다.",
+          "request_ids": [
+            "fraud.article347.pass1.012"
+          ],
+          "review_notes": "실제 인과관계 부재에 관한 미수 규범이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅶ.2_107",
+              "quote": "기망, 착오, 재산적 처분행위 사이에 인과관계가 인정되지 않으면 미수가 된다.",
+              "section_path": "Ⅶ.2"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition-property-fraud-completion-control",
+              "request_id": "fraud.article347.pass1.012"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "deterministic_rule",
+          "id": "fraud_stages_participation.property_fraud_completion_control",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "재물 편취는 피해자의 지배를 배제하고 자기 또는 제3자의 지배를 인정한 때 기수에 이른다.",
+          "request_ids": [
+            "fraud.article347.pass1.012"
+          ],
+          "review_notes": "재물 편취 기수의 지배 이전 기준이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅶ.2_107",
+              "quote": "편취는 재물의 처분행위에 의하여 재물의 점유를 취득하는 것이므로 재물에 대 하여 피해자의 지배를 배제하고 자기 또는 제3자의 지배를 인정한 때에 기수에 이른다.",
+              "section_path": "Ⅶ.2"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.property-benefit",
+              "request_id": "fraud.article347.pass1.001"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "general_object.fraud.definition.property-benefit",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "재산상 이익은 재물 이외의 것으로서 재산의 경제적 가치 증가를 의미하며, 적극적·소극적, 일시적·영구적 이익을 모두 포함한다.",
+          "request_ids": [
+            "fraud.article347.pass1.001"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅲ.2_9",
+              "quote": "재산상의 이익은 재물 이외의 것으로서 재산의 경제적 가치의 증가를 의미하고, 적극적 이익이든 소극적 이익이든 일시적 이익이든 영구적 이익이든 모두 재산 상의 이익에 해당한다.",
+              "section_path": "Ⅲ.2"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.definition.property-benefit-not-numerically-limited",
+              "request_id": "fraud.article347.pass1.001"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "general_object.fraud.definition.property-benefit-not-numerically-limited",
+          "norm_kind": "definition",
+          "polarity": "positive",
+          "proposition": "재산상 이익은 숫자로 산출할 수 있는 이익에 한정되지 않는다.",
+          "request_ids": [
+            "fraud.article347.pass1.001"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅲ.2_10",
+              "quote": "재산상의 이익은 숫자로 산출할 수 있는 이익에 한정하지 않는다.",
+              "section_path": "Ⅲ.2"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.element.object-other-possessed-other-property",
+              "request_id": "fraud.article347.pass1.001"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "general_object.fraud.element.object-other-possessed-other-property",
+          "norm_kind": "element",
+          "polarity": "positive",
+          "proposition": "사기죄의 객체는 타인이 점유하는 타인의 재물 또는 재산상 이익이다.",
+          "request_ids": [
+            "fraud.article347.pass1.001"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅲ_7",
+              "quote": "사기죄의 객체는 타인이 점유하는 타인의 재물 또는 재산상의 이익이다.",
+              "section_path": "Ⅲ"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.element.property-benefit-concrete",
+              "request_id": "fraud.article347.pass1.001"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "general_object.fraud.element.property-benefit-concrete",
+          "norm_kind": "element",
+          "polarity": "positive",
+          "proposition": "재산상 이익은 구체적인 이익이어야 한다.",
+          "request_ids": [
+            "fraud.article347.pass1.001"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅲ.2_9",
+              "quote": "재산상의 이익은 구체적인 이익일 것을 요하므로,",
+              "section_path": "Ⅲ.2"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.exception.public-interest-property-equivalence",
+              "request_id": "fraud.article347.pass1.001"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "general_object.fraud.exception.public-interest-property-equivalence",
+          "norm_kind": "exception",
+          "polarity": "exception",
+          "proposition": "기망으로 국가적·공공적 법익을 침해한 경우에도 그 침해가 동시에 재산권 침해와 동일하게 평가되고 해당 행위를 사기죄보다 특별하게 처벌하는 별도 규정이 없는 때에 한하여 사기죄가 성립할 수 있다.",
+          "request_ids": [
+            "fraud.article347.pass1.001"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자의 narrow 판정을 출처 범위에 맞는 문구로 직접 반영했다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅱ.3_4",
+              "quote": "국가적· 사회적 법익을 침해한 경우라도 그와 동시에 사기죄의 보호법익인 재산권을 침 해하는 것과 동일하게 평가할 수 있고 사기죄의 특별관계에 해당하는 처벌규정 을 별도로 두고 있지 않는 한 사기죄가 성립할 수 있다.",
+              "section_path": "Ⅱ.3"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.later-cancellation-no-effect",
+              "request_id": "fraud.article347.pass1.001"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "general_object.fraud.standard.later-cancellation-no-effect",
+          "norm_kind": "standard",
+          "polarity": "negative",
+          "proposition": "사기로 인한 재산 처분이 처분시점에 기수에 이른 경우, 사후에 이루어진 의사표시 취소는 범죄성립에 영향을 미칠 수 없다.",
+          "request_ids": [
+            "fraud.article347.pass1.001"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅱ.4_6",
+              "quote": "그 처분시점에 사기죄의 기수가 된다고 본다 (민법 제110조 제1항) 면 사후에 이루어진 의사표시의 취소는 범죄성립에 영향을 미칠 수 없다.",
+              "section_path": "Ⅱ.4"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.own-possession-other-property-embezzlement",
+              "request_id": "fraud.article347.pass1.001"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "general_object.fraud.standard.own-possession-other-property-embezzlement",
+          "norm_kind": "standard",
+          "polarity": "negative",
+          "proposition": "자기 점유의 타인 재물을 영득한 경우에는 기망행위가 있어도 횡령죄만 성립한다.",
+          "request_ids": [
+            "fraud.article347.pass1.001"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅲ_7",
+              "quote": "자기점유의 타인의 재물을 영득한 경우에는 142조) 기망행위가 있어도 횡령죄만 성립한다.",
+              "section_path": "Ⅲ"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.own-property-not-object",
+              "request_id": "fraud.article347.pass1.001"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "general_object.fraud.standard.own-property-not-object",
+          "norm_kind": "standard",
+          "polarity": "negative",
+          "proposition": "타인이 점유하는 자기소유 재물은 사기죄의 객체가 되지 않는다.",
+          "request_ids": [
+            "fraud.article347.pass1.001"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅲ_7",
+              "quote": "타인이 점유하는 자기소유의 재물은 사기죄의 객체가 되지 않는다.",
+              "section_path": "Ⅲ"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.public-interest-only-no-fraud",
+              "request_id": "fraud.article347.pass1.001"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "general_object.fraud.standard.public-interest-only-no-fraud",
+          "norm_kind": "standard",
+          "polarity": "negative",
+          "proposition": "기망이 국가적·공공적 법익만 침해하고 그 침해를 재산권 침해와 동일하게 평가할 수 없는 경우에는 사기죄가 성립하지 않는다.",
+          "request_ids": [
+            "fraud.article347.pass1.001"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자의 narrow 판정을 출처 범위에 맞는 문구로 직접 반영했다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅱ.3_4",
+              "quote": "사기죄는 개인적 법익에 대한 죄이기 때문에 기망행위로 국가적·사회적 법익이 침해되었다고 하더라도 원칙적으로 사기죄가 성립하지 않는다.",
+              "section_path": "Ⅱ.3"
+            }
+          ],
+          "variant_group": null
+        },
+        {
+          "authority_basis": "commentary_reported_precedent",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.variant-triangular-fraud-94do1575-factual-position-interpretation",
+              "request_id": "fraud.article347.pass1.007"
+            }
+          ],
+          "doctrinal_status": "precedent_position",
+          "formalization": "standard_input",
+          "id": "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation",
+          "norm_kind": "variant",
+          "polarity": "positive",
+          "proposition": "피기망자와 재산상 피해자가 다르면 피기망자에게 피해자를 위하여 그 재산을 처분할 권능 또는 지위가 있어야 한다. 그 권능 또는 지위는 사법상 위임이나 대리권과 일치할 필요는 없고, 피해자의 의사에 따라 처분서류를 교부받은 경우에도 인정될 수 있다.",
+          "request_ids": [
+            "fraud.article347.pass1.007"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 삼각사기 권한기준의 개별 학설·판례해석을 하나의 정책 그룹에 보존했다. 정책 선택지가 아니라 판례 설명·중복 요약·보충 논거로 분류했다. 94도1575와 2022도12494의 권능 또는 지위 기준으로 활성화했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅳ.3_58",
+              "quote": "이후 다음 과 같이 판시함으로써 사실상의 지위설의 입장을 채택한 것으로 이해되고 있다.",
+              "section_path": "Ⅳ.3"
+            }
+          ],
+          "variant_group": "fraud_mistake.triangular_fraud_authority"
+        },
+        {
+          "authority_basis": "commentary_synthesis",
+          "candidate_refs": [
+            {
+              "candidate_id": "fraud.standard.right-exercise-socially-acceptable-no-crime",
+              "request_id": "fraud.article347.pass1.011"
+            }
+          ],
+          "doctrinal_status": "descriptive",
+          "formalization": "standard_input",
+          "id": "special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime",
+          "norm_kind": "standard",
+          "polarity": "negative",
+          "proposition": "기망수단을 사용한 권리행사라도 그 기망수단이 사회통념상 권리행사의 수단으로 용인될 수 있으면 권리행사 자체에 속하는 행위는 범죄를 구성하지 않는 정당행위가 된다.",
+          "request_ids": [
+            "fraud.article347.pass1.011"
+          ],
+          "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_special_forms.right_exercise_boundary로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_required": false,
+          "source_refs": [
+            {
+              "comment_id": "comm_001692_제347조_Ⅵ.4_99",
+              "quote": "망 행위를 사회통념상 권리행사의 수단으로서 용인할 수 있는 것이었다면 그중 권리행사 자체에 속하는 행위만은 범죄를 구성하지 않는 정당행위였다고 할 수 있으나",
+              "section_path": "Ⅵ.4"
+            }
+          ],
+          "variant_group": "fraud_special_forms.right_exercise_boundary"
+        }
+      ],
+      "construction": "reviewed_aggregate",
+      "coverage_gaps": [
+        "사용자 검수로 context_only가 된 558개 카드와 형법총칙 future work는 실행 core 밖이다."
+      ],
+      "issue_tag": "fraud",
+      "legal_review": "complete",
+      "legal_review_questions": [],
+      "source_scope": {
+        "comment_ids": [
+          "comm_001692_제347조_Ⅰ_0",
+          "comm_001692_제347조_Ⅱ.3_4",
+          "comm_001692_제347조_Ⅱ.4_6",
+          "comm_001692_제347조_Ⅲ.2_10",
+          "comm_001692_제347조_Ⅲ.2_9",
+          "comm_001692_제347조_Ⅲ_7",
+          "comm_001692_제347조_Ⅳ.1_11",
+          "comm_001692_제347조_Ⅳ.1_12",
+          "comm_001692_제347조_Ⅳ.1_13",
+          "comm_001692_제347조_Ⅳ.1_14",
+          "comm_001692_제347조_Ⅳ.1_15",
+          "comm_001692_제347조_Ⅳ.1_18",
+          "comm_001692_제347조_Ⅳ.1_19",
+          "comm_001692_제347조_Ⅳ.1_20",
+          "comm_001692_제347조_Ⅳ.1_21",
+          "comm_001692_제347조_Ⅳ.1_37",
+          "comm_001692_제347조_Ⅳ.1_38",
+          "comm_001692_제347조_Ⅳ.1_43",
+          "comm_001692_제347조_Ⅳ.1_44",
+          "comm_001692_제347조_Ⅳ.1_45",
+          "comm_001692_제347조_Ⅳ.1_46",
+          "comm_001692_제347조_Ⅳ.2_47",
+          "comm_001692_제347조_Ⅳ.3_49",
+          "comm_001692_제347조_Ⅳ.3_51",
+          "comm_001692_제347조_Ⅳ.3_53",
+          "comm_001692_제347조_Ⅳ.3_55",
+          "comm_001692_제347조_Ⅳ.3_56",
+          "comm_001692_제347조_Ⅳ.3_57",
+          "comm_001692_제347조_Ⅳ.3_58",
+          "comm_001692_제347조_Ⅳ.3_59",
+          "comm_001692_제347조_Ⅳ.4_62",
+          "comm_001692_제347조_Ⅳ.4_63",
+          "comm_001692_제347조_Ⅳ.4_64",
+          "comm_001692_제347조_Ⅳ.5_66",
+          "comm_001692_제347조_Ⅳ.6_69",
+          "comm_001692_제347조_Ⅴ.1_74",
+          "comm_001692_제347조_Ⅴ.2_82",
+          "comm_001692_제347조_Ⅵ.4_99",
+          "comm_001692_제347조_Ⅶ.1_105",
+          "comm_001692_제347조_Ⅶ.2_107"
+        ],
+        "target_paths": [
+          "commentary://001692/제347조"
+        ]
+      },
+      "status": "draft",
+      "version": "1.1.0"
+    }
+  },
+  "coverage_contract": {
+    "card_ids": [
+      "deception.fraud.causal-link.deception-property-disposition",
+      "deception.fraud.causal-link.loan-purpose-not-sole-trigger",
+      "deception.fraud.causal-link.no-disposition-no-deception",
+      "deception.fraud.definition.deceived-person-unspecified",
+      "deception.fraud.definition.deceived-person-victim-distinct",
+      "deception.fraud.definition.deception-content-basis-fact",
+      "deception.fraud.definition.deception-counterparty-is-other",
+      "deception.fraud.definition.deception-good-faith-mistake",
+      "deception.fraud.definition.deception-means-unrestricted",
+      "deception.fraud.definition.deception-object-facts",
+      "deception.fraud.definition.deception-target-human",
+      "deception.fraud.definition.exploitation-existing-mistake",
+      "deception.fraud.definition.implicit-deception",
+      "deception.fraud.definition.notice-duty-violation-omission",
+      "deception.fraud.definition.other-includes-corporation",
+      "deception.fraud.element.deception-must-create-false-belief",
+      "deception.fraud.element.deception-not-legal-act-important-part",
+      "deception.fraud.element.loan-no-repayment-intent-or-ability",
+      "deception.fraud.element.omission-deception-guarantor-equivalence",
+      "deception.fraud.element.omission-deception-independent-error",
+      "deception.fraud.element.omission-deception-legal-notice-duty",
+      "deception.fraud.element.transaction-purpose-no-impairment",
+      "deception.fraud.element.victim-negligence-no-bar",
+      "deception.fraud.standard.advertising-important-concrete-falsehood",
+      "deception.fraud.standard.advertising-tolerable-exaggeration",
+      "deception.fraud.standard.deception-concrete-circumstances",
+      "deception.fraud.standard.easily-detectable-lie",
+      "deception.fraud.standard.implicit-deception-explanatory-value",
+      "deception.fraud.standard.implicit-omission-deception-distinction",
+      "deception.fraud.standard.intent-to-defraud-loan-inference",
+      "deception.fraud.standard.loan-lender-anticipated-risk",
+      "deception.fraud.standard.loan-purpose-materiality",
+      "deception.fraud.standard.loan-subsequent-default",
+      "deception.fraud.standard.precedent-notice-duty-materiality",
+      "deception.fraud.standard.vague-opinion-not-deception",
+      "fraud_damage_acquisition.delivery_factual_control",
+      "fraud_damage_acquisition.delivery_of_property",
+      "fraud_damage_acquisition.money_delivery_full_amount",
+      "fraud_damage_acquisition.property_concept_reported_precedent",
+      "fraud_damage_acquisition.property_disposition_types",
+      "fraud_damage_acquisition.property_loss_negative_view",
+      "fraud_damage_acquisition.protected_economic_interest",
+      "fraud_damage_acquisition.right_exercise_unacceptable_deception",
+      "fraud_damage_acquisition.subsequent_return_irrelevant",
+      "fraud_general_object.causation_required",
+      "fraud_general_object.deception_error_causation",
+      "fraud_intent.contract_breach_distinction",
+      "fraud_intent.illegal_appropriation_definition",
+      "fraud_intent.no_disposition_inducement_intent",
+      "fraud_intent.precedent_illegal_appropriation_intent",
+      "fraud_intent.third_party_acquisition",
+      "fraud_intent.time_of_conduct",
+      "fraud_mistake.conscious_nonexercise",
+      "fraud_mistake.deceived_disposer_identity",
+      "fraud_mistake.disposition_definition",
+      "fraud_mistake.disposition_directness",
+      "fraud_mistake.disposition_intent_act_awareness",
+      "fraud_mistake.disposition_omission",
+      "fraud_mistake.error_definition",
+      "fraud_mistake.error_disposition_motivation",
+      "fraud_mistake.error_doubt_ignorance",
+      "fraud_mistake.factual_act_disposition",
+      "fraud_mistake.gain_purpose",
+      "fraud_mistake.invalid_act_disposition",
+      "fraud_mistake.no_capacity_theft",
+      "fraud_mistake.no_thought_no_error",
+      "fraud_mistake.omission_not_all_nonclaims",
+      "fraud_mistake.property_disposition_element",
+      "fraud_mistake.property_limited_disposition",
+      "fraud_mistake.sequential_causation",
+      "fraud_mistake.triangular_fraud_definition",
+      "fraud_mistake.trick_theft_directness",
+      "fraud_mistake.unaware_error",
+      "fraud_stages_participation.attempt_deceptive_act",
+      "fraud_stages_participation.completion_deception_disposition_transfer",
+      "fraud_stages_participation.no_causation_attempt",
+      "fraud_stages_participation.property_fraud_completion_control",
+      "general_object.fraud.definition.property-benefit",
+      "general_object.fraud.definition.property-benefit-not-numerically-limited",
+      "general_object.fraud.element.object-other-possessed-other-property",
+      "general_object.fraud.element.property-benefit-concrete",
+      "general_object.fraud.exception.public-interest-property-equivalence",
+      "general_object.fraud.standard.later-cancellation-no-effect",
+      "general_object.fraud.standard.own-possession-other-property-embezzlement",
+      "general_object.fraud.standard.own-property-not-object",
+      "general_object.fraud.standard.public-interest-only-no-fraud",
+      "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation",
+      "special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime"
+    ],
+    "cards": 88,
+    "deterministic_rule_requires_implementing_rule": true,
+    "formalizations": {
+      "deterministic_rule": 28,
+      "standard_input": 60
+    },
+    "standard_input_requires_input_standard": true
+  },
+  "excluded_context": {
+    "audit_path": "data/rulegen/fraud/fraud_core_rule_human_review_audit.json",
+    "cards": 558,
+    "instruction": "Do not recreate excluded case-specific or rejected rules."
+  },
+  "request_id": "fraud.article347.rule_ir.full.v1",
+  "review_workflow": [
+    "local_schema_provenance_and_generation_contract_validation",
+    "agent_rule_ir_review",
+    "agent_long_form_natural_language_explanation",
+    "human_review",
+    "sol_critic",
+    "human_re_review",
+    "scallop_compile_and_runtime_tests"
+  ],
+  "stage": "rule_ir",
+  "target": {
+    "issue_tag": "fraud",
+    "legal_review": "pending",
+    "rule_set_id": "kr.fraud.article347.full.v1_candidate",
+    "status": "draft"
+  },
+  "version": "1.0.0"
+}

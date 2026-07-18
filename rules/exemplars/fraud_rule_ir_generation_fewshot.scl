@@ -1,0 +1,54 @@
+// rule_set_id: kr.fraud.article347.rule_ir_generation_fewshot
+// status: draft
+// legal_review: pending
+// generated_from: validated RuleIR; model output is never executed directly
+
+// provable: The assessment may be consumed by substantive rules.
+// sources: system contract
+// norm_cards: system contract
+type provable(String, String)
+
+// deception_good_faith_assessment: 신의칙에 반하여 상대방에게 착오를 일으키는 기망인지에 대한 명시적 평가
+// sources: comm_001692_제347조_Ⅳ.1_11
+// norm_cards: deception.fraud.definition.deception-good-faith-mistake
+type deception_good_faith_assessment(String, String, String, String, String)
+
+// false_belief_created_assessment: 기망적 수단으로 진실과 다른 관념이 실제 형성되었는지에 대한 평가
+// sources: comm_001692_제347조_Ⅳ.1_11
+// norm_cards: deception.fraud.element.deception-must-create-false-belief
+type false_belief_created_assessment(String, String, String, String, String)
+
+// deception_supported: 기망행위 요건이 명시적으로 충족된 상태
+// sources: comm_001692_제347조_Ⅳ.1_11, comm_001692_제347조_Ⅳ.1_11
+// norm_cards: deception.fraud.definition.deception-good-faith-mistake, deception.fraud.element.deception-must-create-false-belief
+type deception_supported(String, String, String)
+
+// deception_not_satisfied: 기망행위 요건이 명시적으로 충족되지 않은 상태
+// sources: comm_001692_제347조_Ⅳ.1_11, comm_001692_제347조_Ⅳ.1_11
+// norm_cards: deception.fraud.definition.deception-good-faith-mistake, deception.fraud.element.deception-must-create-false-belief
+type deception_not_satisfied(String, String, String)
+
+// deception_undetermined: 기망행위 요건 판단에 필요한 평가가 미확인인 상태
+// sources: comm_001692_제347조_Ⅳ.1_11, comm_001692_제347조_Ⅳ.1_11
+// norm_cards: deception.fraud.definition.deception-good-faith-mistake, deception.fraud.element.deception-must-create-false-belief
+type deception_undetermined(String, String, String)
+
+// rule_id: fraud.example.deception_supported
+// sources: comm_001692_제347조_Ⅳ.1_11, comm_001692_제347조_Ⅳ.1_11
+// norm_cards: deception.fraud.definition.deception-good-faith-mistake, deception.fraud.element.deception-must-create-false-belief
+rel deception_supported(case_id, defendant_id, deceived_person_id) = deception_good_faith_assessment(case_id, assessment_1, defendant_id, deceived_person_id, "satisfied") and
+  provable(case_id, assessment_1) and
+  false_belief_created_assessment(case_id, assessment_2, defendant_id, deceived_person_id, "satisfied") and
+  provable(case_id, assessment_2)
+
+// rule_id: fraud.example.deception_not_satisfied
+// sources: comm_001692_제347조_Ⅳ.1_11
+// norm_cards: deception.fraud.element.deception-must-create-false-belief
+rel deception_not_satisfied(case_id, defendant_id, deceived_person_id) = false_belief_created_assessment(case_id, assessment_1, defendant_id, deceived_person_id, "not_satisfied") and
+  provable(case_id, assessment_1)
+
+// rule_id: fraud.example.deception_unknown
+// sources: comm_001692_제347조_Ⅳ.1_11
+// norm_cards: deception.fraud.definition.deception-good-faith-mistake
+rel deception_undetermined(case_id, defendant_id, deceived_person_id) = deception_good_faith_assessment(case_id, assessment_1, defendant_id, deceived_person_id, "unknown") and
+  provable(case_id, assessment_1)

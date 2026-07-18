@@ -34,6 +34,14 @@ class RuleIRValidationError(ValueError):
         super().__init__("Invalid RuleIR:\n- " + "\n- ".join(errors))
 
 
+class RuleIRGenerationContractError(ValueError):
+    """Raised when a valid RuleIR does not implement the approved generation contract."""
+
+    def __init__(self, errors: list[str]) -> None:
+        self.errors = errors
+        super().__init__("Invalid full RuleIR generation:\n- " + "\n- ".join(errors))
+
+
 class NormCandidateValidationError(ValueError):
     """Raised when one raw API extraction batch fails provenance checks."""
 
@@ -410,8 +418,25 @@ def validate_norm_card_set(
         raise NormCardValidationError(errors)
     if payload.get("status") != "draft":
         errors.append("status must remain draft")
-    if payload.get("legal_review") != "pending":
-        errors.append("legal_review must remain pending")
+    legal_review = payload.get("legal_review")
+    construction = payload.get("construction")
+    if legal_review == "complete":
+        if construction != "reviewed_aggregate":
+            errors.append(
+                "legal_review=complete is allowed only for reviewed_aggregate"
+            )
+        if any(card.get("review_required", False) for card in payload.get("cards", [])):
+            errors.append(
+                "legal_review=complete forbids cards with review_required=true"
+            )
+        if payload.get("legal_review_questions"):
+            errors.append(
+                "legal_review=complete requires an empty legal_review_questions list"
+            )
+    elif legal_review != "pending":
+        errors.append("legal_review must be pending or complete")
+    elif construction == "reviewed_aggregate":
+        errors.append("reviewed_aggregate must have legal_review=complete")
 
     source_scope = payload.get("source_scope", {})
     allowed_comment_ids = set(source_scope.get("comment_ids", []))
@@ -824,6 +849,310 @@ def compile_rule_ir(
         )
         lines.append("")
     return "\n".join(lines).rstrip() + "\n"
+
+
+FULL_RULE_IR_OUTPUT_SIGNATURES = {
+    "fraud_established": (
+        "case_id",
+        "defendant_id",
+        "deceived_person_id",
+        "disposer_id",
+        "property_owner_id",
+        "subject_id",
+        "beneficiary_id",
+    ),
+    "fraud_not_established": ("case_id", "defendant_id", "issue_id"),
+    "fraud_undetermined": ("case_id", "defendant_id", "issue_id"),
+    "fraud_conflict": ("case_id", "defendant_id", "issue_id"),
+}
+STANDARD_ASSESSMENT_STATUSES = {"satisfied", "not_satisfied", "unknown"}
+
+
+def validate_full_rule_ir_generation(
+    payload: Mapping[str, Any],
+    commentary_by_id: Mapping[str, Mapping[str, Any]],
+    norm_card_set: Mapping[str, Any],
+) -> None:
+    """Validate complete core coverage, explicit unknowns, and evidence gating."""
+
+    validate_rule_ir(payload, commentary_by_id, norm_card_set)
+    errors: list[str] = []
+    card_defs = {
+        card.get("id", ""): card for card in norm_card_set.get("cards", [])
+    }
+    expected_card_ids = set(card_defs)
+    actual_scope_ids = set(payload.get("norm_card_scope", {}).get("card_ids", []))
+    if actual_scope_ids != expected_card_ids:
+        errors.append(
+            "norm_card_scope.card_ids must exactly equal the approved aggregate card set"
+        )
+
+    expected_comment_ids = {
+        ref.get("comment_id", "")
+        for card in card_defs.values()
+        for ref in card.get("source_refs", [])
+    }
+    actual_comment_ids = set(payload.get("source_scope", {}).get("comment_ids", []))
+    if actual_comment_ids != expected_comment_ids:
+        errors.append(
+            "source_scope.comment_ids must exactly equal the approved cards' sources"
+        )
+
+    predicates = payload.get("predicates", [])
+    predicate_defs = {predicate.get("id", ""): predicate for predicate in predicates}
+    rules = payload.get("rules", [])
+    predicate_card_ids = {
+        card_id
+        for predicate in predicates
+        for card_id in predicate.get("norm_card_ids", [])
+    }
+    rule_card_ids = {
+        card_id for rule in rules for card_id in rule.get("norm_card_ids", [])
+    }
+    referenced_card_ids = predicate_card_ids | rule_card_ids
+    missing_cards = sorted(expected_card_ids - referenced_card_ids)
+    if missing_cards:
+        errors.append(f"RuleIR omits approved cards: {missing_cards}")
+
+    standard_card_ids = {
+        card_id
+        for card_id, card in card_defs.items()
+        if card.get("formalization") == "standard_input"
+    }
+    standard_predicate_card_ids = {
+        card_id
+        for predicate in predicates
+        if predicate.get("kind") == "standard" and predicate.get("role") == "input"
+        for card_id in predicate.get("norm_card_ids", [])
+    }
+    missing_standard_cards = sorted(standard_card_ids - standard_predicate_card_ids)
+    if missing_standard_cards:
+        errors.append(
+            "standard_input cards without an input standard predicate: "
+            f"{missing_standard_cards}"
+        )
+
+    deterministic_card_ids = {
+        card_id
+        for card_id, card in card_defs.items()
+        if card.get("formalization") == "deterministic_rule"
+    }
+    missing_deterministic_cards = sorted(deterministic_card_ids - rule_card_ids)
+    if missing_deterministic_cards:
+        errors.append(
+            "deterministic_rule cards without an implementing rule: "
+            f"{missing_deterministic_cards}"
+        )
+
+    provable = predicate_defs.get("provable")
+    expected_provable = {
+        "arguments": [
+            {"name": "case_id", "type": "String"},
+            {"name": "assessment_id", "type": "String"},
+        ],
+        "kind": "rule",
+        "role": "input",
+        "origin": "system",
+        "source_refs": [],
+        "norm_card_ids": [],
+    }
+    if provable is None or any(
+        provable.get(key) != value for key, value in expected_provable.items()
+    ):
+        errors.append(
+            "provable must be a system input with (case_id, assessment_id)"
+        )
+
+    if "active_policy" in predicate_defs:
+        errors.append("active_policy is forbidden because all fraud policies are resolved")
+
+    commentary_inputs: set[str] = set()
+    unexpected_system_predicates: list[str] = []
+    for predicate in predicates:
+        predicate_id = predicate.get("id", "")
+        arguments = predicate.get("arguments", [])
+        if predicate.get("origin") == "system" and predicate_id != "provable":
+            unexpected_system_predicates.append(predicate_id)
+        if predicate_id != "provable":
+            if not arguments or arguments[0] != {
+                "name": "case_id",
+                "type": "String",
+            }:
+                errors.append(f"predicate {predicate_id} must start with case_id: String")
+        if predicate.get("kind") == "standard" and predicate.get("role") != "input":
+            errors.append(f"standard predicate {predicate_id} must be an input")
+        if predicate.get("origin") != "commentary" or predicate.get("role") != "input":
+            continue
+        commentary_inputs.add(predicate_id)
+        if len(arguments) < 3:
+            errors.append(
+                f"commentary input {predicate_id} needs case, assessment, and status"
+            )
+            continue
+        if arguments[1] != {"name": "assessment_id", "type": "String"}:
+            errors.append(
+                f"commentary input {predicate_id} must have assessment_id second"
+            )
+        if arguments[-1] != {"name": "status", "type": "String"}:
+            errors.append(f"commentary input {predicate_id} must end with status")
+    if unexpected_system_predicates:
+        errors.append(
+            "provable is the only allowed system predicate: "
+            f"{sorted(unexpected_system_predicates)}"
+        )
+
+    consumed_commentary_inputs: set[str] = set()
+    rule_head_predicates: set[str] = set()
+    for rule_index, rule in enumerate(rules):
+        head = rule.get("head", {})
+        rule_head_predicates.add(head.get("predicate", ""))
+        body = rule.get("body", [])
+        if any(atom.get("negated", False) for atom in body):
+            errors.append(f"rules[{rule_index}] uses forbidden open-world negation")
+        head_arguments = head.get("arguments", [])
+        expected_case = head_arguments[0] if head_arguments else None
+        if not expected_case or expected_case.get("kind") != "variable":
+            errors.append(f"rules[{rule_index}] head must start with a case variable")
+        for atom_index, atom in enumerate(body):
+            arguments = atom.get("arguments", [])
+            if not arguments or arguments[0] != expected_case:
+                errors.append(
+                    f"rules[{rule_index}].body[{atom_index}] does not use the head case"
+                )
+        for atom_index, atom in enumerate(body):
+            predicate_id = atom.get("predicate", "")
+            if predicate_id not in commentary_inputs:
+                continue
+            consumed_commentary_inputs.add(predicate_id)
+            arguments = atom.get("arguments", [])
+            status = arguments[-1] if arguments else {}
+            if status.get("kind") != "string" or (
+                status.get("value") not in STANDARD_ASSESSMENT_STATUSES
+            ):
+                errors.append(
+                    f"rules[{rule_index}].body[{atom_index}] must match one explicit status"
+                )
+            evidence_key = arguments[:2]
+            paired = any(
+                candidate.get("predicate") == "provable"
+                and candidate.get("arguments", []) == evidence_key
+                and not candidate.get("negated", False)
+                for candidate in body
+            )
+            if not paired:
+                errors.append(
+                    f"rules[{rule_index}].body[{atom_index}] bypasses provable"
+                )
+
+    unconsumed_commentary_inputs = sorted(
+        commentary_inputs - consumed_commentary_inputs
+    )
+    if unconsumed_commentary_inputs:
+        errors.append(
+            "commentary inputs are declared but never consumed: "
+            f"{unconsumed_commentary_inputs}"
+        )
+
+    for predicate_id, argument_names in FULL_RULE_IR_OUTPUT_SIGNATURES.items():
+        predicate = predicate_defs.get(predicate_id)
+        if predicate is None:
+            errors.append(f"missing required output predicate {predicate_id}")
+            continue
+        actual_names = tuple(
+            argument.get("name") for argument in predicate.get("arguments", [])
+        )
+        actual_types = {
+            argument.get("type") for argument in predicate.get("arguments", [])
+        }
+        if actual_names != argument_names or actual_types != {"String"}:
+            errors.append(f"output predicate {predicate_id} has the wrong signature")
+        if predicate.get("role") != "derived" or predicate.get("kind") != "rule":
+            errors.append(f"output predicate {predicate_id} must be a derived rule")
+        if predicate_id not in rule_head_predicates:
+            errors.append(f"output predicate {predicate_id} has no implementing rule")
+
+    if errors:
+        raise RuleIRGenerationContractError(errors)
+
+
+def render_rule_ir_natural_language_scaffold(payload: Mapping[str, Any]) -> str:
+    """Render a complete mechanical explanation for later agent legal synthesis."""
+
+    predicate_defs = {
+        predicate["id"]: predicate for predicate in payload.get("predicates", [])
+    }
+    lines = [
+        "# 사기죄 전체 RuleIR 자연어 설명 초안",
+        "",
+        "> 이 파일은 구조를 빠짐없이 펼친 기계적 초안이다. 에이전트가 법률적 연결과 "
+        "성립·불성립·unknown 경로를 다시 서술한 뒤 사용자에게 제시해야 한다.",
+        "",
+        "## 전체 구조",
+        "",
+        f"- rule_set_id: `{payload.get('rule_set_id', '')}`",
+        f"- predicate: {len(payload.get('predicates', []))}개",
+        f"- rule: {len(payload.get('rules', []))}개",
+        f"- NormCard: {len(payload.get('norm_card_scope', {}).get('card_ids', []))}개",
+        "",
+        "## Predicate",
+        "",
+    ]
+    for predicate in payload.get("predicates", []):
+        signature = ", ".join(
+            f"{argument['name']}: {argument['type']}"
+            for argument in predicate["arguments"]
+        )
+        lines.extend(
+            [
+                f"### `{predicate['id']}({signature})`",
+                "",
+                predicate["definition"],
+                "",
+                f"- 종류/역할: `{predicate['kind']}` / `{predicate['role']}`",
+                "- 연결 NormCard: "
+                + (", ".join(f"`{card_id}`" for card_id in predicate["norm_card_ids"])
+                   or "system contract"),
+                "",
+            ]
+        )
+    lines.extend(["## Rules", ""])
+    for rule in payload.get("rules", []):
+        head = rule["head"]
+        head_definition = predicate_defs[head["predicate"]]["definition"]
+        body_definitions = [
+            predicate_defs[atom["predicate"]]["definition"] for atom in rule["body"]
+        ]
+        lines.extend(
+            [
+                f"### `{rule['id']}`",
+                "",
+                f"이 규칙은 **{head_definition}**을 도출한다.",
+                "",
+                "필요한 전제:",
+                "",
+                *(f"- {definition}" for definition in body_definitions),
+                "",
+                "연결 NormCard: "
+                + ", ".join(f"`{card_id}`" for card_id in rule["norm_card_ids"]),
+                "",
+                f"검토 메모: {rule['review_notes']}",
+                "",
+            ]
+        )
+    lines.extend(
+        [
+            "## 에이전트 추가 설명 필요",
+            "",
+            "- 구성요건별 satisfied/not_satisfied/unknown 전파 경로",
+            "- negative·exception 카드가 불성립 경로에 들어가는 방식",
+            "- 삼각사기에서 피기망자·처분자·재산소유자·수익자 역할 구별",
+            "- 차용금 사기 기준과 일반 사기 기준의 관계",
+            "- 동시에 상반된 assessment가 있을 때 conflict가 도출되는 방식",
+            "- RAG로 제외된 구체 유형을 언제 검색해야 하는지",
+            "",
+        ]
+    )
+    return "\n".join(lines)
 
 
 def _validate_norm_card_links(

@@ -17,12 +17,14 @@ issue_tag
   -> validated minimal candidate patch
   -> API: NormCardSet merge
   -> deterministic NormCard validation
+  -> human-approved aggregate core
   -> API: RuleIR draft
-  -> deterministic RuleIR + NormCard-link validator
-  -> deterministic Scallop compiler
-  -> golden tests
+  -> deterministic RuleIR + full-generation-contract validator
+  -> agent rule-by-rule audit + long-form natural-language explanation
   -> human legal review
-  -> active policy + verified promotion
+  -> API: advisory Sol critic
+  -> human re-review
+  -> deterministic Scallop compiler + runtime/golden tests
 ```
 
 의미검색, embedding, reranker, KCL `rubric_summary`는 rule source와 target 선택에
@@ -109,10 +111,13 @@ predicate의 의미와 판단 질문을 정의할 수 있지만, 그 자체를 �
 
 ## Predicate 설계
 
-법률 요건과 사건 사실을 같은 predicate로 합치지 않는다. 원문에서 추출한
-`*_fact(fact_id, ...)`와 증거능력 판단 결과인 `provable(fact_id)`를 결합해
-`proven_*`을 만든 뒤에만 실체법 rule이 소비한다. 이 구조가 위법수집증거·전문증거가
-사기죄 결론에 곧바로 들어가는 것을 막는다.
+법률 요건과 사건 사실을 같은 predicate로 합치지 않는다. 현재 사기죄 계약에서 neural
+grounding은 사건별 `StandardAssessment`를 만들고, commentary-origin 입력은
+`(case_id, assessment_id, ..., status)` 구조를 갖는다. `status`는 `satisfied`,
+`not_satisfied`, `unknown` 중 하나다. 실체법 rule은 같은 사건·평가 ID의
+`provable(case_id, assessment_id)`가 함께 있을 때만 이를 소비한다. 이 구조가
+위법수집증거·전문증거처럼 절차 게이트를 통과하지 않은 판단이 사기죄 결론에 곧바로
+들어가는 것을 막는다.
 
 행위자 역할도 분리한다. 최소한 `defendant`, `deceived`, `owner`, `asset`,
 `beneficiary`를 유지해야 피기망자와 재산상 피해자가 다른 삼각사기를 잘못 합치지
@@ -148,7 +153,8 @@ gate가 충족된 경우에만 `admissible(e)`를 만든다. 참고 구현은
 ## 사기죄 exemplar
 
 `data/rulegen/fraud/fraud_norm_card_set_exemplar.json`과
-`data/rulegen/fraud/fraud_rule_ir_exemplar.json`은 다음을 보여 주는 모범 초안이다.
+`data/rulegen/fraud/fraud_rule_ir_exemplar.json`은 초기 8장 역사적 초안이다. 다음
+구조를 탐색하는 데 사용했지만, 현재 88장 생성의 substantive few-shot으로는 쓰지 않는다.
 
 - 모든 실체법 사실이 `provable(fact_id)`를 통과하는 bridge
 - 기망→착오→처분→취득의 인과 사슬
@@ -158,9 +164,11 @@ gate가 충족된 경우에만 `admissible(e)`를 만든다. 참고 구현은
 - source quote가 실제 commentary substring인지 검사하는 provenance gate
 - predicate/rule의 source quote가 연결 NormCard 범위를 벗어나지 못하는 provenance gate
 
-현재 exemplar는 일부러 `draft/pending`이다. 제347조 주석 자체가 재산상 손해와
-불법영득의사의 독립요건성에 견해 대립을 기록하므로, 이 선택을 모델이나 개발자가
-임의로 `verified`로 승격할 수 없다.
+현재 생성에는 사용자 검수를 마친
+`data/rulegen/fraud/fraud_core_norm_card_set.json`을 사용한다. 이전 초안의 손해 및
+불법영득의사 policy를 복사하지 않도록, API에는 두 카드만 사용한
+`fraud_rule_ir_generation_fewshot.json`을 구조 예시로 제공한다. 이 예시는 3상태,
+`provable`, 역할 인자, 출처 연결만 가르치며 사기죄 법리 전체를 대표하지 않는다.
 
 ### 제347조 전체 준비 현황
 
@@ -188,8 +196,10 @@ gate가 충족된 경우에만 `admissible(e)`를 만든다. 참고 구현은
 RAG로 모두 해소했다. 원래 core 후보 118개 중 사용자가 24개를 RAG, 10개를 narrow,
 3개를 reject, 1개를 duplicate로 표시했다. 교차검토에서 소송사기 전용 2개를 RAG로
 보내고 3개 문구를 추가로 좁혔다. 차용금 편취 범의 판단 규칙은 일반성이 있어 유지하고
-중복된 일반형 카드만 RAG로 내렸다. 현재 전체 RuleIR 생성 게이트는 열렸지만 전수
-RuleIR 자체는 아직 생성하지 않았다.
+중복된 일반형 카드만 RAG로 내렸다. API를 쓰지 않고 88장을 하나의 reviewed aggregate로
+묶고, 전체 RuleIR request·구조 few-shot·10항목 사전 검수표·실행 차단 runner를 만들었다.
+현재 사용자 사전 검수가 pending이므로 Terra 호출은 0회이며 전수 RuleIR도 아직 생성하지
+않았다.
 
 ## API 실행 순서
 
@@ -205,13 +215,19 @@ RuleIR 자체는 아직 생성하지 않았다.
 5. 검증된 응답만 `prompts/rulegen_merge_norm_cards.md`로 NormCardSet에 병합한다.
 6. `norm_card_set.schema.json`과 `idpr.rulegen.validate_norm_card_set`으로 exact quote,
    request provenance, variant 표시를 검증한다.
-7. 검증된 카드와 `prompts/rulegen_merge_rule_ir.md`로 RuleIR 1.1을 생성한다.
-8. `rule_ir.schema.json`과 `idpr.rulegen.validate_rule_ir`로 predicate 및 NormCard 연결을
-   검증한다.
-9. `idpr.rulegen.compile_rule_ir`로 `.scl`을 생성한다.
-10. 성립·불성립·unknown·증거배제·정책 variant별 golden test를 실행한다.
-11. 사람이 조문·주석서·판례 원문과 variant를 승인한 뒤에만 canonical predicate와
-   `verified` rule로 승격한다.
+7. 사용자가 88장 scope, 3상태, 증거 게이트, 역할 인자, 결론 인터페이스, open-world,
+   few-shot, 실행 순서와 API ceiling을 승인한다.
+8. 승인된 aggregate와 `prompts/rulegen_merge_rule_ir.md`를 Terra 단일 호출에 전달한다.
+   동시성 1, retry 0이며 이 단계에서 Sol을 호출하지 않는다.
+9. `rule_ir.schema.json`, `validate_rule_ir`, `validate_full_rule_ir_generation`으로 exact
+   scope, 88장 coverage, predicate closure, case isolation, 명시적 status, 증거 게이트,
+   네 결론의 실제 구현을 검증한다.
+10. 에이전트가 모든 predicate와 rule을 법리·구조 양쪽에서 검토하고, 각 입력·AND gate,
+    성립·불성립·unknown·conflict 경로와 RAG 경계를 설명하는 장문 자연어 해설을 쓴다.
+11. 사용자가 원본 RuleIR, coverage 표, 에이전트 해설을 함께 검수한다.
+12. 그 승인 뒤에만 Sol critic을 한 번 실행하고, 지적을 사용자가 다시 검수한다.
+13. 재검수 완료 뒤에만 `compile_rule_ir`로 `.scl`을 생성하고 runtime/golden test를
+    실행한다. 모델의 JSON이나 critic 수정안을 직접 실행하지 않는다.
 
 critic의 finding 수를 억지로 0으로 만들기 위해 재생성하지 않는다. 지적은 출처와
 대조해 자동 구조 수정, 사람 법률 검수, 기각으로 adjudicate한다. 열거된 판례 사실과
@@ -233,16 +249,19 @@ unresolved question으로 보존한다.
 - positive body에 바인딩되지 않은 head/negation 변수
 - 모델이 standard를 derived rule로 생성
 - 증거 gate를 우회하는 실체법 입력
+- 한 rule 안에서 서로 다른 case 변수를 결합
+- status 변수를 사용하거나 허용된 세 값 밖의 status를 소비
+- 입력 predicate 또는 네 결론 predicate를 선언만 하고 rule에서 사용·구현하지 않음
 - 법리 대립을 하나의 사실처럼 병합
-- `status=verified` 또는 `legal_review=complete` 주장
+- RuleIR의 `status=verified` 또는 `legal_review=complete` 주장
 
 ## 사용자 법률 검수 항목
 
-1. 재산상 손해를 독립한 필수요건으로 둘지
-2. 불법영득의사·불법이득의사를 요구하는 사기 유형을 판례 기준으로 어떻게 나눌지
-3. 삼각사기의 처분권한·재산상 근접성 predicate 정의
-4. 기망·처분·손해·고의 중 standard sub-call 범위
-5. strict policy의 이름과 canonical rule 승격 여부
+현재 생성 전 검수는 `fraud_rule_ir_generation_prep_review_guide.md`의 10개 항목을
+기준으로 한다. 핵심은 88장 core/558장 RAG 경계, 단일 호출, 3상태 StandardAssessment,
+`provable` 게이트, 삼각사기 역할 인자, 네 결론 인터페이스, open-world, 구조 few-shot,
+검수 순서, API ceiling이다. 생성 후에는 별도의 규칙별 장문 해설과 원본 RuleIR을 함께
+검수하며, Sol finding은 독립된 두 번째 검수 대상으로 둔다.
 
 Scallop 문법과 Python 연동은 공식 저장소의
 [language examples](https://github.com/scallop-lang/scallop#scallop-language)와

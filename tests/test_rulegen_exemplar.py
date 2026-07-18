@@ -11,11 +11,14 @@ from idpr.rulegen import (
     NormCandidateValidationError,
     NormCandidatePatchValidationError,
     NormCardValidationError,
+    RuleIRGenerationContractError,
     RuleIRValidationError,
     RulegenCritiqueValidationError,
     compile_rule_ir,
     apply_norm_candidate_patch,
     repair_ocr_interrupted_candidate_quotes,
+    render_rule_ir_natural_language_scaffold,
+    validate_full_rule_ir_generation,
     validate_norm_candidate_batch,
     validate_norm_card_set,
     validate_rule_ir,
@@ -25,6 +28,11 @@ from scripts.build_fraud_legal_review import AUDITED_CARD_MAPPINGS
 from scripts.run_fraud_norm_card_merge import build_module_payloads
 from scripts.run_fraud_norm_card_critics import (
     build_jobs as build_norm_card_critic_jobs,
+)
+from scripts.run_fraud_full_rule_ir_generation import (
+    artifact_gate as full_rule_ir_artifact_gate,
+    dry_run_summary as full_rule_ir_dry_run_summary,
+    review_gate as full_rule_ir_review_gate,
 )
 
 
@@ -110,6 +118,22 @@ CORE_REVIEW_DECISIONS = (
 )
 CORE_HUMAN_REVIEW_AUDIT = (
     PROJECT_ROOT / "data/rulegen/fraud/fraud_core_rule_human_review_audit.json"
+)
+CORE_NORM_CARD_SET = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_core_norm_card_set.json"
+)
+FULL_RULE_IR_REQUEST = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_full_rule_ir_generation_request.json"
+)
+FULL_RULE_IR_FEWSHOT = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_rule_ir_generation_fewshot.json"
+)
+FULL_RULE_IR_FEWSHOT_SCALLOP = (
+    PROJECT_ROOT / "rules/exemplars/fraud_rule_ir_generation_fewshot.scl"
+)
+FULL_RULE_IR_PREP_QUEUE = (
+    PROJECT_ROOT
+    / "data/rulegen/fraud/fraud_rule_ir_generation_prep_review_queue.json"
 )
 RULE_IR = PROJECT_ROOT / "data/rulegen/fraud/fraud_rule_ir_exemplar.json"
 SCALLOP = PROJECT_ROOT / "rules/exemplars/fraud_v1_candidate.scl"
@@ -1144,3 +1168,247 @@ def test_rulegen_contracts_and_prompts_exist() -> None:
     assert "critique reports are advisory work products" in revision_prompt
     assert "OCR noise interrupts" in revision_prompt
     assert "never output executable code directly" in merge_prompt
+
+
+def test_fraud_full_rule_ir_preparation_is_exact_and_api_free() -> None:
+    aggregate = json.loads(CORE_NORM_CARD_SET.read_text(encoding="utf-8"))
+    request = json.loads(FULL_RULE_IR_REQUEST.read_text(encoding="utf-8"))
+    queue = json.loads(FULL_RULE_IR_PREP_QUEUE.read_text(encoding="utf-8"))
+    commentary = fraud_commentary()
+
+    validate_norm_card_set(aggregate, commentary)
+    card_ids = {card["id"] for card in aggregate["cards"]}
+    assert aggregate["construction"] == "reviewed_aggregate"
+    assert aggregate["legal_review"] == "complete"
+    assert len(card_ids) == 88
+    assert Counter(card["formalization"] for card in aggregate["cards"]) == {
+        "deterministic_rule": 28,
+        "standard_input": 60,
+    }
+    assert set(request["coverage_contract"]["card_ids"]) == card_ids
+    assert request["coverage_contract"]["cards"] == 88
+    assert request["excluded_context"]["cards"] == 558
+    assert queue["api_calls"] == 0
+    assert len(queue["items"]) == 10
+    assert len({item["review_id"] for item in queue["items"]}) == 10
+
+
+def test_reviewed_aggregate_is_the_only_completed_norm_card_set() -> None:
+    aggregate = json.loads(CORE_NORM_CARD_SET.read_text(encoding="utf-8"))
+    commentary = fraud_commentary()
+
+    wrong_construction = copy.deepcopy(aggregate)
+    wrong_construction["construction"] = "human_exemplar"
+    with pytest.raises(NormCardValidationError, match="reviewed_aggregate"):
+        validate_norm_card_set(wrong_construction, commentary)
+
+    unresolved_card = copy.deepcopy(aggregate)
+    unresolved_card["cards"][0]["review_required"] = True
+    with pytest.raises(NormCardValidationError, match="review_required=true"):
+        validate_norm_card_set(unresolved_card, commentary)
+
+    unresolved_question = copy.deepcopy(aggregate)
+    unresolved_question["legal_review_questions"] = ["unresolved"]
+    with pytest.raises(NormCardValidationError, match="empty legal_review_questions"):
+        validate_norm_card_set(unresolved_question, commentary)
+
+
+def test_fraud_rule_ir_structural_fewshot_validates_and_compiles() -> None:
+    aggregate = json.loads(CORE_NORM_CARD_SET.read_text(encoding="utf-8"))
+    fewshot = json.loads(FULL_RULE_IR_FEWSHOT.read_text(encoding="utf-8"))
+    commentary = fraud_commentary()
+
+    validate_rule_ir(fewshot, commentary, aggregate)
+    assert compile_rule_ir(fewshot, commentary, aggregate) == (
+        FULL_RULE_IR_FEWSHOT_SCALLOP.read_text(encoding="utf-8")
+    )
+    assert fewshot["legal_review_questions"] == []
+    assert {predicate["id"] for predicate in fewshot["predicates"]} >= {
+        "provable",
+        "deception_good_faith_assessment",
+        "deception_supported",
+        "deception_not_satisfied",
+        "deception_undetermined",
+    }
+    assert all(
+        not atom["negated"]
+        for rule in fewshot["rules"]
+        for atom in rule["body"]
+    )
+
+
+def test_full_rule_ir_contract_accepts_complete_explicit_state_graph() -> None:
+    aggregate = json.loads(CORE_NORM_CARD_SET.read_text(encoding="utf-8"))
+    payload = json.loads(FULL_RULE_IR_FEWSHOT.read_text(encoding="utf-8"))
+    commentary = fraud_commentary()
+    selected_ids = set(payload["norm_card_scope"]["card_ids"])
+    tiny_aggregate = copy.deepcopy(aggregate)
+    tiny_aggregate["cards"] = [
+        card for card in aggregate["cards"] if card["id"] in selected_ids
+    ]
+    tiny_aggregate["source_scope"]["comment_ids"] = sorted(
+        {
+            ref["comment_id"]
+            for card in tiny_aggregate["cards"]
+            for ref in card["source_refs"]
+        }
+    )
+    linked_refs = list(
+        {
+            (ref["comment_id"], ref["section_path"], ref["quote"]): ref
+            for card in tiny_aggregate["cards"]
+            for ref in card["source_refs"]
+        }.values()
+    )
+    linked_cards = sorted(selected_ids)
+
+    output_arguments = {
+        "fraud_established": [
+            "case_id",
+            "defendant_id",
+            "deceived_person_id",
+            "disposer_id",
+            "property_owner_id",
+            "subject_id",
+            "beneficiary_id",
+        ],
+        "fraud_not_established": ["case_id", "defendant_id", "issue_id"],
+        "fraud_undetermined": ["case_id", "defendant_id", "issue_id"],
+        "fraud_conflict": ["case_id", "defendant_id", "issue_id"],
+    }
+    for predicate_id, argument_names in output_arguments.items():
+        payload["predicates"].append(
+            {
+                "id": predicate_id,
+                "arguments": [
+                    {"name": name, "type": "String"} for name in argument_names
+                ],
+                "kind": "rule",
+                "role": "derived",
+                "origin": "commentary",
+                "definition": f"Test output for {predicate_id}.",
+                "source_refs": linked_refs,
+                "norm_card_ids": linked_cards,
+            }
+        )
+
+    def variable(value: str) -> dict[str, str]:
+        return {"kind": "variable", "value": value}
+
+    def string(value: str) -> dict[str, str]:
+        return {"kind": "string", "value": value}
+
+    heads_and_bodies = [
+        (
+            "test.established",
+            "fraud_established",
+            [
+                variable("case_id"),
+                variable("defendant_id"),
+                variable("deceived_person_id"),
+                string("same_disposer"),
+                string("same_owner"),
+                string("subject"),
+                string("beneficiary"),
+            ],
+            ["deception_supported"],
+        ),
+        (
+            "test.not_established",
+            "fraud_not_established",
+            [variable("case_id"), variable("defendant_id"), string("deception")],
+            ["deception_not_satisfied"],
+        ),
+        (
+            "test.undetermined",
+            "fraud_undetermined",
+            [variable("case_id"), variable("defendant_id"), string("deception")],
+            ["deception_undetermined"],
+        ),
+        (
+            "test.conflict",
+            "fraud_conflict",
+            [variable("case_id"), variable("defendant_id"), string("deception")],
+            ["deception_supported", "deception_not_satisfied"],
+        ),
+    ]
+    for rule_id, head_predicate, head_arguments, body_predicates in heads_and_bodies:
+        payload["rules"].append(
+            {
+                "id": rule_id,
+                "head": {
+                    "predicate": head_predicate,
+                    "arguments": head_arguments,
+                    "negated": False,
+                },
+                "body": [
+                    {
+                        "predicate": predicate_id,
+                        "arguments": [
+                            variable("case_id"),
+                            variable("defendant_id"),
+                            variable("deceived_person_id"),
+                        ],
+                        "negated": False,
+                    }
+                    for predicate_id in body_predicates
+                ],
+                "source_refs": linked_refs,
+                "norm_card_ids": linked_cards,
+                "review_notes": "Synthetic full-contract test rule.",
+            }
+        )
+
+    validate_full_rule_ir_generation(payload, commentary, tiny_aggregate)
+    explanation = render_rule_ir_natural_language_scaffold(payload)
+    assert "기계적 초안" in explanation
+    assert "에이전트 추가 설명 필요" in explanation
+
+    incomplete = copy.deepcopy(payload)
+    incomplete["predicates"] = [
+        predicate
+        for predicate in incomplete["predicates"]
+        if predicate["id"] != "fraud_conflict"
+    ]
+    incomplete["rules"] = [
+        rule for rule in incomplete["rules"] if rule["id"] != "test.conflict"
+    ]
+    with pytest.raises(RuleIRGenerationContractError, match="fraud_conflict"):
+        validate_full_rule_ir_generation(incomplete, commentary, tiny_aggregate)
+
+    declared_only = copy.deepcopy(payload)
+    declared_only["rules"] = [
+        rule for rule in declared_only["rules"] if rule["id"] != "test.conflict"
+    ]
+    with pytest.raises(RuleIRGenerationContractError, match="no implementing rule"):
+        validate_full_rule_ir_generation(declared_only, commentary, tiny_aggregate)
+
+    variable_status = copy.deepcopy(payload)
+    variable_status["rules"][0]["body"][0]["arguments"][-1] = variable("status")
+    with pytest.raises(RuleIRGenerationContractError, match="explicit status"):
+        validate_full_rule_ir_generation(variable_status, commentary, tiny_aggregate)
+
+    cross_case = copy.deepcopy(payload)
+    cross_case["rules"][0]["body"][1]["arguments"][0] = variable("other_case")
+    with pytest.raises(RuleIRGenerationContractError, match="head case"):
+        validate_full_rule_ir_generation(cross_case, commentary, tiny_aggregate)
+
+
+def test_full_rule_ir_runner_is_dry_and_review_gated() -> None:
+    queue = json.loads(FULL_RULE_IR_PREP_QUEUE.read_text(encoding="utf-8"))
+    gate = full_rule_ir_review_gate()
+    artifacts = full_rule_ir_artifact_gate()
+    summary = full_rule_ir_dry_run_summary()
+
+    assert gate["decision_count"] == 10
+    assert artifacts["valid"]
+    assert summary["mode"] == "dry_run"
+    assert summary["api_calls"] == 0
+    assert summary["planned_api_calls"] == 1
+    assert summary["max_concurrency"] == 1
+    assert summary["max_retries"] == 0
+    assert summary["execution_allowed"] == (
+        queue["status"] == "complete"
+        and gate["approved"]
+        and not summary["existing_outputs"]
+    )

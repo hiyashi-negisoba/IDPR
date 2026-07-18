@@ -20,9 +20,14 @@
     "card_set_id": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]*$" },
     "issue_tag": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
     "status": { "const": "draft" },
-    "legal_review": { "const": "pending" },
+    "legal_review": { "enum": ["pending", "complete"] },
     "construction": {
-      "enum": ["api_merged", "deterministic_candidate_lift", "human_exemplar"]
+      "enum": [
+        "api_merged",
+        "deterministic_candidate_lift",
+        "human_exemplar",
+        "reviewed_aggregate"
+      ]
     },
     "source_scope": { "$ref": "#/$defs/source_scope" },
     "cards": {

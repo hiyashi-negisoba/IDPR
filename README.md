@@ -74,5 +74,10 @@ The 67 critic findings and the full 118-card human review have been adjudicated
 without additional API calls. User labels and the manual cross-check leave 28
 deterministic rules and 60 standard inputs approved for the executable core; 558
 cards remain retrieval or future-work context. Full RuleIR generation is now
-unblocked but has not yet been run. The existing eight-card fraud RuleIR and
-Scallop files remain structural exemplars rather than the full fraud rule set.
+unblocked but has not yet been run. The API-free generation preflight is tracked
+in `data/rulegen/fraud/fraud_rule_ir_generation_prep_review_guide.md`; Terra is
+hard-blocked until all ten preflight decisions are explicitly approved. After
+generation, local validation, an agent-authored rule-by-rule explanation, human
+review, Sol critique, human re-review, and only then Scallop compilation/runtime
+testing are required. The existing eight-card fraud RuleIR and Scallop files are
+historical structural exemplars rather than the full fraud rule set.

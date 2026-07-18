@@ -856,3 +856,53 @@ RAG로 내리고, 손해 불요는 2003도4914·2017도21196 출처가 연결된
 
 원래 118개 라벨, 원문과 수정문, 최종 역할 및 변경 사유는
 `data/rulegen/fraud/fraud_core_rule_human_review_audit.json`에 보존했다.
+
+---
+
+## 사기죄 전체 RuleIR 생성 사전 준비
+
+작성일: 2026-07-18
+
+사용자 검수를 마친 core 88장을 API 없이 하나의 reviewed aggregate NormCardSet으로
+구성했다. Terra 생성 전에 해소해야 할 구조·비용 선택을 10개 항목으로 명시했고, 전부
+승인되기 전에는 `--execute`도 Gateway 호출 전에 실패하도록 runner를 차단했다.
+
+- aggregate core: deterministic rule 28개, standard input 60개
+- source scope: 제347조 commentary chunk 40개
+- 제외 context: RAG/future work 558개
+- 생성 단위: Terra 단일 호출 1회
+- 실행 ceiling: 동시성 1, retry 0, max completion 64,000 tokens
+- 준비 단계 API 호출: 0회
+- 사용자 사전 검수: 10개 pending
+
+현재 계약은 모든 commentary input에
+`(case_id, assessment_id, ..., status)`와 같은 평가 ID의
+`provable(case_id, assessment_id)`를 요구한다. status는 `satisfied`,
+`not_satisfied`, `unknown`의 명시적 값만 허용한다. rule 안의 모든 atom은 head와 같은
+case 변수를 사용해야 하며, 선언한 입력은 실제 rule에서 소비되고 성립·불성립·미확인·
+충돌 output도 실제 head rule로 구현되어야 한다. negation과 `active_policy`는 금지했다.
+
+생성 후 순서도 강제했다. Terra 응답이 로컬 schema·provenance·88장 coverage 계약을
+통과하더라도 바로 Sol이나 Scallop으로 보내지 않는다. 에이전트가 규칙별 검토와 장문
+자연어 해설을 먼저 작성하고, 사용자가 원본 RuleIR과 해설을 검수한 뒤에만 Sol critic을
+실행한다. Sol finding을 사용자가 다시 검수한 다음에만 deterministic compiler와 Scallop
+runtime/golden test를 실행한다.
+
+주요 파일:
+
+- `data/rulegen/fraud/fraud_core_norm_card_set.json`
+- `data/rulegen/fraud/fraud_full_rule_ir_generation_request.json`
+- `data/rulegen/fraud/fraud_rule_ir_generation_fewshot.json`
+- `data/rulegen/fraud/fraud_rule_ir_generation_prep_review_guide.md`
+- `data/rulegen/fraud/fraud_rule_ir_generation_prep_review_decisions.jsonl`
+- `scripts/prepare_fraud_full_rule_ir_generation.py`
+- `scripts/run_fraud_full_rule_ir_generation.py`
+
+검증:
+
+- 준비 스크립트: 88장/40 source/10 review item 재현
+- dry-run: API 0회, planned Terra 1회, artifact hash 통과
+- `--execute` 차단 시험: pending 10개에서 네트워크 요청 전 종료
+- RuleIR 구조·full-generation contract 테스트: 통과
+- `tests/test_rulegen_exemplar.py`: `28 passed`
+- 전체 테스트: `55 passed`

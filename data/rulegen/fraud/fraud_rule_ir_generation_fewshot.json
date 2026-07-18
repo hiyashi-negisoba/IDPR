@@ -1,0 +1,506 @@
+{
+  "coverage_gaps": [
+    "기망 쟁점의 상태·증거게이트 구조만 보여 주며 사기죄 전체 결론은 도출하지 않는다."
+  ],
+  "issue_tag": "fraud",
+  "legal_review": "pending",
+  "legal_review_questions": [],
+  "norm_card_scope": {
+    "card_ids": [
+      "deception.fraud.definition.deception-good-faith-mistake",
+      "deception.fraud.element.deception-must-create-false-belief"
+    ],
+    "card_set_id": "kr.fraud.article347.core.norms.v1"
+  },
+  "predicates": [
+    {
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "assessment_id",
+          "type": "String"
+        }
+      ],
+      "definition": "The assessment may be consumed by substantive rules.",
+      "id": "provable",
+      "kind": "rule",
+      "norm_card_ids": [],
+      "origin": "system",
+      "role": "input",
+      "source_refs": []
+    },
+    {
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "assessment_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "deceived_person_id",
+          "type": "String"
+        },
+        {
+          "name": "status",
+          "type": "String"
+        }
+      ],
+      "definition": "신의칙에 반하여 상대방에게 착오를 일으키는 기망인지에 대한 명시적 평가",
+      "id": "deception_good_faith_assessment",
+      "kind": "standard",
+      "norm_card_ids": [
+        "deception.fraud.definition.deception-good-faith-mistake"
+      ],
+      "origin": "commentary",
+      "role": "input",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    },
+    {
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "assessment_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "deceived_person_id",
+          "type": "String"
+        },
+        {
+          "name": "status",
+          "type": "String"
+        }
+      ],
+      "definition": "기망적 수단으로 진실과 다른 관념이 실제 형성되었는지에 대한 평가",
+      "id": "false_belief_created_assessment",
+      "kind": "standard",
+      "norm_card_ids": [
+        "deception.fraud.element.deception-must-create-false-belief"
+      ],
+      "origin": "commentary",
+      "role": "input",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망적인 수단을 사용하였다고 하더라도 상대방으로 하여금 진실 과 합치하지 않는 관념을 발생하게 한 행위가 아니라면 이는 사기죄의 실행행 위로서의 기망이라고 할 수 없다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    },
+    {
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "deceived_person_id",
+          "type": "String"
+        }
+      ],
+      "definition": "기망행위 요건이 명시적으로 충족된 상태",
+      "id": "deception_supported",
+      "kind": "rule",
+      "norm_card_ids": [
+        "deception.fraud.definition.deception-good-faith-mistake",
+        "deception.fraud.element.deception-must-create-false-belief"
+      ],
+      "origin": "commentary",
+      "role": "derived",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망적인 수단을 사용하였다고 하더라도 상대방으로 하여금 진실 과 합치하지 않는 관념을 발생하게 한 행위가 아니라면 이는 사기죄의 실행행 위로서의 기망이라고 할 수 없다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    },
+    {
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "deceived_person_id",
+          "type": "String"
+        }
+      ],
+      "definition": "기망행위 요건이 명시적으로 충족되지 않은 상태",
+      "id": "deception_not_satisfied",
+      "kind": "rule",
+      "norm_card_ids": [
+        "deception.fraud.definition.deception-good-faith-mistake",
+        "deception.fraud.element.deception-must-create-false-belief"
+      ],
+      "origin": "commentary",
+      "role": "derived",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망적인 수단을 사용하였다고 하더라도 상대방으로 하여금 진실 과 합치하지 않는 관념을 발생하게 한 행위가 아니라면 이는 사기죄의 실행행 위로서의 기망이라고 할 수 없다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    },
+    {
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "deceived_person_id",
+          "type": "String"
+        }
+      ],
+      "definition": "기망행위 요건 판단에 필요한 평가가 미확인인 상태",
+      "id": "deception_undetermined",
+      "kind": "rule",
+      "norm_card_ids": [
+        "deception.fraud.definition.deception-good-faith-mistake",
+        "deception.fraud.element.deception-must-create-false-belief"
+      ],
+      "origin": "commentary",
+      "role": "derived",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망적인 수단을 사용하였다고 하더라도 상대방으로 하여금 진실 과 합치하지 않는 관념을 발생하게 한 행위가 아니라면 이는 사기죄의 실행행 위로서의 기망이라고 할 수 없다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    }
+  ],
+  "rule_set_id": "kr.fraud.article347.rule_ir_generation_fewshot",
+  "rules": [
+    {
+      "body": [
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_1"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "string",
+              "value": "satisfied"
+            }
+          ],
+          "negated": false,
+          "predicate": "deception_good_faith_assessment"
+        },
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_1"
+            }
+          ],
+          "negated": false,
+          "predicate": "provable"
+        },
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_2"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "string",
+              "value": "satisfied"
+            }
+          ],
+          "negated": false,
+          "predicate": "false_belief_created_assessment"
+        },
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_2"
+            }
+          ],
+          "negated": false,
+          "predicate": "provable"
+        }
+      ],
+      "head": {
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "deceived_person_id"
+          }
+        ],
+        "negated": false,
+        "predicate": "deception_supported"
+      },
+      "id": "fraud.example.deception_supported",
+      "norm_card_ids": [
+        "deception.fraud.definition.deception-good-faith-mistake",
+        "deception.fraud.element.deception-must-create-false-belief"
+      ],
+      "review_notes": "두 평가가 모두 satisfied인 경우에만 기망 충족을 도출한다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망적인 수단을 사용하였다고 하더라도 상대방으로 하여금 진실 과 합치하지 않는 관념을 발생하게 한 행위가 아니라면 이는 사기죄의 실행행 위로서의 기망이라고 할 수 없다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_1"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false,
+          "predicate": "false_belief_created_assessment"
+        },
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_1"
+            }
+          ],
+          "negated": false,
+          "predicate": "provable"
+        }
+      ],
+      "head": {
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "deceived_person_id"
+          }
+        ],
+        "negated": false,
+        "predicate": "deception_not_satisfied"
+      },
+      "id": "fraud.example.deception_not_satisfied",
+      "norm_card_ids": [
+        "deception.fraud.element.deception-must-create-false-belief"
+      ],
+      "review_notes": "진실과 다른 관념 형성이 명시적으로 부정된 경우를 불성립 경로로 보낸다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망적인 수단을 사용하였다고 하더라도 상대방으로 하여금 진실 과 합치하지 않는 관념을 발생하게 한 행위가 아니라면 이는 사기죄의 실행행 위로서의 기망이라고 할 수 없다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_1"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "string",
+              "value": "unknown"
+            }
+          ],
+          "negated": false,
+          "predicate": "deception_good_faith_assessment"
+        },
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_1"
+            }
+          ],
+          "negated": false,
+          "predicate": "provable"
+        }
+      ],
+      "head": {
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "deceived_person_id"
+          }
+        ],
+        "negated": false,
+        "predicate": "deception_undetermined"
+      },
+      "id": "fraud.example.deception_unknown",
+      "norm_card_ids": [
+        "deception.fraud.definition.deception-good-faith-mistake"
+      ],
+      "review_notes": "기망 standard가 unknown이면 부정으로 접지 않고 미확인 상태를 보존한다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    }
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제347조_Ⅳ.1_11"
+    ],
+    "target_paths": [
+      "commentary://001692/제347조"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

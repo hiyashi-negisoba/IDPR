@@ -1,0 +1,139 @@
+{
+  "api_calls": 0,
+  "issue_tag": "fraud",
+  "items": [
+    {
+      "agent_recommendation": "approve",
+      "human_review": {
+        "decision": null,
+        "notes": "",
+        "review_id": "fraud.rule_ir.prep.scope",
+        "status": "pending"
+      },
+      "proposal": "사용자 검수 완료된 88개만 RuleIR 입력으로 사용하고 558개 RAG는 제외한다.",
+      "rationale": "구체 유형·판례·학설을 실행 core로 재유입시키지 않는다.",
+      "review_id": "fraud.rule_ir.prep.scope",
+      "topic": "core_scope"
+    },
+    {
+      "agent_recommendation": "approve",
+      "human_review": {
+        "decision": null,
+        "notes": "",
+        "review_id": "fraud.rule_ir.prep.single_call",
+        "status": "pending"
+      },
+      "proposal": "aggregate NormCardSet 전체를 Terra 단일 호출로 생성한다.",
+      "rationale": "모듈 분할 시 card_set_id와 교차 predicate 병합 오류가 발생한다.",
+      "review_id": "fraud.rule_ir.prep.single_call",
+      "topic": "generation_unit"
+    },
+    {
+      "agent_recommendation": "approve",
+      "human_review": {
+        "decision": null,
+        "notes": "",
+        "review_id": "fraud.rule_ir.prep.standard_state",
+        "status": "pending"
+      },
+      "proposal": "standard 결과를 satisfied, not_satisfied, unknown의 명시적 3상태로 받는다.",
+      "rationale": "미추출 사실을 false로 취급하지 않고 양방향 사실과 미확인을 보존한다.",
+      "review_id": "fraud.rule_ir.prep.standard_state",
+      "topic": "standard_assessment_state"
+    },
+    {
+      "agent_recommendation": "approve",
+      "human_review": {
+        "decision": null,
+        "notes": "",
+        "review_id": "fraud.rule_ir.prep.evidence_gate",
+        "status": "pending"
+      },
+      "proposal": "모든 commentary input은 같은 case_id와 assessment_id의 provable을 함께 요구한다.",
+      "rationale": "절차·증명 게이트를 통과하지 않은 판단이 실체법 rule에 들어가지 못하게 한다.",
+      "review_id": "fraud.rule_ir.prep.evidence_gate",
+      "topic": "evidence_gate"
+    },
+    {
+      "agent_recommendation": "approve",
+      "human_review": {
+        "decision": null,
+        "notes": "",
+        "review_id": "fraud.rule_ir.prep.actor_roles",
+        "status": "pending"
+      },
+      "proposal": "피고인, 피기망자, 처분자, 재산소유자, 객체, 수익자를 별도 인자로 유지한다.",
+      "rationale": "삼각사기와 제3자 취득형에서 행위자 역할이 합쳐지는 것을 방지한다.",
+      "review_id": "fraud.rule_ir.prep.actor_roles",
+      "topic": "actor_role_signature"
+    },
+    {
+      "agent_recommendation": "approve",
+      "human_review": {
+        "decision": null,
+        "notes": "",
+        "review_id": "fraud.rule_ir.prep.outputs",
+        "status": "pending"
+      },
+      "proposal": "성립, 불성립, undetermined, conflict를 별도 derived predicate로 출력한다.",
+      "rationale": "부정과 미확인을 성립 실패 하나로 접지 않고 모순도 노출한다.",
+      "review_id": "fraud.rule_ir.prep.outputs",
+      "topic": "result_interface"
+    },
+    {
+      "agent_recommendation": "approve",
+      "human_review": {
+        "decision": null,
+        "notes": "",
+        "review_id": "fraud.rule_ir.prep.open_world",
+        "status": "pending"
+      },
+      "proposal": "생성 RuleIR에서는 negation을 금지하고 negative·exception을 명시적 조건으로 표현한다.",
+      "rationale": "관계 부재를 법적 사실 부존재로 오인하지 않는다.",
+      "review_id": "fraud.rule_ir.prep.open_world",
+      "topic": "open_world_policy"
+    },
+    {
+      "agent_recommendation": "approve",
+      "human_review": {
+        "decision": null,
+        "notes": "",
+        "review_id": "fraud.rule_ir.prep.fewshot",
+        "status": "pending"
+      },
+      "proposal": "기존 8장 법리 대신 현재 상태·증거게이트 계약만 보여 주는 2장 구조 예시를 제공한다.",
+      "rationale": "과거 손해·불법영득의사 policy가 새 출력으로 누출되는 것을 막는다.",
+      "review_id": "fraud.rule_ir.prep.fewshot",
+      "topic": "fewshot_policy"
+    },
+    {
+      "agent_recommendation": "approve",
+      "human_review": {
+        "decision": null,
+        "notes": "",
+        "review_id": "fraud.rule_ir.prep.review_sequence",
+        "status": "pending"
+      },
+      "proposal": "Terra 후 에이전트 검토·장문 자연어 설명, 사용자 검토, Sol, 사용자 재검토, Scallop 순서로 진행한다.",
+      "rationale": "모델 출력과 critic 지적을 자동 정답으로 취급하지 않는다.",
+      "review_id": "fraud.rule_ir.prep.review_sequence",
+      "topic": "review_sequence"
+    },
+    {
+      "agent_recommendation": "approve",
+      "human_review": {
+        "decision": null,
+        "notes": "",
+        "review_id": "fraud.rule_ir.prep.api_ceiling",
+        "status": "pending"
+      },
+      "proposal": "Terra 1회, 동시성 1, retry 0, max completion 64000으로 제한한다.",
+      "rationale": "전체 출력을 한 번에 받되 자동 재호출과 비용 확산을 차단한다.",
+      "review_id": "fraud.rule_ir.prep.api_ceiling",
+      "topic": "api_execution_ceiling"
+    }
+  ],
+  "method": "agent_rule_ir_generation_preflight_no_api",
+  "status": "pending",
+  "version": "1.0.0"
+}
