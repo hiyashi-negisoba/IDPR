@@ -267,6 +267,9 @@ def answer_request(
     case: Mapping[str, Any],
     method_id: str,
     context: Mapping[str, Any],
+    allowed_fact_ids: Sequence[str] = (),
+    allowed_card_ids: Sequence[str] = (),
+    allowed_authority_ids: Sequence[str] = (),
     overall_conclusion: str | None = None,
     irac_plan: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
@@ -287,6 +290,11 @@ def answer_request(
             "본문에는 내부 provenance ID를 쓰지 않는다.",
         ],
         "available_context": context,
+        "allowed_provenance_ids": {
+            "fact_ids": list(allowed_fact_ids),
+            "card_ids": list(allowed_card_ids),
+            "authority_comment_ids": list(allowed_authority_ids),
+        },
         "rubric_supplied": False,
     }
     if overall_conclusion is not None:
@@ -316,6 +324,9 @@ def run_answer(
             case=case,
             method_id=method_id,
             context=context,
+            allowed_fact_ids=allowed_fact_ids,
+            allowed_card_ids=allowed_card_ids,
+            allowed_authority_ids=allowed_authority_ids,
             overall_conclusion=overall_conclusion,
             irac_plan=irac_plan,
         ),
@@ -713,6 +724,7 @@ def run_matrix(
                 method_id=method_id,
                 method_dir=method_dir,
                 context={"case_only": True},
+                allowed_fact_ids=["case_text"],
             )
 
         elif method_id == "m2_rag":
@@ -733,6 +745,7 @@ def run_matrix(
                 method_id=method_id,
                 method_dir=method_dir,
                 context={"rag_packet": rag},
+                allowed_fact_ids=["case_text"],
                 allowed_card_ids=cards,
                 allowed_authority_ids=authorities,
             )

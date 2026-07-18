@@ -12,7 +12,9 @@
 4. 답안 본문은 각 쟁점에서 법리, 사안 적용, 소결이 구별되도록 완결된 문장으로 쓴다.
    JSON 필드명이나 내부 ID를 본문에 노출하지 않는다.
 5. `cited_fact_ids`, `cited_card_ids`, `cited_authority_comment_ids`는 해당 단락에서 실제로
-   사용한 입력 ID만 기록한다. ID 자료가 제공되지 않은 방법에서는 빈 배열로 둔다.
+   사용한 ID만 기록하되, 반드시 입력의 `allowed_provenance_ids` 배열에 있는 문자열만 쓴다.
+   허용 배열이 비어 있으면 대응하는 인용 배열도 비운다. `case_text`가 허용 사실 ID로
+   제공된 경우에는 사건 원문을 직접 적용한 단락에서 사용할 수 있다.
 6. `required_irac_plan`이 있으면 단락 수, 순서, `section_id`, 요구 카드·사실 및
    `stated_conclusion`을 정확히 따른다. 각 단락은 그 계획의 질문에 답해야 한다.
 7. `required_overall_conclusion`이 있으면 `overall_conclusion`과 종합 결론을 정확히 맞춘다.

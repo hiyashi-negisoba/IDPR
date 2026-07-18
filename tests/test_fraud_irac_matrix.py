@@ -24,6 +24,8 @@ from idpr.neural import (
     select_fraud_card_plan,
 )
 
+from scripts.run_fraud_irac_matrix import answer_request
+
 
 ROOT = Path(__file__).resolve().parents[1]
 CASE_PATH = ROOT / "data/e2e/fraud/kcl_r14_p1_q2_case.json"
@@ -324,3 +326,18 @@ def test_slurm_matrix_uses_exact_resources_and_disables_prefix_cache() -> None:
     assert "#SBATCH --constraint" not in source
     assert "--no-enable-prefix-caching" in source
     assert "scripts/run_fraud_irac_matrix.py" in source
+
+
+def test_direct_answer_request_declares_case_text_as_only_fact_provenance() -> None:
+    case = load_json(CASE_PATH)
+    request = answer_request(
+        case=case,
+        method_id="m1_direct",
+        context={"case_only": True},
+        allowed_fact_ids=["case_text"],
+    )
+    assert request["allowed_provenance_ids"] == {
+        "fact_ids": ["case_text"],
+        "card_ids": [],
+        "authority_comment_ids": [],
+    }
