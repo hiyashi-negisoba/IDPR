@@ -176,7 +176,11 @@ def test_vllm_request_uses_strict_json_schema() -> None:
     assert request["temperature"] == 0
     assert request["response_format"]["type"] == "json_schema"
     assert request["response_format"]["json_schema"]["strict"] is True
-    assert request["response_format"]["json_schema"]["schema"] == schema
+    decoding_schema = request["response_format"]["json_schema"]["schema"]
+    assert decoding_schema != schema
+    assert "uniqueItems" in json.dumps(schema)
+    assert "uniqueItems" not in json.dumps(decoding_schema)
+    assert contract_schema("fraud_fact_graph.schema.json") == schema
 
 
 def test_model_snapshot_audit_parses_safetensors_tensor_bytes(tmp_path: Path) -> None:

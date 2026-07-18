@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import copy
 import json
 import urllib.error
 import urllib.request
@@ -49,6 +50,11 @@ class VLLMClient:
         try:
             with urllib.request.urlopen(request, timeout=self.timeout_seconds) as response:
                 response_payload = json.loads(response.read().decode("utf-8"))
+        except urllib.error.HTTPError as exc:
+            body = exc.read().decode("utf-8", errors="replace")
+            raise VLLMClientError(
+                f"vLLM request failed with HTTP {exc.code}: {body}"
+            ) from exc
         except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
             raise VLLMClientError(f"vLLM request failed: {exc}") from exc
 
@@ -93,7 +99,25 @@ def build_chat_request(
             "json_schema": {
                 "name": schema_name,
                 "strict": True,
-                "schema": dict(schema),
+                "schema": vllm_compatible_schema(schema),
             },
         },
     }
+
+
+def vllm_compatible_schema(schema: Mapping[str, Any]) -> dict[str, Any]:
+    """Remove grammar-unsupported hints; authoritative host validation stays strict."""
+
+    result = copy.deepcopy(dict(schema))
+
+    def visit(value: Any) -> None:
+        if isinstance(value, dict):
+            value.pop("uniqueItems", None)
+            for child in value.values():
+                visit(child)
+        elif isinstance(value, list):
+            for child in value:
+                visit(child)
+
+    visit(result)
+    return result
