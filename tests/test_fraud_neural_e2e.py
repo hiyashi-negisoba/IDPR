@@ -255,4 +255,6 @@ def test_slurm_script_fixes_absolute_resources_and_offline_local_serving() -> No
     assert "TRANSFORMERS_OFFLINE=1" in script
     assert "--host 127.0.0.1" in script
     assert "/data5/jaehoonjeong/.cache/huggingface" in script
+    assert "for ATTEMPT in 1 2 3" in script
+    assert "unset CUDA_HOME CUDA_PATH" in script
     assert "HF_TOKEN" not in script
