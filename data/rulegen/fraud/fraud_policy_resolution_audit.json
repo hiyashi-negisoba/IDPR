@@ -1,0 +1,221 @@
+{
+  "api_calls": 0,
+  "issue_tag": "fraud",
+  "local_primary_source": "../sp/data/processed/Case_DB/clean_open_precedents.parquet",
+  "local_primary_verification": {
+    "status": "verified",
+    "verified_records": 15
+  },
+  "method": "manual_commentary_and_local_primary_precedent_audit_no_api",
+  "remaining_policy_groups": 0,
+  "resolutions": [
+    {
+      "activated_card_ids": [
+        "fraud_damage_acquisition.property_concept_reported_precedent"
+      ],
+      "authority_refs": [
+        "75도760",
+        "2001도2991"
+      ],
+      "policy_group": "fraud_damage_acquisition.property_concept",
+      "reason": "법률상 유효 취득이나 사법상 보호되는 이익에 한정하지 않는다는 판시를 좁은 실행 규칙으로 사용하고 추상적 재산개념 학설은 RAG로 보존한다.",
+      "resolution": "activate_narrow_precedent_rule"
+    },
+    {
+      "activated_card_ids": [
+        "fraud_damage_acquisition.property_loss_negative_view"
+      ],
+      "authority_refs": [
+        "2003도4914",
+        "2017도21196"
+      ],
+      "policy_group": "fraud_damage_acquisition.property_loss_requirement",
+      "reason": "현실적 재산상 손해는 별도 구성요건이 아니라는 판례를 채택한다.",
+      "resolution": "adopt_precedent_no_actual_loss_requirement"
+    },
+    {
+      "activated_card_ids": [],
+      "authority_refs": [
+        "95도2466",
+        "2003도4914"
+      ],
+      "policy_group": "fraud_damage_acquisition.property_risk_as_loss",
+      "reason": "현실적 손해가 독립 구성요건이 아니므로 재산위험 학설을 전역 성립 게이트로 선택하지 않고 신용카드·보증 등 구체적 이익 취득 규칙에서 처리한다.",
+      "resolution": "rag_only_not_independent_liability_gate"
+    },
+    {
+      "activated_card_ids": [],
+      "authority_refs": [],
+      "policy_group": "fraud_deception.future_fact_scope",
+      "reason": "순수 장래사실의 포괄 범위는 주석서도 학설 대립으로만 제시한다. 현재의 의사·능력 등 심리적 사실에 관한 기존 기망 규칙만 core에서 사용한다.",
+      "resolution": "rag_only_use_present_intent_and_ability_rules"
+    },
+    {
+      "activated_card_ids": [
+        "deception.fraud.standard.precedent-notice-duty-materiality"
+      ],
+      "authority_refs": [
+        "84도882",
+        "2018도13696"
+      ],
+      "policy_group": "fraud_deception.omission_notice_duty_scope",
+      "reason": "법령·계약·관습·조리와 구체적 거래실정·신의칙 및 거래 중요성을 보는 판례 기준을 사용하고 학설상 제한 방식은 RAG로 보존한다.",
+      "resolution": "activate_precedent_materiality_standard"
+    },
+    {
+      "activated_card_ids": [],
+      "authority_refs": [
+        "2018도13696"
+      ],
+      "policy_group": "fraud_deception.opinion_statement",
+      "reason": "주석서가 정면 판례 부재를 명시하므로 학설 하나를 전역 선택하지 않는다. 막연한 의견의 착오유발 충분성과 구체적 거래 중요성은 기존 standard에서 판단한다.",
+      "resolution": "rag_only_keep_vague_opinion_standard"
+    },
+    {
+      "activated_card_ids": [],
+      "authority_refs": [
+        "2007도2595"
+      ],
+      "policy_group": "fraud_general_object.property_value",
+      "reason": "주관적 가치 판시는 절도죄 판례이므로 사기죄의 전역 재물 기준으로 승격하지 않고 희귀 쟁점 검색 문맥으로 보존한다.",
+      "resolution": "rag_only_no_fraud_precedent_transplant"
+    },
+    {
+      "activated_card_ids": [],
+      "authority_refs": [
+        "2001도2991"
+      ],
+      "policy_group": "fraud_general_object.sex_work_contract",
+      "reason": "성행위 대가 지급을 면한 구체적 판례는 긍정하지만 희귀 적용례이므로 전역 core rule이 아니라 판례 RAG로 보존한다.",
+      "resolution": "resolve_with_precedent_keep_case_specific_rag"
+    },
+    {
+      "activated_card_ids": [
+        "fraud_intent.precedent_illegal_appropriation_intent"
+      ],
+      "authority_refs": [
+        "66도132",
+        "2021도8468"
+      ],
+      "policy_group": "fraud_intent.illegal_appropriation_requirement",
+      "reason": "판례의 불법영득의사 내지 편취 범의 기준을 intent 모듈에서 한 번만 적용하고 사기 유형마다 중복 게이트를 만들지 않는다.",
+      "resolution": "activate_single_centralized_precedent_standard"
+    },
+    {
+      "activated_card_ids": [
+        "fraud_mistake.disposition_intent_act_awareness"
+      ],
+      "authority_refs": [
+        "2016도13362"
+      ],
+      "policy_group": "fraud_mistake.disposition_intent_requirement",
+      "reason": "처분행위 자체에 대한 인식은 필요하지만 처분결과 인식은 필요 없다는 전원합의체 기준이 이미 standard input으로 존재한다.",
+      "resolution": "use_existing_en_banc_standard"
+    },
+    {
+      "activated_card_ids": [
+        "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation"
+      ],
+      "authority_refs": [
+        "94도1575",
+        "2022도12494"
+      ],
+      "policy_group": "fraud_mistake.triangular_fraud_authority",
+      "reason": "피기망자에게 피해자 재산을 처분할 권능 또는 지위가 필요하되 사법상 위임·대리권과 일치할 필요는 없다는 판례의 조작적 기준을 사용한다.",
+      "resolution": "activate_precedent_authority_or_position_standard"
+    },
+    {
+      "activated_card_ids": [
+        "fraud_stages_participation.completion_deception_disposition_transfer"
+      ],
+      "authority_refs": [
+        "80도2667",
+        "2001도1825"
+      ],
+      "policy_group": "fraud_stages_participation.completion_threshold",
+      "reason": "재물 교부 또는 재산상 이익 취득이 있어야 기수라는 기존 deterministic rule을 유지하고 피해자 손해만으로 기수라는 학설은 RAG로 보존한다.",
+      "resolution": "use_existing_transfer_or_acquisition_rule"
+    }
+  ],
+  "resolved_groups": 12,
+  "status": "complete",
+  "verified_case_count": 15,
+  "verified_local_primary_records": {
+    "2001도1825": {
+      "court": "대법원",
+      "decision_date": "2003-05-16",
+      "record_id": 82595
+    },
+    "2001도2991": {
+      "court": "대법원",
+      "decision_date": "2001-10-23",
+      "record_id": 81008
+    },
+    "2003도4914": {
+      "court": "대법원",
+      "decision_date": "2003-12-26",
+      "record_id": 83025
+    },
+    "2007도2595": {
+      "court": "대법원",
+      "decision_date": "2007-08-23",
+      "record_id": 191973
+    },
+    "2016도13362": {
+      "court": "대법원",
+      "decision_date": "2017-02-16",
+      "record_id": 184471
+    },
+    "2017도21196": {
+      "court": "대법원",
+      "decision_date": "2018-04-12",
+      "record_id": 205752
+    },
+    "2018도13696": {
+      "court": "대법원",
+      "decision_date": "2020-06-25",
+      "record_id": 211733
+    },
+    "2021도8468": {
+      "court": "대법원",
+      "decision_date": "2021-09-09",
+      "record_id": 219381
+    },
+    "2022도12494": {
+      "court": "대법원",
+      "decision_date": "2022-12-29",
+      "record_id": 233095
+    },
+    "66도132": {
+      "court": "대법원",
+      "decision_date": "1966-03-15",
+      "record_id": 152569
+    },
+    "75도760": {
+      "court": "대법원",
+      "decision_date": "1975-05-27",
+      "record_id": 92643
+    },
+    "80도2667": {
+      "court": "대법원",
+      "decision_date": "1982-04-13",
+      "record_id": 96475
+    },
+    "84도882": {
+      "court": "대법원",
+      "decision_date": "1984-09-25",
+      "record_id": 99745
+    },
+    "94도1575": {
+      "court": "대법원",
+      "decision_date": "1994-10-11",
+      "record_id": 110881
+    },
+    "95도2466": {
+      "court": "대법원",
+      "decision_date": "1996-04-09",
+      "record_id": 113475
+    }
+  },
+  "version": "1.0.0"
+}

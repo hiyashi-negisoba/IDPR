@@ -26,6 +26,12 @@ GUIDE = PROJECT_ROOT / "data/rulegen/fraud/fraud_legal_review_guide.md"
 REMEDIATION_LEDGER = (
     PROJECT_ROOT / "data/rulegen/fraud/fraud_norm_card_remediation_ledger.json"
 )
+CORE_REVIEW_QUEUE = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_core_rule_review_queue.json"
+)
+CORE_REVIEW_DECISIONS = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_core_rule_review_decisions.jsonl"
+)
 
 
 PRIORITY = {
@@ -280,6 +286,53 @@ def load_applied_remediations() -> set[str]:
     }
 
 
+def load_core_review_state() -> dict[str, int]:
+    if not CORE_REVIEW_QUEUE.exists() or not CORE_REVIEW_DECISIONS.exists():
+        raise ValueError("Core review queue and decisions must be generated first")
+    queue = read_json(CORE_REVIEW_QUEUE)
+    if queue.get("api_calls") != 0:
+        raise ValueError("Core review artifacts must not use API calls")
+    items = queue.get("items", [])
+    item_ids = {item["review_id"] for item in items}
+    if len(item_ids) != len(items):
+        raise ValueError("Duplicate core review item")
+
+    decisions: dict[str, dict[str, Any]] = {}
+    allowed_decisions = {"approve", "narrow", "reclassify_to_rag", "reject"}
+    for line in CORE_REVIEW_DECISIONS.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        row = json.loads(line)
+        review_id = row["review_id"]
+        if review_id in decisions:
+            raise ValueError(f"Duplicate core review decision: {review_id}")
+        status = row.get("status")
+        decision = row.get("decision")
+        if status not in {"pending", "completed"}:
+            raise ValueError(f"Invalid core review status for {review_id}: {status}")
+        if status == "completed" and decision not in allowed_decisions:
+            raise ValueError(
+                f"Invalid completed core decision for {review_id}: {decision}"
+            )
+        if status == "pending" and decision is not None:
+            raise ValueError(
+                f"Pending core review must not have a decision: {review_id}"
+            )
+        decisions[review_id] = row
+    if set(decisions) != item_ids:
+        raise ValueError("Core review decision IDs do not match the review queue")
+
+    approved = sum(
+        row.get("status") == "completed" and row.get("decision") == "approve"
+        for row in decisions.values()
+    )
+    return {
+        "cards": len(items),
+        "approved": approved,
+        "unresolved": len(items) - approved,
+    }
+
+
 def review_is_resolved(
     review_id: str,
     human_review: dict[str, Any],
@@ -489,6 +542,7 @@ def build_queue(
 def build_readiness(
     cards_by_module: dict[str, list[dict[str, Any]]],
     impacted_by_module: dict[str, set[str]],
+    core_review_state: dict[str, int],
 ) -> dict[str, Any]:
     modules: list[dict[str, Any]] = []
     totals: Counter[str] = Counter()
@@ -502,12 +556,10 @@ def build_readiness(
                 bucket = "context_only_excluded"
             elif card["formalization"] == "policy_variant":
                 bucket = "policy_choice_pending"
-            elif card["review_required"]:
-                bucket = "human_review_pending"
             elif card["formalization"] == "standard_input":
-                bucket = "neural_grounding_spec_ready"
+                bucket = "neural_grounding_spec_candidate"
             elif card["formalization"] == "deterministic_rule":
-                bucket = "provisional_rule_ir_ready"
+                bucket = "provisional_rule_ir_candidate"
             else:
                 raise ValueError(
                     f"Unhandled formalization for readiness: {card['id']}"
@@ -524,21 +576,29 @@ def build_readiness(
                 },
             }
         )
+    core_blocked = core_review_state["unresolved"] > 0
+    policy_blocked = totals.get("policy_choice_pending", 0) > 0
+    if core_blocked:
+        blocking_reason = (
+            f"{core_review_state['unresolved']} core cards await explicit human "
+            "approval; full RuleIR generation remains blocked."
+        )
+    elif policy_blocked:
+        blocking_reason = (
+            "Full RuleIR generation remains blocked until every active policy is chosen."
+        )
+    else:
+        blocking_reason = "All RuleIR generation gates are satisfied."
     return {
-        "version": "1.1.0",
+        "version": "1.2.0",
         "issue_tag": "fraud",
         "status": "draft",
         "legal_review": "pending",
-        "full_rule_ir_generation_blocked": bool(
-            totals.get("policy_choice_pending", 0)
-        ),
-        "final_policy_activation_blocked": bool(
-            totals.get("policy_choice_pending", 0)
-        ),
-        "blocking_reason": (
-            "All accepted critic findings are remediated, but full RuleIR generation and "
-            "final policy activation remain blocked until every active policy is chosen."
-        ),
+        "full_rule_ir_generation_blocked": core_blocked or policy_blocked,
+        "core_rule_human_review_blocked": core_blocked,
+        "core_rule_review": core_review_state,
+        "final_policy_activation_blocked": policy_blocked,
+        "blocking_reason": blocking_reason,
         "modules": modules,
         "totals": dict(sorted(totals.items())),
         "existing_executable_exemplar": (
@@ -590,10 +650,10 @@ def build_guide(
         f"- 검증 후보 {candidate_count}개가 NormCard "
         f"{sum(map(len, cards_by_module.values()))}개에 연결되어 있다.",
         "- Sol 최종 비평은 17개 묶음 전부 계약 검증을 통과했다.",
-        f"- 검토 지적은 {len(queue)}개이며, 모든 산출물은 draft/legal_review=pending이다.",
+        f"- 검토 지적 {len(queue)}개는 모두 판정·remediation 완료되었고, core 법률검수만 pending이다.",
         f"- 사용자 판정은 completed {by_review_status['completed']}개, "
         f"pending {by_review_status['pending']}개다.",
-        "- 주석서가 보고한 판례로 추정되는 카드는 원판례 확인 전 context_only로 격리했다.",
+        "- 정책 쟁점에 직접 관련된 로컬 원판례 15건은 확인했고, 나머지 구체 적용례는 RAG context로 격리했다.",
         "",
         "## 지적-카드 매핑",
         "",
@@ -617,15 +677,11 @@ def build_guide(
         "4. 학설 대립: 같은 쟁점의 variant_group을 묶고 실무상 판례 입장을 선택한다.",
         "5. 승인된 카드만 RuleIR로 내린다. 미확인 사실이나 반대사실은 unknown으로 유지한다.",
         "",
-        "## 결정값",
+        "## Critic 결정 기록",
         "",
-        "`fraud_human_review_decisions.jsonl`에서 각 review_id의 status를 completed로 "
-        "바꾸고 decision을 기록한다.",
-        "허용 결정 예시는 approve_as_is, accept_finding_pending_remediation, "
-        "correct_translation, narrow_proposition, reclassify_authority, "
-        "set_context_only, "
-        "group_variant, select_precedent_variant, reject_card, needs_more_source이다.",
-        "원판례를 확인한 경우 verified_authority_refs에 사용자의 판례 인덱스 식별자를 넣는다.",
+        "`fraud_human_review_decisions.jsonl`의 67개 행은 완료된 critic 판정 기록이므로 "
+        "추가 입력 대상이 아니다. 현재 사용자 검수는 "
+        "`fraud_core_rule_review_decisions.jsonl`에서 수행한다.",
         "",
         "## 지적 분포",
         "",
@@ -656,20 +712,23 @@ def build_guide(
             f"- critic_pending: {readiness['totals'].get('critic_pending', 0)}",
             f"- context_only_excluded: {readiness['totals'].get('context_only_excluded', 0)}",
             f"- policy_choice_pending: {readiness['totals'].get('policy_choice_pending', 0)}",
-            f"- human_review_pending: {readiness['totals'].get('human_review_pending', 0)}",
-            "- neural_grounding_spec_ready: "
-            f"{readiness['totals'].get('neural_grounding_spec_ready', 0)}",
-            "- provisional_rule_ir_ready: "
-            f"{readiness['totals'].get('provisional_rule_ir_ready', 0)}",
+            "- neural_grounding_spec_candidate: "
+            f"{readiness['totals'].get('neural_grounding_spec_candidate', 0)}",
+            "- provisional_rule_ir_candidate: "
+            f"{readiness['totals'].get('provisional_rule_ir_candidate', 0)}",
+            f"- core_rule_review_pending: {readiness['core_rule_review']['unresolved']}",
             "",
-            "승인된 critic 지적은 모두 반영되었지만, policy_variant의 active policy가 선택될 때까지 전체 RuleIR 생성과 "
-            "최종 사기죄 결론을 모두 차단한다. 기존 8장짜리 모범 NormCard/RuleIR/Scallop은 구조 예시로만 유지한다.",
+            "승인된 critic 지적과 판례 우선 정책 정리는 모두 반영되었다. 다만 deterministic rule과 "
+            "standard input 후보 전부에 대한 사용자 검수 전에는 전체 RuleIR 생성을 차단한다. "
+            "기존 8장짜리 모범 NormCard/RuleIR/Scallop은 구조 예시로만 유지한다.",
             "",
             "## 파일",
             "",
             "- 상세 검수 큐: `data/rulegen/fraud/fraud_norm_card_review_queue.json`",
             "- 결정 입력: `data/rulegen/fraud/fraud_human_review_decisions.jsonl`",
             "- RuleIR readiness: `data/rulegen/fraud/fraud_rule_ir_readiness.json`",
+            "- core 검수 큐: `data/rulegen/fraud/fraud_core_rule_review_queue.json`",
+            "- core 결정 입력: `data/rulegen/fraud/fraud_core_rule_review_decisions.jsonl`",
             "- Sol 원보고서: `data/rulegen/fraud/norm_card_reviews/fraud_norm_cards_critic_v4_final/`",
             "",
         ]
@@ -682,10 +741,13 @@ def main() -> None:
     candidate_count = read_json(CANDIDATE_MANIFEST)["totals"]["candidates"]
     decisions = load_human_decisions()
     applied_remediations = load_applied_remediations()
+    core_review_state = load_core_review_state()
     queue, impacted_by_module = build_queue(
         cards_by_id, decisions, applied_remediations
     )
-    readiness = build_readiness(cards_by_module, impacted_by_module)
+    readiness = build_readiness(
+        cards_by_module, impacted_by_module, core_review_state
+    )
     write_json(
         QUEUE,
         {

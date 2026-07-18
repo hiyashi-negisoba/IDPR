@@ -164,23 +164,29 @@ gate가 충족된 경우에만 `admissible(e)`를 만든다. 참고 구현은
 
 ### 제347조 전체 준비 현황
 
-2026-07-17 기준 사기죄 주석서 13개 배치에서 검증 후보 661개를 확보했고, 후보 계보를
-보존한 NormCard 636개로 정규화했다. 주석서가 보고한 판례로 추정되는 카드는 원판례
-확인 전 `context_only`로 제한했다. Sol 최종 비평 17개 묶음은 모두 계약 검증을
-통과했으며 67개 검토 지적을 남겼다.
+2026-07-18 기준 사기죄 주석서 13개 배치에서 검증 후보 661개를 확보했고, 합쳐진 학설
+카드를 분리하여 후보 계보를 보존한 NormCard 646개로 정규화했다. Sol 최종 비평
+17개 묶음의 67개 지적은 원문과 대조하여 57개를 직접 수정하고 10개를 기각했다.
+이 정정에는 API를 사용하지 않았다.
 
 상세 상태는 다음 파일이 단일 진실 원천이다.
 
 - `data/rulegen/fraud/fraud_norm_candidate_manifest.json`
 - `data/rulegen/fraud/fraud_norm_card_manifest.json`
 - `data/rulegen/fraud/fraud_norm_card_review_queue.json`
+- `data/rulegen/fraud/fraud_core_rule_review_queue.json`
+- `data/rulegen/fraud/fraud_core_rule_selection_audit.json`
+- `data/rulegen/fraud/fraud_policy_resolution_audit.json`
 - `data/rulegen/fraud/fraud_rule_ir_readiness.json`
 
-전체 RuleIR 생성은 사람 법률 검수 전까지 차단한다. 현재 미해결 critic과 법률검수
-게이트를 통과한 것 중 28개 `deterministic_rule`만 잠정 Scallop 승격 후보이고,
-25개 `standard_input`은 neural grounding specification으로만 준비되어 있다. 사기죄
-전체 AND gate를 구성하는 핵심 법리의 출처·권위·정책 선택이 승인되지 않았으므로
-부분 카드 수만으로 coverage를 주장하지 않는다.
+전수 core 범위 감사 결과 29개 `deterministic_rule`과 89개 `standard_input`을 검수
+후보로 남기고, 구체 판례 결과·학설·희귀 적용례 등 528개는 RAG 또는 future-work
+문맥으로 분리했다. 죄수와 미필적 고의·공범 이탈 등 형법총칙 쟁점은 총칙 corpus 확보
+전에는 사기죄 core에 넣지 않는다.
+기존 12개 정책 그룹은 주석서와 로컬 원판례 15건을 대조하여 판례 우선 규칙 또는
+RAG로 모두 해소했다. 다만 core 118개는 아직 전부 사용자 검수 대기 상태이므로 전체
+RuleIR 생성은 차단한다. 미승인 항목을 `ready`로 부르거나 일부 카드 수만으로 coverage를
+주장하지 않는다.
 
 ## API 실행 순서
 

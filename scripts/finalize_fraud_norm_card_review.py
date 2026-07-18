@@ -25,6 +25,177 @@ AUDIT = FRAUD_ROOT / "fraud_norm_card_audit.json"
 POLICY_QUEUE = FRAUD_ROOT / "fraud_policy_review_queue.json"
 POLICY_DECISIONS = FRAUD_ROOT / "fraud_policy_review_decisions.jsonl"
 POLICY_GUIDE = FRAUD_ROOT / "fraud_policy_review_guide.md"
+POLICY_RESOLUTION_AUDIT = FRAUD_ROOT / "fraud_policy_resolution_audit.json"
+CORE_SELECTION_AUDIT = FRAUD_ROOT / "fraud_core_rule_selection_audit.json"
+CORE_REVIEW_QUEUE = FRAUD_ROOT / "fraud_core_rule_review_queue.json"
+CORE_REVIEW_DECISIONS = FRAUD_ROOT / "fraud_core_rule_review_decisions.jsonl"
+CORE_REVIEW_GUIDE = FRAUD_ROOT / "fraud_core_rule_review_guide.md"
+LOCAL_PRIMARY_SOURCE = (
+    PROJECT_ROOT.parent
+    / "sp/data/processed/Case_DB/clean_open_precedents.parquet"
+)
+
+
+def primary_record(record_id: int, decision_date: str) -> dict[str, Any]:
+    return {
+        "record_id": record_id,
+        "decision_date": decision_date,
+        "court": "대법원",
+    }
+
+
+VERIFIED_LOCAL_PRIMARY_RECORDS = {
+    "75도760": primary_record(92643, "1975-05-27"),
+    "2001도2991": primary_record(81008, "2001-10-23"),
+    "2003도4914": primary_record(83025, "2003-12-26"),
+    "2017도21196": primary_record(205752, "2018-04-12"),
+    "95도2466": primary_record(113475, "1996-04-09"),
+    "84도882": primary_record(99745, "1984-09-25"),
+    "2018도13696": primary_record(211733, "2020-06-25"),
+    "2007도2595": primary_record(191973, "2007-08-23"),
+    "66도132": primary_record(152569, "1966-03-15"),
+    "2021도8468": primary_record(219381, "2021-09-09"),
+    "2016도13362": primary_record(184471, "2017-02-16"),
+    "94도1575": primary_record(110881, "1994-10-11"),
+    "2022도12494": primary_record(233095, "2022-12-29"),
+    "80도2667": primary_record(96475, "1982-04-13"),
+    "2001도1825": primary_record(82595, "2003-05-16"),
+}
+
+
+# Only general legal rules belong in the symbolic core. Concrete holdings, offense-value
+# calculations, and cross-offense examples remain searchable RAG context.
+CORE_DETERMINISTIC_IDS = {
+    "fraud_general_object.causation_required",
+    "deception.fraud.element.deception-must-create-false-belief",
+    "deception.fraud.causal-link.deception-property-disposition",
+    "deception.fraud.causal-link.no-disposition-no-deception",
+    "deception.fraud.element.deception-not-legal-act-important-part",
+    "deception.fraud.element.victim-negligence-no-bar",
+    "deception.fraud.definition.deception-means-unrestricted",
+    "deception.fraud.element.omission-deception-legal-notice-duty",
+    "deception.fraud.element.omission-deception-independent-error",
+    "deception.fraud.definition.notice-duty-violation-omission",
+    "deception.fraud.definition.other-includes-corporation",
+    "deception.fraud.definition.deception-counterparty-is-other",
+    "deception.fraud.definition.deceived-person-unspecified",
+    "deception.fraud.definition.deceived-person-victim-distinct",
+    "fraud_mistake.invalid_act_disposition",
+    "fraud_mistake.sequential_causation",
+    "fraud_mistake.property_disposition_element",
+    "fraud_mistake.factual_act_disposition",
+    "fraud_mistake.property_limited_disposition",
+    "fraud_mistake.triangular_fraud_definition",
+    "fraud_mistake.deceived_disposer_identity",
+    "fraud_damage_acquisition.property_concept_reported_precedent",
+    "fraud_damage_acquisition.property_loss_negative_view",
+    "fraud_intent.no_disposition_inducement_intent",
+    "fraud_stages_participation.attempt_deceptive_act",
+    "fraud_stages_participation.litigation_service_not_required",
+    "fraud_stages_participation.completion_deception_disposition_transfer",
+    "fraud_stages_participation.no_causation_attempt",
+    "fraud_stages_participation.property_fraud_completion_control",
+}
+
+
+CORE_STANDARD_IDS = {
+    "general_object.fraud.element.object-other-possessed-other-property",
+    "general_object.fraud.definition.property-benefit",
+    "general_object.fraud.element.property-benefit-concrete",
+    "general_object.fraud.definition.property-benefit-not-numerically-limited",
+    "deception.fraud.definition.deception-good-faith-mistake",
+    "deception.fraud.definition.exploitation-existing-mistake",
+    "deception.fraud.definition.deception-content-basis-fact",
+    "deception.fraud.definition.deception-object-facts",
+    "deception.fraud.definition.implicit-deception",
+    "deception.fraud.definition.deception-target-human",
+    "general_object.fraud.standard.later-cancellation-no-effect",
+    "general_object.fraud.standard.own-property-not-object",
+    "fraud_general_object.deception_error_causation",
+    "general_object.fraud.standard.public-interest-only-no-fraud",
+    "general_object.fraud.exception.public-interest-property-equivalence",
+    "general_object.fraud.standard.own-possession-other-property-embezzlement",
+    "deception.fraud.standard.loan-purpose-materiality",
+    "deception.fraud.causal-link.loan-purpose-not-sole-trigger",
+    "deception.fraud.standard.deception-concrete-circumstances",
+    "deception.fraud.standard.easily-detectable-lie",
+    "deception.fraud.element.transaction-purpose-no-impairment",
+    "deception.fraud.standard.advertising-tolerable-exaggeration",
+    "deception.fraud.standard.advertising-important-concrete-falsehood",
+    "deception.fraud.standard.abstract-or-immaterial-advertising",
+    "deception.fraud.standard.vague-opinion-not-deception",
+    "deception.fraud.standard.implicit-deception-explanatory-value",
+    "deception.fraud.element.omission-deception-guarantor-equivalence",
+    "deception.fraud.standard.precedent-notice-duty-materiality",
+    "deception.fraud.exception.no-notice-duty-no-effect-on-rights",
+    "deception.fraud.standard.implicit-omission-deception-distinction",
+    "deception.fraud.element.loan-no-repayment-intent-or-ability",
+    "deception.fraud.standard.intent-to-defraud-loan-inference",
+    "deception.fraud.standard.financial-loan-omission-caution",
+    "deception.fraud.standard.loan-subsequent-default",
+    "deception.fraud.standard.loan-lender-anticipated-risk",
+    "fraud_mistake.error_doubt_ignorance",
+    "fraud_mistake.error_definition",
+    "fraud_mistake.error_disposition_motivation",
+    "fraud_mistake.no_thought_no_error",
+    "fraud_mistake.unaware_error",
+    "fraud_mistake.disposition_definition",
+    "fraud_mistake.disposition_omission",
+    "fraud_mistake.disposition_intent_act_awareness",
+    "fraud_mistake.disposition_directness",
+    "fraud_mistake.trick_theft_directness",
+    "fraud_mistake.no_capacity_theft",
+    "fraud_mistake.gain_purpose",
+    "fraud_mistake.active_creditor_extension",
+    "fraud_mistake.conscious_nonexercise",
+    "fraud_mistake.assignment_debt_extinguishment",
+    "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation",
+    "fraud_mistake.omission_not_all_nonclaims",
+    "fraud_damage_acquisition.money_delivery_full_amount",
+    "fraud_damage_acquisition.delivery_of_property",
+    "fraud_damage_acquisition.delivery_factual_control",
+    "fraud_damage_acquisition.property_disposition_types",
+    "fraud_damage_acquisition.protected_economic_interest",
+    "fraud_damage_acquisition.subsequent_return_irrelevant",
+    "fraud_damage_acquisition.right_exercise_unacceptable_deception",
+    "fraud_intent.contract_breach_distinction",
+    "fraud_intent.time_of_conduct",
+    "fraud_intent.objective_circumstances",
+    "fraud_intent.precedent_illegal_appropriation_intent",
+    "fraud_intent.illegal_appropriation_definition",
+    "fraud_intent.illegal_gain_unauthorized",
+    "fraud_intent.third_party_acquisition",
+    "special_forms.fraud.standard.litigation-fraud-strict-interpretation",
+    "special_forms.fraud.standard.litigation-fraud-objectively-false-or-knowing",
+    "special_forms.fraud.element.litigation-fraud-knowing-nonexistence",
+    "special_forms.fraud.exception.litigation-fraud-mistake-of-fact-or-law",
+    "special_forms.fraud.standard.indirect-perpetration-through-unaware-third-party",
+    "special_forms.fraud.element.litigation-fraud-deceptive-act",
+    "special_forms.fraud.exception.omission-of-favorable-evidence",
+    "special_forms.fraud.standard.false-claim-alone-can-deceive",
+    "special_forms.fraud.element.judgment-substitutes-victim-disposition",
+    "special_forms.fraud.element.litigation-fraud-commencement",
+    "special_forms.fraud.standard.insurance-concealed-existing-accident",
+    "special_forms.fraud.standard.insurance-intentional-accident-claim",
+    "special_forms.fraud.standard.insurance-false-accident-claim",
+    "special_forms.fraud.standard.insurance-omission-destroys-contingency",
+    "special_forms.fraud.standard.insurance-injury-disease-contingency-factors",
+    "special_forms.fraud.standard.insurance-defective-life-contract-preparatory-act",
+    "special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime",
+    "fraud_stages_participation.insurance_false_claim_attempt",
+    "fraud_stages_participation.gambling_fraud_attempt",
+    "fraud_stages_participation.false_claim_provisional_seizure_no_attempt",
+    "fraud_stages_participation.enforcement_application_attempt",
+    "fraud_stages_participation.payment_order_attempt",
+    "fraud_stages_participation.post_filing_false_claim_attempt",
+}
+
+
+FUTURE_WORK_GENERAL_PART_IDS = {
+    "fraud_intent.conditional_intent",
+    "fraud_stages_participation.inclusive_offense_withdrawal_liability",
+    "fraud_stages_participation.gambling_normal_gambling_included",
+}
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -49,6 +220,49 @@ def write_json(path: Path, payload: dict[str, Any]) -> None:
     )
 
 
+def verify_local_primary_records() -> dict[str, Any]:
+    if not LOCAL_PRIMARY_SOURCE.exists():
+        return {
+            "status": "not_available",
+            "verified_records": 0,
+        }
+
+    import pandas as pd
+
+    frame = pd.read_parquet(
+        LOCAL_PRIMARY_SOURCE,
+        columns=["판례정보일련번호", "사건번호", "선고일자", "법원명"],
+    ).set_index("판례정보일련번호")
+    errors: list[str] = []
+    for case_no, expected in VERIFIED_LOCAL_PRIMARY_RECORDS.items():
+        record_id = expected["record_id"]
+        if record_id not in frame.index:
+            errors.append(f"missing record_id={record_id} case_no={case_no}")
+            continue
+        row = frame.loc[record_id]
+        actual = {
+            "case_no": str(row["사건번호"]),
+            "decision_date": str(int(row["선고일자"])),
+            "court": str(row["법원명"]),
+        }
+        expected_date = expected["decision_date"].replace("-", "")
+        if (
+            actual["case_no"] != case_no
+            or actual["decision_date"] != expected_date
+            or actual["court"] != expected["court"]
+        ):
+            errors.append(
+                f"record_id={record_id} expected={case_no}/{expected_date}/"
+                f"{expected['court']} actual={actual}"
+            )
+    if errors:
+        raise ValueError("Local primary precedent mismatch: " + "; ".join(errors))
+    return {
+        "status": "verified",
+        "verified_records": len(VERIFIED_LOCAL_PRIMARY_RECORDS),
+    }
+
+
 def append_note(card: dict[str, Any], note: str) -> None:
     if note not in card["review_notes"]:
         card["review_notes"] = card["review_notes"].rstrip() + " " + note
@@ -67,8 +281,19 @@ def preserve_policy_decisions(
 
     current_ids = {item["review_id"] for item in policy_items}
     orphan_ids = set(existing) - current_ids
-    if orphan_ids:
-        raise ValueError(f"Orphan policy decisions: {sorted(orphan_ids)}")
+    nonempty_orphans = {
+        review_id
+        for review_id in orphan_ids
+        if existing[review_id].get("status") != "pending"
+        or existing[review_id].get("decision") is not None
+        or existing[review_id].get("selected_card_ids")
+        or existing[review_id].get("verified_authority_refs")
+        or existing[review_id].get("notes")
+    }
+    if nonempty_orphans:
+        raise ValueError(
+            f"User-entered orphan policy decisions: {sorted(nonempty_orphans)}"
+        )
 
     decisions: list[dict[str, Any]] = []
     for item in policy_items:
@@ -89,6 +314,64 @@ def preserve_policy_decisions(
         if not selected <= allowed:
             raise ValueError(
                 f"Invalid selected cards for {review_id}: {sorted(selected - allowed)}"
+            )
+        decisions.append(row)
+    return decisions
+
+
+def preserve_core_review_decisions(
+    review_items: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    existing_rows = (
+        read_jsonl(CORE_REVIEW_DECISIONS) if CORE_REVIEW_DECISIONS.exists() else []
+    )
+    existing: dict[str, dict[str, Any]] = {}
+    for row in existing_rows:
+        review_id = row["review_id"]
+        if review_id in existing:
+            raise ValueError(f"Duplicate core review decision: {review_id}")
+        existing[review_id] = row
+
+    current_ids = {item["review_id"] for item in review_items}
+    orphan_ids = set(existing) - current_ids
+    nonempty_orphans = {
+        review_id
+        for review_id in orphan_ids
+        if existing[review_id].get("status") != "pending"
+        or existing[review_id].get("decision") is not None
+        or existing[review_id].get("verified_authority_refs")
+        or existing[review_id].get("notes")
+    }
+    if nonempty_orphans:
+        raise ValueError(
+            f"User-entered orphan core decisions: {sorted(nonempty_orphans)}"
+        )
+
+    decisions: list[dict[str, Any]] = []
+    allowed_decisions = {"approve", "narrow", "reclassify_to_rag", "reject"}
+    for item in review_items:
+        review_id = item["review_id"]
+        row = existing.get(
+            review_id,
+            {
+                "review_id": review_id,
+                "status": "pending",
+                "decision": None,
+                "verified_authority_refs": [],
+                "notes": "",
+            },
+        )
+        status = row.get("status")
+        decision = row.get("decision")
+        if status not in {"pending", "completed"}:
+            raise ValueError(f"Invalid core review status for {review_id}: {status}")
+        if status == "completed" and decision not in allowed_decisions:
+            raise ValueError(
+                f"Invalid completed core decision for {review_id}: {decision}"
+            )
+        if status == "pending" and decision is not None:
+            raise ValueError(
+                f"Pending core review must not have a decision: {review_id}"
             )
         decisions.append(row)
     return decisions
@@ -505,19 +788,326 @@ def main() -> None:
             note="서로 배척하는 학설이 아니라 상이한 사실조건의 자의성 판단 기준으로 정리했다.",
         )
 
-    # `review_required` had been overloaded to mean that neural application is needed.
-    # After the full critic pass and the 57 accepted remediations, every non-policy,
-    # non-context card is legally source-bounded; neural standards remain input specs.
+    # The remaining 12 groups were incorrectly presented as unresolved global policy
+    # switches. Direct holdings in the commentary and the local primary-precedent index
+    # resolve the practical rules. Pure academic disputes and rare edge cases stay in RAG.
+    policy_resolutions = [
+        {
+            "policy_group": "fraud_damage_acquisition.property_concept",
+            "resolution": "activate_narrow_precedent_rule",
+            "activated_card_ids": [
+                "fraud_damage_acquisition.property_concept_reported_precedent"
+            ],
+            "authority_refs": ["75도760", "2001도2991"],
+            "reason": (
+                "법률상 유효 취득이나 사법상 보호되는 이익에 한정하지 않는다는 "
+                "판시를 좁은 실행 규칙으로 사용하고 추상적 재산개념 학설은 RAG로 보존한다."
+            ),
+        },
+        {
+            "policy_group": "fraud_damage_acquisition.property_loss_requirement",
+            "resolution": "adopt_precedent_no_actual_loss_requirement",
+            "activated_card_ids": [
+                "fraud_damage_acquisition.property_loss_negative_view"
+            ],
+            "authority_refs": ["2003도4914", "2017도21196"],
+            "reason": "현실적 재산상 손해는 별도 구성요건이 아니라는 판례를 채택한다.",
+        },
+        {
+            "policy_group": "fraud_damage_acquisition.property_risk_as_loss",
+            "resolution": "rag_only_not_independent_liability_gate",
+            "activated_card_ids": [],
+            "authority_refs": ["95도2466", "2003도4914"],
+            "reason": (
+                "현실적 손해가 독립 구성요건이 아니므로 재산위험 학설을 전역 성립 게이트로 "
+                "선택하지 않고 신용카드·보증 등 구체적 이익 취득 규칙에서 처리한다."
+            ),
+        },
+        {
+            "policy_group": "fraud_deception.future_fact_scope",
+            "resolution": "rag_only_use_present_intent_and_ability_rules",
+            "activated_card_ids": [],
+            "authority_refs": [],
+            "reason": (
+                "순수 장래사실의 포괄 범위는 주석서도 학설 대립으로만 제시한다. 현재의 "
+                "의사·능력 등 심리적 사실에 관한 기존 기망 규칙만 core에서 사용한다."
+            ),
+        },
+        {
+            "policy_group": "fraud_deception.omission_notice_duty_scope",
+            "resolution": "activate_precedent_materiality_standard",
+            "activated_card_ids": [
+                "deception.fraud.standard.precedent-notice-duty-materiality"
+            ],
+            "authority_refs": ["84도882", "2018도13696"],
+            "reason": (
+                "법령·계약·관습·조리와 구체적 거래실정·신의칙 및 거래 중요성을 보는 "
+                "판례 기준을 사용하고 학설상 제한 방식은 RAG로 보존한다."
+            ),
+        },
+        {
+            "policy_group": "fraud_deception.opinion_statement",
+            "resolution": "rag_only_keep_vague_opinion_standard",
+            "activated_card_ids": [],
+            "authority_refs": ["2018도13696"],
+            "reason": (
+                "주석서가 정면 판례 부재를 명시하므로 학설 하나를 전역 선택하지 않는다. "
+                "막연한 의견의 착오유발 충분성과 구체적 거래 중요성은 기존 standard에서 판단한다."
+            ),
+        },
+        {
+            "policy_group": "fraud_general_object.property_value",
+            "resolution": "rag_only_no_fraud_precedent_transplant",
+            "activated_card_ids": [],
+            "authority_refs": ["2007도2595"],
+            "reason": (
+                "주관적 가치 판시는 절도죄 판례이므로 사기죄의 전역 재물 기준으로 승격하지 "
+                "않고 희귀 쟁점 검색 문맥으로 보존한다."
+            ),
+        },
+        {
+            "policy_group": "fraud_general_object.sex_work_contract",
+            "resolution": "resolve_with_precedent_keep_case_specific_rag",
+            "activated_card_ids": [],
+            "authority_refs": ["2001도2991"],
+            "reason": (
+                "성행위 대가 지급을 면한 구체적 판례는 긍정하지만 희귀 적용례이므로 "
+                "전역 core rule이 아니라 판례 RAG로 보존한다."
+            ),
+        },
+        {
+            "policy_group": "fraud_intent.illegal_appropriation_requirement",
+            "resolution": "activate_single_centralized_precedent_standard",
+            "activated_card_ids": [
+                "fraud_intent.precedent_illegal_appropriation_intent"
+            ],
+            "authority_refs": ["66도132", "2021도8468"],
+            "reason": (
+                "판례의 불법영득의사 내지 편취 범의 기준을 intent 모듈에서 한 번만 적용하고 "
+                "사기 유형마다 중복 게이트를 만들지 않는다."
+            ),
+        },
+        {
+            "policy_group": "fraud_mistake.disposition_intent_requirement",
+            "resolution": "use_existing_en_banc_standard",
+            "activated_card_ids": [
+                "fraud_mistake.disposition_intent_act_awareness"
+            ],
+            "authority_refs": ["2016도13362"],
+            "reason": (
+                "처분행위 자체에 대한 인식은 필요하지만 처분결과 인식은 필요 없다는 "
+                "전원합의체 기준이 이미 standard input으로 존재한다."
+            ),
+        },
+        {
+            "policy_group": "fraud_mistake.triangular_fraud_authority",
+            "resolution": "activate_precedent_authority_or_position_standard",
+            "activated_card_ids": [
+                "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation"
+            ],
+            "authority_refs": ["94도1575", "2022도12494"],
+            "reason": (
+                "피기망자에게 피해자 재산을 처분할 권능 또는 지위가 필요하되 사법상 "
+                "위임·대리권과 일치할 필요는 없다는 판례의 조작적 기준을 사용한다."
+            ),
+        },
+        {
+            "policy_group": "fraud_stages_participation.completion_threshold",
+            "resolution": "use_existing_transfer_or_acquisition_rule",
+            "activated_card_ids": [
+                "fraud_stages_participation.completion_deception_disposition_transfer"
+            ],
+            "authority_refs": ["80도2667", "2001도1825"],
+            "reason": (
+                "재물 교부 또는 재산상 이익 취득이 있어야 기수라는 기존 deterministic rule을 "
+                "유지하고 피해자 손해만으로 기수라는 학설은 RAG로 보존한다."
+            ),
+        },
+    ]
+
+    academic_policy_cards = {
+        card["id"]
+        for card in cards_by_id.values()
+        if card["formalization"] == "policy_variant"
+    }
+    practical_loss_rule = "fraud_damage_acquisition.property_loss_negative_view"
+    academic_policy_cards.discard(practical_loss_rule)
+    demote_policy_cards(
+        academic_policy_cards,
+        "판례 우선 core 규칙과 구체적 RAG의 구분에 따라 전역 active policy 대상에서 제외했다.",
+    )
+
+    property_concept_rule = cards_by_id[
+        "fraud_damage_acquisition.property_concept_reported_precedent"
+    ]
+    property_concept_rule.update(
+        {
+            "proposition": (
+                "사기죄의 재산상 이익 취득은 법률상 유효할 필요가 없고, 법률상 무효라도 "
+                "외형상 재산상 이익을 취득하면 족하다."
+            ),
+            "formalization": "deterministic_rule",
+            "authority_basis": "commentary_reported_precedent",
+            "doctrinal_status": "precedent_position",
+            "review_required": False,
+        }
+    )
+    append_note(property_concept_rule, "75도760 및 2001도2991의 좁은 판시 범위로 활성화했다.")
+
+    loss_rule = cards_by_id[practical_loss_rule]
+    loss_rule.update(
+        {
+            "proposition": (
+                "사기죄는 기망에 의한 재물 교부 또는 재산상 이익 취득으로 성립하며, "
+                "상대방에게 현실적인 재산상 손해가 별도로 발생할 것을 요구하지 않는다."
+            ),
+            "formalization": "deterministic_rule",
+            "authority_basis": "commentary_reported_precedent",
+            "doctrinal_status": "precedent_position",
+            "review_required": False,
+        }
+    )
+    append_note(loss_rule, "2003도4914 및 2017도21196의 판례 기준으로 활성화했다.")
+
+    loss_assessment = cards_by_id[
+        "fraud_damage_acquisition.property_loss_assessment"
+    ]
+    loss_assessment["formalization"] = "context_only"
+    loss_assessment["review_required"] = True
+    append_note(loss_assessment, "손해가 독립 성립요건이 아니므로 학설상 손해평가 문맥으로만 보존한다.")
+
+    notice_rule = cards_by_id[
+        "deception.fraud.standard.precedent-notice-duty-materiality"
+    ]
+    notice_rule["formalization"] = "standard_input"
+    notice_rule["review_required"] = False
+    append_note(notice_rule, "84도882 및 2018도13696의 판례 기준으로 활성화했다.")
+
+    intent_rule = cards_by_id[
+        "fraud_intent.precedent_illegal_appropriation_intent"
+    ]
+    intent_rule["formalization"] = "standard_input"
+    intent_rule["review_required"] = False
+    append_note(intent_rule, "유형별 중복 없이 intent 모듈의 중앙 판례 기준으로 한 번만 적용한다.")
+
+    triangular_rule = cards_by_id[
+        "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation"
+    ]
+    triangular_rule.update(
+        {
+            "proposition": (
+                "피기망자와 재산상 피해자가 다르면 피기망자에게 피해자를 위하여 그 재산을 "
+                "처분할 권능 또는 지위가 있어야 한다. 그 권능 또는 지위는 사법상 위임이나 "
+                "대리권과 일치할 필요는 없고, 피해자의 의사에 따라 처분서류를 교부받은 "
+                "경우에도 인정될 수 있다."
+            ),
+            "formalization": "standard_input",
+            "authority_basis": "commentary_reported_precedent",
+            "doctrinal_status": "precedent_position",
+            "review_required": False,
+        }
+    )
+    append_note(triangular_rule, "94도1575와 2022도12494의 권능 또는 지위 기준으로 활성화했다.")
+
+    sex_work_case = cards_by_id[
+        "general_object.fraud.variant.sex-work-contract-fraud-affirmative"
+    ]
+    sex_work_case.update(
+        {
+            "proposition": (
+                "금품 지급을 전제로 한 성행위 약정이 민법상 무효이더라도, 대가 지급 의사 "
+                "없이 상대방을 기망하여 성행위 대가 지급을 면하면 사기죄가 성립한다."
+            ),
+            "authority_basis": "commentary_reported_precedent",
+            "doctrinal_status": "precedent_position",
+        }
+    )
+    append_note(sex_work_case, "2001도2991의 구체적 판시 범위로 좁혀 RAG에 보존했다.")
+
+    objective_elements = cards_by_id["fraud_general_object.objective_elements"]
+    objective_elements["proposition"] = (
+        "사기죄의 객관적 구성요건은 기망행위, 피기망자의 착오, 재산적 처분행위, "
+        "재산상 손해, 재물 또는 재산상 이익의 취득 및 이들 사이의 인과관계이다."
+    )
+    append_note(
+        objective_elements,
+        "서론의 요약은 손해를 열거하지만 2003도4914 및 2017도21196의 판례 카드와 "
+        "충돌하므로 실행 규칙이 아니라 출처 충돌을 보여 주는 RAG 문맥으로 보존했다.",
+    )
+
+    deceived_disposer = cards_by_id["fraud_mistake.deceiver_disposer_text"]
+    deceived_disposer["proposition"] = (
+        "피기망자, 즉 기망행위의 상대방과 재산적 처분행위자는 동일인이어야 한다."
+    )
+    append_note(deceived_disposer, "기망자를 피기망자로 잘못 옮긴 번역 오류를 정정했다.")
+
+    all_core_ids = CORE_DETERMINISTIC_IDS | CORE_STANDARD_IDS
+    if CORE_DETERMINISTIC_IDS & CORE_STANDARD_IDS:
+        raise ValueError("Core deterministic and standard IDs must be disjoint")
+    unknown_core_ids = all_core_ids - set(cards_by_id)
+    if unknown_core_ids:
+        raise ValueError(f"Unknown core card IDs: {sorted(unknown_core_ids)}")
+
+    core_selection_rows: list[dict[str, Any]] = []
+    for card_id, card in sorted(cards_by_id.items()):
+        previous_formalization = card["formalization"]
+        if card_id in CORE_DETERMINISTIC_IDS:
+            role = "deterministic_rule"
+            reason = "general_legal_rule_or_symbolic_composition"
+            card["review_required"] = True
+        elif card_id in CORE_STANDARD_IDS:
+            role = "standard_input"
+            reason = "general_fact_condition_requiring_neural_judgment"
+            card["review_required"] = True
+        else:
+            role = "context_only"
+            if (
+                card_module[card_id] == "concurrence"
+                or card_id in FUTURE_WORK_GENERAL_PART_IDS
+            ):
+                reason = "future_work_requires_general_part_corpus"
+            else:
+                reason = "case_specific_academic_or_noncore_context"
+            card["review_required"] = True
+        card["formalization"] = role
+        if previous_formalization != role:
+            append_note(
+                card,
+                "Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 "
+                "구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+            )
+        core_selection_rows.append(
+            {
+                "card_id": card_id,
+                "module": card_module[card_id],
+                "role": role,
+                "selection_reason": reason,
+            }
+        )
+
+    general_precedent_core = {
+        "fraud_damage_acquisition.property_concept_reported_precedent",
+        "fraud_damage_acquisition.property_loss_negative_view",
+        "deception.fraud.standard.precedent-notice-duty-materiality",
+        "fraud_intent.precedent_illegal_appropriation_intent",
+        "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation",
+    }
+
+    # Core selection is an agent-authored proposal. Keep every selected core card under
+    # explicit human review even when its source boundary has been checked locally.
     for card in cards_by_id.values():
         if card["formalization"] in {"deterministic_rule", "standard_input"}:
-            if card["authority_basis"] == "commentary_reported_precedent":
+            if (
+                card["authority_basis"] == "commentary_reported_precedent"
+                and card["id"] not in general_precedent_core
+            ):
                 raise ValueError(
                     f"Case-specific card still formalized as core: {card['id']}"
                 )
-            card["review_required"] = False
+            card["review_required"] = True
             append_note(
                 card,
-                "최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
+                "최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
             )
         elif card["formalization"] == "policy_variant":
             card["review_required"] = True
@@ -528,6 +1118,50 @@ def main() -> None:
         raise ValueError(
             f"Expected 646 cards after splitting merged variants, found {len(cards_by_id)}"
         )
+
+    core_review_items: list[dict[str, Any]] = []
+    for card_id in sorted(all_core_ids):
+        card = cards_by_id[card_id]
+        role = card["formalization"]
+        core_review_items.append(
+            {
+                "review_id": f"fraud.core.{card_id}",
+                "card_id": card_id,
+                "module": card_module[card_id],
+                "role": role,
+                "norm_kind": card["norm_kind"],
+                "proposition": card["proposition"],
+                "authority_basis": card["authority_basis"],
+                "doctrinal_status": card["doctrinal_status"],
+                "candidate_refs": card["candidate_refs"],
+                "source_refs": card["source_refs"],
+                "review_notes": card["review_notes"],
+                "review_question": (
+                    "이 일반 법리를 Scallop의 결정적 규칙으로 사용하는 데 동의하는가?"
+                    if role == "deterministic_rule"
+                    else "이 기준을 사실관계에서 모델이 판정할 neural input으로 사용하는 데 동의하는가?"
+                ),
+            }
+        )
+    core_review_decisions = preserve_core_review_decisions(core_review_items)
+    core_decisions_by_id = {
+        row["review_id"]: row for row in core_review_decisions
+    }
+    for item in core_review_items:
+        decision = core_decisions_by_id[item["review_id"]]
+        item["human_review"] = decision
+        cards_by_id[item["card_id"]]["review_required"] = not (
+            decision.get("status") == "completed"
+            and decision.get("decision") == "approve"
+        )
+    core_review_statuses = Counter(
+        row.get("status", "pending") for row in core_review_decisions
+    )
+    core_review_approved = sum(
+        row.get("status") == "completed" and row.get("decision") == "approve"
+        for row in core_review_decisions
+    )
+    core_review_unresolved = len(core_review_decisions) - core_review_approved
 
     commentary = {
         row["comment_id"]: row
@@ -547,13 +1181,21 @@ def main() -> None:
     status_counts: Counter[str] = Counter()
     for card_id, card in sorted(cards_by_id.items()):
         if card["formalization"] == "deterministic_rule":
-            review_status = "deterministic_rule_ready"
+            review_status = (
+                "deterministic_rule_review_pending"
+                if card["review_required"]
+                else "deterministic_rule_ready"
+            )
             rule_ir_role = "derived_rule"
-            user_action_required = False
+            user_action_required = card["review_required"]
         elif card["formalization"] == "standard_input":
-            review_status = "standard_input_ready"
+            review_status = (
+                "standard_input_review_pending"
+                if card["review_required"]
+                else "standard_input_ready"
+            )
             rule_ir_role = "neural_input_predicate"
-            user_action_required = False
+            user_action_required = card["review_required"]
         elif card["formalization"] == "policy_variant":
             review_status = "policy_choice_pending"
             rule_ir_role = "active_policy_variant"
@@ -683,7 +1325,7 @@ def main() -> None:
         {
             "version": "1.0.0",
             "issue_tag": "fraud",
-            "status": "pending",
+            "status": "complete" if not policy_items else "pending",
             "method": "manual_policy_group_audit_no_api",
             "api_calls": 0,
             "policy_groups": len(policy_items),
@@ -694,6 +1336,115 @@ def main() -> None:
             "collapsed_policy_sources": [],
             "resolved_split_sources": resolved_split_sources,
         },
+    )
+    write_json(
+        POLICY_RESOLUTION_AUDIT,
+        {
+            "version": "1.0.0",
+            "issue_tag": "fraud",
+            "status": "complete",
+            "method": "manual_commentary_and_local_primary_precedent_audit_no_api",
+            "api_calls": 0,
+            "local_primary_source": (
+                "../sp/data/processed/Case_DB/clean_open_precedents.parquet"
+            ),
+            "verified_local_primary_records": VERIFIED_LOCAL_PRIMARY_RECORDS,
+            "verified_case_count": len(VERIFIED_LOCAL_PRIMARY_RECORDS),
+            "local_primary_verification": verify_local_primary_records(),
+            "resolved_groups": len(policy_resolutions),
+            "remaining_policy_groups": len(policy_items),
+            "resolutions": policy_resolutions,
+        },
+    )
+    write_json(
+        CORE_SELECTION_AUDIT,
+        {
+            "version": "1.0.0",
+            "issue_tag": "fraud",
+            "status": "draft",
+            "legal_review": "pending",
+            "method": "manual_full_core_scope_audit_no_api",
+            "api_calls": 0,
+            "criteria": {
+                "deterministic_rule": (
+                    "일반 법리, 정의 또는 다른 predicate를 결합하는 상징 규칙"
+                ),
+                "standard_input": (
+                    "일반화된 법적 기준이지만 사실 적용에 neural judgment가 필요한 입력"
+                ),
+                "context_only": (
+                    "구체적 판례 결과, 학설, 희귀 적용례, 이득액 계산 또는 다른 죄명 문맥"
+                ),
+            },
+            "counts": dict(
+                sorted(Counter(row["role"] for row in core_selection_rows).items())
+            ),
+            "rows": core_selection_rows,
+        },
+    )
+    write_json(
+        CORE_REVIEW_QUEUE,
+        {
+            "version": "1.0.0",
+            "issue_tag": "fraud",
+            "status": (
+                "complete" if core_review_unresolved == 0 else "pending"
+            ),
+            "method": "full_core_card_human_review_queue_no_api",
+            "api_calls": 0,
+            "cards": len(core_review_items),
+            "counts": dict(
+                sorted(Counter(item["role"] for item in core_review_items).items())
+            ),
+            "decision_status_counts": dict(sorted(core_review_statuses.items())),
+            "approved": core_review_approved,
+            "unresolved": core_review_unresolved,
+            "items": core_review_items,
+        },
+    )
+    CORE_REVIEW_DECISIONS.write_text(
+        "".join(
+            json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n"
+            for row in core_review_decisions
+        ),
+        encoding="utf-8",
+    )
+    core_guide_lines = [
+        "# 사기죄 Scallop core 검수 가이드",
+        "",
+        "## 범위",
+        "",
+        "- API 사용: 0회",
+        f"- deterministic rule 검수 후보: {len(CORE_DETERMINISTIC_IDS)}개",
+        f"- standard input 검수 후보: {len(CORE_STANDARD_IDS)}개",
+        f"- RAG/future-work context: {status_counts['rag_context_only']}개",
+        f"- 현재 unresolved: {core_review_unresolved}개",
+        "",
+        "`fraud_core_rule_review_decisions.jsonl`에서 검토한 행의 status를 `completed`로 "
+        "바꾸고 decision에 `approve`, `narrow`, `reclassify_to_rag`, `reject` 중 하나를 "
+        "기록한다. 수정이 필요하면 notes에 범위와 문구를 적는다.",
+        "",
+    ]
+    for role, title in (
+        ("deterministic_rule", "Deterministic Rules"),
+        ("standard_input", "Standard Inputs"),
+    ):
+        core_guide_lines.extend(
+            [
+                f"## {title}",
+                "",
+                "| module | card_id | proposition |",
+                "|---|---|---|",
+            ]
+        )
+        for item in core_review_items:
+            if item["role"] == role:
+                core_guide_lines.append(
+                    f"| {item['module']} | `{item['card_id']}` | {item['proposition']} |"
+                )
+        core_guide_lines.append("")
+    CORE_REVIEW_GUIDE.write_text(
+        "\n".join(core_guide_lines), encoding="utf-8"
     )
     policy_decisions = preserve_policy_decisions(policy_items)
     POLICY_DECISIONS.write_text(
@@ -711,23 +1462,42 @@ def main() -> None:
         "",
         "- API 사용: 0회",
         f"- 전체 NormCard: {len(audit_rows)}개",
-        f"- 자동 확정된 deterministic rule: {status_counts['deterministic_rule_ready']}개",
-        f"- 자동 확정된 standard input: {status_counts['standard_input_ready']}개",
+        f"- deterministic rule 검수 후보: {len(CORE_DETERMINISTIC_IDS)}개",
+        f"- standard input 검수 후보: {len(CORE_STANDARD_IDS)}개",
         f"- RAG 전용: {status_counts['rag_context_only']}개",
         f"- 사용자 정책 선택: {len(policy_items)}개 그룹, {sum(len(item['selectable_card_ids']) for item in policy_items)}개 카드",
         "",
-        "기존 67개 critic finding은 모두 판정·수정 완료되었다. 아래에는 현재 corpus만으로 판례 우선 선택을 확정할 수 없는 쟁점만 남겼다.",
-        "각 결정은 `fraud_policy_review_decisions.jsonl`의 같은 review_id 행에 기록한다.",
-        "원판례 인덱스에서 확인한 식별자는 `verified_authority_refs`에 넣는다.",
+        (
+            "기존 67개 critic finding과 12개 정책 그룹은 모두 판정·수정 완료되었다. "
+            "직접 판례가 있는 쟁점은 실무 규칙으로 활성화했고, 순수 학설 또는 희귀 "
+            "적용례는 전역 정책이 아니라 RAG 문맥으로 보존했다."
+            if not policy_items
+            else "아래에는 판례 우선 선택을 확정할 수 없는 쟁점만 남겼다."
+        ),
         "",
     ]
+    if policy_items:
+        guide_lines.extend(
+            [
+                "각 결정은 `fraud_policy_review_decisions.jsonl`의 같은 review_id 행에 기록한다.",
+                "원판례 인덱스에서 확인한 식별자는 `verified_authority_refs`에 넣는다.",
+                "",
+            ]
+        )
     for index, item in enumerate(policy_items, 1):
+        precedent_evidence = item["precedent_evidence_card_ids"]
+        evidence_line = (
+            "- 현재 corpus의 직접 판례 근거 카드: "
+            + ", ".join(f"`{card_id}`" for card_id in precedent_evidence)
+            if precedent_evidence
+            else "- 현재 corpus의 직접 판례 근거 카드: 없음"
+        )
         guide_lines.extend(
             [
                 f"## {index}. {item['policy_group']}",
                 "",
                 f"- review_id: `{item['review_id']}`",
-                "- 현재 corpus의 직접 판례 근거: 없음",
+                evidence_line,
                 "- 필요한 결정: 아래 선택지 중 판례가 채택한 규칙을 선택하거나, 복합 규칙이면 복수 선택 후 적용관계를 notes에 기재",
                 "",
                 "| card_id | 선택지 |",

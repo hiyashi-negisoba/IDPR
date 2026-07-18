@@ -1,0 +1,3896 @@
+{
+  "api_calls": 0,
+  "counts": {
+    "context_only": 528,
+    "deterministic_rule": 29,
+    "standard_input": 89
+  },
+  "criteria": {
+    "context_only": "구체적 판례 결과, 학설, 희귀 적용례, 이득액 계산 또는 다른 죄명 문맥",
+    "deterministic_rule": "일반 법리, 정의 또는 다른 predicate를 결합하는 상징 규칙",
+    "standard_input": "일반화된 법적 기준이지만 사실 적용에 neural judgment가 필요한 입력"
+  },
+  "issue_tag": "fraud",
+  "legal_review": "pending",
+  "method": "manual_full_core_scope_audit_no_api",
+  "rows": [
+    {
+      "card_id": "concurrence.fraud.causal-link.new-legal-interest-separate-offense",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "concurrence.fraud.standard-post-payment-deception-or-embezzlement-separate-offense",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "damage_acquisition.fraud.variant-property-loss-requirement-affirmative",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "damage_acquisition.fraud.variant-property-loss-requirement-limited-affirmative",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "damage_acquisition.fraud.variant-property-loss-requirement-negative",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.causal-link.corporate-decisionmaker-aware",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.causal-link.deception-property-disposition",
+      "module": "deception",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "deception.fraud.causal-link.embezzlement-deception-no-disposition",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.causal-link.illegal-hospital-auto-insurance",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.causal-link.loan-purpose-not-sole-trigger",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.causal-link.no-disposition-no-deception",
+      "module": "deception",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "deception.fraud.causal-link.promissory-note-no-disposition",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.causal-link.road-occupancy-discretion",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.definition-quasi-fraud-minor-or-disabled",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.definition.deceived-person-unspecified",
+      "module": "deception",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "deception.fraud.definition.deceived-person-victim-distinct",
+      "module": "deception",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "deception.fraud.definition.deception-content-basis-fact",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.definition.deception-counterparty-is-other",
+      "module": "deception",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "deception.fraud.definition.deception-good-faith-mistake",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.definition.deception-means-unrestricted",
+      "module": "deception",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "deception.fraud.definition.deception-object-facts",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.definition.deception-target-human",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.definition.exploitation-existing-mistake",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.definition.implicit-deception",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.definition.notice-duty-violation-omission",
+      "module": "deception",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "deception.fraud.definition.other-includes-corporation",
+      "module": "deception",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "deception.fraud.definition.precedent-deception-good-faith-breach",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.definition.subsidy-and-indirect-subsidy",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.element.deceived-person-disposal-authority",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.element.deception-must-create-false-belief",
+      "module": "deception",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "deception.fraud.element.deception-not-legal-act-important-part",
+      "module": "deception",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "deception.fraud.element.intent-to-defraud-conditional-intent",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.element.loan-no-repayment-intent-or-ability",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.element.omission-deception-guarantor-equivalence",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.element.omission-deception-independent-error",
+      "module": "deception",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "deception.fraud.element.omission-deception-legal-notice-duty",
+      "module": "deception",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "deception.fraud.element.transaction-purpose-no-impairment",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.element.victim-negligence-no-bar",
+      "module": "deception",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "deception.fraud.exception.dine-stay-subsequent-insolvency",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.exception.medical-corporation-nonmedical-abuse-types",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.exception.no-notice-duty-no-effect-on-rights",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.standard.absolute-farmland-buildability",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.abstract-or-immaterial-advertising",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.standard.accommodation-bill-false-certificate",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.accommodation-bill-insufficient-fiction",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.actual-victim-different-from-indictment",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.advertising-important-concrete-falsehood",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.standard.advertising-tolerable-exaggeration",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.standard.altered-bill-maturity-discount",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.apartment-resale-prior-conviction",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.apartment-right-resale-margin",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.apartment-special-supply-corrupt-assistance",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.artwork-assistant-participation",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.assignment-before-notice-payment",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.bad-check-punishment-no-effect",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.bank-president-approval-loan-purpose",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.bank-program-automatic-processing",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.bicycle-test-ride-escape",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.bid-rigging-fraud-concurrence-view",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.bid-rigging-precedent-imaginary-concurrence",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.bill-discount-endorser-concealed-inability",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.bill-discount-nondisclosure",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.bill-issued-to-extend-debt",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.bill-issuer-and-subsequent-holder",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.car-nominee-sale-registration",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.car-registration-documents-no-fraud",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.car-sale-subsequent-theft",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.car-substitute-performance-reservation",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.card-merchant-false-sales-slip-nondisclosure",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.clan-injunction-withdrawal-deposit",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.company-sale-false-balance-sheet",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.consumer-cooperative-office-manager-hospital",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.contractual-collection-direct-payment",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.corporate-employee-aware-decisionmaker-unaware",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.corporate-victim-decisionmaker-test",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.corporate-victim-natural-person-identification",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.credit-card-no-repayment-corporate-victim",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.deception-concrete-circumstances",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.standard.delegated-sale-price-nondisclosure",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.discount-after-bill-fraud",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.disputed-claim-setoff-fraud",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.double-sale-first-buyer-registered",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.double-sale-first-sale-unregistered",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.double-sale-no-intent-transfer-first-buyer",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.double-sale-second-buyer-registered",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.double-sale-unregistered-security-transfer",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.easily-detectable-lie",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.standard.electrical-business-transfer-debt-concealment",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.entrusted-car-unknown-arrears-direct-inquiry",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.excess-change-denial-after-demand",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.excess-change-given-at-scene",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.excess-change-later-discovery",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.excess-insurance-nondisclosure",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.explicit-denial-encumbrance",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.false-development-plan-advertising",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.false-documents-budget-withdrawal",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.false-loss-declaration-cancellation-judgment",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.false-loss-no-property-benefit",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.false-origin-restaurant-advertising",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.false-religious-claims-donations",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.false-right-to-state-property",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.false-solvency-loan-guarantee-discount",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.financial-loan-omission-caution",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.standard.forged-note-increased-dividend",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.forged-register-loan",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.gold-transport-taking",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.gye-payment-no-deception",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.household-check-false-loss-cancellation",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.illegal-medical-institution-benefit-claim",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.impersonated-sailor-family-subsidy",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.implicit-deception-explanatory-value",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.standard.implicit-omission-deception-distinction",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.standard.inapplicable-accounting-standard-financial-statement",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.insurance-known-disease-nondisclosure-claim",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.insurance-precontractual-notice-limitation",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.insurance-preexisting-condition-treatment-history-nondisclosure",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.intent-to-defraud-loan-inference",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.standard.intermediary-tool-no-separate-fraud",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.investment-principal-return-falsehood",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.land-false-building-site",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.land-sale-no-known-urban-planning-conflict",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.land-sale-unknown-urban-planning-area",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.lease-apartment-prior-sale",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.lease-building-statutory-surface-right",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.lease-deposit-false-owner",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.lease-land-auction-pending",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.lease-mortgage-no-foreclosure-knowledge",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.lease-post-completion-irrelevant",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.lease-provisional-registration-collateral",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.lease-sale-listing",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.loan-broker-authorized-receipt",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.loan-concealed-existing-debts",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.loan-concurrent-applications-false-answer",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.loan-lender-anticipated-risk",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.standard.loan-lender-financial-institution",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.loan-purpose-materiality",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.standard.loan-repayment-intent-capacity",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.loan-subsequent-default",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.standard.lost-wallet-taking",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.market-stall-title-reversion",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.medical-corporation-nonmedical-involvement",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.mistake-maintenance-medical-treatment",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.mortgage-before-transfer-registration",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.nominee-medical-institution-insurance",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.nonmedical-clinic-indemnity-insurance",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.nonmedical-clinic-national-health-insurance",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.nonmedical-owner-hospital-insurance",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.overinsurance-concealment-claim",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.painting-assistant-nondisclosure",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.payment-deferral-special-deception",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.phone-message-automatic-processing",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.prayer-fee-beyond-permitted-limit",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.precedent-notice-duty-materiality",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.standard.prior-transfer-real-estate",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.property-transaction-nondisclosure",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.reading-room-premium-broker-fee",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.real-estate-auction-nondisclosure",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.real-estate-nominee-sale",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.real-estate-ownership-litigation",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.real-estate-retrial-nondisclosure-intent-limitation",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.reciprocal-accommodation-bills",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.registry-officer-no-disposal-authority",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.religious-compensation-not-necessarily-fraud",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.religious-false-claim-no-extortion",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.research-fund-paper-fabrication",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.restaurant-license-nondisclosure",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.rigged-gambling",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.rigged-gambling-explicit-deception",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.rigged-gambling-multiple-victims",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.sale-before-company-reorganization",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.second-real-estate-sale-first-contract",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.shamanistic-false-misfortune",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.silence-without-notice-duty-conduct",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.simultaneous-loan-false-representations",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.slot-machine-no-winning-chance",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.sms-paid-access-explicit-deception",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.stolen-property-as-own-collateral",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.subcontract-payment-falsehood",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.sublease-deposit-prior-pledge",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.sublease-within-right",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.subsidy-actual-essential-work",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.subsidy-false-eligibility",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.subsidy-fraud-concurrence",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.subsidy-used-for-authorized-purpose",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.substitute-performance-reservation-third-party",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.telephone-treatment-insurance-claim",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.third-party-property-represented-as-own",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.third-party-property-subsequent-inability",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.ticketless-cinema-entry",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.trust-prohibition-agreement-loan",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.unauthorized-phone-use",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.uncollectible-promissory-note-collateral",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.unpaid-phone-fee-direct-collection",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.used-car-installment-debt",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.vague-opinion-not-deception",
+      "module": "deception",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "deception.fraud.standard.valid-third-party-collateral-no-fraud",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.valid-title-acquisition-no-fraud",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.vending-machine-coinlike-object",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.standard.window-dressing-financial-loan",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.variant.dine-stay-implicit-deception-majority",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.variant.dine-stay-omission-deception",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.variant.disposition-implied-representation",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.variant.disposition-omission-deception",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.variant.excess-change-no-duty-to-check",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.variant.future-facts-limited",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.variant.future-facts-negative",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.variant.future-facts-unlimited",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.variant.guarantee-status-bases",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.variant.notice-duty-good-faith-transaction",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.variant.notice-duty-special-trust-factors",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.variant.opinion-statement-affirmative",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.variant.opinion-statement-mistake-sufficiency",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.variant.opinion-statement-negative",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.variant.opinion-statement-third-view-concreteness",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.variant.prior-conduct-notice-duty",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "deception.fraud.variant.real-estate-notice-duty-explicit-duty",
+      "module": "deception",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_concurrence.account_withdrawal_not_stolen_property_acquisition",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.agent_breach_only_view",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.agent_fraud_only_view",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.agent_imaginary_concurrence_view",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.agent_precedent_imaginary_concurrence",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.aggravated_economic_optional_fine",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.aggravated_economic_value_thresholds",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.arson_insurance_fraud_real",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.assigned_claim_mutually_incompatible",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.attempt_habitual_punishment",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.breach_principal_fraud_third_party",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.bribery_fraud_imaginary",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.building_manager_jeonse",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.cheating_gambling_excludes_gambling",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.company_proceeds_embezzlement",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.compensation_deposit_post_disposal",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.counterfeit_currency_imaginary_view",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.counterfeit_currency_real_concurrence",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.dishonored_check_real_concurrence",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.final_judgment_inclusive_offense",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.fraud_created_trust_no_embezzlement",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.fraud_possession_disposition_definition",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.general_fraud_penalty",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.goods_debt_deferral_exception",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.goods_nonpayment_no_benefit_fraud",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.insurance_fraud_sanctions",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.insurance_policy_payment_inclusive",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.litigation_fraud_perjury_real",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.military_criminal_act_sanctions",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.military_property_special_act_sanctions",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.mistaken_transfer_account_withdrawal",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.mutual_savings_individual_deception",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.mutual_savings_same_place",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.mutually_incompatible_definition",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.one_deception_multiple_victims",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.ownership_registration_inclusive",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.parent_victim_charge_specificity",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.per_victim_separate_offense",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.post_disposal_no_separate_offense",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.promissory_note_post_disposal",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.property_and_benefit_single_offense",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.provisional_registration_breach_no_separate",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.real_property_double_sale",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.same_victim_different_purpose_real",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.same_victim_repeated_inclusive",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.same_victim_repeated_real_concurrence",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.second_buyer_nondisclosure",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.self_possessed_property_embezzlement_only",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.stolen_check_post_disposal",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.stolen_passbook_withdrawal",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.stolen_pawn_ticket_redemption",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.stolen_property_acquisition_definition",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.stolen_timber_post_disposal",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.stolen_train_ticket_refund",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.subsidy_fraud_imaginary_concurrence",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.subsidy_misuse_separate",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.telecom_account_holder_accomplice",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.telecom_account_holder_nonaccomplice",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.telecom_account_no_embezzlement_against_perpetrator",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.title_trust_no_embezzlement",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.title_trust_third_party_no_fraud",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.title_trust_transferee_no_loss",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.trust_account_breach_no_separate",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_concurrence.vehicle_sale_third_party_entrustment",
+      "module": "concurrence",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.aggravated_fraud_threshold",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.aggravated_gain_definition",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.aggravated_gain_offense_aggregation",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.aggravated_gain_strict_calculation",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.apartment_seizure_release_gain",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.appeal_withdrawal_disposition",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.collateral_loan_no_deduction",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.collateral_real_estate_value",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.delivery_factual_control",
+      "module": "damage_acquisition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.delivery_of_property",
+      "module": "damage_acquisition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.discounted_bill_cash_amount",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.formal_reinvestment_excluded",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.formal_reinvestment_no_new_fraud",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.guarantee_certificate_gain",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.guarantee_signature_third_party_benefit",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.interest_no_disposition",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.invalid_provisional_registration_cancellation",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.legitimate_right_deduction_view",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.letter_of_credit_no_payment_deduction",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.money_delivery_full_amount",
+      "module": "damage_acquisition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.mortgage_setting_gain_cap",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.mortgage_setting_junior_actual_debt_exception",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.mortgage_setting_junior_gain_cap",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.nominal_provisional_registration_no_benefit",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.nominee_registration_no_debt_disposition",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.property_concept_economic",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.property_concept_legal",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.property_concept_legal_economic",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.property_concept_reported_precedent",
+      "module": "damage_acquisition",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.property_disposition_types",
+      "module": "damage_acquisition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.property_loss_affirmative_view",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.property_loss_assessment",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.property_loss_completion_view",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.property_loss_limited_affirmative_view",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.property_loss_negative_view",
+      "module": "damage_acquisition",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.property_risk_card_property_negative",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.property_risk_credit_card_affirmative",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.property_risk_infringement_offense",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.property_risk_prohibited_analogy_negative",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.property_risk_subsidiarity_negative",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.protected_economic_interest",
+      "module": "damage_acquisition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.provisional_seizure_release_disposition",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.repeated_investment_no_return_deduction",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.right_exercise_excess_note_full_amount",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.right_exercise_unacceptable_deception",
+      "module": "damage_acquisition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.securities_face_value_gain",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.sequential_joint_offense_total_gain",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.subsequent_return_irrelevant",
+      "module": "damage_acquisition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.tax_free_oil_no_actual_loss",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.third_party_acquisition_intent",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.unquantifiable_gain_no_aggravated_aggregation",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.unquantifiable_property_benefit",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.unquantified_contracting_party_benefit",
+      "module": "damage_acquisition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.cash_transfer_property",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.causation_required",
+      "module": "general_object",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "fraud_general_object.deception_error_causation",
+      "module": "general_object",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_general_object.deception_good_faith_duty",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.disposition_unwritten_element",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.documents_as_property",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.marriage_money_fraud",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.no_concrete_benefit_examples",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.nonproperty_certificate",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.nonproperty_examples",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.objective_elements",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.partial_consideration",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.property_benefit_examples",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.property_concept_variant",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.property_scope_individual_property",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.property_scope_variant",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.property_scope_whole_property",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.property_value_exchange_required",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.property_value_subjective_sufficient",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.property_value_variant",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.protected_interest_commentary_position",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.protected_interest_possession",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.protected_interest_property_only",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.protected_interest_truth_duty_included",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.protected_interest_truth_variant",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.real_estate_property",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.relative_sentence_exemption",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.sex_work_payment_evasion",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.subjective_elements",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.tax_fraud_exclusion",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.triangular_fraud_victim",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.unquantified_benefit_judgment",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_general_object.victim_responsibility_variant",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.bankruptcy_discharge_loan_caution",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.bill_discount_nondisclosure",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.business_manager_bankruptcy_risk",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.concurrent_loans_concealment",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.conditional_intent",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_intent.continuing_trade_setoff",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.contract_breach_distinction",
+      "module": "intent",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_intent.debt_exceeds_assets_alone",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.double_sale_concealed_security",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.forged_assignment_evidence",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.goods_transaction",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.illegal_appropriation_definition",
+      "module": "intent",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_intent.illegal_appropriation_not_required",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.illegal_appropriation_required_all",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.illegal_appropriation_required_property_only",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.illegal_gain_directness",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.illegal_gain_unauthorized",
+      "module": "intent",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_intent.inheritance_misbelief_sale",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.insurance_contracting",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.insurance_disclosure_breach_alone",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.insurance_overbilling",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.intent_not_proved_scientifically",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.litigation_fraud_intent",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.loan_lender_aware_credit_risk",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.loan_subsequent_nonpayment",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.no_disposition_inducement_intent",
+      "module": "intent",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "fraud_intent.no_disposition_intent_court_or_seizure",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.objective_circumstances",
+      "module": "intent",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_intent.policy_loan_false_contract",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.prayer_fee_alone_not_fraud",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.prayer_fee_fraud",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.precedent_illegal_appropriation_intent",
+      "module": "intent",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_intent.promissory_note_insolvency",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.property_only_appropriation_practical_consequence",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.sale_bequeathed_property",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.sham_litigation_auction_price",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.shopping_mall_no_business_plan",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.simple_nonperformance_debt_payment",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.third_party_acquisition",
+      "module": "intent",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_intent.time_of_conduct",
+      "module": "intent",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_intent.tour_bus_business_failure",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_intent.vehicle_sale_subsequent_theft",
+      "module": "intent",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.active_creditor_extension",
+      "module": "mistake_disposition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_mistake.assignment_debt_extinguishment",
+      "module": "mistake_disposition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_mistake.bank_deposit_diversion",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.bank_payment_no_disposition",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.bus_rear_door",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.collection_consent",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.conscious_nonexercise",
+      "module": "mistake_disposition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_mistake.deceived_disposer_identity",
+      "module": "mistake_disposition",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "fraud_mistake.deceiver_disposer_text",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.delivery_factual_control",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.disposition_definition",
+      "module": "mistake_disposition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_mistake.disposition_directness",
+      "module": "mistake_disposition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_mistake.disposition_intent_act_awareness",
+      "module": "mistake_disposition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_mistake.disposition_omission",
+      "module": "mistake_disposition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_mistake.error_definition",
+      "module": "mistake_disposition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_mistake.error_disposition_motivation",
+      "module": "mistake_disposition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_mistake.error_doubt_ignorance",
+      "module": "mistake_disposition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_mistake.factual_act_disposition",
+      "module": "mistake_disposition",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "fraud_mistake.false_loan_purpose",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.false_stolen_note_report",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.fictitious_claim_assignment",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.forged_note_no_disposition",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.gain_purpose",
+      "module": "mistake_disposition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_mistake.gas_inspector_theft",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.hiding_after_loan",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.hospital_debt_evasion",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.invalid_act_disposition",
+      "module": "mistake_disposition",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "fraud_mistake.known_dishonored_check",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.name_lending",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.no_capacity_theft",
+      "module": "mistake_disposition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_mistake.no_causation_attempt",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.no_thought_no_error",
+      "module": "mistake_disposition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_mistake.nominal_trustee_sale",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.omission_not_all_nonclaims",
+      "module": "mistake_disposition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_mistake.partnership_operator",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.property_disposition_element",
+      "module": "mistake_disposition",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "fraud_mistake.property_limited_disposition",
+      "module": "mistake_disposition",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "fraud_mistake.repeat_demand",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.road_occupancy_permit",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.seal_delivery_real_estate",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.seal_registration_no_fraud",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.sequential_causation",
+      "module": "mistake_disposition",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "fraud_mistake.signature_fraud_holding",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.third_party_acquisition_purpose",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.third_party_agent",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.third_party_innocent_tool",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.third_party_no_acquisition_intent",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.triangular_documents",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.triangular_fraud_causation_theory",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.triangular_fraud_contractual_authority",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.triangular_fraud_definition",
+      "module": "mistake_disposition",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "fraud_mistake.triangular_fraud_factual_position",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.triangular_fraud_legal_authority",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.triangular_fraud_theories",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.triangular_patent_documents",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.trick_theft_directness",
+      "module": "mistake_disposition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_mistake.unauthorized_telephone",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_mistake.unaware_error",
+      "module": "mistake_disposition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_mistake.wallet_finder",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.additional_loan_mortgage_auction_attempt",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.assignment_order_service_completion",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.attempt_deceptive_act",
+      "module": "stages_participation",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "fraud_stages_participation.bill_check_discount_completion",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.building_owner_change_suit_final_judgment_completion",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.charitable_delivery_attempt",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.compensation_claimant_inducement_no_attempt",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.completion_deception_disposition_transfer",
+      "module": "stages_participation",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "fraud_stages_participation.credit_guarantee_completion",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.defective_insurance_contract_preparation",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.defendant_false_submission_attempt",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.direct_auction_purchase_no_attempted_fraud",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.enforcement_application_attempt",
+      "module": "stages_participation",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_stages_participation.exaggerated_creditworthiness_no_joint_principal",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.false_appraisal_joint_principal",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.false_claim_provisional_seizure_no_attempt",
+      "module": "stages_participation",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_stages_participation.false_disaster_subsidy_report_no_attempt",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.false_lien_auction_attempt",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.false_notarial_title_attachment_attempt",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.false_objection_certificate_no_attempt",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.forged_endorsed_note_discount_completion",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.gambling_fraud_attempt",
+      "module": "stages_participation",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_stages_participation.gambling_normal_gambling_included",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_stages_participation.inclusive_offense_withdrawal_liability",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "future_work_requires_general_part_corpus"
+    },
+    {
+      "card_id": "fraud_stages_participation.insurance_false_claim_attempt",
+      "module": "stages_participation",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_stages_participation.insurance_payment_completion",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.knowing_account_transfer_aiding",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.knowing_introduction_aiding",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.lease_registration_attempt",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.litigation_attempt_termination",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.litigation_filing_attempt",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.litigation_final_judgment_completion",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.litigation_service_not_required",
+      "module": "stages_participation",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "fraud_stages_participation.lodging_food_no_payment_completion",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.negotiable_security_delivery_completion",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.no_causation_attempt",
+      "module": "stages_participation",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "fraud_stages_participation.nominee_account_remittance_completion",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.ownership_transfer_suit_final_judgment_completion",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.payment_guarantee_not_provided_no_completion",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.payment_order_attempt",
+      "module": "stages_participation",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_stages_participation.payment_order_final_completion",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.post_filing_false_claim_attempt",
+      "module": "stages_participation",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "fraud_stages_participation.property_fraud_completion_control",
+      "module": "stages_participation",
+      "role": "deterministic_rule",
+      "selection_reason": "general_legal_rule_or_symbolic_composition"
+    },
+    {
+      "card_id": "fraud_stages_participation.real_estate_fraud_completion",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.registration_cancellation_completion",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.subsidy_settlement_reference_no_attempt",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.third_party_debtor_attachment_no_attempt",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.victim_loss_completion_view",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "fraud_stages_participation.voice_phishing_functional_control",
+      "module": "stages_participation",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "general_object.fraud.definition.property-benefit",
+      "module": "general_object",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "general_object.fraud.definition.property-benefit-apparent-acquisition",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "general_object.fraud.definition.property-benefit-apparent-factual-gain",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "general_object.fraud.definition.property-benefit-not-numerically-limited",
+      "module": "general_object",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "general_object.fraud.element.object-other-possessed-other-property",
+      "module": "general_object",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "general_object.fraud.element.property-benefit-concrete",
+      "module": "general_object",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "general_object.fraud.exception.public-interest-property-equivalence",
+      "module": "general_object",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "general_object.fraud.standard.completion-at-disposition",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "general_object.fraud.standard.invasion-offense",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "general_object.fraud.standard.later-cancellation-no-effect",
+      "module": "general_object",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "general_object.fraud.standard.own-possession-other-property-embezzlement",
+      "module": "general_object",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "general_object.fraud.standard.own-property-alternative-offenses",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "general_object.fraud.standard.own-property-not-object",
+      "module": "general_object",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "general_object.fraud.standard.public-interest-only-no-fraud",
+      "module": "general_object",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "general_object.fraud.standard.road-occupancy-permit-reference-only-no-causation",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "general_object.fraud.variant.road-occupancy-permit-no-property-benefit",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "general_object.fraud.variant.sex-work-contract-fraud-affirmative",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "general_object.fraud.variant.sex-work-contract-fraud-negative",
+      "module": "general_object",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.causal-link-mistake-not-sole-cause",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.causal-link.victim-negligence-irrelevant",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.standard.deception-disposition-causation-assessment",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation",
+      "module": "mistake_disposition",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.variant-triangular-fraud-commentator-factual-position-evaluation",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.variant-triangular-fraud-precedent-legal-authority-interpretation",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.variant-triangular-fraud-precedent-transition-not-conclusive",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.variant.disposition-intent-compromise",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.variant.disposition-intent-unnecessary",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.variant.disposition-voluntariness-coercive-seizure-negative",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "mistake_disposition.fraud.variant.disposition-voluntariness-coercive-seizure-positive",
+      "module": "mistake_disposition",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.causal-link.insurance-completion-payment",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.definition.litigation-fraud-triangular",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.element.judgment-substitutes-victim-disposition",
+      "module": "special_forms",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "special_forms.fraud.element.litigation-fraud-commencement",
+      "module": "special_forms",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "special_forms.fraud.element.litigation-fraud-completion-final-judgment",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.element.litigation-fraud-deceptive-act",
+      "module": "special_forms",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "special_forms.fraud.element.litigation-fraud-knowing-nonexistence",
+      "module": "special_forms",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "special_forms.fraud.exception.insurance-special-act-temporal-application",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.exception.litigation-fraud-mistake-of-fact-or-law",
+      "module": "special_forms",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "special_forms.fraud.exception.omission-of-favorable-evidence",
+      "module": "special_forms",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "special_forms.fraud.exception.suit-against-dead-or-nonexistent-person",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.adverse-possession-registration-no-intent",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.altered-evidence-legitimate-right-exercise",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.assignment-order-no-property-transfer",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.attorney-fee-cost-claim-no-proof-fabrication",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.bill-public-summons-without-substantive-debt",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.building-permit-name-change-interest",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.changed-tenant-name-with-right-to-dividend",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.circular-remittance-debt-repayment-claim",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.civil-loss-alone-insufficient",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.collusive-suit-counterparty-consent",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.compensation-claim-farmland-no-fraud",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.contraband-no-economic-use",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.defendant-active-deception-duty-evasion",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.duplicate-mortgage-legal-mistake",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.enforcement-after-full-repayment-attempt",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.enforcement-on-extinguished-judgment-title",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.enforcement-on-extinguished-notarial-note",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.excess-distribution-not-obvious-no-intent",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.excessive-hospitalization-damages-claim",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.false-claim-alone-can-deceive",
+      "module": "special_forms",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.false-guarantee-letter-withdrawn-attempt",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.false-illegal-occupancy-eviction",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.false-land-registration-cancellation-final-judgment-completion",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.false-loss-public-summons-note",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.false-payment-order-application",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.false-title-transfer-to-avoid-enforcement",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.forged-possession-title-and-perjury",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.fraud-against-possessor-of-stolen-property",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.illegal-cause-benefit-precedent-affirmative",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.illegal-purpose-loan-case",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.indirect-perpetration-through-unaware-third-party",
+      "module": "special_forms",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.inflated-construction-contract-not-clearly-proven",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.inflated-lien-auction-attempt",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.insurance-concealed-accident-treatment-history-fraud",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.insurance-concealed-existing-accident",
+      "module": "special_forms",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.insurance-defective-life-contract-preparatory-act",
+      "module": "special_forms",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.insurance-duty-disclosure-insufficient",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.insurance-false-accident-claim",
+      "module": "special_forms",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.insurance-injury-disease-contingency-factors",
+      "module": "special_forms",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.insurance-intentional-accident-claim",
+      "module": "special_forms",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.insurance-no-intent-to-obtain-no-fraud",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.insurance-omission-destroys-contingency",
+      "module": "special_forms",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.insurance-recent-renal-disease-false-answer-fraud",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.insurance-unpredictable-death-no-intentional-deception",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.invalid-mortgage-auction-fraud-against-buyer",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.known-invalid-registration-claim-attempt",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.litigation-converted-lease-deposit-distribution-no-fraud",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.litigation-costs-claim-impossible-offense",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.litigation-fictitious-lien-no-court-disposition",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.litigation-fraud-objectively-false-or-knowing",
+      "module": "special_forms",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.litigation-fraud-strict-interpretation",
+      "module": "special_forms",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.litigation-mortgage-setting-fraud",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.litigation-self-purchaser-no-victim",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.loan-claim-lack-of-objective-materials",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.nominal-depositor-payment-suit-no-attempt",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.nominal-permit-holder-auction-no-fraud-against-owner",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.payment-order-premature-claim-no-active-deceit",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.promissory-note-false-loss-public-summons",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.provisional-attachment-alone-no-commencement",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.public-bid-manipulation-contract-position-benefit",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.public-contract-borrowed-name-advance-payment",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.public-contract-borrowed-registration-normal-performance",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.public-contract-cultural-repair-registration",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.public-contract-estimate-information-no-capacity-deception",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.public-contract-false-construction-registration",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.public-contract-false-rnd-certification",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.public-contract-forest-business-certificate-rental",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.public-contract-forged-test-report",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.public-contract-inflated-price-materials-fraud",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.public-contract-inflated-sales-bid",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.public-contract-nonperformance-deception-required",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.public-contract-prohibited-subcontract",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.public-contract-unqualified-supplier-payment",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.public-procurement-contracting-party-victim",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.public-procurement-single-comprehensive-offense",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.right-exercise-actual-tenant-priority-distribution-no-fraud",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.right-exercise-excessive-medical-benefit",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.right-exercise-false-delegation-in-auction",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.right-exercise-false-wage-subsidy-fraud",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.right-exercise-no-payment-deposit-property-transfer-fraud",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.right-exercise-over-limit-fraud",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime",
+      "module": "special_forms",
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.sham-mortgage-voluntary-auction-attempt",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.third-party-real-property-judgment-no-disposition",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.standard.unilateral-notice-not-evidence-fabrication",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.variant.illegal-cause-benefit-affirmative",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.variant.illegal-cause-benefit-negative",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.variant.right-exercise-abuse-positive",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.variant.right-exercise-social-acceptability",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    },
+    {
+      "card_id": "special_forms.fraud.variant.right-exercise-within-scope-negative",
+      "module": "special_forms",
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
+    }
+  ],
+  "status": "draft",
+  "version": "1.0.0"
+}

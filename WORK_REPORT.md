@@ -742,7 +742,6 @@ positive·negative·unknown 판단 및 소수의 검증된 core rule만 소비�
 
 - candidate/card/review queue 전체 재생성: 통과
 - 전체 테스트: `50 passed`
-- Python `py_compile`: 통과
 
 ---
 
@@ -787,3 +786,49 @@ corpus에서 판례 방향이 드러난 보호법익, 일부 경합, 불법원�
 - NormCardSet 8개 source·request·schema 검증: 통과
 - 646개 카드가 네 상태 bucket에 중복·누락 없이 포함
 - 전체 테스트: `50 passed`
+
+---
+
+## 사기죄 core 범위·판례 정책 2차 전면 정정
+
+작성일: 2026-07-18
+
+직전 보고의 “deterministic ready 51, standard input ready 285, policy 12개”는 최종
+상태가 아니며 이 절의 수치로 대체한다. 주석서와 로컬 대법원 판례 DB를 다시 대조한
+결과, 직접 판례가 없다고 표시했던 12개 정책 그룹 모두를 판례 우선 실무 규칙 또는
+RAG 문맥으로 정리할 수 있었다. 외부 API는 사용하지 않았다.
+
+- NormCard: 646개
+- deterministic rule 검수 후보: 29개
+- standard input 검수 후보: 89개
+- RAG/future-work context: 528개
+- 남은 policy choice: 0개
+- 로컬 원판례 확인: 15건
+- core 사용자 검수: 118개 전부 pending
+- 전체 RuleIR 생성: core 검수 완료 전 차단
+
+핵심 수정에는 현실적 재산상 손해를 별도 요건으로 보지 않는 판례 기준, 부작위 기망의
+고지의무 기준, 불법영득·편취 범의, 처분의사, 삼각사기의 처분 권능 또는 지위, 기수시기
+기준이 포함된다. 구체 판례 결과, 학설 소개, 희귀 적용례, 이득액 계산과 다른 죄명 문맥은
+Scallop core에서 제외하고 RAG로 보존했다. 죄수와 미필적 고의·공범 이탈은 형법총칙
+corpus가 필요한 future work로 분리했다. “기망자와 처분행위자 동일”이라는 번역 오류는
+“피기망자와 처분행위자 동일”로 고쳤다. 손해를 열거한 서론 요약 카드는 출처대로 복원해
+RAG로 내리고, 손해 불요는 2003도4914·2017도21196 출처가 연결된 카드만 core 후보로
+남겼다.
+
+사용자 검수 파일:
+
+- `data/rulegen/fraud/fraud_core_rule_review_guide.md`
+- `data/rulegen/fraud/fraud_core_rule_review_queue.json`
+- `data/rulegen/fraud/fraud_core_rule_review_decisions.jsonl`
+
+검증:
+
+- 신규 정정 산출물의 `api_calls`: 0
+- policy resolution: 12개 완료, 잔여 0개
+- 로컬 parquet의 사건번호·레코드 ID·선고일·법원 15건 자동 대조: 통과
+- core 큐/결정 파일: 118개 ID 완전 일치
+- readiness: core 미승인 118개로 전체 RuleIR 차단
+- 전체 테스트: `50 passed`
+- Python `py_compile`: 통과
+- `git diff --check`: 통과

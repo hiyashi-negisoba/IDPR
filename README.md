@@ -59,18 +59,22 @@ and its connection to the earlier DCDE/OBJECTION work, is in
 `docs/research/idpr_research_draft.md`.
 
 The full Article 347 fraud preparation run is source-complete but still legally
-pending. It contains 661 validated candidates and 636 candidate-linked NormCards.
-Rebuild the deterministic final artifacts and review queue with:
+pending. It contains 661 validated candidates and 646 candidate-linked NormCards.
+Rebuild the deterministic correction artifacts and review queues locally with:
 
 ```bash
 python scripts/finalize_fraud_norm_candidate_batches.py
 python scripts/finalize_fraud_norm_cards.py
 python scripts/finalize_fraud_norm_card_critics.py
+python scripts/finalize_fraud_norm_card_review.py
 python scripts/build_fraud_legal_review.py
 ```
 
 Start human review at
-`data/rulegen/fraud/fraud_legal_review_guide.md`. Full RuleIR generation is
-blocked until the source, authority, and policy-variant decisions in
-`fraud_human_review_decisions.jsonl` are resolved. The existing eight-card fraud
-RuleIR and Scallop files are structural exemplars, not approval of all 636 cards.
+`data/rulegen/fraud/fraud_core_rule_review_guide.md`. The 67 critic findings are
+already adjudicated and remediated without API calls. Full RuleIR generation is
+blocked until all 29 deterministic-rule and 89 standard-input candidates receive
+explicit human approval in `fraud_core_rule_review_decisions.jsonl`. The remaining
+528 cards are retrieval or future-work context. The existing eight-card fraud RuleIR and Scallop
+files are structural exemplars, not the current substantive policy or approval of
+all 646 cards.

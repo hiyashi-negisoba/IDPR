@@ -96,6 +96,18 @@ POLICY_REVIEW_QUEUE = (
 POLICY_REVIEW_DECISIONS = (
     PROJECT_ROOT / "data/rulegen/fraud/fraud_policy_review_decisions.jsonl"
 )
+POLICY_RESOLUTION_AUDIT = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_policy_resolution_audit.json"
+)
+CORE_SELECTION_AUDIT = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_core_rule_selection_audit.json"
+)
+CORE_REVIEW_QUEUE = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_core_rule_review_queue.json"
+)
+CORE_REVIEW_DECISIONS = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_core_rule_review_decisions.jsonl"
+)
 RULE_IR = PROJECT_ROOT / "data/rulegen/fraud/fraud_rule_ir_exemplar.json"
 SCALLOP = PROJECT_ROOT / "rules/exemplars/fraud_v1_candidate.scl"
 PROCEDURAL_GATE = PROJECT_ROOT / "rules/exemplars/procedural_gate_v1_candidate.scl"
@@ -794,6 +806,14 @@ def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> Non
     audit = json.loads(NORM_CARD_AUDIT.read_text(encoding="utf-8"))
     policy_queue = json.loads(POLICY_REVIEW_QUEUE.read_text(encoding="utf-8"))
     policy_decisions = load_jsonl(POLICY_REVIEW_DECISIONS)
+    policy_resolution = json.loads(
+        POLICY_RESOLUTION_AUDIT.read_text(encoding="utf-8")
+    )
+    core_selection = json.loads(
+        CORE_SELECTION_AUDIT.read_text(encoding="utf-8")
+    )
+    core_queue = json.loads(CORE_REVIEW_QUEUE.read_text(encoding="utf-8"))
+    core_decisions = load_jsonl(CORE_REVIEW_DECISIONS)
     card_manifest = json.loads(NORM_CARD_MANIFEST.read_text(encoding="utf-8"))
 
     assert critic["totals"]["reports"] == 17
@@ -815,12 +835,17 @@ def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> Non
     assert remediation["handled_findings"] == 57
     assert len(remediation["finding_resolutions"]) == 57
     assert readiness["full_rule_ir_generation_blocked"] is True
-    assert readiness["final_policy_activation_blocked"] is True
+    assert readiness["core_rule_human_review_blocked"] is True
+    assert readiness["core_rule_review"] == {
+        "approved": 0,
+        "cards": 118,
+        "unresolved": 118,
+    }
+    assert readiness["final_policy_activation_blocked"] is False
     assert readiness["totals"] == {
-        "context_only_excluded": 274,
-        "neural_grounding_spec_ready": 285,
-        "policy_choice_pending": 36,
-        "provisional_rule_ir_ready": 51,
+        "context_only_excluded": 528,
+        "neural_grounding_spec_candidate": 89,
+        "provisional_rule_ir_candidate": 29,
     }
     assert sum(readiness["totals"].values()) == 646
     assert audit["method"] == "manual_final_audit_no_api"
@@ -828,39 +853,109 @@ def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> Non
     assert audit["cards"] == 646
     assert audit["all_cards_accounted_for"] is True
     assert audit["status_counts"] == {
-        "deterministic_rule_ready": 51,
-        "policy_choice_pending": 36,
-        "rag_context_only": 274,
-        "standard_input_ready": 285,
+        "deterministic_rule_review_pending": 29,
+        "rag_context_only": 528,
+        "standard_input_review_pending": 89,
     }
     assert len(audit["rows"]) == len({row["card_id"] for row in audit["rows"]})
     assert policy_queue["api_calls"] == 0
-    assert policy_queue["policy_groups"] == 12
-    assert policy_queue["policy_cards"] == 36
+    assert policy_queue["status"] == "complete"
+    assert policy_queue["policy_groups"] == 0
+    assert policy_queue["policy_cards"] == 0
     assert policy_queue["collapsed_policy_sources"] == []
     assert len(policy_queue["resolved_split_sources"]) == 3
     assert len(policy_decisions) == policy_queue["policy_groups"]
     assert {row["review_id"] for row in policy_decisions} == {
         row["review_id"] for row in policy_queue["items"]
     }
+    assert policy_resolution["api_calls"] == 0
+    assert policy_resolution["resolved_groups"] == 12
+    assert policy_resolution["remaining_policy_groups"] == 0
+    assert policy_resolution["verified_case_count"] == 15
+    assert len(policy_resolution["verified_local_primary_records"]) == 15
+    assert policy_resolution["local_primary_verification"] == {
+        "status": "verified",
+        "verified_records": 15,
+    }
+    assert {
+        record["court"]
+        for record in policy_resolution["verified_local_primary_records"].values()
+    } == {"대법원"}
+    assert core_selection["api_calls"] == 0
+    assert core_selection["counts"] == {
+        "context_only": 528,
+        "deterministic_rule": 29,
+        "standard_input": 89,
+    }
+    assert core_queue["api_calls"] == 0
+    assert core_queue["cards"] == 118
+    assert core_queue["counts"] == {
+        "deterministic_rule": 29,
+        "standard_input": 89,
+    }
+    assert core_queue["decision_status_counts"] == {"pending": 118}
+    assert core_queue["approved"] == 0
+    assert core_queue["unresolved"] == 118
+    assert len(core_decisions) == 118
+    assert {row["review_id"] for row in core_decisions} == {
+        row["review_id"] for row in core_queue["items"]
+    }
+    core_card_ids = {item["card_id"] for item in core_queue["items"]}
+    assert not any(item["module"] == "concurrence" for item in core_queue["items"])
+    assert "fraud_intent.conditional_intent" not in core_card_ids
+    assert "fraud_general_object.objective_elements" not in core_card_ids
+    assert (
+        "fraud_general_object.protected_interest_property_only"
+        not in core_card_ids
+    )
+    assert "fraud_general_object.real_estate_property" not in core_card_ids
+    assert (
+        "deception.fraud.element.deceived-person-disposal-authority"
+        not in core_card_ids
+    )
+    core_roles = {item["card_id"]: item["role"] for item in core_queue["items"]}
+    assert core_roles["fraud_mistake.error_definition"] == "standard_input"
+    assert (
+        core_roles["fraud_damage_acquisition.delivery_factual_control"]
+        == "standard_input"
+    )
+    assert (
+        core_roles["general_object.fraud.definition.property-benefit"]
+        == "standard_input"
+    )
+    assert (
+        "fraud_stages_participation.inclusive_offense_withdrawal_liability"
+        not in core_card_ids
+    )
     module_paths = {
         module["module"]: PROJECT_ROOT / module["path"]
         for module in card_manifest["modules"]
     }
-    formalization_by_id = {
-        card["id"]: card["formalization"]
+    cards_by_id = {
+        card["id"]: card
         for module in readiness["modules"]
         for card in json.loads(
             module_paths[module["module"]].read_text(encoding="utf-8")
         )["cards"]
     }
+    formalization_by_id = {
+        card_id: card["formalization"] for card_id, card in cards_by_id.items()
+    }
+    objective_summary = cards_by_id["fraud_general_object.objective_elements"]
+    assert objective_summary["formalization"] == "context_only"
+    assert "재산상 손해" in objective_summary["proposition"]
+    no_loss_rule = cards_by_id[
+        "fraud_damage_acquisition.property_loss_negative_view"
+    ]
+    assert no_loss_rule["formalization"] == "deterministic_rule"
+    assert "요구하지 않는다" in no_loss_rule["proposition"]
     for module in readiness["modules"]:
         for card_id in module["buckets"].get(
-            "provisional_rule_ir_ready", []
+            "provisional_rule_ir_candidate", []
         ):
             assert formalization_by_id[card_id] == "deterministic_rule"
         for card_id in module["buckets"].get(
-            "neural_grounding_spec_ready", []
+            "neural_grounding_spec_candidate", []
         ):
             assert formalization_by_id[card_id] == "standard_input"
 

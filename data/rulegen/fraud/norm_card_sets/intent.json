@@ -18,8 +18,8 @@
       "request_ids": [
         "fraud.article347.pass1.009"
       ],
-      "review_notes": "단순 채무불이행과의 구별 적용에는 사실관계 평가가 필요하다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
-      "review_required": false,
+      "review_notes": "단순 채무불이행과의 구별 적용에는 사실관계 평가가 필요하다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_required": true,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_74",
@@ -46,8 +46,8 @@
       "request_ids": [
         "fraud.article347.pass1.009"
       ],
-      "review_notes": "행위 당시의 인식과 사후 사정을 구별하여 검토해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
-      "review_required": false,
+      "review_notes": "행위 당시의 인식과 사후 사정을 구별하여 검토해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_required": true,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_74",
@@ -74,8 +74,8 @@
       "request_ids": [
         "fraud.article347.pass1.009"
       ],
-      "review_notes": "열거 사정을 종합하는 평가 기준으로 검토해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
-      "review_required": false,
+      "review_notes": "열거 사정을 종합하는 평가 기준으로 검토해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_required": true,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_74",
@@ -130,8 +130,8 @@
       "request_ids": [
         "fraud.article347.pass1.009"
       ],
-      "review_notes": "처분행위를 유발하려는 의사의 존재 여부를 해당 사안에서 확인한다. Conservatively normalized from linked candidates. 일반 설명의 권위 확인 전 법률검토를 유지한다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
-      "review_required": false,
+      "review_notes": "처분행위를 유발하려는 의사의 존재 여부를 해당 사안에서 확인한다. Conservatively normalized from linked candidates. 일반 설명의 권위 확인 전 법률검토를 유지한다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_required": true,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_74",
@@ -150,7 +150,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "fraud_intent.litigation_fraud_intent",
       "norm_kind": "element",
       "polarity": "positive",
@@ -158,8 +158,8 @@
       "request_ids": [
         "fraud.article347.pass1.009"
       ],
-      "review_notes": "미변제 인식과 법원 착오 가능성 인식을 각각 검토해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
-      "review_required": false,
+      "review_notes": "미변제 인식과 법원 착오 가능성 인식을 각각 검토해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+      "review_required": true,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_74",
@@ -206,7 +206,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "fraud_intent.goods_transaction",
       "norm_kind": "standard",
       "polarity": "positive",
@@ -214,8 +214,8 @@
       "request_ids": [
         "fraud.article347.pass1.009"
       ],
-      "review_notes": "거래 당시 변제 의사·능력 및 거짓말 여부를 평가해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
-      "review_required": false,
+      "review_notes": "거래 당시 변제 의사·능력 및 거짓말 여부를 평가해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+      "review_required": true,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_75",
@@ -290,7 +290,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "deterministic_rule",
+      "formalization": "context_only",
       "id": "fraud_intent.conditional_intent",
       "norm_kind": "definition",
       "polarity": "positive",
@@ -298,8 +298,8 @@
       "request_ids": [
         "fraud.article347.pass1.009"
       ],
-      "review_notes": "발생가능성의 표상과 용인을 구별하여 적용한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
-      "review_required": false,
+      "review_notes": "발생가능성의 표상과 용인을 구별하여 적용한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+      "review_required": true,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_75",
@@ -351,7 +351,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "fraud_intent.insurance_contracting",
       "norm_kind": "standard",
       "polarity": "positive",
@@ -359,8 +359,8 @@
       "request_ids": [
         "fraud.article347.pass1.009"
       ],
-      "review_notes": "보험사고 우연성을 해하는 정도에 이르렀는지 평가해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
-      "review_required": false,
+      "review_notes": "보험사고 우연성을 해하는 정도에 이르렀는지 평가해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+      "review_required": true,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_76",
@@ -379,7 +379,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "fraud_intent.prayer_fee_fraud",
       "norm_kind": "standard",
       "polarity": "positive",
@@ -387,8 +387,8 @@
       "request_ids": [
         "fraud.article347.pass1.009"
       ],
-      "review_notes": "전통 관습 또는 종교행위로 허용되는 한계의 평가가 필요하다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
-      "review_required": false,
+      "review_notes": "전통 관습 또는 종교행위로 허용되는 한계의 평가가 필요하다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+      "review_required": true,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_76",
@@ -603,7 +603,7 @@
         }
       ],
       "doctrinal_status": "disputed",
-      "formalization": "policy_variant",
+      "formalization": "context_only",
       "id": "fraud_intent.illegal_appropriation_not_required",
       "norm_kind": "variant",
       "polarity": "negative",
@@ -611,7 +611,7 @@
       "request_ids": [
         "fraud.article347.pass1.009"
       ],
-      "review_notes": "불법영득의사 필요 여부에 관한 경쟁 학설 중 불요설이다. Conservatively normalized from linked candidates.",
+      "review_notes": "불법영득의사 필요 여부에 관한 경쟁 학설 중 불요설이다. Conservatively normalized from linked candidates. 판례 우선 core 규칙과 구체적 RAG의 구분에 따라 전역 active policy 대상에서 제외했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -631,7 +631,7 @@
         }
       ],
       "doctrinal_status": "disputed",
-      "formalization": "policy_variant",
+      "formalization": "context_only",
       "id": "fraud_intent.illegal_appropriation_required_all",
       "norm_kind": "variant",
       "polarity": "positive",
@@ -639,7 +639,7 @@
       "request_ids": [
         "fraud.article347.pass1.009"
       ],
-      "review_notes": "불법영득의사 필요 여부에 관한 경쟁 학설 중 전면 필요설이다. Conservatively normalized from linked candidates.",
+      "review_notes": "불법영득의사 필요 여부에 관한 경쟁 학설 중 전면 필요설이다. Conservatively normalized from linked candidates. 판례 우선 core 규칙과 구체적 RAG의 구분에 따라 전역 active policy 대상에서 제외했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -659,7 +659,7 @@
         }
       ],
       "doctrinal_status": "disputed",
-      "formalization": "policy_variant",
+      "formalization": "context_only",
       "id": "fraud_intent.illegal_appropriation_required_property_only",
       "norm_kind": "variant",
       "polarity": "positive",
@@ -667,7 +667,7 @@
       "request_ids": [
         "fraud.article347.pass1.009"
       ],
-      "review_notes": "불법영득의사 필요 여부에 관한 경쟁 학설 중 재물편취죄 한정 필요설이다. Conservatively normalized from linked candidates.",
+      "review_notes": "불법영득의사 필요 여부에 관한 경쟁 학설 중 재물편취죄 한정 필요설이다. Conservatively normalized from linked candidates. 판례 우선 core 규칙과 구체적 RAG의 구분에 따라 전역 active policy 대상에서 제외했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -687,7 +687,7 @@
         }
       ],
       "doctrinal_status": "precedent_position",
-      "formalization": "context_only",
+      "formalization": "standard_input",
       "id": "fraud_intent.precedent_illegal_appropriation_intent",
       "norm_kind": "standard",
       "polarity": "positive",
@@ -695,7 +695,7 @@
       "request_ids": [
         "fraud.article347.pass1.009"
       ],
-      "review_notes": "학설 대립과 함께 보존한 commentary-reported 판례 입장으로서 원문 판례 확인 전에는 선택하지 않는다. Conservatively normalized from linked candidates.",
+      "review_notes": "학설 대립과 함께 보존한 commentary-reported 판례 입장으로서 원문 판례 확인 전에는 선택하지 않는다. Conservatively normalized from linked candidates. 유형별 중복 없이 intent 모듈의 중앙 판례 기준으로 한 번만 적용한다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
       "review_required": true,
       "source_refs": [
         {
@@ -723,8 +723,8 @@
       "request_ids": [
         "fraud.article347.pass1.009"
       ],
-      "review_notes": "불법영득의사를 요구하는 정책을 채택하는 경우 그 범위를 검토한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
-      "review_required": false,
+      "review_notes": "불법영득의사를 요구하는 정책을 채택하는 경우 그 범위를 검토한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_required": true,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.2_82",
@@ -743,7 +743,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "fraud_intent.illegal_gain_directness",
       "norm_kind": "causal_link",
       "polarity": "positive",
@@ -751,8 +751,8 @@
       "request_ids": [
         "fraud.article347.pass1.009"
       ],
-      "review_notes": "피해자 손해와 행위자 이익 사이의 직접적 관계를 평가해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
-      "review_required": false,
+      "review_notes": "피해자 손해와 행위자 이익 사이의 직접적 관계를 평가해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+      "review_required": true,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.2_82",
@@ -779,8 +779,8 @@
       "request_ids": [
         "fraud.article347.pass1.009"
       ],
-      "review_notes": "권한 없는 이익 취득인지 사법질서 기준으로 평가해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
-      "review_required": false,
+      "review_notes": "권한 없는 이익 취득인지 사법질서 기준으로 평가해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_required": true,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.2_82",
@@ -807,8 +807,8 @@
       "request_ids": [
         "fraud.article347.pass1.009"
       ],
-      "review_notes": "제3자의 도구·대리 관계 또는 행위자의 제3자 취득 의사를 검토해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
-      "review_required": false,
+      "review_notes": "제3자의 도구·대리 관계 또는 행위자의 제3자 취득 의사를 검토해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_required": true,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.2_82",
@@ -893,7 +893,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "fraud_intent.bankruptcy_discharge_loan_caution",
       "norm_kind": "standard",
       "polarity": "positive",
@@ -901,8 +901,8 @@
       "request_ids": [
         "fraud.article347.pass1.009"
       ],
-      "review_notes": "면책 제도와 손해배상채무 면책 제외의 영향을 고려해 신중히 평가해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
-      "review_required": false,
+      "review_notes": "면책 제도와 손해배상채무 면책 제외의 영향을 고려해 신중히 평가해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+      "review_required": true,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_75",
@@ -1033,7 +1033,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "fraud_intent.intent_not_proved_scientifically",
       "norm_kind": "standard",
       "polarity": "negative",
@@ -1041,8 +1041,8 @@
       "request_ids": [
         "fraud.article347.pass1.009"
       ],
-      "review_notes": "기망의사는 객관적 정황에 따른 별도 판단을 필요로 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
-      "review_required": false,
+      "review_notes": "기망의사는 객관적 정황에 따른 별도 판단을 필요로 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+      "review_required": true,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_76",
@@ -1061,7 +1061,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "fraud_intent.prayer_fee_alone_not_fraud",
       "norm_kind": "standard",
       "polarity": "negative",
@@ -1069,8 +1069,8 @@
       "request_ids": [
         "fraud.article347.pass1.009"
       ],
-      "review_notes": "대가 수령 외에 허용 한계를 벗어난 기망 사정이 있는지 검토해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다.",
-      "review_required": false,
+      "review_notes": "대가 수령 외에 허용 한계를 벗어난 기망 사정이 있는지 검토해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
+      "review_required": true,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_76",
