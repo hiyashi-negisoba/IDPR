@@ -34,6 +34,9 @@ from scripts.run_fraud_full_rule_ir_generation import (
     dry_run_summary as full_rule_ir_dry_run_summary,
     review_gate as full_rule_ir_review_gate,
 )
+from scripts.run_fraud_full_rule_ir_critic import (
+    build_request as build_full_fraud_sol_request,
+)
 from scripts.build_fraud_full_rule_ir_candidate import (
     build_module_human_review as build_fraud_module_human_review,
     build_module_ownership as build_fraud_module_ownership,
@@ -1603,6 +1606,28 @@ def test_full_fraud_module_review_is_human_readable_and_complete() -> None:
     assert tracked.count("보조 ID:") == 88
     for card in aggregate["cards"]:
         assert card["proposition"] in tracked
+
+
+def test_full_fraud_sol_request_is_compact_and_substantively_complete() -> None:
+    request = build_full_fraud_sol_request()
+    target = request["target"]
+    sources = request["bounded_source_material"]
+    assert request["stage"] == "rule_ir"
+    assert request["target_id"] == "kr.fraud.article347.full.v1_candidate"
+    assert len(target["card_interfaces"]) == 88
+    assert len(target["substantive_rules"]) == 74
+    assert target["mechanical_card_state_contract"]["omitted_rule_count"] == 264
+    assert not any(".card." in rule["id"] for rule in target["substantive_rules"])
+    assert len(sources["reviewed_norm_cards"]) == 88
+    assert sources["module_architecture"]["architecture"]["profile_activation"][
+        "default"
+    ] == "off"
+    assert all(
+        "quote" not in ref
+        for card in sources["reviewed_norm_cards"]
+        for ref in card["source_refs"]
+    )
+    assert len(json.dumps(request, ensure_ascii=False)) < 500_000
 
 
 def test_full_fraud_rule_ir_preserves_nonbars_and_top_level_conflict() -> None:
