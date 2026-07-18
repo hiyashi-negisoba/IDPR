@@ -396,3 +396,42 @@ def test_slurm_script_fixes_absolute_resources_and_offline_local_serving() -> No
     assert "unset CUDA_HOME CUDA_PATH" in script
     assert '"backend":"guidance","disable_any_whitespace":true' in script
     assert "HF_TOKEN" not in script
+
+
+def test_tracked_vllm_report_records_successful_real_pipeline() -> None:
+    report = read_json(
+        PROJECT_ROOT / "data/e2e/fraud/fraud_neural_e2e_vllm_report.json"
+    )
+
+    assert report["status"] == "pass"
+    assert report["mode"] == "vllm"
+    assert report["artifact_origin"] == "gemma4_vllm"
+    assert report["case"]["rubric_supplied_to_model"] is False
+    assert report["legal_result"] == "established"
+    assert report["model_stages"]["fact_graph"]["model"] == (
+        "idpr-gemma-4-26b-a4b"
+    )
+    assert report["neural_interface"]["fact_count"] == 9
+    assert report["neural_interface"]["assessment_count"] == 13
+    assert report["host_normalization"]["neural_facts_modified"] is False
+    assert report["symbolic_runtime"]["observed_nonempty"] == {
+        "fraud_conflict": False,
+        "fraud_elements_satisfied": True,
+        "fraud_established": True,
+        "fraud_not_established": False,
+        "fraud_undetermined": False,
+    }
+
+
+def test_human_pipeline_report_explains_boundaries_and_limitations() -> None:
+    report = (
+        PROJECT_ROOT / "docs/research/fraud_neural_e2e_pipeline_report.md"
+    ).read_text(encoding="utf-8")
+
+    assert "이 문서는 사람이 읽는 구축보고서" in report
+    assert "책임 분리" in report
+    assert "역할 오추출과 앵커링" in report
+    assert "두 번째 모델 호출: NormCard 평가" in report
+    assert "fraud_established" in report
+    assert "이번 결과가 증명하지 않은 것" in report
+    assert "89 passed" in report
