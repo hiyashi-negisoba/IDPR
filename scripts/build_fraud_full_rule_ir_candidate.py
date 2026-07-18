@@ -490,13 +490,13 @@ MODULE_REVIEW_NOTES = {
     },
     "object.property_delivery": {
         "title": "재물의 객체·교부",
-        "role": "타인의 재물인지, 사실상 지배가 이전되었는지, 금원 편취액이 얼마인지 판단한다.",
+        "role": "공통 객관적 구성요건으로서 타인의 재물인지, 사실상 지배가 이전되었는지, 금원 편취액이 얼마인지 판단한다.",
         "boundary": "재물 이외의 재산상 이익은 별도 객체 모듈로 분리했다.",
         "question": "사후 반환과 상당한 대가 문제를 이 모듈에 함께 두는 것이 적절한지 본다.",
     },
     "object.property_benefit": {
         "title": "재산상 이익의 객체·취득",
-        "role": "재물 외 경제적 이익의 범위, 구체성 및 취득을 가져오는 처분 형태를 맡는다.",
+        "role": "공통 객관적 구성요건으로서 재물 외 경제적 이익의 범위, 구체성 및 취득을 가져오는 처분 형태를 맡는다.",
         "boundary": "재물의 현실 교부·지배이전 기준은 앞 모듈에 있다.",
         "question": "경제적 이익의 정의와 실제 취득 판단에 필요한 카드가 충분한지 본다.",
     },
@@ -512,6 +512,25 @@ MODULE_REVIEW_NOTES = {
         "boundary": "기망·착오·처분의 내용은 공통 코어가 맡고 여기서는 범행 단계를 판단한다.",
         "question": "현재 fraud_not_established로 나가는 미수 사유를 별도 fraud_attempted로 분리할지 본다.",
     },
+}
+
+
+MODULE_LEGAL_LAYERS = {
+    "core.deception": "constitutive_core",
+    "core.intent": "constitutive_core",
+    "core.mistake_disposition": "constitutive_core",
+    "object.property_delivery": "constitutive_core",
+    "object.property_benefit": "constitutive_core",
+    "profile.loan": "type_profile",
+    "profile.advertising": "type_profile",
+    "profile.omission": "type_profile",
+    "profile.implicit_deception": "type_profile",
+    "profile.rights_exercise": "type_profile",
+    "structure.triangular": "structural_profile",
+    "structure.third_party_acquisition": "structural_profile",
+    "boundary.other_offenses": "boundary",
+    "object.public_interest": "boundary",
+    "stage.attempt_completion": "stage",
 }
 
 
@@ -560,6 +579,7 @@ def build_module_ownership(aggregate: dict[str, Any]) -> dict[str, Any]:
         modules.append(
             {
                 **spec,
+                "legal_layer": MODULE_LEGAL_LAYERS[spec["module_id"]],
                 "card_ids": sorted(spec["card_ids"]),
                 "card_count": len(spec["card_ids"]),
             }
@@ -571,8 +591,9 @@ def build_module_ownership(aggregate: dict[str, Any]) -> dict[str, Any]:
         "architecture": {
             "final_core_rule": "fraud.core.outcome.established",
             "principle": (
-                "유형별 profile과 adapter가 canonical interface를 채우고, "
-                "공통 core는 세부 유형을 알지 않은 채 interface만 AND 결합한다."
+                "법학적 구성요건 core는 주체·객체·객관적 행위·주관적 요건으로 "
+                "구성한다. 그 아래 실행 profile과 adapter가 canonical interface를 "
+                "채우고 최종 core는 세부 유형을 알지 않은 채 이를 AND 결합한다."
             ),
             "routing_semantics": (
                 "관련 없는 module은 relation을 만들지 않는다. 관련되지만 자료가 "
@@ -616,8 +637,14 @@ def build_module_human_review(aggregate: dict[str, Any]) -> str:
     }
     groups = [
         (
-            "A. 모든 사기 유형에 공통인 코어",
-            ["core.deception", "core.intent", "core.mistake_disposition"],
+            "A. 사기죄의 공통 구성요건 코어",
+            [
+                "core.deception",
+                "core.intent",
+                "core.mistake_disposition",
+                "object.property_delivery",
+                "object.property_benefit",
+            ],
         ),
         (
             "B. 사건 사실유형에 따라 선택하는 프로파일",
@@ -634,13 +661,8 @@ def build_module_human_review(aggregate: dict[str, Any]) -> str:
             ["structure.triangular", "structure.third_party_acquisition"],
         ),
         (
-            "D. 객체와 다른 죄명의 경계를 검사하는 모듈",
-            [
-                "boundary.other_offenses",
-                "object.property_delivery",
-                "object.property_benefit",
-                "object.public_interest",
-            ],
+            "D. 구성요건 밖의 경계 모듈",
+            ["boundary.other_offenses", "object.public_interest"],
         ),
         ("E. 범행 단계를 검사하는 모듈", ["stage.attempt_completion"]),
     ]
@@ -651,6 +673,13 @@ def build_module_human_review(aggregate: dict[str, Any]) -> str:
         "boundary_adapter": "죄명경계 모듈",
         "object_adapter": "객체 모듈",
         "stage_module": "미수·기수 모듈",
+    }
+    legal_layer_labels = {
+        "constitutive_core": "공통 구성요건 코어",
+        "type_profile": "사실유형 프로파일",
+        "structural_profile": "역할구조 프로파일",
+        "boundary": "구성요건 경계",
+        "stage": "범행단계",
     }
     formalization_labels = {
         "standard_input": "모델·RAG 법적 판단",
@@ -686,15 +715,29 @@ def build_module_human_review(aggregate: dict[str, Any]) -> str:
         "15개는 사기죄의 유형을 15개로 나눈 것이 아니다. 88개 NormCard를 실행할 때 "
         "공통 규칙과 특정 사건에서만 필요한 규칙이 뒤섞이지 않도록 나눈 작업 단위다.",
         "",
-        "- 공통 코어 3개: 기망 / 주관적 요건 / 착오·처분행위",
+        "법학적 상위 구조에서 사기죄의 공통 구성요건 코어는 다음과 같다.",
+        "",
+        "1. 주체: 특별한 신분을 요구하지 않는 일반범이다. 현재 RuleIR의 `defendant_id` "
+        "역할이 주체를 나타낸다. 책임능력 등은 형법총칙 gate이므로 사기죄 NormCard에는 없다.",
+        "2. 객체: 타인이 점유하는 타인의 재물 또는 재산상 이익",
+        "3. 객관적 행위·결과·인과: 기망 → 착오 → 처분행위 → 재물 교부·이익 취득",
+        "4. 주관적 구성요건: 고의, 재산적 이득 목적, 필요한 범위의 불법영득의사",
+        "",
+        "이 상위 구조를 실제로 실행하기 위해 15개 하위 모듈을 둔다.",
+        "",
+        "- 공통 구성요건 코어 5개: 기망 / 주관적 요건 / 착오·처분 / 재물 / 재산상 이익",
         "- 사실유형 프로파일 5개: 차용금 / 광고 / 부작위 / 묵시적 기망 / 권리행사",
         "- 역할구조 2개: 삼각사기 / 제3자 취득",
-        "- 객체·죄명경계 4개: 절도·횡령 경계 / 재물 / 재산상 이익 / 공공적 법익",
+        "- 구성요건 경계 2개: 절도·횡령 경계 / 공공적 법익과 재산권 경계",
         "- 범행단계 1개: 미수·기수 및 사후사정",
         "",
-        "따라서 일반 사건에서는 공통 코어를 쓰고, 사실관계에 해당하는 프로파일과 "
-        "구조·객체·단계 모듈만 추가로 연다. 아래에는 각 모듈과 그 모듈에 들어간 카드 "
-        "원문을 붙여 두었다. JSON은 기계 검증용이므로 검수할 필요가 없다.",
+        "변제 의사·능력은 모든 사기에 필요한 독립 구성요건이 아니다. 차용금 사건에서 "
+        "기망과 고의를 구체화하는 기준이므로 차용금 프로파일이 판단한 뒤 공통 코어의 "
+        "기망·주관적 요건 충족 결과로 전달한다.",
+        "",
+        "따라서 일반 사건에서는 공통 구성요건 코어를 쓰고, 사실관계에 해당하는 "
+        "프로파일·구조·경계·단계 모듈만 추가로 연다. 아래에는 각 모듈과 그 모듈에 "
+        "들어간 카드 원문을 붙여 두었다. JSON은 기계 검증용이므로 검수할 필요가 없다.",
         "",
         "## 한눈에 보는 15개",
         "",
@@ -727,7 +770,8 @@ def build_module_human_review(aggregate: dict[str, Any]) -> str:
                 [
                     f"## {module_number}. {notes['title']}",
                     "",
-                    f"- 분류: {kind_labels[spec['kind']]}",
+                    f"- 법학적 위치: {legal_layer_labels[spec['legal_layer']]}",
+                    f"- 실행 단위: {kind_labels[spec['kind']]}",
                     f"- 하는 일: {notes['role']}",
                     f"- 다른 모듈과의 경계: {notes['boundary']}",
                     f"- Scallop core에 전달하는 판단: {output_text}",
@@ -1479,9 +1523,14 @@ def build_explanation(rule_ir: dict[str, Any], aggregate: dict[str, Any]) -> str
         "",
         "## 모듈 구조",
         "",
-        "각 NormCard에는 하나의 주 소유 모듈만 있다. 차용금·광고·부작위·묵시적 기망·"
-        "권리행사는 grounding profile, 삼각사기·제3자취득은 structural profile, 객체·"
-        "죄명 경계·미수/기수는 adapter 또는 stage module로 분리했다.",
+        "법학적 구성요건 코어는 주체, 객체, 객관적 행위·결과·인과관계, 주관적 요건으로 "
+        "구성한다. 재물과 재산상 이익 모듈도 이 상위 코어에 속한다. 주체는 "
+        "`defendant_id` 역할로 표현하고 책임능력 등은 형법총칙 gate에서 처리한다.",
+        "",
+        "15개는 이 법학적 상위 구조 아래의 실행 모듈이다. 각 NormCard에는 하나의 주 "
+        "소유 모듈만 있다. 차용금·광고·부작위·묵시적 기망·권리행사는 grounding profile, "
+        "삼각사기·제3자취득은 structural profile, 죄명 경계·미수/기수는 boundary 또는 "
+        "stage module로 분리했다.",
         "",
         "profile과 adapter는 `fraud_deception_satisfied`, `fraud_role_structure_satisfied` "
         "같은 canonical interface만 출력한다. 최종 core는 차용금이나 삼각사기 같은 세부 "
@@ -1491,8 +1540,10 @@ def build_explanation(rule_ir: dict[str, Any], aggregate: dict[str, Any]) -> str
         "",
     ]
     for module in module_ownership["modules"]:
+        module_title = MODULE_REVIEW_NOTES[module["module_id"]]["title"]
         lines.append(
-            f"- `{module['module_id']}` (`{module['kind']}`, {module['card_count']}장): "
+            f"- {module_title} (`{module['module_id']}`, {module['legal_layer']}, "
+            f"{module['card_count']}장): "
             f"{module['description']}"
         )
     lines.extend(
@@ -1657,6 +1708,9 @@ def build_agent_review(rule_ir: dict[str, Any], aggregate: dict[str, Any]) -> st
             "issue_id로 노출한다. 후속 죄명 결론은 아직 만들지 않았다.",
             "7. 차용금·광고·부작위·묵시적 기망·권리행사 기준은 각각 profile 소유다. "
             "공통 core는 이들의 세부 카드 대신 canonical component만 소비한다.",
+            "8. 재물과 재산상 이익 모듈은 실행상 분리되어 있지만 법학적 상위 분류에서는 "
+            "모두 공통 객관적 구성요건 코어에 속한다. 변제 의사·능력은 차용금 profile이 "
+            "기망·고의 component로 변환한다.",
             "",
             "## 남은 위험",
             "",

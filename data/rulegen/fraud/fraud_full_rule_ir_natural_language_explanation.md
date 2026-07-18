@@ -18,25 +18,27 @@
 
 ## 모듈 구조
 
-각 NormCard에는 하나의 주 소유 모듈만 있다. 차용금·광고·부작위·묵시적 기망·권리행사는 grounding profile, 삼각사기·제3자취득은 structural profile, 객체·죄명 경계·미수/기수는 adapter 또는 stage module로 분리했다.
+법학적 구성요건 코어는 주체, 객체, 객관적 행위·결과·인과관계, 주관적 요건으로 구성한다. 재물과 재산상 이익 모듈도 이 상위 코어에 속한다. 주체는 `defendant_id` 역할로 표현하고 책임능력 등은 형법총칙 gate에서 처리한다.
+
+15개는 이 법학적 상위 구조 아래의 실행 모듈이다. 각 NormCard에는 하나의 주 소유 모듈만 있다. 차용금·광고·부작위·묵시적 기망·권리행사는 grounding profile, 삼각사기·제3자취득은 structural profile, 죄명 경계·미수/기수는 boundary 또는 stage module로 분리했다.
 
 profile과 adapter는 `fraud_deception_satisfied`, `fraud_role_structure_satisfied` 같은 canonical interface만 출력한다. 최종 core는 차용금이나 삼각사기 같은 세부 유형명을 알지 않고 이 interface들을 한 번만 AND 결합한다. 현재는 검수를 위해 하나의 RuleIR 파일 안에서 논리적으로 분리했으며, Scallop 물리 파일 분리는 Sol·사용자 검수 뒤에 확정한다.
 
-- `core.deception` (`general_core`, 16장): 모든 사기 유형에 공통되는 기망의 정의, 한계 및 판단 기준
-- `core.intent` (`general_core`, 6장): 편취 범의, 재산적 이득 목적 및 행위시 판단 기준
-- `core.mistake_disposition` (`general_core`, 14장): 착오, 처분행위, 직접성 및 순차적 인과관계의 공통 규칙
-- `profile.loan` (`grounding_profile`, 6장): 차용금 사기의 변제능력·의사, 용도, 위험인식 및 범의 추론
-- `profile.advertising` (`grounding_profile`, 3장): 광고 상대방과 허용되는 과장·허위의 경계
-- `profile.omission` (`grounding_profile`, 9장): 기존 착오 이용, 고지의무 및 부작위 처분행위
-- `profile.implicit_deception` (`grounding_profile`, 3장): 행동·태도의 설명가치에 의한 묵시적 기망과 부작위 기망의 구별
-- `profile.rights_exercise` (`grounding_profile`, 2장): 권리행사에 사용된 기망수단의 사회통념상 허용 범위
-- `structure.triangular` (`structural_profile`, 3장): 피기망자·처분자와 재산소유자가 다른 삼각사기 역할 구조
-- `structure.third_party_acquisition` (`structural_profile`, 1장): 제3자 취득을 피고인에게 귀속하는 의사·도구·대리 관계
-- `boundary.other_offenses` (`boundary_adapter`, 3장): 처분능력·직접성·점유에 따른 절도 및 횡령과의 죄명 경계
-- `object.property_delivery` (`object_adapter`, 6장): 타인의 재물, 교부, 사실상 지배 및 금원 편취액
-- `object.property_benefit` (`object_adapter`, 6장): 재물 외 구체적 재산상 이익과 그 취득·처분 형태
-- `object.public_interest` (`object_adapter`, 2장): 공공적 법익 침해를 재산권 침해와 동일하게 평가할 수 있는지의 경계
-- `stage.attempt_completion` (`stage_module`, 8장): 실행의 착수, 인과관계 단절에 따른 미수, 기수 및 사후사정
+- 공통 기망 (`core.deception`, constitutive_core, 16장): 모든 사기 유형에 공통되는 기망의 정의, 한계 및 판단 기준
+- 공통 주관적 요건 (`core.intent`, constitutive_core, 6장): 편취 범의, 재산적 이득 목적 및 행위시 판단 기준
+- 공통 착오·처분행위 (`core.mistake_disposition`, constitutive_core, 14장): 착오, 처분행위, 직접성 및 순차적 인과관계의 공통 규칙
+- 차용금 사기 (`profile.loan`, type_profile, 6장): 차용금 사기의 변제능력·의사, 용도, 위험인식 및 범의 추론
+- 광고 사기 (`profile.advertising`, type_profile, 3장): 광고 상대방과 허용되는 과장·허위의 경계
+- 부작위 기망 (`profile.omission`, type_profile, 9장): 기존 착오 이용, 고지의무 및 부작위 처분행위
+- 묵시적 기망 (`profile.implicit_deception`, type_profile, 3장): 행동·태도의 설명가치에 의한 묵시적 기망과 부작위 기망의 구별
+- 권리행사형 사기 (`profile.rights_exercise`, type_profile, 2장): 권리행사에 사용된 기망수단의 사회통념상 허용 범위
+- 삼각사기 역할 구조 (`structure.triangular`, structural_profile, 3장): 피기망자·처분자와 재산소유자가 다른 삼각사기 역할 구조
+- 제3자 취득 구조 (`structure.third_party_acquisition`, structural_profile, 1장): 제3자 취득을 피고인에게 귀속하는 의사·도구·대리 관계
+- 절도·횡령과의 경계 (`boundary.other_offenses`, boundary, 3장): 처분능력·직접성·점유에 따른 절도 및 횡령과의 죄명 경계
+- 재물의 객체·교부 (`object.property_delivery`, constitutive_core, 6장): 타인의 재물, 교부, 사실상 지배 및 금원 편취액
+- 재산상 이익의 객체·취득 (`object.property_benefit`, constitutive_core, 6장): 재물 외 구체적 재산상 이익과 그 취득·처분 형태
+- 공공적 법익과 재산권의 경계 (`object.public_interest`, boundary, 2장): 공공적 법익 침해를 재산권 침해와 동일하게 평가할 수 있는지의 경계
+- 미수·기수 및 사후사정 (`stage.attempt_completion`, stage, 8장): 실행의 착수, 인과관계 단절에 따른 미수, 기수 및 사후사정
 
 ## 최종 성립의 AND gate와 손해 불요 규칙
 
