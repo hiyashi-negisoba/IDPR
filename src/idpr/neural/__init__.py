@@ -285,11 +285,13 @@ def validate_fraud_assessment_bundle(
                 f"assessments[{index}] references unknown facts: {unknown_facts}"
             )
         status = assessment.get("status")
-        if status in {"satisfied", "not_satisfied"} and not assessment.get(
-            "basis_fact_ids"
-        ):
+        if status == "satisfied" and not assessment.get("basis_fact_ids"):
             errors.append(
-                f"assessments[{index}] {status} requires at least one basis fact"
+                f"assessments[{index}] satisfied requires at least one basis fact"
+            )
+        if status == "not_satisfied" and not assessment.get("counter_fact_ids"):
+            errors.append(
+                f"assessments[{index}] not_satisfied requires at least one counter fact"
             )
         if status == "unknown" and not assessment.get("missing_facts"):
             errors.append(f"assessments[{index}] unknown requires missing_facts")

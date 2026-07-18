@@ -232,6 +232,33 @@ def test_assessment_contract_requires_missing_fact_for_unknown() -> None:
         )
 
 
+def test_assessment_contract_requires_directional_evidence() -> None:
+    case, fact_graph, bundle, selected, authority = neural_inputs()
+    invalid_satisfied = copy.deepcopy(bundle)
+    invalid_satisfied["assessments"][0]["basis_fact_ids"] = []
+    with pytest.raises(NeuralContractError, match="requires at least one basis fact"):
+        validate_fraud_assessment_bundle(
+            invalid_satisfied,
+            case=case,
+            fact_graph=fact_graph,
+            selected_card_ids=selected,
+            authority_packet=authority,
+        )
+
+    invalid_not_satisfied = copy.deepcopy(bundle)
+    negative = invalid_not_satisfied["assessments"][11]
+    negative["basis_fact_ids"] = negative["counter_fact_ids"]
+    negative["counter_fact_ids"] = []
+    with pytest.raises(NeuralContractError, match="requires at least one counter fact"):
+        validate_fraud_assessment_bundle(
+            invalid_not_satisfied,
+            case=case,
+            fact_graph=fact_graph,
+            selected_card_ids=selected,
+            authority_packet=authority,
+        )
+
+
 def test_validated_bundle_is_the_only_source_of_provable_facts() -> None:
     case, fact_graph, bundle, selected, authority = neural_inputs()
     scenario = build_scallop_scenario(

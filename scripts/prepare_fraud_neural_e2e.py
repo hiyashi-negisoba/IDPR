@@ -196,8 +196,12 @@ def build_replay(case: dict[str, Any]) -> dict[str, Any]:
                 "assessment_id": f"assessment_{index:03d}",
                 "card_id": card_id,
                 "status": status,
-                "basis_fact_ids": fact_basis[card_id],
-                "counter_fact_ids": [],
+                "basis_fact_ids": (
+                    [] if status == "not_satisfied" else fact_basis[card_id]
+                ),
+                "counter_fact_ids": (
+                    fact_basis[card_id] if status == "not_satisfied" else []
+                ),
                 "missing_facts": [],
                 "authority_comment_ids": [card["sources"][0]["comment_id"]],
                 "rationale": (
