@@ -201,10 +201,15 @@ def run_pipeline(
         work_dir=run_dir / "scallop_programs",
     )
     observed = {relation: result["nonempty"] for relation, result in results.items()}
+    final_legal_result = legal_result(observed)
     report = {
         "version": "1.0.0",
         "created_at": datetime.now(timezone.utc).isoformat(),
-        "status": "pass",
+        "status": (
+            "fail"
+            if final_legal_result == "blocked_without_final_conclusion"
+            else "pass"
+        ),
         "mode": mode,
         "artifact_origin": artifact_origin,
         "case": {
@@ -233,10 +238,14 @@ def run_pipeline(
             "scli_version": runtime_version(SCLI_PATH),
             "observed_nonempty": observed,
         },
-        "legal_result": legal_result(observed),
+        "legal_result": final_legal_result,
         "run_dir": str(run_dir),
     }
     write_json(report_path, report)
+    if report["status"] != "pass":
+        raise RuntimeError(
+            "Scallop produced no final established/not-established/undetermined/conflict relation"
+        )
     return report
 
 

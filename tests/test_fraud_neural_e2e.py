@@ -83,6 +83,39 @@ def test_fact_graph_rejects_fabricated_quote_and_ambiguous_role() -> None:
     assert "role defendant must resolve to exactly one entity" in str(exc_info.value)
 
 
+def test_fact_graph_rejects_one_person_split_across_role_entities() -> None:
+    case, fact_graph, _, _, _ = neural_inputs()
+    invalid = copy.deepcopy(fact_graph)
+    invalid["actors"] = [
+        {"entity_id": "defendant_eul", "mentions": ["乙"], "roles": ["defendant"]},
+        {"entity_id": "beneficiary_eul", "mentions": ["乙"], "roles": ["beneficiary"]},
+        {
+            "entity_id": "deceived_b",
+            "mentions": ["B"],
+            "roles": ["deceived_person"],
+        },
+        {
+            "entity_id": "disposer_b",
+            "mentions": ["B"],
+            "roles": ["disposer", "property_owner"],
+        },
+    ]
+    for fact in invalid["facts"]:
+        fact["participants"] = [
+            {
+                "eul": "defendant_eul",
+                "b": "deceived_b",
+            }.get(participant, participant)
+            for participant in fact["participants"]
+        ]
+
+    with pytest.raises(NeuralContractError) as exc_info:
+        validate_fraud_fact_graph(invalid, case)
+
+    assert "actor mention 乙 resolves to multiple entities" in str(exc_info.value)
+    assert "actor mention B resolves to multiple entities" in str(exc_info.value)
+
+
 def test_fact_graph_rejects_unknown_fact_participant() -> None:
     case, fact_graph, _, _, _ = neural_inputs()
     invalid = copy.deepcopy(fact_graph)

@@ -62,6 +62,7 @@ def validate_fraud_fact_graph(
 
     actors = payload.get("actors", [])
     entity_ids: set[str] = set()
+    mention_owners: dict[str, list[str]] = {}
     role_owners: dict[str, list[str]] = {role: [] for role in REQUIRED_ROLES}
     if payload.get("target_issue_id") != case.get("target", {}).get("issue_id"):
         errors.append("target_issue_id does not match the requested target")
@@ -75,12 +76,19 @@ def validate_fraud_fact_graph(
         for mention in actor.get("mentions", []):
             if mention not in case_text:
                 errors.append(f"actors[{index}] mention is not in question_text: {mention}")
+            mention_owners.setdefault(mention, []).append(entity_id)
         for role in actor.get("roles", []):
             if role in role_owners:
                 role_owners[role].append(entity_id)
     for role, owners in role_owners.items():
         if len(owners) != 1:
             errors.append(f"role {role} must resolve to exactly one entity, got {owners}")
+    for mention, owners in mention_owners.items():
+        unique_owners = list(dict.fromkeys(owners))
+        if len(unique_owners) != 1:
+            errors.append(
+                f"actor mention {mention} resolves to multiple entities: {unique_owners}"
+            )
 
     defendant_hint = str(case.get("target", {}).get("defendant_hint", ""))
     defendant_ids = role_owners.get("defendant", [])
