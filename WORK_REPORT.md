@@ -1028,6 +1028,11 @@ host fact validator는 다음 입력을 Scallop 전에 차단한다.
 `fraud_established`를 출력했고, 완결 게이트 누락, 삼각사기·제3자취득의 역할 상이성 누락,
 명시적 불성립 bar, 상충 assessment, unknown은 모두 최종 성립을 차단했다.
 
+JSON 산출물은 기계 재현용으로만 유지한다. 사용자 검토용
+`fraud_scallop_runtime_human_report.md`에는 수동 입력한 기본 판단 14개, 역할 ID, 9개
+사례별 변경점과 실제 출력, 아직 LLM/RAG/자연어 추출을 시험하지 않았다는 한계를
+한국어로 풀어 썼다.
+
 검증:
 
 - full RuleIR validation 및 deterministic compile: 통과

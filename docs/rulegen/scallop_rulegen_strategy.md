@@ -297,7 +297,11 @@ RuleIR을 `rules/generated/fraud_article347_full_v1.scl`로 컴파일한다. 입
 
 골든 테스트는 일반형, 삼각사기, 제3자취득의 성립 경로와 미완결, 명시적 bar, 상충 평가,
 unknown, 역할 상이성 누락의 차단 경로를 포함한다. 9개 시나리오 결과는
-`fraud_scallop_runtime_report.json`에 보존한다.
+기계 검증용 `fraud_scallop_runtime_report.json`에 보존한다. 사용자 검토에는 JSON 대신
+실제 입력 판단 14개와 사례별 변경·출력을 풀어 쓴
+`fraud_scallop_runtime_human_report.md`를 사용한다. 이 단계의 입력은 LLM이 자연어에서
+추출한 값이 아니라 사람이 수동 지정한 합성 assessment이므로, 현재 검증 범위는
+RuleIR-to-Scallop 추론에 한정된다.
 
 Scallop 문법과 Python 연동은 공식 저장소의
 [language examples](https://github.com/scallop-lang/scallop#scallop-language)와

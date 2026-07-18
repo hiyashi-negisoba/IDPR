@@ -56,6 +56,9 @@ SOL_CRITIQUE = FRAUD_ROOT / "fraud_full_rule_ir_sol_critique.json"
 SOL_ADJUDICATION = FRAUD_ROOT / "fraud_full_rule_ir_sol_adjudication.md"
 SCALLOP_COMPILE_MANIFEST = FRAUD_ROOT / "fraud_scallop_compile_manifest.json"
 SCALLOP_RUNTIME_REPORT = FRAUD_ROOT / "fraud_scallop_runtime_report.json"
+SCALLOP_RUNTIME_HUMAN_REPORT = (
+    FRAUD_ROOT / "fraud_scallop_runtime_human_report.md"
+)
 
 
 ACTOR_ARGUMENTS = [
@@ -2185,6 +2188,12 @@ def main() -> None:
             "scallop_runtime_report_path": (
                 str(SCALLOP_RUNTIME_REPORT.relative_to(PROJECT_ROOT))
                 if scallop_runtime_complete
+                else None
+            ),
+            "scallop_runtime_human_report_path": (
+                str(SCALLOP_RUNTIME_HUMAN_REPORT.relative_to(PROJECT_ROOT))
+                if scallop_runtime_complete
+                and SCALLOP_RUNTIME_HUMAN_REPORT.exists()
                 else None
             ),
             "candidate_path": str(CANDIDATE.relative_to(PROJECT_ROOT)),

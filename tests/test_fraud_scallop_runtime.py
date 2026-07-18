@@ -26,6 +26,7 @@ from scripts.build_fraud_full_scallop import (
 from scripts.run_fraud_scallop_golden import (
     DEFAULT_SCLI,
     GOLDEN_PATH,
+    HUMAN_REPORT_PATH,
     expand_scenarios,
     run_all,
 )
@@ -90,13 +91,16 @@ def test_scallop_runtime_executes_all_golden_paths(tmp_path: Path) -> None:
         pytest.skip("install the pinned runtime with scripts/install_scallop_runtime.sh")
 
     report = run_all(
-        work_dir=tmp_path / "programs", report_path=tmp_path / "report.json"
+        work_dir=tmp_path / "programs",
+        report_path=tmp_path / "report.json",
+        human_report_path=tmp_path / "human_report.md",
     )
 
     assert report["status"] == "pass"
     assert report["scenario_count"] == 9
     assert not report["failures"]
     assert all(scenario["status"] == "pass" for scenario in report["scenarios"])
+    assert (tmp_path / "human_report.md").is_file()
 
 
 def test_tracked_runtime_report_matches_golden_fixture() -> None:
@@ -108,3 +112,15 @@ def test_tracked_runtime_report_matches_golden_fixture() -> None:
     assert report["scenario_count"] == len(fixture["scenarios"])
     assert report["compiled_sha256"] == sha256_file(OUTPUT_PATH)
     assert json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))["status"] == "compiled"
+
+
+def test_human_runtime_report_explains_inputs_and_limitations() -> None:
+    report = HUMAN_REPORT_PATH.read_text(encoding="utf-8")
+
+    assert "이 문서는 사람이 검토하는 보고서" in report
+    assert "이번 입력은 자연어 사실관계가 아니다" in report
+    assert "기본 판단 14개" in report
+    assert "일반형 사기 성립" in report
+    assert "삼각사기 성립" in report
+    assert "제3자 취득형 사기 성립" in report
+    assert "이 시험이 아직 증명하지 않은 것" in report
