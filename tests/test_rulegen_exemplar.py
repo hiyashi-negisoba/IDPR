@@ -1759,7 +1759,7 @@ def test_full_fraud_rule_ir_preserves_nonbars_and_top_level_conflict() -> None:
     )
 
 
-def test_terra_partial_output_is_audited_and_sol_gate_is_next() -> None:
+def test_terra_partial_output_is_audited_and_scallop_stage_is_complete() -> None:
     audit = json.loads(FULL_RULE_IR_TERRA_AUDIT.read_text(encoding="utf-8"))
     terra_output = json.loads(FULL_RULE_IR_TERRA_OUTPUT.read_text(encoding="utf-8"))
     status = json.loads(FULL_RULE_IR_POST_STATUS.read_text(encoding="utf-8"))
@@ -1773,14 +1773,16 @@ def test_terra_partial_output_is_audited_and_sol_gate_is_next() -> None:
     assert audit["terra_counts"] == {"norm_cards": 8, "predicates": 6, "rules": 4}
     assert audit["required_counts"] == {"norm_cards": 88}
     assert len(terra_output["norm_card_scope"]["card_ids"]) == 8
-    assert status["status"] == "agent_post_sol_rereview_complete_human_review_pending"
+    assert status["status"] == "scallop_runtime_verified"
     assert status["agent_post_sol_rereview"] == "complete"
     assert status["human_rule_ir_review_allowed"]
-    assert status["human_rule_ir_review"] == "pending_post_sol"
+    assert status["human_rule_ir_review"] == "approved_post_sol"
     assert status["sol_critic"] == "complete"
     assert not status["sol_critic_allowed"]
     assert not status["sol_critic_execution_authorized"]
-    assert not status["scallop_compile_allowed"]
+    assert status["scallop_compile_allowed"]
+    assert status["scallop_compile"] == "complete"
+    assert status["scallop_runtime"] == "pass"
     assert human_decision["status"] == "approved"
     assert human_decision["approved_conditions"]["type_profiles"].startswith(
         "default off"

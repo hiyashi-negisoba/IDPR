@@ -49,8 +49,13 @@ TRACKED_TERRA_OUTPUT = FRAUD_ROOT / "fraud_full_rule_ir_terra_partial_output.jso
 MODULE_OWNERSHIP = FRAUD_ROOT / "fraud_rule_ir_module_ownership.json"
 MODULE_HUMAN_REVIEW = FRAUD_ROOT / "fraud_rule_ir_module_human_review.md"
 HUMAN_REVIEW_DECISION = FRAUD_ROOT / "fraud_full_rule_ir_human_review_decision.json"
+POST_SOL_HUMAN_DECISION = (
+    FRAUD_ROOT / "fraud_full_rule_ir_post_sol_human_decision.json"
+)
 SOL_CRITIQUE = FRAUD_ROOT / "fraud_full_rule_ir_sol_critique.json"
 SOL_ADJUDICATION = FRAUD_ROOT / "fraud_full_rule_ir_sol_adjudication.md"
+SCALLOP_COMPILE_MANIFEST = FRAUD_ROOT / "fraud_scallop_compile_manifest.json"
+SCALLOP_RUNTIME_REPORT = FRAUD_ROOT / "fraud_scallop_runtime_report.json"
 
 
 ACTOR_ARGUMENTS = [
@@ -2023,9 +2028,10 @@ def build_human_guide(rule_ir: dict[str, Any]) -> str:
             "최종 AND gate와 역할·취득 adapter 부분을 확인한다.",
             "4. JSON과 342개 rule별 해설은 특정 구현을 추적할 때만 보면 된다.",
             "",
-            f"현재 predicate {len(rule_ir['predicates'])}개, rule {len(rule_ir['rules'])}개다. "
-            "Sol 검토와 에이전트 수동 정정은 끝났고, 이 정정본에 대한 사용자 재검수가 "
-            "남았다. Scallop compile/runtime은 이 재검수 전까지 차단한다.",
+            f"최종 승인본은 predicate {len(rule_ir['predicates'])}개, rule "
+            f"{len(rule_ir['rules'])}개다. Sol 검토, 에이전트 수동 정정, 사용자 재검수가 "
+            "모두 끝났으며 별도 승인 기록 뒤 deterministic compile과 공식 scli golden "
+            "test를 실행했다.",
             "",
         ]
     )
@@ -2111,15 +2117,28 @@ def main() -> None:
     }
     write_json(TERRA_AUDIT, terra_audit)
     sol_complete = SOL_CRITIQUE.exists()
+    post_sol_human_complete = (
+        POST_SOL_HUMAN_DECISION.exists()
+        and read_json(POST_SOL_HUMAN_DECISION).get("status")
+        == "approved_for_scallop_runtime"
+    )
+    scallop_runtime_complete = (
+        SCALLOP_RUNTIME_REPORT.exists()
+        and read_json(SCALLOP_RUNTIME_REPORT).get("status") == "pass"
+    )
+    if scallop_runtime_complete:
+        workflow_status = "scallop_runtime_verified"
+    elif post_sol_human_complete:
+        workflow_status = "post_sol_human_approved_scallop_allowed"
+    elif sol_complete:
+        workflow_status = "agent_post_sol_rereview_complete_human_review_pending"
+    else:
+        workflow_status = "human_review_complete_sol_authorized"
     write_json(
         POST_TERRA_STATUS,
         {
             "version": "1.0.0",
-            "status": (
-                "agent_post_sol_rereview_complete_human_review_pending"
-                if sol_complete
-                else "human_review_complete_sol_authorized"
-            ),
+            "status": workflow_status,
             "terra_api_calls": run_summary["api_calls"],
             "terra_raw_output": "rejected_partial_output",
             "local_contract_validation": "pass",
@@ -2128,7 +2147,9 @@ def main() -> None:
             "agent_natural_language_explanation": "complete",
             "human_rule_ir_review_allowed": sol_complete,
             "human_rule_ir_review": (
-                "pending_post_sol" if sol_complete else "approved"
+                "approved_post_sol"
+                if post_sol_human_complete
+                else ("pending_post_sol" if sol_complete else "approved")
             ),
             "human_review_decision_path": str(
                 HUMAN_REVIEW_DECISION.relative_to(PROJECT_ROOT)
@@ -2144,7 +2165,28 @@ def main() -> None:
             "sol_adjudication_path": str(
                 SOL_ADJUDICATION.relative_to(PROJECT_ROOT)
             ),
-            "scallop_compile_allowed": False,
+            "post_sol_human_decision_path": (
+                str(POST_SOL_HUMAN_DECISION.relative_to(PROJECT_ROOT))
+                if post_sol_human_complete
+                else None
+            ),
+            "scallop_compile_allowed": post_sol_human_complete,
+            "scallop_compile": (
+                "complete" if SCALLOP_COMPILE_MANIFEST.exists() else "pending"
+            ),
+            "scallop_compile_manifest_path": (
+                str(SCALLOP_COMPILE_MANIFEST.relative_to(PROJECT_ROOT))
+                if SCALLOP_COMPILE_MANIFEST.exists()
+                else None
+            ),
+            "scallop_runtime": (
+                "pass" if scallop_runtime_complete else "pending"
+            ),
+            "scallop_runtime_report_path": (
+                str(SCALLOP_RUNTIME_REPORT.relative_to(PROJECT_ROOT))
+                if scallop_runtime_complete
+                else None
+            ),
             "candidate_path": str(CANDIDATE.relative_to(PROJECT_ROOT)),
             "explanation_path": str(EXPLANATION.relative_to(PROJECT_ROOT)),
             "agent_review_path": str(AGENT_REVIEW.relative_to(PROJECT_ROOT)),
@@ -2167,7 +2209,13 @@ def main() -> None:
                 "modules": len(module_ownership["modules"]),
                 "validation": "pass",
                 "next_gate": (
-                    "human_post_sol_rereview" if sol_complete else "sol_critic"
+                    "complete"
+                    if scallop_runtime_complete
+                    else (
+                        "scallop_runtime"
+                        if post_sol_human_complete
+                        else ("human_post_sol_rereview" if sol_complete else "sol_critic")
+                    )
                 ),
             },
             ensure_ascii=False,

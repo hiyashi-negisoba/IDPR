@@ -1,0 +1,296 @@
+{
+  "version": "1.0.0",
+  "description": "사용자 승인 후 사기죄 full RuleIR의 성립·차단 경로를 실제 scli로 검증하는 최소 사례",
+  "base_assessments": [
+    {
+      "card_id": "general_object.fraud.element.object-other-possessed-other-property",
+      "status": "satisfied"
+    },
+    {
+      "card_id": "deception.fraud.definition.deception-good-faith-mistake",
+      "status": "satisfied"
+    },
+    {
+      "card_id": "deception.fraud.causal-link.deception-property-disposition",
+      "status": "satisfied"
+    },
+    {
+      "card_id": "fraud_mistake.error_definition",
+      "status": "satisfied"
+    },
+    {
+      "card_id": "fraud_mistake.error_disposition_motivation",
+      "status": "satisfied"
+    },
+    {
+      "card_id": "fraud_mistake.disposition_definition",
+      "status": "satisfied"
+    },
+    {
+      "card_id": "fraud_damage_acquisition.delivery_factual_control",
+      "status": "satisfied"
+    },
+    {
+      "card_id": "fraud_mistake.sequential_causation",
+      "status": "satisfied"
+    },
+    {
+      "card_id": "fraud_stages_participation.completion_deception_disposition_transfer",
+      "status": "satisfied"
+    },
+    {
+      "card_id": "fraud_intent.contract_breach_distinction",
+      "status": "satisfied"
+    },
+    {
+      "card_id": "fraud_intent.time_of_conduct",
+      "status": "satisfied"
+    },
+    {
+      "card_id": "fraud_mistake.gain_purpose",
+      "status": "satisfied"
+    },
+    {
+      "card_id": "fraud_intent.no_disposition_inducement_intent",
+      "status": "not_satisfied"
+    },
+    {
+      "card_id": "fraud_mistake.deceived_disposer_identity",
+      "status": "satisfied"
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario_id": "ordinary_established",
+      "actors": {
+        "case_id": "ordinary_established",
+        "defendant_id": "defendant",
+        "deceived_person_id": "victim",
+        "disposer_id": "victim",
+        "property_owner_id": "victim",
+        "beneficiary_id": "defendant"
+      },
+      "close_case": true,
+      "expected_nonempty": {
+        "fraud_elements_satisfied": true,
+        "fraud_established": true,
+        "fraud_not_established": false,
+        "fraud_undetermined": false,
+        "fraud_conflict": false
+      }
+    },
+    {
+      "scenario_id": "incomplete_case_blocked",
+      "actors": {
+        "case_id": "incomplete_case_blocked",
+        "defendant_id": "defendant",
+        "deceived_person_id": "victim",
+        "disposer_id": "victim",
+        "property_owner_id": "victim",
+        "beneficiary_id": "defendant"
+      },
+      "close_case": false,
+      "expected_nonempty": {
+        "fraud_elements_satisfied": true,
+        "fraud_established": false,
+        "fraud_not_established": false,
+        "fraud_undetermined": false,
+        "fraud_conflict": false
+      }
+    },
+    {
+      "scenario_id": "negative_bar_blocks",
+      "actors": {
+        "case_id": "negative_bar_blocks",
+        "defendant_id": "defendant",
+        "deceived_person_id": "victim",
+        "disposer_id": "victim",
+        "property_owner_id": "victim",
+        "beneficiary_id": "defendant"
+      },
+      "additional_assessments": [
+        {
+          "card_id": "fraud_mistake.no_thought_no_error",
+          "status": "satisfied",
+          "provable": true
+        }
+      ],
+      "close_case": true,
+      "expected_nonempty": {
+        "fraud_elements_satisfied": true,
+        "fraud_established": false,
+        "fraud_not_established": true,
+        "fraud_undetermined": false,
+        "fraud_conflict": true
+      }
+    },
+    {
+      "scenario_id": "card_conflict_blocks",
+      "actors": {
+        "case_id": "card_conflict_blocks",
+        "defendant_id": "defendant",
+        "deceived_person_id": "victim",
+        "disposer_id": "victim",
+        "property_owner_id": "victim",
+        "beneficiary_id": "defendant"
+      },
+      "additional_assessments": [
+        {
+          "card_id": "deception.fraud.definition.deception-good-faith-mistake",
+          "status": "not_satisfied",
+          "provable": true
+        }
+      ],
+      "close_case": true,
+      "expected_nonempty": {
+        "fraud_elements_satisfied": true,
+        "fraud_established": false,
+        "fraud_not_established": true,
+        "fraud_undetermined": false,
+        "fraud_conflict": true
+      }
+    },
+    {
+      "scenario_id": "unknown_blocks",
+      "actors": {
+        "case_id": "unknown_blocks",
+        "defendant_id": "defendant",
+        "deceived_person_id": "victim",
+        "disposer_id": "victim",
+        "property_owner_id": "victim",
+        "beneficiary_id": "defendant"
+      },
+      "assessment_status_overrides": {
+        "fraud_mistake.error_definition": "unknown"
+      },
+      "close_case": true,
+      "expected_nonempty": {
+        "fraud_elements_satisfied": false,
+        "fraud_established": false,
+        "fraud_not_established": false,
+        "fraud_undetermined": true,
+        "fraud_conflict": false
+      }
+    },
+    {
+      "scenario_id": "triangular_missing_distinct_blocked",
+      "actors": {
+        "case_id": "triangular_missing_distinct_blocked",
+        "defendant_id": "defendant",
+        "deceived_person_id": "disposer",
+        "disposer_id": "disposer",
+        "property_owner_id": "owner",
+        "beneficiary_id": "defendant"
+      },
+      "additional_assessments": [
+        {
+          "card_id": "fraud_mistake.triangular_fraud_definition",
+          "status": "satisfied",
+          "provable": true
+        },
+        {
+          "card_id": "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation",
+          "status": "satisfied",
+          "provable": true
+        }
+      ],
+      "close_case": true,
+      "expected_nonempty": {
+        "fraud_elements_satisfied": false,
+        "fraud_established": false,
+        "fraud_not_established": false,
+        "fraud_undetermined": false,
+        "fraud_conflict": false
+      }
+    },
+    {
+      "scenario_id": "triangular_established",
+      "actors": {
+        "case_id": "triangular_established",
+        "defendant_id": "defendant",
+        "deceived_person_id": "disposer",
+        "disposer_id": "disposer",
+        "property_owner_id": "owner",
+        "beneficiary_id": "defendant"
+      },
+      "additional_assessments": [
+        {
+          "card_id": "fraud_mistake.triangular_fraud_definition",
+          "status": "satisfied",
+          "provable": true
+        },
+        {
+          "card_id": "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation",
+          "status": "satisfied",
+          "provable": true
+        }
+      ],
+      "distinct_entities": [
+        ["disposer", "owner"]
+      ],
+      "close_case": true,
+      "expected_nonempty": {
+        "fraud_elements_satisfied": true,
+        "fraud_established": true,
+        "fraud_not_established": false,
+        "fraud_undetermined": false,
+        "fraud_conflict": false
+      }
+    },
+    {
+      "scenario_id": "third_party_missing_distinct_blocked",
+      "actors": {
+        "case_id": "third_party_missing_distinct_blocked",
+        "defendant_id": "defendant",
+        "deceived_person_id": "victim",
+        "disposer_id": "victim",
+        "property_owner_id": "victim",
+        "beneficiary_id": "third_party"
+      },
+      "additional_assessments": [
+        {
+          "card_id": "fraud_intent.third_party_acquisition",
+          "status": "satisfied",
+          "provable": true
+        }
+      ],
+      "close_case": true,
+      "expected_nonempty": {
+        "fraud_elements_satisfied": false,
+        "fraud_established": false,
+        "fraud_not_established": false,
+        "fraud_undetermined": false,
+        "fraud_conflict": false
+      }
+    },
+    {
+      "scenario_id": "third_party_established",
+      "actors": {
+        "case_id": "third_party_established",
+        "defendant_id": "defendant",
+        "deceived_person_id": "victim",
+        "disposer_id": "victim",
+        "property_owner_id": "victim",
+        "beneficiary_id": "third_party"
+      },
+      "additional_assessments": [
+        {
+          "card_id": "fraud_intent.third_party_acquisition",
+          "status": "satisfied",
+          "provable": true
+        }
+      ],
+      "distinct_entities": [
+        ["defendant", "third_party"]
+      ],
+      "close_case": true,
+      "expected_nonempty": {
+        "fraud_elements_satisfied": true,
+        "fraud_established": true,
+        "fraud_not_established": false,
+        "fraud_undetermined": false,
+        "fraud_conflict": false
+      }
+    }
+  ]
+}

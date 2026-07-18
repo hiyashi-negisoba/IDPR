@@ -995,3 +995,44 @@ retry 0이었고 이 검토 뒤 추가 API 호출은 하지 않았다.
 현재 상태는 `agent_post_sol_rereview_complete_human_review_pending`이다. 사용자가 Sol
 재검토표의 일반형/삼각사기 역할정책, 주관적 요건 묶음, `case_assessment_complete`
 실행계약을 승인하기 전까지 Scallop compile/runtime은 차단한다.
+
+---
+
+## 사기죄 full RuleIR 사용자 재승인 및 Scallop 실행 검증
+
+작성일: 2026-07-18
+
+사용자가 Sol 정정본의 세 쟁점을 모두 승인했다. 역할 구조는 실제 모델 입력의 오탐을
+후속 실험에서 관찰하는 조건으로 승인했고, 행위시 고의·처분 유도 의사·재산적 이득 목적의
+주관적 요건 결합 및 `case_assessment_complete` 안전 게이트에도 동의했다. 결정은
+`fraud_full_rule_ir_post_sol_human_decision.json`에 별도로 기록했다.
+
+승인 뒤에만 deterministic compiler를 실행해 88장 전체 RuleIR을
+`rules/generated/fraud_article347_full_v1.scl`로 변환했다. 컴파일 산출물은 predicate
+201개와 rule 342개를 포함하며, 입력·출력 checksum과 runtime 계약은
+`fraud_scallop_compile_manifest.json`에 기록했다. 추가 모델 API 호출은 없었고 모델이
+반환한 코드를 직접 실행하지 않았다.
+
+공식 native `scli 0.2.4`를 checksum으로 고정해 실제 runtime test를 수행했다.
+프로젝트 Python 3.11/3.12와 공식 `scallopy` CPython 3.10 wheel의 비호환 때문에 native
+CLI를 사용하며, 바이너리는 Git에서 제외하고 설치 스크립트만 추적한다.
+
+host fact validator는 다음 입력을 Scallop 전에 차단한다.
+
+- router가 선택하지 않은 카드의 assessment
+- 선택된 카드의 provable 평가가 빠진 닫힌 사건
+- 동일 ID에 대한 `distinct_entity` 주장과 actor tuple 밖 entity
+- 중복 assessment ID, 허용되지 않은 status, unsafe scenario/query identifier
+
+실제 골든 시나리오 9개를 실행했다. 일반형·삼각사기·제3자취득의 정상 성립 3개는
+`fraud_established`를 출력했고, 완결 게이트 누락, 삼각사기·제3자취득의 역할 상이성 누락,
+명시적 불성립 bar, 상충 assessment, unknown은 모두 최종 성립을 차단했다.
+
+검증:
+
+- full RuleIR validation 및 deterministic compile: 통과
+- official `scli 0.2.4` checksum/version: 통과
+- Scallop golden runtime: 9/9 통과
+- 신규 compile/runtime/host-validation 테스트: `5 passed`
+- 전체 테스트: `68 passed`
+- 추가 API 호출: 0

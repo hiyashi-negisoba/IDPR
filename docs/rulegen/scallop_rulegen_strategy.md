@@ -207,12 +207,13 @@ RAG로 모두 해소했다. 원래 core 후보 118개 중 사용자가 24개를 
 별도 번역이 필요하다고 명시한 부분 출력을 반환했다. 이 응답은 candidate로 승격하지
 않았고 추가 API 호출도 하지 않았다.
 
-에이전트가 승인된 88장을 결정적으로 재구성한 full candidate는 commentary input 88개,
-predicate 194개, rule 337개다. 각 카드에 satisfied·unknown·conflict 경로가 있고,
-불성립 규범 23개와 필수 positive 부정 10개를 별도로 처리한다. 일반형/삼각사기 및
+에이전트가 승인된 88장을 결정적으로 재구성하고 Sol 지적을 수동 반영한 full candidate는
+commentary input 88개, predicate 201개, rule 342개다. 각 카드에
+satisfied·unknown·conflict 경로가 있고,
+불성립 규범 23개와 필수 positive 부정 13개를 별도로 처리한다. 일반형/삼각사기 및
 본인/제3자 취득의 네 성립 branch를 분리했으며 full-generation validator를 통과했다.
-현재 장문 규칙별 해설과 함께 사용자 법률 검수를 기다리고 있어 Sol과 Scallop은 아직
-차단 상태다.
+Sol 검토 뒤 사용자가 역할 구조, 주관적 요건, 완결 게이트를 승인했다. 승인된 RuleIR만
+deterministic compiler로 변환했고 공식 `scli 0.2.4`에서 골든 시나리오를 통과했다.
 
 ## API 실행 순서
 
@@ -265,19 +266,42 @@ unresolved question으로 보존한다.
 - 한 rule 안에서 서로 다른 case 변수를 결합
 - status 변수를 사용하거나 허용된 세 값 밖의 status를 소비
 - 입력 predicate 또는 네 결론 predicate를 선언만 하고 rule에서 사용·구현하지 않음
+- router가 선택하지 않은 카드의 assessment를 입력하거나 선택한 카드의 provable 평가가
+  빠진 상태에서 `case_assessment_complete`를 공급
+- 같은 entity ID 쌍을 `distinct_entity`로 선언하거나 actor tuple 밖의 entity를 참조
+- 안전한 식별자가 아닌 scenario ID 또는 RuleIR에 선언되지 않은 query relation
 - 법리 대립을 하나의 사실처럼 병합
 - RuleIR의 `status=verified` 또는 `legal_review=complete` 주장
 
 ## 사용자 법률 검수 항목
 
-현재 생성 전 검수는 `fraud_rule_ir_generation_prep_review_guide.md`의 10개 항목을
-기준으로 한다. 핵심은 88장 core/558장 RAG 경계, 단일 호출, 3상태 StandardAssessment,
+생성 전 검수는 `fraud_rule_ir_generation_prep_review_guide.md`의 10개 항목을
+기준으로 했다. 핵심은 88장 core/558장 RAG 경계, 단일 호출, 3상태 StandardAssessment,
 `provable` 게이트, 삼각사기 역할 인자, 네 결론 인터페이스, open-world, 구조 few-shot,
 검수 순서, API ceiling이다. 생성 후에는 별도의 규칙별 장문 해설과 원본 RuleIR을 함께
-검수하며, Sol finding은 독립된 두 번째 검수 대상으로 둔다.
+검수했고, Sol finding은 독립된 두 번째 검수 대상으로 처리했다. 최종 사용자 결정은
+`fraud_full_rule_ir_post_sol_human_decision.json`에 기록한다.
+
+## 실제 Scallop 실행 계층
+
+`scripts/build_fraud_full_scallop.py`는 post-Sol 사용자 승인이 있는 경우에만 88장 전체
+RuleIR을 `rules/generated/fraud_article347_full_v1.scl`로 컴파일한다. 입력·출력 SHA-256,
+카드·predicate·rule 수와 runtime 계약은 `fraud_scallop_compile_manifest.json`에 남긴다.
+모델이 작성한 Scallop 문자열은 실행하지 않는다.
+
+`idpr.rulegen.scallop_runtime`은 모델 또는 router의 구조화 fact를 실행 전에 검사한다.
+관련 쟁점으로 선택된 카드만 assessment를 받을 수 있고, 닫힌 사건에서는 모든 선택
+카드에 적어도 하나의 provable 평가가 있어야 한다. `case_assessment_complete`는 이 검사를
+통과한 뒤 host가 생성하는 system fact이며 외부 모델이 직접 공급하지 않는다.
+`distinct_entity(x, x)`와 actor tuple 밖의 상이성 주장도 Scallop 진입 전에 거부한다.
+
+골든 테스트는 일반형, 삼각사기, 제3자취득의 성립 경로와 미완결, 명시적 bar, 상충 평가,
+unknown, 역할 상이성 누락의 차단 경로를 포함한다. 9개 시나리오 결과는
+`fraud_scallop_runtime_report.json`에 보존한다.
 
 Scallop 문법과 Python 연동은 공식 저장소의
 [language examples](https://github.com/scallop-lang/scallop#scallop-language)와
 [`ScallopContext` example](https://github.com/scallop-lang/scallop#using-scallopy)을
-기준으로 했다. 현재 workspace에는 `scallopy`/`scli` runtime이 설치되어 있지 않아
-이번 산출물은 schema·provenance·정적 compiler 테스트까지 검증한다.
+기준으로 했다. 프로젝트 Python은 3.11 이상이고 Scallop 0.2.4의 Linux Python wheel은
+CPython 3.10용이므로 Python package에 결합하지 않았다. 대신 공식 Linux x86-64
+`scli 0.2.4` asset을 SHA-256으로 고정하며 `scripts/install_scallop_runtime.sh`로 설치한다.

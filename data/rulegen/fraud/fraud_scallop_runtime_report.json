@@ -1,0 +1,177 @@
+{
+  "compiled_manifest": "data/rulegen/fraud/fraud_scallop_compile_manifest.json",
+  "compiled_sha256": "028fe7be9a0fce358895913a0670ef68a871c685d167debd4b3056ba0b233e30",
+  "failures": [],
+  "golden_cases": "data/rulegen/fraud/fraud_scallop_golden_cases.json",
+  "runtime": {
+    "sha256": "8c5ec86fcdb0dbd55698eff7570ac7396d0b0878e601207f868d61f9d6482b9a",
+    "version": "scli 0.2.4"
+  },
+  "scenario_count": 9,
+  "scenarios": [
+    {
+      "expected_nonempty": {
+        "fraud_conflict": false,
+        "fraud_elements_satisfied": true,
+        "fraud_established": true,
+        "fraud_not_established": false,
+        "fraud_undetermined": false
+      },
+      "observed_nonempty": {
+        "fraud_conflict": false,
+        "fraud_elements_satisfied": true,
+        "fraud_established": true,
+        "fraud_not_established": false,
+        "fraud_undetermined": false
+      },
+      "scenario_id": "ordinary_established",
+      "status": "pass"
+    },
+    {
+      "expected_nonempty": {
+        "fraud_conflict": false,
+        "fraud_elements_satisfied": true,
+        "fraud_established": false,
+        "fraud_not_established": false,
+        "fraud_undetermined": false
+      },
+      "observed_nonempty": {
+        "fraud_conflict": false,
+        "fraud_elements_satisfied": true,
+        "fraud_established": false,
+        "fraud_not_established": false,
+        "fraud_undetermined": false
+      },
+      "scenario_id": "incomplete_case_blocked",
+      "status": "pass"
+    },
+    {
+      "expected_nonempty": {
+        "fraud_conflict": true,
+        "fraud_elements_satisfied": true,
+        "fraud_established": false,
+        "fraud_not_established": true,
+        "fraud_undetermined": false
+      },
+      "observed_nonempty": {
+        "fraud_conflict": true,
+        "fraud_elements_satisfied": true,
+        "fraud_established": false,
+        "fraud_not_established": true,
+        "fraud_undetermined": false
+      },
+      "scenario_id": "negative_bar_blocks",
+      "status": "pass"
+    },
+    {
+      "expected_nonempty": {
+        "fraud_conflict": true,
+        "fraud_elements_satisfied": true,
+        "fraud_established": false,
+        "fraud_not_established": true,
+        "fraud_undetermined": false
+      },
+      "observed_nonempty": {
+        "fraud_conflict": true,
+        "fraud_elements_satisfied": true,
+        "fraud_established": false,
+        "fraud_not_established": true,
+        "fraud_undetermined": false
+      },
+      "scenario_id": "card_conflict_blocks",
+      "status": "pass"
+    },
+    {
+      "expected_nonempty": {
+        "fraud_conflict": false,
+        "fraud_elements_satisfied": false,
+        "fraud_established": false,
+        "fraud_not_established": false,
+        "fraud_undetermined": true
+      },
+      "observed_nonempty": {
+        "fraud_conflict": false,
+        "fraud_elements_satisfied": false,
+        "fraud_established": false,
+        "fraud_not_established": false,
+        "fraud_undetermined": true
+      },
+      "scenario_id": "unknown_blocks",
+      "status": "pass"
+    },
+    {
+      "expected_nonempty": {
+        "fraud_conflict": false,
+        "fraud_elements_satisfied": false,
+        "fraud_established": false,
+        "fraud_not_established": false,
+        "fraud_undetermined": false
+      },
+      "observed_nonempty": {
+        "fraud_conflict": false,
+        "fraud_elements_satisfied": false,
+        "fraud_established": false,
+        "fraud_not_established": false,
+        "fraud_undetermined": false
+      },
+      "scenario_id": "triangular_missing_distinct_blocked",
+      "status": "pass"
+    },
+    {
+      "expected_nonempty": {
+        "fraud_conflict": false,
+        "fraud_elements_satisfied": true,
+        "fraud_established": true,
+        "fraud_not_established": false,
+        "fraud_undetermined": false
+      },
+      "observed_nonempty": {
+        "fraud_conflict": false,
+        "fraud_elements_satisfied": true,
+        "fraud_established": true,
+        "fraud_not_established": false,
+        "fraud_undetermined": false
+      },
+      "scenario_id": "triangular_established",
+      "status": "pass"
+    },
+    {
+      "expected_nonempty": {
+        "fraud_conflict": false,
+        "fraud_elements_satisfied": false,
+        "fraud_established": false,
+        "fraud_not_established": false,
+        "fraud_undetermined": false
+      },
+      "observed_nonempty": {
+        "fraud_conflict": false,
+        "fraud_elements_satisfied": false,
+        "fraud_established": false,
+        "fraud_not_established": false,
+        "fraud_undetermined": false
+      },
+      "scenario_id": "third_party_missing_distinct_blocked",
+      "status": "pass"
+    },
+    {
+      "expected_nonempty": {
+        "fraud_conflict": false,
+        "fraud_elements_satisfied": true,
+        "fraud_established": true,
+        "fraud_not_established": false,
+        "fraud_undetermined": false
+      },
+      "observed_nonempty": {
+        "fraud_conflict": false,
+        "fraud_elements_satisfied": true,
+        "fraud_established": true,
+        "fraud_not_established": false,
+        "fraud_undetermined": false
+      },
+      "scenario_id": "third_party_established",
+      "status": "pass"
+    }
+  ],
+  "status": "pass",
+  "version": "1.0.0"
+}

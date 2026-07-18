@@ -7,4 +7,4 @@
 3. 더 자세한 논리가 필요할 때만 `fraud_full_rule_ir_natural_language_explanation.md`의 최종 AND gate와 역할·취득 adapter 부분을 확인한다.
 4. JSON과 342개 rule별 해설은 특정 구현을 추적할 때만 보면 된다.
 
-현재 predicate 201개, rule 342개다. Sol 검토와 에이전트 수동 정정은 끝났고, 이 정정본에 대한 사용자 재검수가 남았다. Scallop compile/runtime은 이 재검수 전까지 차단한다.
+최종 승인본은 predicate 201개, rule 342개다. Sol 검토, 에이전트 수동 정정, 사용자 재검수가 모두 끝났으며 별도 승인 기록 뒤 deterministic compile과 공식 scli golden test를 실행했다.
