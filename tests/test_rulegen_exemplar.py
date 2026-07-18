@@ -34,6 +34,9 @@ from scripts.run_fraud_full_rule_ir_generation import (
     dry_run_summary as full_rule_ir_dry_run_summary,
     review_gate as full_rule_ir_review_gate,
 )
+from scripts.build_fraud_full_rule_ir_candidate import (
+    build_rule_ir as build_full_fraud_rule_ir,
+)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -134,6 +137,25 @@ FULL_RULE_IR_FEWSHOT_SCALLOP = (
 FULL_RULE_IR_PREP_QUEUE = (
     PROJECT_ROOT
     / "data/rulegen/fraud/fraud_rule_ir_generation_prep_review_queue.json"
+)
+FULL_RULE_IR_CANDIDATE = (
+    PROJECT_ROOT
+    / "data/rulegen/fraud/fraud_full_rule_ir_candidate_unreviewed.json"
+)
+FULL_RULE_IR_EXPLANATION = (
+    PROJECT_ROOT
+    / "data/rulegen/fraud/fraud_full_rule_ir_natural_language_explanation.md"
+)
+FULL_RULE_IR_POST_STATUS = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_full_rule_ir_post_terra_status.json"
+)
+FULL_RULE_IR_TERRA_AUDIT = (
+    PROJECT_ROOT
+    / "data/rulegen/fraud/fraud_full_rule_ir_terra_failure_audit.json"
+)
+FULL_RULE_IR_TERRA_OUTPUT = (
+    PROJECT_ROOT
+    / "data/rulegen/fraud/fraud_full_rule_ir_terra_partial_output.json"
 )
 RULE_IR = PROJECT_ROOT / "data/rulegen/fraud/fraud_rule_ir_exemplar.json"
 SCALLOP = PROJECT_ROOT / "rules/exemplars/fraud_v1_candidate.scl"
@@ -1435,3 +1457,118 @@ def test_full_rule_ir_runner_is_dry_and_review_gated() -> None:
         and gate["approved"]
         and not summary["existing_outputs"]
     )
+
+
+def test_agent_reconstructed_full_fraud_rule_ir_is_complete_and_deterministic() -> None:
+    aggregate = json.loads(CORE_NORM_CARD_SET.read_text(encoding="utf-8"))
+    candidate = json.loads(FULL_RULE_IR_CANDIDATE.read_text(encoding="utf-8"))
+    commentary = fraud_commentary()
+
+    validate_full_rule_ir_generation(candidate, commentary, aggregate)
+    assert build_full_fraud_rule_ir(aggregate) == candidate
+    assert len(candidate["norm_card_scope"]["card_ids"]) == 88
+    assert len(candidate["predicates"]) == 194
+    assert len(candidate["rules"]) == 337
+
+    commentary_inputs = [
+        predicate
+        for predicate in candidate["predicates"]
+        if predicate["origin"] == "commentary" and predicate["role"] == "input"
+    ]
+    assert len(commentary_inputs) == 88
+    assert Counter(predicate["kind"] for predicate in commentary_inputs) == {
+        "standard": 60,
+        "rule": 28,
+    }
+    assert {
+        card_id
+        for predicate in commentary_inputs
+        for card_id in predicate["norm_card_ids"]
+    } == {card["id"] for card in aggregate["cards"]}
+
+
+def test_full_fraud_rule_ir_preserves_actor_identity_and_four_branches() -> None:
+    candidate = json.loads(FULL_RULE_IR_CANDIDATE.read_text(encoding="utf-8"))
+    branches = [
+        rule
+        for rule in candidate["rules"]
+        if rule["head"]["predicate"] == "fraud_established"
+    ]
+    assert {rule["id"] for rule in branches} == {
+        "fraud.full.established.ordinary_self",
+        "fraud.full.established.ordinary_third_party",
+        "fraud.full.established.triangular_self",
+        "fraud.full.established.triangular_third_party",
+    }
+    for branch in branches:
+        arguments = branch["head"]["arguments"]
+        assert arguments[2] == arguments[3]
+
+    by_id = {rule["id"]: rule for rule in branches}
+    assert by_id["fraud.full.established.ordinary_self"]["head"]["arguments"][
+        2
+    ] == by_id["fraud.full.established.ordinary_self"]["head"]["arguments"][4]
+    assert by_id["fraud.full.established.ordinary_self"]["head"]["arguments"][
+        1
+    ] == by_id["fraud.full.established.ordinary_self"]["head"]["arguments"][6]
+
+    triangular = [
+        branch for branch in branches if ".triangular_" in branch["id"]
+    ]
+    assert all(
+        any(
+            atom["predicate"] == "fraud_triangular_authority_satisfied"
+            for atom in branch["body"]
+        )
+        for branch in triangular
+    )
+    third_party = [
+        branch for branch in branches if branch["id"].endswith("third_party")
+    ]
+    assert all(
+        any(
+            atom["predicate"] == "fraud_third_party_acquisition_satisfied"
+            for atom in branch["body"]
+        )
+        for branch in third_party
+    )
+
+
+def test_full_fraud_rule_ir_preserves_nonbars_and_top_level_conflict() -> None:
+    candidate = json.loads(FULL_RULE_IR_CANDIDATE.read_text(encoding="utf-8"))
+    bar_card_ids = {
+        rule["norm_card_ids"][0]
+        for rule in candidate["rules"]
+        if rule["id"].startswith("fraud.full.bar.")
+    }
+    assert "fraud_damage_acquisition.property_loss_negative_view" not in bar_card_ids
+    assert "general_object.fraud.standard.later-cancellation-no-effect" not in bar_card_ids
+    assert any(
+        rule["id"] == "fraud.full.conflict.established_and_not_established"
+        for rule in candidate["rules"]
+    )
+    assert not any(
+        atom["predicate"] == "fraud_unlawful_appropriation_intent_supported"
+        for rule in candidate["rules"]
+        if rule["head"]["predicate"] == "fraud_established"
+        for atom in rule["body"]
+    )
+
+
+def test_terra_partial_output_is_audited_and_human_gate_is_next() -> None:
+    audit = json.loads(FULL_RULE_IR_TERRA_AUDIT.read_text(encoding="utf-8"))
+    terra_output = json.loads(FULL_RULE_IR_TERRA_OUTPUT.read_text(encoding="utf-8"))
+    status = json.loads(FULL_RULE_IR_POST_STATUS.read_text(encoding="utf-8"))
+    explanation = FULL_RULE_IR_EXPLANATION.read_text(encoding="utf-8")
+
+    assert audit["status"] == "rejected_partial_output"
+    assert audit["api_calls"] == 1
+    assert audit["terra_counts"] == {"norm_cards": 8, "predicates": 6, "rules": 4}
+    assert audit["required_counts"] == {"norm_cards": 88}
+    assert len(terra_output["norm_card_scope"]["card_ids"]) == 8
+    assert status["status"] == "agent_review_complete_human_review_pending"
+    assert status["human_rule_ir_review_allowed"]
+    assert not status["sol_critic_allowed"]
+    assert not status["scallop_compile_allowed"]
+    assert "피기망자와 처분자는 같은 변수" in explanation
+    assert "established_and_not_established" in explanation

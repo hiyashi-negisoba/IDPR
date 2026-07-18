@@ -1,0 +1,27 @@
+{
+  "api_calls": 1,
+  "raw_output_path": "data/rulegen/fraud/fraud_full_rule_ir_terra_partial_output.json",
+  "repair_method": "agent-authored deterministic reconstruction; no additional API call",
+  "required_counts": {
+    "norm_cards": 88
+  },
+  "run_raw_output_path": ".cache/llm/runs/fraud_full_rule_ir/fraud-full-rule-ir-v1/terra/fraud.article347.rule_ir.full.v1.json",
+  "status": "rejected_partial_output",
+  "substantive_failure": "Terra explicitly emitted only 8 of 88 approved cards and requested separate translation for the remainder. The raw output was not promoted.",
+  "terra_counts": {
+    "norm_cards": 8,
+    "predicates": 6,
+    "rules": 4
+  },
+  "usage": {
+    "completion_tokens": 4606,
+    "prompt_tokens": 40366,
+    "reasoning_tokens": 1537,
+    "total_tokens": 44972
+  },
+  "validation_errors": [
+    "predicate fraud_established.source_refs[0] is outside source_scope: comm_001692_제347조_Ⅶ.2_107",
+    "rule fraud.core.established.source_refs[0] is outside source_scope: comm_001692_제347조_Ⅶ.2_107"
+  ],
+  "version": "1.0.0"
+}

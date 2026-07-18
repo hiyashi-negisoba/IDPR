@@ -676,7 +676,7 @@ def main() -> None:
         "",
         "## 현재 상태",
         "",
-        "- API 사용: 0회",
+        "- 준비 단계 API 사용: 0회",
         "- agent preflight: 완료",
         "- 사용자 결정: "
         + ", ".join(
@@ -685,7 +685,11 @@ def main() -> None:
                 Counter(row["status"] for row in prep_decisions).items()
             )
         ),
-        "- Terra 실행: 사용자 승인 전 차단",
+        (
+            "- Terra 실행 게이트: 승인 완료"
+            if review_queue["status"] == "complete"
+            else "- Terra 실행 게이트: 사용자 승인 전 차단"
+        ),
         "- 입력 core: deterministic 28개 + standard 60개 = 88개",
         "- 제외 context: 558개",
         "- 생성 단위: 전체 RuleIR 단일 호출 1회",

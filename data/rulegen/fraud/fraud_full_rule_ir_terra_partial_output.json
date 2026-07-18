@@ -1,0 +1,703 @@
+{
+  "coverage_gaps": [
+    "The remaining approved NormCards in coverage_contract.card_ids are not yet represented in this draft and must be added before deterministic compiler validation."
+  ],
+  "issue_tag": "fraud",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "The supplied aggregate contains 88 cards, but this draft only maps the listed core cards. The remaining approved cards require separate predicate-level translation and implementing rules before complete coverage validation."
+  ],
+  "norm_card_scope": {
+    "card_ids": [
+      "deception.fraud.definition.deception-good-faith-mistake",
+      "deception.fraud.element.deception-must-create-false-belief",
+      "fraud_mistake.deceived_disposer_identity",
+      "fraud_mistake.property_disposition_element",
+      "fraud_mistake.sequential_causation",
+      "fraud_stages_participation.completion_deception_disposition_transfer",
+      "fraud_intent.no_disposition_inducement_intent",
+      "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation"
+    ],
+    "card_set_id": "kr.fraud.article347.core.norms.v1"
+  },
+  "predicates": [
+    {
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "assessment_id",
+          "type": "String"
+        }
+      ],
+      "definition": "The assessment may be consumed by substantive rules.",
+      "id": "provable",
+      "kind": "rule",
+      "norm_card_ids": [],
+      "origin": "system",
+      "role": "input",
+      "source_refs": []
+    },
+    {
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "assessment_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "deceived_person_id",
+          "type": "String"
+        },
+        {
+          "name": "disposer_id",
+          "type": "String"
+        },
+        {
+          "name": "property_owner_id",
+          "type": "String"
+        },
+        {
+          "name": "subject_id",
+          "type": "String"
+        },
+        {
+          "name": "beneficiary_id",
+          "type": "String"
+        },
+        {
+          "name": "status",
+          "type": "String"
+        }
+      ],
+      "definition": "Approved assessment input for the core Article 347 fraud elements and the applicable triangular-fraud authority position.",
+      "id": "fraud_core_assessment",
+      "kind": "standard",
+      "norm_card_ids": [
+        "deception.fraud.definition.deception-good-faith-mistake",
+        "deception.fraud.element.deception-must-create-false-belief",
+        "fraud_mistake.deceived_disposer_identity",
+        "fraud_mistake.property_disposition_element",
+        "fraud_mistake.sequential_causation",
+        "fraud_stages_participation.completion_deception_disposition_transfer",
+        "fraud_intent.no_disposition_inducement_intent",
+        "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation"
+      ],
+      "origin": "commentary",
+      "role": "input",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    },
+    {
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "deceived_person_id",
+          "type": "String"
+        },
+        {
+          "name": "disposer_id",
+          "type": "String"
+        },
+        {
+          "name": "property_owner_id",
+          "type": "String"
+        },
+        {
+          "name": "subject_id",
+          "type": "String"
+        },
+        {
+          "name": "beneficiary_id",
+          "type": "String"
+        }
+      ],
+      "definition": "Article 347 fraud is established on the approved core assessment.",
+      "id": "fraud_established",
+      "kind": "rule",
+      "norm_card_ids": [
+        "fraud_stages_participation.completion_deception_disposition_transfer",
+        "fraud_mistake.sequential_causation",
+        "fraud_mistake.property_disposition_element",
+        "fraud_mistake.deceived_disposer_identity",
+        "fraud_intent.no_disposition_inducement_intent",
+        "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation"
+      ],
+      "origin": "commentary",
+      "role": "derived",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.2_107",
+          "quote": "행위자의 기망행위에 의하여 상대방이 착오에 빠지고 그 착오에 기하여 재산적 처분행위가 이루어지고 그 결과 재물 또는 재산상의 이익의 이전이 이루어진 때에 사기죄는 기수로 된다.",
+          "section_path": "Ⅶ.2"
+        }
+      ]
+    },
+    {
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "issue_id",
+          "type": "String"
+        }
+      ],
+      "definition": "Article 347 fraud is not established on an expressly negative approved core assessment.",
+      "id": "fraud_not_established",
+      "kind": "rule",
+      "norm_card_ids": [
+        "deception.fraud.element.deception-must-create-false-belief",
+        "fraud_intent.no_disposition_inducement_intent"
+      ],
+      "origin": "commentary",
+      "role": "derived",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망적인 수단을 사용하였다고 하더라도 상대방으로 하여금 진실 과 합치하지 않는 관념을 발생하게 한 행위가 아니라면 이는 사기죄의 실행행 위로서의 기망이라고 할 수 없다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    },
+    {
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "issue_id",
+          "type": "String"
+        }
+      ],
+      "definition": "Article 347 fraud remains undetermined on an expressly unknown approved core assessment.",
+      "id": "fraud_undetermined",
+      "kind": "rule",
+      "norm_card_ids": [
+        "deception.fraud.definition.deception-good-faith-mistake"
+      ],
+      "origin": "commentary",
+      "role": "derived",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    },
+    {
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "issue_id",
+          "type": "String"
+        }
+      ],
+      "definition": "Conflicting expressly provable approved core assessments are present.",
+      "id": "fraud_conflict",
+      "kind": "rule",
+      "norm_card_ids": [
+        "deception.fraud.definition.deception-good-faith-mistake"
+      ],
+      "origin": "commentary",
+      "role": "derived",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    }
+  ],
+  "rule_set_id": "kr.fraud.article347.full.v1_candidate",
+  "rules": [
+    {
+      "body": [
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "subject_id"
+            },
+            {
+              "kind": "variable",
+              "value": "beneficiary_id"
+            },
+            {
+              "kind": "string",
+              "value": "satisfied"
+            }
+          ],
+          "negated": false,
+          "predicate": "fraud_core_assessment"
+        },
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "provable"
+        }
+      ],
+      "head": {
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "deceived_person_id"
+          },
+          {
+            "kind": "variable",
+            "value": "deceived_person_id"
+          },
+          {
+            "kind": "variable",
+            "value": "property_owner_id"
+          },
+          {
+            "kind": "variable",
+            "value": "subject_id"
+          },
+          {
+            "kind": "variable",
+            "value": "beneficiary_id"
+          }
+        ],
+        "negated": false,
+        "predicate": "fraud_established"
+      },
+      "id": "fraud.core.established",
+      "norm_card_ids": [
+        "fraud_stages_participation.completion_deception_disposition_transfer",
+        "fraud_mistake.sequential_causation",
+        "fraud_mistake.property_disposition_element",
+        "fraud_mistake.deceived_disposer_identity",
+        "fraud_intent.no_disposition_inducement_intent",
+        "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation"
+      ],
+      "review_notes": "The same variable occupies the deceived-person and disposer slots. Where the property owner differs, the approved triangular-fraud authority assessment is included in the core assessment.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.2_107",
+          "quote": "행위자의 기망행위에 의하여 상대방이 착오에 빠지고 그 착오에 기하여 재산적 처분행위가 이루어지고 그 결과 재물 또는 재산상의 이익의 이전이 이루어진 때에 사기죄는 기수로 된다.",
+          "section_path": "Ⅶ.2"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "disposer_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "subject_id"
+            },
+            {
+              "kind": "variable",
+              "value": "beneficiary_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false,
+          "predicate": "fraud_core_assessment"
+        },
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "provable"
+        }
+      ],
+      "head": {
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "article347"
+          }
+        ],
+        "negated": false,
+        "predicate": "fraud_not_established"
+      },
+      "id": "fraud.core.not_established",
+      "norm_card_ids": [
+        "deception.fraud.element.deception-must-create-false-belief",
+        "fraud_intent.no_disposition_inducement_intent"
+      ],
+      "review_notes": "An expressly negative, evidence-gated core assessment produces only the negative interface.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망적인 수단을 사용하였다고 하더라도 상대방으로 하여금 진실 과 합치하지 않는 관념을 발생하게 한 행위가 아니라면 이는 사기죄의 실행행 위로서의 기망이라고 할 수 없다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "disposer_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "subject_id"
+            },
+            {
+              "kind": "variable",
+              "value": "beneficiary_id"
+            },
+            {
+              "kind": "string",
+              "value": "unknown"
+            }
+          ],
+          "negated": false,
+          "predicate": "fraud_core_assessment"
+        },
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "provable"
+        }
+      ],
+      "head": {
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "article347"
+          }
+        ],
+        "negated": false,
+        "predicate": "fraud_undetermined"
+      },
+      "id": "fraud.core.undetermined",
+      "norm_card_ids": [
+        "deception.fraud.definition.deception-good-faith-mistake"
+      ],
+      "review_notes": "Unknown is preserved as undetermined and is not treated as failure or satisfaction.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_satisfied"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "disposer_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "subject_id"
+            },
+            {
+              "kind": "variable",
+              "value": "beneficiary_id"
+            },
+            {
+              "kind": "string",
+              "value": "satisfied"
+            }
+          ],
+          "negated": false,
+          "predicate": "fraud_core_assessment"
+        },
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_satisfied"
+            }
+          ],
+          "negated": false,
+          "predicate": "provable"
+        },
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_not_satisfied"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "disposer_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "subject_id"
+            },
+            {
+              "kind": "variable",
+              "value": "beneficiary_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false,
+          "predicate": "fraud_core_assessment"
+        },
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_not_satisfied"
+            }
+          ],
+          "negated": false,
+          "predicate": "provable"
+        }
+      ],
+      "head": {
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "article347"
+          }
+        ],
+        "negated": false,
+        "predicate": "fraud_conflict"
+      },
+      "id": "fraud.core.conflict",
+      "norm_card_ids": [
+        "deception.fraud.definition.deception-good-faith-mistake"
+      ],
+      "review_notes": "The conflict interface preserves contradictory evidence-gated assessments without using negation.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    }
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제347조_Ⅳ.1_11"
+    ],
+    "target_paths": [
+      "commentary://001692/제347조"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

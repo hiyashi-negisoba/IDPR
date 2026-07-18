@@ -79,8 +79,11 @@ in `data/rulegen/fraud/fraud_rule_ir_generation_prep_review_guide.md`; Terra is
 hard-blocked until all ten preflight decisions are explicitly approved. The ten
 decisions are now approved, including the clarification that role slots do not
 imply distinct people and an established-fraud rule uses one variable for the
-deceived person and disposer. Terra has not yet been called. After generation,
-local validation, an agent-authored rule-by-rule explanation, human review, Sol
-critique, human re-review, and only then Scallop compilation/runtime testing are
-required. The existing eight-card fraud RuleIR and Scallop files are historical
-structural exemplars rather than the full fraud rule set.
+deceived person and disposer. Terra was called exactly once, but returned an
+explicit 8/88-card partial draft; that raw output was rejected and audited. No
+second API call was made. The agent-authored deterministic reconstruction covers
+all 88 cards with 194 predicates and 337 rules, passes the full generation
+contract, and now awaits human review together with its exhaustive natural-
+language explanation. Sol critique, human re-review, and only then Scallop
+compilation/runtime testing remain required. The existing eight-card fraud
+RuleIR and Scallop files are historical structural exemplars.

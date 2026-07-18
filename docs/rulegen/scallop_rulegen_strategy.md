@@ -203,7 +203,16 @@ RAG로 모두 해소했다. 원래 core 후보 118개 중 사용자가 24개를 
 묶고, 전체 RuleIR request·구조 few-shot·10항목 사전 검수표·실행 차단 runner를 만들었다.
 사용자가 10개 사전 항목을 모두 승인했다. 역할 슬롯은 별개의 사람을 뜻하지 않으며
 사기 성립 rule의 피기망자와 처분자는 같은 변수를 사용한다는 조건도 계약과 validator에
-반영했다. Terra 호출은 아직 0회이며 전수 RuleIR도 생성하지 않았다.
+반영했다. Terra는 1회 호출됐으나 88장 중 8장만 포괄 assessment 하나로 축약하고 나머지는
+별도 번역이 필요하다고 명시한 부분 출력을 반환했다. 이 응답은 candidate로 승격하지
+않았고 추가 API 호출도 하지 않았다.
+
+에이전트가 승인된 88장을 결정적으로 재구성한 full candidate는 commentary input 88개,
+predicate 194개, rule 337개다. 각 카드에 satisfied·unknown·conflict 경로가 있고,
+불성립 규범 23개와 필수 positive 부정 10개를 별도로 처리한다. 일반형/삼각사기 및
+본인/제3자 취득의 네 성립 branch를 분리했으며 full-generation validator를 통과했다.
+현재 장문 규칙별 해설과 함께 사용자 법률 검수를 기다리고 있어 Sol과 Scallop은 아직
+차단 상태다.
 
 ## API 실행 순서
 

@@ -914,3 +914,45 @@ runtime/golden test를 실행한다.
 해당 조건은 prompt, generation request, full-generation validator와 부정 테스트에 모두
 반영했다. 승인 반영 뒤 dry-run은 `execution_allowed=true`이나 Terra는 아직 호출하지
 않았다.
+
+---
+
+## 사기죄 full RuleIR Terra 실행 및 수동 재구성
+
+작성일: 2026-07-18
+
+사용자의 명시적 승인으로 Terra를 정확히 1회 호출했다. 동시성 1, retry 0이었고 Sol은
+호출하지 않았다.
+
+- model: `openai/gpt-5.6-terra`
+- prompt tokens: 40,366
+- completion tokens: 4,606
+- reasoning tokens: 1,537
+- total tokens: 44,972
+- API calls: Terra 1, Sol 0
+
+Terra는 승인된 88장 중 8장만 `fraud_core_assessment` 하나로 합치고 predicate 6개,
+rule 4개를 반환했다. 스스로 나머지 카드는 별도 번역이 필요하다고 밝혔으며 source scope도
+40개 중 1개만 선언했다. 원본은
+`data/rulegen/fraud/fraud_full_rule_ir_terra_partial_output.json`에 보존했고
+`fraud_full_rule_ir_terra_failure_audit.json`에 사용량과 실패를 기록했다. 이 응답은
+candidate로 승격하지 않았고 추가 API 호출도 하지 않았다.
+
+승인된 88장을 에이전트가 직접 재매핑하는 결정적 builder를 작성했다. 카드별로
+3상태 assessment와 `provable` gate를 두고, 객체·기망·착오·처분·취득·인과·고의·기수
+component를 결합했다. 일반형/삼각사기와 본인/제3자 취득을 네 branch로 분리했고,
+피기망자와 처분자는 모든 성립 head에서 같은 변수다. 현실적 재산상 손해는 별도 사실
+gate로 요구하지 않으며 불법영득의사는 모든 유형의 공통 gate로 강제하지 않았다.
+
+- NormCard coverage: 88/88
+- commentary input: 88개(standard 60, rule fact 28)
+- predicate: 194개
+- rule: 337개
+- natural-language rule explanation: 337/337
+- negation / active_policy: 0 / 0
+- full-generation validator: 통과
+- 전체 테스트: `59 passed`
+
+현재 `fraud_full_rule_ir_natural_language_explanation.md`와
+`fraud_full_rule_ir_agent_review.md`까지 작성했고 사용자 법률 검수 대기 상태다. 사용자
+검수 전에는 Sol, 사용자 재검수 전에는 Scallop compile/runtime을 계속 차단한다.
