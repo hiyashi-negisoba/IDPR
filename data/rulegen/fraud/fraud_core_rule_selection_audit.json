@@ -1,9 +1,9 @@
 {
   "api_calls": 0,
   "counts": {
-    "context_only": 528,
-    "deterministic_rule": 29,
-    "standard_input": 89
+    "context_only": 558,
+    "deterministic_rule": 28,
+    "standard_input": 60
   },
   "criteria": {
     "context_only": "구체적 판례 결과, 학설, 희귀 적용례, 이득액 계산 또는 다른 죄명 문맥",
@@ -11,7 +11,7 @@
     "standard_input": "일반화된 법적 기준이지만 사실 적용에 neural judgment가 필요한 입력"
   },
   "issue_tag": "fraud",
-  "legal_review": "pending",
+  "legal_review": "complete",
   "method": "manual_full_core_scope_audit_no_api",
   "rows": [
     {
@@ -257,8 +257,8 @@
     {
       "card_id": "deception.fraud.exception.no-notice-duty-no-effect-on-rights",
       "module": "deception",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "deception.fraud.standard.absolute-farmland-buildability",
@@ -269,8 +269,8 @@
     {
       "card_id": "deception.fraud.standard.abstract-or-immaterial-advertising",
       "module": "deception",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "deception.fraud.standard.accommodation-bill-false-certificate",
@@ -629,8 +629,8 @@
     {
       "card_id": "deception.fraud.standard.financial-loan-omission-caution",
       "module": "deception",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "deception.fraud.standard.forged-note-increased-dividend",
@@ -2309,8 +2309,8 @@
     {
       "card_id": "fraud_intent.illegal_gain_unauthorized",
       "module": "intent",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "fraud_intent.inheritance_misbelief_sale",
@@ -2375,8 +2375,8 @@
     {
       "card_id": "fraud_intent.objective_circumstances",
       "module": "intent",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "fraud_intent.policy_loan_false_contract",
@@ -2465,14 +2465,14 @@
     {
       "card_id": "fraud_mistake.active_creditor_extension",
       "module": "mistake_disposition",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "fraud_mistake.assignment_debt_extinguishment",
       "module": "mistake_disposition",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "fraud_mistake.bank_deposit_diversion",
@@ -2891,8 +2891,8 @@
     {
       "card_id": "fraud_stages_participation.enforcement_application_attempt",
       "module": "stages_participation",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "fraud_stages_participation.exaggerated_creditworthiness_no_joint_principal",
@@ -2909,8 +2909,8 @@
     {
       "card_id": "fraud_stages_participation.false_claim_provisional_seizure_no_attempt",
       "module": "stages_participation",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "fraud_stages_participation.false_disaster_subsidy_report_no_attempt",
@@ -2945,8 +2945,8 @@
     {
       "card_id": "fraud_stages_participation.gambling_fraud_attempt",
       "module": "stages_participation",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "fraud_stages_participation.gambling_normal_gambling_included",
@@ -2963,8 +2963,8 @@
     {
       "card_id": "fraud_stages_participation.insurance_false_claim_attempt",
       "module": "stages_participation",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "fraud_stages_participation.insurance_payment_completion",
@@ -3011,8 +3011,8 @@
     {
       "card_id": "fraud_stages_participation.litigation_service_not_required",
       "module": "stages_participation",
-      "role": "deterministic_rule",
-      "selection_reason": "general_legal_rule_or_symbolic_composition"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "fraud_stages_participation.lodging_food_no_payment_completion",
@@ -3053,8 +3053,8 @@
     {
       "card_id": "fraud_stages_participation.payment_order_attempt",
       "module": "stages_participation",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "fraud_stages_participation.payment_order_final_completion",
@@ -3065,8 +3065,8 @@
     {
       "card_id": "fraud_stages_participation.post_filing_false_claim_attempt",
       "module": "stages_participation",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "fraud_stages_participation.property_fraud_completion_control",
@@ -3299,14 +3299,14 @@
     {
       "card_id": "special_forms.fraud.element.judgment-substitutes-victim-disposition",
       "module": "special_forms",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "special_forms.fraud.element.litigation-fraud-commencement",
       "module": "special_forms",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "special_forms.fraud.element.litigation-fraud-completion-final-judgment",
@@ -3317,14 +3317,14 @@
     {
       "card_id": "special_forms.fraud.element.litigation-fraud-deceptive-act",
       "module": "special_forms",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "special_forms.fraud.element.litigation-fraud-knowing-nonexistence",
       "module": "special_forms",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "special_forms.fraud.exception.insurance-special-act-temporal-application",
@@ -3335,14 +3335,14 @@
     {
       "card_id": "special_forms.fraud.exception.litigation-fraud-mistake-of-fact-or-law",
       "module": "special_forms",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "special_forms.fraud.exception.omission-of-favorable-evidence",
       "module": "special_forms",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "special_forms.fraud.exception.suit-against-dead-or-nonexistent-person",
@@ -3467,8 +3467,8 @@
     {
       "card_id": "special_forms.fraud.standard.false-claim-alone-can-deceive",
       "module": "special_forms",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "special_forms.fraud.standard.false-guarantee-letter-withdrawn-attempt",
@@ -3533,8 +3533,8 @@
     {
       "card_id": "special_forms.fraud.standard.indirect-perpetration-through-unaware-third-party",
       "module": "special_forms",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "special_forms.fraud.standard.inflated-construction-contract-not-clearly-proven",
@@ -3557,14 +3557,14 @@
     {
       "card_id": "special_forms.fraud.standard.insurance-concealed-existing-accident",
       "module": "special_forms",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "special_forms.fraud.standard.insurance-defective-life-contract-preparatory-act",
       "module": "special_forms",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "special_forms.fraud.standard.insurance-duty-disclosure-insufficient",
@@ -3575,20 +3575,20 @@
     {
       "card_id": "special_forms.fraud.standard.insurance-false-accident-claim",
       "module": "special_forms",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "special_forms.fraud.standard.insurance-injury-disease-contingency-factors",
       "module": "special_forms",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "special_forms.fraud.standard.insurance-intentional-accident-claim",
       "module": "special_forms",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "special_forms.fraud.standard.insurance-no-intent-to-obtain-no-fraud",
@@ -3599,8 +3599,8 @@
     {
       "card_id": "special_forms.fraud.standard.insurance-omission-destroys-contingency",
       "module": "special_forms",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "special_forms.fraud.standard.insurance-recent-renal-disease-false-answer-fraud",
@@ -3647,14 +3647,14 @@
     {
       "card_id": "special_forms.fraud.standard.litigation-fraud-objectively-false-or-knowing",
       "module": "special_forms",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "special_forms.fraud.standard.litigation-fraud-strict-interpretation",
       "module": "special_forms",
-      "role": "standard_input",
-      "selection_reason": "general_fact_condition_requiring_neural_judgment"
+      "role": "context_only",
+      "selection_reason": "case_specific_academic_or_noncore_context"
     },
     {
       "card_id": "special_forms.fraud.standard.litigation-mortgage-setting-fraud",
@@ -3891,6 +3891,6 @@
       "selection_reason": "case_specific_academic_or_noncore_context"
     }
   ],
-  "status": "draft",
+  "status": "complete",
   "version": "1.0.0"
 }

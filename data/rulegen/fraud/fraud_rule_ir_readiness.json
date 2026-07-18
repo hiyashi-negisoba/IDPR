@@ -1,14 +1,14 @@
 {
-  "blocking_reason": "118 core cards await explicit human approval; full RuleIR generation remains blocked.",
-  "core_rule_human_review_blocked": true,
+  "blocking_reason": "All RuleIR generation gates are satisfied.",
+  "core_rule_human_review_blocked": false,
   "core_rule_review": {
-    "approved": 0,
-    "cards": 118,
-    "unresolved": 118
+    "approved": 88,
+    "cards": 88,
+    "unresolved": 0
   },
   "existing_executable_exemplar": "data/rulegen/fraud/fraud_rule_ir_exemplar.json",
   "final_policy_activation_blocked": false,
-  "full_rule_ir_generation_blocked": true,
+  "full_rule_ir_generation_blocked": false,
   "issue_tag": "fraud",
   "legal_review": "pending",
   "modules": [
@@ -97,6 +97,7 @@
           "deception.fraud.standard.subcontract-payment-falsehood",
           "deception.fraud.standard.false-origin-restaurant-advertising",
           "deception.fraud.standard.false-development-plan-advertising",
+          "deception.fraud.standard.abstract-or-immaterial-advertising",
           "deception.fraud.standard.bid-rigging-fraud-concurrence-view",
           "deception.fraud.standard.gold-transport-taking",
           "deception.fraud.standard.lost-wallet-taking",
@@ -118,6 +119,7 @@
           "deception.fraud.variant.notice-duty-good-faith-transaction",
           "deception.fraud.variant.real-estate-notice-duty-explicit-duty",
           "deception.fraud.variant.guarantee-status-bases",
+          "deception.fraud.exception.no-notice-duty-no-effect-on-rights",
           "deception.fraud.standard.explicit-denial-encumbrance",
           "deception.fraud.standard.excess-change-given-at-scene",
           "deception.fraud.standard.excess-change-later-discovery",
@@ -192,6 +194,7 @@
           "deception.fraud.standard.gye-payment-no-deception",
           "deception.fraud.standard.loan-lender-financial-institution",
           "deception.fraud.element.intent-to-defraud-conditional-intent",
+          "deception.fraud.standard.financial-loan-omission-caution",
           "deception.fraud.standard.loan-concealed-existing-debts",
           "deception.fraud.standard.loan-concurrent-applications-false-answer",
           "deception.fraud.standard.false-right-to-state-property",
@@ -269,17 +272,14 @@
           "deception.fraud.element.transaction-purpose-no-impairment",
           "deception.fraud.standard.advertising-tolerable-exaggeration",
           "deception.fraud.standard.advertising-important-concrete-falsehood",
-          "deception.fraud.standard.abstract-or-immaterial-advertising",
           "deception.fraud.standard.vague-opinion-not-deception",
           "deception.fraud.definition.implicit-deception",
           "deception.fraud.standard.implicit-deception-explanatory-value",
           "deception.fraud.element.omission-deception-guarantor-equivalence",
           "deception.fraud.standard.precedent-notice-duty-materiality",
-          "deception.fraud.exception.no-notice-duty-no-effect-on-rights",
           "deception.fraud.standard.implicit-omission-deception-distinction",
           "deception.fraud.element.loan-no-repayment-intent-or-ability",
           "deception.fraud.standard.intent-to-defraud-loan-inference",
-          "deception.fraud.standard.financial-loan-omission-caution",
           "deception.fraud.standard.loan-subsequent-default",
           "deception.fraud.standard.loan-lender-anticipated-risk",
           "deception.fraud.definition.deception-target-human"
@@ -302,8 +302,8 @@
       },
       "cards": 211,
       "counts": {
-        "context_only_excluded": 173,
-        "neural_grounding_spec_candidate": 25,
+        "context_only_excluded": 176,
+        "neural_grounding_spec_candidate": 22,
         "provisional_rule_ir_candidate": 13
       },
       "module": "deception"
@@ -332,8 +332,10 @@
           "fraud_mistake.known_dishonored_check",
           "fraud_mistake.road_occupancy_permit",
           "fraud_mistake.partnership_operator",
+          "fraud_mistake.active_creditor_extension",
           "fraud_mistake.hospital_debt_evasion",
           "fraud_mistake.hiding_after_loan",
+          "fraud_mistake.assignment_debt_extinguishment",
           "fraud_mistake.triangular_fraud_theories",
           "fraud_mistake.triangular_documents",
           "fraud_mistake.triangular_patent_documents",
@@ -371,9 +373,7 @@
           "fraud_mistake.trick_theft_directness",
           "fraud_mistake.no_capacity_theft",
           "fraud_mistake.gain_purpose",
-          "fraud_mistake.active_creditor_extension",
           "fraud_mistake.conscious_nonexercise",
-          "fraud_mistake.assignment_debt_extinguishment",
           "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation",
           "fraud_mistake.omission_not_all_nonclaims"
         ],
@@ -389,8 +389,8 @@
       },
       "cards": 70,
       "counts": {
-        "context_only_excluded": 46,
-        "neural_grounding_spec_candidate": 17,
+        "context_only_excluded": 48,
+        "neural_grounding_spec_candidate": 15,
         "provisional_rule_ir_candidate": 7
       },
       "module": "mistake_disposition"
@@ -471,6 +471,7 @@
     {
       "buckets": {
         "context_only_excluded": [
+          "fraud_intent.objective_circumstances",
           "fraud_intent.loan_subsequent_nonpayment",
           "fraud_intent.litigation_fraud_intent",
           "fraud_intent.policy_loan_false_contract",
@@ -492,6 +493,7 @@
           "fraud_intent.illegal_appropriation_required_all",
           "fraud_intent.illegal_appropriation_required_property_only",
           "fraud_intent.illegal_gain_directness",
+          "fraud_intent.illegal_gain_unauthorized",
           "fraud_intent.sham_litigation_auction_price",
           "fraud_intent.loan_lender_aware_credit_risk",
           "fraud_intent.bankruptcy_discharge_loan_caution",
@@ -509,10 +511,8 @@
         "neural_grounding_spec_candidate": [
           "fraud_intent.contract_breach_distinction",
           "fraud_intent.time_of_conduct",
-          "fraud_intent.objective_circumstances",
           "fraud_intent.precedent_illegal_appropriation_intent",
           "fraud_intent.illegal_appropriation_definition",
-          "fraud_intent.illegal_gain_unauthorized",
           "fraud_intent.third_party_acquisition"
         ],
         "provisional_rule_ir_candidate": [
@@ -521,8 +521,8 @@
       },
       "cards": 42,
       "counts": {
-        "context_only_excluded": 34,
-        "neural_grounding_spec_candidate": 7,
+        "context_only_excluded": 36,
+        "neural_grounding_spec_candidate": 5,
         "provisional_rule_ir_candidate": 1
       },
       "module": "intent"
@@ -531,9 +531,18 @@
       "buckets": {
         "context_only_excluded": [
           "special_forms.fraud.definition.litigation-fraud-triangular",
+          "special_forms.fraud.standard.litigation-fraud-strict-interpretation",
+          "special_forms.fraud.standard.litigation-fraud-objectively-false-or-knowing",
+          "special_forms.fraud.element.litigation-fraud-knowing-nonexistence",
+          "special_forms.fraud.exception.litigation-fraud-mistake-of-fact-or-law",
           "special_forms.fraud.standard.civil-loss-alone-insufficient",
           "special_forms.fraud.standard.defendant-active-deception-duty-evasion",
+          "special_forms.fraud.standard.indirect-perpetration-through-unaware-third-party",
           "special_forms.fraud.standard.excess-distribution-not-obvious-no-intent",
+          "special_forms.fraud.element.litigation-fraud-deceptive-act",
+          "special_forms.fraud.exception.omission-of-favorable-evidence",
+          "special_forms.fraud.standard.false-claim-alone-can-deceive",
+          "special_forms.fraud.element.judgment-substitutes-victim-disposition",
           "special_forms.fraud.exception.suit-against-dead-or-nonexistent-person",
           "special_forms.fraud.standard.building-permit-name-change-interest",
           "special_forms.fraud.standard.nominal-permit-holder-auction-no-fraud-against-owner",
@@ -568,6 +577,7 @@
           "special_forms.fraud.standard.invalid-mortgage-auction-fraud-against-buyer",
           "special_forms.fraud.standard.assignment-order-no-property-transfer",
           "special_forms.fraud.standard.changed-tenant-name-with-right-to-dividend",
+          "special_forms.fraud.element.litigation-fraud-commencement",
           "special_forms.fraud.standard.third-party-real-property-judgment-no-disposition",
           "special_forms.fraud.standard.false-loss-public-summons-note",
           "special_forms.fraud.standard.known-invalid-registration-claim-attempt",
@@ -575,9 +585,15 @@
           "special_forms.fraud.standard.litigation-fictitious-lien-no-court-disposition",
           "special_forms.fraud.standard.litigation-self-purchaser-no-victim",
           "special_forms.fraud.standard.litigation-mortgage-setting-fraud",
+          "special_forms.fraud.standard.insurance-concealed-existing-accident",
+          "special_forms.fraud.standard.insurance-intentional-accident-claim",
+          "special_forms.fraud.standard.insurance-false-accident-claim",
           "special_forms.fraud.standard.insurance-duty-disclosure-insufficient",
+          "special_forms.fraud.standard.insurance-omission-destroys-contingency",
+          "special_forms.fraud.standard.insurance-injury-disease-contingency-factors",
           "special_forms.fraud.standard.insurance-unpredictable-death-no-intentional-deception",
           "special_forms.fraud.standard.insurance-no-intent-to-obtain-no-fraud",
+          "special_forms.fraud.standard.insurance-defective-life-contract-preparatory-act",
           "special_forms.fraud.causal-link.insurance-completion-payment",
           "special_forms.fraud.exception.insurance-special-act-temporal-application",
           "special_forms.fraud.variant.illegal-cause-benefit-affirmative",
@@ -616,37 +632,26 @@
           "special_forms.fraud.standard.public-contract-estimate-information-no-capacity-deception"
         ],
         "neural_grounding_spec_candidate": [
-          "special_forms.fraud.standard.litigation-fraud-strict-interpretation",
-          "special_forms.fraud.standard.litigation-fraud-objectively-false-or-knowing",
-          "special_forms.fraud.element.litigation-fraud-knowing-nonexistence",
-          "special_forms.fraud.exception.litigation-fraud-mistake-of-fact-or-law",
-          "special_forms.fraud.standard.indirect-perpetration-through-unaware-third-party",
-          "special_forms.fraud.element.litigation-fraud-deceptive-act",
-          "special_forms.fraud.exception.omission-of-favorable-evidence",
-          "special_forms.fraud.standard.false-claim-alone-can-deceive",
-          "special_forms.fraud.element.judgment-substitutes-victim-disposition",
-          "special_forms.fraud.element.litigation-fraud-commencement",
-          "special_forms.fraud.standard.insurance-concealed-existing-accident",
-          "special_forms.fraud.standard.insurance-intentional-accident-claim",
-          "special_forms.fraud.standard.insurance-false-accident-claim",
-          "special_forms.fraud.standard.insurance-omission-destroys-contingency",
-          "special_forms.fraud.standard.insurance-injury-disease-contingency-factors",
-          "special_forms.fraud.standard.insurance-defective-life-contract-preparatory-act",
           "special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime"
         ]
       },
       "cards": 101,
       "counts": {
-        "context_only_excluded": 84,
-        "neural_grounding_spec_candidate": 17
+        "context_only_excluded": 100,
+        "neural_grounding_spec_candidate": 1
       },
       "module": "special_forms"
     },
     {
       "buckets": {
         "context_only_excluded": [
+          "fraud_stages_participation.insurance_false_claim_attempt",
           "fraud_stages_participation.defective_insurance_contract_preparation",
+          "fraud_stages_participation.gambling_fraud_attempt",
           "fraud_stages_participation.litigation_filing_attempt",
+          "fraud_stages_participation.litigation_service_not_required",
+          "fraud_stages_participation.false_claim_provisional_seizure_no_attempt",
+          "fraud_stages_participation.enforcement_application_attempt",
           "fraud_stages_participation.false_notarial_title_attachment_attempt",
           "fraud_stages_participation.false_lien_auction_attempt",
           "fraud_stages_participation.charitable_delivery_attempt",
@@ -658,7 +663,9 @@
           "fraud_stages_participation.voice_phishing_functional_control",
           "fraud_stages_participation.knowing_introduction_aiding",
           "fraud_stages_participation.subsidy_settlement_reference_no_attempt",
+          "fraud_stages_participation.payment_order_attempt",
           "fraud_stages_participation.lease_registration_attempt",
+          "fraud_stages_participation.post_filing_false_claim_attempt",
           "fraud_stages_participation.defendant_false_submission_attempt",
           "fraud_stages_participation.third_party_debtor_attachment_no_attempt",
           "fraud_stages_participation.litigation_attempt_termination",
@@ -684,17 +691,8 @@
           "fraud_stages_participation.ownership_transfer_suit_final_judgment_completion",
           "fraud_stages_participation.building_owner_change_suit_final_judgment_completion"
         ],
-        "neural_grounding_spec_candidate": [
-          "fraud_stages_participation.insurance_false_claim_attempt",
-          "fraud_stages_participation.gambling_fraud_attempt",
-          "fraud_stages_participation.false_claim_provisional_seizure_no_attempt",
-          "fraud_stages_participation.enforcement_application_attempt",
-          "fraud_stages_participation.payment_order_attempt",
-          "fraud_stages_participation.post_filing_false_claim_attempt"
-        ],
         "provisional_rule_ir_candidate": [
           "fraud_stages_participation.attempt_deceptive_act",
-          "fraud_stages_participation.litigation_service_not_required",
           "fraud_stages_participation.completion_deception_disposition_transfer",
           "fraud_stages_participation.no_causation_attempt",
           "fraud_stages_participation.property_fraud_completion_control"
@@ -702,9 +700,8 @@
       },
       "cards": 49,
       "counts": {
-        "context_only_excluded": 38,
-        "neural_grounding_spec_candidate": 6,
-        "provisional_rule_ir_candidate": 5
+        "context_only_excluded": 45,
+        "provisional_rule_ir_candidate": 4
       },
       "module": "stages_participation"
     },
@@ -788,9 +785,9 @@
   ],
   "status": "draft",
   "totals": {
-    "context_only_excluded": 528,
-    "neural_grounding_spec_candidate": 89,
-    "provisional_rule_ir_candidate": 29
+    "context_only_excluded": 558,
+    "neural_grounding_spec_candidate": 60,
+    "provisional_rule_ir_candidate": 28
   },
   "version": "1.2.0"
 }

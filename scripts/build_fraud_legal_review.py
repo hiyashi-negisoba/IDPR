@@ -650,7 +650,9 @@ def build_guide(
         f"- 검증 후보 {candidate_count}개가 NormCard "
         f"{sum(map(len, cards_by_module.values()))}개에 연결되어 있다.",
         "- Sol 최종 비평은 17개 묶음 전부 계약 검증을 통과했다.",
-        f"- 검토 지적 {len(queue)}개는 모두 판정·remediation 완료되었고, core 법률검수만 pending이다.",
+        f"- 검토 지적 {len(queue)}개는 모두 판정·remediation 완료되었고, core 법률검수는 "
+        f"{readiness['core_rule_review']['approved']}/{readiness['core_rule_review']['cards']}개 "
+        f"승인, unresolved {readiness['core_rule_review']['unresolved']}개다.",
         f"- 사용자 판정은 completed {by_review_status['completed']}개, "
         f"pending {by_review_status['pending']}개다.",
         "- 정책 쟁점에 직접 관련된 로컬 원판례 15건은 확인했고, 나머지 구체 적용례는 RAG context로 격리했다.",
@@ -679,9 +681,9 @@ def build_guide(
         "",
         "## Critic 결정 기록",
         "",
-        "`fraud_human_review_decisions.jsonl`의 67개 행은 완료된 critic 판정 기록이므로 "
-        "추가 입력 대상이 아니다. 현재 사용자 검수는 "
-        "`fraud_core_rule_review_decisions.jsonl`에서 수행한다.",
+        "`fraud_human_review_decisions.jsonl`의 67개 행은 완료된 critic 판정 기록이다. "
+        "core 검수 결과는 `fraud_core_rule_review_decisions.jsonl`, 원래 118개에 대한 "
+        "라벨과 반영 근거는 `fraud_core_rule_human_review_audit.json`에 보존한다.",
         "",
         "## 지적 분포",
         "",
@@ -718,9 +720,13 @@ def build_guide(
             f"{readiness['totals'].get('provisional_rule_ir_candidate', 0)}",
             f"- core_rule_review_pending: {readiness['core_rule_review']['unresolved']}",
             "",
-            "승인된 critic 지적과 판례 우선 정책 정리는 모두 반영되었다. 다만 deterministic rule과 "
-            "standard input 후보 전부에 대한 사용자 검수 전에는 전체 RuleIR 생성을 차단한다. "
-            "기존 8장짜리 모범 NormCard/RuleIR/Scallop은 구조 예시로만 유지한다.",
+            (
+                "승인된 critic 지적, 판례 우선 정책, core 사용자 검수가 모두 반영되어 "
+                "전체 RuleIR 생성 게이트가 열렸다. 기존 8장짜리 모범 "
+                "NormCard/RuleIR/Scallop은 구조 예시로만 유지한다."
+                if not readiness["full_rule_ir_generation_blocked"]
+                else "미해결 core 또는 policy가 있어 전체 RuleIR 생성을 차단한다."
+            ),
             "",
             "## 파일",
             "",
@@ -729,6 +735,7 @@ def build_guide(
             "- RuleIR readiness: `data/rulegen/fraud/fraud_rule_ir_readiness.json`",
             "- core 검수 큐: `data/rulegen/fraud/fraud_core_rule_review_queue.json`",
             "- core 결정 입력: `data/rulegen/fraud/fraud_core_rule_review_decisions.jsonl`",
+            "- core 원검수 감사: `data/rulegen/fraud/fraud_core_rule_human_review_audit.json`",
             "- Sol 원보고서: `data/rulegen/fraud/norm_card_reviews/fraud_norm_cards_critic_v4_final/`",
             "",
         ]

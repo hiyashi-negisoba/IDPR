@@ -793,8 +793,8 @@ corpus에서 판례 방향이 드러난 보호법익, 일부 경합, 불법원�
 
 작성일: 2026-07-18
 
-직전 보고의 “deterministic ready 51, standard input ready 285, policy 12개”는 최종
-상태가 아니며 이 절의 수치로 대체한다. 주석서와 로컬 대법원 판례 DB를 다시 대조한
+직전 보고의 “deterministic ready 51, standard input ready 285, policy 12개”는 당시 최종
+상태가 아니었으며 이 절의 수치로 대체했다. 주석서와 로컬 대법원 판례 DB를 다시 대조한
 결과, 직접 판례가 없다고 표시했던 12개 정책 그룹 모두를 판례 우선 실무 규칙 또는
 RAG 문맥으로 정리할 수 있었다. 외부 API는 사용하지 않았다.
 
@@ -832,3 +832,27 @@ RAG로 내리고, 손해 불요는 2003도4914·2017도21196 출처가 연결된
 - 전체 테스트: `50 passed`
 - Python `py_compile`: 통과
 - `git diff --check`: 통과
+
+---
+
+## 사기죄 core 사용자 검수 반영
+
+작성일: 2026-07-18
+
+사용자가 원래 core 후보 118개를 검토하여 `rag` 24개, `narrow` 10개, `reject` 3개,
+`duplicated` 1개로 표시했다. 표시가 없는 80개와 전체 출처를 다시 대조했고, 외부 API는
+사용하지 않았다.
+
+- 사용자 분류 직접 반영: RAG 24개, reject 3개, duplicate 1개
+- 추가 RAG: 지급명령 신청 및 소장 송달 시점 2개(소송사기 전용)
+- 사용자 narrow 직접 수정: 9개
+- 추가 문구 축소: 기존 착오 이용, 기망 상대방의 능력, 착오 인식 3개
+- 차용금 편취 범의 판단 규칙: core 유지
+- 중복된 일반 편취 범의 객관적 사정 카드: RAG 보존
+- 최종 실행 core: deterministic rule 28개, standard input 60개
+- 최종 RAG/future-work context: 558개
+- core 승인: 88/88, unresolved 0
+- 전체 RuleIR 생성 게이트: 해제(전수 RuleIR 생성은 아직 미실행)
+
+원래 118개 라벨, 원문과 수정문, 최종 역할 및 변경 사유는
+`data/rulegen/fraud/fraud_core_rule_human_review_audit.json`에 보존했다.

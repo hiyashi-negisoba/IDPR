@@ -103,7 +103,7 @@
         "fraud.article347.pass1.001"
       ],
       "review_notes": "인과관계 결여의 명시적 부정 규범이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅰ_0",
@@ -131,7 +131,7 @@
         "fraud.article347.pass1.001"
       ],
       "review_notes": "착오와 처분의 실제 동기 관계를 평가해야 한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅰ_0",
@@ -521,12 +521,12 @@
       "id": "general_object.fraud.standard.public-interest-only-no-fraud",
       "norm_kind": "standard",
       "polarity": "negative",
-      "proposition": "기망행위로 국가적·사회적 법익만 침해된 경우에는 원칙적으로 사기죄가 성립하지 않는다.",
+      "proposition": "기망이 국가적·공공적 법익만 침해하고 그 침해를 재산권 침해와 동일하게 평가할 수 없는 경우에는 사기죄가 성립하지 않는다.",
       "request_ids": [
         "fraud.article347.pass1.001"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
-      "review_required": true,
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자의 narrow 판정을 출처 범위에 맞는 문구로 직접 반영했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅱ.3_4",
@@ -549,12 +549,12 @@
       "id": "general_object.fraud.exception.public-interest-property-equivalence",
       "norm_kind": "exception",
       "polarity": "exception",
-      "proposition": "국가적·사회적 법익 침해가 동시에 사기죄의 보호법익인 재산권 침해와 동일하게 평가되고 사기죄의 특별관계에 해당하는 별도 처벌규정이 없는 경우에는 사기죄가 성립할 수 있다.",
+      "proposition": "기망으로 국가적·공공적 법익을 침해한 경우에도 그 침해가 동시에 재산권 침해와 동일하게 평가되고 해당 행위를 사기죄보다 특별하게 처벌하는 별도 규정이 없는 때에 한하여 사기죄가 성립할 수 있다.",
       "request_ids": [
         "fraud.article347.pass1.001"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
-      "review_required": true,
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자의 narrow 판정을 출처 범위에 맞는 문구로 직접 반영했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅱ.3_4",
@@ -816,7 +816,7 @@
         "fraud.article347.pass1.001"
       ],
       "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅱ.4_6",
@@ -844,7 +844,7 @@
         "fraud.article347.pass1.001"
       ],
       "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅲ_7",
@@ -872,7 +872,7 @@
         "fraud.article347.pass1.001"
       ],
       "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅲ_7",
@@ -928,7 +928,7 @@
         "fraud.article347.pass1.001"
       ],
       "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅲ_7",
@@ -1109,7 +1109,7 @@
         "fraud.article347.pass1.001"
       ],
       "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅲ.2_9",
@@ -1137,7 +1137,7 @@
         "fraud.article347.pass1.001"
       ],
       "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅲ.2_9",
@@ -1165,7 +1165,7 @@
         "fraud.article347.pass1.001"
       ],
       "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. bounded source가 settled를 입증하지 않아 descriptive로 낮췄다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅲ.2_10",

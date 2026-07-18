@@ -108,6 +108,9 @@ CORE_REVIEW_QUEUE = (
 CORE_REVIEW_DECISIONS = (
     PROJECT_ROOT / "data/rulegen/fraud/fraud_core_rule_review_decisions.jsonl"
 )
+CORE_HUMAN_REVIEW_AUDIT = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_core_rule_human_review_audit.json"
+)
 RULE_IR = PROJECT_ROOT / "data/rulegen/fraud/fraud_rule_ir_exemplar.json"
 SCALLOP = PROJECT_ROOT / "rules/exemplars/fraud_v1_candidate.scl"
 PROCEDURAL_GATE = PROJECT_ROOT / "rules/exemplars/procedural_gate_v1_candidate.scl"
@@ -814,6 +817,9 @@ def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> Non
     )
     core_queue = json.loads(CORE_REVIEW_QUEUE.read_text(encoding="utf-8"))
     core_decisions = load_jsonl(CORE_REVIEW_DECISIONS)
+    core_human_audit = json.loads(
+        CORE_HUMAN_REVIEW_AUDIT.read_text(encoding="utf-8")
+    )
     card_manifest = json.loads(NORM_CARD_MANIFEST.read_text(encoding="utf-8"))
 
     assert critic["totals"]["reports"] == 17
@@ -834,18 +840,18 @@ def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> Non
     assert remediation["accepted_findings"] == 57
     assert remediation["handled_findings"] == 57
     assert len(remediation["finding_resolutions"]) == 57
-    assert readiness["full_rule_ir_generation_blocked"] is True
-    assert readiness["core_rule_human_review_blocked"] is True
+    assert readiness["full_rule_ir_generation_blocked"] is False
+    assert readiness["core_rule_human_review_blocked"] is False
     assert readiness["core_rule_review"] == {
-        "approved": 0,
-        "cards": 118,
-        "unresolved": 118,
+        "approved": 88,
+        "cards": 88,
+        "unresolved": 0,
     }
     assert readiness["final_policy_activation_blocked"] is False
     assert readiness["totals"] == {
-        "context_only_excluded": 528,
-        "neural_grounding_spec_candidate": 89,
-        "provisional_rule_ir_candidate": 29,
+        "context_only_excluded": 558,
+        "neural_grounding_spec_candidate": 60,
+        "provisional_rule_ir_candidate": 28,
     }
     assert sum(readiness["totals"].values()) == 646
     assert audit["method"] == "manual_final_audit_no_api"
@@ -853,9 +859,9 @@ def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> Non
     assert audit["cards"] == 646
     assert audit["all_cards_accounted_for"] is True
     assert audit["status_counts"] == {
-        "deterministic_rule_review_pending": 29,
-        "rag_context_only": 528,
-        "standard_input_review_pending": 89,
+        "deterministic_rule_ready": 28,
+        "rag_context_only": 558,
+        "standard_input_ready": 60,
     }
     assert len(audit["rows"]) == len({row["card_id"] for row in audit["rows"]})
     assert policy_queue["api_calls"] == 0
@@ -882,27 +888,41 @@ def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> Non
         for record in policy_resolution["verified_local_primary_records"].values()
     } == {"대법원"}
     assert core_selection["api_calls"] == 0
+    assert core_selection["status"] == "complete"
+    assert core_selection["legal_review"] == "complete"
     assert core_selection["counts"] == {
-        "context_only": 528,
-        "deterministic_rule": 29,
-        "standard_input": 89,
+        "context_only": 558,
+        "deterministic_rule": 28,
+        "standard_input": 60,
     }
     assert core_queue["api_calls"] == 0
-    assert core_queue["cards"] == 118
+    assert core_queue["status"] == "complete"
+    assert core_queue["cards"] == 88
     assert core_queue["counts"] == {
-        "deterministic_rule": 29,
-        "standard_input": 89,
+        "deterministic_rule": 28,
+        "standard_input": 60,
     }
-    assert core_queue["decision_status_counts"] == {"pending": 118}
-    assert core_queue["approved"] == 0
-    assert core_queue["unresolved"] == 118
-    assert len(core_decisions) == 118
+    assert core_queue["decision_status_counts"] == {"completed": 88}
+    assert core_queue["approved"] == 88
+    assert core_queue["unresolved"] == 0
+    assert len(core_decisions) == 88
+    assert all(
+        row["status"] == "completed" and row["decision"] == "approve"
+        for row in core_decisions
+    )
     assert {row["review_id"] for row in core_decisions} == {
         row["review_id"] for row in core_queue["items"]
     }
     core_card_ids = {item["card_id"] for item in core_queue["items"]}
     assert not any(item["module"] == "concurrence" for item in core_queue["items"])
     assert "fraud_intent.conditional_intent" not in core_card_ids
+    assert "fraud_intent.objective_circumstances" not in core_card_ids
+    assert "deception.fraud.standard.intent-to-defraud-loan-inference" in core_card_ids
+    assert "fraud_stages_participation.payment_order_attempt" not in core_card_ids
+    assert (
+        "fraud_stages_participation.litigation_service_not_required"
+        not in core_card_ids
+    )
     assert "fraud_general_object.objective_elements" not in core_card_ids
     assert (
         "fraud_general_object.protected_interest_property_only"
@@ -927,6 +947,35 @@ def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> Non
         "fraud_stages_participation.inclusive_offense_withdrawal_liability"
         not in core_card_ids
     )
+    assert core_human_audit["api_calls"] == 0
+    assert core_human_audit["status"] == "complete"
+    assert core_human_audit["original_cards"] == 118
+    assert core_human_audit["active_core_cards"] == 88
+    assert core_human_audit["user_label_counts"] == {
+        "duplicated": 1,
+        "narrow": 10,
+        "pending": 80,
+        "rag": 24,
+        "reject": 3,
+    }
+    assert core_human_audit["action_counts"] == {
+        "approve_after_crosscheck": 76,
+        "narrow_and_approve": 9,
+        "narrow_and_approve_crosscheck": 3,
+        "reclassify_to_rag_duplicate_keep_loan_rule": 1,
+        "reclassify_to_rag_specific_litigation_fraud": 2,
+        "reclassify_to_rag_user": 24,
+        "reject_from_executable_core_keep_provenance_context": 3,
+    }
+    resolutions = {
+        row["card_id"]: row for row in core_human_audit["resolutions"]
+    }
+    assert resolutions["fraud_intent.objective_circumstances"]["action"] == (
+        "reclassify_to_rag_duplicate_keep_loan_rule"
+    )
+    assert resolutions[
+        "deception.fraud.standard.intent-to-defraud-loan-inference"
+    ]["final_role"] == "standard_input"
     module_paths = {
         module["module"]: PROJECT_ROOT / module["path"]
         for module in card_manifest["modules"]
@@ -941,6 +990,29 @@ def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> Non
     formalization_by_id = {
         card_id: card["formalization"] for card_id, card in cards_by_id.items()
     }
+    narrowed = [
+        row
+        for row in core_human_audit["resolutions"]
+        if row["action"].startswith("narrow_and_approve")
+    ]
+    assert len(narrowed) == 12
+    assert all(
+        row["original_proposition"] != row["final_proposition"]
+        and cards_by_id[row["card_id"]]["proposition"]
+        == row["final_proposition"]
+        for row in narrowed
+    )
+    excluded_actions = {
+        "reclassify_to_rag_duplicate_keep_loan_rule",
+        "reclassify_to_rag_specific_litigation_fraud",
+        "reclassify_to_rag_user",
+        "reject_from_executable_core_keep_provenance_context",
+    }
+    assert all(
+        cards_by_id[row["card_id"]]["formalization"] == "context_only"
+        for row in core_human_audit["resolutions"]
+        if row["action"] in excluded_actions
+    )
     objective_summary = cards_by_id["fraud_general_object.objective_elements"]
     assert objective_summary["formalization"] == "context_only"
     assert "재산상 손해" in objective_summary["proposition"]

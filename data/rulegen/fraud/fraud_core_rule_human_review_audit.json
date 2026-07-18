@@ -1,0 +1,2166 @@
+{
+  "action_counts": {
+    "approve_after_crosscheck": 76,
+    "narrow_and_approve": 9,
+    "narrow_and_approve_crosscheck": 3,
+    "reclassify_to_rag_duplicate_keep_loan_rule": 1,
+    "reclassify_to_rag_specific_litigation_fraud": 2,
+    "reclassify_to_rag_user": 24,
+    "reject_from_executable_core_keep_provenance_context": 3
+  },
+  "active_core_cards": 88,
+  "api_calls": 0,
+  "issue_tag": "fraud",
+  "method": "user_labels_plus_manual_crosscheck_no_api",
+  "original_cards": 118,
+  "resolutions": [
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.causal-link.deception-property-disposition",
+      "final_proposition": "사기죄에서 기망은 피기망자의 재산적 처분행위를 하게 하는 행위여야 한다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "사기죄에서 기망은 피기망자의 재산적 처분행위를 하게 하는 행위여야 한다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.causal-link.deception-property-disposition",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "사기죄에서 기망은 편취 또는 이득의 수단으로서 행하여지는 것이므로 피기망 자의 재산적 처분행위를 행하게 하는 행위가 아니면 안 된다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.causal-link.loan-purpose-not-sole-trigger",
+      "final_proposition": "차주가 밝힌 차용금 용도의 진실 여부가 대차 성립의 유일한 계기가 아닌 경우에는 기망행위와 재산적 처분행위 사이의 인과관계가 인정되지 않아 사기죄가 성립하지 않는다.",
+      "final_role": "standard_input",
+      "original_proposition": "차주가 밝힌 차용금 용도의 진실 여부가 대차 성립의 유일한 계기가 아닌 경우에는 기망행위와 재산적 처분행위 사이의 인과관계가 인정되지 않아 사기죄가 성립하지 않는다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.causal-link.loan-purpose-not-sole-trigger",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_12",
+          "quote": "그러나 이러한 경우에도 차주가 명시한 차용금의 용도가 진 정한지 여부가 그 대차성립의 유일한 계기가 아닌 때에는 사기죄가 성립하지 않 는다 (다만 이 경우에는 기망행위가 인정되지 않기 때문이 아니라 기망행위와 피해자의 기망의 내용이 상대방 재산적 처분행위 사이의 인과관계가 인정되지 않기 때문이다).",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.causal-link.no-disposition-no-deception",
+      "final_proposition": "상대방을 착오에 빠지게 하였더라도 그 착오에 기하여 재산적 처분행위를 하게 한 행위가 아니면 사기죄의 실행행위로서 기망이 아니다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "상대방을 착오에 빠지게 하였더라도 그 착오에 기하여 재산적 처분행위를 하게 한 행위가 아니면 사기죄의 실행행위로서 기망이 아니다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.causal-link.no-disposition-no-deception",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "따라서 상대방을 착오에 빠지게 하였다고 하더라도 그 착오에 기하여 상대방으로 하여금 재산적 처분행위를 하게 한 행위가 아니면 그 행위는 사기죄의 실행행위로서의 기망이 라고 할 수 없다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.definition.deceived-person-unspecified",
+      "final_proposition": "광고사기와 같이 기망행위의 상대방은 불특정인일 수 있다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "광고사기와 같이 기망행위의 상대방은 불특정인일 수 있다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.definition.deceived-person-unspecified",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_45",
+          "quote": "기망행위의 상대방은 이른바 광고사기에 있어서와 같이 불특정인일 수도 있다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.definition.deceived-person-victim-distinct",
+      "final_proposition": "기망의 상대방과 재산상 피해자는 동일인일 것을 요하지 않는다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "기망의 상대방과 재산상 피해자는 동일인일 것을 요하지 않는다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.definition.deceived-person-victim-distinct",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_45",
+          "quote": "행위의 객체와 보호의 객체는 별개이므로, 기망의 상대방과 재산상의 피해자",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_46",
+          "quote": "는 동일인일 것을 요하지 않는다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.definition.deception-content-basis-fact",
+      "final_proposition": "기망의 내용은 재산적 처분행위를 하는 데 판단의 기초가 되는 사실이며, 외부적·객관적 사실과 내부적·심리적 사실을 포함한다.",
+      "final_role": "standard_input",
+      "original_proposition": "기망의 내용은 재산적 처분행위를 하는 데 판단의 기초가 되는 사실이며, 외부적·객관적 사실과 내부적·심리적 사실을 포함한다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.definition.deception-content-basis-fact",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_12",
+          "quote": "기망의 내용은 재산적 처분행위를 하는 데 판단의 기초가 되는 사실이다. 여기에 는 외부적·객관적 사실, 내부적·심리적 사실이 포함된다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.definition.deception-counterparty-is-other",
+      "final_proposition": "사기죄에서 기망의 상대방은 타인이다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "사기죄에서 기망의 상대방은 타인이다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.definition.deception-counterparty-is-other",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_43",
+          "quote": "기망의 상대방은 ‘타인’이다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.definition.deception-good-faith-mistake",
+      "final_proposition": "기망은 거래관계에서 지켜야 할 신의칙에 반하여 사람으로 하여금 착오를 일으키게 하는 행위이다.",
+      "final_role": "standard_input",
+      "original_proposition": "기망은 거래관계에서 지켜야 할 신의칙에 반하여 사람으로 하여금 착오를 일으키게 하는 행위이다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.definition.deception-good-faith-mistake",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.definition.deception-means-unrestricted",
+      "final_proposition": "기망 수단에는 제한이 없으며, 언어·문서·거동, 적극적 주장·묵비, 작위·부작위 및 명시적·묵시적 방식 모두가 문제될 수 있다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "기망 수단에는 제한이 없으며, 언어·문서·거동, 적극적 주장·묵비, 작위·부작위 및 명시적·묵시적 방식 모두가 문제될 수 있다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.definition.deception-means-unrestricted",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_18",
+          "quote": "기망의 수단에는 제한이 없다. 사기죄의 요건으로서의 기망은 널리 재산상의 거 래관계에 있어서 상호간 지켜야 할 신의와 성실의 의무를 배반하는 것을 본질 로 하는 일체의 것을 의미한다. 따라서 언어에 의하든, 문서에 의하든, 거동 에 의하든, 적극적으로 사실을 주장하든, 소극적으로 사실을 묵비하든, 작위에 의하든, 부작위에 의하든 이를 불문한다. 또 명시적이든 묵시적이든 묻지 않는다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.definition.deception-object-facts",
+      "final_proposition": "재산적 처분의 판단 기초사실이면 물건의 성질·품질 등 객관적 사실, 대금지급 의사 등 심리적 사실, 법률효력 등 법률적 사실 또는 민법상 무효인 법률행위에 관한 사실도 기망 대상이 될 수 있다.",
+      "final_role": "standard_input",
+      "original_proposition": "재산적 처분의 판단 기초사실이면 물건의 성질·품질 등 객관적 사실, 대금지급 의사 등 심리적 사실, 법률효력 등 법률적 사실 또는 민법상 무효인 법률행위에 관한 사실도 기망 대상이 될 수 있다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.definition.deception-object-facts",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_12",
+          "quote": "이 재산적 처분행위를 하기 위한 판단의 기초가 되는 사실이면 그것이 물건의 성질, 품질 등 외부적 객관적 사실이든, 대금지급의 의사와 같은 심리적 사실이 든, 법률적 효력과 같은 법률적 사실이든, 민법상 무효인 법률행위로서 법률상 실현할 수 없는 사실이든 이를 묻지 않고 기망행위의 대상이 될 수 있다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "narrow_and_approve_crosscheck",
+      "card_id": "deception.fraud.definition.deception-target-human",
+      "final_proposition": "사실과 다른 관념을 형성하고 재산적 처분행위를 할 인식능력이 없는 사람은 기망의 상대방이 될 수 없고, 기계는 착오에 빠질 수 없어 기망행위의 대상이 될 수 없다.",
+      "final_role": "standard_input",
+      "original_proposition": "심신상실자 또는 유아 등은 기망의 상대방이 될 수 없고, 기계는 착오에 빠질 수 없어 기망행위의 대상이 될 수 없다.",
+      "original_role": "standard_input",
+      "reason": "전수 교차검토에서 과도한 범위 또는 인접 규칙과의 충돌을 좁혔다.",
+      "review_id": "fraud.core.deception.fraud.definition.deception-target-human",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_45",
+          "quote": "심신상실자 또는 유아 등은 기망의 상대방이 될 수 없고, 기계는 주어진 사 실에 따라 피동적으로 작동할 뿐 착오에 빠질 수 없으므로 기망행위의 대상이 될 수 없다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "narrow_and_approve_crosscheck",
+      "card_id": "deception.fraud.definition.exploitation-existing-mistake",
+      "final_proposition": "이미 착오에 빠진 상태를 이용하는 행위가 신의칙 위반의 작위 또는 고지의무 있는 부작위로 평가되는 경우 기망행위가 될 수 있다.",
+      "final_role": "standard_input",
+      "original_proposition": "이미 착오에 빠진 상태를 이용하는 것도 기망에 해당한다.",
+      "original_role": "standard_input",
+      "reason": "전수 교차검토에서 과도한 범위 또는 인접 규칙과의 충돌을 좁혔다.",
+      "review_id": "fraud.core.deception.fraud.definition.exploitation-existing-mistake",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "이미 착오에 빠져 있는 상태를 이용 하는 것도 기망에 해당한다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.definition.implicit-deception",
+      "final_proposition": "묵시적 기망행위는 언어나 문서가 아니라 행동 또는 태도로 일정 사항에 관한 허위 외관을 표시하는 것을 의미한다.",
+      "final_role": "standard_input",
+      "original_proposition": "묵시적 기망행위는 언어나 문서가 아니라 행동 또는 태도로 일정 사항에 관한 허위 외관을 표시하는 것을 의미한다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.definition.implicit-deception",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_19",
+          "quote": "묵시적 기망행위란 언어나 문서에 의하여 표현하지 않고 행동 또는 태도를 통 하여 일정 사항에 관하여 허위의 외관을 표시하는 것을 의미한다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.definition.notice-duty-violation-omission",
+      "final_proposition": "고지의무를 위반하여 사실을 묵비하는 것은 작위에 의한 기망이 아니라 부작위에 의한 기망행위에 해당한다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "고지의무를 위반하여 사실을 묵비하는 것은 작위에 의한 기망이 아니라 부작위에 의한 기망행위에 해당한다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.definition.notice-duty-violation-omission",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_21",
+          "quote": "고지의무를 위반하여 사실을 묵비하는 것은 단순한 거동에 의한 기망의 일부가 아니고 기망수단의 본질적 요소를 구성하는 것이기 때문에 작위에 의한 기망행 위가 아니라 부작위에 의한 기망행위에 해당한다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.definition.other-includes-corporation",
+      "final_proposition": "사기죄에서 ‘타인’에는 법인이 포함되며, 법인도 사기죄의 피해자가 될 수 있다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "사기죄에서 ‘타인’에는 법인이 포함되며, 법인도 사기죄의 피해자가 될 수 있다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.definition.other-includes-corporation",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_44",
+          "quote": "‘타인’에는 법인도 포함된다. 법인도 사기죄의 피 해자가 될 수 있고",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.element.deception-must-create-false-belief",
+      "final_proposition": "기망적 수단을 사용하였더라도 상대방에게 진실과 합치하지 않는 관념을 발생시킨 행위가 아니면 사기죄 실행행위로서의 기망이 아니다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "기망적 수단을 사용하였더라도 상대방에게 진실과 합치하지 않는 관념을 발생시킨 행위가 아니면 사기죄 실행행위로서의 기망이 아니다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.element.deception-must-create-false-belief",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "기망적인 수단을 사용하였다고 하더라도 상대방으로 하여금 진실 과 합치하지 않는 관념을 발생하게 한 행위가 아니라면 이는 사기죄의 실행행 위로서의 기망이라고 할 수 없다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.element.deception-not-legal-act-important-part",
+      "final_proposition": "사기죄 실행행위로서의 기망은 법률행위의 중요부분에 관한 것일 필요 없이 상대방의 재산적 처분을 위한 판단의 기초사실에 관한 기망이면 충분하다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "사기죄 실행행위로서의 기망은 법률행위의 중요부분에 관한 것일 필요 없이 상대방의 재산적 처분을 위한 판단의 기초사실에 관한 기망이면 충분하다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.element.deception-not-legal-act-important-part",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_12",
+          "quote": "사기죄의 실행행위로 서의 기망은 반드시 법률행위의 중요부분에 관한 것일 필요는 없고, 단지 상대방 이 재산적 처분행위를 하기 위한 판단의 기초사실에 관한 기망행위이면 충분하 다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.element.loan-no-repayment-intent-or-ability",
+      "final_proposition": "변제할 의사나 능력이 없는데도 금원을 차용하면 사기죄에 해당한다.",
+      "final_role": "standard_input",
+      "original_proposition": "변제할 의사나 능력이 없는데도 금원을 차용하면 사기죄에 해당한다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.element.loan-no-repayment-intent-or-ability",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_37",
+          "quote": "변제할 의 사나 능력이 없는데도 금원을 차용하는 행위는 사기죄에 해당하고",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.element.omission-deception-guarantor-equivalence",
+      "final_proposition": "부작위에 의한 기망행위에서는 행위자가 상대방 착오를 제거할 보증인적 지위에 있고, 부작위가 작위에 의한 기망행위와 동가치를 가져야 한다.",
+      "final_role": "standard_input",
+      "original_proposition": "부작위에 의한 기망행위에서는 행위자가 상대방 착오를 제거할 보증인적 지위에 있고, 부작위가 작위에 의한 기망행위와 동가치를 가져야 한다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.element.omission-deception-guarantor-equivalence",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_20",
+          "quote": "따라서 행위자가 상대방의 착오를 제거 해야 할 보증인적 지위에 있어야 하고 그 부작위가 작위에 의한 기망행위와 동 가치를 가져야 한다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.element.omission-deception-independent-error",
+      "final_proposition": "부작위에 의한 기망행위에서는 상대방이 행위자와 관계없이 스스로 착오에 빠져 있어야 한다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "부작위에 의한 기망행위에서는 상대방이 행위자와 관계없이 스스로 착오에 빠져 있어야 한다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.element.omission-deception-independent-error",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_20",
+          "quote": "부작위에 의한 기망행위의 경우 상대방이 행위자와 관계없이 스스로 착오 에 빠져 있을 것을 요하고",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.element.omission-deception-legal-notice-duty",
+      "final_proposition": "법률상 고지의무가 있는 자가 일정 사실을 고지하지 않아 상대방의 착오 상태를 계속시키고 이를 이용한 경우, 부작위에 의한 기망행위가 성립한다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "법률상 고지의무가 있는 자가 일정 사실을 고지하지 않아 상대방의 착오 상태를 계속시키고 이를 이용한 경우, 부작위에 의한 기망행위가 성립한다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.element.omission-deception-legal-notice-duty",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_20",
+          "quote": "법률상 고지의무 있는 자가 일정한 사 실을 고지하지 않음으로써 상대방이 착오에 빠진 상태를 계속시키고 이것을 이 용하는 경우에 부작위에 의한 기망으로서 기망행위는 성립한다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.element.transaction-purpose-no-impairment",
+      "final_proposition": "상대방을 착오에 빠뜨렸더라도 거래 목적 달성에 지장이 없으면 신의칙 위반의 기망행위가 있었다고 보기 어렵다.",
+      "final_role": "standard_input",
+      "original_proposition": "상대방을 착오에 빠뜨렸더라도 거래 목적 달성에 지장이 없으면 신의칙 위반의 기망행위가 있었다고 보기 어렵다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.element.transaction-purpose-no-impairment",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_14",
+          "quote": "비록 상대방을 착오에 빠뜨렸다고 하더라도 그것으로 인하여 거래의 목적을 달성하는 데 지장 이 없을 때에는 기망행위가 있었다고 하기 어렵다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.element.victim-negligence-no-bar",
+      "final_proposition": "착오가 상대방의 과실과 경합하더라도 사기죄는 성립할 수 있다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "착오가 상대방의 과실과 경합하더라도 사기죄는 성립할 수 있다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.element.victim-negligence-no-bar",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_14",
+          "quote": "따라서 착오가 상대방의 과실과 경합한 경우에도 사기죄가 성립하므로",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "reject_from_executable_core_keep_provenance_context",
+      "card_id": "deception.fraud.exception.no-notice-duty-no-effect-on-rights",
+      "final_proposition": "법률관계의 효력에 영향이 없고 상대방 권리실현에 장애가 되지 않는 사유에는 고지의무가 없다.",
+      "final_role": "context_only",
+      "original_proposition": "법률관계의 효력에 영향이 없고 상대방 권리실현에 장애가 되지 않는 사유에는 고지의무가 없다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 실행 규칙으로 부적절하다고 판단하여 RAG 문맥에만 보존했다.",
+      "review_id": "fraud.core.deception.fraud.exception.no-notice-duty-no-effect-on-rights",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_21",
+          "quote": "법률관계의 효력에 영향이 없고 상대방의 권리실현에 장애가 되지 아니하는 사유는 이를 고지할 의무가 없다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "reject"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "deception.fraud.standard.abstract-or-immaterial-advertising",
+      "final_proposition": "과대광고·선전에서 허위 사실을 고지했더라도 그 내용이 추상적이거나 거래상 중요하지 않은 사항이면 사기죄 성립이 부정될 수 있다.",
+      "final_role": "context_only",
+      "original_proposition": "과대광고·선전에서 허위 사실을 고지했더라도 그 내용이 추상적이거나 거래상 중요하지 않은 사항이면 사기죄 성립이 부정될 수 있다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.deception.fraud.standard.abstract-or-immaterial-advertising",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_17",
+          "quote": "과대광고·선전에서 허위의 사실을 고지해도 그것이 추상적이라거나 거래상 중 요하지 않은 사항에 관한 것이라는 이유로 사기죄의 성립을 부정한 경우이다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.standard.advertising-important-concrete-falsehood",
+      "final_proposition": "거래의 중요한 사항에 관한 구체적 사실을 거래상 신의성실의무에 비추어 비난받을 정도의 방법으로 허위 고지한 경우, 과장·허위광고의 한계를 넘어 사기죄의 기망행위에 해당한다.",
+      "final_role": "standard_input",
+      "original_proposition": "거래의 중요한 사항에 관한 구체적 사실을 거래상 신의성실의무에 비추어 비난받을 정도의 방법으로 허위 고지한 경우, 과장·허위광고의 한계를 넘어 사기죄의 기망행위에 해당한다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.standard.advertising-important-concrete-falsehood",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_15",
+          "quote": "거래에 있어서 중요한 사항에 관하여 구체적 사실을 거래상의 신의성실의 의무 에 비추어 비난받을 정도의 방법으로 허위로 고지한 경우에는 과장, 허위광고의 한 계를 넘어 사기죄의 기망행위에 해당한다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.standard.advertising-tolerable-exaggeration",
+      "final_proposition": "상품 광고·선전에 수반된 과장이나 허위가 일반 상거래 관행과 신의칙상 시인될 수 있는 정도이면 기망행위를 인정하기 어려워 사기죄가 성립하지 않는다.",
+      "final_role": "standard_input",
+      "original_proposition": "상품 광고·선전에 수반된 과장이나 허위가 일반 상거래 관행과 신의칙상 시인될 수 있는 정도이면 기망행위를 인정하기 어려워 사기죄가 성립하지 않는다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.standard.advertising-tolerable-exaggeration",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_15",
+          "quote": "광고·선전이 일반 상거래의 관행과 신의칙에 비추어 시인될 수 있는 정도의 것(예컨대, 음식이 가장 맛있는 집, 물건을 가장 싸게 파는 집)이라면 기 망행위를 인정하기 어려워 사기죄가 성립하지 않는다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.standard.deception-concrete-circumstances",
+      "final_proposition": "행위가 상대방을 착오에 빠지게 한 기망인지 여부는 거래 상황, 상대방의 지식·경험·직업 등 행위 당시 구체적 사정을 고려하여 일반적·객관적으로 판단한다.",
+      "final_role": "standard_input",
+      "original_proposition": "행위가 상대방을 착오에 빠지게 한 기망인지 여부는 거래 상황, 상대방의 지식·경험·직업 등 행위 당시 구체적 사정을 고려하여 일반적·객관적으로 판단한다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.standard.deception-concrete-circumstances",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_14",
+          "quote": "어떤 행위가 다른 사람을 착오에 빠지게 한 기망행위에 해당하는지 여부는 거 래의 상황, 상대방의 지식, 경험, 직업 등 행위 당시의 구체적 사정을 고려하여 일반적, 객관적으로 결정하여야 한다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.standard.easily-detectable-lie",
+      "final_proposition": "구체적 사정에서 누구나 쉽게 허위를 간파할 수 있는 단순한 거짓말은 기망에 해당하지 않는다.",
+      "final_role": "standard_input",
+      "original_proposition": "구체적 사정에서 누구나 쉽게 허위를 간파할 수 있는 단순한 거짓말은 기망에 해당하지 않는다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.standard.easily-detectable-lie",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_14",
+          "quote": "그러나 이 정도에 달하지 않은 허구, 즉 구체적 사정 하에서 누구나 용이하게 그 허위를 간파할 수 있는 단순한 거짓말은 기망에 해당하지 않는다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "deception.fraud.standard.financial-loan-omission-caution",
+      "final_proposition": "금융기관 대출사기에서 여신거래약정이나 기본약관에 차주의 신용상태 고지의무가 규정되어 있지 않다면, 부작위에 의한 기망행위는 신중히 판단하여야 한다.",
+      "final_role": "context_only",
+      "original_proposition": "금융기관 대출사기에서 여신거래약정이나 기본약관에 차주의 신용상태 고지의무가 규정되어 있지 않다면, 부작위에 의한 기망행위는 신중히 판단하여야 한다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.deception.fraud.standard.financial-loan-omission-caution",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_37",
+          "quote": "여신거래약정이나 여신거래기본약관에서 차주가 신용 상태에 대하여 고지의무를 부담한다는 사실을 규정하고 있지 않으므로, 부작위 에 의한 기망행위를 신중하게 판단할 필요가 있다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.standard.implicit-deception-explanatory-value",
+      "final_proposition": "묵시적 기망행위는 행위자 전체행위가 설명가치를 가질 때 인정되며, 그 설명가치는 거래관행과 사회통념으로 결정된다.",
+      "final_role": "standard_input",
+      "original_proposition": "묵시적 기망행위는 행위자 전체행위가 설명가치를 가질 때 인정되며, 그 설명가치는 거래관행과 사회통념으로 결정된다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.standard.implicit-deception-explanatory-value",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_19",
+          "quote": "이는 행위 자의 전체행위가 설명가치를 가질 때 인정되고, 그 설명가치는 거래관행과 사회 통념에 의하여 결정된다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "narrow_and_approve",
+      "card_id": "deception.fraud.standard.implicit-omission-deception-distinction",
+      "final_proposition": "행위자의 침묵이 거래관행·사회통념상 일정 사항을 표시하는 설명가치를 가져 묵시적 기망으로 평가되는지를 먼저 검토하고, 그렇지 않은 침묵은 보증인적 지위와 고지의무가 있는 경우에 한하여 부작위 기망이 될 수 있다.",
+      "final_role": "standard_input",
+      "original_proposition": "행위자의 침묵이 설명가치를 가지는 묵시적 기망행위에 해당하지 않는 경우에 한하여, 보증인적 지위와 고지의무를 전제로 부작위에 의한 기망행위 해당 여부를 검토한다.",
+      "original_role": "standard_input",
+      "reason": "사용자의 narrow 판정을 원문 범위에 맞는 문구로 직접 반영했다.",
+      "review_id": "fraud.core.deception.fraud.standard.implicit-omission-deception-distinction",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_20",
+          "quote": "행위자의 침묵 이 설명가치를 가지는 묵시적 기망행위에 해당하지 않는 경우에 한하여 보증인 적 지위와 고지의무가 필요한 부작위에 의한 기망행위에 해당하는지 검토한 다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "narrow"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.standard.intent-to-defraud-loan-inference",
+      "final_proposition": "차용금 사기에서 편취의 범의는 피고인의 자백이 없으면 범행 전후 재력, 환경, 범행 내용, 거래 이행과정, 피해자와의 관계 등 객관적 사정을 종합하여 판단한다.",
+      "final_role": "standard_input",
+      "original_proposition": "차용금 사기에서 편취의 범의는 피고인의 자백이 없으면 범행 전후 재력, 환경, 범행 내용, 거래 이행과정, 피해자와의 관계 등 객관적 사정을 종합하여 판단한다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.standard.intent-to-defraud-loan-inference",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_37",
+          "quote": "사기죄의 주관적 구성요건인 편취의 범의 존부 는 피고인이 자백하지 않는 한 범행 전후의 피고인의 재력, 환경, 범행의 내용, 거래의 이행과정, 피해자와의 관계 등과 같은 객관적 사정을 종합하여 판단하여 야 하고",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.standard.loan-lender-anticipated-risk",
+      "final_proposition": "대주가 인적·계속적 거래관계로 차주의 신용상태를 알고 변제지체·변제불능 위험을 예상했거나 충분히 예상할 수 있었고, 차주가 차용 당시 중요한 사항에 허위사실을 말한 등의 사정이 없다면 이후 미변제만으로 기망이나 편취 범의를 단정할 수 없다.",
+      "final_role": "standard_input",
+      "original_proposition": "대주가 인적·계속적 거래관계로 차주의 신용상태를 알고 변제지체·변제불능 위험을 예상했거나 충분히 예상할 수 있었고, 차주가 차용 당시 중요한 사항에 허위사실을 말한 등의 사정이 없다면 이후 미변제만으로 기망이나 편취 범의를 단정할 수 없다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.standard.loan-lender-anticipated-risk",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_38",
+          "quote": "차주가 그 후 제대로 변제하지 못하였다는 사실만을 가지고 변제능력에 관하여 대주를 기망하였다거나 차주에게 편취의 범의가 있었다고 단정할 수 없다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.standard.loan-purpose-materiality",
+      "final_proposition": "용도를 속여 돈을 빌린 경우, 진정한 용도를 고지했더라면 상대방이 대여하지 않았을 관계에 있으면 사기죄가 성립한다.",
+      "final_role": "standard_input",
+      "original_proposition": "용도를 속여 돈을 빌린 경우, 진정한 용도를 고지했더라면 상대방이 대여하지 않았을 관계에 있으면 사기죄가 성립한다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.standard.loan-purpose-materiality",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_12",
+          "quote": "용도를 속여서 돈을 빌린 경우에 그 진정한 용도를 고지하였더라면 상대방이 대여하여 주지 않았던 관계에 있는 때에는 사 기죄가 성립한다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.standard.loan-subsequent-default",
+      "final_proposition": "소비대차에서 차주가 차용 당시 변제 의사와 능력이 있었다면, 이후 변제하지 않더라도 민사상 채무불이행일 뿐 사기죄는 성립하지 않는다.",
+      "final_role": "standard_input",
+      "original_proposition": "소비대차에서 차주가 차용 당시 변제 의사와 능력이 있었다면, 이후 변제하지 않더라도 민사상 채무불이행일 뿐 사기죄는 성립하지 않는다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.standard.loan-subsequent-default",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_37",
+          "quote": "소비대차 거 래에서 차주가 돈을 빌릴 당시에는 변제할 의사와 능력을 가지고 있었다면 비 록 그 후에 변제하지 않고 있더라도 이는 민사상 채무불이행에 불과하며 사기 죄가 성립하지는 않는다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.standard.precedent-notice-duty-materiality",
+      "final_proposition": "판례는 법률상 고지의무자가 상대방의 착오를 알면서도 고지하지 않은 경우, 일반거래 경험칙상 상대방이 그 사실을 알았다면 해당 법률행위를 하지 않았을 것이 명백하면 신의칙상 고지의무가 인정된다고 본다.",
+      "final_role": "standard_input",
+      "original_proposition": "판례는 법률상 고지의무자가 상대방의 착오를 알면서도 고지하지 않은 경우, 일반거래 경험칙상 상대방이 그 사실을 알았다면 해당 법률행위를 하지 않았을 것이 명백하면 신의칙상 고지의무가 인정된다고 본다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.standard.precedent-notice-duty-materiality",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_21",
+          "quote": "일반거래의 경험칙상 상대방이 그 사실을 알았더라면 당해 법률행위를 하지 않았을 것이 명백한 경우에는 신의칙에 비추 어 그 사실을 고지할 법률상 의무가 인정되는 것이다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "deception.fraud.standard.vague-opinion-not-deception",
+      "final_proposition": "땅값이나 주가가 오를 것 같다는 식의 막연한 추측이나 의견 제시는 기망이 될 수 없다.",
+      "final_role": "standard_input",
+      "original_proposition": "땅값이나 주가가 오를 것 같다는 식의 막연한 추측이나 의견 제시는 기망이 될 수 없다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.deception.fraud.standard.vague-opinion-not-deception",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_13",
+          "quote": "땅값이 오를 것 같다거나 주가가 오를 것 같다는 식의 막연한 추측이나 의견제시가 기망이 될 수 없음은 자명하다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_damage_acquisition.delivery_factual_control",
+      "final_proposition": "재물의 현실 인도가 없더라도 재물이 범인의 사실상 지배 아래 들어가 자유로운 처분이 가능한 상태가 되면 재물의 교부가 있다.",
+      "final_role": "standard_input",
+      "original_proposition": "재물의 현실 인도가 없더라도 재물이 범인의 사실상 지배 아래 들어가 자유로운 처분이 가능한 상태가 되면 재물의 교부가 있다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_damage_acquisition.delivery_factual_control",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
+          "quote": "반드시 재물의 현실의 인도가 필요한 것 은 아니고 재물이 범인의 사실상의 지배 아래에 들어가 그의 자유로운 처분이 가능한 상태에 놓인 경우에도 재물의 교부가 있었다고 보아야 한다.",
+          "section_path": "Ⅳ.5"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_damage_acquisition.delivery_of_property",
+      "final_proposition": "사기죄에서 재물의 교부는 범인의 기망에 따라 피해자가 착오로 재물에 대한 사실상 지배를 범인에게 이전하는 것이다.",
+      "final_role": "standard_input",
+      "original_proposition": "사기죄에서 재물의 교부는 범인의 기망에 따라 피해자가 착오로 재물에 대한 사실상 지배를 범인에게 이전하는 것이다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_damage_acquisition.delivery_of_property",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
+          "quote": "사기죄에서 ‘재물의 교부’란 범인의 기망에 따라 피해자가 착오로 재물에 대한 사실상의 지배를 범인에게 이전하는 것을 의미한다.",
+          "section_path": "Ⅳ.5"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "narrow_and_approve",
+      "card_id": "fraud_damage_acquisition.money_delivery_full_amount",
+      "final_proposition": "금원 편취 사기에서 피해자가 기망으로 교부한 금원과 관련하여 상당한 대가가 일부 지급되었더라도 이를 공제하지 않고, 편취액은 교부받은 금원 전부로 본다.",
+      "final_role": "standard_input",
+      "original_proposition": "금원 편취 사기에서 기망으로 금원을 교부받으면 그 자체로 재산침해가 되며, 대가가 일부 지급되어도 편취액은 대가를 공제한 차액이 아니라 교부받은 금원 전부이다.",
+      "original_role": "standard_input",
+      "reason": "사용자의 narrow 판정을 원문 범위에 맞는 문구로 직접 반영했다.",
+      "review_id": "fraud.core.fraud_damage_acquisition.money_delivery_full_amount",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_63",
+          "quote": "사기죄에 있어서 그 대가가 일부 지급된 경우에도 그 편취액은 피해자로부 터 교부된 금원으로부터 그 대가를 공제한 차액이 아니라 교부받은 금원 전부이고",
+          "section_path": "Ⅳ.4"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_63",
+          "quote": "금원 편취를 내용으로 하는 사기죄에서는 기망으로 인한 금원 교부가 있으면 그 자 체로써 피해자의 재산침해가 되어 바로 사기죄가 성립하고, 상당한 대가가 지급되었 다거나 피해자의 전체 재산상에 손해가 없다 하여도 사기죄의 성립에는 그 영향이 없으므로",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "user_label": "narrow"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_damage_acquisition.property_concept_reported_precedent",
+      "final_proposition": "사기죄의 재산상 이익 취득은 법률상 유효할 필요가 없고, 법률상 무효라도 외형상 재산상 이익을 취득하면 족하다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "사기죄의 재산상 이익 취득은 법률상 유효할 필요가 없고, 법률상 무효라도 외형상 재산상 이익을 취득하면 족하다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_damage_acquisition.property_concept_reported_precedent",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "quote": "판례는 사기죄에서 재산상 이익처분은 법률상 유효하게 취득할 것을 필 요로 하지 않고 그 이익 취득이 법률상 무효라고 하여도 외형상 취득하면 족하 다고 판시하고 있어 법률적 재산개념에 한정하지 않고 있고, 경제적 재산개 념에 가깝다고 보인다.",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_damage_acquisition.property_disposition_types",
+      "final_proposition": "재산상 이익에 대한 처분행위에는 계약 체결, 노무 제공, 채무면제 의사표시 등 이익을 취득하게 하는 일체의 행위가 포함된다.",
+      "final_role": "standard_input",
+      "original_proposition": "재산상 이익에 대한 처분행위에는 계약 체결, 노무 제공, 채무면제 의사표시 등 이익을 취득하게 하는 일체의 행위가 포함된다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_damage_acquisition.property_disposition_types",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
+          "quote": "재산상 의 이익에 대한 처분행위로는 계약의 체결, 노무의 제공, 채무면제의 의사표 시 등 이익을 취득하게 하는 일체의 행위가 포함된다.",
+          "section_path": "Ⅳ.5"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_damage_acquisition.property_loss_negative_view",
+      "final_proposition": "사기죄는 기망에 의한 재물 교부 또는 재산상 이익 취득으로 성립하며, 상대방에게 현실적인 재산상 손해가 별도로 발생할 것을 요구하지 않는다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "사기죄는 기망에 의한 재물 교부 또는 재산상 이익 취득으로 성립하며, 상대방에게 현실적인 재산상 손해가 별도로 발생할 것을 요구하지 않는다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_damage_acquisition.property_loss_negative_view",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_63",
+          "quote": "재물편취와 불법이득의 모든 경우에 재물의 교부 또는 재산상의 이익 취득 이 있으면 족하고 피해자에게 손해가 발생하였음을 요하지 않는다고 한다.",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_damage_acquisition.protected_economic_interest",
+      "final_proposition": "사기죄의 객체인 재산상 이익은 사법상 보호되는 경제적 이익에 한정되지 않고, 사법상 보호되지 않는 경제적 이익도 경제적 이익이면 포함된다.",
+      "final_role": "standard_input",
+      "original_proposition": "사기죄의 객체인 재산상 이익은 사법상 보호되는 경제적 이익에 한정되지 않고, 사법상 보호되지 않는 경제적 이익도 경제적 이익이면 포함된다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_damage_acquisition.protected_economic_interest",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_64",
+          "quote": "사기죄의 객체가 되는 재산상의 이익이 반드시 사법상 보호되는 경제적 이익만 을 의미하지 않으므로, 사법상 보호되지 않은 경제적 이익이더라도 경제적 이익 에 해당하면 사기죄가 성립한다.",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_damage_acquisition.right_exercise_unacceptable_deception",
+      "final_proposition": "기망을 수단으로 한 권리행사라도 그 수단이 사회통념상 권리행사 수단으로 용인될 정도를 넘어서는 경우 권리행사에 속하는 행위도 사기죄에 해당한다.",
+      "final_role": "standard_input",
+      "original_proposition": "기망을 수단으로 한 권리행사라도 그 수단이 사회통념상 권리행사 수단으로 용인될 정도를 넘어서는 경우 권리행사에 속하는 행위도 사기죄에 해당한다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_damage_acquisition.right_exercise_unacceptable_deception",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.6_69",
+          "quote": "그 정도를 넘어 사회통념상 그러한 수단에 의한 권리행사를 용인할 수 없다고 평가되는 경우에는 그 행위 자체가 위법한 것이 되므로, 권리행사에 속하는 행위도 사기죄에 해당한다는 입장이다.",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_damage_acquisition.subsequent_return_irrelevant",
+      "final_proposition": "기망으로 재물을 편취한 경우 상당한 대가 제공, 사후 반환·변상, 전체 재산 손해 부재 또는 사후 합의는 사기죄 성립에 영향을 주지 않는다.",
+      "final_role": "standard_input",
+      "original_proposition": "기망으로 재물을 편취한 경우 상당한 대가 제공, 사후 반환·변상, 전체 재산 손해 부재 또는 사후 합의는 사기죄 성립에 영향을 주지 않는다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_damage_acquisition.subsequent_return_irrelevant",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_64",
+          "quote": "범인이 그 재물의 가치에 상당한 또는 그 이상의 대가를 제공하였거나, 사후에 반환·변상하였거 나, 피해자의 재산전체에 손해가 없다고 하더라도 사기죄가 성립하고, 사기범 행 후 피해자와 합의하여도 사기죄의 성립에 영향이 없으며",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_general_object.causation_required",
+      "final_proposition": "객관적 구성요건 요소 사이의 인과관계가 인정되지 않으면 사기죄는 기수로 성립하지 않는다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "객관적 구성요건 요소 사이의 인과관계가 인정되지 않으면 사기죄는 기수로 성립하지 않는다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_general_object.causation_required",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅰ_0",
+          "quote": "각 객관 (ungeschriebener Tatbestand) 적 구성요건 요소 사이의 인과관계가 인정되지 않는 경우에는 사기죄는 기수로 되지 않는다.",
+          "section_path": "Ⅰ"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_general_object.deception_error_causation",
+      "final_proposition": "기망수단으로 재물을 교부받았더라도 상대방이 그 기망으로 착오에 빠진 것이 아니라 다른 동기나 이유로 교부한 경우 사기미수죄만 성립한다.",
+      "final_role": "standard_input",
+      "original_proposition": "기망수단으로 재물을 교부받았더라도 상대방이 그 기망으로 착오에 빠진 것이 아니라 다른 동기나 이유로 교부한 경우 사기미수죄만 성립한다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_general_object.deception_error_causation",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅰ_0",
+          "quote": "기망의 수단으로 재물을 교부받았다고 하더라도 상대방이 그 기망수단에 의하여 착오에 빠진 것이 아니라 다른 동기나 이유 (예컨대, 연민의 정 에 기인한 것이라면 사기미수죄만 성립한다.",
+          "section_path": "Ⅰ"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_intent.contract_breach_distinction",
+      "final_proposition": "고의에 의한 기망은 단순채무불이행과 사기죄를 구별하는 표준이 된다.",
+      "final_role": "standard_input",
+      "original_proposition": "고의에 의한 기망은 단순채무불이행과 사기죄를 구별하는 표준이 된다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_intent.contract_breach_distinction",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_74",
+          "quote": "고의에 의한 기망은 단순채무불이행과 사기죄를 구별하는 표준이 된다.",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_intent.illegal_appropriation_definition",
+      "final_proposition": "사기죄의 불법영득의사는 타인의 물건을 자기 것으로 삼으려는 의사뿐 아니라 그 경제적 용법에 따라 일시적으로 이용 또는 처분하려는 의사도 포함하며, 영구 보유 의사가 반드시 필요한 것은 아니다.",
+      "final_role": "standard_input",
+      "original_proposition": "사기죄의 불법영득의사는 타인의 물건을 자기 것으로 삼으려는 의사뿐 아니라 그 경제적 용법에 따라 일시적으로 이용 또는 처분하려는 의사도 포함하며, 영구 보유 의사가 반드시 필요한 것은 아니다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_intent.illegal_appropriation_definition",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "quote": "사기죄에서 불법영득의사는 타인의 물건을 자기의 것 으로 삼으려고 하는 의사뿐만 아니라 타인의 물건을 일시적으로 그 경제적 용 법에 따라 이용 또는 처분하려는 의사까지도 포함한다고 보아야 하므로, 반드시 그 물건을 영구적으로 보유할 의사가 있어야 하는 것은 아니라고 한다.",
+          "section_path": "Ⅴ.2"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "reject_from_executable_core_keep_provenance_context",
+      "card_id": "fraud_intent.illegal_gain_unauthorized",
+      "final_proposition": "이익 취득의 불법성은 권한 없는 이익을 취득한 경우 인정되고, 그 기준은 사법질서이다.",
+      "final_role": "context_only",
+      "original_proposition": "이익 취득의 불법성은 권한 없는 이익을 취득한 경우 인정되고, 그 기준은 사법질서이다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 실행 규칙으로 부적절하다고 판단하여 RAG 문맥에만 보존했다.",
+      "review_id": "fraud.core.fraud_intent.illegal_gain_unauthorized",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "quote": "이익 취득이 불법할 것을 요건으로 하는데, 행위 자가 권한 없는 이익을 취득하였을 때 그 이득이 위법하게 되고, 그 기준은 사 법질서가 된다고 한다.",
+          "section_path": "Ⅴ.2"
+        }
+      ],
+      "user_label": "reject"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_intent.no_disposition_inducement_intent",
+      "final_proposition": "피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_intent.no_disposition_inducement_intent",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_74",
+          "quote": "만약 피기망자로 하여금 처분행위를 하게 한다는 의사가 없는 경우에는 사기죄가 성립하지 않는다.",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "reclassify_to_rag_duplicate_keep_loan_rule",
+      "card_id": "fraud_intent.objective_circumstances",
+      "final_proposition": "자백이 없는 경우 편취의 범의는 범행 전후 재력·환경, 범행 내용, 거래 이행과정, 피해자와의 관계 등 객관적 사정을 종합하여 판단한다.",
+      "final_role": "context_only",
+      "original_proposition": "자백이 없는 경우 편취의 범의는 범행 전후 재력·환경, 범행 내용, 거래 이행과정, 피해자와의 관계 등 객관적 사정을 종합하여 판단한다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 중복으로 표시했고, 차용금 편취 범의 판단 규칙을 실무상 대표 규칙으로 유지하도록 확인했다.",
+      "review_id": "fraud.core.fraud_intent.objective_circumstances",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_74",
+          "quote": "피고인이 자백하지 아니하는 한, 범행 전 후의 피고인의 재력, 환경, 범행의 내용, 거래의 이행과정, 피해자와의 관계 등과 같 은 객관적인 사정을 종합하여 판단하여야 한다.",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "user_label": "duplicated"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_intent.precedent_illegal_appropriation_intent",
+      "final_proposition": "판례는 사기죄의 주관적 요건으로 고의 외에 불법영득의사가 필요하다는 입장이다.",
+      "final_role": "standard_input",
+      "original_proposition": "판례는 사기죄의 주관적 요건으로 고의 외에 불법영득의사가 필요하다는 입장이다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_intent.precedent_illegal_appropriation_intent",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "quote": "판례는 사기죄의 주관적 요건으로서 고의 외에 불법영득의사가 필요하다는 입 장이다.",
+          "section_path": "Ⅴ.2"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_intent.third_party_acquisition",
+      "final_proposition": "행위자가 기망으로 스스로 재물을 취득하지 않고 제3자로 하여금 교부받게 한 경우 사기죄가 성립하려면, 제3자가 정을 모르는 도구 또는 범인의 이익을 위해 행동하는 대리인이거나, 적어도 행위자에게 제3자로 하여금 재물을 취득하게 할 의사가 있어야 한다.",
+      "final_role": "standard_input",
+      "original_proposition": "행위자가 기망으로 스스로 재물을 취득하지 않고 제3자로 하여금 교부받게 한 경우 사기죄가 성립하려면, 제3자가 정을 모르는 도구 또는 범인의 이익을 위해 행동하는 대리인이거나, 적어도 행위자에게 제3자로 하여금 재물을 취득하게 할 의사가 있어야 한다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_intent.third_party_acquisition",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "quote": "범인이 기망행위에 의해 스스로 재물을 취득하지 않고 제3자로 하여금 재물을 교부받게 한 경우에 사기죄가 성립하려면, 그 제3자가 범인과 사이에 정을 모르 는 도구 또는 범인의 이익을 위해 행동하는 대리인의 관계에 있거나, 그렇지 않 다면 적어도 불법영득의사와의 관련상 범인에게 그 제3자로 하여금 재물을 취 득하게 할 의사가 있어야 한다.",
+          "section_path": "Ⅴ.2"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_intent.time_of_conduct",
+      "final_proposition": "편취의 범의는 행위 당시를 기준으로 판단한다.",
+      "final_role": "standard_input",
+      "original_proposition": "편취의 범의는 행위 당시를 기준으로 판단한다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_intent.time_of_conduct",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_74",
+          "quote": "범의의 판단 시점은 행위 당시로 보아야 한다.",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "fraud_mistake.active_creditor_extension",
+      "final_proposition": "기망으로 채권자가 적극적으로 채무변제 연기 또는 채무면제의 의사표시를 한 경우, 채무이행을 일시 면한 것은 불법이득에 해당한다.",
+      "final_role": "context_only",
+      "original_proposition": "기망으로 채권자가 적극적으로 채무변제 연기 또는 채무면제의 의사표시를 한 경우, 채무이행을 일시 면한 것은 불법이득에 해당한다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.fraud_mistake.active_creditor_extension",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
+          "quote": "기망으로 인하여 채권자가 적극적으로 채무변제의 연기 내지 채무면제의 의사표 시를 한 때에는 채무의 이행을 일시 면한 것이 불법이득에 해당하는 것이 분명 하다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "fraud_mistake.assignment_debt_extinguishment",
+      "final_proposition": "채무이행을 위하여 채권 등 재산권리가 양도되었다는 사정만으로 처분행위를 단정해서는 안 되며, 기존채무의 확정적 소멸 또는 면제를 전제로 한 것인지 적극적으로 살펴 채무면제 목적 사기죄 성립 여부를 판단해야 한다.",
+      "final_role": "context_only",
+      "original_proposition": "채무이행을 위하여 채권 등 재산권리가 양도되었다는 사정만으로 처분행위를 단정해서는 안 되며, 기존채무의 확정적 소멸 또는 면제를 전제로 한 것인지 적극적으로 살펴 채무면제 목적 사기죄 성립 여부를 판단해야 한다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.fraud_mistake.assignment_debt_extinguishment",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_57",
+          "quote": "채무의 이행을 위하여 채권 기타 재산적 권리의 양도가 있었다는 사정만으로 그러한 처분행위가 있었다고 단정하여서는 안 되고, 그것이 기존 채무의 확정적 인 소멸 내지 면제를 전제로 이루어진 것인지 여부를 적극적으로 살핀 다음, 채 무면제를 목적으로 하는 사기죄의 성립 여부를 판단하여야 한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "narrow_and_approve",
+      "card_id": "fraud_mistake.conscious_nonexercise",
+      "final_proposition": "피기망자가 착오 때문에 채권을 의식적으로 행사하지 않았고 그 부작위가 행위자에게 직접 재산상 이익을 부여한 경우, 그 부작위는 재산적 처분행위가 될 수 있다.",
+      "final_role": "standard_input",
+      "original_proposition": "피기망자가 착오에 빠진 결과 의식적으로 채권을 행사하지 않은 경우, 그 부작위도 재산적 처분행위가 될 수 있다.",
+      "original_role": "standard_input",
+      "reason": "사용자의 narrow 판정을 원문 범위에 맞는 문구로 직접 반영했다.",
+      "review_id": "fraud.core.fraud_mistake.conscious_nonexercise",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
+          "quote": "피기망자가 착오에 빠진 결과 의식적으로 채권을 행사하 지 않은 경우에는 이러한 부작위도 재산적 처분행위라고 할 수 있지만",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "user_label": "narrow"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_mistake.deceived_disposer_identity",
+      "final_proposition": "피기망자와 처분행위자는 동일인이어야 한다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "피기망자와 처분행위자는 동일인이어야 한다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_mistake.deceived_disposer_identity",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_59",
+          "quote": "피기망자와 재산상의 피해자는 동일인일 필요는 없으나, 피기망자와 처분행위자 는 동일인이어야 한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_mistake.disposition_definition",
+      "final_proposition": "처분행위란 범인 등에게 재물을 교부하거나 재산상 이익을 부여하는 재산적 처분행위이며, 피기망자가 처분의사를 가지고 그 의사에 지배된 행위를 해야 한다.",
+      "final_role": "standard_input",
+      "original_proposition": "처분행위란 범인 등에게 재물을 교부하거나 재산상 이익을 부여하는 재산적 처분행위이며, 피기망자가 처분의사를 가지고 그 의사에 지배된 행위를 해야 한다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_mistake.disposition_definition",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
+          "quote": "처분행위는 범인 등에 게 재물을 교부하거나 재산상의 이익을 부여하는 재산적 처분행위를 의미하고, 피기망자가 처분의사를 가지고 그 의사에 지배된 행위를 하여야 처분행위가 된다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_mistake.disposition_directness",
+      "final_proposition": "재산의 감소는 처분행위로부터 직접 야기되어야 하며, 처분행위의 직접성은 기망행위가 최후 처분행위자에게까지 미치면 인정된다.",
+      "final_role": "standard_input",
+      "original_proposition": "재산의 감소는 처분행위로부터 직접 야기되어야 하며, 처분행위의 직접성은 기망행위가 최후 처분행위자에게까지 미치면 인정된다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_mistake.disposition_directness",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_53",
+          "quote": "재산의 감소는 처분행위로부터 직접 야기되어야 한다. 이와 같은 처분행위의 직접성은 기망행위가 최후의 처분행위자에게까지 미치면 인정된다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_mistake.disposition_intent_act_awareness",
+      "final_proposition": "피기망자가 처분행위의 의미나 내용을 인식하지 못했더라도, 그 작위 또는 부작위가 직접 재산상 손해를 초래하는 재산적 처분행위로 평가되고 피기망자가 그 행위를 인식하여 한 경우에는 처분행위에 상응하는 처분의사가 인정된다.",
+      "final_role": "standard_input",
+      "original_proposition": "피기망자가 처분행위의 의미나 내용을 인식하지 못했더라도, 그 작위 또는 부작위가 직접 재산상 손해를 초래하는 재산적 처분행위로 평가되고 피기망자가 그 행위를 인식하여 한 경우에는 처분행위에 상응하는 처분의사가 인정된다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_mistake.disposition_intent_act_awareness",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_51",
+          "quote": "비록 피기망자가 처분 행위의 의미나 내용을 인식하지 못하였더라도, 피기망자의 작위 또는 부작위가 직접 재산상 손해를 초래하는 재산적 처분행위로 평가되고, 이러한 작위 또는 부작위를 피기망자가 인식하고 한 것이라면 처분행위에 상응하는 처분의사는 인정된다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_mistake.disposition_omission",
+      "final_proposition": "직접 재산상 손해를 초래하는 부작위도 처분행위가 될 수 있다.",
+      "final_role": "standard_input",
+      "original_proposition": "직접 재산상 손해를 초래하는 부작위도 처분행위가 될 수 있다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_mistake.disposition_omission",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
+          "quote": "처분행위는 직접 재산상의 손해를 초래하는 작위 또는 부작위를 의미한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_mistake.error_definition",
+      "final_proposition": "착오란 사실과 일치하지 않는 인식을 의미한다.",
+      "final_role": "standard_input",
+      "original_proposition": "착오란 사실과 일치하지 않는 인식을 의미한다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_mistake.error_definition",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+          "quote": "착오란 사실과 일치하지 않는 인식을 의미한다.",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_mistake.error_disposition_motivation",
+      "final_proposition": "착오는 재산적 처분행위를 하도록 동기를 확정하게 하는 것으로 충분하며, 법률행위 내용에 관한 착오인지 동기에 관한 착오인지는 묻지 않는다.",
+      "final_role": "standard_input",
+      "original_proposition": "착오는 재산적 처분행위를 하도록 동기를 확정하게 하는 것으로 충분하며, 법률행위 내용에 관한 착오인지 동기에 관한 착오인지는 묻지 않는다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_mistake.error_disposition_motivation",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+          "quote": "착오는 재산적 처분행위를 하도 록 동기를 확정하게 하는 것으로 충분하다. 법률행위의 내용에 관한 착오이 든 동기에 관한 착오이든 이를 묻지 않는다.",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_mistake.error_doubt_ignorance",
+      "final_proposition": "사실을 잘못 확신하는 경우뿐 아니라 어느 것이 맞는지 의심하는 경우에도 착오가 인정될 수 있고, 사실의 부지도 착오에 해당한다.",
+      "final_role": "standard_input",
+      "original_proposition": "사실을 잘못 확신하는 경우뿐 아니라 어느 것이 맞는지 의심하는 경우에도 착오가 인정될 수 있고, 사실의 부지도 착오에 해당한다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_mistake.error_doubt_ignorance",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+          "quote": "어느 것 이 맞을까 의심을 하는 경우에도 일단 착오를 일으키면 사기가 성립된다. 또 사실의 부지도 착오에 해당",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "narrow_and_approve",
+      "card_id": "fraud_mistake.factual_act_disposition",
+      "final_proposition": "피기망자의 의사에 기초한 사실행위가 행위자 등에게 재물 또는 재산상 이익을 직접 이전하는 경우, 그 사실행위도 처분행위가 될 수 있다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "사실행위도 처분행위가 될 수 있다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자의 narrow 판정을 원문 범위에 맞는 문구로 직접 반영했다.",
+      "review_id": "fraud.core.fraud_mistake.factual_act_disposition",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
+          "quote": "사실행위도 처분행위가 될 수 있다. 타인을 기망하여 재물을 방기시켜 이것을 습득한 경우에도 사기죄가 성립한다 고 보아야 한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "user_label": "narrow"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_mistake.gain_purpose",
+      "final_proposition": "사기죄에는 범인이 타인을 기망하여 재산적 이득을 취한다는 목적의사가 있어야 한다.",
+      "final_role": "standard_input",
+      "original_proposition": "사기죄에는 범인이 타인을 기망하여 재산적 이득을 취한다는 목적의사가 있어야 한다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_mistake.gain_purpose",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
+          "quote": "이 경우 범인에게 타인을 기망하여 재산적 이 득을 취한다는 목적의사가 있어야 하며",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_mistake.invalid_act_disposition",
+      "final_proposition": "착오에 의한 재산적 처분행위가 민법상 취소 가능하거나 그 법률행위가 무효여도 사기죄의 처분행위 성립에는 영향이 없다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "착오에 의한 재산적 처분행위가 민법상 취소 가능하거나 그 법률행위가 무효여도 사기죄의 처분행위 성립에는 영향이 없다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_mistake.invalid_act_disposition",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
+          "quote": "취소할 수 있는 법률행위, 무효인 법 률행위도 처분행위의 성립에 영향이 없다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "narrow_and_approve",
+      "card_id": "fraud_mistake.no_capacity_theft",
+      "final_proposition": "구체적으로 재산적 처분행위를 할 의사능력이 없는 사람이 기망적 수단에 반응하여 재물을 넘긴 경우에는 그 사람의 처분행위를 인정할 수 없어 사기죄가 아니라 절도죄가 문제된다.",
+      "final_role": "standard_input",
+      "original_proposition": "의사능력이 없는 유아 또는 정신장애인처럼 재산적 처분행위 능력이 없는 사람에게 기망적 수단을 사용하여 재물을 취득한 경우 사기죄는 성립하지 않고 절도죄가 성립한다.",
+      "original_role": "standard_input",
+      "reason": "사용자의 narrow 판정을 원문 범위에 맞는 문구로 직접 반영했다.",
+      "review_id": "fraud.core.fraud_mistake.no_capacity_theft",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_55",
+          "quote": "의사능 력이 없는 유아, 정신장애인은 재산적 처분행위를 할 능력이 없으므로, 기망적 수단을 사용하여 위와 같은 자로부터 재물을 취득하는 것은 사기죄가 성립하지 않고 절도죄가 성립한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "user_label": "narrow"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_mistake.no_thought_no_error",
+      "final_proposition": "어떠한 생각도 갖지 않는 경우에는 착오가 인정되지 않는다.",
+      "final_role": "standard_input",
+      "original_proposition": "어떠한 생각도 갖지 않는 경우에는 착오가 인정되지 않는다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_mistake.no_thought_no_error",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+          "quote": "어떠한 생각도 갖지 않는 경우에는 착오가 인정되지 않는다.",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "narrow_and_approve",
+      "card_id": "fraud_mistake.omission_not_all_nonclaims",
+      "final_proposition": "채권자가 일시적으로 이행을 독촉하거나 청구하지 않았다는 사정만으로는 부족하고, 착오에 기한 의식적 불행사와 그로 인한 직접 재산상 이익 부여가 있어야 부작위 처분행위가 될 수 있다.",
+      "final_role": "standard_input",
+      "original_proposition": "상대방이 일시적으로 채무 이행을 독촉하거나 청구하지 않은 모든 경우에 부작위에 의한 처분행위가 인정되는 것은 아니다.",
+      "original_role": "standard_input",
+      "reason": "사용자의 narrow 판정을 원문 범위에 맞는 문구로 직접 반영했다.",
+      "review_id": "fraud.core.fraud_mistake.omission_not_all_nonclaims",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
+          "quote": "상대방이 일시 채무의 이행을 독촉 내지 청구하지 않았다고 하는 모든 경우에 부작위에 의한 처분행위가 있었다고 할 수 있는지의 문제는 여전히 남는다. 결국 모든 경 우에 부작위에 의한 처분행위를 인정할 것은 아니다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "user_label": "narrow"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_mistake.property_disposition_element",
+      "final_proposition": "사기죄는 피기망자의 착오에 기한 재산적 처분행위로 본인 또는 제3자가 재물을 교부받거나 재산상 이익을 취득함으로써 성립한다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "사기죄는 피기망자의 착오에 기한 재산적 처분행위로 본인 또는 제3자가 재물을 교부받거나 재산상 이익을 취득함으로써 성립한다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_mistake.property_disposition_element",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
+          "quote": "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여 본인 또는 제3자 가 재물을 교부받거나 재산상의 이익을 취득함으로써 성립한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_mistake.property_limited_disposition",
+      "final_proposition": "처분행위는 재산상 처분행위에 한정되므로, 재산상 처분행위가 아닌 행위는 사기죄의 처분행위로 인정되지 않는다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "처분행위는 재산상 처분행위에 한정되므로, 재산상 처분행위가 아닌 행위는 사기죄의 처분행위로 인정되지 않는다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_mistake.property_limited_disposition",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
+          "quote": "처분행위는 재산상 처분행위에 한정되므로, 양도증서 등 특허 관련 명의변경 서 류를 위조하여 일본국 특허청 공무원에게 제출함으로써 특허의 출원자 명의를 변경한 경우, 사업자등록 명의를 빌려주면 세금이나 채무를 모두 자신이 변 제하겠다고 속여 그로부터 사업자명의를 대여받은 경우에는 사기죄의 처분 행위가 인정되지 않는다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_mistake.sequential_causation",
+      "final_proposition": "사기죄 성립에는 기망행위, 상대방의 착오 및 재물 교부 또는 재산상 이익 공여 사이의 순차적 인과관계가 필요하며, 재산적 처분행위는 착오에 의한 것이어야 한다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "사기죄 성립에는 기망행위, 상대방의 착오 및 재물 교부 또는 재산상 이익 공여 사이의 순차적 인과관계가 필요하며, 재산적 처분행위는 착오에 의한 것이어야 한다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_mistake.sequential_causation",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+          "quote": "사기죄의 성립을 위해서는 기망행위와 상대 방의 착오 및 재물의 교부 또는 재산상 이익의 공여와의 사이에는 순차적으로 인과관계가 있어야 한다. 이러한 2단계의 구체적 인과관계의 연쇄가 있어야 사기행위가 기수가 될 수 있다.",
+          "section_path": "Ⅳ.2"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_55",
+          "quote": "재산적 처분행위는 착오에 인한 것이어야 한다. 사기죄는 타인을 기망하여 착오에 빠뜨리고 처분행위를 유발하여 재물을 교부받거나 재산상의 이익을 얻 음으로써 성립하므로, 기망, 착오, 재산적 처분행위 사이에 인과관계가 있어야 한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_mistake.triangular_fraud_definition",
+      "final_proposition": "피기망자와 재산상 피해자는 동일인일 필요가 없고, 피해자와 처분행위자가 다른 경우를 삼각사기라고 한다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "피기망자와 재산상 피해자는 동일인일 필요가 없고, 피해자와 처분행위자가 다른 경우를 삼각사기라고 한다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_mistake.triangular_fraud_definition",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_57",
+          "quote": "피기망자와 재산상의 피해자는 동일인임을 요하지 않으므로, 피해자와 처분행위 자도 동일인일 필요는 없다. 양자가 상이한 경우를 삼각사기라고 (Dreiecksbetrug) 한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "narrow_and_approve",
+      "card_id": "fraud_mistake.trick_theft_directness",
+      "final_proposition": "기망적 수단이 사용됐더라도 피해자의 행위가 재물 지배 이전을 직접 초래하지 않고 행위자가 탈취한 경우에는 처분행위의 직접성이 없어 사기죄가 아니라 절도죄가 문제된다.",
+      "final_role": "standard_input",
+      "original_proposition": "기망적 요소가 가미된 책략절도는 처분행위 직접성의 흠결로 사기죄가 성립하지 않는다.",
+      "original_role": "standard_input",
+      "reason": "사용자의 narrow 판정을 원문 범위에 맞는 문구로 직접 반영했다.",
+      "review_id": "fraud.core.fraud_mistake.trick_theft_directness",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_53",
+          "quote": "책략절도의 경우에는 직접성의 흠결로 사기죄가 성 립하지 않는다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "user_label": "narrow"
+    },
+    {
+      "action": "narrow_and_approve_crosscheck",
+      "card_id": "fraud_mistake.unaware_error",
+      "final_proposition": "피기망자가 진실을 알고 있어 허위임을 인식한 경우에는 착오가 아니지만, 어느 것이 진실인지 의심하는 데 그친 경우에는 착오가 인정될 수 있다.",
+      "final_role": "standard_input",
+      "original_proposition": "기망당한 사람은 자신의 착오를 인식하지 못해야 한다.",
+      "original_role": "standard_input",
+      "reason": "전수 교차검토에서 과도한 범위 또는 인접 규칙과의 충돌을 좁혔다.",
+      "review_id": "fraud.core.fraud_mistake.unaware_error",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+          "quote": "기망당한 사람은 자신의 착오를 인식하지 못해야 한다.",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_stages_participation.attempt_deceptive_act",
+      "final_proposition": "사람을 기망하는 행위가 착수되면 사기죄의 실행의 착수가 있으며, 상대방이 실제 착오에 빠질 필요는 없다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "사람을 기망하는 행위가 착수되면 사기죄의 실행의 착수가 있으며, 상대방이 실제 착오에 빠질 필요는 없다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_stages_participation.attempt_deceptive_act",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.1_105",
+          "quote": "사람을 기망하는 행위가 착수된 때에 사기죄의 실행의 착수가 있게 된다. 사람 을 착오에 빠뜨리게 하려는 행위가 있으면 족하고 상대방이 이것에 의하여 착 오에 빠진 것을 필요로 하지 않는다.",
+          "section_path": "Ⅶ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_stages_participation.completion_deception_disposition_transfer",
+      "final_proposition": "행위자의 기망으로 상대방이 착오에 빠지고, 그 착오에 기초한 재산적 처분행위로 재물 또는 재산상 이익이 이전되면 사기죄는 기수에 이른다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "행위자의 기망으로 상대방이 착오에 빠지고, 그 착오에 기초한 재산적 처분행위로 재물 또는 재산상 이익이 이전되면 사기죄는 기수에 이른다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_stages_participation.completion_deception_disposition_transfer",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.2_107",
+          "quote": "행위자의 기망행위에 의하여 상대방이 착오에 빠지고 그 착오에 기하여 재산적 처분행위가 이루어지고 그 결과 재물 또는 재산상의 이익의 이전이 이루어진 때에 사기죄는 기수로 된다.",
+          "section_path": "Ⅶ.2"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "fraud_stages_participation.enforcement_application_attempt",
+      "final_proposition": "강제집행절차를 통한 소송사기는 집행절차 개시신청 또는 진행 중 집행절차에서 배당신청을 한 때 실행에 착수한다.",
+      "final_role": "context_only",
+      "original_proposition": "강제집행절차를 통한 소송사기는 집행절차 개시신청 또는 진행 중 집행절차에서 배당신청을 한 때 실행에 착수한다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.fraud_stages_participation.enforcement_application_attempt",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.1_106",
+          "quote": "강제집행절차를 통한 소송사기는 집행절차의 개시신청을 한 때 또는 진행 중인 집행절차에 배당신청을 한 때에 실행에 착수하였다고 본다.",
+          "section_path": "Ⅶ.1"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "fraud_stages_participation.false_claim_provisional_seizure_no_attempt",
+      "final_proposition": "허위 채권에 기한 가압류만으로는 사기죄의 실행에 착수하였다고 할 수 없다.",
+      "final_role": "context_only",
+      "original_proposition": "허위 채권에 기한 가압류만으로는 사기죄의 실행에 착수하였다고 할 수 없다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.fraud_stages_participation.false_claim_provisional_seizure_no_attempt",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.1_106",
+          "quote": "허위의 채권에 기하여 가압류를 한 것만으로는 사기죄의 실행의 착수가 있다고 할 수 없다.",
+          "section_path": "Ⅶ.1"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "fraud_stages_participation.gambling_fraud_attempt",
+      "final_proposition": "사기도박에서는 한 당사자가 상대방에 대한 기망행위를 개시한 때 실행에 착수하며, 상대방의 착오나 재물 이동 행위의 개시는 필요하지 않다.",
+      "final_role": "context_only",
+      "original_proposition": "사기도박에서는 한 당사자가 상대방에 대한 기망행위를 개시한 때 실행에 착수하며, 상대방의 착오나 재물 이동 행위의 개시는 필요하지 않다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.fraud_stages_participation.gambling_fraud_attempt",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.1_105",
+          "quote": "사기도박죄에서는 일방의 당사자가 상대방에 대하여 기망행위를 개시한 때에 사기죄의 착수가 있고, 상대방이 착오에 빠져 재물을 도하는 행위의 개시는 필 요하지 않다.",
+          "section_path": "Ⅶ.1"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "fraud_stages_participation.insurance_false_claim_attempt",
+      "final_proposition": "보험금 지급요건을 충족하지 못하는 사실을 숨기고 허위 사실로 보험금 지급을 청구하면 보험사기죄의 실행에 착수한다.",
+      "final_role": "context_only",
+      "original_proposition": "보험금 지급요건을 충족하지 못하는 사실을 숨기고 허위 사실로 보험금 지급을 청구하면 보험사기죄의 실행에 착수한다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.fraud_stages_participation.insurance_false_claim_attempt",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.1_105",
+          "quote": "일반적으로 보험사기죄에서는 보험금 지급요건을 충족하지 못하는데도 이를 숨 기고 허위의 사실로 보험금 지급을 청구하면 사기죄의 실행의 착수에 있다.",
+          "section_path": "Ⅶ.1"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "reclassify_to_rag_specific_litigation_fraud",
+      "card_id": "fraud_stages_participation.litigation_service_not_required",
+      "final_proposition": "소송 제기 시 실행에 착수하므로, 소송사기 실행의 착수에 소장의 유효한 송달은 필요하지 않다.",
+      "final_role": "context_only",
+      "original_proposition": "소송 제기 시 실행에 착수하므로, 소송사기 실행의 착수에 소장의 유효한 송달은 필요하지 않다.",
+      "original_role": "deterministic_rule",
+      "reason": "동일 기준을 교차 적용하여 누락된 소송사기 전용 규칙을 RAG로 옮겼다.",
+      "review_id": "fraud.core.fraud_stages_participation.litigation_service_not_required",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.1_106",
+          "quote": "이때 소를 제기한 때에 실행의 착수가 있으므로, 소장의 유효한 송달이 있어야만 하는 것 은 아니다.",
+          "section_path": "Ⅶ.1"
+        }
+      ],
+      "user_label": "narrow"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_stages_participation.no_causation_attempt",
+      "final_proposition": "기망·착오·재산적 처분행위 사이의 인과관계가 인정되지 않으면 사기죄는 미수이다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "기망·착오·재산적 처분행위 사이의 인과관계가 인정되지 않으면 사기죄는 미수이다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_stages_participation.no_causation_attempt",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.2_107",
+          "quote": "기망, 착오, 재산적 처분행위 사이에 인과관계가 인정되지 않으면 미수가 된다.",
+          "section_path": "Ⅶ.2"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "reclassify_to_rag_specific_litigation_fraud",
+      "card_id": "fraud_stages_participation.payment_order_attempt",
+      "final_proposition": "허위 증서에 기하여 법원에 지급명령을 신청한 때 소송사기 실행에 착수한다.",
+      "final_role": "context_only",
+      "original_proposition": "허위 증서에 기하여 법원에 지급명령을 신청한 때 소송사기 실행에 착수한다.",
+      "original_role": "standard_input",
+      "reason": "동일 기준을 교차 적용하여 누락된 소송사기 전용 규칙을 RAG로 옮겼다.",
+      "review_id": "fraud.core.fraud_stages_participation.payment_order_attempt",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.1_106",
+          "quote": "지급명령신청에 의한 소송사기를 하는 경우에는 허위의 증서에 기하여 법원에 대하여 지급명령신청을 한 때 사기죄의 실행의 착수가 있다.",
+          "section_path": "Ⅶ.1"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "fraud_stages_participation.post_filing_false_claim_attempt",
+      "final_proposition": "제소 후 종전 권원과 별도의 허위주장이 사기죄를 구성하는 경우 그 주장행위는 소송사기 실행의 착수에 해당한다.",
+      "final_role": "context_only",
+      "original_proposition": "제소 후 종전 권원과 별도의 허위주장이 사기죄를 구성하는 경우 그 주장행위는 소송사기 실행의 착수에 해당한다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.fraud_stages_participation.post_filing_false_claim_attempt",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.1_106",
+          "quote": "제소행위 이후에 종전에 주장하던 권원과 별도로 한 허위주장이 사기죄를 구성 하는 경우에는 그 주장행위는 소송사기의 실행의 착수에 해당하고",
+          "section_path": "Ⅶ.1"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "fraud_stages_participation.property_fraud_completion_control",
+      "final_proposition": "재물 편취는 피해자의 지배를 배제하고 자기 또는 제3자의 지배를 인정한 때 기수에 이른다.",
+      "final_role": "deterministic_rule",
+      "original_proposition": "재물 편취는 피해자의 지배를 배제하고 자기 또는 제3자의 지배를 인정한 때 기수에 이른다.",
+      "original_role": "deterministic_rule",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.fraud_stages_participation.property_fraud_completion_control",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.2_107",
+          "quote": "편취는 재물의 처분행위에 의하여 재물의 점유를 취득하는 것이므로 재물에 대 하여 피해자의 지배를 배제하고 자기 또는 제3자의 지배를 인정한 때에 기수에 이른다.",
+          "section_path": "Ⅶ.2"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "general_object.fraud.definition.property-benefit",
+      "final_proposition": "재산상 이익은 재물 이외의 것으로서 재산의 경제적 가치 증가를 의미하며, 적극적·소극적, 일시적·영구적 이익을 모두 포함한다.",
+      "final_role": "standard_input",
+      "original_proposition": "재산상 이익은 재물 이외의 것으로서 재산의 경제적 가치 증가를 의미하며, 적극적·소극적, 일시적·영구적 이익을 모두 포함한다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.general_object.fraud.definition.property-benefit",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅲ.2_9",
+          "quote": "재산상의 이익은 재물 이외의 것으로서 재산의 경제적 가치의 증가를 의미하고, 적극적 이익이든 소극적 이익이든 일시적 이익이든 영구적 이익이든 모두 재산 상의 이익에 해당한다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "general_object.fraud.definition.property-benefit-not-numerically-limited",
+      "final_proposition": "재산상 이익은 숫자로 산출할 수 있는 이익에 한정되지 않는다.",
+      "final_role": "standard_input",
+      "original_proposition": "재산상 이익은 숫자로 산출할 수 있는 이익에 한정되지 않는다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.general_object.fraud.definition.property-benefit-not-numerically-limited",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅲ.2_10",
+          "quote": "재산상의 이익은 숫자로 산출할 수 있는 이익에 한정하지 않는다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "general_object.fraud.element.object-other-possessed-other-property",
+      "final_proposition": "사기죄의 객체는 타인이 점유하는 타인의 재물 또는 재산상 이익이다.",
+      "final_role": "standard_input",
+      "original_proposition": "사기죄의 객체는 타인이 점유하는 타인의 재물 또는 재산상 이익이다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.general_object.fraud.element.object-other-possessed-other-property",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅲ_7",
+          "quote": "사기죄의 객체는 타인이 점유하는 타인의 재물 또는 재산상의 이익이다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "general_object.fraud.element.property-benefit-concrete",
+      "final_proposition": "재산상 이익은 구체적인 이익이어야 한다.",
+      "final_role": "standard_input",
+      "original_proposition": "재산상 이익은 구체적인 이익이어야 한다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.general_object.fraud.element.property-benefit-concrete",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅲ.2_9",
+          "quote": "재산상의 이익은 구체적인 이익일 것을 요하므로,",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "narrow_and_approve",
+      "card_id": "general_object.fraud.exception.public-interest-property-equivalence",
+      "final_proposition": "기망으로 국가적·공공적 법익을 침해한 경우에도 그 침해가 동시에 재산권 침해와 동일하게 평가되고 해당 행위를 사기죄보다 특별하게 처벌하는 별도 규정이 없는 때에 한하여 사기죄가 성립할 수 있다.",
+      "final_role": "standard_input",
+      "original_proposition": "국가적·사회적 법익 침해가 동시에 사기죄의 보호법익인 재산권 침해와 동일하게 평가되고 사기죄의 특별관계에 해당하는 별도 처벌규정이 없는 경우에는 사기죄가 성립할 수 있다.",
+      "original_role": "standard_input",
+      "reason": "사용자의 narrow 판정을 원문 범위에 맞는 문구로 직접 반영했다.",
+      "review_id": "fraud.core.general_object.fraud.exception.public-interest-property-equivalence",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.3_4",
+          "quote": "국가적· 사회적 법익을 침해한 경우라도 그와 동시에 사기죄의 보호법익인 재산권을 침 해하는 것과 동일하게 평가할 수 있고 사기죄의 특별관계에 해당하는 처벌규정 을 별도로 두고 있지 않는 한 사기죄가 성립할 수 있다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "user_label": "narrow"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "general_object.fraud.standard.later-cancellation-no-effect",
+      "final_proposition": "사기로 인한 재산 처분이 처분시점에 기수에 이른 경우, 사후에 이루어진 의사표시 취소는 범죄성립에 영향을 미칠 수 없다.",
+      "final_role": "standard_input",
+      "original_proposition": "사기로 인한 재산 처분이 처분시점에 기수에 이른 경우, 사후에 이루어진 의사표시 취소는 범죄성립에 영향을 미칠 수 없다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.general_object.fraud.standard.later-cancellation-no-effect",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.4_6",
+          "quote": "그 처분시점에 사기죄의 기수가 된다고 본다 (민법 제110조 제1항) 면 사후에 이루어진 의사표시의 취소는 범죄성립에 영향을 미칠 수 없다.",
+          "section_path": "Ⅱ.4"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "general_object.fraud.standard.own-possession-other-property-embezzlement",
+      "final_proposition": "자기 점유의 타인 재물을 영득한 경우에는 기망행위가 있어도 횡령죄만 성립한다.",
+      "final_role": "standard_input",
+      "original_proposition": "자기 점유의 타인 재물을 영득한 경우에는 기망행위가 있어도 횡령죄만 성립한다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.general_object.fraud.standard.own-possession-other-property-embezzlement",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅲ_7",
+          "quote": "자기점유의 타인의 재물을 영득한 경우에는 142조) 기망행위가 있어도 횡령죄만 성립한다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "general_object.fraud.standard.own-property-not-object",
+      "final_proposition": "타인이 점유하는 자기소유 재물은 사기죄의 객체가 되지 않는다.",
+      "final_role": "standard_input",
+      "original_proposition": "타인이 점유하는 자기소유 재물은 사기죄의 객체가 되지 않는다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.general_object.fraud.standard.own-property-not-object",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅲ_7",
+          "quote": "타인이 점유하는 자기소유의 재물은 사기죄의 객체가 되지 않는다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "narrow_and_approve",
+      "card_id": "general_object.fraud.standard.public-interest-only-no-fraud",
+      "final_proposition": "기망이 국가적·공공적 법익만 침해하고 그 침해를 재산권 침해와 동일하게 평가할 수 없는 경우에는 사기죄가 성립하지 않는다.",
+      "final_role": "standard_input",
+      "original_proposition": "기망행위로 국가적·사회적 법익만 침해된 경우에는 원칙적으로 사기죄가 성립하지 않는다.",
+      "original_role": "standard_input",
+      "reason": "사용자의 narrow 판정을 원문 범위에 맞는 문구로 직접 반영했다.",
+      "review_id": "fraud.core.general_object.fraud.standard.public-interest-only-no-fraud",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅱ.3_4",
+          "quote": "사기죄는 개인적 법익에 대한 죄이기 때문에 기망행위로 국가적·사회적 법익이 침해되었다고 하더라도 원칙적으로 사기죄가 성립하지 않는다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "user_label": "narrow"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation",
+      "final_proposition": "피기망자와 재산상 피해자가 다르면 피기망자에게 피해자를 위하여 그 재산을 처분할 권능 또는 지위가 있어야 한다. 그 권능 또는 지위는 사법상 위임이나 대리권과 일치할 필요는 없고, 피해자의 의사에 따라 처분서류를 교부받은 경우에도 인정될 수 있다.",
+      "final_role": "standard_input",
+      "original_proposition": "피기망자와 재산상 피해자가 다르면 피기망자에게 피해자를 위하여 그 재산을 처분할 권능 또는 지위가 있어야 한다. 그 권능 또는 지위는 사법상 위임이나 대리권과 일치할 필요는 없고, 피해자의 의사에 따라 처분서류를 교부받은 경우에도 인정될 수 있다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_58",
+          "quote": "이후 다음 과 같이 판시함으로써 사실상의 지위설의 입장을 채택한 것으로 이해되고 있다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "user_label": "pending"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "special_forms.fraud.element.judgment-substitutes-victim-disposition",
+      "final_proposition": "소송사기에서 피기망자인 법원의 재판은 피해자의 처분행위에 갈음하는 내용과 효력이 있어야 한다.",
+      "final_role": "context_only",
+      "original_proposition": "소송사기에서 피기망자인 법원의 재판은 피해자의 처분행위에 갈음하는 내용과 효력이 있어야 한다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.special_forms.fraud.element.judgment-substitutes-victim-disposition",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_84",
+          "quote": "소송사기죄에서 피기망자인 법원의 재판은 피해자의 처분행위에 갈음하는 내용 과 효력이 있어야 하고",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "special_forms.fraud.element.litigation-fraud-commencement",
+      "final_proposition": "적극적인 방법으로 법원을 기망할 의사를 가지고 허위 내용의 서류를 증거로 제출하거나 그에 따른 주장을 담은 답변서ㆍ준비서면을 제출한 경우 소송사기죄의 실행에 착수한다.",
+      "final_role": "context_only",
+      "original_proposition": "적극적인 방법으로 법원을 기망할 의사를 가지고 허위 내용의 서류를 증거로 제출하거나 그에 따른 주장을 담은 답변서ㆍ준비서면을 제출한 경우 소송사기죄의 실행에 착수한다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.special_forms.fraud.element.litigation-fraud-commencement",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_86",
+          "quote": "소송사기죄는 적극적인 방법으로 법원을 기망할 의사를 가지고 허위내용의 서 류를 증거로 제출하거나 그에 따른 주장을 담은 답변서나 준비서면을 제출한 경우에 사기죄의 실행의 착수가 있다고 볼 수 있다.",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "special_forms.fraud.element.litigation-fraud-deceptive-act",
+      "final_proposition": "소송사기죄의 성립에는 기망행위가 필요하며, 증거 위조 또는 허위 준비서면·자술서의 작성ㆍ제출은 기망행위에 포함된다.",
+      "final_role": "context_only",
+      "original_proposition": "소송사기죄의 성립에는 기망행위가 필요하며, 증거 위조 또는 허위 준비서면·자술서의 작성ㆍ제출은 기망행위에 포함된다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.special_forms.fraud.element.litigation-fraud-deceptive-act",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_84",
+          "quote": "소송사기죄가 성립하기 위해서는 기망행위가 있을 것을 요하고, 구체적으로는 증거의 위조, 허위의 준비서면과 자술서를 작성하여 제출한 경우도 이에 포함된다.",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "special_forms.fraud.element.litigation-fraud-knowing-nonexistence",
+      "final_proposition": "소송사기 성립에는 제소 당시 주장 채권이 존재하지 않는 사실을 알면서 허위 주장과 증명으로 법원을 기망한다는 인식이 필요하다.",
+      "final_role": "context_only",
+      "original_proposition": "소송사기 성립에는 제소 당시 주장 채권이 존재하지 않는 사실을 알면서 허위 주장과 증명으로 법원을 기망한다는 인식이 필요하다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.special_forms.fraud.element.litigation-fraud-knowing-nonexistence",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_83",
+          "quote": "소송사기 가 성립하기 위하여는 제소 당시에 그 주장과 같은 채권이 존재하지 않는다는 것만으 로는 부족하고 그 주장의 채권이 존재하지 않는 사실을 잘 알면서도 허위의 주장과 증명으로써 법원을 기망한다는 인식을 하고 있어야만 하고",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "special_forms.fraud.exception.litigation-fraud-mistake-of-fact-or-law",
+      "final_proposition": "사실을 잘못 인식하거나 법률적 평가를 잘못하여 존재하지 않는 권리를 존재한다고 믿고 제소한 행위는 소송사기죄를 구성하지 않는다.",
+      "final_role": "context_only",
+      "original_proposition": "사실을 잘못 인식하거나 법률적 평가를 잘못하여 존재하지 않는 권리를 존재한다고 믿고 제소한 행위는 소송사기죄를 구성하지 않는다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.special_forms.fraud.exception.litigation-fraud-mistake-of-fact-or-law",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_83",
+          "quote": "단순히 사실을 잘못 인식 하였다거나 법률적 평가를 잘못하여 존재하지 않는 권리를 존재한다고 믿고 제소한 행위는 사기죄를 구성하지 않는다",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "special_forms.fraud.exception.omission-of-favorable-evidence",
+      "final_proposition": "상대방에게 유리한 증거를 제출하지 않거나 상대방에게 유리한 사실을 진술하지 않은 것만으로는 소송사기죄가 성립하지 않는다.",
+      "final_role": "context_only",
+      "original_proposition": "상대방에게 유리한 증거를 제출하지 않거나 상대방에게 유리한 사실을 진술하지 않은 것만으로는 소송사기죄가 성립하지 않는다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.special_forms.fraud.exception.omission-of-favorable-evidence",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_84",
+          "quote": "단순히 상대방에게 유리한 증거를 제출하지 않거나 상대방에게 유리 한 사실을 진술하지 않은 행위만으로는 사기죄가 성립하지 않는다.",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "special_forms.fraud.standard.false-claim-alone-can-deceive",
+      "final_proposition": "허위 내용으로 소를 제기하여 법원을 기망할 고의가 있고 당사자 주장이 법원을 기망하기에 충분하다면, 허위 증거를 이용하지 않아도 그 주장이 기망수단이 될 수 있다.",
+      "final_role": "context_only",
+      "original_proposition": "허위 내용으로 소를 제기하여 법원을 기망할 고의가 있고 당사자 주장이 법원을 기망하기에 충분하다면, 허위 증거를 이용하지 않아도 그 주장이 기망수단이 될 수 있다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.special_forms.fraud.standard.false-claim-alone-can-deceive",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_84",
+          "quote": "허위의 내용으로 소송을 제기하여 법원을 기망한다는 고의가 있는 경우에 법원 을 기망하는 것은 반드시 허위의 증거를 이용하지 않더라도 당사자의 주장이 법원을 기망하기에 충분한 것이라면 기망수단이 된다.",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "special_forms.fraud.standard.indirect-perpetration-through-unaware-third-party",
+      "final_proposition": "소송상 주장이 객관적으로 명백히 사실과 다르거나 증거가 조작된 사정을 모르는 제3자를 소송당사자로 이용하여 법원을 기망하고 상대방의 재물 또는 재산상 이익을 취득하려 한 경우 간접정범 형태의 소송사기죄가 성립한다.",
+      "final_role": "context_only",
+      "original_proposition": "소송상 주장이 객관적으로 명백히 사실과 다르거나 증거가 조작된 사정을 모르는 제3자를 소송당사자로 이용하여 법원을 기망하고 상대방의 재물 또는 재산상 이익을 취득하려 한 경우 간접정범 형태의 소송사기죄가 성립한다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.special_forms.fraud.standard.indirect-perpetration-through-unaware-third-party",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_84",
+          "quote": "소송상의 주장이 사실과 다름이 객관적으로 명백하거나 증거가 조작되어 있다는 정을 인식하지 못하는 제3자를 이용하여 그로 하여금 소송의 당사자가 되게 하고 법원을 기망하여 소송 상대방의 재물 또는 재산상의 이익을 취득하 려고 하였다면 간접정범의 형태에 의한 소송사기죄가 성립한다.",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "special_forms.fraud.standard.insurance-concealed-existing-accident",
+      "final_proposition": "보험사고가 이미 발생하였음에도 이를 묵비하고 보험계약을 체결하는 것은 작위에 의한 기망행위로서 사기죄가 성립한다.",
+      "final_role": "context_only",
+      "original_proposition": "보험사고가 이미 발생하였음에도 이를 묵비하고 보험계약을 체결하는 것은 작위에 의한 기망행위로서 사기죄가 성립한다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.special_forms.fraud.standard.insurance-concealed-existing-accident",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.2_93",
+          "quote": "보험사고가 이미 발생하였는데도 이를 묵비하고 보험계약을 체결하는 경우, 고의로 보험사고를 야기하고 보험금을 청구하는 경우, 보험사고가 발생하 지 않았는데도 보험사고가 발생한 것처럼 보험금을 청구하는 경우에는 작위에 의한 기망행위로서 사기죄가 성립함에는 의문이 없다.",
+          "section_path": "Ⅵ.2"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "special_forms.fraud.standard.insurance-defective-life-contract-preparatory-act",
+      "final_proposition": "타인의 사망을 보험사고로 하는 생명보험계약에서 제3자를 피보험자로 가장하는 등 유효요건을 갖추지 못한 계약을 체결했더라도, 보험사고의 우연성을 해할 특별한 사정이 없으면 기망행위 실행의 착수가 아니라 장래 보험금 편취를 위한 예비행위에 그친다.",
+      "final_role": "context_only",
+      "original_proposition": "타인의 사망을 보험사고로 하는 생명보험계약에서 제3자를 피보험자로 가장하는 등 유효요건을 갖추지 못한 계약을 체결했더라도, 보험사고의 우연성을 해할 특별한 사정이 없으면 기망행위 실행의 착수가 아니라 장래 보험금 편취를 위한 예비행위에 그친다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.special_forms.fraud.standard.insurance-defective-life-contract-preparatory-act",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.2_94",
+          "quote": "보험사고의 우연성과 같은 보험의 본질을 해칠 정도라고 볼 수 있는 특별한 사정이 없는 한, 그와 같이 하자 있는 보험계약을 체결한 행위만으로는 기망행위의 실행에 착수한 것으로 볼 수 없고, 단지 장차의 보험금 편취를 위한 예비행위에 지나지 않는다.",
+          "section_path": "Ⅵ.2"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "special_forms.fraud.standard.insurance-false-accident-claim",
+      "final_proposition": "보험사고가 발생하지 않았는데 발생한 것처럼 보험금을 청구하는 것은 작위에 의한 기망행위로서 사기죄가 성립한다.",
+      "final_role": "context_only",
+      "original_proposition": "보험사고가 발생하지 않았는데 발생한 것처럼 보험금을 청구하는 것은 작위에 의한 기망행위로서 사기죄가 성립한다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.special_forms.fraud.standard.insurance-false-accident-claim",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.2_93",
+          "quote": "보험사고가 이미 발생하였는데도 이를 묵비하고 보험계약을 체결하는 경우, 고의로 보험사고를 야기하고 보험금을 청구하는 경우, 보험사고가 발생하 지 않았는데도 보험사고가 발생한 것처럼 보험금을 청구하는 경우에는 작위에 의한 기망행위로서 사기죄가 성립함에는 의문이 없다.",
+          "section_path": "Ⅵ.2"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "special_forms.fraud.standard.insurance-injury-disease-contingency-factors",
+      "final_proposition": "상해·질병보험계약에서 보험사고 발생 개연성이 농후함을 인식했는지는 기존 상해·질병의 내용, 치료 전력, 계약 후 사고까지의 기간, 기존 보험 가입 내역 및 계약 동기·경과 등을 종합하여 판단한다.",
+      "final_role": "context_only",
+      "original_proposition": "상해·질병보험계약에서 보험사고 발생 개연성이 농후함을 인식했는지는 기존 상해·질병의 내용, 치료 전력, 계약 후 사고까지의 기간, 기존 보험 가입 내역 및 계약 동기·경과 등을 종합하여 판단한다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.special_forms.fraud.standard.insurance-injury-disease-contingency-factors",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.2_93",
+          "quote": "특 히 상해·질병보험계약을 체결하는 보험계약자가 보험사고 발생의 개연성이 농후함을 인식하였는지 여부는 보험계약 체결 전 기왕에 입은 상해의 부위 및 정도, 기존 질병 의 종류와 증상 및 정도, 상해나 질병으로 치료받은 전력 및 시기와 횟수, 보험계약 체결 후 보험사고 발생 시까지의 기간과 더불어 이미 가입되어 있는 보험의 유무 및 종류와 내역, 보험계약 체결의 동기 내지 경과 등을 두루 살펴 판단하여야 한다.",
+          "section_path": "Ⅵ.2"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "special_forms.fraud.standard.insurance-intentional-accident-claim",
+      "final_proposition": "고의로 보험사고를 야기하고 보험금을 청구하는 것은 작위에 의한 기망행위로서 사기죄가 성립한다.",
+      "final_role": "context_only",
+      "original_proposition": "고의로 보험사고를 야기하고 보험금을 청구하는 것은 작위에 의한 기망행위로서 사기죄가 성립한다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.special_forms.fraud.standard.insurance-intentional-accident-claim",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.2_93",
+          "quote": "보험사고가 이미 발생하였는데도 이를 묵비하고 보험계약을 체결하는 경우, 고의로 보험사고를 야기하고 보험금을 청구하는 경우, 보험사고가 발생하 지 않았는데도 보험사고가 발생한 것처럼 보험금을 청구하는 경우에는 작위에 의한 기망행위로서 사기죄가 성립함에는 의문이 없다.",
+          "section_path": "Ⅵ.2"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "special_forms.fraud.standard.insurance-omission-destroys-contingency",
+      "final_proposition": "보험계약 체결 시 고지의무 위반이 있더라도, 이미 발생한 보험사고를 숨긴 경우, 보험사고 발생 개연성이 농후함을 인식한 경우 또는 보험사고를 임의로 조작할 의도를 가진 경우처럼 보험사고의 우연성을 해할 정도에 이르면 보험금 편취를 위한 고의의 기망행위가 된다.",
+      "final_role": "context_only",
+      "original_proposition": "보험계약 체결 시 고지의무 위반이 있더라도, 이미 발생한 보험사고를 숨긴 경우, 보험사고 발생 개연성이 농후함을 인식한 경우 또는 보험사고를 임의로 조작할 의도를 가진 경우처럼 보험사고의 우연성을 해할 정도에 이르면 보험금 편취를 위한 고의의 기망행위가 된다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.special_forms.fraud.standard.insurance-omission-destroys-contingency",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.2_93",
+          "quote": "고지의무 위반은 보험사고가 이미 발생하였음에도 이를 묵비한 채 보험계약을 체결하거나 보험사고 발 생의 개연성이 농후함을 인식하면서도 보험계약을 체결하는 경우 또는 보험사고를 임 의로 조작하려는 의도를 가지고 보험계약을 체결하는 경우와 같이 ‘보험사고의 우연 성’이라는 보험의 본질을 해할 정도에 이르러야 비로소 보험금 편취를 위한 고의의 기망행위에 해당한다고 할 수 있다",
+          "section_path": "Ⅵ.2"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "reclassify_to_rag_user",
+      "card_id": "special_forms.fraud.standard.litigation-fraud-objectively-false-or-knowing",
+      "final_proposition": "피고인이 범행을 인정한 경우 외에는 소송상 주장이 객관적으로 명백히 사실과 다르거나, 피고인이 명백한 허위를 인식하였거나, 증거조작 흔적이 있는 경우 등이 아니면 소송사기를 쉽게 유죄로 인정해서는 안 된다.",
+      "final_role": "context_only",
+      "original_proposition": "피고인이 범행을 인정한 경우 외에는 소송상 주장이 객관적으로 명백히 사실과 다르거나, 피고인이 명백한 허위를 인식하였거나, 증거조작 흔적이 있는 경우 등이 아니면 소송사기를 쉽게 유죄로 인정해서는 안 된다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다.",
+      "review_id": "fraud.core.special_forms.fraud.standard.litigation-fraud-objectively-false-or-knowing",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_83",
+          "quote": "피고인이 그 범행을 인정 한 경우 외에는 그 소송상의 주장이 사실과 다름이 객관적으로 명백하거나 피고인이 그 소송상의 주장이 명백히 허위인 것을 인식하였거나 증거를 조작하려고 한 흔적이 있는 등의 경우 외에는 이를 쉽사리 유죄로 인정하여서는 안 된다.",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "user_label": "rag"
+    },
+    {
+      "action": "reject_from_executable_core_keep_provenance_context",
+      "card_id": "special_forms.fraud.standard.litigation-fraud-strict-interpretation",
+      "final_proposition": "민사소송제도 위축을 방지하기 위하여 소송사기의 적용은 엄격하게 해석하여야 한다.",
+      "final_role": "context_only",
+      "original_proposition": "민사소송제도 위축을 방지하기 위하여 소송사기의 적용은 엄격하게 해석하여야 한다.",
+      "original_role": "standard_input",
+      "reason": "사용자가 실행 규칙으로 부적절하다고 판단하여 RAG 문맥에만 보존했다.",
+      "review_id": "fraud.core.special_forms.fraud.standard.litigation-fraud-strict-interpretation",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.1_83",
+          "quote": "소송사기의 적용에는 엄격해석을 요한다.",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "user_label": "reject"
+    },
+    {
+      "action": "approve_after_crosscheck",
+      "card_id": "special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime",
+      "final_proposition": "기망수단을 사용한 권리행사라도 그 기망수단이 사회통념상 권리행사의 수단으로 용인될 수 있으면 권리행사 자체에 속하는 행위는 범죄를 구성하지 않는 정당행위가 된다.",
+      "final_role": "standard_input",
+      "original_proposition": "기망수단을 사용한 권리행사라도 그 기망수단이 사회통념상 권리행사의 수단으로 용인될 수 있으면 권리행사 자체에 속하는 행위는 범죄를 구성하지 않는 정당행위가 된다.",
+      "original_role": "standard_input",
+      "reason": "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다.",
+      "review_id": "fraud.core.special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅵ.4_99",
+          "quote": "망 행위를 사회통념상 권리행사의 수단으로서 용인할 수 있는 것이었다면 그중 권리행사 자체에 속하는 행위만은 범죄를 구성하지 않는 정당행위였다고 할 수 있으나",
+          "section_path": "Ⅵ.4"
+        }
+      ],
+      "user_label": "pending"
+    }
+  ],
+  "status": "complete",
+  "user_label_counts": {
+    "duplicated": 1,
+    "narrow": 10,
+    "pending": 80,
+    "rag": 24,
+    "reject": 3
+  },
+  "version": "1.0.0"
+}

@@ -4,9 +4,9 @@
 
 - API 사용: 0회
 - 전체 NormCard: 646개
-- deterministic rule 검수 후보: 29개
-- standard input 검수 후보: 89개
-- RAG 전용: 528개
+- deterministic rule 검수 후보: 28개
+- standard input 검수 후보: 60개
+- RAG 전용: 558개
 - 사용자 정책 선택: 0개 그룹, 0개 카드
 
 기존 67개 critic finding과 12개 정책 그룹은 모두 판정·수정 완료되었다. 직접 판례가 있는 쟁점은 실무 규칙으로 활성화했고, 순수 학설 또는 희귀 적용례는 전역 정책이 아니라 RAG 문맥으로 보존했다.

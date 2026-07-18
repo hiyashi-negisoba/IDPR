@@ -30,6 +30,7 @@ CORE_SELECTION_AUDIT = FRAUD_ROOT / "fraud_core_rule_selection_audit.json"
 CORE_REVIEW_QUEUE = FRAUD_ROOT / "fraud_core_rule_review_queue.json"
 CORE_REVIEW_DECISIONS = FRAUD_ROOT / "fraud_core_rule_review_decisions.jsonl"
 CORE_REVIEW_GUIDE = FRAUD_ROOT / "fraud_core_rule_review_guide.md"
+CORE_HUMAN_REVIEW_AUDIT = FRAUD_ROOT / "fraud_core_rule_human_review_audit.json"
 LOCAL_PRIMARY_SOURCE = (
     PROJECT_ROOT.parent
     / "sp/data/processed/Case_DB/clean_open_precedents.parquet"
@@ -191,6 +192,136 @@ CORE_STANDARD_IDS = {
 }
 
 
+ORIGINAL_CORE_DETERMINISTIC_IDS = frozenset(CORE_DETERMINISTIC_IDS)
+ORIGINAL_CORE_STANDARD_IDS = frozenset(CORE_STANDARD_IDS)
+ORIGINAL_CORE_IDS = ORIGINAL_CORE_DETERMINISTIC_IDS | ORIGINAL_CORE_STANDARD_IDS
+
+USER_CORE_RAG_IDS = {
+    "deception.fraud.standard.abstract-or-immaterial-advertising",
+    "deception.fraud.standard.financial-loan-omission-caution",
+    "fraud_mistake.active_creditor_extension",
+    "fraud_mistake.assignment_debt_extinguishment",
+    "fraud_stages_participation.enforcement_application_attempt",
+    "fraud_stages_participation.false_claim_provisional_seizure_no_attempt",
+    "fraud_stages_participation.gambling_fraud_attempt",
+    "fraud_stages_participation.insurance_false_claim_attempt",
+    "fraud_stages_participation.post_filing_false_claim_attempt",
+    "special_forms.fraud.element.judgment-substitutes-victim-disposition",
+    "special_forms.fraud.element.litigation-fraud-commencement",
+    "special_forms.fraud.element.litigation-fraud-deceptive-act",
+    "special_forms.fraud.element.litigation-fraud-knowing-nonexistence",
+    "special_forms.fraud.exception.litigation-fraud-mistake-of-fact-or-law",
+    "special_forms.fraud.exception.omission-of-favorable-evidence",
+    "special_forms.fraud.standard.false-claim-alone-can-deceive",
+    "special_forms.fraud.standard.indirect-perpetration-through-unaware-third-party",
+    "special_forms.fraud.standard.insurance-concealed-existing-accident",
+    "special_forms.fraud.standard.insurance-defective-life-contract-preparatory-act",
+    "special_forms.fraud.standard.insurance-false-accident-claim",
+    "special_forms.fraud.standard.insurance-injury-disease-contingency-factors",
+    "special_forms.fraud.standard.insurance-intentional-accident-claim",
+    "special_forms.fraud.standard.insurance-omission-destroys-contingency",
+    "special_forms.fraud.standard.litigation-fraud-objectively-false-or-knowing",
+}
+
+USER_CORE_NARROW_IDS = {
+    "deception.fraud.standard.implicit-omission-deception-distinction",
+    "fraud_damage_acquisition.money_delivery_full_amount",
+    "fraud_mistake.conscious_nonexercise",
+    "fraud_mistake.factual_act_disposition",
+    "fraud_mistake.no_capacity_theft",
+    "fraud_mistake.omission_not_all_nonclaims",
+    "fraud_mistake.trick_theft_directness",
+    "fraud_stages_participation.litigation_service_not_required",
+    "general_object.fraud.exception.public-interest-property-equivalence",
+    "general_object.fraud.standard.public-interest-only-no-fraud",
+}
+
+USER_CORE_REJECT_IDS = {
+    "deception.fraud.exception.no-notice-duty-no-effect-on-rights",
+    "fraud_intent.illegal_gain_unauthorized",
+    "special_forms.fraud.standard.litigation-fraud-strict-interpretation",
+}
+
+USER_CORE_DUPLICATE_IDS = {"fraud_intent.objective_circumstances"}
+
+# The user treats litigation and insurance subtypes as retrieval material. The same
+# criterion also reaches these two missed litigation-fraud cards.
+CROSSCHECK_CORE_RAG_IDS = {
+    "fraud_stages_participation.litigation_service_not_required",
+    "fraud_stages_participation.payment_order_attempt",
+}
+
+CORE_EXCLUDED_IDS = (
+    USER_CORE_RAG_IDS
+    | USER_CORE_REJECT_IDS
+    | USER_CORE_DUPLICATE_IDS
+    | CROSSCHECK_CORE_RAG_IDS
+)
+CORE_DETERMINISTIC_IDS = set(ORIGINAL_CORE_DETERMINISTIC_IDS) - CORE_EXCLUDED_IDS
+CORE_STANDARD_IDS = set(ORIGINAL_CORE_STANDARD_IDS) - CORE_EXCLUDED_IDS
+
+NARROWED_CORE_PROPOSITIONS = {
+    "deception.fraud.definition.exploitation-existing-mistake": (
+        "이미 착오에 빠진 상태를 이용하는 행위가 신의칙 위반의 작위 또는 고지의무 있는 "
+        "부작위로 평가되는 경우 기망행위가 될 수 있다."
+    ),
+    "deception.fraud.definition.deception-target-human": (
+        "사실과 다른 관념을 형성하고 재산적 처분행위를 할 인식능력이 없는 사람은 기망의 "
+        "상대방이 될 수 없고, 기계는 착오에 빠질 수 없어 기망행위의 대상이 될 수 없다."
+    ),
+    "deception.fraud.standard.implicit-omission-deception-distinction": (
+        "행위자의 침묵이 거래관행·사회통념상 일정 사항을 표시하는 설명가치를 가져 묵시적 "
+        "기망으로 평가되는지를 먼저 검토하고, 그렇지 않은 침묵은 보증인적 지위와 고지의무가 "
+        "있는 경우에 한하여 부작위 기망이 될 수 있다."
+    ),
+    "fraud_damage_acquisition.money_delivery_full_amount": (
+        "금원 편취 사기에서 피해자가 기망으로 교부한 금원과 관련하여 상당한 대가가 일부 "
+        "지급되었더라도 이를 공제하지 않고, 편취액은 교부받은 금원 전부로 본다."
+    ),
+    "fraud_mistake.conscious_nonexercise": (
+        "피기망자가 착오 때문에 채권을 의식적으로 행사하지 않았고 그 부작위가 행위자에게 "
+        "직접 재산상 이익을 부여한 경우, 그 부작위는 재산적 처분행위가 될 수 있다."
+    ),
+    "fraud_mistake.factual_act_disposition": (
+        "피기망자의 의사에 기초한 사실행위가 행위자 등에게 재물 또는 재산상 이익을 직접 "
+        "이전하는 경우, 그 사실행위도 처분행위가 될 수 있다."
+    ),
+    "fraud_mistake.no_capacity_theft": (
+        "구체적으로 재산적 처분행위를 할 의사능력이 없는 사람이 기망적 수단에 반응하여 "
+        "재물을 넘긴 경우에는 그 사람의 처분행위를 인정할 수 없어 사기죄가 아니라 절도죄가 "
+        "문제된다."
+    ),
+    "fraud_mistake.omission_not_all_nonclaims": (
+        "채권자가 일시적으로 이행을 독촉하거나 청구하지 않았다는 사정만으로는 부족하고, "
+        "착오에 기한 의식적 불행사와 그로 인한 직접 재산상 이익 부여가 있어야 부작위 "
+        "처분행위가 될 수 있다."
+    ),
+    "fraud_mistake.trick_theft_directness": (
+        "기망적 수단이 사용됐더라도 피해자의 행위가 재물 지배 이전을 직접 초래하지 않고 "
+        "행위자가 탈취한 경우에는 처분행위의 직접성이 없어 사기죄가 아니라 절도죄가 문제된다."
+    ),
+    "fraud_mistake.unaware_error": (
+        "피기망자가 진실을 알고 있어 허위임을 인식한 경우에는 착오가 아니지만, 어느 것이 "
+        "진실인지 의심하는 데 그친 경우에는 착오가 인정될 수 있다."
+    ),
+    "general_object.fraud.exception.public-interest-property-equivalence": (
+        "기망으로 국가적·공공적 법익을 침해한 경우에도 그 침해가 동시에 재산권 침해와 "
+        "동일하게 평가되고 해당 행위를 사기죄보다 특별하게 처벌하는 별도 규정이 없는 때에 "
+        "한하여 사기죄가 성립할 수 있다."
+    ),
+    "general_object.fraud.standard.public-interest-only-no-fraud": (
+        "기망이 국가적·공공적 법익만 침해하고 그 침해를 재산권 침해와 동일하게 평가할 수 "
+        "없는 경우에는 사기죄가 성립하지 않는다."
+    ),
+}
+
+CROSSCHECK_CORE_NARROW_IDS = {
+    "deception.fraud.definition.exploitation-existing-mistake",
+    "deception.fraud.definition.deception-target-human",
+    "fraud_mistake.unaware_error",
+}
+
+
 FUTURE_WORK_GENERAL_PART_IDS = {
     "fraud_intent.conditional_intent",
     "fraud_stages_participation.inclusive_offense_withdrawal_liability",
@@ -321,6 +452,7 @@ def preserve_policy_decisions(
 
 def preserve_core_review_decisions(
     review_items: list[dict[str, Any]],
+    cards_by_id: dict[str, dict[str, Any]],
 ) -> list[dict[str, Any]]:
     existing_rows = (
         read_jsonl(CORE_REVIEW_DECISIONS) if CORE_REVIEW_DECISIONS.exists() else []
@@ -331,6 +463,109 @@ def preserve_core_review_decisions(
         if review_id in existing:
             raise ValueError(f"Duplicate core review decision: {review_id}")
         existing[review_id] = row
+
+    legacy_statuses = {"rag", "narrow", "reject", "duplicated"}
+    if any(row.get("status") in legacy_statuses for row in existing_rows):
+        expected_ids = {f"fraud.core.{card_id}" for card_id in ORIGINAL_CORE_IDS}
+        if set(existing) != expected_ids:
+            raise ValueError("User-labeled core decision IDs do not match the original queue")
+
+        expected_status_by_id = {
+            f"fraud.core.{card_id}": "pending" for card_id in ORIGINAL_CORE_IDS
+        }
+        for card_id in USER_CORE_RAG_IDS:
+            expected_status_by_id[f"fraud.core.{card_id}"] = "rag"
+        for card_id in USER_CORE_NARROW_IDS:
+            expected_status_by_id[f"fraud.core.{card_id}"] = "narrow"
+        for card_id in USER_CORE_REJECT_IDS:
+            expected_status_by_id[f"fraud.core.{card_id}"] = "reject"
+        for card_id in USER_CORE_DUPLICATE_IDS:
+            expected_status_by_id[f"fraud.core.{card_id}"] = "duplicated"
+        actual_status_by_id = {
+            review_id: row.get("status") for review_id, row in existing.items()
+        }
+        if actual_status_by_id != expected_status_by_id:
+            raise ValueError("User core labels changed unexpectedly; refusing to infer intent")
+
+        old_queue = read_json(CORE_REVIEW_QUEUE)
+        old_items = {item["card_id"]: item for item in old_queue.get("items", [])}
+        if set(old_items) != set(ORIGINAL_CORE_IDS):
+            raise ValueError("Original core queue is unavailable for label migration audit")
+
+        resolution_rows: list[dict[str, Any]] = []
+        for card_id in sorted(ORIGINAL_CORE_IDS):
+            review_id = f"fraud.core.{card_id}"
+            user_status = existing[review_id]["status"]
+            if card_id in USER_CORE_RAG_IDS:
+                action = "reclassify_to_rag_user"
+                reason = "사용자가 구체 유형 또는 검색으로 처리할 기준으로 분류했다."
+            elif card_id in USER_CORE_REJECT_IDS:
+                action = "reject_from_executable_core_keep_provenance_context"
+                reason = "사용자가 실행 규칙으로 부적절하다고 판단하여 RAG 문맥에만 보존했다."
+            elif card_id in USER_CORE_DUPLICATE_IDS:
+                action = "reclassify_to_rag_duplicate_keep_loan_rule"
+                reason = (
+                    "사용자가 중복으로 표시했고, 차용금 편취 범의 판단 규칙을 실무상 "
+                    "대표 규칙으로 유지하도록 확인했다."
+                )
+            elif card_id in CROSSCHECK_CORE_RAG_IDS:
+                action = "reclassify_to_rag_specific_litigation_fraud"
+                reason = "동일 기준을 교차 적용하여 누락된 소송사기 전용 규칙을 RAG로 옮겼다."
+            elif card_id in USER_CORE_NARROW_IDS:
+                action = "narrow_and_approve"
+                reason = "사용자의 narrow 판정을 원문 범위에 맞는 문구로 직접 반영했다."
+            elif card_id in CROSSCHECK_CORE_NARROW_IDS:
+                action = "narrow_and_approve_crosscheck"
+                reason = "전수 교차검토에서 과도한 범위 또는 인접 규칙과의 충돌을 좁혔다."
+            else:
+                action = "approve_after_crosscheck"
+                reason = "사용자 미표시 항목을 출처와 전체 core 범위에 대조해 유지했다."
+            final_card = cards_by_id[card_id]
+            resolution_rows.append(
+                {
+                    "review_id": review_id,
+                    "card_id": card_id,
+                    "user_label": user_status,
+                    "action": action,
+                    "reason": reason,
+                    "original_role": old_items[card_id]["role"],
+                    "final_role": final_card["formalization"],
+                    "original_proposition": old_items[card_id]["proposition"],
+                    "final_proposition": final_card["proposition"],
+                    "source_refs": final_card["source_refs"],
+                }
+            )
+        write_json(
+            CORE_HUMAN_REVIEW_AUDIT,
+            {
+                "version": "1.0.0",
+                "issue_tag": "fraud",
+                "status": "complete",
+                "method": "user_labels_plus_manual_crosscheck_no_api",
+                "api_calls": 0,
+                "original_cards": len(ORIGINAL_CORE_IDS),
+                "active_core_cards": len(review_items),
+                "user_label_counts": dict(
+                    sorted(Counter(row["status"] for row in existing_rows).items())
+                ),
+                "action_counts": dict(
+                    sorted(Counter(row["action"] for row in resolution_rows).items())
+                ),
+                "resolutions": resolution_rows,
+            },
+        )
+        return [
+            {
+                "review_id": item["review_id"],
+                "status": "completed",
+                "decision": "approve",
+                "verified_authority_refs": existing.get(
+                    item["review_id"], {}
+                ).get("verified_authority_refs", []),
+                "notes": "사용자 라벨 반영 및 잔여 core 전수 교차검토 완료.",
+            }
+            for item in review_items
+        ]
 
     current_ids = {item["review_id"] for item in review_items}
     orphan_ids = set(existing) - current_ids
@@ -1041,6 +1276,36 @@ def main() -> None:
     )
     append_note(deceived_disposer, "기망자를 피기망자로 잘못 옮긴 번역 오류를 정정했다.")
 
+    for card_id, proposition in NARROWED_CORE_PROPOSITIONS.items():
+        card = cards_by_id[card_id]
+        card["proposition"] = proposition
+        note = (
+            "잔여 core 전수 교차검토에서 출처 범위와 인접 규칙의 관계에 맞게 문구를 좁혔다."
+            if card_id in CROSSCHECK_CORE_NARROW_IDS
+            else "사용자의 narrow 판정을 출처 범위에 맞는 문구로 직접 반영했다."
+        )
+        append_note(card, note)
+
+    for card_id in USER_CORE_RAG_IDS:
+        append_note(
+            cards_by_id[card_id],
+            "사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다.",
+        )
+    for card_id in USER_CORE_REJECT_IDS:
+        append_note(
+            cards_by_id[card_id],
+            "사용자 검수에서 실행 규칙으로 기각하여 provenance용 RAG 문맥에만 보존했다.",
+        )
+    append_note(
+        cards_by_id["fraud_intent.objective_circumstances"],
+        "사용자가 중복으로 표시했으며 차용금 편취 범의 판단 규칙을 대표 규칙으로 유지하여 RAG에 보존했다.",
+    )
+    for card_id in CROSSCHECK_CORE_RAG_IDS:
+        append_note(
+            cards_by_id[card_id],
+            "사용자의 유형 한정 규칙 분류 기준을 교차 적용하여 소송사기 RAG로 보존했다.",
+        )
+
     all_core_ids = CORE_DETERMINISTIC_IDS | CORE_STANDARD_IDS
     if CORE_DETERMINISTIC_IDS & CORE_STANDARD_IDS:
         raise ValueError("Core deterministic and standard IDs must be disjoint")
@@ -1143,7 +1408,9 @@ def main() -> None:
                 ),
             }
         )
-    core_review_decisions = preserve_core_review_decisions(core_review_items)
+    core_review_decisions = preserve_core_review_decisions(
+        core_review_items, cards_by_id
+    )
     core_decisions_by_id = {
         row["review_id"]: row for row in core_review_decisions
     }
@@ -1361,8 +1628,8 @@ def main() -> None:
         {
             "version": "1.0.0",
             "issue_tag": "fraud",
-            "status": "draft",
-            "legal_review": "pending",
+            "status": "complete" if core_review_unresolved == 0 else "draft",
+            "legal_review": "complete" if core_review_unresolved == 0 else "pending",
             "method": "manual_full_core_scope_audit_no_api",
             "api_calls": 0,
             "criteria": {
@@ -1420,9 +1687,13 @@ def main() -> None:
         f"- RAG/future-work context: {status_counts['rag_context_only']}개",
         f"- 현재 unresolved: {core_review_unresolved}개",
         "",
-        "`fraud_core_rule_review_decisions.jsonl`에서 검토한 행의 status를 `completed`로 "
-        "바꾸고 decision에 `approve`, `narrow`, `reclassify_to_rag`, `reject` 중 하나를 "
-        "기록한다. 수정이 필요하면 notes에 범위와 문구를 적는다.",
+        (
+            "사용자 라벨과 잔여 항목 교차검토가 모두 반영되었다. 원래 118개에 대한 "
+            "판정·변경 근거는 `fraud_core_rule_human_review_audit.json`에 보존한다."
+            if core_review_unresolved == 0
+            else "`fraud_core_rule_review_decisions.jsonl`에서 검토한 행의 status를 "
+            "`completed`로 바꾸고 decision을 기록한다."
+        ),
         "",
     ]
     for role, title in (

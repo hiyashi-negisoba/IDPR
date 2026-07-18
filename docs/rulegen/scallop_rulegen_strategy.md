@@ -176,17 +176,20 @@ gate가 충족된 경우에만 `admissible(e)`를 만든다. 참고 구현은
 - `data/rulegen/fraud/fraud_norm_card_review_queue.json`
 - `data/rulegen/fraud/fraud_core_rule_review_queue.json`
 - `data/rulegen/fraud/fraud_core_rule_selection_audit.json`
+- `data/rulegen/fraud/fraud_core_rule_human_review_audit.json`
 - `data/rulegen/fraud/fraud_policy_resolution_audit.json`
 - `data/rulegen/fraud/fraud_rule_ir_readiness.json`
 
-전수 core 범위 감사 결과 29개 `deterministic_rule`과 89개 `standard_input`을 검수
-후보로 남기고, 구체 판례 결과·학설·희귀 적용례 등 528개는 RAG 또는 future-work
-문맥으로 분리했다. 죄수와 미필적 고의·공범 이탈 등 형법총칙 쟁점은 총칙 corpus 확보
-전에는 사기죄 core에 넣지 않는다.
+전수 core 범위 감사와 사용자 검수 결과 28개 `deterministic_rule`과 60개
+`standard_input`을 승인된 실행 core로 남기고, 구체 판례 결과·학설·희귀 적용례 등
+558개는 RAG 또는 future-work 문맥으로 분리했다. 죄수와 미필적 고의·공범 이탈 등
+형법총칙 쟁점은 총칙 corpus 확보 전에는 사기죄 core에 넣지 않는다.
 기존 12개 정책 그룹은 주석서와 로컬 원판례 15건을 대조하여 판례 우선 규칙 또는
-RAG로 모두 해소했다. 다만 core 118개는 아직 전부 사용자 검수 대기 상태이므로 전체
-RuleIR 생성은 차단한다. 미승인 항목을 `ready`로 부르거나 일부 카드 수만으로 coverage를
-주장하지 않는다.
+RAG로 모두 해소했다. 원래 core 후보 118개 중 사용자가 24개를 RAG, 10개를 narrow,
+3개를 reject, 1개를 duplicate로 표시했다. 교차검토에서 소송사기 전용 2개를 RAG로
+보내고 3개 문구를 추가로 좁혔다. 차용금 편취 범의 판단 규칙은 일반성이 있어 유지하고
+중복된 일반형 카드만 RAG로 내렸다. 현재 전체 RuleIR 생성 게이트는 열렸지만 전수
+RuleIR 자체는 아직 생성하지 않았다.
 
 ## API 실행 순서
 

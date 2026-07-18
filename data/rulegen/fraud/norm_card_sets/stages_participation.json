@@ -19,7 +19,7 @@
         "fraud.article347.pass1.012"
       ],
       "review_notes": "실행의 착수 일반 기준으로 검토한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅶ.1_105",
@@ -38,7 +38,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "fraud_stages_participation.insurance_false_claim_attempt",
       "norm_kind": "standard",
       "polarity": "positive",
@@ -46,7 +46,7 @@
       "request_ids": [
         "fraud.article347.pass1.012"
       ],
-      "review_notes": "보험금 청구의 허위성과 지급요건 불충족 은폐를 사실관계로 검토한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "보험금 청구의 허위성과 지급요건 불충족 은폐를 사실관계로 검토한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -94,7 +94,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "fraud_stages_participation.gambling_fraud_attempt",
       "norm_kind": "standard",
       "polarity": "positive",
@@ -102,7 +102,7 @@
       "request_ids": [
         "fraud.article347.pass1.012"
       ],
-      "review_notes": "사기도박의 기망행위 개시 시점을 검토한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "사기도박의 기망행위 개시 시점을 검토한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -150,7 +150,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "deterministic_rule",
+      "formalization": "context_only",
       "id": "fraud_stages_participation.litigation_service_not_required",
       "norm_kind": "element",
       "polarity": "negative",
@@ -158,7 +158,7 @@
       "request_ids": [
         "fraud.article347.pass1.012"
       ],
-      "review_notes": "유효 송달은 실행착수의 필요조건이 아니라는 한정이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "유효 송달은 실행착수의 필요조건이 아니라는 한정이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자의 유형 한정 규칙 분류 기준을 교차 적용하여 소송사기 RAG로 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -178,7 +178,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "fraud_stages_participation.false_claim_provisional_seizure_no_attempt",
       "norm_kind": "standard",
       "polarity": "negative",
@@ -186,7 +186,7 @@
       "request_ids": [
         "fraud.article347.pass1.012"
       ],
-      "review_notes": "가압류만으로는 실행착수가 아니라는 제한이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "가압류만으로는 실행착수가 아니라는 제한이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -206,7 +206,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "fraud_stages_participation.enforcement_application_attempt",
       "norm_kind": "standard",
       "polarity": "positive",
@@ -214,7 +214,7 @@
       "request_ids": [
         "fraud.article347.pass1.012"
       ],
-      "review_notes": "집행 개시신청 또는 배당신청의 절차적 시점을 검토한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "집행 개시신청 또는 배당신청의 절차적 시점을 검토한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -299,7 +299,7 @@
         "fraud.article347.pass1.012"
       ],
       "review_notes": "기수 판단의 기본 인과 사슬이다. Conservatively normalized from linked candidates. 관련 경쟁 견해 또는 사실변형을 fraud_stages_participation.completion_threshold로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅶ.2_107",
@@ -327,7 +327,7 @@
         "fraud.article347.pass1.012"
       ],
       "review_notes": "실제 인과관계 부재에 관한 미수 규범이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅶ.2_107",
@@ -383,7 +383,7 @@
         "fraud.article347.pass1.012"
       ],
       "review_notes": "재물 편취 기수의 지배 이전 기준이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅶ.2_107",
@@ -626,7 +626,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "fraud_stages_participation.payment_order_attempt",
       "norm_kind": "standard",
       "polarity": "positive",
@@ -634,7 +634,7 @@
       "request_ids": [
         "fraud.article347.pass1.012"
       ],
-      "review_notes": "허위 증서에 기한 지급명령신청 여부를 검토한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "허위 증서에 기한 지급명령신청 여부를 검토한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자의 유형 한정 규칙 분류 기준을 교차 적용하여 소송사기 RAG로 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -682,7 +682,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "fraud_stages_participation.post_filing_false_claim_attempt",
       "norm_kind": "standard",
       "polarity": "positive",
@@ -690,7 +690,7 @@
       "request_ids": [
         "fraud.article347.pass1.012"
       ],
-      "review_notes": "종전 권원과 별도의 허위주장인지 검토한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "종전 권원과 별도의 허위주장인지 검토한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {

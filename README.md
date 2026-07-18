@@ -70,11 +70,9 @@ python scripts/finalize_fraud_norm_card_review.py
 python scripts/build_fraud_legal_review.py
 ```
 
-Start human review at
-`data/rulegen/fraud/fraud_core_rule_review_guide.md`. The 67 critic findings are
-already adjudicated and remediated without API calls. Full RuleIR generation is
-blocked until all 29 deterministic-rule and 89 standard-input candidates receive
-explicit human approval in `fraud_core_rule_review_decisions.jsonl`. The remaining
-528 cards are retrieval or future-work context. The existing eight-card fraud RuleIR and Scallop
-files are structural exemplars, not the current substantive policy or approval of
-all 646 cards.
+The 67 critic findings and the full 118-card human review have been adjudicated
+without additional API calls. User labels and the manual cross-check leave 28
+deterministic rules and 60 standard inputs approved for the executable core; 558
+cards remain retrieval or future-work context. Full RuleIR generation is now
+unblocked but has not yet been run. The existing eight-card fraud RuleIR and
+Scallop files remain structural exemplars rather than the full fraud rule set.

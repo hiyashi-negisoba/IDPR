@@ -187,7 +187,7 @@
         "fraud.article347.pass1.007"
       ],
       "review_notes": "판례 원문 확인 전에는 해설의 판례평가로만 취급한다. Conservatively normalized from linked candidates. 정책 선택지가 아니라 판례 설명·중복 요약·보충 논거로 분류했다. 75도760 및 2001도2991의 좁은 판시 범위로 활성화했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.4_62",
@@ -388,7 +388,7 @@
         "fraud.article347.pass1.008"
       ],
       "review_notes": "손해요건 부정설의 구체적 내용이다. Conservatively normalized from linked candidates. 재산상 손해 필요성의 개괄·구체 견해를 하나의 정책 그룹으로 연결했다. 2003도4914 및 2017도21196의 판례 기준으로 활성화했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.4_63",
@@ -504,12 +504,12 @@
       "id": "fraud_damage_acquisition.money_delivery_full_amount",
       "norm_kind": "standard",
       "polarity": "positive",
-      "proposition": "금원 편취 사기에서 기망으로 금원을 교부받으면 그 자체로 재산침해가 되며, 대가가 일부 지급되어도 편취액은 대가를 공제한 차액이 아니라 교부받은 금원 전부이다.",
+      "proposition": "금원 편취 사기에서 피해자가 기망으로 교부한 금원과 관련하여 상당한 대가가 일부 지급되었더라도 이를 공제하지 않고, 편취액은 교부받은 금원 전부로 본다.",
       "request_ids": [
         "fraud.article347.pass1.008"
       ],
-      "review_notes": "금원 교부형 사안에 한정된 reported precedent이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
-      "review_required": true,
+      "review_notes": "금원 교부형 사안에 한정된 reported precedent이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자의 narrow 판정을 출처 범위에 맞는 문구로 직접 반영했다.",
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.4_63",
@@ -598,7 +598,7 @@
         "fraud.article347.pass1.008"
       ],
       "review_notes": "보고된 판례의 성립 판단을 보존한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.4_64",
@@ -626,7 +626,7 @@
         "fraud.article347.pass1.008"
       ],
       "review_notes": "경제적 이익 해당성은 개별 평가가 필요하다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.4_64",
@@ -654,7 +654,7 @@
         "fraud.article347.pass1.008"
       ],
       "review_notes": "재물 교부의 기본 정의다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.5_66",
@@ -710,7 +710,7 @@
         "fraud.article347.pass1.008"
       ],
       "review_notes": "사실상 지배와 자유로운 처분 가능성을 확인한다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.5_66",
@@ -738,7 +738,7 @@
         "fraud.article347.pass1.008"
       ],
       "review_notes": "처분행위의 예시적 범위다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.5_66",
@@ -1083,7 +1083,7 @@
         "fraud.article347.pass1.008"
       ],
       "review_notes": "사회통념상 용인 가능성은 평가적 판단이다. Conservatively normalized from linked candidates. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.6_69",

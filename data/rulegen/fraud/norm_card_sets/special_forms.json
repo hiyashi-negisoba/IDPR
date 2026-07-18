@@ -38,7 +38,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "special_forms.fraud.standard.litigation-fraud-strict-interpretation",
       "norm_kind": "standard",
       "polarity": "negative",
@@ -46,7 +46,7 @@
       "request_ids": [
         "fraud.article347.pass1.010"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_strict_proof로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_strict_proof로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 실행 규칙으로 기각하여 provenance용 RAG 문맥에만 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -66,7 +66,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "special_forms.fraud.standard.litigation-fraud-objectively-false-or-knowing",
       "norm_kind": "standard",
       "polarity": "negative",
@@ -74,7 +74,7 @@
       "request_ids": [
         "fraud.article347.pass1.010"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_strict_proof로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_strict_proof로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -94,7 +94,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "special_forms.fraud.element.litigation-fraud-knowing-nonexistence",
       "norm_kind": "element",
       "polarity": "positive",
@@ -102,7 +102,7 @@
       "request_ids": [
         "fraud.article347.pass1.010"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 원판례 확인 전 독립 deterministic rule이 아닌 standard input으로 유지한다. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_strict_proof로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 원판례 확인 전 독립 deterministic rule이 아닌 standard input으로 유지한다. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_strict_proof로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -122,7 +122,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "special_forms.fraud.exception.litigation-fraud-mistake-of-fact-or-law",
       "norm_kind": "exception",
       "polarity": "exception",
@@ -130,7 +130,7 @@
       "request_ids": [
         "fraud.article347.pass1.010"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_strict_proof로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_strict_proof로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -206,7 +206,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "special_forms.fraud.standard.indirect-perpetration-through-unaware-third-party",
       "norm_kind": "standard",
       "polarity": "positive",
@@ -214,7 +214,7 @@
       "request_ids": [
         "fraud.article347.pass1.010"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_stage로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_stage로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -262,7 +262,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "special_forms.fraud.element.litigation-fraud-deceptive-act",
       "norm_kind": "element",
       "polarity": "positive",
@@ -270,7 +270,7 @@
       "request_ids": [
         "fraud.article347.pass1.010"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 원판례 확인 전 독립 deterministic rule이 아닌 standard input으로 유지한다. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_deceptive_means로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 원판례 확인 전 독립 deterministic rule이 아닌 standard input으로 유지한다. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_deceptive_means로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -290,7 +290,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "special_forms.fraud.exception.omission-of-favorable-evidence",
       "norm_kind": "exception",
       "polarity": "exception",
@@ -298,7 +298,7 @@
       "request_ids": [
         "fraud.article347.pass1.010"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_deceptive_means로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_deceptive_means로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -318,7 +318,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "special_forms.fraud.standard.false-claim-alone-can-deceive",
       "norm_kind": "standard",
       "polarity": "positive",
@@ -326,7 +326,7 @@
       "request_ids": [
         "fraud.article347.pass1.010"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_deceptive_means로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_deceptive_means로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -346,7 +346,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "special_forms.fraud.element.judgment-substitutes-victim-disposition",
       "norm_kind": "element",
       "polarity": "positive",
@@ -354,7 +354,7 @@
       "request_ids": [
         "fraud.article347.pass1.010"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 원판례 확인 전 독립 deterministic rule이 아닌 standard input으로 유지한다. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_disposition_effect로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 원판례 확인 전 독립 deterministic rule이 아닌 standard input으로 유지한다. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_disposition_effect로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -1366,7 +1366,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "special_forms.fraud.element.litigation-fraud-commencement",
       "norm_kind": "element",
       "polarity": "positive",
@@ -1374,7 +1374,7 @@
       "request_ids": [
         "fraud.article347.pass1.010"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 원판례 확인 전 독립 deterministic rule이 아닌 standard input으로 유지한다. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_stage로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 원판례 확인 전 독립 deterministic rule이 아닌 standard input으로 유지한다. 소송사기 검토상 관련 사실변형을 fraud_special_forms.litigation_stage로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -1615,7 +1615,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "special_forms.fraud.standard.insurance-concealed-existing-accident",
       "norm_kind": "standard",
       "polarity": "positive",
@@ -1623,7 +1623,7 @@
       "request_ids": [
         "fraud.article347.pass1.011"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -1643,7 +1643,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "special_forms.fraud.standard.insurance-intentional-accident-claim",
       "norm_kind": "standard",
       "polarity": "positive",
@@ -1651,7 +1651,7 @@
       "request_ids": [
         "fraud.article347.pass1.011"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -1671,7 +1671,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "special_forms.fraud.standard.insurance-false-accident-claim",
       "norm_kind": "standard",
       "polarity": "positive",
@@ -1679,7 +1679,7 @@
       "request_ids": [
         "fraud.article347.pass1.011"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -1727,7 +1727,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "special_forms.fraud.standard.insurance-omission-destroys-contingency",
       "norm_kind": "standard",
       "polarity": "positive",
@@ -1735,7 +1735,7 @@
       "request_ids": [
         "fraud.article347.pass1.011"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -1755,7 +1755,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "special_forms.fraud.standard.insurance-injury-disease-contingency-factors",
       "norm_kind": "standard",
       "polarity": "positive",
@@ -1763,7 +1763,7 @@
       "request_ids": [
         "fraud.article347.pass1.011"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -1839,7 +1839,7 @@
         }
       ],
       "doctrinal_status": "descriptive",
-      "formalization": "standard_input",
+      "formalization": "context_only",
       "id": "special_forms.fraud.standard.insurance-defective-life-contract-preparatory-act",
       "norm_kind": "standard",
       "polarity": "negative",
@@ -1847,7 +1847,7 @@
       "request_ids": [
         "fraud.article347.pass1.011"
       ],
-      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다. 사용자 검수에서 구체 유형 또는 검색으로 처리할 기준으로 분류하여 RAG에 보존했다. Scallop core 전수 감사에서 일반 법리와 neural 판단 기준만 core에 남기고 구체적 적용례·학설·부수 쟁점은 RAG로 분리했다.",
       "review_required": true,
       "source_refs": [
         {
@@ -2423,7 +2423,7 @@
         "fraud.article347.pass1.011"
       ],
       "review_notes": "Deterministic one-candidate lift. Authority and variant grouping remain pending human review. 관련 경쟁 견해 또는 사실변형을 fraud_special_forms.right_exercise_boundary로 연결했다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
-      "review_required": true,
+      "review_required": false,
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅵ.4_99",
