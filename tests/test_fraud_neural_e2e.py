@@ -261,5 +261,5 @@ def test_slurm_script_fixes_absolute_resources_and_offline_local_serving() -> No
     assert "/data5/jaehoonjeong/.cache/huggingface" in script
     assert "for ATTEMPT in 1 2 3" in script
     assert "unset CUDA_HOME CUDA_PATH" in script
-    assert '"disable_any_whitespace":true' in script
+    assert '"backend":"guidance","disable_any_whitespace":true' in script
     assert "HF_TOKEN" not in script
