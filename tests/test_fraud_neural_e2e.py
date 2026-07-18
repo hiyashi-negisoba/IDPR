@@ -11,6 +11,7 @@ from idpr.neural import (
     LOAN_PURPOSE_CARD_PLAN,
     ModelCacheError,
     NeuralContractError,
+    anchor_fraud_target_roles,
     audit_local_model_snapshot,
     build_authority_packet,
     build_scallop_scenario,
@@ -114,6 +115,44 @@ def test_fact_graph_rejects_one_person_split_across_role_entities() -> None:
 
     assert "actor mention 乙 resolves to multiple entities" in str(exc_info.value)
     assert "actor mention B resolves to multiple entities" in str(exc_info.value)
+
+
+def test_host_anchors_target_roles_without_modifying_neural_facts() -> None:
+    case, fact_graph, _, _, _ = neural_inputs()
+    raw = copy.deepcopy(fact_graph)
+    raw["actors"][0]["roles"].remove("beneficiary")
+    raw["actors"].append(
+        {"entity_id": "byeong", "mentions": ["丙"], "roles": ["beneficiary"]}
+    )
+
+    anchored, audit = anchor_fraud_target_roles(raw, case)
+
+    assert raw["actors"][-1]["roles"] == ["beneficiary"]
+    assert anchored["actors"][0]["roles"] == ["defendant", "beneficiary"]
+    assert anchored["actors"][-1]["roles"] == []
+    assert anchored["facts"] == raw["facts"]
+    assert audit["neural_facts_modified"] is False
+    assert next(
+        item for item in audit["anchors"] if item["role"] == "beneficiary"
+    ) == {
+        "role": "beneficiary",
+        "mention": "乙",
+        "previous_entity_ids": ["byeong"],
+        "anchored_entity_id": "eul",
+        "changed": True,
+    }
+    validate_fraud_fact_graph(anchored, case)
+
+
+def test_host_role_anchor_rejects_ambiguous_identity() -> None:
+    case, fact_graph, _, _, _ = neural_inputs()
+    ambiguous = copy.deepcopy(fact_graph)
+    ambiguous["actors"].append(
+        {"entity_id": "second_eul", "mentions": ["乙"], "roles": []}
+    )
+
+    with pytest.raises(NeuralContractError, match="must resolve to exactly one actor"):
+        anchor_fraud_target_roles(ambiguous, case)
 
 
 def test_fact_graph_rejects_unknown_fact_participant() -> None:
@@ -295,6 +334,9 @@ def test_replay_runs_from_kcl_contract_through_native_scallop(tmp_path: Path) ->
 
     assert report["status"] == "pass"
     assert report["artifact_origin"] == "synthetic_contract_replay"
+    assert report["host_normalization"]["method"] == (
+        "issue_router_target_role_anchors"
+    )
     assert report["neural_interface"]["selected_card_count"] == 13
     assert report["symbolic_runtime"]["scli_version"] == "scli 0.2.4"
     assert report["symbolic_runtime"]["observed_nonempty"] == {

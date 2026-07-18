@@ -13,6 +13,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from idpr.neural import (  # noqa: E402
+    anchor_fraud_target_roles,
     build_authority_packet,
     build_scallop_scenario,
     contract_schema,
@@ -130,6 +131,7 @@ def run_pipeline(
     norm_cards = read_json(NORM_CARD_PATH)
     run_dir.mkdir(parents=True, exist_ok=True)
     model_stages: dict[str, Any] = {}
+    host_normalization: dict[str, Any]
 
     if mode == "replay":
         replay = read_json(REPLAY_PATH)
@@ -150,6 +152,8 @@ def run_pipeline(
             max_tokens=5_000,
         )
         write_json(run_dir / "fact_graph_model_output.json", fact_graph)
+        fact_graph, host_normalization = anchor_fraud_target_roles(fact_graph, case)
+        write_json(run_dir / "fact_graph_role_anchored.json", fact_graph)
         validate_fraud_fact_graph(fact_graph, case)
         selected_card_ids = select_fraud_card_plan(fact_graph)
         authority_packet = build_authority_packet(selected_card_ids, norm_cards)
@@ -170,6 +174,8 @@ def run_pipeline(
     else:
         raise ValueError(f"unsupported mode: {mode}")
 
+    if mode == "replay":
+        fact_graph, host_normalization = anchor_fraud_target_roles(fact_graph, case)
     validate_fraud_fact_graph(fact_graph, case)
     selected_card_ids = select_fraud_card_plan(fact_graph)
     authority_packet = build_authority_packet(selected_card_ids, norm_cards)
@@ -232,6 +238,7 @@ def run_pipeline(
             "host_derived_provable_count": len(scenario["assessments"]),
         },
         "model_stages": model_stages,
+        "host_normalization": host_normalization,
         "symbolic_runtime": {
             "rule_set_id": rule_ir["rule_set_id"],
             "compiled_sha256": sha256_file(COMPILED_PATH),

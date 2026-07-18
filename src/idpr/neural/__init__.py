@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import copy
 import json
 import struct
 from functools import lru_cache
@@ -51,6 +52,64 @@ class NeuralContractError(ValueError):
 
 class ModelCacheError(RuntimeError):
     """Raised before vLLM starts when a local model snapshot is incomplete."""
+
+
+def anchor_fraud_target_roles(
+    payload: Mapping[str, Any], case: Mapping[str, Any]
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Bind issue-router role anchors without altering neural facts or identities."""
+
+    normalized = copy.deepcopy(payload)
+    actors = normalized.get("actors", [])
+    target = case.get("target", {})
+    transaction = target.get("target_transaction", {})
+    anchors = {
+        "defendant": str(target.get("defendant_hint", "")),
+        "disposer": str(transaction.get("transferor_hint", "")),
+        "beneficiary": str(transaction.get("immediate_recipient_hint", "")),
+    }
+    records: list[dict[str, Any]] = []
+    for role, mention in anchors.items():
+        if not mention:
+            continue
+        matching_actors = [
+            actor for actor in actors if mention in actor.get("mentions", [])
+        ]
+        if len(matching_actors) != 1:
+            raise NeuralContractError(
+                [
+                    f"target role anchor {role}={mention} must resolve to exactly "
+                    f"one actor, got {[actor.get('entity_id') for actor in matching_actors]}"
+                ]
+            )
+        previous_owners = [
+            actor.get("entity_id", "")
+            for actor in actors
+            if role in actor.get("roles", [])
+        ]
+        owner = matching_actors[0]
+        for actor in actors:
+            actor["roles"] = [
+                candidate for candidate in actor.get("roles", []) if candidate != role
+            ]
+        owner.setdefault("roles", []).append(role)
+        owner["roles"] = [
+            candidate for candidate in REQUIRED_ROLES if candidate in owner["roles"]
+        ]
+        records.append(
+            {
+                "role": role,
+                "mention": mention,
+                "previous_entity_ids": previous_owners,
+                "anchored_entity_id": owner.get("entity_id", ""),
+                "changed": previous_owners != [owner.get("entity_id", "")],
+            }
+        )
+    return normalized, {
+        "method": "issue_router_target_role_anchors",
+        "neural_facts_modified": False,
+        "anchors": records,
+    }
 
 
 def validate_fraud_fact_graph(
