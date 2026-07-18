@@ -1,0 +1,395 @@
+{
+  "architecture": {
+    "final_core_rule": "fraud.core.outcome.established",
+    "physical_layout": "현재는 단일 RuleIR 안의 논리 모듈이다. 사용자·Sol 검수 후 Scallop import 경계를 확정하면서 물리 파일 분리를 검토한다.",
+    "principle": "유형별 profile과 adapter가 canonical interface를 채우고, 공통 core는 세부 유형을 알지 않은 채 interface만 AND 결합한다.",
+    "routing_semantics": "관련 없는 module은 relation을 만들지 않는다. 관련되지만 자료가 부족한 쟁점만 unknown으로 명시한다."
+  },
+  "canonical_interfaces": {
+    "fraud_acquisition_satisfied": "취득 adapter의 공통 출력",
+    "fraud_beneficiary_attribution_satisfied": "본인·제3자 취득 귀속 adapter의 출력",
+    "fraud_causal_chain_satisfied": "순차적 인과관계 core의 공통 출력",
+    "fraud_completion_satisfied": "미수·기수 module의 공통 출력",
+    "fraud_deception_satisfied": "기망 core/profile의 공통 출력",
+    "fraud_disposition_satisfied": "처분 core/profile의 공통 출력",
+    "fraud_intent_satisfied": "주관적 요건 core/profile의 공통 출력",
+    "fraud_mistake_satisfied": "착오 core의 공통 출력",
+    "fraud_no_separate_loss_gate": "별도 현실손해를 중복 요구하지 않는 출력",
+    "fraud_object_satisfied": "객체 adapter의 공통 출력",
+    "fraud_role_structure_satisfied": "일반형·삼각사기 구조 adapter의 출력"
+  },
+  "card_ownership": {
+    "deception.fraud.causal-link.deception-property-disposition": "core.deception",
+    "deception.fraud.causal-link.loan-purpose-not-sole-trigger": "profile.loan",
+    "deception.fraud.causal-link.no-disposition-no-deception": "core.deception",
+    "deception.fraud.definition.deceived-person-unspecified": "profile.advertising",
+    "deception.fraud.definition.deceived-person-victim-distinct": "structure.triangular",
+    "deception.fraud.definition.deception-content-basis-fact": "core.deception",
+    "deception.fraud.definition.deception-counterparty-is-other": "core.deception",
+    "deception.fraud.definition.deception-good-faith-mistake": "core.deception",
+    "deception.fraud.definition.deception-means-unrestricted": "core.deception",
+    "deception.fraud.definition.deception-object-facts": "core.deception",
+    "deception.fraud.definition.deception-target-human": "core.deception",
+    "deception.fraud.definition.exploitation-existing-mistake": "profile.omission",
+    "deception.fraud.definition.implicit-deception": "profile.implicit_deception",
+    "deception.fraud.definition.notice-duty-violation-omission": "profile.omission",
+    "deception.fraud.definition.other-includes-corporation": "core.deception",
+    "deception.fraud.element.deception-must-create-false-belief": "core.deception",
+    "deception.fraud.element.deception-not-legal-act-important-part": "core.deception",
+    "deception.fraud.element.loan-no-repayment-intent-or-ability": "profile.loan",
+    "deception.fraud.element.omission-deception-guarantor-equivalence": "profile.omission",
+    "deception.fraud.element.omission-deception-independent-error": "profile.omission",
+    "deception.fraud.element.omission-deception-legal-notice-duty": "profile.omission",
+    "deception.fraud.element.transaction-purpose-no-impairment": "core.deception",
+    "deception.fraud.element.victim-negligence-no-bar": "core.deception",
+    "deception.fraud.standard.advertising-important-concrete-falsehood": "profile.advertising",
+    "deception.fraud.standard.advertising-tolerable-exaggeration": "profile.advertising",
+    "deception.fraud.standard.deception-concrete-circumstances": "core.deception",
+    "deception.fraud.standard.easily-detectable-lie": "core.deception",
+    "deception.fraud.standard.implicit-deception-explanatory-value": "profile.implicit_deception",
+    "deception.fraud.standard.implicit-omission-deception-distinction": "profile.implicit_deception",
+    "deception.fraud.standard.intent-to-defraud-loan-inference": "profile.loan",
+    "deception.fraud.standard.loan-lender-anticipated-risk": "profile.loan",
+    "deception.fraud.standard.loan-purpose-materiality": "profile.loan",
+    "deception.fraud.standard.loan-subsequent-default": "profile.loan",
+    "deception.fraud.standard.precedent-notice-duty-materiality": "profile.omission",
+    "deception.fraud.standard.vague-opinion-not-deception": "core.deception",
+    "fraud_damage_acquisition.delivery_factual_control": "object.property_delivery",
+    "fraud_damage_acquisition.delivery_of_property": "object.property_delivery",
+    "fraud_damage_acquisition.money_delivery_full_amount": "object.property_delivery",
+    "fraud_damage_acquisition.property_concept_reported_precedent": "object.property_benefit",
+    "fraud_damage_acquisition.property_disposition_types": "object.property_benefit",
+    "fraud_damage_acquisition.property_loss_negative_view": "stage.attempt_completion",
+    "fraud_damage_acquisition.protected_economic_interest": "object.property_benefit",
+    "fraud_damage_acquisition.right_exercise_unacceptable_deception": "profile.rights_exercise",
+    "fraud_damage_acquisition.subsequent_return_irrelevant": "object.property_delivery",
+    "fraud_general_object.causation_required": "stage.attempt_completion",
+    "fraud_general_object.deception_error_causation": "stage.attempt_completion",
+    "fraud_intent.contract_breach_distinction": "core.intent",
+    "fraud_intent.illegal_appropriation_definition": "core.intent",
+    "fraud_intent.no_disposition_inducement_intent": "core.intent",
+    "fraud_intent.precedent_illegal_appropriation_intent": "core.intent",
+    "fraud_intent.third_party_acquisition": "structure.third_party_acquisition",
+    "fraud_intent.time_of_conduct": "core.intent",
+    "fraud_mistake.conscious_nonexercise": "profile.omission",
+    "fraud_mistake.deceived_disposer_identity": "core.mistake_disposition",
+    "fraud_mistake.disposition_definition": "core.mistake_disposition",
+    "fraud_mistake.disposition_directness": "core.mistake_disposition",
+    "fraud_mistake.disposition_intent_act_awareness": "core.mistake_disposition",
+    "fraud_mistake.disposition_omission": "profile.omission",
+    "fraud_mistake.error_definition": "core.mistake_disposition",
+    "fraud_mistake.error_disposition_motivation": "core.mistake_disposition",
+    "fraud_mistake.error_doubt_ignorance": "core.mistake_disposition",
+    "fraud_mistake.factual_act_disposition": "core.mistake_disposition",
+    "fraud_mistake.gain_purpose": "core.intent",
+    "fraud_mistake.invalid_act_disposition": "core.mistake_disposition",
+    "fraud_mistake.no_capacity_theft": "boundary.other_offenses",
+    "fraud_mistake.no_thought_no_error": "core.mistake_disposition",
+    "fraud_mistake.omission_not_all_nonclaims": "profile.omission",
+    "fraud_mistake.property_disposition_element": "core.mistake_disposition",
+    "fraud_mistake.property_limited_disposition": "core.mistake_disposition",
+    "fraud_mistake.sequential_causation": "core.mistake_disposition",
+    "fraud_mistake.triangular_fraud_definition": "structure.triangular",
+    "fraud_mistake.trick_theft_directness": "boundary.other_offenses",
+    "fraud_mistake.unaware_error": "core.mistake_disposition",
+    "fraud_stages_participation.attempt_deceptive_act": "stage.attempt_completion",
+    "fraud_stages_participation.completion_deception_disposition_transfer": "stage.attempt_completion",
+    "fraud_stages_participation.no_causation_attempt": "stage.attempt_completion",
+    "fraud_stages_participation.property_fraud_completion_control": "stage.attempt_completion",
+    "general_object.fraud.definition.property-benefit": "object.property_benefit",
+    "general_object.fraud.definition.property-benefit-not-numerically-limited": "object.property_benefit",
+    "general_object.fraud.element.object-other-possessed-other-property": "object.property_delivery",
+    "general_object.fraud.element.property-benefit-concrete": "object.property_benefit",
+    "general_object.fraud.exception.public-interest-property-equivalence": "object.public_interest",
+    "general_object.fraud.standard.later-cancellation-no-effect": "stage.attempt_completion",
+    "general_object.fraud.standard.own-possession-other-property-embezzlement": "boundary.other_offenses",
+    "general_object.fraud.standard.own-property-not-object": "object.property_delivery",
+    "general_object.fraud.standard.public-interest-only-no-fraud": "object.public_interest",
+    "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation": "structure.triangular",
+    "special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime": "profile.rights_exercise"
+  },
+  "coverage": {
+    "duplicate_cards": 0,
+    "expected_cards": 88,
+    "missing_cards": 0,
+    "owned_cards": 88
+  },
+  "modules": [
+    {
+      "card_count": 16,
+      "card_ids": [
+        "deception.fraud.causal-link.deception-property-disposition",
+        "deception.fraud.causal-link.no-disposition-no-deception",
+        "deception.fraud.definition.deception-content-basis-fact",
+        "deception.fraud.definition.deception-counterparty-is-other",
+        "deception.fraud.definition.deception-good-faith-mistake",
+        "deception.fraud.definition.deception-means-unrestricted",
+        "deception.fraud.definition.deception-object-facts",
+        "deception.fraud.definition.deception-target-human",
+        "deception.fraud.definition.other-includes-corporation",
+        "deception.fraud.element.deception-must-create-false-belief",
+        "deception.fraud.element.deception-not-legal-act-important-part",
+        "deception.fraud.element.transaction-purpose-no-impairment",
+        "deception.fraud.element.victim-negligence-no-bar",
+        "deception.fraud.standard.deception-concrete-circumstances",
+        "deception.fraud.standard.easily-detectable-lie",
+        "deception.fraud.standard.vague-opinion-not-deception"
+      ],
+      "description": "모든 사기 유형에 공통되는 기망의 정의, 한계 및 판단 기준",
+      "emits": [
+        "fraud_deception_satisfied",
+        "fraud_not_established"
+      ],
+      "kind": "general_core",
+      "module_id": "core.deception"
+    },
+    {
+      "card_count": 6,
+      "card_ids": [
+        "fraud_intent.contract_breach_distinction",
+        "fraud_intent.illegal_appropriation_definition",
+        "fraud_intent.no_disposition_inducement_intent",
+        "fraud_intent.precedent_illegal_appropriation_intent",
+        "fraud_intent.time_of_conduct",
+        "fraud_mistake.gain_purpose"
+      ],
+      "description": "편취 범의, 재산적 이득 목적 및 행위시 판단 기준",
+      "emits": [
+        "fraud_intent_satisfied",
+        "fraud_unlawful_appropriation_intent_supported",
+        "fraud_not_established"
+      ],
+      "kind": "general_core",
+      "module_id": "core.intent"
+    },
+    {
+      "card_count": 14,
+      "card_ids": [
+        "fraud_mistake.deceived_disposer_identity",
+        "fraud_mistake.disposition_definition",
+        "fraud_mistake.disposition_directness",
+        "fraud_mistake.disposition_intent_act_awareness",
+        "fraud_mistake.error_definition",
+        "fraud_mistake.error_disposition_motivation",
+        "fraud_mistake.error_doubt_ignorance",
+        "fraud_mistake.factual_act_disposition",
+        "fraud_mistake.invalid_act_disposition",
+        "fraud_mistake.no_thought_no_error",
+        "fraud_mistake.property_disposition_element",
+        "fraud_mistake.property_limited_disposition",
+        "fraud_mistake.sequential_causation",
+        "fraud_mistake.unaware_error"
+      ],
+      "description": "착오, 처분행위, 직접성 및 순차적 인과관계의 공통 규칙",
+      "emits": [
+        "fraud_mistake_satisfied",
+        "fraud_disposition_satisfied",
+        "fraud_acquisition_satisfied",
+        "fraud_causal_chain_satisfied",
+        "fraud_deceived_disposer_identity_satisfied",
+        "fraud_not_established"
+      ],
+      "kind": "general_core",
+      "module_id": "core.mistake_disposition"
+    },
+    {
+      "card_count": 6,
+      "card_ids": [
+        "deception.fraud.causal-link.loan-purpose-not-sole-trigger",
+        "deception.fraud.element.loan-no-repayment-intent-or-ability",
+        "deception.fraud.standard.intent-to-defraud-loan-inference",
+        "deception.fraud.standard.loan-lender-anticipated-risk",
+        "deception.fraud.standard.loan-purpose-materiality",
+        "deception.fraud.standard.loan-subsequent-default"
+      ],
+      "description": "차용금 사기의 변제능력·의사, 용도, 위험인식 및 범의 추론",
+      "emits": [
+        "fraud_deception_satisfied",
+        "fraud_intent_satisfied",
+        "fraud_not_established"
+      ],
+      "kind": "grounding_profile",
+      "module_id": "profile.loan"
+    },
+    {
+      "card_count": 3,
+      "card_ids": [
+        "deception.fraud.definition.deceived-person-unspecified",
+        "deception.fraud.standard.advertising-important-concrete-falsehood",
+        "deception.fraud.standard.advertising-tolerable-exaggeration"
+      ],
+      "description": "광고 상대방과 허용되는 과장·허위의 경계",
+      "emits": [
+        "fraud_deception_satisfied",
+        "fraud_not_established"
+      ],
+      "kind": "grounding_profile",
+      "module_id": "profile.advertising"
+    },
+    {
+      "card_count": 9,
+      "card_ids": [
+        "deception.fraud.definition.exploitation-existing-mistake",
+        "deception.fraud.definition.notice-duty-violation-omission",
+        "deception.fraud.element.omission-deception-guarantor-equivalence",
+        "deception.fraud.element.omission-deception-independent-error",
+        "deception.fraud.element.omission-deception-legal-notice-duty",
+        "deception.fraud.standard.precedent-notice-duty-materiality",
+        "fraud_mistake.conscious_nonexercise",
+        "fraud_mistake.disposition_omission",
+        "fraud_mistake.omission_not_all_nonclaims"
+      ],
+      "description": "기존 착오 이용, 고지의무 및 부작위 처분행위",
+      "emits": [
+        "fraud_deception_satisfied",
+        "fraud_disposition_satisfied",
+        "fraud_not_established"
+      ],
+      "kind": "grounding_profile",
+      "module_id": "profile.omission"
+    },
+    {
+      "card_count": 3,
+      "card_ids": [
+        "deception.fraud.definition.implicit-deception",
+        "deception.fraud.standard.implicit-deception-explanatory-value",
+        "deception.fraud.standard.implicit-omission-deception-distinction"
+      ],
+      "description": "행동·태도의 설명가치에 의한 묵시적 기망과 부작위 기망의 구별",
+      "emits": [
+        "fraud_deception_satisfied"
+      ],
+      "kind": "grounding_profile",
+      "module_id": "profile.implicit_deception"
+    },
+    {
+      "card_count": 2,
+      "card_ids": [
+        "fraud_damage_acquisition.right_exercise_unacceptable_deception",
+        "special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime"
+      ],
+      "description": "권리행사에 사용된 기망수단의 사회통념상 허용 범위",
+      "emits": [
+        "fraud_deception_satisfied",
+        "fraud_not_established"
+      ],
+      "kind": "grounding_profile",
+      "module_id": "profile.rights_exercise"
+    },
+    {
+      "card_count": 3,
+      "card_ids": [
+        "deception.fraud.definition.deceived-person-victim-distinct",
+        "fraud_mistake.triangular_fraud_definition",
+        "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation"
+      ],
+      "description": "피기망자·처분자와 재산소유자가 다른 삼각사기 역할 구조",
+      "emits": [
+        "fraud_role_structure_satisfied"
+      ],
+      "kind": "structural_profile",
+      "module_id": "structure.triangular"
+    },
+    {
+      "card_count": 1,
+      "card_ids": [
+        "fraud_intent.third_party_acquisition"
+      ],
+      "description": "제3자 취득을 피고인에게 귀속하는 의사·도구·대리 관계",
+      "emits": [
+        "fraud_beneficiary_attribution_satisfied"
+      ],
+      "kind": "structural_profile",
+      "module_id": "structure.third_party_acquisition"
+    },
+    {
+      "card_count": 3,
+      "card_ids": [
+        "fraud_mistake.no_capacity_theft",
+        "fraud_mistake.trick_theft_directness",
+        "general_object.fraud.standard.own-possession-other-property-embezzlement"
+      ],
+      "description": "처분능력·직접성·점유에 따른 절도 및 횡령과의 죄명 경계",
+      "emits": [
+        "fraud_not_established"
+      ],
+      "kind": "boundary_adapter",
+      "module_id": "boundary.other_offenses"
+    },
+    {
+      "card_count": 6,
+      "card_ids": [
+        "fraud_damage_acquisition.delivery_factual_control",
+        "fraud_damage_acquisition.delivery_of_property",
+        "fraud_damage_acquisition.money_delivery_full_amount",
+        "fraud_damage_acquisition.subsequent_return_irrelevant",
+        "general_object.fraud.element.object-other-possessed-other-property",
+        "general_object.fraud.standard.own-property-not-object"
+      ],
+      "description": "타인의 재물, 교부, 사실상 지배 및 금원 편취액",
+      "emits": [
+        "fraud_object_satisfied",
+        "fraud_acquisition_satisfied",
+        "fraud_not_established"
+      ],
+      "kind": "object_adapter",
+      "module_id": "object.property_delivery"
+    },
+    {
+      "card_count": 6,
+      "card_ids": [
+        "fraud_damage_acquisition.property_concept_reported_precedent",
+        "fraud_damage_acquisition.property_disposition_types",
+        "fraud_damage_acquisition.protected_economic_interest",
+        "general_object.fraud.definition.property-benefit",
+        "general_object.fraud.definition.property-benefit-not-numerically-limited",
+        "general_object.fraud.element.property-benefit-concrete"
+      ],
+      "description": "재물 외 구체적 재산상 이익과 그 취득·처분 형태",
+      "emits": [
+        "fraud_object_satisfied",
+        "fraud_acquisition_satisfied"
+      ],
+      "kind": "object_adapter",
+      "module_id": "object.property_benefit"
+    },
+    {
+      "card_count": 2,
+      "card_ids": [
+        "general_object.fraud.exception.public-interest-property-equivalence",
+        "general_object.fraud.standard.public-interest-only-no-fraud"
+      ],
+      "description": "공공적 법익 침해를 재산권 침해와 동일하게 평가할 수 있는지의 경계",
+      "emits": [
+        "fraud_object_satisfied",
+        "fraud_not_established"
+      ],
+      "kind": "object_adapter",
+      "module_id": "object.public_interest"
+    },
+    {
+      "card_count": 8,
+      "card_ids": [
+        "fraud_damage_acquisition.property_loss_negative_view",
+        "fraud_general_object.causation_required",
+        "fraud_general_object.deception_error_causation",
+        "fraud_stages_participation.attempt_deceptive_act",
+        "fraud_stages_participation.completion_deception_disposition_transfer",
+        "fraud_stages_participation.no_causation_attempt",
+        "fraud_stages_participation.property_fraud_completion_control",
+        "general_object.fraud.standard.later-cancellation-no-effect"
+      ],
+      "description": "실행의 착수, 인과관계 단절에 따른 미수, 기수 및 사후사정",
+      "emits": [
+        "fraud_completion_satisfied",
+        "fraud_no_separate_loss_gate",
+        "fraud_not_established"
+      ],
+      "kind": "stage_module",
+      "module_id": "stage.attempt_completion"
+    }
+  ],
+  "rule_set_id": "kr.fraud.article347.full.v1_candidate",
+  "status": "draft_human_review_pending",
+  "version": "1.0.0"
+}

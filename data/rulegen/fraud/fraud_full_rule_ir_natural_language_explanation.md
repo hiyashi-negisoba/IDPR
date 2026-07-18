@@ -16,9 +16,31 @@
 
 모든 substantive 경로는 같은 사건과 평가 ID의 `provable(case_id, assessment_id)`를 요구한다. 따라서 증거능력·신빙성 검토를 통과하지 않은 진술은 구성요건 판단에 들어가지 않는다.
 
+## 모듈 구조
+
+각 NormCard에는 하나의 주 소유 모듈만 있다. 차용금·광고·부작위·묵시적 기망·권리행사는 grounding profile, 삼각사기·제3자취득은 structural profile, 객체·죄명 경계·미수/기수는 adapter 또는 stage module로 분리했다.
+
+profile과 adapter는 `fraud_deception_satisfied`, `fraud_role_structure_satisfied` 같은 canonical interface만 출력한다. 최종 core는 차용금이나 삼각사기 같은 세부 유형명을 알지 않고 이 interface들을 한 번만 AND 결합한다. 현재는 검수를 위해 하나의 RuleIR 파일 안에서 논리적으로 분리했으며, Scallop 물리 파일 분리는 Sol·사용자 검수 뒤에 확정한다.
+
+- `core.deception` (`general_core`, 16장): 모든 사기 유형에 공통되는 기망의 정의, 한계 및 판단 기준
+- `core.intent` (`general_core`, 6장): 편취 범의, 재산적 이득 목적 및 행위시 판단 기준
+- `core.mistake_disposition` (`general_core`, 14장): 착오, 처분행위, 직접성 및 순차적 인과관계의 공통 규칙
+- `profile.loan` (`grounding_profile`, 6장): 차용금 사기의 변제능력·의사, 용도, 위험인식 및 범의 추론
+- `profile.advertising` (`grounding_profile`, 3장): 광고 상대방과 허용되는 과장·허위의 경계
+- `profile.omission` (`grounding_profile`, 9장): 기존 착오 이용, 고지의무 및 부작위 처분행위
+- `profile.implicit_deception` (`grounding_profile`, 3장): 행동·태도의 설명가치에 의한 묵시적 기망과 부작위 기망의 구별
+- `profile.rights_exercise` (`grounding_profile`, 2장): 권리행사에 사용된 기망수단의 사회통념상 허용 범위
+- `structure.triangular` (`structural_profile`, 3장): 피기망자·처분자와 재산소유자가 다른 삼각사기 역할 구조
+- `structure.third_party_acquisition` (`structural_profile`, 1장): 제3자 취득을 피고인에게 귀속하는 의사·도구·대리 관계
+- `boundary.other_offenses` (`boundary_adapter`, 3장): 처분능력·직접성·점유에 따른 절도 및 횡령과의 죄명 경계
+- `object.property_delivery` (`object_adapter`, 6장): 타인의 재물, 교부, 사실상 지배 및 금원 편취액
+- `object.property_benefit` (`object_adapter`, 6장): 재물 외 구체적 재산상 이익과 그 취득·처분 형태
+- `object.public_interest` (`object_adapter`, 2장): 공공적 법익 침해를 재산권 침해와 동일하게 평가할 수 있는지의 경계
+- `stage.attempt_completion` (`stage_module`, 8장): 실행의 착수, 인과관계 단절에 따른 미수, 기수 및 사후사정
+
 ## 최종 성립의 AND gate와 손해 불요 규칙
 
-최종 성립은 1번부터 9번까지의 사실·법적 component가 모두 있어야 한다. 10번은 별도 사실요건이 아니라 취득 component에서 자동으로 파생되는 compilation 규칙이다.
+최종 성립은 1번부터 10번까지의 사실·법적 component가 모두 있어야 한다. 11번은 별도 사실요건이 아니라 취득 component에서 자동으로 파생되는 compilation 규칙이다.
 
 1. 사기죄의 객체인 타인의 재물 또는 구체적 재산상 이익
 2. 신의칙에 반하여 착오를 일으키는 기망 또는 승인된 구체 유형의 기망
@@ -26,19 +48,22 @@
 4. 착오에 기한 재산적 처분행위
 5. 재물 교부 또는 재산상 이익 취득
 6. 기망·착오·처분·취득의 순차적 인과관계
-7. 피기망자와 처분행위자의 인적 동일성
-8. 단순 채무불이행과 구별되는 고의의 기망 및 재산적 이득 목적
-9. 미수를 넘어선 이전 또는 사실상 지배 취득
-10. 취득 외에 현실적 재산상 손해를 별도 gate로 중복 요구하지 않는 판례 기준
+7. 단순 채무불이행과 구별되는 고의의 기망 및 재산적 이득 목적
+8. 미수를 넘어선 이전 또는 사실상 지배 취득
+9. 피기망자=처분자를 포함한 일반형 또는 삼각사기의 역할 구조
+10. 본인취득 또는 제3자취득의 피고인 귀속 구조
+11. 취득 외에 현실적 재산상 손해를 별도 gate로 중복 요구하지 않는 판례 기준
 
 불법영득의사 평가는 별도 support predicate로 보존하지만 모든 사기 유형의 공통 AND gate로 강제하지 않았다. 이는 사용자가 앞서 정한 실무지향 정책을 반영한다.
 
-## 네 가지 성립 branch
+## 역할·취득 adapter와 단일 최종 규칙
 
-- 일반형·본인취득: 피기망자=처분자=재산소유자, 수익자=피고인
-- 일반형·제3자취득: 피기망자=처분자=재산소유자, 제3자 취득 귀속기준 추가
-- 삼각사기·본인취득: 피기망자=처분자, 재산소유자는 별도, 처분 권능·지위 추가
-- 삼각사기·제3자취득: 삼각사기 권능·지위와 제3자 취득 귀속기준을 모두 추가
+- 일반형 역할 adapter: 피기망자=처분자=재산소유자
+- 삼각사기 역할 adapter: 피기망자=처분자, 별도 재산소유자, 처분 권능·지위
+- 본인취득 귀속 adapter: 수익자=피고인
+- 제3자취득 귀속 adapter: 제3자의 도구·대리 관계 또는 제3자 취득 의사
+
+위 두 축은 독립적으로 canonical relation을 만든다. `fraud.core.outcome.established` 하나가 나머지 구성요건과 두 relation을 결합하므로 네 조합을 최종 core에 반복하지 않는다.
 
 ## 부정·미확인·충돌
 
@@ -48,102 +73,102 @@
 
 ## 88개 입력의 의미와 논리적 사용
 
-| No. | NormCard | 형식 | 극성 | 논리적 사용 |
-|---:|---|---|---|---|
-| 1 | `deception.fraud.causal-link.deception-property-disposition`<br>사기죄에서 기망은 피기망자의 재산적 처분행위를 하게 하는 행위여야 한다. | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 2 | `deception.fraud.causal-link.loan-purpose-not-sole-trigger`<br>차주가 밝힌 차용금 용도의 진실 여부가 대차 성립의 유일한 계기가 아닌 경우에는 기망행위와 재산적 처분행위 사이의 인과관계가 인정되지 않아 사기죄가 성립하지 않는다. | `standard_input` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 3 | `deception.fraud.causal-link.no-disposition-no-deception`<br>상대방을 착오에 빠지게 하였더라도 그 착오에 기하여 재산적 처분행위를 하게 한 행위가 아니면 사기죄의 실행행위로서 기망이 아니다. | `deterministic_rule` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 4 | `deception.fraud.definition.deceived-person-unspecified`<br>광고사기와 같이 기망행위의 상대방은 불특정인일 수 있다. | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 5 | `deception.fraud.definition.deceived-person-victim-distinct`<br>기망의 상대방과 재산상 피해자는 동일인일 것을 요하지 않는다. | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 6 | `deception.fraud.definition.deception-content-basis-fact`<br>기망의 내용은 재산적 처분행위를 하는 데 판단의 기초가 되는 사실이며, 외부적·객관적 사실과 내부적·심리적 사실을 포함한다. | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 7 | `deception.fraud.definition.deception-counterparty-is-other`<br>사기죄에서 기망의 상대방은 타인이다. | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 8 | `deception.fraud.definition.deception-good-faith-mistake`<br>기망은 거래관계에서 지켜야 할 신의칙에 반하여 사람으로 하여금 착오를 일으키게 하는 행위이다. | `standard_input` | `positive` | not_satisfied이면 fraud_not_established; component: fraud_deception_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 9 | `deception.fraud.definition.deception-means-unrestricted`<br>기망 수단에는 제한이 없으며, 언어·문서·거동, 적극적 주장·묵비, 작위·부작위 및 명시적·묵시적 방식 모두가 문제될 수 있다. | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 10 | `deception.fraud.definition.deception-object-facts`<br>재산적 처분의 판단 기초사실이면 물건의 성질·품질 등 객관적 사실, 대금지급 의사 등 심리적 사실, 법률효력 등 법률적 사실 또는 민법상 무효인 법률행위에 관한 사실도 기망 대상이 될 수 있다. | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 11 | `deception.fraud.definition.deception-target-human`<br>사실과 다른 관념을 형성하고 재산적 처분행위를 할 인식능력이 없는 사람은 기망의 상대방이 될 수 없고, 기계는 착오에 빠질 수 없어 기망행위의 대상이 될 수 없다. | `standard_input` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 12 | `deception.fraud.definition.exploitation-existing-mistake`<br>이미 착오에 빠진 상태를 이용하는 행위가 신의칙 위반의 작위 또는 고지의무 있는 부작위로 평가되는 경우 기망행위가 될 수 있다. | `standard_input` | `positive` | component: fraud_deception_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 13 | `deception.fraud.definition.implicit-deception`<br>묵시적 기망행위는 언어나 문서가 아니라 행동 또는 태도로 일정 사항에 관한 허위 외관을 표시하는 것을 의미한다. | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 14 | `deception.fraud.definition.notice-duty-violation-omission`<br>고지의무를 위반하여 사실을 묵비하는 것은 작위에 의한 기망이 아니라 부작위에 의한 기망행위에 해당한다. | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 15 | `deception.fraud.definition.other-includes-corporation`<br>사기죄에서 ‘타인’에는 법인이 포함되며, 법인도 사기죄의 피해자가 될 수 있다. | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 16 | `deception.fraud.element.deception-must-create-false-belief`<br>기망적 수단을 사용하였더라도 상대방에게 진실과 합치하지 않는 관념을 발생시킨 행위가 아니면 사기죄 실행행위로서의 기망이 아니다. | `deterministic_rule` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 17 | `deception.fraud.element.deception-not-legal-act-important-part`<br>사기죄 실행행위로서의 기망은 법률행위의 중요부분에 관한 것일 필요 없이 상대방의 재산적 처분을 위한 판단의 기초사실에 관한 기망이면 충분하다. | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 18 | `deception.fraud.element.loan-no-repayment-intent-or-ability`<br>변제할 의사나 능력이 없는데도 금원을 차용하면 사기죄에 해당한다. | `standard_input` | `positive` | component: fraud_deception_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 19 | `deception.fraud.element.omission-deception-guarantor-equivalence`<br>부작위에 의한 기망행위에서는 행위자가 상대방 착오를 제거할 보증인적 지위에 있고, 부작위가 작위에 의한 기망행위와 동가치를 가져야 한다. | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 20 | `deception.fraud.element.omission-deception-independent-error`<br>부작위에 의한 기망행위에서는 상대방이 행위자와 관계없이 스스로 착오에 빠져 있어야 한다. | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 21 | `deception.fraud.element.omission-deception-legal-notice-duty`<br>법률상 고지의무가 있는 자가 일정 사실을 고지하지 않아 상대방의 착오 상태를 계속시키고 이를 이용한 경우, 부작위에 의한 기망행위가 성립한다. | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 22 | `deception.fraud.element.transaction-purpose-no-impairment`<br>상대방을 착오에 빠뜨렸더라도 거래 목적 달성에 지장이 없으면 신의칙 위반의 기망행위가 있었다고 보기 어렵다. | `standard_input` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 23 | `deception.fraud.element.victim-negligence-no-bar`<br>착오가 상대방의 과실과 경합하더라도 사기죄는 성립할 수 있다. | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 24 | `deception.fraud.standard.advertising-important-concrete-falsehood`<br>거래의 중요한 사항에 관한 구체적 사실을 거래상 신의성실의무에 비추어 비난받을 정도의 방법으로 허위 고지한 경우, 과장·허위광고의 한계를 넘어 사기죄의 기망행위에 해당한다. | `standard_input` | `positive` | component: fraud_deception_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 25 | `deception.fraud.standard.advertising-tolerable-exaggeration`<br>상품 광고·선전에 수반된 과장이나 허위가 일반 상거래 관행과 신의칙상 시인될 수 있는 정도이면 기망행위를 인정하기 어려워 사기죄가 성립하지 않는다. | `standard_input` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 26 | `deception.fraud.standard.deception-concrete-circumstances`<br>행위가 상대방을 착오에 빠지게 한 기망인지 여부는 거래 상황, 상대방의 지식·경험·직업 등 행위 당시 구체적 사정을 고려하여 일반적·객관적으로 판단한다. | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 27 | `deception.fraud.standard.easily-detectable-lie`<br>구체적 사정에서 누구나 쉽게 허위를 간파할 수 있는 단순한 거짓말은 기망에 해당하지 않는다. | `standard_input` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 28 | `deception.fraud.standard.implicit-deception-explanatory-value`<br>묵시적 기망행위는 행위자 전체행위가 설명가치를 가질 때 인정되며, 그 설명가치는 거래관행과 사회통념으로 결정된다. | `standard_input` | `positive` | component: fraud_deception_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 29 | `deception.fraud.standard.implicit-omission-deception-distinction`<br>행위자의 침묵이 거래관행·사회통념상 일정 사항을 표시하는 설명가치를 가져 묵시적 기망으로 평가되는지를 먼저 검토하고, 그렇지 않은 침묵은 보증인적 지위와 고지의무가 있는 경우에 한하여 부작위 기망이 될 수 있다. | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 30 | `deception.fraud.standard.intent-to-defraud-loan-inference`<br>차용금 사기에서 편취의 범의는 피고인의 자백이 없으면 범행 전후 재력, 환경, 범행 내용, 거래 이행과정, 피해자와의 관계 등 객관적 사정을 종합하여 판단한다. | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 31 | `deception.fraud.standard.loan-lender-anticipated-risk`<br>대주가 인적·계속적 거래관계로 차주의 신용상태를 알고 변제지체·변제불능 위험을 예상했거나 충분히 예상할 수 있었고, 차주가 차용 당시 중요한 사항에 허위사실을 말한 등의 사정이 없다면 이후 미변제만으로 기망이나 편취 범의를 단정할 수 없다. | `standard_input` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 32 | `deception.fraud.standard.loan-purpose-materiality`<br>용도를 속여 돈을 빌린 경우, 진정한 용도를 고지했더라면 상대방이 대여하지 않았을 관계에 있으면 사기죄가 성립한다. | `standard_input` | `positive` | component: fraud_deception_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 33 | `deception.fraud.standard.loan-subsequent-default`<br>소비대차에서 차주가 차용 당시 변제 의사와 능력이 있었다면, 이후 변제하지 않더라도 민사상 채무불이행일 뿐 사기죄는 성립하지 않는다. | `standard_input` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 34 | `deception.fraud.standard.precedent-notice-duty-materiality`<br>판례는 법률상 고지의무자가 상대방의 착오를 알면서도 고지하지 않은 경우, 일반거래 경험칙상 상대방이 그 사실을 알았다면 해당 법률행위를 하지 않았을 것이 명백하면 신의칙상 고지의무가 인정된다고 본다. | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 35 | `deception.fraud.standard.vague-opinion-not-deception`<br>땅값이나 주가가 오를 것 같다는 식의 막연한 추측이나 의견 제시는 기망이 될 수 없다. | `standard_input` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 36 | `fraud_damage_acquisition.delivery_factual_control`<br>재물의 현실 인도가 없더라도 재물이 범인의 사실상 지배 아래 들어가 자유로운 처분이 가능한 상태가 되면 재물의 교부가 있다. | `standard_input` | `positive` | component: fraud_acquisition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 37 | `fraud_damage_acquisition.delivery_of_property`<br>사기죄에서 재물의 교부는 범인의 기망에 따라 피해자가 착오로 재물에 대한 사실상 지배를 범인에게 이전하는 것이다. | `standard_input` | `positive` | component: fraud_acquisition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 38 | `fraud_damage_acquisition.money_delivery_full_amount`<br>금원 편취 사기에서 피해자가 기망으로 교부한 금원과 관련하여 상당한 대가가 일부 지급되었더라도 이를 공제하지 않고, 편취액은 교부받은 금원 전부로 본다. | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 39 | `fraud_damage_acquisition.property_concept_reported_precedent`<br>사기죄의 재산상 이익 취득은 법률상 유효할 필요가 없고, 법률상 무효라도 외형상 재산상 이익을 취득하면 족하다. | `deterministic_rule` | `positive` | component: fraud_acquisition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 40 | `fraud_damage_acquisition.property_disposition_types`<br>재산상 이익에 대한 처분행위에는 계약 체결, 노무 제공, 채무면제 의사표시 등 이익을 취득하게 하는 일체의 행위가 포함된다. | `standard_input` | `positive` | component: fraud_acquisition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 41 | `fraud_damage_acquisition.property_loss_negative_view`<br>사기죄는 기망에 의한 재물 교부 또는 재산상 이익 취득으로 성립하며, 상대방에게 현실적인 재산상 손해가 별도로 발생할 것을 요구하지 않는다. | `deterministic_rule` | `negative` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 42 | `fraud_damage_acquisition.protected_economic_interest`<br>사기죄의 객체인 재산상 이익은 사법상 보호되는 경제적 이익에 한정되지 않고, 사법상 보호되지 않는 경제적 이익도 경제적 이익이면 포함된다. | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 43 | `fraud_damage_acquisition.right_exercise_unacceptable_deception`<br>기망을 수단으로 한 권리행사라도 그 수단이 사회통념상 권리행사 수단으로 용인될 정도를 넘어서는 경우 권리행사에 속하는 행위도 사기죄에 해당한다. | `standard_input` | `positive` | component: fraud_deception_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 44 | `fraud_damage_acquisition.subsequent_return_irrelevant`<br>기망으로 재물을 편취한 경우 상당한 대가 제공, 사후 반환·변상, 전체 재산 손해 부재 또는 사후 합의는 사기죄 성립에 영향을 주지 않는다. | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 45 | `fraud_general_object.causation_required`<br>객관적 구성요건 요소 사이의 인과관계가 인정되지 않으면 사기죄는 기수로 성립하지 않는다. | `deterministic_rule` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 46 | `fraud_general_object.deception_error_causation`<br>기망수단으로 재물을 교부받았더라도 상대방이 그 기망으로 착오에 빠진 것이 아니라 다른 동기나 이유로 교부한 경우 사기미수죄만 성립한다. | `standard_input` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 47 | `fraud_intent.contract_breach_distinction`<br>고의에 의한 기망은 단순채무불이행과 사기죄를 구별하는 표준이 된다. | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; not_satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 48 | `fraud_intent.illegal_appropriation_definition`<br>사기죄의 불법영득의사는 타인의 물건을 자기 것으로 삼으려는 의사뿐 아니라 그 경제적 용법에 따라 일시적으로 이용 또는 처분하려는 의사도 포함하며, 영구 보유 의사가 반드시 필요한 것은 아니다. | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 49 | `fraud_intent.no_disposition_inducement_intent`<br>피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다. | `deterministic_rule` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 50 | `fraud_intent.precedent_illegal_appropriation_intent`<br>판례는 사기죄의 주관적 요건으로 고의 외에 불법영득의사가 필요하다는 입장이다. | `standard_input` | `positive` | component: fraud_unlawful_appropriation_intent_supported; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 51 | `fraud_intent.third_party_acquisition`<br>행위자가 기망으로 스스로 재물을 취득하지 않고 제3자로 하여금 교부받게 한 경우 사기죄가 성립하려면, 제3자가 정을 모르는 도구 또는 범인의 이익을 위해 행동하는 대리인이거나, 적어도 행위자에게 제3자로 하여금 재물을 취득하게 할 의사가 있어야 한다. | `standard_input` | `positive` | component: fraud_third_party_acquisition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 52 | `fraud_intent.time_of_conduct`<br>편취의 범의는 행위 당시를 기준으로 판단한다. | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 53 | `fraud_mistake.conscious_nonexercise`<br>피기망자가 착오 때문에 채권을 의식적으로 행사하지 않았고 그 부작위가 행위자에게 직접 재산상 이익을 부여한 경우, 그 부작위는 재산적 처분행위가 될 수 있다. | `standard_input` | `positive` | component: fraud_disposition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 54 | `fraud_mistake.deceived_disposer_identity`<br>피기망자와 처분행위자는 동일인이어야 한다. | `deterministic_rule` | `positive` | not_satisfied이면 fraud_not_established; component: fraud_deceived_disposer_identity_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 55 | `fraud_mistake.disposition_definition`<br>처분행위란 범인 등에게 재물을 교부하거나 재산상 이익을 부여하는 재산적 처분행위이며, 피기망자가 처분의사를 가지고 그 의사에 지배된 행위를 해야 한다. | `standard_input` | `positive` | not_satisfied이면 fraud_not_established; component: fraud_disposition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 56 | `fraud_mistake.disposition_directness`<br>재산의 감소는 처분행위로부터 직접 야기되어야 하며, 처분행위의 직접성은 기망행위가 최후 처분행위자에게까지 미치면 인정된다. | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 57 | `fraud_mistake.disposition_intent_act_awareness`<br>피기망자가 처분행위의 의미나 내용을 인식하지 못했더라도, 그 작위 또는 부작위가 직접 재산상 손해를 초래하는 재산적 처분행위로 평가되고 피기망자가 그 행위를 인식하여 한 경우에는 처분행위에 상응하는 처분의사가 인정된다. | `standard_input` | `positive` | component: fraud_disposition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 58 | `fraud_mistake.disposition_omission`<br>직접 재산상 손해를 초래하는 부작위도 처분행위가 될 수 있다. | `standard_input` | `positive` | component: fraud_disposition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 59 | `fraud_mistake.error_definition`<br>착오란 사실과 일치하지 않는 인식을 의미한다. | `standard_input` | `positive` | not_satisfied이면 fraud_not_established; component: fraud_mistake_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 60 | `fraud_mistake.error_disposition_motivation`<br>착오는 재산적 처분행위를 하도록 동기를 확정하게 하는 것으로 충분하며, 법률행위 내용에 관한 착오인지 동기에 관한 착오인지는 묻지 않는다. | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 61 | `fraud_mistake.error_doubt_ignorance`<br>사실을 잘못 확신하는 경우뿐 아니라 어느 것이 맞는지 의심하는 경우에도 착오가 인정될 수 있고, 사실의 부지도 착오에 해당한다. | `standard_input` | `positive` | component: fraud_mistake_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 62 | `fraud_mistake.factual_act_disposition`<br>피기망자의 의사에 기초한 사실행위가 행위자 등에게 재물 또는 재산상 이익을 직접 이전하는 경우, 그 사실행위도 처분행위가 될 수 있다. | `deterministic_rule` | `positive` | component: fraud_disposition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 63 | `fraud_mistake.gain_purpose`<br>사기죄에는 범인이 타인을 기망하여 재산적 이득을 취한다는 목적의사가 있어야 한다. | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; not_satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 64 | `fraud_mistake.invalid_act_disposition`<br>착오에 의한 재산적 처분행위가 민법상 취소 가능하거나 그 법률행위가 무효여도 사기죄의 처분행위 성립에는 영향이 없다. | `deterministic_rule` | `positive` | component: fraud_disposition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 65 | `fraud_mistake.no_capacity_theft`<br>구체적으로 재산적 처분행위를 할 의사능력이 없는 사람이 기망적 수단에 반응하여 재물을 넘긴 경우에는 그 사람의 처분행위를 인정할 수 없어 사기죄가 아니라 절도죄가 문제된다. | `standard_input` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 66 | `fraud_mistake.no_thought_no_error`<br>어떠한 생각도 갖지 않는 경우에는 착오가 인정되지 않는다. | `standard_input` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 67 | `fraud_mistake.omission_not_all_nonclaims`<br>채권자가 일시적으로 이행을 독촉하거나 청구하지 않았다는 사정만으로는 부족하고, 착오에 기한 의식적 불행사와 그로 인한 직접 재산상 이익 부여가 있어야 부작위 처분행위가 될 수 있다. | `standard_input` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 68 | `fraud_mistake.property_disposition_element`<br>사기죄는 피기망자의 착오에 기한 재산적 처분행위로 본인 또는 제3자가 재물을 교부받거나 재산상 이익을 취득함으로써 성립한다. | `deterministic_rule` | `positive` | not_satisfied이면 fraud_not_established; component: fraud_acquisition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 69 | `fraud_mistake.property_limited_disposition`<br>처분행위는 재산상 처분행위에 한정되므로, 재산상 처분행위가 아닌 행위는 사기죄의 처분행위로 인정되지 않는다. | `deterministic_rule` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 70 | `fraud_mistake.sequential_causation`<br>사기죄 성립에는 기망행위, 상대방의 착오 및 재물 교부 또는 재산상 이익 공여 사이의 순차적 인과관계가 필요하며, 재산적 처분행위는 착오에 의한 것이어야 한다. | `deterministic_rule` | `positive` | not_satisfied이면 fraud_not_established; component: fraud_causal_chain_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 71 | `fraud_mistake.triangular_fraud_definition`<br>피기망자와 재산상 피해자는 동일인일 필요가 없고, 피해자와 처분행위자가 다른 경우를 삼각사기라고 한다. | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 72 | `fraud_mistake.trick_theft_directness`<br>기망적 수단이 사용됐더라도 피해자의 행위가 재물 지배 이전을 직접 초래하지 않고 행위자가 탈취한 경우에는 처분행위의 직접성이 없어 사기죄가 아니라 절도죄가 문제된다. | `standard_input` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 73 | `fraud_mistake.unaware_error`<br>피기망자가 진실을 알고 있어 허위임을 인식한 경우에는 착오가 아니지만, 어느 것이 진실인지 의심하는 데 그친 경우에는 착오가 인정될 수 있다. | `standard_input` | `positive` | component: fraud_mistake_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 74 | `fraud_stages_participation.attempt_deceptive_act`<br>사람을 기망하는 행위가 착수되면 사기죄의 실행의 착수가 있으며, 상대방이 실제 착오에 빠질 필요는 없다. | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 75 | `fraud_stages_participation.completion_deception_disposition_transfer`<br>행위자의 기망으로 상대방이 착오에 빠지고, 그 착오에 기초한 재산적 처분행위로 재물 또는 재산상 이익이 이전되면 사기죄는 기수에 이른다. | `deterministic_rule` | `positive` | not_satisfied이면 fraud_not_established; component: fraud_completion_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 76 | `fraud_stages_participation.no_causation_attempt`<br>기망·착오·재산적 처분행위 사이의 인과관계가 인정되지 않으면 사기죄는 미수이다. | `deterministic_rule` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 77 | `fraud_stages_participation.property_fraud_completion_control`<br>재물 편취는 피해자의 지배를 배제하고 자기 또는 제3자의 지배를 인정한 때 기수에 이른다. | `deterministic_rule` | `positive` | component: fraud_completion_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 78 | `general_object.fraud.definition.property-benefit`<br>재산상 이익은 재물 이외의 것으로서 재산의 경제적 가치 증가를 의미하며, 적극적·소극적, 일시적·영구적 이익을 모두 포함한다. | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 79 | `general_object.fraud.definition.property-benefit-not-numerically-limited`<br>재산상 이익은 숫자로 산출할 수 있는 이익에 한정되지 않는다. | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 80 | `general_object.fraud.element.object-other-possessed-other-property`<br>사기죄의 객체는 타인이 점유하는 타인의 재물 또는 재산상 이익이다. | `standard_input` | `positive` | not_satisfied이면 fraud_not_established; component: fraud_object_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 81 | `general_object.fraud.element.property-benefit-concrete`<br>재산상 이익은 구체적인 이익이어야 한다. | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 82 | `general_object.fraud.exception.public-interest-property-equivalence`<br>기망으로 국가적·공공적 법익을 침해한 경우에도 그 침해가 동시에 재산권 침해와 동일하게 평가되고 해당 행위를 사기죄보다 특별하게 처벌하는 별도 규정이 없는 때에 한하여 사기죄가 성립할 수 있다. | `standard_input` | `exception` | component: fraud_object_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 83 | `general_object.fraud.standard.later-cancellation-no-effect`<br>사기로 인한 재산 처분이 처분시점에 기수에 이른 경우, 사후에 이루어진 의사표시 취소는 범죄성립에 영향을 미칠 수 없다. | `standard_input` | `negative` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 84 | `general_object.fraud.standard.own-possession-other-property-embezzlement`<br>자기 점유의 타인 재물을 영득한 경우에는 기망행위가 있어도 횡령죄만 성립한다. | `standard_input` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 85 | `general_object.fraud.standard.own-property-not-object`<br>타인이 점유하는 자기소유 재물은 사기죄의 객체가 되지 않는다. | `standard_input` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 86 | `general_object.fraud.standard.public-interest-only-no-fraud`<br>기망이 국가적·공공적 법익만 침해하고 그 침해를 재산권 침해와 동일하게 평가할 수 없는 경우에는 사기죄가 성립하지 않는다. | `standard_input` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 87 | `mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation`<br>피기망자와 재산상 피해자가 다르면 피기망자에게 피해자를 위하여 그 재산을 처분할 권능 또는 지위가 있어야 한다. 그 권능 또는 지위는 사법상 위임이나 대리권과 일치할 필요는 없고, 피해자의 의사에 따라 처분서류를 교부받은 경우에도 인정될 수 있다. | `standard_input` | `positive` | component: fraud_triangular_authority_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
-| 88 | `special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime`<br>기망수단을 사용한 권리행사라도 그 기망수단이 사회통념상 권리행사의 수단으로 용인될 수 있으면 권리행사 자체에 속하는 행위는 범죄를 구성하지 않는 정당행위가 된다. | `standard_input` | `negative` | satisfied이면 fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| No. | NormCard | 소유 모듈 | 형식 | 극성 | 논리적 사용 |
+|---:|---|---|---|---|---|
+| 1 | `deception.fraud.causal-link.deception-property-disposition`<br>사기죄에서 기망은 피기망자의 재산적 처분행위를 하게 하는 행위여야 한다. | `core.deception` | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 2 | `deception.fraud.causal-link.loan-purpose-not-sole-trigger`<br>차주가 밝힌 차용금 용도의 진실 여부가 대차 성립의 유일한 계기가 아닌 경우에는 기망행위와 재산적 처분행위 사이의 인과관계가 인정되지 않아 사기죄가 성립하지 않는다. | `profile.loan` | `standard_input` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 3 | `deception.fraud.causal-link.no-disposition-no-deception`<br>상대방을 착오에 빠지게 하였더라도 그 착오에 기하여 재산적 처분행위를 하게 한 행위가 아니면 사기죄의 실행행위로서 기망이 아니다. | `core.deception` | `deterministic_rule` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 4 | `deception.fraud.definition.deceived-person-unspecified`<br>광고사기와 같이 기망행위의 상대방은 불특정인일 수 있다. | `profile.advertising` | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 5 | `deception.fraud.definition.deceived-person-victim-distinct`<br>기망의 상대방과 재산상 피해자는 동일인일 것을 요하지 않는다. | `structure.triangular` | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 6 | `deception.fraud.definition.deception-content-basis-fact`<br>기망의 내용은 재산적 처분행위를 하는 데 판단의 기초가 되는 사실이며, 외부적·객관적 사실과 내부적·심리적 사실을 포함한다. | `core.deception` | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 7 | `deception.fraud.definition.deception-counterparty-is-other`<br>사기죄에서 기망의 상대방은 타인이다. | `core.deception` | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 8 | `deception.fraud.definition.deception-good-faith-mistake`<br>기망은 거래관계에서 지켜야 할 신의칙에 반하여 사람으로 하여금 착오를 일으키게 하는 행위이다. | `core.deception` | `standard_input` | `positive` | 연결 output: fraud_deception_satisfied, fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 9 | `deception.fraud.definition.deception-means-unrestricted`<br>기망 수단에는 제한이 없으며, 언어·문서·거동, 적극적 주장·묵비, 작위·부작위 및 명시적·묵시적 방식 모두가 문제될 수 있다. | `core.deception` | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 10 | `deception.fraud.definition.deception-object-facts`<br>재산적 처분의 판단 기초사실이면 물건의 성질·품질 등 객관적 사실, 대금지급 의사 등 심리적 사실, 법률효력 등 법률적 사실 또는 민법상 무효인 법률행위에 관한 사실도 기망 대상이 될 수 있다. | `core.deception` | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 11 | `deception.fraud.definition.deception-target-human`<br>사실과 다른 관념을 형성하고 재산적 처분행위를 할 인식능력이 없는 사람은 기망의 상대방이 될 수 없고, 기계는 착오에 빠질 수 없어 기망행위의 대상이 될 수 없다. | `core.deception` | `standard_input` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 12 | `deception.fraud.definition.exploitation-existing-mistake`<br>이미 착오에 빠진 상태를 이용하는 행위가 신의칙 위반의 작위 또는 고지의무 있는 부작위로 평가되는 경우 기망행위가 될 수 있다. | `profile.omission` | `standard_input` | `positive` | 연결 output: fraud_deception_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 13 | `deception.fraud.definition.implicit-deception`<br>묵시적 기망행위는 언어나 문서가 아니라 행동 또는 태도로 일정 사항에 관한 허위 외관을 표시하는 것을 의미한다. | `profile.implicit_deception` | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 14 | `deception.fraud.definition.notice-duty-violation-omission`<br>고지의무를 위반하여 사실을 묵비하는 것은 작위에 의한 기망이 아니라 부작위에 의한 기망행위에 해당한다. | `profile.omission` | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 15 | `deception.fraud.definition.other-includes-corporation`<br>사기죄에서 ‘타인’에는 법인이 포함되며, 법인도 사기죄의 피해자가 될 수 있다. | `core.deception` | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 16 | `deception.fraud.element.deception-must-create-false-belief`<br>기망적 수단을 사용하였더라도 상대방에게 진실과 합치하지 않는 관념을 발생시킨 행위가 아니면 사기죄 실행행위로서의 기망이 아니다. | `core.deception` | `deterministic_rule` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 17 | `deception.fraud.element.deception-not-legal-act-important-part`<br>사기죄 실행행위로서의 기망은 법률행위의 중요부분에 관한 것일 필요 없이 상대방의 재산적 처분을 위한 판단의 기초사실에 관한 기망이면 충분하다. | `core.deception` | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 18 | `deception.fraud.element.loan-no-repayment-intent-or-ability`<br>변제할 의사나 능력이 없는데도 금원을 차용하면 사기죄에 해당한다. | `profile.loan` | `standard_input` | `positive` | 연결 output: fraud_deception_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 19 | `deception.fraud.element.omission-deception-guarantor-equivalence`<br>부작위에 의한 기망행위에서는 행위자가 상대방 착오를 제거할 보증인적 지위에 있고, 부작위가 작위에 의한 기망행위와 동가치를 가져야 한다. | `profile.omission` | `standard_input` | `positive` | 연결 output: fraud_deception_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 20 | `deception.fraud.element.omission-deception-independent-error`<br>부작위에 의한 기망행위에서는 상대방이 행위자와 관계없이 스스로 착오에 빠져 있어야 한다. | `profile.omission` | `deterministic_rule` | `positive` | 연결 output: fraud_deception_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 21 | `deception.fraud.element.omission-deception-legal-notice-duty`<br>법률상 고지의무가 있는 자가 일정 사실을 고지하지 않아 상대방의 착오 상태를 계속시키고 이를 이용한 경우, 부작위에 의한 기망행위가 성립한다. | `profile.omission` | `deterministic_rule` | `positive` | 연결 output: fraud_deception_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 22 | `deception.fraud.element.transaction-purpose-no-impairment`<br>상대방을 착오에 빠뜨렸더라도 거래 목적 달성에 지장이 없으면 신의칙 위반의 기망행위가 있었다고 보기 어렵다. | `core.deception` | `standard_input` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 23 | `deception.fraud.element.victim-negligence-no-bar`<br>착오가 상대방의 과실과 경합하더라도 사기죄는 성립할 수 있다. | `core.deception` | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 24 | `deception.fraud.standard.advertising-important-concrete-falsehood`<br>거래의 중요한 사항에 관한 구체적 사실을 거래상 신의성실의무에 비추어 비난받을 정도의 방법으로 허위 고지한 경우, 과장·허위광고의 한계를 넘어 사기죄의 기망행위에 해당한다. | `profile.advertising` | `standard_input` | `positive` | 연결 output: fraud_deception_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 25 | `deception.fraud.standard.advertising-tolerable-exaggeration`<br>상품 광고·선전에 수반된 과장이나 허위가 일반 상거래 관행과 신의칙상 시인될 수 있는 정도이면 기망행위를 인정하기 어려워 사기죄가 성립하지 않는다. | `profile.advertising` | `standard_input` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 26 | `deception.fraud.standard.deception-concrete-circumstances`<br>행위가 상대방을 착오에 빠지게 한 기망인지 여부는 거래 상황, 상대방의 지식·경험·직업 등 행위 당시 구체적 사정을 고려하여 일반적·객관적으로 판단한다. | `core.deception` | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 27 | `deception.fraud.standard.easily-detectable-lie`<br>구체적 사정에서 누구나 쉽게 허위를 간파할 수 있는 단순한 거짓말은 기망에 해당하지 않는다. | `core.deception` | `standard_input` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 28 | `deception.fraud.standard.implicit-deception-explanatory-value`<br>묵시적 기망행위는 행위자 전체행위가 설명가치를 가질 때 인정되며, 그 설명가치는 거래관행과 사회통념으로 결정된다. | `profile.implicit_deception` | `standard_input` | `positive` | 연결 output: fraud_deception_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 29 | `deception.fraud.standard.implicit-omission-deception-distinction`<br>행위자의 침묵이 거래관행·사회통념상 일정 사항을 표시하는 설명가치를 가져 묵시적 기망으로 평가되는지를 먼저 검토하고, 그렇지 않은 침묵은 보증인적 지위와 고지의무가 있는 경우에 한하여 부작위 기망이 될 수 있다. | `profile.implicit_deception` | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 30 | `deception.fraud.standard.intent-to-defraud-loan-inference`<br>차용금 사기에서 편취의 범의는 피고인의 자백이 없으면 범행 전후 재력, 환경, 범행 내용, 거래 이행과정, 피해자와의 관계 등 객관적 사정을 종합하여 판단한다. | `profile.loan` | `standard_input` | `positive` | 연결 output: fraud_intent_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 31 | `deception.fraud.standard.loan-lender-anticipated-risk`<br>대주가 인적·계속적 거래관계로 차주의 신용상태를 알고 변제지체·변제불능 위험을 예상했거나 충분히 예상할 수 있었고, 차주가 차용 당시 중요한 사항에 허위사실을 말한 등의 사정이 없다면 이후 미변제만으로 기망이나 편취 범의를 단정할 수 없다. | `profile.loan` | `standard_input` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 32 | `deception.fraud.standard.loan-purpose-materiality`<br>용도를 속여 돈을 빌린 경우, 진정한 용도를 고지했더라면 상대방이 대여하지 않았을 관계에 있으면 사기죄가 성립한다. | `profile.loan` | `standard_input` | `positive` | 연결 output: fraud_deception_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 33 | `deception.fraud.standard.loan-subsequent-default`<br>소비대차에서 차주가 차용 당시 변제 의사와 능력이 있었다면, 이후 변제하지 않더라도 민사상 채무불이행일 뿐 사기죄는 성립하지 않는다. | `profile.loan` | `standard_input` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 34 | `deception.fraud.standard.precedent-notice-duty-materiality`<br>판례는 법률상 고지의무자가 상대방의 착오를 알면서도 고지하지 않은 경우, 일반거래 경험칙상 상대방이 그 사실을 알았다면 해당 법률행위를 하지 않았을 것이 명백하면 신의칙상 고지의무가 인정된다고 본다. | `profile.omission` | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 35 | `deception.fraud.standard.vague-opinion-not-deception`<br>땅값이나 주가가 오를 것 같다는 식의 막연한 추측이나 의견 제시는 기망이 될 수 없다. | `core.deception` | `standard_input` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 36 | `fraud_damage_acquisition.delivery_factual_control`<br>재물의 현실 인도가 없더라도 재물이 범인의 사실상 지배 아래 들어가 자유로운 처분이 가능한 상태가 되면 재물의 교부가 있다. | `object.property_delivery` | `standard_input` | `positive` | 연결 output: fraud_acquisition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 37 | `fraud_damage_acquisition.delivery_of_property`<br>사기죄에서 재물의 교부는 범인의 기망에 따라 피해자가 착오로 재물에 대한 사실상 지배를 범인에게 이전하는 것이다. | `object.property_delivery` | `standard_input` | `positive` | 연결 output: fraud_acquisition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 38 | `fraud_damage_acquisition.money_delivery_full_amount`<br>금원 편취 사기에서 피해자가 기망으로 교부한 금원과 관련하여 상당한 대가가 일부 지급되었더라도 이를 공제하지 않고, 편취액은 교부받은 금원 전부로 본다. | `object.property_delivery` | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 39 | `fraud_damage_acquisition.property_concept_reported_precedent`<br>사기죄의 재산상 이익 취득은 법률상 유효할 필요가 없고, 법률상 무효라도 외형상 재산상 이익을 취득하면 족하다. | `object.property_benefit` | `deterministic_rule` | `positive` | 연결 output: fraud_acquisition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 40 | `fraud_damage_acquisition.property_disposition_types`<br>재산상 이익에 대한 처분행위에는 계약 체결, 노무 제공, 채무면제 의사표시 등 이익을 취득하게 하는 일체의 행위가 포함된다. | `object.property_benefit` | `standard_input` | `positive` | 연결 output: fraud_acquisition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 41 | `fraud_damage_acquisition.property_loss_negative_view`<br>사기죄는 기망에 의한 재물 교부 또는 재산상 이익 취득으로 성립하며, 상대방에게 현실적인 재산상 손해가 별도로 발생할 것을 요구하지 않는다. | `stage.attempt_completion` | `deterministic_rule` | `negative` | 연결 output: fraud_no_separate_loss_gate; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 42 | `fraud_damage_acquisition.protected_economic_interest`<br>사기죄의 객체인 재산상 이익은 사법상 보호되는 경제적 이익에 한정되지 않고, 사법상 보호되지 않는 경제적 이익도 경제적 이익이면 포함된다. | `object.property_benefit` | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 43 | `fraud_damage_acquisition.right_exercise_unacceptable_deception`<br>기망을 수단으로 한 권리행사라도 그 수단이 사회통념상 권리행사 수단으로 용인될 정도를 넘어서는 경우 권리행사에 속하는 행위도 사기죄에 해당한다. | `profile.rights_exercise` | `standard_input` | `positive` | 연결 output: fraud_deception_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 44 | `fraud_damage_acquisition.subsequent_return_irrelevant`<br>기망으로 재물을 편취한 경우 상당한 대가 제공, 사후 반환·변상, 전체 재산 손해 부재 또는 사후 합의는 사기죄 성립에 영향을 주지 않는다. | `object.property_delivery` | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 45 | `fraud_general_object.causation_required`<br>객관적 구성요건 요소 사이의 인과관계가 인정되지 않으면 사기죄는 기수로 성립하지 않는다. | `stage.attempt_completion` | `deterministic_rule` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 46 | `fraud_general_object.deception_error_causation`<br>기망수단으로 재물을 교부받았더라도 상대방이 그 기망으로 착오에 빠진 것이 아니라 다른 동기나 이유로 교부한 경우 사기미수죄만 성립한다. | `stage.attempt_completion` | `standard_input` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 47 | `fraud_intent.contract_breach_distinction`<br>고의에 의한 기망은 단순채무불이행과 사기죄를 구별하는 표준이 된다. | `core.intent` | `standard_input` | `positive` | 연결 output: fraud_beneficiary_attribution_satisfied, fraud_intent_satisfied, fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 48 | `fraud_intent.illegal_appropriation_definition`<br>사기죄의 불법영득의사는 타인의 물건을 자기 것으로 삼으려는 의사뿐 아니라 그 경제적 용법에 따라 일시적으로 이용 또는 처분하려는 의사도 포함하며, 영구 보유 의사가 반드시 필요한 것은 아니다. | `core.intent` | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 49 | `fraud_intent.no_disposition_inducement_intent`<br>피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다. | `core.intent` | `deterministic_rule` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 50 | `fraud_intent.precedent_illegal_appropriation_intent`<br>판례는 사기죄의 주관적 요건으로 고의 외에 불법영득의사가 필요하다는 입장이다. | `core.intent` | `standard_input` | `positive` | 연결 output: fraud_unlawful_appropriation_intent_supported; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 51 | `fraud_intent.third_party_acquisition`<br>행위자가 기망으로 스스로 재물을 취득하지 않고 제3자로 하여금 교부받게 한 경우 사기죄가 성립하려면, 제3자가 정을 모르는 도구 또는 범인의 이익을 위해 행동하는 대리인이거나, 적어도 행위자에게 제3자로 하여금 재물을 취득하게 할 의사가 있어야 한다. | `structure.third_party_acquisition` | `standard_input` | `positive` | 연결 output: fraud_beneficiary_attribution_satisfied, fraud_third_party_acquisition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 52 | `fraud_intent.time_of_conduct`<br>편취의 범의는 행위 당시를 기준으로 판단한다. | `core.intent` | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 53 | `fraud_mistake.conscious_nonexercise`<br>피기망자가 착오 때문에 채권을 의식적으로 행사하지 않았고 그 부작위가 행위자에게 직접 재산상 이익을 부여한 경우, 그 부작위는 재산적 처분행위가 될 수 있다. | `profile.omission` | `standard_input` | `positive` | 연결 output: fraud_disposition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 54 | `fraud_mistake.deceived_disposer_identity`<br>피기망자와 처분행위자는 동일인이어야 한다. | `core.mistake_disposition` | `deterministic_rule` | `positive` | 연결 output: fraud_deceived_disposer_identity_satisfied, fraud_not_established, fraud_role_structure_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 55 | `fraud_mistake.disposition_definition`<br>처분행위란 범인 등에게 재물을 교부하거나 재산상 이익을 부여하는 재산적 처분행위이며, 피기망자가 처분의사를 가지고 그 의사에 지배된 행위를 해야 한다. | `core.mistake_disposition` | `standard_input` | `positive` | 연결 output: fraud_disposition_satisfied, fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 56 | `fraud_mistake.disposition_directness`<br>재산의 감소는 처분행위로부터 직접 야기되어야 하며, 처분행위의 직접성은 기망행위가 최후 처분행위자에게까지 미치면 인정된다. | `core.mistake_disposition` | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 57 | `fraud_mistake.disposition_intent_act_awareness`<br>피기망자가 처분행위의 의미나 내용을 인식하지 못했더라도, 그 작위 또는 부작위가 직접 재산상 손해를 초래하는 재산적 처분행위로 평가되고 피기망자가 그 행위를 인식하여 한 경우에는 처분행위에 상응하는 처분의사가 인정된다. | `core.mistake_disposition` | `standard_input` | `positive` | 연결 output: fraud_disposition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 58 | `fraud_mistake.disposition_omission`<br>직접 재산상 손해를 초래하는 부작위도 처분행위가 될 수 있다. | `profile.omission` | `standard_input` | `positive` | 연결 output: fraud_disposition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 59 | `fraud_mistake.error_definition`<br>착오란 사실과 일치하지 않는 인식을 의미한다. | `core.mistake_disposition` | `standard_input` | `positive` | 연결 output: fraud_mistake_satisfied, fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 60 | `fraud_mistake.error_disposition_motivation`<br>착오는 재산적 처분행위를 하도록 동기를 확정하게 하는 것으로 충분하며, 법률행위 내용에 관한 착오인지 동기에 관한 착오인지는 묻지 않는다. | `core.mistake_disposition` | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 61 | `fraud_mistake.error_doubt_ignorance`<br>사실을 잘못 확신하는 경우뿐 아니라 어느 것이 맞는지 의심하는 경우에도 착오가 인정될 수 있고, 사실의 부지도 착오에 해당한다. | `core.mistake_disposition` | `standard_input` | `positive` | 연결 output: fraud_mistake_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 62 | `fraud_mistake.factual_act_disposition`<br>피기망자의 의사에 기초한 사실행위가 행위자 등에게 재물 또는 재산상 이익을 직접 이전하는 경우, 그 사실행위도 처분행위가 될 수 있다. | `core.mistake_disposition` | `deterministic_rule` | `positive` | 연결 output: fraud_disposition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 63 | `fraud_mistake.gain_purpose`<br>사기죄에는 범인이 타인을 기망하여 재산적 이득을 취한다는 목적의사가 있어야 한다. | `core.intent` | `standard_input` | `positive` | 연결 output: fraud_beneficiary_attribution_satisfied, fraud_intent_satisfied, fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 64 | `fraud_mistake.invalid_act_disposition`<br>착오에 의한 재산적 처분행위가 민법상 취소 가능하거나 그 법률행위가 무효여도 사기죄의 처분행위 성립에는 영향이 없다. | `core.mistake_disposition` | `deterministic_rule` | `positive` | 연결 output: fraud_disposition_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 65 | `fraud_mistake.no_capacity_theft`<br>구체적으로 재산적 처분행위를 할 의사능력이 없는 사람이 기망적 수단에 반응하여 재물을 넘긴 경우에는 그 사람의 처분행위를 인정할 수 없어 사기죄가 아니라 절도죄가 문제된다. | `boundary.other_offenses` | `standard_input` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 66 | `fraud_mistake.no_thought_no_error`<br>어떠한 생각도 갖지 않는 경우에는 착오가 인정되지 않는다. | `core.mistake_disposition` | `standard_input` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 67 | `fraud_mistake.omission_not_all_nonclaims`<br>채권자가 일시적으로 이행을 독촉하거나 청구하지 않았다는 사정만으로는 부족하고, 착오에 기한 의식적 불행사와 그로 인한 직접 재산상 이익 부여가 있어야 부작위 처분행위가 될 수 있다. | `profile.omission` | `standard_input` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 68 | `fraud_mistake.property_disposition_element`<br>사기죄는 피기망자의 착오에 기한 재산적 처분행위로 본인 또는 제3자가 재물을 교부받거나 재산상 이익을 취득함으로써 성립한다. | `core.mistake_disposition` | `deterministic_rule` | `positive` | 연결 output: fraud_acquisition_satisfied, fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 69 | `fraud_mistake.property_limited_disposition`<br>처분행위는 재산상 처분행위에 한정되므로, 재산상 처분행위가 아닌 행위는 사기죄의 처분행위로 인정되지 않는다. | `core.mistake_disposition` | `deterministic_rule` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 70 | `fraud_mistake.sequential_causation`<br>사기죄 성립에는 기망행위, 상대방의 착오 및 재물 교부 또는 재산상 이익 공여 사이의 순차적 인과관계가 필요하며, 재산적 처분행위는 착오에 의한 것이어야 한다. | `core.mistake_disposition` | `deterministic_rule` | `positive` | 연결 output: fraud_causal_chain_satisfied, fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 71 | `fraud_mistake.triangular_fraud_definition`<br>피기망자와 재산상 피해자는 동일인일 필요가 없고, 피해자와 처분행위자가 다른 경우를 삼각사기라고 한다. | `structure.triangular` | `deterministic_rule` | `positive` | 연결 output: fraud_role_structure_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 72 | `fraud_mistake.trick_theft_directness`<br>기망적 수단이 사용됐더라도 피해자의 행위가 재물 지배 이전을 직접 초래하지 않고 행위자가 탈취한 경우에는 처분행위의 직접성이 없어 사기죄가 아니라 절도죄가 문제된다. | `boundary.other_offenses` | `standard_input` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 73 | `fraud_mistake.unaware_error`<br>피기망자가 진실을 알고 있어 허위임을 인식한 경우에는 착오가 아니지만, 어느 것이 진실인지 의심하는 데 그친 경우에는 착오가 인정될 수 있다. | `core.mistake_disposition` | `standard_input` | `positive` | 연결 output: fraud_mistake_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 74 | `fraud_stages_participation.attempt_deceptive_act`<br>사람을 기망하는 행위가 착수되면 사기죄의 실행의 착수가 있으며, 상대방이 실제 착오에 빠질 필요는 없다. | `stage.attempt_completion` | `deterministic_rule` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 75 | `fraud_stages_participation.completion_deception_disposition_transfer`<br>행위자의 기망으로 상대방이 착오에 빠지고, 그 착오에 기초한 재산적 처분행위로 재물 또는 재산상 이익이 이전되면 사기죄는 기수에 이른다. | `stage.attempt_completion` | `deterministic_rule` | `positive` | 연결 output: fraud_completion_satisfied, fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 76 | `fraud_stages_participation.no_causation_attempt`<br>기망·착오·재산적 처분행위 사이의 인과관계가 인정되지 않으면 사기죄는 미수이다. | `stage.attempt_completion` | `deterministic_rule` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 77 | `fraud_stages_participation.property_fraud_completion_control`<br>재물 편취는 피해자의 지배를 배제하고 자기 또는 제3자의 지배를 인정한 때 기수에 이른다. | `stage.attempt_completion` | `deterministic_rule` | `positive` | 연결 output: fraud_completion_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 78 | `general_object.fraud.definition.property-benefit`<br>재산상 이익은 재물 이외의 것으로서 재산의 경제적 가치 증가를 의미하며, 적극적·소극적, 일시적·영구적 이익을 모두 포함한다. | `object.property_benefit` | `standard_input` | `positive` | 연결 output: fraud_object_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 79 | `general_object.fraud.definition.property-benefit-not-numerically-limited`<br>재산상 이익은 숫자로 산출할 수 있는 이익에 한정되지 않는다. | `object.property_benefit` | `standard_input` | `positive` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 80 | `general_object.fraud.element.object-other-possessed-other-property`<br>사기죄의 객체는 타인이 점유하는 타인의 재물 또는 재산상 이익이다. | `object.property_delivery` | `standard_input` | `positive` | 연결 output: fraud_not_established, fraud_object_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 81 | `general_object.fraud.element.property-benefit-concrete`<br>재산상 이익은 구체적인 이익이어야 한다. | `object.property_benefit` | `standard_input` | `positive` | 연결 output: fraud_object_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 82 | `general_object.fraud.exception.public-interest-property-equivalence`<br>기망으로 국가적·공공적 법익을 침해한 경우에도 그 침해가 동시에 재산권 침해와 동일하게 평가되고 해당 행위를 사기죄보다 특별하게 처벌하는 별도 규정이 없는 때에 한하여 사기죄가 성립할 수 있다. | `object.public_interest` | `standard_input` | `exception` | 연결 output: fraud_object_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 83 | `general_object.fraud.standard.later-cancellation-no-effect`<br>사기로 인한 재산 처분이 처분시점에 기수에 이른 경우, 사후에 이루어진 의사표시 취소는 범죄성립에 영향을 미칠 수 없다. | `stage.attempt_completion` | `standard_input` | `negative` | 개별 쟁점의 증명 가능한 support fact; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 84 | `general_object.fraud.standard.own-possession-other-property-embezzlement`<br>자기 점유의 타인 재물을 영득한 경우에는 기망행위가 있어도 횡령죄만 성립한다. | `boundary.other_offenses` | `standard_input` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 85 | `general_object.fraud.standard.own-property-not-object`<br>타인이 점유하는 자기소유 재물은 사기죄의 객체가 되지 않는다. | `object.property_delivery` | `standard_input` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 86 | `general_object.fraud.standard.public-interest-only-no-fraud`<br>기망이 국가적·공공적 법익만 침해하고 그 침해를 재산권 침해와 동일하게 평가할 수 없는 경우에는 사기죄가 성립하지 않는다. | `object.public_interest` | `standard_input` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 87 | `mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation`<br>피기망자와 재산상 피해자가 다르면 피기망자에게 피해자를 위하여 그 재산을 처분할 권능 또는 지위가 있어야 한다. 그 권능 또는 지위는 사법상 위임이나 대리권과 일치할 필요는 없고, 피해자의 의사에 따라 처분서류를 교부받은 경우에도 인정될 수 있다. | `structure.triangular` | `standard_input` | `positive` | 연결 output: fraud_role_structure_satisfied, fraud_triangular_authority_satisfied; unknown이면 undetermined; 상반된 두 평가면 conflict |
+| 88 | `special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime`<br>기망수단을 사용한 권리행사라도 그 기망수단이 사회통념상 권리행사의 수단으로 용인될 수 있으면 권리행사 자체에 속하는 행위는 범죄를 구성하지 않는 정당행위가 된다. | `profile.rights_exercise` | `standard_input` | `negative` | 연결 output: fraud_not_established; unknown이면 undetermined; 상반된 두 평가면 conflict |
 
 ## Rule별 자연어 해설
 
 아래 목록은 모든 rule의 head와 body를 빠짐없이 펼친 것이다. body의 각 항목이 모두 참일 때만 head가 도출된다.
 
-### `fraud.full.card.001.satisfied`
+### `fraud.core_deception.card.001.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 사기죄에서 기망은 피기망자의 재산적 처분행위를 하게 하는 행위여야 한다.** (`satisfied_deception_fraud_causal_link_deception_property_disposition(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -156,7 +181,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.002.satisfied`
+### `fraud.profile_loan.card.002.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 차주가 밝힌 차용금 용도의 진실 여부가 대차 성립의 유일한 계기가 아닌 경우에는 기망행위와 재산적 처분행위 사이의 인과관계가 인정되지 않아 사기죄가 성립하지 않는다.** (`satisfied_deception_fraud_causal_link_loan_purpose_not_sole_trigger(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -169,7 +194,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.003.satisfied`
+### `fraud.core_deception.card.003.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 상대방을 착오에 빠지게 하였더라도 그 착오에 기하여 재산적 처분행위를 하게 한 행위가 아니면 사기죄의 실행행위로서 기망이 아니다.** (`satisfied_deception_fraud_causal_link_no_disposition_no_deception(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -182,7 +207,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.004.satisfied`
+### `fraud.profile_advertising.card.004.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 광고사기와 같이 기망행위의 상대방은 불특정인일 수 있다.** (`satisfied_deception_fraud_definition_deceived_person_unspecified(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -195,7 +220,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.005.satisfied`
+### `fraud.structure_triangular.card.005.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 기망의 상대방과 재산상 피해자는 동일인일 것을 요하지 않는다.** (`satisfied_deception_fraud_definition_deceived_person_victim_distinct(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -208,7 +233,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.006.satisfied`
+### `fraud.core_deception.card.006.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 기망의 내용은 재산적 처분행위를 하는 데 판단의 기초가 되는 사실이며, 외부적·객관적 사실과 내부적·심리적 사실을 포함한다.** (`satisfied_deception_fraud_definition_deception_content_basis_fact(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -221,7 +246,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.007.satisfied`
+### `fraud.core_deception.card.007.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 사기죄에서 기망의 상대방은 타인이다.** (`satisfied_deception_fraud_definition_deception_counterparty_is_other(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -234,7 +259,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.008.satisfied`
+### `fraud.core_deception.card.008.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 기망은 거래관계에서 지켜야 할 신의칙에 반하여 사람으로 하여금 착오를 일으키게 하는 행위이다.** (`satisfied_deception_fraud_definition_deception_good_faith_mistake(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -247,7 +272,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.009.satisfied`
+### `fraud.core_deception.card.009.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 기망 수단에는 제한이 없으며, 언어·문서·거동, 적극적 주장·묵비, 작위·부작위 및 명시적·묵시적 방식 모두가 문제될 수 있다.** (`satisfied_deception_fraud_definition_deception_means_unrestricted(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -260,7 +285,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.010.satisfied`
+### `fraud.core_deception.card.010.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 재산적 처분의 판단 기초사실이면 물건의 성질·품질 등 객관적 사실, 대금지급 의사 등 심리적 사실, 법률효력 등 법률적 사실 또는 민법상 무효인 법률행위에 관한 사실도 기망 대상이 될 수 있다.** (`satisfied_deception_fraud_definition_deception_object_facts(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -273,7 +298,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.011.satisfied`
+### `fraud.core_deception.card.011.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 사실과 다른 관념을 형성하고 재산적 처분행위를 할 인식능력이 없는 사람은 기망의 상대방이 될 수 없고, 기계는 착오에 빠질 수 없어 기망행위의 대상이 될 수 없다.** (`satisfied_deception_fraud_definition_deception_target_human(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -286,7 +311,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.012.satisfied`
+### `fraud.profile_omission.card.012.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 이미 착오에 빠진 상태를 이용하는 행위가 신의칙 위반의 작위 또는 고지의무 있는 부작위로 평가되는 경우 기망행위가 될 수 있다.** (`satisfied_deception_fraud_definition_exploitation_existing_mistake(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -299,7 +324,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.013.satisfied`
+### `fraud.profile_implicit_deception.card.013.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 묵시적 기망행위는 언어나 문서가 아니라 행동 또는 태도로 일정 사항에 관한 허위 외관을 표시하는 것을 의미한다.** (`satisfied_deception_fraud_definition_implicit_deception(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -312,7 +337,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.014.satisfied`
+### `fraud.profile_omission.card.014.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 고지의무를 위반하여 사실을 묵비하는 것은 작위에 의한 기망이 아니라 부작위에 의한 기망행위에 해당한다.** (`satisfied_deception_fraud_definition_notice_duty_violation_omission(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -325,7 +350,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.015.satisfied`
+### `fraud.core_deception.card.015.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 사기죄에서 ‘타인’에는 법인이 포함되며, 법인도 사기죄의 피해자가 될 수 있다.** (`satisfied_deception_fraud_definition_other_includes_corporation(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -338,7 +363,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.016.satisfied`
+### `fraud.core_deception.card.016.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 기망적 수단을 사용하였더라도 상대방에게 진실과 합치하지 않는 관념을 발생시킨 행위가 아니면 사기죄 실행행위로서의 기망이 아니다.** (`satisfied_deception_fraud_element_deception_must_create_false_belief(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -351,7 +376,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.017.satisfied`
+### `fraud.core_deception.card.017.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 사기죄 실행행위로서의 기망은 법률행위의 중요부분에 관한 것일 필요 없이 상대방의 재산적 처분을 위한 판단의 기초사실에 관한 기망이면 충분하다.** (`satisfied_deception_fraud_element_deception_not_legal_act_important_part(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -364,7 +389,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.018.satisfied`
+### `fraud.profile_loan.card.018.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 변제할 의사나 능력이 없는데도 금원을 차용하면 사기죄에 해당한다.** (`satisfied_deception_fraud_element_loan_no_repayment_intent_or_ability(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -377,7 +402,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.019.satisfied`
+### `fraud.profile_omission.card.019.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 부작위에 의한 기망행위에서는 행위자가 상대방 착오를 제거할 보증인적 지위에 있고, 부작위가 작위에 의한 기망행위와 동가치를 가져야 한다.** (`satisfied_deception_fraud_element_omission_deception_guarantor_equivalence(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -390,7 +415,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.020.satisfied`
+### `fraud.profile_omission.card.020.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 부작위에 의한 기망행위에서는 상대방이 행위자와 관계없이 스스로 착오에 빠져 있어야 한다.** (`satisfied_deception_fraud_element_omission_deception_independent_error(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -403,7 +428,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.021.satisfied`
+### `fraud.profile_omission.card.021.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 법률상 고지의무가 있는 자가 일정 사실을 고지하지 않아 상대방의 착오 상태를 계속시키고 이를 이용한 경우, 부작위에 의한 기망행위가 성립한다.** (`satisfied_deception_fraud_element_omission_deception_legal_notice_duty(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -416,7 +441,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.022.satisfied`
+### `fraud.core_deception.card.022.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 상대방을 착오에 빠뜨렸더라도 거래 목적 달성에 지장이 없으면 신의칙 위반의 기망행위가 있었다고 보기 어렵다.** (`satisfied_deception_fraud_element_transaction_purpose_no_impairment(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -429,7 +454,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.023.satisfied`
+### `fraud.core_deception.card.023.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 착오가 상대방의 과실과 경합하더라도 사기죄는 성립할 수 있다.** (`satisfied_deception_fraud_element_victim_negligence_no_bar(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -442,7 +467,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.024.satisfied`
+### `fraud.profile_advertising.card.024.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 거래의 중요한 사항에 관한 구체적 사실을 거래상 신의성실의무에 비추어 비난받을 정도의 방법으로 허위 고지한 경우, 과장·허위광고의 한계를 넘어 사기죄의 기망행위에 해당한다.** (`satisfied_deception_fraud_standard_advertising_important_concrete_falsehood(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -455,7 +480,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.025.satisfied`
+### `fraud.profile_advertising.card.025.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 상품 광고·선전에 수반된 과장이나 허위가 일반 상거래 관행과 신의칙상 시인될 수 있는 정도이면 기망행위를 인정하기 어려워 사기죄가 성립하지 않는다.** (`satisfied_deception_fraud_standard_advertising_tolerable_exaggeration(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -468,7 +493,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.026.satisfied`
+### `fraud.core_deception.card.026.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 행위가 상대방을 착오에 빠지게 한 기망인지 여부는 거래 상황, 상대방의 지식·경험·직업 등 행위 당시 구체적 사정을 고려하여 일반적·객관적으로 판단한다.** (`satisfied_deception_fraud_standard_deception_concrete_circumstances(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -481,7 +506,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.027.satisfied`
+### `fraud.core_deception.card.027.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 구체적 사정에서 누구나 쉽게 허위를 간파할 수 있는 단순한 거짓말은 기망에 해당하지 않는다.** (`satisfied_deception_fraud_standard_easily_detectable_lie(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -494,7 +519,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.028.satisfied`
+### `fraud.profile_implicit_deception.card.028.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 묵시적 기망행위는 행위자 전체행위가 설명가치를 가질 때 인정되며, 그 설명가치는 거래관행과 사회통념으로 결정된다.** (`satisfied_deception_fraud_standard_implicit_deception_explanatory_value(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -507,7 +532,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.029.satisfied`
+### `fraud.profile_implicit_deception.card.029.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 행위자의 침묵이 거래관행·사회통념상 일정 사항을 표시하는 설명가치를 가져 묵시적 기망으로 평가되는지를 먼저 검토하고, 그렇지 않은 침묵은 보증인적 지위와 고지의무가 있는 경우에 한하여 부작위 기망이 될 수 있다.** (`satisfied_deception_fraud_standard_implicit_omission_deception_distinction(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -520,7 +545,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.030.satisfied`
+### `fraud.profile_loan.card.030.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 차용금 사기에서 편취의 범의는 피고인의 자백이 없으면 범행 전후 재력, 환경, 범행 내용, 거래 이행과정, 피해자와의 관계 등 객관적 사정을 종합하여 판단한다.** (`satisfied_deception_fraud_standard_intent_to_defraud_loan_inference(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -533,7 +558,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.031.satisfied`
+### `fraud.profile_loan.card.031.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 대주가 인적·계속적 거래관계로 차주의 신용상태를 알고 변제지체·변제불능 위험을 예상했거나 충분히 예상할 수 있었고, 차주가 차용 당시 중요한 사항에 허위사실을 말한 등의 사정이 없다면 이후 미변제만으로 기망이나 편취 범의를 단정할 수 없다.** (`satisfied_deception_fraud_standard_loan_lender_anticipated_risk(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -546,7 +571,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.032.satisfied`
+### `fraud.profile_loan.card.032.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 용도를 속여 돈을 빌린 경우, 진정한 용도를 고지했더라면 상대방이 대여하지 않았을 관계에 있으면 사기죄가 성립한다.** (`satisfied_deception_fraud_standard_loan_purpose_materiality(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -559,7 +584,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.033.satisfied`
+### `fraud.profile_loan.card.033.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 소비대차에서 차주가 차용 당시 변제 의사와 능력이 있었다면, 이후 변제하지 않더라도 민사상 채무불이행일 뿐 사기죄는 성립하지 않는다.** (`satisfied_deception_fraud_standard_loan_subsequent_default(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -572,7 +597,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.034.satisfied`
+### `fraud.profile_omission.card.034.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 판례는 법률상 고지의무자가 상대방의 착오를 알면서도 고지하지 않은 경우, 일반거래 경험칙상 상대방이 그 사실을 알았다면 해당 법률행위를 하지 않았을 것이 명백하면 신의칙상 고지의무가 인정된다고 본다.** (`satisfied_deception_fraud_standard_precedent_notice_duty_materiality(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -585,7 +610,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.035.satisfied`
+### `fraud.core_deception.card.035.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 땅값이나 주가가 오를 것 같다는 식의 막연한 추측이나 의견 제시는 기망이 될 수 없다.** (`satisfied_deception_fraud_standard_vague_opinion_not_deception(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -598,7 +623,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.036.satisfied`
+### `fraud.object_property_delivery.card.036.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 재물의 현실 인도가 없더라도 재물이 범인의 사실상 지배 아래 들어가 자유로운 처분이 가능한 상태가 되면 재물의 교부가 있다.** (`satisfied_fraud_damage_acquisition_delivery_factual_control(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -611,7 +636,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.037.satisfied`
+### `fraud.object_property_delivery.card.037.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 사기죄에서 재물의 교부는 범인의 기망에 따라 피해자가 착오로 재물에 대한 사실상 지배를 범인에게 이전하는 것이다.** (`satisfied_fraud_damage_acquisition_delivery_of_property(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -624,7 +649,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.038.satisfied`
+### `fraud.object_property_delivery.card.038.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 금원 편취 사기에서 피해자가 기망으로 교부한 금원과 관련하여 상당한 대가가 일부 지급되었더라도 이를 공제하지 않고, 편취액은 교부받은 금원 전부로 본다.** (`satisfied_fraud_damage_acquisition_money_delivery_full_amount(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -637,7 +662,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.039.satisfied`
+### `fraud.object_property_benefit.card.039.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 사기죄의 재산상 이익 취득은 법률상 유효할 필요가 없고, 법률상 무효라도 외형상 재산상 이익을 취득하면 족하다.** (`satisfied_fraud_damage_acquisition_property_concept_reported_precedent(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -650,7 +675,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.040.satisfied`
+### `fraud.object_property_benefit.card.040.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 재산상 이익에 대한 처분행위에는 계약 체결, 노무 제공, 채무면제 의사표시 등 이익을 취득하게 하는 일체의 행위가 포함된다.** (`satisfied_fraud_damage_acquisition_property_disposition_types(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -663,7 +688,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.041.satisfied`
+### `fraud.stage_attempt_completion.card.041.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 사기죄는 기망에 의한 재물 교부 또는 재산상 이익 취득으로 성립하며, 상대방에게 현실적인 재산상 손해가 별도로 발생할 것을 요구하지 않는다.** (`satisfied_fraud_damage_acquisition_property_loss_negative_view(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -676,7 +701,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.042.satisfied`
+### `fraud.object_property_benefit.card.042.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 사기죄의 객체인 재산상 이익은 사법상 보호되는 경제적 이익에 한정되지 않고, 사법상 보호되지 않는 경제적 이익도 경제적 이익이면 포함된다.** (`satisfied_fraud_damage_acquisition_protected_economic_interest(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -689,7 +714,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.043.satisfied`
+### `fraud.profile_rights_exercise.card.043.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 기망을 수단으로 한 권리행사라도 그 수단이 사회통념상 권리행사 수단으로 용인될 정도를 넘어서는 경우 권리행사에 속하는 행위도 사기죄에 해당한다.** (`satisfied_fraud_damage_acquisition_right_exercise_unacceptable_deception(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -702,7 +727,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.044.satisfied`
+### `fraud.object_property_delivery.card.044.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 기망으로 재물을 편취한 경우 상당한 대가 제공, 사후 반환·변상, 전체 재산 손해 부재 또는 사후 합의는 사기죄 성립에 영향을 주지 않는다.** (`satisfied_fraud_damage_acquisition_subsequent_return_irrelevant(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -715,7 +740,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.045.satisfied`
+### `fraud.stage_attempt_completion.card.045.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 객관적 구성요건 요소 사이의 인과관계가 인정되지 않으면 사기죄는 기수로 성립하지 않는다.** (`satisfied_fraud_general_object_causation_required(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -728,7 +753,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.046.satisfied`
+### `fraud.stage_attempt_completion.card.046.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 기망수단으로 재물을 교부받았더라도 상대방이 그 기망으로 착오에 빠진 것이 아니라 다른 동기나 이유로 교부한 경우 사기미수죄만 성립한다.** (`satisfied_fraud_general_object_deception_error_causation(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -741,7 +766,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.047.satisfied`
+### `fraud.core_intent.card.047.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 고의에 의한 기망은 단순채무불이행과 사기죄를 구별하는 표준이 된다.** (`satisfied_fraud_intent_contract_breach_distinction(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -754,7 +779,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.048.satisfied`
+### `fraud.core_intent.card.048.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 사기죄의 불법영득의사는 타인의 물건을 자기 것으로 삼으려는 의사뿐 아니라 그 경제적 용법에 따라 일시적으로 이용 또는 처분하려는 의사도 포함하며, 영구 보유 의사가 반드시 필요한 것은 아니다.** (`satisfied_fraud_intent_illegal_appropriation_definition(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -767,7 +792,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.049.satisfied`
+### `fraud.core_intent.card.049.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.** (`satisfied_fraud_intent_no_disposition_inducement_intent(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -780,7 +805,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.050.satisfied`
+### `fraud.core_intent.card.050.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 판례는 사기죄의 주관적 요건으로 고의 외에 불법영득의사가 필요하다는 입장이다.** (`satisfied_fraud_intent_precedent_illegal_appropriation_intent(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -793,7 +818,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.051.satisfied`
+### `fraud.structure_third_party_acquisition.card.051.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 행위자가 기망으로 스스로 재물을 취득하지 않고 제3자로 하여금 교부받게 한 경우 사기죄가 성립하려면, 제3자가 정을 모르는 도구 또는 범인의 이익을 위해 행동하는 대리인이거나, 적어도 행위자에게 제3자로 하여금 재물을 취득하게 할 의사가 있어야 한다.** (`satisfied_fraud_intent_third_party_acquisition(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -806,7 +831,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.052.satisfied`
+### `fraud.core_intent.card.052.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 편취의 범의는 행위 당시를 기준으로 판단한다.** (`satisfied_fraud_intent_time_of_conduct(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -819,7 +844,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.053.satisfied`
+### `fraud.profile_omission.card.053.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 피기망자가 착오 때문에 채권을 의식적으로 행사하지 않았고 그 부작위가 행위자에게 직접 재산상 이익을 부여한 경우, 그 부작위는 재산적 처분행위가 될 수 있다.** (`satisfied_fraud_mistake_conscious_nonexercise(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -832,7 +857,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.054.satisfied`
+### `fraud.core_mistake_disposition.card.054.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 피기망자와 처분행위자는 동일인이어야 한다.** (`satisfied_fraud_mistake_deceived_disposer_identity(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -845,7 +870,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.055.satisfied`
+### `fraud.core_mistake_disposition.card.055.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 처분행위란 범인 등에게 재물을 교부하거나 재산상 이익을 부여하는 재산적 처분행위이며, 피기망자가 처분의사를 가지고 그 의사에 지배된 행위를 해야 한다.** (`satisfied_fraud_mistake_disposition_definition(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -858,7 +883,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.056.satisfied`
+### `fraud.core_mistake_disposition.card.056.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 재산의 감소는 처분행위로부터 직접 야기되어야 하며, 처분행위의 직접성은 기망행위가 최후 처분행위자에게까지 미치면 인정된다.** (`satisfied_fraud_mistake_disposition_directness(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -871,7 +896,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.057.satisfied`
+### `fraud.core_mistake_disposition.card.057.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 피기망자가 처분행위의 의미나 내용을 인식하지 못했더라도, 그 작위 또는 부작위가 직접 재산상 손해를 초래하는 재산적 처분행위로 평가되고 피기망자가 그 행위를 인식하여 한 경우에는 처분행위에 상응하는 처분의사가 인정된다.** (`satisfied_fraud_mistake_disposition_intent_act_awareness(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -884,7 +909,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.058.satisfied`
+### `fraud.profile_omission.card.058.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 직접 재산상 손해를 초래하는 부작위도 처분행위가 될 수 있다.** (`satisfied_fraud_mistake_disposition_omission(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -897,7 +922,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.059.satisfied`
+### `fraud.core_mistake_disposition.card.059.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 착오란 사실과 일치하지 않는 인식을 의미한다.** (`satisfied_fraud_mistake_error_definition(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -910,7 +935,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.060.satisfied`
+### `fraud.core_mistake_disposition.card.060.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 착오는 재산적 처분행위를 하도록 동기를 확정하게 하는 것으로 충분하며, 법률행위 내용에 관한 착오인지 동기에 관한 착오인지는 묻지 않는다.** (`satisfied_fraud_mistake_error_disposition_motivation(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -923,7 +948,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.061.satisfied`
+### `fraud.core_mistake_disposition.card.061.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 사실을 잘못 확신하는 경우뿐 아니라 어느 것이 맞는지 의심하는 경우에도 착오가 인정될 수 있고, 사실의 부지도 착오에 해당한다.** (`satisfied_fraud_mistake_error_doubt_ignorance(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -936,7 +961,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.062.satisfied`
+### `fraud.core_mistake_disposition.card.062.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 피기망자의 의사에 기초한 사실행위가 행위자 등에게 재물 또는 재산상 이익을 직접 이전하는 경우, 그 사실행위도 처분행위가 될 수 있다.** (`satisfied_fraud_mistake_factual_act_disposition(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -949,7 +974,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.063.satisfied`
+### `fraud.core_intent.card.063.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 사기죄에는 범인이 타인을 기망하여 재산적 이득을 취한다는 목적의사가 있어야 한다.** (`satisfied_fraud_mistake_gain_purpose(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -962,7 +987,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.064.satisfied`
+### `fraud.core_mistake_disposition.card.064.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 착오에 의한 재산적 처분행위가 민법상 취소 가능하거나 그 법률행위가 무효여도 사기죄의 처분행위 성립에는 영향이 없다.** (`satisfied_fraud_mistake_invalid_act_disposition(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -975,7 +1000,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.065.satisfied`
+### `fraud.boundary_other_offenses.card.065.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 구체적으로 재산적 처분행위를 할 의사능력이 없는 사람이 기망적 수단에 반응하여 재물을 넘긴 경우에는 그 사람의 처분행위를 인정할 수 없어 사기죄가 아니라 절도죄가 문제된다.** (`satisfied_fraud_mistake_no_capacity_theft(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -988,7 +1013,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.066.satisfied`
+### `fraud.core_mistake_disposition.card.066.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 어떠한 생각도 갖지 않는 경우에는 착오가 인정되지 않는다.** (`satisfied_fraud_mistake_no_thought_no_error(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1001,7 +1026,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.067.satisfied`
+### `fraud.profile_omission.card.067.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 채권자가 일시적으로 이행을 독촉하거나 청구하지 않았다는 사정만으로는 부족하고, 착오에 기한 의식적 불행사와 그로 인한 직접 재산상 이익 부여가 있어야 부작위 처분행위가 될 수 있다.** (`satisfied_fraud_mistake_omission_not_all_nonclaims(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1014,7 +1039,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.068.satisfied`
+### `fraud.core_mistake_disposition.card.068.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 사기죄는 피기망자의 착오에 기한 재산적 처분행위로 본인 또는 제3자가 재물을 교부받거나 재산상 이익을 취득함으로써 성립한다.** (`satisfied_fraud_mistake_property_disposition_element(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1027,7 +1052,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.069.satisfied`
+### `fraud.core_mistake_disposition.card.069.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 처분행위는 재산상 처분행위에 한정되므로, 재산상 처분행위가 아닌 행위는 사기죄의 처분행위로 인정되지 않는다.** (`satisfied_fraud_mistake_property_limited_disposition(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1040,7 +1065,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.070.satisfied`
+### `fraud.core_mistake_disposition.card.070.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 사기죄 성립에는 기망행위, 상대방의 착오 및 재물 교부 또는 재산상 이익 공여 사이의 순차적 인과관계가 필요하며, 재산적 처분행위는 착오에 의한 것이어야 한다.** (`satisfied_fraud_mistake_sequential_causation(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1053,7 +1078,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.071.satisfied`
+### `fraud.structure_triangular.card.071.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 피기망자와 재산상 피해자는 동일인일 필요가 없고, 피해자와 처분행위자가 다른 경우를 삼각사기라고 한다.** (`satisfied_fraud_mistake_triangular_fraud_definition(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1066,7 +1091,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.072.satisfied`
+### `fraud.boundary_other_offenses.card.072.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 기망적 수단이 사용됐더라도 피해자의 행위가 재물 지배 이전을 직접 초래하지 않고 행위자가 탈취한 경우에는 처분행위의 직접성이 없어 사기죄가 아니라 절도죄가 문제된다.** (`satisfied_fraud_mistake_trick_theft_directness(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1079,7 +1104,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.073.satisfied`
+### `fraud.core_mistake_disposition.card.073.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 피기망자가 진실을 알고 있어 허위임을 인식한 경우에는 착오가 아니지만, 어느 것이 진실인지 의심하는 데 그친 경우에는 착오가 인정될 수 있다.** (`satisfied_fraud_mistake_unaware_error(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1092,7 +1117,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.074.satisfied`
+### `fraud.stage_attempt_completion.card.074.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 사람을 기망하는 행위가 착수되면 사기죄의 실행의 착수가 있으며, 상대방이 실제 착오에 빠질 필요는 없다.** (`satisfied_fraud_stages_participation_attempt_deceptive_act(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1105,7 +1130,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.075.satisfied`
+### `fraud.stage_attempt_completion.card.075.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 행위자의 기망으로 상대방이 착오에 빠지고, 그 착오에 기초한 재산적 처분행위로 재물 또는 재산상 이익이 이전되면 사기죄는 기수에 이른다.** (`satisfied_fraud_stages_participation_completion_deception_disposition_transfer(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1118,7 +1143,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.076.satisfied`
+### `fraud.stage_attempt_completion.card.076.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 기망·착오·재산적 처분행위 사이의 인과관계가 인정되지 않으면 사기죄는 미수이다.** (`satisfied_fraud_stages_participation_no_causation_attempt(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1131,7 +1156,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.077.satisfied`
+### `fraud.stage_attempt_completion.card.077.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 재물 편취는 피해자의 지배를 배제하고 자기 또는 제3자의 지배를 인정한 때 기수에 이른다.** (`satisfied_fraud_stages_participation_property_fraud_completion_control(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1144,7 +1169,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.078.satisfied`
+### `fraud.object_property_benefit.card.078.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 재산상 이익은 재물 이외의 것으로서 재산의 경제적 가치 증가를 의미하며, 적극적·소극적, 일시적·영구적 이익을 모두 포함한다.** (`satisfied_general_object_fraud_definition_property_benefit(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1157,7 +1182,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.079.satisfied`
+### `fraud.object_property_benefit.card.079.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 재산상 이익은 숫자로 산출할 수 있는 이익에 한정되지 않는다.** (`satisfied_general_object_fraud_definition_property_benefit_not_numerically_limited(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1170,7 +1195,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.080.satisfied`
+### `fraud.object_property_delivery.card.080.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 사기죄의 객체는 타인이 점유하는 타인의 재물 또는 재산상 이익이다.** (`satisfied_general_object_fraud_element_object_other_possessed_other_property(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1183,7 +1208,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.081.satisfied`
+### `fraud.object_property_benefit.card.081.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 재산상 이익은 구체적인 이익이어야 한다.** (`satisfied_general_object_fraud_element_property_benefit_concrete(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1196,7 +1221,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.082.satisfied`
+### `fraud.object_public_interest.card.082.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 기망으로 국가적·공공적 법익을 침해한 경우에도 그 침해가 동시에 재산권 침해와 동일하게 평가되고 해당 행위를 사기죄보다 특별하게 처벌하는 별도 규정이 없는 때에 한하여 사기죄가 성립할 수 있다.** (`satisfied_general_object_fraud_exception_public_interest_property_equivalence(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1209,7 +1234,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.083.satisfied`
+### `fraud.stage_attempt_completion.card.083.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 사기로 인한 재산 처분이 처분시점에 기수에 이른 경우, 사후에 이루어진 의사표시 취소는 범죄성립에 영향을 미칠 수 없다.** (`satisfied_general_object_fraud_standard_later_cancellation_no_effect(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1222,7 +1247,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.084.satisfied`
+### `fraud.boundary_other_offenses.card.084.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 자기 점유의 타인 재물을 영득한 경우에는 기망행위가 있어도 횡령죄만 성립한다.** (`satisfied_general_object_fraud_standard_own_possession_other_property_embezzlement(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1235,7 +1260,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.085.satisfied`
+### `fraud.object_property_delivery.card.085.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 타인이 점유하는 자기소유 재물은 사기죄의 객체가 되지 않는다.** (`satisfied_general_object_fraud_standard_own_property_not_object(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1248,7 +1273,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.086.satisfied`
+### `fraud.object_public_interest.card.086.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 기망이 국가적·공공적 법익만 침해하고 그 침해를 재산권 침해와 동일하게 평가할 수 없는 경우에는 사기죄가 성립하지 않는다.** (`satisfied_general_object_fraud_standard_public_interest_only_no_fraud(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1261,7 +1286,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.087.satisfied`
+### `fraud.structure_triangular.card.087.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 피기망자와 재산상 피해자가 다르면 피기망자에게 피해자를 위하여 그 재산을 처분할 권능 또는 지위가 있어야 한다. 그 권능 또는 지위는 사법상 위임이나 대리권과 일치할 필요는 없고, 피해자의 의사에 따라 처분서류를 교부받은 경우에도 인정될 수 있다.** (`satisfied_mistake_disposition_fraud_variant_triangular_fraud_94do1575_factual_position_interpretation(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1274,7 +1299,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.card.088.satisfied`
+### `fraud.profile_rights_exercise.card.088.satisfied`
 
 결론: **증명 가능한 평가에서 다음 조건이 충족됨: 기망수단을 사용한 권리행사라도 그 기망수단이 사회통념상 권리행사의 수단으로 용인될 수 있으면 권리행사 자체에 속하는 행위는 범죄를 구성하지 않는 정당행위가 된다.** (`satisfied_special_forms_fraud_standard_right_exercise_socially_acceptable_no_crime(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1287,7 +1312,7 @@
 
 해석 메모: 이 카드의 사건별 평가가 satisfied이고 provable일 때만 충족 조건으로 승격한다.
 
-### `fraud.full.component.fraud_object_satisfied.01`
+### `fraud.object_property_delivery.component.fraud_object_satisfied.01`
 
 결론: **사기죄의 객체가 되는 타인의 재물 또는 구체적 재산상 이익이 인정됨** (`fraud_object_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1299,7 +1324,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_object_satisfied.02`
+### `fraud.object_public_interest.component.fraud_object_satisfied.02`
 
 결론: **사기죄의 객체가 되는 타인의 재물 또는 구체적 재산상 이익이 인정됨** (`fraud_object_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1311,7 +1336,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_deception_satisfied.01`
+### `fraud.core_deception.component.fraud_deception_satisfied.01`
 
 결론: **사건에 적용되는 기망 기준이 충족됨** (`fraud_deception_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1323,7 +1348,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_deception_satisfied.02`
+### `fraud.profile_omission.component.fraud_deception_satisfied.02`
 
 결론: **사건에 적용되는 기망 기준이 충족됨** (`fraud_deception_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1335,7 +1360,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_deception_satisfied.03`
+### `fraud.profile_loan.component.fraud_deception_satisfied.03`
 
 결론: **사건에 적용되는 기망 기준이 충족됨** (`fraud_deception_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1347,7 +1372,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_deception_satisfied.04`
+### `fraud.profile_advertising.component.fraud_deception_satisfied.04`
 
 결론: **사건에 적용되는 기망 기준이 충족됨** (`fraud_deception_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1359,7 +1384,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_deception_satisfied.05`
+### `fraud.profile_implicit_deception.component.fraud_deception_satisfied.05`
 
 결론: **사건에 적용되는 기망 기준이 충족됨** (`fraud_deception_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1371,7 +1396,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_deception_satisfied.06`
+### `fraud.profile_loan.component.fraud_deception_satisfied.06`
 
 결론: **사건에 적용되는 기망 기준이 충족됨** (`fraud_deception_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1383,7 +1408,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_deception_satisfied.07`
+### `fraud.profile_rights_exercise.component.fraud_deception_satisfied.07`
 
 결론: **사건에 적용되는 기망 기준이 충족됨** (`fraud_deception_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1395,7 +1420,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_mistake_satisfied.01`
+### `fraud.core_mistake_disposition.component.fraud_mistake_satisfied.01`
 
 결론: **피기망자에게 법적 의미의 착오가 인정됨** (`fraud_mistake_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1407,7 +1432,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_mistake_satisfied.02`
+### `fraud.core_mistake_disposition.component.fraud_mistake_satisfied.02`
 
 결론: **피기망자에게 법적 의미의 착오가 인정됨** (`fraud_mistake_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1419,7 +1444,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_mistake_satisfied.03`
+### `fraud.core_mistake_disposition.component.fraud_mistake_satisfied.03`
 
 결론: **피기망자에게 법적 의미의 착오가 인정됨** (`fraud_mistake_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1431,7 +1456,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_disposition_satisfied.01`
+### `fraud.core_mistake_disposition.component.fraud_disposition_satisfied.01`
 
 결론: **착오에 기한 재산적 처분행위가 인정됨** (`fraud_disposition_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1443,7 +1468,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_disposition_satisfied.02`
+### `fraud.profile_omission.component.fraud_disposition_satisfied.02`
 
 결론: **착오에 기한 재산적 처분행위가 인정됨** (`fraud_disposition_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1455,7 +1480,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_disposition_satisfied.03`
+### `fraud.core_mistake_disposition.component.fraud_disposition_satisfied.03`
 
 결론: **착오에 기한 재산적 처분행위가 인정됨** (`fraud_disposition_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1467,7 +1492,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_disposition_satisfied.04`
+### `fraud.profile_omission.component.fraud_disposition_satisfied.04`
 
 결론: **착오에 기한 재산적 처분행위가 인정됨** (`fraud_disposition_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1479,7 +1504,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_disposition_satisfied.05`
+### `fraud.core_mistake_disposition.component.fraud_disposition_satisfied.05`
 
 결론: **착오에 기한 재산적 처분행위가 인정됨** (`fraud_disposition_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1491,7 +1516,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_disposition_satisfied.06`
+### `fraud.core_mistake_disposition.component.fraud_disposition_satisfied.06`
 
 결론: **착오에 기한 재산적 처분행위가 인정됨** (`fraud_disposition_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1503,7 +1528,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_acquisition_satisfied.01`
+### `fraud.object_property_delivery.component.fraud_acquisition_satisfied.01`
 
 결론: **재물 교부 또는 재산상 이익의 취득이 인정됨** (`fraud_acquisition_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1515,7 +1540,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_acquisition_satisfied.02`
+### `fraud.object_property_delivery.component.fraud_acquisition_satisfied.02`
 
 결론: **재물 교부 또는 재산상 이익의 취득이 인정됨** (`fraud_acquisition_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1527,7 +1552,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_acquisition_satisfied.03`
+### `fraud.object_property_benefit.component.fraud_acquisition_satisfied.03`
 
 결론: **재물 교부 또는 재산상 이익의 취득이 인정됨** (`fraud_acquisition_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1539,7 +1564,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_acquisition_satisfied.04`
+### `fraud.object_property_benefit.component.fraud_acquisition_satisfied.04`
 
 결론: **재물 교부 또는 재산상 이익의 취득이 인정됨** (`fraud_acquisition_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1551,7 +1576,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_acquisition_satisfied.05`
+### `fraud.core_mistake_disposition.component.fraud_acquisition_satisfied.05`
 
 결론: **재물 교부 또는 재산상 이익의 취득이 인정됨** (`fraud_acquisition_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1563,7 +1588,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_causal_chain_satisfied.01`
+### `fraud.core_mistake_disposition.component.fraud_causal_chain_satisfied.01`
 
 결론: **기망·착오·처분·취득 사이의 순차적 인과관계가 인정됨** (`fraud_causal_chain_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1575,7 +1600,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_deceived_disposer_identity_satisfied.01`
+### `fraud.core_mistake_disposition.component.fraud_deceived_disposer_identity_satisfied.01`
 
 결론: **피기망자와 처분행위자가 동일한 행위주체임** (`fraud_deceived_disposer_identity_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1587,7 +1612,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_completion_satisfied.01`
+### `fraud.stage_attempt_completion.component.fraud_completion_satisfied.01`
 
 결론: **사기죄가 미수를 넘어 기수에 이른 이전 또는 지배취득이 인정됨** (`fraud_completion_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1599,7 +1624,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_completion_satisfied.02`
+### `fraud.stage_attempt_completion.component.fraud_completion_satisfied.02`
 
 결론: **사기죄가 미수를 넘어 기수에 이른 이전 또는 지배취득이 인정됨** (`fraud_completion_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1611,7 +1636,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_third_party_acquisition_satisfied.01`
+### `fraud.structure_third_party_acquisition.component.fraud_third_party_acquisition_satisfied.01`
 
 결론: **제3자 취득을 피고인에게 귀속할 주관적·도구적 관계가 인정됨** (`fraud_third_party_acquisition_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1623,7 +1648,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_triangular_authority_satisfied.01`
+### `fraud.structure_triangular.component.fraud_triangular_authority_satisfied.01`
 
 결론: **피기망자 겸 처분자에게 피해자 재산을 처분할 권능 또는 지위가 인정됨** (`fraud_triangular_authority_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1635,7 +1660,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_unlawful_appropriation_intent_supported.01`
+### `fraud.core_intent.component.fraud_unlawful_appropriation_intent_supported.01`
 
 결론: **불법영득의사가 요구되는 유형에서 그 의사가 인정됨** (`fraud_unlawful_appropriation_intent_supported(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1647,7 +1672,7 @@
 
 해석 메모: 해당 승인 카드의 조건을 구성요건 component의 한 인정 경로로 연결한다.
 
-### `fraud.full.component.fraud_deception_satisfied.omission`
+### `fraud.profile_omission.component.fraud_deception_satisfied`
 
 결론: **사건에 적용되는 기망 기준이 충족됨** (`fraud_deception_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1661,7 +1686,7 @@
 
 해석 메모: 부작위 기망은 보증인적 지위·독립 착오·법률상 고지의무가 함께 확인된 경로다.
 
-### `fraud.full.component.fraud_object_satisfied.property_benefit`
+### `fraud.object_property_benefit.component.fraud_object_satisfied`
 
 결론: **사기죄의 객체가 되는 타인의 재물 또는 구체적 재산상 이익이 인정됨** (`fraud_object_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1674,7 +1699,7 @@
 
 해석 메모: 재물 외 재산상 이익 branch는 경제적 가치 증가와 구체성을 함께 요구한다.
 
-### `fraud.full.component.fraud_intent_satisfied`
+### `fraud.core_intent.component.fraud_intent_satisfied`
 
 결론: **고의의 기망과 재산적 이득 목적이 함께 인정됨** (`fraud_intent_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1687,7 +1712,7 @@
 
 해석 메모: 단순 채무불이행과 구별되는 고의의 기망 및 재산적 이득 목적을 함께 요구한다.
 
-### `fraud.full.component.fraud_intent_satisfied.loan_inference`
+### `fraud.profile_loan.component.fraud_intent_satisfied`
 
 결론: **고의의 기망과 재산적 이득 목적이 함께 인정됨** (`fraud_intent_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1700,7 +1725,7 @@
 
 해석 메모: 차용금 사건에서는 객관적 사정으로 추론한 편취 범의와 재산적 이득 목적을 결합한다.
 
-### `fraud.full.component.no_separate_loss_gate`
+### `fraud.stage_attempt_completion.component.no_separate_loss_gate`
 
 결론: **재물 교부 또는 이익 취득 외에 현실적 재산상 손해를 별도 요건으로 요구하지 않음** (`fraud_no_separate_loss_gate(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -1712,7 +1737,7 @@
 
 해석 메모: 취득이 인정되면 현실적 손해를 별도 입력 gate로 다시 요구하지 않는다.
 
-### `fraud.full.card.001.undetermined`
+### `fraud.core_deception.card.001.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.causal-link.deception-property-disposition)`)
 
@@ -1725,7 +1750,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.001.conflict`
+### `fraud.core_deception.card.001.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.causal-link.deception-property-disposition)`)
 
@@ -1740,7 +1765,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.002.undetermined`
+### `fraud.profile_loan.card.002.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.causal-link.loan-purpose-not-sole-trigger)`)
 
@@ -1753,7 +1778,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.002.conflict`
+### `fraud.profile_loan.card.002.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.causal-link.loan-purpose-not-sole-trigger)`)
 
@@ -1768,7 +1793,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.003.undetermined`
+### `fraud.core_deception.card.003.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.causal-link.no-disposition-no-deception)`)
 
@@ -1781,7 +1806,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.003.conflict`
+### `fraud.core_deception.card.003.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.causal-link.no-disposition-no-deception)`)
 
@@ -1796,7 +1821,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.004.undetermined`
+### `fraud.profile_advertising.card.004.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.definition.deceived-person-unspecified)`)
 
@@ -1809,7 +1834,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.004.conflict`
+### `fraud.profile_advertising.card.004.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.definition.deceived-person-unspecified)`)
 
@@ -1824,7 +1849,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.005.undetermined`
+### `fraud.structure_triangular.card.005.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.definition.deceived-person-victim-distinct)`)
 
@@ -1837,7 +1862,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.005.conflict`
+### `fraud.structure_triangular.card.005.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.definition.deceived-person-victim-distinct)`)
 
@@ -1852,7 +1877,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.006.undetermined`
+### `fraud.core_deception.card.006.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.definition.deception-content-basis-fact)`)
 
@@ -1865,7 +1890,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.006.conflict`
+### `fraud.core_deception.card.006.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.definition.deception-content-basis-fact)`)
 
@@ -1880,7 +1905,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.007.undetermined`
+### `fraud.core_deception.card.007.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.definition.deception-counterparty-is-other)`)
 
@@ -1893,7 +1918,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.007.conflict`
+### `fraud.core_deception.card.007.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.definition.deception-counterparty-is-other)`)
 
@@ -1908,7 +1933,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.008.undetermined`
+### `fraud.core_deception.card.008.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.definition.deception-good-faith-mistake)`)
 
@@ -1921,7 +1946,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.008.conflict`
+### `fraud.core_deception.card.008.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.definition.deception-good-faith-mistake)`)
 
@@ -1936,7 +1961,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.009.undetermined`
+### `fraud.core_deception.card.009.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.definition.deception-means-unrestricted)`)
 
@@ -1949,7 +1974,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.009.conflict`
+### `fraud.core_deception.card.009.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.definition.deception-means-unrestricted)`)
 
@@ -1964,7 +1989,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.010.undetermined`
+### `fraud.core_deception.card.010.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.definition.deception-object-facts)`)
 
@@ -1977,7 +2002,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.010.conflict`
+### `fraud.core_deception.card.010.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.definition.deception-object-facts)`)
 
@@ -1992,7 +2017,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.011.undetermined`
+### `fraud.core_deception.card.011.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.definition.deception-target-human)`)
 
@@ -2005,7 +2030,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.011.conflict`
+### `fraud.core_deception.card.011.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.definition.deception-target-human)`)
 
@@ -2020,7 +2045,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.012.undetermined`
+### `fraud.profile_omission.card.012.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.definition.exploitation-existing-mistake)`)
 
@@ -2033,7 +2058,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.012.conflict`
+### `fraud.profile_omission.card.012.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.definition.exploitation-existing-mistake)`)
 
@@ -2048,7 +2073,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.013.undetermined`
+### `fraud.profile_implicit_deception.card.013.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.definition.implicit-deception)`)
 
@@ -2061,7 +2086,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.013.conflict`
+### `fraud.profile_implicit_deception.card.013.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.definition.implicit-deception)`)
 
@@ -2076,7 +2101,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.014.undetermined`
+### `fraud.profile_omission.card.014.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.definition.notice-duty-violation-omission)`)
 
@@ -2089,7 +2114,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.014.conflict`
+### `fraud.profile_omission.card.014.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.definition.notice-duty-violation-omission)`)
 
@@ -2104,7 +2129,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.015.undetermined`
+### `fraud.core_deception.card.015.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.definition.other-includes-corporation)`)
 
@@ -2117,7 +2142,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.015.conflict`
+### `fraud.core_deception.card.015.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.definition.other-includes-corporation)`)
 
@@ -2132,7 +2157,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.016.undetermined`
+### `fraud.core_deception.card.016.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.element.deception-must-create-false-belief)`)
 
@@ -2145,7 +2170,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.016.conflict`
+### `fraud.core_deception.card.016.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.element.deception-must-create-false-belief)`)
 
@@ -2160,7 +2185,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.017.undetermined`
+### `fraud.core_deception.card.017.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.element.deception-not-legal-act-important-part)`)
 
@@ -2173,7 +2198,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.017.conflict`
+### `fraud.core_deception.card.017.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.element.deception-not-legal-act-important-part)`)
 
@@ -2188,7 +2213,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.018.undetermined`
+### `fraud.profile_loan.card.018.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.element.loan-no-repayment-intent-or-ability)`)
 
@@ -2201,7 +2226,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.018.conflict`
+### `fraud.profile_loan.card.018.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.element.loan-no-repayment-intent-or-ability)`)
 
@@ -2216,7 +2241,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.019.undetermined`
+### `fraud.profile_omission.card.019.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.element.omission-deception-guarantor-equivalence)`)
 
@@ -2229,7 +2254,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.019.conflict`
+### `fraud.profile_omission.card.019.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.element.omission-deception-guarantor-equivalence)`)
 
@@ -2244,7 +2269,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.020.undetermined`
+### `fraud.profile_omission.card.020.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.element.omission-deception-independent-error)`)
 
@@ -2257,7 +2282,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.020.conflict`
+### `fraud.profile_omission.card.020.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.element.omission-deception-independent-error)`)
 
@@ -2272,7 +2297,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.021.undetermined`
+### `fraud.profile_omission.card.021.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.element.omission-deception-legal-notice-duty)`)
 
@@ -2285,7 +2310,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.021.conflict`
+### `fraud.profile_omission.card.021.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.element.omission-deception-legal-notice-duty)`)
 
@@ -2300,7 +2325,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.022.undetermined`
+### `fraud.core_deception.card.022.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.element.transaction-purpose-no-impairment)`)
 
@@ -2313,7 +2338,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.022.conflict`
+### `fraud.core_deception.card.022.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.element.transaction-purpose-no-impairment)`)
 
@@ -2328,7 +2353,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.023.undetermined`
+### `fraud.core_deception.card.023.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.element.victim-negligence-no-bar)`)
 
@@ -2341,7 +2366,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.023.conflict`
+### `fraud.core_deception.card.023.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.element.victim-negligence-no-bar)`)
 
@@ -2356,7 +2381,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.024.undetermined`
+### `fraud.profile_advertising.card.024.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.standard.advertising-important-concrete-falsehood)`)
 
@@ -2369,7 +2394,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.024.conflict`
+### `fraud.profile_advertising.card.024.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.standard.advertising-important-concrete-falsehood)`)
 
@@ -2384,7 +2409,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.025.undetermined`
+### `fraud.profile_advertising.card.025.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.standard.advertising-tolerable-exaggeration)`)
 
@@ -2397,7 +2422,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.025.conflict`
+### `fraud.profile_advertising.card.025.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.standard.advertising-tolerable-exaggeration)`)
 
@@ -2412,7 +2437,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.026.undetermined`
+### `fraud.core_deception.card.026.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.standard.deception-concrete-circumstances)`)
 
@@ -2425,7 +2450,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.026.conflict`
+### `fraud.core_deception.card.026.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.standard.deception-concrete-circumstances)`)
 
@@ -2440,7 +2465,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.027.undetermined`
+### `fraud.core_deception.card.027.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.standard.easily-detectable-lie)`)
 
@@ -2453,7 +2478,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.027.conflict`
+### `fraud.core_deception.card.027.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.standard.easily-detectable-lie)`)
 
@@ -2468,7 +2493,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.028.undetermined`
+### `fraud.profile_implicit_deception.card.028.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.standard.implicit-deception-explanatory-value)`)
 
@@ -2481,7 +2506,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.028.conflict`
+### `fraud.profile_implicit_deception.card.028.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.standard.implicit-deception-explanatory-value)`)
 
@@ -2496,7 +2521,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.029.undetermined`
+### `fraud.profile_implicit_deception.card.029.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.standard.implicit-omission-deception-distinction)`)
 
@@ -2509,7 +2534,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.029.conflict`
+### `fraud.profile_implicit_deception.card.029.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.standard.implicit-omission-deception-distinction)`)
 
@@ -2524,7 +2549,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.030.undetermined`
+### `fraud.profile_loan.card.030.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.standard.intent-to-defraud-loan-inference)`)
 
@@ -2537,7 +2562,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.030.conflict`
+### `fraud.profile_loan.card.030.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.standard.intent-to-defraud-loan-inference)`)
 
@@ -2552,7 +2577,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.031.undetermined`
+### `fraud.profile_loan.card.031.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.standard.loan-lender-anticipated-risk)`)
 
@@ -2565,7 +2590,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.031.conflict`
+### `fraud.profile_loan.card.031.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.standard.loan-lender-anticipated-risk)`)
 
@@ -2580,7 +2605,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.032.undetermined`
+### `fraud.profile_loan.card.032.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.standard.loan-purpose-materiality)`)
 
@@ -2593,7 +2618,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.032.conflict`
+### `fraud.profile_loan.card.032.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.standard.loan-purpose-materiality)`)
 
@@ -2608,7 +2633,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.033.undetermined`
+### `fraud.profile_loan.card.033.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.standard.loan-subsequent-default)`)
 
@@ -2621,7 +2646,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.033.conflict`
+### `fraud.profile_loan.card.033.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.standard.loan-subsequent-default)`)
 
@@ -2636,7 +2661,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.034.undetermined`
+### `fraud.profile_omission.card.034.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.standard.precedent-notice-duty-materiality)`)
 
@@ -2649,7 +2674,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.034.conflict`
+### `fraud.profile_omission.card.034.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.standard.precedent-notice-duty-materiality)`)
 
@@ -2664,7 +2689,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.035.undetermined`
+### `fraud.core_deception.card.035.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, deception.fraud.standard.vague-opinion-not-deception)`)
 
@@ -2677,7 +2702,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.035.conflict`
+### `fraud.core_deception.card.035.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, deception.fraud.standard.vague-opinion-not-deception)`)
 
@@ -2692,7 +2717,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.036.undetermined`
+### `fraud.object_property_delivery.card.036.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_damage_acquisition.delivery_factual_control)`)
 
@@ -2705,7 +2730,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.036.conflict`
+### `fraud.object_property_delivery.card.036.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_damage_acquisition.delivery_factual_control)`)
 
@@ -2720,7 +2745,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.037.undetermined`
+### `fraud.object_property_delivery.card.037.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_damage_acquisition.delivery_of_property)`)
 
@@ -2733,7 +2758,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.037.conflict`
+### `fraud.object_property_delivery.card.037.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_damage_acquisition.delivery_of_property)`)
 
@@ -2748,7 +2773,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.038.undetermined`
+### `fraud.object_property_delivery.card.038.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_damage_acquisition.money_delivery_full_amount)`)
 
@@ -2761,7 +2786,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.038.conflict`
+### `fraud.object_property_delivery.card.038.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_damage_acquisition.money_delivery_full_amount)`)
 
@@ -2776,7 +2801,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.039.undetermined`
+### `fraud.object_property_benefit.card.039.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_damage_acquisition.property_concept_reported_precedent)`)
 
@@ -2789,7 +2814,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.039.conflict`
+### `fraud.object_property_benefit.card.039.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_damage_acquisition.property_concept_reported_precedent)`)
 
@@ -2804,7 +2829,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.040.undetermined`
+### `fraud.object_property_benefit.card.040.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_damage_acquisition.property_disposition_types)`)
 
@@ -2817,7 +2842,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.040.conflict`
+### `fraud.object_property_benefit.card.040.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_damage_acquisition.property_disposition_types)`)
 
@@ -2832,7 +2857,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.041.undetermined`
+### `fraud.stage_attempt_completion.card.041.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_damage_acquisition.property_loss_negative_view)`)
 
@@ -2845,7 +2870,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.041.conflict`
+### `fraud.stage_attempt_completion.card.041.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_damage_acquisition.property_loss_negative_view)`)
 
@@ -2860,7 +2885,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.042.undetermined`
+### `fraud.object_property_benefit.card.042.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_damage_acquisition.protected_economic_interest)`)
 
@@ -2873,7 +2898,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.042.conflict`
+### `fraud.object_property_benefit.card.042.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_damage_acquisition.protected_economic_interest)`)
 
@@ -2888,7 +2913,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.043.undetermined`
+### `fraud.profile_rights_exercise.card.043.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_damage_acquisition.right_exercise_unacceptable_deception)`)
 
@@ -2901,7 +2926,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.043.conflict`
+### `fraud.profile_rights_exercise.card.043.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_damage_acquisition.right_exercise_unacceptable_deception)`)
 
@@ -2916,7 +2941,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.044.undetermined`
+### `fraud.object_property_delivery.card.044.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_damage_acquisition.subsequent_return_irrelevant)`)
 
@@ -2929,7 +2954,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.044.conflict`
+### `fraud.object_property_delivery.card.044.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_damage_acquisition.subsequent_return_irrelevant)`)
 
@@ -2944,7 +2969,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.045.undetermined`
+### `fraud.stage_attempt_completion.card.045.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_general_object.causation_required)`)
 
@@ -2957,7 +2982,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.045.conflict`
+### `fraud.stage_attempt_completion.card.045.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_general_object.causation_required)`)
 
@@ -2972,7 +2997,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.046.undetermined`
+### `fraud.stage_attempt_completion.card.046.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_general_object.deception_error_causation)`)
 
@@ -2985,7 +3010,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.046.conflict`
+### `fraud.stage_attempt_completion.card.046.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_general_object.deception_error_causation)`)
 
@@ -3000,7 +3025,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.047.undetermined`
+### `fraud.core_intent.card.047.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_intent.contract_breach_distinction)`)
 
@@ -3013,7 +3038,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.047.conflict`
+### `fraud.core_intent.card.047.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_intent.contract_breach_distinction)`)
 
@@ -3028,7 +3053,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.048.undetermined`
+### `fraud.core_intent.card.048.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_intent.illegal_appropriation_definition)`)
 
@@ -3041,7 +3066,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.048.conflict`
+### `fraud.core_intent.card.048.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_intent.illegal_appropriation_definition)`)
 
@@ -3056,7 +3081,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.049.undetermined`
+### `fraud.core_intent.card.049.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_intent.no_disposition_inducement_intent)`)
 
@@ -3069,7 +3094,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.049.conflict`
+### `fraud.core_intent.card.049.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_intent.no_disposition_inducement_intent)`)
 
@@ -3084,7 +3109,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.050.undetermined`
+### `fraud.core_intent.card.050.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_intent.precedent_illegal_appropriation_intent)`)
 
@@ -3097,7 +3122,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.050.conflict`
+### `fraud.core_intent.card.050.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_intent.precedent_illegal_appropriation_intent)`)
 
@@ -3112,7 +3137,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.051.undetermined`
+### `fraud.structure_third_party_acquisition.card.051.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_intent.third_party_acquisition)`)
 
@@ -3125,7 +3150,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.051.conflict`
+### `fraud.structure_third_party_acquisition.card.051.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_intent.third_party_acquisition)`)
 
@@ -3140,7 +3165,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.052.undetermined`
+### `fraud.core_intent.card.052.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_intent.time_of_conduct)`)
 
@@ -3153,7 +3178,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.052.conflict`
+### `fraud.core_intent.card.052.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_intent.time_of_conduct)`)
 
@@ -3168,7 +3193,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.053.undetermined`
+### `fraud.profile_omission.card.053.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.conscious_nonexercise)`)
 
@@ -3181,7 +3206,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.053.conflict`
+### `fraud.profile_omission.card.053.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.conscious_nonexercise)`)
 
@@ -3196,7 +3221,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.054.undetermined`
+### `fraud.core_mistake_disposition.card.054.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.deceived_disposer_identity)`)
 
@@ -3209,7 +3234,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.054.conflict`
+### `fraud.core_mistake_disposition.card.054.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.deceived_disposer_identity)`)
 
@@ -3224,7 +3249,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.055.undetermined`
+### `fraud.core_mistake_disposition.card.055.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.disposition_definition)`)
 
@@ -3237,7 +3262,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.055.conflict`
+### `fraud.core_mistake_disposition.card.055.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.disposition_definition)`)
 
@@ -3252,7 +3277,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.056.undetermined`
+### `fraud.core_mistake_disposition.card.056.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.disposition_directness)`)
 
@@ -3265,7 +3290,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.056.conflict`
+### `fraud.core_mistake_disposition.card.056.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.disposition_directness)`)
 
@@ -3280,7 +3305,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.057.undetermined`
+### `fraud.core_mistake_disposition.card.057.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.disposition_intent_act_awareness)`)
 
@@ -3293,7 +3318,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.057.conflict`
+### `fraud.core_mistake_disposition.card.057.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.disposition_intent_act_awareness)`)
 
@@ -3308,7 +3333,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.058.undetermined`
+### `fraud.profile_omission.card.058.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.disposition_omission)`)
 
@@ -3321,7 +3346,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.058.conflict`
+### `fraud.profile_omission.card.058.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.disposition_omission)`)
 
@@ -3336,7 +3361,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.059.undetermined`
+### `fraud.core_mistake_disposition.card.059.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.error_definition)`)
 
@@ -3349,7 +3374,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.059.conflict`
+### `fraud.core_mistake_disposition.card.059.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.error_definition)`)
 
@@ -3364,7 +3389,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.060.undetermined`
+### `fraud.core_mistake_disposition.card.060.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.error_disposition_motivation)`)
 
@@ -3377,7 +3402,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.060.conflict`
+### `fraud.core_mistake_disposition.card.060.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.error_disposition_motivation)`)
 
@@ -3392,7 +3417,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.061.undetermined`
+### `fraud.core_mistake_disposition.card.061.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.error_doubt_ignorance)`)
 
@@ -3405,7 +3430,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.061.conflict`
+### `fraud.core_mistake_disposition.card.061.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.error_doubt_ignorance)`)
 
@@ -3420,7 +3445,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.062.undetermined`
+### `fraud.core_mistake_disposition.card.062.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.factual_act_disposition)`)
 
@@ -3433,7 +3458,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.062.conflict`
+### `fraud.core_mistake_disposition.card.062.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.factual_act_disposition)`)
 
@@ -3448,7 +3473,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.063.undetermined`
+### `fraud.core_intent.card.063.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.gain_purpose)`)
 
@@ -3461,7 +3486,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.063.conflict`
+### `fraud.core_intent.card.063.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.gain_purpose)`)
 
@@ -3476,7 +3501,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.064.undetermined`
+### `fraud.core_mistake_disposition.card.064.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.invalid_act_disposition)`)
 
@@ -3489,7 +3514,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.064.conflict`
+### `fraud.core_mistake_disposition.card.064.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.invalid_act_disposition)`)
 
@@ -3504,7 +3529,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.065.undetermined`
+### `fraud.boundary_other_offenses.card.065.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.no_capacity_theft)`)
 
@@ -3517,7 +3542,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.065.conflict`
+### `fraud.boundary_other_offenses.card.065.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.no_capacity_theft)`)
 
@@ -3532,7 +3557,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.066.undetermined`
+### `fraud.core_mistake_disposition.card.066.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.no_thought_no_error)`)
 
@@ -3545,7 +3570,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.066.conflict`
+### `fraud.core_mistake_disposition.card.066.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.no_thought_no_error)`)
 
@@ -3560,7 +3585,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.067.undetermined`
+### `fraud.profile_omission.card.067.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.omission_not_all_nonclaims)`)
 
@@ -3573,7 +3598,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.067.conflict`
+### `fraud.profile_omission.card.067.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.omission_not_all_nonclaims)`)
 
@@ -3588,7 +3613,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.068.undetermined`
+### `fraud.core_mistake_disposition.card.068.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.property_disposition_element)`)
 
@@ -3601,7 +3626,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.068.conflict`
+### `fraud.core_mistake_disposition.card.068.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.property_disposition_element)`)
 
@@ -3616,7 +3641,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.069.undetermined`
+### `fraud.core_mistake_disposition.card.069.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.property_limited_disposition)`)
 
@@ -3629,7 +3654,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.069.conflict`
+### `fraud.core_mistake_disposition.card.069.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.property_limited_disposition)`)
 
@@ -3644,7 +3669,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.070.undetermined`
+### `fraud.core_mistake_disposition.card.070.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.sequential_causation)`)
 
@@ -3657,7 +3682,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.070.conflict`
+### `fraud.core_mistake_disposition.card.070.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.sequential_causation)`)
 
@@ -3672,7 +3697,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.071.undetermined`
+### `fraud.structure_triangular.card.071.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.triangular_fraud_definition)`)
 
@@ -3685,7 +3710,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.071.conflict`
+### `fraud.structure_triangular.card.071.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.triangular_fraud_definition)`)
 
@@ -3700,7 +3725,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.072.undetermined`
+### `fraud.boundary_other_offenses.card.072.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.trick_theft_directness)`)
 
@@ -3713,7 +3738,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.072.conflict`
+### `fraud.boundary_other_offenses.card.072.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.trick_theft_directness)`)
 
@@ -3728,7 +3753,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.073.undetermined`
+### `fraud.core_mistake_disposition.card.073.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_mistake.unaware_error)`)
 
@@ -3741,7 +3766,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.073.conflict`
+### `fraud.core_mistake_disposition.card.073.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_mistake.unaware_error)`)
 
@@ -3756,7 +3781,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.074.undetermined`
+### `fraud.stage_attempt_completion.card.074.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_stages_participation.attempt_deceptive_act)`)
 
@@ -3769,7 +3794,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.074.conflict`
+### `fraud.stage_attempt_completion.card.074.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_stages_participation.attempt_deceptive_act)`)
 
@@ -3784,7 +3809,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.075.undetermined`
+### `fraud.stage_attempt_completion.card.075.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_stages_participation.completion_deception_disposition_transfer)`)
 
@@ -3797,7 +3822,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.075.conflict`
+### `fraud.stage_attempt_completion.card.075.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_stages_participation.completion_deception_disposition_transfer)`)
 
@@ -3812,7 +3837,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.076.undetermined`
+### `fraud.stage_attempt_completion.card.076.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_stages_participation.no_causation_attempt)`)
 
@@ -3825,7 +3850,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.076.conflict`
+### `fraud.stage_attempt_completion.card.076.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_stages_participation.no_causation_attempt)`)
 
@@ -3840,7 +3865,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.077.undetermined`
+### `fraud.stage_attempt_completion.card.077.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, fraud_stages_participation.property_fraud_completion_control)`)
 
@@ -3853,7 +3878,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.077.conflict`
+### `fraud.stage_attempt_completion.card.077.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, fraud_stages_participation.property_fraud_completion_control)`)
 
@@ -3868,7 +3893,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.078.undetermined`
+### `fraud.object_property_benefit.card.078.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, general_object.fraud.definition.property-benefit)`)
 
@@ -3881,7 +3906,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.078.conflict`
+### `fraud.object_property_benefit.card.078.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, general_object.fraud.definition.property-benefit)`)
 
@@ -3896,7 +3921,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.079.undetermined`
+### `fraud.object_property_benefit.card.079.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, general_object.fraud.definition.property-benefit-not-numerically-limited)`)
 
@@ -3909,7 +3934,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.079.conflict`
+### `fraud.object_property_benefit.card.079.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, general_object.fraud.definition.property-benefit-not-numerically-limited)`)
 
@@ -3924,7 +3949,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.080.undetermined`
+### `fraud.object_property_delivery.card.080.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, general_object.fraud.element.object-other-possessed-other-property)`)
 
@@ -3937,7 +3962,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.080.conflict`
+### `fraud.object_property_delivery.card.080.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, general_object.fraud.element.object-other-possessed-other-property)`)
 
@@ -3952,7 +3977,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.081.undetermined`
+### `fraud.object_property_benefit.card.081.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, general_object.fraud.element.property-benefit-concrete)`)
 
@@ -3965,7 +3990,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.081.conflict`
+### `fraud.object_property_benefit.card.081.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, general_object.fraud.element.property-benefit-concrete)`)
 
@@ -3980,7 +4005,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.082.undetermined`
+### `fraud.object_public_interest.card.082.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, general_object.fraud.exception.public-interest-property-equivalence)`)
 
@@ -3993,7 +4018,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.082.conflict`
+### `fraud.object_public_interest.card.082.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, general_object.fraud.exception.public-interest-property-equivalence)`)
 
@@ -4008,7 +4033,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.083.undetermined`
+### `fraud.stage_attempt_completion.card.083.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, general_object.fraud.standard.later-cancellation-no-effect)`)
 
@@ -4021,7 +4046,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.083.conflict`
+### `fraud.stage_attempt_completion.card.083.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, general_object.fraud.standard.later-cancellation-no-effect)`)
 
@@ -4036,7 +4061,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.084.undetermined`
+### `fraud.boundary_other_offenses.card.084.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, general_object.fraud.standard.own-possession-other-property-embezzlement)`)
 
@@ -4049,7 +4074,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.084.conflict`
+### `fraud.boundary_other_offenses.card.084.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, general_object.fraud.standard.own-possession-other-property-embezzlement)`)
 
@@ -4064,7 +4089,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.085.undetermined`
+### `fraud.object_property_delivery.card.085.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, general_object.fraud.standard.own-property-not-object)`)
 
@@ -4077,7 +4102,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.085.conflict`
+### `fraud.object_property_delivery.card.085.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, general_object.fraud.standard.own-property-not-object)`)
 
@@ -4092,7 +4117,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.086.undetermined`
+### `fraud.object_public_interest.card.086.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, general_object.fraud.standard.public-interest-only-no-fraud)`)
 
@@ -4105,7 +4130,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.086.conflict`
+### `fraud.object_public_interest.card.086.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, general_object.fraud.standard.public-interest-only-no-fraud)`)
 
@@ -4120,7 +4145,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.087.undetermined`
+### `fraud.structure_triangular.card.087.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation)`)
 
@@ -4133,7 +4158,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.087.conflict`
+### `fraud.structure_triangular.card.087.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation)`)
 
@@ -4148,7 +4173,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.card.088.undetermined`
+### `fraud.profile_rights_exercise.card.088.undetermined`
 
 결론: **관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음** (`fraud_undetermined(case_id, defendant_id, special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime)`)
 
@@ -4161,7 +4186,7 @@
 
 해석 메모: 관련성이 확인된 평가가 unknown이면 부정으로 접지 않고 미확인 쟁점으로 보존한다.
 
-### `fraud.full.card.088.conflict`
+### `fraud.profile_rights_exercise.card.088.conflict`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime)`)
 
@@ -4176,7 +4201,7 @@
 
 해석 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
-### `fraud.full.bar.001`
+### `fraud.profile_loan.bar.001`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, deception.fraud.causal-link.loan-purpose-not-sole-trigger)`)
 
@@ -4188,7 +4213,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.002`
+### `fraud.core_deception.bar.002`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, deception.fraud.causal-link.no-disposition-no-deception)`)
 
@@ -4200,7 +4225,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.003`
+### `fraud.core_deception.bar.003`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, deception.fraud.definition.deception-target-human)`)
 
@@ -4212,7 +4237,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.004`
+### `fraud.core_deception.bar.004`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, deception.fraud.element.deception-must-create-false-belief)`)
 
@@ -4224,7 +4249,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.005`
+### `fraud.core_deception.bar.005`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, deception.fraud.element.transaction-purpose-no-impairment)`)
 
@@ -4236,7 +4261,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.006`
+### `fraud.profile_advertising.bar.006`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, deception.fraud.standard.advertising-tolerable-exaggeration)`)
 
@@ -4248,7 +4273,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.007`
+### `fraud.core_deception.bar.007`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, deception.fraud.standard.easily-detectable-lie)`)
 
@@ -4260,7 +4285,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.008`
+### `fraud.profile_loan.bar.008`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, deception.fraud.standard.loan-lender-anticipated-risk)`)
 
@@ -4272,7 +4297,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.009`
+### `fraud.profile_loan.bar.009`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, deception.fraud.standard.loan-subsequent-default)`)
 
@@ -4284,7 +4309,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.010`
+### `fraud.core_deception.bar.010`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, deception.fraud.standard.vague-opinion-not-deception)`)
 
@@ -4296,7 +4321,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.011`
+### `fraud.stage_attempt_completion.bar.011`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, fraud_general_object.causation_required)`)
 
@@ -4308,7 +4333,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.012`
+### `fraud.stage_attempt_completion.bar.012`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, fraud_general_object.deception_error_causation)`)
 
@@ -4320,7 +4345,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.013`
+### `fraud.core_intent.bar.013`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, fraud_intent.no_disposition_inducement_intent)`)
 
@@ -4332,7 +4357,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.014`
+### `fraud.boundary_other_offenses.bar.014`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, fraud_mistake.no_capacity_theft)`)
 
@@ -4344,7 +4369,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.015`
+### `fraud.core_mistake_disposition.bar.015`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, fraud_mistake.no_thought_no_error)`)
 
@@ -4356,7 +4381,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.016`
+### `fraud.profile_omission.bar.016`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, fraud_mistake.omission_not_all_nonclaims)`)
 
@@ -4368,7 +4393,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.017`
+### `fraud.core_mistake_disposition.bar.017`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, fraud_mistake.property_limited_disposition)`)
 
@@ -4380,7 +4405,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.018`
+### `fraud.boundary_other_offenses.bar.018`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, fraud_mistake.trick_theft_directness)`)
 
@@ -4392,7 +4417,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.019`
+### `fraud.stage_attempt_completion.bar.019`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, fraud_stages_participation.no_causation_attempt)`)
 
@@ -4404,7 +4429,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.020`
+### `fraud.boundary_other_offenses.bar.020`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, general_object.fraud.standard.own-possession-other-property-embezzlement)`)
 
@@ -4416,7 +4441,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.021`
+### `fraud.object_property_delivery.bar.021`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, general_object.fraud.standard.own-property-not-object)`)
 
@@ -4428,7 +4453,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.022`
+### `fraud.object_public_interest.bar.022`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, general_object.fraud.standard.public-interest-only-no-fraud)`)
 
@@ -4440,7 +4465,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.bar.023`
+### `fraud.profile_rights_exercise.bar.023`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime)`)
 
@@ -4452,7 +4477,7 @@
 
 해석 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 사기죄 성립을 부정한다.
 
-### `fraud.full.mandatory_negative.001`
+### `fraud.core_deception.mandatory_negative.001`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, deception.fraud.definition.deception-good-faith-mistake)`)
 
@@ -4465,7 +4490,7 @@
 
 해석 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
 
-### `fraud.full.mandatory_negative.002`
+### `fraud.core_intent.mandatory_negative.002`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, fraud_intent.contract_breach_distinction)`)
 
@@ -4478,7 +4503,7 @@
 
 해석 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
 
-### `fraud.full.mandatory_negative.003`
+### `fraud.core_mistake_disposition.mandatory_negative.003`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, fraud_mistake.deceived_disposer_identity)`)
 
@@ -4491,7 +4516,7 @@
 
 해석 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
 
-### `fraud.full.mandatory_negative.004`
+### `fraud.core_mistake_disposition.mandatory_negative.004`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, fraud_mistake.disposition_definition)`)
 
@@ -4504,7 +4529,7 @@
 
 해석 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
 
-### `fraud.full.mandatory_negative.005`
+### `fraud.core_mistake_disposition.mandatory_negative.005`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, fraud_mistake.error_definition)`)
 
@@ -4517,7 +4542,7 @@
 
 해석 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
 
-### `fraud.full.mandatory_negative.006`
+### `fraud.core_intent.mandatory_negative.006`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, fraud_mistake.gain_purpose)`)
 
@@ -4530,7 +4555,7 @@
 
 해석 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
 
-### `fraud.full.mandatory_negative.007`
+### `fraud.core_mistake_disposition.mandatory_negative.007`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, fraud_mistake.property_disposition_element)`)
 
@@ -4543,7 +4568,7 @@
 
 해석 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
 
-### `fraud.full.mandatory_negative.008`
+### `fraud.core_mistake_disposition.mandatory_negative.008`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, fraud_mistake.sequential_causation)`)
 
@@ -4556,7 +4581,7 @@
 
 해석 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
 
-### `fraud.full.mandatory_negative.009`
+### `fraud.stage_attempt_completion.mandatory_negative.009`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, fraud_stages_participation.completion_deception_disposition_transfer)`)
 
@@ -4569,7 +4594,7 @@
 
 해석 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
 
-### `fraud.full.mandatory_negative.010`
+### `fraud.object_property_delivery.mandatory_negative.010`
 
 결론: **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함** (`fraud_not_established(case_id, defendant_id, general_object.fraud.element.object-other-possessed-other-property)`)
 
@@ -4582,72 +4607,57 @@
 
 해석 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
 
-### `fraud.full.established.ordinary_self`
+### `fraud.structure_ordinary.role_structure`
 
-결론: **승인된 사기죄 core 구성요건과 역할·인과·기수 조건이 모두 충족됨** (`fraud_established(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, defendant_id)`)
-
-필요조건:
-
-- 사기죄의 객체가 되는 타인의 재물 또는 구체적 재산상 이익이 인정됨 (`fraud_object_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, defendant_id)`)
-- 사건에 적용되는 기망 기준이 충족됨 (`fraud_deception_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, defendant_id)`)
-- 피기망자에게 법적 의미의 착오가 인정됨 (`fraud_mistake_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, defendant_id)`)
-- 착오에 기한 재산적 처분행위가 인정됨 (`fraud_disposition_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, defendant_id)`)
-- 재물 교부 또는 재산상 이익의 취득이 인정됨 (`fraud_acquisition_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, defendant_id)`)
-- 기망·착오·처분·취득 사이의 순차적 인과관계가 인정됨 (`fraud_causal_chain_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, defendant_id)`)
-- 피기망자와 처분행위자가 동일한 행위주체임 (`fraud_deceived_disposer_identity_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, defendant_id)`)
-- 사기죄가 미수를 넘어 기수에 이른 이전 또는 지배취득이 인정됨 (`fraud_completion_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, defendant_id)`)
-- 고의의 기망과 재산적 이득 목적이 함께 인정됨 (`fraud_intent_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, defendant_id)`)
-- 재물 교부 또는 이익 취득 외에 현실적 재산상 손해를 별도 요건으로 요구하지 않음 (`fraud_no_separate_loss_gate(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, defendant_id)`)
-
-근거 NormCard: `deception.fraud.definition.deception-good-faith-mistake`, `deception.fraud.definition.exploitation-existing-mistake`, `deception.fraud.element.loan-no-repayment-intent-or-ability`, `deception.fraud.standard.advertising-important-concrete-falsehood`, `deception.fraud.standard.implicit-deception-explanatory-value`, `deception.fraud.standard.loan-purpose-materiality`, `fraud_damage_acquisition.delivery_factual_control`, `fraud_damage_acquisition.delivery_of_property`, `fraud_damage_acquisition.property_concept_reported_precedent`, `fraud_damage_acquisition.property_disposition_types`, `fraud_damage_acquisition.property_loss_negative_view`, `fraud_damage_acquisition.right_exercise_unacceptable_deception`, `fraud_intent.contract_breach_distinction`, `fraud_mistake.conscious_nonexercise`, `fraud_mistake.deceived_disposer_identity`, `fraud_mistake.disposition_definition`, `fraud_mistake.disposition_intent_act_awareness`, `fraud_mistake.disposition_omission`, `fraud_mistake.error_definition`, `fraud_mistake.error_doubt_ignorance`, `fraud_mistake.factual_act_disposition`, `fraud_mistake.gain_purpose`, `fraud_mistake.invalid_act_disposition`, `fraud_mistake.property_disposition_element`, `fraud_mistake.sequential_causation`, `fraud_mistake.unaware_error`, `fraud_stages_participation.completion_deception_disposition_transfer`, `fraud_stages_participation.property_fraud_completion_control`, `general_object.fraud.element.object-other-possessed-other-property`, `general_object.fraud.exception.public-interest-property-equivalence`
-
-해석 메모: 피기망자와 처분자는 같은 변수다. 일반형은 재산소유자도 같게, 삼각사기는 권능·지위를 추가로 요구하며 제3자 취득은 별도 귀속 기준을 요구한다.
-
-### `fraud.full.established.ordinary_third_party`
-
-결론: **승인된 사기죄 core 구성요건과 역할·인과·기수 조건이 모두 충족됨** (`fraud_established(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, beneficiary_id)`)
+결론: **일반형 또는 삼각사기의 역할 구조와 처분 권능 요건이 충족됨** (`fraud_role_structure_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, beneficiary_id)`)
 
 필요조건:
 
-- 사기죄의 객체가 되는 타인의 재물 또는 구체적 재산상 이익이 인정됨 (`fraud_object_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, beneficiary_id)`)
-- 사건에 적용되는 기망 기준이 충족됨 (`fraud_deception_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, beneficiary_id)`)
-- 피기망자에게 법적 의미의 착오가 인정됨 (`fraud_mistake_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, beneficiary_id)`)
-- 착오에 기한 재산적 처분행위가 인정됨 (`fraud_disposition_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, beneficiary_id)`)
-- 재물 교부 또는 재산상 이익의 취득이 인정됨 (`fraud_acquisition_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, beneficiary_id)`)
-- 기망·착오·처분·취득 사이의 순차적 인과관계가 인정됨 (`fraud_causal_chain_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, beneficiary_id)`)
 - 피기망자와 처분행위자가 동일한 행위주체임 (`fraud_deceived_disposer_identity_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, beneficiary_id)`)
-- 사기죄가 미수를 넘어 기수에 이른 이전 또는 지배취득이 인정됨 (`fraud_completion_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, beneficiary_id)`)
-- 고의의 기망과 재산적 이득 목적이 함께 인정됨 (`fraud_intent_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, beneficiary_id)`)
-- 재물 교부 또는 이익 취득 외에 현실적 재산상 손해를 별도 요건으로 요구하지 않음 (`fraud_no_separate_loss_gate(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, beneficiary_id)`)
-- 제3자 취득을 피고인에게 귀속할 주관적·도구적 관계가 인정됨 (`fraud_third_party_acquisition_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, deceived_person_id, subject_id, beneficiary_id)`)
 
-근거 NormCard: `deception.fraud.definition.deception-good-faith-mistake`, `deception.fraud.definition.exploitation-existing-mistake`, `deception.fraud.element.loan-no-repayment-intent-or-ability`, `deception.fraud.standard.advertising-important-concrete-falsehood`, `deception.fraud.standard.implicit-deception-explanatory-value`, `deception.fraud.standard.loan-purpose-materiality`, `fraud_damage_acquisition.delivery_factual_control`, `fraud_damage_acquisition.delivery_of_property`, `fraud_damage_acquisition.property_concept_reported_precedent`, `fraud_damage_acquisition.property_disposition_types`, `fraud_damage_acquisition.property_loss_negative_view`, `fraud_damage_acquisition.right_exercise_unacceptable_deception`, `fraud_intent.contract_breach_distinction`, `fraud_intent.third_party_acquisition`, `fraud_mistake.conscious_nonexercise`, `fraud_mistake.deceived_disposer_identity`, `fraud_mistake.disposition_definition`, `fraud_mistake.disposition_intent_act_awareness`, `fraud_mistake.disposition_omission`, `fraud_mistake.error_definition`, `fraud_mistake.error_doubt_ignorance`, `fraud_mistake.factual_act_disposition`, `fraud_mistake.gain_purpose`, `fraud_mistake.invalid_act_disposition`, `fraud_mistake.property_disposition_element`, `fraud_mistake.sequential_causation`, `fraud_mistake.unaware_error`, `fraud_stages_participation.completion_deception_disposition_transfer`, `fraud_stages_participation.property_fraud_completion_control`, `general_object.fraud.element.object-other-possessed-other-property`, `general_object.fraud.exception.public-interest-property-equivalence`
+근거 NormCard: `fraud_mistake.deceived_disposer_identity`
 
-해석 메모: 피기망자와 처분자는 같은 변수다. 일반형은 재산소유자도 같게, 삼각사기는 권능·지위를 추가로 요구하며 제3자 취득은 별도 귀속 기준을 요구한다.
+해석 메모: 일반형은 피기망자·처분자·재산소유자에 같은 entity ID를 사용한다.
 
-### `fraud.full.established.triangular_self`
+### `fraud.structure_triangular.role_structure`
 
-결론: **승인된 사기죄 core 구성요건과 역할·인과·기수 조건이 모두 충족됨** (`fraud_established(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, defendant_id)`)
+결론: **일반형 또는 삼각사기의 역할 구조와 처분 권능 요건이 충족됨** (`fraud_role_structure_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, beneficiary_id)`)
 
 필요조건:
 
-- 사기죄의 객체가 되는 타인의 재물 또는 구체적 재산상 이익이 인정됨 (`fraud_object_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, defendant_id)`)
-- 사건에 적용되는 기망 기준이 충족됨 (`fraud_deception_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, defendant_id)`)
-- 피기망자에게 법적 의미의 착오가 인정됨 (`fraud_mistake_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, defendant_id)`)
-- 착오에 기한 재산적 처분행위가 인정됨 (`fraud_disposition_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, defendant_id)`)
-- 재물 교부 또는 재산상 이익의 취득이 인정됨 (`fraud_acquisition_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, defendant_id)`)
-- 기망·착오·처분·취득 사이의 순차적 인과관계가 인정됨 (`fraud_causal_chain_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, defendant_id)`)
-- 피기망자와 처분행위자가 동일한 행위주체임 (`fraud_deceived_disposer_identity_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, defendant_id)`)
-- 사기죄가 미수를 넘어 기수에 이른 이전 또는 지배취득이 인정됨 (`fraud_completion_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, defendant_id)`)
+- 피기망자와 처분행위자가 동일한 행위주체임 (`fraud_deceived_disposer_identity_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, beneficiary_id)`)
+- 증명 가능한 평가에서 다음 조건이 충족됨: 피기망자와 재산상 피해자는 동일인일 필요가 없고, 피해자와 처분행위자가 다른 경우를 삼각사기라고 한다. (`satisfied_fraud_mistake_triangular_fraud_definition(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, beneficiary_id)`)
+- 피기망자 겸 처분자에게 피해자 재산을 처분할 권능 또는 지위가 인정됨 (`fraud_triangular_authority_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, beneficiary_id)`)
+
+근거 NormCard: `fraud_mistake.deceived_disposer_identity`, `fraud_mistake.triangular_fraud_definition`, `mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation`
+
+해석 메모: 삼각사기는 피기망자=처분자를 유지하면서 별도 재산소유자와 그 재산을 처분할 권능 또는 지위를 요구한다.
+
+### `fraud.structure_self_acquisition.beneficiary_attribution`
+
+결론: **본인 또는 제3자에게 귀속되는 취득 구조가 충족됨** (`fraud_beneficiary_attribution_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, defendant_id)`)
+
+필요조건:
+
 - 고의의 기망과 재산적 이득 목적이 함께 인정됨 (`fraud_intent_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, defendant_id)`)
-- 재물 교부 또는 이익 취득 외에 현실적 재산상 손해를 별도 요건으로 요구하지 않음 (`fraud_no_separate_loss_gate(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, defendant_id)`)
-- 피기망자 겸 처분자에게 피해자 재산을 처분할 권능 또는 지위가 인정됨 (`fraud_triangular_authority_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, defendant_id)`)
 
-근거 NormCard: `deception.fraud.definition.deceived-person-victim-distinct`, `deception.fraud.definition.deception-good-faith-mistake`, `deception.fraud.definition.exploitation-existing-mistake`, `deception.fraud.element.loan-no-repayment-intent-or-ability`, `deception.fraud.standard.advertising-important-concrete-falsehood`, `deception.fraud.standard.implicit-deception-explanatory-value`, `deception.fraud.standard.loan-purpose-materiality`, `fraud_damage_acquisition.delivery_factual_control`, `fraud_damage_acquisition.delivery_of_property`, `fraud_damage_acquisition.property_concept_reported_precedent`, `fraud_damage_acquisition.property_disposition_types`, `fraud_damage_acquisition.property_loss_negative_view`, `fraud_damage_acquisition.right_exercise_unacceptable_deception`, `fraud_intent.contract_breach_distinction`, `fraud_mistake.conscious_nonexercise`, `fraud_mistake.deceived_disposer_identity`, `fraud_mistake.disposition_definition`, `fraud_mistake.disposition_intent_act_awareness`, `fraud_mistake.disposition_omission`, `fraud_mistake.error_definition`, `fraud_mistake.error_doubt_ignorance`, `fraud_mistake.factual_act_disposition`, `fraud_mistake.gain_purpose`, `fraud_mistake.invalid_act_disposition`, `fraud_mistake.property_disposition_element`, `fraud_mistake.sequential_causation`, `fraud_mistake.triangular_fraud_definition`, `fraud_mistake.unaware_error`, `fraud_stages_participation.completion_deception_disposition_transfer`, `fraud_stages_participation.property_fraud_completion_control`, `general_object.fraud.element.object-other-possessed-other-property`, `general_object.fraud.exception.public-interest-property-equivalence`, `mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation`
+근거 NormCard: `fraud_intent.contract_breach_distinction`, `fraud_mistake.gain_purpose`
 
-해석 메모: 피기망자와 처분자는 같은 변수다. 일반형은 재산소유자도 같게, 삼각사기는 권능·지위를 추가로 요구하며 제3자 취득은 별도 귀속 기준을 요구한다.
+해석 메모: 피고인과 수익자에 같은 entity ID를 쓰는 본인취득 경로다.
 
-### `fraud.full.established.triangular_third_party`
+### `fraud.structure_third_party_acquisition.beneficiary_attribution`
+
+결론: **본인 또는 제3자에게 귀속되는 취득 구조가 충족됨** (`fraud_beneficiary_attribution_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, beneficiary_id)`)
+
+필요조건:
+
+- 제3자 취득을 피고인에게 귀속할 주관적·도구적 관계가 인정됨 (`fraud_third_party_acquisition_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, beneficiary_id)`)
+
+근거 NormCard: `fraud_intent.third_party_acquisition`
+
+해석 메모: 제3자취득은 도구·대리 관계 또는 제3자 취득 의사를 별도 귀속 gate로 요구한다.
+
+### `fraud.core.outcome.established`
 
 결론: **승인된 사기죄 core 구성요건과 역할·인과·기수 조건이 모두 충족됨** (`fraud_established(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, beneficiary_id)`)
 
@@ -4659,18 +4669,17 @@
 - 착오에 기한 재산적 처분행위가 인정됨 (`fraud_disposition_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, beneficiary_id)`)
 - 재물 교부 또는 재산상 이익의 취득이 인정됨 (`fraud_acquisition_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, beneficiary_id)`)
 - 기망·착오·처분·취득 사이의 순차적 인과관계가 인정됨 (`fraud_causal_chain_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, beneficiary_id)`)
-- 피기망자와 처분행위자가 동일한 행위주체임 (`fraud_deceived_disposer_identity_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, beneficiary_id)`)
 - 사기죄가 미수를 넘어 기수에 이른 이전 또는 지배취득이 인정됨 (`fraud_completion_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, beneficiary_id)`)
 - 고의의 기망과 재산적 이득 목적이 함께 인정됨 (`fraud_intent_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, beneficiary_id)`)
 - 재물 교부 또는 이익 취득 외에 현실적 재산상 손해를 별도 요건으로 요구하지 않음 (`fraud_no_separate_loss_gate(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, beneficiary_id)`)
-- 피기망자 겸 처분자에게 피해자 재산을 처분할 권능 또는 지위가 인정됨 (`fraud_triangular_authority_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, beneficiary_id)`)
-- 제3자 취득을 피고인에게 귀속할 주관적·도구적 관계가 인정됨 (`fraud_third_party_acquisition_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, beneficiary_id)`)
+- 일반형 또는 삼각사기의 역할 구조와 처분 권능 요건이 충족됨 (`fraud_role_structure_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, beneficiary_id)`)
+- 본인 또는 제3자에게 귀속되는 취득 구조가 충족됨 (`fraud_beneficiary_attribution_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, subject_id, beneficiary_id)`)
 
 근거 NormCard: `deception.fraud.definition.deceived-person-victim-distinct`, `deception.fraud.definition.deception-good-faith-mistake`, `deception.fraud.definition.exploitation-existing-mistake`, `deception.fraud.element.loan-no-repayment-intent-or-ability`, `deception.fraud.standard.advertising-important-concrete-falsehood`, `deception.fraud.standard.implicit-deception-explanatory-value`, `deception.fraud.standard.loan-purpose-materiality`, `fraud_damage_acquisition.delivery_factual_control`, `fraud_damage_acquisition.delivery_of_property`, `fraud_damage_acquisition.property_concept_reported_precedent`, `fraud_damage_acquisition.property_disposition_types`, `fraud_damage_acquisition.property_loss_negative_view`, `fraud_damage_acquisition.right_exercise_unacceptable_deception`, `fraud_intent.contract_breach_distinction`, `fraud_intent.third_party_acquisition`, `fraud_mistake.conscious_nonexercise`, `fraud_mistake.deceived_disposer_identity`, `fraud_mistake.disposition_definition`, `fraud_mistake.disposition_intent_act_awareness`, `fraud_mistake.disposition_omission`, `fraud_mistake.error_definition`, `fraud_mistake.error_doubt_ignorance`, `fraud_mistake.factual_act_disposition`, `fraud_mistake.gain_purpose`, `fraud_mistake.invalid_act_disposition`, `fraud_mistake.property_disposition_element`, `fraud_mistake.sequential_causation`, `fraud_mistake.triangular_fraud_definition`, `fraud_mistake.unaware_error`, `fraud_stages_participation.completion_deception_disposition_transfer`, `fraud_stages_participation.property_fraud_completion_control`, `general_object.fraud.element.object-other-possessed-other-property`, `general_object.fraud.exception.public-interest-property-equivalence`, `mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation`
 
-해석 메모: 피기망자와 처분자는 같은 변수다. 일반형은 재산소유자도 같게, 삼각사기는 권능·지위를 추가로 요구하며 제3자 취득은 별도 귀속 기준을 요구한다.
+해석 메모: 공통 core는 세부 사기유형을 직접 분기하지 않는다. profile과 adapter가 채운 canonical component, 역할 구조 및 수익 귀속 interface만 AND 결합한다.
 
-### `fraud.full.conflict.established_and_not_established`
+### `fraud.core.outcome.conflict.established_and_not_established`
 
 결론: **같은 쟁점에 satisfied와 not_satisfied 평가가 모두 증명됨** (`fraud_conflict(case_id, defendant_id, established_and_not_established)`)
 

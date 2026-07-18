@@ -11340,6 +11340,135 @@
           "section_path": "Ⅶ.2"
         }
       ]
+    },
+    {
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "deceived_person_id",
+          "type": "String"
+        },
+        {
+          "name": "disposer_id",
+          "type": "String"
+        },
+        {
+          "name": "property_owner_id",
+          "type": "String"
+        },
+        {
+          "name": "subject_id",
+          "type": "String"
+        },
+        {
+          "name": "beneficiary_id",
+          "type": "String"
+        }
+      ],
+      "definition": "일반형 또는 삼각사기의 역할 구조와 처분 권능 요건이 충족됨",
+      "id": "fraud_role_structure_satisfied",
+      "kind": "rule",
+      "norm_card_ids": [
+        "deception.fraud.definition.deceived-person-victim-distinct",
+        "fraud_mistake.deceived_disposer_identity",
+        "fraud_mistake.triangular_fraud_definition",
+        "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation"
+      ],
+      "origin": "commentary",
+      "role": "derived",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_45",
+          "quote": "행위의 객체와 보호의 객체는 별개이므로, 기망의 상대방과 재산상의 피해자",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_46",
+          "quote": "는 동일인일 것을 요하지 않는다.",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_57",
+          "quote": "피기망자와 재산상의 피해자는 동일인임을 요하지 않으므로, 피해자와 처분행위 자도 동일인일 필요는 없다. 양자가 상이한 경우를 삼각사기라고 (Dreiecksbetrug) 한다.",
+          "section_path": "Ⅳ.3"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_58",
+          "quote": "이후 다음 과 같이 판시함으로써 사실상의 지위설의 입장을 채택한 것으로 이해되고 있다.",
+          "section_path": "Ⅳ.3"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_59",
+          "quote": "피기망자와 재산상의 피해자는 동일인일 필요는 없으나, 피기망자와 처분행위자 는 동일인이어야 한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "deceived_person_id",
+          "type": "String"
+        },
+        {
+          "name": "disposer_id",
+          "type": "String"
+        },
+        {
+          "name": "property_owner_id",
+          "type": "String"
+        },
+        {
+          "name": "subject_id",
+          "type": "String"
+        },
+        {
+          "name": "beneficiary_id",
+          "type": "String"
+        }
+      ],
+      "definition": "본인 또는 제3자에게 귀속되는 취득 구조가 충족됨",
+      "id": "fraud_beneficiary_attribution_satisfied",
+      "kind": "rule",
+      "norm_card_ids": [
+        "fraud_intent.contract_breach_distinction",
+        "fraud_intent.third_party_acquisition",
+        "fraud_mistake.gain_purpose"
+      ],
+      "origin": "commentary",
+      "role": "derived",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
+          "quote": "이 경우 범인에게 타인을 기망하여 재산적 이 득을 취한다는 목적의사가 있어야 하며",
+          "section_path": "Ⅳ.3"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.1_74",
+          "quote": "고의에 의한 기망은 단순채무불이행과 사기죄를 구별하는 표준이 된다.",
+          "section_path": "Ⅴ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "quote": "범인이 기망행위에 의해 스스로 재물을 취득하지 않고 제3자로 하여금 재물을 교부받게 한 경우에 사기죄가 성립하려면, 그 제3자가 범인과 사이에 정을 모르 는 도구 또는 범인의 이익을 위해 행동하는 대리인의 관계에 있거나, 그렇지 않 다면 적어도 불법영득의사와의 관련상 범인에게 그 제3자로 하여금 재물을 취 득하게 할 의사가 있어야 한다.",
+          "section_path": "Ⅴ.2"
+        }
+      ]
     }
   ],
   "rule_set_id": "kr.fraud.article347.full.v1_candidate",
@@ -11437,7 +11566,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_causal_link_deception_property_disposition"
       },
-      "id": "fraud.full.card.001.satisfied",
+      "id": "fraud.core_deception.card.001.satisfied",
       "norm_card_ids": [
         "deception.fraud.causal-link.deception-property-disposition"
       ],
@@ -11543,7 +11672,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_causal_link_loan_purpose_not_sole_trigger"
       },
-      "id": "fraud.full.card.002.satisfied",
+      "id": "fraud.profile_loan.card.002.satisfied",
       "norm_card_ids": [
         "deception.fraud.causal-link.loan-purpose-not-sole-trigger"
       ],
@@ -11649,7 +11778,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_causal_link_no_disposition_no_deception"
       },
-      "id": "fraud.full.card.003.satisfied",
+      "id": "fraud.core_deception.card.003.satisfied",
       "norm_card_ids": [
         "deception.fraud.causal-link.no-disposition-no-deception"
       ],
@@ -11755,7 +11884,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_definition_deceived_person_unspecified"
       },
-      "id": "fraud.full.card.004.satisfied",
+      "id": "fraud.profile_advertising.card.004.satisfied",
       "norm_card_ids": [
         "deception.fraud.definition.deceived-person-unspecified"
       ],
@@ -11861,7 +11990,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_definition_deceived_person_victim_distinct"
       },
-      "id": "fraud.full.card.005.satisfied",
+      "id": "fraud.structure_triangular.card.005.satisfied",
       "norm_card_ids": [
         "deception.fraud.definition.deceived-person-victim-distinct"
       ],
@@ -11972,7 +12101,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_definition_deception_content_basis_fact"
       },
-      "id": "fraud.full.card.006.satisfied",
+      "id": "fraud.core_deception.card.006.satisfied",
       "norm_card_ids": [
         "deception.fraud.definition.deception-content-basis-fact"
       ],
@@ -12078,7 +12207,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_definition_deception_counterparty_is_other"
       },
-      "id": "fraud.full.card.007.satisfied",
+      "id": "fraud.core_deception.card.007.satisfied",
       "norm_card_ids": [
         "deception.fraud.definition.deception-counterparty-is-other"
       ],
@@ -12184,7 +12313,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_definition_deception_good_faith_mistake"
       },
-      "id": "fraud.full.card.008.satisfied",
+      "id": "fraud.core_deception.card.008.satisfied",
       "norm_card_ids": [
         "deception.fraud.definition.deception-good-faith-mistake"
       ],
@@ -12290,7 +12419,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_definition_deception_means_unrestricted"
       },
-      "id": "fraud.full.card.009.satisfied",
+      "id": "fraud.core_deception.card.009.satisfied",
       "norm_card_ids": [
         "deception.fraud.definition.deception-means-unrestricted"
       ],
@@ -12396,7 +12525,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_definition_deception_object_facts"
       },
-      "id": "fraud.full.card.010.satisfied",
+      "id": "fraud.core_deception.card.010.satisfied",
       "norm_card_ids": [
         "deception.fraud.definition.deception-object-facts"
       ],
@@ -12502,7 +12631,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_definition_deception_target_human"
       },
-      "id": "fraud.full.card.011.satisfied",
+      "id": "fraud.core_deception.card.011.satisfied",
       "norm_card_ids": [
         "deception.fraud.definition.deception-target-human"
       ],
@@ -12608,7 +12737,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_definition_exploitation_existing_mistake"
       },
-      "id": "fraud.full.card.012.satisfied",
+      "id": "fraud.profile_omission.card.012.satisfied",
       "norm_card_ids": [
         "deception.fraud.definition.exploitation-existing-mistake"
       ],
@@ -12714,7 +12843,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_definition_implicit_deception"
       },
-      "id": "fraud.full.card.013.satisfied",
+      "id": "fraud.profile_implicit_deception.card.013.satisfied",
       "norm_card_ids": [
         "deception.fraud.definition.implicit-deception"
       ],
@@ -12820,7 +12949,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_definition_notice_duty_violation_omission"
       },
-      "id": "fraud.full.card.014.satisfied",
+      "id": "fraud.profile_omission.card.014.satisfied",
       "norm_card_ids": [
         "deception.fraud.definition.notice-duty-violation-omission"
       ],
@@ -12926,7 +13055,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_definition_other_includes_corporation"
       },
-      "id": "fraud.full.card.015.satisfied",
+      "id": "fraud.core_deception.card.015.satisfied",
       "norm_card_ids": [
         "deception.fraud.definition.other-includes-corporation"
       ],
@@ -13032,7 +13161,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_element_deception_must_create_false_belief"
       },
-      "id": "fraud.full.card.016.satisfied",
+      "id": "fraud.core_deception.card.016.satisfied",
       "norm_card_ids": [
         "deception.fraud.element.deception-must-create-false-belief"
       ],
@@ -13138,7 +13267,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_element_deception_not_legal_act_important_part"
       },
-      "id": "fraud.full.card.017.satisfied",
+      "id": "fraud.core_deception.card.017.satisfied",
       "norm_card_ids": [
         "deception.fraud.element.deception-not-legal-act-important-part"
       ],
@@ -13244,7 +13373,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_element_loan_no_repayment_intent_or_ability"
       },
-      "id": "fraud.full.card.018.satisfied",
+      "id": "fraud.profile_loan.card.018.satisfied",
       "norm_card_ids": [
         "deception.fraud.element.loan-no-repayment-intent-or-ability"
       ],
@@ -13350,7 +13479,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_element_omission_deception_guarantor_equivalence"
       },
-      "id": "fraud.full.card.019.satisfied",
+      "id": "fraud.profile_omission.card.019.satisfied",
       "norm_card_ids": [
         "deception.fraud.element.omission-deception-guarantor-equivalence"
       ],
@@ -13456,7 +13585,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_element_omission_deception_independent_error"
       },
-      "id": "fraud.full.card.020.satisfied",
+      "id": "fraud.profile_omission.card.020.satisfied",
       "norm_card_ids": [
         "deception.fraud.element.omission-deception-independent-error"
       ],
@@ -13562,7 +13691,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_element_omission_deception_legal_notice_duty"
       },
-      "id": "fraud.full.card.021.satisfied",
+      "id": "fraud.profile_omission.card.021.satisfied",
       "norm_card_ids": [
         "deception.fraud.element.omission-deception-legal-notice-duty"
       ],
@@ -13668,7 +13797,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_element_transaction_purpose_no_impairment"
       },
-      "id": "fraud.full.card.022.satisfied",
+      "id": "fraud.core_deception.card.022.satisfied",
       "norm_card_ids": [
         "deception.fraud.element.transaction-purpose-no-impairment"
       ],
@@ -13774,7 +13903,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_element_victim_negligence_no_bar"
       },
-      "id": "fraud.full.card.023.satisfied",
+      "id": "fraud.core_deception.card.023.satisfied",
       "norm_card_ids": [
         "deception.fraud.element.victim-negligence-no-bar"
       ],
@@ -13880,7 +14009,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_standard_advertising_important_concrete_falsehood"
       },
-      "id": "fraud.full.card.024.satisfied",
+      "id": "fraud.profile_advertising.card.024.satisfied",
       "norm_card_ids": [
         "deception.fraud.standard.advertising-important-concrete-falsehood"
       ],
@@ -13986,7 +14115,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_standard_advertising_tolerable_exaggeration"
       },
-      "id": "fraud.full.card.025.satisfied",
+      "id": "fraud.profile_advertising.card.025.satisfied",
       "norm_card_ids": [
         "deception.fraud.standard.advertising-tolerable-exaggeration"
       ],
@@ -14092,7 +14221,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_standard_deception_concrete_circumstances"
       },
-      "id": "fraud.full.card.026.satisfied",
+      "id": "fraud.core_deception.card.026.satisfied",
       "norm_card_ids": [
         "deception.fraud.standard.deception-concrete-circumstances"
       ],
@@ -14198,7 +14327,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_standard_easily_detectable_lie"
       },
-      "id": "fraud.full.card.027.satisfied",
+      "id": "fraud.core_deception.card.027.satisfied",
       "norm_card_ids": [
         "deception.fraud.standard.easily-detectable-lie"
       ],
@@ -14304,7 +14433,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_standard_implicit_deception_explanatory_value"
       },
-      "id": "fraud.full.card.028.satisfied",
+      "id": "fraud.profile_implicit_deception.card.028.satisfied",
       "norm_card_ids": [
         "deception.fraud.standard.implicit-deception-explanatory-value"
       ],
@@ -14410,7 +14539,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_standard_implicit_omission_deception_distinction"
       },
-      "id": "fraud.full.card.029.satisfied",
+      "id": "fraud.profile_implicit_deception.card.029.satisfied",
       "norm_card_ids": [
         "deception.fraud.standard.implicit-omission-deception-distinction"
       ],
@@ -14516,7 +14645,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_standard_intent_to_defraud_loan_inference"
       },
-      "id": "fraud.full.card.030.satisfied",
+      "id": "fraud.profile_loan.card.030.satisfied",
       "norm_card_ids": [
         "deception.fraud.standard.intent-to-defraud-loan-inference"
       ],
@@ -14622,7 +14751,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_standard_loan_lender_anticipated_risk"
       },
-      "id": "fraud.full.card.031.satisfied",
+      "id": "fraud.profile_loan.card.031.satisfied",
       "norm_card_ids": [
         "deception.fraud.standard.loan-lender-anticipated-risk"
       ],
@@ -14728,7 +14857,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_standard_loan_purpose_materiality"
       },
-      "id": "fraud.full.card.032.satisfied",
+      "id": "fraud.profile_loan.card.032.satisfied",
       "norm_card_ids": [
         "deception.fraud.standard.loan-purpose-materiality"
       ],
@@ -14834,7 +14963,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_standard_loan_subsequent_default"
       },
-      "id": "fraud.full.card.033.satisfied",
+      "id": "fraud.profile_loan.card.033.satisfied",
       "norm_card_ids": [
         "deception.fraud.standard.loan-subsequent-default"
       ],
@@ -14940,7 +15069,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_standard_precedent_notice_duty_materiality"
       },
-      "id": "fraud.full.card.034.satisfied",
+      "id": "fraud.profile_omission.card.034.satisfied",
       "norm_card_ids": [
         "deception.fraud.standard.precedent-notice-duty-materiality"
       ],
@@ -15046,7 +15175,7 @@
         "negated": false,
         "predicate": "satisfied_deception_fraud_standard_vague_opinion_not_deception"
       },
-      "id": "fraud.full.card.035.satisfied",
+      "id": "fraud.core_deception.card.035.satisfied",
       "norm_card_ids": [
         "deception.fraud.standard.vague-opinion-not-deception"
       ],
@@ -15152,7 +15281,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_damage_acquisition_delivery_factual_control"
       },
-      "id": "fraud.full.card.036.satisfied",
+      "id": "fraud.object_property_delivery.card.036.satisfied",
       "norm_card_ids": [
         "fraud_damage_acquisition.delivery_factual_control"
       ],
@@ -15258,7 +15387,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_damage_acquisition_delivery_of_property"
       },
-      "id": "fraud.full.card.037.satisfied",
+      "id": "fraud.object_property_delivery.card.037.satisfied",
       "norm_card_ids": [
         "fraud_damage_acquisition.delivery_of_property"
       ],
@@ -15364,7 +15493,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_damage_acquisition_money_delivery_full_amount"
       },
-      "id": "fraud.full.card.038.satisfied",
+      "id": "fraud.object_property_delivery.card.038.satisfied",
       "norm_card_ids": [
         "fraud_damage_acquisition.money_delivery_full_amount"
       ],
@@ -15475,7 +15604,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_damage_acquisition_property_concept_reported_precedent"
       },
-      "id": "fraud.full.card.039.satisfied",
+      "id": "fraud.object_property_benefit.card.039.satisfied",
       "norm_card_ids": [
         "fraud_damage_acquisition.property_concept_reported_precedent"
       ],
@@ -15581,7 +15710,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_damage_acquisition_property_disposition_types"
       },
-      "id": "fraud.full.card.040.satisfied",
+      "id": "fraud.object_property_benefit.card.040.satisfied",
       "norm_card_ids": [
         "fraud_damage_acquisition.property_disposition_types"
       ],
@@ -15687,7 +15816,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_damage_acquisition_property_loss_negative_view"
       },
-      "id": "fraud.full.card.041.satisfied",
+      "id": "fraud.stage_attempt_completion.card.041.satisfied",
       "norm_card_ids": [
         "fraud_damage_acquisition.property_loss_negative_view"
       ],
@@ -15793,7 +15922,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_damage_acquisition_protected_economic_interest"
       },
-      "id": "fraud.full.card.042.satisfied",
+      "id": "fraud.object_property_benefit.card.042.satisfied",
       "norm_card_ids": [
         "fraud_damage_acquisition.protected_economic_interest"
       ],
@@ -15899,7 +16028,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_damage_acquisition_right_exercise_unacceptable_deception"
       },
-      "id": "fraud.full.card.043.satisfied",
+      "id": "fraud.profile_rights_exercise.card.043.satisfied",
       "norm_card_ids": [
         "fraud_damage_acquisition.right_exercise_unacceptable_deception"
       ],
@@ -16005,7 +16134,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_damage_acquisition_subsequent_return_irrelevant"
       },
-      "id": "fraud.full.card.044.satisfied",
+      "id": "fraud.object_property_delivery.card.044.satisfied",
       "norm_card_ids": [
         "fraud_damage_acquisition.subsequent_return_irrelevant"
       ],
@@ -16111,7 +16240,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_general_object_causation_required"
       },
-      "id": "fraud.full.card.045.satisfied",
+      "id": "fraud.stage_attempt_completion.card.045.satisfied",
       "norm_card_ids": [
         "fraud_general_object.causation_required"
       ],
@@ -16217,7 +16346,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_general_object_deception_error_causation"
       },
-      "id": "fraud.full.card.046.satisfied",
+      "id": "fraud.stage_attempt_completion.card.046.satisfied",
       "norm_card_ids": [
         "fraud_general_object.deception_error_causation"
       ],
@@ -16323,7 +16452,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_intent_contract_breach_distinction"
       },
-      "id": "fraud.full.card.047.satisfied",
+      "id": "fraud.core_intent.card.047.satisfied",
       "norm_card_ids": [
         "fraud_intent.contract_breach_distinction"
       ],
@@ -16429,7 +16558,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_intent_illegal_appropriation_definition"
       },
-      "id": "fraud.full.card.048.satisfied",
+      "id": "fraud.core_intent.card.048.satisfied",
       "norm_card_ids": [
         "fraud_intent.illegal_appropriation_definition"
       ],
@@ -16535,7 +16664,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_intent_no_disposition_inducement_intent"
       },
-      "id": "fraud.full.card.049.satisfied",
+      "id": "fraud.core_intent.card.049.satisfied",
       "norm_card_ids": [
         "fraud_intent.no_disposition_inducement_intent"
       ],
@@ -16641,7 +16770,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_intent_precedent_illegal_appropriation_intent"
       },
-      "id": "fraud.full.card.050.satisfied",
+      "id": "fraud.core_intent.card.050.satisfied",
       "norm_card_ids": [
         "fraud_intent.precedent_illegal_appropriation_intent"
       ],
@@ -16747,7 +16876,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_intent_third_party_acquisition"
       },
-      "id": "fraud.full.card.051.satisfied",
+      "id": "fraud.structure_third_party_acquisition.card.051.satisfied",
       "norm_card_ids": [
         "fraud_intent.third_party_acquisition"
       ],
@@ -16853,7 +16982,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_intent_time_of_conduct"
       },
-      "id": "fraud.full.card.052.satisfied",
+      "id": "fraud.core_intent.card.052.satisfied",
       "norm_card_ids": [
         "fraud_intent.time_of_conduct"
       ],
@@ -16959,7 +17088,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_conscious_nonexercise"
       },
-      "id": "fraud.full.card.053.satisfied",
+      "id": "fraud.profile_omission.card.053.satisfied",
       "norm_card_ids": [
         "fraud_mistake.conscious_nonexercise"
       ],
@@ -17065,7 +17194,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_deceived_disposer_identity"
       },
-      "id": "fraud.full.card.054.satisfied",
+      "id": "fraud.core_mistake_disposition.card.054.satisfied",
       "norm_card_ids": [
         "fraud_mistake.deceived_disposer_identity"
       ],
@@ -17171,7 +17300,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_disposition_definition"
       },
-      "id": "fraud.full.card.055.satisfied",
+      "id": "fraud.core_mistake_disposition.card.055.satisfied",
       "norm_card_ids": [
         "fraud_mistake.disposition_definition"
       ],
@@ -17277,7 +17406,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_disposition_directness"
       },
-      "id": "fraud.full.card.056.satisfied",
+      "id": "fraud.core_mistake_disposition.card.056.satisfied",
       "norm_card_ids": [
         "fraud_mistake.disposition_directness"
       ],
@@ -17383,7 +17512,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_disposition_intent_act_awareness"
       },
-      "id": "fraud.full.card.057.satisfied",
+      "id": "fraud.core_mistake_disposition.card.057.satisfied",
       "norm_card_ids": [
         "fraud_mistake.disposition_intent_act_awareness"
       ],
@@ -17489,7 +17618,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_disposition_omission"
       },
-      "id": "fraud.full.card.058.satisfied",
+      "id": "fraud.profile_omission.card.058.satisfied",
       "norm_card_ids": [
         "fraud_mistake.disposition_omission"
       ],
@@ -17595,7 +17724,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_error_definition"
       },
-      "id": "fraud.full.card.059.satisfied",
+      "id": "fraud.core_mistake_disposition.card.059.satisfied",
       "norm_card_ids": [
         "fraud_mistake.error_definition"
       ],
@@ -17701,7 +17830,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_error_disposition_motivation"
       },
-      "id": "fraud.full.card.060.satisfied",
+      "id": "fraud.core_mistake_disposition.card.060.satisfied",
       "norm_card_ids": [
         "fraud_mistake.error_disposition_motivation"
       ],
@@ -17807,7 +17936,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_error_doubt_ignorance"
       },
-      "id": "fraud.full.card.061.satisfied",
+      "id": "fraud.core_mistake_disposition.card.061.satisfied",
       "norm_card_ids": [
         "fraud_mistake.error_doubt_ignorance"
       ],
@@ -17913,7 +18042,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_factual_act_disposition"
       },
-      "id": "fraud.full.card.062.satisfied",
+      "id": "fraud.core_mistake_disposition.card.062.satisfied",
       "norm_card_ids": [
         "fraud_mistake.factual_act_disposition"
       ],
@@ -18019,7 +18148,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_gain_purpose"
       },
-      "id": "fraud.full.card.063.satisfied",
+      "id": "fraud.core_intent.card.063.satisfied",
       "norm_card_ids": [
         "fraud_mistake.gain_purpose"
       ],
@@ -18125,7 +18254,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_invalid_act_disposition"
       },
-      "id": "fraud.full.card.064.satisfied",
+      "id": "fraud.core_mistake_disposition.card.064.satisfied",
       "norm_card_ids": [
         "fraud_mistake.invalid_act_disposition"
       ],
@@ -18231,7 +18360,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_no_capacity_theft"
       },
-      "id": "fraud.full.card.065.satisfied",
+      "id": "fraud.boundary_other_offenses.card.065.satisfied",
       "norm_card_ids": [
         "fraud_mistake.no_capacity_theft"
       ],
@@ -18337,7 +18466,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_no_thought_no_error"
       },
-      "id": "fraud.full.card.066.satisfied",
+      "id": "fraud.core_mistake_disposition.card.066.satisfied",
       "norm_card_ids": [
         "fraud_mistake.no_thought_no_error"
       ],
@@ -18443,7 +18572,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_omission_not_all_nonclaims"
       },
-      "id": "fraud.full.card.067.satisfied",
+      "id": "fraud.profile_omission.card.067.satisfied",
       "norm_card_ids": [
         "fraud_mistake.omission_not_all_nonclaims"
       ],
@@ -18549,7 +18678,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_property_disposition_element"
       },
-      "id": "fraud.full.card.068.satisfied",
+      "id": "fraud.core_mistake_disposition.card.068.satisfied",
       "norm_card_ids": [
         "fraud_mistake.property_disposition_element"
       ],
@@ -18655,7 +18784,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_property_limited_disposition"
       },
-      "id": "fraud.full.card.069.satisfied",
+      "id": "fraud.core_mistake_disposition.card.069.satisfied",
       "norm_card_ids": [
         "fraud_mistake.property_limited_disposition"
       ],
@@ -18761,7 +18890,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_sequential_causation"
       },
-      "id": "fraud.full.card.070.satisfied",
+      "id": "fraud.core_mistake_disposition.card.070.satisfied",
       "norm_card_ids": [
         "fraud_mistake.sequential_causation"
       ],
@@ -18872,7 +19001,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_triangular_fraud_definition"
       },
-      "id": "fraud.full.card.071.satisfied",
+      "id": "fraud.structure_triangular.card.071.satisfied",
       "norm_card_ids": [
         "fraud_mistake.triangular_fraud_definition"
       ],
@@ -18978,7 +19107,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_trick_theft_directness"
       },
-      "id": "fraud.full.card.072.satisfied",
+      "id": "fraud.boundary_other_offenses.card.072.satisfied",
       "norm_card_ids": [
         "fraud_mistake.trick_theft_directness"
       ],
@@ -19084,7 +19213,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_mistake_unaware_error"
       },
-      "id": "fraud.full.card.073.satisfied",
+      "id": "fraud.core_mistake_disposition.card.073.satisfied",
       "norm_card_ids": [
         "fraud_mistake.unaware_error"
       ],
@@ -19190,7 +19319,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_stages_participation_attempt_deceptive_act"
       },
-      "id": "fraud.full.card.074.satisfied",
+      "id": "fraud.stage_attempt_completion.card.074.satisfied",
       "norm_card_ids": [
         "fraud_stages_participation.attempt_deceptive_act"
       ],
@@ -19296,7 +19425,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_stages_participation_completion_deception_disposition_transfer"
       },
-      "id": "fraud.full.card.075.satisfied",
+      "id": "fraud.stage_attempt_completion.card.075.satisfied",
       "norm_card_ids": [
         "fraud_stages_participation.completion_deception_disposition_transfer"
       ],
@@ -19402,7 +19531,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_stages_participation_no_causation_attempt"
       },
-      "id": "fraud.full.card.076.satisfied",
+      "id": "fraud.stage_attempt_completion.card.076.satisfied",
       "norm_card_ids": [
         "fraud_stages_participation.no_causation_attempt"
       ],
@@ -19508,7 +19637,7 @@
         "negated": false,
         "predicate": "satisfied_fraud_stages_participation_property_fraud_completion_control"
       },
-      "id": "fraud.full.card.077.satisfied",
+      "id": "fraud.stage_attempt_completion.card.077.satisfied",
       "norm_card_ids": [
         "fraud_stages_participation.property_fraud_completion_control"
       ],
@@ -19614,7 +19743,7 @@
         "negated": false,
         "predicate": "satisfied_general_object_fraud_definition_property_benefit"
       },
-      "id": "fraud.full.card.078.satisfied",
+      "id": "fraud.object_property_benefit.card.078.satisfied",
       "norm_card_ids": [
         "general_object.fraud.definition.property-benefit"
       ],
@@ -19720,7 +19849,7 @@
         "negated": false,
         "predicate": "satisfied_general_object_fraud_definition_property_benefit_not_numerically_limited"
       },
-      "id": "fraud.full.card.079.satisfied",
+      "id": "fraud.object_property_benefit.card.079.satisfied",
       "norm_card_ids": [
         "general_object.fraud.definition.property-benefit-not-numerically-limited"
       ],
@@ -19826,7 +19955,7 @@
         "negated": false,
         "predicate": "satisfied_general_object_fraud_element_object_other_possessed_other_property"
       },
-      "id": "fraud.full.card.080.satisfied",
+      "id": "fraud.object_property_delivery.card.080.satisfied",
       "norm_card_ids": [
         "general_object.fraud.element.object-other-possessed-other-property"
       ],
@@ -19932,7 +20061,7 @@
         "negated": false,
         "predicate": "satisfied_general_object_fraud_element_property_benefit_concrete"
       },
-      "id": "fraud.full.card.081.satisfied",
+      "id": "fraud.object_property_benefit.card.081.satisfied",
       "norm_card_ids": [
         "general_object.fraud.element.property-benefit-concrete"
       ],
@@ -20038,7 +20167,7 @@
         "negated": false,
         "predicate": "satisfied_general_object_fraud_exception_public_interest_property_equivalence"
       },
-      "id": "fraud.full.card.082.satisfied",
+      "id": "fraud.object_public_interest.card.082.satisfied",
       "norm_card_ids": [
         "general_object.fraud.exception.public-interest-property-equivalence"
       ],
@@ -20144,7 +20273,7 @@
         "negated": false,
         "predicate": "satisfied_general_object_fraud_standard_later_cancellation_no_effect"
       },
-      "id": "fraud.full.card.083.satisfied",
+      "id": "fraud.stage_attempt_completion.card.083.satisfied",
       "norm_card_ids": [
         "general_object.fraud.standard.later-cancellation-no-effect"
       ],
@@ -20250,7 +20379,7 @@
         "negated": false,
         "predicate": "satisfied_general_object_fraud_standard_own_possession_other_property_embezzlement"
       },
-      "id": "fraud.full.card.084.satisfied",
+      "id": "fraud.boundary_other_offenses.card.084.satisfied",
       "norm_card_ids": [
         "general_object.fraud.standard.own-possession-other-property-embezzlement"
       ],
@@ -20356,7 +20485,7 @@
         "negated": false,
         "predicate": "satisfied_general_object_fraud_standard_own_property_not_object"
       },
-      "id": "fraud.full.card.085.satisfied",
+      "id": "fraud.object_property_delivery.card.085.satisfied",
       "norm_card_ids": [
         "general_object.fraud.standard.own-property-not-object"
       ],
@@ -20462,7 +20591,7 @@
         "negated": false,
         "predicate": "satisfied_general_object_fraud_standard_public_interest_only_no_fraud"
       },
-      "id": "fraud.full.card.086.satisfied",
+      "id": "fraud.object_public_interest.card.086.satisfied",
       "norm_card_ids": [
         "general_object.fraud.standard.public-interest-only-no-fraud"
       ],
@@ -20568,7 +20697,7 @@
         "negated": false,
         "predicate": "satisfied_mistake_disposition_fraud_variant_triangular_fraud_94do1575_factual_position_interpretation"
       },
-      "id": "fraud.full.card.087.satisfied",
+      "id": "fraud.structure_triangular.card.087.satisfied",
       "norm_card_ids": [
         "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation"
       ],
@@ -20674,7 +20803,7 @@
         "negated": false,
         "predicate": "satisfied_special_forms_fraud_standard_right_exercise_socially_acceptable_no_crime"
       },
-      "id": "fraud.full.card.088.satisfied",
+      "id": "fraud.profile_rights_exercise.card.088.satisfied",
       "norm_card_ids": [
         "special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime"
       ],
@@ -20758,7 +20887,7 @@
         "negated": false,
         "predicate": "fraud_object_satisfied"
       },
-      "id": "fraud.full.component.fraud_object_satisfied.01",
+      "id": "fraud.object_property_delivery.component.fraud_object_satisfied.01",
       "norm_card_ids": [
         "general_object.fraud.element.object-other-possessed-other-property"
       ],
@@ -20842,7 +20971,7 @@
         "negated": false,
         "predicate": "fraud_object_satisfied"
       },
-      "id": "fraud.full.component.fraud_object_satisfied.02",
+      "id": "fraud.object_public_interest.component.fraud_object_satisfied.02",
       "norm_card_ids": [
         "general_object.fraud.exception.public-interest-property-equivalence"
       ],
@@ -20926,7 +21055,7 @@
         "negated": false,
         "predicate": "fraud_deception_satisfied"
       },
-      "id": "fraud.full.component.fraud_deception_satisfied.01",
+      "id": "fraud.core_deception.component.fraud_deception_satisfied.01",
       "norm_card_ids": [
         "deception.fraud.definition.deception-good-faith-mistake"
       ],
@@ -21010,7 +21139,7 @@
         "negated": false,
         "predicate": "fraud_deception_satisfied"
       },
-      "id": "fraud.full.component.fraud_deception_satisfied.02",
+      "id": "fraud.profile_omission.component.fraud_deception_satisfied.02",
       "norm_card_ids": [
         "deception.fraud.definition.exploitation-existing-mistake"
       ],
@@ -21094,7 +21223,7 @@
         "negated": false,
         "predicate": "fraud_deception_satisfied"
       },
-      "id": "fraud.full.component.fraud_deception_satisfied.03",
+      "id": "fraud.profile_loan.component.fraud_deception_satisfied.03",
       "norm_card_ids": [
         "deception.fraud.element.loan-no-repayment-intent-or-ability"
       ],
@@ -21178,7 +21307,7 @@
         "negated": false,
         "predicate": "fraud_deception_satisfied"
       },
-      "id": "fraud.full.component.fraud_deception_satisfied.04",
+      "id": "fraud.profile_advertising.component.fraud_deception_satisfied.04",
       "norm_card_ids": [
         "deception.fraud.standard.advertising-important-concrete-falsehood"
       ],
@@ -21262,7 +21391,7 @@
         "negated": false,
         "predicate": "fraud_deception_satisfied"
       },
-      "id": "fraud.full.component.fraud_deception_satisfied.05",
+      "id": "fraud.profile_implicit_deception.component.fraud_deception_satisfied.05",
       "norm_card_ids": [
         "deception.fraud.standard.implicit-deception-explanatory-value"
       ],
@@ -21346,7 +21475,7 @@
         "negated": false,
         "predicate": "fraud_deception_satisfied"
       },
-      "id": "fraud.full.component.fraud_deception_satisfied.06",
+      "id": "fraud.profile_loan.component.fraud_deception_satisfied.06",
       "norm_card_ids": [
         "deception.fraud.standard.loan-purpose-materiality"
       ],
@@ -21430,7 +21559,7 @@
         "negated": false,
         "predicate": "fraud_deception_satisfied"
       },
-      "id": "fraud.full.component.fraud_deception_satisfied.07",
+      "id": "fraud.profile_rights_exercise.component.fraud_deception_satisfied.07",
       "norm_card_ids": [
         "fraud_damage_acquisition.right_exercise_unacceptable_deception"
       ],
@@ -21514,7 +21643,7 @@
         "negated": false,
         "predicate": "fraud_mistake_satisfied"
       },
-      "id": "fraud.full.component.fraud_mistake_satisfied.01",
+      "id": "fraud.core_mistake_disposition.component.fraud_mistake_satisfied.01",
       "norm_card_ids": [
         "fraud_mistake.error_definition"
       ],
@@ -21598,7 +21727,7 @@
         "negated": false,
         "predicate": "fraud_mistake_satisfied"
       },
-      "id": "fraud.full.component.fraud_mistake_satisfied.02",
+      "id": "fraud.core_mistake_disposition.component.fraud_mistake_satisfied.02",
       "norm_card_ids": [
         "fraud_mistake.error_doubt_ignorance"
       ],
@@ -21682,7 +21811,7 @@
         "negated": false,
         "predicate": "fraud_mistake_satisfied"
       },
-      "id": "fraud.full.component.fraud_mistake_satisfied.03",
+      "id": "fraud.core_mistake_disposition.component.fraud_mistake_satisfied.03",
       "norm_card_ids": [
         "fraud_mistake.unaware_error"
       ],
@@ -21766,7 +21895,7 @@
         "negated": false,
         "predicate": "fraud_disposition_satisfied"
       },
-      "id": "fraud.full.component.fraud_disposition_satisfied.01",
+      "id": "fraud.core_mistake_disposition.component.fraud_disposition_satisfied.01",
       "norm_card_ids": [
         "fraud_mistake.disposition_definition"
       ],
@@ -21850,7 +21979,7 @@
         "negated": false,
         "predicate": "fraud_disposition_satisfied"
       },
-      "id": "fraud.full.component.fraud_disposition_satisfied.02",
+      "id": "fraud.profile_omission.component.fraud_disposition_satisfied.02",
       "norm_card_ids": [
         "fraud_mistake.conscious_nonexercise"
       ],
@@ -21934,7 +22063,7 @@
         "negated": false,
         "predicate": "fraud_disposition_satisfied"
       },
-      "id": "fraud.full.component.fraud_disposition_satisfied.03",
+      "id": "fraud.core_mistake_disposition.component.fraud_disposition_satisfied.03",
       "norm_card_ids": [
         "fraud_mistake.disposition_intent_act_awareness"
       ],
@@ -22018,7 +22147,7 @@
         "negated": false,
         "predicate": "fraud_disposition_satisfied"
       },
-      "id": "fraud.full.component.fraud_disposition_satisfied.04",
+      "id": "fraud.profile_omission.component.fraud_disposition_satisfied.04",
       "norm_card_ids": [
         "fraud_mistake.disposition_omission"
       ],
@@ -22102,7 +22231,7 @@
         "negated": false,
         "predicate": "fraud_disposition_satisfied"
       },
-      "id": "fraud.full.component.fraud_disposition_satisfied.05",
+      "id": "fraud.core_mistake_disposition.component.fraud_disposition_satisfied.05",
       "norm_card_ids": [
         "fraud_mistake.factual_act_disposition"
       ],
@@ -22186,7 +22315,7 @@
         "negated": false,
         "predicate": "fraud_disposition_satisfied"
       },
-      "id": "fraud.full.component.fraud_disposition_satisfied.06",
+      "id": "fraud.core_mistake_disposition.component.fraud_disposition_satisfied.06",
       "norm_card_ids": [
         "fraud_mistake.invalid_act_disposition"
       ],
@@ -22270,7 +22399,7 @@
         "negated": false,
         "predicate": "fraud_acquisition_satisfied"
       },
-      "id": "fraud.full.component.fraud_acquisition_satisfied.01",
+      "id": "fraud.object_property_delivery.component.fraud_acquisition_satisfied.01",
       "norm_card_ids": [
         "fraud_damage_acquisition.delivery_factual_control"
       ],
@@ -22354,7 +22483,7 @@
         "negated": false,
         "predicate": "fraud_acquisition_satisfied"
       },
-      "id": "fraud.full.component.fraud_acquisition_satisfied.02",
+      "id": "fraud.object_property_delivery.component.fraud_acquisition_satisfied.02",
       "norm_card_ids": [
         "fraud_damage_acquisition.delivery_of_property"
       ],
@@ -22438,7 +22567,7 @@
         "negated": false,
         "predicate": "fraud_acquisition_satisfied"
       },
-      "id": "fraud.full.component.fraud_acquisition_satisfied.03",
+      "id": "fraud.object_property_benefit.component.fraud_acquisition_satisfied.03",
       "norm_card_ids": [
         "fraud_damage_acquisition.property_concept_reported_precedent"
       ],
@@ -22522,7 +22651,7 @@
         "negated": false,
         "predicate": "fraud_acquisition_satisfied"
       },
-      "id": "fraud.full.component.fraud_acquisition_satisfied.04",
+      "id": "fraud.object_property_benefit.component.fraud_acquisition_satisfied.04",
       "norm_card_ids": [
         "fraud_damage_acquisition.property_disposition_types"
       ],
@@ -22606,7 +22735,7 @@
         "negated": false,
         "predicate": "fraud_acquisition_satisfied"
       },
-      "id": "fraud.full.component.fraud_acquisition_satisfied.05",
+      "id": "fraud.core_mistake_disposition.component.fraud_acquisition_satisfied.05",
       "norm_card_ids": [
         "fraud_mistake.property_disposition_element"
       ],
@@ -22690,7 +22819,7 @@
         "negated": false,
         "predicate": "fraud_causal_chain_satisfied"
       },
-      "id": "fraud.full.component.fraud_causal_chain_satisfied.01",
+      "id": "fraud.core_mistake_disposition.component.fraud_causal_chain_satisfied.01",
       "norm_card_ids": [
         "fraud_mistake.sequential_causation"
       ],
@@ -22779,7 +22908,7 @@
         "negated": false,
         "predicate": "fraud_deceived_disposer_identity_satisfied"
       },
-      "id": "fraud.full.component.fraud_deceived_disposer_identity_satisfied.01",
+      "id": "fraud.core_mistake_disposition.component.fraud_deceived_disposer_identity_satisfied.01",
       "norm_card_ids": [
         "fraud_mistake.deceived_disposer_identity"
       ],
@@ -22863,7 +22992,7 @@
         "negated": false,
         "predicate": "fraud_completion_satisfied"
       },
-      "id": "fraud.full.component.fraud_completion_satisfied.01",
+      "id": "fraud.stage_attempt_completion.component.fraud_completion_satisfied.01",
       "norm_card_ids": [
         "fraud_stages_participation.completion_deception_disposition_transfer"
       ],
@@ -22947,7 +23076,7 @@
         "negated": false,
         "predicate": "fraud_completion_satisfied"
       },
-      "id": "fraud.full.component.fraud_completion_satisfied.02",
+      "id": "fraud.stage_attempt_completion.component.fraud_completion_satisfied.02",
       "norm_card_ids": [
         "fraud_stages_participation.property_fraud_completion_control"
       ],
@@ -23031,7 +23160,7 @@
         "negated": false,
         "predicate": "fraud_third_party_acquisition_satisfied"
       },
-      "id": "fraud.full.component.fraud_third_party_acquisition_satisfied.01",
+      "id": "fraud.structure_third_party_acquisition.component.fraud_third_party_acquisition_satisfied.01",
       "norm_card_ids": [
         "fraud_intent.third_party_acquisition"
       ],
@@ -23115,7 +23244,7 @@
         "negated": false,
         "predicate": "fraud_triangular_authority_satisfied"
       },
-      "id": "fraud.full.component.fraud_triangular_authority_satisfied.01",
+      "id": "fraud.structure_triangular.component.fraud_triangular_authority_satisfied.01",
       "norm_card_ids": [
         "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation"
       ],
@@ -23199,7 +23328,7 @@
         "negated": false,
         "predicate": "fraud_unlawful_appropriation_intent_supported"
       },
-      "id": "fraud.full.component.fraud_unlawful_appropriation_intent_supported.01",
+      "id": "fraud.core_intent.component.fraud_unlawful_appropriation_intent_supported.01",
       "norm_card_ids": [
         "fraud_intent.precedent_illegal_appropriation_intent"
       ],
@@ -23351,7 +23480,7 @@
         "negated": false,
         "predicate": "fraud_deception_satisfied"
       },
-      "id": "fraud.full.component.fraud_deception_satisfied.omission",
+      "id": "fraud.profile_omission.component.fraud_deception_satisfied",
       "norm_card_ids": [
         "deception.fraud.element.omission-deception-guarantor-equivalence",
         "deception.fraud.element.omission-deception-independent-error",
@@ -23481,7 +23610,7 @@
         "negated": false,
         "predicate": "fraud_object_satisfied"
       },
-      "id": "fraud.full.component.fraud_object_satisfied.property_benefit",
+      "id": "fraud.object_property_benefit.component.fraud_object_satisfied",
       "norm_card_ids": [
         "general_object.fraud.definition.property-benefit",
         "general_object.fraud.element.property-benefit-concrete"
@@ -23605,7 +23734,7 @@
         "negated": false,
         "predicate": "fraud_intent_satisfied"
       },
-      "id": "fraud.full.component.fraud_intent_satisfied",
+      "id": "fraud.core_intent.component.fraud_intent_satisfied",
       "norm_card_ids": [
         "fraud_intent.contract_breach_distinction",
         "fraud_mistake.gain_purpose"
@@ -23729,7 +23858,7 @@
         "negated": false,
         "predicate": "fraud_intent_satisfied"
       },
-      "id": "fraud.full.component.fraud_intent_satisfied.loan_inference",
+      "id": "fraud.profile_loan.component.fraud_intent_satisfied",
       "norm_card_ids": [
         "deception.fraud.standard.intent-to-defraud-loan-inference",
         "fraud_mistake.gain_purpose"
@@ -23819,7 +23948,7 @@
         "negated": false,
         "predicate": "fraud_no_separate_loss_gate"
       },
-      "id": "fraud.full.component.no_separate_loss_gate",
+      "id": "fraud.stage_attempt_completion.component.no_separate_loss_gate",
       "norm_card_ids": [
         "fraud_damage_acquisition.property_loss_negative_view"
       ],
@@ -23909,7 +24038,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.001.undetermined",
+      "id": "fraud.core_deception.card.001.undetermined",
       "norm_card_ids": [
         "deception.fraud.causal-link.deception-property-disposition"
       ],
@@ -24055,7 +24184,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.001.conflict",
+      "id": "fraud.core_deception.card.001.conflict",
       "norm_card_ids": [
         "deception.fraud.causal-link.deception-property-disposition"
       ],
@@ -24145,7 +24274,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.002.undetermined",
+      "id": "fraud.profile_loan.card.002.undetermined",
       "norm_card_ids": [
         "deception.fraud.causal-link.loan-purpose-not-sole-trigger"
       ],
@@ -24291,7 +24420,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.002.conflict",
+      "id": "fraud.profile_loan.card.002.conflict",
       "norm_card_ids": [
         "deception.fraud.causal-link.loan-purpose-not-sole-trigger"
       ],
@@ -24381,7 +24510,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.003.undetermined",
+      "id": "fraud.core_deception.card.003.undetermined",
       "norm_card_ids": [
         "deception.fraud.causal-link.no-disposition-no-deception"
       ],
@@ -24527,7 +24656,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.003.conflict",
+      "id": "fraud.core_deception.card.003.conflict",
       "norm_card_ids": [
         "deception.fraud.causal-link.no-disposition-no-deception"
       ],
@@ -24617,7 +24746,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.004.undetermined",
+      "id": "fraud.profile_advertising.card.004.undetermined",
       "norm_card_ids": [
         "deception.fraud.definition.deceived-person-unspecified"
       ],
@@ -24763,7 +24892,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.004.conflict",
+      "id": "fraud.profile_advertising.card.004.conflict",
       "norm_card_ids": [
         "deception.fraud.definition.deceived-person-unspecified"
       ],
@@ -24853,7 +24982,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.005.undetermined",
+      "id": "fraud.structure_triangular.card.005.undetermined",
       "norm_card_ids": [
         "deception.fraud.definition.deceived-person-victim-distinct"
       ],
@@ -25004,7 +25133,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.005.conflict",
+      "id": "fraud.structure_triangular.card.005.conflict",
       "norm_card_ids": [
         "deception.fraud.definition.deceived-person-victim-distinct"
       ],
@@ -25099,7 +25228,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.006.undetermined",
+      "id": "fraud.core_deception.card.006.undetermined",
       "norm_card_ids": [
         "deception.fraud.definition.deception-content-basis-fact"
       ],
@@ -25245,7 +25374,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.006.conflict",
+      "id": "fraud.core_deception.card.006.conflict",
       "norm_card_ids": [
         "deception.fraud.definition.deception-content-basis-fact"
       ],
@@ -25335,7 +25464,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.007.undetermined",
+      "id": "fraud.core_deception.card.007.undetermined",
       "norm_card_ids": [
         "deception.fraud.definition.deception-counterparty-is-other"
       ],
@@ -25481,7 +25610,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.007.conflict",
+      "id": "fraud.core_deception.card.007.conflict",
       "norm_card_ids": [
         "deception.fraud.definition.deception-counterparty-is-other"
       ],
@@ -25571,7 +25700,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.008.undetermined",
+      "id": "fraud.core_deception.card.008.undetermined",
       "norm_card_ids": [
         "deception.fraud.definition.deception-good-faith-mistake"
       ],
@@ -25717,7 +25846,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.008.conflict",
+      "id": "fraud.core_deception.card.008.conflict",
       "norm_card_ids": [
         "deception.fraud.definition.deception-good-faith-mistake"
       ],
@@ -25807,7 +25936,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.009.undetermined",
+      "id": "fraud.core_deception.card.009.undetermined",
       "norm_card_ids": [
         "deception.fraud.definition.deception-means-unrestricted"
       ],
@@ -25953,7 +26082,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.009.conflict",
+      "id": "fraud.core_deception.card.009.conflict",
       "norm_card_ids": [
         "deception.fraud.definition.deception-means-unrestricted"
       ],
@@ -26043,7 +26172,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.010.undetermined",
+      "id": "fraud.core_deception.card.010.undetermined",
       "norm_card_ids": [
         "deception.fraud.definition.deception-object-facts"
       ],
@@ -26189,7 +26318,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.010.conflict",
+      "id": "fraud.core_deception.card.010.conflict",
       "norm_card_ids": [
         "deception.fraud.definition.deception-object-facts"
       ],
@@ -26279,7 +26408,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.011.undetermined",
+      "id": "fraud.core_deception.card.011.undetermined",
       "norm_card_ids": [
         "deception.fraud.definition.deception-target-human"
       ],
@@ -26425,7 +26554,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.011.conflict",
+      "id": "fraud.core_deception.card.011.conflict",
       "norm_card_ids": [
         "deception.fraud.definition.deception-target-human"
       ],
@@ -26515,7 +26644,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.012.undetermined",
+      "id": "fraud.profile_omission.card.012.undetermined",
       "norm_card_ids": [
         "deception.fraud.definition.exploitation-existing-mistake"
       ],
@@ -26661,7 +26790,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.012.conflict",
+      "id": "fraud.profile_omission.card.012.conflict",
       "norm_card_ids": [
         "deception.fraud.definition.exploitation-existing-mistake"
       ],
@@ -26751,7 +26880,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.013.undetermined",
+      "id": "fraud.profile_implicit_deception.card.013.undetermined",
       "norm_card_ids": [
         "deception.fraud.definition.implicit-deception"
       ],
@@ -26897,7 +27026,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.013.conflict",
+      "id": "fraud.profile_implicit_deception.card.013.conflict",
       "norm_card_ids": [
         "deception.fraud.definition.implicit-deception"
       ],
@@ -26987,7 +27116,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.014.undetermined",
+      "id": "fraud.profile_omission.card.014.undetermined",
       "norm_card_ids": [
         "deception.fraud.definition.notice-duty-violation-omission"
       ],
@@ -27133,7 +27262,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.014.conflict",
+      "id": "fraud.profile_omission.card.014.conflict",
       "norm_card_ids": [
         "deception.fraud.definition.notice-duty-violation-omission"
       ],
@@ -27223,7 +27352,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.015.undetermined",
+      "id": "fraud.core_deception.card.015.undetermined",
       "norm_card_ids": [
         "deception.fraud.definition.other-includes-corporation"
       ],
@@ -27369,7 +27498,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.015.conflict",
+      "id": "fraud.core_deception.card.015.conflict",
       "norm_card_ids": [
         "deception.fraud.definition.other-includes-corporation"
       ],
@@ -27459,7 +27588,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.016.undetermined",
+      "id": "fraud.core_deception.card.016.undetermined",
       "norm_card_ids": [
         "deception.fraud.element.deception-must-create-false-belief"
       ],
@@ -27605,7 +27734,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.016.conflict",
+      "id": "fraud.core_deception.card.016.conflict",
       "norm_card_ids": [
         "deception.fraud.element.deception-must-create-false-belief"
       ],
@@ -27695,7 +27824,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.017.undetermined",
+      "id": "fraud.core_deception.card.017.undetermined",
       "norm_card_ids": [
         "deception.fraud.element.deception-not-legal-act-important-part"
       ],
@@ -27841,7 +27970,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.017.conflict",
+      "id": "fraud.core_deception.card.017.conflict",
       "norm_card_ids": [
         "deception.fraud.element.deception-not-legal-act-important-part"
       ],
@@ -27931,7 +28060,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.018.undetermined",
+      "id": "fraud.profile_loan.card.018.undetermined",
       "norm_card_ids": [
         "deception.fraud.element.loan-no-repayment-intent-or-ability"
       ],
@@ -28077,7 +28206,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.018.conflict",
+      "id": "fraud.profile_loan.card.018.conflict",
       "norm_card_ids": [
         "deception.fraud.element.loan-no-repayment-intent-or-ability"
       ],
@@ -28167,7 +28296,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.019.undetermined",
+      "id": "fraud.profile_omission.card.019.undetermined",
       "norm_card_ids": [
         "deception.fraud.element.omission-deception-guarantor-equivalence"
       ],
@@ -28313,7 +28442,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.019.conflict",
+      "id": "fraud.profile_omission.card.019.conflict",
       "norm_card_ids": [
         "deception.fraud.element.omission-deception-guarantor-equivalence"
       ],
@@ -28403,7 +28532,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.020.undetermined",
+      "id": "fraud.profile_omission.card.020.undetermined",
       "norm_card_ids": [
         "deception.fraud.element.omission-deception-independent-error"
       ],
@@ -28549,7 +28678,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.020.conflict",
+      "id": "fraud.profile_omission.card.020.conflict",
       "norm_card_ids": [
         "deception.fraud.element.omission-deception-independent-error"
       ],
@@ -28639,7 +28768,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.021.undetermined",
+      "id": "fraud.profile_omission.card.021.undetermined",
       "norm_card_ids": [
         "deception.fraud.element.omission-deception-legal-notice-duty"
       ],
@@ -28785,7 +28914,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.021.conflict",
+      "id": "fraud.profile_omission.card.021.conflict",
       "norm_card_ids": [
         "deception.fraud.element.omission-deception-legal-notice-duty"
       ],
@@ -28875,7 +29004,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.022.undetermined",
+      "id": "fraud.core_deception.card.022.undetermined",
       "norm_card_ids": [
         "deception.fraud.element.transaction-purpose-no-impairment"
       ],
@@ -29021,7 +29150,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.022.conflict",
+      "id": "fraud.core_deception.card.022.conflict",
       "norm_card_ids": [
         "deception.fraud.element.transaction-purpose-no-impairment"
       ],
@@ -29111,7 +29240,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.023.undetermined",
+      "id": "fraud.core_deception.card.023.undetermined",
       "norm_card_ids": [
         "deception.fraud.element.victim-negligence-no-bar"
       ],
@@ -29257,7 +29386,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.023.conflict",
+      "id": "fraud.core_deception.card.023.conflict",
       "norm_card_ids": [
         "deception.fraud.element.victim-negligence-no-bar"
       ],
@@ -29347,7 +29476,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.024.undetermined",
+      "id": "fraud.profile_advertising.card.024.undetermined",
       "norm_card_ids": [
         "deception.fraud.standard.advertising-important-concrete-falsehood"
       ],
@@ -29493,7 +29622,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.024.conflict",
+      "id": "fraud.profile_advertising.card.024.conflict",
       "norm_card_ids": [
         "deception.fraud.standard.advertising-important-concrete-falsehood"
       ],
@@ -29583,7 +29712,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.025.undetermined",
+      "id": "fraud.profile_advertising.card.025.undetermined",
       "norm_card_ids": [
         "deception.fraud.standard.advertising-tolerable-exaggeration"
       ],
@@ -29729,7 +29858,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.025.conflict",
+      "id": "fraud.profile_advertising.card.025.conflict",
       "norm_card_ids": [
         "deception.fraud.standard.advertising-tolerable-exaggeration"
       ],
@@ -29819,7 +29948,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.026.undetermined",
+      "id": "fraud.core_deception.card.026.undetermined",
       "norm_card_ids": [
         "deception.fraud.standard.deception-concrete-circumstances"
       ],
@@ -29965,7 +30094,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.026.conflict",
+      "id": "fraud.core_deception.card.026.conflict",
       "norm_card_ids": [
         "deception.fraud.standard.deception-concrete-circumstances"
       ],
@@ -30055,7 +30184,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.027.undetermined",
+      "id": "fraud.core_deception.card.027.undetermined",
       "norm_card_ids": [
         "deception.fraud.standard.easily-detectable-lie"
       ],
@@ -30201,7 +30330,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.027.conflict",
+      "id": "fraud.core_deception.card.027.conflict",
       "norm_card_ids": [
         "deception.fraud.standard.easily-detectable-lie"
       ],
@@ -30291,7 +30420,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.028.undetermined",
+      "id": "fraud.profile_implicit_deception.card.028.undetermined",
       "norm_card_ids": [
         "deception.fraud.standard.implicit-deception-explanatory-value"
       ],
@@ -30437,7 +30566,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.028.conflict",
+      "id": "fraud.profile_implicit_deception.card.028.conflict",
       "norm_card_ids": [
         "deception.fraud.standard.implicit-deception-explanatory-value"
       ],
@@ -30527,7 +30656,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.029.undetermined",
+      "id": "fraud.profile_implicit_deception.card.029.undetermined",
       "norm_card_ids": [
         "deception.fraud.standard.implicit-omission-deception-distinction"
       ],
@@ -30673,7 +30802,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.029.conflict",
+      "id": "fraud.profile_implicit_deception.card.029.conflict",
       "norm_card_ids": [
         "deception.fraud.standard.implicit-omission-deception-distinction"
       ],
@@ -30763,7 +30892,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.030.undetermined",
+      "id": "fraud.profile_loan.card.030.undetermined",
       "norm_card_ids": [
         "deception.fraud.standard.intent-to-defraud-loan-inference"
       ],
@@ -30909,7 +31038,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.030.conflict",
+      "id": "fraud.profile_loan.card.030.conflict",
       "norm_card_ids": [
         "deception.fraud.standard.intent-to-defraud-loan-inference"
       ],
@@ -30999,7 +31128,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.031.undetermined",
+      "id": "fraud.profile_loan.card.031.undetermined",
       "norm_card_ids": [
         "deception.fraud.standard.loan-lender-anticipated-risk"
       ],
@@ -31145,7 +31274,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.031.conflict",
+      "id": "fraud.profile_loan.card.031.conflict",
       "norm_card_ids": [
         "deception.fraud.standard.loan-lender-anticipated-risk"
       ],
@@ -31235,7 +31364,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.032.undetermined",
+      "id": "fraud.profile_loan.card.032.undetermined",
       "norm_card_ids": [
         "deception.fraud.standard.loan-purpose-materiality"
       ],
@@ -31381,7 +31510,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.032.conflict",
+      "id": "fraud.profile_loan.card.032.conflict",
       "norm_card_ids": [
         "deception.fraud.standard.loan-purpose-materiality"
       ],
@@ -31471,7 +31600,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.033.undetermined",
+      "id": "fraud.profile_loan.card.033.undetermined",
       "norm_card_ids": [
         "deception.fraud.standard.loan-subsequent-default"
       ],
@@ -31617,7 +31746,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.033.conflict",
+      "id": "fraud.profile_loan.card.033.conflict",
       "norm_card_ids": [
         "deception.fraud.standard.loan-subsequent-default"
       ],
@@ -31707,7 +31836,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.034.undetermined",
+      "id": "fraud.profile_omission.card.034.undetermined",
       "norm_card_ids": [
         "deception.fraud.standard.precedent-notice-duty-materiality"
       ],
@@ -31853,7 +31982,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.034.conflict",
+      "id": "fraud.profile_omission.card.034.conflict",
       "norm_card_ids": [
         "deception.fraud.standard.precedent-notice-duty-materiality"
       ],
@@ -31943,7 +32072,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.035.undetermined",
+      "id": "fraud.core_deception.card.035.undetermined",
       "norm_card_ids": [
         "deception.fraud.standard.vague-opinion-not-deception"
       ],
@@ -32089,7 +32218,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.035.conflict",
+      "id": "fraud.core_deception.card.035.conflict",
       "norm_card_ids": [
         "deception.fraud.standard.vague-opinion-not-deception"
       ],
@@ -32179,7 +32308,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.036.undetermined",
+      "id": "fraud.object_property_delivery.card.036.undetermined",
       "norm_card_ids": [
         "fraud_damage_acquisition.delivery_factual_control"
       ],
@@ -32325,7 +32454,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.036.conflict",
+      "id": "fraud.object_property_delivery.card.036.conflict",
       "norm_card_ids": [
         "fraud_damage_acquisition.delivery_factual_control"
       ],
@@ -32415,7 +32544,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.037.undetermined",
+      "id": "fraud.object_property_delivery.card.037.undetermined",
       "norm_card_ids": [
         "fraud_damage_acquisition.delivery_of_property"
       ],
@@ -32561,7 +32690,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.037.conflict",
+      "id": "fraud.object_property_delivery.card.037.conflict",
       "norm_card_ids": [
         "fraud_damage_acquisition.delivery_of_property"
       ],
@@ -32651,7 +32780,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.038.undetermined",
+      "id": "fraud.object_property_delivery.card.038.undetermined",
       "norm_card_ids": [
         "fraud_damage_acquisition.money_delivery_full_amount"
       ],
@@ -32802,7 +32931,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.038.conflict",
+      "id": "fraud.object_property_delivery.card.038.conflict",
       "norm_card_ids": [
         "fraud_damage_acquisition.money_delivery_full_amount"
       ],
@@ -32897,7 +33026,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.039.undetermined",
+      "id": "fraud.object_property_benefit.card.039.undetermined",
       "norm_card_ids": [
         "fraud_damage_acquisition.property_concept_reported_precedent"
       ],
@@ -33043,7 +33172,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.039.conflict",
+      "id": "fraud.object_property_benefit.card.039.conflict",
       "norm_card_ids": [
         "fraud_damage_acquisition.property_concept_reported_precedent"
       ],
@@ -33133,7 +33262,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.040.undetermined",
+      "id": "fraud.object_property_benefit.card.040.undetermined",
       "norm_card_ids": [
         "fraud_damage_acquisition.property_disposition_types"
       ],
@@ -33279,7 +33408,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.040.conflict",
+      "id": "fraud.object_property_benefit.card.040.conflict",
       "norm_card_ids": [
         "fraud_damage_acquisition.property_disposition_types"
       ],
@@ -33369,7 +33498,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.041.undetermined",
+      "id": "fraud.stage_attempt_completion.card.041.undetermined",
       "norm_card_ids": [
         "fraud_damage_acquisition.property_loss_negative_view"
       ],
@@ -33515,7 +33644,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.041.conflict",
+      "id": "fraud.stage_attempt_completion.card.041.conflict",
       "norm_card_ids": [
         "fraud_damage_acquisition.property_loss_negative_view"
       ],
@@ -33605,7 +33734,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.042.undetermined",
+      "id": "fraud.object_property_benefit.card.042.undetermined",
       "norm_card_ids": [
         "fraud_damage_acquisition.protected_economic_interest"
       ],
@@ -33751,7 +33880,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.042.conflict",
+      "id": "fraud.object_property_benefit.card.042.conflict",
       "norm_card_ids": [
         "fraud_damage_acquisition.protected_economic_interest"
       ],
@@ -33841,7 +33970,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.043.undetermined",
+      "id": "fraud.profile_rights_exercise.card.043.undetermined",
       "norm_card_ids": [
         "fraud_damage_acquisition.right_exercise_unacceptable_deception"
       ],
@@ -33987,7 +34116,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.043.conflict",
+      "id": "fraud.profile_rights_exercise.card.043.conflict",
       "norm_card_ids": [
         "fraud_damage_acquisition.right_exercise_unacceptable_deception"
       ],
@@ -34077,7 +34206,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.044.undetermined",
+      "id": "fraud.object_property_delivery.card.044.undetermined",
       "norm_card_ids": [
         "fraud_damage_acquisition.subsequent_return_irrelevant"
       ],
@@ -34223,7 +34352,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.044.conflict",
+      "id": "fraud.object_property_delivery.card.044.conflict",
       "norm_card_ids": [
         "fraud_damage_acquisition.subsequent_return_irrelevant"
       ],
@@ -34313,7 +34442,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.045.undetermined",
+      "id": "fraud.stage_attempt_completion.card.045.undetermined",
       "norm_card_ids": [
         "fraud_general_object.causation_required"
       ],
@@ -34459,7 +34588,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.045.conflict",
+      "id": "fraud.stage_attempt_completion.card.045.conflict",
       "norm_card_ids": [
         "fraud_general_object.causation_required"
       ],
@@ -34549,7 +34678,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.046.undetermined",
+      "id": "fraud.stage_attempt_completion.card.046.undetermined",
       "norm_card_ids": [
         "fraud_general_object.deception_error_causation"
       ],
@@ -34695,7 +34824,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.046.conflict",
+      "id": "fraud.stage_attempt_completion.card.046.conflict",
       "norm_card_ids": [
         "fraud_general_object.deception_error_causation"
       ],
@@ -34785,7 +34914,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.047.undetermined",
+      "id": "fraud.core_intent.card.047.undetermined",
       "norm_card_ids": [
         "fraud_intent.contract_breach_distinction"
       ],
@@ -34931,7 +35060,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.047.conflict",
+      "id": "fraud.core_intent.card.047.conflict",
       "norm_card_ids": [
         "fraud_intent.contract_breach_distinction"
       ],
@@ -35021,7 +35150,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.048.undetermined",
+      "id": "fraud.core_intent.card.048.undetermined",
       "norm_card_ids": [
         "fraud_intent.illegal_appropriation_definition"
       ],
@@ -35167,7 +35296,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.048.conflict",
+      "id": "fraud.core_intent.card.048.conflict",
       "norm_card_ids": [
         "fraud_intent.illegal_appropriation_definition"
       ],
@@ -35257,7 +35386,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.049.undetermined",
+      "id": "fraud.core_intent.card.049.undetermined",
       "norm_card_ids": [
         "fraud_intent.no_disposition_inducement_intent"
       ],
@@ -35403,7 +35532,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.049.conflict",
+      "id": "fraud.core_intent.card.049.conflict",
       "norm_card_ids": [
         "fraud_intent.no_disposition_inducement_intent"
       ],
@@ -35493,7 +35622,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.050.undetermined",
+      "id": "fraud.core_intent.card.050.undetermined",
       "norm_card_ids": [
         "fraud_intent.precedent_illegal_appropriation_intent"
       ],
@@ -35639,7 +35768,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.050.conflict",
+      "id": "fraud.core_intent.card.050.conflict",
       "norm_card_ids": [
         "fraud_intent.precedent_illegal_appropriation_intent"
       ],
@@ -35729,7 +35858,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.051.undetermined",
+      "id": "fraud.structure_third_party_acquisition.card.051.undetermined",
       "norm_card_ids": [
         "fraud_intent.third_party_acquisition"
       ],
@@ -35875,7 +36004,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.051.conflict",
+      "id": "fraud.structure_third_party_acquisition.card.051.conflict",
       "norm_card_ids": [
         "fraud_intent.third_party_acquisition"
       ],
@@ -35965,7 +36094,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.052.undetermined",
+      "id": "fraud.core_intent.card.052.undetermined",
       "norm_card_ids": [
         "fraud_intent.time_of_conduct"
       ],
@@ -36111,7 +36240,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.052.conflict",
+      "id": "fraud.core_intent.card.052.conflict",
       "norm_card_ids": [
         "fraud_intent.time_of_conduct"
       ],
@@ -36201,7 +36330,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.053.undetermined",
+      "id": "fraud.profile_omission.card.053.undetermined",
       "norm_card_ids": [
         "fraud_mistake.conscious_nonexercise"
       ],
@@ -36347,7 +36476,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.053.conflict",
+      "id": "fraud.profile_omission.card.053.conflict",
       "norm_card_ids": [
         "fraud_mistake.conscious_nonexercise"
       ],
@@ -36437,7 +36566,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.054.undetermined",
+      "id": "fraud.core_mistake_disposition.card.054.undetermined",
       "norm_card_ids": [
         "fraud_mistake.deceived_disposer_identity"
       ],
@@ -36583,7 +36712,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.054.conflict",
+      "id": "fraud.core_mistake_disposition.card.054.conflict",
       "norm_card_ids": [
         "fraud_mistake.deceived_disposer_identity"
       ],
@@ -36673,7 +36802,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.055.undetermined",
+      "id": "fraud.core_mistake_disposition.card.055.undetermined",
       "norm_card_ids": [
         "fraud_mistake.disposition_definition"
       ],
@@ -36819,7 +36948,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.055.conflict",
+      "id": "fraud.core_mistake_disposition.card.055.conflict",
       "norm_card_ids": [
         "fraud_mistake.disposition_definition"
       ],
@@ -36909,7 +37038,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.056.undetermined",
+      "id": "fraud.core_mistake_disposition.card.056.undetermined",
       "norm_card_ids": [
         "fraud_mistake.disposition_directness"
       ],
@@ -37055,7 +37184,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.056.conflict",
+      "id": "fraud.core_mistake_disposition.card.056.conflict",
       "norm_card_ids": [
         "fraud_mistake.disposition_directness"
       ],
@@ -37145,7 +37274,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.057.undetermined",
+      "id": "fraud.core_mistake_disposition.card.057.undetermined",
       "norm_card_ids": [
         "fraud_mistake.disposition_intent_act_awareness"
       ],
@@ -37291,7 +37420,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.057.conflict",
+      "id": "fraud.core_mistake_disposition.card.057.conflict",
       "norm_card_ids": [
         "fraud_mistake.disposition_intent_act_awareness"
       ],
@@ -37381,7 +37510,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.058.undetermined",
+      "id": "fraud.profile_omission.card.058.undetermined",
       "norm_card_ids": [
         "fraud_mistake.disposition_omission"
       ],
@@ -37527,7 +37656,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.058.conflict",
+      "id": "fraud.profile_omission.card.058.conflict",
       "norm_card_ids": [
         "fraud_mistake.disposition_omission"
       ],
@@ -37617,7 +37746,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.059.undetermined",
+      "id": "fraud.core_mistake_disposition.card.059.undetermined",
       "norm_card_ids": [
         "fraud_mistake.error_definition"
       ],
@@ -37763,7 +37892,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.059.conflict",
+      "id": "fraud.core_mistake_disposition.card.059.conflict",
       "norm_card_ids": [
         "fraud_mistake.error_definition"
       ],
@@ -37853,7 +37982,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.060.undetermined",
+      "id": "fraud.core_mistake_disposition.card.060.undetermined",
       "norm_card_ids": [
         "fraud_mistake.error_disposition_motivation"
       ],
@@ -37999,7 +38128,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.060.conflict",
+      "id": "fraud.core_mistake_disposition.card.060.conflict",
       "norm_card_ids": [
         "fraud_mistake.error_disposition_motivation"
       ],
@@ -38089,7 +38218,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.061.undetermined",
+      "id": "fraud.core_mistake_disposition.card.061.undetermined",
       "norm_card_ids": [
         "fraud_mistake.error_doubt_ignorance"
       ],
@@ -38235,7 +38364,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.061.conflict",
+      "id": "fraud.core_mistake_disposition.card.061.conflict",
       "norm_card_ids": [
         "fraud_mistake.error_doubt_ignorance"
       ],
@@ -38325,7 +38454,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.062.undetermined",
+      "id": "fraud.core_mistake_disposition.card.062.undetermined",
       "norm_card_ids": [
         "fraud_mistake.factual_act_disposition"
       ],
@@ -38471,7 +38600,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.062.conflict",
+      "id": "fraud.core_mistake_disposition.card.062.conflict",
       "norm_card_ids": [
         "fraud_mistake.factual_act_disposition"
       ],
@@ -38561,7 +38690,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.063.undetermined",
+      "id": "fraud.core_intent.card.063.undetermined",
       "norm_card_ids": [
         "fraud_mistake.gain_purpose"
       ],
@@ -38707,7 +38836,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.063.conflict",
+      "id": "fraud.core_intent.card.063.conflict",
       "norm_card_ids": [
         "fraud_mistake.gain_purpose"
       ],
@@ -38797,7 +38926,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.064.undetermined",
+      "id": "fraud.core_mistake_disposition.card.064.undetermined",
       "norm_card_ids": [
         "fraud_mistake.invalid_act_disposition"
       ],
@@ -38943,7 +39072,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.064.conflict",
+      "id": "fraud.core_mistake_disposition.card.064.conflict",
       "norm_card_ids": [
         "fraud_mistake.invalid_act_disposition"
       ],
@@ -39033,7 +39162,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.065.undetermined",
+      "id": "fraud.boundary_other_offenses.card.065.undetermined",
       "norm_card_ids": [
         "fraud_mistake.no_capacity_theft"
       ],
@@ -39179,7 +39308,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.065.conflict",
+      "id": "fraud.boundary_other_offenses.card.065.conflict",
       "norm_card_ids": [
         "fraud_mistake.no_capacity_theft"
       ],
@@ -39269,7 +39398,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.066.undetermined",
+      "id": "fraud.core_mistake_disposition.card.066.undetermined",
       "norm_card_ids": [
         "fraud_mistake.no_thought_no_error"
       ],
@@ -39415,7 +39544,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.066.conflict",
+      "id": "fraud.core_mistake_disposition.card.066.conflict",
       "norm_card_ids": [
         "fraud_mistake.no_thought_no_error"
       ],
@@ -39505,7 +39634,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.067.undetermined",
+      "id": "fraud.profile_omission.card.067.undetermined",
       "norm_card_ids": [
         "fraud_mistake.omission_not_all_nonclaims"
       ],
@@ -39651,7 +39780,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.067.conflict",
+      "id": "fraud.profile_omission.card.067.conflict",
       "norm_card_ids": [
         "fraud_mistake.omission_not_all_nonclaims"
       ],
@@ -39741,7 +39870,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.068.undetermined",
+      "id": "fraud.core_mistake_disposition.card.068.undetermined",
       "norm_card_ids": [
         "fraud_mistake.property_disposition_element"
       ],
@@ -39887,7 +40016,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.068.conflict",
+      "id": "fraud.core_mistake_disposition.card.068.conflict",
       "norm_card_ids": [
         "fraud_mistake.property_disposition_element"
       ],
@@ -39977,7 +40106,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.069.undetermined",
+      "id": "fraud.core_mistake_disposition.card.069.undetermined",
       "norm_card_ids": [
         "fraud_mistake.property_limited_disposition"
       ],
@@ -40123,7 +40252,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.069.conflict",
+      "id": "fraud.core_mistake_disposition.card.069.conflict",
       "norm_card_ids": [
         "fraud_mistake.property_limited_disposition"
       ],
@@ -40213,7 +40342,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.070.undetermined",
+      "id": "fraud.core_mistake_disposition.card.070.undetermined",
       "norm_card_ids": [
         "fraud_mistake.sequential_causation"
       ],
@@ -40364,7 +40493,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.070.conflict",
+      "id": "fraud.core_mistake_disposition.card.070.conflict",
       "norm_card_ids": [
         "fraud_mistake.sequential_causation"
       ],
@@ -40459,7 +40588,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.071.undetermined",
+      "id": "fraud.structure_triangular.card.071.undetermined",
       "norm_card_ids": [
         "fraud_mistake.triangular_fraud_definition"
       ],
@@ -40605,7 +40734,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.071.conflict",
+      "id": "fraud.structure_triangular.card.071.conflict",
       "norm_card_ids": [
         "fraud_mistake.triangular_fraud_definition"
       ],
@@ -40695,7 +40824,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.072.undetermined",
+      "id": "fraud.boundary_other_offenses.card.072.undetermined",
       "norm_card_ids": [
         "fraud_mistake.trick_theft_directness"
       ],
@@ -40841,7 +40970,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.072.conflict",
+      "id": "fraud.boundary_other_offenses.card.072.conflict",
       "norm_card_ids": [
         "fraud_mistake.trick_theft_directness"
       ],
@@ -40931,7 +41060,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.073.undetermined",
+      "id": "fraud.core_mistake_disposition.card.073.undetermined",
       "norm_card_ids": [
         "fraud_mistake.unaware_error"
       ],
@@ -41077,7 +41206,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.073.conflict",
+      "id": "fraud.core_mistake_disposition.card.073.conflict",
       "norm_card_ids": [
         "fraud_mistake.unaware_error"
       ],
@@ -41167,7 +41296,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.074.undetermined",
+      "id": "fraud.stage_attempt_completion.card.074.undetermined",
       "norm_card_ids": [
         "fraud_stages_participation.attempt_deceptive_act"
       ],
@@ -41313,7 +41442,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.074.conflict",
+      "id": "fraud.stage_attempt_completion.card.074.conflict",
       "norm_card_ids": [
         "fraud_stages_participation.attempt_deceptive_act"
       ],
@@ -41403,7 +41532,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.075.undetermined",
+      "id": "fraud.stage_attempt_completion.card.075.undetermined",
       "norm_card_ids": [
         "fraud_stages_participation.completion_deception_disposition_transfer"
       ],
@@ -41549,7 +41678,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.075.conflict",
+      "id": "fraud.stage_attempt_completion.card.075.conflict",
       "norm_card_ids": [
         "fraud_stages_participation.completion_deception_disposition_transfer"
       ],
@@ -41639,7 +41768,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.076.undetermined",
+      "id": "fraud.stage_attempt_completion.card.076.undetermined",
       "norm_card_ids": [
         "fraud_stages_participation.no_causation_attempt"
       ],
@@ -41785,7 +41914,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.076.conflict",
+      "id": "fraud.stage_attempt_completion.card.076.conflict",
       "norm_card_ids": [
         "fraud_stages_participation.no_causation_attempt"
       ],
@@ -41875,7 +42004,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.077.undetermined",
+      "id": "fraud.stage_attempt_completion.card.077.undetermined",
       "norm_card_ids": [
         "fraud_stages_participation.property_fraud_completion_control"
       ],
@@ -42021,7 +42150,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.077.conflict",
+      "id": "fraud.stage_attempt_completion.card.077.conflict",
       "norm_card_ids": [
         "fraud_stages_participation.property_fraud_completion_control"
       ],
@@ -42111,7 +42240,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.078.undetermined",
+      "id": "fraud.object_property_benefit.card.078.undetermined",
       "norm_card_ids": [
         "general_object.fraud.definition.property-benefit"
       ],
@@ -42257,7 +42386,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.078.conflict",
+      "id": "fraud.object_property_benefit.card.078.conflict",
       "norm_card_ids": [
         "general_object.fraud.definition.property-benefit"
       ],
@@ -42347,7 +42476,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.079.undetermined",
+      "id": "fraud.object_property_benefit.card.079.undetermined",
       "norm_card_ids": [
         "general_object.fraud.definition.property-benefit-not-numerically-limited"
       ],
@@ -42493,7 +42622,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.079.conflict",
+      "id": "fraud.object_property_benefit.card.079.conflict",
       "norm_card_ids": [
         "general_object.fraud.definition.property-benefit-not-numerically-limited"
       ],
@@ -42583,7 +42712,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.080.undetermined",
+      "id": "fraud.object_property_delivery.card.080.undetermined",
       "norm_card_ids": [
         "general_object.fraud.element.object-other-possessed-other-property"
       ],
@@ -42729,7 +42858,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.080.conflict",
+      "id": "fraud.object_property_delivery.card.080.conflict",
       "norm_card_ids": [
         "general_object.fraud.element.object-other-possessed-other-property"
       ],
@@ -42819,7 +42948,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.081.undetermined",
+      "id": "fraud.object_property_benefit.card.081.undetermined",
       "norm_card_ids": [
         "general_object.fraud.element.property-benefit-concrete"
       ],
@@ -42965,7 +43094,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.081.conflict",
+      "id": "fraud.object_property_benefit.card.081.conflict",
       "norm_card_ids": [
         "general_object.fraud.element.property-benefit-concrete"
       ],
@@ -43055,7 +43184,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.082.undetermined",
+      "id": "fraud.object_public_interest.card.082.undetermined",
       "norm_card_ids": [
         "general_object.fraud.exception.public-interest-property-equivalence"
       ],
@@ -43201,7 +43330,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.082.conflict",
+      "id": "fraud.object_public_interest.card.082.conflict",
       "norm_card_ids": [
         "general_object.fraud.exception.public-interest-property-equivalence"
       ],
@@ -43291,7 +43420,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.083.undetermined",
+      "id": "fraud.stage_attempt_completion.card.083.undetermined",
       "norm_card_ids": [
         "general_object.fraud.standard.later-cancellation-no-effect"
       ],
@@ -43437,7 +43566,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.083.conflict",
+      "id": "fraud.stage_attempt_completion.card.083.conflict",
       "norm_card_ids": [
         "general_object.fraud.standard.later-cancellation-no-effect"
       ],
@@ -43527,7 +43656,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.084.undetermined",
+      "id": "fraud.boundary_other_offenses.card.084.undetermined",
       "norm_card_ids": [
         "general_object.fraud.standard.own-possession-other-property-embezzlement"
       ],
@@ -43673,7 +43802,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.084.conflict",
+      "id": "fraud.boundary_other_offenses.card.084.conflict",
       "norm_card_ids": [
         "general_object.fraud.standard.own-possession-other-property-embezzlement"
       ],
@@ -43763,7 +43892,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.085.undetermined",
+      "id": "fraud.object_property_delivery.card.085.undetermined",
       "norm_card_ids": [
         "general_object.fraud.standard.own-property-not-object"
       ],
@@ -43909,7 +44038,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.085.conflict",
+      "id": "fraud.object_property_delivery.card.085.conflict",
       "norm_card_ids": [
         "general_object.fraud.standard.own-property-not-object"
       ],
@@ -43999,7 +44128,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.086.undetermined",
+      "id": "fraud.object_public_interest.card.086.undetermined",
       "norm_card_ids": [
         "general_object.fraud.standard.public-interest-only-no-fraud"
       ],
@@ -44145,7 +44274,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.086.conflict",
+      "id": "fraud.object_public_interest.card.086.conflict",
       "norm_card_ids": [
         "general_object.fraud.standard.public-interest-only-no-fraud"
       ],
@@ -44235,7 +44364,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.087.undetermined",
+      "id": "fraud.structure_triangular.card.087.undetermined",
       "norm_card_ids": [
         "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation"
       ],
@@ -44381,7 +44510,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.087.conflict",
+      "id": "fraud.structure_triangular.card.087.conflict",
       "norm_card_ids": [
         "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation"
       ],
@@ -44471,7 +44600,7 @@
         "negated": false,
         "predicate": "fraud_undetermined"
       },
-      "id": "fraud.full.card.088.undetermined",
+      "id": "fraud.profile_rights_exercise.card.088.undetermined",
       "norm_card_ids": [
         "special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime"
       ],
@@ -44617,7 +44746,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.card.088.conflict",
+      "id": "fraud.profile_rights_exercise.card.088.conflict",
       "norm_card_ids": [
         "special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime"
       ],
@@ -44685,7 +44814,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.001",
+      "id": "fraud.profile_loan.bar.001",
       "norm_card_ids": [
         "deception.fraud.causal-link.loan-purpose-not-sole-trigger"
       ],
@@ -44753,7 +44882,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.002",
+      "id": "fraud.core_deception.bar.002",
       "norm_card_ids": [
         "deception.fraud.causal-link.no-disposition-no-deception"
       ],
@@ -44821,7 +44950,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.003",
+      "id": "fraud.core_deception.bar.003",
       "norm_card_ids": [
         "deception.fraud.definition.deception-target-human"
       ],
@@ -44889,7 +45018,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.004",
+      "id": "fraud.core_deception.bar.004",
       "norm_card_ids": [
         "deception.fraud.element.deception-must-create-false-belief"
       ],
@@ -44957,7 +45086,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.005",
+      "id": "fraud.core_deception.bar.005",
       "norm_card_ids": [
         "deception.fraud.element.transaction-purpose-no-impairment"
       ],
@@ -45025,7 +45154,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.006",
+      "id": "fraud.profile_advertising.bar.006",
       "norm_card_ids": [
         "deception.fraud.standard.advertising-tolerable-exaggeration"
       ],
@@ -45093,7 +45222,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.007",
+      "id": "fraud.core_deception.bar.007",
       "norm_card_ids": [
         "deception.fraud.standard.easily-detectable-lie"
       ],
@@ -45161,7 +45290,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.008",
+      "id": "fraud.profile_loan.bar.008",
       "norm_card_ids": [
         "deception.fraud.standard.loan-lender-anticipated-risk"
       ],
@@ -45229,7 +45358,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.009",
+      "id": "fraud.profile_loan.bar.009",
       "norm_card_ids": [
         "deception.fraud.standard.loan-subsequent-default"
       ],
@@ -45297,7 +45426,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.010",
+      "id": "fraud.core_deception.bar.010",
       "norm_card_ids": [
         "deception.fraud.standard.vague-opinion-not-deception"
       ],
@@ -45365,7 +45494,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.011",
+      "id": "fraud.stage_attempt_completion.bar.011",
       "norm_card_ids": [
         "fraud_general_object.causation_required"
       ],
@@ -45433,7 +45562,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.012",
+      "id": "fraud.stage_attempt_completion.bar.012",
       "norm_card_ids": [
         "fraud_general_object.deception_error_causation"
       ],
@@ -45501,7 +45630,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.013",
+      "id": "fraud.core_intent.bar.013",
       "norm_card_ids": [
         "fraud_intent.no_disposition_inducement_intent"
       ],
@@ -45569,7 +45698,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.014",
+      "id": "fraud.boundary_other_offenses.bar.014",
       "norm_card_ids": [
         "fraud_mistake.no_capacity_theft"
       ],
@@ -45637,7 +45766,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.015",
+      "id": "fraud.core_mistake_disposition.bar.015",
       "norm_card_ids": [
         "fraud_mistake.no_thought_no_error"
       ],
@@ -45705,7 +45834,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.016",
+      "id": "fraud.profile_omission.bar.016",
       "norm_card_ids": [
         "fraud_mistake.omission_not_all_nonclaims"
       ],
@@ -45773,7 +45902,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.017",
+      "id": "fraud.core_mistake_disposition.bar.017",
       "norm_card_ids": [
         "fraud_mistake.property_limited_disposition"
       ],
@@ -45841,7 +45970,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.018",
+      "id": "fraud.boundary_other_offenses.bar.018",
       "norm_card_ids": [
         "fraud_mistake.trick_theft_directness"
       ],
@@ -45909,7 +46038,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.019",
+      "id": "fraud.stage_attempt_completion.bar.019",
       "norm_card_ids": [
         "fraud_stages_participation.no_causation_attempt"
       ],
@@ -45977,7 +46106,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.020",
+      "id": "fraud.boundary_other_offenses.bar.020",
       "norm_card_ids": [
         "general_object.fraud.standard.own-possession-other-property-embezzlement"
       ],
@@ -46045,7 +46174,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.021",
+      "id": "fraud.object_property_delivery.bar.021",
       "norm_card_ids": [
         "general_object.fraud.standard.own-property-not-object"
       ],
@@ -46113,7 +46242,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.022",
+      "id": "fraud.object_public_interest.bar.022",
       "norm_card_ids": [
         "general_object.fraud.standard.public-interest-only-no-fraud"
       ],
@@ -46181,7 +46310,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.bar.023",
+      "id": "fraud.profile_rights_exercise.bar.023",
       "norm_card_ids": [
         "special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime"
       ],
@@ -46271,7 +46400,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.mandatory_negative.001",
+      "id": "fraud.core_deception.mandatory_negative.001",
       "norm_card_ids": [
         "deception.fraud.definition.deception-good-faith-mistake"
       ],
@@ -46361,7 +46490,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.mandatory_negative.002",
+      "id": "fraud.core_intent.mandatory_negative.002",
       "norm_card_ids": [
         "fraud_intent.contract_breach_distinction"
       ],
@@ -46451,7 +46580,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.mandatory_negative.003",
+      "id": "fraud.core_mistake_disposition.mandatory_negative.003",
       "norm_card_ids": [
         "fraud_mistake.deceived_disposer_identity"
       ],
@@ -46541,7 +46670,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.mandatory_negative.004",
+      "id": "fraud.core_mistake_disposition.mandatory_negative.004",
       "norm_card_ids": [
         "fraud_mistake.disposition_definition"
       ],
@@ -46631,7 +46760,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.mandatory_negative.005",
+      "id": "fraud.core_mistake_disposition.mandatory_negative.005",
       "norm_card_ids": [
         "fraud_mistake.error_definition"
       ],
@@ -46721,7 +46850,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.mandatory_negative.006",
+      "id": "fraud.core_intent.mandatory_negative.006",
       "norm_card_ids": [
         "fraud_mistake.gain_purpose"
       ],
@@ -46811,7 +46940,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.mandatory_negative.007",
+      "id": "fraud.core_mistake_disposition.mandatory_negative.007",
       "norm_card_ids": [
         "fraud_mistake.property_disposition_element"
       ],
@@ -46901,7 +47030,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.mandatory_negative.008",
+      "id": "fraud.core_mistake_disposition.mandatory_negative.008",
       "norm_card_ids": [
         "fraud_mistake.sequential_causation"
       ],
@@ -46996,7 +47125,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.mandatory_negative.009",
+      "id": "fraud.stage_attempt_completion.mandatory_negative.009",
       "norm_card_ids": [
         "fraud_stages_participation.completion_deception_disposition_transfer"
       ],
@@ -47086,7 +47215,7 @@
         "negated": false,
         "predicate": "fraud_not_established"
       },
-      "id": "fraud.full.mandatory_negative.010",
+      "id": "fraud.object_property_delivery.mandatory_negative.010",
       "norm_card_ids": [
         "general_object.fraud.element.object-other-possessed-other-property"
       ],
@@ -47129,920 +47258,11 @@
             },
             {
               "kind": "variable",
-              "value": "defendant_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_object_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_deception_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_mistake_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_disposition_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_acquisition_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_causal_chain_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_deceived_disposer_identity_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_completion_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_intent_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_no_separate_loss_gate"
-        }
-      ],
-      "head": {
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "variable",
-            "value": "deceived_person_id"
-          },
-          {
-            "kind": "variable",
-            "value": "deceived_person_id"
-          },
-          {
-            "kind": "variable",
-            "value": "deceived_person_id"
-          },
-          {
-            "kind": "variable",
-            "value": "subject_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          }
-        ],
-        "negated": false,
-        "predicate": "fraud_established"
-      },
-      "id": "fraud.full.established.ordinary_self",
-      "norm_card_ids": [
-        "deception.fraud.definition.deception-good-faith-mistake",
-        "deception.fraud.definition.exploitation-existing-mistake",
-        "deception.fraud.element.loan-no-repayment-intent-or-ability",
-        "deception.fraud.standard.advertising-important-concrete-falsehood",
-        "deception.fraud.standard.implicit-deception-explanatory-value",
-        "deception.fraud.standard.loan-purpose-materiality",
-        "fraud_damage_acquisition.delivery_factual_control",
-        "fraud_damage_acquisition.delivery_of_property",
-        "fraud_damage_acquisition.property_concept_reported_precedent",
-        "fraud_damage_acquisition.property_disposition_types",
-        "fraud_damage_acquisition.property_loss_negative_view",
-        "fraud_damage_acquisition.right_exercise_unacceptable_deception",
-        "fraud_intent.contract_breach_distinction",
-        "fraud_mistake.conscious_nonexercise",
-        "fraud_mistake.deceived_disposer_identity",
-        "fraud_mistake.disposition_definition",
-        "fraud_mistake.disposition_intent_act_awareness",
-        "fraud_mistake.disposition_omission",
-        "fraud_mistake.error_definition",
-        "fraud_mistake.error_doubt_ignorance",
-        "fraud_mistake.factual_act_disposition",
-        "fraud_mistake.gain_purpose",
-        "fraud_mistake.invalid_act_disposition",
-        "fraud_mistake.property_disposition_element",
-        "fraud_mistake.sequential_causation",
-        "fraud_mistake.unaware_error",
-        "fraud_stages_participation.completion_deception_disposition_transfer",
-        "fraud_stages_participation.property_fraud_completion_control",
-        "general_object.fraud.element.object-other-possessed-other-property",
-        "general_object.fraud.exception.public-interest-property-equivalence"
-      ],
-      "review_notes": "피기망자와 처분자는 같은 변수다. 일반형은 재산소유자도 같게, 삼각사기는 권능·지위를 추가로 요구하며 제3자 취득은 별도 귀속 기준을 요구한다.",
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제347조_Ⅱ.3_4",
-          "quote": "국가적· 사회적 법익을 침해한 경우라도 그와 동시에 사기죄의 보호법익인 재산권을 침 해하는 것과 동일하게 평가할 수 있고 사기죄의 특별관계에 해당하는 처벌규정 을 별도로 두고 있지 않는 한 사기죄가 성립할 수 있다.",
-          "section_path": "Ⅱ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅲ_7",
-          "quote": "사기죄의 객체는 타인이 점유하는 타인의 재물 또는 재산상의 이익이다.",
-          "section_path": "Ⅲ"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
-          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
-          "section_path": "Ⅳ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
-          "quote": "이미 착오에 빠져 있는 상태를 이용 하는 것도 기망에 해당한다.",
-          "section_path": "Ⅳ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.1_12",
-          "quote": "용도를 속여서 돈을 빌린 경우에 그 진정한 용도를 고지하였더라면 상대방이 대여하여 주지 않았던 관계에 있는 때에는 사 기죄가 성립한다.",
-          "section_path": "Ⅳ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.1_15",
-          "quote": "거래에 있어서 중요한 사항에 관하여 구체적 사실을 거래상의 신의성실의 의무 에 비추어 비난받을 정도의 방법으로 허위로 고지한 경우에는 과장, 허위광고의 한 계를 넘어 사기죄의 기망행위에 해당한다.",
-          "section_path": "Ⅳ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.1_19",
-          "quote": "이는 행위 자의 전체행위가 설명가치를 가질 때 인정되고, 그 설명가치는 거래관행과 사회 통념에 의하여 결정된다.",
-          "section_path": "Ⅳ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.1_37",
-          "quote": "변제할 의 사나 능력이 없는데도 금원을 차용하는 행위는 사기죄에 해당하고",
-          "section_path": "Ⅳ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
-          "quote": "기망당한 사람은 자신의 착오를 인식하지 못해야 한다.",
-          "section_path": "Ⅳ.2"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
-          "quote": "사기죄의 성립을 위해서는 기망행위와 상대 방의 착오 및 재물의 교부 또는 재산상 이익의 공여와의 사이에는 순차적으로 인과관계가 있어야 한다. 이러한 2단계의 구체적 인과관계의 연쇄가 있어야 사기행위가 기수가 될 수 있다.",
-          "section_path": "Ⅳ.2"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
-          "quote": "어느 것 이 맞을까 의심을 하는 경우에도 일단 착오를 일으키면 사기가 성립된다. 또 사실의 부지도 착오에 해당",
-          "section_path": "Ⅳ.2"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
-          "quote": "착오란 사실과 일치하지 않는 인식을 의미한다.",
-          "section_path": "Ⅳ.2"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여 본인 또는 제3자 가 재물을 교부받거나 재산상의 이익을 취득함으로써 성립한다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "사실행위도 처분행위가 될 수 있다. 타인을 기망하여 재물을 방기시켜 이것을 습득한 경우에도 사기죄가 성립한다 고 보아야 한다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "처분행위는 범인 등에 게 재물을 교부하거나 재산상의 이익을 부여하는 재산적 처분행위를 의미하고, 피기망자가 처분의사를 가지고 그 의사에 지배된 행위를 하여야 처분행위가 된다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "처분행위는 직접 재산상의 손해를 초래하는 작위 또는 부작위를 의미한다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "취소할 수 있는 법률행위, 무효인 법 률행위도 처분행위의 성립에 영향이 없다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_51",
-          "quote": "비록 피기망자가 처분 행위의 의미나 내용을 인식하지 못하였더라도, 피기망자의 작위 또는 부작위가 직접 재산상 손해를 초래하는 재산적 처분행위로 평가되고, 이러한 작위 또는 부작위를 피기망자가 인식하고 한 것이라면 처분행위에 상응하는 처분의사는 인정된다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_55",
-          "quote": "재산적 처분행위는 착오에 인한 것이어야 한다. 사기죄는 타인을 기망하여 착오에 빠뜨리고 처분행위를 유발하여 재물을 교부받거나 재산상의 이익을 얻 음으로써 성립하므로, 기망, 착오, 재산적 처분행위 사이에 인과관계가 있어야 한다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
-          "quote": "이 경우 범인에게 타인을 기망하여 재산적 이 득을 취한다는 목적의사가 있어야 하며",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
-          "quote": "피기망자가 착오에 빠진 결과 의식적으로 채권을 행사하 지 않은 경우에는 이러한 부작위도 재산적 처분행위라고 할 수 있지만",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_59",
-          "quote": "피기망자와 재산상의 피해자는 동일인일 필요는 없으나, 피기망자와 처분행위자 는 동일인이어야 한다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
-          "quote": "판례는 사기죄에서 재산상 이익처분은 법률상 유효하게 취득할 것을 필 요로 하지 않고 그 이익 취득이 법률상 무효라고 하여도 외형상 취득하면 족하 다고 판시하고 있어 법률적 재산개념에 한정하지 않고 있고, 경제적 재산개 념에 가깝다고 보인다.",
-          "section_path": "Ⅳ.4"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.4_63",
-          "quote": "재물편취와 불법이득의 모든 경우에 재물의 교부 또는 재산상의 이익 취득 이 있으면 족하고 피해자에게 손해가 발생하였음을 요하지 않는다고 한다.",
-          "section_path": "Ⅳ.4"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
-          "quote": "반드시 재물의 현실의 인도가 필요한 것 은 아니고 재물이 범인의 사실상의 지배 아래에 들어가 그의 자유로운 처분이 가능한 상태에 놓인 경우에도 재물의 교부가 있었다고 보아야 한다.",
-          "section_path": "Ⅳ.5"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
-          "quote": "사기죄에서 ‘재물의 교부’란 범인의 기망에 따라 피해자가 착오로 재물에 대한 사실상의 지배를 범인에게 이전하는 것을 의미한다.",
-          "section_path": "Ⅳ.5"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
-          "quote": "재산상 의 이익에 대한 처분행위로는 계약의 체결, 노무의 제공, 채무면제의 의사표 시 등 이익을 취득하게 하는 일체의 행위가 포함된다.",
-          "section_path": "Ⅳ.5"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.6_69",
-          "quote": "그 정도를 넘어 사회통념상 그러한 수단에 의한 권리행사를 용인할 수 없다고 평가되는 경우에는 그 행위 자체가 위법한 것이 되므로, 권리행사에 속하는 행위도 사기죄에 해당한다는 입장이다.",
-          "section_path": "Ⅳ.6"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅴ.1_74",
-          "quote": "고의에 의한 기망은 단순채무불이행과 사기죄를 구별하는 표준이 된다.",
-          "section_path": "Ⅴ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅶ.2_107",
-          "quote": "편취는 재물의 처분행위에 의하여 재물의 점유를 취득하는 것이므로 재물에 대 하여 피해자의 지배를 배제하고 자기 또는 제3자의 지배를 인정한 때에 기수에 이른다.",
-          "section_path": "Ⅶ.2"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅶ.2_107",
-          "quote": "행위자의 기망행위에 의하여 상대방이 착오에 빠지고 그 착오에 기하여 재산적 처분행위가 이루어지고 그 결과 재물 또는 재산상의 이익의 이전이 이루어진 때에 사기죄는 기수로 된다.",
-          "section_path": "Ⅶ.2"
-        }
-      ]
-    },
-    {
-      "body": [
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "beneficiary_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_object_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "beneficiary_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_deception_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "beneficiary_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_mistake_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "beneficiary_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_disposition_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "beneficiary_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_acquisition_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "beneficiary_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_causal_chain_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
               "value": "beneficiary_id"
             }
           ],
           "negated": false,
           "predicate": "fraud_deceived_disposer_identity_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "beneficiary_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_completion_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "beneficiary_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_intent_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "beneficiary_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_no_separate_loss_gate"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "beneficiary_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_third_party_acquisition_satisfied"
         }
       ],
       "head": {
@@ -48077,203 +47297,18 @@
           }
         ],
         "negated": false,
-        "predicate": "fraud_established"
+        "predicate": "fraud_role_structure_satisfied"
       },
-      "id": "fraud.full.established.ordinary_third_party",
+      "id": "fraud.structure_ordinary.role_structure",
       "norm_card_ids": [
-        "deception.fraud.definition.deception-good-faith-mistake",
-        "deception.fraud.definition.exploitation-existing-mistake",
-        "deception.fraud.element.loan-no-repayment-intent-or-ability",
-        "deception.fraud.standard.advertising-important-concrete-falsehood",
-        "deception.fraud.standard.implicit-deception-explanatory-value",
-        "deception.fraud.standard.loan-purpose-materiality",
-        "fraud_damage_acquisition.delivery_factual_control",
-        "fraud_damage_acquisition.delivery_of_property",
-        "fraud_damage_acquisition.property_concept_reported_precedent",
-        "fraud_damage_acquisition.property_disposition_types",
-        "fraud_damage_acquisition.property_loss_negative_view",
-        "fraud_damage_acquisition.right_exercise_unacceptable_deception",
-        "fraud_intent.contract_breach_distinction",
-        "fraud_intent.third_party_acquisition",
-        "fraud_mistake.conscious_nonexercise",
-        "fraud_mistake.deceived_disposer_identity",
-        "fraud_mistake.disposition_definition",
-        "fraud_mistake.disposition_intent_act_awareness",
-        "fraud_mistake.disposition_omission",
-        "fraud_mistake.error_definition",
-        "fraud_mistake.error_doubt_ignorance",
-        "fraud_mistake.factual_act_disposition",
-        "fraud_mistake.gain_purpose",
-        "fraud_mistake.invalid_act_disposition",
-        "fraud_mistake.property_disposition_element",
-        "fraud_mistake.sequential_causation",
-        "fraud_mistake.unaware_error",
-        "fraud_stages_participation.completion_deception_disposition_transfer",
-        "fraud_stages_participation.property_fraud_completion_control",
-        "general_object.fraud.element.object-other-possessed-other-property",
-        "general_object.fraud.exception.public-interest-property-equivalence"
+        "fraud_mistake.deceived_disposer_identity"
       ],
-      "review_notes": "피기망자와 처분자는 같은 변수다. 일반형은 재산소유자도 같게, 삼각사기는 권능·지위를 추가로 요구하며 제3자 취득은 별도 귀속 기준을 요구한다.",
+      "review_notes": "일반형은 피기망자·처분자·재산소유자에 같은 entity ID를 사용한다.",
       "source_refs": [
-        {
-          "comment_id": "comm_001692_제347조_Ⅱ.3_4",
-          "quote": "국가적· 사회적 법익을 침해한 경우라도 그와 동시에 사기죄의 보호법익인 재산권을 침 해하는 것과 동일하게 평가할 수 있고 사기죄의 특별관계에 해당하는 처벌규정 을 별도로 두고 있지 않는 한 사기죄가 성립할 수 있다.",
-          "section_path": "Ⅱ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅲ_7",
-          "quote": "사기죄의 객체는 타인이 점유하는 타인의 재물 또는 재산상의 이익이다.",
-          "section_path": "Ⅲ"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
-          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
-          "section_path": "Ⅳ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
-          "quote": "이미 착오에 빠져 있는 상태를 이용 하는 것도 기망에 해당한다.",
-          "section_path": "Ⅳ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.1_12",
-          "quote": "용도를 속여서 돈을 빌린 경우에 그 진정한 용도를 고지하였더라면 상대방이 대여하여 주지 않았던 관계에 있는 때에는 사 기죄가 성립한다.",
-          "section_path": "Ⅳ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.1_15",
-          "quote": "거래에 있어서 중요한 사항에 관하여 구체적 사실을 거래상의 신의성실의 의무 에 비추어 비난받을 정도의 방법으로 허위로 고지한 경우에는 과장, 허위광고의 한 계를 넘어 사기죄의 기망행위에 해당한다.",
-          "section_path": "Ⅳ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.1_19",
-          "quote": "이는 행위 자의 전체행위가 설명가치를 가질 때 인정되고, 그 설명가치는 거래관행과 사회 통념에 의하여 결정된다.",
-          "section_path": "Ⅳ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.1_37",
-          "quote": "변제할 의 사나 능력이 없는데도 금원을 차용하는 행위는 사기죄에 해당하고",
-          "section_path": "Ⅳ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
-          "quote": "기망당한 사람은 자신의 착오를 인식하지 못해야 한다.",
-          "section_path": "Ⅳ.2"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
-          "quote": "사기죄의 성립을 위해서는 기망행위와 상대 방의 착오 및 재물의 교부 또는 재산상 이익의 공여와의 사이에는 순차적으로 인과관계가 있어야 한다. 이러한 2단계의 구체적 인과관계의 연쇄가 있어야 사기행위가 기수가 될 수 있다.",
-          "section_path": "Ⅳ.2"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
-          "quote": "어느 것 이 맞을까 의심을 하는 경우에도 일단 착오를 일으키면 사기가 성립된다. 또 사실의 부지도 착오에 해당",
-          "section_path": "Ⅳ.2"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
-          "quote": "착오란 사실과 일치하지 않는 인식을 의미한다.",
-          "section_path": "Ⅳ.2"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여 본인 또는 제3자 가 재물을 교부받거나 재산상의 이익을 취득함으로써 성립한다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "사실행위도 처분행위가 될 수 있다. 타인을 기망하여 재물을 방기시켜 이것을 습득한 경우에도 사기죄가 성립한다 고 보아야 한다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "처분행위는 범인 등에 게 재물을 교부하거나 재산상의 이익을 부여하는 재산적 처분행위를 의미하고, 피기망자가 처분의사를 가지고 그 의사에 지배된 행위를 하여야 처분행위가 된다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "처분행위는 직접 재산상의 손해를 초래하는 작위 또는 부작위를 의미한다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "취소할 수 있는 법률행위, 무효인 법 률행위도 처분행위의 성립에 영향이 없다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_51",
-          "quote": "비록 피기망자가 처분 행위의 의미나 내용을 인식하지 못하였더라도, 피기망자의 작위 또는 부작위가 직접 재산상 손해를 초래하는 재산적 처분행위로 평가되고, 이러한 작위 또는 부작위를 피기망자가 인식하고 한 것이라면 처분행위에 상응하는 처분의사는 인정된다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_55",
-          "quote": "재산적 처분행위는 착오에 인한 것이어야 한다. 사기죄는 타인을 기망하여 착오에 빠뜨리고 처분행위를 유발하여 재물을 교부받거나 재산상의 이익을 얻 음으로써 성립하므로, 기망, 착오, 재산적 처분행위 사이에 인과관계가 있어야 한다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
-          "quote": "이 경우 범인에게 타인을 기망하여 재산적 이 득을 취한다는 목적의사가 있어야 하며",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
-          "quote": "피기망자가 착오에 빠진 결과 의식적으로 채권을 행사하 지 않은 경우에는 이러한 부작위도 재산적 처분행위라고 할 수 있지만",
-          "section_path": "Ⅳ.3"
-        },
         {
           "comment_id": "comm_001692_제347조_Ⅳ.3_59",
           "quote": "피기망자와 재산상의 피해자는 동일인일 필요는 없으나, 피기망자와 처분행위자 는 동일인이어야 한다.",
           "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
-          "quote": "판례는 사기죄에서 재산상 이익처분은 법률상 유효하게 취득할 것을 필 요로 하지 않고 그 이익 취득이 법률상 무효라고 하여도 외형상 취득하면 족하 다고 판시하고 있어 법률적 재산개념에 한정하지 않고 있고, 경제적 재산개 념에 가깝다고 보인다.",
-          "section_path": "Ⅳ.4"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.4_63",
-          "quote": "재물편취와 불법이득의 모든 경우에 재물의 교부 또는 재산상의 이익 취득 이 있으면 족하고 피해자에게 손해가 발생하였음을 요하지 않는다고 한다.",
-          "section_path": "Ⅳ.4"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
-          "quote": "반드시 재물의 현실의 인도가 필요한 것 은 아니고 재물이 범인의 사실상의 지배 아래에 들어가 그의 자유로운 처분이 가능한 상태에 놓인 경우에도 재물의 교부가 있었다고 보아야 한다.",
-          "section_path": "Ⅳ.5"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
-          "quote": "사기죄에서 ‘재물의 교부’란 범인의 기망에 따라 피해자가 착오로 재물에 대한 사실상의 지배를 범인에게 이전하는 것을 의미한다.",
-          "section_path": "Ⅳ.5"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
-          "quote": "재산상 의 이익에 대한 처분행위로는 계약의 체결, 노무의 제공, 채무면제의 의사표 시 등 이익을 취득하게 하는 일체의 행위가 포함된다.",
-          "section_path": "Ⅳ.5"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.6_69",
-          "quote": "그 정도를 넘어 사회통념상 그러한 수단에 의한 권리행사를 용인할 수 없다고 평가되는 경우에는 그 행위 자체가 위법한 것이 되므로, 권리행사에 속하는 행위도 사기죄에 해당한다는 입장이다.",
-          "section_path": "Ⅳ.6"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅴ.1_74",
-          "quote": "고의에 의한 기망은 단순채무불이행과 사기죄를 구별하는 표준이 된다.",
-          "section_path": "Ⅴ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
-          "quote": "범인이 기망행위에 의해 스스로 재물을 취득하지 않고 제3자로 하여금 재물을 교부받게 한 경우에 사기죄가 성립하려면, 그 제3자가 범인과 사이에 정을 모르 는 도구 또는 범인의 이익을 위해 행동하는 대리인의 관계에 있거나, 그렇지 않 다면 적어도 불법영득의사와의 관련상 범인에게 그 제3자로 하여금 재물을 취 득하게 할 의사가 있어야 한다.",
-          "section_path": "Ⅴ.2"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅶ.2_107",
-          "quote": "편취는 재물의 처분행위에 의하여 재물의 점유를 취득하는 것이므로 재물에 대 하여 피해자의 지배를 배제하고 자기 또는 제3자의 지배를 인정한 때에 기수에 이른다.",
-          "section_path": "Ⅶ.2"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅶ.2_107",
-          "quote": "행위자의 기망행위에 의하여 상대방이 착오에 빠지고 그 착오에 기하여 재산적 처분행위가 이루어지고 그 결과 재물 또는 재산상의 이익의 이전이 이루어진 때에 사기죄는 기수로 된다.",
-          "section_path": "Ⅶ.2"
         }
       ]
     },
@@ -48307,211 +47342,7 @@
             },
             {
               "kind": "variable",
-              "value": "defendant_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_object_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "property_owner_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_deception_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "property_owner_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_mistake_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "property_owner_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_disposition_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "property_owner_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_acquisition_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "property_owner_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_causal_chain_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "property_owner_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
+              "value": "beneficiary_id"
             }
           ],
           "negated": false,
@@ -48545,11 +47376,11 @@
             },
             {
               "kind": "variable",
-              "value": "defendant_id"
+              "value": "beneficiary_id"
             }
           ],
           "negated": false,
-          "predicate": "fraud_completion_satisfied"
+          "predicate": "satisfied_fraud_mistake_triangular_fraud_definition"
         },
         {
           "arguments": [
@@ -48579,75 +47410,7 @@
             },
             {
               "kind": "variable",
-              "value": "defendant_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_intent_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "property_owner_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            }
-          ],
-          "negated": false,
-          "predicate": "fraud_no_separate_loss_gate"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "property_owner_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
+              "value": "beneficiary_id"
             }
           ],
           "negated": false,
@@ -48682,165 +47445,20 @@
           },
           {
             "kind": "variable",
-            "value": "defendant_id"
+            "value": "beneficiary_id"
           }
         ],
         "negated": false,
-        "predicate": "fraud_established"
+        "predicate": "fraud_role_structure_satisfied"
       },
-      "id": "fraud.full.established.triangular_self",
+      "id": "fraud.structure_triangular.role_structure",
       "norm_card_ids": [
-        "deception.fraud.definition.deceived-person-victim-distinct",
-        "deception.fraud.definition.deception-good-faith-mistake",
-        "deception.fraud.definition.exploitation-existing-mistake",
-        "deception.fraud.element.loan-no-repayment-intent-or-ability",
-        "deception.fraud.standard.advertising-important-concrete-falsehood",
-        "deception.fraud.standard.implicit-deception-explanatory-value",
-        "deception.fraud.standard.loan-purpose-materiality",
-        "fraud_damage_acquisition.delivery_factual_control",
-        "fraud_damage_acquisition.delivery_of_property",
-        "fraud_damage_acquisition.property_concept_reported_precedent",
-        "fraud_damage_acquisition.property_disposition_types",
-        "fraud_damage_acquisition.property_loss_negative_view",
-        "fraud_damage_acquisition.right_exercise_unacceptable_deception",
-        "fraud_intent.contract_breach_distinction",
-        "fraud_mistake.conscious_nonexercise",
         "fraud_mistake.deceived_disposer_identity",
-        "fraud_mistake.disposition_definition",
-        "fraud_mistake.disposition_intent_act_awareness",
-        "fraud_mistake.disposition_omission",
-        "fraud_mistake.error_definition",
-        "fraud_mistake.error_doubt_ignorance",
-        "fraud_mistake.factual_act_disposition",
-        "fraud_mistake.gain_purpose",
-        "fraud_mistake.invalid_act_disposition",
-        "fraud_mistake.property_disposition_element",
-        "fraud_mistake.sequential_causation",
         "fraud_mistake.triangular_fraud_definition",
-        "fraud_mistake.unaware_error",
-        "fraud_stages_participation.completion_deception_disposition_transfer",
-        "fraud_stages_participation.property_fraud_completion_control",
-        "general_object.fraud.element.object-other-possessed-other-property",
-        "general_object.fraud.exception.public-interest-property-equivalence",
         "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation"
       ],
-      "review_notes": "피기망자와 처분자는 같은 변수다. 일반형은 재산소유자도 같게, 삼각사기는 권능·지위를 추가로 요구하며 제3자 취득은 별도 귀속 기준을 요구한다.",
+      "review_notes": "삼각사기는 피기망자=처분자를 유지하면서 별도 재산소유자와 그 재산을 처분할 권능 또는 지위를 요구한다.",
       "source_refs": [
-        {
-          "comment_id": "comm_001692_제347조_Ⅱ.3_4",
-          "quote": "국가적· 사회적 법익을 침해한 경우라도 그와 동시에 사기죄의 보호법익인 재산권을 침 해하는 것과 동일하게 평가할 수 있고 사기죄의 특별관계에 해당하는 처벌규정 을 별도로 두고 있지 않는 한 사기죄가 성립할 수 있다.",
-          "section_path": "Ⅱ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅲ_7",
-          "quote": "사기죄의 객체는 타인이 점유하는 타인의 재물 또는 재산상의 이익이다.",
-          "section_path": "Ⅲ"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
-          "quote": "기망이란 널리 거래관계에서 지켜야 할 신의칙에 반하는 행위로서 사람으로 하 여금 착오를 일으키게 하는 것을 말한다.",
-          "section_path": "Ⅳ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
-          "quote": "이미 착오에 빠져 있는 상태를 이용 하는 것도 기망에 해당한다.",
-          "section_path": "Ⅳ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.1_12",
-          "quote": "용도를 속여서 돈을 빌린 경우에 그 진정한 용도를 고지하였더라면 상대방이 대여하여 주지 않았던 관계에 있는 때에는 사 기죄가 성립한다.",
-          "section_path": "Ⅳ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.1_15",
-          "quote": "거래에 있어서 중요한 사항에 관하여 구체적 사실을 거래상의 신의성실의 의무 에 비추어 비난받을 정도의 방법으로 허위로 고지한 경우에는 과장, 허위광고의 한 계를 넘어 사기죄의 기망행위에 해당한다.",
-          "section_path": "Ⅳ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.1_19",
-          "quote": "이는 행위 자의 전체행위가 설명가치를 가질 때 인정되고, 그 설명가치는 거래관행과 사회 통념에 의하여 결정된다.",
-          "section_path": "Ⅳ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.1_37",
-          "quote": "변제할 의 사나 능력이 없는데도 금원을 차용하는 행위는 사기죄에 해당하고",
-          "section_path": "Ⅳ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.1_45",
-          "quote": "행위의 객체와 보호의 객체는 별개이므로, 기망의 상대방과 재산상의 피해자",
-          "section_path": "Ⅳ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.1_46",
-          "quote": "는 동일인일 것을 요하지 않는다.",
-          "section_path": "Ⅳ.1"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
-          "quote": "기망당한 사람은 자신의 착오를 인식하지 못해야 한다.",
-          "section_path": "Ⅳ.2"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
-          "quote": "사기죄의 성립을 위해서는 기망행위와 상대 방의 착오 및 재물의 교부 또는 재산상 이익의 공여와의 사이에는 순차적으로 인과관계가 있어야 한다. 이러한 2단계의 구체적 인과관계의 연쇄가 있어야 사기행위가 기수가 될 수 있다.",
-          "section_path": "Ⅳ.2"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
-          "quote": "어느 것 이 맞을까 의심을 하는 경우에도 일단 착오를 일으키면 사기가 성립된다. 또 사실의 부지도 착오에 해당",
-          "section_path": "Ⅳ.2"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
-          "quote": "착오란 사실과 일치하지 않는 인식을 의미한다.",
-          "section_path": "Ⅳ.2"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "사기죄는 피기망자의 착오에 기한 재산적 처분행위에 의하여 본인 또는 제3자 가 재물을 교부받거나 재산상의 이익을 취득함으로써 성립한다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "사실행위도 처분행위가 될 수 있다. 타인을 기망하여 재물을 방기시켜 이것을 습득한 경우에도 사기죄가 성립한다 고 보아야 한다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "처분행위는 범인 등에 게 재물을 교부하거나 재산상의 이익을 부여하는 재산적 처분행위를 의미하고, 피기망자가 처분의사를 가지고 그 의사에 지배된 행위를 하여야 처분행위가 된다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "처분행위는 직접 재산상의 손해를 초래하는 작위 또는 부작위를 의미한다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_49",
-          "quote": "취소할 수 있는 법률행위, 무효인 법 률행위도 처분행위의 성립에 영향이 없다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_51",
-          "quote": "비록 피기망자가 처분 행위의 의미나 내용을 인식하지 못하였더라도, 피기망자의 작위 또는 부작위가 직접 재산상 손해를 초래하는 재산적 처분행위로 평가되고, 이러한 작위 또는 부작위를 피기망자가 인식하고 한 것이라면 처분행위에 상응하는 처분의사는 인정된다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_55",
-          "quote": "재산적 처분행위는 착오에 인한 것이어야 한다. 사기죄는 타인을 기망하여 착오에 빠뜨리고 처분행위를 유발하여 재물을 교부받거나 재산상의 이익을 얻 음으로써 성립하므로, 기망, 착오, 재산적 처분행위 사이에 인과관계가 있어야 한다.",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
-          "quote": "이 경우 범인에게 타인을 기망하여 재산적 이 득을 취한다는 목적의사가 있어야 하며",
-          "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
-          "quote": "피기망자가 착오에 빠진 결과 의식적으로 채권을 행사하 지 않은 경우에는 이러한 부작위도 재산적 처분행위라고 할 수 있지만",
-          "section_path": "Ⅳ.3"
-        },
         {
           "comment_id": "comm_001692_제347조_Ⅳ.3_57",
           "quote": "피기망자와 재산상의 피해자는 동일인임을 요하지 않으므로, 피해자와 처분행위 자도 동일인일 필요는 없다. 양자가 상이한 경우를 삼각사기라고 (Dreiecksbetrug) 한다.",
@@ -48855,51 +47473,180 @@
           "comment_id": "comm_001692_제347조_Ⅳ.3_59",
           "quote": "피기망자와 재산상의 피해자는 동일인일 필요는 없으나, 피기망자와 처분행위자 는 동일인이어야 한다.",
           "section_path": "Ⅳ.3"
-        },
+        }
+      ]
+    },
+    {
+      "body": [
         {
-          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
-          "quote": "판례는 사기죄에서 재산상 이익처분은 법률상 유효하게 취득할 것을 필 요로 하지 않고 그 이익 취득이 법률상 무효라고 하여도 외형상 취득하면 족하 다고 판시하고 있어 법률적 재산개념에 한정하지 않고 있고, 경제적 재산개 념에 가깝다고 보인다.",
-          "section_path": "Ⅳ.4"
-        },
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "subject_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "fraud_intent_satisfied"
+        }
+      ],
+      "head": {
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "deceived_person_id"
+          },
+          {
+            "kind": "variable",
+            "value": "deceived_person_id"
+          },
+          {
+            "kind": "variable",
+            "value": "property_owner_id"
+          },
+          {
+            "kind": "variable",
+            "value": "subject_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          }
+        ],
+        "negated": false,
+        "predicate": "fraud_beneficiary_attribution_satisfied"
+      },
+      "id": "fraud.structure_self_acquisition.beneficiary_attribution",
+      "norm_card_ids": [
+        "fraud_intent.contract_breach_distinction",
+        "fraud_mistake.gain_purpose"
+      ],
+      "review_notes": "피고인과 수익자에 같은 entity ID를 쓰는 본인취득 경로다.",
+      "source_refs": [
         {
-          "comment_id": "comm_001692_제347조_Ⅳ.4_63",
-          "quote": "재물편취와 불법이득의 모든 경우에 재물의 교부 또는 재산상의 이익 취득 이 있으면 족하고 피해자에게 손해가 발생하였음을 요하지 않는다고 한다.",
-          "section_path": "Ⅳ.4"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
-          "quote": "반드시 재물의 현실의 인도가 필요한 것 은 아니고 재물이 범인의 사실상의 지배 아래에 들어가 그의 자유로운 처분이 가능한 상태에 놓인 경우에도 재물의 교부가 있었다고 보아야 한다.",
-          "section_path": "Ⅳ.5"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
-          "quote": "사기죄에서 ‘재물의 교부’란 범인의 기망에 따라 피해자가 착오로 재물에 대한 사실상의 지배를 범인에게 이전하는 것을 의미한다.",
-          "section_path": "Ⅳ.5"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.5_66",
-          "quote": "재산상 의 이익에 대한 처분행위로는 계약의 체결, 노무의 제공, 채무면제의 의사표 시 등 이익을 취득하게 하는 일체의 행위가 포함된다.",
-          "section_path": "Ⅳ.5"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅳ.6_69",
-          "quote": "그 정도를 넘어 사회통념상 그러한 수단에 의한 권리행사를 용인할 수 없다고 평가되는 경우에는 그 행위 자체가 위법한 것이 되므로, 권리행사에 속하는 행위도 사기죄에 해당한다는 입장이다.",
-          "section_path": "Ⅳ.6"
+          "comment_id": "comm_001692_제347조_Ⅳ.3_56",
+          "quote": "이 경우 범인에게 타인을 기망하여 재산적 이 득을 취한다는 목적의사가 있어야 하며",
+          "section_path": "Ⅳ.3"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_74",
           "quote": "고의에 의한 기망은 단순채무불이행과 사기죄를 구별하는 표준이 된다.",
           "section_path": "Ⅴ.1"
-        },
+        }
+      ]
+    },
+    {
+      "body": [
         {
-          "comment_id": "comm_001692_제347조_Ⅶ.2_107",
-          "quote": "편취는 재물의 처분행위에 의하여 재물의 점유를 취득하는 것이므로 재물에 대 하여 피해자의 지배를 배제하고 자기 또는 제3자의 지배를 인정한 때에 기수에 이른다.",
-          "section_path": "Ⅶ.2"
-        },
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "subject_id"
+            },
+            {
+              "kind": "variable",
+              "value": "beneficiary_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "fraud_third_party_acquisition_satisfied"
+        }
+      ],
+      "head": {
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "deceived_person_id"
+          },
+          {
+            "kind": "variable",
+            "value": "deceived_person_id"
+          },
+          {
+            "kind": "variable",
+            "value": "property_owner_id"
+          },
+          {
+            "kind": "variable",
+            "value": "subject_id"
+          },
+          {
+            "kind": "variable",
+            "value": "beneficiary_id"
+          }
+        ],
+        "negated": false,
+        "predicate": "fraud_beneficiary_attribution_satisfied"
+      },
+      "id": "fraud.structure_third_party_acquisition.beneficiary_attribution",
+      "norm_card_ids": [
+        "fraud_intent.third_party_acquisition"
+      ],
+      "review_notes": "제3자취득은 도구·대리 관계 또는 제3자 취득 의사를 별도 귀속 gate로 요구한다.",
+      "source_refs": [
         {
-          "comment_id": "comm_001692_제347조_Ⅶ.2_107",
-          "quote": "행위자의 기망행위에 의하여 상대방이 착오에 빠지고 그 착오에 기하여 재산적 처분행위가 이루어지고 그 결과 재물 또는 재산상의 이익의 이전이 이루어진 때에 사기죄는 기수로 된다.",
-          "section_path": "Ⅶ.2"
+          "comment_id": "comm_001692_제347조_Ⅴ.2_82",
+          "quote": "범인이 기망행위에 의해 스스로 재물을 취득하지 않고 제3자로 하여금 재물을 교부받게 한 경우에 사기죄가 성립하려면, 그 제3자가 범인과 사이에 정을 모르 는 도구 또는 범인의 이익을 위해 행동하는 대리인의 관계에 있거나, 그렇지 않 다면 적어도 불법영득의사와의 관련상 범인에게 그 제3자로 하여금 재물을 취 득하게 할 의사가 있어야 한다.",
+          "section_path": "Ⅴ.2"
         }
       ]
     },
@@ -49141,40 +47888,6 @@
             }
           ],
           "negated": false,
-          "predicate": "fraud_deceived_disposer_identity_satisfied"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "property_owner_id"
-            },
-            {
-              "kind": "variable",
-              "value": "subject_id"
-            },
-            {
-              "kind": "variable",
-              "value": "beneficiary_id"
-            }
-          ],
-          "negated": false,
           "predicate": "fraud_completion_satisfied"
         },
         {
@@ -49277,7 +47990,7 @@
             }
           ],
           "negated": false,
-          "predicate": "fraud_triangular_authority_satisfied"
+          "predicate": "fraud_role_structure_satisfied"
         },
         {
           "arguments": [
@@ -49311,7 +48024,7 @@
             }
           ],
           "negated": false,
-          "predicate": "fraud_third_party_acquisition_satisfied"
+          "predicate": "fraud_beneficiary_attribution_satisfied"
         }
       ],
       "head": {
@@ -49348,7 +48061,7 @@
         "negated": false,
         "predicate": "fraud_established"
       },
-      "id": "fraud.full.established.triangular_third_party",
+      "id": "fraud.core.outcome.established",
       "norm_card_ids": [
         "deception.fraud.definition.deceived-person-victim-distinct",
         "deception.fraud.definition.deception-good-faith-mistake",
@@ -49385,7 +48098,7 @@
         "general_object.fraud.exception.public-interest-property-equivalence",
         "mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation"
       ],
-      "review_notes": "피기망자와 처분자는 같은 변수다. 일반형은 재산소유자도 같게, 삼각사기는 권능·지위를 추가로 요구하며 제3자 취득은 별도 귀속 기준을 요구한다.",
+      "review_notes": "공통 core는 세부 사기유형을 직접 분기하지 않는다. profile과 adapter가 채운 canonical component, 역할 구조 및 수익 귀속 interface만 AND 결합한다.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅱ.3_4",
@@ -49642,7 +48355,7 @@
         "negated": false,
         "predicate": "fraud_conflict"
       },
-      "id": "fraud.full.conflict.established_and_not_established",
+      "id": "fraud.core.outcome.conflict.established_and_not_established",
       "norm_card_ids": [
         "deception.fraud.causal-link.deception-property-disposition",
         "deception.fraud.causal-link.loan-purpose-not-sole-trigger",

@@ -35,6 +35,7 @@ from scripts.run_fraud_full_rule_ir_generation import (
     review_gate as full_rule_ir_review_gate,
 )
 from scripts.build_fraud_full_rule_ir_candidate import (
+    build_module_ownership as build_fraud_module_ownership,
     build_rule_ir as build_full_fraud_rule_ir,
 )
 
@@ -141,6 +142,9 @@ FULL_RULE_IR_PREP_QUEUE = (
 FULL_RULE_IR_CANDIDATE = (
     PROJECT_ROOT
     / "data/rulegen/fraud/fraud_full_rule_ir_candidate_unreviewed.json"
+)
+FULL_RULE_IR_MODULE_OWNERSHIP = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_rule_ir_module_ownership.json"
 )
 FULL_RULE_IR_EXPLANATION = (
     PROJECT_ROOT
@@ -1467,8 +1471,8 @@ def test_agent_reconstructed_full_fraud_rule_ir_is_complete_and_deterministic() 
     validate_full_rule_ir_generation(candidate, commentary, aggregate)
     assert build_full_fraud_rule_ir(aggregate) == candidate
     assert len(candidate["norm_card_scope"]["card_ids"]) == 88
-    assert len(candidate["predicates"]) == 194
-    assert len(candidate["rules"]) == 337
+    assert len(candidate["predicates"]) == 196
+    assert len(candidate["rules"]) == 338
 
     commentary_inputs = [
         predicate
@@ -1487,51 +1491,85 @@ def test_agent_reconstructed_full_fraud_rule_ir_is_complete_and_deterministic() 
     } == {card["id"] for card in aggregate["cards"]}
 
 
-def test_full_fraud_rule_ir_preserves_actor_identity_and_four_branches() -> None:
+def test_full_fraud_rule_ir_uses_canonical_role_and_beneficiary_adapters() -> None:
     candidate = json.loads(FULL_RULE_IR_CANDIDATE.read_text(encoding="utf-8"))
-    branches = [
+    established_rules = [
         rule
         for rule in candidate["rules"]
         if rule["head"]["predicate"] == "fraud_established"
     ]
-    assert {rule["id"] for rule in branches} == {
-        "fraud.full.established.ordinary_self",
-        "fraud.full.established.ordinary_third_party",
-        "fraud.full.established.triangular_self",
-        "fraud.full.established.triangular_third_party",
+    assert [rule["id"] for rule in established_rules] == [
+        "fraud.core.outcome.established"
+    ]
+    established = established_rules[0]
+    assert established["head"]["arguments"][2] == established["head"]["arguments"][3]
+    final_interfaces = {atom["predicate"] for atom in established["body"]}
+    assert final_interfaces == {
+        "fraud_object_satisfied",
+        "fraud_deception_satisfied",
+        "fraud_mistake_satisfied",
+        "fraud_disposition_satisfied",
+        "fraud_acquisition_satisfied",
+        "fraud_causal_chain_satisfied",
+        "fraud_completion_satisfied",
+        "fraud_intent_satisfied",
+        "fraud_no_separate_loss_gate",
+        "fraud_role_structure_satisfied",
+        "fraud_beneficiary_attribution_satisfied",
     }
-    for branch in branches:
-        arguments = branch["head"]["arguments"]
-        assert arguments[2] == arguments[3]
+    assert not {
+        "fraud_triangular_authority_satisfied",
+        "fraud_third_party_acquisition_satisfied",
+    } & final_interfaces
 
-    by_id = {rule["id"]: rule for rule in branches}
-    assert by_id["fraud.full.established.ordinary_self"]["head"]["arguments"][
-        2
-    ] == by_id["fraud.full.established.ordinary_self"]["head"]["arguments"][4]
-    assert by_id["fraud.full.established.ordinary_self"]["head"]["arguments"][
-        1
-    ] == by_id["fraud.full.established.ordinary_self"]["head"]["arguments"][6]
+    by_id = {rule["id"]: rule for rule in candidate["rules"]}
+    ordinary = by_id["fraud.structure_ordinary.role_structure"]
+    assert ordinary["head"]["arguments"][2] == ordinary["head"]["arguments"][3]
+    assert ordinary["head"]["arguments"][2] == ordinary["head"]["arguments"][4]
 
-    triangular = [
-        branch for branch in branches if ".triangular_" in branch["id"]
+    triangular = by_id["fraud.structure_triangular.role_structure"]
+    assert {
+        atom["predicate"] for atom in triangular["body"]
+    } >= {
+        "fraud_deceived_disposer_identity_satisfied",
+        "satisfied_fraud_mistake_triangular_fraud_definition",
+        "fraud_triangular_authority_satisfied",
+    }
+
+    self_acquisition = by_id[
+        "fraud.structure_self_acquisition.beneficiary_attribution"
     ]
-    assert all(
-        any(
-            atom["predicate"] == "fraud_triangular_authority_satisfied"
-            for atom in branch["body"]
-        )
-        for branch in triangular
-    )
-    third_party = [
-        branch for branch in branches if branch["id"].endswith("third_party")
+    assert self_acquisition["head"]["arguments"][1] == self_acquisition["head"][
+        "arguments"
+    ][6]
+    third_party = by_id[
+        "fraud.structure_third_party_acquisition.beneficiary_attribution"
     ]
-    assert all(
-        any(
-            atom["predicate"] == "fraud_third_party_acquisition_satisfied"
-            for atom in branch["body"]
-        )
-        for branch in third_party
+    assert any(
+        atom["predicate"] == "fraud_third_party_acquisition_satisfied"
+        for atom in third_party["body"]
     )
+
+
+def test_full_fraud_rule_ir_module_ownership_is_exhaustive_and_exclusive() -> None:
+    aggregate = json.loads(CORE_NORM_CARD_SET.read_text(encoding="utf-8"))
+    tracked = json.loads(
+        FULL_RULE_IR_MODULE_OWNERSHIP.read_text(encoding="utf-8")
+    )
+    expected = build_fraud_module_ownership(aggregate)
+    assert tracked == expected
+    assert tracked["coverage"] == {
+        "expected_cards": 88,
+        "owned_cards": 88,
+        "duplicate_cards": 0,
+        "missing_cards": 0,
+    }
+    assert len(tracked["modules"]) == 15
+    loan = next(
+        module for module in tracked["modules"] if module["module_id"] == "profile.loan"
+    )
+    assert loan["card_count"] == 6
+    assert all("loan" in card_id for card_id in loan["card_ids"])
 
 
 def test_full_fraud_rule_ir_preserves_nonbars_and_top_level_conflict() -> None:
@@ -1539,12 +1577,12 @@ def test_full_fraud_rule_ir_preserves_nonbars_and_top_level_conflict() -> None:
     bar_card_ids = {
         rule["norm_card_ids"][0]
         for rule in candidate["rules"]
-        if rule["id"].startswith("fraud.full.bar.")
+        if ".bar." in rule["id"]
     }
     assert "fraud_damage_acquisition.property_loss_negative_view" not in bar_card_ids
     assert "general_object.fraud.standard.later-cancellation-no-effect" not in bar_card_ids
     assert any(
-        rule["id"] == "fraud.full.conflict.established_and_not_established"
+        rule["id"] == "fraud.core.outcome.conflict.established_and_not_established"
         for rule in candidate["rules"]
     )
     assert not any(
