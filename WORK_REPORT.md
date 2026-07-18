@@ -1041,3 +1041,29 @@ JSON 산출물은 기계 재현용으로만 유지한다. 사용자 검토용
 - 신규 compile/runtime/host-validation 테스트: `5 passed`
 - 전체 테스트: `68 passed`
 - 추가 API 호출: 0
+
+---
+
+## 사기죄 IRACPlan 장문생성 6방법 실제 비교
+
+작성일: 2026-07-18
+
+같은 KCL 사기죄 사례에 대해 직접생성, RAG, FactGraph+RAG,
+FactGraph+Scallop, IRACPlan, ClaimGraph 검증·부분재생성의 6개 방법을 실제 로컬
+Gemma4-vLLM Slurm 실험으로 완료했다. 최종 job `210075`는 `COMPLETED 0:0`, 총 6분
+18초였다. 모델에는 KCL rubric을 제공하지 않았고, 모든 방법은 prefix cache 없이 독립적으로
+필요 neural stage를 다시 실행했다.
+
+warm E2E latency는 방법 순서대로 4.952, 7.038, 16.879, 41.767, 47.250, 124.561초다.
+RAG는 0.03~0.04초, IRACPlan 컴파일은 약 0.004초, Scallop은 약 4.46초였으며 나머지
+대부분은 모델 호출이었다.
+
+RAG-only 답안은 본문에서 사기죄 성립이라고 쓰면서 구조화 overall은 `undetermined`로 내적
+불일치를 보였다. IRACPlan 답안은 5개 쟁점을 모두 커버했지만 ID 오기와 필수 카드 누락
+4개가 있었다. ClaimGraph는 객체·역할 및 고의 두 단락에서 6개 위반을 찾았고 그 두 단락만
+재생성했다. 나머지 3단락의 해시를 보존한 채 최종 위반 0개로 끝났다.
+
+사람용 전체 matrix, 답안별 질적 평가, KCL rubric 사후대조, 시행착오와 한계는
+`docs/research/fraud_irac_matrix_human_report.md`에 기록했다. 기계 보고서는
+`data/e2e/fraud/irac_matrix/fraud_irac_matrix_report.json`, 실제 6개 답안은 같은
+디렉터리의 `m*_answer.md`에 있다.

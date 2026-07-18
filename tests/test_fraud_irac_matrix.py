@@ -14,6 +14,7 @@ from idpr.generation import (
     build_fraud_rag_packet,
     build_fraud_rag_queries,
     normalize_claim_graph,
+    render_long_form_markdown,
     validate_claim_graph,
     validate_fraud_irac_plan,
     validate_fraud_rag_packet,
@@ -416,3 +417,16 @@ def test_answer_contract_error_is_a_section_quality_violation() -> None:
     )
     assert violations[0]["code"] == "answer_contract_violation"
     assert violations[0]["section_id"] == "irac_object_roles"
+
+
+def test_human_markdown_hides_internal_ids_but_keeps_legal_parentheticals() -> None:
+    plan, _, _, _, _ = compiled_plan()
+    answer = valid_answer(plan)
+    answer["sections"][0]["body"] = (
+        "객체가 인정된다(fact_113, comm_001692_제347조_Ⅲ_7). "
+        "착오(동기의 착오)도 포함된다."
+    )
+    markdown = render_long_form_markdown(answer)
+    assert "fact_113" not in markdown
+    assert "comm_001692" not in markdown
+    assert "착오(동기의 착오)" in markdown

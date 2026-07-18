@@ -1,0 +1,551 @@
+{
+  "case": {
+    "case_id": "kcl_r14_p1_q2_eul_fraud",
+    "rubric_supplied_to_model": false,
+    "source_sub_question_id": "kcl_criminal_r14_p1_q2"
+  },
+  "created_at": "2026-07-18T15:07:20.667398+00:00",
+  "experiment": {
+    "independent_methods": true,
+    "method_order": [
+      "m1_direct",
+      "m2_rag",
+      "m3_factgraph_rag",
+      "m4_factgraph_scallop",
+      "m5_irac_plan",
+      "m6_claim_verified"
+    ],
+    "model": "idpr-gemma-4-26b-a4b",
+    "prefix_caching_required_disabled": true,
+    "schema_warmup": {
+      "claim_graph": {
+        "finish_reason": "stop",
+        "id": "chatcmpl-9c5e241d5d27e6da",
+        "latency_seconds": 0.8935148490127176,
+        "model": "idpr-gemma-4-26b-a4b",
+        "schema_valid": true,
+        "usage": {
+          "completion_tokens": 127,
+          "prompt_tokens": 201,
+          "prompt_tokens_details": null,
+          "total_tokens": 328
+        }
+      },
+      "fraud_assessment_bundle": {
+        "finish_reason": "stop",
+        "id": "chatcmpl-9f9b44b6a3364026",
+        "latency_seconds": 0.6853035441599786,
+        "model": "idpr-gemma-4-26b-a4b",
+        "schema_valid": true,
+        "usage": {
+          "completion_tokens": 89,
+          "prompt_tokens": 156,
+          "prompt_tokens_details": null,
+          "total_tokens": 245
+        }
+      },
+      "fraud_fact_graph": {
+        "finish_reason": "stop",
+        "id": "chatcmpl-8b34a8d2f3732d35",
+        "latency_seconds": 5.580257508903742,
+        "model": "idpr-gemma-4-26b-a4b",
+        "schema_valid": true,
+        "usage": {
+          "completion_tokens": 159,
+          "prompt_tokens": 247,
+          "prompt_tokens_details": null,
+          "total_tokens": 406
+        }
+      },
+      "long_form_answer": {
+        "finish_reason": "stop",
+        "id": "chatcmpl-83ce9f038a7265ed",
+        "latency_seconds": 0.7056333271320909,
+        "model": "idpr-gemma-4-26b-a4b",
+        "schema_valid": true,
+        "usage": {
+          "completion_tokens": 98,
+          "prompt_tokens": 165,
+          "prompt_tokens_details": null,
+          "total_tokens": 263
+        }
+      },
+      "section_patch_bundle": {
+        "finish_reason": "stop",
+        "id": "chatcmpl-8a85c269332e0d9f",
+        "latency_seconds": 0.5850820888299495,
+        "model": "idpr-gemma-4-26b-a4b",
+        "schema_valid": true,
+        "usage": {
+          "completion_tokens": 81,
+          "prompt_tokens": 142,
+          "prompt_tokens_details": null,
+          "total_tokens": 223
+        }
+      }
+    },
+    "warm_latency_definition": "wall time from method input to final answer after all structured schemas were prewarmed; model server startup and schema warmup excluded"
+  },
+  "methods": [
+    {
+      "answer": {
+        "body_characters": 641,
+        "cited_authority_count": 0,
+        "cited_card_count": 0,
+        "cited_fact_count": 3,
+        "json_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/irac_matrix/m1_direct_answer.json",
+        "markdown_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/irac_matrix/m1_direct_answer.md",
+        "overall_conclusion": "established",
+        "section_count": 4,
+        "sha256": "954873b795a1ced661a55f48e31b7a1ded59fc6e9d6a5bd626463a4d9c814bd7"
+      },
+      "answer_validation_violations": [],
+      "claim_verification": null,
+      "host_stages_seconds": {},
+      "method_id": "m1_direct",
+      "model_call_count": 1,
+      "model_completion_tokens": 714,
+      "model_prompt_tokens": 907,
+      "model_stages": {
+        "answer": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-b6240821b027a2fd",
+          "latency_seconds": 4.950487887021154,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 714,
+            "prompt_tokens": 907,
+            "prompt_tokens_details": null,
+            "total_tokens": 1621
+          }
+        }
+      },
+      "status": "completed",
+      "warm_latency_seconds": 4.9521401261445135
+    },
+    {
+      "answer": {
+        "body_characters": 795,
+        "cited_authority_count": 2,
+        "cited_card_count": 2,
+        "cited_fact_count": 2,
+        "json_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/irac_matrix/m2_rag_answer.json",
+        "markdown_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/irac_matrix/m2_rag_answer.md",
+        "overall_conclusion": "undetermined",
+        "section_count": 4,
+        "sha256": "cdb9adf457daf46e66a3d37019b4833f5aec5c8aec29df0cc757ca7ce81e6272"
+      },
+      "answer_validation_violations": [],
+      "claim_verification": null,
+      "host_stages_seconds": {
+        "rag_retrieval": 0.04161378904245794
+      },
+      "method_id": "m2_rag",
+      "model_call_count": 1,
+      "model_completion_tokens": 864,
+      "model_prompt_tokens": 7621,
+      "model_stages": {
+        "answer": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-b2a5a81d91aa3627",
+          "latency_seconds": 6.994521997869015,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 864,
+            "prompt_tokens": 7621,
+            "prompt_tokens_details": null,
+            "total_tokens": 8485
+          }
+        }
+      },
+      "status": "completed",
+      "warm_latency_seconds": 7.038478723959997
+    },
+    {
+      "answer": {
+        "body_characters": 955,
+        "cited_authority_count": 5,
+        "cited_card_count": 1,
+        "cited_fact_count": 7,
+        "json_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/irac_matrix/m3_factgraph_rag_answer.json",
+        "markdown_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/irac_matrix/m3_factgraph_rag_answer.md",
+        "overall_conclusion": "established",
+        "section_count": 4,
+        "sha256": "56c10c8eb852ade59ee7970dea3a672d3d413a4ec16f7101746b34629b5e67cb"
+      },
+      "answer_validation_violations": [],
+      "claim_verification": null,
+      "host_stages_seconds": {
+        "rag_retrieval": 0.03143554809503257
+      },
+      "method_id": "m3_factgraph_rag",
+      "model_call_count": 2,
+      "model_completion_tokens": 2205,
+      "model_prompt_tokens": 10594,
+      "model_stages": {
+        "answer": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-a42734848c48ab0e",
+          "latency_seconds": 9.388985781930387,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 1129,
+            "prompt_tokens": 9602,
+            "prompt_tokens_details": null,
+            "total_tokens": 10731
+          }
+        },
+        "fact_graph": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-857258e85ca46ccc",
+          "latency_seconds": 7.441637711133808,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 1076,
+            "prompt_tokens": 992,
+            "prompt_tokens_details": null,
+            "total_tokens": 2068
+          }
+        }
+      },
+      "status": "completed",
+      "warm_latency_seconds": 16.879061716143042
+    },
+    {
+      "answer": {
+        "body_characters": 1666,
+        "cited_authority_count": 13,
+        "cited_card_count": 14,
+        "cited_fact_count": 5,
+        "json_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/irac_matrix/m4_factgraph_scallop_answer.json",
+        "markdown_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/irac_matrix/m4_factgraph_scallop_answer.md",
+        "overall_conclusion": "established",
+        "section_count": 5,
+        "sha256": "a0920a741c67b21b476494e34ad4d9644bbaf83282bca0222850f3e4ad84b50f"
+      },
+      "answer_validation_violations": [],
+      "claim_verification": null,
+      "host_stages_seconds": {
+        "scallop": 4.471395516069606
+      },
+      "method_id": "m4_factgraph_scallop",
+      "model_call_count": 3,
+      "model_completion_tokens": 5003,
+      "model_prompt_tokens": 12461,
+      "model_stages": {
+        "answer": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-94c4cd72070e55d4",
+          "latency_seconds": 15.293142985086888,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 1955,
+            "prompt_tokens": 7179,
+            "prompt_tokens_details": null,
+            "total_tokens": 9134
+          }
+        },
+        "assessment_bundle": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-94278f9931e1992e",
+          "latency_seconds": 14.550742767984048,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 1972,
+            "prompt_tokens": 4290,
+            "prompt_tokens_details": null,
+            "total_tokens": 6262
+          }
+        },
+        "fact_graph": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-9949a2c44300d508",
+          "latency_seconds": 7.432209815829992,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 1076,
+            "prompt_tokens": 992,
+            "prompt_tokens_details": null,
+            "total_tokens": 2068
+          }
+        }
+      },
+      "status": "completed",
+      "warm_latency_seconds": 41.76695327390917
+    },
+    {
+      "answer": {
+        "body_characters": 2258,
+        "cited_authority_count": 13,
+        "cited_card_count": 12,
+        "cited_fact_count": 11,
+        "json_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/irac_matrix/m5_irac_plan_answer.json",
+        "markdown_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/irac_matrix/m5_irac_plan_answer.md",
+        "overall_conclusion": "established",
+        "section_count": 5,
+        "sha256": "09986bedfaec1c1749f40c81a6f7a752e0c1126349bc62767a48619bf4967939"
+      },
+      "answer_validation_violations": [
+        {
+          "code": "answer_contract_violation",
+          "message": "sections[0].cited_card_ids contains unavailable IDs: ['general.fraud.element.object-other-possessed-other-property']",
+          "section_id": "irac_object_roles"
+        },
+        {
+          "code": "answer_contract_violation",
+          "message": "sections[0].cited_authority_comment_ids contains unavailable IDs: ['comm_001692_제347조_Ⅳ.3_59]', 'conclusion_status_satisfied']",
+          "section_id": "irac_object_roles"
+        },
+        {
+          "code": "missing_required_card_metadata",
+          "message": "missing cards ['general_object.fraud.element.object-other-possessed-other-property']",
+          "section_id": "irac_object_roles"
+        },
+        {
+          "code": "missing_required_card_metadata",
+          "message": "missing cards ['fraud_intent.no_disposition_inducement_intent']",
+          "section_id": "irac_intent"
+        }
+      ],
+      "claim_verification": null,
+      "host_stages_seconds": {
+        "irac_plan_compile": 0.004063714994117618,
+        "scallop": 4.473227221984416
+      },
+      "method_id": "m5_irac_plan",
+      "model_call_count": 3,
+      "model_completion_tokens": 5484,
+      "model_prompt_tokens": 19375,
+      "model_stages": {
+        "answer": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-8ec8ba28b3177126",
+          "latency_seconds": 20.79279062594287,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 2436,
+            "prompt_tokens": 14093,
+            "prompt_tokens_details": null,
+            "total_tokens": 16529
+          }
+        },
+        "assessment_bundle": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-81eee43caa742b51",
+          "latency_seconds": 14.538393106078729,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 1972,
+            "prompt_tokens": 4290,
+            "prompt_tokens_details": null,
+            "total_tokens": 6262
+          }
+        },
+        "fact_graph": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-b08fbf2c9aeab79c",
+          "latency_seconds": 7.427503501996398,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 1076,
+            "prompt_tokens": 992,
+            "prompt_tokens_details": null,
+            "total_tokens": 2068
+          }
+        }
+      },
+      "status": "completed_with_violations",
+      "warm_latency_seconds": 47.24961365899071
+    },
+    {
+      "answer": {
+        "body_characters": 2504,
+        "cited_authority_count": 12,
+        "cited_card_count": 13,
+        "cited_fact_count": 11,
+        "json_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/irac_matrix/m6_claim_verified_answer.json",
+        "markdown_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/irac_matrix/m6_claim_verified_answer.md",
+        "overall_conclusion": "established",
+        "section_count": 5,
+        "sha256": "c8ca2b83dea3937fd72e367da1e49394a7c5752ac746070387b1423c04ae6be3"
+      },
+      "answer_validation_violations": [],
+      "claim_verification": {
+        "claim_graph_normalization_after": {
+          "change_count": 0,
+          "changes": [],
+          "method": "ordered_unique_provenance_ids"
+        },
+        "claim_graph_normalization_before": {
+          "change_count": 1,
+          "changes": [
+            {
+              "after": [
+                "comm_001692_제347조_Ⅲ_7"
+              ],
+              "before": [
+                "comm_001692_제347조_Ⅲ_7",
+                "comm_001692_제347조_Ⅲ_7"
+              ],
+              "claim_id": "claim_001",
+              "field": "authority_comment_ids"
+            }
+          ],
+          "method": "ordered_unique_provenance_ids"
+        },
+        "patch_audit": {
+          "after_section_sha256": {
+            "irac_causation_completion": "c026a07b69ff671eeff85631510dc8a4b3befb2195af1c569bda2042391d3f3b",
+            "irac_deception": "3df48b417885e186373fce0ee4c9c0e3ffcc6efc7f9f9cd4df35f4d0e70a6de8",
+            "irac_intent": "d705f635dc18024c66aa96f043937a2da17ffa129cd97e42966ac9616d25e29e",
+            "irac_mistake_disposition": "a8a0ea3032146fda6f1c0473047c2df91a6b5c143356ff811a522054f9018a24",
+            "irac_object_roles": "02e148f5a85b1f299d81f5da5ff26d217d2398f444777e62d7c2153c12f83363"
+          },
+          "before_section_sha256": {
+            "irac_causation_completion": "c026a07b69ff671eeff85631510dc8a4b3befb2195af1c569bda2042391d3f3b",
+            "irac_deception": "3df48b417885e186373fce0ee4c9c0e3ffcc6efc7f9f9cd4df35f4d0e70a6de8",
+            "irac_intent": "e4324b84c2ab3d49b7d926d98f78c5e0d25ff0659b93e17ed53d2271ab8ae9ae",
+            "irac_mistake_disposition": "a8a0ea3032146fda6f1c0473047c2df91a6b5c143356ff811a522054f9018a24",
+            "irac_object_roles": "dfecc493256be8a71ad42a87f6025276e99128dd36d37f9997a34517b2d51ff8"
+          },
+          "patched_section_ids": [
+            "irac_object_roles",
+            "irac_intent"
+          ],
+          "preserved_section_ids": [
+            "irac_deception",
+            "irac_mistake_disposition",
+            "irac_causation_completion"
+          ],
+          "unaffected_sections_preserved": true
+        },
+        "repair_attempted": true,
+        "violations_after": [],
+        "violations_before": [
+          {
+            "code": "answer_contract_violation",
+            "message": "sections[0].cited_card_ids contains unavailable IDs: ['general.fraud.element.object-other-possessed-other-property']",
+            "section_id": "irac_object_roles"
+          },
+          {
+            "code": "answer_contract_violation",
+            "message": "sections[0].cited_authority_comment_ids contains unavailable IDs: ['comm_001692_제347조_Ⅳ.3_59]', 'conclusion_status', 'satisfied']",
+            "section_id": "irac_object_roles"
+          },
+          {
+            "code": "missing_required_card_metadata",
+            "message": "missing cards ['general_object.fraud.element.object-other-possessed-other-property']",
+            "section_id": "irac_object_roles"
+          },
+          {
+            "code": "missing_required_card_metadata",
+            "message": "missing cards ['fraud_intent.no_disposition_inducement_intent']",
+            "section_id": "irac_intent"
+          },
+          {
+            "code": "claim_card_coverage",
+            "message": "claims omit cards ['fraud_intent.no_disposition_inducement_intent']",
+            "section_id": "irac_intent"
+          },
+          {
+            "code": "claim_fact_coverage",
+            "message": "claims omit facts ['fact_113']",
+            "section_id": "irac_intent"
+          }
+        ]
+      },
+      "host_stages_seconds": {
+        "irac_plan_compile": 0.003689731936901808,
+        "scallop": 4.4591871809680015
+      },
+      "method_id": "m6_claim_verified",
+      "model_call_count": 6,
+      "model_completion_tokens": 15041,
+      "model_prompt_tokens": 47704,
+      "model_stages": {
+        "answer": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-bb66af2cd8962ca3",
+          "latency_seconds": 21.71599867613986,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 2548,
+            "prompt_tokens": 14092,
+            "prompt_tokens_details": null,
+            "total_tokens": 16640
+          }
+        },
+        "assessment_bundle": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-8b357e94a140dea0",
+          "latency_seconds": 14.538650701986626,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 1972,
+            "prompt_tokens": 4290,
+            "prompt_tokens_details": null,
+            "total_tokens": 6262
+          }
+        },
+        "claim_graph_after": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-9ab64e3d83da702a",
+          "latency_seconds": 34.45605184300803,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 4257,
+            "prompt_tokens": 10132,
+            "prompt_tokens_details": null,
+            "total_tokens": 14389
+          }
+        },
+        "claim_graph_before": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-8fb527c5d687b8e0",
+          "latency_seconds": 33.19509590510279,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 4109,
+            "prompt_tokens": 10037,
+            "prompt_tokens_details": null,
+            "total_tokens": 14146
+          }
+        },
+        "fact_graph": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-8c07f6475237ce19",
+          "latency_seconds": 7.427224938059226,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 1076,
+            "prompt_tokens": 992,
+            "prompt_tokens_details": null,
+            "total_tokens": 2068
+          }
+        },
+        "section_repair": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-813b0a15686cb02f",
+          "latency_seconds": 8.732458665035665,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 1079,
+            "prompt_tokens": 8161,
+            "prompt_tokens_details": null,
+            "total_tokens": 9240
+          }
+        }
+      },
+      "status": "completed",
+      "warm_latency_seconds": 124.56125801196322
+    }
+  ],
+  "run_dir": "/data5/jaehoonjeong/IDPR/.cache/e2e/fraud_irac_matrix/210075",
+  "status": "completed",
+  "symbolic_runtime": {
+    "compiled_sha256": "028fe7be9a0fce358895913a0670ef68a871c685d167debd4b3056ba0b233e30",
+    "rule_set_id": "kr.fraud.article347.full.v1_candidate",
+    "scli_version": "scli 0.2.4"
+  },
+  "version": "1.0.0"
+}

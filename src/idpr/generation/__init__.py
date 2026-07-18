@@ -767,7 +767,9 @@ def apply_section_patches(
 def render_long_form_markdown(answer: Mapping[str, Any]) -> str:
     lines = [f"# {answer['title']}", ""]
     for section in answer["sections"]:
-        lines.extend([f"## {section['heading']}", "", section["body"], ""])
+        lines.extend(
+            [f"## {section['heading']}", "", _human_visible_body(section["body"]), ""]
+        )
     lines.extend(["## 종합 결론", "", answer["summary"], ""])
     return "\n".join(lines)
 
@@ -777,6 +779,19 @@ def canonical_sha256(payload: Mapping[str, Any]) -> str:
         payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")
     ).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()
+
+
+def _human_visible_body(body: str) -> str:
+    def replace_parenthetical(match: re.Match[str]) -> str:
+        values = [value.strip() for value in match.group(1).split(",")]
+        if values and all(
+            re.fullmatch(r"(?:fact_[0-9]{3}|comm_[^,\s()]+)", value)
+            for value in values
+        ):
+            return ""
+        return match.group(0)
+
+    return re.sub(r"\(([^()]*)\)", replace_parenthetical, body)
 
 
 def _unit_conclusion(statuses: Sequence[tuple[str, str]]) -> str:
