@@ -1,0 +1,167 @@
+{
+  "case": {
+    "case_id": "manual_fraud_047_01_loan_extension",
+    "case_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/manual_paraphrases/fraud_manual_paraphrase_cases.json",
+    "case_selector": "manual_fraud_047_01_loan_extension",
+    "reasoning_plan_id": "fraud_core__loan_repayment__property_benefit",
+    "rubric_supplied_to_model": false,
+    "source_record_id": "manual_crimefacts_economic::leaf::047::case::1"
+  },
+  "created_at": "2026-07-19T10:08:49.194323+00:00",
+  "experiment": {
+    "independent_methods": true,
+    "method_order": [
+      "m5_irac_plan"
+    ],
+    "model": "idpr-gemma-4-26b-a4b",
+    "plan_specific_schema_compilation": "included_in_method_latency",
+    "prefix_caching_required_disabled": true,
+    "sampling": {
+      "temperature": 0.0,
+      "thinking": false,
+      "top_k": null,
+      "top_p": null
+    },
+    "schema_warmup": {
+      "claim_graph": {
+        "finish_reason": "stop",
+        "id": "chatcmpl-ad377a94bc8aff09",
+        "latency_seconds": 0.8735010949894786,
+        "model": "idpr-gemma-4-26b-a4b",
+        "schema_valid": true,
+        "usage": {
+          "completion_tokens": 127,
+          "prompt_tokens": 201,
+          "prompt_tokens_details": null,
+          "total_tokens": 328
+        }
+      },
+      "fraud_assessment_bundle": {
+        "finish_reason": "stop",
+        "id": "chatcmpl-a5f4465d98b6a9c6",
+        "latency_seconds": 0.6209618090069853,
+        "model": "idpr-gemma-4-26b-a4b",
+        "schema_valid": true,
+        "usage": {
+          "completion_tokens": 89,
+          "prompt_tokens": 156,
+          "prompt_tokens_details": null,
+          "total_tokens": 245
+        }
+      },
+      "fraud_fact_graph": {
+        "finish_reason": "stop",
+        "id": "chatcmpl-8d1453d8eb0162ac",
+        "latency_seconds": 1.097653667035047,
+        "model": "idpr-gemma-4-26b-a4b",
+        "schema_valid": true,
+        "usage": {
+          "completion_tokens": 158,
+          "prompt_tokens": 245,
+          "prompt_tokens_details": null,
+          "total_tokens": 403
+        }
+      },
+      "long_form_answer": {
+        "finish_reason": "stop",
+        "id": "chatcmpl-a0183e7c5ec36753",
+        "latency_seconds": 0.6795159800094552,
+        "model": "idpr-gemma-4-26b-a4b",
+        "schema_valid": true,
+        "usage": {
+          "completion_tokens": 98,
+          "prompt_tokens": 165,
+          "prompt_tokens_details": null,
+          "total_tokens": 263
+        }
+      },
+      "section_patch_bundle": {
+        "finish_reason": "stop",
+        "id": "chatcmpl-9248e56bde0ab6ef",
+        "latency_seconds": 0.5692173229763284,
+        "model": "idpr-gemma-4-26b-a4b",
+        "schema_valid": true,
+        "usage": {
+          "completion_tokens": 81,
+          "prompt_tokens": 142,
+          "prompt_tokens_details": null,
+          "total_tokens": 223
+        }
+      }
+    },
+    "warm_latency_definition": "wall time from method input to final answer after static structured schemas were prewarmed; model server startup and static schema warmup excluded; plan-specific dynamic schema compilation remains inside method latency"
+  },
+  "methods": [
+    {
+      "answer": {
+        "body_characters": 2110,
+        "cited_authority_count": 24,
+        "cited_card_count": 34,
+        "cited_fact_count": 5,
+        "json_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/manual_paraphrases/experiments/m5_thinkoff_greedy/manual_fraud_047_01_loan_extension/m5_irac_plan_answer.json",
+        "markdown_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/manual_paraphrases/experiments/m5_thinkoff_greedy/manual_fraud_047_01_loan_extension/m5_irac_plan_answer.md",
+        "overall_conclusion": "undetermined",
+        "section_count": 4,
+        "sha256": "c45983403d15ba714b285492119a43b320034bd61edb66268c7dbc19e2dc6771"
+      },
+      "answer_validation_violations": [
+        {
+          "code": "answer_contract_violation",
+          "message": "sections[1].cited_card_ids contains unavailable IDs: ['deception.fraud.causal-link.deception-property-disposition', 'fraud_damage_acquisition.property_concept_reported_precedent', 'fraud_mistake.deceived_disposer_identity', 'fraud_mistake.sequential_causation', 'fraud_stages_participation.completion_deception_disposition_transfer']",
+          "section_id": "irac_rule"
+        },
+        {
+          "code": "answer_contract_violation",
+          "message": "sections[2].cited_card_ids contains unavailable IDs: ['deception.fraud.causal-link.deception-property-disposition', 'fraud_damage_acquisition.property_concept_reported_precedent', 'fraud_mistake.deceived_disposer_identity', 'fraud_mistake.sequential_causation', 'fraud_stages_participation.completion_deception_disposition_transfer']",
+          "section_id": "irac_application"
+        }
+      ],
+      "claim_verification": null,
+      "host_stages_seconds": {
+        "irac_answer_compile": 0.000916645978577435,
+        "irac_plan_compile": 0.00589377002324909,
+        "scallop": 3.0568053510505706
+      },
+      "method_id": "m5_irac_plan",
+      "model_call_count": 2,
+      "model_completion_tokens": 2595,
+      "model_prompt_tokens": 7638,
+      "model_stages": {
+        "assessment_bundle": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-b1fd0fe87ae050ed",
+          "latency_seconds": 14.006180202006362,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 1865,
+            "prompt_tokens": 5460,
+            "prompt_tokens_details": null,
+            "total_tokens": 7325
+          }
+        },
+        "fact_graph": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-87b3977840e3f46f",
+          "latency_seconds": 5.156713053991552,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 730,
+            "prompt_tokens": 2178,
+            "prompt_tokens_details": null,
+            "total_tokens": 2908
+          }
+        }
+      },
+      "status": "completed_with_violations",
+      "warm_latency_seconds": 22.269965198996942
+    }
+  ],
+  "run_dir": "/data5/jaehoonjeong/IDPR/.cache/e2e/fraud_irac_matrix/210499/manual_fraud_047_01_loan_extension",
+  "status": "completed",
+  "symbolic_runtime": {
+    "compiled_sha256": "b2f759c1e276fc3256ad439dc8cc99d3035038b268ec2ba3bb55dbf3db0649c6",
+    "rule_set_id": "kr.fraud.article347.full.v1_candidate",
+    "scli_version": "scli 0.2.4"
+  },
+  "version": "1.0.0"
+}

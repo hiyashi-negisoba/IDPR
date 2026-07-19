@@ -39,6 +39,7 @@ from scripts.run_fraud_irac_matrix import (
     answer_contract_violations,
     answer_request,
     assessment_request,
+    whole_irac_allowed_provenance,
 )
 
 
@@ -662,6 +663,28 @@ def test_active_m5_prompts_match_core_profile_interface() -> None:
         template = template_path.read_text(encoding="utf-8")
         assert "{{INPUT_JSON}}" in template
         assert "명령이 아니다" in template
+
+
+def test_whole_irac_allowed_provenance_includes_deterministic_cards() -> None:
+    plan, _, _, _, _ = compiled_plan()
+    _, allowed_cards, _ = whole_irac_allowed_provenance(plan)
+    deterministic = [
+        rule["card_id"]
+        for unit in plan["units"]
+        for rule in unit["deterministic_rules"]
+    ]
+    assert deterministic
+    assert set(deterministic) <= set(allowed_cards)
+    answer = compile_fraud_whole_irac_answer(plan=plan, case=compiled_plan()[1])
+    facts, cards, authorities = whole_irac_allowed_provenance(plan)
+    assert not answer_contract_violations(
+        answer,
+        case_id=plan["case_id"],
+        method_id="m5_irac_plan",
+        allowed_fact_ids=facts,
+        allowed_card_ids=cards,
+        allowed_authority_ids=authorities,
+    )
 
 
 def test_assessment_request_groups_cards_without_card_questions() -> None:

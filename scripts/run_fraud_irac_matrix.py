@@ -435,19 +435,7 @@ def run_whole_irac_answer(
     answer, compile_seconds = timed_host(
         lambda: compile_fraud_whole_irac_answer(plan=plan, case=case)
     )
-    facts = [
-        fact_id for unit in plan["units"] for fact_id in unit["required_fact_ids"]
-    ]
-    cards = [
-        assessment["card_id"]
-        for unit in plan["units"]
-        for assessment in unit["card_assessments"]
-    ]
-    authorities = [
-        comment_id
-        for unit in plan["units"]
-        for comment_id in unit["required_authority_comment_ids"]
-    ]
+    facts, cards, authorities = whole_irac_allowed_provenance(plan)
     violations = answer_contract_violations(
         answer,
         case_id=case["case_id"],
@@ -462,6 +450,32 @@ def run_whole_irac_answer(
         render_long_form_markdown(answer), encoding="utf-8"
     )
     return answer, violations, compile_seconds
+
+
+def whole_irac_allowed_provenance(
+    plan: Mapping[str, Any],
+) -> tuple[list[str], list[str], list[str]]:
+    """Whole-IRAC answers cite neural card assessments and Scallop-backed
+    deterministic rules alike, so both card groups are allowed provenance."""
+
+    facts = [
+        fact_id for unit in plan["units"] for fact_id in unit["required_fact_ids"]
+    ]
+    cards = [
+        assessment["card_id"]
+        for unit in plan["units"]
+        for assessment in unit["card_assessments"]
+    ] + [
+        rule["card_id"]
+        for unit in plan["units"]
+        for rule in unit.get("deterministic_rules", [])
+    ]
+    authorities = [
+        comment_id
+        for unit in plan["units"]
+        for comment_id in unit["required_authority_comment_ids"]
+    ]
+    return facts, cards, authorities
 
 
 def answer_contract_violations(

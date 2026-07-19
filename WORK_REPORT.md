@@ -1067,3 +1067,311 @@ RAG-only 답안은 본문에서 사기죄 성립이라고 쓰면서 구조화 ov
 `docs/research/fraud_irac_matrix_human_report.md`에 기록했다. 기계 보고서는
 `data/e2e/fraud/irac_matrix/fraud_irac_matrix_report.json`, 실제 6개 답안은 같은
 디렉터리의 `m*_answer.md`에 있다.
+
+---
+
+## 개선 M5 확정 및 사기 작성례 확장 조사
+
+작성일: 2026-07-19
+
+job `210098`의 개선 M5를 기본 장문 생성 아키텍처로 확정했다. 카드별 application만
+Gemma가 생성하고 검수 법리, provenance, 단락 소결은 host가 컴파일한다. M6은 기본 경로가
+아니라 사람 gold 평가와 불확실 사건의 evaluator/fallback으로 사용한다.
+
+기존 검수 완료 매뉴얼 인덱스
+`/data5/jaehoonjeong/sp/data/processed/manuals/manual_crimefacts_economic_v2`를 확인했다.
+사기 범주는 물리면 55~81의 21개 leaf이며 차용, 변제기 연장, 묵시적 기망, 계약금,
+삼각사기, 소송사기 등 서로 다른 실행 경계를 포함한다. 다만 원문에 고의·기망·적용법조와
+결론이 이미 들어 있어 성능평가용 raw case가 아니라 positive conformance 자료로 분류했다.
+
+조사 당시 런타임은 `loan_purpose` 13장과 KCL 고정 IRAC 문구만 배선돼 있었다. 이 제약은
+아래의 다중 사례 일반화 작업에서 해소했다. 첫 확장 후보와 프로파일별 근거는
+`docs/research/fraud_manual_case_inventory.md`에 사람이 읽는 표로 정리했다.
+
+---
+
+## 사기죄 M5 다중 사례 일반화 및 중립 Paraphrase
+
+작성일: 2026-07-19
+
+사용자의 지시에 따라 외부 API와 로컬 LLM 호출 없이 개선 M5를 복수 사건에 재사용할 수 있게
+일반화했다. 사건 계약에 필수·허용 프로파일, 검수된 reasoning plan, 5개 역할, 대상 거래와
+생성 제한을 명시하고, 카드 순서·IRAC 단위·RAG query를 6개 계획 registry로 분리했다.
+
+기존 KCL 용도기망 13장 경로를 보존하면서 차용금, 변제기 연장, 무전취식, 공급계약금,
+택배물 삼각사기의 5개 경로를 추가했다. 각 계획은 5개 IRAC 단위와 13~17장의 검수 카드로
+구성된다. 러너는 단일 case JSON뿐 아니라 case set과 `case_id`를 받아 같은 M5 코드를
+실행한다.
+
+매뉴얼 작성례 5건은 금액·행위 순서·객관적 사정을 유지하되 기망·편취, 적용법조,
+의사·능력 부재의 직접 단정을 제거해 수작업으로 paraphrase했다. 원문은 복제하지 않고
+`leaf_id`, 사례 순번, 물리면, 원문 segment 문자 수와 SHA-256을 기록했다. 별도 검증기로
+실제 인덱스의 5개 원문 구간과 hash가 모두 일치함을 확인했다.
+
+검증 결과는 다음과 같다.
+
+- 패러프레이즈 provenance: 5/5 일치
+- 5개 새 계획의 host-only M5 compile 및 Scallop wiring: 5/5 통과
+- 기존 KCL replay를 포함한 전체 테스트: `108 passed`
+- `compileall`, `git diff --check`: 통과
+- API 호출 및 모델 호출: 0
+
+구조, 산출물, 실행법과 neural 품질평가의 남은 범위는
+`docs/research/fraud_m5_generalization_report.md`에 정리했다. 이번 통과는 neural 추출 정확도를
+뜻하지 않으며, 실제 실험 전 사람이 5건의 카드별 gold와 허용 결론을 정해야 한다.
+
+---
+
+## 사기죄 수동 Paraphrase 5건 M5·M6 비교
+
+작성일: 2026-07-19
+
+수작업으로 중립화한 사기죄 사례 5건 전부에 대해 로컬 `Gemma-4-26B-A4B-it`로 M5와
+M6을 독립 실행했다. 외부 API는 사용하지 않았다. 최종 산출물은 job `210102`의 1번,
+job `210105`의 2~4번, job `210106`의 5번이며, 각 사건에 두 답안 JSON·사람용 Markdown과
+실행 보고서를 보존했다.
+
+M5는 평균 33.365초, 사건당 모델 3회, 총 72,172 tokens였고 최종 답안 계약 위반은 0건이다.
+M6는 평균 120.214초, 사건당 모델 6회, 총 320,343 tokens였으며 ClaimGraph 위반은
+repair 전 45건에서 후 40건으로 줄었다. 무전취식에는 ClaimGraph 위반과 중복되는 최종 답안
+계약 위반 1건도 남았다. 두 방법의 평균 Scallop 시간은 각각 4.417초와 4.403초로 사실상
+동일하므로 M6의 3.60배 latency는 추가 neural stage에서 발생했다.
+
+5건 모두 최종 결론은 `undetermined`였다. 공급계약금 사례는 명시된 허위말과 객관적 상태를
+가장 잘 연결했지만, 무전취식은 객관적 사정으로부터 묵시적 기망·행위시 의사를 충분히
+추론하지 못했다. 삼각사기는 당사자 역할을 한 문단에서 뒤집고 명시된 인과관계를
+`unknown`으로 둔 오류가 M5와 M6 모두에서 확인됐다. 이 결과는 정적 계약 통과와 neural
+법률 적용 정확도가 별개임을 보여준다.
+
+사람용 비교표와 사례별 한줄평은
+`data/e2e/fraud/manual_paraphrases/experiments/m5_m6_all5/fraud_m5_m6_all5_human_report.md`,
+기계 집계는 같은 디렉터리의 `fraud_m5_m6_all5_summary.json`에 기록했다.
+
+최종 검증은 전체 테스트 `112 passed`, 패러프레이즈 provenance 5/5, 사람용·기계 답안
+각 10개와 사건 보고서 5개 존재, 사람용 Markdown 내부 ID 노출 0건, 집계 JSON과 원시 보고서
+수치 일치, `compileall`, Slurm shell 문법 및 `git diff --check` 통과다.
+
+---
+
+## M5 Neural Prompt 및 전체 IRAC 개편
+
+작성일: 2026-07-19
+
+사용자 검토 결과를 반영해 M5 장문 구조를 구성요건별 독립 IRAC에서 사기죄 성부 전체를
+대상으로 한 단일 IRAC으로 변경했다. IRACPlan의 다섯 unit은 출력 단락이 아니라 카드와
+구성요건 누락을 막는 내부 coverage ledger로 유지한다. 최종 답안은 Issue, Rule,
+Application, Conclusion 네 구획이고, Application 안에서 unit별 적용과 소결을 순서대로
+제시한다.
+
+실제 중간 산출물을 추적한 결과 기존 M5는 FactGraph, 카드 assessment, 카드별 적용문 재작성의
+3회 호출이었다. 세 번째 호출은 assessment rationale을 거의 그대로 반복하면서 역할 전도와
+형식 오류를 추가할 수 있어 제거했다. 현재 M5는 FactGraph와 카드 assessment의 2회 호출만
+사용하고, host가 검수 법리·provenance·unit 소결·Scallop 전체 결론을 조립한다.
+
+FactGraph 프롬프트에는 관계를 문법과 전체 맥락에 따라 신중하게 판단하는 규칙과 명시적
+인과 접속어 보존, `unresolved_questions`의 비증거성을 추가했다. 특정 사례의 발언·주문을
+직접 겨냥한 representation 분류 규칙은 사용자 검토에 따라 제거했다. assessment 프롬프트에는
+객관적 사정으로부터의 좁은 추론, 처분 요청에 나타난 처분 유도 의사, causal card 사이의
+일관성, 역할관계의 신중한 적용 및 완결문 형식을 추가했다.
+
+또한 추상적 NormCard proposition 자체를 사건에서 참인지 평가하던 인터페이스를 수정했다.
+reasoning plan이 각 카드에 `unit_issue`, 사건별 `adjudication_question`,
+`unit_satisfied_status`를 붙여 전달하므로 모델은 법리를 사건용 판단 질문으로 번역할 수 있다.
+assessment rationale의 선행 세미콜론·콜론·쉼표·하이픈과 종결부호는 host가 결정론적으로
+정규화한다.
+
+과거 5건의 IRACPlan을 모델 호출 없이 새 compiler에 재생해 전체 IRAC JSON·Markdown 10개를
+생성했다. 이는 구조 검증이며 기존 neural 의미 오류는 그대로 남는다. 새 프롬프트의 정확도는
+다음 실제 모델 재실험에서 카드별 사람 gold와 대조해야 한다. M6은 동결 연구 경로로 남겼고,
+전체 IRAC으로 다시 사용할 때 ClaimGraph와 repair 계약을 별도로 이관해야 한다.
+
+상세 설계와 5건 답안 링크는
+`docs/research/fraud_m5_neural_prompt_and_whole_irac.md`에 정리했다. 전체 테스트 `115 passed`,
+5건 whole-IRAC compile과 구조 검증 5/5, 패러프레이즈 provenance 5/5, `compileall`, Slurm shell,
+JSON, `git diff --check`가 통과했다. 외부 API 및 로컬 모델 호출은 모두 0회다.
+
+---
+
+## M5 프롬프트 공개·비노출 경계 및 KCL 재실험
+
+작성일: 2026-07-19
+
+현재 M5의 두 system prompt 전문과 실제 runtime payload 구조를
+`docs/research/fraud_m5_prompt_full_review.md`에 해시와 함께 기록했다. 관계를 기계적으로
+뒤집지 말라는 표현은 원문의 문법·전체 맥락, 주체·객체·소유·지위 귀속을 대조하여 신중히
+판단하고 복수 해석은 보류하라는 규칙으로 교체했다. 특정 무전취식 유형을 겨냥한 FactGraph
+분류 규칙은 제거했다.
+
+`unknown`은 실패가 아니라 현재 증거에 따른 결론 보류로 정의했고, 해소에 필요한 구체적
+사실·증거를 `missing_facts`에 남기게 했다. 반면 `unresolved_questions`, fact ID와 같은 내부
+메타데이터는 최종 답안에 노출하지 않는다. host compiler에 비노출 검사를 추가하고 과거 5건을
+재생한 결과 사람용 Markdown에서 내부 marker는 0건이었다.
+
+수정된 M5로 KCL `kcl_criminal_r14_p1_q2`를 로컬 Gemma4에서 재실험했다. 첫 job `210278`은
+부정형 카드의 `not_satisfied`에 counter fact가 없어 계약 단계에서 중단됐다. 모델 출력을
+host가 법적으로 보정하지 않고, 부정형 proposition의 적극적 반증 사실을
+`counter_fact_ids`에 넣도록 prompt를 명확히 했다. job `210285`는 같은 문항을 2회 모델
+호출로 완료했고, 사기죄 성립 결론과 단일 전체 IRAC을 생성했다.
+
+warm E2E는 26.262초였고 FactGraph 6.695초, assessment 15.057초, Scallop 4.474초,
+host IRAC compile은 0.006초 미만이었다. 최종 답안 계약 위반과 내부 marker 노출은 0건이다.
+FactGraph의 fact-kind 오분류 1건과 불필요한 미확인 질문 1건, 모든 카드 confidence가 1.0인
+점은 후속 다수 사례 평가 대상으로 남겼다. 상세 결과와 사람용 평가는
+`docs/research/fraud_m5_whole_irac_kcl_v3_report.md`에 기록했다. 외부 API는 사용하지 않았다.
+최종 회귀 검증은 전체 테스트 `116 passed`, 패러프레이즈 provenance 5/5, `compileall`,
+Slurm shell 문법과 `git diff --check` 통과다.
+
+---
+
+## 사기죄 Core + 선택적 Profile 전환
+
+작성일: 2026-07-19
+
+이전 절의 완제품 reasoning plan 및 카드별 `adjudication_question` 설계를 폐기했다. 활성 구조는
+항상 적용되는 `fraud_core`에 사건별 profile을 0개 이상 더하는 조합형 registry다. 일반,
+차용 목적, 변제 의사·능력, 계약 이행, 묵시적 기망, 재산상 이익과 삼각사기를 독립 profile로
+두었고 복수 profile을 함께 적용할 수 있다. 과거 case의 `reasoning_plan_id`는 routing에 쓰지 않는다.
+일반 사건은 별도 `ordinary` profile 없이 core만 적용한다.
+
+두 번째 모델 호출은 조합된 카드 중 `standard_input`만 평가한다. Unit은 IRAC의 다섯 쟁점을
+묶는 목차로만 사용하고 카드 판정 질문으로 전달하지 않는다. 피기망자·처분자 동일성, 삼각사기
+역할 구조, 기망과 처분의 연결, 순차적 인과관계와 기수 등 7개 deterministic 규칙은 역할 정보와
+standard 평가에서 Scallop이 도출한다. 삼각사기 profile의 비관련
+`contract_breach_distinction` 카드는 제거했다.
+
+`generation_instructions`와 중복 `status_semantics`를 활성 모델 payload에서 제거했다. IRACPlan은
+neural `card_assessments`와 symbolic `deterministic_rules`를 분리해 기록하며, Rule 단락에는 둘을
+모두 반영한다. 현재 사례별 neural 카드 수는 9~12개이고 KCL 차용 목적 replay는 11개다.
+
+실제 `scli 0.2.4` 골든 9건은 9개 기본 standard 판단과 역할 정보만 입력해 전부 예상 결과와
+일치했다. KCL replay도 11개 neural 평가에서 `fraud_established=true`를 도출했다. 전체 테스트
+116건, `compileall`, `git diff --check`가 통과했다. API와 로컬 LLM 호출은 0회다. 구조와
+호환 코드의 범위는 `docs/research/fraud_reasoning_plan_prompt_reset_v2_review.md`에 정리했다.
+
+---
+
+## M5 활성 프롬프트-계약 불일치 전면 정정 및 실기동 복구
+
+작성일: 2026-07-19
+
+### 문제 진단
+
+Core+Profile 전환은 registry 데이터와 라우터 코드만 새 설계로 바꾸고 활성 프롬프트를
+직전 설계 기준으로 남겨 두었다. 정적 테스트는 데이터·코드 층만 검사했기 때문에 다음
+불일치가 전부 통과 상태로 잠복해 있었다.
+
+1. `fraud_standard_assess.md`가 payload에서 제거된 `assessment_context.adjudication_question`
+   과 `unit_satisfied_status`를 판정 기준으로 지시했고, 확정 설계와 반대로 "추상적 법리
+   문장 자체가 참인지 평가하지 말라"고 요구했다.
+2. `fraud_fact_graph_extract.md`가 registry에 없는 `ordinary` profile을 선택 가능한 축으로
+   안내했다. 모델이 이를 출력하면 라우터가 `FraudPlanningError`로 중단된다.
+3. 검토 문서의 "FactGraph·카드평가 v2 활성 반영" 주장과 달리 실제 파일은 구 포맷에 부분
+   패치만 있었다.
+4. 커밋 9dfa6f3의 `disable_any_whitespace:true`가 미커밋 수정에서 삭제되었고, 테스트 단언도
+   `"backend":"guidance"`로 약화되어 회귀가 통과되었다.
+5. 사용자가 지시한 Gemma 4 권장 sampling(top_p 0.95, top_k 64)이 코드 어디에도 배선되지
+   않았다. temp 1.0 실행은 절단 없는 전체 분포 샘플링이었다.
+6. 계약 위반으로 파이프라인이 죽으면 리포트 파일을 쓰지 않아, 이전 실행의 성공 리포트가
+   최신 결과처럼 남았다. 구 프롬프트 4설정 실행은 실제로 3/4이 실패했으나 보고되지 않았다.
+
+### 정정 내용
+
+- FactGraph·카드평가 활성 프롬프트를 v2 검토본 구조로 재작성하되, 실제 payload와 JSON
+  Schema 필드에 전수 대조해 정합화했다. 승인된 기존 규칙(인과 접속어 보존, 관계 신중
+  판정, beneficiary 직접취득자 한정, 부정형 counter fact)은 유지했다.
+- confidence 보정 규칙(결정적 증거일 때만 1.0), 인용 말줄임 생략 금지, 부정형 proposition의
+  추상 평가 금지 및 `counter_fact_ids` 매핑 명시 예시를 추가했다.
+- user message를 raw JSON에서 `<INPUT_JSON>` 데이터 블록 템플릿으로 교체했다. vllm_client에
+  `user_template`를 추가하고 M5 활성 2개 호출에만 연결했으며 M1-M4/M6 경로는 보존했다.
+- `disable_any_whitespace:true`를 복원하고 테스트 단언을 원상복구했다. SLURM 스크립트에
+  권장 sampling(case_c/d: temp 1.0, top_p 0.95, top_k 64)을 배선했다.
+- thinking 실행의 completion 예산을 fact 12,000, assessment 20,000으로 확대했다.
+- 계약 위반 시에도 실패 리포트를 항상 기록하도록 러너를 수정했고, vLLM 실패 진단에
+  message 키·reasoning 문자수·finish_reason을 추가했다.
+- 재발 방지 가드 테스트: 활성 프롬프트에 `adjudication_question`, `unit_satisfied_status`,
+  `ordinary`, `status_semantics`가 재등장하면 실패한다.
+
+사용자가 4개 프롬프트 전문(system 2, user 템플릿 2)을 검토하고 현행대로 승인했다.
+
+### 실행 기록
+
+- job `210477`: 구 설정 오류(공백 가드 부재, 절단 없는 샘플링) 상태로 제출되어 vLLM 로딩
+  중 취소. 사례 실행과 리포트 갱신 없음.
+- job `210478` (진단 실행): case_a는 부정형 카드 근거를 `basis_fact_ids`에 넣어 계약 위반,
+  case_b는 인용 말줄임 생략으로 검증 실패, case_c는 유일하게 완주했으나 부정형 카드를
+  추상 명제로 `satisfied` 평가하여 `not_established`로 왜곡, case_d는 reasoning이 5,000
+  토큰 예산을 소진해 본문 미생성. 이 결과로 위 프롬프트 보강과 예산 확대를 결정했다.
+- job `210480` (승인 프롬프트 정식 실행, `COMPLETED 0:0`, 8분 20초):
+  - case_a(greedy): pass, `fraud_established`, 부정형 카드 `not_satisfied`에 counter fact 2개
+  - case_b(greedy+thinking): fail, reasoning 29,597자 폭주 후 12,000 토큰 소진. greedy와
+    thinking의 조합은 퇴화 루프로 판단
+  - case_c(권장 sampling): pass, `fraud_established`, confidence 0.9~1.0 분포
+  - case_d(권장+thinking): reasoning은 완료되었으나 인용 전사에서 `B에게서`를 `B에서`로
+    적어 정확 인용 검증에서 차단. stale report 수정 덕에 실패가 리포트에 정상 기록됨
+- 구 프롬프트 대비: 이전 4설정은 1/4 통과에 결론도 `not_established`로 오답이었다. 현재는
+  비-thinking 2설정이 모두 통과하고 기대 결론 `established`를 복원했으며, `loan-purpose-
+  materiality`도 satisfied로 판정된다. 전체 IRAC 답안 2건이 정상 컴파일되었다.
+- 구 프롬프트 리포트 4건은 `data/e2e/fraud/experiments/m5_kcl_pre_prompt_v2/`에 백업했다.
+
+### 검증
+
+- 전체 테스트: `118 passed` (사용자 템플릿 래핑, 프롬프트-계약 가드 신규 2건 포함)
+- `compileall`, `git diff --check`, SLURM shell 문법: 통과
+- 외부 API 호출: 0회. 로컬 LLM은 사용자 승인 하에 SLURM job 3회 제출(1회 취소)
+
+### 남은 항목
+
+1. thinking 경로: greedy 조합은 사용하지 않는 것으로 정리하고, 권장 sampling+thinking의
+   한 글자 전사 오류는 재시도 정책 또는 인용 검증 완화 없이 재현율을 더 관찰
+2. confidence 분포가 여전히 1.0 편중(11개 중 2개만 0.9). 다수 사례에서 재평가 필요
+3. `loan-purpose-materiality`의 satisfied/unknown 경계는 판례상 중요성 추정 법리의 카드
+   보강 여부와 함께 법률 검수 대상
+
+---
+
+## 5건 Paraphrase thinking-off 2강 비교
+
+작성일: 2026-07-19
+
+사용자 결정에 따라 thinking을 기본 비활성으로 확정하고, 수동 paraphrase 5건 전부를 M5로
+greedy(job `210499`)와 Gemma 4 권장 sampling temp 1.0/top_p 0.95/top_k 64(job `210500`)
+두 설정에서 독립 실행했다. 두 job 모두 `COMPLETED 0:0`, 각 약 11분이며 사건당 warm latency는
+21~23초, 모델 호출은 사건당 2회다. 외부 API는 사용하지 않았다.
+
+### 기계 결과
+
+- 10개 런 전부 neural 2단계와 Scallop, host IRAC 컴파일을 완주했고 답안 10건이 생성됐다.
+- 결론 분포: greedy는 undetermined 4, not_established 1(공급계약금). sampling은
+  undetermined 3, not_established 2(차용금, 택배삼각). established는 없다.
+- confidence는 KCL과 달리 넓게 분산됐다: greedy {0.5:21, 0.6:1, 0.7:4, 0.8:3, 0.9:3,
+  1.0:22}, sampling {0.5:18, 0.6:1, 0.7:3, 0.8:3, 0.9:4, 1.0:25}. 1.0 편중 문제는
+  paraphrase 사건에서 해소된 것으로 확인했다.
+- 삼각사기 역할 구조는 정확했다: 피기망자=처분자(actor_c), 재산귀속자(actor_b),
+  피고인=수익자(actor_a). 과거 실험의 역할 전도는 재발하지 않았고, 인과관계 판단은
+  deterministic 규칙으로 이관되어 모델 오판 경로 자체가 제거됐다.
+
+### 질적 관찰
+
+- intent 계열 카드(`time_of_conduct`, `gain_purpose`)가 거의 전 사건에서 unknown이다.
+  paraphrase가 의사·능력 부재의 직접 단정을 의도적으로 제거했으므로 보수적 보류는
+  설계상 예상 범위이나, 성립 gold가 정해지면 객관적 정황 추론의 허용 폭을 재조정해야 한다.
+- 부정형 카드 `no_disposition_inducement_intent`는 KCL에서는 교정됐지만 paraphrase에서는
+  사건에 따라 satisfied(추상 평가)로 회귀했다: greedy 공급계약금, sampling 차용금·택배삼각의
+  not_established는 이 카드 오판이 원인이다. 명시적 처분 요청 사실이 약한 사건에서
+  불안정하며, 카드 문언 자체의 조건문 구조가 원인이므로 proposition 재서술 또는 host 극성
+  분리를 후속 검토 항목으로 남긴다.
+
+### 검증기 오탐 정정
+
+10개 런 모두 `completed_with_violations`로 기록됐으나, 위반은 전부 matrix 러너의
+`run_whole_irac_answer`가 허용 카드 목록을 `card_assessments`에서만 만들고 Core+Profile
+전환이 분리한 `deterministic_rules` 카드를 누락한 host 검증기 결함이었다. 허용 provenance를
+`whole_irac_allowed_provenance`로 분리해 두 카드군을 모두 포함하도록 수정하고 회귀 테스트를
+추가했다. 저장된 답안 10건을 모델 호출 없이 수정된 검증기로 재검증한 결과 위반 0건이며,
+각 실험 디렉터리의 `revalidation_after_validator_fix.json`에 기록했다.
+
+### 검증
+
+- 전체 테스트: `119 passed`
+- `git diff --check`: 통과
+- 잔여 작업 목록: `docs/research/idpr_remaining_work.md`로 분리
