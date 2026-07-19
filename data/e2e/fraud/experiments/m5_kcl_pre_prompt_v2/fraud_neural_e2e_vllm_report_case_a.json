@@ -1,0 +1,115 @@
+{
+  "artifact_origin": "gemma4_vllm",
+  "case": {
+    "case_id": "kcl_r14_p1_q2_eul_fraud",
+    "case_text_sha256": "2dbfb027ba7ec74f7b09cc560e18fce2306df820fd9ec30c3f0281b04840e528",
+    "rubric_supplied_to_model": false,
+    "source_sub_question_id": "kcl_criminal_r14_p1_q2"
+  },
+  "created_at": "2026-07-19T09:02:38.905504+00:00",
+  "host_normalization": {
+    "anchors": [
+      {
+        "anchored_entity_id": "actor_eul",
+        "changed": false,
+        "mention": "乙",
+        "previous_entity_ids": [
+          "actor_eul"
+        ],
+        "role": "defendant"
+      },
+      {
+        "anchored_entity_id": "actor_b",
+        "changed": false,
+        "mention": "B",
+        "previous_entity_ids": [
+          "actor_b"
+        ],
+        "role": "deceived_person"
+      },
+      {
+        "anchored_entity_id": "actor_b",
+        "changed": false,
+        "mention": "B",
+        "previous_entity_ids": [
+          "actor_b"
+        ],
+        "role": "disposer"
+      },
+      {
+        "anchored_entity_id": "actor_b",
+        "changed": false,
+        "mention": "B",
+        "previous_entity_ids": [
+          "actor_b"
+        ],
+        "role": "property_owner"
+      },
+      {
+        "anchored_entity_id": "actor_eul",
+        "changed": false,
+        "mention": "乙",
+        "previous_entity_ids": [
+          "actor_eul"
+        ],
+        "role": "beneficiary"
+      }
+    ],
+    "method": "issue_router_target_role_anchors",
+    "neural_facts_modified": false
+  },
+  "legal_result": "not_established",
+  "mode": "vllm",
+  "model_stages": {
+    "assessment_bundle": {
+      "finish_reason": "stop",
+      "id": "chatcmpl-9238530697dcd11d",
+      "model": "idpr-gemma-4-26b-a4b",
+      "usage": {
+        "completion_tokens": 2309,
+        "prompt_tokens": 4915,
+        "prompt_tokens_details": null,
+        "total_tokens": 7224
+      }
+    },
+    "fact_graph": {
+      "finish_reason": "stop",
+      "id": "chatcmpl-ad0db6115375306d",
+      "model": "idpr-gemma-4-26b-a4b",
+      "usage": {
+        "completion_tokens": 1508,
+        "prompt_tokens": 1390,
+        "prompt_tokens_details": null,
+        "total_tokens": 2898
+      }
+    }
+  },
+  "neural_interface": {
+    "assessment_bundle_sha256": "e60a61ea8935ba42ba7d902a3030c61369cee46f4cc4d43db106ec2aa90c8089",
+    "assessment_count": 11,
+    "authority_packet_sha256": "ea61c7853a925a20140c70094d1c2c55ad18326be2fdccf7a1a966f5828543c8",
+    "authority_source_count": 11,
+    "fact_count": 7,
+    "fact_graph_sha256": "d6af78aebc3572b47de48f37e303cb007cb3ae979acb36043b01b7b734364049",
+    "host_derived_provable_count": 11,
+    "profiles": [
+      "loan_purpose"
+    ],
+    "selected_card_count": 11
+  },
+  "run_dir": "/data5/jaehoonjeong/IDPR/.cache/e2e/fraud/210460/case_a",
+  "status": "pass",
+  "symbolic_runtime": {
+    "compiled_sha256": "b2f759c1e276fc3256ad439dc8cc99d3035038b268ec2ba3bb55dbf3db0649c6",
+    "observed_nonempty": {
+      "fraud_conflict": false,
+      "fraud_elements_satisfied": false,
+      "fraud_established": false,
+      "fraud_not_established": true,
+      "fraud_undetermined": false
+    },
+    "rule_set_id": "kr.fraud.article347.full.v1_candidate",
+    "scli_version": "scli 0.2.4"
+  },
+  "version": "1.0.0"
+}
