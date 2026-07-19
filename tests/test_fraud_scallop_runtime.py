@@ -56,8 +56,8 @@ def test_approved_full_rule_ir_compiles_deterministically() -> None:
     assert manifest["model_output_executed_directly"] is False
     assert manifest["counts"] == {
         "norm_cards": 88,
-        "predicates": 201,
-        "rules": 342,
+        "predicates": 202,
+        "rules": 349,
     }
     assert manifest["output"]["sha256"] == sha256_file(OUTPUT_PATH)
     approval_key = str(APPROVAL_PATH.relative_to(PROJECT_ROOT))

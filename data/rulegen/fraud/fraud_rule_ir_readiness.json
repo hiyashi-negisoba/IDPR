@@ -511,19 +511,16 @@
         "neural_grounding_spec_candidate": [
           "fraud_intent.contract_breach_distinction",
           "fraud_intent.time_of_conduct",
+          "fraud_intent.no_disposition_inducement_intent",
           "fraud_intent.precedent_illegal_appropriation_intent",
           "fraud_intent.illegal_appropriation_definition",
           "fraud_intent.third_party_acquisition"
-        ],
-        "provisional_rule_ir_candidate": [
-          "fraud_intent.no_disposition_inducement_intent"
         ]
       },
       "cards": 42,
       "counts": {
         "context_only_excluded": 36,
-        "neural_grounding_spec_candidate": 5,
-        "provisional_rule_ir_candidate": 1
+        "neural_grounding_spec_candidate": 6
       },
       "module": "intent"
     },
@@ -786,8 +783,8 @@
   "status": "draft",
   "totals": {
     "context_only_excluded": 558,
-    "neural_grounding_spec_candidate": 60,
-    "provisional_rule_ir_candidate": 28
+    "neural_grounding_spec_candidate": 61,
+    "provisional_rule_ir_candidate": 27
   },
   "version": "1.2.0"
 }

@@ -76,17 +76,32 @@ def build_case() -> dict[str, Any]:
         },
         "case_text": case_text,
         "question_prompt": "(2)에서 乙의 B에 대한 사기죄 성부를 검토하시오.",
+        "reasoning_plan_id": "loan_purpose",
+        "required_profiles": ["loan_purpose"],
+        "generation_instructions": [
+            "乙의 B에 대한 사기죄만 검토한다.",
+            "사건 사실은 case_text 밖에서 보충하지 않는다.",
+            "본문에는 내부 provenance ID를 쓰지 않는다.",
+        ],
         "target": {
             "issue_id": "fraud",
             "defendant_hint": "乙",
             "counterparty_hint": "B",
+            "answer_subject": "乙의 B에 대한 사기죄",
+            "role_hints": {
+                "defendant": "乙",
+                "deceived_person": "B",
+                "disposer": "B",
+                "property_owner": "B",
+                "beneficiary": "乙",
+            },
             "target_transaction": {
                 "description": "B가 乙에게 3천만 원을 빌려준 차용 거래",
                 "transferor_hint": "B",
                 "immediate_recipient_hint": "乙",
             },
         },
-        "allowed_profiles": ["ordinary", "loan_purpose"],
+        "allowed_profiles": ["loan_purpose"],
         "rule_set_id": "kr.fraud.article347.full.v1_candidate",
         "scope_note": (
             "원 문항의 뇌물공여·횡령 쟁점은 현재 사기죄 RuleIR 범위 밖이므로 "
@@ -156,7 +171,7 @@ def build_replay(case: dict[str, Any]) -> dict[str, Any]:
                 "issue_effects": [{"issue_id": "deception", "direction": "supports"}],
             },
         ],
-        "profiles": ["ordinary", "loan_purpose"],
+        "profiles": ["loan_purpose"],
         "retrieval_queries": [
             "차용금 용도기망의 중요성",
             "용도기망과 편취의 범의 판단",
@@ -165,24 +180,43 @@ def build_replay(case: dict[str, Any]) -> dict[str, Any]:
     }
     validate_fraud_fact_graph(fact_graph, case)
 
-    selected_card_ids = select_fraud_card_plan(fact_graph)
+    selected_card_ids = select_fraud_card_plan(fact_graph, case=case)
     norm_cards = read_json(NORM_CARD_PATH)
     authority_packet = build_authority_packet(selected_card_ids, norm_cards)
     fact_basis = {
-        selected_card_ids[0]: ["fact_003"],
-        selected_card_ids[1]: ["fact_001", "fact_002", "fact_003", "fact_004"],
-        selected_card_ids[2]: ["fact_001", "fact_002", "fact_003"],
-        selected_card_ids[3]: ["fact_002", "fact_003"],
-        selected_card_ids[4]: ["fact_003"],
-        selected_card_ids[5]: ["fact_003"],
-        selected_card_ids[6]: ["fact_002", "fact_003"],
-        selected_card_ids[7]: ["fact_002", "fact_003"],
-        selected_card_ids[8]: ["fact_001", "fact_002", "fact_004"],
-        selected_card_ids[9]: ["fact_001", "fact_002"],
-        selected_card_ids[10]: ["fact_001", "fact_002", "fact_003"],
-        selected_card_ids[11]: ["fact_001", "fact_002", "fact_003"],
-        selected_card_ids[12]: ["fact_002", "fact_003"],
+        "general_object.fraud.element.object-other-possessed-other-property": [
+            "fact_003"
+        ],
+        "deception.fraud.definition.deception-good-faith-mistake": [
+            "fact_001",
+            "fact_002",
+            "fact_003",
+        ],
+        "deception.fraud.standard.loan-purpose-materiality": [
+            "fact_001",
+            "fact_002",
+            "fact_003",
+            "fact_004",
+        ],
+        "fraud_mistake.error_definition": ["fact_002", "fact_003"],
+        "fraud_mistake.error_disposition_motivation": ["fact_002", "fact_003"],
+        "fraud_mistake.disposition_definition": ["fact_003"],
+        "fraud_damage_acquisition.delivery_of_property": ["fact_003"],
+        "fraud_intent.time_of_conduct": ["fact_001", "fact_002", "fact_004"],
+        "fraud_mistake.gain_purpose": ["fact_001", "fact_002", "fact_003"],
+        "fraud_intent.no_disposition_inducement_intent": [
+            "fact_002",
+            "fact_003",
+        ],
+        "deception.fraud.standard.intent-to-defraud-loan-inference": [
+            "fact_001",
+            "fact_002",
+            "fact_004",
+        ],
     }
+    missing_basis = sorted(set(selected_card_ids) - set(fact_basis))
+    if missing_basis:
+        raise RuntimeError(f"synthetic replay lacks fact basis for {missing_basis}")
     assessments = []
     for index, card in enumerate(authority_packet, start=1):
         card_id = card["card_id"]

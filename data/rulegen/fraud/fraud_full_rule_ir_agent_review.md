@@ -8,8 +8,8 @@
 
 - NormCard scope: 88/88
 - commentary input: 88개
-- predicate: 201개
-- rule: 342개
+- predicate: 202개
+- rule: 349개
 - 모든 input의 provable pairing: 통과
 - case variable isolation: 통과
 - negation: 완결 게이트 뒤 최종 outcome stratum의 2개 검사로 제한

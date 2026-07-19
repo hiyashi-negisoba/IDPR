@@ -150,6 +150,7 @@ def render_scenario_facts(
     case_id, defendant_id = actors[:2]
     card_inputs = _card_input_predicates(rule_ir)
     lines = ["", f"// runtime scenario: {scenario['scenario_id']}"]
+    lines.append(_fact("fraud_case_roles", actors))
 
     for assessment in scenario["assessments"]:
         assessment_id = assessment["assessment_id"]

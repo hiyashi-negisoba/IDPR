@@ -1,0 +1,135 @@
+{
+  "$id": "idpr/FraudCase",
+  "type": "object",
+  "required": [
+    "version",
+    "case_id",
+    "case_text",
+    "question_prompt",
+    "rule_set_id",
+    "allowed_profiles",
+    "required_profiles",
+    "scope_note",
+    "source",
+    "target"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": "1.0.0" },
+    "case_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_.-]*$"
+    },
+    "case_text": { "type": "string", "minLength": 1 },
+    "question_prompt": { "type": "string", "minLength": 1 },
+    "rule_set_id": { "type": "string", "minLength": 1 },
+    "reasoning_plan_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{2,63}$"
+    },
+    "allowed_profiles": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 12,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "loan_purpose",
+          "loan_repayment",
+          "contract_performance",
+          "triangular",
+          "third_party_acquisition",
+          "omission",
+          "implicit_deception",
+          "advertising",
+          "rights_exercise",
+          "property_benefit",
+          "litigation"
+        ]
+      }
+    },
+    "required_profiles": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 12,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "loan_purpose",
+          "loan_repayment",
+          "contract_performance",
+          "triangular",
+          "third_party_acquisition",
+          "omission",
+          "implicit_deception",
+          "advertising",
+          "rights_exercise",
+          "property_benefit",
+          "litigation"
+        ]
+      }
+    },
+    "scope_note": { "type": "string", "minLength": 1 },
+    "generation_instructions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "source": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": true
+    },
+    "target": {
+      "type": "object",
+      "required": [
+        "issue_id",
+        "answer_subject",
+        "counterparty_hint",
+        "role_hints",
+        "target_transaction"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "issue_id": { "const": "fraud" },
+        "answer_subject": { "type": "string", "minLength": 1 },
+        "counterparty_hint": { "type": "string", "minLength": 1 },
+        "defendant_hint": { "type": "string", "minLength": 1 },
+        "role_hints": {
+          "type": "object",
+          "required": [
+            "defendant",
+            "deceived_person",
+            "disposer",
+            "property_owner",
+            "beneficiary"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "defendant": { "type": "string", "minLength": 1 },
+            "deceived_person": { "type": "string", "minLength": 1 },
+            "disposer": { "type": "string", "minLength": 1 },
+            "property_owner": { "type": "string", "minLength": 1 },
+            "beneficiary": { "type": "string", "minLength": 1 }
+          }
+        },
+        "target_transaction": {
+          "type": "object",
+          "required": [
+            "description",
+            "transferor_hint",
+            "immediate_recipient_hint"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "description": { "type": "string", "minLength": 1 },
+            "transferor_hint": { "type": "string", "minLength": 1 },
+            "immediate_recipient_hint": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    }
+  }
+}

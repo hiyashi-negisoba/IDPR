@@ -911,8 +911,8 @@ def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> Non
     assert readiness["final_policy_activation_blocked"] is False
     assert readiness["totals"] == {
         "context_only_excluded": 558,
-        "neural_grounding_spec_candidate": 60,
-        "provisional_rule_ir_candidate": 28,
+        "neural_grounding_spec_candidate": 61,
+        "provisional_rule_ir_candidate": 27,
     }
     assert sum(readiness["totals"].values()) == 646
     assert audit["method"] == "manual_final_audit_no_api"
@@ -920,9 +920,9 @@ def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> Non
     assert audit["cards"] == 646
     assert audit["all_cards_accounted_for"] is True
     assert audit["status_counts"] == {
-        "deterministic_rule_ready": 28,
+        "deterministic_rule_ready": 27,
         "rag_context_only": 558,
-        "standard_input_ready": 60,
+        "standard_input_ready": 61,
     }
     assert len(audit["rows"]) == len({row["card_id"] for row in audit["rows"]})
     assert policy_queue["api_calls"] == 0
@@ -953,15 +953,15 @@ def test_final_fraud_norm_card_critic_and_review_manifests_are_complete() -> Non
     assert core_selection["legal_review"] == "complete"
     assert core_selection["counts"] == {
         "context_only": 558,
-        "deterministic_rule": 28,
-        "standard_input": 60,
+        "deterministic_rule": 27,
+        "standard_input": 61,
     }
     assert core_queue["api_calls"] == 0
     assert core_queue["status"] == "complete"
     assert core_queue["cards"] == 88
     assert core_queue["counts"] == {
-        "deterministic_rule": 28,
-        "standard_input": 60,
+        "deterministic_rule": 27,
+        "standard_input": 61,
     }
     assert core_queue["decision_status_counts"] == {"completed": 88}
     assert core_queue["approved"] == 88
@@ -1219,8 +1219,8 @@ def test_fraud_full_rule_ir_preparation_is_exact_and_api_free() -> None:
     assert aggregate["legal_review"] == "complete"
     assert len(card_ids) == 88
     assert Counter(card["formalization"] for card in aggregate["cards"]) == {
-        "deterministic_rule": 28,
-        "standard_input": 60,
+        "deterministic_rule": 27,
+        "standard_input": 61,
     }
     assert set(request["coverage_contract"]["card_ids"]) == card_ids
     assert request["coverage_contract"]["cards"] == 88
@@ -1325,6 +1325,23 @@ def test_full_rule_ir_contract_accepts_complete_explicit_state_graph() -> None:
                 "role": "input",
                 "origin": "system",
                 "definition": "Synthetic entity-distinctness fact.",
+                "source_refs": [],
+                "norm_card_ids": [],
+            },
+            {
+                "id": "fraud_case_roles",
+                "arguments": [
+                    {"name": "case_id", "type": "String"},
+                    {"name": "defendant_id", "type": "String"},
+                    {"name": "deceived_person_id", "type": "String"},
+                    {"name": "disposer_id", "type": "String"},
+                    {"name": "property_owner_id", "type": "String"},
+                    {"name": "beneficiary_id", "type": "String"},
+                ],
+                "kind": "rule",
+                "role": "input",
+                "origin": "system",
+                "definition": "Synthetic fraud role tuple.",
                 "source_refs": [],
                 "norm_card_ids": [],
             },
@@ -1512,8 +1529,8 @@ def test_agent_reconstructed_full_fraud_rule_ir_is_complete_and_deterministic() 
     validate_full_rule_ir_generation(candidate, commentary, aggregate)
     assert build_full_fraud_rule_ir(aggregate) == candidate
     assert len(candidate["norm_card_scope"]["card_ids"]) == 88
-    assert len(candidate["predicates"]) == 201
-    assert len(candidate["rules"]) == 342
+    assert len(candidate["predicates"]) == 202
+    assert len(candidate["rules"]) == 349
 
     commentary_inputs = [
         predicate
@@ -1522,8 +1539,8 @@ def test_agent_reconstructed_full_fraud_rule_ir_is_complete_and_deterministic() 
     ]
     assert len(commentary_inputs) == 88
     assert Counter(predicate["kind"] for predicate in commentary_inputs) == {
-        "standard": 60,
-        "rule": 28,
+        "standard": 61,
+        "rule": 27,
     }
     assert {
         card_id
@@ -1723,7 +1740,7 @@ def test_full_fraud_sol_request_is_compact_and_substantively_complete() -> None:
     assert request["stage"] == "rule_ir"
     assert request["target_id"] == "kr.fraud.article347.full.v1_candidate"
     assert len(target["card_interfaces"]) == 88
-    assert len(target["substantive_rules"]) == 78
+    assert len(target["substantive_rules"]) == 85
     assert target["mechanical_card_state_contract"]["omitted_rule_count"] == 264
     assert not any(".card." in rule["id"] for rule in target["substantive_rules"])
     assert len(sources["reviewed_norm_cards"]) == 88

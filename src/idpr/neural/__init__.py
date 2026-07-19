@@ -11,35 +11,21 @@ from typing import Any, Mapping, Sequence
 
 from jsonschema import Draft202012Validator
 
+from idpr.fraud_planning import (
+    FRAUD_ROLES,
+    fraud_case_role_hints,
+    reasoning_plan_card_ids,
+    select_fraud_reasoning_plan,
+)
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 CONTRACT_ROOT = PROJECT_ROOT / "docs/contracts"
-REQUIRED_ROLES = (
-    "defendant",
-    "deceived_person",
-    "disposer",
-    "property_owner",
-    "beneficiary",
+DEFAULT_NORM_CARD_PATH = (
+    PROJECT_ROOT / "data/rulegen/fraud/fraud_core_norm_card_set.json"
 )
+REQUIRED_ROLES = FRAUD_ROLES
 ALLOWED_ASSESSMENT_STATUSES = {"satisfied", "not_satisfied", "unknown"}
-
-# This is one reviewed legal path, not a prediction by the router. Other profiles
-# receive their own explicit plans instead of silently dropping common components.
-LOAN_PURPOSE_CARD_PLAN = (
-    "general_object.fraud.element.object-other-possessed-other-property",
-    "deception.fraud.standard.loan-purpose-materiality",
-    "fraud_mistake.error_definition",
-    "fraud_mistake.error_disposition_motivation",
-    "fraud_mistake.disposition_definition",
-    "fraud_damage_acquisition.delivery_of_property",
-    "fraud_mistake.sequential_causation",
-    "fraud_stages_participation.completion_deception_disposition_transfer",
-    "deception.fraud.standard.intent-to-defraud-loan-inference",
-    "fraud_intent.time_of_conduct",
-    "fraud_mistake.gain_purpose",
-    "fraud_intent.no_disposition_inducement_intent",
-    "fraud_mistake.deceived_disposer_identity",
-)
 
 
 class NeuralContractError(ValueError):
@@ -61,13 +47,7 @@ def anchor_fraud_target_roles(
 
     normalized = copy.deepcopy(payload)
     actors = normalized.get("actors", [])
-    target = case.get("target", {})
-    transaction = target.get("target_transaction", {})
-    anchors = {
-        "defendant": str(target.get("defendant_hint", "")),
-        "disposer": str(transaction.get("transferor_hint", "")),
-        "beneficiary": str(transaction.get("immediate_recipient_hint", "")),
-    }
+    anchors = fraud_case_role_hints(case)
     records: list[dict[str, Any]] = []
     for role, mention in anchors.items():
         if not mention:
@@ -149,32 +129,13 @@ def validate_fraud_fact_graph(
                 f"actor mention {mention} resolves to multiple entities: {unique_owners}"
             )
 
-    defendant_hint = str(case.get("target", {}).get("defendant_hint", ""))
-    defendant_ids = role_owners.get("defendant", [])
-    if defendant_hint and len(defendant_ids) == 1:
-        defendant = next(
-            (actor for actor in actors if actor.get("entity_id") == defendant_ids[0]),
-            {},
-        )
-        if defendant_hint not in defendant.get("mentions", []):
-            errors.append("resolved defendant does not include defendant_hint")
-
-    target_transaction = case.get("target", {}).get("target_transaction", {})
-    transaction_role_hints = {
-        "disposer": str(target_transaction.get("transferor_hint", "")),
-        "beneficiary": str(
-            target_transaction.get("immediate_recipient_hint", "")
-        ),
-    }
     actors_by_id = {actor.get("entity_id", ""): actor for actor in actors}
-    for role, hint in transaction_role_hints.items():
+    for role, hint in fraud_case_role_hints(case).items():
         owners = role_owners.get(role, [])
         if hint and len(owners) == 1:
             owner = actors_by_id.get(owners[0], {})
             if hint not in owner.get("mentions", []):
-                errors.append(
-                    f"resolved {role} does not match target transaction hint {hint}"
-                )
+                errors.append(f"resolved {role} does not match target role hint {hint}")
 
     fact_ids: set[str] = set()
     for index, fact in enumerate(payload.get("facts", [])):
@@ -195,22 +156,52 @@ def validate_fraud_fact_graph(
     unexpected_profiles = sorted(set(payload.get("profiles", [])) - allowed_profiles)
     if unexpected_profiles:
         errors.append(f"profiles are outside the case contract: {unexpected_profiles}")
-    if "loan_purpose" in allowed_profiles and "loan_purpose" not in payload.get(
-        "profiles", []
-    ):
-        errors.append("the KCL purpose-deception target must activate loan_purpose")
+    missing_required_profiles = sorted(
+        set(case.get("required_profiles", [])) - set(payload.get("profiles", []))
+    )
+    if missing_required_profiles:
+        errors.append(f"required profiles are inactive: {missing_required_profiles}")
 
     if errors:
         raise NeuralContractError(errors)
 
 
-def select_fraud_card_plan(fact_graph: Mapping[str, Any]) -> list[str]:
-    profiles = set(fact_graph.get("profiles", []))
-    if "loan_purpose" in profiles:
-        return list(LOAN_PURPOSE_CARD_PLAN)
-    raise NeuralContractError(
-        [f"no reviewed assessment plan for profiles: {sorted(profiles)}"]
-    )
+def select_fraud_card_plan(
+    fact_graph: Mapping[str, Any],
+    *,
+    case: Mapping[str, Any] | None = None,
+    norm_card_set: Mapping[str, Any] | None = None,
+) -> list[str]:
+    """Select only neural standard inputs from the composed legal plan."""
+
+    try:
+        plan = select_fraud_reasoning_plan(fact_graph, case=case)
+    except ValueError as exc:
+        raise NeuralContractError([str(exc)]) from exc
+    active_cards = norm_card_set or _default_norm_card_set()
+    formalizations = {
+        card.get("id", ""): card.get("formalization", "")
+        for card in active_cards.get("cards", [])
+    }
+    plan_ids = reasoning_plan_card_ids(plan)
+    missing = sorted(set(plan_ids) - set(formalizations))
+    if missing:
+        raise NeuralContractError([f"unknown NormCards in composed plan: {missing}"])
+    selected = [
+        card_id
+        for card_id in plan_ids
+        if formalizations[card_id] == "standard_input"
+    ]
+    if not selected:
+        raise NeuralContractError(
+            ["composed plan contains no standard_input cards for neural assessment"]
+        )
+    return selected
+
+
+@lru_cache(maxsize=1)
+def _default_norm_card_set() -> dict[str, Any]:
+    return json.loads(DEFAULT_NORM_CARD_PATH.read_text(encoding="utf-8"))
 
 
 def build_authority_packet(

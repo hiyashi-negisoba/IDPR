@@ -3,8 +3,8 @@
   "approved": 88,
   "cards": 88,
   "counts": {
-    "deterministic_rule": 28,
-    "standard_input": 60
+    "deterministic_rule": 27,
+    "standard_input": 61
   },
   "decision_status_counts": {
     "completed": 88
@@ -1582,9 +1582,9 @@
       "norm_kind": "element",
       "proposition": "피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.",
       "review_id": "fraud.core.fraud_intent.no_disposition_inducement_intent",
-      "review_notes": "처분행위를 유발하려는 의사의 존재 여부를 해당 사안에서 확인한다. Conservatively normalized from linked candidates. 일반 설명의 권위 확인 전 법률검토를 유지한다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
-      "review_question": "이 일반 법리를 Scallop의 결정적 규칙으로 사용하는 데 동의하는가?",
-      "role": "deterministic_rule",
+      "review_notes": "법명제의 결합은 결정규칙이지만, 처분을 유발하려는 의사의 존재 여부는 사건 사실에 대한 평가가 필요하므로 standard_input으로 사용한다. Conservatively normalized from linked candidates. 일반 설명의 권위 확인 전 법률검토를 유지한다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+      "review_question": "이 기준을 사실관계에서 모델이 판정할 neural input으로 사용하는 데 동의하는가?",
+      "role": "standard_input",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_74",

@@ -66,8 +66,8 @@
 - critic_pending: 0
 - context_only_excluded: 558
 - policy_choice_pending: 0
-- neural_grounding_spec_candidate: 60
-- provisional_rule_ir_candidate: 28
+- neural_grounding_spec_candidate: 61
+- provisional_rule_ir_candidate: 27
 - core_rule_review_pending: 0
 
 승인된 critic 지적, 판례 우선 정책, core 사용자 검수가 모두 반영되어 전체 RuleIR 생성 게이트가 열렸다. 기존 8장짜리 모범 NormCard/RuleIR/Scallop은 구조 예시로만 유지한다.

@@ -68,7 +68,13 @@
             "items": { "type": "string", "minLength": 1 }
           },
           "stated_conclusion": {
-            "enum": ["satisfied", "not_satisfied", "unknown", "not_applicable"]
+            "enum": [
+              "satisfied",
+              "not_satisfied",
+              "unknown",
+              "conflict",
+              "not_applicable"
+            ]
           }
         }
       }

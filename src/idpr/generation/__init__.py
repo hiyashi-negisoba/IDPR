@@ -14,6 +14,12 @@ from typing import Any, Iterable, Mapping, Sequence
 
 from jsonschema import Draft202012Validator
 
+from idpr.fraud_planning import (
+    fraud_case_answer_subject,
+    render_reasoning_plan_text,
+    select_fraud_reasoning_plan,
+)
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 CONTRACT_ROOT = PROJECT_ROOT / "docs/contracts"
@@ -33,80 +39,12 @@ METHOD_IDS = (
     "m6_claim_verified",
 )
 
-FRAUD_IRAC_UNIT_SPECS = (
-    {
-        "unit_id": "irac_object_roles",
-        "issue": "사기죄의 객체와 대상 거래의 역할 구조",
-        "question": "3천만 원이 사기죄의 재물 객체이고 B가 피기망자이자 처분자인가?",
-        "component_predicates": [
-            "fraud_object_satisfied",
-            "fraud_role_structure_satisfied",
-            "fraud_beneficiary_attribution_satisfied",
-        ],
-        "card_ids": [
-            "general_object.fraud.element.object-other-possessed-other-property",
-            "fraud_mistake.deceived_disposer_identity",
-        ],
-    },
-    {
-        "unit_id": "irac_deception",
-        "issue": "차용 목적 기망의 중요성",
-        "question": "수술비라는 허위 용도 고지가 B의 대여 여부를 좌우하는 기망인가?",
-        "component_predicates": ["fraud_deception_satisfied"],
-        "card_ids": ["deception.fraud.standard.loan-purpose-materiality"],
-    },
-    {
-        "unit_id": "irac_mistake_disposition",
-        "issue": "B의 착오와 재산적 처분행위",
-        "question": "용도에 관한 착오가 B의 3천만 원 대여 처분을 유발했는가?",
-        "component_predicates": [
-            "fraud_mistake_satisfied",
-            "fraud_disposition_satisfied",
-        ],
-        "card_ids": [
-            "fraud_mistake.error_definition",
-            "fraud_mistake.error_disposition_motivation",
-            "fraud_mistake.disposition_definition",
-        ],
-    },
-    {
-        "unit_id": "irac_causation_completion",
-        "issue": "인과관계, 재물 취득과 기수",
-        "question": "기망-착오-처분-교부가 순차적으로 이어져 乙의 취득과 기수가 인정되는가?",
-        "component_predicates": [
-            "fraud_acquisition_satisfied",
-            "fraud_causal_chain_satisfied",
-            "fraud_completion_satisfied",
-        ],
-        "card_ids": [
-            "fraud_damage_acquisition.delivery_of_property",
-            "fraud_mistake.sequential_causation",
-            "fraud_stages_participation.completion_deception_disposition_transfer",
-        ],
-    },
-    {
-        "unit_id": "irac_intent",
-        "issue": "편취의 범의와 재산적 이득 목적",
-        "question": "乙에게 차용 당시 편취의 범의, 처분 유도 의사와 재산적 이득 목적이 있었는가?",
-        "component_predicates": ["fraud_intent_satisfied"],
-        "card_ids": [
-            "deception.fraud.standard.intent-to-defraud-loan-inference",
-            "fraud_intent.time_of_conduct",
-            "fraud_mistake.gain_purpose",
-            "fraud_intent.no_disposition_inducement_intent",
-        ],
-    },
+WHOLE_IRAC_SECTION_IDS = (
+    "irac_issue",
+    "irac_rule",
+    "irac_application",
+    "irac_conclusion",
 )
-
-EXPECTED_LOAN_CARD_STATUSES = {
-    card_id: "satisfied"
-    for unit in FRAUD_IRAC_UNIT_SPECS
-    for card_id in unit["card_ids"]
-}
-EXPECTED_LOAN_CARD_STATUSES[
-    "fraud_intent.no_disposition_inducement_intent"
-] = "not_satisfied"
-
 
 class GenerationContractError(ValueError):
     """Raised when generation artifacts cannot safely cross a host boundary."""
@@ -199,13 +137,23 @@ def build_fraud_rag_queries(
 
     target = case["target"]
     transaction = target["target_transaction"]
+    routing_graph = fact_graph or {"profiles": case.get("required_profiles", [])}
+    try:
+        reasoning_plan = select_fraud_reasoning_plan(routing_graph, case=case)
+    except ValueError as exc:
+        raise GenerationContractError([str(exc)]) from exc
     queries = [
         case["question_prompt"],
         transaction["description"],
-        "차용금 진정한 용도 허위 고지 용도를 속여 돈을 빌린 경우 사기죄 편취 범의",
     ]
+    queries.extend(
+        render_reasoning_plan_text(template, case)
+        for template in reasoning_plan["retrieval_query_templates"]
+    )
     if fact_graph is None:
-        return queries
+        return _ordered_unique(queries)
+
+    queries.extend(fact_graph.get("retrieval_queries", []))
 
     actors = fact_graph.get("actors", [])
     defendant_ids = {
@@ -262,23 +210,49 @@ def build_fraud_irac_plan(
     authority_packet: Sequence[Mapping[str, Any]],
     symbolic_result: Mapping[str, Any],
 ) -> dict[str, Any]:
+    try:
+        reasoning_plan = select_fraud_reasoning_plan(fact_graph, case=case)
+    except ValueError as exc:
+        raise GenerationContractError([str(exc)]) from exc
     assessments = {
         item["card_id"]: item for item in assessment_bundle["assessments"]
     }
     authorities = {item["card_id"]: item for item in authority_packet}
     units: list[dict[str, Any]] = []
-    for order, spec in enumerate(FRAUD_IRAC_UNIT_SPECS, start=1):
+    for order, spec in enumerate(reasoning_plan["units"], start=1):
         card_assessments = []
+        deterministic_rules = []
         required_fact_ids: list[str] = []
         required_authorities: list[str] = []
         unit_statuses: list[tuple[str, str]] = []
-        for card_id in spec["card_ids"]:
+        expected_statuses: dict[str, str] = {}
+        for card_spec in spec["cards"]:
+            card_id = card_spec["card_id"]
+            expected_statuses[card_id] = card_spec["satisfied_when"]
             assessment = assessments.get(card_id)
             authority = authorities.get(card_id)
-            if assessment is None or authority is None:
+            if authority is None:
                 raise GenerationContractError(
-                    [f"cannot compile IRAC unit; missing card {card_id}"]
+                    [f"cannot compile IRAC unit; missing authority for {card_id}"]
                 )
+            if assessment is None:
+                if authority.get("formalization") != "deterministic_rule":
+                    raise GenerationContractError(
+                        [f"cannot compile IRAC unit; missing assessment for {card_id}"]
+                    )
+                authority_ids = [
+                    source["comment_id"] for source in authority.get("sources", [])
+                ]
+                required_authorities.extend(authority_ids)
+                deterministic_rules.append(
+                    {
+                        "card_id": card_id,
+                        "proposition": authority["proposition"],
+                        "satisfied_when": card_spec["satisfied_when"],
+                        "authority_comment_ids": authority_ids,
+                    }
+                )
+                continue
             fact_ids = list(assessment["basis_fact_ids"]) + list(
                 assessment["counter_fact_ids"]
             )
@@ -304,15 +278,20 @@ def build_fraud_irac_plan(
             {
                 "unit_id": spec["unit_id"],
                 "order": order,
-                "issue": spec["issue"],
-                "question": spec["question"],
+                "issue": render_reasoning_plan_text(spec["issue_template"], case),
+                "question": render_reasoning_plan_text(
+                    spec["question_template"], case
+                ),
                 "component_predicates": list(spec["component_predicates"]),
                 "card_assessments": card_assessments,
+                "deterministic_rules": deterministic_rules,
                 "required_fact_ids": _ordered_unique(required_fact_ids),
                 "required_authority_comment_ids": _ordered_unique(
                     required_authorities
                 ),
-                "required_conclusion": _unit_conclusion(unit_statuses),
+                "required_conclusion": _unit_conclusion(
+                    unit_statuses, expected_statuses
+                ),
             }
         )
     observed = symbolic_result["observed_nonempty"]
@@ -320,6 +299,7 @@ def build_fraud_irac_plan(
         "version": "1.0.0",
         "case_id": case["case_id"],
         "rule_set_id": case["rule_set_id"],
+        "reasoning_plan_id": reasoning_plan["plan_id"],
         "overall_conclusion": symbolic_result["legal_result"],
         "scallop_relations": [
             relation for relation, active in observed.items() if active
@@ -343,6 +323,297 @@ def build_fraud_irac_plan(
     return plan
 
 
+def build_fraud_irac_slot_schema(
+    plan: Mapping[str, Any], *, method_id: str = "m5_irac_plan"
+) -> dict[str, Any]:
+    """Build a plan-specific schema that makes every card application mandatory."""
+
+    unit_properties: dict[str, Any] = {}
+    unit_ids: list[str] = []
+    for unit in plan["units"]:
+        unit_id = unit["unit_id"]
+        unit_ids.append(unit_id)
+        card_properties = {
+            item["card_id"]: {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2500,
+            }
+            for item in unit["card_assessments"]
+        }
+        unit_properties[unit_id] = {
+            "type": "object",
+            "required": ["card_applications"],
+            "additionalProperties": False,
+            "properties": {
+                "card_applications": {
+                    "type": "object",
+                    "required": list(card_properties),
+                    "additionalProperties": False,
+                    "properties": card_properties,
+                },
+            },
+        }
+    return {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "idpr/FraudIRACSlotDraft",
+        "description": (
+            "Plan-specific neural application slots compiled deterministically into a "
+            "long-form answer."
+        ),
+        "type": "object",
+        "required": [
+            "version",
+            "case_id",
+            "method_id",
+            "units",
+            "summary_analysis",
+        ],
+        "additionalProperties": False,
+        "properties": {
+            "version": {"const": "1.0.0"},
+            "case_id": {"const": plan["case_id"]},
+            "method_id": {"const": method_id},
+            "units": {
+                "type": "object",
+                "required": unit_ids,
+                "additionalProperties": False,
+                "properties": unit_properties,
+            },
+            "summary_analysis": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+            },
+        },
+    }
+
+
+def compile_fraud_irac_slot_draft(
+    draft: Mapping[str, Any],
+    *,
+    plan: Mapping[str, Any],
+    case: Mapping[str, Any],
+    method_id: str = "m5_irac_plan",
+) -> dict[str, Any]:
+    """Compile neural card slots without trusting the model to copy provenance."""
+
+    schema = build_fraud_irac_slot_schema(plan, method_id=method_id)
+    errors = [
+        f"{'.'.join(str(part) for part in error.absolute_path) or '$'}: {error.message}"
+        for error in sorted(
+            Draft202012Validator(schema).iter_errors(draft),
+            key=lambda item: tuple(str(part) for part in item.path),
+        )
+    ]
+    if errors:
+        raise GenerationContractError(errors)
+
+    generated_texts = [draft["summary_analysis"]]
+    generated_texts.extend(
+        text
+        for unit in draft["units"].values()
+        for text in unit["card_applications"].values()
+    )
+    forbidden_markers = (
+        "fact_",
+        "comm_",
+        "card_applications",
+        "summary_analysis",
+        *(
+            item["card_id"]
+            for unit in plan["units"]
+            for item in [*unit["card_assessments"], *unit["deterministic_rules"]]
+        ),
+    )
+    leaked_markers = sorted(
+        {
+            marker
+            for text in generated_texts
+            for marker in forbidden_markers
+            if marker in text
+        }
+    )
+    if leaked_markers:
+        raise GenerationContractError(
+            [f"IRAC slot prose contains internal markers: {leaked_markers}"]
+        )
+
+    sections: list[dict[str, Any]] = []
+    for unit in plan["units"]:
+        generated_unit = draft["units"][unit["unit_id"]]
+        assessment_card_ids = [
+            item["card_id"] for item in unit["card_assessments"]
+        ]
+        rule_cards = [*unit["card_assessments"], *unit["deterministic_rules"]]
+        card_ids = [item["card_id"] for item in rule_cards]
+        rules = " ".join(item["proposition"].strip() for item in rule_cards)
+        applications = " ".join(
+            generated_unit["card_applications"][card_id].strip()
+            for card_id in assessment_card_ids
+        )
+        conclusion = _section_conclusion_sentence(
+            issue=unit["issue"], status=unit["required_conclusion"]
+        )
+        body = "\n\n".join([rules, applications, conclusion])
+        sections.append(
+            {
+                "section_id": unit["unit_id"],
+                "heading": f"{unit['order']}. {unit['issue']}",
+                "body": body,
+                "cited_fact_ids": list(unit["required_fact_ids"]),
+                "cited_card_ids": card_ids,
+                "cited_authority_comment_ids": list(
+                    unit["required_authority_comment_ids"]
+                ),
+                "stated_conclusion": unit["required_conclusion"],
+            }
+        )
+
+    answer_subject = fraud_case_answer_subject(case)
+    final_sentence = _overall_conclusion_sentence(
+        answer_subject=answer_subject,
+        status=plan["overall_conclusion"],
+    )
+    answer = {
+        "version": "1.0.0",
+        "case_id": plan["case_id"],
+        "method_id": method_id,
+        "title": f"{answer_subject} 성부 검토",
+        "sections": sections,
+        "overall_conclusion": plan["overall_conclusion"],
+        "summary": f"{draft['summary_analysis'].strip()} {final_sentence}",
+    }
+    validate_long_form_answer(
+        answer,
+        case_id=plan["case_id"],
+        method_id=method_id,
+        allowed_fact_ids=(
+            fact_id for unit in plan["units"] for fact_id in unit["required_fact_ids"]
+        ),
+        allowed_card_ids=(
+            item["card_id"]
+            for unit in plan["units"]
+            for item in [*unit["card_assessments"], *unit["deterministic_rules"]]
+        ),
+        allowed_authority_ids=(
+            authority_id
+            for unit in plan["units"]
+            for authority_id in unit["required_authority_comment_ids"]
+        ),
+    )
+    alignment = assess_irac_answer_alignment(answer, plan)
+    if alignment:
+        raise GenerationContractError([item["message"] for item in alignment])
+    return answer
+
+
+def compile_fraud_whole_irac_answer(
+    *,
+    plan: Mapping[str, Any],
+    case: Mapping[str, Any],
+    method_id: str = "m5_irac_plan",
+) -> dict[str, Any]:
+    """Compile one document-level IRAC from validated card assessments."""
+
+    unit_labels = ("가", "나", "다", "라", "마", "바", "사", "아")
+    rule_blocks: list[str] = []
+    application_blocks: list[str] = []
+    fact_ids: list[str] = []
+    card_ids: list[str] = []
+    authority_ids: list[str] = []
+
+    for label, unit in zip(unit_labels, plan["units"]):
+        unit_cards = list(unit["card_assessments"])
+        unit_rules = [*unit_cards, *unit["deterministic_rules"]]
+        rules = " ".join(
+            _normalize_legal_sentence(card["proposition"]) for card in unit_rules
+        )
+        applications = " ".join(
+            _normalize_application_bridge(card) for card in unit_cards
+        )
+        unit_conclusion = _section_conclusion_sentence(
+            issue=unit["issue"], status=unit["required_conclusion"]
+        )
+        rule_blocks.append(f"### {label}. {unit['issue']}\n\n{rules}")
+        application_blocks.append(
+            f"### {label}. {unit['issue']}\n\n{applications} {unit_conclusion}"
+        )
+        fact_ids.extend(unit["required_fact_ids"])
+        card_ids.extend(card["card_id"] for card in unit_rules)
+        authority_ids.extend(unit["required_authority_comment_ids"])
+
+    fact_ids = _ordered_unique(fact_ids)
+    card_ids = _ordered_unique(card_ids)
+    authority_ids = _ordered_unique(authority_ids)
+    answer_subject = fraud_case_answer_subject(case)
+    final_sentence = _overall_conclusion_sentence(
+        answer_subject=answer_subject, status=plan["overall_conclusion"]
+    )
+    answer = {
+        "version": "1.0.0",
+        "case_id": plan["case_id"],
+        "method_id": method_id,
+        "title": f"{answer_subject} 성부 검토",
+        "sections": [
+            {
+                "section_id": "irac_issue",
+                "heading": "1. 쟁점 (Issue)",
+                "body": f"이 사건의 쟁점은 {answer_subject}의 성립 여부이다.",
+                "cited_fact_ids": [],
+                "cited_card_ids": [],
+                "cited_authority_comment_ids": [],
+                "stated_conclusion": "not_applicable",
+            },
+            {
+                "section_id": "irac_rule",
+                "heading": "2. 법리 (Rule)",
+                "body": "검토에 적용할 법리는 다음과 같다.\n\n"
+                + "\n\n".join(rule_blocks),
+                "cited_fact_ids": [],
+                "cited_card_ids": card_ids,
+                "cited_authority_comment_ids": authority_ids,
+                "stated_conclusion": "not_applicable",
+            },
+            {
+                "section_id": "irac_application",
+                "heading": "3. 사안의 적용 (Application)",
+                "body": "위 법리를 사건 사실에 적용하면 다음과 같다.\n\n"
+                + "\n\n".join(application_blocks),
+                "cited_fact_ids": fact_ids,
+                "cited_card_ids": card_ids,
+                "cited_authority_comment_ids": authority_ids,
+                "stated_conclusion": "not_applicable",
+            },
+            {
+                "section_id": "irac_conclusion",
+                "heading": "4. 결론 (Conclusion)",
+                "body": final_sentence,
+                "cited_fact_ids": [],
+                "cited_card_ids": [],
+                "cited_authority_comment_ids": [],
+                "stated_conclusion": _overall_section_conclusion(
+                    plan["overall_conclusion"]
+                ),
+            },
+        ],
+        "overall_conclusion": plan["overall_conclusion"],
+        "summary": final_sentence,
+    }
+    validate_long_form_answer(
+        answer,
+        case_id=plan["case_id"],
+        method_id=method_id,
+        allowed_fact_ids=fact_ids,
+        allowed_card_ids=card_ids,
+        allowed_authority_ids=authority_ids,
+    )
+    alignment = assess_irac_answer_alignment(answer, plan)
+    if alignment:
+        raise GenerationContractError([item["message"] for item in alignment])
+    return answer
+
+
 def validate_fraud_irac_plan(
     plan: Mapping[str, Any],
     *,
@@ -357,6 +628,15 @@ def validate_fraud_irac_plan(
         errors.append("IRACPlan case_id does not match case")
     if plan.get("rule_set_id") != case.get("rule_set_id"):
         errors.append("IRACPlan rule_set_id does not match case")
+    try:
+        expected_plan_id = select_fraud_reasoning_plan(
+            fact_graph, case=case
+        )["plan_id"]
+    except ValueError as exc:
+        errors.append(str(exc))
+        expected_plan_id = ""
+    if plan.get("reasoning_plan_id") != expected_plan_id:
+        errors.append("IRACPlan reasoning_plan_id differs from composed plan")
     if plan.get("overall_conclusion") != symbolic_result.get("legal_result"):
         errors.append("IRACPlan conclusion differs from Scallop legal result")
     expected_relations = [
@@ -378,6 +658,7 @@ def validate_fraud_irac_plan(
         for source in card.get("sources", [])
     }
     observed_cards: list[str] = []
+    observed_deterministic_cards: list[str] = []
     observed_assessments: list[str] = []
     for index, unit in enumerate(plan.get("units", [])):
         if unit.get("order") != index + 1:
@@ -395,12 +676,30 @@ def validate_fraud_irac_plan(
         for assessment in unit.get("card_assessments", []):
             observed_cards.append(assessment.get("card_id", ""))
             observed_assessments.append(assessment.get("assessment_id", ""))
+        for deterministic_rule in unit.get("deterministic_rules", []):
+            observed_deterministic_cards.append(
+                deterministic_rule.get("card_id", "")
+            )
     if len(observed_cards) != len(set(observed_cards)):
         errors.append("IRACPlan contains duplicate cards across units")
     if set(observed_cards) != set(selected_cards):
         errors.append("IRACPlan card coverage differs from selected cards")
     if set(observed_assessments) != assessment_ids:
         errors.append("IRACPlan assessment coverage is incomplete")
+    if len(observed_deterministic_cards) != len(set(observed_deterministic_cards)):
+        errors.append("IRACPlan contains duplicate deterministic cards")
+    try:
+        composed = select_fraud_reasoning_plan(fact_graph, case=case)
+        composed_cards = {
+            card["card_id"]
+            for unit in composed["units"]
+            for card in unit["cards"]
+        }
+        expected_deterministic = composed_cards - set(selected_cards)
+        if set(observed_deterministic_cards) != expected_deterministic:
+            errors.append("IRACPlan deterministic card coverage is incomplete")
+    except ValueError:
+        pass
     if errors:
         raise GenerationContractError(errors)
 
@@ -443,6 +742,12 @@ def validate_long_form_answer(
 def assess_irac_answer_alignment(
     answer: Mapping[str, Any], plan: Mapping[str, Any]
 ) -> list[dict[str, str]]:
+    actual_ids = [
+        section.get("section_id", "") for section in answer.get("sections", [])
+    ]
+    if any(section_id in WHOLE_IRAC_SECTION_IDS for section_id in actual_ids):
+        return _assess_whole_irac_alignment(answer, plan)
+
     violations: list[dict[str, str]] = []
     expected_units = list(plan["units"])
     sections = list(answer.get("sections", []))
@@ -461,7 +766,10 @@ def assess_irac_answer_alignment(
         section = sections_by_id.get(unit["unit_id"])
         if section is None:
             continue
-        required_cards = {item["card_id"] for item in unit["card_assessments"]}
+        required_cards = {
+            item["card_id"]
+            for item in [*unit["card_assessments"], *unit["deterministic_rules"]]
+        }
         missing_cards = required_cards - set(section.get("cited_card_ids", []))
         if missing_cards:
             violations.append(
@@ -539,7 +847,7 @@ def validate_claim_graph(
     card_ids = {
         card["card_id"]
         for unit in plan["units"]
-        for card in unit["card_assessments"]
+        for card in [*unit["card_assessments"], *unit["deterministic_rules"]]
     }
     authority_ids = {
         source["comment_id"]
@@ -714,6 +1022,38 @@ def normalize_claim_graph(
     }
 
 
+def normalize_section_patch_bundle(
+    patch_bundle: Mapping[str, Any],
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Remove duplicate patch provenance IDs without changing prose or sections."""
+
+    normalized = copy.deepcopy(dict(patch_bundle))
+    changes: list[dict[str, Any]] = []
+    for patch in normalized.get("patches", []):
+        for field in (
+            "cited_fact_ids",
+            "cited_card_ids",
+            "cited_authority_comment_ids",
+        ):
+            values = list(patch.get(field, []))
+            deduplicated = _ordered_unique(values)
+            if deduplicated != values:
+                changes.append(
+                    {
+                        "section_id": patch.get("section_id"),
+                        "field": field,
+                        "before": values,
+                        "after": deduplicated,
+                    }
+                )
+                patch[field] = deduplicated
+    return normalized, {
+        "method": "ordered_unique_patch_provenance_ids",
+        "change_count": len(changes),
+        "changes": changes,
+    }
+
+
 def apply_section_patches(
     answer: Mapping[str, Any],
     patch_bundle: Mapping[str, Any],
@@ -770,7 +1110,10 @@ def render_long_form_markdown(answer: Mapping[str, Any]) -> str:
         lines.extend(
             [f"## {section['heading']}", "", _human_visible_body(section["body"]), ""]
         )
-    lines.extend(["## 종합 결론", "", answer["summary"], ""])
+    if "irac_conclusion" not in {
+        section["section_id"] for section in answer["sections"]
+    }:
+        lines.extend(["## 종합 결론", "", answer["summary"], ""])
     return "\n".join(lines)
 
 
@@ -783,9 +1126,16 @@ def canonical_sha256(payload: Mapping[str, Any]) -> str:
 
 def _human_visible_body(body: str) -> str:
     def replace_parenthetical(match: re.Match[str]) -> str:
-        values = [value.strip() for value in match.group(1).split(",")]
+        values = [
+            value.strip() for value in re.split(r"[,;]", match.group(1))
+        ]
         if values and all(
-            re.fullmatch(r"(?:fact_[0-9]{3}|comm_[^,\s()]+)", value)
+            re.fullmatch(
+                r"(?:fact_[0-9]{3}|comm_[^,;\s()]+|"
+                r"[a-z][a-z0-9_-]*(?:\.[a-z0-9_-]+)+|"
+                r"unknown|satisfied|not_satisfied)",
+                value,
+            )
             for value in values
         ):
             return ""
@@ -794,12 +1144,197 @@ def _human_visible_body(body: str) -> str:
     return re.sub(r"\(([^()]*)\)", replace_parenthetical, body)
 
 
-def _unit_conclusion(statuses: Sequence[tuple[str, str]]) -> str:
+def _unit_conclusion(
+    statuses: Sequence[tuple[str, str]], expected_statuses: Mapping[str, str]
+) -> str:
     if any(status == "unknown" for _, status in statuses):
         return "unknown"
-    if all(EXPECTED_LOAN_CARD_STATUSES.get(card_id) == status for card_id, status in statuses):
+    if all(expected_statuses.get(card_id) == status for card_id, status in statuses):
         return "satisfied"
     return "not_satisfied"
+
+
+def _normalize_legal_sentence(text: str) -> str:
+    normalized = re.sub(r"\s+", " ", text.strip())
+    normalized = re.sub(r"^[;；,:：·-]+\s*", "", normalized)
+    if not normalized:
+        raise GenerationContractError(["application bridge is empty after normalization"])
+    if normalized[-1] not in ".!?。":
+        normalized += "."
+    return normalized
+
+
+def _normalize_application_bridge(card: Mapping[str, Any]) -> str:
+    text = _human_visible_body(str(card["application_bridge"]))
+    internal_markers = (
+        "unresolved_questions",
+        "assessment_context",
+        "basis_fact_ids",
+        "counter_fact_ids",
+        "missing_facts",
+        "authority_comment_ids",
+        "fact_",
+        "comm_",
+    )
+    if not any(marker in text for marker in internal_markers):
+        return _normalize_legal_sentence(text)
+    if card.get("status") != "unknown":
+        raise GenerationContractError(
+            [f"application bridge exposes internal metadata for {card.get('card_id')}"]
+        )
+    missing = [
+        re.sub(r"\s+", " ", str(item).strip()).rstrip(".!?。")
+        for item in card.get("missing_facts", [])
+        if not any(marker in str(item) for marker in internal_markers)
+    ]
+    if missing:
+        details = "”, “".join(missing)
+        return (
+            f"추가 확인이 필요한 사실 또는 증거는 “{details}”이다. "
+            "현재 사실만으로 해당 기준의 충족 여부를 확정할 수 없다."
+        )
+    return "현재 사실만으로 해당 기준의 충족 여부를 확정할 수 없다."
+
+
+def _overall_section_conclusion(status: str) -> str:
+    mapping = {
+        "established": "satisfied",
+        "not_established": "not_satisfied",
+        "undetermined": "unknown",
+        "conflict": "conflict",
+    }
+    try:
+        return mapping[status]
+    except KeyError as exc:
+        raise GenerationContractError(
+            [f"unsupported overall conclusion {status}"]
+        ) from exc
+
+
+def _assess_whole_irac_alignment(
+    answer: Mapping[str, Any], plan: Mapping[str, Any]
+) -> list[dict[str, str]]:
+    violations: list[dict[str, str]] = []
+    sections = list(answer.get("sections", []))
+    actual_ids = [section.get("section_id", "") for section in sections]
+    if actual_ids != list(WHOLE_IRAC_SECTION_IDS):
+        violations.append(
+            {
+                "code": "whole_irac_structure_mismatch",
+                "section_id": "document",
+                "message": (
+                    f"expected sections {list(WHOLE_IRAC_SECTION_IDS)}, got {actual_ids}"
+                ),
+            }
+        )
+    sections_by_id = {section.get("section_id", ""): section for section in sections}
+    rule = sections_by_id.get("irac_rule", {})
+    application = sections_by_id.get("irac_application", {})
+    conclusion = sections_by_id.get("irac_conclusion", {})
+    required_cards = {
+        card["card_id"]
+        for unit in plan["units"]
+        for card in [*unit["card_assessments"], *unit["deterministic_rules"]]
+    }
+    required_facts = {
+        fact_id for unit in plan["units"] for fact_id in unit["required_fact_ids"]
+    }
+    required_authorities = {
+        authority_id
+        for unit in plan["units"]
+        for authority_id in unit["required_authority_comment_ids"]
+    }
+    required_fields = (
+        (
+            "irac_rule",
+            rule,
+            (
+                ("cited_card_ids", required_cards),
+                ("cited_authority_comment_ids", required_authorities),
+            ),
+        ),
+        (
+            "irac_application",
+            application,
+            (
+                ("cited_fact_ids", required_facts),
+                ("cited_card_ids", required_cards),
+                ("cited_authority_comment_ids", required_authorities),
+            ),
+        ),
+    )
+    for section_id, section, fields in required_fields:
+        for field, required in fields:
+            missing = required - set(section.get(field, []))
+            if missing:
+                violations.append(
+                    {
+                        "code": "whole_irac_provenance_missing",
+                        "section_id": section_id,
+                        "message": f"{field} omits {sorted(missing)}",
+                    }
+                )
+    application_body = str(application.get("body", ""))
+    for unit in plan["units"]:
+        expected_sentence = _section_conclusion_sentence(
+            issue=unit["issue"], status=unit["required_conclusion"]
+        )
+        if unit["issue"] not in application_body or expected_sentence not in application_body:
+            violations.append(
+                {
+                    "code": "whole_irac_application_unit_missing",
+                    "section_id": "irac_application",
+                    "message": f"application omits compiled unit {unit['unit_id']}",
+                }
+            )
+    expected_conclusion = _overall_section_conclusion(plan["overall_conclusion"])
+    if conclusion.get("stated_conclusion") != expected_conclusion:
+        violations.append(
+            {
+                "code": "whole_irac_conclusion_mismatch",
+                "section_id": "irac_conclusion",
+                "message": (
+                    f"expected {expected_conclusion}, got "
+                    f"{conclusion.get('stated_conclusion')}"
+                ),
+            }
+        )
+    if answer.get("overall_conclusion") != plan.get("overall_conclusion"):
+        violations.append(
+            {
+                "code": "overall_conclusion_mismatch",
+                "section_id": "document",
+                "message": (
+                    f"expected {plan.get('overall_conclusion')}, got "
+                    f"{answer.get('overall_conclusion')}"
+                ),
+            }
+        )
+    return violations
+
+
+def _section_conclusion_sentence(*, issue: str, status: str) -> str:
+    if status == "satisfied":
+        return f"따라서 {issue}에 관한 요건은 충족된다."
+    if status == "not_satisfied":
+        return f"따라서 {issue}에 관한 요건은 충족되지 않는다."
+    if status == "unknown":
+        return f"따라서 {issue}에 관한 요건은 현재 사실만으로 확정할 수 없다."
+    if status == "conflict":
+        return f"따라서 {issue}에 관한 판단에는 상충하는 결과가 남는다."
+    raise GenerationContractError([f"unsupported IRAC unit conclusion {status}"])
+
+
+def _overall_conclusion_sentence(*, answer_subject: str, status: str) -> str:
+    if status == "established":
+        return f"따라서 {answer_subject}는 성립한다."
+    if status == "not_established":
+        return f"따라서 {answer_subject}는 성립하지 않는다."
+    if status == "undetermined":
+        return f"따라서 {answer_subject}의 성립 여부는 현재 사실만으로 확정할 수 없다."
+    if status == "conflict":
+        return f"따라서 {answer_subject}의 성립 여부에는 상충하는 결과가 남는다."
+    raise GenerationContractError([f"unsupported overall conclusion {status}"])
 
 
 def _check_claim_support(

@@ -1,0 +1,132 @@
+{
+  "$id": "https://idpr.local/contracts/FraudReasoningPlanRegistry",
+  "$defs": {
+    "card": {
+      "type": "object",
+      "required": ["card_id", "satisfied_when"],
+      "additionalProperties": false,
+      "properties": {
+        "card_id": { "type": "string", "minLength": 1 },
+        "satisfied_when": { "enum": ["satisfied", "not_satisfied"] },
+        "requires_profiles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "unless_profiles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "unit": {
+      "type": "object",
+      "required": [
+        "unit_id",
+        "issue_template",
+        "question_template",
+        "component_predicates",
+        "cards"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "unit_id": { "type": "string", "pattern": "^irac_[a-z0-9_]+$" },
+        "issue_template": { "type": "string", "minLength": 1 },
+        "question_template": { "type": "string", "minLength": 1 },
+        "component_predicates": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "cards": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 16,
+          "items": { "$ref": "#/$defs/card" }
+        }
+      }
+    }
+  },
+  "type": "object",
+  "required": ["version", "rule_set_id", "core", "profiles"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": "2.0.0" },
+    "rule_set_id": { "type": "string", "minLength": 1 },
+    "core": {
+      "type": "object",
+      "required": ["core_id", "description", "retrieval_query_templates", "units"],
+      "additionalProperties": false,
+      "properties": {
+        "core_id": { "const": "fraud_core" },
+        "description": { "type": "string", "minLength": 1 },
+        "retrieval_query_templates": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 6,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "units": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": { "$ref": "#/$defs/unit" }
+        }
+      }
+    },
+    "profiles": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "profile_id",
+          "description",
+          "retrieval_query_templates",
+          "unit_additions"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "profile_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{2,63}$"
+          },
+          "description": { "type": "string", "minLength": 1 },
+          "retrieval_query_templates": {
+            "type": "array",
+            "maxItems": 6,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "unit_additions": {
+            "type": "array",
+            "maxItems": 8,
+            "items": {
+              "type": "object",
+              "required": ["unit_id", "cards"],
+              "additionalProperties": false,
+              "properties": {
+                "unit_id": {
+                  "type": "string",
+                  "pattern": "^irac_[a-z0-9_]+$"
+                },
+                "cards": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 12,
+                  "items": { "$ref": "#/$defs/card" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

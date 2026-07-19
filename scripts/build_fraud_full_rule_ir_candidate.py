@@ -1016,6 +1016,16 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
             origin="system",
             definition="사건의 entity resolution에서 두 역할이 서로 다른 실체임이 확인됨",
         ),
+        predicate(
+            "fraud_case_roles",
+            ACTOR_ARGUMENTS,
+            kind="rule",
+            role="input",
+            origin="system",
+            definition=(
+                "호스트가 FactGraph의 대상 거래 역할을 하나의 actor tuple로 확정한 사실"
+            ),
+        ),
     ]
     rules: list[dict[str, Any]] = []
     actors = generic_actor_variables()
@@ -1153,6 +1163,137 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
         )
     )
 
+    # Deterministic cards consume the role tuple and standard components. They are
+    # never required as neural assessment inputs in the active M5 pipeline.
+    rules.extend(
+        [
+            rule(
+                "fraud.symbolic.deceived_disposer_identity",
+                condition_atom(
+                    "fraud_mistake.deceived_disposer_identity",
+                    actor_variables(),
+                ),
+                [
+                    atom(
+                        "fraud_case_roles",
+                        *actor_variables(),
+                    )
+                ],
+                [cards_by_id["fraud_mistake.deceived_disposer_identity"]],
+                "피기망자와 처분자에 같은 entity ID가 배정되면 동일성 요건을 도출한다.",
+            ),
+            rule(
+                "fraud.symbolic.deceived_person_victim_distinct",
+                condition_atom(
+                    "deception.fraud.definition.deceived-person-victim-distinct",
+                    actors,
+                ),
+                [
+                    atom("fraud_case_roles", *actors),
+                    atom(
+                        "distinct_entity",
+                        actors[0],
+                        actors[2],
+                        actors[4],
+                    ),
+                ],
+                [
+                    cards_by_id[
+                        "deception.fraud.definition.deceived-person-victim-distinct"
+                    ]
+                ],
+                "피기망자와 재산소유자가 다른 entity이면 피해자 상이 구조를 도출한다.",
+            ),
+            rule(
+                "fraud.symbolic.triangular_structure",
+                condition_atom("fraud_mistake.triangular_fraud_definition", actors),
+                [
+                    atom("fraud_case_roles", *actors),
+                    atom(
+                        "distinct_entity",
+                        actors[0],
+                        actors[2],
+                        actors[4],
+                    ),
+                ],
+                [cards_by_id["fraud_mistake.triangular_fraud_definition"]],
+                "피기망자·처분자와 재산소유자의 상이성을 삼각사기 구조로 분류한다.",
+            ),
+            rule(
+                "fraud.symbolic.deception_disposition_causal_link",
+                condition_atom(
+                    "deception.fraud.causal-link.deception-property-disposition",
+                    actors,
+                ),
+                [
+                    condition_atom(
+                        "deception.fraud.definition.deception-good-faith-mistake",
+                        actors,
+                    ),
+                    atom("fraud_mistake_satisfied", *actors),
+                    atom("fraud_disposition_satisfied", *actors),
+                ],
+                [
+                    cards_by_id[
+                        "deception.fraud.causal-link.deception-property-disposition"
+                    ]
+                ],
+                "기망의 사건 적용, 착오와 처분이 모두 충족되면 처분 지향 인과를 도출한다.",
+            ),
+            rule(
+                "fraud.symbolic.property_benefit_acquisition",
+                condition_atom(
+                    "fraud_damage_acquisition.property_concept_reported_precedent",
+                    actors,
+                ),
+                [
+                    condition_atom(
+                        "general_object.fraud.definition.property-benefit", actors
+                    ),
+                    condition_atom(
+                        "general_object.fraud.element.property-benefit-concrete", actors
+                    ),
+                ],
+                [
+                    cards_by_id[
+                        "fraud_damage_acquisition.property_concept_reported_precedent"
+                    ]
+                ],
+                "구체적인 재산상 이익의 사건 적용이 충족되면 외형상 이익 취득을 도출한다.",
+            ),
+            rule(
+                "fraud.symbolic.sequential_causation",
+                condition_atom("fraud_mistake.sequential_causation", actors),
+                [
+                    atom("fraud_deception_satisfied", *actors),
+                    atom("fraud_mistake_satisfied", *actors),
+                    atom("fraud_disposition_satisfied", *actors),
+                    atom("fraud_acquisition_satisfied", *actors),
+                ],
+                [cards_by_id["fraud_mistake.sequential_causation"]],
+                "기망·착오·처분·취득 component가 모두 충족되면 순차적 인과관계를 도출한다.",
+            ),
+            rule(
+                "fraud.symbolic.completion",
+                condition_atom(
+                    "fraud_stages_participation.completion_deception_disposition_transfer",
+                    actors,
+                ),
+                [
+                    condition_atom("fraud_mistake.sequential_causation", actors),
+                    atom("fraud_acquisition_satisfied", *actors),
+                ],
+                [
+                    cards_by_id[
+                        "fraud_stages_participation."
+                        "completion_deception_disposition_transfer"
+                    ]
+                ],
+                "순차적 인과관계와 취득이 충족되면 재물 또는 이익 이전의 기수를 도출한다.",
+            ),
+        ]
+    )
+
     omission_ids = [
         "deception.fraud.element.omission-deception-guarantor-equivalence",
         "deception.fraud.element.omission-deception-independent-error",
@@ -1183,7 +1324,6 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
     )
 
     intent_positive_ids = [
-        "fraud_intent.contract_breach_distinction",
         "fraud_intent.time_of_conduct",
         "fraud_mistake.gain_purpose",
     ]
@@ -1241,7 +1381,7 @@ def build_rule_ir(aggregate: dict[str, Any]) -> dict[str, Any]:
             [condition_atom(card_id, actors) for card_id in intent_positive_ids]
             + [atom("fraud_disposition_inducement_intent_satisfied", *actors)],
             cards_for(intent_ids, cards_by_id),
-            "단순 채무불이행과 구별되는 고의의 기망 및 재산적 이득 목적을 함께 요구한다.",
+            "행위 당시의 편취 목적, 재산적 이득 목적 및 처분 유도 의사를 함께 요구한다.",
         )
     )
     loan_intent_positive_ids = [

@@ -957,6 +957,14 @@ def validate_full_rule_ir_generation(
             {"name": "left_entity_id", "type": "String"},
             {"name": "right_entity_id", "type": "String"},
         ],
+        "fraud_case_roles": [
+            {"name": "case_id", "type": "String"},
+            {"name": "defendant_id", "type": "String"},
+            {"name": "deceived_person_id", "type": "String"},
+            {"name": "disposer_id", "type": "String"},
+            {"name": "property_owner_id", "type": "String"},
+            {"name": "beneficiary_id", "type": "String"},
+        ],
     }
     for predicate_id, expected_arguments in expected_system_inputs.items():
         system_predicate = predicate_defs.get(predicate_id)

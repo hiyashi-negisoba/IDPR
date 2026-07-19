@@ -6,6 +6,7 @@
     "version",
     "case_id",
     "rule_set_id",
+    "reasoning_plan_id",
     "overall_conclusion",
     "scallop_relations",
     "units",
@@ -16,6 +17,10 @@
     "version": { "const": "1.0.0" },
     "case_id": { "type": "string", "minLength": 1 },
     "rule_set_id": { "type": "string", "minLength": 1 },
+    "reasoning_plan_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{2,63}$"
+    },
     "overall_conclusion": {
       "enum": ["established", "not_established", "undetermined", "conflict"]
     },
@@ -39,6 +44,7 @@
           "question",
           "component_predicates",
           "card_assessments",
+          "deterministic_rules",
           "required_fact_ids",
           "required_authority_comment_ids",
           "required_conclusion"
@@ -58,7 +64,7 @@
           },
           "card_assessments": {
             "type": "array",
-            "minItems": 1,
+            "minItems": 0,
             "maxItems": 12,
             "items": {
               "type": "object",
@@ -110,9 +116,36 @@
               }
             }
           },
+          "deterministic_rules": {
+            "type": "array",
+            "maxItems": 12,
+            "items": {
+              "type": "object",
+              "required": [
+                "card_id",
+                "proposition",
+                "satisfied_when",
+                "authority_comment_ids"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "card_id": { "type": "string", "minLength": 1 },
+                "proposition": { "type": "string", "minLength": 1 },
+                "satisfied_when": {
+                  "enum": ["satisfied", "not_satisfied"]
+                },
+                "authority_comment_ids": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 8,
+                  "uniqueItems": true,
+                  "items": { "type": "string", "minLength": 1 }
+                }
+              }
+            }
+          },
           "required_fact_ids": {
             "type": "array",
-            "minItems": 1,
             "maxItems": 24,
             "uniqueItems": true,
             "items": { "type": "string", "minLength": 1 }

@@ -18,6 +18,11 @@ type case_assessment_complete(String, String)
 // norm_cards: system contract
 type distinct_entity(String, String, String)
 
+// fraud_case_roles: 호스트가 FactGraph의 대상 거래 역할을 하나의 actor tuple로 확정한 사실
+// sources: system contract
+// norm_cards: system contract
+type fraud_case_roles(String, String, String, String, String, String)
+
 // assess_deception_fraud_causal_link_deception_property_disposition: 피고인의 특정 행위가 피기망자의 재산적 처분판단을 향해 있고 그 판단에 실질적으로 작용했는지를 사건 사실에 적용한 평가. 단순히 법률명제 자체가 옳다는 뜻이 아니라, 현재 actor tuple의 구체적 사실이 그 요건을 충족하는지를 3상태로 판단한다.
 // sources: comm_001692_제347조_Ⅳ.1_11
 // norm_cards: deception.fraud.causal-link.deception-property-disposition
@@ -498,7 +503,7 @@ type assess_fraud_intent_illegal_appropriation_definition(String, String, String
 // norm_cards: fraud_intent.illegal_appropriation_definition
 type satisfied_fraud_intent_illegal_appropriation_definition(String, String, String, String, String, String)
 
-// assess_fraud_intent_no_disposition_inducement_intent: 다음 결정규칙을 적용하는 데 필요한 사건의 구조화된 사실적 전제가 충족되는지에 대한 명시적 3상태 rule fact: 피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.
+// assess_fraud_intent_no_disposition_inducement_intent: 현재 사건 사실에 다음 개방형 법적 기준을 적용한 명시적 3상태 평가: 피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.
 // sources: comm_001692_제347조_Ⅴ.1_74
 // norm_cards: fraud_intent.no_disposition_inducement_intent
 type assess_fraud_intent_no_disposition_inducement_intent(String, String, String, String, String, String, String, String)
@@ -959,8 +964,8 @@ type fraud_unlawful_appropriation_intent_supported(String, String, String, Strin
 type fraud_disposition_inducement_intent_satisfied(String, String, String, String, String, String)
 
 // fraud_intent_satisfied: 고의의 기망과 재산적 이득 목적이 함께 인정됨
-// sources: comm_001692_제347조_Ⅳ.3_56, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.1_74
-// norm_cards: fraud_intent.contract_breach_distinction, fraud_intent.no_disposition_inducement_intent, fraud_intent.time_of_conduct, fraud_mistake.gain_purpose
+// sources: comm_001692_제347조_Ⅳ.3_56, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.1_74
+// norm_cards: fraud_intent.no_disposition_inducement_intent, fraud_intent.time_of_conduct, fraud_mistake.gain_purpose
 type fraud_intent_satisfied(String, String, String, String, String, String)
 
 // fraud_elements_satisfied: 사기죄의 공통 구성요건·역할·귀속 component가 모두 충족된 잠정 성립 후보
@@ -1004,8 +1009,8 @@ type fraud_has_conflict(String, String)
 type fraud_role_structure_satisfied(String, String, String, String, String, String)
 
 // fraud_beneficiary_attribution_satisfied: 본인 또는 제3자에게 귀속되는 취득 구조가 충족됨
-// sources: comm_001692_제347조_Ⅳ.3_56, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.2_82
-// norm_cards: fraud_intent.contract_breach_distinction, fraud_intent.no_disposition_inducement_intent, fraud_intent.third_party_acquisition, fraud_intent.time_of_conduct, fraud_mistake.gain_purpose
+// sources: comm_001692_제347조_Ⅳ.3_56, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.2_82
+// norm_cards: fraud_intent.no_disposition_inducement_intent, fraud_intent.third_party_acquisition, fraud_intent.time_of_conduct, fraud_mistake.gain_purpose
 type fraud_beneficiary_attribution_satisfied(String, String, String, String, String, String)
 
 // rule_id: fraud.core_deception.card.001.satisfied
@@ -1678,6 +1683,50 @@ rel fraud_deception_satisfied(case_id, defendant_id, deceived_person_id, dispose
 rel fraud_mistake_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) = satisfied_fraud_mistake_error_definition(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) and
   satisfied_fraud_mistake_error_disposition_motivation(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id)
 
+// rule_id: fraud.symbolic.deceived_disposer_identity
+// sources: comm_001692_제347조_Ⅳ.3_59
+// norm_cards: fraud_mistake.deceived_disposer_identity
+rel satisfied_fraud_mistake_deceived_disposer_identity(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, beneficiary_id) = fraud_case_roles(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, beneficiary_id)
+
+// rule_id: fraud.symbolic.deceived_person_victim_distinct
+// sources: comm_001692_제347조_Ⅳ.1_45, comm_001692_제347조_Ⅳ.1_46
+// norm_cards: deception.fraud.definition.deceived-person-victim-distinct
+rel satisfied_deception_fraud_definition_deceived_person_victim_distinct(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) = fraud_case_roles(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) and
+  distinct_entity(case_id, deceived_person_id, property_owner_id)
+
+// rule_id: fraud.symbolic.triangular_structure
+// sources: comm_001692_제347조_Ⅳ.3_57
+// norm_cards: fraud_mistake.triangular_fraud_definition
+rel satisfied_fraud_mistake_triangular_fraud_definition(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) = fraud_case_roles(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) and
+  distinct_entity(case_id, deceived_person_id, property_owner_id)
+
+// rule_id: fraud.symbolic.deception_disposition_causal_link
+// sources: comm_001692_제347조_Ⅳ.1_11
+// norm_cards: deception.fraud.causal-link.deception-property-disposition
+rel satisfied_deception_fraud_causal_link_deception_property_disposition(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) = satisfied_deception_fraud_definition_deception_good_faith_mistake(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) and
+  fraud_mistake_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) and
+  fraud_disposition_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id)
+
+// rule_id: fraud.symbolic.property_benefit_acquisition
+// sources: comm_001692_제347조_Ⅳ.4_62
+// norm_cards: fraud_damage_acquisition.property_concept_reported_precedent
+rel satisfied_fraud_damage_acquisition_property_concept_reported_precedent(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) = satisfied_general_object_fraud_definition_property_benefit(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) and
+  satisfied_general_object_fraud_element_property_benefit_concrete(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id)
+
+// rule_id: fraud.symbolic.sequential_causation
+// sources: comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.3_55
+// norm_cards: fraud_mistake.sequential_causation
+rel satisfied_fraud_mistake_sequential_causation(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) = fraud_deception_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) and
+  fraud_mistake_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) and
+  fraud_disposition_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) and
+  fraud_acquisition_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id)
+
+// rule_id: fraud.symbolic.completion
+// sources: comm_001692_제347조_Ⅶ.2_107
+// norm_cards: fraud_stages_participation.completion_deception_disposition_transfer
+rel satisfied_fraud_stages_participation_completion_deception_disposition_transfer(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) = satisfied_fraud_mistake_sequential_causation(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) and
+  fraud_acquisition_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id)
+
 // rule_id: fraud.profile_omission.component.fraud_deception_satisfied
 // sources: comm_001692_제347조_Ⅳ.1_20, comm_001692_제347조_Ⅳ.1_20, comm_001692_제347조_Ⅳ.1_20
 // norm_cards: deception.fraud.element.omission-deception-guarantor-equivalence, deception.fraud.element.omission-deception-independent-error, deception.fraud.element.omission-deception-legal-notice-duty
@@ -1698,10 +1747,9 @@ rel fraud_disposition_inducement_intent_satisfied(case_id, defendant_id, deceive
   provable(case_id, inducement_intent_negative_condition)
 
 // rule_id: fraud.core_intent.component.fraud_intent_satisfied
-// sources: comm_001692_제347조_Ⅳ.3_56, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.1_74
-// norm_cards: fraud_intent.contract_breach_distinction, fraud_intent.no_disposition_inducement_intent, fraud_intent.time_of_conduct, fraud_mistake.gain_purpose
-rel fraud_intent_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) = satisfied_fraud_intent_contract_breach_distinction(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) and
-  satisfied_fraud_intent_time_of_conduct(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) and
+// sources: comm_001692_제347조_Ⅳ.3_56, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.1_74
+// norm_cards: fraud_intent.no_disposition_inducement_intent, fraud_intent.time_of_conduct, fraud_mistake.gain_purpose
+rel fraud_intent_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) = satisfied_fraud_intent_time_of_conduct(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) and
   satisfied_fraud_mistake_gain_purpose(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id) and
   fraud_disposition_inducement_intent_satisfied(case_id, defendant_id, deceived_person_id, disposer_id, property_owner_id, beneficiary_id)
 
@@ -3152,8 +3200,8 @@ rel fraud_role_structure_satisfied(case_id, defendant_id, deceived_person_id, de
   distinct_entity(case_id, deceived_person_id, property_owner_id)
 
 // rule_id: fraud.structure_self_acquisition.beneficiary_attribution
-// sources: comm_001692_제347조_Ⅳ.3_56, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.1_74
-// norm_cards: fraud_intent.contract_breach_distinction, fraud_intent.no_disposition_inducement_intent, fraud_intent.time_of_conduct, fraud_mistake.gain_purpose
+// sources: comm_001692_제347조_Ⅳ.3_56, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.1_74
+// norm_cards: fraud_intent.no_disposition_inducement_intent, fraud_intent.time_of_conduct, fraud_mistake.gain_purpose
 rel fraud_beneficiary_attribution_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, defendant_id) = fraud_intent_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, defendant_id)
 
 // rule_id: fraud.structure_third_party_acquisition.beneficiary_attribution
@@ -3163,8 +3211,8 @@ rel fraud_beneficiary_attribution_satisfied(case_id, defendant_id, deceived_pers
   distinct_entity(case_id, defendant_id, beneficiary_id)
 
 // rule_id: fraud.core.outcome.elements_satisfied
-// sources: comm_001692_제347조_Ⅱ.3_4, comm_001692_제347조_Ⅲ_7, comm_001692_제347조_Ⅳ.1_11, comm_001692_제347조_Ⅳ.1_11, comm_001692_제347조_Ⅳ.1_11, comm_001692_제347조_Ⅳ.1_12, comm_001692_제347조_Ⅳ.1_15, comm_001692_제347조_Ⅳ.1_19, comm_001692_제347조_Ⅳ.1_37, comm_001692_제347조_Ⅳ.1_45, comm_001692_제347조_Ⅳ.1_46, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.3_49, comm_001692_제347조_Ⅳ.3_49, comm_001692_제347조_Ⅳ.3_49, comm_001692_제347조_Ⅳ.3_49, comm_001692_제347조_Ⅳ.3_51, comm_001692_제347조_Ⅳ.3_55, comm_001692_제347조_Ⅳ.3_56, comm_001692_제347조_Ⅳ.3_56, comm_001692_제347조_Ⅳ.3_57, comm_001692_제347조_Ⅳ.3_58, comm_001692_제347조_Ⅳ.3_59, comm_001692_제347조_Ⅳ.4_62, comm_001692_제347조_Ⅳ.5_66, comm_001692_제347조_Ⅳ.5_66, comm_001692_제347조_Ⅳ.6_69, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.2_82, comm_001692_제347조_Ⅶ.2_107, comm_001692_제347조_Ⅶ.2_107
-// norm_cards: deception.fraud.causal-link.deception-property-disposition, deception.fraud.definition.deceived-person-victim-distinct, deception.fraud.definition.deception-good-faith-mistake, deception.fraud.definition.exploitation-existing-mistake, deception.fraud.element.loan-no-repayment-intent-or-ability, deception.fraud.standard.advertising-important-concrete-falsehood, deception.fraud.standard.implicit-deception-explanatory-value, deception.fraud.standard.loan-purpose-materiality, fraud_damage_acquisition.delivery_factual_control, fraud_damage_acquisition.delivery_of_property, fraud_damage_acquisition.property_concept_reported_precedent, fraud_damage_acquisition.right_exercise_unacceptable_deception, fraud_intent.contract_breach_distinction, fraud_intent.no_disposition_inducement_intent, fraud_intent.third_party_acquisition, fraud_intent.time_of_conduct, fraud_mistake.conscious_nonexercise, fraud_mistake.deceived_disposer_identity, fraud_mistake.disposition_definition, fraud_mistake.disposition_intent_act_awareness, fraud_mistake.error_definition, fraud_mistake.error_disposition_motivation, fraud_mistake.error_doubt_ignorance, fraud_mistake.factual_act_disposition, fraud_mistake.gain_purpose, fraud_mistake.invalid_act_disposition, fraud_mistake.property_disposition_element, fraud_mistake.sequential_causation, fraud_mistake.triangular_fraud_definition, fraud_mistake.unaware_error, fraud_stages_participation.completion_deception_disposition_transfer, fraud_stages_participation.property_fraud_completion_control, general_object.fraud.element.object-other-possessed-other-property, general_object.fraud.exception.public-interest-property-equivalence, mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation
+// sources: comm_001692_제347조_Ⅱ.3_4, comm_001692_제347조_Ⅲ_7, comm_001692_제347조_Ⅳ.1_11, comm_001692_제347조_Ⅳ.1_11, comm_001692_제347조_Ⅳ.1_11, comm_001692_제347조_Ⅳ.1_12, comm_001692_제347조_Ⅳ.1_15, comm_001692_제347조_Ⅳ.1_19, comm_001692_제347조_Ⅳ.1_37, comm_001692_제347조_Ⅳ.1_45, comm_001692_제347조_Ⅳ.1_46, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.3_49, comm_001692_제347조_Ⅳ.3_49, comm_001692_제347조_Ⅳ.3_49, comm_001692_제347조_Ⅳ.3_49, comm_001692_제347조_Ⅳ.3_51, comm_001692_제347조_Ⅳ.3_55, comm_001692_제347조_Ⅳ.3_56, comm_001692_제347조_Ⅳ.3_56, comm_001692_제347조_Ⅳ.3_57, comm_001692_제347조_Ⅳ.3_58, comm_001692_제347조_Ⅳ.3_59, comm_001692_제347조_Ⅳ.4_62, comm_001692_제347조_Ⅳ.5_66, comm_001692_제347조_Ⅳ.5_66, comm_001692_제347조_Ⅳ.6_69, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.2_82, comm_001692_제347조_Ⅶ.2_107, comm_001692_제347조_Ⅶ.2_107
+// norm_cards: deception.fraud.causal-link.deception-property-disposition, deception.fraud.definition.deceived-person-victim-distinct, deception.fraud.definition.deception-good-faith-mistake, deception.fraud.definition.exploitation-existing-mistake, deception.fraud.element.loan-no-repayment-intent-or-ability, deception.fraud.standard.advertising-important-concrete-falsehood, deception.fraud.standard.implicit-deception-explanatory-value, deception.fraud.standard.loan-purpose-materiality, fraud_damage_acquisition.delivery_factual_control, fraud_damage_acquisition.delivery_of_property, fraud_damage_acquisition.property_concept_reported_precedent, fraud_damage_acquisition.right_exercise_unacceptable_deception, fraud_intent.no_disposition_inducement_intent, fraud_intent.third_party_acquisition, fraud_intent.time_of_conduct, fraud_mistake.conscious_nonexercise, fraud_mistake.deceived_disposer_identity, fraud_mistake.disposition_definition, fraud_mistake.disposition_intent_act_awareness, fraud_mistake.error_definition, fraud_mistake.error_disposition_motivation, fraud_mistake.error_doubt_ignorance, fraud_mistake.factual_act_disposition, fraud_mistake.gain_purpose, fraud_mistake.invalid_act_disposition, fraud_mistake.property_disposition_element, fraud_mistake.sequential_causation, fraud_mistake.triangular_fraud_definition, fraud_mistake.unaware_error, fraud_stages_participation.completion_deception_disposition_transfer, fraud_stages_participation.property_fraud_completion_control, general_object.fraud.element.object-other-possessed-other-property, general_object.fraud.exception.public-interest-property-equivalence, mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation
 rel fraud_elements_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, beneficiary_id) = fraud_object_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, beneficiary_id) and
   fraud_deception_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, beneficiary_id) and
   fraud_mistake_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, beneficiary_id) and
@@ -3193,8 +3241,8 @@ rel fraud_has_negative(case_id, defendant_id) = fraud_not_established(case_id, d
 rel fraud_has_conflict(case_id, defendant_id) = fraud_conflict(case_id, defendant_id, conflict_issue_id)
 
 // rule_id: fraud.core.outcome.established
-// sources: comm_001692_제347조_Ⅱ.3_4, comm_001692_제347조_Ⅲ_7, comm_001692_제347조_Ⅳ.1_11, comm_001692_제347조_Ⅳ.1_11, comm_001692_제347조_Ⅳ.1_11, comm_001692_제347조_Ⅳ.1_12, comm_001692_제347조_Ⅳ.1_15, comm_001692_제347조_Ⅳ.1_19, comm_001692_제347조_Ⅳ.1_37, comm_001692_제347조_Ⅳ.1_45, comm_001692_제347조_Ⅳ.1_46, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.3_49, comm_001692_제347조_Ⅳ.3_49, comm_001692_제347조_Ⅳ.3_49, comm_001692_제347조_Ⅳ.3_49, comm_001692_제347조_Ⅳ.3_51, comm_001692_제347조_Ⅳ.3_55, comm_001692_제347조_Ⅳ.3_56, comm_001692_제347조_Ⅳ.3_56, comm_001692_제347조_Ⅳ.3_57, comm_001692_제347조_Ⅳ.3_58, comm_001692_제347조_Ⅳ.3_59, comm_001692_제347조_Ⅳ.4_62, comm_001692_제347조_Ⅳ.5_66, comm_001692_제347조_Ⅳ.5_66, comm_001692_제347조_Ⅳ.6_69, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.2_82, comm_001692_제347조_Ⅶ.2_107, comm_001692_제347조_Ⅶ.2_107
-// norm_cards: deception.fraud.causal-link.deception-property-disposition, deception.fraud.definition.deceived-person-victim-distinct, deception.fraud.definition.deception-good-faith-mistake, deception.fraud.definition.exploitation-existing-mistake, deception.fraud.element.loan-no-repayment-intent-or-ability, deception.fraud.standard.advertising-important-concrete-falsehood, deception.fraud.standard.implicit-deception-explanatory-value, deception.fraud.standard.loan-purpose-materiality, fraud_damage_acquisition.delivery_factual_control, fraud_damage_acquisition.delivery_of_property, fraud_damage_acquisition.property_concept_reported_precedent, fraud_damage_acquisition.right_exercise_unacceptable_deception, fraud_intent.contract_breach_distinction, fraud_intent.no_disposition_inducement_intent, fraud_intent.third_party_acquisition, fraud_intent.time_of_conduct, fraud_mistake.conscious_nonexercise, fraud_mistake.deceived_disposer_identity, fraud_mistake.disposition_definition, fraud_mistake.disposition_intent_act_awareness, fraud_mistake.error_definition, fraud_mistake.error_disposition_motivation, fraud_mistake.error_doubt_ignorance, fraud_mistake.factual_act_disposition, fraud_mistake.gain_purpose, fraud_mistake.invalid_act_disposition, fraud_mistake.property_disposition_element, fraud_mistake.sequential_causation, fraud_mistake.triangular_fraud_definition, fraud_mistake.unaware_error, fraud_stages_participation.completion_deception_disposition_transfer, fraud_stages_participation.property_fraud_completion_control, general_object.fraud.element.object-other-possessed-other-property, general_object.fraud.exception.public-interest-property-equivalence, mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation
+// sources: comm_001692_제347조_Ⅱ.3_4, comm_001692_제347조_Ⅲ_7, comm_001692_제347조_Ⅳ.1_11, comm_001692_제347조_Ⅳ.1_11, comm_001692_제347조_Ⅳ.1_11, comm_001692_제347조_Ⅳ.1_12, comm_001692_제347조_Ⅳ.1_15, comm_001692_제347조_Ⅳ.1_19, comm_001692_제347조_Ⅳ.1_37, comm_001692_제347조_Ⅳ.1_45, comm_001692_제347조_Ⅳ.1_46, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.2_47, comm_001692_제347조_Ⅳ.3_49, comm_001692_제347조_Ⅳ.3_49, comm_001692_제347조_Ⅳ.3_49, comm_001692_제347조_Ⅳ.3_49, comm_001692_제347조_Ⅳ.3_51, comm_001692_제347조_Ⅳ.3_55, comm_001692_제347조_Ⅳ.3_56, comm_001692_제347조_Ⅳ.3_56, comm_001692_제347조_Ⅳ.3_57, comm_001692_제347조_Ⅳ.3_58, comm_001692_제347조_Ⅳ.3_59, comm_001692_제347조_Ⅳ.4_62, comm_001692_제347조_Ⅳ.5_66, comm_001692_제347조_Ⅳ.5_66, comm_001692_제347조_Ⅳ.6_69, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.1_74, comm_001692_제347조_Ⅴ.2_82, comm_001692_제347조_Ⅶ.2_107, comm_001692_제347조_Ⅶ.2_107
+// norm_cards: deception.fraud.causal-link.deception-property-disposition, deception.fraud.definition.deceived-person-victim-distinct, deception.fraud.definition.deception-good-faith-mistake, deception.fraud.definition.exploitation-existing-mistake, deception.fraud.element.loan-no-repayment-intent-or-ability, deception.fraud.standard.advertising-important-concrete-falsehood, deception.fraud.standard.implicit-deception-explanatory-value, deception.fraud.standard.loan-purpose-materiality, fraud_damage_acquisition.delivery_factual_control, fraud_damage_acquisition.delivery_of_property, fraud_damage_acquisition.property_concept_reported_precedent, fraud_damage_acquisition.right_exercise_unacceptable_deception, fraud_intent.no_disposition_inducement_intent, fraud_intent.third_party_acquisition, fraud_intent.time_of_conduct, fraud_mistake.conscious_nonexercise, fraud_mistake.deceived_disposer_identity, fraud_mistake.disposition_definition, fraud_mistake.disposition_intent_act_awareness, fraud_mistake.error_definition, fraud_mistake.error_disposition_motivation, fraud_mistake.error_doubt_ignorance, fraud_mistake.factual_act_disposition, fraud_mistake.gain_purpose, fraud_mistake.invalid_act_disposition, fraud_mistake.property_disposition_element, fraud_mistake.sequential_causation, fraud_mistake.triangular_fraud_definition, fraud_mistake.unaware_error, fraud_stages_participation.completion_deception_disposition_transfer, fraud_stages_participation.property_fraud_completion_control, general_object.fraud.element.object-other-possessed-other-property, general_object.fraud.exception.public-interest-property-equivalence, mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation
 rel fraud_established(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, beneficiary_id) = fraud_elements_satisfied(case_id, defendant_id, deceived_person_id, deceived_person_id, property_owner_id, beneficiary_id) and
   case_assessment_complete(case_id, defendant_id) and
   ~fraud_has_negative(case_id, defendant_id) and

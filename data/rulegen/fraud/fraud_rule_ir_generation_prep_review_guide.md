@@ -6,7 +6,7 @@
 - agent preflight: 완료
 - 사용자 결정: completed=10
 - Terra 실행 게이트: 승인 완료
-- 입력 core: deterministic 28개 + standard 60개 = 88개
+- 입력 core: deterministic 27개 + standard 61개 = 88개
 - 제외 context: 558개
 - 생성 단위: 전체 RuleIR 단일 호출 1회
 
@@ -15,8 +15,8 @@
 1. 모듈 분할은 서로 다른 card_set_id와 교차 predicate 병합 오류를 만들므로 단일 호출이 낫다.
 2. 기존 8장 exemplar의 손해·불법영득의사 policy는 현재 결정과 달라 법리 few-shot에서 제외했다.
 3. 현재 2장 few-shot은 status, provable, actor role 구조만 보여 준다.
-4. 60개 standard는 satisfied/not_satisfied/unknown을 명시적으로 입력받는다.
-5. 28개 deterministic 카드는 최소 한 개의 실제 rule에서 소비되어야 한다.
+4. 61개 standard는 satisfied/not_satisfied/unknown을 명시적으로 입력받는다.
+5. 27개 deterministic 카드는 최소 한 개의 실제 rule에서 소비되어야 한다.
 6. RuleIR 생성 후 제가 전 규칙을 검토하고 장문 자연어 설명을 작성하기 전에는 사용자 검수로 넘기지 않는다.
 7. 그 사용자 검수 뒤에만 Sol을 호출하고, Sol 지적도 다시 사람에게 공개한다.
 

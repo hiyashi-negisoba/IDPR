@@ -20,6 +20,23 @@
       {
         "assessment_id": "assessment_002",
         "authority_comment_ids": [
+          "comm_001692_제347조_Ⅳ.1_11"
+        ],
+        "basis_fact_ids": [
+          "fact_001",
+          "fact_002",
+          "fact_003"
+        ],
+        "card_id": "deception.fraud.definition.deception-good-faith-mistake",
+        "confidence": 1.0,
+        "counter_fact_ids": [],
+        "missing_facts": [],
+        "rationale": "사례 원문 사실과 해당 NormCard의 명제를 함께 적용한 합성 replay 판단이다.",
+        "status": "satisfied"
+      },
+      {
+        "assessment_id": "assessment_003",
+        "authority_comment_ids": [
           "comm_001692_제347조_Ⅳ.1_12"
         ],
         "basis_fact_ids": [
@@ -36,12 +53,11 @@
         "status": "satisfied"
       },
       {
-        "assessment_id": "assessment_003",
+        "assessment_id": "assessment_004",
         "authority_comment_ids": [
           "comm_001692_제347조_Ⅳ.2_47"
         ],
         "basis_fact_ids": [
-          "fact_001",
           "fact_002",
           "fact_003"
         ],
@@ -53,7 +69,7 @@
         "status": "satisfied"
       },
       {
-        "assessment_id": "assessment_004",
+        "assessment_id": "assessment_005",
         "authority_comment_ids": [
           "comm_001692_제347조_Ⅳ.2_47"
         ],
@@ -69,7 +85,7 @@
         "status": "satisfied"
       },
       {
-        "assessment_id": "assessment_005",
+        "assessment_id": "assessment_006",
         "authority_comment_ids": [
           "comm_001692_제347조_Ⅳ.3_49"
         ],
@@ -84,7 +100,7 @@
         "status": "satisfied"
       },
       {
-        "assessment_id": "assessment_006",
+        "assessment_id": "assessment_007",
         "authority_comment_ids": [
           "comm_001692_제347조_Ⅳ.5_66"
         ],
@@ -99,62 +115,14 @@
         "status": "satisfied"
       },
       {
-        "assessment_id": "assessment_007",
-        "authority_comment_ids": [
-          "comm_001692_제347조_Ⅳ.2_47"
-        ],
-        "basis_fact_ids": [
-          "fact_002",
-          "fact_003"
-        ],
-        "card_id": "fraud_mistake.sequential_causation",
-        "confidence": 1.0,
-        "counter_fact_ids": [],
-        "missing_facts": [],
-        "rationale": "사례 원문 사실과 해당 NormCard의 명제를 함께 적용한 합성 replay 판단이다.",
-        "status": "satisfied"
-      },
-      {
         "assessment_id": "assessment_008",
-        "authority_comment_ids": [
-          "comm_001692_제347조_Ⅶ.2_107"
-        ],
-        "basis_fact_ids": [
-          "fact_002",
-          "fact_003"
-        ],
-        "card_id": "fraud_stages_participation.completion_deception_disposition_transfer",
-        "confidence": 1.0,
-        "counter_fact_ids": [],
-        "missing_facts": [],
-        "rationale": "사례 원문 사실과 해당 NormCard의 명제를 함께 적용한 합성 replay 판단이다.",
-        "status": "satisfied"
-      },
-      {
-        "assessment_id": "assessment_009",
-        "authority_comment_ids": [
-          "comm_001692_제347조_Ⅳ.1_37"
-        ],
-        "basis_fact_ids": [
-          "fact_001",
-          "fact_002",
-          "fact_004"
-        ],
-        "card_id": "deception.fraud.standard.intent-to-defraud-loan-inference",
-        "confidence": 1.0,
-        "counter_fact_ids": [],
-        "missing_facts": [],
-        "rationale": "사례 원문 사실과 해당 NormCard의 명제를 함께 적용한 합성 replay 판단이다.",
-        "status": "satisfied"
-      },
-      {
-        "assessment_id": "assessment_010",
         "authority_comment_ids": [
           "comm_001692_제347조_Ⅴ.1_74"
         ],
         "basis_fact_ids": [
           "fact_001",
-          "fact_002"
+          "fact_002",
+          "fact_004"
         ],
         "card_id": "fraud_intent.time_of_conduct",
         "confidence": 1.0,
@@ -164,7 +132,7 @@
         "status": "satisfied"
       },
       {
-        "assessment_id": "assessment_011",
+        "assessment_id": "assessment_009",
         "authority_comment_ids": [
           "comm_001692_제347조_Ⅳ.3_56"
         ],
@@ -181,7 +149,7 @@
         "status": "satisfied"
       },
       {
-        "assessment_id": "assessment_012",
+        "assessment_id": "assessment_010",
         "authority_comment_ids": [
           "comm_001692_제347조_Ⅴ.1_74"
         ],
@@ -189,7 +157,6 @@
         "card_id": "fraud_intent.no_disposition_inducement_intent",
         "confidence": 1.0,
         "counter_fact_ids": [
-          "fact_001",
           "fact_002",
           "fact_003"
         ],
@@ -198,15 +165,16 @@
         "status": "not_satisfied"
       },
       {
-        "assessment_id": "assessment_013",
+        "assessment_id": "assessment_011",
         "authority_comment_ids": [
-          "comm_001692_제347조_Ⅳ.3_59"
+          "comm_001692_제347조_Ⅳ.1_37"
         ],
         "basis_fact_ids": [
+          "fact_001",
           "fact_002",
-          "fact_003"
+          "fact_004"
         ],
-        "card_id": "fraud_mistake.deceived_disposer_identity",
+        "card_id": "deception.fraud.standard.intent-to-defraud-loan-inference",
         "confidence": 1.0,
         "counter_fact_ids": [],
         "missing_facts": [],
@@ -217,18 +185,16 @@
     "case_id": "kcl_r14_p1_q2_eul_fraud",
     "selected_card_ids": [
       "general_object.fraud.element.object-other-possessed-other-property",
+      "deception.fraud.definition.deception-good-faith-mistake",
       "deception.fraud.standard.loan-purpose-materiality",
       "fraud_mistake.error_definition",
       "fraud_mistake.error_disposition_motivation",
       "fraud_mistake.disposition_definition",
       "fraud_damage_acquisition.delivery_of_property",
-      "fraud_mistake.sequential_causation",
-      "fraud_stages_participation.completion_deception_disposition_transfer",
-      "deception.fraud.standard.intent-to-defraud-loan-inference",
       "fraud_intent.time_of_conduct",
       "fraud_mistake.gain_purpose",
       "fraud_intent.no_disposition_inducement_intent",
-      "fraud_mistake.deceived_disposer_identity"
+      "deception.fraud.standard.intent-to-defraud-loan-inference"
     ],
     "version": "1.0.0"
   },
@@ -331,7 +297,6 @@
       }
     ],
     "profiles": [
-      "ordinary",
       "loan_purpose"
     ],
     "retrieval_queries": [

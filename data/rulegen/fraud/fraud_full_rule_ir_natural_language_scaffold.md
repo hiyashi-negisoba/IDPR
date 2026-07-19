@@ -5,8 +5,8 @@
 ## 전체 구조
 
 - rule_set_id: `kr.fraud.article347.full.v1_candidate`
-- predicate: 201개
-- rule: 342개
+- predicate: 202개
+- rule: 349개
 - NormCard: 88개
 
 ## Predicate
@@ -28,6 +28,13 @@
 ### `distinct_entity(case_id: String, left_entity_id: String, right_entity_id: String)`
 
 사건의 entity resolution에서 두 역할이 서로 다른 실체임이 확인됨
+
+- 종류/역할: `rule` / `input`
+- 연결 NormCard: system contract
+
+### `fraud_case_roles(case_id: String, defendant_id: String, deceived_person_id: String, disposer_id: String, property_owner_id: String, beneficiary_id: String)`
+
+호스트가 FactGraph의 대상 거래 역할을 하나의 actor tuple로 확정한 사실
 
 - 종류/역할: `rule` / `input`
 - 연결 NormCard: system contract
@@ -706,9 +713,9 @@
 
 ### `assess_fraud_intent_no_disposition_inducement_intent(case_id: String, assessment_id: String, defendant_id: String, deceived_person_id: String, disposer_id: String, property_owner_id: String, beneficiary_id: String, status: String)`
 
-다음 결정규칙을 적용하는 데 필요한 사건의 구조화된 사실적 전제가 충족되는지에 대한 명시적 3상태 rule fact: 피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.
+현재 사건 사실에 다음 개방형 법적 기준을 적용한 명시적 3상태 평가: 피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.
 
-- 종류/역할: `rule` / `input`
+- 종류/역할: `standard` / `input`
 - 연결 NormCard: `fraud_intent.no_disposition_inducement_intent`
 
 ### `satisfied_fraud_intent_no_disposition_inducement_intent(case_id: String, defendant_id: String, deceived_person_id: String, disposer_id: String, property_owner_id: String, beneficiary_id: String)`
@@ -1353,7 +1360,7 @@
 고의의 기망과 재산적 이득 목적이 함께 인정됨
 
 - 종류/역할: `rule` / `derived`
-- 연결 NormCard: `fraud_intent.contract_breach_distinction`, `fraud_intent.no_disposition_inducement_intent`, `fraud_intent.time_of_conduct`, `fraud_mistake.gain_purpose`
+- 연결 NormCard: `fraud_intent.no_disposition_inducement_intent`, `fraud_intent.time_of_conduct`, `fraud_mistake.gain_purpose`
 
 ### `fraud_elements_satisfied(case_id: String, defendant_id: String, deceived_person_id: String, disposer_id: String, property_owner_id: String, beneficiary_id: String)`
 
@@ -1416,7 +1423,7 @@
 본인 또는 제3자에게 귀속되는 취득 구조가 충족됨
 
 - 종류/역할: `rule` / `derived`
-- 연결 NormCard: `fraud_intent.contract_breach_distinction`, `fraud_intent.no_disposition_inducement_intent`, `fraud_intent.third_party_acquisition`, `fraud_intent.time_of_conduct`, `fraud_mistake.gain_purpose`
+- 연결 NormCard: `fraud_intent.no_disposition_inducement_intent`, `fraud_intent.third_party_acquisition`, `fraud_intent.time_of_conduct`, `fraud_mistake.gain_purpose`
 
 ## Rules
 
@@ -2050,7 +2057,7 @@
 
 필요한 전제:
 
-- 다음 결정규칙을 적용하는 데 필요한 사건의 구조화된 사실적 전제가 충족되는지에 대한 명시적 3상태 rule fact: 피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.
+- 현재 사건 사실에 다음 개방형 법적 기준을 적용한 명시적 3상태 평가: 피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.
 - 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
 
 연결 NormCard: `fraud_intent.no_disposition_inducement_intent`
@@ -2902,6 +2909,99 @@
 
 검토 메모: 일반 착오 경로는 구체적인 사실불일치 인식과 그 인식의 처분동기 형성·확정을 함께 요구한다. 정의 명제만으로 착오를 인정하지 않는다.
 
+### `fraud.symbolic.deceived_disposer_identity`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 충족됨: 피기망자와 처분행위자는 동일인이어야 한다.**을 도출한다.
+
+필요한 전제:
+
+- 호스트가 FactGraph의 대상 거래 역할을 하나의 actor tuple로 확정한 사실
+
+연결 NormCard: `fraud_mistake.deceived_disposer_identity`
+
+검토 메모: 피기망자와 처분자에 같은 entity ID가 배정되면 동일성 요건을 도출한다.
+
+### `fraud.symbolic.deceived_person_victim_distinct`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 충족됨: 기망의 상대방과 재산상 피해자는 동일인일 것을 요하지 않는다.**을 도출한다.
+
+필요한 전제:
+
+- 호스트가 FactGraph의 대상 거래 역할을 하나의 actor tuple로 확정한 사실
+- 사건의 entity resolution에서 두 역할이 서로 다른 실체임이 확인됨
+
+연결 NormCard: `deception.fraud.definition.deceived-person-victim-distinct`
+
+검토 메모: 피기망자와 재산소유자가 다른 entity이면 피해자 상이 구조를 도출한다.
+
+### `fraud.symbolic.triangular_structure`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 충족됨: 피기망자와 재산상 피해자는 동일인일 필요가 없고, 피해자와 처분행위자가 다른 경우를 삼각사기라고 한다.**을 도출한다.
+
+필요한 전제:
+
+- 호스트가 FactGraph의 대상 거래 역할을 하나의 actor tuple로 확정한 사실
+- 사건의 entity resolution에서 두 역할이 서로 다른 실체임이 확인됨
+
+연결 NormCard: `fraud_mistake.triangular_fraud_definition`
+
+검토 메모: 피기망자·처분자와 재산소유자의 상이성을 삼각사기 구조로 분류한다.
+
+### `fraud.symbolic.deception_disposition_causal_link`
+
+이 규칙은 **증명 가능한 사건 적용 평가가 충족됨: 피고인의 특정 행위가 피기망자의 재산적 처분판단을 향해 있고 그 판단에 실질적으로 작용했는지를 사건 사실에 적용한 평가**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 사건 적용 평가가 충족됨: 피고인의 특정 행위가 거래상 신의칙에 반하고 피기망자에게 사실과 다른 인식을 실제로 일으켰는지를 사건 사실에 적용한 평가
+- 피기망자에게 법적 의미의 착오가 인정됨
+- 착오에 기한 재산적 처분행위가 인정됨
+
+연결 NormCard: `deception.fraud.causal-link.deception-property-disposition`
+
+검토 메모: 기망의 사건 적용, 착오와 처분이 모두 충족되면 처분 지향 인과를 도출한다.
+
+### `fraud.symbolic.property_benefit_acquisition`
+
+이 규칙은 **증명 가능한 사건 적용 평가가 충족됨: 법률행위의 유·무효와 별개로 beneficiary_id가 구체적이고 외형적인 재산상 이익을 실제 취득했는지를 사건 사실에 적용한 평가**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 재산상 이익은 재물 이외의 것으로서 재산의 경제적 가치 증가를 의미하며, 적극적·소극적, 일시적·영구적 이익을 모두 포함한다.
+- 증명 가능한 평가에서 다음 조건이 충족됨: 재산상 이익은 구체적인 이익이어야 한다.
+
+연결 NormCard: `fraud_damage_acquisition.property_concept_reported_precedent`
+
+검토 메모: 구체적인 재산상 이익의 사건 적용이 충족되면 외형상 이익 취득을 도출한다.
+
+### `fraud.symbolic.sequential_causation`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 충족됨: 사기죄 성립에는 기망행위, 상대방의 착오 및 재물 교부 또는 재산상 이익 공여 사이의 순차적 인과관계가 필요하며, 재산적 처분행위는 착오에 의한 것이어야 한다.**을 도출한다.
+
+필요한 전제:
+
+- 사건에 적용되는 기망 기준이 충족됨
+- 피기망자에게 법적 의미의 착오가 인정됨
+- 착오에 기한 재산적 처분행위가 인정됨
+- 재물 교부 또는 재산상 이익의 취득이 인정됨
+
+연결 NormCard: `fraud_mistake.sequential_causation`
+
+검토 메모: 기망·착오·처분·취득 component가 모두 충족되면 순차적 인과관계를 도출한다.
+
+### `fraud.symbolic.completion`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 충족됨: 행위자의 기망으로 상대방이 착오에 빠지고, 그 착오에 기초한 재산적 처분행위로 재물 또는 재산상 이익이 이전되면 사기죄는 기수에 이른다.**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 사기죄 성립에는 기망행위, 상대방의 착오 및 재물 교부 또는 재산상 이익 공여 사이의 순차적 인과관계가 필요하며, 재산적 처분행위는 착오에 의한 것이어야 한다.
+- 재물 교부 또는 재산상 이익의 취득이 인정됨
+
+연결 NormCard: `fraud_stages_participation.completion_deception_disposition_transfer`
+
+검토 메모: 순차적 인과관계와 취득이 충족되면 재물 또는 이익 이전의 기수를 도출한다.
+
 ### `fraud.profile_omission.component.fraud_deception_satisfied`
 
 이 규칙은 **사건에 적용되는 기망 기준이 충족됨**을 도출한다.
@@ -2935,7 +3035,7 @@
 
 필요한 전제:
 
-- 다음 결정규칙을 적용하는 데 필요한 사건의 구조화된 사실적 전제가 충족되는지에 대한 명시적 3상태 rule fact: 피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.
+- 현재 사건 사실에 다음 개방형 법적 기준을 적용한 명시적 3상태 평가: 피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.
 - 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
 
 연결 NormCard: `fraud_intent.no_disposition_inducement_intent`
@@ -2948,14 +3048,13 @@
 
 필요한 전제:
 
-- 증명 가능한 사건 적용 평가가 충족됨: 피고인의 행위가 단순한 사후 채무불이행이 아니라 의도적인 기망으로 평가되는지를 사건 사실에 적용한 평가
 - 증명 가능한 사건 적용 평가가 충족됨: 기망의 고의가 사후가 아니라 행위 당시에 존재했는지를 사건 사실에 적용한 평가
 - 증명 가능한 사건 적용 평가가 충족됨: 피고인에게 기망을 통해 본인 또는 제3자가 재산적 이득을 취득하게 할 목적의사가 있었는지를 사건 사실에 적용한 평가
 - 피기망자로 하여금 재산적 처분행위를 하게 할 의사가 인정됨
 
-연결 NormCard: `fraud_intent.contract_breach_distinction`, `fraud_intent.no_disposition_inducement_intent`, `fraud_intent.time_of_conduct`, `fraud_mistake.gain_purpose`
+연결 NormCard: `fraud_intent.no_disposition_inducement_intent`, `fraud_intent.time_of_conduct`, `fraud_mistake.gain_purpose`
 
-검토 메모: 단순 채무불이행과 구별되는 고의의 기망 및 재산적 이득 목적을 함께 요구한다.
+검토 메모: 행위 당시의 편취 목적, 재산적 이득 목적 및 처분 유도 의사를 함께 요구한다.
 
 ### `fraud.profile_loan.component.fraud_intent_satisfied`
 
@@ -4322,7 +4421,7 @@
 
 필요한 전제:
 
-- 다음 결정규칙을 적용하는 데 필요한 사건의 구조화된 사실적 전제가 충족되는지에 대한 명시적 3상태 rule fact: 피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.
+- 현재 사건 사실에 다음 개방형 법적 기준을 적용한 명시적 3상태 평가: 피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.
 - 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
 
 연결 NormCard: `fraud_intent.no_disposition_inducement_intent`
@@ -4335,9 +4434,9 @@
 
 필요한 전제:
 
-- 다음 결정규칙을 적용하는 데 필요한 사건의 구조화된 사실적 전제가 충족되는지에 대한 명시적 3상태 rule fact: 피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.
+- 현재 사건 사실에 다음 개방형 법적 기준을 적용한 명시적 3상태 평가: 피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.
 - 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
-- 다음 결정규칙을 적용하는 데 필요한 사건의 구조화된 사실적 전제가 충족되는지에 대한 명시적 3상태 rule fact: 피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.
+- 현재 사건 사실에 다음 개방형 법적 기준을 적용한 명시적 3상태 평가: 피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.
 - 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
 
 연결 NormCard: `fraud_intent.no_disposition_inducement_intent`
@@ -5916,7 +6015,7 @@
 
 - 고의의 기망과 재산적 이득 목적이 함께 인정됨
 
-연결 NormCard: `fraud_intent.contract_breach_distinction`, `fraud_intent.no_disposition_inducement_intent`, `fraud_intent.time_of_conduct`, `fraud_mistake.gain_purpose`
+연결 NormCard: `fraud_intent.no_disposition_inducement_intent`, `fraud_intent.time_of_conduct`, `fraud_mistake.gain_purpose`
 
 검토 메모: 피고인과 수익자에 같은 entity ID를 쓰는 본인취득 경로다.
 
@@ -5950,7 +6049,7 @@
 - 일반형 또는 삼각사기의 역할 구조와 처분 권능 요건이 충족됨
 - 본인 또는 제3자에게 귀속되는 취득 구조가 충족됨
 
-연결 NormCard: `deception.fraud.causal-link.deception-property-disposition`, `deception.fraud.definition.deceived-person-victim-distinct`, `deception.fraud.definition.deception-good-faith-mistake`, `deception.fraud.definition.exploitation-existing-mistake`, `deception.fraud.element.loan-no-repayment-intent-or-ability`, `deception.fraud.standard.advertising-important-concrete-falsehood`, `deception.fraud.standard.implicit-deception-explanatory-value`, `deception.fraud.standard.loan-purpose-materiality`, `fraud_damage_acquisition.delivery_factual_control`, `fraud_damage_acquisition.delivery_of_property`, `fraud_damage_acquisition.property_concept_reported_precedent`, `fraud_damage_acquisition.right_exercise_unacceptable_deception`, `fraud_intent.contract_breach_distinction`, `fraud_intent.no_disposition_inducement_intent`, `fraud_intent.third_party_acquisition`, `fraud_intent.time_of_conduct`, `fraud_mistake.conscious_nonexercise`, `fraud_mistake.deceived_disposer_identity`, `fraud_mistake.disposition_definition`, `fraud_mistake.disposition_intent_act_awareness`, `fraud_mistake.error_definition`, `fraud_mistake.error_disposition_motivation`, `fraud_mistake.error_doubt_ignorance`, `fraud_mistake.factual_act_disposition`, `fraud_mistake.gain_purpose`, `fraud_mistake.invalid_act_disposition`, `fraud_mistake.property_disposition_element`, `fraud_mistake.sequential_causation`, `fraud_mistake.triangular_fraud_definition`, `fraud_mistake.unaware_error`, `fraud_stages_participation.completion_deception_disposition_transfer`, `fraud_stages_participation.property_fraud_completion_control`, `general_object.fraud.element.object-other-possessed-other-property`, `general_object.fraud.exception.public-interest-property-equivalence`, `mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation`
+연결 NormCard: `deception.fraud.causal-link.deception-property-disposition`, `deception.fraud.definition.deceived-person-victim-distinct`, `deception.fraud.definition.deception-good-faith-mistake`, `deception.fraud.definition.exploitation-existing-mistake`, `deception.fraud.element.loan-no-repayment-intent-or-ability`, `deception.fraud.standard.advertising-important-concrete-falsehood`, `deception.fraud.standard.implicit-deception-explanatory-value`, `deception.fraud.standard.loan-purpose-materiality`, `fraud_damage_acquisition.delivery_factual_control`, `fraud_damage_acquisition.delivery_of_property`, `fraud_damage_acquisition.property_concept_reported_precedent`, `fraud_damage_acquisition.right_exercise_unacceptable_deception`, `fraud_intent.no_disposition_inducement_intent`, `fraud_intent.third_party_acquisition`, `fraud_intent.time_of_conduct`, `fraud_mistake.conscious_nonexercise`, `fraud_mistake.deceived_disposer_identity`, `fraud_mistake.disposition_definition`, `fraud_mistake.disposition_intent_act_awareness`, `fraud_mistake.error_definition`, `fraud_mistake.error_disposition_motivation`, `fraud_mistake.error_doubt_ignorance`, `fraud_mistake.factual_act_disposition`, `fraud_mistake.gain_purpose`, `fraud_mistake.invalid_act_disposition`, `fraud_mistake.property_disposition_element`, `fraud_mistake.sequential_causation`, `fraud_mistake.triangular_fraud_definition`, `fraud_mistake.unaware_error`, `fraud_stages_participation.completion_deception_disposition_transfer`, `fraud_stages_participation.property_fraud_completion_control`, `general_object.fraud.element.object-other-possessed-other-property`, `general_object.fraud.exception.public-interest-property-equivalence`, `mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation`
 
 검토 메모: 공통 core는 세부 사기유형을 직접 분기하지 않는다. profile과 adapter가 채운 canonical component, 역할 구조 및 수익 귀속 interface만 AND 결합한다.
 
@@ -6002,7 +6101,7 @@
 - 해당 피고인에 관해 하나 이상의 명시적 사기 불성립 사유가 존재함
 - 해당 피고인에 관해 하나 이상의 상충 평가가 존재함
 
-연결 NormCard: `deception.fraud.causal-link.deception-property-disposition`, `deception.fraud.definition.deceived-person-victim-distinct`, `deception.fraud.definition.deception-good-faith-mistake`, `deception.fraud.definition.exploitation-existing-mistake`, `deception.fraud.element.loan-no-repayment-intent-or-ability`, `deception.fraud.standard.advertising-important-concrete-falsehood`, `deception.fraud.standard.implicit-deception-explanatory-value`, `deception.fraud.standard.loan-purpose-materiality`, `fraud_damage_acquisition.delivery_factual_control`, `fraud_damage_acquisition.delivery_of_property`, `fraud_damage_acquisition.property_concept_reported_precedent`, `fraud_damage_acquisition.right_exercise_unacceptable_deception`, `fraud_intent.contract_breach_distinction`, `fraud_intent.no_disposition_inducement_intent`, `fraud_intent.third_party_acquisition`, `fraud_intent.time_of_conduct`, `fraud_mistake.conscious_nonexercise`, `fraud_mistake.deceived_disposer_identity`, `fraud_mistake.disposition_definition`, `fraud_mistake.disposition_intent_act_awareness`, `fraud_mistake.error_definition`, `fraud_mistake.error_disposition_motivation`, `fraud_mistake.error_doubt_ignorance`, `fraud_mistake.factual_act_disposition`, `fraud_mistake.gain_purpose`, `fraud_mistake.invalid_act_disposition`, `fraud_mistake.property_disposition_element`, `fraud_mistake.sequential_causation`, `fraud_mistake.triangular_fraud_definition`, `fraud_mistake.unaware_error`, `fraud_stages_participation.completion_deception_disposition_transfer`, `fraud_stages_participation.property_fraud_completion_control`, `general_object.fraud.element.object-other-possessed-other-property`, `general_object.fraud.exception.public-interest-property-equivalence`, `mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation`
+연결 NormCard: `deception.fraud.causal-link.deception-property-disposition`, `deception.fraud.definition.deceived-person-victim-distinct`, `deception.fraud.definition.deception-good-faith-mistake`, `deception.fraud.definition.exploitation-existing-mistake`, `deception.fraud.element.loan-no-repayment-intent-or-ability`, `deception.fraud.standard.advertising-important-concrete-falsehood`, `deception.fraud.standard.implicit-deception-explanatory-value`, `deception.fraud.standard.loan-purpose-materiality`, `fraud_damage_acquisition.delivery_factual_control`, `fraud_damage_acquisition.delivery_of_property`, `fraud_damage_acquisition.property_concept_reported_precedent`, `fraud_damage_acquisition.right_exercise_unacceptable_deception`, `fraud_intent.no_disposition_inducement_intent`, `fraud_intent.third_party_acquisition`, `fraud_intent.time_of_conduct`, `fraud_mistake.conscious_nonexercise`, `fraud_mistake.deceived_disposer_identity`, `fraud_mistake.disposition_definition`, `fraud_mistake.disposition_intent_act_awareness`, `fraud_mistake.error_definition`, `fraud_mistake.error_disposition_motivation`, `fraud_mistake.error_doubt_ignorance`, `fraud_mistake.factual_act_disposition`, `fraud_mistake.gain_purpose`, `fraud_mistake.invalid_act_disposition`, `fraud_mistake.property_disposition_element`, `fraud_mistake.sequential_causation`, `fraud_mistake.triangular_fraud_definition`, `fraud_mistake.unaware_error`, `fraud_stages_participation.completion_deception_disposition_transfer`, `fraud_stages_participation.property_fraud_completion_control`, `general_object.fraud.element.object-other-possessed-other-property`, `general_object.fraud.exception.public-interest-property-equivalence`, `mistake_disposition.fraud.variant-triangular-fraud-94do1575-factual-position-interpretation`
 
 검토 메모: 라우터가 선택한 사건 평가 묶음이 완결된 뒤, 성립 후보에 명시적 불성립 사유와 충돌이 모두 없을 때만 확정 성립을 출력한다. 이 두 부정은 완결 게이트 뒤의 최종 층에서만 사용한다.
 

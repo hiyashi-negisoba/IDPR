@@ -172,6 +172,41 @@
           "type": "String"
         },
         {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "deceived_person_id",
+          "type": "String"
+        },
+        {
+          "name": "disposer_id",
+          "type": "String"
+        },
+        {
+          "name": "property_owner_id",
+          "type": "String"
+        },
+        {
+          "name": "beneficiary_id",
+          "type": "String"
+        }
+      ],
+      "definition": "호스트가 FactGraph의 대상 거래 역할을 하나의 actor tuple로 확정한 사실",
+      "id": "fraud_case_roles",
+      "kind": "rule",
+      "norm_card_ids": [],
+      "origin": "system",
+      "role": "input",
+      "source_refs": []
+    },
+    {
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
           "name": "assessment_id",
           "type": "String"
         },
@@ -4732,9 +4767,9 @@
           "type": "String"
         }
       ],
-      "definition": "다음 결정규칙을 적용하는 데 필요한 사건의 구조화된 사실적 전제가 충족되는지에 대한 명시적 3상태 rule fact: 피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.",
+      "definition": "현재 사건 사실에 다음 개방형 법적 기준을 적용한 명시적 3상태 평가: 피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.",
       "id": "assess_fraud_intent_no_disposition_inducement_intent",
-      "kind": "rule",
+      "kind": "standard",
       "norm_card_ids": [
         "fraud_intent.no_disposition_inducement_intent"
       ],
@@ -9133,7 +9168,6 @@
       "id": "fraud_intent_satisfied",
       "kind": "rule",
       "norm_card_ids": [
-        "fraud_intent.contract_breach_distinction",
         "fraud_intent.no_disposition_inducement_intent",
         "fraud_intent.time_of_conduct",
         "fraud_mistake.gain_purpose"
@@ -9145,11 +9179,6 @@
           "comment_id": "comm_001692_제347조_Ⅳ.3_56",
           "quote": "이 경우 범인에게 타인을 기망하여 재산적 이 득을 취한다는 목적의사가 있어야 하며",
           "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅴ.1_74",
-          "quote": "고의에 의한 기망은 단순채무불이행과 사기죄를 구별하는 표준이 된다.",
-          "section_path": "Ⅴ.1"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_74",
@@ -12142,7 +12171,6 @@
       "id": "fraud_beneficiary_attribution_satisfied",
       "kind": "rule",
       "norm_card_ids": [
-        "fraud_intent.contract_breach_distinction",
         "fraud_intent.no_disposition_inducement_intent",
         "fraud_intent.third_party_acquisition",
         "fraud_intent.time_of_conduct",
@@ -12155,11 +12183,6 @@
           "comment_id": "comm_001692_제347조_Ⅳ.3_56",
           "quote": "이 경우 범인에게 타인을 기망하여 재산적 이 득을 취한다는 목적의사가 있어야 하며",
           "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅴ.1_74",
-          "quote": "고의에 의한 기망은 단순채무불이행과 사기죄를 구별하는 표준이 된다.",
-          "section_path": "Ⅴ.1"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_74",
@@ -23043,6 +23066,794 @@
             },
             {
               "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "beneficiary_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "fraud_case_roles"
+        }
+      ],
+      "head": {
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "deceived_person_id"
+          },
+          {
+            "kind": "variable",
+            "value": "deceived_person_id"
+          },
+          {
+            "kind": "variable",
+            "value": "property_owner_id"
+          },
+          {
+            "kind": "variable",
+            "value": "beneficiary_id"
+          }
+        ],
+        "negated": false,
+        "predicate": "satisfied_fraud_mistake_deceived_disposer_identity"
+      },
+      "id": "fraud.symbolic.deceived_disposer_identity",
+      "norm_card_ids": [
+        "fraud_mistake.deceived_disposer_identity"
+      ],
+      "review_notes": "피기망자와 처분자에 같은 entity ID가 배정되면 동일성 요건을 도출한다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_59",
+          "quote": "피기망자와 재산상의 피해자는 동일인일 필요는 없으나, 피기망자와 처분행위자 는 동일인이어야 한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "disposer_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "beneficiary_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "fraud_case_roles"
+        },
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "distinct_entity"
+        }
+      ],
+      "head": {
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "deceived_person_id"
+          },
+          {
+            "kind": "variable",
+            "value": "disposer_id"
+          },
+          {
+            "kind": "variable",
+            "value": "property_owner_id"
+          },
+          {
+            "kind": "variable",
+            "value": "beneficiary_id"
+          }
+        ],
+        "negated": false,
+        "predicate": "satisfied_deception_fraud_definition_deceived_person_victim_distinct"
+      },
+      "id": "fraud.symbolic.deceived_person_victim_distinct",
+      "norm_card_ids": [
+        "deception.fraud.definition.deceived-person-victim-distinct"
+      ],
+      "review_notes": "피기망자와 재산소유자가 다른 entity이면 피해자 상이 구조를 도출한다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_45",
+          "quote": "행위의 객체와 보호의 객체는 별개이므로, 기망의 상대방과 재산상의 피해자",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_46",
+          "quote": "는 동일인일 것을 요하지 않는다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "disposer_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "beneficiary_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "fraud_case_roles"
+        },
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "distinct_entity"
+        }
+      ],
+      "head": {
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "deceived_person_id"
+          },
+          {
+            "kind": "variable",
+            "value": "disposer_id"
+          },
+          {
+            "kind": "variable",
+            "value": "property_owner_id"
+          },
+          {
+            "kind": "variable",
+            "value": "beneficiary_id"
+          }
+        ],
+        "negated": false,
+        "predicate": "satisfied_fraud_mistake_triangular_fraud_definition"
+      },
+      "id": "fraud.symbolic.triangular_structure",
+      "norm_card_ids": [
+        "fraud_mistake.triangular_fraud_definition"
+      ],
+      "review_notes": "피기망자·처분자와 재산소유자의 상이성을 삼각사기 구조로 분류한다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_57",
+          "quote": "피기망자와 재산상의 피해자는 동일인임을 요하지 않으므로, 피해자와 처분행위 자도 동일인일 필요는 없다. 양자가 상이한 경우를 삼각사기라고 (Dreiecksbetrug) 한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "disposer_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "beneficiary_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "satisfied_deception_fraud_definition_deception_good_faith_mistake"
+        },
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "disposer_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "beneficiary_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "fraud_mistake_satisfied"
+        },
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "disposer_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "beneficiary_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "fraud_disposition_satisfied"
+        }
+      ],
+      "head": {
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "deceived_person_id"
+          },
+          {
+            "kind": "variable",
+            "value": "disposer_id"
+          },
+          {
+            "kind": "variable",
+            "value": "property_owner_id"
+          },
+          {
+            "kind": "variable",
+            "value": "beneficiary_id"
+          }
+        ],
+        "negated": false,
+        "predicate": "satisfied_deception_fraud_causal_link_deception_property_disposition"
+      },
+      "id": "fraud.symbolic.deception_disposition_causal_link",
+      "norm_card_ids": [
+        "deception.fraud.causal-link.deception-property-disposition"
+      ],
+      "review_notes": "기망의 사건 적용, 착오와 처분이 모두 충족되면 처분 지향 인과를 도출한다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.1_11",
+          "quote": "사기죄에서 기망은 편취 또는 이득의 수단으로서 행하여지는 것이므로 피기망 자의 재산적 처분행위를 행하게 하는 행위가 아니면 안 된다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "disposer_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "beneficiary_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "satisfied_general_object_fraud_definition_property_benefit"
+        },
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "disposer_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "beneficiary_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "satisfied_general_object_fraud_element_property_benefit_concrete"
+        }
+      ],
+      "head": {
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "deceived_person_id"
+          },
+          {
+            "kind": "variable",
+            "value": "disposer_id"
+          },
+          {
+            "kind": "variable",
+            "value": "property_owner_id"
+          },
+          {
+            "kind": "variable",
+            "value": "beneficiary_id"
+          }
+        ],
+        "negated": false,
+        "predicate": "satisfied_fraud_damage_acquisition_property_concept_reported_precedent"
+      },
+      "id": "fraud.symbolic.property_benefit_acquisition",
+      "norm_card_ids": [
+        "fraud_damage_acquisition.property_concept_reported_precedent"
+      ],
+      "review_notes": "구체적인 재산상 이익의 사건 적용이 충족되면 외형상 이익 취득을 도출한다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.4_62",
+          "quote": "판례는 사기죄에서 재산상 이익처분은 법률상 유효하게 취득할 것을 필 요로 하지 않고 그 이익 취득이 법률상 무효라고 하여도 외형상 취득하면 족하 다고 판시하고 있어 법률적 재산개념에 한정하지 않고 있고, 경제적 재산개 념에 가깝다고 보인다.",
+          "section_path": "Ⅳ.4"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "disposer_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "beneficiary_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "fraud_deception_satisfied"
+        },
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "disposer_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "beneficiary_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "fraud_mistake_satisfied"
+        },
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "disposer_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "beneficiary_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "fraud_disposition_satisfied"
+        },
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "disposer_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "beneficiary_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "fraud_acquisition_satisfied"
+        }
+      ],
+      "head": {
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "deceived_person_id"
+          },
+          {
+            "kind": "variable",
+            "value": "disposer_id"
+          },
+          {
+            "kind": "variable",
+            "value": "property_owner_id"
+          },
+          {
+            "kind": "variable",
+            "value": "beneficiary_id"
+          }
+        ],
+        "negated": false,
+        "predicate": "satisfied_fraud_mistake_sequential_causation"
+      },
+      "id": "fraud.symbolic.sequential_causation",
+      "norm_card_ids": [
+        "fraud_mistake.sequential_causation"
+      ],
+      "review_notes": "기망·착오·처분·취득 component가 모두 충족되면 순차적 인과관계를 도출한다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.2_47",
+          "quote": "사기죄의 성립을 위해서는 기망행위와 상대 방의 착오 및 재물의 교부 또는 재산상 이익의 공여와의 사이에는 순차적으로 인과관계가 있어야 한다. 이러한 2단계의 구체적 인과관계의 연쇄가 있어야 사기행위가 기수가 될 수 있다.",
+          "section_path": "Ⅳ.2"
+        },
+        {
+          "comment_id": "comm_001692_제347조_Ⅳ.3_55",
+          "quote": "재산적 처분행위는 착오에 인한 것이어야 한다. 사기죄는 타인을 기망하여 착오에 빠뜨리고 처분행위를 유발하여 재물을 교부받거나 재산상의 이익을 얻 음으로써 성립하므로, 기망, 착오, 재산적 처분행위 사이에 인과관계가 있어야 한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "disposer_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "beneficiary_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "satisfied_fraud_mistake_sequential_causation"
+        },
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "disposer_id"
+            },
+            {
+              "kind": "variable",
+              "value": "property_owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "beneficiary_id"
+            }
+          ],
+          "negated": false,
+          "predicate": "fraud_acquisition_satisfied"
+        }
+      ],
+      "head": {
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "deceived_person_id"
+          },
+          {
+            "kind": "variable",
+            "value": "disposer_id"
+          },
+          {
+            "kind": "variable",
+            "value": "property_owner_id"
+          },
+          {
+            "kind": "variable",
+            "value": "beneficiary_id"
+          }
+        ],
+        "negated": false,
+        "predicate": "satisfied_fraud_stages_participation_completion_deception_disposition_transfer"
+      },
+      "id": "fraud.symbolic.completion",
+      "norm_card_ids": [
+        "fraud_stages_participation.completion_deception_disposition_transfer"
+      ],
+      "review_notes": "순차적 인과관계와 취득이 충족되면 재물 또는 이익 이전의 기수를 도출한다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제347조_Ⅶ.2_107",
+          "quote": "행위자의 기망행위에 의하여 상대방이 착오에 빠지고 그 착오에 기하여 재산적 처분행위가 이루어지고 그 결과 재물 또는 재산상의 이익의 이전이 이루어진 때에 사기죄는 기수로 된다.",
+          "section_path": "Ⅶ.2"
+        }
+      ]
+    },
+    {
+      "body": [
+        {
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "deceived_person_id"
+            },
+            {
+              "kind": "variable",
               "value": "disposer_id"
             },
             {
@@ -23413,36 +24224,6 @@
             }
           ],
           "negated": false,
-          "predicate": "satisfied_fraud_intent_contract_breach_distinction"
-        },
-        {
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "deceived_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "disposer_id"
-            },
-            {
-              "kind": "variable",
-              "value": "property_owner_id"
-            },
-            {
-              "kind": "variable",
-              "value": "beneficiary_id"
-            }
-          ],
-          "negated": false,
           "predicate": "satisfied_fraud_intent_time_of_conduct"
         },
         {
@@ -23538,22 +24319,16 @@
       },
       "id": "fraud.core_intent.component.fraud_intent_satisfied",
       "norm_card_ids": [
-        "fraud_intent.contract_breach_distinction",
         "fraud_intent.no_disposition_inducement_intent",
         "fraud_intent.time_of_conduct",
         "fraud_mistake.gain_purpose"
       ],
-      "review_notes": "단순 채무불이행과 구별되는 고의의 기망 및 재산적 이득 목적을 함께 요구한다.",
+      "review_notes": "행위 당시의 편취 목적, 재산적 이득 목적 및 처분 유도 의사를 함께 요구한다.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제347조_Ⅳ.3_56",
           "quote": "이 경우 범인에게 타인을 기망하여 재산적 이 득을 취한다는 목적의사가 있어야 하며",
           "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅴ.1_74",
-          "quote": "고의에 의한 기망은 단순채무불이행과 사기죄를 구별하는 표준이 된다.",
-          "section_path": "Ⅴ.1"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_74",
@@ -46395,7 +47170,6 @@
       },
       "id": "fraud.structure_self_acquisition.beneficiary_attribution",
       "norm_card_ids": [
-        "fraud_intent.contract_breach_distinction",
         "fraud_intent.no_disposition_inducement_intent",
         "fraud_intent.time_of_conduct",
         "fraud_mistake.gain_purpose"
@@ -46406,11 +47180,6 @@
           "comment_id": "comm_001692_제347조_Ⅳ.3_56",
           "quote": "이 경우 범인에게 타인을 기망하여 재산적 이 득을 취한다는 목적의사가 있어야 하며",
           "section_path": "Ⅳ.3"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅴ.1_74",
-          "quote": "고의에 의한 기망은 단순채무불이행과 사기죄를 구별하는 표준이 된다.",
-          "section_path": "Ⅴ.1"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_74",
@@ -46865,7 +47634,6 @@
         "fraud_damage_acquisition.delivery_of_property",
         "fraud_damage_acquisition.property_concept_reported_precedent",
         "fraud_damage_acquisition.right_exercise_unacceptable_deception",
-        "fraud_intent.contract_breach_distinction",
         "fraud_intent.no_disposition_inducement_intent",
         "fraud_intent.third_party_acquisition",
         "fraud_intent.time_of_conduct",
@@ -47045,11 +47813,6 @@
           "comment_id": "comm_001692_제347조_Ⅳ.6_69",
           "quote": "그 정도를 넘어 사회통념상 그러한 수단에 의한 권리행사를 용인할 수 없다고 평가되는 경우에는 그 행위 자체가 위법한 것이 되므로, 권리행사에 속하는 행위도 사기죄에 해당한다는 입장이다.",
           "section_path": "Ⅳ.6"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅴ.1_74",
-          "quote": "고의에 의한 기망은 단순채무불이행과 사기죄를 구별하는 표준이 된다.",
-          "section_path": "Ⅴ.1"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_74",
@@ -48664,7 +49427,6 @@
         "fraud_damage_acquisition.delivery_of_property",
         "fraud_damage_acquisition.property_concept_reported_precedent",
         "fraud_damage_acquisition.right_exercise_unacceptable_deception",
-        "fraud_intent.contract_breach_distinction",
         "fraud_intent.no_disposition_inducement_intent",
         "fraud_intent.third_party_acquisition",
         "fraud_intent.time_of_conduct",
@@ -48844,11 +49606,6 @@
           "comment_id": "comm_001692_제347조_Ⅳ.6_69",
           "quote": "그 정도를 넘어 사회통념상 그러한 수단에 의한 권리행사를 용인할 수 없다고 평가되는 경우에는 그 행위 자체가 위법한 것이 되므로, 권리행사에 속하는 행위도 사기죄에 해당한다는 입장이다.",
           "section_path": "Ⅳ.6"
-        },
-        {
-          "comment_id": "comm_001692_제347조_Ⅴ.1_74",
-          "quote": "고의에 의한 기망은 단순채무불이행과 사기죄를 구별하는 표준이 된다.",
-          "section_path": "Ⅴ.1"
         },
         {
           "comment_id": "comm_001692_제347조_Ⅴ.1_74",

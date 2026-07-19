@@ -119,20 +119,22 @@
     },
     "profiles": {
       "type": "array",
-      "minItems": 1,
+      "minItems": 0,
       "maxItems": 9,
       "uniqueItems": true,
       "items": {
         "enum": [
-          "ordinary",
-          "loan_purpose",
-          "triangular",
-          "third_party_acquisition",
-          "omission",
-          "implicit_deception",
-          "advertising",
-          "rights_exercise",
-          "property_benefit"
+                "loan_purpose",
+                "loan_repayment",
+                "contract_performance",
+                "triangular",
+                "third_party_acquisition",
+                "omission",
+                "implicit_deception",
+                "advertising",
+                "rights_exercise",
+                "property_benefit",
+                "litigation"
         ]
       }
     },

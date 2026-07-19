@@ -3,8 +3,8 @@
 ## 범위
 
 - API 사용: 0회
-- deterministic rule 검수 후보: 28개
-- standard input 검수 후보: 60개
+- deterministic rule 검수 후보: 27개
+- standard input 검수 후보: 61개
 - RAG/future-work context: 558개
 - 현재 unresolved: 0개
 
@@ -30,7 +30,6 @@
 | damage_acquisition | `fraud_damage_acquisition.property_concept_reported_precedent` | 사기죄의 재산상 이익 취득은 법률상 유효할 필요가 없고, 법률상 무효라도 외형상 재산상 이익을 취득하면 족하다. |
 | damage_acquisition | `fraud_damage_acquisition.property_loss_negative_view` | 사기죄는 기망에 의한 재물 교부 또는 재산상 이익 취득으로 성립하며, 상대방에게 현실적인 재산상 손해가 별도로 발생할 것을 요구하지 않는다. |
 | general_object | `fraud_general_object.causation_required` | 객관적 구성요건 요소 사이의 인과관계가 인정되지 않으면 사기죄는 기수로 성립하지 않는다. |
-| intent | `fraud_intent.no_disposition_inducement_intent` | 피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다. |
 | mistake_disposition | `fraud_mistake.deceived_disposer_identity` | 피기망자와 처분행위자는 동일인이어야 한다. |
 | mistake_disposition | `fraud_mistake.factual_act_disposition` | 피기망자의 의사에 기초한 사실행위가 행위자 등에게 재물 또는 재산상 이익을 직접 이전하는 경우, 그 사실행위도 처분행위가 될 수 있다. |
 | mistake_disposition | `fraud_mistake.invalid_act_disposition` | 착오에 의한 재산적 처분행위가 민법상 취소 가능하거나 그 법률행위가 무효여도 사기죄의 처분행위 성립에는 영향이 없다. |
@@ -79,6 +78,7 @@
 | general_object | `fraud_general_object.deception_error_causation` | 기망수단으로 재물을 교부받았더라도 상대방이 그 기망으로 착오에 빠진 것이 아니라 다른 동기나 이유로 교부한 경우 사기미수죄만 성립한다. |
 | intent | `fraud_intent.contract_breach_distinction` | 고의에 의한 기망은 단순채무불이행과 사기죄를 구별하는 표준이 된다. |
 | intent | `fraud_intent.illegal_appropriation_definition` | 사기죄의 불법영득의사는 타인의 물건을 자기 것으로 삼으려는 의사뿐 아니라 그 경제적 용법에 따라 일시적으로 이용 또는 처분하려는 의사도 포함하며, 영구 보유 의사가 반드시 필요한 것은 아니다. |
+| intent | `fraud_intent.no_disposition_inducement_intent` | 피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다. |
 | intent | `fraud_intent.precedent_illegal_appropriation_intent` | 판례는 사기죄의 주관적 요건으로 고의 외에 불법영득의사가 필요하다는 입장이다. |
 | intent | `fraud_intent.third_party_acquisition` | 행위자가 기망으로 스스로 재물을 취득하지 않고 제3자로 하여금 교부받게 한 경우 사기죄가 성립하려면, 제3자가 정을 모르는 도구 또는 범인의 이익을 위해 행동하는 대리인이거나, 적어도 행위자에게 제3자로 하여금 재물을 취득하게 할 의사가 있어야 한다. |
 | intent | `fraud_intent.time_of_conduct` | 편취의 범의는 행위 당시를 기준으로 판단한다. |

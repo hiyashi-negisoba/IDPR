@@ -4,8 +4,8 @@
 
 - API 사용: 0회
 - 전체 NormCard: 646개
-- deterministic rule 검수 후보: 28개
-- standard input 검수 후보: 60개
+- deterministic rule 검수 후보: 27개
+- standard input 검수 후보: 61개
 - RAG 전용: 558개
 - 사용자 정책 선택: 0개 그룹, 0개 카드
 

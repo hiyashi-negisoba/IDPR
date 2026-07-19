@@ -2,8 +2,8 @@
   "api_calls": 0,
   "counts": {
     "context_only": 558,
-    "deterministic_rule": 28,
-    "standard_input": 60
+    "deterministic_rule": 27,
+    "standard_input": 61
   },
   "criteria": {
     "context_only": "구체적 판례 결과, 학설, 희귀 적용례, 이득액 계산 또는 다른 죄명 문맥",
@@ -2363,8 +2363,8 @@
     {
       "card_id": "fraud_intent.no_disposition_inducement_intent",
       "module": "intent",
-      "role": "deterministic_rule",
-      "selection_reason": "general_legal_rule_or_symbolic_composition"
+      "role": "standard_input",
+      "selection_reason": "general_fact_condition_requiring_neural_judgment"
     },
     {
       "card_id": "fraud_intent.no_disposition_intent_court_or_seizure",

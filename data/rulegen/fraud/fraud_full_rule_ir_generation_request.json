@@ -1461,7 +1461,7 @@
             }
           ],
           "doctrinal_status": "descriptive",
-          "formalization": "deterministic_rule",
+          "formalization": "standard_input",
           "id": "fraud_intent.no_disposition_inducement_intent",
           "norm_kind": "element",
           "polarity": "negative",
@@ -1469,7 +1469,7 @@
           "request_ids": [
             "fraud.article347.pass1.009"
           ],
-          "review_notes": "처분행위를 유발하려는 의사의 존재 여부를 해당 사안에서 확인한다. Conservatively normalized from linked candidates. 일반 설명의 권위 확인 전 법률검토를 유지한다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
+          "review_notes": "법명제의 결합은 결정규칙이지만, 처분을 유발하려는 의사의 존재 여부는 사건 사실에 대한 평가가 필요하므로 standard_input으로 사용한다. Conservatively normalized from linked candidates. 일반 설명의 권위 확인 전 법률검토를 유지한다. 최종 수동 감사에서 법률검토와 neural grounding을 분리하여 RuleIR 입력 가능으로 확정했다. 최종 수동 감사에서 core 후보로 선별했으며 사용자 승인 전에는 RuleIR 생성을 차단한다.",
           "review_required": false,
           "source_refs": [
             {
@@ -2735,8 +2735,8 @@
     "cards": 88,
     "deterministic_rule_requires_implementing_rule": true,
     "formalizations": {
-      "deterministic_rule": 28,
-      "standard_input": 60
+      "deterministic_rule": 27,
+      "standard_input": 61
     },
     "standard_input_requires_input_standard": true
   },
