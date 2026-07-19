@@ -1,0 +1,294 @@
+{
+  "artifact_type": "manual_neutral_paraphrase_case_set",
+  "cases": [
+    {
+      "allowed_profiles": [
+        "loan_repayment"
+      ],
+      "case_id": "manual_fraud_046_01_loan_repayment",
+      "case_text": "A는 일정한 직업과 정기적인 수입이 없었고, 당시 2천만 원 상당의 채무를 부담하고 있었으며 별도로 확인되는 재산도 없었다. A는 2021년 어느 날 B의 집에서 B에게 1천만 원을 빌려주면 매월 3%의 이자를 지급하고 두 달 뒤 원금을 갚겠다고 말했다. B는 그 말을 듣고 같은 자리에서 A에게 1천만 원을 건넸다.",
+      "generation_instructions": [
+        "A의 B에 대한 사기죄만 검토한다.",
+        "사건 사실은 case_text 밖에서 보충하지 않는다.",
+        "원문 작성례의 법률결론을 알고 있다고 가정하지 않는다.",
+        "본문에는 내부 provenance ID를 쓰지 않는다."
+      ],
+      "question_prompt": "A의 B에 대한 사기죄 성부를 검토하시오.",
+      "reasoning_plan_id": "loan_repayment_property",
+      "required_profiles": [
+        "loan_repayment"
+      ],
+      "rule_set_id": "kr.fraud.article347.full.v1_candidate",
+      "scope_note": "차용 당시 변제 의사·능력과 객관적 사정을 평가한다. 원문 작성례의 결론형 문구는 제공하지 않는다.",
+      "source": {
+        "case_ordinal": 1,
+        "derivation": "manual_semantic_paraphrase_without_model",
+        "leaf_id": "manual_crimefacts_economic::leaf::046",
+        "manual_id": "manual_crimefacts_economic",
+        "page_end": 56,
+        "page_start": 55,
+        "removed_leakage": [
+          "변제 의사·능력 부재의 직접 단정",
+          "기망·편취라는 법률평가",
+          "적용법조"
+        ],
+        "source_case_id": "manual_crimefacts_economic::leaf::046::case::1",
+        "source_segment_chars": 315,
+        "source_segment_sha256": "d60bcbb3b9356624b94d3ea2d883e63e63566b89f05df6500c538a749ee0c49e"
+      },
+      "target": {
+        "answer_subject": "A의 B에 대한 사기죄",
+        "counterparty_hint": "B",
+        "defendant_hint": "A",
+        "issue_id": "fraud",
+        "role_hints": {
+          "beneficiary": "A",
+          "deceived_person": "B",
+          "defendant": "A",
+          "disposer": "B",
+          "property_owner": "B"
+        },
+        "target_transaction": {
+          "description": "B가 A에게 1천만 원을 빌려준 차용 거래",
+          "immediate_recipient_hint": "A",
+          "transferor_hint": "B"
+        }
+      },
+      "version": "1.0.0"
+    },
+    {
+      "allowed_profiles": [
+        "loan_repayment",
+        "property_benefit"
+      ],
+      "case_id": "manual_fraud_047_01_loan_extension",
+      "case_text": "A는 3년 전 B에게서 연 8%의 이자로 5천만 원을 빌렸다. 변제기가 다가왔을 때 A는 직업과 별다른 수입이 없었고 가족의 채무 때문에 매월 100만 원 이상을 지출하고 있었다. A는 2020년 8월 3일 B에게 변제기를 6개월 미뤄주면 이자를 포함해 갚겠다고 말했다. B는 이를 받아들여 원금의 변제기를 6개월 연장하였다.",
+      "generation_instructions": [
+        "A의 B에 대한 사기죄만 검토한다.",
+        "금전의 신규 교부가 아니라 변제기 연장으로 얻은 재산상 이익을 구별한다.",
+        "사건 사실은 case_text 밖에서 보충하지 않는다.",
+        "원문 작성례의 법률결론을 알고 있다고 가정하지 않는다."
+      ],
+      "question_prompt": "변제기 연장과 관련한 A의 B에 대한 사기죄 성부를 검토하시오.",
+      "reasoning_plan_id": "loan_extension_benefit",
+      "required_profiles": [
+        "loan_repayment",
+        "property_benefit"
+      ],
+      "rule_set_id": "kr.fraud.article347.full.v1_candidate",
+      "scope_note": "변제기 연장이 구체적 재산상 이익인지와 연장 당시 변제 의사·능력을 평가한다.",
+      "source": {
+        "case_ordinal": 1,
+        "derivation": "manual_semantic_paraphrase_without_model",
+        "leaf_id": "manual_crimefacts_economic::leaf::047",
+        "manual_id": "manual_crimefacts_economic",
+        "page_end": 56,
+        "page_start": 56,
+        "removed_leakage": [
+          "변제 의사·능력 부재의 직접 단정",
+          "재산상 이익 취득의 법률결론",
+          "기망 및 적용법조"
+        ],
+        "source_case_id": "manual_crimefacts_economic::leaf::047::case::1",
+        "source_segment_chars": 283,
+        "source_segment_sha256": "c1b64ef679a098b7aa6200237ea3313da8fa3feae3f4390fc4c757c808a42338"
+      },
+      "target": {
+        "answer_subject": "A의 B에 대한 사기죄",
+        "counterparty_hint": "B",
+        "defendant_hint": "A",
+        "issue_id": "fraud",
+        "role_hints": {
+          "beneficiary": "A",
+          "deceived_person": "B",
+          "defendant": "A",
+          "disposer": "B",
+          "property_owner": "B"
+        },
+        "target_transaction": {
+          "description": "B가 A의 5천만 원 채무 변제기를 6개월 연장한 거래",
+          "immediate_recipient_hint": "A",
+          "transferor_hint": "B"
+        }
+      },
+      "version": "1.0.0"
+    },
+    {
+      "allowed_profiles": [
+        "implicit_deception",
+        "property_benefit"
+      ],
+      "case_id": "manual_fraud_050_01_unpaid_dining",
+      "case_text": "A는 일정한 직업이나 별다른 재산이 없었고, 현금·신용카드 등 결제수단을 가지고 있지 않았다. A는 2008년 11월 9일 저녁 B가 운영하는 주점에 들어가 술과 안주를 주문하였다. B는 A의 주문에 따라 5만 2천 원 상당의 술과 안주를 제공했고, A는 이를 먹은 뒤 대금을 지급하지 않았다.",
+      "generation_instructions": [
+        "A의 B에 대한 사기죄만 검토한다.",
+        "명시적 발언이 아닌 주문 행동의 설명가치를 검토한다.",
+        "제공된 음식과 서비스의 재산상 이익을 구별한다.",
+        "사건 사실은 case_text 밖에서 보충하지 않는다."
+      ],
+      "question_prompt": "A의 무전취식 행위에 관하여 B에 대한 사기죄 성부를 검토하시오.",
+      "reasoning_plan_id": "implicit_service_benefit",
+      "required_profiles": [
+        "implicit_deception",
+        "property_benefit"
+      ],
+      "rule_set_id": "kr.fraud.article347.full.v1_candidate",
+      "scope_note": "주문 행동에 의한 묵시적 기망과 음식·서비스 제공에 따른 재산상 이익을 평가한다.",
+      "source": {
+        "case_ordinal": 1,
+        "derivation": "manual_semantic_paraphrase_without_model",
+        "leaf_id": "manual_crimefacts_economic::leaf::050",
+        "manual_id": "manual_crimefacts_economic",
+        "page_end": 59,
+        "page_start": 59,
+        "removed_leakage": [
+          "대금 지급 능력 부재의 법률적 연결",
+          "기망·재산상 이익 취득이라는 결론",
+          "적용법조"
+        ],
+        "source_case_id": "manual_crimefacts_economic::leaf::050::case::1",
+        "source_segment_chars": 330,
+        "source_segment_sha256": "b5c15cb4197fc97dc9c1c63f1c683b359dad7a461a36677f188185e5f1d65a7e"
+      },
+      "target": {
+        "answer_subject": "A의 B에 대한 사기죄",
+        "counterparty_hint": "B",
+        "defendant_hint": "A",
+        "issue_id": "fraud",
+        "role_hints": {
+          "beneficiary": "A",
+          "deceived_person": "B",
+          "defendant": "A",
+          "disposer": "B",
+          "property_owner": "B"
+        },
+        "target_transaction": {
+          "description": "B가 A의 주문에 따라 술과 안주를 제공한 거래",
+          "immediate_recipient_hint": "A",
+          "transferor_hint": "B"
+        }
+      },
+      "version": "1.0.0"
+    },
+    {
+      "allowed_profiles": [
+        "contract_performance"
+      ],
+      "case_id": "manual_fraud_052_01_supply_deposit",
+      "case_text": "A는 전선 회사의 대표이사였다. 회사는 당시 공급 대상 전선을 아직 생산하지 않은 상태였다. A는 2021년 어느 날 회사 사무실에서 B에게 회사가 해저케이블용 전선을 이미 생산하고 있고, 그 전선은 해저케이블 분야에서 세계 최고 수준이며 공급 요청도 많다고 말했다. 또한 계약금을 먼저 지급하면 B에게 우선 공급하겠다고 말했다. B는 그 말을 듣고 전선 공급계약의 계약금으로 A 측에 1억 원을 지급하였다.",
+      "generation_instructions": [
+        "A의 B에 대한 사기죄만 검토한다.",
+        "계약 당시 이행 의사·능력과 사후 채무불이행을 구별한다.",
+        "사건 사실은 case_text 밖에서 보충하지 않는다.",
+        "원문 작성례의 법률결론을 알고 있다고 가정하지 않는다."
+      ],
+      "question_prompt": "전선 공급계약과 관련한 A의 B에 대한 사기죄 성부를 검토하시오.",
+      "reasoning_plan_id": "ordinary_contract_property",
+      "required_profiles": [
+        "contract_performance"
+      ],
+      "rule_set_id": "kr.fraud.article347.full.v1_candidate",
+      "scope_note": "계약 체결 당시 장래 공급의 이행 의사·능력과 계약금 교부 사이의 관계를 평가한다.",
+      "source": {
+        "case_ordinal": 1,
+        "derivation": "manual_semantic_paraphrase_without_model",
+        "leaf_id": "manual_crimefacts_economic::leaf::052",
+        "manual_id": "manual_crimefacts_economic",
+        "page_end": 60,
+        "page_start": 59,
+        "removed_leakage": [
+          "선적 의사·능력 부재의 직접 단정",
+          "기망·편취라는 법률평가",
+          "적용법조"
+        ],
+        "source_case_id": "manual_crimefacts_economic::leaf::052::case::1",
+        "source_segment_chars": 351,
+        "source_segment_sha256": "14c3c74362d42b195b0317d2c71326198c88f651ac0f44506c9f0d886512e318"
+      },
+      "target": {
+        "answer_subject": "A의 B에 대한 사기죄",
+        "counterparty_hint": "B",
+        "defendant_hint": "A",
+        "issue_id": "fraud",
+        "role_hints": {
+          "beneficiary": "A",
+          "deceived_person": "B",
+          "defendant": "A",
+          "disposer": "B",
+          "property_owner": "B"
+        },
+        "target_transaction": {
+          "description": "B가 A 측에 전선 공급계약금 1억 원을 지급한 거래",
+          "immediate_recipient_hint": "A",
+          "transferor_hint": "B"
+        }
+      },
+      "version": "1.0.0"
+    },
+    {
+      "allowed_profiles": [
+        "triangular"
+      ],
+      "case_id": "manual_fraud_063_01_parcel_triangular",
+      "case_text": "A와 B는 서로 모르는 사이였다. 건물 경비원 C는 2019년 12월 10일 안내데스크에서 B 앞으로 온 택배물을 보관하고 있었다. A는 C에게 B가 자신의 직원인 것처럼 말하면서 B 앞으로 온 택배물을 달라고 요청하였다. C는 그 말을 듣고 10만 원 상당의 의류와 장신구가 들어 있는 B의 택배물을 A에게 건넸다.",
+      "generation_instructions": [
+        "A의 행위에 관한 사기죄만 검토한다.",
+        "피기망자·처분자 C와 재산 피해자 B를 구별한다.",
+        "C가 보관 중인 택배를 교부할 사실상 지위가 있었는지 검토한다.",
+        "사건 사실은 case_text 밖에서 보충하지 않는다."
+      ],
+      "question_prompt": "A가 C로부터 B의 택배물을 받은 행위에 관하여 사기죄 성부를 검토하시오.",
+      "reasoning_plan_id": "triangular_property_delivery",
+      "required_profiles": [
+        "triangular"
+      ],
+      "rule_set_id": "kr.fraud.article347.full.v1_candidate",
+      "scope_note": "피기망자·처분자와 재산 피해자가 다른 삼각사기 역할 구조를 평가한다.",
+      "source": {
+        "case_ordinal": 1,
+        "derivation": "manual_semantic_paraphrase_without_model",
+        "leaf_id": "manual_crimefacts_economic::leaf::063",
+        "manual_id": "manual_crimefacts_economic",
+        "page_end": 79,
+        "page_start": 79,
+        "removed_leakage": [
+          "피해자에게 전달할 의사 부재의 직접 단정",
+          "기망·재물 편취라는 법률평가",
+          "적용법조"
+        ],
+        "source_case_id": "manual_crimefacts_economic::leaf::063::case::1",
+        "source_segment_chars": 355,
+        "source_segment_sha256": "1c450937671b15c90402774451e52b143b018c0c270433c1e9629f88bfb7142a"
+      },
+      "target": {
+        "answer_subject": "A의 택배물 취득에 관한 사기죄",
+        "counterparty_hint": "C",
+        "defendant_hint": "A",
+        "issue_id": "fraud",
+        "role_hints": {
+          "beneficiary": "A",
+          "deceived_person": "C",
+          "defendant": "A",
+          "disposer": "C",
+          "property_owner": "B"
+        },
+        "target_transaction": {
+          "description": "C가 보관 중이던 B의 택배물을 A에게 건넨 행위",
+          "immediate_recipient_hint": "A",
+          "transferor_hint": "C"
+        }
+      },
+      "version": "1.0.0"
+    }
+  ],
+  "license_note": "원문 전문은 포함하지 않는다. 접근·배포 정책은 원 매뉴얼과 기존 인덱스 정책을 따른다.",
+  "paraphrase_policy": {
+    "added_facts_forbidden": true,
+    "legal_conclusion_terms_removed": true,
+    "model_or_api_used": false,
+    "source_trace": "manual_id + leaf_id + case_ordinal + physical pages + source segment SHA-256",
+    "use": "challenge input and pipeline coverage; not independent gold annotation"
+  },
+  "source_index": "/data5/jaehoonjeong/sp/data/processed/manuals/manual_crimefacts_economic_v2",
+  "version": "1.0.0"
+}

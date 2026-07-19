@@ -4,6 +4,18 @@
 > [`fraud_irac_matrix_report.json`](../../data/e2e/fraud/irac_matrix/fraud_irac_matrix_report.json),
 > 각 방법의 실제 답안은 같은 디렉터리의 `m1`~`m6` Markdown에서 확인할 수 있다.
 
+> **후속 개선:** 아래 본문은 최초 6방법 실험 job `210075`의 동결 기록이다. 그 뒤 M5의
+> planner-to-generator 인터페이스를 구조적으로 개선해 job `210098`에서 3회 호출,
+> 32.905초, 정적 위반 0개를 확인했다. 상세 내용은
+> [`fraud_m5_structured_revision_report.md`](fraud_m5_structured_revision_report.md)에 있다.
+> 개선 M5를 기본 실행 아키텍처로 확정했으며, M6은 표본 evaluator와 불확실 사건 fallback으로
+> 사용한다. 아래 M5·M6 평가는 개선 전 동결 결과이므로 이 결정을 대신하지 않는다.
+
+> **현재 M5:** 위 3회 호출형 개선 뒤 카드 적용문 재작성 호출을 다시 제거했다. 현재는
+> FactGraph와 카드 assessment의 2회 호출만 사용하고, host가 사기죄 전체를 하나의 IRAC으로
+> 조립한다. 상세 내용은
+> [`fraud_m5_neural_prompt_and_whole_irac.md`](fraud_m5_neural_prompt_and_whole_irac.md)에 있다.
+
 ## 결론
 
 - 동일한 KCL 사기죄 사례에 대해 직접생성부터 ClaimGraph 검증까지 6개 방법을 실제

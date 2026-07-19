@@ -1,0 +1,108 @@
+{
+  "case_id": "manual_fraud_047_01_loan_extension",
+  "method_id": "m6_claim_verified",
+  "overall_conclusion": "undetermined",
+  "sections": [
+    {
+      "body": "사기죄의 객체인 재산상 이익은 재물 이외의 것으로서 재산의 경제적 가치 증가를 의미하며, 이는 적극적·소극적 이익이나 일시적·영구적 이익을 모두 포함한다(general_object.fraud.definition.property-benefit). 또한, 이러한 재산상 이익은 구체적인 이익이어야 한다(general_object.fraud.element.property-benefit-concrete).\n\n사안에서 B가 A의 원금 변제기를 6개월 연장해준 것은 채무 이행을 유예함으로써 A에게 채무 변제 압박의 일시적 해소라는 경제적 가치의 증가를 가져다주었으므로, 이는 구체적인 재산상 이익에 해당한다(fact_013; general_object.fraud.definition.property-benefit). 또한, A의 요청을 듣고 변제기 연장이라는 처분행위를 한 B는 피기망자이자 처분행위자로서 동일인이다(fact_012, fact_013; fraud_mistake.deceived_disposer_identity).\n\n따라서 B의 변제기 연장 행위는 구체적인 재산상 이익을 부여하는 처분으로서의 성격을 갖춘다.",
+      "cited_authority_comment_ids": [
+        "comm_001692_제347조_Ⅲ.2_9",
+        "comm_001692_제347조_Ⅳ.3_59"
+      ],
+      "cited_card_ids": [
+        "general_object.fraud.definition.property-benefit",
+        "general_object.fraud.element.property-benefit-concrete",
+        "fraud_mistake.deceived_disposer_identity"
+      ],
+      "cited_fact_ids": [
+        "fact_012",
+        "fact_013"
+      ],
+      "heading": "1. 구체적 재산상 이익과 역할 구조",
+      "section_id": "irac_object_roles",
+      "stated_conclusion": "satisfied"
+    },
+    {
+      "body": "사기죄는 변제할 의사나 능력이 없는데도 금원을 차용하는 행위 등에 의해 성립한다(deception.fraud.element.loan-no-repayment-intent-or-ability).\n\n사안에서 A는 변제기 연장을 요청할 당시 직업과 별다른 수입이 없었고, 가족의 채무로 인해 매월 100만 원 이상의 지출이 있는 상태였다(fact_014, fact_015). 이러한 경제적 상황은 변제 능력의 부족을 시사하는 객관적 사정으로 볼 수 있으나, A가 변제기를 연장받을 당시 실제로 변제할 의사나 능력이 결여되어 있었는지 여부는 명확히 확정되지 않았다.\n\n결국, A의 변제기 연장 요청 당시의 표시가 기망에 해당하는지는 알 수 없다(unknown).",
+      "cited_authority_comment_ids": [
+        "comm_001692_제347조_Ⅳ.1_37"
+      ],
+      "cited_card_ids": [
+        "deception.fraud.element.loan-no-repayment-intent-or-ability"
+      ],
+      "cited_fact_ids": [
+        "fact_014",
+        "fact_015"
+      ],
+      "heading": "2. 변제 의사·능력에 관한 기망",
+      "section_id": "irac_deception",
+      "stated_conclusion": "unknown"
+    },
+    {
+      "body": "사기죄의 성립을 위해서는 기망행위, 상대방의 착오 및 재산상 이익의 공여 사이에 순차적 인과관계가 있어야 하며, 재산적 처분행위는 착오에 의한 것이어야 한다(fraud_mistake.sequential_causation). 이때 착오란 사실과 일치하지 않는 인식을 의미하며(fraud_mistake.error_definition), 이는 재산적 처분행위를 하도록 동기를 확정하게 하는 것으로 충분하다(fraud_mistake.error_disposition_motivation).\n\n사안에서 B는 A의 요청을 받아들여 변제기를 연장하는 재산적 처분행위를 자신의 의사에 따라 수행하였다(fact_013; fraud_mistake.disposition_definition). 그러나 A의 발언이 B의 인식에 어떠한 영향을 미쳐 사실과 다른 인식을 하게 했는지, 그리고 B의 착오가 변제기 연장이라는 처분행위의 동기를 형성했는지에 대한 직접적인 사실이 부족하다.\n\n따라서 A의 기망으로 인해 B에게 착오가 발생하였고, 그 착오가 변제기 연장이라는 처분을 유발하였는지 여부는 알 수 없다(unknown).",
+      "cited_authority_comment_ids": [
+        "comm_001692_제347조_Ⅳ.2_47",
+        "comm_001692_제347조_Ⅳ.3_55",
+        "comm_001692_제347조_Ⅳ.3_49"
+      ],
+      "cited_card_ids": [
+        "fraud_mistake.sequential_causation",
+        "fraud_mistake.error_definition",
+        "fraud_mistake.error_disposition_motivation",
+        "fraud_mistake.disposition_definition"
+      ],
+      "cited_fact_ids": [
+        "fact_013"
+      ],
+      "heading": "3. 착오와 이익 부여 처분",
+      "section_id": "irac_mistake_disposition",
+      "stated_conclusion": "unknown"
+    },
+    {
+      "body": "사기죄의 재산상 이익 취득은 법률상 유효할 필요가 없으며, 외형상 취득하면 족하다(comm_001692_제347조_Ⅳ.4_62). 또한, 행위자의 기망으로 상대방이 착오에 빠지고, 그 착오에 기하여 재산적 처분행위가 이루어지고 그 결과 재산상 이익의 이전이 이루어진 때에 사기죄는 기수에 이른다(comm_001692_제347조_Ⅶ.2_107).\n\n사안에서 변제기 연장은 법률상 채무의 효력을 변경하는 것이나, 경제적 관점에서 A에게 이익을 주는 외형적 이익 취득에 해당한다(fact_013; comm_001692_제347조_Ⅳ.4_62). 다만, A의 기망(fact_012)이 B의 착오를 일으켜 변제기 연장(fact_013)으로 이어졌다는 순차적 인과관계가 명시적으로 드러나지 않았으며, 기망과 처분행위 사이에서 착오를 거쳐 이익이 이전되는 전체 과정의 인과관계가 입증되지 않았다.\n\n그러므로 기망에서 변제기 연장과 이익 취득까지의 순차적 인과관계 및 사기죄의 기수 성립 여부는 알 수 없다(unknown).",
+      "cited_authority_comment_ids": [
+        "comm_001692_제347조_Ⅳ.4_62",
+        "comm_001692_제347조_Ⅳ.2_47",
+        "comm_001692_제347조_Ⅳ.3_55",
+        "comm_001692_제347조_Ⅶ.2_107"
+      ],
+      "cited_card_ids": [
+        "fraud_damage_acquisition.property_concept_reported_precedent",
+        "fraud_mistake.sequential_causation",
+        "fraud_stages_participation.completion_deception_disposition_transfer"
+      ],
+      "cited_fact_ids": [
+        "fact_012",
+        "fact_013"
+      ],
+      "heading": "4. 재산상 이익 취득, 인과관계와 기수",
+      "section_id": "irac_causation_completion",
+      "stated_conclusion": "unknown"
+    },
+    {
+      "body": "사기죄의 주관적 구성요건인 편취의 범의는 행위 당시를 기준으로 판단하며(fraud_intent.time_of_conduct), 피고인의 자백이 없는 한 범행 전후의 재력, 환경, 범행 내용 등 객관적 사정을 종합하여 판단한다(deception.fraud.standard.intent-to-defraud-loan-inference). 또한, 사기죄에는 타인을 기망하여 재산적 이득을 취한다는 목적의사가 있어야 하며(fraud_mistake.gain_purpose), 피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다(fraud_intent.no_disposition_inducement_intent).\n\n사안에서 편취 범의의 판단 기준 시점은 A가 B에게 변제기 연장을 요청한 2020년 8월 3일 당시이다(fact_012; fraud_intent.time_of_conduct). A의 무직 상태와 채무 지출(fact_014, fact_015)은 객관적 사정으로서 편취 범의를 판단하는 근거가 될 수 있으나, A에게 변제기를 연장받아 재산적 이득을 취하려는 목적의사가 있었는지, 혹은 B로 하여금 처분행위를 하게 할 의사가 있었는지에 대한 주관적 의사는 확인되지 않는다.\n\n따라서 A에게 연장 처분을 유도해 재산상 이익을 얻을 목적과 범의가 있었는지는 알 수 없다(unknown).",
+      "cited_authority_comment_ids": [
+        "comm_001692_제347조_Ⅴ.1_74",
+        "comm_001692_제347조_Ⅳ.1_37",
+        "comm_001692_제347조_Ⅳ.3_56"
+      ],
+      "cited_card_ids": [
+        "fraud_intent.time_of_conduct",
+        "deception.fraud.standard.intent-to-defraud-loan-inference",
+        "fraud_mistake.gain_purpose",
+        "fraud_intent.no_disposition_inducement_intent"
+      ],
+      "cited_fact_ids": [
+        "fact_012",
+        "fact_014",
+        "fact_015"
+      ],
+      "heading": "5. 편취의 범의와 재산적 이득 목적",
+      "section_id": "irac_intent",
+      "stated_conclusion": "unknown"
+    }
+  ],
+  "summary": "A의 변제기 연장 행위가 구체적인 재산상 이익을 부여하는 처분임은 인정되나, 연장 당시 A의 변제 의사 및 능력에 관한 기망 여부, 기망과 처분 사이의 인과관계, 그리고 A의 편취 범의 및 목적의사가 명확히 입증되지 않아 사기죄 성립 여부를 확정할 수 없다.",
+  "title": "A의 B에 대한 사기죄 성부 검토",
+  "version": "1.0.0"
+}

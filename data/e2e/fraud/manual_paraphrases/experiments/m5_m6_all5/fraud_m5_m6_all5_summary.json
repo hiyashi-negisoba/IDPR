@@ -1,0 +1,191 @@
+{
+  "schema_version": "1.0",
+  "experiment_id": "fraud_m5_m6_all5",
+  "created_at": "2026-07-19",
+  "model": "idpr-gemma-4-26b-a4b",
+  "external_api_calls": 0,
+  "case_count": 5,
+  "methods": [
+    "m5_irac_plan",
+    "m6_claim_verified"
+  ],
+  "cases": [
+    {
+      "case_id": "manual_fraud_046_01_loan_repayment",
+      "label": "차용 당시 변제 의사·능력",
+      "assessment_status_counts": {
+        "satisfied": 5,
+        "not_satisfied": 0,
+        "unknown": 8
+      },
+      "m5": {
+        "status": "completed",
+        "overall_conclusion": "undetermined",
+        "warm_latency_seconds": 31.386271,
+        "model_call_count": 3,
+        "model_tokens": 13615,
+        "scallop_latency_seconds": 4.385134,
+        "answer_contract_violations": 0
+      },
+      "m6": {
+        "status": "completed_with_violations",
+        "overall_conclusion": "undetermined",
+        "warm_latency_seconds": 132.183460,
+        "model_call_count": 6,
+        "model_tokens": 63732,
+        "scallop_latency_seconds": 4.412084,
+        "answer_contract_violations": 0,
+        "claim_violations_before": 9,
+        "claim_violations_after": 22
+      }
+    },
+    {
+      "case_id": "manual_fraud_047_01_loan_extension",
+      "label": "변제기 연장",
+      "assessment_status_counts": {
+        "satisfied": 6,
+        "not_satisfied": 0,
+        "unknown": 8
+      },
+      "m5": {
+        "status": "completed",
+        "overall_conclusion": "undetermined",
+        "warm_latency_seconds": 35.958953,
+        "model_call_count": 3,
+        "model_tokens": 14737,
+        "scallop_latency_seconds": 4.381344,
+        "answer_contract_violations": 0
+      },
+      "m6": {
+        "status": "completed_with_violations",
+        "overall_conclusion": "undetermined",
+        "warm_latency_seconds": 129.564246,
+        "model_call_count": 6,
+        "model_tokens": 64950,
+        "scallop_latency_seconds": 4.391498,
+        "answer_contract_violations": 0,
+        "claim_violations_before": 12,
+        "claim_violations_after": 2
+      }
+    },
+    {
+      "case_id": "manual_fraud_050_01_unpaid_dining",
+      "label": "무전취식",
+      "assessment_status_counts": {
+        "satisfied": 5,
+        "not_satisfied": 0,
+        "unknown": 9
+      },
+      "m5": {
+        "status": "completed",
+        "overall_conclusion": "undetermined",
+        "warm_latency_seconds": 30.629100,
+        "model_call_count": 3,
+        "model_tokens": 13620,
+        "scallop_latency_seconds": 4.458193,
+        "answer_contract_violations": 0
+      },
+      "m6": {
+        "status": "completed_with_violations",
+        "overall_conclusion": "undetermined",
+        "warm_latency_seconds": 109.851506,
+        "model_call_count": 6,
+        "model_tokens": 60887,
+        "scallop_latency_seconds": 4.395086,
+        "answer_contract_violations": 1,
+        "claim_violations_before": 9,
+        "claim_violations_after": 9
+      }
+    },
+    {
+      "case_id": "manual_fraud_052_01_supply_deposit",
+      "label": "전선 공급계약금",
+      "assessment_status_counts": {
+        "satisfied": 10,
+        "not_satisfied": 0,
+        "unknown": 4
+      },
+      "m5": {
+        "status": "completed",
+        "overall_conclusion": "undetermined",
+        "warm_latency_seconds": 32.420455,
+        "model_call_count": 3,
+        "model_tokens": 14308,
+        "scallop_latency_seconds": 4.437885,
+        "answer_contract_violations": 0
+      },
+      "m6": {
+        "status": "completed_with_violations",
+        "overall_conclusion": "undetermined",
+        "warm_latency_seconds": 119.297445,
+        "model_call_count": 6,
+        "model_tokens": 62582,
+        "scallop_latency_seconds": 4.377513,
+        "answer_contract_violations": 0,
+        "claim_violations_before": 10,
+        "claim_violations_after": 4
+      }
+    },
+    {
+      "case_id": "manual_fraud_063_01_parcel_triangular",
+      "label": "택배물 삼각사기",
+      "assessment_status_counts": {
+        "satisfied": 10,
+        "not_satisfied": 0,
+        "unknown": 7
+      },
+      "m5": {
+        "status": "completed",
+        "overall_conclusion": "undetermined",
+        "warm_latency_seconds": 36.429450,
+        "model_call_count": 3,
+        "model_tokens": 15892,
+        "scallop_latency_seconds": 4.421885,
+        "answer_contract_violations": 0
+      },
+      "m6": {
+        "status": "completed_with_violations",
+        "overall_conclusion": "undetermined",
+        "warm_latency_seconds": 110.172671,
+        "model_call_count": 6,
+        "model_tokens": 68192,
+        "scallop_latency_seconds": 4.436913,
+        "answer_contract_violations": 0,
+        "claim_violations_before": 5,
+        "claim_violations_after": 3
+      }
+    }
+  ],
+  "aggregate": {
+    "m5": {
+      "average_warm_latency_seconds": 33.364846,
+      "median_warm_latency_seconds": 32.420455,
+      "total_model_calls": 15,
+      "total_model_tokens": 72172,
+      "average_scallop_latency_seconds": 4.416888,
+      "answer_contract_violations": 0
+    },
+    "m6": {
+      "average_warm_latency_seconds": 120.213866,
+      "median_warm_latency_seconds": 119.297445,
+      "total_model_calls": 30,
+      "total_model_tokens": 320343,
+      "average_scallop_latency_seconds": 4.402619,
+      "answer_contract_violations": 1,
+      "claim_violations_before": 45,
+      "claim_violations_after": 40
+    },
+    "m6_to_m5_latency_ratio": 3.603019,
+    "m6_to_m5_token_ratio": 4.438606
+  },
+  "artifacts": {
+    "human_report": "fraud_m5_m6_all5_human_report.md",
+    "per_case_report_name": "report.json",
+    "answer_file_pattern": "<case_id>/<method>_answer.{json,md}"
+  },
+  "slurm_jobs": {
+    "case_1": "210102",
+    "cases_2_to_4": "210105",
+    "case_5": "210106"
+  }
+}

@@ -1,0 +1,458 @@
+{
+  "case": {
+    "case_id": "manual_fraud_046_01_loan_repayment",
+    "case_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/manual_paraphrases/fraud_manual_paraphrase_cases.json",
+    "case_selector": "manual_fraud_046_01_loan_repayment",
+    "reasoning_plan_id": "loan_repayment_property",
+    "rubric_supplied_to_model": false,
+    "source_record_id": "manual_crimefacts_economic::leaf::046::case::1"
+  },
+  "created_at": "2026-07-18T19:01:45.518360+00:00",
+  "experiment": {
+    "independent_methods": true,
+    "method_order": [
+      "m5_irac_plan",
+      "m6_claim_verified"
+    ],
+    "model": "idpr-gemma-4-26b-a4b",
+    "plan_specific_schema_compilation": "included_in_method_latency",
+    "prefix_caching_required_disabled": true,
+    "schema_warmup": {
+      "claim_graph": {
+        "finish_reason": "stop",
+        "id": "chatcmpl-bef27f4081f6b3d7",
+        "latency_seconds": 0.8888246500864625,
+        "model": "idpr-gemma-4-26b-a4b",
+        "schema_valid": true,
+        "usage": {
+          "completion_tokens": 127,
+          "prompt_tokens": 201,
+          "prompt_tokens_details": null,
+          "total_tokens": 328
+        }
+      },
+      "fraud_assessment_bundle": {
+        "finish_reason": "stop",
+        "id": "chatcmpl-a34558fb72c98b0e",
+        "latency_seconds": 0.688811742933467,
+        "model": "idpr-gemma-4-26b-a4b",
+        "schema_valid": true,
+        "usage": {
+          "completion_tokens": 89,
+          "prompt_tokens": 156,
+          "prompt_tokens_details": null,
+          "total_tokens": 245
+        }
+      },
+      "fraud_fact_graph": {
+        "finish_reason": "stop",
+        "id": "chatcmpl-a9bc11933ef7e628",
+        "latency_seconds": 5.288445172831416,
+        "model": "idpr-gemma-4-26b-a4b",
+        "schema_valid": true,
+        "usage": {
+          "completion_tokens": 159,
+          "prompt_tokens": 247,
+          "prompt_tokens_details": null,
+          "total_tokens": 406
+        }
+      },
+      "long_form_answer": {
+        "finish_reason": "stop",
+        "id": "chatcmpl-aade22cc25c4b037",
+        "latency_seconds": 0.6997905492316931,
+        "model": "idpr-gemma-4-26b-a4b",
+        "schema_valid": true,
+        "usage": {
+          "completion_tokens": 98,
+          "prompt_tokens": 165,
+          "prompt_tokens_details": null,
+          "total_tokens": 263
+        }
+      },
+      "section_patch_bundle": {
+        "finish_reason": "stop",
+        "id": "chatcmpl-853fe461921b47a8",
+        "latency_seconds": 0.5810430510900915,
+        "model": "idpr-gemma-4-26b-a4b",
+        "schema_valid": true,
+        "usage": {
+          "completion_tokens": 81,
+          "prompt_tokens": 142,
+          "prompt_tokens_details": null,
+          "total_tokens": 223
+        }
+      }
+    },
+    "warm_latency_definition": "wall time from method input to final answer after static structured schemas were prewarmed; model server startup and static schema warmup excluded; plan-specific dynamic schema compilation remains inside method latency"
+  },
+  "methods": [
+    {
+      "answer": {
+        "body_characters": 1907,
+        "cited_authority_count": 12,
+        "cited_card_count": 13,
+        "cited_fact_count": 8,
+        "json_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/manual_paraphrases/experiments/m5_m6_all5/manual_fraud_046_01_loan_repayment/m5_irac_plan_answer.json",
+        "markdown_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/manual_paraphrases/experiments/m5_m6_all5/manual_fraud_046_01_loan_repayment/m5_irac_plan_answer.md",
+        "overall_conclusion": "undetermined",
+        "section_count": 5,
+        "sha256": "715711b4a310d2f5d31be1c8087d16e826be9bbed120ebc4b64b1361f626b7b3"
+      },
+      "answer_validation_violations": [],
+      "claim_verification": null,
+      "host_stages_seconds": {
+        "irac_answer_compile": 0.0020545320585370064,
+        "irac_plan_compile": 0.0038640680722892284,
+        "scallop": 4.385134422918782
+      },
+      "method_id": "m5_irac_plan",
+      "model_call_count": 3,
+      "model_completion_tokens": 3712,
+      "model_prompt_tokens": 9903,
+      "model_stages": {
+        "answer": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-b0d179d4dae20ecc",
+          "latency_seconds": 6.982735793106258,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 928,
+            "prompt_tokens": 5058,
+            "prompt_tokens_details": null,
+            "total_tokens": 5986
+          }
+        },
+        "assessment_bundle": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-929493f794341b0b",
+          "latency_seconds": 15.373497106833383,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 2117,
+            "prompt_tokens": 3737,
+            "prompt_tokens_details": null,
+            "total_tokens": 5854
+          }
+        },
+        "fact_graph": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-9cedb61656770275",
+          "latency_seconds": 4.60948317614384,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 667,
+            "prompt_tokens": 1108,
+            "prompt_tokens_details": null,
+            "total_tokens": 1775
+          }
+        }
+      },
+      "status": "completed",
+      "warm_latency_seconds": 31.38627058896236
+    },
+    {
+      "answer": {
+        "body_characters": 2366,
+        "cited_authority_count": 12,
+        "cited_card_count": 13,
+        "cited_fact_count": 11,
+        "json_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/manual_paraphrases/experiments/m5_m6_all5/manual_fraud_046_01_loan_repayment/m6_claim_verified_answer.json",
+        "markdown_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/manual_paraphrases/experiments/m5_m6_all5/manual_fraud_046_01_loan_repayment/m6_claim_verified_answer.md",
+        "overall_conclusion": "undetermined",
+        "section_count": 5,
+        "sha256": "198f1169759a6d0a24ec003a4b187c0d2eb75b3fae8794a56174521a6be038c6"
+      },
+      "answer_validation_violations": [],
+      "claim_verification": {
+        "claim_graph_normalization_after": {
+          "change_count": 0,
+          "changes": [],
+          "method": "ordered_unique_provenance_ids"
+        },
+        "claim_graph_normalization_before": {
+          "change_count": 0,
+          "changes": [],
+          "method": "ordered_unique_provenance_ids"
+        },
+        "patch_audit": {
+          "after_section_sha256": {
+            "irac_causation_completion": "ef301fc244a0bb137584c579e3f796e38cadfe2ae1557d07aee7a601781da9d9",
+            "irac_deception": "60c317244aabfbe0722fdb1825d21e5a3d0670e1e9581d0a1cb87d1882f78018",
+            "irac_intent": "85db2f0cd87c9e11cf8946f54a12f061ddaa2ce50fc41aef6aa9fc2d1d18a0ad",
+            "irac_mistake_disposition": "2cc6450bc4cd0d6f6011fe568cfd3b650418edb6de738194d784eab417c56526",
+            "irac_object_roles": "bab33c55fcf4486d7691bd7fd95e243d99edd189cb20182769b5f175cf1d8aea"
+          },
+          "before_section_sha256": {
+            "irac_causation_completion": "4317df8e326c7cdce0dcc2a1b7ac9579bf140f7924ff3dc9dbd2267e1698fd5a",
+            "irac_deception": "c5d164e3de9152189b79e47d9971a612106b7bada581f13937870c51b84e2acc",
+            "irac_intent": "c547a75a225874ca04d563ee52903b4302fa80d35c516964e20549cc8f3a8310",
+            "irac_mistake_disposition": "2c400266936f949f834534496895d2bdb406a1eb78b9d43fcbbaa8eb22ffd7aa",
+            "irac_object_roles": "6678bb0779c501036df3aa1ff34119d104f1845e83dcf600706510d192fe7bf6"
+          },
+          "patched_section_ids": [
+            "irac_object_roles",
+            "irac_deception",
+            "irac_mistake_disposition",
+            "irac_causation_completion",
+            "irac_intent"
+          ],
+          "preserved_section_ids": [],
+          "unaffected_sections_preserved": true
+        },
+        "repair_attempted": true,
+        "violations_after": [
+          {
+            "code": "unknown_provenance_id",
+            "message": "claim claim_001 authority_comment_ids: ['comm_001692_제347조_Ⅲ_7-1']",
+            "section_id": "irac_object_roles"
+          },
+          {
+            "code": "unknown_provenance_id",
+            "message": "claim claim_002 authority_comment_ids: ['comm_001692_제347조_Ⅳ.3_59-1']",
+            "section_id": "irac_object_roles"
+          },
+          {
+            "code": "unknown_provenance_id",
+            "message": "claim claim_003 authority_comment_ids: ['comm_001692_제347조_Ⅲ_7-1']",
+            "section_id": "irac_object_roles"
+          },
+          {
+            "code": "unknown_provenance_id",
+            "message": "claim claim_004 authority_comment_ids: ['comm_001692_제347조_Ⅳ.3_59-1']",
+            "section_id": "irac_object_roles"
+          },
+          {
+            "code": "unknown_provenance_id",
+            "message": "claim claim_005 relation_ids: ['claim_003', 'claim_004']",
+            "section_id": "irac_object_roles"
+          },
+          {
+            "code": "unknown_provenance_id",
+            "message": "claim claim_006 authority_comment_ids: ['comm_001692_제347조_Ⅳ.1_37-1']",
+            "section_id": "irac_deception"
+          },
+          {
+            "code": "unknown_provenance_id",
+            "message": "claim claim_008 authority_comment_ids: ['comm_001692_제347조_Ⅳ.1_37-1']",
+            "section_id": "irac_deception"
+          },
+          {
+            "code": "unknown_provenance_id",
+            "message": "claim claim_009 relation_ids: ['claim_008']",
+            "section_id": "irac_deception"
+          },
+          {
+            "code": "unknown_provenance_id",
+            "message": "claim claim_010 authority_comment_ids: ['comm_001692_제347조_Ⅳ.2_47-1']",
+            "section_id": "irac_mistake_disposition"
+          },
+          {
+            "code": "unknown_provenance_id",
+            "message": "claim claim_011 authority_comment_ids: ['comm_001692_제347조_Ⅳ.3_49-1']",
+            "section_id": "irac_mistake_disposition"
+          },
+          {
+            "code": "unknown_provenance_id",
+            "message": "claim claim_012 authority_comment_ids: ['comm_001692_제347조_Ⅳ.3_49-1']",
+            "section_id": "irac_mistake_disposition"
+          },
+          {
+            "code": "unknown_provenance_id",
+            "message": "claim claim_013 authority_comment_ids: ['comm_001692_제347조_Ⅳ.2_47-1']",
+            "section_id": "irac_mistake_disposition"
+          },
+          {
+            "code": "unsupported_claim",
+            "message": "claim claim_013 lacks required provenance for application",
+            "section_id": "irac_mistake_disposition"
+          },
+          {
+            "code": "unknown_provenance_id",
+            "message": "claim claim_014 relation_ids: ['claim_013']",
+            "section_id": "irac_mistake_disposition"
+          },
+          {
+            "code": "unknown_provenance_id",
+            "message": "claim claim_016 authority_comment_ids: ['comm_001692_제347조_Ⅶ.2_107-1']",
+            "section_id": "irac_causation_completion"
+          },
+          {
+            "code": "unknown_provenance_id",
+            "message": "claim claim_017 authority_comment_ids: ['comm_001692_제347조_Ⅳ.5_66-1']",
+            "section_id": "irac_causation_completion"
+          },
+          {
+            "code": "unsupported_claim",
+            "message": "claim claim_018 lacks required provenance for application",
+            "section_id": "irac_causation_completion"
+          },
+          {
+            "code": "unknown_provenance_id",
+            "message": "claim claim_019 relation_ids: ['claim_018']",
+            "section_id": "irac_causation_completion"
+          },
+          {
+            "code": "unknown_provenance_id",
+            "message": "claim claim_021 authority_comment_ids: ['comm_001692_제347조_Ⅴ.1_74-1']",
+            "section_id": "irac_intent"
+          },
+          {
+            "code": "unknown_provenance_id",
+            "message": "claim claim_022 authority_comment_ids: ['comm_001692_제347조_Ⅳ.1_37-1']",
+            "section_id": "irac_intent"
+          },
+          {
+            "code": "unknown_provenance_id",
+            "message": "claim claim_023 authority_comment_ids: ['comm_001692_제347조_Ⅴ.1_74-1']",
+            "section_id": "irac_intent"
+          },
+          {
+            "code": "unknown_provenance_id",
+            "message": "claim claim_024 relation_ids: ['claim_023']",
+            "section_id": "irac_intent"
+          }
+        ],
+        "violations_before": [
+          {
+            "code": "answer_contract_violation",
+            "message": "sections[0].cited_card_ids contains unavailable IDs: ['general.fraud.element.object-other-possessed-other-property']",
+            "section_id": "irac_object_roles"
+          },
+          {
+            "code": "answer_contract_violation",
+            "message": "sections[0].cited_authority_comment_ids contains unavailable IDs: ['comm_001692_제347조_Ⅳ.3_59]', 'conclusion_status_satisfied']",
+            "section_id": "irac_object_roles"
+          },
+          {
+            "code": "missing_required_card_metadata",
+            "message": "missing cards ['general_object.fraud.element.object-other-possessed-other-property']",
+            "section_id": "irac_object_roles"
+          },
+          {
+            "code": "missing_required_card_metadata",
+            "message": "missing cards ['fraud_intent.no_disposition_inducement_intent']",
+            "section_id": "irac_intent"
+          },
+          {
+            "code": "unsupported_claim",
+            "message": "claim claim_008 lacks required provenance for application",
+            "section_id": "irac_deception"
+          },
+          {
+            "code": "unsupported_claim",
+            "message": "claim claim_013 lacks required provenance for application",
+            "section_id": "irac_mistake_disposition"
+          },
+          {
+            "code": "unsupported_claim",
+            "message": "claim claim_018 lacks required provenance for application",
+            "section_id": "irac_causation_completion"
+          },
+          {
+            "code": "missing_grounded_application",
+            "message": "section lacks a claim grounded in both facts and rules",
+            "section_id": "irac_deception"
+          },
+          {
+            "code": "claim_card_coverage",
+            "message": "claims omit cards ['fraud_intent.no_disposition_inducement_intent']",
+            "section_id": "irac_intent"
+          }
+        ]
+      },
+      "host_stages_seconds": {
+        "irac_plan_compile": 0.004266490926966071,
+        "scallop": 4.412084270967171
+      },
+      "method_id": "m6_claim_verified",
+      "model_call_count": 6,
+      "model_completion_tokens": 16127,
+      "model_prompt_tokens": 47605,
+      "model_stages": {
+        "answer": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-84da3309e5312f6d",
+          "latency_seconds": 20.635745636885986,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 2442,
+            "prompt_tokens": 13958,
+            "prompt_tokens_details": null,
+            "total_tokens": 16400
+          }
+        },
+        "assessment_bundle": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-883d358a62f8e05f",
+          "latency_seconds": 15.350052184192464,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 2117,
+            "prompt_tokens": 3737,
+            "prompt_tokens_details": null,
+            "total_tokens": 5854
+          }
+        },
+        "claim_graph_after": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-aba8de3123025157",
+          "latency_seconds": 35.6472978440579,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 4467,
+            "prompt_tokens": 9575,
+            "prompt_tokens_details": null,
+            "total_tokens": 14042
+          }
+        },
+        "claim_graph_before": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-aed4821e193a184d",
+          "latency_seconds": 32.28359795012511,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 4047,
+            "prompt_tokens": 9519,
+            "prompt_tokens_details": null,
+            "total_tokens": 13566
+          }
+        },
+        "fact_graph": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-8be1c088ecd51adc",
+          "latency_seconds": 4.6036415551789105,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 667,
+            "prompt_tokens": 1108,
+            "prompt_tokens_details": null,
+            "total_tokens": 1775
+          }
+        },
+        "section_repair": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-84d1840307a00670",
+          "latency_seconds": 19.21105587692,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 2387,
+            "prompt_tokens": 9708,
+            "prompt_tokens_details": null,
+            "total_tokens": 12095
+          }
+        }
+      },
+      "status": "completed_with_violations",
+      "warm_latency_seconds": 132.18346012500115
+    }
+  ],
+  "run_dir": "/data5/jaehoonjeong/IDPR/.cache/e2e/fraud_irac_matrix/210102/manual_fraud_046_01_loan_repayment",
+  "status": "completed",
+  "symbolic_runtime": {
+    "compiled_sha256": "028fe7be9a0fce358895913a0670ef68a871c685d167debd4b3056ba0b233e30",
+    "rule_set_id": "kr.fraud.article347.full.v1_candidate",
+    "scli_version": "scli 0.2.4"
+  },
+  "version": "1.0.0"
+}

@@ -523,6 +523,12 @@ best-of-N과 Self-Refine보다 consistency score를 높인다.
 DCDE/OBJECTION은 동일 prediction task 결과를 합치는 것이 아니라 long-form baseline의
 설계 아이디어로만 공정하게 재구현한다.
 
+현재 구현 결정에서 `IDPR generate`의 구체형은 개선 M5다. 모델은 host가 고정한 카드별
+application 슬롯만 채우고, 검수된 법리·provenance·단락 소결은 host가 컴파일한다.
+`IDPR verify`에 해당하는 M6은 기본 경로가 아니라 사람 gold 평가용 상한선과 불확실 사건의
+fallback으로 둔다. 따라서 주 실험은 M5의 정확도와 일관성을 보고하고, M6은 오류 탐지율,
+오탐률 및 추가 비용을 측정하는 별도 조건으로 사용한다.
+
 ### 7.2 핵심 ablation
 
 - Scallop derivation 없이 paragraph plan만 사용
