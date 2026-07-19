@@ -102,13 +102,39 @@ if [ "$READY" != 1 ]; then
     exit 1
 fi
 
-"$CLIENT_PYTHON" scripts/run_fraud_neural_e2e.py \
-    --mode vllm \
-    --base-url "http://127.0.0.1:${PORT}" \
-    --model "$SERVED_MODEL" \
-    --api-key "$LOCAL_API_KEY" \
-    --run-dir "$RUN_DIR" \
-    --report-path "$REPORT_PATH"
+# Gemma 4 model-card sampling, thinking disabled by decision: greedy
+# baseline plus the recommended temperature=1.0, top_p=0.95, top_k=64.
+# Thinking arms were dropped: greedy+thinking loops without terminating and
+# thinking adds transcription risk without demonstrated benefit.
+for CASE_NAME in "case_a" "case_c"; do
+    case "$CASE_NAME" in
+        "case_a") TEMP="0.0"; TOPP=""; TOPK=""; THINK="" ;;
+        "case_c") TEMP="1.0"; TOPP="0.95"; TOPK="64"; THINK="" ;;
+    esac
+
+    CASE_RUN_DIR="$RUN_DIR/$CASE_NAME"
+    CASE_REPORT="$PROJECT_ROOT/data/e2e/fraud/fraud_neural_e2e_vllm_report_${CASE_NAME}.json"
+    mkdir -p "$CASE_RUN_DIR"
+
+    echo "Running $CASE_NAME with temp=$TEMP top_p=${TOPP:-default} top_k=${TOPK:-default} $THINK"
+    CMD=("$CLIENT_PYTHON" scripts/run_fraud_neural_e2e.py \
+        --mode vllm \
+        --base-url "http://127.0.0.1:${PORT}" \
+        --model "$SERVED_MODEL" \
+        --api-key "$LOCAL_API_KEY" \
+        --run-dir "$CASE_RUN_DIR" \
+        --report-path "$CASE_REPORT" \
+        --temperature "$TEMP")
+
+    if [ -n "$TOPP" ]; then
+        CMD+=(--top-p "$TOPP" --top-k "$TOPK")
+    fi
+    if [ -n "$THINK" ]; then
+        CMD+=("$THINK")
+    fi
+
+    "${CMD[@]}" || echo "[WARN] $CASE_NAME failed (exit $?), continuing..."
+done
 
 echo "report=$REPORT_PATH"
 echo "artifacts=$RUN_DIR"

@@ -15,8 +15,28 @@ VLLM_BIN="/data5/jaehoonjeong/miniconda3/envs/inv_ass_env/bin/vllm"
 MODEL_SNAPSHOT="/data5/jaehoonjeong/.cache/huggingface/hub/models--google--gemma-4-26B-A4B-it/snapshots/01e5b3ee840d3a9e0b0b493c593e85398a30ef75"
 SERVED_MODEL="idpr-gemma-4-26b-a4b"
 LOCAL_API_KEY="local-idpr"
-RUN_DIR="$PROJECT_ROOT/.cache/e2e/fraud_irac_matrix/${SLURM_JOB_ID}"
-REPORT_PATH="$PROJECT_ROOT/data/e2e/fraud/irac_matrix/fraud_irac_matrix_report.json"
+RUN_DIR="${IDPR_RUN_DIR:-$PROJECT_ROOT/.cache/e2e/fraud_irac_matrix/${SLURM_JOB_ID}}"
+REPORT_PATH="${IDPR_REPORT_PATH:-$PROJECT_ROOT/data/e2e/fraud/irac_matrix/fraud_irac_matrix_report.json}"
+CASE_PATH="${IDPR_CASE_PATH:-$PROJECT_ROOT/data/e2e/fraud/kcl_r14_p1_q2_case.json}"
+CASE_ARGS=(--case-path "$CASE_PATH")
+if [ -n "${IDPR_CASE_ID:-}" ]; then
+    CASE_ARGS+=(--case-id "$IDPR_CASE_ID")
+fi
+METHOD_ARGS=()
+if [ -n "${IDPR_METHODS:-}" ]; then
+    read -r -a SELECTED_METHODS <<< "$IDPR_METHODS"
+    METHOD_ARGS=(--methods "${SELECTED_METHODS[@]}")
+fi
+SAMPLING_ARGS=()
+if [ -n "${IDPR_TEMPERATURE:-}" ]; then
+    SAMPLING_ARGS+=(--temperature "$IDPR_TEMPERATURE")
+fi
+if [ -n "${IDPR_TOP_P:-}" ]; then
+    SAMPLING_ARGS+=(--top-p "$IDPR_TOP_P")
+fi
+if [ -n "${IDPR_TOP_K:-}" ]; then
+    SAMPLING_ARGS+=(--top-k "$IDPR_TOP_K")
+fi
 
 export HF_HOME="/data5/jaehoonjeong/.cache/huggingface"
 export HF_HUB_OFFLINE=1
@@ -103,13 +123,42 @@ if [ "$READY" != 1 ]; then
     exit 1
 fi
 
-"$CLIENT_PYTHON" scripts/run_fraud_irac_matrix.py \
-    --base-url "http://127.0.0.1:${PORT}" \
-    --model "$SERVED_MODEL" \
-    --api-key "$LOCAL_API_KEY" \
-    --run-dir "$RUN_DIR" \
-    --report-path "$REPORT_PATH"
+run_case() {
+    local case_run_dir="$1"
+    local case_report_path="$2"
+    shift 2
+    "$CLIENT_PYTHON" scripts/run_fraud_irac_matrix.py \
+        --base-url "http://127.0.0.1:${PORT}" \
+        --model "$SERVED_MODEL" \
+        --api-key "$LOCAL_API_KEY" \
+        "$@" \
+        --run-dir "$case_run_dir" \
+        --report-path "$case_report_path" \
+        "${METHOD_ARGS[@]}" \
+        "${SAMPLING_ARGS[@]}"
+}
 
-echo "report=$REPORT_PATH"
+if [ -n "${IDPR_CASE_IDS:-}" ]; then
+    IFS=':' read -r -a SELECTED_CASE_IDS <<< "$IDPR_CASE_IDS"
+    REPORT_ROOT="${IDPR_REPORT_ROOT:-$PROJECT_ROOT/data/e2e/fraud/case_batch/${SLURM_JOB_ID}}"
+    for SELECTED_CASE_ID in "${SELECTED_CASE_IDS[@]}"; do
+        if [ -z "$SELECTED_CASE_ID" ]; then
+            echo "IDPR_CASE_IDS contains an empty case ID" >&2
+            exit 1
+        fi
+        echo "=== case start: $SELECTED_CASE_ID ==="
+        run_case \
+            "$RUN_DIR/$SELECTED_CASE_ID" \
+            "$REPORT_ROOT/$SELECTED_CASE_ID/report.json" \
+            --case-path "$CASE_PATH" \
+            --case-id "$SELECTED_CASE_ID"
+        echo "=== case end: $SELECTED_CASE_ID ==="
+    done
+    echo "reports=$REPORT_ROOT"
+else
+    run_case "$RUN_DIR" "$REPORT_PATH" "${CASE_ARGS[@]}"
+    echo "report=$REPORT_PATH"
+fi
+
 echo "artifacts=$RUN_DIR"
 echo "=== IDPR IRAC matrix end: $(date) ==="

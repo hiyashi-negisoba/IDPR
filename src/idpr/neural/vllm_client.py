@@ -29,6 +29,11 @@ class VLLMClient:
         schema_name: str,
         schema: Mapping[str, Any],
         max_tokens: int,
+        temperature: float = 0.0,
+        top_p: float | None = None,
+        top_k: int | None = None,
+        chat_template_kwargs: dict[str, Any] | None = None,
+        user_template: str | None = None,
     ) -> tuple[dict[str, Any], dict[str, Any]]:
         request_payload = build_chat_request(
             model=self.model,
@@ -37,6 +42,11 @@ class VLLMClient:
             schema_name=schema_name,
             schema=schema,
             max_tokens=max_tokens,
+            temperature=temperature,
+            top_p=top_p,
+            top_k=top_k,
+            chat_template_kwargs=chat_template_kwargs,
+            user_template=user_template,
         )
         request = urllib.request.Request(
             f"{self.base_url.rstrip('/')}/v1/chat/completions",
@@ -73,7 +83,21 @@ class VLLMClient:
                 f"suffix={content_text[-500:]!r}"
             ) from exc
         except (KeyError, IndexError, TypeError) as exc:
-            raise VLLMClientError("vLLM response does not contain one JSON object") from exc
+            message: Any = {}
+            try:
+                message = response_payload["choices"][0]["message"]
+            except (KeyError, IndexError, TypeError):
+                pass
+            if not isinstance(message, Mapping):
+                message = {}
+            reasoning = message.get("reasoning") or message.get("reasoning_content")
+            raise VLLMClientError(
+                "vLLM response does not contain one JSON object: "
+                f"message_keys={sorted(message)}, "
+                f"content_type={type(message.get('content')).__name__}, "
+                f"reasoning_chars={len(reasoning) if isinstance(reasoning, str) else 0}, "
+                f"finish_reason={response_payload.get('choices', [{}])[0].get('finish_reason')}"
+            ) from exc
         if not isinstance(output, dict):
             raise VLLMClientError("vLLM structured output must be a JSON object")
         metadata = {
@@ -93,17 +117,28 @@ def build_chat_request(
     schema_name: str,
     schema: Mapping[str, Any],
     max_tokens: int,
+    temperature: float = 0.0,
+    top_p: float | None = None,
+    top_k: int | None = None,
+    chat_template_kwargs: dict[str, Any] | None = None,
+    user_template: str | None = None,
 ) -> dict[str, Any]:
-    return {
+    serialized_payload = json.dumps(payload, ensure_ascii=False, sort_keys=True)
+    if user_template is None:
+        user_content = serialized_payload
+    else:
+        if "{{INPUT_JSON}}" not in user_template:
+            raise VLLMClientError(
+                "user_template must contain the {{INPUT_JSON}} placeholder"
+            )
+        user_content = user_template.replace("{{INPUT_JSON}}", serialized_payload)
+    req = {
         "model": model,
         "messages": [
             {"role": "system", "content": system_prompt},
-            {
-                "role": "user",
-                "content": json.dumps(payload, ensure_ascii=False, sort_keys=True),
-            },
+            {"role": "user", "content": user_content},
         ],
-        "temperature": 0,
+        "temperature": temperature,
         "max_tokens": max_tokens,
         "response_format": {
             "type": "json_schema",
@@ -114,6 +149,13 @@ def build_chat_request(
             },
         },
     }
+    if top_p is not None:
+        req["top_p"] = top_p
+    if top_k is not None:
+        req["top_k"] = top_k
+    if chat_template_kwargs is not None:
+        req["chat_template_kwargs"] = chat_template_kwargs
+    return req
 
 
 def vllm_compatible_schema(schema: Mapping[str, Any]) -> dict[str, Any]:

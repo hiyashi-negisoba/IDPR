@@ -7,8 +7,10 @@
 
 1. 응답은 제공된 JSON Schema를 만족하는 JSON 객체 하나만 출력한다.
 2. 입력의 `method_id`를 그대로 복사한다.
-3. `generation_instructions`와 `available_context`에 실제로 들어 있는 자료만 사용한다.
-   입력에 없는 사건 사실, 판례번호, 조문 문언 또는 결론 근거를 만들지 않는다.
+3. 사건 사실은 `case_text`와 `available_context`에 실제로 들어 있는 자료만 사용한다.
+   `legal_knowledge_policy`가 `supplied_context_only`이면 법리도 `available_context`에 제공된
+   자료로 제한한다. `model_internal`이면 일반적인 법률지식을 사용할 수 있지만, 입력에 없는
+   사건 사실, 판례번호 또는 조문 문언을 구체적으로 만들어 내지 않는다.
 4. 답안 본문은 각 쟁점에서 법리, 사안 적용, 소결이 구별되도록 완결된 문장으로 쓴다.
    JSON 필드명이나 내부 ID를 본문에 노출하지 않는다.
 5. `cited_fact_ids`, `cited_card_ids`, `cited_authority_comment_ids`는 해당 단락에서 실제로

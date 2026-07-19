@@ -5,6 +5,7 @@ import json
 import re
 import sys
 import time
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence, TypeVar
@@ -24,12 +25,20 @@ from idpr.generation import (  # noqa: E402
     build_fraud_rag_packet,
     build_fraud_rag_queries,
     canonical_sha256,
+    compile_fraud_whole_irac_answer,
     generation_schema,
     normalize_claim_graph,
+    normalize_section_patch_bundle,
     render_long_form_markdown,
     validate_claim_graph,
     validate_fraud_rag_packet,
     validate_long_form_answer,
+)
+from idpr.fraud_planning import (  # noqa: E402
+    build_fraud_assessment_context,
+    reasoning_plan_card_ids,
+    select_fraud_reasoning_plan,
+    validate_fraud_case,
 )
 from idpr.neural import (  # noqa: E402
     anchor_fraud_target_roles,
@@ -59,7 +68,9 @@ COMPILE_MANIFEST_PATH = (
 )
 SCLI_PATH = PROJECT_ROOT / "tools/scallop/scli-0.2.4-linux-x86_64"
 FACT_PROMPT_PATH = PROJECT_ROOT / "prompts/fraud_fact_graph_extract.md"
+FACT_USER_PROMPT_PATH = PROJECT_ROOT / "prompts/fraud_fact_graph_extract_user.md"
 ASSESS_PROMPT_PATH = PROJECT_ROOT / "prompts/fraud_standard_assess.md"
+ASSESS_USER_PROMPT_PATH = PROJECT_ROOT / "prompts/fraud_standard_assess_user.md"
 ANSWER_PROMPT_PATH = PROJECT_ROOT / "prompts/fraud_long_form_generate.md"
 CLAIM_PROMPT_PATH = PROJECT_ROOT / "prompts/fraud_claim_graph_extract.md"
 REPAIR_PROMPT_PATH = PROJECT_ROOT / "prompts/fraud_section_repair.md"
@@ -78,6 +89,33 @@ def read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def load_case(path: Path, case_id: str | None = None) -> dict[str, Any]:
+    """Load either one case contract or one case from a reusable case set."""
+
+    payload = read_json(path)
+    if "cases" not in payload:
+        loaded_case_id = payload.get("case_id")
+        if case_id is not None and case_id != loaded_case_id:
+            raise ValueError(
+                f"requested case_id {case_id!r} differs from single case "
+                f"{loaded_case_id!r}"
+            )
+        return payload
+
+    cases = payload.get("cases")
+    if not isinstance(cases, list):
+        raise ValueError("case set field 'cases' must be an array")
+    if case_id is None:
+        raise ValueError("--case-id is required when --case-path points to a case set")
+
+    matches = [case for case in cases if case.get("case_id") == case_id]
+    if len(matches) != 1:
+        raise ValueError(
+            f"case set must contain exactly one {case_id!r}; found {len(matches)}"
+        )
+    return matches[0]
+
+
 def write_json(path: Path, payload: Mapping[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
@@ -92,6 +130,24 @@ def timed_host(function: Callable[[], T]) -> tuple[T, float]:
     return result, time.perf_counter() - started
 
 
+@dataclass(frozen=True)
+class SampledClient:
+    """Apply one sampling configuration to every model call of a run."""
+
+    client: VLLMClient
+    temperature: float = 0.0
+    top_p: float | None = None
+    top_k: int | None = None
+
+    def complete_json(self, **kwargs: Any) -> tuple[dict[str, Any], dict[str, Any]]:
+        return self.client.complete_json(
+            temperature=self.temperature,
+            top_p=self.top_p,
+            top_k=self.top_k,
+            **kwargs,
+        )
+
+
 def timed_model(
     client: VLLMClient,
     *,
@@ -100,6 +156,7 @@ def timed_model(
     schema_name: str,
     schema: Mapping[str, Any],
     max_tokens: int,
+    user_template: str | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     started = time.perf_counter()
     output, metadata = client.complete_json(
@@ -108,6 +165,7 @@ def timed_model(
         schema_name=schema_name,
         schema=schema,
         max_tokens=max_tokens,
+        user_template=user_template,
     )
     return output, {**metadata, "latency_seconds": time.perf_counter() - started}
 
@@ -120,6 +178,7 @@ def fact_graph_request(case: Mapping[str, Any]) -> dict[str, Any]:
         "question_prompt": case["question_prompt"],
         "target": case["target"],
         "allowed_profiles": case["allowed_profiles"],
+        "required_profiles": case["required_profiles"],
         "required_roles": [
             "defendant",
             "deceived_person",
@@ -137,18 +196,21 @@ def assessment_request(
     selected_card_ids: Sequence[str],
     authority_packet: Sequence[Mapping[str, Any]],
 ) -> dict[str, Any]:
+    assessment_context = build_fraud_assessment_context(
+        fact_graph,
+        case=case,
+        selected_card_ids=selected_card_ids,
+    )
+    if [item["card_id"] for item in assessment_context] != list(selected_card_ids):
+        raise RuntimeError("assessment context order differs from selected cards")
     return {
         "task": "assess_host_selected_fraud_norm_cards",
         "case_id": case["case_id"],
         "case_text": case["case_text"],
         "fact_graph": fact_graph,
         "selected_card_ids": list(selected_card_ids),
+        "assessment_context": assessment_context,
         "authority_packet": list(authority_packet),
-        "status_semantics": {
-            "satisfied": "카드 proposition이 사건 사실에서 충족됨",
-            "not_satisfied": "카드 proposition이 사건 사실에 의해 반증됨",
-            "unknown": "필요 사실이 없어 어느 쪽도 입증할 수 없음",
-        },
     }
 
 
@@ -186,6 +248,7 @@ def run_fact_graph(
     fact_graph, metadata = timed_model(
         client,
         system_prompt=FACT_PROMPT_PATH.read_text(encoding="utf-8"),
+        user_template=FACT_USER_PROMPT_PATH.read_text(encoding="utf-8"),
         payload=fact_graph_request(case),
         schema_name="fraud_fact_graph",
         schema=contract_schema("fraud_fact_graph.schema.json"),
@@ -208,27 +271,40 @@ def run_symbolic_core(
     compiled_source: str,
     method_dir: Path,
 ) -> tuple[list[dict[str, Any]], dict[str, Any], dict[str, Any], dict[str, Any]]:
-    selected_card_ids = select_fraud_card_plan(fact_graph)
-    authority_packet = build_authority_packet(selected_card_ids, norm_cards)
+    reasoning_plan = select_fraud_reasoning_plan(fact_graph, case=case)
+    plan_card_ids = reasoning_plan_card_ids(reasoning_plan)
+    selected_card_ids = select_fraud_card_plan(
+        fact_graph, case=case, norm_card_set=norm_cards
+    )
+    assessment_authority_packet = build_authority_packet(
+        selected_card_ids, norm_cards
+    )
+    authority_packet = build_authority_packet(plan_card_ids, norm_cards)
     assessment_bundle, assessment_metadata = timed_model(
         client,
         system_prompt=ASSESS_PROMPT_PATH.read_text(encoding="utf-8"),
+        user_template=ASSESS_USER_PROMPT_PATH.read_text(encoding="utf-8"),
         payload=assessment_request(
             case=case,
             fact_graph=fact_graph,
             selected_card_ids=selected_card_ids,
-            authority_packet=authority_packet,
+            authority_packet=assessment_authority_packet,
         ),
         schema_name="fraud_assessment_bundle",
         schema=contract_schema("fraud_assessment_bundle.schema.json"),
         max_tokens=9_000,
     )
+    write_json(method_dir / "assessment_model_output.json", assessment_bundle)
     validate_fraud_assessment_bundle(
         assessment_bundle,
         case=case,
         fact_graph=fact_graph,
         selected_card_ids=selected_card_ids,
-        authority_packet=authority_packet,
+        authority_packet=assessment_authority_packet,
+    )
+    write_json(
+        method_dir / "assessment_authority_packet.json",
+        {"cards": assessment_authority_packet},
     )
     write_json(method_dir / "authority_packet.json", {"cards": authority_packet})
     write_json(method_dir / "assessment_bundle.json", assessment_bundle)
@@ -237,7 +313,7 @@ def run_symbolic_core(
         fact_graph=fact_graph,
         assessment_bundle=assessment_bundle,
         selected_card_ids=selected_card_ids,
-        authority_packet=authority_packet,
+        authority_packet=assessment_authority_packet,
     )
     write_json(method_dir / "scallop_scenario.json", scenario)
     started = time.perf_counter()
@@ -287,11 +363,6 @@ def answer_request(
         "legal_knowledge_policy": (
             "model_internal" if internal_knowledge else "supplied_context_only"
         ),
-        "generation_instructions": [
-            "乙의 B에 대한 사기죄만 검토한다.",
-            "사건 사실은 case_text 밖에서 보충하지 않는다.",
-            "본문에는 내부 provenance ID를 쓰지 않는다.",
-        ],
         "available_context": context,
         "allowed_provenance_ids": {
             "fact_ids": list(allowed_fact_ids),
@@ -353,6 +424,44 @@ def run_answer(
         render_long_form_markdown(answer), encoding="utf-8"
     )
     return answer, metadata, violations
+
+
+def run_whole_irac_answer(
+    *,
+    case: Mapping[str, Any],
+    method_dir: Path,
+    plan: Mapping[str, Any],
+) -> tuple[dict[str, Any], list[dict[str, str]], float]:
+    answer, compile_seconds = timed_host(
+        lambda: compile_fraud_whole_irac_answer(plan=plan, case=case)
+    )
+    facts = [
+        fact_id for unit in plan["units"] for fact_id in unit["required_fact_ids"]
+    ]
+    cards = [
+        assessment["card_id"]
+        for unit in plan["units"]
+        for assessment in unit["card_assessments"]
+    ]
+    authorities = [
+        comment_id
+        for unit in plan["units"]
+        for comment_id in unit["required_authority_comment_ids"]
+    ]
+    violations = answer_contract_violations(
+        answer,
+        case_id=case["case_id"],
+        method_id="m5_irac_plan",
+        allowed_fact_ids=facts,
+        allowed_card_ids=cards,
+        allowed_authority_ids=authorities,
+    )
+    violations.extend(assess_irac_answer_alignment(answer, plan))
+    write_json(method_dir / "answer.json", answer)
+    (method_dir / "answer.md").write_text(
+        render_long_form_markdown(answer), encoding="utf-8"
+    )
+    return answer, violations, compile_seconds
 
 
 def answer_contract_violations(
@@ -490,9 +599,12 @@ def run_claim_verification(
             schema=generation_schema("section_patch_bundle.schema.json"),
             max_tokens=6_000,
         )
+        write_json(method_dir / "section_patches_model_output.json", patches)
+        patches, patch_normalization = normalize_section_patch_bundle(patches)
         final_answer, patch_audit = apply_section_patches(
             answer, patches, failed_section_ids=failed_ids
         )
+        patch_audit["normalization"] = patch_normalization
         post_repair_contract = answer_contract_violations(
             final_answer,
             case_id=case["case_id"],
@@ -592,7 +704,7 @@ def warm_structured_schemas(client: VLLMClient) -> dict[str, Any]:
                         ],
                     }
                 ],
-                "profiles": ["ordinary"],
+                "profiles": [],
                 "retrieval_queries": ["워밍업"],
                 "unresolved_questions": [],
             },
@@ -761,18 +873,38 @@ def run_matrix(
     api_key: str,
     run_dir: Path,
     report_path: Path,
+    method_ids: Sequence[str] = METHOD_IDS,
+    case_path: Path = CASE_PATH,
+    case_id: str | None = None,
+    temperature: float = 0.0,
+    top_p: float | None = None,
+    top_k: int | None = None,
 ) -> dict[str, Any]:
-    case = read_json(CASE_PATH)
+    selected_methods = tuple(method_ids)
+    if not selected_methods:
+        raise ValueError("at least one method is required")
+    if len(selected_methods) != len(set(selected_methods)):
+        raise ValueError("method_ids contains duplicates")
+    unknown_methods = set(selected_methods) - set(METHOD_IDS)
+    if unknown_methods:
+        raise ValueError(f"unknown methods: {sorted(unknown_methods)}")
+    case = load_case(case_path, case_id)
+    validate_fraud_case(case)
     norm_cards = read_json(NORM_CARD_PATH)
     rule_ir, compiled_source = verify_symbolic_assets(case)
-    client = VLLMClient(base_url=base_url, model=model, api_key=api_key)
+    client = SampledClient(
+        VLLMClient(base_url=base_url, model=model, api_key=api_key),
+        temperature=temperature,
+        top_p=top_p,
+        top_k=top_k,
+    )
     run_dir.mkdir(parents=True, exist_ok=True)
     report_path.parent.mkdir(parents=True, exist_ok=True)
     warmup = warm_structured_schemas(client)
     write_json(run_dir / "schema_warmup.json", warmup)
     methods: list[dict[str, Any]] = []
 
-    for method_id in METHOD_IDS:
+    for method_id in selected_methods:
         method_dir = run_dir / method_id
         method_dir.mkdir(parents=True, exist_ok=True)
         started = time.perf_counter()
@@ -880,18 +1012,30 @@ def run_matrix(
             }
             if plan is not None:
                 context["irac_plan"] = plan
-            answer, model_stages["answer"], alignment = run_answer(
-                client,
-                case=case,
-                method_id=method_id,
-                method_dir=method_dir,
-                context=context,
-                allowed_fact_ids=facts,
-                allowed_card_ids=cards,
-                allowed_authority_ids=authorities,
-                overall_conclusion=symbolic["legal_result"],
-                irac_plan=plan,
-            )
+            if method_id == "m5_irac_plan":
+                assert plan is not None
+                (
+                    answer,
+                    alignment,
+                    host_stages["irac_answer_compile"],
+                ) = run_whole_irac_answer(
+                    case=case,
+                    method_dir=method_dir,
+                    plan=plan,
+                )
+            else:
+                answer, model_stages["answer"], alignment = run_answer(
+                    client,
+                    case=case,
+                    method_id=method_id,
+                    method_dir=method_dir,
+                    context=context,
+                    allowed_fact_ids=facts,
+                    allowed_card_ids=cards,
+                    allowed_authority_ids=authorities,
+                    overall_conclusion=symbolic["legal_result"],
+                    irac_plan=plan,
+                )
             if method_id == "m6_claim_verified":
                 assert plan is not None
                 answer, claim_stages, verification = run_claim_verification(
@@ -940,16 +1084,32 @@ def run_matrix(
         "status": "completed",
         "case": {
             "case_id": case["case_id"],
-            "source_sub_question_id": case["source"]["sub_question_id"],
+            "source_record_id": case["source"].get(
+                "sub_question_id",
+                case["source"].get("source_case_id", case["case_id"]),
+            ),
+            "case_path": str(case_path),
+            "case_selector": case_id,
+            "reasoning_plan_id": select_fraud_reasoning_plan(
+                {"profiles": case.get("required_profiles", [])}, case=case
+            )["plan_id"],
             "rubric_supplied_to_model": False,
         },
         "experiment": {
             "model": model,
-            "method_order": list(METHOD_IDS),
+            "sampling": {
+                "temperature": temperature,
+                "top_p": top_p,
+                "top_k": top_k,
+                "thinking": False,
+            },
+            "method_order": list(selected_methods),
             "warm_latency_definition": (
-                "wall time from method input to final answer after all structured schemas "
-                "were prewarmed; model server startup and schema warmup excluded"
+                "wall time from method input to final answer after static structured schemas "
+                "were prewarmed; model server startup and static schema warmup excluded; "
+                "plan-specific dynamic schema compilation remains inside method latency"
             ),
+            "plan_specific_schema_compilation": "included_in_method_latency",
             "independent_methods": True,
             "prefix_caching_required_disabled": True,
             "schema_warmup": warmup,
@@ -973,6 +1133,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--api-key", default="local-idpr")
     parser.add_argument("--run-dir", type=Path, required=True)
     parser.add_argument("--report-path", type=Path, required=True)
+    parser.add_argument("--case-path", type=Path, default=CASE_PATH)
+    parser.add_argument(
+        "--case-id",
+        help="case_id to select when --case-path contains a case set",
+    )
+    parser.add_argument("--methods", nargs="+", choices=METHOD_IDS, default=list(METHOD_IDS))
+    parser.add_argument("--temperature", type=float, default=0.0)
+    parser.add_argument("--top-p", type=float)
+    parser.add_argument("--top-k", type=int)
     return parser.parse_args()
 
 
@@ -984,6 +1153,12 @@ def main() -> None:
         api_key=args.api_key,
         run_dir=args.run_dir,
         report_path=args.report_path,
+        method_ids=args.methods,
+        case_path=args.case_path,
+        case_id=args.case_id,
+        temperature=args.temperature,
+        top_p=args.top_p,
+        top_k=args.top_k,
     )
     print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))
 

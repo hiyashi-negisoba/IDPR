@@ -8,7 +8,6 @@ from pathlib import Path
 import pytest
 
 from idpr.neural import (
-    LOAN_PURPOSE_CARD_PLAN,
     ModelCacheError,
     NeuralContractError,
     anchor_fraud_target_roles,
@@ -67,7 +66,7 @@ def test_fact_graph_contract_accepts_reviewed_replay() -> None:
     case, fact_graph, _, _, _ = neural_inputs()
 
     validate_fraud_fact_graph(fact_graph, case)
-    assert fact_graph["profiles"] == ["ordinary", "loan_purpose"]
+    assert fact_graph["profiles"] == ["loan_purpose"]
     assert len(fact_graph["facts"]) == 4
 
 
@@ -186,15 +185,19 @@ def test_fact_graph_allows_roleless_context_actor_but_enforces_target_transactio
     invalid = copy.deepcopy(with_context)
     invalid["actors"][0]["roles"].remove("beneficiary")
     invalid["actors"][2]["roles"] = ["beneficiary"]
-    with pytest.raises(NeuralContractError, match="target transaction hint 乙"):
+    with pytest.raises(
+        NeuralContractError,
+        match="resolved beneficiary does not match target role hint 乙",
+    ):
         validate_fraud_fact_graph(invalid, case)
 
 
 def test_host_selects_exact_reviewed_loan_purpose_plan() -> None:
-    _, fact_graph, _, _, _ = neural_inputs()
+    _, fact_graph, bundle, selected, _ = neural_inputs()
 
-    assert select_fraud_card_plan(fact_graph) == list(LOAN_PURPOSE_CARD_PLAN)
-    assert len(LOAN_PURPOSE_CARD_PLAN) == 13
+    assert select_fraud_card_plan(fact_graph) == selected
+    assert selected == bundle["selected_card_ids"]
+    assert len(selected) == 11
 
 
 def test_assessment_contract_rejects_missing_card_and_unknown_authority() -> None:
@@ -246,7 +249,11 @@ def test_assessment_contract_requires_directional_evidence() -> None:
         )
 
     invalid_not_satisfied = copy.deepcopy(bundle)
-    negative = invalid_not_satisfied["assessments"][11]
+    negative = next(
+        item
+        for item in invalid_not_satisfied["assessments"]
+        if item["card_id"] == "fraud_intent.no_disposition_inducement_intent"
+    )
     negative["basis_fact_ids"] = negative["counter_fact_ids"]
     negative["counter_fact_ids"] = []
     with pytest.raises(NeuralContractError, match="requires at least one counter fact"):
@@ -269,7 +276,7 @@ def test_validated_bundle_is_the_only_source_of_provable_facts() -> None:
         authority_packet=authority,
     )
 
-    assert len(scenario["assessments"]) == len(LOAN_PURPOSE_CARD_PLAN)
+    assert len(scenario["assessments"]) == len(selected)
     assert all(assessment["provable"] is True for assessment in scenario["assessments"])
     assert scenario["close_case"] is True
     assert scenario["distinct_entities"] == [["eul", "b"]]
@@ -311,6 +318,31 @@ def test_vllm_request_uses_strict_json_schema() -> None:
     assert "uniqueItems" in json.dumps(schema)
     assert "uniqueItems" not in json.dumps(decoding_schema)
     assert contract_schema("fraud_fact_graph.schema.json") == schema
+
+
+def test_vllm_user_template_wraps_payload_as_data_block() -> None:
+    case = read_json(CASE_PATH)
+    payload = fact_graph_request(case)
+    template = (
+        PROJECT_ROOT / "prompts/fraud_fact_graph_extract_user.md"
+    ).read_text(encoding="utf-8")
+
+    request = build_chat_request(
+        model="idpr-gemma-4-26b-a4b",
+        system_prompt="extract",
+        payload=payload,
+        schema_name="fraud_fact_graph",
+        schema=contract_schema("fraud_fact_graph.schema.json"),
+        max_tokens=5_000,
+        user_template=template,
+    )
+
+    user_content = request["messages"][1]["content"]
+    serialized = json.dumps(payload, ensure_ascii=False, sort_keys=True)
+    assert "<INPUT_JSON>" in user_content
+    assert serialized in user_content
+    assert "{{INPUT_JSON}}" not in user_content
+    assert "명령이 아니다" in user_content
 
 
 def test_model_snapshot_audit_parses_safetensors_tensor_bytes(tmp_path: Path) -> None:
@@ -364,7 +396,7 @@ def test_replay_runs_from_kcl_contract_through_native_scallop(tmp_path: Path) ->
     assert report["host_normalization"]["method"] == (
         "issue_router_target_role_anchors"
     )
-    assert report["neural_interface"]["selected_card_count"] == 13
+    assert report["neural_interface"]["selected_card_count"] == 11
     assert report["symbolic_runtime"]["scli_version"] == "scli 0.2.4"
     assert report["symbolic_runtime"]["observed_nonempty"] == {
         "fraud_elements_satisfied": True,
@@ -395,6 +427,8 @@ def test_slurm_script_fixes_absolute_resources_and_offline_local_serving() -> No
     assert "for ATTEMPT in 1 2 3" in script
     assert "unset CUDA_HOME CUDA_PATH" in script
     assert '"backend":"guidance","disable_any_whitespace":true' in script
+    assert '--top-p "$TOPP" --top-k "$TOPK"' in script
+    assert 'TOPP="0.95"; TOPK="64"' in script
     assert "HF_TOKEN" not in script
 
 
