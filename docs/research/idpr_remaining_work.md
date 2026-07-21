@@ -184,6 +184,24 @@ generate·IDPR verify에 해당하고, m3/m4는 중간 ablation이다.
    재평가·불심검문 적법성 등)은 신경 측 부담이 크다. 8/11 내에서는 (a) 소수를 절차-실체 짝 데모(A4)에
    넣고, 나머지는 coverage tier(§12.2) uncovered로 정직하게 보고. 사후 제외가 아니라 tier 명시가 원칙.
 
+**commentary 선별 상태 확정 — 후임자 인계(2026-07-21 감사, 착수 전 필독).** 사용자 질문("절차
+17건은 commentary에서 선별 안 된 건가? 형소법 주석서가 있으니 안 됐으면 지금 선별하자")에 대한
+코드베이스 확인 결과: **절차 commentary는 이미 선별 완료다. 신규 선별 작업 불필요.**
+- **형소법 코퍼스가 이미 ingested** — `data/commentary/kcl_criminal_v1_commentary_pool.json`의
+  `primary_source.laws`에 형사소송법(law_id `001671`, 571조 5373행)이 형법각칙과 함께 있다.
+  즉 "형소법 주석서도 있다"는 소스는 파이프라인에 이미 들어와 있다.
+- **OOS 절차 축까지 형소법 조문에 매핑됨**(`kcl_criminal_v1_tag_commentary_manifest.jsonl`,
+  절차 태그 78 mapped / 1 gap / 2 unavailable): 불이익변경금지→제368조, 공소시효→제249조,
+  일부상소·상소심범위→제342조, 재심→제420조, 공소장변경→제298조, 증거개시→제266조의3,
+  긴급체포→제200조의3, 항소이유서→제361조의3 등 2번 그룹 전부가 `status: mapped`.
+- **미매핑은 특별법 2~3 태그뿐** — `police_stop_questioning`(불심검문, `unavailable_reason`=
+  경찰관직무집행법 주석서 부재)·`non_retroactivity`·`habitual_offense`. 이들만 coverage tier
+  uncovered이며, 해당 특별법/총칙 주석서를 새로 넣지 않는 한 `unavailable` 유지(기존 원칙).
+- **따라서 절차의 잔여 작업은 commentary 선별이 아니라 규칙 저작이다.** 후임자 to-do는
+  (i) procedure_gating 17의 증거능력 gate 배선(A4), (ii) OOS 규칙친화 축(불이익변경금지·공소시효·
+  상소심범위)의 신규 결정론 절차 규칙 저작 — commentary는 준비됨. 선별 파이프라인 재실행은 하지 말 것
+  (이미 완료, 재실행은 예산 낭비). 특별법 주석서를 사용자가 추가로 제공할 때만 그 2~3 태그 재선별.
+
 ## A4. 절차 레이어 + evidence gating (에이전트 + 사용자)
 
 상태: **미결(2026-07-21).** 현재 실체법 중 사기죄만 보고 있어 절차 레이어는 보류다. 단
