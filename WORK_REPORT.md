@@ -1486,3 +1486,41 @@ RAG의 용도도 장문 생성 보강이 아니라 미확인 요건의 착안사
    보낸다. 회귀는 없으나 활성 경로와 갈라졌으므로 레거시 정리에서 함께 처리한다.
 2. 나머지 negative 24장은 배선 시점에 질의문 초안을 승인받는다.
 3. 결론 구조화(무죄와 미완결의 분리)가 다음 작업이다.
+
+## 장물 rulegen 파일럿 + 실체 캠페인 준비 (2026-07-22)
+
+A3 평가셋 확장을 위해 사기 rulegen 파이프라인을 신규 죄명(장물, 제362조)에 파일럿하고,
+실체법 47개 조문 캠페인을 실행 직전까지 준비했다. terra/sol API는 파일럿 4콜(~$0.5)만
+실행했고 전량 캠페인은 예산 게이트로 대기시켰다.
+
+### 파일럿 성과 (장물 제362조, job 211617/211619/211635)
+
+- **terra/sol = gpt-5.6 추론 모델 확정.** 추출은 `reasoning_effort=low` + `max_tokens≥16000`가
+  필수다. 기본 6000은 reasoning 토큰이 한도를 전부 소진해(`finish_reason=length`) 실패했다
+  (job 211617). 사기 시절 terra는 비추론이라 6000으로 됐던 것. `run_fraud_rulegen_pilot.py`에
+  `--terra-reasoning-effort` 추가, sbatch 기본값 low/16000으로 교정하니 reasoning이 6000→326/31
+  토큰으로 정상화됐다.
+- **밀도 = 사기의 0.5×.** 장물 25 candidates/배치 vs 사기 ~51. critic verdict=revise, 31 후보에
+  findings 5. card-stage가 비용의 68%이므로 61 견적($251)의 실질 하향 근거다.
+- **norm_kind='negative' 이슈.** 모델이 부정형 규범(장물성 소멸 등)에서 polarity 값 'negative'를
+  `norm_kind`에 오배치해 batch 2가 스키마 검증 실패했다. A6 계열 이슈다. extract 프롬프트 규칙3을
+  norm_kind(기능) vs polarity(방향) 독립 명시로 보강했다(사용자 승인). 다른 추출 동작은 불변.
+
+### 캠페인 준비 (실행 전, 결정론·무지출)
+
+- 실체 P1(재산범 11) + P2(OOS 비재산 16) 형법각칙 **47개 조문** requests 생성:
+  `data/rulegen/campaign/art*_rulegen_requests.jsonl` (총 162 배치, 1,531 chunks).
+- 신규 스크립트: `scripts/build_rulegen_requests.py`(죄명-불문 requests 빌더),
+  `scripts/build_rulegen_campaign.py`(매니페스트+전 조문 생성),
+  `scripts/slurm/run_rulegen_pilot.sh`(조문 1개 CPU-only sbatch, GPU 미할당),
+  `scripts/slurm/launch_rulegen_campaign.sh`(전 조문 런처, 기본 dry-list).
+- 단가 확정: terra $2.5/$15, sol $5/$30 per 1M. 추출+후보비평 파일럿보정 ~$35.5.
+- 절차(P3 증거능력 gate / P4 규칙친화)는 A4 별도 트랙.
+
+### 남은 게이트
+
+1. 잔여 예산 확인 후 `launch_rulegen_campaign.sh --confirm`으로 착수(예산 게이트).
+2. 다운스트림(merge·normcard critic·RuleIR)은 미파일럿 — 장물로 1회 더 돌려 실단가 확정 권장.
+3. 생성 후 검토는 벌크 HITL(`docs/research/hitl_bulk_review_spec.md`)로 유형별 1회.
+
+상세: `docs/research/rulegen_campaign_launch.md`, `rulegen_sweep_cost_estimate.md` §7.

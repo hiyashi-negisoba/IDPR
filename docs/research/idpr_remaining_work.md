@@ -144,9 +144,20 @@ generate·IDPR verify에 해당하고, m3/m4는 중간 ablation이다.
 
 ## A3. 평가셋 확정 (사용자 + 에이전트)
 
-상태: **방향 확정(2026-07-21).** 현 단계는 사기죄만으로 전체 파이프라인 정합성을 검증하는
-단계이고, **최종 universe는 KCL 61문항 커버**다. 사기 5건 수동 paraphrase는 그 정합성
-검증용 smoke다.
+상태: **캠페인 준비 완료·실행 대기(2026-07-22).** 방향 확정(2026-07-21) 후, 장물 파일럿으로
+파이프라인·비용·config를 검증하고 실체 47개 조문 캠페인을 생성만 해 둔 상태다. 최종 universe는
+KCL 61문항 커버. 사기 5건 수동 paraphrase는 정합성 검증용 smoke다.
+
+**파일럿·캠페인 진척(2026-07-22, 상세: `rulegen_campaign_launch.md`·`rulegen_sweep_cost_estimate.md`):**
+- 사용자 결정: 61 **전체 커버**, 검토는 **한 번에 벌크**(죄명별 왕복 아님). 파일럿 죄명=장물(제362조).
+- **파일럿 성과**: (1) terra/sol=gpt-5.6 **추론 모델** 확정 — 추출은 `reasoning_effort=low`+`max_tokens≥16000`
+  필수(기본 6000은 reasoning이 전부 소진해 실패). (2) 밀도 = **사기의 0.5×**(장물 25 cand/배치 vs 사기 51)
+  → 견적 하향 근거. (3) `norm_kind='negative'` 오배치(부정형 규범) → extract 프롬프트 규칙3 보강(승인).
+- **캠페인 준비**: 실체 P1(재산범11)+P2(OOS비재산16) 형법각칙 **47조문/1,531 chunks/162 배치** requests 생성
+  (`data/rulegen/campaign/`), 매니페스트·per-crime 런처(`launch_rulegen_campaign.sh`, 기본 dry-list) 완비.
+  추출+critic ≈ **$35.5**(단가 terra $2.5/$15·sol $5/$30 per 1M). 절차(P3/P4)는 A4 별도 트랙.
+- **남은 게이트**: ① 잔여 예산 확인 후 `--confirm` 착수(예산 게이트), ② 다운스트림(merge·RuleIR) 실단가를
+  장물로 한 번 더 파일럿해 확정 권장, ③ 벌크 HITL(`hitl_bulk_review_spec.md`)로 유형별 1회 검토.
 
 - **확장 경로**: 이미 정해둔 주석서 자료를 기반으로 KCL 61을 커버하도록 card·RuleIR 등
   Scallop 엔진용 재료를 API로 생성한다. **방식은 지난번 사기 rulegen과 동일하며 사람 검토를

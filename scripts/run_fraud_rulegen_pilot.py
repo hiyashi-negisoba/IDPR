@@ -21,6 +21,7 @@ from idpr.llm import (  # noqa: E402
     JSONCompletionJob,
     JSONCompletionResult,
     LLMGateway,
+    ReasoningEffort,
     write_usage_manifest,
 )
 from idpr.rulegen import (  # noqa: E402
@@ -67,6 +68,7 @@ def build_extraction_jobs(
     requests: list[dict[str, Any]],
     max_tokens: int,
     use_fewshot: bool = True,
+    reasoning_effort: "ReasoningEffort | None" = None,
 ) -> list[JSONCompletionJob]:
     prompt = prompt_with_schema(EXTRACT_PROMPT, NORM_CANDIDATE_SCHEMA)
     if use_fewshot:
@@ -86,6 +88,7 @@ def build_extraction_jobs(
             system_prompt=prompt,
             payload=request,
             max_tokens=max_tokens,
+            reasoning_effort=reasoning_effort,
         )
         for request in requests
     ]
@@ -253,9 +256,9 @@ def validate_sol_results(
 
 
 async def execute(args: argparse.Namespace, config: GatewayConfig) -> dict[str, Any]:
-    requests = select_requests(load_jsonl(REQUESTS), args.start, args.limit)
+    requests = select_requests(load_jsonl(args.requests), args.start, args.limit)
     requests_by_id = {request["request_id"]: request for request in requests}
-    run_dir = RUN_ROOT / args.run_id
+    run_dir = args.run_root / args.run_id
     gateway = LLMGateway(config)
 
     terra_results = await gateway.complete_many(
@@ -263,6 +266,7 @@ async def execute(args: argparse.Namespace, config: GatewayConfig) -> dict[str, 
             requests,
             args.terra_max_tokens,
             use_fewshot=not args.no_fewshot,
+            reasoning_effort=args.terra_reasoning_effort,
         )
     )
     write_usage_manifest(run_dir / "terra_usage.jsonl", terra_results)
@@ -314,7 +318,7 @@ async def execute(args: argparse.Namespace, config: GatewayConfig) -> dict[str, 
 
 
 def dry_run_summary(args: argparse.Namespace) -> dict[str, Any]:
-    requests = select_requests(load_jsonl(REQUESTS), args.start, args.limit)
+    requests = select_requests(load_jsonl(args.requests), args.start, args.limit)
     return {
         "mode": "dry_run",
         "requests": [request["request_id"] for request in requests],
@@ -359,14 +363,35 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--limit", type=int, default=1)
     parser.add_argument("--concurrency", type=int, default=1)
     parser.add_argument("--terra-max-tokens", type=int, default=6_000)
+    parser.add_argument(
+        "--terra-reasoning-effort",
+        choices=["none", "minimal", "low", "medium", "high", "xhigh"],
+        default=None,
+        help="추론 terra(gpt-5.6) 대비. 미설정 시 모델 기본(6k 한도를 reasoning이 전부 소진).",
+    )
     parser.add_argument("--sol-max-tokens", type=int, default=25_000)
     parser.add_argument("--env-file", type=Path, default=PROJECT_ROOT / ".env")
+    parser.add_argument(
+        "--requests",
+        type=Path,
+        default=REQUESTS,
+        help="rulegen requests JSONL (죄명별). 기본은 사기.",
+    )
+    parser.add_argument(
+        "--run-root",
+        type=Path,
+        default=RUN_ROOT,
+        help="run 산출 루트. 죄명별로 분리 권장.",
+    )
     parser.add_argument(
         "--run-id",
         default=datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ"),
     )
     args = parser.parse_args()
-    request_count = len(load_jsonl(REQUESTS))
+    # run_dir 산출물은 PROJECT_ROOT 기준 relative_to로 로깅되므로 절대경로로 고정한다.
+    args.run_root = args.run_root.resolve()
+    args.requests = args.requests.resolve()
+    request_count = len(load_jsonl(args.requests))
     if not 1 <= args.start <= request_count:
         parser.error(f"--start must be between 1 and {request_count}")
     if not 1 <= args.limit <= request_count - args.start + 1:

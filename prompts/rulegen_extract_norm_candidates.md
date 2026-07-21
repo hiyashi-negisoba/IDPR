@@ -11,10 +11,15 @@ Rules:
 2. Every candidate must contain at least one exact source reference. `comment_id` and
    `section_path` must match the input metadata, and `quote` must be a verbatim substring
    of that chunk. Keep each quote under 300 characters.
-3. Separate a legal element, definition, causal link, exception, open-textured standard,
-   and competing variant. Do not collapse them into a single prose rule. Independently set
-   `polarity=positive` for enabling norms, `negative` for general non-establishment or
-   exclusion norms, and `exception` only for a norm that reverses a supplied general rule.
+3. `norm_kind` and `polarity` are two independent fields with different value sets; never
+   put a polarity value into `norm_kind`. Set `norm_kind` to the functional role — exactly
+   one of `element`, `definition`, `causal_link`, `exception`, `standard`, `variant` — and
+   do not collapse several into a single prose rule. Independently set `polarity`: `positive`
+   for enabling norms, `negative` for general non-establishment or exclusion norms, and
+   `exception` only for a norm that reverses a supplied general rule. `positive` and
+   `negative` are polarity values only and are never valid `norm_kind` values; a
+   non-establishment or exclusion norm still takes a functional `norm_kind` (usually
+   `exception`, `element`, or `standard`) together with `polarity=negative`.
 4. Preserve disagreements. When the commentary presents competing theories, emit separate
    `variant` candidates and add the choice to `unresolved_questions`. Never select a theory.
 5. Distinguish a general norm from a reported case holding. When the commentary reports a
