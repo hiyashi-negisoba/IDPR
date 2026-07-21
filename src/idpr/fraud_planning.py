@@ -294,11 +294,20 @@ def _card_is_active(card: Mapping[str, Any], profiles: set[str]) -> bool:
     return required <= profiles and not (excluded & profiles)
 
 
-def _strip_card_routing(card: Mapping[str, Any]) -> dict[str, str]:
-    return {
+def _strip_card_routing(card: Mapping[str, Any]) -> dict[str, Any]:
+    stripped: dict[str, Any] = {
         "card_id": str(card["card_id"]),
         "satisfied_when": str(card["satisfied_when"]),
     }
+    query = card.get("neural_query")
+    if query is not None:
+        stripped["neural_query"] = {
+            "proposition": str(query["proposition"]),
+            "card_status_when_query_satisfied": str(
+                query["card_status_when_query_satisfied"]
+            ),
+        }
+    return stripped
 
 
 def _validate_composed_plan(plan: Mapping[str, Any]) -> None:
@@ -326,6 +335,20 @@ def reasoning_plan_card_ids(plan: Mapping[str, Any]) -> list[str]:
         for unit in plan.get("units", [])
         for card in unit.get("cards", [])
     ]
+
+
+def reasoning_plan_neural_queries(
+    plan: Mapping[str, Any],
+) -> dict[str, dict[str, str]]:
+    """Return the affirmative proposition the model judges in place of each
+    card whose own wording runs opposite to the status it must report."""
+
+    return {
+        card["card_id"]: dict(card["neural_query"])
+        for unit in plan.get("units", [])
+        for card in unit.get("cards", [])
+        if card.get("neural_query")
+    }
 
 
 def build_fraud_assessment_context(

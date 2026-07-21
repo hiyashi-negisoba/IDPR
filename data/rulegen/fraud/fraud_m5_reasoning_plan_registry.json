@@ -109,7 +109,11 @@
           },
           {
             "card_id": "fraud_intent.no_disposition_inducement_intent",
-            "satisfied_when": "not_satisfied"
+            "satisfied_when": "not_satisfied",
+            "neural_query": {
+              "proposition": "행위자에게 피기망자로 하여금 바로 그 재산적 처분행위를 하게 할 의사가 있었다.",
+              "card_status_when_query_satisfied": "not_satisfied"
+            }
           }
         ]
       }

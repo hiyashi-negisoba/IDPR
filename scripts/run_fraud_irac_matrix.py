@@ -37,14 +37,17 @@ from idpr.generation import (  # noqa: E402
 from idpr.fraud_planning import (  # noqa: E402
     build_fraud_assessment_context,
     reasoning_plan_card_ids,
+    reasoning_plan_neural_queries,
     select_fraud_reasoning_plan,
     validate_fraud_case,
 )
 from idpr.neural import (  # noqa: E402
     anchor_fraud_target_roles,
+    apply_negative_card_safety_net,
     build_authority_packet,
     build_scallop_scenario,
     contract_schema,
+    resolve_neural_query_statuses,
     select_fraud_card_plan,
     validate_fraud_assessment_bundle,
     validate_fraud_fact_graph,
@@ -276,8 +279,9 @@ def run_symbolic_core(
     selected_card_ids = select_fraud_card_plan(
         fact_graph, case=case, norm_card_set=norm_cards
     )
+    neural_queries = reasoning_plan_neural_queries(reasoning_plan)
     assessment_authority_packet = build_authority_packet(
-        selected_card_ids, norm_cards
+        selected_card_ids, norm_cards, neural_queries=neural_queries
     )
     authority_packet = build_authority_packet(plan_card_ids, norm_cards)
     assessment_bundle, assessment_metadata = timed_model(
@@ -307,6 +311,16 @@ def run_symbolic_core(
         {"cards": assessment_authority_packet},
     )
     write_json(method_dir / "authority_packet.json", {"cards": authority_packet})
+    assessment_bundle, query_resolutions = resolve_neural_query_statuses(
+        assessment_bundle, neural_queries
+    )
+    assessment_bundle, safety_net_demotions = apply_negative_card_safety_net(
+        assessment_bundle, norm_card_set=norm_cards
+    )
+    write_json(
+        method_dir / "neural_query_resolution.json",
+        {"resolutions": query_resolutions, "safety_net_demotions": safety_net_demotions},
+    )
     write_json(method_dir / "assessment_bundle.json", assessment_bundle)
     scenario = build_scallop_scenario(
         case=case,

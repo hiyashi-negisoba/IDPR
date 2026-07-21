@@ -1,0 +1,156 @@
+{
+  "case": {
+    "case_id": "manual_fraud_047_01_loan_extension",
+    "case_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/manual_paraphrases/fraud_manual_paraphrase_cases.json",
+    "case_selector": "manual_fraud_047_01_loan_extension",
+    "reasoning_plan_id": "fraud_core__loan_repayment__property_benefit",
+    "rubric_supplied_to_model": false,
+    "source_record_id": "manual_crimefacts_economic::leaf::047::case::1"
+  },
+  "created_at": "2026-07-20T13:44:37.513619+00:00",
+  "experiment": {
+    "independent_methods": true,
+    "method_order": [
+      "m5_irac_plan"
+    ],
+    "model": "idpr-gemma-4-26b-a4b",
+    "plan_specific_schema_compilation": "included_in_method_latency",
+    "prefix_caching_required_disabled": true,
+    "sampling": {
+      "temperature": 0.0,
+      "thinking": false,
+      "top_k": null,
+      "top_p": null
+    },
+    "schema_warmup": {
+      "claim_graph": {
+        "finish_reason": "stop",
+        "id": "chatcmpl-8fb5cc3696368c21",
+        "latency_seconds": 0.8884272121358663,
+        "model": "idpr-gemma-4-26b-a4b",
+        "schema_valid": true,
+        "usage": {
+          "completion_tokens": 127,
+          "prompt_tokens": 201,
+          "prompt_tokens_details": null,
+          "total_tokens": 328
+        }
+      },
+      "fraud_assessment_bundle": {
+        "finish_reason": "stop",
+        "id": "chatcmpl-bc70288bc6798edb",
+        "latency_seconds": 0.6368044840637594,
+        "model": "idpr-gemma-4-26b-a4b",
+        "schema_valid": true,
+        "usage": {
+          "completion_tokens": 89,
+          "prompt_tokens": 156,
+          "prompt_tokens_details": null,
+          "total_tokens": 245
+        }
+      },
+      "fraud_fact_graph": {
+        "finish_reason": "stop",
+        "id": "chatcmpl-89a2b81d420f6098",
+        "latency_seconds": 1.1103895250707865,
+        "model": "idpr-gemma-4-26b-a4b",
+        "schema_valid": true,
+        "usage": {
+          "completion_tokens": 158,
+          "prompt_tokens": 245,
+          "prompt_tokens_details": null,
+          "total_tokens": 403
+        }
+      },
+      "long_form_answer": {
+        "finish_reason": "stop",
+        "id": "chatcmpl-91ea50a2a2b18b31",
+        "latency_seconds": 0.6957906880415976,
+        "model": "idpr-gemma-4-26b-a4b",
+        "schema_valid": true,
+        "usage": {
+          "completion_tokens": 98,
+          "prompt_tokens": 165,
+          "prompt_tokens_details": null,
+          "total_tokens": 263
+        }
+      },
+      "section_patch_bundle": {
+        "finish_reason": "stop",
+        "id": "chatcmpl-b7c85b988c3dc36c",
+        "latency_seconds": 0.5819983128458261,
+        "model": "idpr-gemma-4-26b-a4b",
+        "schema_valid": true,
+        "usage": {
+          "completion_tokens": 81,
+          "prompt_tokens": 142,
+          "prompt_tokens_details": null,
+          "total_tokens": 223
+        }
+      }
+    },
+    "warm_latency_definition": "wall time from method input to final answer after static structured schemas were prewarmed; model server startup and static schema warmup excluded; plan-specific dynamic schema compilation remains inside method latency"
+  },
+  "methods": [
+    {
+      "answer": {
+        "body_characters": 2180,
+        "cited_authority_count": 24,
+        "cited_card_count": 34,
+        "cited_fact_count": 5,
+        "json_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/manual_paraphrases/experiments/m5_polarity_greedy/manual_fraud_047_01_loan_extension/m5_irac_plan_answer.json",
+        "markdown_path": "/data5/jaehoonjeong/IDPR/data/e2e/fraud/manual_paraphrases/experiments/m5_polarity_greedy/manual_fraud_047_01_loan_extension/m5_irac_plan_answer.md",
+        "overall_conclusion": "undetermined",
+        "section_count": 4,
+        "sha256": "43585d780d83ac754d72e6f9ef1c9818a9244fc7b663594a58c104bc715a3b1a"
+      },
+      "answer_validation_violations": [],
+      "claim_verification": null,
+      "host_stages_seconds": {
+        "irac_answer_compile": 0.0013558650389313698,
+        "irac_plan_compile": 0.004625145113095641,
+        "scallop": 4.505840892903507
+      },
+      "method_id": "m5_irac_plan",
+      "model_call_count": 2,
+      "model_completion_tokens": 2612,
+      "model_prompt_tokens": 7633,
+      "model_stages": {
+        "assessment_bundle": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-a6d37376bdf02aa1",
+          "latency_seconds": 14.219132609898224,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 1889,
+            "prompt_tokens": 5455,
+            "prompt_tokens_details": null,
+            "total_tokens": 7344
+          }
+        },
+        "fact_graph": {
+          "finish_reason": "stop",
+          "id": "chatcmpl-a25716b4e58ed383",
+          "latency_seconds": 5.124488420784473,
+          "model": "idpr-gemma-4-26b-a4b",
+          "usage": {
+            "completion_tokens": 723,
+            "prompt_tokens": 2178,
+            "prompt_tokens_details": null,
+            "total_tokens": 2901
+          }
+        }
+      },
+      "status": "completed",
+      "warm_latency_seconds": 23.88690746598877
+    }
+  ],
+  "run_dir": "/data5/jaehoonjeong/IDPR/.cache/e2e/fraud_irac_matrix/211051/manual_fraud_047_01_loan_extension",
+  "status": "completed",
+  "symbolic_runtime": {
+    "compiled_sha256": "b2f759c1e276fc3256ad439dc8cc99d3035038b268ec2ba3bb55dbf3db0649c6",
+    "rule_set_id": "kr.fraud.article347.full.v1_candidate",
+    "scli_version": "scli 0.2.4"
+  },
+  "version": "1.0.0"
+}

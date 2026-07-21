@@ -205,8 +205,20 @@ def _default_norm_card_set() -> dict[str, Any]:
 
 
 def build_authority_packet(
-    card_ids: Sequence[str], norm_card_set: Mapping[str, Any]
+    card_ids: Sequence[str],
+    norm_card_set: Mapping[str, Any],
+    *,
+    neural_queries: Mapping[str, Mapping[str, str]] | None = None,
 ) -> list[dict[str, Any]]:
+    """Build the card packet.
+
+    Passing ``neural_queries`` builds the packet the model judges: cards whose
+    own wording states a non-establishment norm are replaced by the affirmative
+    proposition registered for them, so the model never has to report a status
+    running opposite to the sentence it just evaluated. Omitting it keeps the
+    reviewed wording, which is what the IRAC answer cites.
+    """
+
     cards_by_id = {
         card.get("id", ""): card for card in norm_card_set.get("cards", [])
     }
@@ -214,13 +226,22 @@ def build_authority_packet(
     if missing:
         raise NeuralContractError([f"unknown NormCards in plan: {missing}"])
     packet: list[dict[str, Any]] = []
+    unregistered: list[str] = []
     for card_id in card_ids:
         card = cards_by_id[card_id]
+        proposition = card["proposition"]
+        polarity = card["polarity"]
+        query = (neural_queries or {}).get(card_id)
+        if neural_queries is not None and query is None and polarity == "negative":
+            unregistered.append(card_id)
+        if query is not None:
+            proposition = query["proposition"]
+            polarity = "positive"
         packet.append(
             {
                 "card_id": card_id,
-                "proposition": card["proposition"],
-                "polarity": card["polarity"],
+                "proposition": proposition,
+                "polarity": polarity,
                 "formalization": card["formalization"],
                 "sources": [
                     {
@@ -232,7 +253,124 @@ def build_authority_packet(
                 ],
             }
         )
+    if unregistered:
+        raise NeuralContractError(
+            [
+                "negative NormCards reach the model without a registered "
+                f"neural_query: {sorted(unregistered)}"
+            ]
+        )
     return packet
+
+
+def resolve_neural_query_statuses(
+    assessment_bundle: Mapping[str, Any],
+    neural_queries: Mapping[str, Mapping[str, str]],
+) -> tuple[dict[str, Any], list[dict[str, str]]]:
+    """Map statuses reported against an affirmative query back onto the card.
+
+    ``unknown`` carries over unchanged. The mapping is declared per card rather
+    than inferred, because an affirmative restatement does not always invert:
+    for some cards the embedded predicate already runs with ``satisfied``.
+
+    Where it does invert, the evidence arrays swap with it. Facts supporting the
+    affirmative query are exactly the facts contradicting the card, which is the
+    shape the assessment contract requires of a ``not_satisfied`` finding.
+
+    The resolution trail is returned separately rather than annotated onto the
+    bundle, which stays within the model output contract.
+    """
+
+    resolved = copy.deepcopy(dict(assessment_bundle))
+    trail: list[dict[str, str]] = []
+    for assessment in resolved.get("assessments", []):
+        query = neural_queries.get(assessment["card_id"])
+        if query is None:
+            continue
+        query_status = assessment["status"]
+        inverts = query["card_status_when_query_satisfied"] != "satisfied"
+        if query_status != "unknown" and inverts:
+            assessment["status"] = (
+                "not_satisfied" if query_status == "satisfied" else "satisfied"
+            )
+            assessment["basis_fact_ids"], assessment["counter_fact_ids"] = (
+                list(assessment["counter_fact_ids"]),
+                list(assessment["basis_fact_ids"]),
+            )
+        trail.append(
+            {
+                "card_id": assessment["card_id"],
+                "query_proposition": query["proposition"],
+                "query_status": query_status,
+                "card_status": assessment["status"],
+            }
+        )
+    return resolved, trail
+
+
+def apply_negative_card_safety_net(
+    assessment_bundle: Mapping[str, Any],
+    *,
+    norm_card_set: Mapping[str, Any],
+) -> tuple[dict[str, Any], list[dict[str, str]]]:
+    """Downgrade a non-establishment finding that rests on establishing facts.
+
+    A negative card resolving to ``satisfied`` blocks the offence outright. When
+    the facts it cites are the same ones a positive card relies on to be
+    ``satisfied``, the two readings cannot both hold: the fact that a disposition
+    occurred cannot evidence the absence of intent to induce it. Those cases are
+    demoted to ``unknown`` rather than silently deciding the case.
+    """
+
+    polarities = {
+        card.get("id", ""): card.get("polarity", "")
+        for card in norm_card_set.get("cards", [])
+    }
+    guarded = copy.deepcopy(dict(assessment_bundle))
+    assessments = guarded.get("assessments", [])
+    positive_basis: dict[str, list[str]] = {}
+    for assessment in assessments:
+        card_id = assessment["card_id"]
+        if polarities.get(card_id) == "negative":
+            continue
+        if assessment["status"] != "satisfied":
+            continue
+        for fact_id in assessment["basis_fact_ids"]:
+            positive_basis.setdefault(fact_id, []).append(card_id)
+
+    demotions: list[dict[str, str]] = []
+    for assessment in assessments:
+        card_id = assessment["card_id"]
+        if polarities.get(card_id) != "negative":
+            continue
+        if assessment["status"] != "satisfied":
+            continue
+        cited = list(assessment["basis_fact_ids"]) + list(
+            assessment["counter_fact_ids"]
+        )
+        overlap = sorted({fact_id for fact_id in cited if fact_id in positive_basis})
+        if not overlap:
+            continue
+        assessment["status"] = "unknown"
+        assessment["missing_facts"] = list(assessment["missing_facts"]) + [
+            "행위자에게 해당 소극요건이 실제로 존재했음을 보여 주는 사실"
+        ]
+        demotions.append(
+            {
+                "card_id": card_id,
+                "overlapping_fact_ids": ", ".join(overlap),
+                "conflicting_cards": ", ".join(
+                    sorted(
+                        {
+                            other
+                            for fact_id in overlap
+                            for other in positive_basis[fact_id]
+                        }
+                    )
+                ),
+            }
+        )
+    return guarded, demotions
 
 
 def validate_fraud_assessment_bundle(

@@ -26,12 +26,17 @@ from idpr.generation import (
     validate_long_form_answer,
 )
 from idpr.neural import (
+    NeuralContractError,
     anchor_fraud_target_roles,
+    apply_negative_card_safety_net,
     build_authority_packet,
+    resolve_neural_query_statuses,
     select_fraud_card_plan,
+    validate_fraud_assessment_bundle,
 )
 from idpr.fraud_planning import (
     reasoning_plan_card_ids,
+    reasoning_plan_neural_queries,
     select_fraud_reasoning_plan,
 )
 
@@ -771,3 +776,175 @@ def test_human_markdown_hides_internal_ids_but_keeps_legal_parentheticals() -> N
     assert "fact_113" not in markdown
     assert "general_object.fraud.definition.property-benefit" not in markdown
     assert "(unknown)" not in markdown
+
+
+def test_registry_asks_the_negative_intent_card_as_an_affirmative_proposition() -> None:
+    case = load_json(CASE_PATH)
+    replay = load_json(REPLAY_PATH)
+    fact_graph, _ = anchor_fraud_target_roles(replay["fact_graph"], case)
+    plan = select_fraud_reasoning_plan(fact_graph, case=case)
+    queries = reasoning_plan_neural_queries(plan)
+    assert set(queries) == {"fraud_intent.no_disposition_inducement_intent"}
+    query = queries["fraud_intent.no_disposition_inducement_intent"]
+    assert query["card_status_when_query_satisfied"] == "not_satisfied"
+    assert "있었다" in query["proposition"]
+
+    packet = build_authority_packet(
+        select_fraud_card_plan(fact_graph),
+        load_json(NORM_CARD_PATH),
+        neural_queries=queries,
+    )
+    asked = {item["card_id"]: item for item in packet}
+    negative = asked["fraud_intent.no_disposition_inducement_intent"]
+    assert negative["proposition"] == query["proposition"]
+    assert negative["polarity"] == "positive"
+    assert "성립하지 않는다" not in negative["proposition"]
+    assert negative["sources"], "reviewed authority must survive the substitution"
+
+    reviewed = build_authority_packet(
+        reasoning_plan_card_ids(plan), load_json(NORM_CARD_PATH)
+    )
+    cited = {item["card_id"]: item for item in reviewed}
+    assert (
+        cited["fraud_intent.no_disposition_inducement_intent"]["proposition"]
+        == "피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다."
+    )
+
+
+def test_negative_card_without_a_registered_query_never_reaches_the_model() -> None:
+    with pytest.raises(NeuralContractError) as excinfo:
+        build_authority_packet(
+            ["fraud_intent.no_disposition_inducement_intent"],
+            load_json(NORM_CARD_PATH),
+            neural_queries={},
+        )
+    assert "neural_query" in str(excinfo.value)
+
+
+def test_inverting_query_swaps_status_and_evidence_arrays() -> None:
+    bundle = {
+        "version": "1.0.0",
+        "case_id": "case_x",
+        "selected_card_ids": ["neg", "same"],
+        "assessments": [
+            {
+                "assessment_id": "assessment_001",
+                "card_id": "neg",
+                "status": "satisfied",
+                "basis_fact_ids": ["fact_105"],
+                "counter_fact_ids": [],
+                "missing_facts": [],
+                "authority_comment_ids": ["comm_1"],
+                "rationale": "A가 B의 처분행위를 유도하였다.",
+                "confidence": 0.9,
+            },
+            {
+                "assessment_id": "assessment_002",
+                "card_id": "same",
+                "status": "satisfied",
+                "basis_fact_ids": ["fact_106"],
+                "counter_fact_ids": [],
+                "missing_facts": [],
+                "authority_comment_ids": ["comm_2"],
+                "rationale": "쉽게 간파할 수 있는 거짓말이었다.",
+                "confidence": 0.8,
+            },
+        ],
+    }
+    resolved, trail = resolve_neural_query_statuses(
+        bundle,
+        {
+            "neg": {
+                "proposition": "행위자에게 처분행위를 하게 할 의사가 있었다.",
+                "card_status_when_query_satisfied": "not_satisfied",
+            },
+            "same": {
+                "proposition": "쉽게 간파할 수 있는 단순한 거짓말이었다.",
+                "card_status_when_query_satisfied": "satisfied",
+            },
+        },
+    )
+    inverted, identical = resolved["assessments"]
+    assert inverted["status"] == "not_satisfied"
+    assert inverted["counter_fact_ids"] == ["fact_105"]
+    assert inverted["basis_fact_ids"] == []
+    assert identical["status"] == "satisfied"
+    assert identical["basis_fact_ids"] == ["fact_106"]
+    assert bundle["assessments"][0]["status"] == "satisfied", "input must not mutate"
+    assert [item["query_status"] for item in trail] == ["satisfied", "satisfied"]
+    assert [item["card_status"] for item in trail] == ["not_satisfied", "satisfied"]
+
+
+def test_safety_net_demotes_non_establishment_resting_on_establishing_facts() -> None:
+    norm_cards = {
+        "cards": [
+            {"id": "neg", "polarity": "negative"},
+            {"id": "pos", "polarity": "positive"},
+        ]
+    }
+    bundle = {
+        "assessments": [
+            {
+                "assessment_id": "assessment_001",
+                "card_id": "pos",
+                "status": "satisfied",
+                "basis_fact_ids": ["fact_105"],
+                "counter_fact_ids": [],
+                "missing_facts": [],
+            },
+            {
+                "assessment_id": "assessment_002",
+                "card_id": "neg",
+                "status": "satisfied",
+                "basis_fact_ids": ["fact_105"],
+                "counter_fact_ids": [],
+                "missing_facts": [],
+            },
+        ]
+    }
+    guarded, demotions = apply_negative_card_safety_net(
+        bundle, norm_card_set=norm_cards
+    )
+    assert guarded["assessments"][1]["status"] == "unknown"
+    assert guarded["assessments"][1]["missing_facts"], "unknown requires missing_facts"
+    assert demotions[0]["card_id"] == "neg"
+    assert demotions[0]["overlapping_fact_ids"] == "fact_105"
+    assert guarded["assessments"][0]["status"] == "satisfied"
+
+    bundle["assessments"][1]["basis_fact_ids"] = ["fact_200"]
+    untouched, none_demoted = apply_negative_card_safety_net(
+        bundle, norm_card_set=norm_cards
+    )
+    assert untouched["assessments"][1]["status"] == "satisfied"
+    assert none_demoted == []
+
+
+def test_resolved_bundle_still_satisfies_the_assessment_contract() -> None:
+    case = load_json(CASE_PATH)
+    replay = load_json(REPLAY_PATH)
+    fact_graph, _ = anchor_fraud_target_roles(replay["fact_graph"], case)
+    plan = select_fraud_reasoning_plan(fact_graph, case=case)
+    queries = reasoning_plan_neural_queries(plan)
+    selected = select_fraud_card_plan(fact_graph)
+    norm_cards = load_json(NORM_CARD_PATH)
+
+    bundle = copy.deepcopy(replay["assessment_bundle"])
+    for assessment in bundle["assessments"]:
+        if assessment["card_id"] != "fraud_intent.no_disposition_inducement_intent":
+            continue
+        assessment["status"] = "satisfied"
+        assessment["basis_fact_ids"] = ["fact_002", "fact_003"]
+        assessment["counter_fact_ids"] = []
+
+    resolved, trail = resolve_neural_query_statuses(bundle, queries)
+    resolved, _ = apply_negative_card_safety_net(resolved, norm_card_set=norm_cards)
+    validate_fraud_assessment_bundle(
+        resolved,
+        case=case,
+        fact_graph=fact_graph,
+        selected_card_ids=selected,
+        authority_packet=build_authority_packet(
+            selected, norm_cards, neural_queries=queries
+        ),
+    )
+    assert trail[0]["card_status"] == "not_satisfied"

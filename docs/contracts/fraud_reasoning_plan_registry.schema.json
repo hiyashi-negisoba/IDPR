@@ -8,6 +8,17 @@
       "properties": {
         "card_id": { "type": "string", "minLength": 1 },
         "satisfied_when": { "enum": ["satisfied", "not_satisfied"] },
+        "neural_query": {
+          "type": "object",
+          "required": ["proposition", "card_status_when_query_satisfied"],
+          "additionalProperties": false,
+          "properties": {
+            "proposition": { "type": "string", "minLength": 1 },
+            "card_status_when_query_satisfied": {
+              "enum": ["satisfied", "not_satisfied"]
+            }
+          }
+        },
         "requires_profiles": {
           "type": "array",
           "minItems": 1,
