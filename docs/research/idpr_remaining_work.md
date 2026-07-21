@@ -63,8 +63,10 @@ neuro-symbolic을 법률 도메인에 접목해 (a) long-form 생성의 **논증
 - **RAG 검색** — 558 retrieval 카드 위 결정론 BM25 인출(`build_fraud_rag_packet`)이 구현돼
   m2/m3에서 실행 중. L2는 이 검색의 *용도*를 수사 착안사항으로 재정의하는 작업(검색 신규 아님).
 
-**진짜 남은 핵심 4가지**: (1) 평가 지표를 사건집합×시스템으로 집계·통계 내는 층(A1), (2) KCL
-61 커버 rulegen 확장(A3=L3), (3) 절차 레이어 whole-IRAC 배선(A4), (4) 결론 구조화(A5).
+**진짜 남은 핵심 4가지**: (1) 평가 지표 집계·통계 층(A1) — **코드 골격 완료(2026-07-21):
+`src/idpr/eval/` 집계기+McNemar+bootstrap CI. 남은 건 code→지표 매핑의 법률 검토와 A3에 물린
+평가셋 스윕**, (2) KCL 61 커버 rulegen 확장(A3=L3), (3) 절차 레이어 whole-IRAC 배선(A4),
+(4) 결론 구조화(A5).
 
 ---
 
@@ -93,21 +95,42 @@ neuro-symbolic을 법률 도메인에 접목해 (a) long-form 생성의 **논증
   각 experiment의 `report.json`/`summary.json`. A6 극성수정의 비교표(잘못된 not_established,
   부호 뒤집힘, 카드 판정 불일치, 계약 위반, 안전망 발화)가 전부 이 산출물에서 손으로 집계됐다.
 
-### 없는 것 (집계·통계 층 — 실제 A1 작업)
+### 집계·통계 층 (실제 A1 작업)
 
-`idpr_research_draft.md` §8의 지표를 **사건 집합 × 시스템** 위에서 자동 집계하는 층이 없다.
+`idpr_research_draft.md` §8의 지표를 **사건 집합 × 시스템** 위에서 자동 집계하는 층.
 
-1. **§8.2 rate 집계** — 위 per-run 위반 리스트를 argument-conclusion consistency rate,
-   contradiction rate, unsupported rule rate, fact hallucination rate, conclusion flip rate로
-   **여러 사건에 걸쳐** 묶는 집계기. primitive는 있으니 신규 코드는 집계·명명뿐이다.
-2. **통계층** — paired test·bootstrap CI가 **전무하다**(전 소스 grep 확인). 논문 표에 필요.
-3. **§8.1 legal quality** — KCL rubric score, issue spotting recall. rubric 데이터가 repo에
-   없어 확보가 선행. LLM judge + 사람 검수 표본 병행. 순환성 통제(§12.5): rubric은 채점에만
-   쓰고 prompt·RAG·rulegen에 노출하지 않는다.
-4. **전 평가셋 스윕 러너** — 현재 매트릭스는 사건 1건씩 돈다. 평가셋(A3) 전체 × 시스템을
-   쓸어 위 rate를 내는 러너로 감싸야 한다.
-- 정리하면 A1은 "채점기를 새로 만드는 일"이 아니라 **이미 도는 채점기를 집합 수준으로
-  집계하고 통계를 붙이는 일**이다. 이것이 A2·A3의 채점 대상이 된다.
+1. **§8.2 rate 집계 — 구축됨(2026-07-21).** `src/idpr/eval/__init__.py`에 매트릭스 리포트
+   로더(`load_matrix_reports`)·집계기(`summarize`)·마크다운 표(`render_markdown`) 구현. per-run
+   `answer_validation_violations`(+m6 `violations_after`)를 argument-conclusion consistency,
+   contradiction, unsupported rule, fact hallucination, conclusion flip 5개 rate로 **여러 사건에
+   걸쳐** 묶는다. 재채점이 아니라 이미 도는 채점기 산출을 집합 수준으로 집계·명명하는 일이었다.
+   **위반 code→§8.2 지표 매핑은 법률-의미 판단이라 `METRIC_CODE_MAP` 단일 상수로 격리했다 —
+   사용자 검토 필요**(각 code가 어느 rate에 계상되는지가 논문 headline 숫자를 정함).
+2. **통계층 — 구축됨(2026-07-21).** 같은 모듈에 paired 정확 McNemar 검정(`mcnemar_exact`,
+   stdlib exact binomial)과 percentile bootstrap CI(`bootstrap_rate_ci`, numpy, seed 고정)를
+   구현. `summarize`가 reference(IDPR/M5) vs baseline을 지표별로 대응 검정한다. scipy 미선언이라
+   stdlib+numpy만 사용. 검증: `tests/test_eval_aggregation.py` 14건 + 전체 138 passed(miniconda).
+3. **§8.1 legal quality — 잔여(단 rubric 데이터는 이미 있음, 2026-07-21 정정).** "rubric 데이터가
+   repo에 없어 확보가 선행"은 틀린 기술이었다. **전체 채점 rubric이 원본 parquet에 있다**:
+   `lbox_kcl_essay` `test.parquet`(169행)의 `rubrics`(문항당 이진 체크포인트 배열, 61문항 합
+   1166항목)·`score`(배점)·`supporting_precedents`(gold 판례 원문). inventory에는 요약 5개
+   (`rubric_summary`)와 개수(`rubric_count`)만 저장돼 있으나 전량은 parquet에서 인출 가능.
+   rubric 항목 유형이 쟁점(issue spotting)·판례 인용 설명(rule statement)·사안 적용(application)·
+   결론(conclusion)으로 나뉘어 §8.1 하위지표에 직접 대응한다. **judge 하니스 순수 코어
+   구축됨(2026-07-21)**: `src/idpr/eval/rubric.py`에 sp_qwen `src/eval/kcl/{judge,gold}.py`
+   (사용자 확정 2026-06-21)를 포팅 — rubric 로더(inventory↔parquet 조인)·유형분류·안전장치
+   (인용 실재검증·조문게이트)·채점(satisfied/total, 유형별 recall). 검증: `tests/test_rubric_grading.py`
+   12건 + 전체 150 passed. **남은 건 실제 judge 호출**(답안×rubric→O/X): 프롬프트+API라 승인
+   게이트이고, 지금은 `DeferredJudge`가 실행을 거부해 자기채점 사고를 막는다. 결정 2건 대기 —
+   ① 활성 judge 프롬프트 승인, ② judge 모델(백본 Gemma 자기채점 vs 독립모델, §12.5 순환성).
+   순환성 통제(§12.5): rubric은 채점에만 쓰고 prompt·RAG·rulegen에 노출하지 않는다. IDPR은
+   구조화 JSON 출력(`complete_json`)이라 sp_qwen 자유서술 파싱 대신 verdict JSON 스키마로 포팅.
+4. **전 평가셋 스윕 러너 — 잔여(집계층의 실물 입력).** 현재 매트릭스는 사건 1건씩 돈다. 평가셋
+   (A3) 전체 × 시스템을 쓸어 사건별 `fraud_irac_matrix_report.json`을 뽑는 스윕이 있어야
+   `summarize`가 n>1 표를 낸다. **스윕 = vLLM 호출이라 승인 게이트·A3 확정에 게이팅됨.**
+   집계 CLI는 준비됨: `scripts/aggregate_eval_matrix.py <리포트들/디렉터리>`가 스윕 산출을 바로 조준.
+- 정리하면 A1의 코드 골격(1·2)은 완료돼 "스윕이 나오면 바로 조준 가능"한 상태다. 남은 건
+  매핑의 법률 검토(1)와 §8.1 rubric(3)·평가셋 스윕(4)이며, 4는 A3에 물려 있다.
 
 ## A2. 베이스라인 러너 (에이전트)
 
