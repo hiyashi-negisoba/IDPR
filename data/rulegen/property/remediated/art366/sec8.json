@@ -1,0 +1,89 @@
+{
+  "card_set_id": "kr.art366.art366.sec8.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art366.standard.joint-commission-sentence-enhancement",
+          "request_id": "art366.pass1.005"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art366_sec8.joint_commission_sentence_enhancement",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "2명 이상이 공동하여 재물손괴등죄를 저지른 경우 형법에서 정한 형의 2분의 1을 가중한다.",
+      "request_ids": [
+        "art366.pass1.005"
+      ],
+      "review_notes": "공동 범행 여부 및 가중 적용의 전제는 사건 사실과 적용 법률의 확인을 필요로 한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제366조_Ⅷ_47",
+          "quote": "2명 이상이 공동하여 죄를 저지른 경우 형법에서 정 한 형의 1/2을 가중하고",
+          "section_path": "Ⅷ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art366.standard.repeat-imprisonment-recidivism",
+          "request_id": "art366.pass1.005"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art366_sec8.repeat_imprisonment_recidivism",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "재물손괴등죄로 2회 이상 징역형을 받은 사람이 다시 같은 죄를 범하여 누범으로 처벌되는 경우 7년 이하의 징역에 처한다.",
+      "request_ids": [
+        "art366.pass1.005"
+      ],
+      "review_notes": "전과 횟수, 재범 대상 및 누범 처벌 요건은 기록과 적용 조문을 확인하여 검토한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제366조_Ⅷ_47",
+          "quote": "위 죄로 2회 이상 징역형을 받은 사람이 다시 위 죄를 범하여 누범으로 처벌할 경우에는 7년 이하의 징역에 처하도록 규정하고 있다",
+          "section_path": "Ⅷ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope에는 공동범행 가중 및 반복 징역형·누범 처벌에 관한 해설만 포함되어 있으며, 제기된 죄수·경합 쟁점의 근거 자료는 포함되어 있지 않다.",
+    "공동범행 가중 및 누범 처벌의 원문 법률 조항은 현재 commentary-reported material로만 확인되며, primary statutory text 확인이 필요하다.",
+    "[missing.base_penalty] 출처에 명시된 기본 법정형인 '3년 이하의 징역 또는 700만 원 이하의 벌금'에 관한 규범이 카드로 수록되지 않았고 coverage_gaps에도 표시되지 않았다.",
+    "[missing.no_disqualification] 출처의 '재물손괴등죄에 관하여는 자격정지 병과규정이 없다'는 부정적 규범이 누락되었고 coverage_gaps에도 기록되지 않았다.",
+    "[missing.deleted-enhancements] 집단적·상습적 범행 및 흉기 휴대 범행의 가중처벌 조항이 2016년 개정으로 삭제되었다는 시간적·부정적 규범이 누락되었다. 이는 현행 적용 여부를 좌우하므로 단순히 생략할 수 없다."
+  ],
+  "issue_tag": "art366_sec8",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "개봉 후 읽은 편지를 찢어버리거나 은닉한 경우 비밀침해죄와 문서손괴죄가 실체적 경합인지 상상적 경합인지.",
+    "악성프로그램 유포로 전자기록 등의 효용을 침해한 경우 손괴죄와 정보통신망 관련 법률 위반죄가 실체적 경합인지 상상적 경합인지.",
+    "전자기록 등 특수매체기록을 손괴하여 컴퓨터등업무방해죄가 성립한 경우 상상적 경합인지, 컴퓨터등업무방해죄에 흡수되어 일죄인지.",
+    "증거인멸을 위해 타인 재물을 손괴한 경우 증거인멸죄와 손괴죄가 상상적 경합인지, 손괴죄가 불가벌적 수반행위인지.",
+    "타인 소유이면서 타인 명의인 문서의 내용을 변경한 경우 문서변조죄만 성립하는지, 문서손괴죄와 상상적 경합인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제366조_Ⅷ_47"
+    ],
+    "target_paths": [
+      "commentary://001692/제366조#sec8"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

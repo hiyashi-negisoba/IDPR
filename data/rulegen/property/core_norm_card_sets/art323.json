@@ -1,0 +1,980 @@
+{
+  "version": "1.1.0",
+  "card_set_id": "kr.property.art323.core.norms.v1",
+  "issue_tag": "art323",
+  "status": "draft",
+  "legal_review": "complete",
+  "construction": "reviewed_aggregate",
+  "source_scope": {
+    "target_paths": [
+      "commentary://001692/art323#sec1_1",
+      "commentary://001692/art323#sec2_1",
+      "commentary://001692/art323#sec2_2",
+      "commentary://001692/art323#sec2_3",
+      "commentary://001692/art323#sec3",
+      "commentary://001692/art323#sec6_3",
+      "commentary://001692/art323#sec7"
+    ],
+    "comment_ids": [
+      "comm_001692_제323조_Ⅰ.1_0",
+      "comm_001692_제323조_Ⅱ.1_2",
+      "comm_001692_제323조_Ⅱ.2_10",
+      "comm_001692_제323조_Ⅱ.2_12",
+      "comm_001692_제323조_Ⅱ.2_4",
+      "comm_001692_제323조_Ⅱ.2_5",
+      "comm_001692_제323조_Ⅱ.2_7",
+      "comm_001692_제323조_Ⅱ.2_8",
+      "comm_001692_제323조_Ⅱ.2_9",
+      "comm_001692_제323조_Ⅱ.3_14",
+      "comm_001692_제323조_Ⅱ.3_15",
+      "comm_001692_제323조_Ⅱ.3_16",
+      "comm_001692_제323조_Ⅲ_18",
+      "comm_001692_제323조_Ⅵ.3_23",
+      "comm_001692_제323조_Ⅶ_25"
+    ]
+  },
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.standard.forced-execution-evasion-not-covered",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art323.forced_execution_evasion_scope",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "담보권 실행 등을 위한 경매를 면탈할 목적으로 재산을 은닉하는 행위는 강제집행면탈죄의 규율 대상에는 포함되지 않으나, 권리행사방해죄는 성립할 수 있다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "강제집행면탈죄의 규율 범위와 권리행사방해죄 성립 가능성을 함께 언급한 commentary-reported position이다. 권리행사방해죄의 구체적 구성요건 충족 여부 및 보고된 근거의 원문 확인이 필요하다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅵ.3_23",
+          "quote": "집행법 제3편의 적용 대상인 ‘담보권 실행 등을 위한 경매’를 면탈할 목적으로 재산을 은닉하는 등의 행위는 강제집행면탈죄의 규율 대상에는 포함되지 않으 나, 본 죄는 성립할 수 있다.",
+          "section_path": "Ⅵ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.variant.abstract-danger-offense",
+          "request_id": "art323.pass1.001"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "standard_input",
+      "id": "art323_sec1_1.abstract_danger_offense",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "권리행사방해죄는 권리행사가 현실적으로 방해되는 결과를 요구하지 않는 추상적 위험범이다.",
+      "request_ids": [
+        "art323.pass1.001"
+      ],
+      "review_notes": "구체적 위험범설 및 침해범설과 경쟁하는 위험범 구조에 관한 통설 소개이며, 결과 불요건을 선택하기 전 검토가 필요하다. 결정C 반영으로 doctrinal_status를 settled로 확정했다. 결정C에서 사용자가 선택한 견해다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅰ.1_0",
+          "quote": "해의 결과가 요구되지 않는 위험범 내지 위태범이라고 보는 견해가 통설",
+          "section_path": "Ⅰ.1"
+        }
+      ],
+      "variant_group": "art323_sec1_1.offense_structure"
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.definition.conduct-and-object",
+          "request_id": "art323.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art323_sec1_1.conduct_and_object",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "권리행사방해죄는 자기의 물건 또는 전자기록 등 특수매체기록을 취거·은닉·손괴하여 타인의 권리행사를 방해하는 범죄이다.",
+      "request_ids": [
+        "art323.pass1.001"
+      ],
+      "review_notes": "취거·은닉·손괴 및 타인의 권리행사 방해라는 서술된 행위 구조를 독립적으로 기록한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅰ.1_0",
+          "quote": "자기록 등 특수매체기록을 취거, 은닉 또는 손괴하여 타인의 권리행사를 방해하 는 범죄이다.",
+          "section_path": "Ⅰ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.element.no-intent-to-unlawfully-appropriate",
+          "request_id": "art323.pass1.001"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "art323_sec1_1.no_unlawful_appropriation_intent",
+      "norm_kind": "element",
+      "polarity": "negative",
+      "proposition": "권리행사방해죄의 성립에는 불법영득의사가 요구되지 않는다.",
+      "request_ids": [
+        "art323.pass1.001"
+      ],
+      "review_notes": "불법영득의사의 부재를 별도 소극적 성립요건으로 요구하지 않는다는 명시적 부정 규범이다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅰ.1_0",
+          "quote": "자기 소유의 물건을 객체 로 한다는 점에서 영득죄로서의 성격은 없으므로 본 죄의 성립에 불법영득의사 를 요하지는 않는다.",
+          "section_path": "Ⅰ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.variant.subject-genuine-status-offense",
+          "request_id": "art323.pass1.001"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "standard_input",
+      "id": "art323_sec2_1.subject_genuine_status_offense",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "권리행사방해죄는 타인의 점유 또는 권리의 목적물로 제공한 사람만이 주체가 될 수 있는 진정신분범이다.",
+      "request_ids": [
+        "art323.pass1.001"
+      ],
+      "review_notes": "주체를 진정신분범으로 보는 통설 소개이며, 제3자 정범 가능설 및 신분범 부정설과의 관계를 검토해야 한다. 결정C 반영으로 doctrinal_status를 settled로 확정했다. 결정C에서 사용자가 선택한 견해다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.1_2",
+          "quote": "채권의 목적물로 제공한 사람만이 주체가 될 수 있는 일종의 진정신분범이다 (통 .",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "variant_group": "art323_sec2_1.subject_status"
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.exception-coowned-property-not-self-property",
+          "request_id": "art323.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art323_sec2_2.coowned_property_excluded",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "자기와 타인의 공유에 속하는 물건은 타인의 물건이므로 권리행사방해죄의 자기 물건에 해당하지 않는다.",
+      "request_ids": [
+        "art323.pass1.001"
+      ],
+      "review_notes": "공유 물건에 관한 명시적 제외 규범이다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_4",
+          "quote": "자기와 타인의 공유에 속하는 물건은 타인의 물건이므로 여기에 해당 하지 않는다",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.element.corporate-system-records-other",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art323_sec2_2.corporate_system_records_other",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "법인이 설치·운영하는 전산망 시스템에서 생성·처리·저장·출력되는 전자기록 등 특수매체기록은 법인의 임직원과의 관계에서 타인의 전자기록 등에 해당한다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "법인 시스템에서 생성·처리·저장·출력되는 기록에 한정된다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_9",
+          "quote": "법인이 설치·운영하는 전산망 시스템에 제공되어 정보의 생성·처 리·저장·출력이 이루어지는 전자기록 등 특수매체기록은 그 법인의 임직원과의 관계에서 ‘타인’의 전자기록 등 특수매체기록에 해당한다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.definition.electronic-records",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art323_sec2_2.electronic_records",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "전자기록에는 전기적 기록과 자기적 기록이 포함되고, 특수매체기록에는 전자적 기록 외에 광기술 또는 레이저기술을 이용한 기록도 포함되지만 마이크로필름과 디스크 자체는 기록이 아니라 물건이다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "기록 자체와 기록매체인 물건을 구별한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_8",
+          "quote": "‘전자기록’은 전기적 기록·자기적 기록을 포함하며, ‘특수매체기록’에는 전자 가) 적 기록 외에 광기술이나 레이저기술을 이용한 기록도 포함된다. 그러나 마이크 로필름과 디스크 자체는 물건의 일종이고 기록에 해당하지 않는다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.element.joint-possession-other-property",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art323_sec2_2.joint_possession_object",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "타인의 점유 목적이 된 물건이면 충분하므로 자기와 타인이 공동점유하는 물건도 권리행사방해죄의 객체에 해당한다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "타인의 공동점유가 존재하는지 확인한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_9",
+          "quote": "타인의 점유의 목적이 된 물건이면 족하므로 자기와 타인이 공동점유하는 물건도 당연히 여기에 해당한다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.exception.manifestly-no-right-possession-excluded",
+          "request_id": "art323.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art323_sec2_2.manifestly_no_right_possession_excluded",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "절도범인의 점유처럼 점유할 권리 없는 자의 점유임이 외관상 명백한 경우는 권리행사방해죄의 보호대상인 타인의 점유에 포함되지 않는다.",
+      "request_ids": [
+        "art323.pass1.001"
+      ],
+      "review_notes": "점유권원 부재가 외관상 명백한지 판단해야 한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_10",
+          "quote": "다만 절도범인의 점유와 같 이 점유할 권리 없는 자의 점유임이 외관상 명백한 경우는 포함되지 아니한다",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.exception.nominee-owner-not-subject",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art323_sec2_2.nominee_owner_not_subject",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "유효한 명의신탁 관계에서 대외적으로 명의수탁자만 소유자로 취급되는 경우, 명의신탁자는 제3자인 임차인에 대한 관계에서 권리행사방해죄의 주체가 될 수 없다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "명의수탁자만 소유자로 취급되는 대외관계인지 확인해야 한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_7",
+          "quote": "제3 자인 임차인에 대한 대외적 관계에서는 명의수탁자만이 소유자로 취급되므로, 명의신탁자인 피고인이 권리행사방해죄의 주체가 될 수는 없다 할 것이다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.standard.precedent-right-includes-nonpossessory-claim",
+          "request_id": "art323.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art323_sec2_2.nonpossessory_claim_precedent",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "판례는 타인의 권리의 목적이 된 자기 물건의 권리에 점유를 수반하지 않는 채권도 포함된다고 해석한다.",
+      "request_ids": [
+        "art323.pass1.001"
+      ],
+      "review_notes": "보고된 판례의 원문과 점유 없는 채권의 적용 범위를 확인해야 한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_12",
+          "quote": "권리행사방해죄의 구성요건 중 타인의 ‘권리’란 반드시 제한물권만을 의미하는 것이 아니라 물건에 대하여 점유를 수반하지 아니하는 채 권도 이에 포함된다고 해석",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.exception-property-under-official-custody-order",
+          "request_id": "art323.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art323_sec2_2.official_custody_exception",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "자기 물건이라도 공무소 보관명령을 받았거나 공무소 명령으로 타인이 관리하는 물건인 경우 권리행사방해죄는 성립하지 않는다.",
+      "request_ids": [
+        "art323.pass1.001"
+      ],
+      "review_notes": "공무소 보관명령 또는 관리명령의 존재를 확인한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_5",
+          "quote": "자기의 물건이라도 공무소로부터 보관명령을 받거나 공무소의 명령으로 타",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_5",
+          "quote": "인이 관리하는 물건인 경우에는 본 죄가 성립하지 않고",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.definition.possession-actual-control",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art323_sec2_2.possession_actual_control",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "형법 제323조의 점유는 물건에 대한 사실상의 지배 상태 또는 현실적 소지라는 형법상 점유를 의미한다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "사실상 지배 또는 현실적 소지의 존재를 기준으로 검토한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_9",
+          "quote": "형법 제323조의 점유는 물건에 대한 사실상의 지배 상태 또는 현실적 소지로",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_9",
+          "quote": "서 형법상의 점유를 의미한다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.exception-prohibited-gold-products",
+          "request_id": "art323.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art323_sec2_2.prohibited_gold_products_excluded",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "소유와 소지가 모두 금지된 금제품은 권리행사방해죄의 객체가 될 수 없다.",
+      "request_ids": [
+        "art323.pass1.001"
+      ],
+      "review_notes": "소유·소지가 모두 금지된 금제품에 한정된 객체 제외이다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_5",
+          "quote": "소유 및 소지가 모두 금지된 금제품은 본 죄의 객 체가 될 수 없으나",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.element-property-includes-movables-and-real-estate",
+          "request_id": "art323.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art323_sec2_2.property_movables_real_estate",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "권리행사방해죄의 물건에는 동산과 부동산이 모두 포함된다.",
+      "request_ids": [
+        "art323.pass1.001"
+      ],
+      "review_notes": "객체 물건의 기본 범위다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_5",
+          "quote": "물건에는 동산 및 부동산이 모두 포함된다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.standard.protected-possession-potentially-worthy",
+          "request_id": "art323.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art323_sec2_2.protected_possession_potential_value",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "법정절차를 통한 분쟁 해결 시까지 잠정적으로 보호할 가치 있는 점유는 권리행사방해죄의 보호대상인 타인의 점유에 포함된다.",
+      "request_ids": [
+        "art323.pass1.001"
+      ],
+      "review_notes": "잠정적 보호가치 판단에는 개별 사실관계 평가가 필요하다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_10",
+          "quote": "법정절차를 통한 분쟁 해결시까지 잠정적으로 보 호할 가치 있는 점유는 모두 포함된다고 볼 것이고",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.exception.registered-sale-seller-not-subject",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art323_sec2_2.registered_sale_seller_not_subject",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "부동산이나 등록으로 소유권이 이전되는 자동차·중기·건설기계에서는 대금 완납 시까지 매도인에게 소유권을 유보하는 특약이 있어도 등기 또는 등록이 마쳐지면 매수인에게 소유권이 이전되므로 매도인은 권리행사방해죄의 주체가 될 수 없다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "물건 유형, 등기·등록 완료 여부 및 유보특약을 확인한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_7",
+          "quote": "부동산이나 자동차, 중기, 건설기계 등 동산의 경우 비록 당사자 사이에 대금 완납 시까지 매 도인에게 소유권을 유보하는 특약이 존재한다 하더라도 등기 또는 등록이 마쳐진 이상 매수인에게 소유권이 이전되며, 매도인은 본 죄의 주체가 될 수 없다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.standard.rescinded-sale-object-recovery",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art323_sec2_2.rescinded_sale_recovery",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "매매계약이 해제·해지되어 물권이 원소유자에게 회복된 경우, 매도인이 매매목적물을 매수인으로부터 임의로 취거하면 자기 물건에 대한 권리행사방해죄가 될 수 있다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "해제·해지의 효력과 물권 회복 여부를 확인해야 한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_8",
+          "quote": "매매계약이 해제·해지되면 변동되었던 물권도 원소유자에게 회복되므로, 매도인 이 임의로 매매목적물을 매수인으로부터 취거해 오면 자기의 물건에 대한 권리 행사방해죄가 될 수 있다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.definition.retained-title-sale",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art323_sec2_2.retained_title_sale",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "소유권유보부매매는 동산 매매에서 목적물을 인도하면서 대금 완납 시까지 소유권을 매도인에게 유보하기로 하는 특약이다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "동산 매매의 소유권유보 특약에 관한 정의다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_7",
+          "quote": "소유권유보부매매는 동산을 매매함에 있어 매매목적물을 인도하면서 대금완납시 까지 소유권을 매도인에게 유보하기로 특약한 것을 말하며",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.definition.protected-possession-rightful",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art323_sec2_2.rightful_possession_definition",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "권리행사방해죄에서 타인의 점유는 정당한 원인에 기하여 물건을 점유하는 권리 있는 자의 점유를 의미하며, 본권이 없는 절도범인의 점유는 이에 해당하지 않는다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "점유의 권원과 본권 유무에 대한 적용 판단이 필요하다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_9",
+          "quote": "권리행사방해죄에 있어서의 타인의 점유라 함은 권원으로 인한 점유 즉 정",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_9",
+          "quote": "당한 원인에 기하여 그 물건을 점유하는 권리 있는 자의 점유를 의미하는 것으 로서 본권을 갖지 아니하는 절도범인의 점유는 여기에 해당하지 않는다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.definition.self-property-owned-by-offender",
+          "request_id": "art323.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art323_sec2_2.self_property_owner",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "권리행사방해죄의 자기 물건은 범인 소유의 물건을 말한다.",
+      "request_ids": [
+        "art323.pass1.001"
+      ],
+      "review_notes": "자기 물건 판단의 기본 정의로 검토한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_4",
+          "quote": "자기의 물건이란 범인 소유의 물건을 말한다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.standard.precedent-title-based-on-registration-or-delivery",
+          "request_id": "art323.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art323_sec2_2.title_transfer_criteria",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "자기 물건인지 여부는 법률에 따른 소유권 귀속으로 판단하며, 부동산은 등기, 동산은 인도, 등록으로 소유권이 이전되는 동산은 등록 여부가 판단기준이 된다.",
+      "request_ids": [
+        "art323.pass1.001"
+      ],
+      "review_notes": "개별 물건의 소유권 이전요건 및 적용 법률을 확인해야 한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_5",
+          "quote": "부동산의 경우는 등기, 동산의 경우는 인도 여",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.2_5",
+          "quote": "부가 소유권 귀속의 판단기준이 될 것이다. 자동차, 중기, 건설기계 등과 같이 비록 동산에 속하기는 하나 법률로써 부동산과 마찬가지로 등록에 의하여 소유 권이 이전되는 경우에도 등록 여부가 소유권 귀속의 판단기준이 된다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.definition.concealment",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art323_sec2_3.concealment",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "은닉은 타인의 점유 또는 권리의 목적이 된 자기 물건 등의 소재를 발견하기 불가능하거나 현저히 곤란하게 하는 상태에 두는 행위이다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "소재 발견이 불가능하거나 현저히 곤란한지는 구체적 사정에 따른 평가가 필요하다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.3_15",
+          "quote": "은닉이란 타인의 점유 또는 권리의 목적이 된 자기 물건 등의 소재를 발견 하기 불가능하게 하거나 또는 현저히 곤란한 상태에 두는 것을 말한다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.exception.consensual-transfer-not-taking",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art323_sec2_3.consensual_transfer_not_taking",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "점유자의 의사 또는 하자 있는 의사에 기하여 점유가 이전된 경우에는 취거에 해당하지 않는다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "점유 이전이 점유자의 의사 또는 하자 있는 의사에 기한 것인지를 사실관계에 따라 검토한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.3_14",
+          "quote": "점유자의 의사나 그의 하자 있는 의사에 기하여 점유가 이전된 경우 에는 취거에 해당한다고 할 수 없다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.definition.destruction",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art323_sec2_3.destruction",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "손괴는 물건 전부 또는 일부의 용익적 또는 가치적 효용을 해하는 행위이며, 물리적 훼손 외의 방법으로 효용을 해하는 경우도 포함한다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "용익적 또는 가치적 효용이 해하여졌는지는 물건의 성질과 행위의 효과를 평가하여 판단한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.3_16",
+          "quote": "손괴는 물건의 전부 또는 일부에 대하여 그 용익적 또는 가치적 효용을 해 가) 하는 것을 말한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.3_16",
+          "quote": "훼손하는 것은 물론 기타 방법으로 그 효용을 해하는 것도 포괄하는 개념이다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.causal-link.risk-to-right-exercise",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art323_sec2_3.risk_to_right_exercise",
+      "norm_kind": "causal_link",
+      "polarity": "positive",
+      "proposition": "타인의 권리행사를 방해한다는 것은 현실적인 방해 결과가 아니라 권리행사가 방해될 우려가 있는 상태에 이르는 것을 의미한다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "현실적 방해 결과는 요구하지 않지만, 권리행사 방해의 우려가 있는 상태인지는 사실관계 평가가 필요하다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.3_16",
+          "quote": "타인의 권리행사를 방해한다 함은 타인의 권리행사가 방해될 우려 있는 상태 에 이른 것을 말하며, 현실로 권리행사가 방해되었을 것을 요하는 것은 아니다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.definition.taking",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art323_sec2_3.taking",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "취거는 점유자의 의사에 반하여 목적물을 점유자의 지배로부터 자기 또는 제3자의 지배로 옮기는 행위이다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "점유자의 의사에 반하는지 및 지배 이전이 있었는지는 개별 사실관계 평가가 필요하다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅱ.3_14",
+          "quote": "취거란 점유자의 의사에 반하여 목적물을 그의 지배로부터 자기 또는 제3자 의 지배로 옮기는 것을 말한다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.variant.conditional-intent-sufficient",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "standard_input",
+      "id": "art323_sec3.conditional_intent_sufficient",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "권리행사방해죄의 고의는 미필적 고의로도 충분하다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "통설과 반대 견해의 대립이 보고되어 있으므로 적용 견해의 선택이 필요하다. 결정C 반영으로 doctrinal_status를 settled로 확정했다. 결정C에서 사용자가 선택한 견해다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅲ_18",
+          "quote": "통설은 미필적 고의로 충분하다는 입장이나, 반대 견해도 있다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "variant_group": "art323_sec3.conditional_intent"
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.exception.no-intent-to-appropriate-required",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art323_sec3.no_intent_to_appropriate_required",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "권리행사방해죄는 영득죄가 아니므로 불법영득의 의사를 요하지 않는다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "불법영득의 의사는 이 죄의 요구 요소로 취급하지 않는다는 명시적 부정 규범이다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅲ_18",
+          "quote": "본 죄는 재산범이라도 영득죄가 아니므로 불법영득의 의사를 요하지는 않는다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.element.subjective-awareness",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art323_sec3.subjective_awareness",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "행위자는 타인의 점유 또는 권리의 목적이 된 자기 물건이라는 점 및 취거·은닉·손괴로 타인의 권리행사를 방해한다는 점을 인식해야 한다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "행위자의 인식 여부는 구체적 사실관계에서 평가하여 입력해야 한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅲ_18",
+          "quote": "타인의 점유 또는 권리의 목적이 된 자기의 물건이라는 점과 이를 취거, 은닉 또는 손괴함으로써 타인의 권리행사를 방해한다는 점에 대한 인식이 있어야 한 다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.standard.family-exception-victim",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art323_sec7.family_exception_victim",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "권리행사방해죄에서 친족상도례 적용을 위한 피해자는 범인 소유 목적물에 점유 또는 권리를 가진 사람이며, 범행 당시 범인과 그 사람 사이에 친족관계가 있어야 한다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "친족상도례 적용에서 피해자 범위와 범행 당시 친족관계의 존재를 사실관계에 따라 검토해야 한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅶ_25",
+          "quote": "권리행사방해죄의 피해자는 범인 소유의 목적물에 대하여 점유 또는 권 리를 가지고 있는 사람으로 볼 수 있으므로, 범인과 이들 사이에 친족관계가 있 어야 친족상도례가 적용된다. 친족관계는 범행 당시 존재해야 한다.",
+          "section_path": "Ⅶ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "legal_review_questions": [],
+  "coverage_gaps": [
+    "관리 가능한 동력, 경제적·재산적 가치, 주체성, 위험범 구조 및 고의에 관한 근거 자료는 현재 source scope에 없다.",
+    "미필적 고의에 관한 통설 및 반대 견해의 선택을 검증할 primary precedent index가 제공되지 않았다.",
+    "보고된 판례의 원문 및 사용자의 primary precedent index 대조가 아직 이루어지지 않았다.",
+    "위험범·침해범 구조 및 보호법익 범위에 관한 commentary-reported doctrine을 검증할 primary precedent index가 제공되지 않았다.",
+    "점유를 수반하지 않는 채권의 보호대상성에 관한 구체적 한정 기준과 관련 판례 원문은 제공되지 않았다.",
+    "주석이 보고한 판례의 원문 및 사용자 주된 판례 인덱스 대조가 필요하다.",
+    "친족상도례의 구체적 적용 효과와 관련 법조문 원문은 현재 source scope에 포함하지 않는다.",
+    "현재 source scope는 제323조 Ⅰ.1의 단일 commentary section으로 한정되어 있으며, 관리 가능한 동력·물건의 가치·신분범 여부에 관한 견해와 근거는 제공되지 않았다.",
+    "현재 source scope는 제323조 Ⅶ의 친족상도례 관련 설명만 포함하며, 고의, ‘타인’의 범위 및 보호되는 점유의 범위에 관한 근거는 포함하지 않는다.",
+    "현재 source scope에는 관리할 수 있는 동력, 객체의 경제적·재산적 가치, 보호대상 채권의 범위, 위험범·침해범 구조에 관한 근거가 없다.",
+    "현재 source scope에는 담보권 실행 등을 위한 경매 면탈 행위 및 강요죄 흡수 관계의 primary precedent 원문이 없다.",
+    "현재 source scope에는 제323조의 ‘타인’에 법인 및 법인격 없는 단체를 포함하는지에 관한 근거가 포함되어 있지 않다.",
+    "현재 source scope에는 제323조의 고의, ‘타인’의 범위, 점유의 범위 및 보호되는 점유에 관한 통설·반대 견해의 직접 인용이 없다.",
+    "현재 source scope에는 제323조의 고의에 관한 통설 및 반대 견해의 근거가 포함되어 있지 않다.",
+    "현재 source scope에는 제323조의 보호되는 점유 범위, 간접점유 및 권원 없는 점유에 관한 근거가 포함되어 있지 않다.",
+    "현재 자료의 판례는 주석을 통한 소개이므로 원판례 확인 전까지는 commentary-reported precedent로만 취급한다.",
+    "현재 제공된 출처는 제323조 제Ⅲ절의 주관적 요건 및 불법영득의사 관련 내용에 한정되어 있어, 법인 및 법인격 없는 단체가 ‘타인’에 포함되는지에 관한 근거가 없다.",
+    "현재 제공된 출처는 제323조의 점유에 간접점유, 적법한 권원 없는 평온한 점유 또는 이유 있는 점유가 포함되는지에 관한 근거가 없다."
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "card_set_id": "kr.art343.art343.sec3.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art343.variant.abandonment-before-execution",
+          "request_id": "art343.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "policy_variant",
+      "id": "art343_sec3.abandonment_before_execution_recognized",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "강도 실행 전 예비·음모 단계에서 자발적으로 범의를 포기한 경우에도 중지미수를 인정해야 한다는 견해가 있다.",
+      "request_ids": [
+        "art343.pass1.001"
+      ],
+      "review_notes": "예비·음모죄 완성시기와 중지미수 적용 가능성에 관한 경쟁 견해 중 하나로서, 판례 및 법조문 검증 전에는 선택하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제343조_Ⅲ_5",
+          "quote": "착수 전의 예비·음모단계에서 자발적으로 범의를 포기한 경우에 중지미수를 인정하지 않는다고 하면 형의 면제가 불가능하여 그 균형을 잃는 불합리한 결과가 된다는 이유로 그중지미수를 인정함이 옳다는 견해",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "variant_group": "art343_sec3.abandonment_before_execution"
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art343.variant.abandonment-before-execution-denied",
+          "request_id": "art343.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "policy_variant",
+      "id": "art343_sec3.abandonment_before_execution_denied",
+      "norm_kind": "variant",
+      "polarity": "negative",
+      "proposition": "예비·음모죄는 예비·음모 행위가 있으면 완성되는 범죄이므로 중지미수 개념을 인정할 여지가 없다는 견해가 있다.",
+      "request_ids": [
+        "art343.pass1.001"
+      ],
+      "review_notes": "예비·음모죄가 행위 시 완성된다는 전제에서 중지미수를 부정하는 경쟁 견해다. 반대 견해 및 관련 판례·법조문을 검증한 뒤에만 정책을 선택한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제343조_Ⅲ_5",
+          "quote": "예비·음모죄는 예비·음모의 행위가 있으면 완성되는 성질의 죄이므로 중지미수 의 개념을 인정할 여지가 없다고 본다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "variant_group": "art343_sec3.abandonment_before_execution"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "제공된 source scope는 강도 예비·음모 단계에서 자발적 범의 포기와 중지미수에 관한 경쟁 견해만 포함하며, 관련 법조문 및 판례 원문은 포함하지 않는다.",
+    "총포·도검·화약류 불법소지와 강도예비의 죄수 관계에 관한 근거가 제공되지 않았다.",
+    "흉기 매입·준비 및 범행현장 이동의 예비행위 해당성에 관한 근거가 제공되지 않았다.",
+    "강도예비·음모의 주관적 요건 및 미필적 강도의사에 관한 대법원 판결 원문 또는 검증된 commentary source가 제공되지 않았다."
+  ],
+  "issue_tag": "art343_sec3",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "강도 목적의 총포·도검·화약류 불법소지가 강도예비와 경합하는지 또는 강도예비에 흡수되는지.",
+    "강도 목적의 흉기 매입·준비만으로 객관적 예비행위를 인정할지, 범행현장으로의 이동 등 추가 행위를 요구할지.",
+    "강도 예비·음모 단계에서 자발적으로 범의를 포기한 경우 중지미수를 인정할지.",
+    "절도 중 상황에 따라 강도로 전환할 수 있다는 미필적 의사만으로 강도예비·음모의 주관적 요건을 충족하는지에 관하여 부정 견해와 대법원 판결 취지를 어떻게 조화시킬 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제343조_Ⅲ_5"
+    ],
+    "target_paths": [
+      "commentary://001692/제343조#sec3"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

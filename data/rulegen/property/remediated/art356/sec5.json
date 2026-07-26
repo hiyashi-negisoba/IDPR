@@ -1,0 +1,84 @@
+{
+  "card_set_id": "kr.art356.art356.sec5.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art356.standard.comprehensive-single-offense",
+          "request_id": "art356.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art356_sec5.comprehensive_single_offense",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "수개의 업무상 횡령 또는 배임행위가 피해법익이 단일하고 범죄 태양이 동일하며 단일 범의의 발현에 기인한 일련의 행위로 인정되면 포괄하여 일죄가 된다.",
+      "request_ids": [
+        "art356.pass1.001"
+      ],
+      "review_notes": "피해법익의 단일성, 범죄 태양의 동일성 및 단일 범의에 기인한 일련성은 구체적 사실관계에 대한 평가가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅴ_9",
+          "quote": "수개의 업무상 횡령행위가 피해법익이 단일하고, 범죄의 태양이 동일하며, 단일 범의의 발현에 기인하는 일련의 행위라고 인정되면 포괄하여 1죄로 된다. 업 무상 배임의 경우에도 마찬가지이다.",
+          "section_path": "Ⅴ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art356.standard.comprehensive-offense-changing-accomplices",
+          "request_id": "art356.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art356_sec5.comprehensive_offense_accomplice_change",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "수개의 범행 도중 공범자가 변동하더라도 단일하고 계속된 범의 아래 같은 종류의 범행을 일정 기간 반복하고 피해법익도 동일한 경우에는 포괄일죄가 성립한다.",
+      "request_ids": [
+        "art356.pass1.001"
+      ],
+      "review_notes": "공범자 변동이 있어도 포괄일죄가 되는지 여부는 계속된 단일 범의, 범행 종류, 반복 기간 및 피해법익의 동일성에 대한 평가를 요한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅴ_9",
+          "quote": "수개의 범행 도중 공범자가 변동되더라도 그것이 단일하고 계속된 범의 하에 같은 종류의 일정기간 반복하여 행하고 그 피해법익도 동일한 경우라면 포괄일 죄가 성립한다",
+          "section_path": "Ⅴ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "형법 제33조가 비신분 공범의 죄명 및 법정형에 미치는 효과에 관한 source reference가 현재 범위에 없다.",
+    "비신분자의 업무상횡령 공동정범·교사범·방조범 성립 범위에 관한 source reference가 현재 범위에 없다.",
+    "포괄일죄 판단에 관한 판례 원문 또는 primary precedent index 연결이 현재 범위에 없다."
+  ],
+  "issue_tag": "art356_sec5",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "단순 보관자 또는 비신분자가 업무상 보관자의 횡령 범행에 가공한 경우, 형법 제33조에 따라 단순횡령죄로만 볼 것인지 업무상횡령죄의 공범 성립을 인정하되 단순횡령죄 법정형으로 처벌할 것인지.",
+    "비신분자에게 단순횡령죄 또는 업무상횡령죄의 공동정범 성립을 인정할 것인지, 아니면 교사범 또는 방조범만 가능하다고 볼 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제356조_Ⅴ_9"
+    ],
+    "target_paths": [
+      "commentary://001692/제356조#sec5"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

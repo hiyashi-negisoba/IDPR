@@ -1,0 +1,103 @@
+{
+  "card_set_id": "kr.art335.art335.sec8.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art335.variant.weapon-acquired-during-violence-special-robbery",
+          "request_id": "art335.pass1.001"
+        },
+        {
+          "candidate_id": "art335.variant.weapon-acquired-during-violence-simple-robbery",
+          "request_id": "art335.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "policy_variant",
+      "id": "art335_sec8.weapon_acquired_during_violence.doctrinal_variants",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "단순절도범이 체포 면탈 목적의 폭행·협박 시 비로소 흉기를 휴대·사용한 경우 특수강도죄로 처벌해야 한다는 견해와 강도죄로 처벌해야 한다는 견해가 대립한다.",
+      "request_ids": [
+        "art335.pass1.001"
+      ],
+      "review_notes": "흉기 휴대·사용 시점이 절도 후 체포 면탈 목적의 폭행·협박 단계인 경우의 죄명 평가에 관한 학설 대립이다. 판례 원문 확인 전에는 어느 견해도 선택하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제335조_Ⅷ_16",
+          "quote": "‘단순절도범’이 절도 범행 당시에는 흉기를 휴대하지 않았다가 체포를 면탈 할 목적으로 폭행·협박을 할 때에 비로소 흉기를 휴대하여 사용한 경우에 대해 서는 특수강도죄로 처벌해야 한다는 견해",
+          "section_path": "Ⅷ"
+        },
+        {
+          "comment_id": "comm_001692_제335조_Ⅷ_16",
+          "quote": "특수강도죄로 처벌해야 한다는 견해와 강도죄로 처벌해야 한다는 견해 로 나뉜다.",
+          "section_path": "Ⅷ"
+        }
+      ],
+      "variant_group": "art335_sec8.weapon_acquired_during_violence"
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art335.standard.weapon-acquired-during-violence-holding",
+          "request_id": "art335.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "policy_variant",
+      "id": "art335_sec8.weapon_acquired_during_violence.reported_precedent",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "판례는 단순절도범이 체포를 면탈할 목적으로 도주하다가 주운 흉기를 가지고 폭행하여, 절도 시에는 흉기를 휴대하지 않았으나 폭행 시에 흉기를 휴대하게 된 경우 특수강도의 준강도가 된다고 보았다.",
+      "request_ids": [
+        "art335.pass1.001"
+      ],
+      "review_notes": "학설 대립과 상충하는 commentary-reported precedent position이다. 사용자 제공 1차 판례 index에서 해당 판결의 원문·사실관계·판시 범위를 확인한 뒤에만 정책 선택에 사용할 수 있다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제335조_Ⅷ_16",
+          "quote": "판례는 전자의 견해를 택하여 단순절도가 체포를 면탈할 목적으로 도주하다가 주운 흉기를 가지고 폭행을 가한 경우, 즉 절도 시에는 흉기를 휴대 하지 아니하였으나 폭행 시에 흉기를 휴대하게 된 경우에도 단순강도의 준강도 가 아니라 특수강도의 준강도가 된다고 판시한 바 있다.",
+          "section_path": "Ⅷ"
+        }
+      ],
+      "variant_group": "art335_sec8.weapon_acquired_during_violence"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope에는 흉기를 폭행 단계에서 비로소 휴대·사용한 경우의 학설 및 commentary-reported precedent만 포함된다.",
+    "공범자별 폭행·협박 귀속, 절도 간접정범의 준강도 주체성, 준강도 기수·미수 기준에 관한 직접 출처가 현재 source scope에 없다.",
+    "판례는 commentary를 통해 보고된 것이므로 1차 판례 원문이 확인되기 전에는 독립적인 1차 권위로 취급할 수 없다.",
+    "[coverage.gaps.unrecorded.general.norms] coverage_gaps가 비어 있지만 동일한 bounded commentary에는 절도 유형에 따른 단순강도·특수강도 처벌례와 제337조부터 제339조까지의 적용에 관한 별도의 일반 명제가 명시되어 있다. 현재 카드들은 흉기 취득 시점에 관한 쟁점만 다룬다."
+  ],
+  "issue_tag": "art335_sec8",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "단순절도범이 폭행 단계에서 비로소 흉기를 휴대·사용한 경우 특수강도 또는 단순강도의 준강도로 평가할 것인지.",
+    "절도죄의 간접정범이 준강도죄의 주체가 될 수 있는지에 관하여 긍정설과 부정설 중 어느 견해를 채택할 것인지.",
+    "준강도죄의 기수·미수를 절취행위, 폭행·협박행위 또는 양 행위의 미수 중 어느 하나를 기준으로 정할 것인지.",
+    "흉기를 폭행 단계에서 비로소 휴대·사용한 사례에 관한 commentary-reported precedent의 원문과 적용 범위를 사용자 제공 1차 판례 index에서 확인해야 한다."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제335조_Ⅷ_16"
+    ],
+    "target_paths": [
+      "commentary://001692/제335조#sec8"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": [
+    {
+      "finding_id": "collapsed.competing.doctrinal.variants",
+      "type": "collapsed_variant",
+      "note": "특수강도죄설과 강도죄설은 서로 배타적인 정책 선택지인데 하나의 카드와 하나의 proposition으로 병합되어 있어 각 견해를 독립적으로 선택·검토할 수 없다.",
+      "impact": "이 그룹의 선택지가 불완전할 수 있음 — 선택 시 감안 필요"
+    }
+  ]
+}

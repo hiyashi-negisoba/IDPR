@@ -1,0 +1,78 @@
+{
+  "version": "1.0.0",
+  "api_calls": 0,
+  "created_at": "2026-07-25T07:42:48.683306+00:00",
+  "source": "결정B2_예외형질의문승인.md (사용자 코멘트 11건 / 면제 12건 전부 승인)",
+  "stats": {
+    "demoted": 5,
+    "merged": 2,
+    "to_deterministic_rule": 1,
+    "query_revised": 3,
+    "confirmed": 2
+  },
+  "entries": [
+    {
+      "card_id": "art355_sec4_1.later_return_intent_irrelevant",
+      "kind": "demote",
+      "reason": "사후 반환·변상 의사가 있어도 유죄라는 취지의 카드다. 규칙으로 세우면 '그 사정이 있었다'를 물어 놓고 결론에는 영향을 주지 않는 질의가 되므로, 카드를 두는 이득이 없다(사용자 판단)."
+    },
+    {
+      "card_id": "art355_sec4_1.preoffense_setoff_only",
+      "kind": "demote",
+      "reason": "'범행 전 상계정산 등의 특별한 사정'이 무엇인지 명제 안에서 특정되지 않아 물을 사실이 확정되지 않는다(사용자 판단: 카드 자체가 애매)."
+    },
+    {
+      "card_id": "art355_sec5_2.pre_sale_right_delegated_management_exception",
+      "kind": "demote",
+      "reason": "수분양권이라는 구체사안에서 같은 판단을 반복한다. 일반 규칙인 art355_sec5_2.individual_delegation_exception을 남긴다(사용자: 사실상 중복).",
+      "merged_into": "art355_sec5_2.individual_delegation_exception"
+    },
+    {
+      "card_id": "art357_sec3_2.corporate_control_transfer_exception",
+      "kind": "demote",
+      "reason": "사회복지법인·학교법인 운영권 양도라는 지엽적 사안에 한정된 판단이다(사용자 판단). 구체사안 축 강등 기준과 같다."
+    },
+    {
+      "card_id": "art350_sec7_2.completion.other_cause_disposition_attempt",
+      "kind": "demote",
+      "reason": "art350_sec5_2.no_fear_attempt와 같은 조건(교부의 원인이 외포가 아닌 다른 사정)을 묻고 같은 결론(미수)에 이른다. 근사중복으로 병합하고 no_fear_attempt를 남긴다(사용자: 중복 인정).",
+      "merged_into": "art350_sec5_2.no_fear_attempt"
+    },
+    {
+      "card_id": "art356_sec2_2.administrative_illegality",
+      "kind": "to_deterministic_rule",
+      "reason": "면허·인가 미취득을 이유로 업무성을 부정하는 항변을 차단하는 규칙이다. 실제로 업무성을 가르는 사실은 같은 절 art356_sec2_2.illegal_business가 묻는 '사무 내용 자체의 위법성'이고, 이 카드는 그 판정 결과에 규칙을 적용한다(사용자: 면허 미취득을 물어 죄를 인정하는 흐름이 이상하다). deterministic_rule로 내리고 질의를 면제한다."
+    },
+    {
+      "card_id": "art323_sec2_2.nominee_owner_not_subject",
+      "kind": "revise_query",
+      "from": "그 물건은 명의신탁된 것이고 피고인은 명의신탁자이며, 대외적인 소유 명의는 명의수탁자에게 있었다.",
+      "to": "그 물건은 피고인이 명의신탁한 것이어서 법률상 소유자는 명의수탁자였다.",
+      "reason": "'대외적인 소유 명의'를 '법률상 소유자'로 바꿨다(사용자). 권리행사방해죄의 객체는 자기의 물건이므로, 법률상 소유자가 수탁자면 신탁자에게는 자기 물건이 아니어서 주체가 되지 않는다."
+    },
+    {
+      "card_id": "art350_sec4_2.right_exercise_exception",
+      "kind": "revise_query",
+      "from": "피고인은 피해자에 대하여 그 금액에 관한 채권을 가지고 있었고, 요구한 금액은 그 채권액을 넘지 않았다.",
+      "to": "피고인이 고지한 해악의 내용은 피고인이 가진 권리를 행사하는 것이었다.",
+      "reason": "초안은 원문에 없는 요건(채권액과 요구액의 비교)을 넣었다. 원문은 '다만 행위가 권리행사인 경우에는 위법성이 조각될 수 있다'뿐이므로 권리행사라는 사실만 묻는다."
+    },
+    {
+      "card_id": "art355_sec5_2.individual_delegation_exception",
+      "kind": "revise_query",
+      "from": "그 계약에는 단순한 권리이전이나 담보설정을 넘어 상대방의 재산을 관리·처리해 주기로 하는 약정이 포함되어 있었다.",
+      "to": "그 계약에는 단순한 권리이전이나 담보설정을 넘어 상대방의 재산에 대한 관리·처리에 관한 요소가 있었다.",
+      "reason": "'약정'은 원문에 없는 말이다(사용자). 원문의 '위임 등 신임관계를 인정할 개별 요소'를 관리·처리 요소의 존재로 옮겼다."
+    },
+    {
+      "card_id": "art350_sec5_3.complete_suppression_robbery",
+      "kind": "confirmed_as_drafted",
+      "reason": "극성 방향은 초안대로 맞다 — 질의('협박 정도가 반항을 억압할 정도였다')가 참이면 이 카드가 발동해 강도죄 성립으로 간다. 혼동은 표기에서 왔다. 이 카드는 공갈죄 관점에서 배제 규칙(polarity=exception)이면서 문언으로는 강도죄 성립을 긍정하므로, '카드 발동'이 무엇을 뜻하는지가 모호했다. 이후 문서에는 발동 시 결론(강도죄 성립·공갈죄 배제)을 함께 적는다."
+    },
+    {
+      "card_id": "art357_sec3_2.giver_not_necessarily_liable",
+      "kind": "confirmed_as_drafted",
+      "reason": "대칭은 이미 확보돼 있다 — 증재자 관점 카드 art357_sec4.giver_view_justification이 결정B에서 질의문 승인을 받았고(질의: '증재자는 자신이 한 청탁이 부정한 청탁이라는 점을 인식하고 있었다'), 이 카드는 수재자 관점을 담당한다. 두 카드가 짝이므로 이 카드의 질의문은 그대로 둔다."
+    }
+  ]
+}

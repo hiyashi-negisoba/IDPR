@@ -1,0 +1,112 @@
+{
+  "card_set_id": "kr.art337.art337.sec7.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "statutory_text_in_commentary",
+      "candidate_refs": [
+        {
+          "candidate_id": "art337.element-special-recidivism-three-years",
+          "request_id": "art337.pass1.002"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "art337_sec7.special_recidivism_three_years",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "강도상해·치상죄 또는 그 미수죄로 형의 집행 종료 또는 면제 후 3년 내 다시 이들 죄를 범하면 특정범죄 가중처벌 등에 관한 법률 제5조의5에 따라 사형·무기 또는 10년 이상의 징역으로 가중된다.",
+      "request_ids": [
+        "art337.pass1.002"
+      ],
+      "review_notes": "전죄, 집행 종료 또는 면제, 3년 기간 및 재범 죄명을 확인하는 열거형 가중요건이다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제337조_Ⅶ_18",
+          "quote": "형법 제337조의 강도상해, 치상죄 또는 그 미수죄로 형을 받아 그 집행이 끝나 거나 면제된 후 3년 내에 다시 이들 죄를 범한 경우에는 특정범죄 가중처벌 등 에 관한 법률 제5조의5의 규정에 따라 그 형이 사형, 무기 또는 10년 이상의 징 역으로 가중된다.",
+          "section_path": "Ⅶ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art337.definition-special-recidivism-new-element",
+          "request_id": "art337.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art337_sec7.special_recidivism_new_element",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "제337조 강도상해·치상죄 등의 3년 내 재범에 대한 특정범죄 가중처벌은 누범이 아니라 새로운 구성요건을 창설하는 규정으로 본다.",
+      "request_ids": [
+        "art337.pass1.002"
+      ],
+      "review_notes": "가중규정의 법적 성격과 일반 누범가중과의 관계를 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제337조_Ⅶ_18",
+          "quote": "이는 누범이 아닌 새로운 구성요건을 창설하는 규정이라고 보 아야 하므로",
+          "section_path": "Ⅶ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art337.standard-special-recidivism-and-general-recidivism",
+          "request_id": "art337.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art337_sec7.special_and_general_recidivism",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "제337조 강도상해·치상죄 등의 3년 내 재범이 다시 누범에도 해당하면, 특정범죄 가중처벌 등에 관한 법률 제5조의5에 따른 가중 법정형에 형법 제35조의 누범가중을 적용한 형기 범위에서 처단형을 정한다.",
+      "request_ids": [
+        "art337.pass1.002"
+      ],
+      "review_notes": "특정범죄 가중처벌과 형법상 누범가중이 함께 적용되는 경우의 처단형 산정을 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제337조_Ⅶ_18",
+          "quote": "결국 이들 죄에 대하여는 특정범죄 가중처벌 등에 관 한 법률 제5조의5에 따라 가중된 법정형에 형법 제35조에 의하여 누범가중된 형기 범위 내에서 처단형을 정하여야 한다.",
+          "section_path": "Ⅶ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "특정범죄 가중처벌 등에 관한 법률 제5조의5 및 형법 제35조의 원문은 현재 제공된 source scope에 포함되지 않는다.",
+    "강도치상죄 공범의 중한 결과 예견가능성과 실행착수 후 공동정범 이탈에 관한 직접 출처는 현재 제공된 후보에 없다.",
+    "[missing.exclusion.and.unconstitutionality] The empty coverage-gaps list omits two material negative or limiting propositions explicit in the bounded commentary: the Constitutional Court's invalidation of recidivist enhancement under Article 3 of the Act on Special Cases Concerning the Punishment of Specific Violent Crimes for these offenses, and the subsequently codified exclusion of cases enhanced under Article 5-5 of the Act on the Aggra"
+  ],
+  "issue_tag": "art337_sec7",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "강도치상죄의 공범에게 중한 결과에 관한 예견가능성을 별도로 요구해야 하는지에 관하여 일반적 공범 책임 법리와 소개된 견해를 어떻게 조정할 것인지.",
+    "실행착수 후 공동정범 관계에서 이탈을 인정하기 위한 기준으로 결과발생 방지, 범행저지를 위한 진지한 노력, 또는 공모행위가 창출한 위험의 인과관계 차단 중 어느 이론을 채택할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제337조_Ⅶ_18"
+    ],
+    "target_paths": [
+      "commentary://001692/제337조#sec7"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

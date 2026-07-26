@@ -1,0 +1,94 @@
+{
+  "card_set_id": "kr.art366.art366.sec5_1.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art366.exception-unlawfulness-excluded-by-general-justification",
+          "request_id": "art366.pass1.004"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art366_sec5_1.exception.general_justifications",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "정당행위, 정당방위, 긴급피난, 자구행위, 피해자의 승낙 등 위법성조각사유가 있으면 손괴행위의 위법성이 조각될 수 있다.",
+      "request_ids": [
+        "art366.pass1.004"
+      ],
+      "review_notes": "열거된 위법성조각사유의 적용 여부는 개별 사실관계와 각 사유의 요건에 따라 검토한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제366조_Ⅴ.1_31",
+          "quote": "정당행위, 정당방위, 긴급피난, 자구행위, 피해자의 승낙 등 위법성조각사유가 있는 경우 손괴행위의 위법성이 조각될 수 있다.",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art366.variant-consent-excludes-elements-not-unlawfulness",
+          "request_id": "art366.pass1.004"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "context_only",
+      "id": "art366_sec5_1.variant.consent_elements_exclusion",
+      "norm_kind": "variant",
+      "polarity": "negative",
+      "proposition": "소유자나 처분권자의 동의를 받아 손괴·은닉한 경우, 위법성조각이 아니라 구성요건해당성이 배제된다고 보는 견해가 있다.",
+      "request_ids": [
+        "art366.pass1.004"
+      ],
+      "review_notes": "동의의 법적 효과를 위법성조각으로 볼지 구성요건해당성 배제로 볼지는 제시된 견해를 포함하여 별도 법률 검토가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제366조_Ⅴ.1_31",
+          "quote": "이는 위법성조각",
+          "section_path": "Ⅴ.1"
+        },
+        {
+          "comment_id": "comm_001692_제366조_Ⅴ.1_31",
+          "quote": "사유가 아닌 구성요건해당성이 배제되는 사유라고 보아야 한다는 견해가 있다.",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "variant_group": "art366_sec5_1.consent_legal_effect"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "[missing.self_help.art209] 민법 제209조상 자력구제가 인정되는 경우 형법 제20조의 법령에 의한 행위로서 위법성조각사유가 될 수 있다는 조건부·미해결 논점이 자료에 명시되어 있으나 카드와 coverage_gaps에 반영되지 않았다."
+  ],
+  "issue_tag": "art366_sec5_1",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "민법상 자력구제가 인정되는 경우를 형법 제20조의 법령에 의한 정당행위로 볼 것인지에 관하여 본문은 문제 제기만 하고 있다.",
+    "소유자 또는 처분권자의 동의를 받은 손괴·은닉이 위법성조각이 아니라 구성요건해당성 배제라는 견해를 채택할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제366조_Ⅴ.1_31"
+    ],
+    "target_paths": [
+      "commentary://001692/제366조#sec5_1"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": [
+    {
+      "finding_id": "variant.consent.grouping",
+      "type": "missing_variant",
+      "note": "첫 카드에는 피해자의 승낙을 위법성조각사유로 취급하는 일반 명제가 포함되어 있지만 variant_group이 없고, 소유자 또는 처분권자의 동의를 구성요건해당성 배제 사유로 보는 두 번째 카드만 단독으로 변이 그룹에 배치되어 있다. 따라서 동의의 법적 효과에 관한 자료 내 긴장관계가 형식적으로 연결되지 않는다.",
+      "impact": "이 그룹의 선택지가 불완전할 수 있음 — 선택 시 감안 필요"
+    }
+  ]
+}

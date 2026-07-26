@@ -1,0 +1,91 @@
+{
+  "card_set_id": "kr.art335.art335.sec1.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art335.definition.rationale-substantive-equivalence",
+          "request_id": "art335.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "context_only",
+      "id": "art335_sec1.rationale.substantive_equivalence",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "준강도는 재물탈취와 폭행·협박의 시간적 순서만 강도와 다를 뿐 실질적 위법성이 같다는 취지로 강도죄의 예에 따라 처벌된다.",
+      "request_ids": [
+        "art335.pass1.001"
+      ],
+      "review_notes": "강도죄의 예에 따라 처벌하는 취지에 관한 설명으로, 개별 구성요건이나 적용 범위를 독립적으로 확장하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제335조_Ⅰ_0",
+          "quote": "강도죄와 준강도죄의 구성요건인 재물탈취와 폭행·협 박 사이에 시간적 순서상 전후의 차이가 있을 뿐 실질적으로 위법성이 같다고 보기 때문이다.",
+          "section_path": "Ⅰ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art335.definition.aggravated-robbery-offenses-apply",
+          "request_id": "art335.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art335_sec1.aggravated_robbery_offenses_apply",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "준강도는 강도상해치상죄, 강도살인치사죄 및 강도강간죄의 적용을 받는 강도에 해당한다.",
+      "request_ids": [
+        "art335.pass1.001"
+      ],
+      "review_notes": "인용된 세 가중 강도 관련 범죄에 관한 준강도의 적용 관계를 열거한 카드다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제335조_Ⅰ_0",
+          "quote": "준강도도 강도상해치상죄(형법 제337조), 강도살인치사죄(제338 조), 강도강간죄(제339조)의 적용을 받는 강도에 해당함은 물론이다.",
+          "section_path": "Ⅰ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "제335조 제1절 발췌에는 준강도의 주체, 폭행·협박의 목적과 정도, 시간적·장소적 관련성, 공범 귀속, 흉기 휴대·사용, 기수·미수 기준에 관한 직접 근거가 포함되지 않았다.",
+    "제337조, 제338조 및 제339조의 조문과 적용 요건은 현재 commentary source scope 밖이다."
+  ],
+  "issue_tag": "art335_sec1",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "단순절도범이 폭행 단계에서 비로소 흉기를 휴대·사용한 경우 특수강도 또는 단순강도의 준강도로 평가할 것인지.",
+    "절도죄의 간접정범이 준강도죄의 주체가 될 수 있는지에 관하여 긍정설과 부정설 중 어느 견해를 채택할 것인지.",
+    "준강도죄의 기수·미수를 절취행위, 폭행·협박행위 또는 양 행위의 미수 중 어느 하나를 기준으로 정할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제335조_Ⅰ_0"
+    ],
+    "target_paths": [
+      "commentary://001692/제335조#sec1"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": [
+    {
+      "finding_id": "missing.competing.characterization",
+      "type": "missing_variant",
+      "note": "The source expressly reports a competing view that quasi-robbery is substantively theft and merely resembles robbery externally. The card presents the substantive-equivalence rationale without preserving this competing characterization as a variant or recording its omission as a coverage gap.",
+      "impact": "이 그룹의 선택지가 불완전할 수 있음 — 선택 시 감안 필요"
+    }
+  ]
+}

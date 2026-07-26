@@ -1,0 +1,111 @@
+{
+  "card_set_id": "kr.art329.art329.sec8_9.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "theft.standard.instigator-acquires-stolen-property-real-concurrence",
+          "request_id": "art329.pass1.004"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art329_sec8_9.instigator_stolen_property_real_concurrence",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "절도를 교사한 후 절도범으로부터 절취물을 취득·운반·보관한 경우 절도교사죄 외에 장물죄가 성립하며 서로 실체적 경합범이다.",
+      "request_ids": [
+        "art329.pass1.004"
+      ],
+      "review_notes": "절도교사 후 절취물 취득·운반·보관의 행위 및 행위자 관계를 사실관계에 따라 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제329조_Ⅷ.9_40",
+          "quote": "절도를 교사한 후 절도범으로부터 그 절취물을 취득, 운반 또는 보관한 경우에 는 절도교사죄 외에 장물죄가 되며 서로 실체적 경합범의 관계에 있다.",
+          "section_path": "Ⅷ.9"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "theft.exception.principal-thief-not-stolen-property-offense",
+          "request_id": "art329.pass1.004"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art329_sec8_9.principal_thief_stolen_property_offense_exception",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "절도범 자신이 절취물을 양도·운반·보관한 경우 절도죄 외에 별도로 장물 양도·운반·보관죄가 성립하지 않는다.",
+      "request_ids": [
+        "art329.pass1.004"
+      ],
+      "review_notes": "절도범 본인이 절취물을 양도·운반·보관한 경우에 한정된 명시적 배제 규범이다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제329조_Ⅷ.9_40",
+          "quote": "절도 범 자신이 절취물건을 양도, 운반 또는 보관한 경우에는 절도죄 외에 별도로 장 물죄의 양도, 운반 또는 보관죄가 성립되지 않음은 물론이다.",
+          "section_path": "Ⅷ.9"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "theft.standard.stealing-property-held-by-another-is-theft",
+          "request_id": "art329.pass1.004"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art329_sec8_9.stealing_held_stolen_property",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "타인이 소지 중인 장물을 절취하는 행위는 절도죄이고 장물취득죄가 아니며, 장물취득죄와 상상적 경합도 아니다.",
+      "request_ids": [
+        "art329.pass1.004"
+      ],
+      "review_notes": "타인의 소지와 행위가 절취에 해당하는지의 적용은 구체적 점유관계 및 행위태양 검토가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제329조_Ⅷ.9_40",
+          "quote": "또 타인이 소지 중인 장물을 절취하는 것은 절도이고 장물취득죄가 되지 않으 며, 장물취득죄와의 상상적 경합도 아니다.",
+          "section_path": "Ⅷ.9"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "상습절도 목적 또는 수단으로 한 주간 주거침입 및 주거침입죄·절도죄의 죄수 관계에 관한 source reference가 현재 source scope에 없다.",
+    "절도교사죄와 장물죄의 실체적 경합 및 장물죄 배제에 관한 보고된 판례 원문은 현재 source scope에 없다."
+  ],
+  "issue_tag": "art329_sec8_9",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "상습절도 목적 또는 수단으로 한 주간 주거침입에 관한 종전 판례의 1죄 처리와, 별도 주거침입죄 성립 견해를 어떻게 조정할 것인지.",
+    "주간 주거침입절도에서 주거침입죄와 절도죄를 경합범으로 볼 것인지, 주거침입이 절도죄에 흡수된다고 볼 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제329조_Ⅷ.9_40"
+    ],
+    "target_paths": [
+      "commentary://001692/제329조#sec8_9"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

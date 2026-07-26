@@ -1,0 +1,87 @@
+{
+  "card_set_id": "kr.art355.art355.sec6_3.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art355.standard.breach-post-act-absorption",
+          "request_id": "art355.pass1.036"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art355_sec6_3.breach_post_act_absorption",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "배임죄는 상태범이므로 배임행위 종료 후의 이득 처분행위는 새로운 법익을 침해하지 않는 한 불가벌적 사후행위로서 배임죄에 흡수된다.",
+      "request_ids": [
+        "art355.pass1.036"
+      ],
+      "review_notes": "사후 처분행위가 새로운 법익을 침해하는지 여부와 불가벌적 사후행위 해당성에 대한 평가가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제355조_2항_Ⅵ.3_194",
+          "quote": "배임죄는 상태범이므로 배임행위가 종료한 후 행하여진 이득의 처분행위는 새 로운 법익을 침해하지 않는 한 불가벌적 사후행위로서 배임죄에 흡수된다.",
+          "section_path": "Ⅵ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art355.standard.breach-new-security-right",
+          "request_id": "art355.pass1.036"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art355_sec6_3.breach_new_security_right",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "회사 부동산에 근저당권을 설정하여 배임죄가 성립한 뒤 그 부동산에 새 담보권을 설정해 선순위 근저당권 공제 후 남은 담보가치 상당 재산상 이익을 침해하면 별도의 배임죄가 성립한다.",
+      "request_ids": [
+        "art355.pass1.036"
+      ],
+      "review_notes": "선순위 근저당권 공제 후 잔존 담보가치와 별도 재산상 이익 침해 여부의 사실평가가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제355조_2항_Ⅵ.3_194",
+          "quote": "그 부동산에 대하여 새로운 담보권을 설정해 주는 행위는 선순위 근저당권의 담보가치를 공제한 나머지 담보가치 상 당의 재산상 이익을 침해하는 행위로서 별도의 배임죄가 성립한다고 볼 것이 다.",
+          "section_path": "Ⅵ.3"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope는 제355조 제2항 Ⅵ.3의 배임행위 종료 후 처분행위와 새 담보권 설정 관련 서술에 한정된다.",
+    "판례 원문 또는 사용자 제공 primary precedent index 확인 전에는 commentary_synthesis에 기초한 검토 초안이다.",
+    "[missing_norm.loan_limit] The empty coverage-gaps list does not acknowledge the source's separate norm that a loan made for a person's account under another person's name is treated as that person's loan, and that a separate breach-of-trust offense may arise when the aggregate of the prior and additional loans exceeds that person's lending limit.",
+    "[missing_norm.follow_on_embezzlement] The source expressly states another distinct norm: after conduct constituting breach of trust, subsequent conduct that infringes a new protected legal interest different from that of breach of trust may constitute the separate offense of embezzlement. Neither a card nor a coverage gap preserves this norm."
+  ],
+  "issue_tag": "art355_sec6_3",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "단순 보관자가 업무상횡령에 가담한 경우 공동정범·공범의 성립 죄명과 적용 형을 다수설 또는 판례·소수설 중 어느 입장으로 정할지.",
+    "부동산 이중매매 배임죄의 실행착수 시점을 계약금·중도금 수령 시로 볼지, 제2매수인을 위한 등기절차 착수 시로 볼지.",
+    "상법 제622조 특별배임죄와 업무상배임죄의 관계를 법조경합으로 정리할지 여부.",
+    "이미 제1매매 사실을 아는 제2매수인의 배임죄 공범 성립 범위를 적극가담이 있는 경우로 한정할지, 악의만으로 인정할지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제355조_2항_Ⅵ.3_194"
+    ],
+    "target_paths": [
+      "commentary://001692/제355조#sec6_3"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

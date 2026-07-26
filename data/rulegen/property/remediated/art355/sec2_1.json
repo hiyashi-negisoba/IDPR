@@ -1,0 +1,99 @@
+{
+  "card_set_id": "kr.art355.art355.sec2_1.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art355.definition.embezzlement-object-property",
+          "request_id": "art355.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art355_sec2_1.embezzlement_object_property",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "횡령죄는 재물을 객체로 하고, 자기 점유 아래의 타인 재물을 대상으로 하는 재물죄이다.",
+      "request_ids": [
+        "art355.pass1.001"
+      ],
+      "review_notes": "횡령죄의 객체와 점유 관계를 기술하는 범위의 정의 카드다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제355조_1항_Ⅱ.1_8",
+          "quote": "횡령죄는 재물을 객체로 하는 재물죄이다.",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제355조_1항_Ⅱ.1_8",
+          "quote": "자기의 점유 하에 있는 타인의 재물을 대상으로 하는 횡령죄",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art355.definition.breach-of-trust-object-property-benefit",
+          "request_id": "art355.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "context_only",
+      "id": "art355_sec2_1.breach_of_trust_object_property_benefit",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "배임죄는 재물이 아닌 재산상 이익만을 객체로 하는 순수한 이득죄라고 보는 통설적 견해가 소개되어 있다.",
+      "request_ids": [
+        "art355.pass1.001"
+      ],
+      "review_notes": "통설적 견해로 보고된 객체론이다. 배임죄 본질 및 보호 정도에 관한 다른 견해와의 관계를 검토한 뒤 채택 여부를 정해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제355조_2항_Ⅱ.1_5",
+          "quote": "배임죄는 재산죄 중에서 재물이 아닌 재산상의 이익만을 객체로 하는 순수한 이득죄라고 보는 것이 통설적 견해이다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "variant_group": "art355_sec2_1.breach_of_trust_object"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope에는 배임죄 본질에 관한 권한남용설, 사무처리설 및 배신설의 근거가 포함되어 있지 않다.",
+    "현재 source scope에는 횡령죄의 본질, 불법영득의사의 범위 및 반환거부 유형에 관한 근거가 포함되어 있지 않다.",
+    "현재 source scope에는 횡령죄와 배임죄의 침해범·위험범 구조 및 관련 판례 원문이 포함되어 있지 않다.",
+    "배임죄 객체에 관한 통설적 견해는 commentary-reported doctrine이며, 독립적인 1차 법원 또는 판례 검증이 필요하다."
+  ],
+  "issue_tag": "art355_sec2_1",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "배임죄의 본질에 관하여 권한남용설, 사무처리설 및 배신설 중 어느 견해를 채택할 것인지.",
+    "횡령죄와 배임죄의 보호 정도를 침해범으로 볼지 위험범으로 볼지, 특히 판례 입장의 구조를 어떻게 정리할 것인지.",
+    "횡령죄의 본질에 관하여 영득행위설, 월권행위설 및 절충설 중 어느 견해를 채택할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제355조_1항_Ⅱ.1_8",
+      "comm_001692_제355조_2항_Ⅱ.1_5"
+    ],
+    "target_paths": [
+      "commentary://001692/제355조#sec2_1"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": [
+    {
+      "finding_id": "singleton_variant_group",
+      "type": "missing_variant",
+      "note": "A variant group is assigned even though the card set contains no competing card in that group and the bounded source does not state an alternative view about the object of breach of trust.",
+      "impact": "이 그룹의 선택지가 불완전할 수 있음 — 선택 시 감안 필요"
+    }
+  ]
+}

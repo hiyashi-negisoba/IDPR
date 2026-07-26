@@ -1,0 +1,83 @@
+{
+  "card_set_id": "kr.art328.art328.sec3_5.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art328.definition.cohabiting-family-narrower-than-cohabiting-relative",
+          "request_id": "art328.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art328_sec3_5.cohabiting_family_definition",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "동거가족은 동거친족 중 민법 제779조에 열거된 더 좁은 범위의 친족이며, 민법 제779조 제1항 제2호의 친족은 생계를 같이해야 가족이 된다.",
+      "request_ids": [
+        "art328.pass1.001"
+      ],
+      "review_notes": "민법 제779조의 가족 범위, 동거 및 생계공동 여부의 사실관계 포섭은 평가가 필요하며, 현재 근거는 commentary synthesis이다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제328조_Ⅲ.5_12",
+          "quote": "동거가족은 결국 동거친 족 중에 그 범위가 보다 좁은 민법 제779조에 열거된 친족이라고 보면 될 것이 다. 다만 주의할 것은 민법 제779조 제1항 제2호의 친족의 경우에는 제2항에 따 라 생계를 같이 해야만 가족이 된다는 것이다.",
+          "section_path": "Ⅲ.5"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art328.causal-link.cohabiting-family-article1-noncohabiting-article2",
+          "request_id": "art328.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art328_sec3_5.cohabiting_family_article328_effect",
+      "norm_kind": "causal_link",
+      "polarity": "positive",
+      "proposition": "가족이 동거하는 경우에는 형법 제328조 제1항에 따라 형이 면제되고, 가족이 동거하지 않는 경우에는 형법 제328조 제2항에 따라 친고죄가 된다.",
+      "request_ids": [
+        "art328.pass1.001"
+      ],
+      "review_notes": "제328조 제1항과 제2항의 적용 전제인 가족관계 및 동거 여부의 포섭이 필요하다. 친족관계를 누구 사이에 요구하는지는 현재 source scope에서 확정되지 않았다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제328조_Ⅲ.5_12",
+          "quote": "그러므로 가족이더라도 동거하지 않으면 형법 제328조 제2항에 따라 친고죄가 되고, 동거하는 경우에 한하여 형법 제328조 제1항에 따라 형이 면제된다.",
+          "section_path": "Ⅲ.5"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "형법 제328조 원문 및 민법 제779조 원문은 현재 commentary source scope에 포함되어 있지 않다.",
+    "친족상도례 적용을 위한 친족관계의 상대방 범위를 다루는 primary precedent 또는 추가 commentary source가 현재 source scope에 없다.",
+    "[missing.cohabiting_family.shared_daily_life] 동거가족의 정의 카드가 민법 제779조상 친족 범위와 일부 친족의 생계공동 요건만 담고, 같은 주거에서 일상생활을 공동으로 해야 한다는 별도의 동거 요건을 누락했다. 이 요건은 bounded commentary의 전문에 명시되어 있으며 제328조 제1항과 제2항의 적용 구별에도 영향을 준다."
+  ],
+  "issue_tag": "art328_sec3_5",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "재산죄에서 친족상도례 적용에 필요한 친족관계를 행위자와 소유자 사이, 점유자 사이 또는 소유자와 점유자 모두 사이 중 어디에 요구할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제328조_Ⅲ.5_12"
+    ],
+    "target_paths": [
+      "commentary://001692/제328조#sec3_5"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

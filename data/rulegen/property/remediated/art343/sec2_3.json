@@ -1,0 +1,94 @@
+{
+  "card_set_id": "kr.art343.art343.sec2_3.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art343.standard.departure-for-home-invasion-robbery",
+          "request_id": "art343.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art343_sec2_3.home_invasion_robbery_departure",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "주거침입강도 목적으로 흉기를 휴대하고 목적지를 향하여 출발하면 강도예비죄가 성립하며, 목적지 도달이나 주거침입 후 기회 관망은 필요하지 않다.",
+      "request_ids": [
+        "art343.pass1.001"
+      ],
+      "review_notes": "목적지로의 출발, 흉기 휴대, 주거침입강도 목적의 사실관계 포섭이 필요하며, 보도된 판결 취지는 원문 판례로 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제343조_Ⅱ.3_4",
+          "quote": "주거침입강도의 목적으로 흉기를 휴대하고 목적지를 향하여 출발한 때에는 이미 강도예비죄가 성립한 것이고 현실적으로 목적지에 도달하거나 또는 도달 후 주거에 침입하여 범행의 기회를 엿보는 등의 행위를 요하지 않는다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art343.variant.weapon-purchase-alone-sufficient",
+          "request_id": "art343.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "context_only",
+      "id": "art343_sec2_3.weapon_purchase_preparation",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "강도 목적을 위하여 흉기를 매입·준비하는 행위만으로도 강도 결의의 외부적 표현이라는 객관적 요건을 충족하여 예비를 인정할 수 있다는 견해가 있다.",
+      "request_ids": [
+        "art343.pass1.001"
+      ],
+      "review_notes": "매입·준비만으로 객관적 예비행위를 인정하는 견해로서, 추가적인 실행 접근 행위를 요구하는 기준과의 관계를 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제343조_Ⅱ.3_4",
+          "quote": "강도 목적을 위하여 흉기를 매입·준비하는 행위는 그것만으로도 강도 결 의의 외부적 표현이라는 객관적 요건을 충족한다고 생각된다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "variant_group": "art343_sec2_3.preparatory_act_threshold"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "총포·도검·화약류 불법소지와 강도예비의 경합 또는 흡수에 관한 source reference가 현재 source scope에 없다.",
+    "강도 예비·음모 단계의 자발적 범의 포기와 중지미수에 관한 source reference가 현재 source scope에 없다.",
+    "절도에서 강도로 전환할 수 있다는 미필적 의사와 강도예비·음모의 주관적 요건에 관한 부정 견해 및 대법원 판결 취지의 source reference가 현재 source scope에 없다.",
+    "주거침입강도 목적의 출발 시 예비 성립에 관한 commentary-reported precedent의 원문 판례 확인이 필요하다.",
+    "[empty.coverage.gap.despite.omission] 출처에 명시된 부정 견해가 후보 및 카드에서 누락되었는데도 coverage_gaps가 비어 있어 카드 세트가 완전한 것으로 잘못 표시된다."
+  ],
+  "issue_tag": "art343_sec2_3",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "강도 목적의 총포·도검·화약류 불법소지가 강도예비와 경합하는지 또는 강도예비에 흡수되는지.",
+    "강도 예비·음모 단계에서 자발적으로 범의를 포기한 경우 중지미수를 인정할지.",
+    "절도 중 상황에 따라 강도로 전환할 수 있다는 미필적 의사만으로 강도예비·음모의 주관적 요건을 충족하는지에 관하여 부정 견해와 대법원 판결 취지를 어떻게 조화시킬 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제343조_Ⅱ.3_4"
+    ],
+    "target_paths": [
+      "commentary://001692/제343조#sec2_3"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": [
+    {
+      "finding_id": "missing.negative.preparation.variant",
+      "type": "missing_variant",
+      "note": "출처는 흉기의 매입·준비만으로 예비를 인정하는 견해와 부정하는 견해가 대립한다고 명시하지만, 카드 세트에는 긍정 견해만 포함되어 있어 준비행위의 한계에 관한 경쟁 견해가 보존되지 않았다.",
+      "impact": "이 그룹의 선택지가 불완전할 수 있음 — 선택 시 감안 필요"
+    }
+  ]
+}

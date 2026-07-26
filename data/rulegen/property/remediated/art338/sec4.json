@@ -1,0 +1,141 @@
+{
+  "card_set_id": "kr.art338.art338.sec4.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art338.element.robbery-murder-attempt",
+          "request_id": "art338.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art338_sec4.robbery_murder_attempt",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "강도가 살의로 가해행위를 하였으나 살해 목적을 이루지 못한 살인미수의 경우 강도살인죄의 미수가 된다.",
+      "request_ids": [
+        "art338.pass1.001"
+      ],
+      "review_notes": "살의와 살인미수라는 전제가 충족된 경우의 강도살인미수 성립 관계를 정리한 카드다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제338조_Ⅳ_3",
+          "quote": "강도가 살의를 가지고 가해행위를 하였으나 살해의 목적을 이루지 못한 경우, 즉 살인미수의 경우에는 강도살인죄의 미수가 된다.",
+          "section_path": "Ⅳ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art338.exception.robbery-death-attempt-not-recognized",
+          "request_id": "art338.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art338_sec4.robbery_death_attempt_excluded",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "살인의 고의가 없는 강도치사죄에는 미수범이 인정되지 않는다.",
+      "request_ids": [
+        "art338.pass1.001"
+      ],
+      "review_notes": "살인의 고의가 없는 강도치사에는 미수범을 인정하지 않는다는 명시적 제외 규범이다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제338조_Ⅳ_3",
+          "quote": "살인의 고의가 없는 강도치 사죄의 미수범이 인정되지 않음은 강도치상죄의 경우와 같다.",
+          "section_path": "Ⅳ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art338.standard.murder-completion-controls-attempt",
+          "request_id": "art338.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art338_sec4.murder_completion_controls_attempt",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "강도살인죄의 기수·미수는 강도행위의 기수 여부가 아니라 살인행위의 기수·미수에 따라 정한다.",
+      "request_ids": [
+        "art338.pass1.001"
+      ],
+      "review_notes": "강도살인죄의 기수·미수 판단 기준을 살인행위의 기수·미수에 두는 분류 기준이다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제338조_Ⅳ_3",
+          "quote": "강도살인죄의 기수·미수를 강도의 기수에 의하지 아니하고 살인행위의 기수· 미수에 의하여 정하는 것은",
+          "section_path": "Ⅳ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art338.standard.robbery-murder-attempt-regardless-taking",
+          "request_id": "art338.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art338_sec4.reported_precedent_taking_independent",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "재물강취 목적과 수단으로 사람을 살해하면 강취행위가 미수에 그쳐도 강도살인죄가 성립하고, 살해행위가 미수에 그치면 강취행위의 미수·기수와 관계없이 강도살인미수죄를 구성한다는 판례가 소개되어 있다.",
+      "request_ids": [
+        "art338.pass1.001"
+      ],
+      "review_notes": "주석이 소개한 판례 내용이므로 원판결을 사용자 primary precedent index에서 확인하기 전까지는 commentary-reported precedent로 유지한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제338조_Ⅳ_3",
+          "quote": "범인이 재물강취의 목적과 수단으로 사람을 살해하면 강취행위가 미수 에 그쳤다 하더라도 강도살인죄를 구성한다 할 것이며  살해하려다가 살 (중략) 해행위가 미수에 그쳤다면 강취행위의 미수·기수를 불문하고 강도살인미수죄를 구성한다",
+          "section_path": "Ⅳ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope는 제338조 Ⅳ의 단일 주석 발췌에 한정되어 있으며, 공범의 공동 고의 및 채무면탈 목적 살해 관련 근거는 포함하지 않는다.",
+    "강도살인·강도살인미수의 기수·미수 기준에 관한 원판결 전문은 현재 source scope에 포함되지 않는다.",
+    "[missing_norm.voluntary_abandonment] 참조된 주석에는 강도살인의 의사로 살인에 착수하였다가 중지한 경우 중지범으로서 형의 감경·면제를 받을 수 있다는 규범과, 강도에 착수하여 사람을 부상시킨 경우에는 강도행위를 중지하여도 강도치상의 기수가 된다는 대조 규범이 명시되어 있으나 카드가 생성되지 않았다. 따라서 빈 coverage_gaps도 실제 원문 범위를 반영하지 않는다."
+  ],
+  "issue_tag": "art338_sec4",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "강도 공범자가 실행자의 살해를 예기할 수 있었던 경우, 그 예기만으로 강도살인죄의 공동 고의를 인정할 수 있는지, 아니면 공동 고의와 구별하여 강도치사죄로 한정할 것인지.",
+    "채무면탈 목적의 채권자 살해에서 채권의 행사 가능성 및 재산적 이익지배 취득 여부를 구체적 사정에 따라 어떻게 판단할 것인지.",
+    "강취행위의 미수·기수와 무관한 강도살인죄 및 강도살인미수죄 성립에 관한 소개 판례의 원문과 적용 범위를 primary precedent index에서 확인해야 한다."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제338조_Ⅳ_3"
+    ],
+    "target_paths": [
+      "commentary://001692/제338조#sec4"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

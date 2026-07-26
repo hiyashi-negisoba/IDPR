@@ -1,0 +1,85 @@
+{
+  "card_set_id": "kr.art355.art355.sec7_3.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art355.exception.breach-property-not-stolen-goods",
+          "request_id": "art355.pass1.037"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art355_sec7_3.breach_property_not_stolen_goods",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "배임행위에 제공된 물건에 대하여 장물죄는 성립하지 않으며, 부동산 이중매매에서 배임행위에 제공된 부동산임을 알면서 취득하거나 전득한 경우에도 장물죄는 성립하지 않는다.",
+      "request_ids": [
+        "art355.pass1.037"
+      ],
+      "review_notes": "배임행위에 제공된 물건이 장물죄의 객체가 되지 않는다는 명시적 예외로 검토한다. 배임죄가 순수 이득죄라는 후보의 설명은 인용문에 명시되지 않아 proposition에는 포함하지 않았다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제355조_2항_Ⅶ.3_198",
+          "quote": "배임행위에 제공된 물건에 대하여 장물죄는 성립할 수 없다. 따라서 부동 산 이중매매 있어서 배임행위에 제공된 부동산인 정을 알면서 취득하거나 전득하더 라도 장물죄는 성립할 수 없다.",
+          "section_path": "Ⅶ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art355.standard.prearranged-purchase-of-breach-proceeds",
+          "request_id": "art355.pass1.037"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art355_sec7_3.prearranged_purchase_joint_principal",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "배임행위로 취득할 유류를 배임행위자로부터 미리 매수하기로 합의하거나 응낙한 사람의 행위는 배임으로 발생한 장물의 취득이 아니라 배임행위의 공동정범으로 본다.",
+      "request_ids": [
+        "art355.pass1.037"
+      ],
+      "review_notes": "사전 매수 합의 또는 응낙의 존재와 공동정범 성립의 적용은 사실관계 평가를 요한다. 보도된 판례의 원문과 적용 범위는 primary precedent index로 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제355조_2항_Ⅶ.3_198",
+          "quote": "배임행위로 인하여 취득할 유류를 그 배임행위 자로부터 미리 매수하기로 합의 내지 응낙한 자들의 행위는 배임으로 발생한 장물을 취득한 행위에 해당하는 것이 아니라, 배임행위의 공동정범이라고 보아야 한다.",
+          "section_path": "Ⅶ.3"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope에는 기망을 수단으로 한 배임과 사기죄의 죄수 관계에 관한 직접 근거가 없다.",
+    "현재 source scope에는 횡령죄의 위험범성 및 후속 처분행위의 불가벌적 사후행위 여부에 관한 직접 근거가 없다.",
+    "현재 source scope에는 배임행위에 제공된 물건이 장물이 아닌 이유에 관한 직접 인용 근거가 없다."
+  ],
+  "issue_tag": "art355_sec7_3",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "기망을 수단으로 한 배임행위에서 사기죄와 배임죄를 상상적 경합으로 볼지, 사기죄에 흡수된다고 보는 소수견해를 채택할지.",
+    "횡령죄를 위험범으로 보는 전제 아래 후속 처분행위의 불가벌적 사후행위 여부를 다수의견과 그 논리적 모순 비판 중 어떻게 평가할 것인지.",
+    "사전 매수 합의 또는 응낙자를 배임행위의 공동정범으로 본다는 commentary-reported precedent의 원문 및 적용 범위를 primary precedent index에서 확인할 필요가 있다."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제355조_2항_Ⅶ.3_198"
+    ],
+    "target_paths": [
+      "commentary://001692/제355조#sec7_3"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

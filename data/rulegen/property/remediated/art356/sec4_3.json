@@ -1,0 +1,96 @@
+{
+  "card_set_id": "kr.art356.art356.sec4_3.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art356.standard.breach-beneficiary-co-principal",
+          "request_id": "art356.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art356_sec4_3.breach_beneficiary_active_participation",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "업무상배임 실행으로 이익을 얻는 수익자 또는 밀접 관련 제3자를 공동정범으로 인정하려면, 배임행위임을 알면서 소극적으로 편승하여 이익을 취득한 것만으로는 부족하고 교사 또는 배임행위 전 과정 관여 등 적극 가담이 필요하다.",
+      "request_ids": [
+        "art356.pass1.001"
+      ],
+      "review_notes": "수익 취득이나 소극적 편승만으로 공동정범을 인정하지 않는 한계를 포함한다. 적극 가담의 해당 여부는 사실관계 평가가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅳ.3_8",
+          "quote": "실행행위 자의 행위가 피해자인 본인에 대한 배임행위에 해당한다는 것을 알면서도 소극 적으로 그 배임행위에 편승하여 이익을 취득한 것만으로는 부족하고, 실행행위 자의 배임행위를 교사하거나 또는 배임행위의 전 과정에 관여하는 등으로 배임 행위에 적극 가담할 것을 필요로 한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art356.variant.non-status-no-co-principal",
+          "request_id": "art356.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "context_only",
+      "id": "art356_sec4_3.nonstatus_co_principal_exclusion",
+      "norm_kind": "variant",
+      "polarity": "negative",
+      "proposition": "비신분자는 업무상횡령죄 및 단순횡령죄의 공동정범이 될 수 없고, 가공 정도에 따라 단순횡령죄의 교사범 또는 방조범만 문제된다는 견해가 있다.",
+      "request_ids": [
+        "art356.pass1.001"
+      ],
+      "review_notes": "인용된 견해는 비신분자의 공동정범 성립을 배제한다. 경쟁 견해와 형법 제33조 적용은 별도 검토가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅳ.3_8",
+          "quote": "비신분자는 업무상횡",
+          "section_path": "Ⅳ.3"
+        },
+        {
+          "comment_id": "comm_001692_제356조_Ⅳ.3_8",
+          "quote": "령죄의 성립 가능성 및 단순횡령죄의 공동정범의 성립 가능성은 배제되고, 가공 정도에 따라 단지 단순횡령죄의 교사범 또는 방조범이 문제될 뿐이라고 한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "variant_group": "art356_sec4_3.nonstatus_participation"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "비신분자의 업무상횡령 또는 단순횡령 공동정범 성립에 관한 경쟁 견해의 근거가 현재 source scope에 없다.",
+    "형법 제33조 적용 및 관련 판례 원문은 현재 source scope에 없다.",
+    "[coverage_gap_not_recorded] The empty coverage-gaps array incorrectly suggests complete coverage even though the source's affirmative competing position on non-status co-principal liability has not been represented."
+  ],
+  "issue_tag": "art356_sec4_3",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "단순 보관자 또는 비신분자가 업무상 보관자의 횡령 범행에 가공한 경우, 형법 제33조에 따라 단순횡령죄로만 볼 것인지 업무상횡령죄의 공범 성립을 인정하되 단순횡령죄 법정형으로 처벌할 것인지.",
+    "비신분자에게 단순횡령죄 또는 업무상횡령죄의 공동정범 성립을 인정할 것인지, 아니면 교사범 또는 방조범만 가능하다고 볼 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제356조_Ⅳ.3_8"
+    ],
+    "target_paths": [
+      "commentary://001692/제356조#sec4_3"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": [
+    {
+      "finding_id": "missing_competing_nonstatus_view",
+      "type": "missing_variant",
+      "note": "The source expressly reports a majority-scholarship and precedent position under which a non-status participant may be recognized as a co-principal, while the set includes only the competing exclusionary view. The variant group is therefore incomplete and does not preserve the source's competing positions.",
+      "impact": "이 그룹의 선택지가 불완전할 수 있음 — 선택 시 감안 필요"
+    }
+  ]
+}

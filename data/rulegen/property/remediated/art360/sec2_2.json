@@ -1,0 +1,329 @@
+{
+  "card_set_id": "kr.art360.art360.sec2_2.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art360.definition.object",
+          "request_id": "art360.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art360_sec2_2.object",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "점유이탈물횡령죄의 객체는 타인 소유의 점유이탈물이다.",
+      "request_ids": [
+        "art360.pass1.001"
+      ],
+      "review_notes": "객체의 소유자 및 점유이탈 상태를 구분하여 확인한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_4",
+          "quote": "본죄의 객체는 타인의 소유인 점유이탈물이다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art360.exception.ownerless-property",
+          "request_id": "art360.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art360_sec2_2.ownerless_property_exclusion",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "무주물은 타인 소유의 재물이 아니므로 점유이탈물횡령죄의 객체가 아니다.",
+      "request_ids": [
+        "art360.pass1.001"
+      ],
+      "review_notes": "무주물 여부는 타인 소유 요건에 대한 명시적 객체 제외 사유다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_4",
+          "quote": "타인 소유의 재물이므로 무 주물은 본죄의 객체가 아니다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art360.definition.lost-possession-property",
+          "request_id": "art360.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art360_sec2_2.lost_possession_property",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "점유이탈물이란 원래 점유자의 의사에 기하지 않고 그 점유를 벗어난 타인 소유 재물이다.",
+      "request_ids": [
+        "art360.pass1.001"
+      ],
+      "review_notes": "원래 점유자의 의사에 기하지 않은 점유 이탈 여부는 사실관계 평가를 필요로 한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_4",
+          "quote": "점유이탈물이란 원래 점유자의 의사에 기하지 않고 그의 점유를 벗어난 다른 사람 소유의 재물을 가리킨다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art360.standard.original-possessor-can-recover",
+          "request_id": "art360.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art360_sec2_2.original_possessor_recovery",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "원점유자가 물건 소재를 알고 다시 찾을 가능성이 있는 경우에는 타인의 점유가 존속하므로, 이를 영득하면 점유이탈물횡령죄가 아니라 절도죄가 성립한다.",
+      "request_ids": [
+        "art360.pass1.001"
+      ],
+      "review_notes": "물건 소재 인식과 회수 가능성에 따른 점유 존속 여부를 평가해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_4",
+          "quote": "원점유자가 물건의 소재",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_4",
+          "quote": "를 알고 다시 찾을 가능성이 있는 경우에는 타인의 점유가 존속되고 있는 재물에 해 당하므로 이를 영득한 때에는 절도죄가 성립할 뿐이지 본죄는 성립하지 않는다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art360.standard.management-place-property",
+          "request_id": "art360.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art360_sec2_2.managed_place_property",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "타인의 간수·관리 등 실력적 지배가 미치는 장소 안에 방치되거나 유류된 물건은 관리자의 점유에 속하여 점유이탈물이 아니고, 영득 시 절도죄의 객체가 된다.",
+      "request_ids": [
+        "art360.pass1.001"
+      ],
+      "review_notes": "장소 관리자에게 실력적 지배와 점유가 인정되는지는 구체적 관리 상태에 따라 검토한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_4",
+          "quote": "타인의 간수나 관리 등 실력적 지배가 미치고 있는 장소 내 (여관, 당구장 또는 PC방 등) 에서 방치되거나 유류된 물건 (이는 그 관리자의 점유에 속한다고 보아야 하므로 점유 , 또 잘못 떨어뜨 이탈물이 아니며 따라서 본죄가 아니라 절도죄의 객체가 될 뿐이다)",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art360.standard.dead-victim-property-holding",
+          "request_id": "art360.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art360_sec2_2.deceased_victim_possession",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "피해자를 살해한 방에서 사망 피해자 곁에 약 4시간 30분 있다가 피해자의 자취방 벽에 걸린 피해자 소지 물건을 영득의사로 가져간 경우, 판례는 피해자의 생전 점유가 사망 후에도 계속된다고 보았다.",
+      "request_ids": [
+        "art360.pass1.001"
+      ],
+      "review_notes": "사망 후 점유 계속의 범위와 해당 사실관계의 한계를 원판례로 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_5",
+          "quote": "판례는 피해자를 살해한 방에서 사망한 피해자 곁에 4시간 30 분 정도 있다가 그곳 피해자의 자취방 벽에 걸려있던 피해자가 소지하는 물건 을 영득의 의사로 가지고 나온 경우 피해자가 생전에 가지는 점유는 사망 후에 도 계속되는 것으로 보았다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art360.variant.mistaken-bank-transfer-lost-property",
+          "request_id": "art360.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "policy_variant",
+      "id": "art360_sec2_2.mistaken_bank_transfer_lost_property_view",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "자기 은행계좌에 착오송금된 금원을 임의로 인출·사용한 경우 점유이탈물횡령죄의 대상이 된다는 견해가 있다.",
+      "request_ids": [
+        "art360.pass1.001"
+      ],
+      "review_notes": "판례상 횡령죄 구성과 경쟁하는 학설로서 독립적으로 보존하며, 선택하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_5",
+          "quote": "자신의 은행계좌로 착오 송금된 금원을 임의로 인출하여 사용한 경우 본죄의 대 상이 된다는 견해",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": "art360_sec2_2.mistaken_bank_transfer"
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art360.standard.mistaken-bank-transfer-embezzlement-holding",
+          "request_id": "art360.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "policy_variant",
+      "id": "art360_sec2_2.mistaken_bank_transfer_embezzlement_holding",
+      "norm_kind": "variant",
+      "polarity": "negative",
+      "proposition": "자기 은행계좌에 착오 입금된 금원은 판례상 횡령죄의 객체가 되며 점유이탈물횡령죄의 객체로 보지 않는다.",
+      "request_ids": [
+        "art360.pass1.001"
+      ],
+      "review_notes": "보고된 판례 입장이지만 원판례와 사용자 제공 1차 판례 인덱스를 확인하기 전까지 정책으로 확정하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_5",
+          "quote": "판 례는 일관하여 횡령죄의 객체가 된다고 본다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": "art360_sec2_2.mistaken_bank_transfer"
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art360.standard.public-transport-unfound-property-holding",
+          "request_id": "art360.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art360_sec2_2.public_transport_unfound_property",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "고속버스 또는 지하철에서 승객이 두고 내린 유실물을 운전사·승무원이 현실적으로 발견하기 전 다른 승객이 가져간 경우에는 절도죄가 아니라 점유이탈물횡령죄에 해당한다는 판례가 소개되어 있다.",
+      "request_ids": [
+        "art360.pass1.001"
+      ],
+      "review_notes": "운전사 또는 승무원의 현실적 발견 여부를 중심으로 점유 개시를 검토하며, 원판례 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_5",
+          "quote": "운전사나 승무원이 그 유실물을 현실적으로 발견하지 아니하는 한 이에 대한 점유를 개시하였다고 할 수 없고 그 사이에 다른 승객이 이를 발견하고 가져갔 다면 절도죄가 아니라 본죄에 해당한다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art360.standard.public-transport-found-property",
+          "request_id": "art360.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art360_sec2_2.public_transport_found_property",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "운전사나 승무원이 유실물을 현실적으로 발견한 뒤 제3자가 가져가면 운전사·승무원의 점유가 인정되어 절도죄로 처벌된다.",
+      "request_ids": [
+        "art360.pass1.001"
+      ],
+      "review_notes": "현실적 발견 후 점유 인정의 범위와 절도죄 성립은 원판례로 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_6",
+          "quote": "운전사나 승무원이 유실물을 현실적으로 발견한 후라면 이들에게 점유가 인정 되며 그 후 제3자가 그 물건을 가져가는 행위는 절도죄로 처벌받을 것이다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope는 제360조 Ⅱ.2의 세 개 commentary section에 한정되어 있다.",
+    "보고된 판례의 원문과 사용자 제공 1차 판례 인덱스가 제공되지 않아 commentary-reported precedent의 확인이 필요하다.",
+    "점유이탈물횡령죄와 위탁물횡령죄의 관계, 보호법익·위험범성, 점유 오인 사례에 관한 직접 자료는 현재 source scope에 없다."
+  ],
+  "issue_tag": "art360_sec2_2",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "자기 은행계좌에 착오송금된 금원의 임의 인출·사용을 점유이탈물횡령으로 볼 수 있는지, 판례의 횡령죄 구성과 어떻게 조정할 것인지.",
+    "점유이탈물횡령죄의 보호 정도를 위험범으로 볼 것인지 및 보호법익의 범위를 어떻게 정할 것인지.",
+    "타인이 점유하는 재물을 점유이탈물로 오인하여 영득한 경우 점유이탈물횡령죄로 처벌할 것인지 무죄로 볼 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제360조_Ⅱ.2_4",
+      "comm_001692_제360조_Ⅱ.2_5",
+      "comm_001692_제360조_Ⅱ.2_6"
+    ],
+    "target_paths": [
+      "commentary://001692/제360조#sec2_2"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": [
+    {
+      "finding_id": "missing_variant.deceased_property",
+      "type": "missing_variant",
+      "note": "사자와 함께 있는 재물에 관하여 자료는 일반적 판단 요소, 영득 목적 살해가 아닌 경우 일단 점유이탈물이 된다는 견해, 피해자의 생전 점유가 계속된다는 판례 사례, 자취방 소유자나 관리자의 점유로 보아야 한다는 견해를 함께 제시한다. 대상은 판례 사례 카드만 보존하면서 coverage_gaps를 빈 배열로 두어 경쟁 견해와 일반 기준의 누락을 표시하지 않았다.",
+      "impact": "이 그룹의 선택지가 불완전할 수 있음 — 선택 시 감안 필요"
+    },
+    {
+      "finding_id": "missing_variant.public_transport_control",
+      "type": "missing_variant",
+      "note": "운전사에게 사실상 재물지배를 인정해야 한다는 판례 비판 견해가 명시되어 있으나, 대상은 현실적 발견 전 점유를 부정하는 판례 입장만 수록하고 이 경쟁 견해의 누락을 표시하지 않았다.",
+      "impact": "이 그룹의 선택지가 불완전할 수 있음 — 선택 시 감안 필요"
+    }
+  ]
+}

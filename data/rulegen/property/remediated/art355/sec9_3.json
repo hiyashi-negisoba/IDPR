@@ -1,0 +1,57 @@
+{
+  "card_set_id": "kr.art355.art355.sec9_3.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art355.variant.mixed-business-and-personal-custody",
+          "request_id": "art355.pass1.039"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "context_only",
+      "id": "art355_sec9_3.mixed_business_personal_custody",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "업무상 보관금과 개인적 위탁 보관금을 혼합 점유하다 일부를 횡령하고 어느 부분인지 식별할 수 없는 경우 업무상횡령죄만 성립한다는 견해가 있다.",
+      "request_ids": [
+        "art355.pass1.039"
+      ],
+      "review_notes": "업무상 보관금과 개인적 위탁 보관금의 혼합 점유 및 횡령 부분 식별 불가능 상황에서 업무상횡령죄만 성립한다는 견해로 보고되어 있다. 대안적 구성 및 판례 태도 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제355조_1항_Ⅸ.3_131",
+          "quote": "업무상 보관 중인 금전과 개인적 위탁에 의한 보관금을 혼합하여 점유하던 중 그 일부를 횡령하였고 그것이 어느 부분인지 식별이 불가능할 때에는 업무상 횡령죄만 성립한다고 볼 것이라는 견해가 있다.",
+          "section_path": "Ⅸ.3"
+        }
+      ],
+      "variant_group": "art355_sec9_3.mixed_custody_offense"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope에는 업무상 보관금과 개인적 위탁 보관금의 혼합 점유에 관한 하나의 견해만 포함되어 있으며, 대립 견해 및 관련 판례 원문은 포함되어 있지 않다.",
+    "제3자의 장물취득죄·횡령죄 공범 관계 및 장물보관죄·횡령죄 경합 관계에 관한 근거 자료는 현재 source scope에 없다."
+  ],
+  "issue_tag": "art355_sec9_3",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "보관자와 공모하여 횡령 재물의 점유를 이전받은 제3자에 대하여 장물취득죄를 인정할지, 횡령죄의 공범으로 볼지 여부.",
+    "장물 보관자가 장물을 영득한 경우 장물보관죄와 횡령죄의 관계를 실체적 경합으로 볼지, 장물보관죄와 횡령죄 불능미수의 경합범으로 볼지 여부.",
+    "회사자금을 공모 없이 수령한 제3자에 대한 판례상 장물취득죄 성립 태도와 횡령죄 방조범 성립이 타당하다는 비판적 견해 중 어느 입장을 취할지 여부.",
+    "업무상 보관금과 개인적 위탁 보관금이 혼합되어 횡령 부분을 식별할 수 없는 경우 업무상횡령죄만 성립한다는 견해의 대안적 구성과 판례 태도를 확인해야 한다."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제355조_1항_Ⅸ.3_131"
+    ],
+    "target_paths": [
+      "commentary://001692/제355조#sec9_3"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

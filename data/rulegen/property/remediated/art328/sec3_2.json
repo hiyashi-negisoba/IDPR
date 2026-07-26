@@ -1,0 +1,81 @@
+{
+  "card_set_id": "kr.art328.art328.sec3_2.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art328.causal-link.acknowledgment-retroactive-kinship",
+          "request_id": "art328.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art328_sec3_2.acknowledgment_retroactive_kinship",
+      "norm_kind": "causal_link",
+      "polarity": "positive",
+      "proposition": "인지 전에는 친족상도례가 적용되지 않지만, 인지가 있으면 친족관계가 소급적으로 인정되어 친족상도례가 적용된다.",
+      "request_ids": [
+        "art328.pass1.001"
+      ],
+      "review_notes": "인지의 존재와 그에 따른 친족관계의 소급 인정 여부를 전제로 한 적용 관계다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제328조_Ⅲ.2_9",
+          "quote": "인지 전에는 친족상도례가 적용되지 않지만, 일단 인지가 있게 되면 소급적으로 친족관계가 인정되어(민법 제860조) 친족상도례가 적용된다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art328.causal-link.full-adoption-ends-pre-adoption-kinship",
+          "request_id": "art328.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art328_sec3_2.full_adoption_ends_pre_adoption_kinship",
+      "norm_kind": "causal_link",
+      "polarity": "negative",
+      "proposition": "친양자 입양이 확정되면 입양 전 친족관계가 종료한다.",
+      "request_ids": [
+        "art328.pass1.001"
+      ],
+      "review_notes": "친양자 입양 확정은 입양 전 친족관계의 존속을 부정하는 명시적 법률효과로 정리한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제328조_Ⅲ.2_9",
+          "quote": "친양자의 입양 전의 친족관계는 친양자 입양이 확정된 때에는 종료한다",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "친족상도례 적용에 필요한 친족관계가 행위자·소유자·점유자 중 누구 사이에 요구되는지에 관한 source scope가 제공되지 않았습니다."
+  ],
+  "issue_tag": "art328_sec3_2",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "재산죄에서 친족상도례 적용에 필요한 친족관계를 행위자와 소유자 사이, 점유자 사이 또는 소유자와 점유자 모두 사이 중 어디에 요구할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제328조_Ⅲ.2_9"
+    ],
+    "target_paths": [
+      "commentary://001692/제328조#sec3_2"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

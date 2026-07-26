@@ -1,0 +1,1087 @@
+{
+  "version": "1.0.0",
+  "api_calls": 0,
+  "created_at": "2026-07-26T14:29:07.477713+00:00",
+  "runtime": {
+    "scli": "tools/scallop/scli-0.2.4-linux-x86_64",
+    "version": "scli 0.2.4",
+    "sha256": "8c5ec86fcdb0dbd55698eff7570ac7396d0b0878e601207f868d61f9d6482b9a"
+  },
+  "model_output_executed_directly": false,
+  "method": "사기 골든과 같은 축을 카드에서 결정론적으로 유도",
+  "counts": {
+    "units": 10,
+    "scenarios": 55,
+    "passed": 55
+  },
+  "units": [
+    {
+      "unit": "breach_of_trust_bribe",
+      "scenarios": [
+        {
+          "scenario_id": "ordinary_established",
+          "expected_nonempty": {
+            "breach_of_trust_bribe_elements_satisfied": true,
+            "breach_of_trust_bribe_established": true,
+            "breach_of_trust_bribe_not_established": false,
+            "breach_of_trust_bribe_undetermined": false,
+            "breach_of_trust_bribe_conflict": false
+          },
+          "observed_nonempty": {
+            "breach_of_trust_bribe_elements_satisfied": true,
+            "breach_of_trust_bribe_established": true,
+            "breach_of_trust_bribe_not_established": false,
+            "breach_of_trust_bribe_undetermined": false,
+            "breach_of_trust_bribe_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "incomplete_case_blocked",
+          "expected_nonempty": {
+            "breach_of_trust_bribe_elements_satisfied": true,
+            "breach_of_trust_bribe_established": false,
+            "breach_of_trust_bribe_not_established": false,
+            "breach_of_trust_bribe_undetermined": false,
+            "breach_of_trust_bribe_conflict": false
+          },
+          "observed_nonempty": {
+            "breach_of_trust_bribe_elements_satisfied": true,
+            "breach_of_trust_bribe_established": false,
+            "breach_of_trust_bribe_not_established": false,
+            "breach_of_trust_bribe_undetermined": false,
+            "breach_of_trust_bribe_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "card_conflict_blocks",
+          "expected_nonempty": {
+            "breach_of_trust_bribe_elements_satisfied": true,
+            "breach_of_trust_bribe_established": false,
+            "breach_of_trust_bribe_not_established": true,
+            "breach_of_trust_bribe_undetermined": false,
+            "breach_of_trust_bribe_conflict": true
+          },
+          "observed_nonempty": {
+            "breach_of_trust_bribe_elements_satisfied": true,
+            "breach_of_trust_bribe_established": false,
+            "breach_of_trust_bribe_not_established": true,
+            "breach_of_trust_bribe_undetermined": false,
+            "breach_of_trust_bribe_conflict": true
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "unknown_blocks",
+          "expected_nonempty": {
+            "breach_of_trust_bribe_elements_satisfied": false,
+            "breach_of_trust_bribe_established": false,
+            "breach_of_trust_bribe_not_established": false,
+            "breach_of_trust_bribe_undetermined": true,
+            "breach_of_trust_bribe_conflict": false
+          },
+          "observed_nonempty": {
+            "breach_of_trust_bribe_elements_satisfied": false,
+            "breach_of_trust_bribe_established": false,
+            "breach_of_trust_bribe_not_established": false,
+            "breach_of_trust_bribe_undetermined": true,
+            "breach_of_trust_bribe_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "negative_bar_blocks",
+          "expected_nonempty": {
+            "breach_of_trust_bribe_elements_satisfied": true,
+            "breach_of_trust_bribe_established": false,
+            "breach_of_trust_bribe_not_established": true,
+            "breach_of_trust_bribe_undetermined": false,
+            "breach_of_trust_bribe_conflict": false
+          },
+          "observed_nonempty": {
+            "breach_of_trust_bribe_elements_satisfied": true,
+            "breach_of_trust_bribe_established": false,
+            "breach_of_trust_bribe_not_established": true,
+            "breach_of_trust_bribe_undetermined": false,
+            "breach_of_trust_bribe_conflict": false
+          },
+          "passed": true
+        }
+      ],
+      "passed": 5,
+      "total": 5
+    },
+    {
+      "unit": "breach_of_trust",
+      "scenarios": [
+        {
+          "scenario_id": "ordinary_established",
+          "expected_nonempty": {
+            "breach_of_trust_elements_satisfied": true,
+            "breach_of_trust_established": true,
+            "breach_of_trust_not_established": false,
+            "breach_of_trust_undetermined": false,
+            "breach_of_trust_conflict": false
+          },
+          "observed_nonempty": {
+            "breach_of_trust_elements_satisfied": true,
+            "breach_of_trust_established": true,
+            "breach_of_trust_not_established": false,
+            "breach_of_trust_undetermined": false,
+            "breach_of_trust_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "incomplete_case_blocked",
+          "expected_nonempty": {
+            "breach_of_trust_elements_satisfied": true,
+            "breach_of_trust_established": false,
+            "breach_of_trust_not_established": false,
+            "breach_of_trust_undetermined": false,
+            "breach_of_trust_conflict": false
+          },
+          "observed_nonempty": {
+            "breach_of_trust_elements_satisfied": true,
+            "breach_of_trust_established": false,
+            "breach_of_trust_not_established": false,
+            "breach_of_trust_undetermined": false,
+            "breach_of_trust_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "card_conflict_blocks",
+          "expected_nonempty": {
+            "breach_of_trust_elements_satisfied": true,
+            "breach_of_trust_established": false,
+            "breach_of_trust_not_established": true,
+            "breach_of_trust_undetermined": false,
+            "breach_of_trust_conflict": true
+          },
+          "observed_nonempty": {
+            "breach_of_trust_elements_satisfied": true,
+            "breach_of_trust_established": false,
+            "breach_of_trust_not_established": true,
+            "breach_of_trust_undetermined": false,
+            "breach_of_trust_conflict": true
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "unknown_blocks",
+          "expected_nonempty": {
+            "breach_of_trust_elements_satisfied": false,
+            "breach_of_trust_established": false,
+            "breach_of_trust_not_established": false,
+            "breach_of_trust_undetermined": true,
+            "breach_of_trust_conflict": false
+          },
+          "observed_nonempty": {
+            "breach_of_trust_elements_satisfied": false,
+            "breach_of_trust_established": false,
+            "breach_of_trust_not_established": false,
+            "breach_of_trust_undetermined": true,
+            "breach_of_trust_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "negative_bar_blocks",
+          "expected_nonempty": {
+            "breach_of_trust_elements_satisfied": true,
+            "breach_of_trust_established": false,
+            "breach_of_trust_not_established": true,
+            "breach_of_trust_undetermined": false,
+            "breach_of_trust_conflict": false
+          },
+          "observed_nonempty": {
+            "breach_of_trust_elements_satisfied": true,
+            "breach_of_trust_established": false,
+            "breach_of_trust_not_established": true,
+            "breach_of_trust_undetermined": false,
+            "breach_of_trust_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "aggravation_flag_on",
+          "expected_nonempty": {
+            "breach_of_trust_elements_satisfied": true,
+            "breach_of_trust_established": true,
+            "breach_of_trust_not_established": false,
+            "breach_of_trust_undetermined": false,
+            "breach_of_trust_conflict": false,
+            "breach_of_trust_aggravation": true
+          },
+          "observed_nonempty": {
+            "breach_of_trust_elements_satisfied": true,
+            "breach_of_trust_established": true,
+            "breach_of_trust_not_established": false,
+            "breach_of_trust_undetermined": false,
+            "breach_of_trust_conflict": false,
+            "breach_of_trust_aggravation": true
+          },
+          "passed": true
+        }
+      ],
+      "passed": 6,
+      "total": 6
+    },
+    {
+      "unit": "embezzlement",
+      "scenarios": [
+        {
+          "scenario_id": "ordinary_established",
+          "expected_nonempty": {
+            "embezzlement_elements_satisfied": true,
+            "embezzlement_established": true,
+            "embezzlement_not_established": false,
+            "embezzlement_undetermined": false,
+            "embezzlement_conflict": false
+          },
+          "observed_nonempty": {
+            "embezzlement_elements_satisfied": true,
+            "embezzlement_established": true,
+            "embezzlement_not_established": false,
+            "embezzlement_undetermined": false,
+            "embezzlement_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "incomplete_case_blocked",
+          "expected_nonempty": {
+            "embezzlement_elements_satisfied": true,
+            "embezzlement_established": false,
+            "embezzlement_not_established": false,
+            "embezzlement_undetermined": false,
+            "embezzlement_conflict": false
+          },
+          "observed_nonempty": {
+            "embezzlement_elements_satisfied": true,
+            "embezzlement_established": false,
+            "embezzlement_not_established": false,
+            "embezzlement_undetermined": false,
+            "embezzlement_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "card_conflict_blocks",
+          "expected_nonempty": {
+            "embezzlement_elements_satisfied": true,
+            "embezzlement_established": false,
+            "embezzlement_not_established": true,
+            "embezzlement_undetermined": false,
+            "embezzlement_conflict": true
+          },
+          "observed_nonempty": {
+            "embezzlement_elements_satisfied": true,
+            "embezzlement_established": false,
+            "embezzlement_not_established": true,
+            "embezzlement_undetermined": false,
+            "embezzlement_conflict": true
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "unknown_blocks",
+          "expected_nonempty": {
+            "embezzlement_elements_satisfied": false,
+            "embezzlement_established": false,
+            "embezzlement_not_established": false,
+            "embezzlement_undetermined": true,
+            "embezzlement_conflict": false
+          },
+          "observed_nonempty": {
+            "embezzlement_elements_satisfied": false,
+            "embezzlement_established": false,
+            "embezzlement_not_established": false,
+            "embezzlement_undetermined": true,
+            "embezzlement_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "negative_bar_blocks",
+          "expected_nonempty": {
+            "embezzlement_elements_satisfied": true,
+            "embezzlement_established": false,
+            "embezzlement_not_established": true,
+            "embezzlement_undetermined": false,
+            "embezzlement_conflict": false
+          },
+          "observed_nonempty": {
+            "embezzlement_elements_satisfied": true,
+            "embezzlement_established": false,
+            "embezzlement_not_established": true,
+            "embezzlement_undetermined": false,
+            "embezzlement_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "aggravation_flag_on",
+          "expected_nonempty": {
+            "embezzlement_elements_satisfied": true,
+            "embezzlement_established": true,
+            "embezzlement_not_established": false,
+            "embezzlement_undetermined": false,
+            "embezzlement_conflict": false,
+            "embezzlement_aggravation": true
+          },
+          "observed_nonempty": {
+            "embezzlement_elements_satisfied": true,
+            "embezzlement_established": true,
+            "embezzlement_not_established": false,
+            "embezzlement_undetermined": false,
+            "embezzlement_conflict": false,
+            "embezzlement_aggravation": true
+          },
+          "passed": true
+        }
+      ],
+      "passed": 6,
+      "total": 6
+    },
+    {
+      "unit": "extortion",
+      "scenarios": [
+        {
+          "scenario_id": "ordinary_established",
+          "expected_nonempty": {
+            "extortion_elements_satisfied": true,
+            "extortion_established": true,
+            "extortion_not_established": false,
+            "extortion_undetermined": false,
+            "extortion_conflict": false
+          },
+          "observed_nonempty": {
+            "extortion_elements_satisfied": true,
+            "extortion_established": true,
+            "extortion_not_established": false,
+            "extortion_undetermined": false,
+            "extortion_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "incomplete_case_blocked",
+          "expected_nonempty": {
+            "extortion_elements_satisfied": true,
+            "extortion_established": false,
+            "extortion_not_established": false,
+            "extortion_undetermined": false,
+            "extortion_conflict": false
+          },
+          "observed_nonempty": {
+            "extortion_elements_satisfied": true,
+            "extortion_established": false,
+            "extortion_not_established": false,
+            "extortion_undetermined": false,
+            "extortion_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "card_conflict_blocks",
+          "expected_nonempty": {
+            "extortion_elements_satisfied": true,
+            "extortion_established": false,
+            "extortion_not_established": true,
+            "extortion_undetermined": false,
+            "extortion_conflict": true
+          },
+          "observed_nonempty": {
+            "extortion_elements_satisfied": true,
+            "extortion_established": false,
+            "extortion_not_established": true,
+            "extortion_undetermined": false,
+            "extortion_conflict": true
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "unknown_blocks",
+          "expected_nonempty": {
+            "extortion_elements_satisfied": false,
+            "extortion_established": false,
+            "extortion_not_established": false,
+            "extortion_undetermined": true,
+            "extortion_conflict": false
+          },
+          "observed_nonempty": {
+            "extortion_elements_satisfied": false,
+            "extortion_established": false,
+            "extortion_not_established": false,
+            "extortion_undetermined": true,
+            "extortion_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "negative_bar_blocks",
+          "expected_nonempty": {
+            "extortion_elements_satisfied": true,
+            "extortion_established": false,
+            "extortion_not_established": true,
+            "extortion_undetermined": false,
+            "extortion_conflict": false
+          },
+          "observed_nonempty": {
+            "extortion_elements_satisfied": true,
+            "extortion_established": false,
+            "extortion_not_established": true,
+            "extortion_undetermined": false,
+            "extortion_conflict": false
+          },
+          "passed": true
+        }
+      ],
+      "passed": 5,
+      "total": 5
+    },
+    {
+      "unit": "interference_with_exercise_of_right",
+      "scenarios": [
+        {
+          "scenario_id": "ordinary_established",
+          "expected_nonempty": {
+            "interference_with_exercise_of_right_elements_satisfied": true,
+            "interference_with_exercise_of_right_established": true,
+            "interference_with_exercise_of_right_not_established": false,
+            "interference_with_exercise_of_right_undetermined": false,
+            "interference_with_exercise_of_right_conflict": false
+          },
+          "observed_nonempty": {
+            "interference_with_exercise_of_right_elements_satisfied": true,
+            "interference_with_exercise_of_right_established": true,
+            "interference_with_exercise_of_right_not_established": false,
+            "interference_with_exercise_of_right_undetermined": false,
+            "interference_with_exercise_of_right_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "incomplete_case_blocked",
+          "expected_nonempty": {
+            "interference_with_exercise_of_right_elements_satisfied": true,
+            "interference_with_exercise_of_right_established": false,
+            "interference_with_exercise_of_right_not_established": false,
+            "interference_with_exercise_of_right_undetermined": false,
+            "interference_with_exercise_of_right_conflict": false
+          },
+          "observed_nonempty": {
+            "interference_with_exercise_of_right_elements_satisfied": true,
+            "interference_with_exercise_of_right_established": false,
+            "interference_with_exercise_of_right_not_established": false,
+            "interference_with_exercise_of_right_undetermined": false,
+            "interference_with_exercise_of_right_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "card_conflict_blocks",
+          "expected_nonempty": {
+            "interference_with_exercise_of_right_elements_satisfied": true,
+            "interference_with_exercise_of_right_established": false,
+            "interference_with_exercise_of_right_not_established": true,
+            "interference_with_exercise_of_right_undetermined": false,
+            "interference_with_exercise_of_right_conflict": true
+          },
+          "observed_nonempty": {
+            "interference_with_exercise_of_right_elements_satisfied": true,
+            "interference_with_exercise_of_right_established": false,
+            "interference_with_exercise_of_right_not_established": true,
+            "interference_with_exercise_of_right_undetermined": false,
+            "interference_with_exercise_of_right_conflict": true
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "unknown_blocks",
+          "expected_nonempty": {
+            "interference_with_exercise_of_right_elements_satisfied": false,
+            "interference_with_exercise_of_right_established": false,
+            "interference_with_exercise_of_right_not_established": false,
+            "interference_with_exercise_of_right_undetermined": true,
+            "interference_with_exercise_of_right_conflict": false
+          },
+          "observed_nonempty": {
+            "interference_with_exercise_of_right_elements_satisfied": false,
+            "interference_with_exercise_of_right_established": false,
+            "interference_with_exercise_of_right_not_established": false,
+            "interference_with_exercise_of_right_undetermined": true,
+            "interference_with_exercise_of_right_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "negative_bar_blocks",
+          "expected_nonempty": {
+            "interference_with_exercise_of_right_elements_satisfied": true,
+            "interference_with_exercise_of_right_established": false,
+            "interference_with_exercise_of_right_not_established": true,
+            "interference_with_exercise_of_right_undetermined": false,
+            "interference_with_exercise_of_right_conflict": false
+          },
+          "observed_nonempty": {
+            "interference_with_exercise_of_right_elements_satisfied": true,
+            "interference_with_exercise_of_right_established": false,
+            "interference_with_exercise_of_right_not_established": true,
+            "interference_with_exercise_of_right_undetermined": false,
+            "interference_with_exercise_of_right_conflict": false
+          },
+          "passed": true
+        }
+      ],
+      "passed": 5,
+      "total": 5
+    },
+    {
+      "unit": "lost_property_embezzlement",
+      "scenarios": [
+        {
+          "scenario_id": "ordinary_established",
+          "expected_nonempty": {
+            "lost_property_embezzlement_elements_satisfied": true,
+            "lost_property_embezzlement_established": true,
+            "lost_property_embezzlement_not_established": false,
+            "lost_property_embezzlement_undetermined": false,
+            "lost_property_embezzlement_conflict": false
+          },
+          "observed_nonempty": {
+            "lost_property_embezzlement_elements_satisfied": true,
+            "lost_property_embezzlement_established": true,
+            "lost_property_embezzlement_not_established": false,
+            "lost_property_embezzlement_undetermined": false,
+            "lost_property_embezzlement_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "incomplete_case_blocked",
+          "expected_nonempty": {
+            "lost_property_embezzlement_elements_satisfied": true,
+            "lost_property_embezzlement_established": false,
+            "lost_property_embezzlement_not_established": false,
+            "lost_property_embezzlement_undetermined": false,
+            "lost_property_embezzlement_conflict": false
+          },
+          "observed_nonempty": {
+            "lost_property_embezzlement_elements_satisfied": true,
+            "lost_property_embezzlement_established": false,
+            "lost_property_embezzlement_not_established": false,
+            "lost_property_embezzlement_undetermined": false,
+            "lost_property_embezzlement_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "card_conflict_blocks",
+          "expected_nonempty": {
+            "lost_property_embezzlement_elements_satisfied": true,
+            "lost_property_embezzlement_established": false,
+            "lost_property_embezzlement_not_established": true,
+            "lost_property_embezzlement_undetermined": false,
+            "lost_property_embezzlement_conflict": true
+          },
+          "observed_nonempty": {
+            "lost_property_embezzlement_elements_satisfied": true,
+            "lost_property_embezzlement_established": false,
+            "lost_property_embezzlement_not_established": true,
+            "lost_property_embezzlement_undetermined": false,
+            "lost_property_embezzlement_conflict": true
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "unknown_blocks",
+          "expected_nonempty": {
+            "lost_property_embezzlement_elements_satisfied": false,
+            "lost_property_embezzlement_established": false,
+            "lost_property_embezzlement_not_established": false,
+            "lost_property_embezzlement_undetermined": true,
+            "lost_property_embezzlement_conflict": false
+          },
+          "observed_nonempty": {
+            "lost_property_embezzlement_elements_satisfied": false,
+            "lost_property_embezzlement_established": false,
+            "lost_property_embezzlement_not_established": false,
+            "lost_property_embezzlement_undetermined": true,
+            "lost_property_embezzlement_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "negative_bar_blocks",
+          "expected_nonempty": {
+            "lost_property_embezzlement_elements_satisfied": true,
+            "lost_property_embezzlement_established": false,
+            "lost_property_embezzlement_not_established": true,
+            "lost_property_embezzlement_undetermined": false,
+            "lost_property_embezzlement_conflict": false
+          },
+          "observed_nonempty": {
+            "lost_property_embezzlement_elements_satisfied": true,
+            "lost_property_embezzlement_established": false,
+            "lost_property_embezzlement_not_established": true,
+            "lost_property_embezzlement_undetermined": false,
+            "lost_property_embezzlement_conflict": false
+          },
+          "passed": true
+        }
+      ],
+      "passed": 5,
+      "total": 5
+    },
+    {
+      "unit": "occupational_status",
+      "scenarios": [
+        {
+          "scenario_id": "ordinary_established",
+          "expected_nonempty": {
+            "occupational_status_elements_satisfied": true,
+            "occupational_status_established": true,
+            "occupational_status_not_established": false,
+            "occupational_status_undetermined": false,
+            "occupational_status_conflict": false
+          },
+          "observed_nonempty": {
+            "occupational_status_elements_satisfied": true,
+            "occupational_status_established": true,
+            "occupational_status_not_established": false,
+            "occupational_status_undetermined": false,
+            "occupational_status_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "incomplete_case_blocked",
+          "expected_nonempty": {
+            "occupational_status_elements_satisfied": true,
+            "occupational_status_established": false,
+            "occupational_status_not_established": false,
+            "occupational_status_undetermined": false,
+            "occupational_status_conflict": false
+          },
+          "observed_nonempty": {
+            "occupational_status_elements_satisfied": true,
+            "occupational_status_established": false,
+            "occupational_status_not_established": false,
+            "occupational_status_undetermined": false,
+            "occupational_status_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "card_conflict_blocks",
+          "expected_nonempty": {
+            "occupational_status_elements_satisfied": true,
+            "occupational_status_established": false,
+            "occupational_status_not_established": true,
+            "occupational_status_undetermined": false,
+            "occupational_status_conflict": true
+          },
+          "observed_nonempty": {
+            "occupational_status_elements_satisfied": true,
+            "occupational_status_established": false,
+            "occupational_status_not_established": true,
+            "occupational_status_undetermined": false,
+            "occupational_status_conflict": true
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "unknown_blocks",
+          "expected_nonempty": {
+            "occupational_status_elements_satisfied": false,
+            "occupational_status_established": false,
+            "occupational_status_not_established": false,
+            "occupational_status_undetermined": true,
+            "occupational_status_conflict": false
+          },
+          "observed_nonempty": {
+            "occupational_status_elements_satisfied": false,
+            "occupational_status_established": false,
+            "occupational_status_not_established": false,
+            "occupational_status_undetermined": true,
+            "occupational_status_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "negative_bar_blocks",
+          "expected_nonempty": {
+            "occupational_status_elements_satisfied": true,
+            "occupational_status_established": false,
+            "occupational_status_not_established": true,
+            "occupational_status_undetermined": false,
+            "occupational_status_conflict": false
+          },
+          "observed_nonempty": {
+            "occupational_status_elements_satisfied": true,
+            "occupational_status_established": false,
+            "occupational_status_not_established": true,
+            "occupational_status_undetermined": false,
+            "occupational_status_conflict": false
+          },
+          "passed": true
+        }
+      ],
+      "passed": 5,
+      "total": 5
+    },
+    {
+      "unit": "property_damage",
+      "scenarios": [
+        {
+          "scenario_id": "ordinary_established",
+          "expected_nonempty": {
+            "property_damage_elements_satisfied": true,
+            "property_damage_established": true,
+            "property_damage_not_established": false,
+            "property_damage_undetermined": false,
+            "property_damage_conflict": false
+          },
+          "observed_nonempty": {
+            "property_damage_elements_satisfied": true,
+            "property_damage_established": true,
+            "property_damage_not_established": false,
+            "property_damage_undetermined": false,
+            "property_damage_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "incomplete_case_blocked",
+          "expected_nonempty": {
+            "property_damage_elements_satisfied": true,
+            "property_damage_established": false,
+            "property_damage_not_established": false,
+            "property_damage_undetermined": false,
+            "property_damage_conflict": false
+          },
+          "observed_nonempty": {
+            "property_damage_elements_satisfied": true,
+            "property_damage_established": false,
+            "property_damage_not_established": false,
+            "property_damage_undetermined": false,
+            "property_damage_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "card_conflict_blocks",
+          "expected_nonempty": {
+            "property_damage_elements_satisfied": true,
+            "property_damage_established": false,
+            "property_damage_not_established": true,
+            "property_damage_undetermined": false,
+            "property_damage_conflict": true
+          },
+          "observed_nonempty": {
+            "property_damage_elements_satisfied": true,
+            "property_damage_established": false,
+            "property_damage_not_established": true,
+            "property_damage_undetermined": false,
+            "property_damage_conflict": true
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "unknown_blocks",
+          "expected_nonempty": {
+            "property_damage_elements_satisfied": false,
+            "property_damage_established": false,
+            "property_damage_not_established": false,
+            "property_damage_undetermined": true,
+            "property_damage_conflict": false
+          },
+          "observed_nonempty": {
+            "property_damage_elements_satisfied": false,
+            "property_damage_established": false,
+            "property_damage_not_established": false,
+            "property_damage_undetermined": true,
+            "property_damage_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "negative_bar_blocks",
+          "expected_nonempty": {
+            "property_damage_elements_satisfied": true,
+            "property_damage_established": false,
+            "property_damage_not_established": true,
+            "property_damage_undetermined": false,
+            "property_damage_conflict": false
+          },
+          "observed_nonempty": {
+            "property_damage_elements_satisfied": true,
+            "property_damage_established": false,
+            "property_damage_not_established": true,
+            "property_damage_undetermined": false,
+            "property_damage_conflict": false
+          },
+          "passed": true
+        }
+      ],
+      "passed": 5,
+      "total": 5
+    },
+    {
+      "unit": "robbery",
+      "scenarios": [
+        {
+          "scenario_id": "ordinary_established",
+          "expected_nonempty": {
+            "robbery_elements_satisfied": true,
+            "robbery_established": true,
+            "robbery_not_established": false,
+            "robbery_undetermined": false,
+            "robbery_conflict": false
+          },
+          "observed_nonempty": {
+            "robbery_elements_satisfied": true,
+            "robbery_established": true,
+            "robbery_not_established": false,
+            "robbery_undetermined": false,
+            "robbery_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "incomplete_case_blocked",
+          "expected_nonempty": {
+            "robbery_elements_satisfied": true,
+            "robbery_established": false,
+            "robbery_not_established": false,
+            "robbery_undetermined": false,
+            "robbery_conflict": false
+          },
+          "observed_nonempty": {
+            "robbery_elements_satisfied": true,
+            "robbery_established": false,
+            "robbery_not_established": false,
+            "robbery_undetermined": false,
+            "robbery_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "card_conflict_blocks",
+          "expected_nonempty": {
+            "robbery_elements_satisfied": true,
+            "robbery_established": false,
+            "robbery_not_established": true,
+            "robbery_undetermined": false,
+            "robbery_conflict": true
+          },
+          "observed_nonempty": {
+            "robbery_elements_satisfied": true,
+            "robbery_established": false,
+            "robbery_not_established": true,
+            "robbery_undetermined": false,
+            "robbery_conflict": true
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "unknown_blocks",
+          "expected_nonempty": {
+            "robbery_elements_satisfied": false,
+            "robbery_established": false,
+            "robbery_not_established": false,
+            "robbery_undetermined": true,
+            "robbery_conflict": false
+          },
+          "observed_nonempty": {
+            "robbery_elements_satisfied": false,
+            "robbery_established": false,
+            "robbery_not_established": false,
+            "robbery_undetermined": true,
+            "robbery_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "negative_bar_blocks",
+          "expected_nonempty": {
+            "robbery_elements_satisfied": true,
+            "robbery_established": false,
+            "robbery_not_established": true,
+            "robbery_undetermined": false,
+            "robbery_conflict": false
+          },
+          "observed_nonempty": {
+            "robbery_elements_satisfied": true,
+            "robbery_established": false,
+            "robbery_not_established": true,
+            "robbery_undetermined": false,
+            "robbery_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "aggravation_flag_on",
+          "expected_nonempty": {
+            "robbery_elements_satisfied": true,
+            "robbery_established": true,
+            "robbery_not_established": false,
+            "robbery_undetermined": false,
+            "robbery_conflict": false,
+            "robbery_aggravation": true
+          },
+          "observed_nonempty": {
+            "robbery_elements_satisfied": true,
+            "robbery_established": true,
+            "robbery_not_established": false,
+            "robbery_undetermined": false,
+            "robbery_conflict": false,
+            "robbery_aggravation": true
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "dual_track_conflict",
+          "expected_nonempty": {
+            "robbery_elements_satisfied": true,
+            "robbery_established": false,
+            "robbery_not_established": false,
+            "robbery_undetermined": false,
+            "robbery_conflict": true
+          },
+          "observed_nonempty": {
+            "robbery_elements_satisfied": true,
+            "robbery_established": false,
+            "robbery_not_established": false,
+            "robbery_undetermined": false,
+            "robbery_conflict": true
+          },
+          "passed": true
+        }
+      ],
+      "passed": 7,
+      "total": 7
+    },
+    {
+      "unit": "theft",
+      "scenarios": [
+        {
+          "scenario_id": "ordinary_established",
+          "expected_nonempty": {
+            "theft_elements_satisfied": true,
+            "theft_established": true,
+            "theft_not_established": false,
+            "theft_undetermined": false,
+            "theft_conflict": false
+          },
+          "observed_nonempty": {
+            "theft_elements_satisfied": true,
+            "theft_established": true,
+            "theft_not_established": false,
+            "theft_undetermined": false,
+            "theft_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "incomplete_case_blocked",
+          "expected_nonempty": {
+            "theft_elements_satisfied": true,
+            "theft_established": false,
+            "theft_not_established": false,
+            "theft_undetermined": false,
+            "theft_conflict": false
+          },
+          "observed_nonempty": {
+            "theft_elements_satisfied": true,
+            "theft_established": false,
+            "theft_not_established": false,
+            "theft_undetermined": false,
+            "theft_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "card_conflict_blocks",
+          "expected_nonempty": {
+            "theft_elements_satisfied": true,
+            "theft_established": false,
+            "theft_not_established": true,
+            "theft_undetermined": false,
+            "theft_conflict": true
+          },
+          "observed_nonempty": {
+            "theft_elements_satisfied": true,
+            "theft_established": false,
+            "theft_not_established": true,
+            "theft_undetermined": false,
+            "theft_conflict": true
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "unknown_blocks",
+          "expected_nonempty": {
+            "theft_elements_satisfied": false,
+            "theft_established": false,
+            "theft_not_established": false,
+            "theft_undetermined": true,
+            "theft_conflict": false
+          },
+          "observed_nonempty": {
+            "theft_elements_satisfied": false,
+            "theft_established": false,
+            "theft_not_established": false,
+            "theft_undetermined": true,
+            "theft_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "negative_bar_blocks",
+          "expected_nonempty": {
+            "theft_elements_satisfied": true,
+            "theft_established": false,
+            "theft_not_established": true,
+            "theft_undetermined": false,
+            "theft_conflict": false
+          },
+          "observed_nonempty": {
+            "theft_elements_satisfied": true,
+            "theft_established": false,
+            "theft_not_established": true,
+            "theft_undetermined": false,
+            "theft_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "aggravation_flag_on",
+          "expected_nonempty": {
+            "theft_elements_satisfied": true,
+            "theft_established": true,
+            "theft_not_established": false,
+            "theft_undetermined": false,
+            "theft_conflict": false,
+            "theft_aggravation": true
+          },
+          "observed_nonempty": {
+            "theft_elements_satisfied": true,
+            "theft_established": true,
+            "theft_not_established": false,
+            "theft_undetermined": false,
+            "theft_conflict": false,
+            "theft_aggravation": true
+          },
+          "passed": true
+        }
+      ],
+      "passed": 6,
+      "total": 6
+    }
+  ]
+}

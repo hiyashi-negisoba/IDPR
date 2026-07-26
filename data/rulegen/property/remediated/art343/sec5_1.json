@@ -1,0 +1,87 @@
+{
+  "card_set_id": "kr.art343.art343.sec5_1.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art343.causal-link.execution-absorption",
+          "request_id": "art343.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art343.execution_absorption",
+      "norm_kind": "causal_link",
+      "polarity": "negative",
+      "proposition": "강도 실행 의사로 예비·음모한 후 그 결의의 발동으로 강도를 실행한 경우, 예비·음모는 실행에 흡수되어 강도 기수 또는 미수의 일죄만 성립한다.",
+      "request_ids": [
+        "art343.pass1.001"
+      ],
+      "review_notes": "당초 예비·음모의 결의와 후속 강도 실행 사이에 동일한 결의의 발동이 있는지를 확인해야 한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제343조_Ⅴ.1_7",
+          "quote": "강도 실행의 의사로써 그 예비·음모를 한 후 그 결의의 발동으로 강도를 실행하 였을 때는 예비·음모는 당연히 실행에 흡수되어 강도 기수 또는 미수의 일죄만 이 성립한다.",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art343.causal-link.new-intent-concurrence",
+          "request_id": "art343.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art343.new_intent_concurrence",
+      "norm_kind": "causal_link",
+      "polarity": "positive",
+      "proposition": "강도 예비·음모 후 별개의 새로운 범의로 강도를 실행한 경우, 당초 예비·음모는 뒤의 강도에 흡수되지 않고 경합범이 된다.",
+      "request_ids": [
+        "art343.pass1.001"
+      ],
+      "review_notes": "후속 강도 실행이 당초 고의와 별개의 새로운 범의에 기한 것인지는 사실관계에 대한 평가가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제343조_Ⅴ.1_7",
+          "quote": "강도의 목적으로 예비·음모를 한 뒤에 그 고의와는 별개의 새로운 범의 로 강도를 실행하였을 때에는 당초의 강도예비·음모는 뒤의 강도에 흡수되지 않고 경합범이 된다.",
+          "section_path": "Ⅴ.1"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "강도 목적의 총포·도검·화약류 불법소지와 강도예비의 죄수 관계에 관한 출처가 현재 source scope에 없다.",
+    "강도예비의 객관적 예비행위 성립 범위와 흉기 매입·준비의 충분성에 관한 출처가 현재 source scope에 없다.",
+    "강도 예비·음모 단계의 자발적 범의 포기와 중지미수 적용에 관한 출처가 현재 source scope에 없다.",
+    "미필적 강도 전환 의사와 강도예비·음모의 주관적 요건에 관한 부정 견해 및 대법원 판결 취지의 출처가 현재 source scope에 없다."
+  ],
+  "issue_tag": "art343_sec5_1",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "강도 목적의 총포·도검·화약류 불법소지가 강도예비와 경합하는지 또는 강도예비에 흡수되는지.",
+    "강도 목적의 흉기 매입·준비만으로 객관적 예비행위를 인정할지, 범행현장으로의 이동 등 추가 행위를 요구할지.",
+    "강도 예비·음모 단계에서 자발적으로 범의를 포기한 경우 중지미수를 인정할지.",
+    "절도 중 상황에 따라 강도로 전환할 수 있다는 미필적 의사만으로 강도예비·음모의 주관적 요건을 충족하는지에 관하여 부정 견해와 대법원 판결 취지를 어떻게 조화시킬 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제343조_Ⅴ.1_7"
+    ],
+    "target_paths": [
+      "commentary://001692/제343조#sec5_1"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

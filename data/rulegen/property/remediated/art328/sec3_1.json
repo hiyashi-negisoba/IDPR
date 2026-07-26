@@ -1,0 +1,81 @@
+{
+  "card_set_id": "kr.art328.art328.sec3_1.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art328.element.kinship-effective-range",
+          "request_id": "art328.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art328_sec3_1.kinship_effective_range",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "친족관계의 법률상 효력이 미치는 8촌 이내 혈족, 4촌 이내 인척 및 배우자의 범위에서만 친족상도례 규정도 효력이 있다.",
+      "request_ids": [
+        "art328.pass1.001"
+      ],
+      "review_notes": "친족상도례의 친족 범위에 관한 열거적 범위 규칙으로 검토한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제328조_Ⅲ.1_8",
+          "quote": "법률상 효력은 8촌 이내의 혈족과 4촌 이내의 인척 및 배우자에만 미치므로, (제777조) 형법의 친족상도례에 관한 규정도 위 친족의 범위에서만 효력이 있게 된다.",
+          "section_path": "Ⅲ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art328.standard.in-law-relationship-not-kinship",
+          "request_id": "art328.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art328_sec3_1.in_law_relationship_not_kinship",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "피고인의 딸과 피해자의 아들이 혼인하여 피고인과 피해자가 사돈지간인 경우라도 민법상 친족으로 볼 수 없어 친족상도례가 적용되지 않는다.",
+      "request_ids": [
+        "art328.pass1.001"
+      ],
+      "review_notes": "사돈 관계의 구체적 가족관계가 민법상 친족 범주에 해당하는지 사실관계 검토가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제328조_Ⅲ.1_8",
+          "quote": "따라서 피고인의 딸과 피해자의 아들이 혼인관계에 있어 피고인과 피해자가 사돈지간이라고 하더라도 이를 민법상 친족으로 볼 수 없다.",
+          "section_path": "Ⅲ.1"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope는 친족관계가 행위자와 소유자, 점유자 또는 양자 사이 어느 관계에 요구되는지를 다루지 않는다."
+  ],
+  "issue_tag": "art328_sec3_1",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "재산죄에서 친족상도례 적용에 필요한 친족관계를 행위자와 소유자 사이, 점유자 사이 또는 소유자와 점유자 모두 사이 중 어디에 요구할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제328조_Ⅲ.1_8"
+    ],
+    "target_paths": [
+      "commentary://001692/제328조#sec3_1"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

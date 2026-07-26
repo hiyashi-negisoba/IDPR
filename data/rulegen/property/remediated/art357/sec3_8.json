@@ -1,0 +1,82 @@
+{
+  "card_set_id": "kr.art357.art357.sec3_8.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art357.element.status-offense-participant-liability",
+          "request_id": "art357.pass1.003"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art357_sec3_8.status_offense_participant_liability",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "배임수재죄는 진정신분범이므로 원칙적으로 타인의 사무처리자만 주체가 될 수 있으나, 신분 없는 자도 신분 있는 자의 범행에 가공한 경우 공동정범·교사범·종범이 될 수 있다.",
+      "request_ids": [
+        "art357.pass1.003"
+      ],
+      "review_notes": "신분 없는 가공자의 공동정범·교사범·종범 성립은 인용된 형법 제33조 본문 적용과 구체적 가공 형태를 법률검토로 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제357조_Ⅲ.8_28",
+          "quote": "본죄는 진정신분범으로서 원칙적으로 타인의 사무를 처리하는 자라야 그 범죄 의 주체가 될 수 있다. 그러한 신분을 가지지 아니한 자는 신분 있는 자의 범행 에 가공한 경우 형법 제33조 본문이 적용되어 본죄의 공동정범, 교사범, 종범이 될 수 있다.",
+          "section_path": "Ⅲ.8"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art357.exception-giver-receiver-general-accomplice-rules-inapplicable",
+          "request_id": "art357.pass1.003"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art357_sec3_8.giver_receiver_accomplice_exception",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "배임증재자와 배임수재자 사이에는 공범에 관한 형법총칙상 공범 규정이 적용되지 않는다.",
+      "request_ids": [
+        "art357.pass1.003"
+      ],
+      "review_notes": "배임증재자와 배임수재자의 상호 관계에 한정된 공범규정 적용 배제 예외다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제357조_Ⅲ.8_28",
+          "quote": "그러나 배임증재자와 사이에서는 공범에 관한 형법총칙 상의 공범 규정이 적용되지 않는다.",
+          "section_path": "Ⅲ.8"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "배임수재자가 배임행위에 이른 경우 배임수재죄와 배임죄의 죄수관계에 관한 다수설·판례 입장 및 소수설의 근거는 현재 source scope에 없다.",
+    "[missing_case_specific_negative_norm] The bounded commentary also states a case-specific negative outcome: where a person not responsible for transfer-admission duties received an improper request and money, punishment of that person for breach-of-trust receipt and of the giver for breach-of-trust giving is unavailable if the responsible dean or equivalent actor neither knew of nor independently received the improper request. This pro"
+  ],
+  "issue_tag": "art357_sec3_8",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "배임수재자가 배임행위에 이른 경우 배임수재죄와 배임죄의 관계를 경합범으로 볼 다수설·판례 입장과 상상적 경합으로 보는 소수설 중 어느 견해로 정리할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제357조_Ⅲ.8_28"
+    ],
+    "target_paths": [
+      "commentary://001692/제357조#sec3_8"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

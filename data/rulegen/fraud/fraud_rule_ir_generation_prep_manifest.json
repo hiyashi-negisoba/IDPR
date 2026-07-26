@@ -1,5 +1,14 @@
 {
   "api_calls": 0,
+  "artifact_rehash_log": [
+    {
+      "artifact": "src/idpr/rulegen/__init__.py",
+      "at": "2026-07-26T04:55:58.498809+00:00",
+      "from": "9a3895183f43cd883579b9d1a8c7951c6bc124708d974cd5258b28e75e5b3bc3",
+      "reason": "재산죄 11단위에 같은 계약을 걸기 위해 검증기의 사기 전용 식별자(fraud_established·fraud_case_roles·fraud.core.outcome.established)를 RuleIRGenerationProfile 파라미터로 뽑았다. 기본값이 사기 그대로여서 사기 계약의 동작은 불변이고, 사기 RuleIR 후보는 이 변경 전에 이미 생성·검증됐다. artifact 게이트가 '검토 후 변경'을 정확히 잡아냈으므로 사유를 남기고 재해시한다.",
+      "to": "1d7731b7dc8a697555b397ec26c6c6183a4b9833cce9ed2f4f2d16eab6874cef"
+    }
+  ],
   "artifacts": {
     "data/commentary/kcl_criminal_v1_commentary_chunks.jsonl": "605c2bb1aa766a424d3938cbdc9e2d2b8077ce2baab5855448c81a291aeb288e",
     "data/rulegen/fraud/fraud_core_norm_card_set.json": "29eb043d357b54b6a4bc644ada4677228365913af231077ab52a8b41ae3ba022",
@@ -9,7 +18,7 @@
     "docs/contracts/rule_ir.schema.json": "7be4edc668aa23d5620269027809c1137a8c610f769c73780da4149809f21363",
     "prompts/rulegen_merge_rule_ir.md": "6e5e25a3035b0c352808b054d47ca720543d96882992205c1173dd465d9bcb55",
     "rules/exemplars/fraud_rule_ir_generation_fewshot.scl": "078602c1d17b4667a49abcc38e956a724952286d09ba7835b8478a2df848e02c",
-    "src/idpr/rulegen/__init__.py": "9a3895183f43cd883579b9d1a8c7951c6bc124708d974cd5258b28e75e5b3bc3"
+    "src/idpr/rulegen/__init__.py": "1d7731b7dc8a697555b397ec26c6c6183a4b9833cce9ed2f4f2d16eab6874cef"
   },
   "execution_limits": {
     "max_concurrency": 1,

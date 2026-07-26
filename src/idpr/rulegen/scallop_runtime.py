@@ -42,6 +42,23 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _role_contract(rule_ir: Mapping[str, Any]) -> tuple[str, tuple[str, ...]]:
+    """역할 술어와 행위자 필드를 RuleIR에서 읽는다 (죄명마다 다르다).
+
+    사기는 `fraud_case_roles`와 6개 슬롯이었다. 재산죄 단위는 `<issue_tag>_case_roles`와
+    단위별 슬롯을 쓴다. RuleIR이 그 계약을 이미 담고 있으므로 여기서 되짚고, 없으면 사기
+    기본값으로 떨어진다(기존 호출 동작 불변).
+    """
+
+    predicate_id = f"{rule_ir.get('issue_tag', 'fraud')}_case_roles"
+    for predicate in rule_ir.get("predicates", []):
+        if predicate.get("id") == predicate_id:
+            return predicate_id, tuple(
+                argument["name"] for argument in predicate.get("arguments", [])
+            )
+    return "fraud_case_roles", ACTOR_FIELDS
+
+
 def validate_scenario(
     rule_ir: Mapping[str, Any], scenario: Mapping[str, Any]
 ) -> None:
@@ -49,8 +66,9 @@ def validate_scenario(
     scenario_id = scenario.get("scenario_id")
     if not isinstance(scenario_id, str) or not SCENARIO_ID.fullmatch(scenario_id):
         errors.append("scenario_id must be a safe lowercase identifier")
+    _, actor_fields = _role_contract(rule_ir)
     actor_values: list[str] = []
-    for field in ACTOR_FIELDS:
+    for field in actor_fields:
         value = scenario.get(field)
         if not isinstance(value, str) or not value:
             errors.append(f"{field} must be a non-empty string")
@@ -146,11 +164,12 @@ def render_scenario_facts(
     """Render only contract-validated input relations, never arbitrary model code."""
 
     validate_scenario(rule_ir, scenario)
-    actors = [str(scenario[field]) for field in ACTOR_FIELDS]
+    role_predicate, actor_fields = _role_contract(rule_ir)
+    actors = [str(scenario[field]) for field in actor_fields]
     case_id, defendant_id = actors[:2]
     card_inputs = _card_input_predicates(rule_ir)
     lines = ["", f"// runtime scenario: {scenario['scenario_id']}"]
-    lines.append(_fact("fraud_case_roles", actors))
+    lines.append(_fact(role_predicate, actors))
 
     for assessment in scenario["assessments"]:
         assessment_id = assessment["assessment_id"]

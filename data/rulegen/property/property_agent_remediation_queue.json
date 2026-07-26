@@ -1,0 +1,1806 @@
+{
+  "version": "1.0.0",
+  "api_calls": 0,
+  "items": [
+    {
+      "article": "art323",
+      "finding_id": "review_question.collapses_unrelated_variant",
+      "severity": "hard",
+      "target_path": "/legal_review_questions/1",
+      "message": "The review question groups the protected-interest card with the three competing offense-structure views and asks for one precedent-aligned practical policy. The source presents competition among abstract-danger, concrete-danger, and infringement-offense theories, but does not place the protected-interest majority view in that same dispute or provide precedent from which a precedent-aligned choice can be made.",
+      "recommended_action": "Limit the policy-selection question to the three cards in the offense_structure variant group, and pose any protected-interest review separately as an authority or scope-verification question without presupposing an unreported competing view or precedent.",
+      "type": "collapsed_variant",
+      "note": "구조성 지적 → 에이전트 처리"
+    },
+    {
+      "article": "art323",
+      "finding_id": "polarity.exception_not_independent",
+      "severity": "hard",
+      "target_path": "/cards",
+      "message": "예외 카드들의 polarity가 일률적으로 \"exception\"으로 변경되어 norm_kind와 polarity가 혼동되었다. 원 후보에서 이 카드들은 norm_kind가 exception이고 polarity는 negative였으므로 두 차원을 독립적으로 보존해야 한다.",
+      "recommended_action": "norm_kind가 exception인 카드들의 polarity를 연결된 후보의 negative polarity와 일치시키고, exception은 norm_kind에만 유지한다.",
+      "type": "formalization_error",
+      "note": "구조성 → 에이전트 처리"
+    },
+    {
+      "article": "art323",
+      "finding_id": "coverage_gaps.incorrectly_empty",
+      "severity": "soft",
+      "target_path": "/coverage_gaps",
+      "message": "bounded commentary에는 카드화되지 않은 명시적 규범과 견해가 다수 남아 있는데 coverage_gaps가 비어 있다. 예를 들어 공범과 공동소유한 물건의 취급, 물건의 경제적 가치 필요 여부에 관한 대립, 소지만 금지된 금제품의 객체성, 관리 가능한 동력의 포함 여부, 동시이행항변권에 기한 점유, 가압류 물건의 객체성 등이 카드에 반영되지 않았다.",
+      "recommended_action": "현재 카드 범위 밖의 명시적 규범을 추가 추출하거나, 적어도 coverage_gaps에 구체적으로 기록하여 누락을 완전한 커버리지로 오인하지 않게 한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art323",
+      "finding_id": "review_question.land_sale.variant",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions[0]",
+      "message": "The sole review question generically requests verification of the land-sale card but does not identify the commentary's express dispute over the rationale and scope of the precedent.",
+      "recommended_action": "Add a focused review question asking which reported interpretation should be retained and how the precedent position should be distinguished from the commentary author's preferred construction.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art323",
+      "finding_id": "precedent.norms.unaccounted",
+      "severity": "soft",
+      "target_path": "$.coverage_gaps",
+      "message": "The bounded commentary also reports two precedent-specific holdings that unilateral vehicle or license-plate recovery was not a justifiable act, based on the absence of urgent necessity and the stated circumstances, means, and methods. The card set contains no corresponding cards and declares no coverage gap, so these visible norms are unaccounted for.",
+      "recommended_action": "Record the commentary-reported precedent holdings as a coverage gap for separate extraction, or include properly scoped case-specific cards if they are within this card set's intended coverage.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art328",
+      "finding_id": "f.unrecorded_source_norms",
+      "severity": "soft",
+      "target_path": "$.coverage_gaps",
+      "message": "coverage_gaps가 비어 있지만, 같은 bounded commentary에는 성명불상 피해자 사건에서 사실심에 친족상도례 주장이 없으면 이를 상고이유로 삼을 수 없다는 판단과, 구 사회보호법상 형 면제 시 감호청구만 독립하여 할 수 없다는 별도 판단이 존재한다. 이들이 현재 카드 세트의 의도적 범위 밖인지, 선행 후보 추출에서 누락된 것인지 기록되어 있지 않다.",
+      "recommended_action": "두 명시적 판단을 별도 후보 재추출 대상으로 돌리거나, 이 카드 세트에서 제외하는 근거를 coverage_gaps에 기록한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art328",
+      "finding_id": "f.manager_status_norm_omitted",
+      "severity": "soft",
+      "target_path": "$.coverage_gaps",
+      "message": "부재자 재산관리인 카드에는 허가받은 관리인의 고소가 요건을 충족한다는 결과만 포함되어 있다. 원문에는 그 관리인이 형사소송법 제225조 제1항의 법정대리인으로서 적법한 고소권자에 해당한다는 독립된 법적 지위 판단도 명시되어 있으나 카드나 coverage gap에 반영되지 않았다.",
+      "recommended_action": "적법한 고소권자 지위 판단을 별도 카드로 유지할지 기존 카드와 결합할지 검토하고, 즉시 카드화하지 않는다면 coverage_gaps와 법률검토 질문에 명시한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art328",
+      "finding_id": "missing.constitutional-nonapplication",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "The bounded commentary states that, following the Constitutional Court's 2024-06-27 constitutional-nonconformity decision, Article 328(1) could not be applied to pronounce an exemption from punishment through the stated legislative deadline of 2025-12-31. The card set neither represents this temporally bounded negative norm nor records it as a coverage gap, so the standalone definitional card may be mistaken for an operative exemption rule.",
+      "recommended_action": "Record the omitted constitutional non-application proposition in coverage_gaps and add a focused legal-review question; add a separate card only if an appropriately sourced candidate is available.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art328",
+      "finding_id": "missing_full_adoption_exception_question",
+      "severity": "hard",
+      "target_path": "$.legal_review_questions",
+      "message": "출처가 법조문의 '본문'만을 명시하는데도 관련 단서나 예외가 카드의 적용 범위에 미치는 영향을 확인할 검토 질문이 없다.",
+      "recommended_action": "민법 제908조의3 제2항의 단서 또는 예외가 친양자 입양 전 친족관계 종료 규칙을 제한하는지 확인하는 최소한의 법률검토 질문을 추가한다.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art328",
+      "finding_id": "unreported_variant_coverage_gap",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "The empty coverage-gaps list incorrectly indicates complete coverage even though the source's competing long-term-separation view has no validated candidate or NormCard.",
+      "recommended_action": "Record the omitted competing view as a coverage gap until it is extracted and incorporated.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art328",
+      "finding_id": "missing_variant_review_question",
+      "severity": "hard",
+      "target_path": "/legal_review_questions",
+      "message": "The sole review question is generic and does not ask reviewers to resolve or preserve the source's conflict between the consumption-community-based denial view and the contrary legal-marriage-based view.",
+      "recommended_action": "Add a focused review question addressing the competing separation views, their respective authority, and whether they must remain unresolved variants.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art328",
+      "finding_id": "missing.prosecutor_burden",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "The source expressly assigns the prosecutor the burden of proving that the relatives did not cohabit, but the card set neither represents this evidentiary norm nor records it as a coverage gap.",
+      "recommended_action": "Record the omitted prosecutor-burden proposition as a coverage gap and route it for candidate extraction and subsequent card creation.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art328",
+      "finding_id": "missing.cohabiting_family.shared_daily_life",
+      "severity": "hard",
+      "target_path": "$.cards[0].proposition",
+      "message": "동거가족의 정의 카드가 민법 제779조상 친족 범위와 일부 친족의 생계공동 요건만 담고, 같은 주거에서 일상생활을 공동으로 해야 한다는 별도의 동거 요건을 누락했다. 이 요건은 bounded commentary의 전문에 명시되어 있으며 제328조 제1항과 제2항의 적용 구별에도 영향을 준다.",
+      "recommended_action": "동거가족 성립에 필요한 동일 주거 및 일상생활 공동 요건을 해당 정의 카드에 반영하거나 별도의 연결된 카드로 보존하고, 이에 맞게 coverage_gaps와 법률검토 질문을 갱신한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art328",
+      "finding_id": "f1.unresolved_review_issue",
+      "severity": "hard",
+      "target_path": "$.cards[0]",
+      "message": "review_notes는 친족관계를 누구 사이에서 판단할지 별도 검토가 필요하다고 명시하지만, review_required는 false이고 legal_review_questions도 비어 있어 확인되지 않은 쟁점이 검토 대상으로 보존되지 않았다.",
+      "recommended_action": "해당 카드의 review_required를 true로 설정하고, review_notes에 적시된 친족관계 판단 주체·당사자 범위에 관한 질문을 legal_review_questions에 추가하라.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art328",
+      "finding_id": "f.missing.subordinate_possession.domestic_view",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "출처에는 다수설의 부당함을 완화하기 위해 점유가 주종관계로 공동관계에 있는 경우에는 친족상도례가 적용된다는 별도의 주장이 있다. 카드 집합은 독일에서 주종관계 또는 불법점유자를 피해자로 고려하지 않는다는 견해만 수록하여, 이 국내 논의로 제시된 예외 주장을 누락했다.",
+      "recommended_action": "국내 논의로 소개된 주종적 공동점유 예외 주장을 독일 견해와 구별되는 검토대상으로 추가하거나, 재추출이 필요함을 coverage_gaps에 명시한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art329",
+      "finding_id": "f8.sealed_policy_question",
+      "severity": "hard",
+      "target_path": "$.legal_review_questions[1]",
+      "message": "The instruction to select a \"precedent-aligned\" practical policy for the sealed-container variants presupposes that the bounded source identifies such a policy. The source states that the cited older precedent's chosen view is unclear.",
+      "recommended_action": "Revise the question to ask reviewers to resolve or separately source the authority choice, without implying that this bounded commentary establishes which sealed-container theory is precedent-aligned.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art329",
+      "finding_id": "missing.nighttime_dwelling_exception",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "일반 주거침입만으로는 절도 실행의 착수가 어렵다는 카드에 직접 관련된 예외가 누락되었다. 출처는 야간주거침입절도죄를 결합범으로 해석하여 실행의 착수 시기를 주거침입 시로 본다고 명시하므로, 이 예외를 보존하지 않으면 주거 관련 부정 규범이 지나치게 일반적으로 사용될 위험이 있다.",
+      "recommended_action": "야간주거침입절도에 관한 예외 규범을 별도 카드로 포함하거나, 적어도 coverage_gaps와 구체적인 legal_review_question에 누락된 예외로 기록한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art329",
+      "finding_id": "f4.unpreserved_criterion_variant",
+      "severity": "soft",
+      "target_path": "$.coverage_gaps",
+      "message": "출처에는 운반이 어려운 재물은 피해자의 지배범위를 벗어나야 하지만 쉽게 운반할 수 있는 재물은 손에 잡거나 주머니·가방에 넣는 것만으로 취득될 수 있다는 별도의 견해가 제시되고, 이어 저자의 종합사정 견해가 제시된다. 현재 카드 세트는 후자만 담고도 variant_group과 coverage_gaps를 모두 비워 두어 두 기준의 관계가 보존되지 않는다.",
+      "recommended_action": "누락된 견해를 별도 후보 추출이 필요한 coverage gap으로 기록하고 관련 검토 질문을 추가하거나, 적법하게 추출된 카드가 제공되면 두 견해를 variant group으로 연결한다.",
+      "type": "missing_variant",
+      "note": "구조성 지적 → 에이전트 처리"
+    },
+    {
+      "article": "art329",
+      "finding_id": "missing_variants.impossibility_examples",
+      "severity": "soft",
+      "target_path": "$.coverage_gaps",
+      "message": "원문은 빈 호주머니 사례와 같은 이유로 빈 쌀통 사례 및 재물이 없는 주거에서 물색하다 발각된 사례도 불능범이 아닌 절도미수가 성립한다고 제시한다. 카드 세트는 빈 호주머니 사례만 수록하면서 이 명시적 유사 사례들을 variant_group이나 coverage gap으로 보존하지 않았다.",
+      "recommended_action": "빈 쌀통 및 재물 없는 주거 사례를 별도 사례형 변형으로 보존해 공통 variant_group에 연결하거나, 현재 후보 범위 밖이라면 coverage_gaps에 명시한다.",
+      "type": "missing_variant",
+      "note": "구조성 지적 → 에이전트 처리"
+    },
+    {
+      "article": "art329",
+      "finding_id": "missing_review_question.accomplice_causation",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions",
+      "message": "공범자의 실행 중지와 해당 공범자의 중지 행위 사이의 관계가 review_notes에서 적용상 확인사항으로 제시되지만, 이 카드의 review_required가 false이고 법률검토 질문에도 포함되지 않아 그 판단 문제가 후속 검토에서 누락될 수 있다.",
+      "recommended_action": "공범자의 행위로 다른 공범자의 실행이 중지되었는지에 관한 검토 질문을 추가하고, 그 판단이 수동 검토를 요구한다면 해당 카드의 review_required도 true로 조정한다.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art329",
+      "finding_id": "missing.intent.scope.norms",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "빈 coverage_gaps는 제공된 전체 논평의 규범 범위를 반영하지 못한다. 논평에는 특정 재물로 처음부터 한정된 고의가 필요하지 않다는 일반규범, 예상하지 못한 물건의 혼입 또는 종류·수량에 대한 구체적 인식 부족에도 절취물 전부에 고의가 인정된다는 규범, 타인 소유·점유에 대한 인식의 필요성과 개별 사실 인식까지는 필요하지 않다는 규범이 명시되어 있으나 카드 또는 coverage gap으로 보존되지 않았다.",
+      "recommended_action": "누락된 각 규범을 별도 카드로 추가하거나, 현 단계에서 카드화할 수 없다면 /coverage_gaps에 구체적으로 기록하고 검토 질문을 추가한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art329",
+      "finding_id": "missing.mistake.permitted-item",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "타인의 재물을 자신에게 취득이 허용된 동일한 물건으로 오인하여 가져온 경우 범죄사실의 인식이 없어 고의가 조각된다는 논평 보고 판례가 누락되었다. 이는 유실·유기물 오인 및 동일 구성요건 내 객체 착오와 구별되는 독립적인 착오 유형이다.",
+      "recommended_action": "해당 판례 입장을 별도 review-required 카드로 추가하거나 명시적인 coverage gap으로 기록한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art329",
+      "finding_id": "missing.governing.offense-count.norm",
+      "severity": "hard",
+      "target_path": "$.target.coverage_gaps",
+      "message": "The source states the governing doctrine that the number of theft offenses is determined by the number of acts because the protected interest is not strictly personal. The card set contains only more specific applications and nevertheless declares no coverage gaps, which can obscure the relationship between the general norm and its illustrations.",
+      "recommended_action": "Record the omitted governing doctrine as a coverage gap and route it for candidate extraction rather than leaving coverage_gaps empty.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art329",
+      "finding_id": "general_concurrence_norm.unrepresented",
+      "severity": "soft",
+      "target_path": "/coverage_gaps",
+      "message": "The bounded commentary separately states a broader proposition that offenses invalidating an attachment indication and theft are in a concurrence relationship, while the sole card captures only the subsequent concrete illustration of real concurrence. The empty coverage-gaps list does not acknowledge that unrepresented general proposition.",
+      "recommended_action": "Record the broader proposition as a coverage gap requiring separate extraction and authority review; do not broaden the existing illustration card to absorb it.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art329",
+      "finding_id": "unrepresented_japanese_lower_court_example",
+      "severity": "soft",
+      "target_path": "/coverage_gaps",
+      "message": "bounded commentary에는 강도살인 후 3일이 지나 수 킬로미터 떨어진 피해자 주거에서 새 범의로 물건을 가져간 경우에도 피해자의 점유와 절도죄를 인정한 일본 하급심 사례가 별도로 소개되어 있으나, 카드로 표현되지 않았고 coverage_gaps도 비어 있다. 이는 4시간 30분 사례와 사실관계 및 권위가 다른 사례이므로 조용히 누락된 것으로 처리해서는 안 된다.",
+      "recommended_action": "해당 일본 하급심 사례를 별도의 commentary-reported precedent 후보로 재추출할 필요가 있음을 coverage_gaps에 기록하거나, 파이프라인이 허용한다면 그 권위와 좁은 사실관계를 보존한 별도 카드로 처리한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art331",
+      "finding_id": "missing.special-theft-concurrence-norm",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "출입 방지용 잠금장치 등 시설물을 손괴한 뒤 주거 등에 침입하여 절도한 경우 단순 재물손괴죄와 야간주거침입절도의 경합범이 아니라 특수절도죄만 성립한다는 명시적 법적 효과가 카드로 포착되지 않았고, coverage_gaps도 비어 있다.",
+      "recommended_action": "해당 법적 효과를 별도 규범 후보로 재추출하여 카드화하거나, 현 단계에서는 최소한 coverage_gaps에 누락 규범으로 기록하고 그 권위·범위를 검토 질문에 추가한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art331",
+      "finding_id": "missing.building-definition",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "건조물의 일반적 구성요소와 토지 정착물이라는 의미, 협의상 격리된 담 등은 제외되지만 제331조 제1항에서는 위장시설까지 포함하는 광의로 해석된다는 정의 및 특별한 해석 범위가 누락되었다.",
+      "recommended_action": "일반적 건조물 정의와 제331조 제1항에서의 광의 해석을 구별하여 재추출·카드화하거나, 최소한 coverage_gaps에 누락 사실을 기록한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art331",
+      "finding_id": "review-question.authority-scope",
+      "severity": "hard",
+      "target_path": "/legal_review_questions",
+      "message": "인용판례 2015도7559가 문단의 마지막 실행착수·흡수 명제에만 연결되는지, 앞선 무손괴 및 열쇠 사용 명제에도 연결되는지 불명확하지만 법적 검토 질문이 비어 있다.",
+      "recommended_action": "인용판례의 적용 범위와 첫 번째·두 번째 카드의 권위 분류를 확인하는 최소한의 법적 검토 질문을 추가하고 관련 카드의 review_required를 true로 설정한다.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art331",
+      "finding_id": "review.cross_reference_completion",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions",
+      "message": "기수시기 카드는 야간주거침입절도죄에 관한 별도 설명을 명시적으로 참조하고 그 원전이 현재 범위 밖이라고 기록하면서도, 관련 검토 질문이 없고 해당 카드의 review_required도 false이다.",
+      "recommended_action": "범위 밖의 참조 설명 확인이 권위 분류 또는 deterministic_rule 형식화에 필요한지 묻는 검토 질문을 추가하고, 확인 전까지 해당 카드의 review_required를 true로 설정하라.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art331",
+      "finding_id": "f1.mixed_polarity_merge",
+      "severity": "hard",
+      "target_path": "$.cards[1]",
+      "message": "이 카드는 휴대가 인정되어야 하는 시간 범위에 관한 긍정 규범과 휴대 사실의 공연한 표시가 필요하지 않다는 부정 규범을 하나의 positive 카드로 합쳤다. 이로 인해 독립적인 표시 불요 규범의 부정 polarity가 보존되지 않는다.",
+      "recommended_action": "시간적 요건과 공연한 표시 불요 규범을 별도 카드로 분리하고, 표시 불요 카드는 negative polarity로 분류하라. 관련 candidate_ref는 두 카드에서 필요한 범위로 유지하라.",
+      "type": "formalization_error",
+      "note": "구조성 → 에이전트 처리"
+    },
+    {
+      "article": "art331",
+      "finding_id": "pending.review.questions.missing",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions",
+      "message": "The card set marks legal review as pending but supplies no review question, despite the unresolved exception classification and the commentary-synthesis authority basis.",
+      "recommended_action": "Add a focused review question asking whether the proposition should be classified as an exception and whether commentary synthesis alone supports that classification.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art331",
+      "finding_id": "missing.nighttime.absorption",
+      "severity": "hard",
+      "target_path": "/cards",
+      "message": "The source expressly states that when the building damage and entry occur at night, the entry and damage are absorbed into special theft as a comprehensive single offense. No card captures this nighttime rule.",
+      "recommended_action": "Add a source-bounded card for the nighttime damage-and-entry absorption rule and include an appropriate review question if its authority or formalization remains unresolved.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art331",
+      "finding_id": "coverage.gaps.inaccurate",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "The empty coverage_gaps array incorrectly indicates complete coverage despite omission of the nighttime absorption rule and the competing daytime special-theft-only view.",
+      "recommended_action": "Record the omissions as coverage gaps until the corresponding cards and variant treatment are added.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art335",
+      "finding_id": "f2.unrecorded_source_coverage_gaps",
+      "severity": "soft",
+      "target_path": "$.coverage_gaps",
+      "message": "coverage_gaps가 비어 있으나, bounded commentary에는 카드나 검증 후보로 반영되지 않은 규범이 명시되어 있다. 여기에는 형법 제335조의 절도에 단순절도·야간주거침입절도·특수절도가 포함된다는 명제와 강도죄가 준강도의 주체가 될 수 있는지에 관한 견해 및 반대 논거가 포함된다.",
+      "recommended_action": "현재 카드 범위에서 누락된 명제들을 coverage_gaps에 기록하고, 별도 후보 추출이 필요한 항목으로 표시하라. 이 단계에서 검증되지 않은 새 카드를 직접 확정하지는 말라.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art335",
+      "finding_id": "missing.review-question-purpose-list",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions",
+      "message": "The review notes acknowledge that additional source coverage is needed for the listed purposes, but the card set contains no corresponding legal review question and the card is marked as not requiring review.",
+      "recommended_action": "Add a focused review question about the source and scope of the purpose list, and mark the affected card for review until that issue is resolved.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art335",
+      "finding_id": "missing_norm.robbery_murder_classification",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "The bounded commentary also states a distinct legal classification: when a thief kills the victim after acquiring the property for the purpose of erasing traces of the crime, the conduct constitutes robbery-murder under Criminal Act Article 338. The card set neither represents this proposition nor records its omission as a coverage gap.",
+      "recommended_action": "Record this uncaptured proposition in coverage_gaps and route it for candidate extraction and later card generation; do not silently treat the current card as complete coverage of the bounded section.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art335",
+      "finding_id": "missing-review-question",
+      "severity": "hard",
+      "target_path": "$.legal_review_questions",
+      "message": "The card set is legally pending and the card applies an evaluative standard—whether a person was a necessary attack target—yet no review question addresses that application boundary or the unsupported doctrinal-status choice.",
+      "recommended_action": "Add a focused legal-review question concerning the boundary of the necessary-target standard and whether the available authority supports the selected doctrinal status; mark the affected card for review until resolved.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art335",
+      "finding_id": "missing_review_question.norm_classification",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions",
+      "message": "The card set is marked as pending legal review, but it contains no review question addressing the disputed classification of the punishability proposition.",
+      "recommended_action": "Add a focused review question asking which available norm kind should represent the stated punishability consequence.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art335",
+      "finding_id": "coverage.gaps.unrecorded.general.norms",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "coverage_gaps가 비어 있지만 동일한 bounded commentary에는 절도 유형에 따른 단순강도·특수강도 처벌례와 제337조부터 제339조까지의 적용에 관한 별도의 일반 명제가 명시되어 있다. 현재 카드들은 흉기 취득 시점에 관한 쟁점만 다룬다.",
+      "recommended_action": "누락된 일반 명제들을 카드화할 수 없다면 coverage_gaps에 명시하고 재추출 대상으로 표시한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art335",
+      "finding_id": "review.question.preselects.policy",
+      "severity": "soft",
+      "target_path": "/legal_review_questions/1",
+      "message": "검토 질문이 'precedent-aligned practical policy'를 선택하도록 지시하여 판례 원문 확인 전에는 어느 견해도 선택하지 않는다는 카드의 검토 유보와 긴장된다.",
+      "recommended_action": "판례 원문과 적용 범위를 먼저 확인하고 각 학설 및 보고된 판례 입장을 독립적으로 평가하도록 중립적인 검토 질문으로 한정한다.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art335",
+      "finding_id": "f2.unrecorded_source_coverage_gaps",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "The empty coverage-gaps array overlooks several distinct norms explicit in the bounded commentary but absent from the validated candidates and cards: treatment of comprehensive theft accompanied by violence as one quasi-robbery offense, the quasi-robbery-comprehensive-offense and quasi-robbery-injury outcome for violence against multiple pursuers, joint-principal liability when accomplices shared intent at the time of violence or intimidation, and the reported precedent's initial no-common-inten",
+      "recommended_action": "Record the omitted source propositions as coverage gaps and route them for candidate re-extraction and later card generation, preserving the initial and later precedent positions separately.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art335",
+      "finding_id": "review_question.authority_scope",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions",
+      "message": "No review question preserves the need to determine whether the reported result from 92도917 should be formalized as a generally deterministic concurrence rule or retained as a precedent-specific proposition.",
+      "recommended_action": "Add a focused legal-review question concerning the precedential scope and deterministic formalization of the reported holding.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art335",
+      "finding_id": "missing.application-provision.norm",
+      "severity": "hard",
+      "target_path": "$.cards",
+      "message": "The bounded commentary also states that, because quasi-robbery is absorbed into the resulting aggravated robbery offense, neither the theft provision nor Criminal Act Article 335 needs to be cited as an applicable provision. No card captures this distinct application-of-law norm.",
+      "recommended_action": "Add a separate NormCard limited to the stated non-necessity of citing the theft provision or Article 335 in this situation, or expressly record and justify it as a coverage gap.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art337",
+      "finding_id": "f3.unsupported_review_question",
+      "severity": "hard",
+      "target_path": "/legal_review_questions/1",
+      "message": "The question directs reviewers to group competing views and choose a precedent-aligned practical policy, but no competing view or precedent specifically resolving attempted 강도치상죄 is provided. The commentary instead notes precedent implications for 강도상해죄 and separately explains the result-aggravated-offense rationale for 강도치상죄.",
+      "recommended_action": "Replace this question with a narrowly framed request to confirm the temporal and doctrinal scope of the 강도치상죄 interpretation, without presupposing competing variants or precedent alignment.",
+      "type": "source_scope",
+      "note": "구조성 지적(coverage_gaps·review_question·candidate_refs) → 법률 결정점 아님"
+    },
+    {
+      "article": "art337",
+      "finding_id": "f5.late-joiner-active-use-norm-missing",
+      "severity": "hard",
+      "target_path": "$.cards",
+      "message": "출처는 중도 가담자가 가담 당시 다른 공범자가 이미 생성한 상태를 적극적으로 자신의 범죄의사 수행에 이용할 의사로 가담한 경우 가담 전 사실에도 어느 정도 책임을 부담할 수 있다는 제한적 해석을 제시한다. 카드 집합에는 이 중간 입장이 없고 coverage_gaps도 비어 있어, 중도 가담자 책임에 관한 경쟁 구조가 불완전하다.",
+      "recommended_action": "기존 범죄공동설 카드의 책임주의상 제한과 연결하여 적극적 이용 의사에 관한 별도 제한 카드 또는 명시적 하위 조건을 추가하고 coverage_gaps를 갱신한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art337",
+      "finding_id": "f_habitual_offense_negative_norms_missing",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "원문은 강도상해·치상죄에 상습범 처벌규정이 없다는 이유로 강도죄와 합쳐 포괄적 일죄인 상습범을 구성할 수 없고, 상습강도죄에 강도상해·치상죄가 흡수되어 포괄적 일죄가 될 수도 없다는 별도의 두 부정 규범을 명시한다. 마지막 카드의 실체적 경합 결론만으로는 이 구성·흡수 금지 규범들이 보존되지 않는데도 coverage_gaps가 비어 있다.",
+      "recommended_action": "두 부정 규범을 별도 카드로 보존하거나, 현 단계에서 카드화할 수 없다면 coverage_gaps와 legal_review_questions에 명시한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art337",
+      "finding_id": "missing.quasi_robbery_injury_comprehensive_offense",
+      "severity": "hard",
+      "target_path": "$.cards",
+      "message": "The bounded commentary also states that when a person uses violence after theft to evade arrest, causes injury, and takes the victim's other valuables on that occasion, the conduct should be treated as one comprehensive quasi-robbery-injury offense. No card or validated candidate represents this distinct norm.",
+      "recommended_action": "Return the omitted proposition for candidate extraction and validation, then add a separately sourced NormCard rather than merging it into the existing prior-theft card.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art337",
+      "finding_id": "coverage.gap_not_recorded",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "The empty coverage-gaps array incorrectly indicates complete coverage even though a distinct quasi-robbery-injury proposition in the bounded commentary has no validated candidate or card.",
+      "recommended_action": "Record the uncovered proposition as a coverage gap and add a legal-review question requiring upstream extraction and authority review.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art337",
+      "finding_id": "missing.exclusion.and.unconstitutionality",
+      "severity": "hard",
+      "target_path": "$.target.coverage_gaps",
+      "message": "The empty coverage-gaps list omits two material negative or limiting propositions explicit in the bounded commentary: the Constitutional Court's invalidation of recidivist enhancement under Article 3 of the Act on Special Cases Concerning the Punishment of Specific Violent Crimes for these offenses, and the subsequently codified exclusion of cases enhanced under Article 5-5 of the Act on the Aggravated Punishment of Specific Crimes from that Article 3 regime. These propositions qualify which rec",
+      "recommended_action": "Represent the constitutional invalidation and the current statutory exclusion as separately scoped norms, or expressly record them as coverage gaps requiring extraction; preserve their distinct historical and current authority bases and add corresponding review questions.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art338",
+      "finding_id": "missing.review.questions",
+      "severity": "soft",
+      "target_path": "$.target.legal_review_questions",
+      "message": "두 카드의 review_notes는 강도 실행 기회와 살해행위의 관계, 고의의 인정, 강도살인죄와 강도치사죄의 구별에 사실관계 평가가 필요하다고 명시하지만 legal_review_questions가 비어 있어 확인이 필요한 쟁점이 구조화되어 있지 않다.",
+      "recommended_action": "각 review_notes에서 이미 제시한 판단 쟁점을 확인할 수 있도록 최소한의 법률 검토 질문을 legal_review_questions에 추가하라.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art338",
+      "finding_id": "review.flag.inconsistent.murder",
+      "severity": "soft",
+      "target_path": "$.target.cards[0].review_required",
+      "message": "review_notes가 강도 실행 또는 그 기회와 살해행위의 관계 및 고의 인정에 사실관계 평가가 필요하다고 표시하는데도 review_required가 false로 되어 있어 카드 내부의 검토 상태가 일치하지 않는다.",
+      "recommended_action": "해당 사실관계 평가가 후속 법률 검토를 요구한다면 review_required를 true로 바꾸고 관련 검토 질문과 연결하라.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art338",
+      "finding_id": "review.flag.inconsistent.death",
+      "severity": "soft",
+      "target_path": "$.target.cards[1].review_required",
+      "message": "review_notes가 살해 고의의 부재와 강도살인죄의 공동 고의 인정 여부를 별도로 검토해야 한다고 명시하지만 review_required는 false로 되어 있어 검토 필요성 표시가 일관되지 않다.",
+      "recommended_action": "별도 검토가 실제로 필요하다면 review_required를 true로 바꾸고 그 범위를 legal_review_questions에 명시하라.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art338",
+      "finding_id": "missing.overarching-opportunity-requirement",
+      "severity": "hard",
+      "target_path": "$.target.cards",
+      "message": "The source states the overarching requirement that the killing or death-causing act must occur during the opportunity of the robbery, but the card set contains only applications and exceptions and reports no coverage gap for this general norm.",
+      "recommended_action": "Add a separate card for the general opportunity requirement, preserving its commentary-level authority, or expressly record its omission in coverage_gaps.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art338",
+      "finding_id": "review.delayed-death-scope",
+      "severity": "soft",
+      "target_path": "$.target.legal_review_questions",
+      "message": "The review questions omit the delayed-death card even though its deterministic formalization requires a scope choice between the limited general statement and the fact-specific longer-delay example.",
+      "recommended_action": "Add a focused review question addressing the delayed-death card's scope and deterministic formalization, and mark that card review-required until resolved.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art338",
+      "finding_id": "missing_norm.voluntary_abandonment",
+      "severity": "hard",
+      "target_path": "$.cards",
+      "message": "참조된 주석에는 강도살인의 의사로 살인에 착수하였다가 중지한 경우 중지범으로서 형의 감경·면제를 받을 수 있다는 규범과, 강도에 착수하여 사람을 부상시킨 경우에는 강도행위를 중지하여도 강도치상의 기수가 된다는 대조 규범이 명시되어 있으나 카드가 생성되지 않았다. 따라서 빈 coverage_gaps도 실제 원문 범위를 반영하지 않는다.",
+      "recommended_action": "두 규범을 별개의 후보 및 NormCard로 보충하거나, 이 단계에서 직접 보충할 수 없다면 $.coverage_gaps에 누락을 기록하고 재추출 검토 질문을 추가한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art338",
+      "finding_id": "missing.murder_preparation_absorption",
+      "severity": "hard",
+      "target_path": "$.cards",
+      "message": "The bounded commentary expressly states that preparation to murder the same victim is absorbed into robbery-murder once the robbery-murder is executed on a continued occasion, but no NormCard captures this norm.",
+      "recommended_action": "Add a separate card for the stated absorption of murder preparation, or record it explicitly as a coverage gap if it cannot yet be carded.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art338",
+      "finding_id": "missing.corpse_abandonment_real_concurrence",
+      "severity": "hard",
+      "target_path": "$.cards",
+      "message": "The general statement that post-offense corpse abandonment separately constitutes the corpse-abandonment offense and stands in real concurrence with robbery-murder is omitted. The existing corpse-concealment card captures only the following precedent-based exception and cannot substitute for the omitted general norm.",
+      "recommended_action": "Add a distinct card for separate establishment and real concurrence of the corpse-abandonment offense, preserving the existing corpse-concealment precedent as a separately identified exception.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art338",
+      "finding_id": "coverage_gaps.incorrectly_empty",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "The empty coverage-gaps list incorrectly represents complete coverage despite the omitted murder-preparation absorption and corpse-abandonment concurrence norms.",
+      "recommended_action": "After adding the omitted cards, keep this array empty only if coverage is complete; otherwise list the two omissions explicitly.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art338",
+      "finding_id": "missing.recidivist-enhancement-norm",
+      "severity": "hard",
+      "target_path": "$.cards",
+      "message": "The bounded commentary also states a conditional application norm: when both the prior and subsequent offenses are specific violent crimes, Article 3 of the Special Act applies to recidivist enhancement. The card set contains only the classification norm and leaves this distinct consequence norm unrepresented.",
+      "recommended_action": "Record the omitted conditional application norm as a coverage gap and review question, and route it for candidate extraction before adding any corresponding NormCard.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art338",
+      "finding_id": "missing.review-question-prior-subsequent",
+      "severity": "hard",
+      "target_path": "$.legal_review_questions",
+      "message": "No review question addresses the source's separate condition involving both the prior and subsequent offenses, even though that norm is absent from the validated candidates and cards.",
+      "recommended_action": "Add a focused review question asking whether the conditional Article 3 recidivist-enhancement proposition must be separately extracted and carded.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art342",
+      "finding_id": "review_question.wrong_card_and_authority",
+      "severity": "hard",
+      "target_path": "$.legal_review_questions[0]",
+      "message": "The review question characterizes art342.attempt_punishment_basis as a commentary-reported case card and asks for primary decisions, but the bounded source contains no reported decision and the card is classified as commentary synthesis. It also fails to direct review to the card that turns the commentary's theoretical statement about result-aggravated offenses into a deterministic exclusion rule.",
+      "recommended_action": "Remove the unsupported case-law characterization and, if review is required, ask narrowly whether the commentary synthesis concerning result-aggravated offenses supports the proposed deterministic and generally framed exclusion.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art343",
+      "finding_id": "missing_norm.preparation_exception",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "빈 coverage_gaps는 제공된 논평 범위를 충분히 반영하지 않는다. 같은 절에는 강도 예비·음모 처벌이 일반원칙의 예외라는 설명과, 강도의 목적이 최소한 필요하여 준강도할 목적에 그치는 경우 처벌할 수 없다는 대법원 판시가 명시되어 있으나 카드 또는 누락 항목으로 보존되지 않았다.",
+      "recommended_action": "현재 카드의 내용을 확장하거나 해당 판례 명제를 임의로 병합하지 말고, 별도 후보 재추출이 필요한 누락 규범으로 coverage_gaps에 기록한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art343",
+      "finding_id": "missing_review_question.authority_scope",
+      "severity": "hard",
+      "target_path": "$.legal_review_questions",
+      "message": "법적 검토가 pending임에도 검토 질문이 비어 있다. 특히 논평의 일반적 준강도 제외 설명과 2004도6432가 제시한 보다 구체적인 준강도 목적의 예비·음모 불처벌 명제 사이의 범위 및 권위 관계를 검토할 질문이 필요하다.",
+      "recommended_action": "일반적 정의 카드의 범위가 판례의 구체적 예비·음모 판단보다 넓은지, 그리고 판례 명제를 별도 precedent 기반 카드로 추출해야 하는지를 묻는 최소한의 법적 검토 질문을 추가한다.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art343",
+      "finding_id": "missing_norm.objective_manifestation",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "출처에는 강도 실행 결의가 객관적으로 표명되었다고 보기에 충분한 사실이 인정되어야 한다는 별도의 일반 요건이 있으나, 카드로 수록되지 않았고 coverage_gaps도 비어 있다.",
+      "recommended_action": "선행 후보에 없는 이 요건을 coverage gap으로 기록하고 재추출 대상으로 보내거나, 적법한 후보가 추가된 뒤 별도 NormCard로 반영한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art343",
+      "finding_id": "empty.coverage.gap.despite.omission",
+      "severity": "hard",
+      "target_path": "$.target.coverage_gaps",
+      "message": "출처에 명시된 부정 견해가 후보 및 카드에서 누락되었는데도 coverage_gaps가 비어 있어 카드 세트가 완전한 것으로 잘못 표시된다.",
+      "recommended_action": "부정 견해가 카드화될 때까지 해당 누락과 후보 재추출 필요성을 coverage_gaps에 기록하라.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art350",
+      "finding_id": "missing.third_party_acquisition",
+      "severity": "hard",
+      "target_path": "/cards/0/proposition",
+      "message": "공갈죄의 정의가 행위자 자신의 재물 교부 수령 또는 재산상 이익 취득만을 포함하고, 출처가 명시한 제3자로 하여금 재물의 교부를 받게 하거나 재산상 이익을 취득하게 하는 성립 유형을 누락한다. 따라서 출처가 제시한 정의의 범위를 완전하게 보존하지 못하며, 빈 coverage_gaps와도 부합하지 않는다.",
+      "recommended_action": "해당 정의 카드에 제3자 취득 유형을 포함시키거나 별도의 연결된 카드로 보존하고, 상위 후보 역시 같은 누락이 있으므로 후보 범위의 보정 필요성을 검토한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art350",
+      "finding_id": "review_question.precedent_scope",
+      "severity": "hard",
+      "target_path": "/legal_review_questions/1",
+      "message": "The instruction to select a 'precedent-aligned' practical policy is unsupported because the bounded source contains commentary discussion and an authorial conclusion but identifies no precedent. It also treats the two conditional limbs as competing policies even though the source presents them as parts of one act-count test.",
+      "recommended_action": "Remove the precedent-alignment requirement and instead request review of the reported competing views, the commentary author's conditional synthesis, and the proper authority classification.",
+      "type": "source_scope",
+      "note": "구조성 지적(coverage_gaps·review_question·candidate_refs) → 법률 결정점 아님"
+    },
+    {
+      "article": "art350",
+      "finding_id": "coverage.gap.competing-view-unrecorded",
+      "severity": "soft",
+      "target_path": "$.coverage_gaps",
+      "message": "The empty coverage_gaps array fails to record that the source's competing same-victim concurrence view is absent from the card set.",
+      "recommended_action": "If the competing view is not added as a card, record it as a coverage gap requiring later extraction and review.",
+      "type": "missing_variant",
+      "note": "구조성 지적 → 에이전트 처리"
+    },
+    {
+      "article": "art350",
+      "finding_id": "coverage_gap.not_recorded",
+      "severity": "hard",
+      "target_path": "$.target.coverage_gaps",
+      "message": "coverage_gaps is empty even though the target's own review note identifies an unrepresented concurrence view and the bounded source confirms that omission.",
+      "recommended_action": "Until the omitted view is represented, record it as a coverage gap; remove the gap only after the corresponding variant proposition and qualification are preserved.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art350",
+      "finding_id": "missing.computer_fraud_negative_conclusion",
+      "severity": "hard",
+      "target_path": "/cards/0/proposition",
+      "message": "The card omits the linked candidate's negative conclusion that 컴퓨터등 사용사기죄 also does not separately arise. The full commentary chunk expressly states that conclusion, so the omission is not justified by the available source.",
+      "recommended_action": "Add the computer-use fraud non-establishment conclusion to this card or represent it in a separate linked card, and record any intentional split in coverage metadata.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art350",
+      "finding_id": "coverage.gap.not_recorded",
+      "severity": "soft",
+      "target_path": "/coverage_gaps",
+      "message": "The empty coverage-gaps array fails to disclose that the validated candidate's computer-use fraud conclusion was not represented in the card set.",
+      "recommended_action": "If the omitted conclusion is not added, record it as a coverage gap with a review reason.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art350",
+      "finding_id": "missing.objective-assessment-standard",
+      "severity": "hard",
+      "target_path": "$.cards[0].proposition",
+      "message": "연결된 후보와 commentary chunk의 전체 문서는 반항불능의 정도를 사회통념에 따라 객관적으로 판단하고 상대방의 주관을 기준으로 판단하지 않는다는 기준을 명시한다. 카드 명제는 이 기준을 누락했으며, review_notes가 단지 발췌 인용문에 없다는 이유로 이를 배제한 것은 전체 bounded commentary context를 고려하지 않은 것이다.",
+      "recommended_action": "카드 명제에 사회통념에 따른 객관적 판단 기준과 상대방의 주관을 기준으로 삼지 않는다는 한정을 반영하고, 해당 내용이 출처에 명시되지 않았다는 review_notes의 설명을 정정한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art350",
+      "finding_id": "missing.embezzlement.initial-possession-intent",
+      "severity": "hard",
+      "target_path": "$.cards",
+      "message": "주석은 불법영득의 의사 없이 목적물의 점유를 시작한 경우라야 횡령죄가 성립한다는 판례상 조건을 명시하지만, 이에 대응하는 NormCard가 없고 coverage_gaps도 비어 있다. 이는 후속 소비·처분에도 횡령죄가 성립하지 않는다는 판례 입장의 전제가 되는 별도의 규범이다.",
+      "recommended_action": "해당 판례상 횡령죄 성립 조건을 별도 카드로 추가하거나, 현 단계에서 카드화할 수 없다면 이를 coverage_gaps와 법적 검토 질문에 명시한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art350",
+      "finding_id": "coverage_gaps.explicit_object_norms",
+      "severity": "hard",
+      "target_path": "$.target.coverage_gaps",
+      "message": "The empty coverage-gaps declaration overlooks explicit propositions in the bounded commentary that were not represented by validated candidates or cards, including that stolen goods and prohibited military supplies may be objects of extortion, that the concepts of property and property benefit follow those used for fraud, and the specified stolen-money recovery illustration of non-establishment. These are distinct from the cards currently included.",
+      "recommended_action": "Record these omissions as coverage gaps and route them for upstream candidate extraction before deciding whether to add corresponding NormCards.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art350",
+      "finding_id": "missing.objectively_sufficient_attempt_norm",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "The empty coverage-gaps list overlooks the source's express rule that an act objectively sufficient to cause fear constitutes extortion conduct even if the victim did not actually become afraid, resulting in attempted extortion. This is a distinct consequence norm and the positive counterpart to the card concerning objectively insufficient conduct.",
+      "recommended_action": "Record this omitted norm as a coverage gap and add a focused legal-review question; create a card only through the appropriate candidate-validation process.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art350",
+      "finding_id": "missing.robbery_boundary_criteria",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "The source states additional criteria for distinguishing extortion from robbery: whether delivery was based on the victim's will or property was taken irrespective of that will, and whether the violence or threat merely restricted voluntary choice or was sufficient to suppress resistance. The robbery-boundary card states only the resulting classification and does not preserve these articulated criteria, while the coverage-gaps list reports none.",
+      "recommended_action": "Add the omitted boundary criteria to coverage_gaps and raise a review question about whether separately validated standard cards are required.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art350",
+      "finding_id": "missing.objective_assessment_factors",
+      "severity": "soft",
+      "target_path": "/cards/2",
+      "message": "The objective-assessment card preserves the general objective standard but omits the source's specified concrete considerations—such as the victim's sex, age, place, and time—for determining whether resistance-suppressing force or threats were sufficient. That operational qualification is not acknowledged elsewhere.",
+      "recommended_action": "Record the concrete-factor qualification as a coverage gap or obtain a separately validated candidate before representing the objective standard as fully covered.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art350",
+      "finding_id": "missing.minor_capacity_consequence",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "본문은 의사능력 있는 미성년자로부터 돈을 갈취한 경우 준사기죄가 아니라 공갈죄가 성립한다는 별도의 적용규범을 명시하지만, 카드나 coverage_gaps에 반영되지 않았다.",
+      "recommended_action": "해당 적용규범을 별도 카드로 수용할 수 있는지 검토하고, 현 후보 범위 때문에 수용할 수 없다면 coverage_gaps에 명시하여 재추출 대상으로 남긴다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art350",
+      "finding_id": "missing.nonidentity_norm",
+      "severity": "soft",
+      "target_path": "$.cards[1].proposition",
+      "message": "카드는 피공갈자와 재산상 피해자가 다른 경우의 추가 요건만 서술하고, 두 사람이 동일할 필요가 없다는 본문의 독립적인 허용 명제를 명시적으로 보존하지 않는다.",
+      "recommended_action": "비동일성이 허용된다는 명제를 카드에 명시하거나 별도 카드로 분리한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art350",
+      "finding_id": "missing.unwritten-disposition-element",
+      "severity": "soft",
+      "target_path": "/coverage_gaps",
+      "message": "근거 문헌은 재산적 처분행위가 사기죄에서와 마찬가지로 기술되지 않은 구성요건표지라는 별도의 법리적 성격을 명시하지만, 카드 세트에는 이 명제가 카드 또는 추출 누락으로 기록되어 있지 않다. 기존 인과관계 카드는 처분행위의 필요성만 담고 있어 그 법적 분류까지 보존하지 않는다.",
+      "recommended_action": "재산적 처분행위가 기술되지 않은 구성요건표지라는 명제를 별도 후보·카드로 추출하거나, 현 단계에서 후보 추가가 불가능하면 /coverage_gaps에 재추출이 필요한 누락으로 기록한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art350",
+      "finding_id": "missing_norm.fear_degree_and_contributory_motive",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "The empty coverage-gaps list overlooks an additional general norm in the bounded commentary: psychological restraint sufficient to induce delivery can constitute 외포, and the victim's calculative motive contributing to delivery does not affect establishment of extortion. None of the three cards captures this proposition.",
+      "recommended_action": "Record this omitted proposition as a coverage gap and route it for candidate extraction and legal review; add a NormCard only after supported candidate provenance is available.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art350",
+      "finding_id": "f2.merged_polarities",
+      "severity": "hard",
+      "target_path": "$.cards[3]",
+      "message": "The card is labeled with positive polarity but combines a positive sufficiency proposition with the negative rule that extortion does not成立 when the required relationship is absent. This obscures the independently operative negative norm and makes the polarity inaccurate.",
+      "recommended_action": "Separate the relationship-present and relationship-absent propositions into appropriately polarized cards, or otherwise represent the negative norm independently without changing its source-bounded substance.",
+      "type": "formalization_error",
+      "note": "구조성 → 에이전트 처리"
+    },
+    {
+      "article": "art350",
+      "finding_id": "f4.review_omission",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions",
+      "message": "The review questions omit the third-party card even though that card combines opposite polarities and categorical relationship conditions requiring a formalization choice.",
+      "recommended_action": "Add a focused review question addressing the separation, polarity, and formalization of the third-party relationship rules, and mark the affected card or resulting cards for review.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art350",
+      "finding_id": "missing.competing.divisibility.view",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "The source expressly reports a competing view under which, when a right-holder uses extortionate means while intending to exercise the right, only the excess is treated as gain if the object is divisible, while the whole is treated as gain if indivisible. The card set records only the commentary's contrary preferred position and incorrectly declares no coverage gaps.",
+      "recommended_action": "Record the omitted competing view as a coverage gap and, after obtaining or validating a corresponding candidate, preserve it as a separate variant rather than merging it into the preferred position.",
+      "type": "missing_variant",
+      "note": "구조성 지적 → 에이전트 처리"
+    },
+    {
+      "article": "art350",
+      "finding_id": "missing.attempt.no.actual.fear",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "The empty coverage-gaps list omits an explicit norm in the bounded commentary: after a sufficient threat has been communicated, absence of actual fear on the part of the target results in attempted extortion. No validated candidate or NormCard preserves this consequence.",
+      "recommended_action": "Record this omitted norm as a coverage gap and request upstream extraction and review of a separate candidate before adding a corresponding NormCard.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art350",
+      "finding_id": "precedent-improperly-included-in-policy-selection",
+      "severity": "hard",
+      "target_path": "$.legal_review_questions[1]",
+      "message": "정책 선택 질문이 부정설·긍정설·제3견해뿐 아니라 판례의 판단기준 카드까지 모두 'variant cards'로 묶어 선택 대상으로 제시한다. 이로써 경쟁 학설과 별도의 판례상 기준이 하나의 상호배타적 변형군처럼 취급된다.",
+      "recommended_action": "정책 선택 질문에서는 경쟁 학설 카드만 선택 대상으로 열거하고, 판례 기준 카드는 별도의 권위·범위·적용 단계 검토 질문으로 분리하라.",
+      "type": "collapsed_variant",
+      "note": "구조성 지적 → 에이전트 처리"
+    },
+    {
+      "article": "art350",
+      "finding_id": "coverage.omitted-right-exercise-norms",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "The empty coverage-gaps list does not acknowledge additional norms stated in the bounded source: use of a right merely as a pretext or pursuit of a wholly unrelated claim is not exercise of that right and supports extortion; and, under a separately identified view, exceeding an existing right produces extortion only for the excess when legally divisible but for the whole when legally indivisible. Neither proposition is represented by a card or recorded as a gap.",
+      "recommended_action": "Record these propositions as coverage gaps for separate extraction and review; do not silently treat the current cards as complete coverage.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art350",
+      "finding_id": "review-question.omitted-authority-choice",
+      "severity": "soft",
+      "target_path": "/legal_review_questions/0",
+      "message": "The single generic review question does not surface the concrete authority choice created by the source's express attribution of the excessive-method rule to precedent, nor the source-qualified status of the divisible/indivisible excess rule as merely a view.",
+      "recommended_action": "Add focused review questions asking whether the excessive-method rule should be treated as commentary-reported precedent and how the separately stated divisible/indivisible view should be represented.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art350",
+      "finding_id": "f3.rightful_entitlement_issue_omitted",
+      "severity": "soft",
+      "target_path": "$.coverage_gaps",
+      "message": "The commentary expressly raises, without resolving in this chunk, whether illicit-gain intent can be recognized when the actor has a legitimate right to obtain the benefit. The empty coverage-gaps list does not preserve this unresolved issue.",
+      "recommended_action": "Record the legitimate-entitlement issue as an unresolved coverage gap or legal-review question without inferring an answer from this chunk.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art350",
+      "finding_id": "f4.precedent_alignment_unfounded",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions[1]",
+      "message": "The instruction to select a precedent-aligned policy presupposes relevant precedent, but the bounded source identifies only commentary-described competing views and supplies no precedent.",
+      "recommended_action": "Ask the reviewer to determine whether relevant precedent exists and its effect before requesting any precedent-aligned policy selection.",
+      "type": "source_scope",
+      "note": "구조성 지적(coverage_gaps·review_question·candidate_refs) → 법률 결정점 아님"
+    },
+    {
+      "article": "art355",
+      "finding_id": "missing_review_questions.interpretive_elements",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions",
+      "message": "두 카드의 review_notes는 위탁관계·보관자성·횡령 또는 반환거부, 타인의 사무처리자성·임무위배·재산상 이익 및 손해의 판단기준이 현재 출처 범위에서 확정되지 않았음을 명시하지만, legal_review_questions가 비어 있어 필요한 후속 검토 쟁점이 보존되지 않았다.",
+      "recommended_action": "각 카드의 review_notes에서 유보한 구성요건의 의미와 적용기준을 후속 출처로 검토하도록 legal_review_questions에 질문을 추가하되, 현재 출처만으로 그 답을 확정하지 않는다.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "omitted_illegal_appropriation_subview",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "The empty coverage-gaps list overlooks an express competing view within the illegal-appropriation theory: for refusal to return undertaken with an intent to damage or conceal, one view regards intent or purpose to appropriate together with intent to refuse return as sufficient and does not require illegal-appropriation intent as an additional subjective element. This qualification materially limits the broad negative card concerning concealment intent.",
+      "recommended_action": "Record the omitted subview as a coverage gap and require review or upstream extraction before treating the concealment exclusion as complete.",
+      "type": "missing_variant",
+      "note": "구조성 지적 → 에이전트 처리"
+    },
+    {
+      "article": "art355",
+      "finding_id": "f1.precedent_card_formalization",
+      "severity": "hard",
+      "target_path": "$.cards[4]",
+      "message": "이 카드는 norm_kind가 standard이고 authority_basis도 commentary_reported_precedent인데, doctrinal_status를 disputed로, formalization을 policy_variant로 설정하여 소개된 판례 기준을 정책 선택지로 변환했다. 같은 카드의 proposition과 출처는 판례가 구체적 위험을 요구한다는 기준을 보고한 것이며, 학설상 대립이 존재한다는 이유만으로 판례 기준 자체가 정책 변형이 되지는 않는다.",
+      "recommended_action": "후보의 성격과 일치하도록 이 카드의 doctrinal_status와 formalization을 각각 판례 입장 및 standard 입력으로 바로잡되, 학설상 침해범설과의 대립은 variant_group이나 review_notes에서 별도로 보존한다.",
+      "type": "formalization_error",
+      "note": "구조성 → 에이전트 처리"
+    },
+    {
+      "article": "art355",
+      "finding_id": "f3.coverage_gap_incorrectly_empty",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "coverage_gaps가 비어 있지만, bounded source에 명시된 횡령죄 보호법익의 경쟁 견해들과 횡령죄 보호 정도에 관한 침해범설·위험범설의 대립 및 관련 판례 입장이 카드화되지 않았다. 따라서 완전한 범위 포착을 나타내는 빈 배열은 실제 카드 범위와 일치하지 않는다.",
+      "recommended_action": "누락된 규범을 카드로 추가할 수 없는 경우 최소한 coverage_gaps에 각 누락 쟁점과 상류 후보 재추출 필요성을 명시한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "f4.review_question_misclassifies_standard",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions[1]",
+      "message": "검토 질문이 art355_sec1_3.breach_of_trust_case_concrete_risk_of_loss를 'variant cards'에 포함하고 판례 정렬 정책으로 선택하도록 요구한다. 이 카드는 후보 및 norm_kind상 standard이며, 필요한 검토는 정책 선택이 아니라 소개된 판례 기준의 권위와 범위 확인이다.",
+      "recommended_action": "해당 standard 카드를 정책 선택 대상 목록에서 제외하고, 판례 원문·적용 범위를 확인하는 질문으로 분리한다.",
+      "type": "formalization_error",
+      "note": "구조성 → 에이전트 처리"
+    },
+    {
+      "article": "art355",
+      "finding_id": "unsupported_competing_view_review",
+      "severity": "hard",
+      "target_path": "$.legal_review_questions[1]",
+      "message": "The question directs reviewers to group competing views and select a precedent-aligned practical policy, but neither a competing object view nor relevant precedent is supplied in the bounded source. The other views in the commentary concern the comparative gravity of embezzlement, not the object of breach of trust.",
+      "recommended_action": "Limit the review question to confirming the authority and scope of the reported prevailing view, or add bounded sources establishing actual competing theories and relevant precedent.",
+      "type": "source_scope",
+      "note": "구조성 지적(coverage_gaps·review_question·candidate_refs) → 법률 결정점 아님"
+    },
+    {
+      "article": "art355",
+      "finding_id": "missing_deposit_precedent",
+      "severity": "hard",
+      "target_path": "$.cards",
+      "message": "예금 보관에 관한 카드는 소수설과 통설만 담고 있으나, 출처는 타인의 금전을 위탁받은 보관자가 이를 금융기관에 예치한 경우에도 보관자 지위를 인정하고, 제3자 계좌도 사실상 지배하면 동일하다는 판례 입장을 별도로 명시한다. 실무상 권위 있는 판례 규범이 누락되어 변형군이 불완전하다.",
+      "recommended_action": "예금 및 사실상 지배하는 제3자 계좌에 관한 판례 입장을 commentary_reported_precedent 카드로 추가하고 예금 보관 variant group과 연결한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "invalid_candidate_refs",
+      "severity": "hard",
+      "target_path": "$.target.cards[11].candidate_refs",
+      "message": "The card cites candidate art355.standard.invalid-act-economic-loss from request art355.pass1.015, but no such candidate or request is present in the supplied validated_candidates. The same defect appears in cards[15] and cards[16], which cite multiple candidates from art355.pass1.021 that are not present in the bounded candidate batches.",
+      "recommended_action": "Remove the nonexistent candidate references or supply the omitted validated candidate batches; retain only candidate_refs that occur in the bounded validated_candidates.",
+      "type": "source_scope",
+      "note": "구조성 지적(coverage_gaps·review_question·candidate_refs) → 법률 결정점 아님"
+    },
+    {
+      "article": "art355",
+      "finding_id": "duty_card_candidate_mismatch",
+      "severity": "hard",
+      "target_path": "$.target.cards[15].candidate_refs",
+      "message": "The duty-definition card is linked chiefly to nonexistent pass1.021 candidates, while the bounded candidate that directly supports its economic and substantive formulation is art355.definition.breach-of-duty-economic-substantial-risk from pass1.025. The current linkage therefore does not accurately identify the candidates implemented by the card.",
+      "recommended_action": "Delete unavailable pass1.021 references and link the card only to supplied candidates that support each retained clause; if omitted candidates are necessary, restore them to the bounded input first.",
+      "type": "rule_mismatch",
+      "note": "구조성 → 에이전트 처리"
+    },
+    {
+      "article": "art355",
+      "finding_id": "omission_card_candidate_mismatch",
+      "severity": "hard",
+      "target_path": "$.target.cards[16].candidate_refs",
+      "message": "Three of the four linked candidates—art355.element.omission-legal-duty, art355.causal-link.omission-new-loss-risk, and art355.standard.omission-attempt-risk-concretized—are absent from the supplied validated candidate batches. Only art355.causal-link-auditor-reporting-omission-new-harm is bounded, and that candidate alone does not provenance-link every general clause in the merged card.",
+      "recommended_action": "Remove the unavailable references and narrow the card to the supplied candidate, or provide the omitted validated candidates before retaining the broader merged proposition.",
+      "type": "rule_mismatch",
+      "note": "구조성 → 에이전트 처리"
+    },
+    {
+      "article": "art355",
+      "finding_id": "document_card_omits_promissory_condition",
+      "severity": "hard",
+      "target_path": "$.target.cards[2].proposition",
+      "message": "The card links the promissory-note candidate but does not preserve its conditions that the issuer intended circulation and completed signature or seal so that the instrument had the appearance of a promissory note. The broad phrase '유가증권은 재물일 수 있다' does not implement that candidate's conditional rule.",
+      "recommended_action": "Either state the promissory-note conditions in the proposition or remove that candidate from this card and place it in a separate conditional card.",
+      "type": "formalization_error",
+      "note": "구조성 → 에이전트 처리"
+    },
+    {
+      "article": "art355",
+      "finding_id": "f_proof_standard_dropped_and_contextualized",
+      "severity": "hard",
+      "target_path": "/cards/10",
+      "message": "검증 후보와 원문은 검사가 횡령행위를 합리적 의심이 없을 정도의 확신을 주는 엄격한 증거로 입증해야 한다는 증명기준까지 포함하지만, 카드 명제는 이를 누락하고 단순한 입증책임과 증거 부재의 효과만 남겼다. 또한 formalization을 context_only로 두어 후속 단계에서 핵심 증거 게이트가 구현되지 않을 위험이 있다.",
+      "recommended_action": "검증 후보에 포함된 합리적 의심 배제 및 엄격한 증거 기준을 카드에 보존하고, 이를 단순 맥락이 아니라 증명책임·증명기준을 통제하는 형식화 대상으로 분류하라.",
+      "type": "formalization_error",
+      "note": "구조성 → 에이전트 처리"
+    },
+    {
+      "article": "art355",
+      "finding_id": "missing_norm.business_expense_nonexplanation",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "판공비 사용자가 행방·사용처를 제대로 설명하지 못하거나 사후 증빙자료를 제출하지 못했다는 사정만으로 불법영득의사를 추단해서는 안 된다는 명시적 소극 규범이 카드에 없고 coverage_gaps도 비어 있다. 이는 판공비 판단에서 독립적인 증거 제한 규범이다.",
+      "recommended_action": "해당 소극 규범을 별도 카드로 보존하거나, 현 단계에서 카드화하지 않는다면 coverage_gaps와 legal_review_questions에 명시한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "missing_norm.litigation_fee_general_rules",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "소송비용 관련 카드들은 대표자 개인 사건의 예외와 형식적 법인 당사자 상황만 담고 있다. 법인 자체가 소송당사자인 경우 원칙적으로 법인 비용 지출이 가능하다는 규범 및 직무집행정지·대표이사 해임소송에 필요한 비용을 법인이 부담할 수 있다는 규범이 누락되어, 예외와 반대 규범의 구조가 불완전하다.",
+      "recommended_action": "누락된 허용 원칙들을 별도 카드로 보존하거나 coverage_gaps에 기록하고, 기존 소송비용 카드들과의 원칙·예외 관계를 검토 질문에 추가한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "missing_norm.management_disposal_exception",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "원문에는 목적물 보전을 위한 운반·보관은 사무관리 범위에 속하고, 그 비용 조달을 위한 보관물 일부의 환가처분은 위법성이 조각될 여지가 있다는 별도의 규범이 있으나 카드에도 coverage gap에도 반영되지 않았다.",
+      "recommended_action": "해당 규범을 후보 재추출 대상으로 coverage_gaps에 기록하고, 검증된 후보가 마련된 뒤 조건부 위법성조각 카드로 별도 처리하라.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "missing_norm.legal_mistake_case",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "원문에는 직무집행정지 중 종단 보관금을 소송비용으로 사용한 사안에서 변호사의 조언만으로는 법률의 착오가 성립하지 않는다는 인용판례의 사안별 결론이 있으나 카드 또는 coverage gap에 나타나지 않는다.",
+      "recommended_action": "이를 commentary-reported precedent에 해당하는 사안별 규범의 재추출 대상으로 coverage_gaps에 기록하고, 일반 규범으로 확대하지 않은 별도 후보와 카드가 필요한지 검토하라.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "review_question_treats_precedent_as_policy",
+      "severity": "hard",
+      "target_path": "$.legal_review_questions[1]",
+      "message": "검토 질문이 부동산 이중매매의 전원합의체 다수의견과 반대의견을 함께 '정책 선택' 대상으로 취급한다. 출처상 다수의견은 유지된 판례 입장이고 반대의견은 그 판결의 비지배적 견해이므로, 양자를 동등한 미결 정책 변형으로 선택하게 해서는 안 된다.",
+      "recommended_action": "다수의견은 보고된 현행 판례 입장으로 확인하고 반대의견은 별도 보존하도록 질문을 최소 수정하라. 학설 간 대립에 대해서만 정책 선택 여부를 묻도록 구분하라.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "invalid_candidate_reference.performance_to_first_purchaser",
+      "severity": "hard",
+      "target_path": "$.target.cards[14].candidate_refs[0]",
+      "message": "The card references candidate_id \"art355.exception.performance-to-first-purchaser\", but no candidate with that ID appears in the supplied validated_candidates. Although the card proposition is supported by the commentary, its asserted candidate-stage provenance is invalid.",
+      "recommended_action": "Remove this invalid candidate reference and either omit the card from this candidate-derived set or obtain a validated candidate for the supported proposition before linking it.",
+      "type": "source_scope",
+      "note": "구조성 지적(coverage_gaps·review_question·candidate_refs) → 법률 결정점 아님"
+    },
+    {
+      "article": "art355",
+      "finding_id": "mixed_polarity.land_readjustment_attempt",
+      "severity": "soft",
+      "target_path": "$.target.cards[5]",
+      "message": "This card has negative polarity but combines the negative conclusion that completion was not reached with the affirmative outcome that attempted breach of trust was recognized. A single negative-polarity standard_input does not cleanly represent both procedural stages.",
+      "recommended_action": "Separate the non-completion rule from the recognition of attempt, or narrow the card to one outcome with matching polarity.",
+      "type": "formalization_error",
+      "note": "구조성 → 에이전트 처리"
+    },
+    {
+      "article": "art355",
+      "finding_id": "coverage.omitted_accomplice_norms",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "빈 coverage_gaps는 공급된 전체 문맥과 맞지 않는다. 문맥에는 비신분자가 보관자와 공동한 경우 공동정범·교사범·방조범만 될 수 있다는 규범, 담보물의 타인 소유 인식만으로 공모 가담을 단정할 수 없다는 부정 규범, 공모를 정황사실과 경험법칙으로 증명할 수 있다는 증명 규범이 추가로 명시되어 있으나 카드나 누락 항목으로 반영되지 않았다.",
+      "recommended_action": "누락된 각 규범을 별도 카드 후보로 재검토하거나, 최소한 coverage_gaps에 구체적으로 기록하라.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "coverage.omitted_nonholder_variants",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "비보관자가 업무상횡령죄의 공동정범이 될 수 있는지에 관하여 공동정범을 인정하는 견해와 이를 배제하고 단순횡령죄의 교사범·방조범만 문제 삼는 견해가 병존하며, 판례가 전자의 입장으로 소개된다. 이 별도 쟁점의 경쟁 견해와 판례 위치가 카드 및 coverage_gaps에서 모두 누락되었다.",
+      "recommended_action": "비보관자의 업무상횡령 가담 쟁점을 별도 variant_group으로 추출하고 양 견해 및 주석이 보고한 판례 입장을 각각 보존하라.",
+      "type": "missing_variant",
+      "note": "구조성 지적 → 에이전트 처리"
+    },
+    {
+      "article": "art355",
+      "finding_id": "review_question.policy_bias",
+      "severity": "soft",
+      "target_path": "/legal_review_questions/1",
+      "message": "검토 질문이 경쟁 견해의 검증을 요청하는 데 그치지 않고 미리 'precedent-aligned practical policy'를 선택하도록 지시한다. 이는 아직 원판례가 확인되지 않았고 카드 자체도 disputed 및 commentary-reported authority로 표시된 상태에서 정책 선택 방향을 선결한다.",
+      "recommended_action": "질문을 각 견해의 권위·범위와 원판례 확인 및 채택 정책의 명시적 결정 필요성을 검토하도록 중립적으로 수정하라.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "missing_norm.loan_limit",
+      "severity": "hard",
+      "target_path": "$.target.coverage_gaps",
+      "message": "The empty coverage-gaps list does not acknowledge the source's separate norm that a loan made for a person's account under another person's name is treated as that person's loan, and that a separate breach-of-trust offense may arise when the aggregate of the prior and additional loans exceeds that person's lending limit.",
+      "recommended_action": "Record this omitted proposition as a coverage gap and request separate candidate extraction; do not infer that it is false or merge it into either existing card.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "missing_norm.follow_on_embezzlement",
+      "severity": "hard",
+      "target_path": "$.target.coverage_gaps",
+      "message": "The source expressly states another distinct norm: after conduct constituting breach of trust, subsequent conduct that infringes a new protected legal interest different from that of breach of trust may constitute the separate offense of embezzlement. Neither a card nor a coverage gap preserves this norm.",
+      "recommended_action": "Add this proposition to coverage_gaps and route it for separate candidate extraction and authority review rather than merging it with the post-act absorption card.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "missing_norm.preclusion_and_dismissal",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "출처에는 두 죄가 실체적 경합이라는 판단 외에도, 업무상배임죄 확정판결의 기판력이 해당 중소기업협동조합법 위반 공소사실에 미치지 않아 면소를 선고할 수 없다는 별도의 결론이 명시되어 있다. 카드 집합은 이를 카드로 보존하지 않았고 coverage_gaps도 비어 있다.",
+      "recommended_action": "해당 기판력 및 면소 불가 결론을 재추출 대상으로 coverage_gaps에 기록하고, 별도 후보 검토를 거쳐 독립 카드로 보존한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "missing_norm.internal_rule_validity",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "판례 인용문에는 법인의 정관 및 내부 규정이 특별한 사정이 없는 한 일응 유효하다는 기준과, 객관적·합리적으로 수긍할 수 있는 범위의 우대규정은 회사의 자율적 운영권 범주에 속한다는 기준이 명시되어 있으나 카드 또는 coverage gap으로 보존되지 않았다.",
+      "recommended_action": "해당 일반 기준을 별도 카드로 추가하거나, 현재 추출 범위에서 제외한 이유를 coverage_gaps에 명시하라.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "missing.authority.review.question",
+      "severity": "hard",
+      "target_path": "$.target.legal_review_questions",
+      "message": "The empty review-question list does not surface the unresolved authority choice between the competing concurrence theories or the source's limitation that the dispute is reported in relation to Japanese doctrine.",
+      "recommended_action": "Add a focused legal-review question asking whether the reported Japanese 법조경합 view must be retained as a variant and what weight, if any, that foreign doctrinal dispute has for the Korean proposition.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "review.flag.inconsistent",
+      "severity": "soft",
+      "target_path": "$.target.cards[0].review_required",
+      "message": "The card is marked review_required=false even though its review_notes state that application depends on examination of the concrete facts, and the bounded source contains a competing doctrinal position.",
+      "recommended_action": "Set review_required to true pending resolution of the factual-application issue and preservation of the competing doctrinal variant.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "general_norm_case_outcome_merge",
+      "severity": "hard",
+      "target_path": "$.cards[0]",
+      "message": "하나의 카드가 형법 제40조에 관한 일반적 해석 기준과 특정 죄들의 상상적 경합에서 벌금형 병과가 정당하다는 판례상 사안별 결론을 결합한다. 이로 인해 일반 규범과 구체적 적용 결과의 구별이 불명확하다.",
+      "recommended_action": "형법 제40조의 형 범위 해석과 2008도9169의 구체적 벌금형 병과 결론을 별도 NormCard로 분리하고 상호 관련성을 표시하라.",
+      "type": "formalization_error",
+      "note": "구조성 → 에이전트 처리"
+    },
+    {
+      "article": "art355",
+      "finding_id": "coverage.omitted_visible_norms",
+      "severity": "soft",
+      "target_path": "$.coverage_gaps",
+      "message": "coverage_gaps가 비어 있으나 bounded commentary에는 현재 카드에 포함되지 않은 별도 명제가 보인다. 여기에는 일반적인 공소사실 특정 기준과 개괄적 표시가 허용되는 예외, 임의사용 용도를 세부 특정하지 않아도 된 적용례, 피해자 오인 및 소액 횡령액 산정 오류가 판결 결과에 영향을 주지 않은 사례가 포함된다.",
+      "recommended_action": "이 카드 세트의 생성 범위가 검증 후보 3개로 제한되었다면 나머지 명제를 coverage_gaps에 기록하고 재추출 필요성을 표시한다. 전체 bounded commentary의 규범을 포괄해야 하는 범위라면 별도 후보 추출 단계로 돌린다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "review_questions.insufficiently_specific",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions[0]",
+      "message": "단일 포괄 질문은 실제 쟁점인 첫 카드의 절차규범 분류, 일반 서술과 판례 보고의 결합 및 권위 차이, 세 번째 카드의 사례 한정 여부를 구체적으로 제시하지 않는다.",
+      "recommended_action": "각 쟁점을 개별 검토 질문으로 추가하여 리뷰어가 분류, 권위, 병합 범위 및 사례 일반화 여부를 명시적으로 판단할 수 있게 한다.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "missing_negative_reverse_direction_norm",
+      "severity": "hard",
+      "target_path": "$.cards",
+      "message": "공급된 commentary chunk에는 배임 기소 후 공소장변경 없이 횡령죄를 적용할 수 있다는 규범과 별도로, 횡령죄로 공소제기된 사건에서 법원이 공소장변경 없이 직권으로 배임죄를 인정·처벌하지 않았더라도 심리미진 등의 위법이 없다는 소극적 규범이 명시되어 있다. 현재 카드 집합은 이 역방향의 부작위 허용 규범을 누락하여 방향별 비대칭과 negative norm을 보존하지 못했다.",
+      "recommended_action": "해당 소극적 규범을 별도 카드로 추가하거나, 현 단계에서 카드화할 수 없다면 coverage_gaps에 명시하고 그 권위·범위·극성에 관한 구체적인 legal_review_question을 추가하라.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "coverage.indictment_identity_case",
+      "severity": "soft",
+      "target_path": "/coverage_gaps",
+      "message": "두 번째 commentary chunk에는 사기 공소사실과 예비적으로 추가된 횡령 공소사실의 동일성을 인정한 별도 판례 사례가 있으나 카드나 coverage gap으로 기록되지 않았다.",
+      "recommended_action": "해당 절차법상 판례 명제를 이 카드 세트의 범위에 포함할지 검토하도록 coverage gap과 review question을 추가하고, 포함 대상이면 후보 재추출 절차로 돌린다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "missing.changed_precedent_illegal_trust",
+      "severity": "hard",
+      "target_path": "$.cards",
+      "message": "출처에는 부동산실명법에 위반한 명의신탁에서는 수탁자의 임의처분에도 횡령죄가 성립하지 않는다는 변경 판례와, 그 결과 제3자의 횡령죄 공동정범 또는 장물취득죄 성립 문제가 더 이상 발생하지 않는다는 별도 규범이 있으나 카드가 없다. 현재 명의신탁 카드만으로는 이 변경 판례와 적용상 예외가 보존되지 않는다.",
+      "recommended_action": "부동산실명법 위반 명의신탁에 관한 변경 판례와 그에 따른 제3자 범죄성립 문제의 소멸을 별도 카드로 추가하고, 일반 명의신탁 카드와의 적용 관계를 검토사항에 명시한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art355",
+      "finding_id": "missing.overstated_contract_bribery_classification",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "공무원이 수의계약 과정에서 받은 돈을 뇌물로 볼지 과다 약정에 의한 횡령·국고손실로 볼지 여러 사정을 종합하여 객관적으로 판단한다는 판례 명제가 원문에 명시되어 있으나 카드가 없고 coverage_gaps도 비어 있다.",
+      "recommended_action": "해당 판례의 분류 기준을 독립 NormCard로 추가하거나, 이번 카드 세트에서 제외할 근거가 있다면 coverage_gaps에 명시한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art356",
+      "finding_id": "missing.unrelated_possession_exclusion",
+      "severity": "hard",
+      "target_path": "/cards",
+      "message": "The bounded commentary expressly states the negative norm that another person's property possessed without connection to the possessor's business performance is not an object of occupational embezzlement, but the card set contains no card preserving this exclusion.",
+      "recommended_action": "Add a separately sourced negative-polarity card for the express exclusion, with an appropriate candidate linkage or documented coverage-gap treatment under the pipeline's provenance requirements.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art356",
+      "finding_id": "missing.subordinate.expectability.norm",
+      "severity": "hard",
+      "target_path": "$.target.cards",
+      "message": "The bounded commentary contains an additional negative norm: a subordinate who participated in a superior's offense cannot be regarded as lacking the possibility of lawful conduct merely because a workplace command-and-obedience relationship existed. No card captures this proposition.",
+      "recommended_action": "Add a separately sourced negative-polarity card for this norm, or record it expressly as a coverage gap if it cannot be carded within the current extraction scope.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art356",
+      "finding_id": "coverage.gap.not.recorded",
+      "severity": "hard",
+      "target_path": "$.target.coverage_gaps",
+      "message": "The empty coverage-gaps array incorrectly indicates complete coverage despite omission of the commentary's norm concerning a subordinate's expectation of nonparticipation in a superior's offense.",
+      "recommended_action": "After adding the omitted card, retain an empty array only if coverage is complete; otherwise identify this omitted proposition in coverage_gaps.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art356",
+      "finding_id": "coverage_gap_not_recorded",
+      "severity": "soft",
+      "target_path": "/coverage_gaps",
+      "message": "The empty coverage-gaps array incorrectly suggests complete coverage even though the source's affirmative competing position on non-status co-principal liability has not been represented.",
+      "recommended_action": "Until the omitted competing card is added, record that position as a coverage gap; remove the gap after completing the variant group.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art357",
+      "finding_id": "missing.receiving_offense_definition",
+      "severity": "hard",
+      "target_path": "$.target.coverage_gaps",
+      "message": "동일한 범위의 주석은 형법 제357조 제1항의 배임수재죄 정의도 명시하지만, 카드 세트에는 제2항의 배임증재죄 카드만 있고 coverage_gaps도 비어 있다. 해당 규범은 제공된 validated_candidates에 없으므로 이를 임의로 카드화할 수는 없지만, 현재 세트가 출전 범위를 완전히 포괄하는 것처럼 표시되어서는 안 된다.",
+      "recommended_action": "배임수재죄 정의의 후보 누락을 coverage_gaps에 기록하고 재추출 대상으로 보내거나, 적법하게 검증된 후보가 추가된 뒤 별도 NormCard로 포함한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art357",
+      "finding_id": "missing.review_question.improper_request",
+      "severity": "soft",
+      "target_path": "$.target.legal_review_questions",
+      "message": "카드의 review_notes는 ‘부정한 청탁’의 세부 기준이 이 출전만으로 확정되지 않는다고 명시하지만, legal_review_questions가 비어 있어 그 미해결 사항이 세트 수준의 검토 질문으로 보존되지 않았다.",
+      "recommended_action": "‘부정한 청탁’의 판단 기준과 별도 출전 필요 여부를 확인하는 최소한의 법률 검토 질문을 추가한다.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art357",
+      "finding_id": "missing.third_party_confiscation_norm",
+      "severity": "hard",
+      "target_path": "$.cards",
+      "message": "The bounded commentary also states that property or pecuniary benefits acquired by a third party may be confiscated or subjected to collection when that third party knew the circumstances of breach-of-trust receipt. No card or coverage gap preserves this distinct conditional consequence.",
+      "recommended_action": "Preserve the omitted conditional confiscation-or-collection norm through the appropriate candidate/card process, or record it expressly as an upstream extraction coverage gap requiring re-extraction.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art357",
+      "finding_id": "missing.temporal_review_question",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions",
+      "message": "The first card's review notes acknowledge that amendment applicability and commencement may require separate examination, but the card set contains no corresponding legal review question.",
+      "recommended_action": "Add a focused review question addressing the amendment's effective date and temporal application without inferring those matters from the bounded commentary.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art357",
+      "finding_id": "incorrect.kind.polarity.no_breach_loss",
+      "severity": "hard",
+      "target_path": "/cards/1",
+      "message": "임무위배행위와 재산상 손해가 필요하지 않다는 명제는 별도 예외사실이 적용되는 예외규범이 아니라, 배임수재죄 구성요건에 해당 사항이 포함되지 않는다는 소극적 구성요건 명제이다. 따라서 norm_kind와 polarity를 모두 exception으로 분류한 것은 원문의 법적 기능을 잘못 나타낸다.",
+      "recommended_action": "해당 카드의 norm_kind를 element로, polarity를 negative로 정정하고, 예외 적용을 전제하는 형식화가 되지 않도록 formalization과 검토 문구를 함께 점검한다.",
+      "type": "formalization_error",
+      "note": "구조성 → 에이전트 처리"
+    },
+    {
+      "article": "art357",
+      "finding_id": "missing.negative.property_only_view",
+      "severity": "hard",
+      "target_path": "/cards",
+      "message": "자료는 타인의 재산만을 보호법익으로 보는 견해가 현재 보이지 않는다는 명시적 부정 명제를 포함하지만 카드 세트에 보존되지 않았다. 이는 청렴성과 재산을 함께 보호법익으로 보는 견해와도 구별되는 별도 명제다.",
+      "recommended_action": "타인의 재산만을 보호법익으로 보는 견해가 현재 보이지 않는다는 범위로 한정된 부정 명제를 별도 카드로 추가하고, 해당 명제가 주석의 학설 현황 서술임을 표시하라.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art357",
+      "finding_id": "review.question.precommits.policy",
+      "severity": "soft",
+      "target_path": "/legal_review_questions/1",
+      "message": "검토 질문이 판례에 부합하는 실무 정책을 선택하도록 미리 지시하여, 제시된 견해들의 비교와 권위 확인이 끝나기 전에 정책 선택 방향을 선결한다.",
+      "recommended_action": "정책 선택을 지시하지 말고, 각 학설과 주석이 보고한 판례 입장의 관계 및 원전 확인 필요성을 중립적으로 검토하도록 질문을 최소 수정하라.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art357",
+      "finding_id": "missing.competing.infringement.variant",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "출전은 배임수재죄의 보호 정도에 관하여 침해범설과 위험범설이 대립한다고 명시하고 침해범설의 내용도 제시하지만, 카드 세트에는 위험범설만 있고 coverage_gaps도 비어 있다. 따라서 동일 쟁점의 경쟁 견해가 보존되지 않았으며, review_notes의 '위험범설을 지지하는 doctrine만 확인되었다'는 설명도 전체 출전과 맞지 않는다.",
+      "recommended_action": "침해범설을 동일 variant_group의 별도 변형으로 추출·검토할 필요를 coverage gap에 기록하고, 해당 후보가 검증된 뒤 별도 NormCard로 추가하라. 아울러 review_notes를 두 견해의 대립이 출전에서 확인된다는 내용으로 최소한 수정하라.",
+      "type": "missing_variant",
+      "note": "구조성 지적 → 에이전트 처리"
+    },
+    {
+      "article": "art357",
+      "finding_id": "review_question.preselects_precedent_policy",
+      "severity": "hard",
+      "target_path": "/legal_review_questions/1",
+      "message": "The review question instructs the reviewer to select a \"precedent-aligned practical policy,\" which preselects the orientation of an unresolved authority choice. The bounded source preserves both the reported precedent and competing doctrinal views.",
+      "recommended_action": "Make the question neutral: request verification of the competing authorities and an explicit policy choice without directing the reviewer toward a particular variant.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art357",
+      "finding_id": "missing.loan_characterization_standard",
+      "severity": "hard",
+      "target_path": "$.target.coverage_gaps",
+      "message": "The empty coverage-gaps array overlooks the source's express holistic standard for deciding whether money characterized as a loan was actually borrowed, including the transfer circumstances, parties' relationship and positions, borrowing need and alternatives, amount and use, lender's economic expectations, security, maturity and interest terms, repayment, and enforcement circumstances.",
+      "recommended_action": "Record this omitted standard as a coverage gap and route it for candidate extraction or add a supported NormCard without treating any listed factor as independently dispositive.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art357",
+      "finding_id": "missing.confession_credibility_standard",
+      "severity": "hard",
+      "target_path": "$.target.coverage_gaps",
+      "message": "The source also states a distinct multifactor standard for assessing the credibility of a confession later recanted, but neither a card nor a coverage gap preserves it.",
+      "recommended_action": "Record the recanted-confession credibility standard as a coverage gap and route it for separate extraction or card creation.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art357",
+      "finding_id": "missing.precedent_usage_observation",
+      "severity": "hard",
+      "target_path": "$.target.coverage_gaps",
+      "message": "The cards preserve both doctrinal views but omit the commentary's separate qualifications that the dispute appears to have little practical significance and that precedent appears mainly to use the expression '영득의 의사.' Those qualifications are relevant to review of the variant group and must not be collapsed into either competing view.",
+      "recommended_action": "Preserve these qualifications as a coverage gap or separately sourced review note, while retaining their tentative commentary-reported character.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art357",
+      "finding_id": "missing.attempt-punishable",
+      "severity": "hard",
+      "target_path": "/cards",
+      "message": "The bounded commentary expressly states that an attempt is punishable, but the card set contains no card preserving that general norm.",
+      "recommended_action": "Add a separately sourced card for the general punishability of attempt, or record its omission explicitly in /coverage_gaps if a new card requires upstream extraction.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art357",
+      "finding_id": "missing.concurrence-with-breach-of-trust",
+      "severity": "hard",
+      "target_path": "/cards",
+      "message": "The source states that when conduct advances to a breach-of-trust act involving property-affairs administration, the offense and breach of trust stand in concurrence. That distinct consequence is absent.",
+      "recommended_action": "Add a distinct concurrence card through supported upstream extraction, or identify this omitted norm in /coverage_gaps.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art357",
+      "finding_id": "coverage.gaps-inaccurately-empty",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "The empty coverage-gaps array inaccurately indicates complete coverage despite the omitted attempt-punishability norm, concurrence consequence, and two expressly reported commencement subvariants.",
+      "recommended_action": "Populate /coverage_gaps with the omitted matters unless and until corresponding candidates and cards are added.",
+      "type": "source_scope",
+      "note": "구조성 지적(coverage_gaps·review_question·candidate_refs) → 법률 결정점 아님"
+    },
+    {
+      "article": "art357",
+      "finding_id": "missing.cooffender.sole_defendant",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "공모자 중 1인만 피고인인 경우 전부 소비인지 공범들과의 분배 소비인지, 후자라면 피고인의 분배 소비액이 얼마인지 밝혀 추징액을 확정해야 한다는 별도의 규범이 원문에 있으나 카드에 반영되지 않았고 coverage_gaps도 비어 있다.",
+      "recommended_action": "누락된 규범을 상위 후보 추출 단계에서 보완하거나, 적어도 해당 누락을 coverage_gaps와 법률 검토 질문에 명시한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art357",
+      "finding_id": "missing_case_specific_negative_norm",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "The bounded commentary also states a case-specific negative outcome: where a person not responsible for transfer-admission duties received an improper request and money, punishment of that person for breach-of-trust receipt and of the giver for breach-of-trust giving is unavailable if the responsible dean or equivalent actor neither knew of nor independently received the improper request. This proposition is absent from the cards and is not identified as a coverage gap. It must remain distinct f",
+      "recommended_action": "Record this omitted case-specific negative proposition in coverage_gaps and route it for candidate extraction and authority review; do not merge it into either existing general card.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art360",
+      "finding_id": "missing_norm.distinctions",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "The empty coverage-gaps list does not account for additional propositions explicit in the bounded commentary: the offense does not invade another person's possession, differs from theft on that basis, shares acquisition of another's property outside that person's possession with entrusted-property embezzlement, and differs from that offense because it does not presuppose an entrustment relationship. These propositions were not represented by the supplied validated candidate and must not silently",
+      "recommended_action": "Record these omitted propositions as coverage gaps and route them for candidate extraction rather than adding unsupported cards directly.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art360",
+      "finding_id": "missing_norm.punishment_rationale",
+      "severity": "hard",
+      "target_path": "/coverage_gaps",
+      "message": "The commentary's explanation that reduced blameworthiness supports lighter punishment than entrusted-property embezzlement is also absent while coverage_gaps is empty. This explanatory doctrinal proposition should be preserved separately from the offense definition.",
+      "recommended_action": "Add a coverage gap for the punishment rationale and send it for separate candidate extraction with its explanatory authority and scope preserved.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art360",
+      "finding_id": "missing_review_question.application",
+      "severity": "soft",
+      "target_path": "/legal_review_questions",
+      "message": "The set is marked as legally pending and the card notes that whether property has left another's possession and whether conduct constitutes embezzlement require separate examination, but no review question captures those unresolved application issues.",
+      "recommended_action": "Add a focused legal-review question asking how the possession-departure and embezzlement predicates are to be determined before deterministic implementation.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art360",
+      "finding_id": "missing_variant.deceased_property",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "사자와 함께 있는 재물에 관하여 자료는 일반적 판단 요소, 영득 목적 살해가 아닌 경우 일단 점유이탈물이 된다는 견해, 피해자의 생전 점유가 계속된다는 판례 사례, 자취방 소유자나 관리자의 점유로 보아야 한다는 견해를 함께 제시한다. 대상은 판례 사례 카드만 보존하면서 coverage_gaps를 빈 배열로 두어 경쟁 견해와 일반 기준의 누락을 표시하지 않았다.",
+      "recommended_action": "누락된 일반 기준과 경쟁 견해를 재추출 대상으로 coverage_gaps에 기록하고, 서로 연계된 variant group 및 그 권위·범위를 검토하는 질문을 추가한다.",
+      "type": "missing_variant",
+      "note": "구조성 지적 → 에이전트 처리"
+    },
+    {
+      "article": "art360",
+      "finding_id": "missing_variant.public_transport_control",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "운전사에게 사실상 재물지배를 인정해야 한다는 판례 비판 견해가 명시되어 있으나, 대상은 현실적 발견 전 점유를 부정하는 판례 입장만 수록하고 이 경쟁 견해의 누락을 표시하지 않았다.",
+      "recommended_action": "운전사의 사실상 지배를 인정하는 비판 견해를 재추출 대상으로 coverage_gaps에 기록하고, 판례 입장과 연결되는 variant 검토 항목을 추가한다.",
+      "type": "missing_variant",
+      "note": "구조성 지적 → 에이전트 처리"
+    },
+    {
+      "article": "art360",
+      "finding_id": "review_question.variant_selection",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions[1]",
+      "message": "검토 질문이 착오송금 variant 중 판례 정합적 실무 정책을 선택하도록 요구하지만, 현재 자료는 경쟁 견해와 판례 입장을 함께 보존해야 하는 단계이며 선택 후에도 비선택 견해의 유지 여부와 적용 범위를 명시해야 한다.",
+      "recommended_action": "질문을 각 견해와 판례 입장의 권위·적용 범위 및 정책 선택이 필요한지 여부를 검토하되 경쟁 variant를 삭제하거나 합치지 않도록 하는 형태로 제한한다.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art360",
+      "finding_id": "missing.majority_doctrine_position",
+      "severity": "soft",
+      "target_path": "$.coverage_gaps",
+      "message": "원문은 다수 학설도 상태범이라는 이유로 자기앞수표 환금·지급에 관한 판례와 같은 입장을 취한다고 별도로 보고하지만, 카드 세트는 commentary-reported precedent만 보존하고 이 학설상 권위와 논거를 누락했으며 coverage_gaps도 비어 있다.",
+      "recommended_action": "다수 학설의 동일 입장과 상태범 논거를 별도 교리 카드로 보존하거나, 재추출이 필요하다는 coverage gap 및 검토 질문을 추가하라.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art366",
+      "finding_id": "missing.review_question",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions",
+      "message": "카드의 review_notes는 개별 대상이 관리 가능한 동력인지에 관한 사실평가가 필요하다고 명시하지만, 법률 검토 질문 배열은 비어 있어 그 검토 쟁점이 구조화되어 있지 않다.",
+      "recommended_action": "관리 가능한 동력의 해당성을 판단하기 위해 확인해야 할 쟁점을 legal_review_questions에 추가하라.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art366",
+      "finding_id": "public_interest_building_object_category_error",
+      "severity": "hard",
+      "target_path": "$.cards[22].proposition",
+      "message": "명제는 '공익건조물을 손상시킨 행위'가 제366조의 객체가 될 수 있다고 표현하지만, 범행객체가 되는 것은 행위가 아니라 타인 소유의 공익건조물이다. 출처의 취지는 파괴에 이르지 않은 손상인 경우 그 건조물이 제366조 적용 대상이 된다는 것이다.",
+      "recommended_action": "행위가 객체라는 표현만 바로잡아, 타인 소유 공익건조물이 파괴 미만의 손상에 관하여 제366조의 객체가 된다는 관계로 한정한다.",
+      "type": "formalization_error",
+      "note": "구조성 → 에이전트 처리"
+    },
+    {
+      "article": "art366",
+      "finding_id": "precedent_review_question_inaccurate",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions[1]",
+      "message": "검토 질문은 art366.own_property_exclusion을 'commentary-reported case card'로 분류하지만 해당 카드는 commentary_synthesis로 구성되어 있고 특정 판례 결과를 보고하는 카드가 아니다. 반면 실제 commentary_reported_precedent 카드들에 대한 일괄적인 원결정 확인 질문은 이 항목에 충분히 열거되지 않았다.",
+      "recommended_action": "art366.own_property_exclusion의 판례 카드라는 표기를 제거하고, 원결정 확인이 필요한 실제 commentary_reported_precedent 카드들을 정확히 지칭하도록 질문만 수정한다.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art366",
+      "finding_id": "missing.additional_classification_disputes",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "coverage_gaps가 비어 있으나 bounded source에는 카드화되지 않은 분류 대립이 여럿 명시되어 있다. 예를 들어 자동차 타이어의 바람을 뺀 행위가 손괴인지 기타 방법인지, 합성물 해체·분해가 손괴인지 기타 방법인지, 강한 자력으로 전자기록을 손상시킨 행위가 손괴인지 기타 방법인지에 관한 대립이 누락되어 있다.",
+      "recommended_action": "누락된 경쟁 견해를 별도 변형 카드와 variant_group으로 추가하거나, 이 카드 세트의 의도적 범위 밖이라면 coverage_gaps에 구체적으로 기록한다.",
+      "type": "missing_variant",
+      "note": "구조성 지적 → 에이전트 처리"
+    },
+    {
+      "article": "art366",
+      "finding_id": "merged.commencement.and.attempt_liability",
+      "severity": "hard",
+      "target_path": "$.cards[1]",
+      "message": "하나의 카드가 실행의 착수 시점에 관한 판단기준과 미수범 처벌이라는 별개의 규범을 결합하고 있다. 전자는 사실관계별 평가가 필요한 standard_input이지만, 후자는 독립된 처벌 규범이므로 동일한 formalization으로 표현할 수 없다.",
+      "recommended_action": "실행의 착수 기준과 미수범 처벌 규범을 별도 카드로 분리하고, 각 카드의 norm_kind와 formalization을 독립적으로 재검토하라.",
+      "type": "formalization_error",
+      "note": "구조성 → 에이전트 처리"
+    },
+    {
+      "article": "art366",
+      "finding_id": "f.coverage.omitted_general_norms",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "원문에 명시된 일반 규범 중 영득죄와 달리 불법영득의사가 필요하지 않다는 점, 타인 소유라는 인식만 있으면 되고 소유자의 신원이나 재물의 성질·가격·내용에 관한 상세한 인식은 필요하지 않다는 점이 카드에도 coverage gap에도 반영되지 않았다.",
+      "recommended_action": "누락된 두 일반 규범을 재추출 대상으로 coverage_gaps에 기록하고, 적절한 후보 provenance를 거쳐 별도 카드로 검토하라.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art366",
+      "finding_id": "f.coverage.omitted_positive_cases",
+      "severity": "soft",
+      "target_path": "$.coverage_gaps",
+      "message": "동일한 bounded chunk에 손괴 고의를 인정한 네 개의 보고된 판례 사례가 있으나, 카드 세트는 고의가 부정된 사례만 수록하고 긍정 사례의 누락도 coverage gap으로 표시하지 않았다.",
+      "recommended_action": "네 긍정 사례를 재추출 대상으로 coverage_gaps에 기록하고, 일반 규범으로 확대하지 않은 commentary-reported-precedent 카드가 필요한지 검토하라.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art366",
+      "finding_id": "missing_review_question_for_citation_ambiguity",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions",
+      "message": "법률 검토 상태가 pending인데 검토 질문이 비어 있다. 원문에는 '군형법 (교통사고처리 특례법 제3조 제2항) 제73조'라는 불명확한 병기와 도로교통법 제151조의 반의사불벌죄 분류가 포함되어 있어, 정확한 법적 근거와 조문 상태를 확인할 질문이 필요하다.",
+      "recommended_action": "군형법 제73조 관련 괄호 병기의 의미와 정확한 근거 법령, 그리고 도로교통법 제151조 범죄의 반의사불벌 근거 및 적용 범위를 확인하는 최소한의 법률 검토 질문을 추가하라.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art366",
+      "finding_id": "missing.self_help.art209",
+      "severity": "hard",
+      "target_path": "$.cards",
+      "message": "민법 제209조상 자력구제가 인정되는 경우 형법 제20조의 법령에 의한 행위로서 위법성조각사유가 될 수 있다는 조건부·미해결 논점이 자료에 명시되어 있으나 카드와 coverage_gaps에 반영되지 않았다.",
+      "recommended_action": "민법 제209조상 자력구제의 인정 여부와 그 경우 형법 제20조에 따른 위법성조각 가능성을 조건부이고 검토가 필요한 별도 카드로 추가하거나, 최소한 coverage_gaps와 legal_review_questions에 명시한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art366",
+      "finding_id": "f2.missing_positive_case_norms",
+      "severity": "hard",
+      "target_path": "$.cards",
+      "message": "출처에 명시된 긍정적 정당행위 사례 중 가처분 판결을 받은 재건축조합장의 건물 철거 사례와, 고삐를 풀 수 없는 상황에서 타인 소유 소의 고삐를 끊어 뽕밭에서 끌어낸 사례가 카드에 포함되지 않았다.",
+      "recommended_action": "각 사례를 사례 한정적인 독립 카드로 추가하거나, 의도적으로 제외한다면 coverage_gaps에 그 범위와 이유를 명시하라.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art366",
+      "finding_id": "f3.missing_negative_destruction_norm",
+      "severity": "hard",
+      "target_path": "$.cards",
+      "message": "종교적 신념에 반하는 공공시설 내 상징물을 적법한 방법으로 비판하거나 시정을 촉구할 수는 있지만 폭력적으로 타인의 재산인 단군상을 제거·손괴하는 것은 허용되지 않는다는 부정적 사례 규범이 누락되었다.",
+      "recommended_action": "적법한 비판·시정 촉구와 폭력적 재산 손괴를 구별하는 사례 한정적 부정 카드로 추가하거나 coverage_gaps에 제외 사실을 기록하라.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art366",
+      "finding_id": "f4.missing_immediacy_definition",
+      "severity": "hard",
+      "target_path": "$.cards",
+      "message": "민법상 부동산 자력탈환권에서 ‘직시’가 객관적으로 가능한 한 신속히 또는 사회관념상 점유 회복에 필요한 범위에서 되도록 속히라는 의미라는 판례 보고상의 정의가 누락되었다. 현재의 다요소 판단 카드는 이 정의를 대체하지 않는다.",
+      "recommended_action": "‘직시’의 의미를 commentary_reported_precedent에 근거한 독립 정의 카드로 추가하고, 기존 다요소 판단 카드와 연결하라.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art366",
+      "finding_id": "f5.inaccurate_empty_coverage_gaps",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "bounded source에 카드화되지 않은 다수의 명시적 규범과 사례가 있는데도 coverage_gaps가 빈 배열로 되어 있어 범위 완전성을 잘못 나타낸다.",
+      "recommended_action": "누락 규범을 카드로 추가하거나, 추가하지 않는 항목을 coverage_gaps에 구체적으로 기록하라.",
+      "type": "source_scope",
+      "note": "구조성 지적(coverage_gaps·review_question·candidate_refs) → 법률 결정점 아님"
+    },
+    {
+      "article": "art366",
+      "finding_id": "missing.negative.precedent.norms",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "coverage_gaps가 비어 있으나, 같은 범위의 해설에는 현재 카드로 포착되지 않은 두 개의 부정적 판례 입장이 명시되어 있다. 즉 토지의 일시적 사용 불능·곤란만으로 법정절차의 부재나 실효성 상실을 인정할 수 없어 자구행위가 부정된 사례와, 약속어음을 찢은 행위가 자구행위 또는 긴급피난에 해당하지 않는다고 한 사례가 누락되어 있다.",
+      "recommended_action": "두 판례 입장을 후보 재추출 대상으로 coverage_gaps에 명시하고, 검증된 후보가 마련된 뒤 각각의 사건 한정적 부정 규범을 별도 카드로 추가할지 검토하라.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art366",
+      "finding_id": "mixed-polarity-consent-card",
+      "severity": "hard",
+      "target_path": "$.cards[2]",
+      "message": "하나의 positive element 카드에 자발성 요건, 강요된 승낙의 효력 부정이라는 negative 규범, 자유로운 철회 가능성이라는 별도 규범이 병합되어 있다. 이들은 적용 조건과 극성이 서로 달라 현재 polarity 및 formalization이 카드 전체를 정확히 나타내지 못한다.",
+      "recommended_action": "자발성 요건, 강요된 승낙의 무효, 승낙의 자유로운 철회를 각각 독립적으로 표현하도록 최소한 카드를 분리하고 각 카드의 norm_kind와 polarity를 다시 지정한다.",
+      "type": "formalization_error",
+      "note": "구조성 → 에이전트 처리"
+    },
+    {
+      "article": "art366",
+      "finding_id": "omitted-crop-precedent",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "원문에는 수확 전 쪽파 손괴가 재배자의 승낙에 의한 경우, 전전매수인이 명인방법을 갖추지 않았다면 그 매수인의 승낙이 없어도 재물손괴죄가 성립하지 않는다고 본 사례가 명시되어 있으나 카드도 coverage gap도 없다.",
+      "recommended_action": "해당 사례 결과를 누락된 commentary-reported precedent로 coverage_gaps에 기록하고, 필요한 후보 재추출 및 별도 카드 생성을 요청한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art366",
+      "finding_id": "omitted-doctrinal-characterization",
+      "severity": "hard",
+      "target_path": "$.coverage_gaps",
+      "message": "원문은 수확 전 농작물 사례에 관하여 동의에 의한 손괴가 구성요건해당성을 배제한다고 이해하는 견해가 있음을 별도로 제시한다. 이는 위법성 조각으로 설명되는 일반 승낙 정의와 효과의 법적 성격이 다른 학설상 해석인데, 카드, variant group, coverage gap 및 검토 질문에 모두 반영되지 않았다.",
+      "recommended_action": "이 견해를 누락된 doctrinal variant로 coverage_gaps에 기록하고 후보 재추출을 요청한 뒤, 일반적인 위법성 조각 설명과 구별되는 카드 및 variant group과 권위 선택 검토 질문을 추가한다.",
+      "type": "missing_variant",
+      "note": "구조성 지적 → 에이전트 처리"
+    },
+    {
+      "article": "art366",
+      "finding_id": "justifiable_reason_standard_mistranslated",
+      "severity": "hard",
+      "target_path": "$.cards[1].proposition",
+      "message": "‘위법성 인식 가능성을 회피하기 위해 … 노력’이라는 표현은 출전의 판단 구조를 잘못 나타낸다. 출전은 위법 가능성을 심사숙고하거나 조회할 계기가 있었는지, 지적 능력을 다한 진지한 노력으로 위법성을 인식할 수 있었는지, 그럼에도 노력 부족으로 인식하지 못했는지를 평가한다. 회피 대상은 위법성 인식 가능성 자체가 아니다.",
+      "recommended_action": "명제가 심사숙고·조회 계기, 진지한 노력, 노력했을 경우의 위법성 인식 가능성, 노력 부족에 따른 미인식이라는 출전의 판단 요소와 방향을 정확히 보존하도록 최소 수정한다.",
+      "type": "formalization_error",
+      "note": "구조성 → 에이전트 처리"
+    },
+    {
+      "article": "art366",
+      "finding_id": "coverage_gaps_incorrectly_empty",
+      "severity": "soft",
+      "target_path": "$.coverage_gaps",
+      "message": "현재 빈 배열은 출전에 명시된 단순한 법률 부지 배제 규범과 일본 판례·논평 간 분류 차이가 카드화되지 않은 상태를 반영하지 않는다.",
+      "recommended_action": "누락 규범을 카드화하기 전까지 해당 항목들을 coverage_gaps에 기록하고 관련 법적 검토 질문을 추가한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art366",
+      "finding_id": "missing_authority_review_question",
+      "severity": "hard",
+      "target_path": "/legal_review_questions",
+      "message": "출처 말미에 인용판례 76도3286이 제시되어 있으나, 빈 검토질문 배열은 해당 판례가 네 명제 중 어느 범위를 뒷받침하는지 또는 단순한 주석 종합인지에 관한 미해결 권위 귀속 문제를 드러내지 않는다.",
+      "recommended_action": "76도3286의 판례 지원 범위와 각 카드의 authority_basis가 적절한지를 확인하는 최소한의 법률 검토질문을 추가하고, 확인 전에는 관련 카드의 review_required 상태도 그 불확실성을 반영하도록 조정한다.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art366",
+      "finding_id": "missing_minor_offense_qualification",
+      "severity": "hard",
+      "target_path": "$.cards[25]",
+      "message": "경범죄처벌법 위반죄와 재물손괴죄가 원칙적으로 각각 성립한다는 명제만 수록하고, 가벌성의 현저한 차이를 고려하면 재물손괴죄가 성립하는 이상 경범죄처벌법 위반죄로 처벌할 필요성이 크지 않다는 바로 뒤의 제한적 평가를 누락하였다. 이 누락은 해당 카드가 출처의 결론을 무조건적인 병과 방향으로 과도하게 제시하게 한다.",
+      "recommended_action": "해당 제한적 평가를 별도 카드 또는 현재 카드의 명시적 한정으로 보존하고, 그 법적 효과와 권위가 확정 규칙인지 논평상 평가인지 검토하도록 review_required 및 심사 질문을 추가한다.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art366",
+      "finding_id": "malware_real_concurrence_formalization",
+      "severity": "hard",
+      "target_path": "$.cards[19]",
+      "message": "악성프로그램 사안의 실체적 경합 견해는 바로 다음 출처에서 상상적 경합 견해와 대립하는 것으로 제시되고 카드도 doctrinal_status를 disputed로 표시했지만, norm_kind는 standard, formalization은 standard_input으로 유지되어 있다. 동일 variant_group의 반대 견해만 policy_variant로 형식화되어 경쟁 견해가 비대칭적으로 처리되었다.",
+      "recommended_action": "실체적 경합 카드를 상상적 경합 카드와 동일한 경쟁 정책 형식으로 분류하고, 어느 견해도 검토 전 기본 규칙으로 사용되지 않도록 formalization과 관련 심사 질문을 정렬한다.",
+      "type": "formalization_error",
+      "note": "구조성 → 에이전트 처리"
+    },
+    {
+      "article": "art366",
+      "finding_id": "malware_review_question_incomplete",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions[1]",
+      "message": "경쟁 견해 선택 질문이 악성프로그램 사안에서 상상적 경합 카드만 열거하고 같은 variant_group의 실체적 경합 카드를 누락하여, 두 견해를 함께 비교·선택해야 한다는 검토 범위를 정확히 나타내지 못한다.",
+      "recommended_action": "해당 심사 질문에 art366_sec7_2.malware_record_damage_real_concurrence도 포함하여 두 경쟁 견해를 함께 검토하도록 한다.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art366",
+      "finding_id": "missing.base_penalty",
+      "severity": "hard",
+      "target_path": "$.target.cards",
+      "message": "출처에 명시된 기본 법정형인 '3년 이하의 징역 또는 700만 원 이하의 벌금'에 관한 규범이 카드로 수록되지 않았고 coverage_gaps에도 표시되지 않았다.",
+      "recommended_action": "기본 법정형에 관한 별도 NormCard를 추가하거나, 이번 카드 세트의 의도된 범위 밖이라면 coverage_gaps에 명시하라.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art366",
+      "finding_id": "missing.no_disqualification",
+      "severity": "hard",
+      "target_path": "$.target.cards",
+      "message": "출처의 '재물손괴등죄에 관하여는 자격정지 병과규정이 없다'는 부정적 규범이 누락되었고 coverage_gaps에도 기록되지 않았다.",
+      "recommended_action": "자격정지 병과규정의 부존재를 negative polarity의 별도 카드로 보존하거나 coverage_gaps에 누락 사유를 기록하라.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art366",
+      "finding_id": "missing.deleted-enhancements",
+      "severity": "hard",
+      "target_path": "$.target.cards",
+      "message": "집단적·상습적 범행 및 흉기 휴대 범행의 가중처벌 조항이 2016년 개정으로 삭제되었다는 시간적·부정적 규범이 누락되었다. 이는 현행 적용 여부를 좌우하므로 단순히 생략할 수 없다.",
+      "recommended_action": "삭제된 가중처벌 조항을 현행 부존재와 개정 시점을 보존하는 별도 카드로 추가하거나, 범위 제외라면 coverage_gaps에 명시하라.",
+      "type": "missing_norm",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    },
+    {
+      "article": "art366",
+      "finding_id": "missing.authority-review-questions",
+      "severity": "hard",
+      "target_path": "$.target.legal_review_questions",
+      "message": "legal_review가 pending이고, 두 가중 규범의 직접 근거 법률·조문 및 적용 시점이 발췌문에서 특정되지 않으며 삭제된 특별법 조항도 언급되는데, 법적 권위와 시간적 적용을 확인할 review question이 전혀 없다.",
+      "recommended_action": "공동범행 가중과 누범 특례의 정확한 근거 조문 및 현행성, 2016년 삭제 조항의 시간적 적용 범위를 확인하는 최소한의 법률검토 질문을 추가하라.",
+      "type": "other",
+      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"
+    }
+  ]
+}

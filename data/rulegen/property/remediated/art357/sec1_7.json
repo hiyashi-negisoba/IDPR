@@ -1,0 +1,62 @@
+{
+  "card_set_id": "kr.art357.art357.sec1_7.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art357.variant.abstract-danger-offense",
+          "request_id": "art357.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "context_only",
+      "id": "art357_sec1_7.abstract_danger_offense",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "거래의 청렴성을 보호법익으로 보는 견해에서는 부정한 청탁과 재물 또는 재산상 이익 취득이 있으면 거래의 청렴성이 현실적으로 침해되지 않아도 배임수재죄가 성립하는 위험범설이 타당하다고 본다.",
+      "request_ids": [
+        "art357.pass1.001"
+      ],
+      "review_notes": "위험범설을 지지하는 commentary-reported doctrine만 확인되었다. 침해범설 및 관련 판례 원문을 확인한 뒤 정책 변형의 선택 여부를 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제357조_Ⅰ.7_6",
+          "quote": "본죄의 보호법익을 앞서와 같이 거래의 청렴성으로 보는 이상 부정한 청탁이 있고 재물이나 재산상 이익 취득이 있으 면 거래의 청렴성이 침해되지 않더라도 본 죄가 성립한다고 보아야 할 것이므 로 위험범설이 타당하다.",
+          "section_path": "Ⅰ.7"
+        }
+      ],
+      "variant_group": "art357_sec1_7.offense_character"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "배임수재죄를 침해범으로 보는 견해 또는 그에 관한 판례의 source reference가 현재 source scope에 없다.",
+    "배임수증재죄의 보호법익에 타인의 재산을 포함시키는 견해 또는 그에 관한 판례의 source reference가 현재 source scope에 없다.",
+    "commentary-reported doctrine의 원전 및 관련 판례 원문은 현재 source scope에 없다."
+  ],
+  "issue_tag": "art357_sec1_7",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "배임수재죄를 침해범으로 볼 것인지, 부정한 청탁과 재물 또는 재산상 이익 취득으로 성립하는 추상적 위험범으로 볼 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제357조_Ⅰ.7_6"
+    ],
+    "target_paths": [
+      "commentary://001692/제357조#sec1_7"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": [
+    {
+      "finding_id": "missing.competing.infringement.variant",
+      "type": "missing_variant",
+      "note": "출전은 배임수재죄의 보호 정도에 관하여 침해범설과 위험범설이 대립한다고 명시하고 침해범설의 내용도 제시하지만, 카드 세트에는 위험범설만 있고 coverage_gaps도 비어 있다. 따라서 동일 쟁점의 경쟁 견해가 보존되지 않았으며, review_notes의 '위험범설을 지지하는 doctrine만 확인되었다'는 설명도 전체 출전과 맞지 않는다.",
+      "impact": "이 그룹의 선택지가 불완전할 수 있음 — 선택 시 감안 필요"
+    }
+  ]
+}

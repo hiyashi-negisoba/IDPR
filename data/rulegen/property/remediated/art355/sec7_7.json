@@ -1,0 +1,86 @@
+{
+  "card_set_id": "kr.art355.art355.sec7_7.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art355.standard.savings-bank-limit-and-breach-concurrence",
+          "request_id": "art355.pass1.037"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art355_sec7_7.savings_bank_limit_breach_concurrence",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "동일인 대출한도 초과대출로 상호저축은행에 손해를 가하여 상호저축은행법위반죄와 업무상배임죄가 모두 성립하면 양 죄는 상상적 경합관계이고, 한 죄 확정판결의 기판력은 다른 죄에도 미친다.",
+      "request_ids": [
+        "art355.pass1.037"
+      ],
+      "review_notes": "상호저축은행법위반죄와 업무상배임죄가 모두 성립하는지 및 동일 행위성 판단이 선행되어야 한다. 보고된 판례의 원문 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제355조_2항_Ⅶ.7_202",
+          "quote": "위 두 죄는 형법 제40조 소정의 상상적 경합관계에 있다. 이러한 경우 그중 1죄에 대한 확정 판결의 기판력은 다른 죄에 대하여도 미친다.",
+          "section_path": "Ⅶ.7"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art355.exception.loan-limit-violation-not-automatically-breach",
+          "request_id": "art355.pass1.037"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art355_sec7_7.loan_limit_violation_not_automatic_breach",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "동일인 대출한도를 초과해 구 새마을금고법을 위반했더라도 대출채권 회수에 문제가 있다고 판단되지 않는 한, 제한규정 위반 사실만으로 곧바로 업무상배임죄가 성립하지 않는다.",
+      "request_ids": [
+        "art355.pass1.037"
+      ],
+      "review_notes": "대출채권 회수에 문제가 있는지의 판단은 평가적 사실심사가 필요하다. 구 새마을금고법 제한규정 및 보고된 판례 원문을 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제355조_2항_Ⅶ.7_202",
+          "quote": "대출채권 회수에 문제가 있는 것으로 판 단되지 않는 한 위와 같은 제한규정 위반 사실만으로 곧바로 업무상배임죄가 성립한다고 할 수는 없다.",
+          "section_path": "Ⅶ.7"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope는 Ⅶ.7의 단일 commentary 발췌에 한정되어 있으며, 상호저축은행법 및 구 새마을금고법의 관련 조문 원문은 포함하지 않는다.",
+    "현재 source scope에는 상호저축은행법위반죄·업무상배임죄 경합 및 대출한도 위반 관련 판례의 primary precedent index가 포함되지 않는다.",
+    "사용자 제기 쟁점인 기망을 수단으로 한 배임과 사기죄의 관계 및 횡령 후속 처분행위는 현재 후보들의 직접 출처 범위 밖이다."
+  ],
+  "issue_tag": "art355_sec7_7",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "기망을 수단으로 한 배임행위에서 사기죄와 배임죄를 상상적 경합으로 볼지, 사기죄에 흡수된다고 보는 소수견해를 채택할지.",
+    "횡령죄를 위험범으로 보는 전제 아래 후속 처분행위의 불가벌적 사후행위 여부를 다수의견과 그 논리적 모순 비판 중 어떻게 평가할 것인지.",
+    "상호저축은행법위반죄와 업무상배임죄의 상상적 경합 및 기판력 확장에 관한 보고된 판례 원문을 사용자 primary precedent index에서 확인해야 한다.",
+    "구 새마을금고법상 동일인 대출한도 제한 위반과 업무상배임죄의 관계에 관한 보고된 판례 원문을 사용자 primary precedent index에서 확인해야 한다."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제355조_2항_Ⅶ.7_202"
+    ],
+    "target_paths": [
+      "commentary://001692/제355조#sec7_7"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

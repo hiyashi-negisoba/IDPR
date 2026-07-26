@@ -1,0 +1,1883 @@
+{
+  "version": "5.0.0",
+  "api_calls": 0,
+  "created_at": "2026-07-23T10:21:33.638148+00:00",
+  "basis": "property_core_set_final.json (merge core 896 → 최종 core 452)",
+  "supersedes": "결정B_질의문승인.md (190건, core scope 감사 전 모수)",
+  "counts": {
+    "review": 77,
+    "신규작성": 12,
+    "구판유지": 87,
+    "이중부정": 26,
+    "질의불요": 7,
+    "구판에서_강등탈락": 103,
+    "질의문_수정": 19
+  },
+  "items": [
+    {
+      "card_id": "art337_sec3_2.trivial_injury_excluded",
+      "article": "art337",
+      "module": "sec3_2",
+      "proposition": "치료가 필요 없이 자연치유되고 일상생활에 아무 지장이 없는 극히 경미한 상처는 강도상해·치상죄의 상해에 해당하지 않는다.",
+      "neural_query": "피해자가 입은 상처는 치료를 요하거나 일상생활에 지장을 줄 정도였다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "신규",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art355_sec4_2.breach_for_principal_no_illicit_gain",
+      "article": "art355",
+      "module": "sec4_2",
+      "proposition": "본인의 이익을 위하여 사무를 처리한 때에는 불법이득의 의사가 없어 배임죄가 성립하지 않는다.",
+      "neural_query": "행위자는 본인이 아니라 자기 또는 제3자의 이익을 위하여 그 사무를 처리하였다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "신규",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art328_sec3_1.in_law_relationship_not_kinship",
+      "article": "art328",
+      "module": "sec3_1",
+      "proposition": "피고인의 딸과 피해자의 아들이 혼인하여 피고인과 피해자가 사돈지간인 경우라도 민법상 친족으로 볼 수 없어 친족상도례가 적용되지 않는다.",
+      "neural_query": "피고인의 딸과 피해자의 아들이 혼인하여 피고인과 피해자는 사돈지간이다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "prev_neural_query": "피고인과 피해자가 민법상 친족에 해당한다.",
+      "prev_status": "not_satisfied",
+      "revision": "전수스캔: 친족 해당 여부는 이 카드가 내리는 결론 → 혼인 사실만 묻는다",
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art329_sec5_2.use_theft_minor_value_consumption_and_prompt_return",
+      "article": "art329",
+      "module": "sec5_2",
+      "proposition": "무단사용으로 인한 가치 소모가 무시할 수 있을 정도로 경미하고 사용 후 곧 반환한 경우에는 소유권 또는 본권 침해 의사를 인정할 수 없어 불법영득의사가 인정되지 않는다.",
+      "neural_query": "무단사용으로 인한 가치 소모가 무시할 수 있을 정도로 경미하고 사용 후 곧 반환하였다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art338_sec4.robbery_death_attempt_excluded",
+      "article": "art338",
+      "module": "sec4",
+      "proposition": "살인의 고의가 없는 강도치사죄에는 미수범이 인정되지 않는다.",
+      "neural_query": "행위자에게 살인의 고의가 있었다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art350_sec4_1.objectively_insufficient_threat",
+      "article": "art350",
+      "module": "sec4_1",
+      "proposition": "객관적으로 사람을 외포시키기에 부족한 행위는 상대방이 현실로 외포심을 일으켰더라도 공갈이 아니므로 공갈죄가 성립하지 않고 절도죄가 성립할 여지가 있다.",
+      "neural_query": "행위자의 행위가 객관적으로 사람을 외포시키기에 충분한 정도였다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art355_sec4_1.explained_fund_use_no_inference",
+      "article": "art355",
+      "module": "sec4_1",
+      "proposition": "엄격한 용도 외 사용 사안이 아니고 피고인이 돈의 행방·사용처에 합리적 설명 및 부합 자료를 제시하면, 특별한 사정이 없는 한 불법영득의사에 의한 횡령을 인정할 수 없다.",
+      "neural_query": "피고인이 돈의 행방과 사용처에 관하여 합리적인 설명과 이에 부합하는 자료를 제시하였다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art355_sec4_2.owner_benefit_disposition_no_appropriation",
+      "article": "art355",
+      "module": "sec4_2",
+      "proposition": "보관자가 자기 또는 제3자의 이익이 아니라 소유자의 이익을 위하여 처분한 경우에는 특별한 사정이 없는 한 불법영득의사가 인정되지 않는다.",
+      "neural_query": "보관자가 자기나 제3자가 아니라 소유자의 이익을 위하여 처분하였다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art355_sec4_3.fake_capital_no_real_increase",
+      "article": "art355",
+      "module": "sec4_3",
+      "proposition": "등기를 위한 가장납입으로 회사 자본이 실질적으로 증가하지 않고 납입·인출 전 과정에서 자본금 변동이 없는 경우에는 불법영득의사를 인정하기 어려워 업무상횡령죄가 성립하지 않는다.",
+      "neural_query": "가장납입의 납입·인출 전 과정에서 회사 자본금의 실질적 변동이 없었다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art355_sec5.retention_lien_no_illicit_intent",
+      "article": "art355",
+      "module": "sec5",
+      "proposition": "유치권이나 동시이행 항변권 행사로 반환을 거부하는 경우에는 불법영득의사가 인정되지 않아 구성요건해당성이 없다.",
+      "neural_query": "보관자가 유치권 또는 동시이행 항변권의 행사로서 반환을 거부하였다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art355_sec5_2.movable_sale_double_disposition",
+      "article": "art355",
+      "module": "sec5_2",
+      "proposition": "동산매매에서 매도인은 매수인에 대한 타인 사무처리자 지위에 있지 않으므로, 목적물을 인도하지 않고 타인에게 처분하여도 배임죄가 성립하지 않는다.",
+      "neural_query": "행위자는 동산 매매계약의 매도인이고, 목적물을 매수인에게 인도하지 않은 채 이를 제3자에게 처분하였다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "prev_neural_query": "동산 매도인이 매수인에 대하여 타인의 사무를 처리하는 자의 지위에 있었다.",
+      "prev_status": "not_satisfied",
+      "revision": "사용자 12번",
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art355_sec5_2.pre_certificate_stock_transfer",
+      "article": "art355",
+      "module": "sec5_2",
+      "proposition": "주권발행 전 주식 양도인이 제3자 대항요건을 갖추어 줄 채무는 자기 사무이므로, 그 요건을 갖추지 않고 타인에게 처분하여도 배임죄가 성립하지 않는다.",
+      "neural_query": "행위자는 주권발행 전 주식의 양도인이고, 양수인을 위한 제3자 대항요건을 갖추어 주지 않은 채 그 주식을 타인에게 처분하였다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "prev_neural_query": "주권발행 전 주식 양도인이 제3자 대항요건을 갖추어 줄 채무가 매수인을 위한 타인의 사무에 해당한다.",
+      "prev_status": "not_satisfied",
+      "revision": "사용자 13번",
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art355_sec5_2.registered_movable_sale_disposition",
+      "article": "art355",
+      "module": "sec5_2",
+      "proposition": "자동차 등 권리이전에 등기·등록이 필요한 동산의 매도인도 매수인에 대한 타인 사무처리자가 아니므로 소유권이전등록을 하지 않고 타인에게 처분하여도 배임죄가 성립하지 않는다.",
+      "neural_query": "행위자는 자동차 등 권리이전에 등기·등록이 필요한 동산의 매도인이고, 소유권이전등록을 마치지 않은 채 그 목적물을 제3자에게 처분하였다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "prev_neural_query": "권리이전에 등기·등록이 필요한 동산의 매도인이 매수인에 대하여 타인의 사무를 처리하는 자의 지위에 있었다.",
+      "prev_status": "not_satisfied",
+      "revision": "사용자 14번",
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art357_sec3_3.unrelated_payment_no_offense",
+      "article": "art357",
+      "module": "sec3_3",
+      "proposition": "부정한 청탁이 있었더라도 이를 받아들이지 않고 청탁과 관계없이 돈을 받은 경우에는 배임수재죄가 성립하지 않는다.",
+      "neural_query": "재물의 수수가 부정한 청탁을 받아들인 것으로서 그 청탁과 관련하여 이루어졌다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art357_sec3_4.no_acquisition_intent",
+      "article": "art357",
+      "module": "sec3_4",
+      "proposition": "취득할 의사 없이 보관 목적으로 받거나 특별한 사정으로 일시 수령 후 즉시 반환하는 등 취득 의사를 인정하기 어려운 경우에는 영득의 의사가 없어 배임수재죄가 성립할 수 없다.",
+      "neural_query": "재물을 수수한 사람은 이를 자기 것으로 가질 의사로 받았다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "prev_neural_query": "행위자에게 수수한 재물을 취득할 의사가 있었다.",
+      "prev_status": "not_satisfied",
+      "revision": "'불법영득의사'는 법적 개념어다. 취득 의사라는 사실로 묻는다.",
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art357_sec4.giver_view_justification",
+      "article": "art357",
+      "module": "sec4",
+      "proposition": "수재자에게는 부정한 청탁이라도 증재자 입장에서는 부정한 청탁으로 볼 수 없는 사정이 있으면 배임증재죄가 성립하지 않을 수 있으며, 정당한 업무·더 큰 손실 회피·권리 확보 등으로 사회상규나 신의칙에 위배되지 않는 경우가 예시된다.",
+      "neural_query": "증재자는 자신이 한 청탁이 부정한 청탁이라는 점을 인식하고 있었다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "prev_neural_query": "증재자의 입장에서도 그 청탁이 부정한 청탁에 해당한다.",
+      "prev_status": "not_satisfied",
+      "revision": "전문가 해석(증재자 측 사실인식)을 문장으로 다시 씀.",
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art360_sec2_2.ownerless_property_exclusion",
+      "article": "art360",
+      "module": "sec2_2",
+      "proposition": "무주물은 타인 소유의 재물이 아니므로 점유이탈물횡령죄의 객체가 아니다.",
+      "neural_query": "그 재물이 타인의 소유에 속한다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art366.no_utility_property_exclusion",
+      "article": "art366",
+      "module": "sec3_1",
+      "proposition": "주관적으로나 객관적으로 이용가치 또는 효용이 전혀 없는 물건은 재물성이 인정되지 않을 수 있다.",
+      "neural_query": "그 물건에 주관적 또는 객관적 이용가치나 효용이 인정된다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art366.ownerless_property_exclusion",
+      "article": "art366",
+      "module": "sec3_1",
+      "proposition": "현재 누구의 소유에도 속하지 않는 무주물은 타인성이 인정되지 않아 재물손괴등죄의 범행객체가 될 수 없다.",
+      "neural_query": "그 물건이 타인의 소유에 속한다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art366_sec3_2.document_removal_without_owner_intent",
+      "article": "art366",
+      "module": "sec3_2",
+      "proposition": "문서의 종래 사용상태가 처음부터 소유자 의사에 반하거나 무관한 특별한 사정이 있고, 그 상태를 제거·변경하였을 뿐 새로 문서 사용에 지장을 초래하지 않으면 기타 방법에 의한 문서손괴죄는 성립하지 않는다.",
+      "neural_query": "그 문서는 소유자의 의사에 반하여 이미 행위자의 점유로 넘어가 있었고, 행위자는 그 뒤에 문서의 상태를 변경하거나 제거하였다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "prev_neural_query": "행위자의 행위가 종래 사용상태의 제거·변경에 그치지 않고 문서의 사용에 새로운 지장을 초래하였다.",
+      "prev_status": "not_satisfied",
+      "revision": "사용자(법률 검수자) 해석 — 결정B 1차 23번 — 카드 명제까지 재작성",
+      "round1_reviewed": true,
+      "prev_proposition": "문서의 종래 사용상태가 처음부터 소유자 의사에 반하거나 무관한 특별한 사정이 있고, 그 상태를 제거·변경하였을 뿐 새로 문서 사용에 지장을 초래하지 않으면 기타 방법에 의한 문서손괴죄는 성립하지 않는다.",
+      "source_scope_risk": "주석서 원문은 '종래 **사용상태**가 소유자 의사에 반하거나 무관한' 경우로 읽히고, 짝 카드(소유자 의사에 따라 게시된 문서를 떼어내면 손괴)와 대칭이다. 이 재작성은 원문 문언을 벗어나므로 출처범위 critic이 지적할 수 있다. 전문가 해석 채택으로 기록."
+    },
+    {
+      "card_id": "art366_sec3_2.electronic_record_power_cutoff_exception",
+      "article": "art366",
+      "module": "sec3_2",
+      "proposition": "정보처리장치에 연결된 기록매체의 전원 차단은 저장된 기록 자체에 손상이 발생하는 예외적 경우가 아니라면 전자기록손괴죄가 별도로 성립하지 않는다.",
+      "neural_query": "전원 차단으로 저장된 전자기록 자체에 손상이 발생하였다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art366_sec3_2.movement_no_objective_use_value",
+      "article": "art366",
+      "module": "sec3_2",
+      "proposition": "소유자가 우연히 놓아두거나 방치한 물건을 다른 곳으로 옮겨 즉시 본래 용법대로 사용할 수 없게 한 것만으로는 객관적 이용가치·효용이 인정되지 않아 기타 방법에 의한 효용침해를 인정할 수 없다.",
+      "neural_query": "소유자가 우연히 놓아두거나 방치해 둔 물건을 행위자가 다른 곳으로 옮겼다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "prev_neural_query": "옮겨진 물건에 객관적인 이용가치 또는 효용이 인정된다.",
+      "prev_status": "not_satisfied",
+      "revision": "옮긴 사실만 묻는다. '즉시 본래 용법대로 쓸 수 없게 되었는지'는 카드가 판단한다.",
+      "round1_reviewed": true
+    },
+    {
+      "card_id": "art366_sec4_1.intent_absence",
+      "article": "art366",
+      "module": "sec4_1",
+      "proposition": "범행객체가 타인 소유임을 알지 못하거나 자기 행위로 재물 등의 효용이 침해될 결과를 예견하지 못한 경우에는 고의가 없어 죄가 성립하지 않는다.",
+      "neural_query": "행위자는 그 물건이 타인의 소유라는 사실을 알고 있었다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": true,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false,
+      "prev_neural_query": "행위자가 범행객체가 타인의 소유임을 알았고, 자기 행위로 재물 등의 효용이 침해될 결과를 예견하였다.",
+      "revision": "예견가능성을 함께 물으면 모델이 미필적 예견을 놓친다. 소유 인식만 묻고 결과 예견은 고의 판단으로 넘긴다."
+    },
+    {
+      "card_id": "art329_sec2.theft_exception_ownership_or_self_possession",
+      "article": "art329",
+      "module": "sec2",
+      "proposition": "자기 소유 재물이 타인 점유 아래 있거나 타인 소유 재물이 자기 점유 아래 있는 경우에는, 권리행사방해죄 또는 횡령죄 성립 여부는 별론으로 하고 절도죄는 성립하지 않는다.",
+      "neural_query": "취거한 재물은 타인이 점유하고 있는 타인의 재물이다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "신규",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false,
+      "prev_neural_query": "취거한 재물은 타인의 소유이면서 동시에 타인의 점유 아래 있었다.",
+      "revision": "절도죄 객체의 정식 표현으로 통일."
+    },
+    {
+      "card_id": "art329_sec2_2.sole_custodian_coowned_property",
+      "article": "art329",
+      "module": "sec2_2",
+      "proposition": "공동소유 재물이라도 공동점유가 아니라 공동소유자 중 1인의 단독보관 아래 있으면 그 보관자의 영득은 절도가 아니라 횡령에 해당한다.",
+      "neural_query": "그 재물은 공동소유인 물건이고, 행위자는 그 물건을 보관하고 있던 사람이다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "신규",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false,
+      "prev_neural_query": "그 재물은 공동소유자들의 공동점유가 아니라 행위자 1인의 단독보관 아래 있었다.",
+      "revision": "'공동점유가 아니라 단독보관'이라는 부정 대비를 걷고 보관자 지위만 묻는다."
+    },
+    {
+      "card_id": "art331_sec3_1.toy_gun_not_weapon_exception",
+      "article": "art331",
+      "module": "sec3_1",
+      "proposition": "객관적으로 흉기의 성질을 가져야 하므로 장난감 권총을 흉기처럼 가장한 경우에는 흉기가 아니다.",
+      "neural_query": "휴대한 물건은 객관적으로 살상·파괴에 쓰일 수 있는 흉기의 성질을 가지고 있었다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "신규",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art335_sec3_1.pre_control_violence_is_robbery_exception",
+      "article": "art335",
+      "module": "sec3_1",
+      "proposition": "재물을 탈취하였더라도 아직 배타적 지배가 확립되지 않은 상태에서 지배 확보를 위하여 폭행·협박을 한 경우는 준강도가 아니라 본래의 강도이다.",
+      "neural_query": "폭행·협박 당시 행위자는 재물에 대한 배타적 지배를 아직 확립하지 못한 상태였고, 그 지배를 확보하기 위하여 폭행·협박을 하였다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "신규",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art337_sec3_2.robbery_occasion_ended",
+      "article": "art337",
+      "module": "sec3_2",
+      "proposition": "추적을 벗어난 뒤 현장에서 상당히 떨어진 지점에서 체포면탈 목적으로 상해를 가하거나, 범행 종료 후 상당 기간이 지나 새로 범의를 일으켜 범행한 경우에는 강도의 기회에 한 행위로 보기 어렵다.",
+      "neural_query": "상해행위는 강도 현장이나 추적이 계속되는 상황에서 강도행위와 시간적·장소적으로 근접하여 이루어졌다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "신규",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art350_sec3.own_property_exception",
+      "article": "art350",
+      "module": "sec3",
+      "proposition": "자기의 재물 또는 재산상 이익에 대해서는 공갈죄가 성립하지 않는다.",
+      "neural_query": "갈취의 대상이 된 재물 또는 재산상 이익은 타인에게 속하는 것이었다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "신규",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art350_sec8_2.permitted_threat_no_extortion",
+      "article": "art350",
+      "module": "sec8_2",
+      "proposition": "채권 실행 또는 손해배상 합의금 수령 등을 위하여 사회통념상 허용 범위의 위협적 언사를 한 경우 공갈죄가 성립하지 않으며, 수반된 협박행위도 별도의 협박죄를 구성하지 않는다.",
+      "neural_query": "권리행사 과정에서 한 위협적 언사가 사회통념상 허용되는 범위를 넘어섰다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "신규",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art355_sec3_3.simple_destruction_exception",
+      "article": "art355",
+      "module": "sec3_3",
+      "proposition": "보관물을 손괴한 행위는 그 자체로는 불법영득의사의 표현이 아니므로 횡령죄를 구성하지 않는다.",
+      "neural_query": "행위자는 보관물을 손괴하였을 뿐 이를 자기 것으로 영득하거나 반환을 거부하지 않았다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "신규",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false,
+      "prev_neural_query": "행위자의 행위는 목적물의 단순한 손괴에 그치지 않고 이를 자기 소유물처럼 사실상 또는 법률상 처분하는 것이었다.",
+      "revision": "구판은 '단순 손괴에 그치지 않고'로 써서 손괴와 영득 사이에 없는 연속성을 만들었다. 횡령의 구성요건은 영득·반환거부이고 손괴는 그 연장선이 아니다."
+    },
+    {
+      "card_id": "art323_sec2_3.consensual_transfer_not_taking",
+      "article": "art323",
+      "module": "sec2_3",
+      "proposition": "점유자의 의사 또는 하자 있는 의사에 기하여 점유가 이전된 경우에는 취거에 해당하지 않는다.",
+      "neural_query": "점유가 점유자의 의사에 기하지 않고 그 의사에 반하여 이전되었다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art328_sec3_3.spouse_excludes_de_facto_marriage",
+      "article": "art328",
+      "module": "sec3_3",
+      "proposition": "친족상도례의 배우자는 법률상 친족이어야 하므로 내연관계 또는 사실혼관계에 있는 자는 포함되지 않는다.",
+      "neural_query": "행위자와 피해자가 법률상 혼인관계에 있는 배우자이다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art328_sec3_4.temporary_stay_noncohabitation",
+      "article": "art328",
+      "module": "sec3_4",
+      "proposition": "일시적 체류에 불과한 경우는 동거로 볼 수 없으며, 그 일시성은 체류 목적·경위·형태·기간 등을 종합하여 사회통념에 따라 판단한다.",
+      "neural_query": "체류의 목적·경위·형태·기간에 비추어 사회통념상 일시적 체류에 그치지 않는 동거가 인정된다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art328_sec4_1.corporate_victim_no_application",
+      "article": "art328",
+      "module": "sec4_1",
+      "proposition": "재산죄의 피해자가 법인인 경우 법인과 친족관계가 성립할 수 없으므로, 범인과 법인 사원 또는 대표자 사이에 친족관계가 있어도 친족상도례는 적용되지 않는다.",
+      "neural_query": "재산죄의 피해자가 법인이다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art328_sec4_1.entrusted_property_owner_entrustor_both_required",
+      "article": "art328",
+      "module": "sec4_1",
+      "proposition": "횡령범인이 위탁자가 소유자를 위하여 보관하던 물건을 위탁자로부터 보관받아 횡령한 경우, 친족상도례는 범인과 소유자 및 위탁자 쌍방 사이에 친족관계가 있는 경우에만 적용되고 한쪽과만 친족관계가 있으면 적용되지 않는다.",
+      "neural_query": "그 물건의 소유자와 위탁자가 서로 다른 사람이고, 범인은 소유자와 위탁자 모두와 친족관계에 있다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false,
+      "prev_neural_query": "범인과 소유자 및 위탁자 쌍방 사이에 모두 친족관계가 있다.",
+      "revision": "소유자와 위탁자가 분리된 사안에서만 발동해야 한다. 동일인인 경우까지 끌어오지 않도록 분리 사실을 발동조건에 명시."
+    },
+    {
+      "card_id": "art328_sec4_1.theft_owner_possessor_both_required",
+      "article": "art328",
+      "module": "sec4_1",
+      "proposition": "절도죄에서 친족상도례는 범인과 피해물건의 소유자 및 점유자 쌍방 사이에 친족관계가 있는 경우에만 적용되며, 소유자 또는 점유자 한쪽과만 친족관계가 있는 경우에는 적용되지 않는다.",
+      "neural_query": "피해물건의 소유자와 점유자가 서로 다른 사람이고, 범인은 소유자와 점유자 모두와 친족관계에 있다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false,
+      "prev_neural_query": "범인과 피해물건의 소유자 및 점유자 쌍방 사이에 모두 친족관계가 있다.",
+      "revision": "43번과 같은 취지 — 소유자·점유자 분리 사안으로 발동조건을 좁힌다."
+    },
+    {
+      "card_id": "art329_sec2_1.ownerless_property_exception",
+      "article": "art329",
+      "module": "sec2_1",
+      "proposition": "무주물은 절도죄의 객체가 될 수 없다.",
+      "neural_query": "그 재물이 타인의 소유에 속한다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art329_sec2_2.unfound_transit_lost_property",
+      "article": "art329",
+      "module": "sec2_2",
+      "proposition": "고속버스 운전사나 지하철 승무원은 승객이 두고 내린 유실물을 현실적으로 발견하기 전에는 점유를 개시하지 않으므로, 다른 승객이 발견하여 가져가면 절도가 아니라 점유이탈물횡령에 해당한다.",
+      "neural_query": "고속버스 운전사나 지하철 승무원이 승객이 두고 내린 유실물을 현실적으로 발견하여 점유를 개시하였다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art329_sec4.intent.mistake_abandoned_property",
+      "article": "art329",
+      "module": "sec4",
+      "proposition": "타인이 소유권을 포기하여 버린 물건이라고 오인하여 취득한 경우에는 절도죄의 고의가 인정되지 않는다.",
+      "neural_query": "행위자가 그 물건이 타인의 소유에 속함을 인식하였다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art329_sec5_1.unlawful_appropriation_required",
+      "article": "art329",
+      "module": "sec5_1",
+      "proposition": "절도죄 성립에는 주관적 불법요소로서 불법영득의사가 필요하며, 영득의사가 없으면 점유자의 의사에 반하여 점유를 침해하고 목적물을 자기 또는 제3자의 점유로 옮겨도 절도죄가 되지 않는다.",
+      "neural_query": "행위자에게 불법영득의사가 있었다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art331_sec2_2.key-opening-special-theft-exception",
+      "article": "art331",
+      "module": "sec2_2",
+      "proposition": "야간에 잠금장치를 훼손하지 않고 열쇠 등으로 통상의 용법에 따라 열고 침입한 경우에는 특수절도죄가 성립하지 않고 야간주거침입절도죄에 해당한다.",
+      "neural_query": "행위자가 잠금장치를 훼손하는 방법으로 침입하였다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art334_sec2_1.weapon_direct_use_not_required",
+      "article": "art334",
+      "module": "sec2_1",
+      "proposition": "흉기휴대 특수강도에서 휴대한 흉기를 피해자에게 제시하거나 겨누는 등 폭행·협박의 방법으로 직접 사용할 필요는 없다.",
+      "neural_query": "행위자는 범행 당시 흉기를 지니고 있었고, 이를 제시하거나 겨누는 등으로 사용하지는 않았다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false,
+      "prev_neural_query": "행위자가 범행 당시 흉기를 휴대하였다.",
+      "revision": "휴대만 물으면 모델이 '사용 안 했으니 이 카드는 아니다'로 빠진다. 이 카드가 겨냥하는 사안이 바로 미사용 사안이므로 미사용을 조건에 넣는다."
+    },
+    {
+      "card_id": "art335_sec6_1.days_later_no_opportunity",
+      "article": "art335",
+      "module": "sec6_1",
+      "proposition": "범행 수일 후 재물탈환 방지 또는 체포 면탈 목적으로 폭행을 한 경우에는 준강도죄가 성립될 수 없다.",
+      "neural_query": "폭행이 절도행위와 시간적·장소적으로 근접한 절도의 기회에 이루어졌다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art335_sec6_2.opportunity_safe_escape_limit",
+      "article": "art335",
+      "module": "sec6_2",
+      "proposition": "절도범이 원래 범행현장에서 안전하게 도피하여 더 이상 추적이나 체포위협을 느끼지 않을 정도로 시간적·장소적 경과가 있으면 절도의 기회 계속성을 인정하기 어렵다.",
+      "neural_query": "절도범이 아직 추적이나 체포의 위협을 느끼는 상태로서 절도의 기회가 계속되고 있었다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art338_sec2.debt_evasion_no_robbery",
+      "article": "art338",
+      "module": "sec2",
+      "proposition": "채권자에게 상속인이 있고 채권 존재를 확인할 방법이 확보된 경우, 채무자가 채무면탈 목적으로 채권자를 살해하여도 재산적 이익의 지배를 취득하였다고 보기 어려워 강도가 될 수 없고 단순 살인죄에 그칠 수 있다.",
+      "neural_query": "채권자에게 상속인이 없거나 채권의 존재를 확인할 방법이 확보되지 않아 채무자가 사실상 채무를 면하는 재산적 이익을 취득하였다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art338_sec3.opportunity_new_intent_after_completion",
+      "article": "art338",
+      "module": "sec3",
+      "proposition": "강도 범행이 종료된 뒤 상당한 시간이 경과하여 새로운 범의로 저지른 살해행위는 강도의 기회에 한 행위로 보기 어렵다.",
+      "neural_query": "살해행위가 강도 범행과 시간적으로 근접하여 강도의 기회에 이루어졌다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art343_sec1.robbery_scope",
+      "article": "art343",
+      "module": "sec1",
+      "proposition": "제343조의 ‘강도’에는 단순강도, 특수강도, 약취강도 및 해상강도가 포함되나 준강도는 제외된다.",
+      "neural_query": "해당 범행이 준강도에 해당한다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art350_sec10_6.nonproperty_benefit_no_extortion",
+      "article": "art350",
+      "module": "sec10_6",
+      "proposition": "폭행 또는 협박으로 비재산적 이익을 공여하게 한 경우 공갈죄는 성립하지 않는다.",
+      "neural_query": "공여하게 한 이익이 재산적 이익에 해당한다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art350_sec4_1.robbery_boundary",
+      "article": "art350",
+      "module": "sec4_1",
+      "proposition": "협박이나 폭행이 상대방의 반항을 억압할 정도에 이르면 공갈죄가 아니라 강도죄가 성립한다.",
+      "neural_query": "협박이나 폭행이 상대방의 반항을 억압할 정도에 이르렀다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art350_sec4_2.actual_intent_or_feasibility_not_required",
+      "article": "art350",
+      "module": "sec4_2",
+      "proposition": "행위자가 실제로 해악을 실현할 의사를 가졌는지 또는 해악의 실현이 가능한지는 공갈죄 성립에 영향을 미치지 않는다.",
+      "neural_query": "고지된 해악이 객관적으로 상대방을 외포시킬 만한 것이었다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art350_sec5_2.fear_causation_required",
+      "article": "art350",
+      "module": "sec5_2",
+      "proposition": "공갈죄가 성립하려면 협박 또는 폭행과 외포 사이 및 외포와 재산적 처분행위 사이에 인과관계가 있어야 하며, 협박·폭행을 원인으로 하지 않은 외포심에 따른 재산적 처분행위에는 공갈죄가 성립하지 않는다.",
+      "neural_query": "협박 또는 폭행과 외포 사이, 그리고 외포와 재산적 처분행위 사이에 각각 인과관계가 존재한다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false,
+      "prev_neural_query": "협박 또는 폭행과 외포 사이 및 외포와 재산적 처분행위 사이에 인과관계가 있다.",
+      "revision": "두 인과관계가 각각 필요함을 드러냄."
+    },
+    {
+      "card_id": "art350_sec6.no_overall_property_decrease",
+      "article": "art350",
+      "module": "sec6",
+      "proposition": "공갈죄에서는 피공갈자의 하자 있는 의사에 기한 재물 교부 자체가 재산상 손해에 해당하므로, 피해자 전체 재산의 감소가 반드시 요구되지는 않는다.",
+      "neural_query": "피공갈자가 하자 있는 의사에 기하여 재물을 교부하였다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art350_sec6_2.satisfied_consideration_causation_exception",
+      "article": "art350",
+      "module": "sec6_2",
+      "proposition": "폭행·협박을 당한 상대방이 객관적으로 상당한 대가에 주관적으로도 만족하여 재물을 교부한 경우에는 해악의 고지와 처분행위 사이의 인과관계가 부정되어 공갈죄 미수가 성립한다.",
+      "neural_query": "상대방이 객관적으로 상당한 대가에 주관적으로도 만족하여 재물을 교부하였다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art355.embezzlement.object-excludes-property-interest",
+      "article": "art355",
+      "module": "sec3_2",
+      "proposition": "재물이 아닌 권리·재산상 이익 및 기업비밀·기업정보 자체는 횡령죄의 객체가 될 수 없다.",
+      "neural_query": "횡령의 대상이 된 것은 권리·재산상 이익이나 기업비밀·정보가 아니라 유체물 또는 관리 가능한 동력이었다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "prev_neural_query": "횡령의 객체가 재물에 해당한다.",
+      "prev_status": "not_satisfied",
+      "revision": "전수스캔",
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art355.embezzlement_illegal_name_trust",
+      "article": "art355",
+      "module": "sec3_1",
+      "proposition": "부동산실명법 위반의 중간생략등기형 또는 2자간 등기명의신탁에서 무효인 명의신탁약정에 기초한 관계는 형법상 보호할 가치 있는 위탁관계가 아니므로, 명의수탁자의 임의 처분에 대하여 명의신탁자 관계의 횡령죄는 성립하지 않는다.",
+      "neural_query": "명의수탁자와 명의신탁자의 관계는 부동산실명법에 위반되어 무효인 명의신탁약정에 기초한 것이었다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "prev_neural_query": "명의신탁자와 명의수탁자 사이에 형법상 보호할 가치 있는 위탁관계가 인정된다.",
+      "prev_status": "not_satisfied",
+      "revision": "전수스캔",
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art355_sec4_1.representative_corporate_debt_payment",
+      "article": "art355",
+      "module": "sec4_1",
+      "proposition": "회사에 개인채권을 가진 대표이사가 회사 보관금으로 자신의 회사 상대 채권을 변제하더라도, 이는 대표이사 권한 내 회사채무 이행행위로 유효하여 불법영득의사가 인정되지 않는다.",
+      "neural_query": "그 변제충당은 행위자가 가진 법적 권한 범위 안에서 이루어진 유효한 법률행위였다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false,
+      "prev_neural_query": "그 변제충당이 대표이사 권한 내의 유효한 회사채무 이행행위에 해당한다.",
+      "revision": "'대표이사'는 판례 사안의 지위일 뿐이다. 권한 범위 내 유효한 행위인지로 일반화."
+    },
+    {
+      "card_id": "art355_sec4_2.mere_destruction_not_appropriation",
+      "article": "art355",
+      "module": "sec4_2",
+      "proposition": "단순한 손괴의 의사만으로는 횡령죄의 불법영득의사를 구성하지 않는다.",
+      "neural_query": "행위자에게 단순한 손괴 의사를 넘어 소유자처럼 처분하려는 의사가 있었다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art355_sec4_3.accounting_only_adjustment",
+      "article": "art355",
+      "module": "sec4_3",
+      "proposition": "법인을 위한 경비 지출을 정리하기 위한 허위 직원채용·허위급여 처리, 영업실적을 가장하기 위한 변칙 장부정리, 부외부채 변제를 위한 장부상 급여 인상 등 장부상 정리에 불과한 경우에는 불법영득의사가 인정되지 않는다.",
+      "neural_query": "그 처리는 장부상 정리에 그치지 않고 실제로 자금이 법인 밖으로 유출되었다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false,
+      "prev_neural_query": "그 처리가 장부상 정리에 그치지 않고 실제 자금의 유출을 수반하였다.",
+      "revision": "허위채용·변칙 장부정리처럼 그 자체로 부당한 처리여도 장부상 정리에 그치면 불법영득의사가 부정된다는 점을 카드 쪽에서 유지하고, 질의는 자금 유출 여부만 묻는다."
+    },
+    {
+      "card_id": "art355_sec4_3.objectively_not_grossly_improper_expenditure",
+      "article": "art355",
+      "module": "sec4_3",
+      "proposition": "지출목적에 관한 행위자의 주관적 판단이 객관적으로 심히 부당하지 않다고 사회통념상 인정될 수 있는 경우 불법영득의사가 부정된다.",
+      "neural_query": "지출목적에 관한 행위자의 주관적 판단이 사회통념상 객관적으로 심히 부당하다고 인정된다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art355_sec4_3.slush_fund_concealment",
+      "article": "art355",
+      "module": "sec4_3",
+      "proposition": "비자금이 장부상 일반자금 속에 은닉되어 있거나 회사 재산인 비자금을 차명계좌에 입금·관리하였더라도, 그것만으로 불법영득의사를 인정할 수 없다.",
+      "neural_query": "비자금을 장부에 은닉하거나 차명계좌로 관리한 사실에 더하여, 이를 개인 용도로 사용한 사정이 있다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false,
+      "prev_neural_query": "비자금의 은닉이나 차명계좌 관리를 넘어 이를 개인 용도로 사용한 사정이 인정된다.",
+      "revision": "은닉·차명관리라는 부정적 사정만으로는 부족하고 그 이상이 있어야 한다는 구조를 질의문에 드러냄."
+    },
+    {
+      "card_id": "art355_sec5_2.assigned_claim_proceeds_embezzlement",
+      "article": "art355",
+      "module": "sec5_2",
+      "proposition": "채권양도인이 양도 채권을 직접 추심하여 받은 금전을 양수인에게 지급하지 않고 임의 처분한 것은 권리이전계약상 채무불이행에 불과하여 횡령죄가 성립하지 않는다.",
+      "neural_query": "행위자는 채권을 양도한 뒤 그 채권을 직접 추심하여 받은 금전을 양수인에게 지급하지 않고 임의로 처분하였다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "prev_neural_query": "채권양도인이 추심한 금전에 관하여 양수인을 위한 보관자의 지위에 있었다.",
+      "prev_status": "not_satisfied",
+      "revision": "전수스캔",
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art355_sec5_2.leasehold_transfer",
+      "article": "art355",
+      "module": "sec5_2",
+      "proposition": "권리이전계약에서 양도인이 부담하는 의무가 양도인 자신의 채무인 경우, 양도인은 배임죄의 타인 사무처리자가 아니므로 그 의무를 이행하지 않아도 배임죄가 성립하지 않는다.",
+      "neural_query": "행위자가 부담한 의무는 계약상 자기 자신의 채무였다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "prev_neural_query": "행위자는 임차권을 양도한 자로서 임대인에 대한 통지 등으로 양수인의 임차인 지위를 보전할 의무를 부담하고 있었다.",
+      "prev_status": "not_satisfied",
+      "revision": "임차권이라는 개별 사안을 일반 법리로 올린다 — 자기 채무 불이행은 배임이 아니다.",
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art355_sec5_2.right_transfer_ordinary_duty",
+      "article": "art355",
+      "module": "sec5_2",
+      "proposition": "권리이전계약이나 담보설정계약에서 통상적 계약관계상 급부의무에 불과한 경우에는 배임죄에서의 타인 사무가 아니다.",
+      "neural_query": "그 의무가 통상적 계약관계상 급부의무를 넘어 타인의 재산을 보호·관리하는 사무에 해당한다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art356_sec2_2.illegal_business",
+      "article": "art356",
+      "module": "sec2_2",
+      "proposition": "사회질서에 반하거나 강행법규에 위반되는 등 법이 절대적으로 금지하는 행위는 업무 의사로 반복하더라도 업무가 되지 못한다.",
+      "neural_query": "행위자는 그 활동을 계속·반복하여 하였고, 그 활동은 사회질서에 반하거나 강행법규에 위반되어 법이 절대적으로 금지하는 행위였다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false,
+      "prev_neural_query": "그 활동이 사회질서에 반하거나 강행법규에 위반되어 법이 절대적으로 금지하는 행위에 해당한다.",
+      "revision": "업무성 판단이므로 계속·반복이라는 업무 요건이 질의에 함께 있어야 의미가 있다."
+    },
+    {
+      "card_id": "art356_sec2_2.unrelated_possession",
+      "article": "art356",
+      "module": "sec2_2",
+      "proposition": "일정한 업무에 종사하더라도 그 업무와 무관하게 타인의 재물을 보관하게 된 경우에는 업무상횡령죄가 성립하지 않는다.",
+      "neural_query": "타인의 재물 보관이 행위자의 업무와 관련하여 이루어졌다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art357_sec3_1.mere_contractual_debt_exclusion",
+      "article": "art357",
+      "module": "sec3_1",
+      "proposition": "통상의 민사상 계약에서 이익이 대립하는 관계에 따른 채무를 부담하는 것만으로는 타인의 사무에 해당하지 않는다.",
+      "neural_query": "그 사무가 통상의 민사상 계약에 따른 채무 부담을 넘어 타인의 재산을 보호·관리하는 사무에 해당한다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art357_sec3_1.no_status_at_request",
+      "article": "art357",
+      "module": "sec3_1",
+      "proposition": "원칙적으로 타인의 사무처리자 지위를 취득하기 전에 부정한 청탁을 받은 경우에는 배임수재죄의 주체에 해당하지 않는다.",
+      "neural_query": "행위자는 부정한 청탁을 받을 당시 이미 그 사무를 담당하고 있었다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "prev_neural_query": "행위자가 부정한 청탁을 받을 당시 이미 타인의 사무처리자 지위를 취득하고 있었다.",
+      "prev_status": "not_satisfied",
+      "revision": "전수스캔",
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art357_sec3_2.self_rights_protection_not_improper",
+      "article": "art357",
+      "module": "sec3_2",
+      "proposition": "자신의 권리를 확보하기 위한 행위는 부정한 청탁에 해당하지 않을 수 있다.",
+      "neural_query": "그 청탁은 행위자에게 법률상 인정되는 권리를 확보하기 위한 것이었다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "prev_neural_query": "그 청탁은 행위자 자신의 권리를 확보하기 위한 것이었다.",
+      "prev_status": "not_satisfied",
+      "revision": "'권리'를 법률상 정당한 권리로 한정해 모델의 자의적 확장을 막는다.",
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art357_sec4.giving_to_business_handler",
+      "article": "art357",
+      "module": "sec4",
+      "proposition": "배임증재죄의 공여는 타인의 사무처리자에게 할 것을 요하므로, 사무처리자가 아닌 자에게 교부한 경우에는 성립하지 않는다.",
+      "neural_query": "재물을 교부받은 상대방은 그 임무에 해당하는 사무를 실제로 담당하고 있던 사람이었다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "prev_neural_query": "교부 상대방이 타인의 사무를 처리하는 자에 해당한다.",
+      "prev_status": "not_satisfied",
+      "revision": "전수스캔",
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art360_sec2_2.managed_place_property",
+      "article": "art360",
+      "module": "sec2_2",
+      "proposition": "타인의 간수·관리 등 실력적 지배가 미치는 장소 안에 방치되거나 유류된 물건은 관리자의 점유에 속하여 점유이탈물이 아니고, 영득 시 절도죄의 객체가 된다.",
+      "neural_query": "그 물건이 타인의 간수·관리 등 실력적 지배가 미치는 장소 안에 있었다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art360_sec2_2.original_possessor_recovery",
+      "article": "art360",
+      "module": "sec2_2",
+      "proposition": "원점유자가 물건 소재를 알고 다시 찾을 가능성이 있는 경우에는 타인의 점유가 존속하므로, 이를 영득하면 점유이탈물횡령죄가 아니라 절도죄가 성립한다.",
+      "neural_query": "원점유자가 물건의 소재를 알고 다시 찾을 가능성이 있었다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art360_sec2_2.public_transport_found_property",
+      "article": "art360",
+      "module": "sec2_2",
+      "proposition": "운전사나 승무원이 유실물을 현실적으로 발견한 뒤 제3자가 가져가면 운전사·승무원의 점유가 인정되어 절도죄로 처벌된다.",
+      "neural_query": "운전사나 승무원이 유실물을 현실적으로 발견하여 점유를 개시하였다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art366.corpse_exclusion",
+      "article": "art366",
+      "module": "sec3_1",
+      "proposition": "해부용 사체를 포함한 사체는 제366조의 범행객체인 재물에 해당하지 않는다.",
+      "neural_query": "손괴의 대상이 된 물건은 사체 또는 해부용 사체였다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "prev_neural_query": "그 객체가 사체가 아닌 재물에 해당한다.",
+      "prev_status": "not_satisfied",
+      "revision": "전수스캔",
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art366.public_document_used_by_office",
+      "article": "art366",
+      "module": "sec3_1",
+      "proposition": "공문서라도 공무소에서 사용하는 공용서류에 해당하지 않는 한 제366조의 범행객체가 되지만, 공용서류 해당 여부가 객체성 판단의 요건이 된다.",
+      "neural_query": "그 공문서가 공무소에서 사용하는 공용서류에 해당한다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art366.transmitting_or_processing_information_exclusion",
+      "article": "art366",
+      "module": "sec3_1",
+      "proposition": "네트워크에서 패킷 형태로 전송 중인 정보나 컴퓨터의 레지스터·캐시·주기억장치 등에 저장되어 처리 중인 정보 또는 중간결과값은 제366조의 범행객체가 아니다.",
+      "neural_query": "그 정보가 전송 중이거나 처리 중인 상태가 아니라 기록매체에 저장된 전자기록에 해당한다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    },
+    {
+      "card_id": "art366_sec3_2.mere_functional_interference_not_destruction",
+      "article": "art366",
+      "module": "sec3_2",
+      "proposition": "물건에 변형이나 손상을 가하지 않고 단순히 본래 기능만 훼손한 경우에는 손괴가 되지 않는다.",
+      "neural_query": "물건에 변형이나 손상이 가하여졌다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "origin": "구판",
+      "double_negative": false,
+      "human_review": {
+        "decision": null,
+        "approved_query": null,
+        "notes": null
+      },
+      "round1_reviewed": false
+    }
+  ],
+  "no_query_needed": [
+    {
+      "card_id": "art323_sec1_1.no_unlawful_appropriation_intent",
+      "proposition": "권리행사방해죄의 성립에는 불법영득의사가 요구되지 않는다.",
+      "reason": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    },
+    {
+      "card_id": "art323_sec3.no_intent_to_appropriate_required",
+      "proposition": "권리행사방해죄는 영득죄가 아니므로 불법영득의 의사를 요하지 않는다.",
+      "reason": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    },
+    {
+      "card_id": "art329_sec6.consent_manifestation",
+      "proposition": "절도에서 승낙은 외부적으로 표시되면 명시적·묵시적 여부를 불문하고 추정적 승낙도 가능하다.",
+      "reason": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    },
+    {
+      "card_id": "art334_sec2_1.weapon_awareness_not_required",
+      "proposition": "흉기휴대 특수강도에서는 상대방이 흉기휴대를 인식할 것이 요구되지 않는다.",
+      "reason": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    },
+    {
+      "card_id": "art355_sec3_3.no_property_damage_element",
+      "proposition": "횡령죄의 성립에 재산상 손해의 발생은 구성요건적 요건으로 필요하지 않다.",
+      "reason": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    },
+    {
+      "card_id": "art355_sec4_1.discretionary_funds_no_presumption",
+      "proposition": "용도가 추상적으로 정해졌더라도 보관자에게 사용처·시기 등에 광범위한 재량이 있고 사후보고나 증빙제출도 요구되지 않는 보관금은, 사용처 설명 또는 증빙 부재만으로 불법영득의사를 추단할 수 없다.",
+      "reason": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    },
+    {
+      "card_id": "art357_sec3_5.no_corrupt_performance_required",
+      "proposition": "배임수재죄의 기수에는 청탁에 상응하는 부정행위 또는 배임행위까지 나아갈 것이 요구되지 않는다.",
+      "reason": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    }
+  ],
+  "dropped_from_v1": [
+    {
+      "card_id": "art323_sec5.owner_no_intent_joint_principal_exception",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art328_sec1_3.no_inquiry_after_kinship_denial",
+      "reason": "구체 사건 서술 — 희귀 적용례",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art331_sec3_3.single_actor_execution_exception",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art355_sec4_1.double_sale_good_faith_rescission",
+      "reason": "중복",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art355_sec4_1.double_sale_purchaser_nonperformance",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art355_sec5.consent_no_constituent_elements",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art355_sec5_3.permit_land_building_sale",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art355_sec9_1.protectable_entrustment_denied",
+      "reason": "주석서가 판례·견해를 '소개한다'는 메타 서술 — 사건 사실에 적용할 명제가 아님",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art355_sec9_2.trusted_real_estate_third_party",
+      "reason": "주석서가 판례·견해를 '소개한다'는 메타 서술 — 사건 사실에 적용할 명제가 아님",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art366_sec4_1.intent_document_concealment_litigation_evidence",
+      "reason": "구체 거래·사례 유형 — 희귀 적용례",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art366_sec4_1.intent_concealment_effort_to_return_bag",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art328_sec6_1.accomplice_personal_application",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art329_sec8_9.stealing_held_stolen_property",
+      "reason": "죄수·경합 — 다른 죄명 문맥(사기 concurrence 모듈 core 0%)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art355_sec8.insufficient_collusion_loan_request",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art366_sec4_1.intent_conditional_unawareness_of_glasses",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art366_sec5_2.self_help_container_destruction",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art335_sec4.minor_resistance_insufficient",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art323_sec2_1.precedent_nonowner_accomplice_only",
+      "reason": "주석서가 판례·견해를 '소개한다'는 메타 서술 — 사건 사실에 적용할 명제가 아님",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art328_sec4_1.subordinate_unlawful_possessor_not_victim",
+      "reason": "주석서가 판례·견해를 '소개한다'는 메타 서술 — 사건 사실에 적용할 명제가 아님",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art329_sec2_2.abandoned_license_plate",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art329_sec3_1.wallet_false_owner_answer_fraud",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art329_sec3_4.attempt.abandonment_no_suitable_property",
+      "reason": "총칙",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art329_sec3_4.attempt.accomplice_discontinuance",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art329_sec6.self_help_collateral_recovery",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art329_sec8_8.deception_as_taking_method",
+      "reason": "중복",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art329_sec8_9.principal_thief_stolen_property_offense_exception",
+      "reason": "죄수·경합",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art331_sec2_2.damage-physical-change-exception",
+      "reason": "학설 지시 — 선택지이지 규칙이 아님",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art331_sec3_1.ordinary_screwdriver_not_weapon_holding",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art331_sec4_2.daytime_damage_before_search_no_attempt",
+      "reason": "구체 거래·사례 유형 — 희귀 적용례",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art337_sec5.quasi-robbery-nonparticipant-foreseeability",
+      "reason": "주석서가 판례·견해를 '소개한다'는 메타 서술 — 사건 사실에 적용할 명제가 아님",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art338_sec3.opportunity_witness_killing_hours_later",
+      "reason": "죄수·경합",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art343_sec2.bank_robbery_talk_insufficient",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art343_sec2_2.conspiracy_mutual_recognition_insufficient",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art343_sec4.aider_preparation_exception",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art343.execution_absorption",
+      "reason": "죄수·경합 — 다른 죄명 문맥(사기 concurrence 모듈 core 0%)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art350_sec10_4.extortion_absorbs_simple_threat_assault",
+      "reason": "죄수·경합 — 다른 죄명 문맥(사기 concurrence 모듈 core 0%)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art350_sec10_9.self_possessed_property_no_extortion",
+      "reason": "죄수·경합 — 다른 죄명 문맥(사기 concurrence 모듈 core 0%)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art355_sec3_3.joint_tree_sale_attempt",
+      "reason": "메타서술",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art355_sec4_1.corporate_slush_fund_goods_no_intent",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art355_sec4_3.organization_formal_litigant_fee",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art355_sec4_3.convertible_bond_sham_payment",
+      "reason": "메타서술",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art355_sec4_3.special_repair_fund_community_benefit",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art355_sec4_3.special_repair_fund_comprehensive_consent",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art355_sec4_3.clan_fund_loan_consent",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art355_sec5_2.movable_security_debtor_status",
+      "reason": "주석서가 판례·견해를 '소개한다'는 메타 서술 — 사건 사실에 적용할 명제가 아님",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art355_sec5_2.transfer_contract_debtor_status",
+      "reason": "주석서가 판례·견해를 '소개한다'는 메타 서술 — 사건 사실에 적용할 명제가 아님",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art355_sec5_3.permit_evasion_contract_invalid",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art355_sec5_3.double_sale_downpayment_only_attempt",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art355_sec6.embezzlement_purchaser_conspiracy",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art355_sec6_3.breach_post_act_absorption",
+      "reason": "죄수·경합 — 다른 죄명 문맥(사기 concurrence 모듈 core 0%)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art355_sec7_11.company_internal_benefit_rules",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art355_sec7_2.fraud_proceeds_return_refusal",
+      "reason": "죄수·경합 — 다른 죄명 문맥(사기 concurrence 모듈 core 0%)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art355_sec8.transaction_counterparty_active_participation",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art355_sec8.transaction_counterparty_illegality",
+      "reason": "총칙",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art355_sec8_2.unspecified_embezzlement_indictment_invalidity",
+      "reason": "죄수·경합 — 다른 죄명 문맥(사기 concurrence 모듈 core 0%)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art355_sec9.victim_change_defense_rights",
+      "reason": "절차·부수 규정 — 실체 요건이 아님",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art355_sec9_1.self_possessed_property_fraud_excluded",
+      "reason": "주석서가 판례·견해를 '소개한다'는 메타 서술 — 사건 사실에 적용할 명제가 아님",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art355_sec9_2.stolen_property_custodian_subsequent_appropriation",
+      "reason": "주석서가 판례·견해를 '소개한다'는 메타 서술 — 사건 사실에 적용할 명제가 아님",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art355_sec9_2.negligent_stolen_property_disposal",
+      "reason": "주석서가 판례·견해를 '소개한다'는 메타 서술 — 사건 사실에 적용할 명제가 아님",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art355_sec9_5.embezzlement_proceeds_internal_distribution_no_bribery",
+      "reason": "죄수·경합 — 다른 죄명 문맥(사기 concurrence 모듈 core 0%)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art356_sec4_3.breach_beneficiary_active_participation",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art357_sec1_2.pre_amendment_third_party_exception",
+      "reason": "구법·연혁",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art357_sec3_1.kbo_secretary_no_subject",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art357_sec3_2.concealment_payment_not_specific_solicitation",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art357_sec3_2.pms_research_contract_not_improper",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art357_sec3_6.separate_providers_not_comprehensive_offense",
+      "reason": "죄수·경합 — 다른 죄명 문맥(사기 concurrence 모듈 core 0%)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art357_sec3_9.internal_distribution_not_receiving_giving",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art360_sec2_2.deceased_victim_possession",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art360_sec2_3.insufficient_appropriation_intent",
+      "reason": "주석서가 판례·견해를 '소개한다'는 메타 서술 — 사건 사실에 적용할 명제가 아님",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art360_sec3.cashiers_check_exchange",
+      "reason": "주석서가 판례·견해를 '소개한다'는 메타 서술 — 사건 사실에 적용할 명제가 아님",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art366_sec4_1.intent_destruction_protective_measures",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art366_sec4_1.intent_destruction_telephone_report",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art366_sec4_1.intent_concealment_relocation",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art366_sec5_2.extra_judicial_redevelopment_demolition",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art366_sec5_2.labor_dispute_property_damage",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art366_sec5_3.chainsaw_dog_injury_not_emergency_or_excess",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art366_sec5_4.self_help_fence_removal_legal_remedies_available",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art366_sec5_5.consent_withdrawal_construction_stop",
+      "reason": "메타서술",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art366_sec5_5.redevelopment_consent_not_self_help_demolition",
+      "reason": "구체 거래·사례 유형 — 희귀 적용례",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art366_sec6.creditor_lock_damage_mistake_negative",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art328_sec1_1.article1_application_suspension",
+      "reason": "사용자지시_삭제",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art329_sec2_1.two_person_partnership_withdrawal_exception",
+      "reason": "희귀적용례",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art329_sec3_2.attempt.pickpocket_following_preparation",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art329_sec3_3.completion.vehicle_rolls_ten_meters",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art329_sec7.afteract_consumption_or_destruction",
+      "reason": "죄수·경합 — 다른 죄명 문맥(사기 concurrence 모듈 core 0%)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art329_sec8_4.stolen_document_forgery_not_subsequent_act",
+      "reason": "죄수·경합 — 다른 죄명 문맥(사기 concurrence 모듈 core 0%)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art337_sec6_4.home_invasion_absorption",
+      "reason": "죄수·경합 — 다른 죄명 문맥(사기 concurrence 모듈 core 0%)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art338_sec5.accomplice.no_murder_intent",
+      "reason": "총칙",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art343_sec2_1.joint_perpetration_not_aid",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art355_sec4_3.private_school_account_transfer",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art355_sec4_3.authorized_company_debt_payment",
+      "reason": "중복",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art355_sec5_3.second_purchaser_not_stolen_goods",
+      "reason": "죄수·경합",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art355_sec5_3.unregistered_building_ledger_change",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art357_sec3_8.giver_receiver_accomplice_exception",
+      "reason": "총칙",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art360_sec2_3.attempt_not_punishable",
+      "reason": "절차·부수 규정 — 실체 요건이 아님",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art366_sec5_2.voluntary_retaining_wall_demolition",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art366_sec5_2.owner_removal_of_unauthorized_property",
+      "reason": "학설 지시 — 선택지이지 규칙이 아님",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art366_sec5_2.no_self_recovery_after_established_possession",
+      "reason": "구체사안",
+      "demoted_at": "manual"
+    },
+    {
+      "card_id": "art366_sec5_3.antenna_cutting_not_emergency_evacuation",
+      "reason": "총칙 영역 — 형법총칙 코퍼스 필요(future work)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art323_sec2_1.precedent_nonowner_no_offense",
+      "reason": "주석서가 판례·견해를 '소개한다'는 메타 서술 — 사건 사실에 적용할 명제가 아님",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art328_sec3_7.collateral_relative_noncohabitation",
+      "reason": "절차·부수 규정 — 실체 요건이 아님",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art355_sec7.government_projects_no_comprehensive_single_offense",
+      "reason": "죄수·경합 — 다른 죄명 문맥(사기 concurrence 모듈 core 0%)",
+      "demoted_at": "auto"
+    },
+    {
+      "card_id": "art355_sec8_1.embezzlement_proof_burden",
+      "reason": "절차·증거",
+      "demoted_at": "manual"
+    }
+  ],
+  "card_rewrite_candidates": [
+    "art366_sec3_2.electronic_record_power_cutoff_exception"
+  ],
+  "reauthored_at": "2026-07-23T11:28:14.393602+00:00",
+  "status": "user_review_complete"
+}

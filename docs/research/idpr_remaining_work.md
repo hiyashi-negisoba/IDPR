@@ -144,9 +144,182 @@ generate·IDPR verify에 해당하고, m3/m4는 중간 ablation이다.
 
 ## A3. 평가셋 확정 (사용자 + 에이전트)
 
-상태: **캠페인 준비 완료·실행 대기(2026-07-22).** 방향 확정(2026-07-21) 후, 장물 파일럿으로
-파이프라인·비용·config를 검증하고 실체 47개 조문 캠페인을 생성만 해 둔 상태다. 최종 universe는
-KCL 61문항 커버. 사기 5건 수동 paraphrase는 정합성 검증용 smoke다.
+상태: **KCL 커버 재산죄 벌크 HITL 완료 · core 카드셋 조립 완료 · 질의문 잔여분 승인 대기(2026-07-25).**
+최종 universe는 KCL 61문항 커버. 사기 5건 수동 paraphrase는 정합성 검증용 smoke다.
+
+**2026-07-25 진척 (API 0회):**
+- **재산죄 core 확정 427장.** 결정 A/A2·B·C/C2를 카드에 일괄 반영하고(v3~v5), 카드결함 감사와
+  절 계층(ancestry) 감사로 추가 강등(v6), 파서가 놓친 사용자 취지 1건을 정정해 확정(v7).
+  452 → **427장**(standard_input 326 / deterministic_rule 101, 이중매매 21장은 별도 트랙).
+  학설선택 승격 43장 포함. 원장 `core_finalize_ledger.json`·`결정C_승격원장.json`.
+- **사기 core도 같은 축으로 전수감사** — 88 → **84장**(판단지침형 1·증명법 1 강등, 중복 2 병합,
+  메타 래퍼 2 재작성). RuleIR은 강등 카드 단독근거 규칙 15개·술어 8개를 제거해 재빌드
+  (`fraud_full_rule_ir_rebuilt.json`). `fraud_core_rule_selection_audit.json`의
+  `method: ..._no_api`는 "API 없이"라는 뜻이고 전수 인간검토가 아니다 — 두 세트의 검토 수준이
+  다르다고 읽은 것은 오독이었다(정정).
+- **core → NormCardSet 조립 완료** (`scripts/build_property_core_norm_card_sets.py`,
+  산출 `data/rulegen/property/core_norm_card_sets/art*.json` 16개). v7은 감사 원장이라 카드 원본
+  필드가 없어 RuleIR 입력이 못 된다. merge 산출 카드에 v7 판정을 되돌려 반영하고
+  (`final_role`→`formalization`, 재작성 명제 47장, `review_required` 해제 277장,
+  `disputed`→확정 43장) **전 조문이 `idpr/NormCardSet` 계약 통과**.
+  - **인용 축자성 복원 17건**: 주석서 OCR이 낱말 중간에 넣은 공백을 모델이 정리한 것 11건은 원문
+    구간으로 되돌리고, 문장을 압축한 6건은 정렬 구간의 원문 문언으로 복원했다. 이걸 고치기 전에는
+    제355조·제328조가 계약 위반이었다(quote가 commentary의 정확한 부분문자열이 아님).
+  - merge 단계 계약까지 건 엄격검증 지적 **47장/427**: 대부분(32장) 후보 polarity=negative를
+    카드가 exception으로 재분류한 것이고 이는 정상 승격이다. 나머지는 추적성 드리프트
+    (인용 출처가 연결 후보 밖 10·norm_kind 혼합병합 8·후보 id 미존재 6 등) → 원장
+    `core_norm_card_set_ledger.json:strict_findings`.
+- **결정 B-2 발행(승인 대기)**: 결정B 큐가 `polarity=='negative'`만 담았고 merge가 부정형 명제
+  일부를 `exception`으로 재분류한 탓에, core의 negative/exception 127장 중 **44장이 질의문 심사를
+  건너뛰었다**. standard_input 32장 질의문 초안 + deterministic_rule 12장 면제로 정리했다
+  (`결정B2_예외형질의문승인.md`, `scripts/draft_exception_queries.py`). 부정형 명제가 모델에
+  도달하지 않게 하는 장치라 **배선 전 승인 필요**.
+
+**2026-07-23 진척 (상세: `rulegen_sweep_cost_estimate.md` §8·§9):**
+- **장물 다운스트림 파일럿** — 죄명-불문 드라이버 `scripts/run_rulegen_downstream.py`(merge+normcard
+  critic) 신설·실측. RuleIR은 **죄명별 인간 게이트**(reviewed core set + 10항목 preflight)라
+  자동 스윕 불가 → 캠페인은 (추출+merge+critic 자동) → **벌크 HITL** → (RuleIR 자동) 3단이다.
+- **KCL 커버 재산죄 17조문 벌크 완주**(sbatch job 212240, 1h07m, **$34.26**): 1,671 후보 →
+  **NormCard 1,112장**. 오케스트레이터 `scripts/run_property_campaign.py`(추출·다운스트림 idempotent).
+  범위 표현 주의: "재산죄 각론 전반"이 아니라 **KCL 61문항이 커버하는 재산죄**다(주요조문 47 중 19).
+- **벌크 검토자료 생성 완료**(`data/rulegen/property/`, API 0회) — 사용자 지시 3.1~3.5를 라우팅
+  규칙으로 구현. 자동 97 / 에이전트수정 244 / **사용자 검토 570**. 3.4 긍정형 질의문 초안 190건은
+  에이전트가 직접 작성(규칙기반 변환은 비문이라 폐기). 진입점 `property_legal_review_guide.md`.
+- **core scope 감사 완료 (2026-07-23, API 0회)** — merge가 올린 core 896장 중 **444장을 강등**해
+  **최종 core 452장(50.4%)**. 1차는 사기 정답 646장으로 검증한 표지 자동강등 298장(강등 정밀도
+  97.8%/재현율 48%), 2차는 잔존 598장 **전수 판독** 146장(구체사안 66·죄수경합 16·메타서술 15·
+  타법률 15·중복 12·절차증거 9·총칙 7 등). 산출 `property_core_set_final.json`,
+  스크립트 `audit_core_scope.py` → `build_final_core_set.py`.
+  - **총량을 사기와 직접 비교하면 안 된다**: 사기 646장은 죄명 하나였고 core 88장이다. 재산죄는
+    조문 17개(죄명 약 12개)이므로 죄명당 ~38장으로 사기보다 오히려 얇다. 감사 목표치를 "사기 환산
+    150장"으로 잡으면 과잉 강등이 된다.
+- **결정 B 재발행** — 구판 190건은 감사 **전** 모수라 폐기(그중 103건이 context_only로 강등).
+  최종 core 기준 **99건**(구판유지 87 + 신규 12, 이중부정 26). 신규 12건은 remediation 이후 늘어난
+  negative core가 구판 초안에 반영되지 않아 누락돼 있던 것이다. `결정B_질의문승인_v2.md`,
+  스크립트 `rebuild_decision_b.py`.
+- **누적 예산 $61.2 / $100, 잔여 ~$38.8.** P2 OOS 비재산 30조문은 ~$43.6로 잔여 초과 → 부분 커버 결정 필요.
+
+**결정 B-2 검토 완료 (2026-07-25) + RuleIR 단위 확정:**
+- 1부 32건 중 코멘트 11건, 2부 면제 12건 전부 승인. 반영: **강등 5장**(사후 반환의사·범행 전
+  상계정산·수분양권 위임(22와 중복)·법인 운영권 청탁(지엽) + 다른 원인 교부(11과 중복병합)),
+  질의문 수정 3건, 질의 면제 이동 1장(행정절차상 불법 — 항변 차단 규칙이라 물을 사실 없음).
+  core **427 → 422장**(standard_input 320 / deterministic_rule 102). 질의문 26 + 면제 13.
+  원장 `결정B2_반영원장.json`, 최종 `property_exception_query_final.json`.
+  - 코멘트 2건은 확인만 하고 초안대로 뒀다. 제350조 준강도-강도 경계 카드의 극성 방향은 맞고
+    (혼동은 "예외형 카드가 강도죄 성립을 긍정한다"는 표기에서 왔다), 배임증재 대칭은 이미
+    `art357_sec4.giver_view_justification`(결정B 승인분)이 증재자 관점을 담당해 확보돼 있다.
+- **RuleIR 단위 = 죄명 9 + 공유 모듈 2** (사용자 결정, 설계 `rulegen_rule_ir_units.md`).
+  `scripts/build_rule_ir_units.py` → `data/rulegen/property/rule_ir_units/*.json` 11개,
+  **전 단위 계약 통과(422장)**. 제355조는 `comment_id`의 항 표시로 기계 분할(1항 60/2항 33, 혼합 0),
+  제356조는 절 구조로 분할(Ⅲ.1 횡령·Ⅲ.2 배임·나머지 10장은 업무자 신분 공유 모듈).
+  가중유형은 기본죄와 한 단위(특수절도→절도, 강도류→강도)에 두어 기본 요건 카드를 복제하지 않는다.
+  친족상도례는 성립이 아니라 처벌·소추 층이므로 독립 규칙집합 + 브리지 술어
+  `property_crime_established`로 받는다.
+- **강도 기본조문 누락은 자산 부재가 아니었다(정정).** 처음에 "주석서 코퍼스 부재 → uncovered"로
+  적었으나 오독이다. 원천 파싱본(`sp_qwen/.../commentary_chunks/docs.parquet`, 형법 4,011 chunks /
+  251 조문)에 제333조 [강도] **51 chunks가 절 구조까지** 있고 원본 PDF도 있다
+  (`sp/commentary_criminal.zip`, casenote PDF 373개). IDPR 번들(3,108/96)이 KCL 태그 매핑에서
+  빠뜨린 것이다. 기존 카드가 전제하는 조문만 보강 대상으로 추렸다 —
+  제333조 51 + 제332조 상습범 15 + 제330조 야간주거침입절도 5 = **71 chunks / $3.61**.
+  `scripts/extend_commentary_bundle.py`로 보강 번들·요청 JSONL 생성 완료(정본 번들은 미변경).
+- **친족상도례는 A4 절차 레이어로 이월**(사용자 결정). 형 면제(1항)·친고죄(2항)는 성립이 아니라
+  처벌·소추 층이고 절차 레이어가 다루는 층과 같다. 재산죄 트랙에서는 카드를 독립 모듈로 떼어
+  두는 데까지만 하고(25장, 계약 통과), 브리지 술어 `property_crime_established`를 preflight에
+  넣어 두고 받는 쪽 규칙은 A4에서 쓴다. 친족 준용 조문(제344·354·361·365조) 보강도 그때 함께.
+
+**보강 추출 완주 (2026-07-25, job 213426, 9분 17초, 실지출 $4.87):** 제330·332·333조 71 chunks →
+후보 145 → **NormCard 145장**(42 모듈). 견적 $3.61을 35% 초과했는데, 다운스트림 비용이 chunk가
+아니라 **모듈 수에 붙는 고정비**(스키마+gold exemplar 프롬프트)에 지배되기 때문이다(제330조
+$0.102/chunk vs 제333조 $0.0525/chunk). 소규모 조문 견적은 모듈 수 기준으로 잡는다. 누적 $62.4/$100.
+
+**보강분 전수 판독 완료 (API 0회, `scripts/audit_supplement_core.py`):** 145장 → **core 49장**
+(art330 4 · art332 9 · art333 36). 강등 68장(죄수 28 · 공범총칙 12 · 구체사안 13 · 타법률 7 ·
+판단지침형 3 · 증명소송법 3 · 근사중복 1 · merge판정 1). 제332조는 '상습범'이 총칙 표지에 걸리지만
+조문 자체가 가중유형을 정하므로 구성요건으로 남겼고, 제333조 Ⅹ·Ⅸ절 33장은 축대로 내리되 KCL이
+묻는 쟁점 5건은 확인 항목으로 올렸다. **학설선택 23장 + 확인 5건이 사용자 검토 대기**
+(`data/rulegen/property/보강3조문_검토요청.md`).
+
+**보강분 검토 반영 완료 (2026-07-25):** 학설선택 10그룹 중 8건 제안대로, **2건 사용자 정정** —
+제333조 선행상태 이용은 판례가 인과관계 부정설(`unconsciousness_prior_force_no_causation`)이고,
+권리행사는 대법원이 소극설(`right_exercise_robbery_negative`)이다. 후자는 내가 근거로 든 공갈죄
+카드와의 정합성이 실은 반대 결론을 가리킨 경우다. 승격 10 / 학설강등 13 / 확인 5건은 무응답이라
+감사 판정 유지(되돌리려면 `apply_supplement_review.py`의 `USER_CHECK_DECISION` 한 줄).
+**core 481장**(v8 422 + 보강 59), 조문별 카드셋 19개·죄명 단위 11개 전부 계약 통과.
+`robbery` 56 → **99장**(강도 기본 구성요건 채워짐), `theft` 50 → **66장**.
+
+**결정 B-3 발행(승인 대기):** core 481장 중 부정형·예외형이면서 승인 질의문이 없는 19장 →
+질의문 13 + 면제 6(`결정B3_보강조문_질의문승인.md`). B-2 지적 반영으로 **발동 시 결론**을 항목마다
+적었고, 이중부정이 되는 4건은 있는 쪽 사실을 묻고 방향을 뒤집었다(`not_satisfied`).
+
+**결정 B-3 검토 반영 완료 (2026-07-25):** 지적 4건 중 3건이 내 오독이었다.
+① 제332조 동종성 — "절도·강도·사기"는 죄종을 번갈아 한 것이 아니라 각 죄종이 상습 가중조항을 가져
+포괄 서술한 것이다. 카드가 담는 규칙은 **동종성 판단의 범위**이므로 명제·질의문을 다시 쓰고 발동
+결론을 "그 경력을 상습성 근거에서 제외"로 정확히 했다. ② 강도·공갈 경계 — 정도의 상한이 질의문에
+없었다("반항할 수 있는 상태"로 긍정형 추가). ③ 부동산 재물성 — 원문이 "재물 아님 + 권리는 재산상
+이익" 두 문장 한 세트라 쪼개면 규칙이 반쪽만 발동한다 → **카드 병합**(조립기에
+`absorb_source_refs_from` 추가, 흡수 카드의 인용·후보를 함께 근거로 삼는다).
+**core 480장**, 조문별 19개·단위 11개 계약 통과(`robbery` 98 · `theft` 66). 질의문 13 + 면제 6 확정
+(`supplement_query_final.json`, 수정 3건은 재확인 대상으로 표시).
+
+**가중유형 on/off 설계(사용자 요청)**: 출력 술어를 3층으로 — `<crime>_established`(기본범) /
+`<crime>_aggravation(kind)`(가중 플래그 열거) / `charge(label)`(죄명 확정). 기본 요건 카드를 복제하지
+않고, 플래그가 꺼지면 자동으로 기본범이 되며, 결과적 가중범은 폭행 고의 카드를 전제조건으로 요구한다.
+상세 `rulegen_rule_ir_units.md` §3.1 — preflight 정식 항목.
+
+**preflight 10항목 발행 (2026-07-26, 승인 대기):** `data/rulegen/property/RuleIR_preflight_10항목.md`
+— scope / unit_granularity / outputs / **aggravation** / actor_roles / **bridge_predicate** /
+neural_state / evidence_gate / fewshot / api_ceiling. 사기와 달라지는 것은 단위 11개별 출력 술어,
+가중유형 플래그 분리, 공유 모듈 브리지(친족은 배출하는 쪽까지만). 부정형 카드 질의문 보유를 게이트에서
+확인 — 승인 116 / 면제 26 / **미보유 0**.
+
+**레벨(페이즈) 구조 확정 (2026-07-26):** `rulegen_rule_ir_phases.md`, 기계 판독본
+`rule_ir_phase_map.json`. core 480장을 L0 적격·객체 123 / L1 실행행위 120 / L2 인과 3 / L3 주관 70 /
+L4 단계 30 / L5 가중 99 / L6 위법성 10 / L7 처벌·소추 25로 배정했다. 레벨 순서가 계약과 맞물린다 —
+부정이 최종 스트라텀에서만 허용되므로 `elements_met`(L0~L4) → `established`(`not justified`) →
+`aggravation`(L5) → `charge` 순서가 강제된다. 조문 19개는 기본범 8 + 가중/특별유형 8 + 공유
+수정요소 2 + 미수 처벌근거 1로 정리됐다.
+**빈 레벨 = coverage 보고 항목**: L2가 3장뿐(재산죄 주석서는 인과관계를 독립 절로 두지 않고 일반론은
+형법총칙 주석서 필요 — `causation`·`objective_attribution` uncovered와 정합), 점유이탈물횡령 L3,
+권리행사방해 L4, 공갈 L5(특수공갈 미커버).
+
+**RuleIR 생성 2회 실패 → 경로 정정 필요 (2026-07-26, 상세: WORK_REPORT):** preflight 승인 후 두 번
+제출했고 둘 다 10단위 전부 계약 검증에서 막혔다($0.14 + $0.17 = **$0.31**).
+1. 검증기가 사기 전용이었다(`fraud_established`·`fraud_case_roles`·`fraud.core.outcome.established`
+   하드코딩) → `RuleIRGenerationProfile`로 파라미터화, 사기 기본값 보존, 테스트 150 passed.
+   사기 artifact 게이트가 "검토 후 변경"을 정확히 잡아 사유 기록 후 재해시.
+   내 레벨 설계도 계약 위반이었다 — `not justified`를 직접 쓰면 안 되고 L6 카드는 `has_negative`로
+   흘러야 한다(부정을 쓰는 규칙은 최종 하나뿐).
+2. **전제 자체가 틀렸다.** 사기 RuleIR은 terra 1콜 산출이 아니다 — terra 산출물은 **규칙 4개·술어
+   6개**의 부분 초안이고(`fraud_full_rule_ir_terra_partial_output.json`), 최종 349 규칙은
+   `build_fraud_full_rule_ir_candidate.py`(2,377줄)가 **결정론적으로 조립**한 것이다.
+   completion 4,606토큰으로 349 규칙이 나올 수 없다는 점을 견적 때 알아챘어야 했다.
+   → **preflight 2항목(단위당 1콜)·10항목($4.52)은 무효.** RuleIR은 LLM 생성이 아니라 검토완료
+   카드에서의 **결정론적 컴파일**이고, LLM은 비평에만 쓴다(API ~0).
+
+**RuleIR 조립 완료 (2026-07-26, API 0회)** — `scripts/build_property_rule_ir.py`가 사기 조립 규격을
+죄명-파라미터화한다. **10단위 / 카드 455 / 술어 1,069 / 규칙 2,143 전부 계약 통과**,
+Scallop 컴파일 18,771줄(`rules/generated/property_*_v1_candidate.scl`).
+사기가 손으로 쓴 `COMPONENT_SOURCES` 자리에 **레벨 맵**을 넣어 480장을 손으로 매핑하지 않았다.
+- 걸린 것 3개: `standard_input` 입력 술어는 `kind="standard"` 필수 / 배임수증재는 `defendant_id`
+  슬롯이 없어 브리지 head가 unsafe → 첫 역할을 피고인으로 / 업무자 신분(공유 모듈)은 L5가 가중이
+  아니라 자기 요건이므로 L0으로 읽고 브리지 미배출.
+- **Scallop 런타임 골든 54/54 통과**(`scripts/run_property_scallop_golden.py`, scli 0.2.4 체크섬 고정):
+  ordinary_established / incomplete_case_blocked / negative_bar_blocks / card_conflict_blocks /
+  unknown_blocks / aggravation_flag_on. 런타임 모듈의 사기 전용 `ACTOR_FIELDS`·`fraud_case_roles`도
+  RuleIR에서 역할 계약을 되짚도록 고쳤다(사기 기본값 유지).
+- 회귀 테스트 `tests/test_property_rule_ir.py` **31건**(조립 결정론·계약·컴파일 일치·런타임·리포트).
+- 레벨 문서 §1 정정: `not justified`는 계약 위반이고 L6 카드는 `has_negative`로 흐른다.
+
+**`human_rule_ir_review` 완료 (2026-07-26, API 0회) — 재산죄 RuleIR 법리 검토 마무리.**
+walkthrough(`rulegen_symbolic_layer_theft_walkthrough.md`)에서 "component 내부가 OR이라 소유·점유
+같은 결합적(AND) 요건이 하나로 뭉개진다"는 결함을 발견해 10단위 전수를 카드 단위로 재검토·수정했다
+(절도·배임·횡령·권리행사방해 객체/주관 분리, 강도는 재물강취/이득강취를 대안트랙(OR)+동시충족
+conflict로 재모델링하는 `UNIT_TRACKS` 메커니즘 신설, 오배정 카드 5장 재배치). 사용자 지적으로 카드
+역할 2건 추가 정정(bar→boundary), 반대로 위험한 제안 2건(aggravation-scope 카드·기수/미수 미배선
+카드를 bar로 바꾸자는 것)은 근거를 확인해 반려했다 — 상세 WORK_REPORT 2026-07-26 항목.
+최종 골든 55/55·pytest 31/31. 산출 `RuleIR_죄종별_조건식.md`(죄종별 조건식, 사용자 최종검토 완료).
+**재산죄 RuleIR 트랙 완주.** 남은 것은 sol 비평(선택) — 계약·런타임·법리 검토가 전부 자동/사람
+게이트를 닫았으므로 필수 게이트는 아니다. 누적 $62.7/$100(이번 세션 API 0회).
 
 **파일럿·캠페인 진척(2026-07-22, 상세: `rulegen_campaign_launch.md`·`rulegen_sweep_cost_estimate.md`):**
 - 사용자 결정: 61 **전체 커버**, 검토는 **한 번에 벌크**(죄명별 왕복 아님). 파일럿 죄명=장물(제362조).
@@ -158,6 +331,13 @@ KCL 61문항 커버. 사기 5건 수동 paraphrase는 정합성 검증용 smoke�
   추출+critic ≈ **$35.5**(단가 terra $2.5/$15·sol $5/$30 per 1M). 절차(P3/P4)는 A4 별도 트랙.
 - **남은 게이트**: ① 잔여 예산 확인 후 `--confirm` 착수(예산 게이트), ② 다운스트림(merge·RuleIR) 실단가를
   장물로 한 번 더 파일럿해 확정 권장, ③ 벌크 HITL(`hitl_bulk_review_spec.md`)로 유형별 1회 검토.
+- **매니페스트 재스코핑 필요(2026-07-26 발견, 미반영)**: `kcl_substantive_campaign_manifest.json`의
+  47개 대상에 재산죄 조문(art323·328·329·331·334·335·337·338·342·343·350·355·356·357·360·366)이
+  여전히 포함돼 있다. 이 조문들은 위 재산죄 카드·RuleIR 트랙에서 **이미 다른 경로(주석서 직접 판독 +
+  결정B/B2/B3)로 끝났다** — `excludes`에는 CC_347(사기)·CC_362(장물)만 있고 재산죄가 안 빠져 있다.
+  이대로 `--confirm` 실행하면 끝난 조문을 중복 추출해 예산을 낭비한다. **실행 전 반드시 재산죄
+  조문을 targets에서 제외하고 남은 P2(비재산) 조문만으로 비용 재견적** — `scripts/build_rulegen_campaign.py`
+  손질 필요.
 
 - **확장 경로**: 이미 정해둔 주석서 자료를 기반으로 KCL 61을 커버하도록 card·RuleIR 등
   Scallop 엔진용 재료를 API로 생성한다. **방식은 지난번 사기 rulegen과 동일하며 사람 검토를
@@ -215,7 +395,29 @@ KCL 61문항 커버. 사기 5건 수동 paraphrase는 정합성 검증용 smoke�
 
 ## A4. 절차 레이어 + evidence gating (에이전트 + 사용자)
 
-상태: **미결(2026-07-21).** 현재 실체법 중 사기죄만 보고 있어 절차 레이어는 보류다. 단
+상태: **수직 확장 범위 확정·절 선택 대기(2026-07-23).** 사용자 방향: 수평(각론 전반) 확장이
+아니라 **수직 완결** — KCL 커버 재산죄와 **같은 사실관계를 공유하는** 문항의 절차 쟁점을 함께
+닫는다. 같은 사실관계에서 실체+절차가 동시에 나와야 gating(§8.3) 실증이 성립하기 때문이다.
+
+**범위 집계 결과** (`scripts/build_procedure_topic_scope.py`, 산출 `data/rulegen/procedure/procedure_topic_scope.json`):
+- 재산죄가 걸린 **사실관계 9개** → 절차·mixed 문항 30개 → **유니크 절차 토픽 78개**
+- 형소법 52조문. **per-issue 스코핑 필수**: 전량 1,374ch → 실제 필요 **453ch(33%)**.
+  (조문 전량을 세면 5~6배 과대계상. 예: 제106조 압수 150ch 중 전자정보·참여권은 43ch뿐이고
+  나머지는 강제채혈·DNA·지문·CCTV·계좌추적 등 문항과 무관. 견적문서 §4-1이 경고한 그 레버다.)
+- 비용: 카드생성 **$24.1** + RuleIR $2.2 = **$26.3** (형소법 실측 $0.0533/chunk, 파일럿 cp342·cp308_2).
+  축별로 A 증거능력·수사 39토픽/775ch/~$41, B 재판절차 35토픽/316ch/~$17.
+- **형소법 밀도는 형법과 거의 같다(1.05×)** — "절차법은 얕을 것"이라는 가정은 파일럿으로 반증됐다.
+
+**착수 전 필요:** ① 재산죄 벌크 검토 완료(선행), ② **절 선택 검토** — 절 제목 키워드 매칭은
+휴리스틱이라 법률 검토가 필요하다(빠뜨리면 규칙이 비고 넘치면 비용 증가). 사용자가 벌크 검토
+후 절 선택을 함께 주기로 함(2026-07-23). ③ 수동 스코핑 필요 5건 + unavailable 4건
+(경찰관직무집행법·형법총칙 주석서 부재)은 coverage tier uncovered.
+
+---
+
+이하 종전 기술(증거능력 gate 자산):
+
+현재 실체법 중 사기죄만 보고 있어 절차 레이어는 보류다. 단
 **초안 자산은 이미 있다**(위 "이미 구축된 자산" 참조): gating Scallop 초안(`gates.scl`,
 `hearsay.scl`)·후보 게이트(`procedural_gate_v1_candidate.scl`)·`inadmissible_use` 검증기·절차
 commentary 선별(CP_*). "데모도 없다"가 아니라 **whole-IRAC M5 배선 + 절차 norm card/RuleIR

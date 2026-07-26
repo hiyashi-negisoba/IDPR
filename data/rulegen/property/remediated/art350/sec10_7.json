@@ -1,0 +1,61 @@
+{
+  "card_set_id": "kr.art350.art350.sec10_7.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art350.standard.cash-card-single-continuing-intent",
+          "request_id": "art350.pass1.003"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art350_sec10_7.cash_card_continuing_extortion",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "피해자로부터 현금카드를 교부받은 행위와 그 카드로 현금자동지급기에서 예금을 여러 번 인출한 행위가 피해자의 예금을 갈취하려는 단일하고 계속된 범의 아래의 일련의 행위이면, 포괄하여 하나의 공갈죄만 성립하고 별도 절도죄는 성립하지 않는다.",
+      "request_ids": [
+        "art350.pass1.003"
+      ],
+      "review_notes": "해당 결론은 commentary-reported precedent에 따른 것으로, 단일하고 계속된 범의 및 일련의 행위 여부에는 사실관계 평가가 필요하다. 인용문은 별도 컴퓨터등 사용사기죄 불성립까지는 언급하지 않으므로 그 부분은 본 카드에 포함하지 않았다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제350조_Ⅹ.7_42",
+          "quote": "피고인이 피해자로부터 현금카드를 교부받은 행위와 이 를 사용하여 현금자동지급기에서 예금을 여러 번 인출한 행위는 모두 피해자의 예금을 갈취하고자 하는 피고인의 단일하고 계속된 범의 아래에서 이루어진 일 련의 행위로서 포괄하여 하나의 공갈죄만 성립하고, 이와 별도로 절도죄가 성립 하지는 않는다.",
+          "section_path": "Ⅹ.7"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope에는 1개의 공갈행위로 동일인에게서 수회 재물교부를 받은 경우의 단순일죄·포괄일죄 구별 기준에 관한 근거가 없다.",
+    "현재 source scope에는 공갈죄에서 불법이득의사 또는 영득의사의 필요 여부에 관한 통설 및 반대 견해의 근거가 없다.",
+    "현재 source scope에는 체포·감금을 수단으로 한 공갈의 죄수 관계에 관한 경쟁 견해의 근거가 없다.",
+    "후보 문구 중 컴퓨터등 사용사기죄의 별도 성립 여부는 제공된 정확한 인용문에 근거가 없다.",
+    "[missing.computer_fraud_negative_conclusion] The card omits the linked candidate's negative conclusion that 컴퓨터등 사용사기죄 also does not separately arise. The full commentary chunk expressly states that conclusion, so the omission is not justified by the available source.",
+    "[coverage.gap.not_recorded] The empty coverage-gaps array fails to disclose that the validated candidate's computer-use fraud conclusion was not represented in the card set."
+  ],
+  "issue_tag": "art350_sec10_7",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "1개의 공갈행위로 동일인으로부터 수회 재물교부를 받는 경우 단순일죄와 포괄일죄를 구별하는 처분행위 수의 판단 기준을 어떻게 적용할 것인지.",
+    "공갈죄에 고의와 별도로 불법이득의사 또는 영득의사가 필요한지에 관하여 통설과 반대 견해 중 어느 입장을 취할 것인지.",
+    "체포·감금을 수단으로 한 공갈에서 공갈죄만 성립한다는 견해, 상상적 경합이라는 견해, 실체적 경합이라는 견해 중 어느 견해를 채택할 것인지.",
+    "현금카드 인출 행위에 관하여 보고된 판례의 원문 및 적용 범위를 사용자의 primary precedent index로 확인해야 한다."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제350조_Ⅹ.7_42"
+    ],
+    "target_paths": [
+      "commentary://001692/제350조#sec10_7"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

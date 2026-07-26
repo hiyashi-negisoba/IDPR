@@ -1,0 +1,87 @@
+{
+  "card_set_id": "kr.art350.art350.sec7_1.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art350.element-attempt-threat-notification",
+          "request_id": "art350.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art350_sec7_1.attempt_threat_notification",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "재물 또는 재산상 이익을 공여하게 하는 수단으로 사람을 외포시키기에 족한 해악을 고지한 때 공갈죄의 실행에 착수한다.",
+      "request_ids": [
+        "art350.pass1.002"
+      ],
+      "review_notes": "해악 고지 시점을 실행착수 시점으로 연결하는 기본 요소 카드다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제350조_Ⅶ.1_21",
+          "quote": "공갈죄의 실행의 착수시기는 공갈행위가 있은 때, 즉 재물 또는 재산상의 이익 을 공여하게 하는 수단으로 사람을 외포시키기에 족한 해악을 고지한 때이다.",
+          "section_path": "Ⅶ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art350.standard-third-party-threat-completion-on-delivery",
+          "request_id": "art350.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art350_sec7_1.third_party_threat_notification",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "제3자를 통하여 해악을 고지하는 경우 판례는 제3자가 피해자에게 해악 고지 내용을 전달한 때 공갈죄 실행에 착수한다고 본다.",
+      "request_ids": [
+        "art350.pass1.002"
+      ],
+      "review_notes": "제3자의 전달이 피해자에 대한 해악 고지로 평가되는지와 보고된 판례의 원문 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제350조_Ⅶ.1_21",
+          "quote": "판례는 피해자의 고용인을 통하여 피해자에게 피해자가 경영하는 기업체의 탈세사실을 국세청이 나 정보부에 고발한다는 말을 전한 것이 공갈죄의 실행에 착수한 것으로 인정 하여 제3자가 상대방인 피해자에게 해악의 고지의 내용을 전달한 때에 실행의 착수가 있다는 입장이다.",
+          "section_path": "Ⅶ.1"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope는 공갈죄 실행착수 시기와 제3자를 통한 해악 고지 전달에 한정되어 있으며, 공갈죄 기수 요건에 관한 자료가 없다.",
+    "현재 source scope는 정당한 권리를 공갈수단으로 실현한 경우의 학설 대립 및 특정물·불특정물 또는 재산상 이익 구별에 관한 자료를 포함하지 않는다.",
+    "제3자를 통한 해악 고지에 관한 판례는 현재 commentary-reported precedent로만 제공되며, 1차 판례 색인 확인이 필요하다.",
+    "[missing.attempt.no.actual.fear] The empty coverage-gaps list omits an explicit norm in the bounded commentary: after a sufficient threat has been communicated, absence of actual fear on the part of the target results in attempted extortion. No validated candidate or NormCard preserves this consequence."
+  ],
+  "issue_tag": "art350_sec7_1",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "공갈죄 기수에서 행위자의 현실적 재물 영득 또는 재산상 이익 취득을 성립요건으로 보는지에 관하여, 이를 객관적 구성요건요소가 아니라고 보는 견해를 어떻게 처리할 것인지.",
+    "정당한 권리를 가진 자가 공갈수단으로 권리를 실현한 경우 공갈죄 성립을 부정하는 견해와 긍정하는 견해 중 어느 입장을 채택할 것인지.",
+    "정당한 권리행사 관련 제3견해에 따라 특정물 교부와 불특정물 또는 재산상 이익 취득을 구별할 것인지.",
+    "제3자를 통한 해악 고지에 관한 보고된 판례의 원문과 적용 범위를 사용자 제공 1차 판례 색인에서 확인해야 한다."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제350조_Ⅶ.1_21"
+    ],
+    "target_paths": [
+      "commentary://001692/제350조#sec7_1"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

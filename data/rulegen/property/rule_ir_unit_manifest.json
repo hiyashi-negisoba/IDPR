@@ -1,0 +1,220 @@
+{
+  "version": "1.0.0",
+  "api_calls": 0,
+  "created_at": "2026-07-26T04:00:18.409679+00:00",
+  "design": "docs/research/rulegen_rule_ir_units.md",
+  "source": "data/rulegen/property/core_norm_card_sets (검토완료 core 422장)",
+  "counts": {
+    "units": 11,
+    "cards": 480,
+    "per_article": {
+      "art323": 32,
+      "art328": 25,
+      "art329": 40,
+      "art330": 7,
+      "art331": 9,
+      "art332": 9,
+      "art333": 42,
+      "art334": 7,
+      "art335": 26,
+      "art337": 7,
+      "art338": 10,
+      "art342": 1,
+      "art343": 6,
+      "art350": 41,
+      "art355": 93,
+      "art356": 17,
+      "art357": 41,
+      "art360": 14,
+      "art366": 53
+    }
+  },
+  "bridge_predicate": {
+    "name": "property_crime_established",
+    "arguments": [
+      "case_id",
+      "crime_id",
+      "defendant_id",
+      "owner_id",
+      "possessor_id"
+    ],
+    "purpose": "죄명 규칙집합이 공통으로 배출하고 공유 모듈(친족상도례·업무자 신분)이 받는다. 준용 범위·시행일 조건을 한 곳에서 관리하기 위한 이음새."
+  },
+  "units": [
+    {
+      "issue_tag": "theft",
+      "label": "절도(야간주거침입·특수·상습 포함)",
+      "articles": [
+        "art329",
+        "art330",
+        "art331",
+        "art332",
+        "art342"
+      ],
+      "cards": 66,
+      "roles": {
+        "deterministic_rule": 15,
+        "standard_input": 51
+      },
+      "shared_module": false,
+      "note": "야간주거침입절도(제330조)·특수절도(제331조)·상습절도(제332조)는 절취와 불법영득의사를 절도와 공유하므로 가중 스트라텀으로 같은 단위에 둔다. 제342조 미수 처벌근거 1장은 단위 간 공유 술어로 쓴다.",
+      "validation": "valid"
+    },
+    {
+      "issue_tag": "robbery",
+      "label": "강도류",
+      "articles": [
+        "art333",
+        "art334",
+        "art335",
+        "art337",
+        "art338",
+        "art343"
+      ],
+      "cards": 98,
+      "roles": {
+        "standard_input": 69,
+        "deterministic_rule": 29
+      },
+      "shared_module": false,
+      "note": "기본조문 제333조(강도) + 특수강도·준강도·강도상해치상·강도살인치사·예비음모. 제333조를 보강 추출해 기본 구성요건(반항억압·강취·불법영득의사·착수·기수)이 규칙으로 들어왔다.",
+      "validation": "valid"
+    },
+    {
+      "issue_tag": "extortion",
+      "label": "공갈",
+      "articles": [
+        "art350"
+      ],
+      "cards": 41,
+      "roles": {
+        "standard_input": 33,
+        "deterministic_rule": 8
+      },
+      "shared_module": false,
+      "note": "",
+      "validation": "valid"
+    },
+    {
+      "issue_tag": "breach_of_trust_bribe",
+      "label": "배임수증재",
+      "articles": [
+        "art357"
+      ],
+      "cards": 41,
+      "roles": {
+        "standard_input": 31,
+        "deterministic_rule": 10
+      },
+      "shared_module": false,
+      "note": "",
+      "validation": "valid"
+    },
+    {
+      "issue_tag": "lost_property_embezzlement",
+      "label": "점유이탈물횡령",
+      "articles": [
+        "art360"
+      ],
+      "cards": 14,
+      "roles": {
+        "deterministic_rule": 5,
+        "standard_input": 9
+      },
+      "shared_module": false,
+      "note": "",
+      "validation": "valid"
+    },
+    {
+      "issue_tag": "property_damage",
+      "label": "재물손괴",
+      "articles": [
+        "art366"
+      ],
+      "cards": 53,
+      "roles": {
+        "standard_input": 44,
+        "deterministic_rule": 9
+      },
+      "shared_module": false,
+      "note": "",
+      "validation": "valid"
+    },
+    {
+      "issue_tag": "interference_with_exercise_of_right",
+      "label": "권리행사방해",
+      "articles": [
+        "art323"
+      ],
+      "cards": 32,
+      "roles": {
+        "standard_input": 19,
+        "deterministic_rule": 13
+      },
+      "shared_module": false,
+      "note": "",
+      "validation": "valid"
+    },
+    {
+      "issue_tag": "relative_property_crime_exception",
+      "label": "친족상도례(공유)",
+      "articles": [
+        "art328"
+      ],
+      "cards": 25,
+      "roles": {
+        "standard_input": 15,
+        "deterministic_rule": 10
+      },
+      "shared_module": true,
+      "note": "독립 죄명이 아니라 인적 처벌조각사유(1항)·소추조건(2항)이다. 죄명 규칙집합이 배출하는 브리지 술어 property_crime_established를 받아 처벌·소추 층에서만 작동한다.",
+      "validation": "valid"
+    },
+    {
+      "issue_tag": "embezzlement",
+      "label": "횡령·업무상횡령",
+      "articles": [
+        "art355",
+        "art356"
+      ],
+      "cards": 64,
+      "roles": {
+        "standard_input": 55,
+        "deterministic_rule": 9
+      },
+      "shared_module": false,
+      "note": "제355조 1항 + 제356조 업무상 보관분",
+      "validation": "valid"
+    },
+    {
+      "issue_tag": "breach_of_trust",
+      "label": "배임·업무상배임",
+      "articles": [
+        "art355",
+        "art356"
+      ],
+      "cards": 36,
+      "roles": {
+        "standard_input": 36
+      },
+      "shared_module": false,
+      "note": "제355조 2항 + 제356조 업무상 사무처리분",
+      "validation": "valid"
+    },
+    {
+      "issue_tag": "occupational_status",
+      "label": "업무자 가중신분(공유)",
+      "articles": [
+        "art356"
+      ],
+      "cards": 10,
+      "roles": {
+        "deterministic_rule": 3,
+        "standard_input": 7
+      },
+      "shared_module": true,
+      "note": "제356조는 죄명이 아니라 가중신분을 정한다. 업무 개념 카드는 업무상횡령·업무상배임이 똑같이 쓰므로 공유 모듈로 뽑아 가중 스트라텀에서 참조한다.",
+      "validation": "valid"
+    }
+  ]
+}

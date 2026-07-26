@@ -1,0 +1,247 @@
+{
+  "version": "1.1.0",
+  "card_set_id": "kr.property.art337.core.norms.v1",
+  "issue_tag": "art337",
+  "status": "draft",
+  "legal_review": "complete",
+  "construction": "reviewed_aggregate",
+  "source_scope": {
+    "target_paths": [
+      "commentary://001692/art337#sec2",
+      "commentary://001692/art337#sec3",
+      "commentary://001692/art337#sec3_2",
+      "commentary://001692/art337#sec4"
+    ],
+    "comment_ids": [
+      "comm_001692_제337조_Ⅱ_1",
+      "comm_001692_제337조_Ⅲ.2_3",
+      "comm_001692_제337조_Ⅲ.2_7",
+      "comm_001692_제337조_Ⅲ_2",
+      "comm_001692_제337조_Ⅳ_8"
+    ]
+  },
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art337.element.subject-robber-and-attempted-robber",
+          "request_id": "art337.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art337_sec2.subject_robber_and_attempted_robber",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "강도상해·치상죄의 주체는 단순강도·특수강도·준강도·인질강도의 강도범을 포함하며, 강도의 기수·미수와 관계없이 강도행위의 실행착수가 있으면 주체가 될 수 있다.",
+      "request_ids": [
+        "art337.pass1.001"
+      ],
+      "review_notes": "열거된 강도범 유형과 강도행위 실행착수 여부를 기준으로 주체 범위를 검토한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제337조_Ⅱ_1",
+          "quote": "단순강도죄뿐만 아니라 특수 강도죄(형법 제334조), 준강도죄(제335조), 인질강도죄(제336조)의 강도범도 주체 가 될 수 있음은 물론이다. 강도의 기수와 미수를 불문하며 강도행위의 실행착수가 있으면 형법 제337조 의 주체가 되나",
+          "section_path": "Ⅱ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art337.variant.injury-result-requires-intentional-violence",
+          "request_id": "art337.pass1.001"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "standard_input",
+      "id": "art337_sec3.injury_result_violence_intent",
+      "norm_kind": "variant",
+      "polarity": "negative",
+      "proposition": "강도치상죄는 강도의 기회에 행한 폭행으로 인한 결과적 가중범이므로, 상해의 고의가 없더라도 적어도 폭행의 고의는 있어야 한다.",
+      "request_ids": [
+        "art337.pass1.001"
+      ],
+      "review_notes": "상해 고의가 없는 경우 폭행 고의를 요구하는 견해로서, 대립 견해와 함께 정책 선택 전 검토가 필요하다. 결정C 반영으로 doctrinal_status를 settled로 확정했다. 결정C에서 사용자가 선택한 견해다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제337조_Ⅲ_2",
+          "quote": "강도치상죄에서의 치상을 강도의 기 회에 행해진 폭행으로 인한 결과적 가중범으로 보는 견해에서는 상해의 고의는 없을지라도 적어도 폭행의 고의가 있음을 요한다고 주장하면서",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "variant_group": "art337_sec3.injury_result_violence_awareness"
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art337.standard.injury-concrete-victim-condition",
+          "request_id": "art337.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art337_sec3_2.injury_concrete_victim_condition",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "상해 여부는 피해자의 신체 완전성 훼손 또는 생리적 기능 장애를 객관적·일률적으로 판단하지 않고, 연령·성별·체격 등 신체상·정신상의 구체적 상태를 기준으로 판단한다.",
+      "request_ids": [
+        "art337.pass1.001"
+      ],
+      "review_notes": "피해자의 구체적 상태에 대한 증거와 평가를 검토해야 한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제337조_Ⅲ.2_3",
+          "quote": "피해자의 신체의 완전성을 훼손하거나 생리적 기능에 장애를 초래하",
+          "section_path": "Ⅲ.2"
+        },
+        {
+          "comment_id": "comm_001692_제337조_Ⅲ.2_3",
+          "quote": "였는지는 객관적·일률적으로 판단할 것이 아니라 피해자의 연령·성별·체격 등 신체상·정신상의 구체적 상태 등을 기준으로 판단하여야 한다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art337.definition.injury-threshold",
+          "request_id": "art337.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art337_sec3_2.injury_threshold",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "강도상해·치상죄의 상해는 피해자의 건강상태가 불량하게 변경되고 생활기능에 장애가 초래된 경우를 말하며, 특히 중할 것을 요구하지 않는다.",
+      "request_ids": [
+        "art337.pass1.001"
+      ],
+      "review_notes": "상해 해당성은 개별 사실관계에 대한 법적 평가가 필요하다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제337조_Ⅲ.2_3",
+          "quote": "상해의 정도는 단순 상해죄에서의 상해와 같은 정도 즉, 피해자의 신체의 건강상태가 불량하게 변경되고 생활기능에 장애가 초래되는 것임을 말하고 특 히 중한 것이어야 하는 것은 아니다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art337.exception.robbery-occasion-ended",
+          "request_id": "art337.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art337_sec3_2.robbery_occasion_ended",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "추적을 벗어난 뒤 현장에서 상당히 떨어진 지점에서 체포면탈 목적으로 상해를 가하거나, 범행 종료 후 상당 기간이 지나 새로 범의를 일으켜 범행한 경우에는 강도의 기회에 한 행위로 보기 어렵다.",
+      "request_ids": [
+        "art337.pass1.001"
+      ],
+      "review_notes": "추적 이탈, 거리, 시간 경과 및 새로운 범의의 형성은 사안별로 검토해야 한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제337조_Ⅲ.2_7",
+          "quote": "일단 추적을 벗어난 후 현장으로부터 상당한 거리가 떨어진 지점에서 경관을 만나 체포를 면탈할 목적으로 상해를 가한 경우",
+          "section_path": "Ⅲ.2"
+        },
+        {
+          "comment_id": "comm_001692_제337조_Ⅲ.2_7",
+          "quote": "범행을 일단 종료하고 상당 기간이 지난 후 새로이 범 의를 일으켜 범행한 경우에도 강도의 기회에 행한 것이라고 볼 수 없다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art337.exception.trivial-injury-excluded",
+          "request_id": "art337.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art337_sec3_2.trivial_injury_excluded",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "치료가 필요 없이 자연치유되고 일상생활에 아무 지장이 없는 극히 경미한 상처는 강도상해·치상죄의 상해에 해당하지 않는다.",
+      "request_ids": [
+        "art337.pass1.001"
+      ],
+      "review_notes": "치료 필요성, 자연치유 및 일상생활 지장 여부의 구체적 증거를 검토해야 한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제337조_Ⅲ.2_3",
+          "quote": "폭행에 수반된 상처가 극히 경미한 것으로서 굳이 치료할 필요가 없어서 자연적으로 치유되며 일상생활을 하는 데 아무런 지장이 없는 경우에는 여기서 말하는 상해에 해당되지 않",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art337.element.completion-injury-result",
+          "request_id": "art337.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art337_sec4.completion_injury_result",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "형법 제337조 위반죄는 상해 결과가 발생함으로써 기수가 되며, 재물탈취 목적의 달성은 요구되지 않는다.",
+      "request_ids": [
+        "art337.pass1.001"
+      ],
+      "review_notes": "상해 결과 발생과 기수 시점 및 재물탈취 목적 달성 불요를 연결한 서술이다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제337조_Ⅳ_8",
+          "quote": "형법 제337조 위반죄는 상해의 결과가 발생함으로써 기수가 되며 재물탈취의 목적을 달성함을 요하지 않는다.",
+          "section_path": "Ⅳ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "legal_review_questions": [],
+  "coverage_gaps": [
+    "commentary가 소개한 판례의 원문과 primary precedent index 연결이 현재 source scope에 포함되지 않는다.",
+    "강도상해죄 미수 기준에 관한 통설 및 판례 취지의 정확한 출처가 현재 source scope에 없다.",
+    "강도상해죄 미수의 기준에 관한 통설 및 판례 취지의 정확한 근거가 현재 source scope에 없다.",
+    "강도치상죄 미수 인정 여부에 관한 반대 견해 및 primary precedent index가 현재 source scope에 없다.",
+    "강도치상죄에서 상해 고의 부재 시 폭행 고의 또는 폭행 인식의 필요 여부에 관한 근거가 현재 source scope에 없다.",
+    "중도 가담자의 가담 전 결과 책임에 관한 행위공동설과 범죄공동설의 근거가 현재 source scope에 없다.",
+    "중도 가담자의 가담 전 결과 책임에 관한 행위공동설과 범죄공동설의 출처가 현재 source scope에 없다.",
+    "판례 원문 index가 제공되지 않아 현재 권위 표기는 commentary-reported doctrine에 한정된다.",
+    "현재 source scope에는 강도상해·치상죄의 미수 기준, 강도치상죄의 고의·폭행 인식 요건에 관한 경쟁 견해, 중도 가담자의 가담 전 결과 책임에 관한 경쟁 견해의 근거 자료가 포함되지 않는다.",
+    "현재 source scope에는 강도상해죄 미수의 판단 기준에 관한 근거가 없다.",
+    "현재 source scope에는 강도치상죄에서 상해 고의가 없을 때 요구되는 인식 내용에 관한 견해 대립의 근거가 없다.",
+    "현재 source scope에는 중도 가담자의 가담 전 결과 책임에 관한 행위공동설·범죄공동설의 근거가 없다.",
+    "현재 검증된 후보는 강도치상죄에서 상해 고의가 없는 경우의 폭행 고의·인식 요건에 관한 두 견해만 포함한다."
+  ]
+}

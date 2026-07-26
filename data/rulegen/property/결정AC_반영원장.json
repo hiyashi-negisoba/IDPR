@@ -1,0 +1,711 @@
+{
+  "version": "1.0.0",
+  "api_calls": 0,
+  "created_at": "2026-07-25T06:11:22.131886+00:00",
+  "source": "결정A/A2 사용자응답 + 학설선택_확정원장(67그룹)",
+  "stats": {
+    "promoted_chosen": 64,
+    "group_user": 47,
+    "group_user_merge": 1,
+    "group_user_hold": 2,
+    "kept_chosen": 4,
+    "group_auto_self_declared": 16,
+    "group_missing": 1,
+    "A_source_regen_required": 1,
+    "A_keep": 1
+  },
+  "a_actions": {
+    "art328_sec6_3.disabled_victim_abuse_crimes_no_application": {
+      "action": "source_regen_required",
+      "user": "출처가 끊김. 이렇게 엉망이었어? / 동일한게 지금 두번 들어가있음 (결정A 4·5번)",
+      "note": "명제는 유지한다. 출처 인용이 잘려 있고 같은 카드가 검토서에 두 번 실렸다. 출처 재추출 대상으로 표시하고 preflight 전에 해소한다."
+    },
+    "art355_sec3_3.legal_disposition": {
+      "action": "keep",
+      "user": "성립여부에 대한 카드가 따로있는거아닌가? 기수시기에 대해? 이건 괜찮음 (결정A2 3번)",
+      "note": "유지. critic 지적 기각."
+    }
+  },
+  "c_entries": [
+    {
+      "group": "art323_sec2_1.subject_status",
+      "resolution": "user",
+      "chosen": [
+        "art323_sec2_1.subject_genuine_status_offense"
+      ],
+      "demoted": [
+        "art323_sec2_1.subject_third_party_principal",
+        "art323_sec2_1.subject_not_status_offense"
+      ]
+    },
+    {
+      "group": "art328_sec4_1.kinship_required_persons",
+      "resolution": "user",
+      "chosen": [
+        "art328_sec4_1.kinship_owner_theory"
+      ],
+      "demoted": [
+        "art328_sec4_1.kinship_possessor_theory",
+        "art328_sec4_1.kinship_owner_possessor_theory"
+      ]
+    },
+    {
+      "group": "art328_sec4_1.fraud_deceived_person_status",
+      "resolution": "user",
+      "chosen": [
+        "art328_sec4_1.fraud_deceived_person_procedural_theory"
+      ],
+      "demoted": [
+        "art328_sec4_1.fraud_deceived_person_never_victim_theory"
+      ]
+    },
+    {
+      "group": "art328_sec4_1.adult_guardian_application",
+      "resolution": "user",
+      "chosen": [
+        "art328_sec4_1.adult_guardian_no_extra_statutory_exclusion"
+      ],
+      "demoted": [
+        "art328_sec4_1.adult_guardian_public_role_exclusion_theory",
+        "art328_sec4_1.adult_guardian_kinship_application_majority"
+      ]
+    },
+    {
+      "group": "art329_sec2_2.sealed_deposit_possession",
+      "resolution": "user",
+      "chosen": [
+        "art329_sec2_2.sealed_deposit_entrustment_nature"
+      ],
+      "demoted": [
+        "art329_sec2_2.sealed_deposit_depositor_contents",
+        "art329_sec2_2.sealed_deposit_custodian_contents",
+        "art329_sec2_2.sealed_deposit_entire_depositor",
+        "art329_sec2_2.sealed_container_access"
+      ]
+    },
+    {
+      "group": "art329_sec2_2.dead_person_possession",
+      "resolution": "user",
+      "chosen": [
+        "art329_sec2_2.dead_person_possession_continuing"
+      ],
+      "demoted": [
+        "art329_sec2_2.dead_person_possession_denied",
+        "art329_sec2_2.dead_person_predeath_possession"
+      ]
+    },
+    {
+      "group": "art329_sec5_2.use_theft_nonpunishability",
+      "resolution": "user",
+      "chosen": [
+        "art329_sec5_2.use_theft_possession_not_completely_lost"
+      ],
+      "demoted": [
+        "art329_sec5_2.use_theft_return_intent",
+        "art329_sec5_2.use_theft_minor_harm"
+      ]
+    },
+    {
+      "group": "art329_sec5_2.fuel_consumption",
+      "resolution": "user",
+      "chosen": [
+        "art329_sec5_2.fuel_consumption_incidental_use"
+      ],
+      "demoted": [
+        "art329_sec5_2.fuel_consumption_vehicle_itself",
+        "art329_sec5_2.fuel_consumption_separate_theft"
+      ]
+    },
+    {
+      "group": "art329_sec6.consent_effect",
+      "resolution": "user",
+      "chosen": [
+        "art329_sec6.consent_no_taking"
+      ],
+      "demoted": [
+        "art329_sec6.consent_illegality_exclusion"
+      ]
+    },
+    {
+      "group": "art329_sec8_3.daytime_intrusion_theft_concurrence",
+      "resolution": "user",
+      "chosen": [
+        "art329_sec8_3.daytime_intrusion_theft_real_concurrence"
+      ],
+      "demoted": [
+        "art329_sec8_3.daytime_intrusion_theft_absorption"
+      ]
+    },
+    {
+      "group": "art329_sec8_3.habitual_theft_daytime_intrusion_concurrence",
+      "resolution": "user",
+      "chosen": [
+        "art329_sec8_3.habitual_theft_daytime_intrusion_separate_offense"
+      ],
+      "demoted": [
+        "art329_sec8_3.habitual_theft_daytime_intrusion_old_precedent_absorption"
+      ]
+    },
+    {
+      "group": "art331_sec3_3.group_offense_theory",
+      "resolution": "user",
+      "chosen": [
+        "art331_sec3_3.group_offense_scene_presence"
+      ],
+      "demoted": [
+        "art331_sec3_3.group_offense_conspiracy_co_principal",
+        "art331_sec3_3.group_offense_general_co_principal",
+        "art331_sec3_3.group_offense_functional_control_absentee"
+      ]
+    },
+    {
+      "group": "art334_sec3.nighttime_attempt_timing",
+      "resolution": "user",
+      "chosen": [
+        "art334_sec3.nighttime_home_intrusion_attempt_on_intrusion"
+      ],
+      "demoted": [
+        "art334_sec3.nighttime_home_intrusion_attempt_on_violence_threat",
+        "art334_sec3.nighttime_home_intrusion_precedent_conflict",
+        "art334_sec3.nighttime_weapon_or_joint_robbery_attempt_timing_conflict",
+        "art334_sec3.author_view_nighttime_attempt_on_intrusion"
+      ]
+    },
+    {
+      "group": "art335_sec7_1.attempt_completion_standard",
+      "resolution": "user",
+      "chosen": [
+        "art335_sec7_1.attempt_theft_act_standard"
+      ],
+      "demoted": [
+        "art335_sec7_1.attempt_violence_act_standard",
+        "art335_sec7_1.attempt_combined_standard"
+      ]
+    },
+    {
+      "group": "art335_sec8.weapon_acquired_during_violence",
+      "resolution": "user",
+      "chosen": [
+        "art335_sec8.weapon_acquired_during_violence.reported_precedent"
+      ],
+      "demoted": [
+        "art335_sec8.weapon_acquired_during_violence.doctrinal_variants"
+      ]
+    },
+    {
+      "group": "art335_sec9_1.separated_accomplice_violence",
+      "resolution": "user",
+      "chosen": [
+        "art335_sec9_1.separated_accomplice_violence_affirmative"
+      ],
+      "demoted": [
+        "art335_sec9_1.separated_accomplice_violence_negative"
+      ]
+    },
+    {
+      "group": "art337_sec3.injury_result_violence_awareness",
+      "resolution": "user",
+      "chosen": [
+        "art337_sec3.injury_result_violence_intent"
+      ],
+      "demoted": [
+        "art337_sec3.injury_result_negligent_injury"
+      ]
+    },
+    {
+      "group": "art337_sec5.late-joiner-liability",
+      "resolution": "user",
+      "chosen": [
+        "art337_sec5.late-joiner-liability-after-joining"
+      ],
+      "demoted": [
+        "art337_sec5.late-joiner-liability-entire-result"
+      ]
+    },
+    {
+      "group": "art338_sec5.accomplice_foreseeability_murder",
+      "resolution": "user",
+      "chosen": [
+        "art338_sec5.accomplice.foreseeability_murder_precedent"
+      ],
+      "demoted": [
+        "art338_sec5.accomplice.foreseeability_only_robbery_death"
+      ]
+    },
+    {
+      "group": "art350_sec3.possessed_property_object",
+      "resolution": "user",
+      "chosen": [
+        "art350_sec3.possessed_property_object_affirmative"
+      ],
+      "demoted": [
+        "art350_sec3.possessed_property_object_negative"
+      ]
+    },
+    {
+      "group": "art350_sec8_1.right_enforcement_extortion",
+      "resolution": "user",
+      "chosen": [
+        "art350_sec8_1.right_enforcement_method_standard"
+      ],
+      "demoted": [
+        "art350_sec8_1.right_holder_no_extortion",
+        "art350_sec8_1.right_holder_unacceptable_threat",
+        "art350_sec8_1.specific_unspecified_object_variant"
+      ]
+    },
+    {
+      "group": "art355_sec1_2.embezzlement_nature",
+      "resolution": "user_merge",
+      "chosen": [
+        "art355_sec1_2.embezzlement_illegal_appropriation_theory",
+        "art355_sec1_2.embezzlement_illegal_appropriation_exclusion"
+      ],
+      "demoted": [
+        "art355_sec1_2.embezzlement_authority_excess_theory",
+        "art355_sec1_2.embezzlement_compromise_theory"
+      ]
+    },
+    {
+      "group": "art355_sec1_2.breach_of_trust_nature",
+      "resolution": "user",
+      "chosen": [
+        "art355_sec1_2.breach_of_trust_betrayal_theory"
+      ],
+      "demoted": [
+        "art355_sec1_2.breach_of_trust_authority_abuse_theory",
+        "art355_sec1_2.breach_of_trust_affairs_management_theory"
+      ]
+    },
+    {
+      "group": "art355_sec1_3.breach_of_trust_protection_degree",
+      "resolution": "user",
+      "chosen": [
+        "art355_sec1_3.breach_of_trust_case_concrete_risk_of_loss"
+      ],
+      "demoted": [
+        "art355_sec1_3.breach_of_trust_harm_infringement_theory"
+      ]
+    },
+    {
+      "group": "art355_sec3_3.embezzlement_nature",
+      "resolution": "user",
+      "chosen": [
+        "art355_sec3_3.authority_excess_theory"
+      ],
+      "demoted": [
+        "art355_sec3_3.expression_theory"
+      ]
+    },
+    {
+      "group": "art355_sec3_3.invalid_disposition",
+      "resolution": "user",
+      "chosen": [
+        "art355_sec3_3.invalid_disposition_majority"
+      ],
+      "demoted": [
+        "art355_sec3_3.invalid_disposition_effect_theory"
+      ]
+    },
+    {
+      "group": "art329_sec2_2.carrier_possession",
+      "resolution": "user",
+      "chosen": [
+        "art329_sec2_2.carrier_control_based_possession"
+      ],
+      "demoted": [
+        "art329_sec2_2.carrier_single_possession"
+      ]
+    },
+    {
+      "group": "art343_sec3.abandonment_before_execution",
+      "resolution": "user",
+      "chosen": [
+        "art343_sec3.abandonment_before_execution_denied"
+      ],
+      "demoted": [
+        "art343_sec3.abandonment_before_execution_recognized"
+      ]
+    },
+    {
+      "group": "art343_sec5_3.illegal_possession_relation",
+      "resolution": "user",
+      "chosen": [
+        "art343_sec5_3.illegal_possession_concurrence"
+      ],
+      "demoted": [
+        "art343_sec5_3.illegal_possession_absorption"
+      ]
+    },
+    {
+      "group": "art350_sec10_5.detention_extortion_concurrence",
+      "resolution": "user",
+      "chosen": [
+        "art350_sec10_5.detention_extortion_substantive_concurrence"
+      ],
+      "demoted": [
+        "art350_sec10_5.detention_extortion_extortion_only"
+      ]
+    },
+    {
+      "group": "art350_sec9.illicit_gain_intent",
+      "resolution": "user",
+      "chosen": [
+        "art350_sec9.illicit_gain_intent.required"
+      ],
+      "demoted": [
+        "art350_sec9.illicit_gain_intent.not_separate"
+      ]
+    },
+    {
+      "group": "art355_sec3_3.completion_timing",
+      "resolution": "user",
+      "chosen": [
+        "art355_sec3_3.completion_expression_theory"
+      ],
+      "demoted": [
+        "art355_sec3_3.completion_realization_theory"
+      ]
+    },
+    {
+      "group": "art355_sec4_1.temporary_company_fund_use",
+      "resolution": "user",
+      "chosen": [
+        "art355_sec4_1.temporary_company_fund_objective_assessment_view"
+      ],
+      "demoted": [
+        "art355_sec4_1.temporary_company_fund_no_punishment_view"
+      ]
+    },
+    {
+      "group": "art355_sec4_2.breach_illicit_gain_requirement",
+      "resolution": "user",
+      "chosen": [
+        "art355_sec4_2.breach_illicit_gain_separate_requirement"
+      ],
+      "demoted": [
+        "art355_sec4_2.breach_illicit_gain_not_separate_requirement"
+      ]
+    },
+    {
+      "group": "art355_sec5_2.real_estate_sale_other_affairs",
+      "resolution": "user",
+      "chosen": [
+        "art355_sec5_2.real_estate_double_sale_majority",
+        "art355_sec5_2.real_estate_sale_dissent"
+      ],
+      "demoted": []
+    },
+    {
+      "group": "art355_sec7_2.subsequent_disposal",
+      "resolution": "user",
+      "chosen": [
+        "art355_sec7_2.embezzlement_subsequent_disposal_predictable_risk"
+      ],
+      "demoted": [
+        "art355_sec7_2.subsequent_disposal_majority_critique"
+      ]
+    },
+    {
+      "group": "art355_sec9_2.third_party_embezzled_property",
+      "resolution": "user",
+      "chosen": [
+        "art355_sec9_2.third_party_embezzled_property_complicity_view"
+      ],
+      "demoted": [
+        "art355_sec9_2.third_party_embezzled_property_stolen_property_view"
+      ]
+    },
+    {
+      "group": "art357.protected_interest",
+      "resolution": "user",
+      "chosen": [
+        "art357.protected_interest.integrity"
+      ],
+      "demoted": [
+        "art357.protected_interest.integrity_property"
+      ]
+    },
+    {
+      "group": "art357_sec3_3.principal_third_party_scope",
+      "resolution": "user",
+      "chosen": [
+        "art357_sec3_3.principal_not_third_party_precedent"
+      ],
+      "demoted": [
+        "art357_sec3_3.principal_included_as_third_party",
+        "art357_sec3_3.principal_excluded_as_third_party_doctrine"
+      ]
+    },
+    {
+      "group": "art357_sec3_4.illegal_appropriation_intent",
+      "resolution": "user",
+      "chosen": [
+        "art357_sec3_4.illegal_appropriation_intent_separate"
+      ],
+      "demoted": [
+        "art357_sec3_4.illegal_appropriation_intent_not_separate"
+      ]
+    },
+    {
+      "group": "art360_sec2_3.mistake_property_status",
+      "resolution": "user",
+      "chosen": [
+        "art360_sec2_3.mistake_property_status_punishable"
+      ],
+      "demoted": [
+        "art360_sec2_3.mistake_property_status_not_punishable"
+      ]
+    },
+    {
+      "group": "art366.special_medium_record_scope",
+      "resolution": "user",
+      "chosen": [
+        "art366.special_medium_record_limited_view"
+      ],
+      "demoted": [
+        "art366.special_medium_record_broad_view"
+      ]
+    },
+    {
+      "group": "art366.public_building_non_destruction",
+      "resolution": "user",
+      "chosen": [
+        "art366.public_building_affirmative_view"
+      ],
+      "demoted": [
+        "art366.public_building_negative_view"
+      ]
+    },
+    {
+      "group": "art366_sec3_2.foreign_substance_classification",
+      "resolution": "user_hold",
+      "chosen": [],
+      "demoted": [
+        "art366_sec3_2.foreign_substance_destruction_view",
+        "art366_sec3_2.foreign_substance_other_method_view"
+      ],
+      "note": null
+    },
+    {
+      "group": "art366_sec3_2.destruction_scope",
+      "resolution": "user",
+      "chosen": [
+        "art366_sec3_2.preservation_state_change_view"
+      ],
+      "demoted": [
+        "art366_sec3_2.essential_damage_view"
+      ]
+    },
+    {
+      "group": "art366_sec3_2.malware_classification",
+      "resolution": "user_hold",
+      "chosen": [],
+      "demoted": [
+        "art366_sec3_2.malware_destruction_view",
+        "art366_sec3_2.malware_other_method_view"
+      ],
+      "note": null
+    },
+    {
+      "group": "art366_sec3_2.wall_graffiti_classification",
+      "resolution": "user",
+      "chosen": [
+        "art366_sec3_2.wall_graffiti_functional_efficiency_limit"
+      ],
+      "demoted": [
+        "art366_sec3_2.wall_graffiti_destruction_view",
+        "art366_sec3_2.wall_graffiti_other_method_view"
+      ]
+    },
+    {
+      "group": "art366_sec7_2.document_alteration_concurrence",
+      "resolution": "user",
+      "chosen": [
+        "art366_sec7_2.document_alteration_imaginary_concurrence"
+      ],
+      "demoted": [
+        "art366_sec7_2.document_alteration_special_relationship"
+      ]
+    },
+    {
+      "group": "art366_sec7_2.opened_letter_destruction_concurrence",
+      "resolution": "user",
+      "chosen": [
+        "art366_sec7_2.opened_letter_destruction_real_concurrence"
+      ],
+      "demoted": [
+        "art366_sec7_2.opened_letter_destruction_imaginary_concurrence"
+      ]
+    },
+    {
+      "group": "art366_sec7_2.evidence_destruction_damage_concurrence",
+      "resolution": "user",
+      "chosen": [
+        "art366_sec7_2.evidence_destruction_damage_imaginary_concurrence"
+      ],
+      "demoted": [
+        "art366_sec7_2.evidence_destruction_damage_accompanying_act"
+      ]
+    },
+    {
+      "group": "art323_sec1_1.offense_structure",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art323_sec1_1.result_offense",
+        "art323_sec1_1.concrete_danger_offense",
+        "art323_sec1_1.result_offense",
+        "art323_sec1_1.abstract_danger_offense",
+        "art323_sec1_1.abstract_danger_offense"
+      ],
+      "demoted": []
+    },
+    {
+      "group": "art323_sec3.conditional_intent",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art323_sec3.conditional_intent_insufficient"
+      ],
+      "demoted": [
+        "art323_sec3.conditional_intent_sufficient"
+      ]
+    },
+    {
+      "group": "art343_sec2_1.contingent_intent",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art343_sec2_1.contingent_intent_sufficient_precedent",
+        "art343_sec2_1.contingent_intent_insufficient"
+      ],
+      "demoted": []
+    },
+    {
+      "group": "art355_sec4_3.fake_capital_payment",
+      "resolution": "auto_self_declared",
+      "chosen": [],
+      "demoted": [
+        "art355_sec4_3.fake_capital_academic_invalidity",
+        "art355_sec4_3.fake_capital_critical_embezzlement"
+      ]
+    },
+    {
+      "group": "art355_sec5_3.second_purchaser_accomplice",
+      "resolution": "auto_self_declared",
+      "chosen": [],
+      "demoted": [
+        "art355_sec5_3.second_purchaser_accomplice_active_participation",
+        "art355_sec5_3.second_purchaser_accomplice_malicious"
+      ]
+    },
+    {
+      "group": "art355_sec5_3.double_sale_attempt_timing",
+      "resolution": "auto_self_declared",
+      "chosen": [],
+      "demoted": [
+        "art355_sec5_3.double_sale_attempt_intermediate_payment",
+        "art355_sec5_3.double_sale_attempt_registration_procedure"
+      ]
+    },
+    {
+      "group": "art355_sec6.occupational_embezzlement_accomplice",
+      "resolution": "auto_self_declared",
+      "chosen": [],
+      "demoted": [
+        "art355_sec6.occupational_embezzlement_accomplice_majority",
+        "art355_sec6.occupational_embezzlement_accomplice_precedent"
+      ]
+    },
+    {
+      "group": "art355_sec7_2.fraud_breach_of_trust_concurrence",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art355_sec7_2.fraud_absorbs_breach_of_trust"
+      ],
+      "demoted": [
+        "art355_sec7_2.fraud_breach_of_trust_imaginary_concurrence"
+      ]
+    },
+    {
+      "group": "art355_sec8.non_status_joint_principal",
+      "resolution": "auto_self_declared",
+      "chosen": [],
+      "demoted": [
+        "art355_sec8.non_status_accomplice_general",
+        "art355_sec8.non_status_joint_principal_denial"
+      ]
+    },
+    {
+      "group": "art355_sec9_2.non_concerted_company_fund_recipient",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art355_sec9_2.non_concerted_company_fund_recipient_aiding_view"
+      ],
+      "demoted": [
+        "art355_sec9_2.non_concerted_company_fund_recipient_precedent"
+      ]
+    },
+    {
+      "group": "art356_sec4_2.nonstatus_accomplice_liability",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art356_sec4_2.accomplice_precedent_position",
+        "art356_sec4_2.accomplice_nonstatus_extension"
+      ],
+      "demoted": [
+        "art356_sec4_2.accomplice_majority_simple_embezzlement"
+      ]
+    },
+    {
+      "group": "art357_sec3_5.attempt_commencement",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art357_sec3_5.attempt_commencement_standard",
+        "art357_sec3_5.attempt_commencement_standard"
+      ],
+      "demoted": [
+        "art357_sec3_5.attempt_majority",
+        "art357_sec3_5.attempt_minority"
+      ]
+    },
+    {
+      "group": "art357_sec3_9.receiving_breach_relation",
+      "resolution": "auto_self_declared",
+      "chosen": [],
+      "demoted": [
+        "art357_sec3_9.receiving_breach_concurrent_offenses",
+        "art357_sec3_9.receiving_breach_imaginary_concurrence"
+      ]
+    },
+    {
+      "group": "art360_sec2_2.mistaken_bank_transfer",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art360_sec2_2.mistaken_bank_transfer_embezzlement_holding",
+        "art360_sec2_2.mistaken_bank_transfer_embezzlement_holding"
+      ],
+      "demoted": [
+        "art360_sec2_2.mistaken_bank_transfer_lost_property_view"
+      ]
+    },
+    {
+      "group": "art366_sec3_2.emotional_use",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art366_sec3_2.emotional_use_legality_negative_view"
+      ],
+      "demoted": [
+        "art366_sec3_2.emotional_use_majority_position"
+      ]
+    },
+    {
+      "group": "art366_sec7_2.computer_business_interference_concurrence",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art366_sec7_2.computer_business_interference_absorption"
+      ],
+      "demoted": [
+        "art366_sec7_2.computer_business_interference_imaginary_concurrence"
+      ]
+    }
+  ]
+}

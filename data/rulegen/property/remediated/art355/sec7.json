@@ -1,0 +1,85 @@
+{
+  "card_set_id": "kr.art355.art355.sec7.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art355.standard.embezzlement-multiple-entrustments-one-act",
+          "request_id": "art355.pass1.036"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art355_sec7.multiple_entrustments_imaginary_concurrence",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "여러 위탁관계에 따라 보관하던 여러 재물을 하나의 행위로 횡령한 경우 위탁관계별 수개의 횡령죄가 성립하고 상상적 경합 관계에 있다.",
+      "request_ids": [
+        "art355.pass1.036"
+      ],
+      "review_notes": "위탁관계의 개수, 보관 재물의 구별 및 하나의 횡령행위 해당 여부를 사실관계에 따라 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제355조_1항_Ⅶ_119",
+          "quote": "여러 개의 위탁관계에 의하여 보관하던 여러 개의 재물을 1개의 행위에 의하여 횡령 한 경우 위탁관계별로 수개의 횡령죄가 성립하고, 그 사이에는 상상적 경합의 관계 가 있는 것으로 보아야 한다.",
+          "section_path": "Ⅶ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art355.standard.embezzlement-government-projects-separate",
+          "request_id": "art355.pass1.036"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art355_sec7.government_projects_no_comprehensive_single_offense",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "정부과제별 개별 협약과 정부출연금 위탁관계를 하나로 묶는 포괄적 법률관계 등 특별한 사정이 없으면, 과제별 별개의 정부출연금 위탁관계가 성립하여 이를 포괄일죄로 볼 수 없다.",
+      "request_ids": [
+        "art355.pass1.036"
+      ],
+      "review_notes": "개별 협약, 출연금 위탁관계 및 이를 포괄하는 법률관계 또는 특별한 사정의 존재를 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제355조_1항_Ⅶ_119",
+          "quote": "위와 같은 개별 협약 및 정부출연금 위탁관계를 하나로 묶어 주는 포괄적인 법률관계가 존재하는 등 특별한 사정이 없는 한 甲 회사와 위 기관들 사이에는 각 과제별로 별개의 정부출연금 위탁 관계가 성립한다고 보는 것이 타당하고",
+          "section_path": "Ⅶ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope는 제355조 제1항 Ⅶ의 단일 commentary source에 한정되어 있다.",
+    "후속 규범화 전에는 commentary source의 원전 판례 또는 법령 자료 확인이 필요하다."
+  ],
+  "issue_tag": "art355_sec7",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "단순 보관자가 업무상횡령에 가담한 경우 공동정범·공범의 성립 죄명과 적용 형을 다수설 또는 판례·소수설 중 어느 입장으로 정할지.",
+    "부동산 이중매매 배임죄의 실행착수 시점을 계약금·중도금 수령 시로 볼지, 제2매수인을 위한 등기절차 착수 시로 볼지.",
+    "상법 제622조 특별배임죄와 업무상배임죄의 관계를 법조경합으로 정리할지 여부.",
+    "이미 제1매매 사실을 아는 제2매수인의 배임죄 공범 성립 범위를 적극가담이 있는 경우로 한정할지, 악의만으로 인정할지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제355조_1항_Ⅶ_119"
+    ],
+    "target_paths": [
+      "commentary://001692/제355조#sec7"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

@@ -1,0 +1,254 @@
+{
+  "version": "1.1.0",
+  "card_set_id": "kr.property.art334.core.norms.v1",
+  "issue_tag": "art334",
+  "status": "draft",
+  "legal_review": "complete",
+  "construction": "reviewed_aggregate",
+  "source_scope": {
+    "target_paths": [
+      "commentary://001692/art334#sec1",
+      "commentary://001692/art334#sec2_1",
+      "commentary://001692/art334#sec3"
+    ],
+    "comment_ids": [
+      "comm_001692_제334조_Ⅰ_0",
+      "comm_001692_제334조_Ⅱ.1_2",
+      "comm_001692_제334조_Ⅲ_5"
+    ]
+  },
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art334.definition.nighttime-home-intrusion-robbery-aggravated-combination",
+          "request_id": "art334.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art334_sec1.nighttime_home_intrusion_robbery_aggravated_combination",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "야간주거침입강도는 단순강도와 주거침입이 결합된 가중유형이다.",
+      "request_ids": [
+        "art334.pass1.001"
+      ],
+      "review_notes": "야간주거침입강도의 유형 설명에 한정된 카드이며, 실행착수 시점이나 구성요건 적용 기준은 포함하지 않는다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제334조_Ⅰ_0",
+          "quote": "단순강도와 주거침입의 결합범 형태의 가중유형이다.",
+          "section_path": "Ⅰ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art334.standard.nighttime-robbery-with-damage",
+          "request_id": "art334.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art334_sec1.nighttime_robbery_damage_irrelevant",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "손괴행위 수반 여부와 관계없이 야간 강도행위는 제334조 제1항의 특수강도죄로 처단된다.",
+      "request_ids": [
+        "art334.pass1.001"
+      ],
+      "review_notes": "개별 행위가 야간 강도행위에 해당하는지의 사실관계 평가가 필요하며, 손괴행위의 존재를 별도 긍정요건으로 취급하지 않는다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제334조_Ⅰ_0",
+          "quote": "손괴행위가 수반된 것이든 아니든 야간 강도행위는 모두 본항의 특수강도죄로 처단되게 된다.",
+          "section_path": "Ⅰ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art334.element.weapon-carriage-victim-awareness-not-required",
+          "request_id": "art334.pass1.001"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "art334_sec2_1.weapon_awareness_not_required",
+      "norm_kind": "element",
+      "polarity": "negative",
+      "proposition": "흉기휴대 특수강도에서는 상대방이 흉기휴대를 인식할 것이 요구되지 않는다.",
+      "request_ids": [
+        "art334.pass1.001"
+      ],
+      "review_notes": "상대방의 흉기휴대 인식은 흉기휴대 특수강도의 필요요건이 아니라는 명시적 부정 규범이다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제334조_Ⅱ.1_2",
+          "quote": "흉기휴대를 상대방이 인식",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제334조_Ⅱ.1_2",
+          "quote": "함을 요건으로 하지 않으므로",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art334.standard.weapon-carried-but-fists-used",
+          "request_id": "art334.pass1.001"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "standard_input",
+      "id": "art334_sec2_1.weapon_carried_fists_used",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "휴대한 흉기를 제시하지 않고 주먹 등으로만 폭행·협박하여 상대방을 제압한 경우에도 제334조 제2항 특수강도죄에 해당할 수 있다.",
+      "request_ids": [
+        "art334.pass1.001"
+      ],
+      "review_notes": "흉기 휴대와 실제 폭행·협박의 구체적 관계 및 상대방 제압 여부는 사실관계에 대한 평가가 필요하다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제334조_Ⅱ.1_2",
+          "quote": "휴대한 흉기를 제시하지도 않은 채 오로지 주먹 등으로만 폭",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제334조_Ⅱ.1_2",
+          "quote": "행·협박을 가하여 상대방을 제압한 경우에도 형법 제334조 제2항의 특수강도죄",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제334조_Ⅱ.1_2",
+          "quote": "에 해당할 수 있다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art334.element.weapon-direct-use-not-required",
+          "request_id": "art334.pass1.001"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "art334_sec2_1.weapon_direct_use_not_required",
+      "norm_kind": "element",
+      "polarity": "negative",
+      "proposition": "흉기휴대 특수강도에서 휴대한 흉기를 피해자에게 제시하거나 겨누는 등 폭행·협박의 방법으로 직접 사용할 필요는 없다.",
+      "request_ids": [
+        "art334.pass1.001"
+      ],
+      "review_notes": "휴대한 흉기의 제시·겨눔 또는 폭행·협박 수단으로서의 직접 사용은 필요요건이 아니라는 명시적 부정 규범이다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제334조_Ⅱ.1_2",
+          "quote": "를 피해자에게 제시하며 겨누는 등 폭행·협박의 방법으로 직접 사용함을 필요",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제334조_Ⅱ.1_2",
+          "quote": "로 하지 않으며",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art334.element.daytime-weapon-or-joint-robbery-attempt-on-violence-threat",
+          "request_id": "art334.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art334_sec3.daytime_weapon_or_joint_robbery_attempt_on_violence_threat",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "주간에 이루어진 흉기휴대·합동강도죄는 폭행·협박 시에 실행에 착수한다.",
+      "request_ids": [
+        "art334.pass1.001"
+      ],
+      "review_notes": "후보가 제시한 주간 흉기휴대·합동강도죄의 실행 착수시점 관계를 별도 요소로 보존한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제334조_Ⅲ_5",
+          "quote": "흉기휴대·합동강도죄가 ‘주간’에 이루어",
+          "section_path": "Ⅲ"
+        },
+        {
+          "comment_id": "comm_001692_제334조_Ⅲ_5",
+          "quote": "진 경우 폭행·협박 시에 실행에 착수한 것으로 보아야 한다는 점에 대해서는 이",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art334.variant.nighttime-home-intrusion-robbery-attempt-on-intrusion",
+          "request_id": "art334.pass1.001"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "standard_input",
+      "id": "art334_sec3.nighttime_home_intrusion_attempt_on_intrusion",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "야간주거침입강도는 주거침입과 강도의 결합범이므로 주거에 침입한 때 실행에 착수한다.",
+      "request_ids": [
+        "art334.pass1.001"
+      ],
+      "review_notes": "야간주거침입강도의 실행 착수시기에 관한 주거침입시설 견해로서, 폭행·협박시설 및 소개된 판례 태도와 함께 검토해야 한다. 결정C 반영으로 doctrinal_status를 settled로 확정했다. 결정C에서 사용자가 선택한 견해다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제334조_Ⅲ_5",
+          "quote": "주거침입을 한 때에 그 죄의 실행에 착수한 것으로 보아야 한다는 견해",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "variant_group": "art334_sec3.nighttime_attempt_timing"
+    }
+  ],
+  "legal_review_questions": [],
+  "coverage_gaps": [
+    "야간주거침입강도 및 야간 흉기휴대·합동강도죄의 실행 착수시기에 관한 소개된 판례의 primary precedent index 확인이 필요하다.",
+    "제334조 제1항의 실행착수 시점에 관한 견해 및 판례의 구체적 출처가 현재 source scope에 없다.",
+    "특수강도 공모자의 공동정범성 및 실행 전 현장 이탈자의 협동관계에 관한 source reference는 현재 제공된 후보에 없다.",
+    "특수강도 공모자의 공동정범성 및 실행 전 현장 이탈자의 협동관계에 관한 판례 출처가 현재 source scope에 없다.",
+    "현재 source scope에는 야간주거침입강도 및 흉기휴대·합동강도죄의 실행 착수시기에 관한 견해·판례 자료가 포함되어 있지 않다.",
+    "현재 source scope에는 특수강도 공모자의 공동정범성 및 실행 전 현장 이탈자의 협동관계에 관한 판례 자료가 포함되어 있지 않다.",
+    "현재 자료는 commentary source만 포함하므로, 관련 판례의 원문 및 제334조 제2항의 primary statutory text 확인이 필요하다.",
+    "현재 카드들은 commentary synthesis에 근거하므로, 관련 법조문 및 판례 원문과의 대조 검토가 필요하다."
+  ]
+}

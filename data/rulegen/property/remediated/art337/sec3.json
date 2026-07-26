@@ -1,0 +1,85 @@
+{
+  "card_set_id": "kr.art337.art337.sec3.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art337.variant.injury-result-requires-intentional-violence",
+          "request_id": "art337.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "policy_variant",
+      "id": "art337_sec3.injury_result_violence_intent",
+      "norm_kind": "variant",
+      "polarity": "negative",
+      "proposition": "강도치상죄를 강도 기회에 행한 폭행으로 인한 결과적 가중범으로 보는 견해는 상해 고의가 없더라도 적어도 폭행의 고의가 필요하다고 본다.",
+      "request_ids": [
+        "art337.pass1.001"
+      ],
+      "review_notes": "상해 고의가 없는 경우 폭행 고의를 요구하는 견해로서, 대립 견해와 함께 정책 선택 전 검토가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제337조_Ⅲ_2",
+          "quote": "강도치상죄에서의 치상을 강도의 기 회에 행해진 폭행으로 인한 결과적 가중범으로 보는 견해에서는 상해의 고의는 없을지라도 적어도 폭행의 고의가 있음을 요한다고 주장하면서",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "variant_group": "art337_sec3.injury_result_violence_awareness"
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art337.variant.injury-result-includes-negligent-injury",
+          "request_id": "art337.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "policy_variant",
+      "id": "art337_sec3.injury_result_negligent_injury",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "강도치상죄의 치상에는 강도 기회에 행한 폭행으로 인한 상해뿐 아니라 과실로 발생한 상해도 포함되므로 폭행의 인식은 필요하지 않다는 견해가 있다.",
+      "request_ids": [
+        "art337.pass1.001"
+      ],
+      "review_notes": "과실로 발생한 상해까지 포함하는 견해로서 폭행 인식을 요구하지 않는다; 대립 견해와 함께 정책 선택 전 검토가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제337조_Ⅲ_2",
+          "quote": "강도치상죄의 치상은 강도의 기회에 행해진 폭행으로 인한 것뿐만 아니라 과실로 인하여 발생한 상해도 포함한다는 견해에서는 폭행의 인식을 필 요로 하지 않는다고 본다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "variant_group": "art337_sec3.injury_result_violence_awareness"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 검증된 후보는 강도치상죄에서 상해 고의가 없는 경우의 폭행 고의·인식 요건에 관한 두 견해만 포함한다.",
+    "강도상해죄 미수 기준에 관한 통설 및 판례 취지의 정확한 출처가 현재 source scope에 없다.",
+    "중도 가담자의 가담 전 결과 책임에 관한 행위공동설과 범죄공동설의 출처가 현재 source scope에 없다.",
+    "판례 원문 index가 제공되지 않아 현재 권위 표기는 commentary-reported doctrine에 한정된다."
+  ],
+  "issue_tag": "art337_sec3",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "강도상해죄의 미수를 강도 미수와 상해 미수 중 어느 기준으로 정할 것인지. 다만 통설 및 판례 취지에 관한 서술은 강도 미수 기준을 취하지 않는 방향을 제시한다.",
+    "중도 가담자의 가담 전 결과에 대한 책임 범위에 관하여 행위공동설과 범죄공동설의 대립을 어떻게 정리할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제337조_Ⅲ_2"
+    ],
+    "target_paths": [
+      "commentary://001692/제337조#sec3"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

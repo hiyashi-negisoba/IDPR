@@ -1,0 +1,85 @@
+{
+  "card_set_id": "kr.art335.art335.sec6_1.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art335.element.opportunity-temporal-spatial-proximity",
+          "request_id": "art335.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art335_sec6_1.opportunity_temporal_spatial_proximity",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "폭행·협박은 재물탈취와 시간적·장소적으로 밀접한 관련성이 있는 절도의 기회에 행하여져야 한다.",
+      "request_ids": [
+        "art335.pass1.001"
+      ],
+      "review_notes": "시간적·장소적 밀접성 및 재물탈취와 폭행·협박의 관련성 판단에는 구체적 사실관계 평가가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제335조_Ⅵ.1_10",
+          "quote": "재물탈취와 시간적·장소적으로 밀접성이 인정되는 상황을 말한다. 위 (접근성) 와 같은 재물탈취와 폭행·협박 사이의 관련성 내지 접근성이 요구되는 이유",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art335.standard.days-later-no-opportunity",
+          "request_id": "art335.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art335_sec6_1.days_later_no_opportunity",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "범행 수일 후 재물탈환 방지 또는 체포 면탈 목적으로 폭행을 한 경우에는 준강도죄가 성립될 수 없다.",
+      "request_ids": [
+        "art335.pass1.001"
+      ],
+      "review_notes": "수일 후 폭행은 절도의 기회와 시간적·장소적 밀접성이 결여된 경우로 제시되어 있으며, 구체적 시간 간격과 상황은 평가가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제335조_Ⅵ.1_10",
+          "quote": "범행 수일 후 피해자에게 발각되어 재물탈환을 방지할 목적으로 폭행을 가 한다거나 또는 절도범이 범행 수일 후 체포하러 온 경찰관에 대하여 체포를 면 하고자 폭행을 가한 경우에는 준강도죄가 성립될 수 없다.",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope는 준강도죄에서 절도의 기회 및 시간적·장소적 밀접성에 관한 commentary 발췌만 포함하며, 흉기 휴대·사용, 공범자 폭행·협박 귀속, 간접정범 주체성 및 기수·미수 기준에 관한 근거는 포함하지 않는다.",
+    "commentary_synthesis로 분류된 기준의 원전 판례 또는 법령 근거는 현재 source scope에 포함되지 않는다."
+  ],
+  "issue_tag": "art335_sec6_1",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "단순절도범이 폭행 단계에서 비로소 흉기를 휴대·사용한 경우 특수강도 또는 단순강도의 준강도로 평가할 것인지.",
+    "시간적·장소적으로 분리된 공범자 한 명의 폭행·협박을 다른 공범자의 준강도 사유로 인정할지 여부.",
+    "절도죄의 간접정범이 준강도죄의 주체가 될 수 있는지에 관하여 긍정설과 부정설 중 어느 견해를 채택할 것인지.",
+    "준강도죄의 기수·미수를 절취행위, 폭행·협박행위 또는 양 행위의 미수 중 어느 하나를 기준으로 정할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제335조_Ⅵ.1_10"
+    ],
+    "target_paths": [
+      "commentary://001692/제335조#sec6_1"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

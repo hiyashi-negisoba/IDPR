@@ -867,10 +867,64 @@ FULL_RULE_IR_OUTPUT_SIGNATURES = {
 STANDARD_ASSESSMENT_STATUSES = {"satisfied", "not_satisfied", "unknown"}
 
 
+@dataclass(frozen=True, slots=True)
+class RuleIRGenerationProfile:
+    """죄명별 생성 계약 — 사기 전용 식별자를 파라미터로 뽑은 것.
+
+    검증기는 원래 `fraud_established`·`fraud_case_roles`·`fraud.core.outcome.established`를
+    문자열로 박아 두고 있었다. 재산죄 11단위에 같은 계약을 걸려면 죄명마다 이 이름이 달라져야
+    한다. 기본값은 사기 그대로여서 기존 호출·테스트의 동작은 바뀌지 않는다.
+    """
+
+    output_signatures: Mapping[str, tuple[str, ...]]
+    role_predicate: str
+    role_arguments: tuple[str, ...]
+    outcome_rule_id: str
+    final_negation: frozenset[str]
+    established_predicate: str
+    same_variable_head_indices: tuple[tuple[int, int], ...] = ()
+    same_variable_message: str = ""
+
+    @classmethod
+    def for_crime(cls, issue_tag: str, actor_roles: Sequence[str]) -> "RuleIRGenerationProfile":
+        """죄명 단위의 표준 프로필 — 역할 슬롯만 주면 나머지는 규약으로 정해진다."""
+
+        established = tuple(["case_id", *actor_roles])
+        issue_shape = ("case_id", "defendant_id", "issue_id")
+        return cls(
+            output_signatures={
+                f"{issue_tag}_established": established,
+                f"{issue_tag}_not_established": issue_shape,
+                f"{issue_tag}_undetermined": issue_shape,
+                f"{issue_tag}_conflict": issue_shape,
+            },
+            role_predicate=f"{issue_tag}_case_roles",
+            role_arguments=established,
+            outcome_rule_id=f"{issue_tag}.core.outcome.established",
+            final_negation=frozenset({f"{issue_tag}_has_negative",
+                                      f"{issue_tag}_has_conflict"}),
+            established_predicate=f"{issue_tag}_established",
+        )
+
+
+FRAUD_GENERATION_PROFILE = RuleIRGenerationProfile(
+    output_signatures=FULL_RULE_IR_OUTPUT_SIGNATURES,
+    role_predicate="fraud_case_roles",
+    role_arguments=("case_id", "defendant_id", "deceived_person_id", "disposer_id",
+                    "property_owner_id", "beneficiary_id"),
+    outcome_rule_id="fraud.core.outcome.established",
+    final_negation=frozenset({"fraud_has_negative", "fraud_has_conflict"}),
+    established_predicate="fraud_established",
+    same_variable_head_indices=((2, 3),),
+    same_variable_message="must use one variable for deceived person and disposer",
+)
+
+
 def validate_full_rule_ir_generation(
     payload: Mapping[str, Any],
     commentary_by_id: Mapping[str, Mapping[str, Any]],
     norm_card_set: Mapping[str, Any],
+    profile: RuleIRGenerationProfile = FRAUD_GENERATION_PROFILE,
 ) -> None:
     """Validate complete core coverage, explicit unknowns, and evidence gating."""
 
@@ -957,13 +1011,8 @@ def validate_full_rule_ir_generation(
             {"name": "left_entity_id", "type": "String"},
             {"name": "right_entity_id", "type": "String"},
         ],
-        "fraud_case_roles": [
-            {"name": "case_id", "type": "String"},
-            {"name": "defendant_id", "type": "String"},
-            {"name": "deceived_person_id", "type": "String"},
-            {"name": "disposer_id", "type": "String"},
-            {"name": "property_owner_id", "type": "String"},
-            {"name": "beneficiary_id", "type": "String"},
+        profile.role_predicate: [
+            {"name": name, "type": "String"} for name in profile.role_arguments
         ],
     }
     for predicate_id, expected_arguments in expected_system_inputs.items():
@@ -984,7 +1033,9 @@ def validate_full_rule_ir_generation(
             )
 
     if "active_policy" in predicate_defs:
-        errors.append("active_policy is forbidden because all fraud policies are resolved")
+        errors.append(
+            "active_policy is forbidden because every policy variant is already resolved"
+        )
 
     commentary_inputs: set[str] = set()
     unexpected_system_predicates: list[str] = []
@@ -1037,16 +1088,13 @@ def validate_full_rule_ir_generation(
             if atom.get("negated", False)
         }
         if negated_predicates:
-            allowed_final_negation = {
-                "fraud_has_negative",
-                "fraud_has_conflict",
-            }
+            allowed_final_negation = set(profile.final_negation)
             positive_predicates = {
                 atom.get("predicate", "")
                 for atom in body
                 if not atom.get("negated", False)
             }
-            if rule.get("id") != "fraud.core.outcome.established":
+            if rule.get("id") != profile.outcome_rule_id:
                 errors.append(
                     f"rules[{rule_index}] uses negation outside the final outcome stratum"
                 )
@@ -1063,16 +1111,14 @@ def validate_full_rule_ir_generation(
         expected_case = head_arguments[0] if head_arguments else None
         if not expected_case or expected_case.get("kind") != "variable":
             errors.append(f"rules[{rule_index}] head must start with a case variable")
-        if head_predicate == "fraud_established":
-            if (
-                len(head_arguments) < 4
-                or head_arguments[2].get("kind") != "variable"
-                or head_arguments[2] != head_arguments[3]
-            ):
-                errors.append(
-                    f"rules[{rule_index}] must use one variable for deceived person "
-                    "and disposer"
-                )
+        if head_predicate == profile.established_predicate:
+            for left, right in profile.same_variable_head_indices:
+                if (
+                    len(head_arguments) <= max(left, right)
+                    or head_arguments[left].get("kind") != "variable"
+                    or head_arguments[left] != head_arguments[right]
+                ):
+                    errors.append(f"rules[{rule_index}] {profile.same_variable_message}")
         for atom_index, atom in enumerate(body):
             arguments = atom.get("arguments", [])
             if not arguments or arguments[0] != expected_case:
@@ -1113,7 +1159,7 @@ def validate_full_rule_ir_generation(
             f"{unconsumed_commentary_inputs}"
         )
 
-    for predicate_id, argument_names in FULL_RULE_IR_OUTPUT_SIGNATURES.items():
+    for predicate_id, argument_names in profile.output_signatures.items():
         predicate = predicate_defs.get(predicate_id)
         if predicate is None:
             errors.append(f"missing required output predicate {predicate_id}")

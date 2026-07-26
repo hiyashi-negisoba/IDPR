@@ -1,0 +1,486 @@
+{
+  "version": "1.0.0",
+  "api_calls": 0,
+  "created_at": "2026-07-25T02:24:23.627093+00:00",
+  "trigger": "결정B 91번 사용자 지적 — 학설 서술 카드가 core로 통과",
+  "unwrap_rewrites": {
+    "fraud_intent.precedent_illegal_appropriation_intent": "사기죄가 성립하려면 고의 외에 불법영득의사가 있어야 한다.",
+    "art323_sec2_2.title_transfer_criteria": "자기 물건인지 여부는 법률에 따른 소유권 귀속으로 판단하며, 부동산은 등기, 동산은 인도, 등록으로 소유권이 이전되는 동산은 등록 여부가 판단기준이 된다.",
+    "art329_sec2_2.possession_assistant_control": "점유보조자가 물건에 대한 사실상 지배를 가지면 그 영득행위는 절도가 아니라 횡령이 되고, 본점유자의 지시·감독 아래 소지 또는 감수할 뿐이면 형법상 점유자가 아니어서 절도죄가 성립한다.",
+    "art328_sec2_1.personal_exemption": "제328조 제1항의 형 면제는 범죄 성립에는 영향이 없고 형벌만 면제하는 인적 처벌조각사유이다."
+  },
+  "wrap_demotions": {
+    "art360_sec2_1.status_offense.not_majority": "죄의 신분범 분류에 관한 학설 진술이며 사실관계에 적용할 요건이 없다. 긍정형 전환 시 통설과 반대되는 명제가 되어 오히려 유해하다(사용자 지적, 결정B 91번).",
+    "art355_sec5_2.general_civil_contract_direction": "'제한적으로 해석해야 한다는 평가'는 해석 방향 제시이지 적용 규칙이 아니다. 같은 취지의 적용 규칙은 art355_sec5_2.right_transfer_ordinary_duty가 이미 담고 있다(사용자 지적 74번)."
+  },
+  "property": {
+    "core_size": 452,
+    "flagged": 57,
+    "by_axis": {
+      "G_판단지침형": [
+        "art355_sec4_3.budget_diversion_necessary_expense",
+        "art355_sec4_3.slush_fund_explanatory_materials",
+        "art355_sec4_3.slush_fund_company_expense",
+        "art355_sec4_3.business_expense_discretion",
+        "art355_sec5_2.general_civil_contract_direction",
+        "art355_sec5_2.formal_right_attribution",
+        "art357_sec3_2.contractual_performance_not_improper",
+        "art357_sec3_4.partial_return_not_negate_acquisition_intent"
+      ],
+      "P_증명·소송법": [
+        "art355_sec4_1.discretionary_funds_prosecution_proof",
+        "art355_sec4_1.unexplained_disappeared_funds_inference",
+        "art355_sec4_3.slush_fund_unexplained_personal_use",
+        "art357_sec3_2.implied_improper_solicitation_inference"
+      ],
+      "S1_죄수·다른죄_절": [
+        "art343.special_robbery_attempt_home_invasion",
+        "art355_sec7_2.principal_delivery_fraud_only",
+        "art355_sec7_2.no_principal_disposition_breach_only",
+        "art355_sec7_2.third_party_fraud_and_principal_breach",
+        "art355_sec7_2.incompatible_fraud_breach_of_trust",
+        "art355_sec7_3.breach_property_not_stolen_goods",
+        "art355_sec9_1.account_holder_fraud_victim_funds",
+        "art355_sec9_1.account_holder_fraud_accomplice_exception",
+        "art355_sec9_5.extortion_of_custodian_no_embezzlement_complicity",
+        "art355_sec9_5.initial_possession_without_illegal_appropriation_intent",
+        "art355_sec9_5.concealment_with_appropriation_intent_no_execution_evasion",
+        "art357_sec3_9.characterization_of_money_transfer",
+        "art360_sec3.stolen_goods_acquisition",
+        "art360_sec3.relative_property_owner",
+        "art366_sec7_2.document_forgery_damage_distinction",
+        "art366_sec7_2.document_erasure_new_entry",
+        "art366_sec7_2.cosigner_signature_erasure_damage",
+        "art366_sec7_2.document_author_correction_exception",
+        "art366_sec7_2.document_damage_ownership",
+        "art366_sec7_2.false_document_content_exception",
+        "art366_sec7_2.electronic_record_alteration_or_damage"
+      ],
+      "S2_공범관계_절": [
+        "art323_sec5.nonowner_principal_exception",
+        "art334_sec2_3.joint_robbery_accomplice_special_robbery",
+        "art355_sec6.embezzlement_status_offense",
+        "art355_sec8.occupational_breach_status_offense",
+        "art355_sec8.non_status_simple_breach_sentence"
+      ],
+      "W1_래퍼벗기기": [
+        "art323_sec2_2.title_transfer_criteria",
+        "art328_sec2_1.personal_exemption",
+        "art329_sec2_2.possession_assistant_control"
+      ],
+      "W2_강등": [
+        "art355_sec5_2.general_civil_contract_direction",
+        "art360_sec2_1.status_offense.not_majority"
+      ]
+    },
+    "duplicates": [
+      {
+        "similarity": 0.78,
+        "a": "art355_sec1_1.breach_of_trust",
+        "b": "art355_sec8.occupational_breach_status_offense",
+        "prop_a": "배임죄는 타인의 사무를 처리하는 자가 임무위배행위로 재산상 이익을 취득하거나 제3자로 하여금 취득하게 하여 본인에게 손해를 가하는 범죄이다.",
+        "prop_b": "업무상배임죄는 업무상 타인의 사무를 처리하는 자가 임무위배로 재산상 이익을 취득하거나 제3자로 하여금 취득하게 하여 본인에게 손해를 가한 때 성립하며, 타인의 사무처리자 지위로 인하여 성립하는 신분범이다."
+      },
+      {
+        "similarity": 0.9,
+        "a": "art355_sec3_3.justified_refusal_exception",
+        "b": "art355_sec4_1.justified_refusal_exception",
+        "prop_a": "반환거부에 동시이행항변권·유치권·상계권 행사 등 정당한 이유가 있으면 불법영득의사를 인정할 수 없다.",
+        "prop_b": "반환거부에 동시이행항변권·유치권·상계권 행사 등의 정당한 이유가 있으면 불법영득의사가 인정되지 않는다."
+      },
+      {
+        "similarity": 0.76,
+        "a": "art355_sec4_1.owner_benefit_exception",
+        "b": "art355_sec4_2.owner_benefit_disposition_no_appropriation",
+        "prop_a": "보관자가 소유자의 이익을 위하여 재물을 처분한 경우에는 특별한 사정이 없는 한 불법영득의사를 인정할 수 없다.",
+        "prop_b": "보관자가 자기 또는 제3자의 이익이 아니라 소유자의 이익을 위하여 처분한 경우에는 특별한 사정이 없는 한 불법영득의사가 인정되지 않는다."
+      },
+      {
+        "similarity": 0.82,
+        "a": "art355_sec4_1.restricted_purpose_funds",
+        "b": "art355_sec4_2.restricted_funds_off_purpose_embezzlement",
+        "prop_a": "엄격히 제한된 용도로 위탁받은 자금을 그 제한 용도 외 목적으로 사용하면, 그 사용이 위탁자를 위한 면이 있더라도 사용행위 자체로 불법영득의사를 실현하여 횡령죄가 성립한다.",
+        "prop_b": "용도가 엄격히 제한된 자금을 위탁받아 제한된 용도 외 목적으로 사용하면, 결과적으로 위탁자를 위한 면이 있더라도 사용행위 자체로 불법영득의사가 실현되어 횡령죄가 성립한다."
+      },
+      {
+        "similarity": 0.77,
+        "a": "art356.business_possession_origins",
+        "b": "art356_sec3_2.other_affairs_origin",
+        "prop_a": "업무상 보관은 업무상 지위에 따라 당연히 재물을 보관하게 된 경우와 업무자에 대한 위탁자의 구체적 위탁행위로 재물을 보관하게 된 경우 모두에 성립한다.",
+        "prop_b": "업무상 타인의 사무 처리는 업무상 지위에 따라 당연히 사무를 처리하게 된 경우와 업무자에 대한 위임자의 구체적 위임행위로 사무를 처리하게 된 경우 모두에 해당한다."
+      },
+      {
+        "similarity": 0.83,
+        "a": "art357_sec1_1.giving_offense_definition",
+        "b": "art357_sec4.giving_offense_definition",
+        "prop_a": "배임증재죄는 타인의 사무를 처리하는 자에게 임무에 관하여 부정한 청탁을 하고 재물 또는 재산상의 이익을 공여하는 범죄이다.",
+        "prop_b": "배임증재죄는 타인의 사무처리자에게 그 임무에 관한 부정한 청탁을 하고 재물 또는 재산상 이익을 공여하여 성립하며, 비신분범이다."
+      },
+      {
+        "similarity": 0.77,
+        "a": "art357_sec1_3.receipt.required_elements",
+        "b": "art357_sec3_5.completion_time",
+        "prop_a": "배임수재죄는 부정한 청탁과 재물 또는 재산상 이익의 취득을 요한다.",
+        "prop_b": "배임수재죄는 부정한 청탁을 받고 재물 또는 재산상 이익을 취득한 때 기수에 이른다."
+      },
+      {
+        "similarity": 0.77,
+        "a": "art366_sec3_2.wall_graffiti_totality",
+        "b": "art366_sec3_2.road_graffiti_totality",
+        "prop_a": "건조물 벽면 낙서·게시물 부착·오물 투척이 건조물 효용을 해하는지는 건조물 용도와 기능, 채광·통풍·조망 영향, 미관 훼손 정도, 이용자 불쾌감·저항감, 원상회복 난이도·비용, 목적·계속성 및 당시 상황을 종합하여 사회통념에 따라 판단한다.",
+        "prop_b": "포장도로 낙서가 도로 효용을 해하는지는 도로 용도·기능, 노면표시 기능 및 통행·안전 영향, 미관 훼손 정도, 이용자 불쾌감·저항감, 원상회복 난이도·비용, 목적·계속성 및 당시 상황을 종합하여 사회통념에 따라 판단한다."
+      }
+    ],
+    "detail": {
+      "G_판단지침형": [
+        {
+          "card_id": "art355_sec4_3.budget_diversion_necessary_expense",
+          "sections": [
+            "3. 구체적 검토",
+            "3. 구체적 검토"
+          ],
+          "proposition": "예산 집행자가 자신의 이익이 아니라 경비부족을 메우기 위하여 예산을 전용하고, 본래 책정 또는 영달되었어야 할 필요경비로서 일정한 절차를 거치면 지출이 허용될 수 있었던 경우에는 불법영득의사를 곧바로 인정하거나 단정하기 어렵다."
+        },
+        {
+          "card_id": "art355_sec4_3.slush_fund_explanatory_materials",
+          "sections": [
+            "3. 구체적 검토"
+          ],
+          "proposition": "불법영득의사를 인정하기 어려운 사유에 따른 비자금 행방·사용처 설명과 이에 부합하는 자료가 있고, 타 용도 소비 후 동액을 별도 입금 또는 반환하였다는 사정도 인정되지 않는 경우에는 불법영득의사에 의한 인출·횡령을 함부로 인정할 수 없다."
+        },
+        {
+          "card_id": "art355_sec4_3.slush_fund_company_expense",
+          "sections": [
+            "3. 구체적 검토"
+          ],
+          "proposition": "비자금을 회사 운영상 통상 발생하는 비용으로 회사가 부담하는 것이 상당하게 사용하였다고 주장하는 경우, 비용 부담의 상당성, 사용 시기·대상·범위·금액 결정의 객관성·합리성·적정성 및 주된 개인용도 여부를 종합하여 불법영득의사를 판단하며, 내부규정이나 이사회 결의가 없다는 사정만으로 곧바로 인정되지 않는다."
+        },
+        {
+          "card_id": "art355_sec4_3.business_expense_discretion",
+          "sections": [
+            "3. 구체적 검토"
+          ],
+          "proposition": "업무 관련 지출을 포괄적으로 정하고 용도·목적의 구체적 제한 및 사후 증빙자료 요구가 없는 실비변상적 판공비·업무추진비는 사용 용도·규모와 업무 관련성 판단이 임직원에게 맡겨져 있으므로 그 판단은 우선 존중되어야 한다."
+        },
+        {
+          "card_id": "art355_sec5_2.general_civil_contract_direction",
+          "sections": [
+            "2. 대법원 판례의 방향성"
+          ],
+          "proposition": "당사자 관계의 전형적·본질적 내용이 타인의 재산 보호·관리에 있지 않은 일반 민사계약관계에서는 사무의 타인성을 제한적으로 해석해야 한다는 평가가 제시되어 있다."
+        },
+        {
+          "card_id": "art355_sec5_2.formal_right_attribution",
+          "sections": [
+            "2. 대법원 판례의 방향성"
+          ],
+          "proposition": "거래 상대방에게 물건이나 권리가 형식적으로 귀속되었는지는 배임죄 주체인 타인의 사무처리자 여부의 결정적 요소가 아니며, 계약 내용에 따른 당사자 관계의 전형적·본질적 내용을 기준으로 판단해야 한다."
+        },
+        {
+          "card_id": "art357_sec3_2.contractual_performance_not_improper",
+          "sections": [
+            "2. 임무에 관한 부정한 청탁"
+          ],
+          "proposition": "거래상대방에게 양수대금 등 계약상 의무를 이행하게 하고 이를 이행받은 경우에는, 계약관계 유지 등의 부탁이 있었다는 사정만으로 부정한 청탁의 대가 수수라고 단정할 수 없다."
+        },
+        {
+          "card_id": "art357_sec3_4.partial_return_not_negate_acquisition_intent",
+          "sections": [
+            "4. 주관적 구성요건"
+          ],
+          "proposition": "수수한 돈 중 일부를 돌려주었다는 사실만으로 수수 당시 이득의 의사가 없었다고 단정할 수 없다."
+        }
+      ],
+      "P_증명·소송법": [
+        {
+          "card_id": "art355_sec4_1.discretionary_funds_prosecution_proof",
+          "sections": [
+            "1. 총설"
+          ],
+          "proposition": "광범위한 사용재량이 부여된 보관금에서 불법영득의사를 인정하려면 개인적 이익을 위한 지출 또는 합리적 범위를 넘는 과다지출 등의 사정을 검사가 입증해야 한다."
+        },
+        {
+          "card_id": "art355_sec4_1.unexplained_disappeared_funds_inference",
+          "sections": [
+            "1. 총설"
+          ],
+          "proposition": "위탁보관금이 모두 사라지고 사용처 설명·자료가 부족하며 개인용도 사용을 뒷받침하는 신빙성 있는 자료가 많은 경우에는 불법영득의사에 의한 횡령을 일응 추단할 수 있다."
+        },
+        {
+          "card_id": "art355_sec4_3.slush_fund_unexplained_personal_use",
+          "sections": [
+            "3. 구체적 검토"
+          ],
+          "proposition": "비자금의 행방·사용처에 관한 설명이나 해당 사용처에 비자금이 사용되었다는 자료가 부족하고 개인용도 사용에 관한 신빙성 있는 자료가 많은 경우, 불법영득의사에 의한 횡령을 추단할 수 있다."
+        },
+        {
+          "card_id": "art357_sec3_2.implied_improper_solicitation_inference",
+          "sections": [
+            "2. 임무에 관한 부정한 청탁"
+          ],
+          "proposition": "부정한 청탁의 존재가 명시적으로 증명되지 않아도, 통상 범위를 넘는 금액 수수와 객관적 사실관계 또는 정황에 비추어 묵시적 부정한 청탁을 추인할 수 있다."
+        }
+      ],
+      "S1_죄수·다른죄_절": [
+        {
+          "card_id": "art343.special_robbery_attempt_home_invasion",
+          "sections": [
+            "2. 주거침입죄와의 관계"
+          ],
+          "proposition": "야간주거침입과 강도의 결합범인 특수강도에서는 주거침입으로 특수강도 실행에 착수하므로 특수강도 미수범만 성립한다."
+        },
+        {
+          "card_id": "art355_sec7_2.principal_delivery_fraud_only",
+          "sections": [
+            "2. 사기죄와의 관계"
+          ],
+          "proposition": "타인의 사무를 처리하는 자가 본인을 기망하여 본인으로부터 별도 재물을 교부받은 경우에는 배임죄가 문제되지 않고 사기죄만 성립한다."
+        },
+        {
+          "card_id": "art355_sec7_2.no_principal_disposition_breach_only",
+          "sections": [
+            "2. 사기죄와의 관계"
+          ],
+          "proposition": "기망을 수단으로 한 배임행위라도 본인의 처분행위가 없으면 편취가 없어 배임죄만 성립한다."
+        },
+        {
+          "card_id": "art355_sec7_2.third_party_fraud_and_principal_breach",
+          "sections": [
+            "2. 사기죄와의 관계"
+          ],
+          "proposition": "본인에 대한 배임행위가 본인 외 제3자에 대한 사기죄를 구성하더라도 그로 인해 본인에게 손해가 발생하면 사기죄와 함께 배임죄가 성립한다."
+        },
+        {
+          "card_id": "art355_sec7_2.incompatible_fraud_breach_of_trust",
+          "sections": [
+            "2. 사기죄와의 관계"
+          ],
+          "proposition": "사기죄와 배임죄가 비양립적 관계에 있는 경우에는 둘 중 하나의 범죄만 성립한다."
+        },
+        {
+          "card_id": "art355_sec7_3.breach_property_not_stolen_goods",
+          "sections": [
+            "3. 장물죄와의 관계"
+          ],
+          "proposition": "배임행위에 제공된 물건에 대하여 장물죄는 성립하지 않으며, 부동산 이중매매에서 배임행위에 제공된 부동산임을 알면서 취득하거나 전득한 경우에도 장물죄는 성립하지 않는다."
+        },
+        {
+          "card_id": "art355_sec9_1.account_holder_fraud_victim_funds",
+          "sections": [
+            "1. 사기죄와의 관계"
+          ],
+          "proposition": "전기통신금융사기에 이용된 계좌의 명의인이 사기피해금 상당의 송금·이체된 돈을 피해자에게 반환하여야 하는 경우, 피해자를 위하여 사기피해금을 보관하는 지위에 있어 피해자에 대한 횡령죄가 성립한다."
+        },
+        {
+          "card_id": "art355_sec9_1.account_holder_fraud_accomplice_exception",
+          "sections": [
+            "1. 사기죄와의 관계"
+          ],
+          "proposition": "전기통신금융사기에 이용된 계좌명의인이 사기의 공범인 경우에는, 송금·이체된 돈을 인출하더라도 이는 자신이 가담한 사기범행의 실행행위에 지나지 않아 사기죄 외에 별도로 횡령죄를 구성하지 않는다."
+        },
+        {
+          "card_id": "art355_sec9_5.extortion_of_custodian_no_embezzlement_complicity",
+          "sections": [
+            "5. 기타 죄와의 관계"
+          ],
+          "proposition": "타인의 재물을 보관하는 자를 공갈하여 그 재물을 갈취한 자는 재물이 타인 소유임을 알았더라도 공갈죄만 성립하고 횡령죄의 공범은 되지 않는다."
+        },
+        {
+          "card_id": "art355_sec9_5.initial_possession_without_illegal_appropriation_intent",
+          "sections": [
+            "5. 기타 죄와의 관계"
+          ],
+          "proposition": "횡령죄는 불법영득의 의사 없이 목적물의 점유를 시작한 경우에 성립하며, 공갈로 재물을 교부받아 소비·처분한 경우에는 공갈죄 외에 횡령죄를 구성하지 않는다."
+        },
+        {
+          "card_id": "art355_sec9_5.concealment_with_appropriation_intent_no_execution_evasion",
+          "sections": [
+            "5. 기타 죄와의 관계"
+          ],
+          "proposition": "타인의 재물을 보관하는 자가 영득할 의사로 보관 재물을 은닉한 경우 횡령죄를 구성하며, 강제집행을 면탈하는 결과가 있더라도 별도의 강제집행면탈죄를 구성하지 않는다."
+        },
+        {
+          "card_id": "art357_sec3_9.characterization_of_money_transfer",
+          "sections": [
+            "9. 다른 죄와의 관계 및 죄수"
+          ],
+          "proposition": "공범자 사이 수수한 돈이 부정한 청탁의 대가인지 또는 사기·횡령금 분배인지는 당사자 의사, 액수, 시간 간격, 동일 금전 여부, 장소와 방법 등을 종합하여 객관적으로 평가한다."
+        },
+        {
+          "card_id": "art360_sec3.stolen_goods_acquisition",
+          "sections": [
+            "Ⅲ. 죄수 기타"
+          ],
+          "proposition": "점유를 이탈한 타인 재물임을 인식하고 취득한 경우, 그 재물이 도품임을 알았더라도 점유이탈물횡령죄만 성립하고 장물취득죄는 성립하지 않는다."
+        },
+        {
+          "card_id": "art360_sec3.relative_property_owner",
+          "sections": [
+            "Ⅲ. 죄수 기타"
+          ],
+          "proposition": "점유이탈물횡령죄에는 친족상도례가 준용되며, 행위자와 소유자 사이에 친족관계가 있으면 된다."
+        },
+        {
+          "card_id": "art366_sec7_2.document_forgery_damage_distinction",
+          "sections": [
+            "2. 타죄와의 관계"
+          ],
+          "proposition": "문서변조는 문서의 효력과 내용을 부분적으로 변경하는 것이고, 문서손괴는 문서 자체의 효용 일부 또는 전부를 단순히 없애는 것이다."
+        },
+        {
+          "card_id": "art366_sec7_2.document_erasure_new_entry",
+          "sections": [
+            "2. 타죄와의 관계"
+          ],
+          "proposition": "문서 기재 일부를 말소한 후 새로운 사항을 기입하여 내용을 부분적으로 변경하는 행위는 변조에 해당하며, 기입 내용이 문서 동일성을 해하는 정도이면 위조가 될 수 있다."
+        },
+        {
+          "card_id": "art366_sec7_2.cosigner_signature_erasure_damage",
+          "sections": [
+            "2. 타죄와의 관계",
+            "2. 타죄와의 관계"
+          ],
+          "proposition": "연명 작성명의자 중 1인의 서명만 말소한 행위는 문서 내용을 변경한 것이 아니라 서명 부분을 훼기한 것이므로 변조가 아니라 손괴에 의한 효용침해행위에 해당한다."
+        },
+        {
+          "card_id": "art366_sec7_2.document_author_correction_exception",
+          "sections": [
+            "2. 타죄와의 관계"
+          ],
+          "proposition": "사문서 작성권자가 그 내용을 고치는 경우에는 문서변조죄가 성립하지 않으며, 작성권자가 타인 소유 문서를 정정하거나 제3자가 작성권자 동의를 받아 새 사실을 기입한 경우에도 문서변조죄는 성립하지 않고 경우에 따라 문서손괴죄만 성립한다."
+        },
+        {
+          "card_id": "art366_sec7_2.document_damage_ownership",
+          "sections": [
+            "2. 타죄와의 관계"
+          ],
+          "proposition": "문서손괴죄는 문서가 타인 소유이면 성립할 수 있고, 작성명의인이 타인인지 자신인지와는 무관하다."
+        },
+        {
+          "card_id": "art366_sec7_2.false_document_content_exception",
+          "sections": [
+            "2. 타죄와의 관계"
+          ],
+          "proposition": "문서 기재내용이 허위라는 사정은 문서손괴죄 성립에 영향을 주지 않는다."
+        },
+        {
+          "card_id": "art366_sec7_2.electronic_record_alteration_or_damage",
+          "sections": [
+            "2. 타죄와의 관계"
+          ],
+          "proposition": "전자기록 일부를 권한 없이 변경·소거하여 새로운 증명력을 갖게 한 경우 전자기록변작죄가 성립하지만, 단지 기록으로서 이용가치나 효용을 해한 경우에는 전자기록손괴죄만 성립한다."
+        }
+      ],
+      "S2_공범관계_절": [
+        {
+          "card_id": "art323_sec5.nonowner_principal_exception",
+          "sections": [
+            "Ⅴ. 공범"
+          ],
+          "proposition": "취거·은닉·손괴한 물건이 자기 물건이 아닌 경우 권리행사방해죄는 성립할 수 없으며, 물건 소유자가 아닌 사람은 소유자의 권리행사방해 범행에 가담한 경우에 한하여 공범이 될 수 있다."
+        },
+        {
+          "card_id": "art334_sec2_3.joint_robbery_accomplice_special_robbery",
+          "sections": [
+            "3. 특수강도(합동범)의 공범",
+            "3. 특수강도(합동범)의 공범"
+          ],
+          "proposition": "합동범 형태의 특수강도에 가담한 공범자는 기본적 구성요건인 강도가 아니라 특수강도죄의 적용을 받는다."
+        },
+        {
+          "card_id": "art355_sec6.embezzlement_status_offense",
+          "sections": [
+            "Ⅵ. 공범관계"
+          ],
+          "proposition": "횡령죄는 위탁관계에 의하여 타인의 재물을 보관하는 자만 정범이 될 수 있는 진정신분범이므로, 보관자 신분 없는 자는 단독정범이 될 수 없다."
+        },
+        {
+          "card_id": "art355_sec8.occupational_breach_status_offense",
+          "sections": [
+            "Ⅷ. 공범문제",
+            "Ⅷ. 공범문제"
+          ],
+          "proposition": "업무상배임죄는 업무상 타인의 사무를 처리하는 자가 임무위배로 재산상 이익을 취득하거나 제3자로 하여금 취득하게 하여 본인에게 손해를 가한 때 성립하며, 타인의 사무처리자 지위로 인하여 성립하는 신분범이다."
+        },
+        {
+          "card_id": "art355_sec8.non_status_simple_breach_sentence",
+          "sections": [
+            "Ⅷ. 공범문제",
+            "Ⅷ. 공범문제"
+          ],
+          "proposition": "신분관계 없는 자가 신분관계 있는 자와 공모하여 업무상배임죄를 저지른 경우, 비신분자는 형법 제33조 단서에 따라 단순배임죄의 형으로 처단한다."
+        }
+      ],
+      "W1_래퍼벗기기": [
+        {
+          "card_id": "art323_sec2_2.title_transfer_criteria",
+          "sections": [
+            "2. 행위의 객체",
+            "2. 행위의 객체"
+          ],
+          "proposition": "자기 물건인지 여부는 민법 등 법률에 따른 소유권 귀속으로 판단하며, 부동산은 등기, 동산은 인도, 등록으로 소유권이 이전되는 동산은 등록 여부가 판단기준이 된다고 설명되어 있다."
+        },
+        {
+          "card_id": "art328_sec2_1.personal_exemption",
+          "sections": [
+            "1. 제1항"
+          ],
+          "proposition": "제328조 제1항의 형 면제는 구성요건에 해당하는 위법·유책 행위에 대하여 가까운 친족이라는 신분상 특수관계를 고려하여 형벌만 면제하는 인적 처벌조각사유로 이해된다."
+        },
+        {
+          "card_id": "art329_sec2_2.possession_assistant_control",
+          "sections": [
+            "2. 타인의 점유",
+            "2. 타인의 점유"
+          ],
+          "proposition": "점유보조자라도 물건에 대한 사실상 지배를 가지면 영득행위는 횡령의 죄책을 질 수 있어 절도죄가 되지 않지만, 단지 본점유자의 지시·감독 아래 소지 또는 감수할 뿐이면 형법상 점유자가 아니어서 절도죄가 성립한다는 것이 소개된 판례 태도이다."
+        }
+      ],
+      "W2_강등": [
+        {
+          "card_id": "art355_sec5_2.general_civil_contract_direction",
+          "sections": [
+            "2. 대법원 판례의 방향성"
+          ],
+          "proposition": "당사자 관계의 전형적·본질적 내용이 타인의 재산 보호·관리에 있지 않은 일반 민사계약관계에서는 사무의 타인성을 제한적으로 해석해야 한다는 평가가 제시되어 있다."
+        },
+        {
+          "card_id": "art360_sec2_1.status_offense.not_majority",
+          "sections": [
+            "1. 주체"
+          ],
+          "proposition": "점유이탈물횡령죄는 신분범으로 보지 않는 것이 통설적 견해이다."
+        }
+      ]
+    }
+  },
+  "fraud": {
+    "core_size": 88,
+    "flagged": 2,
+    "by_axis": {
+      "G_판단지침형": [
+        "deception.fraud.standard.loan-lender-anticipated-risk"
+      ],
+      "W1_래퍼벗기기": [
+        "fraud_intent.precedent_illegal_appropriation_intent"
+      ]
+    },
+    "duplicates": [],
+    "detail": {
+      "G_판단지침형": [
+        {
+          "card_id": "deception.fraud.standard.loan-lender-anticipated-risk",
+          "sections": [],
+          "proposition": "대주가 인적·계속적 거래관계로 차주의 신용상태를 알고 변제지체·변제불능 위험을 예상했거나 충분히 예상할 수 있었고, 차주가 차용 당시 중요한 사항에 허위사실을 말한 등의 사정이 없다면 이후 미변제만으로 기망이나 편취 범의를 단정할 수 없다."
+        }
+      ],
+      "W1_래퍼벗기기": [
+        {
+          "card_id": "fraud_intent.precedent_illegal_appropriation_intent",
+          "sections": [],
+          "proposition": "판례는 사기죄의 주관적 요건으로 고의 외에 불법영득의사가 필요하다는 입장이다."
+        }
+      ]
+    }
+  }
+}

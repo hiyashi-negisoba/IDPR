@@ -1,0 +1,82 @@
+{
+  "card_set_id": "kr.art357.art357.sec1_2.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art357.element.third-party-acquisition",
+          "request_id": "art357.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art357_sec1_2.third_party_acquisition",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "2016년 개정 후에는 행위자가 직접 취득하는 경우뿐 아니라 제3자로 하여금 재물 또는 재산상 이익을 취득하게 하는 행위도 처벌할 수 있다.",
+      "request_ids": [
+        "art357.pass1.001"
+      ],
+      "review_notes": "2016년 개정 후 제3자 취득을 포함하는 범위를 설명하는 카드이며, 개정의 적용범위와 시행 관련 사항은 별도 검토가 필요할 수 있다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제357조_Ⅰ.2_1",
+          "quote": "2016. 5. 29. 형법 개정을 통하여 본인이 직접 재물이나 재산상의 이익을 취득하 는 행위뿐만 아니라 제3자로 하여금 재물이나 재산상 이익을 취득하게 하는 행 위도 처벌할 수 있도록 하고",
+          "section_path": "Ⅰ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art357.exception.pre-amendment-third-party",
+          "request_id": "art357.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art357_sec1_2.pre_amendment_third_party_exception",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "개정 전 법률에서는 제3자가 재물 또는 재산상 이익을 취득한 경우 원칙적으로 배임수재죄로 처벌할 수 없었다.",
+      "request_ids": [
+        "art357.pass1.001"
+      ],
+      "review_notes": "개정 전 법률에 관한 시간적으로 한정된 예외적 부정 규범이다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제357조_Ⅰ.2_1",
+          "quote": "개정 전 법률 규정으로는 제3자가 재물이나 재산상 이익을 취득한 경우 원칙적으로 배임수재죄로 처벌할 수 없었다.",
+          "section_path": "Ⅰ.2"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "[missing.third_party_confiscation_norm] The bounded commentary also states that property or pecuniary benefits acquired by a third party may be confiscated or subjected to collection when that third party knew the circumstances of breach-of-trust receipt. No card or coverage gap preserves this distinct conditional consequence."
+  ],
+  "issue_tag": "art357_sec1_2",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "배임수재죄를 침해범으로 볼 것인지, 부정한 청탁과 재물 또는 재산상 이익 취득으로 성립하는 추상적 위험범으로 볼 것인지.",
+    "배임수증재죄의 보호법익을 거래 또는 사무처리의 청렴성으로만 볼 것인지, 타인의 재산까지 함께 보호법익으로 볼 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제357조_Ⅰ.2_1"
+    ],
+    "target_paths": [
+      "commentary://001692/제357조#sec1_2"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

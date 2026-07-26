@@ -1,0 +1,140 @@
+{
+  "card_set_id": "kr.art366.art366.sec6.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art366.exception-mistake-of-law-with-justifiable-reason",
+          "request_id": "art366.pass1.004"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art366_sec6.mistake_of_law_exception",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "손괴행위가 법에 따라 죄가 되지 않는다고 오인하였고 그 오인에 정당한 사유가 있으면 법률의 착오로 책임이 조각된다.",
+      "request_ids": [
+        "art366.pass1.004"
+      ],
+      "review_notes": "법률의 착오 예외의 적용에는 오인과 정당한 사유를 각각 확인해야 한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제366조_Ⅵ_39",
+          "quote": "자신의 손괴행위가 법에 의하여 죄가 되지 아니하는 것으로 오인한 경우 그 오",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제366조_Ⅵ_39",
+          "quote": "인에 정당한 사유가 있다면 이는 이른바 법률의 착오로 책임이 조각된다",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art366.standard-justifiable-reason-for-mistake-of-law",
+          "request_id": "art366.pass1.004"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art366_sec6.justifiable_reason_standard",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "법률의 착오에 정당한 이유가 있는지는 행위자가 위법성 인식 가능성을 회피하기 위해 지적능력을 다한 진지한 노력을 하였는지 등을 구체적 상황·개인의 인식능력·사회집단에 따라 판단한다.",
+      "request_ids": [
+        "art366.pass1.004"
+      ],
+      "review_notes": "정당한 이유는 행위자의 구체적 인식 가능성과 회피 노력에 관한 평가를 필요로 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제366조_Ⅵ_39",
+          "quote": "이러한 정당한 이유가 있는지 여부는 행위자에게 자기 행",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제366조_Ⅵ_39",
+          "quote": "위의 위법의 가능성에 대해 심사숙고하거나 조회할 수 있는 계기가 있어 자신",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제366조_Ⅵ_39",
+          "quote": "의 지적능력을 다하여 이를 회피하기 위한 진지한 노력을 다하였더라면",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art366.standard-creditor-lock-damage-not-justifiable-mistake",
+          "request_id": "art366.pass1.004"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art366_sec6.creditor_lock_damage_mistake_negative",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "채권관리를 위해 근저당 설정 회사 공장에 무단침입하여 자물쇠를 손괴한 경우, 목적의 정당성만으로 수단·방법까지 정당하다고 믿은 것은 정당한 이유 있는 법률의 착오가 아니다.",
+      "request_ids": [
+        "art366.pass1.004"
+      ],
+      "review_notes": "댓글에 보고된 좁은 사실관계의 판시로서, 원판례 확인 전에는 유사 사실에 일반화하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제366조_Ⅵ_39",
+          "quote": "그 판단에 정당한 이유가 있다고 볼 수 없어 법률의 착오",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제366조_Ⅵ_39",
+          "quote": "로 벌하지 아니하는 경우에 해당하지 않는다고 판시하였다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "댓글에 보고된 근저당 설정 회사 공장 자물쇠 손괴 판시의 원판례와 사실관계는 현재 source scope에 포함되어 있지 않다.",
+    "민법상 자력구제 및 형법 제20조 정당행위의 관계에 관한 추가 source domain이 필요하다.",
+    "소유자 또는 처분권자 동의가 손괴·은닉의 구성요건해당성 또는 위법성에 미치는 효과에 관한 추가 source domain이 필요하다.",
+    "[coverage_gaps_incorrectly_empty] 현재 빈 배열은 출전에 명시된 단순한 법률 부지 배제 규범과 일본 판례·논평 간 분류 차이가 카드화되지 않은 상태를 반영하지 않는다."
+  ],
+  "issue_tag": "art366_sec6",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "민법상 자력구제가 인정되는 경우를 형법 제20조의 법령에 의한 정당행위로 볼 것인지에 관하여 본문은 문제 제기만 하고 있다.",
+    "소유자 또는 처분권자의 동의를 받은 손괴·은닉이 위법성조각이 아니라 구성요건해당성 배제라는 견해를 채택할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제366조_Ⅵ_39"
+    ],
+    "target_paths": [
+      "commentary://001692/제366조#sec6"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": [
+    {
+      "finding_id": "japanese_case_classification_variant_missing",
+      "type": "missing_variant",
+      "note": "출전은 증표 없는 타인 소유 개를 죽인 사례에 관하여 일본 판례가 소유 사실의 인식 결여로 본 입장과, 타인 사육 사실을 알았다면 법률의 착오로 보는 것이 타당하다는 논평의 구별되는 입장을 제시한다. 이 권위와 결론이 다른 두 입장 및 그 조건부 사실관계가 카드나 변형 그룹으로 보존되지 않았다.",
+      "impact": "이 그룹의 선택지가 불완전할 수 있음 — 선택 시 감안 필요"
+    }
+  ]
+}

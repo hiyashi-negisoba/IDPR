@@ -1,0 +1,84 @@
+{
+  "card_set_id": "kr.art356.art356.sec1.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art356.definition.offense-character",
+          "request_id": "art356.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art356.offense_character",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "업무상 횡령과 배임죄는 행위자가 보관하는 타인의 물건 또는 처리하는 타인의 사무가 업무상 임무와 연결된 경우 이를 가중처벌하는 범죄이다.",
+      "request_ids": [
+        "art356.pass1.001"
+      ],
+      "review_notes": "업무상 임무와 보관 또는 사무처리의 연결 및 가중처벌 구조를 설명하는 정의 카드다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅰ_0",
+          "quote": "업무상 횡령과 배임죄는 행위자가 보관하는 타인의 물건 또는 처리하는 타인의 사무가 업무상 임무와 연결되어 있는 경우 이를 가중처벌하는 죄이다.",
+          "section_path": "Ⅰ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art356.element.dual-status",
+          "request_id": "art356.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art356.dual_status",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "업무상 횡령 또는 배임죄에는 단순 횡령ㆍ배임죄의 보관자 또는 사무처리자 신분에 더하여 업무자 신분이 요구된다.",
+      "request_ids": [
+        "art356.pass1.001"
+      ],
+      "review_notes": "업무상 횡령ㆍ배임의 신분요건이 단순 횡령ㆍ배임의 보관자 또는 사무처리자 신분과 업무자 신분을 함께 요구한다는 구조 카드다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅰ_0",
+          "quote": "단순 횡령과 배임죄도 신임관계에 의한 보관자 또는 사무처리자라는 신분을 필 요로 하는 신분범이지만, 업무상 횡령 또는 배임죄는 여기에 다시 업무자라는 신분이 요구된다.",
+          "section_path": "Ⅰ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "형법 제33조의 신분범 공범 및 비신분자 처벌에 관한 근거는 현재 source scope에 없다.",
+    "비신분자의 공동정범ㆍ교사범ㆍ방조범 성립 범위에 관한 근거는 현재 source scope에 없다.",
+    "업무상 횡령ㆍ배임의 구체적 업무자 범위와 업무상 임무 연결 판단기준에 관한 근거는 현재 source scope에 없다."
+  ],
+  "issue_tag": "art356_sec1",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "단순 보관자 또는 비신분자가 업무상 보관자의 횡령 범행에 가공한 경우, 형법 제33조에 따라 단순횡령죄로만 볼 것인지 업무상횡령죄의 공범 성립을 인정하되 단순횡령죄 법정형으로 처벌할 것인지.",
+    "비신분자에게 단순횡령죄 또는 업무상횡령죄의 공동정범 성립을 인정할 것인지, 아니면 교사범 또는 방조범만 가능하다고 볼 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제356조_Ⅰ_0"
+    ],
+    "target_paths": [
+      "commentary://001692/제356조#sec1"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

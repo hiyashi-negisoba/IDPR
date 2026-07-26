@@ -1,0 +1,85 @@
+{
+  "card_set_id": "kr.art328.art328.sec1_1.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art328.standard.article1-application-suspended-until-legislation-deadline",
+          "request_id": "art328.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art328_sec1_1.article1_application_suspension",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "헌법불합치결정에 따라 개선입법 시한인 2025년 12월 31일까지 형법 제328조 제1항을 적용하여 형 면제 판결을 선고할 수 없다.",
+      "request_ids": [
+        "art328.pass1.001"
+      ],
+      "review_notes": "헌법불합치결정의 주문, 적용중지 범위 및 개선입법 시한을 헌법재판소 결정 원문으로 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제328조_Ⅰ.1_2",
+          "quote": "위 헌법불합치결정에서는 2025. 12. 31.까지 개선 입법을 요구하면서 위 시한 까지의 적용을 중지하였는바, 이에 따라 재판절차에서도 위 개선 입법 시한까지 형법 제328조 제1항의 친족상도례 규정을 적용할 수 없게 되었다.",
+          "section_path": "Ⅰ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art328.standard.article2-constitutional",
+          "request_id": "art328.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art328_sec1_1.article2_constitutionality",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "헌법재판소는 2024년 6월 27일 형법 제328조 제2항이 헌법에 위반되지 않는다고 결정하였다.",
+      "request_ids": [
+        "art328.pass1.001"
+      ],
+      "review_notes": "합헌결정의 사건번호, 주문 및 판단 범위를 헌법재판소 결정 원문으로 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제328조_Ⅰ.1_2",
+          "quote": "한편 헌법재판소는 2024. 6. 27. 본 조 제2항은 헌법에 위반되지 아니한다는 합헌결정을 하였다.",
+          "section_path": "Ⅰ.1"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "헌법재판소의 형법 제328조 제1항 헌법불합치결정 원문은 현재 source scope에 포함되어 있지 않다.",
+    "헌법재판소의 2024년 6월 27일 형법 제328조 제2항 합헌결정 원문은 현재 source scope에 포함되어 있지 않다.",
+    "친족상도례 적용에서 행위자, 소유자 및 점유자 사이 친족관계의 요구 범위에 관한 근거는 현재 source scope에 포함되어 있지 않다."
+  ],
+  "issue_tag": "art328_sec1_1",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "재산죄에서 친족상도례 적용에 필요한 친족관계를 행위자와 소유자 사이, 점유자 사이 또는 소유자와 점유자 모두 사이 중 어디에 요구할 것인지.",
+    "형법 제328조 제1항 적용중지의 정확한 기간과 재판절차상 효과를 헌법재판소 결정 원문으로 확인해야 한다.",
+    "형법 제328조 제2항 합헌결정의 사건번호와 판단 범위를 헌법재판소 결정 원문으로 확인해야 한다."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제328조_Ⅰ.1_2"
+    ],
+    "target_paths": [
+      "commentary://001692/제328조#sec1_1"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

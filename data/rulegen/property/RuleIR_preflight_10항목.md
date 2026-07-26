@@ -1,0 +1,199 @@
+# RuleIR 생성 preflight — 10항목 승인 요청
+
+재산죄 core **480장** / 죄명 단위 **11개**(죄명 9 + 공유 모듈 2)로 RuleIR을 생성합니다. 사기 RuleIR이 통과했던 것과 같은 형식의 게이트입니다 — **10항목 승인 후에만 실행**합니다.
+
+| 단위 | 카드 | deterministic | standard | 부정형·예외형 |
+|---|---:|---:|---:|---:|
+| `theft` | 66 | 15 | 51 | 13 |
+| `robbery` | 98 | 29 | 69 | 18 |
+| `extortion` | 41 | 8 | 33 | 9 |
+| `breach_of_trust_bribe` | 41 | 10 | 31 | 9 |
+| `lost_property_embezzlement` | 14 | 5 | 9 | 4 |
+| `property_damage` | 53 | 9 | 44 | 9 |
+| `interference_with_exercise_of_right` | 32 | 13 | 19 | 4 |
+| `relative_property_crime_exception` | 25 | 10 | 15 | 6 |
+| `embezzlement` | 64 | 9 | 55 | 17 |
+| `breach_of_trust` | 36 | 0 | 36 | 11 |
+| `occupational_status` | 10 | 3 | 7 | 1 |
+
+각 항목의 **판단:** 뒤에 승인/수정을 적어 주십시오.
+
+---
+
+## 1. core_scope (`scope`)
+
+**제안**: 검토완료 core **480장**만 RuleIR 입력으로 쓴다. context_only로 내린 카드(구체사안·죄수·공범총칙·타법률·판단지침형·증명소송법)와 이중매매 별도트랙 21장은 제외한다.
+
+**근거**: 구체 사안과 학설을 실행 규칙으로 되돌리지 않는다. 사기 트랙과 같은 기준이며, 제외분은 RAG 문맥으로 남아 착안사항 생성에만 쓰인다.
+
+<details><summary>상세</summary>
+
+- theft: 66장
+- robbery: 98장
+- extortion: 41장
+- breach_of_trust_bribe: 41장
+- lost_property_embezzlement: 14장
+- property_damage: 53장
+- interference_with_exercise_of_right: 32장
+- relative_property_crime_exception: 25장
+- embezzlement: 64장
+- breach_of_trust: 36장
+- occupational_status: 10장
+
+</details>
+
+**판단:** 
+
+## 2. generation_unit (`unit_granularity`)
+
+**제안**: 단위는 **죄명 9 + 공유 모듈 2 = 11개**이고 단위마다 RuleIR 1콜을 낸다. 조문 단위로 묶지 않는다.
+
+**근거**: 검증기가 RuleIR과 NormCardSet의 `issue_tag` 일치를 요구하고 라우터가 쟁점 태그로 규칙집합을 고른다. 제355조를 한 단위로 두면 '횡령 쟁점'에서 배임 요건이 함께 발화한다. 제355조는 항 표시로, 제356조는 절 구조로 분할했다(혼합 0장).
+
+<details><summary>상세</summary>
+
+- theft·robbery는 가중유형 조문을 같은 단위에 담는다(기본 요건 카드 복제 방지)
+- 공유 모듈은 죄명이 아니라 수정요소다 — 업무자 신분(가중), 친족상도례(처벌·소추)
+
+</details>
+
+**판단:** 
+
+## 3. required_output_predicates (`outputs`)
+
+**제안**: 출력 술어를 3층으로 나눈다 — `<unit>_established`(기본범 성립) / `<unit>_aggravation(kind)`(가중 플래그) / `charge(label)`(죄명 확정). 여기에 `<unit>_not_established` · `<unit>_undetermined` · `<unit>_conflict`를 둔다.
+
+**근거**: 결론이 비지 않게 하려면 미확정과 불성립을 구별해야 한다(무죄와 미완결의 분리). 가중 플래그가 꺼지면 자동으로 기본범으로 내려간다.
+
+<details><summary>상세</summary>
+
+- theft: theft_established(defendant_id, owner_id, possessor_id)
+- robbery: robbery_established(defendant_id, coerced_person_id, owner_id, possessor_id)
+- extortion: extortion_established(defendant_id, coerced_person_id, disposer_id, owner_id)
+- breach_of_trust_bribe: breach_of_trust_bribe_established(receiver_id, giver_id, principal_id)
+- lost_property_embezzlement: lost_property_embezzlement_established(defendant_id, owner_id)
+- property_damage: property_damage_established(defendant_id, owner_id)
+- interference_with_exercise_of_right: interference_with_exercise_of_right_established(defendant_id, right_holder_id)
+- embezzlement: embezzlement_established(defendant_id, entrustor_id, owner_id)
+- breach_of_trust: breach_of_trust_established(defendant_id, principal_id, beneficiary_id)
+
+</details>
+
+**판단:** 
+
+## 4. aggravation_flags (`aggravation`)
+
+**제안**: 단위별 가중유형을 열거하고 각 플래그의 전제조건을 명시한다(사용자 요청 2026-07-25). 열거된 kind 외에는 생성하지 않는다.
+
+**근거**: 가중유형을 기본범과 섞으면 요건이 한 벌로 뭉쳐 어느 카드가 어느 유형을 켜는지 추적할 수 없다. 결과적 가중범(치상·치사)은 폭행의 고의를 전제조건으로 요구한다.
+
+<details><summary>상세</summary>
+
+- theft — nighttime_residential(제330조): 야간 침입 + 주거 등
+- theft — special(제331조): 야간 손괴 침입 또는 흉기휴대·합동
+- theft — habitual(제332조): 절도 습벽의 발현
+- robbery — special(제334조): 야간 주거침입 또는 흉기휴대·합동
+- robbery — quasi(제335조): 절도 기수 후 탈환방지·체포면탈·증거인멸 목적 폭행·협박
+- robbery — injury(제337조): 강도의 기회에 상해 — 치상은 폭행의 고의를 전제로 한다
+- robbery — death(제338조): 강도의 기회에 살해 — 치사는 폭행의 고의를 전제로 한다
+- robbery — preparation(제343조): 강도 목적의 예비·음모
+- embezzlement — occupational(제356조): 업무자 신분 — 공유 모듈이 배출
+- breach_of_trust — occupational(제356조): 업무자 신분 — 공유 모듈이 배출
+
+</details>
+
+**판단:** 
+
+## 5. actor_roles (`actor_roles`)
+
+**제안**: 단위별 행위자 역할 슬롯을 위와 같이 고정한다. 슬롯이 다르면 다른 사람이라는 뜻이 아니고(한 사람이 여러 슬롯을 채울 수 있다), 같은 변수로 묶어야 하는 곳만 규칙에서 명시한다.
+
+**근거**: 강도는 폭행의 상대방이 소유자·점유자와 다를 수 있다 — core 카드 `art333_sec2_4.target_person_obstructing_taking`(폭행 상대방은 탈취에 장애가 되는 자이면 된다)이 이 분리를 요구한다. 공갈은 외포된 자와 처분한 자를 나눈다.
+
+<details><summary>상세</summary>
+
+- theft: defendant_id, owner_id, possessor_id
+- robbery: defendant_id, coerced_person_id, owner_id, possessor_id
+- extortion: defendant_id, coerced_person_id, disposer_id, owner_id
+- embezzlement: defendant_id, entrustor_id, owner_id
+- breach_of_trust: defendant_id, principal_id, beneficiary_id
+- breach_of_trust_bribe: receiver_id, giver_id, principal_id
+- lost_property_embezzlement: defendant_id, owner_id
+- property_damage: defendant_id, owner_id
+- interference_with_exercise_of_right: defendant_id, right_holder_id
+- occupational_status: defendant_id
+- relative_property_crime_exception: defendant_id, owner_id, possessor_id
+
+</details>
+
+**판단:** 
+
+## 6. shared_module_interface (`bridge_predicate`)
+
+**제안**: 죄명 규칙집합은 공통 브리지 술어 `property_crime_established(case_id, crime_id, defendant_id, owner_id, possessor_id)`를 배출한다. 업무자 신분 모듈은 `occupational_status_established`를 배출해 횡령·배임 가중 플래그가 참조한다. **친족상도례 규칙은 이번 생성에서 만들지 않는다** — 배출하는 쪽까지만 만들고 받는 쪽은 A4 절차 레이어에서 쓴다(사용자 결정).
+
+**근거**: 친족상도례는 성립이 아니라 처벌·소추 층이고 준용 범위가 죄명마다 다르다. 한 곳에서 관리해야 개정·헌재 결정 반영이 흩어지지 않는다.
+
+<details><summary>상세</summary>
+
+- 친족 모듈 카드 25장은 NormCardSet으로 확정해 두고 RuleIR 생성은 보류한다
+
+</details>
+
+**판단:** 
+
+## 7. standard_input_wiring (`neural_state`)
+
+**제안**: `standard_input` 카드는 승인된 질의문으로만 neural에 배선한다. 부정형·예외형 명제는 모델에 그대로 보내지 않는다.
+
+**근거**: 부정형 명제를 그대로 물으면 이중부정이 되어 모델이 사실을 반대로 답한다. 결정 B·B-2·B-3에서 질의문과 발동 방향(satisfied/not_satisfied)을 확정했다.
+
+<details><summary>상세</summary>
+
+- theft: standard_input 51장 (그중 부정형·예외형 13장)
+- robbery: standard_input 69장 (그중 부정형·예외형 18장)
+- extortion: standard_input 33장 (그중 부정형·예외형 9장)
+- breach_of_trust_bribe: standard_input 31장 (그중 부정형·예외형 9장)
+- lost_property_embezzlement: standard_input 9장 (그중 부정형·예외형 4장)
+- property_damage: standard_input 44장 (그중 부정형·예외형 9장)
+- interference_with_exercise_of_right: standard_input 19장 (그중 부정형·예외형 4장)
+- relative_property_crime_exception: standard_input 15장 (그중 부정형·예외형 6장)
+- embezzlement: standard_input 55장 (그중 부정형·예외형 17장)
+- breach_of_trust: standard_input 36장 (그중 부정형·예외형 11장)
+- occupational_status: standard_input 7장 (그중 부정형·예외형 1장)
+- 질의문 승인 116건 / 질의 면제 26건
+- 부정형 카드 전부 질의문 또는 면제를 보유한다
+
+</details>
+
+**판단:** 
+
+## 8. evidence_gate_and_negation (`evidence_gate`)
+
+**제안**: commentary에서 온 모든 입력은 `provable(case_id, assessment_id)` 게이트를 통과해야 하고, 부정은 `case_assessment_complete` 게이트 이후 **최종 결론 스트라텀에서만** 쓴다.
+
+**근거**: 사기 RuleIR과 같은 계약이다. 열린 세계에서 '증명되지 않음'을 '없음'으로 바꾸지 않으려는 것이고, 절차 레이어의 증거능력 gating이 이 게이트에 붙는다.
+
+**판단:** 
+
+## 9. structural_exemplar (`fewshot`)
+
+**제안**: 사기 RuleIR(`fraud_full_rule_ir_rebuilt.json`)을 **구조 예시로만** 준다. 규칙·술어·결론을 복사하는 것을 금지한다.
+
+**근거**: 사기는 이미 계약을 통과한 유일한 완성 RuleIR이라 형식 참조로는 최적이다. 다만 내용을 옮기면 재산죄 카드에 없는 요건이 들어온다.
+
+**판단:** 
+
+## 10. execution_ceiling (`api_ceiling`)
+
+**제안**: 단위 11개 × (terra 생성 + sol 비평) = 최대 22콜. terra `max_tokens=64000`, `reasoning_effort=low`. 추정 **$3.5**, 상한 $6에서 중단. **sbatch로 제출**한다.
+
+**근거**: 사기 실측 1회가 terra $0.17 + sol $0.43 = $0.60/88장이었고 재산죄 단위 평균은 44장이다. 누적 $62.4/$100이므로 잔액에 여유가 있다.
+
+<details><summary>상세</summary>
+
+- 오래 걸리는 작업은 sbatch(사용자 지시) — nohup은 고아 프로세스를 남긴다
+
+</details>
+
+**판단:** 

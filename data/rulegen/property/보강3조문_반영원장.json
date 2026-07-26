@@ -1,0 +1,116 @@
+{
+  "version": "1.0.0",
+  "api_calls": 0,
+  "created_at": "2026-07-25T16:14:13.492434+00:00",
+  "source": "보강3조문_검토요청.md (1부 학설선택 10그룹 · 2부 확인 5건 무응답)",
+  "corrections_by_user": {
+    "art333.prior_state_use": "사용자 정정. 탈취 목적 없는 선행행위와 탈취 사이에는 인과관계가 없어 강도가 아니다. 그룹 7(강간 폭행 후 탈취 = 강도)과의 경계는 피해자의 의식 유무다 — 공포 상태의 피해자로부터의 강취는 강도이고, 심신상실 상태에서는 억압할 반항이 없어 절도다.",
+    "art333.right_exercise": "사용자 정정. 취득할 권리가 있는 이익은 불법이익이 아니다. 이 결론이 공갈죄 쪽 core 카드(art350_sec4_2.right_exercise_exception)와 층이 맞는다 — 제안 때 든 정합성 근거가 실은 반대 결론을 가리켰다."
+  },
+  "user_check_default": "2부 무응답 → 감사 판정(축 강등) 유지. art332_sec5_1.residential_intrusion_absorption은 재산죄에서 살린 art329_sec8_3과 짝이므로 살리기로 하면 이 항목만 바꾸면 된다.",
+  "stats": {
+    "core_kept": 49,
+    "doctrine_demoted": 13,
+    "rewritten": 10,
+    "promoted": 10,
+    "audit_demoted": 68,
+    "user_check_demoted": 5
+  },
+  "entries": [
+    {
+      "card_id": "art330_sec1.variant.timing_entry_standard",
+      "kind": "promote",
+      "group": "art330.night_timing",
+      "user_answer": "동의",
+      "reason": "다수설·판례인 침입기준설을 실무규칙으로 세운다."
+    },
+    {
+      "card_id": "art330_sec2.nighttime.objective",
+      "kind": "promote",
+      "group": "art330.night_meaning",
+      "user_answer": "동의",
+      "reason": "통설·판례인 객관적 정의(일몰~일출)를 세운다."
+    },
+    {
+      "card_id": "art330_sec4.entry_before_theft_commencement",
+      "kind": "promote",
+      "group": "art330.commencement",
+      "user_answer": "동의",
+      "reason": "판례인 주거침입시 착수설을 세운다."
+    },
+    {
+      "card_id": "art332_sec5_1.residential_intrusion_absorption",
+      "kind": "user_check_default",
+      "reason": "2부 무응답 → 감사 판정(축 강등) 유지. art332_sec5_1.residential_intrusion_absorption은 재산죄에서 살린 art329_sec8_3과 짝이므로 살리기로 하면 이 항목만 바꾸면 된다."
+    },
+    {
+      "card_id": "art332_sec5_1.unsuccessful_theft_intrusion_absorption",
+      "kind": "user_check_default",
+      "reason": "2부 무응답 → 감사 판정(축 강등) 유지. art332_sec5_1.residential_intrusion_absorption은 재산죄에서 살린 art329_sec8_3과 짝이므로 살리기로 하면 이 항목만 바꾸면 된다."
+    },
+    {
+      "card_id": "art333_sec10_2.card_robbery_atm_withdrawal_separate_theft",
+      "kind": "user_check_default",
+      "reason": "2부 무응답 → 감사 판정(축 강등) 유지. art332_sec5_1.residential_intrusion_absorption은 재산죄에서 살린 art329_sec8_3과 짝이므로 살리기로 하면 이 항목만 바꾸면 된다."
+    },
+    {
+      "card_id": "art333_sec10_3.home_invasion_not_absorbed",
+      "kind": "user_check_default",
+      "reason": "2부 무응답 → 감사 판정(축 강등) 유지. art332_sec5_1.residential_intrusion_absorption은 재산죄에서 살린 art329_sec8_3과 짝이므로 살리기로 하면 이 항목만 바꾸면 된다."
+    },
+    {
+      "card_id": "art333_sec3_1.real_estate_as_robbery_property_negative",
+      "kind": "promote",
+      "group": "art333.real_estate",
+      "user_answer": "동의",
+      "reason": "대립이 아니라 보완이므로 둘 다 세운다 — 재물성은 부정하고 권리는 재산상 이익으로 포섭한다."
+    },
+    {
+      "card_id": "art333_sec3_1.real_estate_rights_as_property_benefit",
+      "kind": "promote",
+      "group": "art333.real_estate",
+      "user_answer": "동의",
+      "reason": "대립이 아니라 보완이므로 둘 다 세운다 — 재물성은 부정하고 권리는 재산상 이익으로 포섭한다."
+    },
+    {
+      "card_id": "art333_sec3_2.voluntary_delivery_attempt",
+      "kind": "promote",
+      "group": "art333.voluntary_delivery",
+      "user_answer": "동의",
+      "reason": "반항억압 없는 교부는 강취가 아니므로 미수로 본다. 공갈죄 경계 카드와 정합한다."
+    },
+    {
+      "card_id": "art333_sec3_3.rape_force_subsequent_taking_precedent",
+      "kind": "promote",
+      "group": "art333.rape_force_taking",
+      "user_answer": "동의",
+      "reason": "판례를 따른다. 다수 학설은 학설 소개로 내린다."
+    },
+    {
+      "card_id": "art333_sec3_3.unconsciousness_prior_force_no_causation",
+      "kind": "promote",
+      "group": "art333.prior_state_use",
+      "user_answer": "판례는 unconsciousness_prior_force_no_causation",
+      "reason": "사용자 정정. 탈취 목적 없는 선행행위와 탈취 사이에는 인과관계가 없어 강도가 아니다. 그룹 7(강간 폭행 후 탈취 = 강도)과의 경계는 피해자의 의식 유무다 — 공포 상태의 피해자로부터의 강취는 강도이고, 심신상실 상태에서는 억압할 반항이 없어 절도다."
+    },
+    {
+      "card_id": "art333_sec4_2.debt_evasion_disposition_not_required",
+      "kind": "promote",
+      "group": "art333.debt_evasion_disposition",
+      "user_answer": "동의",
+      "reason": "통설인 소극설을 세운다. 채권자 살해형 사안을 포섭하려면 처분행위를 요구할 수 없다."
+    },
+    {
+      "card_id": "art333_sec7_2.completion_credit_card_false_signature",
+      "kind": "user_check_default",
+      "reason": "2부 무응답 → 감사 판정(축 강등) 유지. art332_sec5_1.residential_intrusion_absorption은 재산죄에서 살린 art329_sec8_3과 짝이므로 살리기로 하면 이 항목만 바꾸면 된다."
+    },
+    {
+      "card_id": "art333_sec8.right_exercise_robbery_negative",
+      "kind": "promote",
+      "group": "art333.right_exercise",
+      "user_answer": "대법원은 소극설 - right_exercise_robbery_negative",
+      "reason": "사용자 정정. 취득할 권리가 있는 이익은 불법이익이 아니다. 이 결론이 공갈죄 쪽 core 카드(art350_sec4_2.right_exercise_exception)와 층이 맞는다 — 제안 때 든 정합성 근거가 실은 반대 결론을 가리켰다."
+    }
+  ]
+}

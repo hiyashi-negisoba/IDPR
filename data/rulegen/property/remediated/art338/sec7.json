@@ -1,0 +1,57 @@
+{
+  "card_set_id": "kr.art338.art338.sec7.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "statutory_text_in_commentary",
+      "candidate_refs": [
+        {
+          "candidate_id": "art338.definition-specific-violent-crime",
+          "request_id": "art338.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art338_sec7.specific_violent_crime",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "강도살인·치사죄와 그 미수죄는 특정강력범죄의 처벌에 관한 특례법 제2조 제1항 제5호의 특정강력범죄에 해당한다.",
+      "request_ids": [
+        "art338.pass1.001"
+      ],
+      "review_notes": "특례법상 특정강력범죄 해당 여부를 죄명 및 미수 여부로 열거적으로 확인하는 분류 규범이다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제338조_Ⅶ_7",
+          "quote": "강도살인, 치사죄와 그 미수죄는 특정강력범죄의 처벌에 관한 특례법 제2조 제1항 제5호의 ‘특정강력범죄’에 해당",
+          "section_path": "Ⅶ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope에는 강도 공범자의 살해 예기와 공동 고의 또는 강도치사죄의 구별에 관한 근거가 없다.",
+    "현재 source scope에는 채무면탈 목적의 채권자 살해에서 채권 행사 가능성 및 재산적 이익지배 취득 판단에 관한 근거가 없다.",
+    "특정강력범죄의 처벌에 관한 특례법 제2조 제1항 제5호의 원문 및 적용 범위는 현재 commentary 인용에만 근거한다.",
+    "[missing.recidivist-enhancement-norm] The bounded commentary also states a conditional application norm: when both the prior and subsequent offenses are specific violent crimes, Article 3 of the Special Act applies to recidivist enhancement. The card set contains only the classification norm and leaves this distinct consequence norm unrepresented."
+  ],
+  "issue_tag": "art338_sec7",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "강도 공범자가 실행자의 살해를 예기할 수 있었던 경우, 그 예기만으로 강도살인죄의 공동 고의를 인정할 수 있는지, 아니면 공동 고의와 구별하여 강도치사죄로 한정할 것인지.",
+    "채무면탈 목적의 채권자 살해에서 채권의 행사 가능성 및 재산적 이익지배 취득 여부를 구체적 사정에 따라 어떻게 판단할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제338조_Ⅶ_7"
+    ],
+    "target_paths": [
+      "commentary://001692/제338조#sec7"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

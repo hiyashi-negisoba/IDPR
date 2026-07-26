@@ -1,0 +1,93 @@
+{
+  "card_set_id": "kr.art337.art337.sec4.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art337.element.completion-injury-result",
+          "request_id": "art337.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art337_sec4.completion_injury_result",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "형법 제337조 위반죄는 상해 결과가 발생함으로써 기수가 되며, 재물탈취 목적의 달성은 요구되지 않는다.",
+      "request_ids": [
+        "art337.pass1.001"
+      ],
+      "review_notes": "상해 결과 발생과 기수 시점 및 재물탈취 목적 달성 불요를 연결한 서술이다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제337조_Ⅳ_8",
+          "quote": "형법 제337조 위반죄는 상해의 결과가 발생함으로써 기수가 되며 재물탈취의 목적을 달성함을 요하지 않는다.",
+          "section_path": "Ⅳ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art337.exception.robbery-injury-attempt-not-recognized",
+          "request_id": "art337.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "context_only",
+      "id": "art337_sec4.robbery_injury_attempt_not_recognized",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "강도치상죄는 결과적 가중범이라는 점에 비추어 그 미수범을 인정하지 않는다는 해석이 제시된다.",
+      "request_ids": [
+        "art337.pass1.001"
+      ],
+      "review_notes": "결과적 가중범인 강도치상죄의 미수 인정 여부에 관한 해석이다. 반대 견해 및 판례 원문 확인 전에는 선택하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제337조_Ⅳ_8",
+          "quote": "형법 제337조 후단의 강도치상죄에 대하여 그 미수범을 인정하지 않는 것은 위 죄가 결과적 가중범인 점에 비추어 정당한 것이라고 해석되었다.",
+          "section_path": "Ⅳ"
+        }
+      ],
+      "variant_group": "art337_sec4.robbery_injury_attempt"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "강도상해죄 미수의 기준에 관한 통설 및 판례 취지의 정확한 근거가 현재 source scope에 없다.",
+    "강도치상죄에서 상해 고의 부재 시 폭행 고의 또는 폭행 인식의 필요 여부에 관한 근거가 현재 source scope에 없다.",
+    "중도 가담자의 가담 전 결과 책임에 관한 행위공동설과 범죄공동설의 근거가 현재 source scope에 없다.",
+    "강도치상죄 미수 인정 여부에 관한 반대 견해 및 primary precedent index가 현재 source scope에 없다."
+  ],
+  "issue_tag": "art337_sec4",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "강도상해죄의 미수를 강도 미수와 상해 미수 중 어느 기준으로 정할 것인지. 다만 통설 및 판례 취지에 관한 서술은 강도 미수 기준을 취하지 않는 방향을 제시한다.",
+    "중도 가담자의 가담 전 결과에 대한 책임 범위에 관하여 행위공동설과 범죄공동설의 대립을 어떻게 정리할 것인지.",
+    "강도치상죄 미수범을 인정하지 않는다는 해석의 반대 견해 및 관련 판례 원문을 확인해야 한다."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제337조_Ⅳ_8"
+    ],
+    "target_paths": [
+      "commentary://001692/제337조#sec4"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": [
+    {
+      "finding_id": "f2.unfounded_policy_variant",
+      "type": "missing_variant",
+      "note": "The card is formalized as a policy variant and assigned a variant group even though the bounded source and validated candidates contain no competing variant concerning recognition of attempted 강도치상죄.",
+      "impact": "이 그룹의 선택지가 불완전할 수 있음 — 선택 시 감안 필요"
+    }
+  ]
+}

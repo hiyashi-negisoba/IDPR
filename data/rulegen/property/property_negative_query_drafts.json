@@ -1,0 +1,4290 @@
+{
+  "version": "1.0.0",
+  "api_calls": 0,
+  "pattern_anchor": {
+    "card": "fraud_intent.no_disposition_inducement_intent",
+    "original": "피기망자로 하여금 처분행위를 하게 할 의사가 없으면 사기죄가 성립하지 않는다.",
+    "neural_query": "행위자에게 피기망자로 하여금 바로 그 재산적 처분행위를 하게 할 의사가 있었다.",
+    "card_status_when_query_satisfied": "not_satisfied"
+  },
+  "counts": {
+    "A_요건불요": 7,
+    "B_판례소개": 40,
+    "C_초안생성": 190,
+    "authored": 190,
+    "C_초안_미작성": 0,
+    "극성_not_satisfied(반전)": 129,
+    "극성_satisfied(동행)": 61
+  },
+  "items": [
+    {
+      "article": "art323",
+      "card_id": "art323_sec5.owner_no_intent_joint_principal_exception",
+      "double_negative": true,
+      "proposition": "권리행사방해죄 공범으로 기소된 물건 소유자에게 고의가 없는 등으로 범죄가 성립하지 않으면 공동정범이 성립할 여지가 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "물건 소유자에게 권리행사방해의 고의가 있어 소유자에 대한 범죄가 성립한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art328",
+      "card_id": "art328_sec1_3.no_inquiry_after_kinship_denial",
+      "double_negative": true,
+      "proposition": "피고인들이 법정에서 피해자 중 피고인들과 친족관계에 있는 사람이 없다고 진술한 경우, 법원이 친족상도례 적용 여부를 더 심리하지 않아도 위법하지 않다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "피고인들이 법정에서 피해자 중 자신들과 친족관계에 있는 사람이 없다고 진술하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art328",
+      "card_id": "art328_sec3_1.in_law_relationship_not_kinship",
+      "double_negative": true,
+      "proposition": "피고인의 딸과 피해자의 아들이 혼인하여 피고인과 피해자가 사돈지간인 경우라도 민법상 친족으로 볼 수 없어 친족상도례가 적용되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "피고인과 피해자가 민법상 친족에 해당한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec5_2.use_theft_minor_value_consumption_and_prompt_return",
+      "double_negative": true,
+      "proposition": "무단사용으로 인한 가치 소모가 무시할 수 있을 정도로 경미하고 사용 후 곧 반환한 경우에는 소유권 또는 본권 침해 의사를 인정할 수 없어 불법영득의사가 인정되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "무단사용으로 인한 가치 소모가 무시할 수 있을 정도로 경미하고 사용 후 곧 반환하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art331",
+      "card_id": "art331_sec3_3.single_actor_execution_exception",
+      "double_negative": true,
+      "proposition": "2명 이상이 합동절도를 공모하였더라도 1명만 단독으로 실행행위를 한 경우에는 합동범의 객관적 요건을 갖추지 못하여 합동절도가 성립할 수 없고, 단순 공모자는 합동절도의 공동정범이 될 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "합동절도를 공모한 사람 중 1명만 단독으로 실행행위를 하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_1.double_sale_good_faith_rescission",
+      "double_negative": true,
+      "proposition": "부동산 이중매매에서 매도인의 해제가 요건을 갖추지 못해 효력이 없더라도, 매도인이 해제가 적법하다고 믿었고 그 믿음에 정당한 이유가 있으면 해제 후 매도행위에 관한 배임의 범의는 인정되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "매도인이 해제가 적법하다고 믿었고 그 믿음에 정당한 이유가 있었다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_1.double_sale_purchaser_nonperformance",
+      "double_negative": true,
+      "proposition": "선매수인이 계약에 없던 새로운 요구조건을 내세우는 등 계약을 이행할 의사가 없다고 볼 수밖에 없는 태도를 보여 매도인이 계약이 해제되었다고 판단한 경우, 실제 적법한 해제 여부와 관계없이 제3자에게 가등기를 마친 행위의 배임 범의는 인정하기 어렵다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "선매수인이 계약을 이행할 의사가 없다고 볼 수밖에 없는 태도를 보였고, 매도인이 이에 따라 계약이 해제되었다고 판단하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_2.owner_benefit_disposition_no_appropriation",
+      "double_negative": true,
+      "proposition": "보관자가 자기 또는 제3자의 이익이 아니라 소유자의 이익을 위하여 처분한 경우에는 특별한 사정이 없는 한 불법영득의사가 인정되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "보관자가 자기나 제3자가 아니라 소유자의 이익을 위하여 처분하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_3.slush_fund_company_expense",
+      "double_negative": true,
+      "proposition": "비자금을 회사 운영상 통상 발생하는 비용으로 회사가 부담하는 것이 상당하게 사용하였다고 주장하는 경우, 비용 부담의 상당성, 사용 시기·대상·범위·금액 결정의 객관성·합리성·적정성 및 주된 개인용도 여부를 종합하여 불법영득의사를 판단하며, 내부규정이나 이사회 결의가 없다는 사정만으로 곧바로 인정되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "비자금이 회사가 부담함이 상당한 통상 운영비용으로, 사용 시기·대상·범위·금액의 결정이 객관적·합리적·적정하게 이루어져 사용되었다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_3.fake_capital_no_real_increase",
+      "double_negative": true,
+      "proposition": "등기를 위한 가장납입으로 회사 자본이 실질적으로 증가하지 않고 납입·인출 전 과정에서 자본금 변동이 없는 경우에는 불법영득의사를 인정하기 어려워 업무상횡령죄가 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "가장납입의 납입·인출 전 과정에서 회사 자본금의 실질적 변동이 없었다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5.retention_lien_no_illicit_intent",
+      "double_negative": true,
+      "proposition": "유치권이나 동시이행 항변권 행사로 반환을 거부하는 경우에는 불법영득의사가 인정되지 않아 구성요건해당성이 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "보관자가 유치권 또는 동시이행 항변권의 행사로서 반환을 거부하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5.consent_no_constituent_elements",
+      "double_negative": true,
+      "proposition": "정당화되는 범위의 사무관리 처분행위, 피해자 승낙 또는 보관물 처분에 대한 소유자 동의가 있는 경우에는 위법성조각이 아니라 구성요건해당성이 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "정당화되는 범위의 사무관리 처분행위, 피해자의 승낙 또는 보관물 처분에 대한 소유자의 동의가 있었다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_2.movable_sale_double_disposition",
+      "double_negative": true,
+      "proposition": "동산매매에서 매도인은 매수인에 대한 타인 사무처리자 지위에 있지 않으므로, 목적물을 인도하지 않고 타인에게 처분하여도 배임죄가 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "동산 매도인이 매수인에 대하여 타인의 사무를 처리하는 자의 지위에 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_2.pre_certificate_stock_transfer",
+      "double_negative": true,
+      "proposition": "주권발행 전 주식 양도인이 제3자 대항요건을 갖추어 줄 채무는 자기 사무이므로, 그 요건을 갖추지 않고 타인에게 처분하여도 배임죄가 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "주권발행 전 주식 양도인이 제3자 대항요건을 갖추어 줄 채무가 매수인을 위한 타인의 사무에 해당한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_3.land_transaction_permit_no_contract_effect",
+      "double_negative": true,
+      "proposition": "토지거래허가구역 내 토지매매가 허가를 받지 않아 물권적·채권적 효력이 모두 없는 경우, 매도인은 매수인에 대한 소유권이전등기의무를 부담하지 않아 타인의 사무처리자에 해당하지 않으며 이중매도도 배임죄를 구성하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "토지거래허가를 받아 매매계약이 채권적 효력을 갖추었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_3.permit_land_building_sale",
+      "double_negative": true,
+      "proposition": "토지거래허가 대상 토지와 지상건물을 함께 매도한 경우, 허가를 받지 못해도 건물만이라도 매매했을 특별한 사정이 없으면 건물 부분에 대해서만 배임죄가 성립한다고 볼 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "허가를 받지 못하더라도 건물만이라도 매매하였을 특별한 사정이 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec6.embezzlement_status_offense",
+      "double_negative": true,
+      "proposition": "횡령죄는 위탁관계에 의하여 타인의 재물을 보관하는 자만 정범이 될 수 있는 진정신분범이므로, 보관자 신분 없는 자는 단독정범이 될 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 위탁관계에 의하여 타인의 재물을 보관하는 자의 신분을 가진다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec9_1.protectable_entrustment_denied",
+      "double_negative": true,
+      "proposition": "판례는 횡령죄로 보호할 만한 가치가 있는 위탁관계가 인정되지 않는 경우 횡령죄가 성립하지 않는다고 판단하고 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "횡령죄로 보호할 만한 가치가 있는 위탁관계가 인정된다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec9_2.trusted_real_estate_third_party",
+      "double_negative": true,
+      "proposition": "명의신탁 부동산을 수탁자가 처분한 경우, 이를 취득한 제3자가 불법영득을 공모하지 않았다면 횡령죄의 공동정범이 되지 않고, 수탁자가 외부관계에서 소유자이므로 장물취득죄도 성립하지 않는다는 설명이 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "명의신탁 부동산을 취득한 제3자가 수탁자의 불법영득을 공모하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art357",
+      "card_id": "art357_sec3_3.unrelated_payment_no_offense",
+      "double_negative": true,
+      "proposition": "부정한 청탁이 있었더라도 이를 받아들이지 않고 청탁과 관계없이 돈을 받은 경우에는 배임수재죄가 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "재물의 수수가 부정한 청탁을 받아들인 것으로서 그 청탁과 관련하여 이루어졌다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art357",
+      "card_id": "art357_sec3_4.no_acquisition_intent",
+      "double_negative": true,
+      "proposition": "취득할 의사 없이 보관 목적으로 받거나 특별한 사정으로 일시 수령 후 즉시 반환하는 등 취득 의사를 인정하기 어려운 경우에는 영득의 의사가 없어 배임수재죄가 성립할 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자에게 수수한 재물을 취득할 의사가 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art357",
+      "card_id": "art357_sec4.giver_view_justification",
+      "double_negative": true,
+      "proposition": "수재자에게는 부정한 청탁이라도 증재자 입장에서는 부정한 청탁으로 볼 수 없는 사정이 있으면 배임증재죄가 성립하지 않을 수 있으며, 정당한 업무·더 큰 손실 회피·권리 확보 등으로 사회상규나 신의칙에 위배되지 않는 경우가 예시된다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "증재자의 입장에서도 그 청탁이 부정한 청탁에 해당한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366.no_utility_property_exclusion",
+      "double_negative": true,
+      "proposition": "주관적으로나 객관적으로 이용가치 또는 효용이 전혀 없는 물건은 재물성이 인정되지 않을 수 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 물건에 주관적 또는 객관적 이용가치나 효용이 인정된다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec3_2.document_removal_without_owner_intent",
+      "double_negative": true,
+      "proposition": "문서의 종래 사용상태가 처음부터 소유자 의사에 반하거나 무관한 특별한 사정이 있고, 그 상태를 제거·변경하였을 뿐 새로 문서 사용에 지장을 초래하지 않으면 기타 방법에 의한 문서손괴죄는 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자의 행위가 종래 사용상태의 제거·변경에 그치지 않고 문서의 사용에 새로운 지장을 초래하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec3_2.electronic_record_power_cutoff_exception",
+      "double_negative": true,
+      "proposition": "정보처리장치에 연결된 기록매체의 전원 차단은 저장된 기록 자체에 손상이 발생하는 예외적 경우가 아니라면 전자기록손괴죄가 별도로 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "전원 차단으로 저장된 전자기록 자체에 손상이 발생하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec4_1.intent_absence",
+      "double_negative": true,
+      "proposition": "범행객체가 타인 소유임을 알지 못하거나 자기 행위로 재물 등의 효용이 침해될 결과를 예견하지 못한 경우에는 고의가 없어 죄가 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 범행객체가 타인의 소유임을 알았고, 자기 행위로 재물 등의 효용이 침해될 결과를 예견하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec4_1.intent_document_concealment_litigation_evidence",
+      "double_negative": true,
+      "proposition": "종중 소유라고 믿는 임야의 타인 명의 등기권리증을 가져가 종중의 말소등기 민사사건 증거로 제출한 경우 문서은닉의 고의가 없어 죄가 되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자에게 문서를 은닉한다는 고의가 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec4_1.intent_concealment_effort_to_return_bag",
+      "double_negative": true,
+      "proposition": "피해자를 더 호젓한 곳으로 데려가기 위해 가방을 빼앗았으나, 피해자를 찾아 가방을 돌려주려 한 경우 재물을 은닉하거나 효용을 해하려는 고의가 없어 죄가 되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자에게 재물을 은닉하거나 그 효용을 해한다는 고의가 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art328",
+      "card_id": "art328_sec6_1.accomplice_personal_application",
+      "double_negative": true,
+      "proposition": "친족상도례는 정범과 공범 사이 또는 수인의 공범 사이에서 친족관계가 있는 자에게만 적용되며, 친족관계가 없는 교사범·방조범에게는 적용되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "해당 교사범 또는 방조범에게 피해자와의 친족관계가 있다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec8_9.stealing_held_stolen_property",
+      "double_negative": true,
+      "proposition": "타인이 소지 중인 장물을 절취하는 행위는 절도죄이고 장물취득죄가 아니며, 장물취득죄와 상상적 경합도 아니다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 타인이 소지 중인 장물을 절취하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art338",
+      "card_id": "art338_sec4.robbery_death_attempt_excluded",
+      "double_negative": true,
+      "proposition": "살인의 고의가 없는 강도치사죄에는 미수범이 인정되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자에게 살인의 고의가 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_1.explained_fund_use_no_inference",
+      "double_negative": true,
+      "proposition": "엄격한 용도 외 사용 사안이 아니고 피고인이 돈의 행방·사용처에 합리적 설명 및 부합 자료를 제시하면, 특별한 사정이 없는 한 불법영득의사에 의한 횡령을 인정할 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "피고인이 돈의 행방과 사용처에 관하여 합리적인 설명과 이에 부합하는 자료를 제시하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec8.insufficient_collusion_loan_request",
+      "double_negative": true,
+      "proposition": "배임행위에 편승한 것으로 볼 수 있어도 배임행위의 전 과정에 관여하거나 적극 가담한 것으로 볼 수 없다면, 배임행위의 공동정범으로 처벌할 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 배임행위의 전 과정에 관여하거나 이에 적극 가담하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366.ownerless_property_exclusion",
+      "double_negative": true,
+      "proposition": "현재 누구의 소유에도 속하지 않는 무주물은 타인성이 인정되지 않아 재물손괴등죄의 범행객체가 될 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 물건이 타인의 소유에 속한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec3_2.movement_no_objective_use_value",
+      "double_negative": true,
+      "proposition": "소유자가 우연히 놓아두거나 방치한 물건을 다른 곳으로 옮겨 즉시 본래 용법대로 사용할 수 없게 한 것만으로는 객관적 이용가치·효용이 인정되지 않아 기타 방법에 의한 효용침해를 인정할 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "옮겨진 물건에 객관적인 이용가치 또는 효용이 인정된다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec4_1.intent_conditional_unawareness_of_glasses",
+      "double_negative": true,
+      "proposition": "피해자의 팔을 뿌리치는 과정에서 안경이 부러졌더라도 피해자가 안경을 썼는지 몰랐던 것으로 보이면, 재물손괴 결과발생 가능성의 인식이나 결과용인의사가 없어 미필적 고의는 인정되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 피해자의 안경 착용 사실을 인식하여 재물손괴 결과 발생 가능성을 인식하고 그 결과를 용인하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec5_2.self_help_container_destruction",
+      "double_negative": true,
+      "proposition": "컨테이너 철거를 위해 민사소송이나 행정 철거명령 등 법정절차를 이용할 수 있음에도 임의 손괴한 행위는 허용되지 않는 자력구제일 뿐 정당행위가 아니다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자에게 민사소송이나 행정 철거명령 등 법정절차를 이용할 수 없는 긴급한 사정이 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art335",
+      "card_id": "art335_sec4.minor_resistance_insufficient",
+      "double_negative": true,
+      "proposition": "절도범이 옷을 잡힌 상황에서 충동적으로 잡은 손을 뿌리친 정도는 체포의 공격력을 억압할 정도가 아니어서 준강도죄로 의율할 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "절도범이 행사한 유형력이 체포하려는 사람의 공격력을 억압할 정도에 이르렀다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art350",
+      "card_id": "art350_sec4_1.objectively_insufficient_threat",
+      "double_negative": true,
+      "proposition": "객관적으로 사람을 외포시키기에 부족한 행위는 상대방이 현실로 외포심을 일으켰더라도 공갈이 아니므로 공갈죄가 성립하지 않고 절도죄가 성립할 여지가 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자의 행위가 객관적으로 사람을 외포시키기에 충분한 정도였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_2.registered_movable_sale_disposition",
+      "double_negative": true,
+      "proposition": "자동차 등 권리이전에 등기·등록이 필요한 동산의 매도인도 매수인에 대한 타인 사무처리자가 아니므로 소유권이전등록을 하지 않고 타인에게 처분하여도 배임죄가 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "권리이전에 등기·등록이 필요한 동산의 매도인이 매수인에 대하여 타인의 사무를 처리하는 자의 지위에 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art360",
+      "card_id": "art360_sec2_2.ownerless_property_exclusion",
+      "double_negative": true,
+      "proposition": "무주물은 타인 소유의 재물이 아니므로 점유이탈물횡령죄의 객체가 아니다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 재물이 타인의 소유에 속한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art323",
+      "card_id": "art323_sec2_1.precedent_nonowner_accomplice_only",
+      "double_negative": false,
+      "proposition": "판례는 물건 소유자가 아닌 사람은 소유자의 권리행사방해 범행에 가담한 경우에 한하여 공범이 될 수 있다는 취지로 본다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "물건 소유자가 아닌 행위자가 소유자의 권리행사방해 범행에 가담하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art323",
+      "card_id": "art323_sec2_3.consensual_transfer_not_taking",
+      "double_negative": false,
+      "proposition": "점유자의 의사 또는 하자 있는 의사에 기하여 점유가 이전된 경우에는 취거에 해당하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "점유가 점유자의 의사에 기하지 않고 그 의사에 반하여 이전되었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art328",
+      "card_id": "art328_sec3_2.full_adoption_ends_pre_adoption_kinship",
+      "double_negative": false,
+      "proposition": "친양자 입양이 확정되면 입양 전 친족관계가 종료한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "친양자 입양이 확정되었다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art328",
+      "card_id": "art328_sec3_3.spouse_excludes_de_facto_marriage",
+      "double_negative": false,
+      "proposition": "친족상도례의 배우자는 법률상 친족이어야 하므로 내연관계 또는 사실혼관계에 있는 자는 포함되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자와 피해자가 법률상 혼인관계에 있는 배우자이다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art328",
+      "card_id": "art328_sec3_4.temporary_stay_noncohabitation",
+      "double_negative": false,
+      "proposition": "일시적 체류에 불과한 경우는 동거로 볼 수 없으며, 그 일시성은 체류 목적·경위·형태·기간 등을 종합하여 사회통념에 따라 판단한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "체류의 목적·경위·형태·기간에 비추어 사회통념상 일시적 체류에 그치지 않는 동거가 인정된다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art328",
+      "card_id": "art328_sec4_1.theft_owner_possessor_both_required",
+      "double_negative": false,
+      "proposition": "절도죄에서 친족상도례는 범인과 피해물건의 소유자 및 점유자 쌍방 사이에 친족관계가 있는 경우에만 적용되며, 소유자 또는 점유자 한쪽과만 친족관계가 있는 경우에는 적용되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "범인과 피해물건의 소유자 및 점유자 쌍방 사이에 모두 친족관계가 있다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art328",
+      "card_id": "art328_sec4_1.entrusted_property_owner_entrustor_both_required",
+      "double_negative": false,
+      "proposition": "횡령범인이 위탁자가 소유자를 위하여 보관하던 물건을 위탁자로부터 보관받아 횡령한 경우, 친족상도례는 범인과 소유자 및 위탁자 쌍방 사이에 친족관계가 있는 경우에만 적용되고 한쪽과만 친족관계가 있으면 적용되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "범인과 소유자 및 위탁자 쌍방 사이에 모두 친족관계가 있다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art328",
+      "card_id": "art328_sec4_1.subordinate_unlawful_possessor_not_victim",
+      "double_negative": false,
+      "proposition": "소유자와 점유자를 모두 피해자로 보는 견해를 따르더라도, 점유가 소유자의 점유와 주종관계에 있거나 권원 없는 불법점유인 점유자는 친족상도례 적용에서 피해자로 고려되지 않는다는 견해가 우세하다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 점유자의 점유가 소유자의 점유와 주종관계에 있지 않고 권원 있는 적법한 점유이다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art328",
+      "card_id": "art328_sec4_1.corporate_victim_no_application",
+      "double_negative": false,
+      "proposition": "재산죄의 피해자가 법인인 경우 법인과 친족관계가 성립할 수 없으므로, 범인과 법인 사원 또는 대표자 사이에 친족관계가 있어도 친족상도례는 적용되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "재산죄의 피해자가 법인이다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec2_2.unfound_transit_lost_property",
+      "double_negative": false,
+      "proposition": "고속버스 운전사나 지하철 승무원은 승객이 두고 내린 유실물을 현실적으로 발견하기 전에는 점유를 개시하지 않으므로, 다른 승객이 발견하여 가져가면 절도가 아니라 점유이탈물횡령에 해당한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "고속버스 운전사나 지하철 승무원이 승객이 두고 내린 유실물을 현실적으로 발견하여 점유를 개시하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec2_2.abandoned_license_plate",
+      "double_negative": false,
+      "proposition": "자동차 등록번호판이 손으로 떼어낼 수 있을 정도로 관리상태가 불량하고 소유자가 소유권을 포기하였거나 점유 의사로 사실상 지배하였다고 볼 수 없는 경우, 그 등록번호판은 절도죄의 객체가 될 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "소유자가 자동차 등록번호판의 소유권을 포기하지 않았고 점유 의사로 이를 사실상 지배하고 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec3_1.wallet_false_owner_answer_fraud",
+      "double_negative": false,
+      "proposition": "매장에서 떨어진 지갑의 점주가 지갑을 처분할 권능 또는 지위에서 지갑 소유 여부를 묻자 피고인이 자신의 것이라고 답하여 지갑을 받은 경우, 점주의 행위는 사기죄의 처분행위에 해당하므로 피고인 행위는 절도가 아니라 사기죄를 구성한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "점주가 지갑을 처분할 권능 또는 지위에서 소유 여부를 묻고 이에 따라 지갑을 교부하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec3_4.attempt.abandonment_no_suitable_property",
+      "double_negative": false,
+      "proposition": "절도 실행에 착수하였으나 절취할 적당한 물건을 발견하지 못하여 범행을 단념한 경우에는 자의에 의한 중지로 보기 어려워 단순 미수에 그친다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 외부적 장애 없이 자의로 범행을 중지하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec3_4.attempt.accomplice_discontinuance",
+      "double_negative": false,
+      "proposition": "공범자 중 1인이 중지미수가 되기 위해서는 자신의 범행 의사 포기만으로 부족하고, 다른 공범자의 범죄 실행을 중지하게 하여야 한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 다른 공범자의 범죄 실행까지 중지하게 하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec4.intent.mistake_abandoned_property",
+      "double_negative": false,
+      "proposition": "타인이 소유권을 포기하여 버린 물건이라고 오인하여 취득한 경우에는 절도죄의 고의가 인정되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 그 물건이 타인의 소유에 속함을 인식하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec6.self_help_collateral_recovery",
+      "double_negative": false,
+      "proposition": "양도담보권자를 위하여 담보물을 회수할 수 있었음에도 시일과 비용을 이유로 사전 준비 후 이를 취거한 경우, 점유자의 승낙이 없고 법정절차에 의한 권리 보전이 불가능한 긴급상황도 아니면 자구행위 또는 정당행위로 위법성이 조각되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "점유자의 승낙이 있었거나 법정절차에 의한 권리 보전이 불가능한 긴급한 사정이 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec8_8.deception_as_taking_method",
+      "double_negative": false,
+      "proposition": "기망이 점유침탈의 방법에 불과하고 오로지 기망으로 재물 점유가 이전되었다고 보기 어려운 경우 사기죄가 아니라 절도죄만 성립한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "재물의 점유가 오로지 기망에 의한 피해자의 처분행위로 이전되었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec8_9.principal_thief_stolen_property_offense_exception",
+      "double_negative": false,
+      "proposition": "절도범 자신이 절취물을 양도·운반·보관한 경우 절도죄 외에 별도로 장물 양도·운반·보관죄가 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 스스로 절취한 재물을 양도·운반 또는 보관하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art331",
+      "card_id": "art331_sec2_2.damage-physical-change-exception",
+      "double_negative": false,
+      "proposition": "위장시설의 효용을 해하더라도 물질적 형태의 변경·멸실·감손을 수반하지 않으면 손괴로 보기 어렵다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "위장시설에 물질적 형태의 변경·멸실 또는 감손이 수반되었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art331",
+      "card_id": "art331_sec2_2.key-opening-special-theft-exception",
+      "double_negative": false,
+      "proposition": "야간에 잠금장치를 훼손하지 않고 열쇠 등으로 통상의 용법에 따라 열고 침입한 경우에는 특수절도죄가 성립하지 않고 야간주거침입절도죄에 해당한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 잠금장치를 훼손하는 방법으로 침입하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art331",
+      "card_id": "art331_sec3_1.ordinary_screwdriver_not_weapon_holding",
+      "double_negative": false,
+      "proposition": "개조되지 않은 일반 드라이버로 택시 운전석 창문을 파손한 사안에서, 드라이버의 크기·모양 등 제반 사정상 흉기를 휴대하여 재물을 절취한 경우로 볼 수 없다고 판단되었다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "휴대한 드라이버가 그 크기·모양 등 제반 사정에 비추어 흉기에 해당한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art331",
+      "card_id": "art331_sec4_2.daytime_damage_before_search_no_attempt",
+      "double_negative": false,
+      "proposition": "2인 이상이 합동하여 주간에 절도 목적으로 아파트 출입문 시정장치를 손괴하다 발각되어 도주한 경우, 제331조 제2항의 실행 착수는 물색행위 시이므로 특수절도미수죄가 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 재물을 물색하는 행위에 나아갔다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art335",
+      "card_id": "art335_sec6_1.days_later_no_opportunity",
+      "double_negative": false,
+      "proposition": "범행 수일 후 재물탈환 방지 또는 체포 면탈 목적으로 폭행을 한 경우에는 준강도죄가 성립될 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "폭행이 절도행위와 시간적·장소적으로 근접한 절도의 기회에 이루어졌다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art335",
+      "card_id": "art335_sec6_2.opportunity_safe_escape_limit",
+      "double_negative": false,
+      "proposition": "절도범이 원래 범행현장에서 안전하게 도피하여 더 이상 추적이나 체포위협을 느끼지 않을 정도로 시간적·장소적 경과가 있으면 절도의 기회 계속성을 인정하기 어렵다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "절도범이 아직 추적이나 체포의 위협을 느끼는 상태로서 절도의 기회가 계속되고 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art337",
+      "card_id": "art337_sec5.quasi-robbery-nonparticipant-foreseeability",
+      "double_negative": false,
+      "proposition": "절도범이 준강도 목적의 폭행을 한 경우, 실행행위에 가담하지 않은 공모공동정범·교사범·방조범은 그 폭행을 사전에 양해하거나 예기한 경우가 아닌 한 준강도정범 책임을 지지 않는다는 서술이 제시된다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "실행행위에 가담하지 않은 공범자가 그 폭행을 사전에 양해하거나 예기하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art338",
+      "card_id": "art338_sec2.debt_evasion_no_robbery",
+      "double_negative": false,
+      "proposition": "채권자에게 상속인이 있고 채권 존재를 확인할 방법이 확보된 경우, 채무자가 채무면탈 목적으로 채권자를 살해하여도 재산적 이익의 지배를 취득하였다고 보기 어려워 강도가 될 수 없고 단순 살인죄에 그칠 수 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "채권자에게 상속인이 없거나 채권의 존재를 확인할 방법이 확보되지 않아 채무자가 사실상 채무를 면하는 재산적 이익을 취득하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art338",
+      "card_id": "art338_sec3.opportunity_new_intent_after_completion",
+      "double_negative": false,
+      "proposition": "강도 범행이 종료된 뒤 상당한 시간이 경과하여 새로운 범의로 저지른 살해행위는 강도의 기회에 한 행위로 보기 어렵다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "살해행위가 강도 범행과 시간적으로 근접하여 강도의 기회에 이루어졌다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art338",
+      "card_id": "art338_sec3.opportunity_witness_killing_hours_later",
+      "double_negative": false,
+      "proposition": "강도살인 후 목격자를 살해하기로 공모하여 수 시간 뒤 유인·살해한 경우, 범행 흔적 은폐 목적이고 당초 범행과 근접하더라도 독립한 별개의 살인죄이며 강도의 기회에 한 강도살인죄에 포함되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "목격자 살해가 당초 강도 범행과 단절되지 않은 강도의 기회에 이루어졌다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art343",
+      "card_id": "art343_sec1.robbery_scope",
+      "double_negative": false,
+      "proposition": "제343조의 ‘강도’에는 단순강도, 특수강도, 약취강도 및 해상강도가 포함되나 준강도는 제외된다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "해당 범행이 준강도에 해당한다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art343",
+      "card_id": "art343_sec2.bank_robbery_talk_insufficient",
+      "double_negative": false,
+      "proposition": "‘총을 훔쳐 전역 후 은행이나 현금수송차량을 털자’는 말을 나눈 정도만으로는 강도음모를 인정하기에 부족하다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "강도 실행에 관한 구체적인 합의에 이르렀다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art343",
+      "card_id": "art343_sec2_2.conspiracy_mutual_recognition_insufficient",
+      "double_negative": false,
+      "proposition": "음모에서 공범자 간 범죄결의의 상호인식만으로는 결의 단계에 머무르며, 강도 실행에 관한 구체적 합의가 있어야 객관적 요건을 충족한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "공범자 사이에 강도 실행에 관한 구체적인 합의가 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art343",
+      "card_id": "art343_sec4.aider_preparation_exception",
+      "double_negative": false,
+      "proposition": "정범이 실행의 착수에 이르지 않은 예비 단계에 가공한 행위는 예비의 공동정범이 되는 경우를 제외하고 종범으로 처벌할 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "정범이 실행의 착수에 이르렀다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art343",
+      "card_id": "art343.execution_absorption",
+      "double_negative": false,
+      "proposition": "강도 실행 의사로 예비·음모한 후 그 결의의 발동으로 강도를 실행한 경우, 예비·음모는 실행에 흡수되어 강도 기수 또는 미수의 일죄만 성립한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 예비·음모의 결의를 발동하여 강도를 실행하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art350",
+      "card_id": "art350_sec10_4.extortion_absorbs_simple_threat_assault",
+      "double_negative": false,
+      "proposition": "공갈죄가 성립하면 그 수단인 협박·폭행에 관한 단순 협박죄·폭행죄는 공갈죄에 흡수된다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "공갈죄가 성립하고 협박·폭행이 그 수단으로 행하여졌다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art350",
+      "card_id": "art350_sec10_6.nonproperty_benefit_no_extortion",
+      "double_negative": false,
+      "proposition": "폭행 또는 협박으로 비재산적 이익을 공여하게 한 경우 공갈죄는 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "공여하게 한 이익이 재산적 이익에 해당한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art350",
+      "card_id": "art350_sec10_9.self_possessed_property_no_extortion",
+      "double_negative": false,
+      "proposition": "자기가 점유하는 물건을 갈취한 경우 공갈죄는 성립하지 않고, 횡령죄와 폭행·협박죄의 상상적 경합관계에 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "갈취한 물건이 행위자 자신이 점유하던 물건이다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art350",
+      "card_id": "art350_sec4_1.robbery_boundary",
+      "double_negative": false,
+      "proposition": "협박이나 폭행이 상대방의 반항을 억압할 정도에 이르면 공갈죄가 아니라 강도죄가 성립한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "협박이나 폭행이 상대방의 반항을 억압할 정도에 이르렀다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art350",
+      "card_id": "art350_sec6.no_overall_property_decrease",
+      "double_negative": false,
+      "proposition": "공갈죄에서는 피공갈자의 하자 있는 의사에 기한 재물 교부 자체가 재산상 손해에 해당하므로, 피해자 전체 재산의 감소가 반드시 요구되지는 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "피공갈자가 하자 있는 의사에 기하여 재물을 교부하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art350",
+      "card_id": "art350_sec6_2.satisfied_consideration_causation_exception",
+      "double_negative": false,
+      "proposition": "폭행·협박을 당한 상대방이 객관적으로 상당한 대가에 주관적으로도 만족하여 재물을 교부한 경우에는 해악의 고지와 처분행위 사이의 인과관계가 부정되어 공갈죄 미수가 성립한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "상대방이 객관적으로 상당한 대가에 주관적으로도 만족하여 재물을 교부하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec3_3.joint_tree_sale_attempt",
+      "double_negative": false,
+      "proposition": "합유 수목을 임의처분하는 계약을 체결하고 계약금을 수령·소비한 사안에서, 피해자 소유권 침해의 구체적 위험 발생에 이르지 않았다고 보아 횡령미수를 인정한 원심을 대법원이 수긍한 사례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "피해자 소유권 침해의 구체적 위험이 발생하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_1.corporate_slush_fund_goods_no_intent",
+      "double_negative": false,
+      "proposition": "무자료 판매로 조세포탈 및 비자금을 조성하였더라도 그것이 대표자 개인 목적이 아니라 법인 운영에 필요한 자금 조달 수단이면, 특별한 사정이 없는 한 판매 상품에 대한 불법영득의사는 인정하기 어렵다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "비자금 조성이 법인 운영에 필요한 자금 조달 수단이 아니라 대표자 개인의 목적을 위한 것이었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_3.accounting_only_adjustment",
+      "double_negative": false,
+      "proposition": "법인을 위한 경비 지출을 정리하기 위한 허위 직원채용·허위급여 처리, 영업실적을 가장하기 위한 변칙 장부정리, 부외부채 변제를 위한 장부상 급여 인상 등 장부상 정리에 불과한 경우에는 불법영득의사가 인정되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 처리가 장부상 정리에 그치지 않고 실제 자금의 유출을 수반하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_3.slush_fund_explanatory_materials",
+      "double_negative": false,
+      "proposition": "불법영득의사를 인정하기 어려운 사유에 따른 비자금 행방·사용처 설명과 이에 부합하는 자료가 있고, 타 용도 소비 후 동액을 별도 입금 또는 반환하였다는 사정도 인정되지 않는 경우에는 불법영득의사에 의한 인출·횡령을 함부로 인정할 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "피고인이 비자금의 행방·사용처에 관하여 합리적인 설명과 이에 부합하는 자료를 제시하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_3.business_expense_discretion",
+      "double_negative": false,
+      "proposition": "업무 관련 지출을 포괄적으로 정하고 용도·목적의 구체적 제한 및 사후 증빙자료 요구가 없는 실비변상적 판공비·업무추진비는 사용 용도·규모와 업무 관련성 판단이 임직원에게 맡겨져 있으므로 그 판단은 우선 존중되어야 한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 비용이 용도·목적의 구체적 제한과 사후 증빙자료 요구가 없는 실비변상적 판공비·업무추진비에 해당한다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_3.organization_formal_litigant_fee",
+      "double_negative": false,
+      "proposition": "법인이 형식적으로만 소송당사자이고 실질적 당사자가 따로 있으며 법인에게 소송 결과에 관한 별다른 이해관계가 없는 특별한 사정이 있으면, 그 소송수행은 법인의 업무수행으로 볼 수 없으므로 법인 비용으로 변호사 선임료를 지출할 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "법인이 형식적 소송당사자에 불과하고 소송 결과에 별다른 이해관계가 없는 특별한 사정이 있다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_3.convertible_bond_sham_payment",
+      "double_negative": false,
+      "proposition": "전환사채 인수과정에서 납입을 가장하였더라도 전환사채는 발행 당시 사채이고 전환권 행사 시에만 주식으로 전환되므로, 상법상 납입가장죄 및 업무상배임죄·업무상횡령죄의 성립은 어려운 것으로 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "전환권이 행사되어 전환사채가 주식으로 전환되었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_3.special_repair_fund_community_benefit",
+      "double_negative": false,
+      "proposition": "공동주택과 주민 전체의 복리를 위한 방수공사를 임시총회 결의와 운영위원회 의결을 거쳐 시행하고 정기총회에 보고한 경우, 특별수선충당금 지출에 관한 횡령 범의 또는 불법영득의사를 단정하기 어렵다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 공사가 임시총회 결의와 운영위원회 의결을 거쳐 시행되고 정기총회에 보고되었다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_3.special_repair_fund_comprehensive_consent",
+      "double_negative": false,
+      "proposition": "특별수선충당금의 용도 외 사용이 관리규약으로만 제한되고 구분소유자 또는 입주민의 포괄적 동의를 얻어 위탁취지에 부합하는 용도로 사용한 여지가 있는 경우, 자기 또는 제3자 이익을 위하여 소유자처럼 처분한 것으로 단정하기 어렵다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "구분소유자 또는 입주민의 포괄적 동의를 얻어 위탁취지에 부합하는 용도로 사용하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_3.objectively_not_grossly_improper_expenditure",
+      "double_negative": false,
+      "proposition": "지출목적에 관한 행위자의 주관적 판단이 객관적으로 심히 부당하지 않다고 사회통념상 인정될 수 있는 경우 불법영득의사가 부정된다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "지출목적에 관한 행위자의 주관적 판단이 사회통념상 객관적으로 심히 부당하다고 인정된다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_3.clan_fund_loan_consent",
+      "double_negative": false,
+      "proposition": "종중 부회장의 종중 소유 금원 차용에 이사회 결의는 없었더라도 참석 가능한 이사 전원의 동의가 있고 재산대여 금지 규정이 없으며 보관처 금리 이상의 이자 지급 조건이 있는 경우 불법영득의사가 인정되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "참석 가능한 이사 전원의 동의가 있었고 재산대여 금지 규정이 없으며 보관처 금리 이상의 이자 지급 조건이 있었다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_2.right_transfer_ordinary_duty",
+      "double_negative": false,
+      "proposition": "권리이전계약이나 담보설정계약에서 통상적 계약관계상 급부의무에 불과한 경우에는 배임죄에서의 타인 사무가 아니다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 의무가 통상적 계약관계상 급부의무를 넘어 타인의 재산을 보호·관리하는 사무에 해당한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_2.pre_sale_right_transfer",
+      "double_negative": false,
+      "proposition": "특별한 사정이 없는 한 수분양권 매도인의 수분양권 이전의무는 자기 사무이므로, 이를 이행하지 않고 수분양권 또는 장래 취득할 목적물을 제3자에게 처분하여도 배임죄가 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "수분양권 매도인의 이전의무가 매수인을 위한 타인의 사무에 해당하는 특별한 사정이 있다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_2.leasehold_transfer",
+      "double_negative": false,
+      "proposition": "임차권 양도인이 임대인 통지 등을 통하여 양수인의 임차인 지위를 보전할 의무를 부담해도 이는 양도인 자신의 채무이므로, 양도인은 배임죄의 타인 사무처리자가 아니다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "임차권 양도인의 지위 보전 의무가 양수인을 위한 타인의 사무에 해당한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_2.general_civil_contract_direction",
+      "double_negative": false,
+      "proposition": "당사자 관계의 전형적·본질적 내용이 타인의 재산 보호·관리에 있지 않은 일반 민사계약관계에서는 사무의 타인성을 제한적으로 해석해야 한다는 평가가 제시되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "당사자 관계의 전형적·본질적 내용이 타인의 재산 보호·관리에 있다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_2.formal_right_attribution",
+      "double_negative": false,
+      "proposition": "거래 상대방에게 물건이나 권리가 형식적으로 귀속되었는지는 배임죄 주체인 타인의 사무처리자 여부의 결정적 요소가 아니며, 계약 내용에 따른 당사자 관계의 전형적·본질적 내용을 기준으로 판단해야 한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "계약 내용에 따른 당사자 관계의 전형적·본질적 내용이 타인의 재산 보호·관리에 있다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_2.movable_security_debtor_status",
+      "double_negative": false,
+      "proposition": "일반 동산 양도담보 및 동산담보에서 채권자의 담보권 취득 전후와 무관하게 채무자의 타인 사무처리자 지위는 부정된다는 최근 대법원 판례 입장이 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "동산 양도담보 또는 동산담보의 채무자가 채권자에 대하여 타인의 사무를 처리하는 자의 지위에 있다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_2.transfer_contract_debtor_status",
+      "double_negative": false,
+      "proposition": "금전채권의 양도·양도담보 및 주권발행 전 주식의 양도·양도담보에서 양도인 또는 채무자의 타인 사무처리자 지위는 부정된다는 판례 입장이 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 양도인 또는 채무자가 상대방에 대하여 타인의 사무를 처리하는 자의 지위에 있다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_3.invalid_rescission_mistake",
+      "double_negative": false,
+      "proposition": "매매계약 해제가 요건을 갖추지 못해 부적법한 것으로 판명되었더라도, 매도인이 해제가 적법하다고 믿었고 그 믿음에 정당한 이유가 있으면 배임죄의 범의가 부정된다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "매도인이 해제가 적법하다고 믿었고 그 믿음에 정당한 이유가 있었다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_3.no_effective_first_contract",
+      "double_negative": false,
+      "proposition": "제1매매계약이 가장매매이거나 조건불성취로 효력이 발생하지 않은 경우에는 이중매도에 의한 배임죄가 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "제1매매계약이 유효하게 효력을 발생하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_3.permit_evasion_contract_invalid",
+      "double_negative": false,
+      "proposition": "토지거래허가 요건을 갖추지 못한 매수인이 타인 명의로 허가를 받으려는 의사로 체결한 허가잠탈 토지매매계약은 처음부터 확정적으로 무효이므로, 매도인의 처분행위가 배임죄를 구성한다고 보기 어렵다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 토지매매계약이 허가잠탈 목적의 확정적 무효 계약에 해당하지 않는다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_3.double_sale_downpayment_only_attempt",
+      "double_negative": false,
+      "proposition": "부동산 매도인이 제2매수인으로부터 계약금만 지급받고 중도금을 수령하지 않은 경우에는 배임죄 실행의 착수가 있다고 볼 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "매도인이 제2매수인으로부터 중도금을 수령하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec6.embezzlement_purchaser_conspiracy",
+      "double_negative": false,
+      "proposition": "횡령재물 매수인이 재물이 타인의 동의 없이 임의처분된다는 사정을 안 것만으로는 횡령죄 공동정범을 인정하기 부족하고, 처음부터 수탁자와 불법영득하기로 공모하였음이 필요하다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "매수인이 처음부터 수탁자와 불법영득하기로 공모하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec6_3.breach_post_act_absorption",
+      "double_negative": false,
+      "proposition": "배임죄는 상태범이므로 배임행위 종료 후의 이득 처분행위는 새로운 법익을 침해하지 않는 한 불가벌적 사후행위로서 배임죄에 흡수된다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "배임행위 종료 후의 이득 처분행위가 새로운 법익을 침해하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec7_11.company_internal_benefit_rules",
+      "double_negative": false,
+      "proposition": "회사 내부의 시설이용 비용면제 우대규정에 따라 대표이사 또는 이사가 비용을 면제받은 경우, 금전 수입 감소와 동일액 이익 발생만으로 임무위배행위나 배임의 고의를 판단할 수 없고, 규정의 제정·개정 경위와 효력, 우대 범위의 합리성, 회사의 무형적 이익 등을 종합 판단하여야 한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "우대규정의 제정·개정 경위와 효력, 우대 범위의 합리성, 회사의 무형적 이익 등을 종합할 때 그 비용면제가 임무위배행위에 해당한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec7_2.fraud_proceeds_return_refusal",
+      "double_negative": false,
+      "proposition": "종친회 공탁금을 기망하여 출급받아 사기죄가 성립한 후 종친회에 그 반환을 거부한 행위는 새로운 법익침해를 수반하지 않는 불가벌적 사후행위일 뿐 별도 횡령죄가 성립하지 않는다는 사례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "반환 거부가 사기죄로 평가된 법익침해를 넘는 새로운 법익침해를 수반하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec8.transaction_counterparty_active_participation",
+      "double_negative": false,
+      "proposition": "대향적 거래관계의 배임에서 거래상대방은 원칙적으로 배임죄 공범이 아니며, 실행행위자의 배임을 알면서 소극적으로 편승하여 이익을 얻은 것만으로는 공동정범이 되지 않고 교사 또는 전 과정 관여 등 적극 가담이 필요하다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "거래상대방이 교사하거나 배임행위의 전 과정에 관여하는 등 적극 가담하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec8.transaction_counterparty_illegality",
+      "double_negative": false,
+      "proposition": "정범의 행위가 배임행위임을 알고 거래에 임하여 외견상 방조행위로 평가될 수 있는 행위가 있더라도, 범죄를 구성할 정도의 위법성이 없다고 볼 수 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 거래행위가 범죄를 구성할 정도의 위법성을 갖추었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec8_2.unspecified_embezzlement_indictment_invalidity",
+      "double_negative": false,
+      "proposition": "약 2년간 회사 자금을 수시로 수표 인출하여 합계 금원을 횡령하였다는 공소사실이 시기·종기, 범행횟수, 자금 및 횡령 명목을 특정하지 않아 포괄일죄 여부와 방어권 행사가 불가능한 경우, 공소사실 불특정으로 공소제기 절차가 무효가 된다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "공소사실이 시기·종기, 범행횟수, 자금 및 횡령 명목을 특정하여 방어권 행사가 가능하다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec9.victim_change_defense_rights",
+      "double_negative": false,
+      "proposition": "배임 공소사실의 피해자를 공소장 기재와 달리 다른 상속인들로 인정하면 피고인의 방어방법이 달라져 실질적 불이익 우려가 있는 경우, 법원이 직권으로 피해자를 변경하여 배임죄 성립을 인정할 필요가 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "피해자를 변경하여도 피고인의 방어방법이 달라지지 않아 실질적 불이익의 우려가 없다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec9_1.self_possessed_property_fraud_excluded",
+      "double_negative": false,
+      "proposition": "자기가 점유하는 재물에 기망행위를 하여 이를 영득한 때에는 횡령죄만 성립하고 사기죄는 성립하지 않는다는 다수설과 판례의 입장이 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 재물이 행위자 자신이 점유하던 재물이다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec9_2.stolen_property_custodian_subsequent_appropriation",
+      "double_negative": false,
+      "proposition": "절도범으로부터 장물 보관을 위탁받아 장물보관죄가 성립한 보관자가 장물을 영득한 경우, 판례와 다수설은 후속 영득행위를 불가벌적 사후행위로 보아 별도의 횡령죄를 구성하지 않는다고 소개한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자에게 장물보관죄가 성립한 후 그 장물을 영득하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec9_2.negligent_stolen_property_disposal",
+      "double_negative": false,
+      "proposition": "판례는 업무상 과실로 장물을 보관하던 중 이를 처분한 경우에도 별도의 횡령죄를 구성하지 않는다고 소개한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 업무상 과실로 장물을 보관하던 중 이를 처분하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec9_5.initial_possession_without_illegal_appropriation_intent",
+      "double_negative": false,
+      "proposition": "횡령죄는 불법영득의 의사 없이 목적물의 점유를 시작한 경우에 성립하며, 공갈로 재물을 교부받아 소비·처분한 경우에는 공갈죄 외에 횡령죄를 구성하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 공갈로 재물을 교부받아 그 점유를 시작하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec9_5.concealment_with_appropriation_intent_no_execution_evasion",
+      "double_negative": false,
+      "proposition": "타인의 재물을 보관하는 자가 영득할 의사로 보관 재물을 은닉한 경우 횡령죄를 구성하며, 강제집행을 면탈하는 결과가 있더라도 별도의 강제집행면탈죄를 구성하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "보관자가 영득할 의사로 보관 재물을 은닉하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec9_5.embezzlement_proceeds_internal_distribution_no_bribery",
+      "double_negative": false,
+      "proposition": "횡령으로 취득한 돈을 공범자들이 공모에 따라 내부적으로 분배한 것에 그치는 경우, 그 수수행위에 관하여 별도 뇌물죄가 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 수수가 공범자들 사이의 내부적 분배에 그치지 않고 직무에 관한 대가로 이루어졌다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art356",
+      "card_id": "art356_sec2_2.unrelated_possession",
+      "double_negative": false,
+      "proposition": "일정한 업무에 종사하더라도 그 업무와 무관하게 타인의 재물을 보관하게 된 경우에는 업무상횡령죄가 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "타인의 재물 보관이 행위자의 업무와 관련하여 이루어졌다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art356",
+      "card_id": "art356_sec4_3.breach_beneficiary_active_participation",
+      "double_negative": false,
+      "proposition": "업무상배임 실행으로 이익을 얻는 수익자 또는 밀접 관련 제3자를 공동정범으로 인정하려면, 배임행위임을 알면서 소극적으로 편승하여 이익을 취득한 것만으로는 부족하고 교사 또는 배임행위 전 과정 관여 등 적극 가담이 필요하다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "수익자 또는 밀접 관련 제3자가 교사하거나 배임행위의 전 과정에 관여하는 등 적극 가담하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art357",
+      "card_id": "art357_sec1_2.pre_amendment_third_party_exception",
+      "double_negative": false,
+      "proposition": "개정 전 법률에서는 제3자가 재물 또는 재산상 이익을 취득한 경우 원칙적으로 배임수재죄로 처벌할 수 없었다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위 시점에 제3자 취득을 처벌하도록 개정되기 전의 법률이 적용된다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art357",
+      "card_id": "art357_sec3_1.no_status_at_request",
+      "double_negative": false,
+      "proposition": "원칙적으로 타인의 사무처리자 지위를 취득하기 전에 부정한 청탁을 받은 경우에는 배임수재죄의 주체에 해당하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 부정한 청탁을 받을 당시 이미 타인의 사무처리자 지위를 취득하고 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art357",
+      "card_id": "art357_sec3_1.kbo_secretary_no_subject",
+      "double_negative": false,
+      "proposition": "잠실야구장 광고권자 선정 권한이 운영본부에 있고 KBO 사무총장의 업무가 그 선정업무와 밀접한 관계의 범위 내 사무라고 보기 어려운 경우, KBO 사무총장은 그 선정업무를 처리하는 자에 해당하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 사무총장의 업무가 광고권자 선정업무와 밀접한 관계에 있는 범위 내의 사무에 해당한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art357",
+      "card_id": "art357_sec3_2.concealment_payment_not_specific_solicitation",
+      "double_negative": false,
+      "proposition": "부정처분 유류대금을 나누어 준 것이 후일 범행 발각 시 누설을 막기 위해 환심을 사려는 데 그친 경우, 구체적이고 특정한 임무행위에 관한 부정한 청탁으로 보기 어렵다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 금품 교부가 구체적이고 특정한 임무행위에 관한 부정한 청탁의 대가로 이루어졌다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art357",
+      "card_id": "art357_sec3_2.contractual_performance_not_improper",
+      "double_negative": false,
+      "proposition": "거래상대방에게 양수대금 등 계약상 의무를 이행하게 하고 이를 이행받은 경우에는, 계약관계 유지 등의 부탁이 있었다는 사정만으로 부정한 청탁의 대가 수수라고 단정할 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 수수가 계약상 의무의 이행을 넘어 부정한 청탁의 대가로 이루어졌다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art357",
+      "card_id": "art357_sec3_2.self_rights_protection_not_improper",
+      "double_negative": false,
+      "proposition": "자신의 권리를 확보하기 위한 행위는 부정한 청탁에 해당하지 않을 수 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 청탁이 자신의 권리를 확보하기 위한 행위의 범위를 넘는 부정한 청탁에 해당한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art357",
+      "card_id": "art357_sec3_2.pms_research_contract_not_improper",
+      "double_negative": false,
+      "proposition": "대학병원 의사와 제약회사 등의 PMS 연구용역계약이 연구의 필요성·수행방법·결과 충실성·대가의 적정성 등에 비추어 의학적으로 정당하게 체결·수행된 경우, 조영제 납품에 관한 부정한 청탁 또는 그 대가 지급을 위한 계약으로 볼 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 연구용역계약이 조영제 납품에 관한 부정한 청탁 또는 그 대가 지급을 위한 것이었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art357",
+      "card_id": "art357_sec3_6.separate_providers_not_comprehensive_offense",
+      "double_negative": false,
+      "proposition": "여러 사람에게서 각각 부정한 청탁을 받고 각각 금품을 수수한 경우에는 청탁이 동종이더라도 전체를 포괄일죄로 보기 어렵다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "부정한 청탁과 금품 수수가 여러 사람으로부터 각각 별개로 이루어졌다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art357",
+      "card_id": "art357_sec3_9.internal_distribution_not_receiving_giving",
+      "double_negative": false,
+      "proposition": "공동 사기 또는 횡령 범행으로 얻은 돈을 공범자끼리 수수한 행위가 공동정범 사이에서 취득한 돈이나 재산상 이익의 내부 분배에 지나지 않으면, 그 수수행위는 별도로 배임수증재죄를 구성하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 수수가 공동정범 사이의 내부 분배를 넘어 부정한 청탁의 대가로 이루어졌다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art357",
+      "card_id": "art357_sec4.giving_to_business_handler",
+      "double_negative": false,
+      "proposition": "배임증재죄의 공여는 타인의 사무처리자에게 할 것을 요하므로, 사무처리자가 아닌 자에게 교부한 경우에는 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "교부 상대방이 타인의 사무를 처리하는 자에 해당한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art360",
+      "card_id": "art360_sec2_1.status_offense.not_majority",
+      "double_negative": false,
+      "proposition": "점유이탈물횡령죄는 신분범으로 보지 않는 것이 통설적 견해이다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "점유이탈물횡령죄가 일정한 신분을 요하는 신분범에 해당한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art360",
+      "card_id": "art360_sec2_2.original_possessor_recovery",
+      "double_negative": false,
+      "proposition": "원점유자가 물건 소재를 알고 다시 찾을 가능성이 있는 경우에는 타인의 점유가 존속하므로, 이를 영득하면 점유이탈물횡령죄가 아니라 절도죄가 성립한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "원점유자가 물건의 소재를 알고 다시 찾을 가능성이 있었다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art360",
+      "card_id": "art360_sec2_2.managed_place_property",
+      "double_negative": false,
+      "proposition": "타인의 간수·관리 등 실력적 지배가 미치는 장소 안에 방치되거나 유류된 물건은 관리자의 점유에 속하여 점유이탈물이 아니고, 영득 시 절도죄의 객체가 된다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 물건이 타인의 간수·관리 등 실력적 지배가 미치는 장소 안에 있었다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art360",
+      "card_id": "art360_sec2_2.deceased_victim_possession",
+      "double_negative": false,
+      "proposition": "피해자를 살해한 방에서 사망 피해자 곁에 약 4시간 30분 있다가 피해자의 자취방 벽에 걸린 피해자 소지 물건을 영득의사로 가져간 경우, 판례는 피해자의 생전 점유가 사망 후에도 계속된다고 보았다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "피해자를 살해한 자가 그 사망과 시간적·장소적으로 근접한 상황에서 피해자 소지 물건을 영득의사로 가져갔다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art360",
+      "card_id": "art360_sec2_2.public_transport_found_property",
+      "double_negative": false,
+      "proposition": "운전사나 승무원이 유실물을 현실적으로 발견한 뒤 제3자가 가져가면 운전사·승무원의 점유가 인정되어 절도죄로 처벌된다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "운전사나 승무원이 유실물을 현실적으로 발견하여 점유를 개시하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art360",
+      "card_id": "art360_sec2_3.insufficient_appropriation_intent",
+      "double_negative": false,
+      "proposition": "습득 자전거를 소유자가 나타날 때까지 보관하겠다고 수일 보관하거나, 유실물임을 알면서 즉시 신고·반환하지 않고 친구 집으로 가져간 정도만으로는 불법영득의사가 인정되지 않는다고 본다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자에게 소유자처럼 처분하려는 불법영득의사가 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art360",
+      "card_id": "art360_sec3.cashiers_check_exchange",
+      "double_negative": false,
+      "proposition": "습득하거나 절취한 자기앞수표를 현금과 교환하거나 물건을 구입한 경우, 판례는 점유이탈물횡령죄 또는 절도죄만 성립하고 별도의 사기죄는 성립하지 않는다고 한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 습득하거나 절취한 자기앞수표를 현금과 교환하거나 이로써 물건을 구입하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366.public_document_used_by_office",
+      "double_negative": false,
+      "proposition": "공문서라도 공무소에서 사용하는 공용서류에 해당하지 않는 한 제366조의 범행객체가 되지만, 공용서류 해당 여부가 객체성 판단의 요건이 된다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 공문서가 공무소에서 사용하는 공용서류에 해당한다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec3_2.mere_functional_interference_not_destruction",
+      "double_negative": false,
+      "proposition": "물건에 변형이나 손상을 가하지 않고 단순히 본래 기능만 훼손한 경우에는 손괴가 되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "물건에 변형이나 손상이 가하여졌다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec3_2.emotional_use_objective_limit",
+      "double_negative": false,
+      "proposition": "감정상의 용법은 객관적으로 인식 가능한 법감정을 뜻하며, 피해자의 순수한 개인적 감정이나 내심의 의사와 구별되어야 한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 침해가 피해자의 순수한 개인적 감정이 아니라 객관적으로 인식 가능한 법감정으로서의 감정상 용법에 관한 것이다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec4_1.intent_destruction_protective_measures",
+      "double_negative": false,
+      "proposition": "임대인이 가재도구의 비를 막고 타인의 개봉을 방지하려는 조치를 하였다면, 그 조치에 과실이 있어 침수로 효용이 해하여졌더라도 손괴의 고의는 인정되기 어렵다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "임대인에게 가재도구의 효용을 해한다는 손괴의 고의가 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec4_1.intent_destruction_telephone_report",
+      "double_negative": false,
+      "proposition": "공중전화기가 고장났다고 생각하여 신고 목적으로 전화선을 빼고 떼어낸 경우, 전화기의 효용을 해하려는 손괴의 범의는 인정되기 어렵다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자에게 전화기의 효용을 해한다는 손괴의 범의가 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec4_1.intent_concealment_relocation",
+      "double_negative": false,
+      "proposition": "영업방해를 위해 타인이 설치하려는 철조망을 원래 위치에서 떨어진 자기 토지로 옮긴 경우, 재물은닉의 범의는 인정되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자에게 재물의 소재를 불명하게 하려는 은닉의 범의가 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec5_2.extra_judicial_redevelopment_demolition",
+      "double_negative": false,
+      "proposition": "재건축조합 정관과 조합원 동의가 있어도 조합원이 명도의무 이행을 거절하면 법적 절차를 거쳐야 하므로, 자력으로 건축물을 철거한 행위는 정당행위가 아니다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 철거가 명도의무 이행을 구하는 법적 절차를 거쳐 이루어졌다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec5_2.labor_dispute_property_damage",
+      "double_negative": false,
+      "proposition": "단체교섭에서 노동조합 요구를 관철하기 위한 기물손괴는 정당한 단체행동의 범위 밖이다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 행위가 기물손괴를 수반하지 않는 정당한 단체행동의 범위 내에 있다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec5_3.chainsaw_dog_injury_not_emergency_or_excess",
+      "double_negative": false,
+      "proposition": "다른 방법으로 개들을 쫓아 자신의 개를 보호할 수 있었고 현재의 공격 위험도 인정되지 않는 경우, 기계톱으로 상대방 개를 상해한 행위는 긴급피난 또는 과잉피난에 해당하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "다른 방법으로는 자신의 개를 보호할 수 없었고 현재의 공격 위험이 인정된다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec5_4.self_help_fence_removal_legal_remedies_available",
+      "double_negative": false,
+      "proposition": "가처분이나 본안소송으로 방해배제청구권을 행사할 수 있으면 법정절차에 의한 청구권 보전이 불가능한 경우가 아니므로, 펜스 철거는 자구행위로 인정되기 어렵다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "가처분이나 본안소송으로 방해배제청구권을 행사할 수 없어 법정절차에 의한 청구권 보전이 불가능하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec5_5.consent_withdrawal_construction_stop",
+      "double_negative": false,
+      "proposition": "시설물 철거를 수반한 인테리어 공사에 승낙한 뒤 보증금 잔금 미지급을 이유로 즉시 공사중단과 퇴거를 요구한 경우, 그 의사표시로 선행 시설물 철거 승낙이 철회된 것으로 보아 유리창 손괴에 관한 피해자 승낙 주장을 배척하고 재물손괴죄 성립을 인정한 선례가 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "공사중단과 퇴거 요구의 의사표시로 선행 시설물 철거 승낙이 철회되었다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec5_5.redevelopment_consent_not_self_help_demolition",
+      "double_negative": false,
+      "proposition": "재건축조합 가입 및 정관 동의만으로는 법적 절차 없이 조합이 자력으로 조합원 건축물을 철거하는 데까지 사전승낙한 것으로 볼 수 없으며, 철거 예정 피해자 소유 아파트를 철거한 행위에 재물손괴죄 성립을 인정한 선례가 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "조합원이 법적 절차 없는 자력 철거에까지 사전승낙하였다고 볼 사정이 있다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec6.creditor_lock_damage_mistake_negative",
+      "double_negative": false,
+      "proposition": "채권관리를 위해 근저당 설정 회사 공장에 무단침입하여 자물쇠를 손괴한 경우, 목적의 정당성만으로 수단·방법까지 정당하다고 믿은 것은 정당한 이유 있는 법률의 착오가 아니다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 수단·방법의 정당성에 관하여 정당한 이유 있는 법률의 착오에 빠졌다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art328",
+      "card_id": "art328_sec1_1.article1_application_suspension",
+      "double_negative": false,
+      "proposition": "헌법불합치결정에 따라 개선입법 시한인 2025년 12월 31일까지 형법 제328조 제1항을 적용하여 형 면제 판결을 선고할 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "재판 시점이 개선입법 시한인 2025년 12월 31일 이전이다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec2_1.two_person_partnership_withdrawal_exception",
+      "double_negative": false,
+      "proposition": "두 사람의 동업관계에서 한 사람이 탈퇴하여 계산만 남은 상태에서는 합유관계 물건을 반출해도 절도죄가 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "동업자 한 사람이 탈퇴하여 동업관계가 종료되고 계산만 남은 상태였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec2_1.ownerless_property_exception",
+      "double_negative": false,
+      "proposition": "무주물은 절도죄의 객체가 될 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 재물이 타인의 소유에 속한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec3_2.attempt.pickpocket_following_preparation",
+      "double_negative": false,
+      "proposition": "소매치기할 생각으로 타인의 뒤를 따라다니거나 주의력을 흩뜨리기 위해 피해자의 몸에 부딪히는 정도, 또는 공범의 바람잡이 행위만으로는 예비단계에 그쳐 절도 실행의 착수가 인정되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 재물을 물색하는 등 절취행위에 밀접한 행위로 나아갔다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec3_3.completion.vehicle_rolls_ten_meters",
+      "double_negative": false,
+      "proposition": "자동차 절취 의도로 조수석 문을 열고 시동을 걸려다 핸드브레이크가 풀려 시동 없이 경사진 길을 약 10미터 굴러가 멈춘 것만으로는 절도 기수가 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 자동차에 대한 사실상 지배를 취득하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec7.afteract_consumption_or_destruction",
+      "double_negative": false,
+      "proposition": "절도범이 도품을 은닉·손괴·소비한 행위는 절도죄에 포괄 평가되어 불가벌적 사후행위가 되고, 별도로 손괴죄나 횡령죄를 구성하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 자신이 절취한 도품을 은닉·손괴 또는 소비하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec8_4.stolen_document_forgery_not_subsequent_act",
+      "double_negative": false,
+      "proposition": "절취물에 관한 문서위조행위는 절도의 불가벌적 사후행위로 볼 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 절취물에 관하여 문서위조행위를 하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art334",
+      "card_id": "art334_sec2_1.weapon_direct_use_not_required",
+      "double_negative": false,
+      "proposition": "흉기휴대 특수강도에서 휴대한 흉기를 피해자에게 제시하거나 겨누는 등 폭행·협박의 방법으로 직접 사용할 필요는 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 범행 당시 흉기를 휴대하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art337",
+      "card_id": "art337_sec6_4.home_invasion_absorption",
+      "double_negative": false,
+      "proposition": "야간주거침입절도·특수절도의 절도범이 주체인 준강도상해·치상죄 및 형법 제334조 제1항의 특수강도가 주체인 강도상해·치상죄에서는 주거침입죄가 흡수되어 별도로 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 야간주거침입절도·특수절도의 절도범 또는 형법 제334조 제1항의 특수강도에 해당한다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art338",
+      "card_id": "art338_sec5.accomplice.no_murder_intent",
+      "double_negative": false,
+      "proposition": "살인의 범의가 없는 강도 공범자에게는 강도살인죄 책임을 물을 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 강도 공범자에게 살인의 범의가 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art343",
+      "card_id": "art343_sec2_1.joint_perpetration_not_aid",
+      "double_negative": false,
+      "proposition": "타인의 예비에 대한 공동가공 의사 없이 단순히 방조하려는 의사만으로는 예비·음모의 주관적 요건을 충족하지 못한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자에게 타인의 예비에 대한 공동가공의 의사가 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art350",
+      "card_id": "art350_sec4_2.actual_intent_or_feasibility_not_required",
+      "double_negative": false,
+      "proposition": "행위자가 실제로 해악을 실현할 의사를 가졌는지 또는 해악의 실현이 가능한지는 공갈죄 성립에 영향을 미치지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "고지된 해악이 객관적으로 상대방을 외포시킬 만한 것이었다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art350",
+      "card_id": "art350_sec5_2.fear_causation_required",
+      "double_negative": false,
+      "proposition": "공갈죄가 성립하려면 협박 또는 폭행과 외포 사이 및 외포와 재산적 처분행위 사이에 인과관계가 있어야 하며, 협박·폭행을 원인으로 하지 않은 외포심에 따른 재산적 처분행위에는 공갈죄가 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "협박 또는 폭행과 외포 사이 및 외포와 재산적 처분행위 사이에 인과관계가 있다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355.embezzlement.object-excludes-property-interest",
+      "double_negative": false,
+      "proposition": "재물이 아닌 권리·재산상 이익 및 기업비밀·기업정보 자체는 횡령죄의 객체가 될 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "횡령의 객체가 재물에 해당한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_1.representative_corporate_debt_payment",
+      "double_negative": false,
+      "proposition": "회사에 개인채권을 가진 대표이사가 회사 보관금으로 자신의 회사 상대 채권을 변제하더라도, 이는 대표이사 권한 내 회사채무 이행행위로 유효하여 불법영득의사가 인정되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 변제충당이 대표이사 권한 내의 유효한 회사채무 이행행위에 해당한다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_2.subsequent_return_not_negating_appropriation",
+      "double_negative": false,
+      "proposition": "횡령 후 반환·변상·보전할 의사가 있더라도 불법영득의사 인정에는 지장이 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자에게 횡령 후 반환·변상 또는 보전할 의사가 있었다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_2.mere_destruction_not_appropriation",
+      "double_negative": false,
+      "proposition": "단순한 손괴의 의사만으로는 횡령죄의 불법영득의사를 구성하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자에게 단순한 손괴 의사를 넘어 소유자처럼 처분하려는 의사가 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_3.private_school_account_transfer",
+      "double_negative": false,
+      "proposition": "사립학교 교비회계 수입금을 다른 회계로 전용한 행위는 사립학교법위반 처벌과 별개로, 전용 자체만으로 곧바로 불법영득의사를 실현하는 횡령행위가 되는 것은 아니다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "교비회계 수입금의 전용이 회계 간 이전을 넘어 불법영득의사를 실현하는 처분에 해당한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_3.slush_fund_concealment",
+      "double_negative": false,
+      "proposition": "비자금이 장부상 일반자금 속에 은닉되어 있거나 회사 재산인 비자금을 차명계좌에 입금·관리하였더라도, 그것만으로 불법영득의사를 인정할 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "비자금의 은닉이나 차명계좌 관리를 넘어 이를 개인 용도로 사용한 사정이 인정된다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_3.authorized_company_debt_payment",
+      "double_negative": false,
+      "proposition": "회사에 채권이 있는 대표이사가 회사를 위하여 보관한 회사 소유 금원으로 자신의 채권 변제에 충당한 행위가 대표이사 권한 내의 유효한 회사채무 변제라면 불법영득의사가 인정되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 변제충당이 대표이사 권한 내의 유효한 회사채무 변제에 해당한다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_2.assigned_claim_proceeds_embezzlement",
+      "double_negative": false,
+      "proposition": "채권양도인이 양도 채권을 직접 추심하여 받은 금전을 양수인에게 지급하지 않고 임의 처분한 것은 권리이전계약상 채무불이행에 불과하여 횡령죄가 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "채권양도인이 추심한 금전에 관하여 양수인을 위한 보관자의 지위에 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_3.double_sale_victim_first_purchaser",
+      "double_negative": false,
+      "proposition": "이중매매 배임죄의 피해자는 제1매수인이고, 소유권을 취득하지 못한 제1매수인으로부터 목적물을 양수한 사람은 피해자가 될 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 사람이 이중매매 목적물의 제1매수인 본인이다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_3.second_purchaser_not_stolen_goods",
+      "double_negative": false,
+      "proposition": "이중매매의 제2매수인에게 배임죄 공범이 성립할 여지는 있어도 장물취득죄로 처단할 수는 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "제2매수인이 배임행위에 적극 가담하여 배임죄의 공범에 해당한다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_3.unregistered_building_ledger_change",
+      "double_negative": false,
+      "proposition": "미등기건물을 이중매매할 목적으로 가옥대장상 소유명의를 처 명의로 변경한 것만으로는 배임죄 실행의 착수에 해당하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 가옥대장상 명의변경을 넘어 제2매수인으로부터 중도금을 수령하는 등 실행행위에 나아갔다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec9_5.extortion_of_custodian_no_embezzlement_complicity",
+      "double_negative": false,
+      "proposition": "타인의 재물을 보관하는 자를 공갈하여 그 재물을 갈취한 자는 재물이 타인 소유임을 알았더라도 공갈죄만 성립하고 횡령죄의 공범은 되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자가 타인의 재물을 보관하는 자를 공갈하여 그 재물을 갈취하였다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art356",
+      "card_id": "art356_sec2_2.illegal_business",
+      "double_negative": false,
+      "proposition": "사회질서에 반하거나 강행법규에 위반되는 등 법이 절대적으로 금지하는 행위는 업무 의사로 반복하더라도 업무가 되지 못한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 활동이 사회질서에 반하거나 강행법규에 위반되어 법이 절대적으로 금지하는 행위에 해당한다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art357",
+      "card_id": "art357_sec3_1.mere_contractual_debt_exclusion",
+      "double_negative": false,
+      "proposition": "통상의 민사상 계약에서 이익이 대립하는 관계에 따른 채무를 부담하는 것만으로는 타인의 사무에 해당하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 사무가 통상의 민사상 계약에 따른 채무 부담을 넘어 타인의 재산을 보호·관리하는 사무에 해당한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art357",
+      "card_id": "art357_sec3_8.giver_receiver_accomplice_exception",
+      "double_negative": false,
+      "proposition": "배임증재자와 배임수재자 사이에는 공범에 관한 형법총칙상 공범 규정이 적용되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 관계가 배임증재자와 배임수재자 사이의 대향적 관계에 해당한다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art360",
+      "card_id": "art360_sec2_3.attempt_not_punishable",
+      "double_negative": false,
+      "proposition": "점유이탈물횡령죄의 미수범을 처벌하는 규정은 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "점유이탈물횡령이 미수에 그쳤다.",
+        "card_status_when_query_satisfied": "satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366.transmitting_or_processing_information_exclusion",
+      "double_negative": false,
+      "proposition": "네트워크에서 패킷 형태로 전송 중인 정보나 컴퓨터의 레지스터·캐시·주기억장치 등에 저장되어 처리 중인 정보 또는 중간결과값은 제366조의 범행객체가 아니다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 정보가 전송 중이거나 처리 중인 상태가 아니라 기록매체에 저장된 전자기록에 해당한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366.corpse_exclusion",
+      "double_negative": false,
+      "proposition": "해부용 사체를 포함한 사체는 제366조의 범행객체인 재물에 해당하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 객체가 사체가 아닌 재물에 해당한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec5_2.voluntary_retaining_wall_demolition",
+      "double_negative": false,
+      "proposition": "주위토지통행권에 관한 판결과 강제집행을 따르지 않고 임의로 옹벽을 철거한 행위는 정당행위에 해당하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 철거가 판결과 강제집행 절차에 따라 이루어졌다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec5_2.owner_removal_of_unauthorized_property",
+      "double_negative": false,
+      "proposition": "토지 위에 무권한으로 경작·식재된 묘목이나 입도라도 토지소유자가 임의 제거하면 정당한 소유권 행사범위를 넘어 위법할 수 있고, 무허가 전화시설을 임의 철거하여도 손괴죄가 성립할 수 있으며 정당행위가 되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 제거나 철거가 법정절차에 따라 이루어졌다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec5_2.no_self_recovery_after_established_possession",
+      "double_negative": false,
+      "proposition": "집행 후 새 점유자가 잠금장치를 교체하는 등 점유를 확립한 상태에서는 점유침해의 현장성·추적가능성이 없어, 출입문 등을 훼손하여 점유를 탈환한 행위는 민법상 자력구제에 해당하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "점유침해의 현장성과 추적가능성이 인정되는 상태였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec5_3.antenna_cutting_not_emergency_evacuation",
+      "double_negative": false,
+      "proposition": "시험방송 송출 중단 요청도 하지 않은 채 송출 약 1시간 30분 후 지역방송국 방송안테나 절단을 지시한 행위는 행위방법과 법익침해 정도 등에 비추어 긴급피난에 해당하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "송출 중단 요청 등 다른 수단이 없어 안테나 절단이 현재의 위난을 피하기 위한 상당한 행위였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art323",
+      "card_id": "art323_sec2_1.precedent_nonowner_no_offense",
+      "double_negative": false,
+      "proposition": "판례는 취거·은닉·손괴한 물건이 자기 물건이 아닌 경우 권리행사방해죄가 성립할 수 없다고 본다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "취거·은닉·손괴한 물건이 행위자 자기의 물건이다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art323",
+      "card_id": "art323_sec5.nonowner_principal_exception",
+      "double_negative": false,
+      "proposition": "취거·은닉·손괴한 물건이 자기 물건이 아닌 경우 권리행사방해죄는 성립할 수 없으며, 물건 소유자가 아닌 사람은 소유자의 권리행사방해 범행에 가담한 경우에 한하여 공범이 될 수 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "취거·은닉·손괴한 물건이 행위자 자기의 물건이다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art328",
+      "card_id": "art328_sec3_7.collateral_relative_noncohabitation",
+      "double_negative": false,
+      "proposition": "방계혈족은 직계혈족이 아니므로 동거친족이 아닌 한 제328조 제1항의 형 면제는 적용되지 않고, 제328조 제2항의 친고죄만 적용된다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "그 방계혈족이 피해자와 동거하는 친족에 해당한다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec5_1.unlawful_appropriation_required",
+      "double_negative": false,
+      "proposition": "절도죄 성립에는 주관적 불법요소로서 불법영득의사가 필요하며, 영득의사가 없으면 점유자의 의사에 반하여 점유를 침해하고 목적물을 자기 또는 제3자의 점유로 옮겨도 절도죄가 되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "행위자에게 불법영득의사가 있었다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355.embezzlement_illegal_name_trust",
+      "double_negative": false,
+      "proposition": "부동산실명법 위반의 중간생략등기형 또는 2자간 등기명의신탁에서 무효인 명의신탁약정에 기초한 관계는 형법상 보호할 가치 있는 위탁관계가 아니므로, 명의수탁자의 임의 처분에 대하여 명의신탁자 관계의 횡령죄는 성립하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "명의신탁자와 명의수탁자 사이에 형법상 보호할 가치 있는 위탁관계가 인정된다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec7.government_projects_no_comprehensive_single_offense",
+      "double_negative": false,
+      "proposition": "정부과제별 개별 협약과 정부출연금 위탁관계를 하나로 묶는 포괄적 법률관계 등 특별한 사정이 없으면, 과제별 별개의 정부출연금 위탁관계가 성립하여 이를 포괄일죄로 볼 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "개별 정부과제들을 하나로 묶는 포괄적 법률관계 등 특별한 사정이 있다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec8_1.embezzlement_proof_burden",
+      "double_negative": false,
+      "proposition": "횡령죄에서 불법영득의사를 실현하는 횡령행위는 검사가 합리적 의심이 없을 정도의 엄격한 증거로 입증하여야 하며, 그러한 증거가 없으면 피고인에게 유죄 의심이 있어도 피고인 이익으로 판단한다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "C_조건부사실부정형",
+      "neural_query": {
+        "proposition": "검사가 불법영득의사를 실현하는 횡령행위를 합리적 의심이 없을 정도의 엄격한 증거로 입증하였다.",
+        "card_status_when_query_satisfied": "not_satisfied",
+        "draft_confidence": "authored",
+        "derivation": "에이전트 직접 작성(사기 A6 패턴). 부정 위치(조건절/귀결절)에 따라 극성 반전 방향을 카드별 판정."
+      },
+      "note": "사기 A6와 동형. 초안 승인/수정 필요."
+    },
+    {
+      "article": "art323",
+      "card_id": "art323_sec2_1.precedent_instigation_fails_principal_nonowner",
+      "double_negative": true,
+      "proposition": "정범이 자기 물건이 아닌 도어락의 비밀번호를 변경한 경우 권리행사방해죄가 성립할 수 없고, 정범의 범죄가 인정되지 않으면 교사범에게도 권리행사방해교사죄가 성립할 수 없다는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art323",
+      "card_id": "art323_sec3.no_intent_to_appropriate_required",
+      "double_negative": true,
+      "proposition": "권리행사방해죄는 영득죄가 아니므로 불법영득의 의사를 요하지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "A_요건불요형",
+      "neural_query": null,
+      "note": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    },
+    {
+      "article": "art328",
+      "card_id": "art328_sec4_1.automated_transfer_bank_victim",
+      "double_negative": true,
+      "proposition": "손자가 친족 소유 예금통장을 이용하여 예금을 자신의 계좌로 이체한 컴퓨터등 사용사기에서, 직접 거래당사자이고 이중지급 위험을 원칙적으로 부담하는 거래 금융기관을 피해자가 아니라고 볼 수 없으므로 친족상도례를 적용할 수 없다는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art328",
+      "card_id": "art328_sec4_1.bank_deposit_fraud_not_complaint_offense",
+      "double_negative": true,
+      "proposition": "숙부의 정기예금을 편취할 목적으로 은행 직원을 속여 예금을 인출한 경우, 은행이 형사상 사기 피해자가 아니고 숙부라고 단정할 수 없으므로 숙부의 고소가 필요한 친고죄라고 볼 수 없다는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art337",
+      "card_id": "art337_sec5.withdrawal-before-execution-functional-control",
+      "double_negative": true,
+      "proposition": "공모자가 공모로 담당한 기능적 행위지배를 해소하고 실행에 미친 영향력을 제거하지 않으면 공모관계 이탈을 인정할 수 없다는 판례가 소개된다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art337",
+      "card_id": "art337_sec5.withdrawal-ringleader-no-restraint",
+      "double_negative": true,
+      "proposition": "모의를 주도하고 범행대상을 함께 물색한 자가 다른 공모자들의 실행착수 전까지 만류 조치를 하지 않은 경우 공모관계 이탈을 인정할 수 없어 강도상해죄 공동정범이 된다는 판례가 소개된다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art350",
+      "card_id": "art350_sec5_1.taxi_fare_evasion_no_disposition",
+      "double_negative": true,
+      "proposition": "택시요금 지급을 면하려고 택시기사를 폭행하고 달아난 경우, 기사가 요금 면탈을 용인하여 이익을 공여하는 처분행위를 하였다고 볼 수 없으므로 공갈죄가 성립하지 않는다는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_2.movables_stock_security_disposal",
+      "double_negative": true,
+      "proposition": "일반 동산 또는 주식 양도담보설정계약에서 채무자가 담보물을 제3자에게 처분하여 담보가치를 감소·상실시키고 채권실현에 위험을 초래하더라도, 채무자는 타인의 사무처리자가 아니므로 배임죄가 성립하지 않는다는 판례 법리가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_2.registered_movable_security_disposal",
+      "double_negative": true,
+      "proposition": "자동차 등 권리이전에 등기·등록을 요하는 동산의 양도담보설정계약에서 채무자가 계약상 의무를 이행하지 않고 목적물을 처분하였더라도 배임죄는 성립하지 않는다는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec7_2.phishing_account_withdrawal",
+      "double_negative": true,
+      "proposition": "보이스피싱 범인이 피해금을 사기이용계좌로 송금받은 뒤 현금을 인출한 행위는 기존 사기범행의 실행행위에 지나지 않아 피해자에 대한 별도 횡령죄를 구성하지 않으며, 사기방조범이 해당 계좌의 피해금을 임의 인출한 경우에도 같은 법리가 적용된다는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec3_2.egg_throwing_building_negative_holding",
+      "double_negative": true,
+      "proposition": "해고 노동자들의 복직 요구 집회 중 회사 건물 외벽에 계란 약 30개를 투척한 행위는 사회통념상 건조물 효용을 해한 것으로 볼 수 없어 재물손괴죄가 성립하지 않는다는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec3_2.spray_on_sculpture_negative_holding",
+      "double_negative": true,
+      "proposition": "화력발전소 건설 문제를 제기하며 회사 건물 앞 광장의 조형물에 수성스프레이를 뿌린 행위는 표현의 자유 위축 우려 등을 이유로 조형물 효용을 해한 것으로 볼 수 없어 재물손괴죄가 성립하지 않는다는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366_sec3_2.road_graffiti_no_efficiency_holding",
+      "double_negative": true,
+      "proposition": "산업현장에 위치한 회사 소유 도로 바닥에 페인트·래커 스프레이로 여러 문구를 써놓은 사안에서, 통행·안전에 실질적 지장이 없고 원상회복에 큰 시간·비용이 들지 않은 등의 사정을 종합하여 도로 효용 침해 및 재물손괴죄 성립을 부정한 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art323",
+      "card_id": "art323_sec1_1.no_unlawful_appropriation_intent",
+      "double_negative": false,
+      "proposition": "권리행사방해죄의 성립에는 불법영득의사가 요구되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "A_요건불요형",
+      "neural_query": null,
+      "note": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    },
+    {
+      "article": "art323",
+      "card_id": "art323_sec2_1.precedent_nominee_purchaser_not_owner",
+      "double_negative": false,
+      "proposition": "부동산 경매에서 타인 명의로 매각허가결정을 받아 매수대금을 완납한 경우 명의인이 소유권을 취득하므로, 실질적 매수자가 유치권자의 점유를 침탈하더라도 자기 물건에 대한 타인의 권리행사방해로 볼 수 없다는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art323",
+      "card_id": "art323_sec2_2.name_trust_property_not_self",
+      "double_negative": false,
+      "proposition": "명의신탁이 무효인 경우뿐 아니라 유효한 명의신탁인 경우에도 임차인 같은 제3자와의 관계에서는 명의신탁자가 소유자가 될 수 없어, 해당 부동산은 권리행사방해죄의 자기 물건이 될 수 없다는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art323",
+      "card_id": "art323_sec2_2.mere_permissive_use_excluded",
+      "double_negative": false,
+      "proposition": "이웃 주민에게 허락된 변소 사용권이 점유권이 아니라 채권적 사용관계에 불과한 경우, 사용중지 통고 후 변소를 손괴하더라도 권리행사방해죄가 성립할 수 없다는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art328",
+      "card_id": "art328_sec4_1.shared_property_nonrelative_no_application",
+      "double_negative": false,
+      "proposition": "재물이 친족과 친족 아닌 자의 공유에 속하는 경우 친족상도례가 적용될 여지가 없다는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec3_2.attempt.dwelling_entry_alone",
+      "double_negative": false,
+      "proposition": "주거나 방실 내 물건을 절취하려고 주거에 침입한 것만으로는 절도 실행의 착수가 인정되기 어렵고, 적어도 목적물이 든 장롱 등에 접근하는 물색행위를 시작해야 한다는 견해가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec6.consent_manifestation",
+      "double_negative": false,
+      "proposition": "절도에서 승낙은 외부적으로 표시되면 명시적·묵시적 여부를 불문하고 추정적 승낙도 가능하다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "A_요건불요형",
+      "neural_query": null,
+      "note": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    },
+    {
+      "article": "art329",
+      "card_id": "art329_sec8_8.stolen_bearer_security_no_fraud",
+      "double_negative": false,
+      "proposition": "열차승차권과 같은 무기명증권을 절취한 뒤 진정한 취득자인 것처럼 사용·양도하거나 환불받아도, 사기죄로 평가할 새로운 법익침해가 없어 장물의 불가벌적 사후처분행위에 해당한다고 본 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art334",
+      "card_id": "art334_sec2_1.weapon_awareness_not_required",
+      "double_negative": false,
+      "proposition": "흉기휴대 특수강도에서는 상대방이 흉기휴대를 인식할 것이 요구되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "A_요건불요형",
+      "neural_query": null,
+      "note": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    },
+    {
+      "article": "art334",
+      "card_id": "art334_sec2_3.case_pre_assault_flight_no_joint_robbery",
+      "double_negative": false,
+      "proposition": "택시강도를 모의한 뒤 다른 피고인들이 피해자 폭행에 착수하기 전에 현장에서 도주한 경우, 다른 피고인들과 강도 실행행위를 분담한 협동관계가 있다고 보기 어려워 특수강도의 합동범으로 처벌할 수 없다고 한 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art337",
+      "card_id": "art337_sec2.exception_robbery_preparation_excluded",
+      "double_negative": false,
+      "proposition": "강도예비 또는 음모죄의 범인은 강도상해·치상죄의 주체에서 제외된다는 견해가 제시된다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art337",
+      "card_id": "art337_sec3_2.self_inflicted_injury_during_arrest",
+      "double_negative": false,
+      "proposition": "피해자가 강도범의 적극적 체포 과정에서 스스로의 행위 결과로 부상한 경우, 그 부상 결과에 대하여 강도상해죄를 적용할 수 없다는 판례가 소개된다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art337",
+      "card_id": "art337_sec5.co-offender-unforeseeable-violence",
+      "double_negative": false,
+      "proposition": "절도 공모자가 다른 공모자의 체포면탈 목적 폭행을 전혀 예기할 수 없었던 경우, 그 공모자에게 준강도상해죄의 공동책임을 물을 수 없다는 판례가 소개된다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art337",
+      "card_id": "art337_sec5.withdrawal-lookout-abandonment",
+      "double_negative": false,
+      "proposition": "금품강취 공모에서 망보기 역할을 맡은 자가 다른 공모자들의 실행착수 후 망보기를 중단하였더라도, 이후 공범들이 저지른 강도상해죄의 공동정범 책임을 면할 수 없다는 판례가 소개된다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art337",
+      "card_id": "art337_sec5.piracy-conspiracy-substantially-ended",
+      "double_negative": false,
+      "proposition": "해군 진압으로 해적행위 목적 달성이 무산되고 공범들이 무기를 버리고 숨은 상황에서는 해적행위 공모관계가 실질적으로 종료하였으며, 한 피고인의 선장 살해 시도는 다른 자들이 예상할 수 없다는 판례가 소개된다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art338",
+      "card_id": "art338_sec5.accomplice.no_joint_murder_intent_outcomes",
+      "double_negative": false,
+      "proposition": "공동 살해의 고의가 없는 강도 공범자는 피해자 사망 시 강도치사, 강도살인 미수에 그치고 피해자가 상해만 입은 시 강도상해 또는 강도치상, 아무 상해가 없는 시 강도의 죄책을 진다고 보는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art350",
+      "card_id": "art350_sec10_9.extorted_property_disposal_no_embezzlement",
+      "double_negative": false,
+      "proposition": "타인을 공갈하여 재물을 교부하게 한 경우에는 그 재물을 소비하거나 다른 곳에 처분하였더라도 횡령죄가 성립하지 않는다는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec3_3.no_property_damage_element",
+      "double_negative": false,
+      "proposition": "횡령죄의 성립에 재산상 손해의 발생은 구성요건적 요건으로 필요하지 않다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "A_요건불요형",
+      "neural_query": null,
+      "note": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec4_1.discretionary_funds_no_presumption",
+      "double_negative": false,
+      "proposition": "용도가 추상적으로 정해졌더라도 보관자에게 사용처·시기 등에 광범위한 재량이 있고 사후보고나 증빙제출도 요구되지 않는 보관금은, 사용처 설명 또는 증빙 부재만으로 불법영득의사를 추단할 수 없다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "A_요건불요형",
+      "neural_query": null,
+      "note": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_2.buyer_mortgage_loan_misuse",
+      "double_negative": false,
+      "proposition": "잔금 지급 전 소유권을 이전받은 매수인이 해당 부동산을 담보로 대출받아 잔금을 지급하기로 한 약정을 이행하지 않고 다른 용도로 근저당권을 설정한 사안에서는 매수인에 대한 배임죄 성립이 부정된 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_2.security_provider_duties",
+      "double_negative": false,
+      "proposition": "담보설정계약상 채무자의 담보 제공, 담보가치 유지·보전, 담보물 훼손·감소·멸실 금지 및 담보권 실행 협조 의무는 채무자 자신의 급부의무이므로, 채무자는 채권자에 대한 타인의 사무처리자가 아니라는 판례 법리가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_2.real_estate_debt_in_lieu_disposal",
+      "double_negative": false,
+      "proposition": "채권 담보를 위한 부동산 대물변제예약에서 채무자가 대물 부동산을 제3자에게 처분하였더라도 배임죄는 성립하지 않는다는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_2.real_estate_security_disposal",
+      "double_negative": false,
+      "proposition": "금전채무 담보를 위한 부동산 저당권설정계약 또는 양도담보설정계약에서 채무자가 제3자에게 먼저 저당권을 설정하거나 담보물을 양도하여 담보가치를 감소·상실시켜도 배임죄는 성립하지 않는다는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_2.provisional_registration_security",
+      "double_negative": false,
+      "proposition": "차용금 채무 담보를 위한 부동산 매매예약 가등기 및 근저당권설정 관련 약정에서, 회사 대표이사가 제3자에게 근저당권을 설정한 사안은 그 대표이사가 피해자에 대한 타인의 사무처리자가 아니라는 이유로 유죄 원심이 파기된 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_2.monetary_claim_security_transfer",
+      "double_negative": false,
+      "proposition": "기존 금전채무를 담보하기 위하여 다른 금전채권을 양도한 경우, 담보 목적 채권의 담보가치 유지·보전 의무는 채무자 자신의 사무이므로 채무자는 채권자에 대한 타인의 사무처리자가 아니라는 판례 법리가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_2.security_trust_building_registration",
+      "double_negative": false,
+      "proposition": "건축자금 대출의 담보를 위한 담보신탁 및 자금관리대리사무계약에서, 준공 후 신탁등기로 우선수익권을 보장할 의무를 위반하여 제3자 명의 소유권보존등기를 한 피고인은 타인의 사무처리자가 아니라는 이유로 유죄 원심이 파기된 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec5_3.land_readjustment_double_sale_attempt",
+      "double_negative": false,
+      "proposition": "체비지 이중매매에서 제2매수인에게 잔금까지 받았더라도 체비지대장 명의만 변경한 행위로는 제1매수인의 권리가 이행불능 또는 구체적·현실적 위험에 이르렀다고 보기 어려워 배임미수죄가 인정된다는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec7_2.refusal_to_return_after_embezzlement",
+      "double_negative": false,
+      "proposition": "타인 재물 점유자가 불법영득의사를 외부에서 인식할 수 있는 객관적 행위로 점유를 자기 점유로 바꾸면 재물 전체에 대한 횡령죄가 성립하고, 그 뒤 같은 재물을 다시 처분하는 행위는 불가벌적 사후행위로 처벌할 수 없다는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec9_1.loan_assigned_claim_fraud_embezzlement_incompatible",
+      "double_negative": false,
+      "proposition": "차용금 편취와 담보로 양도한 채권을 추심하여 임의소비한 횡령은, 양도채권의 가치와 채권양도에 관한 피고인의 진정성 등의 사정에 따라 비양립적 관계일 수 있으므로, 일련의 행위가 어느 죄에 해당하는지 가려야 한다는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec9_5.chattel_security_debtor_disposal_not_embezzlement",
+      "double_negative": false,
+      "proposition": "동산양도담보에서 채무자가 변제를 위해 목적물을 처분하거나 보관장소를 옮긴 행위 자체는 횡령으로 볼 수 없다는 견해가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec9_5.criminal_proceeds_requires_completed_embezzlement",
+      "double_negative": false,
+      "proposition": "업무상횡령죄가 중대범죄에 해당하는 경우에도 횡령죄가 기수에 이르기 전에는 그 행위로 생긴 재산을 범죄수익으로 볼 수 없다는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art355",
+      "card_id": "art355_sec9_5.real_estate_brokerage_conviction_res_judicata",
+      "double_negative": false,
+      "proposition": "무자격 부동산 중개 대가로 받은 돈이 피고인 등의 소유로 확정 귀속되었다는 확정 약식명령과, 그 돈이 여전히 교부자의 소유로 남아 보관 중 횡령했다는 공소사실은 양립할 수 없고 규범적으로 동일성이 인정되어 기판력이 횡령 공소사실에 미친다는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art357",
+      "card_id": "art357_sec3_5.no_corrupt_performance_required",
+      "double_negative": false,
+      "proposition": "배임수재죄의 기수에는 청탁에 상응하는 부정행위 또는 배임행위까지 나아갈 것이 요구되지 않는다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "A_요건불요형",
+      "neural_query": null,
+      "note": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    },
+    {
+      "article": "art366",
+      "card_id": "art366.new_ledger_under_preparation_exclusion",
+      "double_negative": false,
+      "proposition": "기존 장부를 새 장부로 이기하는 과정에서 누계 오기 부분을 찢었으나 종전 장부 내용을 모두 이기한 경우, 새 경리장부는 아직 작성 중이어서 문서손괴죄의 객체가 되는 문서가 아니라는 판례가 소개되어 있다.",
+      "human_review": {
+        "decision": null,
+        "notes": null,
+        "approved_query": null
+      },
+      "category": "B_판례소개형",
+      "neural_query": null,
+      "note": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    }
+  ],
+  "drafting_note": "규칙기반(정규식) 변환은 한국어 형태소상 비문을 만들어 전량 폐기했다. 부정이 조건절에 있는지 귀결절에 있는지에 따라 card_status_when_query_satisfied 방향이 달라지므로 카드별 판단이 필요하다. 에이전트가 직접 작성한 것만 신뢰한다."
+}

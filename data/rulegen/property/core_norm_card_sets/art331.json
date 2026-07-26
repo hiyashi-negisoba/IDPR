@@ -1,0 +1,306 @@
+{
+  "version": "1.1.0",
+  "card_set_id": "kr.property.art331.core.norms.v1",
+  "issue_tag": "art331",
+  "status": "draft",
+  "legal_review": "complete",
+  "construction": "reviewed_aggregate",
+  "source_scope": {
+    "target_paths": [
+      "commentary://001692/art331#sec2_1",
+      "commentary://001692/art331#sec2_2",
+      "commentary://001692/art331#sec2_3",
+      "commentary://001692/art331#sec3_1",
+      "commentary://001692/art331#sec3_2",
+      "commentary://001692/art331#sec3_3"
+    ],
+    "comment_ids": [
+      "comm_001692_제331조_Ⅱ.1_2",
+      "comm_001692_제331조_Ⅱ.2_3",
+      "comm_001692_제331조_Ⅱ.3_4",
+      "comm_001692_제331조_Ⅲ.1_6",
+      "comm_001692_제331조_Ⅲ.2_7",
+      "comm_001692_제331조_Ⅲ.3_8"
+    ]
+  },
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art331.definition.locking-device-building-part",
+          "request_id": "art331.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art331_sec2_1.locking-device-building-part",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "주거 등에의 침입을 막기 위해 문에 장치한 잠금장치 등 통상적인 방법으로 문을 쉽게 열 수 없게 한 시설물도 건조물 일부로 본다.",
+      "request_ids": [
+        "art331.pass1.001"
+      ],
+      "review_notes": "시설물의 침입 방지 목적과 통상적 개방 가능성은 구체적 구조와 사용 상태에 따라 검토한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제331조_Ⅱ.1_2",
+          "quote": "주거 등에의 침입을 방지하기 위하여 문 등에 장치한 잠금장치나 기타 통상의 방법으로는 문을 용이하게 열 수 없도록 장치한 시설물 등도 건조물 일부로 보 아야 하므로",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art331.exception.key-opening-no-special-theft",
+          "request_id": "art331.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "deterministic_rule",
+      "id": "art331_sec2_2.key-opening-special-theft-exception",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "야간에 잠금장치를 훼손하지 않고 열쇠 등으로 통상의 용법에 따라 열고 침입한 경우에는 특수절도죄가 성립하지 않고 야간주거침입절도죄에 해당한다.",
+      "request_ids": [
+        "art331.pass1.001"
+      ],
+      "review_notes": "열쇠 등의 사용이 통상의 용법에 따른 것이었는지와 물리적 훼손의 유무를 분리하여 확인한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제331조_Ⅱ.2_3",
+          "quote": "야간에 잠금장치를 훼손함이 없이 열쇠 등을 가지고 통상의 용법에 따라 열고 침입한 경우에도 물리적인 훼손이 없으므로 특수절도죄가 성립하지 않고 야간 주거침입절도죄에 해당한다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art331.element.first-paragraph-completion-timing",
+          "request_id": "art331.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art331_sec2_3.first_paragraph_completion_timing",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "제331조 제1항 위반죄의 기수 시기는 절취행위가 완료한 때이다.",
+      "request_ids": [
+        "art331.pass1.001"
+      ],
+      "review_notes": "야간주거침입절도죄 설명을 참조하는 commentary-reported doctrine이며, 해당 참조 설명의 원전 확인은 현재 source scope 밖이다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제331조_Ⅱ.3_4",
+          "quote": "형법 제331조 제1항 위반죄의 기수시기는 야간주거침입절도죄에서 설명한 바와 같이 절취행위가 완료한 때이다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art331.exception.toy-gun-not-weapon",
+          "request_id": "art331.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art331_sec3_1.toy_gun_not_weapon_exception",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "객관적으로 흉기의 성질을 가져야 하므로 장난감 권총을 흉기처럼 가장한 경우에는 흉기가 아니다.",
+      "request_ids": [
+        "art331.pass1.001"
+      ],
+      "review_notes": "장난감 권총인지 및 객관적 흉기 성질의 부재는 사실관계에 따라 확인한다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제331조_Ⅲ.1_6",
+          "quote": "한편 객관적으로 흉기의 성질을 가지는 것이어야 하므로 예컨대 장난감 권총을 흉기 와 같이 가장한 경우에는 흉기라고 할 수 없다.",
+          "section_path": "Ⅲ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art331.definition.weapon",
+          "request_id": "art331.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art331_sec3_1.weapon_definition",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "제331조 제2항의 흉기는 본래 살상용·파괴용으로 만들어졌거나 이에 준할 정도의 위험성을 가진 물건이다.",
+      "request_ids": [
+        "art331.pass1.001"
+      ],
+      "review_notes": "‘이에 준할 정도의 위험성’ 해당 여부에는 개별 물건의 평가가 필요하다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제331조_Ⅲ.1_6",
+          "quote": "형법 제331조 제2항에서 규정한 ‘흉기’는 본래 살상용·파괴용으로 만들어진 것이 거나 이에 준할 정도의 위험성을 가진 것을 말한다고 봄이 타당하다.",
+          "section_path": "Ⅲ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art331.standard.weapon-objective-assessment",
+          "request_id": "art331.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art331_sec3_1.weapon_objective_assessment",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "물건이 흉기에 해당하는지는 본래 용도, 크기·모양, 개조 여부 및 구체적 범행과정에서의 사용 방법 등을 종합하여 사회통념에 따라 객관적으로 판단한다.",
+      "request_ids": [
+        "art331.pass1.001"
+      ],
+      "review_notes": "열거된 사정을 종합하는 사회통념상 판단이 필요하다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제331조_Ⅲ.1_6",
+          "quote": "위와 같은 위험성을 가진 물건에 해당하는지는 그 물건의 본래의 용도, 크기와 모양, 개조 여부, 구체적 범행과정에서 그 물건 을 사용한 방법 등의 제반 사정을 종합하여 사회통념에 따라 객관적으로 판단 하여야 한다.",
+          "section_path": "Ⅲ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art331.definition.carrying",
+          "request_id": "art331.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art331_sec3_2.carrying_definition",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "휴대는 몸 가까이에 소지하는 것을 말하며, 즉시 사용할 수 있을 정도로 가까우면 반드시 몸에 지니지 않아도 된다.",
+      "request_ids": [
+        "art331.pass1.001"
+      ],
+      "review_notes": "‘즉시 사용할 수 있을 정도로 가까이’의 적용에는 구체적 사실관계 평가가 필요하다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제331조_Ⅲ.2_7",
+          "quote": "휴대란 몸 가까이에 소지하는 것을 말한다. 반드시 몸에 지니고 있을 필요는 없 으며, 즉시 사용할 수 있을 정도로 가까이에 있으면 된다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art331.element.carrying-period",
+          "request_id": "art331.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art331_sec3_2.carrying_period_and_notice",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "절취행위의 개시부터 종료까지 어느 시점에 휴대가 인정되면 충분하고, 휴대 사실을 공연히 표시할 필요는 없다.",
+      "request_ids": [
+        "art331.pass1.001"
+      ],
+      "review_notes": "휴대 시점과 절취행위 기간의 시간적 관계 및 공연한 표시 불요를 별도로 확인할 수 있다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제331조_Ⅲ.2_7",
+          "quote": "절취행위의 개시로부 터 종료시까지의 어느 시점에 휴대가 인정되면 족하다. 휴대하고 있음을 공연하 게 표시할 필요는 없다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art331.variant.group-offense-scene-presence",
+          "request_id": "art331.pass1.001"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "standard_input",
+      "id": "art331_sec3_3.group_offense_scene_presence",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "합동범은 2명 이상의 공범자 사이에 현장성이 인정될 때 성립하며, 현장성을 갖추지 않은 단순 공모자는 합동범이 되지 않는다.",
+      "request_ids": [
+        "art331.pass1.001"
+      ],
+      "review_notes": "현장성의 의미와 다른 합동범 이론과의 관계를 검토해야 한다. 결정C 반영으로 doctrinal_status를 settled로 확정했다. 결정C에서 사용자가 선택한 견해다. 재산죄 벌크 HITL 완료(2026-07-23~25): core scope 감사 2패스 + 카드결함 감사 + 결정 A/A2(출처범위)·B(부정형 질의문)·C/C2(학설선택) 반영. 근거는 data/rulegen/property/ 결정 원장.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제331조_Ⅲ.3_8",
+          "quote": "2인 이상의 공범자 사이에 현장성이 인정될 때 합동범이 성립한다고 보는 견해 이다. 통설의 견해이다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제331조_Ⅲ.3_8",
+          "quote": "현장성을 갖추지 않은 단순한 공모자는 합동범이 될 수 없다.",
+          "section_path": "Ⅲ.3"
+        }
+      ],
+      "variant_group": "art331_sec3_3.group_offense_theory"
+    }
+  ],
+  "legal_review_questions": [],
+  "coverage_gaps": [
+    "commentary-reported precedent의 원판례는 사용자의 primary precedent index와 대조되지 않았다.",
+    "보고된 잠금고리 훼손 판례의 원판결 및 사용자 primary precedent index 연결이 제공되지 않았다.",
+    "소개된 판례 사례의 원판례 및 사용자의 primary precedent index 연결이 현재 source scope에 없습니다.",
+    "액체 또는 기체의 흉기 해당 여부에 관한 반대 견해 또는 primary precedent 자료가 제공되지 않았다.",
+    "제331조 제1항 기수 시점이 참조하는 야간주거침입절도죄 설명의 source domain은 현재 source scope 밖이다.",
+    "제331조 제2항의 주간 건조물손괴·침입 절취의 경합 관계에 관한 source reference가 현재 validated batch에 없습니다.",
+    "제331조 제2항의 흉기 범위, 주간 건조물손괴·침입 절취의 죄수, 합동범의 성립 범위에 관한 후보 및 source reference가 현재 배치에 없다.",
+    "제331조 제2항의 흉기 범위에 관한 source reference가 현재 validated batch에 없습니다.",
+    "현재 source scope는 제331조 Ⅲ.1의 흉기 관련 설명만 포함하며, 주간 건조물손괴·침입 절취의 경합범 문제에 관한 자료는 포함하지 않는다.",
+    "현재 source scope는 제331조 제2항의 주간 건조물손괴·침입 절취에 관한 경합범 또는 특수절도죄 견해 자료를 포함하지 않는다.",
+    "현재 source scope는 합동범의 구성 견해에 관한 자료를 포함하지 않는다.",
+    "현재 source scope는 휴대의 의미와 휴대 시점·표시 요건만을 포함하며, 액체 또는 기체의 흉기 해당성 자료는 포함하지 않는다.",
+    "현재 source scope에는 액체 또는 기체의 제331조 제2항 흉기 해당성에 관한 자료가 없다.",
+    "현재 source scope에는 액체 또는 기체의 흉기 해당성에 관한 근거가 없다.",
+    "현재 source scope에는 제331조 제2항 합동범의 구성 견해들에 관한 자료가 없다.",
+    "현재 source scope에는 주간 건조물손괴·침입 절취의 경합범 처리와 특수절도죄 단일 성립 견해에 관한 자료가 없다.",
+    "현재 source scope에는 주간 건조물손괴·침입 절취의 죄수 관계에 관한 상반된 견해의 근거가 없다.",
+    "현재 source scope에는 합동범의 성립 구조와 현장 요건에 관한 학설·판례 근거가 없다."
+  ]
+}

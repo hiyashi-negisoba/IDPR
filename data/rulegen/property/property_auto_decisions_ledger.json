@@ -1,0 +1,2051 @@
+{
+  "version": "1.0.0",
+  "api_calls": 0,
+  "items": [
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "A_요건불요형",
+      "article": "art323",
+      "card_id": "art323_sec1_1.no_unlawful_appropriation_intent",
+      "proposition": "권리행사방해죄의 성립에는 불법영득의사가 요구되지 않는다.",
+      "action": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art323",
+      "card_id": "art323_sec2_1.precedent_nominee_purchaser_not_owner",
+      "proposition": "부동산 경매에서 타인 명의로 매각허가결정을 받아 매수대금을 완납한 경우 명의인이 소유권을 취득하므로, 실질적 매수자가 유치권자의 점유를 침탈하더라도 자기 물건에 대한 타인의 권리행사방해로 볼 수 없다는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art323",
+      "card_id": "art323_sec2_1.precedent_instigation_fails_principal_nonowner",
+      "proposition": "정범이 자기 물건이 아닌 도어락의 비밀번호를 변경한 경우 권리행사방해죄가 성립할 수 없고, 정범의 범죄가 인정되지 않으면 교사범에게도 권리행사방해교사죄가 성립할 수 없다는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art323",
+      "card_id": "art323_sec2_2.name_trust_property_not_self",
+      "proposition": "명의신탁이 무효인 경우뿐 아니라 유효한 명의신탁인 경우에도 임차인 같은 제3자와의 관계에서는 명의신탁자가 소유자가 될 수 없어, 해당 부동산은 권리행사방해죄의 자기 물건이 될 수 없다는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art323",
+      "card_id": "art323_sec2_2.mere_permissive_use_excluded",
+      "proposition": "이웃 주민에게 허락된 변소 사용권이 점유권이 아니라 채권적 사용관계에 불과한 경우, 사용중지 통고 후 변소를 손괴하더라도 권리행사방해죄가 성립할 수 없다는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "A_요건불요형",
+      "article": "art323",
+      "card_id": "art323_sec3.no_intent_to_appropriate_required",
+      "proposition": "권리행사방해죄는 영득죄가 아니므로 불법영득의 의사를 요하지 않는다.",
+      "action": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art323",
+      "module": "sec1_1",
+      "card_id": "art323_sec1_1.protected_interest_limited_real_right_or_claim",
+      "variant_group": "art323_sec1_1.protected_interest_scope",
+      "proposition": "권리행사방해죄의 구체적 보호법익은 제한물권 또는 채권이라는 통설이 소개되어 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art323",
+      "module": "sec2_2",
+      "card_id": "art323_sec2_2.other_entities_variant",
+      "variant_group": "art323_sec2_2.other_entities",
+      "proposition": "제323조의 타인에 자연인 외 법인 및 법인격 없는 단체를 포함할지에 관하여, 포함한다는 통설적 견해와 지배의사를 형성할 수 없는 단체는 제외한다는 견해가 대립한다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art323",
+      "module": "sec2_2",
+      "card_id": "art323_sec2_2.indirect_possession_variant",
+      "variant_group": "art323_sec2_2.indirect_possession",
+      "proposition": "법인 또는 법인격 없는 단체의 점유에 간접점유를 포함할지에 관하여, 포함될 수 있다는 견해와 사실상 지배 없는 간접점유는 포함될 수 없다는 우세한 견해가 대립한다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art323",
+      "module": "sec2_2",
+      "card_id": "art323_sec2_2.peaceful_possession_variant",
+      "variant_group": "art323_sec2_2.protected_possession_scope",
+      "proposition": "적법한 권원에 의한 점유뿐 아니라 평온한 점유 또는 이유 있는 점유가 개시된 경우도 권리행사방해죄로 보호해야 한다는 견해가 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art323",
+      "module": "sec2_2",
+      "card_id": "art323_sec2_2.nonpossessory_claim_scope_variant",
+      "variant_group": "art323_sec2_2.nonpossessory_claim_scope",
+      "proposition": "점유를 수반하지 않는 채권의 보호범위에 관하여, 점유권을 내용으로 하는 채권으로 한정하는 견해, 적법한 점유 취득이 기대되는 경우로 한정하는 견해, 그리고 법률관계·대가·이행·기대 등을 종합해 보호가치를 판단하는 견해가 대립한다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "article": "art323",
+      "finding_id": "authority.protected_possession_precedent",
+      "severity": "hard",
+      "target_path": "/cards/25/authority_basis",
+      "message": "잠정적으로 보호할 가치 있는 점유의 포섭 기준은 해당 문단에서 '이후 판례는 ... 판시'한 법리로 제시되는데, 카드가 이를 commentary_synthesis 및 descriptive로 표시하여 판례 보고 규범의 권위를 잘못 분류했다.",
+      "recommended_action": "이 카드의 authority_basis와 doctrinal_status를 commentary-reported precedent에 맞게 최소 수정한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art323",
+      "finding_id": "authority.manifest_exclusion_precedent",
+      "severity": "hard",
+      "target_path": "/cards/26/authority_basis",
+      "message": "점유할 권리가 없음이 외관상 명백한 경우의 제외도 같은 판례 법리의 단서인데 commentary_synthesis 및 descriptive로 분류되어 있다.",
+      "recommended_action": "연결된 판례 법리의 일부임을 반영하도록 authority_basis와 doctrinal_status만 수정한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art323",
+      "finding_id": "doctrinal.status.overstated",
+      "severity": "hard",
+      "target_path": "$.cards[0].doctrinal_status",
+      "message": "The source characterizes the proposition as the current majority view (현재의 통설), but the card labels it \"settled.\" A majority doctrinal view does not by itself establish that the issue is legally settled.",
+      "recommended_action": "Use a doctrinal-status value that preserves the source's majority-view characterization, or leave the status unresolved for review.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art323",
+      "finding_id": "review.question.wrong.card.class",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions[1]",
+      "message": "The review question identifies the victim-consent doctrine card as a \"commentary-reported case card\" and requests verification of primary decisions, although this card is sourced as commentary-reported doctrine and its proposition is not presented as a holding of the cited decisions.",
+      "recommended_action": "Revise the question to review the doctrine's authority and scope; reserve primary-decision verification for separately represented precedent cards.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art323",
+      "finding_id": "authority.reported_precedent.cards",
+      "severity": "hard",
+      "target_path": "/cards/0/authority_basis",
+      "message": "The card labels the proposition solely as commentary synthesis, although the bounded commentary expressly attributes the discussed norms to cited precedent 2017도4578. This loses the distinction between independent commentary synthesis and commentary-reported precedent; the same issue affects /cards/1/authority_basis.",
+      "recommended_action": "Preserve the commentary-reported-precedent dimension for both cards, or expressly mark the authority classification as unresolved and add a focused legal-review question concerning the relationship between the passage and cited precedent 2017도4578.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art323",
+      "finding_id": "authority.mapping.unresolved.coercion",
+      "severity": "hard",
+      "target_path": "$.cards[1].authority_basis",
+      "message": "The absorption proposition is explicit in the commentary, but the bounded text does not identify which cited decision, if any, establishes it. The paired labels commentary_reported_precedent and precedent_position assert a case-authority attribution not established by the supplied chunk.",
+      "recommended_action": "Downgrade or mark the authority characterization as unresolved pending verification of the cited decisions, without changing the commentary-supported substantive proposition.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art328",
+      "card_id": "art328_sec4_1.shared_property_nonrelative_no_application",
+      "proposition": "재물이 친족과 친족 아닌 자의 공유에 속하는 경우 친족상도례가 적용될 여지가 없다는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art328",
+      "card_id": "art328_sec4_1.automated_transfer_bank_victim",
+      "proposition": "손자가 친족 소유 예금통장을 이용하여 예금을 자신의 계좌로 이체한 컴퓨터등 사용사기에서, 직접 거래당사자이고 이중지급 위험을 원칙적으로 부담하는 거래 금융기관을 피해자가 아니라고 볼 수 없으므로 친족상도례를 적용할 수 없다는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art328",
+      "card_id": "art328_sec4_1.bank_deposit_fraud_not_complaint_offense",
+      "proposition": "숙부의 정기예금을 편취할 목적으로 은행 직원을 속여 예금을 인출한 경우, 은행이 형사상 사기 피해자가 아니고 숙부라고 단정할 수 없으므로 숙부의 고소가 필요한 친고죄라고 볼 수 없다는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art328",
+      "module": "sec4_1",
+      "card_id": "art328_sec4_1.multiple_victims_divisible_indivisible_theory",
+      "variant_group": "art328_sec4_1.multiple_victims_scope",
+      "proposition": "피해자가 수인인 경우 손해가 가분이면 각 피해자별로 친족상도례를 적용하되, 손해가 불가분이면 전부에 친족상도례를 적용하지 않는다는 견해가 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art328",
+      "module": "sec6_3",
+      "card_id": "art328_sec6_3.extortion_violence_threat_separate_prosecution",
+      "variant_group": "art328_sec6_3.extortion_violence_threat_separate_prosecution",
+      "proposition": "친족상도례 적용대상 친족의 공갈 수단인 폭행·협박을 별도로 기소한 경우, 제328조 제2항 대상이면 고소 없이 제기된 폭행·협박 공소는 기각하고, 제328조 제1항 대상이면 폭행·협박에 대하여 형 면제를 선고하여야 한다는 유력설이 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "article": "art328",
+      "finding_id": "authority.reported_precedent",
+      "severity": "hard",
+      "target_path": "$.cards[1].authority_basis",
+      "message": "이 카드는 대법원 2011도2170 판결의 구체적 판단을 옮긴 것이지만 authority_basis가 commentary_synthesis로 표시되어 논평의 종합과 논평에 수록된 판례를 구별하지 못한다.",
+      "recommended_action": "authority_basis를 논평에 보고된 판례에 해당하는 값으로 수정하고, 카드가 판례의 구체적 판단임을 유지하라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art328",
+      "finding_id": "f.possessor_exception.jurisdiction",
+      "severity": "hard",
+      "target_path": "$.cards[5]",
+      "message": "이 카드는 점유가 주종관계에 있거나 불법점유인 경우 점유자를 피해자로 고려하지 않는다는 입장을 일반적인 우세설처럼 제시하지만, 출처는 이를 독일에서 우세한 견해라고 한정한다. 현재 proposition과 authority_basis는 그 관할 한정을 소실하여 국내 일반론으로 오인될 수 있다.",
+      "recommended_action": "proposition과 관련 메타데이터에 독일의 견해라는 범위를 명시하고, 이를 국내 적용 기준인 것처럼 형식화하지 않도록 최소한으로 수정한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art328",
+      "finding_id": "f.one_complaint.authority",
+      "severity": "hard",
+      "target_path": "$.cards[8].authority_basis",
+      "message": "한 사람의 고소로 족하다는 명제는 제공된 주석의 서술일 뿐, 제공 범위에는 이를 법조문 문언으로 확인할 수 있는 자료가 없다. 따라서 authority_basis를 statutory_text_in_commentary로 분류한 것은 근거보다 강한 권위 표시다.",
+      "recommended_action": "authority_basis를 제공된 자료가 뒷받침하는 주석 종합 수준으로 낮추고, 그에 맞추어 formalization 및 review_required 여부를 재검토한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art329",
+      "card_id": "art329_sec3_2.attempt.dwelling_entry_alone",
+      "proposition": "주거나 방실 내 물건을 절취하려고 주거에 침입한 것만으로는 절도 실행의 착수가 인정되기 어렵고, 적어도 목적물이 든 장롱 등에 접근하는 물색행위를 시작해야 한다는 견해가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "A_요건불요형",
+      "article": "art329",
+      "card_id": "art329_sec6.consent_manifestation",
+      "proposition": "절도에서 승낙은 외부적으로 표시되면 명시적·묵시적 여부를 불문하고 추정적 승낙도 가능하다.",
+      "action": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art329",
+      "card_id": "art329_sec8_8.stolen_bearer_security_no_fraud",
+      "proposition": "열차승차권과 같은 무기명증권을 절취한 뒤 진정한 취득자인 것처럼 사용·양도하거나 환불받아도, 사기죄로 평가할 새로운 법익침해가 없어 장물의 불가벌적 사후처분행위에 해당한다고 본 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art329",
+      "finding_id": "authority.question_mismatch",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions[0]",
+      "message": "검토 질문은 해당 카드를 판례 보고 카드로 지칭하고 원판결 확인을 요구하지만, 카드와 출처는 판례를 제시하지 않고 해설의 일반적 정의를 commentary_synthesis로 분류한다.",
+      "recommended_action": "판례 및 원판결에 대한 언급을 제거하고, 해설상 정의의 권위 근거와 일반화 가능 범위를 확인하는 질문으로 최소 수정한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art329",
+      "finding_id": "unsupported_settled_status_coownership",
+      "severity": "soft",
+      "target_path": "$.cards[5].doctrinal_status",
+      "message": "공유·합유·총유물 반출 규범은 제공된 해설에 제시되어 있지만, 해당 자료만으로 doctrinal_status를 'settled'라고 단정할 근거는 없다.",
+      "recommended_action": "제공된 해설이 직접 뒷받침하는 수준의 서술적 상태로 낮추거나, 'settled' 판단을 별도 법률검토 대상으로 표시하라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art329",
+      "finding_id": "unsupported_settled_status_ownerless",
+      "severity": "soft",
+      "target_path": "$.cards[7].doctrinal_status",
+      "message": "무주물이 절도죄의 객체가 되지 않는다는 명제는 해설에 명시되어 있으나, 해당 해설만으로 doctrinal_status가 'settled'임까지 확인되지는 않는다.",
+      "recommended_action": "doctrinal_status를 출처가 뒷받침하는 서술적 상태로 조정하거나, 정착성 여부에 대한 검토 질문을 추가하라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art329",
+      "finding_id": "unsupported_settled_status_heirless_estate",
+      "severity": "soft",
+      "target_path": "$.cards[8].doctrinal_status",
+      "message": "상속인 없는 상속재산이 무주물이 아니라는 명제는 해설에 명시되어 있지만, 제공된 범위는 그 명제의 doctrinal_status를 'settled'로 평가할 독립적 근거를 제공하지 않는다.",
+      "recommended_action": "doctrinal_status를 서술적 상태로 조정하거나, 정착성 판단을 법률검토 대상으로 남겨라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art329",
+      "finding_id": "f2.joint_custodian_authority",
+      "severity": "hard",
+      "target_path": "$.cards[4].authority_basis",
+      "message": "The joint-custodian proposition is stated by the commentary as a general doctrinal rule, not identified there as a reported holding. The subsequent sentence separately introduces precedent concerning partnership and jointly possessed property.",
+      "recommended_action": "Classify this card as commentary synthesis or otherwise limit any precedent attribution to the propositions expressly reported as precedent.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art329",
+      "finding_id": "f3.sole_custodian_authority",
+      "severity": "hard",
+      "target_path": "$.cards[5].authority_basis",
+      "message": "The sole-custodian treatment of co-owned property is presented as the commentary's doctrinal conclusion and is not expressly attributed to a reported precedent in this passage.",
+      "recommended_action": "Change the authority basis to commentary synthesis unless a bounded passage expressly attributing this exact rule to precedent is supplied.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art329",
+      "finding_id": "f7.dead_continuing_authority",
+      "severity": "hard",
+      "target_path": "$.cards[20].authority_basis",
+      "message": "The source does not merely report the affirmative position as doctrine; it expressly describes that position as the view of Korean precedent and separately endorses it as sound. Labeling the card only as commentary-reported doctrine loses the reported-precedent status.",
+      "recommended_action": "Record the commentary-reported precedent attribution while preserving that competing doctrinal positions remain presented in the source.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art329",
+      "finding_id": "authority.dwelling_not_settled",
+      "severity": "hard",
+      "target_path": "$.cards[1].doctrinal_status",
+      "message": "출처는 주거 침입만으로 부족하고 물색행위 개시가 필요하다는 견해를 '통설'로 소개한다. 이를 'settled'로 표시하는 것은 다수설과 확정된 법적 상태를 구별하지 않은 것이다.",
+      "recommended_action": "doctrinal_status를 통설 또는 commentary-reported doctrine의 비확정적 성격에 맞게 낮추고, 필요한 경우 해당 권위 상태를 검토 질문에 명시한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art329",
+      "finding_id": "f2.authority_of_completion_test",
+      "severity": "hard",
+      "target_path": "$.cards[0].authority_basis",
+      "message": "출처는 취득설과 해당 기수 기준을 단순한 해설 종합이 아니라 통설·판례의 입장이라고 명시한다. 현재의 commentary_synthesis 및 descriptive 표시는 보고된 판례·통설상의 지위를 충분히 보존하지 않는다.",
+      "recommended_action": "이 카드가 해설서가 보고한 통설·판례의 입장임을 authority_basis, doctrinal_status 또는 review_notes에서 정확히 표시하고, 원판례 확인 필요성은 검토 질문으로 유지한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art329",
+      "finding_id": "f3.author_opinion_not_distinguished",
+      "severity": "hard",
+      "target_path": "$.cards[2]",
+      "message": "종합사정·사회통념 기준은 출처에서 '사견으로는'이라고 제시된 해설 저자의 견해이다. 이를 일반적인 commentary_synthesis이자 descriptive 기준으로 표시하면 저자 의견과 확립된 법리 또는 판례 기준이 구별되지 않는다.",
+      "recommended_action": "카드의 권위 및 교리적 지위를 해설 저자의 사견으로 한정하고, 판례 또는 통설로 취급하지 않도록 review_notes와 법적 검토 질문을 조정한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art329",
+      "finding_id": "authority.value_consumption_precedent",
+      "severity": "hard",
+      "target_path": "$.cards[4].authority_basis",
+      "message": "이 카드는 해당 기준을 단순한 해설 종합으로 표시하지만, 출처 전문은 대법원의 판시를 소개한 뒤 ‘그동안 판례는 이상의 기준을 종합하여’ 해당 기준을 제시했다고 명시한다. 따라서 현재의 authority_basis와 doctrinal_status는 명시된 판례 보고 성격을 보존하지 못한다.",
+      "recommended_action": "이 카드의 권위 근거와 doctrinal_status를 commentary-reported precedent에 맞게 수정하되, 판례 원전이 아니라 해설서가 보고한 판례라는 한계는 유지한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art329",
+      "finding_id": "authority.minor_consumption_precedent",
+      "severity": "hard",
+      "target_path": "$.cards[5].authority_basis",
+      "message": "가치 소모가 경미하고 곧 반환한 경우 불법영득의사를 부정하는 기준도 출처에서 판례가 제시한 기준의 일부로 서술된다. 이를 commentary_synthesis 및 descriptive로만 분류하면 보고된 판례의 권위 성격이 누락된다.",
+      "recommended_action": "이 카드의 권위 근거와 doctrinal_status를 commentary-reported precedent에 맞게 조정하고, 원판결 확인 필요성은 review_notes에 유지한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art329",
+      "finding_id": "review_question.fuel_precedent_alignment",
+      "severity": "hard",
+      "target_path": "$.legal_review_questions[1]",
+      "message": "검토 질문은 연료 소비에 관한 세 견해에 대해 ‘precedent-aligned practical policy’를 선택하도록 요구하지만, bounded source는 이들을 가능한 경쟁 견해로 열거할 뿐 어느 견해가 판례와 일치하는지 또는 우세한지 밝히지 않는다. 이 표현은 해결되지 않은 권위 선택을 출처가 뒷받침하는 것처럼 전제한다.",
+      "recommended_action": "연료 소비 견해에 대해서는 판례 정합성이 출처상 미확정임을 명시하고 추가 권위 확인 또는 독립적인 정책 선택이 필요하다는 검토 질문으로 한정한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art329",
+      "finding_id": "authority.preferred_commentary_view",
+      "severity": "hard",
+      "target_path": "$.cards[0].authority_basis",
+      "message": "The source itself endorses the real-concurrence conclusion as proper (\"타당하다\"), rather than merely reporting an external doctrinal view. Classifying it as commentary_reported_doctrine obscures its status as the commentary author's synthesis, especially when the opposing absorption theory is separately introduced as another view.",
+      "recommended_action": "Change only this card's authority classification to reflect commentary synthesis, while retaining its disputed status and the separately represented opposing view.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art329",
+      "finding_id": "review.old_precedent_current_status",
+      "severity": "hard",
+      "target_path": "$.legal_review_questions[1]",
+      "message": "The instruction to select a \"precedent-aligned\" practical policy is underqualified because the only precedent described by the source is expressly former precedent, and the source further states that the relevant statutory portion was held unconstitutional in 2015 and Article 5-4(1) was deleted in 2016. The bounded material does not establish a current precedent-aligned rule.",
+      "recommended_action": "Replace the policy-selection instruction with a review question that separately determines the present authority and scope of the former precedent in light of the stated constitutional decision and statutory deletion before any policy is selected.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art329",
+      "finding_id": "review_question_authority_mismatch",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions[1]",
+      "message": "The review question identifies art329_sec8_8.post_theft_disposition_general as a commentary-reported case card, but that card is designated commentary_synthesis and its source passage presents a general doctrinal statement rather than expressly reporting a particular precedent.",
+      "recommended_action": "Remove the commentary-reported-case characterization from this review question, or ask only for review of the general rule's authority and permissible scope.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art331",
+      "module": "sec3_1",
+      "card_id": "art331_sec3_1.liquid_gas_weapon_variant",
+      "variant_group": "art331_sec3_1.liquid_gas_weapon",
+      "proposition": "물리적으로 작용할 수 있는 이상 액체나 기체도 흉기에 포함된다고 해석하는 견해가 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "article": "art331",
+      "finding_id": "f1.review-question-authority-mismatch",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions[0]",
+      "message": "The review question characterizes the card as a commentary-reported case card and requests verification of primary decisions, but the bounded source presents a commentary synthesis and reports no decision. This conflicts with the card's correctly stated authority_basis of commentary_synthesis.",
+      "recommended_action": "Revise the question to request review of the commentary-based doctrinal classification and its permissible generalization, without referring to reported cases or primary decisions.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art331",
+      "finding_id": "authority.first-two-cards",
+      "severity": "hard",
+      "target_path": "/cards/0/authority_basis",
+      "message": "첫 번째 카드의 근거 문장은 해설 본문의 설명으로 제시될 뿐 특정 판례의 입장으로 명시되어 있지 않다. 문단 말미의 인용판례 표시가 어느 명제까지 적용되는지도 불명확하므로 이를 곧바로 commentary_reported_precedent 및 precedent_position으로 확정할 수 없다. 같은 문제가 두 번째 카드에도 존재한다.",
+      "recommended_action": "첫 번째와 두 번째 카드의 authority_basis 및 doctrinal_status를 해설 종합에 맞게 조정하거나, 인용판례가 각 명제를 실제로 뒷받침하는지 검토가 필요하다는 권한 질문과 review_required 표시를 추가한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art331",
+      "finding_id": "authority.attempt_timing",
+      "severity": "hard",
+      "target_path": "$.cards[0].authority_basis",
+      "message": "실행착수 시기에 관한 일반 명제는 해설 본문의 서술이고, 뒤이어 열거된 구체적 사례들만 명시적으로 판례의 판단으로 소개된다. 현재 카드는 일반 명제 자체를 commentary-reported precedent 및 precedent_position으로 확정하여 해설 종합과 판례 보고를 구별하지 않는다.",
+      "recommended_action": "일반 명제의 권위 유형과 doctrinal_status를 해설 서술에 맞게 조정하거나, 이를 판례 입장으로 분류할 근거가 불명확하다는 검토 질문과 review_required 표시를 추가하라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art331",
+      "finding_id": "review_question.precedent_aligned_policy",
+      "severity": "hard",
+      "target_path": "$.target.legal_review_questions[1]",
+      "message": "The request to select a \"precedent-aligned\" policy for the liquid-or-gas dispute is unsupported by the bounded source. The cited precedent concerns an ordinary screwdriver, while the liquid-or-gas discussion reports competing doctrinal views and the commentary's preferred interpretation without identifying a precedent on that issue.",
+      "recommended_action": "Revise the question to request review and selection among the competing doctrinal views without describing either choice as precedent-aligned unless additional authority is supplied.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art331",
+      "finding_id": "f.absentee_standard_authority_mismatch",
+      "severity": "hard",
+      "target_path": "$.cards[5].authority_basis",
+      "message": "The source identifies this absentee-conspirator standard as the position and criteria of the Supreme Court, including the 98도321 en banc decision. Labeling it commentary-reported doctrine rather than commentary-reported precedent misstates its authority.",
+      "recommended_action": "Change the authority characterization to commentary-reported precedent and align the doctrinal status accordingly, without asserting verification of the underlying judgment.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "A_요건불요형",
+      "article": "art334",
+      "card_id": "art334_sec2_1.weapon_awareness_not_required",
+      "proposition": "흉기휴대 특수강도에서는 상대방이 흉기휴대를 인식할 것이 요구되지 않는다.",
+      "action": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art334",
+      "card_id": "art334_sec2_3.case_pre_assault_flight_no_joint_robbery",
+      "proposition": "택시강도를 모의한 뒤 다른 피고인들이 피해자 폭행에 착수하기 전에 현장에서 도주한 경우, 다른 피고인들과 강도 실행행위를 분담한 협동관계가 있다고 보기 어려워 특수강도의 합동범으로 처벌할 수 없다고 한 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "article": "art334",
+      "finding_id": "authority.same-occasion-interpretive-view",
+      "severity": "soft",
+      "target_path": "/cards/2/doctrinal_status",
+      "message": "출처는 동일한 기회의 절도와 강도를 특수강도 일죄로 보아야 한다는 결론을 ‘해석함이 옳다’고 제시하는 저자의 해석론이다. 이를 단순히 ‘descriptive’로 표시하면 확립된 법상 결과나 중립적 기술로 오인될 수 있다.",
+      "recommended_action": "허용되는 doctrinal_status 값 중 저자의 제안적·해석론적 견해임을 나타내는 값으로 조정하거나, 그런 값이 없다면 review_notes와 법률검토 질문에 확립된 판례가 아니라 논평자의 해석이라는 점을 명시한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art334",
+      "finding_id": "f1.incorrect_case_authority_review_question",
+      "severity": "hard",
+      "target_path": "$.target.legal_review_questions[1]",
+      "message": "The review question characterizes art334_sec2_1.aggravated_type as a commentary-reported case card and requests verification of primary decisions. The bounded source presents this proposition directly as commentary synthesis and reports no decision or case-specific outcome.",
+      "recommended_action": "Remove the case-law and primary-decision characterization, or replace it with a review question limited to the proposition's commentary authority and classification if such review is actually needed.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art334",
+      "finding_id": "mixed_authority.nighttime_weapon_joint_conflict",
+      "severity": "hard",
+      "target_path": "$.cards[4].authority_basis",
+      "message": "이 카드의 proposition은 학설상 견해대립과 판례의 상반된 태도를 함께 서술하지만 authority_basis는 commentary_reported_precedent만 표시하여 학설 부분의 권위 유형을 누락한다. 동일 카드의 review_notes도 견해와 판례가 모두 엇갈린다고 명시하므로 현재 권위 표시는 카드 전체와 일치하지 않는다.",
+      "recommended_action": "학설 대립과 판례 충돌을 권위 유형별 카드로 최소한 분리하거나, 카드 스키마가 허용하는 정확한 혼합·종합 권위 유형으로 authority_basis를 조정하라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art335",
+      "module": "sec2",
+      "card_id": "art335_sec2.indirect_principal_actor",
+      "variant_group": "art335_sec2.indirect_principal_actor",
+      "proposition": "절도죄의 간접정범이 준강도죄의 주체가 될 수 있는지에는 긍정설과 부정설의 대립이 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "article": "art335",
+      "finding_id": "authority.settled.unsupported",
+      "severity": "hard",
+      "target_path": "$.cards[1].doctrinal_status",
+      "message": "The bounded material is commentary asserting that the three aggravated robbery offenses apply to quasi-robbery. It does not establish that this proposition has the doctrinal status \"settled,\" and the bare citation at the end of the chunk does not show that the cited decision supports this particular proposition.",
+      "recommended_action": "Use a status limited to what the commentary establishes, mark the card for review, and add a review question concerning primary-authority support before treating the proposition as settled.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art335",
+      "finding_id": "review.question.case.misclassification",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions[1]",
+      "message": "The review question labels the rationale card a \"commentary-reported case card,\" although its authority basis is commentary synthesis and the source does not attribute that specific rationale to the listed decision.",
+      "recommended_action": "Revise the question to distinguish commentary synthesis from any proposition actually verified as originating in the cited decision.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art335",
+      "finding_id": "unsupported-doctrinal-status",
+      "severity": "hard",
+      "target_path": "$.cards[0].doctrinal_status",
+      "message": "The bounded commentary states the target-person rule and lists cited precedents, but it does not characterize the doctrine as settled or address competing authority. The value \"settled\" therefore exceeds the supplied source.",
+      "recommended_action": "Treat doctrinal status as unresolved under the available source or require legal review before assigning \"settled\".",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art335",
+      "finding_id": "precedent.status.conflated.with.dispute",
+      "severity": "hard",
+      "target_path": "/cards/1/doctrinal_status",
+      "message": "이 카드는 commentary-reported precedent의 판시를 나타내지만 doctrinal_status가 'disputed'로 설정되어 학설상 쟁점의 대립 상태와 판례가 채택한 입장이 혼동된다. 출처는 판례가 전자의 견해를 택했다고 명시한다.",
+      "recommended_action": "판례 보고 카드의 상태를 학설 대립 자체와 구별해 표시하되, 판례 원문 미확인에 따른 review_required와 commentary_reported_precedent 권위 표시는 유지한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art335",
+      "finding_id": "f1.unsupported_settled_status",
+      "severity": "hard",
+      "target_path": "/cards/0/doctrinal_status",
+      "message": "The commentary states the absorption proposition categorically, but it does not establish that the proposition has the stronger status \"settled.\" The card therefore assigns a doctrinal status broader than the bounded source supports.",
+      "recommended_action": "Use a source-supported, nonconclusive doctrinal status or mark the status for review; retain commentary_synthesis as the authority basis.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art335",
+      "finding_id": "unsupported.settled.status",
+      "severity": "soft",
+      "target_path": "$.cards[0].doctrinal_status",
+      "message": "The single bounded commentary passage states the absorption rule categorically but does not itself establish that the doctrine is 'settled' across relevant authority.",
+      "recommended_action": "Use a status supported by commentary-only sourcing or add a legal-review question asking whether broader authority supports the 'settled' designation.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art337",
+      "card_id": "art337_sec2.exception_robbery_preparation_excluded",
+      "proposition": "강도예비 또는 음모죄의 범인은 강도상해·치상죄의 주체에서 제외된다는 견해가 제시된다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art337",
+      "card_id": "art337_sec3_2.self_inflicted_injury_during_arrest",
+      "proposition": "피해자가 강도범의 적극적 체포 과정에서 스스로의 행위 결과로 부상한 경우, 그 부상 결과에 대하여 강도상해죄를 적용할 수 없다는 판례가 소개된다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art337",
+      "card_id": "art337_sec5.co-offender-unforeseeable-violence",
+      "proposition": "절도 공모자가 다른 공모자의 체포면탈 목적 폭행을 전혀 예기할 수 없었던 경우, 그 공모자에게 준강도상해죄의 공동책임을 물을 수 없다는 판례가 소개된다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art337",
+      "card_id": "art337_sec5.withdrawal-before-execution-functional-control",
+      "proposition": "공모자가 공모로 담당한 기능적 행위지배를 해소하고 실행에 미친 영향력을 제거하지 않으면 공모관계 이탈을 인정할 수 없다는 판례가 소개된다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art337",
+      "card_id": "art337_sec5.withdrawal-ringleader-no-restraint",
+      "proposition": "모의를 주도하고 범행대상을 함께 물색한 자가 다른 공모자들의 실행착수 전까지 만류 조치를 하지 않은 경우 공모관계 이탈을 인정할 수 없어 강도상해죄 공동정범이 된다는 판례가 소개된다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art337",
+      "card_id": "art337_sec5.withdrawal-lookout-abandonment",
+      "proposition": "금품강취 공모에서 망보기 역할을 맡은 자가 다른 공모자들의 실행착수 후 망보기를 중단하였더라도, 이후 공범들이 저지른 강도상해죄의 공동정범 책임을 면할 수 없다는 판례가 소개된다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art337",
+      "card_id": "art337_sec5.piracy-conspiracy-substantially-ended",
+      "proposition": "해군 진압으로 해적행위 목적 달성이 무산되고 공범들이 무기를 버리고 숨은 상황에서는 해적행위 공모관계가 실질적으로 종료하였으며, 한 피고인의 선장 살해 시도는 다른 자들이 예상할 수 없다는 판례가 소개된다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art337",
+      "module": "sec4",
+      "card_id": "art337_sec4.robbery_injury_attempt_not_recognized",
+      "variant_group": "art337_sec4.robbery_injury_attempt",
+      "proposition": "강도치상죄는 결과적 가중범이라는 점에 비추어 그 미수범을 인정하지 않는다는 해석이 제시된다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "비교법 학설 소개(외국) → 한국 판례·실무 선택지가 아님",
+      "article": "art337",
+      "module": "sec5",
+      "card_id": "art337_sec5.post-execution-withdrawal-prevent-result",
+      "variant_group": "art337_sec5.post-execution-withdrawal",
+      "proposition": "일본 제1설은 실행착수 후 공동정범 이탈은 스스로 범행을 중지하고 다른 공범자의 결과발생을 방지한 경우에만 가능하며, 나머지 공범에 의해 범행이 기수에 이르면 이탈을 인정하지 않는다고 본다.",
+      "action": "formalization을 context_only로 강등",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "비교법 학설 소개(외국) → 한국 판례·실무 선택지가 아님",
+      "article": "art337",
+      "module": "sec5",
+      "card_id": "art337_sec5.post-execution-withdrawal-serious-effort",
+      "variant_group": "art337_sec5.post-execution-withdrawal",
+      "proposition": "일본 제2설은 공범 일부가 범행 도중 범행 저지를 위한 진지한 노력을 한 경우 실제로 범행을 저지하지 못했어도 공범 이탈을 인정하고 장애미수의 한도에서 책임을 부담시키면 충분하다고 본다.",
+      "action": "formalization을 context_only로 강등",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "비교법 학설 소개(외국) → 한국 판례·실무 선택지가 아님",
+      "article": "art337",
+      "module": "sec5",
+      "card_id": "art337_sec5.post-execution-withdrawal-causal-risk-cutoff",
+      "variant_group": "art337_sec5.post-execution-withdrawal",
+      "proposition": "일본 제3설은 실행착수 후 범의를 포기하여도 공모관계 해소나 이탈만으로는 부족하고, 당초 공모행위가 창출한 구성요건 실현 위험을 차단해야 한다고 본다.",
+      "action": "formalization을 context_only로 강등",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art337",
+      "module": "sec5",
+      "card_id": "art337_sec5.robbery-result-aggravation-foreseeability",
+      "variant_group": "art337_sec5.robbery-result-aggravation",
+      "proposition": "강도치상죄에서는 중한 결과에 대한 예견가능성이 있는 경우에 한하여 개별적으로 결과적 가중범을 인정하는 것이 바람직하다는 견해가 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "article": "art337",
+      "finding_id": "unresolved_precedent_presupposed",
+      "severity": "hard",
+      "target_path": "$.legal_review_questions[1]",
+      "message": "The instruction to select a \"precedent-aligned\" policy presupposes that precedent identifies one of the competing variants, while the commentary expressly states that it is unclear which view the precedent adopts. The cited decisions are illustrations that do not resolve that stated uncertainty.",
+      "recommended_action": "Revise the question to ask reviewers first whether the cited precedent resolves the conflict and to preserve the authority choice as unresolved if it does not.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art337",
+      "finding_id": "f1.unsupported_dispute_status",
+      "severity": "hard",
+      "target_path": "/cards/1/doctrinal_status",
+      "message": "The card marks the nonrecognition of attempted 강도치상죄 as disputed, but the bounded commentary presents that interpretation as justified under the former statute and describes the theoretical impossibility of an attempted result-aggravated offense as the rationale for the 1995 amendment. No competing view on this particular issue is supplied.",
+      "recommended_action": "Remove the unsupported disputed characterization unless another bounded source supplies a competing view.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art338",
+      "card_id": "art338_sec5.accomplice.no_joint_murder_intent_outcomes",
+      "proposition": "공동 살해의 고의가 없는 강도 공범자는 피해자 사망 시 강도치사, 강도살인 미수에 그치고 피해자가 상해만 입은 시 강도상해 또는 강도치상, 아무 상해가 없는 시 강도의 죄책을 진다고 보는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art338",
+      "module": "sec6",
+      "card_id": "art338_sec6.robbery_murder_ancestor_murder_concurrence",
+      "variant_group": "art338_sec6.robbery_murder_ancestor_murder_concurrence",
+      "proposition": "존속살인의 반윤리성은 단순살인보다 강하여 강도살인죄만으로 피해법익 평가가 충분하지 않으므로 강도살인죄와 존속살인죄의 상상적 경합을 인정하는 것이 타당하다는 견해가 제시되어 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "article": "art338",
+      "finding_id": "status.special_rule_unsubstantiated",
+      "severity": "soft",
+      "target_path": "$.cards[0].doctrinal_status",
+      "message": "The commentary supports the special-rule analysis, but the bounded material does not establish that this position is \"settled.\"",
+      "recommended_action": "Use a status limited to commentary synthesis or require legal review before labeling the position settled.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art338",
+      "finding_id": "authority.arson_precedent_attribution",
+      "severity": "soft",
+      "target_path": "$.cards[3].authority_basis",
+      "message": "Unlike the preceding corpse-concealment proposition, the commentary does not expressly introduce the arson-death concurrence statement as a court holding. The listed case citations do not, within this bounded text, unambiguously identify which proposition each supports.",
+      "recommended_action": "Classify the card as commentary synthesis unless the cited primary decision is checked and shown to support this proposition; retain review_required until then.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art343",
+      "module": "sec2_3",
+      "card_id": "art343_sec2_3.weapon_purchase_preparation",
+      "variant_group": "art343_sec2_3.preparatory_act_threshold",
+      "proposition": "강도 목적을 위하여 흉기를 매입·준비하는 행위만으로도 강도 결의의 외부적 표현이라는 객관적 요건을 충족하여 예비를 인정할 수 있다는 견해가 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "article": "art343",
+      "finding_id": "unsupported.precedent.aligned.policy.prompt",
+      "severity": "soft",
+      "target_path": "$.target.legal_review_questions[1]",
+      "message": "검토 질문은 이 쟁점에서 'precedent-aligned practical policy'를 선택하도록 요구하지만, 제공된 문단은 견해 대립과 필자의 긍정 입장을 제시할 뿐 어느 견해가 판례에 부합하는지는 확정하지 않는다.",
+      "recommended_action": "경쟁 견해를 모두 보존하고 판례 원문을 통해 각 견해의 권위와 적용 기준을 확인하도록 질문을 한정하라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art343",
+      "finding_id": "authority.reported_precedent",
+      "severity": "hard",
+      "target_path": "$.cards[0].authority_basis",
+      "message": "해당 명제는 해설 자체의 종합적 견해가 아니라 해설이 명시적으로 판례의 판시 내용으로 인용한 법리이다. 따라서 authority_basis를 commentary_synthesis로 표시하면 권위의 성격이 잘못 표현된다.",
+      "recommended_action": "authority_basis를 해설에 의해 보고된 판례 법리임을 나타내는 허용 값으로 수정하고, 명제와 나머지 범위는 그대로 유지한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art343",
+      "finding_id": "authority.card0.unsupported_precedent",
+      "severity": "hard",
+      "target_path": "/cards/0/authority_basis",
+      "message": "The bounded commentary states the concurrence proposition but does not identify or report a precedent. Labeling the card as commentary_reported_precedent and precedent_position therefore exceeds the supplied source.",
+      "recommended_action": "Align authority_basis and doctrinal_status with the authority expressly established by the bounded commentary, or preserve the authority classification as unresolved pending an identified precedent source.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art350",
+      "card_id": "art350_sec10_9.extorted_property_disposal_no_embezzlement",
+      "proposition": "타인을 공갈하여 재물을 교부하게 한 경우에는 그 재물을 소비하거나 다른 곳에 처분하였더라도 횡령죄가 성립하지 않는다는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art350",
+      "card_id": "art350_sec5_1.taxi_fare_evasion_no_disposition",
+      "proposition": "택시요금 지급을 면하려고 택시기사를 폭행하고 달아난 경우, 기사가 요금 면탈을 용인하여 이익을 공여하는 처분행위를 하였다고 볼 수 없으므로 공갈죄가 성립하지 않는다는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art350",
+      "module": "sec10_1",
+      "card_id": "art350_sec10_1.multiple_deliveries_offense_unit",
+      "variant_group": "art350_sec10_1.multiple_deliveries_offense_unit",
+      "proposition": "1개의 공갈행위로 동일인에게 수회 재물교부를 하게 한 경우, 수회의 처분행위를 형법상 하나의 행위로 볼 수 있으면 단순일죄가 되고, 여러 행위로 볼 수 있으면 포괄일죄가 된다는 견해가 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art350",
+      "module": "sec4_2",
+      "card_id": "art350_sec4_2.natural_or_supernatural_harm",
+      "variant_group": "art350_sec4_2.natural_or_supernatural_harm",
+      "proposition": "천재지변·신력·길흉화복을 고지한 경우에도, 행위자가 이를 사실상 지배할 지위에 있다고 상대방이 믿게 하는 명시적 또는 묵시적 행위가 있고 그로 인해 상대방이 외포하여 재물 또는 재산상 이익을 교부하면 공갈죄가 성립한다는 견해가 소개되어 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "article": "art350",
+      "finding_id": "authority.commentary_synthesis",
+      "severity": "hard",
+      "target_path": "/cards/0/authority_basis",
+      "message": "The conditional simple-offense/comprehensive-offense test is presented in the commentary as the author's preferred synthesis based on the number of acts, not merely as reported doctrine. Labeling the merged proposition as commentary-reported doctrine obscures that distinction.",
+      "recommended_action": "Classify the conditional test as commentary synthesis or otherwise expressly distinguish the author's preferred analysis from the separately reported competing views.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art350",
+      "finding_id": "review_question.unsourced_precedent_alignment",
+      "severity": "soft",
+      "target_path": "$.target.legal_review_questions[1]",
+      "message": "The request to select a 'precedent-aligned' policy presupposes a precedent basis, but the bounded material presents commentary and competing views without identifying a precedent governing the choice.",
+      "recommended_action": "Reframe the question as an unresolved authority and policy review, or require separate precedent support before asking for a precedent-aligned selection.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art350",
+      "finding_id": "authority.implied_threat_precedent",
+      "severity": "soft",
+      "target_path": "$.target.cards[1].authority_basis",
+      "message": "명시적 고지가 필요하지 않고 언어나 거동에 의한 고지도 가능하다는 명제는 해당 문맥에서 판례의 견해로 소개되어 있는데, 카드는 이를 일반적인 commentary_synthesis로만 표시한다. 이 표시는 주석서 자체의 종합과 주석서가 보고한 판례 법리를 충분히 구별하지 못한다.",
+      "recommended_action": "이 카드의 authority_basis를 주석서가 보고한 판례 법리임을 나타내는 값으로 최소 수정하되, 판례 원문이 직접 검증된 것으로 표시하지는 말라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art350",
+      "finding_id": "authority.citation_scope_unresolved",
+      "severity": "hard",
+      "target_path": "$.cards[1].authority_basis",
+      "message": "본문 말미에 인용판례 2005도4738이 표시되어 있어 처분권자 사례 또는 처분행위자 동일성 명제가 판례 보고인지 해설의 종합인지 확인이 필요하다. 그런데 카드는 이를 확정적으로 commentary_synthesis로 분류하고 review_required를 false로 두었으며, 관련 검토 질문도 없다.",
+      "recommended_action": "인용판례가 뒷받침하는 정확한 문장 범위를 검토하도록 해당 카드의 review_required를 true로 설정하고 legal_review_questions에 권위 분류 질문을 추가한다. 확인 전에는 판례와 해설 종합 중 하나를 단정하지 않는다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art350",
+      "finding_id": "authority.reported-precedent",
+      "severity": "hard",
+      "target_path": "/cards/0/authority_basis",
+      "message": "근거 문맥은 해당 입장을 단순한 해설 종합이 아니라 판례의 입장으로 서술하고 인용판례도 제시한다. 따라서 'commentary_synthesis'는 명시된 권위 층위를 정확히 보존하지 않는다.",
+      "recommended_action": "authority_basis를 해설서가 보고한 판례에 해당하는 권위 유형으로 수정하되, 제공된 문맥을 넘어 판례 자체가 직접 검증되었다고 표시하지 말라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art350",
+      "finding_id": "authority.gain.amount.precedent",
+      "severity": "hard",
+      "target_path": "$.cards[2].authority_basis",
+      "message": "The gain-amount rule is presented in the bounded source as a commentary-reported holding of cited precedent 90도1815, but the card classifies it only as commentary synthesis.",
+      "recommended_action": "Classify the card according to the available authority category for commentary-reported precedent and require review if that classification cannot be made unambiguously.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art350",
+      "finding_id": "status.causation.exception",
+      "severity": "hard",
+      "target_path": "$.cards[1].doctrinal_status",
+      "message": "The causation exception is stated in the source as the commentator's evaluative conclusion ('보아야 한다'), rather than as an established descriptive holding. Labeling it simply descriptive obscures that doctrinal posture.",
+      "recommended_action": "Change the doctrinal status to the available category reflecting a proposed or evaluative commentary position, or add a focused review question if the schema requires a disputed status choice.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art350",
+      "finding_id": "f1.majority_view_status_lost",
+      "severity": "hard",
+      "target_path": "$.cards[0].proposition",
+      "message": "The source and linked candidate identify the requirement of intent and illicit-gain intent as the prevailing view (통설), but the card reduces this to an unspecified view. Although the competing view and disputed status are preserved elsewhere, this loses the relative doctrinal status of the positive variant.",
+      "recommended_action": "Preserve that this card represents the commentary-described prevailing view while retaining its grouping with the opposing view.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art350",
+      "finding_id": "f2.settled_status_unsupported",
+      "severity": "hard",
+      "target_path": "$.cards[2].doctrinal_status",
+      "message": "The commentary states the content of intent directly, but it does not establish that the proposition is legally settled. Characterizing it as settled is broader than the bounded source supports.",
+      "recommended_action": "Remove or downgrade the unsupported settled characterization and leave its authority status for review.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "A_요건불요형",
+      "article": "art355",
+      "card_id": "art355_sec3_3.no_property_damage_element",
+      "proposition": "횡령죄의 성립에 재산상 손해의 발생은 구성요건적 요건으로 필요하지 않다.",
+      "action": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "A_요건불요형",
+      "article": "art355",
+      "card_id": "art355_sec4_1.discretionary_funds_no_presumption",
+      "proposition": "용도가 추상적으로 정해졌더라도 보관자에게 사용처·시기 등에 광범위한 재량이 있고 사후보고나 증빙제출도 요구되지 않는 보관금은, 사용처 설명 또는 증빙 부재만으로 불법영득의사를 추단할 수 없다.",
+      "action": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art355",
+      "card_id": "art355_sec5_2.buyer_mortgage_loan_misuse",
+      "proposition": "잔금 지급 전 소유권을 이전받은 매수인이 해당 부동산을 담보로 대출받아 잔금을 지급하기로 한 약정을 이행하지 않고 다른 용도로 근저당권을 설정한 사안에서는 매수인에 대한 배임죄 성립이 부정된 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art355",
+      "card_id": "art355_sec5_2.security_provider_duties",
+      "proposition": "담보설정계약상 채무자의 담보 제공, 담보가치 유지·보전, 담보물 훼손·감소·멸실 금지 및 담보권 실행 협조 의무는 채무자 자신의 급부의무이므로, 채무자는 채권자에 대한 타인의 사무처리자가 아니라는 판례 법리가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art355",
+      "card_id": "art355_sec5_2.real_estate_debt_in_lieu_disposal",
+      "proposition": "채권 담보를 위한 부동산 대물변제예약에서 채무자가 대물 부동산을 제3자에게 처분하였더라도 배임죄는 성립하지 않는다는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art355",
+      "card_id": "art355_sec5_2.real_estate_security_disposal",
+      "proposition": "금전채무 담보를 위한 부동산 저당권설정계약 또는 양도담보설정계약에서 채무자가 제3자에게 먼저 저당권을 설정하거나 담보물을 양도하여 담보가치를 감소·상실시켜도 배임죄는 성립하지 않는다는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art355",
+      "card_id": "art355_sec5_2.movables_stock_security_disposal",
+      "proposition": "일반 동산 또는 주식 양도담보설정계약에서 채무자가 담보물을 제3자에게 처분하여 담보가치를 감소·상실시키고 채권실현에 위험을 초래하더라도, 채무자는 타인의 사무처리자가 아니므로 배임죄가 성립하지 않는다는 판례 법리가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art355",
+      "card_id": "art355_sec5_2.registered_movable_security_disposal",
+      "proposition": "자동차 등 권리이전에 등기·등록을 요하는 동산의 양도담보설정계약에서 채무자가 계약상 의무를 이행하지 않고 목적물을 처분하였더라도 배임죄는 성립하지 않는다는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art355",
+      "card_id": "art355_sec5_2.provisional_registration_security",
+      "proposition": "차용금 채무 담보를 위한 부동산 매매예약 가등기 및 근저당권설정 관련 약정에서, 회사 대표이사가 제3자에게 근저당권을 설정한 사안은 그 대표이사가 피해자에 대한 타인의 사무처리자가 아니라는 이유로 유죄 원심이 파기된 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art355",
+      "card_id": "art355_sec5_2.monetary_claim_security_transfer",
+      "proposition": "기존 금전채무를 담보하기 위하여 다른 금전채권을 양도한 경우, 담보 목적 채권의 담보가치 유지·보전 의무는 채무자 자신의 사무이므로 채무자는 채권자에 대한 타인의 사무처리자가 아니라는 판례 법리가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art355",
+      "card_id": "art355_sec5_2.security_trust_building_registration",
+      "proposition": "건축자금 대출의 담보를 위한 담보신탁 및 자금관리대리사무계약에서, 준공 후 신탁등기로 우선수익권을 보장할 의무를 위반하여 제3자 명의 소유권보존등기를 한 피고인은 타인의 사무처리자가 아니라는 이유로 유죄 원심이 파기된 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art355",
+      "card_id": "art355_sec5_3.land_readjustment_double_sale_attempt",
+      "proposition": "체비지 이중매매에서 제2매수인에게 잔금까지 받았더라도 체비지대장 명의만 변경한 행위로는 제1매수인의 권리가 이행불능 또는 구체적·현실적 위험에 이르렀다고 보기 어려워 배임미수죄가 인정된다는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art355",
+      "card_id": "art355_sec7_2.refusal_to_return_after_embezzlement",
+      "proposition": "타인 재물 점유자가 불법영득의사를 외부에서 인식할 수 있는 객관적 행위로 점유를 자기 점유로 바꾸면 재물 전체에 대한 횡령죄가 성립하고, 그 뒤 같은 재물을 다시 처분하는 행위는 불가벌적 사후행위로 처벌할 수 없다는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art355",
+      "card_id": "art355_sec7_2.phishing_account_withdrawal",
+      "proposition": "보이스피싱 범인이 피해금을 사기이용계좌로 송금받은 뒤 현금을 인출한 행위는 기존 사기범행의 실행행위에 지나지 않아 피해자에 대한 별도 횡령죄를 구성하지 않으며, 사기방조범이 해당 계좌의 피해금을 임의 인출한 경우에도 같은 법리가 적용된다는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art355",
+      "card_id": "art355_sec9_1.loan_assigned_claim_fraud_embezzlement_incompatible",
+      "proposition": "차용금 편취와 담보로 양도한 채권을 추심하여 임의소비한 횡령은, 양도채권의 가치와 채권양도에 관한 피고인의 진정성 등의 사정에 따라 비양립적 관계일 수 있으므로, 일련의 행위가 어느 죄에 해당하는지 가려야 한다는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art355",
+      "card_id": "art355_sec9_5.chattel_security_debtor_disposal_not_embezzlement",
+      "proposition": "동산양도담보에서 채무자가 변제를 위해 목적물을 처분하거나 보관장소를 옮긴 행위 자체는 횡령으로 볼 수 없다는 견해가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art355",
+      "card_id": "art355_sec9_5.criminal_proceeds_requires_completed_embezzlement",
+      "proposition": "업무상횡령죄가 중대범죄에 해당하는 경우에도 횡령죄가 기수에 이르기 전에는 그 행위로 생긴 재산을 범죄수익으로 볼 수 없다는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art355",
+      "card_id": "art355_sec9_5.real_estate_brokerage_conviction_res_judicata",
+      "proposition": "무자격 부동산 중개 대가로 받은 돈이 피고인 등의 소유로 확정 귀속되었다는 확정 약식명령과, 그 돈이 여전히 교부자의 소유로 남아 보관 중 횡령했다는 공소사실은 양립할 수 없고 규범적으로 동일성이 인정되어 기판력이 횡령 공소사실에 미친다는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art355",
+      "module": "sec1_3",
+      "card_id": "art355_sec1_3.embezzlement_protected_interest_ownership",
+      "variant_group": "art355_sec1_3.embezzlement_protected_interest",
+      "proposition": "횡령죄의 보호법익은 소유권이고 점유는 보호법익이 아니라는 다수설이 소개되어 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art355",
+      "module": "sec2_1",
+      "card_id": "art355_sec2_1.breach_of_trust_object_property_benefit",
+      "variant_group": "art355_sec2_1.breach_of_trust_object",
+      "proposition": "배임죄는 재물이 아닌 재산상 이익만을 객체로 하는 순수한 이득죄라고 보는 통설적 견해가 소개되어 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art355",
+      "module": "sec3_1",
+      "card_id": "art355.embezzlement_deposit_custody_variant",
+      "variant_group": "art355.deposit_custody",
+      "proposition": "수탁자가 위탁금전을 예금한 경우 예금에 대한 점유를 부정하여 인출 전 예금반환채권 처분을 배임으로 보는 소수 견해와, 예금채권 지배를 위탁금전 지배와 법률상 동일시하여 예금주의 점유를 긍정하는 통설이 대립한다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art355",
+      "module": "sec3_1",
+      "card_id": "art355.embezzlement_mistaken_remittance_variant",
+      "variant_group": "art355.mistaken_remittance",
+      "proposition": "착오송금 금원의 임의 소비에 관하여 횡령죄, 점유이탈물횡령죄, 사기죄를 인정하는 견해가 대립하며, 예금주와 송금인 사이 신의칙상 보관관계에 기초하여 횡령죄를 인정하는 판례 입장이 소개되어 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art355",
+      "module": "sec3_1",
+      "card_id": "art355.breach_property_related_affairs_variant",
+      "variant_group": "art355.property_related_affairs",
+      "proposition": "배임죄의 타인의 사무를 재산상 사무에 한정하는 견해, 재산적 이해관계 또는 재산상태 영향이 있으면 충분하다는 견해, 재산 관련성 제한이 필요 없다는 견해가 대립한다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art355",
+      "module": "sec3_1",
+      "card_id": "art355.breach_transfer_security_post_act_variant",
+      "variant_group": "art355.transfer_security_post_act",
+      "proposition": "가등기담보법 시행 후 청산절차 전 또는 청산금 지급 전 담보부동산 처분에 관하여 담보부동산 횡령죄를 인정하는 견해, 담보권 실행에는 불법영득의 의사가 없어 횡령·배임을 부정하는 견해, 청산금 횡령죄를 인정하는 견해가 대립한다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art355",
+      "module": "sec3_2",
+      "card_id": "art355.titletrust.two-party-registration",
+      "variant_group": "art355.titletrust.two-party-registration",
+      "proposition": "2자간 등기명의신탁 수탁자의 신탁부동산 처분에 관하여 횡령 기수 긍정설·부정설·불능미수설이 대립하였고, 해설이 보고한 대법원 전원합의체는 형법상 보호할 위탁신임관계와 타인 재물 보관자 지위를 부정하여 횡령죄 성립을 부정하였다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art355",
+      "module": "sec3_2",
+      "card_id": "art355.titletrust.three-party-omitted-registration",
+      "variant_group": "art355.titletrust.three-party-omitted-registration",
+      "proposition": "3자간 중간생략등기형 명의신탁 수탁자의 처분에 관하여 신탁자·매도인에 대한 횡령, 횡령 불능미수, 신탁자에 대한 배임 및 무죄 견해가 대립하며, 해설이 보고한 대법원 전원합의체는 신탁자에 대한 횡령죄를 부정하였다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art355",
+      "module": "sec3_2",
+      "card_id": "art355.entrusted-money.purpose-limited",
+      "variant_group": "art355.entrusted-money.purpose-limited",
+      "proposition": "목적·용도가 특정된 금전의 위탁 시 소유권 귀속과 목적 외 사용의 횡령 성부에 관하여 소유권 이전설과 위탁자 유보설이 대립한다. 해설이 보고한 판례는 원칙적으로 반환 또는 임의소비 승낙 전까지 위탁자 소유로 보지만, 위탁 사실·용도는 엄격히 증명되어야 하고 대체 가능성, 특정성 및 소유자 이익을 위한 사용은 불법영득의사 판단에서 고려된다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art355",
+      "module": "sec3_2",
+      "card_id": "art355.breach.damage-economic-risk",
+      "variant_group": "art355.breach.damage-economic-risk",
+      "proposition": "배임죄의 재산상 손해는 본인의 전체 재산가치를 경제적으로 평가하여 판단한다. 해설이 보고한 판례 및 다수 입장은 현실 손해뿐 아니라 손해와 같은 정도의 구체적·현실적 실해 발생 위험을 포함하지만, 침해범설은 현실 손해를 요구한다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art355",
+      "module": "sec3_2",
+      "card_id": "art355.breach.authority-abuse-note",
+      "variant_group": "art355.breach.authority-abuse-note",
+      "proposition": "대표권 남용 약속어음 등 의무부담행위가 회사에 무효이고 실제 이행·민사책임·제3자 유통이 없으면 배임 기수는 아니나, 대표이사가 배임의 범의로 실행에 착수한 경우 배임미수가 될 수 있다. 무효 어음이 제3자에게 실제 유통되거나 회사가 현실 손해 또는 구체적 위험을 부담하면 기수가 문제된다. 이 미수 법리는 사회질서 또는 강행법규 위반의 절대적 무효 행위까지 일반화되지 않는다는 해설상 견해가 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art355",
+      "module": "sec3_2",
+      "card_id": "art355.breach.gain-loss-relation",
+      "variant_group": "art355.breach.gain-loss-relation",
+      "proposition": "배임죄는 본인의 재산상 손해와 행위자 또는 제3자의 재산상 이익 취득을 요하며, 배임행위와 이익 취득 사이 인과관계가 필요하다. 손해와 이익 사이에 자료동질성·자료동일성 또는 재산 감소에 상응한 이익 이전까지 필요한지에 관하여 견해가 대립하나, 해설이 보고한 판례는 서로 대응하는 관계 등 일정한 관련성을 요구한다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art355",
+      "module": "sec3_2",
+      "card_id": "art355.breach.business-judgment",
+      "variant_group": "art355.breach.business-judgment",
+      "proposition": "경영판단 원칙을 배임행위 및 배임 고의 인정 범위의 제한 기준으로 수용할지, 경영판단에 따른 행위를 처음부터 배임행위에서 제외할지에 관하여 견해가 대립한다. 해설이 보고한 판례는 개인적 이익 의도 없이 수집 가능한 정보에 기초하여 기업 이익에 합치된다고 믿고 신중하게 내린 판단이 예측 실패로 손해를 낳은 경우 배임 고의를 부정하고, 자기 또는 제3자 이득과 본인 손해를 인식한 의도적 행위인지 엄격히 심사한다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art355",
+      "module": "sec3_3",
+      "card_id": "art355_sec3_3.property_damage_required",
+      "variant_group": "art355_sec3_3.property_damage_requirement",
+      "proposition": "횡령죄를 침해범으로 보는 입장에서는 횡령죄 기수에 소유자 재산상 손해 발생이 필요하며, 손해가 없으면 소유자 의사에 반해도 기수가 되기 어렵다고 본다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art355",
+      "module": "sec3_3",
+      "card_id": "art355_sec3_3.mortgage_benefit_amount_cap",
+      "variant_group": "art355_sec3_3.mortgage_benefit_amount",
+      "proposition": "근저당권 설정 횡령의 구체적 이득액은 실제가치설을 전제로 부동산 시가 범위 내 채권최고액으로 보아야 한다는 견해가 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art355",
+      "module": "sec5_2",
+      "card_id": "art355_sec5_2.real_right_acquisition_view",
+      "variant_group": "art355_sec5_2.right_acquisition_relevance",
+      "proposition": "이중처분에서 채권채무관계 단계에서는 사무의 타인성을 인정할 수 없지만, 계약 상대방이 담보물권 등 권리를 취득한 뒤에는 타인의 사무처리자로 인정해야 한다는 견해가 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art355",
+      "module": "sec7_11",
+      "card_id": "art355_sec7_11.special_commercial_breach_competition",
+      "variant_group": "art355_sec7_11.special_commercial_breach_competition",
+      "proposition": "상법 제622조 특별배임죄와 형법상 업무상배임죄는 법조경합 관계로서 일반법과 특별법 관계라는 견해가 일반적이라고 소개되어 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art355",
+      "module": "sec9_3",
+      "card_id": "art355_sec9_3.mixed_business_personal_custody",
+      "variant_group": "art355_sec9_3.mixed_custody_offense",
+      "proposition": "업무상 보관금과 개인적 위탁 보관금을 혼합 점유하다 일부를 횡령하고 어느 부분인지 식별할 수 없는 경우 업무상횡령죄만 성립한다는 견해가 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "article": "art355",
+      "finding_id": "authority_abuse_status_overstated",
+      "severity": "hard",
+      "target_path": "$.cards[6].doctrinal_status",
+      "message": "The card labels the authority-abuse theory merely as a disputed competing doctrine, but the bounded commentary expressly says that no view in Korea adopts this position and describes it as untenable. Presenting it without that status qualification makes it appear to be a live domestic alternative of the same standing as the other theories.",
+      "recommended_action": "Preserve the commentary's qualification that the theory has no identified Korean adherents and is criticized, without deleting it as a historical doctrinal variant.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "betrayal_theory_status_understated",
+      "severity": "soft",
+      "target_path": "$.cards[8].doctrinal_status",
+      "message": "The betrayal-theory card is marked only as disputed even though the commentary identifies it as the prevailing Korean view and the precedent position. The separate precedent card preserves applications of that position, but the doctrine card still omits its reported majority status.",
+      "recommended_action": "Add the commentary-reported majority and precedent-aligned status to this doctrinal card while retaining the distinction between doctrine and commentary-reported precedent.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "unsupported_disputed_status",
+      "severity": "hard",
+      "target_path": "$.cards[1].doctrinal_status",
+      "message": "The source characterizes this classification as the prevailing view (통설적 견해), but does not identify a competing view concerning the object of breach of trust. Marking it as disputed is therefore unsupported within the bounded source.",
+      "recommended_action": "Use a doctrinal status supported by the reported prevailing-view characterization, or retain disputed status only if a bounded source identifying a competing object theory is added.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "protectable_entrustment_status",
+      "severity": "soft",
+      "target_path": "$.cards[1].doctrinal_status",
+      "message": "출처는 보호가치 있는 신임으로 한정하는 것이 '타당하다'고 서술하는 해설 종합이며, 이 카드의 authority_basis도 commentary_synthesis이다. 이를 settled로 단정할 근거는 제공된 범위에서 확인되지 않는다.",
+      "recommended_action": "doctrinal_status를 해설 종합에 부합하는 비확정적 상태로 조정하거나, settled 표시를 뒷받침하는 별도 판례 근거를 연결한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "document_card_authority_merge",
+      "severity": "hard",
+      "target_path": "$.target.cards[2].authority_basis",
+      "message": "The card assigns commentary_reported_precedent to the entire merged proposition, although the general statement that a document embodying a right is property is presented in the commentary's synthesis, while the stock certificate, uncertificated share, promissory-note, and electronic-receivable applications are reported precedent. The merge obscures the different authority levels.",
+      "recommended_action": "Separate the commentary synthesis from the precedent applications, or otherwise preserve distinct authority attribution for the general proposition and the reported cases.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "titletrust_current_law_marked_disputed",
+      "severity": "soft",
+      "target_path": "$.target.cards[5].doctrinal_status",
+      "message": "The card correctly preserves historical academic variants, but labels the whole card disputed even though the commentary reports a current en banc precedent rejecting embezzlement after changing the prior precedent. This may blur the distinction between disputed doctrine and the reported current precedent position.",
+      "recommended_action": "Preserve the competing scholarly and historical views in a variant card, but represent the reported current en banc holding separately or clearly mark it as the current precedent position.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "three_party_current_law_marked_disputed",
+      "severity": "soft",
+      "target_path": "$.target.cards[6].doctrinal_status",
+      "message": "The card combines disputed theories and a reported current en banc holding under one disputed status. The source distinguishes the competing views from the Supreme Court's changed precedent rejecting embezzlement against the trustor.",
+      "recommended_action": "Separate the doctrinal variants from the current reported precedent or assign statuses at a level that preserves that distinction.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "f_authority_general_commentary_as_precedent",
+      "severity": "hard",
+      "target_path": "/cards/0/authority_basis",
+      "message": "이 카드와 같은 방식으로 comm_001692_제355조_1항_Ⅳ.1_92의 일반 해설 부분에서 도출된 여러 카드가 commentary_reported_precedent 및 precedent_position으로 분류되어 있으나, 해당 문단은 판례 표제가 붙은 판례 서술이 아니라 학설 대립과 해설자의 종합을 포함한 일반 논평이다. 같은 문제가 cards[1]~[3]에 있고, comm_001692_제355조_2항_Ⅳ.1_159의 일반 해설을 근거로 한 cards[24]~[25]에도 있다. 말미의 인용판례 목록만으로 각 명제가 판례 입장이라고 단정할 수 없다.",
+      "recommended_action": "해당 카드들의 authority_basis와 doctrinal_status를 일반 논평·해설 종합에 맞게 조정하거나, 각 명제가 판례 입장이라는 근거를 별도로 확인할 때까지 review_required로 표시하라. 명시적으로 학설 견해를 보고하는 cards[4]~[5]의 분류는 유지하라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "authority.restricted_budget_assessment",
+      "severity": "hard",
+      "target_path": "$.cards[2].authority_basis",
+      "message": "엄격한 용도 제한 여부를 예산의 근거·성격·사용 관행·관련 규정으로 종합 판단한다는 문장은 해당 문서에서 판례 표제 앞의 해설 본문으로 제시되어 있다. 이 카드만의 근거로는 commentary_reported_precedent라고 단정할 수 없다.",
+      "recommended_action": "authority_basis를 commentary_synthesis로 한정하거나, 동일 기준을 판례 입장으로 명시한 범위 내 근거를 추가로 연결한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "authority.special_repair_off_purpose",
+      "severity": "hard",
+      "target_path": "$.cards[24].authority_basis",
+      "message": "특별수선충당금의 용도 외 임의 사용 시 횡령죄가 성립한다는 문장은 제공된 문서에서 뒤따르는 '[판례] 아파트 특별수선충당금' 표제 이전의 해설 문장이다. 현재 근거만으로 commentary_reported_precedent라는 권위 분류를 확정하기 어렵다.",
+      "recommended_action": "authority_basis를 commentary_synthesis로 조정하거나, 해당 명제를 판례로 직접 보고하는 범위 내 근거가 있으면 그 근거를 연결한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "authority.question_misclassification",
+      "severity": "soft",
+      "target_path": "/legal_review_questions/0",
+      "message": "The review question characterizes the definition card as a commentary-reported case card and requests verification of primary decisions, but the bounded source is commentary synthesis defining the umbrella term ‘이중처분’ and reports no judicial decision.",
+      "recommended_action": "Remove this inapplicable question or replace it with a review question limited to the accuracy and scope of the commentary-based definition.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "majority_authority_mismatch",
+      "severity": "hard",
+      "target_path": "$.cards[10]",
+      "message": "2017도4027 전원합의체의 다수의견을 commentary_reported_doctrine, disputed, policy_variant로 분류했으나, 출처는 이를 대법원 전원합의체 판결의 다수의견으로 보고한다. 반대의견의 존재가 다수의견 자체를 학설이나 미결 정책선택으로 바꾸지는 않는다.",
+      "recommended_action": "이 카드의 권위 근거와 형식화를 판례 다수의견에 맞게 최소 수정하고, 반대의견은 별도의 대립 견해로 보존하라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "authority.purchaser_conspiracy",
+      "severity": "hard",
+      "target_path": "/cards/1/authority_basis",
+      "message": "매수인의 인식만으로 공동정범 인정이 부족하다는 명제는 주석 본문에 서술되어 있을 뿐, 공급된 문맥에서 판례로 명시되지 않는다. 뒤의 별도 [판례] 표시는 공모관계의 일반적 증명 법리에만 붙어 있으므로 이 카드를 commentary_reported_precedent 및 precedent_position으로 분류할 근거가 부족하다.",
+      "recommended_action": "해당 카드의 authority_basis와 doctrinal_status를 주석 서술에 맞게 낮추거나, 이 명제를 판례 입장으로 귀속시키는 별도 근거를 확보하라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "authority.card1.reported_precedent",
+      "severity": "hard",
+      "target_path": "/cards/1/authority_basis",
+      "message": "The source identifies this as a 판례 outcome concerning separate government-project agreements and entrustment relationships, rather than an unattributed commentary synthesis.",
+      "recommended_action": "Change the authority classification to the schema-supported category for commentary-reported precedent and preserve the stated factual and exceptional-circumstances limitations.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "authority.reported_precedent",
+      "severity": "hard",
+      "target_path": "/cards/0/authority_basis",
+      "message": "출처는 인용판례 2020도12431의 판단을 해설서가 보고한 것이므로, 이를 일반적인 commentary_synthesis로 분류하면 판례보고라는 권위의 성격이 소실된다.",
+      "recommended_action": "authority_basis를 commentary-reported precedent에 해당하는 허용 값으로 정정하고, 판례 원전 미확인 상태라는 점은 계속 review_required로 유지한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "authority_question.precedent_alignment",
+      "severity": "soft",
+      "target_path": "/legal_review_questions/1",
+      "message": "특별배임죄와 업무상배임죄의 관계에 관한 카드는 commentary_reported_doctrine에 근거하는데, 검토 질문은 근거가 제시되지 않은 ‘precedent-aligned practical policy’를 선택하도록 요구한다. 제공된 범위에서 이 쟁점에 관한 판례의 구체적 입장은 확인되지 않는다.",
+      "recommended_action": "검토 질문을 경쟁 견해와 권위 수준을 확인하도록 한정하고, 별도의 판례 근거가 확보되지 않는 한 판례 정합적 정책 선택을 전제하지 말라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "authority.reported_precedent",
+      "severity": "hard",
+      "target_path": "$.target.cards[*].authority_basis",
+      "message": "모든 카드가 authority_basis를 commentary_synthesis로 표시하지만, 해당 문단은 판례 2004도5742를 인용하여 정의, 판단기준 및 보충관계를 제시한다. 단순한 해설 종합과 해설이 보고한 판례 법리를 구별해야 한다.",
+      "recommended_action": "각 카드의 authority_basis를 해설에 보고된 판례 법리에 맞게 재검토하고, 그 권위 성격에 관한 검토 질문도 구체화한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "authority.evaluated_scope_synthesis",
+      "severity": "hard",
+      "target_path": "$.cards[0].authority_basis",
+      "message": "이 카드의 일반 명제는 해당 청크의 해설 서술에서 직접 제시되며, 특정 판례의 판시로 표시된 문구가 아니다. 이를 전부 commentary_reported_precedent 및 precedent_position으로 분류하면 해설 종합과 판례 권위를 구별하지 못한다.",
+      "recommended_action": "이 명제의 authority_basis와 doctrinal_status를 해설 종합에 맞게 조정하거나, 판례 입장으로 유지하려면 청크에서 명시적으로 판례에 귀속된 범위로 카드를 한정하라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "authority.predictable_risk_synthesis",
+      "severity": "hard",
+      "target_path": "$.cards[2].authority_basis",
+      "message": "명제는 문헌의 '분석과 검토'가 대법원 다수의견을 정리한 내용이다. 판결문 자체의 직접 보고로 취급하는 commentary_reported_precedent는 출처 층위를 과대평가한다.",
+      "recommended_action": "authority_basis를 commentary_synthesis로 변경하고, 다수의견에 대한 해설자의 정리라는 현재 명제의 한정을 유지하라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "authority.imaginary_concurrence_mixed",
+      "severity": "hard",
+      "target_path": "$.cards[9]",
+      "message": "하나의 카드가 다수설이라는 학설상 입장과 변경된 판례 입장을 결합하면서 authority_basis는 commentary_reported_precedent만 표시한다. 그 결과 다수설 부분까지 판례 권위로 표시되고, 서로 다른 권위 층위가 합쳐졌다.",
+      "recommended_action": "다수설 카드와 변경 판례 카드로 최소 분리하여 각각 commentary_reported_doctrine과 commentary_reported_precedent를 부여하거나, 스키마가 혼합 권위를 지원한다면 두 권위가 명확히 보존되도록 표시하라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "mixed_authority_collapsed",
+      "severity": "soft",
+      "target_path": "$.cards[0].authority_basis",
+      "message": "출처는 해당 입장을 '다수설, 판례'라고 함께 소개하므로 학설과 주석서가 보고한 판례라는 혼합된 권위 성격을 가진다. 이를 commentary_reported_doctrine 하나로만 표시하면 판례 보고 요소가 누락된다.",
+      "recommended_action": "허용된 카드 표현 방식 안에서 학설과 commentary-reported precedent가 함께 제시된 혼합 권위임을 보존하고, 하나만 선택해야 한다면 그 선택을 법률검토 질문으로 명시한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "authority.embezzlement_proof_burden",
+      "severity": "hard",
+      "target_path": "$.cards[0].authority_basis",
+      "message": "이 명제는 해설 자체의 독자적 종합으로만 제시된 것이 아니라 다수의 인용판례에 근거한 법리로 보고되어 있다. 따라서 이를 단순히 commentary_synthesis로 표시하면 판례 보고라는 권위의 성격이 누락된다.",
+      "recommended_action": "authority_basis를 해설이 보고하는 판례 법리에 맞게 조정하거나, 사용 가능한 권위 분류상 그 구별이 불가능하다면 review_notes와 법적 검토 질문에 commentary-reported precedent 여부를 명시하라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "authority.unexplained_withdrawal_inference",
+      "severity": "hard",
+      "target_path": "$.cards[1].authority_basis",
+      "message": "회사 금원 인출과 설명 부재에 따른 추단 명제도 해당 절에 열거된 인용판례에 근거하여 보고된 법리인데 commentary_synthesis로만 분류되어 권위의 성격이 정확히 보존되지 않았다.",
+      "recommended_action": "authority_basis를 commentary-reported precedent에 해당하는 분류로 조정하고, 원전 판례 확인 전에는 현재의 review_required 상태를 유지하라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "authority.self_possessed_mixed_basis",
+      "severity": "hard",
+      "target_path": "/cards/0/authority_basis",
+      "message": "이 카드의 명제는 다수설과 판례의 입장을 함께 보고하지만 authority_basis와 doctrinal_status는 판례 입장만 표시하여 다수설이라는 별도 권위 성격을 보존하지 못한다.",
+      "recommended_action": "다수설과 commentary-reported precedent의 혼합 근거를 명시적으로 보존하거나, 지원되는 스키마 범위에서 두 권위 성격을 구분하고 그 관계에 관한 검토 질문을 추가한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "authority.dual_basis_omitted",
+      "severity": "hard",
+      "target_path": "$.cards[0].authority_basis",
+      "message": "카드의 명제는 해당 결론을 판례와 다수설의 입장으로 함께 제시하지만, authority_basis는 commentary_reported_precedent만 표시하여 다수설이라는 학설상 근거를 반영하지 않는다.",
+      "recommended_action": "판례와 다수설이라는 이중 권위가 보존되도록 권위 표시를 보완하거나, 현행 권위 필드가 하나만 허용된다면 두 권위의 구분을 유지할 수 있는 최소한의 카드 분리 또는 명시적 검토사항을 추가한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art355",
+      "finding_id": "review_question.unsourced_precedent_alignment",
+      "severity": "hard",
+      "target_path": "$.legal_review_questions[1]",
+      "message": "검토 질문은 두 제3자 취득 관련 학설 카드 사이에서 'precedent-aligned' 정책을 선택하도록 요구하지만, 출처는 이 두 견해를 학설상 경쟁 견해로만 소개하고 어느 견해가 판례 입장인지 밝히지 않는다. 반면 회사자금 사례의 판례와 비판설은 별도의 사실관계와 변형군이다.",
+      "recommended_action": "첫 번째 변형군에 대해서는 판례 정렬을 전제하지 말고 권위가 미확정인 경쟁 학설로 검토하도록 질문을 한정한다. 회사자금 사례의 판례·비판설 변형군과 별도로 다룬다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art356",
+      "module": "sec4_3",
+      "card_id": "art356_sec4_3.nonstatus_co_principal_exclusion",
+      "variant_group": "art356_sec4_3.nonstatus_participation",
+      "proposition": "비신분자는 업무상횡령죄 및 단순횡령죄의 공동정범이 될 수 없고, 가공 정도에 따라 단순횡령죄의 교사범 또는 방조범만 문제된다는 견해가 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "article": "art356",
+      "finding_id": "unsupported_settled_status",
+      "severity": "hard",
+      "target_path": "/cards/0/doctrinal_status",
+      "message": "The designation \"settled\" is broader than the bounded text supports. The chunk states the active-participation standard but does not characterize that standard as settled or identify the degree of doctrinal consensus supporting that label.",
+      "recommended_action": "Use an uncertainty-preserving doctrinal status supported by the available schema or flag the status for review rather than labeling it settled.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "A_요건불요형",
+      "article": "art357",
+      "card_id": "art357_sec3_5.no_corrupt_performance_required",
+      "proposition": "배임수재죄의 기수에는 청탁에 상응하는 부정행위 또는 배임행위까지 나아갈 것이 요구되지 않는다.",
+      "action": "요건 제외 규칙이지 사실 질문이 아님 → deterministic rule로 처리, 질의 불요."
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art357",
+      "module": "sec1_7",
+      "card_id": "art357_sec1_7.abstract_danger_offense",
+      "variant_group": "art357_sec1_7.offense_character",
+      "proposition": "거래의 청렴성을 보호법익으로 보는 견해에서는 부정한 청탁과 재물 또는 재산상 이익 취득이 있으면 거래의 청렴성이 현실적으로 침해되지 않아도 배임수재죄가 성립하는 위험범설이 타당하다고 본다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "article": "art357",
+      "finding_id": "precedent.scope.in.review.question",
+      "severity": "soft",
+      "target_path": "/legal_review_questions/1",
+      "message": "출전에 보고된 판례는 배임수재죄가 아니라 참고로 언급된 배임죄를 구체적 위험범으로 평가한 판례이다. 그런데 검토 질문은 배임수재죄 자체에 판례상 정렬 기준이 확인된 것처럼 'precedent-aligned' 정책 선택을 요구하여 판례의 대상과 권위 범위를 불명확하게 만든다.",
+      "recommended_action": "검토 질문에서 배임죄 판례가 참고적·유추적 자료에 불과함을 명시하고, 배임수재죄에 관한 직접 판례의 존재와 적용 가능성을 별도로 확인하도록 범위를 한정하라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art357",
+      "finding_id": "authority.implied_request_trend",
+      "severity": "hard",
+      "target_path": "$.cards[10].doctrinal_status",
+      "message": "출처는 여러 사건에서 나타난 재판실무의 경향을 종합하여 서술하고 있으므로, 이를 단일한 precedent_position으로 표시하면 권위의 성격과 확정도를 과장한다.",
+      "recommended_action": "해당 카드의 doctrinal_status를 commentary가 보고한 실무 경향 또는 종합에 맞는 상태로 조정하고, 확정된 단일 판례 기준처럼 표시하지 않는다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art357",
+      "finding_id": "review_question.presumes_precedent_policy",
+      "severity": "hard",
+      "target_path": "$.target.legal_review_questions[1]",
+      "message": "The instruction to select a 'precedent-aligned practical policy' implies that the bounded source establishes which competing doctrine precedent adopts. It states only that precedent appears mainly to use the expression '영득의 의사'; terminology alone does not resolve whether that intent is an element separate from intent.",
+      "recommended_action": "Revise the review question to ask whether the cited precedent resolves the doctrinal choice and to keep both variants unresolved unless additional authority supports a selection.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art357",
+      "finding_id": "review.precedent-alignment-unresolved",
+      "severity": "soft",
+      "target_path": "/legal_review_questions/1",
+      "message": "The request to select a 'precedent-aligned' policy cannot be answered from this bounded source: it lists cited case numbers but does not report their holdings or connect them to a particular variant.",
+      "recommended_action": "Revise the question to require separate retrieval and review of the cited decisions before assessing precedent alignment, without implying that the bounded commentary establishes which policy the precedents support.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art357",
+      "finding_id": "authority.card0.reported_precedent",
+      "severity": "hard",
+      "target_path": "/cards/0/authority_basis",
+      "message": "The card classifies the norm as commentary synthesis, but the bounded commentary expressly presents the proposition with a cited precedent (2008도6987). The authority basis should preserve that this is commentary-reported precedent rather than an uncited commentary synthesis.",
+      "recommended_action": "Change only the authority classification to the schema-supported category for commentary-reported precedent and retain legal review of the cited authority.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art357",
+      "finding_id": "authority.card1.reported_precedent",
+      "severity": "hard",
+      "target_path": "/cards/1/authority_basis",
+      "message": "The card classifies the norm as commentary synthesis, although the bounded commentary attributes the discussion to cited precedent 2008도6987. This obscures the source's reported-precedent character.",
+      "recommended_action": "Change only the authority classification to the schema-supported category for commentary-reported precedent and retain legal review of the cited authority.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art357",
+      "finding_id": "status.unsubstantiated_settled",
+      "severity": "soft",
+      "target_path": "$.cards[1].doctrinal_status",
+      "message": "The bounded commentary states the recipient requirement and negative consequence, but it does not independently establish the stronger metadata claim that the doctrine is settled. The card's authority basis is commentary synthesis, and the linked candidate does not supply a settled-status determination.",
+      "recommended_action": "Use a descriptive or otherwise non-settled doctrinal status unless a bounded authority supports the settled characterization.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art357",
+      "finding_id": "status.unsubstantiated_completion_settled",
+      "severity": "soft",
+      "target_path": "$.cards[3].doctrinal_status",
+      "message": "The source expressly states the completed-versus-attempted distinction, but it does not establish the separate metadata proposition that this position is settled. That characterization is broader than the commentary-synthesis authority recorded for the card.",
+      "recommended_action": "Downgrade the doctrinal-status label to a descriptive category unless bounded authority supporting settled status is added.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art360",
+      "module": "sec1_2",
+      "card_id": "art360_sec1_2.relationship_with_entrusted_property_embezzlement",
+      "variant_group": "art360_sec1_2.relationship_with_entrusted_property_embezzlement",
+      "proposition": "점유이탈물횡령죄와 위탁물횡령죄의 관계에 관하여, 통설은 법적 성질이 다른 독립된 별개의 범죄라고 보고, 기본적·가중적 구성요건 관계설 및 위탁물횡령죄에 대한 보충관계의 감경적 구성요건설도 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art360",
+      "module": "sec1_3",
+      "card_id": "art360_sec1_3.protected_interest_danger_offense",
+      "variant_group": "art360_sec1_3.protected_interest_danger_offense",
+      "proposition": "횡령죄를 결과범으로 보더라도 점유이탈물횡령죄는 위험범으로 보아야 한다는 견해가 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "article": "art360",
+      "finding_id": "authority.public_transport_found",
+      "severity": "hard",
+      "target_path": "$.cards[9]",
+      "message": "현실적 발견 후 운전사·승무원의 점유가 인정된다는 명제는 해당 문맥에서 주석의 설명 또는 추론으로 제시되며 판례의 입장이라고 명시되어 있지 않다. 그런데 카드는 이를 commentary_reported_precedent 및 precedent_position으로 분류하고 원판례 확인을 요구하여 출처의 권위 수준을 높였다.",
+      "recommended_action": "이 카드의 authority_basis와 doctrinal_status를 주석 설명에 맞게 낮추고, 판례로 특정하는 review_notes도 제거하거나 별도 확인 질문으로 한정한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art360",
+      "finding_id": "status.mistaken_transfer_precedent",
+      "severity": "soft",
+      "target_path": "$.cards[7].doctrinal_status",
+      "message": "자료는 착오송금에 관한 학설 대립과 별개로 판례가 일관하여 횡령죄의 객체로 본다고 보고한다. 해당 판례 카드 자체의 doctrinal_status를 disputed로 두면 판례 입장 자체가 미확정인 것처럼 읽힐 수 있다.",
+      "recommended_action": "학설 대립은 variant_group에서 유지하되, 이 카드의 doctrinal_status는 주석이 보고한 판례 입장임을 정확히 나타내도록 조정한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art366",
+      "card_id": "art366.new_ledger_under_preparation_exclusion",
+      "proposition": "기존 장부를 새 장부로 이기하는 과정에서 누계 오기 부분을 찢었으나 종전 장부 내용을 모두 이기한 경우, 새 경리장부는 아직 작성 중이어서 문서손괴죄의 객체가 되는 문서가 아니라는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art366",
+      "card_id": "art366_sec3_2.egg_throwing_building_negative_holding",
+      "proposition": "해고 노동자들의 복직 요구 집회 중 회사 건물 외벽에 계란 약 30개를 투척한 행위는 사회통념상 건조물 효용을 해한 것으로 볼 수 없어 재물손괴죄가 성립하지 않는다는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art366",
+      "card_id": "art366_sec3_2.spray_on_sculpture_negative_holding",
+      "proposition": "화력발전소 건설 문제를 제기하며 회사 건물 앞 광장의 조형물에 수성스프레이를 뿌린 행위는 표현의 자유 위축 우려 등을 이유로 조형물 효용을 해한 것으로 볼 수 없어 재물손괴죄가 성립하지 않는다는 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "negative_no_query_needed",
+      "rule": "B_판례소개형",
+      "article": "art366",
+      "card_id": "art366_sec3_2.road_graffiti_no_efficiency_holding",
+      "proposition": "산업현장에 위치한 회사 소유 도로 바닥에 페인트·래커 스프레이로 여러 문구를 써놓은 사안에서, 통행·안전에 실질적 지장이 없고 원상회복에 큰 시간·비용이 들지 않은 등의 사정을 종합하여 도로 효용 침해 및 재물손괴죄 성립을 부정한 판례가 소개되어 있다.",
+      "action": "규범 주장이 아닌 판례 보고문 → 질의 대상 아님. 카드 재분류(context_only) 검토 필요."
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art366",
+      "module": "sec5_1",
+      "card_id": "art366_sec5_1.variant.consent_elements_exclusion",
+      "variant_group": "art366_sec5_1.consent_legal_effect",
+      "proposition": "소유자나 처분권자의 동의를 받아 손괴·은닉한 경우, 위법성조각이 아니라 구성요건해당성이 배제된다고 보는 견해가 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art366",
+      "module": "sec7_2",
+      "card_id": "art366_sec7_2.malware_record_damage_imaginary_concurrence",
+      "variant_group": "art366_sec7_2.malware_record_damage_concurrence",
+      "proposition": "악성프로그램 관련 행위에서 손괴죄와 정보통신망 관련 법률 위반죄는 상상적 경합이라는 견해가 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "kind": "variant_demoted_context_only",
+      "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님(postmortem: 판례설명·보충논거는 context_only)",
+      "article": "art366",
+      "module": "sec7_2",
+      "card_id": "art366_sec7_2.unauthorized_ad_flyer_property_damage",
+      "variant_group": "art366_sec7_2.unauthorized_ad_flyer_damage",
+      "proposition": "건조물 벽면이나 시설물 표면에 광고 전단을 무단 부착하는 행위는 기타 방법에 의한 효용침해행위로서 재물손괴죄 성립을 긍정하는 견해가 있다.",
+      "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+      "human_review": {
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "article": "art366",
+      "finding_id": "authority.question-case-mismatch",
+      "severity": "soft",
+      "target_path": "$.legal_review_questions[1]",
+      "message": "The review question characterizes the card as a commentary-reported case card and asks for verification of primary decisions, but the bounded source presents a majority doctrinal view and identifies no judicial decision.",
+      "recommended_action": "Replace this question with one directed to the doctrinal authority and scope of the stated majority view, without requesting verification of unidentified primary decisions.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art366",
+      "finding_id": "public_document_mixed_authority",
+      "severity": "soft",
+      "target_path": "$.cards[29].authority_basis",
+      "message": "이 카드는 공용서류가 아닌 공문서도 제366조 객체가 된다는 통설 부분과, 소유 주체보다 공용서류 해당 여부가 요건이라는 논평자의 해석을 하나의 명제로 결합한다. 이를 전부 commentary_reported_doctrine으로 표시하면 논평자의 종합적 해석과 보고된 통설의 권위 층위가 구별되지 않는다.",
+      "recommended_action": "통설 명제와 논평자의 해석을 분리하거나, 결합 상태를 유지한다면 authority_basis와 review_notes에서 두 권위 층위를 명시적으로 구별한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art366",
+      "finding_id": "authority.emotional_objective_limit",
+      "severity": "hard",
+      "target_path": "$.cards[20].authority_basis",
+      "message": "객관적으로 인식 가능한 법감정으로 한정해야 한다는 명제는 판례가 직접 판시한 내용으로 보고된 것이 아니라, 판례의 표현을 그렇게 해석해야 한다는 commentary의 해석이다. 이를 commentary_reported_precedent 및 precedent_position으로 표시하면 권위가 과대 표시된다.",
+      "recommended_action": "authority_basis를 commentary_synthesis 또는 commentary_reported_doctrine에 맞게 낮추고 doctrinal_status도 판례 입장으로 단정하지 않도록 수정한다.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art366",
+      "finding_id": "attempt_liability.authority_basis",
+      "severity": "hard",
+      "target_path": "$.cards[1].authority_basis",
+      "message": "카드에 포함된 '미수범은 처벌한다'는 문언은 출처에서 형법 제371조와 연결되어 있으므로 단순한 commentary_synthesis로만 취급하면 법률에 귀속된 규범과 해설의 판단기준이 구별되지 않는다.",
+      "recommended_action": "분리된 미수범 처벌 카드에 대해 출처가 법률 규정을 보고하는 형태임을 반영하는 적절한 authority_basis를 선택하고, 직접 법률문언이 제공되지 않았다는 한계가 있다면 검토 대상으로 표시하라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    },
+    {
+      "article": "art366",
+      "finding_id": "f.conditional_intent.authority",
+      "severity": "hard",
+      "target_path": "$.cards[1].authority_basis",
+      "message": "카드는 계획적 의도·적극적 희망의 불필요성과 미필적 고의의 충분성을 하나의 명제로 병합하면서 전부를 commentary_synthesis로 표시한다. 그러나 bounded chunk는 미필적 고의로 충분하다는 부분을 다수설·판례의 입장으로 명시하므로 결합된 명제의 권위 층위가 보존되지 않았다.",
+      "recommended_action": "미필적 고의 부분의 다수설·판례 귀속을 보존하도록 권위 표시를 조정하거나, 권위가 다른 절을 별도 카드로 분리하여 검토 대상으로 남겨라.",
+      "kind": "authority_normalized",
+      "rule": "3.2 라벨 문제(포렌식 확인: rules/·rule_ir 0 hit)",
+      "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"
+    }
+  ]
+}

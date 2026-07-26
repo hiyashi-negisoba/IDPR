@@ -1,0 +1,828 @@
+{
+  "version": "2.0.0",
+  "api_calls": 0,
+  "created_at": "2026-07-25T06:22:00.517776+00:00",
+  "supersedes": "결정AC_반영원장.json 의 승격분 (선정 버그·감사 우회)",
+  "bugfix": [
+    "auto_self_declared의 picked는 카드 id 문자열인데 인덱스로 읽어 패자까지 승격했다",
+    "승격 카드가 결함감사(죄수·공범)를 거치지 않았다"
+  ],
+  "stats": {
+    "rewritten": 38,
+    "promoted": 51,
+    "rewrite_pending": 12,
+    "blocked_concurrence": 10,
+    "blocked_complicity": 5,
+    "group_uncovered": 2,
+    "group_missing": 1
+  },
+  "entries": [
+    {
+      "group": "art323_sec2_1.subject_status",
+      "resolution": "user",
+      "chosen": [
+        "art323_sec2_1.subject_genuine_status_offense"
+      ],
+      "promoted": [
+        "art323_sec2_1.subject_genuine_status_offense"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art328_sec4_1.kinship_required_persons",
+      "resolution": "user",
+      "chosen": [
+        "art328_sec4_1.kinship_owner_theory"
+      ],
+      "promoted": [
+        "art328_sec4_1.kinship_owner_theory"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art328_sec4_1.fraud_deceived_person_status",
+      "resolution": "user",
+      "chosen": [
+        "art328_sec4_1.fraud_deceived_person_procedural_theory"
+      ],
+      "promoted": [
+        "art328_sec4_1.fraud_deceived_person_procedural_theory"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art328_sec4_1.adult_guardian_application",
+      "resolution": "user",
+      "chosen": [
+        "art328_sec4_1.adult_guardian_no_extra_statutory_exclusion"
+      ],
+      "promoted": [
+        "art328_sec4_1.adult_guardian_no_extra_statutory_exclusion"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art329_sec2_2.sealed_deposit_possession",
+      "resolution": "user",
+      "chosen": [
+        "art329_sec2_2.sealed_deposit_entrustment_nature"
+      ],
+      "promoted": [
+        "art329_sec2_2.sealed_deposit_entrustment_nature"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art329_sec2_2.dead_person_possession",
+      "resolution": "user",
+      "chosen": [
+        "art329_sec2_2.dead_person_possession_continuing"
+      ],
+      "promoted": [
+        "art329_sec2_2.dead_person_possession_continuing"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art329_sec5_2.use_theft_nonpunishability",
+      "resolution": "user",
+      "chosen": [
+        "art329_sec5_2.use_theft_possession_not_completely_lost"
+      ],
+      "promoted": [
+        "art329_sec5_2.use_theft_possession_not_completely_lost"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art329_sec5_2.fuel_consumption",
+      "resolution": "user",
+      "chosen": [
+        "art329_sec5_2.fuel_consumption_incidental_use"
+      ],
+      "promoted": [
+        "art329_sec5_2.fuel_consumption_incidental_use"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art329_sec6.consent_effect",
+      "resolution": "user",
+      "chosen": [
+        "art329_sec6.consent_no_taking"
+      ],
+      "promoted": [
+        "art329_sec6.consent_no_taking"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art329_sec8_3.daytime_intrusion_theft_concurrence",
+      "resolution": "user",
+      "chosen": [
+        "art329_sec8_3.daytime_intrusion_theft_real_concurrence"
+      ],
+      "promoted": [
+        "art329_sec8_3.daytime_intrusion_theft_real_concurrence"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art329_sec8_3.habitual_theft_daytime_intrusion_concurrence",
+      "resolution": "user",
+      "chosen": [
+        "art329_sec8_3.habitual_theft_daytime_intrusion_separate_offense"
+      ],
+      "promoted": [
+        "art329_sec8_3.habitual_theft_daytime_intrusion_separate_offense"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art331_sec3_3.group_offense_theory",
+      "resolution": "user",
+      "chosen": [
+        "art331_sec3_3.group_offense_scene_presence"
+      ],
+      "promoted": [
+        "art331_sec3_3.group_offense_scene_presence"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art334_sec3.nighttime_attempt_timing",
+      "resolution": "user",
+      "chosen": [
+        "art334_sec3.nighttime_home_intrusion_attempt_on_intrusion"
+      ],
+      "promoted": [
+        "art334_sec3.nighttime_home_intrusion_attempt_on_intrusion"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art335_sec7_1.attempt_completion_standard",
+      "resolution": "user",
+      "chosen": [
+        "art335_sec7_1.attempt_theft_act_standard"
+      ],
+      "promoted": [
+        "art335_sec7_1.attempt_theft_act_standard"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art335_sec8.weapon_acquired_during_violence",
+      "resolution": "user",
+      "chosen": [
+        "art335_sec8.weapon_acquired_during_violence.reported_precedent"
+      ],
+      "promoted": [
+        "art335_sec8.weapon_acquired_during_violence.reported_precedent"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art335_sec9_1.separated_accomplice_violence",
+      "resolution": "user",
+      "chosen": [
+        "art335_sec9_1.separated_accomplice_violence_affirmative"
+      ],
+      "promoted": [],
+      "blocked": [
+        {
+          "card_id": "art335_sec9_1.separated_accomplice_violence_affirmative",
+          "reason": "죄수·다른죄 관계 절"
+        }
+      ]
+    },
+    {
+      "group": "art337_sec3.injury_result_violence_awareness",
+      "resolution": "user",
+      "chosen": [
+        "art337_sec3.injury_result_violence_intent"
+      ],
+      "promoted": [
+        "art337_sec3.injury_result_violence_intent"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art337_sec5.late-joiner-liability",
+      "resolution": "user",
+      "chosen": [
+        "art337_sec5.late-joiner-liability-after-joining"
+      ],
+      "promoted": [],
+      "blocked": [
+        {
+          "card_id": "art337_sec5.late-joiner-liability-after-joining",
+          "reason": "공범관계 절 — 총칙"
+        }
+      ]
+    },
+    {
+      "group": "art338_sec5.accomplice_foreseeability_murder",
+      "resolution": "user",
+      "chosen": [
+        "art338_sec5.accomplice.foreseeability_murder_precedent"
+      ],
+      "promoted": [],
+      "blocked": [
+        {
+          "card_id": "art338_sec5.accomplice.foreseeability_murder_precedent",
+          "reason": "공범관계 절 — 총칙"
+        }
+      ]
+    },
+    {
+      "group": "art350_sec3.possessed_property_object",
+      "resolution": "user",
+      "chosen": [
+        "art350_sec3.possessed_property_object_affirmative"
+      ],
+      "promoted": [
+        "art350_sec3.possessed_property_object_affirmative"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art350_sec8_1.right_enforcement_extortion",
+      "resolution": "user",
+      "chosen": [
+        "art350_sec8_1.right_enforcement_method_standard"
+      ],
+      "promoted": [
+        "art350_sec8_1.right_enforcement_method_standard"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art355_sec1_2.embezzlement_nature",
+      "resolution": "user_merge",
+      "chosen": [
+        "art355_sec1_2.embezzlement_illegal_appropriation_theory",
+        "art355_sec1_2.embezzlement_illegal_appropriation_exclusion"
+      ],
+      "promoted": [
+        "art355_sec1_2.embezzlement_illegal_appropriation_theory",
+        "art355_sec1_2.embezzlement_illegal_appropriation_exclusion"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art355_sec1_2.breach_of_trust_nature",
+      "resolution": "user",
+      "chosen": [
+        "art355_sec1_2.breach_of_trust_betrayal_theory"
+      ],
+      "promoted": [
+        "art355_sec1_2.breach_of_trust_betrayal_theory"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art355_sec1_3.breach_of_trust_protection_degree",
+      "resolution": "user",
+      "chosen": [
+        "art355_sec1_3.breach_of_trust_case_concrete_risk_of_loss"
+      ],
+      "promoted": [
+        "art355_sec1_3.breach_of_trust_case_concrete_risk_of_loss"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art355_sec3_3.embezzlement_nature",
+      "resolution": "user",
+      "chosen": [
+        "art355_sec3_3.authority_excess_theory"
+      ],
+      "promoted": [
+        "art355_sec3_3.authority_excess_theory"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art355_sec3_3.invalid_disposition",
+      "resolution": "user",
+      "chosen": [
+        "art355_sec3_3.invalid_disposition_majority"
+      ],
+      "promoted": [
+        "art355_sec3_3.invalid_disposition_majority"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art329_sec2_2.carrier_possession",
+      "resolution": "user",
+      "chosen": [
+        "art329_sec2_2.carrier_control_based_possession"
+      ],
+      "promoted": [
+        "art329_sec2_2.carrier_control_based_possession"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art343_sec3.abandonment_before_execution",
+      "resolution": "user",
+      "chosen": [
+        "art343_sec3.abandonment_before_execution_denied"
+      ],
+      "promoted": [
+        "art343_sec3.abandonment_before_execution_denied"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art343_sec5_3.illegal_possession_relation",
+      "resolution": "user",
+      "chosen": [
+        "art343_sec5_3.illegal_possession_concurrence"
+      ],
+      "promoted": [],
+      "blocked": [
+        {
+          "card_id": "art343_sec5_3.illegal_possession_concurrence",
+          "reason": "죄수·다른죄 관계 절"
+        }
+      ]
+    },
+    {
+      "group": "art350_sec10_5.detention_extortion_concurrence",
+      "resolution": "user",
+      "chosen": [
+        "art350_sec10_5.detention_extortion_substantive_concurrence"
+      ],
+      "promoted": [
+        "art350_sec10_5.detention_extortion_substantive_concurrence"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art350_sec9.illicit_gain_intent",
+      "resolution": "user",
+      "chosen": [
+        "art350_sec9.illicit_gain_intent.required"
+      ],
+      "promoted": [
+        "art350_sec9.illicit_gain_intent.required"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art355_sec3_3.completion_timing",
+      "resolution": "user",
+      "chosen": [
+        "art355_sec3_3.completion_expression_theory"
+      ],
+      "promoted": [
+        "art355_sec3_3.completion_expression_theory"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art355_sec4_1.temporary_company_fund_use",
+      "resolution": "user",
+      "chosen": [
+        "art355_sec4_1.temporary_company_fund_objective_assessment_view"
+      ],
+      "promoted": [
+        "art355_sec4_1.temporary_company_fund_objective_assessment_view"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art355_sec4_2.breach_illicit_gain_requirement",
+      "resolution": "user",
+      "chosen": [
+        "art355_sec4_2.breach_illicit_gain_separate_requirement"
+      ],
+      "promoted": [
+        "art355_sec4_2.breach_illicit_gain_separate_requirement"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art355_sec5_2.real_estate_sale_other_affairs",
+      "resolution": "user",
+      "chosen": [
+        "art355_sec5_2.real_estate_double_sale_majority",
+        "art355_sec5_2.real_estate_sale_dissent"
+      ],
+      "promoted": [
+        "art355_sec5_2.real_estate_double_sale_majority",
+        "art355_sec5_2.real_estate_sale_dissent"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art355_sec7_2.subsequent_disposal",
+      "resolution": "user",
+      "chosen": [
+        "art355_sec7_2.embezzlement_subsequent_disposal_predictable_risk"
+      ],
+      "promoted": [
+        "art355_sec7_2.embezzlement_subsequent_disposal_predictable_risk"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art355_sec9_2.third_party_embezzled_property",
+      "resolution": "user",
+      "chosen": [
+        "art355_sec9_2.third_party_embezzled_property_complicity_view"
+      ],
+      "promoted": [],
+      "blocked": [
+        {
+          "card_id": "art355_sec9_2.third_party_embezzled_property_complicity_view",
+          "reason": "죄수·다른죄 관계 절"
+        }
+      ]
+    },
+    {
+      "group": "art357.protected_interest",
+      "resolution": "user",
+      "chosen": [
+        "art357.protected_interest.integrity"
+      ],
+      "promoted": [
+        "art357.protected_interest.integrity"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art357_sec3_3.principal_third_party_scope",
+      "resolution": "user",
+      "chosen": [
+        "art357_sec3_3.principal_not_third_party_precedent"
+      ],
+      "promoted": [
+        "art357_sec3_3.principal_not_third_party_precedent"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art357_sec3_4.illegal_appropriation_intent",
+      "resolution": "user",
+      "chosen": [
+        "art357_sec3_4.illegal_appropriation_intent_separate"
+      ],
+      "promoted": [
+        "art357_sec3_4.illegal_appropriation_intent_separate"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art360_sec2_3.mistake_property_status",
+      "resolution": "user",
+      "chosen": [
+        "art360_sec2_3.mistake_property_status_punishable"
+      ],
+      "promoted": [
+        "art360_sec2_3.mistake_property_status_punishable"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art366.special_medium_record_scope",
+      "resolution": "user",
+      "chosen": [
+        "art366.special_medium_record_limited_view"
+      ],
+      "promoted": [
+        "art366.special_medium_record_limited_view"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art366.public_building_non_destruction",
+      "resolution": "user",
+      "chosen": [
+        "art366.public_building_affirmative_view"
+      ],
+      "promoted": [
+        "art366.public_building_affirmative_view"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art366_sec3_2.foreign_substance_classification",
+      "resolution": "user_hold",
+      "promoted": [],
+      "note": "uncovered로 정직 보고"
+    },
+    {
+      "group": "art366_sec3_2.destruction_scope",
+      "resolution": "user",
+      "chosen": [
+        "art366_sec3_2.preservation_state_change_view"
+      ],
+      "promoted": [
+        "art366_sec3_2.preservation_state_change_view"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art366_sec3_2.malware_classification",
+      "resolution": "user_hold",
+      "promoted": [],
+      "note": "uncovered로 정직 보고"
+    },
+    {
+      "group": "art366_sec3_2.wall_graffiti_classification",
+      "resolution": "user",
+      "chosen": [
+        "art366_sec3_2.wall_graffiti_functional_efficiency_limit"
+      ],
+      "promoted": [
+        "art366_sec3_2.wall_graffiti_functional_efficiency_limit"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art366_sec7_2.document_alteration_concurrence",
+      "resolution": "user",
+      "chosen": [
+        "art366_sec7_2.document_alteration_imaginary_concurrence"
+      ],
+      "promoted": [],
+      "blocked": [
+        {
+          "card_id": "art366_sec7_2.document_alteration_imaginary_concurrence",
+          "reason": "죄수·다른죄 관계 절"
+        }
+      ]
+    },
+    {
+      "group": "art366_sec7_2.opened_letter_destruction_concurrence",
+      "resolution": "user",
+      "chosen": [
+        "art366_sec7_2.opened_letter_destruction_real_concurrence"
+      ],
+      "promoted": [],
+      "blocked": [
+        {
+          "card_id": "art366_sec7_2.opened_letter_destruction_real_concurrence",
+          "reason": "죄수·다른죄 관계 절"
+        }
+      ]
+    },
+    {
+      "group": "art366_sec7_2.evidence_destruction_damage_concurrence",
+      "resolution": "user",
+      "chosen": [
+        "art366_sec7_2.evidence_destruction_damage_imaginary_concurrence"
+      ],
+      "promoted": [],
+      "blocked": [
+        {
+          "card_id": "art366_sec7_2.evidence_destruction_damage_imaginary_concurrence",
+          "reason": "죄수·다른죄 관계 절"
+        }
+      ]
+    },
+    {
+      "group": "art323_sec1_1.offense_structure",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art323_sec1_1.abstract_danger_offense"
+      ],
+      "promoted": [
+        "art323_sec1_1.abstract_danger_offense"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art323_sec3.conditional_intent",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art323_sec3.conditional_intent_sufficient"
+      ],
+      "promoted": [
+        "art323_sec3.conditional_intent_sufficient"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art343_sec2_1.contingent_intent",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art343_sec2_1.contingent_intent_sufficient_precedent"
+      ],
+      "promoted": [
+        "art343_sec2_1.contingent_intent_sufficient_precedent"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art355_sec4_3.fake_capital_payment",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art355_sec4_3.fake_capital_academic_invalidity"
+      ],
+      "promoted": [
+        "art355_sec4_3.fake_capital_academic_invalidity"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art355_sec5_3.second_purchaser_accomplice",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art355_sec5_3.second_purchaser_accomplice_active_participation"
+      ],
+      "promoted": [
+        "art355_sec5_3.second_purchaser_accomplice_active_participation"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art355_sec5_3.double_sale_attempt_timing",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art355_sec5_3.double_sale_attempt_intermediate_payment"
+      ],
+      "promoted": [
+        "art355_sec5_3.double_sale_attempt_intermediate_payment"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art355_sec6.occupational_embezzlement_accomplice",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art355_sec6.occupational_embezzlement_accomplice_precedent"
+      ],
+      "promoted": [],
+      "blocked": [
+        {
+          "card_id": "art355_sec6.occupational_embezzlement_accomplice_precedent",
+          "reason": "공범관계 절 — 총칙"
+        }
+      ]
+    },
+    {
+      "group": "art355_sec7_2.fraud_breach_of_trust_concurrence",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art355_sec7_2.fraud_breach_of_trust_imaginary_concurrence"
+      ],
+      "promoted": [],
+      "blocked": [
+        {
+          "card_id": "art355_sec7_2.fraud_breach_of_trust_imaginary_concurrence",
+          "reason": "죄수·다른죄 관계 절"
+        }
+      ]
+    },
+    {
+      "group": "art355_sec8.non_status_joint_principal",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art355_sec8.non_status_accomplice_general"
+      ],
+      "promoted": [],
+      "blocked": [
+        {
+          "card_id": "art355_sec8.non_status_accomplice_general",
+          "reason": "공범관계 절 — 총칙"
+        }
+      ]
+    },
+    {
+      "group": "art355_sec9_2.non_concerted_company_fund_recipient",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art355_sec9_2.non_concerted_company_fund_recipient_precedent"
+      ],
+      "promoted": [],
+      "blocked": [
+        {
+          "card_id": "art355_sec9_2.non_concerted_company_fund_recipient_precedent",
+          "reason": "죄수·다른죄 관계 절"
+        }
+      ]
+    },
+    {
+      "group": "art356_sec4_2.nonstatus_accomplice_liability",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art356_sec4_2.accomplice_precedent_position"
+      ],
+      "promoted": [],
+      "blocked": [
+        {
+          "card_id": "art356_sec4_2.accomplice_precedent_position",
+          "reason": "공범관계 절 — 총칙"
+        }
+      ]
+    },
+    {
+      "group": "art357_sec3_5.attempt_commencement",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art357_sec3_5.attempt_majority"
+      ],
+      "promoted": [
+        "art357_sec3_5.attempt_majority"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art357_sec3_9.receiving_breach_relation",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art357_sec3_9.receiving_breach_concurrent_offenses"
+      ],
+      "promoted": [],
+      "blocked": [
+        {
+          "card_id": "art357_sec3_9.receiving_breach_concurrent_offenses",
+          "reason": "죄수·다른죄 관계 절"
+        }
+      ]
+    },
+    {
+      "group": "art360_sec2_2.mistaken_bank_transfer",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art360_sec2_2.mistaken_bank_transfer_embezzlement_holding"
+      ],
+      "promoted": [
+        "art360_sec2_2.mistaken_bank_transfer_embezzlement_holding"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art366_sec3_2.emotional_use",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art366_sec3_2.emotional_use_majority_position"
+      ],
+      "promoted": [
+        "art366_sec3_2.emotional_use_majority_position"
+      ],
+      "blocked": []
+    },
+    {
+      "group": "art366_sec7_2.computer_business_interference_concurrence",
+      "resolution": "auto_self_declared",
+      "chosen": [
+        "art366_sec7_2.computer_business_interference_absorption"
+      ],
+      "promoted": [],
+      "blocked": [
+        {
+          "card_id": "art366_sec7_2.computer_business_interference_absorption",
+          "reason": "죄수·다른죄 관계 절"
+        }
+      ]
+    }
+  ],
+  "rewrites": {
+    "art323_sec1_1.abstract_danger_offense": "권리행사방해죄는 권리행사가 현실적으로 방해되는 결과를 요구하지 않는 추상적 위험범이다.",
+    "art323_sec2_1.subject_genuine_status_offense": "권리행사방해죄는 타인의 점유 또는 권리의 목적물로 제공한 사람만이 주체가 될 수 있는 진정신분범이다.",
+    "art328_sec4_1.kinship_owner_theory": "재산죄에서 친족상도례가 적용되려면 행위자와 재물 소유자 사이에 친족관계가 있어야 한다.",
+    "art328_sec4_1.fraud_deceived_person_procedural_theory": "사기죄에서 친족상도례가 소추조건인 경우에는 피기망자도 피해자의 하나로서 고소권을 가지나, 형 면제사유인 경우에는 피기망자를 피해자로 취급하지 않는다.",
+    "art328_sec4_1.adult_guardian_no_extra_statutory_exclusion": "친족인 성년후견인이 가정법원의 감독을 받는 공적 지위에 있더라도, 법률에 별도의 예외 규정이 없는 한 성년후견인이라는 이유만으로 친족상도례 적용이 배제되지 않는다.",
+    "art329_sec2_2.sealed_deposit_entrustment_nature": "임치된 포장물의 점유는 위탁관계의 구체적 태양에 따라 정해진다. 봉함·시정 조치가 되어 있으면 임치인이 점유하므로 수치인의 영득은 절도가 되고, 그러한 조치 없이 관리만 의뢰한 경우에는 수치인에게 점유가 이전된다.",
+    "art329_sec2_2.dead_person_possession_continuing": "형법상 점유는 현실적 지배관계이므로 피해자가 사망한 뒤에도 그 점유는 계속되며, 사자로부터 재물을 탈취하는 행위는 사자의 점유를 침해한다.",
+    "art329_sec2_2.carrier_control_based_possession": "운반자에 대하여 위탁자 또는 고용주의 현실적 감독·통제가 가능하면 공동점유가 인정되고, 그것이 불가능하면 운반자의 단독점유가 인정된다.",
+    "art329_sec5_2.use_theft_possession_not_completely_lost": "극히 단시간의 사용으로 재물에 대한 소유자의 소지가 완전히 상실되지 않고 곧 환원될 상태인 경우에만 영득의사가 없어 사용절도로서 처벌되지 않는다.",
+    "art329_sec5_2.fuel_consumption_incidental_use": "가솔린 등 연료는 일시 사용에 필연적으로 소비되므로, 소비량이 특별히 많은 경우가 아니면 그 소비를 차량의 일시 사용과 별도로 문제 삼지 않는다.",
+    "art329_sec6.consent_no_taking": "피해자의 승낙이 있는 경우에는 절취에 해당하지 않아 절도죄의 구성요건해당성이 인정되지 않는다.",
+    "art331_sec3_3.group_offense_scene_presence": "합동범은 2명 이상의 공범자 사이에 현장성이 인정될 때 성립하며, 현장성을 갖추지 않은 단순 공모자는 합동범이 되지 않는다.",
+    "art334_sec3.nighttime_home_intrusion_attempt_on_intrusion": "야간주거침입강도는 주거침입과 강도의 결합범이므로 주거에 침입한 때 실행에 착수한다.",
+    "art335_sec7_1.attempt_theft_act_standard": "준강도의 기수·미수는 절취행위가 기수에 이르렀는지를 기준으로 정한다.",
+    "art335_sec8.weapon_acquired_during_violence.reported_precedent": "단순절도범이 체포를 면탈할 목적으로 도주하다가 주운 흉기로 폭행한 경우, 절도 당시에는 흉기를 휴대하지 않았더라도 폭행 당시 흉기를 휴대하게 되었으므로 특수강도의 준강도가 된다.",
+    "art337_sec3.injury_result_violence_intent": "강도치상죄는 강도의 기회에 행한 폭행으로 인한 결과적 가중범이므로, 상해의 고의가 없더라도 적어도 폭행의 고의는 있어야 한다.",
+    "art343_sec2_1.contingent_intent_sufficient_precedent": "행위자에게 미필적으로라도 강도를 할 목적이 인정되면 강도예비·음모죄가 성립한다.",
+    "art343_sec3.abandonment_before_execution_denied": "예비·음모죄는 예비·음모 행위가 있으면 완성되는 범죄이므로 중지미수가 인정될 여지가 없다.",
+    "art350_sec3.possessed_property_object_affirmative": "자기가 점유하는 타인 소유의 재물도 공갈죄의 객체가 될 수 있다. 타인을 공갈하여 소유권을 이전하는 처분행위를 하게 할 수 있기 때문이다.",
+    "art350_sec8_1.right_enforcement_method_standard": "정당한 권리를 실현하기 위하여 해악을 고지한 경우에도 그 수단·방법이 사회통념상 허용되는 범위를 넘으면 공갈죄의 실행에 착수한 것이며, 그 판단은 목적과 수단을 전체적으로 종합하여 한다.",
+    "art350_sec9.illicit_gain_intent.required": "공갈죄가 성립하려면 고의 외에 불법이득의사가 있어야 한다.",
+    "art355_sec1_2.embezzlement_illegal_appropriation_theory": "횡령의 본질은 위탁받은 타인의 재물을 불법하게 영득하는 데 있으므로, 횡령죄가 성립하려면 보관 재물을 자기 소유물처럼 사용·수익·처분하려는 불법영득의 의사가 있어야 한다.",
+    "art355_sec1_2.embezzlement_illegal_appropriation_exclusion": "일시사용·손괴·은닉의 의사로 재물을 처분하거나 위탁자를 위한 의사로 권한을 넘은 경우에는 불법영득의사가 없어 횡령죄가 성립하지 않는다.",
+    "art355_sec1_2.breach_of_trust_betrayal_theory": "배임죄의 본질은 신의성실의무에 위반하여 타인의 신뢰를 배반하고 재산을 침해하는 데 있다.",
+    "art355_sec1_3.breach_of_trust_case_concrete_risk_of_loss": "배임죄의 재산상 손해에는 현실적 손해뿐 아니라 재산상 실해 발생의 위험도 포함되나, 막연한 위험만으로는 부족하고 경제적으로 손해 발생과 같은 정도의 구체적 위험이 있어야 한다.",
+    "art355_sec3_3.authority_excess_theory": "위탁 신뢰관계를 배신하여 권한을 초월한 처분으로 재물을 영득하는 행위가 횡령행위이며, 경제적으로 처벌할 필요가 있는 중요한 배신적 처분에 한하여 배신적 영득이 인정된다.",
+    "art355_sec3_3.invalid_disposition_majority": "보관자가 소유자의 동의 없이 보관물을 담보로 제공하는 등 처분행위에 무효 또는 취소사유가 있더라도, 불법영득의사가 표현된 이상 횡령죄 성립에 영향이 없다.",
+    "art355_sec4_1.temporary_company_fund_objective_assessment_view": "회사 관리 자금의 일시 유용은 유용금액의 규모·정도, 시간적 간격 및 상환능력을 객관적으로 평가하여 판단하며, 가벌성이 없다고 볼 정도가 아니면 불법영득의사가 인정된다.",
+    "art355_sec4_2.breach_illicit_gain_separate_requirement": "배임죄는 이득죄이므로 고의와 별도로 불법이득의 의사가 있어야 한다.",
+    "art355_sec5_2.real_estate_double_sale_majority": "부동산 매매계약이 중도금 지급 등으로 본격적인 이행 단계에 이르면, 매도인은 매수인의 재산보전에 협력하여 그 재산적 이익을 보호·관리할 신임관계에 기초한 타인의 사무처리자에 해당한다.",
+    "art357.protected_interest.integrity": "배임수증재죄의 보호법익은 거래 또는 사무처리의 청렴성이다.",
+    "art357_sec3_4.illegal_appropriation_intent_separate": "배임수재죄가 성립하려면 고의 외에 불법영득의 의사가 있어야 한다.",
+    "art360_sec2_2.mistaken_bank_transfer_embezzlement_holding": "자기 은행계좌에 착오로 입금된 금원은 횡령죄의 객체가 되고 점유이탈물횡령죄의 객체가 되지 않는다.",
+    "art360_sec2_3.mistake_property_status_punishable": "타인이 점유하는 재물을 점유이탈물로 오인하여 영득한 경우에는 점유이탈물횡령죄로 처벌한다.",
+    "art366.special_medium_record_limited_view": "특수매체기록은 문서 이외의 특수한 방법과 매체에 기록되어 컴퓨터 등 정보처리장치에 사용되는 기록으로 한정하여 해석한다.",
+    "art366.public_building_affirmative_view": "공용건조물에 대하여 파괴에 이르지 않는 효용침해행위를 한 경우에도 공용건조물은 제366조 건조물손괴죄의 객체에 포함된다.",
+    "art366_sec3_2.preservation_state_change_view": "유형력을 행사하여 소유자의 이익에 반하게 물건의 보존상태를 변경하고 일시적으로 본래 기능을 다할 수 없게 한 경우에도 손괴가 성립한다.",
+    "art366_sec3_2.wall_graffiti_functional_efficiency_limit": "벽면 낙서는 그로 인하여 건조물의 미관 등 기능적 효용이 현저하게 침해되거나 감소된 경우에 한하여 재물손괴죄가 성립한다.",
+    "art357_sec3_5.attempt_commencement_standard": null,
+    "art357_sec3_3.principal_not_third_party_precedent": null
+  }
+}

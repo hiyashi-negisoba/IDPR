@@ -1,0 +1,91 @@
+{
+  "card_set_id": "kr.art323.art323.sec6_3.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.standard.forced-execution-evasion-not-covered",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art323.forced_execution_evasion_scope",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "담보권 실행 등을 위한 경매를 면탈할 목적으로 재산을 은닉하는 행위는 강제집행면탈죄의 규율 대상에는 포함되지 않으나, 권리행사방해죄는 성립할 수 있다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "강제집행면탈죄의 규율 범위와 권리행사방해죄 성립 가능성을 함께 언급한 commentary-reported position이다. 권리행사방해죄의 구체적 구성요건 충족 여부 및 보고된 근거의 원문 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅵ.3_23",
+          "quote": "집행법 제3편의 적용 대상인 ‘담보권 실행 등을 위한 경매’를 면탈할 목적으로 재산을 은닉하는 등의 행위는 강제집행면탈죄의 규율 대상에는 포함되지 않으 나, 본 죄는 성립할 수 있다.",
+          "section_path": "Ⅵ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art323.exception.coercion-absorption",
+          "request_id": "art323.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "context_only",
+      "id": "art323.coercion_absorption",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "행위가 권리행사방해죄를 구성하더라도 별도로 강요죄가 성립하는 때에는 권리행사방해죄는 강요죄에 흡수된다.",
+      "request_ids": [
+        "art323.pass1.002"
+      ],
+      "review_notes": "죄수 및 흡수 관계에 관한 commentary-reported position이다. 강요죄 성립 여부와 흡수 법리의 원문 근거를 확인한 후 적용해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제323조_Ⅵ.3_23",
+          "quote": "피고인의 행위가 권리행사방해죄를 구성하는 경우라도 이와 별도로 강요죄가",
+          "section_path": "Ⅵ.3"
+        },
+        {
+          "comment_id": "comm_001692_제323조_Ⅵ.3_23",
+          "quote": "성립하는 때에는 권리행사방해죄는 강요죄에 흡수된다.",
+          "section_path": "Ⅵ.3"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope에는 제323조의 고의, ‘타인’의 범위, 점유의 범위 및 보호되는 점유에 관한 통설·반대 견해의 직접 인용이 없다.",
+    "현재 source scope에는 담보권 실행 등을 위한 경매 면탈 행위 및 강요죄 흡수 관계의 primary precedent 원문이 없다."
+  ],
+  "issue_tag": "art323_sec6_3",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "권리행사방해죄의 고의에 미필적 고의로 충분한지에 관한 통설과 반대 견해 중 어느 견해를 채택할 것인지.",
+    "법인 및 법인격 없는 단체가 제323조의 ‘타인’에 포함되는지에 관하여 통설과 반대 견해 중 어느 견해를 채택할 것인지.",
+    "제323조의 점유에 간접점유를 포함할지, 그리고 적법한 권원 없는 평온한 점유 또는 이유 있는 점유도 보호할지 여부를 어떻게 정할 것인지.",
+    "담보권 실행 등을 위한 경매를 면탈하기 위한 재산 은닉에 관한 권리행사방해죄 성립 가능성과 강제집행면탈죄의 적용 범위를 보고된 원문 근거로 확인할 것인지.",
+    "권리행사방해죄와 강요죄의 흡수 관계에 관한 보고된 원문 근거 및 적용 범위를 확인할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제323조_Ⅵ.3_23"
+    ],
+    "target_paths": [
+      "commentary://001692/제323조#sec6_3"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}

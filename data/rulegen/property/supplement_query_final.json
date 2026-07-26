@@ -1,0 +1,260 @@
+{
+  "version": "2.0.0",
+  "api_calls": 0,
+  "created_at": "2026-07-26T03:59:40.919396+00:00",
+  "supersedes": "supplement_query_drafts.json",
+  "basis": "결정B3 사용자 검토(2026-07-25) 반영 — 질의문 수정 3건, 카드 병합 1건",
+  "counts": {
+    "queries": 13,
+    "waivers": 6
+  },
+  "status": "user_review_complete_pending_reconfirm",
+  "reconfirm_items": [
+    "art332_sec1_1.different_offense_types",
+    "art333_sec2_3.lesser_threat_extortion",
+    "art333_sec3_1.real_estate_as_robbery_property_negative"
+  ],
+  "design_note": "4번 코멘트(가중적 구성요건을 기본범과 구별해 on/off로 판정하자)는 질의문 문제가 아니라 RuleIR 출력 술어 설계 사항이라 `docs/research/rulegen_rule_ir_units.md` §3.1로 옮겨 preflight 항목으로 세웠다.",
+  "items": [
+    {
+      "card_id": "art330_sec3.restaurant_permitted_entry_no_intrusion",
+      "article": "art330",
+      "polarity": "negative",
+      "proposition": "일반인의 출입이 허용된 음식점에 영업주의 승낙을 받아 통상적인 방법으로 출입한 경우, 범죄 목적이나 영업주가 실제 목적을 알았다면 승낙하지 않았을 사정만으로는 특별한 사정이 없는 한 침입행위가 아니다.",
+      "neural_query": "피고인은 일반인의 출입이 허용된 영업장에 영업주의 승낙을 받아 통상적인 출입방법으로 들어갔다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "conclusion_when_fired": "침입행위가 아니므로 야간주거침입절도죄가 아니라 절도죄에 그친다",
+      "authoring_note": "'범죄 목적을 알았다면 승낙하지 않았을 것'이라는 가정적 평가는 빼고, 출입 경로와 승낙이라는 사실만 묻는다.",
+      "origin": "결정B3 신규(보강 3조문)",
+      "human_review": {
+        "decision": "approved",
+        "approved_query": "피고인은 일반인의 출입이 허용된 영업장에 영업주의 승낙을 받아 통상적인 출입방법으로 들어갔다.",
+        "notes": null
+      }
+    },
+    {
+      "card_id": "art332_sec1_1.different_offense_types",
+      "article": "art332",
+      "polarity": "negative",
+      "proposition": "절도의 상습성은 동종의 절도행위를 반복누행한 습벽에서 인정되므로, 강도·사기와 같이 죄종을 달리하는 범행 경력은 절도 상습성의 근거가 되지 않는다.",
+      "neural_query": "상습성의 근거로 함께 고려되는 범행 경력 중에 절도가 아닌 강도·사기 등 다른 죄종의 범행이 있다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "conclusion_when_fired": "그 다른 죄종의 경력은 절도 상습성의 근거에서 제외한다 — 절도 상습성은 절도행위(단순절도·야간주거침입절도·특수절도를 포함한다)의 반복만으로 판단한다",
+      "authoring_note": "초안은 죄종이 섞였다는 사실만으로 상습성을 부정하게 만들었다. 지금은 같은 사실을 묻되 발동 시 결론을 '근거에서 제외'로 정확히 적었다. 무엇이 동종인지는 짝 카드 `art332_sec1_1.aggregate_theft_types`가 채운다.",
+      "origin": "결정B3 신규(보강 3조문)",
+      "human_review": {
+        "decision": "approved",
+        "approved_query": "상습성의 근거로 함께 고려되는 범행 경력 중에 절도가 아닌 강도·사기 등 다른 죄종의 범행이 있다.",
+        "notes": null
+      }
+    },
+    {
+      "card_id": "art332_sec1_2.habituality-not-repetition-alone",
+      "article": "art332",
+      "polarity": "negative",
+      "proposition": "절도의 상습성은 수회의 절도행위 반복만으로 바로 인정되지 않고, 반복누행을 통하여 절도 습벽이 발현된 경우에만 인정된다.",
+      "neural_query": "이번 범행은 동기·수단·범행 간격 등에 비추어 피고인의 절도 습벽이 발현된 것으로 볼 사정이 있다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "conclusion_when_fired": "반복 사실만으로는 상습성이 인정되지 않는다",
+      "authoring_note": "'반복만으로는 부족하다'를 그대로 물으면 이중부정이 된다. 습벽 발현 사정의 존재를 물어 방향을 뒤집었다.",
+      "origin": "결정B3 신규(보강 3조문)",
+      "human_review": {
+        "decision": "approved",
+        "approved_query": "이번 범행은 동기·수단·범행 간격 등에 비추어 피고인의 절도 습벽이 발현된 것으로 볼 사정이 있다.",
+        "notes": null
+      }
+    },
+    {
+      "card_id": "art332_sec1_2.incidental-or-economic-theft-exception",
+      "article": "art332",
+      "polarity": "exception",
+      "proposition": "수회의 절도 전과 또는 절도행위가 있어도 모두 우발적 동기 또는 급박한 경제사정에서 비롯되어 평소 절도 습성의 발현으로 보기 어려우면 상습범으로 볼 수 없다.",
+      "neural_query": "피고인의 절도행위는 모두 우발적인 동기나 급박한 경제적 사정에서 비롯된 것이다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "conclusion_when_fired": "절도 습성의 발현이 아니어서 상습범으로 보지 않는다",
+      "authoring_note": "동기라는 사실을 묻는다. 습성 발현 여부의 평가는 카드가 한다.",
+      "origin": "결정B3 신규(보강 3조문)",
+      "human_review": {
+        "decision": "approved",
+        "approved_query": "피고인의 절도행위는 모두 우발적인 동기나 급박한 경제적 사정에서 비롯된 것이다.",
+        "notes": null
+      }
+    },
+    {
+      "card_id": "art333_sec2_3.diversion_or_insult_violence_no_robbery",
+      "article": "art333",
+      "polarity": "negative",
+      "proposition": "재물절취 때의 폭행·협박이 단지 주의를 다른 데로 돌리기 위한 것이거나, 탈취 후 모욕적 의사 또는 적개심 표시만을 위한 것이라면 강도죄가 아니라 폭행 또는 협박죄와 절도죄가 성립한다.",
+      "neural_query": "그 폭행·협박은 피해자의 주의를 다른 데로 돌리기 위한 것이었거나, 재물을 가져간 뒤 모욕 또는 적개심을 표시하기 위한 것이었다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "conclusion_when_fired": "강도죄가 아니라 폭행죄 또는 협박죄와 절도죄가 성립한다",
+      "authoring_note": "폭행·협박의 목적이라는 사실을 묻는다.",
+      "origin": "결정B3 신규(보강 3조문)",
+      "human_review": {
+        "decision": "approved",
+        "approved_query": "그 폭행·협박은 피해자의 주의를 다른 데로 돌리기 위한 것이었거나, 재물을 가져간 뒤 모욕 또는 적개심을 표시하기 위한 것이었다.",
+        "notes": null
+      }
+    },
+    {
+      "card_id": "art333_sec2_3.lesser_threat_extortion",
+      "article": "art333",
+      "polarity": "exception",
+      "proposition": "재물탈취 목적의 폭행·협박이 반항억압 정도에 이르지 않고 공포심만 일으켜 피해자가 자신의 의사에 따라 재물을 제공한 경우에는 공갈죄가 성립할 뿐 강도죄는 성립하지 않는다.",
+      "neural_query": "그 폭행·협박은 피해자에게 두려움을 일으키는 정도였고, 피해자는 반항할 수 있는 상태에서 스스로 결정하여 재물을 건넸다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "conclusion_when_fired": "강도죄가 아니라 공갈죄가 성립한다",
+      "authoring_note": "정도의 상한이 초안에 없었다(사용자 지적). '반항할 수 있는 상태'로 상한을 긍정형으로 넣어 강도 쪽 core 카드(객관적 반항억압)와 상호배타적으로 걸리게 했다.",
+      "origin": "결정B3 신규(보강 3조문)",
+      "human_review": {
+        "decision": "approved",
+        "approved_query": "그 폭행·협박은 피해자에게 두려움을 일으키는 정도였고, 피해자는 반항할 수 있는 상태에서 스스로 결정하여 재물을 건넸다.",
+        "notes": null
+      }
+    },
+    {
+      "card_id": "art333_sec2_3.subjective_intent_insufficient",
+      "article": "art333",
+      "polarity": "exception",
+      "proposition": "객관적으로 반항억압에 이르지 못한 경우에는 범인에게 주관적 반항억압 의사가 있어도 강도죄는 성립하지 않는다.",
+      "neural_query": "그 폭행·협박의 정도는 같은 상황에 놓인 일반인의 반항을 억압할 만한 것이었다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "conclusion_when_fired": "범인에게 반항억압의 의사가 있었더라도 강도죄가 성립하지 않는다",
+      "authoring_note": "'객관적으로 이르지 못한 경우'를 그대로 물으면 부정형이 된다. 객관적 정도를 물어 방향을 뒤집었다. core의 객관설 카드와 같은 사실을 쓴다.",
+      "origin": "결정B3 신규(보강 3조문)",
+      "human_review": {
+        "decision": "approved",
+        "approved_query": "그 폭행·협박의 정도는 같은 상황에 놓인 일반인의 반항을 억압할 만한 것이었다.",
+        "notes": null
+      }
+    },
+    {
+      "card_id": "art333_sec3_1.real_estate_as_robbery_property_negative",
+      "article": "art333",
+      "polarity": "negative",
+      "proposition": "부동산은 절도죄·강도죄와 같은 도취죄의 객체인 재물에 해당하지 않으므로, 폭행·협박으로 부동산에 관한 권리를 취득한 경우에는 재물의 강취가 아니라 재산상 이익의 강취로 본다.",
+      "neural_query": "강취의 대상은 부동산 또는 부동산에 관한 권리다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "conclusion_when_fired": "재물의 강취가 아니라 재산상 이익의 강취로 처리한다(강도죄는 재산상 이익 취득으로 성립할 수 있다)",
+      "authoring_note": "카드 병합에 맞춰 질의문도 객체를 한 번에 묻는다. 초안('강취의 대상은 부동산이다')은 재물성 부정에서 멈춰 그 다음 처리가 끊겼다.",
+      "origin": "결정B3 신규(보강 3조문)",
+      "human_review": {
+        "decision": "approved",
+        "approved_query": "강취의 대상은 부동산 또는 부동산에 관한 권리다.",
+        "notes": null
+      }
+    },
+    {
+      "card_id": "art333_sec3_2.post_taking_assault_no_robbery",
+      "article": "art333",
+      "polarity": "negative",
+      "proposition": "소지품 탈취 후의 구타가 재물탈취와 관련하여 반항억압, 재물 탈환, 체포면탈 또는 증거인멸에 객관적 효과를 미친 것이 아니라면 강도죄는 성립하지 않는다.",
+      "neural_query": "그 구타는 재물의 탈환을 막거나 체포를 면하거나 증거를 없애기 위한 것이었다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "conclusion_when_fired": "탈취 후의 구타만으로는 강도죄가 성립하지 않는다",
+      "authoring_note": "'관련 없다면'을 그대로 물으면 부정형이 된다. 구타의 목적을 물어 방향을 뒤집었다.",
+      "origin": "결정B3 신규(보강 3조문)",
+      "human_review": {
+        "decision": "approved",
+        "approved_query": "그 구타는 재물의 탈환을 막거나 체포를 면하거나 증거를 없애기 위한 것이었다.",
+        "notes": null
+      }
+    },
+    {
+      "card_id": "art333_sec3_2.voluntary_delivery_attempt",
+      "article": "art333",
+      "polarity": "negative",
+      "proposition": "객관적으로 반항억압에 족한 폭행·협박이 있었더라도 피해자가 귀찮음이나 연민으로 반항 의사 억압 없이 재물을 교부한 경우에는 인과관계가 없어 강도미수죄만 성립한다.",
+      "neural_query": "피해자가 재물을 건넨 것은 반항이 억압되어서가 아니라 귀찮음이나 연민 때문이었다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "conclusion_when_fired": "강취의 인과관계가 없어 강도미수에 그친다",
+      "authoring_note": "교부의 원인이라는 사실을 묻는다. 제350조 공갈 쪽 같은 축 카드와 문형을 맞췄다.",
+      "origin": "결정B3 신규(보강 3조문)",
+      "human_review": {
+        "decision": "approved",
+        "approved_query": "피해자가 재물을 건넨 것은 반항이 억압되어서가 아니라 귀찮음이나 연민 때문이었다.",
+        "notes": null
+      }
+    },
+    {
+      "card_id": "art333_sec3_3.unconsciousness_prior_force_no_causation",
+      "article": "art333",
+      "polarity": "negative",
+      "proposition": "재물탈취의 목적 없이 폭행·협박 또는 약물 사용으로 피해자를 심신상실 상태에 빠지게 한 후 우발적으로 재물탈취의 범의가 생긴 경우에는 선행행위와 재물탈취 사이에 인과관계가 없어 강도죄가 성립하지 않으며, 살해 후 사자의 소지품을 취득한 경우에도 살인죄와 절도죄의 경합범이 성립한다.",
+      "neural_query": "피고인은 재물을 탈취할 목적 없이 폭행·협박 또는 약물 사용으로 피해자를 심신상실 상태에 빠지게 하였고, 그 후에 비로소 재물을 가져갈 마음을 먹었다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "conclusion_when_fired": "선행행위와 탈취 사이에 인과관계가 없어 강도죄가 아니라 절도죄가 성립한다(살해 후 취거는 살인죄와 절도죄의 경합)",
+      "authoring_note": "선행행위의 목적과 범의 발생 시점이라는 두 사실을 묻는다. 강간 사안 카드(`rape_force_subsequent_taking_precedent`)와 갈리는 지점은 피해자의 의식 유무이므로 '심신상실 상태'를 질의에 남겼다.",
+      "origin": "결정B3 신규(보강 3조문)",
+      "human_review": {
+        "decision": "approved",
+        "approved_query": "피고인은 재물을 탈취할 목적 없이 폭행·협박 또는 약물 사용으로 피해자를 심신상실 상태에 빠지게 하였고, 그 후에 비로소 재물을 가져갈 마음을 먹었다.",
+        "notes": null
+      }
+    },
+    {
+      "card_id": "art333_sec6.no_attempt_insufficient_violence_intimidation",
+      "article": "art333",
+      "polarity": "negative",
+      "proposition": "개시한 폭행·협박이 사회통념상 피해자의 반항을 억압할 만한 정도가 아니면 강도 실행의 착수가 인정되기 어렵다.",
+      "neural_query": "피고인이 개시한 폭행·협박은 사회통념상 피해자의 반항을 억압할 만한 정도였다.",
+      "card_status_when_query_satisfied": "not_satisfied",
+      "conclusion_when_fired": "강도죄의 실행 착수가 인정되지 않는다",
+      "authoring_note": "착수 판단의 기준이 되는 폭행 정도를 물어 방향을 뒤집었다.",
+      "origin": "결정B3 신규(보강 3조문)",
+      "human_review": {
+        "decision": "approved",
+        "approved_query": "피고인이 개시한 폭행·협박은 사회통념상 피해자의 반항을 억압할 만한 정도였다.",
+        "notes": null
+      }
+    },
+    {
+      "card_id": "art333_sec8.right_exercise_robbery_negative",
+      "article": "art333",
+      "polarity": "negative",
+      "proposition": "범인에게 취득할 권리가 있는 재산상 이익은 불법한 이익이 아니므로, 이를 폭행·협박으로 취득하여도 강도죄가 아니라 폭행죄 또는 협박죄가 성립한다.",
+      "neural_query": "피고인이 취득한 재산상 이익은 피고인이 피해자에 대하여 실제로 가지고 있던 권리의 범위 안에 있었다.",
+      "card_status_when_query_satisfied": "satisfied",
+      "conclusion_when_fired": "불법한 이익이 아니어서 강도죄가 아니라 폭행죄 또는 협박죄가 성립한다",
+      "authoring_note": "권리의 존재와 이익의 범위라는 사실을 묻는다. 사용자 정정(대법원 소극설)을 반영한 카드다.",
+      "origin": "결정B3 신규(보강 3조문)",
+      "human_review": {
+        "decision": "approved",
+        "approved_query": "피고인이 취득한 재산상 이익은 피고인이 피해자에 대하여 실제로 가지고 있던 권리의 범위 안에 있었다.",
+        "notes": null
+      }
+    }
+  ],
+  "no_query_needed": [
+    {
+      "card_id": "art333_sec2_2.incidental_incapacitation_no_robbery",
+      "proposition": "다른 목적으로 피해자를 혼취상태에 빠뜨린 뒤 우발적으로 재물을 탈취한 경우, 혼취가 재물탈취 방법으로 사용된 것이 아니므로 강도죄가 성립하지 않는다.",
+      "reason": "혼취를 어떤 목적으로 야기했는지는 같은 절의 폭행 판정 카드가 확정하고, 이 카드는 그 결과에 인과관계 규칙을 적용한다."
+    },
+    {
+      "card_id": "art333_sec2_2.preexisting_incapacitation_exception",
+      "proposition": "타인의 행위로 이미 피해자가 혼취상태에 빠진 후 이를 이용하여 재물을 탈취한 경우에는 강도죄의 폭행에 해당하지 않는다.",
+      "reason": "혼취 상태를 누가 야기했는지는 선행 사실이고, 이 카드는 그 경우 폭행 요건에서 배제한다는 규칙이다."
+    },
+    {
+      "card_id": "art333_sec3_3.completed_theft_quasi_robbery_exception",
+      "proposition": "절도 기수로 범인의 재물에 대한 배타적 지배가 성립한 뒤, 탈환 방지·체포 면탈·증거인멸 목적으로 폭행·협박을 한 경우에는 준강도에 해당한다.",
+      "reason": "절도 기수 여부와 폭행의 목적은 각각 다른 카드가 판정하고, 이 카드는 그 조합을 준강도로 돌리는 경계 규칙이다."
+    },
+    {
+      "card_id": "art333_sec6.no_attempt_without_violence_intimidation_commencement",
+      "proposition": "재물탈취에 착수하였더라도 폭행·협박 자체에 착수하지 않으면 강도죄의 실행 착수가 인정되지 않는다.",
+      "reason": "폭행·협박에 착수했는지는 다른 카드가 판정하고, 이 카드는 그것이 없으면 착수를 부정하는 요건 규칙이다."
+    },
+    {
+      "card_id": "art333_sec7_1.completion.no_safe_escape_requirement",
+      "proposition": "재물강취죄의 기수에는 범행현장을 이탈하여 경계망을 돌파하고 안전지역으로 나갈 것이 필요하지 않다.",
+      "reason": "요건 제외 규칙이라 모델에 물을 사실이 없다(안전지역 이탈은 기수 요건이 아니다)."
+    },
+    {
+      "card_id": "art333_sec7_1.completion.recovery_does_not_negate",
+      "proposition": "폭행·협박으로 탈취물에 대한 배타적 지배를 취득하였다면, 피해자가 범행현장 가까운 곳에서 이를 다시 탈환하였더라도 강도 기수 인정에는 영향이 없다.",
+      "reason": "탈환 사실은 사건 경과로 확정되고, 이 카드는 그것이 기수 인정에 영향을 주지 않는다는 규칙이다."
+    }
+  ]
+}

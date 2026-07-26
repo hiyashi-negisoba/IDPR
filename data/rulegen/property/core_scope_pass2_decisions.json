@@ -1,0 +1,1035 @@
+{
+  "version": "1.0.0",
+  "api_calls": 0,
+  "method": "에이전트 전수 판독(2차) — 사기 fraud_core_rule_selection_audit.json 기준 이식",
+  "basis": "core_scope_audit.json rows[to=core] 598장",
+  "counts": {
+    "in": 598,
+    "demoted": 146,
+    "kept": 452
+  },
+  "demotions": [
+    {
+      "card_id": "art323_sec2_2.nominee_vehicle_theft",
+      "article": "art323",
+      "module": "sec2_2",
+      "reason": "구체사안",
+      "proposition": "타인 명의로 명의신탁된 자동차를 담보권자 몰래 가져간 경우, 피고인이 소유자가 아니라면 절도죄가 성립하고 권리행사방해죄는 성립하지 않는다."
+    },
+    {
+      "card_id": "art323_sec2_2.borrowed_permit_theft",
+      "article": "art323",
+      "module": "sec2_2",
+      "reason": "구체사안",
+      "proposition": "명의대여 약정에 따라 피해자가 교부받아 보관하는 영업허가증과 사업자등록증을 명의자가 가져간 행위는 절도죄를 구성할 뿐 권리행사방해죄를 구성하지 않는다."
+    },
+    {
+      "card_id": "art323_sec2_3.land_sale_not_taking_concealment_destruction",
+      "article": "art323",
+      "module": "sec2_3",
+      "reason": "구체사안",
+      "proposition": "타인에게 채무담보로 제공하기로 합의한 자기 소유 토지를 제3자에게 매도하고 소유권이전등기를 마친 행위는 취거·은닉·손괴 중 어느 것에도 해당하지 않는다."
+    },
+    {
+      "card_id": "art329_sec2_1.vehicle_nominee_trust_third_party",
+      "article": "art329",
+      "module": "sec2_1",
+      "reason": "구체사안",
+      "proposition": "자동차 명의신탁약정이 있어도 제3자와의 관계에서는 등록명의자가 소유자이므로, 등록명의자 모친 소유 자동차를 담보로 받은 제3자에 대한 관계에서 피고인이 담보 제공 후 몰래 가져가면 절도죄가 성립한다."
+    },
+    {
+      "card_id": "art329_sec2_2.abandoned_license_plate",
+      "article": "art329",
+      "module": "sec2_2",
+      "reason": "구체사안",
+      "proposition": "자동차 등록번호판이 손으로 떼어낼 수 있을 정도로 관리상태가 불량하고 소유자가 소유권을 포기하였거나 점유 의사로 사실상 지배하였다고 볼 수 없는 경우, 그 등록번호판은 절도죄의 객체가 될 수 없다."
+    },
+    {
+      "card_id": "art329_sec2_2.grave_keeper_removal",
+      "article": "art329",
+      "module": "sec2_2",
+      "reason": "구체사안",
+      "proposition": "종중 소유 분묘를 간수하는 산지기는 분묘에 설치된 석등·문관석 등을 점유하지 않으므로, 이를 반출하는 행위는 횡령죄가 아니라 절도죄를 구성한다."
+    },
+    {
+      "card_id": "art329_sec2_2.death_unrelated_taking",
+      "article": "art329",
+      "module": "sec2_2",
+      "reason": "구체사안",
+      "proposition": "행위자와 관계없는 피해자 사망 직후 교통사고 현장에서 사체로부터 재물을 탈취한 경우처럼 사자의 현실적 소지 침해를 인정하는 것이 타당한 경우가 있으므로, 사망이 절취자 행위와 무관하다는 사정만으로 항상 점유이탈물횡령죄가 성립한다고 단정할 수 없다."
+    },
+    {
+      "card_id": "art329_sec3_1.wallet_false_owner_answer_fraud",
+      "article": "art329",
+      "module": "sec3_1",
+      "reason": "구체사안",
+      "proposition": "매장에서 떨어진 지갑의 점주가 지갑을 처분할 권능 또는 지위에서 지갑 소유 여부를 묻자 피고인이 자신의 것이라고 답하여 지갑을 받은 경우, 점주의 행위는 사기죄의 처분행위에 해당하므로 피고인 행위는 절도가 아니라 사기죄를 구성한다."
+    },
+    {
+      "card_id": "art329_sec3_3.completion.vehicle_rolls_ten_meters",
+      "article": "art329",
+      "module": "sec3_3",
+      "reason": "구체사안",
+      "proposition": "자동차 절취 의도로 조수석 문을 열고 시동을 걸려다 핸드브레이크가 풀려 시동 없이 경사진 길을 약 10미터 굴러가 멈춘 것만으로는 절도 기수가 성립하지 않는다."
+    },
+    {
+      "card_id": "art329_sec4.intent.object_mistake_same_offense",
+      "article": "art329",
+      "module": "sec4",
+      "reason": "구체사안",
+      "proposition": "갑 소유 산림입목을 을 소유 산림입목으로 오인하여 도벌한 경우는 동일 구성요건 범위 내 객체의 착오에 불과하여 고의를 조각하지 않는다."
+    },
+    {
+      "card_id": "art331_sec3_1.ordinary_screwdriver_not_weapon_holding",
+      "article": "art331",
+      "module": "sec3_1",
+      "reason": "구체사안",
+      "proposition": "개조되지 않은 일반 드라이버로 택시 운전석 창문을 파손한 사안에서, 드라이버의 크기·모양 등 제반 사정상 흉기를 휴대하여 재물을 절취한 경우로 볼 수 없다고 판단되었다."
+    },
+    {
+      "card_id": "art335_sec4.minor_resistance_insufficient",
+      "article": "art335",
+      "module": "sec4",
+      "reason": "구체사안",
+      "proposition": "절도범이 옷을 잡힌 상황에서 충동적으로 잡은 손을 뿌리친 정도는 체포의 공격력을 억압할 정도가 아니어서 준강도죄로 의율할 수 없다."
+    },
+    {
+      "card_id": "art338_sec3.opportunity_arrest_evasion",
+      "article": "art338",
+      "module": "sec3",
+      "reason": "구체사안",
+      "proposition": "강도 직후 도주하다가 약 150m 지점에서 체포된 자가 체포를 면하려고 경찰관을 찔러 사망하게 한 경우, 강도행위와 살인행위가 시간·거리상 극히 근접하고 사회통념상 범죄행위가 완료되지 않은 상태이면 강도살인죄가 성립한다."
+    },
+    {
+      "card_id": "art355_sec3_3.company_paid_personal_defense_cost",
+      "article": "art355",
+      "module": "sec3_3",
+      "reason": "구체사안",
+      "proposition": "회사 자금 보관·운용 사무를 처리하는 사람이 이사나 대주주의 개인 형사재판 변호사 비용을 회사 자금으로 지급하면, 주주총회나 이사회 결의 유무와 관계없이 업무상횡령죄에 해당한다."
+    },
+    {
+      "card_id": "art355_sec3_3.adviser_fee",
+      "article": "art355",
+      "module": "sec3_3",
+      "reason": "구체사안",
+      "proposition": "회사 운영자 등이 고문을 위촉하고 급여를 지급한 행위를 업무상횡령으로 인정하려면, 위촉 필요성·정당성이 명백히 결여되거나 급여가 합리적 수준을 현저히 벗어나야 하며 관련 사정을 종합 고려한다."
+    },
+    {
+      "card_id": "art355_sec3_3.private_school_tuition_restricted_use",
+      "article": "art355",
+      "module": "sec3_3",
+      "reason": "구체사안",
+      "proposition": "용도가 엄격히 제한된 사립학교 교비회계 자금을 제한된 용도 외 목적으로 사용하면, 개인적 목적이 아니거나 결과적으로 위탁자를 위한 면이 있어도 불법영득의사가 실현되어 횡령죄가 성립한다."
+    },
+    {
+      "card_id": "art355_sec3_3.tuition_account_direct_education",
+      "article": "art355",
+      "module": "sec3_3",
+      "reason": "구체사안",
+      "proposition": "교비회계 수입 지출이 허용되는 세출인지 여부는 지출 관련 사정을 종합하여 해당 학교 교육에 직접 필요한지에 따라 판단한다."
+    },
+    {
+      "card_id": "art355_sec3_3.tuition_fund_loan_repayment_exception",
+      "article": "art355",
+      "module": "sec3_3",
+      "reason": "구체사안",
+      "proposition": "사립학교에서 원래 교비회계 자금으로 지출할 수 있는 항목에 관한 차입금을 상환하기 위해 교비회계 자금을 지출한 경우, 불법영득의사가 있다고 보기 어렵다."
+    },
+    {
+      "card_id": "art355_sec3_3.school_development_fund_outside_purpose",
+      "article": "art355",
+      "module": "sec3_3",
+      "reason": "구체사안",
+      "proposition": "학교발전기금은 법령상 엄격히 제한된 용도 외에 특정 공익적 용도로 수수된 예외적 경우가 아닌 한 정해진 사용목적에만 사용되어야 하며, 그 외 사용은 원칙적으로 횡령죄를 구성한다."
+    },
+    {
+      "card_id": "art355_sec3_3.designated_subsidy_diversion",
+      "article": "art355",
+      "module": "sec3_3",
+      "reason": "구체사안",
+      "proposition": "대학 산학협력단이 용도 특정 교부받은 보조금을 교비계좌로 송금하여 교직원 급여 등에 사용하면 지정용도 외 사용으로 업무상횡령죄에 해당한다."
+    },
+    {
+      "card_id": "art355_sec3_3.excess_construction_payment_return",
+      "article": "art355",
+      "module": "sec3_3",
+      "reason": "구체사안",
+      "proposition": "타인을 위하여 금전을 보관·관리하는 사람이 개인용도 자금 마련을 위해 공사업자와 과다 공사대금 계약을 사전 약정하고, 과다 지급금 일부를 되돌려 받으면 위탁자에 대한 횡령에 해당한다."
+    },
+    {
+      "card_id": "art355_sec3_3.creditor_representative_excess_share",
+      "article": "art355",
+      "module": "sec3_3",
+      "reason": "구체사안",
+      "proposition": "채권자단 대표가 채권액 비례 분배를 위해 교부받은 돈 전부를 자신의 채권 변제에 충당한 경우, 자기 채권비율에 따른 분배액을 초과한 금액만 횡령한 것으로 본다."
+    },
+    {
+      "card_id": "art355_sec4_1.corporate_slush_fund_goods_no_intent",
+      "article": "art355",
+      "module": "sec4_1",
+      "reason": "구체사안",
+      "proposition": "무자료 판매로 조세포탈 및 비자금을 조성하였더라도 그것이 대표자 개인 목적이 아니라 법인 운영에 필요한 자금 조달 수단이면, 특별한 사정이 없는 한 판매 상품에 대한 불법영득의사는 인정하기 어렵다."
+    },
+    {
+      "card_id": "art355_sec4_1.corporate_bribery_funds",
+      "article": "art355",
+      "module": "sec4_1",
+      "reason": "구체사안",
+      "proposition": "회사 이사 등이 업무상 임무에 위배하여 보관 회사자금으로 뇌물을 공여한 경우, 회사 이익 목적만이 아니라 뇌물 상대방 또는 다른 목적을 위한 것으로 보아 업무상횡령 책임을 면할 수 없다."
+    },
+    {
+      "card_id": "art355_sec4_1.church_funds_personal_use",
+      "article": "art355",
+      "module": "sec4_1",
+      "reason": "구체사안",
+      "proposition": "담임목사가 정해진 절차를 무시하고 교회 유지·운영 목적을 벗어나 개인적 이익 등을 위해 교회자금을 임의 지출하면 불법영득의사를 인정할 수 있다."
+    },
+    {
+      "card_id": "art355_sec4_1.church_fund_intent_assessment",
+      "article": "art355",
+      "module": "sec4_1",
+      "reason": "구체사안",
+      "proposition": "용도가 구체적으로 지정되지 않은 교회자금의 선교활동 사용 주장 사건에서는 담임목사 권한, 긴급성·통상성, 지출의 객관적·합리적 적정성, 절차 준수 및 시기·경위·결과를 종합하여 개인용도 또는 불법영득의사 여부를 판단한다."
+    },
+    {
+      "card_id": "art355_sec4_1.double_sale_purchaser_nonperformance",
+      "article": "art355",
+      "module": "sec4_1",
+      "reason": "구체사안",
+      "proposition": "선매수인이 계약에 없던 새로운 요구조건을 내세우는 등 계약을 이행할 의사가 없다고 볼 수밖에 없는 태도를 보여 매도인이 계약이 해제되었다고 판단한 경우, 실제 적법한 해제 여부와 관계없이 제3자에게 가등기를 마친 행위의 배임 범의는 인정하기 어렵다."
+    },
+    {
+      "card_id": "art355_sec4_1.corporate_card_personal_use_intent",
+      "article": "art355",
+      "module": "sec4_1",
+      "reason": "구체사안",
+      "proposition": "공적 업무수행에만 사용할 수 있는 법인카드를 회사 임원이 개인 용도로 계속적·반복적으로 사용한 경우, 특별한 사정이 없는 한 임무위배 및 자기 이익 취득과 회사 손해에 대한 인식이 인정된다."
+    },
+    {
+      "card_id": "art355_sec4_1.corporate_card_shareholder_consent_not_exclusion",
+      "article": "art355",
+      "module": "sec4_1",
+      "reason": "구체사안",
+      "proposition": "실질적 1인 주주의 양해를 얻었거나 그 주주가 장차 법인카드 대금을 변상·보전할 것이라고 일방적으로 기대한 사정만으로는 업무상배임의 고의나 불법이득의 의사가 부정되지 않는다."
+    },
+    {
+      "card_id": "art355_sec4_1.excessive_service_fee_intent",
+      "article": "art355",
+      "module": "sec4_1",
+      "reason": "구체사안",
+      "proposition": "조합장이 법무사의 수수료가 적정한지 조사하지 않고 과다한 수수료를 낮추려는 시도 없이 그대로 용역계약을 체결한 경우, 경험칙상 임무위배 인식과 법무사 이익을 위해 조합원에게 재산상 손해를 가한다는 인식이 인정될 수 있다."
+    },
+    {
+      "card_id": "art355_sec4_3.private_school_account_transfer",
+      "article": "art355",
+      "module": "sec4_3",
+      "reason": "구체사안",
+      "proposition": "사립학교 교비회계 수입금을 다른 회계로 전용한 행위는 사립학교법위반 처벌과 별개로, 전용 자체만으로 곧바로 불법영득의사를 실현하는 횡령행위가 되는 것은 아니다."
+    },
+    {
+      "card_id": "art355_sec4_3.union_restricted_vehicle_fund",
+      "article": "art355",
+      "module": "sec4_3",
+      "reason": "구체사안",
+      "proposition": "통근차량 구입·유지에 사용하도록 용도가 제한된 노동조합 자금을 조합간부 등의 유류비로 지급한 행위는 업무상횡령에 해당하며, 사후 대의원대회의 결산결의는 이미 성립한 죄에 영향을 미치지 않는다."
+    },
+    {
+      "card_id": "art355_sec4_3.organization_formal_litigant_fee",
+      "article": "art355",
+      "module": "sec4_3",
+      "reason": "구체사안",
+      "proposition": "법인이 형식적으로만 소송당사자이고 실질적 당사자가 따로 있으며 법인에게 소송 결과에 관한 별다른 이해관계가 없는 특별한 사정이 있으면, 그 소송수행은 법인의 업무수행으로 볼 수 없으므로 법인 비용으로 변호사 선임료를 지출할 수 없다."
+    },
+    {
+      "card_id": "art355_sec4_3.paid_in_capital_withdrawal",
+      "article": "art355",
+      "module": "sec4_3",
+      "reason": "구체사안",
+      "proposition": "일반공모를 포함한 유상증자가 완료되어 납입 주금 전액이 회사 자본금에 편입된 뒤, 경영권 인수자가 그 주금을 신주인수 차용금채무 변제에 사용한 경우 회사 돈을 임의 유용하는 불법영득의사가 인정되어 횡령죄가 성립한다."
+    },
+    {
+      "card_id": "art355_sec4_3.capital_fund_diversion",
+      "article": "art355",
+      "module": "sec4_3",
+      "reason": "구체사안",
+      "proposition": "유상증자대금 일부를 주식시세조정대금, 개인 약정상 손실보전 담보 명목, 또는 찍기·꺾기 자금 이자나 수수료로 지급한 경우 불법영득의사가 인정된다."
+    },
+    {
+      "card_id": "art355_sec4_3.special_repair_fund_off_purpose",
+      "article": "art355",
+      "module": "sec4_3",
+      "reason": "구체사안",
+      "proposition": "주요설비 교체·보수 용도로 특정된 특별수선충당금을 관리회사 직원이 그 용도 외 목적으로 임의 사용하면 횡령죄가 성립한다."
+    },
+    {
+      "card_id": "art355_sec4_3.special_repair_fund_community_benefit",
+      "article": "art355",
+      "module": "sec4_3",
+      "reason": "구체사안",
+      "proposition": "공동주택과 주민 전체의 복리를 위한 방수공사를 임시총회 결의와 운영위원회 의결을 거쳐 시행하고 정기총회에 보고한 경우, 특별수선충당금 지출에 관한 횡령 범의 또는 불법영득의사를 단정하기 어렵다."
+    },
+    {
+      "card_id": "art355_sec4_3.special_repair_fund_comprehensive_consent",
+      "article": "art355",
+      "module": "sec4_3",
+      "reason": "구체사안",
+      "proposition": "특별수선충당금의 용도 외 사용이 관리규약으로만 제한되고 구분소유자 또는 입주민의 포괄적 동의를 얻어 위탁취지에 부합하는 용도로 사용한 여지가 있는 경우, 자기 또는 제3자 이익을 위하여 소유자처럼 처분한 것으로 단정하기 어렵다."
+    },
+    {
+      "card_id": "art355_sec4_3.custodied_property_diversion",
+      "article": "art355",
+      "module": "sec4_3",
+      "reason": "구체사안",
+      "proposition": "창고업자가 출급의뢰서 소지자에게만 출고할 수 있는 보관 시멘트를 일반수요자에게 판매하거나, 특정 용도의 연맹의무금을 송금하지 않고 조합운영비로 사용한 경우 보관취지에 반하여 불법영득의사가 인정된다."
+    },
+    {
+      "card_id": "art355_sec4_3.clan_fund_loan_consent",
+      "article": "art355",
+      "module": "sec4_3",
+      "reason": "구체사안",
+      "proposition": "종중 부회장의 종중 소유 금원 차용에 이사회 결의는 없었더라도 참석 가능한 이사 전원의 동의가 있고 재산대여 금지 규정이 없으며 보관처 금리 이상의 이자 지급 조건이 있는 경우 불법영득의사가 인정되지 않는다."
+    },
+    {
+      "card_id": "art355_sec5_3.farmland_sale_invalid_agricultural_law",
+      "article": "art355",
+      "module": "sec5_3",
+      "reason": "구체사안",
+      "proposition": "비농가로서 자경의사도 없는 사람에게 농지를 매도하여 구 농지개혁법 위반으로 매매가 무효인 경우에는 배임죄 또는 횡령죄가 성립하지 않는다."
+    },
+    {
+      "card_id": "art355_sec5_3.farmland_sale_no_certificate",
+      "article": "art355",
+      "module": "sec5_3",
+      "reason": "구체사안",
+      "proposition": "농지매매에 소재지관서의 증명이 없어 물권변동 효과가 발생하지 않더라도 당사자 사이 채권계약으로서 매매계약이 유효하게 성립할 수 있으므로, 그 사정만으로 이중매도 배임죄 성립을 부정할 수 없다."
+    },
+    {
+      "card_id": "art355_sec5_3.farmland_sale_future_registration",
+      "article": "art355",
+      "module": "sec5_3",
+      "reason": "구체사안",
+      "proposition": "농지매매 당사자가 장래 법령상 증명 없이도 소유권이전등기가 가능해지면 이전등기를 할 의사로 계약을 체결하고 대금을 지급한 경우, 증명이 없고 장래 발급받을 수 없는 형편이어도 이중매도하면 배임죄가 성립한다."
+    },
+    {
+      "card_id": "art355_sec5_3.permit_land_building_sale",
+      "article": "art355",
+      "module": "sec5_3",
+      "reason": "구체사안",
+      "proposition": "토지거래허가 대상 토지와 지상건물을 함께 매도한 경우, 허가를 받지 못해도 건물만이라도 매매했을 특별한 사정이 없으면 건물 부분에 대해서만 배임죄가 성립한다고 볼 수 없다."
+    },
+    {
+      "card_id": "art355_sec5_3.land_transaction_reporting_rule",
+      "article": "art355",
+      "module": "sec5_3",
+      "reason": "구체사안",
+      "proposition": "구 국토이용관리법상 신고지역 토지매매에서 신고의무 위반은 계약의 사법적 효력까지 부인하는 사유가 아니므로, 그 사유만으로 배임죄 성립을 부정할 수 없다."
+    },
+    {
+      "card_id": "art355_sec5_3.permit_evasion_contract_invalid",
+      "article": "art355",
+      "module": "sec5_3",
+      "reason": "구체사안",
+      "proposition": "토지거래허가 요건을 갖추지 못한 매수인이 타인 명의로 허가를 받으려는 의사로 체결한 허가잠탈 토지매매계약은 처음부터 확정적으로 무효이므로, 매도인의 처분행위가 배임죄를 구성한다고 보기 어렵다."
+    },
+    {
+      "card_id": "art355_sec7_11.company_internal_benefit_rules",
+      "article": "art355",
+      "module": "sec7_11",
+      "reason": "구체사안",
+      "proposition": "회사 내부의 시설이용 비용면제 우대규정에 따라 대표이사 또는 이사가 비용을 면제받은 경우, 금전 수입 감소와 동일액 이익 발생만으로 임무위배행위나 배임의 고의를 판단할 수 없고, 규정의 제정·개정 경위와 효력, 우대 범위의 합리성, 회사의 무형적 이익 등을 종합 판단하여야 한다."
+    },
+    {
+      "card_id": "art355_sec7_7.loan_limit_violation_not_automatic_breach",
+      "article": "art355",
+      "module": "sec7_7",
+      "reason": "구체사안",
+      "proposition": "동일인 대출한도를 초과해 구 새마을금고법을 위반했더라도 대출채권 회수에 문제가 있다고 판단되지 않는 한, 제한규정 위반 사실만으로 곧바로 업무상배임죄가 성립하지 않는다."
+    },
+    {
+      "card_id": "art357_sec3_1.kbo_secretary_no_subject",
+      "article": "art357",
+      "module": "sec3_1",
+      "reason": "구체사안",
+      "proposition": "잠실야구장 광고권자 선정 권한이 운영본부에 있고 KBO 사무총장의 업무가 그 선정업무와 밀접한 관계의 범위 내 사무라고 보기 어려운 경우, KBO 사무총장은 그 선정업무를 처리하는 자에 해당하지 않는다."
+    },
+    {
+      "card_id": "art357_sec3_2.reconstruction_union_chairman_duty",
+      "article": "art357",
+      "module": "sec3_2",
+      "reason": "구체사안",
+      "proposition": "재건축조합장이 철거공사 수주와 관련하여 철거업체로부터 금품을 받은 경우, 철거업체 선정권한이 형식상 시공사에 있더라도 그 선정이 조합장이 총괄 처리하는 조합 사무와 밀접한 관계가 있으면 조합에 대한 관계에서 조합장의 임무에 해당한다."
+    },
+    {
+      "card_id": "art357_sec3_2.tv_producer_stock_opportunity",
+      "article": "art357",
+      "module": "sec3_2",
+      "reason": "구체사안",
+      "proposition": "방송국 가요프로그램 담당 프로듀서가 연예기획사 운영자로부터 소속 연예인 출연 또는 뮤직비디오 방영 청탁을 받고 시세차익이 예상되는 주식 매수기회를 제공받아 주식을 매수한 경우 배임수재죄가 성립한다."
+    },
+    {
+      "card_id": "art357_sec3_2.concealment_payment_not_specific_solicitation",
+      "article": "art357",
+      "module": "sec3_2",
+      "reason": "구체사안",
+      "proposition": "부정처분 유류대금을 나누어 준 것이 후일 범행 발각 시 누설을 막기 위해 환심을 사려는 데 그친 경우, 구체적이고 특정한 임무행위에 관한 부정한 청탁으로 보기 어렵다."
+    },
+    {
+      "card_id": "art357_sec3_2.pms_research_contract_not_improper",
+      "article": "art357",
+      "module": "sec3_2",
+      "reason": "구체사안",
+      "proposition": "대학병원 의사와 제약회사 등의 PMS 연구용역계약이 연구의 필요성·수행방법·결과 충실성·대가의 적정성 등에 비추어 의학적으로 정당하게 체결·수행된 경우, 조영제 납품에 관한 부정한 청탁 또는 그 대가 지급을 위한 계약으로 볼 수 없다."
+    },
+    {
+      "card_id": "art360_sec2_2.deceased_victim_possession",
+      "article": "art360",
+      "module": "sec2_2",
+      "reason": "구체사안",
+      "proposition": "피해자를 살해한 방에서 사망 피해자 곁에 약 4시간 30분 있다가 피해자의 자취방 벽에 걸린 피해자 소지 물건을 영득의사로 가져간 경우, 판례는 피해자의 생전 점유가 사망 후에도 계속된다고 보았다."
+    },
+    {
+      "card_id": "art366_sec4_1.intent_destruction_protective_measures",
+      "article": "art366",
+      "module": "sec4_1",
+      "reason": "구체사안",
+      "proposition": "임대인이 가재도구의 비를 막고 타인의 개봉을 방지하려는 조치를 하였다면, 그 조치에 과실이 있어 침수로 효용이 해하여졌더라도 손괴의 고의는 인정되기 어렵다."
+    },
+    {
+      "card_id": "art366_sec4_1.intent_destruction_telephone_report",
+      "article": "art366",
+      "module": "sec4_1",
+      "reason": "구체사안",
+      "proposition": "공중전화기가 고장났다고 생각하여 신고 목적으로 전화선을 빼고 떼어낸 경우, 전화기의 효용을 해하려는 손괴의 범의는 인정되기 어렵다."
+    },
+    {
+      "card_id": "art366_sec4_1.intent_concealment_relocation",
+      "article": "art366",
+      "module": "sec4_1",
+      "reason": "구체사안",
+      "proposition": "영업방해를 위해 타인이 설치하려는 철조망을 원래 위치에서 떨어진 자기 토지로 옮긴 경우, 재물은닉의 범의는 인정되지 않는다."
+    },
+    {
+      "card_id": "art366_sec4_1.intent_concealment_effort_to_return_bag",
+      "article": "art366",
+      "module": "sec4_1",
+      "reason": "구체사안",
+      "proposition": "피해자를 더 호젓한 곳으로 데려가기 위해 가방을 빼앗았으나, 피해자를 찾아 가방을 돌려주려 한 경우 재물을 은닉하거나 효용을 해하려는 고의가 없어 죄가 되지 않는다."
+    },
+    {
+      "card_id": "art366_sec4_1.intent_conditional_unawareness_of_glasses",
+      "article": "art366",
+      "module": "sec4_1",
+      "reason": "구체사안",
+      "proposition": "피해자의 팔을 뿌리치는 과정에서 안경이 부러졌더라도 피해자가 안경을 썼는지 몰랐던 것으로 보이면, 재물손괴 결과발생 가능성의 인식이나 결과용인의사가 없어 미필적 고의는 인정되지 않는다."
+    },
+    {
+      "card_id": "art366_sec5_2.lock_cutting_meeting_room",
+      "article": "art366",
+      "module": "sec5_2",
+      "reason": "구체사안",
+      "proposition": "관리사무소의 관리권을 침해하여 회의실을 잠근 자물쇠를, 열쇠 보관 요구가 거절된 후 회의 직전에 관리사무소에 알리고 절단한 경우 정당행위가 인정된다."
+    },
+    {
+      "card_id": "art366_sec5_2.voluntary_retaining_wall_demolition",
+      "article": "art366",
+      "module": "sec5_2",
+      "reason": "구체사안",
+      "proposition": "주위토지통행권에 관한 판결과 강제집행을 따르지 않고 임의로 옹벽을 철거한 행위는 정당행위에 해당하지 않는다."
+    },
+    {
+      "card_id": "art366_sec5_2.self_help_container_destruction",
+      "article": "art366",
+      "module": "sec5_2",
+      "reason": "구체사안",
+      "proposition": "컨테이너 철거를 위해 민사소송이나 행정 철거명령 등 법정절차를 이용할 수 있음에도 임의 손괴한 행위는 허용되지 않는 자력구제일 뿐 정당행위가 아니다."
+    },
+    {
+      "card_id": "art366_sec5_2.extra_judicial_redevelopment_demolition",
+      "article": "art366",
+      "module": "sec5_2",
+      "reason": "구체사안",
+      "proposition": "재건축조합 정관과 조합원 동의가 있어도 조합원이 명도의무 이행을 거절하면 법적 절차를 거쳐야 하므로, 자력으로 건축물을 철거한 행위는 정당행위가 아니다."
+    },
+    {
+      "card_id": "art366_sec5_2.labor_dispute_property_damage",
+      "article": "art366",
+      "module": "sec5_2",
+      "reason": "구체사안",
+      "proposition": "단체교섭에서 노동조합 요구를 관철하기 위한 기물손괴는 정당한 단체행동의 범위 밖이다."
+    },
+    {
+      "card_id": "art366_sec5_2.no_self_recovery_after_established_possession",
+      "article": "art366",
+      "module": "sec5_2",
+      "reason": "구체사안",
+      "proposition": "집행 후 새 점유자가 잠금장치를 교체하는 등 점유를 확립한 상태에서는 점유침해의 현장성·추적가능성이 없어, 출입문 등을 훼손하여 점유를 탈환한 행위는 민법상 자력구제에 해당하지 않는다."
+    },
+    {
+      "card_id": "art366_sec7_2.unopened_letter_destruction",
+      "article": "art366",
+      "module": "sec7_2",
+      "reason": "구체사안",
+      "proposition": "타인의 편지를 개봉하기 전에 찢어버린 경우에는 문서손괴죄만 성립한다."
+    },
+    {
+      "card_id": "art323_sec2_2.bill_lading_pre_delivery_exception",
+      "article": "art323",
+      "module": "sec2_2",
+      "reason": "희귀적용례",
+      "proposition": "운송물 권리를 양수한 수하인 또는 그 후 양수인이 선하증권을 교부받기 전에 운송물을 처분하여 취거한 경우 권리행사방해죄가 성립할 여지가 없다."
+    },
+    {
+      "card_id": "art329_sec2_1.two_person_partnership_withdrawal_exception",
+      "article": "art329",
+      "module": "sec2_1",
+      "reason": "희귀적용례",
+      "proposition": "두 사람의 동업관계에서 한 사람이 탈퇴하여 계산만 남은 상태에서는 합유관계 물건을 반출해도 절도죄가 성립하지 않는다."
+    },
+    {
+      "card_id": "art350_sec3.sexual_intercourse_property_interest_exception",
+      "article": "art350",
+      "module": "sec3",
+      "reason": "희귀적용례",
+      "proposition": "부녀의 정교는 원칙적으로 재산상 이익에 해당하지 않는다."
+    },
+    {
+      "card_id": "art328_sec1_1.article1_application_suspension",
+      "article": "art328",
+      "module": "sec1_1",
+      "reason": "사용자지시_삭제",
+      "proposition": "헌법불합치결정에 따라 개선입법 시한인 2025년 12월 31일까지 형법 제328조 제1항을 적용하여 형 면제 판결을 선고할 수 없다."
+    },
+    {
+      "card_id": "art328_sec1_1.article2_constitutionality",
+      "article": "art328",
+      "module": "sec1_1",
+      "reason": "메타서술",
+      "proposition": "헌법재판소는 2024년 6월 27일 형법 제328조 제2항이 헌법에 위반되지 않는다고 결정하였다."
+    },
+    {
+      "card_id": "art331_sec3_3.waiting_near_scene_cooperation_holding",
+      "article": "art331",
+      "module": "sec3_3",
+      "reason": "메타서술",
+      "proposition": "공범들과 실행행위 분담을 공모한 피고인이 절취장소 부근에서 자신이 운전하는 차량에 대기한 경우, 공범들이 범행 대상을 물색하는 과정에서 절취장소가 차량에서 다소 떨어진 때가 있어도 시간적·장소적 협동관계가 인정될 수 있다고 한 판례 사례가 소개되어 있다."
+    },
+    {
+      "card_id": "art337_sec5.late-joiner-prior-lethal-result",
+      "article": "art337",
+      "module": "sec5",
+      "reason": "메타서술",
+      "proposition": "중도 가담 전에 이미 살상 결과가 발생한 경우, 그 결과를 이용한 재물취득에 강도죄 책임을 물을 수 있더라도 강도살인·치사 또는 강도상해·치상 책임까지 물을 수는 없다는 해석이 제시된다."
+    },
+    {
+      "card_id": "art337_sec6_1.quasi_robbery_injury_single_offense",
+      "article": "art337",
+      "module": "sec6_1",
+      "reason": "메타서술",
+      "proposition": "포괄하여 준강도상해죄의 일죄가 성립하고 별도로 준강도죄가 성립하지 않는다고 판시한 소개된 판례가 있다."
+    },
+    {
+      "card_id": "art337_sec6_1.distinct_robbery_acts_separate_offenses",
+      "article": "art337",
+      "module": "sec6_1",
+      "reason": "메타서술",
+      "proposition": "강도행위 자체가 여러 개인 경우, 상이한 시기와 장소에서 여러 피해자에게 각기 폭행 또는 협박하여 재물을 강취하고 그중 한 명을 상해한 때에는 강도죄와 강도상해죄가 각각 별도로 성립한다고 소개되어 있다."
+    },
+    {
+      "card_id": "art355_sec1_2.embezzlement_reported_precedent_illegal_appropriation_intent",
+      "article": "art355",
+      "module": "sec1_2",
+      "reason": "메타서술",
+      "proposition": "소개된 판례에 따르면 업무상횡령죄는 타인의 재물을 보관하는 사람이 불법영득의 의사로 업무상 임무에 위배하여 재물을 횡령하거나 반환을 거부해야 성립하며, 불법영득의 의사가 없으면 성립이 부정된다."
+    },
+    {
+      "card_id": "art355_sec1_2.illegal_appropriation_intent_definition",
+      "article": "art355",
+      "module": "sec1_2",
+      "reason": "메타서술",
+      "proposition": "소개된 판례에서 불법영득의 의사란 보관자가 자기 또는 제3자의 이익을 꾀할 목적으로 업무상 임무에 위배하여 보관 재물을 자기 소유물처럼 사실상 또는 법률상 처분하려는 의사를 뜻한다."
+    },
+    {
+      "card_id": "art355_sec1_3.embezzlement_case_object_ownership",
+      "article": "art355",
+      "module": "sec1_3",
+      "reason": "메타서술",
+      "proposition": "소개된 판례에 따르면 횡령죄의 보호법익은 타인의 재물에 관한 소유권 등 본권이고, 객체가 타인의 재물인 이상 구체적 소유자가 누구인지는 횡령죄 성립에 영향을 주지 않는다."
+    },
+    {
+      "card_id": "art355_sec1_3.embezzlement_case_unauthorized_security",
+      "article": "art355",
+      "module": "sec1_3",
+      "reason": "메타서술",
+      "proposition": "소개된 판례에 따르면 타인의 재물을 보관하는 사람이 동의 없이 그 재물을 담보로 제공한 경우, 담보제공의 사법상 유효성 또는 소유권 침해 결과와 관계없이 불법영득 의사를 표현한 횡령행위로 횡령죄를 구성한다."
+    },
+    {
+      "card_id": "art355.breach_transfer_security_pre_settlement_registration",
+      "article": "art355",
+      "module": "sec3_1",
+      "reason": "메타서술",
+      "proposition": "가등기담보법 시행 후 약한 의미의 양도담보에서 채권자가 정산절차 전에 제3자에게 가등기를 설정한 행위에 배임죄 성립을 인정한 원심을 수긍한 대법원 판결이 소개되어 있다."
+    },
+    {
+      "card_id": "art355_sec3_3.additional_mortgage_separate_embezzlement",
+      "article": "art355",
+      "module": "sec3_3",
+      "reason": "메타서술",
+      "proposition": "선행 근저당권 설정 후 추가 근저당권 설정이 예측할 수 없는 새로운 위험을 더하거나 무관한 방법으로 법익침해 결과를 발생시키면 별도 횡령죄를 구성한다는 전원합의체 판결 변경이 소개되어 있다."
+    },
+    {
+      "card_id": "art355_sec3_3.joint_tree_sale_attempt",
+      "article": "art355",
+      "module": "sec3_3",
+      "reason": "메타서술",
+      "proposition": "합유 수목을 임의처분하는 계약을 체결하고 계약금을 수령·소비한 사안에서, 피해자 소유권 침해의 구체적 위험 발생에 이르지 않았다고 보아 횡령미수를 인정한 원심을 대법원이 수긍한 사례가 소개되어 있다."
+    },
+    {
+      "card_id": "art355_sec4_3.convertible_bond_sham_payment",
+      "article": "art355",
+      "module": "sec4_3",
+      "reason": "메타서술",
+      "proposition": "전환사채 인수과정에서 납입을 가장하였더라도 전환사채는 발행 당시 사채이고 전환권 행사 시에만 주식으로 전환되므로, 상법상 납입가장죄 및 업무상배임죄·업무상횡령죄의 성립은 어려운 것으로 소개되어 있다."
+    },
+    {
+      "card_id": "art357.protected_interest.precedent_integrity",
+      "article": "art357",
+      "module": "sec1_6",
+      "reason": "메타서술",
+      "proposition": "판례는 타인의 사무를 처리하는 자의 청렴성 또는 거래의 청렴성을 배임수증재죄의 보호법익으로 든다."
+    },
+    {
+      "card_id": "art366_sec5_5.consent_withdrawal_construction_stop",
+      "article": "art366",
+      "module": "sec5_5",
+      "reason": "메타서술",
+      "proposition": "시설물 철거를 수반한 인테리어 공사에 승낙한 뒤 보증금 잔금 미지급을 이유로 즉시 공사중단과 퇴거를 요구한 경우, 그 의사표시로 선행 시설물 철거 승낙이 철회된 것으로 보아 유리창 손괴에 관한 피해자 승낙 주장을 배척하고 재물손괴죄 성립을 인정한 선례가 있다."
+    },
+    {
+      "card_id": "art328_sec1_3.nonkinship_proof_burden",
+      "article": "art328",
+      "module": "sec1_3",
+      "reason": "절차·증거",
+      "proposition": "친족상도례 적용 여부에서 친족관계가 없다는 점의 증명책임은 검사에게 있다."
+    },
+    {
+      "card_id": "art328_sec1_3.kinship_inquiry_after_statement",
+      "article": "art328",
+      "module": "sec1_3",
+      "reason": "절차·증거",
+      "proposition": "절도 피고인이 형법 제328조상 친족간 범행에 해당한다고 진술한 경우, 법원이 친족관계 존부를 심리·확인하지 않고 절도죄로 처단하는 것은 위법하다."
+    },
+    {
+      "card_id": "art328_sec1_3.absentee_manager_complaint",
+      "article": "art328",
+      "module": "sec1_3",
+      "reason": "절차·증거",
+      "proposition": "제328조 제2항의 친족관계에 있는 피해 부재자가 직접 고소하지 않았더라도, 법원으로부터 고소권 행사 허가를 받은 부재자 재산관리인이 고소하면 고소 요건이 충족되어 공소제기가 적법하다."
+    },
+    {
+      "card_id": "art328_sec4_1.one_complaint_sufficient",
+      "article": "art328",
+      "module": "sec4_1",
+      "reason": "절차·증거",
+      "proposition": "수인이 형법 제328조 제2항의 친족관계에 있을 때에는 그중 한 사람의 고소로 족하다."
+    },
+    {
+      "card_id": "art337_sec3_2.medical_certificate_proof",
+      "article": "art337",
+      "module": "sec3_2",
+      "reason": "절차·증거",
+      "proposition": "상해진단서로 상해 사실 및 인과관계를 판단할 때에는 합리적 의심이 없을 정도의 증명이 필요하고, 진단서의 객관성·신빙성에 의심 사정이 있으면 그 증명력을 매우 신중하게 판단하여야 한다."
+    },
+    {
+      "card_id": "art355.breach.damage-proof",
+      "article": "art355",
+      "module": "sec3_2",
+      "reason": "절차·증거",
+      "proposition": "배임죄 성립을 위해 재산상 손해 발생은 합리적 의심이 없는 정도로 증명되어야 하며, 손해 발생이 충분히 입증되지 않은 상태에서 액수 미상의 손해를 쉽게 인정하여서는 안 된다."
+    },
+    {
+      "card_id": "art355_sec4_1.breach_of_trust_intent_indirect_proof",
+      "article": "art355",
+      "module": "sec4_1",
+      "reason": "절차·증거",
+      "proposition": "피고인이 본인을 위한 행위라고 주장하며 배임 고의를 부인하는 경우, 고의와 상당한 관련성이 있는 간접사실로 고의를 증명할 수 있고, 간접사실의 관련성은 경험칙에 따른 합리적 판단으로 평가한다."
+    },
+    {
+      "card_id": "art355_sec8_1.embezzlement_proof_burden",
+      "article": "art355",
+      "module": "sec8_1",
+      "reason": "절차·증거",
+      "proposition": "횡령죄에서 불법영득의사를 실현하는 횡령행위는 검사가 합리적 의심이 없을 정도의 엄격한 증거로 입증하여야 하며, 그러한 증거가 없으면 피고인에게 유죄 의심이 있어도 피고인 이익으로 판단한다."
+    },
+    {
+      "card_id": "art355_sec8_2.multiple_victims_specification",
+      "article": "art355",
+      "module": "sec8_2",
+      "reason": "절차·증거",
+      "proposition": "횡령죄는 피해자별 별개의 죄이므로 피해자가 여럿이면 각 피해자별 횡령금액을 정하여야 하며, 횡령행위를 포괄하여 특정경제범죄가중처벌등에관한법률위반(횡령)죄로 의율하려면 원칙적으로 피해자 및 피해자별 피해액에 관한 공소사실 특정이 필요하다."
+    },
+    {
+      "card_id": "art329_sec3_4.attempt.abandonment_no_suitable_property",
+      "article": "art329",
+      "module": "sec3_4",
+      "reason": "총칙",
+      "proposition": "절도 실행에 착수하였으나 절취할 적당한 물건을 발견하지 못하여 범행을 단념한 경우에는 자의에 의한 중지로 보기 어려워 단순 미수에 그친다."
+    },
+    {
+      "card_id": "art334_sec2_3.exception_unplanned_joint_robbery_simple_robbery",
+      "article": "art334",
+      "module": "sec2_3",
+      "reason": "총칙",
+      "proposition": "단순강도를 공모한 뒤 실행담당자가 공모에 없던 제3자를 동반하여 합동강도를 범한 경우, 공모자는 제15조 제1항에 따라 단순강도의 죄책을 진다."
+    },
+    {
+      "card_id": "art335_sec9_1.accomplice_foreseeability_holding",
+      "article": "art335",
+      "module": "sec9_1",
+      "reason": "총칙",
+      "proposition": "판례는 절도 범행 중 다른 공범자도 폭행·협박을 예견할 수 있었던 경우에는 준강도죄 성립을 인정한다."
+    },
+    {
+      "card_id": "art338_sec5.accomplice.no_murder_intent",
+      "article": "art338",
+      "module": "sec5",
+      "reason": "총칙",
+      "proposition": "살인의 범의가 없는 강도 공범자에게는 강도살인죄 책임을 물을 수 없다."
+    },
+    {
+      "card_id": "art342.result_aggravated_attempt_exception",
+      "article": "art342",
+      "module": "x_raw_pdf",
+      "reason": "총칙",
+      "proposition": "결과적 가중범에는 미수범이 있을 수 없으므로, 결과적 가중범은 미수범 처벌 대상에서 제외된다."
+    },
+    {
+      "card_id": "art355_sec8.transaction_counterparty_illegality",
+      "article": "art355",
+      "module": "sec8",
+      "reason": "총칙",
+      "proposition": "정범의 행위가 배임행위임을 알고 거래에 임하여 외견상 방조행위로 평가될 수 있는 행위가 있더라도, 범죄를 구성할 정도의 위법성이 없다고 볼 수 있다."
+    },
+    {
+      "card_id": "art357_sec3_8.giver_receiver_accomplice_exception",
+      "article": "art357",
+      "module": "sec3_8",
+      "reason": "총칙",
+      "proposition": "배임증재자와 배임수재자 사이에는 공범에 관한 형법총칙상 공범 규정이 적용되지 않는다."
+    },
+    {
+      "card_id": "art329_sec7.count_single_intent_same_place",
+      "article": "art329",
+      "module": "sec7",
+      "reason": "죄수·경합",
+      "proposition": "단일한 고의로 시간과 장소가 접착한 상태에서 같은 관리인이 관리하는 방 안에서 두 사람의 재물을 절취한 경우에는 1개의 절도죄가 성립한다."
+    },
+    {
+      "card_id": "art329_sec7.count_separate_rooms_separate_offenses",
+      "article": "art329",
+      "module": "sec7",
+      "reason": "죄수·경합",
+      "proposition": "주인 방과 셋방, 여관의 각 방처럼 점유가 각별로 인정되는 경우, 한 방에서 절도행위를 마친 뒤 다른 방에 들어가 절취하면 범행 장소와 물품 관리자가 달라 별개의 죄를 구성한다."
+    },
+    {
+      "card_id": "art329_sec8_10.cattle_illegal_slaughter_separate_offense",
+      "article": "art329",
+      "module": "sec8_10",
+      "reason": "죄수·경합",
+      "proposition": "절취한 소를 도축장이나 수육 가공장이 아닌 장소에서 도살하거나 해체하면 절도죄 외에 축산물위생관리법위반죄가 성립한다."
+    },
+    {
+      "card_id": "art329_sec8_10.stolen_drugs_possession_separate_offense",
+      "article": "art329",
+      "module": "sec8_10",
+      "reason": "죄수·경합",
+      "proposition": "절취한 마약을 소지한 경우 절도죄와 함께 마약류 관리에 관한 법률 위반죄가 성립한다."
+    },
+    {
+      "card_id": "art329_sec8_10.trade_secret_cd_misuse_separate_offense",
+      "article": "art329",
+      "module": "sec8_10",
+      "reason": "죄수·경합",
+      "proposition": "부정한 이익을 얻을 목적으로 타인의 영업비밀이 담긴 CD를 절취하여 그 영업비밀을 부정사용한 경우, 절도죄와 별도로 부정경쟁방지 및 영업비밀보호에 관한 법률 위반죄가 성립한다."
+    },
+    {
+      "card_id": "art329_sec8_5.robbery_murder_single_offense",
+      "article": "art329",
+      "module": "sec8_5",
+      "reason": "죄수·경합",
+      "proposition": "재물탈취 목적으로 사람을 살해하거나, 절도가 범죄흔적 인멸 또는 체포면탈 목적으로 살인한 경우 강도살인의 일죄가 된다."
+    },
+    {
+      "card_id": "art329_sec8_6.robbery_conversion_force",
+      "article": "art329",
+      "module": "sec8_6",
+      "reason": "죄수·경합",
+      "proposition": "재물절취의 방법으로 감행된 폭행·상해가 피해자의 반항을 억압할 정도이면 절도는 폭행·상해와 결합하여 강도 또는 강도상해죄가 된다."
+    },
+    {
+      "card_id": "art329_sec8_6.quasi_robbery_after_theft_force",
+      "article": "art329",
+      "module": "sec8_6",
+      "reason": "죄수·경합",
+      "proposition": "절도범이 재물 탈환에 항거하거나 체포를 면탈하거나 범죄흔적을 인멸하기 위하여 폭행·상해를 감행한 경우 준강도가 된다."
+    },
+    {
+      "card_id": "art329_sec8_6.incidental_force_separate_offense",
+      "article": "art329",
+      "module": "sec8_6",
+      "reason": "죄수·경합",
+      "proposition": "강도 또는 준강도에 해당하지 않는 폭행·상해가 절취행위에 수반된 경우 폭행죄 또는 상해죄가 절도죄 외에 별도로 성립한다."
+    },
+    {
+      "card_id": "art329_sec8_7.theft_to_robbery_single_robbery",
+      "article": "art329",
+      "module": "sec8_7",
+      "reason": "죄수·경합",
+      "proposition": "절도에 착수하였다가 강도행위로 전환하거나 절취 후 다시 다른 재물을 강취한 경우, 동일 기회에 동일 피해자에 대하여 한 행위이면 포괄하여 무거운 강도죄만 성립한다."
+    },
+    {
+      "card_id": "art329_sec8_9.principal_thief_stolen_property_offense_exception",
+      "article": "art329",
+      "module": "sec8_9",
+      "reason": "죄수·경합",
+      "proposition": "절도범 자신이 절취물을 양도·운반·보관한 경우 절도죄 외에 별도로 장물 양도·운반·보관죄가 성립하지 않는다."
+    },
+    {
+      "card_id": "art337_sec6_3.robbery_injury_single_offense",
+      "article": "art337",
+      "module": "sec6_3",
+      "reason": "죄수·경합",
+      "proposition": "동일 기회에 폭행하다가 강도 범의를 일으켜 계속 폭행한 경우, 뒤의 강도행위 또는 전후에 걸친 폭행의 결과로 상해가 발생하면 강도상해의 일죄만 성립한다."
+    },
+    {
+      "card_id": "art338_sec3.opportunity_witness_killing_hours_later",
+      "article": "art338",
+      "module": "sec3",
+      "reason": "죄수·경합",
+      "proposition": "강도살인 후 목격자를 살해하기로 공모하여 수 시간 뒤 유인·살해한 경우, 범행 흔적 은폐 목적이고 당초 범행과 근접하더라도 독립한 별개의 살인죄이며 강도의 기회에 한 강도살인죄에 포함되지 않는다."
+    },
+    {
+      "card_id": "art355_sec5_3.second_purchaser_not_stolen_goods",
+      "article": "art355",
+      "module": "sec5_3",
+      "reason": "죄수·경합",
+      "proposition": "이중매매의 제2매수인에게 배임죄 공범이 성립할 여지는 있어도 장물취득죄로 처단할 수는 없다."
+    },
+    {
+      "card_id": "art366_sec7_1.single_offense_same_manager",
+      "article": "art366",
+      "module": "sec7_1",
+      "reason": "죄수·경합",
+      "proposition": "하나의 행위로 동일한 사람이 관리하는 수인의 재물을 손괴한 때에는 단순일죄가 된다."
+    },
+    {
+      "card_id": "art366_sec7_2.minor_offense_property_damage_separate_offenses",
+      "article": "art366",
+      "module": "sec7_2",
+      "reason": "죄수·경합",
+      "proposition": "경범죄처벌법과 재물손괴죄는 보호법익이 구별되므로 원칙적으로 동일 행위에 대하여 각 죄가 성립한다."
+    },
+    {
+      "card_id": "art329_sec8_8.deception_as_taking_method",
+      "article": "art329",
+      "module": "sec8_8",
+      "reason": "중복",
+      "proposition": "기망이 점유침탈의 방법에 불과하고 오로지 기망으로 재물 점유가 이전되었다고 보기 어려운 경우 사기죄가 아니라 절도죄만 성립한다."
+    },
+    {
+      "card_id": "art344_x_raw_pdf.kinship_with_owner_and_possessor",
+      "article": "art344",
+      "module": "x_raw_pdf",
+      "reason": "중복",
+      "proposition": "절도죄에서 형법 제328조가 적용되려면 범인과 목적물의 소유자 및 점유자 모두 사이에 친족관계가 있어야 한다."
+    },
+    {
+      "card_id": "art344_x_raw_pdf.kinship_only_one_holder_no_application",
+      "article": "art344",
+      "module": "x_raw_pdf",
+      "reason": "중복",
+      "proposition": "범인이 목적물의 소유자 또는 점유자 중 어느 일방과만 친족관계에 있는 경우에는 절도죄에 형법 제328조가 적용되지 않는다."
+    },
+    {
+      "card_id": "art350_sec10_9.extortion_object_another_possession",
+      "article": "art350",
+      "module": "sec10_9",
+      "reason": "중복",
+      "proposition": "공갈죄의 객체는 타인이 점유하는 재물이다."
+    },
+    {
+      "card_id": "art355_sec4_1.business_expense_proof",
+      "article": "art355",
+      "module": "sec4_1",
+      "reason": "중복",
+      "proposition": "용도에 구체적 제한이 없고 증빙 제출도 요구되지 않는 판공비·업무추진비의 횡령을 인정하려면 업무 무관 개인이익 지출 또는 합리적 범위를 넘는 과다지출이 증명되어야 한다."
+    },
+    {
+      "card_id": "art355_sec4_1.double_sale_good_faith_rescission",
+      "article": "art355",
+      "module": "sec4_1",
+      "reason": "중복",
+      "proposition": "부동산 이중매매에서 매도인의 해제가 요건을 갖추지 못해 효력이 없더라도, 매도인이 해제가 적법하다고 믿었고 그 믿음에 정당한 이유가 있으면 해제 후 매도행위에 관한 배임의 범의는 인정되지 않는다."
+    },
+    {
+      "card_id": "art355_sec4_2.slush_fund_personal_purpose_illicit_gain",
+      "article": "art355",
+      "module": "sec4_2",
+      "reason": "중복",
+      "proposition": "법인 운영자 또는 관리자가 법인을 위한 목적이 아니라 법인과 무관하거나 개인적 용도로 착복할 목적으로 법인 자금을 빼내 비자금을 조성하면, 조성행위 자체로 불법이득의 의사가 실현된 것으로 볼 수 있다."
+    },
+    {
+      "card_id": "art355_sec4_2.slush_fund_purpose_assessment",
+      "article": "art355",
+      "module": "sec4_2",
+      "reason": "중복",
+      "proposition": "법인 자금을 빼내어 착복할 목적이 있었는지는 법인의 성격, 비자금 조성 동기·방법·규모·기간, 보관방법 및 실제 사용용도 등 제반 사정을 종합하여 판단한다."
+    },
+    {
+      "card_id": "art355_sec4_3.authorized_company_debt_payment",
+      "article": "art355",
+      "module": "sec4_3",
+      "reason": "중복",
+      "proposition": "회사에 채권이 있는 대표이사가 회사를 위하여 보관한 회사 소유 금원으로 자신의 채권 변제에 충당한 행위가 대표이사 권한 내의 유효한 회사채무 변제라면 불법영득의사가 인정되지 않는다."
+    },
+    {
+      "card_id": "art355_sec8_1.unexplained_fund_withdrawal_inference",
+      "article": "art355",
+      "module": "sec8_1",
+      "reason": "중복",
+      "proposition": "피고인이 회사 금원을 인출·사용하고도 사용처 증빙을 제시하지 못하며 인출사유와 사용처에 합리적 설명을 하지 못하면, 그 금원은 불법영득의사로 회사 금원을 인출하여 개인 용도로 사용한 것으로 추단할 수 있다."
+    },
+    {
+      "card_id": "art357_sec3.receiving_offense_definition",
+      "article": "art357",
+      "module": "sec3",
+      "reason": "중복",
+      "proposition": "배임수재죄는 타인의 사무를 처리하는 사람이 그 임무에 관하여 부정한 청탁을 받고 재물 또는 재산상의 이익을 취득하거나 제3자로 하여금 이를 취득하게 함으로써 성립한다."
+    },
+    {
+      "card_id": "art357_sec3_3.third_party_acquisition_post_amendment",
+      "article": "art357",
+      "module": "sec3_3",
+      "reason": "중복",
+      "proposition": "2016년 개정 이후에는 원칙적으로 제3자가 부정한 청탁과 관련하여 재물 또는 재산상 이익을 받은 경우도 처벌할 수 있다."
+    },
+    {
+      "card_id": "art337_sec7.special_recidivism_three_years",
+      "article": "art337",
+      "module": "sec7",
+      "reason": "타법률",
+      "proposition": "강도상해·치상죄 또는 그 미수죄로 형의 집행 종료 또는 면제 후 3년 내 다시 이들 죄를 범하면 특정범죄 가중처벌 등에 관한 법률 제5조의5에 따라 사형·무기 또는 10년 이상의 징역으로 가중된다."
+    },
+    {
+      "card_id": "art338_sec7.specific_violent_crime",
+      "article": "art338",
+      "module": "sec7",
+      "reason": "타법률",
+      "proposition": "강도살인·치사죄와 그 미수죄는 특정강력범죄의 처벌에 관한 특례법 제2조 제1항 제5호의 특정강력범죄에 해당한다."
+    },
+    {
+      "card_id": "art355_sec7_12.business_outside_company_scope",
+      "article": "art355",
+      "module": "sec7_12",
+      "reason": "타법률",
+      "proposition": "상법 제625조 제4호의 ‘회사의 영업범위 외’는 회사 정관에 명시된 목적 및 그 목적 수행에 직접 또는 간접적으로 필요한 통상적 부대업무의 범위를 벗어난 것을 말하며, 목적 수행 필요성은 행위의 객관적 성질에 따라 추상적으로 판단한다."
+    },
+    {
+      "card_id": "art355_sec7_12.speculative_transaction",
+      "article": "art355",
+      "module": "sec7_12",
+      "reason": "타법률",
+      "proposition": "상법 제625조 제4호의 ‘투기행위’는 시세변동 차익을 목적으로 하는 거래 중 사회통념상 회사의 자금운용방법 또는 자산보유수단으로 용인될 수 없는 행위를 말한다."
+    },
+    {
+      "card_id": "art355_sec7_12.speculative_transaction_company_property_assessment",
+      "article": "art355",
+      "module": "sec7_12",
+      "reason": "타법률",
+      "proposition": "회사 임원 등의 회사재산 처분이 투기행위를 하기 위한 것인지는 회사 목적·주된 영업, 자산규모, 거래 경위, 목적물 특성, 시세변동 폭, 거래 방법·기간·규모·횟수, 자금 조성경위, 거래관행 및 경제상황을 종합 고려하여 판단한다."
+    },
+    {
+      "card_id": "art355_sec7_12.article625_subsidiary_exception",
+      "article": "art355",
+      "module": "sec7_12",
+      "reason": "타법률",
+      "proposition": "상법 제625조 위반죄는 상법 제622조 특별배임죄 및 형법 제356조 업무상배임죄의 보충규정이므로, 특별배임죄 또는 업무상배임죄가 성립하면 별도로 상법 제625조 위반죄는 성립하지 않는다."
+    },
+    {
+      "card_id": "art355_sec9_5.non_accounting_official_basic_embezzlement_penalty",
+      "article": "art355",
+      "module": "sec9_5",
+      "reason": "타법률",
+      "proposition": "횡령으로 인한 국고등손실죄에서 회계관계직원 또는 국정원장 특별사업비 업무상 보관자 신분이 없는 경우에는 형법 제355조 제1항의 횡령죄 법정형으로 처벌된다."
+    },
+    {
+      "card_id": "art357_sec3_9.commercial_act_special_offense_exception",
+      "article": "art357",
+      "module": "sec3_9",
+      "reason": "타법률",
+      "proposition": "상법 제630조 제1항 위반죄가 성립하면 해당 죄는 배임수재죄와 특별법 관계에 있으므로 배임수재죄가 성립할 여지가 없다."
+    },
+    {
+      "card_id": "art357_sec3_9.construction_act_separate_offense",
+      "article": "art357",
+      "module": "sec3_9",
+      "reason": "타법률",
+      "proposition": "건설산업기본법 제95조의2 위반죄는 배임수재죄의 특별규정이 아니라 구성요건을 달리하는 별개의 죄로 보아 각 행위가 각각의 구성요건에 해당하는지를 판단한다."
+    },
+    {
+      "card_id": "art357_sec4.financial_officer_third_party_direct_receipt",
+      "article": "art357",
+      "module": "sec4",
+      "reason": "타법률",
+      "proposition": "금융기관 임직원이 직접 금품 등을 받지 않고 공여자가 다른 사람에게 공여한 경우에도, 그 사람이 임직원의 사자·대리인이거나 임직원이 지출을 면하는 등 사회통념상 임직원이 직접 받은 것과 같이 평가할 관계가 있으면 구 특정경제범죄가중처벌등에관한법률 제5조 제1항 위반죄가 성립한다."
+    },
+    {
+      "card_id": "art357_sec4.financial_receipt_return_no_effect",
+      "article": "art357",
+      "module": "sec4",
+      "reason": "타법률",
+      "proposition": "금융기관 임직원이 구 특정경제범죄가중처벌등에관한법률 제5조 제1항의 금품 기타 이익을 영득 의사로 수수한 경우에는 후일 반환해도 수재등죄 성립에 영향이 없다."
+    },
+    {
+      "card_id": "art357_sec4.financial_officer_duty_connection",
+      "article": "art357",
+      "module": "sec4",
+      "reason": "타법률",
+      "proposition": "금융기관 임직원이 거래처 고객에게서 금품 등을 받은 경우, 종전 접대·수수의 의례상 대가 또는 개인 친분상 교분 필요에 따른 것이라고 명백히 인정되는 특별 사정이 없는 한 직무관련성이 없다고 볼 수 없다."
+    },
+    {
+      "card_id": "art366_sec4_2.road_traffic_negligent_damage_exception",
+      "article": "art366",
+      "module": "sec4_2",
+      "reason": "타법률",
+      "proposition": "도로교통법 제151조는 차의 운전자가 업무상 과실 또는 중대한 과실로 타인의 건조물이나 기타 재물을 손괴한 경우 예외적으로 과실손괴행위를 처벌한다."
+    },
+    {
+      "card_id": "art366_sec4_2.military_negligent_damage_exception",
+      "article": "art366",
+      "module": "sec4_2",
+      "reason": "타법률",
+      "proposition": "군형법 제73조는 과실로 군용시설·군용 물건 등을 손괴하거나 효용을 해한 경우 및 업무상 과실 또는 중대한 과실의 경우를 처벌한다."
+    },
+    {
+      "card_id": "art366_sec8.joint_commission_sentence_enhancement",
+      "article": "art366",
+      "module": "sec8",
+      "reason": "타법률",
+      "proposition": "2명 이상이 공동하여 재물손괴등죄를 저지른 경우 형법에서 정한 형의 2분의 1을 가중한다."
+    },
+    {
+      "card_id": "art355_sec5_2.security_right_obstruction",
+      "article": "art355",
+      "module": "sec5_2",
+      "reason": "다른죄명문맥",
+      "proposition": "담보권자가 이미 담보권을 취득한 뒤 채무자가 자기 소유 물건을 은닉·손괴하여 채권자의 권리행사를 방해한 경우 권리행사방해죄가 성립할 수 있다."
+    },
+    {
+      "card_id": "art357_sec1_2.pre_amendment_third_party_exception",
+      "article": "art357",
+      "module": "sec1_2",
+      "reason": "구법·연혁",
+      "proposition": "개정 전 법률에서는 제3자가 재물 또는 재산상 이익을 취득한 경우 원칙적으로 배임수재죄로 처벌할 수 없었다."
+    }
+  ]
+}

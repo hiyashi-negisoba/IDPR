@@ -1,0 +1,56 @@
+{
+  "version": "1.0.0",
+  "api_calls": 0,
+  "created_at": "2026-07-26T03:59:40.921951+00:00",
+  "source": "결정B3_보강조문_질의문승인.md (사용자 코멘트 4건)",
+  "user_comments": {
+    "art332_sec1_1.different_offense_types": "죄종을 번갈아 한 게 아니라 각 죄종이 상습 가중조항을 가져 포괄 설명한 것이다.",
+    "art332_sec1_2.incidental-or-economic-theft-exception": "질의문은 승인. 가중적 구성요건을 기본범과 구별해 on/off로 판정하는 구조를 설계하라.",
+    "art333_sec2_3.lesser_threat_extortion": "반항억압보다 약한 수준이라는 점이 질의문에 나타나지 않는다.",
+    "art333_sec3_1.real_estate_as_robbery_property_negative": "이것도 좀 이상하다."
+  },
+  "design_handoff": "4번 코멘트(가중적 구성요건을 기본범과 구별해 on/off로 판정하자)는 질의문 문제가 아니라 RuleIR 출력 술어 설계 사항이라 `docs/research/rulegen_rule_ir_units.md` §3.1로 옮겨 preflight 항목으로 세웠다.",
+  "stats": {
+    "rewritten": 1,
+    "merged": 1,
+    "query_revised": 3
+  },
+  "entries": [
+    {
+      "card_id": "art332_sec1_1.different_offense_types",
+      "kind": "rewrite",
+      "from": "유형이 다른 절도·강도·사기를 반복한 경우에는 절도의 상습성을 인정할 수 없다.",
+      "to": "절도의 상습성은 동종의 절도행위를 반복누행한 습벽에서 인정되므로, 강도·사기와 같이 죄종을 달리하는 범행 경력은 절도 상습성의 근거가 되지 않는다.",
+      "reason": "초안 명제('유형이 다른 절도·강도·사기를 반복한 경우 절도의 상습성을 인정할 수 없다')는 죄종이 섞이면 절도 상습성이 부정되는 것처럼 읽힌다. 원문의 취지는 동종성 판단의 범위이고, 다른 죄종의 경력을 상습성 근거에서 제외하는 것이다(사용자 지적)."
+    },
+    {
+      "card_id": "art333_sec3_1.real_estate_as_robbery_property_negative",
+      "kind": "merge",
+      "absorbed": "art333_sec3_1.real_estate_rights_as_property_benefit",
+      "from": "부동산은 절도죄·강도죄와 같은 도취죄의 객체인 재물에 해당하지 않는다.",
+      "to": "부동산은 절도죄·강도죄와 같은 도취죄의 객체인 재물에 해당하지 않으므로, 폭행·협박으로 부동산에 관한 권리를 취득한 경우에는 재물의 강취가 아니라 재산상 이익의 강취로 본다.",
+      "reason": "주석서 원문이 '재물 아님'과 '권리는 재산상 이익으로 본다'를 한 세트로 서술한다. 카드를 쪼개면 '재물 아님'만 발동하고 그 다음이 끊긴다(사용자 지적). 학설선택에서 둘 다 살리기로 한 것도 하나의 규칙이라는 뜻이므로 병합한다."
+    },
+    {
+      "card_id": "art332_sec1_1.different_offense_types",
+      "kind": "revise_query",
+      "from": "피고인의 전력과 이번 범행은 절도·강도·사기 등 서로 다른 유형의 범죄로 이루어져 있다.",
+      "to": "상습성의 근거로 함께 고려되는 범행 경력 중에 절도가 아닌 강도·사기 등 다른 죄종의 범행이 있다.",
+      "reason": "초안은 죄종이 섞였다는 사실만으로 상습성을 부정하게 만들었다. 지금은 같은 사실을 묻되 발동 시 결론을 '근거에서 제외'로 정확히 적었다. 무엇이 동종인지는 짝 카드 `art332_sec1_1.aggregate_theft_types`가 채운다."
+    },
+    {
+      "card_id": "art333_sec2_3.lesser_threat_extortion",
+      "kind": "revise_query",
+      "from": "그 폭행·협박은 피해자에게 두려움을 일으키는 정도였고, 피해자는 스스로 결정하여 재물을 건넸다.",
+      "to": "그 폭행·협박은 피해자에게 두려움을 일으키는 정도였고, 피해자는 반항할 수 있는 상태에서 스스로 결정하여 재물을 건넸다.",
+      "reason": "정도의 상한이 초안에 없었다(사용자 지적). '반항할 수 있는 상태'로 상한을 긍정형으로 넣어 강도 쪽 core 카드(객관적 반항억압)와 상호배타적으로 걸리게 했다."
+    },
+    {
+      "card_id": "art333_sec3_1.real_estate_as_robbery_property_negative",
+      "kind": "revise_query",
+      "from": "강취의 대상은 부동산이다.",
+      "to": "강취의 대상은 부동산 또는 부동산에 관한 권리다.",
+      "reason": "카드 병합에 맞춰 질의문도 객체를 한 번에 묻는다. 초안('강취의 대상은 부동산이다')은 재물성 부정에서 멈춰 그 다음 처리가 끊겼다."
+    }
+  ]
+}

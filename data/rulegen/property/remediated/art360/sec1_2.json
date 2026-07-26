@@ -1,0 +1,82 @@
+{
+  "card_set_id": "kr.art360.art360.sec1_2.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art360.variant.relationship-independent-offense-majority",
+          "request_id": "art360.pass1.001"
+        },
+        {
+          "candidate_id": "art360.variant.relationship-basic-aggravated",
+          "request_id": "art360.pass1.001"
+        },
+        {
+          "candidate_id": "art360.variant.relationship-mitigated-subsidiary",
+          "request_id": "art360.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "context_only",
+      "id": "art360_sec1_2.relationship_with_entrusted_property_embezzlement",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "점유이탈물횡령죄와 위탁물횡령죄의 관계에 관하여, 통설은 법적 성질이 다른 독립된 별개의 범죄라고 보고, 기본적·가중적 구성요건 관계설 및 위탁물횡령죄에 대한 보충관계의 감경적 구성요건설도 있다.",
+      "request_ids": [
+        "art360.pass1.001"
+      ],
+      "review_notes": "학설상 관계 설정이 대립하므로 하나의 이론을 채택하지 않았다. 판례 원문과 적용상 죄수·구성요건 효과를 확인한 후 정책 변형을 선택해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅰ.2_1",
+          "quote": "통설은 법적 성질을 달리하는 독립된 별개의 범죄라고 본 다.",
+          "section_path": "Ⅰ.2"
+        },
+        {
+          "comment_id": "comm_001692_제360조_Ⅰ.2_1",
+          "quote": "기본적·가중적 구성요건의 관계에 있 다는 견해도 있으나",
+          "section_path": "Ⅰ.2"
+        },
+        {
+          "comment_id": "comm_001692_제360조_Ⅰ.2_1",
+          "quote": "본죄를 위탁물 횡령죄에 대하여 보충관계에 있는 감경적 구성요건으로 보아야 한다는 견해",
+          "section_path": "Ⅰ.2"
+        }
+      ],
+      "variant_group": "art360_sec1_2.relationship_with_entrusted_property_embezzlement"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "점유이탈물횡령죄와 위탁물횡령죄의 관계에 관한 판례 원문 및 사용자 제공 1차 판례 인덱스가 현재 source scope에 없다.",
+    "착오송금금 인출·사용, 위험범성 및 보호법익, 타인 점유물의 점유이탈물 오인 관련 권위 자료가 현재 source scope에 없다."
+  ],
+  "issue_tag": "art360_sec1_2",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "자기 은행계좌에 착오송금된 금원의 임의 인출·사용을 점유이탈물횡령으로 볼 수 있는지, 판례의 횡령죄 구성과 어떻게 조정할 것인지.",
+    "점유이탈물횡령죄와 위탁물횡령죄의 관계를 독립된 별죄, 기본·가중 구성요건 관계 또는 보충적 감경 구성요건 중 어느 방식으로 파악할 것인지.",
+    "점유이탈물횡령죄의 보호 정도를 위험범으로 볼 것인지 및 보호법익의 범위를 어떻게 정할 것인지.",
+    "타인이 점유하는 재물을 점유이탈물로 오인하여 영득한 경우 점유이탈물횡령죄로 처벌할 것인지 무죄로 볼 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제360조_Ⅰ.2_1"
+    ],
+    "target_paths": [
+      "commentary://001692/제360조#sec1_2"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": [
+    {
+      "finding_id": "collapsed_competing_relationship_variants",
+      "type": "collapsed_variant",
+      "note": "서로 배타적인 세 학설이 하나의 카드와 하나의 proposition으로 합쳐져 있어 개별 정책 변형을 구분하거나 선택할 수 없다. 출처는 독립범죄설인 통설, 기본적·가중적 구성요건설, 보충관계의 감경적 구성요건설을 각각 별도의 견해로 제시한다.",
+      "impact": "이 그룹의 선택지가 불완전할 수 있음 — 선택 시 감안 필요"
+    }
+  ]
+}

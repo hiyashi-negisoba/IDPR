@@ -1,0 +1,100 @@
+{
+  "card_set_id": "kr.art355.art355.sec8_3.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art355.standard-embezzlement-to-breach-amendment",
+          "request_id": "art355.pass1.038"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art355_sec8_3.indictment_amendment.embezzlement_to_breach",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "횡령 공소사실을 배임으로 변경하더라도 공동구입 물품을 판매하고 대금을 수령하여 임의 소비한 기본적 사실관계가 동일하면 공소사실 동일성을 해하지 않으므로 공소장변경신청을 허가하여야 한다.",
+      "request_ids": [
+        "art355.pass1.038"
+      ],
+      "review_notes": "횡령에서 배임으로의 변경과 기본적 사실관계 동일성에 관한 commentary-reported holding이다. 적용 전 원판례 및 공소사실 동일성 판단 기준을 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제355조_1항_Ⅷ.3_127",
+          "quote": "검사가 횡령의 공소사실을 배임으로 공소장변경을 신청하고 있고 변경 전후의 공소사실에 있어서 피고인이 피해자들과 공동구입한 마늘을 판매하고 그 대금",
+          "section_path": "Ⅷ.3"
+        },
+        {
+          "comment_id": "comm_001692_제355조_1항_Ⅷ.3_127",
+          "quote": "을 수령하여 임의로 소비하였다는 기본적 사실관계가 동일하여 공소사실의 동",
+          "section_path": "Ⅷ.3"
+        },
+        {
+          "comment_id": "comm_001692_제355조_1항_Ⅷ.3_127",
+          "quote": "일성을 해하지 아니하므로 공소장변경신청을 허가하여야 한다.",
+          "section_path": "Ⅷ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art355.standard-breach-indictment-embezzlement-conviction",
+          "request_id": "art355.pass1.038"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art355_sec8_3.indictment.breach_to_embezzlement_conviction",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "배임죄와 횡령죄가 신임관계를 기본으로 하는 같은 죄질의 범죄이고 형벌의 경중 차이가 없으며 동일한 범죄사실에 관하여 법률적용만 달리하는 경우, 법원은 배임죄로 기소된 공소사실에 대하여 공소장변경 없이 횡령죄를 적용하여 처벌할 수 있다.",
+      "request_ids": [
+        "art355.pass1.038"
+      ],
+      "review_notes": "배임 기소 후 횡령죄 적용에 관한 commentary-reported holding이다. 동일 범죄사실 및 단순 법률적용 차이의 범위를 원판례로 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제355조_1항_Ⅷ.3_127",
+          "quote": "횡령죄와 배임죄는 다 같이 신임관계를 기본으로 하고 있는 같은 죄질의 범죄",
+          "section_path": "Ⅷ.3"
+        },
+        {
+          "comment_id": "comm_001692_제355조_1항_Ⅷ.3_127",
+          "quote": "로서 그 형벌에 있어서도 경중의 차이가 없고 동일한 범죄사실에 대하여 단지 법률적용만을 달리하는 경우에 해당하므로 법원은 배임죄에 기소된 공소사실에 대하여 공소장변경 없이도 횡령죄를 적용하여 처벌할 수 있",
+          "section_path": "Ⅷ.3"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "비신분자의 배임죄 공동정범 성립에 관한 다수설·판례 및 반대견해의 직접 근거는 현재 source scope에 없다.",
+    "현재 근거는 commentary-reported precedent이며, 원판례 전문 및 사용자 primary precedent index는 source scope에 없다.",
+    "[missing_negative_reverse_direction_norm] 공급된 commentary chunk에는 배임 기소 후 공소장변경 없이 횡령죄를 적용할 수 있다는 규범과 별도로, 횡령죄로 공소제기된 사건에서 법원이 공소장변경 없이 직권으로 배임죄를 인정·처벌하지 않았더라도 심리미진 등의 위법이 없다는 소극적 규범이 명시되어 있다. 현재 카드 집합은 이 역방향의 부작위 허용 규범을 누락하여 방향별 비대칭과 negative norm을 보존하지 못했다."
+  ],
+  "issue_tag": "art355_sec8_3",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "비신분자가 배임죄에 가공한 경우 공동정범 적용을 인정하는 다수설·판례와 이를 부인하는 견해 중 어느 입장을 채택할 것인지.",
+    "횡령 공소사실을 배임으로 변경할 때 공소사실 동일성을 인정하는 원판례와 그 적용 범위를 사용자 primary precedent index에서 확인할 것인지.",
+    "배임죄로 기소된 공소사실에 공소장변경 없이 횡령죄를 적용할 수 있다는 reported holding을 사용자 primary precedent index에서 확인할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제355조_1항_Ⅷ.3_127"
+    ],
+    "target_paths": [
+      "commentary://001692/제355조#sec8_3"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0",
+  "variant_completeness_notes": []
+}
