@@ -32,6 +32,15 @@ OUT_DIR = PROJECT_ROOT / "data/rulegen/campaign"
 SUBSTANTIVE_LAW = "001692"  # 형법각칙
 DONE_TARGETS = {"CC_347", "CC_362"}  # fraud(exemplar) + 장물(pilot)
 
+# 재산죄(P1) 11단위는 이 캠페인(terra 추출)이 아니라 주석서 직접 판독 + 결정B/B2/B3
+# 검토로 이미 끝났다(2026-07-26, WORK_REPORT). 제344조(친족 준용)는 예외 — 아직 안 됐다.
+PROPERTY_DONE_TARGETS = {
+    "CC_323", "CC_328", "CC_329", "CC_331", "CC_334", "CC_335", "CC_337",
+    "CC_338", "CC_342", "CC_343", "CC_350", "CC_355", "CC_356", "CC_357",
+    "CC_360", "CC_366",
+}
+DONE_TARGETS |= PROPERTY_DONE_TARGETS
+
 # 파일럿(장물) 실측 보정: 추출+후보비평 스테이지 비용.
 TERRA_COST_PER_BATCH = 0.094  # $ (gpt-5.6-terra, reasoning_effort=low)
 SOL_CRITIC_COST_PER_BATCH = 0.125  # $ (gpt-5.6-sol, low)

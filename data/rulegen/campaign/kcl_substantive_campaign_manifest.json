@@ -1,7 +1,23 @@
 {
   "excludes": [
+    "CC_323",
+    "CC_328",
+    "CC_329",
+    "CC_331",
+    "CC_334",
+    "CC_335",
+    "CC_337",
+    "CC_338",
+    "CC_342",
+    "CC_343",
     "CC_347",
-    "CC_362"
+    "CC_350",
+    "CC_355",
+    "CC_356",
+    "CC_357",
+    "CC_360",
+    "CC_362",
+    "CC_366"
   ],
   "pilot_calibration": {
     "density_vs_fraud": "~0.5x (장물 25 cand/batch vs fraud ~51)",
@@ -437,162 +453,6 @@
       ]
     },
     {
-      "article_no": "제323조",
-      "article_title": "권리행사방해",
-      "batches": 2,
-      "chunks": 27,
-      "est_extraction_critic_usd": 0.44,
-      "issue_tag": "art323",
-      "requests_path": "data/rulegen/campaign/art323_rulegen_requests.jsonl",
-      "target_id": "CC_323",
-      "used_by_tags": [
-        "interference_with_exercise_of_right",
-        "offense_subject_to_complaint",
-        "property_possession"
-      ]
-    },
-    {
-      "article_no": "제328조",
-      "article_title": "친족간의 범행과 고소",
-      "batches": 2,
-      "chunks": 26,
-      "est_extraction_critic_usd": 0.44,
-      "issue_tag": "art328",
-      "requests_path": "data/rulegen/campaign/art328_rulegen_requests.jsonl",
-      "target_id": "CC_328",
-      "used_by_tags": [
-        "offense_subject_to_complaint",
-        "relative_property_crime_exception"
-      ]
-    },
-    {
-      "article_no": "제329조",
-      "article_title": "절도",
-      "batches": 4,
-      "chunks": 43,
-      "est_extraction_critic_usd": 0.88,
-      "issue_tag": "art329",
-      "requests_path": "data/rulegen/campaign/art329_rulegen_requests.jsonl",
-      "target_id": "CC_329",
-      "used_by_tags": [
-        "credit_card_crime",
-        "information_property",
-        "justification_consent",
-        "mistake_of_consent",
-        "theft",
-        "theft_from_deceased",
-        "theft_vs_fraud",
-        "victim_consent"
-      ]
-    },
-    {
-      "article_no": "제331조",
-      "article_title": "특수절도",
-      "batches": 1,
-      "chunks": 12,
-      "est_extraction_critic_usd": 0.22,
-      "issue_tag": "art331",
-      "requests_path": "data/rulegen/campaign/art331_rulegen_requests.jsonl",
-      "target_id": "CC_331",
-      "used_by_tags": [
-        "joint_principal",
-        "joint_principal_mistake",
-        "joint_theft_impossible_attempt",
-        "special_theft",
-        "special_theft_joint_principal"
-      ]
-    },
-    {
-      "article_no": "제334조",
-      "article_title": "특수강도",
-      "batches": 1,
-      "chunks": 7,
-      "est_extraction_critic_usd": 0.22,
-      "issue_tag": "art334",
-      "requests_path": "data/rulegen/campaign/art334_rulegen_requests.jsonl",
-      "target_id": "CC_334",
-      "used_by_tags": [
-        "commencement_of_execution",
-        "special_robbery",
-        "special_robbery_attempt"
-      ]
-    },
-    {
-      "article_no": "제335조",
-      "article_title": "준강도",
-      "batches": 1,
-      "chunks": 20,
-      "est_extraction_critic_usd": 0.22,
-      "issue_tag": "art335",
-      "requests_path": "data/rulegen/campaign/art335_rulegen_requests.jsonl",
-      "target_id": "CC_335",
-      "used_by_tags": [
-        "joint_principal",
-        "quasi_robbery_injury"
-      ]
-    },
-    {
-      "article_no": "제337조",
-      "article_title": "강도상해, 치상",
-      "batches": 2,
-      "chunks": 19,
-      "est_extraction_critic_usd": 0.44,
-      "issue_tag": "art337",
-      "requests_path": "data/rulegen/campaign/art337_rulegen_requests.jsonl",
-      "target_id": "CC_337",
-      "used_by_tags": [
-        "aggravated_result",
-        "causation",
-        "joint_principal",
-        "objective_attribution",
-        "quasi_robbery_injury"
-      ]
-    },
-    {
-      "article_no": "제338조",
-      "article_title": "강도살인·치사",
-      "batches": 1,
-      "chunks": 8,
-      "est_extraction_critic_usd": 0.22,
-      "issue_tag": "art338",
-      "requests_path": "data/rulegen/campaign/art338_rulegen_requests.jsonl",
-      "target_id": "CC_338",
-      "used_by_tags": [
-        "aggravated_result",
-        "causation",
-        "objective_attribution"
-      ]
-    },
-    {
-      "article_no": "제342조",
-      "article_title": "미수범",
-      "batches": 1,
-      "chunks": 1,
-      "est_extraction_critic_usd": 0.22,
-      "issue_tag": "art342",
-      "requests_path": "data/rulegen/campaign/art342_rulegen_requests.jsonl",
-      "target_id": "CC_342",
-      "used_by_tags": [
-        "commencement_of_execution",
-        "joint_principal_mistake",
-        "joint_theft_impossible_attempt",
-        "special_robbery_attempt"
-      ]
-    },
-    {
-      "article_no": "제343조",
-      "article_title": "예비, 음모",
-      "batches": 1,
-      "chunks": 10,
-      "est_extraction_critic_usd": 0.22,
-      "issue_tag": "art343",
-      "requests_path": "data/rulegen/campaign/art343_rulegen_requests.jsonl",
-      "target_id": "CC_343",
-      "used_by_tags": [
-        "robbery_preparation"
-      ]
-    },
-    {
       "article_no": "제344조",
       "article_title": "친족간의 범행",
       "batches": 1,
@@ -604,96 +464,13 @@
       "used_by_tags": [
         "relative_property_crime_exception"
       ]
-    },
-    {
-      "article_no": "제350조",
-      "article_title": "공갈",
-      "batches": 4,
-      "chunks": 47,
-      "est_extraction_critic_usd": 0.88,
-      "issue_tag": "art350",
-      "requests_path": "data/rulegen/campaign/art350_rulegen_requests.jsonl",
-      "target_id": "CC_350",
-      "used_by_tags": [
-        "extortion"
-      ]
-    },
-    {
-      "article_no": "제355조",
-      "article_title": "횡령, 배임",
-      "batches": 39,
-      "chunks": 352,
-      "est_extraction_critic_usd": 8.54,
-      "issue_tag": "art355",
-      "requests_path": "data/rulegen/campaign/art355_rulegen_requests.jsonl",
-      "target_id": "CC_355",
-      "used_by_tags": [
-        "breach_of_trust",
-        "embezzlement",
-        "information_property"
-      ]
-    },
-    {
-      "article_no": "제356조",
-      "article_title": "업무상의 횡령과 배임",
-      "batches": 1,
-      "chunks": 10,
-      "est_extraction_critic_usd": 0.22,
-      "issue_tag": "art356",
-      "requests_path": "data/rulegen/campaign/art356_rulegen_requests.jsonl",
-      "target_id": "CC_356",
-      "used_by_tags": [
-        "breach_of_trust",
-        "embezzlement",
-        "information_property",
-        "occupational_breach_of_trust"
-      ]
-    },
-    {
-      "article_no": "제357조",
-      "article_title": "배임수증재",
-      "batches": 3,
-      "chunks": 34,
-      "est_extraction_critic_usd": 0.66,
-      "issue_tag": "art357",
-      "requests_path": "data/rulegen/campaign/art357_rulegen_requests.jsonl",
-      "target_id": "CC_357",
-      "used_by_tags": [
-        "breach_of_trust_bribe"
-      ]
-    },
-    {
-      "article_no": "제360조",
-      "article_title": "점유이탈물횡령",
-      "batches": 1,
-      "chunks": 9,
-      "est_extraction_critic_usd": 0.22,
-      "issue_tag": "art360",
-      "requests_path": "data/rulegen/campaign/art360_rulegen_requests.jsonl",
-      "target_id": "CC_360",
-      "used_by_tags": [
-        "theft_from_deceased"
-      ]
-    },
-    {
-      "article_no": "제366조",
-      "article_title": "재물손괴등",
-      "batches": 5,
-      "chunks": 48,
-      "est_extraction_critic_usd": 1.09,
-      "issue_tag": "art366",
-      "requests_path": "data/rulegen/campaign/art366_rulegen_requests.jsonl",
-      "target_id": "CC_366",
-      "used_by_tags": [
-        "damage"
-      ]
     }
   ],
   "totals": {
-    "batches": 162,
-    "chunks": 1531,
-    "est_extraction_critic_usd": 35.48,
-    "targets": 47
+    "batches": 93,
+    "chunks": 858,
+    "est_extraction_critic_usd": 20.37,
+    "targets": 31
   },
   "version": "1.0.0"
 }
