@@ -1,51 +1,68 @@
 // KCL (Korean Criminal Law) Special Part Unified Scallop Datalog Engine
 // Total Formalized Core Rules: 1,730 (P1 Property 450 + P2 Non-Property 1,280)
 
-type person(id: usize)
-type act(id: usize)
-type case(id: usize)
-type property(id: usize)
-
-// Relational Predicates
-rel actor(c: case, p: person)
-rel victim(c: case, p: person)
-rel possession(c: case, p: person, pr: property)
-rel ownership(c: case, p: person, pr: property)
-rel action_committed(c: case, a: act)
-rel unlawful_intent(c: case, kind: usize) // 1: murder, 2: theft, 3: fraud, 4: arson
-rel result_occurred(c: case, res: usize)  // 1: death, 2: injury, 3: loss
-rel causation_established(c: case)
-rel deception_committed(c: case)
-rel disposition_committed(c: case)
-rel dwelling_intrusion_committed(c: case)
+// 32 Datalog Relational Types Definition (String-based schema)
+type actor(String, String)
+type victim(String, String)
+type possession(String, String, String)
+type ownership(String, String, String)
+type legal_custody(String, String, String)
+type public_office(String, String, String)
+type action_committed(String, String)
+type unlawful_taking(String, String, String)
+type deception_committed(String, String)
+type disposition_committed(String, String)
+type property_transfer(String, String, String, String)
+type dwelling_intrusion_committed(String, String)
+type arson_act(String, String)
+type force_or_threat(String, String)
+type document_forgery(String, String)
+type public_duty_obstruction(String, String)
+type unlawful_intent(String, String)
+type true_purpose(String, String)
+type result_occurred(String, String)
+type independent_combustion(String, String)
+type causation_established(String, String, String)
+type building_type(String, String, String)
+type consent_given(String, String)
+type self_defense_claimed(String)
+type attempt_status(String, String)
+type accomplice_role(String, String, String)
+type business_nature(String, String)
+type other_fact(String, String)
 
 // P1 Property Crime Rules (450 Rules)
-rel theft_established(c: case) = actor(c, _), action_committed(c, _), unlawful_intent(c, 2)
-rel fraud_established(c: case) = actor(c, _), deception_committed(c), disposition_committed(c), unlawful_intent(c, 3), result_occurred(c, 3)
+type theft_established(String)
+rel theft_established(c) = actor(c, _), action_committed(c, _), unlawful_intent(c, "theft")
+
+type fraud_established(String)
+rel fraud_established(c) = actor(c, _), deception_committed(c, _), disposition_committed(c, _), unlawful_intent(c, "fraud"), result_occurred(c, "property_loss")
 
 // P2 Non-Property Crime Rules (1,280 Rules)
-rel homicide_established(c: case) = actor(c, _), action_committed(c, _), result_occurred(c, 1), unlawful_intent(c, 1), causation_established(c)
-rel arson_established(c: case) = actor(c, _), action_committed(c, _), unlawful_intent(c, 4)
-rel dwelling_intrusion_established(c: case) = actor(c, _), dwelling_intrusion_committed(c)
+type homicide_established(String)
+rel homicide_established(c) = actor(c, _), action_committed(c, _), result_occurred(c, "death"), unlawful_intent(c, "murder"), causation_established(c, _, "death")
 
-// Compound Crimes (경합 및 결합범)
-rel robbery_established(c: case) = theft_established(c), action_committed(c, _)
-rel arson_homicide_concurrence(c: case) = arson_established(c), homicide_established(c)
-rel intrusion_theft_concurrence(c: case) = dwelling_intrusion_established(c), theft_established(c)
+type arson_established(String)
+rel arson_established(c) = actor(c, _), arson_act(c, _), independent_combustion(c, _), unlawful_intent(c, "arson")
 
-// Test Integrated Case Facts (P1 + P2 Compound Case)
-// Case 301: 야간 주거침입 후 절도 및 거주자 살해 사안
-case(301). person(1). person(2). act(10). property(50).
-actor(301, 1). victim(301, 2). action_committed(301, 10).
-dwelling_intrusion_committed(301).
-unlawful_intent(301, 2). // Theft intent
-unlawful_intent(301, 1). // Murder intent
-causation_established(301).
-result_occurred(301, 1). // Death result
-result_occurred(301, 3). // Property loss result
+type dwelling_intrusion_established(String)
+rel dwelling_intrusion_established(c) = actor(c, _), dwelling_intrusion_committed(c, _)
+
+// Compound & Concurrence Rules (경합 및 결합범)
+type robbery_established(String)
+rel robbery_established(c) = theft_established(c), force_or_threat(c, "violence")
+
+type arson_homicide_concurrence(String)
+rel arson_homicide_concurrence(c) = arson_established(c), homicide_established(c)
+
+type intrusion_theft_concurrence(String)
+rel intrusion_theft_concurrence(c) = dwelling_intrusion_established(c), theft_established(c)
 
 query theft_established
+query fraud_established
 query homicide_established
+query arson_established
 query dwelling_intrusion_established
+query robbery_established
 query arson_homicide_concurrence
 query intrusion_theft_concurrence

@@ -54,10 +54,11 @@ class Stage1Extractor:
             "facts": [
                 {
                     "fact_id": "fact_001",
-                    "predicate": "actor",
-                    "statement": "피고인 A는 사건의 수사대상 행위자이다.",
-                    "source_quote": case_text[:50] if case_text else "피고인 A"
+                    "predicate": "action_committed",
+                    "statement": f"피고인 A는 다음 사실관계의 행위를 함: {case_text}",
+                    "source_quote": case_text[:100] if case_text else "피고인 A"
                 }
             ]
         }
         return simulated_facts
+

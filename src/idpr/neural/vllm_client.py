@@ -100,6 +100,8 @@ class VLLMClient:
             ) from exc
         if not isinstance(output, dict):
             raise VLLMClientError("vLLM structured output must be a JSON object")
+        if not isinstance(output, dict):
+            raise VLLMClientError("vLLM structured output must be a JSON object")
         metadata = {
             "id": response_payload.get("id"),
             "model": response_payload.get("model"),
@@ -108,6 +110,68 @@ class VLLMClient:
         }
         return output, metadata
 
+    def complete_text(
+        self,
+        *,
+        system_prompt: str,
+        user_template: str,
+        payload: Mapping[str, Any] | None = None,
+        max_tokens: int = 15000,
+        temperature: float = 1.0,
+        top_p: float | None = None,
+        top_k: int | None = None,
+        chat_template_kwargs: dict[str, Any] | None = None,
+    ) -> str:
+        """Generates plain text or markdown completions using vLLM chat completions API."""
+        if payload is not None and "{{INPUT_JSON}}" in user_template:
+            serialized_payload = json.dumps(payload, ensure_ascii=False, sort_keys=True)
+            user_content = user_template.replace("{{INPUT_JSON}}", serialized_payload)
+        else:
+            user_content = user_template
+
+        req: dict[str, Any] = {
+            "model": self.model,
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_content},
+            ],
+            "temperature": temperature,
+            "max_tokens": max_tokens,
+        }
+        if top_p is not None:
+            req["top_p"] = top_p
+        if top_k is not None:
+            req["top_k"] = top_k
+        if chat_template_kwargs is not None:
+            req["chat_template_kwargs"] = chat_template_kwargs
+
+        request = urllib.request.Request(
+            f"{self.base_url.rstrip('/')}/v1/chat/completions",
+            data=json.dumps(req, ensure_ascii=False).encode("utf-8"),
+            headers={
+                "Authorization": f"Bearer {self.api_key}",
+                "Content-Type": "application/json",
+            },
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(request, timeout=self.timeout_seconds) as response:
+                response_payload = json.loads(response.read().decode("utf-8"))
+        except urllib.error.HTTPError as exc:
+            body = exc.read().decode("utf-8", errors="replace")
+            raise VLLMClientError(
+                f"vLLM text request failed with HTTP {exc.code}: {body}"
+            ) from exc
+        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
+            raise VLLMClientError(f"vLLM text request failed: {exc}") from exc
+
+        try:
+            choice = response_payload["choices"][0]
+            content = choice["message"]["content"]
+            return str(content)
+        except (KeyError, IndexError, TypeError) as exc:
+            raise VLLMClientError(f"vLLM text response invalid: {exc}") from exc
+
 
 def build_chat_request(
     *,
@@ -115,7 +179,7 @@ def build_chat_request(
     system_prompt: str,
     payload: Mapping[str, Any],
     schema_name: str,
-    schema: Mapping[str, Any],
+    schema: Mapping[str, Any] | None,
     max_tokens: int,
     temperature: float = 0.0,
     top_p: float | None = None,
@@ -127,12 +191,11 @@ def build_chat_request(
     if user_template is None:
         user_content = serialized_payload
     else:
-        if "{{INPUT_JSON}}" not in user_template:
-            raise VLLMClientError(
-                "user_template must contain the {{INPUT_JSON}} placeholder"
-            )
-        user_content = user_template.replace("{{INPUT_JSON}}", serialized_payload)
-    req = {
+        if "{{INPUT_JSON}}" in user_template:
+            user_content = user_template.replace("{{INPUT_JSON}}", serialized_payload)
+        else:
+            user_content = user_template
+    req: dict[str, Any] = {
         "model": model,
         "messages": [
             {"role": "system", "content": system_prompt},
@@ -140,15 +203,16 @@ def build_chat_request(
         ],
         "temperature": temperature,
         "max_tokens": max_tokens,
-        "response_format": {
+    }
+    if schema is not None:
+        req["response_format"] = {
             "type": "json_schema",
             "json_schema": {
                 "name": schema_name,
                 "strict": True,
                 "schema": vllm_compatible_schema(schema),
             },
-        },
-    }
+        }
     if top_p is not None:
         req["top_p"] = top_p
     if top_k is not None:
@@ -158,8 +222,10 @@ def build_chat_request(
     return req
 
 
-def vllm_compatible_schema(schema: Mapping[str, Any]) -> dict[str, Any]:
+def vllm_compatible_schema(schema: Mapping[str, Any] | None) -> dict[str, Any]:
     """Remove grammar-unsupported hints; authoritative host validation stays strict."""
+    if schema is None:
+        return {}
 
     result = copy.deepcopy(dict(schema))
 
@@ -174,3 +240,4 @@ def vllm_compatible_schema(schema: Mapping[str, Any]) -> dict[str, Any]:
 
     visit(result)
     return result
+
