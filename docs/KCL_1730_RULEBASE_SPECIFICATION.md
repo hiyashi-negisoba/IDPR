@@ -99,42 +99,43 @@ flowchart TD
 
 형법각론 전체(P1 450개 + P2 1,280개 = 1,730개 Rule IR)를 작동시키는 입력 Predicate(원자적 팩트 술어)의 전체 검색 공간(Search Universe)은 **정확히 32개 유니크 원소**로 구성됩니다.
 
-### 4.1. 32개 유니크 입력 Predicate 전수 목록
+### 4.1. 32개 유니크 입력 Predicate 전수 목록 (Canonical 32 Predicates)
 
 | 번호 | 층위 (Level) | 유니크 Predicate 명칭 | 입력 인자 (Arguments) | 구체적 의미 및 역할 |
 | :---: | :--- | :--- | :--- | :--- |
 | **1** | Level 1 | `actor(c, p)` | `(c: case, p: person)` | 사건 $c$의 행위자/피고인 $p$ |
 | **2** | Level 1 | `victim(c, p)` | `(c: case, p: person)` | 사건 $c$의 피해자 $p$ |
-| **3** | Level 1 | `possession(c, p, pr)` | `(c: case, p: person, pr: property)` | 점유자 $p$가 재물 $pr$을 점유함 |
-| **4** | Level 1 | `ownership(c, p, pr)` | `(c: case, p: person, pr: property)` | 소유자 $p$가 재물 $pr$을 소유함 |
-| **5** | Level 1 | `building_type(c, pl, type)`| `(c: case, pl: place, type: string)` | 장소 $pl$의 성상 (`dwelling` 주거, `general` 일반건조물, `public` 공용건조물) |
-| **6** | Level 1 | `official_status(c, p)` | `(c: case, p: person)` | $p$가 공무원 신분을 가짐 |
-| **7** | Level 1 | `document_type(c, doc, type)`| `(c: case, doc: document, type: string)` | 문서 $doc$의 종류 (`public` 공문서, `private` 사문서, `rights` 권리의무문서) |
-| **8** | Level 2 | `action_committed(c, a)` | `(c: case, a: act)` | 실행행위 $a$ 수행 |
-| **9** | Level 2 | `unlawful_taking(c, a, pr)` | `(c: case, a: act, pr: property)` | 재물 $pr$을 절취/영득함 |
-| **10** | Level 2 | `deception_committed(c, d)` | `(c: case, d: string)` | 기망행위 $d$ 수행 |
-| **11** | Level 2 | `disposition_act(c, da)` | `(c: case, da: string)` | 피해자의 재산적 처분행위 $da$ |
-| **12** | Level 2 | `force_or_threat(c, degree)`| `(c: case, degree: string)` | 폭행/협박 행사 (`ordinary` 일반, `resistance_impossible` 항거불능) |
-| **13** | Level 2 | `dwelling_intrusion(c, pl)` | `(c: case, pl: place)` | 장소 $pl$에 주거침입 |
-| **14** | Level 2 | `arson_act(c, pl)` | `(c: case, pl: place)` | 장소 $pl$에 방화 행위 개시 |
-| **15** | Level 2 | `forgery_act(c, doc)` | `(c: case, doc: document)` | 문서 $doc$를 위조/변조함 |
-| **16** | Level 2 | `embezzlement_act(c, pr)` | `(c: case, pr: property)` | 보관 중인 재물 $pr$을 횡령/반환거부함 |
-| **17** | Level 2 | `breach_of_trust_act(c, a)` | `(c: case, a: act)` | 타인의 사무처리자가 임무위배행위 $a$ 수행 |
-| **18** | Level 2 | `dereliction_of_duty(c, p)` | `(c: case, p: person)` | 공무원 $p$가 직무를 유기함 |
-| **19** | Level 3 | `unlawful_intent(c, kind)` | `(c: case, kind: string)` | 주관적 고의 (`murder`, `theft`, `fraud`, `arson`, `injury`) |
-| **20** | Level 3 | `illegal_gain_intent(c)` | `(c: case)` | 불법이득의사 인정 |
-| **21** | Level 3 | `unlawful_appropriation_intent(c)`| `(c: case)` | 불법영득의사 인정 |
-| **22** | Level 3 | `knowledge_of_fact(c)` | `(c: case)` | 객관적 사실에 대한 인식(악의) |
-| **23** | Level 4 | `result_occurred(c, res)` | `(c: case, res: string)` | 결과 발생 (`death` 사망, `injury` 상해, `loss` 손해, `fire_spread` 연소) |
-| **24** | Level 4 | `causation_established(c)` | `(c: case)` | 행위와 결과 사이의 인과관계 인정 |
+| **3** | Level 1 | `deceived_person(c, p)` | `(c: case, p: person)` | 사건 $c$의 피기망자 $p$ |
+| **4** | Level 1 | `disposer(c, p)` | `(c: case, p: person)` | 사건 $c$의 처분행위자 $p$ |
+| **5** | Level 1 | `property_owner(c, p, pr)` | `(c: case, p: person, pr: property)` | 재물 $pr$의 소유자 $p$ |
+| **6** | Level 1 | `public_office(c, p, title)`| `(c: case, p: person, title: string)` | $p$의 공무원 신분/직함 |
+| **7** | Level 1 | `possession(c, p, pr)` | `(c: case, p: person, pr: property)` | 점유자 $p$가 재물 $pr$을 점유함 |
+| **8** | Level 1 | `ownership(c, p, pr)` | `(c: case, p: person, pr: property)` | 소유자 $p$가 재물 $pr$을 소유함 |
+| **9** | Level 1 | `legal_custody(c, p, pr)` | `(c: case, p: person, pr: property)` | $p$가 재물 $pr$을 업무상/위탁 보관함 |
+| **10** | Level 1 | `business_nature(c, b)` | `(c: case, b: string)` | $b$의 업무/사무상의 지위 |
+| **11** | Level 2 | `action_committed(c, a)` | `(c: case, a: act)` | 실행행위 $a$ 수행 |
+| **12** | Level 2 | `unlawful_taking(c, a, pr)` | `(c: case, a: act, pr: property)` | 재물 $pr$을 절취/영득함 |
+| **13** | Level 2 | `deception_committed(c, d)` | `(c: case, d: string)` | 기망행위 $d$ 수행 |
+| **14** | Level 2 | `disposition_committed(c, d)`| `(c: case, d: string)` | 피해자의 재산적 처분행위 $d$ |
+| **15** | Level 2 | `dwelling_intrusion_committed(c, pl)`| `(c: case, pl: place)` | 장소 $pl$에 무단 주거침입 |
+| **16** | Level 2 | `arson_act(c, pl)` | `(c: case, pl: place)` | 장소 $pl$에 방화 행위 개시 |
+| **17** | Level 2 | `force_or_threat(c, degree)`| `(c: case, degree: string)` | 폭행/협박 행사 (`violence`, `threat`) |
+| **18** | Level 2 | `document_forgery(c, doc)` | `(c: case, doc: document)` | 문서 $doc$를 위조/변조함 |
+| **19** | Level 2 | `public_duty_obstruction(c, a)`| `(c: case, a: act)` | 공무원의 직무집행 방해 |
+| **20** | Level 2 | `dereliction_of_duty(c, a)` | `(c: case, a: act)` | 공무원의 직무유기/포기 |
+| **21** | Level 3 | `unlawful_intent(c, kind)` | `(c: case, kind: string)` | 주관적 고의 (`murder`, `theft`, `fraud`, `arson`, `injury`, `embezzlement`, `breach`) |
+| **22** | Level 3 | `true_purpose(c, detail)` | `(c: case, detail: string)` | 내심의 진정한 목적 |
+| **23** | Level 3 | `knowledge_of_fact(c, detail)`| `(c: case, detail: string)` | 범죄 사실에 대한 인식/악의 |
+| **24** | Level 4 | `result_occurred(c, res)` | `(c: case, res: string)` | 결과 발생 (`death` 사망, `bodily_injury` 상해, `property_loss` 손해) |
 | **25** | Level 4 | `independent_combustion(c, pl)`| `(c: case, pl: place)` | 건물 $pl$에 불이 옮겨 붙어 독립 연소 개시 |
-| **26** | Level 4 | `public_danger_occurred(c)`| `(c: case)` | 공공의 위험 발생 |
-| **27** | Level 4 | `national_function_impaired(c)`| `(c: case)` | 국가 기능/사법작용 저해 위험 발생 |
-| **28** | Level 6~7| `self_defense_claimed(c)` | `(c: case)` | 정당방위 요건 존재 |
-| **29** | Level 6~7| `necessity_claimed(c)` | `(c: case)` | 긴급피난 요건 존재 |
-| **30** | Level 6~7| `victim_consent_given(c)` | `(c: case)` | 피해자의 유효한 승낙 존재 |
-| **31** | Level 6~7| `insanity_claimed(c)` | `(c: case)` | 심신상실/미약 상태 |
-| **32** | Level 6~7| `legal_error_claimed(c)` | `(c: case)` | 정당한 이유 있는 위법성의 착오 |
+| **26** | Level 4 | `causation_established(c, cause, res)`| `(c: case, cause: act, res: string)` | 행위와 결과 사이의 인과관계 인정 |
+| **27** | Level 4 | `building_type(c, pl, type)`| `(c: case, pl: place, type: string)` | 장소 $pl$의 성상 (`dwelling` 주거, `general` 일반, `public` 공용) |
+| **28** | Level 4 | `public_danger_occurred(c, detail)`| `(c: case, detail: string)` | 공공의 위험 발생 |
+| **29** | Level 6~7| `consent_given(c, p)` | `(c: case, p: person)` | 피해자 $p$의 유효한 승낙 존재 |
+| **30** | Level 6~7| `self_defense_claimed(c)` | `(c: case)` | 정당방위 요건 존재 |
+| **31** | Level 6~7| `necessity_claimed(c)` | `(c: case)` | 긴급피난 요건 존재 |
+| **32** | Level 6~7| `insanity_claimed(c)` | `(c: case)` | 심신상실/미약 상태 존재 |
+
 
 ### 4.2. 사건 규모별 팩트 튜플 추출 수치 (Target Range)
 
