@@ -2,14 +2,13 @@
 stage2_symbolic.py
 Stage 2: Real Scallop 0.2.4 Datalog Symbolic Reasoning Execution.
 Directly parses Stage 1 Neural Extracted JSON Facts (`facts[].predicate`) into Datalog EDB tuples.
-Zero text keyword matching allowed.
+STRICT RULE ENFORCEMENT: ZERO text keyword matching, zero fallback text string search.
 """
 
 from __future__ import annotations
 
 import json
 import os
-import re
 import subprocess
 import tempfile
 from pathlib import Path
@@ -41,36 +40,61 @@ class Stage2SymbolicReasoner:
         if not isinstance(facts, list):
             facts = []
 
-        # Parse each Neural Fact in facts[] by predicate name
+        # STRICT PURE NEURAL EDB CONVERSION (Zero keyword string matching allowed)
         for fact in facts:
             if not isinstance(fact, dict):
                 continue
             pred = str(fact.get("predicate") or fact.get("fact_kind") or "").strip()
             args = fact.get("arguments") or []
-            statement = str(fact.get("statement") or "")
 
-            # Direct mapping from 32 Predicate Names to Datalog EDB tuples
+            # 1:1 Direct Schema Mapping for all 32 Canonical Predicates
             if pred == "action_committed":
                 act_name = str(args[0]) if len(args) > 0 else "act_general"
                 edb_lines.append(f'rel action_committed({cid_str}, "{act_name}")')
 
             elif pred == "unlawful_taking":
-                edb_lines.append(f'rel action_committed({cid_str}, "act_theft")')
+                act_name = str(args[0]) if len(args) > 0 else "act_theft"
+                prop_id = str(args[1]) if len(args) > 1 else "prop_general"
+                edb_lines.append(f'rel unlawful_taking({cid_str}, "{act_name}", "{prop_id}")')
+                edb_lines.append(f'rel action_committed({cid_str}, "{act_name}")')
                 edb_lines.append(f'rel unlawful_intent({cid_str}, "theft")')
 
-            elif pred == "dwelling_intrusion_committed" or pred == "dwelling_intrusion":
-                edb_lines.append(f'rel dwelling_intrusion_committed({cid_str}, "place_dwelling")')
-
-            elif pred == "arson_act" or pred == "arson":
-                edb_lines.append(f'rel arson_act({cid_str}, "place_dwelling")')
-                edb_lines.append(f'rel independent_combustion({cid_str}, "place_dwelling")')
-                edb_lines.append(f'rel unlawful_intent({cid_str}, "arson")')
-
-            elif pred == "deception_committed" or pred == "deception":
-                edb_lines.append(f'rel deception_committed({cid_str}, "deception_act")')
+            elif pred == "deception_committed":
+                detail = str(args[0]) if len(args) > 0 else "deception_act"
+                edb_lines.append(f'rel deception_committed({cid_str}, "{detail}")')
                 edb_lines.append(f'rel disposition_committed({cid_str}, "disposition_act")')
                 edb_lines.append(f'rel unlawful_intent({cid_str}, "fraud")')
                 edb_lines.append(f'rel result_occurred({cid_str}, "property_loss")')
+
+            elif pred == "disposition_committed":
+                detail = str(args[0]) if len(args) > 0 else "disposition_act"
+                edb_lines.append(f'rel disposition_committed({cid_str}, "{detail}")')
+
+            elif pred == "dwelling_intrusion_committed":
+                place_id = str(args[0]) if len(args) > 0 else "place_dwelling"
+                edb_lines.append(f'rel dwelling_intrusion_committed({cid_str}, "{place_id}")')
+
+            elif pred == "arson_act":
+                place_id = str(args[0]) if len(args) > 0 else "place_dwelling"
+                edb_lines.append(f'rel arson_act({cid_str}, "{place_id}")')
+                edb_lines.append(f'rel independent_combustion({cid_str}, "{place_id}")')
+                edb_lines.append(f'rel unlawful_intent({cid_str}, "arson")')
+
+            elif pred == "force_or_threat":
+                degree = str(args[0]) if len(args) > 0 else "violence"
+                edb_lines.append(f'rel force_or_threat({cid_str}, "{degree}")')
+
+            elif pred == "document_forgery":
+                doc_id = str(args[0]) if len(args) > 0 else "doc_001"
+                edb_lines.append(f'rel document_forgery({cid_str}, "{doc_id}")')
+
+            elif pred == "public_duty_obstruction":
+                act_name = str(args[0]) if len(args) > 0 else "act_obstruction"
+                edb_lines.append(f'rel public_duty_obstruction({cid_str}, "{act_name}")')
+
+            elif pred == "dereliction_of_duty":
+                act_name = str(args[0]) if len(args) > 0 else "act_dereliction"
+                edb_lines.append(f'rel dereliction_of_duty({cid_str}, "{act_name}")')
 
             elif pred == "unlawful_intent":
                 kind = str(args[0]) if len(args) > 0 else "general"
@@ -85,43 +109,32 @@ class Stage2SymbolicReasoner:
                 res = str(args[1]) if len(args) > 1 else "death"
                 edb_lines.append(f'rel causation_established({cid_str}, "{cause}", "{res}")')
 
-            elif pred == "document_forgery":
-                edb_lines.append(f'rel document_forgery({cid_str}, "doc_001")')
-
-            elif pred == "public_duty_obstruction":
-                edb_lines.append(f'rel public_duty_obstruction({cid_str}, "act_obstruction")')
-
             elif pred == "legal_custody":
                 edb_lines.append(f'rel legal_custody({cid_str}, "actor_A", "prop_001")')
 
             elif pred == "business_nature":
-                edb_lines.append(f'rel business_nature({cid_str}, "business_custody")')
+                b_type = str(args[0]) if len(args) > 0 else "business_custody"
+                edb_lines.append(f'rel business_nature({cid_str}, "{b_type}")')
 
-            # Fallback for structured neural statement parsing
-            elif "절도" in statement or "절취" in statement:
-                edb_lines.append(f'rel action_committed({cid_str}, "act_theft")')
-                edb_lines.append(f'rel unlawful_intent({cid_str}, "theft")')
-            elif "주거" in statement and "침입" in statement:
-                edb_lines.append(f'rel dwelling_intrusion_committed({cid_str}, "place_dwelling")')
-            elif "방화" in statement or "독립연소" in statement:
-                edb_lines.append(f'rel arson_act({cid_str}, "place_dwelling")')
-                edb_lines.append(f'rel independent_combustion({cid_str}, "place_dwelling")')
-                edb_lines.append(f'rel unlawful_intent({cid_str}, "arson")')
-            elif "살인" in statement or "살해" in statement:
-                edb_lines.append(f'rel unlawful_intent({cid_str}, "murder")')
-                edb_lines.append(f'rel result_occurred({cid_str}, "death")')
-                edb_lines.append(f'rel action_committed({cid_str}, "act_homicide")')
-                edb_lines.append(f'rel causation_established({cid_str}, "act_homicide", "death")')
-            elif "상해" in statement:
-                edb_lines.append(f'rel result_occurred({cid_str}, "bodily_injury")')
-                edb_lines.append(f'rel action_committed({cid_str}, "act_injury")')
+            elif pred == "consent_given":
+                person = str(args[0]) if len(args) > 0 else "victim_B"
+                edb_lines.append(f'rel consent_given({cid_str}, "{person}")')
+
+            elif pred == "self_defense_claimed":
+                edb_lines.append(f'rel self_defense_claimed({cid_str})')
+
+            elif pred == "necessity_claimed":
+                edb_lines.append(f'rel necessity_claimed({cid_str})')
+
+            elif pred == "insanity_claimed":
+                edb_lines.append(f'rel insanity_claimed({cid_str})')
 
         # Deduplicate EDB lines
         unique_edb = list(dict.fromkeys(edb_lines))
         return "\n".join(unique_edb) + "\n"
 
     def run_datalog_reasoning(self, extracted_facts: Dict[str, Any]) -> Dict[str, Any]:
-        """Executes actual Scallop Datalog engine over 1,730 rules and parses query results."""
+        """Executes actual Scallop Datalog engine over rules and parses query results."""
         case_id = extracted_facts.get("case_id", "CASE_001")
         cid_str = f'"{case_id}"'
         
@@ -156,7 +169,7 @@ class Stage2SymbolicReasoner:
         except Exception as e:
             raise RuntimeError(f"Scallop Datalog execution error: {e}") from e
 
-        # Parse Scallop Datalog Query Outputs against 1,730 Rule Code mappings
+        # Parse Scallop Datalog Query Outputs
         if f"theft_established: {{({cid_str})}}" in scallop_output_raw:
             proven_offenses.append({
                 "offense": "절도죄 (형법 제329조)",
