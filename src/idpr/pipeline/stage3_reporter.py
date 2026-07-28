@@ -45,8 +45,9 @@ class Stage3Reporter:
             if entry and entry.get("rag_text"):
                 rag_snippets.append(f"- [{cid}]: {entry['rag_text']}")
             else:
-                rag_snippets.append(f"- [{cid}]: 대법원 판례 및 주석서 실체법 명세 (인용 판례: 대법원 확립 판례)")
+                rag_snippets.append(f"- [{cid}]: {entry.get('commentary_summary', '')} ({entry.get('case_nos', '')})")
         return rag_snippets
+
 
     def generate_report(
         self,
