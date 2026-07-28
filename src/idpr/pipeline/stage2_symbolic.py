@@ -42,7 +42,8 @@ class Stage2SymbolicReasoner:
         if isinstance(actors, list):
             for act in actors:
                 if isinstance(act, dict) and act.get("entity_id"):
-                    edb_lines.append(f'rel actor({cid_str}, "{act[\"entity_id\"]}")')
+                    act_id = act["entity_id"]
+                    edb_lines.append(f'rel actor({cid_str}, "{act_id}")')
 
         facts = extracted_facts.get("facts", [])
         if not isinstance(facts, list):
@@ -110,21 +111,24 @@ class Stage2SymbolicReasoner:
         active_card_ids = []
         unsatisfied_requirements = []
 
-        # Fully Generic Regex Parser for Scallop Query Output
-        # Pattern matches: relation_name: {("case_id")}
-        query_matches = re.findall(r"^([a_zA_Z0-9_]+):\s*\{([^}]+)\}", scallop_output_raw, re.MULTILINE)
+        # Fully Generic Line-by-Line Scallop Query Output Parser
+        for line in scallop_output_raw.splitlines():
+            line = line.strip()
+            if ":" in line and "{" in line and "}" in line:
+                rel_name, tuples_part = line.split(":", 1)
+                rel_name = rel_name.strip()
+                tuples_str = tuples_part.strip()
 
-        for rel_name, tuples_str in query_matches:
-            if cid_str in tuples_str or f"({cid_str})" in tuples_str or case_id in tuples_str:
-                # Dynamically construct rule code / card ID and proven offense
-                card_id = f"rule.{rel_name}"
-                proven_offenses.append({
-                    "offense": rel_name,
-                    "verdict": "성립 (GUILTY)",
-                    "rule_code": card_id,
-                    "reasoning": f"Datalog Query Relation [{rel_name}] Satisfied for Case [{case_id}]"
-                })
-                active_card_ids.append(card_id)
+                # If the current case_id is inside the output tuples set
+                if cid_str in tuples_str or f"({cid_str})" in tuples_str or case_id in tuples_str:
+                    card_id = f"rule.{rel_name}"
+                    proven_offenses.append({
+                        "offense": rel_name,
+                        "verdict": "성립 (GUILTY)",
+                        "rule_code": card_id,
+                        "reasoning": f"Datalog Query Relation [{rel_name}] Satisfied for Case [{case_id}]"
+                    })
+                    active_card_ids.append(card_id)
 
         if not proven_offenses:
             unsatisfied_requirements.append("구성요건 Datalog 릴레이션 미충족 또는 고의/인과관계 비활성화")

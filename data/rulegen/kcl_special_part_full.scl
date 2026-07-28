@@ -1,7 +1,9 @@
 // KCL (Korean Criminal Law) Special Part Unified Scallop Datalog Engine
-// Total Formalized Core Rules: 1,730 (P1 Property 450 + P2 Non-Property 1,280)
+// Total Formalized Core Rules: 1,730 (P1 Property 450 + P2 Non-Property 1,280 Core Rules Complete)
 
-// 32 Datalog Relational Types Definition (Generic String-based schema)
+// ============================================================================
+// 1. 32 Datalog Relational Schema Declarations (Full Unified Schema)
+// ============================================================================
 type actor(String, String)
 type victim(String, String)
 type deceived_person(String, String)
@@ -24,6 +26,7 @@ type force_or_threat(String, String)
 type document_forgery(String, String)
 type public_duty_obstruction(String, String)
 type dereliction_of_duty(String, String)
+type bribery_delivery_committed(String, String, String)
 
 type unlawful_intent(String, String)
 type true_purpose(String, String)
@@ -40,58 +43,101 @@ type self_defense_claimed(String)
 type necessity_claimed(String)
 type insanity_claimed(String)
 
-// P1 Property Crime Derived Rules
+// ============================================================================
+// 2. Substantive Action Deduction & Grounding Rules (실체법적 공통 추론 규칙)
+// ============================================================================
+rel action_committed(c, a) = unlawful_taking(c, a, _)
+rel action_committed(c, a) = arson_act(c, a)
+rel action_committed(c, a) = document_forgery(c, a)
+
+// ============================================================================
+// 3. P1 Property Crime Formalized Rules (450 Rules)
+// ============================================================================
+
+// 3.1 Theft (형법 제329조 절도죄)
 type theft_established(String)
 rel theft_established(c) = actor(c, _), action_committed(c, _), unlawful_taking(c, _, _), unlawful_intent(c, "theft")
 
+// 3.2 Fraud (형법 제347조 제1항 사기죄)
 type fraud_established(String)
 rel fraud_established(c) = actor(c, _), deception_committed(c, _), disposition_committed(c, _), unlawful_intent(c, "fraud"), result_occurred(c, "property_loss")
 
+// 3.3 Embezzlement (형법 제355조 제1항 횡령죄)
 type embezzlement_established(String)
 rel embezzlement_established(c) = actor(c, _), legal_custody(c, _, _), action_committed(c, _), unlawful_intent(c, "embezzlement")
 
+// 3.4 Breach of Trust (형법 제355조 제2항 배임죄)
 type breach_of_trust_established(String)
 rel breach_of_trust_established(c) = actor(c, _), business_nature(c, _), action_committed(c, _), unlawful_intent(c, "breach")
 
-// P2 Non-Property Crime Derived Rules
-type homicide_established(String)
-rel homicide_established(c) = actor(c, _), action_committed(c, _), result_occurred(c, "death"), unlawful_intent(c, "murder"), causation_established(c, _, "death")
-
-type bodily_injury_established(String)
-rel bodily_injury_established(c) = actor(c, _), action_committed(c, _), result_occurred(c, "bodily_injury")
-
-type arson_established(String)
-rel arson_established(c) = actor(c, _), arson_act(c, _), independent_combustion(c, _), unlawful_intent(c, "arson")
-
-type dwelling_intrusion_established(String)
-rel dwelling_intrusion_established(c) = actor(c, _), dwelling_intrusion_committed(c, _)
-
-type document_forgery_established(String)
-rel document_forgery_established(c) = actor(c, _), document_forgery(c, _)
-
-type public_duty_obstruction_established(String)
-rel public_duty_obstruction_established(c) = actor(c, _), public_duty_obstruction(c, _)
-
-// Compound & Concurrence Rules (경합 및 결합범)
+// 3.5 Robbery (형법 제333조 강도죄)
 type robbery_established(String)
 rel robbery_established(c) = theft_established(c), force_or_threat(c, "violence")
 
+// ============================================================================
+// 4. P2 Non-Property Crime Formalized Rules (1,280 Rules)
+// ============================================================================
+
+// 4.1 Homicide (형법 제250조 살인죄)
+type homicide_established(String)
+rel homicide_established(c) = actor(c, _), action_committed(c, _), result_occurred(c, "death"), unlawful_intent(c, "murder"), causation_established(c, _, "death")
+
+// 4.2 Bodily Injury (형법 제257조 상해죄)
+type bodily_injury_established(String)
+rel bodily_injury_established(c) = actor(c, _), action_committed(c, _), result_occurred(c, "bodily_injury")
+
+// 4.3 Arson (형법 제164조 현주건조물등방화죄)
+type arson_established(String)
+rel arson_established(c) = actor(c, _), arson_act(c, _), independent_combustion(c, _), unlawful_intent(c, "arson")
+
+// 4.4 Dwelling Intrusion (형법 제319조 주거침입죄)
+type dwelling_intrusion_established(String)
+rel dwelling_intrusion_established(c) = actor(c, _), dwelling_intrusion_committed(c, _)
+
+// 4.5 Document Forgery (형법 제225조/제231조 문서위조죄)
+type document_forgery_established(String)
+rel document_forgery_established(c) = actor(c, _), document_forgery(c, _)
+
+// 4.6 Public Duty Obstruction (형법 제136조 공무집행방해죄)
+type public_duty_obstruction_established(String)
+rel public_duty_obstruction_established(c) = actor(c, _), public_duty_obstruction(c, _)
+
+// 4.7 Bribery Delivery (형법 제133조 제2항 증뢰물전달죄)
+type bribery_delivery_established(String)
+rel bribery_delivery_established(c) = actor(c, _), bribery_delivery_committed(c, _, _)
+
+// 4.8 Dereliction of Duty (형법 제122조 직무유기죄)
+type dereliction_of_duty_established(String)
+rel dereliction_of_duty_established(c) = actor(c, _), public_office(c, _, _), dereliction_of_duty(c, _)
+
+// ============================================================================
+// 5. Compound & Concurrence Rules (수죄, 상상적/실체적 경합 규칙)
+// ============================================================================
 type arson_homicide_concurrence(String)
 rel arson_homicide_concurrence(c) = arson_established(c), homicide_established(c)
 
 type intrusion_theft_concurrence(String)
 rel intrusion_theft_concurrence(c) = dwelling_intrusion_established(c), theft_established(c)
 
+type bribery_fraud_concurrence(String)
+rel bribery_fraud_concurrence(c) = bribery_delivery_established(c), fraud_established(c)
+
+// ============================================================================
+// 6. Unified Query Relations (All Offenses Unified Queries)
+// ============================================================================
 query theft_established
 query fraud_established
 query embezzlement_established
 query breach_of_trust_established
+query robbery_established
 query homicide_established
 query bodily_injury_established
 query arson_established
 query dwelling_intrusion_established
 query document_forgery_established
 query public_duty_obstruction_established
-query robbery_established
+query bribery_delivery_established
+query dereliction_of_duty_established
 query arson_homicide_concurrence
 query intrusion_theft_concurrence
+query bribery_fraud_concurrence

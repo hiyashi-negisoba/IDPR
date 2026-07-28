@@ -44,10 +44,13 @@ class Stage3Reporter:
 
             if entry and entry.get("rag_text"):
                 rag_snippets.append(f"- [{cid}]: {entry['rag_text']}")
+            elif entry:
+                summary = entry.get("commentary_summary", "")
+                cases = entry.get("case_nos", "")
+                rag_snippets.append(f"- [{cid}]: {summary} ({cases})")
             else:
-                rag_snippets.append(f"- [{cid}]: {entry.get('commentary_summary', '')} ({entry.get('case_nos', '')})")
+                rag_snippets.append(f"- [{cid}]: Datalog Formal Rule Card ID [{cid}]")
         return rag_snippets
-
 
     def generate_report(
         self,

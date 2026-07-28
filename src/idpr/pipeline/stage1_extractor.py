@@ -50,29 +50,91 @@ class Stage1Extractor:
             )
             return response
 
-        # Dry-run Simulation Mode
-        simulated_facts = case_data.get("simulated_extracted_facts") or {
+        # Dry-run Simulation Mode (Selected by Case ID)
+        if "BRIBERY_FRAUD" in case_id or "사기" in case_data.get("title", ""):
+            return {
+                "case_id": case_id,
+                "actors": [{"entity_id": "actor_C", "roles": ["defendant"]}],
+                "facts": [
+                    {
+                        "fact_id": "fact_001",
+                        "predicate": "bribery_delivery_committed",
+                        "statement": "丙은 甲으로부터 乙에게 전달할 뇌물이라는 정을 알면서 3,000만 원을 교부받았다.",
+                        "arguments": ["actor_A", "official_B"]
+                    },
+                    {
+                        "fact_id": "fact_002",
+                        "predicate": "deception_committed",
+                        "statement": "丙은 뇌물 전달 의사 없이 3,000만 원을 乙에게 전달해 주겠다고 묵시적으로 甲을 속였다.",
+                        "arguments": ["deception_bribery_delivery"]
+                    },
+                    {
+                        "fact_id": "fact_003",
+                        "predicate": "disposition_committed",
+                        "statement": "甲은 丙의 묵시적 기망을 믿고 현금 3,000만 원을 丙에게 교부하였다.",
+                        "arguments": ["disposition_cash_30m"]
+                    },
+                    {
+                        "fact_id": "fact_004",
+                        "predicate": "unlawful_intent",
+                        "statement": "丙은 처음부터 위 3,000만 원을 편취하여 자신의 채무 변제에 사용할 불법이득의사를 가졌다.",
+                        "arguments": ["fraud"]
+                    },
+                    {
+                        "fact_id": "fact_005",
+                        "predicate": "result_occurred",
+                        "statement": "甲은 3,000만 원의 재산적 손해를 입었다.",
+                        "arguments": ["property_loss"]
+                    }
+                ]
+            }
+
+        # Case 1 Simulation Fallback
+        return {
             "case_id": case_id,
             "actors": [{"entity_id": "actor_A", "roles": ["defendant"]}],
             "facts": [
                 {
                     "fact_id": "fact_001",
                     "predicate": "dwelling_intrusion_committed",
-                    "statement": "피고인 A는 피해자 B의 아파트에 무단 침입하였다.",
+                    "statement": "피고인 A는 피해자 B의 아파트 베란다 창문을 제끼고 무단 침입하였다.",
                     "arguments": ["place_dwelling"]
                 },
                 {
                     "fact_id": "fact_002",
-                    "predicate": "unlawful_taking",
-                    "statement": "피고인 A는 B 소유의 현금과 시계를 절취하였다.",
-                    "arguments": ["act_theft", "prop_cash"]
+                    "predicate": "action_committed",
+                    "statement": "피고인 A는 재물 절취 행위를 수행하였다.",
+                    "arguments": ["act_theft"]
                 },
                 {
                     "fact_id": "fact_003",
+                    "predicate": "unlawful_taking",
+                    "statement": "피고인 A는 B 소유의 현금 500만 원과 시계를 챙겨 집어넣었다.",
+                    "arguments": ["act_theft", "prop_cash"]
+                },
+                {
+                    "fact_id": "fact_004",
+                    "predicate": "unlawful_intent",
+                    "statement": "피고인 A는 불법영득의사를 가졌다.",
+                    "arguments": ["theft"]
+                },
+                {
+                    "fact_id": "fact_005",
                     "predicate": "arson_act",
-                    "statement": "피고인 A는 거실 소파에 불을 질러 독립연소에 이르게 하였다.",
+                    "statement": "피고인 A는 거실 소파에 불을 붙였다.",
                     "arguments": ["place_dwelling"]
+                },
+                {
+                    "fact_id": "fact_006",
+                    "predicate": "independent_combustion",
+                    "statement": "불길은 벽면과 천장 마감재로 옮겨 붙어 독립 연소에 이르렀다.",
+                    "arguments": ["place_dwelling"]
+                },
+                {
+                    "fact_id": "fact_007",
+                    "predicate": "unlawful_intent",
+                    "statement": "피고인 A는 방화의 의사를 가졌다.",
+                    "arguments": ["arson"]
                 }
             ]
         }
-        return simulated_facts

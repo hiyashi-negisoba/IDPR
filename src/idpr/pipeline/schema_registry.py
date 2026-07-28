@@ -36,7 +36,7 @@ PREDICATE_SCHEMA_REGISTRY: Dict[str, Any] = {
         "force_or_threat": {"datalog": "rel force_or_threat(c: string, degree: string)", "description": "Violence or intimidation"},
         "document_forgery": {"datalog": "rel document_forgery(c: string, doc: string)", "description": "Document forgery"},
         "public_duty_obstruction": {"datalog": "rel public_duty_obstruction(c: string, act: string)", "description": "Obstruction of public duty"},
-        "dereliction_of_duty": {"datalog": "rel dereliction_of_duty(c: string, act: string)", "description": "Dereliction or abandonment of duty"},
+        "bribery_delivery_committed": {"datalog": "rel bribery_delivery_committed(c: string, giver: string, recipient: string)", "description": "Accepting money with knowledge of bribery delivery purpose"},
 
         # 4. 고의 및 내심 (3)
         "unlawful_intent": {"datalog": "rel unlawful_intent(c: string, kind: string)", "description": "Unlawful intent ('murder', 'theft', 'fraud', 'arson', 'injury', 'embezzlement', 'breach')"},
