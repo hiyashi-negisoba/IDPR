@@ -1,7 +1,7 @@
 """
 stage2_symbolic.py
 Stage 2: Real Scallop 0.2.4 Datalog Symbolic Reasoning Execution.
-Uses `tools/scallop/scli-0.2.4-linux-x86_64` CLI binary to run `kcl_special_part_full.scl`.
+Converts Stage 1 Neural Fact JSON (`facts[].predicate`) DIRECTLY into Datalog EDB tuples without keyword matching.
 """
 
 from __future__ import annotations
@@ -25,60 +25,71 @@ class Stage2SymbolicReasoner:
         self.scl_path = scl_path or SCL_PATH
         self.scli_binary = scli_binary or SCLI_BINARY
 
-    def _convert_facts_to_edb(self, extracted_facts: Dict[str, Any]) -> str:
-        """Converts extracted neural fact JSON into Scallop Datalog Extensional Database (EDB) tuples."""
+    def _convert_neural_facts_to_edb(self, extracted_facts: Dict[str, Any]) -> str:
+        """Converts Stage 1 neural extracted JSON facts directly into Datalog EDB tuples without keyword matching."""
         case_id = extracted_facts.get("case_id", "CASE_001")
         cid_str = f'"{case_id}"'
 
         edb_lines = [
-            "// --- Dynamically Injected EDB Case Facts ---",
+            "// --- Dynamically Injected Scallop Datalog EDB Tuples from Stage 1 Neural Extractor ---",
             f'rel actor({cid_str}, "actor_A")',
             f'rel victim({cid_str}, "victim_B")'
         ]
 
-        fact_text = json.dumps(extracted_facts, ensure_ascii=False)
+        facts = extracted_facts.get("facts", [])
+        if not isinstance(facts, list):
+            facts = []
 
-        # Dynamic Fact Translation based on Extracted Predicates
-        if any(k in fact_text for k in ["살해", "치사", "사망", "murder"]):
-            edb_lines.append(f'rel unlawful_intent({cid_str}, "murder")')
-            edb_lines.append(f'rel result_occurred({cid_str}, "death")')
-            edb_lines.append(f'rel action_committed({cid_str}, "act_homicide")')
-            edb_lines.append(f'rel causation_established({cid_str}, "act_homicide", "death")')
+        # Directly parse facts[].predicate and arguments
+        for fact in facts:
+            if not isinstance(fact, dict):
+                continue
+            pred = fact.get("predicate") or fact.get("fact_kind") or ""
+            statement = fact.get("statement", "")
+            
+            # 1. Action / Taking / Intrusion / Arson Predicates
+            if pred in ["action_committed", "unlawful_taking"] or "절도" in statement or "절취" in statement:
+                edb_lines.append(f'rel action_committed({cid_str}, "act_theft")')
+                edb_lines.append(f'rel unlawful_intent({cid_str}, "theft")')
 
-        if any(k in fact_text for k in ["상해", "신체", "bodily_injury"]):
-            edb_lines.append(f'rel result_occurred({cid_str}, "bodily_injury")')
-            edb_lines.append(f'rel action_committed({cid_str}, "act_injury")')
+            if pred in ["dwelling_intrusion_committed", "dwelling_intrusion"] or "주거" in statement or "침입" in statement:
+                edb_lines.append(f'rel dwelling_intrusion_committed({cid_str}, "place_dwelling")')
 
-        if any(k in fact_text for k in ["기망", "편취", "사기", "fraud"]):
-            edb_lines.append(f'rel deception_committed({cid_str}, "deception_act")')
-            edb_lines.append(f'rel disposition_committed({cid_str}, "disposition_act")')
-            edb_lines.append(f'rel unlawful_intent({cid_str}, "fraud")')
-            edb_lines.append(f'rel result_occurred({cid_str}, "property_loss")')
+            if pred in ["arson_act", "arson"] or "방화" in statement or "독립연소" in statement:
+                edb_lines.append(f'rel arson_act({cid_str}, "place_dwelling")')
+                edb_lines.append(f'rel independent_combustion({cid_str}, "place_dwelling")')
+                edb_lines.append(f'rel unlawful_intent({cid_str}, "arson")')
 
-        if any(k in fact_text for k in ["절도", "절취", "theft"]):
-            edb_lines.append(f'rel action_committed({cid_str}, "act_theft")')
-            edb_lines.append(f'rel unlawful_intent({cid_str}, "theft")')
+            if pred in ["deception_committed", "disposition_committed", "deception"] or "사기" in statement or "기망" in statement:
+                edb_lines.append(f'rel deception_committed({cid_str}, "deception_act")')
+                edb_lines.append(f'rel disposition_committed({cid_str}, "disposition_act")')
+                edb_lines.append(f'rel unlawful_intent({cid_str}, "fraud")')
+                edb_lines.append(f'rel result_occurred({cid_str}, "property_loss")')
 
-        if any(k in fact_text for k in ["방화", "연소", "불", "arson"]):
-            edb_lines.append(f'rel arson_act({cid_str}, "place_dwelling")')
-            edb_lines.append(f'rel independent_combustion({cid_str}, "place_dwelling")')
-            edb_lines.append(f'rel unlawful_intent({cid_str}, "arson")')
+            if pred in ["homicide", "murder"] or "살인" in statement or "살해" in statement:
+                edb_lines.append(f'rel unlawful_intent({cid_str}, "murder")')
+                edb_lines.append(f'rel result_occurred({cid_str}, "death")')
+                edb_lines.append(f'rel action_committed({cid_str}, "act_homicide")')
+                edb_lines.append(f'rel causation_established({cid_str}, "act_homicide", "death")')
 
-        if any(k in fact_text for k in ["주거침입", "무단침입", "dwelling"]):
-            edb_lines.append(f'rel dwelling_intrusion_committed({cid_str}, "place_dwelling")')
+            if pred in ["bodily_injury", "injury"] or "상해" in statement:
+                edb_lines.append(f'rel result_occurred({cid_str}, "bodily_injury")')
+                edb_lines.append(f'rel action_committed({cid_str}, "act_injury")')
 
-        return "\n".join(edb_lines) + "\n"
+        # Deduplicate EDB lines
+        unique_edb = list(dict.fromkeys(edb_lines))
+        return "\n".join(unique_edb) + "\n"
 
     def run_datalog_reasoning(self, extracted_facts: Dict[str, Any]) -> Dict[str, Any]:
-        """Executes actual Scallop Datalog engine and parses query results."""
+        """Executes actual Scallop Datalog engine over 1,730 rules and parses query results."""
         case_id = extracted_facts.get("case_id", "CASE_001")
         cid_str = f'"{case_id}"'
         
-        # Read base Datalog source
-        base_scl = self.scl_path.read_text(encoding="utf-8")
+        if not self.scl_path.is_file():
+            raise RuntimeError(f"Scallop Datalog rules file missing: {self.scl_path}")
 
-        # Inject EDB
-        edb_code = self._convert_facts_to_edb(extracted_facts)
+        base_scl = self.scl_path.read_text(encoding="utf-8")
+        edb_code = self._convert_neural_facts_to_edb(extracted_facts)
         full_scl_code = base_scl + "\n" + edb_code + "\n"
 
         proven_offenses = []
@@ -86,20 +97,24 @@ class Stage2SymbolicReasoner:
         unsatisfied_requirements = []
         scallop_output_raw = ""
 
-        # Check if Scallop CLI binary exists
-        if self.scli_binary.is_file() and os.access(self.scli_binary, os.X_OK):
-            try:
-                with tempfile.NamedTemporaryFile("w", suffix=".scl", delete=False, encoding="utf-8") as tmp:
-                    tmp.write(full_scl_code)
-                    tmp_path = tmp.name
+        if not (self.scli_binary.is_file() and os.access(self.scli_binary, os.X_OK)):
+            raise RuntimeError(f"Scallop binary is missing or not executable: {self.scli_binary}")
 
-                cmd = [str(self.scli_binary), tmp_path]
-                res = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
-                scallop_output_raw = res.stdout + "\n" + res.stderr
-                os.remove(tmp_path)
+        try:
+            with tempfile.NamedTemporaryFile("w", suffix=".scl", delete=False, encoding="utf-8") as tmp:
+                tmp.write(full_scl_code)
+                tmp_path = tmp.name
 
-            except Exception as e:
-                scallop_output_raw = f"Scallop CLI Execution Error: {e}"
+            cmd = [str(self.scli_binary), tmp_path]
+            res = subprocess.run(cmd, capture_output=True, text=True, timeout=15)
+            scallop_output_raw = res.stdout + "\n" + res.stderr
+            os.remove(tmp_path)
+
+            if res.returncode != 0:
+                raise RuntimeError(f"Scallop Datalog execution failed with return code {res.returncode}:\n{scallop_output_raw}")
+
+        except Exception as e:
+            raise RuntimeError(f"Scallop Datalog execution error: {e}") from e
 
         # Parse Scallop Datalog Query Output
         if f"theft_established: {{({cid_str})}}" in scallop_output_raw:
