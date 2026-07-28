@@ -1,0 +1,108 @@
+{
+  "card_set_id": "kr.art239.art239.sec1_2.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art239.definition.private-person-includes-entities",
+          "request_id": "art239.pass1.001"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "art239_sec1_2.private_person_scope",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "사인에는 자연인뿐 아니라 법인 및 법인격 없는 단체도 포함된다.",
+      "request_ids": [
+        "art239.pass1.001"
+      ],
+      "review_notes": "사인의 인적 범위를 자연인, 법인 및 법인격 없는 단체까지 포함하는 정의로 정리한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제239조_Ⅰ.2_1",
+          "quote": "사인은 자연인뿐만 아니라 법인, 법인격 없는 단 체도 포함한다는 점에는 의문이 없다.",
+          "section_path": "Ⅰ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art239.variant.deceased-fictitious-seal-included",
+          "request_id": "art239.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "policy_variant",
+      "id": "art239_sec1_2.deceased_fictitious_seal_inclusion",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "통설은 사자 또는 허무인 명의의 인장도 일반인을 진정한 인장으로 오신하게 할 수 있고 인장의 진정성에 관한 공공 신뢰 보호가 필요하므로 본죄의 사인에 해당한다고 본다.",
+      "request_ids": [
+        "art239.pass1.001"
+      ],
+      "review_notes": "통설로 보고된 포함설이며, 대법원판결로 보고된 사자 명의 인장 제외설과의 관계를 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제239조_Ⅰ.2_1",
+          "quote": "통설은 사자 나 허무인 명의의 인장도 본죄의 사인에 해당한다고 본다. 사자 또는 허무인 명 의의 인장도 일반인으로 하여금 진정한 인장으로 오신케 할 수 있고 인장의 진 정성에 관한 공공의 신뢰를 보호할 필요가 있다.",
+          "section_path": "Ⅰ.2"
+        }
+      ],
+      "variant_group": "art239_sec1_2.deceased_fictitious_seal_object"
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art239.variant.deceased-person-seal-excluded",
+          "request_id": "art239.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "policy_variant",
+      "id": "art239_sec1_2.deceased_person_seal_exclusion",
+      "norm_kind": "variant",
+      "polarity": "negative",
+      "proposition": "대법원판결은 사자 명의의 문서가 사문서에 해당하지 않는다는 사문서위조죄 법리에 비추어 사자 명의 인장은 본죄의 객체에 해당하지 않는다고 보았다.",
+      "request_ids": [
+        "art239.pass1.001"
+      ],
+      "review_notes": "댓글에 보고된 대법원판결의 좁은 사자 명의 인장 제외 입장이다. 원판결 및 사문서위조죄 판례 변경 여부를 확인하기 전에는 통설 포함설을 배제하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제239조_Ⅰ.2_1",
+          "quote": "대법원판결은 이 미 사자 명의의 문서가 사문서에 해당하지 않는다는 사문서위조죄의 법리에 비 추어 사자 명의의 인장을 본죄의 객체에 해당하지 않는다고 보았다.",
+          "section_path": "Ⅰ.2"
+        }
+      ],
+      "variant_group": "art239_sec1_2.deceased_fictitious_seal_object"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "사자 또는 허무인 명의 인장에 관한 대법원판결 원문과 사문서위조죄 판례 변경 여부는 현재 commentary source scope에 포함되지 않는다."
+  ],
+  "issue_tag": "art239_sec1_2",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "사자 또는 허무인 명의 문서에 관한 사문서위조죄 판례 변경과 같은 맥락에서, 사자 또는 허무인 명의 인장도 본죄의 객체가 될 수 있다는 방향으로 견해가 변경될지 여부가 제시되어 있다."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제239조_Ⅰ.2_1"
+    ],
+    "target_paths": [
+      "commentary://001692/제239조#sec1_2"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

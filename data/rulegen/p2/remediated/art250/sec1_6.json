@@ -1,0 +1,87 @@
+{
+  "card_set_id": "kr.art250.art250.sec1_6.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art250.standard.autopsy-alternative-cause",
+          "request_id": "art250.pass1.011"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art250.causation.autopsy-alternative-causes",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "부검의가 유력한 사망원인을 지시하더라도 다른 사인의 가능성을 가볍게 배제해서는 안 되며, 부검소견에 주로 의지하여 유죄를 인정하려면 다른 가능한 사망원인을 모두 배제하는 치밀한 논증이 필요하다.",
+      "request_ids": [
+        "art250.pass1.011"
+      ],
+      "review_notes": "부검소견을 중심으로 사망원인과 유죄를 인정하는 경우의 증명 평가 기준으로, 가능한 대체 사인의 배제 논증을 검토해야 한다. 소개된 판례의 원문 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제250조_Ⅰ.6_14",
+          "quote": "부검의가 사체에 대한 부검을 실시한 후 어떤 것을 유력한 사망원인으로 지시한다고 하여 그 밖의 다른 사인 이 존재할 가능성을 가볍게 배제하여서는 아니 되고, 특히 형사재판에서 위 부 검의의 소견에 주로 의지하여 유죄의 인정을 하기 위해서는 다른 가능한 사망 원인을 모두 배제하기 위한 치밀한 논증의 과정을 거치지 않으면 아니 된다.",
+          "section_path": "Ⅰ.6"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art250.standard.strangulation-case-remand",
+          "request_id": "art250.pass1.011"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art250.causation.strangulation-remand",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "피해자의 사망원인이 충분히 증명되지 않은 교살 혐의 사건에서, 대법원은 원심이 필요한 심리를 다하지 않았다고 보아 원심판결을 파기환송하였다.",
+      "request_ids": [
+        "art250.pass1.011"
+      ],
+      "review_notes": "교살 혐의 사건에 한정하여 소개된 파기환송 판단이다. 구체적 사정과 판례 원문을 확인하기 전에는 일반적 사망원인 증명 기준으로 확장하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제250조_Ⅰ.6_17",
+          "quote": "대법원은 아래와 같은 사정 등을 들어, 피해자의 사망 원인이 충분히 증명되지 않았다는 취지로 판단하면서 원심 판결에 필요한 심리를 다하지 않은 잘못이 있다고 보아 원심판결을 파기환송하였다.",
+          "section_path": "Ⅰ.6"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope는 제250조 Ⅰ.6의 두 개 commentary 발췌에 한정되어 있으며, 강제·기망 자살의 간접정범, 사람의 종기 및 뇌사 기준, 무고·위증·재판 이용 살인의 간접정범에 관한 근거는 포함하지 않는다.",
+    "교살 혐의 파기환송 사건의 구체적 사정 및 판례 원문은 현재 source scope에 포함되지 않는다."
+  ],
+  "issue_tag": "art250_sec1_6",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "강제 또는 기망에 의한 자살의 경우를 보통살인죄 간접정범으로 평가할 수 있는지 여부에 관하여 소개된 통설과 다른 견해의 존재를 어떻게 정리할 것인지.",
+    "뇌사설을 취할 경우 뇌간사설·대뇌사설·전뇌사설 중 어느 뇌사 기준을 채택할 것인지.",
+    "무고·위증 또는 재판 이용 행위에 의한 살인을 간접정범으로 볼 수 있는지에 관한 견해 대립을 어떻게 정리할 것인지.",
+    "사람의 종기를 맥박·호흡의 종지, 삼증후, 뇌사 또는 이원적 기준 중 어느 기준으로 판단할 것인지.",
+    "장기등 이식에 관한 법률이 형법상 사람의 종기를 뇌사로 정하는 근거인지, 아니면 장기적출에 관한 제한적 허용 규정인지.",
+    "부검소견 및 교살 혐의 사건에 관하여 소개된 대법원 판단의 원문과 구체적 사실관계를 확인해야 한다."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제250조_Ⅰ.6_14",
+      "comm_001692_제250조_Ⅰ.6_17"
+    ],
+    "target_paths": [
+      "commentary://001692/제250조#sec1_6"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

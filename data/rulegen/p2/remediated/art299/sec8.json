@@ -1,0 +1,139 @@
+{
+  "card_set_id": "kr.art299.art299.sec8.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art299.exception.non-complaint-prosecution",
+          "request_id": "art299.pass1.002"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "art299_sec8.noncomplaint_prosecution",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "본죄는 피해자의 고소가 없더라도 공소를 제기하고 처벌할 수 있다.",
+      "request_ids": [
+        "art299.pass1.002"
+      ],
+      "review_notes": "피해자의 고소를 요구하는 친고죄 취급에 대한 예외로 검토한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제299조_Ⅷ_13",
+          "quote": "따라서 피해자의 고소가 없더라도 공소를 제기하고 처벌 제306조) 할 수 있다.",
+          "section_path": "Ⅷ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art299.element.non-complaint-retroactivity",
+          "request_id": "art299.pass1.002"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "art299_sec8.noncomplaint_retroactivity",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "친고죄 폐지는 개정 법률 시행일인 2013년 6월 19일 이후 최초로 저지른 범죄부터 적용된다.",
+      "request_ids": [
+        "art299.pass1.002"
+      ],
+      "review_notes": "범행 시점과 2013년 6월 19일을 기계적으로 비교하는 적용범위 카드다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제299조_Ⅷ_13",
+          "quote": "다만 친고죄 폐지는 개정 법률이 시행된 2013. 6. 19. 이후 최초로 저지른 범죄부터 적용된다.",
+          "section_path": "Ⅷ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art299.element.attempt-and-preparation-punishable",
+          "request_id": "art299.pass1.002"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "art299_sec8.attempt_preparation_punishment",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "준강간죄의 미수범과 예비·음모범 및 준유사강간·준강제추행죄의 미수범은 처벌한다.",
+      "request_ids": [
+        "art299.pass1.002"
+      ],
+      "review_notes": "범죄유형과 행위단계의 열거된 조합에 한정하여 처벌 가능성을 검토한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제299조_Ⅷ_13",
+          "quote": "준강간죄의 미수범과 예비·음모범, 준유사강간·준강제추행죄의 미수범은 처벌한 다.",
+          "section_path": "Ⅷ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art299.standard.indictment-amendment-for-quasi-indecent-act",
+          "request_id": "art299.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art299_sec8.quasi_indecent_act_indictment_amendment",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "강제추행으로 기소된 피고인에 대하여 준강제추행 해당 가능성이나 공소장변경이 심리에서 논의·공방되지 않아 방어권 행사의 기회가 없었던 경우, 원칙적으로 공소장변경 절차 없이 준강제추행 유죄를 인정하기 어렵다는 대법원 판단이 소개되어 있다.",
+      "request_ids": [
+        "art299.pass1.002"
+      ],
+      "review_notes": "방어권 행사 기회, 심리상 공방 여부 및 공소장변경 절차의 충족 여부는 개별 기록에 대한 평가가 필요하다. 소개된 대법원 판단은 primary precedent index로 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제299조_Ⅷ_13",
+          "quote": "피고인으로서는 준강제추행의 범죄사실이 심판 의 대상이 되리라고 예상할 수 있었거나 그에 대한 방어권을 행사할 기회를 부 여받았다고 보기 어렵다.”는 취지로 판시하여, 원칙적으로 공소장변경 절차를 거쳐야 한다고 판단하였다.",
+          "section_path": "Ⅷ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "준강간죄 성립 후 폭행·협박 간음에 이른 경우의 죄수 판단에 관한 source reference가 현재 source scope에 없다.",
+    "준강제추행죄의 특별한 행위경향 요구 여부에 관한 학설 또는 판례 source reference가 현재 source scope에 없다.",
+    "공소장변경에 관한 소개된 대법원 판단의 primary precedent index 확인이 필요하다."
+  ],
+  "issue_tag": "art299_sec8",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "준강간죄의 구성요건이 갖추어진 뒤 사정 변화로 폭행·협박 간음에 이른 경우 실체적 경합을 인정할지, 강간죄만 성립한다고 볼지 여부.",
+    "준강제추행죄의 고의에 성욕의 자극·흥분·만족을 얻을 목적의 특별한 행위경향이 요구되는지 여부에 관하여 요구설과 불요설 중 어느 견해를 채택할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제299조_Ⅷ_13"
+    ],
+    "target_paths": [
+      "commentary://001692/제299조#sec8"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

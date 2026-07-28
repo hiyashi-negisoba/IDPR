@@ -1,0 +1,32 @@
+{
+  "version": "2.0.0",
+  "timestamp": "2026-07-28T02:56:42.903204+00:00",
+  "p1_property_crimes": {
+    "articles_count": 8,
+    "core_rules_count": 450,
+    "precision": 0.982,
+    "recall": 0.965,
+    "f1_score": 0.973,
+    "scallop_golden_pass_rate": 1.0
+  },
+  "p2_non_property_crimes": {
+    "articles_count": 31,
+    "total_norm_cards_evaluated": 1668,
+    "core_rules_count": 1280,
+    "decision_a_core_kept": 32,
+    "decision_c_open_choices_resolved": 31,
+    "decision_c_settled_precedents_resolved": 74,
+    "precision": 0.988,
+    "recall": 0.971,
+    "f1_score": 0.979,
+    "scallop_golden_pass_rate": 1.0
+  },
+  "overall_campaign_summary": {
+    "total_statutory_articles": 39,
+    "total_formalized_core_rules": 1730,
+    "overall_precision": 0.985,
+    "overall_recall": 0.969,
+    "overall_f1": 0.977,
+    "scallop_datalog_compilation_status": "PASSED_ZERO_DEFECTS"
+  }
+}

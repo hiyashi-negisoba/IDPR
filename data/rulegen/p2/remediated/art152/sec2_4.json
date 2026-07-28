@@ -1,0 +1,84 @@
+{
+  "card_set_id": "kr.art152.art152.sec2_4.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.standard.proceeding-commenced-requirement",
+          "request_id": "art152.pass1.004"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art152_sec2_4.proceeding_commenced_requirement",
+      "norm_kind": "element",
+      "polarity": "negative",
+      "proposition": "모해위증죄는 수사절차·재판절차·징계절차가 개시되어 진행 중인 것을 전제로 하며, 수사절차나 징계절차가 개시되지 않은 단계에서는 성립할 수 없다.",
+      "request_ids": [
+        "art152.pass1.004"
+      ],
+      "review_notes": "절차 개시 및 진행 여부는 별도의 사실 확인으로 열거 가능하나, 재판절차 미개시의 효과는 인용문에서 명시적으로 설명되지 않아 확대하지 않았다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅱ.4_36",
+          "quote": "수사절차나 재판절차 또는 징계절차가 개시되어 진행 중 이라는 사실이 전제되고, 수사절차나 징계절차가 개시되지 않은 단계에서는 모해위증죄가 성립할 수 없다.",
+          "section_path": "Ⅱ.4"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.standard.malice-purpose-awareness-sufficient",
+          "request_id": "art152.pass1.004"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art152_sec2_4.malice_purpose_awareness",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "모해 목적은 피고인·피의자·징계혐의자에게 불리하게 될 인식만 있으면 충분하고, 그 결과 발생을 희망하거나 모해 목적이 실제로 달성될 필요는 없다.",
+      "request_ids": [
+        "art152.pass1.004"
+      ],
+      "review_notes": "불리하게 될 인식의 존재는 개별 사실관계에 대한 평가가 필요하며, 결과 희망 또는 실제 목적 달성의 부재를 반대사실로 추정하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅱ.4_36",
+          "quote": "에게 불리하게 될 것이라는 인식이 있으면 충분하고, 그 결과의 발생까지 희망 할 필요는 없다. 모해의 목적이 실제로 달성되었는지 여부도 모해위증죄의 성립과는 관계가 없다.",
+          "section_path": "Ⅱ.4"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope는 제152조 Ⅱ.4의 단일 commentary 발췌에 한정되어 있으며, 모해위증교사, 주체 범위, 위증죄와 증거인멸죄의 관계, 및 죄수에 관한 근거는 포함하지 않는다.",
+    "인용된 commentary 서술의 원전 법령 및 판례 확인을 위한 primary source index 연결이 제공되지 않았다."
+  ],
+  "issue_tag": "art152_sec2_4",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "모해 목적이 있는 교사자가 모해 목적 없는 정범에게 위증을 교사한 경우 위증교사죄가 성립하는지 모해위증교사죄가 성립하는지.",
+    "모해위증죄의 주체에 선서하지 않은 참고인 등을 포함할지, 법률에 따라 선서한 증인으로 한정할지.",
+    "위증죄와 증거인멸죄의 관계를 택일관계로 볼지, 위증죄가 증거인멸죄에 대한 특별관계에 있다고 볼지.",
+    "하나의 교사행위로 여러 사람에게 위증하게 한 경우 위증교사죄의 죄수를 실체적 경합범으로 볼지 상상적 경합으로 볼지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제152조_Ⅱ.4_36"
+    ],
+    "target_paths": [
+      "commentary://001692/제152조#sec2_4"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

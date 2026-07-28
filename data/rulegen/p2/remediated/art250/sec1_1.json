@@ -1,0 +1,85 @@
+{
+  "card_set_id": "kr.art250.art250.sec1_1.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art250.definition.murder-intentional-killing",
+          "request_id": "art250.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art250_sec1_1.murder_intentional_killing",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "살인죄는 고의로 사람을 살해하여 사람의 생명을 끊는 범죄이다.",
+      "request_ids": [
+        "art250.pass1.001"
+      ],
+      "review_notes": "살인죄의 기본 정의를 나타내는 후보이며, 고의 및 생명침해 사실의 충족 여부는 별도 사실평가가 필요하다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제250조_Ⅰ.1_1",
+          "quote": "살인죄는 고의로 사람을 살해하는 것, 즉 사람의 생명을 끊는 것이다.",
+          "section_path": "Ⅰ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art250.definition.ordinary-murder-victim",
+          "request_id": "art250.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art250_sec1_1.ordinary_murder_victim",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "살인 피해자가 보통의 사람인 경우 보통살인죄가 된다.",
+      "request_ids": [
+        "art250.pass1.001"
+      ],
+      "review_notes": "피해자 분류에 관한 서술적 정의이며, 보통의 사람 범위와 다른 살인유형과의 구별은 현재 인용 범위 밖이다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제250조_Ⅰ.1_1",
+          "quote": "그 피해자 가 보통의 사람인 경우가 보통살인죄",
+          "section_path": "Ⅰ.1"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "간접정범에서 독극물 배달 이용행위의 실행의 착수 시점에 관한 근거가 현재 source scope에 없다.",
+    "간부 선원의 사태지배력 및 선장 대행 구조의무에 따른 부작위 살인 실행행위 주체성에 관한 근거가 현재 source scope에 없다.",
+    "신의성실의 원칙·사회상규·조리에 따른 부작위 살인의 법적 작위의무에 관한 근거가 현재 source scope에 없다.",
+    "살인죄의 고의, 실행의 착수, 부작위범, 간접정범 및 다른 살인유형과의 구별에 관한 상세한 규범 근거가 현재 source scope에 없다."
+  ],
+  "issue_tag": "art250_sec1_1",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "배달인을 도구로 독극물을 보내는 간접정범에서 실행의 착수 시점을 피해자의 독극물 수령 시로 볼지, 이용자의 이용행위 개시 시로 볼지.",
+    "세월호 사건 항해사와 같이 선장을 보좌하는 간부 선원이 사태지배력 및 선장 대행 구조의무를 가져 부작위 살인죄의 실행행위 주체가 되는지.",
+    "신의성실의 원칙·사회상규·조리에 따른 작위의무를 부작위 살인의 법적 작위의무 근거로 인정할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제250조_Ⅰ.1_1"
+    ],
+    "target_paths": [
+      "commentary://001692/제250조#sec1_1"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

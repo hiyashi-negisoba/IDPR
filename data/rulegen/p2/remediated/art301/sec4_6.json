@@ -1,0 +1,111 @@
+{
+  "card_set_id": "kr.art301.art301.sec4_6.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art301.variant.pregnancy-is-injury",
+          "request_id": "art301.pass1.002"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "context_only",
+      "id": "art301_sec4_6.pregnancy_as_injury",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "수면장애가 상해로 인정되는 것과 마찬가지로 강간 후 임신도 상해로 이해해야 한다는 견해가 있다.",
+      "request_ids": [
+        "art301.pass1.002"
+      ],
+      "review_notes": "임신을 상해로 보는 견해이며, 반대 견해 및 원하지 않는 임신에 관한 보고된 판례 입장과 함께 검토가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제301조_Ⅳ.6_14",
+          "quote": "수면장애가 상해로 인정되는 것과 마찬가지로 임 신도 상해로 이해해야 한다는 견해",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "variant_group": "art301_sec4_6.pregnancy_injury"
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art301.variant.pregnancy-not-injury",
+          "request_id": "art301.pass1.002"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "policy_variant",
+      "id": "art301_sec4_6.pregnancy_not_injury",
+      "norm_kind": "variant",
+      "polarity": "negative",
+      "proposition": "임신은 생리적 현상일 뿐 생리기능을 훼손한 것이 아니므로 상해가 아니라는 견해가 있다.",
+      "request_ids": [
+        "art301.pass1.002"
+      ],
+      "review_notes": "임신을 상해로 보지 않는 견해이며, 임신긍정설 및 원하지 않는 임신에 관한 보고된 판례 입장과 함께 검토가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제301조_Ⅳ.6_14",
+          "quote": "임신은 생리적 현상일 뿐이고 생리적 기능을 훼손한 것이 아니므로 상해가 아니라는 견해도 있다.",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "variant_group": "art301_sec4_6.pregnancy_injury"
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art301.standard.unwanted-pregnancy-not-injury-holding",
+          "request_id": "art301.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "context_only",
+      "id": "art301_sec4_6.unwanted_pregnancy_not_injury_holding",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "대법원은 원하지 않는 임신 그 자체를 상해로 보기 어렵다고 판단한 원심을 수긍하였다.",
+      "request_ids": [
+        "art301.pass1.002"
+      ],
+      "review_notes": "댓글에 보고된 좁은 판례 입장이다. 원하지 않는 임신 그 자체라는 범위를 넘겨 일반화하지 말고, 사용자 제공 1차 판례 인덱스에서 원문을 확인한 뒤 정책 선택을 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제301조_Ⅳ.6_14",
+          "quote": "원 하지 않는 임신 그 자체를 상해라고 보기는 어렵다고 판단한 원심을 수긍하였다.",
+          "section_path": "Ⅳ.6"
+        }
+      ],
+      "variant_group": "art301_sec4_6.pregnancy_injury"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "원하지 않는 임신 그 자체를 상해로 보기 어렵다고 한 보고된 대법원 판단의 1차 판례 원문 및 사용자 판례 인덱스 연결이 제공되지 않았다.",
+    "단순 공모자에 대한 결과적 가중범 공동정범 및 동시범 처리에 관한 근거 자료가 현재 source scope에 없다.",
+    "특수강간 기본범죄 미수와 상해·사망 결과 발생 시 결과적 가중범의 미수·기수 처리에 관한 근거 자료가 현재 source scope에 없다."
+  ],
+  "issue_tag": "art301_sec4_6",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "강간 등 치상죄에서 단순 공모자에 대한 결과적 가중범 공동정범을 인정할 것인지, 동시범 처리 견해를 채택할 것인지.",
+    "특수강간의 기본범죄가 미수에 그치고 상해·사망 결과가 발생한 경우 결과적 가중범의 미수를 인정할 것인지, 또는 기수범으로 볼 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제301조_Ⅳ.6_14"
+    ],
+    "target_paths": [
+      "commentary://001692/제301조#sec4_6"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

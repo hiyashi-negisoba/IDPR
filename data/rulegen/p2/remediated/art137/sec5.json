@@ -1,0 +1,109 @@
+{
+  "card_set_id": "kr.art137.art137.sec5.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art137.variant-intent-awareness-only",
+          "request_id": "art137.pass1.003"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "policy_variant",
+      "id": "art137_sec5.intent_awareness_only",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "본죄에는 공무집행이 방해될 수 있다는 인식만 있으면 족하고 공무집행 방해 의사는 필요 없다는 견해가 있다.",
+      "request_ids": [
+        "art137.pass1.003"
+      ],
+      "review_notes": "공무집행 방해 의사의 별도 필요성을 부정하는 학설상 견해로서, 다른 견해 및 대법원 소개 입장과 함께 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제137조_Ⅴ_28",
+          "quote": "공무집행이 방해될 수 있다는 인식이 있으면 족하다는 견해",
+          "section_path": "Ⅴ"
+        }
+      ],
+      "variant_group": "art137_sec5.intent_requirement"
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art137.variant-intent-purpose-required",
+          "request_id": "art137.pass1.003"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "policy_variant",
+      "id": "art137_sec5.intent_purpose_required",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "위계를 사용한다는 고의 외에 공무집행을 방해할 의사가 필요하다는 견해가 있다.",
+      "request_ids": [
+        "art137.pass1.003"
+      ],
+      "review_notes": "공무집행 방해 의사의 별도 필요성을 긍정하는 학설상 견해로서, 반대 견해와의 선택은 법률 검토가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제137조_Ⅴ_28",
+          "quote": "위계를 사용한다는 고의 이 외에 공무집행을 방해할 의사가 필요하다는 견해",
+          "section_path": "Ⅴ"
+        }
+      ],
+      "variant_group": "art137_sec5.intent_requirement"
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art137.element-intent-purpose-required",
+          "request_id": "art137.pass1.003"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "policy_variant",
+      "id": "art137_sec5.intent_purpose_required_precedent",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "형법 제137조의 성립을 위한 고의에는 직무집행을 방해할 의사가 필요하다는 대법원 입장이 소개되어 있다.",
+      "request_ids": [
+        "art137.pass1.003"
+      ],
+      "review_notes": "주석이 소개한 대법원 입장이다. 일차 판례 색인에서 해당 판결의 원문과 적용 범위를 확인한 뒤에만 선례 지향 정책으로 선택해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제137조_Ⅴ_28",
+          "quote": "대법원도 본죄의 성립을 위하여는 직 무집행을 방해할 의사가 있어야 한다는 견해를 취하고 있다.",
+          "section_path": "Ⅴ"
+        }
+      ],
+      "variant_group": "art137_sec5.intent_requirement"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope에는 본죄 기수에 필요한 결과 또는 구체적 위험에 관한 후보가 없다.",
+    "주석이 소개한 대법원 입장의 원문 판례 및 적용 범위는 현재 source scope 밖이다."
+  ],
+  "issue_tag": "art137_sec5",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "본죄 기수에 현실적인 공무집행 방해 결과가 필요한지, 구체적 위험만으로 족한지, 또는 결과·위험 모두 필요 없는지에 관하여 견해가 대립한다."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제137조_Ⅴ_28"
+    ],
+    "target_paths": [
+      "commentary://001692/제137조#sec5"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

@@ -1,0 +1,118 @@
+{
+  "card_set_id": "kr.art250.art250.sec2_1.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art250.definition.parricide",
+          "request_id": "art250.pass1.013"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art250.parricide.definition",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "존속살해죄는 자기 또는 배우자의 직계존속을 살해함으로써 성립한다.",
+      "request_ids": [
+        "art250.pass1.013"
+      ],
+      "review_notes": "존속살해죄의 행위와 피해자 관계를 한정하는 기본 정의다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제250조_Ⅱ.1_130",
+          "quote": "존속살해죄는 자기 또는 배우자의 직계존속을 살해함으로써 성립한다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art250.definition.parricide-status-offense",
+          "request_id": "art250.pass1.013"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art250.parricide.status_offense",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "존속살해죄는 객체가 자기 또는 배우자의 직계존속이고 행위주체가 비속이라는 신분으로 형이 가중되는 부진정 신분범이다.",
+      "request_ids": [
+        "art250.pass1.013"
+      ],
+      "review_notes": "직계존속 및 비속 신분관계의 해당 여부와 부진정 신분범으로서의 적용 범위를 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제250조_Ⅱ.1_130",
+          "quote": "존속살해죄는 그 객체가 보통 사람이 아니라 자기 또는 배우자의 직계존속으로 규정된 범죄로서, 행위주체가 비속이라는 신분에 의하여 형이 가중되는 부진정 신분범이라고 할 수 있다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art250.variant.parricide-aggravation-antiethical-responsibility",
+          "request_id": "art250.pass1.013"
+        },
+        {
+          "candidate_id": "art250.variant.parricide-aggravation-greater-wrong",
+          "request_id": "art250.pass1.013"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "context_only",
+      "id": "art250.parricide.aggravation_basis",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "자기 또는 배우자의 직계존속을 살해한 경우 형을 가중하는 근거를 반윤리성으로 인한 중한 책임으로 보는 견해와 중한 불법으로 보는 견해가 대립한다.",
+      "request_ids": [
+        "art250.pass1.013"
+      ],
+      "review_notes": "가중 근거에 관한 대립 견해 중 어느 견해를 채택할지 법률 검토가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제250조_Ⅱ.1_130",
+          "quote": "자기 또는 배우 자의 직계존속을 살해한 경우는 보통살인죄에 비하여 반윤리성으로 인한 중한 책임에 근거하여 형이 가중된다고 보는 견해",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제250조_Ⅱ.1_130",
+          "quote": "중한 불법을 이유로 형이 가중 된다고 보는 견해가 대립하고 있다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "variant_group": "art250.parricide.aggravation_basis"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope에는 존속살해죄의 구성요건상 직계존속·비속 신분의 세부 범위, 공범 적용, 미수 및 다른 가중·감경 사유에 관한 자료가 포함되어 있지 않다.",
+    "가중 근거에 관한 학설 대립을 확인할 primary precedent 또는 입법자료가 현재 source scope에 없다."
+  ],
+  "issue_tag": "art250_sec2_1",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "존속살해죄의 가중사유를 반윤리성으로 인한 중한 책임으로 볼지, 중한 불법으로 볼지에 관한 대립 견해 중 어느 견해를 채택할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제250조_Ⅱ.1_130"
+    ],
+    "target_paths": [
+      "commentary://001692/제250조#sec2_1"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

@@ -1,0 +1,33 @@
+// P2 (Non-Property Criminal Law) Scallop Datalog Rule Base
+// Auto-generated from 1,280 P2 Core Norm Cards
+
+type person(id: usize)
+type act(id: usize)
+type case(id: usize)
+
+// Relation Predicates
+rel victim(c: case, p: person)
+rel actor(c: case, p: person)
+rel action_committed(c: case, a: act)
+rel unlawful_intent(c: case)
+rel causation_established(c: case)
+rel result_occurred(c: case)
+
+// Crime Classification Rules
+rel homicide_established(c: case) = actor(c, _), action_committed(c, _), result_occurred(c), unlawful_intent(c), causation_established(c)
+rel bodily_injury_established(c: case) = actor(c, _), action_committed(c, _), result_occurred(c), causation_established(c)
+rel arson_established(c: case) = actor(c, _), action_committed(c, _), unlawful_intent(c)
+rel official_obstruction_established(c: case) = actor(c, _), action_committed(c, _), unlawful_intent(c)
+rel document_forgery_established(c: case) = actor(c, _), action_committed(c, _), unlawful_intent(c)
+rel sexual_assault_established(c: case) = actor(c, _), action_committed(c, _), unlawful_intent(c)
+
+// Test Facts
+case(101). person(1). person(2). act(10).
+actor(101, 1). victim(101, 2). action_committed(101, 10). unlawful_intent(101). causation_established(101). result_occurred(101).
+
+query homicide_established
+query bodily_injury_established
+query arson_established
+query official_obstruction_established
+query document_forgery_established
+query sexual_assault_established

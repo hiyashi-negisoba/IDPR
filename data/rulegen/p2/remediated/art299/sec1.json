@@ -1,0 +1,57 @@
+{
+  "card_set_id": "kr.art299.art299.sec1.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art299.definition.offense-characterization",
+          "request_id": "art299.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art299.offense_characterization",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "준강간·준강제추행죄는 사람의 심신상실 또는 항거불능 상태를 이용하여 간음 또는 추행함으로써 성립하는 범죄이다.",
+      "request_ids": [
+        "art299.pass1.001"
+      ],
+      "review_notes": "심신상실 또는 항거불능 상태의 구체적 범위와 그 상태를 이용하였는지 여부는 별도 법률 검토가 필요하다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제299조_Ⅰ_0",
+          "quote": "본죄는 사람의 심신상실 또는 항거불능의 상태를 이용하여 간음 또는 추행을 함으로써 성립하는 범죄",
+          "section_path": "Ⅰ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope에는 제299조 제1절의 범죄 성격에 관한 단일 commentary source만 포함되어 있어, 심신상실·항거불능의 정의와 범위, 이용의 의미, 자수범성 및 관련 견해 대립을 뒷받침하는 source domain이 부족하다.",
+    "제299조와 제302조의 관계 및 심신미약 처리에 관한 source domain이 현재 source scope 밖이다.",
+    "의료행위 또는 종교적 권위·신뢰를 이용한 성적 행위와 항거불능 판단에 관한 source domain이 현재 source scope 밖이다."
+  ],
+  "issue_tag": "art299_sec1",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "본죄가 자수범인지, 공동정범 또는 간접정범으로 실행 가능한 비자수범인지에 관한 견해 대립을 어떻게 처리할 것인지.",
+    "심신미약을 제299조의 심신상실에 포함할지, 제302조의 별도 규정을 이유로 제외할지.",
+    "의료행위 또는 종교적 권위·신뢰를 이용한 성적 행위에서 피해자의 인식 결여를 항거불능 부정 사유로 볼지, 심리적 항거불능으로 볼지.",
+    "제299조의 심신상실을 형법 제10조 제1항과 동일하게 볼지, 성적 자기방어 불능의 다른 사유까지 포함하는 더 넓은 개념으로 볼지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제299조_Ⅰ_0"
+    ],
+    "target_paths": [
+      "commentary://001692/제299조#sec1"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

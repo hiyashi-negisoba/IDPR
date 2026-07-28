@@ -1,0 +1,83 @@
+{
+  "card_set_id": "kr.art298.art298.sec6.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art298.standard.multiple-acts-comprehensive-offense",
+          "request_id": "art298.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art298_sec6.multiple_acts_comprehensive_offense",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "원칙적으로 각 추행행위마다 하나의 범죄가 성립하지만, 각 행위가 시간적·장소적으로 가깝고 범의의 단일성과 계속성이 인정되면 포괄일죄가 성립한다.",
+      "request_ids": [
+        "art298.pass1.002"
+      ],
+      "review_notes": "시간적·장소적 근접성 및 범의의 단일성·계속성 판단에는 개별 사실관계에 대한 평가가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제298조_Ⅵ_17",
+          "quote": "원칙적으로 각 추행행위마다 하나의 범죄가 성립한다. 다만 각 추행행위가 시간적·장소적으 로 가까워 범의의 단일성과 계속성을 인정할 수 있을 때에는 포괄하여 일 (犯意) 죄가 성립한다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art298.element.multiple-victims-multiple-offenses",
+          "request_id": "art298.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art298_sec6.multiple_victims_multiple_offenses",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "피해자가 여러 명이면 동일 장소에서 동일한 폭행·협박에 의한 경우라도 피해자별로 수개의 죄가 성립한다.",
+      "request_ids": [
+        "art298.pass1.002"
+      ],
+      "review_notes": "동일 장소 및 동일한 폭행·협박 여부와 무관하게 피해자별 죄수 산정 관계를 정하는 카드다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제298조_Ⅵ_17",
+          "quote": "피해자가 여러 명인 경우에는 비록 동일한 장소에서 동일한 폭행·협박에 의한 것이라고 하더라도 각 피해자에 따 라 수개의 죄가 성립한다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 제공된 source scope는 제298조 Ⅵ절의 죄수 관련 서술만 포함하며, 공연한 강제추행과 공연음란죄의 관계에 관한 근거는 포함하지 않는다.",
+    "현재 제공된 source scope는 추행 개념의 주관적 목적 요건 및 성적 자유 침해의 중대성·현저성에 관한 견해 대립의 근거를 포함하지 않는다."
+  ],
+  "issue_tag": "art298_sec6",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "공연한 강제추행과 공연음란죄의 관계에서 상상적 경합설, 노출 정도에 따른 구별설, 강제추행죄 단독 성립설 중 어느 견해를 채택할 것인지.",
+    "추행 개념에 성욕의 흥분·자극·만족이라는 주관적 목적을 요구하는 견해와 요구하지 않는 통설 중 어느 입장을 채택할 것인지.",
+    "추행을 성적 자유 침해의 중대성 또는 현저성이 있는 행위로 제한할 것인지, 신체 부위보다 당사자 의사·감정과 주위사정을 중시할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제298조_Ⅵ_17"
+    ],
+    "target_paths": [
+      "commentary://001692/제298조#sec6"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

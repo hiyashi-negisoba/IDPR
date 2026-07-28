@@ -1,0 +1,61 @@
+{
+  "card_set_id": "kr.art299.art299.sec5.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art299.standard.impossible-attempt-actual-state-absent",
+          "request_id": "art299.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art299_sec5.impossible_attempt_actual_state_absent",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "피고인이 피해자가 심신상실 또는 항거불능 상태라고 인식하고 그 상태를 이용해 간음할 의사로 간음했으나 실제로 그러한 상태가 없었던 경우, 행위 당시 인식 사정을 기준으로 일반인이 결과 발생 위험성을 인정하면 준강간 불능미수가 성립한다.",
+      "request_ids": [
+        "art299.pass1.001"
+      ],
+      "review_notes": "행위 당시 피고인의 인식과 일반인의 객관적 위험성 판단을 각각 사실평가 입력으로 검토해야 한다. 해당 설명이 판례의 직접 보고인지 여부는 원문 확인 전까지 확정하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제299조_Ⅴ_10",
+          "quote": "피고인이 행위 당시에 인식한 사정을 놓고 일반인이 객관적으로 판단하여 보았을 때 정신적·신체적 사정으로 인하여 성적인 자기방어를 할 수 없는 사람의 성적 자기결",
+          "section_path": "Ⅴ"
+        },
+        {
+          "comment_id": "comm_001692_제299조_Ⅴ_10",
+          "quote": "정권을 침해하여 준강간의 결과가 발생할 위험성이 있었다면 불능미수가 성립한다.",
+          "section_path": "Ⅴ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope와 validated batch는 제299조 제Ⅴ절의 불능미수 판단 설명만 포함하며, 제299조의 기본 구성요건 및 심신상실·항거불능의 범위에 관한 직접 근거는 포함하지 않는다.",
+    "불능미수 판단 설명의 원문 판례 여부 및 직접 인용 범위는 사용자의 primary precedent index로 확인이 필요하다."
+  ],
+  "issue_tag": "art299_sec5",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "본죄가 자수범인지, 공동정범 또는 간접정범으로 실행 가능한 비자수범인지에 관한 견해 대립을 어떻게 처리할 것인지.",
+    "심신미약을 제299조의 심신상실에 포함할지, 제302조의 별도 규정을 이유로 제외할지.",
+    "의료행위 또는 종교적 권위·신뢰를 이용한 성적 행위에서 피해자의 인식 결여를 항거불능 부정 사유로 볼지, 심리적 항거불능으로 볼지.",
+    "제299조의 심신상실을 형법 제10조 제1항과 동일하게 볼지, 성적 자기방어 불능의 다른 사유까지 포함하는 더 넓은 개념으로 볼지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제299조_Ⅴ_10"
+    ],
+    "target_paths": [
+      "commentary://001692/제299조#sec5"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

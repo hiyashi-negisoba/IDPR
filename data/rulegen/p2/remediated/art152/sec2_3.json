@@ -1,0 +1,57 @@
+{
+  "card_set_id": "kr.art152.art152.sec2_3.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.standard.noncriminal-case-ordinary-perjury",
+          "request_id": "art152.pass1.004"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art152_sec2_3.noncriminal_case_mohae_exception",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "민사·가사·행정·비송 등 형사사건이나 징계사건이 아닌 사건에서 법률에 의하여 선서한 증인이 특정 당사자를 불리하게 할 목적으로 허위진술한 경우, 모해위증죄가 아니라 위증죄가 성립한다.",
+      "request_ids": [
+        "art152.pass1.004"
+      ],
+      "review_notes": "사건이 형사사건 또는 징계사건인지와 증인이 법률에 따라 선서하였는지의 확인이 필요하다. 이 카드의 범위에서는 모해 목적이 있어도 비형사·비징계 사건에 관하여 모해위증죄를 적용하지 않는 예외만 다룬다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅱ.3_35",
+          "quote": "민사사건, 가사사건, 행정사건, 비송사건 등과 같이 형사사건이나 징계사건이 아닌 사건에서 법률에 의하여 선서한 증인이 특정 당사자를 불리하게 한다는 목적을 가지고 허위의 진술을 하더라도 모해위증죄가 아닌 위증죄가 성립할 뿐 이다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope는 제152조 Ⅱ.3의 단일 주석 발췌에 한정되어 있어, 모해위증죄의 일반적 성립요건과 형사사건·징계사건에서의 적용 범위는 확인되지 않았다.",
+    "현재 source scope에는 교사범의 모해 목적, 모해위증죄 주체 범위, 위증죄와 증거인멸죄의 관계, 및 복수 피교사자에 대한 죄수에 관한 근거가 없다.",
+    "판례 원문 또는 법령 원문이 제공되지 않아 이 카드는 commentary_synthesis에 기초한다."
+  ],
+  "issue_tag": "art152_sec2_3",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "모해 목적이 있는 교사자가 모해 목적 없는 정범에게 위증을 교사한 경우 위증교사죄가 성립하는지 모해위증교사죄가 성립하는지.",
+    "모해위증죄의 주체에 선서하지 않은 참고인 등을 포함할지, 법률에 따라 선서한 증인으로 한정할지.",
+    "위증죄와 증거인멸죄의 관계를 택일관계로 볼지, 위증죄가 증거인멸죄에 대한 특별관계에 있다고 볼지.",
+    "하나의 교사행위로 여러 사람에게 위증하게 한 경우 위증교사죄의 죄수를 실체적 경합범으로 볼지 상상적 경합으로 볼지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제152조_Ⅱ.3_35"
+    ],
+    "target_paths": [
+      "commentary://001692/제152조#sec2_3"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

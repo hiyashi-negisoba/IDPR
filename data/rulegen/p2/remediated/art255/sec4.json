@@ -1,0 +1,86 @@
+{
+  "card_set_id": "kr.art255.art255.sec4.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art255.variant.preparation-desistance-denial",
+          "request_id": "art255.pass1.001"
+        },
+        {
+          "candidate_id": "art255.variant.preparation-desistance-affirmative",
+          "request_id": "art255.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "context_only",
+      "id": "art255_sec4.preparation_desistance_doctrinal_variants",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "실행 착수 전 예비·음모를 자발적으로 중지하거나 실행 착수를 포기한 경우 중지미수 규정을 적용할지에 관하여 부정설과 긍정설의 대립이 있다.",
+      "request_ids": [
+        "art255.pass1.001"
+      ],
+      "review_notes": "실행 착수 전 예비·음모의 자발적 중지 또는 실행 착수 포기에 중지미수 규정을 적용할지에 관한 학설 대립으로, 어느 견해도 선택하지 않았다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제255조_Ⅳ_4",
+          "quote": "학설상으로는 이를 부정하는 견해와 긍정하는 견해",
+          "section_path": "Ⅳ"
+        }
+      ],
+      "variant_group": "art255_sec4.preparation_desistance"
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art255.standard.preparation-desistance-precedent",
+          "request_id": "art255.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "context_only",
+      "id": "art255_sec4.preparation_desistance_precedent_position",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "판례는 범죄 실행에 착수하기 전인 예비·음모 행위를 처벌하는 경우에는 중지범을 인정할 수 없다는 취지이다.",
+      "request_ids": [
+        "art255.pass1.001"
+      ],
+      "review_notes": "주석이 보고한 판례 입장으로서 원문 판례 및 사용자 제공 primary precedent index 대조 전에는 선택 규칙으로 확정하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제255조_Ⅳ_4",
+          "quote": "판례는 일반적으로, 중지범은 범죄 실행에 착수한 후 자의로 그 행위를 중지한 때를 말하므로 실행의 착수 이전인 예비·음모의 행위를 처벌하는 경우에는 중 지범을 인정할 수 없다는 취지이다.",
+          "section_path": "Ⅳ"
+        }
+      ],
+      "variant_group": "art255_sec4.preparation_desistance"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "주석이 보고한 예비·음모 중지범 관련 판례의 원문 및 사용자 primary precedent index가 현재 source scope에 없다.",
+    "예비의 형과 중지미수의 형의 균형, 예비죄 자수 감면규정의 유추적용, 예비중지 형 면제 견해에 관한 직접 source reference가 현재 source scope에 없다."
+  ],
+  "issue_tag": "art255_sec4",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "실행 착수 전 예비·음모를 자발적으로 중지하거나 실행 착수를 포기한 경우 중지미수 규정을 적용할지에 관하여 부정설과 긍정설 중 어느 견해를 채택할 것인지.",
+    "예비의 형이 중지미수의 형보다 무거운 경우 형의 균형을 위한 중지미수 규정 준용, 예비죄 자수 감면규정의 유추적용, 예비중지 형 면제 견해를 어떻게 다룰 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제255조_Ⅳ_4"
+    ],
+    "target_paths": [
+      "commentary://001692/제255조#sec4"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

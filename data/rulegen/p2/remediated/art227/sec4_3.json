@@ -1,0 +1,84 @@
+{
+  "card_set_id": "kr.art227.art227.sec4_3.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art227.exception.legal-misapplication-with-true-facts",
+          "request_id": "art227.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art227_sec4_3.legal_misapplication_true_facts",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "고의로 법령을 잘못 적용하여 공문서를 작성하였더라도 법령 적용의 전제가 된 사실관계 내용에 거짓이 없으면 허위공문서작성죄는 성립할 수 없다.",
+      "request_ids": [
+        "art227.pass1.002"
+      ],
+      "review_notes": "법령 적용의 오류와 그 전제가 된 사실관계의 허위를 구별하는 예외 카드다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제227조_Ⅳ.3_15",
+          "quote": "고의로 법령을 잘 못 적용하여 공문서를 작성하였더라도 그 법령적용의 전제가 된 사실관계에 대 한 내용에 거짓이 없다면 허위공문서작성죄가 성립될 수 없다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art227.standard.building-permit-no-falsehood",
+          "request_id": "art227.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art227_sec4_3.building_permit_expression_no_falsehood",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "건축법상 요건을 갖추지 못한 설계 사실을 알면서 건축허가서를 작성하였더라도, 허가서에 표현된 허가 의사표시 내용 자체에 허위가 없으면 허위공문서작성죄로 처벌할 수 없다.",
+      "request_ids": [
+        "art227.pass1.002"
+      ],
+      "review_notes": "허가서가 어떠한 사항을 확인·증명하는지와 허가 의사표시 자체의 허위 여부에 대한 평가가 필요하다. 보고된 판례의 원문 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제227조_Ⅳ.3_15",
+          "quote": "허가서에 표현된 허가의 의사표시 내용 자체에 어떠한 허위가 있다고 볼 수는 없 으므로, 위 건축허가서를 작성한 행위를 허위공문서작성죄로 처벌할 수는 없다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope는 제227조 Ⅳ.3의 단일 commentary source에 한정되어 있다.",
+    "공무원 의사의 허위진단서와 허위공문서작성죄의 죄수 관계에 관한 source reference가 없다.",
+    "허위공문서작성·행사와 직무유기죄의 죄수 관계에 관한 source reference가 없다."
+  ],
+  "issue_tag": "art227_sec4_3",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "공무원인 의사의 허위진단서 발행에서 허위공문서작성죄와 허위진단서작성죄의 관계를 상상적 경합, 본죄만 성립, 허위진단서작성죄만 성립 중 어떻게 정리할 것인지.",
+    "위법사실 은폐를 목적으로 한 허위공문서작성·행사와 직무유기죄의 관계에서, 통설·판례의 별죄 불성립설과 실체적 경합설 중 어느 견해를 채택할 것인지.",
+    "건축허가서 작성에 관한 보고된 판례의 원문을 사용자 제공 1차 판례 인덱스에서 확인해야 한다."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제227조_Ⅳ.3_15"
+    ],
+    "target_paths": [
+      "commentary://001692/제227조#sec4_3"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

@@ -1,0 +1,84 @@
+{
+  "card_set_id": "kr.art136.art136.sec3_6.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art136.exception.article136-2-absorption-of-assault-threat",
+          "request_id": "art136.pass1.006"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "art136_sec3_6.assault_threat_absorption",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "직무·사직강요죄가 성립하면 폭행죄 또는 협박죄는 흡수되어 별도의 죄를 구성하지 않는다.",
+      "request_ids": [
+        "art136.pass1.006"
+      ],
+      "review_notes": "직무·사직강요죄 성립을 전제로 폭행죄 또는 협박죄의 별도 성립을 배제하는 흡수관계로 검토한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제136조_Ⅲ.6_62",
+          "quote": "본죄가 성립할 때 폭행죄나 협박죄는 본죄에 흡수되어 별도의 죄를 구성하지 아니한다.",
+          "section_path": "Ⅲ.6"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art136.variant.article136-2-coercion-ideal-concurrence",
+          "request_id": "art136.pass1.006"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "context_only",
+      "id": "art136_sec3_6.coercion_relation",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "직무·사직강요죄와 강요죄는 상상적 경합범 관계라는 통설이 소개되어 있다.",
+      "request_ids": [
+        "art136.pass1.006"
+      ],
+      "review_notes": "통설로 소개된 상상적 경합범 관계이며, 흡수관계와의 선택은 추가 권위 검토 후 결정해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제136조_Ⅲ.6_62",
+          "quote": "그러나 통설은 본죄와 강 요죄가 상상적 경합범의 관계에 있다고 본다.",
+          "section_path": "Ⅲ.6"
+        }
+      ],
+      "variant_group": "art136_sec3_6.coercion_relation"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "제공된 후보는 직무·사직강요죄와 폭행죄·협박죄 및 강요죄의 관계만 다루며, 직무집행 적법성, 복수 공무원에 대한 죄수, 직무상 권한·적법성·개인적 사정, 보호법익에 관한 근거는 포함하지 않는다."
+  ],
+  "issue_tag": "art136_sec3_6",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "공무집행방해죄에서 직무집행 적법성을 구성요건요소, 위법성요소 또는 구분설의 사정 중 어느 것으로 볼 것인지 및 그에 따른 고의와 위법성의 처리.",
+    "동일 공무를 집행하는 여러 공무원에 대한 폭행·협박의 죄수를 공무 수와 공무원 수 중 어느 기준으로 정할 것인지.",
+    "직무·사직강요죄에서 직무상 행위의 권한 범위, 적법성 요건 및 개인적 사정에 따른 사직 강요의 포섭 범위를 어떻게 정할 것인지.",
+    "직무·사직강요죄와 강요죄의 관계를 흡수관계로 볼지 상상적 경합으로 볼지.",
+    "직무·사직강요죄의 보호법익이 공무에 한정되는지 공무원의 지위도 포함하는지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제136조_Ⅲ.6_62"
+    ],
+    "target_paths": [
+      "commentary://001692/제136조#sec3_6"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

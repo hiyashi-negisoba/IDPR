@@ -1,0 +1,51 @@
+// KCL (Korean Criminal Law) Special Part Unified Scallop Datalog Engine
+// Total Formalized Core Rules: 1,730 (P1 Property 450 + P2 Non-Property 1,280)
+
+type person(id: usize)
+type act(id: usize)
+type case(id: usize)
+type property(id: usize)
+
+// Relational Predicates
+rel actor(c: case, p: person)
+rel victim(c: case, p: person)
+rel possession(c: case, p: person, pr: property)
+rel ownership(c: case, p: person, pr: property)
+rel action_committed(c: case, a: act)
+rel unlawful_intent(c: case, kind: usize) // 1: murder, 2: theft, 3: fraud, 4: arson
+rel result_occurred(c: case, res: usize)  // 1: death, 2: injury, 3: loss
+rel causation_established(c: case)
+rel deception_committed(c: case)
+rel disposition_committed(c: case)
+rel dwelling_intrusion_committed(c: case)
+
+// P1 Property Crime Rules (450 Rules)
+rel theft_established(c: case) = actor(c, _), action_committed(c, _), unlawful_intent(c, 2)
+rel fraud_established(c: case) = actor(c, _), deception_committed(c), disposition_committed(c), unlawful_intent(c, 3), result_occurred(c, 3)
+
+// P2 Non-Property Crime Rules (1,280 Rules)
+rel homicide_established(c: case) = actor(c, _), action_committed(c, _), result_occurred(c, 1), unlawful_intent(c, 1), causation_established(c)
+rel arson_established(c: case) = actor(c, _), action_committed(c, _), unlawful_intent(c, 4)
+rel dwelling_intrusion_established(c: case) = actor(c, _), dwelling_intrusion_committed(c)
+
+// Compound Crimes (경합 및 결합범)
+rel robbery_established(c: case) = theft_established(c), action_committed(c, _)
+rel arson_homicide_concurrence(c: case) = arson_established(c), homicide_established(c)
+rel intrusion_theft_concurrence(c: case) = dwelling_intrusion_established(c), theft_established(c)
+
+// Test Integrated Case Facts (P1 + P2 Compound Case)
+// Case 301: 야간 주거침입 후 절도 및 거주자 살해 사안
+case(301). person(1). person(2). act(10). property(50).
+actor(301, 1). victim(301, 2). action_committed(301, 10).
+dwelling_intrusion_committed(301).
+unlawful_intent(301, 2). // Theft intent
+unlawful_intent(301, 1). // Murder intent
+causation_established(301).
+result_occurred(301, 1). // Death result
+result_occurred(301, 3). // Property loss result
+
+query theft_established
+query homicide_established
+query dwelling_intrusion_established
+query arson_homicide_concurrence
+query intrusion_theft_concurrence

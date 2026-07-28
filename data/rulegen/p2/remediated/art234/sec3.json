@@ -1,0 +1,110 @@
+{
+  "card_set_id": "kr.art234.art234.sec3.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "statutory_text_in_commentary",
+      "candidate_refs": [
+        {
+          "candidate_id": "art234.element.attempt-punishable",
+          "request_id": "art234.pass1.001"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "art234.attempt_punishable",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "위조사문서등의 행사죄의 미수범은 처벌된다.",
+      "request_ids": [
+        "art234.pass1.001"
+      ],
+      "review_notes": "주석이 인용한 형법 제235조의 미수범 처벌 규정에 관한 카드이며, 원문 법조문 확인 전까지는 commentary 내 인용으로 취급한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제234조_Ⅲ_4",
+          "quote": "본죄의 미수범은 처벌한다. (형법 제235조)",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art234.standard.completion-by-placement-or-mail-delivery",
+          "request_id": "art234.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art234.completion_by_placement_or_mail_delivery",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "일반적으로 상대방이 열람할 수 있도록 비치하면 행사의 기수가 되고, 위조문서를 우송한 경우에는 상대방에게 도달한 때 기수가 된다.",
+      "request_ids": [
+        "art234.pass1.001"
+      ],
+      "review_notes": "비치가 상대방의 열람 가능 상태에 이르렀는지 및 우송 문서가 상대방에게 도달했는지는 구체적 사실관계 평가가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제234조_Ⅲ_4",
+          "quote": "일반적으로 상대방이 열람할 수 있도록 비치해 두는 것에 의해 행사의 기수가 된다. 위조된 문서를 우송한 경우에는 그 문서가 상대방에게 도달한 때에 기수가 되고",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art234.standard.driving-with-forged-license",
+          "request_id": "art234.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art234.forged_license_possession_and_driving_not_utterance",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "위조된 운전면허증을 소지하고 자동차를 운전한 것만으로는 행사가 있다고 할 수 없다.",
+      "request_ids": [
+        "art234.pass1.001"
+      ],
+      "review_notes": "이 카드는 위조 운전면허증의 소지와 자동차 운전만으로는 행사로 평가되지 않는다는 제한된 부정 명제이다. 제시·교부 등 추가 행위의 효과는 이 출처만으로 확정하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제234조_Ⅲ_4",
+          "quote": "그러나 위조된 운 전면허증을 소지하고 자동차를 운전한 것만으로는 행사가 있다고 할 수 없다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "사기죄와 위조사문서등 행사죄의 죄수 관계에 관한 출처가 현재 source scope에 없다.",
+    "형법 제235조 원문 및 미수범 처벌의 적용 범위는 현재 commentary 내 인용 외의 1차 법령 출처로 확인되지 않았다.",
+    "행사죄의 기수 판단에 관한 비치·우송 외의 구체적 행사 유형은 현재 source scope에 포함되지 않는다."
+  ],
+  "issue_tag": "art234_sec3",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "위조사문서를 행사하여 재물 또는 재산상 이익을 취득한 경우 사기죄와 행사죄의 죄수 관계에 관하여 실체적 경합설, 상상적 경합설, 사기죄만 성립한다는 설 중 어느 견해를 채택할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제234조_Ⅲ_4"
+    ],
+    "target_paths": [
+      "commentary://001692/제234조#sec3"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

@@ -1,0 +1,82 @@
+{
+  "card_set_id": "kr.art231.art231.sec5.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "statutory_text_in_commentary",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.element.attempt-punishable",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "art231_sec5.attempt_punishable",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "사문서위조·변조죄의 미수범은 처벌된다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "형법 제235조를 인용한 commentary 내 법문 설명에 근거한 미수 처벌 규정이다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅴ_18",
+          "quote": "본죄의 미수범은 처벌한다. (형법 제235조)",
+          "section_path": "Ⅴ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.causal-link.attempt-commencement-incomplete-deception",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec5.attempt_commencement_and_incompletion",
+      "norm_kind": "causal_link",
+      "polarity": "positive",
+      "proposition": "위조·변조 의사를 확정적으로 문서에 표시하면 실행의 착수가 있고, 일반인으로 하여금 진정문서라고 오신할 정도에 이르지 못한 때에는 미수죄가 성립한다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "문서 표시가 확정적인지 및 일반인의 진정문서 오신 가능성에 이르지 못했는지는 사실관계에 대한 평가를 필요로 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅴ_18",
+          "quote": "실행의 착수는 위조·변조 의사를 확정적으로 문서에 표시하는 행위가 있는 때 이고, 일반인으로 하여금 진정문서라고 오신할 정도에 이르지 못한 때에는 미수 죄가 성립한다.",
+          "section_path": "Ⅴ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope는 제231조 제Ⅴ절의 미수 관련 설명만 포함하며, 문서 위조 후 행사한 경우의 죄수 관련 source domain은 포함하지 않는다.",
+    "현재 source scope는 행사할 목적의 인식 정도에 관한 competing views의 source domain을 포함하지 않는다."
+  ],
+  "issue_tag": "art231_sec5",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "문서 위조 후 행사한 경우 죄수에 관하여 다수설과 판례의 실체적 경합설 외에 언급된 다른 학설을 어떻게 정리할 것인지.",
+    "행사할 목적의 인식 정도에 관하여 미필적 인식으로 충분하다는 설명과 직접적 또는 확정적 인식을 요구하는 견해 중 어느 입장을 채택할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제231조_Ⅴ_18"
+    ],
+    "target_paths": [
+      "commentary://001692/제231조#sec5"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

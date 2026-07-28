@@ -1,0 +1,118 @@
+{
+  "card_set_id": "kr.art250.art250.sec2_10.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art250.exception-specialty-parricide-and-ordinary-murder",
+          "request_id": "art250.pass1.014"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "art250_sec2_10.parricide_ordinary_murder_specialty",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "존속살해죄가 성립하면 특별관계에 있는 보통살인죄는 별도로 성립하지 않는다.",
+      "request_ids": [
+        "art250.pass1.014"
+      ],
+      "review_notes": "존속살해죄가 성립하는 경우 보통살인죄를 별도로 구성하지 않는 특별관계 규율이다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제250조_Ⅱ.10_141",
+          "quote": "존속살해죄와 보통살인죄의 관계는 특별관계이므로, 존속살해죄가 성립하면 보 통살인죄는 별도로 성립하지 않는다.",
+          "section_path": "Ⅱ.10"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art250.variant.parricide-and-arson-resulting-death-imaginary-concurrence",
+          "request_id": "art250.pass1.014"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "context_only",
+      "id": "art250_sec2_10.arson_death_parricide_imaginary_concurrence",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "개정 형법 이후 현주건조물방화치사와 존속살해죄는 상상적 경합범이 성립하고 중한 죄인 존속살해죄로 처벌된다는 학설이 있다.",
+      "request_ids": [
+        "art250.pass1.014"
+      ],
+      "review_notes": "현주건조물방화치사와 존속살해의 관계에 관한 학설상 상상적 경합 견해로서, 인용문이 불완전하므로 원문 및 개정 후 법정형을 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제250조_Ⅱ.10_141",
+          "quote": "다만 학설상 으로는 현주건조물방화죄와 존속살해죄의 상상적 경합범이 성립한다 (중한 죄인 는 견해가 있다.",
+          "section_path": "Ⅱ.10"
+        }
+      ],
+      "variant_group": "art250_sec2_10.arson_death_parricide_concurrence"
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art250.standard.case-arson-death-parricide-specialty",
+          "request_id": "art250.pass1.014"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "context_only",
+      "id": "art250_sec2_10.arson_death_parricide_specialty_precedent",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "서울고등법원 2010노252 판결은 존속살해죄 법정형이 현주건조물방화치사죄보다 중하지 않으므로 현주건조물방화치사죄만 성립하고 존속살해죄는 별도로 죄를 구성하지 않는다고 보았다.",
+      "request_ids": [
+        "art250.pass1.014"
+      ],
+      "review_notes": "학설상 상상적 경합 견해와 충돌하는 commentary-reported precedent position이다. 판결 원문과 개정 형법 적용 여부를 사용자 제공 1차 판례 색인에서 확인한 뒤 정책을 선택해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제250조_Ⅱ.10_141",
+          "quote": "울고등법원 2010. 6. 3. 선고 2010노252 판결은, 존속살해죄의 법정형이 현",
+          "section_path": "Ⅱ.10"
+        },
+        {
+          "comment_id": "comm_001692_제250조_Ⅱ.10_141",
+          "quote": "주건조물방화치사죄의 법정형과 같을 뿐 그보다 중하지 않으므로 현주건조물방 화치사죄만 성립하고 이와 법조경합 관계에 있는 존속살해죄에 대하여는 별도 로 죄를 구성하지 않는다고 보았다.",
+          "section_path": "Ⅱ.10"
+        }
+      ],
+      "variant_group": "art250_sec2_10.arson_death_parricide_concurrence"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "서울고등법원 2010노252 판결의 1차 판례 원문 및 개정 형법 적용관계는 현재 source scope에 포함되지 않는다.",
+    "존속살해의 교사·방조, 비신분자 가담, 배우자 직계존속, 객체의 착오, 입양 관계에 관한 source domain은 현재 source scope에 포함되지 않는다."
+  ],
+  "issue_tag": "art250_sec2_10",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "A가 B를 교사 또는 방조하여 A의 부를 살해한 경우 A에게 존속살해죄의 교사·방조범을 인정할지, 보통살인죄 교사범을 인정할지.",
+    "비신분자가 존속살해에 가담한 경우 비신분자를 보통살인 공동정범으로 볼지, 존속살해 공동정범으로 성립시킨 후 보통살인죄로 처벌할지.",
+    "사망한 배우자의 직계존속을 살해한 경우 존속살해죄가 성립하는지.",
+    "직계존속으로 오인한 비직계존속을 살해한 객체의 착오를 존속살해 불능미수와 보통살인 기수의 상상적 경합, 보통살인 기수, 또는 착오 일반원리 중 어느 방식으로 해결할 것인지.",
+    "타인의 양자로 입양된 사람이 실부모를 살해한 경우 존속살해죄가 성립하는지, 친양자와 일반양자를 구별할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제250조_Ⅱ.10_141"
+    ],
+    "target_paths": [
+      "commentary://001692/제250조#sec2_10"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

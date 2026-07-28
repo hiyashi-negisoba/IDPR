@@ -1,0 +1,66 @@
+{
+  "version": "1.0.0",
+  "description": "형법각론 전체(P1+P2) 뉴로 사실추출을 위한 LLM 스키마 명세서",
+  "types": {
+    "case": "사건 ID (integer)",
+    "person": "인물 객체 (string)",
+    "property": "재물/재산상 이익 (string)",
+    "act": "실행행위 (string)",
+    "document": "문서 객체 (string)",
+    "place": "주거/건조물 장소 (string)"
+  },
+  "predicates": {
+    "actor": {
+      "datalog": "rel actor(c: case, p: person)",
+      "description": "사건 c에서 행위자/피고인 p"
+    },
+    "victim": {
+      "datalog": "rel victim(c: case, p: person)",
+      "description": "사건 c에서 피해자 p"
+    },
+    "possession": {
+      "datalog": "rel possession(c: case, p: person, pr: property)",
+      "description": "사건 c에서 점유자 p가 재물 pr을 점유함"
+    },
+    "ownership": {
+      "datalog": "rel ownership(c: case, p: person, pr: property)",
+      "description": "사건 c에서 소유자 p가 재물 pr을 소유함"
+    },
+    "unlawful_taking": {
+      "datalog": "rel unlawful_taking(c: case, a: act, pr: property)",
+      "description": "행위 a로 재물 pr을 절취/탈취함"
+    },
+    "unlawful_intent": {
+      "datalog": "rel unlawful_intent(c: case, intent_type: string)",
+      "description": "고의 또는 불법영득의사/불법이득의사 인정 여부 ('murder', 'theft', 'arson', 'fraud')"
+    },
+    "force_or_threat": {
+      "datalog": "rel force_or_threat(c: case, degree: string)",
+      "description": "유형력 행사 또는 해악 고지의 정도 ('ordinary', 'resistance_impossible', 'violence')"
+    },
+    "deception": {
+      "datalog": "rel deception(c: case, d: string)",
+      "description": "기망행위 발생"
+    },
+    "disposition_act": {
+      "datalog": "rel disposition_act(c: case, d: string)",
+      "description": "피기망자의 처분행위"
+    },
+    "building_type": {
+      "datalog": "rel building_type(c: case, pl: place, type: string)",
+      "description": "건조물 장소 pl의 유형 ('dwelling', 'general_building', 'public_building')"
+    },
+    "arson_act": {
+      "datalog": "rel arson_act(c: case, pl: place)",
+      "description": "장소 pl에 방화 행위 개시"
+    },
+    "independent_combustion": {
+      "datalog": "rel independent_combustion(c: case, pl: place)",
+      "description": "장소 pl에 불이 옮겨 붙어 독립 연소 개시"
+    },
+    "causation": {
+      "datalog": "rel causation(c: case, cause: act, result: string)",
+      "description": "행위 cause와 결과 result 사이의 인과관계 ('death', 'injury')"
+    }
+  }
+}

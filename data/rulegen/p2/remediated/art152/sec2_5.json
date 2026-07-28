@@ -1,0 +1,76 @@
+{
+  "card_set_id": "kr.art152.art152.sec2_5.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.variant.instigator-no-malice-ordinary-perjury-instigation",
+          "request_id": "art152.pass1.004"
+        },
+        {
+          "candidate_id": "art152.variant.instigator-no-malice-malicious-perjury-instigation",
+          "request_id": "art152.pass1.004"
+        },
+        {
+          "candidate_id": "art152.standard.supreme-court-malicious-perjury-instigation",
+          "request_id": "art152.pass1.004"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "context_only",
+      "id": "art152_sec2_5.instigator_malice_status",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "모해 목적이 있는 교사자가 모해 목적 없는 정범에게 위증을 교사한 경우, 다수설은 모해위증죄를 신분범으로 보지 않아 위증교사죄가 성립한다고 보지만, 소수설은 모해 목적을 형법 제33조 단서의 신분으로 보아 모해위증교사죄가 성립한다고 본다. 소개된 대법원 판시는 정범에게 모해 목적이 없어도 형법 제33조 단서에 따라 모해위증교사죄로 처단할 수 있다고 한다.",
+      "request_ids": [
+        "art152.pass1.004"
+      ],
+      "review_notes": "다수설과 소수설 및 commentary-reported 대법원 판시를 함께 보존한다. 대법원 판시의 원문과 사건 범위를 사용자 primary precedent index에서 확인한 뒤에만 판례 지향 정책을 선택해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅱ.5_37",
+          "quote": "모해위증죄는 신분범에 해당하지 않고 공범종속성설에 따라 위증교사죄가 성립 한다는 견해가 다수설이다.",
+          "section_path": "Ⅱ.5"
+        },
+        {
+          "comment_id": "comm_001692_제152조_Ⅱ.5_37",
+          "quote": "모해목적은 행위자 개인의 특별한 주관적 위험성을 나타내는 행위자요소로서의 면이 강한 것으로 이해되 므로 형법 제33조 단서의 신분에 포섭할 수 있다는 전제 아래 모해위증죄를 신 분범으로 파악하여 교사범에 대해서는 모해위증교사죄가 성립한다고 한다.",
+          "section_path": "Ⅱ.5"
+        },
+        {
+          "comment_id": "comm_001692_제152조_Ⅱ.5_37",
+          "quote": "모해할 목적으로 위증을 교사한 피고인의 경우 정범에게 모해의 목 적이 없었다고 하더라도 형법 제33조 단서의 규정에 의하여 모해위증교사죄로 처단할 수 있다고 판시하였다.",
+          "section_path": "Ⅱ.5"
+        }
+      ],
+      "variant_group": "art152_sec2_5.instigator_malice_status"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope에는 모해 목적이 있는 교사자와 모해 목적 없는 정범의 위증교사에 관한 단일 commentary section만 포함된다.",
+    "모해위증죄 주체, 위증죄와 증거인멸죄의 관계, 및 복수 피교사자에 대한 죄수에 관한 근거는 현재 source scope에 없다.",
+    "소개된 대법원 판시는 commentary-reported precedent이며 primary precedent index 확인 전에는 독립적인 primary authority로 취급할 수 없다."
+  ],
+  "issue_tag": "art152_sec2_5",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "모해 목적이 있는 교사자가 모해 목적 없는 정범에게 위증을 교사한 경우 위증교사죄가 성립하는지 모해위증교사죄가 성립하는지.",
+    "모해위증죄의 주체에 선서하지 않은 참고인 등을 포함할지, 법률에 따라 선서한 증인으로 한정할지.",
+    "위증죄와 증거인멸죄의 관계를 택일관계로 볼지, 위증죄가 증거인멸죄에 대한 특별관계에 있다고 볼지.",
+    "하나의 교사행위로 여러 사람에게 위증하게 한 경우 위증교사죄의 죄수를 실체적 경합범으로 볼지 상상적 경합으로 볼지.",
+    "소개된 대법원 판시의 원문, 선고 사건 및 적용 범위를 primary precedent index에서 확인해야 한다."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제152조_Ⅱ.5_37"
+    ],
+    "target_paths": [
+      "commentary://001692/제152조#sec2_5"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

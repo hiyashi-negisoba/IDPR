@@ -1,0 +1,116 @@
+{
+  "card_set_id": "kr.art297.art297.sec2.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.element.unrestricted-principal",
+          "request_id": "art297.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art297.unrestricted_principal",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "강간죄의 주체에는 제한이 없고 남성과 여성 모두 주체가 될 수 있다.",
+      "request_ids": [
+        "art297.pass1.001"
+      ],
+      "review_notes": "주체의 성별 제한이 없다는 commentary synthesis를 반영한 카드다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅱ_1",
+          "quote": "본죄의 주체에는 아무런 제한이 없다.",
+          "section_path": "Ⅱ"
+        },
+        {
+          "comment_id": "comm_001692_제297조_Ⅱ_1",
+          "quote": "현재 본죄의 객체가 ‘사람’ 으로 변경되었으므로 남성과 여성 모두 본죄의 주체가 된다.",
+          "section_path": "Ⅱ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.variant.indirect-perpetration",
+          "request_id": "art297.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art297.indirect_perpetration",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "강간죄는 자수범이 아니므로 간접정범 형태로 범할 수 있다.",
+      "request_ids": [
+        "art297.pass1.001"
+      ],
+      "review_notes": "강간죄가 자수범이 아니라는 설명에 한정하여 간접정범 가능성을 반영한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅱ_1",
+          "quote": "강간죄는 자수범 (⾃ 이 아니므로, 간접정범의 형태로 본죄를 범하는 것도 가능하다.",
+          "section_path": "Ⅱ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.exception.relative-special-act",
+          "request_id": "art297.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art297.relative_special_act",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "피해자와 4촌 이내 혈족·인척, 동거 친족 또는 동거 사실상 친족 관계에 있는 자가 범한 경우 성폭력범죄의 처벌 등에 관한 특례법 제5조 제1항이 적용된다고 소개되어 있다.",
+      "request_ids": [
+        "art297.pass1.001"
+      ],
+      "review_notes": "특례법 조문 원문과 적용 요건 및 법정형은 현재 commentary의 보고 범위에서만 확인되므로 검토가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅱ_1",
+          "quote": "피해자와 사이에 4촌 이내의 혈족·인척과 동거하는 친족 또는 동거하는 사실상의 관계에 있는 친족 관계에 있는 자가 본죄를 범하였을 경우에는 법정 형이 더 높은 성폭력범죄의 처벌 등에 관한 특례법 제5조 제1항",
+          "section_path": "Ⅱ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope는 제297조 Ⅱ의 주체 및 친족관계 특례법 언급에 한정되어 있다.",
+    "성폭력범죄의 처벌 등에 관한 특례법 제5조 제1항의 원문 및 적용 요건은 현재 source scope에 포함되지 않는다."
+  ],
+  "issue_tag": "art297_sec2",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "16세 미만 사람에 대한 간음에서 미성년자의제간음죄와 강간죄의 적용관계를 어떻게 정리할 것인지.",
+    "강간죄의 단독정범에서 간음행위 및 행위주체·객체의 성별 요건을 성귀속감 등을 고려하는 기준과 함께 어떻게 적용할 것인지.",
+    "배우자가 강간죄 객체인지에 관하여 배우자 제외설, 혼인관계 파탄 시에만 인정하는 견해, 간음 개념에 따른 제외설, 배우자 포함설 중 어느 견해를 채택할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제297조_Ⅱ_1"
+    ],
+    "target_paths": [
+      "commentary://001692/제297조#sec2"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

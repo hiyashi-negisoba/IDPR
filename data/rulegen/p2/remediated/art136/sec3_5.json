@@ -1,0 +1,88 @@
+{
+  "card_set_id": "kr.art136.art136.sec3_5.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art136.element.article136-2-violence-threat",
+          "request_id": "art136.pass1.006"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art136_sec3_5.act.violence_or_threat",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "직무·사직강요죄의 행위는 공무원에 대한 폭행 또는 협박이다.",
+      "request_ids": [
+        "art136.pass1.006"
+      ],
+      "review_notes": "폭행 또는 협박 해당성은 구체적 사실관계에 대한 법적 평가가 필요하다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제136조_Ⅲ.5_61",
+          "quote": "공무원에 대하여 폭행이나 협박을 하는 것이다.",
+          "section_path": "Ⅲ.5"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art136.causal-link.article136-2-completion",
+          "request_id": "art136.pass1.006"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art136_sec3_5.completion.abstract_danger",
+      "norm_kind": "causal_link",
+      "polarity": "positive",
+      "proposition": "직무·사직강요죄는 직무상 행위의 강요·저지 또는 사직을 목적으로 공무원에게 폭행 또는 협박을 하면 기수에 이르며, 공무원이 목적대로 직무행위를 하거나 하지 않거나 또는 사직하는지 여부는 성립에 영향을 주지 않는다.",
+      "request_ids": [
+        "art136.pass1.006"
+      ],
+      "review_notes": "목적의 존재와 그 내용은 구체적 사실관계에 대한 평가가 필요하며, 결과 발생은 성립요건으로 취급하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제136조_Ⅲ.5_61",
+          "quote": "상적 위험범으로서 공무원에 대하여 그 직무상의 행위를 강요 또는 저지하거나 그 직을 사퇴하게 할 목적으로 폭행 또는 협박을 함으로써 곧바로 기수에 이른 다고 보아야 한다.",
+          "section_path": "Ⅲ.5"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅲ.5_61",
+          "quote": "따라서 폭행이나 협박을 받은 공무원이 행위자가 목 (통설) 적한 대로 직무상의 행위를 하든 하지 아니하든 또는 공무원 직을 사퇴하든 하 지 아니하든 본죄의 성립에 영향이 없다.",
+          "section_path": "Ⅲ.5"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope는 제136조 Ⅲ.5의 단일 commentary section에 한정되어 있으며, 관련 판례 원문과 다른 해석론의 출처는 포함하지 않는다."
+  ],
+  "issue_tag": "art136_sec3_5",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "동일 공무를 집행하는 여러 공무원에 대한 폭행·협박의 죄수를 공무 수와 공무원 수 중 어느 기준으로 정할 것인지.",
+    "직무·사직강요죄에서 직무상 행위의 권한 범위, 적법성 요건 및 개인적 사정에 따른 사직 강요의 포섭 범위를 어떻게 정할 것인지.",
+    "직무·사직강요죄와 강요죄의 관계를 흡수관계로 볼지 상상적 경합으로 볼지.",
+    "직무·사직강요죄의 보호법익이 공무에 한정되는지 공무원의 지위도 포함하는지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제136조_Ⅲ.5_61"
+    ],
+    "target_paths": [
+      "commentary://001692/제136조#sec3_5"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

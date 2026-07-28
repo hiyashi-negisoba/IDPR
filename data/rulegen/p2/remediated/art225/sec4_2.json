@@ -1,0 +1,109 @@
+{
+  "card_set_id": "kr.art225.art225.sec4_2.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art225.element.intent-for-forgery",
+          "request_id": "art225.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art225_sec4_2.intent-for-forgery",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "본죄의 고의는 작성권한 없는 자가 공무소 또는 공무원 명의의 문서·도화를 작성한다는 사실을 인식하고 용인하는 것을 뜻한다.",
+      "request_ids": [
+        "art225.pass1.002"
+      ],
+      "review_notes": "고의의 인식·용인 여부는 개별 사실관계에 따른 평가가 필요하다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제225조_Ⅳ.2_15",
+          "quote": "본죄의 고의는 문서의 작성권한이 없는 자가 공무소, 공무원 명의의 문서, 도화를 작성 하는 것을 인식하고 용인하는 것을 말한다.",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art225.standard.unauthorized-substitution-map-intent",
+          "request_id": "art225.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art225_sec4_2.unauthorized-substitution-map-intent",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "도시계획 담당 공무원이 적법한 절차 없이 당초 도면을 정정도면으로 바꿔치기한 경우, 도면에 간인이 없거나 시장 승인이 예상된다는 사정만으로 공문서변조 및 변조공문서행사의 범의를 부정할 수 없다.",
+      "request_ids": [
+        "art225.pass1.002"
+      ],
+      "review_notes": "보고된 판례의 적용 범위와 원판례 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제225조_Ⅳ.2_15",
+          "quote": "시에서 도시계획 업무를 담당한 공무원이 적법한 절차를 거치지 않은 채 임의로 당초의 도면을 정정도면과 바꿔 치기 한 행위에 대하여는 공문서변조, 변조공문서행사의 범의를 넉넉히 인정할 수 있고, 도면에 간인이 없다거나 시장의 승인이 예상된다 하여 그 범의를 부정 할 수는 없다.",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art225.standard.unauthorized-addition-to-approved-document-intent",
+          "request_id": "art225.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art225_sec4_2.unauthorized-addition-approved-document-intent",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "기안담당자가 누락 토지를 사후에 일치시킬 생각으로 재산명세서에 추가 기재하였더라도, 적법한 절차 없이 결재된 원문서에 없는 사항을 임의로 추가한 이상 공문서변조의 범의를 인정하기에 충분하다.",
+      "request_ids": [
+        "art225.pass1.002"
+      ],
+      "review_notes": "보고된 판례의 사실관계 및 원판례 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제225조_Ⅳ.2_15",
+          "quote": "사후에 이를 일치시킨다는 생각에서 위 재산명세서상에 그 누락된 토지들을 추가 기재하였더라도 그 과정 에서 적법한 절차를 거침이 없이 임의로 결재된 원문서에 없는 사항을 추가 기 재한 이상 그러한 행위에 대하여는 공문서변조의 범의를 인정하기에 충분하다.",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "출전은 행사의 목적 외에도 고의가 요구된다는 별도의 주관적 요건 관계를 명시하지만, 카드 세트에는 고의의 정의와 사례별 판단만 있고 이 명제가 없으며 coverage_gaps도 비어 있다."
+  ],
+  "issue_tag": "art225_sec4_2",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "공문서위조죄에서 행사할 목적이 형법 제33조 적용상 신분에 해당하는지 여부와, 행사 의사 없이 가담한 자의 공범 성립 근거.",
+    "행사할 목적에 미필적 인식으로 충분한지, 아니면 적어도 직접적 인식이 필요한지 여부."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제225조_Ⅳ.2_15"
+    ],
+    "target_paths": [
+      "commentary://001692/제225조#sec4_2"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

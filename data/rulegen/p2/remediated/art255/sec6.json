@@ -1,0 +1,82 @@
+{
+  "card_set_id": "kr.art255.art255.sec6.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art255.element.multiple-preparations-single-offense",
+          "request_id": "art255.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art255_sec6.multiple_preparations_single_offense",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "하나의 살인범죄 실행을 위한 여러 예비행위는 상호 보완되어 전체로 하나의 준비행위가 되므로 하나의 살인예비죄가 성립한다.",
+      "request_ids": [
+        "art255.pass1.001"
+      ],
+      "review_notes": "동일한 하나의 살인범죄 실행을 위한 복수 예비행위의 죄수 관계에 한정된 정리다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제255조_Ⅵ_6",
+          "quote": "하나의 살인범죄 실행을 위해 여러 개의 예비행위가 있었던 경우에는 하나의 살인예비죄가 성립한다. 여러 개의 예비행위는 상호 보완되어 전체로서 하나의 준비행위가 되기 때문이다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art255.exception.attempt-or-completion-absorption",
+          "request_id": "art255.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art255_sec6.attempt_or_completion_absorption",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "살인예비·음모가 살인미수 또는 살인기수 단계에 이르면 예비·음모죄는 미수 또는 기수죄에 흡수되어 별도로 성립하지 않는다.",
+      "request_ids": [
+        "art255.pass1.001"
+      ],
+      "review_notes": "살인예비·음모와 살인미수 또는 살인기수의 보충관계 및 별도 성립 배제를 다룬다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제255조_Ⅵ_6",
+          "quote": "살인예비·음모죄와 살인미수 및 살인기수는 보충관계에 있으므로, 예비·음모가 발전하여 미수 또는 기수의 단계에 이른 때에는 본죄는 이에 흡수되어 별도로 성립하지 않는다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "실행 착수 전 예비·음모의 자발적 중지 또는 실행 착수 포기에 대한 중지미수 규정 적용 여부의 근거 자료가 현재 source scope에 없다.",
+    "예비죄와 중지미수의 형 균형, 예비죄 자수 감면규정의 유추적용, 예비중지 형 면제에 관한 근거 자료가 현재 source scope에 없다."
+  ],
+  "issue_tag": "art255_sec6",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "실행 착수 전 예비·음모를 자발적으로 중지하거나 실행 착수를 포기한 경우 중지미수 규정을 적용할지에 관하여 부정설과 긍정설 중 어느 견해를 채택할 것인지.",
+    "예비의 형이 중지미수의 형보다 무거운 경우 형의 균형을 위한 중지미수 규정 준용, 예비죄 자수 감면규정의 유추적용, 예비중지 형 면제 견해를 어떻게 다룰 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제255조_Ⅵ_6"
+    ],
+    "target_paths": [
+      "commentary://001692/제255조#sec6"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

@@ -1,0 +1,111 @@
+{
+  "card_set_id": "kr.art129.art129.sec2_4.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art129.variant-prior-and-simple-bribery-real-concurrence",
+          "request_id": "art129.pass1.003"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "context_only",
+      "id": "art129_sec2_4.prior_simple_bribery_real_concurrence",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "취임 전 청탁을 받고 요구·약속한 뒤 취임 후 그 요구·약속대로 수수한 경우, 취임 전 사전수뢰죄와 취임 후 단순수뢰죄가 모두 성립하여 실체적 경합범이라는 견해가 있을 수 있다.",
+      "request_ids": [
+        "art129.pass1.003"
+      ],
+      "review_notes": "취임 전 요구·약속과 취임 후 수수의 관계에 관하여 실체적 경합을 인정하는 견해로 보고되었으며, 순차적 요구·약속·수수 흡수 원칙과의 적용 관계를 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제129조_Ⅱ.4_30",
+          "quote": "공무원이나 중재인으로 되기 전에 청탁을 받고 요구 또는 약속을 하고 공무원이 나 중재인이 되고 나서 그 요구 또는 약속대로 수수한 경우에는 그 신분 취득 전 의 사전수뢰죄(요구, 약속)와 신분 취득 후의 단순수뢰죄(수수)가 모두 성립하고 이 를 실체적 경합범으로 보는 견해도 있을 수 있다.",
+          "section_path": "Ⅱ.4"
+        }
+      ],
+      "variant_group": "art129_sec2_4.prior_simple_bribery_concurrence"
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art129.standard.sequential-demand-promise-and-receipt",
+          "request_id": "art129.pass1.003"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art129_sec2_4.sequential_demand_promise_receipt_absorption",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "같은 사람이 뇌물의 요구·약속·수수를 순차적으로 한 경우 뇌물수수죄만 성립하고, 뇌물요구죄와 뇌물약속죄는 뇌물수수죄에 흡수된다.",
+      "request_ids": [
+        "art129.pass1.003"
+      ],
+      "review_notes": "동일인에 의한 요구·약속·수수의 순차성 및 흡수 여부를 평가 입력으로 다룬다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제129조_Ⅱ.4_30",
+          "quote": "같은 사람에 대하여 요 구·약속·수수를 순차적으로 하는 경우에는 뇌물수수죄만 성립하고, 뇌물요구죄 또는 뇌물약속죄는 뇌물수수죄에 흡수되므로",
+          "section_path": "Ⅱ.4"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art129.exception-false-prospective-official-fraud-only",
+          "request_id": "art129.pass1.003"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art129_sec2_4.false_prospective_official_fraud_only",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "공무원 또는 중재인이 될 것처럼 상대방을 기망하여 사전수뢰죄에 해당하는 행위를 했더라도 실제로 공무원 또는 중재인이 되는 요건을 갖추지 못하면 사기죄만 성립한다.",
+      "request_ids": [
+        "art129.pass1.003"
+      ],
+      "review_notes": "실제로 공무원 또는 중재인이 되는 요건을 갖추지 못한 경우 사전수뢰죄 성립을 배제하는 명시적 부정 규범이다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제129조_Ⅱ.4_30",
+          "quote": "무원 또는 중재인이 될 것처럼 상대방을 기망하여 본죄를 범하였으면 ‘공무원이 나 중재인이 된다’는 요건을 갖추지 못한 이상 사기죄만 성립한다.",
+          "section_path": "Ⅱ.4"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope는 제129조 Ⅱ.4의 단일 commentary source에 한정되어 있으며, 관련 판례 원문 확인은 포함되지 않는다.",
+    "공무원 또는 중재인이 된 때의 법적 성격 및 선거 입후보자의 사전수뢰죄 주체성에 관한 근거는 현재 source scope에 없다."
+  ],
+  "issue_tag": "art129_sec2_4",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "공무원 또는 중재인이 된 때를 객관적 처벌조건으로 보는 통설의 해석을 채택할 것인지.",
+    "선거 입후보자가 사전수뢰죄의 주체가 될 수 있는지, 그리고 요구되는 당선 가능성의 정도에 관한 견해 대립 중 어느 견해를 채택할 것인지.",
+    "취임 전 요구·약속 후 취임 뒤 수수가 이루어진 경우 사전수뢰죄와 단순수뢰죄의 실체적 경합을 인정할 것인지, 아니면 순차적 요구·약속·수수의 흡수 원칙을 적용할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제129조_Ⅱ.4_30"
+    ],
+    "target_paths": [
+      "commentary://001692/제129조#sec2_4"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

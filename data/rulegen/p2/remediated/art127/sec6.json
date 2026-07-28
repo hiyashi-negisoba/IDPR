@@ -1,0 +1,113 @@
+{
+  "card_set_id": "kr.art127.art127.sec6.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art127.variant.whistleblowing-true-misconduct-justification",
+          "request_id": "art127.pass1.002"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "policy_variant",
+      "id": "art127_sec6.whistleblowing_true_misconduct_justification",
+      "norm_kind": "variant",
+      "polarity": "exception",
+      "proposition": "직무상 비밀 누설이 내부 부정·비리 고발이고 그 내용이 진실인 경우, 비리 은폐로 인한 국가기능상 피해가 더 크므로 정당행위로 위법성이 조각된다는 견해가 있다.",
+      "request_ids": [
+        "art127.pass1.002"
+      ],
+      "review_notes": "내부 부정·비리 고발에 관한 진실성 기준의 견해로서, 제한적 위법성 조각 기준과의 선택 및 적용 범위를 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제127조_Ⅵ_18",
+          "quote": "그 내용이 진실일 때는 정당행 위로서 위법성이 조각된다는 견해가 있다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "variant_group": "art127_sec6.whistleblowing_justification"
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art127.variant.whistleblowing-limited-justification",
+          "request_id": "art127.pass1.002"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "policy_variant",
+      "id": "art127_sec6.whistleblowing_limited_justification",
+      "norm_kind": "variant",
+      "polarity": "exception",
+      "proposition": "직무상 비밀 누설의 위법성 조각은 명백하고 중대한 헌법·법률 위반, 적절한 시정책을 구한 후의 무효과, 위법상태 방지·제거 목적이 있는 경우에 한정되어야 한다는 견해가 있다.",
+      "request_ids": [
+        "art127.pass1.002"
+      ],
+      "review_notes": "내부 고발 목적 누설에 관한 제한적 견해다. 명백·중대한 위법, 시정 시도 무효과, 방지·제거 목적의 요건 및 진실성 기준과의 관계를 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제127조_Ⅵ_18",
+          "quote": "명백하고 중대한 헌법위반이나 법률위반이 있고 적절 한 시정책을 구한 후에도 효과가 없었으며 누설의 목적이 그 위법상태의 발생 의 방지 내지 제거에 있는 경우에 한하여 위법성이 조각된다고 보아야 한다는 견해도 있을 수 있다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "variant_group": "art127_sec6.whistleblowing_justification"
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art127.exception.statutorily-required-corruption-report",
+          "request_id": "art127.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art127_sec6.statutorily_required_corruption_report",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "법령에 의한 직무상 비밀이 다른 공직자의 부패행위에 관한 것이어서 수사기관 등에 신고하는 과정에서 누설된 경우에는 법령에 의한 정당행위로 위법성이 조각된다.",
+      "request_ids": [
+        "art127.pass1.002"
+      ],
+      "review_notes": "법령상 신고 과정에서의 누설에 한정된 정당행위 예외로 검토한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제127조_Ⅵ_18",
+          "quote": "이를 수사기관 등에 신고하는 과정에서 직무상 비밀이 누설되더라도 법령에 의한 정당행위로서 위법성이 조각된다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "본 입력은 제127조 Ⅵ절의 내부 고발 및 법령상 부패신고 관련 위법성 조각 자료에 한정되어 있으며, 추상적 위험범·구체적 위험범 구별 자료는 제공되지 않았다.",
+    "이미 비밀을 아는 사람에 대한 고지와 불능미수에 관한 자료는 제공되지 않았다.",
+    "비밀 수령자의 교사범 또는 공동정범 성립에 관한 자료는 제공되지 않았다.",
+    "내부 고발 위법성 조각에 관한 판례 원문 또는 법령 원문은 현재 source scope에 포함되지 않았다."
+  ],
+  "issue_tag": "art127_sec6",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "내부 부정·비리 고발을 위한 비밀 누설의 위법성 조각 요건을 진실성·비밀유지 가치 부재 기준으로 볼 것인지, 명백·중대한 위법 및 시정 시도 등을 요구하는 제한적 기준으로 볼 것인지.",
+    "이미 비밀을 알고 있는 사람에게 알리는 행위가 누설에 해당하지 않는다는 설명과 이를 불능미수로 보는 견해를 어떻게 구별·평가할 것인지.",
+    "직무상 비밀을 누설받은 자가 적극적으로 누설을 부추긴 경우 교사범 또는 공동정범이 될 수 있다는 견해를 채택할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제127조_Ⅵ_18"
+    ],
+    "target_paths": [
+      "commentary://001692/제127조#sec6"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

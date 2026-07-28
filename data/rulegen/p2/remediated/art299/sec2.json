@@ -1,0 +1,108 @@
+{
+  "card_set_id": "kr.art299.art299.sec2.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art299.element.unrestricted-principal",
+          "request_id": "art299.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art299.principal.unrestricted",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "본죄의 주체에는 제한이 없고 남성과 여성 모두 주체가 될 수 있다.",
+      "request_ids": [
+        "art299.pass1.001"
+      ],
+      "review_notes": "주체의 성별 또는 신분 제한이 없다는 범위에서만 기계적으로 열거 가능한 관계로 정리했다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제299조_Ⅱ_1",
+          "quote": "본죄의 주체에는 아무런 제한이 없다. 남성과 여자 모두 본죄의 주체가 된다.",
+          "section_path": "Ⅱ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art299.variant.self-offense-affirmative",
+          "request_id": "art299.pass1.001"
+        },
+        {
+          "candidate_id": "art299.variant.not-self-offense-majority",
+          "request_id": "art299.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "context_only",
+      "id": "art299.self_offense.status",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "본죄가 자수범인지에 관하여, 간음 또는 추행을 스스로 실행하는 데 불법이 있어 자수범이라는 견해와 공동정범 또는 간접정범 형태로도 실행할 수 있어 자수범이 아니라는 통설이 대립한다.",
+      "request_ids": [
+        "art299.pass1.001"
+      ],
+      "review_notes": "자수범설과 비자수범 통설을 모두 보존했다. 공동정범 또는 간접정범 적용 여부는 primary precedent index 및 추가 권위 검토 후에만 선택한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제299조_Ⅱ_1",
+          "quote": "본죄는 그 불법이 간음 또는 추행을 스스로 실행하는 데 있음을 이유로 자수범",
+          "section_path": "Ⅱ"
+        },
+        {
+          "comment_id": "comm_001692_제299조_Ⅱ_1",
+          "quote": "이라는 견해가 있으나",
+          "section_path": "Ⅱ"
+        },
+        {
+          "comment_id": "comm_001692_제299조_Ⅱ_1",
+          "quote": "본죄의 보호법익은 개인의 성적 자기결정의 자",
+          "section_path": "Ⅱ"
+        },
+        {
+          "comment_id": "comm_001692_제299조_Ⅱ_1",
+          "quote": "유를 보호하는 데 있고 공동정범 또는 간접정범의 형태로 실행할 수 있기 때문",
+          "section_path": "Ⅱ"
+        },
+        {
+          "comment_id": "comm_001692_제299조_Ⅱ_1",
+          "quote": "에 자수범이 아니라는 것이 통설이다.",
+          "section_path": "Ⅱ"
+        }
+      ],
+      "variant_group": "art299.self_offense.status"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope에는 제299조 제2절의 주체 및 자수범성 논의만 포함되어 있으며, 심신상실·심신미약 및 항거불능의 구체적 기준에 관한 source references가 없다.",
+    "공동정범 또는 간접정범으로의 실행 가능성에 관한 commentary-reported doctrine은 있으나, 해당 입장을 확인할 primary precedent index는 제공되지 않았다."
+  ],
+  "issue_tag": "art299_sec2",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "본죄가 자수범인지, 공동정범 또는 간접정범으로 실행 가능한 비자수범인지에 관한 견해 대립을 어떻게 처리할 것인지.",
+    "심신미약을 제299조의 심신상실에 포함할지, 제302조의 별도 규정을 이유로 제외할지.",
+    "의료행위 또는 종교적 권위·신뢰를 이용한 성적 행위에서 피해자의 인식 결여를 항거불능 부정 사유로 볼지, 심리적 항거불능으로 볼지.",
+    "제299조의 심신상실을 형법 제10조 제1항과 동일하게 볼지, 성적 자기방어 불능의 다른 사유까지 포함하는 더 넓은 개념으로 볼지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제299조_Ⅱ_1"
+    ],
+    "target_paths": [
+      "commentary://001692/제299조#sec2"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

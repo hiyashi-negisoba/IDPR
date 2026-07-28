@@ -1,0 +1,95 @@
+{
+  "card_set_id": "kr.art301.art301.sec4_4.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art301.standard.injury-recognition-factors",
+          "request_id": "art301.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art301_sec4_4.injury_recognition_factors",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "상해 인정 여부에서는 상처가 일상생활에서 흔히 발생할 수 있는지, 별다른 치료 없이 단기간 내 자연치유되는지, 그리고 피해자가 피해 후 곧바로 상처를 자각하여 의사에게 호소했는지를 고려한다.",
+      "request_ids": [
+        "art301.pass1.002"
+      ],
+      "review_notes": "제공된 인용문이 명시한 상해 인정 요소에 한정한 평가 기준이다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제301조_Ⅳ.4_11",
+          "quote": "상해의 인정 여부에 중요한 영향을 미친 요소를 추출하여 본다면, ⅰ) 상처가 일상생활에서 흔히 발생할 수 있는 것인지 여부 및 별다른 치료 없이도 단기간 내에 자연치유가 되는 것인지 여부, ⅱ) 피해자가 피해를 당한 후 곧바로 상처",
+          "section_path": "Ⅳ.4"
+        },
+        {
+          "comment_id": "comm_001692_제301조_Ⅳ.4_11",
+          "quote": "를 자각하고 의사에게 호소하였는지 여부",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art301.standard.minor-broader-injury",
+          "request_id": "art301.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art301_sec4_4.minor_broader_injury",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "판례는 피해자가 미성년자인 경우 상해의 범위를 다소 넓게 인정하는 경향이 있다.",
+      "request_ids": [
+        "art301.pass1.002"
+      ],
+      "review_notes": "댓글이 보고한 판례 경향이며, 원판례 확인 전에는 commentary-reported precedent로 유지한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제301조_Ⅳ.4_11",
+          "quote": "판례는 피해자가 미성년자인 경우",
+          "section_path": "Ⅳ.4"
+        },
+        {
+          "comment_id": "comm_001692_제301조_Ⅳ.4_11",
+          "quote": "에는 상해의 범위를 다소 넓게 인정하는 경향이 있다.",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope는 제301조 Ⅳ.4의 단일 commentary source에 한정되어 있다.",
+    "상해 판단 요소 중 실제 치료·투약, 피해자의 성행위 경험·연령, 상해진단서 기재에 관한 인용문은 현재 제공된 source_refs에 포함되어 있지 않다.",
+    "사용자 제시 미해결 쟁점에 관한 공모자 결과적 가중범, 원하지 않는 임신의 상해성, 기본범 미수와 결과적 가중범의 기수·미수 구별 자료는 현재 source scope에 없다."
+  ],
+  "issue_tag": "art301_sec4_4",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "강간 등 치상죄에서 단순 공모자에 대한 결과적 가중범 공동정범을 인정할 것인지, 동시범 처리 견해를 채택할 것인지.",
+    "강간 후 원하지 않는 임신을 상해로 볼 것인지에 관하여 임신긍정설과 임신부정설 중 어느 견해를 채택할 것인지.",
+    "특수강간의 기본범죄가 미수에 그치고 상해·사망 결과가 발생한 경우 결과적 가중범의 미수를 인정할 것인지, 또는 기수범으로 볼 것인지.",
+    "미성년 피해자에 대한 상해 범위 확대 경향을 뒷받침하는 원판례를 확인해야 한다."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제301조_Ⅳ.4_11"
+    ],
+    "target_paths": [
+      "commentary://001692/제301조#sec4_4"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

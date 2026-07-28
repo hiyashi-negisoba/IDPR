@@ -1,0 +1,110 @@
+{
+  "card_set_id": "kr.art137.art137.sec3.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art137.definition.object-includes-future-duty",
+          "request_id": "art137.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art137_sec3.duty_includes_future_execution",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "본죄의 직무집행은 현재의 직무집행뿐 아니라 장래의 직무집행도 포함한다.",
+      "request_ids": [
+        "art137.pass1.001"
+      ],
+      "review_notes": "현재 또는 장래의 직무집행인지 여부를 구별하는 범위 규칙으로 검토한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제137조_Ⅲ_2",
+          "quote": "본죄의 직무집행은 협의의 공무집행방해죄에서의 직무 집행과 달리 현재의 직무집행뿐만 아니라 장래의 직무집행을 포함하는 개념이다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art137.standard.supreme-court-deception-and-mistaken-official-act",
+          "request_id": "art137.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art137_sec3.deception_causing_mistaken_official_act",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "행위목적을 위해 상대방에게 오인·착각·부지를 일으켜 이를 이용함으로써 법령상 위임된 공무원의 적법한 직무에 관해 그릇된 행위 또는 처분을 하게 한 경우 본죄가 성립한다는 대법원 판시가 소개되어 있다.",
+      "request_ids": [
+        "art137.pass1.001"
+      ],
+      "review_notes": "오인·착각·부지의 발생, 이용, 그리고 그릇된 행위 또는 처분의 관계는 사실관계에 대한 평가가 필요하다. 소개된 대법원 판시는 primary precedent index로 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제137조_Ⅲ_2",
+          "quote": "대법원은 위계에 의한 공무집행방해죄는 행위목적을 이루기 위하여 상대방에게 오인, 착각 또는 부지를 일으키게 하여 이를 이용함으로써 법령에 의하여 위임 된 공무원의 적법한 직무에 관하여 그릇된 행위나 처분을 하게 하는 경우에 성 립하고",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art137.definition.non-authoritative-official-activity",
+          "request_id": "art137.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art137_sec3.non_authoritative_official_activity",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "적법한 공무집행에는 공권력 행사를 내용으로 하는 권력적 작용뿐 아니라 사경제 주체로서의 활동 등 비권력적 작용도 포함된다는 대법원 판시가 소개되어 있다.",
+      "request_ids": [
+        "art137.pass1.001"
+      ],
+      "review_notes": "문제된 활동이 공무원의 적법한 직무에 해당하는지는 활동의 성격과 법령상 위임을 검토해야 한다. 소개된 대법원 판시는 primary precedent index로 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제137조_Ⅲ_2",
+          "quote": "공권력의 행사를 내용으로 하는 권력적 작용뿐만 아니라 사경제 주체로서의 활동을 비롯한 비권력적 작용도 포함되는 것으로 보아야 한다고 판 시하였다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope는 제137조 Ⅲ의 단일 commentary source에 한정되어 있다.",
+    "소개된 대법원 판시의 primary precedent index 확인이 필요하다."
+  ],
+  "issue_tag": "art137_sec3",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "위계에 의한 공무집행방해죄를 구체적 위험범으로 볼 것인지, 통설로 소개된 추상적 위험범으로 볼 것인지.",
+    "유혹의 수단을 사용하는 행위가 위계에 포함되는지에 관하여 긍정설과 부정설 중 어느 견해를 채택할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제137조_Ⅲ_2"
+    ],
+    "target_paths": [
+      "commentary://001692/제137조#sec3"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

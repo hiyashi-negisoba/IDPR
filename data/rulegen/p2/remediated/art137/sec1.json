@@ -1,0 +1,82 @@
+{
+  "card_set_id": "kr.art137.art137.sec1.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art137.variant.abstract-danger-offense",
+          "request_id": "art137.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "policy_variant",
+      "id": "art137_sec1.abstract_danger_offense",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "위계에 의한 공무집행방해죄는 추상적 위험범에 해당한다는 통설이 소개되어 있다.",
+      "request_ids": [
+        "art137.pass1.001"
+      ],
+      "review_notes": "통설로 소개된 추상적 위험범 견해이며, 구체적 위험범 견해와의 선택은 법률검토가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제137조_Ⅰ_0",
+          "quote": "추상적 위험범에 해당한다는 견해가 통설이다.",
+          "section_path": "Ⅰ"
+        }
+      ],
+      "variant_group": "art137_sec1.danger_offense_character"
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art137.variant.concrete-danger-offense",
+          "request_id": "art137.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "policy_variant",
+      "id": "art137_sec1.concrete_danger_offense",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "위계에 의한 공무집행방해죄는 구체적 위험범에 해당한다는 견해가 있다.",
+      "request_ids": [
+        "art137.pass1.001"
+      ],
+      "review_notes": "구체적 위험범 견해는 추상적 위험범 통설 소개와 별개의 경쟁 견해로 보존한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제137조_Ⅰ_0",
+          "quote": "본죄가 구체적 위험 범에 해당한다는 견해가 있으나",
+          "section_path": "Ⅰ"
+        }
+      ],
+      "variant_group": "art137_sec1.danger_offense_character"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope에는 위계의 의미 및 유혹의 수단을 사용하는 행위에 관한 긍정설·부정설의 근거가 포함되어 있지 않다.",
+    "현재 source scope에는 위험범 성격에 관한 primary precedent 또는 statutory text가 포함되어 있지 않다."
+  ],
+  "issue_tag": "art137_sec1",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "위계에 의한 공무집행방해죄를 구체적 위험범으로 볼 것인지, 통설로 소개된 추상적 위험범으로 볼 것인지.",
+    "유혹의 수단을 사용하는 행위가 위계에 포함되는지에 관하여 긍정설과 부정설 중 어느 견해를 채택할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제137조_Ⅰ_0"
+    ],
+    "target_paths": [
+      "commentary://001692/제137조#sec1"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

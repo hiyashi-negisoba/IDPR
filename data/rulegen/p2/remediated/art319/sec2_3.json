@@ -1,0 +1,86 @@
+{
+  "card_set_id": "kr.art319.art319.sec2_3.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art319.definition-occupied-room",
+          "request_id": "art319.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art319_sec2_3.occupied_room_building_partition",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "점유하는 방실은 건조물 내에서 사실상 지배·관리되는 일정한 구획을 말한다.",
+      "request_ids": [
+        "art319.pass1.002"
+      ],
+      "review_notes": "건조물 내 사실상 지배·관리되는 구획이라는 설명과 건조물 외 이동수단 내부 공간을 포함한다는 학설의 관계를 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제319조_Ⅱ.3_18",
+          "quote": "‘점유하는 방실’은 건조물 내에서 사실상 지배·관리되는 일정한 구획을 말한 다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "variant_group": "art319_sec2_3.occupied_room_scope"
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art319.variant-occupied-room-not-limited-to-building",
+          "request_id": "art319.pass1.002"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "context_only",
+      "id": "art319_sec2_3.occupied_room_transport_variant",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "점유하는 방실을 건조물 내 구획으로 한정할 필요가 없다는 견해에 따르면, 토지에 정착하지 않은 자동차·버스·기차 및 선박·항공기 내 승무원실·객실도 점유하는 방실이 될 수 있다.",
+      "request_ids": [
+        "art319.pass1.002"
+      ],
+      "review_notes": "이 견해의 판례상 채택 여부 및 차량·선박·항공기 내부 공간에 적용되는 범위를 primary precedent index로 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제319조_Ⅱ.3_18",
+          "quote": "학설 중에는 점유하는 방실을 건조물 내의 일정한 구획으로 한정할 필요가 없 다면서 토지에 정착되어 있지 않는 자동차, 버스나 기차, 선박·항공기 내의 승무 원실, 객실 등도 점유하는 방실에 해당될 수 있다는 견해가 있다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "variant_group": "art319_sec2_3.occupied_room_scope"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "건조물의 토지 정착성 및 비닐하우스·간이 건조물의 포함 여부에 관한 source material이 현재 범위에 없다.",
+    "주거 개념 및 피해자 사망 직후 주거침입의 성립 여부에 관한 source material이 현재 범위에 없다.",
+    "차량·선박·항공기 내부 공간을 점유하는 방실로 인정하는지에 관한 primary precedent index 확인이 필요하다."
+  ],
+  "issue_tag": "art319_sec2_3",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "건조물을 부동산에 한정하여 토지 정착성을 요구할 것인지, 비닐하우스·간이 건조물 등 부동산이 아닌 구조물도 포함할 것인지.",
+    "점유하는 방실을 건조물 내부의 구획에 한정할 것인지, 차량·선박·항공기 내부 공간까지 포함할 것인지.",
+    "주거의 개념을 기거·침식에 사용하는 장소로 한정할 것인지, 일상생활을 위해 점거하는 장소까지 포함할 것인지.",
+    "피해자 사망 직후 그 주거에 들어간 경우 사망자의 사실상 주거평온을 인정하여 주거침입죄를 성립시킬 것인지.",
+    "점유하는 방실의 건조물 내 구획 정의와 이동수단 내부 공간을 포함한다는 학설의 우선관계를 판례 원문으로 확인해야 한다."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제319조_Ⅱ.3_18"
+    ],
+    "target_paths": [
+      "commentary://001692/제319조#sec2_3"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

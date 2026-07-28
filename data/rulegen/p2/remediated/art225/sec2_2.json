@@ -1,0 +1,85 @@
+{
+  "card_set_id": "kr.art225.art225.sec2_2.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art225.exception-personal-debt-document",
+          "request_id": "art225.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art225.personal_debt_document_not_public",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "개인 채무부담의 의사표시 문서는 다른 사정이 없으면 경험칙이나 논리칙상 공적 문서로 볼 수 없다.",
+      "request_ids": [
+        "art225.pass1.001"
+      ],
+      "review_notes": "개인 채무부담 문서인지와 공적 문서성을 달리 볼 수 있는 다른 사정의 존재는 사실관계별 평가가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제225조_Ⅱ.2_5",
+          "quote": "개인 채무부담의 의견표시인 문서는 다른 사정이 없는 한 경험칙이나 논리칙상 공적 문서로 볼 수 없다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art225.exception-false-original-not-alteration-object",
+          "request_id": "art225.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art225.false_original_not_alteration_object",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "이미 허위로 작성된 공문서는 공문서변조죄의 객체가 되지 않는다.",
+      "request_ids": [
+        "art225.pass1.001"
+      ],
+      "review_notes": "원문서가 이미 허위로 작성되었는지는 변조 대상성 판단에서 별도의 사실 분류로 확인한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제225조_Ⅱ.2_5",
+          "quote": "이미 허위로 작성된 공문서는 공문서변조죄",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제225조_Ⅱ.2_5",
+          "quote": "의 객체가 되지 않는다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "국제협약·조약에 따라 국내에서도 효력이 있는 외국 공문서의 제225조 객체성에 관한 다수설 및 반대견해의 구체적 근거는 현재 source scope에 없다."
+  ],
+  "issue_tag": "art225_sec2_2",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "국제협약·조약에 따라 국내에서도 효력이 있는 외국 공문서를 제225조의 객체로 볼 것인지에 관하여 다수설과 이를 과도한 확장해석으로 보는 견해 중 어느 입장을 채택할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제225조_Ⅱ.2_5"
+    ],
+    "target_paths": [
+      "commentary://001692/제225조#sec2_2"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

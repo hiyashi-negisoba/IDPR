@@ -1,0 +1,109 @@
+{
+  "card_set_id": "kr.art231.art231.sec3_1.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.definition.forgery",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec3_1.forgery_definition",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "문서위조는 작성권한 없는 자가 타인 명의의 문서를 작성하는 행위이다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "작성권한의 유무는 별도 판단기준 카드에 따라 검토한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.1_5",
+          "quote": "문서위조는 작성권한 없는 자가 타인 명의의 문서를 작성하는 것을 말한다",
+          "section_path": "Ⅲ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.authority-determination",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec3_1.authority_determination",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "작성명의인의 작성권한 침해 여부 및 작성권한의 유무는 법규, 계약, 거래관행 및 당사자 의사 등을 고려하여 개별적·구체적으로 판단한다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "작성권한 및 그 침해 여부는 법규, 계약, 거래관행 및 당사자 의사를 사실관계별로 평가해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.1_5",
+          "quote": "위조에 해당하려면 작성명의인의 작성권한이 침해되어야 하는데, 작성권한의 유 무는 법규·계약·거래관행·당사자의 의사 등을 고려하여 개별적·구체적으로 판 단하여야 한다.",
+          "section_path": "Ⅲ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.fictitious-or-deceased-nominee",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art231_sec3_1.fictitious_or_deceased_nominee",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "사문서에서 명의인이 실재하지 않는 허무인이거나 작성일 전에 사망하였더라도, 그러한 문서가 공공의 신용을 해할 위험성이 있으면 본죄가 성립한다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "공공의 신용을 해할 위험성 및 commentary가 보고한 판시의 원문·적용범위를 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.1_6",
+          "quote": "사문서의 경우에도 공문서와 같이 명의인이 실재하지 않는 허무인이거나 또는 문서의 작성일자 전에 이미 사망하 였더라도 그러한 문서 역시 공공의 신용을 해할 위험성이 있으므로 본죄가 성 립한다고 판시함으로써, 위의 어느 경우건 본죄가 성립하게 되었다.",
+          "section_path": "Ⅲ.1"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "허무인 또는 사망한 명의인 관련 판시의 primary precedent source는 현재 source scope에 포함되어 있지 않다."
+  ],
+  "issue_tag": "art231_sec3_1",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "허무인 또는 작성일 전 사망한 명의인에 관한 commentary-reported precedent의 원문과 적용범위를 사용자 primary precedent index에서 확인해야 한다."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제231조_Ⅲ.1_5",
+      "comm_001692_제231조_Ⅲ.1_6"
+    ],
+    "target_paths": [
+      "commentary://001692/제231조#sec3_1"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}

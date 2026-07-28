@@ -1,0 +1,98 @@
+{
+  "card_set_id": "kr.art263.art263.sec2.norms.v1",
+  "cards": [
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art263.variant.burden-shifting-theory",
+          "request_id": "art263.pass1.001"
+        },
+        {
+          "candidate_id": "art263.variant.legal-presumption-theory",
+          "request_id": "art263.pass1.001"
+        },
+        {
+          "candidate_id": "art263.variant.legal-fiction-theory",
+          "request_id": "art263.pass1.001"
+        },
+        {
+          "candidate_id": "art263.variant.factual-presumption-theory",
+          "request_id": "art263.pass1.001"
+        },
+        {
+          "candidate_id": "art263.variant.dual-theory",
+          "request_id": "art263.pass1.001"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "context_only",
+      "id": "art263_sec2.legal_character_variants",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "제263조의 법적 성질에 관하여 거증책임전환설, 법률상 추정설, 법률상 의제설, 사실상 추정설 및 이원설이 대립한다.",
+      "request_ids": [
+        "art263.pass1.001"
+      ],
+      "review_notes": "각 견해는 제263조의 인과관계, 공동정범 책임 및 거증 구조에 서로 다른 효과를 부여하므로 하나의 실행 규칙으로 선택하지 않는다. 1차 자료와 판례 지표를 확인하여 적용 견해를 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제263조_Ⅱ_1",
+          "quote": "증명의 어려움을 구제하기 위하여 소송 법적으로 피고인에게 자기의 행위로 상해의 결과가 발생하지 않았음을 증명할 거증책임을 지운 것이라는 거증책임전환설",
+          "section_path": "Ⅱ"
+        },
+        {
+          "comment_id": "comm_001692_제263조_Ⅱ_1",
+          "quote": "각 행위자의 행위가 결과발생 의 원인인 것으로 추정하고 따라서 각자가 법률상으로 공동정범의 책임을 지는 것으로 추정한다는 법률상 추정설",
+          "section_path": "Ⅱ"
+        },
+        {
+          "comment_id": "comm_001692_제263조_Ⅱ_1",
+          "quote": "공동정범이 아닌 것을 공동정범으로 의제한 규정으로 (복수의 단독범) 이해하고, 원인행위가 판명되지 못하면 개별행위와 결과 사이의 인과관계를 검",
+          "section_path": "Ⅱ"
+        },
+        {
+          "comment_id": "comm_001692_제263조_Ⅱ_1",
+          "quote": "토할 필요 없이 공동정범의 기수가 된다고 보는 법률상 의제설",
+          "section_path": "Ⅱ"
+        },
+        {
+          "comment_id": "comm_001692_제263조_Ⅱ_1",
+          "quote": "행위와 상 해 결과 사이에 인과관계의 존재가 사실상 추정되지만, 피고인이 반증을 제출하 면 거증책임이 원칙으로 돌아가 검사에게 있게 된다는 사실상 추정설",
+          "section_path": "Ⅱ"
+        },
+        {
+          "comment_id": "comm_001692_제263조_Ⅱ_1",
+          "quote": "소 송법적으로는 상해의 결과 발생에 대한 거증책임을 피고인에게 전환시킨 것인 동시에 실체법적으로는 공동정범의 범위를 확장시키는 일종의 의제를 정한 것 이라는 이원설",
+          "section_path": "Ⅱ"
+        }
+      ],
+      "variant_group": "art263_sec2.legal_character"
+    }
+  ],
+  "construction": "api_merged",
+  "coverage_gaps": [
+    "현재 source scope에는 제263조의 법문, 적용요건, 적용 범죄 유형 및 관련 판례 원문이 포함되어 있지 않다.",
+    "‘공동정범의 예에 의한다’의 의미와 각 학설의 판례상 채택 여부를 확인할 1차 법령 및 판례 자료가 필요하다."
+  ],
+  "issue_tag": "art263_sec2",
+  "legal_review": "pending",
+  "legal_review_questions": [
+    "‘공동정범의 예에 의한다’는 것이 처벌방식의 원용인지, 실체적 공동정범의 성립 또는 의제인지.",
+    "독립행위의 시간적·장소적 근접성을 제263조 적용요건으로 요구할 것인지.",
+    "상해치사죄 및 폭행치사죄의 사망 결과에 제263조 특례를 적용할 것인지, 그리고 적용 시 인과관계와 예견가능성을 별도로 요구할 것인지.",
+    "순수한 과실치상죄 및 중상해죄·존속중상해죄에 제263조 특례를 적용할 것인지.",
+    "제263조의 법적 성질을 거증책임전환, 법률상 추정, 법률상 의제, 사실상 추정 또는 이원설 중 어느 견해로 이해할 것인지."
+  ],
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제263조_Ⅱ_1"
+    ],
+    "target_paths": [
+      "commentary://001692/제263조#sec2"
+    ]
+  },
+  "status": "draft",
+  "version": "1.1.0"
+}
