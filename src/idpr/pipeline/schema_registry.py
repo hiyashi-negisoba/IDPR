@@ -1,7 +1,7 @@
 """
 schema_registry.py
 Defines the 32 Datalog Input Predicates Schema Registry for P1+P2 criminal law fact extraction.
-Synchronized 1:1 with KCL Specification §4.1, Prompts, and Scallop Datalog rules.
+Provides valid OpenAI/vLLM JSON Schema (Draft 7) for structured neural output.
 """
 
 from __future__ import annotations
@@ -58,6 +58,49 @@ PREDICATE_SCHEMA_REGISTRY: Dict[str, Any] = {
     }
 }
 
-def get_predicate_names() -> list[str]:
-    pred_dict = PREDICATE_SCHEMA_REGISTRY.get("predicates", {})
-    return list(pred_dict.keys())
+def get_fact_graph_json_schema() -> Dict[str, Any]:
+    """Generates valid OpenAI / vLLM JSON Schema Draft 7 for Stage 1 Neural Fact Graph."""
+    predicate_list = list(PREDICATE_SCHEMA_REGISTRY["predicates"].keys())
+    return {
+        "type": "object",
+        "properties": {
+            "case_id": {"type": "string"},
+            "actors": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "entity_id": {"type": "string"},
+                        "roles": {
+                            "type": "array",
+                            "items": {"type": "string"}
+                        }
+                    },
+                    "required": ["entity_id", "roles"],
+                    "additionalProperties": False
+                }
+            },
+            "facts": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "fact_id": {"type": "string"},
+                        "predicate": {
+                            "type": "string",
+                            "enum": predicate_list
+                        },
+                        "statement": {"type": "string"},
+                        "arguments": {
+                            "type": "array",
+                            "items": {"type": "string"}
+                        }
+                    },
+                    "required": ["fact_id", "predicate", "statement", "arguments"],
+                    "additionalProperties": False
+                }
+            }
+        },
+        "required": ["case_id", "actors", "facts"],
+        "additionalProperties": False
+    }

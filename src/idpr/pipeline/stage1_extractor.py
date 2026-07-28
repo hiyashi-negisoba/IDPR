@@ -1,6 +1,7 @@
 """
 stage1_extractor.py
 Stage 1: Neural Fact Extraction module using Gemma 4 via vLLM.
+Uses valid JSON Schema (Draft 7) for vLLM structured output execution.
 """
 
 from __future__ import annotations
@@ -10,7 +11,7 @@ from pathlib import Path
 from typing import Any, Dict
 
 from idpr.neural.vllm_client import VLLMClient
-from idpr.pipeline.schema_registry import PREDICATE_SCHEMA_REGISTRY
+from idpr.pipeline.schema_registry import get_fact_graph_json_schema
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 STAGE1_PROMPT_PATH = PROJECT_ROOT / "prompts/kcl_1730_fact_extract.md"
@@ -21,7 +22,7 @@ class Stage1Extractor:
     def __init__(self, client: VLLMClient | None = None) -> None:
         self.client = client
         self.system_prompt = STAGE1_PROMPT_PATH.read_text(encoding="utf-8")
-        self.schema = PREDICATE_SCHEMA_REGISTRY
+        self.schema = get_fact_graph_json_schema()
 
     def extract_facts(self, case_data: Dict[str, Any]) -> Dict[str, Any]:
         """Runs Stage 1 neural fact extraction."""
@@ -36,7 +37,7 @@ class Stage1Extractor:
 위 사실관계에서 사건에 나타난 인물, 점유/소유관계, 실행행위, 고의, 결과, 인과관계 및 32개 Datalog Input Predicate 릴레이션 팩트를 추출하여 JSON으로 출력하십시오."""
 
         if self.client is not None:
-            # vLLM Live Execution with Structured Output Schema
+            # vLLM Live Execution with Valid Draft 7 JSON Schema
             response, _ = self.client.complete_json(
                 system_prompt=self.system_prompt,
                 user_template=user_prompt,
