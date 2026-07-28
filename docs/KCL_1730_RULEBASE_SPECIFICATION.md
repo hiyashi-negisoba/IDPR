@@ -99,7 +99,7 @@ flowchart TD
 
 형법각론 전체(P1 450개 + P2 1,280개 = 1,730개 Rule IR)를 작동시키는 입력 Predicate(원자적 팩트 술어)의 전체 검색 공간(Search Universe)은 **정확히 32개 유니크 원소**로 구성됩니다.
 
-### 4.1. 32개 유니크 입력 Predicate 전수 목록 (Canonical 32 Predicates)
+### 4.1. 33개 유니크 입력 Predicate 전수 목록 (Canonical 33 Predicates)
 
 | 번호 | 층위 (Level) | 유니크 Predicate 명칭 | 입력 인자 (Arguments) | 구체적 의미 및 역할 |
 | :---: | :--- | :--- | :--- | :--- |
@@ -123,18 +123,19 @@ flowchart TD
 | **18** | Level 2 | `document_forgery(c, doc)` | `(c: case, doc: document)` | 문서 $doc$를 위조/변조함 |
 | **19** | Level 2 | `public_duty_obstruction(c, a)`| `(c: case, a: act)` | 공무원의 직무집행 방해 |
 | **20** | Level 2 | `dereliction_of_duty(c, a)` | `(c: case, a: act)` | 공무원의 직무유기/포기 |
-| **21** | Level 3 | `unlawful_intent(c, kind)` | `(c: case, kind: string)` | 주관적 고의 (`murder`, `theft`, `fraud`, `arson`, `injury`, `embezzlement`, `breach`) |
-| **22** | Level 3 | `true_purpose(c, detail)` | `(c: case, detail: string)` | 내심의 진정한 목적 |
-| **23** | Level 3 | `knowledge_of_fact(c, detail)`| `(c: case, detail: string)` | 범죄 사실에 대한 인식/악의 |
-| **24** | Level 4 | `result_occurred(c, res)` | `(c: case, res: string)` | 결과 발생 (`death` 사망, `bodily_injury` 상해, `property_loss` 손해) |
-| **25** | Level 4 | `independent_combustion(c, pl)`| `(c: case, pl: place)` | 건물 $pl$에 불이 옮겨 붙어 독립 연소 개시 |
-| **26** | Level 4 | `causation_established(c, cause, res)`| `(c: case, cause: act, res: string)` | 행위와 결과 사이의 인과관계 인정 |
-| **27** | Level 4 | `building_type(c, pl, type)`| `(c: case, pl: place, type: string)` | 장소 $pl$의 성상 (`dwelling` 주거, `general` 일반, `public` 공용) |
-| **28** | Level 4 | `public_danger_occurred(c, detail)`| `(c: case, detail: string)` | 공공의 위험 발생 |
-| **29** | Level 6~7| `consent_given(c, p)` | `(c: case, p: person)` | 피해자 $p$의 유효한 승낙 존재 |
-| **30** | Level 6~7| `self_defense_claimed(c)` | `(c: case)` | 정당방위 요건 존재 |
-| **31** | Level 6~7| `necessity_claimed(c)` | `(c: case)` | 긴급피난 요건 존재 |
-| **32** | Level 6~7| `insanity_claimed(c)` | `(c: case)` | 심신상실/미약 상태 존재 |
+| **21** | Level 2 | `bribery_delivery_committed(c, g, r)`| `(c: case, g: person, r: person)` | 뇌물 전달/제공을 위한 교부/수수 행위 |
+| **22** | Level 3 | `unlawful_intent(c, kind)` | `(c: case, kind: string)` | 주관적 고의 (`murder`, `theft`, `fraud`, `arson`, `injury`, `embezzlement`, `breach`) |
+| **23** | Level 3 | `true_purpose(c, detail)` | `(c: case, detail: string)` | 내심의 진정한 목적 |
+| **24** | Level 3 | `knowledge_of_fact(c, detail)`| `(c: case, detail: string)` | 범죄 사실에 대한 인식/악의 |
+| **25** | Level 4 | `result_occurred(c, res)` | `(c: case, res: string)` | 결과 발생 (`death` 사망, `bodily_injury` 상해, `property_loss` 손해) |
+| **26** | Level 4 | `independent_combustion(c, pl)`| `(c: case, pl: place)` | 건물 $pl$에 불이 옮겨 붙어 독립 연소 개시 |
+| **27** | Level 4 | `causation_established(c, cause, res)`| `(c: case, cause: act, res: string)` | 행위와 결과 사이의 인과관계 인정 |
+| **28** | Level 4 | `building_type(c, pl, type)`| `(c: case, pl: place, type: string)` | 장소 $pl$의 성상 (`dwelling` 주거, `general` 일반, `public` 공용) |
+| **29** | Level 4 | `public_danger_occurred(c, detail)`| `(c: case, detail: string)` | 공공의 위험 발생 |
+| **30** | Level 6~7| `consent_given(c, p)` | `(c: case, p: person)` | 피해자 $p$의 유효한 승낙 존재 |
+| **31** | Level 6~7| `self_defense_claimed(c)` | `(c: case)` | 정당방위 요건 존재 |
+| **32** | Level 6~7| `necessity_claimed(c)` | `(c: case)` | 긴급피난 요건 존재 |
+| **33** | Level 6~7| `insanity_claimed(c)` | `(c: case)` | 심신상실/미약 상태 존재 |
 
 
 ### 4.2. 사건 규모별 팩트 튜플 추출 수치 (Target Range)

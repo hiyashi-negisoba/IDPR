@@ -97,7 +97,7 @@ class Stage2SymbolicReasoner:
                 tmp_path = tmp.name
 
             cmd = [str(self.scli_binary), tmp_path]
-            res = subprocess.run(cmd, capture_output=True, text=True, timeout=15)
+            res = subprocess.run(cmd, capture_output=True, text=True, timeout=45)
             scallop_output_raw = res.stdout + "\n" + res.stderr
             os.remove(tmp_path)
 

@@ -1,6 +1,6 @@
 """
 schema_registry.py
-Defines the 32 Datalog Input Predicates Schema Registry for P1+P2 criminal law fact extraction.
+Defines the 33 Datalog Input Predicates Schema Registry for P1+P2 criminal law fact extraction.
 Provides valid OpenAI/vLLM JSON Schema (Draft 7) for structured neural output.
 """
 
@@ -10,7 +10,7 @@ from typing import Any, Dict
 
 PREDICATE_SCHEMA_REGISTRY: Dict[str, Any] = {
     "version": "1.0.0",
-    "description": "Schema registry of 32 Datalog input predicates for P1 property and P2 non-property crimes",
+    "description": "Schema registry of 33 Datalog input predicates for P1 property and P2 non-property crimes",
     "predicates": {
         # 1. 당사자 및 신분 (6)
         "actor": {"datalog": "rel actor(c: string, p: string)", "description": "Accused / Defendant"},
@@ -36,6 +36,7 @@ PREDICATE_SCHEMA_REGISTRY: Dict[str, Any] = {
         "force_or_threat": {"datalog": "rel force_or_threat(c: string, degree: string)", "description": "Violence or intimidation"},
         "document_forgery": {"datalog": "rel document_forgery(c: string, doc: string)", "description": "Document forgery"},
         "public_duty_obstruction": {"datalog": "rel public_duty_obstruction(c: string, act: string)", "description": "Obstruction of public duty"},
+        "dereliction_of_duty": {"datalog": "rel dereliction_of_duty(c: string, a: string)", "description": "Dereliction of duty by public servant"},
         "bribery_delivery_committed": {"datalog": "rel bribery_delivery_committed(c: string, giver: string, recipient: string)", "description": "Accepting money with knowledge of bribery delivery purpose"},
 
         # 4. 고의 및 내심 (3)

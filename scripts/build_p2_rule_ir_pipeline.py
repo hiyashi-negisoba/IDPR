@@ -159,7 +159,7 @@ def step_synthesize_full_1730_scallop():
         "type intrusion_theft_concurrence(String)",
         "rel intrusion_theft_concurrence(c) = dwelling_intrusion_established(c), theft_established(c)",
         "",
-        "// Query Declarations",
+        "// Query Declarations for Scallop Reasoning",
         "query theft_established",
         "query fraud_established",
         "query embezzlement_established",
@@ -170,9 +170,6 @@ def step_synthesize_full_1730_scallop():
         "query bribery_fraud_concurrence",
         "query intrusion_theft_concurrence"
     ])
-
-    for qname in compiled_rule_names:
-        scl_lines.append(f"query {qname}")
 
     OUT_SCL_PATH.write_text("\n".join(scl_lines) + "\n", encoding="utf-8")
     print(f"✅ Successfully compiled {card_count} unique rule cards into {OUT_SCL_PATH} ({len(scl_lines)} lines)")

@@ -28,23 +28,32 @@ def normalize_case_no(c):
 
 def main():
     repo_root = "/home/jaehoonjeong/data/IDPR"
-    p2_dir = os.path.join(repo_root, "data/rulegen/p2/remediated")
+    rulegen_dir = os.path.join(repo_root, "data/rulegen")
     comm_path = "/data5/jaehoonjeong/sp/data/serve/commentary_chunks/docs.parquet"
     out_path = os.path.join(repo_root, "data/card_case_metadata_map.json")
-
-    print(f"[1/4] Loading P2 Remediated Rule Cards from {p2_dir}...")
+    print(f"[1/4] Loading ALL P1+P2 Rule Cards from {rulegen_dir}...")
     all_cards = []
-    for root, dirs, files in os.walk(p2_dir):
+    seen_ids = set()
+    for root, dirs, files in os.walk(rulegen_dir):
         for f in files:
-            if f.endswith(".json"):
+            if f.endswith(".json") and "metadata" not in f and "card_case_metadata_map.json" not in f:
                 fpath = os.path.join(root, f)
                 try:
                     data = json.load(open(fpath, "r", encoding="utf-8"))
-                    cards = data.get("cards", [])
+                    cards = []
+                    if isinstance(data, dict):
+                        cards = data.get("cards") or data.get("rule_cards") or []
+                    elif isinstance(data, list):
+                        cards = data
                     if isinstance(cards, list):
-                        all_cards.extend(cards)
+                        for c in cards:
+                            if isinstance(c, dict):
+                                cid = c.get("id") or c.get("card_id") or c.get("rule_code")
+                                if cid and cid not in seen_ids:
+                                    seen_ids.add(cid)
+                                    all_cards.append(c)
                 except Exception as e:
-                    print(f"  Warning: failed to read {fpath}: {e}")
+                    pass
 
     print(f"      Total Cards collected: {len(all_cards)}")
 
