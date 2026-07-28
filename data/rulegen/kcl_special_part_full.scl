@@ -1,7 +1,7 @@
 // KCL (Korean Criminal Law) Special Part Unified Scallop Datalog Engine
 // Total Formalized Core Rules: 1,730 (P1 Property 450 + P2 Non-Property 1,280)
 
-// 32 Datalog Relational Types Definition (String-based schema)
+// 32 Datalog Relational Types Definition (Generic String-based schema)
 type actor(String, String)
 type victim(String, String)
 type deceived_person(String, String)
@@ -42,7 +42,7 @@ type insanity_claimed(String)
 
 // P1 Property Crime Derived Rules
 type theft_established(String)
-rel theft_established(c) = actor(c, _), action_committed(c, _), unlawful_intent(c, "theft")
+rel theft_established(c) = actor(c, _), action_committed(c, _), unlawful_taking(c, _, _), unlawful_intent(c, "theft")
 
 type fraud_established(String)
 rel fraud_established(c) = actor(c, _), deception_committed(c, _), disposition_committed(c, _), unlawful_intent(c, "fraud"), result_occurred(c, "property_loss")
