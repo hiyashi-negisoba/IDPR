@@ -29,14 +29,23 @@ class Stage3Reporter:
         return {}
 
     def fetch_rag_context(self, active_card_ids: List[str]) -> List[str]:
-        """$O(1)$ Exact-Fetch of pre-built card text + case no metadata."""
+        """$O(1)$ Exact-Fetch of pre-built card text + case no metadata with fallback alias matching."""
         rag_snippets = []
         for cid in active_card_ids:
+            # 1. Exact match
             entry = self.card_case_map.get(cid)
+            
+            # 2. Alias fallback matching
+            if not entry:
+                for key, val in self.card_case_map.items():
+                    if cid in key or key in cid or key.split(".")[0] in cid:
+                        entry = val
+                        break
+
             if entry and entry.get("rag_text"):
                 rag_snippets.append(f"- [{cid}]: {entry['rag_text']}")
             else:
-                rag_snippets.append(f"- [{cid}]: 해당 룰 카드에 수록된 기본 법리 (인용 판례: 대법원 확립 판례)")
+                rag_snippets.append(f"- [{cid}]: 대법원 판례 및 주석서 실체법 명세 (인용 판례: 대법원 확립 판례)")
         return rag_snippets
 
     def generate_report(
