@@ -1,0 +1,16 @@
+// ── 사실층 ─────────────────────────────────────────────────────
+// 콜 1이 채운다. 라벨은 idpr.rulebase.facts의 닫힌 서술 어휘만 허용된다.
+// 규범적 결론(폭행·추행·기망·주거…)은 사실이 아니라 카드가 판정한다.
+type person(String, String)  // case, entity
+type role(String, String, String)  // case, entity, roleLabel
+type act(String, String, String, String)  // case, actId, actorEntity, actLabel
+type act_target(String, String, String)  // case, actId, entity
+type act_object(String, String, String)  // case, actId, objectLabel
+type act_place(String, String, String)  // case, actId, placeLabel
+type act_circumstance(String, String, String)  // case, actId, circumstanceLabel
+type purpose(String, String, String)  // case, actId, purposeLabel
+type result(String, String, String)  // case, resultLabel, entity
+type causation(String, String, String, String)  // case, actId, resultLabel, attributionLabel
+type relation(String, String, String, String)  // case, entityA, entityB, relationLabel
+type holds(String, String, String, String)  // case, entity, objectLabel, holdLabel
+type precedes(String, String, String)  // case, earlierActId, laterActId

@@ -25,6 +25,21 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from idpr.rulebase.cards import load_card_corpus  # noqa: E402
+from idpr.rulebase.facts import (  # noqa: E402
+    FACT_PREDICATES,
+    VOCABULARIES,
+    scl_fact_layer,
+    vocabulary_size,
+)
+from idpr.rulebase.formalization import (  # noqa: E402
+    CONCURRENCE_SEED,
+    MODEL_ASSESS,
+    NARRATIVE,
+    SKELETON_META,
+    STAGE_SEED,
+    route_corpus,
+    routing_summary,
+)
 from idpr.rulebase.skeleton import (  # noqa: E402
     CONCURRENCE,
     CONTEXT,
@@ -43,6 +58,41 @@ OUT_DIR = PROJECT_ROOT / "data/rulebase"
 SKELETON_PATH = OUT_DIR / "element_skeleton.json"
 REVIEW_PATH = OUT_DIR / "element_skeleton_review.md"
 CENSUS_PATH = OUT_DIR / "card_census.json"
+FACT_LAYER_PATH = OUT_DIR / "fact_layer.scl"
+TRIAGE_PATH = OUT_DIR / "card_routing.json"
+
+
+def build_triage_payload(routings, corpus) -> dict:
+    """Every card's routing decision, grouped by route with the proposition inline.
+
+    The propositions are included because the routes feed hand-authored artefacts next
+    (the stage table and ``concurrence.yaml``), and those cannot be drafted from card ids.
+    """
+    by_id = corpus.by_id
+    grouped: dict[str, list[dict]] = {}
+    for routing in sorted(routings, key=lambda r: (r.article, r.slot, r.card_id)):
+        grouped.setdefault(routing.route, []).append(
+            {
+                "card_id": routing.card_id,
+                "article": routing.article,
+                "slot": routing.slot,
+                "norm_kind": routing.norm_kind,
+                "corpus_formalization": routing.corpus_formalization,
+                "open_texture_markers": list(routing.open_texture_markers),
+                "frames_matched": list(routing.frames_matched),
+                "proposition": by_id[routing.card_id].proposition,
+            }
+        )
+    return {
+        "version": "1.0.0",
+        "summary": routing_summary(routings),
+        "fact_layer": {
+            "predicates": len(FACT_PREDICATES),
+            "labels": vocabulary_size(),
+            "vocabularies": {name: len(labels) for name, labels in VOCABULARIES.items()},
+        },
+        "by_route": grouped,
+    }
 
 
 def build_card_census(corpus) -> dict:
@@ -328,6 +378,8 @@ def main() -> int:
     classifications = derive_skeleton(corpus)
     census = build_card_census(corpus)
     summary = skeleton_summary(classifications)
+    routings = route_corpus(corpus)
+    routing = routing_summary(routings)
 
     print("=== card census ===")
     print(
@@ -345,6 +397,22 @@ def main() -> int:
         f"({summary['review_by_priority']})"
     )
     print(f"articles without a core slot: {summary['articles_without_core_slot']}")
+    print()
+    print("=== fact layer ===")
+    print(f"  {len(FACT_PREDICATES)} predicates, {vocabulary_size()} closed labels")
+    print()
+    print("=== card routing ===")
+    for route, count in routing["by_route"].items():
+        print(f"  {route:18} {count:5}")
+    print(
+        f"open-textured {routing['open_textured']} "
+        f"({routing['open_textured_by_corpus_label']})"
+    )
+    print(
+        f"symbolic seeds {routing['symbolic_seed_cards']} cards "
+        f"over {routing['symbolic_seed_articles']} articles; "
+        f"routing disagrees with formalization on {routing['contradicting_cards']}"
+    )
 
     if args.check:
         return 0
@@ -367,8 +435,16 @@ def main() -> int:
     REVIEW_PATH.write_text(
         render_review_markdown(classifications, corpus), encoding="utf-8"
     )
+    TRIAGE_PATH.write_text(
+        json.dumps(
+            build_triage_payload(routings, corpus), ensure_ascii=False, indent=2
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    FACT_LAYER_PATH.write_text(scl_fact_layer() + "\n", encoding="utf-8")
     print()
-    for path in (CENSUS_PATH, SKELETON_PATH, REVIEW_PATH):
+    for path in (CENSUS_PATH, SKELETON_PATH, REVIEW_PATH, TRIAGE_PATH, FACT_LAYER_PATH):
         print(f"wrote {path.relative_to(PROJECT_ROOT)}")
     return 0
 
