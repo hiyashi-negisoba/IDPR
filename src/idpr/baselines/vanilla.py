@@ -1,0 +1,65 @@
+"""
+vanilla.py
+Baseline 1: Vanilla LLM (Zero-shot Direct Prompting)
+Strict compliance with Rule 7 (No Fake Execution).
+"""
+
+from __future__ import annotations
+
+from typing import Any, Dict
+from idpr.baselines.base import BaseBaseline
+from idpr.neural.vllm_client import VLLMClient
+
+class VanillaBaseline(BaseBaseline):
+    """Vanilla Zero-shot LLM Baseline."""
+
+    def __init__(self, client: VLLMClient | None = None) -> None:
+        super().__init__(
+            baseline_id="vanilla_zero_shot",
+            name="Vanilla LLM (Zero-shot)",
+            description="Direct zero-shot parametric reasoning by LLM without additional context or structured prompt."
+        )
+        self.client = client
+
+    def run_case(self, case_data: Dict[str, Any]) -> Dict[str, Any]:
+        question_text = case_data.get("question_text", "")
+        question_prompt = case_data.get("question_prompt", "")
+        sub_question_id = case_data.get("sub_question_id", case_data.get("case_id", "UNKNOWN"))
+
+        system_prompt = (
+            "당신은 대한민국 형사법 전문 법률 전문가입니다. "
+            "주어진 사실관계와 질문을 바탕으로 형사상 죄책 및 법리적 결론을 명확하고 논리적으로 서술하십시오."
+        )
+        user_prompt = f"다음 사실관계를 읽고 질문에 답하십시오.\n\n[사실관계 및 질문]\n{question_text}\n\n{question_prompt}"
+
+        if self.client is not None:
+            try:
+                response_text = self.client.complete_text(
+                    system_prompt=system_prompt,
+                    user_template=user_prompt,
+                    temperature=0.0,
+                    max_tokens=4096
+                )
+            except Exception as e:
+                response_text = f"[vLLM Direct Call Failure: {e}]"
+        else:
+            # Rule 7 (No Fake Execution): Transparent reporting when LLM client is offline
+            response_text = (
+                f"[Vanilla Zero-Shot Baseline Output (Offline / vLLM Unconnected Mode)]\n"
+                f"• Case ID: {sub_question_id}\n"
+                f"• System Prompt Configured: '{system_prompt[:50]}...'\n"
+                f"• (Note: vLLM server is not connected. Output generation skipped to strictly satisfy Rule 7: No Fake Execution)"
+            )
+
+        return {
+            "sub_question_id": sub_question_id,
+            "baseline_id": self.baseline_id,
+            "name": self.name,
+            "question_prompt": question_prompt,
+            "generated_response": response_text,
+            "reasoning_trace": {
+                "method": "zero_shot_direct",
+                "vllm_connected": self.client is not None,
+                "system_prompt": system_prompt
+            }
+        }
