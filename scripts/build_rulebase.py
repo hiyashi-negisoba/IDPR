@@ -40,6 +40,11 @@ from idpr.rulebase.formalization import (  # noqa: E402
     route_corpus,
     routing_summary,
 )
+from idpr.rulebase.review import (  # noqa: E402
+    parse_review,
+    review_summary,
+    verdict_map,
+)
 from idpr.rulebase.skeleton import (  # noqa: E402
     CONCURRENCE,
     CONTEXT,
@@ -60,6 +65,64 @@ REVIEW_PATH = OUT_DIR / "element_skeleton_review.md"
 CENSUS_PATH = OUT_DIR / "card_census.json"
 FACT_LAYER_PATH = OUT_DIR / "fact_layer.scl"
 TRIAGE_PATH = OUT_DIR / "card_routing.json"
+ROLE_REVIEW_PATH = OUT_DIR / "role_review.json"
+
+
+def build_role_review_payload(verdicts, classifications, corpus) -> dict:
+    """The reviewer's card-level verdicts, plus which queue items are still open.
+
+    Emitted as a build artefact rather than kept only in the markdown so that the roles
+    the symbolic layer consumes come from one parsed source. The open items are listed
+    because a queue item with no annotation keeps its automatic role, and that needs to
+    be visible rather than assumed.
+    """
+    reviewed_items = {verdict.item for verdict in verdicts}
+    blocking = sorted(
+        (c for c in classifications if c.review_priority == "blocking"),
+        key=lambda c: (c.article, c.slot),
+    )
+    advisory = sorted(
+        (c for c in classifications if c.review_priority == "advisory"),
+        key=lambda c: (c.article, c.slot),
+    )
+    labelled = [
+        (f"B{index}", c) for index, c in enumerate(blocking, 1)
+    ] + [(f"A{index}", c) for index, c in enumerate(advisory, 1)]
+    open_items = [
+        {
+            "item": item,
+            "slot": c.slot,
+            "article": c.article,
+            "automatic_role": c.role,
+            "cards": c.card_count,
+        }
+        for item, c in labelled
+        if item not in reviewed_items
+    ]
+    return {
+        "version": "1.0.0",
+        "summary": review_summary(verdicts),
+        "open_queue_items": open_items,
+        "card_roles": [
+            {
+                "card_id": verdict.card_id,
+                "role": verdict.role,
+                "slot": verdict.slot,
+                "article": verdict.article,
+                "item": verdict.item,
+                "card_index": verdict.card_index,
+                "applies_to_whole_slot": verdict.applies_to_whole_slot,
+                "tentative": verdict.tentative,
+                "conditional": verdict.conditional,
+                "has_question": verdict.has_question,
+                "comment": verdict.comment,
+                "proposition": corpus.by_id[verdict.card_id].proposition,
+            }
+            for verdict in sorted(
+                verdicts, key=lambda v: (v.article, v.slot, v.card_index)
+            )
+        ],
+    }
 
 
 def build_triage_payload(routings, corpus) -> dict:
@@ -365,12 +428,32 @@ def render_review_markdown(classifications, corpus) -> str:
     return "\n".join(lines)
 
 
+#: The marker the reviewer's annotations use. Its presence makes the review document a
+#: hand-edited legal artefact rather than build output.
+_ANNOTATION_MARKER = "> comment:"
+
+
+def _review_is_annotated() -> bool:
+    return (
+        REVIEW_PATH.is_file()
+        and _ANNOTATION_MARKER in REVIEW_PATH.read_text(encoding="utf-8")
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--check",
         action="store_true",
         help="report the census and skeleton without writing artefacts",
+    )
+    parser.add_argument(
+        "--rewrite-review",
+        action="store_true",
+        help=(
+            "regenerate element_skeleton_review.md even when it carries the reviewer's "
+            "annotations. Discards them -- they are legal review, not build output."
+        ),
     )
     args = parser.parse_args()
 
@@ -380,6 +463,8 @@ def main() -> int:
     summary = skeleton_summary(classifications)
     routings = route_corpus(corpus)
     routing = routing_summary(routings)
+    verdicts = parse_review(corpus=corpus) if REVIEW_PATH.is_file() else ()
+    review = review_summary(verdicts)
 
     print("=== card census ===")
     print(
@@ -414,6 +499,16 @@ def main() -> int:
         f"routing disagrees with formalization on {routing['contradicting_cards']}"
     )
 
+    print()
+    print("=== reviewed card roles ===")
+    print(
+        f"  {review['verdicts']} verdicts over {review['items']} queue items "
+        f"({summary['needs_review']} queued)"
+    )
+    for role, count in review["by_role"].items():
+        print(f"  {role:15} {count:4}")
+    print(f"  slots split across roles: {len(review['slots_split_across_roles'])}")
+
     if args.check:
         return 0
 
@@ -432,9 +527,18 @@ def main() -> int:
         + "\n",
         encoding="utf-8",
     )
-    REVIEW_PATH.write_text(
-        render_review_markdown(classifications, corpus), encoding="utf-8"
-    )
+    written = [CENSUS_PATH, SKELETON_PATH]
+    if _review_is_annotated() and not args.rewrite_review:
+        print(
+            f"\nskipped {REVIEW_PATH.relative_to(PROJECT_ROOT)}: it carries the "
+            f"reviewer's annotations. Pass --rewrite-review to regenerate it, which "
+            f"discards them."
+        )
+    else:
+        REVIEW_PATH.write_text(
+            render_review_markdown(classifications, corpus), encoding="utf-8"
+        )
+        written.append(REVIEW_PATH)
     TRIAGE_PATH.write_text(
         json.dumps(
             build_triage_payload(routings, corpus), ensure_ascii=False, indent=2
@@ -443,8 +547,18 @@ def main() -> int:
         encoding="utf-8",
     )
     FACT_LAYER_PATH.write_text(scl_fact_layer() + "\n", encoding="utf-8")
+    ROLE_REVIEW_PATH.write_text(
+        json.dumps(
+            build_role_review_payload(verdicts, classifications, corpus),
+            ensure_ascii=False,
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    written += [TRIAGE_PATH, FACT_LAYER_PATH, ROLE_REVIEW_PATH]
     print()
-    for path in (CENSUS_PATH, SKELETON_PATH, REVIEW_PATH, TRIAGE_PATH, FACT_LAYER_PATH):
+    for path in written:
         print(f"wrote {path.relative_to(PROJECT_ROOT)}")
     return 0
 

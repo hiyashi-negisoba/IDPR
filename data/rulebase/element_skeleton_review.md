@@ -145,7 +145,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | # | norm_kind | polarity | formalization | 명제 |
 |---:|---|---|---|---|
 | 1 | element | positive | deterministic_rule | 수뢰죄는 공무원 또는 중재인이 직무에 관하여 뇌물을 수수·요구 또는 약속한 때 성립한다. |
-
+> comment: context (만약 수뢰죄에서 구성요건 다루는 카드가 없다면 core)
 ### B2. art250 · `art250_sec1_9` — 이른바 ‘시신 없는 살인’
 
 - 제안 역할: **`core`**  |  카드 3장 (standard_input 3)  |  사유: title matched no bucket
@@ -155,7 +155,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | 1 | standard | positive | standard_input | 살인죄처럼 법정형이 무거운 범죄도 직접증거 없이 간접증거만으로 유죄를 인정할 수 있고, 시체가 발견되지 않아도 관련 간접증거를 상호 관련하에 종합적으로 고찰하여 살인 공소사실을 인정할 수 있다. |
 | 2 | element | positive | standard_input | 시신 없는 살인사건에서 유죄를 인정하려면 피해자의 사망, 피고인의 살의, 피고인 행위에 의한 피해자 사망이 요구된다고 판례 입장을 정리할 수 있다. |
 | 3 | standard | negative | standard_input | 시신이 없고 사망 경위·살해방법·피고인의 구체적 행동 및 원인행위가 불명하며, 피고인 행위와 사망을 직접 연결할 객관적 흔적이나 의미 있는 정황적 접점이 부족하고 다른 사망 가능성을 배제할 수 없는 사안에서는 살인죄 책임을 인정하기 어렵다는 대법원 판단이 소개되어 있다. |
-
+> comment: 1, 2, 3 context
 ### B3. art301 · `art301_sec4_5` — 수면 또는 의식불명의 상태, 외상 후 스트레스 장애 등
 
 - 제안 역할: **`context`**  |  카드 4장 (standard_input 4)  |  사유: commentary parse artifact, not a heading
@@ -166,7 +166,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | 2 | definition | positive | standard_input | 심각한 외상 후 나타나는 외상 후 스트레스 장애도 상해로 인정될 수 있다. |
 | 3 | standard | positive | standard_input | 수면유도 약물로 피해자가 일시적 수면 또는 의식불명 상태가 되고 건강상태가 불량하게 변경되거나 생활기능 장애가 초래되면, 외부 상처가 없거나 자연 회복하더라도 상해에 해당한다. |
 | 4 | standard | positive | standard_input | 성범죄 후 외상 후 스트레스 장애의 상해 여부 및 인과관계는 피해자가 필연적으로 겪는 정도의 증상인지, 의사 진단·소견, 범행 내용, 구체적 증상, 치료 내용과 경과, 기존 정신과 치료 전력 등을 고려하여 판단한다. |
-
+> comment: all context
 ### B4. art328 · `art328_sec6_3` — (예컨대 산
 
 - 제안 역할: **`context`**  |  카드 2장 (standard_input 0)  |  사유: commentary parse artifact, not a heading
@@ -175,7 +175,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 |---:|---|---|---|---|
 | 1 | exception | exception | deterministic_rule | 2022년 1월 28일 이후 범하여진 장애인 피해 재산범죄 중 장애인복지법상 장애인학대관련범죄에 해당하는 제355조, 제356조 및 제357조의 횡령·배임 관련 범죄에는 친족상도례가 적용되지 않는다. |
 | 2 | exception | exception | deterministic_rule | 재산범죄를 가중처벌하는 특별법에서도 형법상 재산범죄의 성질이 유지되는 경우, 친족상도례 배제의 명시적 규정이 없으면 친족상도례가 적용된다. |
-
+> comment: all context
 ### B5. art335 · `art335_sec3_3` — 범죄의 흔적 인멸
 
 - 제안 역할: **`context`**  |  카드 1장 (standard_input 1)  |  사유: title matched no bucket
@@ -183,7 +183,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | # | norm_kind | polarity | formalization | 명제 |
 |---:|---|---|---|---|
 | 1 | definition | positive | standard_input | 범죄 흔적 인멸은 절도범이 검거될 때 범행의 증명자료가 되는 증거를 소멸시키는 것을 말하며, 범행 목격자 또는 증거물 인멸에 장애가 되는 사람에게 죄증을 무효화할 목적으로 폭행·협박하는 경우를 포함한다. |
-
+> comment: core - 준강도에 대하여 한정되는 카드지?
 ### B6. art335 · `art335_sec7_1` — (형법 제342조)
 
 - 제안 역할: **`context`**  |  카드 2장 (standard_input 2)  |  사유: commentary parse artifact, not a heading
@@ -192,7 +192,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 |---:|---|---|---|---|
 | 1 | variant | positive | standard_input | 준강도의 기수·미수는 절취행위가 기수에 이르렀는지를 기준으로 정한다. |
 | 2 | standard | positive | standard_input | 대법원은 준강도의 기수 여부를 절도행위의 기수 여부를 기준으로 판단하여야 한다고 하여 준강도미수를 인정하는 입장으로 변경하였다. |
-
+> comment: 1번 stage, 2번 context
 ### B7. art337 · `art337_sec3_2` — (형법 제257조)
 
 - 제안 역할: **`context`**  |  카드 4장 (standard_input 4)  |  사유: commentary parse artifact, not a heading
@@ -203,7 +203,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | 2 | definition | positive | standard_input | 강도상해·치상죄의 상해는 피해자의 건강상태가 불량하게 변경되고 생활기능에 장애가 초래된 경우를 말하며, 특히 중할 것을 요구하지 않는다. |
 | 3 | exception | exception | standard_input | 추적을 벗어난 뒤 현장에서 상당히 떨어진 지점에서 체포면탈 목적으로 상해를 가하거나, 범행 종료 후 상당 기간이 지나 새로 범의를 일으켜 범행한 경우에는 강도의 기회에 한 행위로 보기 어렵다. |
 | 4 | exception | exception | standard_input | 치료가 필요 없이 자연치유되고 일상생활에 아무 지장이 없는 극히 경미한 상처는 강도상해·치상죄의 상해에 해당하지 않는다. |
-
+> comment: all context
 ### B8. art343 · `art343_sec2` — 요건
 
 - 제안 역할: **`context`**  |  카드 1장 (standard_input 1)  |  사유: title matched no bucket
@@ -211,7 +211,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | # | norm_kind | polarity | formalization | 명제 |
 |---:|---|---|---|---|
 | 1 | definition | positive | standard_input | 예비는 범죄의 의사로 이를 실현하기 위하여 하는 모든 준비행위로서, 아직 실행에 착수하기 전 단계의 행위이다. |
-
+> comment: core
 ### B9. art343 · `art343_sec2_1` — 주관적 요소
 
 - 제안 역할: **`context`**  |  카드 1장 (standard_input 1)  |  사유: title matched no bucket
@@ -219,7 +219,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | # | norm_kind | polarity | formalization | 명제 |
 |---:|---|---|---|---|
 | 1 | variant | positive | standard_input | 행위자에게 미필적으로라도 강도를 할 목적이 인정되면 강도예비·음모죄가 성립한다. |
-
+> comment: core
 ### B10. art343 · `art343_sec2_2` — 객관적 요소
 
 - 제안 역할: **`core`**  |  카드 1장 (standard_input 0)  |  사유: title matched no bucket
@@ -227,7 +227,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | # | norm_kind | polarity | formalization | 명제 |
 |---:|---|---|---|---|
 | 1 | element | positive | deterministic_rule | 흉기 준비, 가옥침입 준비, 침입방법 또는 재물 반출방법의 기획·입안은 강도예비에 해당한다. |
-
+> comment: core
 ### B11. art350 · `art350_sec4_1` — 공갈
 
 - 제안 역할: **`core`**  |  카드 4장 (standard_input 3)  |  사유: title matched no bucket
@@ -238,7 +238,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | 2 | standard | positive | standard_input | 공갈수단이 사람을 외포하게 하기에 족한지는 객관적으로 판단한다. |
 | 3 | standard | negative | standard_input | 객관적으로 사람을 외포시키기에 부족한 행위는 상대방이 현실로 외포심을 일으켰더라도 공갈이 아니므로 공갈죄가 성립하지 않고 절도죄가 성립할 여지가 있다. |
 | 4 | standard | negative | standard_input | 협박이나 폭행이 상대방의 반항을 억압할 정도에 이르면 공갈죄가 아니라 강도죄가 성립한다. |
-
+> comment: 1번 core, 2번 context, 3, 4번 concurrence
 ### B12. art350 · `art350_sec6_2` — 대가를 지급한 경우
 
 - 제안 역할: **`context`**  |  카드 2장 (standard_input 2)  |  사유: title matched no bucket
@@ -247,7 +247,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 |---:|---|---|---|---|
 | 1 | standard | positive | standard_input | 공갈로 인해 교부하지 않았을 재물 또는 처분하지 않았을 재산상 이익을 교부·처분하게 된 경우, 상당한 대가를 지급하였더라도 공갈죄가 성립한다. |
 | 2 | causal_link | negative | standard_input | 폭행·협박을 당한 상대방이 객관적으로 상당한 대가에 주관적으로도 만족하여 재물을 교부한 경우에는 해악의 고지와 처분행위 사이의 인과관계가 부정되어 공갈죄 미수가 성립한다. |
-
+> comment: 1번 core, 2번 stage
 ### B13. art350 · `art350_sec8_1` — 공갈자의 수령할 권리와 불법이득의사
 
 - 제안 역할: **`context`**  |  카드 1장 (standard_input 1)  |  사유: title matched no bucket
@@ -255,7 +255,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | # | norm_kind | polarity | formalization | 명제 |
 |---:|---|---|---|---|
 | 1 | standard | positive | standard_input | 정당한 권리를 실현하기 위하여 해악을 고지한 경우에도 그 수단·방법이 사회통념상 허용되는 범위를 넘으면 공갈죄의 실행에 착수한 것이며, 그 판단은 목적과 수단을 전체적으로 종합하여 한다. |
-
+> comment: context
 ### B14. art350 · `art350_sec8_2` — 채권자의 변제 수령
 
 - 제안 역할: **`core`**  |  카드 6장 (standard_input 6)  |  사유: title matched no bucket
@@ -268,7 +268,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | 4 | exception | exception | standard_input | 채권 실행 또는 손해배상 합의금 수령 등을 위하여 사회통념상 허용 범위의 위협적 언사를 한 경우 공갈죄가 성립하지 않으며, 수반된 협박행위도 별도의 협박죄를 구성하지 않는다. |
 | 5 | standard | positive | standard_input | 권리행사에 수반된 공갈행위의 위법성 조각 여부는 권리행사와 수단행위를 전체적으로 관찰하여, 그 공갈행위가 권리행사의 수단으로 사회통념상 용인될 수 있는지에 따라 판단한다. |
 | 6 | standard | positive | standard_input | 정당한 권리자가 재물 또는 재산상 이익을 취득하더라도, 권리실행의 수단방법이 사회통념상 허용되는 범위를 넘으면 공갈죄 성립이 방해되지 않는다. |
-
+> comment: 1,2번 core, 3번 context, 4번 defeater, 5번 defeater-context, 6번 coree
 ### B15. art355 · `art355_sec1_2` — 횡령죄의 본질
 
 - 제안 역할: **`context`**  |  카드 3장 (standard_input 3)  |  사유: title matched no bucket
@@ -278,7 +278,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | 1 | variant | positive | standard_input | 배임죄의 본질은 신의성실의무에 위반하여 타인의 신뢰를 배반하고 재산을 침해하는 데 있다. |
 | 2 | exception | exception | standard_input | 일시사용·손괴·은닉의 의사로 재물을 처분하거나 위탁자를 위한 의사로 권한을 넘은 경우에는 불법영득의사가 없어 횡령죄가 성립하지 않는다. |
 | 3 | variant | positive | standard_input | 횡령의 본질은 위탁받은 타인의 재물을 불법하게 영득하는 데 있으므로, 횡령죄가 성립하려면 보관 재물을 자기 소유물처럼 사용·수익·처분하려는 불법영득의 의사가 있어야 한다. |
-
+> comment: 1번 context, 2번 defeater, 3번 core
 ### B16. art355 · `art355_sec4_1` — 총설
 
 - 제안 역할: **`core`**  |  카드 18장 (standard_input 18)  |  사유: title matched no bucket
@@ -303,7 +303,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | 16 | standard | positive | standard_input | 소유자로서 처분하려는 의사가 있으면 사후 반환·변상·전보 의사가 있어도 불법영득의사를 인정할 수 있다. |
 | 17 | standard | negative | standard_input | 회사에 개인채권을 가진 대표이사가 회사 보관금으로 자신의 회사 상대 채권을 변제하더라도, 이는 대표이사 권한 내 회사채무 이행행위로 유효하여 불법영득의사가 인정되지 않는다. |
 | 18 | variant | positive | standard_input | 회사 관리 자금의 일시 유용은 유용금액의 규모·정도, 시간적 간격 및 상환능력을 객관적으로 평가하여 판단하며, 가벌성이 없다고 볼 정도가 아니면 불법영득의사가 인정된다. |
-
+> comment: 1, 2, 3번 core, 4번 defeater, 5번 core, 6번 defeater, 7번 core, 8번 context, 9번 core, 10, 11번 context, 12번 defeater, 13, 14번 context, 15번 defeater, 16번 core, 17, 18번 context
 ### B17. art355 · `art355_sec4_3` — 구체적 검토
 
 - 제안 역할: **`core`**  |  카드 12장 (standard_input 10)  |  사유: title matched no bucket
@@ -322,7 +322,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | 10 | definition | positive | deterministic_rule | 비자금은 법인 회계장부에서 처리되는 공적 자금이 아니라, 법인 운영자 또는 관리자가 변칙회계 등을 통해 법인회계로부터 분리하여 별도로 관리하는 법인 자금이다. |
 | 11 | standard | positive | standard_input | 법인과 무관하거나 개인적으로 착복할 목적임이 명백한 상태에서 법인 회계로부터 분리하거나 변칙회계로 인출·차명보관하여 비자금을 조성한 경우, 그 조성행위 자체로 불법영득의사를 실현한 것으로 인정할 수 있다. |
 | 12 | standard | positive | standard_input | 비자금 조성행위자에게 법인 자금을 빼내어 착복할 목적이 있었는지는 법인의 성격, 비자금 조성 동기·방법·규모·기간, 보관방법 및 실제 사용용도 등을 종합하여 판단한다. |
-
+> comment: all context
 ### B18. art356 · `art356` — 업무상 보관
 
 - 제안 역할: **`core`**  |  카드 5장 (standard_input 1)  |  사유: title matched no bucket
@@ -334,7 +334,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | 3 | causal_link | positive | standard_input | 업무상횡령죄의 객체가 되려면 업무상 보관하는 타인의 재물이어야 하며, 재물 점유와 업무 사이에 상호관련성이 있어야 한다. |
 | 4 | element | positive | deterministic_rule | 업무상 횡령 또는 배임죄에는 단순 횡령ㆍ배임죄의 보관자 또는 사무처리자 신분에 더하여 업무자 신분이 요구된다. |
 | 5 | definition | positive | deterministic_rule | 업무상 횡령과 배임죄는 행위자가 보관하는 타인의 물건 또는 처리하는 타인의 사무가 업무상 임무와 연결된 경우 이를 가중처벌하는 범죄이다. |
-
+> comment: 1, 2, 3, 4번 core, 5번 context
 ### B19. art356 · `art356_sec2_2` — 업무의 내용
 
 - 제안 역할: **`context`**  |  카드 3장 (standard_input 2)  |  사유: title matched no bucket
@@ -344,7 +344,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | 1 | exception | negative | standard_input | 일정한 업무에 종사하더라도 그 업무와 무관하게 타인의 재물을 보관하게 된 경우에는 업무상횡령죄가 성립하지 않는다. |
 | 2 | exception | exception | deterministic_rule | 업무 내용 자체가 위법하지 않다면 면허ㆍ인가 미취득과 같은 행정절차상 불법이 있더라도 현재 반복ㆍ계속하여 행하여지는 사무는 업무에 해당한다. |
 | 3 | standard | negative | standard_input | 사회질서에 반하거나 강행법규에 위반되는 등 법이 절대적으로 금지하는 행위는 업무 의사로 반복하더라도 업무가 되지 못한다. |
-
+> comment: 1번 defeater, 2번 core, 3번 defeater
 ### B20. art357 · `art357_sec1_3` — 배임죄와의 구별
 
 - 제안 역할: **`core`**  |  카드 2장 (standard_input 1)  |  사유: title matched no bucket
@@ -353,7 +353,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 |---:|---|---|---|---|
 | 1 | exception | exception | deterministic_rule | 배임수재죄에서는 임무위배행위 또는 재산상 손해를 가하는 것이 필요하지 않다. |
 | 2 | element | positive | standard_input | 배임수재죄는 부정한 청탁과 재물 또는 재산상 이익의 취득을 요한다. |
-
+> comment: all core
 ### B21. art357 · `art357_sec1_4` — 뇌물죄와의 구별
 
 - 제안 역할: **`core`**  |  카드 1장 (standard_input 0)  |  사유: title matched no bucket
@@ -361,7 +361,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | # | norm_kind | polarity | formalization | 명제 |
 |---:|---|---|---|---|
 | 1 | element | positive | deterministic_rule | 배임수재죄는 재물 또는 재산상의 이익을 현실적으로 취득해야 성립한다. |
-
+> comment: all core
 ### B22. art357 · `art357_sec4` — 배임증재죄
 
 - 제안 역할: **`core`**  |  카드 4장 (standard_input 2)  |  사유: title matched no bucket
@@ -372,7 +372,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | 2 | element | positive | deterministic_rule | 배임증재죄는 재물 등을 현실적으로 공여해야 기수이고, 공여 의사표시 또는 약속만으로는 미수이다. |
 | 3 | definition | positive | standard_input | 배임증재죄는 타인의 사무처리자에게 그 임무에 관한 부정한 청탁을 하고 재물 또는 재산상 이익을 공여하여 성립하며, 비신분범이다. |
 | 4 | element | negative | deterministic_rule | 배임증재죄의 공여는 타인의 사무처리자에게 할 것을 요하므로, 사무처리자가 아닌 자에게 교부한 경우에는 성립하지 않는다. |
-
+> comment: 1번 defeater, 2번 stage, 3번 core, 4번 defeater
 ---
 
 ## advisory — 역할은 맞을 듯하나 편성이 이상한 슬롯
@@ -390,7 +390,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | 2 | standard | positive | standard_input | 단일하고 계속된 범의 아래 동종 범행을 일정 기간 반복하고 피해법익도 동일하다면, 수수일자 사이에 상당한 기간이 있어도 포괄일죄가 될 수 있다. |
 | 3 | standard | negative | standard_input | 서로 다른 감정평가법인이 각자의 이해관계에 따라 다른 일시·장소에서 제공한 뇌물을 그때그때 수수한 사안에서는 단일하고 계속된 범의 아래 5회 수수하였다고 보기 어려워 포괄일죄가 아니다. |
 | 4 | element | negative | standard_input | 공무원이 재직 중 직무 관련 뇌물수수를 약속하고 퇴직 후 이를 수수한 경우, 약속과 수수가 시간적으로 근접·연속되어도 뇌물수수죄는 성립하지 않는다. |
-
+> comment: 4번은 context같기도해
 ### A2. art151 · `art151_sec2_6` — 죄수 및 다른 죄와의 관계
 
 - 적용 역할: **`concurrence`**  |  카드 5장 (standard_input 4)
@@ -402,7 +402,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | 3 | standard | negative | standard_input | 참고인이 수사기관에서 허위 진술을 한 경우에도, 피의자의 허위 자백에 관한 법리가 마찬가지로 적용된다고 소개되어 있다. |
 | 4 | element | positive | standard_input | 허위 진술에 그치지 않고 적극적으로 조작한 허위 증거를 제출하여, 수사기관이 충실히 수사해도 그 허위성을 발견하지 못할 정도에 이르면 위계에 의한 공무집행방해죄가 성립한다. |
 | 5 | exception | negative | deterministic_rule | 범인은닉죄와 군형법상 이탈자비호죄의 구성요건을 모두 충족하는 행위는 특별관계에 따라 군형법상 이탈자비호죄만 성립한다. |
-
+> comment: 2, 3번은 context
 ### A3. art152 · `art152_sec1_5` — 죄수
 
 - 적용 역할: **`concurrence`**  |  카드 4장 (standard_input 3)
@@ -422,7 +422,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 |---:|---|---|---|---|
 | 1 | standard | positive | standard_input | 현존건조물방화치상죄와 같은 부진정결과적가중범에서 집단 방화 과정 중 일부가 고의로 살상을 가하여도 다른 집단원에게 사상 결과의 예견가능성이 있으면 다른 집단원도 치사상의 책임을 면할 수 없다. |
 | 2 | element | positive | standard_input | 현주건조물등방화치사상죄의 교사범 또는 방조범은 기본범죄의 교사·방조 외에 중한 결과에 대한 예견가능성이 인정되어야 한다. |
-
+ 
 ### A5. art250 · `art250_sec1_18` — 책임
 
 - 적용 역할: **`defeater`**  |  카드 11장 (standard_input 11)
@@ -606,6 +606,7 @@ art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 
 | 2 | element | positive | standard_input | 정당행위는 동기·목적의 정당성, 수단·방법의 상당성, 법익균형성, 긴급성 및 보충성 등의 요건을 갖춘 경우에 인정된다. |
 | 3 | standard | positive | standard_input | 부당한 점유침탈을 배제하고 위험발생을 방지하기 위해 자물쇠나 전기선을 절단한 경우, 침해가 과도하지 않아 사회통념상 현저히 타당성을 잃지 않으면 정당행위가 된다. |
 | 4 | definition | positive | standard_input | 사회상규에 위배되지 아니하는 행위란 법질서 전체의 정신, 사회윤리 또는 사회통념에 비추어 용인될 수 있는 행위이다. |
+> comment: 1, 4번 context
 
 ## 참고 — `core` 슬롯이 없는 조문
 
