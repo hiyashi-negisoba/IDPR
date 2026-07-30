@@ -15,14 +15,16 @@ import pytest
 from idpr.rulebase.cards import load_card_corpus
 from idpr.rulebase.doctrine import (
     CONCURRENCE_PATH,
+    DOCTRINE_REVIEW_PATH,
     OFFENSE_NAMES,
+    OPEN_DECISIONS,
     STAGE_PATH,
     DoctrineError,
     load_doctrine,
     offense_name,
+    parse_decision_answers,
+    unanswered_decisions,
 )
-
-DOCTRINE_REVIEW_PATH = CONCURRENCE_PATH.with_name("doctrine_review.md")
 
 
 @pytest.fixture(scope="module")
@@ -84,16 +86,15 @@ def test_every_article_has_an_offence_name(articles):
         assert offense_name(article) != article
 
 
-def test_the_doctrine_review_document_names_the_conflicts():
-    """The drafted tables contain two deliberate contradictions the reviewer must resolve.
+def test_the_doctrine_review_document_leads_with_the_decisions():
+    """The reviewer must see what to answer before any reference material.
 
-    They exist because the distinction that separates them (결과 발생 여부, 실행의 착수
-    여부) cannot be expressed by an article pair. Presenting them as settled would hide a
-    legal question inside a data file.
+    The drafted tables contain deliberate contradictions -- the distinctions that separate
+    them (결과 발생 여부, 실행의 착수 여부) cannot be expressed by an article pair -- and
+    presenting them as settled would hide a legal question inside a data file.
     """
     text = DOCTRINE_REVIEW_PATH.read_text(encoding="utf-8")
-    assert "판단이 필요한 충돌" in text
-    assert text.count("### ") >= 2
+    assert text.index("# 결정 사항") < text.index("# 참고 자료")
 
 
 def _write(tmp_path, concurrence: str, stage: str):
@@ -216,3 +217,55 @@ def test_the_tables_document_what_they_cannot_express():
     text = CONCURRENCE_PATH.read_text(encoding="utf-8")
     for section in ("same_article", "multiplicity", "outside_corpus"):
         assert section in text
+
+
+# --------------------------------------------------------------------------- #
+# The open decisions must be answerable
+# --------------------------------------------------------------------------- #
+
+
+def test_every_decision_is_answerable_without_reading_the_code():
+    """The first draft of the review document stated the problems and stopped there, so
+    it could not be acted on. Each decision must carry the options, what each one does,
+    a recommendation with its reason, and what happens if it is skipped."""
+    for decision in OPEN_DECISIONS:
+        assert decision.question.endswith("?"), decision.key
+        assert len(decision.choices) >= 2, decision.key
+        assert decision.why_it_cannot_be_derived.strip(), decision.key
+        assert decision.default_if_unanswered.strip(), decision.key
+        assert decision.recommendation_reason.strip(), decision.key
+        labels = [choice.label for choice in decision.choices]
+        assert any(
+            label.startswith(f"{decision.recommended}.") for label in labels
+        ), f"{decision.key}: recommended {decision.recommended} is not one of {labels}"
+        for choice in decision.choices:
+            assert choice.effect.strip(), f"{decision.key}/{choice.label}"
+
+
+def test_the_review_document_has_an_answer_slot_for_every_decision():
+    text = DOCTRINE_REVIEW_PATH.read_text(encoding="utf-8")
+    for decision in OPEN_DECISIONS:
+        assert f"## {decision.key}." in text, decision.key
+    assert text.count("> answer:") >= len(OPEN_DECISIONS)
+
+
+def test_answers_are_parsed_back_out_of_the_document(tmp_path):
+    path = tmp_path / "doctrine_review.md"
+    path.write_text(
+        "## D1. 질문?\n> answer: 1\n\n"
+        "## D2. 질문?\n> answer: 제122조는 빼고 나머지는 남겨\n\n"
+        "## D3. 질문?\n> answer:  \n",
+        encoding="utf-8",
+    )
+    answers = parse_decision_answers(path)
+    assert answers == {"D1": "1", "D2": "제122조는 빼고 나머지는 남겨"}
+    # A blank slot is not an answer: an unanswered decision must stay visibly unanswered.
+    assert "D3" not in answers
+
+
+def test_the_decisions_are_currently_unanswered():
+    """Sanity check on the checked-in document: if this starts failing, the answers have
+    arrived and the tables need updating."""
+    assert unanswered_decisions(parse_decision_answers()) == tuple(
+        d.key for d in OPEN_DECISIONS
+    )

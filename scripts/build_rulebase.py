@@ -34,6 +34,7 @@ from idpr.rulebase.compile_scl import (  # noqa: E402
 )
 from idpr.rulebase.doctrine import (  # noqa: E402
     CONCURRENCE_PATH,
+    OPEN_DECISIONS,
     STAGE_PATH,
     load_doctrine,
     offense_name,
@@ -157,14 +158,80 @@ def render_doctrine_review(doctrine, concurrence_yaml: dict, stage_yaml: dict) -
         return f"{article_label(article)} {offense_name(article)}"
 
     lines = [
-        "# 죄수·미수 검수 요청 — `concurrence.yaml` / `stage.yaml`",
+        "# 죄수·미수 검수 요청 — 답할 것 5개",
         "",
-        "카드 명제에서 죄수 관계를 기계적으로 뽑아낼 수 없습니다. 명제는 죄명을 한국어",
-        "산문으로 부르고, 그것을 조문 쌍으로 옮기는 것이 법적 판단입니다. 아래는 제가",
-        "`concurrence_seed` 83장과 `stage_seed` 59장을 읽고 옮긴 **초안**입니다.",
+        "제가 카드 142장(`concurrence_seed` 83 + `stage_seed` 59)을 읽고 죄수·미수 표를",
+        "초안했습니다. 대부분은 카드에 적힌 대로 옮겼고, **판단이 갈리는 5곳만** 남겨",
+        "두었습니다. 아래 D1~D5에 번호로 답해 주시면 제가 반영합니다.",
         "",
-        "고칠 곳은 `data/rulebase/concurrence.yaml`과 `data/rulebase/stage.yaml`입니다.",
-        "이 문서에 `> comment:`로 적어 주셔도 됩니다.",
+        "## 답하는 방법",
+        "",
+        "각 결정 아래에 이렇게 한 줄 적어 주세요. 다른 건 안 하셔도 됩니다.",
+        "",
+        "```",
+        "> answer: 1",
+        "```",
+        "",
+        "선택지 말고 다른 판단이 필요하면 그냥 문장으로 적어 주셔도 됩니다.",
+        "",
+        "```",
+        "> answer: 제122조는 빼고 나머지 둘은 남겨",
+        "```",
+        "",
+        "## 5개 요약",
+        "",
+        "| # | 무엇을 묻는가 | 제 추천 | 안 답하면 |",
+        "|---|---|---|---|",
+    ]
+    for decision in OPEN_DECISIONS:
+        lines.append(
+            f"| {decision.key} | {decision.question} | "
+            f"{decision.recommended} | {decision.default_if_unanswered} |"
+        )
+
+    lines += [
+        "",
+        "추천대로 가도 되면 **D1과 D2만** 답해 주시면 됩니다 (D3~D5는 추천이 현재 상태와",
+        "같습니다). 두 개가 죄명을 지우거나 모순된 출력을 내는 항목이라 그렇습니다.",
+        "",
+        "---",
+        "",
+        "# 결정 사항",
+    ]
+    for decision in OPEN_DECISIONS:
+        lines += [
+            "",
+            f"## {decision.key}. {decision.question}",
+            "",
+            "**왜 제가 못 정하는가** — " + decision.why_it_cannot_be_derived,
+            "",
+        ]
+        if decision.affected_entries:
+            lines.append("**영향받는 항목**")
+            lines.append("")
+            for entry in decision.affected_entries:
+                lines.append(f"- {entry}")
+            lines.append("")
+        lines.append("**선택지**")
+        lines.append("")
+        for choice in decision.choices:
+            lines.append(f"- **{choice.label}** — {choice.effect}")
+        lines += [
+            "",
+            f"**제 추천: {decision.recommended}번.** {decision.recommendation_reason}",
+            "",
+            "```",
+            "> answer: ",
+            "```",
+        ]
+
+    lines += [
+        "",
+        "---",
+        "",
+        "# 참고 자료 — 초안 전체",
+        "",
+        "위 5개에 답하시는 데 필요하면 보시고, 아니면 넘어가셔도 됩니다.",
         "",
         "## 왜 83장에서 13건만 나왔는지",
         "",
@@ -220,32 +287,9 @@ def render_doctrine_review(doctrine, concurrence_yaml: dict, stage_yaml: dict) -
 
     lines += [
         "",
-        "## 3. 판단이 필요한 충돌 — 여기가 핵심입니다",
-        "",
-        "제가 옮기면서 서로 배치되는 항목을 만들었습니다. 조문 쌍만으로는 구별할 수 없는",
-        "구분(결과 발생 여부, 실행의 착수 여부)에 걸려 있어 어느 쪽으로 둘지 골라 주셔야",
-        "합니다.",
-    ]
-    for section, entries in (
-        ("absorbed_by", concurrence_yaml.get("absorbed_by") or []),
-        ("imaginative_concurrence", imaginative_entries),
-    ):
-        for entry in entries:
-            note = entry.get("review")
-            if not note:
-                continue
-            key = (
-                f"{pair(entry['child'])} → {pair(entry['parent'])}"
-                if "child" in entry
-                else " ↔ ".join(pair(o) for o in entry["offenses"])
-            )
-            lines += ["", f"### {key}  (`{section}`)", "", str(note).strip()]
-
-    lines += [
-        "",
         "---",
         "",
-        f"## 4. 미수 처벌 규정 {len(doctrine.attempt_punishable)}개 조문",
+        f"## 3. 미수 처벌 규정 {len(doctrine.attempt_punishable)}개 조문",
         "",
         "기수가 막힌 죄명에 미수 처벌 규정이 있으면 파이프라인이 미수 검토를 결정론적으로",
         "띄웁니다. 스모크 케이스의 중지미수 논점이 이 경로입니다.",
@@ -258,7 +302,7 @@ def render_doctrine_review(doctrine, concurrence_yaml: dict, stage_yaml: dict) -
 
     lines += [
         "",
-        f"## 5. 예비·음모 처벌 규정 {len(doctrine.preparation_punishable)}개 조문",
+        f"## 4. 예비·음모 처벌 규정 {len(doctrine.preparation_punishable)}개 조문",
         "",
         "| 조문 | 죄명 |",
         "|---|---|",
@@ -279,7 +323,7 @@ def render_doctrine_review(doctrine, concurrence_yaml: dict, stage_yaml: dict) -
 
     notes = stage_yaml.get("review_notes") or []
     if notes:
-        lines += ["", "## 6. 미수 표에 관해 확인 부탁드릴 점", ""]
+        lines += ["", "## 5. 미수 표를 만들며 남긴 메모", ""]
         for note in notes:
             lines.append(f"- {str(note).strip()}")
 
