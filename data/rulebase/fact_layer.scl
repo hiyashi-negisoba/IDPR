@@ -11,6 +11,6 @@ type act_circumstance(String, String, String)  // case, actId, circumstanceLabel
 type purpose(String, String, String)  // case, actId, purposeLabel
 type result(String, String, String)  // case, resultLabel, entity
 type causation(String, String, String, String)  // case, actId, resultLabel, attributionLabel
-type relation(String, String, String, String)  // case, entityA, entityB, relationLabel
+type party_relation(String, String, String, String)  // case, entityA, entityB, relationLabel
 type holds(String, String, String, String)  // case, entity, objectLabel, holdLabel
 type precedes(String, String, String)  // case, earlierActId, laterActId

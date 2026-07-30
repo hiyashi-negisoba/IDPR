@@ -25,6 +25,10 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from idpr.rulebase.cards import load_card_corpus  # noqa: E402
+from idpr.rulebase.compile_scl import (  # noqa: E402
+    compile_rulebase,
+    rulebase_stats,
+)
 from idpr.rulebase.facts import (  # noqa: E402
     FACT_PREDICATES,
     VOCABULARIES,
@@ -39,6 +43,11 @@ from idpr.rulebase.formalization import (  # noqa: E402
     STAGE_SEED,
     route_corpus,
     routing_summary,
+)
+from idpr.rulebase.roles import (  # noqa: E402
+    element_slots,
+    resolve_card_roles,
+    role_summary,
 )
 from idpr.rulebase.review import (  # noqa: E402
     parse_review,
@@ -65,6 +74,7 @@ REVIEW_PATH = OUT_DIR / "element_skeleton_review.md"
 CENSUS_PATH = OUT_DIR / "card_census.json"
 FACT_LAYER_PATH = OUT_DIR / "fact_layer.scl"
 TRIAGE_PATH = OUT_DIR / "card_routing.json"
+RULEBASE_PATH = OUT_DIR / "kcl_rulebase.scl"
 ROLE_REVIEW_PATH = OUT_DIR / "role_review.json"
 
 
@@ -465,6 +475,9 @@ def main() -> int:
     routing = routing_summary(routings)
     verdicts = parse_review(corpus=corpus) if REVIEW_PATH.is_file() else ()
     review = review_summary(verdicts)
+    roles = resolve_card_roles(corpus, verdicts, classifications)
+    program = compile_rulebase(corpus, roles)
+    stats = rulebase_stats(program, roles)
 
     print("=== card census ===")
     print(
@@ -508,6 +521,18 @@ def main() -> int:
     for role, count in review["by_role"].items():
         print(f"  {role:15} {count:4}")
     print(f"  slots split across roles: {len(review['slots_split_across_roles'])}")
+    print()
+    print("=== compiled rulebase ===")
+    print(
+        f"  {stats['lines']} lines / {stats['declared_types']} types "
+        f"/ {stats['inference_rules']} rel / {stats['queries']} queries"
+    )
+    print(
+        f"  {stats['card_tuples']} data tuples from {stats['cards']} cards "
+        f"(predicates do not grow with the corpus)"
+    )
+    element = element_slots(roles)
+    print(f"  element slots {len(element)} " f"({role_summary(roles)['element_slots_by_kind']})")
 
     if args.check:
         return 0
@@ -556,7 +581,8 @@ def main() -> int:
         + "\n",
         encoding="utf-8",
     )
-    written += [TRIAGE_PATH, FACT_LAYER_PATH, ROLE_REVIEW_PATH]
+    RULEBASE_PATH.write_text(program, encoding="utf-8")
+    written += [TRIAGE_PATH, FACT_LAYER_PATH, ROLE_REVIEW_PATH, RULEBASE_PATH]
     print()
     for path in written:
         print(f"wrote {path.relative_to(PROJECT_ROOT)}")

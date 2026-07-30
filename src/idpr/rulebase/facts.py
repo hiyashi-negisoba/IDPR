@@ -64,7 +64,8 @@ ACT_CIRCUMSTANCE = "act_circumstance"
 PURPOSE = "purpose"
 RESULT = "result"
 CAUSATION = "causation"
-RELATION = "relation"
+# ``relation`` is a Scallop reserved word, hence the prefix.
+RELATION = "party_relation"
 HOLDS = "holds"
 PRECEDES = "precedes"
 
