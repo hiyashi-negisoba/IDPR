@@ -44,6 +44,7 @@ from collections import Counter
 from typing import Iterable, Mapping, Sequence
 
 from idpr.rulebase.cards import CardCorpus, card_corpus
+from idpr.rulebase.doctrine import load_doctrine
 from idpr.rulebase.facts import scl_fact_layer
 from idpr.rulebase.roles import CardRole, element_slots, resolve_card_roles
 from idpr.rulebase.skeleton import CONCURRENCE, CORE, DEFEATER, PRESUMED, STAGE
@@ -109,9 +110,11 @@ type slot_offense(String, String)         // slot, offense
 type element_slot(String, String)         // slot, core|presumed
 type offense_article(String, String)      // offense, "제298조"
 
-// ── 죄수론: 수기 검수 산출 (Phase 1e) ────────────────────────
+// ── 죄수·미수: 수기 작성 후 법리 검수 (data/rulebase/*.yaml) ──
 type absorbed_by(String, String)          // child offense, parent offense
-type imaginative_concurrence(String, String)"""
+type imaginative_concurrence(String, String)
+type attempt_punishable(String)           // offense
+type preparation_punishable(String)       // offense"""
 
 INFERENCE_RULES = """\
 // 사건 하나를 근거지어 준다. 평가가 없는 사건에는 아무 결론도 없다.
@@ -162,6 +165,11 @@ rel final_offense(c, off) = offense_established(c, off), not is_absorbed(c, off)
 rel concurrent_offenses(c, a, b) = offense_established(c, a), offense_established(c, b),
     imaginative_concurrence(a, b)
 
+// ── 미수 ────────────────────────────────────────────────────
+// 기수가 막힌 죄명에 미수 처벌 규정이 있으면 미수를 검토해야 한다. 스모크 케이스의
+// 중지미수 논점이 이 경로다 — 강간 기수는 막혔고 제300조가 미수를 처벌한다.
+rel attempt_to_consider(c, off) = offense_undetermined(c, off), attempt_punishable(off)
+
 // ── 보고용 (게이트가 아니다) ────────────────────────────────
 // 논증되지 않은 요건 슬롯. 이것으로 죄를 막지 않는다 — 시험 답안은 자명한 요건을
 // 논하지 않으므로 막으면 어떤 죄도 성립하지 않는다.
@@ -187,6 +195,7 @@ QUERY_RELATIONS: tuple[str, ...] = (
     "is_absorbed",
     "final_offense",
     "concurrent_offenses",
+    "attempt_to_consider",
     "contradiction",
 )
 
@@ -194,12 +203,34 @@ QUERY_RELATIONS: tuple[str, ...] = (
 def compile_rulebase(
     corpus: CardCorpus | None = None,
     roles: Sequence[CardRole] | None = None,
-    absorbed_by: Sequence[tuple[str, str]] = (),
-    imaginative_concurrence: Sequence[tuple[str, str]] = (),
+    absorbed_by: Sequence[tuple[str, str]] | None = None,
+    imaginative_concurrence: Sequence[tuple[str, str]] | None = None,
+    attempt_punishable: Sequence[str] | None = None,
+    preparation_punishable: Sequence[str] | None = None,
 ) -> str:
-    """Emit the whole Scallop program."""
+    """Emit the whole Scallop program.
+
+    The four doctrine tables default to the reviewed YAML on disk. Passing one explicitly
+    replaces it, which is how a golden scenario isolates a single concurrence rule from the
+    rest of the table.
+    """
     corpus = corpus or card_corpus()
     roles = roles or resolve_card_roles(corpus)
+    if None in (
+        absorbed_by,
+        imaginative_concurrence,
+        attempt_punishable,
+        preparation_punishable,
+    ):
+        tables = load_doctrine(corpus.by_article())
+        if absorbed_by is None:
+            absorbed_by = tables.absorbed_by
+        if imaginative_concurrence is None:
+            imaginative_concurrence = tables.imaginative_concurrence
+        if attempt_punishable is None:
+            attempt_punishable = tables.attempt_punishable
+        if preparation_punishable is None:
+            preparation_punishable = tables.preparation_punishable
     role_by_card = {role.card_id: role.role for role in roles}
     slots = element_slots(roles)
 
@@ -250,6 +281,15 @@ def compile_rulebase(
     lines += _relation_block("absorbed_by", absorbed_by)
     lines.append("")
     lines += _relation_block("imaginative_concurrence", imaginative_concurrence)
+    lines.append("")
+    lines += _relation_block(
+        "attempt_punishable", ((offence,) for offence in attempt_punishable)
+    )
+    lines.append("")
+    lines += _relation_block(
+        "preparation_punishable",
+        ((offence,) for offence in preparation_punishable),
+    )
     lines += ["", "// ── 추론 규칙 ───────────────────────────────────────────────", ""]
     lines.append(INFERENCE_RULES)
     lines += ["", "// ── 질의 선언 ───────────────────────────────────────────────"]

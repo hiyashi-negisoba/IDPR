@@ -33,9 +33,11 @@ type slot_offense(String, String)         // slot, offense
 type element_slot(String, String)         // slot, core|presumed
 type offense_article(String, String)      // offense, "제298조"
 
-// ── 죄수론: 수기 검수 산출 (Phase 1e) ────────────────────────
+// ── 죄수·미수: 수기 작성 후 법리 검수 (data/rulebase/*.yaml) ──
 type absorbed_by(String, String)          // child offense, parent offense
 type imaginative_concurrence(String, String)
+type attempt_punishable(String)           // offense
+type preparation_punishable(String)       // offense
 
 // ── 카드 메타데이터 ─────────────────────────────────────────
 rel card_offense = {
@@ -8120,9 +8122,50 @@ rel offense_article = {
 }
 
 // ── 죄수론 (Phase 1e에서 검수 후 채워진다) ──────────────────
-// rel absorbed_by — 비어 있음 (아직 채워지지 않았다)
+rel absorbed_by = {
+  ("art122", "art137"),
+  ("art122", "art227"),
+  ("art239", "art231"),
+  ("art255", "art250"),
+  ("art255", "art254"),
+  ("art257", "art250"),
+  ("art347", "art355"),
+  ("art366", "art164"),
+  ("art366", "art250"),
+}
 
-// rel imaginative_concurrence — 비어 있음 (아직 채워지지 않았다)
+rel imaginative_concurrence = {
+  ("art164", "art250"),
+  ("art164", "art338"),
+  ("art234", "art356"),
+  ("art250", "art255"),
+}
+
+rel attempt_punishable = {
+  ("art225"),
+  ("art231"),
+  ("art234"),
+  ("art250"),
+  ("art2582_2"),
+  ("art297"),
+  ("art298"),
+  ("art299"),
+  ("art329"),
+  ("art330"),
+  ("art331"),
+  ("art332"),
+  ("art333"),
+  ("art334"),
+  ("art335"),
+  ("art337"),
+  ("art338"),
+}
+
+rel preparation_punishable = {
+  ("art250"),
+  ("art299"),
+  ("art333"),
+}
 
 // ── 추론 규칙 ───────────────────────────────────────────────
 
@@ -8174,6 +8217,11 @@ rel final_offense(c, off) = offense_established(c, off), not is_absorbed(c, off)
 rel concurrent_offenses(c, a, b) = offense_established(c, a), offense_established(c, b),
     imaginative_concurrence(a, b)
 
+// ── 미수 ────────────────────────────────────────────────────
+// 기수가 막힌 죄명에 미수 처벌 규정이 있으면 미수를 검토해야 한다. 스모크 케이스의
+// 중지미수 논점이 이 경로다 — 강간 기수는 막혔고 제300조가 미수를 처벌한다.
+rel attempt_to_consider(c, off) = offense_undetermined(c, off), attempt_punishable(off)
+
 // ── 보고용 (게이트가 아니다) ────────────────────────────────
 // 논증되지 않은 요건 슬롯. 이것으로 죄를 막지 않는다 — 시험 답안은 자명한 요건을
 // 논하지 않으므로 막으면 어떤 죄도 성립하지 않는다.
@@ -8196,4 +8244,5 @@ query offense_undetermined
 query is_absorbed
 query final_offense
 query concurrent_offenses
+query attempt_to_consider
 query contradiction

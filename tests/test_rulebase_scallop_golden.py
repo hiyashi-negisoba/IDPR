@@ -60,6 +60,8 @@ def _run(scenario: Scenario, corpus, roles, work_dir):
         roles,
         absorbed_by=scenario.absorbed_by,
         imaginative_concurrence=scenario.imaginative_concurrence,
+        attempt_punishable=scenario.attempt_punishable,
+        preparation_punishable=scenario.preparation_punishable,
     ) + render_card_statuses(scenario.scenario_id.replace("_", "-"), statuses)
     return run_program(
         program, QUERY_RELATIONS, work_dir, name=scenario.scenario_id

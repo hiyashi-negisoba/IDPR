@@ -66,12 +66,18 @@ class Scenario:
     final: frozenset[str] = frozenset()
     absorbed: frozenset[str] = frozenset()
     concurrent: tuple[tuple[str, str], ...] = ()
+    attempt_flagged: frozenset[str] = frozenset()
     #: When set, the first card is asserted both satisfied and not_satisfied, which is the
     #: only way to reach the contradiction guard: :func:`select_cards` never returns the
     #: same card twice.
     conflicting: bool = False
-    absorbed_by: tuple[tuple[str, str], ...] = ()
-    imaginative_concurrence: tuple[tuple[str, str], ...] = ()
+    #: Doctrine tables the scenario isolates. ``None`` keeps the reviewed table from disk;
+    #: an explicit value (including an empty tuple) replaces it, so a scenario can test one
+    #: concurrence rule without the rest of the corpus's doctrine firing alongside it.
+    absorbed_by: tuple[tuple[str, str], ...] | None = ()
+    imaginative_concurrence: tuple[tuple[str, str], ...] | None = ()
+    attempt_punishable: tuple[str, ...] | None = ()
+    preparation_punishable: tuple[str, ...] | None = ()
     #: Set when the scenario's point is that some element slot went unargued.
     expects_unaddressed_elements: bool = False
 
@@ -208,6 +214,34 @@ SCENARIOS: tuple[Scenario, ...] = (
         expects_unaddressed_elements=True,
     ),
     Scenario(
+        scenario_id="blocked_offense_with_an_attempt_provision_flags_the_attempt",
+        describes=(
+            "기수가 막힌 죄명에 미수 처벌 규정이 있으면 미수 검토가 결정론적으로 뜬다. "
+            "스모크 케이스의 중지미수 논점이 이 경로다 — 강간 기수는 막혔고 제300조가 "
+            "강간죄의 미수를 처벌한다."
+        ),
+        cards=(
+            CardSlot(_RAPE, "core", "positive", "satisfied"),
+            CardSlot(_RAPE, "core", "positive", "not_satisfied"),
+        ),
+        undetermined=frozenset({_RAPE}),
+        attempt_flagged=frozenset({_RAPE}),
+        attempt_punishable=(_RAPE,),
+    ),
+    Scenario(
+        scenario_id="blocked_offense_without_an_attempt_provision_flags_nothing",
+        describes=(
+            "미수 처벌 규정이 없는 죄명은 기수가 막혀도 미수 검토가 뜨지 않는다. "
+            "주거침입죄의 미수는 제322조 소관이고 코퓨스 밖이다."
+        ),
+        cards=(
+            CardSlot(_INTRUSION, "core", "positive", "satisfied"),
+            CardSlot(_INTRUSION, "core", "positive", "not_satisfied"),
+        ),
+        undetermined=frozenset({_INTRUSION}),
+        attempt_punishable=(),
+    ),
+    Scenario(
         scenario_id="conflicting_status_for_one_card_is_detected",
         describes=(
             "한 카드에 두 상태가 오면 모순으로 검출된다. JSON 스키마가 막지만 "
@@ -269,4 +303,5 @@ def expected_relations(scenario: Scenario) -> Mapping[str, frozenset[tuple[str, 
         "final_offense": frozenset((off,) for off in scenario.final),
         "is_absorbed": frozenset((off,) for off in scenario.absorbed),
         "concurrent_offenses": frozenset(scenario.concurrent),
+        "attempt_to_consider": frozenset((off,) for off in scenario.attempt_flagged),
     }

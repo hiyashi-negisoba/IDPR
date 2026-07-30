@@ -18,6 +18,8 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+
+import yaml
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -26,8 +28,15 @@ sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from idpr.rulebase.cards import load_card_corpus  # noqa: E402
 from idpr.rulebase.compile_scl import (  # noqa: E402
+    article_label,
     compile_rulebase,
     rulebase_stats,
+)
+from idpr.rulebase.doctrine import (  # noqa: E402
+    CONCURRENCE_PATH,
+    STAGE_PATH,
+    load_doctrine,
+    offense_name,
 )
 from idpr.rulebase.facts import (  # noqa: E402
     FACT_PREDICATES,
@@ -76,6 +85,7 @@ FACT_LAYER_PATH = OUT_DIR / "fact_layer.scl"
 TRIAGE_PATH = OUT_DIR / "card_routing.json"
 RULEBASE_PATH = OUT_DIR / "kcl_rulebase.scl"
 ROLE_REVIEW_PATH = OUT_DIR / "role_review.json"
+DOCTRINE_REVIEW_PATH = OUT_DIR / "doctrine_review.md"
 
 
 def build_role_review_payload(verdicts, classifications, corpus) -> dict:
@@ -133,6 +143,161 @@ def build_role_review_payload(verdicts, classifications, corpus) -> dict:
             )
         ],
     }
+
+
+def render_doctrine_review(doctrine, concurrence_yaml: dict, stage_yaml: dict) -> str:
+    """The 죄수·미수 review request, with offence names spelled out.
+
+    The YAML tables carry the basis quotes and are the thing that gets edited; this is the
+    reading surface. Article keys are expanded to offence names because asking a reviewer
+    to decode ``art356`` is asking them to make a mistake.
+    """
+
+    def pair(article: str) -> str:
+        return f"{article_label(article)} {offense_name(article)}"
+
+    lines = [
+        "# 죄수·미수 검수 요청 — `concurrence.yaml` / `stage.yaml`",
+        "",
+        "카드 명제에서 죄수 관계를 기계적으로 뽑아낼 수 없습니다. 명제는 죄명을 한국어",
+        "산문으로 부르고, 그것을 조문 쌍으로 옮기는 것이 법적 판단입니다. 아래는 제가",
+        "`concurrence_seed` 83장과 `stage_seed` 59장을 읽고 옮긴 **초안**입니다.",
+        "",
+        "고칠 곳은 `data/rulebase/concurrence.yaml`과 `data/rulebase/stage.yaml`입니다.",
+        "이 문서에 `> comment:`로 적어 주셔도 됩니다.",
+        "",
+        "## 왜 83장에서 13건만 나왔는지",
+        "",
+        "구조적 제약 세 가지입니다.",
+        "",
+        "1. **죄명 = 조문.** 같은 조문 안의 죄 사이 관계(존속살해 ↔ 보통살인, 뇌물수수 ↔",
+        "   뇌물요구, 주거침입 ↔ 퇴거불응)는 쓸 수 없습니다. 코퓨스에 조문 하위 죄명 키가",
+        "   없습니다.",
+        "2. **사건당 죄명 성립은 사실 하나이고 개수가 아닙니다.** 포괄일죄와 \"1개 행위로",
+        "   여러 사람을 상해하면 상상적 경합\" 같은 동종 다중 성립은 쓸 수 없습니다.",
+        "3. **코퓨스는 형법각칙 51개 조문뿐입니다.** 특별법·총칙이나 코퓨스 밖 각칙",
+        "   조문(폭행 제260조, 협박 제283조, 수뢰후부정처사 제131조, 직권남용 제123조)이",
+        "   한쪽에 있으면 발화할 상대가 없습니다.",
+        "",
+        "실체적 경합은 항목이 필요 없습니다 — 두 죄가 각각 성립하고 둘 다 최종 죄명이 되는",
+        "것이 룰베이스의 기본 동작입니다.",
+        "",
+        "---",
+        "",
+        f"## 1. 흡수·법조경합 {len(doctrine.absorbed_by)}건",
+        "",
+        "왼쪽 죄가 성립하되 **최종 죄명에서 빠집니다**.",
+        "",
+        "| 흡수되는 죄 | 흡수하는 죄 | 근거 카드 |",
+        "|---|---|---|",
+    ]
+    basis_by_pair = {
+        (entry.get("child"), entry.get("parent")): entry
+        for entry in (concurrence_yaml.get("absorbed_by") or [])
+    }
+    for child, parent in doctrine.absorbed_by:
+        entry = basis_by_pair.get((child, parent), {})
+        basis = str(entry.get("basis", "")).replace("|", r"\|")
+        lines.append(f"| {pair(child)} | {pair(parent)} | {basis} |")
+
+    lines += [
+        "",
+        f"## 2. 상상적 경합 {len(doctrine.imaginative_concurrence)}건",
+        "",
+        "두 죄가 모두 최종 죄명이고 관계만 보고됩니다.",
+        "",
+        "| 죄 A | 죄 B | 근거 카드 |",
+        "|---|---|---|",
+    ]
+    imaginative_entries = concurrence_yaml.get("imaginative_concurrence") or []
+    basis_by_set = {
+        frozenset(entry.get("offenses") or []): entry for entry in imaginative_entries
+    }
+    for first, second in doctrine.imaginative_concurrence:
+        entry = basis_by_set.get(frozenset((first, second)), {})
+        basis = str(entry.get("basis", "")).replace("|", r"\|")
+        lines.append(f"| {pair(first)} | {pair(second)} | {basis} |")
+
+    lines += [
+        "",
+        "## 3. 판단이 필요한 충돌 — 여기가 핵심입니다",
+        "",
+        "제가 옮기면서 서로 배치되는 항목을 만들었습니다. 조문 쌍만으로는 구별할 수 없는",
+        "구분(결과 발생 여부, 실행의 착수 여부)에 걸려 있어 어느 쪽으로 둘지 골라 주셔야",
+        "합니다.",
+    ]
+    for section, entries in (
+        ("absorbed_by", concurrence_yaml.get("absorbed_by") or []),
+        ("imaginative_concurrence", imaginative_entries),
+    ):
+        for entry in entries:
+            note = entry.get("review")
+            if not note:
+                continue
+            key = (
+                f"{pair(entry['child'])} → {pair(entry['parent'])}"
+                if "child" in entry
+                else " ↔ ".join(pair(o) for o in entry["offenses"])
+            )
+            lines += ["", f"### {key}  (`{section}`)", "", str(note).strip()]
+
+    lines += [
+        "",
+        "---",
+        "",
+        f"## 4. 미수 처벌 규정 {len(doctrine.attempt_punishable)}개 조문",
+        "",
+        "기수가 막힌 죄명에 미수 처벌 규정이 있으면 파이프라인이 미수 검토를 결정론적으로",
+        "띄웁니다. 스모크 케이스의 중지미수 논점이 이 경로입니다.",
+        "",
+        "| 조문 | 죄명 |",
+        "|---|---|",
+    ]
+    for article in doctrine.attempt_punishable:
+        lines.append(f"| {article_label(article)} | {offense_name(article)} |")
+
+    lines += [
+        "",
+        f"## 5. 예비·음모 처벌 규정 {len(doctrine.preparation_punishable)}개 조문",
+        "",
+        "| 조문 | 죄명 |",
+        "|---|---|",
+    ]
+    for article in doctrine.preparation_punishable:
+        lines.append(f"| {article_label(article)} | {offense_name(article)} |")
+
+    if doctrine.not_punishable:
+        lines += [
+            "",
+            "### 규정이 **없다**고 카드가 적극적으로 진술한 것",
+            "",
+            "| 조문 | 단계 |",
+            "|---|---|",
+        ]
+        for article, stage_name in doctrine.not_punishable:
+            lines.append(f"| {article_label(article)} {offense_name(article)} | {stage_name} |")
+
+    notes = stage_yaml.get("review_notes") or []
+    if notes:
+        lines += ["", "## 6. 미수 표에 관해 확인 부탁드릴 점", ""]
+        for note in notes:
+            lines.append(f"- {str(note).strip()}")
+
+    lines += [
+        "",
+        "---",
+        "",
+        "## 표현할 수 없어 뺀 것",
+        "",
+        "\"왜 이건 없나\"를 묻지 않으셔도 되도록 사유별로 예시를 남겼습니다.",
+        "",
+    ]
+    for key, block in (concurrence_yaml.get("not_expressible") or {}).items():
+        lines += ["", f"### {key} — {block.get('reason', '')}", ""]
+        for example in block.get("examples") or []:
+            lines.append(f"- {example}")
+    lines.append("")
+    return "\n".join(lines)
 
 
 def build_triage_payload(routings, corpus) -> dict:
@@ -476,6 +641,7 @@ def main() -> int:
     verdicts = parse_review(corpus=corpus) if REVIEW_PATH.is_file() else ()
     review = review_summary(verdicts)
     roles = resolve_card_roles(corpus, verdicts, classifications)
+    doctrine = load_doctrine(corpus.by_article())
     program = compile_rulebase(corpus, roles)
     stats = rulebase_stats(program, roles)
 
@@ -533,6 +699,16 @@ def main() -> int:
     )
     element = element_slots(roles)
     print(f"  element slots {len(element)} " f"({role_summary(roles)['element_slots_by_kind']})")
+    print()
+    print("=== doctrine tables (hand-authored) ===")
+    print(
+        f"  absorbed_by {len(doctrine.absorbed_by)}"
+        f" / imaginative {len(doctrine.imaginative_concurrence)}"
+        f" / attempt {len(doctrine.attempt_punishable)}"
+        f" / preparation {len(doctrine.preparation_punishable)}"
+    )
+    if doctrine.awaiting_review:
+        print("  status: awaiting legal review")
 
     if args.check:
         return 0
@@ -582,7 +758,22 @@ def main() -> int:
         encoding="utf-8",
     )
     RULEBASE_PATH.write_text(program, encoding="utf-8")
-    written += [TRIAGE_PATH, FACT_LAYER_PATH, ROLE_REVIEW_PATH, RULEBASE_PATH]
+
+    DOCTRINE_REVIEW_PATH.write_text(
+        render_doctrine_review(
+            doctrine,
+            yaml.safe_load(CONCURRENCE_PATH.read_text(encoding="utf-8")),
+            yaml.safe_load(STAGE_PATH.read_text(encoding="utf-8")),
+        ),
+        encoding="utf-8",
+    )
+    written += [
+        TRIAGE_PATH,
+        FACT_LAYER_PATH,
+        ROLE_REVIEW_PATH,
+        RULEBASE_PATH,
+        DOCTRINE_REVIEW_PATH,
+    ]
     print()
     for path in written:
         print(f"wrote {path.relative_to(PROJECT_ROOT)}")
