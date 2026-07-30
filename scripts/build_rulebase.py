@@ -87,7 +87,31 @@ def build_skeleton_payload(classifications) -> dict:
     }
 
 
-def render_review_markdown(classifications) -> str:
+_ROLE_CHOICES = "`core` / `presumed` / `stage` / `defeater` / `concurrence` / `context`"
+
+
+def _render_slot_cards(slot: str, corpus) -> list[str]:
+    """Every card in a slot, verbatim, so the role can actually be judged.
+
+    The role question is 'do these propositions state a requirement the prosecution must
+    prove?', which is unanswerable from the slot title and card count alone.
+    """
+    cards = corpus.by_slot().get(slot, ())
+    lines = [
+        "",
+        "| # | norm_kind | polarity | formalization | 명제 |",
+        "|---:|---|---|---|---|",
+    ]
+    for index, card in enumerate(cards, start=1):
+        proposition = card.proposition.replace("|", r"\|")
+        lines.append(
+            f"| {index} | {card.norm_kind} | {card.polarity} | "
+            f"{card.formalization} | {proposition} |"
+        )
+    return lines
+
+
+def render_review_markdown(classifications, corpus) -> str:
     summary = skeleton_summary(classifications)
     blocking = [c for c in classifications if c.review_priority == "blocking"]
     advisory = [c for c in classifications if c.review_priority == "advisory"]
@@ -124,36 +148,55 @@ def render_review_markdown(classifications) -> str:
         "| `context` | 성립 판단에 미사용 (의의·판례 예시) |",
         "| `participation` | 총칙 공범 영역 — 현재 규칙 없음 |",
         "",
+        "## 무엇을 답해 주시면 되는지",
+        "",
+        f"각 항목마다 역할 하나만 골라 주세요: {_ROLE_CHOICES}.",
+        "제안 역할이 맞으면 넘어가셔도 됩니다. 판단 기준은 **'이 명제들이 검사가",
+        "증명해야 하는 요건을 말하는가'** 입니다.",
+        "",
+        "- 요건을 말한다 → 그 요건이 통상 다투어지면 `core`, 자명하면 `presumed`",
+        "- 미수·기수 시기를 말한다 → `stage`",
+        "- 성립을 저지하는 사유를 말한다 → `defeater`",
+        "- 다른 죄와의 관계를 말한다 → `concurrence`",
+        "- 요건이 아니라 의의·판례 예시·처벌 규정이다 → `context`",
+        "",
+        "---",
+        "",
         "## blocking — 역할을 특정하지 못한 슬롯",
         "",
-        "자동 판정이 제목에서 역할을 읽어내지 못했습니다. `제안 역할`은 `norm_kind`만으로",
-        "둔 잠정값이니 맞는지 봐 주세요.",
-        "",
-        "| 조문 | 슬롯 | 주석서 제목 | 카드 | 제안 역할 | 사유 |",
-        "|---|---|---|---:|---|---|",
+        "제목에서 역할을 읽어내지 못했습니다. `제안 역할`은 `norm_kind`만으로 둔 잠정값입니다.",
     ]
-    for c in sorted(blocking, key=lambda x: (x.article, x.slot)):
+    for index, c in enumerate(sorted(blocking, key=lambda x: (x.article, x.slot)), 1):
+        title = strip_outline_numbering(c.title)
         reason = c.review_reason.split(":", 1)[0]
-        title = strip_outline_numbering(c.title).replace("|", r"\|")
-        lines.append(
-            f"| {c.article} | `{c.slot}` | {title} | {c.card_count} | `{c.role}` | {reason} |"
-        )
+        lines += [
+            "",
+            f"### B{index}. {c.article} · `{c.slot}` — {title or '(제목 없음)'}",
+            "",
+            f"- 제안 역할: **`{c.role}`**  |  카드 {c.card_count}장 "
+            f"(standard_input {c.standard_input_count})  |  사유: {reason}",
+        ]
+        lines += _render_slot_cards(c.slot, corpus)
 
     lines += [
+        "",
+        "---",
         "",
         "## advisory — 역할은 맞을 듯하나 편성이 이상한 슬롯",
         "",
         "`norm_kind: element` 카드가 죄수·위법성·공범 절에 편성되어 있습니다. 제목 기준",
-        "역할을 그대로 썼으니 반대 판단이 필요하면 알려 주세요.",
-        "",
-        "| 조문 | 슬롯 | 주석서 제목 | 카드 | 적용 역할 |",
-        "|---|---|---|---:|---|",
+        "역할을 그대로 적용했으니, 반대 판단이 필요한 것만 지적해 주세요.",
     ]
-    for c in sorted(advisory, key=lambda x: (x.article, x.slot)):
-        title = strip_outline_numbering(c.title).replace("|", r"\|")
-        lines.append(
-            f"| {c.article} | `{c.slot}` | {title} | {c.card_count} | `{c.role}` |"
-        )
+    for index, c in enumerate(sorted(advisory, key=lambda x: (x.article, x.slot)), 1):
+        title = strip_outline_numbering(c.title)
+        lines += [
+            "",
+            f"### A{index}. {c.article} · `{c.slot}` — {title or '(제목 없음)'}",
+            "",
+            f"- 적용 역할: **`{c.role}`**  |  카드 {c.card_count}장 "
+            f"(standard_input {c.standard_input_count})",
+        ]
+        lines += _render_slot_cards(c.slot, corpus)
 
     element_free = summary["articles_without_core_slot"]
     lines += [
@@ -219,7 +262,9 @@ def main() -> int:
         + "\n",
         encoding="utf-8",
     )
-    REVIEW_PATH.write_text(render_review_markdown(classifications), encoding="utf-8")
+    REVIEW_PATH.write_text(
+        render_review_markdown(classifications, corpus), encoding="utf-8"
+    )
     print()
     for path in (CENSUS_PATH, SKELETON_PATH, REVIEW_PATH):
         print(f"wrote {path.relative_to(PROJECT_ROOT)}")

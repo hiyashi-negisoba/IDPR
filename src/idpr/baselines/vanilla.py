@@ -10,6 +10,25 @@ from typing import Any, Dict
 from idpr.baselines.base import BaseBaseline
 from idpr.neural.vllm_client import VLLMClient
 
+VANILLA_SYSTEM_PROMPT = (
+    "당신은 대한민국 형사법 전문 법률 전문가입니다. "
+    "주어진 사실관계와 질문을 바탕으로 형사상 죄책 및 법리적 결론을 명확하고 논리적으로 서술하십시오."
+)
+
+
+def build_vanilla_user_prompt(question_text: str, question_prompt: str) -> str:
+    """The zero-shot answer prompt.
+
+    Shared rather than duplicated so that baselines which add one signal on top of
+    zero-shot -- LePREC contributes an issue decomposition -- differ from vanilla in
+    exactly that signal and nothing else. Editing the wording here moves both.
+    """
+    return (
+        "다음 사실관계를 읽고 질문에 답하십시오.\n\n"
+        f"[사실관계 및 질문]\n{question_text}\n\n{question_prompt}"
+    )
+
+
 class VanillaBaseline(BaseBaseline):
     """Vanilla Zero-shot LLM Baseline."""
 
@@ -26,11 +45,8 @@ class VanillaBaseline(BaseBaseline):
         question_prompt = case_data.get("question_prompt", "")
         sub_question_id = case_data.get("sub_question_id", case_data.get("case_id", "UNKNOWN"))
 
-        system_prompt = (
-            "당신은 대한민국 형사법 전문 법률 전문가입니다. "
-            "주어진 사실관계와 질문을 바탕으로 형사상 죄책 및 법리적 결론을 명확하고 논리적으로 서술하십시오."
-        )
-        user_prompt = f"다음 사실관계를 읽고 질문에 답하십시오.\n\n[사실관계 및 질문]\n{question_text}\n\n{question_prompt}"
+        system_prompt = VANILLA_SYSTEM_PROMPT
+        user_prompt = build_vanilla_user_prompt(question_text, question_prompt)
 
         if self.client is not None:
             try:

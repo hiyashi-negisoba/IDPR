@@ -2,14 +2,26 @@
 leprec.py
 Baseline 5: LePREC (ACL 2026 Baseline)
 Adapter utilizing the official repository https://github.com/fanyuuwang/LePREC-Reasoning-as-Classification-over-Structured-Factors-for-Assessing-Relevance-of-Legal-Issues
-WITHOUT any modifications or wrapper prompts.
+WITHOUT any modifications to its prompts or classifier.
 COMPLIANCE NOTICE: Automatically monkey-patches openai APIs to intercept
 external calls and redirect them to the local vLLM instance.
+
+Two stages, because LePREC's own task is issue classification rather than long-form
+argument. Stage 1 runs the repository's canonical incremental prompt to obtain the issue
+list. Stage 2 answers the exam question using the *same* zero-shot prompt as
+``VanillaBaseline`` with that issue list appended.
+
+The comparison this baseline supports is therefore exactly "does an explicit issue
+decomposition help?", holding everything else fixed. Without stage 2 the recorded output
+is a JSON issue list, which is not an answer to the question being graded and depresses
+the rubric score for a reason unrelated to LePREC's contribution.
 """
 
 from __future__ import annotations
 
+import json
 import os
+import re
 import sys
 from pathlib import Path
 from typing import Any, Dict
@@ -46,16 +58,31 @@ except ImportError:
     LEPREC_MODULES_LOADED = False
 
 from idpr.baselines.base import BaseBaseline
+from idpr.baselines.vanilla import VANILLA_SYSTEM_PROMPT, build_vanilla_user_prompt
 from idpr.neural.vllm_client import VLLMClient
 
+
+def format_issue_block(issues: list[str]) -> str:
+    """Render the stage-1 issue list as the one signal stage 2 adds over zero-shot."""
+    numbered = "\n".join(f"{i}. {issue}" for i, issue in enumerate(issues, start=1))
+    return (
+        "\n\n[쟁점 분리 결과]\n"
+        f"{numbered}\n\n"
+        "위 쟁점들을 빠뜨리지 말고 각각 검토하십시오."
+    )
+
+
 class LePRECBaseline(BaseBaseline):
-    """LePREC Official Classifier & Prompt Pipeline (100% Unmodified Original Code Execution)."""
+    """LePREC issue classification (unmodified) followed by a zero-shot answer."""
 
     def __init__(self, client: VLLMClient | None = None) -> None:
         super().__init__(
             baseline_id="leprec",
             name="LePREC (ACL 2026)",
-            description="Runs LePREC's canonical classifier and prompts without any custom wrapping or modification."
+            description=(
+                "Stage 1 runs LePREC's canonical incremental prompt to extract the issue "
+                "list; stage 2 answers with the vanilla zero-shot prompt plus that list."
+            ),
         )
         self.client = client
         self.repo_path = LEPREC_DIR.parent
@@ -86,18 +113,43 @@ class LePRECBaseline(BaseBaseline):
             except Exception as e:
                 classification_result = {"error": str(e)}
 
-        # 3. Direct E2E execution: complete the response using vLLM on the structured prompt
+        question_text = case_data.get("question_text", "")
+        question_prompt = case_data.get("question_prompt", "죄책을 논하시오.")
+
+        issue_list_raw = ""
+        issues: list[str] = []
         response_text = ""
+        stage_errors: Dict[str, str] = {}
+
         if self.client:
-            prompt = f"{original_prompt}\n\n질문: {case_data.get('question_prompt', '죄책을 논하시오.')}\n\n대한민국 형사법 전문가로서 위 사실관계와 질문에 대해 상세히 논하시오."
+            # Stage 1: LePREC's own task -- extract the issue list from the fact pattern
+            # using the repository's canonical prompt.
+            try:
+                issue_list_raw = self.client.complete_text(
+                    system_prompt="당신은 대한민국 형사법 전문 법률 전문가입니다.",
+                    user_template=original_prompt,
+                    temperature=0.0,
+                    max_tokens=4096,
+                )
+                issues = self._parse_issues(issue_list_raw)
+            except Exception as e:
+                stage_errors["issue_extraction"] = str(e)
+
+            # Stage 2: answer the exam question. Identical to the vanilla zero-shot
+            # prompt except for the appended issue list, so the only variable between
+            # this baseline and vanilla is the decomposition itself.
+            user_prompt = build_vanilla_user_prompt(question_text, question_prompt)
+            if issues:
+                user_prompt += format_issue_block(issues)
             try:
                 response_text = self.client.complete_text(
-                    system_prompt="당신은 대한민국 형사법 전문 법률 전문가입니다.",
-                    user_template=prompt,
+                    system_prompt=VANILLA_SYSTEM_PROMPT,
+                    user_template=user_prompt,
                     temperature=0.0,
-                    max_tokens=4096
+                    max_tokens=4096,
                 )
             except Exception as e:
+                stage_errors["answer_generation"] = str(e)
                 response_text = f"[vLLM Call Error: {e}]"
 
         return {
@@ -106,11 +158,54 @@ class LePRECBaseline(BaseBaseline):
             "name": self.name,
             "original_prompt_text": original_prompt,
             "leprec_classifier_status": classification_result,
+            "extracted_issues": issues,
+            "issue_extraction_raw": issue_list_raw,
             "generated_response": response_text,
             "reasoning_trace": {
-                "method": "leprec_unmodified_e2e",
+                "method": "leprec_issue_decomposition_then_zero_shot",
                 "repo_path": str(self.repo_path),
                 "modules_loaded": self.modules_loaded,
-                "classifier_status": classification_result
-            }
+                "classifier_status": classification_result,
+                "issue_count": len(issues),
+                "model_calls": 2 if self.client else 0,
+                "stage_errors": stage_errors,
+            },
         }
+
+    def _parse_issues(self, raw: str) -> list[str]:
+        """Turn stage-1 output into an issue list, preferring LePREC's own parser.
+
+        Falls back to JSON, then to line splitting, because the stage-1 response is free
+        text: a parse failure must not silently drop the decomposition that is this
+        baseline's entire contribution.
+        """
+        if self.modules_loaded:
+            try:
+                parsed = parse_issue_list(raw)
+                if parsed:
+                    return list(deduplicate_issues(parsed))
+            except Exception:
+                pass
+
+        text = raw.strip()
+        if text.startswith("```"):
+            text = text.split("```")[1] if "```" in text[3:] else text[3:]
+            text = text.removeprefix("json").strip()
+        try:
+            loaded = json.loads(text)
+            if isinstance(loaded, list):
+                return [str(item).strip() for item in loaded if str(item).strip()]
+        except (json.JSONDecodeError, ValueError):
+            pass
+
+        issues = []
+        for line in text.splitlines():
+            stripped = line.strip().lstrip("-*").strip()
+            stripped = re.sub(r"^\d+[.)]\s*", "", stripped)
+            stripped = stripped.strip('",')
+            # Korean is dense: "체포죄 성부" is a complete issue at six characters, so a
+            # long minimum would discard real items. Four is enough to reject stray
+            # tokens and fence remnants.
+            if len(stripped) >= 4:
+                issues.append(stripped)
+        return issues
