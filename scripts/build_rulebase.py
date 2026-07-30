@@ -26,9 +26,15 @@ sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from idpr.rulebase.cards import load_card_corpus  # noqa: E402
 from idpr.rulebase.skeleton import (  # noqa: E402
+    CONCURRENCE,
+    CONTEXT,
     CORE,
+    DEFEATER,
+    PARTICIPATION,
     PRESUMED,
+    STAGE,
     derive_skeleton,
+    example_slot_for_role,
     skeleton_summary,
     strip_outline_numbering,
 )
@@ -111,6 +117,96 @@ def _render_slot_cards(slot: str, corpus) -> list[str]:
     return lines
 
 
+#: Per-role reviewer guidance: why the example slot got its role, and what the role does
+#: to the offence gate. The order here is the order the examples are rendered in.
+_ROLE_EXAMPLE_NOTES: tuple[tuple[str, str, str], ...] = (
+    (
+        CORE,
+        "카드가 모두 '이것이 있어야 죄가 된다'를 말합니다. 고의는 사안마다 다투어지므로 "
+        "검사가 적극적으로 증명해야 하는 요건입니다.",
+        "이 슬롯이 `satisfied`가 되지 않으면 해당 죄는 성립하지 않습니다.",
+    ),
+    (
+        PRESUMED,
+        "요건이기는 하나 사안에서 거의 다투어지지 않습니다. 카드도 '주체는 절도범이다'라는 "
+        "확인과, 그에 해당하지 않는 경우를 짚는 예외로 구성되어 있습니다.",
+        "답안이 언급하지 않아도 통과하고, 카드가 `not_satisfied`로 명시 반증될 때만 죄의 "
+        "성립을 막습니다.",
+    ),
+    (
+        STAGE,
+        "요건의 충족 여부가 아니라 **언제 기수가 되는가**를 말합니다.",
+        "성립 게이트에는 들어가지 않고 기수/미수 판정에만 쓰입니다.",
+    ),
+    (
+        DEFEATER,
+        "충족되면 죄의 성립을 **저지**하는 사유입니다. 요건과 방향이 반대입니다.",
+        "`satisfied`가 되면 다른 요건이 모두 충족되어도 죄가 성립하지 않습니다.",
+    ),
+    (
+        CONCURRENCE,
+        "계속범·포괄일죄처럼 **다른 죄 또는 다른 행위와의 관계**를 말합니다.",
+        "성립 판단에는 쓰이지 않고, 죄수 정의(`absorbed_by`)의 초안 재료가 됩니다.",
+    ),
+    (
+        PARTICIPATION,
+        "공범·신분 등 형법총칙 영역입니다. 총칙 주석서를 적재하지 않았으므로 대응 규칙이 "
+        "없습니다.",
+        "성립 판단에 쓰이지 않습니다. 서술 재료로만 남습니다.",
+    ),
+    (
+        CONTEXT,
+        "죄의 정의·연혁·판례 예시입니다. 증명의 대상이 아닙니다.",
+        "성립 판단에 쓰이지 않고 Rule 문단 서술에만 쓰입니다.",
+    ),
+)
+
+#: A correctly-titled slot whose cards nonetheless point at a different role. Shown so the
+#: reviewer knows that pointing out a misclassification *outside* the queue is welcome.
+_BORDERLINE_SLOT = "art329_sec3_1"
+
+
+def render_role_examples(classifications, corpus) -> list[str]:
+    """One worked example per role, drawn from slots the derivation settled on its own."""
+    lines = [
+        "## 분류 예시 — 자동 분류가 판정한 실제 슬롯",
+        "",
+        "아래는 검수 대상이 **아닌**, 자동 분류가 확정한 슬롯들입니다. 각 역할이 실제로",
+        "어떤 카드 묶음에 붙는지 보시고 같은 기준으로 판정해 주세요.",
+    ]
+    for role, why, effect in _ROLE_EXAMPLE_NOTES:
+        example = example_slot_for_role(role, classifications)
+        if example is None:
+            continue
+        title = strip_outline_numbering(example.title)
+        lines += [
+            "",
+            f"### `{role}` 예시 — {example.article} · `{example.slot}` "
+            f"— {title or '(제목 없음)'}",
+            "",
+            f"- 왜 `{role}`인가: {why}",
+            f"- 심볼릭에서의 효과: {effect}",
+        ]
+        lines += _render_slot_cards(example.slot, corpus)
+
+    borderline = next(
+        (c for c in classifications if c.slot == _BORDERLINE_SLOT), None
+    )
+    if borderline is not None and not borderline.needs_review:
+        lines += [
+            "",
+            "### 경계 사례 — 제목과 내용이 어긋난 슬롯",
+            "",
+            f"{borderline.article} · `{borderline.slot}` "
+            f"— {strip_outline_numbering(borderline.title)}: 제목이 '개념'이라 "
+            f"**`{borderline.role}`**로 분류됐지만, 카드는 절취의 성립 범위를 정하고 있어",
+            "행위 요건(`core`)에 가깝습니다. 이런 슬롯은 검수 대기열에 올라오지 않으므로,",
+            "눈에 띄면 슬롯 ID만 알려 주세요.",
+        ]
+        lines += _render_slot_cards(borderline.slot, corpus)
+    return lines
+
+
 def render_review_markdown(classifications, corpus) -> str:
     summary = skeleton_summary(classifications)
     blocking = [c for c in classifications if c.review_priority == "blocking"]
@@ -159,6 +255,12 @@ def render_review_markdown(classifications, corpus) -> str:
         "- 성립을 저지하는 사유를 말한다 → `defeater`",
         "- 다른 죄와의 관계를 말한다 → `concurrence`",
         "- 요건이 아니라 의의·판례 예시·처벌 규정이다 → `context`",
+        "",
+        "---",
+        "",
+    ]
+    lines += render_role_examples(classifications, corpus)
+    lines += [
         "",
         "---",
         "",

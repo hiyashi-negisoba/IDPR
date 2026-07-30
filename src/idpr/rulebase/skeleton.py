@@ -378,6 +378,42 @@ def derive_skeleton(corpus: CardCorpus | None = None) -> tuple[SlotClassificatio
     return tuple(results)
 
 
+#: Slots to show the reviewer as the worked example of each role. Chosen because their
+#: cards state the role unambiguously and they belong to offences the review queue also
+#: touches. Only a preference: if one disappears from the corpus, the fallback below
+#: substitutes another slot of the same role rather than dropping the example.
+_PREFERRED_EXAMPLES: Mapping[str, str] = {
+    CORE: "art297_sec6",  # 강간죄 고의
+    PRESUMED: "art335_sec2",  # 준강도죄 주체
+    STAGE: "art329_sec3_3",  # 절도죄 기수시기
+    DEFEATER: "art297_sec5",  # 강간죄 피해자의 승낙
+    CONCURRENCE: "art319_sec6_1",  # 주거침입죄 죄수
+    PARTICIPATION: "art297_sec4_4",  # 강간죄 공동정범
+    CONTEXT: "art250_sec1_1",  # 살인죄 의의
+}
+
+
+def example_slot_for_role(
+    role: str, classifications: tuple[SlotClassification, ...]
+) -> SlotClassification | None:
+    """One automatically classified slot that illustrates ``role``.
+
+    Examples are drawn from slots the derivation settled on its own, never from the review
+    queue: an item whose role is still in question cannot demonstrate what the role means.
+    A small slot is preferred on the fallback path so the example stays readable.
+    """
+    settled = [
+        c for c in classifications if c.role == role and not c.needs_review
+    ]
+    if not settled:
+        return None
+    preferred = _PREFERRED_EXAMPLES.get(role)
+    for candidate in settled:
+        if candidate.slot == preferred:
+            return candidate
+    return min(settled, key=lambda c: (c.card_count, c.slot))
+
+
 def skeleton_summary(
     classifications: tuple[SlotClassification, ...],
 ) -> dict[str, object]:

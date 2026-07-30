@@ -24,6 +24,7 @@ from idpr.rulebase.skeleton import (
     classify_title,
     commentary_section_titles,
     derive_skeleton,
+    example_slot_for_role,
     looks_like_parse_artifact,
     skeleton_summary,
     strip_outline_numbering,
@@ -263,6 +264,26 @@ def test_articles_without_a_core_slot_are_element_free_by_design(skeleton):
     }
     without_core = set(skeleton_summary(skeleton)["articles_without_core_slot"])
     assert without_core <= element_free, f"unexpected gap: {without_core - element_free}"
+
+
+@pytest.mark.parametrize(
+    "role",
+    [CORE, PRESUMED, "stage", "defeater", "concurrence", "participation", "context"],
+)
+def test_every_role_has_a_settled_example_slot(skeleton, role):
+    """The review document explains each role by example, so each must have one.
+
+    Examples must come from slots the derivation settled unaided: an item whose own role
+    is still in question cannot demonstrate what that role means.
+    """
+    example = example_slot_for_role(role, skeleton)
+    assert example is not None, f"no example available for {role}"
+    assert example.role == role
+    assert not example.needs_review
+
+
+def test_example_selection_is_deterministic(skeleton):
+    assert example_slot_for_role(CORE, skeleton) == example_slot_for_role(CORE, skeleton)
 
 
 def test_smoke_case_articles_decompose_into_usable_skeletons(skeleton):

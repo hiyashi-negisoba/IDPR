@@ -41,6 +41,99 @@ RuleIR 카드에는 '이 카드가 어느 죄의 어느 요건인가'가 없습�
 
 ---
 
+## 분류 예시 — 자동 분류가 판정한 실제 슬롯
+
+아래는 검수 대상이 **아닌**, 자동 분류가 확정한 슬롯들입니다. 각 역할이 실제로
+어떤 카드 묶음에 붙는지 보시고 같은 기준으로 판정해 주세요.
+
+### `core` 예시 — art297 · `art297_sec6` — 고의
+
+- 왜 `core`인가: 카드가 모두 '이것이 있어야 죄가 된다'를 말합니다. 고의는 사안마다 다투어지므로 검사가 적극적으로 증명해야 하는 요건입니다.
+- 심볼릭에서의 효과: 이 슬롯이 `satisfied`가 되지 않으면 해당 죄는 성립하지 않습니다.
+
+| # | norm_kind | polarity | formalization | 명제 |
+|---:|---|---|---|---|
+| 1 | element | positive | standard_input | 강간죄에는 폭행·협박으로 피해자를 강간한다는 인식과 의사가 필요하고, 미필적 고의로도 충분하다. |
+| 2 | exception | negative | standard_input | 피해자 승낙이 없음에도 승낙이 있다고 오인한 경우 강간죄의 고의가 조각된다. |
+
+### `presumed` 예시 — art335 · `art335_sec2` — 주체
+
+- 왜 `presumed`인가: 요건이기는 하나 사안에서 거의 다투어지지 않습니다. 카드도 '주체는 절도범이다'라는 확인과, 그에 해당하지 않는 경우를 짚는 예외로 구성되어 있습니다.
+- 심볼릭에서의 효과: 답안이 언급하지 않아도 통과하고, 카드가 `not_satisfied`로 명시 반증될 때만 죄의 성립을 막습니다.
+
+| # | norm_kind | polarity | formalization | 명제 |
+|---:|---|---|---|---|
+| 1 | element | positive | deterministic_rule | 준강도의 주체는 절도범이며, 절도의 실행에 착수한 이상 절도 기수인지 미수인지는 묻지 않는다. |
+| 2 | exception | exception | deterministic_rule | 절취행위에 착수하지 않은 단순한 절도 예비단계에서 폭행·협박을 하였더라도 준강도죄에 해당하지 않는다. |
+| 3 | exception | exception | deterministic_rule | 절도죄의 객체인 재물이 아닌 재산상 이익을 취득하려고 폭행·협박을 한 경우에는 준강도죄가 성립할 수 없다. |
+
+### `stage` 예시 — art329 · `art329_sec3_3` — 기수시기
+
+- 왜 `stage`인가: 요건의 충족 여부가 아니라 **언제 기수가 되는가**를 말합니다.
+- 심볼릭에서의 효과: 성립 게이트에는 들어가지 않고 기수/미수 판정에만 쓰입니다.
+
+| # | norm_kind | polarity | formalization | 명제 |
+|---:|---|---|---|---|
+| 1 | definition | positive | standard_input | 절도는 타인의 재물을 자기의 실력적 지배 아래 두어 배타적·자유롭게 처분할 수 있는 상태가 되면 기수에 이르며, 영구적·안전한 경제적 가치 보전 상태에 둘 필요는 없다. |
+| 2 | standard | positive | standard_input | 재물 취득 여부는 재물의 크기·무게·보관 장소·상태 등 제반 사정을 종합하여 사회통념에 맞게 판단한다. |
+
+### `defeater` 예시 — art297 · `art297_sec5` — 피해자의 승낙
+
+- 왜 `defeater`인가: 충족되면 죄의 성립을 **저지**하는 사유입니다. 요건과 방향이 반대입니다.
+- 심볼릭에서의 효과: `satisfied`가 되면 다른 요건이 모두 충족되어도 죄가 성립하지 않습니다.
+
+| # | norm_kind | polarity | formalization | 명제 |
+|---:|---|---|---|---|
+| 1 | exception | exception | standard_input | 피해자 본인의 성관계 승낙은 구성요건 해당성을 조각하며, 친권자 등의 승낙은 강간죄 성립에 영향을 주지 않는다. |
+| 2 | exception | negative | standard_input | 피해자가 사전에 성관계를 승낙했더라도 동의를 번복하면 승낙이 있다고 볼 수 없다. |
+| 3 | standard | positive | standard_input | 성관계 승낙 여부는 행위 경위와 태양, 피해자 연령, 범행 당시 정황 등을 종합해 성적 자유 또는 성적 자기결정권 침해 여부를 기준으로 구체적·개별적으로 판단한다. |
+| 4 | standard | negative | standard_input | 피해자가 범행 무렵까지 피고인과 전화·문자 연락을 하고 호감을 보인 정황만으로 성관계 승낙 또는 묵인을 인정할 수는 없다. |
+
+### `concurrence` 예시 — art319 · `art319_sec6_1` — 죄수
+
+- 왜 `concurrence`인가: 계속범·포괄일죄처럼 **다른 죄 또는 다른 행위와의 관계**를 말합니다.
+- 심볼릭에서의 효과: 성립 판단에는 쓰이지 않고, 죄수 정의(`absorbed_by`)의 초안 재료가 됩니다.
+
+| # | norm_kind | polarity | formalization | 명제 |
+|---:|---|---|---|---|
+| 1 | definition | positive | deterministic_rule | 주거침입죄는 사실상 주거의 평온 침해가 계속되는 동안 계속 성립하는 계속범이다. |
+| 2 | exception | negative | deterministic_rule | 주거침입죄 기수 후 퇴거요구에 불응하더라도 별도로 퇴거불응죄는 성립하지 않는다. |
+| 3 | standard | positive | standard_input | 주거침입 후 잠시 나왔다가 다시 들어간 경우 포괄일죄가 된다. |
+| 4 | standard | positive | standard_input | 무단침입으로 유죄판결이 확정된 뒤에도 퇴거하지 않고 계속 거주하면, 판결확정 이후의 침입행위 및 위법상태 계속으로 별도의 주거침입죄가 된다. |
+
+### `participation` 예시 — art297 · `art297_sec4_4` — 공동정범
+
+- 왜 `participation`인가: 공범·신분 등 형법총칙 영역입니다. 총칙 주석서를 적재하지 않았으므로 대응 규칙이 없습니다.
+- 심볼릭에서의 효과: 성립 판단에 쓰이지 않습니다. 서술 재료로만 남습니다.
+
+| # | norm_kind | polarity | formalization | 명제 |
+|---:|---|---|---|---|
+| 1 | standard | negative | standard_input | 선행자와의 공동가공 의사에 기한 기능적 행위지배를 후행자에게 인정할 수 없으면 승계적 공동정범은 성립할 수 없다는 대법원 취지가 소개되어 있다. |
+| 2 | standard | positive | standard_input | 선행자의 행위를 이용하여 피해자를 간음한 후행자에게는 준강간죄가 성립할 여지가 있다. |
+
+### `context` 예시 — art250 · `art250_sec1_1` — 의의
+
+- 왜 `context`인가: 죄의 정의·연혁·판례 예시입니다. 증명의 대상이 아닙니다.
+- 심볼릭에서의 효과: 성립 판단에 쓰이지 않고 Rule 문단 서술에만 쓰입니다.
+
+| # | norm_kind | polarity | formalization | 명제 |
+|---:|---|---|---|---|
+| 1 | definition | positive | deterministic_rule | 살인죄는 고의로 사람을 살해하여 사람의 생명을 끊는 범죄이다. |
+| 2 | definition | positive | deterministic_rule | 살인 피해자가 보통의 사람인 경우 보통살인죄가 된다. |
+
+### 경계 사례 — 제목과 내용이 어긋난 슬롯
+
+art329 · `art329_sec3_1` — 개념: 제목이 '개념'이라 **`context`**로 분류됐지만, 카드는 절취의 성립 범위를 정하고 있어
+행위 요건(`core`)에 가깝습니다. 이런 슬롯은 검수 대기열에 올라오지 않으므로,
+눈에 띄면 슬롯 ID만 알려 주세요.
+
+| # | norm_kind | polarity | formalization | 명제 |
+|---:|---|---|---|---|
+| 1 | standard | positive | standard_input | 기망이 점유침탈의 방법에 불과하여 기망으로 재물의 교부 또는 점유 이전이 있었다고 보기 어려운 경우에는 사기죄가 아니라 절도죄가 성립한다. |
+| 2 | definition | positive | standard_input | 절취는 단순히 재물을 타인의 지배에서 이탈시키는 것만으로는 부족하고, 재물을 자기 또는 제3자의 지배 아래로 옮기는 것을 뜻한다. |
+
+---
+
 ## blocking — 역할을 특정하지 못한 슬롯
 
 제목에서 역할을 읽어내지 못했습니다. `제안 역할`은 `norm_kind`만으로 둔 잠정값입니다.
