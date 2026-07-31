@@ -1,0 +1,2545 @@
+{
+  "tokenizer": "gemma-4-26B",
+  "corpus_totals": {
+    "cards": 1697,
+    "tokens": 127931,
+    "cards_no_context": 1423,
+    "tokens_no_context": 106829
+  },
+  "selection_run": {
+    "rows": 61,
+    "failed": 0,
+    "total_tokens": 139777,
+    "prompt_tokens": 131405
+  },
+  "paths": {
+    "llm_selection": {
+      "macro_recall": 0.7142,
+      "macro_recall_without_attempt_articles": 0.7067,
+      "questions": 31,
+      "fully_recovered": 14,
+      "articles_per_question": {
+        "median": 3,
+        "max": 14
+      },
+      "call2_payload": {
+        "cards": {
+          "median": 111,
+          "mean": 163.5,
+          "max": 643
+        },
+        "tokens": {
+          "median": 8105,
+          "mean": 12239.3,
+          "max": 49285
+        },
+        "cards_no_context": {
+          "median": 105,
+          "mean": 140.5,
+          "max": 547
+        },
+        "tokens_no_context": {
+          "median": 7628,
+          "mean": 10466.5,
+          "max": 41725
+        }
+      },
+      "retrieval_iso_performance": {
+        "k": 16,
+        "macro_recall": 0.7773,
+        "macro_recall_without_attempt_articles": 0.8218,
+        "questions": 31,
+        "fully_recovered": 15,
+        "articles_per_question": {
+          "median": 16,
+          "max": 16
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 739,
+            "mean": 700.3,
+            "max": 803
+          },
+          "tokens": {
+            "median": 55825,
+            "mean": 53293.2,
+            "max": 61751
+          },
+          "cards_no_context": {
+            "median": 597,
+            "mean": 588.0,
+            "max": 689
+          },
+          "tokens_no_context": {
+            "median": 45055,
+            "mean": 44549.9,
+            "max": 53119
+          }
+        }
+      },
+      "token_saving_vs_iso_retrieval": {
+        "cards": {
+          "retrieval": 739,
+          "selection": 111,
+          "reduction": 0.8498
+        },
+        "tokens": {
+          "retrieval": 55825,
+          "selection": 8105,
+          "reduction": 0.8548
+        },
+        "cards_no_context": {
+          "retrieval": 597,
+          "selection": 105,
+          "reduction": 0.8241
+        },
+        "tokens_no_context": {
+          "retrieval": 45055,
+          "selection": 7628,
+          "reduction": 0.8307
+        }
+      }
+    },
+    "llm_selection_plus_attempt": {
+      "macro_recall": 0.7268,
+      "macro_recall_without_attempt_articles": 0.7067,
+      "questions": 31,
+      "fully_recovered": 14,
+      "articles_per_question": {
+        "median": 4,
+        "max": 16
+      },
+      "call2_payload": {
+        "cards": {
+          "median": 112,
+          "mean": 164.3,
+          "max": 647
+        },
+        "tokens": {
+          "median": 8105,
+          "mean": 12281.6,
+          "max": 49476
+        },
+        "cards_no_context": {
+          "median": 106,
+          "mean": 141.4,
+          "max": 551
+        },
+        "tokens_no_context": {
+          "median": 7628,
+          "mean": 10508.8,
+          "max": 41916
+        }
+      },
+      "retrieval_iso_performance": {
+        "k": 13,
+        "macro_recall": 0.7502,
+        "macro_recall_without_attempt_articles": 0.7333,
+        "questions": 31,
+        "fully_recovered": 15,
+        "articles_per_question": {
+          "median": 15,
+          "max": 16
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 606,
+            "mean": 597.5,
+            "max": 752
+          },
+          "tokens": {
+            "median": 46967,
+            "mean": 45498.8,
+            "max": 58224
+          },
+          "cards_no_context": {
+            "median": 518,
+            "mean": 503.8,
+            "max": 640
+          },
+          "tokens_no_context": {
+            "median": 39346,
+            "mean": 38187.8,
+            "max": 49605
+          }
+        }
+      },
+      "token_saving_vs_iso_retrieval": {
+        "cards": {
+          "retrieval": 606,
+          "selection": 112,
+          "reduction": 0.8152
+        },
+        "tokens": {
+          "retrieval": 46967,
+          "selection": 8105,
+          "reduction": 0.8274
+        },
+        "cards_no_context": {
+          "retrieval": 518,
+          "selection": 106,
+          "reduction": 0.7954
+        },
+        "tokens_no_context": {
+          "retrieval": 39346,
+          "selection": 7628,
+          "reduction": 0.8061
+        }
+      }
+    }
+  },
+  "retrieval_curve": {
+    "1": {
+      "retrieval": {
+        "macro_recall": 0.1925,
+        "macro_recall_without_attempt_articles": 0.2022,
+        "questions": 31,
+        "fully_recovered": 3,
+        "articles_per_question": {
+          "median": 1,
+          "max": 1
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 38,
+            "mean": 55.1,
+            "max": 200
+          },
+          "tokens": {
+            "median": 2875,
+            "mean": 4249.9,
+            "max": 16026
+          },
+          "cards_no_context": {
+            "median": 27,
+            "mean": 45.8,
+            "max": 154
+          },
+          "tokens_no_context": {
+            "median": 1830,
+            "mean": 3492.9,
+            "max": 12252
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.2097,
+        "macro_recall_without_attempt_articles": 0.2022,
+        "questions": 31,
+        "fully_recovered": 3,
+        "articles_per_question": {
+          "median": 1,
+          "max": 2
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 38,
+            "mean": 56.2,
+            "max": 203
+          },
+          "tokens": {
+            "median": 2875,
+            "mean": 4322.7,
+            "max": 16175
+          },
+          "cards_no_context": {
+            "median": 27,
+            "mean": 46.9,
+            "max": 157
+          },
+          "tokens_no_context": {
+            "median": 1830,
+            "mean": 3565.7,
+            "max": 12401
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.7349,
+        "macro_recall_without_attempt_articles": 0.7148,
+        "questions": 31,
+        "fully_recovered": 14,
+        "articles_per_question": {
+          "median": 5,
+          "max": 16
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 160,
+            "mean": 190.8,
+            "max": 647
+          },
+          "tokens": {
+            "median": 11654,
+            "mean": 14309.6,
+            "max": 49476
+          },
+          "cards_no_context": {
+            "median": 134,
+            "mean": 163.3,
+            "max": 551
+          },
+          "tokens_no_context": {
+            "median": 10417,
+            "mean": 12160.3,
+            "max": 41916
+          }
+        }
+      }
+    },
+    "2": {
+      "retrieval": {
+        "macro_recall": 0.2403,
+        "macro_recall_without_attempt_articles": 0.2516,
+        "questions": 31,
+        "fully_recovered": 3,
+        "articles_per_question": {
+          "median": 2,
+          "max": 2
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 78,
+            "mean": 101.3,
+            "max": 250
+          },
+          "tokens": {
+            "median": 5641,
+            "mean": 7814.1,
+            "max": 19631
+          },
+          "cards_no_context": {
+            "median": 61,
+            "mean": 83.5,
+            "max": 204
+          },
+          "tokens_no_context": {
+            "median": 4908,
+            "mean": 6413.8,
+            "max": 15857
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.2686,
+        "macro_recall_without_attempt_articles": 0.2516,
+        "questions": 31,
+        "fully_recovered": 3,
+        "articles_per_question": {
+          "median": 2,
+          "max": 4
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 78,
+            "mean": 102.9,
+            "max": 258
+          },
+          "tokens": {
+            "median": 5641,
+            "mean": 7913.6,
+            "max": 20142
+          },
+          "cards_no_context": {
+            "median": 63,
+            "mean": 85.1,
+            "max": 212
+          },
+          "tokens_no_context": {
+            "median": 4908,
+            "mean": 6513.3,
+            "max": 16368
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.7349,
+        "macro_recall_without_attempt_articles": 0.7148,
+        "questions": 31,
+        "fully_recovered": 14,
+        "articles_per_question": {
+          "median": 5,
+          "max": 16
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 183,
+            "mean": 218.0,
+            "max": 647
+          },
+          "tokens": {
+            "median": 13226,
+            "mean": 16419.5,
+            "max": 49476
+          },
+          "cards_no_context": {
+            "median": 151,
+            "mean": 185.6,
+            "max": 551
+          },
+          "tokens_no_context": {
+            "median": 11613,
+            "mean": 13906.4,
+            "max": 41916
+          }
+        }
+      }
+    },
+    "3": {
+      "retrieval": {
+        "macro_recall": 0.3116,
+        "macro_recall_without_attempt_articles": 0.3228,
+        "questions": 31,
+        "fully_recovered": 4,
+        "articles_per_question": {
+          "median": 3,
+          "max": 3
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 128,
+            "mean": 151.2,
+            "max": 334
+          },
+          "tokens": {
+            "median": 9784,
+            "mean": 11737.3,
+            "max": 26919
+          },
+          "cards_no_context": {
+            "median": 92,
+            "mean": 124.2,
+            "max": 270
+          },
+          "tokens_no_context": {
+            "median": 7229,
+            "mean": 9641.7,
+            "max": 21571
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.3479,
+        "macro_recall_without_attempt_articles": 0.3228,
+        "questions": 31,
+        "fully_recovered": 4,
+        "articles_per_question": {
+          "median": 3,
+          "max": 5
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 128,
+            "mean": 153.1,
+            "max": 337
+          },
+          "tokens": {
+            "median": 9784,
+            "mean": 11854.6,
+            "max": 27068
+          },
+          "cards_no_context": {
+            "median": 95,
+            "mean": 126.1,
+            "max": 273
+          },
+          "tokens_no_context": {
+            "median": 7327,
+            "mean": 9759.0,
+            "max": 21720
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.7349,
+        "macro_recall_without_attempt_articles": 0.7148,
+        "questions": 31,
+        "fully_recovered": 14,
+        "articles_per_question": {
+          "median": 6,
+          "max": 16
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 191,
+            "mean": 251.7,
+            "max": 647
+          },
+          "tokens": {
+            "median": 14658,
+            "mean": 19054.9,
+            "max": 49476
+          },
+          "cards_no_context": {
+            "median": 151,
+            "mean": 213.1,
+            "max": 551
+          },
+          "tokens_no_context": {
+            "median": 11613,
+            "mean": 16083.0,
+            "max": 41916
+          }
+        }
+      }
+    },
+    "4": {
+      "retrieval": {
+        "macro_recall": 0.3605,
+        "macro_recall_without_attempt_articles": 0.3774,
+        "questions": 31,
+        "fully_recovered": 5,
+        "articles_per_question": {
+          "median": 4,
+          "max": 4
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 170,
+            "mean": 193.9,
+            "max": 367
+          },
+          "tokens": {
+            "median": 13173,
+            "mean": 14992.9,
+            "max": 29089
+          },
+          "cards_no_context": {
+            "median": 134,
+            "mean": 159.3,
+            "max": 313
+          },
+          "tokens_no_context": {
+            "median": 10672,
+            "mean": 12293.0,
+            "max": 24654
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.4022,
+        "macro_recall_without_attempt_articles": 0.3774,
+        "questions": 31,
+        "fully_recovered": 5,
+        "articles_per_question": {
+          "median": 4,
+          "max": 6
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 170,
+            "mean": 195.8,
+            "max": 375
+          },
+          "tokens": {
+            "median": 13173,
+            "mean": 15111.6,
+            "max": 29600
+          },
+          "cards_no_context": {
+            "median": 138,
+            "mean": 161.2,
+            "max": 321
+          },
+          "tokens_no_context": {
+            "median": 10672,
+            "mean": 12411.7,
+            "max": 25165
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.7631,
+        "macro_recall_without_attempt_articles": 0.7468,
+        "questions": 31,
+        "fully_recovered": 16,
+        "articles_per_question": {
+          "median": 6,
+          "max": 16
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 246,
+            "mean": 286.5,
+            "max": 647
+          },
+          "tokens": {
+            "median": 17958,
+            "mean": 21718.8,
+            "max": 49476
+          },
+          "cards_no_context": {
+            "median": 227,
+            "mean": 241.2,
+            "max": 551
+          },
+          "tokens_no_context": {
+            "median": 16221,
+            "mean": 18222.8,
+            "max": 41916
+          }
+        }
+      }
+    },
+    "5": {
+      "retrieval": {
+        "macro_recall": 0.3912,
+        "macro_recall_without_attempt_articles": 0.4016,
+        "questions": 31,
+        "fully_recovered": 6,
+        "articles_per_question": {
+          "median": 5,
+          "max": 5
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 200,
+            "mean": 227.6,
+            "max": 402
+          },
+          "tokens": {
+            "median": 16027,
+            "mean": 17539.4,
+            "max": 32009
+          },
+          "cards_no_context": {
+            "median": 179,
+            "mean": 188.3,
+            "max": 337
+          },
+          "tokens_no_context": {
+            "median": 13144,
+            "mean": 14465.4,
+            "max": 26600
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.4329,
+        "macro_recall_without_attempt_articles": 0.4016,
+        "questions": 31,
+        "fully_recovered": 6,
+        "articles_per_question": {
+          "median": 6,
+          "max": 7
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 201,
+            "mean": 230.3,
+            "max": 410
+          },
+          "tokens": {
+            "median": 16062,
+            "mean": 17703.4,
+            "max": 32520
+          },
+          "cards_no_context": {
+            "median": 179,
+            "mean": 190.9,
+            "max": 345
+          },
+          "tokens_no_context": {
+            "median": 13506,
+            "mean": 14629.3,
+            "max": 27111
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.7631,
+        "macro_recall_without_attempt_articles": 0.7468,
+        "questions": 31,
+        "fully_recovered": 16,
+        "articles_per_question": {
+          "median": 8,
+          "max": 16
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 281,
+            "mean": 310.5,
+            "max": 647
+          },
+          "tokens": {
+            "median": 20454,
+            "mean": 23505.0,
+            "max": 49476
+          },
+          "cards_no_context": {
+            "median": 239,
+            "mean": 262.1,
+            "max": 551
+          },
+          "tokens_no_context": {
+            "median": 18051,
+            "mean": 19763.1,
+            "max": 41916
+          }
+        }
+      }
+    },
+    "6": {
+      "retrieval": {
+        "macro_recall": 0.4947,
+        "macro_recall_without_attempt_articles": 0.5086,
+        "questions": 31,
+        "fully_recovered": 8,
+        "articles_per_question": {
+          "median": 6,
+          "max": 6
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 250,
+            "mean": 264.2,
+            "max": 440
+          },
+          "tokens": {
+            "median": 18840,
+            "mean": 20169.1,
+            "max": 34884
+          },
+          "cards_no_context": {
+            "median": 205,
+            "mean": 221.6,
+            "max": 358
+          },
+          "tokens_no_context": {
+            "median": 15893,
+            "mean": 16878.1,
+            "max": 28094
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.5364,
+        "macro_recall_without_attempt_articles": 0.5086,
+        "questions": 31,
+        "fully_recovered": 8,
+        "articles_per_question": {
+          "median": 7,
+          "max": 8
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 250,
+            "mean": 266.8,
+            "max": 448
+          },
+          "tokens": {
+            "median": 18840,
+            "mean": 20326.8,
+            "max": 35395
+          },
+          "cards_no_context": {
+            "median": 205,
+            "mean": 224.2,
+            "max": 366
+          },
+          "tokens_no_context": {
+            "median": 15893,
+            "mean": 17035.8,
+            "max": 28605
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.7685,
+        "macro_recall_without_attempt_articles": 0.7532,
+        "questions": 31,
+        "fully_recovered": 16,
+        "articles_per_question": {
+          "median": 8,
+          "max": 16
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 294,
+            "mean": 336.5,
+            "max": 647
+          },
+          "tokens": {
+            "median": 21425,
+            "mean": 25384.6,
+            "max": 49476
+          },
+          "cards_no_context": {
+            "median": 258,
+            "mean": 285.6,
+            "max": 551
+          },
+          "tokens_no_context": {
+            "median": 18114,
+            "mean": 21475.8,
+            "max": 41916
+          }
+        }
+      }
+    },
+    "7": {
+      "retrieval": {
+        "macro_recall": 0.5237,
+        "macro_recall_without_attempt_articles": 0.5392,
+        "questions": 31,
+        "fully_recovered": 9,
+        "articles_per_question": {
+          "median": 7,
+          "max": 7
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 280,
+            "mean": 317.8,
+            "max": 468
+          },
+          "tokens": {
+            "median": 22109,
+            "mean": 24333.6,
+            "max": 37096
+          },
+          "cards_no_context": {
+            "median": 250,
+            "mean": 266,
+            "max": 395
+          },
+          "tokens_no_context": {
+            "median": 18427,
+            "mean": 20300.3,
+            "max": 30728
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.5654,
+        "macro_recall_without_attempt_articles": 0.5392,
+        "questions": 31,
+        "fully_recovered": 9,
+        "articles_per_question": {
+          "median": 8,
+          "max": 10
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 281,
+            "mean": 320.8,
+            "max": 476
+          },
+          "tokens": {
+            "median": 22195,
+            "mean": 24511.9,
+            "max": 37607
+          },
+          "cards_no_context": {
+            "median": 256,
+            "mean": 269,
+            "max": 398
+          },
+          "tokens_no_context": {
+            "median": 18621,
+            "mean": 20478.6,
+            "max": 30877
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.775,
+        "macro_recall_without_attempt_articles": 0.7597,
+        "questions": 31,
+        "fully_recovered": 16,
+        "articles_per_question": {
+          "median": 9,
+          "max": 16
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 385,
+            "mean": 386.4,
+            "max": 652
+          },
+          "tokens": {
+            "median": 28635,
+            "mean": 29247,
+            "max": 49751
+          },
+          "cards_no_context": {
+            "median": 321,
+            "mean": 326.5,
+            "max": 562
+          },
+          "tokens_no_context": {
+            "median": 24368,
+            "mean": 24612.2,
+            "max": 42631
+          }
+        }
+      }
+    },
+    "8": {
+      "retrieval": {
+        "macro_recall": 0.5439,
+        "macro_recall_without_attempt_articles": 0.5594,
+        "questions": 31,
+        "fully_recovered": 10,
+        "articles_per_question": {
+          "median": 8,
+          "max": 8
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 337,
+            "mean": 360.7,
+            "max": 512
+          },
+          "tokens": {
+            "median": 26651,
+            "mean": 27582.7,
+            "max": 40279
+          },
+          "cards_no_context": {
+            "median": 308,
+            "mean": 302.3,
+            "max": 441
+          },
+          "tokens_no_context": {
+            "median": 23217,
+            "mean": 23032.2,
+            "max": 34469
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.5856,
+        "macro_recall_without_attempt_articles": 0.5594,
+        "questions": 31,
+        "fully_recovered": 10,
+        "articles_per_question": {
+          "median": 9,
+          "max": 11
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 338,
+            "mean": 364.3,
+            "max": 515
+          },
+          "tokens": {
+            "median": 26693,
+            "mean": 27794,
+            "max": 40428
+          },
+          "cards_no_context": {
+            "median": 309,
+            "mean": 305.8,
+            "max": 444
+          },
+          "tokens_no_context": {
+            "median": 23259,
+            "mean": 23243.5,
+            "max": 34618
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.779,
+        "macro_recall_without_attempt_articles": 0.7637,
+        "questions": 31,
+        "fully_recovered": 16,
+        "articles_per_question": {
+          "median": 10,
+          "max": 17
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 421,
+            "mean": 419.7,
+            "max": 695
+          },
+          "tokens": {
+            "median": 31758,
+            "mean": 31755.3,
+            "max": 53360
+          },
+          "cards_no_context": {
+            "median": 353,
+            "mean": 354.8,
+            "max": 597
+          },
+          "tokens_no_context": {
+            "median": 26705,
+            "mean": 26730.9,
+            "max": 45657
+          }
+        }
+      }
+    },
+    "9": {
+      "retrieval": {
+        "macro_recall": 0.5665,
+        "macro_recall_without_attempt_articles": 0.5836,
+        "questions": 31,
+        "fully_recovered": 11,
+        "articles_per_question": {
+          "median": 9,
+          "max": 9
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 412,
+            "mean": 413.8,
+            "max": 562
+          },
+          "tokens": {
+            "median": 31554,
+            "mean": 31611.6,
+            "max": 43884
+          },
+          "cards_no_context": {
+            "median": 343,
+            "mean": 347.4,
+            "max": 491
+          },
+          "tokens_no_context": {
+            "median": 26575,
+            "mean": 26444.5,
+            "max": 38074
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.6082,
+        "macro_recall_without_attempt_articles": 0.5836,
+        "questions": 31,
+        "fully_recovered": 11,
+        "articles_per_question": {
+          "median": 10,
+          "max": 12
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 416,
+            "mean": 417.8,
+            "max": 565
+          },
+          "tokens": {
+            "median": 31824,
+            "mean": 31850.3,
+            "max": 44033
+          },
+          "cards_no_context": {
+            "median": 349,
+            "mean": 351.4,
+            "max": 494
+          },
+          "tokens_no_context": {
+            "median": 26937,
+            "mean": 26683.3,
+            "max": 38223
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.779,
+        "macro_recall_without_attempt_articles": 0.7637,
+        "questions": 31,
+        "fully_recovered": 16,
+        "articles_per_question": {
+          "median": 11,
+          "max": 18
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 466,
+            "mean": 466.9,
+            "max": 700
+          },
+          "tokens": {
+            "median": 34867,
+            "mean": 35365.1,
+            "max": 53360
+          },
+          "cards_no_context": {
+            "median": 391,
+            "mean": 394.4,
+            "max": 611
+          },
+          "tokens_no_context": {
+            "median": 28927,
+            "mean": 29747.2,
+            "max": 46104
+          }
+        }
+      }
+    },
+    "10": {
+      "retrieval": {
+        "macro_recall": 0.5869,
+        "macro_recall_without_attempt_articles": 0.6075,
+        "questions": 31,
+        "fully_recovered": 11,
+        "articles_per_question": {
+          "median": 10,
+          "max": 10
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 438,
+            "mean": 452.7,
+            "max": 592
+          },
+          "tokens": {
+            "median": 33689,
+            "mean": 34465.8,
+            "max": 45985
+          },
+          "cards_no_context": {
+            "median": 387,
+            "mean": 381.1,
+            "max": 520
+          },
+          "tokens_no_context": {
+            "median": 28692,
+            "mean": 28905.6,
+            "max": 39890
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.6286,
+        "macro_recall_without_attempt_articles": 0.6075,
+        "questions": 31,
+        "fully_recovered": 11,
+        "articles_per_question": {
+          "median": 11,
+          "max": 13
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 445,
+            "mean": 456.7,
+            "max": 595
+          },
+          "tokens": {
+            "median": 33731,
+            "mean": 34705.9,
+            "max": 46134
+          },
+          "cards_no_context": {
+            "median": 391,
+            "mean": 385.1,
+            "max": 523
+          },
+          "tokens_no_context": {
+            "median": 28883,
+            "mean": 29145.6,
+            "max": 40039
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.7995,
+        "macro_recall_without_attempt_articles": 0.7876,
+        "questions": 31,
+        "fully_recovered": 18,
+        "articles_per_question": {
+          "median": 12,
+          "max": 19
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 485,
+            "mean": 498.5,
+            "max": 734
+          },
+          "tokens": {
+            "median": 35805,
+            "mean": 37721.1,
+            "max": 55461
+          },
+          "cards_no_context": {
+            "median": 417,
+            "mean": 421.0,
+            "max": 625
+          },
+          "tokens_no_context": {
+            "median": 30967,
+            "mean": 31721.0,
+            "max": 47219
+          }
+        }
+      }
+    },
+    "11": {
+      "retrieval": {
+        "macro_recall": 0.5934,
+        "macro_recall_without_attempt_articles": 0.6156,
+        "questions": 31,
+        "fully_recovered": 11,
+        "articles_per_question": {
+          "median": 11,
+          "max": 11
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 488,
+            "mean": 497.0,
+            "max": 639
+          },
+          "tokens": {
+            "median": 36582,
+            "mean": 37843.2,
+            "max": 49582
+          },
+          "cards_no_context": {
+            "median": 416,
+            "mean": 418.5,
+            "max": 566
+          },
+          "tokens_no_context": {
+            "median": 31215,
+            "mean": 31744.1,
+            "max": 43631
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.6351,
+        "macro_recall_without_attempt_articles": 0.6156,
+        "questions": 31,
+        "fully_recovered": 11,
+        "articles_per_question": {
+          "median": 13,
+          "max": 14
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 492,
+            "mean": 501.5,
+            "max": 642
+          },
+          "tokens": {
+            "median": 36773,
+            "mean": 38112.7,
+            "max": 49731
+          },
+          "cards_no_context": {
+            "median": 420,
+            "mean": 423.0,
+            "max": 569
+          },
+          "tokens_no_context": {
+            "median": 31406,
+            "mean": 32013.7,
+            "max": 43780
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.8059,
+        "macro_recall_without_attempt_articles": 0.7957,
+        "questions": 31,
+        "fully_recovered": 18,
+        "articles_per_question": {
+          "median": 14,
+          "max": 20
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 542,
+            "mean": 542.0,
+            "max": 782
+          },
+          "tokens": {
+            "median": 40731,
+            "mean": 41026.3,
+            "max": 59241
+          },
+          "cards_no_context": {
+            "median": 448,
+            "mean": 457.7,
+            "max": 671
+          },
+          "tokens_no_context": {
+            "median": 33743,
+            "mean": 34496.7,
+            "max": 50422
+          }
+        }
+      }
+    },
+    "12": {
+      "retrieval": {
+        "macro_recall": 0.5934,
+        "macro_recall_without_attempt_articles": 0.6156,
+        "questions": 31,
+        "fully_recovered": 11,
+        "articles_per_question": {
+          "median": 12,
+          "max": 12
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 566,
+            "mean": 541.9,
+            "max": 669
+          },
+          "tokens": {
+            "median": 42127,
+            "mean": 41279.1,
+            "max": 51927
+          },
+          "cards_no_context": {
+            "median": 472,
+            "mean": 457.0,
+            "max": 589
+          },
+          "tokens_no_context": {
+            "median": 36581,
+            "mean": 34664.6,
+            "max": 45707
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.6351,
+        "macro_recall_without_attempt_articles": 0.6156,
+        "questions": 31,
+        "fully_recovered": 11,
+        "articles_per_question": {
+          "median": 14,
+          "max": 15
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 570,
+            "mean": 546.5,
+            "max": 672
+          },
+          "tokens": {
+            "median": 42680,
+            "mean": 41550.7,
+            "max": 52480
+          },
+          "cards_no_context": {
+            "median": 476,
+            "mean": 461.6,
+            "max": 593
+          },
+          "tokens_no_context": {
+            "median": 36772,
+            "mean": 34936.2,
+            "max": 46260
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.8059,
+        "macro_recall_without_attempt_articles": 0.7957,
+        "questions": 31,
+        "fully_recovered": 18,
+        "articles_per_question": {
+          "median": 15,
+          "max": 21
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 616,
+            "mean": 586.9,
+            "max": 799
+          },
+          "tokens": {
+            "median": 46874,
+            "mean": 44452.4,
+            "max": 60307
+          },
+          "cards_no_context": {
+            "median": 502,
+            "mean": 496.3,
+            "max": 688
+          },
+          "tokens_no_context": {
+            "median": 37298,
+            "mean": 37412.7,
+            "max": 51488
+          }
+        }
+      }
+    },
+    "13": {
+      "retrieval": {
+        "macro_recall": 0.6923,
+        "macro_recall_without_attempt_articles": 0.7333,
+        "questions": 31,
+        "fully_recovered": 13,
+        "articles_per_question": {
+          "median": 13,
+          "max": 13
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 599,
+            "mean": 592.4,
+            "max": 748
+          },
+          "tokens": {
+            "median": 46414,
+            "mean": 45199.7,
+            "max": 58033
+          },
+          "cards_no_context": {
+            "median": 509,
+            "mean": 498.7,
+            "max": 632
+          },
+          "tokens_no_context": {
+            "median": 38793,
+            "mean": 37888.8,
+            "max": 49052
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.7502,
+        "macro_recall_without_attempt_articles": 0.7333,
+        "questions": 31,
+        "fully_recovered": 15,
+        "articles_per_question": {
+          "median": 15,
+          "max": 16
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 606,
+            "mean": 597.5,
+            "max": 752
+          },
+          "tokens": {
+            "median": 46967,
+            "mean": 45498.8,
+            "max": 58224
+          },
+          "cards_no_context": {
+            "median": 518,
+            "mean": 503.8,
+            "max": 640
+          },
+          "tokens_no_context": {
+            "median": 39346,
+            "mean": 38187.8,
+            "max": 49605
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.8769,
+        "macro_recall_without_attempt_articles": 0.8667,
+        "questions": 31,
+        "fully_recovered": 20,
+        "articles_per_question": {
+          "median": 15,
+          "max": 21
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 651,
+            "mean": 627.5,
+            "max": 799
+          },
+          "tokens": {
+            "median": 49136,
+            "mean": 47619.1,
+            "max": 60510
+          },
+          "cards_no_context": {
+            "median": 547,
+            "mean": 529.8,
+            "max": 696
+          },
+          "tokens_no_context": {
+            "median": 40572,
+            "mean": 40019.6,
+            "max": 52551
+          }
+        }
+      }
+    },
+    "14": {
+      "retrieval": {
+        "macro_recall": 0.6923,
+        "macro_recall_without_attempt_articles": 0.7333,
+        "questions": 31,
+        "fully_recovered": 13,
+        "articles_per_question": {
+          "median": 14,
+          "max": 14
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 629,
+            "mean": 620.5,
+            "max": 757
+          },
+          "tokens": {
+            "median": 47957,
+            "mean": 47259.4,
+            "max": 58669
+          },
+          "cards_no_context": {
+            "median": 530,
+            "mean": 521.7,
+            "max": 639
+          },
+          "tokens_no_context": {
+            "median": 40216,
+            "mean": 39559.2,
+            "max": 49556
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.7502,
+        "macro_recall_without_attempt_articles": 0.7333,
+        "questions": 31,
+        "fully_recovered": 15,
+        "articles_per_question": {
+          "median": 16,
+          "max": 17
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 633,
+            "mean": 625.8,
+            "max": 761
+          },
+          "tokens": {
+            "median": 48510,
+            "mean": 47572.8,
+            "max": 58860
+          },
+          "cards_no_context": {
+            "median": 536,
+            "mean": 527.0,
+            "max": 647
+          },
+          "tokens_no_context": {
+            "median": 40769,
+            "mean": 39872.6,
+            "max": 50109
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.8769,
+        "macro_recall_without_attempt_articles": 0.8667,
+        "questions": 31,
+        "fully_recovered": 20,
+        "articles_per_question": {
+          "median": 16,
+          "max": 22
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 672,
+            "mean": 653.6,
+            "max": 832
+          },
+          "tokens": {
+            "median": 50642,
+            "mean": 49520.6,
+            "max": 63196
+          },
+          "cards_no_context": {
+            "median": 564,
+            "mean": 551.2,
+            "max": 719
+          },
+          "tokens_no_context": {
+            "median": 41835,
+            "mean": 41566.5,
+            "max": 54257
+          }
+        }
+      }
+    },
+    "15": {
+      "retrieval": {
+        "macro_recall": 0.709,
+        "macro_recall_without_attempt_articles": 0.7535,
+        "questions": 31,
+        "fully_recovered": 13,
+        "articles_per_question": {
+          "median": 15,
+          "max": 15
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 674,
+            "mean": 661.1,
+            "max": 787
+          },
+          "tokens": {
+            "median": 52341,
+            "mean": 50354.7,
+            "max": 60770
+          },
+          "cards_no_context": {
+            "median": 558,
+            "mean": 554.8,
+            "max": 666
+          },
+          "tokens_no_context": {
+            "median": 42081,
+            "mean": 42071.1,
+            "max": 51625
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.7669,
+        "macro_recall_without_attempt_articles": 0.7535,
+        "questions": 31,
+        "fully_recovered": 15,
+        "articles_per_question": {
+          "median": 17,
+          "max": 18
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 683,
+            "mean": 666.5,
+            "max": 791
+          },
+          "tokens": {
+            "median": 52894,
+            "mean": 50668.7,
+            "max": 60961
+          },
+          "cards_no_context": {
+            "median": 567,
+            "mean": 560.3,
+            "max": 675
+          },
+          "tokens_no_context": {
+            "median": 42634,
+            "mean": 42385.1,
+            "max": 52178
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.889,
+        "macro_recall_without_attempt_articles": 0.8815,
+        "questions": 31,
+        "fully_recovered": 20,
+        "articles_per_question": {
+          "median": 17,
+          "max": 23
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 698,
+            "mean": 694.1,
+            "max": 862
+          },
+          "tokens": {
+            "median": 53029,
+            "mean": 52606.1,
+            "max": 65297
+          },
+          "cards_no_context": {
+            "median": 573,
+            "mean": 584.4,
+            "max": 742
+          },
+          "tokens_no_context": {
+            "median": 42634,
+            "mean": 44073.9,
+            "max": 55819
+          }
+        }
+      }
+    },
+    "16": {
+      "retrieval": {
+        "macro_recall": 0.7773,
+        "macro_recall_without_attempt_articles": 0.8218,
+        "questions": 31,
+        "fully_recovered": 15,
+        "articles_per_question": {
+          "median": 16,
+          "max": 16
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 739,
+            "mean": 700.3,
+            "max": 803
+          },
+          "tokens": {
+            "median": 55825,
+            "mean": 53293.2,
+            "max": 61751
+          },
+          "cards_no_context": {
+            "median": 597,
+            "mean": 588.0,
+            "max": 689
+          },
+          "tokens_no_context": {
+            "median": 45055,
+            "mean": 44549.9,
+            "max": 53119
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.8405,
+        "macro_recall_without_attempt_articles": 0.8218,
+        "questions": 31,
+        "fully_recovered": 17,
+        "articles_per_question": {
+          "median": 18,
+          "max": 19
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 747,
+            "mean": 706.3,
+            "max": 807
+          },
+          "tokens": {
+            "median": 56119,
+            "mean": 53645.0,
+            "max": 62183
+          },
+          "cards_no_context": {
+            "median": 606,
+            "mean": 593.9,
+            "max": 698
+          },
+          "tokens_no_context": {
+            "median": 45608,
+            "mean": 44901.7,
+            "max": 53672
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.9062,
+        "macro_recall_without_attempt_articles": 0.8987,
+        "questions": 31,
+        "fully_recovered": 20,
+        "articles_per_question": {
+          "median": 19,
+          "max": 24
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 747,
+            "mean": 727.6,
+            "max": 901
+          },
+          "tokens": {
+            "median": 56474,
+            "mean": 55123.3,
+            "max": 68406
+          },
+          "cards_no_context": {
+            "median": 613,
+            "mean": 612.2,
+            "max": 777
+          },
+          "tokens_no_context": {
+            "median": 45634,
+            "mean": 46165.6,
+            "max": 58640
+          }
+        }
+      }
+    },
+    "17": {
+      "retrieval": {
+        "macro_recall": 0.8083,
+        "macro_recall_without_attempt_articles": 0.8562,
+        "questions": 31,
+        "fully_recovered": 17,
+        "articles_per_question": {
+          "median": 17,
+          "max": 17
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 780,
+            "mean": 738.4,
+            "max": 858
+          },
+          "tokens": {
+            "median": 58544,
+            "mean": 56163.3,
+            "max": 65711
+          },
+          "cards_no_context": {
+            "median": 643,
+            "mean": 619.5,
+            "max": 709
+          },
+          "tokens_no_context": {
+            "median": 48264,
+            "mean": 46907.1,
+            "max": 54334
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.8715,
+        "macro_recall_without_attempt_articles": 0.8562,
+        "questions": 31,
+        "fully_recovered": 19,
+        "articles_per_question": {
+          "median": 19,
+          "max": 20
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 789,
+            "mean": 744.4,
+            "max": 862
+          },
+          "tokens": {
+            "median": 59097,
+            "mean": 56515.1,
+            "max": 65902
+          },
+          "cards_no_context": {
+            "median": 651,
+            "mean": 625.4,
+            "max": 713
+          },
+          "tokens_no_context": {
+            "median": 48455,
+            "mean": 47258.9,
+            "max": 54760
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.9272,
+        "macro_recall_without_attempt_articles": 0.9212,
+        "questions": 31,
+        "fully_recovered": 22,
+        "articles_per_question": {
+          "median": 20,
+          "max": 24
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 789,
+            "mean": 764.5,
+            "max": 921
+          },
+          "tokens": {
+            "median": 59097,
+            "mean": 57909.8,
+            "max": 70050
+          },
+          "cards_no_context": {
+            "median": 651,
+            "mean": 642.8,
+            "max": 798
+          },
+          "tokens_no_context": {
+            "median": 48455,
+            "mean": 48459.7,
+            "max": 60388
+          }
+        }
+      }
+    },
+    "18": {
+      "retrieval": {
+        "macro_recall": 0.8136,
+        "macro_recall_without_attempt_articles": 0.8626,
+        "questions": 31,
+        "fully_recovered": 17,
+        "articles_per_question": {
+          "median": 18,
+          "max": 18
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 810,
+            "mean": 773.9,
+            "max": 896
+          },
+          "tokens": {
+            "median": 61433,
+            "mean": 58773.4,
+            "max": 68362
+          },
+          "cards_no_context": {
+            "median": 689,
+            "mean": 651.2,
+            "max": 785
+          },
+          "tokens_no_context": {
+            "median": 50977,
+            "mean": 49239.5,
+            "max": 59202
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.8768,
+        "macro_recall_without_attempt_articles": 0.8626,
+        "questions": 31,
+        "fully_recovered": 19,
+        "articles_per_question": {
+          "median": 20,
+          "max": 21
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 819,
+            "mean": 780.2,
+            "max": 900
+          },
+          "tokens": {
+            "median": 61986,
+            "mean": 59149.9,
+            "max": 68553
+          },
+          "cards_no_context": {
+            "median": 698,
+            "mean": 657.5,
+            "max": 789
+          },
+          "tokens_no_context": {
+            "median": 51530,
+            "mean": 49616.0,
+            "max": 59393
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.9272,
+        "macro_recall_without_attempt_articles": 0.9212,
+        "questions": 31,
+        "fully_recovered": 22,
+        "articles_per_question": {
+          "median": 21,
+          "max": 25
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 819,
+            "mean": 799.8,
+            "max": 999
+          },
+          "tokens": {
+            "median": 61986,
+            "mean": 60507.5,
+            "max": 75036
+          },
+          "cards_no_context": {
+            "median": 698,
+            "mean": 674.4,
+            "max": 874
+          },
+          "tokens_no_context": {
+            "median": 51530,
+            "mean": 50783.8,
+            "max": 65256
+          }
+        }
+      }
+    },
+    "19": {
+      "retrieval": {
+        "macro_recall": 0.8257,
+        "macro_recall_without_attempt_articles": 0.8774,
+        "questions": 31,
+        "fully_recovered": 17,
+        "articles_per_question": {
+          "median": 19,
+          "max": 19
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 829,
+            "mean": 809.6,
+            "max": 933
+          },
+          "tokens": {
+            "median": 63551,
+            "mean": 61515.5,
+            "max": 71066
+          },
+          "cards_no_context": {
+            "median": 693,
+            "mean": 681.8,
+            "max": 820
+          },
+          "tokens_no_context": {
+            "median": 53401,
+            "mean": 51598.6,
+            "max": 62023
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.8889,
+        "macro_recall_without_attempt_articles": 0.8774,
+        "questions": 31,
+        "fully_recovered": 20,
+        "articles_per_question": {
+          "median": 21,
+          "max": 22
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 833,
+            "mean": 816.1,
+            "max": 937
+          },
+          "tokens": {
+            "median": 63742,
+            "mean": 61898.2,
+            "max": 71335
+          },
+          "cards_no_context": {
+            "median": 702,
+            "mean": 688.3,
+            "max": 824
+          },
+          "tokens_no_context": {
+            "median": 53592,
+            "mean": 51981.3,
+            "max": 62214
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.9392,
+        "macro_recall_without_attempt_articles": 0.936,
+        "questions": 31,
+        "fully_recovered": 24,
+        "articles_per_question": {
+          "median": 22,
+          "max": 26
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 859,
+            "mean": 835.2,
+            "max": 1038
+          },
+          "tokens": {
+            "median": 65253,
+            "mean": 63222.8,
+            "max": 78145
+          },
+          "cards_no_context": {
+            "median": 706,
+            "mean": 704.9,
+            "max": 909
+          },
+          "tokens_no_context": {
+            "median": 53592,
+            "mean": 53132.4,
+            "max": 68077
+          }
+        }
+      }
+    },
+    "20": {
+      "retrieval": {
+        "macro_recall": 0.8257,
+        "macro_recall_without_attempt_articles": 0.8774,
+        "questions": 31,
+        "fully_recovered": 17,
+        "articles_per_question": {
+          "median": 20,
+          "max": 20
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 872,
+            "mean": 846,
+            "max": 1012
+          },
+          "tokens": {
+            "median": 66227,
+            "mean": 64335.8,
+            "max": 77401
+          },
+          "cards_no_context": {
+            "median": 726,
+            "mean": 713.0,
+            "max": 867
+          },
+          "tokens_no_context": {
+            "median": 54655,
+            "mean": 54007.3,
+            "max": 66114
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.8889,
+        "macro_recall_without_attempt_articles": 0.8774,
+        "questions": 31,
+        "fully_recovered": 20,
+        "articles_per_question": {
+          "median": 22,
+          "max": 23
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 881,
+            "mean": 852.5,
+            "max": 1016
+          },
+          "tokens": {
+            "median": 66780,
+            "mean": 64718.5,
+            "max": 77592
+          },
+          "cards_no_context": {
+            "median": 732,
+            "mean": 719.5,
+            "max": 871
+          },
+          "tokens_no_context": {
+            "median": 55208,
+            "mean": 54389.9,
+            "max": 66305
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.9392,
+        "macro_recall_without_attempt_articles": 0.936,
+        "questions": 31,
+        "fully_recovered": 24,
+        "articles_per_question": {
+          "median": 23,
+          "max": 27
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 891,
+            "mean": 871,
+            "max": 1105
+          },
+          "tokens": {
+            "median": 67037,
+            "mean": 66010.2,
+            "max": 83889
+          },
+          "cards_no_context": {
+            "median": 732,
+            "mean": 735.9,
+            "max": 956
+          },
+          "tokens_no_context": {
+            "median": 55208,
+            "mean": 55524.4,
+            "max": 72168
+          }
+        }
+      }
+    },
+    "21": {
+      "retrieval": {
+        "macro_recall": 0.8338,
+        "macro_recall_without_attempt_articles": 0.8855,
+        "questions": 31,
+        "fully_recovered": 17,
+        "articles_per_question": {
+          "median": 21,
+          "max": 21
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 899,
+            "mean": 885.5,
+            "max": 1062
+          },
+          "tokens": {
+            "median": 68986,
+            "mean": 67352.3,
+            "max": 81834
+          },
+          "cards_no_context": {
+            "median": 754,
+            "mean": 745.7,
+            "max": 906
+          },
+          "tokens_no_context": {
+            "median": 57195,
+            "mean": 56499.8,
+            "max": 68890
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.897,
+        "macro_recall_without_attempt_articles": 0.8855,
+        "questions": 31,
+        "fully_recovered": 20,
+        "articles_per_question": {
+          "median": 24,
+          "max": 24
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 903,
+            "mean": 892.1,
+            "max": 1070
+          },
+          "tokens": {
+            "median": 69177,
+            "mean": 67739.7,
+            "max": 82345
+          },
+          "cards_no_context": {
+            "median": 759,
+            "mean": 752.3,
+            "max": 910
+          },
+          "tokens_no_context": {
+            "median": 57477,
+            "mean": 56887.3,
+            "max": 69081
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.9473,
+        "macro_recall_without_attempt_articles": 0.9441,
+        "questions": 31,
+        "fully_recovered": 25,
+        "articles_per_question": {
+          "median": 24,
+          "max": 28
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 921,
+            "mean": 910.6,
+            "max": 1147
+          },
+          "tokens": {
+            "median": 69618,
+            "mean": 69031.5,
+            "max": 86893
+          },
+          "cards_no_context": {
+            "median": 767,
+            "mean": 768.7,
+            "max": 995
+          },
+          "tokens_no_context": {
+            "median": 57477,
+            "mean": 58021.7,
+            "max": 74944
+          }
+        }
+      }
+    },
+    "22": {
+      "retrieval": {
+        "macro_recall": 0.8378,
+        "macro_recall_without_attempt_articles": 0.8895,
+        "questions": 31,
+        "fully_recovered": 17,
+        "articles_per_question": {
+          "median": 22,
+          "max": 22
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 945,
+            "mean": 920.2,
+            "max": 1100
+          },
+          "tokens": {
+            "median": 71554,
+            "mean": 69894.1,
+            "max": 84485
+          },
+          "cards_no_context": {
+            "median": 785,
+            "mean": 775.4,
+            "max": 947
+          },
+          "tokens_no_context": {
+            "median": 58560,
+            "mean": 58681.7,
+            "max": 72678
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.901,
+        "macro_recall_without_attempt_articles": 0.8895,
+        "questions": 31,
+        "fully_recovered": 20,
+        "articles_per_question": {
+          "median": 24,
+          "max": 25
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 954,
+            "mean": 926.5,
+            "max": 1108
+          },
+          "tokens": {
+            "median": 72107,
+            "mean": 70269.9,
+            "max": 84996
+          },
+          "cards_no_context": {
+            "median": 794,
+            "mean": 781.8,
+            "max": 951
+          },
+          "tokens_no_context": {
+            "median": 59113,
+            "mean": 59057.5,
+            "max": 72869
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.9473,
+        "macro_recall_without_attempt_articles": 0.9441,
+        "questions": 31,
+        "fully_recovered": 25,
+        "articles_per_question": {
+          "median": 25,
+          "max": 28
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 954,
+            "mean": 944.8,
+            "max": 1196
+          },
+          "tokens": {
+            "median": 72107,
+            "mean": 71541.7,
+            "max": 91325
+          },
+          "cards_no_context": {
+            "median": 794,
+            "mean": 798.0,
+            "max": 1036
+          },
+          "tokens_no_context": {
+            "median": 59436,
+            "mean": 60184.1,
+            "max": 78732
+          }
+        }
+      }
+    },
+    "23": {
+      "retrieval": {
+        "macro_recall": 0.8378,
+        "macro_recall_without_attempt_articles": 0.8895,
+        "questions": 31,
+        "fully_recovered": 17,
+        "articles_per_question": {
+          "median": 23,
+          "max": 23
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 983,
+            "mean": 967.6,
+            "max": 1160
+          },
+          "tokens": {
+            "median": 74205,
+            "mean": 73409.9,
+            "max": 88414
+          },
+          "cards_no_context": {
+            "median": 837,
+            "mean": 815.1,
+            "max": 968
+          },
+          "tokens_no_context": {
+            "median": 62685,
+            "mean": 61610.8,
+            "max": 74172
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.901,
+        "macro_recall_without_attempt_articles": 0.8895,
+        "questions": 31,
+        "fully_recovered": 20,
+        "articles_per_question": {
+          "median": 26,
+          "max": 26
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 992,
+            "mean": 974.2,
+            "max": 1168
+          },
+          "tokens": {
+            "median": 74758,
+            "mean": 73795.4,
+            "max": 88925
+          },
+          "cards_no_context": {
+            "median": 841,
+            "mean": 821.7,
+            "max": 972
+          },
+          "tokens_no_context": {
+            "median": 63238,
+            "mean": 61996.2,
+            "max": 74363
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.9473,
+        "macro_recall_without_attempt_articles": 0.9441,
+        "questions": 31,
+        "fully_recovered": 25,
+        "articles_per_question": {
+          "median": 26,
+          "max": 29
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 992,
+            "mean": 992.5,
+            "max": 1234
+          },
+          "tokens": {
+            "median": 74758,
+            "mean": 75067.2,
+            "max": 94200
+          },
+          "cards_no_context": {
+            "median": 841,
+            "mean": 838.0,
+            "max": 1057
+          },
+          "tokens_no_context": {
+            "median": 64018,
+            "mean": 63122.8,
+            "max": 80226
+          }
+        }
+      }
+    },
+    "24": {
+      "retrieval": {
+        "macro_recall": 0.8478,
+        "macro_recall_without_attempt_articles": 0.9013,
+        "questions": 31,
+        "fully_recovered": 17,
+        "articles_per_question": {
+          "median": 24,
+          "max": 24
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 1019,
+            "mean": 1001.8,
+            "max": 1180
+          },
+          "tokens": {
+            "median": 77094,
+            "mean": 76009.1,
+            "max": 89836
+          },
+          "cards_no_context": {
+            "median": 857,
+            "mean": 843.6,
+            "max": 975
+          },
+          "tokens_no_context": {
+            "median": 64831,
+            "mean": 63773.3,
+            "max": 74678
+          }
+        }
+      },
+      "retrieval_plus_attempt": {
+        "macro_recall": 0.911,
+        "macro_recall_without_attempt_articles": 0.9013,
+        "questions": 31,
+        "fully_recovered": 21,
+        "articles_per_question": {
+          "median": 27,
+          "max": 27
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 1025,
+            "mean": 1008.7,
+            "max": 1188
+          },
+          "tokens": {
+            "median": 77359,
+            "mean": 76417.8,
+            "max": 90347
+          },
+          "cards_no_context": {
+            "median": 864,
+            "mean": 850.5,
+            "max": 979
+          },
+          "tokens_no_context": {
+            "median": 65098,
+            "mean": 64182.1,
+            "max": 74869
+          }
+        }
+      },
+      "union_with_llm_selection": {
+        "macro_recall": 0.9473,
+        "macro_recall_without_attempt_articles": 0.9441,
+        "questions": 31,
+        "fully_recovered": 25,
+        "articles_per_question": {
+          "median": 27,
+          "max": 30
+        },
+        "call2_payload": {
+          "cards": {
+            "median": 1033,
+            "mean": 1024.7,
+            "max": 1234
+          },
+          "tokens": {
+            "median": 77885,
+            "mean": 77533.8,
+            "max": 94200
+          },
+          "cards_no_context": {
+            "median": 866,
+            "mean": 864.9,
+            "max": 1057
+          },
+          "tokens_no_context": {
+            "median": 65384,
+            "mean": 65183.1,
+            "max": 80226
+          }
+        }
+      }
+    }
+  }
+}

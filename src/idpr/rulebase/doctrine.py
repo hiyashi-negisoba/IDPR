@@ -12,6 +12,7 @@ rule that is wrong, so it is an error rather than a warning.
 
 from __future__ import annotations
 
+import json
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -22,67 +23,30 @@ import yaml
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 CONCURRENCE_PATH = PROJECT_ROOT / "data/rulebase/concurrence.yaml"
 STAGE_PATH = PROJECT_ROOT / "data/rulebase/stage.yaml"
+CATALOG_PATH = PROJECT_ROOT / "data/rulebase/article_catalog.json"
 
 ATTEMPT = "attempt"
 PREPARATION = "preparation"
 
-#: Offence names for every article the corpus covers. Display only -- nothing in the
-#: reasoning reads these. They exist because a review document showing ``art356`` asks the
-#: reviewer to decode article keys, and decoding is where a legal review goes wrong. A test
-#: pins that the table stays complete as articles are added.
-OFFENSE_NAMES: Mapping[str, str] = {
-    "art122": "직무유기",
-    "art127": "공무상비밀누설",
-    "art129": "수뢰·사전수뢰",
-    "art130": "제3자뇌물제공",
-    "art133": "뇌물공여·증뢰물전달",
-    "art136": "공무집행방해",
-    "art137": "위계에 의한 공무집행방해",
-    "art151": "범인은닉·도피",
-    "art152": "위증·모해위증",
-    "art164": "현주건조물방화",
-    "art225": "공문서위조·변조",
-    "art227": "허위공문서작성",
-    "art231": "사문서위조·변조",
-    "art234": "위조사문서행사",
-    "art239": "사인등의 위조·부정사용",
-    "art250": "살인·존속살해",
-    "art254": "살인의 미수범",
-    "art255": "살인의 예비·음모",
-    "art257": "상해·존속상해",
-    "art2582_2": "특수상해",
-    "art259": "상해치사",
-    "art263": "동시범",
-    "art267": "과실치사",
-    "art268": "업무상과실·중과실 치사상",
-    "art297": "강간",
-    "art298": "강제추행",
-    "art299": "준강간·준강제추행",
-    "art300": "강간등의 미수범",
-    "art301": "강간등 상해·치상",
-    "art319": "주거침입·퇴거불응",
-    "art323": "권리행사방해",
-    "art328": "친족간의 범행",
-    "art329": "절도",
-    "art330": "야간주거침입절도",
-    "art331": "특수절도",
-    "art332": "상습절도",
-    "art333": "강도",
-    "art334": "특수강도",
-    "art335": "준강도",
-    "art337": "강도상해·치상",
-    "art338": "강도살인·치사",
-    "art342": "절도·강도의 미수범",
-    "art343": "강도의 예비·음모",
-    "art344": "친족간의 범행 준용",
-    "art347": "사기",
-    "art350": "공갈",
-    "art355": "횡령·배임",
-    "art356": "업무상횡령·업무상배임",
-    "art357": "배임수재·배임증재",
-    "art360": "점유이탈물횡령",
-    "art366": "재물손괴",
-}
+
+def _load_article_catalog() -> tuple[Mapping[str, str], Mapping[str, str]]:
+    """Read the article catalog asset: article key -> statute label, and -> offence name.
+
+    The names are an input asset, not a display convenience: call 1.5 hands the model this
+    whole catalog and asks it to pick the articles in issue, so an article missing from the
+    file is an article the pipeline can never select. Loading it here keeps one copy --
+    the review documents and the model prompt read the same table.
+    """
+    payload = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
+    labels: dict[str, str] = {}
+    names: dict[str, str] = {}
+    for entry in payload["articles"]:
+        labels[entry["key"]] = entry["label"]
+        names[entry["key"]] = entry["offense"]
+    return labels, names
+
+
+ARTICLE_LABELS, OFFENSE_NAMES = _load_article_catalog()
 
 
 def offense_name(article: str) -> str:
