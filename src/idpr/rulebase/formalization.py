@@ -19,19 +19,23 @@ rule: it decides an element affirmatively, silently, and unfalsifiably.
 
 So this module routes cards by what their content can actually drive:
 
-``model_assess``      call 2 decides the card's status. The default, and the only route
-                      that yields ``card_status`` facts.
+``model_assess``      call 2 decides the card's status, and that status feeds the offence
+                      gate. The default.
 ``skeleton_meta``     "X는 필요하지 않다" -- an assertion about which slots are required.
-                      Compiles into the element skeleton, not into a card status.
+                      Compiles into the element skeleton.
 ``stage_seed``        기수 timing / 미수 처벌. Compiles into the stage table.
-``concurrence_seed``  죄수 relations. Compiles into ``absorbed_by`` /
-                      ``imaginative_concurrence``.
-``narrative``         a definition or restatement of the offence. Carries no condition to
-                      test; feeds the Rule paragraph.
+``concurrence_seed``  죄수 relations. Names the offence pair in ``concurrence.yaml``, and
+                      the card itself is the rule's *condition*.
+``narrative``         a definition or restatement of the offence. Feeds the Rule paragraph.
+
+The route is about what a card's content drives, not about whether call 2 sees it --
+:attr:`CardRouting.assessed_by_model` is the separate question. 죄수 and 기수 cards are
+assessed as well as tabulated, because their propositions are true of some cases and false
+of others.
 
 Cards therefore reach the symbolic layer at the skeleton / stage / concurrence level,
-where the condition is a relation between named offences and slots and can be written
-down exactly, rather than at the per-card level, where it cannot.
+where the offence pair can be written down exactly, while the *condition* under which the
+relation holds stays in the card where it was reviewed.
 """
 
 from __future__ import annotations
@@ -136,6 +140,22 @@ class CardRouting:
     @property
     def is_open_textured(self) -> bool:
         return bool(self.open_texture_markers)
+
+    @property
+    def assessed_by_model(self) -> bool:
+        """Whether call 2 is asked for this card's status.
+
+        The route says what a card's content *drives*; it does not say whether the card
+        has a case-specific truth value. 죄수 and 기수 cards do -- "위법사실을 적극
+        은폐할 목적으로 …한 경우에는 직무유기죄가 별도로 성립하지 않는다" is true of some
+        cases and false of others, and that is precisely the condition its concurrence rule
+        fires on. So they are assessed *and* feed a doctrine table.
+
+        ``narrative`` and ``skeleton_meta`` are not: a definition and a statement that an
+        element is not required are both true of every case, so asking would spend tokens
+        to be told 'yes'.
+        """
+        return self.route in {MODEL_ASSESS, CONCURRENCE_SEED, STAGE_SEED}
 
     @property
     def contradicts_corpus_label(self) -> bool:

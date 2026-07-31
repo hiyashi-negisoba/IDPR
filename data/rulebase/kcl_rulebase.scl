@@ -34,8 +34,10 @@ type element_slot(String, String)         // slot, core|presumed
 type offense_article(String, String)      // offense, "제298조"
 
 // ── 죄수·미수: 수기 작성 후 법리 검수 (data/rulebase/*.yaml) ──
-type absorbed_by(String, String)          // child offense, parent offense
-type imaginative_concurrence(String, String)
+// 죄수 관계는 조건부가 기본이다. 세 번째 인자는 조건이 되는 카드의 id이고, 콜 2가 그
+// 명제를 satisfied로 판정할 때만 관계가 발화한다. 조건 없는 관계는 "unconditional".
+type absorbed_by(String, String, String)  // child offense, parent offense, conditionCardId
+type imaginative_concurrence(String, String, String)
 type attempt_punishable(String)           // offense
 type preparation_punishable(String)       // offense
 
@@ -8123,22 +8125,21 @@ rel offense_article = {
 
 // ── 죄수론 (Phase 1e에서 검수 후 채워진다) ──────────────────
 rel absorbed_by = {
-  ("art122", "art137"),
-  ("art122", "art227"),
-  ("art239", "art231"),
-  ("art255", "art250"),
-  ("art255", "art254"),
-  ("art257", "art250"),
-  ("art347", "art355"),
-  ("art366", "art164"),
-  ("art366", "art250"),
+  ("art122", "art137", "art122_sec3_4.deceptive_obstruction_excludes_dereliction"),
+  ("art122", "art227", "art122_sec3_2.false_document_concealment_absorption"),
+  ("art239", "art231", "art231_sec6.seal_forgery_absorbed"),
+  ("art255", "art250", "art255_sec6.attempt_or_completion_absorption"),
+  ("art257", "art250", "art257_sec1_7.injury_absorbed_by_murder"),
+  ("art347", "art355", "art355_sec3_3.deceptive_means_no_fraud"),
+  ("art366", "art164", "art164.arson_property_damage_absorption"),
+  ("art366", "art250", "art250_sec1_20.clothing_damage_absorbed"),
 }
 
 rel imaginative_concurrence = {
-  ("art164", "art250"),
-  ("art164", "art338"),
-  ("art234", "art356"),
-  ("art250", "art255"),
+  ("art164", "art250", "art164_sec3_4.intentional_killing_no_death"),
+  ("art164", "art338", "art164_sec3_6.robbery_murder_fire_death_concurrence"),
+  ("art234", "art356", "art234_sec4.company_agreement_breach_ideal_concurrence"),
+  ("art250", "art255", "art250_sec1_19.instigated_injury_instead_of_murder"),
 }
 
 rel attempt_punishable = {
@@ -8211,11 +8212,20 @@ rel offense_established(c, off) = offense_supported(c, off), not offense_blocked
 rel offense_undetermined(c, off) = offense_supported(c, off), offense_blocked(c, off)
 
 // ── 죄수 ────────────────────────────────────────────────────
+// 조건 카드가 충족될 때만 발화한다. "위법사실을 적극 은폐할 목적으로 …한 경우에는
+// 직무유기죄가 별도로 성립하지 않는다"는 은폐 목적이 없는 사안에서는 참이 아니고,
+// 그 구분은 조문 쌍이 아니라 카드가 담고 있다.
 rel is_absorbed(c, child) = offense_established(c, child),
-    offense_established(c, parent), absorbed_by(child, parent)
+    offense_established(c, parent), absorbed_by(child, parent, cond),
+    card_status(c, cond, "satisfied")
+rel is_absorbed(c, child) = offense_established(c, child),
+    offense_established(c, parent), absorbed_by(child, parent, "unconditional")
 rel final_offense(c, off) = offense_established(c, off), not is_absorbed(c, off)
+
 rel concurrent_offenses(c, a, b) = offense_established(c, a), offense_established(c, b),
-    imaginative_concurrence(a, b)
+    imaginative_concurrence(a, b, cond), card_status(c, cond, "satisfied")
+rel concurrent_offenses(c, a, b) = offense_established(c, a), offense_established(c, b),
+    imaginative_concurrence(a, b, "unconditional")
 
 // ── 미수 ────────────────────────────────────────────────────
 // 기수가 막힌 죄명에 미수 처벌 규정이 있으면 미수를 검토해야 한다. 스모크 케이스의

@@ -13,8 +13,10 @@ import textwrap
 import pytest
 
 from idpr.rulebase.cards import load_card_corpus
+from idpr.rulebase.formalization import route_corpus
 from idpr.rulebase.doctrine import (
     CONCURRENCE_PATH,
+    UNCONDITIONAL,
     DOCTRINE_REVIEW_PATH,
     OFFENSE_NAMES,
     OPEN_DECISIONS,
@@ -28,13 +30,23 @@ from idpr.rulebase.doctrine import (
 
 
 @pytest.fixture(scope="module")
-def articles():
-    return set(load_card_corpus().by_article())
+def corpus():
+    return load_card_corpus()
 
 
 @pytest.fixture(scope="module")
-def tables(articles):
-    return load_doctrine(articles)
+def articles(corpus):
+    return set(corpus.by_article())
+
+
+@pytest.fixture(scope="module")
+def tables(corpus, articles):
+    return load_doctrine(
+        articles,
+        assessable_cards=[
+            r.card_id for r in route_corpus(corpus) if r.assessed_by_model
+        ],
+    )
 
 
 def test_the_checked_in_tables_load_and_validate(tables):
@@ -46,14 +58,68 @@ def test_the_checked_in_tables_load_and_validate(tables):
 
 def test_every_offence_named_is_in_the_corpus(tables, articles):
     named = (
-        {child for child, _ in tables.absorbed_by}
-        | {parent for _, parent in tables.absorbed_by}
-        | {off for pair in tables.imaginative_concurrence for off in pair}
+        {child for child, _, _ in tables.absorbed_by}
+        | {parent for _, parent, _ in tables.absorbed_by}
+        | {off for pair in tables.imaginative_concurrence for off in pair[:2]}
         | set(tables.attempt_punishable)
         | set(tables.preparation_punishable)
         | {off for off, _ in tables.not_punishable}
     )
     assert named <= articles
+
+
+def test_every_concurrence_relation_carries_a_condition(tables, corpus):
+    """The redesign that dissolved the first review's conflicts.
+
+    죄수 관계는 거의 언제나 조건부다 -- "은폐할 목적으로 …한 경우에는". A two-column table
+    has nowhere to put that clause, so it silently promotes a conditional rule into an
+    unconditional one. The condition is the card itself, which call 2 already assesses.
+    """
+    by_id = corpus.by_id
+    relations = [
+        (a, b, cond)
+        for a, b, cond in tables.absorbed_by + tables.imaginative_concurrence
+    ]
+    assert relations
+    for _, _, condition in relations:
+        assert condition == UNCONDITIONAL or condition in by_id, condition
+    # Every relation currently in the tables is conditional; an unconditional one would be
+    # a card stated without a conditional clause, which none of them are.
+    assert all(cond != UNCONDITIONAL for _, _, cond in relations)
+
+
+def test_a_condition_card_call_two_never_sees_is_an_error(tmp_path, articles):
+    """A condition outside the assessed set can never become satisfied, so the relation
+    would never fire -- the same silent death as an offence key outside the corpus."""
+    c, s = _write(
+        tmp_path,
+        """\
+        version: "t"
+        absorbed_by:
+          - child: art122
+            parent: art227
+            condition: art122_sec1.not_assessed
+        """,
+        _EMPTY_STAGE,
+    )
+    with pytest.raises(DoctrineError, match="never fire"):
+        load_doctrine(articles, c, s, assessable_cards=["something_else"])
+
+
+def test_a_missing_condition_is_an_error_rather_than_unconditional(tmp_path, articles):
+    """Silence must not read as 'always'. 죄수 관계는 조건부가 기본이다."""
+    c, s = _write(
+        tmp_path,
+        """\
+        version: "t"
+        absorbed_by:
+          - child: art122
+            parent: art227
+        """,
+        _EMPTY_STAGE,
+    )
+    with pytest.raises(DoctrineError, match="condition must be"):
+        load_doctrine(articles, c, s)
 
 
 def test_the_tables_are_flagged_as_awaiting_review(tables):
@@ -63,9 +129,11 @@ def test_the_tables_are_flagged_as_awaiting_review(tables):
 
 
 def test_imaginative_concurrence_is_stored_symmetrically_once(tables):
-    for first, second in tables.imaginative_concurrence:
+    for first, second, _ in tables.imaginative_concurrence:
         assert first < second, "pairs must be sorted so the rule need not be written twice"
-        assert (second, first) not in tables.imaginative_concurrence
+        assert not any(
+            a == second and b == first for a, b, _ in tables.imaginative_concurrence
+        )
 
 
 def test_a_negative_provision_is_recorded_rather_than_omitted(tables):
@@ -134,6 +202,7 @@ def test_self_absorption_is_an_error(tmp_path, articles):
         absorbed_by:
           - child: art250
             parent: art250
+            condition: unconditional
         """,
         _EMPTY_STAGE,
     )
@@ -195,6 +264,7 @@ def test_all_errors_are_reported_together(tmp_path, articles):
         absorbed_by:
           - child: art998
             parent: art997
+            condition: unconditional
         """,
         _EMPTY_STAGE,
     )

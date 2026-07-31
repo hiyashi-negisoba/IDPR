@@ -123,134 +123,51 @@ class Decision:
     affected_entries: tuple[str, ...] = ()
 
 
-#: The asymmetry that drives most of the recommendations below: absorption is the only rule
-#: that *removes* an offence from the final list, and the rubric scores recall with no
-#: precision penalty. A wrong absorption costs rubric items; a missing one costs an extra
-#: offence name in the answer, which costs nothing.
-_RECALL_ASYMMETRY = (
-    "흡수는 죄명을 **지우는** 유일한 규칙입니다. rubric은 순수 리콜 채점(정밀도 페널티 "
-    "없음)이라, 흡수가 틀리면 채점 항목을 잃고, 흡수가 빠지면 답안에 죄명이 하나 더 "
-    "언급될 뿐 감점이 없습니다. 확신이 없으면 빼는 쪽이 안전합니다."
-)
-
+#: What is left to ask once the relations became conditional. The earlier draft asked
+#: whether to keep or drop conditional absorptions, which was the wrong question: the
+#: condition belongs in the card, not in a keep/drop decision. What remains is whether the
+#: offence pairs and the statutory attempt provisions were read correctly.
 OPEN_DECISIONS: tuple[Decision, ...] = (
     Decision(
         key="D1",
-        question=(
-            "조건부이거나 방향이 이례적인 흡수 규칙 3건을 표에 남길까요, 뺄까요?"
-        ),
+        question="죄수 카드 12장의 조문 쌍 배정이 맞습니까?",
         why_it_cannot_be_derived=(
-            "근거 카드가 조건을 달고 있는데(\"위법사실을 적극 은폐할 목적으로 …한 경우\") "
-            "표는 조문 쌍만 담아서 조건을 실을 수 없습니다. 조건 없이 넣으면 조건이 없는 "
-            "사안에서도 죄명이 지워집니다."
+            "카드는 죄명을 한국어 산문으로 부릅니다(\"인장위조죄는 사문서위조죄에 "
+            "흡수되어\"). 그것을 조문 키 쌍으로 옮기는 것은 법적 판단이라 제가 읽고 "
+            "배정했습니다. **조건은 카드에 그대로 남아 있으므로** 조건을 잘못 굳힐 위험은 "
+            "없고, 남은 위험은 조문 쌍을 잘못 짚는 것뿐입니다.\n"
+            "  아래 '참고 자료'의 표에 카드 명제와 배정된 조문 쌍이 나란히 있습니다."
         ),
         choices=(
+            Choice("1. 맞다", "표를 그대로 씁니다."),
             Choice(
-                "1. 3건 모두 뺀다",
-                "조건이 맞는 사안에서 흡수되어야 할 죄명이 최종 목록에 남습니다. "
-                "답안에 죄명이 하나 더 언급됩니다.",
-            ),
-            Choice(
-                "2. 3건 모두 남긴다",
-                "조건이 아닌 사안에서도 죄명이 최종 목록에서 빠집니다. "
-                "그 죄명에 걸린 rubric 항목을 잃습니다.",
-            ),
-            Choice(
-                "3. 항목별로 지정한다",
-                "예: \"제122조는 빼고 제347조는 남긴다\"처럼 적어 주시면 그대로 반영합니다.",
+                "2. 고칠 것이 있다",
+                "틀린 항목의 조문 쌍만 적어 주시면 반영합니다. "
+                "예: \"사기→횡령은 반대다\"",
             ),
         ),
         recommended="1",
-        recommendation_reason=_RECALL_ASYMMETRY,
-        default_if_unanswered="현재대로 3건 모두 남습니다(선택지 2).",
+        recommendation_reason=(
+            "조건이 카드에 남으면서 앞서 문제였던 두 충돌이 사라졌습니다. 방화↔살인은 "
+            "\"사망하지 않은 경우\" 카드가 조건이라 사망 사안에서는 발화하지 않고, "
+            "예비·음모↔살인은 흡수와 상상적 경합이 서로 다른 카드를 조건으로 갖게 되어 "
+            "동시에 발화하지 않습니다."
+        ),
+        default_if_unanswered="표를 그대로 씁니다.",
         affected_entries=(
-            "제122조 직무유기 → 제227조 허위공문서작성  "
-            "(근거 카드가 \"위법사실을 적극 은폐할 목적으로\"를 조건으로 답니다. "
-            "같은 조문에 \"은폐 목적이 아니면 실체적 경합\"이라는 반대 카드가 있습니다)",
-            "제347조 사기 → 제355조 횡령·배임  "
-            "(흡수 방향이 통상과 반대로 읽힙니다)",
-            "제255조 살인예비·음모 → 제254조 살인의 미수범  "
-            "(제254조는 미수범 처벌 조문이지 독립 죄명이 아니라서, 죄명으로 성립할 일이 "
-            "없어 이 규칙은 발화하지 못할 가능성이 큽니다)",
+            "제255조 살인예비·음모 → 제254조 흡수 항목은 제가 **뺐습니다**. 제254조는 "
+            "미수범 처벌 조문이지 독립 죄명이 아니라 `offense_established`가 발화할 일이 "
+            "없어 죽은 규칙입니다. 되살릴 필요가 있으면 알려 주세요.",
         ),
     ),
     Decision(
         key="D2",
-        question=(
-            "제255조 살인예비·음모와 제250조 살인의 관계를 흡수로 볼까요, "
-            "상상적 경합으로 볼까요?"
-        ),
-        why_it_cannot_be_derived=(
-            "제가 두 관계를 동시에 넣었습니다. 근거 카드가 서로 다른 상황을 말하는데 "
-            "(실행의 착수가 있었는가) 조문 쌍만으로는 그 구분을 담을 수 없습니다.\n"
-            "  · 흡수 근거: \"살인예비·음모가 살인미수 또는 살인기수 단계에 이르면 "
-            "예비·음모죄는 미수 또는 기수죄에 흡수된다\"\n"
-            "  · 상상적 경합 근거: \"살인을 교사하였으나 피교사자가 상해행위만 한 경우 … "
-            "상상적 경합으로 더 무거운 살인예비·음모죄로 처벌한다\""
-        ),
-        choices=(
-            Choice(
-                "1. 흡수만 남긴다",
-                "살인이 성립하면 예비·음모가 최종 죄명에서 빠집니다. "
-                "상상적 경합 항목을 지웁니다.",
-            ),
-            Choice(
-                "2. 상상적 경합만 남긴다",
-                "두 죄가 다 최종 죄명이 되고 관계만 보고됩니다. 흡수 항목을 지웁니다.",
-            ),
-            Choice(
-                "3. 둘 다 남긴다 (현재 상태)",
-                "예비·음모가 최종 죄명에서 빠지면서 동시에 상상적 경합으로도 보고됩니다. "
-                "출력이 서로 모순되어 보입니다.",
-            ),
-        ),
-        recommended="1",
-        recommendation_reason=(
-            "상상적 경합 근거 카드의 사안은 **피교사자가 실행에 착수하지 않은** 경우라 "
-            "살인죄(art250) 자체가 성립하지 않습니다. 두 죄가 동시에 성립할 때만 "
-            "상상적 경합 규칙이 발화하므로, 그 항목은 실제로는 발화할 일이 없습니다."
-        ),
-        default_if_unanswered="현재대로 둘 다 남아 모순된 출력이 납니다(선택지 3).",
-    ),
-    Decision(
-        key="D3",
-        question=(
-            "제164조 현주건조물방화와 제250조 살인을 상상적 경합으로 남길까요?"
-        ),
-        why_it_cannot_be_derived=(
-            "같은 조문(art250)에 정반대 카드가 있고, 사망 결과가 발생했는지로 갈립니다.\n"
-            "  · 남기는 근거: \"방화하였으나 사망하지 않은 경우 현주건조물방화죄와 "
-            "살인미수죄의 상상적 경합범이 된다\"\n"
-            "  · 빼는 근거: \"살해할 목적으로 방화하여 사망하게 한 경우 "
-            "현주건조물방화치사죄로 의율하며 살인죄와 상상적 경합으로 의율하지 않는다\""
-        ),
-        choices=(
-            Choice(
-                "1. 남긴다",
-                "사망하지 않은 사안에서 관계가 정확히 보고됩니다. 사망한 사안에서는 "
-                "불필요한 관계 표기가 하나 붙습니다.",
-            ),
-            Choice(
-                "2. 뺀다",
-                "사망한 사안에서 깔끔합니다. 사망하지 않은 사안에서 상상적 경합 관계가 "
-                "보고되지 않습니다.",
-            ),
-        ),
-        recommended="1",
-        recommendation_reason=(
-            "상상적 경합은 흡수와 달리 죄명을 지우지 않고 관계만 덧붙입니다. 틀렸을 때의 "
-            "손해가 표기 하나이고, 빠졌을 때는 rubric의 죄수 항목을 잃습니다."
-        ),
-        default_if_unanswered="현재대로 남습니다(선택지 1 = 추천).",
-    ),
-    Decision(
-        key="D4",
         question="미수범 처벌 규정 표(17개 조문)에 틀린 것이나 빠진 것이 있습니까?",
         why_it_cannot_be_derived=(
-            "제342조가 \"제329조 내지 제341조의 미수범을 처벌한다\"고만 말하므로, 그 열거를 "
+            "제342조가 \"제329조 내지 제341조의 미수범을 처벌한다\"고만 말하므로 그 열거를 "
             "조문별로 펼친 것은 제 작업입니다. 카드가 조문별로 말해 주지 않습니다. "
-            "또 제301조(강간등 상해·치상)의 미수 처벌 여부를 명시한 카드가 없어 "
-            "표에 넣지 않았습니다."
+            "또 제301조(강간등 상해·치상)의 미수 처벌 여부를 명시한 카드가 없어 표에 넣지 "
+            "않았습니다."
         ),
         choices=(
             Choice("1. 맞다", "표를 그대로 씁니다."),
@@ -261,17 +178,17 @@ OPEN_DECISIONS: tuple[Decision, ...] = (
         ),
         recommended="1",
         recommendation_reason=(
-            "제342조·제300조·제254조의 열거를 조문 텍스트대로 펼친 것이므로 큰 오류는 없을 "
+            "제342조·제300조·제254조의 열거를 조문 텍스트대로 펼친 것이라 큰 오류는 없을 "
             "것으로 봅니다. 다만 제332조(상습절도)·제334조(특수강도)처럼 제가 펼쳐 넣은 "
             "항목은 한 번 훑어봐 주시면 좋겠습니다."
         ),
         default_if_unanswered="표를 그대로 씁니다.",
     ),
     Decision(
-        key="D5",
+        key="D3",
         question="예비·음모 처벌 규정 표(제250·299·333조)가 맞습니까?",
         why_it_cannot_be_derived=(
-            "예비·음모 처벌 규정은 조문에 흩어져 있고(제255조가 살인, 제343조가 강도), "
+            "예비·음모 처벌 규정은 조문에 흩어져 있고(제255조가 살인, 제343조가 강도) "
             "카드가 전수를 진술하지 않습니다. 빠진 조문이 있을 수 있습니다."
         ),
         choices=(
@@ -280,12 +197,17 @@ OPEN_DECISIONS: tuple[Decision, ...] = (
         ),
         recommended="1",
         recommendation_reason=(
-            "실체법 28문항에서 예비·음모가 쟁점이 되는 것은 강도예비(스모크 케이스 아님)와 "
-            "살인예비 정도로 보이므로, 이 3개로 시작해도 무리가 없다고 봅니다."
+            "실체법 28문항에서 예비·음모가 쟁점이 되는 것은 강도예비와 살인예비 정도로 "
+            "보이므로 이 3개로 시작해도 무리가 없다고 봅니다."
         ),
         default_if_unanswered="표를 그대로 씁니다.",
     ),
 )
+
+
+#: Condition value meaning "this relation always holds". Used only where the source card
+#: states the relation without a conditional clause.
+UNCONDITIONAL = "unconditional"
 
 
 class DoctrineError(ValueError):
@@ -298,10 +220,17 @@ class DoctrineError(ValueError):
 
 @dataclass(frozen=True)
 class DoctrineTables:
-    """The loaded tables, ready to be compiled into data tuples."""
+    """The loaded tables, ready to be compiled into data tuples.
 
-    absorbed_by: tuple[tuple[str, str], ...]
-    imaginative_concurrence: tuple[tuple[str, str], ...]
+    The concurrence relations carry a third element: the id of the card whose proposition
+    is the condition. 죄수 관계는 거의 언제나 조건부이고 -- "은폐할 목적으로 …한 경우에는"
+    -- an offence pair on its own has nowhere to put that clause, so a two-column table
+    silently promotes a conditional rule into an unconditional one. Keeping the card as the
+    condition means the reviewed proposition stays the thing that decides.
+    """
+
+    absorbed_by: tuple[tuple[str, str, str], ...]
+    imaginative_concurrence: tuple[tuple[str, str, str], ...]
     attempt_punishable: tuple[str, ...]
     preparation_punishable: tuple[str, ...]
     #: ``(offense, stage)`` pairs a card positively states are *not* punishable. Recorded
@@ -367,9 +296,16 @@ def load_doctrine(
     known_articles: Iterable[str],
     concurrence_path: Path | None = None,
     stage_path: Path | None = None,
+    assessable_cards: Iterable[str] | None = None,
 ) -> DoctrineTables:
-    """Read both tables and check every offence key against the corpus."""
+    """Read both tables and check every key against the corpus.
+
+    ``assessable_cards`` is the set of card ids call 2 is asked to judge. A condition
+    naming a card outside it can never become ``satisfied``, so the relation would never
+    fire -- the same silent-death failure as an offence key outside the corpus.
+    """
     known = set(known_articles)
+    assessable = set(assessable_cards) if assessable_cards is not None else None
     errors: list[str] = []
 
     concurrence = _load_yaml(concurrence_path or CONCURRENCE_PATH)
@@ -384,39 +320,60 @@ def load_doctrine(
             return False
         return True
 
-    absorbed: list[tuple[str, str]] = []
+    def condition(entry: Mapping[str, Any], where: str) -> str | None:
+        value = entry.get("condition")
+        if not isinstance(value, str) or not value:
+            errors.append(
+                f"{where}: condition must be a card id or {UNCONDITIONAL!r}. "
+                f"죄수 관계는 조건부가 기본이므로 생략을 무조건으로 읽지 않는다."
+            )
+            return None
+        if value == UNCONDITIONAL:
+            return value
+        if assessable is not None and value not in assessable:
+            errors.append(
+                f"{where}: condition card {value} is not assessed by call 2, so its "
+                f"status can never be satisfied and this relation would never fire"
+            )
+            return None
+        return value
+
+    absorbed: list[tuple[str, str, str]] = []
     for index, entry in enumerate(_entries(concurrence, "absorbed_by")):
         where = f"concurrence.absorbed_by[{index}]"
         child, parent = entry.get("child"), entry.get("parent")
-        # Both are checked before the conjunction: short-circuiting would report one bad
+        # Every check runs before the conjunction: short-circuiting would report one bad
         # key per run, defeating the point of collecting every error.
         child_ok = check(child, f"{where}.child")
         parent_ok = check(parent, f"{where}.parent")
-        if child_ok and parent_ok:
+        cond = condition(entry, where)
+        if child_ok and parent_ok and cond is not None:
             if child == parent:
                 errors.append(f"{where}: an offence cannot absorb itself")
             else:
-                absorbed.append((child, parent))
+                absorbed.append((child, parent, cond))
 
-    imaginative: list[tuple[str, str]] = []
+    imaginative: list[tuple[str, str, str]] = []
     for index, entry in enumerate(
         _entries(concurrence, "imaginative_concurrence")
     ):
         where = f"concurrence.imaginative_concurrence[{index}]"
         offences = entry.get("offenses")
+        cond = condition(entry, where)
         if not isinstance(offences, list) or len(offences) != 2:
             errors.append(f"{where}: offenses must be a pair")
             continue
         first, second = offences
         first_ok = check(first, f"{where}[0]")
         second_ok = check(second, f"{where}[1]")
-        if first_ok and second_ok:
+        if first_ok and second_ok and cond is not None:
             if first == second:
                 errors.append(f"{where}: an offence cannot concur with itself")
             else:
                 # Symmetric relation, stored once in sorted order so the compiled tuples
                 # are stable and the rule need not be written both ways.
-                imaginative.append(tuple(sorted((first, second))))  # type: ignore[arg-type]
+                low, high = sorted((first, second))
+                imaginative.append((low, high, cond))
 
     attempt: list[str] = []
     for index, entry in enumerate(_entries(stage, "attempt_punishable")):

@@ -46,6 +46,7 @@ from typing import Iterable, Mapping, Sequence
 from idpr.rulebase.cards import CardCorpus, card_corpus
 from idpr.rulebase.doctrine import load_doctrine
 from idpr.rulebase.facts import scl_fact_layer
+from idpr.rulebase.formalization import route_corpus
 from idpr.rulebase.roles import CardRole, element_slots, resolve_card_roles
 from idpr.rulebase.skeleton import CONCURRENCE, CORE, DEFEATER, PRESUMED, STAGE
 
@@ -111,8 +112,10 @@ type element_slot(String, String)         // slot, core|presumed
 type offense_article(String, String)      // offense, "제298조"
 
 // ── 죄수·미수: 수기 작성 후 법리 검수 (data/rulebase/*.yaml) ──
-type absorbed_by(String, String)          // child offense, parent offense
-type imaginative_concurrence(String, String)
+// 죄수 관계는 조건부가 기본이다. 세 번째 인자는 조건이 되는 카드의 id이고, 콜 2가 그
+// 명제를 satisfied로 판정할 때만 관계가 발화한다. 조건 없는 관계는 "unconditional".
+type absorbed_by(String, String, String)  // child offense, parent offense, conditionCardId
+type imaginative_concurrence(String, String, String)
 type attempt_punishable(String)           // offense
 type preparation_punishable(String)       // offense"""
 
@@ -159,11 +162,20 @@ rel offense_established(c, off) = offense_supported(c, off), not offense_blocked
 rel offense_undetermined(c, off) = offense_supported(c, off), offense_blocked(c, off)
 
 // ── 죄수 ────────────────────────────────────────────────────
+// 조건 카드가 충족될 때만 발화한다. "위법사실을 적극 은폐할 목적으로 …한 경우에는
+// 직무유기죄가 별도로 성립하지 않는다"는 은폐 목적이 없는 사안에서는 참이 아니고,
+// 그 구분은 조문 쌍이 아니라 카드가 담고 있다.
 rel is_absorbed(c, child) = offense_established(c, child),
-    offense_established(c, parent), absorbed_by(child, parent)
+    offense_established(c, parent), absorbed_by(child, parent, cond),
+    card_status(c, cond, "satisfied")
+rel is_absorbed(c, child) = offense_established(c, child),
+    offense_established(c, parent), absorbed_by(child, parent, "unconditional")
 rel final_offense(c, off) = offense_established(c, off), not is_absorbed(c, off)
+
 rel concurrent_offenses(c, a, b) = offense_established(c, a), offense_established(c, b),
-    imaginative_concurrence(a, b)
+    imaginative_concurrence(a, b, cond), card_status(c, cond, "satisfied")
+rel concurrent_offenses(c, a, b) = offense_established(c, a), offense_established(c, b),
+    imaginative_concurrence(a, b, "unconditional")
 
 // ── 미수 ────────────────────────────────────────────────────
 // 기수가 막힌 죄명에 미수 처벌 규정이 있으면 미수를 검토해야 한다. 스모크 케이스의
@@ -203,8 +215,8 @@ QUERY_RELATIONS: tuple[str, ...] = (
 def compile_rulebase(
     corpus: CardCorpus | None = None,
     roles: Sequence[CardRole] | None = None,
-    absorbed_by: Sequence[tuple[str, str]] | None = None,
-    imaginative_concurrence: Sequence[tuple[str, str]] | None = None,
+    absorbed_by: Sequence[tuple[str, str, str]] | None = None,
+    imaginative_concurrence: Sequence[tuple[str, str, str]] | None = None,
     attempt_punishable: Sequence[str] | None = None,
     preparation_punishable: Sequence[str] | None = None,
 ) -> str:
@@ -222,7 +234,14 @@ def compile_rulebase(
         attempt_punishable,
         preparation_punishable,
     ):
-        tables = load_doctrine(corpus.by_article())
+        tables = load_doctrine(
+            corpus.by_article(),
+            assessable_cards=[
+                routing.card_id
+                for routing in route_corpus(corpus)
+                if routing.assessed_by_model
+            ],
+        )
         if absorbed_by is None:
             absorbed_by = tables.absorbed_by
         if imaginative_concurrence is None:

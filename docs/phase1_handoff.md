@@ -106,12 +106,40 @@ e71b383  죄수·미수 수기 표 + 로드 검증 + 검수 문서
 기준으로 고르면 되는지 명시한다. 슬롯 제목과 카드 개수만으로는 판단할 수 없다(1차에
 그렇게 만들어 지적받았다).
 
+## 죄수 관계는 조건부다 (계획 이탈 4번째, 검수 질문 중 발견)
+
+사용자가 물었다: "표라서 조건을 표현 못 한다면 왜 표로 만들었나?" 맞는 지적이었다.
+관계가 2항이라 조건이 들어갈 자리가 없었던 것이지, 표라는 형식의 한계가 아니다.
+
+```scl
+type absorbed_by(String, String, String)   // child, parent, conditionCardId
+rel is_absorbed(c, child) = offense_established(c, child), offense_established(c, parent),
+                            absorbed_by(child, parent, cond), card_status(c, cond, "satisfied")
+```
+
+조건 카드는 따로 만들 필요가 없다. **그 죄수 카드 자신이 조건이다.** 제122조 카드가
+"위법사실을 적극 은폐할 목적으로 …한 경우에는 직무유기죄가 별도로 성립하지 않는다"라고
+말하므로, 콜 2가 그 명제를 `satisfied`로 판정할 때만 흡수가 발화한다. 조건이 그대로 산다.
+
+부수 효과로 라우팅 의미도 바로잡았다. `concurrence_seed`/`stage_seed` 카드는 **콜 2가
+평가한다**(`CardRouting.assessed_by_model`). 라우트는 카드 내용이 무엇을 구동하는지를
+말할 뿐 콜 2가 보는지를 말하지 않는다. 평가 대상은 1,697 / 1,848장이다.
+
+그리고 rubric 실측: 형사 61문항 1,166항목 중 **죄수 관련 140항목(12.0%)**, 26문항(43%)이
+죄수 항목을 갖는다. 다만 항목의 요구는 "흡수관계로 불성립함을 **언급하는지**"이므로
+점수는 죄명을 지우는 것이 아니라 **그 서술**에 붙는다. `is_absorbed`가 질의 대상인 이유다.
+또 그 140항목 다수가 성폭법 결합범이라 51조문 코퓨스로는 상대가 없다 — 실효 커버리지는
+12%보다 훨씬 낮다.
+
 ## 지금 사용자 검수 대기 중
 
-`data/rulebase/doctrine_review.md`. 핵심은 §3의 **의도적 충돌 2건**이다 — 조문 쌍만으로는
-구별할 수 없는 구분(결과 발생 여부, 실행의 착수 여부)에 걸려 있어 어느 쪽으로 둘지
-골라야 한다. 검수가 오면 `concurrence.yaml`/`stage.yaml`을 고치고 `status`를
-`awaiting_legal_review`에서 바꾼다(`test_the_tables_are_flagged_as_awaiting_review`도 함께).
+`data/rulebase/doctrine_review.md`. 결정 3개(D1~D3)이고 셋 다 추천이 현재 상태와 같다 —
+조문 쌍 배정 12건, 미수 표 17조문, 예비 표 3조문의 확인이다. 조건부 개편으로 앞서 있던
+"흡수를 뺄까 남길까"류 충돌은 사라졌다.
+
+검수가 오면 `parse_decision_answers()`로 읽고 `concurrence.yaml`/`stage.yaml`을 고친 뒤
+`status`를 `awaiting_legal_review`에서 바꾼다
+(`test_the_tables_are_flagged_as_awaiting_review`도 함께 갱신).
 
 검수를 기다리며 Phase 2를 진행해도 된다. 죄수 표는 최종 죄명 선별에만 쓰이고 검색·평가에는
 영향이 없다.

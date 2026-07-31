@@ -158,11 +158,12 @@ def render_doctrine_review(doctrine, concurrence_yaml: dict, stage_yaml: dict) -
         return f"{article_label(article)} {offense_name(article)}"
 
     lines = [
-        "# 죄수·미수 검수 요청 — 답할 것 5개",
+        f"# 죄수·미수 검수 요청 — 답할 것 {len(OPEN_DECISIONS)}개",
         "",
         "제가 카드 142장(`concurrence_seed` 83 + `stage_seed` 59)을 읽고 죄수·미수 표를",
-        "초안했습니다. 대부분은 카드에 적힌 대로 옮겼고, **판단이 갈리는 5곳만** 남겨",
-        "두었습니다. 아래 D1~D5에 번호로 답해 주시면 제가 반영합니다.",
+        "초안했습니다. **조건절은 카드에 그대로 남겨 두었으므로**(아래 설명) 제가 판단으로",
+        "굳힌 것은 조문 쌍 배정과 미수 처벌 규정 열거뿐입니다. 그 둘만 확인해 주시면",
+        f"됩니다. D1~D{len(OPEN_DECISIONS)}에 번호로 답해 주세요.",
         "",
         "## 답하는 방법",
         "",
@@ -178,7 +179,7 @@ def render_doctrine_review(doctrine, concurrence_yaml: dict, stage_yaml: dict) -
         "> answer: 제122조는 빼고 나머지 둘은 남겨",
         "```",
         "",
-        "## 5개 요약",
+        f"## {len(OPEN_DECISIONS)}개 요약",
         "",
         "| # | 무엇을 묻는가 | 제 추천 | 안 답하면 |",
         "|---|---|---|---|",
@@ -191,8 +192,9 @@ def render_doctrine_review(doctrine, concurrence_yaml: dict, stage_yaml: dict) -
 
     lines += [
         "",
-        "추천대로 가도 되면 **D1과 D2만** 답해 주시면 됩니다 (D3~D5는 추천이 현재 상태와",
-        "같습니다). 두 개가 죄명을 지우거나 모순된 출력을 내는 항목이라 그렇습니다.",
+        "셋 다 추천이 현재 상태와 같으므로, 훑어보시고 이상 없으면 `> answer: 1`을 세 번",
+        "적어 주시거나 그냥 넘어가셔도 됩니다. 앞선 초안에 있던 \"흡수를 뺄까 남길까\"류의",
+        "질문은 조건을 카드에 남기는 방식으로 바꾸면서 사라졌습니다.",
         "",
         "---",
         "",
@@ -231,7 +233,7 @@ def render_doctrine_review(doctrine, concurrence_yaml: dict, stage_yaml: dict) -
         "",
         "# 참고 자료 — 초안 전체",
         "",
-        "위 5개에 답하시는 데 필요하면 보시고, 아니면 넘어가셔도 됩니다.",
+        "위 결정에 답하시는 데 필요하면 보시고, 아니면 넘어가셔도 됩니다.",
         "",
         "## 왜 83장에서 13건만 나왔는지",
         "",
@@ -253,37 +255,40 @@ def render_doctrine_review(doctrine, concurrence_yaml: dict, stage_yaml: dict) -
         "",
         f"## 1. 흡수·법조경합 {len(doctrine.absorbed_by)}건",
         "",
-        "왼쪽 죄가 성립하되 **최종 죄명에서 빠집니다**.",
+        "왼쪽 죄가 성립하되 **최종 죄명에서 빠집니다** — 단 조건 카드가 충족될 때만입니다.",
+        "`is_absorbed`는 질의 대상이므로 콜 3이 \"X죄는 Y죄에 흡수되어 별도로 성립하지",
+        "않는다\"를 서술합니다. rubric이 점수를 주는 것은 죄명을 지우는 것이 아니라 그",
+        "서술입니다(실측: 형사 rubric 1,166항목 중 죄수 관련 140항목, 61문항 중 26문항).",
         "",
-        "| 흡수되는 죄 | 흡수하는 죄 | 근거 카드 |",
-        "|---|---|---|",
+        "| 흡수되는 죄 | 흡수하는 죄 | 근거 카드 = 조건 | 카드 id |",
+        "|---|---|---|---|",
     ]
     basis_by_pair = {
         (entry.get("child"), entry.get("parent")): entry
         for entry in (concurrence_yaml.get("absorbed_by") or [])
     }
-    for child, parent in doctrine.absorbed_by:
+    for child, parent, condition in doctrine.absorbed_by:
         entry = basis_by_pair.get((child, parent), {})
         basis = str(entry.get("basis", "")).replace("|", r"\|")
-        lines.append(f"| {pair(child)} | {pair(parent)} | {basis} |")
+        lines.append(f"| {pair(child)} | {pair(parent)} | {basis} | `{condition}` |")
 
     lines += [
         "",
         f"## 2. 상상적 경합 {len(doctrine.imaginative_concurrence)}건",
         "",
-        "두 죄가 모두 최종 죄명이고 관계만 보고됩니다.",
+        "두 죄가 모두 최종 죄명이고 관계만 보고됩니다. 역시 조건 카드가 충족될 때만입니다.",
         "",
-        "| 죄 A | 죄 B | 근거 카드 |",
-        "|---|---|---|",
+        "| 죄 A | 죄 B | 근거 카드 = 조건 | 카드 id |",
+        "|---|---|---|---|",
     ]
     imaginative_entries = concurrence_yaml.get("imaginative_concurrence") or []
     basis_by_set = {
         frozenset(entry.get("offenses") or []): entry for entry in imaginative_entries
     }
-    for first, second in doctrine.imaginative_concurrence:
+    for first, second, condition in doctrine.imaginative_concurrence:
         entry = basis_by_set.get(frozenset((first, second)), {})
         basis = str(entry.get("basis", "")).replace("|", r"\|")
-        lines.append(f"| {pair(first)} | {pair(second)} | {basis} |")
+        lines.append(f"| {pair(first)} | {pair(second)} | {basis} | `{condition}` |")
 
     lines += [
         "",

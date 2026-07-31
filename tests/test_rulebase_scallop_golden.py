@@ -24,6 +24,7 @@ from idpr.rulebase.golden import (
     GoldenSelectionError,
     Scenario,
     expected_relations,
+    resolve_conditions,
     select_cards,
 )
 from idpr.rulebase.roles import resolve_card_roles
@@ -55,11 +56,12 @@ def _run(scenario: Scenario, corpus, roles, work_dir):
     statuses = list(select_cards(scenario, corpus, roles))
     if scenario.conflicting:
         statuses.append((statuses[0][0], "not_satisfied"))
+    absorbed_by, imaginative = resolve_conditions(scenario, statuses)
     program = compile_rulebase(
         corpus,
         roles,
-        absorbed_by=scenario.absorbed_by,
-        imaginative_concurrence=scenario.imaginative_concurrence,
+        absorbed_by=absorbed_by,
+        imaginative_concurrence=imaginative,
         attempt_punishable=scenario.attempt_punishable,
         preparation_punishable=scenario.preparation_punishable,
     ) + render_card_statuses(scenario.scenario_id.replace("_", "-"), statuses)

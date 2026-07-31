@@ -21,6 +21,7 @@ from dataclasses import dataclass, field
 from typing import Mapping, Sequence
 
 from idpr.rulebase.cards import CardCorpus, card_corpus
+from idpr.rulebase.doctrine import UNCONDITIONAL
 from idpr.rulebase.roles import CardRole, resolve_card_roles
 
 #: Every relation a scenario may assert on.
@@ -74,8 +75,8 @@ class Scenario:
     #: Doctrine tables the scenario isolates. ``None`` keeps the reviewed table from disk;
     #: an explicit value (including an empty tuple) replaces it, so a scenario can test one
     #: concurrence rule without the rest of the corpus's doctrine firing alongside it.
-    absorbed_by: tuple[tuple[str, str], ...] | None = ()
-    imaginative_concurrence: tuple[tuple[str, str], ...] | None = ()
+    absorbed_by: tuple[tuple[str, str, str], ...] | None = ()
+    imaginative_concurrence: tuple[tuple[str, str, str], ...] | None = ()
     attempt_punishable: tuple[str, ...] | None = ()
     preparation_punishable: tuple[str, ...] | None = ()
     #: Set when the scenario's point is that some element slot went unargued.
@@ -86,6 +87,12 @@ class Scenario:
 #: negative, exception and defeater cards, so every path can be exercised on real doctrine.
 _INTRUSION = "art319"
 _RAPE = "art297"
+
+#: Placeholder for "the card this scenario's last slot resolves to". A conditional
+#: concurrence rule names a real card id, which :func:`select_cards` only knows at run
+#: time, so the scenario states the *role* the condition plays and the substitution is
+#: made once the cards are picked.
+_CONDITION = "$condition"
 
 SCENARIOS: tuple[Scenario, ...] = (
     Scenario(
@@ -185,19 +192,53 @@ SCENARIOS: tuple[Scenario, ...] = (
         expects_unaddressed_elements=True,
     ),
     Scenario(
-        scenario_id="absorbed_offense_drops_out_of_final",
+        scenario_id="unconditional_absorption_drops_the_child_from_final",
         describes=(
-            "흡수관계가 정의되면 흡수되는 죄는 성립하되 최종 죄명에서 빠진다. "
-            "주거침입이 결합범에 흡수되는 경우가 이 경로다."
+            "조건 없는 흡수관계에서는 흡수되는 죄가 성립하되 최종 죄명에서 빠진다. "
+            "`is_absorbed`는 질의 대상이므로 콜 3이 '흡수되어 별도로 성립하지 않는다'를 "
+            "서술할 수 있다 — rubric이 점수를 주는 것은 그 서술이다."
         ),
         cards=(
             CardSlot(_INTRUSION, "core", "positive", "satisfied"),
             CardSlot(_RAPE, "core", "positive", "satisfied"),
         ),
-        absorbed_by=((_INTRUSION, _RAPE),),
+        absorbed_by=((_INTRUSION, _RAPE, UNCONDITIONAL),),
         established=frozenset({_INTRUSION, _RAPE}),
         absorbed=frozenset({_INTRUSION}),
         final=frozenset({_RAPE}),
+        expects_unaddressed_elements=True,
+    ),
+    Scenario(
+        scenario_id="conditional_absorption_fires_when_the_condition_card_holds",
+        describes=(
+            "조건부 흡수는 조건 카드가 satisfied일 때 발화한다. 조건이 카드에 남아 "
+            "있으므로 조문 쌍이 조건절을 삼키지 않는다."
+        ),
+        cards=(
+            CardSlot(_INTRUSION, "core", "positive", "satisfied"),
+            CardSlot(_RAPE, "core", "positive", "satisfied"),
+            CardSlot(_INTRUSION, "concurrence", "positive", "satisfied"),
+        ),
+        absorbed_by=((_INTRUSION, _RAPE, _CONDITION),),
+        established=frozenset({_INTRUSION, _RAPE}),
+        absorbed=frozenset({_INTRUSION}),
+        final=frozenset({_RAPE}),
+        expects_unaddressed_elements=True,
+    ),
+    Scenario(
+        scenario_id="conditional_absorption_stays_silent_when_the_condition_fails",
+        describes=(
+            "조건 카드가 not_satisfied면 흡수가 발화하지 않고 두 죄가 다 최종 죄명이 "
+            "된다. 2항 표였다면 조건과 무관하게 죄명이 지워졌을 자리다."
+        ),
+        cards=(
+            CardSlot(_INTRUSION, "core", "positive", "satisfied"),
+            CardSlot(_RAPE, "core", "positive", "satisfied"),
+            CardSlot(_INTRUSION, "concurrence", "positive", "not_satisfied"),
+        ),
+        absorbed_by=((_INTRUSION, _RAPE, _CONDITION),),
+        established=frozenset({_INTRUSION, _RAPE}),
+        final=frozenset({_INTRUSION, _RAPE}),
         expects_unaddressed_elements=True,
     ),
     Scenario(
@@ -207,7 +248,7 @@ SCENARIOS: tuple[Scenario, ...] = (
             CardSlot(_INTRUSION, "core", "positive", "satisfied"),
             CardSlot(_RAPE, "core", "positive", "satisfied"),
         ),
-        imaginative_concurrence=((_INTRUSION, _RAPE),),
+        imaginative_concurrence=((_INTRUSION, _RAPE, UNCONDITIONAL),),
         established=frozenset({_INTRUSION, _RAPE}),
         final=frozenset({_INTRUSION, _RAPE}),
         concurrent=((_INTRUSION, _RAPE),),
@@ -288,6 +329,31 @@ def select_cards(
         used.add(candidates[0])
         resolved.append((candidates[0], slot.status))
     return tuple(resolved)
+
+
+def resolve_conditions(
+    scenario: Scenario, selected: Sequence[tuple[str, str]]
+) -> tuple[
+    tuple[tuple[str, str, str], ...] | None, tuple[tuple[str, str, str], ...] | None
+]:
+    """Substitute the ``$condition`` placeholder with the card the last slot resolved to.
+
+    Returns the scenario's two concurrence tables ready to compile. ``None`` is passed
+    through so a scenario can still say "use the reviewed table from disk".
+    """
+    condition_card = selected[-1][0] if selected else UNCONDITIONAL
+
+    def substitute(
+        table: Sequence[tuple[str, str, str]] | None,
+    ) -> tuple[tuple[str, str, str], ...] | None:
+        if table is None:
+            return None
+        return tuple(
+            (first, second, condition_card if cond == _CONDITION else cond)
+            for first, second, cond in table
+        )
+
+    return substitute(scenario.absorbed_by), substitute(scenario.imaginative_concurrence)
 
 
 def expected_relations(scenario: Scenario) -> Mapping[str, frozenset[tuple[str, ...]]]:
