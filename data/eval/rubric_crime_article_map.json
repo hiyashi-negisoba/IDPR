@@ -1,0 +1,808 @@
+{
+  "note": "루브릭 항목에 등장하는 죄명 표기 → 형법각칙 조문. 초안은 에이전트 작성, 검수 대기. 루브릭은 KCL parquet 원본(rubrics 컬럼)이므로 gold이고, 이 표는 그 죄명을 조문 키로 옮기는 법률 사실 조회다.",
+  "corpus_scope": "카드 코퍼스가 덮는 형법각칙 51조문. 그 밖의 조문·특별법·형법총칙은 out_of_corpus로 두고 채점에서 제외한다(커버리지 갭이지 검색 실패가 아니다).",
+  "status": "reviewed",
+  "review": "2026-07-31 법률 검수 완료. A절 36종 전부 답변 반영, B절 71종·C절 17종은 무응답 승인, 미수 준용조문 포함 확정. 추출 정규식의 숫자 누락(제3자뇌물…)을 검수자가 잡아 교정.",
+  "review_doc": "docs/rubric_crime_article_review.md",
+  "attempt_articles": {
+    "note": "미수 준용조문. 기본죄가 뽑히면 미수 조문도 gold에 함께 들어간다 — 조문 자체가 준용을 명시하므로 정답 목록 역산이 아니다.",
+    "art250": "art254",
+    "art297": "art300",
+    "art298": "art300",
+    "art299": "art300",
+    "art301": "art300",
+    "art329": "art342",
+    "art330": "art342",
+    "art331": "art342",
+    "art333": "art342",
+    "art334": "art342",
+    "art335": "art342",
+    "art337": "art342",
+    "art338": "art342",
+    "art347": "art342",
+    "art350": "art342",
+    "art355": "art342",
+    "art356": "art342",
+    "art323": "art342",
+    "art366": "art342"
+  },
+  "crimes": {
+    "절도죄": {
+      "articles": [
+        "art329"
+      ],
+      "confidence": "clear"
+    },
+    "야간주거침입절도죄": {
+      "articles": [
+        "art330"
+      ],
+      "confidence": "clear"
+    },
+    "특수절도죄": {
+      "articles": [
+        "art331"
+      ],
+      "confidence": "clear"
+    },
+    "합동절도죄": {
+      "articles": [
+        "art331"
+      ],
+      "confidence": "clear",
+      "note": "합동범 = 제331조 2항"
+    },
+    "합동특수절도죄": {
+      "articles": [
+        "art331"
+      ],
+      "confidence": "clear"
+    },
+    "강도죄": {
+      "articles": [
+        "art333"
+      ],
+      "confidence": "clear"
+    },
+    "특수강도죄": {
+      "articles": [
+        "art334"
+      ],
+      "confidence": "clear"
+    },
+    "준강도죄": {
+      "articles": [
+        "art335"
+      ],
+      "confidence": "clear"
+    },
+    "준강도상해죄": {
+      "articles": [
+        "art335",
+        "art337"
+      ],
+      "confidence": "reviewed"
+    },
+    "준강도치상죄": {
+      "articles": [
+        "art335",
+        "art337"
+      ],
+      "confidence": "reviewed"
+    },
+    "강도상해죄": {
+      "articles": [
+        "art337"
+      ],
+      "confidence": "clear"
+    },
+    "특수강도치상죄": {
+      "articles": [
+        "art334",
+        "art337"
+      ],
+      "confidence": "reviewed"
+    },
+    "특수강도치사죄": {
+      "articles": [
+        "art334",
+        "art338"
+      ],
+      "confidence": "reviewed"
+    },
+    "강도예비죄": {
+      "articles": [
+        "art343"
+      ],
+      "confidence": "clear"
+    },
+    "사기죄": {
+      "articles": [
+        "art347"
+      ],
+      "confidence": "clear"
+    },
+    "공갈죄": {
+      "articles": [
+        "art350"
+      ],
+      "confidence": "clear"
+    },
+    "공갈미수죄": {
+      "articles": [
+        "art350"
+      ],
+      "confidence": "clear",
+      "derived": "attempt"
+    },
+    "횡령죄": {
+      "articles": [
+        "art355"
+      ],
+      "confidence": "clear",
+      "note": "제355조 1항"
+    },
+    "배임죄": {
+      "articles": [
+        "art355"
+      ],
+      "confidence": "clear",
+      "note": "제355조 2항"
+    },
+    "업무상배임죄": {
+      "articles": [
+        "art356"
+      ],
+      "confidence": "clear"
+    },
+    "배임수재죄": {
+      "articles": [
+        "art357"
+      ],
+      "confidence": "clear"
+    },
+    "점유이탈물횡령죄": {
+      "articles": [
+        "art360"
+      ],
+      "confidence": "clear"
+    },
+    "권리행사방해죄": {
+      "articles": [
+        "art323"
+      ],
+      "confidence": "clear"
+    },
+    "살인죄": {
+      "articles": [
+        "art250"
+      ],
+      "confidence": "clear"
+    },
+    "존속살해죄": {
+      "articles": [
+        "art250"
+      ],
+      "confidence": "clear"
+    },
+    "단순살인교사죄": {
+      "articles": [
+        "art250"
+      ],
+      "confidence": "clear",
+      "derived": "instigation"
+    },
+    "살인예비죄": {
+      "articles": [
+        "art255"
+      ],
+      "confidence": "clear"
+    },
+    "살인예비방조죄": {
+      "articles": [
+        "art255"
+      ],
+      "confidence": "reviewed"
+    },
+    "상해죄": {
+      "articles": [
+        "art257"
+      ],
+      "confidence": "clear"
+    },
+    "특수상해죄": {
+      "articles": [
+        "art2582_2"
+      ],
+      "confidence": "clear"
+    },
+    "상해치사죄": {
+      "articles": [
+        "art259"
+      ],
+      "confidence": "clear"
+    },
+    "강간죄": {
+      "articles": [
+        "art297"
+      ],
+      "confidence": "clear"
+    },
+    "강제추행죄": {
+      "articles": [
+        "art298"
+      ],
+      "confidence": "clear"
+    },
+    "준강간죄": {
+      "articles": [
+        "art299"
+      ],
+      "confidence": "clear"
+    },
+    "강간치상죄": {
+      "articles": [
+        "art301"
+      ],
+      "confidence": "clear"
+    },
+    "주거침입강간죄": {
+      "articles": [],
+      "confidence": "reviewed",
+      "note": "성폭력처벌법 → 코퍼스 밖"
+    },
+    "주거침입강간치상죄": {
+      "articles": [],
+      "confidence": "reviewed",
+      "note": "성폭력처벌법 제3조1항·제8조1항 → 코퍼스 밖. 관련 형법조문은 art319 제1항·art297"
+    },
+    "주거침입죄": {
+      "articles": [
+        "art319"
+      ],
+      "confidence": "clear"
+    },
+    "현주건조물방화죄": {
+      "articles": [
+        "art164"
+      ],
+      "confidence": "clear"
+    },
+    "현주건조물방화치사죄": {
+      "articles": [
+        "art164"
+      ],
+      "confidence": "reviewed",
+      "note": "제164조 2항"
+    },
+    "현주건조물방화치사상죄": {
+      "articles": [
+        "art164"
+      ],
+      "confidence": "reviewed"
+    },
+    "직무유기죄": {
+      "articles": [
+        "art122"
+      ],
+      "confidence": "clear"
+    },
+    "공무상비밀누설죄": {
+      "articles": [
+        "art127"
+      ],
+      "confidence": "clear"
+    },
+    "뇌물수수죄": {
+      "articles": [
+        "art129"
+      ],
+      "confidence": "clear",
+      "note": "제129조 표제는 '수뢰, 사전수뢰'"
+    },
+    "수뢰죄": {
+      "articles": [
+        "art129"
+      ],
+      "confidence": "clear"
+    },
+    "뇌물취득죄": {
+      "articles": [],
+      "confidence": "reviewed",
+      "note": "조문은 art129이나 이 루브릭은 공소시효 항목이라 형사소송법 쟁점 — 실체법 gold로 쓰지 않는다(검수자 판단)"
+    },
+    "뇌물공여죄": {
+      "articles": [
+        "art133"
+      ],
+      "confidence": "clear"
+    },
+    "뇌물교부죄": {
+      "articles": [
+        "art133"
+      ],
+      "confidence": "clear",
+      "note": "제133조 2항"
+    },
+    "증뢰물전달죄": {
+      "articles": [
+        "art133"
+      ],
+      "confidence": "clear",
+      "note": "제133조 2항"
+    },
+    "공무집행방해죄": {
+      "articles": [
+        "art136"
+      ],
+      "confidence": "clear"
+    },
+    "위계공무집행방해죄": {
+      "articles": [
+        "art137"
+      ],
+      "confidence": "clear"
+    },
+    "범인도피죄": {
+      "articles": [
+        "art151"
+      ],
+      "confidence": "clear",
+      "note": "제151조 표제는 '범인은닉과 친족간의 특례'"
+    },
+    "위증죄": {
+      "articles": [
+        "art152"
+      ],
+      "confidence": "clear"
+    },
+    "공문서위조죄": {
+      "articles": [
+        "art225"
+      ],
+      "confidence": "clear"
+    },
+    "허위공문서작성죄": {
+      "articles": [
+        "art227"
+      ],
+      "confidence": "clear"
+    },
+    "사문서위조죄": {
+      "articles": [
+        "art231"
+      ],
+      "confidence": "clear"
+    },
+    "위조사문서행사죄": {
+      "articles": [
+        "art234"
+      ],
+      "confidence": "clear"
+    },
+    "사인부정사용죄": {
+      "articles": [
+        "art239"
+      ],
+      "confidence": "clear"
+    },
+    "폭행죄": {
+      "articles": [],
+      "confidence": "reviewed",
+      "note": "제260조 — 형법각칙이나 카드 미생성"
+    },
+    "폭행치상죄": {
+      "articles": [
+        "art257"
+      ],
+      "confidence": "reviewed",
+      "note": "제262조가 제257조의 예에 의한다"
+    },
+    "폭행치사죄": {
+      "articles": [
+        "art259"
+      ],
+      "confidence": "reviewed",
+      "note": "제262조 준용"
+    },
+    "과실치상죄": {
+      "articles": [],
+      "confidence": "reviewed",
+      "note": "제266조 — 형법각칙이나 카드 미생성"
+    },
+    "협박죄": {
+      "articles": [],
+      "confidence": "reviewed",
+      "note": "제283조 — 형법각칙이나 카드 미생성"
+    },
+    "강요죄": {
+      "articles": [],
+      "confidence": "reviewed",
+      "note": "제324조 — 형법각칙이나 카드 미생성"
+    },
+    "체포죄": {
+      "articles": [],
+      "confidence": "reviewed",
+      "note": "제276조 — 형법각칙이나 카드 미생성"
+    },
+    "명예훼손죄": {
+      "articles": [],
+      "confidence": "reviewed",
+      "note": "제307조 — 형법각칙, 주석서는 번들에 있으나 카드 미생성"
+    },
+    "공동주거침입죄": {
+      "articles": [],
+      "confidence": "reviewed",
+      "note": "폭처법 → 코퍼스 밖"
+    },
+    "수뢰후부정처사죄": {
+      "articles": [
+        "art151"
+      ],
+      "confidence": "reviewed",
+      "note": "제131조는 코퍼스 밖, art151은 코퍼스 안"
+    },
+    "특수공무집행방해치상죄": {
+      "articles": [],
+      "confidence": "reviewed",
+      "note": "제144조 — 형법각칙이나 카드 미생성(커버리지 갭)"
+    },
+    "장물취득죄": {
+      "articles": [],
+      "confidence": "reviewed",
+      "note": "제362조 — 형법각칙이나 카드 미생성(주석서는 번들에 있음)"
+    },
+    "장물보관죄": {
+      "articles": [],
+      "confidence": "reviewed",
+      "note": "제362조 — 동일"
+    },
+    "장물운반죄": {
+      "articles": [],
+      "confidence": "reviewed",
+      "note": "제362조 — 동일"
+    },
+    "사전자기록위작죄": {
+      "articles": [],
+      "confidence": "reviewed",
+      "note": "제232조의2 — 형법각칙이나 카드 미생성"
+    },
+    "위작사전자기록행사죄": {
+      "articles": [
+        "art234"
+      ],
+      "confidence": "reviewed"
+    },
+    "신용카드부정사용죄": {
+      "articles": [],
+      "confidence": "reviewed",
+      "note": "여신전문금융업법 → 코퍼스 밖"
+    },
+    "성폭법위반죄": {
+      "articles": [],
+      "confidence": "reviewed",
+      "note": "성폭력처벌법 → 코퍼스 밖"
+    },
+    "대화비밀침해죄": {
+      "articles": [],
+      "confidence": "reviewed",
+      "note": "통신비밀보호법 → 코퍼스 밖"
+    },
+    "통신비밀보호법위반죄": {
+      "articles": [],
+      "confidence": "reviewed",
+      "note": "통신비밀보호법 → 코퍼스 밖"
+    },
+    "살인미수죄": {
+      "articles": [
+        "art250"
+      ],
+      "confidence": "clear",
+      "derived": "attempt"
+    },
+    "단순살인미수죄": {
+      "articles": [
+        "art250"
+      ],
+      "confidence": "clear",
+      "derived": "attempt"
+    },
+    "살인중지미수죄": {
+      "articles": [
+        "art250"
+      ],
+      "confidence": "clear",
+      "derived": "attempt"
+    },
+    "살인장애미수죄": {
+      "articles": [
+        "art250"
+      ],
+      "confidence": "clear",
+      "derived": "attempt"
+    },
+    "존속살해미수죄": {
+      "articles": [
+        "art250"
+      ],
+      "confidence": "clear",
+      "derived": "attempt"
+    },
+    "존속살해교사미수죄": {
+      "articles": [
+        "art250"
+      ],
+      "confidence": "clear",
+      "derived": "attempt"
+    },
+    "존속살해교사불능미수죄": {
+      "articles": [
+        "art250"
+      ],
+      "confidence": "clear",
+      "derived": "attempt"
+    },
+    "살인방조미수죄": {
+      "articles": [
+        "art250"
+      ],
+      "confidence": "clear",
+      "derived": "attempt"
+    },
+    "상해미수죄": {
+      "articles": [
+        "art257"
+      ],
+      "confidence": "reviewed",
+      "note": "제257조 3항"
+    },
+    "상해불능미수죄": {
+      "articles": [
+        "art257"
+      ],
+      "confidence": "reviewed"
+    },
+    "주거침입강간중지미수죄": {
+      "articles": [
+        "art319",
+        "art297"
+      ],
+      "confidence": "reviewed",
+      "derived": "attempt"
+    },
+    "합동절도불능미수죄": {
+      "articles": [
+        "art331"
+      ],
+      "confidence": "clear",
+      "derived": "attempt"
+    },
+    "합동절도미수죄": {
+      "articles": [
+        "art331"
+      ],
+      "confidence": "clear",
+      "derived": "attempt"
+    },
+    "특수절도불능미수죄": {
+      "articles": [
+        "art331"
+      ],
+      "confidence": "clear",
+      "derived": "attempt"
+    },
+    "준강도미수죄": {
+      "articles": [
+        "art335"
+      ],
+      "confidence": "clear",
+      "derived": "attempt"
+    },
+    "특수강도미수죄": {
+      "articles": [
+        "art334"
+      ],
+      "confidence": "clear",
+      "derived": "attempt"
+    },
+    "현주건조물방화치사미수죄": {
+      "articles": [
+        "art164"
+      ],
+      "confidence": "reviewed",
+      "derived": "attempt"
+    },
+    "절도교사죄": {
+      "articles": [
+        "art329"
+      ],
+      "confidence": "clear",
+      "derived": "instigation"
+    },
+    "범인도피교사죄": {
+      "articles": [
+        "art151"
+      ],
+      "confidence": "clear",
+      "derived": "instigation"
+    },
+    "범인도피방조죄": {
+      "articles": [
+        "art151"
+      ],
+      "confidence": "clear",
+      "derived": "instigation"
+    },
+    "위증교사죄": {
+      "articles": [
+        "art152"
+      ],
+      "confidence": "clear",
+      "derived": "instigation"
+    },
+    "주거침입교사죄": {
+      "articles": [
+        "art319"
+      ],
+      "confidence": "clear",
+      "derived": "instigation"
+    },
+    "공무상비밀누설교사죄": {
+      "articles": [
+        "art127"
+      ],
+      "confidence": "clear",
+      "derived": "instigation"
+    },
+    "허위공문서작성교사죄": {
+      "articles": [
+        "art227"
+      ],
+      "confidence": "clear",
+      "derived": "instigation"
+    },
+    "현주건조물방화교사죄": {
+      "articles": [
+        "art164"
+      ],
+      "confidence": "clear",
+      "derived": "instigation"
+    },
+    "공무집행방해교사죄": {
+      "articles": [
+        "art136"
+      ],
+      "confidence": "clear",
+      "derived": "instigation"
+    },
+    "살인교사죄": {
+      "articles": [
+        "art250"
+      ],
+      "confidence": "clear",
+      "derived": "instigation"
+    },
+    "친고죄": {
+      "articles": [],
+      "confidence": "not_an_offence",
+      "note": "소추조건 용어"
+    },
+    "비친고죄": {
+      "articles": [],
+      "confidence": "not_an_offence"
+    },
+    "포괄일죄": {
+      "articles": [],
+      "confidence": "not_an_offence",
+      "note": "죄수 용어"
+    },
+    "단순일죄": {
+      "articles": [],
+      "confidence": "not_an_offence"
+    },
+    "기본범죄": {
+      "articles": [],
+      "confidence": "not_an_offence"
+    },
+    "특정범죄": {
+      "articles": [],
+      "confidence": "not_an_offence",
+      "note": "특가법 지칭 단편"
+    },
+    "후단범죄": {
+      "articles": [],
+      "confidence": "not_an_offence"
+    },
+    "미수죄": {
+      "articles": [],
+      "confidence": "not_an_offence",
+      "note": "표기 단편"
+    },
+    "수수죄": {
+      "articles": [],
+      "confidence": "not_an_offence",
+      "note": "표기 단편"
+    },
+    "위반죄": {
+      "articles": [],
+      "confidence": "not_an_offence",
+      "note": "표기 단편"
+    },
+    "개장죄": {
+      "articles": [],
+      "confidence": "not_an_offence",
+      "note": "표기 단편"
+    },
+    "문서죄": {
+      "articles": [],
+      "confidence": "not_an_offence",
+      "note": "죄군 총칭"
+    },
+    "장물죄": {
+      "articles": [],
+      "confidence": "not_an_offence",
+      "note": "죄군 총칭 — 제362조 코퍼스 밖"
+    },
+    "위조죄": {
+      "articles": [],
+      "confidence": "not_an_offence",
+      "note": "죄군 총칭"
+    },
+    "방화죄": {
+      "articles": [],
+      "confidence": "not_an_offence",
+      "note": "죄군 총칭"
+    },
+    "교사죄": {
+      "articles": [],
+      "confidence": "not_an_offence",
+      "note": "총칙 용어"
+    },
+    "동행사죄": {
+      "articles": [],
+      "confidence": "not_an_offence",
+      "note": "'동(同) 행사죄' 표기 단편"
+    },
+    "제3자뇌물취득죄": {
+      "articles": [
+        "art133"
+      ],
+      "confidence": "reviewed",
+      "note": "제133조 제2항"
+    },
+    "제3자뇌물교부죄": {
+      "articles": [
+        "art133"
+      ],
+      "confidence": "reviewed",
+      "note": "제133조 제2항"
+    }
+  },
+  "coverage_gap": {
+    "note": "루브릭이 부르는데 카드가 없는 형법각칙 조문. 특별법이 아니라 스코프 결정의 결과이고, 주석서 원천(형법각칙 251조문 파싱본)에는 전부 존재한다.",
+    "articles": {
+      "제260조": "폭행",
+      "제262조": "폭행치사상",
+      "제266조": "과실치상",
+      "제276조": "체포·감금",
+      "제283조": "협박",
+      "제307조": "명예훼손(번들 96에 포함, 카드만 미생성)",
+      "제324조": "강요",
+      "제131조": "수뢰후부정처사",
+      "제144조": "특수공무집행방해",
+      "제174조": "방화 예비·미수",
+      "제232조의2": "사전자기록위작",
+      "제362조": "장물(번들 96에 포함, 카드만 미생성)"
+    },
+    "source": "/home/jaehoonjeong/data/sp_qwen/data/serve/commentary_chunks/docs.parquet (law_id 001692, 251조문)",
+    "bundled_but_uncarded": 48
+  },
+  "article_titles_supplement": {
+    "note": "주석서 매니페스트가 싣지 않은 조문 표제. KCL 태그가 이 조문들을 지목한 적이 없어 빠졌다. 검수 문서 표시용이며 채점에 쓰이지 않는다.",
+    "titles": {
+      "제330조": "야간주거침입절도",
+      "제332조": "상습범",
+      "제333조": "강도"
+    }
+  }
+}

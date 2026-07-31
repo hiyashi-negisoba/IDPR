@@ -1,0 +1,2941 @@
+{
+  "questions": 61,
+  "fact_graphs_available": 61,
+  "buckets": {
+    "scorable": 31,
+    "no_gold_no_offence": 30,
+    "no_gold_out_of_corpus": 0
+  },
+  "dense_model": "embeddinggemma-300m",
+  "reranker_model": "bge-reranker-v2-m3",
+  "by_top_k": {
+    "12": {
+      "paths": {
+        "retrieval": {
+          "macro_recall": 0.5934,
+          "questions": 31,
+          "fully_recovered": 11
+        },
+        "proposals": {
+          "macro_recall": 0.0,
+          "questions": 31,
+          "fully_recovered": 0
+        },
+        "union": {
+          "macro_recall": 0.5934,
+          "questions": 31,
+          "fully_recovered": 11
+        }
+      },
+      "paths_without_attempt_articles": {
+        "retrieval": {
+          "macro_recall": 0.6156,
+          "questions": 31,
+          "fully_recovered": 11
+        },
+        "proposals": {
+          "macro_recall": 0.0,
+          "questions": 31,
+          "fully_recovered": 0
+        },
+        "union": {
+          "macro_recall": 0.6156,
+          "questions": 31,
+          "fully_recovered": 11
+        }
+      },
+      "missed_articles": {
+        "art254": 4,
+        "art331": 4,
+        "art337": 4,
+        "art342": 4,
+        "art136": 3,
+        "art257": 3,
+        "art329": 3,
+        "art151": 2,
+        "art250": 2,
+        "art335": 2,
+        "art122": 1,
+        "art137": 1,
+        "art231": 1,
+        "art234": 1,
+        "art255": 1,
+        "art2582_2": 1,
+        "art298": 1,
+        "art319": 1,
+        "art323": 1,
+        "art330": 1,
+        "art334": 1,
+        "art343": 1,
+        "art347": 1,
+        "art350": 1,
+        "art355": 1,
+        "art357": 1,
+        "art360": 1
+      },
+      "candidates": {
+        "kcl_criminal_r10_p1_q1_ga": {
+          "retrieval": [
+            "art319",
+            "art130",
+            "art250",
+            "art133",
+            "art300",
+            "art257",
+            "art129",
+            "art136",
+            "art297",
+            "art301",
+            "art299",
+            "art337"
+          ],
+          "proposals": [],
+          "gold": [
+            "art297",
+            "art298",
+            "art300",
+            "art301",
+            "art319"
+          ]
+        },
+        "kcl_criminal_r10_p1_q2": {
+          "retrieval": [
+            "art133",
+            "art319",
+            "art259",
+            "art300",
+            "art250",
+            "art297",
+            "art130",
+            "art301",
+            "art257",
+            "art129",
+            "art136",
+            "art299"
+          ],
+          "proposals": [],
+          "gold": [
+            "art257",
+            "art259"
+          ]
+        },
+        "kcl_criminal_r10_p1_q3_ga": {
+          "retrieval": [
+            "art133",
+            "art129",
+            "art319",
+            "art130",
+            "art297",
+            "art300",
+            "art250",
+            "art298",
+            "art366",
+            "art257",
+            "art136",
+            "art301"
+          ],
+          "proposals": [],
+          "gold": [
+            "art122",
+            "art129",
+            "art133",
+            "art151",
+            "art355"
+          ]
+        },
+        "kcl_criminal_r10_p2_q1": {
+          "retrieval": [
+            "art319",
+            "art355",
+            "art356",
+            "art347",
+            "art330",
+            "art333",
+            "art360",
+            "art357",
+            "art299",
+            "art323",
+            "art338",
+            "art329"
+          ],
+          "proposals": [],
+          "gold": [
+            "art257",
+            "art347",
+            "art355"
+          ]
+        },
+        "kcl_criminal_r10_p2_q2": {
+          "retrieval": [
+            "art151",
+            "art347",
+            "art319",
+            "art333",
+            "art330",
+            "art334",
+            "art357",
+            "art338",
+            "art323",
+            "art355",
+            "art298",
+            "art297"
+          ],
+          "proposals": [],
+          "gold": [
+            "art151",
+            "art333",
+            "art334",
+            "art342",
+            "art343",
+            "art355"
+          ]
+        },
+        "kcl_criminal_r11_p1_q1": {
+          "retrieval": [
+            "art250",
+            "art332",
+            "art133",
+            "art329",
+            "art130",
+            "art335",
+            "art227",
+            "art357",
+            "art255",
+            "art257",
+            "art263",
+            "art347"
+          ],
+          "proposals": [],
+          "gold": [
+            "art257",
+            "art329",
+            "art331",
+            "art335",
+            "art337",
+            "art342",
+            "art350"
+          ]
+        },
+        "kcl_criminal_r11_p1_q2_na": {
+          "retrieval": [
+            "art297",
+            "art332",
+            "art133",
+            "art329",
+            "art323",
+            "art331",
+            "art130",
+            "art357",
+            "art136",
+            "art257",
+            "art250",
+            "art298"
+          ],
+          "proposals": [],
+          "gold": [
+            "art331"
+          ]
+        },
+        "kcl_criminal_r11_p2_q1_da": {
+          "retrieval": [
+            "art299",
+            "art227",
+            "art225",
+            "art122",
+            "art335",
+            "art297",
+            "art323",
+            "art129",
+            "art130",
+            "art133",
+            "art231",
+            "art234"
+          ],
+          "proposals": [],
+          "gold": [
+            "art299"
+          ]
+        },
+        "kcl_criminal_r11_p2_q1_ga": {
+          "retrieval": [
+            "art130",
+            "art129",
+            "art299",
+            "art227",
+            "art133",
+            "art225",
+            "art323",
+            "art122",
+            "art231",
+            "art297",
+            "art234",
+            "art127"
+          ],
+          "proposals": [],
+          "gold": [
+            "art129",
+            "art133"
+          ]
+        },
+        "kcl_criminal_r11_p2_q1_na": {
+          "retrieval": [
+            "art227",
+            "art133",
+            "art129",
+            "art130",
+            "art299",
+            "art225",
+            "art122",
+            "art323",
+            "art297",
+            "art231",
+            "art234",
+            "art300"
+          ],
+          "proposals": [],
+          "gold": [
+            "art122",
+            "art136",
+            "art137",
+            "art225",
+            "art227"
+          ]
+        },
+        "kcl_criminal_r11_p2_q2": {
+          "retrieval": [
+            "art227",
+            "art225",
+            "art122",
+            "art323",
+            "art130",
+            "art133",
+            "art129",
+            "art231",
+            "art357",
+            "art234",
+            "art355",
+            "art250"
+          ],
+          "proposals": [],
+          "gold": [
+            "art129",
+            "art133"
+          ]
+        },
+        "kcl_criminal_r12_p1_q1": {
+          "retrieval": [
+            "art356",
+            "art152",
+            "art355",
+            "art366",
+            "art133",
+            "art329",
+            "art137",
+            "art234",
+            "art250",
+            "art357",
+            "art332",
+            "art323"
+          ],
+          "proposals": [],
+          "gold": [
+            "art231"
+          ]
+        },
+        "kcl_criminal_r12_p1_q2": {
+          "retrieval": [
+            "art127",
+            "art356",
+            "art152",
+            "art355",
+            "art133",
+            "art329",
+            "art137",
+            "art234",
+            "art250",
+            "art323",
+            "art357",
+            "art366"
+          ],
+          "proposals": [],
+          "gold": [
+            "art329"
+          ]
+        },
+        "kcl_criminal_r12_p1_q3": {
+          "retrieval": [
+            "art356",
+            "art355",
+            "art133",
+            "art137",
+            "art152",
+            "art151",
+            "art234",
+            "art122",
+            "art225",
+            "art227",
+            "art347",
+            "art136"
+          ],
+          "proposals": [],
+          "gold": [
+            "art329",
+            "art356",
+            "art357"
+          ]
+        },
+        "kcl_criminal_r12_p1_q4": {
+          "retrieval": [
+            "art127",
+            "art356",
+            "art152",
+            "art355",
+            "art329",
+            "art234",
+            "art332",
+            "art335",
+            "art133",
+            "art330",
+            "art360",
+            "art333"
+          ],
+          "proposals": [],
+          "gold": [
+            "art127",
+            "art136",
+            "art151",
+            "art152"
+          ]
+        },
+        "kcl_criminal_r12_p1_q6": {
+          "retrieval": [
+            "art136",
+            "art152",
+            "art356",
+            "art355",
+            "art137",
+            "art329",
+            "art234",
+            "art257",
+            "art332",
+            "art151",
+            "art164",
+            "art130"
+          ],
+          "proposals": [],
+          "gold": [
+            "art136",
+            "art257"
+          ]
+        },
+        "kcl_criminal_r12_p2_q1_da": {
+          "retrieval": [
+            "art234",
+            "art225",
+            "art231",
+            "art239",
+            "art323",
+            "art366",
+            "art250",
+            "art227",
+            "art357",
+            "art330",
+            "art122",
+            "art331"
+          ],
+          "proposals": [],
+          "gold": [
+            "art225",
+            "art227",
+            "art231",
+            "art234",
+            "art239",
+            "art329",
+            "art347",
+            "art360"
+          ]
+        },
+        "kcl_criminal_r12_p2_q1_ga": {
+          "retrieval": [
+            "art250",
+            "art231",
+            "art225",
+            "art234",
+            "art298",
+            "art239",
+            "art329",
+            "art332",
+            "art328",
+            "art335",
+            "art164",
+            "art227"
+          ],
+          "proposals": [],
+          "gold": [
+            "art250",
+            "art254",
+            "art319",
+            "art329",
+            "art330"
+          ]
+        },
+        "kcl_criminal_r12_p2_q1_na": {
+          "retrieval": [
+            "art250",
+            "art231",
+            "art225",
+            "art234",
+            "art239",
+            "art329",
+            "art323",
+            "art298",
+            "art319",
+            "art366",
+            "art332",
+            "art335"
+          ],
+          "proposals": [],
+          "gold": [
+            "art250",
+            "art254",
+            "art255"
+          ]
+        },
+        "kcl_criminal_r13_p1_q1": {
+          "retrieval": [
+            "art297",
+            "art250",
+            "art133",
+            "art319",
+            "art130",
+            "art227",
+            "art298",
+            "art263",
+            "art366",
+            "art357",
+            "art136",
+            "art255"
+          ],
+          "proposals": [],
+          "gold": [
+            "art319",
+            "art329",
+            "art331",
+            "art335",
+            "art337",
+            "art342"
+          ]
+        },
+        "kcl_criminal_r13_p1_q3": {
+          "retrieval": [
+            "art297",
+            "art133",
+            "art319",
+            "art136",
+            "art263",
+            "art357",
+            "art257",
+            "art298",
+            "art328",
+            "art301",
+            "art333",
+            "art337"
+          ],
+          "proposals": [],
+          "gold": [
+            "art250",
+            "art254"
+          ]
+        },
+        "kcl_criminal_r13_p1_q4_1": {
+          "retrieval": [
+            "art297",
+            "art332",
+            "art133",
+            "art329",
+            "art357",
+            "art136",
+            "art257",
+            "art298",
+            "art335",
+            "art301",
+            "art333",
+            "art337"
+          ],
+          "proposals": [],
+          "gold": [
+            "art250"
+          ]
+        },
+        "kcl_criminal_r13_p2_q1": {
+          "retrieval": [
+            "art347",
+            "art329",
+            "art137",
+            "art152",
+            "art334",
+            "art343",
+            "art332",
+            "art297",
+            "art335",
+            "art151",
+            "art227",
+            "art337"
+          ],
+          "proposals": [],
+          "gold": [
+            "art136",
+            "art151",
+            "art234",
+            "art257",
+            "art2582_2",
+            "art329",
+            "art331",
+            "art347"
+          ]
+        },
+        "kcl_criminal_r14_p1_q1": {
+          "retrieval": [
+            "art133",
+            "art250",
+            "art130",
+            "art323",
+            "art366",
+            "art164",
+            "art129",
+            "art357",
+            "art255",
+            "art151",
+            "art319",
+            "art333"
+          ],
+          "proposals": [],
+          "gold": [
+            "art164",
+            "art250",
+            "art254",
+            "art257",
+            "art319"
+          ]
+        },
+        "kcl_criminal_r14_p1_q2": {
+          "retrieval": [
+            "art133",
+            "art164",
+            "art355",
+            "art347",
+            "art360",
+            "art356",
+            "art250",
+            "art130",
+            "art129",
+            "art366",
+            "art323",
+            "art329"
+          ],
+          "proposals": [],
+          "gold": [
+            "art133",
+            "art347",
+            "art355"
+          ]
+        },
+        "kcl_criminal_r14_p1_q3": {
+          "retrieval": [
+            "art323",
+            "art133",
+            "art355",
+            "art255",
+            "art347",
+            "art360",
+            "art356",
+            "art250",
+            "art130",
+            "art122",
+            "art164",
+            "art129"
+          ],
+          "proposals": [],
+          "gold": [
+            "art323"
+          ]
+        },
+        "kcl_criminal_r14_p1_q4_1": {
+          "retrieval": [
+            "art355",
+            "art133",
+            "art356",
+            "art164",
+            "art360",
+            "art347",
+            "art250",
+            "art136",
+            "art129",
+            "art130",
+            "art366",
+            "art350"
+          ],
+          "proposals": [],
+          "gold": [
+            "art323"
+          ]
+        },
+        "kcl_criminal_r14_p1_q4_2": {
+          "retrieval": [
+            "art323",
+            "art133",
+            "art164",
+            "art355",
+            "art255",
+            "art347",
+            "art360",
+            "art356",
+            "art250",
+            "art130",
+            "art122",
+            "art129"
+          ],
+          "proposals": [],
+          "gold": [
+            "art323"
+          ]
+        },
+        "kcl_criminal_r14_p2_q1": {
+          "retrieval": [
+            "art136",
+            "art301",
+            "art319",
+            "art259",
+            "art329",
+            "art137",
+            "art152",
+            "art323",
+            "art333",
+            "art257",
+            "art298",
+            "art250"
+          ],
+          "proposals": [],
+          "gold": [
+            "art329",
+            "art331",
+            "art335",
+            "art337"
+          ]
+        },
+        "kcl_criminal_r14_p2_q2": {
+          "retrieval": [
+            "art328",
+            "art259",
+            "art333",
+            "art338",
+            "art366",
+            "art257",
+            "art323",
+            "art250",
+            "art225",
+            "art343",
+            "art268",
+            "art319"
+          ],
+          "proposals": [],
+          "gold": [
+            "art334",
+            "art337",
+            "art338",
+            "art342"
+          ]
+        },
+        "kcl_criminal_r14_p2_q4": {
+          "retrieval": [
+            "art328",
+            "art298",
+            "art136",
+            "art137",
+            "art122",
+            "art151",
+            "art299",
+            "art133",
+            "art329",
+            "art152",
+            "art366",
+            "art319"
+          ],
+          "proposals": [],
+          "gold": [
+            "art136"
+          ]
+        }
+      }
+    },
+    "18": {
+      "paths": {
+        "retrieval": {
+          "macro_recall": 0.8136,
+          "questions": 31,
+          "fully_recovered": 17
+        },
+        "proposals": {
+          "macro_recall": 0.0,
+          "questions": 31,
+          "fully_recovered": 0
+        },
+        "union": {
+          "macro_recall": 0.8136,
+          "questions": 31,
+          "fully_recovered": 17
+        }
+      },
+      "paths_without_attempt_articles": {
+        "retrieval": {
+          "macro_recall": 0.8626,
+          "questions": 31,
+          "fully_recovered": 19
+        },
+        "proposals": {
+          "macro_recall": 0.0,
+          "questions": 31,
+          "fully_recovered": 0
+        },
+        "union": {
+          "macro_recall": 0.8626,
+          "questions": 31,
+          "fully_recovered": 19
+        }
+      },
+      "missed_articles": {
+        "art254": 4,
+        "art342": 4,
+        "art136": 2,
+        "art257": 2,
+        "art329": 2,
+        "art331": 2,
+        "art122": 1,
+        "art234": 1,
+        "art255": 1,
+        "art2582_2": 1,
+        "art319": 1,
+        "art334": 1,
+        "art335": 1,
+        "art337": 1,
+        "art347": 1,
+        "art350": 1,
+        "art355": 1,
+        "art360": 1
+      },
+      "candidates": {
+        "kcl_criminal_r10_p1_q1_ga": {
+          "retrieval": [
+            "art319",
+            "art130",
+            "art250",
+            "art133",
+            "art300",
+            "art257",
+            "art129",
+            "art136",
+            "art297",
+            "art301",
+            "art299",
+            "art337",
+            "art231",
+            "art333",
+            "art164",
+            "art350",
+            "art298",
+            "art338"
+          ],
+          "proposals": [],
+          "gold": [
+            "art297",
+            "art298",
+            "art300",
+            "art301",
+            "art319"
+          ]
+        },
+        "kcl_criminal_r10_p1_q2": {
+          "retrieval": [
+            "art133",
+            "art319",
+            "art259",
+            "art300",
+            "art250",
+            "art297",
+            "art130",
+            "art301",
+            "art257",
+            "art129",
+            "art136",
+            "art299",
+            "art333",
+            "art337",
+            "art127",
+            "art151",
+            "art122",
+            "art231"
+          ],
+          "proposals": [],
+          "gold": [
+            "art257",
+            "art259"
+          ]
+        },
+        "kcl_criminal_r10_p1_q3_ga": {
+          "retrieval": [
+            "art133",
+            "art129",
+            "art319",
+            "art130",
+            "art297",
+            "art300",
+            "art250",
+            "art298",
+            "art366",
+            "art257",
+            "art136",
+            "art301",
+            "art299",
+            "art337",
+            "art127",
+            "art151",
+            "art231",
+            "art347"
+          ],
+          "proposals": [],
+          "gold": [
+            "art122",
+            "art129",
+            "art133",
+            "art151",
+            "art355"
+          ]
+        },
+        "kcl_criminal_r10_p2_q1": {
+          "retrieval": [
+            "art319",
+            "art355",
+            "art356",
+            "art347",
+            "art330",
+            "art333",
+            "art360",
+            "art357",
+            "art299",
+            "art323",
+            "art338",
+            "art329",
+            "art250",
+            "art334",
+            "art297",
+            "art257",
+            "art343",
+            "art301"
+          ],
+          "proposals": [],
+          "gold": [
+            "art257",
+            "art347",
+            "art355"
+          ]
+        },
+        "kcl_criminal_r10_p2_q2": {
+          "retrieval": [
+            "art151",
+            "art347",
+            "art319",
+            "art333",
+            "art330",
+            "art334",
+            "art357",
+            "art338",
+            "art323",
+            "art355",
+            "art298",
+            "art297",
+            "art343",
+            "art331",
+            "art332",
+            "art122",
+            "art329",
+            "art299"
+          ],
+          "proposals": [],
+          "gold": [
+            "art151",
+            "art333",
+            "art334",
+            "art342",
+            "art343",
+            "art355"
+          ]
+        },
+        "kcl_criminal_r11_p1_q1": {
+          "retrieval": [
+            "art250",
+            "art332",
+            "art133",
+            "art329",
+            "art130",
+            "art335",
+            "art227",
+            "art357",
+            "art255",
+            "art257",
+            "art263",
+            "art347",
+            "art152",
+            "art301",
+            "art337",
+            "art297",
+            "art331",
+            "art333"
+          ],
+          "proposals": [],
+          "gold": [
+            "art257",
+            "art329",
+            "art331",
+            "art335",
+            "art337",
+            "art342",
+            "art350"
+          ]
+        },
+        "kcl_criminal_r11_p1_q2_na": {
+          "retrieval": [
+            "art297",
+            "art332",
+            "art133",
+            "art329",
+            "art323",
+            "art331",
+            "art130",
+            "art357",
+            "art136",
+            "art257",
+            "art250",
+            "art298",
+            "art259",
+            "art335",
+            "art337",
+            "art301",
+            "art268",
+            "art328"
+          ],
+          "proposals": [],
+          "gold": [
+            "art331"
+          ]
+        },
+        "kcl_criminal_r11_p2_q1_da": {
+          "retrieval": [
+            "art299",
+            "art227",
+            "art225",
+            "art122",
+            "art335",
+            "art297",
+            "art323",
+            "art129",
+            "art130",
+            "art133",
+            "art231",
+            "art234",
+            "art333",
+            "art127",
+            "art300",
+            "art355",
+            "art301",
+            "art151"
+          ],
+          "proposals": [],
+          "gold": [
+            "art299"
+          ]
+        },
+        "kcl_criminal_r11_p2_q1_ga": {
+          "retrieval": [
+            "art130",
+            "art129",
+            "art299",
+            "art227",
+            "art133",
+            "art225",
+            "art323",
+            "art122",
+            "art231",
+            "art297",
+            "art234",
+            "art127",
+            "art239",
+            "art355",
+            "art250",
+            "art301",
+            "art347",
+            "art151"
+          ],
+          "proposals": [],
+          "gold": [
+            "art129",
+            "art133"
+          ]
+        },
+        "kcl_criminal_r11_p2_q1_na": {
+          "retrieval": [
+            "art227",
+            "art133",
+            "art129",
+            "art130",
+            "art299",
+            "art225",
+            "art122",
+            "art323",
+            "art297",
+            "art231",
+            "art234",
+            "art300",
+            "art137",
+            "art127",
+            "art250",
+            "art355",
+            "art136",
+            "art329"
+          ],
+          "proposals": [],
+          "gold": [
+            "art122",
+            "art136",
+            "art137",
+            "art225",
+            "art227"
+          ]
+        },
+        "kcl_criminal_r11_p2_q2": {
+          "retrieval": [
+            "art227",
+            "art225",
+            "art122",
+            "art323",
+            "art130",
+            "art133",
+            "art129",
+            "art231",
+            "art357",
+            "art234",
+            "art355",
+            "art250",
+            "art137",
+            "art151",
+            "art329",
+            "art338",
+            "art347",
+            "art350"
+          ],
+          "proposals": [],
+          "gold": [
+            "art129",
+            "art133"
+          ]
+        },
+        "kcl_criminal_r12_p1_q1": {
+          "retrieval": [
+            "art356",
+            "art152",
+            "art355",
+            "art366",
+            "art133",
+            "art329",
+            "art137",
+            "art234",
+            "art250",
+            "art357",
+            "art332",
+            "art323",
+            "art298",
+            "art335",
+            "art151",
+            "art231",
+            "art227",
+            "art330"
+          ],
+          "proposals": [],
+          "gold": [
+            "art231"
+          ]
+        },
+        "kcl_criminal_r12_p1_q2": {
+          "retrieval": [
+            "art127",
+            "art356",
+            "art152",
+            "art355",
+            "art133",
+            "art329",
+            "art137",
+            "art234",
+            "art250",
+            "art323",
+            "art357",
+            "art366",
+            "art332",
+            "art298",
+            "art335",
+            "art151",
+            "art328",
+            "art227"
+          ],
+          "proposals": [],
+          "gold": [
+            "art329"
+          ]
+        },
+        "kcl_criminal_r12_p1_q3": {
+          "retrieval": [
+            "art356",
+            "art355",
+            "art133",
+            "art137",
+            "art152",
+            "art151",
+            "art234",
+            "art122",
+            "art225",
+            "art227",
+            "art347",
+            "art136",
+            "art231",
+            "art328",
+            "art129",
+            "art357",
+            "art127",
+            "art297"
+          ],
+          "proposals": [],
+          "gold": [
+            "art329",
+            "art356",
+            "art357"
+          ]
+        },
+        "kcl_criminal_r12_p1_q4": {
+          "retrieval": [
+            "art127",
+            "art356",
+            "art152",
+            "art355",
+            "art329",
+            "art234",
+            "art332",
+            "art335",
+            "art133",
+            "art330",
+            "art360",
+            "art333",
+            "art231",
+            "art357",
+            "art344",
+            "art151",
+            "art137",
+            "art347"
+          ],
+          "proposals": [],
+          "gold": [
+            "art127",
+            "art136",
+            "art151",
+            "art152"
+          ]
+        },
+        "kcl_criminal_r12_p1_q6": {
+          "retrieval": [
+            "art136",
+            "art152",
+            "art356",
+            "art355",
+            "art137",
+            "art329",
+            "art234",
+            "art257",
+            "art332",
+            "art151",
+            "art164",
+            "art130",
+            "art268",
+            "art225",
+            "art335",
+            "art301",
+            "art267",
+            "art337"
+          ],
+          "proposals": [],
+          "gold": [
+            "art136",
+            "art257"
+          ]
+        },
+        "kcl_criminal_r12_p2_q1_da": {
+          "retrieval": [
+            "art234",
+            "art225",
+            "art231",
+            "art239",
+            "art323",
+            "art366",
+            "art250",
+            "art227",
+            "art357",
+            "art330",
+            "art122",
+            "art331",
+            "art334",
+            "art355",
+            "art329",
+            "art297",
+            "art319",
+            "art129"
+          ],
+          "proposals": [],
+          "gold": [
+            "art225",
+            "art227",
+            "art231",
+            "art234",
+            "art239",
+            "art329",
+            "art347",
+            "art360"
+          ]
+        },
+        "kcl_criminal_r12_p2_q1_ga": {
+          "retrieval": [
+            "art250",
+            "art231",
+            "art225",
+            "art234",
+            "art298",
+            "art239",
+            "art329",
+            "art332",
+            "art328",
+            "art335",
+            "art164",
+            "art227",
+            "art330",
+            "art357",
+            "art338",
+            "art360",
+            "art333",
+            "art323"
+          ],
+          "proposals": [],
+          "gold": [
+            "art250",
+            "art254",
+            "art319",
+            "art329",
+            "art330"
+          ]
+        },
+        "kcl_criminal_r12_p2_q1_na": {
+          "retrieval": [
+            "art250",
+            "art231",
+            "art225",
+            "art234",
+            "art239",
+            "art329",
+            "art323",
+            "art298",
+            "art319",
+            "art366",
+            "art332",
+            "art335",
+            "art227",
+            "art330",
+            "art338",
+            "art360",
+            "art355",
+            "art333"
+          ],
+          "proposals": [],
+          "gold": [
+            "art250",
+            "art254",
+            "art255"
+          ]
+        },
+        "kcl_criminal_r13_p1_q1": {
+          "retrieval": [
+            "art297",
+            "art250",
+            "art133",
+            "art319",
+            "art130",
+            "art227",
+            "art298",
+            "art263",
+            "art366",
+            "art357",
+            "art136",
+            "art255",
+            "art257",
+            "art152",
+            "art301",
+            "art333",
+            "art337",
+            "art331"
+          ],
+          "proposals": [],
+          "gold": [
+            "art319",
+            "art329",
+            "art331",
+            "art335",
+            "art337",
+            "art342"
+          ]
+        },
+        "kcl_criminal_r13_p1_q3": {
+          "retrieval": [
+            "art297",
+            "art133",
+            "art319",
+            "art136",
+            "art263",
+            "art357",
+            "art257",
+            "art298",
+            "art328",
+            "art301",
+            "art333",
+            "art337",
+            "art250",
+            "art323",
+            "art129",
+            "art231",
+            "art299",
+            "art329"
+          ],
+          "proposals": [],
+          "gold": [
+            "art250",
+            "art254"
+          ]
+        },
+        "kcl_criminal_r13_p1_q4_1": {
+          "retrieval": [
+            "art297",
+            "art332",
+            "art133",
+            "art329",
+            "art357",
+            "art136",
+            "art257",
+            "art298",
+            "art335",
+            "art301",
+            "art333",
+            "art337",
+            "art250",
+            "art330",
+            "art129",
+            "art231",
+            "art360",
+            "art299"
+          ],
+          "proposals": [],
+          "gold": [
+            "art250"
+          ]
+        },
+        "kcl_criminal_r13_p2_q1": {
+          "retrieval": [
+            "art347",
+            "art329",
+            "art137",
+            "art152",
+            "art334",
+            "art343",
+            "art332",
+            "art297",
+            "art335",
+            "art151",
+            "art227",
+            "art337",
+            "art330",
+            "art360",
+            "art355",
+            "art333",
+            "art344",
+            "art350"
+          ],
+          "proposals": [],
+          "gold": [
+            "art136",
+            "art151",
+            "art234",
+            "art257",
+            "art2582_2",
+            "art329",
+            "art331",
+            "art347"
+          ]
+        },
+        "kcl_criminal_r14_p1_q1": {
+          "retrieval": [
+            "art133",
+            "art250",
+            "art130",
+            "art323",
+            "art366",
+            "art164",
+            "art129",
+            "art357",
+            "art255",
+            "art151",
+            "art319",
+            "art333",
+            "art355",
+            "art338",
+            "art301",
+            "art259",
+            "art328",
+            "art127"
+          ],
+          "proposals": [],
+          "gold": [
+            "art164",
+            "art250",
+            "art254",
+            "art257",
+            "art319"
+          ]
+        },
+        "kcl_criminal_r14_p1_q2": {
+          "retrieval": [
+            "art133",
+            "art164",
+            "art355",
+            "art347",
+            "art360",
+            "art356",
+            "art250",
+            "art130",
+            "art129",
+            "art366",
+            "art323",
+            "art329",
+            "art328",
+            "art357",
+            "art151",
+            "art234",
+            "art333",
+            "art231"
+          ],
+          "proposals": [],
+          "gold": [
+            "art133",
+            "art347",
+            "art355"
+          ]
+        },
+        "kcl_criminal_r14_p1_q3": {
+          "retrieval": [
+            "art323",
+            "art133",
+            "art355",
+            "art255",
+            "art347",
+            "art360",
+            "art356",
+            "art250",
+            "art130",
+            "art122",
+            "art164",
+            "art129",
+            "art366",
+            "art343",
+            "art350",
+            "art329",
+            "art319",
+            "art299"
+          ],
+          "proposals": [],
+          "gold": [
+            "art323"
+          ]
+        },
+        "kcl_criminal_r14_p1_q4_1": {
+          "retrieval": [
+            "art355",
+            "art133",
+            "art356",
+            "art164",
+            "art360",
+            "art347",
+            "art250",
+            "art136",
+            "art129",
+            "art130",
+            "art366",
+            "art350",
+            "art323",
+            "art357",
+            "art329",
+            "art333",
+            "art263",
+            "art255"
+          ],
+          "proposals": [],
+          "gold": [
+            "art323"
+          ]
+        },
+        "kcl_criminal_r14_p1_q4_2": {
+          "retrieval": [
+            "art323",
+            "art133",
+            "art164",
+            "art355",
+            "art255",
+            "art347",
+            "art360",
+            "art356",
+            "art250",
+            "art130",
+            "art122",
+            "art129",
+            "art366",
+            "art333",
+            "art329",
+            "art343",
+            "art350",
+            "art151"
+          ],
+          "proposals": [],
+          "gold": [
+            "art323"
+          ]
+        },
+        "kcl_criminal_r14_p2_q1": {
+          "retrieval": [
+            "art136",
+            "art301",
+            "art319",
+            "art259",
+            "art329",
+            "art137",
+            "art152",
+            "art323",
+            "art333",
+            "art257",
+            "art298",
+            "art250",
+            "art366",
+            "art332",
+            "art225",
+            "art227",
+            "art335",
+            "art231"
+          ],
+          "proposals": [],
+          "gold": [
+            "art329",
+            "art331",
+            "art335",
+            "art337"
+          ]
+        },
+        "kcl_criminal_r14_p2_q2": {
+          "retrieval": [
+            "art328",
+            "art259",
+            "art333",
+            "art338",
+            "art366",
+            "art257",
+            "art323",
+            "art250",
+            "art225",
+            "art343",
+            "art268",
+            "art319",
+            "art164",
+            "art267",
+            "art337",
+            "art297",
+            "art301",
+            "art152"
+          ],
+          "proposals": [],
+          "gold": [
+            "art334",
+            "art337",
+            "art338",
+            "art342"
+          ]
+        },
+        "kcl_criminal_r14_p2_q4": {
+          "retrieval": [
+            "art328",
+            "art298",
+            "art136",
+            "art137",
+            "art122",
+            "art151",
+            "art299",
+            "art133",
+            "art329",
+            "art152",
+            "art366",
+            "art319",
+            "art323",
+            "art257",
+            "art332",
+            "art335",
+            "art301",
+            "art297"
+          ],
+          "proposals": [],
+          "gold": [
+            "art136"
+          ]
+        }
+      }
+    },
+    "24": {
+      "paths": {
+        "retrieval": {
+          "macro_recall": 0.8478,
+          "questions": 31,
+          "fully_recovered": 17
+        },
+        "proposals": {
+          "macro_recall": 0.0,
+          "questions": 31,
+          "fully_recovered": 0
+        },
+        "union": {
+          "macro_recall": 0.8478,
+          "questions": 31,
+          "fully_recovered": 17
+        }
+      },
+      "paths_without_attempt_articles": {
+        "retrieval": {
+          "macro_recall": 0.9013,
+          "questions": 31,
+          "fully_recovered": 21
+        },
+        "proposals": {
+          "macro_recall": 0.0,
+          "questions": 31,
+          "fully_recovered": 0
+        },
+        "union": {
+          "macro_recall": 0.9013,
+          "questions": 31,
+          "fully_recovered": 21
+        }
+      },
+      "missed_articles": {
+        "art254": 4,
+        "art342": 4,
+        "art136": 2,
+        "art257": 2,
+        "art329": 2,
+        "art331": 2,
+        "art122": 1,
+        "art255": 1,
+        "art319": 1,
+        "art347": 1,
+        "art355": 1,
+        "art360": 1
+      },
+      "candidates": {
+        "kcl_criminal_r10_p1_q1_ga": {
+          "retrieval": [
+            "art319",
+            "art130",
+            "art250",
+            "art133",
+            "art300",
+            "art257",
+            "art129",
+            "art136",
+            "art297",
+            "art301",
+            "art299",
+            "art337",
+            "art231",
+            "art333",
+            "art164",
+            "art350",
+            "art298",
+            "art338",
+            "art259",
+            "art263",
+            "art366",
+            "art347",
+            "art225",
+            "art2582_2"
+          ],
+          "proposals": [],
+          "gold": [
+            "art297",
+            "art298",
+            "art300",
+            "art301",
+            "art319"
+          ]
+        },
+        "kcl_criminal_r10_p1_q2": {
+          "retrieval": [
+            "art133",
+            "art319",
+            "art259",
+            "art300",
+            "art250",
+            "art297",
+            "art130",
+            "art301",
+            "art257",
+            "art129",
+            "art136",
+            "art299",
+            "art333",
+            "art337",
+            "art127",
+            "art151",
+            "art122",
+            "art231",
+            "art263",
+            "art298",
+            "art338",
+            "art347",
+            "art268",
+            "art164"
+          ],
+          "proposals": [],
+          "gold": [
+            "art257",
+            "art259"
+          ]
+        },
+        "kcl_criminal_r10_p1_q3_ga": {
+          "retrieval": [
+            "art133",
+            "art129",
+            "art319",
+            "art130",
+            "art297",
+            "art300",
+            "art250",
+            "art298",
+            "art366",
+            "art257",
+            "art136",
+            "art301",
+            "art299",
+            "art337",
+            "art127",
+            "art151",
+            "art231",
+            "art347",
+            "art333",
+            "art268",
+            "art164",
+            "art137",
+            "art227",
+            "art338"
+          ],
+          "proposals": [],
+          "gold": [
+            "art122",
+            "art129",
+            "art133",
+            "art151",
+            "art355"
+          ]
+        },
+        "kcl_criminal_r10_p2_q1": {
+          "retrieval": [
+            "art319",
+            "art355",
+            "art356",
+            "art347",
+            "art330",
+            "art333",
+            "art360",
+            "art357",
+            "art299",
+            "art323",
+            "art338",
+            "art329",
+            "art250",
+            "art334",
+            "art297",
+            "art257",
+            "art343",
+            "art301",
+            "art331",
+            "art337",
+            "art129",
+            "art300",
+            "art350",
+            "art164"
+          ],
+          "proposals": [],
+          "gold": [
+            "art257",
+            "art347",
+            "art355"
+          ]
+        },
+        "kcl_criminal_r10_p2_q2": {
+          "retrieval": [
+            "art151",
+            "art347",
+            "art319",
+            "art333",
+            "art330",
+            "art334",
+            "art357",
+            "art338",
+            "art323",
+            "art355",
+            "art298",
+            "art297",
+            "art343",
+            "art331",
+            "art332",
+            "art122",
+            "art329",
+            "art299",
+            "art335",
+            "art350",
+            "art356",
+            "art344",
+            "art250",
+            "art337"
+          ],
+          "proposals": [],
+          "gold": [
+            "art151",
+            "art333",
+            "art334",
+            "art342",
+            "art343",
+            "art355"
+          ]
+        },
+        "kcl_criminal_r11_p1_q1": {
+          "retrieval": [
+            "art250",
+            "art332",
+            "art133",
+            "art329",
+            "art130",
+            "art335",
+            "art227",
+            "art357",
+            "art255",
+            "art257",
+            "art263",
+            "art347",
+            "art152",
+            "art301",
+            "art337",
+            "art297",
+            "art331",
+            "art333",
+            "art137",
+            "art330",
+            "art129",
+            "art231",
+            "art360",
+            "art350"
+          ],
+          "proposals": [],
+          "gold": [
+            "art257",
+            "art329",
+            "art331",
+            "art335",
+            "art337",
+            "art342",
+            "art350"
+          ]
+        },
+        "kcl_criminal_r11_p1_q2_na": {
+          "retrieval": [
+            "art297",
+            "art332",
+            "art133",
+            "art329",
+            "art323",
+            "art331",
+            "art130",
+            "art357",
+            "art136",
+            "art257",
+            "art250",
+            "art298",
+            "art259",
+            "art335",
+            "art337",
+            "art301",
+            "art268",
+            "art328",
+            "art333",
+            "art330",
+            "art129",
+            "art231",
+            "art360",
+            "art299"
+          ],
+          "proposals": [],
+          "gold": [
+            "art331"
+          ]
+        },
+        "kcl_criminal_r11_p2_q1_da": {
+          "retrieval": [
+            "art299",
+            "art227",
+            "art225",
+            "art122",
+            "art335",
+            "art297",
+            "art323",
+            "art129",
+            "art130",
+            "art133",
+            "art231",
+            "art234",
+            "art333",
+            "art127",
+            "art300",
+            "art355",
+            "art301",
+            "art151",
+            "art137",
+            "art152",
+            "art329",
+            "art350",
+            "art347",
+            "art319"
+          ],
+          "proposals": [],
+          "gold": [
+            "art299"
+          ]
+        },
+        "kcl_criminal_r11_p2_q1_ga": {
+          "retrieval": [
+            "art130",
+            "art129",
+            "art299",
+            "art227",
+            "art133",
+            "art225",
+            "art323",
+            "art122",
+            "art231",
+            "art297",
+            "art234",
+            "art127",
+            "art239",
+            "art355",
+            "art250",
+            "art301",
+            "art347",
+            "art151",
+            "art329",
+            "art333",
+            "art137",
+            "art350",
+            "art263",
+            "art152"
+          ],
+          "proposals": [],
+          "gold": [
+            "art129",
+            "art133"
+          ]
+        },
+        "kcl_criminal_r11_p2_q1_na": {
+          "retrieval": [
+            "art227",
+            "art133",
+            "art129",
+            "art130",
+            "art299",
+            "art225",
+            "art122",
+            "art323",
+            "art297",
+            "art231",
+            "art234",
+            "art300",
+            "art137",
+            "art127",
+            "art250",
+            "art355",
+            "art136",
+            "art329",
+            "art152",
+            "art347",
+            "art350",
+            "art263",
+            "art333",
+            "art301"
+          ],
+          "proposals": [],
+          "gold": [
+            "art122",
+            "art136",
+            "art137",
+            "art225",
+            "art227"
+          ]
+        },
+        "kcl_criminal_r11_p2_q2": {
+          "retrieval": [
+            "art227",
+            "art225",
+            "art122",
+            "art323",
+            "art130",
+            "art133",
+            "art129",
+            "art231",
+            "art357",
+            "art234",
+            "art355",
+            "art250",
+            "art137",
+            "art151",
+            "art329",
+            "art338",
+            "art347",
+            "art350",
+            "art255",
+            "art319",
+            "art299",
+            "art263",
+            "art127",
+            "art333"
+          ],
+          "proposals": [],
+          "gold": [
+            "art129",
+            "art133"
+          ]
+        },
+        "kcl_criminal_r12_p1_q1": {
+          "retrieval": [
+            "art356",
+            "art152",
+            "art355",
+            "art366",
+            "art133",
+            "art329",
+            "art137",
+            "art234",
+            "art250",
+            "art357",
+            "art332",
+            "art323",
+            "art298",
+            "art335",
+            "art151",
+            "art231",
+            "art227",
+            "art330",
+            "art129",
+            "art360",
+            "art333",
+            "art225",
+            "art297",
+            "art344"
+          ],
+          "proposals": [],
+          "gold": [
+            "art231"
+          ]
+        },
+        "kcl_criminal_r12_p1_q2": {
+          "retrieval": [
+            "art127",
+            "art356",
+            "art152",
+            "art355",
+            "art133",
+            "art329",
+            "art137",
+            "art234",
+            "art250",
+            "art323",
+            "art357",
+            "art366",
+            "art332",
+            "art298",
+            "art335",
+            "art151",
+            "art328",
+            "art227",
+            "art330",
+            "art129",
+            "art231",
+            "art360",
+            "art333",
+            "art136"
+          ],
+          "proposals": [],
+          "gold": [
+            "art329"
+          ]
+        },
+        "kcl_criminal_r12_p1_q3": {
+          "retrieval": [
+            "art356",
+            "art355",
+            "art133",
+            "art137",
+            "art152",
+            "art151",
+            "art234",
+            "art122",
+            "art225",
+            "art227",
+            "art347",
+            "art136",
+            "art231",
+            "art328",
+            "art129",
+            "art357",
+            "art127",
+            "art297",
+            "art366",
+            "art268",
+            "art250",
+            "art350",
+            "art257",
+            "art299"
+          ],
+          "proposals": [],
+          "gold": [
+            "art329",
+            "art356",
+            "art357"
+          ]
+        },
+        "kcl_criminal_r12_p1_q4": {
+          "retrieval": [
+            "art127",
+            "art356",
+            "art152",
+            "art355",
+            "art329",
+            "art234",
+            "art332",
+            "art335",
+            "art133",
+            "art330",
+            "art360",
+            "art333",
+            "art231",
+            "art357",
+            "art344",
+            "art151",
+            "art137",
+            "art347",
+            "art328",
+            "art268",
+            "art122",
+            "art323",
+            "art250",
+            "art366"
+          ],
+          "proposals": [],
+          "gold": [
+            "art127",
+            "art136",
+            "art151",
+            "art152"
+          ]
+        },
+        "kcl_criminal_r12_p1_q6": {
+          "retrieval": [
+            "art136",
+            "art152",
+            "art356",
+            "art355",
+            "art137",
+            "art329",
+            "art234",
+            "art257",
+            "art332",
+            "art151",
+            "art164",
+            "art130",
+            "art268",
+            "art225",
+            "art335",
+            "art301",
+            "art267",
+            "art337",
+            "art250",
+            "art357",
+            "art330",
+            "art360",
+            "art231",
+            "art122"
+          ],
+          "proposals": [],
+          "gold": [
+            "art136",
+            "art257"
+          ]
+        },
+        "kcl_criminal_r12_p2_q1_da": {
+          "retrieval": [
+            "art234",
+            "art225",
+            "art231",
+            "art239",
+            "art323",
+            "art366",
+            "art250",
+            "art227",
+            "art357",
+            "art330",
+            "art122",
+            "art331",
+            "art334",
+            "art355",
+            "art329",
+            "art297",
+            "art319",
+            "art129",
+            "art335",
+            "art338",
+            "art333",
+            "art328",
+            "art350",
+            "art151"
+          ],
+          "proposals": [],
+          "gold": [
+            "art225",
+            "art227",
+            "art231",
+            "art234",
+            "art239",
+            "art329",
+            "art347",
+            "art360"
+          ]
+        },
+        "kcl_criminal_r12_p2_q1_ga": {
+          "retrieval": [
+            "art250",
+            "art231",
+            "art225",
+            "art234",
+            "art298",
+            "art239",
+            "art329",
+            "art332",
+            "art328",
+            "art335",
+            "art164",
+            "art227",
+            "art330",
+            "art357",
+            "art338",
+            "art360",
+            "art333",
+            "art323",
+            "art366",
+            "art344",
+            "art122",
+            "art331",
+            "art334",
+            "art355"
+          ],
+          "proposals": [],
+          "gold": [
+            "art250",
+            "art254",
+            "art319",
+            "art329",
+            "art330"
+          ]
+        },
+        "kcl_criminal_r12_p2_q1_na": {
+          "retrieval": [
+            "art250",
+            "art231",
+            "art225",
+            "art234",
+            "art239",
+            "art329",
+            "art323",
+            "art298",
+            "art319",
+            "art366",
+            "art332",
+            "art335",
+            "art227",
+            "art330",
+            "art338",
+            "art360",
+            "art355",
+            "art333",
+            "art129",
+            "art297",
+            "art344",
+            "art122",
+            "art347",
+            "art328"
+          ],
+          "proposals": [],
+          "gold": [
+            "art250",
+            "art254",
+            "art255"
+          ]
+        },
+        "kcl_criminal_r13_p1_q1": {
+          "retrieval": [
+            "art297",
+            "art250",
+            "art133",
+            "art319",
+            "art130",
+            "art227",
+            "art298",
+            "art263",
+            "art366",
+            "art357",
+            "art136",
+            "art255",
+            "art257",
+            "art152",
+            "art301",
+            "art333",
+            "art337",
+            "art331",
+            "art323",
+            "art137",
+            "art129",
+            "art231",
+            "art299",
+            "art335"
+          ],
+          "proposals": [],
+          "gold": [
+            "art319",
+            "art329",
+            "art331",
+            "art335",
+            "art337",
+            "art342"
+          ]
+        },
+        "kcl_criminal_r13_p1_q3": {
+          "retrieval": [
+            "art297",
+            "art133",
+            "art319",
+            "art136",
+            "art263",
+            "art357",
+            "art257",
+            "art298",
+            "art328",
+            "art301",
+            "art333",
+            "art337",
+            "art250",
+            "art323",
+            "art129",
+            "art231",
+            "art299",
+            "art329",
+            "art335",
+            "art164",
+            "art366",
+            "art259",
+            "art334",
+            "art151"
+          ],
+          "proposals": [],
+          "gold": [
+            "art250",
+            "art254"
+          ]
+        },
+        "kcl_criminal_r13_p1_q4_1": {
+          "retrieval": [
+            "art297",
+            "art332",
+            "art133",
+            "art329",
+            "art357",
+            "art136",
+            "art257",
+            "art298",
+            "art335",
+            "art301",
+            "art333",
+            "art337",
+            "art250",
+            "art330",
+            "art129",
+            "art231",
+            "art360",
+            "art299",
+            "art164",
+            "art344",
+            "art366",
+            "art152",
+            "art263",
+            "art323"
+          ],
+          "proposals": [],
+          "gold": [
+            "art250"
+          ]
+        },
+        "kcl_criminal_r13_p2_q1": {
+          "retrieval": [
+            "art347",
+            "art329",
+            "art137",
+            "art152",
+            "art334",
+            "art343",
+            "art332",
+            "art297",
+            "art335",
+            "art151",
+            "art227",
+            "art337",
+            "art330",
+            "art360",
+            "art355",
+            "art333",
+            "art344",
+            "art350",
+            "art234",
+            "art323",
+            "art328",
+            "art2582_2",
+            "art231",
+            "art298"
+          ],
+          "proposals": [],
+          "gold": [
+            "art136",
+            "art151",
+            "art234",
+            "art257",
+            "art2582_2",
+            "art329",
+            "art331",
+            "art347"
+          ]
+        },
+        "kcl_criminal_r14_p1_q1": {
+          "retrieval": [
+            "art133",
+            "art250",
+            "art130",
+            "art323",
+            "art366",
+            "art164",
+            "art129",
+            "art357",
+            "art255",
+            "art151",
+            "art319",
+            "art333",
+            "art355",
+            "art338",
+            "art301",
+            "art259",
+            "art328",
+            "art127",
+            "art267",
+            "art268",
+            "art329",
+            "art350",
+            "art347",
+            "art299"
+          ],
+          "proposals": [],
+          "gold": [
+            "art164",
+            "art250",
+            "art254",
+            "art257",
+            "art319"
+          ]
+        },
+        "kcl_criminal_r14_p1_q2": {
+          "retrieval": [
+            "art133",
+            "art164",
+            "art355",
+            "art347",
+            "art360",
+            "art356",
+            "art250",
+            "art130",
+            "art129",
+            "art366",
+            "art323",
+            "art329",
+            "art328",
+            "art357",
+            "art151",
+            "art234",
+            "art333",
+            "art231",
+            "art263",
+            "art127",
+            "art227",
+            "art319",
+            "art350",
+            "art299"
+          ],
+          "proposals": [],
+          "gold": [
+            "art133",
+            "art347",
+            "art355"
+          ]
+        },
+        "kcl_criminal_r14_p1_q3": {
+          "retrieval": [
+            "art323",
+            "art133",
+            "art355",
+            "art255",
+            "art347",
+            "art360",
+            "art356",
+            "art250",
+            "art130",
+            "art122",
+            "art164",
+            "art129",
+            "art366",
+            "art343",
+            "art350",
+            "art329",
+            "art319",
+            "art299",
+            "art328",
+            "art300",
+            "art263",
+            "art136",
+            "art151",
+            "art234"
+          ],
+          "proposals": [],
+          "gold": [
+            "art323"
+          ]
+        },
+        "kcl_criminal_r14_p1_q4_1": {
+          "retrieval": [
+            "art355",
+            "art133",
+            "art356",
+            "art164",
+            "art360",
+            "art347",
+            "art250",
+            "art136",
+            "art129",
+            "art130",
+            "art366",
+            "art350",
+            "art323",
+            "art357",
+            "art329",
+            "art333",
+            "art263",
+            "art255",
+            "art151",
+            "art319",
+            "art234",
+            "art231",
+            "art338",
+            "art122"
+          ],
+          "proposals": [],
+          "gold": [
+            "art323"
+          ]
+        },
+        "kcl_criminal_r14_p1_q4_2": {
+          "retrieval": [
+            "art323",
+            "art133",
+            "art164",
+            "art355",
+            "art255",
+            "art347",
+            "art360",
+            "art356",
+            "art250",
+            "art130",
+            "art122",
+            "art129",
+            "art366",
+            "art333",
+            "art329",
+            "art343",
+            "art350",
+            "art151",
+            "art328",
+            "art299",
+            "art357",
+            "art234",
+            "art319",
+            "art231"
+          ],
+          "proposals": [],
+          "gold": [
+            "art323"
+          ]
+        },
+        "kcl_criminal_r14_p2_q1": {
+          "retrieval": [
+            "art136",
+            "art301",
+            "art319",
+            "art259",
+            "art329",
+            "art137",
+            "art152",
+            "art323",
+            "art333",
+            "art257",
+            "art298",
+            "art250",
+            "art366",
+            "art332",
+            "art225",
+            "art227",
+            "art335",
+            "art231",
+            "art151",
+            "art297",
+            "art337",
+            "art130",
+            "art330",
+            "art360"
+          ],
+          "proposals": [],
+          "gold": [
+            "art329",
+            "art331",
+            "art335",
+            "art337"
+          ]
+        },
+        "kcl_criminal_r14_p2_q2": {
+          "retrieval": [
+            "art328",
+            "art259",
+            "art333",
+            "art338",
+            "art366",
+            "art257",
+            "art323",
+            "art250",
+            "art225",
+            "art343",
+            "art268",
+            "art319",
+            "art164",
+            "art267",
+            "art337",
+            "art297",
+            "art301",
+            "art152",
+            "art334",
+            "art335",
+            "art355",
+            "art350",
+            "art263",
+            "art127"
+          ],
+          "proposals": [],
+          "gold": [
+            "art334",
+            "art337",
+            "art338",
+            "art342"
+          ]
+        },
+        "kcl_criminal_r14_p2_q4": {
+          "retrieval": [
+            "art328",
+            "art298",
+            "art136",
+            "art137",
+            "art122",
+            "art151",
+            "art299",
+            "art133",
+            "art329",
+            "art152",
+            "art366",
+            "art319",
+            "art323",
+            "art257",
+            "art332",
+            "art335",
+            "art301",
+            "art297",
+            "art231",
+            "art337",
+            "art300",
+            "art227",
+            "art330",
+            "art129"
+          ],
+          "proposals": [],
+          "gold": [
+            "art136"
+          ]
+        }
+      }
+    }
+  },
+  "smoke_case": {
+    "sub_question_id": "kcl_criminal_r10_p1_q1_ga",
+    "candidate_articles": [
+      "art319",
+      "art130",
+      "art250",
+      "art133",
+      "art300",
+      "art257",
+      "art129",
+      "art136",
+      "art297",
+      "art301",
+      "art299",
+      "art337",
+      "art231",
+      "art333",
+      "art164",
+      "art350",
+      "art298",
+      "art338"
+    ],
+    "checks": {
+      "강제추행 간접정범": {
+        "articles": [
+          "art298"
+        ],
+        "recovered": [
+          "art298"
+        ],
+        "missing_from_corpus": [],
+        "missed_by_retrieval": []
+      },
+      "주거침입 위요지": {
+        "articles": [
+          "art319"
+        ],
+        "recovered": [
+          "art319"
+        ],
+        "missing_from_corpus": [],
+        "missed_by_retrieval": []
+      },
+      "중지미수": {
+        "articles": [
+          "art250",
+          "art254",
+          "art300"
+        ],
+        "recovered": [
+          "art250",
+          "art300"
+        ],
+        "missing_from_corpus": [],
+        "missed_by_retrieval": [
+          "art254"
+        ]
+      },
+      "체포죄 (코퍼스 밖)": {
+        "articles": [
+          "art276"
+        ],
+        "recovered": [],
+        "missing_from_corpus": [
+          "art276"
+        ],
+        "missed_by_retrieval": []
+      },
+      "주거침입강간치상 결합범": {
+        "articles": [
+          "art319",
+          "art297",
+          "art301"
+        ],
+        "recovered": [
+          "art297",
+          "art301",
+          "art319"
+        ],
+        "missing_from_corpus": [],
+        "missed_by_retrieval": []
+      }
+    }
+  },
+  "scorable_question_ids": [
+    "kcl_criminal_r10_p1_q1_ga",
+    "kcl_criminal_r10_p1_q2",
+    "kcl_criminal_r10_p1_q3_ga",
+    "kcl_criminal_r10_p2_q1",
+    "kcl_criminal_r10_p2_q2",
+    "kcl_criminal_r11_p1_q1",
+    "kcl_criminal_r11_p1_q2_na",
+    "kcl_criminal_r11_p2_q1_da",
+    "kcl_criminal_r11_p2_q1_ga",
+    "kcl_criminal_r11_p2_q1_na",
+    "kcl_criminal_r11_p2_q2",
+    "kcl_criminal_r12_p1_q1",
+    "kcl_criminal_r12_p1_q2",
+    "kcl_criminal_r12_p1_q3",
+    "kcl_criminal_r12_p1_q4",
+    "kcl_criminal_r12_p1_q6",
+    "kcl_criminal_r12_p2_q1_da",
+    "kcl_criminal_r12_p2_q1_ga",
+    "kcl_criminal_r12_p2_q1_na",
+    "kcl_criminal_r13_p1_q1",
+    "kcl_criminal_r13_p1_q3",
+    "kcl_criminal_r13_p1_q4_1",
+    "kcl_criminal_r13_p2_q1",
+    "kcl_criminal_r14_p1_q1",
+    "kcl_criminal_r14_p1_q2",
+    "kcl_criminal_r14_p1_q3",
+    "kcl_criminal_r14_p1_q4_1",
+    "kcl_criminal_r14_p1_q4_2",
+    "kcl_criminal_r14_p2_q1",
+    "kcl_criminal_r14_p2_q2",
+    "kcl_criminal_r14_p2_q4"
+  ]
+}
