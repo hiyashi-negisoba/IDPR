@@ -11,25 +11,18 @@ from typing import Any, Mapping, Sequence
 
 from idpr.candidates import candidate_issues
 from idpr.eval.issue_recall import INVENTORY_PATH, PROJECT_ROOT
-from idpr.neural.fact_graph import assessment_facts, fact_tuples
+from idpr.issue_pipeline import build_issue_reasoning_packet, run_issue_symbolic
+from idpr.neural.fact_graph import assessment_facts
 from idpr.neural.issue_assessment import (
     SCHEMA_VERSION,
     IssueAssessmentError,
     issue_assessment_request,
     issue_assessment_schema,
-    issue_status_rows,
     validate_issue_assessments,
 )
 from idpr.neural.vllm_client import VLLMClient
 from idpr.prompts import load_prompt
 from idpr.rulebase.cards import card_corpus
-from idpr.rulebase.compile_scl import QUERY_RELATIONS, compile_rulebase
-from idpr.rulebase.scallop import (
-    render_fact_layer,
-    render_issue_statuses,
-    run_program,
-    runtime_version,
-)
 from idpr.retrieval import DEFAULT_TOP_K_CARDS_PER_ISSUE, retrieve_issue_cards
 
 DEFAULT_CASE_ID = "kcl_criminal_r10_p1_q1_ga"
@@ -406,27 +399,29 @@ def main() -> None:
         )
         for status in ("satisfied", "not_satisfied", "unknown")
     }
-    symbolic_program = (
-        compile_rulebase(corpus=corpus)
-        + render_fact_layer(args.case_id, fact_tuples(graph, case_id=args.case_id))
-        + render_issue_statuses(args.case_id, issue_status_rows(output))
-    )
-    symbolic_results = run_program(
-        symbolic_program,
-        QUERY_RELATIONS,
-        args.work_dir / "symbolic",
+    symbolic_runtime = run_issue_symbolic(
+        case_id=args.case_id,
+        fact_graph=graph,
+        assessment_bundle=output,
+        work_dir=args.work_dir / "symbolic",
+        corpus=corpus,
         name=f"{args.case_id}_issue",
     )
-    symbolic_runtime = {
-        "scli_version": runtime_version(),
-        "observed_nonempty": {
-            relation: bool(rows) for relation, rows in symbolic_results.items()
+    scope = candidate_issues(
+        selected=tuple(args.articles),
+        attempt_map={},
+        corpus=corpus,
+    )
+    reasoning_packet = build_issue_reasoning_packet(
+        scope=scope,
+        assessment_bundle=output,
+        symbolic_runtime=symbolic_runtime,
+        corpus=corpus,
+        details_by_issue={
+            issue_id: tuple(card_ids)
+            for issue_id, card_ids in refinement["retrieved"].items()
         },
-        "relations": {
-            relation: [list(row) for row in rows]
-            for relation, rows in symbolic_results.items()
-        },
-    }
+    )
     report = {
         **plan,
         "model": args.model,
@@ -444,6 +439,7 @@ def main() -> None:
         "refinement": refinement,
         "issue_status": output,
         "symbolic_runtime": symbolic_runtime,
+        "reasoning_packet": reasoning_packet,
     }
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(

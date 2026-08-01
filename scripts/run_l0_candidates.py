@@ -1,4 +1,4 @@
-"""L0 output: the candidate articles and assessable cards call 2 consumes, for all 61.
+"""L0 output: candidate articles and normalized issues consumed downstream, for all 61.
 
 This is the artifact Phase 3 reads. It exists as a file rather than an in-memory step for
 the reason every other stage boundary here does: the two sources need different models and
@@ -16,7 +16,7 @@ import json
 import statistics as st
 from pathlib import Path
 
-from idpr.candidates import assessable_card_ids, candidate_articles
+from idpr.candidates import candidate_issues
 from idpr.eval.issue_recall import (
     INVENTORY_PATH,
     PROJECT_ROOT,
@@ -26,10 +26,17 @@ from idpr.eval.issue_recall import (
     missed_articles,
     recall,
 )
+from idpr.issue_pipeline import issue_candidate_row
 from idpr.neural.article_select import attempt_article_map
 from idpr.neural.fact_graph import retrieval_queries
-from idpr.retrieval import DEFAULT_TOP_K_ARTICLES, LexicalIndex, retrieve_candidate_articles
+from idpr.retrieval import (
+    DEFAULT_TOP_K_ARTICLES,
+    DenseIndex,
+    LexicalIndex,
+    retrieve_candidate_articles_via_issues,
+)
 from idpr.rulebase.cards import card_corpus
+from idpr.rulebase.issue_catalog_v2 import compile_issue_catalog_v2
 
 DEFAULT_FACT_GRAPHS = PROJECT_ROOT / "data" / "eval" / "fact_graphs.jsonl"
 DEFAULT_SELECTION = PROJECT_ROOT / "data" / "eval" / "article_selection.jsonl"
@@ -51,13 +58,13 @@ def main() -> None:
     parser.add_argument("--inventory", type=Path, default=INVENTORY_PATH)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--report", type=Path, default=DEFAULT_REPORT)
-    parser.add_argument("--top-k", type=int, default=DEFAULT_TOP_K_ARTICLES)
+    parser.add_argument("--top-k-articles", type=int, default=DEFAULT_TOP_K_ARTICLES)
     parser.add_argument("--no-retrieval", action="store_true",
                         help="model selection only -- the fallback if the union is too slow")
     args = parser.parse_args()
 
     corpus = card_corpus()
-    assessable = assessable_card_ids(corpus)
+    issues, _ = compile_issue_catalog_v2(corpus)
     attempt_map = attempt_article_map()
     gold = load_issue_gold()
     inventory = {row["sub_question_id"]: row for row in _rows(args.inventory)}
@@ -72,13 +79,19 @@ def main() -> None:
 
         encoder = SentenceTransformerEncoder()
         reranker = CrossEncoderReranker()
-        lexical = LexicalIndex.build([card.proposition for card in corpus.by_id.values()])
+        search_documents = tuple(card.proposition for card in corpus.cards)
+        lexical = LexicalIndex.build(search_documents)
+        dense = DenseIndex.build(search_documents, encoder)
+    else:
+        dense = None
 
     per_question: dict[str, list[str]] = {}
+    scopes = {}
     args.out.parent.mkdir(parents=True, exist_ok=True)
     with args.out.open("w", encoding="utf-8") as handle:
         for index, (case_id, record) in enumerate(sorted(inventory.items()), start=1):
             retrieved: list[str] = []
+            retrieved_issue_ids: list[str] = []
             if not args.no_retrieval:
                 graph = graphs.get(case_id)
                 queries = (
@@ -86,58 +99,73 @@ def main() -> None:
                     if graph is not None
                     else [q for q in (record.get("question_prompt", ""), record["question_text"]) if q]
                 )
-                retrieved = list(
-                    retrieve_candidate_articles(
-                        queries,
-                        corpus=corpus,
-                        top_k_articles=args.top_k,
-                        encoder=encoder,
-                        reranker=reranker,
-                        lexical=lexical,
-                    ).retrieved
+                retrieval = retrieve_candidate_articles_via_issues(
+                    queries,
+                    corpus=corpus,
+                    issues=issues,
+                    top_k_articles=args.top_k_articles,
+                    encoder=encoder,
+                    reranker=reranker,
+                    lexical=lexical,
+                    dense=dense,
                 )
+                retrieved = list(retrieval.retrieved_articles)
+                retrieved_issue_ids = list(retrieval.retrieved_issue_ids)
 
-            candidates = candidate_articles(
+            candidates = candidate_issues(
                 selected=selection.get(case_id, ()),
                 retrieved=retrieved,
                 corpus=corpus,
-                assessable=assessable,
                 attempt_map=attempt_map,
             )
+            scopes[case_id] = candidates
             per_question[case_id] = list(candidates.articles)
             handle.write(
                 json.dumps(
-                    {"sub_question_id": case_id, **candidates.as_dict(),
-                     "card_ids": list(candidates.card_ids)},
+                    issue_candidate_row(
+                        case_id,
+                        candidates,
+                        retrieved_issue_ids=retrieved_issue_ids,
+                    ),
                     ensure_ascii=False,
                 )
                 + "\n"
             )
             handle.flush()
             print(f"[{index}/{len(inventory)}] {case_id} "
-                  f"{len(candidates.articles)} articles / {len(candidates.cards)} cards")
+                  f"{len(candidates.articles)} articles / "
+                  f"{len(candidates.initial_issues)} initial issues")
 
     scores = [recall(gold[q].articles, a) for q, a in per_question.items()
               if gold[q].bucket == SCORABLE]
     scores = [s for s in scores if s is not None]
     sizes = [len(a) for a in per_question.values()]
-    cards = [len(candidate_articles(selected=(), retrieved=a, corpus=corpus,
-                                    assessable=assessable, attempt_map=attempt_map).cards)
-             for a in per_question.values()]
+    initial_issues = [len(scope.initial_issues) for scope in scopes.values()]
+    anchors = [
+        sum(len(issue.anchor_card_ids) for issue in scope.initial_issues)
+        for scope in scopes.values()
+    ]
 
     smoke = json.loads(SMOKE_CHECKS_PATH.read_text(encoding="utf-8"))
     covered = set(corpus.by_article())
     smoke_articles = per_question.get(smoke["sub_question_id"], [])
     report = {
         "mode": "model_selection_only" if args.no_retrieval else "union",
-        "top_k_articles": None if args.no_retrieval else args.top_k,
+        "top_k_articles": None if args.no_retrieval else args.top_k_articles,
         "questions": len(per_question),
         "buckets": bucket_counts(gold),
         "macro_recall": round(st.mean(scores), 4) if scores else None,
         "fully_recovered": sum(1 for s in scores if s == 1.0),
         "scorable": len(scores),
         "articles_per_question": {"median": int(st.median(sizes)), "max": max(sizes)},
-        "cards_per_question": {"median": int(st.median(cards)), "max": max(cards)},
+        "initial_issues_per_question": {
+            "median": int(st.median(initial_issues)),
+            "max": max(initial_issues),
+        },
+        "anchor_rules_per_question": {
+            "median": int(st.median(anchors)),
+            "max": max(anchors),
+        },
         "missed_articles": missed_articles(gold, per_question),
         "smoke_case": {
             "sub_question_id": smoke["sub_question_id"],
@@ -157,7 +185,9 @@ def main() -> None:
 
     print(f"\nmode={report['mode']} recall={report['macro_recall']} "
           f"({report['fully_recovered']}/{report['scorable']} fully recovered) "
-          f"articles={report['articles_per_question']} cards={report['cards_per_question']}")
+          f"articles={report['articles_per_question']} "
+          f"issues={report['initial_issues_per_question']} "
+          f"anchors={report['anchor_rules_per_question']}")
     for name, block in report["smoke_case"]["checks"].items():
         print(f"  smoke {name}: recovered={block['recovered']} missed={block['missed']} "
               f"out_of_corpus={block['missing_from_corpus']}")

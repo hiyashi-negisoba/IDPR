@@ -1,4 +1,4 @@
-"""L0: the article candidates call 2 assesses, and the cards they carry.
+"""L0 candidate scope, normalized as article → issue → anchor/detail.
 
 One entry point, because the article decision now has three sources and downstream must not
 have to know that. The model selects from the whole 51-article catalog (call 1.5), hybrid
@@ -15,18 +15,10 @@ episode's dominant offence and lets its neighbours go -- 제297조 selected, 제
 while a card whose proposition names 강제추행 is exactly what retrieval scores. At top-18 the
 union costs no more than retrieval alone: the model's picks are already inside it.
 
-Two invariants hold here, both load-bearing rather than decorative:
-
-* **Card-lossless inside a selected article.** Cutting happens at article granularity and
-  nowhere else. The symbolic gate blocks only on cards it was given, so a card that is
-  never assessed can never refute anything -- partial retrieval inside an article does not
-  fail safe, it fails permissive.
-* **Assessment excludes only what no rule can read.** ``context`` cards are 의의·개설·
-  보호법익·연혁: true of every case, and no inference rule in the compiled rulebase reads
-  their status. The exception is literal -- 13 of them carry ``exception`` polarity, which
-  ``element_excluded`` *does* read -- so the filter is role *and* polarity, never role
-  alone. Dropping those 13 would delete 조각사유 silently, which is the same failure mode
-  the card-lossless invariant exists to prevent.
+The production entry point is candidate_issues. Every source card remains placed exactly
+once, but only initial element issues and their general-rule anchors enter the first
+assessment call. candidate_articles and batching classes below remain solely to reproduce
+the Phase-2/early-Phase-3 flat-card measurements.
 """
 
 from __future__ import annotations

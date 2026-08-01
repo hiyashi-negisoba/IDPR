@@ -1,11 +1,9 @@
-"""L0: which articles does this case put in issue?
+"""Issue-first retrieval for L0 scope and conditional detail lookup.
 
-Retrieval decides scope, not law. It picks candidate articles; call 2 then assesses every
-card those articles carry. That division is why the one invariant here is *card-lossless
-within a selected article*: dropping a card inside a relevant article is exactly how a
-rubric item is lost, and -- worse -- the symbolic gate blocks only on cards it was given,
-so a card that is never assessed can never refute anything. Partial retrieval inside an
-article does not fail safe; it fails permissive.
+Retrieval decides scope, not law. The production L0 path may use every card as a search
+signal, but it immediately projects each hit to its reviewed parent issue and then to its
+article. Runtime assessment receives issues and anchor rules, never the flat hit cards.
+When an issue remains unknown, detail retrieval is restricted to that same parent issue.
 
 Three signals, and why
 ----------------------
@@ -44,16 +42,19 @@ from typing import Iterable, Mapping, Protocol, Sequence
 
 from idpr.generation import _bm25_score, _search_terms
 from idpr.rulebase.cards import Card, CardCorpus, card_corpus
-from idpr.rulebase.issue_catalog_v2 import IssuePacket
+from idpr.rulebase.issue_catalog_v2 import IssuePacket, compile_issue_catalog_v2
 
 #: Reciprocal-rank-fusion constant. The standard value; not tuned.
 RRF_K = 60
 
-#: Articles handed to call 2. The plan's own sizing: 14 articles actually bear on the
-#: smoke case, so 18 leaves headroom. Precision costs little here -- the rubric has no
-#: precision penalty and a spare article costs a few ``unknown`` card statuses -- while a
-#: missed article is unrecoverable downstream.
+#: Articles expanded into issue scopes. The reviewed sweep still needs 18 for recall;
+#: normalization reduces downstream issue payload rather than silently lowering this gate.
 DEFAULT_TOP_K_ARTICLES = 18
+
+#: Issue documents handed to the L0 ranker before collapsing them to unique articles.
+#: This remains an evaluation default until the 61-question sweep selects the production
+#: value; unlike DEFAULT_TOP_K_ARTICLES, it does not imply 18 resulting articles.
+DEFAULT_TOP_K_ISSUES = 18
 
 #: Cards per query carried into cross-encoder reranking. A reranker is a shortlist tool;
 #: scoring all 1,848 cards per query is both wrong and slow.
@@ -105,6 +106,35 @@ class RetrievalResult:
     def provenance(self) -> dict[str, str]:
         """Per article: ``retrieved`` / ``proposed`` / ``both``."""
         retrieved, proposed = set(self.retrieved), set(self.proposed)
+        return {
+            article: (
+                "both"
+                if article in retrieved and article in proposed
+                else "retrieved"
+                if article in retrieved
+                else "proposed"
+            )
+            for article in self.articles
+        }
+
+
+@dataclass(frozen=True)
+class IssueRetrievalResult:
+    """L0 result ranked over normalized issue documents.
+
+    retrieved_issue_ids is the actual ranking output. Articles are a deterministic
+    projection used by L0 scope expansion; no detail or precedent card becomes an
+    independent retrieval document.
+    """
+
+    articles: tuple[str, ...]
+    retrieved_articles: tuple[str, ...]
+    proposed: tuple[str, ...]
+    retrieved_issue_ids: tuple[str, ...]
+    issue_scores: Mapping[str, float]
+
+    def provenance(self) -> dict[str, str]:
+        retrieved, proposed = set(self.retrieved_articles), set(self.proposed)
         return {
             article: (
                 "both"
@@ -260,9 +290,249 @@ def reciprocal_rank_fusion(rankings: Sequence[Sequence[int]], *, k: int = RRF_K)
     return fused
 
 
+def issue_index_documents(
+    issues: Sequence[IssuePacket] | None = None,
+    *,
+    corpus: CardCorpus | None = None,
+) -> tuple[tuple[IssuePacket, ...], tuple[str, ...]]:
+    """Return one compact L0 document per issue that has reviewed anchor context."""
+    corpus = corpus or card_corpus()
+    if issues is None:
+        issues = compile_issue_catalog_v2(corpus)[0]
+    indexed = tuple(issue for issue in issues if issue.anchor_card_ids)
+    texts = tuple(
+        " ".join(
+            (
+                issue.article_label,
+                issue.offense,
+                issue.title,
+                *(corpus.by_id[card_id].proposition for card_id in issue.anchor_card_ids),
+            )
+        )
+        for issue in indexed
+    )
+    return indexed, texts
+
+
 # --------------------------------------------------------------------------- #
 # Retrieval
 # --------------------------------------------------------------------------- #
+
+
+def retrieve_candidate_issues(
+    queries: Sequence[str],
+    *,
+    corpus: CardCorpus | None = None,
+    issues: Sequence[IssuePacket] | None = None,
+    proposed: Iterable[str] = (),
+    top_k_issues: int = DEFAULT_TOP_K_ISSUES,
+    encoder: DenseEncoder | None = None,
+    reranker: Reranker | None = None,
+    lexical: LexicalIndex | None = None,
+    dense: DenseIndex | None = None,
+    shortlist_per_query: int = DEFAULT_SHORTLIST_PER_QUERY,
+) -> IssueRetrievalResult:
+    """Rank normalized legal issues and project the hits to candidate articles."""
+    if top_k_issues < 1:
+        raise ValueError("top_k_issues must be at least 1")
+    if shortlist_per_query < 1:
+        raise ValueError("shortlist_per_query must be at least 1")
+    corpus = corpus or card_corpus()
+    indexed, documents = issue_index_documents(issues, corpus=corpus)
+    lexical = lexical or LexicalIndex.build(documents)
+    if dense is None and encoder is not None:
+        dense = DenseIndex.build(documents, encoder)
+
+    best_scores: dict[int, float] = {}
+    for query in queries:
+        rankings = [_ranking(lexical.scores(query))]
+        if dense is not None and encoder is not None:
+            query_vector = encoder.encode([query], is_query=True)[0]
+            rankings.append(_ranking(dense.scores(query_vector)))
+        fused = reciprocal_rank_fusion(rankings)
+        shortlist = sorted(fused, key=lambda index: (-fused[index], index))[
+            :shortlist_per_query
+        ]
+        if reranker is not None and shortlist:
+            reranked = reranker.score(
+                query, [documents[index] for index in shortlist]
+            )
+            query_scores = dict(zip(shortlist, reranked))
+        else:
+            query_scores = {index: fused[index] for index in shortlist}
+        for index, score in query_scores.items():
+            if score > best_scores.get(index, float("-inf")):
+                best_scores[index] = score
+
+    ranked = sorted(
+        best_scores,
+        key=lambda index: (-best_scores[index], indexed[index].issue_id),
+    )
+    selected = ranked[:top_k_issues]
+    retrieved_issue_ids = tuple(indexed[index].issue_id for index in selected)
+    retrieved_articles = tuple(
+        dict.fromkeys(indexed[index].article for index in selected)
+    )
+    proposed_articles = tuple(dict.fromkeys(proposed))
+    articles = tuple(dict.fromkeys((*retrieved_articles, *proposed_articles)))
+    return IssueRetrievalResult(
+        articles=articles,
+        retrieved_articles=retrieved_articles,
+        proposed=proposed_articles,
+        retrieved_issue_ids=retrieved_issue_ids,
+        issue_scores={
+            indexed[index].issue_id: best_scores[index] for index in ranked
+        },
+    )
+
+
+def retrieve_candidate_issues_from_cards(
+    queries: Sequence[str],
+    *,
+    corpus: CardCorpus | None = None,
+    issues: Sequence[IssuePacket] | None = None,
+    proposed: Iterable[str] = (),
+    top_k_issues: int = DEFAULT_TOP_K_ISSUES,
+    encoder: DenseEncoder | None = None,
+    reranker: Reranker | None = None,
+    lexical: LexicalIndex | None = None,
+    dense: DenseIndex | None = None,
+    shortlist_per_query: int = DEFAULT_SHORTLIST_PER_QUERY,
+) -> IssueRetrievalResult:
+    """Use every card as a search signal, then collapse hits to parent issues.
+
+    Member cards are never returned as runtime payload. They only contribute a score to
+    their reviewed parent issue, preserving case-pattern vocabulary without recreating
+    flat-card assessment.
+    """
+    if top_k_issues < 1:
+        raise ValueError("top_k_issues must be at least 1")
+    if shortlist_per_query < 1:
+        raise ValueError("shortlist_per_query must be at least 1")
+    corpus = corpus or card_corpus()
+    if issues is None:
+        issues, placements = compile_issue_catalog_v2(corpus)
+    else:
+        all_issues, all_placements = compile_issue_catalog_v2(corpus)
+        wanted = {issue.issue_id for issue in issues}
+        placements = tuple(
+            placement
+            for placement in all_placements
+            if placement.issue_id in wanted
+        )
+    issues = tuple(issues)
+    issue_by_id = {issue.issue_id: issue for issue in issues}
+    issue_by_card = {
+        placement.card_id: placement.issue_id for placement in placements
+    }
+    cards = tuple(
+        card for card in corpus.cards if card.id in issue_by_card
+    )
+    documents = tuple(card.proposition for card in cards)
+    lexical = lexical or LexicalIndex.build(documents)
+    if dense is None and encoder is not None:
+        dense = DenseIndex.build(documents, encoder)
+
+    best_card_scores: dict[int, float] = {}
+    for query in queries:
+        rankings = [_ranking(lexical.scores(query))]
+        if dense is not None and encoder is not None:
+            query_vector = encoder.encode([query], is_query=True)[0]
+            rankings.append(_ranking(dense.scores(query_vector)))
+        fused = reciprocal_rank_fusion(rankings)
+        shortlist = sorted(fused, key=lambda index: (-fused[index], index))[
+            :shortlist_per_query
+        ]
+        if reranker is not None and shortlist:
+            reranked = reranker.score(
+                query, [documents[index] for index in shortlist]
+            )
+            query_scores = dict(zip(shortlist, reranked))
+        else:
+            query_scores = {index: fused[index] for index in shortlist}
+        for index, score in query_scores.items():
+            if score > best_card_scores.get(index, float("-inf")):
+                best_card_scores[index] = score
+
+    best_issue_scores: dict[str, float] = {}
+    for index, score in best_card_scores.items():
+        issue_id = issue_by_card[cards[index].id]
+        if score > best_issue_scores.get(issue_id, float("-inf")):
+            best_issue_scores[issue_id] = score
+    ranked_issue_ids = sorted(
+        best_issue_scores,
+        key=lambda issue_id: (-best_issue_scores[issue_id], issue_id),
+    )
+    retrieved_issue_ids = tuple(ranked_issue_ids[:top_k_issues])
+    retrieved_articles = tuple(
+        dict.fromkeys(issue_by_id[issue_id].article for issue_id in retrieved_issue_ids)
+    )
+    proposed_articles = tuple(dict.fromkeys(proposed))
+    articles = tuple(dict.fromkeys((*retrieved_articles, *proposed_articles)))
+    return IssueRetrievalResult(
+        articles=articles,
+        retrieved_articles=retrieved_articles,
+        proposed=proposed_articles,
+        retrieved_issue_ids=retrieved_issue_ids,
+        issue_scores={
+            issue_id: best_issue_scores[issue_id] for issue_id in ranked_issue_ids
+        },
+    )
+
+
+def retrieve_candidate_articles_via_issues(
+    queries: Sequence[str],
+    *,
+    corpus: CardCorpus | None = None,
+    issues: Sequence[IssuePacket] | None = None,
+    proposed: Iterable[str] = (),
+    top_k_articles: int = DEFAULT_TOP_K_ARTICLES,
+    encoder: DenseEncoder | None = None,
+    reranker: Reranker | None = None,
+    lexical: LexicalIndex | None = None,
+    dense: DenseIndex | None = None,
+    shortlist_per_query: int = DEFAULT_SHORTLIST_PER_QUERY,
+) -> IssueRetrievalResult:
+    """Preserve article recall through the explicit card→issue→article hierarchy."""
+    if top_k_articles < 1:
+        raise ValueError("top_k_articles must be at least 1")
+    corpus = corpus or card_corpus()
+    issues = tuple(issues) if issues is not None else compile_issue_catalog_v2(corpus)[0]
+    issue_by_id = {issue.issue_id: issue for issue in issues}
+    projected = retrieve_candidate_issues_from_cards(
+        queries,
+        corpus=corpus,
+        issues=issues,
+        top_k_issues=len(issues),
+        encoder=encoder,
+        reranker=reranker,
+        lexical=lexical,
+        dense=dense,
+        shortlist_per_query=shortlist_per_query,
+    )
+    article_scores: dict[str, float] = {}
+    top_issue_by_article: dict[str, str] = {}
+    for issue_id, score in projected.issue_scores.items():
+        article = issue_by_id[issue_id].article
+        if score > article_scores.get(article, float("-inf")):
+            article_scores[article] = score
+            top_issue_by_article[article] = issue_id
+    ranked_articles = sorted(
+        article_scores,
+        key=lambda article: (-article_scores[article], article),
+    )
+    retrieved_articles = tuple(ranked_articles[:top_k_articles])
+    proposed_articles = tuple(dict.fromkeys(proposed))
+    articles = tuple(dict.fromkeys((*retrieved_articles, *proposed_articles)))
+    return IssueRetrievalResult(
+        articles=articles,
+        retrieved_articles=retrieved_articles,
+        proposed=proposed_articles,
+        retrieved_issue_ids=tuple(
+            top_issue_by_article[article] for article in retrieved_articles
+        ),
+        issue_scores=projected.issue_scores,
+    )
 
 
 def retrieve_candidate_articles(

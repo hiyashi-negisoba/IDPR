@@ -1,4 +1,4 @@
-"""Run call 2 on one KCL case, merge article-whole batches, then execute Scallop."""
+"""Legacy flat-card smoke retained only to reproduce the Phase-2 comparison."""
 
 from __future__ import annotations
 
@@ -77,7 +77,7 @@ def prepare_case(
     )
     if list(candidates.articles) != l0["articles"]:
         raise ValueError("reconstructed article order differs from the Phase 2 artifact")
-    if list(candidates.card_ids) != l0["card_ids"]:
+    if "card_ids" in l0 and list(candidates.card_ids) != l0["card_ids"]:
         raise ValueError("reconstructed card set differs from the Phase 2 artifact")
     batches = split_candidate_batches(candidates, parts=2)
     flattened = [card_id for batch in batches for card_id in batch.card_ids]

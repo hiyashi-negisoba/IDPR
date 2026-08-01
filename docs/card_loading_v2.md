@@ -57,3 +57,11 @@ issue status를 기존 카드 단위 Scallop gate에 끼워 맞추지 않는다.
 `relation_condition` issue에 속하면 `condition_issue`를 통해 그 issue 판정을 읽는다.
 stage·participation의 독자적인 결론 규칙은 법리 매핑 전에는 범죄 성립 게이트에 추가하지
 않는다.
+
+## L0 검색과의 연결
+
+판례 사안 카드는 최초 평가에서 제외하지만 검색 인덱스에서는 유용한 사건 어휘를 제공한다.
+운영 검색은 모든 member card를 신호로 사용한 뒤 card→issue→article로 점수를 집계한다.
+top-18 article은 recall 때문에 유지하고, 선택된 조문은 initial issue와 anchor로만
+확장한다. anchor-only issue 검색과 issue top-k 직행의 전수 실측은
+docs/2026-08-02_issue_normalization.md에 기록했다.

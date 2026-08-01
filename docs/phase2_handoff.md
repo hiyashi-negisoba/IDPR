@@ -1,5 +1,10 @@
 # Phase 2 인수 문서 — L0 검색 + 콜 1, Phase 3 착수 지점
 
+> 2026-08-02 이후 운영 경로는 이 문서의 flat-card Call 2 입력을 사용하지 않는다.
+> 검색 점수는 card→issue→article로 집계하고, L0 산출물과 이후 단계는 issue ID를
+> 사용한다. 역사적 top-18 실측과 Phase 2 재현에는 이 문서가 유효하며, 현행 설계는
+> docs/card_loading_v2.md와 docs/2026-08-02_issue_normalization.md를 따른다.
+
 2026-08-01. 승인된 계획은 `~/.claude/plans/gentle-zooming-twilight.md`. **요약만 읽고 착수하지
 말 것** — 직전 세션이 그렇게 해서 Phase 2를 두 번 전량 롤백했다.
 데드라인 2026-08-11 (NLLP 워크샵).

@@ -1,9 +1,7 @@
-"""Call 2 contract: assess every candidate card against host-identified facts.
+"""Legacy flat-card Call 2 contract retained for Phase-2 measurement reproduction.
 
-The schema is built for one candidate set. Card ids are object keys and every key is
-required, so guided decoding cannot omit a difficult card or add one that the host did not
-select. The model reports only the judgment and its evidence links; rationale, confidence,
-and authority ids are deliberately absent because none is consumed by the symbolic layer.
+Production uses idpr.neural.issue_assessment. This module is intentionally not imported by
+the general KCL runtime.
 """
 
 from __future__ import annotations

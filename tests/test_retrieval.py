@@ -37,9 +37,13 @@ from idpr.rulebase.facts import ACT_LABELS, VOCABULARIES
 from idpr.rulebase.issue_catalog_v2 import compile_issue_catalog_v2
 from idpr.retrieval import (
     LexicalIndex,
+    issue_index_documents,
     issue_retrieval_queries,
     reciprocal_rank_fusion,
     retrieve_candidate_articles,
+    retrieve_candidate_articles_via_issues,
+    retrieve_candidate_issues,
+    retrieve_candidate_issues_from_cards,
     retrieve_issue_cards,
 )
 
@@ -414,6 +418,80 @@ def test_issue_retrieval_never_crosses_the_parent_or_reloads_anchors():
     assert set(selected.card_ids) <= set(issue.retrieval_card_ids)
     assert not set(selected.card_ids) & set(issue.anchor_card_ids)
     assert {card.article for card in selected.cards} == {"art319"}
+
+
+def test_l0_issue_documents_contain_only_titles_and_anchor_rules():
+    corpus = card_corpus()
+    issues, _ = compile_issue_catalog_v2(corpus)
+    indexed, documents = issue_index_documents(issues, corpus=corpus)
+    assert indexed
+    assert len(indexed) == len(documents)
+    for issue, document in zip(indexed, documents):
+        assert issue.offense in document
+        assert issue.title in document
+        assert all(
+            corpus.by_id[card_id].proposition in document
+            for card_id in issue.anchor_card_ids
+        )
+        assert not set(issue.case_pattern_card_ids) & set(issue.anchor_card_ids)
+
+
+def test_l0_issue_retrieval_projects_ranked_issues_to_unique_articles():
+    corpus = card_corpus()
+    issues, _ = compile_issue_catalog_v2(corpus)
+    indexed, documents = issue_index_documents(issues, corpus=corpus)
+    result = retrieve_candidate_issues(
+        ["타인의 재물을 절취하였다"],
+        corpus=corpus,
+        issues=indexed,
+        top_k_issues=8,
+        lexical=LexicalIndex.build(documents),
+        proposed=["art298"],
+    )
+    assert len(result.retrieved_issue_ids) == 8
+    assert len(result.retrieved_articles) <= 8
+    assert result.articles[-1] == "art298"
+    assert set(result.retrieved_articles) <= {issue.article for issue in indexed}
+
+
+def test_l0_issue_retrieval_rejects_invalid_k():
+    corpus = card_corpus()
+    with pytest.raises(ValueError, match="top_k_issues"):
+        retrieve_candidate_issues(["절도"], corpus=corpus, top_k_issues=0)
+
+
+def test_card_search_hits_are_projected_to_issues_not_returned_as_cards():
+    corpus = card_corpus()
+    issues, _ = compile_issue_catalog_v2(corpus)
+    result = retrieve_candidate_issues_from_cards(
+        ["타인의 재물을 절취하였다"],
+        corpus=corpus,
+        issues=issues,
+        top_k_issues=8,
+    )
+    assert len(result.retrieved_issue_ids) == 8
+    assert all(issue_id in {issue.issue_id for issue in issues} for issue_id in result.retrieved_issue_ids)
+    assert not hasattr(result, "cards")
+
+
+def test_hierarchical_article_ranking_matches_legacy_max_card_ranking():
+    corpus = card_corpus()
+    documents = [card.proposition for card in corpus.cards]
+    lexical = LexicalIndex.build(documents)
+    queries = ["타인의 재물을 절취하였다", "아파트 공동현관에 들어갔다"]
+    legacy = retrieve_candidate_articles(
+        queries,
+        corpus=corpus,
+        top_k_articles=12,
+        lexical=lexical,
+    )
+    hierarchical = retrieve_candidate_articles_via_issues(
+        queries,
+        corpus=corpus,
+        top_k_articles=12,
+        lexical=lexical,
+    )
+    assert hierarchical.retrieved_articles == legacy.retrieved
 
 
 def test_issue_queries_keep_facts_separate_and_prefer_missing_fact_focus():
