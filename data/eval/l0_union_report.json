@@ -1,0 +1,121 @@
+{
+  "mode": "union",
+  "top_k_articles": 18,
+  "questions": 61,
+  "buckets": {
+    "scorable": 31,
+    "no_gold_no_offence": 30,
+    "no_gold_out_of_corpus": 0
+  },
+  "macro_recall": 0.9272,
+  "fully_recovered": 22,
+  "scorable": 31,
+  "articles_per_question": {
+    "median": 21,
+    "max": 26
+  },
+  "cards_per_question": {
+    "median": 668,
+    "max": 923
+  },
+  "missed_articles": {
+    "art122": 1,
+    "art136": 1,
+    "art234": 1,
+    "art257": 1,
+    "art319": 1,
+    "art329": 1,
+    "art334": 1,
+    "art337": 1,
+    "art347": 1,
+    "art355": 1,
+    "art360": 1
+  },
+  "smoke_case": {
+    "sub_question_id": "kcl_criminal_r10_p1_q1_ga",
+    "candidate_articles": [
+      "art297",
+      "art300",
+      "art257",
+      "art333",
+      "art337",
+      "art335",
+      "art350",
+      "art319",
+      "art338",
+      "art250",
+      "art263",
+      "art133",
+      "art129",
+      "art130",
+      "art136",
+      "art301",
+      "art299",
+      "art231",
+      "art164",
+      "art298",
+      "art342",
+      "art254"
+    ],
+    "checks": {
+      "강제추행 간접정범": {
+        "articles": [
+          "art298"
+        ],
+        "recovered": [
+          "art298"
+        ],
+        "missing_from_corpus": [],
+        "missed": []
+      },
+      "주거침입 위요지": {
+        "articles": [
+          "art319"
+        ],
+        "recovered": [
+          "art319"
+        ],
+        "missing_from_corpus": [],
+        "missed": []
+      },
+      "중지미수": {
+        "articles": [
+          "art250",
+          "art254",
+          "art300"
+        ],
+        "recovered": [
+          "art250",
+          "art254",
+          "art300"
+        ],
+        "missing_from_corpus": [],
+        "missed": []
+      },
+      "체포죄 (코퍼스 밖)": {
+        "articles": [
+          "art276"
+        ],
+        "recovered": [],
+        "missing_from_corpus": [
+          "art276"
+        ],
+        "missed": []
+      },
+      "주거침입강간치상 결합범": {
+        "articles": [
+          "art319",
+          "art297",
+          "art301"
+        ],
+        "recovered": [
+          "art297",
+          "art301",
+          "art319"
+        ],
+        "missing_from_corpus": [],
+        "missed": []
+      }
+    }
+  }
+}

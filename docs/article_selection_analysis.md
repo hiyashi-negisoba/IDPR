@@ -124,6 +124,51 @@ top-18 합집합 기준 61,986 → 51,530 토큰.
    그 결과를 읽지 않는다.** 노이즈가 아니라 규칙 미작성이다 — 빼면 루브릭 죄수 항목
    140개(12%)와 미수 논점을 포기한다. 규칙을 마저 쓰는 것이 정공법이다.
 
+## 배선 (2026-08-01 반영)
+
+권고 두 가지를 코드에 넣었다.
+
+**단일 진입점** — `idpr.candidates.candidate_articles()`가 모델 선정 + 검색 + 준용 확장을
+합쳐 `CandidateSet`(조문, 출처 3분해, 카드)을 낸다. 출처를 합치지 않고 따로 들고 있는 이유는
+"어느 축이 이 조문을 찾았나"가 두 축을 다 유지할지 결정하는 측정값이기 때문이다.
+
+**`context` 카드 제외 — 단, 역할만으로 자르지 않는다.** 274장 중 **13장이 `exception`
+polarity**이고 `element_excluded`가 polarity를 역할과 무관하게 읽는다. 역할만으로 걸렀다면
+조각사유 13건이 조용히 사라졌을 것이고, 그것이 카드 무손실 불변식이 막으려는 바로 그
+실패다. 조건은 `role == context AND polarity != exception` → **261장 제외, 콜 2 대상
+1,697 → 1,436장.**
+
+`tests/test_candidates.py` 9개가 둘 다 고정한다(선택 조문의 카드 무손실, exception 생존).
+
+### 배선 후 E2E 실측 (잡 217689, 61문항)
+
+```
+합집합 리콜        0.9272   전량회수 22/31        ← 분석 예측치와 일치
+소요시간           19분 44초 = 선정 11:06 + 검색·합집합 8:23  (GPU 2단계 순차)
+조문 출처 누계     검색 926 / 모델 244 / 준용 129
+콜 2 페이로드      카드 중위 668 최대 923 | 입력 중위 51.1k 최대 70.0k
+                   +출력 30토큰/장 → 총 중위 71.1k 최대 97.7k
+```
+
+**계획서 검증 #5 스모크 체크가 처음으로 전항목 통과했다.**
+
+| 항목 | 결과 |
+|---|---|
+| 강제추행 간접정범 | ✅ art298 |
+| 주거침입 위요지 | ✅ art319 |
+| 중지미수 | ✅ art250 · art254 · art300 |
+| 주거침입강간치상 결합범 | ✅ art297 · art301 · art319 |
+| 체포죄 | 코퍼스 밖(art276)으로 정확히 보고 — 검색 실패가 아니다 |
+
+모델 단독 경로는 이 스모크에서 art298·art301을 놓친다. **합집합이라야 통과한다** —
+7/7 베이스라인이 놓친 지점이 바로 여기다.
+
+속도는 문제가 아니다(61문항 20분). 모델 단독 후퇴안은 `NO_RETRIEVAL=1`로 남겨 두지만
+쓸 이유가 없다.
+
+**`max_model_len` 결론**: 총량 최대 97.7k이므로 단일콜은 131,072가 필요하다.
+**조문 경계 2분할이면 콜당 최대 ~49k로 65,536에 들어간다** — 이쪽을 권한다.
+
 ## 산출물
 
 | 파일 | 내용 |
@@ -134,14 +179,20 @@ top-18 합집합 기준 61,986 → 51,530 토큰.
 | `data/rulebase/stage.yaml` | `attempt_article` 구조화 필드 추가 |
 | `data/eval/article_selection.jsonl` | 61문항 선정 결과 + 조문별 `reason` + 준용 확장 내역 |
 | `data/eval/article_select_report.json` | 리콜 · k별 검색 곡선 · 동성능 토큰 절감 |
-| `scripts/run_article_select.py` / `_report.py` | 실행 · 분석 |
-| `scripts/slurm/run_article_select.sh` | sbatch |
-| `tests/test_article_select.py` | 13개 (전체 406 passed) |
+| `src/idpr/candidates.py` | **L0 단일 진입점** — 합집합 + 준용 확장 + 콜 2 카드 |
+| `data/eval/l0_candidates.jsonl` | 61문항의 후보 조문 · 출처 3분해 · 카드 id (Phase 3 입력) |
+| `data/eval/l0_union_report.json` | 합집합 리콜 · 스모크 체크(계획서 검증 #5) |
+| `scripts/run_article_select.py` / `_report.py` | 선정 실행 · 검색 곡선 분석 |
+| `scripts/run_l0_candidates.py` | 합집합 조립 + 리콜 + 스모크 |
+| `scripts/slurm/run_article_select.sh` / `run_l0_union.sh` | sbatch |
+| `tests/test_article_select.py` · `tests/test_candidates.py` | 22개 |
 
 재현:
 ```
-sbatch scripts/slurm/run_article_select.sh
-PYTHONPATH=src python scripts/run_article_select_report.py   # 분석만 재계산 (CPU)
+sbatch scripts/slurm/run_l0_union.sh                    # 선정 + 검색 + 합집합
+SKIP_SELECT=1 sbatch ... scripts/slurm/run_l0_union.sh  # 검색·합집합만
+NO_RETRIEVAL=1 sbatch ... scripts/slurm/run_l0_union.sh  # 모델 선정만 (GPU 1단계)
+PYTHONPATH=src python scripts/run_article_select_report.py   # 검색 곡선만 재계산 (CPU)
 ```
 파이썬은 `/data5/jaehoonjeong/miniconda3/bin/python`.
 
