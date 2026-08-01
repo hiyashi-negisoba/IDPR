@@ -178,6 +178,8 @@ PYTHONPATH=src python scripts/readmit_fact_graphs.py           # 채택 로직�
 
 ## Phase 3 착수 지점 (2026-08-01 갱신)
 
+> **작업 순서·열린 결정·리스크는 `docs/phase3_entry.md`에 있다.** 아래는 인계 요약이다.
+
 계획서 Phase 3 = **콜 2(카드 일괄 판정) + Scallop 판단**.
 
 **콜 2 입력은 `idpr.candidates.candidate_articles(...).cards`다.** 이것이 L0의 단일
