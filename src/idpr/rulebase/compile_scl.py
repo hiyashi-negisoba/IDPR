@@ -47,6 +47,14 @@ from idpr.rulebase.cards import CardCorpus, card_corpus
 from idpr.rulebase.doctrine import load_doctrine
 from idpr.rulebase.facts import scl_fact_layer
 from idpr.rulebase.formalization import route_corpus
+from idpr.rulebase.issue_catalog_v2 import (
+    CONCURRENCE_ISSUE,
+    PARTICIPATION_ISSUE,
+    RELATION_CONDITION,
+    STAGE_ISSUE,
+    IssuePacket,
+    compile_issue_catalog_v2,
+)
 from idpr.rulebase.roles import CardRole, element_slots, resolve_card_roles
 from idpr.rulebase.skeleton import CONCURRENCE, CORE, DEFEATER, PRESUMED, STAGE
 
@@ -100,6 +108,7 @@ def _relation_block(name: str, rows: Iterable[Sequence[str]]) -> list[str]:
 TYPE_DECLARATIONS = """\
 // ── 규범층: 콜 2가 채운다 ─────────────────────────────────────
 type card_status(String, String, String)  // case, cardId, satisfied|not_satisfied|unknown
+type issue_status(String, String, String) // case, issueId, satisfied|not_satisfied|unknown
 
 // ── 룰베이스: 카드에서 컴파일된 데이터 튜플 ──────────────────
 // 카드 id는 인자다. 관계 이름이 아니다.
@@ -110,6 +119,11 @@ type card_role(String, String)            // cardId, core|presumed|stage|defeate
 type slot_offense(String, String)         // slot, offense
 type element_slot(String, String)         // slot, core|presumed
 type offense_article(String, String)      // offense, "제298조"
+
+// ── 쟁점 중심 적재 v2 ──────────────────────────────────────
+type issue_offense(String, String)        // issueId, offense
+type issue_function(String, String)       // issueId, element_issue|guard_issue|...
+type condition_issue(String, String)      // conditionCardId, owning relation issue
 
 // ── 죄수·미수: 수기 작성 후 법리 검수 (data/rulebase/*.yaml) ──
 // 죄수 관계는 조건부가 기본이다. 세 번째 인자는 조건이 되는 카드의 id이고, 콜 2가 그
@@ -122,6 +136,8 @@ type preparation_punishable(String)       // offense"""
 INFERENCE_RULES = """\
 // 사건 하나를 근거지어 준다. 평가가 없는 사건에는 아무 결론도 없다.
 rel assessed_case(c) = card_status(c, _, _)
+rel assessed_case(c) = issue_status(c, _, _)
+rel card_assessed_case(c) = card_status(c, _, _)
 
 // ── 요건의 지지·반증 ─────────────────────────────────────────
 rel element_supported(c, off, s) = card_offense(cid, off), card_slot(cid, s),
@@ -130,6 +146,8 @@ rel element_supported(c, off, s) = card_offense(cid, off), card_slot(cid, s),
 rel element_supported(c, off, s) = card_offense(cid, off), card_slot(cid, s),
     card_role(cid, "presumed"), card_polarity(cid, "positive"),
     card_status(c, cid, "satisfied")
+rel element_supported(c, off, iid) = issue_offense(iid, off),
+    issue_function(iid, "element_issue"), issue_status(c, iid, "satisfied")
 
 rel element_refuted(c, off, s) = card_offense(cid, off), card_slot(cid, s),
     card_role(cid, "core"), card_polarity(cid, "positive"),
@@ -137,6 +155,8 @@ rel element_refuted(c, off, s) = card_offense(cid, off), card_slot(cid, s),
 rel element_refuted(c, off, s) = card_offense(cid, off), card_slot(cid, s),
     card_role(cid, "presumed"), card_polarity(cid, "positive"),
     card_status(c, cid, "not_satisfied")
+rel element_refuted(c, off, iid) = issue_offense(iid, off),
+    issue_function(iid, "element_issue"), issue_status(c, iid, "not_satisfied")
 
 // negative polarity 카드는 "이런 경우에는 아니다"를 말한다. 충족되면 반증이다.
 rel element_refuted(c, off, s) = card_offense(cid, off), card_slot(cid, s),
@@ -150,6 +170,8 @@ rel element_excluded(c, off, s) = card_offense(cid, off), card_slot(cid, s),
 // ── 위법성·책임 조각 ────────────────────────────────────────
 rel offense_defeated(c, off) = card_offense(cid, off), card_role(cid, "defeater"),
     card_status(c, cid, "satisfied")
+rel offense_defeated(c, off) = issue_offense(iid, off),
+    issue_function(iid, "guard_issue"), issue_status(c, iid, "satisfied")
 
 // ── 죄의 성립 ───────────────────────────────────────────────
 rel offense_supported(c, off) = element_supported(c, off, _)
@@ -169,11 +191,17 @@ rel is_absorbed(c, child) = offense_established(c, child),
     offense_established(c, parent), absorbed_by(child, parent, cond),
     card_status(c, cond, "satisfied")
 rel is_absorbed(c, child) = offense_established(c, child),
+    offense_established(c, parent), absorbed_by(child, parent, cond),
+    condition_issue(cond, iid), issue_status(c, iid, "satisfied")
+rel is_absorbed(c, child) = offense_established(c, child),
     offense_established(c, parent), absorbed_by(child, parent, "unconditional")
 rel final_offense(c, off) = offense_established(c, off), not is_absorbed(c, off)
 
 rel concurrent_offenses(c, a, b) = offense_established(c, a), offense_established(c, b),
     imaginative_concurrence(a, b, cond), card_status(c, cond, "satisfied")
+rel concurrent_offenses(c, a, b) = offense_established(c, a), offense_established(c, b),
+    imaginative_concurrence(a, b, cond), condition_issue(cond, iid),
+    issue_status(c, iid, "satisfied")
 rel concurrent_offenses(c, a, b) = offense_established(c, a), offense_established(c, b),
     imaginative_concurrence(a, b, "unconditional")
 
@@ -185,13 +213,17 @@ rel attempt_to_consider(c, off) = offense_undetermined(c, off), attempt_punishab
 // ── 보고용 (게이트가 아니다) ────────────────────────────────
 // 논증되지 않은 요건 슬롯. 이것으로 죄를 막지 않는다 — 시험 답안은 자명한 요건을
 // 논하지 않으므로 막으면 어떤 죄도 성립하지 않는다.
-rel element_unaddressed(c, off, s) = assessed_case(c), element_slot(s, _),
+rel element_unaddressed(c, off, s) = card_assessed_case(c), element_slot(s, _),
     slot_offense(s, off), not element_supported(c, off, s),
     not element_refuted(c, off, s)
+rel element_unaddressed(c, off, iid) = issue_offense(iid, off),
+    issue_function(iid, "element_issue"), issue_status(c, iid, "unknown")
 
 // 콜 2가 한 카드에 두 상태를 준 경우. JSON 스키마가 막지만 값싼 방어다.
 rel contradiction(c, "card_status_conflict") = card_status(c, cid, "satisfied"),
-    card_status(c, cid, "not_satisfied")"""
+    card_status(c, cid, "not_satisfied")
+rel contradiction(c, "issue_status_conflict") = issue_status(c, iid, "satisfied"),
+    issue_status(c, iid, "not_satisfied")"""
 
 #: Relations the host reads back. scli 0.2.4 prints only declared queries when run without
 #: ``--query``, so an undeclared relation is silently invisible -- the defect that made the
@@ -215,6 +247,7 @@ QUERY_RELATIONS: tuple[str, ...] = (
 def compile_rulebase(
     corpus: CardCorpus | None = None,
     roles: Sequence[CardRole] | None = None,
+    issues: Sequence[IssuePacket] | None = None,
     absorbed_by: Sequence[tuple[str, str, str]] | None = None,
     imaginative_concurrence: Sequence[tuple[str, str, str]] | None = None,
     attempt_punishable: Sequence[str] | None = None,
@@ -228,6 +261,7 @@ def compile_rulebase(
     """
     corpus = corpus or card_corpus()
     roles = roles or resolve_card_roles(corpus)
+    issues = tuple(issues) if issues is not None else compile_issue_catalog_v2(corpus)[0]
     if None in (
         absorbed_by,
         imaginative_concurrence,
@@ -294,6 +328,26 @@ def compile_rulebase(
     lines.append("")
     lines += _relation_block(
         "offense_article", ((article, article_label(article)) for article in articles)
+    )
+    lines.append("")
+    lines += _relation_block(
+        "issue_offense", ((issue.issue_id, issue.article) for issue in issues)
+    )
+    lines.append("")
+    lines += _relation_block(
+        "issue_function", ((issue.issue_id, issue.function) for issue in issues)
+    )
+    lines.append("")
+    lines += _relation_block(
+        "condition_issue",
+        (
+            (card_id, issue.issue_id)
+            for issue in issues
+            if issue.runtime == RELATION_CONDITION
+            and issue.function
+            in {STAGE_ISSUE, CONCURRENCE_ISSUE, PARTICIPATION_ISSUE}
+            for card_id in issue.member_card_ids
+        ),
     )
     lines.append("")
     lines.append("// ── 죄수론 (Phase 1e에서 검수 후 채워진다) ──────────────────")

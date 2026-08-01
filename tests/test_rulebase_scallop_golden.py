@@ -30,11 +30,20 @@ from idpr.rulebase.golden import (
 from idpr.rulebase.roles import resolve_card_roles
 from idpr.rulebase.scallop import (
     DEFAULT_SCLI,
+    FactLayerError,
     ScallopError,
     StatusFactError,
     parse_query_output,
     render_card_statuses,
+    render_fact_layer,
+    render_issue_statuses,
     run_program,
+)
+from idpr.rulebase.issue_catalog_v2 import (
+    ASSESS_ISSUE,
+    ELEMENT_ISSUE,
+    GUARD_ISSUE,
+    compile_issue_catalog_v2,
 )
 
 pytestmark = pytest.mark.skipif(
@@ -161,6 +170,118 @@ def test_status_facts_reject_unsafe_input():
         render_card_statuses("c1", [("x", "maybe")])
     with pytest.raises(StatusFactError, match="bare identifier"):
         render_card_statuses("c1", [('x") , ("injected', "satisfied")])
+
+
+def test_issue_statuses_are_rendered_without_card_status_translation():
+    rendered = render_issue_statuses(
+        "c1", [("art329.Ⅱ.element_issue", "satisfied")]
+    )
+    assert "rel issue_status" in rendered
+    assert "rel card_status" not in rendered
+    assert '("c1", "art329.Ⅱ.element_issue", "satisfied")' in rendered
+
+
+def test_issue_statuses_reject_unsafe_input():
+    with pytest.raises(StatusFactError, match="safe identifier"):
+        render_issue_statuses("bad id", [("issue", "satisfied")])
+    with pytest.raises(StatusFactError, match="not one of"):
+        render_issue_statuses("c1", [("issue", "maybe")])
+    with pytest.raises(StatusFactError, match="bare identifier"):
+        render_issue_statuses("c1", [('x") , ("injected', "satisfied")])
+
+
+def test_fact_layer_renders_registry_relations_in_registry_order():
+    rendered = render_fact_layer(
+        "case-1",
+        [
+            ("act_target", ("case-1", "act_001", "乙")),
+            ("person", ("case-1", "乙")),
+            ("act", ("case-1", "act_001", "甲", "출입")),
+            ("person", ("case-1", "甲")),
+        ],
+    )
+    assert rendered.index("rel person") < rendered.index("rel act =")
+    assert rendered.index("rel act =") < rendered.index("rel act_target")
+    assert '("case-1", "甲")' in rendered
+    assert '("case-1", "act_001", "甲", "출입")' in rendered
+
+
+def test_fact_layer_rejects_invalid_labels_and_program_syntax():
+    with pytest.raises(FactLayerError, match="ACT_LABELS"):
+        render_fact_layer(
+            "case-1", [("act", ("case-1", "act_001", "甲", "침입"))]
+        )
+    with pytest.raises(FactLayerError, match="quote or backslash"):
+        render_fact_layer("case-1", [("person", ("case-1", '甲\")'))])
+    with pytest.raises(FactLayerError, match="does not match"):
+        render_fact_layer("case-1", [("person", ("case-2", "甲"))])
+
+
+def test_fact_layer_and_card_statuses_run_together(corpus, roles, tmp_path):
+    scenario = next(s for s in SCENARIOS if s.established)
+    statuses = list(select_cards(scenario, corpus, roles))
+    absorbed_by, imaginative = resolve_conditions(scenario, statuses)
+    case_id = "fact-layer-e2e"
+    program = (
+        compile_rulebase(
+            corpus,
+            roles,
+            absorbed_by=absorbed_by,
+            imaginative_concurrence=imaginative,
+            attempt_punishable=scenario.attempt_punishable,
+            preparation_punishable=scenario.preparation_punishable,
+        )
+        + render_fact_layer(
+            case_id,
+            [
+                ("person", (case_id, "甲")),
+                ("person", (case_id, "乙")),
+                ("act", (case_id, "act_001", "甲", "출입")),
+                ("act_target", (case_id, "act_001", "乙")),
+                ("act_place", (case_id, "act_001", "공동주택공용부")),
+            ],
+        )
+        + render_card_statuses(case_id, statuses)
+    )
+    results = run_program(program, QUERY_RELATIONS, tmp_path, name="fact_layer_e2e")
+    assert results["offense_established"]
+
+
+def test_issue_statuses_reach_symbolic_relations_without_synthetic_card_statuses(
+    corpus, roles, tmp_path
+):
+    issues, _ = compile_issue_catalog_v2(corpus)
+    element_issues = [
+        issue
+        for issue in issues
+        if issue.function == ELEMENT_ISSUE and issue.runtime == ASSESS_ISSUE
+    ]
+    supported = next(issue for issue in element_issues if issue.article == "art298")
+    refuted = next(issue for issue in element_issues if issue.article == "art297")
+    unknown = next(issue for issue in element_issues if issue.article == "art319")
+    guard = next(issue for issue in issues if issue.function == GUARD_ISSUE)
+    case_id = "issue-layer-e2e"
+    program = compile_rulebase(corpus, roles, issues=issues) + render_issue_statuses(
+        case_id,
+        [
+            (supported.issue_id, "satisfied"),
+            (refuted.issue_id, "not_satisfied"),
+            (unknown.issue_id, "unknown"),
+            (guard.issue_id, "satisfied"),
+        ],
+    )
+    results = run_program(program, QUERY_RELATIONS, tmp_path, name="issue_layer_e2e")
+    assert (case_id, supported.article, supported.issue_id) in results[
+        "element_supported"
+    ]
+    assert (case_id, refuted.article, refuted.issue_id) in results["element_refuted"]
+    assert (case_id, unknown.article, unknown.issue_id) in results[
+        "element_unaddressed"
+    ]
+    assert results["element_unaddressed"] == (
+        (case_id, unknown.article, unknown.issue_id),
+    )
+    assert (case_id, guard.article) in results["offense_defeated"]
 
 
 def test_requesting_an_undeclared_relation_raises(corpus, roles, tmp_path):

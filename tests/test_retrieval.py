@@ -34,10 +34,13 @@ from idpr.neural.fact_graph import (
 )
 from idpr.rulebase.cards import card_corpus
 from idpr.rulebase.facts import ACT_LABELS, VOCABULARIES
+from idpr.rulebase.issue_catalog_v2 import compile_issue_catalog_v2
 from idpr.retrieval import (
     LexicalIndex,
+    issue_retrieval_queries,
     reciprocal_rank_fusion,
     retrieve_candidate_articles,
+    retrieve_issue_cards,
 )
 
 CASE_TEXT = (
@@ -387,6 +390,46 @@ def test_lexical_index_scores_the_matching_card_higher():
     index = LexicalIndex.build(["타인의 재물을 절취한 경우", "불을 놓아 건조물을 소훼한 경우"])
     scores = index.scores("재물을 절취")
     assert scores[0] > scores[1]
+
+
+def test_issue_retrieval_never_crosses_the_parent_or_reloads_anchors():
+    corpus = card_corpus()
+    issues, _ = compile_issue_catalog_v2(corpus)
+    issue = next(item for item in issues if item.issue_id == "art319.Ⅲ.element_issue")
+    facts = [
+        {
+            "fact_id": "fact_1",
+            "kind": "act",
+            "assertion": {
+                "act_label": "출입",
+                "place": "공동주택공용부",
+                "source_quote": "아파트 1층 현관 부근에 숨어 있다가",
+            },
+        }
+    ]
+    result = retrieve_issue_cards([issue], facts, corpus=corpus, top_k_per_issue=3)
+    selected = result.results[0]
+    assert selected.card_ids
+    assert len(selected.card_ids) <= 3
+    assert set(selected.card_ids) <= set(issue.retrieval_card_ids)
+    assert not set(selected.card_ids) & set(issue.anchor_card_ids)
+    assert {card.article for card in selected.cards} == {"art319"}
+
+
+def test_issue_queries_keep_facts_separate_and_prefer_missing_fact_focus():
+    issues, _ = compile_issue_catalog_v2()
+    issue = next(item for item in issues if item.issue_id == "art319.Ⅲ.element_issue")
+    facts = [
+        {"assertion": {"source_quote": "공동현관에 들어갔다"}},
+        {"assertion": {"source_quote": "피해자를 폭행하였다"}},
+    ]
+    queries = issue_retrieval_queries(
+        issue, facts, focus_texts=["공동현관의 출입통제 상태"]
+    )
+    assert len(queries) == 1
+    assert "공동현관의 출입통제 상태" in queries[0]
+    assert "공동현관에 들어갔다" in queries[0]
+    assert all("피해자를 폭행하였다" not in query for query in queries)
 
 
 # --------------------------------------------------------------------------- #

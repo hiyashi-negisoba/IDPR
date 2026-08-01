@@ -2,10 +2,14 @@
 
 from __future__ import annotations
 
+import pytest
+
 from idpr.candidates import (
     EXCEPTION_POLARITY,
     assessable_card_ids,
     candidate_articles,
+    candidate_issues,
+    split_candidate_batches,
 )
 from idpr.rulebase.cards import card_corpus
 from idpr.rulebase.formalization import route_corpus
@@ -97,3 +101,71 @@ def test_no_candidates_yields_no_cards():
     result = candidate_articles(selected=[], retrieved=[])
     assert result.articles == ()
     assert result.cards == ()
+
+
+def test_issue_candidates_cover_every_selected_article_card_exactly_once():
+    corpus = card_corpus()
+    result = candidate_issues(
+        selected=["art297", "art319"], retrieved=["art298"], corpus=corpus
+    )
+    member_ids = [
+        card_id for issue in result.issues for card_id in issue.member_card_ids
+    ]
+    expected = {
+        card.id for card in corpus.cards_for_articles(result.articles)
+    }
+    assert len(member_ids) == len(set(member_ids))
+    assert set(member_ids) == expected
+    assert result.initial_issues
+    assert result.deferred_issues
+    assert len(result.initial_issues) < len(result.issues)
+
+
+def test_issue_candidates_keep_l0_provenance_and_attempt_expansion():
+    result = candidate_issues(
+        selected=["art297"], retrieved=["art298", "art297"]
+    )
+    assert result.from_model == ("art297",)
+    assert result.from_retrieval == ("art298",)
+    assert "art300" in result.from_attempt_expansion
+
+
+def test_call2_split_keeps_every_article_and_card_whole():
+    result = candidate_articles(
+        selected=["art297", "art319"], retrieved=["art298", "art250"]
+    )
+    batches = split_candidate_batches(result, parts=2)
+    assert len(batches) == 2
+    assert {article for batch in batches for article in batch.articles} == set(
+        result.articles
+    )
+    assert [card_id for batch in batches for card_id in batch.card_ids]
+    assert {card_id for batch in batches for card_id in batch.card_ids} == set(
+        result.card_ids
+    )
+    assert sum(len(batch.card_ids) for batch in batches) == len(result.card_ids)
+    article_to_batch = {
+        article: index
+        for index, batch in enumerate(batches)
+        for article in batch.articles
+    }
+    assert all(card.article in article_to_batch for batch in batches for card in batch.cards)
+
+
+def test_call2_split_is_deterministic_and_payload_only():
+    result = candidate_articles(selected=["art319"], retrieved=["art250", "art298"])
+    first = split_candidate_batches(result)
+    second = split_candidate_batches(result)
+    assert first == second
+    for batch in first:
+        assert batch.payload_chars == sum(
+            len(item["id"]) + len(item["proposition"])
+            for item in batch.model_payload()
+        )
+        assert all(set(item) == {"id", "proposition"} for item in batch.model_payload())
+
+
+def test_call2_split_rejects_an_invalid_part_count():
+    result = candidate_articles(selected=["art319"])
+    with pytest.raises(ValueError, match="at least 1"):
+        split_candidate_batches(result, parts=0)

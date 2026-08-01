@@ -44,6 +44,7 @@ from typing import Iterable, Mapping, Protocol, Sequence
 
 from idpr.generation import _bm25_score, _search_terms
 from idpr.rulebase.cards import Card, CardCorpus, card_corpus
+from idpr.rulebase.issue_catalog_v2 import IssuePacket
 
 #: Reciprocal-rank-fusion constant. The standard value; not tuned.
 RRF_K = 60
@@ -57,6 +58,10 @@ DEFAULT_TOP_K_ARTICLES = 18
 #: Cards per query carried into cross-encoder reranking. A reranker is a shortlist tool;
 #: scoring all 1,848 cards per query is both wrong and slow.
 DEFAULT_SHORTLIST_PER_QUERY = 100
+
+#: The issue hierarchy keeps the candidate pool small.  Two details leave room
+#: for competing standards without recreating the old all-cards prompt.
+DEFAULT_TOP_K_CARDS_PER_ISSUE = 2
 
 CACHE_ROOT = Path(__file__).resolve().parents[3] / "data" / "eval" / "cache"
 
@@ -110,6 +115,40 @@ class RetrievalResult:
             )
             for article in self.articles
         }
+
+
+@dataclass(frozen=True)
+class RetrievedIssueCards:
+    """Detailed standards selected underneath one already-active legal issue."""
+
+    issue_id: str
+    queries: tuple[str, ...]
+    cards: tuple[Card, ...]
+    card_scores: Mapping[str, float]
+
+    @property
+    def card_ids(self) -> tuple[str, ...]:
+        return tuple(card.id for card in self.cards)
+
+    def model_payload(self) -> list[dict[str, str]]:
+        return [card.model_payload() for card in self.cards]
+
+
+@dataclass(frozen=True)
+class IssueCardRetrievalResult:
+    """Per-issue retrieval result; cards never cross their reviewed parent issue."""
+
+    results: tuple[RetrievedIssueCards, ...]
+
+    @property
+    def by_issue(self) -> Mapping[str, RetrievedIssueCards]:
+        return {result.issue_id: result for result in self.results}
+
+    @property
+    def card_ids(self) -> tuple[str, ...]:
+        return tuple(
+            card_id for result in self.results for card_id in result.card_ids
+        )
 
 
 # --------------------------------------------------------------------------- #
@@ -292,3 +331,179 @@ def retrieve_candidate_articles(
         cards=corpus.cards_for_articles(articles),
         article_scores={article: article_scores[article] for article in ranked},
     )
+
+
+def _flatten_fact_value(value: object) -> list[str]:
+    if isinstance(value, str):
+        return [value]
+    if isinstance(value, Mapping):
+        return [
+            text
+            for key, item in value.items()
+            if key not in {"fact_id", "epistemic_status"}
+            for text in _flatten_fact_value(item)
+        ]
+    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+        return [text for item in value for text in _flatten_fact_value(item)]
+    return []
+
+
+def issue_retrieval_queries(
+    issue: IssuePacket,
+    facts: Sequence[Mapping[str, object]],
+    *,
+    focus_texts: Sequence[str] = (),
+    max_fact_queries: int = 32,
+) -> tuple[str, ...]:
+    """Build independent, issue-scoped queries without averaging case episodes.
+
+    Each fact stays a separate query and is prefixed by the parent issue.  Max fusion can
+    therefore let one highly relevant episode win, while restricting the candidate ids to
+    the issue prevents a residential-entry fact from pulling in an unrelated offence.
+    ``focus_texts`` normally carries the first pass's concrete missing-fact descriptions.
+    """
+    if max_fact_queries < 1:
+        raise ValueError("max_fact_queries must be at least 1")
+    prefix = f"{issue.offense} {issue.title}"
+    focus = [str(text).strip() for text in focus_texts if str(text).strip()]
+    fact_texts: list[str] = []
+    for fact in facts:
+        assertion = fact.get("assertion", fact)
+        if not isinstance(assertion, Mapping):
+            continue
+        values = _flatten_fact_value(assertion)
+        source_quote = assertion.get("source_quote")
+        ordered = ([str(source_quote)] if source_quote else []) + values
+        text = " ".join(dict.fromkeys(item.strip() for item in ordered if item.strip()))
+        if text:
+            fact_texts.append(text)
+    fact_texts = list(dict.fromkeys(fact_texts))
+    if focus:
+        signature = set(_search_terms(f"{prefix} {' '.join(focus)}"))
+        ranked_facts = sorted(
+            fact_texts,
+            key=lambda text: (
+                -len(signature & set(_search_terms(text))),
+                fact_texts.index(text),
+            ),
+        )
+        # The first-pass omission description is the strongest query.  A few closest
+        # admitted facts add case vocabulary without letting unrelated episodes win max
+        # fusion merely because the case is long.
+        related_facts = [
+            text
+            for text in ranked_facts
+            if signature & set(_search_terms(text))
+        ][:4]
+        texts = [" ".join((*focus, *related_facts))]
+    else:
+        texts = fact_texts
+    texts = list(dict.fromkeys(texts))[:max_fact_queries]
+    if not texts:
+        return (prefix,)
+    return tuple(f"{prefix} {text}" for text in texts)
+
+
+def retrieve_issue_cards(
+    issues: Sequence[IssuePacket],
+    facts: Sequence[Mapping[str, object]],
+    *,
+    focus_by_issue: Mapping[str, Sequence[str]] | None = None,
+    corpus: CardCorpus | None = None,
+    top_k_per_issue: int = DEFAULT_TOP_K_CARDS_PER_ISSUE,
+    encoder: DenseEncoder | None = None,
+    reranker: Reranker | None = None,
+    lexical: LexicalIndex | None = None,
+    dense: DenseIndex | None = None,
+    shortlist_per_query: int = DEFAULT_SHORTLIST_PER_QUERY,
+) -> IssueCardRetrievalResult:
+    """Retrieve detailed cards only under their reviewed parent issues.
+
+    This is deliberately separate from L0 article retrieval.  L0 remains article-lossless;
+    after an issue is active, this function narrows only that issue's subordinate standards
+    and case patterns.  Anchor rules are structurally ineligible and can never be returned.
+    """
+    if top_k_per_issue < 1:
+        raise ValueError("top_k_per_issue must be at least 1")
+    if shortlist_per_query < 1:
+        raise ValueError("shortlist_per_query must be at least 1")
+    issue_ids = [issue.issue_id for issue in issues]
+    if len(issue_ids) != len(set(issue_ids)):
+        raise ValueError("issues must be unique")
+
+    corpus = corpus or card_corpus()
+    cards = tuple(corpus.by_id.values())
+    propositions = [card.proposition for card in cards]
+    index_by_id = {card.id: index for index, card in enumerate(cards)}
+    lexical = lexical or LexicalIndex.build(propositions)
+    if dense is None and encoder is not None:
+        dense = DenseIndex.build(propositions, encoder)
+    focus_by_issue = focus_by_issue or {}
+
+    results: list[RetrievedIssueCards] = []
+    for issue in issues:
+        unknown_ids = set(issue.retrieval_card_ids) - set(index_by_id)
+        if unknown_ids:
+            raise ValueError(
+                f"{issue.issue_id}: retrieval ids absent from corpus: {sorted(unknown_ids)}"
+            )
+        candidate_indices = [index_by_id[card_id] for card_id in issue.retrieval_card_ids]
+        queries = issue_retrieval_queries(
+            issue,
+            facts,
+            focus_texts=focus_by_issue.get(issue.issue_id, ()),
+        )
+        best_scores: dict[int, float] = {}
+        for query in queries:
+            lexical_scores = lexical.scores(query)
+            lexical_ranking = sorted(
+                (
+                    index
+                    for index in candidate_indices
+                    if lexical_scores[index] > 0.0
+                ),
+                key=lambda index: (-lexical_scores[index], index),
+            )
+            rankings: list[Sequence[int]] = []
+            if lexical_ranking:
+                rankings.append(lexical_ranking)
+            if dense is not None and encoder is not None and candidate_indices:
+                query_vector = encoder.encode([query], is_query=True)[0]
+                dense_scores = dense.scores(query_vector)
+                rankings.append(
+                    sorted(
+                        candidate_indices,
+                        key=lambda index: (-dense_scores[index], index),
+                    )
+                )
+            if not rankings:
+                continue
+            fused = reciprocal_rank_fusion(rankings)
+            shortlist = sorted(
+                fused, key=lambda index: (-fused[index], index)
+            )[:shortlist_per_query]
+            if reranker is not None and shortlist:
+                reranked = reranker.score(
+                    query, [propositions[index] for index in shortlist]
+                )
+                query_scores = dict(zip(shortlist, reranked))
+            else:
+                query_scores = {index: fused[index] for index in shortlist}
+            for index, score in query_scores.items():
+                if score > best_scores.get(index, float("-inf")):
+                    best_scores[index] = score
+
+        selected = sorted(
+            best_scores,
+            key=lambda index: (-best_scores[index], cards[index].id),
+        )[:top_k_per_issue]
+        selected_cards = tuple(cards[index] for index in selected)
+        results.append(
+            RetrievedIssueCards(
+                issue_id=issue.issue_id,
+                queries=queries,
+                cards=selected_cards,
+                card_scores={card.id: best_scores[index] for card, index in zip(selected_cards, selected)},
+            )
+        )
+    return IssueCardRetrievalResult(results=tuple(results))

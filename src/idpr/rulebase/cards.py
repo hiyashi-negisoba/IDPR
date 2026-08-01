@@ -85,6 +85,9 @@ class Card:
     source_comment_ids: tuple[str, ...]
     source_quotes: tuple[str, ...]
     unit: str
+    source_section_paths: tuple[str, ...] = ()
+    authority_basis: str = ""
+    review_notes: str = ""
 
     @property
     def is_standard_input(self) -> bool:
@@ -164,14 +167,17 @@ def _card_from_raw(raw: Mapping[str, Any], *, unit: str, errors: list[str]) -> C
 
     comment_ids: list[str] = []
     quotes: list[str] = []
+    section_paths: list[str] = []
     for ref in source_refs:
         comment_id = ref.get("comment_id")
         quote = ref.get("quote")
-        if not comment_id or not quote:
+        section_path = ref.get("section_path")
+        if not comment_id or not quote or not section_path:
             errors.append(f"{unit}: card {card_id} has an incomplete source_ref")
             continue
         comment_ids.append(comment_id)
         quotes.append(quote)
+        section_paths.append(section_path)
 
     article, slot = split_card_id(card_id)
     return Card(
@@ -186,6 +192,9 @@ def _card_from_raw(raw: Mapping[str, Any], *, unit: str, errors: list[str]) -> C
         source_comment_ids=tuple(comment_ids),
         source_quotes=tuple(quotes),
         unit=unit,
+        source_section_paths=tuple(section_paths),
+        authority_basis=raw.get("authority_basis", ""),
+        review_notes=raw.get("review_notes", ""),
     )
 
 

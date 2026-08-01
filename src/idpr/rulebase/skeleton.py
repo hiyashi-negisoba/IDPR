@@ -127,6 +127,9 @@ TITLE_BUCKETS: Mapping[str, str] = {
     "침입": CORE,
     "살해": CORE,
     "상해": CORE,
+    # 여기서 음모는 범죄의 conspiracy가 아니라 陰毛다. 아래의 일반 "음모"
+    # stage 키보다 긴 구문이 먼저 매칭되어 상해 판단 쟁점에 남아야 한다.
+    "음모 절단": CORE,
     "사망": CORE,
     "위조": CORE,
     "변조": CORE,
@@ -205,6 +208,7 @@ TITLE_BUCKETS: Mapping[str, str] = {
     "승낙": DEFEATER,
     "정당행위": DEFEATER,
     "정당방위": DEFEATER,
+    "긴급행위": DEFEATER,
     "긴급피난": DEFEATER,
     "면책": DEFEATER,
     "처벌조건": DEFEATER,

@@ -99,7 +99,11 @@ def test_every_card_carries_provenance(corpus):
     for card in corpus.cards:
         assert card.source_comment_ids, f"{card.id} has no comment_id"
         assert card.source_quotes, f"{card.id} has no verbatim quote"
+        assert card.source_section_paths, f"{card.id} has no section_path"
+        assert card.authority_basis, f"{card.id} has no authority_basis"
+        assert card.review_notes, f"{card.id} has no review_notes"
         assert len(card.source_comment_ids) == len(card.source_quotes)
+        assert len(card.source_comment_ids) == len(card.source_section_paths)
 
 
 def test_every_card_resolves_to_an_article_and_slot(corpus):

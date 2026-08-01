@@ -1,5 +1,23 @@
 # Phase 3 착수 문서 — 콜 2(카드 일괄 판정) + 심볼릭 판단
 
+> **2026-08-02 적재 구조 갱신:** 아래의 카드 전량 일괄 판정 계획은 실측 결과 폐기했다.
+> 조문을 고르면 같은 slot의 일반법리·세부기준·판례 사안까지 모두 `core` 질문이 되는 것이
+> 품질 저하의 원인이었다. 현재 Phase 3 진입점은 `idpr.candidates.candidate_issues()`이며,
+> 적재 단위는 `조문 → 쟁점 → 일반법리 anchor → unknown일 때 하위카드 최대 2장 검색`이다.
+> `candidate_articles()`와 flat-card 스모크는 Phase 2 산출물 재현·비교용으로만 보존한다.
+> 선택 조문의 원본 카드가 정확히 한 issue에 배치된다는 무손실 불변식은 유지하지만, 그
+> 1,848장을 모두 모델 질문으로 노출한다는 뜻은 더 이상 아니다. 상세 설계와 전수 통계는
+> `docs/card_loading_v2.md` 및 `data/rulebase/issue_catalog_v2_review.md`를 따른다.
+
+> **Phase 3 완료 기록 (2026-08-02):** 전체 1,848장을 372개 issue로 무손실
+> 재배치했고, 첫 호출은 159개 구성요건 issue만 평가한다. 스모크 범위는 193개 독립 카드
+> 질문에서 14개 issue·24개 anchor로 줄었다. PRO6000 1장 환경의 최종 모델 실행
+> (Slurm 217909)은 10 satisfied / 1 not_satisfied / 3 unknown이었고, 강제 문구
+> 재시도 없이 통과했다. 이 출력을 issue 전용 Scallop bridge로 재생한 실행(217929)은
+> 제298조·제301조 성립, 제297조 기수 차단 및 미수 검토, 제319조 3개 issue 미확정을
+> 산출했다. 실제 런타임은 `candidate_issues()` → `issue_status`를 사용한다. 아래의
+> flat-card 작업 순서는 역사적 계획 및 회귀 비교 자료다.
+
 2026-08-01. 데드라인 **2026-08-11** (NLLP 워크샵). 브랜치 `rulegen-campaign-pilot`.
 테스트 415 passed. Phase 0~2 완료.
 

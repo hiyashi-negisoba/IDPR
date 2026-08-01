@@ -632,6 +632,33 @@ def fact_tuples(
     return rows
 
 
+def assessment_facts(payload: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """Give each grounded assertion a stable host-owned id for call 2.
+
+    The extraction contract deliberately makes one grounding decision per act, result,
+    role, relation, or holding; attributes such as an act's place ride on that assertion.
+    Call 2 uses the same granularity, so it can cite evidence without inventing identifiers
+    or pretending that an inline attribute had an independent source quote.
+    """
+    facts: list[dict[str, Any]] = []
+    for kind, group in (
+        ("act", "acts"),
+        ("result", "results"),
+        ("role", "roles"),
+        ("relation", "relations"),
+        ("holding", "holdings"),
+    ):
+        for item in payload.get(group, []):
+            facts.append(
+                {
+                    "fact_id": f"fact_{len(facts) + 1:03d}",
+                    "kind": kind,
+                    "assertion": dict(item),
+                }
+            )
+    return facts
+
+
 def fact_derived_queries(payload: Mapping[str, Any]) -> list[str]:
     """One query per asserted event, built from the fact layer itself.
 

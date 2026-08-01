@@ -17,8 +17,11 @@ from __future__ import annotations
 
 import re
 import subprocess
+from collections import defaultdict
 from pathlib import Path
 from typing import Iterable, Mapping, Sequence
+
+from idpr.rulebase.facts import FACT_PREDICATES, validate_fact
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_SCLI = PROJECT_ROOT / "tools/scallop/scli-0.2.4-linux-x86_64"
@@ -36,6 +39,70 @@ class ScallopError(RuntimeError):
 
 class StatusFactError(ValueError):
     """Raised before a malformed assessment can reach the program text."""
+
+
+class FactLayerError(ValueError):
+    """Raised before a malformed call-1 fact can reach the program text."""
+
+
+def _validate_fact_case_id(case_id: str) -> None:
+    if not _CASE_ID_RE.fullmatch(case_id):
+        raise FactLayerError(f"case_id must be a safe identifier, got {case_id!r}")
+
+
+def _quoted_tuple(arguments: Sequence[str]) -> str:
+    unsafe = next(
+        (argument for argument in arguments if '"' in argument or "\\" in argument),
+        None,
+    )
+    if unsafe is not None:
+        raise FactLayerError(
+            f"fact argument contains a quote or backslash: {unsafe!r}"
+        )
+    return "(" + ", ".join(f'"{argument}"' for argument in arguments) + ")"
+
+
+def render_fact_layer(
+    case_id: str, rows: Iterable[tuple[str, Sequence[str]]]
+) -> str:
+    """Render call 1's fact tuples as bulk Scallop relations.
+
+    Relation names and ordering come only from the fact-layer registry. Every row is
+    validated again at this boundary, and values are emitted only as quoted String
+    literals. Quotes and backslashes are rejected instead of escaped so model output can
+    never change the program's syntax.
+    """
+    _validate_fact_case_id(case_id)
+    grouped: dict[str, list[str]] = defaultdict(list)
+    for name, raw_arguments in rows:
+        arguments = tuple(raw_arguments)
+        try:
+            validate_fact(name, arguments)
+        except ValueError as exc:
+            raise FactLayerError(str(exc)) from exc
+        if not arguments or arguments[0] != case_id:
+            actual = arguments[0] if arguments else None
+            raise FactLayerError(
+                f"{name}: row case id {actual!r} does not match {case_id!r}"
+            )
+        grouped[name].append(_quoted_tuple(arguments))
+
+    blocks: list[str] = []
+    for predicate in FACT_PREDICATES:
+        literals = grouped.get(predicate.name)
+        if not literals:
+            continue
+        blocks.extend(
+            [
+                f"rel {predicate.name} = {{",
+                *(f"  {literal}," for literal in sorted(literals)),
+                "}",
+                "",
+            ]
+        )
+    if not blocks:
+        return ""
+    return "\n" + "\n".join(blocks)
 
 
 def render_card_statuses(
@@ -60,6 +127,31 @@ def render_card_statuses(
     if not rows:
         return ""
     return "\n".join(["", "rel card_status = {", *sorted(rows), "}", ""])
+
+
+def render_issue_statuses(
+    case_id: str, statuses: Iterable[tuple[str, str]]
+) -> str:
+    """Render issue-first assessments without inventing per-card statuses.
+
+    An issue id is data, just like a card id. The host emits only validated status
+    literals; anchor and retrieved card ids never receive a synthetic status merely
+    because their parent issue was assessed.
+    """
+    if not _CASE_ID_RE.fullmatch(case_id):
+        raise StatusFactError(f"case_id must be a safe identifier, got {case_id!r}")
+    rows: list[str] = []
+    for issue_id, status in statuses:
+        if status not in VALID_STATUSES:
+            raise StatusFactError(
+                f"{issue_id}: status {status!r} is not one of {sorted(VALID_STATUSES)}"
+            )
+        if '"' in issue_id or "\\" in issue_id:
+            raise StatusFactError(f"issue id is not a bare identifier: {issue_id!r}")
+        rows.append(f'  ("{case_id}", "{issue_id}", "{status}"),')
+    if not rows:
+        return ""
+    return "\n".join(["", "rel issue_status = {", *sorted(rows), "}", ""])
 
 
 def parse_query_output(output: str, relation: str) -> tuple[tuple[str, ...], ...]:
