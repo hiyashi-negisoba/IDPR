@@ -15,6 +15,7 @@ from jsonschema import Draft202012Validator
 from idpr.eval.input_formatter import scoped_question_text
 from idpr.neural.fact_graph import assessment_facts
 from idpr.rulebase.issue_catalog_v2 import ASSESS_ISSUE, STAGE_ISSUE
+from idpr.rulebase.qualification import missing_required_base
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
@@ -47,6 +48,8 @@ def issue_answer_model_schema(request: Mapping[str, Any]) -> dict[str, Any]:
     ):
         section_template["properties"].pop(field)
         section_template["required"].remove(field)
+    # Presentation is a deterministic host decision and must not be delegated to prose.
+    section_template["properties"].pop("presentation_mode", None)
 
     analysis_template = deepcopy(section_template["properties"]["analyses"]["items"])
     for field in ("analysis_id", "issue_status"):
@@ -56,12 +59,25 @@ def issue_answer_model_schema(request: Mapping[str, Any]) -> dict[str, Any]:
     section_schemas: list[dict[str, Any]] = []
     for required in request.get("required_sections", ()):
         schema = deepcopy(section_template)
-        analysis_count = len(required.get("issues", ()))
+        # The prose model does not own legal identity.  Constrain the public heading and
+        # each issue heading just as tightly as the host-owned opaque ids.  Previously
+        # only the array lengths were constrained; a model could reorder headings and the
+        # host would then zip a different Scallop conclusion onto the prose by position.
+        schema["properties"]["heading"] = {"const": str(required["heading"])}
+        issue_schemas: list[dict[str, Any]] = []
+        for issue in required.get("issues", ()):
+            issue_schema = deepcopy(analysis_template)
+            issue_schema["properties"]["heading"] = {
+                "const": str(issue["title"])
+            }
+            issue_schemas.append(issue_schema)
+        analysis_count = len(issue_schemas)
         schema["properties"]["analyses"] = {
             "type": "array",
             "minItems": analysis_count,
             "maxItems": analysis_count,
-            "items": deepcopy(analysis_template),
+            "prefixItems": issue_schemas,
+            "items": False,
         }
         section_schemas.append(schema)
 
@@ -77,6 +93,17 @@ def issue_answer_model_schema(request: Mapping[str, Any]) -> dict[str, Any]:
         "items": False,
     }
     return model_schema
+
+
+def issue_answer_model_request(request: Mapping[str, Any]) -> dict[str, Any]:
+    """Return the visible-only payload sent to Call 3.
+
+    Suppression diagnostics are persisted for audit, but giving their article names back
+    to the prose model would defeat suppression by inviting it to mention them anyway.
+    """
+    payload = deepcopy(dict(request))
+    payload.pop("suppressed_sections", None)
+    return payload
 
 
 def _host_section_conclusion(planned: Mapping[str, Any]) -> str:
@@ -106,10 +133,15 @@ def attach_issue_answer_provenance(
         return enriched
     for section, planned in zip(sections, required):
         issues = planned.get("issues", ())
+        # Legal labels are deterministic request data.  Never retain a model-authored
+        # substitute and then attach provenance/conclusions to it by array position.
+        section["heading"] = str(planned["heading"])
+        section["presentation_mode"] = str(planned.get("presentation_mode", "full"))
         section["section_id"] = str(planned["section_id"])
         analyses = section.get("analyses", ())
         if isinstance(analyses, list) and len(analyses) == len(issues):
             for analysis, issue in zip(analyses, issues):
+                analysis["heading"] = str(issue["title"])
                 analysis["analysis_id"] = str(issue["issue_id"])
                 analysis["issue_status"] = str(issue["status"])
         section["conclusion"] = _host_section_conclusion(planned)
@@ -161,7 +193,11 @@ def attach_issue_answer_provenance(
         right = article_labels.get(str(pair.get("right_article", "")))
         if left and right:
             conclusions.append(f"{left}와 {right}: 경합관계")
-    enriched["overall_conclusion"] = "; ".join(conclusions) + "."
+    enriched["overall_conclusion"] = (
+        "; ".join(conclusions) + "."
+        if conclusions
+        else "현재 제공된 사실과 검수된 법리만으로 독립하여 논증할 죄명을 특정할 수 없다."
+    )
     return enriched
 
 
@@ -180,6 +216,16 @@ def _relation_rows(packet: Mapping[str, Any], relation: str) -> list[list[str]]:
 
 def _article_set(packet: Mapping[str, Any], relation: str) -> set[str]:
     return {row[1] for row in _relation_rows(packet, relation) if len(row) >= 2}
+
+
+def _relation_issue_sets(
+    packet: Mapping[str, Any], relation: str
+) -> dict[str, set[str]]:
+    grouped: dict[str, set[str]] = defaultdict(set)
+    for row in _relation_rows(packet, relation):
+        if len(row) >= 3:
+            grouped[row[1]].add(row[2])
+    return grouped
 
 
 def _fact_context(fact_graph: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
@@ -218,6 +264,33 @@ def _directive(
     return "no_symbolic_conclusion", "undetermined"
 
 
+def _presentation(
+    article: str,
+    *,
+    directive: str,
+    supported_issues: Mapping[str, set[str]],
+    refuted_issues: Mapping[str, set[str]],
+    missing_bases: frozenset[str],
+) -> tuple[str | None, str]:
+    """Choose answer salience without deleting any upstream assessment.
+
+    ``None`` means the article stays in the request diagnostics but is not exposed as an
+    answer section.  Counts compare assessed issue groups, not raw retrieved cards, so a
+    verbose commentary chapter does not win merely by having more cards.
+    """
+    supported = len(supported_issues.get(article, ()))
+    refuted = len(refuted_issues.get(article, ()))
+    if missing_bases:
+        return None, "missing_required_base_offense"
+    if directive in {"final_offense_candidate", "established_candidate"}:
+        return "full", "symbolically_established"
+    if supported == 0:
+        return None, "no_positive_element_support"
+    if refuted >= supported:
+        return None, "explicit_element_refutation_dominates"
+    return "compact", "partially_supported_or_unresolved"
+
+
 def build_call3_request(
     *,
     case: Mapping[str, Any],
@@ -244,6 +317,9 @@ def build_call3_request(
         for row in _relation_rows(reasoning_packet, "concurrent_offenses")
         if len(row) >= 3
     ]
+    supported_issues = _relation_issue_sets(reasoning_packet, "element_supported")
+    refuted_issues = _relation_issue_sets(reasoning_packet, "element_refuted")
+    established_without_gaps = established - unaddressed
 
     grouped: dict[str, list[Mapping[str, Any]]] = defaultdict(list)
     article_order: list[str] = []
@@ -269,6 +345,7 @@ def build_call3_request(
         grouped[article].append(issue)
 
     required_sections: list[dict[str, Any]] = []
+    suppressed_sections: list[dict[str, Any]] = []
     allowed_facts: set[str] = set()
     allowed_issues: set[str] = set()
     allowed_rules: set[str] = set()
@@ -285,6 +362,30 @@ def build_call3_request(
             attempts=attempts,
             absorbed=absorbed,
         )
+        missing_bases = missing_required_base(
+            article, established_without_gaps=established_without_gaps
+        )
+        presentation_mode, visibility_reason = _presentation(
+            article,
+            directive=directive,
+            supported_issues=supported_issues,
+            refuted_issues=refuted_issues,
+            missing_bases=missing_bases,
+        )
+        if presentation_mode is None:
+            suppressed_sections.append(
+                {
+                    "article": article,
+                    "article_label": article_label,
+                    "offense": offense,
+                    "reason": visibility_reason,
+                    "symbolic_directive": directive,
+                    "supported_issue_count": len(supported_issues.get(article, ())),
+                    "refuted_issue_count": len(refuted_issues.get(article, ())),
+                    "required_base_articles": sorted(missing_bases),
+                }
+            )
+            continue
         for issue in grouped[article]:
             issue_id = str(issue["issue_id"])
             basis_ids = [str(item) for item in issue.get("basis_fact_ids", ())]
@@ -332,6 +433,8 @@ def build_call3_request(
                 "offense": offense,
                 "symbolic_directive": directive,
                 "stated_conclusion": stated_conclusion,
+                "presentation_mode": presentation_mode,
+                "visibility_reason": visibility_reason,
                 "issues": article_issues,
             }
         )
@@ -349,6 +452,7 @@ def build_call3_request(
         "legal_knowledge_policy": "supplied_reviewed_rules_only",
         "rubric_supplied": False,
         "required_sections": required_sections,
+        "suppressed_sections": suppressed_sections,
         "cross_offense_directives": {
             "absorbed_articles": sorted(absorbed),
             "concurrent_pairs": concurrence,
@@ -383,6 +487,16 @@ def validate_issue_answer(
         ):
             errors.append(f"sections[{index}].stated_conclusion differs from Scallop directive")
         if index < len(required):
+            if section.get("presentation_mode", "full") != required[index].get(
+                "presentation_mode", "full"
+            ):
+                errors.append(
+                    f"sections[{index}].presentation_mode differs from the answer plan"
+                )
+            if section.get("heading") != required[index].get("heading"):
+                errors.append(
+                    f"sections[{index}].heading differs from the planned offense"
+                )
             expected_issue_ids = {
                 str(issue["issue_id"]) for issue in required[index].get("issues", ())
             }
@@ -403,6 +517,15 @@ def validate_issue_answer(
                     errors.append(
                         f"sections[{index}].analyses[{analysis_index}].issue_status "
                         "differs from Call-2 assessment"
+                    )
+                if (
+                    analysis_index < len(planned_issues)
+                    and analysis.get("heading")
+                    != planned_issues[analysis_index].get("title")
+                ):
+                    errors.append(
+                        f"sections[{index}].analyses[{analysis_index}].heading "
+                        "differs from the planned issue"
                     )
                 for field in ("heading", "issue", "rule", "application", "conclusion"):
                     if _INTERNAL_ID_RE.search(str(analysis.get(field, ""))):
@@ -451,7 +574,25 @@ def validate_issue_answer(
 
 def render_issue_answer_markdown(answer: Mapping[str, Any]) -> str:
     lines = [f"# {answer['title']}", ""]
+    compact_started = False
     for section in answer["sections"]:
+        if section.get("presentation_mode") == "compact":
+            if not compact_started:
+                lines.extend(("## 보충적 검토", ""))
+                compact_started = True
+            lines.extend((f"### {section['heading']}", ""))
+            for analysis in section["analyses"]:
+                if analysis.get("issue_status") == "unknown":
+                    continue
+                lines.extend(
+                    (
+                        f"- **{analysis['heading']}**: {analysis['application']} "
+                        f"{analysis['conclusion']}",
+                    )
+                )
+            lines.extend(("", str(section["conclusion"]), ""))
+            continue
+
         lines.extend((f"## {section['heading']}", ""))
 
         lines.extend(("### 쟁점 (Issue)", ""))

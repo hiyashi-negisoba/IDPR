@@ -12,6 +12,7 @@ from idpr.eval.issue_recall import INVENTORY_PATH, PROJECT_ROOT
 from idpr.generation.issue_answer import (
     attach_issue_answer_provenance,
     build_call3_request,
+    issue_answer_model_request,
     issue_answer_model_schema,
     render_issue_answer_markdown,
     validate_issue_answer,
@@ -122,6 +123,14 @@ def main() -> None:
                 {
                     "case_id": case_id,
                     "sections": len(request["required_sections"]),
+                    "section_modes": {
+                        mode: sum(
+                            section.get("presentation_mode") == mode
+                            for section in request["required_sections"]
+                        )
+                        for mode in ("full", "compact")
+                    },
+                    "suppressed_sections": len(request.get("suppressed_sections", ())),
                     "issues": sum(
                         len(section["issues"]) for section in request["required_sections"]
                     ),
@@ -145,7 +154,7 @@ def main() -> None:
     answer, metadata = client.complete_json(
         system_prompt=load_prompt("issue_long_form_generate"),
         user_template=load_prompt("issue_long_form_generate_user"),
-        payload=request,
+        payload=issue_answer_model_request(request),
         schema_name="issue_long_form_answer",
         schema=issue_answer_model_schema(request),
         max_tokens=args.max_tokens,

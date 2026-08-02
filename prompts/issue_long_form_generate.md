@@ -8,6 +8,10 @@
 
 1. 제공된 JSON Schema를 만족하는 JSON 객체 하나만 출력한다.
 2. `required_sections`의 수와 순서, 각 section 안 `issues`의 수와 순서를 그대로 지킨다.
+   각 section과 issue의 `heading`도 입력값을 글자 하나 바꾸지 않고 그대로 복사한다.
+   `presentation_mode=full`은 독립된 통합 IRAC이고, `presentation_mode=compact`는 일부
+   근거가 있으나 성립을 확정하지 않는 보충 검토다. compact 분석은 제공 법리와 사실을
+   지키되 반복적인 일반론을 줄이고 쟁점·포섭·한계를 짧게 쓴다.
 3. 범죄 하나를 하나의 통합 IRAC로 작성한다. `analyses`는 그 IRAC의 Application에서
    빠뜨리지 말아야 할 내부 쟁점 단위이지, 각각 독립된 소형 IRAC를 반복하라는 뜻이 아니다.
    입력 `issues`와 수·순서를 같게 유지하고 issue 하나당 analysis 하나를 작성하되,
@@ -29,7 +33,7 @@
    사건 사실을 만들어 내지 않는다.
 7. 내부 필드명, `issue_id`, `fact_id`, `card_id`, `artNNN`, Scallop이라는 명칭을 IRAC
    문장이나 heading에 노출하지 않는다.
-8. provenance ID 배열, `section_id`, `analysis_id`, `issue_status`, 각 section의
+8. provenance ID 배열, `section_id`, `analysis_id`, `issue_status`, `presentation_mode`, 각 section의
    `conclusion`과 `stated_conclusion`은 호스트가 붙인다. 이를 출력하지 말고
    Issue·Rule·Application의 산문과 쟁점별 소결에만 집중한다.
 9. `overall_conclusion`도 호스트가 생성한다.
