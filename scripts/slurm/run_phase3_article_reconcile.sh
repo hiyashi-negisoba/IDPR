@@ -67,8 +67,11 @@ for _ in $(seq 1 180); do
     sleep 10
 done
 
-for POLICY in article_reconcile article_reconcile_precision; do
+POLICIES="${IDPR_RECONCILE_POLICIES:-article_reconcile article_reconcile_precision article_reconcile_matrix}"
+for POLICY in $POLICIES; do
     mkdir -p "$RUN_ROOT/$POLICY"
+    RESPONSE_MODE=selected
+    [ "$POLICY" = article_reconcile_matrix ] && RESPONSE_MODE=matrix
     "$CLIENT_PYTHON" scripts/run_article_reconcile.py \
         --base-url "http://127.0.0.1:${PORT}" \
         --model "$SERVED_MODEL" \
@@ -77,6 +80,7 @@ for POLICY in article_reconcile article_reconcile_precision; do
         --selection "$SELECTION" \
         --candidates "$CANDIDATES" \
         --system-prompt "$POLICY" \
+        --response-mode "$RESPONSE_MODE" \
         --out "$RUN_ROOT/$POLICY/reconciliation.jsonl" \
         --l0-out "$RUN_ROOT/$POLICY/l0_candidates.jsonl"
 done

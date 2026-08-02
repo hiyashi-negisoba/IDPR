@@ -17,9 +17,11 @@ from idpr.eval.input_formatter import assert_no_leaked_fields, scoped_question_t
 from idpr.issue_pipeline import issue_candidate_row
 from idpr.neural.article_reconcile import (
     ArticleReconcileError,
+    reconciliation_matrix_schema,
     reconciliation_payload,
     reconciliation_schema,
     validate_reconciliation,
+    validate_reconciliation_matrix,
 )
 from idpr.neural.article_select import attempt_article_map, load_catalog
 from idpr.neural.vllm_client import VLLMClient, VLLMClientError
@@ -92,6 +94,7 @@ def main() -> None:
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--l0-out", type=Path, required=True)
     parser.add_argument("--system-prompt", default="article_reconcile")
+    parser.add_argument("--response-mode", choices=("selected", "matrix"), default="selected")
     parser.add_argument("--max-tokens", type=int, default=4096)
     parser.add_argument("--temperature", type=float, default=0.0)
     args = parser.parse_args()
@@ -145,16 +148,27 @@ def main() -> None:
         assert_no_leaked_fields(payload)
         output = None
         try:
+            schema = (
+                reconciliation_matrix_schema(allowed)
+                if args.response_mode == "matrix"
+                else reconciliation_schema(allowed)
+            )
             output, metadata = client.complete_json(
                 system_prompt=system_prompt,
                 payload=payload,
                 schema_name="article_reconciliation",
-                schema=reconciliation_schema(allowed),
+                schema=schema,
                 max_tokens=args.max_tokens,
                 temperature=args.temperature,
                 user_template=user_template,
             )
-            kept, entries = validate_reconciliation(output, allowed_articles=allowed)
+            if args.response_mode == "matrix":
+                kept, entries, decisions = validate_reconciliation_matrix(
+                    output, allowed_articles=allowed
+                )
+            else:
+                kept, entries = validate_reconciliation(output, allowed_articles=allowed)
+                decisions = ()
         except (ArticleReconcileError, VLLMClientError) as error:
             raise RuntimeError(f"{case_id}: reconciliation failed: {error}") from error
 
@@ -180,6 +194,7 @@ def main() -> None:
                 "selected": list(kept),
                 "removed": [article for article in allowed if article not in kept_set],
                 "entries": list(entries),
+                "decisions": list(decisions),
                 "usage": metadata.get("usage", {}),
             }
         )

@@ -50,6 +50,35 @@ def reconciliation_schema(candidate_articles: Iterable[str]) -> dict[str, Any]:
     }
 
 
+def reconciliation_matrix_schema(candidate_articles: Iterable[str]) -> dict[str, Any]:
+    """Force an explicit keep/drop decision for every candidate in the union."""
+    articles = list(dict.fromkeys(candidate_articles))
+    if not articles:
+        raise ValueError("candidate_articles must not be empty")
+    return {
+        "type": "object",
+        "additionalProperties": False,
+        "required": ["decisions"],
+        "properties": {
+            "decisions": {
+                "type": "array",
+                "minItems": len(articles),
+                "maxItems": len(articles),
+                "items": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": ["article", "decision", "reason"],
+                    "properties": {
+                        "article": {"type": "string", "enum": articles},
+                        "decision": {"type": "string", "enum": ["keep", "drop"]},
+                        "reason": {"type": "string", "minLength": 1, "maxLength": 300},
+                    },
+                },
+            }
+        },
+    }
+
+
 def reconciliation_payload(
     *,
     case_id: str,
@@ -120,3 +149,60 @@ def validate_reconciliation(
         raise ArticleReconcileError(errors)
     entries = tuple(seen.values())
     return tuple(entry["article"] for entry in entries), entries
+
+
+def validate_reconciliation_matrix(
+    payload: Mapping[str, Any], *, allowed_articles: Iterable[str]
+) -> tuple[tuple[str, ...], tuple[dict[str, str], ...], tuple[dict[str, str], ...]]:
+    """Require one auditable decision per candidate, with neither omissions nor duplicates."""
+    allowed_order = tuple(dict.fromkeys(allowed_articles))
+    allowed = set(allowed_order)
+    raw = payload.get("decisions")
+    if not isinstance(raw, list):
+        raise ArticleReconcileError(["decisions must be an array"])
+
+    errors: list[str] = []
+    seen: dict[str, dict[str, str]] = {}
+    for index, item in enumerate(raw):
+        where = f"decisions[{index}]"
+        if not isinstance(item, Mapping):
+            errors.append(f"{where}: not an object")
+            continue
+        article = item.get("article")
+        decision = item.get("decision")
+        reason = item.get("reason")
+        if article not in allowed:
+            errors.append(f"{where}: {article!r} is not an admitted candidate")
+            continue
+        if article in seen:
+            errors.append(f"{where}: duplicate decision for {article}")
+            continue
+        if decision not in {"keep", "drop"}:
+            errors.append(f"{where}: decision must be keep or drop")
+            continue
+        if not isinstance(reason, str) or not reason.strip():
+            errors.append(f"{where}: reason is required")
+            continue
+        seen[article] = {
+            "article": article,
+            "decision": decision,
+            "reason": reason.strip(),
+        }
+    missing = [article for article in allowed_order if article not in seen]
+    if missing:
+        errors.append(f"missing decisions: {missing}")
+    if errors:
+        raise ArticleReconcileError(errors)
+    decisions = tuple(seen[article] for article in allowed_order)
+    kept_entries = tuple(
+        {"article": entry["article"], "reason": entry["reason"]}
+        for entry in decisions
+        if entry["decision"] == "keep"
+    )
+    if not kept_entries:
+        raise ArticleReconcileError(["matrix must keep at least one candidate"])
+    return (
+        tuple(entry["article"] for entry in kept_entries),
+        kept_entries,
+        decisions,
+    )
