@@ -126,7 +126,10 @@ sleep 15
 fi
 
 # ---------------------------------------------------------------------------
-# Phase B -- retrieval and the union. Encoder + reranker only.
+# Phase B -- legacy retrieval union. Encoder + reranker only.
+#
+# This entry point is retained for reproducibility of Phase-2 measurements. The current
+# pipeline retrieves before Call 1.5 and assembles ``reviewed_selection`` scope afterwards.
 #
 # HF_HUB_OFFLINE stays unset here on purpose: transformers 4.57.3 calls model_info()
 # from _patch_mistral_regex unconditionally and dies offline even with a warm cache.
@@ -134,8 +137,13 @@ fi
 unset HF_HUB_OFFLINE TRANSFORMERS_OFFLINE
 export PYTHONPATH="$PROJECT_ROOT/src"
 echo "--- phase B start: $(date +%T) ---"
-EXTRA=""
-[ "${NO_RETRIEVAL:-0}" = "1" ] && EXTRA="--no-retrieval"
+EXTRA_ARGS=(--routing-policy "${IDPR_ROUTING_POLICY:-legacy_union}")
+if [ "${NO_RETRIEVAL:-0}" = "1" ]; then
+    EXTRA_ARGS+=(--no-retrieval)
+fi
+if [ -n "${IDPR_RETRIEVAL_CANDIDATES:-}" ]; then
+    EXTRA_ARGS+=(--retrieval-candidates "$IDPR_RETRIEVAL_CANDIDATES")
+fi
 STAGED_CANDIDATES="$RUN_DIR/l0_candidates.jsonl"
 STAGED_REPORT="$RUN_DIR/l0_union_report.json"
 "$CLIENT_PYTHON" scripts/run_l0_candidates.py \
@@ -143,7 +151,7 @@ STAGED_REPORT="$RUN_DIR/l0_union_report.json"
     --out "$STAGED_CANDIDATES" \
     --report "$STAGED_REPORT" \
     --checks data/eval/diagnostic_checks.json \
-    $EXTRA
+    "${EXTRA_ARGS[@]}"
 mv "$STAGED_CANDIDATES" "$CANDIDATES"
 mv "$STAGED_REPORT" "$REPORT"
 echo "--- phase B end: $(date +%T) ---"

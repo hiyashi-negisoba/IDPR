@@ -72,3 +72,24 @@ def test_unresolvable_scope_keeps_the_original_question() -> None:
     text = "번호가 없는 하나의 사실관계이다."
 
     assert scoped_question_text(text, "(2)에서 죄책을 논하시오.") == text
+
+
+def test_unique_named_parties_resolve_an_implicit_numbered_scope() -> None:
+    row = _inventory()["kcl_criminal_r13_p1_q3"]
+
+    scoped = scoped_question_text(row["question_text"], row["question_prompt"])
+
+    assert "丁과 戊는" in scoped
+    assert "트럭 속도를 올려" in scoped
+    assert "甲, 乙, 丙이 금값" not in scoped
+    assert row["question_prompt"] in scoped
+
+
+def test_ambiguous_named_party_keeps_all_numbered_blocks() -> None:
+    text = """(1) 甲이 첫 행위를 하였다.
+
+(2) 甲이 둘째 행위를 하였다.
+
+甲의 죄책은?"""
+
+    assert scoped_question_text(text, "甲의 죄책은?") == text

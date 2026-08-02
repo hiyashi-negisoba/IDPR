@@ -1,10 +1,12 @@
-"""L0 output: candidate articles and normalized issues consumed downstream, for all 61.
+"""L0 output: reviewed article scope and normalized issues consumed downstream, for all 61.
 
 This is the artifact Phase 3 reads. It exists as a file rather than an in-memory step for
 the reason every other stage boundary here does: the two sources need different models and
 one GPU cannot hold both, so the union has to be assembled from artifacts.
 
-Retrieval runs over every question, not only the scorable ones. The recall report cannot be
+Retrieval runs over every question, not only the scorable ones. Its ranked candidates are
+persisted independently from the active scope: in the default reviewed policy, only Call
+1.5-approved articles open an issue hierarchy. The recall report cannot be
 computed for a question with no gold, but the pipeline still has to produce candidates for
 it, and a report that quietly covered 31 of 61 would leave the other 30 with no input.
 """
@@ -43,6 +45,9 @@ DEFAULT_FACT_GRAPHS = PROJECT_ROOT / "data" / "eval" / "fact_graphs.jsonl"
 DEFAULT_SELECTION = PROJECT_ROOT / "data" / "eval" / "article_selection.jsonl"
 DEFAULT_OUT = PROJECT_ROOT / "data" / "eval" / "l0_candidates.jsonl"
 DEFAULT_REPORT = PROJECT_ROOT / "data" / "eval" / "l0_union_report.json"
+REVIEWED_SELECTION = "reviewed_selection"
+LEGACY_UNION = "legacy_union"
+RETRIEVAL_ONLY = "retrieval_only"
 
 
 def _rows(path: Path) -> list[dict]:
@@ -51,14 +56,40 @@ def _rows(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
+def _retrieval_lane(row: dict) -> tuple[list[str], list[str]]:
+    """Return raw ranked articles and issue ids from current or legacy L0 artifacts."""
+    issue_ids = list(dict.fromkeys(row.get("retrieved_issue_ids", ())))
+    if "retrieved_articles" in row:
+        articles = list(dict.fromkeys(row["retrieved_articles"]))
+    elif issue_ids:
+        articles = list(dict.fromkeys(issue_id.split(".", 1)[0] for issue_id in issue_ids))
+    else:
+        articles = list(dict.fromkeys(row.get("from_retrieval", ())))
+    return articles, issue_ids
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--fact-graphs", type=Path, default=DEFAULT_FACT_GRAPHS)
     parser.add_argument("--selection", type=Path, default=DEFAULT_SELECTION)
+    parser.add_argument(
+        "--retrieval-candidates",
+        type=Path,
+        help="reuse a persisted retrieval lane instead of loading retrieval models",
+    )
     parser.add_argument("--inventory", type=Path, default=INVENTORY_PATH)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--report", type=Path, default=DEFAULT_REPORT)
     parser.add_argument("--top-k-articles", type=int, default=DEFAULT_TOP_K_ARTICLES)
+    parser.add_argument(
+        "--routing-policy",
+        choices=[REVIEWED_SELECTION, LEGACY_UNION, RETRIEVAL_ONLY],
+        default=REVIEWED_SELECTION,
+        help=(
+            "reviewed_selection activates only Call 1.5 output; legacy_union also "
+            "activates every retrieved article; retrieval_only creates a shortlist artifact"
+        ),
+    )
     parser.add_argument(
         "--checks",
         type=Path,
@@ -67,6 +98,10 @@ def main() -> None:
     parser.add_argument("--no-retrieval", action="store_true",
                         help="model selection only -- the fallback if the union is too slow")
     args = parser.parse_args()
+    if args.no_retrieval and args.retrieval_candidates:
+        parser.error("--no-retrieval and --retrieval-candidates are mutually exclusive")
+    if args.no_retrieval and args.routing_policy == RETRIEVAL_ONLY:
+        parser.error("retrieval_only requires a retrieval source")
 
     corpus = card_corpus()
     issues, _ = compile_issue_catalog_v2(corpus)
@@ -77,9 +112,16 @@ def main() -> None:
               if "fact_graph" in row}
     selection = {row["sub_question_id"]: row["selected"] for row in _rows(args.selection)
                  if "error" not in row}
+    persisted_retrieval = {
+        row["sub_question_id"]: _retrieval_lane(row)
+        for row in (
+            _rows(args.retrieval_candidates) if args.retrieval_candidates else []
+        )
+    }
 
     encoder = reranker = lexical = None
-    if not args.no_retrieval:
+    live_retrieval = not args.no_retrieval and not args.retrieval_candidates
+    if live_retrieval:
         from idpr.retrieval.models import CrossEncoderReranker, SentenceTransformerEncoder
 
         encoder = SentenceTransformerEncoder()
@@ -97,7 +139,11 @@ def main() -> None:
         for index, (case_id, record) in enumerate(sorted(inventory.items()), start=1):
             retrieved: list[str] = []
             retrieved_issue_ids: list[str] = []
-            if not args.no_retrieval:
+            if case_id in persisted_retrieval:
+                retrieved, retrieved_issue_ids = persisted_retrieval[case_id]
+            elif args.retrieval_candidates:
+                raise ValueError(f"retrieval artifact is missing {case_id}")
+            elif live_retrieval:
                 graph = graphs.get(case_id)
                 queries = (
                     retrieval_queries(graph)
@@ -127,12 +173,26 @@ def main() -> None:
                 retrieved = list(retrieval.retrieved_articles)
                 retrieved_issue_ids = list(retrieval.retrieved_issue_ids)
 
+            active_selected = (
+                () if args.routing_policy == RETRIEVAL_ONLY else selection.get(case_id, ())
+            )
+            active_retrieved = (
+                retrieved
+                if args.routing_policy in {LEGACY_UNION, RETRIEVAL_ONLY}
+                else ()
+            )
             candidates = candidate_issues(
-                selected=selection.get(case_id, ()),
-                retrieved=retrieved,
+                selected=active_selected,
+                retrieved=active_retrieved,
                 corpus=corpus,
                 attempt_map=attempt_map,
             )
+            active_articles = set(candidates.articles)
+            active_retrieved_issue_ids = [
+                issue_id
+                for issue_id in retrieved_issue_ids
+                if issue_id.split(".", 1)[0] in active_articles
+            ]
             scopes[case_id] = candidates
             per_question[case_id] = list(candidates.articles)
             handle.write(
@@ -140,7 +200,8 @@ def main() -> None:
                     issue_candidate_row(
                         case_id,
                         candidates,
-                        retrieved_issue_ids=retrieved_issue_ids,
+                        retrieved_articles=retrieved,
+                        retrieved_issue_ids=active_retrieved_issue_ids,
                     ),
                     ensure_ascii=False,
                 )
@@ -162,7 +223,12 @@ def main() -> None:
     ]
 
     report = {
-        "mode": "model_selection_only" if args.no_retrieval else "union",
+        "mode": args.routing_policy,
+        "retrieval_source": (
+            "none"
+            if args.no_retrieval
+            else "artifact" if args.retrieval_candidates else "live"
+        ),
         "top_k_articles": None if args.no_retrieval else args.top_k_articles,
         "questions": len(per_question),
         "buckets": bucket_counts(gold),

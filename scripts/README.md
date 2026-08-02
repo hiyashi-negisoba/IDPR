@@ -3,12 +3,19 @@
 ## Active pipeline
 
 - `run_call1_fact_graphs.py`: grounded fact extraction
-- `run_article_select.py`: neural article proposal
-- `run_l0_candidates.py`: retrieval/proposal union and issue scope persistence
+- `run_l0_candidates.py --routing-policy retrieval_only`: ranked retrieval-lane artifact
+- `run_article_select.py`: question-domain routing plus mandatory review of every retrieved
+  article; the model may supplement missing articles from the closed catalog
+- `run_l0_candidates.py --routing-policy reviewed_selection`: activate only reviewed
+  articles, preserve retrieval provenance, and persist the normalized issue scope
 - `run_issue_assessment.py`: issue assessment plus Scallop composition for one case
 - `run_issue_answer.py`: constrained offence-level IRAC generation for one case
 - `run_issue_pipeline_batch.py`: resumable dataset sweep
 - `refresh_l0_issue_catalog.py`: deterministic refresh after rule-catalog changes
+
+The stage order is retrieval → review → scope assembly. Retrieval is a discovery lane,
+not an authorization to open every matched article in Call 2. `legacy_union` remains an
+explicit `run_l0_candidates.py` policy only to reproduce Phase-2 measurements.
 
 ## Diagnostics
 

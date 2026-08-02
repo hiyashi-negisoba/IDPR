@@ -1,9 +1,13 @@
 """L0 candidate scope, normalized as article → issue → anchor/detail.
 
 One entry point, because the article decision now has three sources and downstream must not
-have to know that. The model selects from the whole 51-article catalog (call 1.5), hybrid
-retrieval contributes its shortlist, and the statute's attempt references expand
-deterministically. Measured over 31 scorable questions:
+have to know that. The model routes over the substantive provisions in the 51-article
+catalog (call 1.5), hybrid retrieval contributes its shortlist, and the statute's attempt
+references expand deterministically. The historical flat-card measurements below explain
+why provenance remains separate; current issue-first measurements live in the evaluation
+reports.
+
+Historical measurement over 31 scorable questions:
 
     LLM 선정 단독              0.727   (4.5 articles,  8.1k call-2 tokens)
     검색 top-18 단독           0.877   (20.3 articles, 62.0k)

@@ -215,7 +215,14 @@ def test_general_runtime_scripts_do_not_import_flat_card_boundaries():
 
 def test_l0_serialization_contains_issue_ids_and_no_flat_card_ids():
     scope = candidate_issues(selected=["art329"])
-    row = issue_candidate_row("case-1", scope)
+    row = issue_candidate_row(
+        "case-1",
+        scope,
+        retrieved_articles=["art329", "art298", "art329"],
+        retrieved_issue_ids=["art329.Ⅱ.element_issue"],
+    )
     assert row["issue_ids"] == list(scope.issue_ids)
     assert row["initial_issue_ids"]
+    assert row["retrieved_articles"] == ["art329", "art298"]
+    assert row["retrieved_issue_ids"] == ["art329.Ⅱ.element_issue"]
     assert "card_ids" not in row

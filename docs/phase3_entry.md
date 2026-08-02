@@ -116,7 +116,9 @@ L0가 닫혔다. **입력은 `data/eval/l0_candidates.jsonl`(61문항 전부)이
 - **검증기**: `validate_fraud_assessment_bundle`을 일반화한다. **status↔evidence 결합 검증이
   과생성의 구조적 브레이크**다 — `satisfied`는 basis fact ≥1, `not_satisfied`는 counter
   fact ≥1, `unknown`은 `missing_facts` 필수. 엉뚱하게 끌려온 조문은 인용할 사실이 없어
-  `unknown`으로 강제된다. 이것이 합집합 top-18의 잉여 조문을 감당하는 장치다.
+  `unknown`으로 강제된다. 다만 후속 전체범위 E2E에서 `unknown` 조문도 Call 3 작성량을
+  크게 늘리는 것이 확인되었으므로, 이것만으로 top-18의 잉여 조문을 감당할 수 있다는
+  가정은 폐기했다. 현재는 Call 1.5를 정밀도 경로, 검색을 재현율 경로로 분리한다.
 - `polarity` 반전은 **호스트가 결정론적으로** 한다(계획서 line 79).
 
 ### 4. 콜 2 러너 + sbatch (0·1·3 필요)

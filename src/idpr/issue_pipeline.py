@@ -152,9 +152,15 @@ def issue_candidate_row(
     case_id: str,
     candidates: IssueCandidateSet,
     *,
+    retrieved_articles: Sequence[str] = (),
     retrieved_issue_ids: Sequence[str] = (),
 ) -> dict[str, Any]:
-    """Persist the issue hierarchy only; flat card ids are not a stage boundary."""
+    """Persist the issue hierarchy and the retrieval lane without losing provenance.
+
+    ``from_retrieval`` is the retrieval contribution to the old union and therefore drops
+    candidates also selected by the model. ``retrieved_articles`` is the untouched ranked
+    shortlist needed by a later reranker; the two fields are intentionally not aliases.
+    """
     return {
         "sub_question_id": case_id,
         **candidates.as_dict(),
@@ -165,6 +171,7 @@ def issue_candidate_row(
         "deferred_issue_ids": [
             issue.issue_id for issue in candidates.deferred_issues
         ],
+        "retrieved_articles": list(dict.fromkeys(retrieved_articles)),
         "retrieved_issue_ids": list(retrieved_issue_ids),
     }
 

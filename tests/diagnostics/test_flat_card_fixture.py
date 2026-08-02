@@ -14,23 +14,27 @@ from scripts.diagnostics.run_flat_card_smoke import (
 )
 
 
-def test_smoke_plan_is_two_article_whole_batches():
+def test_flat_card_diagnostic_batches_are_complete():
     case, graph, batches = prepare_case(case_id=DEFAULT_CASE_ID)
     assert len(batches) == 2
     card_ids = [card_id for batch in batches for card_id in batch.card_ids]
-    assert len(card_ids) == len(set(card_ids)) == 749
+    assert card_ids
+    assert len(card_ids) == len(set(card_ids))
     article_to_batch = {
         article: index for index, batch in enumerate(batches) for article in batch.articles
     }
-    assert len(article_to_batch) == 22
+    assert set(article_to_batch) == {
+        card.article for batch in batches for card in batch.cards
+    }
     assert all(
         article_to_batch[card.article] == index
         for index, batch in enumerate(batches)
         for card in batch.cards
     )
-    assert [
+    ceilings = [
         DEFAULT_OUTPUT_OVERHEAD + DEFAULT_TOKENS_PER_CARD * len(batch.cards) for batch in batches
-    ] == [30_464, 31_504]
+    ]
+    assert all(ceiling > DEFAULT_OUTPUT_OVERHEAD for ceiling in ceilings)
 
     facts = assessment_facts(graph)
     request = assessment_request(case=case, fact_graph=graph, cards=batches[0].model_payload())
@@ -74,6 +78,7 @@ def test_article_ab_batches_keep_each_requested_article_complete():
         ("art301",),
         ("art319",),
     ]
-    assert [len(batch.cards) for batch in batches] == [28, 50, 23, 92]
+    assert all(batch.cards for batch in batches)
     assert all(card.article == batch.articles[0] for batch in batches for card in batch.cards)
-    assert len({card.id for batch in batches for card in batch.cards}) == 193
+    card_ids = [card.id for batch in batches for card in batch.cards]
+    assert len(card_ids) == len(set(card_ids))

@@ -21,8 +21,9 @@ set -euo pipefail
 
 source "${IDPR_PROJECT_ROOT:-${SLURM_SUBMIT_DIR:-$PWD}}/scripts/slurm/_env.sh"
 RUN_DIR="$PROJECT_ROOT/.cache/article_select/${SLURM_JOB_ID}"
-SELECTION="$PROJECT_ROOT/data/eval/article_selection.jsonl"
-REPORT="$PROJECT_ROOT/data/eval/article_select_report.json"
+SELECTION="${IDPR_ARTICLE_SELECTION:-$PROJECT_ROOT/data/eval/article_selection.jsonl}"
+REPORT="${IDPR_ARTICLE_SELECT_REPORT:-$PROJECT_ROOT/data/eval/article_select_report.json}"
+RETRIEVAL_CANDIDATES="${IDPR_RETRIEVAL_HINTS:-}"
 
 # Byte-identical to run_retrieval_l0.sh phase 1. JE_ARROW_MALLOC_CONF is not optional:
 # without it vLLM segfaults with a zero-byte log.
@@ -33,7 +34,7 @@ export JE_ARROW_MALLOC_CONF="${JE_ARROW_MALLOC_CONF:-background_thread:false}"
 export TORCH_CUDA_ARCH_LIST="12.0"
 
 cd "$PROJECT_ROOT"
-mkdir -p "$RUN_DIR" logs data/eval
+mkdir -p "$RUN_DIR" logs "$(dirname "$SELECTION")" "$(dirname "$REPORT")"
 
 echo "=== IDPR article selection start: $(date) ==="
 echo "job=$SLURM_JOB_ID host=$(hostname)"
@@ -102,11 +103,16 @@ fi
 
 echo "=== call 1.5: article selection over the inventory ==="
 export PYTHONPATH="$PROJECT_ROOT/src"
+EXTRA_ARGS=()
+if [ -n "$RETRIEVAL_CANDIDATES" ]; then
+    EXTRA_ARGS+=(--retrieval-candidates "$RETRIEVAL_CANDIDATES")
+fi
 "$CLIENT_PYTHON" scripts/run_article_select.py \
     --base-url "http://127.0.0.1:${PORT}" \
     --model "$SERVED_MODEL" \
     --api-key "$LOCAL_API_KEY" \
-    --out "$SELECTION"
+    --out "$SELECTION" \
+    "${EXTRA_ARGS[@]}"
 
 cleanup
 echo "vLLM stopped"

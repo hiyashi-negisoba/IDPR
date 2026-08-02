@@ -1,4 +1,4 @@
-"""Call 1.5 over the KCL inventory: article selection from the full 51-article catalog.
+"""Call 1.5 over the KCL inventory: fact-linked routing from the normalized catalog.
 
 Written to disk as an artifact for the same reason call 1 is: the measurement half runs on
 CPU and must be re-runnable without paying for the model again, and a recall miss has to be
@@ -6,8 +6,8 @@ readable afterwards -- the model's per-article ``reason`` is the record of why i
 what it picked.
 
 Input whitelist is enforced, not documented: the payload carries ``question_text``,
-``question_prompt`` and the host's article catalog, and ``assert_no_leaked_fields`` gates
-it before the request goes out.
+``question_prompt``, Call 1's grounded issue hints and the host's article catalog.
+``assert_no_leaked_fields`` gates it before the request goes out.
 """
 
 from __future__ import annotations
@@ -23,6 +23,7 @@ from idpr.neural.article_select import (
     article_select_schema,
     expand_attempt_articles,
     load_catalog,
+    selectable_catalog,
     selection_payload,
     validate_selection,
 )
@@ -30,6 +31,7 @@ from idpr.neural.vllm_client import VLLMClient, VLLMClientError
 from idpr.prompts import load_prompt
 
 DEFAULT_OUT = PROJECT_ROOT / "data" / "eval" / "article_selection.jsonl"
+DEFAULT_FACT_GRAPHS = PROJECT_ROOT / "data" / "eval" / "fact_graphs.jsonl"
 SYSTEM_PROMPT = "article_select"
 USER_PROMPT = "article_select_user"
 
@@ -42,14 +44,31 @@ def load_inventory(path: Path) -> list[dict]:
     ]
 
 
+def retrieval_articles(row: dict) -> list[str]:
+    """Read the untouched ranked lane, including legacy artifacts losslessly when possible."""
+    if "retrieved_articles" in row:
+        return list(dict.fromkeys(row["retrieved_articles"]))
+    if row.get("retrieved_issue_ids"):
+        return list(
+            dict.fromkeys(issue_id.split(".", 1)[0] for issue_id in row["retrieved_issue_ids"])
+        )
+    return list(dict.fromkeys(row.get("from_retrieval", ())))
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base-url", required=True)
     parser.add_argument("--model", required=True)
     parser.add_argument("--api-key", default="local-idpr")
     parser.add_argument("--inventory", type=Path, default=INVENTORY_PATH)
+    parser.add_argument("--fact-graphs", type=Path, default=DEFAULT_FACT_GRAPHS)
+    parser.add_argument(
+        "--retrieval-candidates",
+        type=Path,
+        help="optional prior retrieval artifact whose from_retrieval list is reranked",
+    )
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
-    parser.add_argument("--max-tokens", type=int, default=2048)
+    parser.add_argument("--max-tokens", type=int, default=4096)
     parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--limit", type=int, default=0, help="0 = every question")
     args = parser.parse_args()
@@ -57,10 +76,24 @@ def main() -> None:
     client = VLLMClient(base_url=args.base_url, model=args.model, api_key=args.api_key)
     system_prompt = load_prompt(SYSTEM_PROMPT)
     user_template = load_prompt(USER_PROMPT)
-    catalog = load_catalog()
-    schema = article_select_schema(catalog)
+    # The source catalog covers the whole corpus. Generic attempt provisions are removed
+    # from the model enum and restored from the selected base offences after validation.
+    catalog = selectable_catalog(load_catalog())
+    selectable_keys = {entry["key"] for entry in catalog}
 
     records = load_inventory(args.inventory)
+    fact_graphs = {
+        row["sub_question_id"]: row["fact_graph"]
+        for row in load_inventory(args.fact_graphs)
+    }
+    retrieval_candidates = {
+        row["sub_question_id"]: retrieval_articles(row)
+        for row in (
+            load_inventory(args.retrieval_candidates)
+            if args.retrieval_candidates
+            else []
+        )
+    }
     if args.limit:
         records = records[: args.limit]
 
@@ -70,16 +103,28 @@ def main() -> None:
     with args.out.open("w", encoding="utf-8") as handle:
         for index, record in enumerate(records, start=1):
             case_id = record["sub_question_id"]
+            if case_id not in fact_graphs:
+                raise ValueError(f"fact graph artifact is missing {case_id}")
             question_prompt = record.get("question_prompt", "")
+            retrieval_hints = tuple(
+                article
+                for article in dict.fromkeys(retrieval_candidates.get(case_id, ()))
+                if article in selectable_keys
+            )
             payload = selection_payload(
                 case_id=case_id,
                 question_text=scoped_question_text(
                     record["question_text"], question_prompt
                 ),
                 question_prompt=question_prompt,
+                issue_hints=fact_graphs[case_id].get("issue_candidates", ()),
+                retrieval_hints=retrieval_hints,
                 catalog=catalog,
             )
             assert_no_leaked_fields(payload)
+            schema = article_select_schema(
+                catalog, retrieval_hints=retrieval_hints
+            )
 
             row: dict = {"sub_question_id": case_id}
             output = None
@@ -93,8 +138,24 @@ def main() -> None:
                     temperature=args.temperature,
                     user_template=user_template,
                 )
-                selected, entries = validate_selection(output, catalog=catalog)
+                selected, entries = validate_selection(
+                    output, catalog=catalog, retrieval_hints=retrieval_hints
+                )
                 expanded = expand_attempt_articles(selected)
+                row["question_domain"] = output["question_domain"]
+                row["model_selected"] = [
+                    entry["article"]
+                    for entry in output["selected"]
+                    if entry["article"] != "no_substantive_offense"
+                ]
+                row["candidate_decisions"] = [
+                    {"article": article, **dict(decision)}
+                    for article, decision in zip(
+                        retrieval_hints,
+                        output["candidate_decisions"],
+                        strict=True,
+                    )
+                ]
                 row["selected"] = list(selected)
                 row["articles"] = list(expanded)
                 # Reported separately so the deterministic half of the recall is visible.

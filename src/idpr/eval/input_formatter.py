@@ -53,18 +53,47 @@ _STANDALONE_SCOPE = re.compile(
     r"사실관계\s*\((\d+)\)\s*(?:과|와)\s*관련하여,?"
 )
 _NUMBERED_FACT = re.compile(r"(?m)^\s*\((\d+)\)\s*")
+_PARTY_SYMBOL = re.compile(r"[甲乙丙丁戊己庚辛壬癸]")
+
+
+def _numbered_blocks(question_text: str) -> dict[int, str]:
+    parts = [part.strip() for part in re.split(r"\n\s*\n", question_text) if part.strip()]
+    if len(parts) < 2:
+        return {}
+    fact_body = "\n\n".join(parts[:-1])
+    markers = list(_NUMBERED_FACT.finditer(fact_body))
+    return {
+        int(marker.group(1)): fact_body[
+            marker.start() : (
+                markers[position + 1].start()
+                if position + 1 < len(markers)
+                else len(fact_body)
+            )
+        ].strip()
+        for position, marker in enumerate(markers)
+    }
 
 
 def scoped_question_text(question_text: str, question_prompt: str) -> str:
     """Return the fact blocks explicitly named by the question prompt.
 
     The parser uses source labels only; it does not inspect rubrics or infer legal
-    relevance. If a requested label cannot be resolved, the original text is returned.
+    relevance. When the prompt omits a number but names parties that occur together in
+    exactly one numbered block, that unique source-level reference is also used. Ambiguous
+    or unresolved references keep the original text.
     """
     references = tuple(
         dict.fromkeys(int(value) for value in _SCOPE_REFERENCE.findall(question_prompt))
     )
     if not references:
+        actors = tuple(dict.fromkeys(_PARTY_SYMBOL.findall(question_prompt)))
+        blocks = _numbered_blocks(question_text)
+        if actors and blocks:
+            matching = [
+                block for block in blocks.values() if all(actor in block for actor in actors)
+            ]
+            if len(matching) == 1:
+                return "\n\n".join([matching[0], question_prompt.strip()])
         return question_text
 
     parts = [part.strip() for part in re.split(r"\n\s*\n", question_text) if part.strip()]
@@ -95,20 +124,9 @@ def scoped_question_text(question_text: str, question_prompt: str) -> str:
 
     if len(parts) < 2:
         return question_text
-    fact_body = "\n\n".join(parts[:-1])
-    markers = list(_NUMBERED_FACT.finditer(fact_body))
-    if not markers:
+    blocks = _numbered_blocks(question_text)
+    if not blocks:
         return question_text
-    blocks = {
-        int(marker.group(1)): fact_body[
-            marker.start() : (
-                markers[position + 1].start()
-                if position + 1 < len(markers)
-                else len(fact_body)
-            )
-        ].strip()
-        for position, marker in enumerate(markers)
-    }
     if not all(reference in blocks for reference in references):
         return question_text
     return "\n\n".join([*(blocks[reference] for reference in references), parts[-1]])
