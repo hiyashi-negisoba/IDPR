@@ -60,6 +60,28 @@ def _assessment_schema(fact_ids: Sequence[str]) -> dict[str, Any]:
                 "items": {"type": "string", "minLength": 1, "maxLength": 300},
             },
         },
+        # The status constants are disjoint, so ``anyOf`` has one matching branch.  The
+        # guidance backend implements anyOf directly; oneOf would require coercion.
+        "anyOf": [
+            {
+                "properties": {
+                    "status": {"const": "satisfied"},
+                    "basis_fact_ids": {"minItems": 1},
+                }
+            },
+            {
+                "properties": {
+                    "status": {"const": "not_satisfied"},
+                    "counter_fact_ids": {"minItems": 1},
+                }
+            },
+            {
+                "properties": {
+                    "status": {"const": "unknown"},
+                    "missing_facts": {"minItems": 1},
+                }
+            },
+        ],
     }
 
 

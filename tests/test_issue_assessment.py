@@ -38,6 +38,20 @@ def test_schema_requires_every_issue_exactly_once():
     assert assessments["additionalProperties"] is False
 
 
+def test_schema_guides_status_evidence_coupling_before_host_validation():
+    schema = issue_assessment_schema(
+        case_id="case-1", issue_ids=["art329.Ⅱ.element_issue"], fact_ids=["f1"]
+    )
+    assessment = schema["$defs"]["assessment"]
+    branches = {
+        branch["properties"]["status"]["const"]: branch["properties"]
+        for branch in assessment["anyOf"]
+    }
+    assert branches["satisfied"]["basis_fact_ids"]["minItems"] == 1
+    assert branches["not_satisfied"]["counter_fact_ids"]["minItems"] == 1
+    assert branches["unknown"]["missing_facts"]["minItems"] == 1
+
+
 def test_schema_accepts_safe_uppercase_external_case_ids():
     case_id = "CASE_KCL1730_2026_BRIBERY_FRAUD_002"
     schema = issue_assessment_schema(
