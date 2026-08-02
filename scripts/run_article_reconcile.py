@@ -24,6 +24,7 @@ from idpr.neural.article_reconcile import (
     validate_reconciliation_matrix,
 )
 from idpr.neural.article_select import attempt_article_map, load_catalog
+from idpr.neural.fact_graph import retrieval_queries
 from idpr.neural.vllm_client import VLLMClient, VLLMClientError
 from idpr.prompts import load_prompt
 from idpr.rulebase.cards import card_corpus
@@ -90,6 +91,7 @@ def main() -> None:
     parser.add_argument("--api-key", default="local-idpr")
     parser.add_argument("--inventory", type=Path, required=True)
     parser.add_argument("--selection", type=Path, required=True)
+    parser.add_argument("--fact-graphs", type=Path, required=True)
     parser.add_argument("--candidates", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--l0-out", type=Path, required=True)
@@ -105,6 +107,11 @@ def main() -> None:
             entry["article"]: entry["reason"] for entry in row.get("entries", ())
         }
         for row in _rows(args.selection)
+    }
+    graphs = {
+        row["sub_question_id"]: row["fact_graph"]
+        for row in _rows(args.fact_graphs)
+        if "fact_graph" in row
     }
     candidate_rows = _rows(args.candidates)
     expected = set(inventory)
@@ -144,6 +151,7 @@ def main() -> None:
             ),
             question_prompt=record.get("question_prompt", ""),
             candidates=evidence,
+            upstream_hypotheses=retrieval_queries(graphs[case_id]),
         )
         assert_no_leaked_fields(payload)
         output = None

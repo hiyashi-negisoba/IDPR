@@ -85,6 +85,7 @@ def reconciliation_payload(
     question_text: str,
     question_prompt: str,
     candidates: Sequence[Mapping[str, Any]],
+    upstream_hypotheses: Sequence[str] = (),
 ) -> dict[str, Any]:
     """Build the input whitelist: scoped case text plus auditable candidate evidence."""
     allowed_keys = {
@@ -112,12 +113,16 @@ def reconciliation_payload(
         normalized.append(dict(candidate))
     if not normalized:
         raise ValueError("candidates must not be empty")
-    return {
+    payload = {
         "case_id": case_id,
         "case_text": question_text,
         "question_prompt": question_prompt,
         "candidates": normalized,
     }
+    hypotheses = list(dict.fromkeys(value.strip() for value in upstream_hypotheses if value.strip()))
+    if hypotheses:
+        payload["upstream_hypotheses"] = hypotheses
+    return payload
 
 
 def validate_reconciliation(

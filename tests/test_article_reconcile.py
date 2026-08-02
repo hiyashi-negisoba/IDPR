@@ -53,6 +53,18 @@ def test_payload_rejects_evaluation_metadata():
         )
 
 
+def test_payload_can_carry_deduplicated_upstream_hypotheses():
+    payload = reconciliation_payload(
+        case_id="c1",
+        question_text="facts",
+        question_prompt="prompt",
+        candidates=[{"article": "art355"}],
+        upstream_hypotheses=["횡령", "횡령", "  "],
+    )
+    assert payload["upstream_hypotheses"] == ["횡령"]
+    assert_no_leaked_fields(payload)
+
+
 def test_response_cannot_restore_an_article_outside_the_union():
     with pytest.raises(ArticleReconcileError):
         validate_reconciliation(

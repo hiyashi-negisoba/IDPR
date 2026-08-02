@@ -19,6 +19,7 @@ export IDPR_RECONCILE_ACTUAL_ROOT="$RUN_ROOT"
 INVENTORY="$PROJECT_ROOT/data/smoke/phase3_e2e_inventory.jsonl"
 SELECTION="$FREEZE_ROOT/article_selection.jsonl"
 CANDIDATES="$FREEZE_ROOT/l0_candidates.jsonl"
+FACT_GRAPHS="$FREEZE_ROOT/fact_graphs.jsonl"
 SERVER_LOG="$RUN_ROOT/vllm.log"
 
 export TOKENIZERS_PARALLELISM=false
@@ -78,6 +79,7 @@ for POLICY in $POLICIES; do
         --api-key "$LOCAL_API_KEY" \
         --inventory "$INVENTORY" \
         --selection "$SELECTION" \
+        --fact-graphs "$FACT_GRAPHS" \
         --candidates "$CANDIDATES" \
         --system-prompt "$POLICY" \
         --response-mode "$RESPONSE_MODE" \
