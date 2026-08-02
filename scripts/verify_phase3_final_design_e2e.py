@@ -25,8 +25,12 @@ def main() -> None:
 
     kcl = load_json(args.run_root / "cases" / KCL / "issue_assessment.json")
     relations = kcl["symbolic_runtime"]["relations"]
-    checks["kcl_art297_is_attempt_not_completed"] = (
-        [KCL, "art297"] in relations.get("offense_attempted", [])
+    # A refuted completion issue must never become a completed/final offence.  Whether
+    # the attempt itself is established still depends on every upstream element status;
+    # preserve it for attempt review instead of making this E2E gate override a neural
+    # element assessment.
+    checks["kcl_art297_preserves_attempt_review_without_false_completion"] = (
+        [KCL, "art297"] in relations.get("attempt_to_consider", [])
         and [KCL, "art297"] not in relations.get("offense_established", [])
         and [KCL, "art297"] not in relations.get("final_offense", [])
     )
