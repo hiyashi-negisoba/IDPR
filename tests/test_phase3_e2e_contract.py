@@ -6,6 +6,7 @@ from idpr.eval.e2e_contract import (
     E2EContractError,
     SMOKE_CASE_IDS,
     index_exact,
+    project_relative,
     validate_smoke_inventory,
     validate_symbolic_relations,
 )
@@ -64,3 +65,13 @@ def test_l0_report_gold_is_limited_to_the_invocation_inventory():
     gold = {"case-a": object(), "case-b": object(), "case-c": object()}
     inventory = {"case-b": {}, "custom-case": {}}
     assert gold_for_inventory(gold, inventory) == {"case-b": gold["case-b"]}
+
+
+def test_project_relative_resolves_workspace_symlink_aliases(tmp_path):
+    project = tmp_path / "physical-project"
+    asset = project / "data" / "input.jsonl"
+    asset.parent.mkdir(parents=True)
+    asset.write_text("{}\n", encoding="utf-8")
+    alias = tmp_path / "workspace-alias"
+    alias.symlink_to(project, target_is_directory=True)
+    assert project_relative(alias / "data/input.jsonl", project) == "data/input.jsonl"

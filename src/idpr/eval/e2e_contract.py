@@ -123,6 +123,14 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def project_relative(path: Path, project_root: Path) -> str:
+    """Return a stable project path even when the workspace is reached through a symlink."""
+    try:
+        return str(path.resolve().relative_to(project_root.resolve()))
+    except ValueError as error:
+        raise E2EContractError(f"{path} is outside project root {project_root}") from error
+
+
 def _git_sha(project_root: Path) -> str:
     return subprocess.run(
         ["git", "rev-parse", "HEAD"],
@@ -159,6 +167,7 @@ def verify_run(
     slurm_job_id: str,
     parameters: Mapping[str, Any],
     stage_seconds: Mapping[str, float],
+    tested_code_commit: str | None = None,
 ) -> dict[str, Any]:
     inventory = validate_smoke_inventory(read_jsonl(inventory_path))
     rubric = read_json(rubric_path)
@@ -276,7 +285,8 @@ def verify_run(
         "version": "1.0.0",
         "status": "passed",
         "contract_scope": "two-case structural E2E; no rubric scoring or retrieval gate",
-        "tested_code_commit": _git_sha(project_root),
+        "tested_code_commit": tested_code_commit or _git_sha(project_root),
+        "verifier_commit": _git_sha(project_root),
         "freeze_tag": "phase3-e2e-freeze-v1",
         "slurm_job_id": slurm_job_id,
         "model": model,
@@ -284,13 +294,13 @@ def verify_run(
         "stage_seconds": dict(stage_seconds),
         "prompt_sha256": {name: sha256_file(prompt_path(name)) for name in PROMPT_NAMES},
         "scallop": {
-            "path": str(DEFAULT_SCLI.relative_to(project_root)),
+            "path": project_relative(DEFAULT_SCLI, project_root),
             "version": runtime_version(),
             "sha256": sha256_file(DEFAULT_SCLI),
         },
         "inputs": {
-            str(inventory_path.relative_to(project_root)): sha256_file(inventory_path),
-            str(rubric_path.relative_to(project_root)): sha256_file(rubric_path),
+            project_relative(inventory_path, project_root): sha256_file(inventory_path),
+            project_relative(rubric_path, project_root): sha256_file(rubric_path),
         },
         "artifacts": {
             str(path.relative_to(run_root)): sha256_file(path) for path in hashed_files

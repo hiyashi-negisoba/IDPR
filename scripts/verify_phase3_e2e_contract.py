@@ -38,6 +38,10 @@ def main() -> None:
     )
     parser.add_argument("--model", required=True)
     parser.add_argument("--slurm-job-id", required=True)
+    parser.add_argument(
+        "--tested-code-commit",
+        help="Git commit used to generate the model artifacts (default: current HEAD)",
+    )
     parser.add_argument("--parameter", action="append", default=[])
     parser.add_argument("--stage-seconds", action="append", default=[])
     parser.add_argument("--out", type=Path)
@@ -51,6 +55,7 @@ def main() -> None:
         slurm_job_id=args.slurm_job_id,
         parameters=_pairs(args.parameter, numeric=False),
         stage_seconds=_pairs(args.stage_seconds, numeric=True),
+        tested_code_commit=args.tested_code_commit,
     )
     out = args.out or args.run_root / "freeze_manifest.json"
     out.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

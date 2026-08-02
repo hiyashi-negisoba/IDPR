@@ -177,6 +177,7 @@ TOTAL_SECONDS=$(( $(date +%s) - JOB_START ))
     --rubric "$RUBRIC" \
     --model "$SERVED_MODEL" \
     --slurm-job-id "$SLURM_JOB_ID" \
+    --tested-code-commit "$(git rev-parse HEAD)" \
     --parameter "call1_max_tokens=$CALL1_MAX_TOKENS" \
     --parameter "call1_5_max_tokens=$CALL15_MAX_TOKENS" \
     --parameter "retrieval_top_k_articles=$TOP_K_ARTICLES" \
