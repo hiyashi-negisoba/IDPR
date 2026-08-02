@@ -38,6 +38,16 @@ def test_schema_requires_every_issue_exactly_once():
     assert assessments["additionalProperties"] is False
 
 
+def test_schema_accepts_safe_uppercase_external_case_ids():
+    case_id = "CASE_KCL1730_2026_BRIBERY_FRAUD_002"
+    schema = issue_assessment_schema(
+        case_id=case_id,
+        issue_ids=["art347.Ⅱ.element_issue"],
+        fact_ids=["f1"],
+    )
+    assert schema["properties"]["case_id"] == {"const": case_id}
+
+
 def test_request_keeps_rules_inside_one_issue_not_as_separate_tasks():
     request = issue_assessment_request(
         case={"sub_question_id": "case-1", "question_text": "사례", "question_prompt": ""},

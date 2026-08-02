@@ -181,6 +181,14 @@ def test_issue_statuses_are_rendered_without_card_status_translation():
     assert '("c1", "art329.Ⅱ.element_issue", "satisfied")' in rendered
 
 
+def test_safe_uppercase_external_case_ids_reach_scallop_as_data():
+    case_id = "CASE_KCL1730_2026_BRIBERY_FRAUD_002"
+    rendered = render_issue_statuses(
+        case_id, [("art347.Ⅱ.element_issue", "satisfied")]
+    )
+    assert case_id in rendered
+
+
 def test_issue_statuses_reject_unsafe_input():
     with pytest.raises(StatusFactError, match="safe identifier"):
         render_issue_statuses("bad id", [("issue", "satisfied")])

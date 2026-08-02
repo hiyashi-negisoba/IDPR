@@ -17,7 +17,7 @@ from idpr.neural.fact_graph import assessment_facts
 
 SCHEMA_VERSION = "2.0.0"
 STATUSES = ("satisfied", "not_satisfied", "unknown")
-_CASE_ID_RE = re.compile(r"^[a-z0-9][a-z0-9_.-]*$")
+_CASE_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
 
 
 class IssueAssessmentError(ValueError):

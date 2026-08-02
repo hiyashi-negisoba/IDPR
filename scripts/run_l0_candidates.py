@@ -1,4 +1,4 @@
-"""L0 output: candidate articles and normalized issues consumed downstream, for all 61.
+"""L0 output: candidate articles and normalized issues consumed downstream.
 
 This is the artifact Phase 3 reads. It exists as a file rather than an in-memory step for
 the reason every other stage boundary here does: the two sources need different models and
@@ -51,6 +51,11 @@ def _rows(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
+def gold_for_inventory(gold: dict, inventory: dict) -> dict:
+    """Limit evaluation metadata to cases actually present in this invocation."""
+    return {case_id: gold[case_id] for case_id in inventory if case_id in gold}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--fact-graphs", type=Path, default=DEFAULT_FACT_GRAPHS)
@@ -73,6 +78,7 @@ def main() -> None:
     attempt_map = attempt_article_map()
     gold = load_issue_gold()
     inventory = {row["sub_question_id"]: row for row in _rows(args.inventory)}
+    run_gold = gold_for_inventory(gold, inventory)
     graphs = {row["sub_question_id"]: row["fact_graph"] for row in _rows(args.fact_graphs)
               if "fact_graph" in row}
     selection = {row["sub_question_id"]: row["selected"] for row in _rows(args.selection)
@@ -151,8 +157,11 @@ def main() -> None:
                   f"{len(candidates.articles)} articles / "
                   f"{len(candidates.initial_issues)} initial issues")
 
-    scores = [recall(gold[q].articles, a) for q, a in per_question.items()
-              if gold[q].bucket == SCORABLE]
+    scores = [
+        recall(run_gold[q].articles, articles)
+        for q, articles in per_question.items()
+        if q in run_gold and run_gold[q].bucket == SCORABLE
+    ]
     scores = [s for s in scores if s is not None]
     sizes = [len(a) for a in per_question.values()]
     initial_issues = [len(scope.initial_issues) for scope in scopes.values()]
@@ -165,7 +174,7 @@ def main() -> None:
         "mode": "model_selection_only" if args.no_retrieval else "union",
         "top_k_articles": None if args.no_retrieval else args.top_k_articles,
         "questions": len(per_question),
-        "buckets": bucket_counts(gold),
+        "buckets": bucket_counts(run_gold),
         "macro_recall": round(st.mean(scores), 4) if scores else None,
         "fully_recovered": sum(1 for s in scores if s == 1.0),
         "scorable": len(scores),
@@ -178,7 +187,7 @@ def main() -> None:
             "median": int(st.median(anchors)),
             "max": max(anchors),
         },
-        "missed_articles": missed_articles(gold, per_question),
+        "missed_articles": missed_articles(run_gold, per_question),
     }
     if args.checks:
         checks = json.loads(args.checks.read_text(encoding="utf-8"))

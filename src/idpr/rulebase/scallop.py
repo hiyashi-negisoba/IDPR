@@ -28,7 +28,7 @@ DEFAULT_SCLI = PROJECT_ROOT / "tools/scallop/scli-0.2.4-linux-x86_64"
 
 VALID_STATUSES = frozenset({"satisfied", "not_satisfied", "unknown"})
 
-_CASE_ID_RE = re.compile(r"^[a-z0-9][a-z0-9_.-]*$")
+_CASE_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
 _TUPLE_RE = re.compile(r"\(([^)]*)\)")
 _ELEMENT_RE = re.compile(r'"((?:[^"\\]|\\.)*)"')
 
