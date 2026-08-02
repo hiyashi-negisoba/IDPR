@@ -115,7 +115,7 @@ stage, 실제 판정된 후속 issue와 정확한 symbolic condition은 보존�
 정확히 제한할 필요가 있음을 확인했다. 최종 계약에서는 모델이 Issue·Rule·Application과
 쟁점별 소결만 작성하고, 죄명별 Conclusion과 종합 Conclusion은 동일한 symbolic directive에서
 호스트가 결정론적으로 생성한다. 이는 문구 검증 게이트가 아니라 추론과 작성의 소유권
-경계다. 최종 재실행 218155에서 이 계약을 확인한다.
+경계다. 최종 재실행 218155에서 이 계약과 20개 쟁점의 누락 없는 통합 IRAC를 확인했다.
 
 ## 향후 확률형 확장
 
@@ -173,7 +173,7 @@ anchor만 적재한다.
 - 최종 통합 IRAC·작성 의미 보존 후: 487 passed
 - Python compileall 및 git diff --check 통과
 - 검색 평가: PRO6000 잡 217961(anchor-only), 217972(card→issue)
-- 최신 E2E: PRO6000 잡 218151(Call 2→Scallop→Call 3), 218154(통합 IRAC 최종 문구)
+- 최신 E2E: PRO6000 잡 218151(Call 2→Scallop→Call 3), 218155(통합 IRAC·호스트 결론)
 
 ## 남은 비차단 작업
 
