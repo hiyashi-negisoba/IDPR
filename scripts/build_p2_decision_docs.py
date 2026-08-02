@@ -14,6 +14,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 from pathlib import Path
 from typing import Any
@@ -24,7 +25,9 @@ REM = PROJECT_ROOT / "data/rulegen/p2/remediated"
 OUT = PROJECT_ROOT / "data/rulegen/p2"
 MANIFEST = PROJECT_ROOT / "data/rulegen/campaign/kcl_substantive_campaign_manifest.json"
 QUEUE_PATH = OUT / "p2_norm_card_review_queue.json"
-COMMENTARY_DOCS = Path("/data5/jaehoonjeong/sp/data/serve/commentary_chunks/docs.parquet")
+COMMENTARY_DOCS = Path(
+    os.environ.get("IDPR_COMMENTARY_PARQUET", PROJECT_ROOT / "data/raw/commentary.parquet")
+)
 
 
 def load_p2_slugs() -> set[str]:
@@ -74,8 +77,10 @@ def unwrap_proposition(text: str) -> str:
 
 
 def load_cards() -> dict[tuple[str, str], list[dict[str, Any]]]:
-    return {(p.parts[-2], p.stem): json.loads(p.read_text(encoding="utf-8")).get("cards", [])
-            for p in REM.glob("*/*.json")}
+    return {
+        (p.parts[-2], p.stem): json.loads(p.read_text(encoding="utf-8")).get("cards", [])
+        for p in REM.glob("*/*.json")
+    }
 
 
 def load_cards_map() -> dict[str, dict[str, Any]]:
@@ -89,6 +94,7 @@ def load_cards_map() -> dict[str, dict[str, Any]]:
 
 def load_commentary_text() -> dict[str, str]:
     import pyarrow.parquet as pq
+
     t = pq.read_table(COMMENTARY_DOCS, columns=["comment_id", "document_text"])
     return dict(zip(t["comment_id"].to_pylist(), t["document_text"].to_pylist()))
 
@@ -98,12 +104,14 @@ def resolve(cards: list[dict[str, Any]], part: int, tp: str | None):
     m = re.search(r"cards[\.\[](\d+)", t)
     if not m:
         return None
-    seg = cards[(part - 1) * 50: part * 50]
+    seg = cards[(part - 1) * 50 : part * 50]
     i = int(m.group(1))
     return seg[i] if i < len(seg) else None
 
 
-def build_decision_a(cards_by: dict[tuple[str, str], list[dict[str, Any]]], commentary_text: dict[str, str]) -> int:
+def build_decision_a(
+    cards_by: dict[tuple[str, str], list[dict[str, Any]]], commentary_text: dict[str, str]
+) -> int:
     rows: list[dict[str, Any]] = []
     for sp in sorted(DS.glob("art*/*/sol/*.json")):
         art = sp.parts[-4]
@@ -117,11 +125,14 @@ def build_decision_a(cards_by: dict[tuple[str, str], list[dict[str, Any]]], comm
             ft = f.get("type")
             if ft not in SCOPE_TYPES:
                 continue
-            tp = (f.get("target_path") or "")
+            tp = f.get("target_path") or ""
             if "polarity" in tp or "norm_kind" in tp:
                 continue
             card = resolve(cards_by.get((art, mod), []), part, f.get("target_path"))
-            if card is None or card.get("formalization") not in ("deterministic_rule", "standard_input"):
+            if card is None or card.get("formalization") not in (
+                "deterministic_rule",
+                "standard_input",
+            ):
                 continue
 
             raw_prop = card.get("proposition", "")
@@ -138,22 +149,29 @@ def build_decision_a(cards_by: dict[tuple[str, str], list[dict[str, Any]]], comm
             comment_ids = sorted({r.get("comment_id") for r in refs if r.get("comment_id")})
             full_texts = [commentary_text[cid] for cid in comment_ids if cid in commentary_text]
 
-            rows.append({
-                "article": art, "module": mod, "card_id": card.get("id"),
-                "proposition": prop,
-                "quote": joined_quote if joined_quote else "(인용 없음)",
-                "full_source": full_texts,
-                "ask": ASK.get(ft, ""), "finding": (f.get("message") or "").strip(),
-            })
+            rows.append(
+                {
+                    "article": art,
+                    "module": mod,
+                    "card_id": card.get("id"),
+                    "proposition": prop,
+                    "quote": joined_quote if joined_quote else "(인용 없음)",
+                    "full_source": full_texts,
+                    "ask": ASK.get(ft, ""),
+                    "finding": (f.get("message") or "").strip(),
+                }
+            )
 
-    g = ["# 검토 A — 카드가 출처 범위를 넘었는지 판정\n",
-         f"총 **{len(rows)}건**. 결론에 흘러드는 카드(Scallop 규칙·모델 판단 입력)만 담았습니다.\n",
-         "## 하실 일\n",
-         "각 항목에서 **카드 명제**와 **출처 원문**을 비교해 한 가지만 답해 주세요.\n",
-         "- `넓음` — 출처보다 넓습니다 → **에이전트가 출처 범위로 좁힙니다**",
-         "- `괜찮음` — 이 정도 일반화는 타당합니다 → 그대로 둡니다",
-         "- 비워두시면 `괜찮음`으로 처리합니다.\n",
-         "좁히는 문장 작성은 에이전트가 수행합니다. 판정만 해주시면 됩니다.\n"]
+    g = [
+        "# 검토 A — 카드가 출처 범위를 넘었는지 판정\n",
+        f"총 **{len(rows)}건**. 결론에 흘러드는 카드(Scallop 규칙·모델 판단 입력)만 담았습니다.\n",
+        "## 하실 일\n",
+        "각 항목에서 **카드 명제**와 **출처 원문**을 비교해 한 가지만 답해 주세요.\n",
+        "- `넓음` — 출처보다 넓습니다 → **에이전트가 출처 범위로 좁힙니다**",
+        "- `괜찮음` — 이 정도 일반화는 타당합니다 → 그대로 둡니다",
+        "- 비워두시면 `괜찮음`으로 처리합니다.\n",
+        "좁히는 문장 작성은 에이전트가 수행합니다. 판정만 해주시면 됩니다.\n",
+    ]
 
     cur = None
     for i, r in enumerate(rows, 1):
@@ -165,7 +183,9 @@ def build_decision_a(cards_by: dict[tuple[str, str], list[dict[str, Any]]], comm
         g.append(f"**카드 인용 문구 (전체)**\n> {r['quote']}\n")
         if r["full_source"]:
             joined_full = "\n>\n> ".join(t.replace("\n", " ") for t in r["full_source"])
-            g.append(f"<details><summary>주석서 원문 전체 (comment_id 대조)</summary>\n\n> {joined_full}\n\n</details>\n")
+            g.append(
+                f"<details><summary>주석서 원문 전체 (comment_id 대조)</summary>\n\n> {joined_full}\n\n</details>\n"
+            )
         g.append(f"**지적**: {r['ask']}\n")
         g.append(f"<details><summary>상세 지적 내용</summary>\n\n{r['finding']}\n\n</details>\n")
         g.append("**판정 (넓음 / 괜찮음):** \n")
@@ -181,13 +201,15 @@ def build_decision_c(cards_map: dict[str, dict[str, Any]]) -> int:
     queue_data = json.loads(QUEUE_PATH.read_text(encoding="utf-8"))
     items = [x for x in queue_data.get("items", []) if x.get("type") == "3.1_variant_group"]
 
-    g = ["# 검토 C — 학설 선택 및 경쟁 견해 확정\n",
-         f"총 **{len(items)}개 학설/견해 그룹**. 동일 모듈 내 대립하는 견해 카드 중 판례·실무 입장에 부합하는 카드를 선택해 주세요.\n",
-         "## 하실 일\n",
-         "- 제시된 카드 중 **실무/판례 입장인 card_id**를 적어주세요.",
-         "- 선택된 카드는 확정 규칙으로 승격되고, 나머지는 RAG 참고용(`context_only`)으로 강등됩니다.",
-         "- 모두 타당하다고 판단되면 `모두유지`, 모두 무효면 `모두강등`으로 적어주세요.",
-         "- 비워두시면 에이전트 추천안 또는 판례 우위 카드로 자동 처리됩니다.\n"]
+    g = [
+        "# 검토 C — 학설 선택 및 경쟁 견해 확정\n",
+        f"총 **{len(items)}개 학설/견해 그룹**. 동일 모듈 내 대립하는 견해 카드 중 판례·실무 입장에 부합하는 카드를 선택해 주세요.\n",
+        "## 하실 일\n",
+        "- 제시된 카드 중 **실무/판례 입장인 card_id**를 적어주세요.",
+        "- 선택된 카드는 확정 규칙으로 승격되고, 나머지는 RAG 참고용(`context_only`)으로 강등됩니다.",
+        "- 모두 타당하다고 판단되면 `모두유지`, 모두 무효면 `모두강등`으로 적어주세요.",
+        "- 비워두시면 에이전트 추천안 또는 판례 우위 카드로 자동 처리됩니다.\n",
+    ]
 
     cur = None
     for i, item in enumerate(items, 1):

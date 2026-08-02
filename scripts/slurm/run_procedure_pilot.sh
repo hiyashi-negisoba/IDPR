@@ -16,8 +16,8 @@
 # (의도적으로 --gres=gpu 없음)
 
 set -euo pipefail
-PROJECT_ROOT="/data5/jaehoonjeong/IDPR"
-PY="/data5/jaehoonjeong/miniconda3/bin/python"
+source "$(dirname "${BASH_SOURCE[0]}")/_env.sh"
+PY="$CLIENT_PYTHON"
 cd "$PROJECT_ROOT"
 mkdir -p logs
 

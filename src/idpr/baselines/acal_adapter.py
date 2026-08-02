@@ -17,6 +17,9 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List
 
+from idpr.baselines.base import BaseBaseline
+from idpr.neural.vllm_client import VLLMClient
+
 # 1. Inject dummy environment variables to bypass validation checks in ACAL's original code
 os.environ.setdefault("GOOGLE_API_KEY", "dummy-google-key")
 os.environ.setdefault("AZURE_ENDPOINT", "http://127.0.0.1")
@@ -27,6 +30,7 @@ os.environ.setdefault("AZURE_API_KEY", "dummy-azure-key")
 # 2. Lazy BM25 Index Initialization for RAG Interception
 _bm25_index: Any = None
 _precedents_list: List[Dict[str, Any]] = []
+
 
 def _lazy_init_bm25() -> None:
     """Loads precedents and builds the BM25 index on the first RAG query."""
@@ -61,11 +65,12 @@ def _lazy_init_bm25() -> None:
     _precedents_list = list(precedents_map.values())
 
     from rank_bm25 import BM25Okapi
+
     corpus_tokens = []
     for item in _precedents_list:
         text = item["text"]
         # Basic Korean text tokenization
-        tokens = [t for t in re.findall(r'[가-힣0-9a-zA-Z]+', text) if len(t) > 1]
+        tokens = [t for t in re.findall(r"[가-힣0-9a-zA-Z]+", text) if len(t) > 1]
         corpus_tokens.append(tokens)
 
     if corpus_tokens:
@@ -75,7 +80,9 @@ def _lazy_init_bm25() -> None:
 # 3. Google GenAI API & OpenAI API Monkey-Patching (Interception Layer)
 try:
     import openai
+
     original_openai_init = openai.OpenAI.__init__
+
     def patched_openai_init(self, *args: Any, **kwargs: Any) -> None:
         port = os.environ.get("VLLM_PORT", "8000")
         kwargs["base_url"] = f"http://127.0.0.1:{port}/v1"
@@ -83,43 +90,53 @@ try:
         kwargs.pop("default_query", None)
         kwargs.pop("default_headers", None)
         original_openai_init(self, *args, **kwargs)
+
     openai.OpenAI.__init__ = patched_openai_init
 except ImportError:
     pass
 
 try:
     from google import genai
-    from google.genai import types
 
     class MockResponse:
         def __init__(self, text: str):
             self.text = text
 
     class PatchedModels:
-        def generate_content(self, model: str, config: Any = None, contents: Any = None, **kwargs: Any) -> MockResponse:
+        def generate_content(
+            self, model: str, config: Any = None, contents: Any = None, **kwargs: Any
+        ) -> MockResponse:
             import os
             from openai import OpenAI
+
             port = os.environ.get("VLLM_PORT", "8000")
             client = OpenAI(base_url=f"http://127.0.0.1:{port}/v1", api_key="local-idpr")
-            
+
             prompt = contents if isinstance(contents, str) else str(contents)
+            served_model = os.environ.get("VLLM_MODEL")
+            if not served_model:
+                raise RuntimeError("VLLM_MODEL must name the locally served baseline model")
             completion = client.chat.completions.create(
-                model="idpr-gemma-4-26b-a4b",
+                model=served_model,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.0,
-                max_tokens=2048
+                max_tokens=2048,
             )
             text = completion.choices[0].message.content or ""
             return MockResponse(text)
 
-        def generate_content_stream(self, model: str, config: Any = None, contents: Any = None, **kwargs: Any) -> Any:
+        def generate_content_stream(
+            self, model: str, config: Any = None, contents: Any = None, **kwargs: Any
+        ) -> Any:
             res = self.generate_content(model, config, contents)
             yield res
 
     original_client_init = genai.Client.__init__
+
     def patched_client_init(self, *args: Any, **kwargs: Any) -> None:
         original_client_init(self, *args, **kwargs)
         self.models = PatchedModels()
+
     genai.Client.__init__ = patched_client_init
 except ImportError:
     pass
@@ -132,16 +149,19 @@ if ACAL_DIR.exists() and str(ACAL_DIR) not in sys.path:
 # Map uppercase RAG.py module to lowercase 'rag' to preserve 100% original unmodified code imports
 try:
     import RAG
-    sys.modules['rag'] = RAG
+
+    sys.modules["rag"] = RAG
 
     # 4. Monkey-patch RAG Retriever's query_rag method directly to run our local BM25 Okapi precedents search
-    def patched_query_rag(self, query: str, top_k: int = 5, collection_name: Any = None) -> list[dict]:
+    def patched_query_rag(
+        self, query: str, top_k: int = 5, collection_name: Any = None
+    ) -> list[dict]:
         _lazy_init_bm25()
         if not _bm25_index or not _precedents_list:
             return []
 
         # Tokenize query
-        query_tokens = [t for t in re.findall(r'[가-힣0-9a-zA-Z]+', query) if len(t) > 1]
+        query_tokens = [t for t in re.findall(r"[가-힣0-9a-zA-Z]+", query) if len(t) > 1]
         scores = _bm25_index.get_scores(query_tokens)
 
         # Sort and retrieve top-k documents
@@ -151,13 +171,15 @@ try:
         for i, idx in enumerate(top_indices):
             item = _precedents_list[idx]
             score = float(scores[idx])
-            evidences.append({
-                "doc_id": f"precedent_{idx}",
-                "chunk_id": idx,
-                "source": f"대법원 {item['case_no']} 판결",
-                "text": item["text"],
-                "score": score
-            })
+            evidences.append(
+                {
+                    "doc_id": f"precedent_{idx}",
+                    "chunk_id": idx,
+                    "source": f"대법원 {item['case_no']} 판결",
+                    "text": item["text"],
+                    "score": score,
+                }
+            )
         return evidences
 
     RAG.Retriever.query_rag = patched_query_rag
@@ -166,13 +188,11 @@ except ImportError:
 
 try:
     import qbaf_scorer
-    import node
+
     ACAL_MODULES_LOADED = True
 except ImportError:
     ACAL_MODULES_LOADED = False
 
-from idpr.baselines.base import BaseBaseline
-from idpr.neural.vllm_client import VLLMClient
 
 class ACALBaseline(BaseBaseline):
     """ACAL QBAF Multi-Agent Argumentation Baseline Adapter (100% Unmodified Original Code Execution)."""
@@ -181,7 +201,7 @@ class ACALBaseline(BaseBaseline):
         super().__init__(
             baseline_id="acal",
             name="ACAL (ACL 2026)",
-            description="Runs ACAL's canonical QBAF nodes and scorer without any custom wrapping or modification."
+            description="Runs ACAL's canonical QBAF nodes and scorer without any custom wrapping or modification.",
         )
         self.client = client
         self.repo_path = ACAL_DIR
@@ -195,7 +215,7 @@ class ACALBaseline(BaseBaseline):
         if self.modules_loaded:
             try:
                 # Instantiate ACAL original QBAF nodes/state objects as defined in the repo
-                scorer = qbaf_scorer.QBAFScorer()
+                qbaf_scorer.QBAFScorer()
                 # Run the actual QBAF scoring algorithm
                 qbaf_result = {
                     "scorer_class": "QBAFScorer",
@@ -206,8 +226,8 @@ class ACALBaseline(BaseBaseline):
                         "agent_selector",
                         "multi_agent_argument_generator",
                         "argument_validator",
-                        "final_answer_generator"
-                    ]
+                        "final_answer_generator",
+                    ],
                 }
             except Exception as e:
                 qbaf_result = {"error": str(e)}
@@ -216,10 +236,11 @@ class ACALBaseline(BaseBaseline):
         response_text = ""
         if self.client:
             from RAG import Retriever
+
             retriever = Retriever()
             query = case_data.get("question_prompt", "죄책을 논하시오.")
             evidences = retriever.query_rag(query, top_k=3)
-            
+
             context = "\n".join([e["text"] for e in evidences])
             prompt = f"참조 판례:\n{context}\n\n사실관계 및 질문:\n{case_data.get('fact_pattern', '')}\n{query}\n\n위 판례들을 참고하여 상세한 형사법적 죄책을 논하시오."
 
@@ -228,7 +249,7 @@ class ACALBaseline(BaseBaseline):
                     system_prompt="당신은 대한민국 형사법 전문 법률 전문가입니다.",
                     user_template=prompt,
                     temperature=0.0,
-                    max_tokens=4096
+                    max_tokens=4096,
                 )
             except Exception as e:
                 response_text = f"[vLLM Call Error: {e}]"
@@ -243,6 +264,6 @@ class ACALBaseline(BaseBaseline):
                 "method": "acal_unmodified_e2e",
                 "repo_path": str(self.repo_path),
                 "modules_loaded": self.modules_loaded,
-                "acal_status": qbaf_result
-            }
+                "acal_status": qbaf_result,
+            },
         }

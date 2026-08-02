@@ -92,9 +92,7 @@ def _payload(**overrides):
                 "causation": [{"act": 1, "attribution": "확정"}],
             }
         ],
-        "roles": [
-            {"entity": "a", "role_label": "피해자", "source_quote": "A를 협박하여"}
-        ],
+        "roles": [{"entity": "a", "role_label": "피해자", "source_quote": "A를 협박하여"}],
         "relations": [],
         "holdings": [],
         "issue_candidates": [
@@ -246,9 +244,7 @@ def test_dropping_an_act_remaps_the_references_that_point_past_it():
     # ``after`` pointed at the dropped act, so the ordering edge goes rather than dangle.
     assert "after" not in acts[0]
     # Causation pointed at index 1, which is now index 0.
-    assert admission.payload["results"][0]["causation"] == [
-        {"act": 0, "attribution": "확정"}
-    ]
+    assert admission.payload["results"][0]["causation"] == [{"act": 0, "attribution": "확정"}]
 
 
 def test_self_referential_ordering_is_dropped_not_fatal():
@@ -312,7 +308,7 @@ def test_normative_labels_cannot_reach_the_fact_layer():
 def test_query_coverage_follows_the_case_not_the_model_budget():
     """Every asserted event contributes a query, however many the model chose to write.
 
-    The smoke case is why: an eight-act narrative got five model queries, two of them on a
+    The diagnostic case is why: an eight-act narrative got five model queries, two on a
     paragraph the sub-question does not ask about, and the intrusion episode got none --
     so its article was missed although ``출입 @ 공동주택공용부`` had been extracted.
     """
@@ -361,9 +357,7 @@ def test_multi_query_beats_one_concatenated_query():
     corpus = card_corpus()
     paragraphs = ["타인의 재물을 절취하였다", "현주건조물에 불을 놓아 소훼하였다"]
     split = retrieve_candidate_articles(paragraphs, corpus=corpus, top_k_articles=8)
-    joined = retrieve_candidate_articles(
-        [" ".join(paragraphs)], corpus=corpus, top_k_articles=8
-    )
+    joined = retrieve_candidate_articles([" ".join(paragraphs)], corpus=corpus, top_k_articles=8)
     assert split.articles != joined.articles
     assert "art164" in split.articles
 
@@ -371,9 +365,7 @@ def test_multi_query_beats_one_concatenated_query():
 def test_selected_articles_keep_every_card():
     """The load-bearing invariant: the gate only blocks on cards it was given."""
     corpus = card_corpus()
-    result = retrieve_candidate_articles(
-        ["재물을 절취하였다"], corpus=corpus, top_k_articles=5
-    )
+    result = retrieve_candidate_articles(["재물을 절취하였다"], corpus=corpus, top_k_articles=5)
     by_article = corpus.by_article()
     expected = sum(len(by_article[article]) for article in result.articles)
     assert len(result.cards) == expected
@@ -430,8 +422,7 @@ def test_l0_issue_documents_contain_only_titles_and_anchor_rules():
         assert issue.offense in document
         assert issue.title in document
         assert all(
-            corpus.by_id[card_id].proposition in document
-            for card_id in issue.anchor_card_ids
+            corpus.by_id[card_id].proposition in document for card_id in issue.anchor_card_ids
         )
         assert not set(issue.case_pattern_card_ids) & set(issue.anchor_card_ids)
 
@@ -470,7 +461,9 @@ def test_card_search_hits_are_projected_to_issues_not_returned_as_cards():
         top_k_issues=8,
     )
     assert len(result.retrieved_issue_ids) == 8
-    assert all(issue_id in {issue.issue_id for issue in issues} for issue_id in result.retrieved_issue_ids)
+    assert all(
+        issue_id in {issue.issue_id for issue in issues} for issue_id in result.retrieved_issue_ids
+    )
     assert not hasattr(result, "cards")
 
 
@@ -501,9 +494,7 @@ def test_issue_queries_keep_facts_separate_and_prefer_missing_fact_focus():
         {"assertion": {"source_quote": "공동현관에 들어갔다"}},
         {"assertion": {"source_quote": "피해자를 폭행하였다"}},
     ]
-    queries = issue_retrieval_queries(
-        issue, facts, focus_texts=["공동현관의 출입통제 상태"]
-    )
+    queries = issue_retrieval_queries(issue, facts, focus_texts=["공동현관의 출입통제 상태"])
     assert len(queries) == 1
     assert "공동현관의 출입통제 상태" in queries[0]
     assert "공동현관에 들어갔다" in queries[0]
@@ -520,10 +511,7 @@ def test_every_rubric_crime_name_is_in_the_map():
     crime_map = load_crime_map()
     gold = load_issue_gold()
     unknown = {
-        crime
-        for item in gold.values()
-        for crime in item.crimes
-        if crime not in crime_map["crimes"]
+        crime for item in gold.values() for crime in item.crimes if crime not in crime_map["crimes"]
     }
     assert unknown == set()
 
@@ -558,7 +546,7 @@ def test_attempt_articles_ride_along_with_the_base_offence():
     assert set(crime_articles("살인중지미수죄", with_attempt=False)) == {"art250"}
 
 
-def test_the_smoke_case_gold_matches_the_plans_checklist():
+def test_diagnostic_case_gold_matches_the_reviewed_checklist():
     """Verification #5 names 간접정범·위요지·중지미수 by hand; the rubric gold reproduces
     them independently, which is the cross-check that the gold is the right one."""
     gold = load_issue_gold()["kcl_criminal_r10_p1_q1_ga"]
@@ -573,9 +561,7 @@ def test_paths_are_summarised_separately():
     scorable = [item for item in gold.values() if item.bucket == SCORABLE]
     perfect = {item.sub_question_id: item.articles for item in scorable}
     empty = {item.sub_question_id: () for item in scorable}
-    summary = summarise_paths(
-        gold, {"retrieval": empty, "proposals": perfect, "union": perfect}
-    )
+    summary = summarise_paths(gold, {"retrieval": empty, "proposals": perfect, "union": perfect})
     assert summary["retrieval"]["macro_recall"] == 0.0
     assert summary["proposals"]["macro_recall"] == 1.0
     assert summary["union"]["questions"] == len(scorable)

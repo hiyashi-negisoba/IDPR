@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from idpr.reasoning import Derivation, Fact
+from idpr.legacy.fraud_reasoning import Derivation, Fact
 
 
 @dataclass(frozen=True, slots=True)

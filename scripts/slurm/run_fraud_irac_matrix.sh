@@ -9,12 +9,7 @@
 
 set -euo pipefail
 
-PROJECT_ROOT="/data5/jaehoonjeong/IDPR"
-CLIENT_PYTHON="/data5/jaehoonjeong/miniconda3/bin/python"
-VLLM_BIN="/data5/jaehoonjeong/miniconda3/envs/inv_ass_env/bin/vllm"
-MODEL_SNAPSHOT="/data5/jaehoonjeong/.cache/huggingface/hub/models--google--gemma-4-26B-A4B-it/snapshots/01e5b3ee840d3a9e0b0b493c593e85398a30ef75"
-SERVED_MODEL="idpr-gemma-4-26b-a4b"
-LOCAL_API_KEY="local-idpr"
+source "$(dirname "${BASH_SOURCE[0]}")/_env.sh"
 RUN_DIR="${IDPR_RUN_DIR:-$PROJECT_ROOT/.cache/e2e/fraud_irac_matrix/${SLURM_JOB_ID}}"
 REPORT_PATH="${IDPR_REPORT_PATH:-$PROJECT_ROOT/data/e2e/fraud/irac_matrix/fraud_irac_matrix_report.json}"
 CASE_PATH="${IDPR_CASE_PATH:-$PROJECT_ROOT/data/e2e/fraud/kcl_r14_p1_q2_case.json}"
@@ -38,9 +33,6 @@ if [ -n "${IDPR_TOP_K:-}" ]; then
     SAMPLING_ARGS+=(--top-k "$IDPR_TOP_K")
 fi
 
-export HF_HOME="/data5/jaehoonjeong/.cache/huggingface"
-export HF_HUB_OFFLINE=1
-export TRANSFORMERS_OFFLINE=1
 export TOKENIZERS_PARALLELISM=false
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 export VLLM_USE_FLASHINFER_SAMPLER=0
@@ -53,12 +45,14 @@ mkdir -p "$RUN_DIR" logs data/e2e/fraud/irac_matrix
 echo "=== IDPR IRAC matrix start: $(date) ==="
 echo "job=$SLURM_JOB_ID host=$(hostname)"
 nvidia-smi --query-gpu=name,memory.total --format=csv,noheader
-"/data5/jaehoonjeong/miniconda3/envs/inv_ass_env/bin/python" -c \
+"$CLIENT_PYTHON" -c \
     "import torch,vllm; print('torch/cuda/vllm', torch.__version__, torch.version.cuda, vllm.__version__)"
 
-"$CLIENT_PYTHON" scripts/check_gemma4_cache.py \
-    --snapshot "$MODEL_SNAPSHOT" \
-    --json-out "$RUN_DIR/model_cache_audit.json"
+if [ -d "$MODEL_SNAPSHOT" ]; then
+    "$CLIENT_PYTHON" scripts/check_gemma4_cache.py \
+        --snapshot "$MODEL_SNAPSHOT" \
+        --json-out "$RUN_DIR/model_cache_audit.json"
+fi
 
 PORT=$("$CLIENT_PYTHON" -c \
     'import socket; s=socket.socket(); s.bind(("127.0.0.1", 0)); print(s.getsockname()[1]); s.close()')

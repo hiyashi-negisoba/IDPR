@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 from collections import Counter, defaultdict
 from dataclasses import asdict, dataclass
@@ -15,10 +16,16 @@ import pdfplumber
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 INVENTORY = PROJECT_ROOT / "data/inventory/kcl_criminal_v1_draft.jsonl"
 COMMENTARY_PARQUET = Path(
-    "/home/jaehoonjeong/data/sp_qwen/data/serve/commentary_chunks/docs.parquet"
+    os.environ.get(
+        "IDPR_COMMENTARY_PARQUET",
+        PROJECT_ROOT / "data/raw/commentary_chunks.parquet",
+    )
 )
 RAW_COMMENTARY_ROOT = Path(
-    "/home/jaehoonjeong/data/sp_qwen/data/raw/commentary_casenote"
+    os.environ.get(
+        "IDPR_RAW_COMMENTARY_ROOT",
+        PROJECT_ROOT / "data/raw/commentary_casenote",
+    )
 )
 OUT_DIR = PROJECT_ROOT / "data/commentary"
 OUT_MANIFEST = OUT_DIR / "kcl_criminal_v1_tag_commentary_manifest.jsonl"

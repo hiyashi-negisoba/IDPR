@@ -168,7 +168,7 @@ Phase 2 = 계획서 단계표의 `src/idpr/retrieval/` + 콜 1(사실+쟁점). �
 | `src/idpr/retrieval/models.py` | embeddinggemma-300m + bge-reranker-v2-m3 래퍼 |
 | `src/idpr/eval/issue_recall.py` | 루브릭 골드, 버킷, 경로 3분해 |
 | `data/eval/rubric_crime_article_map.json` | 죄명→조문 (검수 완료) |
-| `data/eval/smoke_checks.json` | 계획서 검증 #5 체크리스트 |
+| `data/eval/diagnostic_checks.json` | L0 고정 회귀진단 체크리스트 |
 | `data/eval/fact_graphs.jsonl` | 61문항 콜 1 산출 + 채택 내역 + 거부 payload |
 | `data/eval/retrieval_l0_recall_report.json` | 리콜 3경로 · 문항별 후보 · 미회수 조문 |
 | `docs/rubric_crime_article_review.md` | 검수 완료 문서 (**주석 보유, 덮어쓰지 말 것**) |

@@ -16,8 +16,8 @@ P1과 다른 점은 SLUGS 목록과 출력 경로뿐이다(law_id는 전부 형�
 from __future__ import annotations
 
 import json
+import os
 import re
-import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
@@ -26,8 +26,12 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DS_ROOT = PROJECT_ROOT / ".cache/llm/runs/rulegen_downstream"
 CAMPAIGN = PROJECT_ROOT / "data/rulegen/campaign"
 OUT = PROJECT_ROOT / "data/rulegen/p2"
-PRECEDENTS = Path("/data5/jaehoonjeong/sp/data/processed/Case_DB/clean_open_precedents.parquet")
-COMMENTARY_DOCS = Path("/data5/jaehoonjeong/sp/data/serve/commentary_chunks/docs.parquet")
+PRECEDENTS = Path(
+    os.environ.get("IDPR_PRECEDENTS_PARQUET", PROJECT_ROOT / "data/raw/precedents.parquet")
+)
+COMMENTARY_DOCS = Path(
+    os.environ.get("IDPR_COMMENTARY_PARQUET", PROJECT_ROOT / "data/raw/commentary.parquet")
+)
 MANIFEST = CAMPAIGN / "kcl_substantive_campaign_manifest.json"
 
 
@@ -49,8 +53,29 @@ AGREE_RE = re.compile(
     r"판례와\s*(통설|다수설)|(통설|다수설)과\s*판례"
 )
 FOREIGN_RE = re.compile(r"(일본|독일|영미|프랑스|미국)\s*(제\s*\d+\s*설|학설|통설|판례|형법)")
-_STOP = {"경우", "사안", "관련", "여부", "판단", "인정", "성립", "해당", "행위", "사람", "대하여",
-         "관하여", "때문", "이상", "다음", "위하여", "사정", "내용", "취지", "원심", "피고인"}
+_STOP = {
+    "경우",
+    "사안",
+    "관련",
+    "여부",
+    "판단",
+    "인정",
+    "성립",
+    "해당",
+    "행위",
+    "사람",
+    "대하여",
+    "관하여",
+    "때문",
+    "이상",
+    "다음",
+    "위하여",
+    "사정",
+    "내용",
+    "취지",
+    "원심",
+    "피고인",
+}
 
 
 def key_terms(text: str) -> set[str]:
@@ -63,10 +88,21 @@ AUTO_TYPES = {"authority_mismatch"}
 ENTAILMENT_TYPES = {"source_entailment", "rule_mismatch"}
 POLARITY_TYPES = {"formalization_error"}
 
-STRUCTURAL_TARGETS = ("coverage_gaps", "legal_review_questions", "candidate_refs",
-                      "review_required", "source_scope")
-LEGAL_TARGETS = ("proposition", "polarity", "norm_kind", "formalization",
-                 "variant_group", "review_notes")
+STRUCTURAL_TARGETS = (
+    "coverage_gaps",
+    "legal_review_questions",
+    "candidate_refs",
+    "review_required",
+    "source_scope",
+)
+LEGAL_TARGETS = (
+    "proposition",
+    "polarity",
+    "norm_kind",
+    "formalization",
+    "variant_group",
+    "review_notes",
+)
 
 
 def target_kind(target_path: str | None) -> str:
@@ -89,8 +125,12 @@ def load_precedents() -> dict[str, dict[str, str]]:
     )
     idx: dict[str, dict[str, str]] = {}
     for no, court, name, hold, gist, refs in zip(
-        t["사건번호"].to_pylist(), t["법원명"].to_pylist(), t["사건명"].to_pylist(),
-        t["판시사항"].to_pylist(), t["판결요지"].to_pylist(), t["참조조문"].to_pylist(),
+        t["사건번호"].to_pylist(),
+        t["법원명"].to_pylist(),
+        t["사건명"].to_pylist(),
+        t["판시사항"].to_pylist(),
+        t["판결요지"].to_pylist(),
+        t["참조조문"].to_pylist(),
     ):
         if not no:
             continue
@@ -98,7 +138,9 @@ def load_precedents() -> dict[str, dict[str, str]]:
         if key in idx:
             continue
         idx[key] = {
-            "case_no": key, "court": court or "", "case_name": (name or "")[:80],
+            "case_no": key,
+            "court": court or "",
+            "case_name": (name or "")[:80],
             "판시사항": (hold or "").replace("\n", " ")[:500],
             "판결요지": (gist or "").replace("\n", " ")[:500],
             "참조조문": (refs or "")[:200],
@@ -168,30 +210,44 @@ def main() -> None:
                 stats[f"card_{form}"] += 1
 
                 if form in ("deterministic_rule", "standard_input"):
-                    core_cards.append({
-                        "article": slug, "card_id": card["id"], "module": cp.stem,
-                        "formalization": form, "polarity": card.get("polarity"),
-                        "proposition": card.get("proposition", "")[:300],
-                        "authority_basis": card.get("authority_basis"),
-                        "doctrinal_status": card.get("doctrinal_status"),
-                        "human_review": {"decision": None, "notes": None},
-                    })
+                    core_cards.append(
+                        {
+                            "article": slug,
+                            "card_id": card["id"],
+                            "module": cp.stem,
+                            "formalization": form,
+                            "polarity": card.get("polarity"),
+                            "proposition": card.get("proposition", "")[:300],
+                            "authority_basis": card.get("authority_basis"),
+                            "doctrinal_status": card.get("doctrinal_status"),
+                            "human_review": {"decision": None, "notes": None},
+                        }
+                    )
 
                 if form == "policy_variant":
                     cases: list[str] = []
                     for cid in card_sources(card):
                         cases.extend(cite_map.get(cid, []))
-                    cases = sorted({
-                        c for c in cases
-                        if c in case_idx and "대법원" in case_idx[c]["court"]
-                        and case_idx[c]["판시사항"].strip()
-                    })
-                    variant_pool[slug].append({
-                        "card": card, "module": cp.stem, "quote_cases": cases,
-                    })
+                    cases = sorted(
+                        {
+                            c
+                            for c in cases
+                            if c in case_idx
+                            and "대법원" in case_idx[c]["court"]
+                            and case_idx[c]["판시사항"].strip()
+                        }
+                    )
+                    variant_pool[slug].append(
+                        {
+                            "card": card,
+                            "module": cp.stem,
+                            "quote_cases": cases,
+                        }
+                    )
 
                 if card.get("polarity") == "negative" and form in (
-                    "deterministic_rule", "standard_input"
+                    "deterministic_rule",
+                    "standard_input",
                 ):
                     prop = card.get("proposition", "")
                     double_neg = bool(re.search(r"(없|않|아니|못)[^.]{0,25}(없|않|아니|못)", prop))
@@ -203,20 +259,28 @@ def main() -> None:
                         continue
                     if double_neg:
                         stats["negative_double"] += 1
-                    queue.append({
-                        "type": "3.4_negative_query",
-                        "priority": 2 if double_neg else 3,
-                        "article": slug, "card_id": card["id"],
-                        "double_negative": double_neg,
-                        "message": "부정형 카드 — A6 host 극성분리. 아래 긍정형 질의문 초안을 confirm 또는 수정.",
-                        "proposition": prop[:400],
-                        "draft_neural_query": nq,
-                        "recommended_action": ("초안 문장과 card_status_when_query_satisfied(반전/동행)를 함께 확인. "
-                                               "수정 시 approved_query에 최종 문장을 적는다."),
-                        "human_review": {"decision": None, "notes": None,
-                                         "approved_query": None,
-                                         "approved_status_when_satisfied": None},
-                    })
+                    queue.append(
+                        {
+                            "type": "3.4_negative_query",
+                            "priority": 2 if double_neg else 3,
+                            "article": slug,
+                            "card_id": card["id"],
+                            "double_negative": double_neg,
+                            "message": "부정형 카드 — A6 host 극성분리. 아래 긍정형 질의문 초안을 confirm 또는 수정.",
+                            "proposition": prop[:400],
+                            "draft_neural_query": nq,
+                            "recommended_action": (
+                                "초안 문장과 card_status_when_query_satisfied(반전/동행)를 함께 확인. "
+                                "수정 시 approved_query에 최종 문장을 적는다."
+                            ),
+                            "human_review": {
+                                "decision": None,
+                                "notes": None,
+                                "approved_query": None,
+                                "approved_status_when_satisfied": None,
+                            },
+                        }
+                    )
 
         groups: dict[Any, list[dict[str, Any]]] = defaultdict(list)
         for e in variant_pool[slug]:
@@ -226,7 +290,8 @@ def main() -> None:
             competing = vg is not None and len(members) > 1
             blob = " ".join(
                 (o["card"].get("proposition", "") or "")
-                + " " + " ".join(r.get("quote", "") for r in o["card"].get("source_refs", []))
+                + " "
+                + " ".join(r.get("quote", "") for r in o["card"].get("source_refs", []))
                 for o in members
             )
             group_conflict = bool(CONFLICT_RE.search(blob)) and not AGREE_RE.search(blob)
@@ -238,26 +303,36 @@ def main() -> None:
 
                 if not competing:
                     stats["variant_auto_context_only_solo"] += 1
-                    auto.append({
-                        "kind": "variant_demoted_context_only",
-                        "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님",
-                        "article": slug, "module": module, "card_id": card["id"],
-                        "variant_group": vg, "proposition": prop[:300],
-                        "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
-                        "human_review": {"decision": None, "notes": None},
-                    })
+                    auto.append(
+                        {
+                            "kind": "variant_demoted_context_only",
+                            "rule": "경쟁 카드 없음 → 선택 가능한 정책 단위가 아님",
+                            "article": slug,
+                            "module": module,
+                            "card_id": card["id"],
+                            "variant_group": vg,
+                            "proposition": prop[:300],
+                            "action": "formalization을 context_only로 강등(RAG 문맥으로만 사용)",
+                            "human_review": {"decision": None, "notes": None},
+                        }
+                    )
                     continue
 
                 if FOREIGN_RE.search(prop):
                     stats["variant_auto_context_only_foreign"] += 1
-                    auto.append({
-                        "kind": "variant_demoted_context_only",
-                        "rule": "비교법 학설 소개(외국) → 한국 판례·실무 선택지가 아님",
-                        "article": slug, "module": module, "card_id": card["id"],
-                        "variant_group": vg, "proposition": prop[:300],
-                        "action": "formalization을 context_only로 강등",
-                        "human_review": {"decision": None, "notes": None},
-                    })
+                    auto.append(
+                        {
+                            "kind": "variant_demoted_context_only",
+                            "rule": "비교법 학설 소개(외국) → 한국 판례·실무 선택지가 아님",
+                            "article": slug,
+                            "module": module,
+                            "card_id": card["id"],
+                            "variant_group": vg,
+                            "proposition": prop[:300],
+                            "action": "formalization을 context_only로 강등",
+                            "human_review": {"decision": None, "notes": None},
+                        }
+                    )
                     continue
 
                 live.append(e)
@@ -269,86 +344,140 @@ def main() -> None:
                 for c in o["quote_cases"]:
                     if art_no and art_no in case_idx[c]["참조조문"] and c not in ev:
                         ev.append(c)
-            tier = ("명시적대립" if group_conflict else "경쟁견해")
+            tier = "명시적대립" if group_conflict else "경쟁견해"
             tier += "_판례있음" if ev else "_판례없음"
             stats[f"variant_group_{tier}"] += 1
             stats["variant_cards_in_groups"] += len(live)
-            queue.append({
-                "type": "3.1_variant_group", "tier": tier, "priority": 1,
-                "article": slug, "module": module, "variant_group": vg,
-                "cards_resolved_by_one_decision": len(live),
-                "explicit_conflict_marker": group_conflict,
-                "message": ("경쟁 견해 그룹. 아래 판시사항을 보고 **어느 견해가 판례·실무 입장인지 한 번만** "
-                            "고르면 이 그룹 카드가 전부 정리된다."),
-                "options": [
-                    {"card_id": o["card"]["id"],
-                     "proposition": (o["card"].get("proposition", "") or "")[:300]}
-                    for o in live
-                ],
-                "precedent_evidence": [
-                    {k: case_idx[c][k] for k in
-                     ("case_no", "court", "case_name", "판시사항", "참조조문")}
-                    for c in ev[:2]
-                ],
-                "recommended_action": ("판례·실무 입장인 card_id를 선택(나머지는 context_only 강등). "
-                                       "판시사항이 해소하지 못하면 실무 관행으로 지정."),
-                "human_review": {"decision": None, "chosen_card_id": None, "notes": None},
-            })
+            queue.append(
+                {
+                    "type": "3.1_variant_group",
+                    "tier": tier,
+                    "priority": 1,
+                    "article": slug,
+                    "module": module,
+                    "variant_group": vg,
+                    "cards_resolved_by_one_decision": len(live),
+                    "explicit_conflict_marker": group_conflict,
+                    "message": (
+                        "경쟁 견해 그룹. 아래 판시사항을 보고 **어느 견해가 판례·실무 입장인지 한 번만** "
+                        "고르면 이 그룹 카드가 전부 정리된다."
+                    ),
+                    "options": [
+                        {
+                            "card_id": o["card"]["id"],
+                            "proposition": (o["card"].get("proposition", "") or "")[:300],
+                        }
+                        for o in live
+                    ],
+                    "precedent_evidence": [
+                        {
+                            k: case_idx[c][k]
+                            for k in ("case_no", "court", "case_name", "판시사항", "참조조문")
+                        }
+                        for c in ev[:2]
+                    ],
+                    "recommended_action": (
+                        "판례·실무 입장인 card_id를 선택(나머지는 context_only 강등). "
+                        "판시사항이 해소하지 못하면 실무 관행으로 지정."
+                    ),
+                    "human_review": {"decision": None, "chosen_card_id": None, "notes": None},
+                }
+            )
 
         for sp in sorted((run / "sol").glob("*.json")):
             rep = json.loads(sp.read_text(encoding="utf-8"))
             for f in rep.get("findings", []):
                 ftype = f.get("type", "other")
                 base = {
-                    "article": slug, "finding_id": f.get("finding_id"),
-                    "severity": f.get("severity"), "target_path": f.get("target_path"),
+                    "article": slug,
+                    "finding_id": f.get("finding_id"),
+                    "severity": f.get("severity"),
+                    "target_path": f.get("target_path"),
                     "message": f.get("message", "")[:500],
                     "recommended_action": f.get("recommended_action", "")[:400],
                 }
 
                 if ftype in AUTO_TYPES:
-                    blob = (f.get("recommended_action", "") or "") + " " + (f.get("message", "") or "")
+                    blob = (
+                        (f.get("recommended_action", "") or "") + " " + (f.get("message", "") or "")
+                    )
                     is_upgrade = bool(UPGRADE_RE.search(blob))
                     tp = f.get("target_path", "") or ""
                     if is_upgrade and "legal_review_questions" not in tp:
                         stats["authority_human_upgrade"] += 1
-                        queue.append({**base, "type": "3.2_authority_upgrade", "priority": 2,
-                                      "note": "출처가 실제 판례를 인용 → 판례 인덱스 대조 필요(정규화로 자동 상향 금지)",
-                                      "human_review": {"decision": None, "notes": None}})
+                        queue.append(
+                            {
+                                **base,
+                                "type": "3.2_authority_upgrade",
+                                "priority": 2,
+                                "note": "출처가 실제 판례를 인용 → 판례 인덱스 대조 필요(정규화로 자동 상향 금지)",
+                                "human_review": {"decision": None, "notes": None},
+                            }
+                        )
                     else:
                         stats["authority_auto"] += 1
-                        auto.append({**base, "kind": "authority_normalized",
-                                     "rule": "3.2 라벨 문제(P1 포렌식 근거 재사용: rules/·rule_ir 0 hit)",
-                                     "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향"})
+                        auto.append(
+                            {
+                                **base,
+                                "kind": "authority_normalized",
+                                "rule": "3.2 라벨 문제(P1 포렌식 근거 재사용: rules/·rule_ir 0 hit)",
+                                "action": "doctrinal_status/authority_basis를 bounded source 최약값으로 결정론 하향",
+                            }
+                        )
 
                 elif ftype in HUMAN_TYPES:
                     if target_kind(f.get("target_path")) == "structural":
                         stats["agent_fix_구조성_source_scope"] += 1
-                        agent_fix.append({**base, "type": ftype,
-                                          "note": "구조성 지적(coverage_gaps·review_question·candidate_refs) → 법률 결정점 아님"})
+                        agent_fix.append(
+                            {
+                                **base,
+                                "type": ftype,
+                                "note": "구조성 지적(coverage_gaps·review_question·candidate_refs) → 법률 결정점 아님",
+                            }
+                        )
                     else:
                         stats["overgeneralization_human"] += 1
-                        queue.append({**base, "type": "3.3_overgeneralization", "priority": 1,
-                                      "note": "사용자 지시: 이건 사람검토 필요",
-                                      "human_review": {"decision": None, "notes": None}})
+                        queue.append(
+                            {
+                                **base,
+                                "type": "3.3_overgeneralization",
+                                "priority": 1,
+                                "note": "사용자 지시: 이건 사람검토 필요",
+                                "human_review": {"decision": None, "notes": None},
+                            }
+                        )
 
                 elif ftype in VARIANT_TYPES:
                     if target_kind(f.get("target_path")) == "structural":
                         stats["agent_fix_구조성_variant"] += 1
-                        agent_fix.append({**base, "type": ftype, "note": "구조성 지적 → 에이전트 처리"})
+                        agent_fix.append(
+                            {**base, "type": ftype, "note": "구조성 지적 → 에이전트 처리"}
+                        )
                     else:
                         stats["variant_finding"] += 1
-                        queue.append({**base, "type": "3.1_variant_finding", "priority": 1,
-                                      "note": "학설대립 관련 지적 — 판례 방향 확인 후 실무규칙 확정",
-                                      "human_review": {"decision": None, "notes": None}})
+                        queue.append(
+                            {
+                                **base,
+                                "type": "3.1_variant_finding",
+                                "priority": 1,
+                                "note": "학설대립 관련 지적 — 판례 방향 확인 후 실무규칙 확정",
+                                "human_review": {"decision": None, "notes": None},
+                            }
+                        )
 
                 elif ftype in POLARITY_TYPES:
                     tp = (f.get("target_path") or "").replace("/", ".")
                     if any(k in tp for k in ("polarity", "norm_kind", "formalization")):
                         stats["polarity_class_human"] += 1
-                        queue.append({**base, "type": "3.4_polarity_classification", "priority": 2,
-                                      "note": "사용자 지시 3.4 대상 — polarity/norm_kind/formalization 분류는 법률 판단",
-                                      "human_review": {"decision": None, "notes": None}})
+                        queue.append(
+                            {
+                                **base,
+                                "type": "3.4_polarity_classification",
+                                "priority": 2,
+                                "note": "사용자 지시 3.4 대상 — polarity/norm_kind/formalization 분류는 법률 판단",
+                                "human_review": {"decision": None, "notes": None},
+                            }
+                        )
                     else:
                         stats["agent_fix_formalization_기타"] += 1
                         agent_fix.append({**base, "type": ftype, "note": "구조성 → 에이전트 처리"})
@@ -356,17 +485,28 @@ def main() -> None:
                 elif ftype in ENTAILMENT_TYPES:
                     if target_kind(f.get("target_path")) == "legal":
                         stats["entailment_human"] += 1
-                        queue.append({**base, "type": "3.3_source_entailment", "priority": 1,
-                                      "note": "출처가 명제를 지지하는지 = 출처-범위 판단(3.3 성격)",
-                                      "human_review": {"decision": None, "notes": None}})
+                        queue.append(
+                            {
+                                **base,
+                                "type": "3.3_source_entailment",
+                                "priority": 1,
+                                "note": "출처가 명제를 지지하는지 = 출처-범위 판단(3.3 성격)",
+                                "human_review": {"decision": None, "notes": None},
+                            }
+                        )
                     else:
                         stats["agent_fix_entailment_구조성"] += 1
                         agent_fix.append({**base, "type": ftype, "note": "구조성 → 에이전트 처리"})
 
                 else:
                     stats[f"agent_fix_{ftype}"] += 1
-                    agent_fix.append({**base, "type": ftype,
-                                      "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check"})
+                    agent_fix.append(
+                        {
+                            **base,
+                            "type": ftype,
+                            "note": "법률-의미 결정점 아님 → 에이전트 remediation 후 spot-check",
+                        }
+                    )
 
     golden = {
         "version": "1.0.0",
@@ -390,22 +530,47 @@ def main() -> None:
     }
 
     (OUT / "p2_review_summary.json").write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
     queue.sort(key=lambda q: (q.get("priority", 9), q["type"], q["article"]))
     (OUT / "p2_norm_card_review_queue.json").write_text(
-        json.dumps({"version": "1.0.0", "api_calls": 0, "items": queue}, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8")
+        json.dumps(
+            {"version": "1.0.0", "api_calls": 0, "items": queue}, ensure_ascii=False, indent=2
+        )
+        + "\n",
+        encoding="utf-8",
+    )
     (OUT / "p2_auto_decisions_ledger.json").write_text(
-        json.dumps({"version": "1.0.0", "api_calls": 0, "items": auto}, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8")
+        json.dumps(
+            {"version": "1.0.0", "api_calls": 0, "items": auto}, ensure_ascii=False, indent=2
+        )
+        + "\n",
+        encoding="utf-8",
+    )
     (OUT / "p2_agent_remediation_queue.json").write_text(
-        json.dumps({"version": "1.0.0", "api_calls": 0, "items": agent_fix}, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8")
+        json.dumps(
+            {"version": "1.0.0", "api_calls": 0, "items": agent_fix}, ensure_ascii=False, indent=2
+        )
+        + "\n",
+        encoding="utf-8",
+    )
     (OUT / "p2_core_card_review.json").write_text(
-        json.dumps({"version": "1.0.0", "api_calls": 0, "note": "원칙 14: 실행 core 전수 노출",
-                    "cards": core_cards}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        json.dumps(
+            {
+                "version": "1.0.0",
+                "api_calls": 0,
+                "note": "원칙 14: 실행 core 전수 노출",
+                "cards": core_cards,
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
     (OUT / "p2_scallop_golden_cases.json").write_text(
-        json.dumps(golden, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        json.dumps(golden, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
 
     print(json.dumps(payload, ensure_ascii=False, indent=2))
 

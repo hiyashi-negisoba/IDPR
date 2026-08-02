@@ -16,6 +16,7 @@ from __future__ import annotations
 import argparse
 import collections
 import json
+import os
 import statistics as st
 from pathlib import Path
 from typing import Iterable, Mapping, Sequence
@@ -34,10 +35,8 @@ from idpr.rulebase.roles import resolve_card_roles
 DEFAULT_SELECTION = PROJECT_ROOT / "data" / "eval" / "article_selection.jsonl"
 DEFAULT_RETRIEVAL = PROJECT_ROOT / "data" / "eval" / "retrieval_l0_recall_report.json"
 DEFAULT_OUT = PROJECT_ROOT / "data" / "eval" / "article_select_report.json"
-TOKENIZER = Path(
-    "/data5/jaehoonjeong/.cache/huggingface/hub/models--google--gemma-4-26B-A4B-it"
-    "/snapshots/01e5b3ee840d3a9e0b0b493c593e85398a30ef75/tokenizer.json"
-)
+_TOKENIZER_PATH = os.environ.get("IDPR_TOKENIZER_JSON")
+TOKENIZER = Path(_TOKENIZER_PATH).expanduser() if _TOKENIZER_PATH else None
 
 
 def _encoder():
@@ -47,7 +46,7 @@ def _encoder():
     card counts and the ratios exact and only the absolute token figures approximate, and
     the fallback is named in the output so nobody reads an estimate as a measurement.
     """
-    if TOKENIZER.is_file():
+    if TOKENIZER is not None and TOKENIZER.is_file():
         from tokenizers import Tokenizer
 
         tok = Tokenizer.from_file(str(TOKENIZER))
@@ -137,8 +136,9 @@ def _summarise(
             "median": int(st.median([len(a) for a in per_question.values()])),
             "max": max(len(a) for a in per_question.values()),
         },
-        "call2_payload": {key: stat(key) for key in
-                          ("cards", "tokens", "cards_no_context", "tokens_no_context")},
+        "call2_payload": {
+            key: stat(key) for key in ("cards", "tokens", "cards_no_context", "tokens_no_context")
+        },
     }
 
 
@@ -194,8 +194,9 @@ def main() -> None:
     longest = max(len(c["retrieval"]) for c in candidates.values())
     for k in range(1, longest + 1):
         cut = {q: c["retrieval"][:k] for q, c in candidates.items()}
-        cut_expanded = {q: list(expand_attempt_articles(a, mapping=attempt_map))
-                        for q, a in cut.items()}
+        cut_expanded = {
+            q: list(expand_attempt_articles(a, mapping=attempt_map)) for q, a in cut.items()
+        }
         report["retrieval_curve"][str(k)] = {
             "retrieval": _summarise(cut, gold, gold_bare, costs),
             "retrieval_plus_attempt": _summarise(cut_expanded, gold, gold_bare, costs),
@@ -206,16 +207,23 @@ def main() -> None:
     # an episode and lets its neighbours go -- 제297조 selected, 제298·301조 not -- which is
     # exactly what a card whose proposition names that offence catches.
     for k in sorted(report["retrieval_curve"], key=int):
-        cut = {q: list(dict.fromkeys(selected.get(q, []) + c["retrieval"][:int(k)]))
-               for q, c in candidates.items() if q in selected}
+        cut = {
+            q: list(dict.fromkeys(selected.get(q, []) + c["retrieval"][: int(k)]))
+            for q, c in candidates.items()
+            if q in selected
+        }
         report["retrieval_curve"][k]["union_with_llm_selection"] = _summarise(
             {q: list(expand_attempt_articles(a, mapping=attempt_map)) for q, a in cut.items()},
-            gold, gold_bare, costs,
+            gold,
+            gold_bare,
+            costs,
         )
 
     # The iso-performance question: the smallest k at which retrieval matches selection.
-    for label, path_key in (("llm_selection", "retrieval"),
-                            ("llm_selection_plus_attempt", "retrieval_plus_attempt")):
+    for label, path_key in (
+        ("llm_selection", "retrieval"),
+        ("llm_selection_plus_attempt", "retrieval_plus_attempt"),
+    ):
         target = report["paths"][label]["macro_recall"]
         match = None
         if target is not None:
@@ -233,15 +241,15 @@ def main() -> None:
                     "selection": ours[key]["median"],
                     "reduction": round(
                         1 - ours[key]["median"] / match["call2_payload"][key]["median"], 4
-                    ) if match["call2_payload"][key]["median"] else None,
+                    )
+                    if match["call2_payload"][key]["median"]
+                    else None,
                 }
                 for key in ("cards", "tokens", "cards_no_context", "tokens_no_context")
             }
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(
-        json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
-    )
+    args.out.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     for label in ("llm_selection", "llm_selection_plus_attempt"):
         block = report["paths"][label]

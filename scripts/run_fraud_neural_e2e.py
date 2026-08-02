@@ -12,7 +12,7 @@ from typing import Any, Mapping
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from idpr.neural import (  # noqa: E402
+from idpr.legacy.fraud_neural import (  # noqa: E402
     NeuralContractError,
     anchor_fraud_target_roles,
     build_authority_packet,
@@ -22,12 +22,12 @@ from idpr.neural import (  # noqa: E402
     validate_fraud_assessment_bundle,
     validate_fraud_fact_graph,
 )
-from idpr.fraud_planning import (  # noqa: E402
+from idpr.legacy.fraud_planning import (  # noqa: E402
     build_fraud_assessment_context,
     reasoning_plan_card_ids,
     select_fraud_reasoning_plan,
 )
-from idpr.generation import (  # noqa: E402
+from idpr.legacy.fraud_generation import (  # noqa: E402
     GenerationContractError,
     build_fraud_irac_plan,
     compile_fraud_whole_irac_answer,

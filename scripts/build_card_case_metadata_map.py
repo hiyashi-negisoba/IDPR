@@ -15,8 +15,10 @@ This script:
 import json
 import os
 import re
-import sys
+from pathlib import Path
+
 import pyarrow.parquet as pq
+
 
 def normalize_case_no(c):
     if not c:
@@ -26,17 +28,25 @@ def normalize_case_no(c):
         return re.sub(r"\s+", "", m.group(1))
     return re.sub(r"\s+", "", str(c))
 
+
 def main():
-    repo_root = "/home/jaehoonjeong/data/IDPR"
+    repo_root = Path(__file__).resolve().parents[1]
     rulegen_dir = os.path.join(repo_root, "data/rulegen")
-    comm_path = "/data5/jaehoonjeong/sp/data/serve/commentary_chunks/docs.parquet"
+    comm_path = os.environ.get(
+        "IDPR_COMMENTARY_PARQUET",
+        str(repo_root / "data/raw/commentary.parquet"),
+    )
     out_path = os.path.join(repo_root, "data/card_case_metadata_map.json")
     print(f"[1/4] Loading ALL P1+P2 Rule Cards from {rulegen_dir}...")
     all_cards = []
     seen_ids = set()
     for root, dirs, files in os.walk(rulegen_dir):
         for f in files:
-            if f.endswith(".json") and "metadata" not in f and "card_case_metadata_map.json" not in f:
+            if (
+                f.endswith(".json")
+                and "metadata" not in f
+                and "card_case_metadata_map.json" not in f
+            ):
                 fpath = os.path.join(root, f)
                 try:
                     data = json.load(open(fpath, "r", encoding="utf-8"))
@@ -52,7 +62,7 @@ def main():
                                 if cid and cid not in seen_ids:
                                     seen_ids.add(cid)
                                     all_cards.append(c)
-                except Exception as e:
+                except Exception:
                     pass
 
     print(f"      Total Cards collected: {len(all_cards)}")
@@ -61,7 +71,11 @@ def main():
     t_comm = pq.read_table(comm_path, columns=["comment_id", "cited_cases", "document_text_trim"])
     comm_map = {}
     comm_text_map = {}
-    for cid, cases, txt in zip(t_comm["comment_id"].to_pylist(), t_comm["cited_cases"].to_pylist(), t_comm["document_text_trim"].to_pylist()):
+    for cid, cases, txt in zip(
+        t_comm["comment_id"].to_pylist(),
+        t_comm["cited_cases"].to_pylist(),
+        t_comm["document_text_trim"].to_pylist(),
+    ):
         if cid:
             comm_map[cid] = cases
             comm_text_map[cid] = txt
@@ -70,9 +84,9 @@ def main():
 
     case_pattern = re.compile(r"\b(?:\d{2,4}\s*[가-힣]+\s*\d+)\b")
 
-    print(f"[3/4] Performing 2-Tier Case Number Extraction & Text Binding...")
+    print("[3/4] Performing 2-Tier Case Number Extraction & Text Binding...")
     mapping_asset = {}
-    
+
     stat_single = 0
     stat_multi = 0
     stat_zero = 0
@@ -84,7 +98,7 @@ def main():
 
         card_role = c.get("card_role") or str(c.get("authority_basis", ""))
         prop = c.get("proposition", "")
-        
+
         # Get quotes from source_refs
         quotes = []
         comm_ids = []
@@ -109,10 +123,12 @@ def main():
                 if isinstance(cases, list):
                     for cs in cases:
                         norm = normalize_case_no(cs)
-                        if norm: found_cases.add(norm)
+                        if norm:
+                            found_cases.add(norm)
                 elif isinstance(cases, str):
                     norm = normalize_case_no(cases)
-                    if norm: found_cases.add(norm)
+                    if norm:
+                        found_cases.add(norm)
 
         # Tier 2: Deep regex search in commentary_chunks document_text_trim
         if not found_cases:
@@ -122,7 +138,8 @@ def main():
                     matches = case_pattern.findall(txt)
                     for m in matches:
                         norm = normalize_case_no(m)
-                        if norm: found_cases.add(norm)
+                        if norm:
+                            found_cases.add(norm)
 
         # Format cases list
         cases_list = sorted(list(found_cases))
@@ -148,16 +165,18 @@ def main():
             "cited_cases": cases_list,
             "case_count": case_count,
             "base_text": base_text,
-            "rag_text": rag_text
+            "rag_text": rag_text,
         }
 
     total_processed = len(mapping_asset)
-    print(f"\n=== BUILD COMPLETED ===")
+    print("\n=== BUILD COMPLETED ===")
     print(f"Total Cards Mapped: {total_processed}")
-    print(f"  - 1:1 Single Case Match: {stat_single} ({stat_single/total_processed*100:.2f}%)")
-    print(f"  - 1:N Multi Case Match : {stat_multi} ({stat_multi/total_processed*100:.2f}%)")
-    print(f"  - 0 Case (Synthesis)  : {stat_zero} ({stat_zero/total_processed*100:.2f}%)")
-    print(f"  - Total Tagged Rate   : {stat_single + stat_multi} / {total_processed} ({(stat_single + stat_multi)/total_processed*100:.2f}%)")
+    print(f"  - 1:1 Single Case Match: {stat_single} ({stat_single / total_processed * 100:.2f}%)")
+    print(f"  - 1:N Multi Case Match : {stat_multi} ({stat_multi / total_processed * 100:.2f}%)")
+    print(f"  - 0 Case (Synthesis)  : {stat_zero} ({stat_zero / total_processed * 100:.2f}%)")
+    print(
+        f"  - Total Tagged Rate   : {stat_single + stat_multi} / {total_processed} ({(stat_single + stat_multi) / total_processed * 100:.2f}%)"
+    )
 
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
@@ -165,6 +184,7 @@ def main():
 
     file_size_mb = os.path.getsize(out_path) / (1024 * 1024)
     print(f"\nSaved asset file to: {out_path} ({file_size_mb:.2f} MB)")
+
 
 if __name__ == "__main__":
     main()

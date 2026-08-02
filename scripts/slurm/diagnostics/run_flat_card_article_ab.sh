@@ -9,18 +9,10 @@
 
 set -euo pipefail
 
-PROJECT_ROOT="/data5/jaehoonjeong/IDPR"
-CLIENT_PYTHON="/data5/jaehoonjeong/miniconda3/bin/python"
-VLLM_BIN="/data5/jaehoonjeong/miniconda3/envs/inv_ass_env/bin/vllm"
-MODEL_SNAPSHOT="/data5/jaehoonjeong/.cache/huggingface/hub/models--google--gemma-4-26B-A4B-it/snapshots/01e5b3ee840d3a9e0b0b493c593e85398a30ef75"
-SERVED_MODEL="idpr-gemma-4-26b-a4b"
-LOCAL_API_KEY="local-idpr"
+source "$(dirname "${BASH_SOURCE[0]}")/../_env.sh"
 RUN_DIR="$PROJECT_ROOT/.cache/call2_article_ab/${SLURM_JOB_ID}"
 OUT="$PROJECT_ROOT/data/eval/card_status_smoke_article_ab_v2.json"
 
-export HF_HOME="/data5/jaehoonjeong/.cache/huggingface"
-export HF_HUB_OFFLINE=1
-export TRANSFORMERS_OFFLINE=1
 export TOKENIZERS_PARALLELISM=false
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 export VLLM_USE_FLASHINFER_SAMPLER=0
@@ -92,7 +84,7 @@ if [ "$READY" != 1 ]; then
     exit 1
 fi
 
-"$CLIENT_PYTHON" scripts/run_call2_smoke.py \
+"$CLIENT_PYTHON" scripts/diagnostics/run_flat_card_smoke.py \
     --base-url "http://127.0.0.1:${PORT}" \
     --model "$SERVED_MODEL" \
     --api-key "$LOCAL_API_KEY" \

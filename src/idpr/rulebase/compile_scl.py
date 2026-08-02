@@ -56,7 +56,6 @@ from idpr.rulebase.issue_catalog_v2 import (
     compile_issue_catalog_v2,
 )
 from idpr.rulebase.roles import CardRole, element_slots, resolve_card_roles
-from idpr.rulebase.skeleton import CONCURRENCE, CORE, DEFEATER, PRESUMED, STAGE
 
 #: Article keys whose statute label cannot be derived by rule. Only one exists, so it is
 #: listed rather than guessed at from a sample of one.

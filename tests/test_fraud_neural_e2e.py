@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from idpr.neural import (
+from idpr.legacy.fraud_neural import (
     ModelCacheError,
     NeuralContractError,
     anchor_fraud_target_roles,
@@ -407,7 +407,7 @@ def test_replay_runs_from_kcl_contract_through_native_scallop(tmp_path: Path) ->
     }
 
 
-def test_slurm_script_fixes_absolute_resources_and_offline_local_serving() -> None:
+def test_slurm_script_uses_public_environment_configuration() -> None:
     script = (
         PROJECT_ROOT / "scripts/slurm/run_fraud_neural_e2e.sh"
     ).read_text(encoding="utf-8")
@@ -420,10 +420,10 @@ def test_slurm_script_fixes_absolute_resources_and_offline_local_serving() -> No
     assert "#SBATCH --nodelist" not in script
     assert "#SBATCH --exclude" not in script
     assert "#SBATCH --constraint" not in script
-    assert "HF_HUB_OFFLINE=1" in script
-    assert "TRANSFORMERS_OFFLINE=1" in script
+    assert 'source "$(dirname "${BASH_SOURCE[0]}")/_env.sh"' in script
     assert "--host 127.0.0.1" in script
-    assert "/data5/jaehoonjeong/.cache/huggingface" in script
+    assert "/home/" not in script
+    assert "/data5/" not in script
     assert "for ATTEMPT in 1 2 3" in script
     assert "unset CUDA_HOME CUDA_PATH" in script
     assert '"backend":"guidance","disable_any_whitespace":true' in script

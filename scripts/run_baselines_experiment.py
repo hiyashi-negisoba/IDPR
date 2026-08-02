@@ -5,7 +5,6 @@ User-Friendly CLI Interface for running 7 comparison baselines and collecting ou
 """
 
 import argparse
-import json
 import sys
 from pathlib import Path
 
@@ -14,7 +13,8 @@ SRC_DIR = Path(__file__).resolve().parents[1] / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
-from idpr.eval.baseline_runner import BaselineExperimentRunner
+from idpr.eval.baseline_runner import BaselineExperimentRunner  # noqa: E402
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(
@@ -41,7 +41,7 @@ def main() -> None:
         "-l",
         type=int,
         default=None,
-        help="Limit number of dataset cases to execute (useful for quick smoke test)",
+        help="Limit the number of dataset cases (useful for a quick diagnostic run)",
     )
     parser.add_argument(
         "--outdir",
@@ -96,9 +96,12 @@ def main() -> None:
         verbose=True,
     )
 
-    print(f"\n📊 Summary of Results Generated:")
+    print("\n📊 Summary of Results Generated:")
     for b_id, outputs in results.items():
-        print(f" • Baseline [{b_id}]: {len(outputs)} outputs generated -> {args.outdir}/{b_id}_outputs.jsonl")
+        print(
+            f" • Baseline [{b_id}]: {len(outputs)} outputs generated -> {args.outdir}/{b_id}_outputs.jsonl"
+        )
+
 
 if __name__ == "__main__":
     main()

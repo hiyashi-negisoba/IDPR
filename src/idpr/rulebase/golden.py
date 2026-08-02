@@ -1,9 +1,9 @@
 """Golden scenarios for the compiled rulebase: one per reasoning path.
 
 The previous asset's golden files cannot be reused. ``p2_scallop_golden_cases.json`` and
-``property_scallop_golden_cases.json`` hold zero scenarios, and the nine in
-``fraud_scallop_golden_cases.json`` assert on ``fraud_established`` and friends -- the
-offence-specific relations the generic rulebase deliberately replaced. Their *coverage* is
+``property_scallop_golden_cases.json`` hold zero scenarios, while the archived pilot
+golden cases assert on offence-specific relations that the generic rulebase deliberately
+replaced. Their *coverage* is
 carried over here (established, blocked, refuted, conflict, unknown) and extended to the
 paths that are new: defeater, exception, absorption, imaginative concurrence, and the
 decision that an unaddressed element does not block.
@@ -17,7 +17,7 @@ defeater path stops being tested, and that must be loud.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Mapping, Sequence
 
 from idpr.rulebase.cards import CardCorpus, card_corpus

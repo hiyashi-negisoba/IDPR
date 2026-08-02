@@ -8,8 +8,7 @@
 
 set -euo pipefail
 
-source /data5/jaehoonjeong/miniconda3/etc/profile.d/conda.sh
-conda activate base
-cd /home/jaehoonjeong/data/IDPR
+source "$(dirname "${BASH_SOURCE[0]}")/_env.sh"
+cd "$PROJECT_ROOT"
 
-/data5/jaehoonjeong/miniconda3/bin/python scripts/build_kcl_criminal_inventory.py
+"$CLIENT_PYTHON" scripts/build_kcl_criminal_inventory.py

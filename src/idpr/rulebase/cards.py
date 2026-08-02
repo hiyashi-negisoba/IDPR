@@ -1,8 +1,7 @@
 """Unified live-card corpus for the criminal-law rulebase.
 
-Loads every reviewed RuleIR card from the three sources that hold them -- the P2
-(non-property) units, the property units, and the fraud NormCard set -- into one
-corpus keyed by card id, and derives the two structural keys the symbolic layer
+Loads every reviewed RuleIR card declared in the source manifest into one corpus keyed
+by card id, and derives the two structural keys the symbolic layer
 needs: the ``article`` a card belongs to and the ``slot`` (commentary section)
 within it.
 
@@ -33,13 +32,7 @@ from typing import Any, Iterable, Mapping, Sequence
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
-P2_UNIT_DIR = PROJECT_ROOT / "data/rulegen/p2/rule_ir_units"
-PROPERTY_UNIT_DIR = PROJECT_ROOT / "data/rulegen/property/rule_ir_units"
-FRAUD_CARD_SET = PROJECT_ROOT / "data/rulegen/fraud/fraud_core_norm_card_set.json"
-
-#: The fraud cards predate the ``artNNN`` id convention and use module-prefixed ids
-#: (``deception.fraud.causal-link.…``). They are all 제347조.
-FRAUD_ARTICLE = "art347"
+CARD_SOURCE_MANIFEST = PROJECT_ROOT / "data/rulebase/card_sources.json"
 
 #: Marks cards whose source text came from the per-article PDF rather than the parsed
 #: parquet. It is provenance, not part of the article key.
@@ -105,7 +98,9 @@ class Card:
         return {"id": self.id, "proposition": self.proposition}
 
 
-def split_card_id(card_id: str) -> tuple[str, str]:
+def split_card_id(
+    card_id: str, *, article_override: str | None = None
+) -> tuple[str, str]:
     """Derive ``(article, slot)`` from a card id.
 
     Four id shapes occur in the corpus and each is handled explicitly rather than by
@@ -115,7 +110,7 @@ def split_card_id(card_id: str) -> tuple[str, str]:
     ``art225.contractual_delegate``     -> ``("art225", "art225")``
     ``art2582_2_sec1.group_force``      -> ``("art2582_2", "art2582_2_sec1")``  (제258조의2)
     ``art344_x_raw_pdf.relative_scope`` -> ``("art344", "art344")``
-    ``deception.fraud.causal-link.x``   -> ``("art347", "deception")``
+    A source with legacy non-``artNNN`` IDs supplies its article through the manifest.
 
     Section suffixes are not always numeric (``art130_sec3-na``, ``art130_sec3_가``);
     they are kept verbatim in the slot and only the article is normalised.
@@ -123,8 +118,11 @@ def split_card_id(card_id: str) -> tuple[str, str]:
     head = card_id.split(".", 1)[0]
 
     if not head.startswith("art"):
-        # Fraud module-prefixed id: the leading component names the element group.
-        return FRAUD_ARTICLE, head
+        if not article_override or not article_override.startswith("art"):
+            raise ValueError(
+                f"card {card_id!r} has no article prefix or valid source override"
+            )
+        return article_override, head
 
     section_split = re.split(r"_sec", head, maxsplit=1)
     article = section_split[0]
@@ -141,7 +139,13 @@ def _load_json(path: Path) -> Mapping[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def _card_from_raw(raw: Mapping[str, Any], *, unit: str, errors: list[str]) -> Card | None:
+def _card_from_raw(
+    raw: Mapping[str, Any],
+    *,
+    unit: str,
+    article_override: str | None,
+    errors: list[str],
+) -> Card | None:
     card_id = raw.get("id")
     missing = [f for f in _REQUIRED_CARD_FIELDS if not raw.get(f)]
     if missing:
@@ -179,7 +183,11 @@ def _card_from_raw(raw: Mapping[str, Any], *, unit: str, errors: list[str]) -> C
         quotes.append(quote)
         section_paths.append(section_path)
 
-    article, slot = split_card_id(card_id)
+    try:
+        article, slot = split_card_id(card_id, article_override=article_override)
+    except ValueError as error:
+        errors.append(f"{unit}: {error}")
+        return None
     return Card(
         id=card_id,
         article=article,
@@ -198,12 +206,40 @@ def _card_from_raw(raw: Mapping[str, Any], *, unit: str, errors: list[str]) -> C
     )
 
 
-def _iter_unit_files() -> Iterable[tuple[str, Path]]:
-    for path in sorted(P2_UNIT_DIR.glob("*.json")):
-        yield f"p2/{path.stem}", path
-    for path in sorted(PROPERTY_UNIT_DIR.glob("*.json")):
-        yield f"property/{path.stem}", path
-    yield "fraud/core_norm_card_set", FRAUD_CARD_SET
+def _iter_unit_files(
+    manifest_path: Path = CARD_SOURCE_MANIFEST,
+) -> Iterable[tuple[str, Path, str | None]]:
+    payload = _load_json(manifest_path)
+    sources = payload.get("sources")
+    if not isinstance(sources, list) or not sources:
+        raise CardCorpusError([f"{manifest_path}: sources must be a non-empty array"])
+    seen: set[str] = set()
+    errors: list[str] = []
+    resolved: list[tuple[str, Path, str | None]] = []
+    for index, source in enumerate(sources):
+        source_id = str(source.get("id", ""))
+        pattern = str(source.get("glob", ""))
+        article_override = source.get("article_override")
+        if not source_id or source_id in seen:
+            errors.append(f"sources[{index}] has a missing or duplicate id")
+            continue
+        seen.add(source_id)
+        if not pattern or Path(pattern).is_absolute() or ".." in Path(pattern).parts:
+            errors.append(f"sources[{index}] has an unsafe or missing relative glob")
+            continue
+        if article_override is not None and not re.fullmatch(r"art[0-9_]+", article_override):
+            errors.append(f"sources[{index}] has invalid article_override")
+            continue
+        paths = sorted(PROJECT_ROOT.glob(pattern))
+        if not paths:
+            errors.append(f"{source_id}: glob matched no card files: {pattern}")
+            continue
+        resolved.extend(
+            (f"{source_id}/{path.stem}", path, article_override) for path in paths
+        )
+    if errors:
+        raise CardCorpusError(errors)
+    yield from resolved
 
 
 @dataclass(frozen=True)
@@ -239,13 +275,20 @@ class CardCorpus:
         return tuple(card for card in self.cards if card.article in wanted)
 
 
-def load_card_corpus() -> CardCorpus:
+def load_card_corpus(
+    manifest_path: Path = CARD_SOURCE_MANIFEST,
+) -> CardCorpus:
     """Load and validate every live card. Raises :class:`CardCorpusError` on any defect."""
     errors: list[str] = []
     cards: list[Card] = []
     seen: dict[str, str] = {}
 
-    for unit, path in _iter_unit_files():
+    try:
+        units = tuple(_iter_unit_files(manifest_path))
+    except CardCorpusError as error:
+        errors.extend(error.errors)
+        units = ()
+    for unit, path, article_override in units:
         if not path.is_file():
             errors.append(f"{unit}: missing card file {path}")
             continue
@@ -255,7 +298,12 @@ def load_card_corpus() -> CardCorpus:
             errors.append(f"{unit}: no 'cards' array in {path.name}")
             continue
         for raw in raw_cards:
-            card = _card_from_raw(raw, unit=unit, errors=errors)
+            card = _card_from_raw(
+                raw,
+                unit=unit,
+                article_override=article_override,
+                errors=errors,
+            )
             if card is None:
                 continue
             if card.id in seen:

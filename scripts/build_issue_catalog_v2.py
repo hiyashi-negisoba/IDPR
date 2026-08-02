@@ -1,4 +1,4 @@
-"""Build the hierarchical issue-first card catalog and a focused legal review table."""
+"""Build the hierarchical issue-first card catalog and legal review table."""
 
 from __future__ import annotations
 
@@ -8,7 +8,6 @@ from collections import Counter
 from pathlib import Path
 from typing import Sequence
 
-from idpr.candidates import assessable_card_ids
 from idpr.rulebase.cards import PROJECT_ROOT, card_corpus
 from idpr.rulebase.issue_catalog_v2 import (
     ASSESS_ISSUE,
@@ -22,8 +21,6 @@ from idpr.rulebase.issue_catalog_v2 import (
 
 DEFAULT_OUT = PROJECT_ROOT / "data/rulebase/issue_catalog_v2.json"
 DEFAULT_REVIEW = PROJECT_ROOT / "data/rulebase/issue_catalog_v2_review.md"
-DEFAULT_FOCUS = ("art297", "art298", "art301", "art319", "art329")
-SMOKE_FOCUS = frozenset({"art297", "art298", "art301", "art319"})
 
 
 def _escape(value: object) -> str:
@@ -49,10 +46,6 @@ def render_review(
         if issue.review_required and issue.runtime == ASSESS_ISSUE
     ]
     policy_counts = Counter(item.load_policy for item in selected_placements)
-    smoke_cards = [card for card in corpus.cards if card.article in SMOKE_FOCUS]
-    assessable_ids = assessable_card_ids(corpus)
-    smoke_issues = [issue for issue in issues if issue.article in SMOKE_FOCUS]
-    smoke_assess = [issue for issue in smoke_issues if issue.runtime == ASSESS_ISSUE]
     lines = [
         "# Issue catalog v2 — 카드 재적재 검수",
         "",
@@ -67,9 +60,7 @@ def render_review(
         f"{sum(issue.runtime == ASSESS_ISSUE for issue in issues)}개",
         f"- 검수 조문: 카드 {len(selected_placements)}장 → issue {len(selected)}개 → "
         f"기본 평가 issue {len(assess)}개",
-        f"- 현재 4조문 스모크: Call-2 카드 {sum(card.id in assessable_ids for card in smoke_cards)}장 "
-        f"→ 기본 평가 issue {len(smoke_assess)}개",
-        f"- 검수 조문 load policy: "
+        "- 검수 조문 load policy: "
         + ", ".join(f"{key}={value}" for key, value in policy_counts.most_common()),
         f"- 검수 조문 구체 사실패턴: "
         f"{sum(len(issue.case_pattern_card_ids) for issue in selected)}장",
@@ -158,7 +149,12 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--review", type=Path, default=DEFAULT_REVIEW)
-    parser.add_argument("--focus", nargs="+", default=list(DEFAULT_FOCUS))
+    parser.add_argument(
+        "--focus",
+        nargs="+",
+        required=True,
+        help="articles to render in the legal-review document",
+    )
     args = parser.parse_args()
 
     issues, placements = compile_issue_catalog_v2()

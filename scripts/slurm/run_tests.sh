@@ -8,9 +8,8 @@
 
 set -euo pipefail
 
-source /data5/jaehoonjeong/miniconda3/etc/profile.d/conda.sh
-conda activate base
-cd /home/jaehoonjeong/data/IDPR
+source "$(dirname "${BASH_SOURCE[0]}")/_env.sh"
+cd "$PROJECT_ROOT"
 
 export PYTHONPATH="$PWD/src:${PYTHONPATH:-}"
-python -m pytest -q tests
+"$CLIENT_PYTHON" -m pytest -q tests

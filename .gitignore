@@ -1,6 +1,11 @@
 .env
 .cache/
 data/eval/cache/*
+# Local diagnostic outputs; reproducible fixtures and checklists remain tracked separately.
+data/eval/card_status_smoke*.json
+data/eval/issue_status_smoke.json
+data/eval/issue_answer_smoke.json
+data/eval/issue_answer_smoke.md
 .pytest_cache/
 .ruff_cache/
 __pycache__/

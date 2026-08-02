@@ -1,4 +1,4 @@
-"""Render one issue-first Call-2/Scallop artifact as a long-form legal answer."""
+"""Render one validated issue/Scallop artifact as a long-form legal answer."""
 
 from __future__ import annotations
 
@@ -22,10 +22,14 @@ from idpr.prompts import load_prompt
 from idpr.rulebase.cards import card_corpus
 
 
-DEFAULT_CASE_ID = "kcl_criminal_r10_p1_q1_ga"
-DEFAULT_CALL2 = PROJECT_ROOT / "data/eval/issue_status_smoke.json"
 DEFAULT_FACT_GRAPHS = PROJECT_ROOT / "data/eval/fact_graphs.jsonl"
-DEFAULT_OUT = PROJECT_ROOT / "data/eval/issue_answer_smoke.json"
+
+
+def _write_text_atomic(path: Path, content: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(content, encoding="utf-8")
+    temporary.replace(path)
 
 
 def _jsonl_by_id(path: Path) -> dict[str, dict[str, Any]]:
@@ -41,9 +45,9 @@ def _jsonl_by_id(path: Path) -> dict[str, dict[str, Any]]:
 
 def prepare_request(args: argparse.Namespace) -> dict[str, Any]:
     report = json.loads(args.call2.read_text(encoding="utf-8"))
-    case_id = str(report.get("case_id", args.case_id))
-    if case_id != args.case_id:
-        raise ValueError("Call-2 artifact case_id differs from --case-id")
+    case_id = str(report.get("case_id", ""))
+    if not case_id:
+        raise ValueError("issue assessment artifact has no case_id")
     inventory = _jsonl_by_id(args.inventory)
     graph_rows = _jsonl_by_id(args.fact_graphs)
     case = inventory[case_id]
@@ -61,11 +65,14 @@ def prepare_request(args: argparse.Namespace) -> dict[str, Any]:
         )
         symbolic = report.get("symbolic_runtime")
         if not isinstance(symbolic, dict) or not isinstance(symbolic.get("relations"), dict):
+            replay_root = args.work_dir or (
+                PROJECT_ROOT / ".cache/issue_pipeline" / case_id / "answer"
+            )
             symbolic = run_issue_symbolic(
                 case_id=case_id,
                 fact_graph=fact_graph,
                 assessment_bundle=assessment,
-                work_dir=args.work_dir / "symbolic_replay",
+                work_dir=replay_root / "symbolic_replay",
                 name=f"{case_id}_call3_replay",
             )
         reasoning_packet = build_issue_reasoning_packet(
@@ -85,13 +92,14 @@ def main() -> None:
     parser.add_argument("--base-url")
     parser.add_argument("--model")
     parser.add_argument("--api-key", default="local-idpr")
-    parser.add_argument("--case-id", default=DEFAULT_CASE_ID)
-    parser.add_argument("--call2", type=Path, default=DEFAULT_CALL2)
+    parser.add_argument("--call2", type=Path, required=True)
     parser.add_argument("--inventory", type=Path, default=INVENTORY_PATH)
     parser.add_argument("--fact-graphs", type=Path, default=DEFAULT_FACT_GRAPHS)
-    parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
+    parser.add_argument("--out", type=Path, required=True)
     parser.add_argument(
-        "--work-dir", type=Path, default=PROJECT_ROOT / ".cache/call3_issue_smoke"
+        "--work-dir",
+        type=Path,
+        help="runtime directory (default: .cache/issue_pipeline/<case-id>/answer)",
     )
     parser.add_argument("--max-tokens", type=int, default=8192)
     parser.add_argument("--timeout-seconds", type=float, default=7200.0)
@@ -100,20 +108,22 @@ def main() -> None:
     args = parser.parse_args()
 
     request = prepare_request(args)
+    case_id = str(request["case_id"])
+    args.work_dir = args.work_dir or PROJECT_ROOT / ".cache/issue_pipeline" / case_id / "answer"
     args.work_dir.mkdir(parents=True, exist_ok=True)
-    request_path = args.work_dir / f"{args.case_id}_request.json"
-    request_path.write_text(
-        json.dumps(request, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    request_path = args.work_dir / f"{case_id}_request.json"
+    _write_text_atomic(
+        request_path,
+        json.dumps(request, ensure_ascii=False, indent=2) + "\n",
     )
     if args.dry_run:
         print(
             json.dumps(
                 {
-                    "case_id": args.case_id,
+                    "case_id": case_id,
                     "sections": len(request["required_sections"]),
                     "issues": sum(
-                        len(section["issues"])
-                        for section in request["required_sections"]
+                        len(section["issues"]) for section in request["required_sections"]
                     ),
                     "payload_chars": len(json.dumps(request, ensure_ascii=False)),
                     "request_path": str(request_path),
@@ -144,18 +154,19 @@ def main() -> None:
     answer = attach_issue_answer_provenance(answer, request=request)
     validate_issue_answer(answer, request=request)
     result = {
-        "case_id": args.case_id,
+        "case_id": case_id,
         "model": args.model,
         "metadata": metadata,
         "request": request,
         "answer": answer,
     }
-    args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(
-        json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    _write_text_atomic(
+        args.out,
+        json.dumps(result, ensure_ascii=False, indent=2) + "\n",
     )
-    args.out.with_suffix(".md").write_text(
-        render_issue_answer_markdown(answer), encoding="utf-8"
+    _write_text_atomic(
+        args.out.with_suffix(".md"),
+        render_issue_answer_markdown(answer),
     )
     print(f"usage={metadata.get('usage', {})}")
     print(f"wrote {args.out} / {args.out.with_suffix('.md')}")

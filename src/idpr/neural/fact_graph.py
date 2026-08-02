@@ -664,8 +664,8 @@ def fact_derived_queries(payload: Mapping[str, Any]) -> list[str]:
 
     The plan puts the fact graph -- not the model's prose -- at the head of retrieval, and
     this is the part of that the first implementation left out. It matters because the
-    model writes as many queries as it feels like: measured on the smoke case, an eight-act
-    narrative got five, two of which were spent on a paragraph the sub-question does not
+    model writes as many queries as it feels like: measured on a multi-episode case, an
+    eight-act narrative got five, two of which were spent on a paragraph the sub-question does not
     ask about, and the intrusion episode got none at all. Its article was then missed even
     though the extraction had recorded ``출입 @ 공동주택공용부``.
 

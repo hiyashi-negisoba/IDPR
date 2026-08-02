@@ -30,6 +30,7 @@ ones enter the macro average, with n reported beside it.
 from __future__ import annotations
 
 import json
+import os
 import re
 from dataclasses import dataclass
 from functools import lru_cache
@@ -39,9 +40,6 @@ from typing import Iterable, Mapping, Sequence
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 INVENTORY_PATH = PROJECT_ROOT / "data" / "inventory" / "kcl_criminal_v1_draft.jsonl"
 CRIME_MAP_PATH = PROJECT_ROOT / "data" / "eval" / "rubric_crime_article_map.json"
-RUBRIC_PARQUET = Path(
-    "/home/jaehoonjeong/data/sp_qwen/warehouse/lbox_kcl/kcl_essay/test.parquet"
-)
 
 #: Offence names in rubric prose. Matches the extraction used to build the review document,
 #: so the map and the scorer see the same surface forms.
@@ -122,6 +120,24 @@ def _rubrics_by_question(
     return rubrics
 
 
+def _resolve_parquet_path(inventory_path: Path, parquet_path: Path | None) -> Path:
+    """Resolve the benchmark source without embedding a developer workstation path."""
+    if parquet_path is not None:
+        return parquet_path
+    configured = os.environ.get("IDPR_KCL_PARQUET")
+    if configured:
+        return Path(configured)
+    for line in inventory_path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        recorded = json.loads(line).get("source", {}).get("parquet_path")
+        if recorded:
+            return Path(recorded)
+    raise ValueError(
+        "KCL rubric parquet is not configured; pass parquet_path or set IDPR_KCL_PARQUET"
+    )
+
+
 def load_issue_gold(
     *,
     inventory_path: Path | None = None,
@@ -131,8 +147,9 @@ def load_issue_gold(
 ) -> dict[str, QuestionGold]:
     """Gold articles for every question, read off the rubric."""
     crime_map = crime_map or load_crime_map()
+    inventory_path = inventory_path or INVENTORY_PATH
     rubrics = _rubrics_by_question(
-        inventory_path or INVENTORY_PATH, parquet_path or RUBRIC_PARQUET
+        inventory_path, _resolve_parquet_path(inventory_path, parquet_path)
     )
 
     gold: dict[str, QuestionGold] = {}

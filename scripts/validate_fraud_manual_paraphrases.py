@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -12,7 +13,7 @@ from typing import Any, Mapping
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from idpr.fraud_planning import (  # noqa: E402
+from idpr.legacy.fraud_planning import (  # noqa: E402
     load_fraud_plan_registry,
     select_fraud_reasoning_plan,
     validate_fraud_case,
@@ -20,12 +21,13 @@ from idpr.fraud_planning import (  # noqa: E402
 
 
 DEFAULT_CASE_SET = (
-    PROJECT_ROOT
-    / "data/e2e/fraud/manual_paraphrases/fraud_manual_paraphrase_cases.json"
+    PROJECT_ROOT / "data/e2e/fraud/manual_paraphrases/fraud_manual_paraphrase_cases.json"
 )
 DEFAULT_SOURCE_INDEX = Path(
-    "/data5/jaehoonjeong/sp/data/processed/manuals/"
-    "manual_crimefacts_economic_v2/leaf_raw.jsonl"
+    os.environ.get(
+        "IDPR_MANUAL_SOURCE_INDEX",
+        PROJECT_ROOT / "data/raw/manual_crimefacts_economic_v2/leaf_raw.jsonl",
+    )
 )
 CASE_BOUNDARY = re.compile(r"(?m)(?=^\d+\)\s)")
 LEAKAGE_TERMS = ("기망", "편취", "사기죄", "의사나 능력이 없")
@@ -54,9 +56,7 @@ def load_source_leaves(path: Path) -> dict[str, dict[str, Any]]:
 def source_case_segment(raw_text: str, ordinal: int) -> str:
     segments = [part.strip() for part in CASE_BOUNDARY.split(raw_text) if part.strip()]
     if ordinal < 1 or ordinal > len(segments):
-        raise ValueError(
-            f"case ordinal {ordinal} is outside source segment count {len(segments)}"
-        )
+        raise ValueError(f"case ordinal {ordinal} is outside source segment count {len(segments)}")
     return segments[ordinal - 1]
 
 
@@ -97,9 +97,7 @@ def validate_case_set(
             raise ValueError(f"{case_id} source segment SHA-256 differs")
 
         synthetic_graph = {"profiles": case["required_profiles"]}
-        plan = select_fraud_reasoning_plan(
-            synthetic_graph, case=case, registry=registry
-        )
+        plan = select_fraud_reasoning_plan(synthetic_graph, case=case, registry=registry)
         routes[plan["plan_id"]] = routes.get(plan["plan_id"], 0) + 1
 
     return {
@@ -120,9 +118,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    report = validate_case_set(
-        read_json(args.case_set), load_source_leaves(args.source_index)
-    )
+    report = validate_case_set(read_json(args.case_set), load_source_leaves(args.source_index))
     print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))
 
 

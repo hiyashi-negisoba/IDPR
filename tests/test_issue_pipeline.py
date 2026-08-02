@@ -206,7 +206,7 @@ def test_general_runtime_scripts_do_not_import_flat_card_boundaries():
     )
     for relative in (
         "scripts/run_l0_candidates.py",
-        "scripts/run_call2_issue_smoke.py",
+        "scripts/run_issue_assessment.py",
         "src/idpr/issue_pipeline.py",
     ):
         source = (PROJECT_ROOT / relative).read_text(encoding="utf-8")

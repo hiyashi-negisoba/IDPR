@@ -16,7 +16,7 @@ from __future__ import annotations
 import re
 from collections import Counter
 from dataclasses import asdict, dataclass
-from typing import Iterable, Mapping, Sequence
+from typing import Iterable, Sequence
 
 from idpr.rulebase.cards import Card, CardCorpus, card_corpus
 from idpr.rulebase.formalization import (

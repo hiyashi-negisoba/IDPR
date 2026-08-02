@@ -10,7 +10,7 @@ from typing import Any, Mapping
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from idpr.fraud_planning import (  # noqa: E402
+from idpr.legacy.fraud_planning import (  # noqa: E402
     render_reasoning_plan_text,
     select_fraud_reasoning_plan,
     validate_fraud_case,

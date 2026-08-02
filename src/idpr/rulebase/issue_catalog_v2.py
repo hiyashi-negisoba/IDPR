@@ -20,7 +20,6 @@ import re
 from collections import Counter, defaultdict
 from dataclasses import asdict, dataclass
 from functools import lru_cache
-from pathlib import Path
 from typing import Iterable, Mapping, Sequence
 
 from idpr.rulebase.card_catalog_v2 import (

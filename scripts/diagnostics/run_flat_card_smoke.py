@@ -1,4 +1,4 @@
-"""Legacy flat-card smoke retained only to reproduce the Phase-2 comparison."""
+"""Diagnostic-only flat-card run retained to reproduce the Phase-2 comparison."""
 
 from __future__ import annotations
 

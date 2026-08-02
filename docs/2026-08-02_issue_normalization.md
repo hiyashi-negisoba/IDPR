@@ -72,6 +72,33 @@ card_assessed_case로 격리했다. 수정 후 실제 unknown 3개만 남았다.
 - flat candidate_articles, card_assessment, render_card_statuses는 Phase 1/2 골든 및
   비교 실험 재현용으로만 남겼다. 일반 실행 스크립트의 재수입은 테스트가 막는다.
 
+## 공개 실행경로 정상화
+
+최종 실험 전에 고정 사례 스모크가 운영 코드처럼 남아 있던 구조를 제거했다. 단일 사례
+실행기는 이제 `run_issue_assessment.py`와 `run_issue_answer.py`이며, case ID와 출력 경로를
+명시적으로 받는다. 조문 목록을 생략하면 해당 사례의 L0 산출물 전체를 읽고, `--articles`는
+운영 기본값이 아니라 진단용 범위 축소로만 제공한다. 61문항 실행은
+`run_issue_pipeline_batch.py`가 사례별 원자적 산출물과 재시작 상태를 관리하고, 최종적으로
+baseline과 같은 JSONL 계약을 만든다.
+
+- 고정 사례·고정 조문 비교기는 `scripts/diagnostics/`와
+  `scripts/slurm/diagnostics/`로 격리했다.
+- 과거 사기 파일럿 API는 `src/idpr/legacy/`로 옮겼고, 현행 neural·generation import가
+  legacy 구현을 자동 로드하지 않도록 했다.
+- 카드 원천은 `data/rulebase/card_sources.json` manifest가 결정한다. 새 검수 카드 묶음을
+  추가할 때 Python의 디렉터리·조문 상수를 수정할 필요가 없다.
+- Slurm과 외부 데이터 경로는 저장소 상대경로 또는 `IDPR_*` 환경변수만 사용한다. 개인
+  사용자명, 모델 snapshot hash, 서버 경로는 실행 스크립트에 들어가지 않는다.
+- 고정 회귀 체크리스트는 `data/eval/diagnostic_checks.json`으로 이름을 바꾸고 L0 실행기의
+  선택적 `--checks` 입력으로 분리했다.
+- Rule 역할별 문서 예시는 특정 조문 preference table 대신, 검토가 끝난 가장 작은 slot을
+  자료에서 결정론적으로 선택한다.
+
+카탈로그를 다시 적재한 61문항 plan-only 검증 결과는 조문 중위 21개(최대 26), initial issue
+중위 76개(최대 104), anchor 중위 93개(최대 128)다. 구조적으로는 전 사례가 실행 가능하지만,
+Phase 3 고정 사례의 14개 initial issue보다 현저히 넓다. 따라서 이 상태로 전체 GPU 잡을 바로
+제출하지 않고 issue 검색 평가와 입력 예산 결정을 먼저 한다.
+
 ## 법률 검수와 심볼릭 조건 정상화
 
 사용자가 승인한 deferred review A–F를 두 개의 별도 자산으로 기록했다.
@@ -155,8 +182,9 @@ anchor만 적재한다.
 | 60 | 0.853 | 0.935 | 28 | 95 |
 | 72 | 0.882 | 0.952 | 31 | 105 |
 
-현행 model ∪ top-18 article은 recall 0.927, runtime 조문 중위 21, initial issue 중위
-71이다. top-48 issue는 recall이 0.008 높지만 조문과 issue 적재량이 모두 더 크다.
+현행 model ∪ top-18 article은 recall 0.927, runtime 조문 중위 21이며 최신 카탈로그 기준
+initial issue 중위는 76이다. top-48 issue는 recall이 0.008 높지만 조문과 issue 적재량이
+모두 더 크다.
 
 따라서 운영 기본값은 top-18 article을 유지한다. 단, 점수 경로는 card→issue→article로
 명시해 새 계층을 통과시킨다. 이 집계는 기존 max-card article 점수와 수학적으로 같으며
@@ -171,6 +199,7 @@ anchor만 적재한다.
 - 총배선 완료 후 전체: 474 passed
 - deferred review·조건별 심볼릭·Call 3 IRAC 추가 후: 481 passed
 - 최종 통합 IRAC·작성 의미 보존 후: 487 passed
+- 공개 실행경로·배치·확장 설정 정상화 후: 493 passed
 - Python compileall 및 git diff --check 통과
 - 검색 평가: PRO6000 잡 217961(anchor-only), 217972(card→issue)
 - 최신 E2E: PRO6000 잡 218151(Call 2→Scallop→Call 3), 218155(통합 IRAC·호스트 결론)

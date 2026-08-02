@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 from collections import Counter
 from dataclasses import dataclass
@@ -12,7 +13,10 @@ import pandas as pd
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 SOURCE_PARQUET = Path(
-    "/home/jaehoonjeong/data/sp_qwen/warehouse/lbox_kcl/kcl_essay/test.parquet"
+    os.environ.get(
+        "IDPR_KCL_PARQUET",
+        PROJECT_ROOT / "data/raw/kcl_essay/test.parquet",
+    )
 )
 OUT_JSONL = PROJECT_ROOT / "data/inventory/kcl_criminal_v1_draft.jsonl"
 OUT_REVIEW = PROJECT_ROOT / "data/inventory/kcl_criminal_v1_review.md"

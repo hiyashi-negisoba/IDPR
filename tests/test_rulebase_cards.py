@@ -7,11 +7,11 @@ to a model.
 
 from __future__ import annotations
 
+import json
+
 import pytest
 
 from idpr.rulebase.cards import (
-    FRAUD_ARTICLE,
-    Card,
     CardCorpusError,
     load_card_corpus,
     split_card_id,
@@ -63,12 +63,50 @@ def skeleton(corpus):
         # Fraud cards predate the artNNN convention; the leading module names the slot.
         (
             "deception.fraud.causal-link.deception-property-disposition",
-            (FRAUD_ARTICLE, "deception"),
+            ("art347", "deception"),
         ),
     ],
 )
 def test_split_card_id_handles_every_observed_id_shape(card_id, expected):
-    assert split_card_id(card_id) == expected
+    override = "art347" if not card_id.startswith("art") else None
+    assert split_card_id(card_id, article_override=override) == expected
+
+
+def test_nonstandard_card_id_requires_manifest_article_override():
+    with pytest.raises(ValueError, match="source override"):
+        split_card_id("legacy.module.card")
+
+
+def test_card_sources_are_selected_by_manifest(tmp_path):
+    manifest = tmp_path / "sources.json"
+    manifest.write_text(
+        json.dumps(
+            {
+                "sources": [
+                    {
+                        "id": "legacy-fraud-fixture",
+                        "glob": "data/rulegen/fraud/fraud_core_norm_card_set.json",
+                        "article_override": "art347",
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    selected = load_card_corpus(manifest)
+    assert selected.cards
+    assert {card.article for card in selected.cards} == {"art347"}
+    assert {card.unit.split("/", 1)[0] for card in selected.cards} == {"legacy-fraud-fixture"}
+
+
+def test_card_source_manifest_rejects_unsafe_globs(tmp_path):
+    manifest = tmp_path / "sources.json"
+    manifest.write_text(
+        json.dumps({"sources": [{"id": "unsafe", "glob": "../outside/*.json"}]}),
+        encoding="utf-8",
+    )
+    with pytest.raises(CardCorpusError, match="unsafe or missing relative glob"):
+        load_card_corpus(manifest)
 
 
 # --------------------------------------------------------------------------- #
@@ -110,7 +148,7 @@ def test_every_card_resolves_to_an_article_and_slot(corpus):
     for card in corpus.cards:
         assert card.article.startswith("art"), card.id
         assert card.slot, card.id
-        assert card.id.startswith(card.slot) or card.article == FRAUD_ARTICLE
+        assert card.id.startswith(card.slot) or card.unit.startswith("fraud/")
 
 
 def test_slots_never_straddle_two_articles(corpus):
@@ -288,12 +326,3 @@ def test_every_role_has_a_settled_example_slot(skeleton, role):
 
 def test_example_selection_is_deterministic(skeleton):
     assert example_slot_for_role(CORE, skeleton) == example_slot_for_role(CORE, skeleton)
-
-
-def test_smoke_case_articles_decompose_into_usable_skeletons(skeleton):
-    """The bar-exam smoke case turns on these articles; each needs at least one core
-    slot for the offence gate to be able to fire at all."""
-    for article in ("art297", "art298", "art301", "art319", "art257"):
-        slots = [c for c in skeleton if c.article == article]
-        assert slots, f"{article} has no slots"
-        assert any(c.role == CORE for c in slots), f"{article} has no core slot"

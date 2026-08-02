@@ -9,13 +9,11 @@
 
 set -euo pipefail
 
-PROJECT_ROOT="/data5/jaehoonjeong/IDPR"
-CLIENT_PYTHON="/data5/jaehoonjeong/miniconda3/bin/python"
+source "$(dirname "${BASH_SOURCE[0]}")/_env.sh"
 FACT_GRAPHS="$PROJECT_ROOT/data/eval/fact_graphs.jsonl"
 SELECTION="$PROJECT_ROOT/data/eval/article_selection.jsonl"
 REPORT="$PROJECT_ROOT/data/eval/issue_retrieval_l0_report.json"
 
-export HF_HOME="/data5/jaehoonjeong/.cache/huggingface"
 export TOKENIZERS_PARALLELISM=false
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 export PYTHONPATH="$PROJECT_ROOT/src"

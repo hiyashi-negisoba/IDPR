@@ -1,4 +1,4 @@
-"""Build the provisional runtime-oriented card catalog and a focused review document."""
+"""Build the runtime-oriented card catalog and legal review document."""
 
 from __future__ import annotations
 
@@ -23,7 +23,6 @@ from idpr.rulebase.cards import PROJECT_ROOT
 
 DEFAULT_OUT = PROJECT_ROOT / "data/rulebase/card_catalog_v2.json"
 DEFAULT_REVIEW = PROJECT_ROOT / "data/rulebase/card_catalog_v2_review.md"
-DEFAULT_FOCUS = ("art297", "art298", "art301", "art319")
 
 
 def _escape(value: str) -> str:
@@ -139,7 +138,12 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--review", type=Path, default=DEFAULT_REVIEW)
-    parser.add_argument("--focus", nargs="+", default=list(DEFAULT_FOCUS))
+    parser.add_argument(
+        "--focus",
+        nargs="+",
+        required=True,
+        help="articles to render in the legal-review document",
+    )
     args = parser.parse_args()
 
     cards = compile_card_catalog_v2()

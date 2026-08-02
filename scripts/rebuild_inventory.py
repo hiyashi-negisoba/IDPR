@@ -1,9 +1,14 @@
 import json
-import pandas as pd
 import os
+from pathlib import Path
 
-parquet_path = "/home/jaehoonjeong/data/sp_qwen/warehouse/lbox_kcl/kcl_essay/test.parquet"
-jsonl_path = "/home/jaehoonjeong/data/IDPR/data/inventory/kcl_criminal_v1_draft.jsonl"
+import pandas as pd
+
+project_root = Path(__file__).resolve().parents[1]
+parquet_path = Path(
+    os.environ.get("IDPR_KCL_PARQUET", project_root / "data/raw/kcl_essay_test.parquet")
+)
+jsonl_path = project_root / "data/inventory/kcl_criminal_v1_draft.jsonl"
 
 if not os.path.exists(parquet_path):
     print(f"❌ Parquet file not found: {parquet_path}")
@@ -23,11 +28,11 @@ with open(jsonl_path, "r", encoding="utf-8") as f:
         if not line.strip():
             continue
         data = json.loads(line)
-        
+
         # Extract row index map
         source_info = data.get("source", {})
         row_idx = source_info.get("source_row_index", None)
-        
+
         if row_idx is not None and row_idx < len(df):
             # Fetch unabridged rubrics from parquet
             orig_rubrics = df.iloc[row_idx]["rubrics"]
@@ -36,14 +41,16 @@ with open(jsonl_path, "r", encoding="utf-8") as f:
                 orig_rubrics = orig_rubrics.tolist()
             else:
                 orig_rubrics = list(orig_rubrics)
-                
+
             # Replace rubric_summary and rubric_count with original unabridged data
             data["rubric_summary"] = orig_rubrics
             data["rubric_count"] = len(orig_rubrics)
-            print(f"✅ Restored {len(orig_rubrics)} rubrics for sub_question_id: {data.get('sub_question_id')}")
+            print(
+                f"✅ Restored {len(orig_rubrics)} rubrics for sub_question_id: {data.get('sub_question_id')}"
+            )
         else:
             print(f"⚠️ Could not map source_row_index for {data.get('sub_question_id')}")
-            
+
         rebuilt_rows.append(data)
 
 print(f"💾 Saving rebuilt inventory back to {jsonl_path}...")

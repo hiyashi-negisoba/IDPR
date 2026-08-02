@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from idpr.fraud_planning import (
+from idpr.legacy.fraud_planning import (
     FRAUD_ROLES,
     build_fraud_assessment_context,
     fraud_case_role_hints,
@@ -14,12 +14,12 @@ from idpr.fraud_planning import (
     select_fraud_reasoning_plan,
     validate_fraud_case,
 )
-from idpr.generation import (
+from idpr.legacy.fraud_generation import (
     build_fraud_irac_plan,
     build_fraud_rag_queries,
     compile_fraud_whole_irac_answer,
 )
-from idpr.neural import (
+from idpr.legacy.fraud_neural import (
     build_authority_packet,
     build_scallop_scenario,
     select_fraud_card_plan,

@@ -10,8 +10,8 @@
 #   bash scripts/slurm/launch_rulegen_campaign.sh --confirm  # 실제 제출 (예산 게이트!)
 
 set -euo pipefail
-PROJECT_ROOT="/data5/jaehoonjeong/IDPR"
-PY="/data5/jaehoonjeong/miniconda3/bin/python"
+source "$(dirname "${BASH_SOURCE[0]}")/_env.sh"
+PY="$CLIENT_PYTHON"
 MANIFEST="$PROJECT_ROOT/data/rulegen/campaign/kcl_substantive_campaign_manifest.json"
 cd "$PROJECT_ROOT"
 

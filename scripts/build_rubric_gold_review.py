@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 from collections import defaultdict
 from pathlib import Path
@@ -27,7 +28,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DRAFT_PATH = PROJECT_ROOT / "data" / "eval" / "rubric_crime_article_map.json"
 INVENTORY_PATH = PROJECT_ROOT / "data" / "inventory" / "kcl_criminal_v1_draft.jsonl"
 PARQUET_PATH = Path(
-    "/home/jaehoonjeong/data/sp_qwen/warehouse/lbox_kcl/kcl_essay/test.parquet"
+    os.environ.get("IDPR_KCL_PARQUET", PROJECT_ROOT / "data/raw/kcl_essay_test.parquet")
 )
 OUT_PATH = PROJECT_ROOT / "docs" / "rubric_crime_article_review.md"
 
@@ -56,10 +57,10 @@ def article_titles() -> dict[str, str]:
     the map asset's ``article_titles_supplement``, not from a literal here.
     """
     supplement = json.loads(DRAFT_PATH.read_text(encoding="utf-8"))
-    titles: dict[str, str] = dict(
-        supplement.get("article_titles_supplement", {}).get("titles", {})
+    titles: dict[str, str] = dict(supplement.get("article_titles_supplement", {}).get("titles", {}))
+    manifest = (
+        PROJECT_ROOT / "data" / "commentary" / "kcl_criminal_v1_tag_commentary_manifest.jsonl"
     )
-    manifest = PROJECT_ROOT / "data" / "commentary" / "kcl_criminal_v1_tag_commentary_manifest.jsonl"
     for line in manifest.read_text(encoding="utf-8").splitlines():
         if not line.strip():
             continue
@@ -184,9 +185,7 @@ def render(draft: dict, occurrences: dict[str, list[tuple[str, str]]]) -> str:
     for crime in sorted(clear, key=lambda c: -len(occurrences.get(c, []))):
         entry = clear[crime]
         articles = ", ".join(f"`{a}`" for a in entry["articles"]) or "—"
-        derived = {"attempt": "미수", "instigation": "교사·방조"}.get(
-            entry.get("derived", ""), ""
-        )
+        derived = {"attempt": "미수", "instigation": "교사·방조"}.get(entry.get("derived", ""), "")
         add(f"| {crime} | {articles} | {derived} | {len(occurrences.get(crime, []))} |")
     add("")
     add("> comment: ")

@@ -176,12 +176,12 @@ def test_act_labels_are_statutory_verbs_not_descriptions():
     assert all(len(label) <= 8 for label in ACT_LABELS)
 
 
-#: The smoke case ``kcl_criminal_r10_p1_q1_ga``, encoded by hand in the fact layer.
+#: The diagnostic case ``kcl_criminal_r10_p1_q1_ga``, encoded by hand in the fact layer.
 #: Kept as a test rather than as a fixture because its purpose is to prove the
 #: vocabularies are expressive enough for a real bar-exam fact pattern -- the one all
 #: seven baselines were measured on. Every entry traces to a numbered sentence of the
 #: fact pattern; nothing here classifies the conduct.
-SMOKE_CASE_FACTS: tuple[tuple[str, tuple[str, ...]], ...] = (
+DIAGNOSTIC_CASE_FACTS: tuple[tuple[str, tuple[str, ...]], ...] = (
     # (1) 甲이 A로부터 신체 사진을 전송받았다
     (PERSON, ("c", "甲")),
     (PERSON, ("c", "A")),
@@ -253,34 +253,32 @@ SMOKE_CASE_FACTS: tuple[tuple[str, tuple[str, ...]], ...] = (
 )
 
 
-def test_the_smoke_case_is_expressible_in_the_fact_layer():
+def test_diagnostic_case_is_expressible_in_the_fact_layer():
     """Every fact of the measured bar-exam case validates against the closed vocabularies.
 
     This is the expressiveness check. A vocabulary that cannot state the case it will be
     run on is not a fact layer, and the failure would otherwise surface only at call 1.
     """
-    for name, args in SMOKE_CASE_FACTS:
+    for name, args in DIAGNOSTIC_CASE_FACTS:
         validate_fact(name, args)
 
 
-def test_the_smoke_case_encoding_classifies_nothing():
+def test_diagnostic_case_encoding_classifies_nothing():
     """The encoding must not smuggle in the answers.
 
     The case turns on 강제추행 간접정범, 주거침입, 중지미수, 강간상해, 동시범 and 뇌물.
     None of those words may appear in the facts -- if one did, the fact layer would be
     handing call 2 its conclusion.
     """
-    encoded = " ".join(arg for _, args in SMOKE_CASE_FACTS for arg in args)
+    encoded = " ".join(arg for _, args in DIAGNOSTIC_CASE_FACTS for arg in args)
     for conclusion in ("추행", "주거", "미수", "상해", "동시범", "뇌물", "협박", "강간"):
         assert conclusion not in encoded, conclusion
 
 
-def test_the_smoke_case_records_undetermined_causation():
+def test_diagnostic_case_records_undetermined_causation():
     """제263조 동시범 is the issue the baselines handled worst, and it exists only if the
     fact layer can say 'the cause was not determined' as a positive fact."""
-    attributions = {
-        args[3] for name, args in SMOKE_CASE_FACTS if name == CAUSATION
-    }
+    attributions = {args[3] for name, args in DIAGNOSTIC_CASE_FACTS if name == CAUSATION}
     assert "불명" in attributions
 
 
@@ -312,18 +310,15 @@ def test_open_texture_markers_are_reported_in_table_order():
     assert "사회통념" in markers
     assert list(markers) == sorted(
         markers,
-        key=lambda m: [
-            marker for group in OPEN_TEXTURE_MARKERS.values() for marker in group
-        ].index(m),
+        key=lambda m: [marker for group in OPEN_TEXTURE_MARKERS.values() for marker in group].index(
+            m
+        ),
     )
 
 
 def test_a_degree_judgment_goes_to_the_model(corpus):
     """The card that no symbolic procedure can decide."""
-    card = next(
-        c for c in corpus.cards
-        if "반항을 억압할 정도" in c.proposition
-    )
+    card = next(c for c in corpus.cards if "반항을 억압할 정도" in c.proposition)
     assert route_card(card).route == MODEL_ASSESS
     assert route_card(card).is_open_textured
 
@@ -336,7 +331,8 @@ def test_a_requirement_negation_reaches_the_skeleton_despite_a_marker(corpus):
     requirement that the card says does not exist.
     """
     card = next(
-        c for c in corpus.cards
+        c
+        for c in corpus.cards
         if "손해 발생 우려" in c.proposition and "요구하지 않는다" in c.proposition
     )
     assert card.proposition  # guard against an empty match masking the assertion

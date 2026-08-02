@@ -15,9 +15,9 @@ blur; the cross-encoder reorders a shortlist neither got right alone.
 
 Multi-query, and why not one string
 -----------------------------------
-``question_text`` is a multi-episode narrative -- median 1,291 characters, and the smoke
-case packs an indirect-principal indecent act, a residential intrusion with an abandoned
-rape, a joint assault causing death, and bribery into three paragraphs. Encoding all of it
+``question_text`` is a multi-episode narrative -- median 1,291 characters, and a
+representative case packs an indirect-principal indecent act, a residential intrusion
+with an abandoned rape, a joint assault causing death, and bribery into three paragraphs. Encoding all of it
 as one vector averages away the article that appears in one paragraph only. Call 1 already
 decomposes the case by issue, so its ``retrieval_queries`` are the decomposition, and each
 is ranked separately and fused. Fusion across queries takes the **max**, not the sum: a
@@ -35,12 +35,12 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import re
 from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Mapping, Protocol, Sequence
 
-from idpr.generation import _bm25_score, _search_terms
 from idpr.rulebase.cards import Card, CardCorpus, card_corpus
 from idpr.rulebase.issue_catalog_v2 import IssuePacket, compile_issue_catalog_v2
 
@@ -81,6 +81,36 @@ class Reranker(Protocol):
     name: str
 
     def score(self, query: str, documents: Sequence[str]) -> list[float]: ...
+
+
+def _search_terms(text: str) -> list[str]:
+    """Tokenizer-free Korean lexical features used by the local BM25 index."""
+    normalized = re.sub(r"[^가-힣a-z0-9]", "", text.lower())
+    bigrams = [normalized[index : index + 2] for index in range(len(normalized) - 1)]
+    words = re.findall(r"[가-힣]{2,}|[a-z0-9]{2,}", text.lower())
+    return words + bigrams
+
+
+def _bm25_score(
+    *,
+    query_terms: Sequence[str],
+    document_terms: Sequence[str],
+    document_frequency: Mapping[str, int],
+    corpus_size: int,
+    k1: float = 1.2,
+) -> float:
+    frequencies = Counter(document_terms)
+    score = 0.0
+    for term in set(query_terms):
+        frequency = frequencies.get(term, 0)
+        if not frequency:
+            continue
+        df = document_frequency.get(term, 0)
+        inverse_document_frequency = math.log(
+            1 + (corpus_size - df + 0.5) / (df + 0.5)
+        )
+        score += inverse_document_frequency * frequency * (k1 + 1) / (frequency + k1)
+    return score
 
 
 @dataclass(frozen=True)
@@ -190,9 +220,8 @@ class IssueCardRetrievalResult:
 class LexicalIndex:
     """Character-bigram BM25 over card propositions.
 
-    Built once per corpus. ``_search_terms`` and ``_bm25_score`` are the fraud stack's,
-    reused rather than rewritten: the character bigrams are what make this work on Korean
-    without a tokeniser.
+    Built once per corpus. Character bigrams keep the index usable on Korean without a
+    tokenizer-specific runtime dependency.
     """
 
     documents: tuple[tuple[str, ...], ...]

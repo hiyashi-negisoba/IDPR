@@ -11,7 +11,7 @@ from typing import Any
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from idpr.neural import (  # noqa: E402
+from idpr.legacy.fraud_neural import (  # noqa: E402
     build_authority_packet,
     select_fraud_card_plan,
     validate_fraud_assessment_bundle,

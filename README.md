@@ -1,89 +1,95 @@
 # IDPR
 
-Logic-verified long-form legal document generation.
+IDPR is a Neural–Symbolic–Neural pipeline for source-grounded, long-form Korean
+criminal-law reasoning.
 
-Quickstart for local development:
+```text
+case text
+  → neural fact graph and candidate scope
+  → issue-level three-valued assessment
+  → Scallop symbolic composition
+  → constrained offence-level IRAC answer
+```
+
+The active rulebase contains 1,848 source-grounded cards organized under 383 legal
+issues across 51 Criminal Act articles. General rules are loaded as issue anchors;
+case-specific standards and precedents remain searchable details instead of becoming
+independent constituent elements.
+
+## Repository layout
+
+- `src/idpr/neural/`: generic fact, article, and issue assessment contracts
+- `src/idpr/rulebase/`: card/issue catalogs and Scallop compilation/runtime
+- `src/idpr/issue_pipeline.py`: generic symbolic stage boundaries
+- `src/idpr/generation/issue_answer.py`: constrained IRAC realization
+- `scripts/run_issue_assessment.py`: one-case issue assessment and symbolic execution
+- `scripts/run_issue_answer.py`: one-case IRAC realization
+- `scripts/run_issue_pipeline_batch.py`: resumable dataset runner
+- `src/idpr/legacy/`: archived fraud-pilot implementations kept for reproduction only
+- `scripts/diagnostics/`: fixed diagnostic and historical comparison runners
+
+No active pipeline module imports the legacy pilot packages.
+
+## Development
+
+Python 3.11 or later is required.
 
 ```bash
 uv sync
-cp .env.example .env
 uv run pytest
 ```
 
-The stage contracts in `docs/contracts/` are the API boundary. The initial
-bootstrap implementation is deliberately deterministic so rule golden tests can
-run without an LLM or GPU.
-
-KCL commentary and fraud RuleIR artifacts can be regenerated without semantic
-search or a GPU:
+The pinned Scallop runtime is installed separately:
 
 ```bash
-python scripts/build_kcl_criminal_inventory.py
-python scripts/build_kcl_criminal_commentary_bundle.py
-python scripts/build_fraud_rulegen_exemplar.py
+bash scripts/install_scallop_runtime.sh
 ```
 
-The commentary-to-Scallop design is documented in
-`docs/rulegen/scallop_rulegen_strategy.md`. API models emit source-grounded norm
-candidates, NormCards, and RuleIR only; `idpr.rulegen` validates provenance and
-compiles RuleIR locally.
+Raw benchmark and commentary sources are not committed. Copy `.env.example` to `.env`
+and configure local paths as needed. In particular, rubric-based evaluation requires
+`IDPR_KCL_PARQUET` when the source path recorded in the inventory is unavailable.
 
-The SKI-ML pilot reads credentials and model names from `.env`. Dry-run does not
-call the Gateway:
+## Validate the full stage boundary without a model
 
 ```bash
-python scripts/run_fraud_rulegen_pilot.py \
-  --with-critic --limit 1 --run-id fraud-pilot-dry
+python scripts/refresh_l0_issue_catalog.py
+python scripts/run_issue_pipeline_batch.py --plan-only
 ```
 
-Add `--execute` only after checking the dry-run. Valid responses and usage
-manifests are cached under `.cache/llm/`; secrets and model reasoning are never
-written to run manifests. The audited first fraud batch is tracked as
-`data/rulegen/fraud/fraud_norm_candidate_batch_pass1_001_exemplar.json`. It
-contains 62 exact-source candidates and 8 unresolved questions, and remains
-`status=draft`.
+The refresh command does not rerun retrieval or change candidate articles. It only
+rebuilds fields deterministically derived from the current issue catalog and refuses to
+write if the article boundary has changed.
 
-Terra extraction includes the compact
-`data/rulegen/fraud/fraud_norm_candidate_fewshot_gold.json` by default. It teaches
-doctrine/precedent separation without attaching the full 62-candidate artifact to
-every request. Use `--no-fewshot` for the paper's ablation condition.
+## Run inference
 
-The API compatibility and cost audit is in
-`docs/rulegen/skiml_api_integration.md`. Critic findings are advisory: accepted
-findings become bounded correction inputs, while final changes are applied as a
-validated `NormCandidatePatch` instead of repeatedly regenerating the full
-batch.
-
-The provisional research framing, including the standalone workshop-paper task
-and its connection to the earlier DCDE/OBJECTION work, is in
-`docs/research/idpr_research_draft.md`.
-
-The full Article 347 fraud preparation run is source-complete but still legally
-pending. It contains 661 validated candidates and 646 candidate-linked NormCards.
-Rebuild the deterministic correction artifacts and review queues locally with:
+Start an OpenAI-compatible model server, then run one case:
 
 ```bash
-python scripts/finalize_fraud_norm_candidate_batches.py
-python scripts/finalize_fraud_norm_cards.py
-python scripts/finalize_fraud_norm_card_critics.py
-python scripts/finalize_fraud_norm_card_review.py
-python scripts/build_fraud_legal_review.py
+python scripts/run_issue_assessment.py \
+  --base-url http://127.0.0.1:8000 \
+  --model MODEL_NAME \
+  --case-id CASE_ID \
+  --out experiments/results/idpr_nsn/CASE_ID/issue_assessment.json
+
+python scripts/run_issue_answer.py \
+  --base-url http://127.0.0.1:8000 \
+  --model MODEL_NAME \
+  --call2 experiments/results/idpr_nsn/CASE_ID/issue_assessment.json \
+  --out experiments/results/idpr_nsn/CASE_ID/answer.json
 ```
 
-The 67 critic findings and the full 118-card human review have been adjudicated
-without additional API calls. User labels and the manual cross-check leave 28
-deterministic rules and 60 standard inputs approved for the executable core; 558
-cards remain retrieval or future-work context. Full RuleIR generation is now
-unblocked but has not yet been run. The API-free generation preflight is tracked
-in `data/rulegen/fraud/fraud_rule_ir_generation_prep_review_guide.md`; Terra is
-hard-blocked until all ten preflight decisions are explicitly approved. The ten
-decisions are now approved, including the clarification that role slots do not
-imply distinct people and an established-fraud rule uses one variable for the
-deceived person and disposer. Terra was called exactly once, but returned an
-explicit 8/88-card partial draft; that raw output was rejected and audited. No
-second API call was made. The agent-authored deterministic reconstruction covers
-all 88 cards with 194 predicates and 337 rules, passes the full generation
-contract, and now awaits human review together with its exhaustive natural-
-language explanation. Sol critique, human re-review, and only then Scallop
-compilation/runtime testing remain required. The existing eight-card fraud
-RuleIR and Scallop files are historical structural exemplars.
+For a resumable inventory sweep:
+
+```bash
+python scripts/run_issue_pipeline_batch.py \
+  --base-url http://127.0.0.1:8000 \
+  --model MODEL_NAME
+```
+
+On Slurm, `scripts/slurm/run_issue_pipeline_batch.sh` requests one PRO6000 GPU, two
+CPUs, 32 GB RAM, and 48 hours. Cluster-specific paths are supplied through the
+`IDPR_*` environment variables documented in `.env.example`; none are embedded in the
+production runner.
+
+Generated model outputs and caches are ignored by Git. Reviewed rulebase, candidate,
+schema, and evaluation-definition assets remain versioned.

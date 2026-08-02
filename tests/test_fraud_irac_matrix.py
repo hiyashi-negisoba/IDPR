@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 from jsonschema import Draft202012Validator
 
-from idpr.generation import (
+from idpr.legacy.fraud_generation import (
     GenerationContractError,
     apply_section_patches,
     assess_irac_answer_alignment,
@@ -25,7 +25,7 @@ from idpr.generation import (
     validate_fraud_rag_packet,
     validate_long_form_answer,
 )
-from idpr.neural import (
+from idpr.legacy.fraud_neural import (
     NeuralContractError,
     anchor_fraud_target_roles,
     apply_negative_card_safety_net,
@@ -34,7 +34,7 @@ from idpr.neural import (
     select_fraud_card_plan,
     validate_fraud_assessment_bundle,
 )
-from idpr.fraud_planning import (
+from idpr.legacy.fraud_planning import (
     reasoning_plan_card_ids,
     reasoning_plan_neural_queries,
     select_fraud_reasoning_plan,

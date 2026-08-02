@@ -18,12 +18,7 @@
 
 set -euo pipefail
 
-PROJECT_ROOT="/data5/jaehoonjeong/IDPR"
-CLIENT_PYTHON="/data5/jaehoonjeong/miniconda3/bin/python"
-VLLM_BIN="/data5/jaehoonjeong/miniconda3/envs/inv_ass_env/bin/vllm"
-MODEL_SNAPSHOT="/data5/jaehoonjeong/.cache/huggingface/hub/models--google--gemma-4-26B-A4B-it/snapshots/01e5b3ee840d3a9e0b0b493c593e85398a30ef75"
-SERVED_MODEL="idpr-gemma-4-26b-a4b"
-LOCAL_API_KEY="local-idpr"
+source "$(dirname "${BASH_SOURCE[0]}")/_env.sh"
 RUN_DIR="$PROJECT_ROOT/.cache/l0/${SLURM_JOB_ID}"
 FACT_GRAPHS="$PROJECT_ROOT/data/eval/fact_graphs.jsonl"
 REPORT="$PROJECT_ROOT/data/eval/retrieval_l0_recall_report.json"
@@ -32,9 +27,6 @@ REPORT="$PROJECT_ROOT/data/eval/retrieval_l0_recall_report.json"
 # job segfaulted vLLM three times with a zero-byte log; the only deviations from the proven
 # template were a missing JE_ARROW_MALLOC_CONF and a PYTHONPATH exported into the vLLM
 # process. Both are restored/removed here rather than guessed at one at a time.
-export HF_HOME="/data5/jaehoonjeong/.cache/huggingface"
-export HF_HUB_OFFLINE=1
-export TRANSFORMERS_OFFLINE=1
 export TOKENIZERS_PARALLELISM=false
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 export VLLM_USE_FLASHINFER_SAMPLER=0
@@ -48,7 +40,7 @@ echo "=== IDPR L0 gate start: $(date) ==="
 echo "job=$SLURM_JOB_ID host=$(hostname)"
 nvidia-smi --query-gpu=name,memory.total --format=csv,noheader
 # Preflight: a segfault before this line is an environment problem, after it is ours.
-"/data5/jaehoonjeong/miniconda3/envs/inv_ass_env/bin/python" -c \
+"$CLIENT_PYTHON" -c \
     "import torch,vllm; print('torch/cuda/vllm', torch.__version__, torch.version.cuda, vllm.__version__)"
 
 # ---------------------------------------------------------------------------
@@ -144,6 +136,7 @@ export PYTHONPATH="$PROJECT_ROOT/src"
 echo "=== L0 retrieval + issue recall ==="
 "$CLIENT_PYTHON" scripts/run_retrieval_l0_report.py \
     --fact-graphs "$FACT_GRAPHS" \
+    --checks data/eval/diagnostic_checks.json \
     --out "$REPORT"
 
 echo "fact_graphs=$FACT_GRAPHS"

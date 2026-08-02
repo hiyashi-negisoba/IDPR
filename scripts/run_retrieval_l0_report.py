@@ -32,11 +32,6 @@ from idpr.rulebase.cards import card_corpus
 DEFAULT_FACT_GRAPHS = PROJECT_ROOT / "data" / "eval" / "fact_graphs.jsonl"
 DEFAULT_OUT = PROJECT_ROOT / "data" / "eval" / "retrieval_l0_recall_report.json"
 
-#: The plan's verification #5 checklist. An asset, not a literal: a verification list that
-#: names articles does not belong in the code that reports against it.
-SMOKE_CHECKS_PATH = PROJECT_ROOT / "data" / "eval" / "smoke_checks.json"
-
-
 def load_fact_graphs(path: Path) -> dict[str, dict]:
     if not path.is_file():
         return {}
@@ -64,6 +59,11 @@ def main() -> None:
     parser.add_argument("--inventory", type=Path, default=INVENTORY_PATH)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--top-k", type=int, nargs="+", default=[12, DEFAULT_TOP_K_ARTICLES, 24])
+    parser.add_argument(
+        "--checks",
+        type=Path,
+        help="optional case-specific coverage checklist for diagnostic reporting",
+    )
     parser.add_argument("--no-dense", action="store_true")
     parser.add_argument("--no-rerank", action="store_true")
     args = parser.parse_args()
@@ -152,29 +152,28 @@ def main() -> None:
             },
         }
 
-    # Smoke case: the items the plan names, plus the compound offence.
-    smoke = json.loads(SMOKE_CHECKS_PATH.read_text(encoding="utf-8"))
-    smoke_case = smoke["sub_question_id"]
-    smoke_checks = smoke["checks"]
-    smoke_articles = per_question_articles.get(
-        DEFAULT_TOP_K_ARTICLES, per_question_articles[args.top_k[0]]
-    ).get(smoke_case, [])
-    covered = set(corpus.by_article())
-    report["smoke_case"] = {
-        "sub_question_id": smoke_case,
-        "candidate_articles": smoke_articles,
-        "checks": {
-            name: {
-                "articles": wanted,
-                "recovered": sorted(set(wanted) & set(smoke_articles)),
-                "missing_from_corpus": sorted(set(wanted) - covered),
-                "missed_by_retrieval": sorted(
-                    (set(wanted) & covered) - set(smoke_articles)
-                ),
-            }
-            for name, wanted in smoke_checks.items()
-        },
-    }
+    if args.checks:
+        checks = json.loads(args.checks.read_text(encoding="utf-8"))
+        check_case = checks["sub_question_id"]
+        check_articles = per_question_articles.get(
+            DEFAULT_TOP_K_ARTICLES, per_question_articles[args.top_k[0]]
+        ).get(check_case, [])
+        covered = set(corpus.by_article())
+        report["diagnostic_checks"] = {
+            "sub_question_id": check_case,
+            "candidate_articles": check_articles,
+            "checks": {
+                name: {
+                    "articles": wanted,
+                    "recovered": sorted(set(wanted) & set(check_articles)),
+                    "missing_from_corpus": sorted(set(wanted) - covered),
+                    "missed_by_retrieval": sorted(
+                        (set(wanted) & covered) - set(check_articles)
+                    ),
+                }
+                for name, wanted in checks["checks"].items()
+            },
+        }
 
     scorable = [item for item in gold.values() if item.bucket == SCORABLE]
     report["scorable_question_ids"] = sorted(item.sub_question_id for item in scorable)

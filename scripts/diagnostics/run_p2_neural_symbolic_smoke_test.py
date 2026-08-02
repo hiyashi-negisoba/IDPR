@@ -8,14 +8,11 @@
 
 from __future__ import annotations
 
-import json
-import sys
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-PROJECT_ROOT = Path('/home/jaehoonjeong/data/IDPR')
-SCL_PATH = PROJECT_ROOT / 'data/rulegen/p2/p2_full.scl'
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+SCL_PATH = PROJECT_ROOT / "data/rulegen/p2/p2_full.scl"
 
 # Sample Test Cases if none provided
 DEFAULT_CASES = [
@@ -30,8 +27,8 @@ DEFAULT_CASES = [
             "action": "주거용 건조물 방화 및 살해 목적 행위",
             "unlawful_intent": True,
             "causation_established": True,
-            "result_occurred": True
-        }
+            "result_occurred": True,
+        },
     },
     {
         "case_id": "CASE_2026_002",
@@ -44,9 +41,9 @@ DEFAULT_CASES = [
             "action": "직무유기 및 무단이탈",
             "unlawful_intent": True,
             "causation_established": True,
-            "result_occurred": True
-        }
-    }
+            "result_occurred": True,
+        },
+    },
 ]
 
 
@@ -60,48 +57,58 @@ def run_symbolic_datalog(extracted_facts: dict[str, Any]) -> dict[str, Any]:
     has_result = extracted_facts.get("result_occurred", False)
 
     findings = []
-    
+
     # Homicide Rule
     if has_actor and has_action and has_result and has_intent and has_causation:
-        findings.append({
-            "offense": "살인죄 (형법 제250조 제1항)",
-            "verdict": "성립 (GUILTY)",
-            "rule_code": "art250_sec1_3.birth_labor_theory",
-            "reasoning": "사람의 생명을 침해하는 행위와 사망 결과 사이의 인과관계 및 살인의 고의 충족"
-        })
-        
+        findings.append(
+            {
+                "offense": "살인죄 (형법 제250조 제1항)",
+                "verdict": "성립 (GUILTY)",
+                "rule_code": "art250_sec1_3.birth_labor_theory",
+                "reasoning": "사람의 생명을 침해하는 행위와 사망 결과 사이의 인과관계 및 살인의 고의 충족",
+            }
+        )
+
     # Bodily Injury Rule
     if has_actor and has_action and has_result and has_causation:
-        findings.append({
-            "offense": "상해/치사죄 (형법 제257조/제259조)",
-            "verdict": "성립 (GUILTY)",
-            "rule_code": "art257.injury_concept",
-            "reasoning": "신체 생리적 기능 침해 및 인과관계 충족"
-        })
+        findings.append(
+            {
+                "offense": "상해/치사죄 (형법 제257조/제259조)",
+                "verdict": "성립 (GUILTY)",
+                "rule_code": "art257.injury_concept",
+                "reasoning": "신체 생리적 기능 침해 및 인과관계 충족",
+            }
+        )
 
     # Arson Rule
     if has_actor and has_action and has_intent:
-        findings.append({
-            "offense": "현주건조물등방화죄 (형법 제164조 제1항)",
-            "verdict": "성립 (GUILTY)",
-            "rule_code": "art164_sec2_1.completion_independent_combustion_variant",
-            "reasoning": "주거용 건조물에 독립 연소 개시 및 방화 고의 충족"
-        })
+        findings.append(
+            {
+                "offense": "현주건조물등방화죄 (형법 제164조 제1항)",
+                "verdict": "성립 (GUILTY)",
+                "rule_code": "art164_sec2_1.completion_independent_combustion_variant",
+                "reasoning": "주거용 건조물에 독립 연소 개시 및 방화 고의 충족",
+            }
+        )
 
     # Official Obstruction Rule
-    if "직무유기" in str(extracted_facts.get("action")) or "공무" in str(extracted_facts.get("action")):
-        findings.append({
-            "offense": "직무유기죄 (형법 제122조)",
-            "verdict": "성립 (GUILTY)",
-            "rule_code": "art122_sec1_2.absence_evaluation_concrete_danger",
-            "reasoning": "공무원의 무단이탈 및 국가기능 저해의 구체적 위험 발생 충족"
-        })
+    if "직무유기" in str(extracted_facts.get("action")) or "공무" in str(
+        extracted_facts.get("action")
+    ):
+        findings.append(
+            {
+                "offense": "직무유기죄 (형법 제122조)",
+                "verdict": "성립 (GUILTY)",
+                "rule_code": "art122_sec1_2.absence_evaluation_concrete_danger",
+                "reasoning": "공무원의 무단이탈 및 국가기능 저해의 구체적 위험 발생 충족",
+            }
+        )
 
     return {
         "case_id": cid,
         "datalog_status": "DEDUTION_SUCCESS",
         "proven_findings_count": len(findings),
-        "findings": findings
+        "findings": findings,
     }
 
 
@@ -126,18 +133,22 @@ def generate_legal_opinion(case_info: dict[str, Any], symbolic_result: dict[str,
         "",
         "## 3. 심볼릭 Datalog 추론 결과 (Stage 2 Scallop Symbolic Engine)",
         "| 죄목 | 판결 (Verdict) | 적용 근거 규칙 (Rule Code) | 법리 판단 이유 |",
-        "| --- | --- | --- | --- |"
+        "| --- | --- | --- | --- |",
     ]
 
     for f in findings:
-        lines.append(f"| **{f['offense']}** | `{f['verdict']}` | `{f['rule_code']}` | {f['reasoning']} |")
+        lines.append(
+            f"| **{f['offense']}** | `{f['verdict']}` | `{f['rule_code']}` | {f['reasoning']} |"
+        )
 
-    lines.extend([
-        "",
-        "## 4. 최종 죄수 및 상상적/실체적 경합 판단 (Stage 3 Conclusion)",
-        "- **죄수 관계**: 피고인의 본건 행위는 수개의 범죄 구성요건을 충족하여 상상적/실체적 경합 관계에 서게 됩니다.",
-        "- **최종 결론**: Scallop Datalog 심볼릭 규칙 엔진에 의해 **[성립 (GUILTY)]** 확정 판단이 유도되었습니다."
-    ])
+    lines.extend(
+        [
+            "",
+            "## 4. 최종 죄수 및 상상적/실체적 경합 판단 (Stage 3 Conclusion)",
+            "- **죄수 관계**: 피고인의 본건 행위는 수개의 범죄 구성요건을 충족하여 상상적/실체적 경합 관계에 서게 됩니다.",
+            "- **최종 결론**: Scallop Datalog 심볼릭 규칙 엔진에 의해 **[성립 (GUILTY)]** 확정 판단이 유도되었습니다.",
+        ]
+    )
 
     return "\n".join(lines)
 
@@ -152,11 +163,11 @@ def run_smoke_test(custom_case: dict[str, Any] | None = None):
     for idx, case in enumerate(cases, 1):
         print(f"--- [Case {idx}] {case['title']} ---")
         print(f"fact_pattern: {case['fact_pattern']}")
-        
+
         # Stage 1 & 2
-        sym_res = run_symbolic_datalog(case['simulated_extracted_facts'])
+        sym_res = run_symbolic_datalog(case["simulated_extracted_facts"])
         print(f"-> Scallop Engine Deduction: {sym_res['proven_findings_count']} offenses proven.")
-        
+
         # Stage 3
         opinion = generate_legal_opinion(case, sym_res)
         print("\n" + opinion + "\n")

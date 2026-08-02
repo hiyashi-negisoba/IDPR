@@ -16,7 +16,7 @@ from jsonschema import Draft202012Validator
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from idpr.generation import (  # noqa: E402
+from idpr.legacy.fraud_generation import (  # noqa: E402
     GenerationContractError,
     METHOD_IDS,
     apply_section_patches,
@@ -34,14 +34,14 @@ from idpr.generation import (  # noqa: E402
     validate_fraud_rag_packet,
     validate_long_form_answer,
 )
-from idpr.fraud_planning import (  # noqa: E402
+from idpr.legacy.fraud_planning import (  # noqa: E402
     build_fraud_assessment_context,
     reasoning_plan_card_ids,
     reasoning_plan_neural_queries,
     select_fraud_reasoning_plan,
     validate_fraud_case,
 )
-from idpr.neural import (  # noqa: E402
+from idpr.legacy.fraud_neural import (  # noqa: E402
     anchor_fraud_target_roles,
     apply_negative_card_safety_net,
     build_authority_packet,

@@ -42,7 +42,6 @@ DEFAULT_FACT_GRAPHS = PROJECT_ROOT / "data" / "eval" / "fact_graphs.jsonl"
 DEFAULT_SELECTION = PROJECT_ROOT / "data" / "eval" / "article_selection.jsonl"
 DEFAULT_OUT = PROJECT_ROOT / "data" / "eval" / "l0_candidates.jsonl"
 DEFAULT_REPORT = PROJECT_ROOT / "data" / "eval" / "l0_union_report.json"
-SMOKE_CHECKS_PATH = PROJECT_ROOT / "data" / "eval" / "smoke_checks.json"
 
 
 def _rows(path: Path) -> list[dict]:
@@ -59,6 +58,11 @@ def main() -> None:
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--report", type=Path, default=DEFAULT_REPORT)
     parser.add_argument("--top-k-articles", type=int, default=DEFAULT_TOP_K_ARTICLES)
+    parser.add_argument(
+        "--checks",
+        type=Path,
+        help="optional case-specific coverage checklist for diagnostic reporting",
+    )
     parser.add_argument("--no-retrieval", action="store_true",
                         help="model selection only -- the fallback if the union is too slow")
     args = parser.parse_args()
@@ -146,9 +150,6 @@ def main() -> None:
         for scope in scopes.values()
     ]
 
-    smoke = json.loads(SMOKE_CHECKS_PATH.read_text(encoding="utf-8"))
-    covered = set(corpus.by_article())
-    smoke_articles = per_question.get(smoke["sub_question_id"], [])
     report = {
         "mode": "model_selection_only" if args.no_retrieval else "union",
         "top_k_articles": None if args.no_retrieval else args.top_k_articles,
@@ -167,20 +168,25 @@ def main() -> None:
             "max": max(anchors),
         },
         "missed_articles": missed_articles(gold, per_question),
-        "smoke_case": {
-            "sub_question_id": smoke["sub_question_id"],
-            "candidate_articles": smoke_articles,
+    }
+    if args.checks:
+        checks = json.loads(args.checks.read_text(encoding="utf-8"))
+        check_case = checks["sub_question_id"]
+        check_articles = per_question.get(check_case, [])
+        covered = set(corpus.by_article())
+        report["diagnostic_checks"] = {
+            "sub_question_id": check_case,
+            "candidate_articles": check_articles,
             "checks": {
                 name: {
                     "articles": wanted,
-                    "recovered": sorted(set(wanted) & set(smoke_articles)),
+                    "recovered": sorted(set(wanted) & set(check_articles)),
                     "missing_from_corpus": sorted(set(wanted) - covered),
-                    "missed": sorted((set(wanted) & covered) - set(smoke_articles)),
+                    "missed": sorted((set(wanted) & covered) - set(check_articles)),
                 }
-                for name, wanted in smoke["checks"].items()
+                for name, wanted in checks["checks"].items()
             },
-        },
-    }
+        }
     args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     print(f"\nmode={report['mode']} recall={report['macro_recall']} "
@@ -188,8 +194,8 @@ def main() -> None:
           f"articles={report['articles_per_question']} "
           f"issues={report['initial_issues_per_question']} "
           f"anchors={report['anchor_rules_per_question']}")
-    for name, block in report["smoke_case"]["checks"].items():
-        print(f"  smoke {name}: recovered={block['recovered']} missed={block['missed']} "
+    for name, block in report.get("diagnostic_checks", {}).get("checks", {}).items():
+        print(f"  check {name}: recovered={block['recovered']} missed={block['missed']} "
               f"out_of_corpus={block['missing_from_corpus']}")
     print(f"wrote {args.out} / {args.report}")
 

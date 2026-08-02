@@ -1,4 +1,9 @@
-"""Run the issue-first Call-2 smoke without expanding every article into every card."""
+"""Assess normalized legal issues for one case and run symbolic composition.
+
+The default scope is read from the persisted L0 candidate artifact.  ``--articles`` is
+an explicit diagnostic override; production callers should omit it so that no case or
+offence selection is embedded in the runner.
+"""
 
 from __future__ import annotations
 
@@ -16,6 +21,7 @@ from idpr.issue_pipeline import (
     followup_issues,
     generation_issues,
     run_issue_symbolic,
+    scope_from_l0_row,
 )
 from idpr.neural.fact_graph import assessment_facts
 from idpr.neural.issue_assessment import (
@@ -30,14 +36,21 @@ from idpr.prompts import load_prompt
 from idpr.rulebase.cards import card_corpus
 from idpr.retrieval import DEFAULT_TOP_K_CARDS_PER_ISSUE, retrieve_issue_cards
 
-DEFAULT_CASE_ID = "kcl_criminal_r10_p1_q1_ga"
-DEFAULT_ARTICLES = ("art298", "art297", "art301", "art319")
 FACT_GRAPHS = PROJECT_ROOT / "data/eval/fact_graphs.jsonl"
 L0_CANDIDATES = PROJECT_ROOT / "data/eval/l0_candidates.jsonl"
-DEFAULT_OUT = PROJECT_ROOT / "data/eval/issue_status_smoke.json"
 SYSTEM_PROMPT = "issue_assess"
 USER_PROMPT = "issue_assess_user"
 _LAWLIKE_MISSING_RE = re.compile(r"법리|판례|정의|기준|요건|성립|해석|적용|해당")
+
+
+def _write_json_atomic(path: Path, payload: Mapping[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    temporary.replace(path)
 
 
 def _jsonl_by_id(path: Path) -> dict[str, dict[str, Any]]:
@@ -69,14 +82,14 @@ def _cache_key(
     return hashlib.sha256(content.encode("utf-8")).hexdigest()
 
 
-def prepare_issue_smoke(
+def prepare_issue_case(
     *,
     case_id: str,
-    articles: tuple[str, ...],
+    articles: tuple[str, ...] | None = None,
     inventory_path: Path = INVENTORY_PATH,
     fact_graph_path: Path = FACT_GRAPHS,
     candidates_path: Path = L0_CANDIDATES,
-) -> tuple[dict[str, Any], dict[str, Any], tuple[Any, ...]]:
+) -> tuple[dict[str, Any], dict[str, Any], Any]:
     inventory = _jsonl_by_id(inventory_path)
     graph_rows = _jsonl_by_id(fact_graph_path)
     candidate_rows = _jsonl_by_id(candidates_path)
@@ -87,27 +100,29 @@ def prepare_issue_smoke(
     ):
         if case_id not in table:
             raise ValueError(f"{case_id} missing from {name}")
-    if len(articles) != len(set(articles)):
+    candidate_row = candidate_rows[case_id]
+    persisted_articles = tuple(candidate_row.get("articles", ()))
+    selected_articles = articles if articles is not None else persisted_articles
+    if not selected_articles:
+        raise ValueError(f"{case_id} has no candidate articles")
+    if len(selected_articles) != len(set(selected_articles)):
         raise ValueError("articles must be unique")
-    l0_articles = set(candidate_rows[case_id]["articles"])
-    missing = [article for article in articles if article not in l0_articles]
+    l0_articles = set(persisted_articles)
+    missing = [article for article in selected_articles if article not in l0_articles]
     if missing:
         raise ValueError(f"requested articles are absent from L0 candidates: {missing}")
 
     graph = graph_rows[case_id].get("fact_graph")
     if not isinstance(graph, Mapping):
         raise ValueError(f"{case_id} has no admitted fact graph")
-    scope = candidate_issues(
-        selected=articles,
-        # The smoke explicitly names its four articles.  Production uses the default
-        # attempt map through the same entry point; this fixture must remain comparable
-        # with the earlier flat-card runs.
-        attempt_map={},
+    scope = (
+        scope_from_l0_row(candidate_row)
+        if articles is None
+        else candidate_issues(selected=selected_articles, attempt_map={})
     )
-    issues = scope.initial_issues
-    if not issues:
+    if not scope.initial_issues:
         raise ValueError("no assessable issues selected")
-    return dict(inventory[case_id]), dict(graph), issues
+    return dict(inventory[case_id]), dict(graph), scope
 
 
 def _missing_diagnostic(output: Mapping[str, Any]) -> dict[str, int | float]:
@@ -175,14 +190,9 @@ def _complete_bundle(
                 temperature=temperature,
                 user_template=prompts[1],
             )
-            cache_path.write_text(
-                json.dumps(
-                    {"output": output, "metadata": metadata},
-                    ensure_ascii=False,
-                    indent=2,
-                )
-                + "\n",
-                encoding="utf-8",
+            _write_json_atomic(
+                cache_path,
+                {"output": output, "metadata": metadata},
             )
             source = "model"
         usage = metadata.get("usage", {})
@@ -209,9 +219,7 @@ def _complete_bundle(
                 raise
             correction_errors = error.errors
             continue
-        attempt_records.append(
-            {"attempt": attempt, "source": source, "errors": [], "usage": usage}
-        )
+        attempt_records.append({"attempt": attempt, "source": source, "errors": [], "usage": usage})
         break
     return output, attempt_records, total_usage
 
@@ -221,14 +229,20 @@ def main() -> None:
     parser.add_argument("--base-url")
     parser.add_argument("--model")
     parser.add_argument("--api-key", default="local-idpr")
-    parser.add_argument("--case-id", default=DEFAULT_CASE_ID)
-    parser.add_argument("--articles", nargs="+", default=list(DEFAULT_ARTICLES))
+    parser.add_argument("--case-id", required=True)
+    parser.add_argument(
+        "--articles",
+        nargs="+",
+        help="diagnostic subset override; default is this case's complete L0 scope",
+    )
     parser.add_argument("--inventory", type=Path, default=INVENTORY_PATH)
     parser.add_argument("--fact-graphs", type=Path, default=FACT_GRAPHS)
     parser.add_argument("--candidates", type=Path, default=L0_CANDIDATES)
-    parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
+    parser.add_argument("--out", type=Path, required=True)
     parser.add_argument(
-        "--work-dir", type=Path, default=PROJECT_ROOT / ".cache/call2_issue_smoke"
+        "--work-dir",
+        type=Path,
+        help="cache/runtime directory (default: .cache/issue_pipeline/<case-id>)",
     )
     parser.add_argument("--max-tokens", type=int, default=4096)
     parser.add_argument("--timeout-seconds", type=float, default=7200.0)
@@ -250,35 +264,31 @@ def main() -> None:
     if args.detail_cards_per_issue < 1:
         parser.error("--detail-cards-per-issue must be at least 1")
 
-    case, graph, issues = prepare_issue_smoke(
+    args.work_dir = args.work_dir or PROJECT_ROOT / ".cache/issue_pipeline" / args.case_id
+    case, graph, scope = prepare_issue_case(
         case_id=args.case_id,
-        articles=tuple(args.articles),
+        articles=tuple(args.articles) if args.articles else None,
         inventory_path=args.inventory,
         fact_graph_path=args.fact_graphs,
         candidates_path=args.candidates,
     )
+    issues = scope.initial_issues
     corpus = card_corpus()
     issue_payloads = [issue.model_payload(corpus.by_id) for issue in issues]
-    request = issue_assessment_request(
-        case=case, fact_graph=graph, issues=issue_payloads
-    )
+    request = issue_assessment_request(case=case, fact_graph=graph, issues=issue_payloads)
     request["version"] = SCHEMA_VERSION
     facts = assessment_facts(graph)
     fact_ids = [fact["fact_id"] for fact in facts]
     issue_ids = [issue.issue_id for issue in issues]
-    schema = issue_assessment_schema(
-        case_id=args.case_id, issue_ids=issue_ids, fact_ids=fact_ids
-    )
+    schema = issue_assessment_schema(case_id=args.case_id, issue_ids=issue_ids, fact_ids=fact_ids)
     prompts = (load_prompt(SYSTEM_PROMPT), load_prompt(USER_PROMPT))
     plan = {
         "case_id": args.case_id,
-        "articles": list(args.articles),
+        "articles": list(scope.articles),
         "facts": len(facts),
         "issues": len(issues),
         "anchor_rules": sum(len(issue.anchor_card_ids) for issue in issues),
-        "retrieval_cards_not_loaded": sum(
-            len(issue.retrieval_card_ids) for issue in issues
-        ),
+        "retrieval_cards_not_loaded": sum(len(issue.retrieval_card_ids) for issue in issues),
         "payload_chars": len(json.dumps(request, ensure_ascii=False)),
         "max_tokens": args.max_tokens,
         "detail_cards_per_issue": args.detail_cards_per_issue,
@@ -315,9 +325,7 @@ def main() -> None:
     total_usage = dict(initial_usage)
     issue_by_id = {issue.issue_id: issue for issue in issues}
     unknown_ids = [
-        issue_id
-        for issue_id in issue_ids
-        if output["assessments"][issue_id]["status"] == "unknown"
+        issue_id for issue_id in issue_ids if output["assessments"][issue_id]["status"] == "unknown"
     ]
     refinement: dict[str, Any] = {
         "triggered_issue_ids": unknown_ids,
@@ -328,8 +336,7 @@ def main() -> None:
     if unknown_ids and not args.no_refine_unknown:
         unknown_issues = [issue_by_id[issue_id] for issue_id in unknown_ids]
         focus = {
-            issue_id: output["assessments"][issue_id]["missing_facts"]
-            for issue_id in unknown_ids
+            issue_id: output["assessments"][issue_id]["missing_facts"] for issue_id in unknown_ids
         }
         retrieved_details = retrieve_issue_cards(
             unknown_issues,
@@ -344,13 +351,10 @@ def main() -> None:
             if result.card_ids
         }
         refinement["retrieved"] = {
-            result.issue_id: list(result.card_ids)
-            for result in retrieved_details.results
+            result.issue_id: list(result.card_ids) for result in retrieved_details.results
         }
         refined_issues = [
-            issue_by_id[issue_id]
-            for issue_id in unknown_ids
-            if issue_id in detail_by_issue
+            issue_by_id[issue_id] for issue_id in unknown_ids if issue_id in detail_by_issue
         ]
         if refined_issues:
             refined_payloads = [
@@ -396,16 +400,12 @@ def main() -> None:
             for key, value in refined_usage.items():
                 total_usage[key] = total_usage.get(key, 0) + value
     status_counts = {
-        status: sum(
-            assessment["status"] == status
-            for assessment in output["assessments"].values()
-        )
+        status: sum(assessment["status"] == status for assessment in output["assessments"].values())
         for status in ("satisfied", "not_satisfied", "unknown")
     }
     initial_status_counts = {
         status: sum(
-            assessment["status"] == status
-            for assessment in initial_output["assessments"].values()
+            assessment["status"] == status for assessment in initial_output["assessments"].values()
         )
         for status in ("satisfied", "not_satisfied", "unknown")
     }
@@ -416,11 +416,6 @@ def main() -> None:
         work_dir=args.work_dir / "symbolic",
         corpus=corpus,
         name=f"{args.case_id}_initial_issue",
-    )
-    scope = candidate_issues(
-        selected=tuple(args.articles),
-        attempt_map={},
-        corpus=corpus,
     )
     relation_followup: dict[str, Any] = {
         "issue_ids": [],
@@ -481,10 +476,7 @@ def main() -> None:
         name=f"{args.case_id}_issue",
     )
     status_counts = {
-        status: sum(
-            assessment["status"] == status
-            for assessment in output["assessments"].values()
-        )
+        status: sum(assessment["status"] == status for assessment in output["assessments"].values())
         for status in ("satisfied", "not_satisfied", "unknown")
     }
     assessed_by_id = {
@@ -550,10 +542,7 @@ def main() -> None:
         "symbolic_runtime": symbolic_runtime,
         "reasoning_packet": reasoning_packet,
     }
-    args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(
-        json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
-    )
+    _write_json_atomic(args.out, report)
     print(f"usage={report['usage']}")
     print(f"status_counts={status_counts}")
     print(f"missing_diagnostic={report['missing_diagnostic']}")

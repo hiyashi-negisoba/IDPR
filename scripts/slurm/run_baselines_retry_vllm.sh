@@ -16,16 +16,7 @@ echo "Host: $(hostname)"
 echo "CUDA_VISIBLE_DEVICES: ${CUDA_VISIBLE_DEVICES:-N/A}"
 echo "=================================================================="
 
-PROJECT_ROOT="/data5/jaehoonjeong/IDPR"
-CLIENT_PYTHON="/data5/jaehoonjeong/miniconda3/bin/python"
-VLLM_BIN="/data5/jaehoonjeong/miniconda3/envs/inv_ass_env/bin/vllm"
-MODEL_SNAPSHOT="/data5/jaehoonjeong/.cache/huggingface/hub/models--google--gemma-4-26B-A4B-it/snapshots/01e5b3ee840d3a9e0b0b493c593e85398a30ef75"
-SERVED_MODEL="idpr-gemma-4-26b-a4b"
-LOCAL_API_KEY="local-idpr"
-
-export HF_HOME="/data5/jaehoonjeong/.cache/huggingface"
-export HF_HUB_OFFLINE=1
-export TRANSFORMERS_OFFLINE=1
+source "$(dirname "${BASH_SOURCE[0]}")/_env.sh"
 export TOKENIZERS_PARALLELISM=false
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 export VLLM_USE_FLASHINFER_SAMPLER=0
@@ -87,8 +78,6 @@ if [ "$READY" != 1 ]; then
     echo "❌ Error: vLLM Server failed to start."
     exit 1
 fi
-
-PYTHON_BIN="/data5/jaehoonjeong/miniconda3/envs/inv_ass_env/bin/python"
 
 echo "Executing 3 previously-failed baselines sequentially on Live Gemma 4 Model..."
 

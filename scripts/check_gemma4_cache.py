@@ -9,19 +9,15 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from idpr.neural import ModelCacheError, audit_local_model_snapshot  # noqa: E402
-
-
-DEFAULT_SNAPSHOT = Path(
-    "/data5/jaehoonjeong/.cache/huggingface/hub/"
-    "models--google--gemma-4-26B-A4B-it/snapshots/"
-    "01e5b3ee840d3a9e0b0b493c593e85398a30ef75"
+from idpr.legacy.fraud_neural import (  # noqa: E402
+    ModelCacheError,
+    audit_local_model_snapshot,
 )
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
+    parser.add_argument("--snapshot", type=Path, required=True)
     parser.add_argument("--json-out", type=Path)
     return parser.parse_args()
 

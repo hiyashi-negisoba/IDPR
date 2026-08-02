@@ -45,6 +45,8 @@ class BaselineExperimentRunner:
             m = re.search(r":(\d+)", vllm_base_url)
             if m:
                 os.environ["VLLM_PORT"] = m.group(1)
+        if vllm_model:
+            os.environ["VLLM_MODEL"] = vllm_model
 
         self.vllm_client = (
             VLLMClient(base_url=vllm_base_url, model=vllm_model)
@@ -109,12 +111,12 @@ class BaselineExperimentRunner:
         all_results: Dict[str, List[Dict[str, Any]]] = {}
 
         if verbose:
-            print(f"============================================================")
-            print(f"🔬 Starting Baseline Experiment Runner with Formatted Inputs")
+            print("============================================================")
+            print("🔬 Starting Baseline Experiment Runner with Formatted Inputs")
             print(f"  └─ Dataset: {dataset_path} ({len(cases)} cases loaded)")
             print(f"  └─ Target Baselines ({len(target_ids)}): {', '.join(target_ids)}")
             print(f"  └─ Output Directory: {self.output_dir.resolve()}")
-            print(f"============================================================")
+            print("============================================================")
 
         for b_id in target_ids:
             if b_id not in self.baselines:
@@ -203,7 +205,7 @@ class BaselineExperimentRunner:
             json.dump(master_summary, f_master, ensure_ascii=False, indent=2)
 
         if verbose:
-            print(f"\n🎉 All baseline experiments completed successfully with formatted inputs.")
+            print("\n🎉 All baseline experiments completed successfully with formatted inputs.")
             print(f"📌 Master Output Summary saved to: {master_file.resolve()}")
 
         return all_results

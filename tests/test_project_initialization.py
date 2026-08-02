@@ -109,7 +109,13 @@ def test_contract_schemas_are_loadable_and_expose_stage_boundaries() -> None:
 
 
 def test_fraud_rule_golden_cases_and_evidence_gating() -> None:
-    from idpr.reasoning import Evidence, Fact, FraudInputs, StandardJudgment, derive_fraud
+    from idpr.legacy.fraud_reasoning import (
+        Evidence,
+        Fact,
+        FraudInputs,
+        StandardJudgment,
+        derive_fraud,
+    )
 
     admissible_core = Evidence(
         evidence_id="E1",
@@ -182,7 +188,13 @@ def test_fraud_rule_golden_cases_and_evidence_gating() -> None:
 
 
 def test_verifier_flags_inadmissible_use_against_derivation() -> None:
-    from idpr.reasoning import Evidence, Fact, FraudInputs, StandardJudgment, derive_fraud
+    from idpr.legacy.fraud_reasoning import (
+        Evidence,
+        Fact,
+        FraudInputs,
+        StandardJudgment,
+        derive_fraud,
+    )
     from idpr.verification import ParagraphClaim, verify_claims
 
     derivation = derive_fraud(

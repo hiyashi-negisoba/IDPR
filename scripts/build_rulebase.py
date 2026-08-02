@@ -20,7 +20,7 @@ import json
 import sys
 
 import yaml
-from collections import Counter, defaultdict
+from collections import Counter
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -46,11 +46,6 @@ from idpr.rulebase.facts import (  # noqa: E402
     vocabulary_size,
 )
 from idpr.rulebase.formalization import (  # noqa: E402
-    CONCURRENCE_SEED,
-    MODEL_ASSESS,
-    NARRATIVE,
-    SKELETON_META,
-    STAGE_SEED,
     route_corpus,
     routing_summary,
 )
@@ -62,7 +57,6 @@ from idpr.rulebase.roles import (  # noqa: E402
 from idpr.rulebase.review import (  # noqa: E402
     parse_review,
     review_summary,
-    verdict_map,
 )
 from idpr.rulebase.skeleton import (  # noqa: E402
     CONCURRENCE,
