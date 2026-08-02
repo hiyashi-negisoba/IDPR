@@ -1,0 +1,241 @@
+{
+  "version": "1.0.0",
+  "status": "passed",
+  "contract_scope": "two-case structural E2E; no rubric scoring or retrieval gate",
+  "tested_code_commit": "62171e9b6d514a53f0aa31da6842d7eb234d20ed",
+  "verifier_commit": "0e7c9bc86100d840a6e552c226b304eeb86eff88",
+  "freeze_tag": "phase3-e2e-freeze-v1",
+  "slurm_job_id": "218223",
+  "model": "idpr-gemma-4-26b-a4b",
+  "parameters": {
+    "call1_max_tokens": "8192",
+    "call1_5_max_tokens": "2048",
+    "retrieval_top_k_articles": "18",
+    "call2_max_tokens": "12288",
+    "call3_max_tokens": "16384",
+    "temperature": "0.0",
+    "timing_source": "server_and_artifact_timestamps_reconstructed_after_manifest_path_failure",
+    "slurm_scheduler_state": "FAILED_after_completed_generation_due_to_manifest_path_alias"
+  },
+  "stage_seconds": {
+    "call1": 19.0,
+    "call1_5": 2.0,
+    "l0": 21.0,
+    "call2_call3": 401.0,
+    "total": 688.0
+  },
+  "prompt_sha256": {
+    "fact_graph_extract": "acec7b1c7cd6945c1ed3c5aa31fb3dcc89035f394e27f7dbe5ca29f3b043b4e6",
+    "fact_graph_extract_user": "e359f145919a86b32006e4ea319926b0bc14c3cf4700e60be89a0d20b19ffe16",
+    "article_select": "c8a2cb7f9dd2d51004afe130d361ca4f6df03371c04fda6052ff41f268aa4c50",
+    "article_select_user": "44e99cd0ea5410838bf334fd5ec2cf8b4de9ff42a67620bee218a893262e457d",
+    "issue_assess": "21cee9bf8e33e618598dc0efc51b484b85392a254c37dfb4bda95b91b9d1f11c",
+    "issue_assess_user": "7be46a5afc89e8543491712b5d25d42b409a43bccf9fc62585165ca05d24ec1b",
+    "issue_long_form_generate": "e1989b4c2820d218679c5474fb5095251a84d1a0ff65d777bae281e31f01a9f4",
+    "issue_long_form_generate_user": "df45af2e674628d149b87a9980f68da699df3a55f965c22d727d1c04c2b9c07b"
+  },
+  "scallop": {
+    "path": "tools/scallop/scli-0.2.4-linux-x86_64",
+    "version": "scli 0.2.4",
+    "sha256": "8c5ec86fcdb0dbd55698eff7570ac7396d0b0878e601207f868d61f9d6482b9a"
+  },
+  "inputs": {
+    "data/smoke/phase3_e2e_inventory.jsonl": "0bb67b79fd8b899a7f534c86d7ba94b18496a108ff82dea8cb433313493ec6e6",
+    "data/smoke/phase3_e2e_rubrics.json": "af0d50a3a79df83e2f66d860fea6988105fe18dfd5890ef4bc209503b64f5207"
+  },
+  "artifacts": {
+    "article_selection.jsonl": "1cd3f8351deefcd9ac993a0012670cdb9b7a568e0862bb192355af1977787287",
+    "cases/CASE_KCL1730_2026_BRIBERY_FRAUD_002/answer.json": "3607e41cb24a4872e7fd142196af76c2f7e574551d9ad78341eedfed29962fd3",
+    "cases/CASE_KCL1730_2026_BRIBERY_FRAUD_002/answer.md": "f4ec39be1678b1a986cb614195d2d69897b6215421026eb036ffd98183c47a50",
+    "cases/CASE_KCL1730_2026_BRIBERY_FRAUD_002/issue_assessment.json": "a74d7bd7d2efd874ed17b1c36a7db4276b83433d4cf02d6904c4112bba85be3c",
+    "cases/CASE_KCL1730_2026_BRIBERY_FRAUD_002/runtime/1813742bba4f8ab8637583347e0406d0ad66147426e0391ec480a71cb76db037.json": "6b281f448d06fb8aafa7f5f82b171da321fd3f22360c1be486a174b0d36dfb16",
+    "cases/CASE_KCL1730_2026_BRIBERY_FRAUD_002/runtime/6ebb01a05b8c3a0cbd0fa75ad0260d365280920c8d383c0edbd84748c191eff2.json": "59f47181306b2ffd41870a5219d3558fc211fc4aa374775f49a4f6ae13efbfdd",
+    "cases/CASE_KCL1730_2026_BRIBERY_FRAUD_002/runtime/984c8f695bf190ab892862dd34b12076881cfbc1e4e5d73487759125bbb829eb.json": "9512460286eddc98d24d060b2b1b7c3eb8f3a1ca9f3fc04d688d8e057e57092e",
+    "cases/CASE_KCL1730_2026_BRIBERY_FRAUD_002/runtime/answer/CASE_KCL1730_2026_BRIBERY_FRAUD_002_request.json": "4964a61def6bd7e5ebca51df25278278bbdba5eeeaeca4458634575b59a8b9d2",
+    "cases/CASE_KCL1730_2026_BRIBERY_FRAUD_002/runtime/symbolic/CASE_KCL1730_2026_BRIBERY_FRAUD_002_initial_issue.scl": "0baf491758dcdc8e50429f3f40c3af050bf13eda4393957f331437f69513308f",
+    "cases/CASE_KCL1730_2026_BRIBERY_FRAUD_002/runtime/symbolic/CASE_KCL1730_2026_BRIBERY_FRAUD_002_issue.scl": "549bf820c7cb97cffc74fb96140443d9c2a9a20874427b739c8fa89b3b7ab767",
+    "cases/kcl_criminal_r10_p1_q1_ga/answer.json": "e6c503f2aad9efcbdf24037fd375669232112239aeb790a7997a56333e48da69",
+    "cases/kcl_criminal_r10_p1_q1_ga/answer.md": "6e00b6ae3b325823c7db3a59228f245d1b700e75d9911d52f0a7d365b79b2547",
+    "cases/kcl_criminal_r10_p1_q1_ga/issue_assessment.json": "cf4b7d49b71f4a792a0bc630510347e272020a3798ea9e618b9a5b3766093144",
+    "cases/kcl_criminal_r10_p1_q1_ga/runtime/7571cc1fbefa5dc6c11f216447e3eaa0e009af37318b0d5ce92db8d05766680d.json": "0cde0cc5783a61622c703bcd05177a328c4faf3ac64d2329fe3d990929931c84",
+    "cases/kcl_criminal_r10_p1_q1_ga/runtime/791742c96b2eaf7dcc1d6842794aa7e3d0daa640810994693b9de23ac0be3c40.json": "0189e11994ff5d559afae4f57827b2007bc0281ba27b33a2b1caea38238a8471",
+    "cases/kcl_criminal_r10_p1_q1_ga/runtime/ad4418081021c25a542f0bbda362abe418cf41b5535949ad1932446d9bdf7a7b.json": "b0ef2c7bcb617fd3b40b9cb493eb2cc8adfb72a2f0a831267ff9d7478049d80c",
+    "cases/kcl_criminal_r10_p1_q1_ga/runtime/answer/kcl_criminal_r10_p1_q1_ga_request.json": "fb6429eb28a8ce1a6c3053bcb1a0b86aee721b7da3e0d9b903b37d051a8a6cef",
+    "cases/kcl_criminal_r10_p1_q1_ga/runtime/symbolic/kcl_criminal_r10_p1_q1_ga_initial_issue.scl": "b88324f5295c52cb388dca07d56bb64be39271e1ae5bab0eb69be2cb60b93efe",
+    "cases/kcl_criminal_r10_p1_q1_ga/runtime/symbolic/kcl_criminal_r10_p1_q1_ga_issue.scl": "efcca0d707258e9bc491cf35e0adf917850e9d9af5b7d056339df9ae04e70d59",
+    "fact_graphs.jsonl": "169835ebad4370252f0c9e060d3f76f86dc34c747bcec945ec3ff6bf9aa1b450",
+    "idpr_nsn_outputs.jsonl": "f8a64a041cac534f1124b081a043f71cf6e39c6da6207d163455128ce085d2b0",
+    "l0_candidates.jsonl": "297c823b863402cda67d6cfb3298854ad0d07c76a017f5e51118b7be116169a8",
+    "l0_report.json": "ce73e54fddbd1638063c08d247a4a87bf3d6b46f770616e5b66644809f5484db",
+    "server/call1_attempt_1.log": "4bbe3778a1e7907bfe02134fdf876bae4110a5bf7632d7a4ebc0edc3f1cb82f3",
+    "server/call2_call3_attempt_1.log": "916a9eff7268ac65e95f8b906f0a96e436aadd6e91488ebfaf49a641600d64db"
+  },
+  "cases": {
+    "kcl_criminal_r10_p1_q1_ga": {
+      "articles": [
+        "art300",
+        "art342",
+        "art257",
+        "art334",
+        "art335",
+        "art337",
+        "art350",
+        "art136",
+        "art250",
+        "art298",
+        "art259",
+        "art319",
+        "art297",
+        "art301",
+        "art299",
+        "art333",
+        "art164",
+        "art338",
+        "art263",
+        "art254"
+      ],
+      "initial_issue_count": 71,
+      "fact_graph_admission": {
+        "dropped": {},
+        "dropped_total": 0,
+        "reasons": []
+      },
+      "fallbacks": [],
+      "call2_attempts": {
+        "initial": {
+          "count": 1,
+          "sources": [
+            "model"
+          ],
+          "errors": []
+        },
+        "unknown_refinement": {
+          "count": 1,
+          "sources": [
+            "model"
+          ],
+          "errors": []
+        },
+        "relation_followup": {
+          "count": 1,
+          "sources": [
+            "model"
+          ],
+          "errors": []
+        }
+      },
+      "usage": {
+        "issue_assessment": {
+          "prompt_tokens": 19520,
+          "total_tokens": 25110,
+          "completion_tokens": 5590
+        },
+        "answer_generation": {
+          "prompt_tokens": 44782,
+          "total_tokens": 52903,
+          "completion_tokens": 8121,
+          "prompt_tokens_details": null
+        }
+      },
+      "symbolic_relation_counts": {
+        "element_supported": 20,
+        "element_refuted": 46,
+        "element_excluded": 0,
+        "element_unaddressed": 5,
+        "offense_defeated": 0,
+        "offense_established": 6,
+        "offense_undetermined": 3,
+        "is_absorbed": 0,
+        "final_offense": 6,
+        "concurrent_offenses": 0,
+        "attempt_to_consider": 1,
+        "contradiction": 0
+      }
+    },
+    "CASE_KCL1730_2026_BRIBERY_FRAUD_002": {
+      "articles": [
+        "art133",
+        "art347",
+        "art355",
+        "art329",
+        "art360",
+        "art356",
+        "art129",
+        "art328",
+        "art323",
+        "art231",
+        "art164",
+        "art350",
+        "art151",
+        "art130",
+        "art122",
+        "art332",
+        "art297",
+        "art225",
+        "art342",
+        "art300"
+      ],
+      "initial_issue_count": 74,
+      "fact_graph_admission": {
+        "dropped": {
+          "act_ordering": 1
+        },
+        "dropped_total": 1,
+        "reasons": [
+          "acts[0]: after=0 is not an earlier act"
+        ]
+      },
+      "fallbacks": [],
+      "call2_attempts": {
+        "initial": {
+          "count": 1,
+          "sources": [
+            "model"
+          ],
+          "errors": []
+        },
+        "unknown_refinement": {
+          "count": 1,
+          "sources": [
+            "model"
+          ],
+          "errors": []
+        },
+        "relation_followup": {
+          "count": 1,
+          "sources": [
+            "model"
+          ],
+          "errors": []
+        }
+      },
+      "usage": {
+        "issue_assessment": {
+          "prompt_tokens": 31318,
+          "total_tokens": 39691,
+          "completion_tokens": 8373
+        },
+        "answer_generation": {
+          "prompt_tokens": 42743,
+          "total_tokens": 58930,
+          "completion_tokens": 16187,
+          "prompt_tokens_details": null
+        }
+      },
+      "symbolic_relation_counts": {
+        "element_supported": 8,
+        "element_refuted": 1,
+        "element_excluded": 0,
+        "element_unaddressed": 65,
+        "offense_defeated": 0,
+        "offense_established": 2,
+        "offense_undetermined": 0,
+        "is_absorbed": 0,
+        "final_offense": 2,
+        "concurrent_offenses": 0,
+        "attempt_to_consider": 0,
+        "contradiction": 0
+      }
+    }
+  }
+}
