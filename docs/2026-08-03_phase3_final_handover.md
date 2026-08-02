@@ -57,10 +57,14 @@ FactGraph v2.1에 `transfers[]`와 서술 술어 `property_transfer`를 추가�
 | 순서 | Slurm job | 역할 | 성공 시 산출물 |
 |---:|---:|---|---|
 | 1 | `218301` | 전체 pytest 회귀 | `logs/idpr_tdd_218301.{out,err}` |
-| 2 | `218302` | 두 스모크 Call 1→1.5→L0→Call 2→Scallop→Call 3와 기존 출력 비교 | `experiments/results/phase3_final_design_e2e` |
-| 3 | `218303` | 봉인된 59문항 전체 생성 | `experiments/results/phase3_final_59` |
+| 2 | `218304` | 두 스모크 Call 1→1.5→L0→Call 2→Scallop→Call 3와 기존 출력 비교 | `experiments/results/phase3_final_design_e2e_v2` |
+| 3 | `218305` | 봉인된 59문항 전체 생성 | `experiments/results/phase3_final_59` |
 
 전체 회귀 `218301`은 `538 passed in 174.61s`로 통과했다.
+
+첫 E2E 제출 `218302`는 모델 호출 전에 잘못 지정한 vLLM 0.17 환경이 Gemma 4를
+인식하지 못해 실패했다. 연결된 `218303`은 취소했다. 검증된 기존 vLLM 0.22.0 환경
+`/data5/jaehoonjeong/miniconda3/envs/inv_ass_env`로 바로잡은 실행이 `218304→218305`다.
 
 `218302`의 추가 게이트는 다음을 확인한다.
 
@@ -89,14 +93,14 @@ FactGraph v2.1에 `transfers[]`와 서술 술어 `property_transfer`를 추가�
 ## 후임자 확인 절차
 
 ```bash
-squeue -j 218301,218302,218303 -o '%.18i %.20j %.2t %.10M %R'
-sacct -j 218301,218302,218303 --format=JobID,JobName,State,Elapsed,ExitCode
+squeue -j 218301,218304,218305 -o '%.18i %.20j %.2t %.10M %R'
+sacct -j 218301,218304,218305 --format=JobID,JobName,State,Elapsed,ExitCode
 ```
 
 성공 후 다음을 확인한다.
 
-1. `phase3_final_design_e2e/freeze_manifest.json`의 status가 passed인지 확인한다.
-2. `phase3_final_design_e2e/final_design_comparison.json`의 `passed`가 true인지 확인한다.
+1. `phase3_final_design_e2e_v2/freeze_manifest.json`의 status가 passed인지 확인한다.
+2. `phase3_final_design_e2e_v2/final_design_comparison.json`의 `passed`가 true인지 확인한다.
 3. `phase3_final_59/idpr_nsn_outputs.jsonl`이 정확히 59행이고 ID가 중복되지 않는지 확인한다.
 4. `phase3_final_59/generation_manifest.json`의 해시와 `cases=59`를 확인한다.
 5. 실패 case나 이전 산출물 fallback이 없는지 Call 1 admission과 case별 artifact를 확인한다.
