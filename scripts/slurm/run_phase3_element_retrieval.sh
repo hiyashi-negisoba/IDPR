@@ -12,6 +12,8 @@ source "${IDPR_PROJECT_ROOT:-${SLURM_SUBMIT_DIR:-$PWD}}/scripts/slurm/_env.sh"
 
 FREEZE_ROOT="${IDPR_FREEZE_ROOT:-$PROJECT_ROOT/experiments/results/phase3_e2e_freeze_v1}"
 RUN_ROOT="${IDPR_ELEMENT_L0_ROOT:-$PROJECT_ROOT/experiments/results/phase3_element_l0_${SLURM_JOB_ID}}"
+TOP_K_ARTICLES="${IDPR_TOP_K_ARTICLES:-18}"
+RETRIEVAL_ADMISSION="${IDPR_RETRIEVAL_ADMISSION:-elements}"
 export PYTHONPATH="$PROJECT_ROOT/src${PYTHONPATH:+:$PYTHONPATH}"
 unset HF_HUB_OFFLINE TRANSFORMERS_OFFLINE
 
@@ -23,7 +25,7 @@ mkdir -p logs "$RUN_ROOT"
     --selection "$FREEZE_ROOT/article_selection.jsonl" \
     --out "$RUN_ROOT/l0_candidates.jsonl" \
     --report "$RUN_ROOT/l0_report.json" \
-    --top-k-articles 18 \
-    --retrieval-admission elements
+    --top-k-articles "$TOP_K_ARTICLES" \
+    --retrieval-admission "$RETRIEVAL_ADMISSION"
 
 echo "run_root=$RUN_ROOT"
