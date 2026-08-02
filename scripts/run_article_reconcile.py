@@ -110,7 +110,7 @@ def main() -> None:
         raise ValueError(f"candidate case ids differ: missing={expected-actual}, extra={actual-expected}")
 
     corpus = card_corpus()
-    cards_by_id = corpus.by_id()
+    cards_by_id = corpus.by_id
     issues, _ = compile_issue_catalog_v2(corpus)
     issue_by_id = {issue.issue_id: issue for issue in issues}
     catalog_by_key = {entry["key"]: entry for entry in load_catalog()}
