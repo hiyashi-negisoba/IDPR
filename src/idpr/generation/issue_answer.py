@@ -270,6 +270,7 @@ def _presentation(
     directive: str,
     supported_issues: Mapping[str, set[str]],
     refuted_issues: Mapping[str, set[str]],
+    grounded_issue_count: int,
     missing_bases: frozenset[str],
 ) -> tuple[str | None, str]:
     """Choose answer salience without deleting any upstream assessment.
@@ -288,6 +289,12 @@ def _presentation(
         return None, "no_positive_element_support"
     if refuted >= supported:
         return None, "explicit_element_refutation_dominates"
+    # A single isolated proposition is enough to keep an offence in symbolic review, but
+    # not enough to introduce an unresolved alternative in a reader-facing answer.  This
+    # gate applies only to non-established candidates; simple established offences remain
+    # unaffected.
+    if grounded_issue_count < 2:
+        return None, "insufficient_material_grounding"
     return "compact", "partially_supported_or_unresolved"
 
 
@@ -365,11 +372,17 @@ def build_call3_request(
         missing_bases = missing_required_base(
             article, established_without_gaps=established_without_gaps
         )
+        grounded_issue_count = sum(
+            issue.get("status") != "unknown"
+            and bool(issue.get("basis_fact_ids") or issue.get("counter_fact_ids"))
+            for issue in grouped[article]
+        )
         presentation_mode, visibility_reason = _presentation(
             article,
             directive=directive,
             supported_issues=supported_issues,
             refuted_issues=refuted_issues,
+            grounded_issue_count=grounded_issue_count,
             missing_bases=missing_bases,
         )
         if presentation_mode is None:
@@ -382,6 +395,7 @@ def build_call3_request(
                     "symbolic_directive": directive,
                     "supported_issue_count": len(supported_issues.get(article, ())),
                     "refuted_issue_count": len(refuted_issues.get(article, ())),
+                    "grounded_issue_count": grounded_issue_count,
                     "required_base_articles": sorted(missing_bases),
                 }
             )
@@ -574,25 +588,17 @@ def validate_issue_answer(
 
 def render_issue_answer_markdown(answer: Mapping[str, Any]) -> str:
     lines = [f"# {answer['title']}", ""]
-    compact_started = False
-    for section in answer["sections"]:
-        if section.get("presentation_mode") == "compact":
-            if not compact_started:
-                lines.extend(("## 보충적 검토", ""))
-                compact_started = True
-            lines.extend((f"### {section['heading']}", ""))
-            for analysis in section["analyses"]:
-                if analysis.get("issue_status") == "unknown":
-                    continue
-                lines.extend(
-                    (
-                        f"- **{analysis['heading']}**: {analysis['application']} "
-                        f"{analysis['conclusion']}",
-                    )
-                )
-            lines.extend(("", str(section["conclusion"]), ""))
-            continue
-
+    full_sections = [
+        section
+        for section in answer["sections"]
+        if section.get("presentation_mode", "full") == "full"
+    ]
+    compact_sections = [
+        section
+        for section in answer["sections"]
+        if section.get("presentation_mode") == "compact"
+    ]
+    for section in full_sections:
         lines.extend((f"## {section['heading']}", ""))
 
         lines.extend(("### 쟁점 (Issue)", ""))
@@ -628,5 +634,20 @@ def render_issue_answer_markdown(answer: Mapping[str, Any]) -> str:
             )
 
         lines.extend((f"### 결론 (Conclusion)\n\n{section['conclusion']}", ""))
+
+    if compact_sections:
+        lines.extend(("## 보충적 검토", ""))
+        for section in compact_sections:
+            lines.extend((f"### {section['heading']}", ""))
+            for analysis in section["analyses"]:
+                if analysis.get("issue_status") != "satisfied":
+                    continue
+                lines.extend(
+                    (
+                        f"- **{analysis['heading']}**: {analysis['application']} "
+                        f"{analysis['conclusion']}",
+                    )
+                )
+            lines.extend(("", str(section["conclusion"]), ""))
     lines.extend(("## 종합 결론", "", str(answer["overall_conclusion"]), ""))
     return "\n".join(lines)

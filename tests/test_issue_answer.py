@@ -19,6 +19,7 @@ def _request(
     element_unaddressed: bool = False,
     attempt: bool = False,
     element_supported: bool = True,
+    stage_grounded: bool = False,
 ):
     case = {
         "sub_question_id": "case-1",
@@ -72,8 +73,8 @@ def _request(
                 "title": "실행의 착수",
                 "function": "stage_issue",
                 "runtime": "relation_condition",
-                "status": "unknown",
-                "basis_fact_ids": [],
+                "status": "satisfied" if stage_grounded else "unknown",
+                "basis_fact_ids": ["fact_001"] if stage_grounded else [],
                 "counter_fact_ids": [],
                 "missing_facts": ["신체 접촉이 시작되었는지"],
                 "anchor_rules": [
@@ -199,14 +200,14 @@ def test_call3_answer_validation_binds_order_conclusion_and_provenance():
 
 
 def test_unaddressed_element_overrides_a_raw_established_relation_for_call3():
-    request = _request(element_unaddressed=True)
+    request = _request(element_unaddressed=True, stage_grounded=True)
     section = request["required_sections"][0]
     assert section["symbolic_directive"] == "undetermined"
     assert section["stated_conclusion"] == "undetermined"
 
 
 def test_host_overall_conclusion_preserves_attempt_review_directive():
-    request = _request(attempt=True)
+    request = _request(attempt=True, stage_grounded=True)
     answer = attach_issue_answer_provenance({"sections": [{}]}, request=request)
     assert answer["sections"][0]["conclusion"] == (
         "제298조 강제추행: 기수는 성립하지 않으며, "
@@ -344,6 +345,14 @@ def test_call3_hides_an_article_with_no_positive_element_support():
     assert answer["overall_conclusion"].startswith("현재 제공된 사실")
 
 
+def test_call3_hides_a_single_isolated_support_when_offense_is_unresolved():
+    request = _request(element_unaddressed=True)
+    assert request["required_sections"] == []
+    assert request["suppressed_sections"][0]["reason"] == (
+        "insufficient_material_grounding"
+    )
+
+
 def test_markdown_renders_one_integrated_irac_per_offense():
     request = _request()
     model_answer = {
@@ -388,7 +397,7 @@ def test_markdown_renders_one_integrated_irac_per_offense():
 
 
 def test_markdown_groups_unresolved_offenses_as_compact_supplement():
-    request = _request(element_unaddressed=True)
+    request = _request(element_unaddressed=True, stage_grounded=True)
     model_answer = {
         "version": "1.0.0",
         "case_id": "case-1",
@@ -420,4 +429,35 @@ def test_markdown_groups_unresolved_offenses_as_compact_supplement():
     assert "## 보충적 검토" in markdown
     assert "### 제298조 강제추행" in markdown
     assert "### 법리 (Rule)" not in markdown
-    assert "접촉 시점은 불분명하다" not in markdown
+    assert "접촉 시점은 불분명하다" in markdown
+
+
+def test_markdown_places_full_irac_before_interleaved_compact_sections():
+    answer = {
+        "title": "甲의 죄책",
+        "sections": [
+            {
+                "heading": "보충죄",
+                "presentation_mode": "compact",
+                "analyses": [],
+                "conclusion": "미확정이다.",
+            },
+            {
+                "heading": "본죄",
+                "presentation_mode": "full",
+                "analyses": [
+                    {
+                        "heading": "행위",
+                        "issue": "행위 여부",
+                        "rule": "행위가 필요하다.",
+                        "application": "행위가 있었다.",
+                        "conclusion": "행위가 인정된다.",
+                    }
+                ],
+                "conclusion": "성립한다.",
+            },
+        ],
+        "overall_conclusion": "본죄가 성립한다.",
+    }
+    markdown = render_issue_answer_markdown(answer)
+    assert markdown.index("## 본죄") < markdown.index("## 보충적 검토")
