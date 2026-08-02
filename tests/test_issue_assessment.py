@@ -50,6 +50,8 @@ def test_schema_guides_status_evidence_coupling_before_host_validation():
     assert branches["satisfied"]["basis_fact_ids"]["minItems"] == 1
     assert branches["not_satisfied"]["counter_fact_ids"]["minItems"] == 1
     assert branches["unknown"]["missing_facts"]["minItems"] == 1
+    assert branches["satisfied"]["unknown_reason"]["const"] == "not_applicable"
+    assert branches["not_satisfied"]["unknown_reason"]["const"] == "not_applicable"
 
 
 def test_schema_accepts_safe_uppercase_external_case_ids():
@@ -111,6 +113,7 @@ def test_validation_couples_status_to_fact_evidence():
                 "basis_fact_ids": [],
                 "counter_fact_ids": [],
                 "missing_facts": [],
+                "unknown_reason": "not_applicable",
             }
         },
     }
@@ -145,7 +148,7 @@ def test_valid_unknown_requires_only_a_concrete_missing_fact():
     )
 
 
-def test_unknown_reason_is_typed_and_required_only_for_unknown():
+def test_unknown_requires_a_typed_reason():
     payload = {
         "version": SCHEMA_VERSION,
         "case_id": "case-1",
@@ -159,6 +162,29 @@ def test_unknown_reason_is_typed_and_required_only_for_unknown():
         },
     }
     with pytest.raises(IssueAssessmentError, match="unknown requires"):
+        validate_issue_assessments(
+            payload,
+            case_id="case-1",
+            issue_ids=["art329.Ⅱ.element_issue"],
+            fact_ids=["f1"],
+        )
+
+
+def test_non_unknown_reason_is_explicitly_not_applicable():
+    payload = {
+        "version": SCHEMA_VERSION,
+        "case_id": "case-1",
+        "assessments": {
+            "art329.Ⅱ.element_issue": {
+                "status": "satisfied",
+                "basis_fact_ids": ["f1"],
+                "counter_fact_ids": [],
+                "missing_facts": [],
+                "unknown_reason": "issue_too_coarse",
+            }
+        },
+    }
+    with pytest.raises(IssueAssessmentError, match="not_applicable"):
         validate_issue_assessments(
             payload,
             case_id="case-1",

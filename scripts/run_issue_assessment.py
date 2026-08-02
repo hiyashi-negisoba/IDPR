@@ -26,6 +26,7 @@ from idpr.issue_pipeline import (
 from idpr.neural.fact_graph import assessment_facts
 from idpr.neural.issue_assessment import (
     SCHEMA_VERSION,
+    UNKNOWN_REASONS,
     IssueAssessmentError,
     issue_assessment_request,
     issue_assessment_schema,
@@ -125,7 +126,7 @@ def prepare_issue_case(
     return dict(inventory[case_id]), dict(graph), scope
 
 
-def _missing_diagnostic(output: Mapping[str, Any]) -> dict[str, int | float]:
+def _missing_diagnostic(output: Mapping[str, Any]) -> dict[str, Any]:
     missing = [
         text
         for assessment in output["assessments"].values()
@@ -135,7 +136,7 @@ def _missing_diagnostic(output: Mapping[str, Any]) -> dict[str, int | float]:
     reasons: dict[str, int] = {}
     for assessment in output["assessments"].values():
         reason = assessment.get("unknown_reason")
-        if reason:
+        if reason in UNKNOWN_REASONS:
             reasons[str(reason)] = reasons.get(str(reason), 0) + 1
     return {
         "missing_items": len(missing),
@@ -172,7 +173,8 @@ def _complete_bundle(
                 "instruction": (
                     "모든 issue를 다시 출력하라. 반대 fact가 없으면 not_satisfied가 아니라 "
                     "unknown이며, unknown에는 구체적 missing_facts와 원인별 "
-                    "unknown_reason이 필요하다."
+                    "unknown_reason이 필요하다. 비-unknown은 unknown_reason을 "
+                    "not_applicable로 출력하라."
                 ),
             }
         cache_key = _cache_key(

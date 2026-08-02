@@ -17,7 +17,7 @@ detail 하나하나를 별도 요건으로 보거나, 검색됐다는 이유만�
 - `unknown`: 어느 쪽도 확정할 수 없다. 추가로 필요한 **구체적 사실**만
   `missing_facts`에 쓰고 원인을 `unknown_reason`으로 분류한다.
 
-`unknown_reason`은 다음 네 값 중 하나다.
+`unknown`의 `unknown_reason`은 다음 네 값 중 하나다.
 
 - `record_absent`: 필요한 사실이 입력 사건 원문에도 없다.
 - `fact_graph_omission`: 필요한 사실이 `question_text`에는 명시되어 있지만 입력 `facts`가
@@ -49,4 +49,4 @@ guard에서 `satisfied`는 피고인의 범죄 성립을 배제하는 사유가 
 - issue별 일반법리를 카드별로 다시 판정하거나 출력하지 않는다.
 - `details`의 카드별 status를 출력하지 않는다. detail을 적용해도 출력은 issue 하나뿐이다.
 - 모든 입력 issue id를 정확히 한 번 출력하고 JSON Schema만 만족시킨다.
-- `unknown`이 아닌 판정에는 `unknown_reason`을 출력하지 않는다.
+- `unknown`이 아닌 판정의 `unknown_reason`은 반드시 `not_applicable`이다.

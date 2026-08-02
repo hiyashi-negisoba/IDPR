@@ -15,7 +15,7 @@ from jsonschema import Draft202012Validator
 from idpr.eval.input_formatter import assert_no_leaked_fields, scoped_question_text
 from idpr.neural.fact_graph import assessment_facts
 
-SCHEMA_VERSION = "2.1.0"
+SCHEMA_VERSION = "2.2.0"
 STATUSES = ("satisfied", "not_satisfied", "unknown")
 UNKNOWN_REASONS = (
     "record_absent",
@@ -23,6 +23,7 @@ UNKNOWN_REASONS = (
     "rule_gap",
     "issue_too_coarse",
 )
+UNKNOWN_REASON_VALUES = ("not_applicable", *UNKNOWN_REASONS)
 _CASE_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
 
 
@@ -54,7 +55,13 @@ def _assessment_schema(fact_ids: Sequence[str]) -> dict[str, Any]:
     return {
         "type": "object",
         "additionalProperties": False,
-        "required": ["status", "basis_fact_ids", "counter_fact_ids", "missing_facts"],
+        "required": [
+            "status",
+            "basis_fact_ids",
+            "counter_fact_ids",
+            "missing_facts",
+            "unknown_reason",
+        ],
         "properties": {
             "status": {"type": "string", "enum": list(STATUSES)},
             "basis_fact_ids": evidence,
@@ -65,7 +72,7 @@ def _assessment_schema(fact_ids: Sequence[str]) -> dict[str, Any]:
                 "uniqueItems": True,
                 "items": {"type": "string", "minLength": 1, "maxLength": 300},
             },
-            "unknown_reason": {"type": "string", "enum": list(UNKNOWN_REASONS)},
+            "unknown_reason": {"type": "string", "enum": list(UNKNOWN_REASON_VALUES)},
         },
         # The status constants are disjoint, so ``anyOf`` has one matching branch.  The
         # guidance backend implements anyOf directly; oneOf would require coercion.
@@ -74,19 +81,21 @@ def _assessment_schema(fact_ids: Sequence[str]) -> dict[str, Any]:
                 "properties": {
                     "status": {"const": "satisfied"},
                     "basis_fact_ids": {"minItems": 1},
+                    "unknown_reason": {"const": "not_applicable"},
                 }
             },
             {
                 "properties": {
                     "status": {"const": "not_satisfied"},
                     "counter_fact_ids": {"minItems": 1},
+                    "unknown_reason": {"const": "not_applicable"},
                 }
             },
             {
-                "required": ["unknown_reason"],
                 "properties": {
                     "status": {"const": "unknown"},
                     "missing_facts": {"minItems": 1},
+                    "unknown_reason": {"enum": list(UNKNOWN_REASONS)},
                 }
             },
         ],
@@ -225,6 +234,10 @@ def validate_issue_assessments(
             if status == "unknown" and assessment.get("unknown_reason") not in UNKNOWN_REASONS:
                 errors.append(
                     f"{issue_id}: unknown requires one of {list(UNKNOWN_REASONS)}"
+                )
+            if status != "unknown" and assessment.get("unknown_reason") != "not_applicable":
+                errors.append(
+                    f"{issue_id}: {status} requires unknown_reason=not_applicable"
                 )
     if errors:
         raise IssueAssessmentError(errors)
