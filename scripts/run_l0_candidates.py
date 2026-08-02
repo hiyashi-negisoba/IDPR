@@ -89,7 +89,7 @@ def main() -> None:
     args = parser.parse_args()
 
     corpus = card_corpus()
-    issues, _ = compile_issue_catalog_v2(corpus)
+    issues, placements = compile_issue_catalog_v2(corpus)
     retrieval_issues = retrieval_admission_issues(issues, mode=args.retrieval_admission)
     attempt_map = attempt_article_map()
     gold = load_issue_gold()
@@ -106,7 +106,15 @@ def main() -> None:
 
         encoder = SentenceTransformerEncoder()
         reranker = CrossEncoderReranker()
-        search_documents = tuple(card.proposition for card in corpus.cards)
+        retrieval_issue_ids = {issue.issue_id for issue in retrieval_issues}
+        retrieval_card_ids = {
+            placement.card_id
+            for placement in placements
+            if placement.issue_id in retrieval_issue_ids
+        }
+        search_documents = tuple(
+            card.proposition for card in corpus.cards if card.id in retrieval_card_ids
+        )
         lexical = LexicalIndex.build(search_documents)
         dense = DenseIndex.build(search_documents, encoder)
     else:
