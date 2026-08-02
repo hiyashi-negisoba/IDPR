@@ -37,12 +37,21 @@ from idpr.retrieval import (
     retrieve_candidate_articles_via_issues,
 )
 from idpr.rulebase.cards import card_corpus
-from idpr.rulebase.issue_catalog_v2 import compile_issue_catalog_v2
+from idpr.rulebase.issue_catalog_v2 import ELEMENT_ISSUE, compile_issue_catalog_v2
 
 DEFAULT_FACT_GRAPHS = PROJECT_ROOT / "data" / "eval" / "fact_graphs.jsonl"
 DEFAULT_SELECTION = PROJECT_ROOT / "data" / "eval" / "article_selection.jsonl"
 DEFAULT_OUT = PROJECT_ROOT / "data" / "eval" / "l0_candidates.jsonl"
 DEFAULT_REPORT = PROJECT_ROOT / "data" / "eval" / "l0_union_report.json"
+
+
+def retrieval_admission_issues(issues: tuple, *, mode: str) -> tuple:
+    """Choose which issue functions may admit an article; downstream scope stays complete."""
+    if mode == "all":
+        return issues
+    if mode == "elements":
+        return tuple(issue for issue in issues if issue.function == ELEMENT_ISSUE)
+    raise ValueError(f"unknown retrieval admission mode: {mode}")
 
 
 def _rows(path: Path) -> list[dict]:
@@ -65,6 +74,12 @@ def main() -> None:
     parser.add_argument("--report", type=Path, default=DEFAULT_REPORT)
     parser.add_argument("--top-k-articles", type=int, default=DEFAULT_TOP_K_ARTICLES)
     parser.add_argument(
+        "--retrieval-admission",
+        choices=("all", "elements"),
+        default="all",
+        help="experimental article ranking scope; selected articles still load all issue functions",
+    )
+    parser.add_argument(
         "--checks",
         type=Path,
         help="optional case-specific coverage checklist for diagnostic reporting",
@@ -75,6 +90,7 @@ def main() -> None:
 
     corpus = card_corpus()
     issues, _ = compile_issue_catalog_v2(corpus)
+    retrieval_issues = retrieval_admission_issues(issues, mode=args.retrieval_admission)
     attempt_map = attempt_article_map()
     gold = load_issue_gold()
     inventory = {row["sub_question_id"]: row for row in _rows(args.inventory)}
@@ -123,7 +139,7 @@ def main() -> None:
                 retrieval = retrieve_candidate_articles_via_issues(
                     queries,
                     corpus=corpus,
-                    issues=issues,
+                    issues=retrieval_issues,
                     top_k_articles=args.top_k_articles,
                     encoder=encoder,
                     reranker=reranker,
@@ -173,6 +189,7 @@ def main() -> None:
     report = {
         "mode": "model_selection_only" if args.no_retrieval else "union",
         "top_k_articles": None if args.no_retrieval else args.top_k_articles,
+        "retrieval_admission": args.retrieval_admission,
         "questions": len(per_question),
         "buckets": bucket_counts(run_gold),
         "macro_recall": round(st.mean(scores), 4) if scores else None,
