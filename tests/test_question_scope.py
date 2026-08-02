@@ -41,6 +41,17 @@ def test_standalone_fact_scope_can_select_a_later_paragraph() -> None:
     assert "B에게 잡히자" not in scoped
 
 
+def test_leading_fact_scope_in_the_question_selects_the_named_paragraph() -> None:
+    row = _inventory()["kcl_criminal_r10_p1_q2"]
+
+    scoped = scoped_question_text(row["question_text"], row["question_prompt"])
+
+    assert "B에게 잡히자" in scoped
+    assert "장 파열로 사망" in scoped
+    assert "A의 은밀한 신체 부위" not in scoped
+    assert "4,000만 원" not in scoped
+
+
 def test_inline_numbered_facts_support_multiple_requested_blocks() -> None:
     text = """(1) 첫 번째 사실이다.
 (2) 두 번째 사실이다.

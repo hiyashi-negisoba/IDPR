@@ -81,6 +81,18 @@ def scoped_question_text(question_text: str, question_prompt: str) -> str:
                 selected = [narrative[number - 1] for number in references]
                 return "\n\n".join([*selected, *parts[index:]])
 
+    leading_scope = _STANDALONE_SCOPE.match(question_prompt)
+    if leading_scope and len(parts) >= 2:
+        narrative = [
+            line.strip()
+            for preceding in parts[:-1]
+            for line in preceding.splitlines()
+            if line.strip()
+        ]
+        if narrative and max(references) <= len(narrative):
+            selected = [narrative[number - 1] for number in references]
+            return "\n\n".join([*selected, parts[-1]])
+
     if len(parts) < 2:
         return question_text
     fact_body = "\n\n".join(parts[:-1])
