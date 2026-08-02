@@ -14,8 +14,16 @@ detail 하나하나를 별도 요건으로 보거나, 검색됐다는 이유만�
 - `satisfied`: issue에 필요한 사건 사실이 확인된다. 근거 `fact_id`를 `basis_fact_ids`에 쓴다.
 - `not_satisfied`: issue와 양립할 수 없는 적극적 사건 사실이 확인된다. 그 `fact_id`를
   `counter_fact_ids`에 쓴다.
-- `unknown`: 사건 사실이 부족해 어느 쪽도 확정할 수 없다. 추가로 필요한 **구체적 사실**만
-  `missing_facts`에 쓴다.
+- `unknown`: 어느 쪽도 확정할 수 없다. 추가로 필요한 **구체적 사실**만
+  `missing_facts`에 쓰고 원인을 `unknown_reason`으로 분류한다.
+
+`unknown_reason`은 다음 네 값 중 하나다.
+
+- `record_absent`: 필요한 사실이 입력 사건 원문에도 없다.
+- `fact_graph_omission`: 필요한 사실이 `question_text`에는 명시되어 있지만 입력 `facts`가
+  구조화하지 못했다.
+- `rule_gap`: facts는 충분하지만 제공된 rules/details만으로 적용 기준을 정할 수 없다.
+- `issue_too_coarse`: 질문 하나가 서로 다른 판단을 결합하여 단일 status로 답할 수 없다.
 
 `status`는 rule 문장 하나의 참·거짓이 아니라 `question`에 대한 yes/no다. 특히
 guard에서 `satisfied`는 피고인의 범죄 성립을 배제하는 사유가 실제로 인정된다는 뜻이다.
@@ -41,3 +49,4 @@ guard에서 `satisfied`는 피고인의 범죄 성립을 배제하는 사유가 
 - issue별 일반법리를 카드별로 다시 판정하거나 출력하지 않는다.
 - `details`의 카드별 status를 출력하지 않는다. detail을 적용해도 출력은 issue 하나뿐이다.
 - 모든 입력 issue id를 정확히 한 번 출력하고 JSON Schema만 만족시킨다.
+- `unknown`이 아닌 판정에는 `unknown_reason`을 출력하지 않는다.

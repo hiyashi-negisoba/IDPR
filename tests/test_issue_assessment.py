@@ -133,6 +133,7 @@ def test_valid_unknown_requires_only_a_concrete_missing_fact():
                 "basis_fact_ids": [],
                 "counter_fact_ids": [],
                 "missing_facts": ["물건의 소유자와 점유자"],
+                "unknown_reason": "record_absent",
             }
         },
     }
@@ -142,6 +143,28 @@ def test_valid_unknown_requires_only_a_concrete_missing_fact():
         issue_ids=["art329.Ⅱ.element_issue"],
         fact_ids=["f1"],
     )
+
+
+def test_unknown_reason_is_typed_and_required_only_for_unknown():
+    payload = {
+        "version": SCHEMA_VERSION,
+        "case_id": "case-1",
+        "assessments": {
+            "art329.Ⅱ.element_issue": {
+                "status": "unknown",
+                "basis_fact_ids": [],
+                "counter_fact_ids": [],
+                "missing_facts": ["원문에 기재된 점유 이전 경위"],
+            }
+        },
+    }
+    with pytest.raises(IssueAssessmentError, match="unknown requires"):
+        validate_issue_assessments(
+            payload,
+            case_id="case-1",
+            issue_ids=["art329.Ⅱ.element_issue"],
+            fact_ids=["f1"],
+        )
 
 
 def test_issue_status_rows_preserves_issue_assessment_order():

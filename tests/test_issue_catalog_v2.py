@@ -154,7 +154,8 @@ def test_issue_questions_encode_the_direction_of_the_legal_decision():
     stage = by_id["art298.Ⅲ.stage_issue"].model_payload(corpus.by_id)
     concurrence = by_id["art298.Ⅵ.concurrence_issue"].model_payload(corpus.by_id)
     assert "성립이 배제되는가" in guard["question"]
-    assert "범죄단계가 인정되는가" in stage["question"]
+    assert "실행의 착수가 인정되는가" in stage["question"]
+    assert stage["stage_kind"] == "execution_started"
     assert "죄수·범죄관계가 인정되는가" in concurrence["question"]
 
 

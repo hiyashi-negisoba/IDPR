@@ -128,7 +128,77 @@ def test_the_scenarios_cover_every_queried_relation(corpus, roles, tmp_path):
     for scenario in SCENARIOS:
         results = _run(scenario, corpus, roles, tmp_path)
         populated |= {relation for relation, rows in results.items() if rows}
+    issues, _ = compile_issue_catalog_v2(corpus)
+    element = next(
+        issue
+        for issue in issues
+        if issue.article == "art297" and issue.function == ELEMENT_ISSUE
+    )
+    completion = next(
+        issue
+        for issue in issues
+        if issue.article == "art297" and issue.stage_kind == "completion_reached"
+    )
+    for stage_status in ("not_satisfied", "unknown"):
+        case_id = f"stage-coverage-{stage_status}"
+        program = compile_rulebase(
+            corpus,
+            roles,
+            issues=issues,
+            attempt_punishable=("art297",),
+            preparation_punishable=(),
+            absorbed_by=(),
+            imaginative_concurrence=(),
+        ) + render_issue_statuses(
+            case_id,
+            [(element.issue_id, "satisfied"), (completion.issue_id, stage_status)],
+        )
+        results = run_program(
+            program, QUERY_RELATIONS, tmp_path, name=case_id
+        )
+        populated |= {relation for relation, rows in results.items() if rows}
     assert set(QUERY_RELATIONS) - populated == set()
+
+
+def test_reviewed_completion_status_separates_attempt_and_unknown(
+    corpus, roles, tmp_path
+):
+    issues, _ = compile_issue_catalog_v2(corpus)
+    element = next(
+        issue
+        for issue in issues
+        if issue.article == "art297" and issue.function == ELEMENT_ISSUE
+    )
+    completion = next(
+        issue
+        for issue in issues
+        if issue.article == "art297" and issue.stage_kind == "completion_reached"
+    )
+
+    def stage_run(status):
+        case_id = f"stage-{status}"
+        program = compile_rulebase(
+            corpus,
+            roles,
+            issues=issues,
+            attempt_punishable=("art297",),
+            preparation_punishable=(),
+            absorbed_by=(),
+            imaginative_concurrence=(),
+        ) + render_issue_statuses(
+            case_id,
+            [(element.issue_id, "satisfied"), (completion.issue_id, status)],
+        )
+        return run_program(program, QUERY_RELATIONS, tmp_path, name=case_id)
+
+    attempted = stage_run("not_satisfied")
+    assert _offences(attempted, "offense_attempted") == frozenset({("art297",)})
+    assert not _offences(attempted, "offense_established")
+    unresolved = stage_run("unknown")
+    assert _offences(unresolved, "offense_stage_unresolved") == frozenset(
+        {("art297",)}
+    )
+    assert not _offences(unresolved, "offense_established")
 
 
 # --------------------------------------------------------------------------- #
@@ -144,7 +214,7 @@ def test_the_compiled_program_adds_no_predicate_per_card(corpus, roles):
     """
     program = compile_rulebase(corpus, roles)
     declared_types = program.count("\ntype ")
-    assert declared_types < 30, declared_types
+    assert declared_types < 32, declared_types
     assert len(corpus.cards) > 1000
     # No card id may appear as a relation name.
     for card in corpus.cards[:200]:

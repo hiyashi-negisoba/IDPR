@@ -87,6 +87,24 @@ _ISSUE_TITLE_REVIEW = PROJECT_ROOT / "data/rulebase/issue_title_review.json"
 _ISSUE_RUNTIME_REVIEW = PROJECT_ROOT / "data/rulebase/issue_runtime_review.json"
 _ISSUE_RULE_REVIEW = PROJECT_ROOT / "data/rulebase/issue_rule_review.json"
 _ISSUE_PLACEMENT_REVIEW = PROJECT_ROOT / "data/rulebase/issue_placement_review.json"
+_STAGE_SEMANTICS_REVIEW = PROJECT_ROOT / "data/rulebase/stage_issue_semantics.json"
+
+STAGE_EXECUTION_STARTED = "execution_started"
+STAGE_COMPLETION_REACHED = "completion_reached"
+STAGE_ATTEMPT = "attempt"
+STAGE_ABANDONED_ATTEMPT = "abandoned_attempt"
+STAGE_PREPARATION = "preparation"
+STAGE_CONTEXT = "context"
+STAGE_KINDS = frozenset(
+    {
+        STAGE_EXECUTION_STARTED,
+        STAGE_COMPLETION_REACHED,
+        STAGE_ATTEMPT,
+        STAGE_ABANDONED_ATTEMPT,
+        STAGE_PREPARATION,
+        STAGE_CONTEXT,
+    }
+)
 _ANCHOR_LANGUAGE_RE = re.compile(
     r"성립(?:하려면|에는|한다)|인정되려면|필요(?:하다|하고)|요한다|뜻한다|말한다|"
     r"행위는|객체는|주체는|고의는|의사는"
@@ -119,6 +137,7 @@ class IssuePacket:
     title: str
     function: str
     runtime: str
+    stage_kind: str | None
     slot_ids: tuple[str, ...]
     anchor_card_ids: tuple[str, ...]
     reviewed_anchor_rules: tuple[ReviewedIssueRule, ...]
@@ -152,10 +171,15 @@ class IssuePacket:
                 f"{self.offense}의 성립이 배제되는가?"
             )
         elif self.function == STAGE_ISSUE:
-            question = (
-                f"사실관계상 {self.offense}에서 [{self.title}]에 해당하는 "
-                "범죄단계가 인정되는가?"
-            )
+            stage_questions = {
+                STAGE_EXECUTION_STARTED: "실행의 착수가 인정되는가?",
+                STAGE_COMPLETION_REACHED: "기수에 도달하였는가?",
+                STAGE_ATTEMPT: "미수 단계가 인정되는가?",
+                STAGE_ABANDONED_ATTEMPT: "자의적인 중지와 필요한 중지행위가 인정되는가?",
+                STAGE_PREPARATION: "예비·음모 단계가 인정되는가?",
+                STAGE_CONTEXT: f"[{self.title}] 법리가 이 사건의 범죄단계 판단에 관련되는가?",
+            }
+            question = f"사실관계상 {self.offense}에서 {stage_questions[self.stage_kind]}"
         elif self.function == PARTICIPATION_ISSUE:
             question = (
                 f"사실관계상 {self.offense}에서 [{self.title}]에 해당하는 "
@@ -181,6 +205,8 @@ class IssuePacket:
                 *(rule.proposition for rule in self.reviewed_anchor_rules),
             ],
         }
+        if self.stage_kind is not None:
+            payload["stage_kind"] = self.stage_kind
         if details:
             payload["details"] = [
                 {
@@ -337,6 +363,21 @@ def _placement_reviews() -> Mapping[str, Mapping[str, str]]:
             for key in ("section_path", "function", "title")
             if item.get(key)
         }
+    return result
+
+
+@lru_cache(maxsize=1)
+def _stage_semantics() -> Mapping[str, str]:
+    payload = json.loads(_STAGE_SEMANTICS_REVIEW.read_text(encoding="utf-8"))
+    if payload.get("status") != "approved":
+        raise IssueCatalogError("stage issue semantics review is not approved")
+    result: dict[str, str] = {}
+    for item in payload.get("decisions", []):
+        issue_id = str(item.get("issue_id", ""))
+        stage_kind = str(item.get("stage_kind", ""))
+        if not issue_id or issue_id in result or stage_kind not in STAGE_KINDS:
+            raise IssueCatalogError(f"invalid or duplicate stage semantics decision: {item}")
+        result[issue_id] = stage_kind
     return result
 
 
@@ -535,6 +576,7 @@ def compile_issue_catalog_v2(
     runtime_overrides = _runtime_overrides()
     rule_reviews = _rule_reviews()
     placement_reviews = _placement_reviews()
+    stage_semantics = _stage_semantics()
     reviewed_sections = frozenset(
         (article, section) for article, section, _ in title_overrides
     )
@@ -674,6 +716,11 @@ def compile_issue_catalog_v2(
             # to make the issue runnable.  Keep it retrievable and require review.
             runtime = RETRIEVE_SUPPORT
         runtime = runtime_overrides.get(issue_id, runtime)
+        stage_kind = stage_semantics.get(issue_id) if function == STAGE_ISSUE else None
+        if function == STAGE_ISSUE and stage_kind is None:
+            raise IssueCatalogError(f"{issue_id}: stage issue lacks reviewed semantics")
+        if function != STAGE_ISSUE and issue_id in stage_semantics:
+            raise IssueCatalogError(f"{issue_id}: stage semantics points to a non-stage issue")
 
         issue = IssuePacket(
             issue_id=issue_id,
@@ -684,6 +731,7 @@ def compile_issue_catalog_v2(
             title=title,
             function=function,
             runtime=runtime,
+            stage_kind=stage_kind,
             slot_ids=tuple(sorted({card.slot for card in members})),
             anchor_card_ids=anchors,
             reviewed_anchor_rules=reviewed_rules,
@@ -718,6 +766,13 @@ def compile_issue_catalog_v2(
     unknown_runtime_reviews = set(runtime_overrides) - {
         issue.issue_id for issue in issues_tuple
     }
+    unknown_stage_reviews = set(stage_semantics) - {
+        issue.issue_id for issue in issues_tuple if issue.function == STAGE_ISSUE
+    }
+    if unknown_stage_reviews:
+        raise IssueCatalogError(
+            f"stage semantics refer to missing issues: {sorted(unknown_stage_reviews)}"
+        )
     if unknown_runtime_reviews:
         raise IssueCatalogError(
             f"runtime review refers to unknown issues: {sorted(unknown_runtime_reviews)}"

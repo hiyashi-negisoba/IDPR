@@ -23,6 +23,7 @@ from idpr.neural.fact_graph import (
     MAX_ISSUE_CANDIDATES,
     FactGraphError,
     act_id,
+    assessment_facts,
     admit_fact_graph,
     fact_derived_queries,
     fact_graph_schema,
@@ -95,6 +96,7 @@ def _payload(**overrides):
         "roles": [{"entity": "a", "role_label": "피해자", "source_quote": "A를 협박하여"}],
         "relations": [],
         "holdings": [],
+        "transfers": [],
         "issue_candidates": [
             {
                 "label": "강제추행",
@@ -143,8 +145,37 @@ def test_label_fields_are_closed_to_their_vocabulary():
 def test_every_independently_asserted_group_carries_a_quote():
     """Attributes ride on their act's quote; independent assertions carry their own."""
     schema = fact_graph_schema()["properties"]
-    for group in ("acts", "results", "roles", "relations", "holdings", "issue_candidates"):
+    for group in (
+        "acts",
+        "results",
+        "roles",
+        "relations",
+        "holdings",
+        "transfers",
+        "issue_candidates",
+    ):
         assert "source_quote" in schema[group]["items"]["required"], group
+
+
+def test_property_transfer_is_descriptive_grounded_and_symbolic():
+    payload = _payload()
+    payload["transfers"] = [
+        {
+            "from_entity": "gap",
+            "to_entity": "a",
+            "object_label": "금전",
+            "transfer_mode": "보관위탁",
+            "transfer_purpose": "전달",
+            "source_quote": "A를 협박하여",
+        }
+    ]
+    validate_fact_graph(payload, case_id="case_x", question_text=CASE_TEXT)
+    admission = admit_fact_graph(payload, case_id="case_x", question_text=CASE_TEXT)
+    facts = assessment_facts(admission.payload)
+    assert any(fact["kind"] == "transfer" for fact in facts)
+    assert any(name == "property_transfer" for name, _ in fact_tuples(
+        admission.payload, case_id="case_x"
+    ))
 
 
 def test_issue_candidates_are_capped():

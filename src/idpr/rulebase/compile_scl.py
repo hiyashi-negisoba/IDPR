@@ -122,6 +122,7 @@ type offense_article(String, String)      // offense, "제298조"
 // ── 쟁점 중심 적재 v2 ──────────────────────────────────────
 type issue_offense(String, String)        // issueId, offense
 type issue_function(String, String)       // issueId, element_issue|guard_issue|...
+type issue_stage_kind(String, String)     // issueId, reviewed case-stage semantics
 type condition_issue(String, String)      // conditionCardId, owning relation issue
 
 // ── 죄수·미수: 수기 작성 후 법리 검수 (data/rulebase/*.yaml) ──
@@ -178,9 +179,33 @@ rel offense_blocked(c, off) = element_refuted(c, off, _)
 rel offense_blocked(c, off) = element_excluded(c, off, _)
 rel offense_blocked(c, off) = offense_defeated(c, off)
 
-rel offense_established(c, off) = offense_supported(c, off), not offense_blocked(c, off)
+// 기수 판단 issue가 실제로 평가된 죄명만 기수 상태로 결박한다. 그런 issue가 없는
+// 죄명은 기존 gate를 유지한다. 제목 추측이 아니라 검수된 issue_stage_kind 데이터다.
+rel completion_reviewed(c, off) = issue_offense(iid, off),
+    issue_stage_kind(iid, "completion_reached"), issue_status(c, iid, _)
+rel completion_reached(c, off) = issue_offense(iid, off),
+    issue_stage_kind(iid, "completion_reached"), issue_status(c, iid, "satisfied")
+rel completion_refuted(c, off) = issue_offense(iid, off),
+    issue_stage_kind(iid, "completion_reached"), issue_status(c, iid, "not_satisfied")
+rel attempt_stage_supported(c, off) = issue_offense(iid, off),
+    issue_stage_kind(iid, "attempt"), issue_status(c, iid, "satisfied")
+rel attempt_stage_supported(c, off) = issue_offense(iid, off),
+    issue_stage_kind(iid, "abandoned_attempt"), issue_status(c, iid, "satisfied")
+
+rel offense_established(c, off) = offense_supported(c, off), not offense_blocked(c, off),
+    not completion_reviewed(c, off)
+rel offense_established(c, off) = offense_supported(c, off), not offense_blocked(c, off),
+    completion_reached(c, off)
+rel offense_attempted(c, off) = offense_supported(c, off), not offense_blocked(c, off),
+    attempt_punishable(off), completion_refuted(c, off)
+rel offense_attempted(c, off) = offense_supported(c, off), not offense_blocked(c, off),
+    attempt_punishable(off), attempt_stage_supported(c, off)
+rel offense_stage_unresolved(c, off) = offense_supported(c, off), not offense_blocked(c, off),
+    completion_reviewed(c, off), not completion_reached(c, off),
+    not completion_refuted(c, off)
 // 삭제하지 않는다. 막힌 죄명도 콜 3에 그대로 넘겨 논증하게 한다.
 rel offense_undetermined(c, off) = offense_supported(c, off), offense_blocked(c, off)
+rel offense_undetermined(c, off) = offense_stage_unresolved(c, off)
 
 // ── 죄수 ────────────────────────────────────────────────────
 // 조건 카드가 충족될 때만 발화한다. "위법사실을 적극 은폐할 목적으로 …한 경우에는
@@ -207,6 +232,7 @@ rel concurrent_offenses(c, a, b) = offense_established(c, a), offense_establishe
 // ── 미수 ────────────────────────────────────────────────────
 // 기수가 막힌 죄명에 미수 처벌 규정이 있으면 미수를 검토해야 한다. 스모크 케이스의
 // 중지미수 논점이 이 경로다 — 강간 기수는 막혔고 제300조가 미수를 처벌한다.
+rel attempt_to_consider(c, off) = offense_attempted(c, off)
 rel attempt_to_consider(c, off) = offense_undetermined(c, off), attempt_punishable(off)
 
 // ── 보고용 (게이트가 아니다) ────────────────────────────────
@@ -234,6 +260,8 @@ QUERY_RELATIONS: tuple[str, ...] = (
     "element_unaddressed",
     "offense_defeated",
     "offense_established",
+    "offense_attempted",
+    "offense_stage_unresolved",
     "offense_undetermined",
     "is_absorbed",
     "final_offense",
@@ -340,6 +368,15 @@ def compile_rulebase(
     lines.append("")
     lines += _relation_block(
         "issue_function", ((issue.issue_id, issue.function) for issue in issues)
+    )
+    lines.append("")
+    lines += _relation_block(
+        "issue_stage_kind",
+        (
+            (issue.issue_id, issue.stage_kind)
+            for issue in issues
+            if issue.stage_kind is not None
+        ),
     )
     lines.append("")
     lines += _relation_block(

@@ -109,6 +109,8 @@ def followup_issues(
         "offense_undetermined",
         "final_offense",
         "attempt_to_consider",
+        "offense_attempted",
+        "offense_stage_unresolved",
     ):
         active_articles.update(_relation_articles(symbolic_runtime, relation))
     # An article with only unknown elements does not appear in the four relations above,
@@ -310,6 +312,7 @@ def build_issue_reasoning_packet(
                 "basis_fact_ids": list(assessment["basis_fact_ids"]),
                 "counter_fact_ids": list(assessment["counter_fact_ids"]),
                 "missing_facts": list(assessment["missing_facts"]),
+                "unknown_reason": assessment.get("unknown_reason"),
                 "anchor_rules": [
                     {
                         "rule_id": card_id,

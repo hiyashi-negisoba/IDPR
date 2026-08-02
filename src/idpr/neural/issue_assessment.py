@@ -15,8 +15,14 @@ from jsonschema import Draft202012Validator
 from idpr.eval.input_formatter import assert_no_leaked_fields, scoped_question_text
 from idpr.neural.fact_graph import assessment_facts
 
-SCHEMA_VERSION = "2.0.0"
+SCHEMA_VERSION = "2.1.0"
 STATUSES = ("satisfied", "not_satisfied", "unknown")
+UNKNOWN_REASONS = (
+    "record_absent",
+    "fact_graph_omission",
+    "rule_gap",
+    "issue_too_coarse",
+)
 _CASE_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
 
 
@@ -59,6 +65,7 @@ def _assessment_schema(fact_ids: Sequence[str]) -> dict[str, Any]:
                 "uniqueItems": True,
                 "items": {"type": "string", "minLength": 1, "maxLength": 300},
             },
+            "unknown_reason": {"type": "string", "enum": list(UNKNOWN_REASONS)},
         },
         # The status constants are disjoint, so ``anyOf`` has one matching branch.  The
         # guidance backend implements anyOf directly; oneOf would require coercion.
@@ -76,6 +83,7 @@ def _assessment_schema(fact_ids: Sequence[str]) -> dict[str, Any]:
                 }
             },
             {
+                "required": ["unknown_reason"],
                 "properties": {
                     "status": {"const": "unknown"},
                     "missing_facts": {"minItems": 1},
@@ -157,6 +165,8 @@ def issue_assessment_request(
             "question": question,
             "rules": rules,
         }
+        if issue.get("stage_kind") is not None:
+            model_issue["stage_kind"] = str(issue["stage_kind"])
         if details:
             model_issue["details"] = details
         model_issues.append(model_issue)
@@ -212,6 +222,10 @@ def validate_issue_assessments(
                 errors.append(f"{issue_id}: not_satisfied requires counter facts")
             if status == "unknown" and not assessment.get("missing_facts"):
                 errors.append(f"{issue_id}: unknown requires concrete missing facts")
+            if status == "unknown" and assessment.get("unknown_reason") not in UNKNOWN_REASONS:
+                errors.append(
+                    f"{issue_id}: unknown requires one of {list(UNKNOWN_REASONS)}"
+                )
     if errors:
         raise IssueAssessmentError(errors)
 

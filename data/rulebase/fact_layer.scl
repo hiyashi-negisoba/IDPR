@@ -14,3 +14,4 @@ type causation(String, String, String, String)  // case, actId, resultLabel, att
 type party_relation(String, String, String, String)  // case, entityA, entityB, relationLabel
 type holds(String, String, String, String)  // case, entity, objectLabel, holdLabel
 type precedes(String, String, String)  // case, earlierActId, laterActId
+type property_transfer(String, String, String, String, String, String, String)  // case, transferId, fromEntity, toEntity, objectLabel, transferMode, transferPurpose

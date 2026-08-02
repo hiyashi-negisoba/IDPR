@@ -17,8 +17,8 @@ the model to.
 
 So acts now carry their satellites inline and the host assigns ``act_001…`` by position.
 Ordering and causation refer to acts by **array index**, which is bounded by the schema and
-cannot dangle. The 13 fact-layer predicates are unchanged -- only the shape the model fills
-in is, and :func:`fact_tuples` still emits exactly those relations.
+cannot dangle. The host still owns every identifier; the later property-transfer addition
+uses the same positional pattern and :func:`fact_tuples` emits only registry relations.
 
 One quote per assertion, not per attribute
 ------------------------------------------
@@ -29,7 +29,7 @@ one. A quote is now required per act, result, role, relation and holding -- the 
 are independently asserted -- and attributes ride on their act's quote.
 
 Grounding itself is not relaxed: every quote is still checked as an exact substring of
-``question_text``, and the host raises rather than repairs. That gate is the only thing
+``question_text``, and the host drops rather than repairs an ungrounded assertion. That gate is the only thing
 standing between a hallucinated fact and the symbolic layer.
 """
 
@@ -43,7 +43,7 @@ from idpr.rulebase.cards import CardCorpus, card_corpus
 from idpr.rulebase.compile_scl import ArticleLabelError, article_label
 from idpr.rulebase.facts import VOCABULARIES, validate_fact
 
-SCHEMA_VERSION = "2.0.0"
+SCHEMA_VERSION = "2.1.0"
 
 _ENTITY_ID = r"^[a-z][a-z0-9_]*$"
 
@@ -107,6 +107,7 @@ def fact_graph_schema() -> dict[str, Any]:
             "roles",
             "relations",
             "holdings",
+            "transfers",
             "issue_candidates",
             "retrieval_queries",
             "unresolved_questions",
@@ -234,6 +235,31 @@ def fact_graph_schema() -> dict[str, Any]:
                         "entity": _entity_ref(),
                         "object_label": _enum("OBJECT_LABELS"),
                         "hold_label": _enum("HOLD_LABELS"),
+                        "source_quote": {"type": "string", "minLength": 1},
+                    },
+                },
+            },
+            "transfers": {
+                "type": "array",
+                "maxItems": 20,
+                "items": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": [
+                        "from_entity",
+                        "to_entity",
+                        "object_label",
+                        "transfer_mode",
+                        "transfer_purpose",
+                        "source_quote",
+                    ],
+                    "properties": {
+                        "from_entity": _entity_ref(),
+                        "to_entity": _entity_ref(),
+                        "object_label": _enum("OBJECT_LABELS"),
+                        "transfer_mode": _enum("TRANSFER_MODE_LABELS"),
+                        "transfer_purpose": _enum("TRANSFER_PURPOSE_LABELS"),
+                        "act": _act_index(),
                         "source_quote": {"type": "string", "minLength": 1},
                     },
                 },
@@ -373,12 +399,17 @@ def validate_fact_graph(
         ("roles", ("entity",)),
         ("relations", ("entity_a", "entity_b")),
         ("holdings", ("entity",)),
+        ("transfers", ("from_entity", "to_entity")),
     ):
         for index, item in enumerate(payload.get(group, [])):
             where = f"{group}[{index}]"
             check_quote(where, item)
             for field in entity_fields:
                 check_entity(where, item.get(field))
+            if group == "transfers" and item.get("act") is not None:
+                linked = int(item["act"])
+                if not 0 <= linked < len(acts):
+                    errors.append(f"{where}.act index {linked} is out of range")
 
     for index, candidate in enumerate(payload.get("issue_candidates", [])):
         check_quote(f"issue_candidates[{index}]", candidate)
@@ -530,6 +561,27 @@ def admit_fact_graph(
         else:
             drop("issue_candidates", f"issue_candidates[{index}]: quote is not a span")
 
+    transfers: list[dict[str, Any]] = []
+    for index, item in enumerate(payload.get("transfers", [])):
+        if not quote_is_grounded(str(item.get("source_quote", "")), question_text):
+            drop("transfers", f"transfers[{index}]: quote is not a span of the case")
+            continue
+        if any(
+            str(item.get(field, "")) not in entity_ids
+            for field in ("from_entity", "to_entity")
+        ):
+            drop("transfers", f"transfers[{index}]: references an undeclared entity")
+            continue
+        kept = dict(item)
+        if item.get("act") is not None:
+            mapped = remap.get(int(item["act"]))
+            if mapped is None:
+                kept.pop("act", None)
+                drop("transfer_links", f"transfers[{index}]: act points at a dropped act")
+            else:
+                kept["act"] = mapped
+        transfers.append(kept)
+
     admitted = {
         "version": payload.get("version"),
         "case_id": case_id,
@@ -539,6 +591,7 @@ def admit_fact_graph(
         "roles": admit_simple("roles", ("entity",)),
         "relations": admit_simple("relations", ("entity_a", "entity_b")),
         "holdings": admit_simple("holdings", ("entity",)),
+        "transfers": transfers,
         "issue_candidates": candidates,
         "retrieval_queries": list(payload.get("retrieval_queries", [])),
         "unresolved_questions": list(payload.get("unresolved_questions", [])),
@@ -627,6 +680,22 @@ def fact_tuples(
             )
         )
 
+    for index, item in enumerate(payload.get("transfers", [])):
+        rows.append(
+            (
+                "property_transfer",
+                (
+                    case_id,
+                    f"transfer_{index + 1:03d}",
+                    str(item["from_entity"]),
+                    str(item["to_entity"]),
+                    str(item["object_label"]),
+                    str(item["transfer_mode"]),
+                    str(item["transfer_purpose"]),
+                ),
+            )
+        )
+
     for name, arguments in rows:
         validate_fact(name, arguments)
     return rows
@@ -647,6 +716,7 @@ def assessment_facts(payload: Mapping[str, Any]) -> list[dict[str, Any]]:
         ("role", "roles"),
         ("relation", "relations"),
         ("holding", "holdings"),
+        ("transfer", "transfers"),
     ):
         for item in payload.get(group, []):
             facts.append(
@@ -694,6 +764,17 @@ def fact_derived_queries(payload: Mapping[str, Any]) -> list[str]:
     for holding in payload.get("holdings", []):
         queries.append(
             f"{holding.get('object_label', '')} {holding.get('hold_label', '')}".strip()
+        )
+
+    for transfer in payload.get("transfers", []):
+        queries.append(
+            " ".join(
+                (
+                    str(transfer.get("object_label", "")),
+                    str(transfer.get("transfer_mode", "")),
+                    str(transfer.get("transfer_purpose", "")),
+                )
+            ).strip()
         )
 
     for relation in payload.get("relations", []):

@@ -249,10 +249,13 @@ def _directive(
     undetermined: set[str],
     unaddressed: set[str],
     attempts: set[str],
+    stage_unresolved: set[str],
     absorbed: set[str],
 ) -> tuple[str, str]:
     if article in attempts:
         return "attempt_review", "undetermined"
+    if article in stage_unresolved:
+        return "stage_unresolved", "undetermined"
     if article in undetermined or article in unaddressed:
         return "undetermined", "undetermined"
     if article in absorbed:
@@ -318,6 +321,7 @@ def build_call3_request(
     undetermined = _article_set(reasoning_packet, "offense_undetermined")
     unaddressed = _article_set(reasoning_packet, "element_unaddressed")
     attempts = _article_set(reasoning_packet, "attempt_to_consider")
+    stage_unresolved = _article_set(reasoning_packet, "offense_stage_unresolved")
     absorbed = _article_set(reasoning_packet, "is_absorbed")
     concurrence = [
         {"left_article": row[1], "right_article": row[2]}
@@ -367,6 +371,7 @@ def build_call3_request(
             undetermined=undetermined,
             unaddressed=unaddressed,
             attempts=attempts,
+            stage_unresolved=stage_unresolved,
             absorbed=absorbed,
         )
         missing_bases = missing_required_base(

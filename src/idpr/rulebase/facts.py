@@ -32,7 +32,7 @@ the tables below and the host rejects an unlisted label rather than passing it t
 
 Predicate count
 ---------------
-Thirteen, against the nine originally sketched. Each addition was forced by a case in
+Fourteen, against the nine originally sketched. Each addition was forced by a case in
 the corpus that cannot otherwise be stated:
 
 ``relation``   친족상도례(제328·344조) and every 신분범 turn on a relation between two
@@ -43,6 +43,8 @@ the corpus that cannot otherwise be stated:
 ``causation``  제263조 동시범 turns on the cause being *undetermined*, which is a third
                value, not the absence of a fact. Encoding it as a missing fact would make
                동시범 indistinguishable from a case where nobody was hurt.
+``property_transfer``  재산범은 단순한 현재 점유뿐 아니라 점유가 자발적 교부·위탁·
+               무승낙 이동·점유이탈 중 어떤 경위로 바뀌었는지에 따라 갈린다.
 
 ``act_time`` was folded into :data:`ACT_CIRCUMSTANCES`, which already had to carry
 야간/주간 alongside 흉기소지 and 2인이상공동.
@@ -68,6 +70,7 @@ CAUSATION = "causation"
 RELATION = "party_relation"
 HOLDS = "holds"
 PRECEDES = "precedes"
+PROPERTY_TRANSFER = "property_transfer"
 
 
 @dataclass(frozen=True)
@@ -183,6 +186,26 @@ RELATION_LABELS: tuple[str, ...] = (
 #: How a person stands to a thing. ``타인의 재물`` is the victim holding it as 소유.
 HOLD_LABELS: tuple[str, ...] = ("소유", "점유", "보관", "관리", "소지", "무권리")
 
+#: Descriptive origin of a change in possession. These labels say how the thing moved;
+#: they do not decide 절취, 편취, 횡령 or any other offence.
+TRANSFER_MODE_LABELS: tuple[str, ...] = (
+    "자발적교부",
+    "무승낙이동",
+    "보관위탁",
+    "점유이탈",
+    "반환",
+)
+
+TRANSFER_PURPOSE_LABELS: tuple[str, ...] = (
+    "보관",
+    "전달",
+    "사용허락",
+    "채무변제",
+    "대가교환",
+    "무상양도",
+    "목적미기재",
+)
+
 VOCABULARIES: Mapping[str, tuple[str, ...]] = {
     "ACT_LABELS": ACT_LABELS,
     "ROLE_LABELS": ROLE_LABELS,
@@ -194,6 +217,8 @@ VOCABULARIES: Mapping[str, tuple[str, ...]] = {
     "CAUSATION_LABELS": CAUSATION_LABELS,
     "RELATION_LABELS": RELATION_LABELS,
     "HOLD_LABELS": HOLD_LABELS,
+    "TRANSFER_MODE_LABELS": TRANSFER_MODE_LABELS,
+    "TRANSFER_PURPOSE_LABELS": TRANSFER_PURPOSE_LABELS,
 }
 
 #: Conclusions that must never appear as a fact label. Enforced by test rather than by
@@ -293,6 +318,25 @@ FACT_PREDICATES: tuple[Predicate, ...] = (
         ("case", "earlierActId", "laterActId"),
         "Temporal order between two acts. Required by 준강도(절도 후 폭행) and by every "
         "결과적 가중범.",
+    ),
+    Predicate(
+        PROPERTY_TRANSFER,
+        (
+            "case",
+            "transferId",
+            "fromEntity",
+            "toEntity",
+            "objectLabel",
+            "transferMode",
+            "transferPurpose",
+        ),
+        "A grounded change in possession and its stated purpose. The labels are "
+        "descriptive inputs to property-offence assessment, never offence conclusions.",
+        label_args=(
+            (4, "OBJECT_LABELS"),
+            (5, "TRANSFER_MODE_LABELS"),
+            (6, "TRANSFER_PURPOSE_LABELS"),
+        ),
     ),
 )
 

@@ -132,10 +132,16 @@ def _missing_diagnostic(output: Mapping[str, Any]) -> dict[str, int | float]:
         for text in assessment["missing_facts"]
     ]
     lawlike = sum(bool(_LAWLIKE_MISSING_RE.search(text)) for text in missing)
+    reasons: dict[str, int] = {}
+    for assessment in output["assessments"].values():
+        reason = assessment.get("unknown_reason")
+        if reason:
+            reasons[str(reason)] = reasons.get(str(reason), 0) + 1
     return {
         "missing_items": len(missing),
         "lawlike_items": lawlike,
         "lawlike_rate": lawlike / len(missing) if missing else 0.0,
+        "unknown_reasons": reasons,
     }
 
 
@@ -165,7 +171,8 @@ def _complete_bundle(
                 "errors": correction_errors,
                 "instruction": (
                     "모든 issue를 다시 출력하라. 반대 fact가 없으면 not_satisfied가 아니라 "
-                    "unknown이며, unknown에는 구체적 missing_facts가 필요하다."
+                    "unknown이며, unknown에는 구체적 missing_facts와 원인별 "
+                    "unknown_reason이 필요하다."
                 ),
             }
         cache_key = _cache_key(
@@ -329,14 +336,28 @@ def main() -> None:
     ]
     refinement: dict[str, Any] = {
         "triggered_issue_ids": unknown_ids,
+        "routes": {},
         "retrieved": {},
         "attempts": [],
         "usage": {},
     }
     if unknown_ids and not args.no_refine_unknown:
-        unknown_issues = [issue_by_id[issue_id] for issue_id in unknown_ids]
+        routes = {
+            issue_id: output["assessments"][issue_id].get("unknown_reason")
+            for issue_id in unknown_ids
+        }
+        refinement["routes"] = routes
+        # Legal detail retrieval can cure only a rule gap. A missing record stays
+        # unknown; a FactGraph omission is reported for bounded Call-1 repair; and a
+        # compound issue is an offline catalog-review item. Mixing these routes was the
+        # source of irrelevant legal-card retries.
+        retrievable_ids = [
+            issue_id for issue_id in unknown_ids if routes[issue_id] == "rule_gap"
+        ]
+        unknown_issues = [issue_by_id[issue_id] for issue_id in retrievable_ids]
         focus = {
             issue_id: output["assessments"][issue_id]["missing_facts"] for issue_id in unknown_ids
+            if issue_id in retrievable_ids
         }
         retrieved_details = retrieve_issue_cards(
             unknown_issues,
