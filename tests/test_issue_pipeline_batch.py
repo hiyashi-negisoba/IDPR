@@ -8,6 +8,9 @@ from scripts.run_issue_pipeline_batch import _index_unique, _selected_case_ids, 
 from scripts.refresh_l0_issue_catalog import refreshed_row
 
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+
 def test_case_commands_use_persisted_scope_without_article_literals(tmp_path: Path):
     assessment, answer = case_commands(
         python="python",
@@ -29,6 +32,34 @@ def test_case_commands_use_persisted_scope_without_article_literals(tmp_path: Pa
     assert "--articles" not in assessment
     assert "art297" not in assessment + answer
     assert assessment[assessment.index("--case-id") + 1] == "case-1"
+
+
+def test_slurm_runner_resolves_repository_from_submission_directory():
+    script = (PROJECT_ROOT / "scripts/slurm/run_issue_pipeline_batch.sh").read_text(
+        encoding="utf-8"
+    )
+    shared = (PROJECT_ROOT / "scripts/slurm/_env.sh").read_text(encoding="utf-8")
+    assert "SLURM_SUBMIT_DIR" in script
+    assert "SLURM_SUBMIT_DIR" in shared
+
+
+def test_all_shared_slurm_entrypoints_find_env_outside_the_spool_copy():
+    expected = (
+        'source "${IDPR_PROJECT_ROOT:-${SLURM_SUBMIT_DIR:-$PWD}}/'
+        'scripts/slurm/_env.sh"'
+    )
+    scripts = [
+        path
+        for path in (PROJECT_ROOT / "scripts/slurm").rglob("*.sh")
+        if path.name != "_env.sh" and "source" in path.read_text(encoding="utf-8")
+    ]
+
+    assert scripts
+    assert not [
+        str(path.relative_to(PROJECT_ROOT))
+        for path in scripts
+        if expected not in path.read_text(encoding="utf-8")
+    ]
 
 
 def test_batch_inventory_rejects_duplicate_case_ids():

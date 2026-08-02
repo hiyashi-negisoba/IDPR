@@ -19,7 +19,7 @@
 
 set -euo pipefail
 
-source "$(dirname "${BASH_SOURCE[0]}")/_env.sh"
+source "${IDPR_PROJECT_ROOT:-${SLURM_SUBMIT_DIR:-$PWD}}/scripts/slurm/_env.sh"
 RUN_DIR="$PROJECT_ROOT/.cache/article_select/${SLURM_JOB_ID}"
 SELECTION="$PROJECT_ROOT/data/eval/article_selection.jsonl"
 REPORT="$PROJECT_ROOT/data/eval/article_select_report.json"
@@ -39,7 +39,9 @@ echo "=== IDPR article selection start: $(date) ==="
 echo "job=$SLURM_JOB_ID host=$(hostname)"
 nvidia-smi --query-gpu=name,memory.total --format=csv,noheader
 "$CLIENT_PYTHON" -c \
-    "import torch,vllm; print('torch/cuda/vllm', torch.__version__, torch.version.cuda, vllm.__version__)"
+    "import torch; print('torch/cuda', torch.__version__, torch.version.cuda)"
+test -x "$VLLM_BIN"
+echo "vllm=$VLLM_BIN"
 
 PORT=$("$CLIENT_PYTHON" -c \
     'import socket; s=socket.socket(); s.bind(("127.0.0.1", 0)); print(s.getsockname()[1]); s.close()')

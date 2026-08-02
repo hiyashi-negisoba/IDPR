@@ -12,6 +12,7 @@ from typing import Any, Mapping, Sequence
 
 from jsonschema import Draft202012Validator
 
+from idpr.eval.input_formatter import scoped_question_text
 from idpr.neural.fact_graph import assessment_facts
 from idpr.rulebase.issue_catalog_v2 import ASSESS_ISSUE, STAGE_ISSUE
 
@@ -37,6 +38,7 @@ def issue_answer_model_schema(request: Mapping[str, Any]) -> dict[str, Any]:
     final_schema = issue_answer_schema()
     section_template = deepcopy(final_schema["properties"]["sections"]["items"])
     for field in (
+        "section_id",
         "conclusion",
         "stated_conclusion",
         "cited_fact_ids",
@@ -46,23 +48,20 @@ def issue_answer_model_schema(request: Mapping[str, Any]) -> dict[str, Any]:
         section_template["properties"].pop(field)
         section_template["required"].remove(field)
 
+    analysis_template = deepcopy(section_template["properties"]["analyses"]["items"])
+    for field in ("analysis_id", "issue_status"):
+        analysis_template["properties"].pop(field)
+        analysis_template["required"].remove(field)
+
     section_schemas: list[dict[str, Any]] = []
     for required in request.get("required_sections", ()):
         schema = deepcopy(section_template)
-        schema["properties"]["section_id"] = {"const": required["section_id"]}
-        analysis_template = deepcopy(schema["properties"]["analyses"]["items"])
-        analyses = []
-        for issue in required.get("issues", ()):
-            analysis = deepcopy(analysis_template)
-            analysis["properties"]["analysis_id"] = {"const": issue["issue_id"]}
-            analysis["properties"]["issue_status"] = {"const": issue["status"]}
-            analyses.append(analysis)
+        analysis_count = len(required.get("issues", ()))
         schema["properties"]["analyses"] = {
             "type": "array",
-            "minItems": len(analyses),
-            "maxItems": len(analyses),
-            "prefixItems": analyses,
-            "items": False,
+            "minItems": analysis_count,
+            "maxItems": analysis_count,
+            "items": deepcopy(analysis_template),
         }
         section_schemas.append(schema)
 
@@ -107,6 +106,12 @@ def attach_issue_answer_provenance(
         return enriched
     for section, planned in zip(sections, required):
         issues = planned.get("issues", ())
+        section["section_id"] = str(planned["section_id"])
+        analyses = section.get("analyses", ())
+        if isinstance(analyses, list) and len(analyses) == len(issues):
+            for analysis, issue in zip(analyses, issues):
+                analysis["analysis_id"] = str(issue["issue_id"])
+                analysis["issue_status"] = str(issue["status"])
         section["conclusion"] = _host_section_conclusion(planned)
         section["stated_conclusion"] = str(
             planned.get("stated_conclusion", "undetermined")
@@ -331,12 +336,16 @@ def build_call3_request(
             }
         )
 
+    question_prompt = str(case.get("question_prompt", ""))
     return {
         "version": "1.0.0",
         "task": "write_issue_scallop_criminal_answer",
         "case_id": case_id,
-        "question_text": str(case.get("question_text", case.get("case_text", ""))),
-        "question_prompt": str(case.get("question_prompt", "")),
+        "question_text": scoped_question_text(
+            str(case.get("question_text", case.get("case_text", ""))),
+            question_prompt,
+        ),
+        "question_prompt": question_prompt,
         "legal_knowledge_policy": "supplied_reviewed_rules_only",
         "rubric_supplied": False,
         "required_sections": required_sections,

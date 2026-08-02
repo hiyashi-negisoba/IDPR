@@ -9,7 +9,7 @@
 
 set -euo pipefail
 
-source "$(dirname "${BASH_SOURCE[0]}")/_env.sh"
+source "${IDPR_PROJECT_ROOT:-${SLURM_SUBMIT_DIR:-$PWD}}/scripts/slurm/_env.sh"
 RUN_DIR="$PROJECT_ROOT/.cache/e2e/fraud/${SLURM_JOB_ID}"
 REPORT_PATH="$PROJECT_ROOT/data/e2e/fraud/fraud_neural_e2e_vllm_report.json"
 
@@ -26,7 +26,9 @@ echo "=== IDPR fraud neural E2E start: $(date) ==="
 echo "job=$SLURM_JOB_ID host=$(hostname)"
 nvidia-smi --query-gpu=name,memory.total --format=csv,noheader
 "$CLIENT_PYTHON" -c \
-    "import torch,vllm; print('torch/cuda/vllm', torch.__version__, torch.version.cuda, vllm.__version__)"
+    "import torch; print('torch/cuda', torch.__version__, torch.version.cuda)"
+test -x "$VLLM_BIN"
+echo "vllm=$VLLM_BIN"
 
 if [ -d "$MODEL_SNAPSHOT" ]; then
     "$CLIENT_PYTHON" scripts/check_gemma4_cache.py \

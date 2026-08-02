@@ -16,7 +16,7 @@
 # (의도적으로 --gres=gpu 없음)
 
 set -euo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/_env.sh"
+source "${IDPR_PROJECT_ROOT:-${SLURM_SUBMIT_DIR:-$PWD}}/scripts/slurm/_env.sh"
 PY="$CLIENT_PYTHON"
 cd "$PROJECT_ROOT"
 mkdir -p logs

@@ -12,7 +12,7 @@ from typing import Any, Iterable, Mapping, Sequence
 
 from jsonschema import Draft202012Validator
 
-from idpr.eval.input_formatter import assert_no_leaked_fields
+from idpr.eval.input_formatter import assert_no_leaked_fields, scoped_question_text
 from idpr.neural.fact_graph import assessment_facts
 
 SCHEMA_VERSION = "2.0.0"
@@ -145,10 +145,13 @@ def issue_assessment_request(
     if errors:
         raise IssueAssessmentError(errors)
 
+    question_prompt = str(case.get("question_prompt", ""))
     request = {
         "case_id": case_id,
-        "question_text": str(case.get("question_text", "")),
-        "question_prompt": str(case.get("question_prompt", "")),
+        "question_text": scoped_question_text(
+            str(case.get("question_text", "")), question_prompt
+        ),
+        "question_prompt": question_prompt,
         "entities": [dict(entity) for entity in fact_graph.get("entities", [])],
         "facts": assessment_facts(fact_graph),
         "issues": model_issues,

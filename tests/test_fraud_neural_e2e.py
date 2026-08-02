@@ -420,7 +420,10 @@ def test_slurm_script_uses_public_environment_configuration() -> None:
     assert "#SBATCH --nodelist" not in script
     assert "#SBATCH --exclude" not in script
     assert "#SBATCH --constraint" not in script
-    assert 'source "$(dirname "${BASH_SOURCE[0]}")/_env.sh"' in script
+    assert (
+        'source "${IDPR_PROJECT_ROOT:-${SLURM_SUBMIT_DIR:-$PWD}}/'
+        'scripts/slurm/_env.sh"'
+    ) in script
     assert "--host 127.0.0.1" in script
     assert "/home/" not in script
     assert "/data5/" not in script

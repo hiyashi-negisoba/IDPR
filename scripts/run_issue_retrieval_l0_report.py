@@ -17,6 +17,7 @@ from idpr.eval.issue_recall import (
     missed_articles,
     summarise_paths,
 )
+from idpr.eval.input_formatter import scoped_question_text
 from idpr.neural.fact_graph import proposed_articles, retrieval_queries
 from idpr.retrieval import (
     DEFAULT_TOP_K_ISSUES,
@@ -121,7 +122,10 @@ def main() -> None:
                 text
                 for text in (
                     record.get("question_prompt", ""),
-                    record.get("question_text", ""),
+                    scoped_question_text(
+                        record.get("question_text", ""),
+                        record.get("question_prompt", ""),
+                    ),
                 )
                 if text
             )

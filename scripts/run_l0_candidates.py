@@ -17,6 +17,7 @@ import statistics as st
 from pathlib import Path
 
 from idpr.candidates import candidate_issues
+from idpr.eval.input_formatter import scoped_question_text
 from idpr.eval.issue_recall import (
     INVENTORY_PATH,
     PROJECT_ROOT,
@@ -101,7 +102,17 @@ def main() -> None:
                 queries = (
                     retrieval_queries(graph)
                     if graph is not None
-                    else [q for q in (record.get("question_prompt", ""), record["question_text"]) if q]
+                    else [
+                        query
+                        for query in (
+                            record.get("question_prompt", ""),
+                            scoped_question_text(
+                                record["question_text"],
+                                record.get("question_prompt", ""),
+                            ),
+                        )
+                        if query
+                    ]
                 )
                 retrieval = retrieve_candidate_articles_via_issues(
                     queries,

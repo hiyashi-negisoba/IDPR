@@ -18,10 +18,10 @@
 
 set -euo pipefail
 
-source "$(dirname "${BASH_SOURCE[0]}")/_env.sh"
+source "${IDPR_PROJECT_ROOT:-${SLURM_SUBMIT_DIR:-$PWD}}/scripts/slurm/_env.sh"
 RUN_DIR="$PROJECT_ROOT/.cache/l0/${SLURM_JOB_ID}"
-FACT_GRAPHS="$PROJECT_ROOT/data/eval/fact_graphs.jsonl"
-REPORT="$PROJECT_ROOT/data/eval/retrieval_l0_recall_report.json"
+FACT_GRAPHS="${IDPR_FACT_GRAPHS:-$PROJECT_ROOT/data/eval/fact_graphs.jsonl}"
+REPORT="${IDPR_RETRIEVAL_REPORT:-$PROJECT_ROOT/data/eval/retrieval_l0_recall_report.json}"
 
 # Phase 1 environment is byte-identical to run_fraud_neural_e2e.sh. The first run of this
 # job segfaulted vLLM three times with a zero-byte log; the only deviations from the proven
@@ -34,14 +34,16 @@ export JE_ARROW_MALLOC_CONF="${JE_ARROW_MALLOC_CONF:-background_thread:false}"
 export TORCH_CUDA_ARCH_LIST="12.0"
 
 cd "$PROJECT_ROOT"
-mkdir -p "$RUN_DIR" logs data/eval
+mkdir -p "$RUN_DIR" logs "$(dirname "$FACT_GRAPHS")" "$(dirname "$REPORT")"
 
 echo "=== IDPR L0 gate start: $(date) ==="
 echo "job=$SLURM_JOB_ID host=$(hostname)"
 nvidia-smi --query-gpu=name,memory.total --format=csv,noheader
 # Preflight: a segfault before this line is an environment problem, after it is ours.
 "$CLIENT_PYTHON" -c \
-    "import torch,vllm; print('torch/cuda/vllm', torch.__version__, torch.version.cuda, vllm.__version__)"
+    "import torch; print('torch/cuda', torch.__version__, torch.version.cuda)"
+test -x "$VLLM_BIN"
+echo "vllm=$VLLM_BIN"
 
 # ---------------------------------------------------------------------------
 # Phase 1 -- call 1 (fact graphs). vLLM only.
@@ -113,11 +115,13 @@ fi
 
 echo "=== call 1: fact graphs over the inventory ==="
 export PYTHONPATH="$PROJECT_ROOT/src"
+STAGED_FACT_GRAPHS="$RUN_DIR/fact_graphs.jsonl"
 "$CLIENT_PYTHON" scripts/run_call1_fact_graphs.py \
     --base-url "http://127.0.0.1:${PORT}" \
     --model "$SERVED_MODEL" \
     --api-key "$LOCAL_API_KEY" \
-    --out "$FACT_GRAPHS"
+    --out "$STAGED_FACT_GRAPHS"
+mv "$STAGED_FACT_GRAPHS" "$FACT_GRAPHS"
 
 cleanup
 echo "vLLM stopped; GPU released for the retrieval models"
@@ -134,10 +138,12 @@ unset HF_HUB_OFFLINE TRANSFORMERS_OFFLINE
 # Set here as well as in the call-1 branch: with SKIP_CALL1 that branch never runs.
 export PYTHONPATH="$PROJECT_ROOT/src"
 echo "=== L0 retrieval + issue recall ==="
+STAGED_REPORT="$RUN_DIR/retrieval_l0_recall_report.json"
 "$CLIENT_PYTHON" scripts/run_retrieval_l0_report.py \
     --fact-graphs "$FACT_GRAPHS" \
     --checks data/eval/diagnostic_checks.json \
-    --out "$REPORT"
+    --out "$STAGED_REPORT"
+mv "$STAGED_REPORT" "$REPORT"
 
 echo "fact_graphs=$FACT_GRAPHS"
 echo "report=$REPORT"

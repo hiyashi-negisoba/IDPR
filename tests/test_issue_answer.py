@@ -199,20 +199,18 @@ def test_host_overall_conclusion_preserves_attempt_review_directive():
     )
 
 
-def test_model_schema_fixes_section_controls_and_host_attaches_provenance():
+def test_model_schema_keeps_only_prose_and_host_attaches_controls():
     request = _request()
     schema = issue_answer_model_schema(request)
     section_schema = schema["properties"]["sections"]["prefixItems"][0]
-    assert section_schema["properties"]["section_id"] == {
-        "const": "offense_art298"
-    }
+    assert "section_id" not in section_schema["properties"]
     assert "stated_conclusion" not in section_schema["properties"]
     assert "conclusion" not in section_schema["properties"]
     analyses_schema = section_schema["properties"]["analyses"]
-    assert len(analyses_schema["prefixItems"]) == 2
-    assert analyses_schema["prefixItems"][0]["properties"]["analysis_id"] == {
-        "const": "art298.Ⅱ.element_issue"
-    }
+    assert analyses_schema["minItems"] == 2
+    assert analyses_schema["maxItems"] == 2
+    assert "analysis_id" not in analyses_schema["items"]["properties"]
+    assert "issue_status" not in analyses_schema["items"]["properties"]
     assert "cited_issue_ids" not in section_schema["properties"]
     assert "overall_conclusion" not in schema["properties"]
 
@@ -222,32 +220,32 @@ def test_model_schema_fixes_section_controls_and_host_attaches_provenance():
         "title": "甲의 죄책",
         "sections": [
             {
-                "section_id": "offense_art298",
                 "heading": "강제추행죄",
                 "analyses": [
                     {
-                        "analysis_id": "art298.Ⅱ.element_issue",
                         "heading": "폭행·협박",
                         "issue": "폭행 또는 협박이 문제된다.",
                         "rule": "폭행 또는 협박이 필요하다.",
                         "application": "甲은 A를 밀쳤다.",
                         "conclusion": "요건이 충족된다.",
-                        "issue_status": "satisfied",
                     },
                     {
-                        "analysis_id": "art298.Ⅲ.stage_issue",
                         "heading": "실행의 착수",
                         "issue": "실행의 착수가 문제된다.",
                         "rule": "유형력 행사가 개시되어야 한다.",
                         "application": "신체 접촉 시점은 확인되지 않는다.",
                         "conclusion": "현재 사실로는 미확정이다.",
-                        "issue_status": "unknown",
                     },
                 ],
             }
         ],
     }
     answer = attach_issue_answer_provenance(model_answer, request=request)
+    assert answer["sections"][0]["section_id"] == "offense_art298"
+    assert answer["sections"][0]["analyses"][0]["analysis_id"] == (
+        "art298.Ⅱ.element_issue"
+    )
+    assert answer["sections"][0]["analyses"][0]["issue_status"] == "satisfied"
     assert answer["sections"][0]["cited_issue_ids"] == [
         "art298.Ⅱ.element_issue",
         "art298.Ⅲ.stage_issue",

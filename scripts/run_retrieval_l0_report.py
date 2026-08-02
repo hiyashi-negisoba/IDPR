@@ -25,6 +25,7 @@ from idpr.eval.issue_recall import (
     missed_articles,
     summarise_paths,
 )
+from idpr.eval.input_formatter import scoped_question_text
 from idpr.neural.fact_graph import proposed_articles, retrieval_queries
 from idpr.retrieval import DEFAULT_TOP_K_ARTICLES, LexicalIndex, retrieve_candidate_articles
 from idpr.rulebase.cards import card_corpus
@@ -113,7 +114,12 @@ def main() -> None:
             else:
                 # No call-1 output for this question: retrieval still runs, on the raw
                 # question. Reported as such rather than skipped.
-                queries = [record.get("question_prompt", ""), record["question_text"]]
+                queries = [
+                    record.get("question_prompt", ""),
+                    scoped_question_text(
+                        record["question_text"], record.get("question_prompt", "")
+                    ),
+                ]
                 queries = [query for query in queries if query]
                 proposals = []
 

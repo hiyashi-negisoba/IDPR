@@ -16,7 +16,7 @@ import argparse
 import json
 from pathlib import Path
 
-from idpr.eval.input_formatter import assert_no_leaked_fields
+from idpr.eval.input_formatter import assert_no_leaked_fields, scoped_question_text
 from idpr.eval.issue_recall import INVENTORY_PATH, PROJECT_ROOT
 from idpr.neural.article_select import (
     ArticleSelectError,
@@ -70,10 +70,13 @@ def main() -> None:
     with args.out.open("w", encoding="utf-8") as handle:
         for index, record in enumerate(records, start=1):
             case_id = record["sub_question_id"]
+            question_prompt = record.get("question_prompt", "")
             payload = selection_payload(
                 case_id=case_id,
-                question_text=record["question_text"],
-                question_prompt=record.get("question_prompt", ""),
+                question_text=scoped_question_text(
+                    record["question_text"], question_prompt
+                ),
+                question_prompt=question_prompt,
                 catalog=catalog,
             )
             assert_no_leaked_fields(payload)

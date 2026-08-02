@@ -29,6 +29,22 @@ def test_kcl_criminal_inventory_has_all_criminal_essay_subquestions() -> None:
     assert not any("unknown_issue" in row["issue_tags"] for row in rows)
 
 
+def test_inventory_prompt_preserves_a_separate_fact_scope_qualifier() -> None:
+    rows = {
+        row["sub_question_id"]: row
+        for row in (
+            json.loads(line) for line in INVENTORY.read_text(encoding="utf-8").splitlines()
+        )
+    }
+
+    assert rows["kcl_criminal_r10_p1_q1_ga"]["question_prompt"] == (
+        "사실관계 (1)과 관련하여, 甲의 죄책을 논하시오."
+    )
+    assert rows["kcl_criminal_r10_p1_q3_ga"]["question_prompt"] == (
+        "사실관계 (3)과 관련하여, 甲, 丙, 丁의 죄책을 논하시오."
+    )
+
+
 def test_kcl_criminal_inventory_marks_bootstrap_candidates_without_claiming_coverage() -> None:
     rows = [json.loads(line) for line in INVENTORY.read_text(encoding="utf-8").splitlines()]
 

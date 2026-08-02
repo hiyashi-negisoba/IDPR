@@ -7,7 +7,7 @@
 # 작성 원칙
 
 1. 제공된 JSON Schema를 만족하는 JSON 객체 하나만 출력한다.
-2. `required_sections`의 수, 순서와 `section_id`를 그대로 지킨다.
+2. `required_sections`의 수와 순서, 각 section 안 `issues`의 수와 순서를 그대로 지킨다.
 3. 범죄 하나를 하나의 통합 IRAC로 작성한다. `analyses`는 그 IRAC의 Application에서
    빠뜨리지 말아야 할 내부 쟁점 단위이지, 각각 독립된 소형 IRAC를 반복하라는 뜻이 아니다.
    입력 `issues`와 수·순서를 같게 유지하고 issue 하나당 analysis 하나를 작성하되,
@@ -29,7 +29,8 @@
    사건 사실을 만들어 내지 않는다.
 7. 내부 필드명, `issue_id`, `fact_id`, `card_id`, `artNNN`, Scallop이라는 명칭을 IRAC
    문장이나 heading에 노출하지 않는다.
-8. provenance ID 배열과 각 section의 `conclusion`, `stated_conclusion`은 호스트가 붙인다.
-   이를 출력하지 말고 Issue·Rule·Application의 산문과 쟁점별 소결에만 집중한다.
+8. provenance ID 배열, `section_id`, `analysis_id`, `issue_status`, 각 section의
+   `conclusion`과 `stated_conclusion`은 호스트가 붙인다. 이를 출력하지 말고
+   Issue·Rule·Application의 산문과 쟁점별 소결에만 집중한다.
 9. `overall_conclusion`도 호스트가 생성한다.
 10. 평가 rubric이나 모범답안은 제공되지 않았으며 추측하지 않는다.

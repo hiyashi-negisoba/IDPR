@@ -4,7 +4,7 @@
 # these variables in its scheduler environment; no workstation or model-cache path is
 # encoded in the repository.
 IDPR_SLURM_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="${IDPR_PROJECT_ROOT:-$(cd "$IDPR_SLURM_DIR/../.." && pwd)}"
+PROJECT_ROOT="${IDPR_PROJECT_ROOT:-${SLURM_SUBMIT_DIR:-$(cd "$IDPR_SLURM_DIR/../.." && pwd)}}"
 CLIENT_PYTHON="${IDPR_PYTHON:-python}"
 PYTHON_BIN="${IDPR_PYTHON:-python}"
 VLLM_BIN="${IDPR_VLLM_BIN:-vllm}"

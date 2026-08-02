@@ -533,6 +533,11 @@ def extract_prompt(question: str) -> str:
     parts = [normalize_spaces(part) for part in re.split(r"\n\s*\n", question) if part.strip()]
     if not parts:
         return normalize_spaces(question)
+    if len(parts) >= 2 and re.fullmatch(
+        r"사실관계\s*\(\d+\)\s*(?:과|와)\s*관련하여,?",
+        parts[-2],
+    ):
+        return f"{parts[-2]} {parts[-1]}"
     return parts[-1]
 
 

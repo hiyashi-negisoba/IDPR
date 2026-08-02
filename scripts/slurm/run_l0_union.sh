@@ -22,11 +22,11 @@
 
 set -euo pipefail
 
-source "$(dirname "${BASH_SOURCE[0]}")/_env.sh"
+source "${IDPR_PROJECT_ROOT:-${SLURM_SUBMIT_DIR:-$PWD}}/scripts/slurm/_env.sh"
 RUN_DIR="$PROJECT_ROOT/.cache/l0_union/${SLURM_JOB_ID}"
-SELECTION="$PROJECT_ROOT/data/eval/article_selection.jsonl"
-CANDIDATES="$PROJECT_ROOT/data/eval/l0_candidates.jsonl"
-REPORT="$PROJECT_ROOT/data/eval/l0_union_report.json"
+SELECTION="${IDPR_ARTICLE_SELECTION:-$PROJECT_ROOT/data/eval/article_selection.jsonl}"
+CANDIDATES="${IDPR_L0_CANDIDATES:-$PROJECT_ROOT/data/eval/l0_candidates.jsonl}"
+REPORT="${IDPR_L0_UNION_REPORT:-$PROJECT_ROOT/data/eval/l0_union_report.json}"
 
 export TOKENIZERS_PARALLELISM=false
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
@@ -35,7 +35,12 @@ export JE_ARROW_MALLOC_CONF="${JE_ARROW_MALLOC_CONF:-background_thread:false}"
 export TORCH_CUDA_ARCH_LIST="12.0"
 
 cd "$PROJECT_ROOT"
-mkdir -p "$RUN_DIR" logs data/eval
+mkdir -p \
+    "$RUN_DIR" \
+    logs \
+    "$(dirname "$SELECTION")" \
+    "$(dirname "$CANDIDATES")" \
+    "$(dirname "$REPORT")"
 
 echo "=== IDPR L0 union start: $(date) ==="
 echo "job=$SLURM_JOB_ID host=$(hostname)"
@@ -107,11 +112,13 @@ if [ "$READY" != 1 ]; then
 fi
 
 export PYTHONPATH="$PROJECT_ROOT/src"
+STAGED_SELECTION="$RUN_DIR/article_selection.jsonl"
 "$CLIENT_PYTHON" scripts/run_article_select.py \
     --base-url "http://127.0.0.1:${PORT}" \
     --model "$SERVED_MODEL" \
     --api-key "$LOCAL_API_KEY" \
-    --out "$SELECTION"
+    --out "$STAGED_SELECTION"
+mv "$STAGED_SELECTION" "$SELECTION"
 
 cleanup
 echo "--- phase A end: $(date +%T) ---"
@@ -129,12 +136,16 @@ export PYTHONPATH="$PROJECT_ROOT/src"
 echo "--- phase B start: $(date +%T) ---"
 EXTRA=""
 [ "${NO_RETRIEVAL:-0}" = "1" ] && EXTRA="--no-retrieval"
+STAGED_CANDIDATES="$RUN_DIR/l0_candidates.jsonl"
+STAGED_REPORT="$RUN_DIR/l0_union_report.json"
 "$CLIENT_PYTHON" scripts/run_l0_candidates.py \
     --selection "$SELECTION" \
-    --out "$CANDIDATES" \
-    --report "$REPORT" \
+    --out "$STAGED_CANDIDATES" \
+    --report "$STAGED_REPORT" \
     --checks data/eval/diagnostic_checks.json \
     $EXTRA
+mv "$STAGED_CANDIDATES" "$CANDIDATES"
+mv "$STAGED_REPORT" "$REPORT"
 echo "--- phase B end: $(date +%T) ---"
 
 echo "candidates=$CANDIDATES"

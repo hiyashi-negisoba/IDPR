@@ -9,7 +9,8 @@
 
 set -euo pipefail
 
-PROJECT_ROOT="${IDPR_PROJECT_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="${IDPR_PROJECT_ROOT:-${SLURM_SUBMIT_DIR:-$(cd "$SCRIPT_DIR/../.." && pwd)}}"
 CLIENT_PYTHON="${IDPR_PYTHON:-python}"
 VLLM_BIN="${IDPR_VLLM_BIN:-vllm}"
 MODEL_SOURCE="${IDPR_MODEL_SOURCE:-google/gemma-4-26B-A4B-it}"

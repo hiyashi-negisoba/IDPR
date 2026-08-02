@@ -9,7 +9,7 @@
 
 set -euo pipefail
 
-source "$(dirname "${BASH_SOURCE[0]}")/_env.sh"
+source "${IDPR_PROJECT_ROOT:-${SLURM_SUBMIT_DIR:-$PWD}}/scripts/slurm/_env.sh"
 FACT_GRAPHS="$PROJECT_ROOT/data/eval/fact_graphs.jsonl"
 SELECTION="$PROJECT_ROOT/data/eval/article_selection.jsonl"
 REPORT="$PROJECT_ROOT/data/eval/issue_retrieval_l0_report.json"
