@@ -10,11 +10,12 @@ and dies offline. Set ``HF_HOME`` and leave the offline flags alone.
 
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass, field
 from typing import Any, Sequence
 
-DENSE_MODEL = "google/embeddinggemma-300m"
-RERANKER_MODEL = "BAAI/bge-reranker-v2-m3"
+DENSE_MODEL = os.environ.get("IDPR_DENSE_MODEL", "google/embeddinggemma-300m")
+RERANKER_MODEL = os.environ.get("IDPR_RERANKER_MODEL", "BAAI/bge-reranker-v2-m3")
 
 
 @dataclass

@@ -116,11 +116,16 @@ fi
 echo "=== call 1: fact graphs over the inventory ==="
 export PYTHONPATH="$PROJECT_ROOT/src"
 STAGED_FACT_GRAPHS="$RUN_DIR/fact_graphs.jsonl"
+FALLBACK_ARGS=()
+if [ -s "$FACT_GRAPHS" ]; then
+    FALLBACK_ARGS+=(--fallback-fact-graphs "$FACT_GRAPHS")
+fi
 "$CLIENT_PYTHON" scripts/run_call1_fact_graphs.py \
     --base-url "http://127.0.0.1:${PORT}" \
     --model "$SERVED_MODEL" \
     --api-key "$LOCAL_API_KEY" \
-    --out "$STAGED_FACT_GRAPHS"
+    --out "$STAGED_FACT_GRAPHS" \
+    "${FALLBACK_ARGS[@]}"
 mv "$STAGED_FACT_GRAPHS" "$FACT_GRAPHS"
 
 cleanup
