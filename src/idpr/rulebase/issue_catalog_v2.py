@@ -86,6 +86,8 @@ LOAD_POLICIES = frozenset(
 _ARTICLE_CATALOG = PROJECT_ROOT / "data/rulebase/article_catalog.json"
 _ISSUE_TITLE_REVIEW = PROJECT_ROOT / "data/rulebase/issue_title_review.json"
 _ISSUE_RUNTIME_REVIEW = PROJECT_ROOT / "data/rulebase/issue_runtime_review.json"
+_ISSUE_RULE_REVIEW = PROJECT_ROOT / "data/rulebase/issue_rule_review.json"
+_ISSUE_PLACEMENT_REVIEW = PROJECT_ROOT / "data/rulebase/issue_placement_review.json"
 _ANCHOR_LANGUAGE_RE = re.compile(
     r"성립(?:하려면|에는|한다)|인정되려면|필요(?:하다|하고)|요한다|뜻한다|말한다|"
     r"행위는|객체는|주체는|고의는|의사는"
@@ -100,6 +102,15 @@ _ISSUE_CONTEXT_TERMS = frozenset(
 
 
 @dataclass(frozen=True, slots=True)
+class ReviewedIssueRule:
+    """A reviewer-approved general rule that is not disguised as a source card."""
+
+    rule_id: str
+    proposition: str
+    basis_card_ids: tuple[str, ...]
+
+
+@dataclass(frozen=True, slots=True)
 class IssuePacket:
     issue_id: str
     article: str
@@ -111,6 +122,7 @@ class IssuePacket:
     runtime: str
     slot_ids: tuple[str, ...]
     anchor_card_ids: tuple[str, ...]
+    reviewed_anchor_rules: tuple[ReviewedIssueRule, ...]
     member_card_ids: tuple[str, ...]
     retrieval_card_ids: tuple[str, ...]
     case_pattern_card_ids: tuple[str, ...]
@@ -135,10 +147,40 @@ class IssuePacket:
             raise IssueCatalogError(
                 f"{self.issue_id}: details are not retrieval children: {sorted(outside)}"
             )
+        if self.function == GUARD_ISSUE:
+            question = (
+                f"사실관계상 [{self.title}] 사유가 인정되어 "
+                f"{self.offense}의 성립이 배제되는가?"
+            )
+        elif self.function == STAGE_ISSUE:
+            question = (
+                f"사실관계상 {self.offense}에서 [{self.title}]에 해당하는 "
+                "범죄단계가 인정되는가?"
+            )
+        elif self.function == PARTICIPATION_ISSUE:
+            question = (
+                f"사실관계상 {self.offense}에서 [{self.title}]에 해당하는 "
+                "가담형태가 인정되는가?"
+            )
+        elif self.function == CONCURRENCE_ISSUE:
+            question = (
+                f"사실관계상 {self.offense}의 [{self.title}]에 적힌 "
+                "죄수·범죄관계가 인정되는가?"
+            )
+        elif self.function == ELEMENT_ISSUE:
+            question = f"사실관계상 {self.offense}의 [{self.title}] 요건이 충족되는가?"
+        else:
+            question = f"사실관계상 {self.offense}의 [{self.title}] 법리가 관련되는가?"
         payload: dict[str, object] = {
             "issue_id": self.issue_id,
-            "question": f"사실관계상 {self.offense}의 [{self.title}] 쟁점이 충족되는가?",
-            "rules": [cards_by_id[card_id].proposition for card_id in self.anchor_card_ids],
+            "question": question,
+            "rules": [
+                *(
+                    cards_by_id[card_id].proposition
+                    for card_id in self.anchor_card_ids
+                ),
+                *(rule.proposition for rule in self.reviewed_anchor_rules),
+            ],
         }
         if details:
             payload["details"] = [
@@ -263,6 +305,39 @@ def _runtime_overrides() -> Mapping[str, str]:
         if runtime not in ISSUE_RUNTIMES:
             raise IssueCatalogError(f"invalid reviewed issue runtime: {item}")
         result[issue_id] = runtime
+    return result
+
+
+@lru_cache(maxsize=1)
+def _rule_reviews() -> Mapping[str, Mapping[str, object]]:
+    payload = json.loads(_ISSUE_RULE_REVIEW.read_text(encoding="utf-8"))
+    if payload.get("status") != "approved":
+        raise IssueCatalogError("issue rule review is not approved")
+    result: dict[str, Mapping[str, object]] = {}
+    for item in payload.get("decisions", []):
+        issue_id = str(item.get("issue_id", ""))
+        if not issue_id or issue_id in result:
+            raise IssueCatalogError(f"invalid or duplicate issue rule review: {item}")
+        result[issue_id] = item
+    return result
+
+
+@lru_cache(maxsize=1)
+def _placement_reviews() -> Mapping[str, Mapping[str, str]]:
+    payload = json.loads(_ISSUE_PLACEMENT_REVIEW.read_text(encoding="utf-8"))
+    if payload.get("status") != "approved":
+        raise IssueCatalogError("issue placement review is not approved")
+    result: dict[str, Mapping[str, str]] = {}
+    for item in payload.get("decisions", []):
+        card_id = str(item.get("card_id", ""))
+        function = str(item.get("function", ""))
+        if not card_id or card_id in result or function not in ISSUE_FUNCTIONS:
+            raise IssueCatalogError(f"invalid or duplicate issue placement review: {item}")
+        result[card_id] = {
+            key: str(item[key])
+            for key in ("section_path", "function", "title")
+            if item.get(key)
+        }
     return result
 
 
@@ -459,6 +534,8 @@ def compile_issue_catalog_v2(
     section_titles = _section_titles()
     title_overrides = _title_overrides()
     runtime_overrides = _runtime_overrides()
+    rule_reviews = _rule_reviews()
+    placement_reviews = _placement_reviews()
     reviewed_sections = frozenset(
         (article, section) for article, section, _ in title_overrides
     )
@@ -476,6 +553,7 @@ def compile_issue_catalog_v2(
 
     grouped: dict[tuple[str, str, str], list[Card]] = defaultdict(list)
     group_reasons: dict[tuple[str, str, str], set[str]] = defaultdict(set)
+    placement_titles: dict[tuple[str, str, str], str] = {}
     for (article, section), section_cards in by_article_section.items():
         article_label, _ = metadata[article]
         exact_title = section_titles.get((article_label, section), "")
@@ -518,14 +596,29 @@ def compile_issue_catalog_v2(
                 group_reasons[(article, section, function)].add(
                     "context leaf promoted because the top heading is missing and the card defines an element"
                 )
-            grouped[(article, section, function)].append(card)
+            placement_review = placement_reviews.get(card.id, {})
+            target_section = placement_review.get("section_path", section)
+            function = placement_review.get("function", function)
+            target_key = (article, target_section, function)
+            reviewed_title = placement_review.get("title", "")
+            if reviewed_title:
+                previous = placement_titles.get(target_key)
+                if previous and previous != reviewed_title:
+                    raise IssueCatalogError(
+                        f"conflicting placement review titles for {target_key}"
+                    )
+                placement_titles[target_key] = reviewed_title
+            grouped[target_key].append(card)
 
     issues: list[IssuePacket] = []
     placements: list[CardPlacement] = []
     for (article, top, function), members in sorted(grouped.items()):
         article_label, offense = metadata[article]
         exact_title = section_titles.get((article_label, top), "")
-        title_override = title_overrides.get((article, top, function), "")
+        title_override = (
+            placement_titles.get((article, top, function), "")
+            or title_overrides.get((article, top, function), "")
+        )
         title = (
             strip_outline_numbering(exact_title)
             if exact_title
@@ -533,12 +626,31 @@ def compile_issue_catalog_v2(
         )
         issue_id = f"{article}.{top}.{function}"
         anchors = _select_anchors(members, top=top, function=function)
+        rule_review = rule_reviews.get(issue_id, {})
+        reviewed_anchor_ids = tuple(
+            str(card_id) for card_id in rule_review.get("anchor_card_ids", ())
+        )
+        if reviewed_anchor_ids:
+            if not set(reviewed_anchor_ids) <= {card.id for card in members}:
+                raise IssueCatalogError(
+                    f"{issue_id}: reviewed anchors are outside the issue"
+                )
+            anchors = reviewed_anchor_ids
+        reviewed_rules = tuple(
+            ReviewedIssueRule(
+                rule_id=str(rule["rule_id"]),
+                proposition=str(rule["proposition"]),
+                basis_card_ids=tuple(str(card_id) for card_id in rule["basis_card_ids"]),
+            )
+            for rule in rule_review.get("reviewed_rules", ())
+        )
         member_ids = tuple(sorted(card.id for card in members))
         case_pattern_ids = tuple(
             sorted(
                 card.id
                 for card in members
                 if leaf_catalog[card.id].form == PRECEDENT_PATTERN
+                and card.id not in anchors
             )
         )
         retrieval_ids = tuple(
@@ -555,10 +667,10 @@ def compile_issue_catalog_v2(
             )
         elif not exact_title:
             reasons.add("top-level commentary heading is missing; title is synthesized from leaf headings")
-        if function != SUPPORT_ISSUE and not anchors:
+        if function != SUPPORT_ISSUE and not anchors and not reviewed_rules:
             reasons.add("runtime issue has no non-precedent anchor rule")
         runtime = _runtime(function)
-        if function == ELEMENT_ISSUE and not anchors:
+        if function == ELEMENT_ISSUE and not anchors and not reviewed_rules:
             # Do not turn a precedent fact pattern into a universal core rule merely
             # to make the issue runnable.  Keep it retrievable and require review.
             runtime = RETRIEVE_SUPPORT
@@ -575,6 +687,7 @@ def compile_issue_catalog_v2(
             runtime=runtime,
             slot_ids=tuple(sorted({card.slot for card in members})),
             anchor_card_ids=anchors,
+            reviewed_anchor_rules=reviewed_rules,
             member_card_ids=member_ids,
             retrieval_card_ids=retrieval_ids,
             case_pattern_card_ids=case_pattern_ids,
@@ -609,6 +722,21 @@ def compile_issue_catalog_v2(
     if unknown_runtime_reviews:
         raise IssueCatalogError(
             f"runtime review refers to unknown issues: {sorted(unknown_runtime_reviews)}"
+        )
+    unknown_rule_reviews = set(rule_reviews) - {
+        issue.issue_id for issue in issues_tuple
+    }
+    if unknown_rule_reviews:
+        raise IssueCatalogError(
+            f"rule review refers to unknown issues: {sorted(unknown_rule_reviews)}"
+        )
+    unknown_placement_reviews = set(placement_reviews) - {
+        card.id for card in corpus.cards
+    }
+    if unknown_placement_reviews:
+        raise IssueCatalogError(
+            "placement review refers to unknown cards: "
+            f"{sorted(unknown_placement_reviews)}"
         )
     validate_issue_catalog_v2(
         issues_tuple, placements_tuple, expected_ids={card.id for card in corpus.cards}
@@ -645,7 +773,14 @@ def validate_issue_catalog_v2(
             errors.append(f"{issue.issue_id}: anchor outside member set")
         if not set(issue.retrieval_card_ids) <= set(issue.member_card_ids):
             errors.append(f"{issue.issue_id}: retrieval card outside member set")
-        if issue.runtime == ASSESS_ISSUE and not issue.anchor_card_ids:
+        for rule in issue.reviewed_anchor_rules:
+            if not set(rule.basis_card_ids) <= set(issue.member_card_ids):
+                errors.append(f"{issue.issue_id}: reviewed rule basis outside member set")
+        if (
+            issue.runtime == ASSESS_ISSUE
+            and not issue.anchor_card_ids
+            and not issue.reviewed_anchor_rules
+        ):
             errors.append(f"{issue.issue_id}: assessable issue lacks an anchor")
     for placement in placements:
         if placement.issue_id not in known_issues:
@@ -667,7 +802,13 @@ def issue_catalog_summary(
         "by_load_policy": dict(
             Counter(item.load_policy for item in placements).most_common()
         ),
-        "anchors": sum(len(issue.anchor_card_ids) for issue in issues),
+        "anchors": sum(
+            len(issue.anchor_card_ids) + len(issue.reviewed_anchor_rules)
+            for issue in issues
+        ),
+        "reviewed_issue_rules": sum(
+            len(issue.reviewed_anchor_rules) for issue in issues
+        ),
         "retrieval_candidates": sum(len(issue.retrieval_card_ids) for issue in issues),
         "case_patterns": sum(len(issue.case_pattern_card_ids) for issue in issues),
         "review_required": sum(issue.review_required for issue in issues),

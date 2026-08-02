@@ -17,6 +17,7 @@ SERVED_MODEL="idpr-gemma-4-26b-a4b"
 LOCAL_API_KEY="local-idpr"
 RUN_DIR="$PROJECT_ROOT/.cache/call2_issue_smoke/${SLURM_JOB_ID}"
 OUT="$PROJECT_ROOT/data/eval/issue_status_smoke.json"
+CALL3_OUT="$PROJECT_ROOT/data/eval/issue_answer_smoke.json"
 
 export HF_HOME="/data5/jaehoonjeong/.cache/huggingface"
 export HF_HUB_OFFLINE=1
@@ -92,14 +93,28 @@ if [ "$READY" != 1 ]; then
     exit 1
 fi
 
-"$CLIENT_PYTHON" scripts/run_call2_issue_smoke.py \
+if [ "${CALL3_ONLY:-0}" != 1 ]; then
+    "$CLIENT_PYTHON" scripts/run_call2_issue_smoke.py \
+        --base-url "http://127.0.0.1:${PORT}" \
+        --model "$SERVED_MODEL" \
+        --api-key "$LOCAL_API_KEY" \
+        --work-dir "$RUN_DIR" \
+        --out "$OUT" \
+        --no-cache
+else
+    echo "CALL3_ONLY=1: reusing $OUT"
+    test -s "$OUT"
+fi
+
+"$CLIENT_PYTHON" scripts/run_call3_issue_smoke.py \
     --base-url "http://127.0.0.1:${PORT}" \
     --model "$SERVED_MODEL" \
     --api-key "$LOCAL_API_KEY" \
-    --work-dir "$RUN_DIR" \
-    --out "$OUT" \
-    --no-cache
+    --call2 "$OUT" \
+    --work-dir "$RUN_DIR/call3" \
+    --out "$CALL3_OUT"
 
 cleanup
 echo "result=$OUT"
+echo "answer=$CALL3_OUT"
 echo "=== IDPR issue-first call 2 smoke end: $(date) ==="

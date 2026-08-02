@@ -11,7 +11,12 @@ from typing import Any, Mapping, Sequence
 
 from idpr.candidates import candidate_issues
 from idpr.eval.issue_recall import INVENTORY_PATH, PROJECT_ROOT
-from idpr.issue_pipeline import build_issue_reasoning_packet, run_issue_symbolic
+from idpr.issue_pipeline import (
+    build_issue_reasoning_packet,
+    followup_issues,
+    generation_issues,
+    run_issue_symbolic,
+)
 from idpr.neural.fact_graph import assessment_facts
 from idpr.neural.issue_assessment import (
     SCHEMA_VERSION,
@@ -236,6 +241,11 @@ def main() -> None:
         default=DEFAULT_TOP_K_CARDS_PER_ISSUE,
     )
     parser.add_argument("--no-refine-unknown", action="store_true")
+    parser.add_argument(
+        "--no-followup-relations",
+        action="store_true",
+        help="skip the post-element stage/participation/concurrence/guard pass",
+    )
     args = parser.parse_args()
     if args.detail_cards_per_issue < 1:
         parser.error("--detail-cards-per-issue must be at least 1")
@@ -399,6 +409,69 @@ def main() -> None:
         )
         for status in ("satisfied", "not_satisfied", "unknown")
     }
+    initial_symbolic_runtime = run_issue_symbolic(
+        case_id=args.case_id,
+        fact_graph=graph,
+        assessment_bundle=output,
+        work_dir=args.work_dir / "symbolic",
+        corpus=corpus,
+        name=f"{args.case_id}_initial_issue",
+    )
+    scope = candidate_issues(
+        selected=tuple(args.articles),
+        attempt_map={},
+        corpus=corpus,
+    )
+    relation_followup: dict[str, Any] = {
+        "issue_ids": [],
+        "attempts": [],
+        "usage": {},
+    }
+    if not args.no_followup_relations:
+        selected_followups = followup_issues(
+            scope,
+            symbolic_runtime=initial_symbolic_runtime,
+        )
+        followup_ids = [issue.issue_id for issue in selected_followups]
+        relation_followup["issue_ids"] = followup_ids
+        if selected_followups:
+            followup_request = issue_assessment_request(
+                case=case,
+                fact_graph=graph,
+                issues=[issue.model_payload(corpus.by_id) for issue in selected_followups],
+            )
+            followup_request["version"] = SCHEMA_VERSION
+            followup_schema = issue_assessment_schema(
+                case_id=args.case_id,
+                issue_ids=followup_ids,
+                fact_ids=fact_ids,
+            )
+            followup_output, followup_attempts, followup_usage = _complete_bundle(
+                client=client,
+                request=followup_request,
+                schema=followup_schema,
+                issue_ids=followup_ids,
+                fact_ids=fact_ids,
+                prompts=prompts,
+                model=args.model,
+                work_dir=args.work_dir,
+                stage="relation_followup",
+                max_tokens=args.max_tokens,
+                temperature=args.temperature,
+                no_cache=args.no_cache,
+            )
+            merged = dict(output["assessments"])
+            merged.update(followup_output["assessments"])
+            output = {
+                "version": SCHEMA_VERSION,
+                "case_id": args.case_id,
+                "assessments": merged,
+            }
+            relation_followup["attempts"] = followup_attempts
+            relation_followup["usage"] = followup_usage
+            for key, value in followup_usage.items():
+                total_usage[key] = total_usage.get(key, 0) + value
+
     symbolic_runtime = run_issue_symbolic(
         case_id=args.case_id,
         fact_graph=graph,
@@ -407,20 +480,42 @@ def main() -> None:
         corpus=corpus,
         name=f"{args.case_id}_issue",
     )
-    scope = candidate_issues(
-        selected=tuple(args.articles),
-        attempt_map={},
+    status_counts = {
+        status: sum(
+            assessment["status"] == status
+            for assessment in output["assessments"].values()
+        )
+        for status in ("satisfied", "not_satisfied", "unknown")
+    }
+    assessed_by_id = {
+        issue.issue_id: issue
+        for issue in generation_issues(
+            scope.issues,
+            assessment_bundle=output,
+            corpus=corpus,
+        )
+    }
+    generation_retrieval = retrieve_issue_cards(
+        list(assessed_by_id.values()),
+        facts,
         corpus=corpus,
+        top_k_per_issue=args.detail_cards_per_issue,
     )
+    generation_details: dict[str, tuple[str, ...]] = {}
+    for issue_id in assessed_by_id:
+        prioritized = [
+            *refinement["retrieved"].get(issue_id, ()),
+            *generation_retrieval.by_issue[issue_id].card_ids,
+        ]
+        selected = tuple(dict.fromkeys(prioritized))[: args.detail_cards_per_issue]
+        if selected:
+            generation_details[issue_id] = selected
     reasoning_packet = build_issue_reasoning_packet(
         scope=scope,
         assessment_bundle=output,
         symbolic_runtime=symbolic_runtime,
         corpus=corpus,
-        details_by_issue={
-            issue_id: tuple(card_ids)
-            for issue_id, card_ids in refinement["retrieved"].items()
-        },
+        details_by_issue=generation_details,
     )
     report = {
         **plan,
@@ -437,7 +532,21 @@ def main() -> None:
         "missing_diagnostic": _missing_diagnostic(output),
         "initial_issue_status": initial_output,
         "refinement": refinement,
+        "relation_followup": relation_followup,
+        "generation_detail_retrieval": {
+            result.issue_id: {
+                "card_ids": list(generation_details.get(result.issue_id, ())),
+                "scores": {
+                    card_id: result.card_scores[card_id]
+                    for card_id in generation_details.get(result.issue_id, ())
+                    if card_id in result.card_scores
+                },
+            }
+            for result in generation_retrieval.results
+            if generation_details.get(result.issue_id)
+        },
         "issue_status": output,
+        "initial_symbolic_runtime": initial_symbolic_runtime,
         "symbolic_runtime": symbolic_runtime,
         "reasoning_packet": reasoning_packet,
     }

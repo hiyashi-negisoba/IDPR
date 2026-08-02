@@ -6,6 +6,8 @@ from idpr.candidates import candidate_issues
 from idpr.issue_pipeline import (
     IssuePipelineError,
     build_issue_reasoning_packet,
+    followup_issues,
+    generation_issues,
     initial_issue_payloads,
     issue_candidate_row,
     scope_from_l0_row,
@@ -75,6 +77,124 @@ def test_reasoning_packet_rejects_partial_issue_assessments():
             assessment_bundle=bundle,
             symbolic_runtime={},
         )
+
+
+def test_followup_issues_are_limited_to_live_articles_and_relation_roles():
+    scope = candidate_issues(
+        selected=["art297", "art298"],
+        attempt_map={},
+    )
+    runtime = {
+        "relations": {
+            "offense_established": [["case-1", "art298"]],
+            "offense_undetermined": [],
+            "final_offense": [["case-1", "art298"]],
+            "attempt_to_consider": [],
+            "element_unaddressed": [],
+        }
+    }
+    selected = followup_issues(scope, symbolic_runtime=runtime)
+    assert selected
+    assert {issue.article for issue in selected} == {"art298"}
+    assert {issue.function for issue in selected} <= {
+        "guard_issue",
+        "stage_issue",
+        "concurrence_issue",
+        "participation_issue",
+    }
+    assert all(issue.anchor_card_ids for issue in selected)
+
+
+def test_symbolic_relation_followup_requires_both_live_offenses():
+    scope = candidate_issues(
+        selected=["art122", "art227"],
+        attempt_map={},
+    )
+    target = "art122.Ⅲ.2a.concurrence_issue"
+    one_live = {
+        "relations": {
+            "offense_established": [["case-1", "art122"]],
+            "offense_undetermined": [],
+            "final_offense": [["case-1", "art122"]],
+            "attempt_to_consider": [],
+            "element_unaddressed": [],
+        }
+    }
+    assert target not in {
+        issue.issue_id
+        for issue in followup_issues(scope, symbolic_runtime=one_live)
+    }
+
+    both_live = {
+        "relations": {
+            "offense_established": [
+                ["case-1", "art122"],
+                ["case-1", "art227"],
+            ],
+            "offense_undetermined": [],
+            "final_offense": [
+                ["case-1", "art122"],
+                ["case-1", "art227"],
+            ],
+            "attempt_to_consider": [],
+            "element_unaddressed": [],
+        }
+    }
+    assert target in {
+        issue.issue_id
+        for issue in followup_issues(scope, symbolic_runtime=both_live)
+    }
+
+
+def test_reasoning_packet_accepts_scoped_followup_assessments():
+    scope = candidate_issues(selected=["art298"], attempt_map={})
+    bundle = _bundle(scope)
+    followup = next(
+        issue for issue in scope.deferred_issues if issue.anchor_card_ids
+    )
+    bundle["assessments"][followup.issue_id] = {
+        "status": "unknown",
+        "basis_fact_ids": [],
+        "counter_fact_ids": [],
+        "missing_facts": ["구체적 사실"],
+    }
+    packet = build_issue_reasoning_packet(
+        scope=scope,
+        assessment_bundle=bundle,
+        symbolic_runtime={"relations": {}},
+    )
+    by_id = {issue["issue_id"]: issue for issue in packet["issues"]}
+    assert by_id[followup.issue_id]["function"] == followup.function
+    assert isinstance(by_id[followup.issue_id]["symbolic_condition"], bool)
+
+
+def test_generation_plan_omits_speculative_unknown_deferred_issues():
+    scope = candidate_issues(selected=["art298"], attempt_map={})
+    bundle = _bundle(scope)
+    stage = next(
+        issue for issue in scope.deferred_issues if issue.function == "stage_issue"
+    )
+    concurrence = next(
+        issue
+        for issue in scope.deferred_issues
+        if issue.function == "concurrence_issue"
+    )
+    for issue in (stage, concurrence):
+        bundle["assessments"][issue.issue_id] = {
+            "status": "unknown",
+            "basis_fact_ids": [],
+            "counter_fact_ids": [],
+            "missing_facts": ["구체적 사실"],
+        }
+    planned = {
+        issue.issue_id
+        for issue in generation_issues(
+            scope.issues,
+            assessment_bundle=bundle,
+        )
+    }
+    assert stage.issue_id in planned
+    assert concurrence.issue_id not in planned
 
 
 def test_general_runtime_scripts_do_not_import_flat_card_boundaries():

@@ -9,6 +9,7 @@ from idpr.rulebase.issue_catalog_v2 import (
     issue_catalog_summary,
 )
 from idpr.rulebase.cards import card_corpus
+from idpr.rulebase.doctrine import UNCONDITIONAL, load_doctrine
 
 
 def test_every_live_card_is_placed_in_exactly_one_issue():
@@ -114,3 +115,57 @@ def test_summary_records_the_large_card_to_issue_reduction():
     assert summary["issues"] < summary["cards"] / 4
     assert summary["by_runtime"]["assess_issue"] < summary["cards"] / 10
     assert summary["case_patterns"] > 0
+
+
+def test_every_symbolic_condition_has_its_own_anchor_issue():
+    corpus = card_corpus()
+    issues, placements = compile_issue_catalog_v2(corpus)
+    issue_by_id = {issue.issue_id: issue for issue in issues}
+    issue_id_by_card = {placement.card_id: placement.issue_id for placement in placements}
+    doctrine = load_doctrine(corpus.by_article())
+    condition_ids = {
+        condition
+        for _, _, condition in (
+            *doctrine.absorbed_by,
+            *doctrine.imaginative_concurrence,
+        )
+        if condition != UNCONDITIONAL
+    }
+
+    condition_issue_ids = []
+    for condition_id in condition_ids:
+        issue = issue_by_id[issue_id_by_card[condition_id]]
+        assert issue.anchor_card_ids == (condition_id,)
+        assert issue.function in {
+            "stage_issue",
+            "concurrence_issue",
+            "participation_issue",
+        }
+        condition_issue_ids.append(issue.issue_id)
+
+    assert len(condition_issue_ids) == len(set(condition_issue_ids))
+
+
+def test_issue_questions_encode_the_direction_of_the_legal_decision():
+    corpus = card_corpus()
+    issues, _ = compile_issue_catalog_v2(corpus)
+    by_id = {issue.issue_id: issue for issue in issues}
+    guard = by_id["art298.Ⅴ.guard_issue"].model_payload(corpus.by_id)
+    stage = by_id["art298.Ⅲ.stage_issue"].model_payload(corpus.by_id)
+    concurrence = by_id["art298.Ⅵ.concurrence_issue"].model_payload(corpus.by_id)
+    assert "성립이 배제되는가" in guard["question"]
+    assert "범죄단계가 인정되는가" in stage["question"]
+    assert "죄수·범죄관계가 인정되는가" in concurrence["question"]
+
+
+def test_support_doctrine_cannot_accidentally_defeat_the_defendants_offense():
+    issues, _ = compile_issue_catalog_v2()
+    by_id = {issue.issue_id: issue for issue in issues}
+    assert "art297.Ⅹ.guard_issue" not in by_id
+    assert "art250.Ⅰ.18.guard_issue" not in by_id
+    assert by_id["art297.Ⅹ.support_issue"].function == "support_issue"
+    assert by_id["art250.Ⅰ.18.support_issue"].function == "support_issue"
+    breach = by_id["art355.Ⅲ.0a.element_issue"]
+    assert breach.anchor_card_ids == (
+        "art355_sec5_2.trust_relationship_threshold",
+    )

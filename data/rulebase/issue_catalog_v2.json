@@ -2,32 +2,33 @@
   "version": "2.1.0-draft",
   "source": "live RuleIR cards grouped by reviewed commentary section_path",
   "summary": {
-    "issues": 372,
+    "issues": 383,
     "cards": 1848,
     "by_function": {
-      "element_issue": 168,
-      "support_issue": 84,
+      "element_issue": 170,
+      "support_issue": 87,
+      "concurrence_issue": 51,
       "stage_issue": 46,
-      "concurrence_issue": 41,
-      "guard_issue": 22,
+      "guard_issue": 18,
       "participation_issue": 11
     },
     "by_runtime": {
-      "assess_issue": 159,
-      "relation_condition": 98,
-      "retrieve_support": 93,
-      "retrieve_guard": 22
+      "assess_issue": 169,
+      "relation_condition": 108,
+      "retrieve_support": 88,
+      "retrieve_guard": 18
     },
     "by_load_policy": {
-      "retrieve_candidate": 1246,
-      "anchor_context": 334,
-      "symbolic_only": 214,
+      "retrieve_candidate": 1223,
+      "anchor_context": 364,
+      "symbolic_only": 207,
       "support_only": 54
     },
-    "anchors": 334,
-    "retrieval_candidates": 1246,
-    "case_patterns": 629,
-    "review_required": 19,
+    "anchors": 367,
+    "reviewed_issue_rules": 3,
+    "retrieval_candidates": 1223,
+    "case_patterns": 605,
+    "review_required": 0,
     "articles": 51
   },
   "issues": [
@@ -44,6 +45,7 @@
         "art122_sec1_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art122_sec1_1.establishment_requirements"
       ],
@@ -71,6 +73,7 @@
       "anchor_card_ids": [
         "art122_sec2_1.definition_criminal_public_official"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art122_sec2_1.definition_criminal_public_official",
         "art122_sec2_1.exception_sick_leave_official",
@@ -101,6 +104,7 @@
       "anchor_card_ids": [
         "art122_sec2_2.duty_specific_original"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art122_sec2_2.abstract_or_derivative_duty",
         "art122_sec2_2.conscious_abandonment",
@@ -137,6 +141,7 @@
       "anchor_card_ids": [
         "art122_sec2_3.intent_conscious_abandonment"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art122_sec2_3.disciplinary_decision_delay_no_offense",
         "art122_sec2_3.intent_conscious_abandonment"
@@ -161,6 +166,7 @@
         "art122"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art122.disaster_review_omission",
         "art122.disciplinary_demand_objection",
@@ -237,6 +243,7 @@
         "art122_sec2_5.repeated_abandonment_comprehensive_single_offense",
         "art122_sec2_5.instigation_per_public_official"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art122_sec2_5.instigation_per_public_official",
         "art122_sec2_5.repeated_abandonment_comprehensive_single_offense"
@@ -261,19 +268,41 @@
       "anchor_card_ids": [
         "art122_sec3_2.false_document_farmland_neglect_real_concurrence"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
-        "art122_sec3_2.false_document_concealment_absorption",
         "art122_sec3_2.false_document_farmland_neglect_real_concurrence",
         "art122_sec3_2.farmland_illegal_conversion_inaction"
       ],
       "retrieval_card_ids": [
-        "art122_sec3_2.false_document_concealment_absorption",
         "art122_sec3_2.farmland_illegal_conversion_inaction"
       ],
       "case_pattern_card_ids": [
-        "art122_sec3_2.false_document_concealment_absorption",
         "art122_sec3_2.farmland_illegal_conversion_inaction"
       ],
+      "review_required": false,
+      "review_reasons": []
+    },
+    {
+      "issue_id": "art122.Ⅲ.2a.concurrence_issue",
+      "article": "art122",
+      "article_label": "제122조",
+      "offense": "직무유기",
+      "section_path": "Ⅲ.2a",
+      "title": "허위공문서작성에 대한 직무유기의 흡수",
+      "function": "concurrence_issue",
+      "runtime": "relation_condition",
+      "slot_ids": [
+        "art122_sec3_2"
+      ],
+      "anchor_card_ids": [
+        "art122_sec3_2.false_document_concealment_absorption"
+      ],
+      "reviewed_anchor_rules": [],
+      "member_card_ids": [
+        "art122_sec3_2.false_document_concealment_absorption"
+      ],
+      "retrieval_card_ids": [],
+      "case_pattern_card_ids": [],
       "review_required": false,
       "review_reasons": []
     },
@@ -292,6 +321,7 @@
       "anchor_card_ids": [
         "art122_sec3_3.indictment_scope_overlapping_offenses"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art122_sec3_3.evidence_destruction_absorption",
         "art122_sec3_3.indictment_scope_overlapping_offenses",
@@ -329,6 +359,7 @@
       "anchor_card_ids": [
         "art122_sec3_4.deceptive_obstruction_excludes_dereliction"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art122_sec3_4.deceptive_obstruction_excludes_dereliction"
       ],
@@ -350,6 +381,7 @@
         "art122_sec3_5"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art122_sec3_5.building_instigation_excludes_dereliction",
         "art122_sec3_5.dereliction_and_instigation_concurrent_offenses",
@@ -381,6 +413,7 @@
         "art122_sec4"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art122_sec4.military_dereliction_requirements",
         "art122_sec4.military_inadequate_performance_not_sufficient",
@@ -410,6 +443,7 @@
       "anchor_card_ids": [
         "art127_sec2.subject.current_or_former_public_official"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art127_sec2.subject.current_or_former_public_official"
       ],
@@ -435,6 +469,7 @@
       "anchor_card_ids": [
         "art127_sec3_1.job_related_secret_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art127_sec3_1.confidentiality_requirements",
         "art127_sec3_1.illegally_obtained_job_secret",
@@ -504,6 +539,7 @@
       "anchor_card_ids": [
         "art127_sec4.disclosure.unaware_third_party"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art127_sec4.disclosure.interofficial_transmission",
         "art127_sec4.disclosure.known_recipient",
@@ -533,6 +569,7 @@
       "anchor_card_ids": [
         "art127_sec6.statutorily_required_corruption_report"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art127_sec6.statutorily_required_corruption_report"
       ],
@@ -556,6 +593,7 @@
       "anchor_card_ids": [
         "art127_sec7.bribery_disclosure_imaginary_concurrence"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art127_sec7.bribery_disclosure_imaginary_concurrence",
         "art127_sec7.special_law_priority",
@@ -579,6 +617,7 @@
         "art129_sec1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art129_sec1.basic_offense"
       ],
@@ -602,6 +641,7 @@
       "anchor_card_ids": [
         "art129_sec1_1.subject_current_official_arbitrator"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art129_sec1_1.acceptance_awareness_appropriation",
         "art129_sec1_1.acceptance_no_legal_title",
@@ -654,6 +694,7 @@
       "anchor_card_ids": [
         "art129_sec1_2.intent.status_and_quid_pro_quo"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art129_sec1_2.charitable_appearance_appropriation",
         "art129_sec1_2.charitable_transfer_no_appropriation",
@@ -700,6 +741,7 @@
         "art129_sec1_4.demand_completion_upon_awareness",
         "art129_sec1_4.promise_completion_upon_acceptance"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art129_sec1_4.business_opportunity_completion",
         "art129_sec1_4.demand_completion_upon_awareness",
@@ -734,7 +776,10 @@
       "slot_ids": [
         "art129_sec1_5"
       ],
-      "anchor_card_ids": [],
+      "anchor_card_ids": [
+        "art129_sec1_5.comprehensive_single_offense"
+      ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art129_sec1_5.comprehensive_single_offense",
         "art129_sec1_5.comprehensive_time_interval",
@@ -742,21 +787,17 @@
         "art129_sec1_5.retired_official_no_bribe_receipt"
       ],
       "retrieval_card_ids": [
-        "art129_sec1_5.comprehensive_single_offense",
         "art129_sec1_5.comprehensive_time_interval",
         "art129_sec1_5.different_appraisers_no_comprehensive_offense",
         "art129_sec1_5.retired_official_no_bribe_receipt"
       ],
       "case_pattern_card_ids": [
-        "art129_sec1_5.comprehensive_single_offense",
         "art129_sec1_5.comprehensive_time_interval",
         "art129_sec1_5.different_appraisers_no_comprehensive_offense",
         "art129_sec1_5.retired_official_no_bribe_receipt"
       ],
-      "review_required": true,
-      "review_reasons": [
-        "runtime issue has no non-precedent anchor rule"
-      ]
+      "review_required": false,
+      "review_reasons": []
     },
     {
       "issue_id": "art129.Ⅰ.6.concurrence_issue",
@@ -773,6 +814,7 @@
       "anchor_card_ids": [
         "art129.illicit_benefit_as_bribe"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art129.bribery_giving_despite_coercion",
         "art129.coercion_independent_bribery_decision",
@@ -831,6 +873,7 @@
         "art129_sec2_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art129_sec2_1.prior_bribery_elements"
       ],
@@ -856,6 +899,7 @@
       "anchor_card_ids": [
         "art129_sec2_2.prospective_official_probability"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art129_sec2_2.abstract_business_relocation_request",
         "art129_sec2_2.application_exam_insufficient",
@@ -889,6 +933,7 @@
       "anchor_card_ids": [
         "art129_sec2_3.prior_bribery_intent"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art129_sec2_3.prior_bribery_intent"
       ],
@@ -912,6 +957,7 @@
       "anchor_card_ids": [
         "art129_sec2_4.false_prospective_official_fraud_only"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art129_sec2_4.false_prospective_official_fraud_only",
         "art129_sec2_4.sequential_demand_promise_receipt_absorption"
@@ -936,6 +982,7 @@
         "art130_sec1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art130_sec1.basic_conduct",
         "art130_sec1.direct_receipt_relationship_exception"
@@ -962,6 +1009,7 @@
       "anchor_card_ids": [
         "art130_sec2_1.exchange_linked_request"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art130_sec2_1.exchange_linked_request",
         "art130_sec2_1.improper_request_assessment",
@@ -990,6 +1038,7 @@
       "anchor_card_ids": [
         "art130_sec2_2.implied_request"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art130_sec2_2.case_engineering_introduction_conviction",
         "art130_sec2_2.case_foundation_contributions_no_exchange",
@@ -1038,6 +1087,7 @@
       "anchor_card_ids": [
         "art130_sec3.third_party_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art130_sec3-na.company-legal-service",
         "art130_sec3-na.joint-bribery-conspiracy",
@@ -1117,6 +1167,7 @@
       "anchor_card_ids": [
         "art130_sec4_2.contract_demand_imaginary_concurrence"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art130_sec4_2.contract_demand_imaginary_concurrence",
         "art130_sec4_2.different_third_party_no_intent_severance",
@@ -1142,6 +1193,7 @@
         "art133"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art133.bribery_delivery_offense",
         "art133.bribery_offering_offense"
@@ -1166,6 +1218,7 @@
       "anchor_card_ids": [
         "art133_sec1_2.acquisition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art133_sec1_2.acquisition",
         "art133_sec1_2.aider_as_third_party",
@@ -1231,6 +1284,7 @@
       "anchor_card_ids": [
         "art133_sec1_3.delivery_offense_absorbed"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art133_sec1_3.delivery_offense_absorbed"
       ],
@@ -1252,6 +1306,7 @@
         "art136_sec1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art136_sec1.special_offense_displacement"
       ],
@@ -1275,6 +1330,7 @@
         "art136_sec2_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art136_sec2_1.offense_conduct",
         "art136_sec2_1.violence"
@@ -1301,6 +1357,7 @@
       "anchor_card_ids": [
         "art136_sec2_2.subject.unrestricted"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art136_sec2_2.subject.unrestricted"
       ],
@@ -1324,6 +1381,7 @@
       "anchor_card_ids": [
         "art136_sec2_3.public_official_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art136_sec2_3.concrete_authority_requirements",
         "art136_sec2_3.duty_execution_scope",
@@ -1378,6 +1436,7 @@
       "anchor_card_ids": [
         "art136_sec2_4.threat_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art136_sec2_4.abstract_danger_offense",
         "art136_sec2_4.active_conduct_requirement",
@@ -1438,6 +1497,7 @@
       "anchor_card_ids": [
         "art136.intent.officer_and_violence_awareness"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art136.intent.conditional_intent",
         "art136.intent.officer_and_violence_awareness",
@@ -1468,6 +1528,7 @@
       "anchor_card_ids": [
         "art136_sec2_6.illegal_duty_act.other_offenses"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art136_sec2_6.illegal_duty_act.other_offenses"
       ],
@@ -1491,6 +1552,7 @@
       "anchor_card_ids": [
         "art136_sec2_7.assault_threat_absorption"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art136_sec2_7.assault_threat_absorption",
         "art136_sec2_7.injury_ideal_concurrence",
@@ -1528,6 +1590,7 @@
         "art136_sec3_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art136_sec3_1.article136_2_offense"
       ],
@@ -1553,6 +1616,7 @@
       "anchor_card_ids": [
         "art136_sec3_2.subject_unrestricted"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art136_sec3_2.subject_unrestricted"
       ],
@@ -1576,6 +1640,7 @@
       "anchor_card_ids": [
         "art136_sec3_3.future_officer_object"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art136_sec3_3.future_officer_object"
       ],
@@ -1599,6 +1664,7 @@
       "anchor_card_ids": [
         "art136_sec3_4.official_act_scope"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art136_sec3_4.article136_2_purpose",
         "art136_sec3_4.nonofficial_act_coercion",
@@ -1626,6 +1692,7 @@
       "anchor_card_ids": [
         "art136_sec3_5.act.violence_or_threat"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art136_sec3_5.act.violence_or_threat",
         "art136_sec3_5.completion.abstract_danger"
@@ -1652,6 +1719,7 @@
       "anchor_card_ids": [
         "art136_sec3_6.assault_threat_absorption"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art136_sec3_6.assault_threat_absorption"
       ],
@@ -1675,6 +1743,7 @@
       "anchor_card_ids": [
         "art137_sec2.unrestricted_subject"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art137_sec2.unrestricted_subject"
       ],
@@ -1698,6 +1767,7 @@
       "anchor_card_ids": [
         "art137_sec3.duty_includes_future_execution"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art137_sec3.deception_causing_mistaken_official_act",
         "art137_sec3.duty_includes_future_execution",
@@ -1727,6 +1797,7 @@
         "art137_sec4_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art137_sec4_1.definition.deception_causing_mistake",
         "art137_sec4_1.element.third_party_deception",
@@ -1772,6 +1843,7 @@
       "anchor_card_ids": [
         "art137.notification_general_rule"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art137.blood_evidence_substitution",
         "art137.fabricated_evidence_undetectable",
@@ -1838,11 +1910,15 @@
       "section_path": "Ⅳ.3",
       "title": "법령에서 금지한 행위를 한 경우의 위계의 인정문제",
       "function": "element_issue",
-      "runtime": "retrieve_support",
+      "runtime": "assess_issue",
       "slot_ids": [
         "art137_sec4_3"
       ],
-      "anchor_card_ids": [],
+      "anchor_card_ids": [
+        "art137_sec4_3.prohibited_act_evasion_monitoring",
+        "art137_sec4_3.prison_monitoring_undetectable_deception"
+      ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art137_sec4_3.attorney_visitation_nonlegal_purpose",
         "art137_sec4_3.attorney_visitation_smuggling",
@@ -1854,23 +1930,17 @@
       "retrieval_card_ids": [
         "art137_sec4_3.attorney_visitation_nonlegal_purpose",
         "art137_sec4_3.attorney_visitation_smuggling",
-        "art137_sec4_3.prison_monitoring_undetectable_deception",
         "art137_sec4_3.prison_tobacco_concealed_body",
-        "art137_sec4_3.prison_tobacco_concealed_book",
-        "art137_sec4_3.prohibited_act_evasion_monitoring"
+        "art137_sec4_3.prison_tobacco_concealed_book"
       ],
       "case_pattern_card_ids": [
         "art137_sec4_3.attorney_visitation_nonlegal_purpose",
         "art137_sec4_3.attorney_visitation_smuggling",
-        "art137_sec4_3.prison_monitoring_undetectable_deception",
         "art137_sec4_3.prison_tobacco_concealed_body",
-        "art137_sec4_3.prison_tobacco_concealed_book",
-        "art137_sec4_3.prohibited_act_evasion_monitoring"
+        "art137_sec4_3.prison_tobacco_concealed_book"
       ],
-      "review_required": true,
-      "review_reasons": [
-        "runtime issue has no non-precedent anchor rule"
-      ]
+      "review_required": false,
+      "review_reasons": []
     },
     {
       "issue_id": "art137.Ⅳ.4.stage_issue",
@@ -1884,7 +1954,11 @@
       "slot_ids": [
         "art137_sec4_4"
       ],
-      "anchor_card_ids": [],
+      "anchor_card_ids": [
+        "art137_sec4_4.reported_holding_actual_obstruction",
+        "art137_sec4_4.reported_holding_specific_duty_and_method"
+      ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art137_sec4_4.auction_price_disclosure",
         "art137_sec4_4.evaluation_committee_list_disclosure",
@@ -1903,9 +1977,7 @@
         "art137_sec4_4.false_vehicle_theft_report",
         "art137_sec4_4.invalid_notice_known_to_official",
         "art137_sec4_4.invalid_oral_driving_test_rule",
-        "art137_sec4_4.procurement_evaluator_manipulation",
-        "art137_sec4_4.reported_holding_actual_obstruction",
-        "art137_sec4_4.reported_holding_specific_duty_and_method"
+        "art137_sec4_4.procurement_evaluator_manipulation"
       ],
       "case_pattern_card_ids": [
         "art137_sec4_4.auction_price_disclosure",
@@ -1914,14 +1986,10 @@
         "art137_sec4_4.false_vehicle_theft_report",
         "art137_sec4_4.invalid_notice_known_to_official",
         "art137_sec4_4.invalid_oral_driving_test_rule",
-        "art137_sec4_4.procurement_evaluator_manipulation",
-        "art137_sec4_4.reported_holding_actual_obstruction",
-        "art137_sec4_4.reported_holding_specific_duty_and_method"
+        "art137_sec4_4.procurement_evaluator_manipulation"
       ],
-      "review_required": true,
-      "review_reasons": [
-        "runtime issue has no non-precedent anchor rule"
-      ]
+      "review_required": false,
+      "review_reasons": []
     },
     {
       "issue_id": "art137.Ⅴ.element_issue",
@@ -1931,11 +1999,20 @@
       "section_path": "Ⅴ",
       "title": "고의",
       "function": "element_issue",
-      "runtime": "retrieve_support",
+      "runtime": "assess_issue",
       "slot_ids": [
         "art137"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [
+        {
+          "rule_id": "reviewed.art137.intent",
+          "proposition": "위계에 의한 공무집행방해죄에는 위계를 사용하여 공무원의 구체적 직무집행을 방해한다는 인식과 의사가 필요하다.",
+          "basis_card_ids": [
+            "art137.sec5.da.false_taxi_report_intent"
+          ]
+        }
+      ],
       "member_card_ids": [
         "art137.sec5.da.false_taxi_report_intent"
       ],
@@ -1945,10 +2022,8 @@
       "case_pattern_card_ids": [
         "art137.sec5.da.false_taxi_report_intent"
       ],
-      "review_required": true,
-      "review_reasons": [
-        "runtime issue has no non-precedent anchor rule"
-      ]
+      "review_required": false,
+      "review_reasons": []
     },
     {
       "issue_id": "art137.Ⅵ.concurrence_issue",
@@ -1965,6 +2040,7 @@
       "anchor_card_ids": [
         "art137_sec6.official_misconduct_absorption"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art137_sec6.certificate_preparation_joint_principal",
         "art137_sec6.false_report_absorption",
@@ -1998,6 +2074,7 @@
         "art151"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art151.abstract_danger_offense",
         "art151.continuing_offense_completion"
@@ -2025,6 +2102,7 @@
       "anchor_card_ids": [
         "art151_sec2_2.concealment_place"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art151_sec2_2.accomplice_defense_right",
         "art151_sec2_2.accomplice_other_accomplice",
@@ -2133,6 +2211,7 @@
         "art151_sec2_3.attempt_commencement",
         "art151_sec2_3.completion_continuing_offense"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art151_sec2_3.attempt_commencement",
         "art151_sec2_3.completion_continuing_offense",
@@ -2161,6 +2240,16 @@
         "art151_sec2_4"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [
+        {
+          "rule_id": "reviewed.art151.social_adequacy",
+          "proposition": "범인에 대한 지원행위가 사회상규상 정당행위인지 여부는 지원의 내용과 적극성, 범인의 도피를 직접 용이하게 하는 정도, 행위자의 관계와 동기를 종합하여 판단한다.",
+          "basis_card_ids": [
+            "art151_sec2_4.clergy_active_assistance_not_justified",
+            "art151_sec2_4.family_support_social_adequacy"
+          ]
+        }
+      ],
       "member_card_ids": [
         "art151_sec2_4.clergy_active_assistance_not_justified",
         "art151_sec2_4.family_support_social_adequacy"
@@ -2173,10 +2262,8 @@
         "art151_sec2_4.clergy_active_assistance_not_justified",
         "art151_sec2_4.family_support_social_adequacy"
       ],
-      "review_required": true,
-      "review_reasons": [
-        "runtime issue has no non-precedent anchor rule"
-      ]
+      "review_required": false,
+      "review_reasons": []
     },
     {
       "issue_id": "art151.Ⅱ.5.participation_issue",
@@ -2190,20 +2277,17 @@
       "slot_ids": [
         "art151_sec2_5"
       ],
-      "anchor_card_ids": [],
+      "anchor_card_ids": [
+        "art151_sec2_5.self_escape_instigation_abuse_of_defense_precedent"
+      ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art151_sec2_5.self_escape_instigation_abuse_of_defense_precedent"
       ],
-      "retrieval_card_ids": [
-        "art151_sec2_5.self_escape_instigation_abuse_of_defense_precedent"
-      ],
-      "case_pattern_card_ids": [
-        "art151_sec2_5.self_escape_instigation_abuse_of_defense_precedent"
-      ],
-      "review_required": true,
-      "review_reasons": [
-        "runtime issue has no non-precedent anchor rule"
-      ]
+      "retrieval_card_ids": [],
+      "case_pattern_card_ids": [],
+      "review_required": false,
+      "review_reasons": []
     },
     {
       "issue_id": "art151.Ⅱ.6.concurrence_issue",
@@ -2220,6 +2304,7 @@
       "anchor_card_ids": [
         "art151_sec2_6.military_deserter_harboring_special_law"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art151_sec2_6.duty_officer_escape_only",
         "art151_sec2_6.fabricated_evidence_obstruction",
@@ -2255,6 +2340,7 @@
         "art151_sec3_2"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art151_sec3_2.covered_relatives",
         "art151_sec3_2.criminal_benefit_objective_test",
@@ -2285,6 +2371,7 @@
       "anchor_card_ids": [
         "art151_sec3_3.nonrelative_accomplice"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art151_sec3_3.nonrelative_accomplice"
       ],
@@ -2306,6 +2393,7 @@
         "art152_sec1_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art152_sec1_1.instigation_or_aiding"
       ],
@@ -2329,6 +2417,7 @@
       "anchor_card_ids": [
         "art152_sec1_2.lawful_oath_witness"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art152_sec1_2.falsehood_assessment",
         "art152_sec1_2.intent",
@@ -2382,6 +2471,7 @@
         "art152_sec1_3.attempt_false_testimony_start",
         "art152_sec1_3.completion_examination_end"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art152_sec1_3.attempt_false_testimony_start",
         "art152_sec1_3.completion_examination_end",
@@ -2415,6 +2505,7 @@
       "anchor_card_ids": [
         "art152_sec1_4.instigation_and_aiding_possible"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art152_sec1_4.instigation_and_aiding_possible",
         "art152_sec1_4.perjury_self_committed_offense"
@@ -2441,6 +2532,7 @@
       "anchor_card_ids": [
         "art152_sec1_5.separate_instigation_multiple_persons"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art152_sec1_5.perjury_different_dates_same_oath",
         "art152_sec1_5.perjury_res_judicata_inclusive_offense",
@@ -2475,6 +2567,7 @@
       "anchor_card_ids": [
         "art152_sec1_6.false_accusation_perjury_concurrence"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art152_sec1_6.false_accusation_perjury_concurrence",
         "art152_sec1_6.malicious_perjury_after_false_accusation",
@@ -2503,6 +2596,7 @@
         "art152_sec2_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art152_sec2_1.malicious_perjury_definition"
       ],
@@ -2521,22 +2615,21 @@
       "section_path": "Ⅱ.3",
       "title": "행위",
       "function": "element_issue",
-      "runtime": "retrieve_support",
+      "runtime": "assess_issue",
       "slot_ids": [
         "art152_sec2_3"
       ],
-      "anchor_card_ids": [],
+      "anchor_card_ids": [
+        "art152_sec2_3.noncriminal_case_mohae_exception"
+      ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art152_sec2_3.noncriminal_case_mohae_exception"
       ],
-      "retrieval_card_ids": [
-        "art152_sec2_3.noncriminal_case_mohae_exception"
-      ],
+      "retrieval_card_ids": [],
       "case_pattern_card_ids": [],
-      "review_required": true,
-      "review_reasons": [
-        "runtime issue has no non-precedent anchor rule"
-      ]
+      "review_required": false,
+      "review_reasons": []
     },
     {
       "issue_id": "art152.Ⅱ.4.element_issue",
@@ -2553,6 +2646,7 @@
       "anchor_card_ids": [
         "art152_sec2_4.proceeding_commenced_requirement"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art152_sec2_4.malice_purpose_awareness",
         "art152_sec2_4.proceeding_commenced_requirement"
@@ -2576,20 +2670,17 @@
       "slot_ids": [
         "art152_sec2_6"
       ],
-      "anchor_card_ids": [],
+      "anchor_card_ids": [
+        "art152_sec2_6.malicious_perjury.single_offense_same_hearing"
+      ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art152_sec2_6.malicious_perjury.single_offense_same_hearing"
       ],
-      "retrieval_card_ids": [
-        "art152_sec2_6.malicious_perjury.single_offense_same_hearing"
-      ],
-      "case_pattern_card_ids": [
-        "art152_sec2_6.malicious_perjury.single_offense_same_hearing"
-      ],
-      "review_required": true,
-      "review_reasons": [
-        "runtime issue has no non-precedent anchor rule"
-      ]
+      "retrieval_card_ids": [],
+      "case_pattern_card_ids": [],
+      "review_required": false,
+      "review_reasons": []
     },
     {
       "issue_id": "art152.Ⅱ.7.concurrence_issue",
@@ -2606,6 +2697,7 @@
       "anchor_card_ids": [
         "art152_sec2_7.special_statute_malicious_perjury_exclusion"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art152_sec2_7.special_statute_malicious_perjury_exclusion"
       ],
@@ -2629,6 +2721,7 @@
       "anchor_card_ids": [
         "art164_sec2_1.person_excludes_offender_and_accomplice"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art164_sec2_1.accomplices_residence_general_building",
         "art164_sec2_1.arson_act",
@@ -2688,18 +2781,19 @@
       "review_reasons": []
     },
     {
-      "issue_id": "art164.Ⅱ.2.guard_issue",
+      "issue_id": "art164.Ⅱ.2.support_issue",
       "article": "art164",
       "article_label": "제164조",
       "offense": "현주건조물방화",
       "section_path": "Ⅱ.2",
       "title": "책임",
-      "function": "guard_issue",
-      "runtime": "retrieve_guard",
+      "function": "support_issue",
+      "runtime": "retrieve_support",
       "slot_ids": [
         "art164_sec2_2"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art164_sec2_2.mental_weakness_serial_arson_case"
       ],
@@ -2709,10 +2803,8 @@
       "case_pattern_card_ids": [
         "art164_sec2_2.mental_weakness_serial_arson_case"
       ],
-      "review_required": true,
-      "review_reasons": [
-        "runtime issue has no non-precedent anchor rule"
-      ]
+      "review_required": false,
+      "review_reasons": []
     },
     {
       "issue_id": "art164.Ⅱ.3.concurrence_issue",
@@ -2729,6 +2821,7 @@
       "anchor_card_ids": [
         "art164_sec2_3.multiple_buildings_one_act"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art164_sec2_3.multiple_buildings_one_act",
         "art164_sec2_3.multiple_objects_separate_acts_concurrence",
@@ -2761,14 +2854,38 @@
       "anchor_card_ids": [
         "art164.fire_insurance_claim_concurrence"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
-        "art164.arson_property_damage_absorption",
         "art164.fire_insurance_claim_concurrence",
         "art164.pre_claim_insurance_fraud_no_attempt"
       ],
       "retrieval_card_ids": [
         "art164.pre_claim_insurance_fraud_no_attempt"
       ],
+      "case_pattern_card_ids": [],
+      "review_required": false,
+      "review_reasons": []
+    },
+    {
+      "issue_id": "art164.Ⅱ.4a.concurrence_issue",
+      "article": "art164",
+      "article_label": "제164조",
+      "offense": "현주건조물방화",
+      "section_path": "Ⅱ.4a",
+      "title": "방화에 수반된 재물손괴의 흡수",
+      "function": "concurrence_issue",
+      "runtime": "relation_condition",
+      "slot_ids": [
+        "art164"
+      ],
+      "anchor_card_ids": [
+        "art164.arson_property_damage_absorption"
+      ],
+      "reviewed_anchor_rules": [],
+      "member_card_ids": [
+        "art164.arson_property_damage_absorption"
+      ],
+      "retrieval_card_ids": [],
       "case_pattern_card_ids": [],
       "review_required": false,
       "review_reasons": []
@@ -2786,6 +2903,7 @@
         "art164_sec3_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art164_sec3_1.fire_death_injury",
         "art164_sec3_1.fire_death_injury_foreseeability",
@@ -2816,6 +2934,7 @@
       "anchor_card_ids": [
         "art164_sec3_2.person_excludes_offenders_accomplices"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art164_sec3_2.fire_related_death_injury_causation",
         "art164_sec3_2.person_excludes_offenders_accomplices",
@@ -2844,6 +2963,7 @@
       "anchor_card_ids": [
         "art164_sec3_3.multiple_victims_imaginary_concurrence"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art164_sec3_3.multiple_victims_imaginary_concurrence"
       ],
@@ -2867,6 +2987,7 @@
       "anchor_card_ids": [
         "art164_sec3_4.intentional_killing_no_death"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art164_sec3_4.intentional_killing_no_death"
       ],
@@ -2890,6 +3011,7 @@
       "anchor_card_ids": [
         "art164_sec3_5.aider_aggravated_result_foreseeability"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art164_sec3_5.accomplice_aggravated_result_foreseeability",
         "art164_sec3_5.aider_aggravated_result_foreseeability"
@@ -2913,23 +3035,41 @@
       "slot_ids": [
         "art164_sec3_6"
       ],
-      "anchor_card_ids": [],
+      "anchor_card_ids": [
+        "art164_sec3_6.parricide_fire_death_concurrence"
+      ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
-        "art164_sec3_6.parricide_fire_death_concurrence",
+        "art164_sec3_6.parricide_fire_death_concurrence"
+      ],
+      "retrieval_card_ids": [],
+      "case_pattern_card_ids": [],
+      "review_required": false,
+      "review_reasons": []
+    },
+    {
+      "issue_id": "art164.Ⅲ.6a.concurrence_issue",
+      "article": "art164",
+      "article_label": "제164조",
+      "offense": "현주건조물방화",
+      "section_path": "Ⅲ.6a",
+      "title": "강도살인과 현주건조물방화치사의 상상적 경합",
+      "function": "concurrence_issue",
+      "runtime": "relation_condition",
+      "slot_ids": [
+        "art164_sec3_6"
+      ],
+      "anchor_card_ids": [
         "art164_sec3_6.robbery_murder_fire_death_concurrence"
       ],
-      "retrieval_card_ids": [
-        "art164_sec3_6.parricide_fire_death_concurrence",
+      "reviewed_anchor_rules": [],
+      "member_card_ids": [
         "art164_sec3_6.robbery_murder_fire_death_concurrence"
       ],
-      "case_pattern_card_ids": [
-        "art164_sec3_6.parricide_fire_death_concurrence",
-        "art164_sec3_6.robbery_murder_fire_death_concurrence"
-      ],
-      "review_required": true,
-      "review_reasons": [
-        "runtime issue has no non-precedent anchor rule"
-      ]
+      "retrieval_card_ids": [],
+      "case_pattern_card_ids": [],
+      "review_required": false,
+      "review_reasons": []
     },
     {
       "issue_id": "art225.Ⅱ.element_issue",
@@ -2948,6 +3088,7 @@
         "art225_sec2.official_document_drawing_definition",
         "art225.official_document_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art225.approved_private_document",
         "art225.contractual_delegate_not_official",
@@ -2995,6 +3136,7 @@
       "anchor_card_ids": [
         "art225_sec3_1.alteration_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art225_sec3_1.alteration_definition",
         "art225_sec3_1.assistant_completion_without_approval",
@@ -3032,6 +3174,7 @@
       "anchor_card_ids": [
         "art225_sec3_2.alteration_requirements"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art225_sec3_2.alteration_requirements",
         "art225_sec3_2.apparent_official_document",
@@ -3080,6 +3223,7 @@
       "anchor_card_ids": [
         "art225_sec4_1.intent_to_use_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art225_sec4_1.abstract_intent_to_use",
         "art225_sec4_1.altered_document_use_not_limited",
@@ -3111,6 +3255,7 @@
       "anchor_card_ids": [
         "art225_sec4_2.intent-for-forgery"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art225_sec4_2.intent-for-forgery",
         "art225_sec4_2.unauthorized-addition-approved-document-intent",
@@ -3143,6 +3288,7 @@
         "art225_sec5.attempt_punishable",
         "art225_sec5.attempt_commencement"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art225_sec5.attempt_commencement",
         "art225_sec5.attempt_document_not_deceptive",
@@ -3170,6 +3316,7 @@
         "art227_sec1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art227_sec1.offense_concept"
       ],
@@ -3193,6 +3340,7 @@
       "anchor_card_ids": [
         "art227_sec2_1.public_document_or_drawing"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art227_sec2_1.false_public_document",
         "art227_sec2_1.improper_purpose_without_false_content",
@@ -3221,6 +3369,7 @@
         "art227_sec2_2"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art227_sec2_2.internal_document_and_nonstatutory_authority"
       ],
@@ -3246,6 +3395,7 @@
       "anchor_card_ids": [
         "art227.authority_bearing_public_official"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art227.authority_bearing_public_official",
         "art227.delegated_approval_authority",
@@ -3284,6 +3434,7 @@
       "anchor_card_ids": [
         "art227_sec3_2.assistant_no_approval_forgery"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art227_sec3_2.assistant_no_approval_forgery",
         "art227_sec3_2.nonofficial_indirect_perpetration_exception"
@@ -3312,6 +3463,7 @@
         "art227_sec4.execution_act",
         "art227_sec4_1.false_entry"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art227_sec4.execution_act",
         "art227_sec4_1.alteration",
@@ -3383,6 +3535,7 @@
       "anchor_card_ids": [
         "art227.intent_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art227.actual_conformity_irrelevant",
         "art227.intent_and_purpose",
@@ -3415,6 +3568,7 @@
       "anchor_card_ids": [
         "art227_sec6.completion"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art227_sec6.completion"
       ],
@@ -3436,23 +3590,19 @@
         "art227_sec7_1",
         "art227_sec7_3"
       ],
-      "anchor_card_ids": [],
+      "anchor_card_ids": [
+        "art227_sec7_1.no_direct_concealment_job_abandonment_concurrence",
+        "art227_sec7_3.bribery_false_official_document_concurrence"
+      ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art227_sec7_1.no_direct_concealment_job_abandonment_concurrence",
         "art227_sec7_3.bribery_false_official_document_concurrence"
       ],
-      "retrieval_card_ids": [
-        "art227_sec7_1.no_direct_concealment_job_abandonment_concurrence",
-        "art227_sec7_3.bribery_false_official_document_concurrence"
-      ],
-      "case_pattern_card_ids": [
-        "art227_sec7_1.no_direct_concealment_job_abandonment_concurrence",
-        "art227_sec7_3.bribery_false_official_document_concurrence"
-      ],
-      "review_required": true,
-      "review_reasons": [
-        "runtime issue has no non-precedent anchor rule"
-      ]
+      "retrieval_card_ids": [],
+      "case_pattern_card_ids": [],
+      "review_required": false,
+      "review_reasons": []
     },
     {
       "issue_id": "art231.Ⅰ.support_issue",
@@ -3467,6 +3617,7 @@
         "art231_sec1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art231_sec1.element.object_and_purpose"
       ],
@@ -3492,6 +3643,7 @@
         "art231_sec2_1.document_copy",
         "art231_sec2_2.drawing_definition_and_artwork_exclusion"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art231_sec2_1.document_copy",
         "art231_sec2_1.fact_certification_classification",
@@ -3528,6 +3680,7 @@
         "art231_sec3_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art231_sec3_1.authority_determination",
         "art231_sec3_1.fictitious_or_deceased_nominee",
@@ -3559,6 +3712,7 @@
       "anchor_card_ids": [
         "art231_sec3_2.no_property_damage"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art231_sec3_2.authority_abuse",
         "art231_sec3_2.authorized_creation",
@@ -3597,6 +3751,7 @@
       "anchor_card_ids": [
         "art231_sec3_3.alteration_method_deletion_addition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art231_sec3_3.alias_name_addition_no_new_evidentiary_force",
         "art231_sec3_3.alteration_completion_new_evidentiary_force",
@@ -3657,6 +3812,7 @@
       "anchor_card_ids": [
         "art231_sec4.purpose_of_use"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art231_sec4.purpose_of_use"
       ],
@@ -3680,6 +3836,7 @@
       "anchor_card_ids": [
         "art231_sec4_1.intent_awareness_and_realization"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art231_sec4_1.expected_consent_does_not_negate_intent",
         "art231_sec4_1.intent_awareness_and_realization"
@@ -3706,6 +3863,7 @@
       "anchor_card_ids": [
         "art231_sec4_2.genuine_document_utility_purpose"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art231_sec4_2.genuine_document_utility_purpose",
         "art231_sec4_2.purpose_of_use_broader_than_exercise"
@@ -3733,6 +3891,7 @@
         "art231_sec5.attempt_punishable",
         "art231_sec5.attempt_commencement_and_incompletion"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art231_sec5.attempt_commencement_and_incompletion",
         "art231_sec5.attempt_punishable"
@@ -3757,16 +3916,40 @@
       "anchor_card_ids": [
         "art231_sec6.illiterate_nominee_unknown_content"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art231_sec6.deceived_nominee_true_content_fraud",
         "art231_sec6.illiterate_nominee_unknown_content",
-        "art231_sec6.own_document_altered_in_anothers_possession",
-        "art231_sec6.seal_forgery_absorbed"
+        "art231_sec6.own_document_altered_in_anothers_possession"
       ],
       "retrieval_card_ids": [
         "art231_sec6.deceived_nominee_true_content_fraud",
         "art231_sec6.own_document_altered_in_anothers_possession"
       ],
+      "case_pattern_card_ids": [],
+      "review_required": false,
+      "review_reasons": []
+    },
+    {
+      "issue_id": "art231.Ⅵ.1.concurrence_issue",
+      "article": "art231",
+      "article_label": "제231조",
+      "offense": "사문서위조·변조",
+      "section_path": "Ⅵ.1",
+      "title": "인장위조의 사문서위조 흡수",
+      "function": "concurrence_issue",
+      "runtime": "relation_condition",
+      "slot_ids": [
+        "art231_sec6"
+      ],
+      "anchor_card_ids": [
+        "art231_sec6.seal_forgery_absorbed"
+      ],
+      "reviewed_anchor_rules": [],
+      "member_card_ids": [
+        "art231_sec6.seal_forgery_absorbed"
+      ],
+      "retrieval_card_ids": [],
       "case_pattern_card_ids": [],
       "review_required": false,
       "review_reasons": []
@@ -3786,6 +3969,7 @@
       "anchor_card_ids": [
         "art234.offense_character"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art234.offense_character"
       ],
@@ -3809,6 +3993,7 @@
       "anchor_card_ids": [
         "art234_sec2_1.object_covered_documents"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art234_sec2_1.copies_and_electronic_transmission",
         "art234_sec2_1.counterparty_interest_and_lack_of_knowledge",
@@ -3854,6 +4039,7 @@
       "anchor_card_ids": [
         "art234_sec2_2.intent_no_purpose"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art234_sec2_2.intent_no_purpose"
       ],
@@ -3878,6 +4064,7 @@
         "art234.attempt_punishable",
         "art234.completion_by_placement_or_mail_delivery"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art234.attempt_punishable",
         "art234.completion_by_placement_or_mail_delivery",
@@ -3905,18 +4092,39 @@
       "anchor_card_ids": [
         "art234_sec4.forger_and_exercise_real_concurrence"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
-        "art234_sec4.company_agreement_breach_ideal_concurrence",
         "art234_sec4.forger_and_exercise_real_concurrence",
         "art234_sec4.multiple_documents_ideal_concurrence"
       ],
       "retrieval_card_ids": [
-        "art234_sec4.company_agreement_breach_ideal_concurrence",
         "art234_sec4.multiple_documents_ideal_concurrence"
       ],
-      "case_pattern_card_ids": [
+      "case_pattern_card_ids": [],
+      "review_required": false,
+      "review_reasons": []
+    },
+    {
+      "issue_id": "art234.Ⅳ.1.concurrence_issue",
+      "article": "art234",
+      "article_label": "제234조",
+      "offense": "위조사문서행사",
+      "section_path": "Ⅳ.1",
+      "title": "위조사문서행사와 업무상배임의 상상적 경합",
+      "function": "concurrence_issue",
+      "runtime": "relation_condition",
+      "slot_ids": [
+        "art234_sec4"
+      ],
+      "anchor_card_ids": [
         "art234_sec4.company_agreement_breach_ideal_concurrence"
       ],
+      "reviewed_anchor_rules": [],
+      "member_card_ids": [
+        "art234_sec4.company_agreement_breach_ideal_concurrence"
+      ],
+      "retrieval_card_ids": [],
+      "case_pattern_card_ids": [],
       "review_required": false,
       "review_reasons": []
     },
@@ -3933,6 +4141,7 @@
         "art239_sec1_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art239_sec1_1.offense_formation"
       ],
@@ -3956,6 +4165,7 @@
       "anchor_card_ids": [
         "art239_sec1_2.private_person_scope"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art239_sec1_2.private_person_scope"
       ],
@@ -3979,6 +4189,7 @@
       "anchor_card_ids": [
         "art239_sec1_3.authenticity_mistake_threshold"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art239_sec1_3.authenticity_mistake_assessment",
         "art239_sec1_3.authenticity_mistake_threshold",
@@ -4017,6 +4228,7 @@
       "anchor_card_ids": [
         "art239_sec1_4.intent_awareness"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art239_sec1_4.future_consent_no_purpose_holding",
         "art239_sec1_4.intent_awareness",
@@ -4051,6 +4263,7 @@
         "art239_sec1_5"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art239_sec1_5.foreign_national_overseas_jurisdiction"
       ],
@@ -4078,6 +4291,7 @@
       "anchor_card_ids": [
         "art239_sec2.use_of_forged_private_sign"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art239_sec2.delivery_of_forged_seal_not_use",
         "art239_sec2.exposure_as_use",
@@ -4106,6 +4320,7 @@
         "art250_sec1_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_1.murder_intentional_killing",
         "art250_sec1_1.ordinary_murder_victim"
@@ -4130,6 +4345,7 @@
       "anchor_card_ids": [
         "art250_sec1_10.omission_guarantor_status"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_10.captain_evacuation_omission_holding",
         "art250_sec1_10.captain_rescue_omission_duty",
@@ -4170,6 +4386,7 @@
         "art250_sec1_11.completed_murder",
         "art250_sec1_11.attempt_commencement"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_11.attempt_commencement",
         "art250_sec1_11.completed_murder",
@@ -4200,6 +4417,7 @@
         "art250_sec1_12.impossible_attempt_danger",
         "art250_sec1_12.impossible_attempt_danger_assessment"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_12.deadly_herb_attempt_holding",
         "art250_sec1_12.impossible_attempt_danger",
@@ -4234,6 +4452,7 @@
       "anchor_card_ids": [
         "art250_sec1_13.attempt.voluntary_abandonment_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_13.attempt.bleeding_fear_not_voluntary",
         "art250_sec1_13.attempt.bleeding_report_fear_not_voluntary",
@@ -4277,6 +4496,7 @@
       "anchor_card_ids": [
         "art250_sec1_14.death_causation_attempt"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_14.actual_course_difference",
         "art250_sec1_14.death_causation_attempt",
@@ -4325,6 +4545,7 @@
       "anchor_card_ids": [
         "art250_sec1_15.object_error"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_15.bra_strangulation_rape_victim",
         "art250_sec1_15.bus_attack_police",
@@ -4452,6 +4673,7 @@
       "anchor_card_ids": [
         "art250_sec1_16.victim_consent"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_16.child_danger_alternatives",
         "art250_sec1_16.defense_ends_after_subdual",
@@ -4506,6 +4728,7 @@
       "anchor_card_ids": [
         "art250_sec1_17.statutory_life_sustaining_treatment_exception"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_17.advance_directive_life_sustaining_treatment",
         "art250_sec1_17.life_sustaining_treatment_withdrawal",
@@ -4529,20 +4752,19 @@
       "review_reasons": []
     },
     {
-      "issue_id": "art250.Ⅰ.18.guard_issue",
+      "issue_id": "art250.Ⅰ.18.support_issue",
       "article": "art250",
       "article_label": "제250조",
       "offense": "살인·존속살해",
       "section_path": "Ⅰ.18",
       "title": "책임",
-      "function": "guard_issue",
-      "runtime": "retrieve_guard",
+      "function": "support_issue",
+      "runtime": "retrieve_support",
       "slot_ids": [
         "art250_sec1_18"
       ],
-      "anchor_card_ids": [
-        "art250_sec1_18.severe_impulse_control_disorder_exception"
-      ],
+      "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_18.actio_libera_in_causa",
         "art250_sec1_18.compulsion_no_responsibility",
@@ -4566,7 +4788,8 @@
         "art250_sec1_18.mental_disorder_requirements",
         "art250_sec1_18.pathological_personality_defect",
         "art250_sec1_18.responsibility_capacity",
-        "art250_sec1_18.self_induced_methamphetamine_impairment"
+        "art250_sec1_18.self_induced_methamphetamine_impairment",
+        "art250_sec1_18.severe_impulse_control_disorder_exception"
       ],
       "case_pattern_card_ids": [
         "art250_sec1_18.actio_libera_in_causa",
@@ -4591,6 +4814,7 @@
       "anchor_card_ids": [
         "art250_sec1_19.aiding_forms"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_19.aiding_forms",
         "art250_sec1_19.aiding_murder",
@@ -4599,7 +4823,6 @@
         "art250_sec1_19.conspiracy_definition",
         "art250_sec1_19.conspiracy_joint_principal_functional_control",
         "art250_sec1_19.conspiracy_liability",
-        "art250_sec1_19.instigated_injury_instead_of_murder",
         "art250_sec1_19.instigation_indirect_facts_proof",
         "art250_sec1_19.instigation_murder_completed",
         "art250_sec1_19.instigation_no_execution",
@@ -4656,6 +4879,30 @@
       "review_reasons": []
     },
     {
+      "issue_id": "art250.Ⅰ.19a.concurrence_issue",
+      "article": "art250",
+      "article_label": "제250조",
+      "offense": "살인·존속살해",
+      "section_path": "Ⅰ.19a",
+      "title": "살인교사 미수와 살인예비·음모의 관계",
+      "function": "concurrence_issue",
+      "runtime": "relation_condition",
+      "slot_ids": [
+        "art250_sec1_19"
+      ],
+      "anchor_card_ids": [
+        "art250_sec1_19.instigated_injury_instead_of_murder"
+      ],
+      "reviewed_anchor_rules": [],
+      "member_card_ids": [
+        "art250_sec1_19.instigated_injury_instead_of_murder"
+      ],
+      "retrieval_card_ids": [],
+      "case_pattern_card_ids": [],
+      "review_required": false,
+      "review_reasons": []
+    },
+    {
       "issue_id": "art250.Ⅰ.2.element_issue",
       "article": "art250",
       "article_label": "제250조",
@@ -4670,6 +4917,7 @@
       "anchor_card_ids": [
         "art250_sec1_2.omission_homicide_guarantor_status"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_2.omission_homicide_guarantor_status"
       ],
@@ -4693,10 +4941,10 @@
       "anchor_card_ids": [
         "art250_sec1_20.homicide_count_by_victims"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_20.adjacent_multiple_homicides",
         "art250_sec1_20.arson_homicide_resident_building",
-        "art250_sec1_20.clothing_damage_absorbed",
         "art250_sec1_20.corpse_abandonment_separate",
         "art250_sec1_20.corpse_left_at_scene",
         "art250_sec1_20.debt_evasion_no_robbery_murder",
@@ -4734,6 +4982,30 @@
       "review_reasons": []
     },
     {
+      "issue_id": "art250.Ⅰ.20a.concurrence_issue",
+      "article": "art250",
+      "article_label": "제250조",
+      "offense": "살인·존속살해",
+      "section_path": "Ⅰ.20a",
+      "title": "살인에 수반된 의복 손괴의 흡수",
+      "function": "concurrence_issue",
+      "runtime": "relation_condition",
+      "slot_ids": [
+        "art250_sec1_20"
+      ],
+      "anchor_card_ids": [
+        "art250_sec1_20.clothing_damage_absorbed"
+      ],
+      "reviewed_anchor_rules": [],
+      "member_card_ids": [
+        "art250_sec1_20.clothing_damage_absorbed"
+      ],
+      "retrieval_card_ids": [],
+      "case_pattern_card_ids": [],
+      "review_required": false,
+      "review_reasons": []
+    },
+    {
       "issue_id": "art250.Ⅰ.21.support_issue",
       "article": "art250",
       "article_label": "제250조",
@@ -4746,6 +5018,7 @@
         "art250_sec1_21"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_21.attempt_punishable",
         "art250_sec1_21.brutal_led_murder_no_plan",
@@ -4831,6 +5104,7 @@
         "art250_sec1_22"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_22.specific_violent_recidivism_enhancement",
         "art250_sec1_22.specific_violent_suspect_identity_disclosure"
@@ -4857,6 +5131,7 @@
       "anchor_card_ids": [
         "art250_sec1_3.homicide_object"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_3.birth_precedent_regular_labor",
         "art250_sec1_3.cesarean_no_labor_precedent",
@@ -4894,6 +5169,7 @@
         "art250_sec1_4"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_4.killing_definition",
         "art250_sec1_4.methods_of_killing"
@@ -4918,6 +5194,7 @@
         "art250_sec1_5"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_5.circumstantial_murder_conviction"
       ],
@@ -4943,6 +5220,7 @@
         "art250"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250.causation.autopsy-alternative-causes",
         "art250.causation.strangulation-remand"
@@ -4971,6 +5249,7 @@
         "art250_sec1_7"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_7.pesticide_cider_circumstantial_proof",
         "art250_sec1_7.poisoning_alternative_source",
@@ -5002,6 +5281,7 @@
         "art250_sec1_8"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_8.death_time_integrated_assessment",
         "art250_sec1_8.direct_and_circumstantial_evidence",
@@ -5043,6 +5323,7 @@
         "art250_sec1_9"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec1_9.bodyless_circumstantial_proof",
         "art250_sec1_9.bodyless_insufficient_linkage",
@@ -5073,6 +5354,7 @@
         "art250"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250.parricide.definition",
         "art250.parricide.status_offense"
@@ -5099,6 +5381,7 @@
       "anchor_card_ids": [
         "art250_sec2_10.parricide_ordinary_murder_specialty"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec2_10.parricide_ordinary_murder_specialty"
       ],
@@ -5122,6 +5405,7 @@
       "anchor_card_ids": [
         "art250_sec2_5.parricide_improper_status_offense"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec2_5.parricide_improper_status_offense"
       ],
@@ -5145,6 +5429,7 @@
       "anchor_card_ids": [
         "art250_sec2_6.adoption_creates_lineal_relationship"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec2_6.adoption_creates_lineal_relationship",
         "art250_sec2_6.adoption_requirements_not_met",
@@ -5185,6 +5470,7 @@
       "anchor_card_ids": [
         "art250_sec2_8.intent_knowledge_lineal_status"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec2_8.intent_knowledge_lineal_status",
         "art250_sec2_8.no_knowledge_lineal_status"
@@ -5211,6 +5497,7 @@
       "anchor_card_ids": [
         "art250_sec2_9.nonstatus_accomplice_ordinary_murder_punishment_outcome"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art250_sec2_9.nonstatus_accomplice_ordinary_murder_punishment_outcome",
         "art250_sec2_9.nonstatus_accomplice_wife_with_biological_son_precedent"
@@ -5240,6 +5527,7 @@
         "art254.attempts_punishable",
         "art254.electronic_device_attachment"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art254.attempt_penalty_mitigation",
         "art254.attempts_punishable",
@@ -5268,6 +5556,7 @@
         "art255_sec2_1.preparation_definition",
         "art255_sec2_1.preparation_external_act"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art255_sec2_1.hiring_killers_holding",
         "art255_sec2_1.preparation_definition",
@@ -5304,6 +5593,7 @@
         "art255_sec2_2.conspiracy_definition",
         "art255_sec2_2.conspiracy_agreement_required"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art255_sec2_2.conspiracy_agreement_required",
         "art255_sec2_2.conspiracy_definition"
@@ -5328,6 +5618,7 @@
       "anchor_card_ids": [
         "art255_sec3.murder_purpose"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art255_sec3.conditional_murder_purpose",
         "art255_sec3.murder_purpose",
@@ -5361,23 +5652,19 @@
       "slot_ids": [
         "art255_sec5"
       ],
-      "anchor_card_ids": [],
+      "anchor_card_ids": [
+        "art255_sec5.preparation_accomplice_negative",
+        "art255_sec5.preparation_co_perpetration"
+      ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art255_sec5.preparation_accomplice_negative",
         "art255_sec5.preparation_co_perpetration"
       ],
-      "retrieval_card_ids": [
-        "art255_sec5.preparation_accomplice_negative",
-        "art255_sec5.preparation_co_perpetration"
-      ],
-      "case_pattern_card_ids": [
-        "art255_sec5.preparation_accomplice_negative",
-        "art255_sec5.preparation_co_perpetration"
-      ],
-      "review_required": true,
-      "review_reasons": [
-        "runtime issue has no non-precedent anchor rule"
-      ]
+      "retrieval_card_ids": [],
+      "case_pattern_card_ids": [],
+      "review_required": false,
+      "review_reasons": []
     },
     {
       "issue_id": "art255.Ⅵ.concurrence_issue",
@@ -5394,9 +5681,33 @@
       "anchor_card_ids": [
         "art255_sec6.multiple_preparations_single_offense"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
-        "art255_sec6.attempt_or_completion_absorption",
         "art255_sec6.multiple_preparations_single_offense"
+      ],
+      "retrieval_card_ids": [],
+      "case_pattern_card_ids": [],
+      "review_required": false,
+      "review_reasons": []
+    },
+    {
+      "issue_id": "art255.Ⅵ.1.concurrence_issue",
+      "article": "art255",
+      "article_label": "제255조",
+      "offense": "살인의 예비·음모",
+      "section_path": "Ⅵ.1",
+      "title": "살인예비·음모의 살인미수·기수 흡수",
+      "function": "concurrence_issue",
+      "runtime": "relation_condition",
+      "slot_ids": [
+        "art255_sec6"
+      ],
+      "anchor_card_ids": [
+        "art255_sec6.attempt_or_completion_absorption"
+      ],
+      "reviewed_anchor_rules": [],
+      "member_card_ids": [
+        "art255_sec6.attempt_or_completion_absorption"
       ],
       "retrieval_card_ids": [],
       "case_pattern_card_ids": [],
@@ -5416,6 +5727,7 @@
         "art257_sec1_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art257_sec1_1.offense_elements"
       ],
@@ -5441,6 +5753,7 @@
       "anchor_card_ids": [
         "art257_sec1_2.object_natural_person_other"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art257_sec1_2.animal_not_object",
         "art257_sec1_2.coerced_self_injury_holding",
@@ -5476,6 +5789,7 @@
       "anchor_card_ids": [
         "art257.intangible_methods"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art257.cosmetic_pubic_hair_change_case_negative",
         "art257.diagnosis_evidentiary_value",
@@ -5553,6 +5867,7 @@
       "anchor_card_ids": [
         "art257_sec1_4.intent_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art257_sec1_4.dolus_eventualis_acceptance",
         "art257_sec1_4.injury_attempt",
@@ -5592,6 +5907,7 @@
       "anchor_card_ids": [
         "art257_sec1_5.causation.result_and_causation"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art257_sec1_5.causation.objective_attribution",
         "art257_sec1_5.causation.result_and_causation",
@@ -5622,6 +5938,7 @@
       "anchor_card_ids": [
         "art257_sec1_6.self_injury_not_constitutive"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art257_sec1_6.defensive_force_not_new_attack",
         "art257_sec1_6.disciplinary_injury",
@@ -5680,10 +5997,10 @@
       "anchor_card_ids": [
         "art257_sec1_7.personal_legal_interest_count"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art257_sec1_7.assault_absorbed_by_injury",
         "art257_sec1_7.different_victims_separate_offenses",
-        "art257_sec1_7.injury_absorbed_by_murder",
         "art257_sec1_7.personal_legal_interest_count",
         "art257_sec1_7.single_act_multiple_injuries",
         "art257_sec1_7.threat_absorbed_by_injury"
@@ -5691,10 +6008,33 @@
       "retrieval_card_ids": [
         "art257_sec1_7.assault_absorbed_by_injury",
         "art257_sec1_7.different_victims_separate_offenses",
-        "art257_sec1_7.injury_absorbed_by_murder",
         "art257_sec1_7.single_act_multiple_injuries",
         "art257_sec1_7.threat_absorbed_by_injury"
       ],
+      "case_pattern_card_ids": [],
+      "review_required": false,
+      "review_reasons": []
+    },
+    {
+      "issue_id": "art257.Ⅰ.7a.concurrence_issue",
+      "article": "art257",
+      "article_label": "제257조",
+      "offense": "상해·존속상해",
+      "section_path": "Ⅰ.7a",
+      "title": "상해의 살인죄 흡수",
+      "function": "concurrence_issue",
+      "runtime": "relation_condition",
+      "slot_ids": [
+        "art257_sec1_7"
+      ],
+      "anchor_card_ids": [
+        "art257_sec1_7.injury_absorbed_by_murder"
+      ],
+      "reviewed_anchor_rules": [],
+      "member_card_ids": [
+        "art257_sec1_7.injury_absorbed_by_murder"
+      ],
+      "retrieval_card_ids": [],
       "case_pattern_card_ids": [],
       "review_required": false,
       "review_reasons": []
@@ -5714,6 +6054,7 @@
       "anchor_card_ids": [
         "art257_sec2.ancestral_injury_elements"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art257_sec2.ancestral_injury_elements",
         "art257_sec2.legal_ascendant_scope",
@@ -5741,6 +6082,7 @@
       "anchor_card_ids": [
         "art257_sec3.attempted_injury_or_ancestral_injury"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art257_sec3.attempted_injury_or_ancestral_injury"
       ],
@@ -5762,6 +6104,7 @@
         "art2582_2_sec1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art2582_2_sec1.dangerous_object_carriage",
         "art2582_2_sec1.group_or_multiple_force"
@@ -5784,6 +6127,7 @@
         "art2582_2_sec2"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art2582_2_sec2.favorable_law_change",
         "art2582_2_sec2.no_abolition_dangerous_object_injury"
@@ -5814,6 +6158,7 @@
       "anchor_card_ids": [
         "art2582_2_sec3.attempt_punishable"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art2582_2_sec3.attempt_punishable",
         "art2582_2_sec3.habitual_offender_aggravation",
@@ -5843,6 +6188,7 @@
       "anchor_card_ids": [
         "art259_sec1.basic_offense_and_death"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art259_sec1.basic_offense_and_death",
         "art259_sec1.causation_and_foreseeability",
@@ -5875,6 +6221,7 @@
       "anchor_card_ids": [
         "art259_sec1_1.causation.intervening_act"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art259_sec1_1.causation.evasion_or_surgical_delay_holding",
         "art259_sec1_1.causation.indirect_causes",
@@ -5904,11 +6251,20 @@
       "section_path": "Ⅰ.2",
       "title": "예견가능성",
       "function": "element_issue",
-      "runtime": "retrieve_support",
+      "runtime": "assess_issue",
       "slot_ids": [
         "art259_sec1_2"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [
+        {
+          "rule_id": "reviewed.art259.death_foreseeability",
+          "proposition": "상해치사죄의 중한 결과에 관하여 행위 당시 일반인이 사망 결과를 예견할 수 있었어야 한다.",
+          "basis_card_ids": [
+            "art259_sec1_2.foreseeability_forceful_blow"
+          ]
+        }
+      ],
       "member_card_ids": [
         "art259_sec1_2.foreseeability_forceful_blow"
       ],
@@ -5918,10 +6274,8 @@
       "case_pattern_card_ids": [
         "art259_sec1_2.foreseeability_forceful_blow"
       ],
-      "review_required": true,
-      "review_reasons": [
-        "runtime issue has no non-precedent anchor rule"
-      ]
+      "review_required": false,
+      "review_reasons": []
     },
     {
       "issue_id": "art259.Ⅱ.1.participation_issue",
@@ -5938,6 +6292,7 @@
       "anchor_card_ids": [
         "art259_sec2_1.murder_intent_exception"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art259_sec2_1.murder_intent_exception"
       ],
@@ -5961,6 +6316,7 @@
       "anchor_card_ids": [
         "art259_sec2_3.multiple_victims_concurrence"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art259_sec2_3.multiple_victims_concurrence",
         "art259_sec2_3.robbery_resulting_death_exclusion"
@@ -5983,6 +6339,7 @@
         "art263"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art263.individual_causation_rebuttal",
         "art263.individual_liability_principle",
@@ -6015,6 +6372,7 @@
         "art263_sec3_2"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art263.identified_cause_exclusion",
         "art263.unidentified_causal_act",
@@ -6052,6 +6410,7 @@
         "art263_sec4_2"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art263.exception.other_result_crimes",
         "art263_sec4_2.negligent_death_reported_precedent"
@@ -6078,6 +6437,7 @@
         "art263_sec5"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art263_sec5.resulting_offense"
       ],
@@ -6099,6 +6459,7 @@
         "art267_sec1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art267_sec1.negligent_homicide_definition",
         "art267_sec1.no_intent_to_kill_injure_or_assault"
@@ -6126,6 +6487,7 @@
       "anchor_card_ids": [
         "art267_sec2.elements.negligent_breach_and_death"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art267_sec2.causal_link.negligent_act_and_result",
         "art267_sec2.causal_link.prank_throwing_at_sea",
@@ -6176,6 +6538,7 @@
       "anchor_card_ids": [
         "art267_sec4.death_and_injury_single_negligent_act"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art267_sec4.death_and_injury_single_negligent_act",
         "art267_sec4.multiple_deaths_single_negligent_act"
@@ -6198,6 +6561,7 @@
         "art268_sec1_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art268_sec1_1.medical_negligence_professional_benchmark",
         "art268_sec1_1.non_punishable_against_victim_intent",
@@ -6230,6 +6594,7 @@
       "anchor_card_ids": [
         "art268.occupational_negligence_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art268.adequate_causation",
         "art268.business_definition",
@@ -6328,6 +6693,7 @@
         "art268_sec2_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art268_sec2_1.gross_negligence_definition",
         "art268_sec2_1.gross_negligence_social_notion",
@@ -6357,6 +6723,7 @@
         "art268_sec2_2"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art268_sec2_2.candle_in_warehouse",
         "art268_sec2_2.cigarette_fire_inn",
@@ -6417,6 +6784,7 @@
       "anchor_card_ids": [
         "art268.multiple_victims_imaginary_concurrence"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art268.multiple_victims_imaginary_concurrence"
       ],
@@ -6440,6 +6808,7 @@
       "anchor_card_ids": [
         "art268_sec3_2.unlicensed_driving_negligent_injury"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art268_sec3_2.dangerous_driving_inclusion",
         "art268_sec3_2.drunk_driving_negligent_injury",
@@ -6493,6 +6862,7 @@
         "art297_sec1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art297_sec1.rape_definition"
       ],
@@ -6518,6 +6888,7 @@
       "anchor_card_ids": [
         "art297.unrestricted_principal"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art297.indirect_perpetration",
         "art297.relative_special_act",
@@ -6548,6 +6919,7 @@
         "art297.object-person",
         "art297_sec3_4.intercourse_opposite_sex"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art297.object-person",
         "art297.special-protection-statutes",
@@ -6588,6 +6960,7 @@
         "art297_sec4_2.rape_and_penetration",
         "art297_sec4_1.violence_threat_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art297.conduct.violence-threat-rape",
         "art297_sec4_1.direct_violence_threat",
@@ -6643,6 +7016,7 @@
       "anchor_card_ids": [
         "art297_sec4_4.successive_perpetrator_quasi_rape"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art297_sec4_4.successive_co_perpetration_negative",
         "art297_sec4_4.successive_perpetrator_quasi_rape"
@@ -6672,6 +7046,7 @@
         "art297_sec4_3.completion",
         "art297_sec4_3.attempt_commencement"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art297_sec4_3.attempt_commencement",
         "art297_sec4_3.attempt_commencement_context",
@@ -6701,6 +7076,7 @@
       "anchor_card_ids": [
         "art297_sec5.valid_consent"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art297_sec5.consent_assessment",
         "art297_sec5.prior_communications_not_consent",
@@ -6731,6 +7107,7 @@
       "anchor_card_ids": [
         "art297_sec6.intent"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art297_sec6.intent",
         "art297_sec6.mistake_of_consent"
@@ -6757,6 +7134,7 @@
       "anchor_card_ids": [
         "art297_sec7.multiple_victims_multiple_offenses"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art297_sec7.continuous_acts_single_offense",
         "art297_sec7.multiple_victims_multiple_offenses",
@@ -6784,6 +7162,7 @@
       "anchor_card_ids": [
         "art297_sec9.abduction_for_marriage_rape"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art297_sec9.abduction_for_marriage_rape",
         "art297_sec9.confinement_rape_attempted_case",
@@ -6818,20 +7197,19 @@
       "review_reasons": []
     },
     {
-      "issue_id": "art297.Ⅹ.guard_issue",
+      "issue_id": "art297.Ⅹ.support_issue",
       "article": "art297",
       "article_label": "제297조",
       "offense": "강간",
       "section_path": "Ⅹ",
       "title": "피해자 행위의 위법성 조각",
-      "function": "guard_issue",
-      "runtime": "retrieve_guard",
+      "function": "support_issue",
+      "runtime": "retrieve_support",
       "slot_ids": [
         "art297_sec10"
       ],
-      "anchor_card_ids": [
-        "art297_sec10.self_defense_against_rape"
-      ],
+      "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art297_sec10.planned_killing_after_rape_no_self_defense",
         "art297_sec10.self_defense_against_rape",
@@ -6839,6 +7217,7 @@
       ],
       "retrieval_card_ids": [
         "art297_sec10.planned_killing_after_rape_no_self_defense",
+        "art297_sec10.self_defense_against_rape",
         "art297_sec10.tongue_biting_self_defense"
       ],
       "case_pattern_card_ids": [
@@ -6861,6 +7240,7 @@
         "art298"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art298.offense_conduct"
       ],
@@ -6886,6 +7266,7 @@
       "anchor_card_ids": [
         "art298.object.person"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art298.indirect_perpetration.victim_as_instrument",
         "art298.object.person",
@@ -6919,6 +7300,7 @@
         "art298_sec3_2.indecent_act_definition",
         "art298_sec3_1.force_threat_totality_assessment"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art298_sec3_1.force_threat_totality_assessment",
         "art298_sec3_1.surprise_molestation_physical_force",
@@ -6981,6 +7363,7 @@
       "anchor_card_ids": [
         "art298_sec3_3.attempt_commencement"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art298_sec3_3.attempt_commencement",
         "art298_sec3_3.surprise_assault_attempt_hugging"
@@ -7009,6 +7392,7 @@
       "anchor_card_ids": [
         "art298_sec4.intent_awareness_conditional"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art298_sec4.disability_intent_assessment",
         "art298_sec4.intent_awareness_conditional",
@@ -7037,6 +7421,7 @@
       "anchor_card_ids": [
         "art298_sec5.revoked_consent"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art298_sec5.consent_after_violence_attempt",
         "art298_sec5.revoked_consent"
@@ -7063,6 +7448,7 @@
       "anchor_card_ids": [
         "art298_sec6.multiple_victims_multiple_offenses"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art298_sec6.multiple_acts_comprehensive_offense",
         "art298_sec6.multiple_victims_multiple_offenses"
@@ -7089,6 +7475,7 @@
       "anchor_card_ids": [
         "art298_sec8.forced_undressing_camera_concurrence"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art298_sec8.forced_undressing_camera_concurrence",
         "art298_sec8.forcible_indecency_followed_by_rape",
@@ -7112,6 +7499,7 @@
         "art299"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art299.offense_characterization"
       ],
@@ -7137,6 +7525,7 @@
       "anchor_card_ids": [
         "art299.principal.unrestricted"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art299.principal.unrestricted"
       ],
@@ -7160,6 +7549,7 @@
       "anchor_card_ids": [
         "art299_sec3_1.object_incapacitated_person"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art299_sec3_1.object_incapacitated_person"
       ],
@@ -7183,6 +7573,7 @@
       "anchor_card_ids": [
         "art299_sec3_2.mental_incapacity_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art299_sec3_2.blackout_not_dispositive",
         "art299_sec3_2.drug_administration_violence_exception",
@@ -7223,6 +7614,7 @@
       "anchor_card_ids": [
         "art299.use_awareness_and_facilitation"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art299.attempt_commencement",
         "art299.successive_participant_only_art299",
@@ -7251,6 +7643,7 @@
       "anchor_card_ids": [
         "art299_sec5.impossible_attempt_actual_state_absent"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art299_sec5.impossible_attempt_actual_state_absent"
       ],
@@ -7274,6 +7667,7 @@
       "anchor_card_ids": [
         "art299_sec6.intent"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art299_sec6.dolus_eventualis",
         "art299_sec6.formal_response_not_consent",
@@ -7306,6 +7700,7 @@
       "anchor_card_ids": [
         "art299_sec7.unit_of_crime_per_act"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art299_sec7.unit_of_crime_per_act"
       ],
@@ -7327,6 +7722,7 @@
         "art299_sec8"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art299_sec8.attempt_preparation_punishment",
         "art299_sec8.noncomplaint_prosecution",
@@ -7358,6 +7754,7 @@
         "art300_x_raw_pdf.enumerated_offenses_attempts",
         "art300_x_raw_pdf.other_offenses_exclusion"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art300_x_raw_pdf.enumerated_offenses_attempts",
         "art300_x_raw_pdf.other_offenses_exclusion"
@@ -7383,6 +7780,7 @@
         "art300_x_raw_pdf.commencement_of_execution",
         "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation",
         "art300_x_raw_pdf.commencement_of_execution",
@@ -7412,6 +7810,7 @@
       "anchor_card_ids": [
         "art301_sec2.object_victim"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art301_sec2.attempt_injury",
         "art301_sec2.object_victim",
@@ -7439,6 +7838,7 @@
       "anchor_card_ids": [
         "art301_sec3.result_after_completion"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art301_sec3.continuing_criminal_stage",
         "art301_sec3.injury_occasion_categories",
@@ -7478,6 +7878,7 @@
         "art301_sec4_7.pubic_hair_pulling_injury",
         "art301_sec4_2.minor_injury_exclusion"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art301_sec4_2.delayed_diagnosis_case",
         "art301_sec4_2.injury_diagnosis_evidence",
@@ -7525,6 +7926,7 @@
         "art301_sec5_2.rape_injury_result_aggravation",
         "art301_sec5_1.intentional_rape_injury"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art301_sec5_1.intentional_rape_injury",
         "art301_sec5_2.fleeing_traffic_injury",
@@ -7556,6 +7958,7 @@
       "anchor_card_ids": [
         "art301_sec6.intentional_injury_conspirator_intent"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art301_sec6.intentional_injury_conspirator_intent",
         "art301_sec6.pre_execution_withdrawal"
@@ -7580,6 +7983,7 @@
       "anchor_card_ids": [
         "art301_sec7.no_general_attempt_punishment"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art301_sec7.no_general_attempt_punishment"
       ],
@@ -7603,6 +8007,7 @@
       "anchor_card_ids": [
         "art301.death_absorbs_injury"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art301.assault_before_forced_indecency_no_result_injury",
         "art301.death_absorbs_injury",
@@ -7632,6 +8037,7 @@
         "art319_sec1_4"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art319_sec1_3.co_resident_consent_ordinary_entry",
         "art319_sec1_3.entry_assessment",
@@ -7681,6 +8087,7 @@
         "art319_sec2_2.building_structure",
         "art319_sec2_1.temporary_dwelling"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art319_sec2_1.common_area_entry_assessment",
         "art319_sec2_1.deceased_victim_possession",
@@ -7753,6 +8160,7 @@
       "anchor_card_ids": [
         "art319_sec3_1.intrusion_objective_peace"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art319_sec3_1.abnormal_or_forced_entry",
         "art319_sec3_1.apartment_common_areas",
@@ -7839,6 +8247,7 @@
         "art319_sec3_2.continuing_offense",
         "art319_sec3_2.attempt_commencement"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art319_sec3_2.attempt_commencement",
         "art319_sec3_2.attempt_construction_site_negative",
@@ -7876,6 +8285,7 @@
       "anchor_card_ids": [
         "art319_sec4.intent_against_resident_will"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art319_sec4.intent_against_resident_will",
         "art319_sec4.intent_factual_peace_entry"
@@ -7904,6 +8314,7 @@
         "art319_sec5_2.lawful_authority_entry",
         "art319_sec5_3.justification.emergency_escape"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art319_sec5_2.labor_dispute_exclusive_occupation",
         "art319_sec5_2.labor_dispute_explicit_denial_entry",
@@ -7957,6 +8368,7 @@
       "anchor_card_ids": [
         "art319_sec6_1.continuing_offense"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art319_sec6_1.continuing_offense",
         "art319_sec6_1.no_separate_refusal_after_completed_intrusion",
@@ -8003,6 +8415,7 @@
         "art319_sec7_1.refusal_to_leave_elements",
         "art319_sec7_4.intent"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art319.refusal_to_leave.enclosed_yard_and_entrance",
         "art319.refusal_to_leave.lawful_or_mistaken_entry",
@@ -8053,6 +8466,7 @@
         "art323_sec1_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art323_sec1_1.abstract_danger_offense",
         "art323_sec1_1.conduct_and_object",
@@ -8080,6 +8494,7 @@
       "anchor_card_ids": [
         "art323_sec2_1.subject_genuine_status_offense"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art323_sec2_1.subject_genuine_status_offense"
       ],
@@ -8103,6 +8518,7 @@
       "anchor_card_ids": [
         "art323_sec2_2.self_property_owner"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art323_sec2_2.coowned_property_excluded",
         "art323_sec2_2.corporate_system_records_other",
@@ -8155,6 +8571,7 @@
       "anchor_card_ids": [
         "art323_sec2_3.concealment"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art323_sec2_3.concealment",
         "art323_sec2_3.consensual_transfer_not_taking",
@@ -8187,6 +8604,7 @@
       "anchor_card_ids": [
         "art323_sec3.subjective_awareness"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art323_sec3.conditional_intent_sufficient",
         "art323_sec3.no_intent_to_appropriate_required",
@@ -8207,24 +8625,21 @@
       "section_path": "Ⅵ.3",
       "title": "공무소의 보관명령으로 타인이 관리하는 자기의 물건을 은닉, 손괴한 때에는",
       "function": "element_issue",
-      "runtime": "retrieve_support",
+      "runtime": "assess_issue",
       "slot_ids": [
         "art323"
       ],
-      "anchor_card_ids": [],
+      "anchor_card_ids": [
+        "art323.forced_execution_evasion_scope"
+      ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art323.forced_execution_evasion_scope"
       ],
-      "retrieval_card_ids": [
-        "art323.forced_execution_evasion_scope"
-      ],
-      "case_pattern_card_ids": [
-        "art323.forced_execution_evasion_scope"
-      ],
-      "review_required": true,
-      "review_reasons": [
-        "runtime issue has no non-precedent anchor rule"
-      ]
+      "retrieval_card_ids": [],
+      "case_pattern_card_ids": [],
+      "review_required": false,
+      "review_reasons": []
     },
     {
       "issue_id": "art323.Ⅶ.support_issue",
@@ -8239,6 +8654,7 @@
         "art323_sec7"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art323_sec7.family_exception_victim"
       ],
@@ -8262,6 +8678,7 @@
         "art328_sec2_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art328_sec2_1.personal_exemption"
       ],
@@ -8296,6 +8713,7 @@
         "art328_sec3_4.cohabiting_relative_definition",
         "art328_sec3_6.spouse_scope"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art328_sec3.kinship_under_civil_act",
         "art328_sec3_1.in_law_relationship_not_kinship",
@@ -8337,6 +8755,7 @@
         "art328_sec4_1.multiple_owners_all_kinship",
         "art328_sec4_2.post_offense_recognition_retroactive_kinship"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art328_sec4_1.adult_guardian_no_extra_statutory_exclusion",
         "art328_sec4_1.corporate_victim_no_application",
@@ -8381,6 +8800,7 @@
       "anchor_card_ids": [
         "art328_sec5.kinship_mistake_no_effect"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art328_sec5.kinship_mistake_no_effect"
       ],
@@ -8402,6 +8822,7 @@
         "art328_sec6_3"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art328_sec6_3.disabled_victim_abuse_crimes_no_application",
         "art328_sec6_3.special_property_crime_no_exclusion"
@@ -8430,6 +8851,7 @@
         "art329_sec2_2.possession_intent_definition",
         "art329_sec2_1.other_person_legal_entity"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art329_sec2.theft_exception_ownership_or_self_possession",
         "art329_sec2.theft_object_anothers_property_in_possession",
@@ -8495,6 +8917,7 @@
       "anchor_card_ids": [
         "art329_sec3_1.taking_transfer_of_control"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art329_sec3_1.deceptive_taking_without_delivery",
         "art329_sec3_1.taking_transfer_of_control"
@@ -8522,6 +8945,7 @@
         "art329_sec3_3.completion.control_and_disposal",
         "art329_sec3_3.completion.property_circumstances"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art329_sec3_3.completion.control_and_disposal",
         "art329_sec3_3.completion.property_circumstances"
@@ -8546,6 +8970,7 @@
       "anchor_card_ids": [
         "art329_sec4.intent.theft_intent_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art329_sec4.intent.conditional_intent_sufficient",
         "art329_sec4.intent.general_object_selection",
@@ -8580,6 +9005,7 @@
         "art329_sec5_1.unlawful_appropriation_required",
         "art329_sec5_2.collateral_taking_unlawful_appropriation"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art329_sec5_1.unlawful_appropriation_required",
         "art329_sec5_2.collateral_taking_unlawful_appropriation",
@@ -8617,6 +9043,7 @@
       "anchor_card_ids": [
         "art329_sec6.consent_manifestation"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art329_sec6.consent_manifestation",
         "art329_sec6.consent_no_taking"
@@ -8643,6 +9070,7 @@
         "art330_sec1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art330_sec1.definition.nighttime_residential_trespass_theft",
         "art330_sec1.variant.timing_entry_standard"
@@ -8665,24 +9093,21 @@
       "section_path": "Ⅱ",
       "title": "야간",
       "function": "element_issue",
-      "runtime": "retrieve_support",
+      "runtime": "assess_issue",
       "slot_ids": [
         "art330_sec2"
       ],
-      "anchor_card_ids": [],
+      "anchor_card_ids": [
+        "art330_sec2.nighttime.objective"
+      ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art330_sec2.nighttime.objective"
       ],
-      "retrieval_card_ids": [
-        "art330_sec2.nighttime.objective"
-      ],
-      "case_pattern_card_ids": [
-        "art330_sec2.nighttime.objective"
-      ],
-      "review_required": true,
-      "review_reasons": [
-        "runtime issue has no non-precedent anchor rule"
-      ]
+      "retrieval_card_ids": [],
+      "case_pattern_card_ids": [],
+      "review_required": false,
+      "review_reasons": []
     },
     {
       "issue_id": "art330.Ⅲ.element_issue",
@@ -8699,6 +9124,7 @@
       "anchor_card_ids": [
         "art330_sec3.restaurant_permitted_entry_no_intrusion"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art330_sec3.restaurant_permitted_entry_no_intrusion"
       ],
@@ -8719,23 +9145,19 @@
       "slot_ids": [
         "art330_sec4"
       ],
-      "anchor_card_ids": [],
+      "anchor_card_ids": [
+        "art330_sec4.entry_attempt_examples",
+        "art330_sec4.entry_before_theft_commencement"
+      ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art330_sec4.entry_attempt_examples",
         "art330_sec4.entry_before_theft_commencement"
       ],
-      "retrieval_card_ids": [
-        "art330_sec4.entry_attempt_examples",
-        "art330_sec4.entry_before_theft_commencement"
-      ],
-      "case_pattern_card_ids": [
-        "art330_sec4.entry_attempt_examples",
-        "art330_sec4.entry_before_theft_commencement"
-      ],
-      "review_required": true,
-      "review_reasons": [
-        "runtime issue has no non-precedent anchor rule"
-      ]
+      "retrieval_card_ids": [],
+      "case_pattern_card_ids": [],
+      "review_required": false,
+      "review_reasons": []
     },
     {
       "issue_id": "art330.Ⅴ.stage_issue",
@@ -8752,6 +9174,7 @@
       "anchor_card_ids": [
         "art330_sec5.completion-at-theft-completion"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art330_sec5.completion-at-theft-completion"
       ],
@@ -8776,6 +9199,7 @@
       "anchor_card_ids": [
         "art331_sec2_1.locking-device-building-part"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art331_sec2_1.locking-device-building-part",
         "art331_sec2_2.key-opening-special-theft-exception"
@@ -8802,6 +9226,7 @@
       "anchor_card_ids": [
         "art331_sec2_3.first_paragraph_completion_timing"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art331_sec2_3.first_paragraph_completion_timing"
       ],
@@ -8829,6 +9254,7 @@
         "art331_sec3_2.carrying_definition",
         "art331_sec3_3.group_offense_scene_presence"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art331_sec3_1.toy_gun_not_weapon_exception",
         "art331_sec3_1.weapon_definition",
@@ -8865,6 +9291,7 @@
         "art332_sec1_1.habituality_same_type",
         "art332_sec1_2.habituality-totality-factors"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art332_sec1.habitual_offender_definition",
         "art332_sec1_1.aggregate_theft_types",
@@ -8903,6 +9330,7 @@
         "art333_sec2_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art333_sec2_1.robbery_violence_incapacitating_attack",
         "art333_sec2_1.violence_threat_resistance_suppression"
@@ -8930,6 +9358,7 @@
       "anchor_card_ids": [
         "art333_sec2_2.drug_induced_incapacitation_violence"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art333_sec2_2.drug_induced_incapacitation_violence",
         "art333_sec2_2.incidental_incapacitation_no_robbery",
@@ -8955,6 +9384,7 @@
       "anchor_card_ids": [
         "art333_sec2_3.diversion_or_insult_violence_no_robbery"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art333_sec2_3.apparent_capacity_threat",
         "art333_sec2_3.diversion_or_insult_violence_no_robbery",
@@ -8991,6 +9421,7 @@
       "anchor_card_ids": [
         "art333_sec2_4.target_person_obstructing_taking"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art333_sec2_4.target_person_obstructing_taking"
       ],
@@ -9020,6 +9451,7 @@
         "art333_sec3_3.continuing_force_single_robbery",
         "art333_sec3_1.real_estate_as_robbery_property_negative"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art333_sec3.forcible_taking",
         "art333_sec3_1.real_estate_as_robbery_property_negative",
@@ -9065,6 +9497,7 @@
         "art333_sec4_2.debt_evasion_disposition_not_required",
         "art333.illegal_cause_debt_evasion_robbery_murder"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art333.illegal_cause_debt_evasion_robbery_murder",
         "art333_sec4_1.apparent_property_benefit",
@@ -9095,6 +9528,7 @@
       "anchor_card_ids": [
         "art333_sec5.illegal_benefit_intent"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art333_sec5.determine_illegal_benefit_intent",
         "art333_sec5.illegal_benefit_intent"
@@ -9124,6 +9558,7 @@
         "art333_sec6.attempt_commencement_violence_intimidation",
         "art333_sec6.attempt_unattained_objective"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art333_sec6.attempt_commencement_violence_intimidation",
         "art333_sec6.attempt_debt_evasion_killing",
@@ -9158,6 +9593,7 @@
         "art333_sec7_2.completion_forcible_gain",
         "art333_sec7_1.completion.exclusive_control_transfer"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art333_sec7_1.completion.exclusive_control_transfer",
         "art333_sec7_1.completion.exclusive_control_within_victim_domain",
@@ -9187,6 +9623,7 @@
       "anchor_card_ids": [
         "art333_sec8.right_exercise_robbery_negative"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art333_sec8.right_exercise_robbery_negative"
       ],
@@ -9210,6 +9647,7 @@
       "anchor_card_ids": [
         "art334_sec1.nighttime_home_intrusion_robbery_aggravated_combination"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art334_sec1.nighttime_home_intrusion_robbery_aggravated_combination",
         "art334_sec1.nighttime_robbery_damage_irrelevant"
@@ -9236,6 +9674,7 @@
       "anchor_card_ids": [
         "art334_sec2_1.weapon_awareness_not_required"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art334_sec2_1.weapon_awareness_not_required",
         "art334_sec2_1.weapon_carried_fists_used",
@@ -9264,6 +9703,7 @@
         "art334_sec3.daytime_weapon_or_joint_robbery_attempt_on_violence_threat",
         "art334_sec3.nighttime_home_intrusion_attempt_on_intrusion"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art334_sec3.daytime_weapon_or_joint_robbery_attempt_on_violence_threat",
         "art334_sec3.nighttime_home_intrusion_attempt_on_intrusion"
@@ -9286,6 +9726,7 @@
         "art335_sec1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art335_sec1.aggravated_robbery_offenses_apply"
       ],
@@ -9309,6 +9750,7 @@
       "anchor_card_ids": [
         "art335_sec2.actor_thief"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art335_sec2.actor_thief",
         "art335_sec2.preparation_stage_exclusion",
@@ -9341,6 +9783,7 @@
         "art335_sec3_3.concealing_crime_traces",
         "art335_sec3_4.purpose_achievement_irrelevant"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art335_sec3.special_purpose",
         "art335_sec3_1.pre_control_violence_is_robbery_exception",
@@ -9377,6 +9820,7 @@
       "anchor_card_ids": [
         "art335_sec4.objective_capacity"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art335_sec4.objective_capacity",
         "art335_sec4.police_officer_general_person_standard",
@@ -9405,6 +9849,7 @@
       "anchor_card_ids": [
         "art335_sec5.violence_threat_target"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art335_sec5.violence_threat_target"
       ],
@@ -9428,6 +9873,7 @@
       "anchor_card_ids": [
         "art335_sec6_1.opportunity_temporal_spatial_proximity"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art335_sec6_1.days_later_no_opportunity",
         "art335_sec6_1.opportunity_temporal_spatial_proximity"
@@ -9452,6 +9898,7 @@
         "art335_sec6_2"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art335_sec6_2.opportunity_definition",
         "art335_sec6_2.opportunity_pursuit_or_uncertain_custody",
@@ -9485,6 +9932,7 @@
         "art335_sec7.attempt_punishable",
         "art335_sec7_1.attempt_theft_act_standard"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art335_sec7.attempt_punishable",
         "art335_sec7_1.attempt_theft_act_standard",
@@ -9512,6 +9960,7 @@
         "art335_sec8"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art335_sec8.weapon_acquired_during_violence.reported_precedent"
       ],
@@ -9539,6 +9988,7 @@
       "anchor_card_ids": [
         "art337_sec2.subject_robber_and_attempted_robber"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art337_sec2.subject_robber_and_attempted_robber"
       ],
@@ -9564,6 +10014,7 @@
         "art337_sec3.injury_result_violence_intent",
         "art337_sec3_2.injury_threshold"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art337_sec3.injury_result_violence_intent",
         "art337_sec3_2.injury_concrete_victim_condition",
@@ -9595,6 +10046,7 @@
       "anchor_card_ids": [
         "art337_sec4.completion_injury_result"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art337_sec4.completion_injury_result"
       ],
@@ -9616,6 +10068,7 @@
         "art338_sec1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art338_sec1.robbery_death_result_aggravated",
         "art338_sec1.robbery_murder_intent"
@@ -9643,6 +10096,7 @@
       "anchor_card_ids": [
         "art338_sec2.debt_evasion_robbery"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art338_sec2.debt_evasion_no_robbery",
         "art338_sec2.debt_evasion_robbery"
@@ -9662,29 +10116,25 @@
       "section_path": "Ⅲ",
       "title": "성립요건",
       "function": "element_issue",
-      "runtime": "retrieve_support",
+      "runtime": "assess_issue",
       "slot_ids": [
         "art338_sec3"
       ],
-      "anchor_card_ids": [],
+      "anchor_card_ids": [
+        "art338_sec3.delayed_death_no_effect",
+        "art338_sec3.opportunity_immediate_flight_killing",
+        "art338_sec3.opportunity_new_intent_after_completion"
+      ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art338_sec3.delayed_death_no_effect",
         "art338_sec3.opportunity_immediate_flight_killing",
         "art338_sec3.opportunity_new_intent_after_completion"
       ],
-      "retrieval_card_ids": [
-        "art338_sec3.opportunity_immediate_flight_killing",
-        "art338_sec3.opportunity_new_intent_after_completion"
-      ],
-      "case_pattern_card_ids": [
-        "art338_sec3.delayed_death_no_effect",
-        "art338_sec3.opportunity_immediate_flight_killing",
-        "art338_sec3.opportunity_new_intent_after_completion"
-      ],
-      "review_required": true,
-      "review_reasons": [
-        "runtime issue has no non-precedent anchor rule"
-      ]
+      "retrieval_card_ids": [],
+      "case_pattern_card_ids": [],
+      "review_required": false,
+      "review_reasons": []
     },
     {
       "issue_id": "art338.Ⅳ.stage_issue",
@@ -9702,6 +10152,7 @@
         "art338_sec4.robbery_murder_attempt",
         "art338_sec4.murder_completion_controls_attempt"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art338_sec4.murder_completion_controls_attempt",
         "art338_sec4.robbery_death_attempt_excluded",
@@ -9727,6 +10178,7 @@
       "anchor_card_ids": [
         "art342.attempts_punishable"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art342.attempts_punishable"
       ],
@@ -9748,6 +10200,7 @@
         "art343_sec1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art343_sec1.robbery_scope"
       ],
@@ -9774,6 +10227,7 @@
         "art343_sec2.preparation_definition",
         "art343_sec2_2.preparation_examples"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art343_sec2.preparation_definition",
         "art343_sec2_1.contingent_intent_sufficient_precedent",
@@ -9801,6 +10255,7 @@
         "art343_sec2_3"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art343_sec2_3.home_invasion_robbery_departure"
       ],
@@ -9828,6 +10283,7 @@
       "anchor_card_ids": [
         "art343_sec3.abandonment_before_execution_denied"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art343_sec3.abandonment_before_execution_denied"
       ],
@@ -9851,6 +10307,7 @@
       "anchor_card_ids": [
         "art344_x_raw_pdf.article328_theft_offenses_scope"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art344_x_raw_pdf.article328_theft_offenses_scope",
         "art344_x_raw_pdf.kinship_only_one_holder_no_application",
@@ -9880,6 +10337,7 @@
         "fraud_general_object"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "fraud_general_object.causation_required",
         "fraud_general_object.deception_error_causation"
@@ -9904,6 +10362,7 @@
         "general_object"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "general_object.fraud.exception.public-interest-property-equivalence",
         "general_object.fraud.standard.public-interest-only-no-fraud"
@@ -9929,6 +10388,7 @@
         "general_object"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "general_object.fraud.standard.later-cancellation-no-effect"
       ],
@@ -9954,6 +10414,7 @@
       "anchor_card_ids": [
         "general_object.fraud.element.object-other-possessed-other-property"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "general_object.fraud.definition.property-benefit",
         "general_object.fraud.definition.property-benefit-not-numerically-limited",
@@ -9988,6 +10449,7 @@
       "anchor_card_ids": [
         "deception.fraud.definition.deception-good-faith-mistake"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "deception.fraud.causal-link.deception-property-disposition",
         "deception.fraud.causal-link.loan-purpose-not-sole-trigger",
@@ -10069,6 +10531,7 @@
       "anchor_card_ids": [
         "fraud_mistake.error_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "fraud_mistake.error_definition",
         "fraud_mistake.error_disposition_motivation",
@@ -10103,6 +10566,7 @@
       "anchor_card_ids": [
         "fraud_mistake.invalid_act_disposition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "fraud_mistake.conscious_nonexercise",
         "fraud_mistake.deceived_disposer_identity",
@@ -10154,6 +10618,7 @@
       "anchor_card_ids": [
         "fraud_damage_acquisition.protected_economic_interest"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "fraud_damage_acquisition.money_delivery_full_amount",
         "fraud_damage_acquisition.property_concept_reported_precedent",
@@ -10187,6 +10652,7 @@
       "anchor_card_ids": [
         "fraud_damage_acquisition.delivery_factual_control"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "fraud_damage_acquisition.delivery_factual_control",
         "fraud_damage_acquisition.delivery_of_property",
@@ -10213,6 +10679,7 @@
         "fraud_damage_acquisition"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "fraud_damage_acquisition.right_exercise_unacceptable_deception"
       ],
@@ -10238,6 +10705,7 @@
       "anchor_card_ids": [
         "fraud_intent.no_disposition_inducement_intent"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "fraud_intent.contract_breach_distinction",
         "fraud_intent.no_disposition_inducement_intent",
@@ -10266,6 +10734,7 @@
       "anchor_card_ids": [
         "fraud_intent.illegal_appropriation_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "fraud_intent.illegal_appropriation_definition",
         "fraud_intent.precedent_illegal_appropriation_intent",
@@ -10294,6 +10763,7 @@
         "special_forms"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "special_forms.fraud.standard.right-exercise-socially-acceptable-no-crime"
       ],
@@ -10319,6 +10789,7 @@
       "anchor_card_ids": [
         "fraud_stages_participation.attempt_deceptive_act"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "fraud_stages_participation.attempt_deceptive_act"
       ],
@@ -10343,6 +10814,7 @@
         "fraud_stages_participation.property_fraud_completion_control",
         "fraud_stages_participation.completion_deception_disposition_transfer"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "fraud_stages_participation.completion_deception_disposition_transfer",
         "fraud_stages_participation.no_causation_attempt",
@@ -10366,6 +10838,7 @@
         "art350_sec1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art350_sec1.defective_disposition",
         "art350_sec1.extortion_definition"
@@ -10392,6 +10865,7 @@
       "anchor_card_ids": [
         "art350_sec3.object"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art350_sec3.object",
         "art350_sec3.own_property_exception",
@@ -10420,6 +10894,7 @@
       "anchor_card_ids": [
         "art350_sec4_1.objectively_insufficient_threat"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art350_sec4_1.objectively_insufficient_threat",
         "art350_sec4_1.robbery_boundary"
@@ -10446,6 +10921,7 @@
       "anchor_card_ids": [
         "art350_sec4_1.means_threat_or_violence"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art350_sec4_1.means_threat_or_violence"
       ],
@@ -10467,6 +10943,7 @@
         "art350_sec4_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art350_sec4_1.objective_fear_assessment"
       ],
@@ -10492,6 +10969,7 @@
       "anchor_card_ids": [
         "art350_sec4_2.threat_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art350_sec4_2.actual_intent_or_feasibility_not_required",
         "art350_sec4_2.implied_or_indirect_threat",
@@ -10525,6 +11003,7 @@
       "anchor_card_ids": [
         "art350_sec4_4.separate_victim_disposition_authority"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art350_sec4_4.separate_victim_disposition_authority",
         "art350_sec4_4.victim_capacity"
@@ -10549,6 +11028,7 @@
         "art350_sec5_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art350_sec5_1.threat_fear_disposition_gain"
       ],
@@ -10574,6 +11054,7 @@
       "anchor_card_ids": [
         "art350_sec5_2.preexisting_fear_maintained"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art350_sec5_2.fear_causation_required",
         "art350_sec5_2.no_fear_attempt",
@@ -10602,6 +11083,7 @@
       "anchor_card_ids": [
         "art350_sec5_3.delivery_tacit_acquiescence"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art350_sec5_3.complete_suppression_robbery",
         "art350_sec5_3.delivery_tacit_acquiescence",
@@ -10632,6 +11114,7 @@
         "art350_sec6.no_overall_property_decrease",
         "art350_sec6_2.consideration_does_not_negate_extortion"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art350_sec6.no_overall_property_decrease",
         "art350_sec6_2.consideration_does_not_negate_extortion"
@@ -10656,6 +11139,7 @@
       "anchor_card_ids": [
         "art350_sec6_2.satisfied_consideration_causation_exception"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art350_sec6_2.satisfied_consideration_causation_exception"
       ],
@@ -10679,6 +11163,7 @@
       "anchor_card_ids": [
         "art350_sec7_1.attempt_threat_notification"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art350_sec7_1.attempt_threat_notification"
       ],
@@ -10702,6 +11187,7 @@
       "anchor_card_ids": [
         "art350_sec7_2.completion.fear_disposition_causal_link"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art350_sec7_2.completion.fear_disposition_causal_link"
       ],
@@ -10726,6 +11212,7 @@
         "art350_sec7_3.completion.property_and_benefit",
         "art350_sec7_3.completion.bank_transfer"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art350_sec7_3.completion.bank_transfer",
         "art350_sec7_3.completion.property_and_benefit"
@@ -10748,6 +11235,7 @@
         "art350_sec8_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art350_sec8_1.right_enforcement_method_standard"
       ],
@@ -10775,6 +11263,7 @@
       "anchor_card_ids": [
         "art350_sec8_2.no_right_extortion"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art350_sec8_2.extortion_loss_despite_payment_duty",
         "art350_sec8_2.no_right_extortion",
@@ -10803,6 +11292,7 @@
       "anchor_card_ids": [
         "art350_sec8_2.permitted_threat_no_extortion"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art350_sec8_2.permitted_threat_no_extortion",
         "art350_sec8_2.right_exercise_total_assessment"
@@ -10827,6 +11317,7 @@
         "art350_sec8_2"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art350_sec8_2.permissible_range_purpose_means"
       ],
@@ -10852,6 +11343,7 @@
       "anchor_card_ids": [
         "art350_sec9.intent.objective_elements"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art350_sec9.illicit_gain_intent.required",
         "art350_sec9.intent.objective_elements"
@@ -10876,6 +11368,7 @@
         "art355_sec1_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art355_sec1_1.breach_of_trust",
         "art355_sec1_1.simple_embezzlement"
@@ -10903,6 +11396,7 @@
       "anchor_card_ids": [
         "art355_sec1_2.embezzlement_illegal_appropriation_exclusion"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art355_sec1_2.embezzlement_illegal_appropriation_exclusion"
       ],
@@ -10924,6 +11418,7 @@
         "art355_sec1_2"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art355_sec1_2.breach_of_trust_betrayal_theory",
         "art355_sec1_2.embezzlement_illegal_appropriation_theory"
@@ -10949,6 +11444,7 @@
         "art355_sec1_3"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art355_sec1_3.breach_of_trust_case_concrete_risk_of_loss"
       ],
@@ -10974,6 +11470,7 @@
         "art355_sec2_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art355_sec2_1.embezzlement_object_property"
       ],
@@ -10997,11 +11494,66 @@
       "anchor_card_ids": [
         "art355_sec3.breach_of_trust.objective_elements"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art355_sec3.breach_of_trust.objective_elements"
       ],
       "retrieval_card_ids": [],
       "case_pattern_card_ids": [],
+      "review_required": false,
+      "review_reasons": []
+    },
+    {
+      "issue_id": "art355.Ⅲ.0a.element_issue",
+      "article": "art355",
+      "article_label": "제355조",
+      "offense": "횡령·배임",
+      "section_path": "Ⅲ.0a",
+      "title": "타인의 사무를 처리하는 자",
+      "function": "element_issue",
+      "runtime": "assess_issue",
+      "slot_ids": [
+        "art355_sec5_2"
+      ],
+      "anchor_card_ids": [
+        "art355_sec5_2.trust_relationship_threshold"
+      ],
+      "reviewed_anchor_rules": [],
+      "member_card_ids": [
+        "art355_sec5_2.assigned_claim_proceeds_embezzlement",
+        "art355_sec5_2.individual_delegation_exception",
+        "art355_sec5_2.leasehold_transfer",
+        "art355_sec5_2.movable_sale_double_disposition",
+        "art355_sec5_2.pre_certificate_stock_transfer",
+        "art355_sec5_2.real_estate_double_sale_majority",
+        "art355_sec5_2.real_estate_sale_intermediate_payment",
+        "art355_sec5_2.real_estate_transfer_exception",
+        "art355_sec5_2.registered_movable_sale_disposition",
+        "art355_sec5_2.right_transfer_ordinary_duty",
+        "art355_sec5_2.trust_relationship_threshold"
+      ],
+      "retrieval_card_ids": [
+        "art355_sec5_2.assigned_claim_proceeds_embezzlement",
+        "art355_sec5_2.individual_delegation_exception",
+        "art355_sec5_2.leasehold_transfer",
+        "art355_sec5_2.movable_sale_double_disposition",
+        "art355_sec5_2.pre_certificate_stock_transfer",
+        "art355_sec5_2.real_estate_double_sale_majority",
+        "art355_sec5_2.real_estate_sale_intermediate_payment",
+        "art355_sec5_2.real_estate_transfer_exception",
+        "art355_sec5_2.registered_movable_sale_disposition",
+        "art355_sec5_2.right_transfer_ordinary_duty"
+      ],
+      "case_pattern_card_ids": [
+        "art355_sec5_2.assigned_claim_proceeds_embezzlement",
+        "art355_sec5_2.leasehold_transfer",
+        "art355_sec5_2.movable_sale_double_disposition",
+        "art355_sec5_2.pre_certificate_stock_transfer",
+        "art355_sec5_2.real_estate_sale_intermediate_payment",
+        "art355_sec5_2.real_estate_transfer_exception",
+        "art355_sec5_2.registered_movable_sale_disposition",
+        "art355_sec5_2.right_transfer_ordinary_duty"
+      ],
       "review_required": false,
       "review_reasons": []
     },
@@ -11020,6 +11572,7 @@
       "anchor_card_ids": [
         "art355.embezzlement_protectable_entrustment"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art355.breach_other_affairs_processor",
         "art355.breach_right_transfer_general",
@@ -11056,6 +11609,7 @@
       "anchor_card_ids": [
         "art355.embezzlement.object-other-property"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art355.breach.confidential-information",
         "art355.breach.duty-definition",
@@ -11096,13 +11650,13 @@
       "anchor_card_ids": [
         "art355_sec3_3.refusal_to_return"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art355_sec3_3.authority_excess_theory",
         "art355_sec3_3.company_funds_advance_loan",
         "art355_sec3_3.company_funds_private_use",
         "art355_sec3_3.completion_expression_theory",
         "art355_sec3_3.coownership_whole_property",
-        "art355_sec3_3.deceptive_means_no_fraud",
         "art355_sec3_3.embezzlement_act",
         "art355_sec3_3.invalid_disposition_majority",
         "art355_sec3_3.legal_disposition",
@@ -11122,7 +11676,6 @@
         "art355_sec3_3.company_funds_private_use",
         "art355_sec3_3.completion_expression_theory",
         "art355_sec3_3.coownership_whole_property",
-        "art355_sec3_3.deceptive_means_no_fraud",
         "art355_sec3_3.embezzlement_act",
         "art355_sec3_3.invalid_disposition_majority",
         "art355_sec3_3.legal_disposition",
@@ -11149,40 +11702,28 @@
       "review_reasons": []
     },
     {
-      "issue_id": "art355.Ⅳ.1.guard_issue",
+      "issue_id": "art355.Ⅲ.3a.concurrence_issue",
       "article": "art355",
       "article_label": "제355조",
       "offense": "횡령·배임",
-      "section_path": "Ⅳ.1",
-      "title": "총설",
-      "function": "guard_issue",
-      "runtime": "retrieve_guard",
+      "section_path": "Ⅲ.3a",
+      "title": "횟령 수단인 기망과 사기죄의 관계",
+      "function": "concurrence_issue",
+      "runtime": "relation_condition",
       "slot_ids": [
-        "art355_sec4_1"
+        "art355_sec3_3"
       ],
-      "anchor_card_ids": [],
+      "anchor_card_ids": [
+        "art355_sec3_3.deceptive_means_no_fraud"
+      ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
-        "art355_sec4_1.business_loss_alone_insufficient",
-        "art355_sec4_1.explained_fund_use_no_inference",
-        "art355_sec4_1.justified_refusal_exception",
-        "art355_sec4_1.no_breach_of_trust_without_awareness"
+        "art355_sec3_3.deceptive_means_no_fraud"
       ],
-      "retrieval_card_ids": [
-        "art355_sec4_1.business_loss_alone_insufficient",
-        "art355_sec4_1.explained_fund_use_no_inference",
-        "art355_sec4_1.justified_refusal_exception",
-        "art355_sec4_1.no_breach_of_trust_without_awareness"
-      ],
-      "case_pattern_card_ids": [
-        "art355_sec4_1.business_loss_alone_insufficient",
-        "art355_sec4_1.explained_fund_use_no_inference",
-        "art355_sec4_1.justified_refusal_exception",
-        "art355_sec4_1.no_breach_of_trust_without_awareness"
-      ],
-      "review_required": true,
-      "review_reasons": [
-        "runtime issue has no non-precedent anchor rule"
-      ]
+      "retrieval_card_ids": [],
+      "case_pattern_card_ids": [],
+      "review_required": false,
+      "review_reasons": []
     },
     {
       "issue_id": "art355.Ⅳ.1.support_issue",
@@ -11197,6 +11738,7 @@
         "art355_sec4_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art355_sec4_1.breach_of_trust_intent_elements",
         "art355_sec4_1.breach_of_trust_intent_no_purpose",
@@ -11245,6 +11787,35 @@
       "review_reasons": []
     },
     {
+      "issue_id": "art355.Ⅳ.1b.element_issue",
+      "article": "art355",
+      "article_label": "제355조",
+      "offense": "횡령·배임",
+      "section_path": "Ⅳ.1b",
+      "title": "배임의 고의 부정",
+      "function": "element_issue",
+      "runtime": "assess_issue",
+      "slot_ids": [
+        "art355_sec4_1"
+      ],
+      "anchor_card_ids": [
+        "art355_sec4_1.no_breach_of_trust_without_awareness"
+      ],
+      "reviewed_anchor_rules": [],
+      "member_card_ids": [
+        "art355_sec4_1.business_loss_alone_insufficient",
+        "art355_sec4_1.no_breach_of_trust_without_awareness"
+      ],
+      "retrieval_card_ids": [
+        "art355_sec4_1.business_loss_alone_insufficient"
+      ],
+      "case_pattern_card_ids": [
+        "art355_sec4_1.business_loss_alone_insufficient"
+      ],
+      "review_required": false,
+      "review_reasons": []
+    },
+    {
       "issue_id": "art355.Ⅳ.2.element_issue",
       "article": "art355",
       "article_label": "제355조",
@@ -11254,12 +11825,16 @@
       "function": "element_issue",
       "runtime": "assess_issue",
       "slot_ids": [
+        "art355_sec4_1",
         "art355_sec4_2"
       ],
       "anchor_card_ids": [
         "art355_sec4_2.breach_illicit_gain_intent"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
+        "art355_sec4_1.explained_fund_use_no_inference",
+        "art355_sec4_1.justified_refusal_exception",
         "art355_sec4_2.breach_for_principal_no_illicit_gain",
         "art355_sec4_2.breach_illicit_gain_intent",
         "art355_sec4_2.breach_illicit_gain_separate_requirement",
@@ -11273,6 +11848,8 @@
         "art355_sec4_2.third_party_benefit_sufficient"
       ],
       "retrieval_card_ids": [
+        "art355_sec4_1.explained_fund_use_no_inference",
+        "art355_sec4_1.justified_refusal_exception",
         "art355_sec4_2.breach_for_principal_no_illicit_gain",
         "art355_sec4_2.breach_illicit_gain_separate_requirement",
         "art355_sec4_2.embezzlement_illicit_appropriation",
@@ -11283,6 +11860,8 @@
         "art355_sec4_2.third_party_benefit_sufficient"
       ],
       "case_pattern_card_ids": [
+        "art355_sec4_1.explained_fund_use_no_inference",
+        "art355_sec4_1.justified_refusal_exception",
         "art355_sec4_2.breach_for_principal_no_illicit_gain",
         "art355_sec4_2.mixed_motives_primary_purpose",
         "art355_sec4_2.third_party_benefit_sufficient"
@@ -11303,6 +11882,7 @@
         "art355_sec4_3"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art355_sec4_3.accounting_only_adjustment",
         "art355_sec4_3.budget_diversion_restricted",
@@ -11355,50 +11935,17 @@
       "function": "guard_issue",
       "runtime": "retrieve_guard",
       "slot_ids": [
-        "art355_sec5",
-        "art355_sec5_2"
+        "art355_sec5"
       ],
       "anchor_card_ids": [
-        "art355_sec5.retention_lien_no_illicit_intent",
-        "art355_sec5_2.individual_delegation_exception"
+        "art355_sec5.retention_lien_no_illicit_intent"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
-        "art355_sec5.retention_lien_no_illicit_intent",
-        "art355_sec5_2.assigned_claim_proceeds_embezzlement",
-        "art355_sec5_2.individual_delegation_exception",
-        "art355_sec5_2.leasehold_transfer",
-        "art355_sec5_2.movable_sale_double_disposition",
-        "art355_sec5_2.pre_certificate_stock_transfer",
-        "art355_sec5_2.real_estate_double_sale_majority",
-        "art355_sec5_2.real_estate_sale_intermediate_payment",
-        "art355_sec5_2.real_estate_transfer_exception",
-        "art355_sec5_2.registered_movable_sale_disposition",
-        "art355_sec5_2.right_transfer_ordinary_duty",
-        "art355_sec5_2.trust_relationship_threshold"
+        "art355_sec5.retention_lien_no_illicit_intent"
       ],
-      "retrieval_card_ids": [
-        "art355_sec5_2.assigned_claim_proceeds_embezzlement",
-        "art355_sec5_2.leasehold_transfer",
-        "art355_sec5_2.movable_sale_double_disposition",
-        "art355_sec5_2.pre_certificate_stock_transfer",
-        "art355_sec5_2.real_estate_double_sale_majority",
-        "art355_sec5_2.real_estate_sale_intermediate_payment",
-        "art355_sec5_2.real_estate_transfer_exception",
-        "art355_sec5_2.registered_movable_sale_disposition",
-        "art355_sec5_2.right_transfer_ordinary_duty",
-        "art355_sec5_2.trust_relationship_threshold"
-      ],
-      "case_pattern_card_ids": [
-        "art355_sec5_2.assigned_claim_proceeds_embezzlement",
-        "art355_sec5_2.leasehold_transfer",
-        "art355_sec5_2.movable_sale_double_disposition",
-        "art355_sec5_2.pre_certificate_stock_transfer",
-        "art355_sec5_2.real_estate_sale_intermediate_payment",
-        "art355_sec5_2.real_estate_transfer_exception",
-        "art355_sec5_2.registered_movable_sale_disposition",
-        "art355_sec5_2.right_transfer_ordinary_duty",
-        "art355_sec5_2.trust_relationship_threshold"
-      ],
+      "retrieval_card_ids": [],
+      "case_pattern_card_ids": [],
       "review_required": false,
       "review_reasons": []
     },
@@ -11415,6 +11962,7 @@
         "art355_sec9"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art355_sec9.partnership_victim_breach"
       ],
@@ -11440,6 +11988,7 @@
         "art356"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art356.dual_status",
         "art356.offense_character"
@@ -11462,6 +12011,7 @@
         "art356_sec2_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art356_sec2_1.business_continuity_status",
         "art356_sec2_1.business_definition",
@@ -11488,20 +12038,21 @@
       "section_path": "Ⅱ.2",
       "title": "업무의 내용",
       "function": "element_issue",
-      "runtime": "retrieve_support",
+      "runtime": "assess_issue",
       "slot_ids": [
         "art356_sec2_2"
       ],
-      "anchor_card_ids": [],
+      "anchor_card_ids": [
+        "art356_sec2_2.administrative_illegality"
+      ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art356_sec2_2.administrative_illegality"
       ],
       "retrieval_card_ids": [],
       "case_pattern_card_ids": [],
-      "review_required": true,
-      "review_reasons": [
-        "runtime issue has no non-precedent anchor rule"
-      ]
+      "review_required": false,
+      "review_reasons": []
     },
     {
       "issue_id": "art356.Ⅱ.2.guard_issue",
@@ -11518,6 +12069,7 @@
       "anchor_card_ids": [
         "art356_sec2_2.unrelated_possession"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art356_sec2_2.illegal_business",
         "art356_sec2_2.unrelated_possession"
@@ -11544,6 +12096,7 @@
       "anchor_card_ids": [
         "art356.business_possession_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art356.business_possession_definition",
         "art356.business_possession_origins",
@@ -11571,6 +12124,7 @@
       "anchor_card_ids": [
         "art356_sec3_2.business_other_affairs_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art356_sec3_2.assistant_other_affairs",
         "art356_sec3_2.business_other_affairs_definition",
@@ -11599,6 +12153,7 @@
       "anchor_card_ids": [
         "art356_sec3_3.status_awareness"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art356_sec3_3.status_awareness"
       ],
@@ -11620,6 +12175,7 @@
         "art357_sec1_2"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art357_sec1_2.third_party_acquisition"
       ],
@@ -11643,6 +12199,7 @@
       "anchor_card_ids": [
         "art357_sec1_3.receipt.required_elements"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art357_sec1_3.receipt.no_breach_or_loss_requirement",
         "art357_sec1_3.receipt.required_elements"
@@ -11667,6 +12224,7 @@
       "anchor_card_ids": [
         "art357_sec1_4.actual_acquisition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art357_sec1_4.actual_acquisition"
       ],
@@ -11688,6 +12246,7 @@
         "art357"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art357.protected_interest.integrity"
       ],
@@ -11713,6 +12272,7 @@
       "anchor_card_ids": [
         "art357_sec3_1.trust_relationship_sources"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art357_sec3_1.future_duty_expected",
         "art357_sec3_1.mere_contractual_debt_exclusion",
@@ -11748,6 +12308,7 @@
       "anchor_card_ids": [
         "art357_sec3_2.scope_of_duty"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art357_sec3_2.contract_counterparty_request",
         "art357_sec3_2.giver_not_necessarily_liable",
@@ -11800,6 +12361,7 @@
       "anchor_card_ids": [
         "art357_sec3_3.actual_acquisition_required"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art357_sec3_3.account_control_acquisition",
         "art357_sec3_3.actual_acquisition_required",
@@ -11843,6 +12405,7 @@
       "anchor_card_ids": [
         "art357_sec3_4.intent_elements"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art357_sec3_4.illegal_appropriation_intent_separate",
         "art357_sec3_4.intent_elements",
@@ -11872,6 +12435,7 @@
         "art357_sec3_5.completion_time",
         "art357_sec3_5.attempt_majority"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art357_sec3_5.attempt_majority",
         "art357_sec3_5.completion_time",
@@ -11897,6 +12461,7 @@
       "anchor_card_ids": [
         "art357_sec4.giving_offense_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art357_sec4.giving_offense_definition"
       ],
@@ -11920,6 +12485,7 @@
       "anchor_card_ids": [
         "art357_sec4.giving_to_business_handler"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art357_sec4.giver_view_justification",
         "art357_sec4.giving_to_business_handler"
@@ -11946,6 +12512,7 @@
       "anchor_card_ids": [
         "art357_sec4.giving_completion_actual_provision"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art357_sec4.giving_completion_actual_provision"
       ],
@@ -11967,6 +12534,7 @@
         "art360_sec1_1"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art360_sec1_1.offense_definition"
       ],
@@ -11990,6 +12558,7 @@
       "anchor_card_ids": [
         "art360_sec2_1.subject.unrestricted"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art360_sec2_1.subject.unrestricted"
       ],
@@ -12013,6 +12582,7 @@
       "anchor_card_ids": [
         "art360_sec2_2.object"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art360_sec2_2.lost_possession_property",
         "art360_sec2_2.managed_place_property",
@@ -12051,6 +12621,7 @@
       "anchor_card_ids": [
         "art360_sec2_3.embezzlement_act"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art360_sec2_3.completion_external_expression",
         "art360_sec2_3.embezzlement_act",
@@ -12080,6 +12651,7 @@
         "art366"
       ],
       "anchor_card_ids": [],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art366.object_manageable_energy"
       ],
@@ -12105,6 +12677,7 @@
       "anchor_card_ids": [
         "art366.electronic_record_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art366.alternative_use_property",
         "art366.cloud_provider_delete_record",
@@ -12164,6 +12737,7 @@
       "anchor_card_ids": [
         "art366_sec3_2.concealment_definition"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art366_sec3_2.concealment_definition",
         "art366_sec3_2.concealment_no_possession_required",
@@ -12234,6 +12808,7 @@
       "anchor_card_ids": [
         "art366_sec3_3.completion.efficiency_injury"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art366_sec3_3.completion.efficiency_injury"
       ],
@@ -12257,6 +12832,7 @@
       "anchor_card_ids": [
         "art366_sec4_1.intent_conditional_sufficiency"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art366_sec4_1.intent_absence",
         "art366_sec4_1.intent_awareness",
@@ -12285,6 +12861,7 @@
       "anchor_card_ids": [
         "art366_sec5_2.socially_acceptable_act"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art366_sec5_2.immediate_self_recovery_assessment",
         "art366_sec5_2.justifiable_act_requirements",
@@ -12318,6 +12895,7 @@
       "anchor_card_ids": [
         "art366_sec5_5.presumed_consent"
       ],
+      "reviewed_anchor_rules": [],
       "member_card_ids": [
         "art366_sec5_5.presumed_consent"
       ],
@@ -12534,9 +13112,9 @@
     },
     {
       "card_id": "art122_sec3_2.false_document_concealment_absorption",
-      "issue_id": "art122.Ⅲ.2.concurrence_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "issue_id": "art122.Ⅲ.2a.concurrence_issue",
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art122_sec3_2.false_document_farmland_neglect_real_concurrence",
@@ -13039,8 +13617,8 @@
     {
       "card_id": "art129_sec1_5.comprehensive_single_offense",
       "issue_id": "art129.Ⅰ.5.concurrence_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art129_sec1_5.comprehensive_time_interval",
@@ -14017,8 +14595,8 @@
     {
       "card_id": "art137_sec4_3.prison_monitoring_undetectable_deception",
       "issue_id": "art137.Ⅳ.3.element_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art137_sec4_3.prison_tobacco_concealed_body",
@@ -14035,8 +14613,8 @@
     {
       "card_id": "art137_sec4_3.prohibited_act_evasion_monitoring",
       "issue_id": "art137.Ⅳ.3.element_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art137_sec4_4.auction_price_disclosure",
@@ -14083,14 +14661,14 @@
     {
       "card_id": "art137_sec4_4.reported_holding_actual_obstruction",
       "issue_id": "art137.Ⅳ.4.stage_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art137_sec4_4.reported_holding_specific_duty_and_method",
       "issue_id": "art137.Ⅳ.4.stage_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art137_sec6.certificate_preparation_joint_principal",
@@ -14407,8 +14985,8 @@
     {
       "card_id": "art151_sec2_5.self_escape_instigation_abuse_of_defense_precedent",
       "issue_id": "art151.Ⅱ.5.participation_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art151_sec2_6.duty_officer_escape_only",
@@ -14653,7 +15231,7 @@
     {
       "card_id": "art152_sec2_3.noncriminal_case_mohae_exception",
       "issue_id": "art152.Ⅱ.3.element_issue",
-      "load_policy": "retrieve_candidate",
+      "load_policy": "anchor_context",
       "case_pattern": false
     },
     {
@@ -14671,8 +15249,8 @@
     {
       "card_id": "art152_sec2_6.malicious_perjury.single_offense_same_hearing",
       "issue_id": "art152.Ⅱ.6.concurrence_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art152_sec2_7.special_statute_malicious_perjury_exclusion",
@@ -14682,8 +15260,8 @@
     },
     {
       "card_id": "art164.arson_property_damage_absorption",
-      "issue_id": "art164.Ⅱ.4.concurrence_issue",
-      "load_policy": "symbolic_only",
+      "issue_id": "art164.Ⅱ.4a.concurrence_issue",
+      "load_policy": "anchor_context",
       "case_pattern": false
     },
     {
@@ -14856,7 +15434,7 @@
     },
     {
       "card_id": "art164_sec2_2.mental_weakness_serial_arson_case",
-      "issue_id": "art164.Ⅱ.2.guard_issue",
+      "issue_id": "art164.Ⅱ.2.support_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": true
     },
@@ -14953,14 +15531,14 @@
     {
       "card_id": "art164_sec3_6.parricide_fire_death_concurrence",
       "issue_id": "art164.Ⅲ.6.concurrence_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art164_sec3_6.robbery_murder_fire_death_concurrence",
-      "issue_id": "art164.Ⅲ.6.concurrence_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "issue_id": "art164.Ⅲ.6a.concurrence_issue",
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art225.approved_private_document",
@@ -15469,14 +16047,14 @@
     {
       "card_id": "art227_sec7_1.no_direct_concealment_job_abandonment_concurrence",
       "issue_id": "art227.Ⅶ.concurrence_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art227_sec7_3.bribery_false_official_document_concurrence",
       "issue_id": "art227.Ⅶ.concurrence_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art231_sec1.element.object_and_purpose",
@@ -15738,8 +16316,8 @@
     },
     {
       "card_id": "art231_sec6.seal_forgery_absorbed",
-      "issue_id": "art231.Ⅵ.concurrence_issue",
-      "load_policy": "symbolic_only",
+      "issue_id": "art231.Ⅵ.1.concurrence_issue",
+      "load_policy": "anchor_context",
       "case_pattern": false
     },
     {
@@ -15858,9 +16436,9 @@
     },
     {
       "card_id": "art234_sec4.company_agreement_breach_ideal_concurrence",
-      "issue_id": "art234.Ⅳ.concurrence_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "issue_id": "art234.Ⅳ.1.concurrence_issue",
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art234_sec4.forger_and_exercise_real_concurrence",
@@ -16530,68 +17108,68 @@
     },
     {
       "card_id": "art250_sec1_18.actio_libera_in_causa",
-      "issue_id": "art250.Ⅰ.18.guard_issue",
+      "issue_id": "art250.Ⅰ.18.support_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": true
     },
     {
       "card_id": "art250_sec1_18.compulsion_no_responsibility",
-      "issue_id": "art250.Ⅰ.18.guard_issue",
+      "issue_id": "art250.Ⅰ.18.support_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": false
     },
     {
       "card_id": "art250_sec1_18.impulse_control_personality_defect_exception",
-      "issue_id": "art250.Ⅰ.18.guard_issue",
+      "issue_id": "art250.Ⅰ.18.support_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": false
     },
     {
       "card_id": "art250_sec1_18.mental_appraisal_when_suspected",
-      "issue_id": "art250.Ⅰ.18.guard_issue",
+      "issue_id": "art250.Ⅰ.18.support_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": false
     },
     {
       "card_id": "art250_sec1_18.mental_disability_judicial_assessment",
-      "issue_id": "art250.Ⅰ.18.guard_issue",
+      "issue_id": "art250.Ⅰ.18.support_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": true
     },
     {
       "card_id": "art250_sec1_18.mental_disorder_normal_capacity_exception",
-      "issue_id": "art250.Ⅰ.18.guard_issue",
+      "issue_id": "art250.Ⅰ.18.support_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": false
     },
     {
       "card_id": "art250_sec1_18.mental_disorder_requirements",
-      "issue_id": "art250.Ⅰ.18.guard_issue",
+      "issue_id": "art250.Ⅰ.18.support_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": false
     },
     {
       "card_id": "art250_sec1_18.pathological_personality_defect",
-      "issue_id": "art250.Ⅰ.18.guard_issue",
+      "issue_id": "art250.Ⅰ.18.support_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": false
     },
     {
       "card_id": "art250_sec1_18.responsibility_capacity",
-      "issue_id": "art250.Ⅰ.18.guard_issue",
+      "issue_id": "art250.Ⅰ.18.support_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": false
     },
     {
       "card_id": "art250_sec1_18.self_induced_methamphetamine_impairment",
-      "issue_id": "art250.Ⅰ.18.guard_issue",
+      "issue_id": "art250.Ⅰ.18.support_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": true
     },
     {
       "card_id": "art250_sec1_18.severe_impulse_control_disorder_exception",
-      "issue_id": "art250.Ⅰ.18.guard_issue",
-      "load_policy": "anchor_context",
+      "issue_id": "art250.Ⅰ.18.support_issue",
+      "load_policy": "retrieve_candidate",
       "case_pattern": false
     },
     {
@@ -16638,8 +17216,8 @@
     },
     {
       "card_id": "art250_sec1_19.instigated_injury_instead_of_murder",
-      "issue_id": "art250.Ⅰ.19.participation_issue",
-      "load_policy": "symbolic_only",
+      "issue_id": "art250.Ⅰ.19a.concurrence_issue",
+      "load_policy": "anchor_context",
       "case_pattern": false
     },
     {
@@ -16752,8 +17330,8 @@
     },
     {
       "card_id": "art250_sec1_20.clothing_damage_absorbed",
-      "issue_id": "art250.Ⅰ.20.concurrence_issue",
-      "load_policy": "symbolic_only",
+      "issue_id": "art250.Ⅰ.20a.concurrence_issue",
+      "load_policy": "anchor_context",
       "case_pattern": false
     },
     {
@@ -17341,19 +17919,19 @@
     {
       "card_id": "art255_sec5.preparation_accomplice_negative",
       "issue_id": "art255.Ⅴ.participation_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art255_sec5.preparation_co_perpetration",
       "issue_id": "art255.Ⅴ.participation_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art255_sec6.attempt_or_completion_absorption",
-      "issue_id": "art255.Ⅵ.concurrence_issue",
-      "load_policy": "symbolic_only",
+      "issue_id": "art255.Ⅵ.1.concurrence_issue",
+      "load_policy": "anchor_context",
       "case_pattern": false
     },
     {
@@ -17688,8 +18266,8 @@
     },
     {
       "card_id": "art257_sec1_7.injury_absorbed_by_murder",
-      "issue_id": "art257.Ⅰ.7.concurrence_issue",
-      "load_policy": "retrieve_candidate",
+      "issue_id": "art257.Ⅰ.7a.concurrence_issue",
+      "load_policy": "anchor_context",
       "case_pattern": false
     },
     {
@@ -18510,19 +19088,19 @@
     },
     {
       "card_id": "art297_sec10.planned_killing_after_rape_no_self_defense",
-      "issue_id": "art297.Ⅹ.guard_issue",
+      "issue_id": "art297.Ⅹ.support_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": true
     },
     {
       "card_id": "art297_sec10.self_defense_against_rape",
-      "issue_id": "art297.Ⅹ.guard_issue",
-      "load_policy": "anchor_context",
+      "issue_id": "art297.Ⅹ.support_issue",
+      "load_policy": "retrieve_candidate",
       "case_pattern": false
     },
     {
       "card_id": "art297_sec10.tongue_biting_self_defense",
-      "issue_id": "art297.Ⅹ.guard_issue",
+      "issue_id": "art297.Ⅹ.support_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": true
     },
@@ -19981,8 +20559,8 @@
     {
       "card_id": "art323.forced_execution_evasion_scope",
       "issue_id": "art323.Ⅵ.3.element_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art323_sec1_1.abstract_danger_offense",
@@ -20575,8 +21153,8 @@
     {
       "card_id": "art330_sec2.nighttime.objective",
       "issue_id": "art330.Ⅱ.element_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art330_sec3.restaurant_permitted_entry_no_intrusion",
@@ -20587,14 +21165,14 @@
     {
       "card_id": "art330_sec4.entry_attempt_examples",
       "issue_id": "art330.Ⅳ.stage_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art330_sec4.entry_before_theft_commencement",
       "issue_id": "art330.Ⅳ.stage_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art330_sec5.completion-at-theft-completion",
@@ -21229,20 +21807,20 @@
     {
       "card_id": "art338_sec3.delayed_death_no_effect",
       "issue_id": "art338.Ⅲ.element_issue",
-      "load_policy": "symbolic_only",
-      "case_pattern": true
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art338_sec3.opportunity_immediate_flight_killing",
       "issue_id": "art338.Ⅲ.element_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art338_sec3.opportunity_new_intent_after_completion",
       "issue_id": "art338.Ⅲ.element_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art338_sec4.murder_completion_controls_attempt",
@@ -21738,8 +22316,8 @@
     },
     {
       "card_id": "art355_sec3_3.deceptive_means_no_fraud",
-      "issue_id": "art355.Ⅲ.3.element_issue",
-      "load_policy": "retrieve_candidate",
+      "issue_id": "art355.Ⅲ.3a.concurrence_issue",
+      "load_policy": "anchor_context",
       "case_pattern": false
     },
     {
@@ -21834,7 +22412,7 @@
     },
     {
       "card_id": "art355_sec4_1.business_loss_alone_insufficient",
-      "issue_id": "art355.Ⅳ.1.guard_issue",
+      "issue_id": "art355.Ⅳ.1b.element_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": true
     },
@@ -21870,7 +22448,7 @@
     },
     {
       "card_id": "art355_sec4_1.explained_fund_use_no_inference",
-      "issue_id": "art355.Ⅳ.1.guard_issue",
+      "issue_id": "art355.Ⅳ.2.element_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": true
     },
@@ -21888,15 +22466,15 @@
     },
     {
       "card_id": "art355_sec4_1.justified_refusal_exception",
-      "issue_id": "art355.Ⅳ.1.guard_issue",
+      "issue_id": "art355.Ⅳ.2.element_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": true
     },
     {
       "card_id": "art355_sec4_1.no_breach_of_trust_without_awareness",
-      "issue_id": "art355.Ⅳ.1.guard_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "issue_id": "art355.Ⅳ.1b.element_issue",
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art355_sec4_1.repayment_intent_no_exclusion",
@@ -22068,69 +22646,69 @@
     },
     {
       "card_id": "art355_sec5_2.assigned_claim_proceeds_embezzlement",
-      "issue_id": "art355.Ⅴ.guard_issue",
+      "issue_id": "art355.Ⅲ.0a.element_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": true
     },
     {
       "card_id": "art355_sec5_2.individual_delegation_exception",
-      "issue_id": "art355.Ⅴ.guard_issue",
-      "load_policy": "anchor_context",
+      "issue_id": "art355.Ⅲ.0a.element_issue",
+      "load_policy": "retrieve_candidate",
       "case_pattern": false
     },
     {
       "card_id": "art355_sec5_2.leasehold_transfer",
-      "issue_id": "art355.Ⅴ.guard_issue",
+      "issue_id": "art355.Ⅲ.0a.element_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": true
     },
     {
       "card_id": "art355_sec5_2.movable_sale_double_disposition",
-      "issue_id": "art355.Ⅴ.guard_issue",
+      "issue_id": "art355.Ⅲ.0a.element_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": true
     },
     {
       "card_id": "art355_sec5_2.pre_certificate_stock_transfer",
-      "issue_id": "art355.Ⅴ.guard_issue",
+      "issue_id": "art355.Ⅲ.0a.element_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": true
     },
     {
       "card_id": "art355_sec5_2.real_estate_double_sale_majority",
-      "issue_id": "art355.Ⅴ.guard_issue",
+      "issue_id": "art355.Ⅲ.0a.element_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": false
     },
     {
       "card_id": "art355_sec5_2.real_estate_sale_intermediate_payment",
-      "issue_id": "art355.Ⅴ.guard_issue",
+      "issue_id": "art355.Ⅲ.0a.element_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": true
     },
     {
       "card_id": "art355_sec5_2.real_estate_transfer_exception",
-      "issue_id": "art355.Ⅴ.guard_issue",
+      "issue_id": "art355.Ⅲ.0a.element_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": true
     },
     {
       "card_id": "art355_sec5_2.registered_movable_sale_disposition",
-      "issue_id": "art355.Ⅴ.guard_issue",
+      "issue_id": "art355.Ⅲ.0a.element_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": true
     },
     {
       "card_id": "art355_sec5_2.right_transfer_ordinary_duty",
-      "issue_id": "art355.Ⅴ.guard_issue",
+      "issue_id": "art355.Ⅲ.0a.element_issue",
       "load_policy": "retrieve_candidate",
       "case_pattern": true
     },
     {
       "card_id": "art355_sec5_2.trust_relationship_threshold",
-      "issue_id": "art355.Ⅴ.guard_issue",
-      "load_policy": "retrieve_candidate",
-      "case_pattern": true
+      "issue_id": "art355.Ⅲ.0a.element_issue",
+      "load_policy": "anchor_context",
+      "case_pattern": false
     },
     {
       "card_id": "art355_sec9.partnership_victim_breach",
@@ -22201,7 +22779,7 @@
     {
       "card_id": "art356_sec2_2.administrative_illegality",
       "issue_id": "art356.Ⅱ.2.element_issue",
-      "load_policy": "symbolic_only",
+      "load_policy": "anchor_context",
       "case_pattern": false
     },
     {

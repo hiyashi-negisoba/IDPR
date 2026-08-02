@@ -44,7 +44,7 @@ from collections import Counter
 from typing import Iterable, Mapping, Sequence
 
 from idpr.rulebase.cards import CardCorpus, card_corpus
-from idpr.rulebase.doctrine import load_doctrine
+from idpr.rulebase.doctrine import UNCONDITIONAL, load_doctrine
 from idpr.rulebase.facts import scl_fact_layer
 from idpr.rulebase.formalization import route_corpus
 from idpr.rulebase.issue_catalog_v2 import (
@@ -286,6 +286,11 @@ def compile_rulebase(
             preparation_punishable = tables.preparation_punishable
     role_by_card = {role.card_id: role.role for role in roles}
     slots = element_slots(roles)
+    configured_condition_ids = {
+        condition
+        for _, _, condition in (*absorbed_by, *imaginative_concurrence)
+        if condition != UNCONDITIONAL
+    }
 
     articles = sorted(corpus.by_article())
     slot_to_article = {
@@ -347,6 +352,7 @@ def compile_rulebase(
             and issue.function
             in {STAGE_ISSUE, CONCURRENCE_ISSUE, PARTICIPATION_ISSUE}
             for card_id in issue.member_card_ids
+            if card_id in configured_condition_ids
         ),
     )
     lines.append("")

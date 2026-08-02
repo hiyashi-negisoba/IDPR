@@ -6,10 +6,10 @@
 
 ## 축소 결과
 
-- 전체: 카드 1848장 → issue 372개 → 기본 평가 issue 159개
+- 전체: 카드 1848장 → issue 383개 → 기본 평가 issue 169개
 - 검수 조문: 카드 262장 → issue 40개 → 기본 평가 issue 18개
 - 현재 4조문 스모크: Call-2 카드 193장 → 기본 평가 issue 14개
-- 검수 조문 load policy: retrieve_candidate=171, anchor_context=57, symbolic_only=34
+- 검수 조문 load policy: retrieve_candidate=172, anchor_context=56, symbolic_only=34
 - 검수 조문 구체 사실패턴: 78장
 - 우선 법률 검수: 0개 기본 평가 issue
 
@@ -36,7 +36,7 @@
 | art297.Ⅵ.element_issue | 고의 | element_issue | assess_issue | 1 | 1 | 0 |  |
 | art297.Ⅶ.concurrence_issue | 죄수 | concurrence_issue | relation_condition | 1 | 1 | 0 |  |
 | art297.Ⅸ.concurrence_issue | 다른 죄와의 관계 | concurrence_issue | relation_condition | 1 | 9 | 2 |  |
-| art297.Ⅹ.guard_issue | 피해자 행위의 위법성 조각 | guard_issue | retrieve_guard | 1 | 2 | 2 |  |
+| art297.Ⅹ.support_issue | 피해자 행위의 위법성 조각 | support_issue | retrieve_support | 0 | 3 | 2 |  |
 
 ### anchor 일반법리
 
@@ -55,7 +55,6 @@
 | art297.Ⅵ.element_issue | art297_sec6.intent | 강간죄에는 폭행·협박으로 피해자를 강간한다는 인식과 의사가 필요하고, 미필적 고의로도 충분하다. |
 | art297.Ⅶ.concurrence_issue | art297_sec7.multiple_victims_multiple_offenses | 피해자가 여러 명이면 동일한 장소에서 동일한 폭행·협박에 의한 경우에도 각 피해자에 따라 수개의 강간죄가 성립한다. |
 | art297.Ⅸ.concurrence_issue | art297_sec9.abduction_for_marriage_rape | 결혼을 목적으로 여자를 약취하여 강간한 경우 강간죄와 결혼을 위한 약취죄는 실체적 경합범이 성립한다. |
-| art297.Ⅹ.guard_issue | art297_sec10.self_defense_against_rape | 피해자가 행위자의 폭행·협박에 의한 강간에 대항하여 방어 또는 적극적 반격행위를 한 경우, 자신의 법익에 대한 현재의 부당한 침해를 방위하기 위한 것이고 상당한 이유가 있으면 정당방위로 위법성이 조각된다. |
 
 > comment:
 

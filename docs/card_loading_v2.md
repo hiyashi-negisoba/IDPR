@@ -19,26 +19,34 @@ L0 후보 조문
 ## 전수 적재 계약
 
 - 전체 원본 카드 1,848장은 정확히 한 issue에 배치한다. 누락과 중복을 모두 오류로 본다.
-- 판례 사안형 카드 629장은 anchor가 될 수 없다.
+- 판례 사안형 카드 605장은 anchor가 될 수 없다.
 - L0의 조문 합집합과 미수 조문 확장은 그대로 유지한다.
 - 기존 `candidate_articles()`는 Phase 2 재현용이고, Phase 3는
   `candidate_issues()`를 사용한다.
-- 첫 호출은 `assess_issue`만 판정한다. `guard`, `stage`, `concurrence`,
-  `participation`, `support`는 각 런타임 경로에 보존한다.
+- 첫 호출은 `assess_issue`만 판정한다. 첫 Scallop 결과에서 살아남은
+  조문에 한해 `guard`, `stage`, `concurrence`, `participation`을 Call 2의 두 번째
+  패스로 판정한다. 이진 죄수 관계는 두 조문이 모두 live일 때만 연다.
 - 첫 판정이 `unknown`인 issue에만 `retrieve_issue_cards()`를 실행한다. 검색 후보는 그
   issue의 `retrieval_card_ids`로 제한되어 다른 죄나 다른 요소의 카드가 섞일 수 없다.
+- Call 3 작성 시에는 status를 바꾸지 않고, 초기 요건과 법적으로 유의미한 후속
+  issue에 대해 관련 detail을 최대 2장만 보충한다. 성립이 명백한 issue도 IRAC에서 하위
+  판단기준이 필요할 수 있기 때문이다.
+- 초기 구성요건 `unknown`은 반드시 Call 3에 남긴다. 반면 추가 피해자·카메라 범죄
+  같은 deferred 가능성이 근거 없이 `unknown`이면 작성 계획에서 뺈다. 실제로 판정된
+  후속 issue, stage, 정확한 symbolic condition은 유지한다.
 - 검색 쿼리는 구체적 `missing_facts`와 가장 가까운 허용 사실을 결합한다. 긴 사건의 모든
   에피소드가 각기 무관 판례를 끌어오는 것을 막는다.
 
 ## 현재 전수 결과
 
 생성 자산은 `data/rulebase/issue_catalog_v2.json`이다. 현재 51개 조문의 1,848장을
-372개 issue로 구조화했고, 첫 호출의 기본 평가 issue는 159개다. 334개 일반법리 카드가
-anchor이고, 1,246장은 필요 시 검색 후보, 214장은 symbolic 조건, 54장은 설명용이다.
+383개 issue로 구조화했고, 첫 호출의 기본 평가 issue는 169개다. 기존 카드
+anchor 364장과 법률 검수로 작성한 일반법리 3개를 구분해 적재한다. 1,223장은
+필요 시 검색 후보, 207장은 symbolic-only, 54장은 support-only다.
 
-남은 review flag 19개는 일반화할 비판례 anchor가 없는 deferred issue다. 기본 평가
-issue에는 review flag가 없다. 이들은 판례 사안을 보편 법리로 승격하지 않고 조회 전용으로
-남겨 둔 보수적 결과다.
+이전 review flag 19개는 승인된 법률 검수를 반영해 0개가 되었다. 판례를 무조건
+일반법리로 승격하지 않고, 기존 일반법리를 anchor로 재분류하거나 검수된
+법리를 별도 provenance로 추가했다.
 
 ## 스모크에서 달라진 점
 
@@ -55,6 +63,9 @@ issue status를 기존 카드 단위 Scallop gate에 끼워 맞추지 않는다.
 
 기존 `card_status` 규칙은 Phase 1 골든과 Phase 2 재현을 위해 병존한다. 죄수 조건이
 `relation_condition` issue에 속하면 `condition_issue`를 통해 그 issue 판정을 읽는다.
+실제 doctrine table이 참조하는 12개 조건 카드는 각각 단 하나의 독립 issue와
+정확히 대응하며, 그 카드 자체가 anchor다. 상위의 광범위한 죄수·공범 issue 판정이
+더 좁은 특정 흡수·경합 관계를 대신 발화시키지 못한다.
 stage·participation의 독자적인 결론 규칙은 법리 매핑 전에는 범죄 성립 게이트에 추가하지
 않는다.
 

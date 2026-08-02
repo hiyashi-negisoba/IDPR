@@ -1,129 +1,186 @@
-# 3. 파이프라인 방법론 및 기술 명세 (Methodology & Technical Specifications)
+# 3. 연구 방법론 (Methodology) — 논문용 한국어 초안
 
----
+## 3.1. 연구 개요
 
-## 3.1. 파이프라인 전체 아키텍처 개요
+본 연구는 한국 형사 사례형 문제에 대한 장문 법률 추론을 위해
+**Neural–Symbolic–Neural(NSN)** 구조를 제안한다. 첫 번째 신경망 모듈은 자연어
+사실관계를 구조화하고, 관련 법적 쟁점을 찾으며, 개방적인 법률 개념을 사건 사실에
+포섭한다. 심볼릭 모듈은 이 쟁점별 판단을 형식 규칙에 따라 결합하여 범죄 성립의 지지·반증,
+위법성·책임 조각, 미수 및 죄수관계를 계산한다. 마지막 신경망 모듈은 그 결과를 변경하지
+않고 장문 법률답안으로 실현한다.
 
-기존 단일 거대 언어 모델(Monolithic LLM)의 구성요건 누락, 자의적 법리 환각, 허위 판례 창작 문제를 원천 차단하기 위해 **"신경망 팩트 추출 ➔ 심볼릭 결정론 추론 ➔ 사전 정적 매핑 RAG ➔ 신경망 종합 검토서 생성"**의 **뉴로-심볼릭-뉴로(Neuro-Symbolic-Neuro) 3단계 이중 구동 아키텍처**를 구현하였다.
+이를 다음과 같이 나타낼 수 있다.
 
-```mermaid
-flowchart TD
-    subgraph S1 ["제1단계: 신경망 팩트 추출기 (vLLM / Gemma 4)"]
-        INPUT["자연어 형사 사건 사실관계 (Fact Pattern)"] --> S1_LLM["Gemma 4 26B (temp=0.0)<br>Draft 7 JSON Schema 강제 디코딩"]
-        S1_LLM --> S1_OUT["원자적 팩트 구조체 JSON<br>(34개 표준 Datalog 팩트 술어)"]
-    end
+\[
+z=N_{\mathrm{reason}}(x;K), \qquad
+d=S(z;K,\Gamma), \qquad
+y=N_{\mathrm{write}}(x,z,d;K)
+\]
 
-    subgraph S2 ["제2단계: 심볼릭 결정론 추론기 (Scallop Datalog)"]
-        S1_OUT -->|범용 EDB 동적 변환| S2_EDB["Scallop EDB 튜플 자동 생성<br>rel predicate('case_id', 'arg1', 'arg2')"]
-        S2_EDB --> S2_ENGINE["Scallop Datalog 0.2.4 추론 엔진<br>(통합 룰베이스, 7,084 라인)"]
-        S2_ENGINE -->|범용 수죄론 메타 추론 고정점 연덕| S2_TRACE["수학적 증명 트레이스<br>(Proven Offenses & Active Card IDs)"]
-    end
+여기서 $x$는 사건 사실과 질문, $K$는 법률 지식베이스, $z$는 근거 사실 및 쟁점별
+판정, $S$는 심볼릭 추론기, $\Gamma$는 검수된 법적 관계 규칙, $d$는 답안 작성에
+필요한 결정 및 제약, $y$는 최종 장문 답안이다.
 
-    subgraph RAG ["오프라인 사전 매핑 RAG 레이어"]
-        S2_TRACE -->|Active Card IDs 기반 O(1) Direct Hash Join| MAP["card_case_metadata_map.json<br>(3,487개 유니크 규범 자산 정적 맵)"]
-        MAP --> RAG_TEXT["실체법 법리 텍스트 &<br>대법원 판례 Exact Citations"]
-    end
+본 구조의 핵심은 신경망과 심볼릭 추론 중 하나가 법률 추론 전체를 대신하도록 하지 않는 데
+있다. 사실관계와 추상적 법률개념의 대응처럼 경계가 개방된 판단은 신경망이 담당하고,
+복수 요건과 죄명 사이의 결합처럼 명시적으로 형식화할 수 있는 판단은 심볼릭 모듈이
+담당한다. 마지막 생성기는 별도의 법률 판단기가 아니라, 상류의 추론 결과를 장문 답안으로
+변환하는 다운스트림 작성 모듈로 제한된다.
 
-    subgraph S3 ["제3단계: 신경망 종합 법리 검토서 생성기"]
-        INPUT & S2_TRACE & RAG_TEXT --> S3_LLM["Gemma 4 26B (Thinking Mode, temp=1.0)<br>증명 트레이스 유도 생성"]
-        S3_LLM --> FINAL_REPORT["무환각 종합 형사 법리 검토서 리포트<br>(Substantive Legal Review & Proof Report)"]
-    end
+```text
+자연어 사건
+   │
+   ▼
+Neural reasoning
+  사실 추출 · 후보 조문 탐색 · 쟁점별 포섭
+   │  grounded facts + three-valued issue states
+   ▼
+Symbolic reasoning
+  구성요건 결합 · 조각 · 미수 · 흡수와 경합
+   │  semantic decision directives
+   ▼
+Neural realization
+  죄명별 IRAC 장문 답안
 ```
 
-### 파이프라인 3단계 핵심 데이터 흐름:
-1. **제1단계 (신경망 팩트 추출기)**: 법률적 유부죄 판단을 시도하지 않고, vLLM Draft 7 JSON Schema (`get_fact_graph_json_schema()`)로 디코딩 로짓 공간을 강제하여 **34개 표준 Datalog 팩트 서술어(Canonical 34 Input Predicates)** 규격의 원자적 JSON 구조체만 추출한다.
-2. **제2단계 (심볼릭 Datalog 추론기)**: 제1단계가 추출한 JSON 팩트를 파이프라인 배선을 통해 Scallop Datalog EDB 문장으로 1:1 자동 변환하고, 3,487개 유니크 규범 룰이 정률화된 Scallop Datalog 룰베이스 (`kcl_special_part_full.scl`, 7,084 라인)를 단 1회의 고정점 연덕 추론(Single-shot Fixpoint Evaluation)으로 실행하여 **100% 수학적 연덕 증명 트레이스(Ground Truth Proof Trace)** 및 성립 죄목과 활성화된 규범 카드 ID (`active_card_ids`)를 산출한다. 파이프라인 내 파이썬 `if/elif` 조건 분기를 100% 제거하고 대한민국 형법 제37조/제40조 범용 수죄론 메타 추론 엔진(`generic_crime_concurrence`)을 가동한다.
-3. **제3단계 (신경망 법리 검토서 생성기)**: 활성화된 `active_card_ids`를 키로 하여 사전 매핑된 메타데이터 자산 (`card_case_metadata_map.json`)에서 $O(1)$ Direct Hash Join 방식으로 대법원 판례 번호와 주석서 원문을 끌어온 뒤(RAG exact-fetch), Gemma 4 (Thinking Mode)가 최종 검증된 종합 형사 법리 검토서 마크다운 리포트를 작성한다.
+## 3.2. 제1 신경망 모듈: 사실공간의 규격화와 쟁점별 포섭
 
----
+### 3.2.1. 비정형 사실공간의 구조화
 
-## 3.2. 제1단계: 스키마 강제 기반 신경망 팩트 추출기
+형사사건의 구체적 사실관계는 행위자, 객체, 행위 방식, 시간, 장소, 결과 및 주관적 사정의
+조합에 따라 사실상 제한 없이 달라질 수 있다. 모든 가능한 사실유형을 사전에 열거하는
+방식으로는 이 탐색공간을 다룰 수 없다. 본 연구는 개별 사례를 미리 유형화하는 대신,
+자연어 사건을 제한된 형식 인터페이스로 사상한다.
 
-제1단계는 신경망의 자의적 형사 판단과 팩트 환각을 차단하기 위해 팩트 추출만을 전담한다.
+먼저 신경망은 사건에서 행위자와 객체, 행위, 결과, 역할·관계·점유관계 및 인과관계를
+추출한다. 각 사실 assertion은 입력 원문의 연속 인용과 결합되며, 인용 대조를 통과한 항목만
+하류 단계에 전달된다. 생성 모델이 임의의 상호참조 ID를 만들지 않도록 안정적인 식별자는
+호스트가 부여한다. 이로써 무한히 다양한 자연어 표현을 유한한 타입 및 관계 어휘를 갖는
+사실 그래프로 변환하면서도, 각 사실이 원문의 어느 부분에서 유래했는지를 보존한다.
 
-### 3.2.1. 로짓 공간 제어를 통한 생성 자유도 억제
-- **사용 모델**: Gemma 4 26B (`temperature=0.0`, `enable_thinking=False`)
-- **JSON Schema 강제 (`schema_registry.py`)**: vLLM 서빙 엔진에 Draft 7 JSON Schema를 주입하여 `facts` 배열 이외의 자의적 텍스트 디코딩을 로짓 디코딩 단계에서 물리적으로 차단함.
-- **34개 표준 Datalog 팩트 서술어 유니버스**: `actor`, `victim`, `unlawful_taking`, `arson_act`, `is_night_time`, `unlawful_intent` 등 6개 기능 그룹으로 분류된 34개 서술어만 사용함. *(전수 목록은 부록 B 참조)*
+이 사실 그래프는 법적 결론을 직접 포함하지 않는다. 예컨대 특정 물건이 ‘타인의 재물’인지,
+행위자에게 ‘불법영득의사’가 있었는지는 사실 추출기가 확정할 값이 아니라 다음 단계에서
+법률 지식과 대조할 쟁점이다. 이러한 분리는 관찰된 사실과 법적 평가가 하나의 모델 출력에서
+혼합되는 것을 방지한다.
 
-### 3.2.2. 원자적 팩트 JSON 출력 구조체
-```json
-{
-  "case_id": "CASE_KCL1730_2026_REAL_001",
-  "actors": [{"entity_id": "actor_A", "roles": ["defendant"]}],
-  "facts": [
-    {
-      "fact_id": "fact_001",
-      "predicate": "dwelling_intrusion_committed",
-      "statement": "피고인은 아파트 베란다 창문을 통하여 무단 침입하였다.",
-      "arguments": ["place_dwelling"]
-    },
-    {
-      "fact_id": "fact_002",
-      "predicate": "is_night_time",
-      "statement": "범행 시각은 23:00경 야간이다.",
-      "arguments": ["night_time"]
-    },
-    {
-      "fact_id": "fact_003",
-      "predicate": "unlawful_taking",
-      "statement": "피고인은 안방 장롱에서 현금과 시계를 절취하였다.",
-      "arguments": ["act_theft", "prop_cash_watch"]
-    }
-  ]
-}
+### 3.2.2. 후보 조문 및 법적 쟁점 탐색
+
+사실 그래프로부터 검토할 조문을 찾기 위해 모델 기반 조문 선정과 규범 지식 검색을 함께
+사용한다. 두 경로의 후보를 합친 뒤, 미수범 준용과 같이 사전에 검수된 조문 관계를
+결정론적으로 확장한다. 검색된 세부 판례는 곧바로 추론 입력에 모두 삽입하지 않는다.
+검색 결과를 부모 법적 쟁점과 조문으로 투영하여 후보 범위만 정하고, 실제 판단 단위는
+쟁점으로 제한한다.
+
+선택된 각 쟁점에 대해 신경망은 다음의 3값 상태를 출력한다.
+
+\[
+s_i\in\{\text{satisfied},\text{not\_satisfied},\text{unknown}\}
+\]
+
+`satisfied`와 `not_satisfied`는 각각 이를 뒷받침하는 근거 사실 또는 적극적 반대 사실을
+요구한다. 어느 방향도 뒷받침할 사실이 없으면 `unknown`으로 남기고, 추가 판단에 필요한
+구체적 사실을 기록한다. 따라서 단순한 정보 부재가 곧바로 요건 불충족으로 변환되지 않는다.
+
+이 쟁점 벡터는 무한한 사실공간과 유한한 법적 추론기 사이의 인터페이스로 작동한다.
+신경망은 자연어 사실을 쟁점별로 해석하되 전체 죄책과 죄수관계를 자유롭게 생성하지 않고,
+심볼릭 모듈은 자연어를 직접 해석하지 않고 검증된 쟁점 상태만 결합한다.
+
+## 3.3. 법률 지식베이스와 심볼릭 추론
+
+### 3.3.1. 쟁점 중심 계층형 룰베이스
+
+본 연구의 법률 지식베이스는 51개 형법 조문에 관한 1,848개의 RuleIR 카드로 구성된다.
+그러나 각 카드를 독립적인 구성요건이나 추론 질문으로 취급하지 않는다. 주석서와 판례에서
+추출한 규범 문장은 일반적인 성립요건, 하위 판단기준 및 특정 사례의 적용결과라는 서로 다른
+추상화 수준을 갖기 때문이다.
+
+각 카드는 출처 구간과 원문 인용, 정규화된 법리 명제, 판단 방향 및 기능적 역할을 함께
+보존한다. 생성 모델이 작성한 프로그램을 직접 실행하지 않고, 스키마 검증을 통과한 중간
+표현만 룰베이스 컴파일의 입력으로 사용한다. 자동 분류에서 일반법리와 사례유형의 경계가
+불분명하거나 법적 결론 방향이 민감한 항목은 별도의 법률 검수 대상으로 분리하였다.
+
+이에 전체 카드를 383개의 법적 쟁점으로 무손실 재구성하고, 다음의 계층으로 조직한다.
+
+```text
+조문(article)
+  └─ 법적 쟁점(issue)
+       ├─ anchor: 항상 제공되는 일반법리
+       └─ detail: 필요한 경우에만 검색되는 세부 판단기준·판례 유형
 ```
 
----
+모든 원본 카드는 정확히 하나의 부모 쟁점에 속한다. anchor는 구성요건과 판단기준을
+정의하는 일반법리이고, detail은 특정 사실유형에서 그 기준이 어떻게 구체화되는지를
+설명한다. 구체적 판례 사례는 최초 판단의 독립 요건이 될 수 없다. 일반법리만으로 판정하기
+어려운 `unknown` 쟁점에서만 같은 부모 쟁점의 detail을 제한적으로 검색한다.
 
-## 3.3. 제2단계: Scallop Datalog 심볼릭 결정론 추론기
+이 구조는 지식의 양을 단순히 줄이는 pruning과 다르다. 판례 지식은 검색 가능한 상태로
+보존하면서, 사건마다 판단해야 하는 법적 변수의 수를 쟁점 수준으로 제한한다. 예컨대
+절도죄에 관한 수많은 소유·점유 판례를 각각 판정하는 대신, ‘타인의 재물성’, ‘취거행위’,
+‘고의’ 및 ‘불법영득의사’를 상위 쟁점으로 두고 사건의 불확실성이 발생한 부분에서만
+관련 판례기준을 연다.
 
-제2단계는 파이프라인의 수학적/법리적 결정론을 보장하는 핵심 심볼릭 추론 엔진이다.
+룰베이스의 품질은 카드의 수뿐 아니라 역할과 연결의 검수로 관리한다. 일반법리와 사례형
+카드를 구별하고, 구성요건·조각사유·실행단계·가담형태·죄수관계의 방향을 명시한다.
+또한 흡수나 경합을 발화시키는 사실조건은 넓은 상위 쟁점과 공유하지 않고 독립된 조건
+쟁점으로 연결한다. 모든 카드의 유일 배치, anchor provenance, 관계조건의 단일 연결 및
+미검수 항목의 부재를 정적 검증한다.
 
-### 3.3.1. 34개 표준 서술어 및 3,487개 규범 카드의 룰 정률화
-[scripts/build_p2_rule_ir_pipeline.py](file:///home/jaehoonjeong/data/IDPR/scripts/build_p2_rule_ir_pipeline.py) 컴파일러는 전수 3,487개 유니크 규범 카드를 Datalog 릴레이션 규칙으로 합성한다:
-$$\texttt{rel rule\_card\_id(c) = actor(c, \_), unlawful\_taking(c, \_, \_), unlawful\_intent(c, "theft")}$$
+### 3.3.2. Scallop 추론
 
-### 3.3.2. 메타 래퍼 언래핑 이원화 (Unwrapping Dualism)
-- **Core Rule Card (`deterministic_rule`, `element`)**: 원문 주석서의 메타 어구(`~소개되어 있다`, `~판시하였다`)를 100% 잘라내고 `[사실관계/구성요건] ➔ [실체법 결론]`의 완결된 순수 Datalog 규칙으로 언래핑함.
-- **Context/RAG Card (`context_only`, `descriptive`)**: 원문 판례 소개 맥락을 그대로 유지하여 제3단계 RAG 판례 인용 근거 자산으로 보존함.
+쟁점별 상태는 `issue_status(case, issue, status)` 관계로 Scallop 프로그램에 입력된다.
+카드와 쟁점은 동적인 프로그램 술어가 아니라 조문·기능·관계를 연결하는 데이터 튜플로
+컴파일된다. 고정된 추론 규칙은 다음을 계산한다.
 
-### 3.3.3. 대한민국 형법 제37조/제40조 범용 수죄론 Datalog 메타 추론 엔진
-통합 Scallop 룰베이스 (`kcl_special_part_full.scl`, 7,084 라인)는 특정 죄목 수동 핀포인트 하드코딩을 100% 배척하고, 범용 수죄론 메타 추론 릴레이션(`generic_crime_concurrence`)을 가동한다:
-```prolog
-// 형법 제37조, 제38조, 제40조 범용 수죄 및 경합 Datalog 메타 추론 엔진 (Zero Hardcoding)
-type proven_crime(String, String)
-rel proven_crime(c, "theft") = theft_established(c), not night_intrusion_theft_established(c)
-rel proven_crime(c, "night_intrusion_theft") = night_intrusion_theft_established(c)
-rel proven_crime(c, "fraud") = fraud_established(c)
-rel proven_crime(c, "embezzlement") = embezzlement_established(c)
-rel proven_crime(c, "homicide") = homicide_established(c)
-rel proven_crime(c, "arson") = arson_established(c)
-rel proven_crime(c, "dwelling_intrusion") = dwelling_intrusion_established(c), not night_intrusion_theft_established(c)
-rel proven_crime(c, "bribery_delivery") = bribery_delivery_established(c)
+- 구성요건 쟁점의 지지, 반증 및 미판정
+- 위법성·책임 조각사유에 의한 범죄 차단
+- 기수 판단이 차단된 경우의 미수 검토 필요성
+- 검수된 조건에 따른 죄명 간 흡수 및 경합
+- 상충하는 쟁점 상태의 탐지
 
-// 어떤 성립 죄목 튜플 쌍 (o1, o2)이더라도 100% 범용 동적 경합 추론
-type generic_crime_concurrence(String, String, String)
-rel generic_crime_concurrence(c, o1, o2) = proven_crime(c, o1), proven_crime(c, o2), o1 != o2
+심볼릭 모듈은 명시적으로 표현된 법리관계만 결정한다. 개방적인 개념의 의미를 사실로부터
+새로 해석하지 않으며, 입력되지 않은 쟁점을 참 또는 거짓으로 보충하지 않는다. 핵심 요건이
+`unknown`이면 이를 별도의 미판정 관계로 출력하고, 최종 결론은 보수적으로 미확정 상태를
+유지한다. 이로써 신경망의 유연한 포섭 능력과 심볼릭 추론의 일관성을 결합한다.
+
+## 3.4. 제2 신경망 모듈: 제약된 장문 법률답안 생성
+
+마지막 신경망 모듈은 새로운 죄명을 탐색하거나 앞 단계의 판단을 재수행하지 않는다.
+입력은 사건 원문, 검수된 일반법리와 필요한 세부기준, 쟁점별 근거·반대·부족 사실, 그리고
+심볼릭 결과를 사람이 읽을 수 있게 번역한 작성 지시로 제한된다. 평가 루브릭, 모범답안 및
+정답 결론은 제공하지 않는다.
+
+답안은 죄명별 IRAC 구조를 따른다. 각 죄명에 대해 법적 쟁점을 제시하고(Issue), 제공된
+일반법리와 판단기준을 정리하며(Rule), Application 안에서 구성요건·조각사유·미수·죄수관계
+등의 하위 쟁점을 사실에 포섭한 후, 죄명 단위 결론을 제시한다(Conclusion).
+
+```text
+죄명별 Issue
+  → Rule
+  → Application
+       ├─ 구성요건별 포섭
+       ├─ 조각사유·미수·공범 검토
+       └─ 불확실한 사실과 판단 한계
+  → Conclusion
 ```
 
-### 3.3.4. 야간주거침입절도죄(형법 제330조) 결합범 포괄일죄 배척 메커니즘
-야간 주거 침입 후 절도를 범한 경우(형법 제330조 결합범), 단순 주거침입죄와 절도죄의 실체적 경합을 자동 비활성화(Suppression)하여 단일 결합범 포괄일죄로 도출한다:
-$$\texttt{rel proven\_crime(c, "theft")} = \text{theft\_established}(c), \mathbf{not\ night\_intrusion\_theft\_established}(c)$$
-$$\texttt{rel proven\_crime(c, "dwelling\_intrusion")} = \text{dwelling\_intrusion\_established}(c), \mathbf{not\ night\_intrusion\_theft\_established}(c)$$
+내부적으로는 모든 계획 쟁점에 대응하는 분석 객체를 유지하여 쟁점 누락을 검증한다. 그러나
+최종 표현에서는 이를 하나의 죄명별 IRAC로 통합하여 반복적인 소형 IRAC의 나열을 피한다.
+`unknown` 쟁점은 임의로 채우지 않고 Application에서 부족한 사실과 그로 인한 결론의
+한계를 명시한다.
 
-### 3.3.5. 범용 EDB 변환 및 1초 미만 고성능 솔버 구동
-[src/idpr/pipeline/stage2_symbolic.py](file:///home/jaehoonjeong/data/IDPR/src/idpr/pipeline/stage2_symbolic.py)는 제1단계 JSON을 범용적으로 Datalog EDB 문장(`rel unlawful_taking("CASE_001", "act_theft", "prop_cash")`)으로 자동 변환한 후 [tools/scallop/scli-0.2.4-linux-x86_64](file:///home/jaehoonjeong/data/IDPR/tools/scallop/scli-0.2.4-linux-x86_64) 바이너리를 실행하여 1초 미만($O(1)$) 속도로 모든 성립 릴레이션을 연체 계산함.
+생성 모델은 자연스러운 법률 문장만 작성한다. 답안에 사용된 사실·쟁점·법리의 provenance와
+심볼릭 상태를 종합한 최종 결론은 호스트가 결정론적으로 부착한다. 따라서 마지막 신경망은
+추론의 자유로운 종착점이 아니라, 검증 가능한 상류 추론을 장문이라는 다운스트림 형식으로
+실현하는 모듈이다.
 
----
+## 3.5. 방법론적 의의
 
-## 3.4. 제3단계: 증명 트레이스 유도 생성기 및 정적 RAG 바인딩
+제안 방법의 의의는 다음 세 가지로 요약된다. 첫째, 법률 추론에서 자연어 포섭과 형식적
+결합을 분리하여 각 방식이 강점을 갖는 판단만 담당하게 한다. 둘째, 사실상 무한한 사건
+사실공간을 근거 사실과 유한한 법적 쟁점 벡터로 규격화하고, 방대한 판례 지식을 계층형
+룰베이스 안에서 선택적으로 사용한다. 셋째, 심볼릭 추론의 결과와 불확실성을 장문 생성까지
+보존하여, 최종 답안의 자연스러움과 추론 과정의 추적 가능성을 동시에 확보한다.
 
-제3단계는 심볼릭 추론 결과를 감설이 아닌 무환각 마크다운 검토서로 시각화한다.
-
-### 3.4.1. Active Card ID 기반 $O(1)$ Direct Hash Join RAG 메커니즘
-제2단계 심볼릭 추론 엔진에서 참(True)으로 고정점 연덕 증명된 규범 카드 ID들(`active_card_ids`)을 오프라인 3,487개 규범 카드 정적 DB (`card_case_metadata_map.json`)와 **Direct Hash Join**하여 대법원 판례 번호(`case_nos`) 및 관련 실체법 문장을 1:1로 100% 무환각 인출함:
-$$\text{RAG Context} = \text{Map}[\text{active\_card\_id}] \quad \Rightarrow \quad \text{"[Datalog Card [active\_card\_id] Join ➔ 대법원 \{case\_nos\} 판결]: \{rag\_text\}"}$$
-
-### 3.4.2. 증명 트레이스 유도 롱폼 IRAC 법리 검토서 작성
-Gemma 4 26B (Thinking Mode, `temperature=1.0`, `enable_thinking=True`)에 사실관계, 제1단계 팩트, 제2단계 증명 트레이스, RAG 판례 인출 텍스트를 입력하여 쟁점 도출(Issue), 요건별 인정 여부 및 Exact Citations(Rule), 사안 포섭(Application), 수죄 및 최종 결론(Conclusion)의 4단 구조 **종합 형사 실체법리 검토서 리포트**를 완성함.
+세부 데이터 계약, 동적 스키마, 검증 규칙 및 구현상 오류 통제는
+[`03_methodology_internal.md`](03_methodology_internal.md)에 제시하고, 후보 조문 재현율,
+쟁점 커버리지, 최종 답안 품질 및 각 구성요소의 효과는 다음 장의 실험에서 검증한다.

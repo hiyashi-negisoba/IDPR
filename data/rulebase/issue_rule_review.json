@@ -1,0 +1,59 @@
+{
+  "version": "1.0.0",
+  "status": "approved",
+  "approved_by": "user",
+  "approved_at": "2026-08-02",
+  "description": "deferred issue 법률 검수 A/B/C/E/F 승인 결과. 기존 카드 승격과 검수된 일반법리를 구분한다.",
+  "decisions": [
+    {"issue_id": "art122.Ⅲ.2a.concurrence_issue", "anchor_card_ids": ["art122_sec3_2.false_document_concealment_absorption"]},
+    {"issue_id": "art164.Ⅱ.4a.concurrence_issue", "anchor_card_ids": ["art164.arson_property_damage_absorption"]},
+    {"issue_id": "art164.Ⅲ.6a.concurrence_issue", "anchor_card_ids": ["art164_sec3_6.robbery_murder_fire_death_concurrence"]},
+    {"issue_id": "art231.Ⅵ.1.concurrence_issue", "anchor_card_ids": ["art231_sec6.seal_forgery_absorbed"]},
+    {"issue_id": "art234.Ⅳ.1.concurrence_issue", "anchor_card_ids": ["art234_sec4.company_agreement_breach_ideal_concurrence"]},
+    {"issue_id": "art250.Ⅰ.19a.concurrence_issue", "anchor_card_ids": ["art250_sec1_19.instigated_injury_instead_of_murder"]},
+    {"issue_id": "art250.Ⅰ.20a.concurrence_issue", "anchor_card_ids": ["art250_sec1_20.clothing_damage_absorbed"]},
+    {"issue_id": "art255.Ⅵ.1.concurrence_issue", "anchor_card_ids": ["art255_sec6.attempt_or_completion_absorption"]},
+    {"issue_id": "art257.Ⅰ.7a.concurrence_issue", "anchor_card_ids": ["art257_sec1_7.injury_absorbed_by_murder"]},
+    {"issue_id": "art355.Ⅲ.3a.concurrence_issue", "anchor_card_ids": ["art355_sec3_3.deceptive_means_no_fraud"]},
+    {"issue_id": "art355.Ⅲ.0a.element_issue", "anchor_card_ids": ["art355_sec5_2.trust_relationship_threshold"]},
+    {"issue_id": "art129.Ⅰ.5.concurrence_issue", "anchor_card_ids": ["art129_sec1_5.comprehensive_single_offense"]},
+    {"issue_id": "art137.Ⅳ.3.element_issue", "anchor_card_ids": ["art137_sec4_3.prohibited_act_evasion_monitoring", "art137_sec4_3.prison_monitoring_undetectable_deception"]},
+    {"issue_id": "art137.Ⅳ.4.stage_issue", "anchor_card_ids": ["art137_sec4_4.reported_holding_actual_obstruction", "art137_sec4_4.reported_holding_specific_duty_and_method"]},
+    {"issue_id": "art151.Ⅱ.5.participation_issue", "anchor_card_ids": ["art151_sec2_5.self_escape_instigation_abuse_of_defense_precedent"]},
+    {"issue_id": "art152.Ⅱ.3.element_issue", "anchor_card_ids": ["art152_sec2_3.noncriminal_case_mohae_exception"]},
+    {"issue_id": "art152.Ⅱ.6.concurrence_issue", "anchor_card_ids": ["art152_sec2_6.malicious_perjury.single_offense_same_hearing"]},
+    {"issue_id": "art164.Ⅲ.6.concurrence_issue", "anchor_card_ids": ["art164_sec3_6.parricide_fire_death_concurrence"]},
+    {"issue_id": "art227.Ⅶ.concurrence_issue", "anchor_card_ids": ["art227_sec7_1.no_direct_concealment_job_abandonment_concurrence", "art227_sec7_3.bribery_false_official_document_concurrence"]},
+    {"issue_id": "art255.Ⅴ.participation_issue", "anchor_card_ids": ["art255_sec5.preparation_accomplice_negative", "art255_sec5.preparation_co_perpetration"]},
+    {"issue_id": "art323.Ⅵ.3.element_issue", "anchor_card_ids": ["art323.forced_execution_evasion_scope"]},
+    {"issue_id": "art330.Ⅱ.element_issue", "anchor_card_ids": ["art330_sec2.nighttime.objective"]},
+    {"issue_id": "art330.Ⅳ.stage_issue", "anchor_card_ids": ["art330_sec4.entry_attempt_examples", "art330_sec4.entry_before_theft_commencement"]},
+    {"issue_id": "art338.Ⅲ.element_issue", "anchor_card_ids": ["art338_sec3.delayed_death_no_effect", "art338_sec3.opportunity_immediate_flight_killing", "art338_sec3.opportunity_new_intent_after_completion"]},
+    {"issue_id": "art356.Ⅱ.2.element_issue", "anchor_card_ids": ["art356_sec2_2.administrative_illegality"]},
+    {
+      "issue_id": "art137.Ⅴ.element_issue",
+      "reviewed_rules": [{
+        "rule_id": "reviewed.art137.intent",
+        "proposition": "위계에 의한 공무집행방해죄에는 위계를 사용하여 공무원의 구체적 직무집행을 방해한다는 인식과 의사가 필요하다.",
+        "basis_card_ids": ["art137.sec5.da.false_taxi_report_intent"]
+      }]
+    },
+    {
+      "issue_id": "art151.Ⅱ.4.guard_issue",
+      "reviewed_rules": [{
+        "rule_id": "reviewed.art151.social_adequacy",
+        "proposition": "범인에 대한 지원행위가 사회상규상 정당행위인지 여부는 지원의 내용과 적극성, 범인의 도피를 직접 용이하게 하는 정도, 행위자의 관계와 동기를 종합하여 판단한다.",
+        "basis_card_ids": ["art151_sec2_4.clergy_active_assistance_not_justified", "art151_sec2_4.family_support_social_adequacy"]
+      }]
+    },
+    {
+      "issue_id": "art259.Ⅰ.2.element_issue",
+      "reviewed_rules": [{
+        "rule_id": "reviewed.art259.death_foreseeability",
+        "proposition": "상해치사죄의 중한 결과에 관하여 행위 당시 일반인이 사망 결과를 예견할 수 있었어야 한다.",
+        "basis_card_ids": ["art259_sec1_2.foreseeability_forceful_blow"]
+      }]
+    },
+    {"issue_id": "art355.Ⅳ.1b.element_issue", "anchor_card_ids": ["art355_sec4_1.no_breach_of_trust_without_awareness"]}
+  ]
+}

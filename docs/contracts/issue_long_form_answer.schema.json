@@ -1,0 +1,96 @@
+{
+  "$id": "idpr/IssueLongFormAnswer",
+  "description": "Issue-complete Scallop result rendered as one integrated IRAC per offense.",
+  "type": "object",
+  "required": [
+    "version",
+    "case_id",
+    "title",
+    "sections",
+    "overall_conclusion"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": "1.0.0" },
+    "case_id": { "type": "string", "minLength": 1 },
+    "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 24,
+      "items": {
+        "type": "object",
+        "required": [
+          "section_id",
+          "heading",
+          "analyses",
+          "conclusion",
+          "cited_fact_ids",
+          "cited_issue_ids",
+          "cited_rule_ids",
+          "stated_conclusion"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "section_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{2,63}$"
+          },
+          "heading": { "type": "string", "minLength": 1, "maxLength": 200 },
+          "analyses": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 32,
+            "items": {
+              "type": "object",
+              "required": [
+                "analysis_id",
+                "heading",
+                "issue",
+                "rule",
+                "application",
+                "conclusion",
+                "issue_status"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "analysis_id": { "type": "string", "minLength": 1 },
+                "heading": { "type": "string", "minLength": 1, "maxLength": 200 },
+                "issue": { "type": "string", "minLength": 1, "maxLength": 1200 },
+                "rule": { "type": "string", "minLength": 1, "maxLength": 3600 },
+                "application": { "type": "string", "minLength": 1, "maxLength": 3600 },
+                "conclusion": { "type": "string", "minLength": 1, "maxLength": 1200 },
+                "issue_status": {
+                  "enum": ["satisfied", "not_satisfied", "unknown"]
+                }
+              }
+            }
+          },
+          "conclusion": { "type": "string", "minLength": 1, "maxLength": 1800 },
+          "cited_fact_ids": {
+            "type": "array",
+            "maxItems": 32,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "cited_issue_ids": {
+            "type": "array",
+            "maxItems": 32,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "cited_rule_ids": {
+            "type": "array",
+            "maxItems": 96,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "stated_conclusion": {
+            "enum": ["established", "not_established", "undetermined"]
+          }
+        }
+      }
+    },
+    "overall_conclusion": { "type": "string", "minLength": 1, "maxLength": 1800 }
+  }
+}

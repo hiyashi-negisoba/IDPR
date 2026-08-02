@@ -10,6 +10,14 @@ from idpr.neural.fact_graph import fact_tuples
 from idpr.neural.issue_assessment import issue_status_rows
 from idpr.rulebase.cards import CardCorpus, card_corpus
 from idpr.rulebase.compile_scl import QUERY_RELATIONS, compile_rulebase
+from idpr.rulebase.doctrine import UNCONDITIONAL, load_doctrine
+from idpr.rulebase.issue_catalog_v2 import (
+    ASSESS_ISSUE,
+    RELATION_CONDITION,
+    RETRIEVE_GUARD,
+    STAGE_ISSUE,
+    IssuePacket,
+)
 from idpr.rulebase.scallop import (
     render_fact_layer,
     render_issue_statuses,
@@ -20,6 +28,124 @@ from idpr.rulebase.scallop import (
 
 class IssuePipelineError(ValueError):
     """Raised when two persisted issue-first stage boundaries disagree."""
+
+
+def _symbolic_condition_card_ids(corpus: CardCorpus) -> set[str]:
+    doctrine = load_doctrine(corpus.by_article())
+    return {
+        condition
+        for _, _, condition in (
+            *doctrine.absorbed_by,
+            *doctrine.imaginative_concurrence,
+        )
+        if condition != UNCONDITIONAL
+    }
+
+
+def generation_issues(
+    issues: Sequence[IssuePacket],
+    *,
+    assessment_bundle: Mapping[str, Any],
+    corpus: CardCorpus | None = None,
+) -> tuple[IssuePacket, ...]:
+    """Keep mandatory elements and legally material followups for Call 3."""
+    corpus = corpus or card_corpus()
+    assessments = assessment_bundle.get("assessments", {})
+    if not isinstance(assessments, Mapping):
+        raise IssuePipelineError("assessment_bundle.assessments must be an object")
+    condition_ids = _symbolic_condition_card_ids(corpus)
+    return tuple(
+        issue
+        for issue in issues
+        if issue.issue_id in assessments
+        and (
+            issue.runtime == ASSESS_ISSUE
+            or assessments[issue.issue_id].get("status") != "unknown"
+            or issue.function == STAGE_ISSUE
+            or bool(set(issue.member_card_ids) & condition_ids)
+        )
+    )
+
+
+def _relation_articles(
+    symbolic_runtime: Mapping[str, Any], relation: str
+) -> set[str]:
+    relations = symbolic_runtime.get("relations", {})
+    if not isinstance(relations, Mapping):
+        raise IssuePipelineError("symbolic_runtime.relations must be an object")
+    rows = relations.get(relation, ())
+    if not isinstance(rows, Sequence) or isinstance(rows, (str, bytes)):
+        raise IssuePipelineError(f"symbolic relation {relation} must be an array")
+    articles: set[str] = set()
+    for row in rows:
+        if (
+            isinstance(row, Sequence)
+            and not isinstance(row, (str, bytes))
+            and len(row) >= 2
+        ):
+            articles.add(str(row[1]))
+    return articles
+
+
+def followup_issues(
+    scope: IssueCandidateSet,
+    *,
+    symbolic_runtime: Mapping[str, Any],
+    retrieved_issue_ids: Sequence[str] = (),
+    corpus: CardCorpus | None = None,
+) -> tuple[IssuePacket, ...]:
+    """Select the small post-element set needed before answer generation.
+
+    The first Call-2 pass deliberately contains constituent elements only.  Once that
+    pass has produced symbolic offense signals, relation and defence issues are useful
+    only for articles that remain live.  Selecting them here keeps stage, participation,
+    concurrence, and guards out of unrelated candidate articles while ensuring Call 3
+    does not have to perform fresh legal assessment while writing.
+    """
+    corpus = corpus or card_corpus()
+    active_articles: set[str] = set()
+    for relation in (
+        "offense_established",
+        "offense_undetermined",
+        "final_offense",
+        "attempt_to_consider",
+    ):
+        active_articles.update(_relation_articles(symbolic_runtime, relation))
+    # An article with only unknown elements does not appear in the four relations above,
+    # but its uncertainty must still be explained rather than silently dropped.
+    active_articles.update(_relation_articles(symbolic_runtime, "element_unaddressed"))
+
+    doctrine = load_doctrine(corpus.by_article())
+    condition_requirements: dict[str, frozenset[str]] = {}
+    for first, second, condition in (
+        *doctrine.absorbed_by,
+        *doctrine.imaginative_concurrence,
+    ):
+        if condition != UNCONDITIONAL:
+            condition_requirements[condition] = frozenset((first, second))
+    configured_condition_ids = set(condition_requirements)
+
+    retrieved = set(retrieved_issue_ids)
+    selected: list[IssuePacket] = []
+    for issue in scope.deferred_issues:
+        if issue.article not in active_articles or not (
+            issue.anchor_card_ids or issue.reviewed_anchor_rules
+        ):
+            continue
+        configured_conditions = set(issue.member_card_ids) & configured_condition_ids
+        if configured_conditions and not any(
+            condition_requirements[condition] <= active_articles
+            for condition in configured_conditions
+        ):
+            # A binary relation is not a live question until both offences survive the
+            # element pass.  This is also what prevents an article-local umbrella issue
+            # from deciding a relation to an offence that never entered the case.
+            continue
+        if issue.runtime in {RELATION_CONDITION, RETRIEVE_GUARD}:
+            selected.append(issue)
+        elif issue.issue_id in retrieved:
+            selected.append(issue)
+    return tuple(selected)
 
 
 def issue_candidate_row(
@@ -137,14 +263,29 @@ def build_issue_reasoning_packet(
     assessments = assessment_bundle.get("assessments", {})
     if not isinstance(assessments, Mapping):
         raise IssuePipelineError("assessment_bundle.assessments must be an object")
-    expected = {issue.issue_id for issue in scope.initial_issues}
-    if set(assessments) != expected:
+    required = {issue.issue_id for issue in scope.initial_issues}
+    known = {issue.issue_id for issue in scope.issues}
+    supplied = set(assessments)
+    if not required <= supplied or not supplied <= known:
         raise IssuePipelineError(
-            "assessment issue ids differ from the initial issue scope"
+            "assessment issue ids differ from scope: they must contain the initial "
+            "issues and stay inside the selected hierarchy"
         )
 
+    symbolic_condition_card_ids = _symbolic_condition_card_ids(corpus)
+    planned_for_generation = {
+        issue.issue_id
+        for issue in generation_issues(
+            scope.issues,
+            assessment_bundle=assessment_bundle,
+            corpus=corpus,
+        )
+    }
+
     units: list[dict[str, Any]] = []
-    for issue in scope.initial_issues:
+    for issue in scope.issues:
+        if issue.issue_id not in supplied:
+            continue
         assessment = assessments[issue.issue_id]
         detail_ids = tuple(details_by_issue.get(issue.issue_id, ()))
         outside = set(detail_ids) - set(issue.retrieval_card_ids)
@@ -159,21 +300,40 @@ def build_issue_reasoning_packet(
                 "article_label": issue.article_label,
                 "offense": issue.offense,
                 "title": issue.title,
+                "function": issue.function,
+                "runtime": issue.runtime,
+                "symbolic_condition": bool(
+                    set(issue.member_card_ids) & symbolic_condition_card_ids
+                ),
+                "include_in_generation": issue.issue_id in planned_for_generation,
                 "status": assessment["status"],
                 "basis_fact_ids": list(assessment["basis_fact_ids"]),
                 "counter_fact_ids": list(assessment["counter_fact_ids"]),
                 "missing_facts": list(assessment["missing_facts"]),
                 "anchor_rules": [
                     {
-                        "card_id": card_id,
+                        "rule_id": card_id,
                         "proposition": corpus.by_id[card_id].proposition,
+                        "basis_card_ids": [card_id],
+                        "origin": "reviewed_card",
                     }
                     for card_id in issue.anchor_card_ids
+                ]
+                + [
+                    {
+                        "rule_id": rule.rule_id,
+                        "proposition": rule.proposition,
+                        "basis_card_ids": list(rule.basis_card_ids),
+                        "origin": "legal_review",
+                    }
+                    for rule in issue.reviewed_anchor_rules
                 ],
                 "detail_rules": [
                     {
-                        "card_id": card_id,
+                        "rule_id": card_id,
                         "proposition": corpus.by_id[card_id].proposition,
+                        "basis_card_ids": [card_id],
+                        "origin": "retrieved_detail",
                     }
                     for card_id in detail_ids
                 ],
