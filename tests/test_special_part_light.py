@@ -49,6 +49,15 @@ def test_planner_requires_an_exact_case_quote_and_closed_candidate_article():
     assert articles == ("art298",)
     assert entries[0]["actor"] == "甲"
 
+    duplicated = {**valid, "selected": [*valid["selected"], dict(valid["selected"][0])]}
+    deduplicated_articles, deduplicated_entries = validate_plan(
+        duplicated,
+        candidate_articles=("art298",),
+        question_text="甲이 A를 폭행하여 추행하였다.",
+    )
+    assert deduplicated_articles == ("art298",)
+    assert len(deduplicated_entries) == 1
+
     invalid = {**valid, "selected": [{**valid["selected"][0], "source_quote": "없는 사실"}]}
     with pytest.raises(SpecialPartPlanError, match="exact case-text substring"):
         validate_plan(

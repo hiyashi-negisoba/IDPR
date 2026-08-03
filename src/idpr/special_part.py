@@ -135,7 +135,10 @@ def validate_plan(
         if article not in allowed:
             errors.append(f"{where}: article is outside the broad candidate pool")
         elif article in seen:
-            errors.append(f"{where}: duplicate article {article}")
+            # Guided decoding cannot enforce uniqueItems on this vLLM backend.  As in
+            # Call 1.5 article selection, a repeated legal identity is redundant rather
+            # than a different plan, so retain its first grounded entry.
+            continue
         else:
             seen.add(str(article))
         for name, value in (("actor", actor), ("source_quote", quote), ("reason", reason)):
