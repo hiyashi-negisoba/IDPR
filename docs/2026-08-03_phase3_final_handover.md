@@ -222,3 +222,5 @@ tail -n 50 logs/phase3_final_59_218352.err
 - 필터가 발생해도 문제를 `question_prompt`로 축약하지 않는다. 원문 전체와 답안을 그대로
   재시도하며 모든 결과의 `question_variant`는 `full_question`이어야 한다.
 - 종전 OpenAI 호환 경로의 부분 결과는 `transport` 불일치로 자동 무효화하고 전량 재채점한다.
+- 채점 배치는 `scripts/slurm/run_phase3_llm_judge.sh`로 제출하며 7개 baseline과
+  `idpr_nsn`을 함께 평가한다. 생성 완료 잡 `218467`을 `afterok` dependency로 명시한다.
