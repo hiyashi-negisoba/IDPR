@@ -132,6 +132,7 @@ async def _score_one(
         {"case": case_id, "answer_sha256": answer_sha256}
     )[:20]
     feedback: list[str] = []
+    previous_invalid_output: Mapping[str, Any] | None = None
     api_attempts: list[dict[str, Any]] = []
     api_failures: list[dict[str, Any]] = []
     question_variant = "full_question"
@@ -139,22 +140,29 @@ async def _score_one(
         active_prompt = system_prompt
         if feedback:
             active_prompt += (
-                "\n\n# 직전 출력의 계약 오류\n다음 오류만 교정하여 전체 JSON을 다시 출력하라."
-                " 답안 평가는 임의로 바꾸지 말라.\n- "
+                "\n\n# 직전 출력의 계약 오류\n이 요청은 새 채점이 아니라 입력의 "
+                "`previous_invalid_output`을 수리하는 요청이다. 다음 오류만 교정하여 전체 "
+                "JSON을 다시 출력하고 나머지 판단은 유지하라. `answer_quote`와 "
+                "`answer_quotes`는 반드시 입력 `answer`에 존재하는 연속 문자열을 그대로 "
+                "복사하라.\n- "
                 + "\n- ".join(feedback)
             )
+        payload: dict[str, Any] = {
+            "question": question,
+            "rubrics": [
+                {"index": index, "text": rubric}
+                for index, rubric in enumerate(rubrics, 1)
+            ],
+            "answer": answer,
+        }
+        if previous_invalid_output is not None:
+            payload["previous_invalid_output"] = previous_invalid_output
+            payload["contract_errors"] = feedback
         job = JSONCompletionJob(
             request_id=f"judge_{anonymous_id}_a{attempt}",
             role="terra",
             system_prompt=active_prompt,
-            payload={
-                "question": question,
-                "rubrics": [
-                    {"index": index, "text": rubric}
-                    for index, rubric in enumerate(rubrics, 1)
-                ],
-                "answer": answer,
-            },
+            payload=payload,
             max_tokens=max_tokens,
             temperature=temperature,
             reasoning_effort=reasoning_effort,
@@ -165,6 +173,7 @@ async def _score_one(
             schema_errors = _contract_errors(validator, result.output)
             if schema_errors:
                 feedback = schema_errors[:20]
+                previous_invalid_output = result.output
                 gateway.discard_cache(result)
                 continue
             try:
@@ -176,6 +185,7 @@ async def _score_one(
                 )
             except JudgeContractError as error:
                 feedback = [str(error)]
+                previous_invalid_output = result.output
                 gateway.discard_cache(result)
                 continue
             return {
@@ -198,9 +208,7 @@ async def _score_one(
             api_failures.append(
                 {"attempt": attempt, "question_variant": question_variant, "error": message}
             )
-            # Provider failures are retried with the byte-identical evaluation prompt.
-            # Only a parsed-but-invalid judge response may receive contract feedback.
-            feedback = []
+            # Provider failures retry the same original or contract-repair request.
     return {
         "version": "1.0.0",
         "status": "failed",
@@ -258,6 +266,15 @@ async def _run(args: argparse.Namespace) -> None:
     unknown_cases = sorted(set(selected_case_ids) - set(sealed_case_ids))
     if unknown_cases:
         raise JudgeContractError(f"unknown sealed cases: {unknown_cases}")
+    unknown_exclusions = sorted(set(args.exclude_case_id) - set(sealed_case_ids))
+    if unknown_exclusions:
+        raise JudgeContractError(f"unknown excluded sealed cases: {unknown_exclusions}")
+    excluded_case_ids = set(args.exclude_case_id)
+    selected_case_ids = [
+        case_id for case_id in selected_case_ids if case_id not in excluded_case_ids
+    ]
+    if not selected_case_ids:
+        raise JudgeContractError("case selection is empty after exclusions")
 
     jobs = [
         (method_id, case_id)
@@ -298,6 +315,7 @@ async def _run(args: argparse.Namespace) -> None:
         config,
         model=args.model,
         safety_settings=safety_settings,
+        response_json_schema=schema,
     )
 
     print(
@@ -413,6 +431,7 @@ async def _run(args: argparse.Namespace) -> None:
         "transport": gateway.transport,
         "methods": list(answers),
         "sealed_cases": len(sealed_case_ids),
+        "excluded_case_ids": sorted(excluded_case_ids),
         "selected_jobs": len(jobs),
         "completed_jobs": sum(record.get("status") == "ok" for record in selected_records),
         "failed_jobs": sum(record.get("status") != "ok" for record in selected_records),
@@ -493,6 +512,7 @@ def main() -> None:
     )
     parser.add_argument("--method-id", action="append", default=[])
     parser.add_argument("--case-id", action="append", default=[])
+    parser.add_argument("--exclude-case-id", action="append", default=[])
     parser.add_argument("--expected-cases", type=int, default=59)
     parser.add_argument("--limit", type=int)
     parser.add_argument("--concurrency", type=int, default=1)

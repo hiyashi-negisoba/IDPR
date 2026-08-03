@@ -47,12 +47,18 @@ class GeminiNativeGateway:
         *,
         model: str,
         safety_settings: Sequence[Mapping[str, str]],
+        response_json_schema: Mapping[str, Any] | None = None,
         post_json: NativePostCallable | None = None,
     ) -> None:
         self.config = config
         self.model = model
         self.native_model = _native_model_name(model)
         self.safety_settings = [dict(setting) for setting in safety_settings]
+        self.response_json_schema = (
+            json.loads(json.dumps(response_json_schema))
+            if response_json_schema is not None
+            else None
+        )
         self._post_json = post_json or _post_native_json
 
     async def complete_json(self, job: JSONCompletionJob) -> JSONCompletionResult:
@@ -66,6 +72,8 @@ class GeminiNativeGateway:
             generation_config["thinkingConfig"] = {
                 "thinkingBudget": THINKING_BUDGETS[job.reasoning_effort]
             }
+        if self.response_json_schema is not None:
+            generation_config["responseJsonSchema"] = self.response_json_schema
         body = {
             "systemInstruction": {"parts": [{"text": job.system_prompt}]},
             "contents": [

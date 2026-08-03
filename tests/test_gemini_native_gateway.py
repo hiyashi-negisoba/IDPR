@@ -49,10 +49,16 @@ def test_native_gateway_sends_full_payload_safety_settings_and_caches(
             "threshold": "BLOCK_NONE",
         }
     ]
+    response_schema = {
+        "type": "object",
+        "required": ["ok"],
+        "properties": {"ok": {"type": "boolean"}},
+    }
     gateway = GeminiNativeGateway(
         config(tmp_path),
         model="gemini/gemini-2.5-flash",
         safety_settings=settings,
+        response_json_schema=response_schema,
         post_json=fake_post,
     )
     job = JSONCompletionJob(
@@ -83,6 +89,7 @@ def test_native_gateway_sends_full_payload_safety_settings_and_caches(
     assert payload["generationConfig"]["thinkingConfig"] == {
         "thinkingBudget": 1024
     }
+    assert payload["generationConfig"]["responseJsonSchema"] == response_schema
     assert "원문" in payload["contents"][0]["parts"][0]["text"]
 
 
