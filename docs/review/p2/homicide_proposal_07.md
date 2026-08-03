@@ -1,4 +1,4 @@
-# 살인 RuleIR 제안 07 — 존속살해와 예비·음모 (Ⅱ.*, 제255조, 44장)
+# 살인 RuleIR 제안 07 — 존속살해와 예비·음모 (Ⅱ.*, 제255조, 43장)
 
 track 어휘는 제안 01·03을 따른다. `parricide`는 `base`를 상속한다.
 
@@ -80,25 +80,26 @@ track 어휘는 제안 01·03을 따른다. `parricide`는 `base`를 상속한�
 | 229 | approve | post_outcome | offense_count / not_applicable | preparation | 하나의 살인을 위한 여러 예비행위는 하나의 예비죄 |
 | 227 | rewrite | component | preparation_complicity / mandatory_all | complicity | 메타 래퍼 제거. 예비행위를 공동으로 하면 예비죄의 공동정범 |
 | 226 | rewrite | bar | preparation_complicity / not_applicable | complicity | 메타 래퍼 제거. 예비죄에 대한 종범은 성립하지 않는다 |
-| 242 | context_only | context_only | - | - | 결정 C가 학설 대립 서술 자체를 선택했다. 규칙 문장이 아니다 |
+| 242 | rewrite | post_outcome | preparation_desistance_mitigation / not_applicable | preparation | 결정 C #20의 기존 선택을 계승해 긍정설 규칙으로 언래핑. 성립 배제가 아니라 감면 문제 |
 
 #217은 `attempt`와 `preparation`의 경계다. 착수가 인정되면 예비가 아니라 미수이므로
 preparation track을 저지한다. 제안 03의 #15(흉기를 들고 접근하면 착수)와 같은 사실관계를
 반대편에서 진술한 카드이고, 두 track이 서로를 배제하는 관계가 이렇게 표현된다.
 
-### #242에 대한 확인 요청
+### #242의 기존 결정 C 복원
 
-결정 C가 이 카드를 `selected`로 남겼는데, 카드 내용은 "부정설과 긍정설의 대립이 있다"는
-**대립 서술**이지 어느 쪽을 택했다는 진술이 아니다. 예비의 중지에 중지미수 규정을
-적용할지는 실제 시험문제에서 묻는 논점이므로, 선택을 확정해 주시면 규칙 문장으로 다시
-쓰겠다. 확정 전에는 `context_only`로 둔다.
+remediated 카드는 "부정설과 긍정설의 대립이 있다"는 메타문장으로 뭉개졌지만, 권위 있는
+결정 C 문서는 선택지 (2)를 "예비·음모 단계에서도 자발적으로 실행 착수를 포기한 경우
+중지미수의 혜택을 부여할 수 있다"는 긍정설로 제시하고 사용자가 이를 선택했다. 따라서
+재질문하지 않고 그 문장으로 언래핑한다. 다만 이는 예비·음모죄의 성립을 없애는 규칙이
+아니라 감면에 관한 규칙이므로 `bar`가 아니라 `post_outcome`으로 보존한다.
 
 ## Human decision H-H07
 
-1. 위 44장 초안을 일괄 승인하는가?
+1. 위 43장 초안을 일괄 승인하는가?
 2. 직계존속을 `ancestral_relation`(정의·차단) / `ancestral_relation_basis`(인정 경로) /
    `ancestral_relation_timing`(시점)으로 나누는 데 동의하는가?
 3. #207(신분 불인식)을 `bar`로 두어 존속살해 track만 저지하고 보통살인은 그대로 성립하게
    하는 구조에 동의하는가?
-4. #242(예비의 중지) 선택을 확정해 주실 수 있는가? 부정설이면 "예비·음모의 중지에는
-   중지미수 규정이 적용되지 않는다"는 `bar`가 되고, 긍정설이면 감면 규칙이 된다.
+4. #242를 기존 결정 C의 긍정설 선택에 따라 감면 `post_outcome` 규칙으로 복원하는 데
+   동의하는가?

@@ -3,7 +3,7 @@
 대상: `docs/review/p2/homicide_cards_01.md` 이하 17개 패킷, 총 242장.
 이 문서는 track 어휘를 먼저 정하고 22장을 판정한다.
 
-## 이 unit이 상해와 다른 점 — 242장 중 76장이 성립 밖이다
+## 이 unit이 상해와 다른 점 — 242장 중 76장이 증거·양형·총칙 영역이다
 
 읽어 보니 살인 주석은 구성요건보다 **증명·양형·총칙**에 지면을 더 쓴다.
 
@@ -15,10 +15,10 @@
 | 공범 | Ⅰ.19 | 24 | 공동정범·교사·방조·공모관계 이탈 |
 | **합계** | | **76** | |
 
-증거와 양형은 성립 결론을 바꾸지 않으므로 `context_only`로 제안한다. 책임능력과 공범은
-성립에 영향을 주지만 **총칙(제10조, 제30~34조)이고 모든 죄명이 공유한다.** 상해에서
-경과규정(제1조 제2항)을 총칙 영역으로 보아 제외한 것과 같은 이유로, 이 unit의 RuleIR에
-넣지 않고 별도 문서(제안 04·05)에서 처리 방식을 묻는다.
+증거와 양형은 원칙적으로 `context_only`로 제안하되, 미수범 처벌근거 #142는 살린다.
+책임능력과 공범은 **총칙(제10조, 제30~34조)이고 모든 죄명이 공유**하지만 성립에 영향을
+주므로 전량 폐기하지 않는다. 최종안은 제안 04처럼 책임능력 4장을 base에 두고, 제안 05처럼
+공범 track을 선언하되 역할 tuple이 준비될 때까지 미컴파일하는 것이다.
 
 ## track 어휘 제안
 
@@ -103,9 +103,11 @@ homicide_case_roles(case_id, defendant_id, victim_id)
 
 ## Human decision H-H01
 
-1. 다섯 개 track 어휘(`base`/`attempt`/`parricide`/`preparation`/`complicity`)를 승인하는가?
-2. 증거 16장·양형 25장을 `context_only`로, 책임능력 11장·공범 24장을 총칙 영역으로 보아
-   이 unit의 RuleIR에서 제외하는 데 동의하는가? (제외해도 카드는 폐기하지 않는다)
+1. 후속 제안까지 합친 최종 track 어휘(`base`/`omission`/`attempt`/
+   `voluntary_desistance`/`impossible_attempt`/`parricide`/`preparation`/`complicity`)를
+   승인하는가?
+2. 증거 16장·양형 24장은 `context_only`, 책임능력 4장은 base에 편입하고, 공범은
+   `declared_not_compiled`로 보존하는 최종 처리에 동의하는가?
 3. 사람의 시기·종기를 `object_scope`에서 분리하여 `person_begins`·`person_ends`로 두는가?
 4. #176을 `killing_conduct`(필수), #177을 `killing_method`(택일)로 나누는가?
 5. 부작위 살인을 별도 track `omission`으로 분리하는 (A)안을 승인하는가?
