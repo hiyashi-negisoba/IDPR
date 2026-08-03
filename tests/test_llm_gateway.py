@@ -123,6 +123,7 @@ def test_gateway_records_usage_when_reasoning_exhausts_output(
 ) -> None:
     async def fake_completion(**kwargs: object) -> dict:
         assert kwargs["reasoning_effort"] == "low"
+        assert kwargs["allowed_openai_params"] == ["reasoning_effort"]
         return {
             "id": "response-empty",
             "choices": [

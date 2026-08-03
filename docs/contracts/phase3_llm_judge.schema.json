@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://idpr.local/contracts/phase3_llm_judge.schema.json",
+  "title": "Phase 3 KCL pointwise judge response",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "rubric_assessments",
+    "claims",
+    "hallucinations",
+    "consistency"
+  ],
+  "properties": {
+    "rubric_assessments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["index", "status", "answer_quote", "rationale"],
+        "properties": {
+          "index": {"type": "integer", "minimum": 1},
+          "status": {"enum": ["met", "not_met"]},
+          "answer_quote": {"type": "string"},
+          "rationale": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "claim_id",
+          "answer_quote",
+          "classification",
+          "rubric_indices",
+          "rationale"
+        ],
+        "properties": {
+          "claim_id": {"type": "integer", "minimum": 1},
+          "answer_quote": {"type": "string", "minLength": 1},
+          "classification": {
+            "enum": [
+              "gold_aligned_correct",
+              "necessary_bridge_correct",
+              "relevant_correct_extra",
+              "irrelevant",
+              "incorrect",
+              "unverifiable"
+            ]
+          },
+          "rubric_indices": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {"type": "integer", "minimum": 1}
+          },
+          "rationale": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "hallucinations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["answer_quote", "kind", "severity", "explanation"],
+        "properties": {
+          "answer_quote": {"type": "string", "minLength": 1},
+          "kind": {
+            "enum": [
+              "nonexistent_offense",
+              "fabricated_case",
+              "doctrinal_error",
+              "statutory_error",
+              "factual_invention",
+              "other"
+            ]
+          },
+          "severity": {"enum": ["minor", "major", "critical"]},
+          "explanation": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "consistency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["score", "violations", "rationale"],
+      "properties": {
+        "score": {"type": "integer", "minimum": 0, "maximum": 4},
+        "violations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["answer_quotes", "explanation"],
+            "properties": {
+              "answer_quotes": {
+                "type": "array",
+                "minItems": 1,
+                "items": {"type": "string", "minLength": 1}
+              },
+              "explanation": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "rationale": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

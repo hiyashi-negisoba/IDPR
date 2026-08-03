@@ -1,0 +1,47 @@
+{
+  "version": "1.0.0",
+  "evidence_min_normalized_characters": 4,
+  "coverage": {
+    "statuses": [
+      "met",
+      "not_met"
+    ],
+    "metric": "met rubric items / all rubric items"
+  },
+  "precision": {
+    "claim_classes": [
+      "gold_aligned_correct",
+      "necessary_bridge_correct",
+      "relevant_correct_extra",
+      "irrelevant",
+      "incorrect",
+      "unverifiable"
+    ],
+    "numerator_classes": [
+      "gold_aligned_correct",
+      "necessary_bridge_correct"
+    ],
+    "metric": "numerator-class claims / all deduplicated substantive claims"
+  },
+  "hallucination": {
+    "kinds": [
+      "nonexistent_offense",
+      "fabricated_case",
+      "doctrinal_error",
+      "statutory_error",
+      "factual_invention",
+      "other"
+    ],
+    "severity_weights": {
+      "minor": 1,
+      "major": 2,
+      "critical": 3
+    },
+    "metric": "negative sum of severity weights; zero is best"
+  },
+  "consistency": {
+    "minimum": 0,
+    "maximum": 4,
+    "metric": "logical coherence independent of legal correctness"
+  }
+}

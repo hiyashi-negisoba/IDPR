@@ -177,6 +177,7 @@ class LLMGateway:
             call_args["temperature"] = job.temperature
         if job.reasoning_effort is not None:
             call_args["reasoning_effort"] = job.reasoning_effort
+            call_args["allowed_openai_params"] = ["reasoning_effort"]
         if self.config.use_json_response_format:
             call_args["response_format"] = {"type": "json_object"}
         response = await completion(**call_args)
