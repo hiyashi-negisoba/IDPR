@@ -151,8 +151,13 @@ def main() -> None:
         api_key=args.api_key,
         timeout_seconds=args.timeout_seconds,
     )
+    prompt_name = (
+        "special_part_long_form_generate"
+        if request.get("pipeline_mode") == "special_part_light"
+        else "issue_long_form_generate"
+    )
     answer, metadata = client.complete_json(
-        system_prompt=load_prompt("issue_long_form_generate"),
+        system_prompt=load_prompt(prompt_name),
         user_template=load_prompt("issue_long_form_generate_user"),
         payload=issue_answer_model_request(request),
         schema_name="issue_long_form_answer",

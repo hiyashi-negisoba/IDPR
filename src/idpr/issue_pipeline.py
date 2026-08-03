@@ -174,10 +174,12 @@ def scope_from_l0_row(
 ) -> IssueCandidateSet:
     """Rebuild and verify the full issue scope from one persisted L0 row."""
     corpus = corpus or card_corpus()
+    article_local = row.get("pipeline_mode") == "special_part_light"
     scope = candidate_issues(
         selected=tuple(row.get("from_model", ())),
         retrieved=tuple(row.get("from_retrieval", ())),
         corpus=corpus,
+        attempt_map={} if article_local else None,
     )
     expected_articles = tuple(row.get("articles", ()))
     expected_issues = tuple(row.get("issue_ids", ()))
@@ -256,6 +258,7 @@ def build_issue_reasoning_packet(
     symbolic_runtime: Mapping[str, Any],
     corpus: CardCorpus | None = None,
     details_by_issue: Mapping[str, Sequence[str]] | None = None,
+    article_local: bool = False,
 ) -> dict[str, Any]:
     """Deterministic issue-level handoff for the later answer-generation phase."""
     corpus = corpus or card_corpus()
@@ -272,15 +275,21 @@ def build_issue_reasoning_packet(
             "issues and stay inside the selected hierarchy"
         )
 
-    symbolic_condition_card_ids = _symbolic_condition_card_ids(corpus)
-    planned_for_generation = {
-        issue.issue_id
-        for issue in generation_issues(
-            scope.issues,
-            assessment_bundle=assessment_bundle,
-            corpus=corpus,
-        )
-    }
+    symbolic_condition_card_ids = (
+        set() if article_local else _symbolic_condition_card_ids(corpus)
+    )
+    planned_for_generation = (
+        {issue.issue_id for issue in scope.initial_issues}
+        if article_local
+        else {
+            issue.issue_id
+            for issue in generation_issues(
+                scope.issues,
+                assessment_bundle=assessment_bundle,
+                corpus=corpus,
+            )
+        }
+    )
 
     units: list[dict[str, Any]] = []
     for issue in scope.issues:
@@ -341,6 +350,7 @@ def build_issue_reasoning_packet(
         )
     return {
         "version": "1.0.0",
+        "pipeline_mode": "special_part_light" if article_local else "general_issue_scallop",
         "case_id": assessment_bundle.get("case_id"),
         "articles": list(scope.articles),
         "issues": units,

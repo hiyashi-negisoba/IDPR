@@ -76,6 +76,7 @@ def case_commands(
     call3_max_tokens: int,
     timeout_seconds: float,
     no_cache: bool,
+    article_local: bool = False,
 ) -> tuple[list[str], list[str]]:
     assessment_path = case_dir / "issue_assessment.json"
     answer_path = case_dir / "answer.json"
@@ -103,6 +104,8 @@ def case_commands(
     ]
     if no_cache:
         assessment.append("--no-cache")
+    if article_local:
+        assessment.append("--article-local")
     answer = [
         python,
         "scripts/run_issue_answer.py",
@@ -165,10 +168,23 @@ def _baseline_row(
     answer_path = case_dir / "answer.md"
     return {
         "sub_question_id": case["sub_question_id"],
-        "baseline_id": METHOD_ID,
-        "name": "IDPR Neural-Symbolic-Neural",
+        "baseline_id": (
+            "idpr_special_part_light"
+            if assessment.get("pipeline_mode") == "special_part_light"
+            else METHOD_ID
+        ),
+        "name": (
+            "IDPR Special-Part Light"
+            if assessment.get("pipeline_mode") == "special_part_light"
+            else "IDPR Neural-Symbolic-Neural"
+        ),
         "question_prompt": case.get("question_prompt", ""),
         "generated_response": answer_path.read_text(encoding="utf-8"),
+        "route": (
+            "article_local"
+            if assessment.get("pipeline_mode") == "special_part_light"
+            else "general_issue_scallop"
+        ),
         "usage": {
             "issue_assessment": assessment.get("usage", {}),
             "answer_generation": answer_artifact.get("metadata", {}).get("usage", {}),
@@ -178,6 +194,19 @@ def _baseline_row(
             "answer": str(case_dir / "answer.json"),
             "answer_markdown": str(answer_path),
         },
+    }
+
+
+def _direct_baseline_row(*, case: Mapping[str, Any], answer_path: Path) -> dict[str, Any]:
+    return {
+        "sub_question_id": case["sub_question_id"],
+        "baseline_id": "idpr_special_part_light",
+        "name": "IDPR Special-Part Light",
+        "question_prompt": case.get("question_prompt", ""),
+        "generated_response": answer_path.read_text(encoding="utf-8"),
+        "route": "light_direct_out_of_scope_diagnostic",
+        "usage": {},
+        "artifacts": {"answer_markdown": str(answer_path)},
     }
 
 
@@ -198,6 +227,11 @@ def main() -> None:
     parser.add_argument("--timeout-seconds", type=float, default=7200.0)
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--no-cache", action="store_true")
+    parser.add_argument(
+        "--special-part-light",
+        action="store_true",
+        help="use article-local assessment and a labeled direct diagnostic route outside that scope",
+    )
     parser.add_argument(
         "--plan-only",
         action="store_true",
@@ -220,6 +254,17 @@ def main() -> None:
         missing = sorted(set(case_ids) - ids)
         if missing:
             raise ValueError(f"{source} artifact is missing cases: {missing}")
+    if args.special_part_light:
+        wrong_mode = [
+            case_id
+            for case_id in case_ids
+            if candidates[case_id].get("pipeline_mode") != "special_part_light"
+        ]
+        if wrong_mode:
+            raise ValueError(
+                "--special-part-light requires planned special-part candidates; "
+                f"wrong mode for {wrong_mode[:5]}"
+            )
 
     if args.plan_only:
         scopes = {case_id: scope_from_l0_row(candidates[case_id]) for case_id in case_ids}
@@ -260,6 +305,34 @@ def main() -> None:
     for index, case_id in enumerate(case_ids, start=1):
         case_dir = args.run_dir / case_id
         case_dir.mkdir(parents=True, exist_ok=True)
+        scope = scope_from_l0_row(candidates[case_id])
+        if args.special_part_light and not scope.articles:
+            direct_path = case_dir / "answer.md"
+            direct_cmd = [
+                sys.executable,
+                "scripts/run_light_direct_answer.py",
+                "--base-url",
+                str(args.base_url),
+                "--model",
+                str(args.model),
+                "--api-key",
+                args.api_key,
+                "--case-id",
+                case_id,
+                "--inventory",
+                str(args.inventory),
+                "--out",
+                str(direct_path),
+                "--max-tokens",
+                str(args.call3_max_tokens),
+                "--timeout-seconds",
+                str(args.timeout_seconds),
+            ]
+            print(f"[{index}/{len(case_ids)}] {case_id} direct diagnostic", flush=True)
+            if args.overwrite or not direct_path.is_file() or not direct_path.read_text(encoding="utf-8").strip():
+                subprocess.run(direct_cmd, cwd=PROJECT_ROOT, check=True)
+            completed.append(_direct_baseline_row(case=inventory[case_id], answer_path=direct_path))
+            continue
         assessment_path = case_dir / "issue_assessment.json"
         answer_path = case_dir / "answer.json"
         assessment_cmd, answer_cmd = case_commands(
@@ -276,6 +349,7 @@ def main() -> None:
             call3_max_tokens=args.call3_max_tokens,
             timeout_seconds=args.timeout_seconds,
             no_cache=args.no_cache,
+            article_local=args.special_part_light,
         )
         print(f"[{index}/{len(case_ids)}] {case_id}", flush=True)
         if args.overwrite or not _valid_assessment(assessment_path, case_id=case_id):

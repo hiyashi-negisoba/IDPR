@@ -256,6 +256,11 @@ def main() -> None:
     )
     parser.add_argument("--no-refine-unknown", action="store_true")
     parser.add_argument(
+        "--article-local",
+        action="store_true",
+        help="assess constituent elements only; skip Scallop and all relation followups",
+    )
+    parser.add_argument(
         "--no-followup-relations",
         action="store_true",
         help="skip the post-element stage/participation/concurrence/guard pass",
@@ -293,6 +298,7 @@ def main() -> None:
         "max_tokens": args.max_tokens,
         "detail_cards_per_issue": args.detail_cards_per_issue,
         "refine_unknown": not args.no_refine_unknown,
+        "pipeline_mode": "special_part_light" if args.article_local else "general_issue_scallop",
     }
     if args.dry_run:
         print(json.dumps(plan, ensure_ascii=False, indent=2))
@@ -409,20 +415,29 @@ def main() -> None:
         )
         for status in ("satisfied", "not_satisfied", "unknown")
     }
-    initial_symbolic_runtime = run_issue_symbolic(
-        case_id=args.case_id,
-        fact_graph=graph,
-        assessment_bundle=output,
-        work_dir=args.work_dir / "symbolic",
-        corpus=corpus,
-        name=f"{args.case_id}_initial_issue",
+    empty_symbolic_runtime: dict[str, Any] = {
+        "engine": "disabled_article_local",
+        "observed_nonempty": {},
+        "relations": {},
+    }
+    initial_symbolic_runtime = (
+        empty_symbolic_runtime
+        if args.article_local
+        else run_issue_symbolic(
+            case_id=args.case_id,
+            fact_graph=graph,
+            assessment_bundle=output,
+            work_dir=args.work_dir / "symbolic",
+            corpus=corpus,
+            name=f"{args.case_id}_initial_issue",
+        )
     )
     relation_followup: dict[str, Any] = {
         "issue_ids": [],
         "attempts": [],
         "usage": {},
     }
-    if not args.no_followup_relations:
+    if not args.article_local and not args.no_followup_relations:
         selected_followups = followup_issues(
             scope,
             symbolic_runtime=initial_symbolic_runtime,
@@ -467,26 +482,34 @@ def main() -> None:
             for key, value in followup_usage.items():
                 total_usage[key] = total_usage.get(key, 0) + value
 
-    symbolic_runtime = run_issue_symbolic(
-        case_id=args.case_id,
-        fact_graph=graph,
-        assessment_bundle=output,
-        work_dir=args.work_dir / "symbolic",
-        corpus=corpus,
-        name=f"{args.case_id}_issue",
+    symbolic_runtime = (
+        empty_symbolic_runtime
+        if args.article_local
+        else run_issue_symbolic(
+            case_id=args.case_id,
+            fact_graph=graph,
+            assessment_bundle=output,
+            work_dir=args.work_dir / "symbolic",
+            corpus=corpus,
+            name=f"{args.case_id}_issue",
+        )
     )
     status_counts = {
         status: sum(assessment["status"] == status for assessment in output["assessments"].values())
         for status in ("satisfied", "not_satisfied", "unknown")
     }
-    assessed_by_id = {
-        issue.issue_id: issue
-        for issue in generation_issues(
-            scope.issues,
-            assessment_bundle=output,
-            corpus=corpus,
-        )
-    }
+    assessed_by_id = (
+        {issue.issue_id: issue for issue in scope.initial_issues}
+        if args.article_local
+        else {
+            issue.issue_id: issue
+            for issue in generation_issues(
+                scope.issues,
+                assessment_bundle=output,
+                corpus=corpus,
+            )
+        }
+    )
     generation_retrieval = retrieve_issue_cards(
         list(assessed_by_id.values()),
         facts,
@@ -508,6 +531,7 @@ def main() -> None:
         symbolic_runtime=symbolic_runtime,
         corpus=corpus,
         details_by_issue=generation_details,
+        article_local=args.article_local,
     )
     report = {
         **plan,

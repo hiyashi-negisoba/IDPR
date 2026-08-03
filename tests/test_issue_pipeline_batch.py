@@ -34,6 +34,26 @@ def test_case_commands_use_persisted_scope_without_article_literals(tmp_path: Pa
     assert assessment[assessment.index("--case-id") + 1] == "case-1"
 
 
+def test_special_part_case_commands_disable_relation_pipeline(tmp_path: Path):
+    assessment, _ = case_commands(
+        python="python",
+        base_url="http://127.0.0.1:9000",
+        model="model-under-test",
+        api_key="key",
+        case_id="case-1",
+        inventory=Path("inventory.jsonl"),
+        fact_graphs=Path("facts.jsonl"),
+        candidates=Path("special.jsonl"),
+        case_dir=tmp_path / "case-1",
+        call2_max_tokens=100,
+        call3_max_tokens=200,
+        timeout_seconds=30,
+        no_cache=False,
+        article_local=True,
+    )
+    assert "--article-local" in assessment
+
+
 def test_slurm_runner_resolves_repository_from_submission_directory():
     script = (PROJECT_ROOT / "scripts/slurm/run_issue_pipeline_batch.sh").read_text(
         encoding="utf-8"

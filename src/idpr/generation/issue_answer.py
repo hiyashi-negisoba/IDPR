@@ -298,6 +298,126 @@ def _presentation(
     return "compact", "partially_supported_or_unresolved"
 
 
+def _article_local_status(issues: Sequence[Mapping[str, Any]]) -> str:
+    """Derive one article conclusion from that article's own constituent issues only."""
+    statuses = [str(issue.get("status", "unknown")) for issue in issues]
+    if any(status == "not_satisfied" for status in statuses):
+        return "not_established"
+    if statuses and all(status == "satisfied" for status in statuses):
+        return "established"
+    return "undetermined"
+
+
+def _build_article_local_call3_request(
+    *,
+    case: Mapping[str, Any],
+    fact_graph: Mapping[str, Any],
+    reasoning_packet: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Build independent article sections without relation, stage, or visibility logic."""
+    case_id = str(case.get("sub_question_id", case.get("case_id", "")))
+    if not case_id or reasoning_packet.get("case_id") != case_id:
+        raise IssueAnswerError(["case and reasoning packet ids differ"])
+    facts = _fact_context(fact_graph)
+    raw_issues = reasoning_packet.get("issues", ())
+    if not isinstance(raw_issues, Sequence) or isinstance(raw_issues, (str, bytes)):
+        raise IssueAnswerError(["reasoning_packet.issues must be an array"])
+
+    grouped: dict[str, list[Mapping[str, Any]]] = defaultdict(list)
+    article_order: list[str] = []
+    for issue in raw_issues:
+        if not isinstance(issue, Mapping):
+            raise IssueAnswerError(["reasoning_packet contains a non-object issue"])
+        if issue.get("runtime") != ASSESS_ISSUE or not issue.get("include_in_generation", True):
+            continue
+        article = str(issue.get("article", ""))
+        if article not in grouped:
+            article_order.append(article)
+        grouped[article].append(issue)
+
+    required_sections: list[dict[str, Any]] = []
+    allowed_facts: set[str] = set()
+    allowed_issues: set[str] = set()
+    allowed_rules: set[str] = set()
+    for article in article_order:
+        source_issues = grouped[article]
+        article_label = str(source_issues[0].get("article_label", article))
+        offense = str(source_issues[0].get("offense", article_label))
+        article_issues: list[dict[str, Any]] = []
+        for issue in source_issues:
+            issue_id = str(issue["issue_id"])
+            basis_ids = [str(item) for item in issue.get("basis_fact_ids", ())]
+            counter_ids = [str(item) for item in issue.get("counter_fact_ids", ())]
+            unknown_facts = sorted((set(basis_ids) | set(counter_ids)) - set(facts))
+            if unknown_facts:
+                raise IssueAnswerError(
+                    [f"{issue_id}: assessment refers to unknown facts {unknown_facts}"]
+                )
+            rules = [
+                {
+                    "rule_id": str(rule["rule_id"]),
+                    "proposition": str(rule["proposition"]),
+                    "rule_type": "anchor" if key == "anchor_rules" else "detail",
+                    "basis_card_ids": [str(value) for value in rule.get("basis_card_ids", ())],
+                    "origin": str(rule.get("origin", "reviewed_card")),
+                }
+                for key in ("anchor_rules", "detail_rules")
+                for rule in issue.get(key, ())
+            ]
+            allowed_facts.update((*basis_ids, *counter_ids))
+            allowed_issues.add(issue_id)
+            allowed_rules.update(rule["rule_id"] for rule in rules)
+            article_issues.append(
+                {
+                    "issue_id": issue_id,
+                    "title": str(issue.get("title", "")),
+                    "function": "element_issue",
+                    "status": str(issue.get("status", "unknown")),
+                    "rules": rules,
+                    "basis_facts": [facts[fact_id] for fact_id in basis_ids],
+                    "counter_facts": [facts[fact_id] for fact_id in counter_ids],
+                    "missing_facts": [str(item) for item in issue.get("missing_facts", ())],
+                }
+            )
+        required_sections.append(
+            {
+                "section_id": f"offense_{article.replace('-', '_').replace('.', '_')}",
+                "heading": f"{article_label} {offense}",
+                "article_label": article_label,
+                "article": article,
+                "offense": offense,
+                "symbolic_directive": "article_local_elements_only",
+                "stated_conclusion": _article_local_status(source_issues),
+                "presentation_mode": "full",
+                "visibility_reason": "grounded_planner_selection",
+                "issues": article_issues,
+            }
+        )
+
+    question_prompt = str(case.get("question_prompt", ""))
+    return {
+        "version": "1.0.0",
+        "pipeline_mode": "special_part_light",
+        "task": "write_article_local_special_part_answer",
+        "case_id": case_id,
+        "question_text": scoped_question_text(
+            str(case.get("question_text", case.get("case_text", ""))),
+            question_prompt,
+        ),
+        "question_prompt": question_prompt,
+        "legal_knowledge_policy": "supplied_reviewed_rules_only",
+        "rubric_supplied": False,
+        "required_sections": required_sections,
+        "suppressed_sections": [],
+        "cross_offense_directives": {"absorbed_articles": [], "concurrent_pairs": []},
+        "allowed_provenance_ids": {
+            "fact_ids": sorted(allowed_facts),
+            "issue_ids": sorted(allowed_issues),
+            "rule_ids": sorted(allowed_rules),
+        },
+    }
+
+
 def build_call3_request(
     *,
     case: Mapping[str, Any],
@@ -305,6 +425,12 @@ def build_call3_request(
     reasoning_packet: Mapping[str, Any],
 ) -> dict[str, Any]:
     """Build a rubric-free, prose-oriented view of the symbolic pipeline output."""
+    if reasoning_packet.get("pipeline_mode") == "special_part_light":
+        return _build_article_local_call3_request(
+            case=case,
+            fact_graph=fact_graph,
+            reasoning_packet=reasoning_packet,
+        )
     case_id = str(case.get("sub_question_id", case.get("case_id", "")))
     if not case_id or reasoning_packet.get("case_id") != case_id:
         raise IssueAnswerError(["case and reasoning packet ids differ"])
