@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 P2 = ROOT / "data/rulegen/p2"
 SOURCE = P2 / "결정C_학설선택.md"
 LEGACY_QUEUE = P2 / "p2_norm_card_review_queue.json"
+OVERRIDES = P2 / "결정C_전문가재정.json"
 LEDGER = P2 / "결정C_구조화원장.json"
 AUDIT = ROOT / "docs/review/2026-08-03_p2_doctrine_decision_audit.md"
 
@@ -69,6 +70,42 @@ def legacy_option_index() -> dict[str, list[str]]:
             raise ValueError(f"conflicting legacy option lists: {group}")
         result[group] = card_ids
     return result
+
+
+def override_index() -> dict[str, dict[str, Any]]:
+    if not OVERRIDES.is_file():
+        return {}
+    payload = read_object(OVERRIDES)
+    principles = {
+        item["principle_id"]: item for item in payload.get("governing_principles", [])
+    }
+    result: dict[str, dict[str, Any]] = {}
+    for item in payload.get("overrides", []):
+        group = item["variant_group"]
+        if group in result:
+            raise ValueError(f"duplicate override for variant_group: {group}")
+        principle_id = item.get("applies_principle")
+        if principle_id and principle_id not in principles:
+            raise ValueError(f"override {item['override_id']}: unknown principle {principle_id}")
+        result[group] = {**item, "principle": principles.get(principle_id)}
+    return result
+
+
+def apply_override(decision: dict[str, Any], override: dict[str, Any]) -> None:
+    """Replace a source-document selection with an expert ruling, preserving the original."""
+    outside = [
+        card_id for card_id in override["selected_card_ids"] if card_id not in decision["options"]
+    ]
+    if outside:
+        decision["status"] = "override_option_out_of_group"
+        decision["issue"] = f"override selects cards outside the group: {', '.join(outside)}"
+        return
+    decision["override"] = {
+        key: value for key, value in override.items() if key != "variant_group"
+    }
+    decision["superseded_card_ids"] = decision["selected_card_ids"]
+    decision["selected_card_ids"] = list(override["selected_card_ids"])
+    decision["resolution"] = "expert_override"
 
 
 def parse_decisions(markdown: str) -> list[dict[str, Any]]:
@@ -123,6 +160,7 @@ def build_ledger() -> dict[str, Any]:
     decisions = parse_decisions(source_bytes.decode("utf-8"))
     cards, unit_cards = card_indexes()
     legacy_options = legacy_option_index()
+    overrides = override_index()
     stats: Counter[str] = Counter()
 
     for decision in decisions:
@@ -140,6 +178,11 @@ def build_ledger() -> dict[str, Any]:
                 decision["status"] = "valid"
                 decision["issue"] = None
                 stats["reconciled_from_legacy_queue"] += 1
+
+        override = overrides.get(decision["variant_group"])
+        if override is not None:
+            apply_override(decision, override)
+            stats["expert_overrides"] += 1
 
         missing = [card_id for card_id in decision["options"] if card_id not in cards]
         wrong_group = [
@@ -184,10 +227,15 @@ def build_ledger() -> dict[str, Any]:
         "source_sha256": hashlib.sha256(source_bytes).hexdigest(),
         "selection_number_basis": str(LEGACY_QUEUE.relative_to(ROOT)),
         "selection_number_basis_sha256": hashlib.sha256(LEGACY_QUEUE.read_bytes()).hexdigest(),
+        "override_document": str(OVERRIDES.relative_to(ROOT)) if OVERRIDES.is_file() else None,
+        "override_sha256": (
+            hashlib.sha256(OVERRIDES.read_bytes()).hexdigest() if OVERRIDES.is_file() else None
+        ),
         "policy": {
             "invalid_choice_handling": "do_not_guess; require correction",
             "promotion": "separate audited step required",
             "runtime_use": "only status=valid decisions may be inherited",
+            "override_use": "expert override supersedes the source selection; the original is kept as superseded_card_ids",
         },
         "stats": dict(sorted(stats.items())),
         "decisions": decisions,
@@ -197,6 +245,7 @@ def build_ledger() -> dict[str, Any]:
 def render_audit(ledger: dict[str, Any]) -> str:
     invalid = [item for item in ledger["decisions"] if item["status"] != "valid"]
     reconciled = [item for item in ledger["decisions"] if item.get("reconciliation")]
+    overridden = [item for item in ledger["decisions"] if item.get("override")]
     catalog_issues = [item for item in ledger["decisions"] if item["card_catalog_issues"]]
     absent = [
         state
@@ -213,6 +262,7 @@ def render_audit(ledger: dict[str, Any]) -> str:
         f"- valid groups: {ledger['stats'].get('valid', 0)}",
         f"- invalid groups: {len(invalid)}",
         f"- legacy option order reconciliations: {len(reconciled)}",
+        f"- expert overrides: {len(overridden)}",
         f"- card-catalog mismatch groups: {len(catalog_issues)}",
         f"- selected cards absent from current RuleIR units: {len(absent)}",
         "",
@@ -230,6 +280,21 @@ def render_audit(ledger: dict[str, Any]) -> str:
             f"- #{item['number']} `{item['variant_group']}`: {item['issue']} "
             f"(raw=`{item['raw_answer']}`)"
         )
+    lines.extend(["", "## 법률전문가 재정으로 대체된 선택", ""])
+    if not overridden:
+        lines.append("없음.")
+    for item in overridden:
+        override = item["override"]
+        lines.extend([
+            f"- #{item['number']} `{item['variant_group']}`",
+            f"  - 원래 선택: `{', '.join(item['superseded_card_ids']) or '-'}`",
+            f"  - 재정 선택: `{', '.join(item['selected_card_ids'])}`",
+            f"  - 사안: {override['situation']}",
+            f"  - 결론: {override['holding']}",
+            f"  - 근거: {override['ground']}",
+            f"  - 대체 이유: {override['supersedes_reason']}",
+            f"  - 판례 인용 상태: {override['authority_citation_status']}",
+        ])
     lines.extend(["", "## 축약 전 선택지 순서로 복원", ""])
     if not reconciled:
         lines.append("없음.")

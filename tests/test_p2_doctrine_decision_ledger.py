@@ -1,6 +1,11 @@
 from __future__ import annotations
 
-from scripts.build_p2_doctrine_decision_ledger import build_ledger, parse_decisions
+from scripts.build_p2_doctrine_decision_ledger import (
+    apply_override,
+    build_ledger,
+    override_index,
+    parse_decisions,
+)
 
 
 def test_parser_resolves_option_number_without_guessing() -> None:
@@ -49,6 +54,41 @@ def test_independent_combustion_choice_is_inherited() -> None:
     assert decision["selected_card_ids"] == [
         "art164_sec2_1.completion_independent_combustion_variant"
     ]
+
+
+def test_expert_override_supersedes_selection_without_erasing_the_original() -> None:
+    ledger = build_ledger()
+    overridden = [item for item in ledger["decisions"] if item.get("override")]
+    assert overridden, "override document declares no applied override"
+    assert ledger["stats"]["expert_overrides"] == len(overridden)
+    for item in overridden:
+        assert item["resolution"] == "expert_override"
+        assert item["status"] == "valid"
+        assert item["superseded_card_ids"], "original selection must be preserved"
+        assert item["selected_card_ids"] != item["superseded_card_ids"]
+        assert set(item["selected_card_ids"]) <= set(item["options"])
+        assert item["override"]["principle"]["principle_id"]
+        assert item["override"]["ground"]
+
+
+def test_override_outside_its_variant_group_is_rejected_not_applied() -> None:
+    decision = {
+        "options": ["card.one", "card.two"],
+        "selected_card_ids": ["card.one"],
+        "resolution": "selected",
+        "status": "valid",
+        "issue": None,
+    }
+    apply_override(decision, {"override_id": "x", "selected_card_ids": ["card.three"]})
+    assert decision["status"] == "override_option_out_of_group"
+    assert decision["selected_card_ids"] == ["card.one"]
+    assert "override" not in decision
+
+
+def test_every_declared_override_targets_an_existing_decision_group() -> None:
+    ledger = build_ledger()
+    groups = {item["variant_group"] for item in ledger["decisions"]}
+    assert set(override_index()) <= groups
 
 
 def test_truncated_markdown_options_recover_original_human_choice() -> None:

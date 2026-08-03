@@ -49,10 +49,13 @@ provenance를 복수로 유지**한다. 지금 확인된 묶음은 두 개다.
 
 ## Human decision H-A02
 
+- [x] `aggravated_result`·`preparation` track 추가 — 2026-08-03 승인
+- [x] #18을 bar(착수 부정)와 boundary(예비 이관)로 분리하고, 제175조 예비는 자산이 없으므로
+      `predicate_ir_missing`으로 보고만 하는 처리 — 2026-08-03 승인
+- [x] #30 심신미약 판례를 `context_only`로 두고 총칙 unit 생성 시 이관 — 2026-08-03 승인
+
+남은 질문:
+
 1. 위 16–29번 초안을 일괄 승인하는가? 수정 번호만 적어도 된다.
-2. `aggravated_result`와 `preparation` track 추가를 승인하는가?
-3. #18을 bar(착수 부정)와 boundary(예비 이관)로 쪼개고, 예비는 제175조 자산이 없으므로
-   `predicate_ir_missing`으로 보고만 하는 안을 승인하는가?
-4. #22를 객체 열거 전용 component로 축소하고 주거·현존 요건을 #29로 위임하는 안을 승인하는가?
-5. #30 심신미약 판례를 `context_only`로 두는 것에 동의하는가? 총칙 unit이 생기면 그때 이관한다.
-6. 중복 카드를 삭제하지 않고 같은 `component_id`의 복수 provenance로 유지하는 방침을 승인하는가?
+2. #22를 객체 열거 전용 component로 축소하고 주거·현존 요건을 #29로 위임하는 안을 승인하는가?
+3. 중복 카드를 삭제하지 않고 같은 `component_id`의 복수 provenance로 유지하는 방침을 승인하는가?

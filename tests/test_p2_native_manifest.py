@@ -61,7 +61,7 @@ def test_arson_packet_inherits_prior_doctrine_choices() -> None:
         "art164_sec2_1.completion_independent_combustion_variant"
     ]
     assert choices["art250_sec2_10.arson_death_parricide_concurrence"] == [
-        "art250_sec2_10.arson_death_parricide_specialty_precedent"
+        "art250_sec2_10.arson_death_parricide_imaginary_concurrence"
     ]
     overlay_ids = {
         card["card_id"] for card in queue["cards"]

@@ -18,8 +18,8 @@
 - #2 `art164_sec2_1.post_killing_arson`: `art164_sec2_1.post_killing_arson_precedent` (status=`valid`)
 - #3 `art164_sec2_1.completion`: `art164_sec2_1.completion_independent_combustion_variant` (status=`valid`)
 - #4 `art164_sec3_2.attempted_basic_arson_subject`: `art164_sec3_2.attempted_basic_arson_included` (status=`valid`)
-- #5 `art164_sec3_6.intentional_fire_death_murder_concurrence`: `art164_sec3_6.intentional_fire_death_murder_concurrence_affirmative` (status=`valid`)
-- #15 `art250_sec2_10.arson_death_parricide_concurrence`: `art250_sec2_10.arson_death_parricide_specialty_precedent` (status=`valid`)
+- #5 `art164_sec3_6.intentional_fire_death_murder_concurrence`: `art164_sec3_6.intentional_fire_death_murder_concurrence_negative` (status=`valid`)
+- #15 `art250_sec2_10.arson_death_parricide_concurrence`: `art250_sec2_10.arson_death_parricide_imaginary_concurrence` (status=`valid`)
 
 ## 46. `art164_sec3_6.parricide_fire_death_concurrence`
 
@@ -127,15 +127,15 @@ rationale:
 proposition_rewrite:
 ```
 
-## 51. `art164_sec3_6.intentional_fire_death_murder_concurrence_affirmative`
+## 51. `art164_sec3_6.intentional_fire_death_murder_concurrence_negative`
 
-- proposition: 거주자를 살해할 고의로 방화하여 사망을 초래한 경우, 방화치사죄의 불법에 살인의 고의범이 포함되지 않는다는 이유로 살인죄와 현주건조물방화치사죄의 상상적 경합을 인정하는 긍정설이 있다.
-- current metadata: formalization=`context_only`, polarity=`positive`, doctrinal_status=`disputed`, review_required=`True`
+- proposition: 거주자를 살해할 고의로 방화하여 사망을 초래한 경우, 고의도 본죄에 포함되거나 하나의 살인의 고의를 이중평가하게 된다는 이유로 현주건조물방화치사죄만 성립한다고 보는 부정설이 있다.
+- current metadata: formalization=`context_only`, polarity=`negative`, doctrinal_status=`disputed`, review_required=`True`
 - source track: `doctrine_overlay`
-- prior note: 긍정설로 보고된 견해이며, 부정설 및 관련 판례의 원문 확인 전에는 채택하지 않는다.
+- prior note: 부정설로 보고된 견해이며, 긍정설 및 관련 판례의 원문 확인 전에는 채택하지 않는다.
 - bounded sources:
 
-  - `comm_001692_제164조_Ⅲ.6_23` / `Ⅲ.6`: “긍정 설은 방화치사죄의 불법에 살인의 고의범이 포함되는 것은 아니므로 별도의 고의범이 성립한다는 사실을 명확히 하기 위해서라도 살인좌와 현주건조물방화 치사죄의 상상적 경합범이 된다는 견해”
+  - `comm_001692_제164조_Ⅲ.6_23` / `Ⅲ.6`: “부정설은 본죄는 과실이 있는 경 우뿐만 아니라 고의가 있는 경우도 포함된다거나 하나의 살인의 고의를 살인죄 와 본죄에서 이중으로 평가하게 된다는 이유로 현주건조물방화치사죄만 성립한 다는 견해이다.”
 
 ```text
 decision:
@@ -148,16 +148,15 @@ rationale:
 proposition_rewrite:
 ```
 
-## 52. `art250_sec2_10.arson_death_parricide_specialty_precedent`
+## 52. `art250_sec2_10.arson_death_parricide_imaginary_concurrence`
 
-- proposition: 서울고등법원 2010노252 판결은 존속살해죄 법정형이 현주건조물방화치사죄보다 중하지 않으므로 현주건조물방화치사죄만 성립하고 존속살해죄는 별도로 죄를 구성하지 않는다고 보았다.
-- current metadata: formalization=`context_only`, polarity=`negative`, doctrinal_status=`disputed`, review_required=`True`
+- proposition: 개정 형법 이후 현주건조물방화치사와 존속살해죄는 상상적 경합범이 성립하고 중한 죄인 존속살해죄로 처벌된다는 학설이 있다.
+- current metadata: formalization=`context_only`, polarity=`positive`, doctrinal_status=`disputed`, review_required=`True`
 - source track: `doctrine_overlay`
-- prior note: 학설상 상상적 경합 견해와 충돌하는 commentary-reported precedent position이다. 판결 원문과 개정 형법 적용 여부를 사용자 제공 1차 판례 색인에서 확인한 뒤 정책을 선택해야 한다.
+- prior note: 현주건조물방화치사와 존속살해의 관계에 관한 학설상 상상적 경합 견해로서, 인용문이 불완전하므로 원문 및 개정 후 법정형을 확인해야 한다.
 - bounded sources:
 
-  - `comm_001692_제250조_Ⅱ.10_141` / `Ⅱ.10`: “울고등법원 2010. 6. 3. 선고 2010노252 판결은, 존속살해죄의 법정형이 현”
-  - `comm_001692_제250조_Ⅱ.10_141` / `Ⅱ.10`: “주건조물방화치사죄의 법정형과 같을 뿐 그보다 중하지 않으므로 현주건조물방 화치사죄만 성립하고 이와 법조경합 관계에 있는 존속살해죄에 대하여는 별도 로 죄를 구성하지 않는다고 보았다.”
+  - `comm_001692_제250조_Ⅱ.10_141` / `Ⅱ.10`: “다만 학설상 으로는 현주건조물방화죄와 존속살해죄의 상상적 경합범이 성립한다 (중한 죄인 는 견해가 있다.”
 
 ```text
 decision:

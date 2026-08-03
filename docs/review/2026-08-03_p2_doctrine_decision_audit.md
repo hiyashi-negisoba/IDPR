@@ -6,6 +6,7 @@
 - valid groups: 31
 - invalid groups: 0
 - legacy option order reconciliations: 3
+- expert overrides: 2
 - card-catalog mismatch groups: 2
 - selected cards absent from current RuleIR units: 30
 
@@ -16,6 +17,25 @@
 ## 기존 응답 불일치
 
 없음.
+
+## 법률전문가 재정으로 대체된 선택
+
+- #5 `art164_sec3_6.intentional_fire_death_murder_concurrence`
+  - 원래 선택: `art164_sec3_6.intentional_fire_death_murder_concurrence_affirmative`
+  - 재정 선택: `art164_sec3_6.intentional_fire_death_murder_concurrence_negative`
+  - 사안: 보통 사람을 살해할 목적으로 현주건조물에 방화하여 사망하게 한 경우
+  - 결론: 현주건조물방화치사죄만 성립하고 살인죄는 여기에 흡수된다. 살인죄와의 상상적 경합을 인정하지 않는다.
+  - 근거: 보통살인죄의 법정형(사형·무기 또는 5년 이상의 징역)이 현주건조물방화치사죄의 법정형(사형·무기 또는 7년 이상의 징역)보다 무겁지 않으므로 법조경합에 해당한다.
+  - 대체 이유: 결정C_학설선택.md에서 선택된 긍정설은 학설의 시각이며 대법원 판례의 입장이 아니다
+  - 판례 인용 상태: 사건번호 미확인 — 1차 판례 색인 대조 필요
+- #15 `art250_sec2_10.arson_death_parricide_concurrence`
+  - 원래 선택: `art250_sec2_10.arson_death_parricide_specialty_precedent`
+  - 재정 선택: `art250_sec2_10.arson_death_parricide_imaginary_concurrence`
+  - 사안: 직계존속을 살해할 목적으로 현주건조물에 방화하여 사망하게 한 경우
+  - 결론: 존속살해죄와 현주건조물방화치사죄의 상상적 경합이 성립하고 중한 존속살해죄로 처단한다.
+  - 근거: 존속살해죄는 형법 제256조의 자격정지 병과 규정 등으로 현주건조물방화치사죄보다 실질적으로 중하게 처벌할 수 있는 규정을 두고 있으므로 법조경합이 아니라 상상적 경합에 해당한다.
+  - 대체 이유: 결정C_학설선택.md가 선택한 서울고등법원 2010노252 판결은 하급심 판단이며 대법원은 상상적 경합을 유지한다
+  - 판례 인용 상태: 사건번호 미확인 — 1차 판례 색인 대조 필요
 
 ## 축약 전 선택지 순서로 복원
 
@@ -34,7 +54,7 @@
 - `art164_sec2_1.post_killing_arson_precedent`
 - `art164_sec2_1.completion_independent_combustion_variant`
 - `art164_sec3_2.attempted_basic_arson_included`
-- `art164_sec3_6.intentional_fire_death_murder_concurrence_affirmative`
+- `art164_sec3_6.intentional_fire_death_murder_concurrence_negative`
 - `art227_sec3_2.assistant_indirect_perpetration_affirmative`
 - `art250_sec1_11.indirect_perpetration_attempt_use_act`
 - `art250_sec1_17.direct_active_euthanasia_negative`
@@ -43,7 +63,7 @@
 - `art250_sec1_3.birth_labor_theory`
 - `art250_sec1_3.pulse_cessation_organ_removal`
 - `art250_sec1_3.organ_transplant_law_limited_effect`
-- `art250_sec2_10.arson_death_parricide_specialty_precedent`
+- `art250_sec2_10.arson_death_parricide_imaginary_concurrence`
 - `art250_sec2_6.adoption_type_determines_offense`
 - `art250_sec2_6.deceased_spouse_lineal_ascendant_ordinary_murder`
 - `art250_sec2_9.nonstatus_accomplice_parricide_coprincipal_punished_ordinary`
