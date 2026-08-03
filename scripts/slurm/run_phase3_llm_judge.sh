@@ -48,6 +48,8 @@ echo "upstream_generation_job=218467 dependency=${SLURM_JOB_DEPENDENCY:-afterok:
     --max-tokens 16384 \
     --reasoning-effort low \
     --contract-attempts 3 \
-    --api-retries 0
+    --api-retries 0 \
+    --cache-dir .cache/phase3_judge_slurm \
+    --overwrite
 
 echo "=== Phase-3 Gemini judge end: $(date) ==="
