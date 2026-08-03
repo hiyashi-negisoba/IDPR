@@ -1,0 +1,113 @@
+{
+  "version": "1.0.0",
+  "scope": "Registered RuleIR assets only. Every unregistered unit resolves to predicate_ir_missing.",
+  "missing_unit": {
+    "status": "predicate_ir_missing",
+    "detail": "No registered and audited RuleIR asset exists for this unit."
+  },
+  "predicate_groups": {
+    "commentary_inputs": {"origin": "commentary", "role": "input"},
+    "system_inputs": {"origin": "system", "role": "input"}
+  },
+  "units": [
+    {
+      "unit_id": "fraud",
+      "rule_ir_path": "data/rulegen/fraud/fraud_full_rule_ir_candidate_unreviewed.json",
+      "compiled_scl_path": "rules/generated/fraud_article347_full_v1.scl",
+      "role_predicate": "fraud_case_roles",
+      "query_relations": ["fraud_elements_satisfied", "fraud_established", "fraud_not_established", "fraud_undetermined", "fraud_conflict"],
+      "shared_module": false,
+      "known_limitations": ["RuleIR candidate is draft and legal_review is pending."]
+    },
+    {
+      "unit_id": "theft",
+      "rule_ir_path": "data/rulegen/property/rule_ir/theft_rule_ir_candidate.json",
+      "compiled_scl_path": "rules/generated/property_theft_v1_candidate.scl",
+      "role_predicate": "theft_case_roles",
+      "query_relations": ["theft_elements_satisfied", "theft_established", "theft_not_established", "theft_undetermined", "theft_conflict"],
+      "shared_module": false,
+      "known_limitations": ["RuleIR candidate is draft and legal_review is pending."]
+    },
+    {
+      "unit_id": "robbery",
+      "rule_ir_path": "data/rulegen/property/rule_ir/robbery_rule_ir_candidate.json",
+      "compiled_scl_path": "rules/generated/property_robbery_v1_candidate.scl",
+      "role_predicate": "robbery_case_roles",
+      "query_relations": ["robbery_elements_satisfied", "robbery_established", "robbery_not_established", "robbery_undetermined", "robbery_conflict"],
+      "shared_module": false,
+      "known_limitations": ["RuleIR candidate is draft and legal_review is pending."]
+    },
+    {
+      "unit_id": "extortion",
+      "rule_ir_path": "data/rulegen/property/rule_ir/extortion_rule_ir_candidate.json",
+      "compiled_scl_path": "rules/generated/property_extortion_v1_candidate.scl",
+      "role_predicate": "extortion_case_roles",
+      "query_relations": ["extortion_elements_satisfied", "extortion_established", "extortion_not_established", "extortion_undetermined", "extortion_conflict"],
+      "shared_module": false,
+      "known_limitations": ["RuleIR candidate is draft and legal_review is pending."]
+    },
+    {
+      "unit_id": "embezzlement",
+      "rule_ir_path": "data/rulegen/property/rule_ir/embezzlement_rule_ir_candidate.json",
+      "compiled_scl_path": "rules/generated/property_embezzlement_v1_candidate.scl",
+      "role_predicate": "embezzlement_case_roles",
+      "query_relations": ["embezzlement_elements_satisfied", "embezzlement_established", "embezzlement_not_established", "embezzlement_undetermined", "embezzlement_conflict"],
+      "shared_module": false,
+      "known_limitations": ["RuleIR candidate is draft and legal_review is pending."]
+    },
+    {
+      "unit_id": "breach_of_trust",
+      "rule_ir_path": "data/rulegen/property/rule_ir/breach_of_trust_rule_ir_candidate.json",
+      "compiled_scl_path": "rules/generated/property_breach_of_trust_v1_candidate.scl",
+      "role_predicate": "breach_of_trust_case_roles",
+      "query_relations": ["breach_of_trust_elements_satisfied", "breach_of_trust_established", "breach_of_trust_not_established", "breach_of_trust_undetermined", "breach_of_trust_conflict"],
+      "shared_module": false,
+      "known_limitations": ["RuleIR candidate is draft and legal_review is pending."]
+    },
+    {
+      "unit_id": "breach_of_trust_bribe",
+      "rule_ir_path": "data/rulegen/property/rule_ir/breach_of_trust_bribe_rule_ir_candidate.json",
+      "compiled_scl_path": "rules/generated/property_breach_of_trust_bribe_v1_candidate.scl",
+      "role_predicate": "breach_of_trust_bribe_case_roles",
+      "query_relations": ["breach_of_trust_bribe_elements_satisfied", "breach_of_trust_bribe_established", "breach_of_trust_bribe_not_established", "breach_of_trust_bribe_undetermined", "breach_of_trust_bribe_conflict"],
+      "shared_module": false,
+      "known_limitations": ["RuleIR candidate is draft and legal_review is pending."]
+    },
+    {
+      "unit_id": "lost_property_embezzlement",
+      "rule_ir_path": "data/rulegen/property/rule_ir/lost_property_embezzlement_rule_ir_candidate.json",
+      "compiled_scl_path": "rules/generated/property_lost_property_embezzlement_v1_candidate.scl",
+      "role_predicate": "lost_property_embezzlement_case_roles",
+      "query_relations": ["lost_property_embezzlement_elements_satisfied", "lost_property_embezzlement_established", "lost_property_embezzlement_not_established", "lost_property_embezzlement_undetermined", "lost_property_embezzlement_conflict"],
+      "shared_module": false,
+      "known_limitations": ["RuleIR candidate is draft and legal_review is pending."]
+    },
+    {
+      "unit_id": "property_damage",
+      "rule_ir_path": "data/rulegen/property/rule_ir/property_damage_rule_ir_candidate.json",
+      "compiled_scl_path": "rules/generated/property_property_damage_v1_candidate.scl",
+      "role_predicate": "property_damage_case_roles",
+      "query_relations": ["property_damage_elements_satisfied", "property_damage_established", "property_damage_not_established", "property_damage_undetermined", "property_damage_conflict"],
+      "shared_module": false,
+      "known_limitations": ["RuleIR candidate is draft and legal_review is pending."]
+    },
+    {
+      "unit_id": "interference_with_exercise_of_right",
+      "rule_ir_path": "data/rulegen/property/rule_ir/interference_with_exercise_of_right_rule_ir_candidate.json",
+      "compiled_scl_path": "rules/generated/property_interference_with_exercise_of_right_v1_candidate.scl",
+      "role_predicate": "interference_with_exercise_of_right_case_roles",
+      "query_relations": ["interference_with_exercise_of_right_elements_satisfied", "interference_with_exercise_of_right_established", "interference_with_exercise_of_right_not_established", "interference_with_exercise_of_right_undetermined", "interference_with_exercise_of_right_conflict"],
+      "shared_module": false,
+      "known_limitations": ["RuleIR candidate is draft and legal_review is pending."]
+    },
+    {
+      "unit_id": "occupational_status",
+      "rule_ir_path": "data/rulegen/property/rule_ir/occupational_status_rule_ir_candidate.json",
+      "compiled_scl_path": "rules/generated/property_occupational_status_v1_candidate.scl",
+      "role_predicate": "occupational_status_case_roles",
+      "query_relations": ["occupational_status_elements_satisfied", "occupational_status_established", "occupational_status_not_established", "occupational_status_undetermined", "occupational_status_conflict"],
+      "shared_module": true,
+      "known_limitations": ["Shared occupational-status module; candidate is draft and legal_review is pending."]
+    }
+  ]
+}

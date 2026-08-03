@@ -1,0 +1,250 @@
+{
+  "errors": [],
+  "scope": "Registered RuleIR assets only. Every unregistered unit resolves to predicate_ir_missing.",
+  "status": "pass",
+  "units": [
+    {
+      "article_ids": [
+        "art347"
+      ],
+      "commentary_input_count": 88,
+      "compiled_relation_count": 110,
+      "compiled_scl_path": "rules/generated/fraud_article347_full_v1.scl",
+      "errors": [],
+      "predicate_count": 202,
+      "query_relations": [
+        "fraud_elements_satisfied",
+        "fraud_established",
+        "fraud_not_established",
+        "fraud_undetermined",
+        "fraud_conflict"
+      ],
+      "role_predicate": "fraud_case_roles",
+      "rule_ir_path": "data/rulegen/fraud/fraud_full_rule_ir_candidate_unreviewed.json",
+      "system_input_count": 4,
+      "unit_id": "fraud"
+    },
+    {
+      "article_ids": [
+        "art329",
+        "art330",
+        "art331",
+        "art332",
+        "art342"
+      ],
+      "commentary_input_count": 66,
+      "compiled_relation_count": 84,
+      "compiled_scl_path": "rules/generated/property_theft_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 154,
+      "query_relations": [
+        "theft_elements_satisfied",
+        "theft_established",
+        "theft_not_established",
+        "theft_undetermined",
+        "theft_conflict"
+      ],
+      "role_predicate": "theft_case_roles",
+      "rule_ir_path": "data/rulegen/property/rule_ir/theft_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "theft"
+    },
+    {
+      "article_ids": [
+        "art333",
+        "art334",
+        "art335",
+        "art337",
+        "art338",
+        "art343"
+      ],
+      "commentary_input_count": 98,
+      "compiled_relation_count": 120,
+      "compiled_scl_path": "rules/generated/property_robbery_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 222,
+      "query_relations": [
+        "robbery_elements_satisfied",
+        "robbery_established",
+        "robbery_not_established",
+        "robbery_undetermined",
+        "robbery_conflict"
+      ],
+      "role_predicate": "robbery_case_roles",
+      "rule_ir_path": "data/rulegen/property/rule_ir/robbery_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "robbery"
+    },
+    {
+      "article_ids": [
+        "art350"
+      ],
+      "commentary_input_count": 41,
+      "compiled_relation_count": 57,
+      "compiled_scl_path": "rules/generated/property_extortion_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 102,
+      "query_relations": [
+        "extortion_elements_satisfied",
+        "extortion_established",
+        "extortion_not_established",
+        "extortion_undetermined",
+        "extortion_conflict"
+      ],
+      "role_predicate": "extortion_case_roles",
+      "rule_ir_path": "data/rulegen/property/rule_ir/extortion_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "extortion"
+    },
+    {
+      "article_ids": [
+        "art355",
+        "art356"
+      ],
+      "commentary_input_count": 64,
+      "compiled_relation_count": 79,
+      "compiled_scl_path": "rules/generated/property_embezzlement_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 147,
+      "query_relations": [
+        "embezzlement_elements_satisfied",
+        "embezzlement_established",
+        "embezzlement_not_established",
+        "embezzlement_undetermined",
+        "embezzlement_conflict"
+      ],
+      "role_predicate": "embezzlement_case_roles",
+      "rule_ir_path": "data/rulegen/property/rule_ir/embezzlement_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "embezzlement"
+    },
+    {
+      "article_ids": [
+        "art355",
+        "art356"
+      ],
+      "commentary_input_count": 36,
+      "compiled_relation_count": 50,
+      "compiled_scl_path": "rules/generated/property_breach_of_trust_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 90,
+      "query_relations": [
+        "breach_of_trust_elements_satisfied",
+        "breach_of_trust_established",
+        "breach_of_trust_not_established",
+        "breach_of_trust_undetermined",
+        "breach_of_trust_conflict"
+      ],
+      "role_predicate": "breach_of_trust_case_roles",
+      "rule_ir_path": "data/rulegen/property/rule_ir/breach_of_trust_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "breach_of_trust"
+    },
+    {
+      "article_ids": [
+        "art357"
+      ],
+      "commentary_input_count": 41,
+      "compiled_relation_count": 54,
+      "compiled_scl_path": "rules/generated/property_breach_of_trust_bribe_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 99,
+      "query_relations": [
+        "breach_of_trust_bribe_elements_satisfied",
+        "breach_of_trust_bribe_established",
+        "breach_of_trust_bribe_not_established",
+        "breach_of_trust_bribe_undetermined",
+        "breach_of_trust_bribe_conflict"
+      ],
+      "role_predicate": "breach_of_trust_bribe_case_roles",
+      "rule_ir_path": "data/rulegen/property/rule_ir/breach_of_trust_bribe_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "breach_of_trust_bribe"
+    },
+    {
+      "article_ids": [
+        "art360"
+      ],
+      "commentary_input_count": 14,
+      "compiled_relation_count": 27,
+      "compiled_scl_path": "rules/generated/property_lost_property_embezzlement_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 45,
+      "query_relations": [
+        "lost_property_embezzlement_elements_satisfied",
+        "lost_property_embezzlement_established",
+        "lost_property_embezzlement_not_established",
+        "lost_property_embezzlement_undetermined",
+        "lost_property_embezzlement_conflict"
+      ],
+      "role_predicate": "lost_property_embezzlement_case_roles",
+      "rule_ir_path": "data/rulegen/property/rule_ir/lost_property_embezzlement_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "lost_property_embezzlement"
+    },
+    {
+      "article_ids": [
+        "art366"
+      ],
+      "commentary_input_count": 53,
+      "compiled_relation_count": 67,
+      "compiled_scl_path": "rules/generated/property_property_damage_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 124,
+      "query_relations": [
+        "property_damage_elements_satisfied",
+        "property_damage_established",
+        "property_damage_not_established",
+        "property_damage_undetermined",
+        "property_damage_conflict"
+      ],
+      "role_predicate": "property_damage_case_roles",
+      "rule_ir_path": "data/rulegen/property/rule_ir/property_damage_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "property_damage"
+    },
+    {
+      "article_ids": [
+        "art323"
+      ],
+      "commentary_input_count": 32,
+      "compiled_relation_count": 45,
+      "compiled_scl_path": "rules/generated/property_interference_with_exercise_of_right_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 81,
+      "query_relations": [
+        "interference_with_exercise_of_right_elements_satisfied",
+        "interference_with_exercise_of_right_established",
+        "interference_with_exercise_of_right_not_established",
+        "interference_with_exercise_of_right_undetermined",
+        "interference_with_exercise_of_right_conflict"
+      ],
+      "role_predicate": "interference_with_exercise_of_right_case_roles",
+      "rule_ir_path": "data/rulegen/property/rule_ir/interference_with_exercise_of_right_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "interference_with_exercise_of_right"
+    },
+    {
+      "article_ids": [
+        "art356"
+      ],
+      "commentary_input_count": 10,
+      "compiled_relation_count": 18,
+      "compiled_scl_path": "rules/generated/property_occupational_status_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 32,
+      "query_relations": [
+        "occupational_status_elements_satisfied",
+        "occupational_status_established",
+        "occupational_status_not_established",
+        "occupational_status_undetermined",
+        "occupational_status_conflict"
+      ],
+      "role_predicate": "occupational_status_case_roles",
+      "rule_ir_path": "data/rulegen/property/rule_ir/occupational_status_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "occupational_status"
+    }
+  ],
+  "version": "1.0.0"
+}
