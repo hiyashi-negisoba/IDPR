@@ -1,0 +1,236 @@
+{
+  "card_count": 5,
+  "cards": [
+    {
+      "card_id": "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation",
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "human": {
+        "component_id": null,
+        "component_join": null,
+        "decision": null,
+        "proposition_rewrite": null,
+        "rationale": null,
+        "refers_to_unit": null,
+        "role": null,
+        "track_id": null
+      },
+      "inherited_doctrine": null,
+      "polarity": "positive",
+      "proposition": "위 판례의 해석에 따르면 형법 제305조 제2항의 16세 미만 미성년자에 대한 간음·추행죄도 미수범이 처벌되는 것으로 해석할 수 있다.",
+      "review_notes": "이는 주석이 선행 판례로부터 제305조 제2항에 관해 제시한 해석 가능성으로서, 독립된 확인 완료 판례 규칙으로 취급하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "이에 따르면 16세 미만의 미성년자에 대한 간음·추행죄(형법 제305조 제2항)에 대하여도 미수범이 처벌되는 것으로 해석할 수 있다.",
+          "section_path": "raw_pdf.page_2"
+        }
+      ],
+      "source_track": "unit_core"
+    },
+    {
+      "card_id": "art300_x_raw_pdf.commencement_of_execution",
+      "doctrinal_status": "settled",
+      "formalization": "standard_input",
+      "human": {
+        "component_id": null,
+        "component_join": null,
+        "decision": null,
+        "proposition_rewrite": null,
+        "rationale": null,
+        "refers_to_unit": null,
+        "role": null,
+        "track_id": null
+      },
+      "inherited_doctrine": null,
+      "polarity": "positive",
+      "proposition": "미수가 성립하려면 실행의 착수가 있어야 한다.",
+      "review_notes": "실행의 착수 해당성은 구체적 행위의 위험성과 행위 진행을 평가해야 하므로 standard input으로 둔다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "미수가 성립하기",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "위해서는  실행의 착수가  있어야 한다.",
+          "section_path": "raw_pdf.page_2"
+        }
+      ],
+      "source_track": "unit_core"
+    },
+    {
+      "card_id": "art300_x_raw_pdf.enumerated_offenses_attempts",
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "human": {
+        "component_id": null,
+        "component_join": null,
+        "decision": null,
+        "proposition_rewrite": null,
+        "rationale": null,
+        "refers_to_unit": null,
+        "role": null,
+        "track_id": null
+      },
+      "inherited_doctrine": null,
+      "polarity": "positive",
+      "proposition": "강간죄, 유사강간죄, 강제추행죄 및 준강간·준유사강간·준강제추행죄의 미수범은 처벌된다.",
+      "review_notes": "열거된 죄명과 미수범 처벌의 연결은 기계적으로 열거할 수 있으나, 인용문은 원문 주석 내 단편이므로 조문 원문 대조가 필요하다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "강간죄(형법 제297조), 유사강간죄(제297조의2), 강제추행죄(제298조), 준강간·준유",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "사강간·준강제추행죄(제299조)의 미수범은",
+          "section_path": "raw_pdf.page_1"
+        }
+      ],
+      "source_track": "unit_core"
+    },
+    {
+      "card_id": "art300_x_raw_pdf.other_offenses_exclusion",
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "human": {
+        "component_id": null,
+        "component_join": null,
+        "decision": null,
+        "proposition_rewrite": null,
+        "rationale": null,
+        "refers_to_unit": null,
+        "role": null,
+        "track_id": null
+      },
+      "inherited_doctrine": null,
+      "polarity": "negative",
+      "proposition": "강간 등 상해·치상죄, 강간 등 살인·치사죄, 미성년자 등에 대한 간음죄 및 업무상 위력 등에 의한 간음죄의 미수범에는 형법 제300조가 적용되지 않는다.",
+      "review_notes": "제300조의 적용 대상 밖이라는 명시적 부정 범위이며, 열거된 죄에만 한정한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "위 죄 이외에  강간 등  상",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "해·치상죄(제301조), 강간 등 살인·치사죄(제301조의2), 미성년자 등에 대한 간음",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "죄(제302조), 업무상 위력 등에 의한 간음죄(제303조)의 미수범에 대하여는 형법",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "제300조가 적용되지 않는다.",
+          "section_path": "raw_pdf.page_1"
+        }
+      ],
+      "source_track": "unit_core"
+    },
+    {
+      "card_id": "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt",
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "human": {
+        "component_id": null,
+        "component_join": null,
+        "decision": null,
+        "proposition_rewrite": null,
+        "rationale": null,
+        "refers_to_unit": null,
+        "role": null,
+        "track_id": null
+      },
+      "inherited_doctrine": null,
+      "polarity": "positive",
+      "proposition": "판례는 구 형법 제305조의 13세 미만 미성년자에 대한 간음·추행죄에 형법 제300조를 적용하여 그 미수범 처벌을 긍정하였다.",
+      "review_notes": "주석이 보고한 판례 입장으로만 기록하였다. 적용된 판례 원문과 구 제305조의 적용 범위는 primary precedent index에서 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "판례는 13세 미만의 미성년자에",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "대한 간음·추행죄(2020. 5. 19. 법률",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "제17265호로 제305조 제2항이 신설되기 전 구 형법 제305조)에 대하여 이를 긍정하였",
+          "section_path": "raw_pdf.page_2"
+        }
+      ],
+      "source_track": "unit_core"
+    }
+  ],
+  "doctrine_overlay_card_count": 0,
+  "inherited_doctrine_decisions": [],
+  "law_snapshot": {
+    "as_of_date": "2026-08-03",
+    "effective_source_date": "2026-03-12",
+    "future_snapshot_date": "2026-09-13",
+    "future_snapshot_policy": "separate_snapshot_not_active",
+    "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
+  },
+  "review_contract": {
+    "allowed_component_joins": [
+      "mandatory_all",
+      "alternative_any",
+      "not_applicable"
+    ],
+    "allowed_decisions": [
+      "approve",
+      "rewrite",
+      "context_only",
+      "split",
+      "reject"
+    ],
+    "allowed_roles": [
+      "component",
+      "bar",
+      "boundary",
+      "waiver",
+      "post_outcome",
+      "context_only"
+    ],
+    "required_human_fields": [
+      "decision",
+      "role",
+      "component_id",
+      "component_join",
+      "track_id",
+      "refers_to_unit",
+      "rationale",
+      "proposition_rewrite"
+    ]
+  },
+  "status": "human_card_review_pending",
+  "unit": {
+    "articles": [
+      "art300"
+    ],
+    "kind": "shared_stage_module",
+    "label": "성범죄 미수",
+    "review_status": "pending",
+    "source_bundles": [
+      "sexual_crimes"
+    ],
+    "unit_id": "sexual_offense_attempt"
+  },
+  "unit_core_card_count": 5,
+  "version": "1.0.0"
+}

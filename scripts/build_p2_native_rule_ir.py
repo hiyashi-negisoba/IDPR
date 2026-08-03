@@ -1,0 +1,564 @@
+"""Assemble a P2 unit's RuleIR from its approved decision ledger, in the fraud spec.
+
+The property track derives components from a level map because nobody had ruled on those
+480 cards.  Here the reviewer already ruled: role, component, join and track come from the
+approved decision ledger, so this assembler reads a decision rather than inferring one.
+The emitted shape is the one fraud and the ten property units already use, because that is
+the only spec the Scallop runtime and the contract tests have executed.
+
+Nothing about a specific offence lives in this file.  Unit ids, tracks, components, role
+tuples and card roles all arrive as data.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from collections import defaultdict
+from pathlib import Path
+from typing import Any
+
+ROOT = Path(__file__).resolve().parents[1]
+MAIN_ROOT = Path("/data5/jaehoonjeong/IDPR")
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "src"))
+
+
+def variable(value: str) -> dict[str, str]:
+    return {"kind": "variable", "value": value}
+
+
+def string(value: str) -> dict[str, str]:
+    return {"kind": "string", "value": value}
+
+
+def atom(predicate_id: str, *arguments: dict[str, str], negated: bool = False) -> dict[str, Any]:
+    return {"predicate": predicate_id, "arguments": list(arguments), "negated": negated}
+
+
+def dedupe_refs(cards: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    seen: dict[tuple[str, str, str], dict[str, Any]] = {}
+    for card in cards:
+        for ref in card.get("source_refs", []):
+            key = (ref.get("comment_id", ""), ref.get("section_path", ""), ref.get("quote", ""))
+            seen.setdefault(key, ref)
+    return list(seen.values())
+
+
+P2 = ROOT / "data/rulegen/p2"
+LEDGER_DIR = P2 / "native_review"
+ROLE_SIGNATURES = P2 / "p2_native_role_signatures.json"
+UNIT_MANIFEST = P2 / "p2_native_unit_manifest.json"
+SOURCE_DIR = P2 / "rule_ir_units"
+REMEDIATED_DIR = P2 / "remediated"
+CAMPAIGN = MAIN_ROOT / "data/rulegen/campaign"
+OUT_DIR = P2 / "rule_ir"
+
+
+def read_json(path: Path) -> dict[str, Any]:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def read_jsonl(path: Path) -> list[dict[str, Any]]:
+    return [
+        json.loads(line)
+        for line in path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+
+
+def slug(value: str) -> str:
+    out = []
+    for char in value.lower():
+        out.append(char if char.isascii() and (char.isalnum()) else "_")
+    return "".join(out).strip("_")
+
+
+def commentary_index(articles: list[str]) -> dict[str, dict[str, Any]]:
+    """comment_id -> chunk, merged across the unit's articles."""
+    index: dict[str, dict[str, Any]] = {}
+    for article in articles:
+        path = CAMPAIGN / f"{article}_rulegen_requests.jsonl"
+        if not path.is_file():
+            raise SystemExit(f"commentary requests missing for {article}: {path}")
+        for request in read_jsonl(path):
+            for chunk in request.get("commentary_chunks", []):
+                index[chunk["comment_id"]] = chunk
+    return index
+
+
+def card_catalog() -> dict[str, dict[str, Any]]:
+    """Every card the unit may reference: unit bundles plus the remediated catalog."""
+    cards: dict[str, dict[str, Any]] = {}
+    for path in sorted(SOURCE_DIR.glob("*_unit.json")):
+        for card in read_json(path).get("cards", []):
+            cards.setdefault(card["id"], card)
+    for path in sorted(REMEDIATED_DIR.glob("*/*.json")):
+        for card in read_json(path).get("cards", []):
+            cards.setdefault(card["id"], card)
+    return cards
+
+
+class UnitAssembler:
+    """One unit's RuleIR, driven entirely by its approved decisions."""
+
+    def __init__(self, unit_id: str, tracks: tuple[str, ...] | None) -> None:
+        self.unit_id = unit_id
+        self.ledger = read_json(LEDGER_DIR / f"{unit_id}_decision_ledger.json")
+        if self.ledger["status"] != "ready_for_rule_ir":
+            raise SystemExit(f"{unit_id}: decision ledger is {self.ledger['status']}")
+        signatures = read_json(ROLE_SIGNATURES)["units"]
+        if unit_id not in signatures:
+            raise SystemExit(f"{unit_id}: no role signature declared")
+        self.signature = signatures[unit_id]["default"]
+        self.roles = list(self.signature["arguments"])
+        if self.roles[0] != "case_id":
+            raise SystemExit(f"{unit_id}: role signature must start with case_id")
+        compiled = tuple(self.signature.get("applies_to_tracks", ()))
+        self.tracks = tuple(tracks) if tracks else compiled
+        unknown = sorted(set(self.tracks) - set(compiled))
+        if unknown:
+            raise SystemExit(f"{unit_id}: tracks outside the declared signature: {unknown}")
+
+        self.catalog = card_catalog()
+        manifest = read_json(UNIT_MANIFEST)
+        unit = next(item for item in manifest["units"] if item["unit_id"] == unit_id)
+        self.articles = list(unit["articles"])
+        self.label = unit["label"]
+        self.law_snapshot = self.ledger["law_snapshot"]
+
+        self.actor_arguments = [(name, "String") for name in self.roles]
+        self.assessment_arguments = [
+            ("case_id", "String"),
+            ("assessment_id", "String"),
+            *[(name, "String") for name in self.roles[1:]],
+            ("status", "String"),
+        ]
+        self.actors = [variable(name) for name in self.roles]
+        self.predicates: list[dict[str, Any]] = []
+        self.rules: list[dict[str, Any]] = []
+        self.seen_predicates: set[str] = set()
+        self.used_cards: set[str] = set()
+        self.deferred: list[dict[str, Any]] = []
+        self.track_cards: dict[str, list[dict[str, Any]]] = {}
+
+    # ── placements ────────────────────────────────────────────────────
+    def placements(self) -> list[dict[str, Any]]:
+        """Component-bearing placements restricted to the tracks being compiled."""
+        rows = []
+        for component in self.ledger["components"]:
+            if component["track_id"] not in self.tracks:
+                self.deferred.append(component)
+                continue
+            rows.append(component)
+        return rows
+
+    def card(self, card_id: str) -> dict[str, Any]:
+        if card_id not in self.catalog:
+            raise SystemExit(f"{self.unit_id}: card absent from the catalog: {card_id}")
+        return self.catalog[card_id]
+
+    # ── predicate and rule emission ───────────────────────────────────
+    def add_predicate(
+        self,
+        predicate_id: str,
+        arguments: list[tuple[str, str]],
+        *,
+        definition: str,
+        origin: str,
+        role: str,
+        cards: list[dict[str, Any]] | None = None,
+    ) -> str:
+        if predicate_id in self.seen_predicates:
+            return predicate_id
+        self.seen_predicates.add(predicate_id)
+        cards = cards or []
+        refs = dedupe_refs(cards)
+        self.predicates.append({
+            "id": predicate_id,
+            "kind": "rule",
+            "origin": origin,
+            "role": role,
+            "definition": definition,
+            "arguments": [{"name": name, "type": kind} for name, kind in arguments],
+            "norm_card_ids": sorted({card["id"] for card in cards}),
+            "source_refs": refs,
+        })
+        return predicate_id
+
+    def add_rule(
+        self,
+        rule_id: str,
+        head: dict[str, Any],
+        body: list[dict[str, Any]],
+        *,
+        rationale: str,
+        cards: list[dict[str, Any]],
+    ) -> None:
+        # The contract requires every rule to name the cards it came from, including the
+        # aggregate ones: a conclusion with no provenance is exactly what this track exists
+        # to prevent.
+        if not cards:
+            raise SystemExit(f"{rule_id}: a rule must carry at least one norm card")
+        self.rules.append({
+            "id": rule_id,
+            "head": head,
+            "body": body,
+            "review_notes": rationale,
+            "norm_card_ids": sorted({card["id"] for card in cards}),
+            "source_refs": dedupe_refs(cards),
+        })
+
+    def system_predicates(self) -> None:
+        self.add_predicate(
+            "provable", [("case_id", "String"), ("assessment_id", "String")],
+            definition="해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음",
+            origin="system", role="input")
+        self.add_predicate(
+            "case_assessment_complete",
+            [("case_id", "String"), ("defendant_id", "String")],
+            definition="사건 라우터가 선택한 평가 묶음이 완결되어 결론 계층의 폐쇄세계 검사를 허용함",
+            origin="system", role="input")
+        self.add_predicate(
+            "distinct_entity",
+            [("case_id", "String"), ("left_entity_id", "String"), ("right_entity_id", "String")],
+            definition="사건의 entity resolution에서 두 역할이 서로 다른 실체임이 확인됨",
+            origin="system", role="input")
+        self.add_predicate(
+            self.signature["predicate"], self.actor_arguments,
+            definition=self.signature["definition"],
+            origin="system", role="input")
+
+    def card_predicates(self, card: dict[str, Any]) -> tuple[str, str]:
+        name = slug(card["id"])
+        assess = self.add_predicate(
+            f"assess_{name}", self.assessment_arguments,
+            definition=f"이 카드의 사건별 적용 평가: {card['proposition']}",
+            origin="commentary", role="input", cards=[card])
+        satisfied = self.add_predicate(
+            f"satisfied_{name}", self.actor_arguments,
+            definition=f"증명 가능한 평가에서 다음 조건이 충족됨: {card['proposition']}",
+            origin="commentary", role="derived", cards=[card])
+        return assess, satisfied
+
+    def assessment_atom(self, assess: str, assessment_variable: str, status: str) -> dict[str, Any]:
+        arguments = [
+            variable("case_id"),
+            variable(assessment_variable),
+            *[variable(name) for name in self.roles[1:]],
+            string(status),
+        ]
+        return atom(assess, *arguments)
+
+    def emit_cards(self, placements: list[dict[str, Any]]) -> dict[str, str]:
+        """Per-card input, condition, undetermined and conflict rules."""
+        satisfied_by_card: dict[str, str] = {}
+        card_ids = sorted({cid for row in placements for cid in row["norm_card_ids"]})
+        for index, card_id in enumerate(card_ids, start=1):
+            card = self.card(card_id)
+            self.used_cards.add(card_id)
+            assess, satisfied = self.card_predicates(card)
+            tag = f"{index:03d}"
+            self.add_rule(
+                f"{self.unit_id}.card.{slug(card_id)}.satisfied",
+                atom(satisfied, *self.actors),
+                [
+                    self.assessment_atom(assess, f"assessment_{tag}", "satisfied"),
+                    atom("provable", variable("case_id"), variable(f"assessment_{tag}")),
+                ],
+                rationale="증명 가능한 평가가 satisfied일 때만 조건으로 승격한다.",
+                cards=[card])
+            self.add_rule(
+                f"{self.unit_id}.card.{slug(card_id)}.undetermined",
+                atom(self.undetermined, variable("case_id"), variable("defendant_id"),
+                     string(card_id)),
+                [
+                    self.assessment_atom(assess, f"unknown_{tag}", "unknown"),
+                    atom("provable", variable("case_id"), variable(f"unknown_{tag}")),
+                ],
+                rationale="unknown 평가를 결론 계층에 보존한다.",
+                cards=[card])
+            self.add_rule(
+                f"{self.unit_id}.card.{slug(card_id)}.conflict",
+                atom(self.conflict, variable("case_id"), variable("defendant_id"),
+                     string(card_id)),
+                [
+                    self.assessment_atom(assess, f"positive_{tag}", "satisfied"),
+                    self.assessment_atom(assess, f"negative_{tag}", "not_satisfied"),
+                    atom("provable", variable("case_id"), variable(f"positive_{tag}")),
+                    atom("provable", variable("case_id"), variable(f"negative_{tag}")),
+                ],
+                rationale="같은 카드에 satisfied와 not_satisfied가 모두 증명되면 충돌이다.",
+                cards=[card])
+            satisfied_by_card[card_id] = satisfied
+        return satisfied_by_card
+
+    def emit_components(
+        self, placements: list[dict[str, Any]], satisfied_by_card: dict[str, str]
+    ) -> dict[str, list[str]]:
+        """Element predicates, joined the way the reviewer approved."""
+        by_track: dict[str, list[str]] = defaultdict(list)
+        track_card_ids: dict[str, set[str]] = defaultdict(set)
+        for row in placements:
+            track_card_ids[row["track_id"]].update(row["norm_card_ids"])
+            track, component = row["track_id"], row["component_id"]
+            cards = [self.card(cid) for cid in row["norm_card_ids"]]
+            roles = set(row["roles"])
+            if "component" not in roles:
+                continue
+            name = f"{self.unit_id}_{track}_{component}_satisfied"
+            join = row["joins"][0]
+            self.add_predicate(
+                name, self.actor_arguments,
+                definition=f"'{component}' 요건이 충족됨 ({track} track, {join})",
+                origin="commentary", role="derived", cards=cards)
+            by_track[track].append(name)
+            component_cards = [
+                card for card in cards
+                if card["id"] in satisfied_by_card
+            ]
+            if join == "alternative_any":
+                for card in component_cards:
+                    self.add_rule(
+                        f"{self.unit_id}.component.{track}.{component}.{slug(card['id'])}",
+                        atom(name, *self.actors),
+                        [atom(satisfied_by_card[card["id"]], *self.actors)],
+                        rationale="어느 한 인정 경로가 충족되면 요건이 충족된다.",
+                        cards=[card])
+            else:
+                self.add_rule(
+                    f"{self.unit_id}.component.{track}.{component}.all",
+                    atom(name, *self.actors),
+                    [atom(satisfied_by_card[card["id"]], *self.actors)
+                     for card in component_cards],
+                    rationale="결합적 요건이므로 모든 카드가 충족되어야 한다.",
+                    cards=component_cards)
+        self.track_cards = {
+            track: [self.card(cid) for cid in sorted(ids)]
+            for track, ids in track_card_ids.items()
+        }
+        return by_track
+
+    def emit_blockers(
+        self, placements: list[dict[str, Any]], satisfied_by_card: dict[str, str]
+    ) -> None:
+        """bar and boundary cards defeat establishment; they never join a conjunction."""
+        for row in placements:
+            roles = set(row["roles"])
+            blocking = roles & {"bar", "boundary"}
+            if not blocking:
+                continue
+            for card_id in row["norm_card_ids"]:
+                if card_id not in satisfied_by_card:
+                    continue
+                card = self.card(card_id)
+                self.add_rule(
+                    f"{self.unit_id}.blocked.{slug(card_id)}",
+                    atom(self.not_established, variable("case_id"),
+                         variable("defendant_id"), string(card_id)),
+                    [atom(satisfied_by_card[card_id], *self.actors)],
+                    rationale="저지·경계 카드가 충족되면 이 unit의 성립을 막는다.",
+                    cards=[card])
+
+    def emit_conclusions(self, by_track: dict[str, list[str]]) -> None:
+        all_cards = [self.card(cid) for cid in sorted(self.used_cards)]
+        self.add_predicate(
+            self.has_negative, [("case_id", "String"), ("defendant_id", "String")],
+            definition="이 unit에 증명된 불성립 사유가 존재함",
+            origin="system", role="derived")
+        self.add_predicate(
+            self.has_conflict, [("case_id", "String"), ("defendant_id", "String")],
+            definition="이 unit에 증명된 평가 충돌이 존재함",
+            origin="system", role="derived")
+        self.add_rule(
+            f"{self.unit_id}.summary.has_negative",
+            atom(self.has_negative, variable("case_id"), variable("defendant_id")),
+            [atom(self.not_established, variable("case_id"), variable("defendant_id"),
+                  variable("norm_card_id"))],
+            rationale="불성립 사유의 존재를 2항으로 요약한다.",
+            cards=all_cards)
+        self.add_rule(
+            f"{self.unit_id}.summary.has_conflict",
+            atom(self.has_conflict, variable("case_id"), variable("defendant_id")),
+            [atom(self.conflict, variable("case_id"), variable("defendant_id"),
+                  variable("norm_card_id"))],
+            rationale="충돌의 존재를 2항으로 요약한다.",
+            cards=all_cards)
+
+        for track in self.tracks:
+            components = sorted(by_track.get(track, []))
+            if not components:
+                continue
+            elements = f"{self.unit_id}_{track}_elements_satisfied"
+            established = f"{self.unit_id}_{track}_established"
+            self.add_predicate(
+                elements, self.actor_arguments,
+                definition=f"'{track}' track의 구성요건 component가 모두 충족된 잠정 성립 후보",
+                origin="system", role="derived")
+            self.add_predicate(
+                established, self.actor_arguments,
+                definition=f"완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 '{track}' track 확정 성립",
+                origin="system", role="derived")
+            self.add_rule(
+                f"{self.unit_id}.outcome.{track}.elements_satisfied",
+                atom(elements, *self.actors),
+                [atom(component, *self.actors) for component in components],
+                rationale=f"'{track}' track의 모든 component를 AND 결합한다.",
+                cards=self.track_cards[track])
+            self.add_rule(
+                f"{self.unit_id}.outcome.{track}.established",
+                atom(established, *self.actors),
+                [
+                    atom(elements, *self.actors),
+                    atom("case_assessment_complete", variable("case_id"),
+                         variable("defendant_id")),
+                    atom(self.has_negative, variable("case_id"), variable("defendant_id"),
+                         negated=True),
+                    atom(self.has_conflict, variable("case_id"), variable("defendant_id"),
+                         negated=True),
+                ],
+                rationale="완결 게이트 뒤에서만 부정을 사용해 확정 성립을 낸다.",
+                cards=self.track_cards[track])
+
+    # ── conclusion relation names ─────────────────────────────────────
+    @property
+    def not_established(self) -> str:
+        return f"{self.unit_id}_not_established"
+
+    @property
+    def undetermined(self) -> str:
+        return f"{self.unit_id}_undetermined"
+
+    @property
+    def conflict(self) -> str:
+        return f"{self.unit_id}_conflict"
+
+    @property
+    def has_negative(self) -> str:
+        return f"{self.unit_id}_has_negative"
+
+    @property
+    def has_conflict(self) -> str:
+        return f"{self.unit_id}_has_conflict"
+
+    def outcome_predicates(self) -> None:
+        report_arguments = [
+            ("case_id", "String"), ("defendant_id", "String"), ("norm_card_id", "String"),
+        ]
+        self.add_predicate(
+            self.not_established, report_arguments,
+            definition="증명된 불성립 사유 또는 경계 이동이 존재함",
+            origin="system", role="derived")
+        self.add_predicate(
+            self.undetermined, report_arguments,
+            definition="관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음",
+            origin="system", role="derived")
+        self.add_predicate(
+            self.conflict, report_arguments,
+            definition="같은 카드에 satisfied와 not_satisfied 평가가 모두 증명됨",
+            origin="system", role="derived")
+
+    def build(self) -> tuple[dict[str, Any], dict[str, Any]]:
+        placements = self.placements()
+        self.system_predicates()
+        self.outcome_predicates()
+        satisfied_by_card = self.emit_cards(placements)
+        by_track = self.emit_components(placements, satisfied_by_card)
+        self.emit_blockers(placements, satisfied_by_card)
+        self.emit_conclusions(by_track)
+
+        cards = [self.card(card_id) for card_id in sorted(self.used_cards)]
+        comment_ids = sorted({
+            ref["comment_id"] for card in cards for ref in card.get("source_refs", [])
+        })
+        index = commentary_index(self.articles)
+        missing = [cid for cid in comment_ids if cid not in index]
+        if missing:
+            raise SystemExit(f"{self.unit_id}: comment_ids absent from commentary: {missing}")
+
+        card_set = {
+            "version": "1.1.0",
+            "card_set_id": f"kr.p2.{self.unit_id}.native.norms.v1",
+            "issue_tag": self.unit_id,
+            "status": "draft",
+            "legal_review": "pending",
+            "construction": "deterministic_candidate_lift",
+            "source_scope": {
+                "comment_ids": comment_ids,
+                "target_paths": sorted({
+                    f"commentary://001692/{article}" for article in self.articles
+                }),
+            },
+            "cards": cards,
+            "legal_review_questions": [],
+            "coverage_gaps": self.coverage_gaps(),
+        }
+        rule_ir = {
+            "version": "1.1.0",
+            "rule_set_id": f"kr.p2.{self.unit_id}.native.v1_candidate",
+            "issue_tag": self.unit_id,
+            "status": "draft",
+            "legal_review": "pending",
+            "legal_review_questions": [],
+            "source_scope": {
+                "comment_ids": comment_ids,
+                "target_paths": card_set["source_scope"]["target_paths"],
+            },
+            "norm_card_scope": {
+                "card_set_id": card_set["card_set_id"],
+                "card_ids": sorted(self.used_cards),
+            },
+            "predicates": self.predicates,
+            "rules": self.rules,
+            "coverage_gaps": self.coverage_gaps(),
+        }
+        return rule_ir, card_set
+
+    def coverage_gaps(self) -> list[str]:
+        gaps: list[str] = [
+            f"predicate_ir_missing: {item['card_id']} → {item['refers_to_unit']}"
+            for item in self.ledger["unresolved_unit_references"]
+        ]
+        gaps.extend(
+            f"track_deferred: {item['track_id']}::{item['component_id']} "
+            f"({len(item['norm_card_ids'])} cards)"
+            for item in self.deferred
+        )
+        gaps.extend(
+            f"context_only: {item['card_id']}"
+            for item in self.ledger["excluded_cards"]
+        )
+        return gaps
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--unit", required=True)
+    parser.add_argument("--track", action="append", default=[])
+    parser.add_argument("--out-dir", type=Path, default=OUT_DIR)
+    args = parser.parse_args()
+
+    assembler = UnitAssembler(args.unit, tuple(args.track) or None)
+    rule_ir, card_set = assembler.build()
+    args.out_dir.mkdir(parents=True, exist_ok=True)
+    rule_ir_path = args.out_dir / f"{args.unit}_rule_ir_candidate.json"
+    card_set_path = args.out_dir / f"{args.unit}_norm_card_set.json"
+    rule_ir_path.write_text(
+        json.dumps(rule_ir, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    card_set_path.write_text(
+        json.dumps(card_set, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps({
+        "unit": args.unit,
+        "tracks": list(assembler.tracks),
+        "cards": len(rule_ir["norm_card_scope"]["card_ids"]),
+        "predicates": len(rule_ir["predicates"]),
+        "rules": len(rule_ir["rules"]),
+        "coverage_gaps": len(rule_ir["coverage_gaps"]),
+        "rule_ir": str(rule_ir_path),
+        "norm_card_set": str(card_set_path),
+    }, ensure_ascii=False))
+
+
+if __name__ == "__main__":
+    main()

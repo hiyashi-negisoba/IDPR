@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "note": "unit별 역할 tuple. 재산죄 11개 unit의 arity가 2~6으로 이미 제각각이라 어휘를 물려받지 않고 unit마다 선언한다. 호스트가 FactGraph를 EDB로 주입할 때 인자 이름과 순서를 추측하지 않도록 서명을 데이터로 남긴다.",
+  "contract": {
+    "predicate_naming": "<unit_id 유래 이름>_case_roles",
+    "first_argument": "case_id는 항상 첫 인자다",
+    "track_override": "track별 역할이 다르면 tracks에 선언한다. 선언이 없으면 default를 쓴다"
+  },
+  "units": {
+    "arson_of_occupied_structure": {
+      "gate": "docs/review/2026-08-03_special_part_legal_gate_01.md#d7",
+      "default": {
+        "predicate": "arson_case_roles",
+        "arguments": ["case_id", "defendant_id", "structure_id", "occupant_id"],
+        "definition": "호스트가 확정한 방화 사건의 역할 tuple — 피고인, 목적물 건조물, 그 건조물의 주거자 또는 현존자",
+        "applies_to_tracks": ["base", "attempt", "completed"]
+      },
+      "tracks": {
+        "aggravated_result": {
+          "predicate": "arson_casualty_case_roles",
+          "arguments": ["case_id", "defendant_id", "structure_id", "victim_id"],
+          "definition": "치사상 track의 역할 tuple — 현존자와 사상자는 다대다 관계이므로 별도 tuple을 쓴다",
+          "status": "declared_not_compiled",
+          "reason": "D6에 따라 첫 컴파일 범위에서 제외한다"
+        }
+      }
+    }
+  }
+}
