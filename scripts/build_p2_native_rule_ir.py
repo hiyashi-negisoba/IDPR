@@ -52,6 +52,7 @@ ROLE_SIGNATURES = P2 / "p2_native_role_signatures.json"
 UNIT_MANIFEST = P2 / "p2_native_unit_manifest.json"
 SOURCE_DIR = P2 / "rule_ir_units"
 REMEDIATED_DIR = P2 / "remediated"
+CARD_CORRECTIONS = P2 / "p2_card_metadata_corrections.json"
 CAMPAIGN = MAIN_ROOT / "data/rulegen/campaign"
 OUT_DIR = P2 / "rule_ir"
 
@@ -88,7 +89,26 @@ def commentary_index(articles: list[str]) -> dict[str, dict[str, Any]]:
     return index
 
 
-def card_catalog() -> dict[str, dict[str, Any]]:
+def apply_corrections(cards: dict[str, dict[str, Any]]) -> list[str]:
+    """Apply approved metadata corrections, refusing any whose premise no longer holds."""
+    if not CARD_CORRECTIONS.is_file():
+        return []
+    applied = []
+    for item in read_json(CARD_CORRECTIONS)["corrections"]:
+        card = cards.get(item["card_id"])
+        if card is None:
+            raise SystemExit(f"correction {item['correction_id']}: unknown card {item['card_id']}")
+        current = card.get(item["field"])
+        if current != item["from"]:
+            raise SystemExit(
+                f"correction {item['correction_id']} expected "
+                f"{item['field']}={item['from']!r} but the card now has {current!r}")
+        cards[item["card_id"]] = {**card, item["field"]: item["to"]}
+        applied.append(item["correction_id"])
+    return applied
+
+
+def card_catalog() -> tuple[dict[str, dict[str, Any]], list[str]]:
     """Every card the unit may reference: unit bundles plus the remediated catalog."""
     cards: dict[str, dict[str, Any]] = {}
     for path in sorted(SOURCE_DIR.glob("*_unit.json")):
@@ -97,7 +117,7 @@ def card_catalog() -> dict[str, dict[str, Any]]:
     for path in sorted(REMEDIATED_DIR.glob("*/*.json")):
         for card in read_json(path).get("cards", []):
             cards.setdefault(card["id"], card)
-    return cards
+    return cards, apply_corrections(cards)
 
 
 class UnitAssembler:
@@ -121,7 +141,7 @@ class UnitAssembler:
         if unknown:
             raise SystemExit(f"{unit_id}: tracks outside the declared signature: {unknown}")
 
-        self.catalog = card_catalog()
+        self.catalog, self.corrections = card_catalog()
         manifest = read_json(UNIT_MANIFEST)
         unit = next(item for item in manifest["units"] if item["unit_id"] == unit_id)
         self.articles = list(unit["articles"])
@@ -145,14 +165,12 @@ class UnitAssembler:
 
     # ── placements ────────────────────────────────────────────────────
     def placements(self) -> list[dict[str, Any]]:
-        """Component-bearing placements restricted to the tracks being compiled."""
-        rows = []
+        """Per-card placements restricted to the tracks being compiled."""
         for component in self.ledger["components"]:
             if component["track_id"] not in self.tracks:
                 self.deferred.append(component)
-                continue
-            rows.append(component)
-        return rows
+        return [row for row in self.ledger["placements"]
+                if row["track_id"] in self.tracks]
 
     def card(self, card_id: str) -> dict[str, Any]:
         if card_id not in self.catalog:
@@ -254,7 +272,7 @@ class UnitAssembler:
     def emit_cards(self, placements: list[dict[str, Any]]) -> dict[str, str]:
         """Per-card input, condition, undetermined and conflict rules."""
         satisfied_by_card: dict[str, str] = {}
-        card_ids = sorted({cid for row in placements for cid in row["norm_card_ids"]})
+        card_ids = sorted({row["card_id"] for row in placements})
         for index, card_id in enumerate(card_ids, start=1):
             card = self.card(card_id)
             self.used_cards.add(card_id)
@@ -300,26 +318,26 @@ class UnitAssembler:
         """Element predicates, joined the way the reviewer approved."""
         by_track: dict[str, list[str]] = defaultdict(list)
         track_card_ids: dict[str, set[str]] = defaultdict(set)
+        grouped: dict[tuple[str, str], list[dict[str, Any]]] = defaultdict(list)
         for row in placements:
-            track_card_ids[row["track_id"]].update(row["norm_card_ids"])
-            track, component = row["track_id"], row["component_id"]
-            cards = [self.card(cid) for cid in row["norm_card_ids"]]
-            roles = set(row["roles"])
-            if "component" not in roles:
-                continue
+            track_card_ids[row["track_id"]].add(row["card_id"])
+            if row["role"] == "component":
+                grouped[(row["track_id"], row["component_id"])].append(row)
+        for (track, component), rows in sorted(grouped.items()):
+            joins = sorted({row["component_join"] for row in rows})
+            if len(joins) != 1:
+                raise SystemExit(
+                    f"{self.unit_id}: {track}::{component} has conflicting joins {joins}")
+            join = joins[0]
+            cards = [self.card(row["card_id"]) for row in rows]
             name = f"{self.unit_id}_{track}_{component}_satisfied"
-            join = row["joins"][0]
             self.add_predicate(
                 name, self.actor_arguments,
                 definition=f"'{component}' 요건이 충족됨 ({track} track, {join})",
                 origin="commentary", role="derived", cards=cards)
             by_track[track].append(name)
-            component_cards = [
-                card for card in cards
-                if card["id"] in satisfied_by_card
-            ]
             if join == "alternative_any":
-                for card in component_cards:
+                for card in cards:
                     self.add_rule(
                         f"{self.unit_id}.component.{track}.{component}.{slug(card['id'])}",
                         atom(name, *self.actors),
@@ -330,10 +348,9 @@ class UnitAssembler:
                 self.add_rule(
                     f"{self.unit_id}.component.{track}.{component}.all",
                     atom(name, *self.actors),
-                    [atom(satisfied_by_card[card["id"]], *self.actors)
-                     for card in component_cards],
+                    [atom(satisfied_by_card[card["id"]], *self.actors) for card in cards],
                     rationale="결합적 요건이므로 모든 카드가 충족되어야 한다.",
-                    cards=component_cards)
+                    cards=cards)
         self.track_cards = {
             track: [self.card(cid) for cid in sorted(ids)]
             for track, ids in track_card_ids.items()
@@ -345,21 +362,17 @@ class UnitAssembler:
     ) -> None:
         """bar and boundary cards defeat establishment; they never join a conjunction."""
         for row in placements:
-            roles = set(row["roles"])
-            blocking = roles & {"bar", "boundary"}
-            if not blocking:
+            if row["role"] not in ("bar", "boundary"):
                 continue
-            for card_id in row["norm_card_ids"]:
-                if card_id not in satisfied_by_card:
-                    continue
-                card = self.card(card_id)
-                self.add_rule(
-                    f"{self.unit_id}.blocked.{slug(card_id)}",
-                    atom(self.not_established, variable("case_id"),
-                         variable("defendant_id"), string(card_id)),
-                    [atom(satisfied_by_card[card_id], *self.actors)],
-                    rationale="저지·경계 카드가 충족되면 이 unit의 성립을 막는다.",
-                    cards=[card])
+            card_id = row["card_id"]
+            card = self.card(card_id)
+            self.add_rule(
+                f"{self.unit_id}.blocked.{row['track_id']}.{slug(card_id)}",
+                atom(self.not_established, variable("case_id"),
+                     variable("defendant_id"), string(card_id)),
+                [atom(satisfied_by_card[card_id], *self.actors)],
+                rationale="저지·경계 카드가 충족되면 이 unit의 성립을 막는다.",
+                cards=[card])
 
     def emit_conclusions(self, by_track: dict[str, list[str]]) -> None:
         all_cards = [self.card(cid) for cid in sorted(self.used_cards)]
@@ -528,6 +541,10 @@ class UnitAssembler:
         gaps.extend(
             f"context_only: {item['card_id']}"
             for item in self.ledger["excluded_cards"]
+        )
+        gaps.extend(
+            f"card_metadata_correction: {correction_id}"
+            for correction_id in self.corrections
         )
         return gaps
 

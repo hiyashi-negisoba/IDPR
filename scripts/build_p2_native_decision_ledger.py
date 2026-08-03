@@ -122,6 +122,7 @@ def build_ledger(unit_id: str) -> dict[str, Any]:
     queue_index = {card["card_id"]: card for card in queue["cards"]}
 
     components: dict[str, dict[str, Any]] = {}
+    card_placements: list[dict[str, Any]] = []
     excluded: list[dict[str, Any]] = []
     stats: Counter[str] = Counter()
     for card in approval["cards"]:
@@ -153,6 +154,17 @@ def build_ledger(unit_id: str) -> dict[str, Any]:
             if placement.get("refers_to_unit"):
                 entry["refers_to_units"].append(placement["refers_to_unit"])
             entry["norm_card_ids"].append(card["card_id"])
+            # Per-card placement, because a component can hold a defining card, a bar and a
+            # boundary at once; collapsing them would make every card in it a blocker.
+            card_placements.append({
+                "card_id": card["card_id"],
+                "part_id": placement.get("part_id"),
+                "role": placement["role"],
+                "track_id": placement["track_id"],
+                "component_id": placement["component_id"],
+                "component_join": placement["component_join"],
+                "refers_to_unit": placement.get("refers_to_unit"),
+            })
             stats["placements"] += 1
 
     for entry in components.values():
@@ -179,6 +191,10 @@ def build_ledger(unit_id: str) -> dict[str, Any]:
         "problems": problems,
         "unresolved_unit_references": unresolved,
         "excluded_cards": excluded,
+        "placements": sorted(
+            card_placements,
+            key=lambda row: (row["track_id"], row["component_id"], row["card_id"]),
+        ),
         "components": [components[key] for key in sorted(components)],
         "stats": dict(sorted(stats.items())),
     }
