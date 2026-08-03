@@ -37,15 +37,19 @@ from idpr.llm import GatewayConfig, JSONCompletionJob  # noqa: E402
 from idpr.llm.gemini_native import GeminiNativeGateway  # noqa: E402
 
 
-GEMINI_SAFETY_SETTINGS = [
-    {"category": category, "threshold": "BLOCK_NONE"}
-    for category in (
+GEMINI_SAFETY_CATEGORIES = (
         "HARM_CATEGORY_HARASSMENT",
         "HARM_CATEGORY_HATE_SPEECH",
         "HARM_CATEGORY_SEXUALLY_EXPLICIT",
         "HARM_CATEGORY_DANGEROUS_CONTENT",
-    )
-]
+)
+
+
+def _gemini_safety_settings(threshold: str) -> list[dict[str, str]]:
+    return [
+        {"category": category, "threshold": threshold}
+        for category in GEMINI_SAFETY_CATEGORIES
+    ]
 
 
 def _utc_now() -> str:
@@ -289,10 +293,11 @@ async def _run(args: argparse.Namespace) -> None:
         max_retries=args.api_retries,
         use_json_response_format=True,
     )
+    safety_settings = _gemini_safety_settings(args.gemini_safety_threshold)
     gateway = GeminiNativeGateway(
         config,
         model=args.model,
-        safety_settings=GEMINI_SAFETY_SETTINGS,
+        safety_settings=safety_settings,
     )
 
     print(
@@ -417,7 +422,7 @@ async def _run(args: argparse.Namespace) -> None:
         "max_tokens": args.max_tokens,
         "contract_attempts": args.contract_attempts,
         "api_retries": args.api_retries,
-        "gemini_safety_settings": GEMINI_SAFETY_SETTINGS,
+        "gemini_safety_settings": safety_settings,
         "source_sha256": source_hashes,
         "output_sha256": sha256_file(args.out),
         "summary_sha256": sha256_file(args.summary),
@@ -500,6 +505,11 @@ def main() -> None:
     )
     parser.add_argument("--contract-attempts", type=int, default=2)
     parser.add_argument("--api-retries", type=int, default=2)
+    parser.add_argument(
+        "--gemini-safety-threshold",
+        choices=("BLOCK_NONE", "OFF"),
+        default="BLOCK_NONE",
+    )
     parser.add_argument("--order-seed", type=int, default=20260803)
     parser.add_argument("--bootstrap-samples", type=int, default=10000)
     parser.add_argument("--bootstrap-seed", type=int, default=20260803)
