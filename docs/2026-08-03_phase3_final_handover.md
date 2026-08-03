@@ -207,3 +207,18 @@ tail -n 50 logs/phase3_final_59_218352.err
 
 이 문서가 Phase 3 설계 종료점이다. 후임자의 첫 작업은 파이프라인을 더 고치는 것이 아니라,
 `218352`의 완결성과 manifest를 확인한 다음 동결된 평가 프로토콜을 실행하는 것이다.
+
+## 2026-08-03 실행 재개 기록
+
+- 원 잡 `218352`의 성공한 45개 답변은 그대로 보존하고, 실패 FactGraph 1건을 계약 재시도로
+  복구한 뒤 나머지만 생성한 `218467`이 `COMPLETED (00:30:01, 0:0)`로 끝났다.
+- 최종 `idpr_nsn_outputs.jsonl`은 59행, ID 59개, 빈 `generated_response` 0개다.
+- 4축 pointwise judge는 Coverage, Precision, Hallucination, Consistency를 구조화 JSON으로
+  기록하며 `gemini/gemini-2.5-flash`를 사용한다.
+- Gemini 호출은 OpenAI 호환 `/chat/completions`가 아니라 랩 LiteLLM의 네이티브 passthrough
+  `/gemini/v1beta/models/gemini-2.5-flash:generateContent`를 사용한다.
+- 네이티브 요청에는 네 가지 조정 가능 harm category를 모두 `BLOCK_NONE`으로 고정하고,
+  학술·법률 평가 지침을 system instruction 마지막에 둔다.
+- 필터가 발생해도 문제를 `question_prompt`로 축약하지 않는다. 원문 전체와 답안을 그대로
+  재시도하며 모든 결과의 `question_variant`는 `full_question`이어야 한다.
+- 종전 OpenAI 호환 경로의 부분 결과는 `transport` 불일치로 자동 무효화하고 전량 재채점한다.

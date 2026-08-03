@@ -33,7 +33,19 @@ from idpr.eval.phase3_judge import (  # noqa: E402
     sha256_file,
 )
 from idpr.eval.rubric import load_rubric_sets  # noqa: E402
-from idpr.llm import GatewayConfig, JSONCompletionJob, LLMGateway  # noqa: E402
+from idpr.llm import GatewayConfig, JSONCompletionJob  # noqa: E402
+from idpr.llm.gemini_native import GeminiNativeGateway  # noqa: E402
+
+
+GEMINI_SAFETY_SETTINGS = [
+    {"category": category, "threshold": "BLOCK_NONE"}
+    for category in (
+        "HARM_CATEGORY_HARASSMENT",
+        "HARM_CATEGORY_HATE_SPEECH",
+        "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+        "HARM_CATEGORY_DANGEROUS_CONTENT",
+    )
+]
 
 
 def _utc_now() -> str:
@@ -96,14 +108,13 @@ def _contract_errors(validator: Draft202012Validator, output: Any) -> list[str]:
 
 async def _score_one(
     *,
-    gateway: LLMGateway,
+    gateway: GeminiNativeGateway,
     validator: Draft202012Validator,
     system_prompt: str,
     protocol: Mapping[str, Any],
     method_id: str,
     case_id: str,
     question: str,
-    fallback_question: str,
     rubrics: Sequence[str],
     rubric_set: Any,
     answer: str,
@@ -119,7 +130,6 @@ async def _score_one(
     feedback: list[str] = []
     api_attempts: list[dict[str, Any]] = []
     api_failures: list[dict[str, Any]] = []
-    active_question = question
     question_variant = "full_question"
     for attempt in range(1, contract_attempts + 1):
         active_prompt = system_prompt
@@ -134,7 +144,7 @@ async def _score_one(
             role="terra",
             system_prompt=active_prompt,
             payload={
-                "question": active_question,
+                "question": question,
                 "rubrics": [
                     {"index": index, "text": rubric}
                     for index, rubric in enumerate(rubrics, 1)
@@ -167,6 +177,7 @@ async def _score_one(
             return {
                 "version": "1.0.0",
                 "status": "ok",
+                "transport": gateway.transport,
                 "sub_question_id": case_id,
                 "method_id": method_id,
                 "anonymous_answer_id": anonymous_id,
@@ -183,19 +194,13 @@ async def _score_one(
             api_failures.append(
                 {"attempt": attempt, "question_variant": question_variant, "error": message}
             )
-            if (
-                "content_filter" in message
-                and question_variant == "full_question"
-                and fallback_question.strip()
-            ):
-                active_question = fallback_question
-                question_variant = "subquestion_only_after_content_filter"
-                feedback = []
-            else:
-                feedback = [message]
+            # Provider failures are retried with the byte-identical evaluation prompt.
+            # Only a parsed-but-invalid judge response may receive contract feedback.
+            feedback = []
     return {
         "version": "1.0.0",
         "status": "failed",
+        "transport": gateway.transport,
         "sub_question_id": case_id,
         "method_id": method_id,
         "anonymous_answer_id": anonymous_id,
@@ -216,10 +221,13 @@ async def _run(args: argparse.Namespace) -> None:
     Draft202012Validator.check_schema(schema)
     validator = Draft202012Validator(schema)
     prompt_text = args.prompt.read_text(encoding="utf-8")
+    safety_prompt_text = args.safety_prompt.read_text(encoding="utf-8")
     system_prompt = (
         prompt_text
         + "\n\n# 강제 JSON Schema\n"
         + json.dumps(schema, ensure_ascii=False, sort_keys=True)
+        + "\n\n"
+        + safety_prompt_text
     )
 
     sealed_rows = read_jsonl(args.sealed_inventory)
@@ -260,7 +268,15 @@ async def _run(args: argparse.Namespace) -> None:
         existing: dict[tuple[str, str], dict[str, Any]] = {}
     else:
         existing = _load_existing(args.out)
-    pending = [job for job in jobs if existing.get(job, {}).get("status") != "ok"]
+    pending = [
+        job
+        for job in jobs
+        if not (
+            existing.get(job, {}).get("status") == "ok"
+            and existing.get(job, {}).get("transport")
+            == GeminiNativeGateway.transport
+        )
+    ]
 
     base_config = GatewayConfig.from_env(require_models=False)
     config = replace(
@@ -273,7 +289,11 @@ async def _run(args: argparse.Namespace) -> None:
         max_retries=args.api_retries,
         use_json_response_format=True,
     )
-    gateway = LLMGateway(config)
+    gateway = GeminiNativeGateway(
+        config,
+        model=args.model,
+        safety_settings=GEMINI_SAFETY_SETTINGS,
+    )
 
     print(
         json.dumps(
@@ -301,9 +321,6 @@ async def _run(args: argparse.Namespace) -> None:
                     method_id=method_id,
                     case_id=case_id,
                     question=rubric_sets[case_id].question,
-                    fallback_question=str(
-                        sealed_index[case_id].get("question_prompt", "")
-                    ),
                     rubrics=rubric_sets[case_id].rubrics,
                     rubric_set=rubric_sets[case_id],
                     answer=answers[method_id][case_id],
@@ -374,6 +391,7 @@ async def _run(args: argparse.Namespace) -> None:
         "protocol": sha256_file(args.protocol),
         "schema": sha256_file(args.schema),
         "prompt": sha256_file(args.prompt),
+        "safety_prompt": sha256_file(args.safety_prompt),
         **{
             f"method:{method_id}": sha256_file(path)
             for method_id, path in method_paths.items()
@@ -386,7 +404,8 @@ async def _run(args: argparse.Namespace) -> None:
         "completed_at": _utc_now(),
         "git_revision": _git_revision(),
         "requested_backbone_model": args.model,
-        "gateway_model": config.model_for_role("terra"),
+        "gateway_model": args.model,
+        "transport": gateway.transport,
         "methods": list(answers),
         "sealed_cases": len(sealed_case_ids),
         "selected_jobs": len(jobs),
@@ -398,6 +417,7 @@ async def _run(args: argparse.Namespace) -> None:
         "max_tokens": args.max_tokens,
         "contract_attempts": args.contract_attempts,
         "api_retries": args.api_retries,
+        "gemini_safety_settings": GEMINI_SAFETY_SETTINGS,
         "source_sha256": source_hashes,
         "output_sha256": sha256_file(args.out),
         "summary_sha256": sha256_file(args.summary),
@@ -440,6 +460,11 @@ def main() -> None:
         "--prompt",
         type=Path,
         default=PROJECT_ROOT / "prompts/phase3_kcl_pointwise_judge.md",
+    )
+    parser.add_argument(
+        "--safety-prompt",
+        type=Path,
+        default=PROJECT_ROOT / "prompts/phase3_kcl_academic_safety.md",
     )
     parser.add_argument(
         "--out",
