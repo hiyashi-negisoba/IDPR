@@ -122,6 +122,25 @@ active_norm_card_ids[]
 - [x] D5 승인 — 2026-08-03 사용자 승인
 - [ ] D5 수정: ____________________
 
+## D6. 방화 unit 첫 컴파일 범위
+
+[predicate 계약 감사](../2026-08-03_ruleir_predicate_contract_risk.md)에서 재산죄 as-built에
+단계 결론과 outcome bridge가 모두 없다는 것이 확인되었다.
+
+- [x] D6 승인 — 2026-08-03. 첫 컴파일은 `base / attempt / completed` 세 track까지만 한다.
+      `aggravated_result`와 post_outcome 12장은 outcome bridge 및 `homicide` unit RuleIR이
+      생긴 뒤로 미루고, 그때까지 `predicate_ir_missing`으로 보고한다.
+- [ ] D6 수정: ____________________
+
+## D7. 방화 role tuple
+
+방화는 공공위험범이므로 재산죄의 owner/possessor 어휘를 재사용하지 않는다.
+
+- [x] D7 승인 — 2026-08-03. 현존자와 치사상 피해자는 다대다 구조로 서로 다를 수 있으므로
+      track별로 별도 role tuple을 둔다. base/attempt/completed는 건조물과 현존자를 받고,
+      치사상 track은 피해자를 별도로 받는 tuple을 쓴다.
+- [ ] D7 수정: ____________________
+
 ## 검수 회신 형식
 
 다음처럼 짧게 답해도 된다.
