@@ -20,6 +20,10 @@ ACTOR_FIELDS = (
     "property_owner_id",
     "beneficiary_id",
 )
+# 역할 tuple을 제외한, 모든 unit이 공유하는 system input 술어.
+FIXED_SYSTEM_INPUTS = frozenset(
+    {"provable", "case_assessment_complete", "distinct_entity"}
+)
 
 
 class ScallopFactValidationError(ValueError):
@@ -48,14 +52,30 @@ def _role_contract(rule_ir: Mapping[str, Any]) -> tuple[str, tuple[str, ...]]:
     사기는 `fraud_case_roles`와 6개 슬롯이었다. 재산죄 단위는 `<issue_tag>_case_roles`와
     단위별 슬롯을 쓴다. RuleIR이 그 계약을 이미 담고 있으므로 여기서 되짚고, 없으면 사기
     기본값으로 떨어진다(기존 호출 동작 불변).
+
+    P2 unit은 서명을 데이터로 선언하므로 술어 이름이 `issue_tag`에서 유도되지 않는다
+    (`arson_of_occupied_structure` → `arson_case_roles`). 이름으로 못 찾으면 고정 3개를
+    제외한 system input 술어에서 서명을 읽는다. 이름을 추측해 6슬롯 사기 tuple로 조용히
+    떨어지면 다른 arity의 사실을 만들어내므로 그 경로를 먼저 막는다.
     """
 
     predicate_id = f"{rule_ir.get('issue_tag', 'fraud')}_case_roles"
+    declared: list[Mapping[str, Any]] = []
     for predicate in rule_ir.get("predicates", []):
         if predicate.get("id") == predicate_id:
             return predicate_id, tuple(
                 argument["name"] for argument in predicate.get("arguments", [])
             )
+        if (
+            predicate.get("origin") == "system"
+            and predicate.get("role") == "input"
+            and predicate.get("id") not in FIXED_SYSTEM_INPUTS
+        ):
+            declared.append(predicate)
+    if len(declared) == 1:
+        return str(declared[0]["id"]), tuple(
+            argument["name"] for argument in declared[0].get("arguments", [])
+        )
     return "fraud_case_roles", ACTOR_FIELDS
 
 

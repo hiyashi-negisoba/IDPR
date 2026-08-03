@@ -141,6 +141,18 @@ active_norm_card_ids[]
       치사상 track은 피해자를 별도로 받는 tuple을 쓴다.
 - [ ] D7 수정: ____________________
 
+## D8. 가중 track의 요건 상속 (2026-08-04)
+
+방화의 track은 서로 배타적인 단계였으나, 상해의 `ancestral`·`special`·`aggravated_result`는
+기본 구성요건을 그대로 요구하고 자기 요건만 더한다. 조립기가 track을 독립적으로만 다루면
+가중 track이 기본 요건 없이 성립할 수 있다.
+
+- [x] D8 승인 — 2026-08-03(H-B03 제2문). 승인 원장의 track 어휘에 `inherits_from`을 선언하면
+      조립기가 `<track>_elements_satisfied ← <parent>_elements_satisfied ∧ <track> component`로
+      낸다. 원장 검증기가 미선언 track 참조와 순환을 막는다.
+- 런타임 확인: `ancestral.unknown_blocks`는 base의 필수 카드 하나를 unknown으로 돌렸을 때
+      `ancestral_elements_satisfied`가 비는 것을 실제 Scallop 실행으로 확인한다.
+
 ## 검수 회신 형식
 
 다음처럼 짧게 답해도 된다.

@@ -24,6 +24,24 @@
           "reason": "D6에 따라 첫 컴파일 범위에서 제외한다"
         }
       }
+    },
+    "intentional_bodily_injury": {
+      "gate": "docs/review/2026-08-03_special_part_legal_gate_01.md#d7",
+      "default": {
+        "predicate": "bodily_injury_case_roles",
+        "arguments": ["case_id", "defendant_id", "victim_id"],
+        "definition": "호스트가 확정한 상해 사건의 역할 tuple — 피고인과 상해를 입은 피해자. 상해치사의 사망자는 상해 피해자와 동일인이므로 별도 역할을 두지 않는다",
+        "applies_to_tracks": ["base", "attempt", "ancestral", "special", "aggravated_result"]
+      },
+      "tracks": {
+        "concurrent_offenders": {
+          "predicate": "concurrent_offenders_case_roles",
+          "arguments": ["case_id", "defendant_id", "victim_id", "co_offender_id"],
+          "definition": "제263조 동시범 특례의 역할 tuple — 의사연락 없이 같은 피해자를 상해한 다른 행위자를 명시한다",
+          "status": "declared_not_compiled",
+          "reason": "특례는 2인 이상의 독립행위 경합을 전제하므로 단독 피고인 tuple로는 '원인행위가 판명되지 않음'을 표현할 수 없다. 공유 module로 이관할 때 이 서명으로 컴파일한다"
+        }
+      }
     }
   }
 }

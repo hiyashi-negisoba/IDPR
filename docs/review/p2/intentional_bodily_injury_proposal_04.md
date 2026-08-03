@@ -88,3 +88,27 @@ track 어휘는 제안 01을 따른다. 101–104번은 결정 C에서 이미 �
 
 따라서 제262조 unit은 만들지 않는다. #33과 #74의 경계는 그대로 보존하되 이 unit의 결론에는
 영향을 주지 않는 범위 밖 참조로 보고한다.
+
+## 조립 시 join 정규화와 컴파일 범위 (2026-08-04)
+
+### `result_foreseeability` — #72와 #81을 `alternative_any`로 통일
+
+초안은 #72를 `mandatory_all`, #81을 `alternative_any`로 두었다. 한 component에 두 join이
+섞이면 조립기가 막는다. #81(중요 부위 강타의 예견가능성)은 #72가 요구하는 예견가능성을
+인정하는 한 경로이지 별도의 추가 요건이 아니므로, 둘 다 인정 경로로 두었다.
+
+### `simultaneous_offenders` — #95·#96을 같은 요건의 provenance로
+
+초안은 #95·#96을 `alternative_any`로 두었으나, 같은 component의 #89·#93이 `mandatory_all`이라
+충돌한다. #95·#96은 새로운 요건이 아니라 **독립행위 경합 요건이 이시의 경합에도 미친다**는
+범위 확인이다. 별도 component로 떼면 "이시 경합일 것"이 필수 요건이 되어 동시 경합 사건이
+탈락하므로, 같은 component의 provenance로 두고 join을 `mandatory_all`로 맞췄다.
+
+### `concurrent_offenders` track은 선언하되 이번 회차에 컴파일하지 않는다
+
+역할 tuple을 `(case_id, defendant_id, victim_id)`로 선언했다. 제263조는 2인 이상의 독립행위
+경합을 전제하므로 이 tuple로는 "원인행위가 판명되지 않음"을 표현할 수 없다. 서명 파일에
+`concurrent_offenders_case_roles(case_id, defendant_id, victim_id, co_offender_id)`를
+`declared_not_compiled`로 남기고, RuleIR은 이 track을 `track_deferred` gap으로 보고한다.
+
+공유 module로 이관할 때 이 서명으로 컴파일한다. 카드 16장의 판정은 원장에 그대로 남아 있다.

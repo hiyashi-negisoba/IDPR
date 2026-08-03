@@ -55,6 +55,25 @@ def placements(card: dict[str, Any]) -> list[dict[str, Any]]:
     return [{key: card.get(key) for key in (*PLACEMENT_FIELDS, "decision", "part_id")}]
 
 
+def track_inheritance_problems(vocabulary: list[dict[str, Any]]) -> list[str]:
+    """A track may build on another track's elements; the chain must terminate."""
+    parent = {item["track_id"]: item.get("inherits_from") for item in vocabulary}
+    problems: list[str] = []
+    for track in parent:
+        seen = [track]
+        cursor = parent[track]
+        while cursor is not None:
+            if cursor not in parent:
+                problems.append(f"track {track}: inherits_from an undeclared track: {cursor}")
+                break
+            if cursor in seen:
+                problems.append(f"track {track}: inheritance cycle {seen + [cursor]}")
+                break
+            seen.append(cursor)
+            cursor = parent[cursor]
+    return problems
+
+
 def validate(
     approval: dict[str, Any],
     queue: dict[str, Any],
@@ -63,6 +82,7 @@ def validate(
 ) -> tuple[list[str], list[dict[str, Any]]]:
     problems: list[str] = []
     tracks = {item["track_id"] for item in approval["track_vocabulary"]}
+    problems.extend(track_inheritance_problems(approval["track_vocabulary"]))
     queue_ids = [card["card_id"] for card in queue["cards"]]
     decided_ids = [card["card_id"] for card in approval["cards"]]
 
@@ -191,6 +211,7 @@ def build_ledger(unit_id: str) -> dict[str, Any]:
         "problems": problems,
         "unresolved_unit_references": unresolved,
         "excluded_cards": excluded,
+        "tracks": approval["track_vocabulary"],
         "placements": sorted(
             card_placements,
             key=lambda row: (row["track_id"], row["component_id"], row["card_id"]),

@@ -1,0 +1,1380 @@
+{
+  "version": "1.0.0",
+  "unit_id": "intentional_bodily_injury",
+  "law_snapshot": {
+    "as_of_date": "2026-08-03",
+    "effective_source_date": "2026-03-12",
+    "future_snapshot_date": "2026-09-13",
+    "future_snapshot_policy": "separate_snapshot_not_active",
+    "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
+  },
+  "approval_document": "data/rulegen/p2/native_review/intentional_bodily_injury_approved_decisions.json",
+  "approval_sha256": "6cab21f92cf2fb97f375998ab9c602401a5997c774104b26360baa3e53a4c30f",
+  "approved_on": "2026-08-03",
+  "status": "ready_for_rule_ir",
+  "problems": [],
+  "unresolved_unit_references": [
+    {
+      "card_id": "art257_sec1_4.intent_only_violence_result",
+      "part_id": null,
+      "refers_to_unit": "assault_resulting_injury",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art259_sec1.no_injury_intent_classification",
+      "part_id": null,
+      "refers_to_unit": "assault_resulting_death",
+      "status": "predicate_ir_missing"
+    }
+  ],
+  "excluded_cards": [
+    {
+      "card_id": "art257.diagnosis_evidentiary_value",
+      "reason": "상해진단서의 증명력은 증거법 영역이며 구성요건 요소가 아니다"
+    },
+    {
+      "card_id": "art257.subjective_pain_diagnosis_assessment",
+      "reason": "상해진단서의 증명력 판단 기준이며 증거법 영역이다"
+    },
+    {
+      "card_id": "art257_sec1_6.disciplinary_injury",
+      "reason": "징계가 상해에 이르면 조각되지 않는다는 조각의 한계이며, 현재 역할 어휘에 자리가 없다"
+    },
+    {
+      "card_id": "art257_sec1_6.insufficient_medical_explanation",
+      "reason": "부정확·불충분한 설명에 기한 승낙은 무효라는 조각의 한계"
+    },
+    {
+      "card_id": "art257_sec1_6.military_detention_beating",
+      "reason": "훈육권·징계권의 범위를 넘은 감금·구타는 위법하다는 조각의 한계"
+    },
+    {
+      "card_id": "art257_sec1_6.military_unauthorized_punishment_order",
+      "reason": "권한 없는 얼차려 지시는 정당행위가 아니라는 조각의 한계"
+    },
+    {
+      "card_id": "art257_sec1_6.mutual_fight_no_self_defense",
+      "reason": "싸움에 의한 상호 상해는 정당방위로 조각되지 않는다는 조각의 한계"
+    },
+    {
+      "card_id": "art257_sec1_6.old_education_law_injurious_corporal_punishment",
+      "reason": "체벌이 상해에 이르면 위법하다는 조각의 한계"
+    },
+    {
+      "card_id": "art257_sec1_6.pre_amendment_teacher_guidance",
+      "reason": "교육상 불가피성과 객관적 타당성을 모두 갖춘 경우에만 허용된다는 조각의 한계"
+    },
+    {
+      "card_id": "art2582_2_sec2.favorable_law_change",
+      "reason": "형법 제1조 제2항 경과규정의 적용 문제이며 총칙 영역이다"
+    },
+    {
+      "card_id": "art2582_2_sec2.no_abolition_dangerous_object_injury",
+      "reason": "같은 경과규정의 적용 결과이며 총칙 영역이다"
+    },
+    {
+      "card_id": "art2582_2_sec3.habitual_offender_aggravation",
+      "reason": "상습범 가중은 제264조이며 현재 51조문 범위 밖이다"
+    },
+    {
+      "card_id": "art2582_2_sec3.qualification_suspension",
+      "reason": "자격정지 병과는 양형 사항이며 성립 결론을 바꾸지 않는다"
+    },
+    {
+      "card_id": "art2582_2_sec3.recidivist_aggravation",
+      "reason": "폭력행위 등 처벌에 관한 법률의 누범 가중이며 특별법 영역이다"
+    },
+    {
+      "card_id": "art263.individual_liability_principle",
+      "reason": "특례가 수정하는 개인책임 원칙의 배경 서술이다"
+    }
+  ],
+  "tracks": [
+    {
+      "track_id": "base",
+      "label": "제257조 제1항 상해 기본 구성요건"
+    },
+    {
+      "track_id": "attempt",
+      "label": "제257조 제3항·제258조의2 제3항 미수"
+    },
+    {
+      "track_id": "ancestral",
+      "label": "제257조 제2항 존속상해 가중",
+      "inherits_from": "base"
+    },
+    {
+      "track_id": "special",
+      "label": "제258조의2 특수상해 가중",
+      "inherits_from": "base"
+    },
+    {
+      "track_id": "aggravated_result",
+      "label": "제259조 상해치사",
+      "inherits_from": "base"
+    },
+    {
+      "track_id": "concurrent_offenders",
+      "label": "제263조 동시범 특례. 공유 module 이관 대상",
+      "shared_module_candidate": true
+    }
+  ],
+  "placements": [
+    {
+      "card_id": "art259_sec1.intentional_death_murder_exception",
+      "part_id": null,
+      "role": "boundary",
+      "track_id": "aggravated_result",
+      "component_id": "death_intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": "homicide"
+    },
+    {
+      "card_id": "art259_sec2_1.murder_intent_exception",
+      "part_id": null,
+      "role": "boundary",
+      "track_id": "aggravated_result",
+      "component_id": "death_intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": "homicide"
+    },
+    {
+      "card_id": "art259_sec1.basic_offense_and_death",
+      "part_id": null,
+      "role": "component",
+      "track_id": "aggravated_result",
+      "component_id": "death_result",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art259_sec1.result_aggravated_offense",
+      "part_id": null,
+      "role": "component",
+      "track_id": "aggravated_result",
+      "component_id": "death_result",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art259_sec2_3.robbery_resulting_death_exclusion",
+      "part_id": null,
+      "role": "boundary",
+      "track_id": "aggravated_result",
+      "component_id": "death_result",
+      "component_join": "not_applicable",
+      "refers_to_unit": "robbery"
+    },
+    {
+      "card_id": "art259_sec1.no_injury_intent_classification",
+      "part_id": null,
+      "role": "boundary",
+      "track_id": "aggravated_result",
+      "component_id": "injury_intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": "assault_resulting_death"
+    },
+    {
+      "card_id": "art259_sec1_1.second_act.single_offense_holding",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "aggravated_result",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art259_sec2_3.multiple_victims_concurrence",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "aggravated_result",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art259_sec1_1.causation.evasion_or_surgical_delay_holding",
+      "part_id": null,
+      "role": "component",
+      "track_id": "aggravated_result",
+      "component_id": "result_causation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art259_sec1_1.causation.indirect_causes",
+      "part_id": null,
+      "role": "component",
+      "track_id": "aggravated_result",
+      "component_id": "result_causation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art259_sec1_1.causation.intervening_act",
+      "part_id": null,
+      "role": "component",
+      "track_id": "aggravated_result",
+      "component_id": "result_causation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art259_sec1_1.causation.medical_condition_treatment",
+      "part_id": null,
+      "role": "component",
+      "track_id": "aggravated_result",
+      "component_id": "result_causation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art259_sec1_1.causation.victim_negligence_no_proximate_cause",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "aggravated_result",
+      "component_id": "result_causation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art259_sec1.causation_and_foreseeability",
+      "part_id": null,
+      "role": "component",
+      "track_id": "aggravated_result",
+      "component_id": "result_foreseeability",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art259_sec1_2.foreseeability_forceful_blow",
+      "part_id": null,
+      "role": "component",
+      "track_id": "aggravated_result",
+      "component_id": "result_foreseeability",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec2.ancestral_injury_elements",
+      "part_id": null,
+      "role": "component",
+      "track_id": "ancestral",
+      "component_id": "ancestral_relation",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec2.legal_ascendant_scope",
+      "part_id": null,
+      "role": "component",
+      "track_id": "ancestral",
+      "component_id": "ancestral_relation",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec2.registry_entry_without_parentage",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "ancestral",
+      "component_id": "ancestral_relation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec3.attempted_injury_or_ancestral_injury",
+      "part_id": null,
+      "role": "component",
+      "track_id": "attempt",
+      "component_id": "attempt_punishability",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art2582_2_sec3.attempt_punishable",
+      "part_id": null,
+      "role": "component",
+      "track_id": "attempt",
+      "component_id": "attempt_punishability",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_4.injury_attempt",
+      "part_id": null,
+      "role": "component",
+      "track_id": "attempt",
+      "component_id": "attempt_result",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_5.causation.objective_attribution",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "causation",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_5.causation.result_and_causation",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "causation",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_5.causation.tooth_injury_disparity",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "causation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_7.assault_absorbed_by_injury",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_7.injury_absorbed_by_murder",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "homicide"
+    },
+    {
+      "card_id": "art257_sec1_7.threat_absorbed_by_injury",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257.cosmetic_pubic_hair_change_case_negative",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "injury_concept",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257.hair_nails_cutting_not_injury",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "injury_concept",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257.hickey_case_negative",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "injury_concept",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257.minor_abrasion_case_negative",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "injury_concept",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257.minor_injury_exclusion",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "injury_concept",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257.minor_palm_scratch_case_negative",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "injury_concept",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257.precedent_health_life_function",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "injury_concept",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257.pregnancy_not_injury",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "injury_concept",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257.pubic_hair_appearance_only",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "injury_concept",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257.drug_intangible_method",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "injury_conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257.intangible_methods",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "injury_conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257.omission_injury",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "injury_conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_2.coerced_self_injury_holding",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "injury_conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_2.indirect_perpetration_self_injury",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "injury_conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257.drug_induced_unconsciousness",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "injury_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257.external_injury_not_required",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "injury_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257.injury_beyond_ordinary_minor_wound",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "injury_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257.rape_functional_impairment_case",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "injury_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257.sexual_offense_psychiatric_injury_case",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "injury_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257.std_infection_case",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "injury_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257.zolpidem_unconsciousness_case",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "injury_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_4.dolus_eventualis_acceptance",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_4.intent_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_4.intent_element",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_4.intent_only_violence_result",
+      "part_id": null,
+      "role": "boundary",
+      "track_id": "base",
+      "component_id": "intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": "assault_resulting_injury"
+    },
+    {
+      "card_id": "art257_sec1_4.object_method_mistake",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_4.unintended_victim",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_6.defensive_force_not_new_attack",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_6.military_minor_restraint",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_6.old_education_law_corporal_punishment",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_6.parental_corporal_punishment",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_6.passenger_risk_consent",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_6.sport_rules_consent",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_2.animal_not_object",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "object_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_2.corporation_not_object",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "object_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_2.corpse_not_object",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "object_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_2.fetus_not_object",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "object_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_2.object_natural_person_other",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "object_scope",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_2.prenatal_injury_postnatal_result_negative",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "object_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_2.self_injury_not_punishable_principle",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "object_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_6.self_injury_not_constitutive",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "object_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_7.different_victims_separate_offenses",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_7.single_act_multiple_injuries",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_7.personal_legal_interest_count",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_count_standard",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art257_sec1_1.offense_elements",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "offense_definition",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art263_sec3_2.injury_result",
+      "part_id": null,
+      "role": "component",
+      "track_id": "concurrent_offenders",
+      "component_id": "injury_result_required",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art263_sec3_2.mixed_intent_injury",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "concurrent_offenders",
+      "component_id": "resulting_offense",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art263_sec5.resulting_offense",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "concurrent_offenders",
+      "component_id": "resulting_offense",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art263.simultaneous_offenders_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "concurrent_offenders",
+      "component_id": "simultaneous_offenders",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art263_sec3_1.co_perpetration_contact",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "concurrent_offenders",
+      "component_id": "simultaneous_offenders",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art263_sec3_1.independent_acts",
+      "part_id": null,
+      "role": "component",
+      "track_id": "concurrent_offenders",
+      "component_id": "simultaneous_offenders",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art263_sec3_1.no_clear_assault_act",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "concurrent_offenders",
+      "component_id": "simultaneous_offenders",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art263_sec3_1.reported_case_temporal_separation",
+      "part_id": null,
+      "role": "component",
+      "track_id": "concurrent_offenders",
+      "component_id": "simultaneous_offenders",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art263_sec3_1.reported_case_temporally_separated_death",
+      "part_id": null,
+      "role": "component",
+      "track_id": "concurrent_offenders",
+      "component_id": "simultaneous_offenders",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art263.unidentified_injury_cause_exception",
+      "part_id": null,
+      "role": "component",
+      "track_id": "concurrent_offenders",
+      "component_id": "special_effect",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art263.exception.other_result_crimes",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "concurrent_offenders",
+      "component_id": "special_provision_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art263_sec4_2.negligent_death_reported_precedent",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "concurrent_offenders",
+      "component_id": "special_provision_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art263.identified_cause_exclusion",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "concurrent_offenders",
+      "component_id": "unidentified_cause",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art263.individual_causation_rebuttal",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "concurrent_offenders",
+      "component_id": "unidentified_cause",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art263.unidentified_causal_act",
+      "part_id": null,
+      "role": "component",
+      "track_id": "concurrent_offenders",
+      "component_id": "unidentified_cause",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art2582_2_sec1.dangerous_object_carriage",
+      "part_id": null,
+      "role": "component",
+      "track_id": "special",
+      "component_id": "special_means",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art2582_2_sec1.group_or_multiple_force",
+      "part_id": null,
+      "role": "component",
+      "track_id": "special",
+      "component_id": "special_means",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    }
+  ],
+  "components": [
+    {
+      "track_id": "aggravated_result",
+      "component_id": "death_intent",
+      "roles": [
+        "boundary"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "homicide"
+      ],
+      "norm_card_ids": [
+        "art259_sec1.intentional_death_murder_exception",
+        "art259_sec2_1.murder_intent_exception"
+      ]
+    },
+    {
+      "track_id": "aggravated_result",
+      "component_id": "death_result",
+      "roles": [
+        "boundary",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [
+        "robbery"
+      ],
+      "norm_card_ids": [
+        "art259_sec1.basic_offense_and_death",
+        "art259_sec1.result_aggravated_offense",
+        "art259_sec2_3.robbery_resulting_death_exclusion"
+      ]
+    },
+    {
+      "track_id": "aggravated_result",
+      "component_id": "injury_intent",
+      "roles": [
+        "boundary"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "assault_resulting_death"
+      ],
+      "norm_card_ids": [
+        "art259_sec1.no_injury_intent_classification"
+      ]
+    },
+    {
+      "track_id": "aggravated_result",
+      "component_id": "offense_count",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art259_sec1_1.second_act.single_offense_holding",
+        "art259_sec2_3.multiple_victims_concurrence"
+      ]
+    },
+    {
+      "track_id": "aggravated_result",
+      "component_id": "result_causation",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art259_sec1_1.causation.evasion_or_surgical_delay_holding",
+        "art259_sec1_1.causation.indirect_causes",
+        "art259_sec1_1.causation.intervening_act",
+        "art259_sec1_1.causation.medical_condition_treatment",
+        "art259_sec1_1.causation.victim_negligence_no_proximate_cause"
+      ]
+    },
+    {
+      "track_id": "aggravated_result",
+      "component_id": "result_foreseeability",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art259_sec1.causation_and_foreseeability",
+        "art259_sec1_2.foreseeability_forceful_blow"
+      ]
+    },
+    {
+      "track_id": "ancestral",
+      "component_id": "ancestral_relation",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art257_sec2.ancestral_injury_elements",
+        "art257_sec2.legal_ascendant_scope",
+        "art257_sec2.registry_entry_without_parentage"
+      ]
+    },
+    {
+      "track_id": "attempt",
+      "component_id": "attempt_punishability",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art257_sec3.attempted_injury_or_ancestral_injury",
+        "art2582_2_sec3.attempt_punishable"
+      ]
+    },
+    {
+      "track_id": "attempt",
+      "component_id": "attempt_result",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art257_sec1_4.injury_attempt"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "causation",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art257_sec1_5.causation.objective_attribution",
+        "art257_sec1_5.causation.result_and_causation",
+        "art257_sec1_5.causation.tooth_injury_disparity"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "concurrence",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "homicide"
+      ],
+      "norm_card_ids": [
+        "art257_sec1_7.assault_absorbed_by_injury",
+        "art257_sec1_7.injury_absorbed_by_murder",
+        "art257_sec1_7.threat_absorbed_by_injury"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "injury_concept",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art257.cosmetic_pubic_hair_change_case_negative",
+        "art257.hair_nails_cutting_not_injury",
+        "art257.hickey_case_negative",
+        "art257.minor_abrasion_case_negative",
+        "art257.minor_injury_exclusion",
+        "art257.minor_palm_scratch_case_negative",
+        "art257.precedent_health_life_function",
+        "art257.pregnancy_not_injury",
+        "art257.pubic_hair_appearance_only"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "injury_conduct",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art257.drug_intangible_method",
+        "art257.intangible_methods",
+        "art257.omission_injury",
+        "art257_sec1_2.coerced_self_injury_holding",
+        "art257_sec1_2.indirect_perpetration_self_injury"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "injury_indicia",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art257.drug_induced_unconsciousness",
+        "art257.external_injury_not_required",
+        "art257.injury_beyond_ordinary_minor_wound",
+        "art257.rape_functional_impairment_case",
+        "art257.sexual_offense_psychiatric_injury_case",
+        "art257.std_infection_case",
+        "art257.zolpidem_unconsciousness_case"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "intent",
+      "roles": [
+        "bar",
+        "boundary",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [
+        "assault_resulting_injury"
+      ],
+      "norm_card_ids": [
+        "art257_sec1_4.dolus_eventualis_acceptance",
+        "art257_sec1_4.intent_definition",
+        "art257_sec1_4.intent_element",
+        "art257_sec1_4.intent_only_violence_result",
+        "art257_sec1_4.object_method_mistake",
+        "art257_sec1_4.unintended_victim"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "justification",
+      "roles": [
+        "bar"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art257_sec1_6.defensive_force_not_new_attack",
+        "art257_sec1_6.military_minor_restraint",
+        "art257_sec1_6.old_education_law_corporal_punishment",
+        "art257_sec1_6.parental_corporal_punishment",
+        "art257_sec1_6.passenger_risk_consent",
+        "art257_sec1_6.sport_rules_consent"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "object_scope",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art257_sec1_2.animal_not_object",
+        "art257_sec1_2.corporation_not_object",
+        "art257_sec1_2.corpse_not_object",
+        "art257_sec1_2.fetus_not_object",
+        "art257_sec1_2.object_natural_person_other",
+        "art257_sec1_2.prenatal_injury_postnatal_result_negative",
+        "art257_sec1_2.self_injury_not_punishable_principle",
+        "art257_sec1_6.self_injury_not_constitutive"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "offense_count",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art257_sec1_7.different_victims_separate_offenses",
+        "art257_sec1_7.single_act_multiple_injuries"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "offense_count_standard",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art257_sec1_7.personal_legal_interest_count"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "offense_definition",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art257_sec1_1.offense_elements"
+      ]
+    },
+    {
+      "track_id": "concurrent_offenders",
+      "component_id": "injury_result_required",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art263_sec3_2.injury_result"
+      ]
+    },
+    {
+      "track_id": "concurrent_offenders",
+      "component_id": "resulting_offense",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art263_sec3_2.mixed_intent_injury",
+        "art263_sec5.resulting_offense"
+      ]
+    },
+    {
+      "track_id": "concurrent_offenders",
+      "component_id": "simultaneous_offenders",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art263.simultaneous_offenders_definition",
+        "art263_sec3_1.co_perpetration_contact",
+        "art263_sec3_1.independent_acts",
+        "art263_sec3_1.no_clear_assault_act",
+        "art263_sec3_1.reported_case_temporal_separation",
+        "art263_sec3_1.reported_case_temporally_separated_death"
+      ]
+    },
+    {
+      "track_id": "concurrent_offenders",
+      "component_id": "special_effect",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art263.unidentified_injury_cause_exception"
+      ]
+    },
+    {
+      "track_id": "concurrent_offenders",
+      "component_id": "special_provision_scope",
+      "roles": [
+        "bar"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art263.exception.other_result_crimes",
+        "art263_sec4_2.negligent_death_reported_precedent"
+      ]
+    },
+    {
+      "track_id": "concurrent_offenders",
+      "component_id": "unidentified_cause",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art263.identified_cause_exclusion",
+        "art263.individual_causation_rebuttal",
+        "art263.unidentified_causal_act"
+      ]
+    },
+    {
+      "track_id": "special",
+      "component_id": "special_means",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art2582_2_sec1.dangerous_object_carriage",
+        "art2582_2_sec1.group_or_multiple_force"
+      ]
+    }
+  ],
+  "stats": {
+    "components": 27,
+    "context_only_placements": 15,
+    "decision_approve": 73,
+    "decision_context_only": 15,
+    "decision_rewrite": 16,
+    "inherited": 4,
+    "placements": 89,
+    "queue_cards": 104,
+    "unresolved_unit_references": 2
+  }
+}

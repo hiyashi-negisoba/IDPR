@@ -135,6 +135,12 @@ class UnitAssembler:
         self.roles = list(self.signature["arguments"])
         if self.roles[0] != "case_id":
             raise SystemExit(f"{unit_id}: role signature must start with case_id")
+        # A gaining track may build on a base track instead of restating its elements:
+        # 존속상해·특수상해·상해치사는 기본 구성요건을 그대로 요구하고 자기 요건만 더한다.
+        self.track_parent = {
+            item["track_id"]: item.get("inherits_from")
+            for item in self.ledger.get("tracks", [])
+        }
         compiled = tuple(self.signature.get("applies_to_tracks", ()))
         self.tracks = tuple(tracks) if tracks else compiled
         unknown = sorted(set(self.tracks) - set(compiled))
@@ -374,6 +380,28 @@ class UnitAssembler:
                 rationale="저지·경계 카드가 충족되면 이 unit의 성립을 막는다.",
                 cards=[card])
 
+    def inherited_elements(self, track: str) -> list[str]:
+        """The elements predicate this track inherits, if the reviewer declared one."""
+        parent = self.track_parent.get(track)
+        if not parent:
+            return []
+        if parent not in self.tracks:
+            raise SystemExit(
+                f"{self.unit_id}: {track} inherits from {parent}, which is not being compiled")
+        return [f"{self.unit_id}_{parent}_elements_satisfied"]
+
+    def track_conclusion_cards(self, track: str) -> list[dict[str, Any]]:
+        """Provenance for a track conclusion: its own cards plus every inherited one."""
+        cards: dict[str, dict[str, Any]] = {}
+        cursor: str | None = track
+        seen: set[str] = set()
+        while cursor and cursor not in seen:
+            seen.add(cursor)
+            for card in self.track_cards.get(cursor, []):
+                cards.setdefault(card["id"], card)
+            cursor = self.track_parent.get(cursor)
+        return [cards[card_id] for card_id in sorted(cards)]
+
     def emit_conclusions(self, by_track: dict[str, list[str]]) -> None:
         all_cards = [self.card(cid) for cid in sorted(self.used_cards)]
         self.add_predicate(
@@ -401,24 +429,38 @@ class UnitAssembler:
 
         for track in self.tracks:
             components = sorted(by_track.get(track, []))
-            if not components:
+            inherited = self.inherited_elements(track)
+            if not components and not inherited:
                 continue
             elements = f"{self.unit_id}_{track}_elements_satisfied"
             established = f"{self.unit_id}_{track}_established"
+            parent = self.track_parent.get(track)
+            definition = f"'{track}' track의 구성요건 component가 모두 충족된 잠정 성립 후보"
+            if parent:
+                definition = (
+                    f"'{parent}' track의 구성요건을 그대로 충족하고 "
+                    f"'{track}' track의 가중 요건이 더해진 잠정 성립 후보"
+                )
             self.add_predicate(
                 elements, self.actor_arguments,
-                definition=f"'{track}' track의 구성요건 component가 모두 충족된 잠정 성립 후보",
+                definition=definition,
                 origin="system", role="derived")
             self.add_predicate(
                 established, self.actor_arguments,
                 definition=f"완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 '{track}' track 확정 성립",
                 origin="system", role="derived")
+            rationale = f"'{track}' track의 모든 component를 AND 결합한다."
+            if parent:
+                rationale = (
+                    f"'{track}'는 '{parent}' track의 구성요건 위에 얹히는 가중 track이므로 "
+                    f"'{parent}'의 elements를 그대로 요구하고 자기 component를 더한다."
+                )
             self.add_rule(
                 f"{self.unit_id}.outcome.{track}.elements_satisfied",
                 atom(elements, *self.actors),
-                [atom(component, *self.actors) for component in components],
-                rationale=f"'{track}' track의 모든 component를 AND 결합한다.",
-                cards=self.track_cards[track])
+                [atom(name, *self.actors) for name in [*inherited, *components]],
+                rationale=rationale,
+                cards=self.track_conclusion_cards(track))
             self.add_rule(
                 f"{self.unit_id}.outcome.{track}.established",
                 atom(established, *self.actors),
@@ -432,7 +474,7 @@ class UnitAssembler:
                          negated=True),
                 ],
                 rationale="완결 게이트 뒤에서만 부정을 사용해 확정 성립을 낸다.",
-                cards=self.track_cards[track])
+                cards=self.track_conclusion_cards(track))
 
     # ── conclusion relation names ─────────────────────────────────────
     @property
