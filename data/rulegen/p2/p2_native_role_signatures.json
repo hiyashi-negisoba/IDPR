@@ -42,6 +42,24 @@
           "reason": "특례는 2인 이상의 독립행위 경합을 전제하므로 단독 피고인 tuple로는 '원인행위가 판명되지 않음'을 표현할 수 없다. 공유 module로 이관할 때 이 서명으로 컴파일한다"
         }
       }
+    },
+    "homicide": {
+      "gate": "docs/review/2026-08-04_homicide_legal_gate_01.md",
+      "default": {
+        "predicate": "homicide_case_roles",
+        "arguments": ["case_id", "defendant_id", "victim_id"],
+        "definition": "호스트가 확정한 살인 사건의 역할 tuple — 피고인과 생명 침해의 객체인 피해자",
+        "applies_to_tracks": ["base", "omission", "attempt", "voluntary_desistance", "impossible_attempt", "parricide", "preparation"]
+      },
+      "tracks": {
+        "complicity": {
+          "predicate": "homicide_complicity_case_roles",
+          "arguments": ["case_id", "defendant_id", "victim_id", "accomplice_id"],
+          "definition": "살인 공범 track의 역할 tuple — 공동정범·교사·방조 관계의 상대방을 명시한다",
+          "status": "declared_not_compiled",
+          "reason": "단독 피고인 tuple로는 누가 누구를 교사·방조하거나 공동가공했는지 표현할 수 없어 공유 총칙 module로 이관한다"
+        }
+      }
     }
   }
 }

@@ -84,7 +84,7 @@ track 어휘는 제안 01을 따른다. 이 절은 242장 중 가장 큰 덩어�
 | 60 | rewrite | bar | ancestral_intent / not_applicable | parricide | - | 메타 래퍼 제거. 무차별 난동 중 부를 1회 자상한 경우 존속살해 의율 불가 |
 | 62 | approve | component | omission_intent / mandatory_all | omission | - | 부진정부작위범 고의의 추인 방법 |
 | 63 | approve | component | omission_intent / mandatory_all | omission | - | 결과발생을 용인·방관하면서 의무를 이행하지 않는다는 인식 |
-| 39 | rewrite | component | omission_intent / alternative_any | omission | - | 메타 래퍼 제거. 선장이 퇴선 요청을 묵살하고 먼저 퇴선한 경우 |
+| 39 | rewrite | component | omission_intent_indicia / alternative_any | omission | - | 메타 래퍼 제거. 선장이 퇴선 요청을 묵살하고 먼저 퇴선한 경우 |
 | 48 | approve | post_outcome | participation_form / not_applicable | complicity | - | 치료중단 의사들은 고의는 인정되나 방조범의 죄책만 진다 |
 | 70 | rewrite | bar | shared_intent / not_applicable | complicity | - | 메타 래퍼 제거. 예기치 못한 공동피고인의 살인은 나머지에게 귀속되지 않음 |
 

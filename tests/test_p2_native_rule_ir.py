@@ -37,7 +37,7 @@ def test_a_bar_card_never_joins_the_element_it_qualifies() -> None:
     blocked_cards = {
         rule["norm_card_ids"][0]
         for rule in rule_ir["rules"]
-        if rule["head"]["predicate"].endswith("_not_established")
+        if rule["head"]["predicate"].endswith("_track_not_established")
     }
     component_cards = {row["card_id"] for row in rows if row["role"] == "component"}
     bar_cards = {row["card_id"] for row in rows if row["role"] in ("bar", "boundary")}
@@ -111,3 +111,71 @@ def test_the_bodily_injury_unit_compiles_to_scallop() -> None:
     for track in ("base", "attempt", "ancestral", "special", "aggravated_result"):
         assert f"type {BODILY_INJURY}_{track}_established(" in program
     assert "type bodily_injury_case_roles(String, String, String)" in program
+
+
+HOMICIDE = "homicide"
+
+
+def test_homicide_omission_and_attempt_inherit_only_declared_common_placements() -> None:
+    rule_ir, _ = UnitAssembler(HOMICIDE, None).build()
+    omission = next(rule for rule in rule_ir["rules"]
+                    if rule["id"] == f"{HOMICIDE}.outcome.omission.elements_satisfied")
+    omission_body = {item["predicate"] for item in omission["body"]}
+    assert f"{HOMICIDE}_base_object_scope_satisfied" in omission_body
+    assert f"{HOMICIDE}_base_death_result_satisfied" in omission_body
+    assert f"{HOMICIDE}_base_murder_intent_satisfied" not in omission_body
+    assert f"{HOMICIDE}_base_causation_satisfied" not in omission_body
+
+    attempt = next(rule for rule in rule_ir["rules"]
+                   if rule["id"] == f"{HOMICIDE}.outcome.attempt.elements_satisfied")
+    attempt_body = {item["predicate"] for item in attempt["body"]}
+    assert f"{HOMICIDE}_base_object_scope_satisfied" in attempt_body
+    assert f"{HOMICIDE}_base_murder_intent_satisfied" in attempt_body
+    assert f"{HOMICIDE}_base_death_result_satisfied" not in attempt_body
+    assert f"{HOMICIDE}_base_causation_satisfied" not in attempt_body
+
+
+def test_homicide_child_track_bar_does_not_block_its_parent() -> None:
+    assembler = UnitAssembler(HOMICIDE, None)
+    rule_ir, _ = assembler.build()
+    ledger = build_ledger(HOMICIDE)
+    parricide_bar = next(row for row in ledger["placements"]
+                         if row["track_id"] == "parricide" and row["role"] == "bar")
+    rules = [rule for rule in rule_ir["rules"]
+             if rule["head"]["predicate"] == assembler.track_not_established
+             and parricide_bar["card_id"] in rule["norm_card_ids"]]
+    target_tracks = {rule["head"]["arguments"][2]["value"] for rule in rules}
+    assert "parricide" in target_tracks
+    assert "base" not in target_tracks
+
+
+def test_homicide_voluntary_desistance_bar_does_not_block_plain_attempt() -> None:
+    assembler = UnitAssembler(HOMICIDE, None)
+    rule_ir, _ = assembler.build()
+    ledger = build_ledger(HOMICIDE)
+    desistance_bar = next(row for row in ledger["placements"]
+                          if row["track_id"] == "voluntary_desistance"
+                          and row["role"] == "bar")
+    rules = [rule for rule in rule_ir["rules"]
+             if rule["head"]["predicate"] == assembler.track_not_established
+             and desistance_bar["card_id"] in rule["norm_card_ids"]]
+    target_tracks = {rule["head"]["arguments"][2]["value"] for rule in rules}
+    assert "voluntary_desistance" in target_tracks
+    assert "attempt" not in target_tracks
+
+
+def test_homicide_attempt_children_transitively_receive_selective_base_placements() -> None:
+    assembler = UnitAssembler(HOMICIDE, None)
+    ledger = build_ledger(HOMICIDE)
+    intent = next(row for row in ledger["placements"]
+                  if row["track_id"] == "base"
+                  and row["component_id"] == "murder_intent"
+                  and row["role"] == "component")
+    death = next(row for row in ledger["placements"]
+                 if row["track_id"] == "base"
+                 and row["component_id"] == "death_result"
+                 and row["role"] == "component")
+
+    for child in ("voluntary_desistance", "impossible_attempt"):
+        assert assembler.placement_applies_to_track(intent, child)
+        assert not assembler.placement_applies_to_track(death, child)

@@ -36,7 +36,7 @@ from idpr.rulegen.scallop_runtime import (  # noqa: E402
     runtime_version,
     sha256_file,
 )
-from scripts.build_p2_native_rule_ir import OUT_DIR, read_json  # noqa: E402
+from scripts.build_p2_native_rule_ir import OUT_DIR, UnitAssembler, read_json  # noqa: E402
 
 LEDGER_DIR = ROOT / "data/rulegen/p2/native_review"
 COMPILED = ROOT / "rules/generated"
@@ -57,6 +57,7 @@ class UnitScenarios:
             encoding="utf-8")
         self.parent = {item["track_id"]: item.get("inherits_from")
                        for item in self.ledger["tracks"]}
+        self.assembler = UnitAssembler(unit_id, None)
         role_predicate = next(
             item for item in self.rule_ir["predicates"]
             if item["id"].endswith("_case_roles"))
@@ -86,7 +87,7 @@ class UnitScenarios:
         """The smallest card set that satisfies every component in the track's lineage."""
         by_component: dict[tuple[str, str], list[dict[str, Any]]] = defaultdict(list)
         for row in self.rows:
-            if row["role"] == "component" and row["track_id"] in self.lineage(track):
+            if row["role"] == "component" and self.assembler.placement_applies_to_track(row, track):
                 by_component[(row["track_id"], row["component_id"])].append(row)
         cards: list[str] = []
         for key in sorted(by_component):
@@ -108,7 +109,7 @@ class UnitScenarios:
         for row in sorted(self.rows, key=lambda row: row["card_id"]):
             if (row["role"] == "component"
                     and row["component_join"] == "mandatory_all"
-                    and row["track_id"] in self.lineage(track)):
+                    and self.assembler.placement_applies_to_track(row, track)):
                 return row["card_id"]
         minimal = self.minimal_cards(track)
         if not minimal:
@@ -117,7 +118,8 @@ class UnitScenarios:
 
     def bar_card(self, track: str) -> str | None:
         for row in sorted(self.rows, key=lambda row: row["card_id"]):
-            if row["role"] in ("bar", "boundary") and row["track_id"] in self.lineage(track):
+            if (row["role"] in ("bar", "boundary")
+                    and self.assembler.placement_applies_to_track(row, track)):
                 return row["card_id"]
         return None
 

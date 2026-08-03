@@ -141,6 +141,10 @@ class UnitAssembler:
             item["track_id"]: item.get("inherits_from")
             for item in self.ledger.get("tracks", [])
         }
+        self.track_placement_inheritance = {
+            item["track_id"]: tuple(item.get("inherits_placements", ()))
+            for item in self.ledger.get("tracks", [])
+        }
         compiled = tuple(self.signature.get("applies_to_tracks", ()))
         self.tracks = tuple(tracks) if tracks else compiled
         unknown = sorted(set(self.tracks) - set(compiled))
@@ -363,32 +367,92 @@ class UnitAssembler:
         }
         return by_track
 
-    def emit_blockers(
+    def lineage(self, track: str) -> list[str]:
+        chain: list[str] = []
+        cursor: str | None = track
+        while cursor and cursor not in chain:
+            chain.append(cursor)
+            cursor = self.track_parent.get(cursor)
+        return chain
+
+    def placement_applies_to_track(self, row: dict[str, Any], target: str) -> bool:
+        """Whether a placement constrains target, directly or through declared inheritance."""
+        lineage = self.lineage(target)
+        if row["track_id"] in lineage:
+            return True
+        # Selective placement inheritance is itself inherited by a child track.  For
+        # example, voluntary_desistance inherits attempt, while attempt selectively
+        # imports the base intent/object components.  The grandchild therefore needs
+        # those same facts and their conflict/blocker reports even though it does not
+        # repeat attempt's imports in the approval ledger.
+        for ancestor in lineage:
+            for inherited in self.track_placement_inheritance.get(ancestor, ()):
+                if (row["track_id"] == inherited["track_id"]
+                        and row["component_id"] in inherited["component_ids"]):
+                    return True
+        return False
+
+    def emit_track_reports(
         self, placements: list[dict[str, Any]], satisfied_by_card: dict[str, str]
     ) -> None:
-        """bar and boundary cards defeat establishment; they never join a conjunction."""
+        """Scope blockers and conflicts to their track, propagating only by inheritance."""
+        emitted: set[tuple[str, str, str]] = set()
         for row in placements:
-            if row["role"] not in ("bar", "boundary"):
+            if row["role"] not in ("component", "bar", "boundary"):
                 continue
             card_id = row["card_id"]
             card = self.card(card_id)
-            self.add_rule(
-                f"{self.unit_id}.blocked.{row['track_id']}.{slug(card_id)}",
-                atom(self.not_established, variable("case_id"),
-                     variable("defendant_id"), string(card_id)),
-                [atom(satisfied_by_card[card_id], *self.actors)],
-                rationale="저지·경계 카드가 충족되면 이 unit의 성립을 막는다.",
-                cards=[card])
+            for target in self.tracks:
+                if not self.placement_applies_to_track(row, target):
+                    continue
+                conflict_key = ("conflict", target, card_id)
+                if conflict_key not in emitted:
+                    emitted.add(conflict_key)
+                    self.add_rule(
+                        f"{self.unit_id}.track_conflict.{target}.{slug(card_id)}",
+                        atom(self.track_conflict, variable("case_id"),
+                             variable("defendant_id"), string(target), string(card_id)),
+                        [atom(self.conflict, variable("case_id"), variable("defendant_id"),
+                              string(card_id))],
+                        rationale="카드 평가 충돌은 해당 track과 그 상속 track에만 전파한다.",
+                        cards=[card])
+                if row["role"] not in ("bar", "boundary"):
+                    continue
+                blocked_key = ("blocked", target, card_id)
+                if blocked_key in emitted:
+                    continue
+                emitted.add(blocked_key)
+                self.add_rule(
+                    f"{self.unit_id}.track_blocked.{target}.{slug(card_id)}",
+                    atom(self.track_not_established, variable("case_id"),
+                         variable("defendant_id"), string(target), string(card_id)),
+                    [atom(satisfied_by_card[card_id], *self.actors)],
+                    rationale="저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+                    cards=[card])
 
     def inherited_elements(self, track: str) -> list[str]:
         """The elements predicate this track inherits, if the reviewer declared one."""
         parent = self.track_parent.get(track)
-        if not parent:
-            return []
-        if parent not in self.tracks:
-            raise SystemExit(
-                f"{self.unit_id}: {track} inherits from {parent}, which is not being compiled")
-        return [f"{self.unit_id}_{parent}_elements_satisfied"]
+        inherited: list[str] = []
+        if parent:
+            if parent not in self.tracks:
+                raise SystemExit(
+                    f"{self.unit_id}: {track} inherits from {parent}, which is not being compiled")
+            inherited.append(f"{self.unit_id}_{parent}_elements_satisfied")
+        for item in self.track_placement_inheritance.get(track, ()):
+            source = item["track_id"]
+            if source not in self.tracks:
+                raise SystemExit(
+                    f"{self.unit_id}: {track} inherits placements from uncompiled {source}")
+            inherited.extend(
+                f"{self.unit_id}_{source}_{component}_satisfied"
+                for component in item["component_ids"]
+                if any(row["track_id"] == source
+                       and row["component_id"] == component
+                       and row["role"] == "component"
+                       for row in self.ledger["placements"])
+            )
+        return list(dict.fromkeys(inherited))
 
     def track_conclusion_cards(self, track: str) -> list[dict[str, Any]]:
         """Provenance for a track conclusion: its own cards plus every inherited one."""
@@ -400,6 +464,11 @@ class UnitAssembler:
             for card in self.track_cards.get(cursor, []):
                 cards.setdefault(card["id"], card)
             cursor = self.track_parent.get(cursor)
+        for item in self.track_placement_inheritance.get(track, ()):
+            for row in self.ledger["placements"]:
+                if (row["track_id"] == item["track_id"]
+                        and row["component_id"] in item["component_ids"]):
+                    cards.setdefault(row["card_id"], self.card(row["card_id"]))
         return [cards[card_id] for card_id in sorted(cards)]
 
     def emit_conclusions(self, by_track: dict[str, list[str]]) -> None:
@@ -425,6 +494,32 @@ class UnitAssembler:
             [atom(self.conflict, variable("case_id"), variable("defendant_id"),
                   variable("norm_card_id"))],
             rationale="충돌의 존재를 2항으로 요약한다.",
+            cards=all_cards)
+        self.add_rule(
+            f"{self.unit_id}.summary.canonical_not_established",
+            atom(self.not_established, variable("case_id"), variable("defendant_id"),
+                 variable("norm_card_id")),
+            [atom(self.track_not_established, variable("case_id"),
+                  variable("defendant_id"), variable("track_id"),
+                  variable("norm_card_id"))],
+            rationale="track별 불성립 사유를 canonical unit 보고 관계로 투영한다.",
+            cards=all_cards)
+        self.add_rule(
+            f"{self.unit_id}.summary.track_has_negative",
+            atom(self.track_has_negative, variable("case_id"), variable("defendant_id"),
+                 variable("track_id")),
+            [atom(self.track_not_established, variable("case_id"),
+                  variable("defendant_id"), variable("track_id"),
+                  variable("norm_card_id"))],
+            rationale="track별 불성립 사유의 존재를 요약한다.",
+            cards=all_cards)
+        self.add_rule(
+            f"{self.unit_id}.summary.track_has_conflict",
+            atom(self.track_has_conflict, variable("case_id"), variable("defendant_id"),
+                 variable("track_id")),
+            [atom(self.track_conflict, variable("case_id"), variable("defendant_id"),
+                  variable("track_id"), variable("norm_card_id"))],
+            rationale="track별 충돌의 존재를 요약한다.",
             cards=all_cards)
 
         for track in self.tracks:
@@ -468,9 +563,11 @@ class UnitAssembler:
                     atom(elements, *self.actors),
                     atom("case_assessment_complete", variable("case_id"),
                          variable("defendant_id")),
-                    atom(self.has_negative, variable("case_id"), variable("defendant_id"),
+                    atom(self.track_has_negative, variable("case_id"), variable("defendant_id"),
+                         string(track),
                          negated=True),
-                    atom(self.has_conflict, variable("case_id"), variable("defendant_id"),
+                    atom(self.track_has_conflict, variable("case_id"), variable("defendant_id"),
+                         string(track),
                          negated=True),
                 ],
                 rationale="완결 게이트 뒤에서만 부정을 사용해 확정 성립을 낸다.",
@@ -497,6 +594,22 @@ class UnitAssembler:
     def has_conflict(self) -> str:
         return f"{self.unit_id}_has_conflict"
 
+    @property
+    def track_not_established(self) -> str:
+        return f"{self.unit_id}_track_not_established"
+
+    @property
+    def track_conflict(self) -> str:
+        return f"{self.unit_id}_track_conflict"
+
+    @property
+    def track_has_negative(self) -> str:
+        return f"{self.unit_id}_track_has_negative"
+
+    @property
+    def track_has_conflict(self) -> str:
+        return f"{self.unit_id}_track_has_conflict"
+
     def outcome_predicates(self) -> None:
         report_arguments = [
             ("case_id", "String"), ("defendant_id", "String"), ("norm_card_id", "String"),
@@ -513,6 +626,28 @@ class UnitAssembler:
             self.conflict, report_arguments,
             definition="같은 카드에 satisfied와 not_satisfied 평가가 모두 증명됨",
             origin="system", role="derived")
+        track_report_arguments = [
+            ("case_id", "String"), ("defendant_id", "String"),
+            ("track_id", "String"), ("norm_card_id", "String"),
+        ]
+        self.add_predicate(
+            self.track_not_established, track_report_arguments,
+            definition="해당 track에만 적용되는 증명된 불성립 사유 또는 경계 이동",
+            origin="system", role="derived")
+        self.add_predicate(
+            self.track_conflict, track_report_arguments,
+            definition="해당 track에 적용되는 카드 평가 충돌",
+            origin="system", role="derived")
+        self.add_predicate(
+            self.track_has_negative,
+            [("case_id", "String"), ("defendant_id", "String"), ("track_id", "String")],
+            definition="해당 track에 증명된 불성립 사유가 존재함",
+            origin="system", role="derived")
+        self.add_predicate(
+            self.track_has_conflict,
+            [("case_id", "String"), ("defendant_id", "String"), ("track_id", "String")],
+            definition="해당 track에 증명된 평가 충돌이 존재함",
+            origin="system", role="derived")
 
     def build(self) -> tuple[dict[str, Any], dict[str, Any]]:
         placements = self.placements()
@@ -520,7 +655,7 @@ class UnitAssembler:
         self.outcome_predicates()
         satisfied_by_card = self.emit_cards(placements)
         by_track = self.emit_components(placements, satisfied_by_card)
-        self.emit_blockers(placements, satisfied_by_card)
+        self.emit_track_reports(placements, satisfied_by_card)
         self.emit_conclusions(by_track)
 
         cards = [self.card(card_id) for card_id in sorted(self.used_cards)]

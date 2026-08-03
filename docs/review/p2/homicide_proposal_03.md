@@ -30,7 +30,7 @@ track 어휘는 제안 01을 따르되, 미수 부분에서 **제안 01의 `atte
 | 36 | approve | component | causation_attribution / alternative_any | base | 피해자 과실이 개재해도 통상 예견 가능하면 인과관계 인정 |
 | 35 | approve | bar | causation / not_applicable | base | 사망까지 수일·수개월이 걸렸다는 사정만으로는 인과관계를 부정할 수 없음 |
 | 32 | approve | component | omission_causation / mandatory_all | omission | 작위를 하였다면 결과가 없었을 관계. #10과 같은 요건의 provenance |
-| 34 | approve | component | guarantor_status / alternative_any | omission | 조난 시 선장의 작위의무. #8과 같은 규칙의 provenance |
+| 34 | approve | component | guarantor_status_basis / alternative_any | omission | 조난 시 선장의 작위의무. #8과 같은 규칙의 provenance |
 | 33 | approve | component | aiding_causation / mandatory_all | complicity | 회복 가능성이 전혀 없지 않았다면 방조와 사망 사이 인과관계 인정 |
 
 `causation`(필수 요건)과 `causation_attribution`(귀속 인정 경로)을 나눴다. 상해의
@@ -41,8 +41,8 @@ track 어휘는 제안 01을 따르되, 미수 부분에서 **제안 01의 `atte
 | # | decision | role | component / join | track | 이유 |
 |---:|---|---|---|---|---|
 | 13 | approve | component | attempt_commencement / mandatory_all | attempt | 살의를 가지고 생명을 위태롭게 하는 행위를 직접 개시한 때 |
-| 15 | rewrite | component | attempt_commencement / alternative_any | attempt | 메타 래퍼 제거. 살인 고의로 흉기를 들고 접근한 경우 착수 인정 |
-| 230 | approve | component | attempt_commencement / alternative_any | attempt | 결정 C 선택. 간접정범은 이용행위 개시 시 착수 |
+| 15 | rewrite | component | attempt_commencement_indicia / alternative_any | attempt | 메타 래퍼 제거. 살인 고의로 흉기를 들고 접근한 경우 착수 인정 |
+| 230 | approve | component | attempt_commencement_indicia / alternative_any | attempt | 결정 C 선택. 간접정범은 이용행위 개시 시 착수 |
 | 14 | approve | component | death_result / mandatory_all | base | 결과범·침해범. 피해자가 사망하면 기수 |
 
 ## 초안 — 불능미수 (Ⅰ.12, 5장)
@@ -51,7 +51,7 @@ track 어휘는 제안 01을 따르되, 미수 부분에서 **제안 01의 `atte
 |---:|---|---|---|---|---|
 | 17 | approve | component | impossibility_danger / mandatory_all | impossible_attempt | 결과 발생이 불가능해도 위험성이 있으면 불능미수 |
 | 18 | approve | component | impossibility_danger / mandatory_all | impossible_attempt | 위험성은 행위 당시 인식 사정을 바탕으로 일반인 기준으로 판단 |
-| 16 | rewrite | component | impossibility_danger / alternative_any | impossible_attempt | 메타 래퍼 제거. 초우뿌리·부자 달인 물을 마시게 한 경우 |
+| 16 | rewrite | component | impossibility_danger_indicia / alternative_any | impossible_attempt | 메타 래퍼 제거. 초우뿌리·부자 달인 물을 마시게 한 경우 |
 | 19 | approve | bar | impossibility_danger / not_applicable | impossible_attempt | 위험성이 없으면 살의가 있어도 불능범으로 불벌 |
 | 20 | context_only | context_only | - | - | 치사량을 더 심리해야 한다는 심리 지침이며 사실심리 영역 |
 

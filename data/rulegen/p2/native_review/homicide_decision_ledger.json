@@ -1,0 +1,2908 @@
+{
+  "version": "1.0.0",
+  "unit_id": "homicide",
+  "law_snapshot": {
+    "as_of_date": "2026-08-03",
+    "effective_source_date": "2026-03-12",
+    "future_snapshot_date": "2026-09-13",
+    "future_snapshot_policy": "separate_snapshot_not_active",
+    "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
+  },
+  "approval_document": "data/rulegen/p2/native_review/homicide_approved_decisions.json",
+  "approval_sha256": "a2cae14c6d7d1c1d362a2c40466dcb20bfc91a8505ba89d965424480c1d16380",
+  "approved_on": "2026-08-04",
+  "status": "ready_for_rule_ir",
+  "problems": [],
+  "unresolved_unit_references": [
+    {
+      "card_id": "art250_sec1_16.victim_consent",
+      "part_id": null,
+      "refers_to_unit": "consent_homicide",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art250_sec1_20.corpse_abandonment_separate",
+      "part_id": null,
+      "refers_to_unit": "corpse_abandonment",
+      "status": "predicate_ir_missing"
+    }
+  ],
+  "excluded_cards": [
+    {
+      "card_id": "art250.causation.autopsy-alternative-causes",
+      "reason": "부검소견에 의지하려면 다른 사인을 배제하는 논증이 필요하다는 증명 법리"
+    },
+    {
+      "card_id": "art250.causation.strangulation-remand",
+      "reason": "교살 혐의 사건의 심리미진 파기환송. 사실심리"
+    },
+    {
+      "card_id": "art250.parricide.status_offense",
+      "reason": "부진정신분범이라는 성격 규정. 효과는 #240·#241이 담고 있다"
+    },
+    {
+      "card_id": "art250_sec1_1.ordinary_murder_victim",
+      "reason": "보통살인·존속살해의 구분 서술이며 track 어휘가 이미 담고 있음"
+    },
+    {
+      "card_id": "art250_sec1_12.insufficient_pesticide_further_inquiry",
+      "reason": "치사량을 더 심리해야 한다는 심리 지침이며 사실심리 영역"
+    },
+    {
+      "card_id": "art250_sec1_16.child_danger_alternatives",
+      "reason": "위급하지 않고 비치명적 수단이 있었으면 과잉방위 부정 — 조각의 한계"
+    },
+    {
+      "card_id": "art250_sec1_16.defense_ends_after_subdual",
+      "reason": "침해 종료 후 제압된 침입자에 대한 폭행 — 조각의 한계"
+    },
+    {
+      "card_id": "art250_sec1_16.domestic_violence_killing",
+      "reason": "지속적 가정폭력이 있어도 회피 가능하면 부정 — 조각의 한계"
+    },
+    {
+      "card_id": "art250_sec1_16.mutual_fight",
+      "reason": "싸움은 방위·공격 양면이므로 정당방위 불가 — 조각의 한계"
+    },
+    {
+      "card_id": "art250_sec1_16.necessity_defense_life",
+      "reason": "살인죄에 긴급피난이 적용되지 않는다는 한계"
+    },
+    {
+      "card_id": "art250_sec1_16.planned_killing_not_self_defense",
+      "reason": "계획된 심장 자상은 상당성 부정 — 조각의 한계"
+    },
+    {
+      "card_id": "art250_sec1_16.stabbing_after_assault",
+      "reason": "폭행·협박을 받았어도 칼로 자상하면 한도 초과 — 조각의 한계"
+    },
+    {
+      "card_id": "art250_sec1_17.supreme_court_active_euthanasia",
+      "reason": "1957년 판결의 결론 인용에 그치고 적용 요건이 없음"
+    },
+    {
+      "card_id": "art250_sec1_18.actio_libera_in_causa",
+      "reason": "원인에 있어서 자유로운 행위. 감경 배제이므로 성립 결론과 무관"
+    },
+    {
+      "card_id": "art250_sec1_18.impulse_control_personality_defect_exception",
+      "reason": "성격적 결함은 원칙적으로 심신장애가 아니라는 한계"
+    },
+    {
+      "card_id": "art250_sec1_18.mental_appraisal_when_suspected",
+      "reason": "정신감정 없이 배척하면 위법. 심리 절차 영역"
+    },
+    {
+      "card_id": "art250_sec1_18.mental_disability_judicial_assessment",
+      "reason": "감정 의견에 기속되지 않는다는 판단 방법. 심리 영역"
+    },
+    {
+      "card_id": "art250_sec1_18.mental_disorder_normal_capacity_exception",
+      "reason": "정상적 능력이 있으면 심신장애가 아니라는 한계"
+    },
+    {
+      "card_id": "art250_sec1_18.pathological_personality_defect",
+      "reason": "병적/성격적 결함의 구분 기준이며 #97·#101과 중복"
+    },
+    {
+      "card_id": "art250_sec1_18.self_induced_methamphetamine_impairment",
+      "reason": "필로폰 자의 투약 사안. #91과 같은 규칙"
+    },
+    {
+      "card_id": "art250_sec1_19.instigation_indirect_facts_proof",
+      "reason": "교사사실을 간접사실로 증명하는 방법 — 증거법"
+    },
+    {
+      "card_id": "art250_sec1_19.instigation_strict_proof",
+      "reason": "교사 사실은 엄격한 증명을 요한다 — 증거법 영역"
+    },
+    {
+      "card_id": "art250_sec1_19.joint_principal_charge_aiding_conviction",
+      "reason": "공소장 변경 없이 방조 인정 — 형사소송법 영역"
+    },
+    {
+      "card_id": "art250_sec1_19.military_beating_case",
+      "reason": "군 폭행 사건의 고의·공동정범 파기환송 사례. 사실인정 판단"
+    },
+    {
+      "card_id": "art250_sec1_19.school_murder_conspiracy_evidence",
+      "reason": "인천 초등생 사건의 공모 증거 부족 판단. 증거법"
+    },
+    {
+      "card_id": "art250_sec1_19.withdrawal_mere_flight_insufficient",
+      "reason": "총을 버리고 도망간 것만으로는 부족 — 이탈 인정의 한계"
+    },
+    {
+      "card_id": "art250_sec1_19.withdrawal_remove_influence",
+      "reason": "주도자는 영향력을 제거해야 이탈 — 이탈 인정의 한계"
+    },
+    {
+      "card_id": "art250_sec1_20.kidnapped_minor_injury_rape_attempted_murder",
+      "reason": "특정범죄가중법·성폭력처벌법 사이의 경합이며 특별법 영역"
+    },
+    {
+      "card_id": "art250_sec1_20.retaliatory_murder_purpose",
+      "reason": "보복목적 판단 기준이며 특정범죄가중법 영역"
+    },
+    {
+      "card_id": "art250_sec1_21.brutal_led_murder_no_plan",
+      "reason": "사체 훼손·암매장 사안의 사형 양정. 양형"
+    },
+    {
+      "card_id": "art250_sec1_21.child_victims_repeat_offense",
+      "reason": "어린이 2명 유인·살해 사안의 사형 양정. 양형"
+    },
+    {
+      "card_id": "art250_sec1_21.death_penalty_exceptional_punishment",
+      "reason": "사형은 특별한 사정과 철저한 심리를 거쳐야 한다는 사형 선택 기준"
+    },
+    {
+      "card_id": "art250_sec1_21.death_penalty_special_circumstances_explicit",
+      "reason": "사형 선고 시 특별한 사정을 명시해야 한다는 판시 방법"
+    },
+    {
+      "card_id": "art250_sec1_21.death_penalty_thorough_inquiry",
+      "reason": "사형 심사 시 전문의견 등 깊이 있는 심리 요구. 심리 절차"
+    },
+    {
+      "card_id": "art250_sec1_21.death_penalty_unavoidable",
+      "reason": "죄책이 심히 중대하고 극형이 불가피할 것이라는 사형 요건"
+    },
+    {
+      "card_id": "art250_sec1_21.foreign_acquittal_detention_credit",
+      "reason": "외국 무죄판결의 미결구금은 제7조 산입 대상이 아님. 형 집행"
+    },
+    {
+      "card_id": "art250_sec1_21.homicide_sentencing_considerations",
+      "reason": "계획성·동기·피해자 관계 등을 양형에 반영하는 일반론"
+    },
+    {
+      "card_id": "art250_sec1_21.indeterminate_midpoint_nonaggravation",
+      "reason": "부정기형을 정기형으로 파기할 때의 불이익변경 기준. 형 산정"
+    },
+    {
+      "card_id": "art250_sec1_21.juvenile_age_at_fact_judgment",
+      "reason": "소년법 19세 미만 판단은 사실심 선고 시 기준. 형 산정"
+    },
+    {
+      "card_id": "art250_sec1_21.leader_spontaneous_joining",
+      "reason": "우발적 살인과 계획범행의 수괴 책임 차이. 양형"
+    },
+    {
+      "card_id": "art250_sec1_21.murder_proceeds_forfeiture",
+      "reason": "범죄수익 몰수·추징 대상. 부수처분"
+    },
+    {
+      "card_id": "art250_sec1_21.murder_recidivism_assessment",
+      "reason": "재범 위험성의 종합 판단과 판결시 기준. 부착명령"
+    },
+    {
+      "card_id": "art250_sec1_21.murder_recidivism_substantial_probability",
+      "reason": "재범 위험성은 상당한 개연성을 의미한다는 정의. 부착명령"
+    },
+    {
+      "card_id": "art250_sec1_21.ordinary_homicide_penalty",
+      "reason": "보통살인죄의 법정형. 이 unit은 형을 산출하지 않는다"
+    },
+    {
+      "card_id": "art250_sec1_21.organized_cult_murders",
+      "reason": "조직적·잔혹한 다수범행 주범의 사형 양정. 양형"
+    },
+    {
+      "card_id": "art250_sec1_21.planned_double_murder",
+      "reason": "계획된 2명 살해 사안의 사형 양정. 양형"
+    },
+    {
+      "card_id": "art250_sec1_21.principal_vs_accomplices",
+      "reason": "주도자 사형·나머지 무기징역의 형평. 양형"
+    },
+    {
+      "card_id": "art250_sec1_21.prisoner_homicide_death_reversal",
+      "reason": "미필적 고의·피해자 1명 등을 고려하지 않은 사형 선택의 위법. 양형"
+    },
+    {
+      "card_id": "art250_sec1_21.second_life_sentence",
+      "reason": "무기징역 집행 중 재차 무기징역 선고의 의미. 양형"
+    },
+    {
+      "card_id": "art250_sec1_21.sequential_offense_planning",
+      "reason": "연속 범행의 계획성과 우발성을 나누어 심리하라는 요구. 양형"
+    },
+    {
+      "card_id": "art250_sec1_21.spontaneous_single_offense",
+      "reason": "우발적·일회적 범행과 뉘우침은 사형 선택의 양형사정"
+    },
+    {
+      "card_id": "art250_sec1_21.treatment_custody_not_attachment_risk",
+      "reason": "치료감호의 재범 위험성만으로 부착명령 위험성을 단정 금지"
+    },
+    {
+      "card_id": "art250_sec1_22.specific_violent_recidivism_enhancement",
+      "reason": "누범 가중은 처단형 문제이며 특별법 영역"
+    },
+    {
+      "card_id": "art250_sec1_22.specific_violent_suspect_identity_disclosure",
+      "reason": "피의자 신상정보 공개 요건이며 성립과 무관"
+    },
+    {
+      "card_id": "art250_sec1_5.circumstantial_murder_conviction",
+      "reason": "간접증거만으로 유죄 인정이 가능하나 신중한 판단이 필요하다는 증명 법리"
+    },
+    {
+      "card_id": "art250_sec1_7.pesticide_cider_circumstantial_proof",
+      "reason": "농약 사이다 사건의 간접증거 종합. 사실인정"
+    },
+    {
+      "card_id": "art250_sec1_7.poisoning_alternative_source",
+      "reason": "청산가리 캡슐 사안에서 다른 섭취 경로를 배제할 수 없는 경우. 증명"
+    },
+    {
+      "card_id": "art250_sec1_7.poisoning_victim_statement_credibility",
+      "reason": "피해자 진술의 신빙성 평가. 증명력"
+    },
+    {
+      "card_id": "art250_sec1_8.death_time_integrated_assessment",
+      "reason": "사망시간 추정의 종합적 증명력. 증명력"
+    },
+    {
+      "card_id": "art250_sec1_8.direct_and_circumstantial_evidence",
+      "reason": "직접증거와 간접증거의 종합. 증명 방법"
+    },
+    {
+      "card_id": "art250_sec1_8.financial_gain_motive_caution",
+      "reason": "보험금 수령만으로 살해 동기를 인정하지 말라는 사실인정 지침"
+    },
+    {
+      "card_id": "art250_sec1_8.financial_motive_family_killing",
+      "reason": "금전적 동기가 수긍되기 위한 사정. 사실인정"
+    },
+    {
+      "card_id": "art250_sec1_8.objective_evidence_despite_weak_motive",
+      "reason": "동기가 미약해도 객관적 증거가 충분하면 유죄. 증명"
+    },
+    {
+      "card_id": "art250_sec1_8.scientific_evidence_reliability",
+      "reason": "과학적 증거방법의 구속력 요건. 증거법"
+    },
+    {
+      "card_id": "art250_sec1_8.third_party_access",
+      "reason": "제3자 열쇠 소지 시 정황증거의 증명력 감소. 증명력"
+    },
+    {
+      "card_id": "art250_sec1_9.bodyless_circumstantial_proof",
+      "reason": "시신이 없어도 간접증거 종합으로 유죄 인정 가능. 증명"
+    },
+    {
+      "card_id": "art250_sec1_9.bodyless_insufficient_linkage",
+      "reason": "시신 없고 연결 정황이 부족하면 책임 인정 곤란. 증명"
+    },
+    {
+      "card_id": "art250_sec1_9.bodyless_summary_requirements",
+      "reason": "시신 없는 살인의 유죄 인정 요소 정리. 증명"
+    },
+    {
+      "card_id": "art250_sec2_5.parricide_improper_status_offense",
+      "reason": "#4와 같은 성격 규정"
+    },
+    {
+      "card_id": "art254.attempt_penalty_mitigation",
+      "reason": "미수범 형의 임의적 감경은 양형 사항"
+    },
+    {
+      "card_id": "art254.electronic_device_attachment",
+      "reason": "전자장치 부착명령은 특별법 영역이며 성립 결론과 무관"
+    },
+    {
+      "card_id": "art250_sec1_17.direct_active_euthanasia_negative",
+      "reason": "결정 C 선택(적극적 안락사 부정설). 조각의 한계이므로 자리가 없음"
+    },
+    {
+      "card_id": "art250_sec1_21.death_penalty_special_circumstances_majority",
+      "reason": "결정 C 선택(사형 정당화 특별사정의 전원합의체 다수의견). 양형 기준"
+    }
+  ],
+  "tracks": [
+    {
+      "track_id": "base",
+      "label": "제250조 제1항 보통살인"
+    },
+    {
+      "track_id": "omission",
+      "label": "부작위에 의한 살인",
+      "inherits_placements": [
+        {
+          "track_id": "base",
+          "component_ids": [
+            "offense_definition",
+            "object_scope",
+            "person_begins",
+            "person_begins_basis",
+            "person_ends",
+            "death_result",
+            "responsibility_capacity",
+            "justification",
+            "mental_incapacity",
+            "expectability"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "attempt",
+      "label": "제254조 살인미수",
+      "inherits_placements": [
+        {
+          "track_id": "base",
+          "component_ids": [
+            "object_scope",
+            "person_begins",
+            "person_begins_basis",
+            "person_ends",
+            "killing_method",
+            "murder_intent",
+            "murder_intent_indicia",
+            "responsibility_capacity",
+            "justification",
+            "mental_incapacity",
+            "expectability",
+            "intent_error",
+            "causal_course_error"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "voluntary_desistance",
+      "label": "제26조 중지미수",
+      "inherits_from": "attempt"
+    },
+    {
+      "track_id": "impossible_attempt",
+      "label": "제27조 불능미수",
+      "inherits_from": "attempt"
+    },
+    {
+      "track_id": "parricide",
+      "label": "제250조 제2항 존속살해",
+      "inherits_from": "base"
+    },
+    {
+      "track_id": "preparation",
+      "label": "제255조 예비·음모"
+    },
+    {
+      "track_id": "complicity",
+      "label": "제30조 내지 제34조 공범",
+      "shared_module_candidate": true
+    }
+  ],
+  "placements": [
+    {
+      "card_id": "art250_sec1_11.attempt_commencement",
+      "part_id": null,
+      "role": "component",
+      "track_id": "attempt",
+      "component_id": "attempt_commencement",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_11.indirect_perpetration_attempt_use_act",
+      "part_id": null,
+      "role": "component",
+      "track_id": "attempt",
+      "component_id": "attempt_commencement_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_11.weapon_approach_attempt",
+      "part_id": null,
+      "role": "component",
+      "track_id": "attempt",
+      "component_id": "attempt_commencement_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_21.attempt_punishable",
+      "part_id": null,
+      "role": "component",
+      "track_id": "attempt",
+      "component_id": "attempt_punishability",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art254.attempts_punishable",
+      "part_id": null,
+      "role": "component",
+      "track_id": "attempt",
+      "component_id": "attempt_punishability",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.causal_course_error_essential",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "causal_course_error",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.causal_course_error_nonessential",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "causal_course_error",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_14.death_causation_attempt",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "causation",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_14.time_gap",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "causation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_14.actual_course_difference",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "causation_attribution",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_14.foreseeable_intervening_fact",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "causation_attribution",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_14.medical_negligence_concurrent_cause",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "causation_attribution",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_14.victim_negligence_complications",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "causation_attribution",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_20.clothing_damage_absorbed",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "property_damage"
+    },
+    {
+      "card_id": "art250_sec1_20.corpse_abandonment_separate",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "corpse_abandonment"
+    },
+    {
+      "card_id": "art250_sec1_20.corpse_left_at_scene",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_20.same_person_homicide_stages",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_11.completed_murder",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "death_result",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_16.excessive_defense_continuous_act",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "excessive_defense",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_18.compulsion_no_responsibility",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "expectability",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.method_error_precedent",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "intent_error",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.object_error",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "intent_error",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_16.defensive_counterattack",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_16.mutual_fight_excessive_weapon",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_16.self_defense_social_adequacy",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_16.victim_consent",
+      "part_id": null,
+      "role": "boundary",
+      "track_id": "base",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": "consent_homicide"
+    },
+    {
+      "card_id": "art250_sec1_17.advance_directive_life_sustaining_treatment",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_17.life_sustaining_treatment_withdrawal",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_17.presumed_will_life_sustaining_treatment",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_17.statutory_life_sustaining_treatment_exception",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_4.killing_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "killing_conduct",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_4.methods_of_killing",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "killing_method",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_18.mental_disorder_requirements",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "mental_incapacity",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_18.severe_impulse_control_disorder_exception",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "mental_incapacity",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.caution_recognizing_murder_intent",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "murder_intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.conditional_intent_sufficient",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.murder_intent_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.murder_intent_objective_circumstances",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.no_murder_intent_no_murder",
+      "part_id": null,
+      "role": "boundary",
+      "track_id": "base",
+      "component_id": "murder_intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": "intentional_bodily_injury"
+    },
+    {
+      "card_id": "art250_sec1_15.single_punch_kick_no_murder_intent",
+      "part_id": null,
+      "role": "boundary",
+      "track_id": "base",
+      "component_id": "murder_intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": "intentional_bodily_injury"
+    },
+    {
+      "card_id": "art250_sec1_15.vehicle_hammer_attack_acquittal",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "murder_intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.bra_strangulation_rape_victim",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.bus_attack_police",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.child_neck_compression",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.child_strangulation_abandonment_attempt",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.confinement_omission_conditional_intent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.continued_club_head_assault",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.doctor_treatment_withdrawal_intent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.generalized_intent_burial_holding",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.group_assault_weapons_conditional_intent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.inducing_young_children_to_drown",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.loaded_shotgun_reject_accident",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.martial_arts_vital_point_strike",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.neck_stabbing_conditional_intent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.pillow_suffocation_robbery_murder",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.prolonged_assault_child",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.repeated_head_assault_wood_stones",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.repeated_stabbing_nonvital_areas",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.strangulation_vulnerable_victim",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.vital_area_knife_attempt",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.wooden_club_head_strike",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_3.homicide_object",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "object_scope",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_3.no_postbirth_survival_capacity",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "object_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_3.suicide_exception",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "object_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_20.adjacent_multiple_homicides",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_20.homicide_count_by_victims",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_20.same_intent_preparation_to_completion",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_20.sequential_hammer_killing",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_20.sequential_shooting_victims",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_20.single_act_multiple_victims",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_1.murder_intentional_killing",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "offense_definition",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_20.arson_homicide_resident_building",
+      "part_id": null,
+      "role": "boundary",
+      "track_id": "base",
+      "component_id": "offense_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": "arson_of_occupied_structure"
+    },
+    {
+      "card_id": "art250_sec1_20.debt_evasion_no_robbery_murder",
+      "part_id": null,
+      "role": "boundary",
+      "track_id": "base",
+      "component_id": "offense_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": "robbery"
+    },
+    {
+      "card_id": "art250_sec1_20.murder_after_completed_robbery_or_rape",
+      "part_id": null,
+      "role": "boundary",
+      "track_id": "base",
+      "component_id": "offense_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": "robbery"
+    },
+    {
+      "card_id": "art250_sec1_20.robbery_concealment_not_retaliatory",
+      "part_id": null,
+      "role": "boundary",
+      "track_id": "base",
+      "component_id": "offense_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": "robbery"
+    },
+    {
+      "card_id": "art250_sec1_3.cesarean_no_labor_precedent",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "person_begins",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_3.fetus_life_at_labor_onset",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "person_begins",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_3.birth_labor_theory",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "person_begins_basis",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_3.birth_precedent_regular_labor",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "person_begins_basis",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_3.premature_infant_intent_precedent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "person_begins_basis",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_3.death_legal_determination",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "person_ends",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_3.organ_transplant_law_limited_effect",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "person_ends",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_3.pulse_cessation_organ_removal",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "person_ends",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_18.responsibility_capacity",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "responsibility_capacity",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.aiding_murder",
+      "part_id": null,
+      "role": "component",
+      "track_id": "complicity",
+      "component_id": "aiding",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_14.recovery_possibility_assistance",
+      "part_id": null,
+      "role": "component",
+      "track_id": "complicity",
+      "component_id": "aiding_causation",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.aiding_forms",
+      "part_id": null,
+      "role": "component",
+      "track_id": "complicity",
+      "component_id": "aiding_conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.omission_aiding_child_abuse_homicide",
+      "part_id": null,
+      "role": "component",
+      "track_id": "complicity",
+      "component_id": "aiding_conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.aiding_murder_intent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "complicity",
+      "component_id": "aiding_intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.aiding_principal_intent_conditional_knowledge",
+      "part_id": null,
+      "role": "component",
+      "track_id": "complicity",
+      "component_id": "aiding_intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.conspiracy_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "complicity",
+      "component_id": "conspiracy",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.conspiracy_liability",
+      "part_id": null,
+      "role": "component",
+      "track_id": "complicity",
+      "component_id": "conspiracy",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.conspiracy_joint_principal_functional_control",
+      "part_id": null,
+      "role": "component",
+      "track_id": "complicity",
+      "component_id": "functional_control",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.instigation_murder_completed",
+      "part_id": null,
+      "role": "component",
+      "track_id": "complicity",
+      "component_id": "instigation",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.excessive_execution_death_precedent",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "complicity",
+      "component_id": "instigation_outcome",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.instigated_injury_instead_of_murder",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "complicity",
+      "component_id": "instigation_outcome",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.instigation_no_execution",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "complicity",
+      "component_id": "instigation_outcome",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.joint_principal_requirements",
+      "part_id": null,
+      "role": "component",
+      "track_id": "complicity",
+      "component_id": "joint_principal",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.joint_processing_intent_insufficient_acquiescence",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "complicity",
+      "component_id": "joint_principal",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_9.nonstatus_accomplice_ordinary_murder_punishment_outcome",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "complicity",
+      "component_id": "nonstatus_liability",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_9.nonstatus_accomplice_parricide_coprincipal_punished_ordinary",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "complicity",
+      "component_id": "nonstatus_liability",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_9.nonstatus_accomplice_wife_with_biological_son_precedent",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "complicity",
+      "component_id": "nonstatus_liability",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_9.status_instigator_parricide_accomplice",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "complicity",
+      "component_id": "nonstatus_liability",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.doctor_treatment_withdrawal_aiding",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "complicity",
+      "component_id": "participation_form",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec5.preparation_accomplice_negative",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "complicity",
+      "component_id": "preparation_complicity",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec5.preparation_co_perpetration",
+      "part_id": null,
+      "role": "component",
+      "track_id": "complicity",
+      "component_id": "preparation_complicity",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.unforeseen_cooffender_murder",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "complicity",
+      "component_id": "shared_intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.robbery_murder_shared_intent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "complicity",
+      "component_id": "shared_intent",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.unforeseen_killing_exception",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "complicity",
+      "component_id": "shared_intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.withdrawal_before_execution",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "complicity",
+      "component_id": "withdrawal",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_12.impossible_attempt_danger",
+      "part_id": null,
+      "role": "component",
+      "track_id": "impossible_attempt",
+      "component_id": "impossibility_danger",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_12.impossible_attempt_danger_assessment",
+      "part_id": null,
+      "role": "component",
+      "track_id": "impossible_attempt",
+      "component_id": "impossibility_danger",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_12.impossible_crime_no_danger",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "impossible_attempt",
+      "component_id": "impossibility_danger",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_12.deadly_herb_attempt_holding",
+      "part_id": null,
+      "role": "component",
+      "track_id": "impossible_attempt",
+      "component_id": "impossibility_danger_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_10.omission_guarantor_status",
+      "part_id": null,
+      "role": "component",
+      "track_id": "omission",
+      "component_id": "guarantor_status",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_2.omission_homicide_guarantor_status",
+      "part_id": null,
+      "role": "component",
+      "track_id": "omission",
+      "component_id": "guarantor_status",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_10.captain_rescue_omission_duty",
+      "part_id": null,
+      "role": "component",
+      "track_id": "omission",
+      "component_id": "guarantor_status_basis",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_14.shipmaster_rescue_duty",
+      "part_id": null,
+      "role": "component",
+      "track_id": "omission",
+      "component_id": "guarantor_status_basis",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_10.omission_death_prevention_causation",
+      "part_id": null,
+      "role": "component",
+      "track_id": "omission",
+      "component_id": "omission_causation",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_14.omission_counterfactual_causation",
+      "part_id": null,
+      "role": "component",
+      "track_id": "omission",
+      "component_id": "omission_causation",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_10.omission_equivalence_general",
+      "part_id": null,
+      "role": "component",
+      "track_id": "omission",
+      "component_id": "omission_equivalence",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_10.captain_evacuation_omission_holding",
+      "part_id": null,
+      "role": "component",
+      "track_id": "omission",
+      "component_id": "omission_equivalence_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_10.detained_minor_omission_killing",
+      "part_id": null,
+      "role": "component",
+      "track_id": "omission",
+      "component_id": "omission_equivalence_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.omission_intent_inference",
+      "part_id": null,
+      "role": "component",
+      "track_id": "omission",
+      "component_id": "omission_intent",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.omission_intent_requirements",
+      "part_id": null,
+      "role": "component",
+      "track_id": "omission",
+      "component_id": "omission_intent",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.captain_omission_conditional_intent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "omission",
+      "component_id": "omission_intent_indicia",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.no_parricide_intent_indiscriminate_stabbing",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "parricide",
+      "component_id": "ancestral_intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_8.intent_knowledge_lineal_status",
+      "part_id": null,
+      "role": "component",
+      "track_id": "parricide",
+      "component_id": "ancestral_intent",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_8.no_knowledge_lineal_status",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "parricide",
+      "component_id": "ancestral_intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250.parricide.definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "parricide",
+      "component_id": "ancestral_relation",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.adoption_requirements_not_met",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "parricide",
+      "component_id": "ancestral_relation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.collateral_relatives_excluded",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "parricide",
+      "component_id": "ancestral_relation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.deceased_spouse_lineal_ascendant_ordinary_murder",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "parricide",
+      "component_id": "ancestral_relation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.lineal_ascendant_scope",
+      "part_id": null,
+      "role": "component",
+      "track_id": "parricide",
+      "component_id": "ancestral_relation",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.lineal_relationship_strict_interpretation",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "parricide",
+      "component_id": "ancestral_relation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.nonmarital_child_biological_father_before_recognition",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "parricide",
+      "component_id": "ancestral_relation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.object_lineal_ascendant_self_or_spouse",
+      "part_id": null,
+      "role": "component",
+      "track_id": "parricide",
+      "component_id": "ancestral_relation",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.spouse_legal_spouse_only",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "parricide",
+      "component_id": "ancestral_relation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.step_parent_excluded",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "parricide",
+      "component_id": "ancestral_relation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.adoption_creates_lineal_relationship",
+      "part_id": null,
+      "role": "component",
+      "track_id": "parricide",
+      "component_id": "ancestral_relation_basis",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.adoption_type_determines_offense",
+      "part_id": null,
+      "role": "component",
+      "track_id": "parricide",
+      "component_id": "ancestral_relation_basis",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.birth_registration_effective_as_adoption",
+      "part_id": null,
+      "role": "component",
+      "track_id": "parricide",
+      "component_id": "ancestral_relation_basis",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.nonmarital_child_biological_mother",
+      "part_id": null,
+      "role": "component",
+      "track_id": "parricide",
+      "component_id": "ancestral_relation_basis",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.status_at_commencement_sufficient",
+      "part_id": null,
+      "role": "component",
+      "track_id": "parricide",
+      "component_id": "ancestral_relation_timing",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_10.arson_death_parricide_imaginary_concurrence",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "parricide",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "arson_of_occupied_structure"
+    },
+    {
+      "card_id": "art250_sec2_10.parricide_ordinary_murder_specialty",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "parricide",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec6.attempt_or_completion_absorption",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "preparation",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec2_2.conspiracy_agreement_required",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "preparation",
+      "component_id": "conspiracy_agreement",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec2_2.conspiracy_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "preparation",
+      "component_id": "conspiracy_agreement",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec3.conditional_murder_purpose",
+      "part_id": null,
+      "role": "component",
+      "track_id": "preparation",
+      "component_id": "murder_purpose",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec3.murder_purpose",
+      "part_id": null,
+      "role": "component",
+      "track_id": "preparation",
+      "component_id": "murder_purpose",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec6.multiple_preparations_single_offense",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "preparation",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec2_1.hiring_killers_holding",
+      "part_id": null,
+      "role": "component",
+      "track_id": "preparation",
+      "component_id": "preparation_conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec2_1.preparation_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "preparation",
+      "component_id": "preparation_conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec2_1.preparation_external_act",
+      "part_id": null,
+      "role": "component",
+      "track_id": "preparation",
+      "component_id": "preparation_conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec2_1.preparation_substantial_contribution",
+      "part_id": null,
+      "role": "component",
+      "track_id": "preparation",
+      "component_id": "preparation_conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec2_1.sickle_execution_commencement_boundary",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "preparation",
+      "component_id": "preparation_conduct",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec3.online_murder_notice_insufficient",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "preparation",
+      "component_id": "preparation_conduct",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec4.preparation_desistance_doctrinal_variants",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "preparation",
+      "component_id": "preparation_desistance_mitigation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec3.preparation_intent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "preparation",
+      "component_id": "preparation_intent",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec3.specific_target_requirement",
+      "part_id": null,
+      "role": "component",
+      "track_id": "preparation",
+      "component_id": "target_specificity",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec3.undetermined_target_negative_holding",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "preparation",
+      "component_id": "target_specificity",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_13.attempt.bleeding_fear_not_voluntary",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "voluntary_desistance",
+      "component_id": "voluntary_desistance",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_13.attempt.bleeding_report_fear_not_voluntary",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "voluntary_desistance",
+      "component_id": "voluntary_desistance",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_13.attempt.fire_fear_not_voluntary",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "voluntary_desistance",
+      "component_id": "voluntary_desistance",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_13.attempt.rope_loosening_and_pursuit",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "voluntary_desistance",
+      "component_id": "voluntary_desistance",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_13.attempt.victim_ruse_fear_not_voluntary",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "voluntary_desistance",
+      "component_id": "voluntary_desistance",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_13.attempt.voluntary_abandonment_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "voluntary_desistance",
+      "component_id": "voluntary_desistance",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_13.attempt.voluntary_abandonment_social_notion",
+      "part_id": null,
+      "role": "component",
+      "track_id": "voluntary_desistance",
+      "component_id": "voluntary_desistance",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    }
+  ],
+  "components": [
+    {
+      "track_id": "attempt",
+      "component_id": "attempt_commencement",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_11.attempt_commencement"
+      ]
+    },
+    {
+      "track_id": "attempt",
+      "component_id": "attempt_commencement_indicia",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_11.indirect_perpetration_attempt_use_act",
+        "art250_sec1_11.weapon_approach_attempt"
+      ]
+    },
+    {
+      "track_id": "attempt",
+      "component_id": "attempt_punishability",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_21.attempt_punishable",
+        "art254.attempts_punishable"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "causal_course_error",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_15.causal_course_error_essential",
+        "art250_sec1_15.causal_course_error_nonessential"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "causation",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_14.death_causation_attempt",
+        "art250_sec1_14.time_gap"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "causation_attribution",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_14.actual_course_difference",
+        "art250_sec1_14.foreseeable_intervening_fact",
+        "art250_sec1_14.medical_negligence_concurrent_cause",
+        "art250_sec1_14.victim_negligence_complications"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "concurrence",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "corpse_abandonment",
+        "property_damage"
+      ],
+      "norm_card_ids": [
+        "art250_sec1_20.clothing_damage_absorbed",
+        "art250_sec1_20.corpse_abandonment_separate",
+        "art250_sec1_20.corpse_left_at_scene",
+        "art250_sec1_20.same_person_homicide_stages"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "death_result",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_11.completed_murder"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "excessive_defense",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_16.excessive_defense_continuous_act"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "expectability",
+      "roles": [
+        "bar"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_18.compulsion_no_responsibility"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "intent_error",
+      "roles": [
+        "bar"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_15.method_error_precedent",
+        "art250_sec1_15.object_error"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "justification",
+      "roles": [
+        "bar",
+        "boundary"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "consent_homicide"
+      ],
+      "norm_card_ids": [
+        "art250_sec1_16.defensive_counterattack",
+        "art250_sec1_16.mutual_fight_excessive_weapon",
+        "art250_sec1_16.self_defense_social_adequacy",
+        "art250_sec1_16.victim_consent",
+        "art250_sec1_17.advance_directive_life_sustaining_treatment",
+        "art250_sec1_17.life_sustaining_treatment_withdrawal",
+        "art250_sec1_17.presumed_will_life_sustaining_treatment",
+        "art250_sec1_17.statutory_life_sustaining_treatment_exception"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "killing_conduct",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_4.killing_definition"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "killing_method",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_4.methods_of_killing"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "mental_incapacity",
+      "roles": [
+        "bar"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_18.mental_disorder_requirements",
+        "art250_sec1_18.severe_impulse_control_disorder_exception"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "murder_intent",
+      "roles": [
+        "bar",
+        "boundary",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [
+        "intentional_bodily_injury"
+      ],
+      "norm_card_ids": [
+        "art250_sec1_15.caution_recognizing_murder_intent",
+        "art250_sec1_15.conditional_intent_sufficient",
+        "art250_sec1_15.murder_intent_definition",
+        "art250_sec1_15.murder_intent_objective_circumstances",
+        "art250_sec1_15.no_murder_intent_no_murder",
+        "art250_sec1_15.single_punch_kick_no_murder_intent",
+        "art250_sec1_15.vehicle_hammer_attack_acquittal"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "murder_intent_indicia",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_15.bra_strangulation_rape_victim",
+        "art250_sec1_15.bus_attack_police",
+        "art250_sec1_15.child_neck_compression",
+        "art250_sec1_15.child_strangulation_abandonment_attempt",
+        "art250_sec1_15.confinement_omission_conditional_intent",
+        "art250_sec1_15.continued_club_head_assault",
+        "art250_sec1_15.doctor_treatment_withdrawal_intent",
+        "art250_sec1_15.generalized_intent_burial_holding",
+        "art250_sec1_15.group_assault_weapons_conditional_intent",
+        "art250_sec1_15.inducing_young_children_to_drown",
+        "art250_sec1_15.loaded_shotgun_reject_accident",
+        "art250_sec1_15.martial_arts_vital_point_strike",
+        "art250_sec1_15.neck_stabbing_conditional_intent",
+        "art250_sec1_15.pillow_suffocation_robbery_murder",
+        "art250_sec1_15.prolonged_assault_child",
+        "art250_sec1_15.repeated_head_assault_wood_stones",
+        "art250_sec1_15.repeated_stabbing_nonvital_areas",
+        "art250_sec1_15.strangulation_vulnerable_victim",
+        "art250_sec1_15.vital_area_knife_attempt",
+        "art250_sec1_15.wooden_club_head_strike"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "object_scope",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_3.homicide_object",
+        "art250_sec1_3.no_postbirth_survival_capacity",
+        "art250_sec1_3.suicide_exception"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "offense_count",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_20.adjacent_multiple_homicides",
+        "art250_sec1_20.homicide_count_by_victims",
+        "art250_sec1_20.same_intent_preparation_to_completion",
+        "art250_sec1_20.sequential_hammer_killing",
+        "art250_sec1_20.sequential_shooting_victims",
+        "art250_sec1_20.single_act_multiple_victims"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "offense_definition",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_1.murder_intentional_killing"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "offense_scope",
+      "roles": [
+        "boundary"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "arson_of_occupied_structure",
+        "robbery"
+      ],
+      "norm_card_ids": [
+        "art250_sec1_20.arson_homicide_resident_building",
+        "art250_sec1_20.debt_evasion_no_robbery_murder",
+        "art250_sec1_20.murder_after_completed_robbery_or_rape",
+        "art250_sec1_20.robbery_concealment_not_retaliatory"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "person_begins",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_3.cesarean_no_labor_precedent",
+        "art250_sec1_3.fetus_life_at_labor_onset"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "person_begins_basis",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_3.birth_labor_theory",
+        "art250_sec1_3.birth_precedent_regular_labor",
+        "art250_sec1_3.premature_infant_intent_precedent"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "person_ends",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_3.death_legal_determination",
+        "art250_sec1_3.organ_transplant_law_limited_effect",
+        "art250_sec1_3.pulse_cessation_organ_removal"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "responsibility_capacity",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_18.responsibility_capacity"
+      ]
+    },
+    {
+      "track_id": "complicity",
+      "component_id": "aiding",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_19.aiding_murder"
+      ]
+    },
+    {
+      "track_id": "complicity",
+      "component_id": "aiding_causation",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_14.recovery_possibility_assistance"
+      ]
+    },
+    {
+      "track_id": "complicity",
+      "component_id": "aiding_conduct",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_19.aiding_forms",
+        "art250_sec1_19.omission_aiding_child_abuse_homicide"
+      ]
+    },
+    {
+      "track_id": "complicity",
+      "component_id": "aiding_intent",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_19.aiding_murder_intent",
+        "art250_sec1_19.aiding_principal_intent_conditional_knowledge"
+      ]
+    },
+    {
+      "track_id": "complicity",
+      "component_id": "conspiracy",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_19.conspiracy_definition",
+        "art250_sec1_19.conspiracy_liability"
+      ]
+    },
+    {
+      "track_id": "complicity",
+      "component_id": "functional_control",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_19.conspiracy_joint_principal_functional_control"
+      ]
+    },
+    {
+      "track_id": "complicity",
+      "component_id": "instigation",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_19.instigation_murder_completed"
+      ]
+    },
+    {
+      "track_id": "complicity",
+      "component_id": "instigation_outcome",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_19.excessive_execution_death_precedent",
+        "art250_sec1_19.instigated_injury_instead_of_murder",
+        "art250_sec1_19.instigation_no_execution"
+      ]
+    },
+    {
+      "track_id": "complicity",
+      "component_id": "joint_principal",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_19.joint_principal_requirements",
+        "art250_sec1_19.joint_processing_intent_insufficient_acquiescence"
+      ]
+    },
+    {
+      "track_id": "complicity",
+      "component_id": "nonstatus_liability",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec2_9.nonstatus_accomplice_ordinary_murder_punishment_outcome",
+        "art250_sec2_9.nonstatus_accomplice_parricide_coprincipal_punished_ordinary",
+        "art250_sec2_9.nonstatus_accomplice_wife_with_biological_son_precedent",
+        "art250_sec2_9.status_instigator_parricide_accomplice"
+      ]
+    },
+    {
+      "track_id": "complicity",
+      "component_id": "participation_form",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_15.doctor_treatment_withdrawal_aiding"
+      ]
+    },
+    {
+      "track_id": "complicity",
+      "component_id": "preparation_complicity",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art255_sec5.preparation_accomplice_negative",
+        "art255_sec5.preparation_co_perpetration"
+      ]
+    },
+    {
+      "track_id": "complicity",
+      "component_id": "shared_intent",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_15.unforeseen_cooffender_murder",
+        "art250_sec1_19.robbery_murder_shared_intent",
+        "art250_sec1_19.unforeseen_killing_exception"
+      ]
+    },
+    {
+      "track_id": "complicity",
+      "component_id": "withdrawal",
+      "roles": [
+        "bar"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_19.withdrawal_before_execution"
+      ]
+    },
+    {
+      "track_id": "impossible_attempt",
+      "component_id": "impossibility_danger",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_12.impossible_attempt_danger",
+        "art250_sec1_12.impossible_attempt_danger_assessment",
+        "art250_sec1_12.impossible_crime_no_danger"
+      ]
+    },
+    {
+      "track_id": "impossible_attempt",
+      "component_id": "impossibility_danger_indicia",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_12.deadly_herb_attempt_holding"
+      ]
+    },
+    {
+      "track_id": "omission",
+      "component_id": "guarantor_status",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_10.omission_guarantor_status",
+        "art250_sec1_2.omission_homicide_guarantor_status"
+      ]
+    },
+    {
+      "track_id": "omission",
+      "component_id": "guarantor_status_basis",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_10.captain_rescue_omission_duty",
+        "art250_sec1_14.shipmaster_rescue_duty"
+      ]
+    },
+    {
+      "track_id": "omission",
+      "component_id": "omission_causation",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_10.omission_death_prevention_causation",
+        "art250_sec1_14.omission_counterfactual_causation"
+      ]
+    },
+    {
+      "track_id": "omission",
+      "component_id": "omission_equivalence",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_10.omission_equivalence_general"
+      ]
+    },
+    {
+      "track_id": "omission",
+      "component_id": "omission_equivalence_indicia",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_10.captain_evacuation_omission_holding",
+        "art250_sec1_10.detained_minor_omission_killing"
+      ]
+    },
+    {
+      "track_id": "omission",
+      "component_id": "omission_intent",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_15.omission_intent_inference",
+        "art250_sec1_15.omission_intent_requirements"
+      ]
+    },
+    {
+      "track_id": "omission",
+      "component_id": "omission_intent_indicia",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_15.captain_omission_conditional_intent"
+      ]
+    },
+    {
+      "track_id": "parricide",
+      "component_id": "ancestral_intent",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_15.no_parricide_intent_indiscriminate_stabbing",
+        "art250_sec2_8.intent_knowledge_lineal_status",
+        "art250_sec2_8.no_knowledge_lineal_status"
+      ]
+    },
+    {
+      "track_id": "parricide",
+      "component_id": "ancestral_relation",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250.parricide.definition",
+        "art250_sec2_6.adoption_requirements_not_met",
+        "art250_sec2_6.collateral_relatives_excluded",
+        "art250_sec2_6.deceased_spouse_lineal_ascendant_ordinary_murder",
+        "art250_sec2_6.lineal_ascendant_scope",
+        "art250_sec2_6.lineal_relationship_strict_interpretation",
+        "art250_sec2_6.nonmarital_child_biological_father_before_recognition",
+        "art250_sec2_6.object_lineal_ascendant_self_or_spouse",
+        "art250_sec2_6.spouse_legal_spouse_only",
+        "art250_sec2_6.step_parent_excluded"
+      ]
+    },
+    {
+      "track_id": "parricide",
+      "component_id": "ancestral_relation_basis",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec2_6.adoption_creates_lineal_relationship",
+        "art250_sec2_6.adoption_type_determines_offense",
+        "art250_sec2_6.birth_registration_effective_as_adoption",
+        "art250_sec2_6.nonmarital_child_biological_mother"
+      ]
+    },
+    {
+      "track_id": "parricide",
+      "component_id": "ancestral_relation_timing",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec2_6.status_at_commencement_sufficient"
+      ]
+    },
+    {
+      "track_id": "parricide",
+      "component_id": "concurrence",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "arson_of_occupied_structure"
+      ],
+      "norm_card_ids": [
+        "art250_sec2_10.arson_death_parricide_imaginary_concurrence",
+        "art250_sec2_10.parricide_ordinary_murder_specialty"
+      ]
+    },
+    {
+      "track_id": "preparation",
+      "component_id": "concurrence",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art255_sec6.attempt_or_completion_absorption"
+      ]
+    },
+    {
+      "track_id": "preparation",
+      "component_id": "conspiracy_agreement",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art255_sec2_2.conspiracy_agreement_required",
+        "art255_sec2_2.conspiracy_definition"
+      ]
+    },
+    {
+      "track_id": "preparation",
+      "component_id": "murder_purpose",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art255_sec3.conditional_murder_purpose",
+        "art255_sec3.murder_purpose"
+      ]
+    },
+    {
+      "track_id": "preparation",
+      "component_id": "offense_count",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art255_sec6.multiple_preparations_single_offense"
+      ]
+    },
+    {
+      "track_id": "preparation",
+      "component_id": "preparation_conduct",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art255_sec2_1.hiring_killers_holding",
+        "art255_sec2_1.preparation_definition",
+        "art255_sec2_1.preparation_external_act",
+        "art255_sec2_1.preparation_substantial_contribution",
+        "art255_sec2_1.sickle_execution_commencement_boundary",
+        "art255_sec3.online_murder_notice_insufficient"
+      ]
+    },
+    {
+      "track_id": "preparation",
+      "component_id": "preparation_desistance_mitigation",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art255_sec4.preparation_desistance_doctrinal_variants"
+      ]
+    },
+    {
+      "track_id": "preparation",
+      "component_id": "preparation_intent",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art255_sec3.preparation_intent"
+      ]
+    },
+    {
+      "track_id": "preparation",
+      "component_id": "target_specificity",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art255_sec3.specific_target_requirement",
+        "art255_sec3.undetermined_target_negative_holding"
+      ]
+    },
+    {
+      "track_id": "voluntary_desistance",
+      "component_id": "voluntary_desistance",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art250_sec1_13.attempt.bleeding_fear_not_voluntary",
+        "art250_sec1_13.attempt.bleeding_report_fear_not_voluntary",
+        "art250_sec1_13.attempt.fire_fear_not_voluntary",
+        "art250_sec1_13.attempt.rope_loosening_and_pursuit",
+        "art250_sec1_13.attempt.victim_ruse_fear_not_voluntary",
+        "art250_sec1_13.attempt.voluntary_abandonment_definition",
+        "art250_sec1_13.attempt.voluntary_abandonment_social_notion"
+      ]
+    }
+  ],
+  "stats": {
+    "components": 62,
+    "context_only_placements": 73,
+    "decision_approve": 131,
+    "decision_context_only": 73,
+    "decision_rewrite": 38,
+    "inherited": 13,
+    "placements": 169,
+    "queue_cards": 242,
+    "unresolved_unit_references": 2
+  }
+}

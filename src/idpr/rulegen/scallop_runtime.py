@@ -237,21 +237,24 @@ def run_scenario(
     program_path = work_dir / f"{scenario['scenario_id']}.scl"
     program_path.write_text(compiled_source + facts, encoding="utf-8")
 
+    # Compiling a large generated program dominates runtime.  Ask the pinned CLI
+    # for every relation once, then parse only the requested public relations,
+    # instead of recompiling the identical program once per query.
+    completed = subprocess.run(
+        [str(scli_path), "--output-all", str(program_path)],
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=120,
+    )
+    if completed.returncode != 0:
+        raise ScallopRuntimeError(
+            f"scli failed for {scenario['scenario_id']}: "
+            f"{completed.stderr.strip() or completed.stdout.strip()}"
+        )
+    output = completed.stdout.strip()
     results: dict[str, dict[str, Any]] = {}
     for relation in query_relations:
-        completed = subprocess.run(
-            [str(scli_path), "--query", relation, str(program_path)],
-            check=False,
-            capture_output=True,
-            text=True,
-            timeout=120,
-        )
-        if completed.returncode != 0:
-            raise ScallopRuntimeError(
-                f"scli failed for {scenario['scenario_id']}:{relation}: "
-                f"{completed.stderr.strip() or completed.stdout.strip()}"
-            )
-        output = completed.stdout.strip()
         results[relation] = {
             "nonempty": _query_output_nonempty(output, relation),
             "output": output,

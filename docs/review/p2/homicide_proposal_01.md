@@ -46,15 +46,15 @@ homicide_case_roles(case_id, defendant_id, victim_id)
 
 | # | decision | role | component / join | track | 이유 |
 |---:|---|---|---|---|---|
-| 168 | rewrite | component | person_begins / alternative_any | base | 메타 래퍼 제거. 규칙적 진통을 동반한 분만개시 때가 사람의 시기 |
+| 168 | rewrite | component | person_begins_basis / alternative_any | base | 메타 래퍼 제거. 규칙적 진통을 동반한 분만개시 때가 사람의 시기 |
 | 169 | rewrite | bar | person_begins / not_applicable | base | 메타 래퍼 제거. 규칙적 진통이 없는 제왕절개 단계의 태아는 사람이 아님 |
 | 170 | approve | component | person_ends / mandatory_all | base | 사람의 종기는 의학적 판단만이 아니라 생명보호 입법취지를 종합 |
 | 171 | approve | component | person_begins / mandatory_all | base | 분만개시 시점에 태아가 생명을 가지고 있을 것 |
 | 172 | approve | component | object_scope / mandatory_all | base | 객체는 살아 있는 자연인. 생존능력 유무 불문 |
 | 173 | approve | bar | object_scope / not_applicable | base | 출생 후 생명유지 능력을 요구하지 않는다는 차단규칙 |
-| 174 | rewrite | component | person_begins / alternative_any | base | 메타 래퍼 제거. 낙태 후 살아서 출생한 미숙아도 살인죄의 객체 |
+| 174 | rewrite | component | person_begins_basis / alternative_any | base | 메타 래퍼 제거. 낙태 후 살아서 출생한 미숙아도 살인죄의 객체 |
 | 175 | approve | bar | object_scope / not_applicable | base | 자기 자신은 객체가 아니며 자살은 살인죄가 아님 |
-| 234 | approve | component | person_begins / alternative_any | base | 결정 C가 선택한 진통설. #168과 같은 규칙의 학설 provenance |
+| 234 | approve | component | person_begins_basis / alternative_any | base | 결정 C가 선택한 진통설. #168과 같은 규칙의 학설 provenance |
 | 235 | approve | component | person_ends / mandatory_all | base | 결정 C가 선택한 맥박종지설. 뇌사자는 아직 사람 |
 | 236 | approve | bar | person_ends / not_applicable | base | 장기이식법만으로 종기를 뇌사로 볼 수 없다는 차단규칙 |
 
@@ -69,21 +69,20 @@ homicide_case_roles(case_id, defendant_id, victim_id)
 | 5 | approve | component | offense_definition / mandatory_all | base | 고의로 사람을 살해하여 생명을 끊는 기본 구성요건 |
 | 6 | context_only | context_only | - | - | 보통살인·존속살해의 구분 서술이며 track 어휘가 이미 담고 있음 |
 | 176 | approve | component | killing_conduct / mandatory_all | base | 자연적 사기에 앞서 생명을 단절시키는 것이 살해 |
-| 177 | approve | component | killing_conduct / alternative_any | base | 수단 무제한. 무형적 방법도 포함 |
-| 125 | approve | component | guarantor_status / mandatory_all | base | 부작위 살인은 보증인적 지위를 요구하는 진정신분범 |
-| 12 | approve | component | guarantor_status / mandatory_all | base | 생명을 보호할 보증인적 지위. #125와 같은 요건의 provenance |
-| 11 | approve | component | omission_equivalence / mandatory_all | base | 부작위가 작위와 동등한 형법적 가치를 가질 것 |
-| 8 | approve | component | guarantor_status / alternative_any | base | 조난 상황의 선장·선원에게 구호 작위의무가 있다는 발생근거 |
-| 7 | rewrite | component | omission_equivalence / alternative_any | base | 메타 래퍼 제거. 선장의 퇴선조치 불이행은 작위 살인과 동일 평가 |
-| 9 | approve | component | omission_equivalence / alternative_any | base | 감금 중 살의로 방치한 부작위도 구성요건적 행위 |
-| 10 | approve | component | omission_causation / mandatory_all | base | 의무를 이행했다면 결과가 발생하지 않았을 관계 |
+| 177 | approve | component | killing_method / alternative_any | base | 수단 무제한. 무형적 방법도 포함 |
+| 125 | approve | component | guarantor_status / mandatory_all | omission | 부작위 살인은 보증인적 지위를 요구하는 진정신분범 |
+| 12 | approve | component | guarantor_status / mandatory_all | omission | 생명을 보호할 보증인적 지위. #125와 같은 요건의 provenance |
+| 11 | approve | component | omission_equivalence / mandatory_all | omission | 부작위가 작위와 동등한 형법적 가치를 가질 것 |
+| 8 | approve | component | guarantor_status_basis / alternative_any | omission | 조난 상황의 선장·선원에게 구호 작위의무가 있다는 발생근거 |
+| 7 | rewrite | component | omission_equivalence_indicia / alternative_any | omission | 메타 래퍼 제거. 선장의 퇴선조치 불이행은 작위 살인과 동일 평가 |
+| 9 | approve | component | omission_equivalence_indicia / alternative_any | omission | 감금 중 살의로 방치한 부작위도 구성요건적 행위 |
+| 10 | approve | component | omission_causation / mandatory_all | omission | 의무를 이행했다면 결과가 발생하지 않았을 관계 |
 
 ### #176과 #177이 같은 component에서 join이 갈리는 문제
 
 #176은 살해의 정의(필수), #177은 수단 무제한(택일 경로)이다. 상해의 `intent`에서 같은
-충돌을 겪었으므로 여기서는 미리 나눈다 — 위 표는 둘 다 `killing_conduct`에 두었으나
-조립 단계에서 **#176 `mandatory_all`, #177은 `killing_method` component로 분리**한다.
-아래 H-H01 제4문에서 확인을 구한다.
+충돌을 겪었으므로 `killing_conduct`와 `killing_method`로 분리했다. 부작위도 같은 이유로
+정의와 인정경로를 `guarantor_status`/`_basis`, `omission_equivalence`/`_indicia`로 나눈다.
 
 ### 부작위 살인을 base track에 넣는 것의 문제
 
