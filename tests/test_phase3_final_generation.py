@@ -25,3 +25,16 @@ def test_final_generation_job_runs_every_pipeline_stage_and_writes_manifest():
     ):
         assert command in script
     assert "--top-k-articles 10" in script
+
+
+def test_final_generation_resume_reuses_the_frozen_submission_wrapper():
+    root = INVENTORY_PATH.parents[2]
+    submission = (root / "scripts/slurm/run_phase3_final_59.sh").read_text(
+        encoding="utf-8"
+    )
+    resume_body = (root / "scripts/slurm/run_phase3_final_59_resume.sh").read_text(
+        encoding="utf-8"
+    )
+    assert 'IDPR_FINAL59_RESUME:-0' in submission
+    assert 'exec /bin/bash "$PROJECT_ROOT/scripts/slurm/run_phase3_final_59_resume.sh"' in submission
+    assert "#SBATCH" not in resume_body

@@ -10,6 +10,10 @@
 set -euo pipefail
 source "${IDPR_PROJECT_ROOT:-${SLURM_SUBMIT_DIR:-$PWD}}/scripts/slurm/_env.sh"
 
+if [ "${IDPR_FINAL59_RESUME:-0}" = "1" ]; then
+    exec /bin/bash "$PROJECT_ROOT/scripts/slurm/run_phase3_final_59_resume.sh"
+fi
+
 RUN_ROOT="${IDPR_FINAL59_ROOT:-$PROJECT_ROOT/experiments/results/phase3_final_59}"
 INVENTORY="$RUN_ROOT/final_59_inventory.jsonl"
 FACT_GRAPHS="$RUN_ROOT/fact_graphs.jsonl"

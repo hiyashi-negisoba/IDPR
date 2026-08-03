@@ -27,6 +27,7 @@ from idpr.prompts import load_prompt
 DEFAULT_OUT = PROJECT_ROOT / "data" / "eval" / "fact_graphs.jsonl"
 SYSTEM_PROMPT = "fact_graph_extract"
 USER_PROMPT = "fact_graph_extract_user"
+REPAIR_PROMPT = "fact_graph_contract_repair"
 
 
 def load_inventory(path: Path) -> list[dict]:
@@ -60,6 +61,48 @@ def restore_previous_graph(
     return restored
 
 
+def select_records_for_run(
+    records: list[dict],
+    *,
+    requested_case_ids: list[str],
+    retry_rows: list[dict],
+    limit: int,
+) -> tuple[list[dict], dict[str, dict]]:
+    """Select an explicit subset or the failed rows from a previous Call-1 artifact."""
+
+    indexed = {str(record["sub_question_id"]): record for record in records}
+    if len(indexed) != len(records):
+        raise ValueError("inventory contains duplicate sub_question_id values")
+    retry_index = {str(row["sub_question_id"]): row for row in retry_rows}
+    if len(retry_index) != len(retry_rows):
+        raise ValueError("retry artifact contains duplicate sub_question_id values")
+    if requested_case_ids and retry_rows:
+        raise ValueError("--case-id and --retry-failures-from are mutually exclusive")
+    if requested_case_ids:
+        unknown = sorted(set(requested_case_ids) - set(indexed))
+        if unknown:
+            raise ValueError(f"unknown --case-id values: {unknown}")
+        wanted = set(requested_case_ids)
+        selected = [record for record in records if record["sub_question_id"] in wanted]
+    elif retry_rows:
+        unknown = sorted(set(retry_index) - set(indexed))
+        if unknown:
+            raise ValueError(f"retry artifact has unknown cases: {unknown}")
+        failed = {
+            case_id
+            for case_id, row in retry_index.items()
+            if not isinstance(row.get("fact_graph"), dict)
+        }
+        selected = [record for record in records if record["sub_question_id"] in failed]
+        if not selected:
+            raise ValueError("retry artifact has no failed fact graphs")
+    else:
+        selected = records
+    if limit:
+        selected = selected[:limit]
+    return selected, retry_index
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base-url", required=True)
@@ -75,14 +118,40 @@ def main() -> None:
     parser.add_argument("--max-tokens", type=int, default=8192)
     parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--limit", type=int, default=0, help="0 = every question")
+    parser.add_argument("--case-id", action="append", default=[])
+    parser.add_argument(
+        "--retry-failures-from",
+        type=Path,
+        help="run only rows without an admitted fact_graph in this prior artifact",
+    )
+    parser.add_argument(
+        "--contract-attempts",
+        type=int,
+        default=1,
+        help="bounded attempts per selected case, including the first request",
+    )
     args = parser.parse_args()
+    if args.contract_attempts < 1:
+        parser.error("--contract-attempts must be positive")
 
     client = VLLMClient(base_url=args.base_url, model=args.model, api_key=args.api_key)
     system_prompt = load_prompt(SYSTEM_PROMPT)
     user_template = load_prompt(USER_PROMPT)
+    repair_prompt = load_prompt(REPAIR_PROMPT)
     schema = fact_graph_schema()
 
     records = load_inventory(args.inventory)
+    retry_rows = (
+        load_inventory(args.retry_failures_from)
+        if args.retry_failures_from and args.retry_failures_from.is_file()
+        else []
+    )
+    records, retry_index = select_records_for_run(
+        records,
+        requested_case_ids=args.case_id,
+        retry_rows=retry_rows,
+        limit=args.limit,
+    )
     fallback_rows = {
         row["sub_question_id"]: row
         for row in (
@@ -91,9 +160,6 @@ def main() -> None:
             else []
         )
     }
-    if args.limit:
-        records = records[: args.limit]
-
     args.out.parent.mkdir(parents=True, exist_ok=True)
     ok = reused = failed = 0
     total_tokens = 0
@@ -111,36 +177,65 @@ def main() -> None:
             assert_no_leaked_fields(payload)
 
             row: dict = {"sub_question_id": case_id}
-            try:
-                output, metadata = client.complete_json(
-                    system_prompt=system_prompt,
-                    payload=payload,
-                    schema_name="fact_graph",
-                    schema=schema,
-                    max_tokens=args.max_tokens,
-                    temperature=args.temperature,
-                    user_template=user_template,
-                )
-                row["usage"] = metadata.get("usage", {})
-                total_tokens += int(metadata.get("usage", {}).get("total_tokens", 0) or 0)
-                admission = admit_fact_graph(
-                    output, case_id=case_id, question_text=record["question_text"]
-                )
-                row["fact_graph"] = admission.payload
-                row["admission"] = admission.as_dict()
-                if admission.dropped_total:
-                    # Never silent: extraction quality is a reported number.
-                    row["rejected_payload"] = output
-                ok += 1
-            except FactGraphError as error:
-                # Recorded, not raised: one malformed graph must not cost the other 60.
-                # The rejected payload is kept: without it a contract violation cannot be
-                # told apart from a hallucination without paying for the GPU run again.
-                row["error"] = f"{type(error).__name__}: {error}"
-                row["errors"] = error.errors
-                row["rejected_payload"] = output
-            except VLLMClientError as error:
-                row["error"] = f"{type(error).__name__}: {error}"
+            previous_failure = retry_index.get(case_id, {})
+            rejected_output = previous_failure.get("rejected_payload")
+            host_errors = list(previous_failure.get("errors", []))
+            attempts: list[dict] = []
+            for attempt in range(1, args.contract_attempts + 1):
+                active_payload = dict(payload)
+                if rejected_output is not None or host_errors:
+                    active_payload["contract_repair"] = {
+                        "instruction": repair_prompt,
+                        "host_errors": host_errors,
+                        "previous_output": rejected_output,
+                    }
+                output = None
+                try:
+                    output, metadata = client.complete_json(
+                        system_prompt=system_prompt,
+                        payload=active_payload,
+                        schema_name="fact_graph",
+                        schema=schema,
+                        max_tokens=args.max_tokens,
+                        temperature=args.temperature,
+                        user_template=user_template,
+                    )
+                    usage = metadata.get("usage", {})
+                    total_tokens += int(usage.get("total_tokens", 0) or 0)
+                    admission = admit_fact_graph(
+                        output, case_id=case_id, question_text=record["question_text"]
+                    )
+                except FactGraphError as error:
+                    attempts.append(
+                        {"attempt": attempt, "usage": usage, "errors": error.errors}
+                    )
+                    rejected_output = output
+                    host_errors = list(error.errors)
+                    if attempt == args.contract_attempts:
+                        row["error"] = f"{type(error).__name__}: {error}"
+                        row["errors"] = error.errors
+                        row["rejected_payload"] = output
+                except VLLMClientError as error:
+                    attempts.append({"attempt": attempt, "errors": [str(error)]})
+                    host_errors = [str(error)]
+                    if attempt == args.contract_attempts:
+                        row["error"] = f"{type(error).__name__}: {error}"
+                else:
+                    attempts.append({"attempt": attempt, "usage": usage, "errors": []})
+                    row["usage"] = usage
+                    row["fact_graph"] = admission.payload
+                    row["admission"] = admission.as_dict()
+                    if admission.dropped_total:
+                        # Never silent: extraction quality is a reported number.
+                        row["rejected_payload"] = output
+                    if previous_failure:
+                        row["repair"] = {
+                            "kind": "host_contract_repair",
+                            "source_errors": previous_failure.get("errors", []),
+                        }
+                    ok += 1
+                    break
+            row["contract_attempts"] = attempts
             if "error" in row:
                 row = restore_previous_graph(row, previous_row=fallback_rows.get(case_id))
                 if "fallback" in row:
