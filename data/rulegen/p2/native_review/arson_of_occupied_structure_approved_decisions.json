@@ -1,0 +1,553 @@
+{
+  "version": "1.0.0",
+  "authority": "human_legal_review",
+  "unit_id": "arson_of_occupied_structure",
+  "approved_on": "2026-08-03",
+  "approval_basis": [
+    "docs/review/p2/arson_of_occupied_structure_proposal_01.md",
+    "docs/review/p2/arson_of_occupied_structure_proposal_02.md",
+    "docs/review/p2/arson_of_occupied_structure_proposal_03.md",
+    "docs/review/p2/arson_of_occupied_structure_proposal_04.md"
+  ],
+  "policy": {
+    "duplicate_cards": "같은 법리 카드는 삭제하지 않고 동일 component_id의 복수 provenance로 유지한다",
+    "unresolved_reference": "선언된 unit이 존재하지 않으면 추측하지 않고 predicate_ir_missing으로 보고한다",
+    "inherited_decision": "결정 C 및 전문가 재정으로 확정된 선택은 재질문하지 않고 role·join·track만 이 원장에서 정한다"
+  },
+  "track_vocabulary": [
+    {
+      "track_id": "base",
+      "label": "제164조 제1항 기본 구성요건"
+    },
+    {
+      "track_id": "attempt",
+      "label": "실행 착수 및 미수"
+    },
+    {
+      "track_id": "completed",
+      "label": "기수 및 죄수"
+    },
+    {
+      "track_id": "aggravated_result",
+      "label": "제164조 제2항 치사상 결과적 가중"
+    },
+    {
+      "track_id": "preparation",
+      "label": "예비. 제175조 자산이 없어 보고만 한다"
+    }
+  ],
+  "cards": [
+    {
+      "card_id": "art164.arson_property_damage_absorption",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "completed",
+      "refers_to_unit": "property_damage",
+      "rationale": "방화 성립 뒤 손괴 흡수를 정하는 법조경합 규칙"
+    },
+    {
+      "card_id": "art164.fire_insurance_claim_concurrence",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "보험사기방지특별법은 현재 51조문 RuleIR 범위 밖"
+    },
+    {
+      "card_id": "art164.pre_claim_insurance_fraud_no_attempt",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "보험사기 실행착수 판단은 현재 범위 밖"
+    },
+    {
+      "card_id": "art164_sec2_1.accomplices_residence_general_building",
+      "decision": "approve",
+      "role": "boundary",
+      "component_id": "protected_object",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "general_structure_arson",
+      "rationale": "비범인 현주·현존이 없는 경우 제164조를 배제하고 일반건조물방화로 경계 이동"
+    },
+    {
+      "card_id": "art164_sec2_1.arson_act",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "arson_conduct",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "rationale": "화력으로 목적물 연소에 원인력을 부여하는 실행행위"
+    },
+    {
+      "card_id": "art164_sec2_1.attempt_commencement_ignition",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "attempt_commencement",
+      "component_join": "alternative_any",
+      "track_id": "attempt",
+      "rationale": "직접 점화 또는 매개물 도화라는 착수 경로"
+    },
+    {
+      "card_id": "art164_sec2_1.building",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "protected_object_building",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "rationale": "건조물 객체의 구조·사용가능성 요건"
+    },
+    {
+      "card_id": "art164_sec2_1.building_integrity",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "object_identity",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "rationale": "복수 외관 건물의 물리적·기능적 일체성 판단 경로"
+    },
+    {
+      "card_id": "art164_sec2_1.burning_result",
+      "decision": "split",
+      "rationale": "불태움의 의미와 기수 결론이 한 카드에 결합되어 있어 분리한다",
+      "parts": [
+        {
+          "part_id": "burning_definition",
+          "role": "component",
+          "component_id": "burning_definition",
+          "component_join": "mandatory_all",
+          "track_id": "completed",
+          "proposition_rewrite": "불태움이란 화력에 의하여 건조물 등이 훼손 또는 손괴되는 것을 말한다.",
+          "rationale": "불태움 개념 정의만 남긴다"
+        },
+        {
+          "part_id": "completion_on_burning",
+          "role": "component",
+          "component_id": "independent_combustion",
+          "component_join": "mandatory_all",
+          "track_id": "completed",
+          "proposition_rewrite": "불태움의 결과가 발생하면 방화죄는 기수에 이른다.",
+          "rationale": "기수 결론은 독립연소 component에 합류시켜 #15·#49와 같은 규칙의 provenance로 둔다"
+        }
+      ]
+    },
+    {
+      "card_id": "art164_sec2_1.combustion_without_flame",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "combustion_mode",
+      "component_join": "alternative_any",
+      "track_id": "completed",
+      "rationale": "불꽃 없는 고온 산화·열전달도 독립연소가 되는 판단 경로"
+    },
+    {
+      "card_id": "art164_sec2_1.derelict_building_not_building_precedent",
+      "decision": "rewrite",
+      "role": "boundary",
+      "component_id": "protected_object",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "object_arson",
+      "proposition_rewrite": "지붕·문짝·창문이 없고 담장과 일부 벽체가 붕괴되어 기거 또는 취침에 사용할 수 없는 철거 대상 폐가는 제164조의 건조물에 해당하지 않는다.",
+      "rationale": "메타 래퍼를 제거하고 폐가의 구체적 상태가 제164조 건조물에서 배제된다는 규칙으로 한정"
+    },
+    {
+      "card_id": "art164_sec2_1.entry_for_arson_not_attempt",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "attempt_commencement",
+      "component_join": "not_applicable",
+      "track_id": "attempt",
+      "refers_to_unit": "dwelling_intrusion",
+      "rationale": "방화 목적의 주거침입만으로 방화 착수는 아니며 별도 주거침입 가능"
+    },
+    {
+      "card_id": "art164_sec2_1.extinguished_medium_attempt",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "attempt_commencement",
+      "component_join": "alternative_any",
+      "track_id": "attempt",
+      "rationale": "연소 가능한 매개물 점화 후 목적물에 옮겨붙지 않은 미수 경로"
+    },
+    {
+      "card_id": "art164_sec2_1.independent_combustion_ceiling_case",
+      "decision": "context_only",
+      "role": "context_only",
+      "track_id": "completed",
+      "rationale": "개별 사체·천정 사례이며 현재 quote만으로 일반 RuleIR 경로를 추가할 필요 없음"
+    },
+    {
+      "card_id": "art164_sec2_1.independent_combustion_completion_precedent",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "independent_combustion",
+      "component_join": "mandatory_all",
+      "track_id": "completed",
+      "inherited_decision_group": "art164_sec2_1.completion",
+      "rationale": "결정 C에서 독립연소설이 선택되었으므로 completed track의 필수 요건으로 계승"
+    },
+    {
+      "card_id": "art164_sec2_1.integrated_building_residential_or_presence_character",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "residence_or_presence",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "rationale": "일체를 이루는 건물의 일부 주거·일부 현존을 전체로 확장하는 판단 경로"
+    },
+    {
+      "card_id": "art164_sec2_1.medium_ignition_attempt",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "attempt_commencement",
+      "component_join": "alternative_any",
+      "track_id": "attempt",
+      "rationale": "매개물 연소 지속 가능 상태를 착수로 보는 규칙. 같은 component에 provenance로 합류"
+    },
+    {
+      "card_id": "art164_sec2_1.no_attempt_before_ignition",
+      "decision": "split",
+      "rationale": "착수 부정과 예비 이관이 한 카드에 결합되어 있어 분리한다",
+      "parts": [
+        {
+          "part_id": "no_attempt_before_ignition",
+          "role": "bar",
+          "component_id": "attempt_commencement",
+          "component_join": "not_applicable",
+          "track_id": "attempt",
+          "proposition_rewrite": "방화의 목적물 또는 그 도화물체에 아직 점화하지 않은 때에는 불을 놓은 것에 해당하지 않으므로 방화죄의 실행 착수가 인정되지 않는다.",
+          "rationale": "점화 전 행위의 착수 부정"
+        },
+        {
+          "part_id": "preparation_referral",
+          "role": "boundary",
+          "component_id": "preparation_referral",
+          "component_join": "not_applicable",
+          "track_id": "preparation",
+          "refers_to_unit": "arson_preparation",
+          "proposition_rewrite": "점화 전 행위는 방화죄의 실행 착수가 아니라 예비로 처벌될 수 있을 뿐이다.",
+          "rationale": "제175조 예비로의 경계 이동. 해당 자산이 없으므로 보고만 한다"
+        }
+      ]
+    },
+    {
+      "card_id": "art164_sec2_1.omission_arson",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "arson_conduct",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "rationale": "기발 화력 방치라는 부작위 실행행위 경로"
+    },
+    {
+      "card_id": "art164_sec2_1.person_excludes_offender_and_accomplice",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "person_scope",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "rationale": "주거·현존의 '사람'에서 범인과 공범을 제외하는 요건 한정"
+    },
+    {
+      "card_id": "art164_sec2_1.present_person",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "presence",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "rationale": "방화 당시 범인 외의 자가 내부에 사실상 존재. 권원·이유 불문"
+    },
+    {
+      "card_id": "art164_sec2_1.protected_object",
+      "decision": "rewrite",
+      "role": "component",
+      "component_id": "protected_object_class",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "proposition_rewrite": "현주건조물등방화죄의 객체는 건조물, 기차, 전차, 자동차, 선박, 항공기 또는 지하채굴시설이다.",
+      "rationale": "열거 객체 선택지만 남기고 주거·현존 요건은 residence_or_presence component로 위임해 중복 제거"
+    },
+    {
+      "card_id": "art164_sec2_1.residence_daily_life_place",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "residence_use",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "rationale": "주거 사용은 범인 외의 사람이 일상생활의 장소로 사용하는 것"
+    },
+    {
+      "card_id": "art164_sec2_1.residence_factual_use",
+      "decision": "approve",
+      "role": "boundary",
+      "component_id": "residence_use",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "general_structure_arson",
+      "rationale": "사용 포기 폐가·영업중단 호텔은 주거용 건조물이 아니므로 제164조 배제"
+    },
+    {
+      "card_id": "art164_sec2_1.residence_nonrequired_indicia",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "residence_use",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "지속 현존·주거목적 건축·동일인 거주·주민등록의 부존재만으로 주거성을 부정할 수 없다는 차단규칙"
+    },
+    {
+      "card_id": "art164_sec2_1.residence_temporary_or_seasonal_use",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "residence_use_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "rationale": "장기부재 가옥·별장·산장·객실도 사용 가능 상태면 주거 사용 경로"
+    },
+    {
+      "card_id": "art164_sec2_1.residence_without_actual_presence",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "residence_or_presence",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "주거형 객체에서 방화 당시 현존 부존재를 이유로 배제할 수 없다는 차단규칙"
+    },
+    {
+      "card_id": "art164_sec2_1.sole_offender_home_general_building",
+      "decision": "approve",
+      "role": "boundary",
+      "component_id": "person_scope",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "general_structure_arson",
+      "rationale": "범인 단독거주 가옥은 제164조가 아니라 일반건조물방화"
+    },
+    {
+      "card_id": "art164_sec2_1.temporal_residence_or_presence",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "residence_or_presence",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "rationale": "행위 당시 주거 사용 또는 현존이라는 상위 택일 요건"
+    },
+    {
+      "card_id": "art164_sec2_2.mental_weakness_serial_arson_case",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "형법 제10조 제2항 심신미약은 총칙 영역이고 현재 51조문 밖. unit outcome을 바꾸지 않음"
+    },
+    {
+      "card_id": "art164_sec2_3.multiple_buildings_one_act",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "completed",
+      "rationale": "1개 방화행위로 수개 현주건조물을 태우면 1죄"
+    },
+    {
+      "card_id": "art164_sec2_3.multiple_objects_separate_acts_concurrence",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "completed",
+      "rationale": "수개 방화행위·수개 목적물은 원칙적 경합범"
+    },
+    {
+      "card_id": "art164_sec2_3.same_area_sequential_arson",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "completed",
+      "rationale": "같은 구역·동일 기회 순차 방화는 1죄"
+    },
+    {
+      "card_id": "art164_sec2_3.sequential_ignition_same_object",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "act_unity",
+      "component_join": "not_applicable",
+      "track_id": "completed",
+      "rationale": "동일 목적물 순차 점화의 행위 단일성 판단. 죄수 결론의 입력이 된다"
+    },
+    {
+      "card_id": "art164_sec2_3.unit_of_offense_public_safety",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "offense_count_standard",
+      "component_join": "mandatory_all",
+      "track_id": "completed",
+      "rationale": "죄수 기준 자체. 행위 단일성과 공공의 안전이 기준이고 피해물건 수는 부수적"
+    },
+    {
+      "card_id": "art164_sec3_1.fire_death_injury",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "aggravated_result_basis",
+      "component_join": "mandatory_all",
+      "track_id": "aggravated_result",
+      "rationale": "제164조 제1항 방화와 상해·사망 결과를 연결하는 기본 구성요건"
+    },
+    {
+      "card_id": "art164_sec3_1.fire_death_injury_foreseeability",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "result_foreseeability",
+      "component_join": "mandatory_all",
+      "track_id": "aggravated_result",
+      "rationale": "거주자 사상에 대한 예견가능성 요건"
+    },
+    {
+      "card_id": "art164_sec3_1.intentional_killing_fire_death_holding",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "concurrence_with_homicide",
+      "component_join": "not_applicable",
+      "track_id": "aggravated_result",
+      "refers_to_unit": "homicide",
+      "rationale": "보통살인죄의 법정형이 방화치사죄보다 무겁지 않아 법조경합으로 흡수되고 상상적 경합이 아니라는 대법원 입장"
+    },
+    {
+      "card_id": "art164_sec3_2.fire_related_death_injury_causation",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "result_causation",
+      "component_join": "alternative_any",
+      "track_id": "aggravated_result",
+      "rationale": "소사·질식·압사·추락·쇼크사 등 인과관계 인정 경로"
+    },
+    {
+      "card_id": "art164_sec3_2.person_excludes_offenders_accomplices",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "person_scope",
+      "component_join": "mandatory_all",
+      "track_id": "aggravated_result",
+      "rationale": "치사상 객체 '사람'에서 범인·공범 제외"
+    },
+    {
+      "card_id": "art164_sec3_2.unforeseeable_firefighting_injury",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "result_foreseeability",
+      "component_join": "not_applicable",
+      "track_id": "aggravated_result",
+      "rationale": "전혀 예상할 수 없고 일반인에게 이례적인 진화 중 화상은 예견가능한 결과가 아님"
+    },
+    {
+      "card_id": "art164_sec3_3.multiple_victims_imaginary_concurrence",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "aggravated_result",
+      "rationale": "1행위 수인 사상 시 각 치사·치상죄의 상상적 경합"
+    },
+    {
+      "card_id": "art164_sec3_4.intentional_killing_no_death",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "concurrence_with_homicide",
+      "component_join": "not_applicable",
+      "track_id": "completed",
+      "refers_to_unit": "homicide",
+      "rationale": "살해 고의로 방화했으나 사망하지 않은 경우 방화죄와 살인미수의 상상적 경합"
+    },
+    {
+      "card_id": "art164_sec3_5.accomplice_aggravated_result_foreseeability",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "result_foreseeability_per_participant",
+      "component_join": "mandatory_all",
+      "track_id": "aggravated_result",
+      "general_part_migration_candidate": true,
+      "rationale": "집단원별 예견가능성. 일부의 고의 살상만으로 다른 집단원 책임을 자동 확정하지 않음"
+    },
+    {
+      "card_id": "art164_sec3_5.aider_aggravated_result_foreseeability",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "result_foreseeability_per_participant",
+      "component_join": "mandatory_all",
+      "track_id": "aggravated_result",
+      "general_part_migration_candidate": true,
+      "rationale": "교사·방조범도 기본범죄 관여 외에 중한 결과 예견가능성 필요"
+    },
+    {
+      "card_id": "art164_sec3_6.parricide_fire_death_concurrence",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "concurrence_with_homicide",
+      "component_join": "not_applicable",
+      "track_id": "aggravated_result",
+      "refers_to_unit": "homicide",
+      "rationale": "존속살해죄는 병과 규정으로 실질적으로 더 중하므로 방화치사죄와 상상적 경합이라는 대법원 입장"
+    },
+    {
+      "card_id": "art164_sec3_6.robbery_murder_fire_death_concurrence",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "concurrence_with_homicide",
+      "component_join": "not_applicable",
+      "track_id": "aggravated_result",
+      "refers_to_unit": "robbery",
+      "rationale": "강취 후 살해 목적 방화 사안에서 강도살인죄와 방화치사죄의 상상적 경합"
+    },
+    {
+      "card_id": "art164_sec2_1.post_killing_arson_precedent",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "residence_use_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "inherited_decision_group": "art164_sec2_1.post_killing_arson",
+      "rationale": "거주자 전원 살해 직후에도 그 가옥의 주거성을 인정하는 경로"
+    },
+    {
+      "card_id": "art164_sec2_1.completion_independent_combustion_variant",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "independent_combustion",
+      "component_join": "mandatory_all",
+      "track_id": "completed",
+      "inherited_decision_group": "art164_sec2_1.completion",
+      "rationale": "선택된 독립연소설 본문. 같은 component에 provenance로 합류"
+    },
+    {
+      "card_id": "art164_sec3_2.attempted_basic_arson_included",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "aggravated_result_subject",
+      "component_join": "alternative_any",
+      "track_id": "aggravated_result",
+      "inherited_decision_group": "art164_sec3_2.attempted_basic_arson_subject",
+      "rationale": "제164조 제1항의 미수범도 치사상죄 주체가 되는 택일 경로"
+    },
+    {
+      "card_id": "art164_sec3_6.intentional_fire_death_murder_concurrence_negative",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "concurrence_with_homicide",
+      "component_join": "not_applicable",
+      "track_id": "aggravated_result",
+      "refers_to_unit": "homicide",
+      "inherited_decision_group": "art164_sec3_6.intentional_fire_death_murder_concurrence",
+      "rationale": "재정 ov_001로 확정. 보통살인은 법조경합으로 흡수되어 방화치사죄만 성립"
+    },
+    {
+      "card_id": "art250_sec2_10.arson_death_parricide_imaginary_concurrence",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "concurrence_with_homicide",
+      "component_join": "not_applicable",
+      "track_id": "aggravated_result",
+      "refers_to_unit": "homicide",
+      "inherited_decision_group": "art250_sec2_10.arson_death_parricide_concurrence",
+      "rationale": "재정 ov_002로 확정. 존속살해는 상상적 경합으로 중한 죄로 처단"
+    }
+  ]
+}

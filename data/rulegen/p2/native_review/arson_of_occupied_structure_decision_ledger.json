@@ -1,0 +1,500 @@
+{
+  "version": "1.0.0",
+  "unit_id": "arson_of_occupied_structure",
+  "law_snapshot": {
+    "as_of_date": "2026-08-03",
+    "effective_source_date": "2026-03-12",
+    "future_snapshot_date": "2026-09-13",
+    "future_snapshot_policy": "separate_snapshot_not_active",
+    "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
+  },
+  "approval_document": "data/rulegen/p2/native_review/arson_of_occupied_structure_approved_decisions.json",
+  "approval_sha256": "99aca927fc6c2e3429815a240f74d6f38700f4f7dd82a62018ef49a4575f966f",
+  "approved_on": "2026-08-03",
+  "status": "ready_for_rule_ir",
+  "problems": [],
+  "unresolved_unit_references": [
+    {
+      "card_id": "art164_sec2_1.accomplices_residence_general_building",
+      "part_id": null,
+      "refers_to_unit": "general_structure_arson",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art164_sec2_1.derelict_building_not_building_precedent",
+      "part_id": null,
+      "refers_to_unit": "object_arson",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art164_sec2_1.no_attempt_before_ignition",
+      "part_id": "preparation_referral",
+      "refers_to_unit": "arson_preparation",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art164_sec2_1.residence_factual_use",
+      "part_id": null,
+      "refers_to_unit": "general_structure_arson",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art164_sec2_1.sole_offender_home_general_building",
+      "part_id": null,
+      "refers_to_unit": "general_structure_arson",
+      "status": "predicate_ir_missing"
+    }
+  ],
+  "excluded_cards": [
+    {
+      "card_id": "art164.fire_insurance_claim_concurrence",
+      "reason": "보험사기방지특별법은 현재 51조문 RuleIR 범위 밖"
+    },
+    {
+      "card_id": "art164.pre_claim_insurance_fraud_no_attempt",
+      "reason": "보험사기 실행착수 판단은 현재 범위 밖"
+    },
+    {
+      "card_id": "art164_sec2_1.independent_combustion_ceiling_case",
+      "reason": "개별 사체·천정 사례이며 현재 quote만으로 일반 RuleIR 경로를 추가할 필요 없음"
+    },
+    {
+      "card_id": "art164_sec2_2.mental_weakness_serial_arson_case",
+      "reason": "형법 제10조 제2항 심신미약은 총칙 영역이고 현재 51조문 밖. unit outcome을 바꾸지 않음"
+    }
+  ],
+  "components": [
+    {
+      "track_id": "aggravated_result",
+      "component_id": "aggravated_result_basis",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art164_sec3_1.fire_death_injury"
+      ]
+    },
+    {
+      "track_id": "aggravated_result",
+      "component_id": "aggravated_result_subject",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art164_sec3_2.attempted_basic_arson_included"
+      ]
+    },
+    {
+      "track_id": "aggravated_result",
+      "component_id": "concurrence",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art164_sec3_3.multiple_victims_imaginary_concurrence"
+      ]
+    },
+    {
+      "track_id": "aggravated_result",
+      "component_id": "concurrence_with_homicide",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "homicide",
+        "robbery"
+      ],
+      "norm_card_ids": [
+        "art164_sec3_1.intentional_killing_fire_death_holding",
+        "art164_sec3_6.intentional_fire_death_murder_concurrence_negative",
+        "art164_sec3_6.parricide_fire_death_concurrence",
+        "art164_sec3_6.robbery_murder_fire_death_concurrence",
+        "art250_sec2_10.arson_death_parricide_imaginary_concurrence"
+      ]
+    },
+    {
+      "track_id": "aggravated_result",
+      "component_id": "person_scope",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art164_sec3_2.person_excludes_offenders_accomplices"
+      ]
+    },
+    {
+      "track_id": "aggravated_result",
+      "component_id": "result_causation",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art164_sec3_2.fire_related_death_injury_causation"
+      ]
+    },
+    {
+      "track_id": "aggravated_result",
+      "component_id": "result_foreseeability",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art164_sec3_1.fire_death_injury_foreseeability",
+        "art164_sec3_2.unforeseeable_firefighting_injury"
+      ]
+    },
+    {
+      "track_id": "aggravated_result",
+      "component_id": "result_foreseeability_per_participant",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art164_sec3_5.accomplice_aggravated_result_foreseeability",
+        "art164_sec3_5.aider_aggravated_result_foreseeability"
+      ]
+    },
+    {
+      "track_id": "attempt",
+      "component_id": "attempt_commencement",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [
+        "dwelling_intrusion"
+      ],
+      "norm_card_ids": [
+        "art164_sec2_1.attempt_commencement_ignition",
+        "art164_sec2_1.entry_for_arson_not_attempt",
+        "art164_sec2_1.extinguished_medium_attempt",
+        "art164_sec2_1.medium_ignition_attempt",
+        "art164_sec2_1.no_attempt_before_ignition"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "arson_conduct",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art164_sec2_1.arson_act",
+        "art164_sec2_1.omission_arson"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "object_identity",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art164_sec2_1.building_integrity"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "person_scope",
+      "roles": [
+        "boundary",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [
+        "general_structure_arson"
+      ],
+      "norm_card_ids": [
+        "art164_sec2_1.person_excludes_offender_and_accomplice",
+        "art164_sec2_1.sole_offender_home_general_building"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "presence",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art164_sec2_1.present_person"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "protected_object",
+      "roles": [
+        "boundary"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "general_structure_arson",
+        "object_arson"
+      ],
+      "norm_card_ids": [
+        "art164_sec2_1.accomplices_residence_general_building",
+        "art164_sec2_1.derelict_building_not_building_precedent"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "protected_object_building",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art164_sec2_1.building"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "protected_object_class",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art164_sec2_1.protected_object"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "residence_or_presence",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art164_sec2_1.integrated_building_residential_or_presence_character",
+        "art164_sec2_1.residence_without_actual_presence",
+        "art164_sec2_1.temporal_residence_or_presence"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "residence_use",
+      "roles": [
+        "bar",
+        "boundary",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [
+        "general_structure_arson"
+      ],
+      "norm_card_ids": [
+        "art164_sec2_1.residence_daily_life_place",
+        "art164_sec2_1.residence_factual_use",
+        "art164_sec2_1.residence_nonrequired_indicia"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "residence_use_indicia",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art164_sec2_1.post_killing_arson_precedent",
+        "art164_sec2_1.residence_temporary_or_seasonal_use"
+      ]
+    },
+    {
+      "track_id": "completed",
+      "component_id": "act_unity",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art164_sec2_3.sequential_ignition_same_object"
+      ]
+    },
+    {
+      "track_id": "completed",
+      "component_id": "burning_definition",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art164_sec2_1.burning_result"
+      ]
+    },
+    {
+      "track_id": "completed",
+      "component_id": "combustion_mode",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art164_sec2_1.combustion_without_flame"
+      ]
+    },
+    {
+      "track_id": "completed",
+      "component_id": "concurrence",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "property_damage"
+      ],
+      "norm_card_ids": [
+        "art164.arson_property_damage_absorption"
+      ]
+    },
+    {
+      "track_id": "completed",
+      "component_id": "concurrence_with_homicide",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "homicide"
+      ],
+      "norm_card_ids": [
+        "art164_sec3_4.intentional_killing_no_death"
+      ]
+    },
+    {
+      "track_id": "completed",
+      "component_id": "independent_combustion",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art164_sec2_1.burning_result",
+        "art164_sec2_1.completion_independent_combustion_variant",
+        "art164_sec2_1.independent_combustion_completion_precedent"
+      ]
+    },
+    {
+      "track_id": "completed",
+      "component_id": "offense_count",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art164_sec2_3.multiple_buildings_one_act",
+        "art164_sec2_3.multiple_objects_separate_acts_concurrence",
+        "art164_sec2_3.same_area_sequential_arson"
+      ]
+    },
+    {
+      "track_id": "completed",
+      "component_id": "offense_count_standard",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art164_sec2_3.unit_of_offense_public_safety"
+      ]
+    },
+    {
+      "track_id": "preparation",
+      "component_id": "preparation_referral",
+      "roles": [
+        "boundary"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "arson_preparation"
+      ],
+      "norm_card_ids": [
+        "art164_sec2_1.no_attempt_before_ignition"
+      ]
+    }
+  ],
+  "stats": {
+    "components": 28,
+    "context_only_placements": 4,
+    "decision_approve": 44,
+    "decision_context_only": 4,
+    "decision_rewrite": 2,
+    "decision_split": 2,
+    "inherited": 6,
+    "placements": 50,
+    "queue_cards": 52,
+    "unresolved_unit_references": 5
+  }
+}
