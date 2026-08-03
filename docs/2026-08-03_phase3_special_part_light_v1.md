@@ -20,8 +20,10 @@ V2 FactGraph + broad L0 후보
   → 선택 조문 전부를 독립 section으로 작성
 ```
 
-planner는 후보 catalog 밖의 조문을 출력할 수 없고, 선택마다 행위자·원문 exact quote·직접
-관련 이유를 요구한다. 미수 처벌조항 자동 확장은 비활성화한다. Call 2의 unknown detail
+planner는 먼저 설문을 `article_local` 또는 `direct_legal_analysis`로 라우팅한다. 절차법의
+배경 사실에 범죄행위가 있어도 각칙 조문을 선택하지 않으며, 반대로 불성립·인과관계 불명은
+논해야 할 각칙 쟁점이므로 버리지 않는다. 후보 catalog 밖의 조문을 출력할 수 없고, 선택마다
+행위자·원문 exact quote·직접 관련 이유를 요구한다. 미수 처벌조항 자동 확장은 비활성화한다. Call 2의 unknown detail
 재검색은 유지하지만 Scallop, stage/participation/concurrence followup, prerequisite 및 section
 visibility는 실행하지 않는다.
 
@@ -37,7 +39,7 @@ visibility는 실행하지 않는다.
 ## 총칙·절차법 진단
 
 경량화가 범위 밖 문항에도 주는 영향을 보기 위해 전체 문항은 결과 파일에 남긴다. planner가
-각칙 조문을 하나도 고르지 않은 문항은 `light_direct_out_of_scope_diagnostic` 경로로 같은
+`direct_legal_analysis`로 라우팅한 문항은 `light_direct_out_of_scope_diagnostic` 경로로 같은
 Gemma backbone이 짧은 직접 답안을 만든다. 이 경로는 IDPR 각칙 성능으로 주장하지 않는다.
 
 최종 보고는 반드시 다음 세 묶음으로 나눈다.
@@ -50,7 +52,9 @@ Gemma backbone이 짧은 직접 답안을 만든다. 이 경로는 IDPR 각칙 �
 
 ## 재현 실행
 
-스모크는 절차법 1문항과 실체법 1문항을 함께 실행한다.
+스모크는 절차법 1문항과 실체법 1문항을 함께 실행한다. 최초 진단 실행 `218683`은 절차법의
+배경 절도행위를 각칙으로 잘못 선택하고, 인과관계가 불명인 실체법 조문은 누락했다. 이 결과를
+성능 결과로 사용하지 않고 위 route 계약을 v1.1로 보강했다.
 
 ```bash
 sbatch scripts/slurm/run_special_part_light.sh

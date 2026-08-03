@@ -10,6 +10,7 @@ from idpr.rulebase.cards import CardCorpus, card_corpus
 
 
 PIPELINE_MODE = "special_part_light"
+PLANNER_VERSION = "1.1.0"
 MAX_PLANNED_ARTICLES = 12
 
 
@@ -24,8 +25,9 @@ def planner_schema(candidate_articles: Sequence[str]) -> dict[str, Any]:
     return {
         "type": "object",
         "additionalProperties": False,
-        "required": ["selected", "scope_note"],
+        "required": ["route", "selected", "scope_note"],
         "properties": {
+            "route": {"enum": ["article_local", "direct_legal_analysis"]},
             "selected": {
                 "type": "array",
                 "minItems": 0,
@@ -112,6 +114,9 @@ def validate_plan(
 ) -> tuple[tuple[str, ...], tuple[dict[str, str], ...]]:
     """Reject minted articles, duplicate selections, and evidence not quoted by the case."""
     errors: list[str] = []
+    route = output.get("route")
+    if route not in {"article_local", "direct_legal_analysis"}:
+        errors.append("route must be article_local or direct_legal_analysis")
     raw = output.get("selected")
     if not isinstance(raw, list):
         raise SpecialPartPlanError(["selected must be an array"])
@@ -149,6 +154,10 @@ def validate_plan(
             )
     if len(entries) > MAX_PLANNED_ARTICLES:
         errors.append(f"selected exceeds {MAX_PLANNED_ARTICLES} articles")
+    if route == "direct_legal_analysis" and entries:
+        errors.append("direct_legal_analysis route must not select articles")
+    if route == "article_local" and not entries:
+        errors.append("article_local route must select at least one article")
     if errors:
         raise SpecialPartPlanError(errors)
     return tuple(entry["article"] for entry in entries), tuple(entries)
@@ -162,6 +171,7 @@ def planned_candidate_row(
     scope_note: str,
     broad_articles: Sequence[str],
     usage: Mapping[str, Any] | None = None,
+    planner_route: str = "article_local",
     corpus: CardCorpus | None = None,
 ) -> dict[str, Any]:
     scope = assessable_article_scope(selected_articles, corpus=corpus)
@@ -169,7 +179,9 @@ def planned_candidate_row(
     row.update(
         {
             "pipeline_mode": PIPELINE_MODE,
-            "scope_status": "in_scope" if scope.articles else "out_of_scope",
+            "planner_version": PLANNER_VERSION,
+            "planner_route": planner_route,
+            "scope_status": "in_scope" if planner_route == "article_local" else "out_of_scope",
             "broad_articles": list(broad_articles),
             "planner_entries": [dict(entry) for entry in entries],
             "scope_note": scope_note,

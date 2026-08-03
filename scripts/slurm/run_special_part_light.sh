@@ -25,7 +25,7 @@ if [ "${IDPR_FULL:-0}" = 1 ]; then
     RUN_ROOT="$MAIN_ROOT/experiments/results/phase3_special_part_light_59"
     CASE_ARGS=()
 else
-    RUN_ROOT="$MAIN_ROOT/experiments/results/phase3_special_part_light_smoke"
+    RUN_ROOT="$MAIN_ROOT/experiments/results/phase3_special_part_light_smoke_v2"
     CASE_ARGS=(--case-id kcl_criminal_r10_p1_q1_na --case-id kcl_criminal_r10_p1_q2)
 fi
 PLANNED_CANDIDATES="$RUN_ROOT/special_part_candidates.jsonl"

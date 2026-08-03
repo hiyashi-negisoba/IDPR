@@ -30,6 +30,7 @@ def test_planner_exposes_only_articles_with_standalone_element_issues():
 
 def test_planner_requires_an_exact_case_quote_and_closed_candidate_article():
     valid = {
+        "route": "article_local",
         "selected": [
             {
                 "article": "art298",
@@ -52,6 +53,23 @@ def test_planner_requires_an_exact_case_quote_and_closed_candidate_article():
     with pytest.raises(SpecialPartPlanError, match="exact case-text substring"):
         validate_plan(
             invalid,
+            candidate_articles=("art298",),
+            question_text="甲이 A를 폭행하여 추행하였다.",
+        )
+
+    direct = {
+        "route": "direct_legal_analysis",
+        "selected": [],
+        "scope_note": "증거능력을 묻는 절차법 설문이다.",
+    }
+    assert validate_plan(
+        direct,
+        candidate_articles=("art298",),
+        question_text="증거로 사용할 수 있는가?",
+    ) == ((), ())
+    with pytest.raises(SpecialPartPlanError, match="must not select articles"):
+        validate_plan(
+            {**valid, "route": "direct_legal_analysis"},
             candidate_articles=("art298",),
             question_text="甲이 A를 폭행하여 추행하였다.",
         )

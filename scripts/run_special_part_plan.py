@@ -14,6 +14,7 @@ from idpr.prompts import load_prompt
 from idpr.rulebase.cards import card_corpus
 from idpr.special_part import (
     SpecialPartPlanError,
+    PLANNER_VERSION,
     planned_candidate_row,
     planner_payload,
     planner_schema,
@@ -88,6 +89,7 @@ def main() -> None:
             if (
                 cached.get("sub_question_id") == case_id
                 and cached.get("pipeline_mode") == "special_part_light"
+                and cached.get("planner_version") == PLANNER_VERSION
             ):
                 output_rows.append(cached)
                 print(
@@ -115,6 +117,7 @@ def main() -> None:
                 entries=(),
                 scope_note="검색 후보 중 독립 평가 가능한 각칙 구성요건 조문이 없음",
                 broad_articles=tuple(broad[case_id].get("articles", ())),
+                planner_route="direct_legal_analysis",
                 corpus=corpus,
             )
         else:
@@ -153,6 +156,7 @@ def main() -> None:
                     scope_note=str(model_output["scope_note"]),
                     broad_articles=tuple(broad[case_id].get("articles", ())),
                     usage=metadata.get("usage", {}),
+                    planner_route=str(model_output["route"]),
                     corpus=corpus,
                 )
                 break

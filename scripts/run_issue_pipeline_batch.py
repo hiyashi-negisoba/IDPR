@@ -128,13 +128,16 @@ def case_commands(
     return assessment, answer
 
 
-def _valid_assessment(path: Path, *, case_id: str) -> bool:
+def _valid_assessment(
+    path: Path, *, case_id: str, expected_articles: Sequence[str] = ()
+) -> bool:
     try:
         artifact = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return False
     return (
         artifact.get("case_id") == case_id
+        and tuple(artifact.get("articles", ())) == tuple(expected_articles)
         and isinstance(artifact.get("issue_status"), Mapping)
         and isinstance(artifact.get("reasoning_packet"), Mapping)
     )
@@ -259,6 +262,8 @@ def main() -> None:
             case_id
             for case_id in case_ids
             if candidates[case_id].get("pipeline_mode") != "special_part_light"
+            or candidates[case_id].get("planner_route")
+            not in {"article_local", "direct_legal_analysis"}
         ]
         if wrong_mode:
             raise ValueError(
@@ -306,8 +311,8 @@ def main() -> None:
         case_dir = args.run_dir / case_id
         case_dir.mkdir(parents=True, exist_ok=True)
         scope = scope_from_l0_row(candidates[case_id])
-        if args.special_part_light and not scope.articles:
-            direct_path = case_dir / "answer.md"
+        if args.special_part_light and candidates[case_id].get("planner_route") == "direct_legal_analysis":
+            direct_path = case_dir / "direct_answer.md"
             direct_cmd = [
                 sys.executable,
                 "scripts/run_light_direct_answer.py",
@@ -352,9 +357,18 @@ def main() -> None:
             article_local=args.special_part_light,
         )
         print(f"[{index}/{len(case_ids)}] {case_id}", flush=True)
-        if args.overwrite or not _valid_assessment(assessment_path, case_id=case_id):
+        assessment_ran = args.overwrite or not _valid_assessment(
+            assessment_path,
+            case_id=case_id,
+            expected_articles=scope.articles,
+        )
+        if assessment_ran:
             subprocess.run(assessment_cmd, cwd=PROJECT_ROOT, check=True)
-        artifact = None if args.overwrite else _load_valid_answer(answer_path, case_id=case_id)
+        artifact = (
+            None
+            if assessment_ran
+            else _load_valid_answer(answer_path, case_id=case_id)
+        )
         if artifact is None:
             subprocess.run(answer_cmd, cwd=PROJECT_ROOT, check=True)
             artifact = _load_valid_answer(answer_path, case_id=case_id)
