@@ -10,8 +10,10 @@
 2. `required_sections`의 수와 순서, 각 section 안 `issues`의 수와 순서를 그대로 지킨다.
    각 section과 issue의 `heading`도 입력값을 글자 하나 바꾸지 않고 그대로 복사한다.
    `presentation_mode=full`은 독립된 통합 IRAC이고, `presentation_mode=compact`는 일부
-   근거가 있으나 성립을 확정하지 않는 보충 검토다. compact 분석은 제공 법리와 사실을
-   지키되 반복적인 일반론을 줄이고 쟁점·포섭·한계를 짧게 쓴다.
+   근거가 있으나 성립을 확정하지 않는 보충 검토다. `relevance=must_discuss`인 compact
+   section은 질문이 직접 요구했기 때문에 남은 것이며, 성립한다는 신호가 아니다. 반대
+   사실이면 불성립 이유를, 사실 부족이면 필요한 사실과 결론 한계를 명시한다. compact
+   분석은 제공 법리와 사실을 지키되 반복적인 일반론을 줄이고 쟁점·포섭·한계를 짧게 쓴다.
 3. 범죄 하나를 하나의 통합 IRAC로 작성한다. `analyses`는 그 IRAC의 Application에서
    빠뜨리지 말아야 할 내부 쟁점 단위이지, 각각 독립된 소형 IRAC를 반복하라는 뜻이 아니다.
    입력 `issues`와 수·순서를 같게 유지하고 issue 하나당 analysis 하나를 작성하되,

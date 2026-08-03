@@ -16,6 +16,7 @@ from idpr.neural.article_select import (
     catalog_lines,
     expand_attempt_articles,
     load_catalog,
+    question_selected_articles,
     selection_payload,
     validate_selection,
 )
@@ -69,6 +70,16 @@ def test_payload_never_carries_card_provenance():
     blob = json.dumps(payload, ensure_ascii=False)
     for forbidden in ("source_refs", "comment_id", "quote", "proposition"):
         assert forbidden not in blob
+
+
+def test_question_selected_articles_requires_an_explicit_prompt_reference():
+    assert question_selected_articles("공무집행방해죄의 성립요건을 논하시오.") == (
+        "art136",
+    )
+    assert question_selected_articles("제298조의 성립 여부를 논하시오.") == (
+        "art298",
+    )
+    assert question_selected_articles("甲의 죄책을 논하시오.") == ()
 
 
 def test_selection_rejects_an_article_outside_the_catalog():

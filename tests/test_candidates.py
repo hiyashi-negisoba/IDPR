@@ -9,6 +9,7 @@ from idpr.candidates import (
     assessable_card_ids,
     candidate_articles,
     candidate_issues,
+    article_provenance,
     split_candidate_batches,
 )
 from idpr.rulebase.cards import card_corpus
@@ -128,6 +129,40 @@ def test_issue_candidates_keep_l0_provenance_and_attempt_expansion():
     assert result.from_model == ("art297",)
     assert result.from_retrieval == ("art298",)
     assert "art300" in result.from_attempt_expansion
+
+
+def test_question_selected_candidate_is_separate_and_must_discuss():
+    result = candidate_issues(
+        question_selected=["art136"],
+        selected=["art136", "art329"],
+        fact_selected=["art298"],
+        retrieved=["art319"],
+    )
+    assert result.articles[:4] == ("art136", "art329", "art298", "art319")
+    assert result.question_selected == ("art136",)
+    assert result.from_fact_issue == ("art298",)
+    by_article = {row["article"]: row for row in article_provenance(result)}
+    assert by_article["art136"]["sources"] == [
+        "question_selected",
+        "model_selected",
+    ]
+    assert by_article["art136"]["relevance"] == "must_discuss"
+    assert by_article["art329"]["relevance"] == "must_discuss"
+    assert by_article["art298"]["relevance"] == "must_discuss"
+    assert by_article["art319"]["relevance"] == "optional"
+
+
+def test_relation_support_article_is_not_a_standalone_model_must_discuss():
+    result = candidate_issues(selected=["art300", "art342"])
+    by_article = {row["article"]: row for row in article_provenance(result)}
+    for article in ("art300", "art342"):
+        assert by_article[article]["sources"] == ["model_selected"]
+        assert by_article[article]["candidate_role"] == "relation_support"
+        assert by_article[article]["relevance"] == "optional"
+        assert (
+            by_article[article]["relevance_reason"]
+            == "relation_support_requires_active_base"
+        )
 
 
 def test_call2_split_keeps_every_article_and_card_whole():

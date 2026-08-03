@@ -65,6 +65,8 @@ def test_initial_payloads_and_reasoning_packet_remain_issue_keyed():
     }
     assert "card_status" not in repr(packet)
     assert "card_assessments" not in repr(packet)
+    assert packet["article_provenance"]
+    assert packet["article_provenance"][0]["sources"] == ["model_selected"]
 
 
 def test_reasoning_packet_rejects_partial_issue_assessments():
@@ -218,4 +220,5 @@ def test_l0_serialization_contains_issue_ids_and_no_flat_card_ids():
     row = issue_candidate_row("case-1", scope)
     assert row["issue_ids"] == list(scope.issue_ids)
     assert row["initial_issue_ids"]
+    assert row["article_provenance"]
     assert "card_ids" not in row

@@ -744,22 +744,66 @@ def fact_derived_queries(payload: Mapping[str, Any]) -> list[str]:
     whatever attributes it happens to carry, in registry order, for every case alike.
     """
     queries: list[str] = []
+    act_signatures: list[str] = []
+    act_source_quotes: list[str] = []
+    acts = list(payload.get("acts", []))
 
-    for act in payload.get("acts", []):
+    for act in acts:
         parts = [str(act.get("act_label", ""))]
         parts.extend(str(value) for value in act.get("objects", []))
         if act.get("place"):
             parts.append(str(act["place"]))
         parts.extend(str(value) for value in act.get("circumstances", []))
         parts.extend(str(value) for value in act.get("purposes", []))
-        queries.append(" ".join(part for part in parts if part))
+        signature = " ".join(part for part in parts if part)
+        act_signatures.append(signature)
+        act_source_quotes.append(str(act.get("source_quote", "")).strip())
+        queries.append(signature)
+
+    # Preserve relational meaning that an atom-per-event query discards.  The model may
+    # phrase or omit a free retrieval query, but ``after`` is a grounded FactGraph edge.
+    # Combining adjacent events is generic and lets retrieval see patterns such as a
+    # threat causing the victim's own bodily act without naming the legal conclusion.
+    for index, act in enumerate(acts):
+        previous = act.get("after")
+        if isinstance(previous, int) and 0 <= previous < index:
+            queries.append(f"{act_signatures[previous]} {act_signatures[index]}")
+            if act_source_quotes[previous] and act_source_quotes[index]:
+                queries.append(
+                    f"{act_source_quotes[previous]} {act_source_quotes[index]}"
+                )
 
     for result in payload.get("results", []):
         parts = [str(result.get("result_label", ""))]
         parts.extend(
             str(link.get("attribution", "")) for link in result.get("causation", [])
         )
-        queries.append(" ".join(part for part in parts if part))
+        result_signature = " ".join(part for part in parts if part)
+        result_source_quote = str(result.get("source_quote", "")).strip()
+        queries.append(result_signature)
+        # A result-aggravated offence is expressed by the grounded act→result edge, not
+        # by either endpoint alone.  Keep one composite query per recorded causal link.
+        for link in result.get("causation", []):
+            act_index = link.get("act")
+            if isinstance(act_index, int) and 0 <= act_index < len(act_signatures):
+                queries.append(f"{act_signatures[act_index]} {result_signature}")
+                if act_source_quotes[act_index] and result_source_quote:
+                    queries.append(
+                        f"{act_source_quotes[act_index]} {result_source_quote}"
+                    )
+                # Keep the directly following grounded event in the result window.  This
+                # preserves a sequence such as restraint → attempted sexual act → injury
+                # without asserting that the later act caused the result.
+                for next_index, next_act in enumerate(acts):
+                    if next_act.get("after") != act_index:
+                        continue
+                    source_window = (
+                        act_source_quotes[act_index],
+                        act_source_quotes[next_index],
+                        result_source_quote,
+                    )
+                    if all(source_window):
+                        queries.append(" ".join(source_window))
 
     for holding in payload.get("holdings", []):
         queries.append(
@@ -794,6 +838,10 @@ def retrieval_queries(payload: Mapping[str, Any]) -> list[str]:
     queries = [str(query) for query in payload.get("retrieval_queries", [])]
     queries.extend(
         str(candidate["label"]) for candidate in payload.get("issue_candidates", [])
+    )
+    queries.extend(
+        f"{candidate.get('label', '')} {candidate.get('source_quote', '')}".strip()
+        for candidate in payload.get("issue_candidates", [])
     )
     queries.extend(fact_derived_queries(payload))
     return list(dict.fromkeys(queries))

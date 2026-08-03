@@ -29,6 +29,7 @@ Two things the host keeps, both for the same reason -- the model must not mint i
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
@@ -82,6 +83,29 @@ def catalog_lines(catalog: Iterable[Mapping[str, str]] | None = None) -> list[st
         f"{entry['key']} {entry['label']} {entry['offense']}"
         for entry in (catalog or load_catalog())
     ]
+
+
+def question_selected_articles(
+    question_prompt: str,
+    *,
+    catalog: Iterable[Mapping[str, str]] | None = None,
+) -> tuple[str, ...]:
+    """Resolve articles explicitly named by the sub-question without legal inference.
+
+    This lane is deliberately narrow: an exact statute label or the catalog's complete
+    offence name must occur in ``question_prompt``.  It never maps generic words such as
+    ``상해`` onto a compound offence and never consults rubric metadata.
+    """
+    normalized_prompt = re.sub(r"[^0-9A-Za-z가-힣]", "", question_prompt)
+    selected: list[str] = []
+    for entry in catalog or load_catalog():
+        label = re.sub(r"[^0-9A-Za-z가-힣]", "", str(entry["label"]))
+        offense = re.sub(r"[^0-9A-Za-z가-힣]", "", str(entry["offense"]))
+        if label in normalized_prompt or (
+            len(offense) >= 2 and offense in normalized_prompt
+        ):
+            selected.append(str(entry["key"]))
+    return tuple(dict.fromkeys(selected))
 
 
 def article_select_schema(catalog: Iterable[Mapping[str, str]] | None = None) -> dict[str, Any]:

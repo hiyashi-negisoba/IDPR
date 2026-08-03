@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-from idpr.candidates import IssueCandidateSet, candidate_issues
+from idpr.candidates import IssueCandidateSet, article_provenance, candidate_issues
 from idpr.neural.fact_graph import fact_tuples
 from idpr.neural.issue_assessment import issue_status_rows
 from idpr.rulebase.cards import CardCorpus, card_corpus
@@ -177,17 +177,22 @@ def scope_from_l0_row(
     """Rebuild and verify the full issue scope from one persisted L0 row."""
     corpus = corpus or card_corpus()
     scope = candidate_issues(
+        question_selected=tuple(row.get("question_selected", ())),
         selected=tuple(row.get("from_model", ())),
+        fact_selected=tuple(row.get("from_fact_issue", ())),
         retrieved=tuple(row.get("from_retrieval", ())),
         corpus=corpus,
     )
     expected_articles = tuple(row.get("articles", ()))
     expected_issues = tuple(row.get("issue_ids", ()))
+    expected_provenance = row.get("article_provenance")
     errors: list[str] = []
     if expected_articles and expected_articles != scope.articles:
         errors.append("persisted articles differ from the live issue scope")
     if expected_issues and expected_issues != scope.issue_ids:
         errors.append("persisted issue_ids differ from the live issue catalog")
+    if expected_provenance is not None and expected_provenance != article_provenance(scope):
+        errors.append("persisted article_provenance differs from the live issue scope")
     if "card_ids" in row:
         errors.append("flat card_ids are forbidden in an issue-first L0 row")
     if errors:
@@ -346,6 +351,7 @@ def build_issue_reasoning_packet(
         "version": "1.0.0",
         "case_id": assessment_bundle.get("case_id"),
         "articles": list(scope.articles),
+        "article_provenance": article_provenance(scope),
         "issues": units,
         "symbolic_runtime": dict(symbolic_runtime),
     }

@@ -171,13 +171,23 @@ CALL23_SECONDS=$(( $(date +%s) - CALL23_START ))
 cleanup
 
 TOTAL_SECONDS=$(( $(date +%s) - JOB_START ))
+TESTED_CODE_COMMIT="${IDPR_TESTED_CODE_COMMIT:-}"
+if [ -z "$TESTED_CODE_COMMIT" ]; then
+    if command -v git >/dev/null 2>&1; then
+        TESTED_CODE_COMMIT=$(git rev-parse HEAD)
+    else
+        echo "IDPR_TESTED_CODE_COMMIT is required when git is unavailable" >&2
+        exit 1
+    fi
+fi
 "$CLIENT_PYTHON" scripts/verify_phase3_e2e_contract.py \
     --run-root "$RUN_ROOT" \
     --inventory "$INVENTORY" \
     --rubric "$RUBRIC" \
     --model "$SERVED_MODEL" \
     --slurm-job-id "$SLURM_JOB_ID" \
-    --tested-code-commit "$(git rev-parse HEAD)" \
+    --tested-code-commit "$TESTED_CODE_COMMIT" \
+    --parameter "pipeline_version=${IDPR_PIPELINE_VERSION:-phase3_v4}" \
     --parameter "call1_max_tokens=$CALL1_MAX_TOKENS" \
     --parameter "call1_5_max_tokens=$CALL15_MAX_TOKENS" \
     --parameter "retrieval_top_k_articles=$TOP_K_ARTICLES" \

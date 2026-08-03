@@ -52,7 +52,9 @@ class CandidateSet:
     """
 
     articles: tuple[str, ...]
+    question_selected: tuple[str, ...]
     from_model: tuple[str, ...]
+    from_fact_issue: tuple[str, ...]
     from_retrieval: tuple[str, ...]
     from_attempt_expansion: tuple[str, ...]
     cards: tuple[Card, ...]
@@ -68,9 +70,12 @@ class CandidateSet:
     def as_dict(self) -> dict:
         return {
             "articles": list(self.articles),
+            "question_selected": list(self.question_selected),
             "from_model": list(self.from_model),
+            "from_fact_issue": list(self.from_fact_issue),
             "from_retrieval": list(self.from_retrieval),
             "from_attempt_expansion": list(self.from_attempt_expansion),
+            "article_provenance": article_provenance(self),
             "cards": len(self.cards),
         }
 
@@ -86,7 +91,9 @@ class IssueCandidateSet:
     """
 
     articles: tuple[str, ...]
+    question_selected: tuple[str, ...]
     from_model: tuple[str, ...]
+    from_fact_issue: tuple[str, ...]
     from_retrieval: tuple[str, ...]
     from_attempt_expansion: tuple[str, ...]
     issues: tuple[IssuePacket, ...]
@@ -106,9 +113,12 @@ class IssueCandidateSet:
     def as_dict(self) -> dict:
         return {
             "articles": list(self.articles),
+            "question_selected": list(self.question_selected),
             "from_model": list(self.from_model),
+            "from_fact_issue": list(self.from_fact_issue),
             "from_retrieval": list(self.from_retrieval),
             "from_attempt_expansion": list(self.from_attempt_expansion),
+            "article_provenance": article_provenance(self),
             "issues": len(self.issues),
             "initial_issues": len(self.initial_issues),
             "deferred_issues": len(self.deferred_issues),
@@ -117,6 +127,76 @@ class IssueCandidateSet:
                 len(issue.retrieval_card_ids) for issue in self.issues
             ),
         }
+
+
+def article_provenance(
+    candidates: CandidateSet | IssueCandidateSet,
+) -> list[dict[str, object]]:
+    """Return one lossless source/relevance record for every candidate article.
+
+    Question, model, and grounded FactGraph selections are P1 ``must_discuss`` sources.
+    Retrieval-only candidates remain optional and keep the material gate.  A mandatory
+    candidate is not deemed established: weak or contrary evidence produces a compact
+    negative/unknown analysis whose conclusion remains host-controlled.
+    """
+    source_sets = (
+        ("question_selected", set(candidates.question_selected)),
+        ("model_selected", set(candidates.from_model)),
+        ("fact_issue_candidate", set(candidates.from_fact_issue)),
+        ("retrieval_selected", set(candidates.from_retrieval)),
+        ("attempt_expansion", set(candidates.from_attempt_expansion)),
+    )
+    rows: list[dict[str, object]] = []
+    initial_articles = (
+        {issue.article for issue in candidates.initial_issues}
+        if isinstance(candidates, IssueCandidateSet)
+        else set(candidates.articles)
+    )
+    issue_articles = (
+        {issue.article for issue in candidates.issues}
+        if isinstance(candidates, IssueCandidateSet)
+        else set(candidates.articles)
+    )
+    for article in candidates.articles:
+        sources = [name for name, members in source_sets if article in members]
+        relation_support_only = (
+            article in issue_articles and article not in initial_articles
+        )
+        must_discuss_sources = {
+            "question_selected",
+            "model_selected",
+            "fact_issue_candidate",
+        }
+        relevance = (
+            "must_discuss"
+            if must_discuss_sources & set(sources)
+            and (not relation_support_only or "question_selected" in sources)
+            else "optional"
+        )
+        if "question_selected" in sources:
+            relevance_reason = "explicit_question_reference"
+        elif relation_support_only:
+            relevance_reason = "relation_support_requires_active_base"
+        elif "fact_issue_candidate" in sources:
+            relevance_reason = "grounded_fact_issue_candidate"
+        elif "model_selected" in sources:
+            relevance_reason = "closed_catalog_model_selection"
+        else:
+            relevance_reason = "candidate_source_requires_material_gate"
+        rows.append(
+            {
+                "article": article,
+                "sources": sources,
+                "relevance": relevance,
+                "relevance_reason": relevance_reason,
+                **(
+                    {"candidate_role": "relation_support"}
+                    if relation_support_only
+                    else {}
+                ),
+            }
+        )
+    return rows
 
 
 @dataclass(frozen=True)
@@ -206,7 +286,9 @@ def assessable_card_ids(corpus: CardCorpus | None = None) -> frozenset[str]:
 
 def candidate_articles(
     *,
+    question_selected: Sequence[str] = (),
     selected: Sequence[str] = (),
+    fact_selected: Sequence[str] = (),
     retrieved: Sequence[str] = (),
     corpus: CardCorpus | None = None,
     assessable: Iterable[str] | None = None,
@@ -220,8 +302,12 @@ def candidate_articles(
     corpus = corpus or card_corpus()
     assessable = frozenset(assessable) if assessable is not None else assessable_card_ids(corpus)
 
+    from_question = tuple(dict.fromkeys(question_selected))
     from_model = tuple(dict.fromkeys(selected))
-    union = tuple(dict.fromkeys((*from_model, *retrieved)))
+    from_fact = tuple(dict.fromkeys(fact_selected))
+    union = tuple(
+        dict.fromkeys((*from_question, *from_model, *from_fact, *retrieved))
+    )
     expanded = expand_attempt_articles(union, mapping=attempt_map)
 
     known = set(corpus.by_article())
@@ -231,8 +317,14 @@ def candidate_articles(
     )
     return CandidateSet(
         articles=articles,
+        question_selected=tuple(a for a in from_question if a in known),
         from_model=tuple(a for a in from_model if a in known),
-        from_retrieval=tuple(a for a in retrieved if a in known and a not in set(from_model)),
+        from_fact_issue=tuple(a for a in from_fact if a in known),
+        from_retrieval=tuple(
+            a
+            for a in retrieved
+            if a in known and a not in set((*from_question, *from_model, *from_fact))
+        ),
         from_attempt_expansion=tuple(a for a in articles if a not in set(union)),
         cards=cards,
     )
@@ -240,7 +332,9 @@ def candidate_articles(
 
 def candidate_issues(
     *,
+    question_selected: Sequence[str] = (),
     selected: Sequence[str] = (),
+    fact_selected: Sequence[str] = (),
     retrieved: Sequence[str] = (),
     corpus: CardCorpus | None = None,
     attempt_map: Mapping[str, str] | None = None,
@@ -253,8 +347,12 @@ def candidate_issues(
     issue packet as an anchor, retrieval candidate, symbolic condition, or support card.
     """
     corpus = corpus or card_corpus()
+    from_question = tuple(dict.fromkeys(question_selected))
     from_model = tuple(dict.fromkeys(selected))
-    union = tuple(dict.fromkeys((*from_model, *retrieved)))
+    from_fact = tuple(dict.fromkeys(fact_selected))
+    union = tuple(
+        dict.fromkeys((*from_question, *from_model, *from_fact, *retrieved))
+    )
     expanded = expand_attempt_articles(union, mapping=attempt_map)
 
     known = set(corpus.by_article())
@@ -281,11 +379,18 @@ def candidate_issues(
 
     return IssueCandidateSet(
         articles=articles,
+        question_selected=tuple(
+            article for article in from_question if article in known
+        ),
         from_model=tuple(article for article in from_model if article in known),
+        from_fact_issue=tuple(
+            article for article in from_fact if article in known
+        ),
         from_retrieval=tuple(
             article
             for article in retrieved
-            if article in known and article not in set(from_model)
+            if article in known
+            and article not in set((*from_question, *from_model, *from_fact))
         ),
         from_attempt_expansion=tuple(
             article for article in articles if article not in set(union)

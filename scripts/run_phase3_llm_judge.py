@@ -6,7 +6,9 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import os
 import random
+import shutil
 import subprocess
 import sys
 from dataclasses import replace
@@ -80,6 +82,13 @@ def _write_jsonl(path: Path, records: Sequence[Mapping[str, Any]]) -> None:
 
 
 def _git_revision() -> str:
+    pinned_revision = os.environ.get("IDPR_TESTED_CODE_COMMIT", "").strip()
+    if pinned_revision:
+        return pinned_revision
+    if shutil.which("git") is None:
+        raise JudgeContractError(
+            "IDPR_TESTED_CODE_COMMIT is required when git is unavailable"
+        )
     result = subprocess.run(
         ["git", "rev-parse", "HEAD"],
         cwd=PROJECT_ROOT,

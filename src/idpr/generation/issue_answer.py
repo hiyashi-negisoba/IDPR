@@ -103,6 +103,7 @@ def issue_answer_model_request(request: Mapping[str, Any]) -> dict[str, Any]:
     """
     payload = deepcopy(dict(request))
     payload.pop("suppressed_sections", None)
+    payload.pop("candidate_lifecycle", None)
     return payload
 
 
@@ -275,6 +276,8 @@ def _presentation(
     refuted_issues: Mapping[str, set[str]],
     grounded_issue_count: int,
     missing_bases: frozenset[str],
+    relevance: str = "optional",
+    sources: Sequence[str] = (),
 ) -> tuple[str | None, str]:
     """Choose answer salience without deleting any upstream assessment.
 
@@ -285,20 +288,97 @@ def _presentation(
     supported = len(supported_issues.get(article, ()))
     refuted = len(refuted_issues.get(article, ()))
     if missing_bases:
+        if relevance == "must_discuss":
+            return "compact", "must_discuss_missing_required_base_offense"
+        # Keep a grounded optional result-aggravated candidate found by retrieval as a
+        # bounded base/result relationship review.  Mandatory sources were handled
+        # above; this branch only governs candidates still subject to the material gate.
+        if "retrieval_selected" in sources and grounded_issue_count > 0:
+            return "compact", "grounded_result_offense_requires_base_review"
         return None, "missing_required_base_offense"
     if directive in {"final_offense_candidate", "established_candidate"}:
         return "full", "symbolically_established"
     if supported == 0:
+        if relevance == "must_discuss":
+            return "compact", "must_discuss_no_positive_element_support"
         return None, "no_positive_element_support"
     if refuted >= supported:
+        if relevance == "must_discuss":
+            return "compact", "must_discuss_explicit_element_refutation"
         return None, "explicit_element_refutation_dominates"
     # A single isolated proposition is enough to keep an offence in symbolic review, but
     # not enough to introduce an unresolved alternative in a reader-facing answer.  This
     # gate applies only to non-established candidates; simple established offences remain
     # unaffected.
     if grounded_issue_count < 2:
+        if relevance == "must_discuss":
+            return "compact", "must_discuss_insufficient_material_grounding"
         return None, "insufficient_material_grounding"
     return "compact", "partially_supported_or_unresolved"
+
+
+def _provenance_by_article(
+    reasoning_packet: Mapping[str, Any], *, articles: Sequence[str]
+) -> dict[str, dict[str, Any]]:
+    """Validate the candidate-source handoff and support legacy diagnostic packets."""
+    rows = reasoning_packet.get("article_provenance")
+    if rows is None:
+        return {
+            article: {
+                "article": article,
+                "sources": ["legacy_unspecified"],
+                "relevance": "optional",
+                "relevance_reason": "legacy_packet_without_provenance",
+            }
+            for article in articles
+        }
+    if not isinstance(rows, Sequence) or isinstance(rows, (str, bytes)):
+        raise IssueAnswerError(["reasoning_packet.article_provenance must be an array"])
+    indexed: dict[str, dict[str, Any]] = {}
+    errors: list[str] = []
+    for index, raw in enumerate(rows):
+        if not isinstance(raw, Mapping):
+            errors.append(f"article_provenance[{index}] must be an object")
+            continue
+        article = str(raw.get("article", ""))
+        if not article or article in indexed:
+            errors.append(f"article_provenance[{index}] has a missing or duplicate article")
+            continue
+        sources = raw.get("sources", ())
+        relevance = str(raw.get("relevance", ""))
+        if not isinstance(sources, Sequence) or isinstance(sources, (str, bytes)):
+            errors.append(f"article_provenance[{index}].sources must be an array")
+            continue
+        if relevance not in {"must_discuss", "optional", "irrelevant"}:
+            errors.append(f"article_provenance[{index}] has invalid relevance")
+            continue
+        indexed[article] = {
+            "article": article,
+            "sources": [str(source) for source in sources],
+            "relevance": relevance,
+            "relevance_reason": str(raw.get("relevance_reason", "")),
+        }
+    missing = sorted(set(articles) - set(indexed))
+    extra = sorted(set(indexed) - set(articles))
+    if missing:
+        errors.append(f"article_provenance is missing articles: {missing}")
+    if extra:
+        errors.append(f"article_provenance has unknown articles: {extra}")
+    if errors:
+        raise IssueAnswerError(errors)
+    return indexed
+
+
+def _verdict(
+    *, directive: str, supported: int, refuted: int, stated_conclusion: str
+) -> str:
+    if directive == "attempt_review":
+        return "attempt_review"
+    if stated_conclusion == "established":
+        return "established"
+    if refuted > 0 and supported == 0:
+        return "not_established"
+    return "unknown"
 
 
 def build_call3_request(
@@ -315,6 +395,20 @@ def build_call3_request(
     issues = reasoning_packet.get("issues", ())
     if not isinstance(issues, Sequence) or isinstance(issues, (str, bytes)):
         raise IssueAnswerError(["reasoning_packet.issues must be an array"])
+    packet_articles = [str(article) for article in reasoning_packet.get("articles", ())]
+    if not packet_articles:
+        packet_articles = list(
+            dict.fromkeys(
+                str(issue.get("article", ""))
+                for issue in issues
+                if isinstance(issue, Mapping) and issue.get("article")
+            )
+        )
+    if len(packet_articles) != len(set(packet_articles)):
+        raise IssueAnswerError(["reasoning_packet.articles must be unique"])
+    provenance = _provenance_by_article(
+        reasoning_packet, articles=packet_articles
+    )
 
     final = _article_set(reasoning_packet, "final_offense")
     established = _article_set(reasoning_packet, "offense_established")
@@ -332,11 +426,14 @@ def build_call3_request(
     refuted_issues = _relation_issue_sets(reasoning_packet, "element_refuted")
     established_without_gaps = established - unaddressed
 
+    all_grouped: dict[str, list[Mapping[str, Any]]] = defaultdict(list)
     grouped: dict[str, list[Mapping[str, Any]]] = defaultdict(list)
     article_order: list[str] = []
     for issue in issues:
         if not isinstance(issue, Mapping):
             raise IssueAnswerError(["reasoning_packet contains a non-object issue"])
+        article = str(issue.get("article", ""))
+        all_grouped[article].append(issue)
         include = issue.get("include_in_generation")
         if include is None:
             include = (
@@ -350,7 +447,6 @@ def build_call3_request(
             # victim or camera offence) is retrieval noise, not an IRAC issue. Initial
             # constituent elements remain mandatory even when unknown.
             continue
-        article = str(issue.get("article", ""))
         if article not in grouped:
             article_order.append(article)
         grouped[article].append(issue)
@@ -364,6 +460,8 @@ def build_call3_request(
         article_issues: list[dict[str, Any]] = []
         article_label = str(grouped[article][0].get("article_label", article))
         offense = str(grouped[article][0].get("offense", article_label))
+        article_provenance = provenance[article]
+        relevance = str(article_provenance["relevance"])
         directive, stated_conclusion = _directive(
             article,
             final=final,
@@ -389,6 +487,16 @@ def build_call3_request(
             refuted_issues=refuted_issues,
             grounded_issue_count=grounded_issue_count,
             missing_bases=missing_bases,
+            relevance=relevance,
+            sources=article_provenance["sources"],
+        )
+        supported_count = len(supported_issues.get(article, ()))
+        refuted_count = len(refuted_issues.get(article, ()))
+        verdict = _verdict(
+            directive=directive,
+            supported=supported_count,
+            refuted=refuted_count,
+            stated_conclusion=stated_conclusion,
         )
         if presentation_mode is None:
             suppressed_sections.append(
@@ -397,9 +505,12 @@ def build_call3_request(
                     "article_label": article_label,
                     "offense": offense,
                     "reason": visibility_reason,
+                    "provenance": article_provenance,
+                    "relevance": relevance,
+                    "verdict": verdict,
                     "symbolic_directive": directive,
-                    "supported_issue_count": len(supported_issues.get(article, ())),
-                    "refuted_issue_count": len(refuted_issues.get(article, ())),
+                    "supported_issue_count": supported_count,
+                    "refuted_issue_count": refuted_count,
                     "grounded_issue_count": grounded_issue_count,
                     "required_base_articles": sorted(missing_bases),
                 }
@@ -452,10 +563,95 @@ def build_call3_request(
                 "offense": offense,
                 "symbolic_directive": directive,
                 "stated_conclusion": stated_conclusion,
+                "provenance": article_provenance,
+                "relevance": relevance,
+                "verdict": verdict,
                 "presentation_mode": presentation_mode,
                 "visibility_reason": visibility_reason,
                 "issues": article_issues,
             }
+        )
+
+    represented = {
+        str(section["article"])
+        for section in (*required_sections, *suppressed_sections)
+    }
+    for article in packet_articles:
+        if article in represented:
+            continue
+        candidates = all_grouped.get(article, ())
+        article_label = str(candidates[0].get("article_label", article)) if candidates else article
+        offense = str(candidates[0].get("offense", article_label)) if candidates else article_label
+        directive, stated_conclusion = _directive(
+            article,
+            final=final,
+            established=established,
+            undetermined=undetermined,
+            unaddressed=unaddressed,
+            attempts=attempts,
+            stage_unresolved=stage_unresolved,
+            absorbed=absorbed,
+        )
+        suppressed_sections.append(
+            {
+                "article": article,
+                "article_label": article_label,
+                "offense": offense,
+                "reason": "no_generation_issues",
+                "provenance": provenance[article],
+                "relevance": str(provenance[article]["relevance"]),
+                "verdict": _verdict(
+                    directive=directive,
+                    supported=len(supported_issues.get(article, ())),
+                    refuted=len(refuted_issues.get(article, ())),
+                    stated_conclusion=stated_conclusion,
+                ),
+                "symbolic_directive": directive,
+                "supported_issue_count": len(supported_issues.get(article, ())),
+                "refuted_issue_count": len(refuted_issues.get(article, ())),
+                "grounded_issue_count": 0,
+                "required_base_articles": [],
+            }
+        )
+
+    required_by_article = {
+        str(section["article"]): section for section in required_sections
+    }
+    suppressed_by_article = {
+        str(section["article"]): section for section in suppressed_sections
+    }
+    candidate_lifecycle: list[dict[str, Any]] = []
+    for article in packet_articles:
+        included = article in required_by_article
+        decision = required_by_article.get(article) or suppressed_by_article[article]
+        status_counts: dict[str, int] = defaultdict(int)
+        for issue in all_grouped.get(article, ()):
+            status_counts[str(issue.get("status", "unknown"))] += 1
+        candidate_lifecycle.append(
+            {
+                "article": article,
+                "provenance": provenance[article],
+                "relevance": str(provenance[article]["relevance"]),
+                "call2_status_counts": dict(status_counts),
+                "symbolic_directive": str(decision["symbolic_directive"]),
+                "verdict": str(decision["verdict"]),
+                "visibility_decision": (
+                    str(decision["presentation_mode"]) if included else "hidden"
+                ),
+                "visibility_reason": str(
+                    decision.get("visibility_reason", decision.get("reason", ""))
+                ),
+                "included_in_call3": included,
+            }
+        )
+    hidden_mandatory = [
+        row["article"]
+        for row in candidate_lifecycle
+        if row["relevance"] == "must_discuss" and not row["included_in_call3"]
+    ]
+    if hidden_mandatory:
+        raise IssueAnswerError(
+            [f"must_discuss articles were hidden: {hidden_mandatory}"]
         )
 
     question_prompt = str(case.get("question_prompt", ""))
@@ -472,6 +668,7 @@ def build_call3_request(
         "rubric_supplied": False,
         "required_sections": required_sections,
         "suppressed_sections": suppressed_sections,
+        "candidate_lifecycle": candidate_lifecycle,
         "cross_offense_directives": {
             "absorbed_articles": sorted(absorbed),
             "concurrent_pairs": concurrence,

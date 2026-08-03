@@ -28,8 +28,8 @@ from idpr.eval.issue_recall import (
     recall,
 )
 from idpr.issue_pipeline import issue_candidate_row
-from idpr.neural.article_select import attempt_article_map
-from idpr.neural.fact_graph import retrieval_queries
+from idpr.neural.article_select import attempt_article_map, question_selected_articles
+from idpr.neural.fact_graph import proposed_articles, retrieval_queries
 from idpr.retrieval import (
     DEFAULT_TOP_K_ARTICLES,
     DenseIndex,
@@ -158,7 +158,15 @@ def main() -> None:
                 retrieved_issue_ids = list(retrieval.retrieved_issue_ids)
 
             candidates = candidate_issues(
+                question_selected=question_selected_articles(
+                    str(record.get("question_prompt", ""))
+                ),
                 selected=selection.get(case_id, ()),
+                fact_selected=(
+                    proposed_articles(graphs[case_id], corpus=corpus)
+                    if case_id in graphs
+                    else ()
+                ),
                 retrieved=retrieved,
                 corpus=corpus,
                 attempt_map=attempt_map,

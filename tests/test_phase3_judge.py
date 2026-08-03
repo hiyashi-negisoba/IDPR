@@ -14,6 +14,7 @@ from idpr.eval.phase3_judge import (
     reduce_judge_output,
 )
 from idpr.eval.rubric import RubricSet
+from scripts.run_phase3_llm_judge import _git_revision
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -104,6 +105,12 @@ def test_phase3_schema_is_valid() -> None:
     )
     Draft202012Validator.check_schema(schema)
     Draft202012Validator(schema).validate(_judge_output())
+
+
+def test_judge_revision_uses_pinned_value_without_git(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("IDPR_TESTED_CODE_COMMIT", "pinned-test-revision")
+    monkeypatch.setattr("scripts.run_phase3_llm_judge.shutil.which", lambda _: None)
+    assert _git_revision() == "pinned-test-revision"
 
 
 def test_evidence_in_answer_normalizes_markdown_and_spacing() -> None:

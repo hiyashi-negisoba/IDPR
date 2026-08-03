@@ -349,12 +349,26 @@ def test_query_coverage_follows_the_case_not_the_model_budget():
     assert any("공동주택공용부" in query for query in derived)
     # Attributes are concatenated as they appear; no label is special-cased.
     assert "유형력행사 공동주택공용부 단독" in derived
+    assert (
+        "해악고지 사진 유형력행사 공동주택공용부 단독" in derived
+    )
+    assert (
+        "신체 사진을 유포하겠다고 주먹으로 A의 얼굴을 2회 때려" in derived
+    )
+    assert (
+        "유형력행사 공동주택공용부 단독 신체손상 확정" in derived
+    )
+    assert (
+        "주먹으로 A의 얼굴을 2회 때려 발목이 골절되는 상해를 입혔다"
+        in derived
+    )
 
 
 def test_retrieval_queries_include_candidate_labels():
     """A candidate the model can name but not number still needs to reach its article."""
     queries = retrieval_queries(_payload())
     assert "강제추행" in queries
+    assert "강제추행 가슴과 음부를 스스로 만지게 하였다" in queries
     assert "협박에 의한 추행" in queries
 
 

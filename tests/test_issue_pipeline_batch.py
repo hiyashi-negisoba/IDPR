@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 import pytest
@@ -51,7 +52,10 @@ def test_all_shared_slurm_entrypoints_find_env_outside_the_spool_copy():
     scripts = [
         path
         for path in (PROJECT_ROOT / "scripts/slurm").rglob("*.sh")
-        if path.name != "_env.sh" and "source" in path.read_text(encoding="utf-8")
+        if path.name != "_env.sh"
+        and re.search(
+            r"(?m)^\s*source\s+", path.read_text(encoding="utf-8")
+        )
     ]
 
     assert scripts

@@ -5,6 +5,7 @@ from jsonschema import Draft202012Validator
 
 from idpr.generation.issue_answer import (
     IssueAnswerError,
+    _presentation,
     attach_issue_answer_provenance,
     build_call3_request,
     issue_answer_model_request,
@@ -20,6 +21,7 @@ def _request(
     attempt: bool = False,
     element_supported: bool = True,
     stage_grounded: bool = False,
+    must_discuss: bool = False,
 ):
     case = {
         "sub_question_id": "case-1",
@@ -42,6 +44,21 @@ def _request(
     }
     packet = {
         "case_id": "case-1",
+        "articles": ["art298"],
+        "article_provenance": [
+            {
+                "article": "art298",
+                "sources": [
+                    "question_selected" if must_discuss else "retrieval_selected"
+                ],
+                "relevance": "must_discuss" if must_discuss else "optional",
+                "relevance_reason": (
+                    "explicit_question_reference"
+                    if must_discuss
+                    else "candidate_source_requires_material_gate"
+                ),
+            }
+        ],
         "issues": [
             {
                 "issue_id": "art298.Ⅱ.element_issue",
@@ -147,6 +164,24 @@ def test_call3_request_keeps_rubric_shape_without_leaking_the_rubric_or_raw_rela
     assert section["symbolic_directive"] == "final_offense_candidate"
     assert section["presentation_mode"] == "full"
     assert request["suppressed_sections"] == []
+    assert request["candidate_lifecycle"] == [
+        {
+            "article": "art298",
+            "provenance": {
+                "article": "art298",
+                "sources": ["retrieval_selected"],
+                "relevance": "optional",
+                "relevance_reason": "candidate_source_requires_material_gate",
+            },
+            "relevance": "optional",
+            "call2_status_counts": {"satisfied": 1, "unknown": 2},
+            "symbolic_directive": "final_offense_candidate",
+            "verdict": "established",
+            "visibility_decision": "full",
+            "visibility_reason": "symbolically_established",
+            "included_in_call3": True,
+        }
+    ]
     assert "offense_established" not in repr(request)
     assert section["issues"][0]["basis_facts"][0]["statement"] == "甲이 A를 밀쳤다."
 
@@ -343,6 +378,49 @@ def test_call3_hides_an_article_with_no_positive_element_support():
         request=request,
     )
     assert answer["overall_conclusion"].startswith("현재 제공된 사실")
+
+
+def test_call3_never_hides_a_question_selected_article_without_positive_support():
+    request = _request(element_supported=False, must_discuss=True)
+    assert request["suppressed_sections"] == []
+    section = request["required_sections"][0]
+    assert section["relevance"] == "must_discuss"
+    assert section["presentation_mode"] == "compact"
+    assert section["visibility_reason"] == (
+        "must_discuss_no_positive_element_support"
+    )
+    lifecycle = request["candidate_lifecycle"][0]
+    assert lifecycle["included_in_call3"] is True
+    assert lifecycle["visibility_decision"] == "compact"
+    model_request = issue_answer_model_request(request)
+    assert "candidate_lifecycle" not in model_request
+
+
+def test_grounded_retrieved_result_offense_keeps_a_base_relationship_review():
+    mode, reason = _presentation(
+        "art301",
+        directive="undetermined",
+        supported_issues={},
+        refuted_issues={},
+        grounded_issue_count=1,
+        missing_bases=frozenset({"art297", "art298", "art299"}),
+        relevance="optional",
+        sources=("retrieval_selected",),
+    )
+    assert (mode, reason) == (
+        "compact",
+        "grounded_result_offense_requires_base_review",
+    )
+    assert _presentation(
+        "art337",
+        directive="undetermined",
+        supported_issues={},
+        refuted_issues={},
+        grounded_issue_count=1,
+        missing_bases=frozenset({"art333", "art334", "art335"}),
+        relevance="optional",
+        sources=("model_selected",),
+    ) == (None, "missing_required_base_offense")
 
 
 def test_call3_hides_a_single_isolated_support_when_offense_is_unresolved():
