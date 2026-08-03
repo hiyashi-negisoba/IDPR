@@ -32,7 +32,7 @@ def test_review_queue_preserves_every_bounded_source_and_requires_human_fields()
     manifest = read_json(MANIFEST)
     unit = manifest["units"][0]
     queue = build_queue(manifest, unit_definition(manifest, unit["unit_id"]))
-    assert queue["card_count"] == len(cards_for_unit(unit))
+    assert queue["card_count"] == queue["unit_core_card_count"] + queue["doctrine_overlay_card_count"]
     required = set(manifest["review_contract"]["required_human_fields"])
     assert all(set(card["human"]) == required for card in queue["cards"])
     assert all(card["source_refs"] for card in queue["cards"])
@@ -60,3 +60,15 @@ def test_arson_packet_inherits_prior_doctrine_choices() -> None:
     assert choices["art164_sec2_1.completion"] == [
         "art164_sec2_1.completion_independent_combustion_variant"
     ]
+    assert choices["art250_sec2_10.arson_death_parricide_concurrence"] == [
+        "art250_sec2_10.arson_death_parricide_specialty_precedent"
+    ]
+    overlay_ids = {
+        card["card_id"] for card in queue["cards"]
+        if card["source_track"] == "doctrine_overlay"
+    }
+    assert overlay_ids == {
+        card_id
+        for card_ids in choices.values()
+        for card_id in card_ids
+    }

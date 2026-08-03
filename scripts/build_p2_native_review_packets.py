@@ -55,6 +55,7 @@ def inherited_doctrine_decisions(unit: dict[str, Any]) -> list[dict[str, Any]]:
         return []
     ledger = read_json(DOCTRINE_LEDGER)
     articles = set(unit["articles"])
+    linked_groups = set(unit.get("inherited_decision_groups", []))
     return [
         {
             "number": item["number"],
@@ -67,16 +68,46 @@ def inherited_doctrine_decisions(unit: dict[str, Any]) -> list[dict[str, Any]]:
             "source_sha256": ledger["source_sha256"],
         }
         for item in ledger["decisions"]
-        if item["article"] in articles
+        if item["article"] in articles or item["variant_group"] in linked_groups
+    ]
+
+
+def selected_doctrine_cards(unit: dict[str, Any]) -> list[dict[str, Any]]:
+    decisions = inherited_doctrine_decisions(unit)
+    selected = {
+        card_id: decision
+        for decision in decisions
+        if decision["status"] == "valid"
+        for card_id in decision["selected_card_ids"]
+    }
+    if not selected:
+        return []
+
+    found: dict[str, dict[str, Any]] = {}
+    for path in sorted((ROOT / "data/rulegen/p2/remediated").glob("*/*.json")):
+        for card in read_json(path).get("cards", []):
+            if card["id"] in selected:
+                found[card["id"]] = card
+    missing = sorted(set(selected) - set(found))
+    if missing:
+        raise ValueError(f"selected doctrine cards missing from remediated catalog: {missing}")
+    return [
+        {**found[card_id], "inherited_doctrine": selected[card_id]}
+        for card_id in selected
     ]
 
 
 def build_queue(manifest: dict[str, Any], unit: dict[str, Any]) -> dict[str, Any]:
     contract = manifest["review_contract"]
+    base_cards = cards_for_unit(unit)
+    base_ids = {card["id"] for card in base_cards}
+    overlay_cards = [card for card in selected_doctrine_cards(unit) if card["id"] not in base_ids]
     rows = []
-    for card in cards_for_unit(unit):
+    for card in [*base_cards, *overlay_cards]:
         rows.append({
             "card_id": card["id"],
+            "source_track": "doctrine_overlay" if "inherited_doctrine" in card else "unit_core",
+            "inherited_doctrine": card.get("inherited_doctrine"),
             "proposition": card["proposition"],
             "formalization": card.get("formalization"),
             "polarity": card.get("polarity"),
@@ -93,6 +124,8 @@ def build_queue(manifest: dict[str, Any], unit: dict[str, Any]) -> dict[str, Any
         "review_contract": contract,
         "status": "human_card_review_pending",
         "inherited_doctrine_decisions": inherited_doctrine_decisions(unit),
+        "unit_core_card_count": len(base_cards),
+        "doctrine_overlay_card_count": len(overlay_cards),
         "card_count": len(rows),
         "cards": rows,
     }
@@ -138,6 +171,7 @@ def render_packet(queue: dict[str, Any], start: int, end: int, packet_index: int
             f"- proposition: {card['proposition']}",
             f"- current metadata: formalization=`{card['formalization']}`, polarity=`{card['polarity']}`, "
             f"doctrinal_status=`{card['doctrinal_status']}`, review_required=`{card['review_required']}`",
+            f"- source track: `{card['source_track']}`",
             f"- prior note: {card['review_notes'] or '-'}",
             "- bounded sources:",
             "",
