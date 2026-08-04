@@ -190,6 +190,16 @@
       "gate": "delegated normalization on 2026-08-04",
       "default": {"predicate": "seal_forgery_case_roles", "arguments": ["case_id", "defendant_id", "mark_id", "nominal_holder_id"], "definition": "행위자, 인장·서명 등 표장, 명의인의 역할 tuple", "applies_to_tracks": ["creation_or_misuse", "use"]},
       "tracks": {}
+    },
+    "dwelling_intrusion": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "dwelling_intrusion_case_roles", "arguments": ["case_id", "defendant_id", "place_id", "occupant_id"], "definition": "행위자, 침입·퇴거 대상 장소, 사실상 평온의 주체인 거주자·관리자·점유자의 역할 tuple", "applies_to_tracks": ["intrusion", "attempt", "refusal_to_leave"]},
+      "tracks": {}
+    },
+    "relative_property_crime_exception": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "relative_property_exception_case_roles", "arguments": ["case_id", "defendant_id", "property_id", "owner_id", "possessor_id", "predicate_offense_id"], "definition": "재산죄 행위자, 목적물, 소유자·점유자, 전제 재산죄 outcome의 역할 tuple", "applies_to_tracks": ["exception"]},
+      "tracks": {}
     }
   }
 }

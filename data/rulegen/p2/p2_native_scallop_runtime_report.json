@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "api_calls": 0,
-  "created_at": "2026-08-04T01:32:10.399518+00:00",
+  "created_at": "2026-08-04T01:36:29.928257+00:00",
   "runtime": {
     "scli": "tools/scallop/scli-0.2.4-linux-x86_64",
     "version": "scli 0.2.4",
@@ -10,206 +10,111 @@
   "model_output_executed_directly": false,
   "method": "승인 원장의 per-card placement에서 결정론적으로 유도한 시나리오",
   "counts": {
-    "units": 5,
-    "scenarios": 49,
-    "passed": 49
+    "units": 2,
+    "scenarios": 20,
+    "passed": 20
   },
   "units": [
     {
-      "unit": "public_document_forgery",
+      "unit": "dwelling_intrusion",
       "tracks": [
-        "forgery",
-        "alteration",
-        "attempt"
+        "intrusion",
+        "attempt",
+        "refusal_to_leave"
       ],
       "scenarios": [
         {
-          "scenario_id": "forgery.established",
-          "track": "forgery",
+          "scenario_id": "intrusion.established",
+          "track": "intrusion",
           "expected_nonempty": {
-            "public_document_forgery_forgery_elements_satisfied": true,
-            "public_document_forgery_forgery_established": true,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": false
+            "dwelling_intrusion_intrusion_elements_satisfied": true,
+            "dwelling_intrusion_intrusion_established": true,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": false
           },
           "observed_nonempty": {
-            "public_document_forgery_forgery_elements_satisfied": true,
-            "public_document_forgery_forgery_established": true,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": false
+            "dwelling_intrusion_intrusion_elements_satisfied": true,
+            "dwelling_intrusion_intrusion_established": true,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "forgery.incomplete_blocked",
-          "track": "forgery",
+          "scenario_id": "intrusion.incomplete_blocked",
+          "track": "intrusion",
           "expected_nonempty": {
-            "public_document_forgery_forgery_elements_satisfied": true,
-            "public_document_forgery_forgery_established": false,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": false
+            "dwelling_intrusion_intrusion_elements_satisfied": true,
+            "dwelling_intrusion_intrusion_established": false,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": false
           },
           "observed_nonempty": {
-            "public_document_forgery_forgery_elements_satisfied": true,
-            "public_document_forgery_forgery_established": false,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": false
+            "dwelling_intrusion_intrusion_elements_satisfied": true,
+            "dwelling_intrusion_intrusion_established": false,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "forgery.conflict_blocks",
-          "track": "forgery",
+          "scenario_id": "intrusion.conflict_blocks",
+          "track": "intrusion",
           "expected_nonempty": {
-            "public_document_forgery_forgery_elements_satisfied": true,
-            "public_document_forgery_forgery_established": false,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": true
+            "dwelling_intrusion_intrusion_elements_satisfied": true,
+            "dwelling_intrusion_intrusion_established": false,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": true
           },
           "observed_nonempty": {
-            "public_document_forgery_forgery_elements_satisfied": true,
-            "public_document_forgery_forgery_established": false,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": true
+            "dwelling_intrusion_intrusion_elements_satisfied": true,
+            "dwelling_intrusion_intrusion_established": false,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": true
           },
           "passed": true
         },
         {
-          "scenario_id": "forgery.unknown_blocks",
-          "track": "forgery",
+          "scenario_id": "intrusion.unknown_blocks",
+          "track": "intrusion",
           "expected_nonempty": {
-            "public_document_forgery_forgery_elements_satisfied": false,
-            "public_document_forgery_forgery_established": false,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": true,
-            "public_document_forgery_conflict": false
+            "dwelling_intrusion_intrusion_elements_satisfied": false,
+            "dwelling_intrusion_intrusion_established": false,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": true,
+            "dwelling_intrusion_conflict": false
           },
           "observed_nonempty": {
-            "public_document_forgery_forgery_elements_satisfied": false,
-            "public_document_forgery_forgery_established": false,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": true,
-            "public_document_forgery_conflict": false
+            "dwelling_intrusion_intrusion_elements_satisfied": false,
+            "dwelling_intrusion_intrusion_established": false,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": true,
+            "dwelling_intrusion_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "forgery.bar_blocks",
-          "track": "forgery",
+          "scenario_id": "intrusion.bar_blocks",
+          "track": "intrusion",
           "expected_nonempty": {
-            "public_document_forgery_forgery_elements_satisfied": true,
-            "public_document_forgery_forgery_established": false,
-            "public_document_forgery_not_established": true,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": false
+            "dwelling_intrusion_intrusion_elements_satisfied": true,
+            "dwelling_intrusion_intrusion_established": false,
+            "dwelling_intrusion_not_established": true,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": false
           },
           "observed_nonempty": {
-            "public_document_forgery_forgery_elements_satisfied": true,
-            "public_document_forgery_forgery_established": false,
-            "public_document_forgery_not_established": true,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "alteration.established",
-          "track": "alteration",
-          "expected_nonempty": {
-            "public_document_forgery_alteration_elements_satisfied": true,
-            "public_document_forgery_alteration_established": true,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": false
-          },
-          "observed_nonempty": {
-            "public_document_forgery_alteration_elements_satisfied": true,
-            "public_document_forgery_alteration_established": true,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "alteration.incomplete_blocked",
-          "track": "alteration",
-          "expected_nonempty": {
-            "public_document_forgery_alteration_elements_satisfied": true,
-            "public_document_forgery_alteration_established": false,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": false
-          },
-          "observed_nonempty": {
-            "public_document_forgery_alteration_elements_satisfied": true,
-            "public_document_forgery_alteration_established": false,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "alteration.conflict_blocks",
-          "track": "alteration",
-          "expected_nonempty": {
-            "public_document_forgery_alteration_elements_satisfied": true,
-            "public_document_forgery_alteration_established": false,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": true
-          },
-          "observed_nonempty": {
-            "public_document_forgery_alteration_elements_satisfied": true,
-            "public_document_forgery_alteration_established": false,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": true
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "alteration.unknown_blocks",
-          "track": "alteration",
-          "expected_nonempty": {
-            "public_document_forgery_alteration_elements_satisfied": false,
-            "public_document_forgery_alteration_established": false,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": true,
-            "public_document_forgery_conflict": false
-          },
-          "observed_nonempty": {
-            "public_document_forgery_alteration_elements_satisfied": false,
-            "public_document_forgery_alteration_established": false,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": true,
-            "public_document_forgery_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "alteration.bar_blocks",
-          "track": "alteration",
-          "expected_nonempty": {
-            "public_document_forgery_alteration_elements_satisfied": true,
-            "public_document_forgery_alteration_established": false,
-            "public_document_forgery_not_established": true,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": false
-          },
-          "observed_nonempty": {
-            "public_document_forgery_alteration_elements_satisfied": true,
-            "public_document_forgery_alteration_established": false,
-            "public_document_forgery_not_established": true,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": false
+            "dwelling_intrusion_intrusion_elements_satisfied": true,
+            "dwelling_intrusion_intrusion_established": false,
+            "dwelling_intrusion_not_established": true,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": false
           },
           "passed": true
         },
@@ -217,18 +122,18 @@
           "scenario_id": "attempt.established",
           "track": "attempt",
           "expected_nonempty": {
-            "public_document_forgery_attempt_elements_satisfied": true,
-            "public_document_forgery_attempt_established": true,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": false
+            "dwelling_intrusion_attempt_elements_satisfied": true,
+            "dwelling_intrusion_attempt_established": true,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": false
           },
           "observed_nonempty": {
-            "public_document_forgery_attempt_elements_satisfied": true,
-            "public_document_forgery_attempt_established": true,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": false
+            "dwelling_intrusion_attempt_elements_satisfied": true,
+            "dwelling_intrusion_attempt_established": true,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": false
           },
           "passed": true
         },
@@ -236,18 +141,18 @@
           "scenario_id": "attempt.incomplete_blocked",
           "track": "attempt",
           "expected_nonempty": {
-            "public_document_forgery_attempt_elements_satisfied": true,
-            "public_document_forgery_attempt_established": false,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": false
+            "dwelling_intrusion_attempt_elements_satisfied": true,
+            "dwelling_intrusion_attempt_established": false,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": false
           },
           "observed_nonempty": {
-            "public_document_forgery_attempt_elements_satisfied": true,
-            "public_document_forgery_attempt_established": false,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": false
+            "dwelling_intrusion_attempt_elements_satisfied": true,
+            "dwelling_intrusion_attempt_established": false,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": false
           },
           "passed": true
         },
@@ -255,18 +160,18 @@
           "scenario_id": "attempt.conflict_blocks",
           "track": "attempt",
           "expected_nonempty": {
-            "public_document_forgery_attempt_elements_satisfied": true,
-            "public_document_forgery_attempt_established": false,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": true
+            "dwelling_intrusion_attempt_elements_satisfied": true,
+            "dwelling_intrusion_attempt_established": false,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": true
           },
           "observed_nonempty": {
-            "public_document_forgery_attempt_elements_satisfied": true,
-            "public_document_forgery_attempt_established": false,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": true
+            "dwelling_intrusion_attempt_elements_satisfied": true,
+            "dwelling_intrusion_attempt_established": false,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": true
           },
           "passed": true
         },
@@ -274,18 +179,18 @@
           "scenario_id": "attempt.unknown_blocks",
           "track": "attempt",
           "expected_nonempty": {
-            "public_document_forgery_attempt_elements_satisfied": false,
-            "public_document_forgery_attempt_established": false,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": true,
-            "public_document_forgery_conflict": false
+            "dwelling_intrusion_attempt_elements_satisfied": false,
+            "dwelling_intrusion_attempt_established": false,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": true,
+            "dwelling_intrusion_conflict": false
           },
           "observed_nonempty": {
-            "public_document_forgery_attempt_elements_satisfied": false,
-            "public_document_forgery_attempt_established": false,
-            "public_document_forgery_not_established": false,
-            "public_document_forgery_undetermined": true,
-            "public_document_forgery_conflict": false
+            "dwelling_intrusion_attempt_elements_satisfied": false,
+            "dwelling_intrusion_attempt_established": false,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": true,
+            "dwelling_intrusion_conflict": false
           },
           "passed": true
         },
@@ -293,18 +198,113 @@
           "scenario_id": "attempt.bar_blocks",
           "track": "attempt",
           "expected_nonempty": {
-            "public_document_forgery_attempt_elements_satisfied": true,
-            "public_document_forgery_attempt_established": false,
-            "public_document_forgery_not_established": true,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": false
+            "dwelling_intrusion_attempt_elements_satisfied": true,
+            "dwelling_intrusion_attempt_established": false,
+            "dwelling_intrusion_not_established": true,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": false
           },
           "observed_nonempty": {
-            "public_document_forgery_attempt_elements_satisfied": true,
-            "public_document_forgery_attempt_established": false,
-            "public_document_forgery_not_established": true,
-            "public_document_forgery_undetermined": false,
-            "public_document_forgery_conflict": false
+            "dwelling_intrusion_attempt_elements_satisfied": true,
+            "dwelling_intrusion_attempt_established": false,
+            "dwelling_intrusion_not_established": true,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "refusal_to_leave.established",
+          "track": "refusal_to_leave",
+          "expected_nonempty": {
+            "dwelling_intrusion_refusal_to_leave_elements_satisfied": true,
+            "dwelling_intrusion_refusal_to_leave_established": true,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": false
+          },
+          "observed_nonempty": {
+            "dwelling_intrusion_refusal_to_leave_elements_satisfied": true,
+            "dwelling_intrusion_refusal_to_leave_established": true,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "refusal_to_leave.incomplete_blocked",
+          "track": "refusal_to_leave",
+          "expected_nonempty": {
+            "dwelling_intrusion_refusal_to_leave_elements_satisfied": true,
+            "dwelling_intrusion_refusal_to_leave_established": false,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": false
+          },
+          "observed_nonempty": {
+            "dwelling_intrusion_refusal_to_leave_elements_satisfied": true,
+            "dwelling_intrusion_refusal_to_leave_established": false,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "refusal_to_leave.conflict_blocks",
+          "track": "refusal_to_leave",
+          "expected_nonempty": {
+            "dwelling_intrusion_refusal_to_leave_elements_satisfied": true,
+            "dwelling_intrusion_refusal_to_leave_established": false,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": true
+          },
+          "observed_nonempty": {
+            "dwelling_intrusion_refusal_to_leave_elements_satisfied": true,
+            "dwelling_intrusion_refusal_to_leave_established": false,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": true
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "refusal_to_leave.unknown_blocks",
+          "track": "refusal_to_leave",
+          "expected_nonempty": {
+            "dwelling_intrusion_refusal_to_leave_elements_satisfied": false,
+            "dwelling_intrusion_refusal_to_leave_established": false,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": true,
+            "dwelling_intrusion_conflict": false
+          },
+          "observed_nonempty": {
+            "dwelling_intrusion_refusal_to_leave_elements_satisfied": false,
+            "dwelling_intrusion_refusal_to_leave_established": false,
+            "dwelling_intrusion_not_established": false,
+            "dwelling_intrusion_undetermined": true,
+            "dwelling_intrusion_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "refusal_to_leave.bar_blocks",
+          "track": "refusal_to_leave",
+          "expected_nonempty": {
+            "dwelling_intrusion_refusal_to_leave_elements_satisfied": true,
+            "dwelling_intrusion_refusal_to_leave_established": false,
+            "dwelling_intrusion_not_established": true,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": false
+          },
+          "observed_nonempty": {
+            "dwelling_intrusion_refusal_to_leave_elements_satisfied": true,
+            "dwelling_intrusion_refusal_to_leave_established": false,
+            "dwelling_intrusion_not_established": true,
+            "dwelling_intrusion_undetermined": false,
+            "dwelling_intrusion_conflict": false
           },
           "passed": true
         }
@@ -313,693 +313,109 @@
       "total": 15
     },
     {
-      "unit": "false_public_document",
+      "unit": "relative_property_crime_exception",
       "tracks": [
-        "base"
+        "exception"
       ],
       "scenarios": [
         {
-          "scenario_id": "base.established",
-          "track": "base",
+          "scenario_id": "exception.established",
+          "track": "exception",
           "expected_nonempty": {
-            "false_public_document_base_elements_satisfied": true,
-            "false_public_document_base_established": true,
-            "false_public_document_not_established": false,
-            "false_public_document_undetermined": false,
-            "false_public_document_conflict": false
+            "relative_property_crime_exception_exception_elements_satisfied": true,
+            "relative_property_crime_exception_exception_established": true,
+            "relative_property_crime_exception_not_established": false,
+            "relative_property_crime_exception_undetermined": false,
+            "relative_property_crime_exception_conflict": false
           },
           "observed_nonempty": {
-            "false_public_document_base_elements_satisfied": true,
-            "false_public_document_base_established": true,
-            "false_public_document_not_established": false,
-            "false_public_document_undetermined": false,
-            "false_public_document_conflict": false
+            "relative_property_crime_exception_exception_elements_satisfied": true,
+            "relative_property_crime_exception_exception_established": true,
+            "relative_property_crime_exception_not_established": false,
+            "relative_property_crime_exception_undetermined": false,
+            "relative_property_crime_exception_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "base.incomplete_blocked",
-          "track": "base",
+          "scenario_id": "exception.incomplete_blocked",
+          "track": "exception",
           "expected_nonempty": {
-            "false_public_document_base_elements_satisfied": true,
-            "false_public_document_base_established": false,
-            "false_public_document_not_established": false,
-            "false_public_document_undetermined": false,
-            "false_public_document_conflict": false
+            "relative_property_crime_exception_exception_elements_satisfied": true,
+            "relative_property_crime_exception_exception_established": false,
+            "relative_property_crime_exception_not_established": false,
+            "relative_property_crime_exception_undetermined": false,
+            "relative_property_crime_exception_conflict": false
           },
           "observed_nonempty": {
-            "false_public_document_base_elements_satisfied": true,
-            "false_public_document_base_established": false,
-            "false_public_document_not_established": false,
-            "false_public_document_undetermined": false,
-            "false_public_document_conflict": false
+            "relative_property_crime_exception_exception_elements_satisfied": true,
+            "relative_property_crime_exception_exception_established": false,
+            "relative_property_crime_exception_not_established": false,
+            "relative_property_crime_exception_undetermined": false,
+            "relative_property_crime_exception_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "base.conflict_blocks",
-          "track": "base",
+          "scenario_id": "exception.conflict_blocks",
+          "track": "exception",
           "expected_nonempty": {
-            "false_public_document_base_elements_satisfied": true,
-            "false_public_document_base_established": false,
-            "false_public_document_not_established": false,
-            "false_public_document_undetermined": false,
-            "false_public_document_conflict": true
+            "relative_property_crime_exception_exception_elements_satisfied": true,
+            "relative_property_crime_exception_exception_established": false,
+            "relative_property_crime_exception_not_established": false,
+            "relative_property_crime_exception_undetermined": false,
+            "relative_property_crime_exception_conflict": true
           },
           "observed_nonempty": {
-            "false_public_document_base_elements_satisfied": true,
-            "false_public_document_base_established": false,
-            "false_public_document_not_established": false,
-            "false_public_document_undetermined": false,
-            "false_public_document_conflict": true
+            "relative_property_crime_exception_exception_elements_satisfied": true,
+            "relative_property_crime_exception_exception_established": false,
+            "relative_property_crime_exception_not_established": false,
+            "relative_property_crime_exception_undetermined": false,
+            "relative_property_crime_exception_conflict": true
           },
           "passed": true
         },
         {
-          "scenario_id": "base.unknown_blocks",
-          "track": "base",
+          "scenario_id": "exception.unknown_blocks",
+          "track": "exception",
           "expected_nonempty": {
-            "false_public_document_base_elements_satisfied": false,
-            "false_public_document_base_established": false,
-            "false_public_document_not_established": false,
-            "false_public_document_undetermined": true,
-            "false_public_document_conflict": false
+            "relative_property_crime_exception_exception_elements_satisfied": false,
+            "relative_property_crime_exception_exception_established": false,
+            "relative_property_crime_exception_not_established": false,
+            "relative_property_crime_exception_undetermined": true,
+            "relative_property_crime_exception_conflict": false
           },
           "observed_nonempty": {
-            "false_public_document_base_elements_satisfied": false,
-            "false_public_document_base_established": false,
-            "false_public_document_not_established": false,
-            "false_public_document_undetermined": true,
-            "false_public_document_conflict": false
+            "relative_property_crime_exception_exception_elements_satisfied": false,
+            "relative_property_crime_exception_exception_established": false,
+            "relative_property_crime_exception_not_established": false,
+            "relative_property_crime_exception_undetermined": true,
+            "relative_property_crime_exception_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "base.bar_blocks",
-          "track": "base",
+          "scenario_id": "exception.bar_blocks",
+          "track": "exception",
           "expected_nonempty": {
-            "false_public_document_base_elements_satisfied": true,
-            "false_public_document_base_established": false,
-            "false_public_document_not_established": true,
-            "false_public_document_undetermined": false,
-            "false_public_document_conflict": false
+            "relative_property_crime_exception_exception_elements_satisfied": true,
+            "relative_property_crime_exception_exception_established": false,
+            "relative_property_crime_exception_not_established": true,
+            "relative_property_crime_exception_undetermined": false,
+            "relative_property_crime_exception_conflict": false
           },
           "observed_nonempty": {
-            "false_public_document_base_elements_satisfied": true,
-            "false_public_document_base_established": false,
-            "false_public_document_not_established": true,
-            "false_public_document_undetermined": false,
-            "false_public_document_conflict": false
+            "relative_property_crime_exception_exception_elements_satisfied": true,
+            "relative_property_crime_exception_exception_established": false,
+            "relative_property_crime_exception_not_established": true,
+            "relative_property_crime_exception_undetermined": false,
+            "relative_property_crime_exception_conflict": false
           },
           "passed": true
         }
       ],
       "passed": 5,
       "total": 5
-    },
-    {
-      "unit": "private_document_forgery",
-      "tracks": [
-        "forgery",
-        "alteration",
-        "attempt"
-      ],
-      "scenarios": [
-        {
-          "scenario_id": "forgery.established",
-          "track": "forgery",
-          "expected_nonempty": {
-            "private_document_forgery_forgery_elements_satisfied": true,
-            "private_document_forgery_forgery_established": true,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": false
-          },
-          "observed_nonempty": {
-            "private_document_forgery_forgery_elements_satisfied": true,
-            "private_document_forgery_forgery_established": true,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "forgery.incomplete_blocked",
-          "track": "forgery",
-          "expected_nonempty": {
-            "private_document_forgery_forgery_elements_satisfied": true,
-            "private_document_forgery_forgery_established": false,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": false
-          },
-          "observed_nonempty": {
-            "private_document_forgery_forgery_elements_satisfied": true,
-            "private_document_forgery_forgery_established": false,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "forgery.conflict_blocks",
-          "track": "forgery",
-          "expected_nonempty": {
-            "private_document_forgery_forgery_elements_satisfied": true,
-            "private_document_forgery_forgery_established": false,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": true
-          },
-          "observed_nonempty": {
-            "private_document_forgery_forgery_elements_satisfied": true,
-            "private_document_forgery_forgery_established": false,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": true
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "forgery.unknown_blocks",
-          "track": "forgery",
-          "expected_nonempty": {
-            "private_document_forgery_forgery_elements_satisfied": false,
-            "private_document_forgery_forgery_established": false,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": true,
-            "private_document_forgery_conflict": false
-          },
-          "observed_nonempty": {
-            "private_document_forgery_forgery_elements_satisfied": false,
-            "private_document_forgery_forgery_established": false,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": true,
-            "private_document_forgery_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "forgery.bar_blocks",
-          "track": "forgery",
-          "expected_nonempty": {
-            "private_document_forgery_forgery_elements_satisfied": true,
-            "private_document_forgery_forgery_established": false,
-            "private_document_forgery_not_established": true,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": false
-          },
-          "observed_nonempty": {
-            "private_document_forgery_forgery_elements_satisfied": true,
-            "private_document_forgery_forgery_established": false,
-            "private_document_forgery_not_established": true,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "alteration.established",
-          "track": "alteration",
-          "expected_nonempty": {
-            "private_document_forgery_alteration_elements_satisfied": true,
-            "private_document_forgery_alteration_established": true,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": false
-          },
-          "observed_nonempty": {
-            "private_document_forgery_alteration_elements_satisfied": true,
-            "private_document_forgery_alteration_established": true,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "alteration.incomplete_blocked",
-          "track": "alteration",
-          "expected_nonempty": {
-            "private_document_forgery_alteration_elements_satisfied": true,
-            "private_document_forgery_alteration_established": false,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": false
-          },
-          "observed_nonempty": {
-            "private_document_forgery_alteration_elements_satisfied": true,
-            "private_document_forgery_alteration_established": false,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "alteration.conflict_blocks",
-          "track": "alteration",
-          "expected_nonempty": {
-            "private_document_forgery_alteration_elements_satisfied": true,
-            "private_document_forgery_alteration_established": false,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": true
-          },
-          "observed_nonempty": {
-            "private_document_forgery_alteration_elements_satisfied": true,
-            "private_document_forgery_alteration_established": false,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": true
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "alteration.unknown_blocks",
-          "track": "alteration",
-          "expected_nonempty": {
-            "private_document_forgery_alteration_elements_satisfied": false,
-            "private_document_forgery_alteration_established": false,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": true,
-            "private_document_forgery_conflict": false
-          },
-          "observed_nonempty": {
-            "private_document_forgery_alteration_elements_satisfied": false,
-            "private_document_forgery_alteration_established": false,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": true,
-            "private_document_forgery_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "alteration.bar_blocks",
-          "track": "alteration",
-          "expected_nonempty": {
-            "private_document_forgery_alteration_elements_satisfied": true,
-            "private_document_forgery_alteration_established": false,
-            "private_document_forgery_not_established": true,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": false
-          },
-          "observed_nonempty": {
-            "private_document_forgery_alteration_elements_satisfied": true,
-            "private_document_forgery_alteration_established": false,
-            "private_document_forgery_not_established": true,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "attempt.established",
-          "track": "attempt",
-          "expected_nonempty": {
-            "private_document_forgery_attempt_elements_satisfied": true,
-            "private_document_forgery_attempt_established": true,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": false
-          },
-          "observed_nonempty": {
-            "private_document_forgery_attempt_elements_satisfied": true,
-            "private_document_forgery_attempt_established": true,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "attempt.incomplete_blocked",
-          "track": "attempt",
-          "expected_nonempty": {
-            "private_document_forgery_attempt_elements_satisfied": true,
-            "private_document_forgery_attempt_established": false,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": false
-          },
-          "observed_nonempty": {
-            "private_document_forgery_attempt_elements_satisfied": true,
-            "private_document_forgery_attempt_established": false,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "attempt.conflict_blocks",
-          "track": "attempt",
-          "expected_nonempty": {
-            "private_document_forgery_attempt_elements_satisfied": true,
-            "private_document_forgery_attempt_established": false,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": true
-          },
-          "observed_nonempty": {
-            "private_document_forgery_attempt_elements_satisfied": true,
-            "private_document_forgery_attempt_established": false,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": false,
-            "private_document_forgery_conflict": true
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "attempt.unknown_blocks",
-          "track": "attempt",
-          "expected_nonempty": {
-            "private_document_forgery_attempt_elements_satisfied": false,
-            "private_document_forgery_attempt_established": false,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": true,
-            "private_document_forgery_conflict": false
-          },
-          "observed_nonempty": {
-            "private_document_forgery_attempt_elements_satisfied": false,
-            "private_document_forgery_attempt_established": false,
-            "private_document_forgery_not_established": false,
-            "private_document_forgery_undetermined": true,
-            "private_document_forgery_conflict": false
-          },
-          "passed": true
-        }
-      ],
-      "passed": 14,
-      "total": 14
-    },
-    {
-      "unit": "use_of_forged_private_document",
-      "tracks": [
-        "base"
-      ],
-      "scenarios": [
-        {
-          "scenario_id": "base.established",
-          "track": "base",
-          "expected_nonempty": {
-            "use_of_forged_private_document_base_elements_satisfied": true,
-            "use_of_forged_private_document_base_established": true,
-            "use_of_forged_private_document_not_established": false,
-            "use_of_forged_private_document_undetermined": false,
-            "use_of_forged_private_document_conflict": false
-          },
-          "observed_nonempty": {
-            "use_of_forged_private_document_base_elements_satisfied": true,
-            "use_of_forged_private_document_base_established": true,
-            "use_of_forged_private_document_not_established": false,
-            "use_of_forged_private_document_undetermined": false,
-            "use_of_forged_private_document_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "base.incomplete_blocked",
-          "track": "base",
-          "expected_nonempty": {
-            "use_of_forged_private_document_base_elements_satisfied": true,
-            "use_of_forged_private_document_base_established": false,
-            "use_of_forged_private_document_not_established": false,
-            "use_of_forged_private_document_undetermined": false,
-            "use_of_forged_private_document_conflict": false
-          },
-          "observed_nonempty": {
-            "use_of_forged_private_document_base_elements_satisfied": true,
-            "use_of_forged_private_document_base_established": false,
-            "use_of_forged_private_document_not_established": false,
-            "use_of_forged_private_document_undetermined": false,
-            "use_of_forged_private_document_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "base.conflict_blocks",
-          "track": "base",
-          "expected_nonempty": {
-            "use_of_forged_private_document_base_elements_satisfied": true,
-            "use_of_forged_private_document_base_established": false,
-            "use_of_forged_private_document_not_established": false,
-            "use_of_forged_private_document_undetermined": false,
-            "use_of_forged_private_document_conflict": true
-          },
-          "observed_nonempty": {
-            "use_of_forged_private_document_base_elements_satisfied": true,
-            "use_of_forged_private_document_base_established": false,
-            "use_of_forged_private_document_not_established": false,
-            "use_of_forged_private_document_undetermined": false,
-            "use_of_forged_private_document_conflict": true
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "base.unknown_blocks",
-          "track": "base",
-          "expected_nonempty": {
-            "use_of_forged_private_document_base_elements_satisfied": false,
-            "use_of_forged_private_document_base_established": false,
-            "use_of_forged_private_document_not_established": false,
-            "use_of_forged_private_document_undetermined": true,
-            "use_of_forged_private_document_conflict": false
-          },
-          "observed_nonempty": {
-            "use_of_forged_private_document_base_elements_satisfied": false,
-            "use_of_forged_private_document_base_established": false,
-            "use_of_forged_private_document_not_established": false,
-            "use_of_forged_private_document_undetermined": true,
-            "use_of_forged_private_document_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "base.bar_blocks",
-          "track": "base",
-          "expected_nonempty": {
-            "use_of_forged_private_document_base_elements_satisfied": true,
-            "use_of_forged_private_document_base_established": false,
-            "use_of_forged_private_document_not_established": true,
-            "use_of_forged_private_document_undetermined": false,
-            "use_of_forged_private_document_conflict": false
-          },
-          "observed_nonempty": {
-            "use_of_forged_private_document_base_elements_satisfied": true,
-            "use_of_forged_private_document_base_established": false,
-            "use_of_forged_private_document_not_established": true,
-            "use_of_forged_private_document_undetermined": false,
-            "use_of_forged_private_document_conflict": false
-          },
-          "passed": true
-        }
-      ],
-      "passed": 5,
-      "total": 5
-    },
-    {
-      "unit": "seal_forgery_or_misuse",
-      "tracks": [
-        "creation_or_misuse",
-        "use"
-      ],
-      "scenarios": [
-        {
-          "scenario_id": "creation_or_misuse.established",
-          "track": "creation_or_misuse",
-          "expected_nonempty": {
-            "seal_forgery_or_misuse_creation_or_misuse_elements_satisfied": true,
-            "seal_forgery_or_misuse_creation_or_misuse_established": true,
-            "seal_forgery_or_misuse_not_established": false,
-            "seal_forgery_or_misuse_undetermined": false,
-            "seal_forgery_or_misuse_conflict": false
-          },
-          "observed_nonempty": {
-            "seal_forgery_or_misuse_creation_or_misuse_elements_satisfied": true,
-            "seal_forgery_or_misuse_creation_or_misuse_established": true,
-            "seal_forgery_or_misuse_not_established": false,
-            "seal_forgery_or_misuse_undetermined": false,
-            "seal_forgery_or_misuse_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "creation_or_misuse.incomplete_blocked",
-          "track": "creation_or_misuse",
-          "expected_nonempty": {
-            "seal_forgery_or_misuse_creation_or_misuse_elements_satisfied": true,
-            "seal_forgery_or_misuse_creation_or_misuse_established": false,
-            "seal_forgery_or_misuse_not_established": false,
-            "seal_forgery_or_misuse_undetermined": false,
-            "seal_forgery_or_misuse_conflict": false
-          },
-          "observed_nonempty": {
-            "seal_forgery_or_misuse_creation_or_misuse_elements_satisfied": true,
-            "seal_forgery_or_misuse_creation_or_misuse_established": false,
-            "seal_forgery_or_misuse_not_established": false,
-            "seal_forgery_or_misuse_undetermined": false,
-            "seal_forgery_or_misuse_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "creation_or_misuse.conflict_blocks",
-          "track": "creation_or_misuse",
-          "expected_nonempty": {
-            "seal_forgery_or_misuse_creation_or_misuse_elements_satisfied": true,
-            "seal_forgery_or_misuse_creation_or_misuse_established": false,
-            "seal_forgery_or_misuse_not_established": false,
-            "seal_forgery_or_misuse_undetermined": false,
-            "seal_forgery_or_misuse_conflict": true
-          },
-          "observed_nonempty": {
-            "seal_forgery_or_misuse_creation_or_misuse_elements_satisfied": true,
-            "seal_forgery_or_misuse_creation_or_misuse_established": false,
-            "seal_forgery_or_misuse_not_established": false,
-            "seal_forgery_or_misuse_undetermined": false,
-            "seal_forgery_or_misuse_conflict": true
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "creation_or_misuse.unknown_blocks",
-          "track": "creation_or_misuse",
-          "expected_nonempty": {
-            "seal_forgery_or_misuse_creation_or_misuse_elements_satisfied": false,
-            "seal_forgery_or_misuse_creation_or_misuse_established": false,
-            "seal_forgery_or_misuse_not_established": false,
-            "seal_forgery_or_misuse_undetermined": true,
-            "seal_forgery_or_misuse_conflict": false
-          },
-          "observed_nonempty": {
-            "seal_forgery_or_misuse_creation_or_misuse_elements_satisfied": false,
-            "seal_forgery_or_misuse_creation_or_misuse_established": false,
-            "seal_forgery_or_misuse_not_established": false,
-            "seal_forgery_or_misuse_undetermined": true,
-            "seal_forgery_or_misuse_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "creation_or_misuse.bar_blocks",
-          "track": "creation_or_misuse",
-          "expected_nonempty": {
-            "seal_forgery_or_misuse_creation_or_misuse_elements_satisfied": true,
-            "seal_forgery_or_misuse_creation_or_misuse_established": false,
-            "seal_forgery_or_misuse_not_established": true,
-            "seal_forgery_or_misuse_undetermined": false,
-            "seal_forgery_or_misuse_conflict": false
-          },
-          "observed_nonempty": {
-            "seal_forgery_or_misuse_creation_or_misuse_elements_satisfied": true,
-            "seal_forgery_or_misuse_creation_or_misuse_established": false,
-            "seal_forgery_or_misuse_not_established": true,
-            "seal_forgery_or_misuse_undetermined": false,
-            "seal_forgery_or_misuse_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "use.established",
-          "track": "use",
-          "expected_nonempty": {
-            "seal_forgery_or_misuse_use_elements_satisfied": true,
-            "seal_forgery_or_misuse_use_established": true,
-            "seal_forgery_or_misuse_not_established": false,
-            "seal_forgery_or_misuse_undetermined": false,
-            "seal_forgery_or_misuse_conflict": false
-          },
-          "observed_nonempty": {
-            "seal_forgery_or_misuse_use_elements_satisfied": true,
-            "seal_forgery_or_misuse_use_established": true,
-            "seal_forgery_or_misuse_not_established": false,
-            "seal_forgery_or_misuse_undetermined": false,
-            "seal_forgery_or_misuse_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "use.incomplete_blocked",
-          "track": "use",
-          "expected_nonempty": {
-            "seal_forgery_or_misuse_use_elements_satisfied": true,
-            "seal_forgery_or_misuse_use_established": false,
-            "seal_forgery_or_misuse_not_established": false,
-            "seal_forgery_or_misuse_undetermined": false,
-            "seal_forgery_or_misuse_conflict": false
-          },
-          "observed_nonempty": {
-            "seal_forgery_or_misuse_use_elements_satisfied": true,
-            "seal_forgery_or_misuse_use_established": false,
-            "seal_forgery_or_misuse_not_established": false,
-            "seal_forgery_or_misuse_undetermined": false,
-            "seal_forgery_or_misuse_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "use.conflict_blocks",
-          "track": "use",
-          "expected_nonempty": {
-            "seal_forgery_or_misuse_use_elements_satisfied": true,
-            "seal_forgery_or_misuse_use_established": false,
-            "seal_forgery_or_misuse_not_established": false,
-            "seal_forgery_or_misuse_undetermined": false,
-            "seal_forgery_or_misuse_conflict": true
-          },
-          "observed_nonempty": {
-            "seal_forgery_or_misuse_use_elements_satisfied": true,
-            "seal_forgery_or_misuse_use_established": false,
-            "seal_forgery_or_misuse_not_established": false,
-            "seal_forgery_or_misuse_undetermined": false,
-            "seal_forgery_or_misuse_conflict": true
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "use.unknown_blocks",
-          "track": "use",
-          "expected_nonempty": {
-            "seal_forgery_or_misuse_use_elements_satisfied": false,
-            "seal_forgery_or_misuse_use_established": false,
-            "seal_forgery_or_misuse_not_established": false,
-            "seal_forgery_or_misuse_undetermined": true,
-            "seal_forgery_or_misuse_conflict": false
-          },
-          "observed_nonempty": {
-            "seal_forgery_or_misuse_use_elements_satisfied": false,
-            "seal_forgery_or_misuse_use_established": false,
-            "seal_forgery_or_misuse_not_established": false,
-            "seal_forgery_or_misuse_undetermined": true,
-            "seal_forgery_or_misuse_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "use.bar_blocks",
-          "track": "use",
-          "expected_nonempty": {
-            "seal_forgery_or_misuse_use_elements_satisfied": true,
-            "seal_forgery_or_misuse_use_established": false,
-            "seal_forgery_or_misuse_not_established": true,
-            "seal_forgery_or_misuse_undetermined": false,
-            "seal_forgery_or_misuse_conflict": false
-          },
-          "observed_nonempty": {
-            "seal_forgery_or_misuse_use_elements_satisfied": true,
-            "seal_forgery_or_misuse_use_established": false,
-            "seal_forgery_or_misuse_not_established": true,
-            "seal_forgery_or_misuse_undetermined": false,
-            "seal_forgery_or_misuse_conflict": false
-          },
-          "passed": true
-        }
-      ],
-      "passed": 10,
-      "total": 10
     }
   ]
 }

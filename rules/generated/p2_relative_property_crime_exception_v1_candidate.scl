@@ -1,0 +1,288 @@
+// rule_set_id: kr.p2.relative_property_crime_exception.native.v1_candidate
+// status: draft
+// legal_review: pending
+// generated_from: validated RuleIR; model output is never executed directly
+
+// provable: 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+// sources: system contract
+// norm_cards: system contract
+type provable(String, String)
+
+// case_assessment_complete: 사건 라우터가 선택한 평가 묶음이 완결되어 결론 계층의 폐쇄세계 검사를 허용함
+// sources: system contract
+// norm_cards: system contract
+type case_assessment_complete(String, String)
+
+// distinct_entity: 사건의 entity resolution에서 두 역할이 서로 다른 실체임이 확인됨
+// sources: system contract
+// norm_cards: system contract
+type distinct_entity(String, String, String)
+
+// relative_property_exception_case_roles: 재산죄 행위자, 목적물, 소유자·점유자, 전제 재산죄 outcome의 역할 tuple
+// sources: system contract
+// norm_cards: system contract
+type relative_property_exception_case_roles(String, String, String, String, String, String)
+
+// relative_property_crime_exception_not_established: 증명된 불성립 사유 또는 경계 이동이 존재함
+// sources: system contract
+// norm_cards: system contract
+type relative_property_crime_exception_not_established(String, String, String)
+
+// relative_property_crime_exception_undetermined: 관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음
+// sources: system contract
+// norm_cards: system contract
+type relative_property_crime_exception_undetermined(String, String, String)
+
+// relative_property_crime_exception_conflict: 같은 카드에 satisfied와 not_satisfied 평가가 모두 증명됨
+// sources: system contract
+// norm_cards: system contract
+type relative_property_crime_exception_conflict(String, String, String)
+
+// relative_property_crime_exception_track_not_established: 해당 track에만 적용되는 증명된 불성립 사유 또는 경계 이동
+// sources: system contract
+// norm_cards: system contract
+type relative_property_crime_exception_track_not_established(String, String, String, String)
+
+// relative_property_crime_exception_track_conflict: 해당 track에 적용되는 카드 평가 충돌
+// sources: system contract
+// norm_cards: system contract
+type relative_property_crime_exception_track_conflict(String, String, String, String)
+
+// relative_property_crime_exception_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type relative_property_crime_exception_track_has_negative(String, String, String)
+
+// relative_property_crime_exception_track_has_conflict: 해당 track에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type relative_property_crime_exception_track_has_conflict(String, String, String)
+
+// assess_art344_x_raw_pdf_article328_theft_offenses_scope: 이 카드의 사건별 적용 평가: 형법 제328조의 친족상도례 규정은 절도·야간주거침입절도·특수절도·자동차등불법사용 및 상습범과 그 미수범에 한하여 준용된다.
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.article328_theft_offenses_scope
+type assess_art344_x_raw_pdf_article328_theft_offenses_scope(String, String, String, String, String, String, String, String)
+
+// satisfied_art344_x_raw_pdf_article328_theft_offenses_scope: 증명 가능한 평가에서 다음 조건이 충족됨: 형법 제328조의 친족상도례 규정은 절도·야간주거침입절도·특수절도·자동차등불법사용 및 상습범과 그 미수범에 한하여 준용된다.
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.article328_theft_offenses_scope
+type satisfied_art344_x_raw_pdf_article328_theft_offenses_scope(String, String, String, String, String, String)
+
+// assess_art344_x_raw_pdf_kinship_only_one_holder_no_application: 이 카드의 사건별 적용 평가: 범인이 목적물의 소유자 또는 점유자 중 어느 일방과만 친족관계에 있는 경우에는 절도죄에 형법 제328조가 적용되지 않는다.
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.kinship_only_one_holder_no_application
+type assess_art344_x_raw_pdf_kinship_only_one_holder_no_application(String, String, String, String, String, String, String, String)
+
+// satisfied_art344_x_raw_pdf_kinship_only_one_holder_no_application: 증명 가능한 평가에서 다음 조건이 충족됨: 범인이 목적물의 소유자 또는 점유자 중 어느 일방과만 친족관계에 있는 경우에는 절도죄에 형법 제328조가 적용되지 않는다.
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.kinship_only_one_holder_no_application
+type satisfied_art344_x_raw_pdf_kinship_only_one_holder_no_application(String, String, String, String, String, String)
+
+// assess_art344_x_raw_pdf_kinship_with_owner_and_possessor: 이 카드의 사건별 적용 평가: 절도죄에서 형법 제328조가 적용되려면 범인과 목적물의 소유자 및 점유자 모두 사이에 친족관계가 있어야 한다.
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.kinship_with_owner_and_possessor
+type assess_art344_x_raw_pdf_kinship_with_owner_and_possessor(String, String, String, String, String, String, String, String)
+
+// satisfied_art344_x_raw_pdf_kinship_with_owner_and_possessor: 증명 가능한 평가에서 다음 조건이 충족됨: 절도죄에서 형법 제328조가 적용되려면 범인과 목적물의 소유자 및 점유자 모두 사이에 친족관계가 있어야 한다.
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.kinship_with_owner_and_possessor
+type satisfied_art344_x_raw_pdf_kinship_with_owner_and_possessor(String, String, String, String, String, String)
+
+// assess_art344_x_raw_pdf_robbery_no_family_benefit: 이 카드의 사건별 적용 평가: 각종 강도죄 및 그 미수범에는 범인과 피해자 사이에 가까운 친족관계가 있더라도 형법 제328조에 따른 형면제 또는 친고죄 등의 혜택이 적용되지 않는다.
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.robbery_no_family_benefit
+type assess_art344_x_raw_pdf_robbery_no_family_benefit(String, String, String, String, String, String, String, String)
+
+// satisfied_art344_x_raw_pdf_robbery_no_family_benefit: 증명 가능한 평가에서 다음 조건이 충족됨: 각종 강도죄 및 그 미수범에는 범인과 피해자 사이에 가까운 친족관계가 있더라도 형법 제328조에 따른 형면제 또는 친고죄 등의 혜택이 적용되지 않는다.
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.robbery_no_family_benefit
+type satisfied_art344_x_raw_pdf_robbery_no_family_benefit(String, String, String, String, String, String)
+
+// relative_property_crime_exception_exception_eligible_property_offense_satisfied: 'eligible_property_offense' 요건이 충족됨 (exception track, mandatory_all)
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.article328_theft_offenses_scope
+type relative_property_crime_exception_exception_eligible_property_offense_satisfied(String, String, String, String, String, String)
+
+// relative_property_crime_exception_exception_kinship_with_owner_and_possessor_satisfied: 'kinship_with_owner_and_possessor' 요건이 충족됨 (exception track, mandatory_all)
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.kinship_with_owner_and_possessor
+type relative_property_crime_exception_exception_kinship_with_owner_and_possessor_satisfied(String, String, String, String, String, String)
+
+// relative_property_crime_exception_has_negative: 이 unit에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type relative_property_crime_exception_has_negative(String, String)
+
+// relative_property_crime_exception_has_conflict: 이 unit에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type relative_property_crime_exception_has_conflict(String, String)
+
+// relative_property_crime_exception_exception_elements_satisfied: 'exception' track의 구성요건 component가 모두 충족된 잠정 성립 후보
+// sources: system contract
+// norm_cards: system contract
+type relative_property_crime_exception_exception_elements_satisfied(String, String, String, String, String, String)
+
+// relative_property_crime_exception_exception_established: 완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 'exception' track 확정 성립
+// sources: system contract
+// norm_cards: system contract
+type relative_property_crime_exception_exception_established(String, String, String, String, String, String)
+
+// rule_id: relative_property_crime_exception.card.art344_x_raw_pdf_article328_theft_offenses_scope.satisfied
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.article328_theft_offenses_scope
+rel satisfied_art344_x_raw_pdf_article328_theft_offenses_scope(case_id, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id) = assess_art344_x_raw_pdf_article328_theft_offenses_scope(case_id, assessment_001, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id, "satisfied") and
+  provable(case_id, assessment_001)
+
+// rule_id: relative_property_crime_exception.card.art344_x_raw_pdf_article328_theft_offenses_scope.undetermined
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.article328_theft_offenses_scope
+rel relative_property_crime_exception_undetermined(case_id, defendant_id, "art344_x_raw_pdf.article328_theft_offenses_scope") = assess_art344_x_raw_pdf_article328_theft_offenses_scope(case_id, unknown_001, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id, "unknown") and
+  provable(case_id, unknown_001)
+
+// rule_id: relative_property_crime_exception.card.art344_x_raw_pdf_article328_theft_offenses_scope.conflict
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.article328_theft_offenses_scope
+rel relative_property_crime_exception_conflict(case_id, defendant_id, "art344_x_raw_pdf.article328_theft_offenses_scope") = assess_art344_x_raw_pdf_article328_theft_offenses_scope(case_id, positive_001, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id, "satisfied") and
+  assess_art344_x_raw_pdf_article328_theft_offenses_scope(case_id, negative_001, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id, "not_satisfied") and
+  provable(case_id, positive_001) and
+  provable(case_id, negative_001)
+
+// rule_id: relative_property_crime_exception.card.art344_x_raw_pdf_kinship_only_one_holder_no_application.satisfied
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.kinship_only_one_holder_no_application
+rel satisfied_art344_x_raw_pdf_kinship_only_one_holder_no_application(case_id, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id) = assess_art344_x_raw_pdf_kinship_only_one_holder_no_application(case_id, assessment_002, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id, "satisfied") and
+  provable(case_id, assessment_002)
+
+// rule_id: relative_property_crime_exception.card.art344_x_raw_pdf_kinship_only_one_holder_no_application.undetermined
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.kinship_only_one_holder_no_application
+rel relative_property_crime_exception_undetermined(case_id, defendant_id, "art344_x_raw_pdf.kinship_only_one_holder_no_application") = assess_art344_x_raw_pdf_kinship_only_one_holder_no_application(case_id, unknown_002, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id, "unknown") and
+  provable(case_id, unknown_002)
+
+// rule_id: relative_property_crime_exception.card.art344_x_raw_pdf_kinship_only_one_holder_no_application.conflict
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.kinship_only_one_holder_no_application
+rel relative_property_crime_exception_conflict(case_id, defendant_id, "art344_x_raw_pdf.kinship_only_one_holder_no_application") = assess_art344_x_raw_pdf_kinship_only_one_holder_no_application(case_id, positive_002, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id, "satisfied") and
+  assess_art344_x_raw_pdf_kinship_only_one_holder_no_application(case_id, negative_002, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id, "not_satisfied") and
+  provable(case_id, positive_002) and
+  provable(case_id, negative_002)
+
+// rule_id: relative_property_crime_exception.card.art344_x_raw_pdf_kinship_with_owner_and_possessor.satisfied
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.kinship_with_owner_and_possessor
+rel satisfied_art344_x_raw_pdf_kinship_with_owner_and_possessor(case_id, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id) = assess_art344_x_raw_pdf_kinship_with_owner_and_possessor(case_id, assessment_003, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id, "satisfied") and
+  provable(case_id, assessment_003)
+
+// rule_id: relative_property_crime_exception.card.art344_x_raw_pdf_kinship_with_owner_and_possessor.undetermined
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.kinship_with_owner_and_possessor
+rel relative_property_crime_exception_undetermined(case_id, defendant_id, "art344_x_raw_pdf.kinship_with_owner_and_possessor") = assess_art344_x_raw_pdf_kinship_with_owner_and_possessor(case_id, unknown_003, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id, "unknown") and
+  provable(case_id, unknown_003)
+
+// rule_id: relative_property_crime_exception.card.art344_x_raw_pdf_kinship_with_owner_and_possessor.conflict
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.kinship_with_owner_and_possessor
+rel relative_property_crime_exception_conflict(case_id, defendant_id, "art344_x_raw_pdf.kinship_with_owner_and_possessor") = assess_art344_x_raw_pdf_kinship_with_owner_and_possessor(case_id, positive_003, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id, "satisfied") and
+  assess_art344_x_raw_pdf_kinship_with_owner_and_possessor(case_id, negative_003, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id, "not_satisfied") and
+  provable(case_id, positive_003) and
+  provable(case_id, negative_003)
+
+// rule_id: relative_property_crime_exception.card.art344_x_raw_pdf_robbery_no_family_benefit.satisfied
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.robbery_no_family_benefit
+rel satisfied_art344_x_raw_pdf_robbery_no_family_benefit(case_id, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id) = assess_art344_x_raw_pdf_robbery_no_family_benefit(case_id, assessment_004, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id, "satisfied") and
+  provable(case_id, assessment_004)
+
+// rule_id: relative_property_crime_exception.card.art344_x_raw_pdf_robbery_no_family_benefit.undetermined
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.robbery_no_family_benefit
+rel relative_property_crime_exception_undetermined(case_id, defendant_id, "art344_x_raw_pdf.robbery_no_family_benefit") = assess_art344_x_raw_pdf_robbery_no_family_benefit(case_id, unknown_004, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id, "unknown") and
+  provable(case_id, unknown_004)
+
+// rule_id: relative_property_crime_exception.card.art344_x_raw_pdf_robbery_no_family_benefit.conflict
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.robbery_no_family_benefit
+rel relative_property_crime_exception_conflict(case_id, defendant_id, "art344_x_raw_pdf.robbery_no_family_benefit") = assess_art344_x_raw_pdf_robbery_no_family_benefit(case_id, positive_004, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id, "satisfied") and
+  assess_art344_x_raw_pdf_robbery_no_family_benefit(case_id, negative_004, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id, "not_satisfied") and
+  provable(case_id, positive_004) and
+  provable(case_id, negative_004)
+
+// rule_id: relative_property_crime_exception.component.exception.eligible_property_offense.all
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.article328_theft_offenses_scope
+rel relative_property_crime_exception_exception_eligible_property_offense_satisfied(case_id, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id) = satisfied_art344_x_raw_pdf_article328_theft_offenses_scope(case_id, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id)
+
+// rule_id: relative_property_crime_exception.component.exception.kinship_with_owner_and_possessor.all
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.kinship_with_owner_and_possessor
+rel relative_property_crime_exception_exception_kinship_with_owner_and_possessor_satisfied(case_id, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id) = satisfied_art344_x_raw_pdf_kinship_with_owner_and_possessor(case_id, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id)
+
+// rule_id: relative_property_crime_exception.track_conflict.exception.art344_x_raw_pdf_article328_theft_offenses_scope
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.article328_theft_offenses_scope
+rel relative_property_crime_exception_track_conflict(case_id, defendant_id, "exception", "art344_x_raw_pdf.article328_theft_offenses_scope") = relative_property_crime_exception_conflict(case_id, defendant_id, "art344_x_raw_pdf.article328_theft_offenses_scope")
+
+// rule_id: relative_property_crime_exception.track_conflict.exception.art344_x_raw_pdf_robbery_no_family_benefit
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.robbery_no_family_benefit
+rel relative_property_crime_exception_track_conflict(case_id, defendant_id, "exception", "art344_x_raw_pdf.robbery_no_family_benefit") = relative_property_crime_exception_conflict(case_id, defendant_id, "art344_x_raw_pdf.robbery_no_family_benefit")
+
+// rule_id: relative_property_crime_exception.track_blocked.exception.art344_x_raw_pdf_robbery_no_family_benefit
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.robbery_no_family_benefit
+rel relative_property_crime_exception_track_not_established(case_id, defendant_id, "exception", "art344_x_raw_pdf.robbery_no_family_benefit") = satisfied_art344_x_raw_pdf_robbery_no_family_benefit(case_id, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id)
+
+// rule_id: relative_property_crime_exception.track_conflict.exception.art344_x_raw_pdf_kinship_only_one_holder_no_application
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.kinship_only_one_holder_no_application
+rel relative_property_crime_exception_track_conflict(case_id, defendant_id, "exception", "art344_x_raw_pdf.kinship_only_one_holder_no_application") = relative_property_crime_exception_conflict(case_id, defendant_id, "art344_x_raw_pdf.kinship_only_one_holder_no_application")
+
+// rule_id: relative_property_crime_exception.track_blocked.exception.art344_x_raw_pdf_kinship_only_one_holder_no_application
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.kinship_only_one_holder_no_application
+rel relative_property_crime_exception_track_not_established(case_id, defendant_id, "exception", "art344_x_raw_pdf.kinship_only_one_holder_no_application") = satisfied_art344_x_raw_pdf_kinship_only_one_holder_no_application(case_id, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id)
+
+// rule_id: relative_property_crime_exception.track_conflict.exception.art344_x_raw_pdf_kinship_with_owner_and_possessor
+// sources: raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.kinship_with_owner_and_possessor
+rel relative_property_crime_exception_track_conflict(case_id, defendant_id, "exception", "art344_x_raw_pdf.kinship_with_owner_and_possessor") = relative_property_crime_exception_conflict(case_id, defendant_id, "art344_x_raw_pdf.kinship_with_owner_and_possessor")
+
+// rule_id: relative_property_crime_exception.summary.has_negative
+// sources: raw_001692_제344조_p001, raw_001692_제344조_p001, raw_001692_제344조_p001, raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.article328_theft_offenses_scope, art344_x_raw_pdf.kinship_only_one_holder_no_application, art344_x_raw_pdf.kinship_with_owner_and_possessor, art344_x_raw_pdf.robbery_no_family_benefit
+rel relative_property_crime_exception_has_negative(case_id, defendant_id) = relative_property_crime_exception_not_established(case_id, defendant_id, norm_card_id)
+
+// rule_id: relative_property_crime_exception.summary.has_conflict
+// sources: raw_001692_제344조_p001, raw_001692_제344조_p001, raw_001692_제344조_p001, raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.article328_theft_offenses_scope, art344_x_raw_pdf.kinship_only_one_holder_no_application, art344_x_raw_pdf.kinship_with_owner_and_possessor, art344_x_raw_pdf.robbery_no_family_benefit
+rel relative_property_crime_exception_has_conflict(case_id, defendant_id) = relative_property_crime_exception_conflict(case_id, defendant_id, norm_card_id)
+
+// rule_id: relative_property_crime_exception.summary.canonical_not_established
+// sources: raw_001692_제344조_p001, raw_001692_제344조_p001, raw_001692_제344조_p001, raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.article328_theft_offenses_scope, art344_x_raw_pdf.kinship_only_one_holder_no_application, art344_x_raw_pdf.kinship_with_owner_and_possessor, art344_x_raw_pdf.robbery_no_family_benefit
+rel relative_property_crime_exception_not_established(case_id, defendant_id, norm_card_id) = relative_property_crime_exception_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: relative_property_crime_exception.summary.track_has_negative
+// sources: raw_001692_제344조_p001, raw_001692_제344조_p001, raw_001692_제344조_p001, raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.article328_theft_offenses_scope, art344_x_raw_pdf.kinship_only_one_holder_no_application, art344_x_raw_pdf.kinship_with_owner_and_possessor, art344_x_raw_pdf.robbery_no_family_benefit
+rel relative_property_crime_exception_track_has_negative(case_id, defendant_id, track_id) = relative_property_crime_exception_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: relative_property_crime_exception.summary.track_has_conflict
+// sources: raw_001692_제344조_p001, raw_001692_제344조_p001, raw_001692_제344조_p001, raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.article328_theft_offenses_scope, art344_x_raw_pdf.kinship_only_one_holder_no_application, art344_x_raw_pdf.kinship_with_owner_and_possessor, art344_x_raw_pdf.robbery_no_family_benefit
+rel relative_property_crime_exception_track_has_conflict(case_id, defendant_id, track_id) = relative_property_crime_exception_track_conflict(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: relative_property_crime_exception.outcome.exception.elements_satisfied
+// sources: raw_001692_제344조_p001, raw_001692_제344조_p001, raw_001692_제344조_p001, raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.article328_theft_offenses_scope, art344_x_raw_pdf.kinship_only_one_holder_no_application, art344_x_raw_pdf.kinship_with_owner_and_possessor, art344_x_raw_pdf.robbery_no_family_benefit
+rel relative_property_crime_exception_exception_elements_satisfied(case_id, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id) = relative_property_crime_exception_exception_eligible_property_offense_satisfied(case_id, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id) and
+  relative_property_crime_exception_exception_kinship_with_owner_and_possessor_satisfied(case_id, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id)
+
+// rule_id: relative_property_crime_exception.outcome.exception.established
+// sources: raw_001692_제344조_p001, raw_001692_제344조_p001, raw_001692_제344조_p001, raw_001692_제344조_p001
+// norm_cards: art344_x_raw_pdf.article328_theft_offenses_scope, art344_x_raw_pdf.kinship_only_one_holder_no_application, art344_x_raw_pdf.kinship_with_owner_and_possessor, art344_x_raw_pdf.robbery_no_family_benefit
+rel relative_property_crime_exception_exception_established(case_id, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id) = relative_property_crime_exception_exception_elements_satisfied(case_id, defendant_id, property_id, owner_id, possessor_id, predicate_offense_id) and
+  case_assessment_complete(case_id, defendant_id) and
+  ~relative_property_crime_exception_track_has_negative(case_id, defendant_id, "exception") and
+  ~relative_property_crime_exception_track_has_conflict(case_id, defendant_id, "exception")

@@ -1,0 +1,121 @@
+{
+  "version": "1.0.0",
+  "unit_id": "relative_property_crime_exception",
+  "law_snapshot": {
+    "as_of_date": "2026-08-03",
+    "effective_source_date": "2026-03-12",
+    "future_snapshot_date": "2026-09-13",
+    "future_snapshot_policy": "separate_snapshot_not_active",
+    "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
+  },
+  "approval_document": "data/rulegen/p2/native_review/relative_property_crime_exception_approved_decisions.json",
+  "approval_sha256": "cf24f44f357f5388c05b92f74cfdc5a57155760fb9ac45ec928b9a1040875d06",
+  "approved_on": "2026-08-04",
+  "status": "ready_for_rule_ir",
+  "problems": [],
+  "unresolved_unit_references": [],
+  "excluded_cards": [
+    {
+      "card_id": "art344_x_raw_pdf.reported_kinship_classifications",
+      "reason": "개별 촌수 사례 소개로서 친족관계 FactGraph 산정 문맥"
+    }
+  ],
+  "tracks": [
+    {
+      "track_id": "exception",
+      "label": "친족상도례 준용"
+    }
+  ],
+  "placements": [
+    {
+      "card_id": "art344_x_raw_pdf.article328_theft_offenses_scope",
+      "part_id": null,
+      "role": "component",
+      "track_id": "exception",
+      "component_id": "eligible_property_offense",
+      "component_join": "mandatory_all",
+      "refers_to_unit": "theft",
+      "rationale": "절도·야간주거침입절도·특수절도·자동차불법사용·상습범과 그 미수",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art344_x_raw_pdf.robbery_no_family_benefit",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "exception",
+      "component_id": "eligible_property_offense",
+      "component_join": "not_applicable",
+      "refers_to_unit": "robbery",
+      "rationale": "강도죄 및 미수에 대한 친족상도례 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art344_x_raw_pdf.kinship_only_one_holder_no_application",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "exception",
+      "component_id": "kinship_with_owner_and_possessor",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "소유자 또는 점유자 한쪽과만 친족인 경우",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art344_x_raw_pdf.kinship_with_owner_and_possessor",
+      "part_id": null,
+      "role": "component",
+      "track_id": "exception",
+      "component_id": "kinship_with_owner_and_possessor",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "범인과 목적물 소유자·점유자 모두 사이의 친족관계",
+      "proposition_rewrite": null
+    }
+  ],
+  "components": [
+    {
+      "track_id": "exception",
+      "component_id": "eligible_property_offense",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [
+        "robbery",
+        "theft"
+      ],
+      "norm_card_ids": [
+        "art344_x_raw_pdf.article328_theft_offenses_scope",
+        "art344_x_raw_pdf.robbery_no_family_benefit"
+      ]
+    },
+    {
+      "track_id": "exception",
+      "component_id": "kinship_with_owner_and_possessor",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art344_x_raw_pdf.kinship_only_one_holder_no_application",
+        "art344_x_raw_pdf.kinship_with_owner_and_possessor"
+      ]
+    }
+  ],
+  "stats": {
+    "components": 2,
+    "context_only_placements": 1,
+    "decision_approve": 4,
+    "decision_context_only": 1,
+    "placements": 4,
+    "queue_cards": 5,
+    "unresolved_unit_references": 0
+  }
+}
