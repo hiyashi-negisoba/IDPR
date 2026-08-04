@@ -452,7 +452,7 @@ rulegen이 미착수**다.
 
 ## A6. 부정형 카드의 극성 처리 수정 (에이전트)
 
-상태: **완료 (2026-07-20, job `211051`/`211052`).** 전문 기록은 WORK_REPORT.md "부정형 카드
+상태: **완료 (2026-07-20, job `211051`/`211052`).** 전문 기록은 `docs/archive/history/WORK_REPORT.md` "부정형 카드
 극성 분리" 절, 88장 문장구조 분류는 `fraud_card_linguistic_difficulty.md`.
 
 원인: `fraud_intent.no_disposition_inducement_intent`(부정형, "…의사가 없으면 성립하지

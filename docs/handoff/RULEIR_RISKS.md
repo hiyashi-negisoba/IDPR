@@ -1,5 +1,8 @@
 # RuleIR predicate 계약: 재산죄 구조를 비재산죄에 그대로 쓸 수 있는가
 
+> 이 문서는 RuleIR 확장 시의 구조적 위험을 설명한다. 수치와 구현 상태는 작성 당시 기준이며,
+> 현재 차단 결점과 수리 순서는 [`CURRENT.md`](CURRENT.md)를 우선한다.
+
 작성 근거: `data/rulegen/rule_ir_registry_manifest.json`에 등록된 11개 unit의 RuleIR candidate
 JSON과 `rules/generated/*.scl` 전수 실측. 추정 없음.
 

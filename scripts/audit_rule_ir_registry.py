@@ -45,7 +45,11 @@ def render_markdown(report: dict) -> str:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--json-out", type=Path, default=ROOT / "data/rulegen/rule_ir_registry_audit.json")
-    parser.add_argument("--markdown-out", type=Path, default=ROOT / "docs/2026-08-03_rule_ir_registry_audit.md")
+    parser.add_argument(
+        "--markdown-out",
+        type=Path,
+        default=ROOT / "docs/audits/rule_ir_registry.md",
+    )
     args = parser.parse_args()
     report = audit_rule_ir_assets(ROOT)
     for path, content in (

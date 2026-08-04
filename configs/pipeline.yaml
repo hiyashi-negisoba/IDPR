@@ -1,29 +1,32 @@
-version: 0.1.0
+version: 0.2.0
 seed: 20260714
-llm_cache_dir: .cache/llm
-gateway:
-  provider: skiml_litellm
-  api_base_env: SKIML_API_BASE
-  api_key_env: SKIML_API_KEY
-  terra_model_env: IDPR_TERRA_MODEL
-  sol_model_env: IDPR_SOL_MODEL
-  ssl_verify_env: SKIML_SSL_VERIFY
-  max_concurrency_env: IDPR_LLM_MAX_CONCURRENCY
+pipeline:
+  id: lean_rule_ir_native
+  entrypoint: scripts/run_rule_ir_native_lean.py
+  inference_environment: inv_ass_env
+  symbolic_runtime: tools/scallop/scli-0.2.4-linux-x86_64
+  registry: data/rulegen/rule_ir_registry_manifest.json
 stages:
-  extraction:
-    module: idpr.extraction
-    model: placeholder
+  issue_selection:
+    owner: model
+    contract: closed_registry_enum
+  predicate_assessment:
+    owner: model
+    contract: all_registered_predicates
   reasoning:
-    module: idpr.reasoning
-    mode: deterministic_bootstrap
-    rule_roots:
-      - rules/kr
+    owner: host
+    module: idpr.rulegen.native_host
+    mode: committed_rule_ir_scallop
   generation:
-    module: idpr.generation
-    model: placeholder
+    owner: model_and_host
+    module: idpr.generation.native_rule_ir_answer
+    model_scope: law_and_application_only
+    conclusion_owner: host
   verification:
-    module: idpr.verification
-    hard_fail:
-      - inadmissible_use
-experiments:
-  registry: experiments/runs.jsonl
+    implemented: markdown_shape_only
+    required_next:
+      - proof_dag
+      - fired_rule_ids
+      - derivation_back_parse
+      - contradiction_and_unsupported_hard_fail
+known_gaps: docs/handoff/CURRENT.md

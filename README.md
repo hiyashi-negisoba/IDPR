@@ -9,13 +9,18 @@ case and question
   → direct assessment of every predicate and role in each selected unit
   → execution of the selected unit's committed Scallop program
   → one short law/application section per issue
-  → host-owned heading, conclusion, and provenance
+  → host-owned heading, conclusion, and asset hashes
 ```
 
-The runtime registry contains 36 reviewed RuleIR units and 1,652 input predicates.
+The runtime registry contains 36 executable RuleIR units and 1,652 input predicates.
 The model cannot invent a unit, omit predicates from a selected unit, substitute a
 generic FactGraph, or write the symbolic conclusion. An issue outside the registry is
 reported as `predicate_ir_missing`; it is never sent through a model-only fallback.
+
+This is a recovered execution path, not a finished proof-producing system. It currently
+reduces public Scallop query relations to booleans and does not emit a case-specific proof
+tree or fired RuleIR rules. Read [`docs/handoff/CURRENT.md`](docs/handoff/CURRENT.md)
+before changing the pipeline.
 
 ## Active implementation
 
@@ -28,6 +33,8 @@ reported as `predicate_ir_missing`; it is never sent through a model-only fallba
 - `scripts/audit_rule_ir_native_prompts.py`: three-stage prompt and schema gate
 - `scripts/slurm/run_rule_ir_native_lean_smoke.sh`: job-local Gemma/vLLM smoke
 - `data/rulegen/rule_ir_registry_manifest.json`: executable unit allowlist
+- `docs/README.md`: documentation map and authority levels
+- `docs/handoff/CURRENT.md`: known defects and required repair order
 
 The older issue-search, generic FactGraph, core-projection, and batch runners remain in
 the repository only as research history and comparison code. They are not imported by
@@ -72,4 +79,4 @@ IDPR_CASE_ID=CASE_ID sbatch scripts/slurm/run_rule_ir_native_lean_smoke.sh
 
 Raw benchmark and commentary sources are not committed. Copy `.env.example` to `.env`
 and configure local paths where needed. Generated model outputs and caches are ignored
-by Git; reviewed RuleIR, compiled SCL, schemas, and audits remain versioned.
+by Git; RuleIR/SCL candidates, schemas, legal-review ledgers, and audits remain versioned.

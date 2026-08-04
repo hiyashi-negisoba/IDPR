@@ -1,6 +1,10 @@
 # IDPR — In Dubio Pro Reo
 ## Logic-Verified Long-form Legal Document Generation
 
+> This is the original target architecture, not a claim that every stage is currently
+> implemented. Start with [`docs/handoff/CURRENT.md`](docs/handoff/CURRENT.md) for the
+> active path, verified guarantees, and blocking defects.
+
 > 프로젝트 초기화 문서 (v0.1, 2026-07-14)
 > 작성: 정재훈 / 대상: 파이프라인 개발 담당자
 > **최종 마감: 2026-08-11 (NLLP @ EMNLP 2026, non-archival long paper)**

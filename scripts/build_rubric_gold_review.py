@@ -30,7 +30,7 @@ INVENTORY_PATH = PROJECT_ROOT / "data" / "inventory" / "kcl_criminal_v1_draft.js
 PARQUET_PATH = Path(
     os.environ.get("IDPR_KCL_PARQUET", PROJECT_ROOT / "data/raw/kcl_essay_test.parquet")
 )
-OUT_PATH = PROJECT_ROOT / "docs" / "rubric_crime_article_review.md"
+OUT_PATH = PROJECT_ROOT / "docs" / "review" / "rubric_crime_article_review.md"
 
 CRIME_RE = re.compile(r"[가-힣0-9]{2,14}죄")  # 제3자뇌물…: digits or the name truncates
 # ``[^\S\n]`` and not ``\s``: ``\s*`` crosses the newline and matches the ``#`` of the next

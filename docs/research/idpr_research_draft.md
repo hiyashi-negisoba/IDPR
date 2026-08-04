@@ -774,7 +774,7 @@ Rubric은 모든 generation 완료 후 scoring에만 사용한다.
 
 - `README.md`
 - `project_init.md`
-- `WORK_REPORT.md`
+- `docs/archive/history/WORK_REPORT.md`
 - `docs/rulegen/scallop_rulegen_strategy.md`
 - `data/inventory/kcl_criminal_v1_review.md`
 - `data/commentary/kcl_criminal_v1_commentary_pool.json`

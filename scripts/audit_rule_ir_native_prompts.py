@@ -200,7 +200,7 @@ def main() -> int:
     parser.add_argument(
         "--markdown-out",
         type=Path,
-        default=ROOT / "docs/2026-08-04_rule_ir_native_kcl_prompt_audit.md",
+        default=ROOT / "docs/audits/rule_ir_native_prompts.md",
     )
     args = parser.parse_args()
     report = audit()

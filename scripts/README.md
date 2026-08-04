@@ -2,23 +2,30 @@
 
 ## Active pipeline
 
-- `run_call1_fact_graphs.py`: grounded fact extraction
-- `run_article_select.py`: neural article proposal
-- `run_l0_candidates.py`: retrieval/proposal union and issue scope persistence
-- `run_issue_assessment.py`: issue assessment plus Scallop composition for one case
-- `run_issue_answer.py`: constrained offence-level IRAC generation for one case
-- `run_issue_pipeline_batch.py`: resumable dataset sweep
-- `refresh_l0_issue_catalog.py`: deterministic refresh after rule-catalog changes
+- `run_rule_ir_native_lean.py`: the only active one-case runtime entry point
+- `slurm/run_rule_ir_native_lean_smoke.sh`: job-local `inv_ass_env`/vLLM smoke
+- `audit_rule_ir_native_prompts.py`: active prompt and structured-output audit
+- `audit_rule_ir_registry.py`: registered RuleIR/SCL asset audit
 
-## Diagnostics
+The active path is closed unit selection -> complete predicate assessment -> committed
+Scallop execution -> section prose with a host-owned conclusion. See
+`docs/handoff/CURRENT.md` for the defects that remain.
 
-Fixed-case checks and historical flat-card comparisons live under `diagnostics/` and
-`slurm/diagnostics/`. They may contain explicit fixture IDs by design and must not be used
-as production entry points.
+## RuleIR asset builders and goldens
 
-## Archived pilot and rule-generation tools
+- `build_property_rule_ir.py`, `build_p2_native_rule_ir.py`: deterministic candidate
+  builders; these are asset-generation tools, not runtime routers
+- `run_property_scallop_golden.py`, `run_p2_native_scallop_golden.py`: native Scallop
+  regression campaigns
+- other `rulegen`, `fraud`, `property`, and review scripts: provenance/reproduction tools
 
-Files whose names begin with `fraud_`, `property_`, or `rulegen_` reproduce earlier
-article-specific data-construction experiments. Their runtime code lives under
-`src/idpr/legacy/` when it is not part of the general card/issue compiler. They are not
-imported by the active pipeline.
+## Historical comparison paths
+
+`run_call1_fact_graphs.py`, `run_article_select.py`, `run_l0_candidates.py`,
+`run_issue_assessment.py`, `run_issue_answer.py`, and `run_issue_pipeline_batch.py`
+belong to the superseded issue-search/FactGraph pipeline. They remain for experiments
+and comparison only. Do not use them as the active pipeline and do not import them from
+`run_rule_ir_native_lean.py`.
+
+Fixed-case checks and old comparisons live under `diagnostics/` and
+`slurm/diagnostics/` and are never production entry points.
