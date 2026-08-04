@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0", "authority": "delegated_human_legal_review", "unit_id": "dereliction_of_duty", "approved_on": "2026-08-04",
+  "policy": {"approval": "Delegated normalization on 2026-08-04", "scope": "제122조 직무유기 기본죄", "threshold": "구체적 본래 직무, 의식적 방임·포기, 높은 법익침해와 고의를 각각 요구", "boundary": "단순 태만·부실·절차위반과 위법·무근거 명령은 bar", "post_outcome": "죄수·교사·특별법은 성립 후 연결"},
+  "track_vocabulary": [{"track_id": "base", "label": "제122조 직무유기"}],
+  "decision_groups": [
+    {"card_numbers": [19, 22], "decision": "approve", "role": "component", "component_id": "public_official_status", "component_join": "alternative_any", "track_id": "base", "refers_to_unit": null, "rationale": "형법상 공무원인 진정신분범 주체"},
+    {"card_numbers": [20, 21, 23], "decision": "approve", "role": "bar", "component_id": "public_official_status", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": null, "rationale": "구체적 작위의무 없는 병가자·단순노무자·근거 없는 공법인 직원의 주체 배제"},
+    {"card_numbers": [24, 26, 27], "decision": "approve", "role": "component", "component_id": "specific_original_duty", "component_join": "alternative_any", "track_id": "base", "refers_to_unit": null, "rationale": "법령·지시명령에 근거한 본래의 구체적 직무"},
+    {"card_numbers": [30], "decision": "approve", "role": "bar", "component_id": "specific_original_duty", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": null, "rationale": "위법하거나 법적 근거 없는 상관명령의 직무의무 배제"},
+    {"card_numbers": [1, 4, 5, 6, 7, 10, 11, 13, 16, 17, 25, 29, 37], "decision": "approve", "role": "component", "component_id": "conscious_abandonment", "component_join": "alternative_any", "track_id": "base", "refers_to_unit": null, "rationale": "정당한 이유 없는 의식적 직무 방임·포기의 일반기준과 승인 사례"},
+    {"card_numbers": [2, 3, 8, 9, 12, 14, 15, 28, 31], "decision": "approve", "role": "bar", "component_id": "conscious_abandonment", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": null, "rationale": "단순 부실·소홀·절차위반 또는 의식적 포기로 평가되지 않는 사안"},
+    {"card_numbers": [18], "decision": "approve", "role": "component", "component_id": "substantial_wrongfulness", "component_join": "mandatory_all", "track_id": "base", "refers_to_unit": null, "rationale": "국가기능 저해·국민피해 위험과 높은 불법·책임비난 정도"},
+    {"card_numbers": [32], "decision": "approve", "role": "component", "component_id": "intent", "component_join": "mandatory_all", "track_id": "base", "refers_to_unit": null, "rationale": "적극적 의식적 방임·포기에 대한 인식"},
+    {"card_numbers": [33, 45], "decision": "approve", "role": "post_outcome", "component_id": "instigation", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": "complicity", "rationale": "직무유기 교사와 경합은 공유 총칙 module에서 처리"},
+    {"card_numbers": [34], "decision": "approve", "role": "post_outcome", "component_id": "offense_count", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": null, "rationale": "계속된 위법상태의 포괄일죄"},
+    {"card_numbers": [35, 36], "decision": "approve", "role": "post_outcome", "component_id": "false_document_concurrence", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": "false_public_document", "rationale": "허위공문서작성과 흡수 또는 실체적 경합"},
+    {"card_numbers": [38], "decision": "approve", "role": "post_outcome", "component_id": "absorption", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": "evidence_destruction", "rationale": "증거인멸 작위범의 흡수"},
+    {"card_numbers": [40], "decision": "approve", "role": "post_outcome", "component_id": "absorption", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": "harboring_offender", "rationale": "범인도피 작위범의 흡수"},
+    {"card_numbers": [41, 42], "decision": "approve", "role": "post_outcome", "component_id": "office_abuse", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": "abuse_of_authority", "rationale": "직권남용죄와 공소·흡수 관계"},
+    {"card_numbers": [43], "decision": "approve", "role": "post_outcome", "component_id": "absorption", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": "deceptive_obstruction_of_official_duty", "rationale": "위계공무집행방해 작위범의 흡수"},
+    {"card_numbers": [44, 46, 47, 48, 49], "decision": "approve", "role": "post_outcome", "component_id": "special_statute", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": "special_dereliction_offense", "rationale": "건축법·인권옹호·군형법·특가법의 별도 구성요건과 경계"},
+    {"card_numbers": [39], "decision": "context_only", "role": "context_only", "rationale": "공소범위와 현실적 심판대상에 관한 절차법 문맥"}
+  ], "placement_defaults": [], "proposition_rewrites": {}
+}

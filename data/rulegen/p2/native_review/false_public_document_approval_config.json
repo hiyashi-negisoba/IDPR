@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0", "authority": "delegated_human_legal_review", "unit_id": "false_public_document", "approved_on": "2026-08-04",
+  "policy": {"approval": "Delegated normalization on 2026-08-04 and inherited Decision C", "scope": "제227조 허위공문서작성·변개", "authority": "작성권한 있는 공무원과 선택된 보조공무원 간접정범 견해", "falsehood": "표시내용과 진실의 불일치만 대상으로 하고 법령 오적용·부정목적만으로 확대하지 않음"},
+  "track_vocabulary": [{"track_id": "base", "label": "제227조 허위공문서작성·변개"}],
+  "decision_groups": [
+    {"card_numbers": [2, 3, 4, 9, 11, 14, 20, 44], "decision": "approve", "role": "component", "component_id": "official_authority", "component_join": "alternative_any", "track_id": "base", "refers_to_unit": null, "rationale": "직무상 작성권한 있는 공무원 및 결정 C가 선택한 보조공무원 간접정범"},
+    {"card_numbers": [8, 10, 21, 22], "decision": "approve", "role": "bar", "component_id": "official_authority", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": "public_document_forgery", "rationale": "무권한 공무원·비공무원 또는 무결재 보조공무원의 위조 경계"},
+    {"card_numbers": [18, 19], "decision": "approve", "role": "component", "component_id": "official_document", "component_join": "alternative_any", "track_id": "base", "refers_to_unit": null, "rationale": "작성자를 추지할 수 있는 공문서·공도화 객체"},
+    {"card_numbers": [1, 12, 15, 16, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 38, 41], "decision": "approve", "role": "component", "component_id": "false_creation_or_change", "component_join": "alternative_any", "track_id": "base", "refers_to_unit": null, "rationale": "직무 문서에 진실과 다른 사실을 기재·누락·변개한 실행행위"},
+    {"card_numbers": [13, 17, 26, 37, 39, 40], "decision": "approve", "role": "bar", "component_id": "false_creation_or_change", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": null, "rationale": "진술 그대로의 기록·진실한 내용·법령 오적용·실제 검사 가능한 경우"},
+    {"card_numbers": [5, 6, 36], "decision": "approve", "role": "component", "component_id": "intent_and_use_purpose", "component_join": "alternative_any", "track_id": "base", "refers_to_unit": null, "rationale": "허위·직무관련성의 고의와 진정문서처럼 사용할 목적"},
+    {"card_numbers": [7], "decision": "approve", "role": "bar", "component_id": "intent_and_use_purpose", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": null, "rationale": "오기·부주의·관행상 기재의 고의 부재"},
+    {"card_numbers": [42], "decision": "approve", "role": "post_outcome", "component_id": "dereliction_concurrence", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": "dereliction_of_duty", "rationale": "직무유기와 실체적 경합"},
+    {"card_numbers": [43], "decision": "approve", "role": "post_outcome", "component_id": "bribery_concurrence", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": "bribe_receipt", "rationale": "수뢰후부정처사와 상상적 경합"}
+  ], "placement_defaults": [], "proposition_rewrites": {}
+}

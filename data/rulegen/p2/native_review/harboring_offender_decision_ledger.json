@@ -1,0 +1,877 @@
+{
+  "version": "1.0.0",
+  "unit_id": "harboring_offender",
+  "law_snapshot": {
+    "as_of_date": "2026-08-03",
+    "effective_source_date": "2026-03-12",
+    "future_snapshot_date": "2026-09-13",
+    "future_snapshot_policy": "separate_snapshot_not_active",
+    "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
+  },
+  "approval_document": "data/rulegen/p2/native_review/harboring_offender_approved_decisions.json",
+  "approval_sha256": "aaecc040bd107ddd89066117cf31e2f42ad09686a11f414f8142563014bd99ee",
+  "approved_on": "2026-08-04",
+  "status": "ready_for_rule_ir",
+  "problems": [],
+  "unresolved_unit_references": [
+    {
+      "card_id": "art151_sec2_5.self_escape_instigation_abuse_of_defense_precedent",
+      "part_id": null,
+      "refers_to_unit": "complicity",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art151_sec2_6.military_deserter_harboring_special_law",
+      "part_id": null,
+      "refers_to_unit": "military_deserter_harboring",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art151_sec3_3.nonrelative_accomplice",
+      "part_id": null,
+      "refers_to_unit": "complicity",
+      "status": "predicate_ir_missing"
+    }
+  ],
+  "excluded_cards": [
+    {
+      "card_id": "art151_sec3_2.covered_relatives",
+      "reason": "친족 범위와 본인을 위한 형사상 이익의 특례 해석 문맥"
+    },
+    {
+      "card_id": "art151_sec3_2.criminal_benefit_objective_test",
+      "reason": "친족 범위와 본인을 위한 형사상 이익의 특례 해석 문맥"
+    },
+    {
+      "card_id": "art151_sec3_2.for_benefit_of_principal",
+      "reason": "친족 범위와 본인을 위한 형사상 이익의 특례 해석 문맥"
+    },
+    {
+      "card_id": "art151_sec3_2.non_criminal_benefit_exclusion",
+      "reason": "친족 범위와 본인을 위한 형사상 이익의 특례 해석 문맥"
+    }
+  ],
+  "tracks": [
+    {
+      "track_id": "base",
+      "label": "제151조 범인은닉·도피"
+    }
+  ],
+  "placements": [
+    {
+      "card_id": "art151_sec2_6.duty_officer_escape_only",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "absorption",
+      "component_join": "not_applicable",
+      "refers_to_unit": "dereliction_of_duty",
+      "rationale": "보증인 공무원의 직무유기 흡수",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_3.attempt_commencement",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "attempt_stage",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "실행착수와 불가벌 미수",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_3.no_attempt_punishment",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "attempt_stage",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "실행착수와 불가벌 미수",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.accomplice_other_accomplice",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "발견·체포를 곤란하게 하는 장소 제공 또는 직접 도피원조",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.attorney_false_statements",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "발견·체포를 곤란하게 하는 장소 제공 또는 직접 도피원조",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.backdated_agreement_no_risk",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "소극적 진술·간접 안심·일반인 부작위·준비·통상 인사의 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.concealment_place",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "발견·체포를 곤란하게 하는 장소 제공 또는 직접 도피원조",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.direct_escape_assistance_assessment",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "발견·체포를 곤란하게 하는 장소 제공 또는 직접 도피원조",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.escape_assistance_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "발견·체포를 곤란하게 하는 장소 제공 또는 직접 도피원조",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.escape_directness",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "발견·체포를 곤란하게 하는 장소 제공 또는 직접 도피원조",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.false_confession_not_concealment",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "소극적 진술·간접 안심·일반인 부작위·준비·통상 인사의 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.false_statement_threshold",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "소극적 진술·간접 안심·일반인 부작위·준비·통상 인사의 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.indirect_reassurance",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "소극적 진술·간접 안심·일반인 부작위·준비·통상 인사의 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.known_warrant_notification",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "발견·체포를 곤란하게 하는 장소 제공 또는 직접 도피원조",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.lending_identification_documents",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "발견·체포를 곤란하게 하는 장소 제공 또는 직접 도피원조",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.nominee_business_owner",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "발견·체포를 곤란하게 하는 장소 제공 또는 직접 도피원조",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.nominee_lease_fugitive",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "발견·체포를 곤란하게 하는 장소 제공 또는 직접 도피원조",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.nonappearance_discoverable_residence",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "소극적 진술·간접 안심·일반인 부작위·준비·통상 인사의 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.nonprosecution_suspension_holding",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "발견·체포를 곤란하게 하는 장소 제공 또는 직접 도피원조",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.omission_concealment_general_citizen",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "소극적 진술·간접 안심·일반인 부작위·준비·통상 인사의 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.omission_escape_guarantor",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "소극적 진술·간접 안심·일반인 부작위·준비·통상 인사의 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.passive_false_confession",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "소극적 진술·간접 안심·일반인 부작위·준비·통상 인사의 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.preparatory_conduct",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "소극적 진술·간접 안심·일반인 부작위·준비·통상 인사의 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.routine_greeting",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "소극적 진술·간접 안심·일반인 부작위·준비·통상 인사의 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.unknown_warrant_targets",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "소극적 진술·간접 안심·일반인 부작위·준비·통상 인사의 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_3.preparation_remittance_holding",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "소극적 진술·간접 안심·일반인 부작위·준비·통상 인사의 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_4.clergy_active_assistance_not_justified",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "발견·체포를 곤란하게 하는 장소 제공 또는 직접 도피원조",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec3_3.nonrelative_accomplice",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "cooffender_effect",
+      "component_join": "not_applicable",
+      "refers_to_unit": "complicity",
+      "rationale": "친족과 비친족 공범의 인적 처벌조각 분리",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151.abstract_danger_offense",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "danger_and_completion",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "형사사법작용 방해 위험과 은닉·도피 상태의 기수·계속",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151.continuing_offense_completion",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "danger_and_completion",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "형사사법작용 방해 위험과 은닉·도피 상태의 기수·계속",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_3.completion_continuing_offense",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "danger_and_completion",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "형사사법작용 방해 위험과 은닉·도피 상태의 기수·계속",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_6.fabricated_evidence_obstruction",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "deceptive_obstruction",
+      "component_join": "not_applicable",
+      "refers_to_unit": "deceptive_obstruction_of_official_duty",
+      "rationale": "적극적 증거조작과 단순 허위자백·진술의 위계죄 경계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_6.false_confession_by_suspect",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "deceptive_obstruction",
+      "component_join": "not_applicable",
+      "refers_to_unit": "deceptive_obstruction_of_official_duty",
+      "rationale": "적극적 증거조작과 단순 허위자백·진술의 위계죄 경계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_6.false_statement_by_witness",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "deceptive_obstruction",
+      "component_join": "not_applicable",
+      "refers_to_unit": "deceptive_obstruction_of_official_duty",
+      "rationale": "적극적 증거조작과 단순 허위자백·진술의 위계죄 경계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_5.self_escape_instigation_abuse_of_defense_precedent",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "instigation",
+      "component_join": "not_applicable",
+      "refers_to_unit": "complicity",
+      "rationale": "자기 도피 교사의 방어권 남용",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.conditional_intent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "벌금 이상 죄의 범인과 형사사법작용 곤란에 대한 고의",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.false_identification_no_evasion_intent",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "진범 도피 의사 또는 대상범죄 인식의 결여",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.intent_awareness_will",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "벌금 이상 죄의 범인과 형사사법작용 곤란에 대한 고의",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.knowledge_of_crime",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "벌금 이상 죄의 범인과 형사사법작용 곤란에 대한 고의",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.mistake_underlying_crime",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "진범 도피 의사 또는 대상범죄 인식의 결여",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.accomplice_defense_right",
+      "part_id": null,
+      "role": "waiver",
+      "track_id": "base",
+      "component_id": "lawful_defense_or_family",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "자기방어권 범위의 조력, 친족특례 또는 사회상규상 가족 지원",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.accomplice_substantively_self_defense",
+      "part_id": null,
+      "role": "waiver",
+      "track_id": "base",
+      "component_id": "lawful_defense_or_family",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "자기방어권 범위의 조력, 친족특례 또는 사회상규상 가족 지원",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.attorney_rights_advice",
+      "part_id": null,
+      "role": "waiver",
+      "track_id": "base",
+      "component_id": "lawful_defense_or_family",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "자기방어권 범위의 조력, 친족특례 또는 사회상규상 가족 지원",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.relative_cohabiting_family",
+      "part_id": null,
+      "role": "waiver",
+      "track_id": "base",
+      "component_id": "lawful_defense_or_family",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "자기방어권 범위의 조력, 친족특례 또는 사회상규상 가족 지원",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.supporting_fugitive_family",
+      "part_id": null,
+      "role": "waiver",
+      "track_id": "base",
+      "component_id": "lawful_defense_or_family",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "자기방어권 범위의 조력, 친족특례 또는 사회상규상 가족 지원",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_4.family_support_social_adequacy",
+      "part_id": null,
+      "role": "waiver",
+      "track_id": "base",
+      "component_id": "lawful_defense_or_family",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "자기방어권 범위의 조력, 친족특례 또는 사회상규상 가족 지원",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.self_concealment",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "non_offender_subject",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "자기은닉·도피의 구성요건 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.subject_other_than_offender",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "non_offender_subject",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "객체인 범인 이외의 행위자",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.complaint_possible",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "qualifying_offender",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "공소·확정 전을 포함한 벌금 이상 범죄의 위법·유책한 진범",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.no_indictment_conviction_required",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "qualifying_offender",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "공소·확정 전을 포함한 벌금 이상 범죄의 위법·유책한 진범",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.offender_participants_attempt",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "qualifying_offender",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "공소·확정 전을 포함한 벌금 이상 범죄의 위법·유책한 진범",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.offender_unlawful_culpable",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "qualifying_offender",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "위법성 또는 책임 조각된 자의 객체 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_2.qualifying_offense",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "qualifying_offender",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "공소·확정 전을 포함한 벌금 이상 범죄의 위법·유책한 진범",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art151_sec2_6.military_deserter_harboring_special_law",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "special_statute",
+      "component_join": "not_applicable",
+      "refers_to_unit": "military_deserter_harboring",
+      "rationale": "군형법 특별규정 우선",
+      "proposition_rewrite": null
+    }
+  ],
+  "components": [
+    {
+      "track_id": "base",
+      "component_id": "absorption",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "dereliction_of_duty"
+      ],
+      "norm_card_ids": [
+        "art151_sec2_6.duty_officer_escape_only"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "attempt_stage",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art151_sec2_3.attempt_commencement",
+        "art151_sec2_3.no_attempt_punishment"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "concealment_or_escape_assistance",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art151_sec2_2.accomplice_other_accomplice",
+        "art151_sec2_2.attorney_false_statements",
+        "art151_sec2_2.backdated_agreement_no_risk",
+        "art151_sec2_2.concealment_place",
+        "art151_sec2_2.direct_escape_assistance_assessment",
+        "art151_sec2_2.escape_assistance_definition",
+        "art151_sec2_2.escape_directness",
+        "art151_sec2_2.false_confession_not_concealment",
+        "art151_sec2_2.false_statement_threshold",
+        "art151_sec2_2.indirect_reassurance",
+        "art151_sec2_2.known_warrant_notification",
+        "art151_sec2_2.lending_identification_documents",
+        "art151_sec2_2.nominee_business_owner",
+        "art151_sec2_2.nominee_lease_fugitive",
+        "art151_sec2_2.nonappearance_discoverable_residence",
+        "art151_sec2_2.nonprosecution_suspension_holding",
+        "art151_sec2_2.omission_concealment_general_citizen",
+        "art151_sec2_2.omission_escape_guarantor",
+        "art151_sec2_2.passive_false_confession",
+        "art151_sec2_2.preparatory_conduct",
+        "art151_sec2_2.routine_greeting",
+        "art151_sec2_2.unknown_warrant_targets",
+        "art151_sec2_3.preparation_remittance_holding",
+        "art151_sec2_4.clergy_active_assistance_not_justified"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "cooffender_effect",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "complicity"
+      ],
+      "norm_card_ids": [
+        "art151_sec3_3.nonrelative_accomplice"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "danger_and_completion",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art151.abstract_danger_offense",
+        "art151.continuing_offense_completion",
+        "art151_sec2_3.completion_continuing_offense"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "deceptive_obstruction",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "deceptive_obstruction_of_official_duty"
+      ],
+      "norm_card_ids": [
+        "art151_sec2_6.fabricated_evidence_obstruction",
+        "art151_sec2_6.false_confession_by_suspect",
+        "art151_sec2_6.false_statement_by_witness"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "instigation",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "complicity"
+      ],
+      "norm_card_ids": [
+        "art151_sec2_5.self_escape_instigation_abuse_of_defense_precedent"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "intent",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art151_sec2_2.conditional_intent",
+        "art151_sec2_2.false_identification_no_evasion_intent",
+        "art151_sec2_2.intent_awareness_will",
+        "art151_sec2_2.knowledge_of_crime",
+        "art151_sec2_2.mistake_underlying_crime"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "lawful_defense_or_family",
+      "roles": [
+        "waiver"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art151_sec2_2.accomplice_defense_right",
+        "art151_sec2_2.accomplice_substantively_self_defense",
+        "art151_sec2_2.attorney_rights_advice",
+        "art151_sec2_2.relative_cohabiting_family",
+        "art151_sec2_2.supporting_fugitive_family",
+        "art151_sec2_4.family_support_social_adequacy"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "non_offender_subject",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art151_sec2_2.self_concealment",
+        "art151_sec2_2.subject_other_than_offender"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "qualifying_offender",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art151_sec2_2.complaint_possible",
+        "art151_sec2_2.no_indictment_conviction_required",
+        "art151_sec2_2.offender_participants_attempt",
+        "art151_sec2_2.offender_unlawful_culpable",
+        "art151_sec2_2.qualifying_offense"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "special_statute",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "military_deserter_harboring"
+      ],
+      "norm_card_ids": [
+        "art151_sec2_6.military_deserter_harboring_special_law"
+      ]
+    }
+  ],
+  "stats": {
+    "components": 12,
+    "context_only_placements": 4,
+    "decision_approve": 54,
+    "decision_context_only": 4,
+    "placements": 54,
+    "queue_cards": 58,
+    "unresolved_unit_references": 3
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "version": "1.0.0",
+  "status": "native_runtime_verified",
+  "approved_on": "2026-08-03",
+  "law_snapshot": {
+    "law_snapshot_id": "kr_criminal_act_effective_2026-08-03",
+    "as_of_date": "2026-08-03",
+    "effective_source_date": "2026-03-12",
+    "future_snapshot_date": "2026-09-13",
+    "future_snapshot_policy": "separate_snapshot_not_active"
+  },
+  "unit_principles": {
+    "unit_basis": "independently_queryable_offense",
+    "aggravation_policy": "same_unit_subtype_when_base_elements_are_shared",
+    "shared_module_policy": "reference_punishment_stage_and_result_modules_consume_outcome_bridges",
+    "runtime_policy": "registered_after_delegated_approval_ledger_rule_ir_scl_and_golden_all_pass"
+  },
+  "canonical_outcomes": ["established", "not_established", "undetermined", "conflict"],
+  "review_contract": {
+    "allowed_decisions": ["approve", "rewrite", "context_only", "split", "reject"],
+    "allowed_roles": ["component", "bar", "boundary", "waiver", "post_outcome", "context_only"],
+    "allowed_component_joins": ["mandatory_all", "alternative_any", "not_applicable"],
+    "required_human_fields": ["decision", "role", "component_id", "component_join", "track_id", "refers_to_unit", "rationale", "proposition_rewrite"]
+  },
+  "units": [
+    {"unit_id": "dereliction_of_duty", "label": "직무유기", "kind": "offense", "articles": ["art122"], "source_bundles": ["official_duty"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "official_secret_disclosure", "label": "공무상비밀누설", "kind": "offense", "articles": ["art127"], "source_bundles": ["official_duty"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "bribe_receipt", "label": "수뢰·사전수뢰", "kind": "offense", "articles": ["art129"], "source_bundles": ["bribery"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "third_party_bribery", "label": "제3자뇌물제공", "kind": "offense", "articles": ["art130"], "source_bundles": ["bribery"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "bribe_giving", "label": "뇌물공여", "kind": "offense", "articles": ["art133"], "source_bundles": ["bribery"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "obstruction_of_official_duty", "label": "공무집행방해", "kind": "offense", "articles": ["art136"], "source_bundles": ["official_duty"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "deceptive_obstruction_of_official_duty", "label": "위계공무집행방해", "kind": "offense", "articles": ["art137"], "source_bundles": ["official_duty"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "harboring_offender", "label": "범인은닉·도피", "kind": "offense", "articles": ["art151"], "source_bundles": ["justice_crimes"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "perjury", "label": "위증·모해위증", "kind": "offense", "articles": ["art152"], "source_bundles": ["justice_crimes"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "arson_of_occupied_structure", "label": "현주건조물등방화", "kind": "offense", "articles": ["art164"], "source_bundles": ["arson"], "inherited_decision_groups": ["art250_sec2_10.arson_death_parricide_concurrence"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "public_document_forgery", "label": "공문서등위조·변조", "kind": "offense", "articles": ["art225"], "source_bundles": ["document_crimes"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "false_public_document", "label": "허위공문서작성", "kind": "offense", "articles": ["art227"], "source_bundles": ["document_crimes"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "private_document_forgery", "label": "사문서등위조·변조", "kind": "offense", "articles": ["art231"], "source_bundles": ["document_crimes"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "use_of_forged_private_document", "label": "위조사문서등행사", "kind": "offense", "articles": ["art234"], "source_bundles": ["document_crimes"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "seal_forgery_or_misuse", "label": "사인등위조·부정사용", "kind": "offense", "articles": ["art239"], "source_bundles": ["document_crimes"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "homicide", "label": "살인·존속살해", "kind": "offense", "articles": ["art250", "art254", "art255"], "source_bundles": ["homicide"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "intentional_bodily_injury", "label": "상해·특수상해·상해치사", "kind": "offense", "articles": ["art257", "art2582_2", "art259", "art263"], "source_bundles": ["bodily_injury"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "negligent_bodily_harm", "label": "과실치사·업무상과실치사상", "kind": "offense", "articles": ["art267", "art268"], "source_bundles": ["bodily_injury"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "rape", "label": "강간", "kind": "offense", "articles": ["art297"], "source_bundles": ["sexual_crimes"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "indecent_assault", "label": "강제추행", "kind": "offense", "articles": ["art298"], "source_bundles": ["sexual_crimes"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "quasi_sexual_offense", "label": "준강간·준강제추행", "kind": "offense", "articles": ["art299"], "source_bundles": ["sexual_crimes"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "sexual_offense_attempt", "label": "성범죄 미수", "kind": "shared_stage_module", "articles": ["art300"], "source_bundles": ["sexual_crimes"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "sexual_offense_injury_or_death", "label": "강간등상해·치상", "kind": "shared_result_module", "articles": ["art301"], "source_bundles": ["sexual_crimes"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "dwelling_intrusion", "label": "주거침입·퇴거불응", "kind": "offense", "articles": ["art319"], "source_bundles": ["dwelling_intrusion"], "review_status": "approved_ledger_runtime_verified"},
+    {"unit_id": "relative_property_crime_exception", "label": "친족상도례 준용", "kind": "shared_punishment_module", "articles": ["art344"], "source_bundles": ["dwelling_intrusion"], "review_status": "approved_ledger_runtime_verified", "existing_property_articles": ["art328"]}
+  ]
+}

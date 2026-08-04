@@ -1,0 +1,69 @@
+{
+  "version": "1.0.0",
+  "authority": "delegated_human_legal_review",
+  "unit_id": "relative_property_crime_exception",
+  "approved_on": "2026-08-04",
+  "approval_basis": [
+    "data/rulegen/p2/native_review/relative_property_crime_exception_approval_config.json"
+  ],
+  "policy": {
+    "approval": "Delegated normalization on 2026-08-04",
+    "scope": "제344조가 준용하는 제328조 친족상도례 shared punishment module",
+    "eligible": "절도계열 기수·미수에 한정하고 강도는 배제",
+    "kinship": "범인과 소유자 및 점유자 모두의 친족관계를 요구"
+  },
+  "track_vocabulary": [
+    {
+      "track_id": "exception",
+      "label": "친족상도례 준용"
+    }
+  ],
+  "cards": [
+    {
+      "card_id": "art344_x_raw_pdf.article328_theft_offenses_scope",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "eligible_property_offense",
+      "component_join": "mandatory_all",
+      "track_id": "exception",
+      "refers_to_unit": "theft",
+      "rationale": "절도·야간주거침입절도·특수절도·자동차불법사용·상습범과 그 미수"
+    },
+    {
+      "card_id": "art344_x_raw_pdf.kinship_only_one_holder_no_application",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "kinship_with_owner_and_possessor",
+      "component_join": "not_applicable",
+      "track_id": "exception",
+      "refers_to_unit": null,
+      "rationale": "소유자 또는 점유자 한쪽과만 친족인 경우"
+    },
+    {
+      "card_id": "art344_x_raw_pdf.kinship_with_owner_and_possessor",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "kinship_with_owner_and_possessor",
+      "component_join": "mandatory_all",
+      "track_id": "exception",
+      "refers_to_unit": null,
+      "rationale": "범인과 목적물 소유자·점유자 모두 사이의 친족관계"
+    },
+    {
+      "card_id": "art344_x_raw_pdf.reported_kinship_classifications",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "개별 촌수 사례 소개로서 친족관계 FactGraph 산정 문맥"
+    },
+    {
+      "card_id": "art344_x_raw_pdf.robbery_no_family_benefit",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "eligible_property_offense",
+      "component_join": "not_applicable",
+      "track_id": "exception",
+      "refers_to_unit": "robbery",
+      "rationale": "강도죄 및 미수에 대한 친족상도례 배제"
+    }
+  ]
+}

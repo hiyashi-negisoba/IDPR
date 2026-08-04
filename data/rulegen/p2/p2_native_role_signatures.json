@@ -1,0 +1,205 @@
+{
+  "version": "1.0.0",
+  "note": "unit별 역할 tuple. 재산죄 11개 unit의 arity가 2~6으로 이미 제각각이라 어휘를 물려받지 않고 unit마다 선언한다. 호스트가 FactGraph를 EDB로 주입할 때 인자 이름과 순서를 추측하지 않도록 서명을 데이터로 남긴다.",
+  "contract": {
+    "predicate_naming": "<unit_id 유래 이름>_case_roles",
+    "first_argument": "case_id는 항상 첫 인자다",
+    "track_override": "track별 역할이 다르면 tracks에 선언한다. 선언이 없으면 default를 쓴다"
+  },
+  "units": {
+    "arson_of_occupied_structure": {
+      "gate": "docs/review/2026-08-03_special_part_legal_gate_01.md#d7",
+      "default": {
+        "predicate": "arson_case_roles",
+        "arguments": ["case_id", "defendant_id", "structure_id", "occupant_id"],
+        "definition": "호스트가 확정한 방화 사건의 역할 tuple — 피고인, 목적물 건조물, 그 건조물의 주거자 또는 현존자",
+        "applies_to_tracks": ["base", "attempt", "completed"]
+      },
+      "tracks": {
+        "aggravated_result": {
+          "predicate": "arson_casualty_case_roles",
+          "arguments": ["case_id", "defendant_id", "structure_id", "victim_id"],
+          "definition": "치사상 track의 역할 tuple — 현존자와 사상자는 다대다 관계이므로 별도 tuple을 쓴다",
+          "status": "declared_not_compiled",
+          "reason": "D6에 따라 첫 컴파일 범위에서 제외한다"
+        }
+      }
+    },
+    "intentional_bodily_injury": {
+      "gate": "docs/review/2026-08-03_special_part_legal_gate_01.md#d7",
+      "default": {
+        "predicate": "bodily_injury_case_roles",
+        "arguments": ["case_id", "defendant_id", "victim_id"],
+        "definition": "호스트가 확정한 상해 사건의 역할 tuple — 피고인과 상해를 입은 피해자. 상해치사의 사망자는 상해 피해자와 동일인이므로 별도 역할을 두지 않는다",
+        "applies_to_tracks": ["base", "attempt", "ancestral", "special", "aggravated_result"]
+      },
+      "tracks": {
+        "concurrent_offenders": {
+          "predicate": "concurrent_offenders_case_roles",
+          "arguments": ["case_id", "defendant_id", "victim_id", "co_offender_id"],
+          "definition": "제263조 동시범 특례의 역할 tuple — 의사연락 없이 같은 피해자를 상해한 다른 행위자를 명시한다",
+          "status": "declared_not_compiled",
+          "reason": "특례는 2인 이상의 독립행위 경합을 전제하므로 단독 피고인 tuple로는 '원인행위가 판명되지 않음'을 표현할 수 없다. 공유 module로 이관할 때 이 서명으로 컴파일한다"
+        }
+      }
+    },
+    "homicide": {
+      "gate": "docs/review/2026-08-04_homicide_legal_gate_01.md",
+      "default": {
+        "predicate": "homicide_case_roles",
+        "arguments": ["case_id", "defendant_id", "victim_id"],
+        "definition": "호스트가 확정한 살인 사건의 역할 tuple — 피고인과 생명 침해의 객체인 피해자",
+        "applies_to_tracks": ["base", "omission", "attempt", "voluntary_desistance", "impossible_attempt", "parricide", "preparation"]
+      },
+      "tracks": {
+        "complicity": {
+          "predicate": "homicide_complicity_case_roles",
+          "arguments": ["case_id", "defendant_id", "victim_id", "accomplice_id"],
+          "definition": "살인 공범 track의 역할 tuple — 공동정범·교사·방조 관계의 상대방을 명시한다",
+          "status": "declared_not_compiled",
+          "reason": "단독 피고인 tuple로는 누가 누구를 교사·방조하거나 공동가공했는지 표현할 수 없어 공유 총칙 module로 이관한다"
+        }
+      }
+    },
+    "negligent_bodily_harm": {
+      "gate": "docs/review/2026-08-04_negligent_bodily_harm_legal_gate_01.md",
+      "default": {
+        "predicate": "negligent_bodily_harm_case_roles",
+        "arguments": ["case_id", "defendant_id", "victim_id"],
+        "definition": "호스트가 확정한 과실치사·업무상 또는 중과실치사상 사건의 역할 tuple — 피고인과 사망 또는 상해 결과를 입은 피해자",
+        "applies_to_tracks": ["ordinary", "occupational", "gross"]
+      },
+      "tracks": {}
+    },
+    "rape": {
+      "gate": "docs/review/2026-08-04_rape_legal_gate_01.md",
+      "default": {
+        "predicate": "rape_case_roles",
+        "arguments": ["case_id", "defendant_id", "victim_id"],
+        "definition": "호스트가 확정한 강간 사건의 역할 tuple — 피고인과 성적 자기결정권 침해의 객체인 피해자",
+        "applies_to_tracks": ["base"]
+      },
+      "tracks": {}
+    },
+    "indecent_assault": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {
+        "predicate": "indecent_assault_case_roles",
+        "arguments": ["case_id", "defendant_id", "victim_id"],
+        "definition": "호스트가 확정한 강제추행 사건의 역할 tuple — 피고인과 성적 자기결정권 침해의 객체인 피해자",
+        "applies_to_tracks": ["base"]
+      },
+      "tracks": {}
+    },
+    "quasi_sexual_offense": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {
+        "predicate": "quasi_sexual_offense_case_roles",
+        "arguments": ["case_id", "defendant_id", "victim_id"],
+        "definition": "호스트가 확정한 준강간·준유사강간·준강제추행 사건의 피고인과 피해자 역할 tuple",
+        "applies_to_tracks": ["base"]
+      },
+      "tracks": {}
+    },
+    "sexual_offense_attempt": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {
+        "predicate": "sexual_offense_attempt_case_roles",
+        "arguments": ["case_id", "defendant_id", "victim_id"],
+        "definition": "호스트가 predicate offense와 실행착수를 확정한 성범죄 미수의 피고인·피해자 tuple",
+        "applies_to_tracks": ["attempt"]
+      },
+      "tracks": {}
+    },
+    "sexual_offense_injury_or_death": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {
+        "predicate": "sexual_offense_result_case_roles",
+        "arguments": ["case_id", "defendant_id", "victim_id"],
+        "definition": "호스트가 전제 성범죄와 상해·사망 결과를 확정한 피고인·동일 피해자 tuple",
+        "applies_to_tracks": ["intentional_injury", "result_aggravated_injury", "death"]
+      },
+      "tracks": {}
+    },
+    "dereliction_of_duty": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "dereliction_case_roles", "arguments": ["case_id", "defendant_id", "duty_id"], "definition": "직무유기 피고인과 법령·명령상 구체적 본래 직무의 역할 tuple", "applies_to_tracks": ["base"]},
+      "tracks": {}
+    },
+    "official_secret_disclosure": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "official_secret_case_roles", "arguments": ["case_id", "defendant_id", "secret_id", "recipient_id"], "definition": "공무상비밀누설 피고인, 직무상 비밀, 누설 상대방의 역할 tuple", "applies_to_tracks": ["base"]},
+      "tracks": {}
+    },
+    "bribe_receipt": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "bribe_receipt_case_roles", "arguments": ["case_id", "defendant_id", "benefit_id", "official_duty_id", "giver_id"], "definition": "수뢰자, 뇌물 이익, 관련 공무, 공여자의 역할 tuple", "applies_to_tracks": ["receipt", "demand", "promise", "prior"]},
+      "tracks": {}
+    },
+    "bribe_giving": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "bribe_giving_case_roles", "arguments": ["case_id", "defendant_id", "benefit_id", "official_id", "intermediary_id"], "definition": "증뢰자 또는 전달자, 이익, 상대 공무원, 전달 제3자의 역할 tuple", "applies_to_tracks": ["offering", "delivery_giver", "delivery_recipient"]},
+      "tracks": {}
+    },
+    "third_party_bribery": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "third_party_bribery_case_roles", "arguments": ["case_id", "defendant_id", "benefit_id", "third_party_id", "official_duty_id", "giver_id"], "definition": "공무원, 제3자 이익, 독립 제3자, 관련 직무, 공여자의 역할 tuple", "applies_to_tracks": ["base"]},
+      "tracks": {}
+    },
+    "obstruction_of_official_duty": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "official_duty_obstruction_case_roles", "arguments": ["case_id", "defendant_id", "official_id", "official_duty_id"], "definition": "행위자, 공무원, 집행 중 또는 강요 대상 직무의 역할 tuple", "applies_to_tracks": ["base", "official_coercion"]},
+      "tracks": {}
+    },
+    "deceptive_obstruction_of_official_duty": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "deceptive_obstruction_case_roles", "arguments": ["case_id", "defendant_id", "official_id", "official_duty_id"], "definition": "위계 행위자, 오인한 공무원, 구체적으로 방해된 직무의 역할 tuple", "applies_to_tracks": ["base"]},
+      "tracks": {}
+    },
+    "harboring_offender": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "harboring_offender_case_roles", "arguments": ["case_id", "defendant_id", "offender_id"], "definition": "은닉·도피 원조자와 대상 범인의 역할 tuple", "applies_to_tracks": ["base"]},
+      "tracks": {}
+    },
+    "perjury": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "perjury_case_roles", "arguments": ["case_id", "defendant_id", "proceeding_id", "statement_id"], "definition": "선서 증인, 신문절차, 허위 진술의 역할 tuple", "applies_to_tracks": ["base", "malicious"]},
+      "tracks": {}
+    },
+    "public_document_forgery": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "public_document_forgery_case_roles", "arguments": ["case_id", "defendant_id", "document_id", "nominal_official_id"], "definition": "행위자, 공문서·공도화, 명의 공무원·공무소의 역할 tuple", "applies_to_tracks": ["forgery", "alteration", "attempt"]},
+      "tracks": {}
+    },
+    "false_public_document": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "false_public_document_case_roles", "arguments": ["case_id", "defendant_id", "document_id", "nominal_official_id"], "definition": "작성권한자 또는 보조공무원, 허위 공문서, 명의인의 역할 tuple", "applies_to_tracks": ["base"]},
+      "tracks": {}
+    },
+    "private_document_forgery": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "private_document_forgery_case_roles", "arguments": ["case_id", "defendant_id", "document_id", "nominal_author_id"], "definition": "행위자, 사문서·사도화, 작성명의인의 역할 tuple", "applies_to_tracks": ["forgery", "alteration", "attempt"]},
+      "tracks": {}
+    },
+    "use_of_forged_private_document": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "forged_private_document_use_case_roles", "arguments": ["case_id", "defendant_id", "document_id", "counterparty_id"], "definition": "행사자, 위조 등 문서, 인식 가능한 상대방의 역할 tuple", "applies_to_tracks": ["base"]},
+      "tracks": {}
+    },
+    "seal_forgery_or_misuse": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "seal_forgery_case_roles", "arguments": ["case_id", "defendant_id", "mark_id", "nominal_holder_id"], "definition": "행위자, 인장·서명 등 표장, 명의인의 역할 tuple", "applies_to_tracks": ["creation_or_misuse", "use"]},
+      "tracks": {}
+    },
+    "dwelling_intrusion": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "dwelling_intrusion_case_roles", "arguments": ["case_id", "defendant_id", "place_id", "occupant_id"], "definition": "행위자, 침입·퇴거 대상 장소, 사실상 평온의 주체인 거주자·관리자·점유자의 역할 tuple", "applies_to_tracks": ["intrusion", "attempt", "refusal_to_leave"]},
+      "tracks": {}
+    },
+    "relative_property_crime_exception": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "relative_property_exception_case_roles", "arguments": ["case_id", "defendant_id", "property_id", "owner_id", "possessor_id", "predicate_offense_id"], "definition": "재산죄 행위자, 목적물, 소유자·점유자, 전제 재산죄 outcome의 역할 tuple", "applies_to_tracks": ["exception"]},
+      "tracks": {}
+    }
+  }
+}

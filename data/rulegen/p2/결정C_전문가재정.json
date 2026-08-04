@@ -1,0 +1,57 @@
+{
+  "version": "1.0.0",
+  "authority": "human_legal_expert_override",
+  "decided_on": "2026-08-03",
+  "policy": {
+    "precedence": "동일 variant_group에서 이 재정이 결정C_학설선택.md의 선택을 대체한다",
+    "original_selection": "원래 선택은 삭제하지 않고 superseded_card_ids로 보존한다",
+    "scope": "override의 selected_card_ids는 해당 group의 options 안에 있어야 하며, 새 카드를 창설하지 않는다"
+  },
+  "governing_principles": [
+    {
+      "principle_id": "intended_offense_vs_aggravated_result_penalty_comparison",
+      "label": "고의범과 결과적 가중범의 법정형 비교 원칙",
+      "statement": "의도한 고의범의 법정형이 실제로 발생한 결과적 가중범의 법정형보다 무겁지 않으면 법조경합이 되어 결과적 가중범만 성립하고 고의범은 흡수된다. 반대로 고의범의 법정형이 더 무겁거나 병과 등 가중처벌 규정이 있으면 상상적 경합이 되어 두 죄가 모두 성립하고 중한 고의범으로 처단한다.",
+      "ground": "전자는 결과적 가중범의 법정형만으로 고의범의 불법과 책임이 모두 평가되므로 별도 성립이 불필요하고, 후자는 결과적 가중범만 인정하면 더 중한 죄를 지은 자를 더 가볍게 처벌하는 처벌의 불균형이 생기기 때문이다.",
+      "scope": "결과적 가중범 일반에 적용되는 죄수 원칙이며 방화치사 사안에 한정되지 않는다",
+      "runtime_placement": "cross_offense_post_outcome_module"
+    }
+  ],
+  "overrides": [
+    {
+      "override_id": "ov_001",
+      "variant_group": "art164_sec3_6.intentional_fire_death_murder_concurrence",
+      "selected_card_ids": [
+        "art164_sec3_6.intentional_fire_death_murder_concurrence_negative"
+      ],
+      "applies_principle": "intended_offense_vs_aggravated_result_penalty_comparison",
+      "situation": "보통 사람을 살해할 목적으로 현주건조물에 방화하여 사망하게 한 경우",
+      "holding": "현주건조물방화치사죄만 성립하고 살인죄는 여기에 흡수된다. 살인죄와의 상상적 경합을 인정하지 않는다.",
+      "ground": "보통살인죄의 법정형(사형·무기 또는 5년 이상의 징역)이 현주건조물방화치사죄의 법정형(사형·무기 또는 7년 이상의 징역)보다 무겁지 않으므로 법조경합에 해당한다.",
+      "supersedes_reason": "결정C_학설선택.md에서 선택된 긍정설은 학설의 시각이며 대법원 판례의 입장이 아니다",
+      "authority_kind": "supreme_court_position",
+      "authority_citation_status": "사건번호 미확인 — 1차 판례 색인 대조 필요"
+    },
+    {
+      "override_id": "ov_002",
+      "variant_group": "art250_sec2_10.arson_death_parricide_concurrence",
+      "selected_card_ids": [
+        "art250_sec2_10.arson_death_parricide_imaginary_concurrence"
+      ],
+      "applies_principle": "intended_offense_vs_aggravated_result_penalty_comparison",
+      "situation": "직계존속을 살해할 목적으로 현주건조물에 방화하여 사망하게 한 경우",
+      "holding": "존속살해죄와 현주건조물방화치사죄의 상상적 경합이 성립하고 중한 존속살해죄로 처단한다.",
+      "ground": "존속살해죄는 형법 제256조의 자격정지 병과 규정 등으로 현주건조물방화치사죄보다 실질적으로 중하게 처벌할 수 있는 규정을 두고 있으므로 법조경합이 아니라 상상적 경합에 해당한다.",
+      "supersedes_reason": "결정C_학설선택.md가 선택한 서울고등법원 2010노252 판결은 하급심 판단이며 대법원은 상상적 경합을 유지한다",
+      "authority_kind": "supreme_court_position",
+      "authority_citation": "대법원 1996. 4. 26. 선고 96도485 판결",
+      "authority_citation_status": "제공됨 — 판결 원문 대조는 미완",
+      "lower_court_conflict": {
+        "citation": "서울고등법원 2010. 6. 3. 선고 2010노252 판결",
+        "position": "현주건조물방화치사죄 단독 성립",
+        "ground": "1995년 형법 개정으로 존속살해죄와 현주건조물방화치사죄의 법정형이 동일해졌으므로 부진정결과적 가중범 법리상 중한 죄가 아니라는 판단",
+        "resolution": "대법원 96도485의 상상적 경합을 따르고 하급심 대립은 기록만 남긴다"
+      }
+    }
+  ]
+}

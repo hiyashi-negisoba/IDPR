@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0", "authority": "delegated_human_legal_review", "unit_id": "seal_forgery_or_misuse", "approved_on": "2026-08-04",
+  "policy": {"approval": "Delegated normalization on 2026-08-04", "tracks": "사인 등 위조·부정사용과 위조사인 행사를 분리", "threshold": "특정인의 진정한 인장·서명으로 오신할 외관", "authority": "명의자 위임·승낙·정당한 대표자 인식은 bar"},
+  "track_vocabulary": [{"track_id": "creation_or_misuse", "label": "사인 등 위조·부정사용"}, {"track_id": "use", "label": "위조·부정사용 사인 등 행사"}],
+  "decision_groups": [
+    {"card_numbers": [2], "decision": "approve", "role": "component", "component_id": "private_person_mark", "component_join": "mandatory_all", "track_id": "creation_or_misuse", "refers_to_unit": null, "rationale": "자연인·법인·비법인단체의 인장·서명·기명·기호"},
+    {"card_numbers": [1, 3, 4, 7, 8], "decision": "approve", "role": "component", "component_id": "false_manifestation", "component_join": "alternative_any", "track_id": "creation_or_misuse", "refers_to_unit": null, "rationale": "특정인의 진정한 인장·서명으로 오신할 무권한 현출 또는 부정사용"},
+    {"card_numbers": [5, 6, 9], "decision": "approve", "role": "bar", "component_id": "false_manifestation", "component_join": "not_applicable", "track_id": "creation_or_misuse", "refers_to_unit": null, "rationale": "명의자 위임·승낙 또는 정당한 자기 직인 권한"},
+    {"card_numbers": [11, 12], "decision": "approve", "role": "component", "component_id": "intent_and_use_purpose", "component_join": "alternative_any", "track_id": "creation_or_misuse", "refers_to_unit": null, "rationale": "타인 명의 도용 고의와 위법한 행사 목적"},
+    {"card_numbers": [10, 13, 14], "decision": "approve", "role": "bar", "component_id": "intent_and_use_purpose", "component_join": "not_applicable", "track_id": "creation_or_misuse", "refers_to_unit": null, "rationale": "장래 승낙 전제 또는 정당한 대표자·직무대리 인식"},
+    {"card_numbers": [17, 18, 19], "decision": "approve", "role": "component", "component_id": "exposure_or_use", "component_join": "alternative_any", "track_id": "use", "refers_to_unit": null, "rationale": "위조 인영·인과·서명을 일반인이 열람 가능한 상태에 둔 행사"},
+    {"card_numbers": [16], "decision": "approve", "role": "bar", "component_id": "exposure_or_use", "component_join": "not_applicable", "track_id": "use", "refers_to_unit": null, "rationale": "위조 인과 자체의 단순 교부"},
+    {"card_numbers": [15], "decision": "approve", "role": "post_outcome", "component_id": "territorial_jurisdiction", "component_join": "not_applicable", "track_id": "creation_or_misuse", "refers_to_unit": "criminal_procedure", "rationale": "외국인의 국외범 재판권 경계"}
+  ], "placement_defaults": [], "proposition_rewrites": {}
+}

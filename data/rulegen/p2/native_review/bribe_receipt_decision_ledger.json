@@ -1,0 +1,868 @@
+{
+  "version": "1.0.0",
+  "unit_id": "bribe_receipt",
+  "law_snapshot": {
+    "as_of_date": "2026-08-03",
+    "effective_source_date": "2026-03-12",
+    "future_snapshot_date": "2026-09-13",
+    "future_snapshot_policy": "separate_snapshot_not_active",
+    "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
+  },
+  "approval_document": "data/rulegen/p2/native_review/bribe_receipt_approved_decisions.json",
+  "approval_sha256": "48196ad0fb00ddff6aa58ec2b6c1cf9efbbdb1fa018ca8f721ea2a23cc67757c",
+  "approved_on": "2026-08-04",
+  "status": "ready_for_rule_ir",
+  "problems": [],
+  "unresolved_unit_references": [],
+  "excluded_cards": [
+    {
+      "card_id": "art129.bribery_giving_despite_coercion",
+      "reason": "증뢰·공갈·횡령 구별 또는 구체성 낮은 증거·사례 문맥"
+    },
+    {
+      "card_id": "art129.coercion_independent_bribery_decision",
+      "reason": "증뢰·공갈·횡령 구별 또는 구체성 낮은 증거·사례 문맥"
+    },
+    {
+      "card_id": "art129.contract_payment_bribery_or_embezzlement",
+      "reason": "증뢰·공갈·횡령 구별 또는 구체성 낮은 증거·사례 문맥"
+    },
+    {
+      "card_id": "art129.extortion_provider_not_bribe_giver",
+      "reason": "증뢰·공갈·횡령 구별 또는 구체성 낮은 증거·사례 문맥"
+    },
+    {
+      "card_id": "art129.political_funds_definition",
+      "reason": "증뢰·공갈·횡령 구별 또는 구체성 낮은 증거·사례 문맥"
+    },
+    {
+      "card_id": "art129.voluntary_special_fund_gift",
+      "reason": "증뢰·공갈·횡령 구별 또는 구체성 낮은 증거·사례 문맥"
+    }
+  ],
+  "tracks": [
+    {
+      "track_id": "current_common",
+      "label": "현직 수뢰 공통 placement"
+    },
+    {
+      "track_id": "receipt",
+      "label": "뇌물수수",
+      "inherits_placements": [
+        {
+          "track_id": "current_common",
+          "component_ids": [
+            "current_status",
+            "bribe_and_duty_relation",
+            "intent"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "demand",
+      "label": "뇌물요구",
+      "inherits_placements": [
+        {
+          "track_id": "current_common",
+          "component_ids": [
+            "current_status",
+            "bribe_and_duty_relation",
+            "intent"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "promise",
+      "label": "뇌물약속",
+      "inherits_placements": [
+        {
+          "track_id": "current_common",
+          "component_ids": [
+            "current_status",
+            "bribe_and_duty_relation",
+            "intent"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "prior",
+      "label": "사전수뢰"
+    }
+  ],
+  "placements": [
+    {
+      "card_id": "art129.extortion_without_duty_or_consideration",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "current_common",
+      "component_id": "bribe_and_duty_relation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "직무대가 없는 공갈 또는 공범 취득금 내부분배의 뇌물성 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129.illicit_benefit_as_bribe",
+      "part_id": null,
+      "role": "component",
+      "track_id": "current_common",
+      "component_id": "bribe_and_duty_relation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "재산상·무형·불법 이익을 포함한 뇌물과 구체적 직무대가성",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129.internal_distribution_of_embezzled_proceeds",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "current_common",
+      "component_id": "bribe_and_duty_relation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "직무대가 없는 공갈 또는 공범 취득금 내부분배의 뇌물성 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129.mixed_bribe_nonofficial_gratuity",
+      "part_id": null,
+      "role": "component",
+      "track_id": "current_common",
+      "component_id": "bribe_and_duty_relation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "재산상·무형·불법 이익을 포함한 뇌물과 구체적 직무대가성",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129.political_contribution_specific_official_act",
+      "part_id": null,
+      "role": "component",
+      "track_id": "current_common",
+      "component_id": "bribe_and_duty_relation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "재산상·무형·불법 이익을 포함한 뇌물과 구체적 직무대가성",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129.political_funds_with_bribery_substance",
+      "part_id": null,
+      "role": "component",
+      "track_id": "current_common",
+      "component_id": "bribe_and_duty_relation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "재산상·무형·불법 이익을 포함한 뇌물과 구체적 직무대가성",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129.special_fund_internal_distribution_no_bribery",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "current_common",
+      "component_id": "bribe_and_duty_relation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "직무대가 없는 공갈 또는 공범 취득금 내부분배의 뇌물성 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129.tax_investigation_forbearance_bribery",
+      "part_id": null,
+      "role": "component",
+      "track_id": "current_common",
+      "component_id": "bribe_and_duty_relation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "재산상·무형·불법 이익을 포함한 뇌물과 구체적 직무대가성",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_1.arbitrator_statutory_basis",
+      "part_id": null,
+      "role": "component",
+      "track_id": "current_common",
+      "component_id": "current_status",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "현재 공무원 또는 법령상 중재인이라는 주체",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_1.invalid_appointment_official",
+      "part_id": null,
+      "role": "component",
+      "track_id": "current_common",
+      "component_id": "current_status",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "현재 공무원 또는 법령상 중재인이라는 주체",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_1.subject_current_official_arbitrator",
+      "part_id": null,
+      "role": "component",
+      "track_id": "current_common",
+      "component_id": "current_status",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "현재 공무원 또는 법령상 중재인이라는 주체",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_2.intent.status_and_quid_pro_quo",
+      "part_id": null,
+      "role": "component",
+      "track_id": "current_common",
+      "component_id": "intent",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "신분·직무관련성·대가관계와 수수·요구·약속에 대한 고의",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_1.demand",
+      "part_id": null,
+      "role": "component",
+      "track_id": "demand",
+      "component_id": "active_demand",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "교부청구와 상대방 인지에 이른 적극적 뇌물요구",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_1.demand_active_intent",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "demand",
+      "component_id": "active_demand",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "단순 암시·유도에 그친 경우의 요구죄 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_4.demand_completion_upon_awareness",
+      "part_id": null,
+      "role": "component",
+      "track_id": "demand",
+      "component_id": "active_demand",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "교부청구와 상대방 인지에 이른 적극적 뇌물요구",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec2_3.prior_bribery_intent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "prior",
+      "component_id": "prior_intent",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "장래 신분·담당직무 청탁과 뇌물행위에 대한 고의",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec2_1.prior_bribery_elements",
+      "part_id": null,
+      "role": "component",
+      "track_id": "prior",
+      "component_id": "prior_offense_definition",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "사전수뢰의 청탁·수수요구약속·후행 취임 기본구조",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec2_2.abstract_business_relocation_request",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "prior",
+      "component_id": "prior_offense_definition",
+      "component_join": "not_applicable",
+      "refers_to_unit": "fraud",
+      "rationale": "청탁 구체성·취임 개연성·사전성 결여 또는 허위 공직사칭",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec2_2.application_exam_insufficient",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "prior",
+      "component_id": "prior_offense_definition",
+      "component_join": "not_applicable",
+      "refers_to_unit": "fraud",
+      "rationale": "청탁 구체성·취임 개연성·사전성 결여 또는 허위 공직사칭",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec2_2.post_office_request_no_retroaction",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "prior",
+      "component_id": "prior_offense_definition",
+      "component_join": "not_applicable",
+      "refers_to_unit": "fraud",
+      "rationale": "청탁 구체성·취임 개연성·사전성 결여 또는 허위 공직사칭",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec2_4.false_prospective_official_fraud_only",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "prior",
+      "component_id": "prior_offense_definition",
+      "component_join": "not_applicable",
+      "refers_to_unit": "fraud",
+      "rationale": "청탁 구체성·취임 개연성·사전성 결여 또는 허위 공직사칭",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec2_2.prior_bribery_request_specificity",
+      "part_id": null,
+      "role": "component",
+      "track_id": "prior",
+      "component_id": "prior_request",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "장래 담당 직무행위에 관한 어느 정도 구체적인 사전 청탁",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec2_2.prospective_official_probability",
+      "part_id": null,
+      "role": "component",
+      "track_id": "prior",
+      "component_id": "prospective_status",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "공직취임 예정 또는 상당한 개연성",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_1.promise",
+      "part_id": null,
+      "role": "component",
+      "track_id": "promise",
+      "component_id": "definite_agreement",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "장래 뇌물수수에 관한 확정적 의사합치와 청약 수락",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_1.promise_unknown_amount",
+      "part_id": null,
+      "role": "component",
+      "track_id": "promise",
+      "component_id": "definite_agreement",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "장래 뇌물수수에 관한 확정적 의사합치와 청약 수락",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_4.promise_completion_upon_acceptance",
+      "part_id": null,
+      "role": "component",
+      "track_id": "promise",
+      "component_id": "definite_agreement",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "장래 뇌물수수에 관한 확정적 의사합치와 청약 수락",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec2_4.sequential_demand_promise_receipt_absorption",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "receipt",
+      "component_id": "absorption",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "동일 뇌물의 요구·약속이 후행 수수에 흡수",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_1.acceptance_awareness_appropriation",
+      "part_id": null,
+      "role": "component",
+      "track_id": "receipt",
+      "component_id": "appropriation_intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "뇌물성 인식과 영득의사의 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_2.charitable_appearance_appropriation",
+      "part_id": null,
+      "role": "component",
+      "track_id": "receipt",
+      "component_id": "appropriation_intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "뇌물성 인식과 영득의사의 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_2.charitable_transfer_no_appropriation",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "receipt",
+      "component_id": "appropriation_intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "전달 목적 또는 즉시 반환 등 영득의사 부재",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_2.determine_appropriation_intent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "receipt",
+      "component_id": "appropriation_intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "뇌물성 인식과 영득의사의 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_2.excessive_amount_later_return",
+      "part_id": null,
+      "role": "component",
+      "track_id": "receipt",
+      "component_id": "appropriation_intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "뇌물성 인식과 영득의사의 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_2.later_return_after_appropriation",
+      "part_id": null,
+      "role": "component",
+      "track_id": "receipt",
+      "component_id": "appropriation_intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "뇌물성 인식과 영득의사의 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_2.no_appropriation_immediate_return",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "receipt",
+      "component_id": "appropriation_intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "전달 목적 또는 즉시 반환 등 영득의사 부재",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_2.requested_bribe_appropriation",
+      "part_id": null,
+      "role": "component",
+      "track_id": "receipt",
+      "component_id": "appropriation_intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "뇌물성 인식과 영득의사의 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_5.comprehensive_single_offense",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "receipt",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "반복 수뢰의 포괄일죄 또는 실체적 경합",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_5.comprehensive_time_interval",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "receipt",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "반복 수뢰의 포괄일죄 또는 실체적 경합",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_5.different_appraisers_no_comprehensive_offense",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "receipt",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "반복 수뢰의 포괄일죄 또는 실체적 경합",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1.basic_offense",
+      "part_id": null,
+      "role": "component",
+      "track_id": "receipt",
+      "component_id": "receipt",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 처분권·유무형 이익 및 제3자 지급을 포함한 수수 경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_1.acceptance_no_legal_title",
+      "part_id": null,
+      "role": "component",
+      "track_id": "receipt",
+      "component_id": "receipt",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 처분권·유무형 이익 및 제3자 지급을 포함한 수수 경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_1.acceptance_tangible_intangible",
+      "part_id": null,
+      "role": "component",
+      "track_id": "receipt",
+      "component_id": "receipt",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 처분권·유무형 이익 및 제3자 지급을 포함한 수수 경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_1.car_lease_intangible_benefit",
+      "part_id": null,
+      "role": "component",
+      "track_id": "receipt",
+      "component_id": "receipt",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 처분권·유무형 이익 및 제3자 지급을 포함한 수수 경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_1.indirect_payment",
+      "part_id": null,
+      "role": "component",
+      "track_id": "receipt",
+      "component_id": "receipt",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 처분권·유무형 이익 및 제3자 지급을 포함한 수수 경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_1.third_party_direct_receipt_equivalence",
+      "part_id": null,
+      "role": "component",
+      "track_id": "receipt",
+      "component_id": "receipt",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 처분권·유무형 이익 및 제3자 지급을 포함한 수수 경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_4.business_opportunity_completion",
+      "part_id": null,
+      "role": "component",
+      "track_id": "receipt",
+      "component_id": "receipt",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 처분권·유무형 이익 및 제3자 지급을 포함한 수수 경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_4.interest_free_loan_completion",
+      "part_id": null,
+      "role": "component",
+      "track_id": "receipt",
+      "component_id": "receipt",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 처분권·유무형 이익 및 제3자 지급을 포함한 수수 경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_4.post_receipt_check_dishonor",
+      "part_id": null,
+      "role": "component",
+      "track_id": "receipt",
+      "component_id": "receipt",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 처분권·유무형 이익 및 제3자 지급을 포함한 수수 경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_4.unpurchased_investment_opportunity",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "receipt",
+      "component_id": "receipt",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "미완료 사업참여 또는 퇴직 후 수수의 수수죄 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art129_sec1_5.retired_official_no_bribe_receipt",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "receipt",
+      "component_id": "receipt",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "미완료 사업참여 또는 퇴직 후 수수의 수수죄 배제",
+      "proposition_rewrite": null
+    }
+  ],
+  "components": [
+    {
+      "track_id": "current_common",
+      "component_id": "bribe_and_duty_relation",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art129.extortion_without_duty_or_consideration",
+        "art129.illicit_benefit_as_bribe",
+        "art129.internal_distribution_of_embezzled_proceeds",
+        "art129.mixed_bribe_nonofficial_gratuity",
+        "art129.political_contribution_specific_official_act",
+        "art129.political_funds_with_bribery_substance",
+        "art129.special_fund_internal_distribution_no_bribery",
+        "art129.tax_investigation_forbearance_bribery"
+      ]
+    },
+    {
+      "track_id": "current_common",
+      "component_id": "current_status",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art129_sec1_1.arbitrator_statutory_basis",
+        "art129_sec1_1.invalid_appointment_official",
+        "art129_sec1_1.subject_current_official_arbitrator"
+      ]
+    },
+    {
+      "track_id": "current_common",
+      "component_id": "intent",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art129_sec1_2.intent.status_and_quid_pro_quo"
+      ]
+    },
+    {
+      "track_id": "demand",
+      "component_id": "active_demand",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art129_sec1_1.demand",
+        "art129_sec1_1.demand_active_intent",
+        "art129_sec1_4.demand_completion_upon_awareness"
+      ]
+    },
+    {
+      "track_id": "prior",
+      "component_id": "prior_intent",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art129_sec2_3.prior_bribery_intent"
+      ]
+    },
+    {
+      "track_id": "prior",
+      "component_id": "prior_offense_definition",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [
+        "fraud"
+      ],
+      "norm_card_ids": [
+        "art129_sec2_1.prior_bribery_elements",
+        "art129_sec2_2.abstract_business_relocation_request",
+        "art129_sec2_2.application_exam_insufficient",
+        "art129_sec2_2.post_office_request_no_retroaction",
+        "art129_sec2_4.false_prospective_official_fraud_only"
+      ]
+    },
+    {
+      "track_id": "prior",
+      "component_id": "prior_request",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art129_sec2_2.prior_bribery_request_specificity"
+      ]
+    },
+    {
+      "track_id": "prior",
+      "component_id": "prospective_status",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art129_sec2_2.prospective_official_probability"
+      ]
+    },
+    {
+      "track_id": "promise",
+      "component_id": "definite_agreement",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art129_sec1_1.promise",
+        "art129_sec1_1.promise_unknown_amount",
+        "art129_sec1_4.promise_completion_upon_acceptance"
+      ]
+    },
+    {
+      "track_id": "receipt",
+      "component_id": "absorption",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art129_sec2_4.sequential_demand_promise_receipt_absorption"
+      ]
+    },
+    {
+      "track_id": "receipt",
+      "component_id": "appropriation_intent",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art129_sec1_1.acceptance_awareness_appropriation",
+        "art129_sec1_2.charitable_appearance_appropriation",
+        "art129_sec1_2.charitable_transfer_no_appropriation",
+        "art129_sec1_2.determine_appropriation_intent",
+        "art129_sec1_2.excessive_amount_later_return",
+        "art129_sec1_2.later_return_after_appropriation",
+        "art129_sec1_2.no_appropriation_immediate_return",
+        "art129_sec1_2.requested_bribe_appropriation"
+      ]
+    },
+    {
+      "track_id": "receipt",
+      "component_id": "offense_count",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art129_sec1_5.comprehensive_single_offense",
+        "art129_sec1_5.comprehensive_time_interval",
+        "art129_sec1_5.different_appraisers_no_comprehensive_offense"
+      ]
+    },
+    {
+      "track_id": "receipt",
+      "component_id": "receipt",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art129_sec1.basic_offense",
+        "art129_sec1_1.acceptance_no_legal_title",
+        "art129_sec1_1.acceptance_tangible_intangible",
+        "art129_sec1_1.car_lease_intangible_benefit",
+        "art129_sec1_1.indirect_payment",
+        "art129_sec1_1.third_party_direct_receipt_equivalence",
+        "art129_sec1_4.business_opportunity_completion",
+        "art129_sec1_4.interest_free_loan_completion",
+        "art129_sec1_4.post_receipt_check_dishonor",
+        "art129_sec1_4.unpurchased_investment_opportunity",
+        "art129_sec1_5.retired_official_no_bribe_receipt"
+      ]
+    }
+  ],
+  "stats": {
+    "components": 13,
+    "context_only_placements": 6,
+    "decision_approve": 49,
+    "decision_context_only": 6,
+    "placements": 49,
+    "queue_cards": 55,
+    "unresolved_unit_references": 0
+  }
+}

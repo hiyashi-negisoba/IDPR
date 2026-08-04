@@ -1,0 +1,72 @@
+{
+  "version": "1.0.0",
+  "authority": "delegated_human_legal_review",
+  "unit_id": "sexual_offense_attempt",
+  "approved_on": "2026-08-04",
+  "approval_basis": [
+    "data/rulegen/p2/native_review/sexual_offense_attempt_approval_config.json"
+  ],
+  "policy": {
+    "approval": "Delegated normalization on 2026-08-04",
+    "scope": "제300조가 열거한 성범죄의 실행착수와 미수 처벌을 shared stage module로 실행",
+    "boundary": "제300조가 적용되지 않는 결과가중·기타 성범죄는 bar로 차단"
+  },
+  "track_vocabulary": [
+    {
+      "track_id": "attempt",
+      "label": "제300조 성범죄 미수"
+    }
+  ],
+  "cards": [
+    {
+      "card_id": "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "child_victim_extension",
+      "component_join": "not_applicable",
+      "track_id": "attempt",
+      "refers_to_unit": "statutory_sexual_offense",
+      "rationale": "제305조 미성년자 간음·추행의 시간적 적용은 미등록 외부 죄종과 연결"
+    },
+    {
+      "card_id": "art300_x_raw_pdf.commencement_of_execution",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "commencement",
+      "component_join": "mandatory_all",
+      "track_id": "attempt",
+      "refers_to_unit": null,
+      "rationale": "미수 성립에 필요한 실행착수"
+    },
+    {
+      "card_id": "art300_x_raw_pdf.enumerated_offenses_attempts",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "eligible_predicate_offense",
+      "component_join": "mandatory_all",
+      "track_id": "attempt",
+      "refers_to_unit": null,
+      "rationale": "제300조가 열거한 강간·유사강간·강제추행·준강간 등 적용대상"
+    },
+    {
+      "card_id": "art300_x_raw_pdf.other_offenses_exclusion",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "eligible_predicate_offense",
+      "component_join": "not_applicable",
+      "track_id": "attempt",
+      "refers_to_unit": "sexual_offense_injury_or_death",
+      "rationale": "결과가중범과 비열거 성범죄에 대한 제300조 적용 배제"
+    },
+    {
+      "card_id": "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "child_victim_extension",
+      "component_join": "not_applicable",
+      "track_id": "attempt",
+      "refers_to_unit": "statutory_sexual_offense",
+      "rationale": "제305조 미성년자 간음·추행의 시간적 적용은 미등록 외부 죄종과 연결"
+    }
+  ]
+}

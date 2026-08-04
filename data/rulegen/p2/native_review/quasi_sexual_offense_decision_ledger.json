@@ -1,0 +1,467 @@
+{
+  "version": "1.0.0",
+  "unit_id": "quasi_sexual_offense",
+  "law_snapshot": {
+    "as_of_date": "2026-08-03",
+    "effective_source_date": "2026-03-12",
+    "future_snapshot_date": "2026-09-13",
+    "future_snapshot_policy": "separate_snapshot_not_active",
+    "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
+  },
+  "approval_document": "data/rulegen/p2/native_review/quasi_sexual_offense_approved_decisions.json",
+  "approval_sha256": "2a07daf2ddf5f4261a73ee7b6cb3073feda5e1121f527cf75112d2174edf3de1",
+  "approved_on": "2026-08-04",
+  "status": "ready_for_rule_ir",
+  "problems": [],
+  "unresolved_unit_references": [
+    {
+      "card_id": "art299_sec8.noncomplaint_prosecution",
+      "part_id": null,
+      "refers_to_unit": "criminal_procedure",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art299_sec8.noncomplaint_retroactivity",
+      "part_id": null,
+      "refers_to_unit": "criminal_procedure",
+      "status": "predicate_ir_missing"
+    }
+  ],
+  "excluded_cards": [
+    {
+      "card_id": "art299.principal.unrestricted",
+      "reason": "주체 일반설명 또는 공소장변경·방어권에 관한 증거절차 문맥"
+    },
+    {
+      "card_id": "art299_sec8.quasi_indecent_act_indictment_amendment",
+      "reason": "주체 일반설명 또는 공소장변경·방어권에 관한 증거절차 문맥"
+    }
+  ],
+  "tracks": [
+    {
+      "track_id": "base",
+      "label": "제299조 준강간·준유사강간·준강제추행"
+    }
+  ],
+  "placements": [
+    {
+      "card_id": "art299.attempt_commencement",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "attempt_stage",
+      "component_join": "not_applicable",
+      "refers_to_unit": "sexual_offense_attempt",
+      "rationale": "실행착수·불능미수·예비 처벌은 shared stage module에서 처리",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299_sec5.impossible_attempt_actual_state_absent",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "attempt_stage",
+      "component_join": "not_applicable",
+      "refers_to_unit": "sexual_offense_attempt",
+      "rationale": "실행착수·불능미수·예비 처벌은 shared stage module에서 처리",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299_sec8.attempt_preparation_punishment",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "attempt_stage",
+      "component_join": "not_applicable",
+      "refers_to_unit": "sexual_offense_attempt",
+      "rationale": "실행착수·불능미수·예비 처벌은 shared stage module에서 처리",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299_sec7.changed_circumstances_rape_only",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "changed_circumstances",
+      "component_join": "not_applicable",
+      "refers_to_unit": "rape",
+      "rationale": "사정변경 뒤 폭행협박 강간의 흡수효과는 outcome bridge에서 처리",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299.offense_characterization",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "기존 무능력 상태를 이용한 간음·유사간음·추행의 승인된 실행경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299.successive_participant_only_art299",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "기존 무능력 상태를 이용한 간음·유사간음·추행의 승인된 실행경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299_sec3_2.existing_incapacity_used",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "기존 무능력 상태를 이용한 간음·유사간음·추행의 승인된 실행경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299_sec3_2.blackout_not_dispositive",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "incapacity",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "심신상실·항거불능의 정의와 원인·기억·형식적 반응에 관한 택일 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299_sec3_2.drug_administration_violence_exception",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "incapacity",
+      "component_join": "not_applicable",
+      "refers_to_unit": "rape",
+      "rationale": "행위자의 약물 투여가 폭행이면 직접 성범죄가 우선하는 제299조 경계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299_sec3_2.incapacity_origin_irrelevant",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "incapacity",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "심신상실·항거불능의 정의와 원인·기억·형식적 반응에 관한 택일 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299_sec3_2.memory_not_dispositive",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "incapacity",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "심신상실·항거불능의 정의와 원인·기억·형식적 반응에 관한 택일 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299_sec3_2.mental_incapacity_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "incapacity",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "심신상실·항거불능의 정의와 원인·기억·형식적 반응에 관한 택일 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299_sec3_2.religious_psychological_resistance",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "incapacity",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "심신상실·항거불능의 정의와 원인·기억·형식적 반응에 관한 택일 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299_sec3_2.resistance_incapacity_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "incapacity",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "심신상실·항거불능의 정의와 원인·기억·형식적 반응에 관한 택일 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299_sec3_2.sleep_or_unconsciousness",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "incapacity",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "심신상실·항거불능의 정의와 원인·기억·형식적 반응에 관한 택일 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299_sec6.formal_response_not_consent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "incapacity",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "심신상실·항거불능의 정의와 원인·기억·형식적 반응에 관한 택일 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299_sec6.dolus_eventualis",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "상태 및 이용 결과에 대한 확정적 또는 미필적 고의",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299_sec6.genuine_consent_belief",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "자유롭고 진정한 승낙이 있다고 믿은 경우의 고의 차단",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299_sec6.intent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "상태 및 이용 결과에 대한 확정적 또는 미필적 고의",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299_sec3_1.object_incapacitated_person",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "object_scope",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "심신상실 또는 항거불능 상태에 있는 사람이라는 객체범위",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299_sec7.unit_of_crime_per_act",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "행위별 죄수는 성립 후 단계에서 처리",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299_sec8.noncomplaint_prosecution",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "prosecution",
+      "component_join": "not_applicable",
+      "refers_to_unit": "criminal_procedure",
+      "rationale": "비친고죄와 시간적 적용범위는 절차법 결과로 분리",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299_sec8.noncomplaint_retroactivity",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "prosecution",
+      "component_join": "not_applicable",
+      "refers_to_unit": "criminal_procedure",
+      "rationale": "비친고죄와 시간적 적용범위는 절차법 결과로 분리",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art299.use_awareness_and_facilitation",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "use_of_state",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "상태 인식과 그 상태로 성행위가 용이해진 이용관계",
+      "proposition_rewrite": null
+    }
+  ],
+  "components": [
+    {
+      "track_id": "base",
+      "component_id": "attempt_stage",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "sexual_offense_attempt"
+      ],
+      "norm_card_ids": [
+        "art299.attempt_commencement",
+        "art299_sec5.impossible_attempt_actual_state_absent",
+        "art299_sec8.attempt_preparation_punishment"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "changed_circumstances",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "rape"
+      ],
+      "norm_card_ids": [
+        "art299_sec7.changed_circumstances_rape_only"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "conduct",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art299.offense_characterization",
+        "art299.successive_participant_only_art299",
+        "art299_sec3_2.existing_incapacity_used"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "incapacity",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [
+        "rape"
+      ],
+      "norm_card_ids": [
+        "art299_sec3_2.blackout_not_dispositive",
+        "art299_sec3_2.drug_administration_violence_exception",
+        "art299_sec3_2.incapacity_origin_irrelevant",
+        "art299_sec3_2.memory_not_dispositive",
+        "art299_sec3_2.mental_incapacity_definition",
+        "art299_sec3_2.religious_psychological_resistance",
+        "art299_sec3_2.resistance_incapacity_definition",
+        "art299_sec3_2.sleep_or_unconsciousness",
+        "art299_sec6.formal_response_not_consent"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "intent",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art299_sec6.dolus_eventualis",
+        "art299_sec6.genuine_consent_belief",
+        "art299_sec6.intent"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "object_scope",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art299_sec3_1.object_incapacitated_person"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "offense_count",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art299_sec7.unit_of_crime_per_act"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "prosecution",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "criminal_procedure"
+      ],
+      "norm_card_ids": [
+        "art299_sec8.noncomplaint_prosecution",
+        "art299_sec8.noncomplaint_retroactivity"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "use_of_state",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art299.use_awareness_and_facilitation"
+      ]
+    }
+  ],
+  "stats": {
+    "components": 9,
+    "context_only_placements": 2,
+    "decision_approve": 24,
+    "decision_context_only": 2,
+    "inherited": 1,
+    "placements": 24,
+    "queue_cards": 26,
+    "unresolved_unit_references": 2
+  }
+}

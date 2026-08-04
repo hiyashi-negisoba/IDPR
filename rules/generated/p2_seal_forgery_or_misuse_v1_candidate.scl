@@ -1,0 +1,912 @@
+// rule_set_id: kr.p2.seal_forgery_or_misuse.native.v1_candidate
+// status: draft
+// legal_review: pending
+// generated_from: validated RuleIR; model output is never executed directly
+
+// provable: 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+// sources: system contract
+// norm_cards: system contract
+type provable(String, String)
+
+// case_assessment_complete: 사건 라우터가 선택한 평가 묶음이 완결되어 결론 계층의 폐쇄세계 검사를 허용함
+// sources: system contract
+// norm_cards: system contract
+type case_assessment_complete(String, String)
+
+// distinct_entity: 사건의 entity resolution에서 두 역할이 서로 다른 실체임이 확인됨
+// sources: system contract
+// norm_cards: system contract
+type distinct_entity(String, String, String)
+
+// seal_forgery_case_roles: 행위자, 인장·서명 등 표장, 명의인의 역할 tuple
+// sources: system contract
+// norm_cards: system contract
+type seal_forgery_case_roles(String, String, String, String)
+
+// seal_forgery_or_misuse_not_established: 증명된 불성립 사유 또는 경계 이동이 존재함
+// sources: system contract
+// norm_cards: system contract
+type seal_forgery_or_misuse_not_established(String, String, String)
+
+// seal_forgery_or_misuse_undetermined: 관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음
+// sources: system contract
+// norm_cards: system contract
+type seal_forgery_or_misuse_undetermined(String, String, String)
+
+// seal_forgery_or_misuse_conflict: 같은 카드에 satisfied와 not_satisfied 평가가 모두 증명됨
+// sources: system contract
+// norm_cards: system contract
+type seal_forgery_or_misuse_conflict(String, String, String)
+
+// seal_forgery_or_misuse_track_not_established: 해당 track에만 적용되는 증명된 불성립 사유 또는 경계 이동
+// sources: system contract
+// norm_cards: system contract
+type seal_forgery_or_misuse_track_not_established(String, String, String, String)
+
+// seal_forgery_or_misuse_track_conflict: 해당 track에 적용되는 카드 평가 충돌
+// sources: system contract
+// norm_cards: system contract
+type seal_forgery_or_misuse_track_conflict(String, String, String, String)
+
+// seal_forgery_or_misuse_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type seal_forgery_or_misuse_track_has_negative(String, String, String)
+
+// seal_forgery_or_misuse_track_has_conflict: 해당 track에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type seal_forgery_or_misuse_track_has_conflict(String, String, String)
+
+// assess_art239_sec1_1_offense_formation: 이 카드의 사건별 적용 평가: 타인의 인장·서명·기명·기호를 행사할 목적으로 위조하거나 부정사용하면 사인등의 위조·부정사용죄가 성립한다.
+// sources: comm_001692_제239조_Ⅰ.1_0
+// norm_cards: art239_sec1_1.offense_formation
+type assess_art239_sec1_1_offense_formation(String, String, String, String, String, String)
+
+// satisfied_art239_sec1_1_offense_formation: 증명 가능한 평가에서 다음 조건이 충족됨: 타인의 인장·서명·기명·기호를 행사할 목적으로 위조하거나 부정사용하면 사인등의 위조·부정사용죄가 성립한다.
+// sources: comm_001692_제239조_Ⅰ.1_0
+// norm_cards: art239_sec1_1.offense_formation
+type satisfied_art239_sec1_1_offense_formation(String, String, String, String)
+
+// assess_art239_sec1_2_private_person_scope: 이 카드의 사건별 적용 평가: 사인에는 자연인뿐 아니라 법인 및 법인격 없는 단체도 포함된다.
+// sources: comm_001692_제239조_Ⅰ.2_1
+// norm_cards: art239_sec1_2.private_person_scope
+type assess_art239_sec1_2_private_person_scope(String, String, String, String, String, String)
+
+// satisfied_art239_sec1_2_private_person_scope: 증명 가능한 평가에서 다음 조건이 충족됨: 사인에는 자연인뿐 아니라 법인 및 법인격 없는 단체도 포함된다.
+// sources: comm_001692_제239조_Ⅰ.2_1
+// norm_cards: art239_sec1_2.private_person_scope
+type satisfied_art239_sec1_2_private_person_scope(String, String, String, String)
+
+// assess_art239_sec1_3_authenticity_mistake_assessment: 이 카드의 사건별 적용 평가: 특정인의 진정한 서명으로 오신하기에 충분한지는 인장·서명의 형식과 외관, 작성경위, 현출 문서에서의 인장·서명 필요성, 문서의 작성경위·종류·내용 및 일반거래상 기능을 함께 고려하여 판단한다.
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authenticity_mistake_assessment
+type assess_art239_sec1_3_authenticity_mistake_assessment(String, String, String, String, String, String)
+
+// satisfied_art239_sec1_3_authenticity_mistake_assessment: 증명 가능한 평가에서 다음 조건이 충족됨: 특정인의 진정한 서명으로 오신하기에 충분한지는 인장·서명의 형식과 외관, 작성경위, 현출 문서에서의 인장·서명 필요성, 문서의 작성경위·종류·내용 및 일반거래상 기능을 함께 고려하여 판단한다.
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authenticity_mistake_assessment
+type satisfied_art239_sec1_3_authenticity_mistake_assessment(String, String, String, String)
+
+// assess_art239_sec1_3_authenticity_mistake_threshold: 이 카드의 사건별 적용 평가: 사인위조죄 또는 사서명위조죄는 인장이나 서명이 일반인으로 하여금 특정인의 진정한 인장 또는 서명으로 오신하게 할 정도에 이르러야 성립한다.
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authenticity_mistake_threshold
+type assess_art239_sec1_3_authenticity_mistake_threshold(String, String, String, String, String, String)
+
+// satisfied_art239_sec1_3_authenticity_mistake_threshold: 증명 가능한 평가에서 다음 조건이 충족됨: 사인위조죄 또는 사서명위조죄는 인장이나 서명이 일반인으로 하여금 특정인의 진정한 인장 또는 서명으로 오신하게 할 정도에 이르러야 성립한다.
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authenticity_mistake_threshold
+type satisfied_art239_sec1_3_authenticity_mistake_threshold(String, String, String, String)
+
+// assess_art239_sec1_3_authorized_manifestation_not_forgery: 이 카드의 사건별 적용 평가: 명의자로부터 명시적 또는 묵시적 위임이나 승낙을 받아 인장을 현출하거나 서명한 경우에는 권한 없거나 권한을 넘은 것이 아니므로 위조가 성립하지 않는다.
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authorized_manifestation_not_forgery
+type assess_art239_sec1_3_authorized_manifestation_not_forgery(String, String, String, String, String, String)
+
+// satisfied_art239_sec1_3_authorized_manifestation_not_forgery: 증명 가능한 평가에서 다음 조건이 충족됨: 명의자로부터 명시적 또는 묵시적 위임이나 승낙을 받아 인장을 현출하거나 서명한 경우에는 권한 없거나 권한을 넘은 것이 아니므로 위조가 성립하지 않는다.
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authorized_manifestation_not_forgery
+type satisfied_art239_sec1_3_authorized_manifestation_not_forgery(String, String, String, String)
+
+// assess_art239_sec1_3_deceived_nominee_manifestation_not_improper_use: 이 카드의 사건별 적용 평가: 행위자가 명의자를 기망하여 그로 하여금 인영 또는 서명을 현출하게 한 뒤 이를 제3자에게 사용하였더라도, 명의자의 권한을 받아 행사한 것이므로 부정사용이 아니다.
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.deceived_nominee_manifestation_not_improper_use
+type assess_art239_sec1_3_deceived_nominee_manifestation_not_improper_use(String, String, String, String, String, String)
+
+// satisfied_art239_sec1_3_deceived_nominee_manifestation_not_improper_use: 증명 가능한 평가에서 다음 조건이 충족됨: 행위자가 명의자를 기망하여 그로 하여금 인영 또는 서명을 현출하게 한 뒤 이를 제3자에게 사용하였더라도, 명의자의 권한을 받아 행사한 것이므로 부정사용이 아니다.
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.deceived_nominee_manifestation_not_improper_use
+type satisfied_art239_sec1_3_deceived_nominee_manifestation_not_improper_use(String, String, String, String)
+
+// assess_art239_sec1_3_incomplete_document_signature_forgery: 이 카드의 사건별 적용 평가: 문서가 완성되지 않았어도 현출된 인장 또는 서명이 명의인의 진정한 서명으로 오신할 정도이면 인장 또는 서명위조죄가 성립한다.
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.incomplete_document_signature_forgery
+type assess_art239_sec1_3_incomplete_document_signature_forgery(String, String, String, String, String, String)
+
+// satisfied_art239_sec1_3_incomplete_document_signature_forgery: 증명 가능한 평가에서 다음 조건이 충족됨: 문서가 완성되지 않았어도 현출된 인장 또는 서명이 명의인의 진정한 서명으로 오신할 정도이면 인장 또는 서명위조죄가 성립한다.
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.incomplete_document_signature_forgery
+type satisfied_art239_sec1_3_incomplete_document_signature_forgery(String, String, String, String)
+
+// assess_art239_sec1_3_interrogation_record_incomplete_holding: 이 카드의 사건별 적용 평가: 을로 행세한 피의자가 피의자신문조서 말미에 을의 서명만 기재하여 조서가 미완성인 경우에도, 일반인이 을의 서명으로 현출된 것이라고 오신하기에 충분하면 사서명위조죄가 성립한다는 판례가 소개되어 있다.
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.interrogation_record_incomplete_holding
+type assess_art239_sec1_3_interrogation_record_incomplete_holding(String, String, String, String, String, String)
+
+// satisfied_art239_sec1_3_interrogation_record_incomplete_holding: 증명 가능한 평가에서 다음 조건이 충족됨: 을로 행세한 피의자가 피의자신문조서 말미에 을의 서명만 기재하여 조서가 미완성인 경우에도, 일반인이 을의 서명으로 현출된 것이라고 오신하기에 충분하면 사서명위조죄가 성립한다는 판례가 소개되어 있다.
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.interrogation_record_incomplete_holding
+type satisfied_art239_sec1_3_interrogation_record_incomplete_holding(String, String, String, String)
+
+// assess_art239_sec1_3_union_chairman_seal_authority: 이 카드의 사건별 적용 평가: 연합회 회장이 업무상 필요한 회장 직인을 새로 조각하여 날인한 사안에서, 회장에게 자기 명의 직인을 새길 권한이 있다고 보아 위조를 인정하지 않은 하급심 판례가 있다.
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.union_chairman_seal_authority
+type assess_art239_sec1_3_union_chairman_seal_authority(String, String, String, String, String, String)
+
+// satisfied_art239_sec1_3_union_chairman_seal_authority: 증명 가능한 평가에서 다음 조건이 충족됨: 연합회 회장이 업무상 필요한 회장 직인을 새로 조각하여 날인한 사안에서, 회장에게 자기 명의 직인을 새길 권한이 있다고 보아 위조를 인정하지 않은 하급심 판례가 있다.
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.union_chairman_seal_authority
+type satisfied_art239_sec1_3_union_chairman_seal_authority(String, String, String, String)
+
+// assess_art239_sec1_4_future_consent_no_purpose_holding: 이 카드의 사건별 적용 평가: 타인의 승낙 없이 장차 명의인의 승낙을 얻어 타인 명의 문서 작성에 사용할 의도로 인장을 조각했으나 승낙을 얻지 못해 사용하지 않고 돌려준 경우, 행사의 목적이 인정되지 않는다는 판례가 소개되어 있다.
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.future_consent_no_purpose_holding
+type assess_art239_sec1_4_future_consent_no_purpose_holding(String, String, String, String, String, String)
+
+// satisfied_art239_sec1_4_future_consent_no_purpose_holding: 증명 가능한 평가에서 다음 조건이 충족됨: 타인의 승낙 없이 장차 명의인의 승낙을 얻어 타인 명의 문서 작성에 사용할 의도로 인장을 조각했으나 승낙을 얻지 못해 사용하지 않고 돌려준 경우, 행사의 목적이 인정되지 않는다는 판례가 소개되어 있다.
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.future_consent_no_purpose_holding
+type satisfied_art239_sec1_4_future_consent_no_purpose_holding(String, String, String, String)
+
+// assess_art239_sec1_4_intent_awareness: 이 카드의 사건별 적용 평가: 사인위조의 고의는 타인 명의를 도용하여 인장을 도용한다는 인식을 필요로 한다.
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.intent_awareness
+type assess_art239_sec1_4_intent_awareness(String, String, String, String, String, String)
+
+// satisfied_art239_sec1_4_intent_awareness: 증명 가능한 평가에서 다음 조건이 충족됨: 사인위조의 고의는 타인 명의를 도용하여 인장을 도용한다는 인식을 필요로 한다.
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.intent_awareness
+type satisfied_art239_sec1_4_intent_awareness(String, String, String, String)
+
+// assess_art239_sec1_4_purpose_of_use: 이 카드의 사건별 적용 평가: 사인 등의 위조·부정사용에는 행사하려는 의사, 즉 타인의 의사에 반하여 위법하게 사용하려는 행사의 목적이 필요하다.
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.purpose_of_use
+type assess_art239_sec1_4_purpose_of_use(String, String, String, String, String, String)
+
+// satisfied_art239_sec1_4_purpose_of_use: 증명 가능한 평가에서 다음 조건이 충족됨: 사인 등의 위조·부정사용에는 행사하려는 의사, 즉 타인의 의사에 반하여 위법하게 사용하려는 행사의 목적이 필요하다.
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.purpose_of_use
+type satisfied_art239_sec1_4_purpose_of_use(String, String, String, String)
+
+// assess_art239_sec1_4_putative_representative_no_forgery_intent: 이 카드의 사건별 적용 평가: 대표자 선임결의가 중대·명백한 하자로 무효 또는 부존재가 되었더라도, 형식상 선임절차를 거쳐 대표자가 된 사람이 자신을 정당한 대표자로 믿고 직인을 조각한 경우 사인위조의 고의를 인정하지 않은 사례가 있다.
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.putative_representative_no_forgery_intent
+type assess_art239_sec1_4_putative_representative_no_forgery_intent(String, String, String, String, String, String)
+
+// satisfied_art239_sec1_4_putative_representative_no_forgery_intent: 증명 가능한 평가에서 다음 조건이 충족됨: 대표자 선임결의가 중대·명백한 하자로 무효 또는 부존재가 되었더라도, 형식상 선임절차를 거쳐 대표자가 된 사람이 자신을 정당한 대표자로 믿고 직인을 조각한 경우 사인위조의 고의를 인정하지 않은 사례가 있다.
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.putative_representative_no_forgery_intent
+type satisfied_art239_sec1_4_putative_representative_no_forgery_intent(String, String, String, String)
+
+// assess_art239_sec1_4_union_seal_no_illicit_purpose_holding: 이 카드의 사건별 적용 평가: 노조지부장 당선이 무효가 된 뒤 인계 거부에 대응하여 지부장직무대리의 승인하에 노조 활동용 지부인 등을 새로 조각한 사안에서, 정당한 인장인 양 가장하려는 부정한 방법의 위조·행사 의사가 없다고 한 판례가 소개되어 있다.
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.union_seal_no_illicit_purpose_holding
+type assess_art239_sec1_4_union_seal_no_illicit_purpose_holding(String, String, String, String, String, String)
+
+// satisfied_art239_sec1_4_union_seal_no_illicit_purpose_holding: 증명 가능한 평가에서 다음 조건이 충족됨: 노조지부장 당선이 무효가 된 뒤 인계 거부에 대응하여 지부장직무대리의 승인하에 노조 활동용 지부인 등을 새로 조각한 사안에서, 정당한 인장인 양 가장하려는 부정한 방법의 위조·행사 의사가 없다고 한 판례가 소개되어 있다.
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.union_seal_no_illicit_purpose_holding
+type satisfied_art239_sec1_4_union_seal_no_illicit_purpose_holding(String, String, String, String)
+
+// assess_art239_sec1_5_foreign_national_overseas_jurisdiction: 이 카드의 사건별 적용 평가: 사인위조죄는 형법 제6조의 대한민국 또는 대한민국국민에 대하여 범한 죄에 해당하지 아니하므로, 중국 국적의 피고인이 중국에서 대한민국 국적 주식회사의 인장을 위조한 공소사실에 대하여는 외국인의 국외범으로서 피고인에 대한 재판권이 없다는 판례가 소개되어 있다.
+// sources: comm_001692_제239조_Ⅰ.5_5
+// norm_cards: art239_sec1_5.foreign_national_overseas_jurisdiction
+type assess_art239_sec1_5_foreign_national_overseas_jurisdiction(String, String, String, String, String, String)
+
+// satisfied_art239_sec1_5_foreign_national_overseas_jurisdiction: 증명 가능한 평가에서 다음 조건이 충족됨: 사인위조죄는 형법 제6조의 대한민국 또는 대한민국국민에 대하여 범한 죄에 해당하지 아니하므로, 중국 국적의 피고인이 중국에서 대한민국 국적 주식회사의 인장을 위조한 공소사실에 대하여는 외국인의 국외범으로서 피고인에 대한 재판권이 없다는 판례가 소개되어 있다.
+// sources: comm_001692_제239조_Ⅰ.5_5
+// norm_cards: art239_sec1_5.foreign_national_overseas_jurisdiction
+type satisfied_art239_sec1_5_foreign_national_overseas_jurisdiction(String, String, String, String)
+
+// assess_art239_sec2_delivery_of_forged_seal_not_use: 이 카드의 사건별 적용 평가: 위조된 인과 자체를 타인에게 교부한 것만으로는 위조사인행사죄가 성립하지 않는다.
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.delivery_of_forged_seal_not_use
+type assess_art239_sec2_delivery_of_forged_seal_not_use(String, String, String, String, String, String)
+
+// satisfied_art239_sec2_delivery_of_forged_seal_not_use: 증명 가능한 평가에서 다음 조건이 충족됨: 위조된 인과 자체를 타인에게 교부한 것만으로는 위조사인행사죄가 성립하지 않는다.
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.delivery_of_forged_seal_not_use
+type satisfied_art239_sec2_delivery_of_forged_seal_not_use(String, String, String, String)
+
+// assess_art239_sec2_exposure_as_use: 이 카드의 사건별 적용 평가: 위조된 인영은 일반인이 열람할 수 있는 상태에 두면, 위조된 인과는 날인하여 일반인이 열람할 수 있는 상태에 두면 행사가 된다.
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.exposure_as_use
+type assess_art239_sec2_exposure_as_use(String, String, String, String, String, String)
+
+// satisfied_art239_sec2_exposure_as_use: 증명 가능한 평가에서 다음 조건이 충족됨: 위조된 인영은 일반인이 열람할 수 있는 상태에 두면, 위조된 인과는 날인하여 일반인이 열람할 수 있는 상태에 두면 행사가 된다.
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.exposure_as_use
+type satisfied_art239_sec2_exposure_as_use(String, String, String, String)
+
+// assess_art239_sec2_signature_immediate_exposure_holding: 이 카드의 사건별 적용 평가: 서명 직후 타인이 열람하게 된 경우에는 타인이 열람하기 전에 즉시 파기한 사정이 없는 한, 서명 기재와 동시에 사서명위조죄 및 위조사서명행사죄가 성립하며 이후 타인이 위조 사실을 알게 되어도 행사죄 성립에는 영향이 없다는 판례가 소개되어 있다.
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.signature_immediate_exposure_holding
+type assess_art239_sec2_signature_immediate_exposure_holding(String, String, String, String, String, String)
+
+// satisfied_art239_sec2_signature_immediate_exposure_holding: 증명 가능한 평가에서 다음 조건이 충족됨: 서명 직후 타인이 열람하게 된 경우에는 타인이 열람하기 전에 즉시 파기한 사정이 없는 한, 서명 기재와 동시에 사서명위조죄 및 위조사서명행사죄가 성립하며 이후 타인이 위조 사실을 알게 되어도 행사죄 성립에는 영향이 없다는 판례가 소개되어 있다.
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.signature_immediate_exposure_holding
+type satisfied_art239_sec2_signature_immediate_exposure_holding(String, String, String, String)
+
+// assess_art239_sec2_use_of_forged_private_sign: 이 카드의 사건별 적용 평가: 위조 또는 부정사용한 사인 등을 행사하면 위조·부정행사 사인 등 행사죄가 성립한다.
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.use_of_forged_private_sign
+type assess_art239_sec2_use_of_forged_private_sign(String, String, String, String, String, String)
+
+// satisfied_art239_sec2_use_of_forged_private_sign: 증명 가능한 평가에서 다음 조건이 충족됨: 위조 또는 부정사용한 사인 등을 행사하면 위조·부정행사 사인 등 행사죄가 성립한다.
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.use_of_forged_private_sign
+type satisfied_art239_sec2_use_of_forged_private_sign(String, String, String, String)
+
+// seal_forgery_or_misuse_creation_or_misuse_false_manifestation_satisfied: 'false_manifestation' 요건이 충족됨 (creation_or_misuse track, alternative_any)
+// sources: comm_001692_제239조_Ⅰ.1_0, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_1.offense_formation, art239_sec1_3.authenticity_mistake_assessment, art239_sec1_3.authenticity_mistake_threshold, art239_sec1_3.incomplete_document_signature_forgery, art239_sec1_3.interrogation_record_incomplete_holding
+type seal_forgery_or_misuse_creation_or_misuse_false_manifestation_satisfied(String, String, String, String)
+
+// seal_forgery_or_misuse_creation_or_misuse_intent_and_use_purpose_satisfied: 'intent_and_use_purpose' 요건이 충족됨 (creation_or_misuse track, alternative_any)
+// sources: comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.intent_awareness, art239_sec1_4.purpose_of_use
+type seal_forgery_or_misuse_creation_or_misuse_intent_and_use_purpose_satisfied(String, String, String, String)
+
+// seal_forgery_or_misuse_creation_or_misuse_private_person_mark_satisfied: 'private_person_mark' 요건이 충족됨 (creation_or_misuse track, mandatory_all)
+// sources: comm_001692_제239조_Ⅰ.2_1
+// norm_cards: art239_sec1_2.private_person_scope
+type seal_forgery_or_misuse_creation_or_misuse_private_person_mark_satisfied(String, String, String, String)
+
+// seal_forgery_or_misuse_use_exposure_or_use_satisfied: 'exposure_or_use' 요건이 충족됨 (use track, alternative_any)
+// sources: comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.exposure_as_use, art239_sec2.signature_immediate_exposure_holding, art239_sec2.use_of_forged_private_sign
+type seal_forgery_or_misuse_use_exposure_or_use_satisfied(String, String, String, String)
+
+// seal_forgery_or_misuse_has_negative: 이 unit에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type seal_forgery_or_misuse_has_negative(String, String)
+
+// seal_forgery_or_misuse_has_conflict: 이 unit에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type seal_forgery_or_misuse_has_conflict(String, String)
+
+// seal_forgery_or_misuse_creation_or_misuse_elements_satisfied: 'creation_or_misuse' track의 구성요건 component가 모두 충족된 잠정 성립 후보
+// sources: system contract
+// norm_cards: system contract
+type seal_forgery_or_misuse_creation_or_misuse_elements_satisfied(String, String, String, String)
+
+// seal_forgery_or_misuse_creation_or_misuse_established: 완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 'creation_or_misuse' track 확정 성립
+// sources: system contract
+// norm_cards: system contract
+type seal_forgery_or_misuse_creation_or_misuse_established(String, String, String, String)
+
+// seal_forgery_or_misuse_use_elements_satisfied: 'use' track의 구성요건 component가 모두 충족된 잠정 성립 후보
+// sources: system contract
+// norm_cards: system contract
+type seal_forgery_or_misuse_use_elements_satisfied(String, String, String, String)
+
+// seal_forgery_or_misuse_use_established: 완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 'use' track 확정 성립
+// sources: system contract
+// norm_cards: system contract
+type seal_forgery_or_misuse_use_established(String, String, String, String)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_1_offense_formation.satisfied
+// sources: comm_001692_제239조_Ⅰ.1_0
+// norm_cards: art239_sec1_1.offense_formation
+rel satisfied_art239_sec1_1_offense_formation(case_id, defendant_id, mark_id, nominal_holder_id) = assess_art239_sec1_1_offense_formation(case_id, assessment_001, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  provable(case_id, assessment_001)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_1_offense_formation.undetermined
+// sources: comm_001692_제239조_Ⅰ.1_0
+// norm_cards: art239_sec1_1.offense_formation
+rel seal_forgery_or_misuse_undetermined(case_id, defendant_id, "art239_sec1_1.offense_formation") = assess_art239_sec1_1_offense_formation(case_id, unknown_001, defendant_id, mark_id, nominal_holder_id, "unknown") and
+  provable(case_id, unknown_001)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_1_offense_formation.conflict
+// sources: comm_001692_제239조_Ⅰ.1_0
+// norm_cards: art239_sec1_1.offense_formation
+rel seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_1.offense_formation") = assess_art239_sec1_1_offense_formation(case_id, positive_001, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  assess_art239_sec1_1_offense_formation(case_id, negative_001, defendant_id, mark_id, nominal_holder_id, "not_satisfied") and
+  provable(case_id, positive_001) and
+  provable(case_id, negative_001)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_2_private_person_scope.satisfied
+// sources: comm_001692_제239조_Ⅰ.2_1
+// norm_cards: art239_sec1_2.private_person_scope
+rel satisfied_art239_sec1_2_private_person_scope(case_id, defendant_id, mark_id, nominal_holder_id) = assess_art239_sec1_2_private_person_scope(case_id, assessment_002, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  provable(case_id, assessment_002)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_2_private_person_scope.undetermined
+// sources: comm_001692_제239조_Ⅰ.2_1
+// norm_cards: art239_sec1_2.private_person_scope
+rel seal_forgery_or_misuse_undetermined(case_id, defendant_id, "art239_sec1_2.private_person_scope") = assess_art239_sec1_2_private_person_scope(case_id, unknown_002, defendant_id, mark_id, nominal_holder_id, "unknown") and
+  provable(case_id, unknown_002)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_2_private_person_scope.conflict
+// sources: comm_001692_제239조_Ⅰ.2_1
+// norm_cards: art239_sec1_2.private_person_scope
+rel seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_2.private_person_scope") = assess_art239_sec1_2_private_person_scope(case_id, positive_002, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  assess_art239_sec1_2_private_person_scope(case_id, negative_002, defendant_id, mark_id, nominal_holder_id, "not_satisfied") and
+  provable(case_id, positive_002) and
+  provable(case_id, negative_002)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_authenticity_mistake_assessment.satisfied
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authenticity_mistake_assessment
+rel satisfied_art239_sec1_3_authenticity_mistake_assessment(case_id, defendant_id, mark_id, nominal_holder_id) = assess_art239_sec1_3_authenticity_mistake_assessment(case_id, assessment_003, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  provable(case_id, assessment_003)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_authenticity_mistake_assessment.undetermined
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authenticity_mistake_assessment
+rel seal_forgery_or_misuse_undetermined(case_id, defendant_id, "art239_sec1_3.authenticity_mistake_assessment") = assess_art239_sec1_3_authenticity_mistake_assessment(case_id, unknown_003, defendant_id, mark_id, nominal_holder_id, "unknown") and
+  provable(case_id, unknown_003)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_authenticity_mistake_assessment.conflict
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authenticity_mistake_assessment
+rel seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_3.authenticity_mistake_assessment") = assess_art239_sec1_3_authenticity_mistake_assessment(case_id, positive_003, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  assess_art239_sec1_3_authenticity_mistake_assessment(case_id, negative_003, defendant_id, mark_id, nominal_holder_id, "not_satisfied") and
+  provable(case_id, positive_003) and
+  provable(case_id, negative_003)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_authenticity_mistake_threshold.satisfied
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authenticity_mistake_threshold
+rel satisfied_art239_sec1_3_authenticity_mistake_threshold(case_id, defendant_id, mark_id, nominal_holder_id) = assess_art239_sec1_3_authenticity_mistake_threshold(case_id, assessment_004, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  provable(case_id, assessment_004)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_authenticity_mistake_threshold.undetermined
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authenticity_mistake_threshold
+rel seal_forgery_or_misuse_undetermined(case_id, defendant_id, "art239_sec1_3.authenticity_mistake_threshold") = assess_art239_sec1_3_authenticity_mistake_threshold(case_id, unknown_004, defendant_id, mark_id, nominal_holder_id, "unknown") and
+  provable(case_id, unknown_004)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_authenticity_mistake_threshold.conflict
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authenticity_mistake_threshold
+rel seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_3.authenticity_mistake_threshold") = assess_art239_sec1_3_authenticity_mistake_threshold(case_id, positive_004, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  assess_art239_sec1_3_authenticity_mistake_threshold(case_id, negative_004, defendant_id, mark_id, nominal_holder_id, "not_satisfied") and
+  provable(case_id, positive_004) and
+  provable(case_id, negative_004)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_authorized_manifestation_not_forgery.satisfied
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authorized_manifestation_not_forgery
+rel satisfied_art239_sec1_3_authorized_manifestation_not_forgery(case_id, defendant_id, mark_id, nominal_holder_id) = assess_art239_sec1_3_authorized_manifestation_not_forgery(case_id, assessment_005, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  provable(case_id, assessment_005)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_authorized_manifestation_not_forgery.undetermined
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authorized_manifestation_not_forgery
+rel seal_forgery_or_misuse_undetermined(case_id, defendant_id, "art239_sec1_3.authorized_manifestation_not_forgery") = assess_art239_sec1_3_authorized_manifestation_not_forgery(case_id, unknown_005, defendant_id, mark_id, nominal_holder_id, "unknown") and
+  provable(case_id, unknown_005)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_authorized_manifestation_not_forgery.conflict
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authorized_manifestation_not_forgery
+rel seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_3.authorized_manifestation_not_forgery") = assess_art239_sec1_3_authorized_manifestation_not_forgery(case_id, positive_005, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  assess_art239_sec1_3_authorized_manifestation_not_forgery(case_id, negative_005, defendant_id, mark_id, nominal_holder_id, "not_satisfied") and
+  provable(case_id, positive_005) and
+  provable(case_id, negative_005)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_deceived_nominee_manifestation_not_improper_use.satisfied
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.deceived_nominee_manifestation_not_improper_use
+rel satisfied_art239_sec1_3_deceived_nominee_manifestation_not_improper_use(case_id, defendant_id, mark_id, nominal_holder_id) = assess_art239_sec1_3_deceived_nominee_manifestation_not_improper_use(case_id, assessment_006, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  provable(case_id, assessment_006)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_deceived_nominee_manifestation_not_improper_use.undetermined
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.deceived_nominee_manifestation_not_improper_use
+rel seal_forgery_or_misuse_undetermined(case_id, defendant_id, "art239_sec1_3.deceived_nominee_manifestation_not_improper_use") = assess_art239_sec1_3_deceived_nominee_manifestation_not_improper_use(case_id, unknown_006, defendant_id, mark_id, nominal_holder_id, "unknown") and
+  provable(case_id, unknown_006)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_deceived_nominee_manifestation_not_improper_use.conflict
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.deceived_nominee_manifestation_not_improper_use
+rel seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_3.deceived_nominee_manifestation_not_improper_use") = assess_art239_sec1_3_deceived_nominee_manifestation_not_improper_use(case_id, positive_006, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  assess_art239_sec1_3_deceived_nominee_manifestation_not_improper_use(case_id, negative_006, defendant_id, mark_id, nominal_holder_id, "not_satisfied") and
+  provable(case_id, positive_006) and
+  provable(case_id, negative_006)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_incomplete_document_signature_forgery.satisfied
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.incomplete_document_signature_forgery
+rel satisfied_art239_sec1_3_incomplete_document_signature_forgery(case_id, defendant_id, mark_id, nominal_holder_id) = assess_art239_sec1_3_incomplete_document_signature_forgery(case_id, assessment_007, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  provable(case_id, assessment_007)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_incomplete_document_signature_forgery.undetermined
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.incomplete_document_signature_forgery
+rel seal_forgery_or_misuse_undetermined(case_id, defendant_id, "art239_sec1_3.incomplete_document_signature_forgery") = assess_art239_sec1_3_incomplete_document_signature_forgery(case_id, unknown_007, defendant_id, mark_id, nominal_holder_id, "unknown") and
+  provable(case_id, unknown_007)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_incomplete_document_signature_forgery.conflict
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.incomplete_document_signature_forgery
+rel seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_3.incomplete_document_signature_forgery") = assess_art239_sec1_3_incomplete_document_signature_forgery(case_id, positive_007, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  assess_art239_sec1_3_incomplete_document_signature_forgery(case_id, negative_007, defendant_id, mark_id, nominal_holder_id, "not_satisfied") and
+  provable(case_id, positive_007) and
+  provable(case_id, negative_007)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_interrogation_record_incomplete_holding.satisfied
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.interrogation_record_incomplete_holding
+rel satisfied_art239_sec1_3_interrogation_record_incomplete_holding(case_id, defendant_id, mark_id, nominal_holder_id) = assess_art239_sec1_3_interrogation_record_incomplete_holding(case_id, assessment_008, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  provable(case_id, assessment_008)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_interrogation_record_incomplete_holding.undetermined
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.interrogation_record_incomplete_holding
+rel seal_forgery_or_misuse_undetermined(case_id, defendant_id, "art239_sec1_3.interrogation_record_incomplete_holding") = assess_art239_sec1_3_interrogation_record_incomplete_holding(case_id, unknown_008, defendant_id, mark_id, nominal_holder_id, "unknown") and
+  provable(case_id, unknown_008)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_interrogation_record_incomplete_holding.conflict
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.interrogation_record_incomplete_holding
+rel seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_3.interrogation_record_incomplete_holding") = assess_art239_sec1_3_interrogation_record_incomplete_holding(case_id, positive_008, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  assess_art239_sec1_3_interrogation_record_incomplete_holding(case_id, negative_008, defendant_id, mark_id, nominal_holder_id, "not_satisfied") and
+  provable(case_id, positive_008) and
+  provable(case_id, negative_008)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_union_chairman_seal_authority.satisfied
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.union_chairman_seal_authority
+rel satisfied_art239_sec1_3_union_chairman_seal_authority(case_id, defendant_id, mark_id, nominal_holder_id) = assess_art239_sec1_3_union_chairman_seal_authority(case_id, assessment_009, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  provable(case_id, assessment_009)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_union_chairman_seal_authority.undetermined
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.union_chairman_seal_authority
+rel seal_forgery_or_misuse_undetermined(case_id, defendant_id, "art239_sec1_3.union_chairman_seal_authority") = assess_art239_sec1_3_union_chairman_seal_authority(case_id, unknown_009, defendant_id, mark_id, nominal_holder_id, "unknown") and
+  provable(case_id, unknown_009)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_3_union_chairman_seal_authority.conflict
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.union_chairman_seal_authority
+rel seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_3.union_chairman_seal_authority") = assess_art239_sec1_3_union_chairman_seal_authority(case_id, positive_009, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  assess_art239_sec1_3_union_chairman_seal_authority(case_id, negative_009, defendant_id, mark_id, nominal_holder_id, "not_satisfied") and
+  provable(case_id, positive_009) and
+  provable(case_id, negative_009)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_4_future_consent_no_purpose_holding.satisfied
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.future_consent_no_purpose_holding
+rel satisfied_art239_sec1_4_future_consent_no_purpose_holding(case_id, defendant_id, mark_id, nominal_holder_id) = assess_art239_sec1_4_future_consent_no_purpose_holding(case_id, assessment_010, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  provable(case_id, assessment_010)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_4_future_consent_no_purpose_holding.undetermined
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.future_consent_no_purpose_holding
+rel seal_forgery_or_misuse_undetermined(case_id, defendant_id, "art239_sec1_4.future_consent_no_purpose_holding") = assess_art239_sec1_4_future_consent_no_purpose_holding(case_id, unknown_010, defendant_id, mark_id, nominal_holder_id, "unknown") and
+  provable(case_id, unknown_010)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_4_future_consent_no_purpose_holding.conflict
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.future_consent_no_purpose_holding
+rel seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_4.future_consent_no_purpose_holding") = assess_art239_sec1_4_future_consent_no_purpose_holding(case_id, positive_010, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  assess_art239_sec1_4_future_consent_no_purpose_holding(case_id, negative_010, defendant_id, mark_id, nominal_holder_id, "not_satisfied") and
+  provable(case_id, positive_010) and
+  provable(case_id, negative_010)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_4_intent_awareness.satisfied
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.intent_awareness
+rel satisfied_art239_sec1_4_intent_awareness(case_id, defendant_id, mark_id, nominal_holder_id) = assess_art239_sec1_4_intent_awareness(case_id, assessment_011, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  provable(case_id, assessment_011)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_4_intent_awareness.undetermined
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.intent_awareness
+rel seal_forgery_or_misuse_undetermined(case_id, defendant_id, "art239_sec1_4.intent_awareness") = assess_art239_sec1_4_intent_awareness(case_id, unknown_011, defendant_id, mark_id, nominal_holder_id, "unknown") and
+  provable(case_id, unknown_011)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_4_intent_awareness.conflict
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.intent_awareness
+rel seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_4.intent_awareness") = assess_art239_sec1_4_intent_awareness(case_id, positive_011, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  assess_art239_sec1_4_intent_awareness(case_id, negative_011, defendant_id, mark_id, nominal_holder_id, "not_satisfied") and
+  provable(case_id, positive_011) and
+  provable(case_id, negative_011)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_4_purpose_of_use.satisfied
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.purpose_of_use
+rel satisfied_art239_sec1_4_purpose_of_use(case_id, defendant_id, mark_id, nominal_holder_id) = assess_art239_sec1_4_purpose_of_use(case_id, assessment_012, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  provable(case_id, assessment_012)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_4_purpose_of_use.undetermined
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.purpose_of_use
+rel seal_forgery_or_misuse_undetermined(case_id, defendant_id, "art239_sec1_4.purpose_of_use") = assess_art239_sec1_4_purpose_of_use(case_id, unknown_012, defendant_id, mark_id, nominal_holder_id, "unknown") and
+  provable(case_id, unknown_012)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_4_purpose_of_use.conflict
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.purpose_of_use
+rel seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_4.purpose_of_use") = assess_art239_sec1_4_purpose_of_use(case_id, positive_012, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  assess_art239_sec1_4_purpose_of_use(case_id, negative_012, defendant_id, mark_id, nominal_holder_id, "not_satisfied") and
+  provable(case_id, positive_012) and
+  provable(case_id, negative_012)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_4_putative_representative_no_forgery_intent.satisfied
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.putative_representative_no_forgery_intent
+rel satisfied_art239_sec1_4_putative_representative_no_forgery_intent(case_id, defendant_id, mark_id, nominal_holder_id) = assess_art239_sec1_4_putative_representative_no_forgery_intent(case_id, assessment_013, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  provable(case_id, assessment_013)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_4_putative_representative_no_forgery_intent.undetermined
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.putative_representative_no_forgery_intent
+rel seal_forgery_or_misuse_undetermined(case_id, defendant_id, "art239_sec1_4.putative_representative_no_forgery_intent") = assess_art239_sec1_4_putative_representative_no_forgery_intent(case_id, unknown_013, defendant_id, mark_id, nominal_holder_id, "unknown") and
+  provable(case_id, unknown_013)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_4_putative_representative_no_forgery_intent.conflict
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.putative_representative_no_forgery_intent
+rel seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_4.putative_representative_no_forgery_intent") = assess_art239_sec1_4_putative_representative_no_forgery_intent(case_id, positive_013, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  assess_art239_sec1_4_putative_representative_no_forgery_intent(case_id, negative_013, defendant_id, mark_id, nominal_holder_id, "not_satisfied") and
+  provable(case_id, positive_013) and
+  provable(case_id, negative_013)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_4_union_seal_no_illicit_purpose_holding.satisfied
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.union_seal_no_illicit_purpose_holding
+rel satisfied_art239_sec1_4_union_seal_no_illicit_purpose_holding(case_id, defendant_id, mark_id, nominal_holder_id) = assess_art239_sec1_4_union_seal_no_illicit_purpose_holding(case_id, assessment_014, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  provable(case_id, assessment_014)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_4_union_seal_no_illicit_purpose_holding.undetermined
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.union_seal_no_illicit_purpose_holding
+rel seal_forgery_or_misuse_undetermined(case_id, defendant_id, "art239_sec1_4.union_seal_no_illicit_purpose_holding") = assess_art239_sec1_4_union_seal_no_illicit_purpose_holding(case_id, unknown_014, defendant_id, mark_id, nominal_holder_id, "unknown") and
+  provable(case_id, unknown_014)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_4_union_seal_no_illicit_purpose_holding.conflict
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.union_seal_no_illicit_purpose_holding
+rel seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_4.union_seal_no_illicit_purpose_holding") = assess_art239_sec1_4_union_seal_no_illicit_purpose_holding(case_id, positive_014, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  assess_art239_sec1_4_union_seal_no_illicit_purpose_holding(case_id, negative_014, defendant_id, mark_id, nominal_holder_id, "not_satisfied") and
+  provable(case_id, positive_014) and
+  provable(case_id, negative_014)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_5_foreign_national_overseas_jurisdiction.satisfied
+// sources: comm_001692_제239조_Ⅰ.5_5
+// norm_cards: art239_sec1_5.foreign_national_overseas_jurisdiction
+rel satisfied_art239_sec1_5_foreign_national_overseas_jurisdiction(case_id, defendant_id, mark_id, nominal_holder_id) = assess_art239_sec1_5_foreign_national_overseas_jurisdiction(case_id, assessment_015, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  provable(case_id, assessment_015)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_5_foreign_national_overseas_jurisdiction.undetermined
+// sources: comm_001692_제239조_Ⅰ.5_5
+// norm_cards: art239_sec1_5.foreign_national_overseas_jurisdiction
+rel seal_forgery_or_misuse_undetermined(case_id, defendant_id, "art239_sec1_5.foreign_national_overseas_jurisdiction") = assess_art239_sec1_5_foreign_national_overseas_jurisdiction(case_id, unknown_015, defendant_id, mark_id, nominal_holder_id, "unknown") and
+  provable(case_id, unknown_015)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec1_5_foreign_national_overseas_jurisdiction.conflict
+// sources: comm_001692_제239조_Ⅰ.5_5
+// norm_cards: art239_sec1_5.foreign_national_overseas_jurisdiction
+rel seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_5.foreign_national_overseas_jurisdiction") = assess_art239_sec1_5_foreign_national_overseas_jurisdiction(case_id, positive_015, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  assess_art239_sec1_5_foreign_national_overseas_jurisdiction(case_id, negative_015, defendant_id, mark_id, nominal_holder_id, "not_satisfied") and
+  provable(case_id, positive_015) and
+  provable(case_id, negative_015)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec2_delivery_of_forged_seal_not_use.satisfied
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.delivery_of_forged_seal_not_use
+rel satisfied_art239_sec2_delivery_of_forged_seal_not_use(case_id, defendant_id, mark_id, nominal_holder_id) = assess_art239_sec2_delivery_of_forged_seal_not_use(case_id, assessment_016, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  provable(case_id, assessment_016)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec2_delivery_of_forged_seal_not_use.undetermined
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.delivery_of_forged_seal_not_use
+rel seal_forgery_or_misuse_undetermined(case_id, defendant_id, "art239_sec2.delivery_of_forged_seal_not_use") = assess_art239_sec2_delivery_of_forged_seal_not_use(case_id, unknown_016, defendant_id, mark_id, nominal_holder_id, "unknown") and
+  provable(case_id, unknown_016)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec2_delivery_of_forged_seal_not_use.conflict
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.delivery_of_forged_seal_not_use
+rel seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec2.delivery_of_forged_seal_not_use") = assess_art239_sec2_delivery_of_forged_seal_not_use(case_id, positive_016, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  assess_art239_sec2_delivery_of_forged_seal_not_use(case_id, negative_016, defendant_id, mark_id, nominal_holder_id, "not_satisfied") and
+  provable(case_id, positive_016) and
+  provable(case_id, negative_016)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec2_exposure_as_use.satisfied
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.exposure_as_use
+rel satisfied_art239_sec2_exposure_as_use(case_id, defendant_id, mark_id, nominal_holder_id) = assess_art239_sec2_exposure_as_use(case_id, assessment_017, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  provable(case_id, assessment_017)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec2_exposure_as_use.undetermined
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.exposure_as_use
+rel seal_forgery_or_misuse_undetermined(case_id, defendant_id, "art239_sec2.exposure_as_use") = assess_art239_sec2_exposure_as_use(case_id, unknown_017, defendant_id, mark_id, nominal_holder_id, "unknown") and
+  provable(case_id, unknown_017)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec2_exposure_as_use.conflict
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.exposure_as_use
+rel seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec2.exposure_as_use") = assess_art239_sec2_exposure_as_use(case_id, positive_017, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  assess_art239_sec2_exposure_as_use(case_id, negative_017, defendant_id, mark_id, nominal_holder_id, "not_satisfied") and
+  provable(case_id, positive_017) and
+  provable(case_id, negative_017)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec2_signature_immediate_exposure_holding.satisfied
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.signature_immediate_exposure_holding
+rel satisfied_art239_sec2_signature_immediate_exposure_holding(case_id, defendant_id, mark_id, nominal_holder_id) = assess_art239_sec2_signature_immediate_exposure_holding(case_id, assessment_018, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  provable(case_id, assessment_018)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec2_signature_immediate_exposure_holding.undetermined
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.signature_immediate_exposure_holding
+rel seal_forgery_or_misuse_undetermined(case_id, defendant_id, "art239_sec2.signature_immediate_exposure_holding") = assess_art239_sec2_signature_immediate_exposure_holding(case_id, unknown_018, defendant_id, mark_id, nominal_holder_id, "unknown") and
+  provable(case_id, unknown_018)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec2_signature_immediate_exposure_holding.conflict
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.signature_immediate_exposure_holding
+rel seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec2.signature_immediate_exposure_holding") = assess_art239_sec2_signature_immediate_exposure_holding(case_id, positive_018, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  assess_art239_sec2_signature_immediate_exposure_holding(case_id, negative_018, defendant_id, mark_id, nominal_holder_id, "not_satisfied") and
+  provable(case_id, positive_018) and
+  provable(case_id, negative_018)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec2_use_of_forged_private_sign.satisfied
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.use_of_forged_private_sign
+rel satisfied_art239_sec2_use_of_forged_private_sign(case_id, defendant_id, mark_id, nominal_holder_id) = assess_art239_sec2_use_of_forged_private_sign(case_id, assessment_019, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  provable(case_id, assessment_019)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec2_use_of_forged_private_sign.undetermined
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.use_of_forged_private_sign
+rel seal_forgery_or_misuse_undetermined(case_id, defendant_id, "art239_sec2.use_of_forged_private_sign") = assess_art239_sec2_use_of_forged_private_sign(case_id, unknown_019, defendant_id, mark_id, nominal_holder_id, "unknown") and
+  provable(case_id, unknown_019)
+
+// rule_id: seal_forgery_or_misuse.card.art239_sec2_use_of_forged_private_sign.conflict
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.use_of_forged_private_sign
+rel seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec2.use_of_forged_private_sign") = assess_art239_sec2_use_of_forged_private_sign(case_id, positive_019, defendant_id, mark_id, nominal_holder_id, "satisfied") and
+  assess_art239_sec2_use_of_forged_private_sign(case_id, negative_019, defendant_id, mark_id, nominal_holder_id, "not_satisfied") and
+  provable(case_id, positive_019) and
+  provable(case_id, negative_019)
+
+// rule_id: seal_forgery_or_misuse.component.creation_or_misuse.false_manifestation.art239_sec1_1_offense_formation
+// sources: comm_001692_제239조_Ⅰ.1_0
+// norm_cards: art239_sec1_1.offense_formation
+rel seal_forgery_or_misuse_creation_or_misuse_false_manifestation_satisfied(case_id, defendant_id, mark_id, nominal_holder_id) = satisfied_art239_sec1_1_offense_formation(case_id, defendant_id, mark_id, nominal_holder_id)
+
+// rule_id: seal_forgery_or_misuse.component.creation_or_misuse.false_manifestation.art239_sec1_3_authenticity_mistake_assessment
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authenticity_mistake_assessment
+rel seal_forgery_or_misuse_creation_or_misuse_false_manifestation_satisfied(case_id, defendant_id, mark_id, nominal_holder_id) = satisfied_art239_sec1_3_authenticity_mistake_assessment(case_id, defendant_id, mark_id, nominal_holder_id)
+
+// rule_id: seal_forgery_or_misuse.component.creation_or_misuse.false_manifestation.art239_sec1_3_authenticity_mistake_threshold
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authenticity_mistake_threshold
+rel seal_forgery_or_misuse_creation_or_misuse_false_manifestation_satisfied(case_id, defendant_id, mark_id, nominal_holder_id) = satisfied_art239_sec1_3_authenticity_mistake_threshold(case_id, defendant_id, mark_id, nominal_holder_id)
+
+// rule_id: seal_forgery_or_misuse.component.creation_or_misuse.false_manifestation.art239_sec1_3_incomplete_document_signature_forgery
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.incomplete_document_signature_forgery
+rel seal_forgery_or_misuse_creation_or_misuse_false_manifestation_satisfied(case_id, defendant_id, mark_id, nominal_holder_id) = satisfied_art239_sec1_3_incomplete_document_signature_forgery(case_id, defendant_id, mark_id, nominal_holder_id)
+
+// rule_id: seal_forgery_or_misuse.component.creation_or_misuse.false_manifestation.art239_sec1_3_interrogation_record_incomplete_holding
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.interrogation_record_incomplete_holding
+rel seal_forgery_or_misuse_creation_or_misuse_false_manifestation_satisfied(case_id, defendant_id, mark_id, nominal_holder_id) = satisfied_art239_sec1_3_interrogation_record_incomplete_holding(case_id, defendant_id, mark_id, nominal_holder_id)
+
+// rule_id: seal_forgery_or_misuse.component.creation_or_misuse.intent_and_use_purpose.art239_sec1_4_intent_awareness
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.intent_awareness
+rel seal_forgery_or_misuse_creation_or_misuse_intent_and_use_purpose_satisfied(case_id, defendant_id, mark_id, nominal_holder_id) = satisfied_art239_sec1_4_intent_awareness(case_id, defendant_id, mark_id, nominal_holder_id)
+
+// rule_id: seal_forgery_or_misuse.component.creation_or_misuse.intent_and_use_purpose.art239_sec1_4_purpose_of_use
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.purpose_of_use
+rel seal_forgery_or_misuse_creation_or_misuse_intent_and_use_purpose_satisfied(case_id, defendant_id, mark_id, nominal_holder_id) = satisfied_art239_sec1_4_purpose_of_use(case_id, defendant_id, mark_id, nominal_holder_id)
+
+// rule_id: seal_forgery_or_misuse.component.creation_or_misuse.private_person_mark.all
+// sources: comm_001692_제239조_Ⅰ.2_1
+// norm_cards: art239_sec1_2.private_person_scope
+rel seal_forgery_or_misuse_creation_or_misuse_private_person_mark_satisfied(case_id, defendant_id, mark_id, nominal_holder_id) = satisfied_art239_sec1_2_private_person_scope(case_id, defendant_id, mark_id, nominal_holder_id)
+
+// rule_id: seal_forgery_or_misuse.component.use.exposure_or_use.art239_sec2_exposure_as_use
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.exposure_as_use
+rel seal_forgery_or_misuse_use_exposure_or_use_satisfied(case_id, defendant_id, mark_id, nominal_holder_id) = satisfied_art239_sec2_exposure_as_use(case_id, defendant_id, mark_id, nominal_holder_id)
+
+// rule_id: seal_forgery_or_misuse.component.use.exposure_or_use.art239_sec2_signature_immediate_exposure_holding
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.signature_immediate_exposure_holding
+rel seal_forgery_or_misuse_use_exposure_or_use_satisfied(case_id, defendant_id, mark_id, nominal_holder_id) = satisfied_art239_sec2_signature_immediate_exposure_holding(case_id, defendant_id, mark_id, nominal_holder_id)
+
+// rule_id: seal_forgery_or_misuse.component.use.exposure_or_use.art239_sec2_use_of_forged_private_sign
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.use_of_forged_private_sign
+rel seal_forgery_or_misuse_use_exposure_or_use_satisfied(case_id, defendant_id, mark_id, nominal_holder_id) = satisfied_art239_sec2_use_of_forged_private_sign(case_id, defendant_id, mark_id, nominal_holder_id)
+
+// rule_id: seal_forgery_or_misuse.track_conflict.creation_or_misuse.art239_sec1_1_offense_formation
+// sources: comm_001692_제239조_Ⅰ.1_0
+// norm_cards: art239_sec1_1.offense_formation
+rel seal_forgery_or_misuse_track_conflict(case_id, defendant_id, "creation_or_misuse", "art239_sec1_1.offense_formation") = seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_1.offense_formation")
+
+// rule_id: seal_forgery_or_misuse.track_conflict.creation_or_misuse.art239_sec1_3_authenticity_mistake_assessment
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authenticity_mistake_assessment
+rel seal_forgery_or_misuse_track_conflict(case_id, defendant_id, "creation_or_misuse", "art239_sec1_3.authenticity_mistake_assessment") = seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_3.authenticity_mistake_assessment")
+
+// rule_id: seal_forgery_or_misuse.track_conflict.creation_or_misuse.art239_sec1_3_authenticity_mistake_threshold
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authenticity_mistake_threshold
+rel seal_forgery_or_misuse_track_conflict(case_id, defendant_id, "creation_or_misuse", "art239_sec1_3.authenticity_mistake_threshold") = seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_3.authenticity_mistake_threshold")
+
+// rule_id: seal_forgery_or_misuse.track_conflict.creation_or_misuse.art239_sec1_3_authorized_manifestation_not_forgery
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authorized_manifestation_not_forgery
+rel seal_forgery_or_misuse_track_conflict(case_id, defendant_id, "creation_or_misuse", "art239_sec1_3.authorized_manifestation_not_forgery") = seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_3.authorized_manifestation_not_forgery")
+
+// rule_id: seal_forgery_or_misuse.track_blocked.creation_or_misuse.art239_sec1_3_authorized_manifestation_not_forgery
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.authorized_manifestation_not_forgery
+rel seal_forgery_or_misuse_track_not_established(case_id, defendant_id, "creation_or_misuse", "art239_sec1_3.authorized_manifestation_not_forgery") = satisfied_art239_sec1_3_authorized_manifestation_not_forgery(case_id, defendant_id, mark_id, nominal_holder_id)
+
+// rule_id: seal_forgery_or_misuse.track_conflict.creation_or_misuse.art239_sec1_3_deceived_nominee_manifestation_not_improper_use
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.deceived_nominee_manifestation_not_improper_use
+rel seal_forgery_or_misuse_track_conflict(case_id, defendant_id, "creation_or_misuse", "art239_sec1_3.deceived_nominee_manifestation_not_improper_use") = seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_3.deceived_nominee_manifestation_not_improper_use")
+
+// rule_id: seal_forgery_or_misuse.track_blocked.creation_or_misuse.art239_sec1_3_deceived_nominee_manifestation_not_improper_use
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.deceived_nominee_manifestation_not_improper_use
+rel seal_forgery_or_misuse_track_not_established(case_id, defendant_id, "creation_or_misuse", "art239_sec1_3.deceived_nominee_manifestation_not_improper_use") = satisfied_art239_sec1_3_deceived_nominee_manifestation_not_improper_use(case_id, defendant_id, mark_id, nominal_holder_id)
+
+// rule_id: seal_forgery_or_misuse.track_conflict.creation_or_misuse.art239_sec1_3_incomplete_document_signature_forgery
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.incomplete_document_signature_forgery
+rel seal_forgery_or_misuse_track_conflict(case_id, defendant_id, "creation_or_misuse", "art239_sec1_3.incomplete_document_signature_forgery") = seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_3.incomplete_document_signature_forgery")
+
+// rule_id: seal_forgery_or_misuse.track_conflict.creation_or_misuse.art239_sec1_3_interrogation_record_incomplete_holding
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.interrogation_record_incomplete_holding
+rel seal_forgery_or_misuse_track_conflict(case_id, defendant_id, "creation_or_misuse", "art239_sec1_3.interrogation_record_incomplete_holding") = seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_3.interrogation_record_incomplete_holding")
+
+// rule_id: seal_forgery_or_misuse.track_conflict.creation_or_misuse.art239_sec1_3_union_chairman_seal_authority
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.union_chairman_seal_authority
+rel seal_forgery_or_misuse_track_conflict(case_id, defendant_id, "creation_or_misuse", "art239_sec1_3.union_chairman_seal_authority") = seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_3.union_chairman_seal_authority")
+
+// rule_id: seal_forgery_or_misuse.track_blocked.creation_or_misuse.art239_sec1_3_union_chairman_seal_authority
+// sources: comm_001692_제239조_Ⅰ.3_2
+// norm_cards: art239_sec1_3.union_chairman_seal_authority
+rel seal_forgery_or_misuse_track_not_established(case_id, defendant_id, "creation_or_misuse", "art239_sec1_3.union_chairman_seal_authority") = satisfied_art239_sec1_3_union_chairman_seal_authority(case_id, defendant_id, mark_id, nominal_holder_id)
+
+// rule_id: seal_forgery_or_misuse.track_conflict.creation_or_misuse.art239_sec1_4_future_consent_no_purpose_holding
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.future_consent_no_purpose_holding
+rel seal_forgery_or_misuse_track_conflict(case_id, defendant_id, "creation_or_misuse", "art239_sec1_4.future_consent_no_purpose_holding") = seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_4.future_consent_no_purpose_holding")
+
+// rule_id: seal_forgery_or_misuse.track_blocked.creation_or_misuse.art239_sec1_4_future_consent_no_purpose_holding
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.future_consent_no_purpose_holding
+rel seal_forgery_or_misuse_track_not_established(case_id, defendant_id, "creation_or_misuse", "art239_sec1_4.future_consent_no_purpose_holding") = satisfied_art239_sec1_4_future_consent_no_purpose_holding(case_id, defendant_id, mark_id, nominal_holder_id)
+
+// rule_id: seal_forgery_or_misuse.track_conflict.creation_or_misuse.art239_sec1_4_intent_awareness
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.intent_awareness
+rel seal_forgery_or_misuse_track_conflict(case_id, defendant_id, "creation_or_misuse", "art239_sec1_4.intent_awareness") = seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_4.intent_awareness")
+
+// rule_id: seal_forgery_or_misuse.track_conflict.creation_or_misuse.art239_sec1_4_purpose_of_use
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.purpose_of_use
+rel seal_forgery_or_misuse_track_conflict(case_id, defendant_id, "creation_or_misuse", "art239_sec1_4.purpose_of_use") = seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_4.purpose_of_use")
+
+// rule_id: seal_forgery_or_misuse.track_conflict.creation_or_misuse.art239_sec1_4_putative_representative_no_forgery_intent
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.putative_representative_no_forgery_intent
+rel seal_forgery_or_misuse_track_conflict(case_id, defendant_id, "creation_or_misuse", "art239_sec1_4.putative_representative_no_forgery_intent") = seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_4.putative_representative_no_forgery_intent")
+
+// rule_id: seal_forgery_or_misuse.track_blocked.creation_or_misuse.art239_sec1_4_putative_representative_no_forgery_intent
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.putative_representative_no_forgery_intent
+rel seal_forgery_or_misuse_track_not_established(case_id, defendant_id, "creation_or_misuse", "art239_sec1_4.putative_representative_no_forgery_intent") = satisfied_art239_sec1_4_putative_representative_no_forgery_intent(case_id, defendant_id, mark_id, nominal_holder_id)
+
+// rule_id: seal_forgery_or_misuse.track_conflict.creation_or_misuse.art239_sec1_4_union_seal_no_illicit_purpose_holding
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.union_seal_no_illicit_purpose_holding
+rel seal_forgery_or_misuse_track_conflict(case_id, defendant_id, "creation_or_misuse", "art239_sec1_4.union_seal_no_illicit_purpose_holding") = seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_4.union_seal_no_illicit_purpose_holding")
+
+// rule_id: seal_forgery_or_misuse.track_blocked.creation_or_misuse.art239_sec1_4_union_seal_no_illicit_purpose_holding
+// sources: comm_001692_제239조_Ⅰ.4_4
+// norm_cards: art239_sec1_4.union_seal_no_illicit_purpose_holding
+rel seal_forgery_or_misuse_track_not_established(case_id, defendant_id, "creation_or_misuse", "art239_sec1_4.union_seal_no_illicit_purpose_holding") = satisfied_art239_sec1_4_union_seal_no_illicit_purpose_holding(case_id, defendant_id, mark_id, nominal_holder_id)
+
+// rule_id: seal_forgery_or_misuse.track_conflict.creation_or_misuse.art239_sec1_2_private_person_scope
+// sources: comm_001692_제239조_Ⅰ.2_1
+// norm_cards: art239_sec1_2.private_person_scope
+rel seal_forgery_or_misuse_track_conflict(case_id, defendant_id, "creation_or_misuse", "art239_sec1_2.private_person_scope") = seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec1_2.private_person_scope")
+
+// rule_id: seal_forgery_or_misuse.track_conflict.use.art239_sec2_delivery_of_forged_seal_not_use
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.delivery_of_forged_seal_not_use
+rel seal_forgery_or_misuse_track_conflict(case_id, defendant_id, "use", "art239_sec2.delivery_of_forged_seal_not_use") = seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec2.delivery_of_forged_seal_not_use")
+
+// rule_id: seal_forgery_or_misuse.track_blocked.use.art239_sec2_delivery_of_forged_seal_not_use
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.delivery_of_forged_seal_not_use
+rel seal_forgery_or_misuse_track_not_established(case_id, defendant_id, "use", "art239_sec2.delivery_of_forged_seal_not_use") = satisfied_art239_sec2_delivery_of_forged_seal_not_use(case_id, defendant_id, mark_id, nominal_holder_id)
+
+// rule_id: seal_forgery_or_misuse.track_conflict.use.art239_sec2_exposure_as_use
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.exposure_as_use
+rel seal_forgery_or_misuse_track_conflict(case_id, defendant_id, "use", "art239_sec2.exposure_as_use") = seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec2.exposure_as_use")
+
+// rule_id: seal_forgery_or_misuse.track_conflict.use.art239_sec2_signature_immediate_exposure_holding
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.signature_immediate_exposure_holding
+rel seal_forgery_or_misuse_track_conflict(case_id, defendant_id, "use", "art239_sec2.signature_immediate_exposure_holding") = seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec2.signature_immediate_exposure_holding")
+
+// rule_id: seal_forgery_or_misuse.track_conflict.use.art239_sec2_use_of_forged_private_sign
+// sources: comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.use_of_forged_private_sign
+rel seal_forgery_or_misuse_track_conflict(case_id, defendant_id, "use", "art239_sec2.use_of_forged_private_sign") = seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec2.use_of_forged_private_sign")
+
+// rule_id: seal_forgery_or_misuse.summary.has_negative
+// sources: comm_001692_제239조_Ⅰ.1_0, comm_001692_제239조_Ⅰ.2_1, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.5_5, comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec1_1.offense_formation, art239_sec1_2.private_person_scope, art239_sec1_3.authenticity_mistake_assessment, art239_sec1_3.authenticity_mistake_threshold, art239_sec1_3.authorized_manifestation_not_forgery, art239_sec1_3.deceived_nominee_manifestation_not_improper_use, art239_sec1_3.incomplete_document_signature_forgery, art239_sec1_3.interrogation_record_incomplete_holding, art239_sec1_3.union_chairman_seal_authority, art239_sec1_4.future_consent_no_purpose_holding, art239_sec1_4.intent_awareness, art239_sec1_4.purpose_of_use, art239_sec1_4.putative_representative_no_forgery_intent, art239_sec1_4.union_seal_no_illicit_purpose_holding, art239_sec1_5.foreign_national_overseas_jurisdiction, art239_sec2.delivery_of_forged_seal_not_use, art239_sec2.exposure_as_use, art239_sec2.signature_immediate_exposure_holding, art239_sec2.use_of_forged_private_sign
+rel seal_forgery_or_misuse_has_negative(case_id, defendant_id) = seal_forgery_or_misuse_not_established(case_id, defendant_id, norm_card_id)
+
+// rule_id: seal_forgery_or_misuse.summary.has_conflict
+// sources: comm_001692_제239조_Ⅰ.1_0, comm_001692_제239조_Ⅰ.2_1, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.5_5, comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec1_1.offense_formation, art239_sec1_2.private_person_scope, art239_sec1_3.authenticity_mistake_assessment, art239_sec1_3.authenticity_mistake_threshold, art239_sec1_3.authorized_manifestation_not_forgery, art239_sec1_3.deceived_nominee_manifestation_not_improper_use, art239_sec1_3.incomplete_document_signature_forgery, art239_sec1_3.interrogation_record_incomplete_holding, art239_sec1_3.union_chairman_seal_authority, art239_sec1_4.future_consent_no_purpose_holding, art239_sec1_4.intent_awareness, art239_sec1_4.purpose_of_use, art239_sec1_4.putative_representative_no_forgery_intent, art239_sec1_4.union_seal_no_illicit_purpose_holding, art239_sec1_5.foreign_national_overseas_jurisdiction, art239_sec2.delivery_of_forged_seal_not_use, art239_sec2.exposure_as_use, art239_sec2.signature_immediate_exposure_holding, art239_sec2.use_of_forged_private_sign
+rel seal_forgery_or_misuse_has_conflict(case_id, defendant_id) = seal_forgery_or_misuse_conflict(case_id, defendant_id, norm_card_id)
+
+// rule_id: seal_forgery_or_misuse.summary.canonical_not_established
+// sources: comm_001692_제239조_Ⅰ.1_0, comm_001692_제239조_Ⅰ.2_1, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.5_5, comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec1_1.offense_formation, art239_sec1_2.private_person_scope, art239_sec1_3.authenticity_mistake_assessment, art239_sec1_3.authenticity_mistake_threshold, art239_sec1_3.authorized_manifestation_not_forgery, art239_sec1_3.deceived_nominee_manifestation_not_improper_use, art239_sec1_3.incomplete_document_signature_forgery, art239_sec1_3.interrogation_record_incomplete_holding, art239_sec1_3.union_chairman_seal_authority, art239_sec1_4.future_consent_no_purpose_holding, art239_sec1_4.intent_awareness, art239_sec1_4.purpose_of_use, art239_sec1_4.putative_representative_no_forgery_intent, art239_sec1_4.union_seal_no_illicit_purpose_holding, art239_sec1_5.foreign_national_overseas_jurisdiction, art239_sec2.delivery_of_forged_seal_not_use, art239_sec2.exposure_as_use, art239_sec2.signature_immediate_exposure_holding, art239_sec2.use_of_forged_private_sign
+rel seal_forgery_or_misuse_not_established(case_id, defendant_id, norm_card_id) = seal_forgery_or_misuse_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: seal_forgery_or_misuse.summary.track_has_negative
+// sources: comm_001692_제239조_Ⅰ.1_0, comm_001692_제239조_Ⅰ.2_1, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.5_5, comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec1_1.offense_formation, art239_sec1_2.private_person_scope, art239_sec1_3.authenticity_mistake_assessment, art239_sec1_3.authenticity_mistake_threshold, art239_sec1_3.authorized_manifestation_not_forgery, art239_sec1_3.deceived_nominee_manifestation_not_improper_use, art239_sec1_3.incomplete_document_signature_forgery, art239_sec1_3.interrogation_record_incomplete_holding, art239_sec1_3.union_chairman_seal_authority, art239_sec1_4.future_consent_no_purpose_holding, art239_sec1_4.intent_awareness, art239_sec1_4.purpose_of_use, art239_sec1_4.putative_representative_no_forgery_intent, art239_sec1_4.union_seal_no_illicit_purpose_holding, art239_sec1_5.foreign_national_overseas_jurisdiction, art239_sec2.delivery_of_forged_seal_not_use, art239_sec2.exposure_as_use, art239_sec2.signature_immediate_exposure_holding, art239_sec2.use_of_forged_private_sign
+rel seal_forgery_or_misuse_track_has_negative(case_id, defendant_id, track_id) = seal_forgery_or_misuse_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: seal_forgery_or_misuse.summary.track_has_conflict
+// sources: comm_001692_제239조_Ⅰ.1_0, comm_001692_제239조_Ⅰ.2_1, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.5_5, comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec1_1.offense_formation, art239_sec1_2.private_person_scope, art239_sec1_3.authenticity_mistake_assessment, art239_sec1_3.authenticity_mistake_threshold, art239_sec1_3.authorized_manifestation_not_forgery, art239_sec1_3.deceived_nominee_manifestation_not_improper_use, art239_sec1_3.incomplete_document_signature_forgery, art239_sec1_3.interrogation_record_incomplete_holding, art239_sec1_3.union_chairman_seal_authority, art239_sec1_4.future_consent_no_purpose_holding, art239_sec1_4.intent_awareness, art239_sec1_4.purpose_of_use, art239_sec1_4.putative_representative_no_forgery_intent, art239_sec1_4.union_seal_no_illicit_purpose_holding, art239_sec1_5.foreign_national_overseas_jurisdiction, art239_sec2.delivery_of_forged_seal_not_use, art239_sec2.exposure_as_use, art239_sec2.signature_immediate_exposure_holding, art239_sec2.use_of_forged_private_sign
+rel seal_forgery_or_misuse_track_has_conflict(case_id, defendant_id, track_id) = seal_forgery_or_misuse_track_conflict(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: seal_forgery_or_misuse.outcome.creation_or_misuse.elements_satisfied
+// sources: comm_001692_제239조_Ⅰ.1_0, comm_001692_제239조_Ⅰ.2_1, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.5_5
+// norm_cards: art239_sec1_1.offense_formation, art239_sec1_2.private_person_scope, art239_sec1_3.authenticity_mistake_assessment, art239_sec1_3.authenticity_mistake_threshold, art239_sec1_3.authorized_manifestation_not_forgery, art239_sec1_3.deceived_nominee_manifestation_not_improper_use, art239_sec1_3.incomplete_document_signature_forgery, art239_sec1_3.interrogation_record_incomplete_holding, art239_sec1_3.union_chairman_seal_authority, art239_sec1_4.future_consent_no_purpose_holding, art239_sec1_4.intent_awareness, art239_sec1_4.purpose_of_use, art239_sec1_4.putative_representative_no_forgery_intent, art239_sec1_4.union_seal_no_illicit_purpose_holding, art239_sec1_5.foreign_national_overseas_jurisdiction
+rel seal_forgery_or_misuse_creation_or_misuse_elements_satisfied(case_id, defendant_id, mark_id, nominal_holder_id) = seal_forgery_or_misuse_creation_or_misuse_false_manifestation_satisfied(case_id, defendant_id, mark_id, nominal_holder_id) and
+  seal_forgery_or_misuse_creation_or_misuse_intent_and_use_purpose_satisfied(case_id, defendant_id, mark_id, nominal_holder_id) and
+  seal_forgery_or_misuse_creation_or_misuse_private_person_mark_satisfied(case_id, defendant_id, mark_id, nominal_holder_id)
+
+// rule_id: seal_forgery_or_misuse.outcome.creation_or_misuse.established
+// sources: comm_001692_제239조_Ⅰ.1_0, comm_001692_제239조_Ⅰ.2_1, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.3_2, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.4_4, comm_001692_제239조_Ⅰ.5_5
+// norm_cards: art239_sec1_1.offense_formation, art239_sec1_2.private_person_scope, art239_sec1_3.authenticity_mistake_assessment, art239_sec1_3.authenticity_mistake_threshold, art239_sec1_3.authorized_manifestation_not_forgery, art239_sec1_3.deceived_nominee_manifestation_not_improper_use, art239_sec1_3.incomplete_document_signature_forgery, art239_sec1_3.interrogation_record_incomplete_holding, art239_sec1_3.union_chairman_seal_authority, art239_sec1_4.future_consent_no_purpose_holding, art239_sec1_4.intent_awareness, art239_sec1_4.purpose_of_use, art239_sec1_4.putative_representative_no_forgery_intent, art239_sec1_4.union_seal_no_illicit_purpose_holding, art239_sec1_5.foreign_national_overseas_jurisdiction
+rel seal_forgery_or_misuse_creation_or_misuse_established(case_id, defendant_id, mark_id, nominal_holder_id) = seal_forgery_or_misuse_creation_or_misuse_elements_satisfied(case_id, defendant_id, mark_id, nominal_holder_id) and
+  case_assessment_complete(case_id, defendant_id) and
+  ~seal_forgery_or_misuse_track_has_negative(case_id, defendant_id, "creation_or_misuse") and
+  ~seal_forgery_or_misuse_track_has_conflict(case_id, defendant_id, "creation_or_misuse")
+
+// rule_id: seal_forgery_or_misuse.outcome.use.elements_satisfied
+// sources: comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.delivery_of_forged_seal_not_use, art239_sec2.exposure_as_use, art239_sec2.signature_immediate_exposure_holding, art239_sec2.use_of_forged_private_sign
+rel seal_forgery_or_misuse_use_elements_satisfied(case_id, defendant_id, mark_id, nominal_holder_id) = seal_forgery_or_misuse_use_exposure_or_use_satisfied(case_id, defendant_id, mark_id, nominal_holder_id)
+
+// rule_id: seal_forgery_or_misuse.outcome.use.established
+// sources: comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6, comm_001692_제239조_Ⅱ_6
+// norm_cards: art239_sec2.delivery_of_forged_seal_not_use, art239_sec2.exposure_as_use, art239_sec2.signature_immediate_exposure_holding, art239_sec2.use_of_forged_private_sign
+rel seal_forgery_or_misuse_use_established(case_id, defendant_id, mark_id, nominal_holder_id) = seal_forgery_or_misuse_use_elements_satisfied(case_id, defendant_id, mark_id, nominal_holder_id) and
+  case_assessment_complete(case_id, defendant_id) and
+  ~seal_forgery_or_misuse_track_has_negative(case_id, defendant_id, "use") and
+  ~seal_forgery_or_misuse_track_has_conflict(case_id, defendant_id, "use")

@@ -1,0 +1,494 @@
+{
+  "version": "1.0.0",
+  "authority": "delegated_human_legal_review",
+  "unit_id": "private_document_forgery",
+  "approved_on": "2026-08-04",
+  "approval_basis": [
+    "data/rulegen/p2/native_review/private_document_forgery_approval_config.json"
+  ],
+  "policy": {
+    "approval": "Delegated normalization on 2026-08-04",
+    "tracks": "사문서 위조·변조·미수 분리",
+    "object": "권리의무 또는 거래상 중요한 사실증명 문서",
+    "authority": "명의자 승낙·위임과 추정승낙은 bar",
+    "boundary": "새 문서 완성은 위조, 진정문서 동일성 유지 변경은 변조"
+  },
+  "track_vocabulary": [
+    {
+      "track_id": "common",
+      "label": "사문서 공통 placement"
+    },
+    {
+      "track_id": "forgery",
+      "label": "사문서 위조",
+      "inherits_placements": [
+        {
+          "track_id": "common",
+          "component_ids": [
+            "protected_document",
+            "intent_and_use_purpose"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "alteration",
+      "label": "사문서 변조",
+      "inherits_placements": [
+        {
+          "track_id": "common",
+          "component_ids": [
+            "protected_document",
+            "intent_and_use_purpose"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "attempt",
+      "label": "사문서 위조·변조 미수"
+    }
+  ],
+  "cards": [
+    {
+      "card_id": "art231_sec1.element.object_and_purpose",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "protected_document",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "타인의 권리의무 또는 거래상 중요한 사실증명 문서·도화와 사본"
+    },
+    {
+      "card_id": "art231_sec2_1.document_copy",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "protected_document",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "타인의 권리의무 또는 거래상 중요한 사실증명 문서·도화와 사본"
+    },
+    {
+      "card_id": "art231_sec2_1.fact_certification_classification",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "protected_document",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "타인의 권리의무 또는 거래상 중요한 사실증명 문서·도화와 사본"
+    },
+    {
+      "card_id": "art231_sec2_1.fact_certification_document",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "protected_document",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "타인의 권리의무 또는 거래상 중요한 사실증명 문서·도화와 사본"
+    },
+    {
+      "card_id": "art231_sec2_1.indirectly_related_important_fact_document",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "protected_document",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "타인의 권리의무 또는 거래상 중요한 사실증명 문서·도화와 사본"
+    },
+    {
+      "card_id": "art231_sec2_1.political_signature_list_excluded",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "protected_document",
+      "component_join": "not_applicable",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "구체적 권리의무와 무관한 정치적 의견표현 문서"
+    },
+    {
+      "card_id": "art231_sec2_1.right_duty_document",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "protected_document",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "타인의 권리의무 또는 거래상 중요한 사실증명 문서·도화와 사본"
+    },
+    {
+      "card_id": "art231_sec2_2.drawing_definition_and_artwork_exclusion",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "protected_document",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "타인의 권리의무 또는 거래상 중요한 사실증명 문서·도화와 사본"
+    },
+    {
+      "card_id": "art231_sec3_1.authority_determination",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "unauthorized_creation",
+      "component_join": "alternative_any",
+      "track_id": "forgery",
+      "refers_to_unit": null,
+      "rationale": "작성권한 없이 타인 명의의 진정문서 외관을 갖춘 문서 작성"
+    },
+    {
+      "card_id": "art231_sec3_1.fictitious_or_deceased_nominee",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "unauthorized_creation",
+      "component_join": "alternative_any",
+      "track_id": "forgery",
+      "refers_to_unit": null,
+      "rationale": "작성권한 없이 타인 명의의 진정문서 외관을 갖춘 문서 작성"
+    },
+    {
+      "card_id": "art231_sec3_1.forgery_definition",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "unauthorized_creation",
+      "component_join": "alternative_any",
+      "track_id": "forgery",
+      "refers_to_unit": null,
+      "rationale": "작성권한 없이 타인 명의의 진정문서 외관을 갖춘 문서 작성"
+    },
+    {
+      "card_id": "art231_sec3_2.authority_abuse",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "unauthorized_creation",
+      "component_join": "not_applicable",
+      "track_id": "forgery",
+      "refers_to_unit": "fraud",
+      "rationale": "명의자 승낙·위임·추정승낙 또는 명의인의 진정작성"
+    },
+    {
+      "card_id": "art231_sec3_2.authorized_creation",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "unauthorized_creation",
+      "component_join": "not_applicable",
+      "track_id": "forgery",
+      "refers_to_unit": "fraud",
+      "rationale": "명의자 승낙·위임·추정승낙 또는 명의인의 진정작성"
+    },
+    {
+      "card_id": "art231_sec3_2.comprehensive_delegation",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "unauthorized_creation",
+      "component_join": "not_applicable",
+      "track_id": "forgery",
+      "refers_to_unit": "fraud",
+      "rationale": "명의자 승낙·위임·추정승낙 또는 명의인의 진정작성"
+    },
+    {
+      "card_id": "art231_sec3_2.document_appearance",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "unauthorized_creation",
+      "component_join": "alternative_any",
+      "track_id": "forgery",
+      "refers_to_unit": null,
+      "rationale": "작성권한 없이 타인 명의의 진정문서 외관을 갖춘 문서 작성"
+    },
+    {
+      "card_id": "art231_sec3_2.excess_of_delegated_authority",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "unauthorized_creation",
+      "component_join": "alternative_any",
+      "track_id": "forgery",
+      "refers_to_unit": null,
+      "rationale": "작성권한 없이 타인 명의의 진정문서 외관을 갖춘 문서 작성"
+    },
+    {
+      "card_id": "art231_sec3_2.genuineness_misapprehension",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "unauthorized_creation",
+      "component_join": "alternative_any",
+      "track_id": "forgery",
+      "refers_to_unit": null,
+      "rationale": "작성권한 없이 타인 명의의 진정문서 외관을 갖춘 문서 작성"
+    },
+    {
+      "card_id": "art231_sec3_2.no_property_damage",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "unauthorized_creation",
+      "component_join": "alternative_any",
+      "track_id": "forgery",
+      "refers_to_unit": null,
+      "rationale": "작성권한 없이 타인 명의의 진정문서 외관을 갖춘 문서 작성"
+    },
+    {
+      "card_id": "art231_sec3_2.presumed_consent",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "unauthorized_creation",
+      "component_join": "not_applicable",
+      "track_id": "forgery",
+      "refers_to_unit": "fraud",
+      "rationale": "명의자 승낙·위임·추정승낙 또는 명의인의 진정작성"
+    },
+    {
+      "card_id": "art231_sec3_3.alias_name_addition_no_new_evidentiary_force",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "identity_preserving_change",
+      "component_join": "not_applicable",
+      "track_id": "alteration",
+      "refers_to_unit": null,
+      "rationale": "작성권한 있는 변경·문서성 또는 원본 부재·새 증명력 없는 변경"
+    },
+    {
+      "card_id": "art231_sec3_3.alteration_completion_new_evidentiary_force",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "identity_preserving_change",
+      "component_join": "alternative_any",
+      "track_id": "alteration",
+      "refers_to_unit": null,
+      "rationale": "진정한 타인 명의 문서의 동일성을 유지하며 새 증명력을 만드는 무권한 변경"
+    },
+    {
+      "card_id": "art231_sec3_3.alteration_definition",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "identity_preserving_change",
+      "component_join": "alternative_any",
+      "track_id": "alteration",
+      "refers_to_unit": null,
+      "rationale": "진정한 타인 명의 문서의 동일성을 유지하며 새 증명력을 만드는 무권한 변경"
+    },
+    {
+      "card_id": "art231_sec3_3.alteration_method_deletion_addition",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "identity_preserving_change",
+      "component_join": "alternative_any",
+      "track_id": "alteration",
+      "refers_to_unit": null,
+      "rationale": "진정한 타인 명의 문서의 동일성을 유지하며 새 증명력을 만드는 무권한 변경"
+    },
+    {
+      "card_id": "art231_sec3_3.authorized_writer_alteration_no_offense",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "identity_preserving_change",
+      "component_join": "not_applicable",
+      "track_id": "alteration",
+      "refers_to_unit": null,
+      "rationale": "작성권한 있는 변경·문서성 또는 원본 부재·새 증명력 없는 변경"
+    },
+    {
+      "card_id": "art231_sec3_3.concealing_name_not_alteration",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "identity_preserving_change",
+      "component_join": "not_applicable",
+      "track_id": "alteration",
+      "refers_to_unit": null,
+      "rationale": "작성권한 있는 변경·문서성 또는 원본 부재·새 증명력 없는 변경"
+    },
+    {
+      "card_id": "art231_sec3_3.digital_file_image_not_document",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "identity_preserving_change",
+      "component_join": "not_applicable",
+      "track_id": "alteration",
+      "refers_to_unit": null,
+      "rationale": "작성권한 있는 변경·문서성 또는 원본 부재·새 증명력 없는 변경"
+    },
+    {
+      "card_id": "art231_sec3_3.genuine_document_requirement",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "identity_preserving_change",
+      "component_join": "not_applicable",
+      "track_id": "alteration",
+      "refers_to_unit": null,
+      "rationale": "작성권한 있는 변경·문서성 또는 원본 부재·새 증명력 없는 변경"
+    },
+    {
+      "card_id": "art231_sec3_3.immaterial_character_change_exception",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "identity_preserving_change",
+      "component_join": "not_applicable",
+      "track_id": "alteration",
+      "refers_to_unit": null,
+      "rationale": "작성권한 있는 변경·문서성 또는 원본 부재·새 증명력 없는 변경"
+    },
+    {
+      "card_id": "art231_sec3_3.multiple_nominees_contract_alteration",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "identity_preserving_change",
+      "component_join": "alternative_any",
+      "track_id": "alteration",
+      "refers_to_unit": null,
+      "rationale": "진정한 타인 명의 문서의 동일성을 유지하며 새 증명력을 만드는 무권한 변경"
+    },
+    {
+      "card_id": "art231_sec3_3.no_consent_despite_benefit",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "identity_preserving_change",
+      "component_join": "alternative_any",
+      "track_id": "alteration",
+      "refers_to_unit": null,
+      "rationale": "진정한 타인 명의 문서의 동일성을 유지하며 새 증명력을 만드는 무권한 변경"
+    },
+    {
+      "card_id": "art231_sec3_3.notarized_private_instrument_alteration",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "identity_preserving_change",
+      "component_join": "alternative_any",
+      "track_id": "alteration",
+      "refers_to_unit": null,
+      "rationale": "진정한 타인 명의 문서의 동일성을 유지하며 새 증명력을 만드는 무권한 변경"
+    },
+    {
+      "card_id": "art231_sec3_3.post_contract_price_alteration",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "identity_preserving_change",
+      "component_join": "alternative_any",
+      "track_id": "alteration",
+      "refers_to_unit": null,
+      "rationale": "진정한 타인 명의 문서의 동일성을 유지하며 새 증명력을 만드는 무권한 변경"
+    },
+    {
+      "card_id": "art231_sec3_3.public_confidence_risk",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "identity_preserving_change",
+      "component_join": "alternative_any",
+      "track_id": "alteration",
+      "refers_to_unit": null,
+      "rationale": "진정한 타인 명의 문서의 동일성을 유지하며 새 증명력을 만드는 무권한 변경"
+    },
+    {
+      "card_id": "art231_sec4.purpose_of_use",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "intent_and_use_purpose",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "타인 명의·위변조 인식과 진정문서 효용을 갖게 할 행사 목적"
+    },
+    {
+      "card_id": "art231_sec4_1.expected_consent_does_not_negate_intent",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "intent_and_use_purpose",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "타인 명의·위변조 인식과 진정문서 효용을 갖게 할 행사 목적"
+    },
+    {
+      "card_id": "art231_sec4_1.intent_awareness_and_realization",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "intent_and_use_purpose",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "타인 명의·위변조 인식과 진정문서 효용을 갖게 할 행사 목적"
+    },
+    {
+      "card_id": "art231_sec4_2.genuine_document_utility_purpose",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "intent_and_use_purpose",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "타인 명의·위변조 인식과 진정문서 효용을 갖게 할 행사 목적"
+    },
+    {
+      "card_id": "art231_sec4_2.purpose_of_use_broader_than_exercise",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "intent_and_use_purpose",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "타인 명의·위변조 인식과 진정문서 효용을 갖게 할 행사 목적"
+    },
+    {
+      "card_id": "art231_sec5.attempt_commencement_and_incompletion",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "punishable_attempt",
+      "component_join": "alternative_any",
+      "track_id": "attempt",
+      "refers_to_unit": null,
+      "rationale": "확정적 문서 표시 착수와 진정문서 오신 수준 미달의 처벌되는 미수"
+    },
+    {
+      "card_id": "art231_sec5.attempt_punishable",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "punishable_attempt",
+      "component_join": "alternative_any",
+      "track_id": "attempt",
+      "refers_to_unit": null,
+      "rationale": "확정적 문서 표시 착수와 진정문서 오신 수준 미달의 처벌되는 미수"
+    },
+    {
+      "card_id": "art231_sec6.deceived_nominee_true_content_fraud",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "unauthorized_creation",
+      "component_join": "not_applicable",
+      "track_id": "forgery",
+      "refers_to_unit": "fraud",
+      "rationale": "명의자 승낙·위임·추정승낙 또는 명의인의 진정작성"
+    },
+    {
+      "card_id": "art231_sec6.illiterate_nominee_unknown_content",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "unauthorized_creation",
+      "component_join": "alternative_any",
+      "track_id": "forgery",
+      "refers_to_unit": null,
+      "rationale": "작성권한 없이 타인 명의의 진정문서 외관을 갖춘 문서 작성"
+    },
+    {
+      "card_id": "art231_sec6.own_document_altered_in_anothers_possession",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "document_damage",
+      "component_join": "not_applicable",
+      "track_id": "alteration",
+      "refers_to_unit": "document_damage",
+      "rationale": "타인 수중 자기 명의 문서 변경은 문서손괴로 이동"
+    },
+    {
+      "card_id": "art231_sec6.seal_forgery_absorbed",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "seal_absorption",
+      "component_join": "not_applicable",
+      "track_id": "forgery",
+      "refers_to_unit": "seal_forgery_or_misuse",
+      "rationale": "인장위조의 사문서위조 흡수"
+    }
+  ]
+}

@@ -1,0 +1,545 @@
+{
+  "version": "1.0.0",
+  "unit_id": "indecent_assault",
+  "law_snapshot": {
+    "as_of_date": "2026-08-03",
+    "effective_source_date": "2026-03-12",
+    "future_snapshot_date": "2026-09-13",
+    "future_snapshot_policy": "separate_snapshot_not_active",
+    "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
+  },
+  "approval_document": "data/rulegen/p2/native_review/indecent_assault_approved_decisions.json",
+  "approval_sha256": "d03536ca88029c0f3ed7981598529496875561fd26f648b6f0a2cb50147faeb0",
+  "approved_on": "2026-08-04",
+  "status": "ready_for_rule_ir",
+  "problems": [],
+  "unresolved_unit_references": [
+    {
+      "card_id": "art298_sec8.forced_undressing_camera_concurrence",
+      "part_id": null,
+      "refers_to_unit": "illegal_filming",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art298_sec8.special_forcible_indecency",
+      "part_id": null,
+      "refers_to_unit": "special_indecent_assault",
+      "status": "predicate_ir_missing"
+    }
+  ],
+  "excluded_cards": [
+    {
+      "card_id": "art298.spousal_victim.precedent_position",
+      "reason": "배우자·주체 일반설명 또는 고의의 증거평가 기준으로서 독립 단위사실 predicate로 실행하지 않음"
+    },
+    {
+      "card_id": "art298.subject.unrestricted",
+      "reason": "배우자·주체 일반설명 또는 고의의 증거평가 기준으로서 독립 단위사실 predicate로 실행하지 않음"
+    },
+    {
+      "card_id": "art298_sec4.disability_intent_assessment",
+      "reason": "배우자·주체 일반설명 또는 고의의 증거평가 기준으로서 독립 단위사실 predicate로 실행하지 않음"
+    },
+    {
+      "card_id": "art298_sec4.intent_inference",
+      "reason": "배우자·주체 일반설명 또는 고의의 증거평가 기준으로서 독립 단위사실 predicate로 실행하지 않음"
+    }
+  ],
+  "tracks": [
+    {
+      "track_id": "base",
+      "label": "제298조 강제추행 기수"
+    }
+  ],
+  "placements": [
+    {
+      "card_id": "art298_sec8.forcible_indecency_followed_by_rape",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "absorption",
+      "component_join": "not_applicable",
+      "refers_to_unit": "rape",
+      "rationale": "동일 피해자에 대한 후행 강간의 흡수효과는 outcome bridge에서 처리",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec3_3.attempt_commencement",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "attempt",
+      "component_join": "not_applicable",
+      "refers_to_unit": "sexual_offense_attempt",
+      "rationale": "제300조 실행착수와 미수 효과는 shared stage module에서 처리",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec3_3.surprise_assault_attempt_hugging",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "attempt",
+      "component_join": "not_applicable",
+      "refers_to_unit": "sexual_offense_attempt",
+      "rationale": "제300조 실행착수와 미수 효과는 shared stage module에서 처리",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec5.consent_after_violence_attempt",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "attempt",
+      "component_join": "not_applicable",
+      "refers_to_unit": "sexual_offense_attempt",
+      "rationale": "제300조 실행착수와 미수 효과는 shared stage module에서 처리",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec3_1.force_threat_totality_assessment",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "coercive_means",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "일반 폭행협박, 기습추행의 유형력, 번복된 동의 이후의 강제성에 관한 택일 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec3_1.surprise_molestation_physical_force",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "coercive_means",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "일반 폭행협박, 기습추행의 유형력, 번복된 동의 이후의 강제성에 관한 택일 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec5.revoked_consent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "coercive_means",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "일반 폭행협박, 기습추행의 유형력, 번복된 동의 이후의 강제성에 관한 택일 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec8.forced_undressing_camera_concurrence",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "illegal_filming",
+      "rationale": "강제추행과 불법촬영의 경합은 외부 죄종과 연결",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298.indirect_perpetration.victim_as_instrument",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "폭행협박에 의한 직접 추행 또는 피해자를 도구로 한 간접정범의 승인된 실행경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298.offense_conduct",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "폭행협박에 의한 직접 추행 또는 피해자를 도구로 한 간접정범의 승인된 실행경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec3_2.indirect_perpetration",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "폭행협박에 의한 직접 추행 또는 피해자를 도구로 한 간접정범의 승인된 실행경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "폭행협박에 의한 직접 추행 또는 피해자를 도구로 한 간접정범의 승인된 실행경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec3_2.indecent_act_comprehensive_assessment",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "indecent_act",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적 성적 자기결정권 침해와 접촉 없는 추행을 포함한 승인된 추행 판단경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec3_2.indecent_act_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "indecent_act",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적 성적 자기결정권 침해와 접촉 없는 추행을 포함한 승인된 추행 판단경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec3_2.indecent_act_no_body_part_distinction",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "indecent_act",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적 성적 자기결정권 침해와 접촉 없는 추행을 포함한 승인된 추행 판단경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec3_2.no_contact_assessment_factors",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "indecent_act",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적 성적 자기결정권 침해와 접촉 없는 추행을 포함한 승인된 추행 판단경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec3_2.no_contact_elevator_threat_masturbation",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "indecent_act",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적 성적 자기결정권 침해와 접촉 없는 추행을 포함한 승인된 추행 판단경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec3_2.no_contact_equivalent_infringement",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "indecent_act",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적 성적 자기결정권 침해와 접촉 없는 추행을 포함한 승인된 추행 판단경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec3_2.no_contact_kitchen_gesture_not_molestation",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "indecent_act",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "구체적 사실관계에서 추행이 부정된 승인 사례",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec3_2.no_contact_minor_elevator_exposure",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "indecent_act",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적 성적 자기결정권 침해와 접촉 없는 추행을 포함한 승인된 추행 판단경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec3_2.no_contact_urination_toward_victim",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "indecent_act",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적 성적 자기결정권 침해와 접촉 없는 추행을 포함한 승인된 추행 판단경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec3_2.recent_precedent_nonsexual_sensitive_contact",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "indecent_act",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적 성적 자기결정권 침해와 접촉 없는 추행을 포함한 승인된 추행 판단경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec3_2.toddler_hand_contact_not_molestation",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "indecent_act",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "구체적 사실관계에서 추행이 부정된 승인 사례",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec3_2.victim_actual_awareness_not_required",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "indecent_act",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적 성적 자기결정권 침해와 접촉 없는 추행을 포함한 승인된 추행 판단경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec4.intent_awareness_conditional",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "intent",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "폭행협박으로 사람을 추행한다는 고의",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298.object.person",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "object_scope",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "성별·연령·혼인 여부를 불문한 사람이라는 객체범위",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec6.multiple_acts_comprehensive_offense",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "행위·피해자별 죄수는 성립 후 단계에서 처리",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec6.multiple_victims_multiple_offenses",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "행위·피해자별 죄수는 성립 후 단계에서 처리",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art298_sec8.special_forcible_indecency",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "special_offense",
+      "component_join": "not_applicable",
+      "refers_to_unit": "special_indecent_assault",
+      "rationale": "특수강제추행 가중유형은 미등록 외부 단위로 명시",
+      "proposition_rewrite": null
+    }
+  ],
+  "components": [
+    {
+      "track_id": "base",
+      "component_id": "absorption",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "rape"
+      ],
+      "norm_card_ids": [
+        "art298_sec8.forcible_indecency_followed_by_rape"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "attempt",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "sexual_offense_attempt"
+      ],
+      "norm_card_ids": [
+        "art298_sec3_3.attempt_commencement",
+        "art298_sec3_3.surprise_assault_attempt_hugging",
+        "art298_sec5.consent_after_violence_attempt"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "coercive_means",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art298_sec3_1.force_threat_totality_assessment",
+        "art298_sec3_1.surprise_molestation_physical_force",
+        "art298_sec5.revoked_consent"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "concurrence",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "illegal_filming"
+      ],
+      "norm_card_ids": [
+        "art298_sec8.forced_undressing_camera_concurrence"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "conduct",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art298.indirect_perpetration.victim_as_instrument",
+        "art298.offense_conduct",
+        "art298_sec3_2.indirect_perpetration",
+        "art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "indecent_act",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art298_sec3_2.indecent_act_comprehensive_assessment",
+        "art298_sec3_2.indecent_act_definition",
+        "art298_sec3_2.indecent_act_no_body_part_distinction",
+        "art298_sec3_2.no_contact_assessment_factors",
+        "art298_sec3_2.no_contact_elevator_threat_masturbation",
+        "art298_sec3_2.no_contact_equivalent_infringement",
+        "art298_sec3_2.no_contact_kitchen_gesture_not_molestation",
+        "art298_sec3_2.no_contact_minor_elevator_exposure",
+        "art298_sec3_2.no_contact_urination_toward_victim",
+        "art298_sec3_2.recent_precedent_nonsexual_sensitive_contact",
+        "art298_sec3_2.toddler_hand_contact_not_molestation",
+        "art298_sec3_2.victim_actual_awareness_not_required"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "intent",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art298_sec4.intent_awareness_conditional"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "object_scope",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art298.object.person"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "offense_count",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art298_sec6.multiple_acts_comprehensive_offense",
+        "art298_sec6.multiple_victims_multiple_offenses"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "special_offense",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "special_indecent_assault"
+      ],
+      "norm_card_ids": [
+        "art298_sec8.special_forcible_indecency"
+      ]
+    }
+  ],
+  "stats": {
+    "components": 10,
+    "context_only_placements": 4,
+    "decision_approve": 29,
+    "decision_context_only": 4,
+    "inherited": 1,
+    "placements": 29,
+    "queue_cards": 33,
+    "unresolved_unit_references": 2
+  }
+}

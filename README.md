@@ -1,95 +1,75 @@
 # IDPR
 
-IDPR is a Neural–Symbolic–Neural pipeline for source-grounded, long-form Korean
-criminal-law reasoning.
+IDPR's active path is a lean Neural–Symbolic–Neural pipeline for source-grounded
+Korean criminal-law reasoning.
 
 ```text
-case text
-  → neural fact graph and candidate scope
-  → issue-level three-valued assessment
-  → Scallop symbolic composition
-  → constrained offence-level IRAC answer
+case and question
+  → closed RuleIR unit and actor/action selection
+  → direct assessment of every predicate and role in each selected unit
+  → execution of the selected unit's committed Scallop program
+  → one short law/application section per issue
+  → host-owned heading, conclusion, and provenance
 ```
 
-The active rulebase contains 1,848 source-grounded cards organized under 383 legal
-issues across 51 Criminal Act articles. General rules are loaded as issue anchors;
-case-specific standards and precedents remain searchable details instead of becoming
-independent constituent elements.
+The runtime registry contains 36 reviewed RuleIR units and 1,652 input predicates.
+The model cannot invent a unit, omit predicates from a selected unit, substitute a
+generic FactGraph, or write the symbolic conclusion. An issue outside the registry is
+reported as `predicate_ir_missing`; it is never sent through a model-only fallback.
 
-## Repository layout
+## Active implementation
 
-- `src/idpr/neural/`: generic fact, article, and issue assessment contracts
-- `src/idpr/rulebase/`: card/issue catalogs and Scallop compilation/runtime
-- `src/idpr/issue_pipeline.py`: generic symbolic stage boundaries
-- `src/idpr/generation/issue_answer.py`: constrained IRAC realization
-- `scripts/run_issue_assessment.py`: one-case issue assessment and symbolic execution
-- `scripts/run_issue_answer.py`: one-case IRAC realization
-- `scripts/run_issue_pipeline_batch.py`: resumable dataset runner
-- `src/idpr/legacy/`: archived fraud-pilot implementations kept for reproduction only
-- `scripts/diagnostics/`: fixed diagnostic and historical comparison runners
+- `src/idpr/rulegen/registry.py`: manifest-driven allowlist and asset audit
+- `src/idpr/rulegen/native_host.py`: closed selection, full assessment validation,
+  committed Scallop execution, and dependency bridges
+- `src/idpr/generation/native_rule_ir_answer.py`: section writer contract and
+  host-owned conclusion/provenance assembly
+- `scripts/run_rule_ir_native_lean.py`: the only lean one-case entry point
+- `scripts/audit_rule_ir_native_prompts.py`: three-stage prompt and schema gate
+- `scripts/slurm/run_rule_ir_native_lean_smoke.sh`: job-local Gemma/vLLM smoke
+- `data/rulegen/rule_ir_registry_manifest.json`: executable unit allowlist
 
-No active pipeline module imports the legacy pilot packages.
+The older issue-search, generic FactGraph, core-projection, and batch runners remain in
+the repository only as research history and comparison code. They are not imported by
+the active entry point.
 
-## Development
+## Validate
 
-Python 3.11 or later is required.
+Python 3.11 or later and the pinned Scallop CLI are required.
 
 ```bash
-uv sync
-uv run pytest
+python scripts/audit_rule_ir_native_prompts.py
+python -m pytest -q
 ```
 
-The pinned Scallop runtime is installed separately:
+The pinned runtime can be installed with:
 
 ```bash
 bash scripts/install_scallop_runtime.sh
 ```
 
-Raw benchmark and commentary sources are not committed. Copy `.env.example` to `.env`
-and configure local paths as needed. In particular, rubric-based evaluation requires
-`IDPR_KCL_PARQUET` when the source path recorded in the inventory is unavailable.
+## Run one case
 
-## Validate the full stage boundary without a model
+Start an OpenAI-compatible model server, then run:
 
 ```bash
-python scripts/refresh_l0_issue_catalog.py
-python scripts/run_issue_pipeline_batch.py --plan-only
-```
-
-The refresh command does not rerun retrieval or change candidate articles. It only
-rebuilds fields deterministically derived from the current issue catalog and refuses to
-write if the article boundary has changed.
-
-## Run inference
-
-Start an OpenAI-compatible model server, then run one case:
-
-```bash
-python scripts/run_issue_assessment.py \
+python scripts/run_rule_ir_native_lean.py \
   --base-url http://127.0.0.1:8000 \
   --model MODEL_NAME \
   --case-id CASE_ID \
-  --out experiments/results/idpr_nsn/CASE_ID/issue_assessment.json
-
-python scripts/run_issue_answer.py \
-  --base-url http://127.0.0.1:8000 \
-  --model MODEL_NAME \
-  --call2 experiments/results/idpr_nsn/CASE_ID/issue_assessment.json \
-  --out experiments/results/idpr_nsn/CASE_ID/answer.json
+  --out-dir experiments/results/rule_ir_native_lean
 ```
 
-For a resumable inventory sweep:
+The output directory records selection, complete predicate assessments, raw committed
+Scallop reports, per-issue prose, the host-assembled answer, prompt hashes, and the Git
+commit. There are no hidden retries or fallback inference paths.
+
+On Slurm, supply deployment paths through `IDPR_*` variables and submit:
 
 ```bash
-python scripts/run_issue_pipeline_batch.py \
-  --base-url http://127.0.0.1:8000 \
-  --model MODEL_NAME
+IDPR_CASE_ID=CASE_ID sbatch scripts/slurm/run_rule_ir_native_lean_smoke.sh
 ```
 
-On Slurm, `scripts/slurm/run_issue_pipeline_batch.sh` requests one PRO6000 GPU, two
-CPUs, 32 GB RAM, and 48 hours. Cluster-specific paths are supplied through the
-`IDPR_*` environment variables documented in `.env.example`; none are embedded in the
-production runner.
-
-Generated model outputs and caches are ignored by Git. Reviewed rulebase, candidate,
-schema, and evaluation-definition assets remain versioned.
+Raw benchmark and commentary sources are not committed. Copy `.env.example` to `.env`
+and configure local paths where needed. Generated model outputs and caches are ignored
+by Git; reviewed RuleIR, compiled SCL, schemas, and audits remain versioned.

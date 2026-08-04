@@ -1,0 +1,103 @@
+{
+  "version": "1.0.0",
+  "authority": "delegated_human_legal_review",
+  "unit_id": "indecent_assault",
+  "approved_on": "2026-08-04",
+  "policy": {
+    "approval": "The human legal expert delegated completion of the normalization work on 2026-08-04",
+    "track_separation": "제298조 기수만 base로 컴파일하고 제300조 미수는 sexual_offense_attempt에 연결한다",
+    "conduct": "직접 실행과 피해자를 도구로 한 간접정범을 동일 conduct component의 택일 경로로 둔다",
+    "indecent_act": "신체접촉 유무나 부위만으로 고정하지 않고 객관적 성적 자기결정권 침해 기준과 승인 사례를 택일 경로로 둔다",
+    "negative_cases": "승인된 비추행 사례는 indecent_act bar로 실행한다",
+    "evidence": "장애인 고의 추단과 간접사실 증명 기준은 사실요건과 분리해 context_only로 보존한다"
+  },
+  "track_vocabulary": [
+    {"track_id": "base", "label": "제298조 강제추행 기수"}
+  ],
+  "decision_groups": [
+    {
+      "card_numbers": [1, 3, 10, 11],
+      "decision": "approve", "role": "component",
+      "component_id": "conduct", "component_join": "alternative_any",
+      "track_id": "base", "refers_to_unit": null,
+      "rationale": "폭행협박에 의한 직접 추행 또는 피해자를 도구로 한 간접정범의 승인된 실행경로"
+    },
+    {
+      "card_numbers": [2],
+      "decision": "approve", "role": "component",
+      "component_id": "object_scope", "component_join": "mandatory_all",
+      "track_id": "base", "refers_to_unit": null,
+      "rationale": "성별·연령·혼인 여부를 불문한 사람이라는 객체범위"
+    },
+    {
+      "card_numbers": [6, 7, 27],
+      "decision": "approve", "role": "component",
+      "component_id": "coercive_means", "component_join": "alternative_any",
+      "track_id": "base", "refers_to_unit": null,
+      "rationale": "일반 폭행협박, 기습추행의 유형력, 번복된 동의 이후의 강제성에 관한 택일 인정경로"
+    },
+    {
+      "card_numbers": [8, 9, 12, 13, 14, 16, 17, 18, 20, 33],
+      "decision": "approve", "role": "component",
+      "component_id": "indecent_act", "component_join": "alternative_any",
+      "track_id": "base", "refers_to_unit": null,
+      "rationale": "객관적 성적 자기결정권 침해와 접촉 없는 추행을 포함한 승인된 추행 판단경로"
+    },
+    {
+      "card_numbers": [15, 19],
+      "decision": "approve", "role": "bar",
+      "component_id": "indecent_act", "component_join": "not_applicable",
+      "track_id": "base", "refers_to_unit": null,
+      "rationale": "구체적 사실관계에서 추행이 부정된 승인 사례"
+    },
+    {
+      "card_numbers": [24],
+      "decision": "approve", "role": "component",
+      "component_id": "intent", "component_join": "mandatory_all",
+      "track_id": "base", "refers_to_unit": null,
+      "rationale": "폭행협박으로 사람을 추행한다는 고의"
+    },
+    {
+      "card_numbers": [21, 22, 26],
+      "decision": "approve", "role": "post_outcome",
+      "component_id": "attempt", "component_join": "not_applicable",
+      "track_id": "base", "refers_to_unit": "sexual_offense_attempt",
+      "rationale": "제300조 실행착수와 미수 효과는 shared stage module에서 처리"
+    },
+    {
+      "card_numbers": [28, 29],
+      "decision": "approve", "role": "post_outcome",
+      "component_id": "offense_count", "component_join": "not_applicable",
+      "track_id": "base", "refers_to_unit": null,
+      "rationale": "행위·피해자별 죄수는 성립 후 단계에서 처리"
+    },
+    {
+      "card_numbers": [30],
+      "decision": "approve", "role": "post_outcome",
+      "component_id": "concurrence", "component_join": "not_applicable",
+      "track_id": "base", "refers_to_unit": "illegal_filming",
+      "rationale": "강제추행과 불법촬영의 경합은 외부 죄종과 연결"
+    },
+    {
+      "card_numbers": [31],
+      "decision": "approve", "role": "post_outcome",
+      "component_id": "absorption", "component_join": "not_applicable",
+      "track_id": "base", "refers_to_unit": "rape",
+      "rationale": "동일 피해자에 대한 후행 강간의 흡수효과는 outcome bridge에서 처리"
+    },
+    {
+      "card_numbers": [32],
+      "decision": "approve", "role": "post_outcome",
+      "component_id": "special_offense", "component_join": "not_applicable",
+      "track_id": "base", "refers_to_unit": "special_indecent_assault",
+      "rationale": "특수강제추행 가중유형은 미등록 외부 단위로 명시"
+    },
+    {
+      "card_numbers": [4, 5, 23, 25],
+      "decision": "context_only", "role": "context_only",
+      "rationale": "배우자·주체 일반설명 또는 고의의 증거평가 기준으로서 독립 단위사실 predicate로 실행하지 않음"
+    }
+  ],
+  "placement_defaults": [],
+  "proposition_rewrites": {}
+}

@@ -1,0 +1,2279 @@
+{
+  "version": "1.0.0",
+  "authority": "human_legal_review",
+  "unit_id": "homicide",
+  "approved_on": "2026-08-04",
+  "approval_basis": [
+    "docs/review/p2/homicide_proposal_01.md",
+    "docs/review/p2/homicide_proposal_02.md",
+    "docs/review/p2/homicide_proposal_03.md",
+    "docs/review/p2/homicide_proposal_04.md",
+    "docs/review/p2/homicide_proposal_05.md",
+    "docs/review/p2/homicide_proposal_06.md",
+    "docs/review/p2/homicide_proposal_07.md",
+    "docs/review/2026-08-04_homicide_legal_gate_01.md"
+  ],
+  "policy": {
+    "approval": "G-H01~H05 approved by the human legal expert",
+    "duplicate_cards": "같은 법리 카드는 삭제하지 않고 동일 component_id의 복수 provenance로 유지한다",
+    "unresolved_reference": "선언된 unit이 존재하지 않으면 추측하지 않고 predicate_ir_missing으로 보고한다",
+    "inherited_decision": "결정 C로 확정된 선택은 재질문하지 않고 role·join·track만 정한다",
+    "post_outcome": "죄수·감면 규칙은 보존하되 outcome bridge 전까지 성립 결론에 섞지 않는다"
+  },
+  "track_vocabulary": [
+    {
+      "track_id": "base",
+      "label": "제250조 제1항 보통살인"
+    },
+    {
+      "track_id": "omission",
+      "label": "부작위에 의한 살인",
+      "inherits_placements": [
+        {
+          "track_id": "base",
+          "component_ids": [
+            "offense_definition",
+            "object_scope",
+            "person_begins",
+            "person_begins_basis",
+            "person_ends",
+            "death_result",
+            "responsibility_capacity",
+            "justification",
+            "mental_incapacity",
+            "expectability"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "attempt",
+      "label": "제254조 살인미수",
+      "inherits_placements": [
+        {
+          "track_id": "base",
+          "component_ids": [
+            "object_scope",
+            "person_begins",
+            "person_begins_basis",
+            "person_ends",
+            "killing_method",
+            "murder_intent",
+            "murder_intent_indicia",
+            "responsibility_capacity",
+            "justification",
+            "mental_incapacity",
+            "expectability",
+            "intent_error",
+            "causal_course_error"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "voluntary_desistance",
+      "label": "제26조 중지미수",
+      "inherits_from": "attempt"
+    },
+    {
+      "track_id": "impossible_attempt",
+      "label": "제27조 불능미수",
+      "inherits_from": "attempt"
+    },
+    {
+      "track_id": "parricide",
+      "label": "제250조 제2항 존속살해",
+      "inherits_from": "base"
+    },
+    {
+      "track_id": "preparation",
+      "label": "제255조 예비·음모"
+    },
+    {
+      "track_id": "complicity",
+      "label": "제30조 내지 제34조 공범",
+      "shared_module_candidate": true
+    }
+  ],
+  "cards": [
+    {
+      "card_id": "art250.causation.autopsy-alternative-causes",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "부검소견에 의지하려면 다른 사인을 배제하는 논증이 필요하다는 증명 법리"
+    },
+    {
+      "card_id": "art250.causation.strangulation-remand",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "교살 혐의 사건의 심리미진 파기환송. 사실심리"
+    },
+    {
+      "card_id": "art250.parricide.definition",
+      "decision": "approve",
+      "rationale": "자기 또는 배우자의 직계존속을 살해함으로써 성립",
+      "role": "component",
+      "component_id": "ancestral_relation",
+      "component_join": "mandatory_all",
+      "track_id": "parricide",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250.parricide.status_offense",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "부진정신분범이라는 성격 규정. 효과는 #240·#241이 담고 있다"
+    },
+    {
+      "card_id": "art250_sec1_1.murder_intentional_killing",
+      "decision": "approve",
+      "rationale": "고의로 사람을 살해하여 생명을 끊는 기본 구성요건",
+      "role": "component",
+      "component_id": "offense_definition",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_1.ordinary_murder_victim",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "보통살인·존속살해의 구분 서술이며 track 어휘가 이미 담고 있음"
+    },
+    {
+      "card_id": "art250_sec1_10.captain_evacuation_omission_holding",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 선장의 퇴선조치 불이행은 작위 살인과 동일 평가",
+      "role": "component",
+      "component_id": "omission_equivalence_indicia",
+      "component_join": "alternative_any",
+      "track_id": "omission",
+      "refers_to_unit": null,
+      "proposition_rewrite": "침몰 선박의 선장이 승객 구조를 지휘·통제할 권한과 사망 결과를 쉽게 방지할 가능성이 있었음에도 퇴선조치를 이행하지 않아 승객이 사망한 경우, 그 부작위는 작위에 의한 살인의 실행행위와 동일하게 평가된다."
+    },
+    {
+      "card_id": "art250_sec1_10.captain_rescue_omission_duty",
+      "decision": "approve",
+      "rationale": "조난 상황의 선장·선원에게 구호 작위의무가 있다는 발생근거",
+      "role": "component",
+      "component_id": "guarantor_status_basis",
+      "component_join": "alternative_any",
+      "track_id": "omission",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_10.detained_minor_omission_killing",
+      "decision": "approve",
+      "rationale": "감금 중 살의로 방치한 부작위도 구성요건적 행위",
+      "role": "component",
+      "component_id": "omission_equivalence_indicia",
+      "component_join": "alternative_any",
+      "track_id": "omission",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_10.omission_death_prevention_causation",
+      "decision": "approve",
+      "rationale": "의무를 이행했다면 결과가 발생하지 않았을 관계",
+      "role": "component",
+      "component_id": "omission_causation",
+      "component_join": "mandatory_all",
+      "track_id": "omission",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_10.omission_equivalence_general",
+      "decision": "approve",
+      "rationale": "부작위가 작위와 동등한 형법적 가치를 가질 것",
+      "role": "component",
+      "component_id": "omission_equivalence",
+      "component_join": "mandatory_all",
+      "track_id": "omission",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_10.omission_guarantor_status",
+      "decision": "approve",
+      "rationale": "생명을 보호할 보증인적 지위. #125와 같은 요건의 provenance",
+      "role": "component",
+      "component_id": "guarantor_status",
+      "component_join": "mandatory_all",
+      "track_id": "omission",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_11.attempt_commencement",
+      "decision": "approve",
+      "rationale": "살의를 가지고 생명을 위태롭게 하는 행위를 직접 개시한 때",
+      "role": "component",
+      "component_id": "attempt_commencement",
+      "component_join": "mandatory_all",
+      "track_id": "attempt",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_11.completed_murder",
+      "decision": "approve",
+      "rationale": "결과범·침해범. 피해자가 사망하면 기수",
+      "role": "component",
+      "component_id": "death_result",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_11.weapon_approach_attempt",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 살인 고의로 흉기를 들고 접근한 경우 착수 인정",
+      "role": "component",
+      "component_id": "attempt_commencement_indicia",
+      "component_join": "alternative_any",
+      "track_id": "attempt",
+      "refers_to_unit": null,
+      "proposition_rewrite": "살인의 고의로 흉기를 들고 피해자에게 접근한 경우 살인의 실행행위에 착수한 것으로서 살인미수가 성립한다."
+    },
+    {
+      "card_id": "art250_sec1_12.deadly_herb_attempt_holding",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 초우뿌리·부자 달인 물을 마시게 한 경우",
+      "role": "component",
+      "component_id": "impossibility_danger_indicia",
+      "component_join": "alternative_any",
+      "track_id": "impossible_attempt",
+      "refers_to_unit": null,
+      "proposition_rewrite": "초우뿌리나 부자를 달인 물을 피해자에게 마시게 하여 살해하려다 결과가 발생하지 않은 경우에도 행위의 위험성이 인정되면 불능미수가 성립한다."
+    },
+    {
+      "card_id": "art250_sec1_12.impossible_attempt_danger",
+      "decision": "approve",
+      "rationale": "결과 발생이 불가능해도 위험성이 있으면 불능미수",
+      "role": "component",
+      "component_id": "impossibility_danger",
+      "component_join": "mandatory_all",
+      "track_id": "impossible_attempt",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_12.impossible_attempt_danger_assessment",
+      "decision": "approve",
+      "rationale": "위험성은 행위 당시 인식 사정을 바탕으로 일반인 기준으로 판단",
+      "role": "component",
+      "component_id": "impossibility_danger",
+      "component_join": "mandatory_all",
+      "track_id": "impossible_attempt",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_12.impossible_crime_no_danger",
+      "decision": "approve",
+      "rationale": "위험성이 없으면 살의가 있어도 불능범으로 불벌",
+      "role": "bar",
+      "component_id": "impossibility_danger",
+      "component_join": "not_applicable",
+      "track_id": "impossible_attempt",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_12.insufficient_pesticide_further_inquiry",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "치사량을 더 심리해야 한다는 심리 지침이며 사실심리 영역"
+    },
+    {
+      "card_id": "art250_sec1_13.attempt.bleeding_fear_not_voluntary",
+      "decision": "approve",
+      "rationale": "다량의 출혈에 놀란 것은 장애 사정",
+      "role": "bar",
+      "component_id": "voluntary_desistance",
+      "component_join": "not_applicable",
+      "track_id": "voluntary_desistance",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_13.attempt.bleeding_report_fear_not_voluntary",
+      "decision": "approve",
+      "rationale": "출혈에 놀라 신고·후송 후 체포가 두려워 도주한 경우",
+      "role": "bar",
+      "component_id": "voluntary_desistance",
+      "component_join": "not_applicable",
+      "track_id": "voluntary_desistance",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_13.attempt.fire_fear_not_voluntary",
+      "decision": "approve",
+      "rationale": "불길·신체 위해·처벌에 대한 두려움은 장애 사정",
+      "role": "bar",
+      "component_id": "voluntary_desistance",
+      "component_join": "not_applicable",
+      "track_id": "voluntary_desistance",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_13.attempt.rope_loosening_and_pursuit",
+      "decision": "approve",
+      "rationale": "기절에 놀라 끈을 푼 뒤 도주하는 피해자를 쫓아간 경우",
+      "role": "bar",
+      "component_id": "voluntary_desistance",
+      "component_join": "not_applicable",
+      "track_id": "voluntary_desistance",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_13.attempt.victim_ruse_fear_not_voluntary",
+      "decision": "approve",
+      "rationale": "피해자의 임기응변과 과다출혈에 대한 두려움이 이유인 경우",
+      "role": "bar",
+      "component_id": "voluntary_desistance",
+      "component_join": "not_applicable",
+      "track_id": "voluntary_desistance",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_13.attempt.voluntary_abandonment_definition",
+      "decision": "approve",
+      "rationale": "자의로 중지하거나 결과 발생을 자의로 방지한 경우",
+      "role": "component",
+      "component_id": "voluntary_desistance",
+      "component_join": "mandatory_all",
+      "track_id": "voluntary_desistance",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_13.attempt.voluntary_abandonment_social_notion",
+      "decision": "approve",
+      "rationale": "중지가 사회통념상 범죄 완수의 장애 사정에 의한 것이 아닐 것",
+      "role": "component",
+      "component_id": "voluntary_desistance",
+      "component_join": "mandatory_all",
+      "track_id": "voluntary_desistance",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_14.actual_course_difference",
+      "decision": "approve",
+      "rationale": "예상과 실제의 차이가 일반 생활경험상 예견 범위 내인 경우",
+      "role": "component",
+      "component_id": "causation_attribution",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_14.death_causation_attempt",
+      "decision": "approve",
+      "rationale": "실행행위로 사망이 발생하고 인과관계가 있을 것. 없으면 미수",
+      "role": "component",
+      "component_id": "causation",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_14.foreseeable_intervening_fact",
+      "decision": "approve",
+      "rationale": "개재 사실이 통상 예견 가능하면 인과관계 인정",
+      "role": "component",
+      "component_id": "causation_attribution",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_14.medical_negligence_concurrent_cause",
+      "decision": "approve",
+      "rationale": "폭행이 유력한 원인이면 의사의 과실이 공동원인이어도 인과관계 인정",
+      "role": "component",
+      "component_id": "causation_attribution",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_14.omission_counterfactual_causation",
+      "decision": "approve",
+      "rationale": "작위를 하였다면 결과가 없었을 관계. #10과 같은 요건의 provenance",
+      "role": "component",
+      "component_id": "omission_causation",
+      "component_join": "mandatory_all",
+      "track_id": "omission",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_14.recovery_possibility_assistance",
+      "decision": "approve",
+      "rationale": "회복 가능성이 전혀 없지 않았다면 방조와 사망 사이 인과관계 인정",
+      "role": "component",
+      "component_id": "aiding_causation",
+      "component_join": "mandatory_all",
+      "track_id": "complicity",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_14.shipmaster_rescue_duty",
+      "decision": "approve",
+      "rationale": "조난 시 선장의 작위의무. #8과 같은 규칙의 provenance",
+      "role": "component",
+      "component_id": "guarantor_status_basis",
+      "component_join": "alternative_any",
+      "track_id": "omission",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_14.time_gap",
+      "decision": "approve",
+      "rationale": "사망까지 수일·수개월이 걸렸다는 사정만으로는 인과관계를 부정할 수 없음",
+      "role": "bar",
+      "component_id": "causation",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_14.victim_negligence_complications",
+      "decision": "approve",
+      "rationale": "피해자 과실이 개재해도 통상 예견 가능하면 인과관계 인정",
+      "role": "component",
+      "component_id": "causation_attribution",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.bra_strangulation_rape_victim",
+      "role": "component",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 브래지어로 강간 피해자의 목을 조른 경우",
+      "proposition_rewrite": "브래지어로 강간 피해자의 목을 조른 경우 사망 결과에 대한 살인의 고의가 인정된다."
+    },
+    {
+      "card_id": "art250_sec1_15.bus_attack_police",
+      "role": "component",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 시속 50km 버스를 경찰기동대원을 향해 돌진·조준",
+      "proposition_rewrite": "탈취한 시내버스를 시속 50km로 경찰기동대원을 향해 돌진시키고 피하는 대원들을 따라 핸들을 틀어 들이받은 경우 미필적 살인의 고의가 인정된다."
+    },
+    {
+      "card_id": "art250_sec1_15.captain_omission_conditional_intent",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 선장이 퇴선 요청을 묵살하고 먼저 퇴선한 경우",
+      "role": "component",
+      "component_id": "omission_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "omission",
+      "refers_to_unit": null,
+      "proposition_rewrite": "침몰 상황에서 선장이 승객 구조의무와 지체 시 익사 가능성을 알면서도 퇴선 요청을 묵살하고 승객을 대기시킨 채 먼저 퇴선하며 구조정보도 제공하지 않은 경우 부작위에 의한 살인의 미필적 고의가 인정된다."
+    },
+    {
+      "card_id": "art250_sec1_15.causal_course_error_essential",
+      "decision": "approve",
+      "rationale": "인식한 인과과정과 실제 사이에 본질적 차이가 있으면 고의에 영향",
+      "role": "bar",
+      "component_id": "causal_course_error",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.causal_course_error_nonessential",
+      "decision": "approve",
+      "rationale": "차이가 본질적이지 않으면 고의에 영향이 없어 기수",
+      "role": "component",
+      "component_id": "causal_course_error",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.caution_recognizing_murder_intent",
+      "decision": "approve",
+      "rationale": "결과의 중대성과 비난가능성만으로 고의를 인정할 수 없다",
+      "role": "bar",
+      "component_id": "murder_intent",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.child_neck_compression",
+      "role": "component",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 만 6세 여아의 목을 3~4분간 압박",
+      "proposition_rewrite": "만 6세 아동의 목을 손목으로 3~4분간 눌러 질식사 위험을 발생시킨 경우 살인의 고의가 인정된다."
+    },
+    {
+      "card_id": "art250_sec1_15.child_strangulation_abandonment_attempt",
+      "role": "component",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 9세 여아를 스카프로 졸라 실신시키고 유기",
+      "proposition_rewrite": "9세 아동의 목을 스카프로 졸라 실신시킨 후 현장에 버려두고 떠난 경우 살인의 고의가 인정되어 살인미수가 성립한다."
+    },
+    {
+      "card_id": "art250_sec1_15.conditional_intent_sufficient",
+      "decision": "approve",
+      "rationale": "미필적 고의로 충분하다는 인정 경로",
+      "role": "component",
+      "component_id": "murder_intent",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.confinement_omission_conditional_intent",
+      "role": "component",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "decision": "approve",
+      "rationale": "사경의 피해자를 병원에 옮기지 않고 방치"
+    },
+    {
+      "card_id": "art250_sec1_15.continued_club_head_assault",
+      "role": "component",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 쓰러진 뒤에도 각목으로 머리를 계속 강타",
+      "proposition_rewrite": "각목으로 피해자의 머리를 여러 차례 강타하고 피해자가 쓰러진 뒤에도 계속 머리를 때려 사망하게 한 경우 살인의 고의가 인정된다."
+    },
+    {
+      "card_id": "art250_sec1_15.doctor_treatment_withdrawal_aiding",
+      "decision": "approve",
+      "rationale": "치료중단 의사들은 고의는 인정되나 방조범의 죄책만 진다",
+      "role": "post_outcome",
+      "component_id": "participation_form",
+      "component_join": "not_applicable",
+      "track_id": "complicity",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.doctor_treatment_withdrawal_intent",
+      "role": "component",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 인공호흡기 제거를 지시한 담당의사의 예견·인식",
+      "proposition_rewrite": "담당의사가 인공호흡기 제거로 인한 환자의 사망 가능성과 위험성을 예견·인식하면서 제거를 지시한 경우 보호자의 요청이 있었더라도 미필적 살인의 고의가 인정된다."
+    },
+    {
+      "card_id": "art250_sec1_15.generalized_intent_burial_holding",
+      "role": "component",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 개괄적 고의 — 매장행위로 사망해도 살인 책임",
+      "proposition_rewrite": "살해 의도의 구타로 직접 사망하지 않고 죄적 인멸 목적의 매장행위로 사망했더라도, 전 과정을 개괄적으로 보아 처음 예견한 살해가 실현된 경우 살인죄가 성립한다."
+    },
+    {
+      "card_id": "art250_sec1_15.group_assault_weapons_conditional_intent",
+      "role": "component",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "decision": "approve",
+      "rationale": "쇠파이프·각목 난타와 낫에 의한 난자"
+    },
+    {
+      "card_id": "art250_sec1_15.inducing_young_children_to_drown",
+      "role": "component",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 판단능력 없는 어린 자녀를 익사하게 함",
+      "proposition_rewrite": "자살의 의미를 이해할 능력이 없고 행위자의 말에 복종하는 어린 자녀에게 함께 죽자고 하여 물에 들어오게 해 익사시킨 경우 직접 밀어 넣지 않았더라도 살인의 고의가 인정된다."
+    },
+    {
+      "card_id": "art250_sec1_15.loaded_shotgun_reject_accident",
+      "role": "component",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 장전된 엽총을 안전장치 없이 사용",
+      "proposition_rewrite": "사냥과 무관한 상황에서 실탄이 장전된 엽총을 안전장치 없이 방아쇠에 손을 댄 채 사용하여 피해자를 사망하게 한 경우 살인의 고의가 인정된다."
+    },
+    {
+      "card_id": "art250_sec1_15.martial_arts_vital_point_strike",
+      "role": "component",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 무술교관이 급소인 울대를 가격",
+      "proposition_rewrite": "인체의 급소를 잘 아는 무술교관이 무술 방법으로 피해자의 울대를 가격하여 사망하게 한 경우 살인의 고의가 인정된다."
+    },
+    {
+      "card_id": "art250_sec1_15.method_error_precedent",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 방법의 착오는 살인의 범의 성립을 방해하지 않음",
+      "role": "bar",
+      "component_id": "intent_error",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "proposition_rewrite": "방법의 착오는 살인의 고의 성립을 방해하지 않는다."
+    },
+    {
+      "card_id": "art250_sec1_15.murder_intent_definition",
+      "decision": "approve",
+      "rationale": "객체 인식과 사망 결과의 인식·인용. 인과관계 인식 포함",
+      "role": "component",
+      "component_id": "murder_intent",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.murder_intent_objective_circumstances",
+      "decision": "approve",
+      "rationale": "경위·동기·흉기·공격 부위·반복성 등 객관적 사정의 종합 판단",
+      "role": "component",
+      "component_id": "murder_intent",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.neck_stabbing_conditional_intent",
+      "role": "component",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "decision": "approve",
+      "rationale": "과도로 목 부위를 강하게 자상"
+    },
+    {
+      "card_id": "art250_sec1_15.no_murder_intent_no_murder",
+      "decision": "approve",
+      "rationale": "살인 고의가 없으면 과실치사·상해치사·폭행치사",
+      "role": "boundary",
+      "component_id": "murder_intent",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "intentional_bodily_injury"
+    },
+    {
+      "card_id": "art250_sec1_15.no_parricide_intent_indiscriminate_stabbing",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 무차별 난동 중 부를 1회 자상한 경우 존속살해 의율 불가",
+      "role": "bar",
+      "component_id": "ancestral_intent",
+      "component_join": "not_applicable",
+      "track_id": "parricide",
+      "refers_to_unit": null,
+      "proposition_rewrite": "무차별적으로 칼을 휘두르던 중 만류하던 아버지를 한 차례 찔러 사망하게 하였으나 아버지를 살해하기로 결의한 동기나 이유가 인정되지 않는 경우 존속살해죄로 의율할 수 없다."
+    },
+    {
+      "card_id": "art250_sec1_15.object_error",
+      "decision": "approve",
+      "rationale": "구체적 사실의 착오 중 객체의 착오는 고의 성립에 영향이 없음",
+      "role": "bar",
+      "component_id": "intent_error",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.omission_intent_inference",
+      "decision": "approve",
+      "rationale": "부진정부작위범 고의의 추인 방법",
+      "role": "component",
+      "component_id": "omission_intent",
+      "component_join": "mandatory_all",
+      "track_id": "omission",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.omission_intent_requirements",
+      "decision": "approve",
+      "rationale": "결과발생을 용인·방관하면서 의무를 이행하지 않는다는 인식",
+      "role": "component",
+      "component_id": "omission_intent",
+      "component_join": "mandatory_all",
+      "track_id": "omission",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_15.pillow_suffocation_robbery_murder",
+      "role": "component",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 베개로 3분간 압박하고 정지 후에도 계속 압박",
+      "proposition_rewrite": "도망하려는 피해자를 엎드리게 한 뒤 베개로 약 3분간 머리를 누르고 피해자가 움직임을 멈춘 뒤에도 계속 눌러 사망을 확인한 경우 살인의 고의가 인정된다."
+    },
+    {
+      "card_id": "art250_sec1_15.prolonged_assault_child",
+      "role": "component",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 7세 아동에 대한 장시간 무차별 폭행",
+      "proposition_rewrite": "7세 아동을 장시간 무차별적으로 폭행하여 사망하게 한 경우 폭행의 강도·부위·시간, 피해자의 취약성과 생명위험에 대한 인식을 종합하여 미필적 살인의 고의가 인정된다."
+    },
+    {
+      "card_id": "art250_sec1_15.repeated_head_assault_wood_stones",
+      "role": "component",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 말목과 돌로 머리를 반복 구타",
+      "proposition_rewrite": "말목과 돌로 피해자의 머리를 반복하여 구타해 사망하게 한 경우 범행이 우발적이더라도 사망 결과를 인식한 살인의 고의가 인정된다."
+    },
+    {
+      "card_id": "art250_sec1_15.repeated_stabbing_nonvital_areas",
+      "role": "component",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "decision": "approve",
+      "rationale": "비치명적 부위라도 칼로 약 20회 자상하여 과다실혈"
+    },
+    {
+      "card_id": "art250_sec1_15.single_punch_kick_no_murder_intent",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 복부 1회 타격·추락 사망은 상해치사로 경계 이동",
+      "role": "boundary",
+      "component_id": "murder_intent",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "intentional_bodily_injury",
+      "proposition_rewrite": "경찰관을 피하려고 피해자의 복부를 한 차례 때리고 발로 차 차량에서 추락시켜 사망하게 한 사실만으로 살해 결의를 인정할 수 없으므로 살인죄가 아니라 상해치사죄의 경계로 이동한다."
+    },
+    {
+      "card_id": "art250_sec1_15.strangulation_vulnerable_victim",
+      "role": "component",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 설골이 부러질 정도로 목을 15~20초 압박",
+      "proposition_rewrite": "건장한 행위자가 왜소한 피해자의 목을 15~20초간 강하게 졸라 설골이 부러질 정도의 폭력을 행사한 경우 최소한 미필적 살인의 고의가 인정된다."
+    },
+    {
+      "card_id": "art250_sec1_15.unforeseen_cooffender_murder",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 예기치 못한 공동피고인의 살인은 나머지에게 귀속되지 않음",
+      "role": "bar",
+      "component_id": "shared_intent",
+      "component_join": "not_applicable",
+      "track_id": "complicity",
+      "refers_to_unit": null,
+      "proposition_rewrite": "공동 폭행자들이 가벼운 상해 또는 폭행만을 의도했고 공동피고인의 살인행위를 전혀 예기하지 못한 경우 나머지 공동 폭행자에게 그 살인의 책임을 귀속할 수 없다."
+    },
+    {
+      "card_id": "art250_sec1_15.vehicle_hammer_attack_acquittal",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 저속 차량 진행과 비조준 가격은 살해 결의 부정",
+      "role": "bar",
+      "component_id": "murder_intent",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "proposition_rewrite": "분쟁 상대방을 향해 차량을 진행시키고 쇠망치를 휘둘렀더라도 차량 속도가 높지 않고 머리를 조준해 가격했다고 보기 어려운 경우 살해의 고의가 인정되지 않는다."
+    },
+    {
+      "card_id": "art250_sec1_15.vital_area_knife_attempt",
+      "role": "component",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "decision": "approve",
+      "rationale": "과도로 목 부위를 찌른 살인미수에서의 흉기 소지 경위"
+    },
+    {
+      "card_id": "art250_sec1_15.wooden_club_head_strike",
+      "role": "component",
+      "component_id": "murder_intent_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 7kg·153cm 목재로 머리를 강타",
+      "proposition_rewrite": "무게 7kg, 길이 153cm의 목재로 피해자의 머리를 상당한 강도로 타격하여 사망하게 한 경우 행위수단·공격부위·상해 및 사망원인에 비추어 미필적 살인의 고의가 인정된다."
+    },
+    {
+      "card_id": "art250_sec1_16.child_danger_alternatives",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "위급하지 않고 비치명적 수단이 있었으면 과잉방위 부정 — 조각의 한계"
+    },
+    {
+      "card_id": "art250_sec1_16.defense_ends_after_subdual",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "침해 종료 후 제압된 침입자에 대한 폭행 — 조각의 한계"
+    },
+    {
+      "card_id": "art250_sec1_16.defensive_counterattack",
+      "decision": "approve",
+      "rationale": "반격방어도 방어행위에 포함되나 상당한 이유를 요함",
+      "role": "bar",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_16.domestic_violence_killing",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "지속적 가정폭력이 있어도 회피 가능하면 부정 — 조각의 한계"
+    },
+    {
+      "card_id": "art250_sec1_16.excessive_defense_continuous_act",
+      "decision": "approve",
+      "rationale": "연속된 전후행위를 하나로 보아 과잉방위가 될 수 있음. 감면 사항",
+      "role": "post_outcome",
+      "component_id": "excessive_defense",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_16.mutual_fight",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "싸움은 방위·공격 양면이므로 정당방위 불가 — 조각의 한계"
+    },
+    {
+      "card_id": "art250_sec1_16.mutual_fight_excessive_weapon",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 격투 중 예상 범위를 넘는 흉기 사용은 부당한 침해",
+      "role": "bar",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "proposition_rewrite": "격투 중 상대방이 통상 예상 범위를 넘어 살인의 흉기 등을 사용하는 경우 그 공격은 부당한 침해에 해당하여 정당방위가 허용될 수 있다."
+    },
+    {
+      "card_id": "art250_sec1_16.necessity_defense_life",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "살인죄에 긴급피난이 적용되지 않는다는 한계"
+    },
+    {
+      "card_id": "art250_sec1_16.planned_killing_not_self_defense",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "계획된 심장 자상은 상당성 부정 — 조각의 한계"
+    },
+    {
+      "card_id": "art250_sec1_16.self_defense_social_adequacy",
+      "decision": "approve",
+      "rationale": "법익의 종류·정도, 침해 방법·완급을 참작한 사회적 상당성",
+      "role": "bar",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_16.stabbing_after_assault",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "폭행·협박을 받았어도 칼로 자상하면 한도 초과 — 조각의 한계"
+    },
+    {
+      "card_id": "art250_sec1_16.victim_consent",
+      "decision": "approve",
+      "rationale": "피해자 승낙은 위법성을 조각하지 않고 제252조로 경계가 이동",
+      "role": "boundary",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "consent_homicide"
+    },
+    {
+      "card_id": "art250_sec1_17.advance_directive_life_sustaining_treatment",
+      "decision": "approve",
+      "rationale": "사전의료지시가 있고 의사 변경의 특별사정이 없는 경우",
+      "role": "bar",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_17.life_sustaining_treatment_withdrawal",
+      "decision": "approve",
+      "rationale": "회복불가능한 사망 단계에서 자기결정권 행사가 인정되면 중단 허용",
+      "role": "bar",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_17.presumed_will_life_sustaining_treatment",
+      "decision": "approve",
+      "rationale": "사전의료지시가 없어도 추정적 의사가 인정되는 경우",
+      "role": "bar",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_17.statutory_life_sustaining_treatment_exception",
+      "decision": "approve",
+      "rationale": "연명의료결정법의 요건·절차를 지킨 중단은 제20조 법령에 의한 행위",
+      "role": "bar",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_17.supreme_court_active_euthanasia",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "1957년 판결의 결론 인용에 그치고 적용 요건이 없음"
+    },
+    {
+      "card_id": "art250_sec1_18.actio_libera_in_causa",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "원인에 있어서 자유로운 행위. 감경 배제이므로 성립 결론과 무관"
+    },
+    {
+      "card_id": "art250_sec1_18.compulsion_no_responsibility",
+      "decision": "approve",
+      "rationale": "적법행위의 기대가능성이 없으면 책임을 물을 수 없음",
+      "role": "bar",
+      "component_id": "expectability",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_18.impulse_control_personality_defect_exception",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "성격적 결함은 원칙적으로 심신장애가 아니라는 한계"
+    },
+    {
+      "card_id": "art250_sec1_18.mental_appraisal_when_suspected",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "정신감정 없이 배척하면 위법. 심리 절차 영역"
+    },
+    {
+      "card_id": "art250_sec1_18.mental_disability_judicial_assessment",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "감정 의견에 기속되지 않는다는 판단 방법. 심리 영역"
+    },
+    {
+      "card_id": "art250_sec1_18.mental_disorder_normal_capacity_exception",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "정상적 능력이 있으면 심신장애가 아니라는 한계"
+    },
+    {
+      "card_id": "art250_sec1_18.mental_disorder_requirements",
+      "decision": "approve",
+      "rationale": "생물학적 요소와 심리학적 요소를 모두 갖춘 심신장애",
+      "role": "bar",
+      "component_id": "mental_incapacity",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_18.pathological_personality_defect",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "병적/성격적 결함의 구분 기준이며 #97·#101과 중복"
+    },
+    {
+      "card_id": "art250_sec1_18.responsibility_capacity",
+      "decision": "approve",
+      "rationale": "범행 당시를 기준으로 책임능력이 있어야 살인죄가 성립",
+      "role": "component",
+      "component_id": "responsibility_capacity",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_18.self_induced_methamphetamine_impairment",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "필로폰 자의 투약 사안. #91과 같은 규칙"
+    },
+    {
+      "card_id": "art250_sec1_18.severe_impulse_control_disorder_exception",
+      "decision": "approve",
+      "rationale": "정신병자와 동등하다고 평가할 만큼 심각한 성격적 결함",
+      "role": "bar",
+      "component_id": "mental_incapacity",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.aiding_forms",
+      "decision": "approve",
+      "rationale": "물질적 방조, 정신적 방조, 착수 전 방조",
+      "role": "component",
+      "component_id": "aiding_conduct",
+      "component_join": "alternative_any",
+      "track_id": "complicity",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.aiding_murder",
+      "decision": "approve",
+      "rationale": "정범의 살인을 알면서 실행행위를 용이하게 한 자는 방조범",
+      "role": "component",
+      "component_id": "aiding",
+      "component_join": "mandatory_all",
+      "track_id": "complicity",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.aiding_murder_intent",
+      "decision": "approve",
+      "rationale": "방조 고의와 정범 고의의 이중 고의",
+      "role": "component",
+      "component_id": "aiding_intent",
+      "component_join": "alternative_any",
+      "track_id": "complicity",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.aiding_principal_intent_conditional_knowledge",
+      "decision": "approve",
+      "rationale": "정범 고의는 미필적 인식·예견으로 충분",
+      "role": "component",
+      "component_id": "aiding_intent",
+      "component_join": "alternative_any",
+      "track_id": "complicity",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.conspiracy_definition",
+      "decision": "approve",
+      "rationale": "2인 이상의 공동가공 의사 결합. 순차적·암묵적 결합도 포함",
+      "role": "component",
+      "component_id": "conspiracy",
+      "component_join": "mandatory_all",
+      "track_id": "complicity",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.conspiracy_joint_principal_functional_control",
+      "decision": "approve",
+      "rationale": "본질적 기여를 통한 기능적 행위지배로 공모공동정범 인정",
+      "role": "component",
+      "component_id": "functional_control",
+      "component_join": "mandatory_all",
+      "track_id": "complicity",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.conspiracy_liability",
+      "decision": "approve",
+      "rationale": "공모자는 실행에 관여하지 않아도 공동정범 책임을 진다",
+      "role": "component",
+      "component_id": "conspiracy",
+      "component_join": "mandatory_all",
+      "track_id": "complicity",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.instigated_injury_instead_of_murder",
+      "decision": "approve",
+      "rationale": "상해만 실행하면 상해교사와 교사미수의 상상적 경합",
+      "role": "post_outcome",
+      "component_id": "instigation_outcome",
+      "component_join": "not_applicable",
+      "track_id": "complicity",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.instigation_indirect_facts_proof",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "교사사실을 간접사실로 증명하는 방법 — 증거법"
+    },
+    {
+      "card_id": "art250_sec1_19.instigation_murder_completed",
+      "decision": "approve",
+      "rationale": "살의 없던 자를 교사하여 결의하게 하고 피교사자가 살인을 범한 경우",
+      "role": "component",
+      "component_id": "instigation",
+      "component_join": "mandatory_all",
+      "track_id": "complicity",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.instigation_no_execution",
+      "decision": "approve",
+      "rationale": "승낙하지 않거나 착수하지 않으면 예비·음모에 준하여 처벌",
+      "role": "post_outcome",
+      "component_id": "instigation_outcome",
+      "component_join": "not_applicable",
+      "track_id": "complicity",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.instigation_strict_proof",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "교사 사실은 엄격한 증명을 요한다 — 증거법 영역"
+    },
+    {
+      "card_id": "art250_sec1_19.joint_principal_charge_aiding_conviction",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "공소장 변경 없이 방조 인정 — 형사소송법 영역"
+    },
+    {
+      "card_id": "art250_sec1_19.joint_principal_requirements",
+      "decision": "approve",
+      "rationale": "공동가공의 의사와 기능적 행위지배라는 주관적·객관적 요건",
+      "role": "component",
+      "component_id": "joint_principal",
+      "component_join": "mandatory_all",
+      "track_id": "complicity",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.joint_processing_intent_insufficient_acquiescence",
+      "decision": "approve",
+      "rationale": "인식·용인만으로는 공동가공의 의사가 되지 않는다",
+      "role": "bar",
+      "component_id": "joint_principal",
+      "component_join": "not_applicable",
+      "track_id": "complicity",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.military_beating_case",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "군 폭행 사건의 고의·공동정범 파기환송 사례. 사실인정 판단"
+    },
+    {
+      "card_id": "art250_sec1_19.omission_aiding_child_abuse_homicide",
+      "decision": "approve",
+      "rationale": "보호·양육의무자가 구타를 제지하지 않은 부작위 방조",
+      "role": "component",
+      "component_id": "aiding_conduct",
+      "component_join": "alternative_any",
+      "track_id": "complicity",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.robbery_murder_shared_intent",
+      "decision": "approve",
+      "rationale": "강도살인 공동정범은 살인 부분의 고의 공동을 요한다",
+      "role": "component",
+      "component_id": "shared_intent",
+      "component_join": "mandatory_all",
+      "track_id": "complicity",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.school_murder_conspiracy_evidence",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "인천 초등생 사건의 공모 증거 부족 판단. 증거법"
+    },
+    {
+      "card_id": "art250_sec1_19.unforeseen_killing_exception",
+      "decision": "approve",
+      "rationale": "예기치 못한 1인의 살인은 나머지에게 귀속되지 않는다",
+      "role": "bar",
+      "component_id": "shared_intent",
+      "component_join": "not_applicable",
+      "track_id": "complicity",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.withdrawal_before_execution",
+      "decision": "approve",
+      "rationale": "실행 착수 전 이탈하면 이후 행위에 책임이 없다. 명시적일 필요 없음",
+      "role": "bar",
+      "component_id": "withdrawal",
+      "component_join": "not_applicable",
+      "track_id": "complicity",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_19.withdrawal_mere_flight_insufficient",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "총을 버리고 도망간 것만으로는 부족 — 이탈 인정의 한계"
+    },
+    {
+      "card_id": "art250_sec1_19.withdrawal_remove_influence",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "주도자는 영향력을 제거해야 이탈 — 이탈 인정의 한계"
+    },
+    {
+      "card_id": "art250_sec1_2.omission_homicide_guarantor_status",
+      "decision": "approve",
+      "rationale": "부작위 살인은 보증인적 지위를 요구하는 진정신분범",
+      "role": "component",
+      "component_id": "guarantor_status",
+      "component_join": "mandatory_all",
+      "track_id": "omission",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_20.adjacent_multiple_homicides",
+      "decision": "approve",
+      "rationale": "접착된 다수 살해는 실체적 경합",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_20.arson_homicide_resident_building",
+      "decision": "approve",
+      "rationale": "살해 목적 현주건조물방화 사망은 방화치사죄로 의율",
+      "role": "boundary",
+      "component_id": "offense_scope",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "arson_of_occupied_structure"
+    },
+    {
+      "card_id": "art250_sec1_20.clothing_damage_absorbed",
+      "decision": "approve",
+      "rationale": "의복 손괴는 불가벌적 수반행위로 흡수",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "property_damage"
+    },
+    {
+      "card_id": "art250_sec1_20.corpse_abandonment_separate",
+      "decision": "approve",
+      "rationale": "사체를 옮겨 유기하면 사체유기죄가 별도로 성립",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "corpse_abandonment"
+    },
+    {
+      "card_id": "art250_sec1_20.corpse_left_at_scene",
+      "decision": "approve",
+      "rationale": "사체를 현장에 그대로 두고 도주하면 사체은닉죄 불성립",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_20.debt_evasion_no_robbery_murder",
+      "decision": "approve",
+      "rationale": "채무 면탈 살해라도 이익 지배 이전이 없으면 살인죄만 성립",
+      "role": "boundary",
+      "component_id": "offense_scope",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "robbery"
+    },
+    {
+      "card_id": "art250_sec1_20.homicide_count_by_victims",
+      "decision": "approve",
+      "rationale": "살인죄의 죄수는 피해자 수에 따라 결정된다",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_20.kidnapped_minor_injury_rape_attempted_murder",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "특정범죄가중법·성폭력처벌법 사이의 경합이며 특별법 영역"
+    },
+    {
+      "card_id": "art250_sec1_20.murder_after_completed_robbery_or_rape",
+      "decision": "approve",
+      "rationale": "선행 범죄 완료 후의 살해는 결합범이 아니라 실체적 경합",
+      "role": "boundary",
+      "component_id": "offense_scope",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "robbery"
+    },
+    {
+      "card_id": "art250_sec1_20.retaliatory_murder_purpose",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "보복목적 판단 기준이며 특정범죄가중법 영역"
+    },
+    {
+      "card_id": "art250_sec1_20.robbery_concealment_not_retaliatory",
+      "decision": "approve",
+      "rationale": "은폐 목적 살해는 보복목적 살인이 아니라 강도살인",
+      "role": "boundary",
+      "component_id": "offense_scope",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "robbery"
+    },
+    {
+      "card_id": "art250_sec1_20.same_intent_preparation_to_completion",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 범의 갱신 없는 예비~기수는 포괄하여 1죄",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "proposition_rewrite": "동일인을 살해하려는 동일한 의사에서 나온 예비행위 또는 공격행위가 범의 갱신 없이 살인기수에 이른 경우 시간·장소·방법과 무관하게 포괄하여 하나의 살인기수죄가 성립한다."
+    },
+    {
+      "card_id": "art250_sec1_20.same_person_homicide_stages",
+      "decision": "approve",
+      "rationale": "동일인에 대한 예비·미수·기수 및 상해·살인은 법조경합",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_20.sequential_hammer_killing",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 접착 행위라도 피해자별 살의가 있으면 경합범",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "proposition_rewrite": "여러 피해자를 차례로 살해한 경우 피해법익이 다르고 각 피해자에 대한 살해의사가 각각 인정되면 행위가 시간적·장소적으로 접착되어 있어도 피해자별 살인죄의 경합범이 성립한다."
+    },
+    {
+      "card_id": "art250_sec1_20.sequential_shooting_victims",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 순차 총격도 피해자 수에 따라 각 살인죄",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "proposition_rewrite": "단일한 범의 아래 동일 장소와 방법으로 각 피해자에게 순차적으로 총격하여 살해한 경우에도 피해자 수에 따라 각각의 살인죄가 성립한다."
+    },
+    {
+      "card_id": "art250_sec1_20.single_act_multiple_victims",
+      "decision": "approve",
+      "rationale": "1행위 다수 살해는 상상적 경합",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_21.attempt_punishable",
+      "decision": "approve",
+      "rationale": "살인미수범 처벌. 제안 03의 #211과 같은 요건의 provenance",
+      "role": "component",
+      "component_id": "attempt_punishability",
+      "component_join": "mandatory_all",
+      "track_id": "attempt",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_21.brutal_led_murder_no_plan",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "사체 훼손·암매장 사안의 사형 양정. 양형"
+    },
+    {
+      "card_id": "art250_sec1_21.child_victims_repeat_offense",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "어린이 2명 유인·살해 사안의 사형 양정. 양형"
+    },
+    {
+      "card_id": "art250_sec1_21.death_penalty_exceptional_punishment",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "사형은 특별한 사정과 철저한 심리를 거쳐야 한다는 사형 선택 기준"
+    },
+    {
+      "card_id": "art250_sec1_21.death_penalty_special_circumstances_explicit",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "사형 선고 시 특별한 사정을 명시해야 한다는 판시 방법"
+    },
+    {
+      "card_id": "art250_sec1_21.death_penalty_thorough_inquiry",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "사형 심사 시 전문의견 등 깊이 있는 심리 요구. 심리 절차"
+    },
+    {
+      "card_id": "art250_sec1_21.death_penalty_unavoidable",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "죄책이 심히 중대하고 극형이 불가피할 것이라는 사형 요건"
+    },
+    {
+      "card_id": "art250_sec1_21.foreign_acquittal_detention_credit",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "외국 무죄판결의 미결구금은 제7조 산입 대상이 아님. 형 집행"
+    },
+    {
+      "card_id": "art250_sec1_21.homicide_sentencing_considerations",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "계획성·동기·피해자 관계 등을 양형에 반영하는 일반론"
+    },
+    {
+      "card_id": "art250_sec1_21.indeterminate_midpoint_nonaggravation",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "부정기형을 정기형으로 파기할 때의 불이익변경 기준. 형 산정"
+    },
+    {
+      "card_id": "art250_sec1_21.juvenile_age_at_fact_judgment",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "소년법 19세 미만 판단은 사실심 선고 시 기준. 형 산정"
+    },
+    {
+      "card_id": "art250_sec1_21.leader_spontaneous_joining",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "우발적 살인과 계획범행의 수괴 책임 차이. 양형"
+    },
+    {
+      "card_id": "art250_sec1_21.murder_proceeds_forfeiture",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "범죄수익 몰수·추징 대상. 부수처분"
+    },
+    {
+      "card_id": "art250_sec1_21.murder_recidivism_assessment",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "재범 위험성의 종합 판단과 판결시 기준. 부착명령"
+    },
+    {
+      "card_id": "art250_sec1_21.murder_recidivism_substantial_probability",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "재범 위험성은 상당한 개연성을 의미한다는 정의. 부착명령"
+    },
+    {
+      "card_id": "art250_sec1_21.ordinary_homicide_penalty",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "보통살인죄의 법정형. 이 unit은 형을 산출하지 않는다"
+    },
+    {
+      "card_id": "art250_sec1_21.organized_cult_murders",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "조직적·잔혹한 다수범행 주범의 사형 양정. 양형"
+    },
+    {
+      "card_id": "art250_sec1_21.planned_double_murder",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "계획된 2명 살해 사안의 사형 양정. 양형"
+    },
+    {
+      "card_id": "art250_sec1_21.principal_vs_accomplices",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "주도자 사형·나머지 무기징역의 형평. 양형"
+    },
+    {
+      "card_id": "art250_sec1_21.prisoner_homicide_death_reversal",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "미필적 고의·피해자 1명 등을 고려하지 않은 사형 선택의 위법. 양형"
+    },
+    {
+      "card_id": "art250_sec1_21.second_life_sentence",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "무기징역 집행 중 재차 무기징역 선고의 의미. 양형"
+    },
+    {
+      "card_id": "art250_sec1_21.sequential_offense_planning",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "연속 범행의 계획성과 우발성을 나누어 심리하라는 요구. 양형"
+    },
+    {
+      "card_id": "art250_sec1_21.spontaneous_single_offense",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "우발적·일회적 범행과 뉘우침은 사형 선택의 양형사정"
+    },
+    {
+      "card_id": "art250_sec1_21.treatment_custody_not_attachment_risk",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "치료감호의 재범 위험성만으로 부착명령 위험성을 단정 금지"
+    },
+    {
+      "card_id": "art250_sec1_22.specific_violent_recidivism_enhancement",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "누범 가중은 처단형 문제이며 특별법 영역"
+    },
+    {
+      "card_id": "art250_sec1_22.specific_violent_suspect_identity_disclosure",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "피의자 신상정보 공개 요건이며 성립과 무관"
+    },
+    {
+      "card_id": "art250_sec1_3.birth_precedent_regular_labor",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 규칙적 진통을 동반한 분만개시 때가 사람의 시기",
+      "role": "component",
+      "component_id": "person_begins_basis",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "proposition_rewrite": "규칙적 진통을 동반하여 태아가 태반으로부터 이탈하기 시작한 분만개시 때부터 형법상 사람이 된다."
+    },
+    {
+      "card_id": "art250_sec1_3.cesarean_no_labor_precedent",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 규칙적 진통이 없는 제왕절개 단계의 태아는 사람이 아님",
+      "role": "bar",
+      "component_id": "person_begins",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "proposition_rewrite": "규칙적 진통이 시작되지 않은 제왕절개 단계의 태아는 형법상 사람에 해당하지 않는다."
+    },
+    {
+      "card_id": "art250_sec1_3.death_legal_determination",
+      "decision": "approve",
+      "rationale": "사람의 종기는 의학적 판단만이 아니라 생명보호 입법취지를 종합",
+      "role": "component",
+      "component_id": "person_ends",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_3.fetus_life_at_labor_onset",
+      "decision": "approve",
+      "rationale": "분만개시 시점에 태아가 생명을 가지고 있을 것",
+      "role": "component",
+      "component_id": "person_begins",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_3.homicide_object",
+      "decision": "approve",
+      "rationale": "객체는 살아 있는 자연인. 생존능력 유무 불문",
+      "role": "component",
+      "component_id": "object_scope",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_3.no_postbirth_survival_capacity",
+      "decision": "approve",
+      "rationale": "출생 후 생명유지 능력을 요구하지 않는다는 차단규칙",
+      "role": "bar",
+      "component_id": "object_scope",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_3.premature_infant_intent_precedent",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 낙태 후 살아서 출생한 미숙아도 살인죄의 객체",
+      "role": "component",
+      "component_id": "person_begins_basis",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "proposition_rewrite": "낙태시술 후 살아서 출생한 미숙아는 정상 생존 가능성이 낮더라도 살인죄의 객체인 사람에 해당한다."
+    },
+    {
+      "card_id": "art250_sec1_3.suicide_exception",
+      "decision": "approve",
+      "rationale": "자기 자신은 객체가 아니며 자살은 살인죄가 아님",
+      "role": "bar",
+      "component_id": "object_scope",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_4.killing_definition",
+      "decision": "approve",
+      "rationale": "자연적 사기에 앞서 생명을 단절시키는 것이 살해",
+      "role": "component",
+      "component_id": "killing_conduct",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_4.methods_of_killing",
+      "decision": "approve",
+      "rationale": "수단 무제한. 무형적 방법도 포함",
+      "role": "component",
+      "component_id": "killing_method",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_5.circumstantial_murder_conviction",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "간접증거만으로 유죄 인정이 가능하나 신중한 판단이 필요하다는 증명 법리"
+    },
+    {
+      "card_id": "art250_sec1_7.pesticide_cider_circumstantial_proof",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "농약 사이다 사건의 간접증거 종합. 사실인정"
+    },
+    {
+      "card_id": "art250_sec1_7.poisoning_alternative_source",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "청산가리 캡슐 사안에서 다른 섭취 경로를 배제할 수 없는 경우. 증명"
+    },
+    {
+      "card_id": "art250_sec1_7.poisoning_victim_statement_credibility",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "피해자 진술의 신빙성 평가. 증명력"
+    },
+    {
+      "card_id": "art250_sec1_8.death_time_integrated_assessment",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "사망시간 추정의 종합적 증명력. 증명력"
+    },
+    {
+      "card_id": "art250_sec1_8.direct_and_circumstantial_evidence",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "직접증거와 간접증거의 종합. 증명 방법"
+    },
+    {
+      "card_id": "art250_sec1_8.financial_gain_motive_caution",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "보험금 수령만으로 살해 동기를 인정하지 말라는 사실인정 지침"
+    },
+    {
+      "card_id": "art250_sec1_8.financial_motive_family_killing",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "금전적 동기가 수긍되기 위한 사정. 사실인정"
+    },
+    {
+      "card_id": "art250_sec1_8.objective_evidence_despite_weak_motive",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "동기가 미약해도 객관적 증거가 충분하면 유죄. 증명"
+    },
+    {
+      "card_id": "art250_sec1_8.scientific_evidence_reliability",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "과학적 증거방법의 구속력 요건. 증거법"
+    },
+    {
+      "card_id": "art250_sec1_8.third_party_access",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "제3자 열쇠 소지 시 정황증거의 증명력 감소. 증명력"
+    },
+    {
+      "card_id": "art250_sec1_9.bodyless_circumstantial_proof",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "시신이 없어도 간접증거 종합으로 유죄 인정 가능. 증명"
+    },
+    {
+      "card_id": "art250_sec1_9.bodyless_insufficient_linkage",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "시신 없고 연결 정황이 부족하면 책임 인정 곤란. 증명"
+    },
+    {
+      "card_id": "art250_sec1_9.bodyless_summary_requirements",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "시신 없는 살인의 유죄 인정 요소 정리. 증명"
+    },
+    {
+      "card_id": "art250_sec2_10.parricide_ordinary_murder_specialty",
+      "decision": "approve",
+      "rationale": "존속살해가 성립하면 보통살인죄는 특별관계로 별도 성립하지 않음",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "parricide",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_5.parricide_improper_status_offense",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "#4와 같은 성격 규정"
+    },
+    {
+      "card_id": "art250_sec2_6.adoption_creates_lineal_relationship",
+      "decision": "approve",
+      "rationale": "입양으로 형성되는 법정혈족관계",
+      "role": "component",
+      "component_id": "ancestral_relation_basis",
+      "component_join": "alternative_any",
+      "track_id": "parricide",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.adoption_requirements_not_met",
+      "decision": "approve",
+      "rationale": "입양요건을 갖추지 않으면 직계존비속이 아니다",
+      "role": "bar",
+      "component_id": "ancestral_relation",
+      "component_join": "not_applicable",
+      "track_id": "parricide",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.birth_registration_effective_as_adoption",
+      "decision": "approve",
+      "rationale": "친생자 출생신고도 입양 요건을 갖추면 입양의 효력",
+      "role": "component",
+      "component_id": "ancestral_relation_basis",
+      "component_join": "alternative_any",
+      "track_id": "parricide",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.collateral_relatives_excluded",
+      "decision": "approve",
+      "rationale": "백부모·숙부모 등 방계혈족은 제외",
+      "role": "bar",
+      "component_id": "ancestral_relation",
+      "component_join": "not_applicable",
+      "track_id": "parricide",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.lineal_ascendant_scope",
+      "decision": "approve",
+      "rationale": "부모·조부모·증조부모·외조부모 등이 포함된다",
+      "role": "component",
+      "component_id": "ancestral_relation",
+      "component_join": "mandatory_all",
+      "track_id": "parricide",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.lineal_relationship_strict_interpretation",
+      "decision": "approve",
+      "rationale": "엄격해석. 등록부 기재만으로는 법률상 친자관계가 생기지 않는다",
+      "role": "bar",
+      "component_id": "ancestral_relation",
+      "component_join": "not_applicable",
+      "track_id": "parricide",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.nonmarital_child_biological_father_before_recognition",
+      "decision": "approve",
+      "rationale": "인지 전 혼인외 출생자와 생부 사이에는 관계가 없다",
+      "role": "bar",
+      "component_id": "ancestral_relation",
+      "component_join": "not_applicable",
+      "track_id": "parricide",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.nonmarital_child_biological_mother",
+      "decision": "approve",
+      "rationale": "혼인외 출생자와 생모는 출생으로 법률상 친족관계",
+      "role": "component",
+      "component_id": "ancestral_relation_basis",
+      "component_join": "alternative_any",
+      "track_id": "parricide",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.object_lineal_ascendant_self_or_spouse",
+      "decision": "approve",
+      "rationale": "객체는 자기 또는 배우자의 직계존속",
+      "role": "component",
+      "component_id": "ancestral_relation",
+      "component_join": "mandatory_all",
+      "track_id": "parricide",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.spouse_legal_spouse_only",
+      "decision": "approve",
+      "rationale": "배우자는 법률상 배우자만을 뜻한다",
+      "role": "bar",
+      "component_id": "ancestral_relation",
+      "component_join": "not_applicable",
+      "track_id": "parricide",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.status_at_commencement_sufficient",
+      "decision": "approve",
+      "rationale": "신분관계는 살해행위의 착수 당시 존재하면 충분",
+      "role": "component",
+      "component_id": "ancestral_relation_timing",
+      "component_join": "mandatory_all",
+      "track_id": "parricide",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_6.step_parent_excluded",
+      "decision": "approve",
+      "rationale": "계부모는 직계존속이 아니다",
+      "role": "bar",
+      "component_id": "ancestral_relation",
+      "component_join": "not_applicable",
+      "track_id": "parricide",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_8.intent_knowledge_lineal_status",
+      "decision": "approve",
+      "rationale": "자기 또는 배우자의 직계존속을 살해한다는 고의",
+      "role": "component",
+      "component_id": "ancestral_intent",
+      "component_join": "mandatory_all",
+      "track_id": "parricide",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_8.no_knowledge_lineal_status",
+      "decision": "approve",
+      "rationale": "신분을 인식하지 못하면 보통살인죄의 죄책에 그친다",
+      "role": "bar",
+      "component_id": "ancestral_intent",
+      "component_join": "not_applicable",
+      "track_id": "parricide",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_9.nonstatus_accomplice_ordinary_murder_punishment_outcome",
+      "decision": "approve",
+      "rationale": "비신분자는 어느 견해에 의하든 보통살인죄로 처벌",
+      "role": "post_outcome",
+      "component_id": "nonstatus_liability",
+      "component_join": "not_applicable",
+      "track_id": "complicity",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec2_9.nonstatus_accomplice_wife_with_biological_son_precedent",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 실자와 함께 남편을 살해한 처는 존속살해 공동정범",
+      "role": "post_outcome",
+      "component_id": "nonstatus_liability",
+      "component_join": "not_applicable",
+      "track_id": "complicity",
+      "refers_to_unit": null,
+      "proposition_rewrite": "친생자와 함께 남편을 살해한 배우자에게 존속살해죄의 공동정범이 성립한다."
+    },
+    {
+      "card_id": "art254.attempt_penalty_mitigation",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "미수범 형의 임의적 감경은 양형 사항"
+    },
+    {
+      "card_id": "art254.attempts_punishable",
+      "decision": "approve",
+      "rationale": "제250조·제252조·제253조의 미수범 처벌",
+      "role": "component",
+      "component_id": "attempt_punishability",
+      "component_join": "mandatory_all",
+      "track_id": "attempt",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art254.electronic_device_attachment",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "전자장치 부착명령은 특별법 영역이며 성립 결론과 무관"
+    },
+    {
+      "card_id": "art255_sec2_1.hiring_killers_holding",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 살인을 위해 사람을 고용하고 대가를 약속한 경우",
+      "role": "component",
+      "component_id": "preparation_conduct",
+      "component_join": "alternative_any",
+      "track_id": "preparation",
+      "refers_to_unit": null,
+      "proposition_rewrite": "살인을 위하여 다른 사람을 고용하고 대가 지급을 약속한 경우 살인 목적과 준비의 고의 및 살인 실현을 위한 준비행위가 인정되어 살인예비죄가 성립한다."
+    },
+    {
+      "card_id": "art255_sec2_1.preparation_definition",
+      "decision": "approve",
+      "rationale": "실행 착수에 이르지 않은 일체의 준비행위",
+      "role": "component",
+      "component_id": "preparation_conduct",
+      "component_join": "alternative_any",
+      "track_id": "preparation",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec2_1.preparation_external_act",
+      "decision": "approve",
+      "rationale": "의사·계획을 넘어 실행을 가능·용이하게 하는 준비행위",
+      "role": "component",
+      "component_id": "preparation_conduct",
+      "component_join": "alternative_any",
+      "track_id": "preparation",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec2_1.preparation_substantial_contribution",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 물적인 것에 한정되지 않으나 실질적 기여를 요함",
+      "role": "component",
+      "component_id": "preparation_conduct",
+      "component_join": "alternative_any",
+      "track_id": "preparation",
+      "refers_to_unit": null,
+      "proposition_rewrite": "살인예비의 준비행위는 물적인 것에 한정되거나 특별한 형식을 가질 필요는 없지만 객관적으로 살인 실현에 실질적으로 기여할 수 있는 외적 행위여야 한다."
+    },
+    {
+      "card_id": "art255_sec2_1.sickle_execution_commencement_boundary",
+      "decision": "approve",
+      "rationale": "낫을 들고 접근하면 착수에 이르러 예비가 아니라 미수",
+      "role": "bar",
+      "component_id": "preparation_conduct",
+      "component_join": "not_applicable",
+      "track_id": "preparation",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec2_2.conspiracy_agreement_required",
+      "decision": "approve",
+      "rationale": "합의에 이르지 않은 의사 표명·교환만으로는 음모가 아니다",
+      "role": "bar",
+      "component_id": "conspiracy_agreement",
+      "component_join": "not_applicable",
+      "track_id": "preparation",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec2_2.conspiracy_definition",
+      "decision": "approve",
+      "rationale": "음모는 2인 이상 사이의 범죄실행 합의",
+      "role": "component",
+      "component_id": "conspiracy_agreement",
+      "component_join": "mandatory_all",
+      "track_id": "preparation",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec3.conditional_murder_purpose",
+      "decision": "approve",
+      "rationale": "사태 발생과 연관된 조건부 목적도 목적이 된다",
+      "role": "component",
+      "component_id": "murder_purpose",
+      "component_join": "alternative_any",
+      "track_id": "preparation",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec3.murder_purpose",
+      "decision": "approve",
+      "rationale": "살인죄·존속살해죄·위계위력살인죄를 범할 목적",
+      "role": "component",
+      "component_id": "murder_purpose",
+      "component_join": "alternative_any",
+      "track_id": "preparation",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec3.online_murder_notice_insufficient",
+      "decision": "approve",
+      "rationale": "인터넷 살인예고 게시만으로는 예비·음모가 아니다",
+      "role": "bar",
+      "component_id": "preparation_conduct",
+      "component_join": "not_applicable",
+      "track_id": "preparation",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec3.preparation_intent",
+      "decision": "approve",
+      "rationale": "목적 외에 살인의 준비에 관한 고의가 필요",
+      "role": "component",
+      "component_id": "preparation_intent",
+      "component_join": "mandatory_all",
+      "track_id": "preparation",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec3.specific_target_requirement",
+      "decision": "approve",
+      "rationale": "시기가 미정이어도 살해 대상자는 구체적으로 확정되어야 함",
+      "role": "component",
+      "component_id": "target_specificity",
+      "component_join": "mandatory_all",
+      "track_id": "preparation",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec3.undetermined_target_negative_holding",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 살해대상이 결정되지 않으면 예비죄가 아니다",
+      "role": "bar",
+      "component_id": "target_specificity",
+      "component_join": "not_applicable",
+      "track_id": "preparation",
+      "refers_to_unit": null,
+      "proposition_rewrite": "살해할 대상자가 구체적으로 결정되지 않은 경우 살인예비죄가 성립하지 않는다."
+    },
+    {
+      "card_id": "art255_sec5.preparation_accomplice_negative",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 예비죄에 대한 종범은 성립하지 않는다",
+      "role": "bar",
+      "component_id": "preparation_complicity",
+      "component_join": "not_applicable",
+      "track_id": "complicity",
+      "refers_to_unit": null,
+      "proposition_rewrite": "살인예비죄에 대한 종범은 성립하지 않는다."
+    },
+    {
+      "card_id": "art255_sec5.preparation_co_perpetration",
+      "decision": "rewrite",
+      "rationale": "메타 래퍼 제거. 예비행위를 공동으로 하면 예비죄의 공동정범",
+      "role": "component",
+      "component_id": "preparation_complicity",
+      "component_join": "mandatory_all",
+      "track_id": "complicity",
+      "refers_to_unit": null,
+      "proposition_rewrite": "살인예비행위를 공동으로 한 경우 살인예비죄의 공동정범이 성립한다."
+    },
+    {
+      "card_id": "art255_sec6.attempt_or_completion_absorption",
+      "decision": "approve",
+      "rationale": "미수·기수에 이르면 예비·음모는 흡수된다",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "preparation",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art255_sec6.multiple_preparations_single_offense",
+      "decision": "approve",
+      "rationale": "하나의 살인을 위한 여러 예비행위는 하나의 예비죄",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "preparation",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art250_sec1_11.indirect_perpetration_attempt_use_act",
+      "decision": "approve",
+      "rationale": "결정 C 선택. 간접정범은 이용행위 개시 시 착수",
+      "role": "component",
+      "component_id": "attempt_commencement_indicia",
+      "component_join": "alternative_any",
+      "track_id": "attempt",
+      "refers_to_unit": null,
+      "inherited_decision_group": "art250_sec1_11.indirect_perpetration_attempt"
+    },
+    {
+      "card_id": "art250_sec1_17.direct_active_euthanasia_negative",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "결정 C 선택(적극적 안락사 부정설). 조각의 한계이므로 자리가 없음",
+      "inherited_decision_group": "art250_sec1_17.direct_active_euthanasia_legality"
+    },
+    {
+      "card_id": "art250_sec1_19.excessive_execution_death_precedent",
+      "decision": "approve",
+      "rationale": "결정 C 선택. 초과 실행 시 교사자는 상해치사 책임까지",
+      "role": "post_outcome",
+      "component_id": "instigation_outcome",
+      "component_join": "not_applicable",
+      "track_id": "complicity",
+      "refers_to_unit": null,
+      "inherited_decision_group": "art250_sec1_19.excessive_execution_death"
+    },
+    {
+      "card_id": "art250_sec1_21.death_penalty_special_circumstances_majority",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "결정 C 선택(사형 정당화 특별사정의 전원합의체 다수의견). 양형 기준",
+      "inherited_decision_group": "art250_sec1_21.death_penalty_threshold"
+    },
+    {
+      "card_id": "art250_sec1_3.birth_labor_theory",
+      "decision": "approve",
+      "rationale": "결정 C가 선택한 진통설. #168과 같은 규칙의 학설 provenance",
+      "role": "component",
+      "component_id": "person_begins_basis",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "inherited_decision_group": "art250_sec1_3.birth_onset"
+    },
+    {
+      "card_id": "art250_sec1_3.pulse_cessation_organ_removal",
+      "decision": "approve",
+      "rationale": "결정 C가 선택한 맥박종지설. 뇌사자는 아직 사람",
+      "role": "component",
+      "component_id": "person_ends",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "inherited_decision_group": "art250_sec1_3.death_onset"
+    },
+    {
+      "card_id": "art250_sec1_3.organ_transplant_law_limited_effect",
+      "decision": "approve",
+      "rationale": "장기이식법만으로 종기를 뇌사로 볼 수 없다는 차단규칙",
+      "role": "bar",
+      "component_id": "person_ends",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "inherited_decision_group": "art250_sec1_3.organ_transplant_law_effect"
+    },
+    {
+      "card_id": "art250_sec2_10.arson_death_parricide_imaginary_concurrence",
+      "decision": "approve",
+      "rationale": "전문가 재정. 현주건조물방화치사와 존속살해는 상상적 경합",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "parricide",
+      "refers_to_unit": "arson_of_occupied_structure",
+      "inherited_decision_group": "art250_sec2_10.arson_death_parricide_concurrence"
+    },
+    {
+      "card_id": "art250_sec2_6.adoption_type_determines_offense",
+      "decision": "approve",
+      "rationale": "결정 C 선택. 일반양자가 실부모를 살해하면 존속살해",
+      "role": "component",
+      "component_id": "ancestral_relation_basis",
+      "component_join": "alternative_any",
+      "track_id": "parricide",
+      "refers_to_unit": null,
+      "inherited_decision_group": "art250_sec2_6.adoptee_biological_parent_offense"
+    },
+    {
+      "card_id": "art250_sec2_6.deceased_spouse_lineal_ascendant_ordinary_murder",
+      "decision": "approve",
+      "rationale": "결정 C 선택. 사망한 배우자의 직계존속은 포함되지 않는다",
+      "role": "bar",
+      "component_id": "ancestral_relation",
+      "component_join": "not_applicable",
+      "track_id": "parricide",
+      "refers_to_unit": null,
+      "inherited_decision_group": "art250_sec2_6.deceased_spouse_lineal_ascendant_offense"
+    },
+    {
+      "card_id": "art250_sec2_9.nonstatus_accomplice_parricide_coprincipal_punished_ordinary",
+      "decision": "approve",
+      "rationale": "결정 C 선택. 존속살해 공동정범이나 제33조 단서로 보통살인 처벌",
+      "role": "post_outcome",
+      "component_id": "nonstatus_liability",
+      "component_join": "not_applicable",
+      "track_id": "complicity",
+      "refers_to_unit": null,
+      "inherited_decision_group": "art250_sec2_9.nonstatus_accomplice_liability"
+    },
+    {
+      "card_id": "art250_sec2_9.status_instigator_parricide_accomplice",
+      "decision": "approve",
+      "rationale": "결정 C 선택. 신분자는 존속살해 교사·방조, 비신분자는 보통살인 정범",
+      "role": "post_outcome",
+      "component_id": "nonstatus_liability",
+      "component_join": "not_applicable",
+      "track_id": "complicity",
+      "refers_to_unit": null,
+      "inherited_decision_group": "art250_sec2_9.status_instigator_nonstatus_principal"
+    },
+    {
+      "card_id": "art255_sec4.preparation_desistance_doctrinal_variants",
+      "decision": "rewrite",
+      "rationale": "결정 C #20의 기존 선택을 계승해 긍정설 규칙으로 언래핑. 성립 배제가 아니라 감면 문제",
+      "role": "post_outcome",
+      "component_id": "preparation_desistance_mitigation",
+      "component_join": "not_applicable",
+      "track_id": "preparation",
+      "refers_to_unit": null,
+      "proposition_rewrite": "예비·음모 단계에서도 자발적으로 실행 착수를 포기한 경우 중지미수의 감면 혜택을 부여할 수 있다.",
+      "inherited_decision_group": "art255_sec4.preparation_desistance"
+    }
+  ]
+}

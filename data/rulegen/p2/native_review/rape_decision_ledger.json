@@ -1,0 +1,989 @@
+{
+  "version": "1.0.0",
+  "unit_id": "rape",
+  "law_snapshot": {
+    "as_of_date": "2026-08-03",
+    "effective_source_date": "2026-03-12",
+    "future_snapshot_date": "2026-09-13",
+    "future_snapshot_policy": "separate_snapshot_not_active",
+    "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
+  },
+  "approval_document": "data/rulegen/p2/native_review/rape_approved_decisions.json",
+  "approval_sha256": "8aa38d0d3f1e1bfccf0bc800f6a3c4ce2cc622c118c26e561d630a815cabd10a",
+  "approved_on": "2026-08-04",
+  "status": "ready_for_rule_ir",
+  "problems": [],
+  "unresolved_unit_references": [
+    {
+      "card_id": "art297.relative_special_act",
+      "part_id": null,
+      "refers_to_unit": "relative_sexual_offense",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art297.special-protection-statutes",
+      "part_id": null,
+      "refers_to_unit": "protected_victim_sexual_offense",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art297_sec4_2.non_vaginal_acts_exception",
+      "part_id": null,
+      "refers_to_unit": "quasi_rape",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art297_sec4_4.successive_co_perpetration_negative",
+      "part_id": null,
+      "refers_to_unit": "complicity",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art297_sec9.abduction_for_marriage_rape",
+      "part_id": null,
+      "refers_to_unit": "abduction_for_marriage",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art297_sec9.confinement_rape_attempted_case",
+      "part_id": null,
+      "refers_to_unit": "confinement",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art297_sec9.continued_confinement_after_rape",
+      "part_id": null,
+      "refers_to_unit": "confinement",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art297_sec9.means_violence_absorption",
+      "part_id": null,
+      "refers_to_unit": "assault_or_threat",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art297_sec9.separate_confinement_rape_violence",
+      "part_id": null,
+      "refers_to_unit": "confinement",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art297_sec9.special_rape",
+      "part_id": null,
+      "refers_to_unit": "special_rape",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art297_sec9.special_robbery_rape",
+      "part_id": null,
+      "refers_to_unit": "special_robbery_rape",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art297_sec9.special_theft_rape",
+      "part_id": null,
+      "refers_to_unit": "special_theft_rape",
+      "status": "predicate_ir_missing"
+    }
+  ],
+  "excluded_cards": [
+    {
+      "card_id": "art297.indirect_perpetration",
+      "reason": "간접정범은 intermediary 역할과 총칙 module 없이 단독 피고인 tuple로 실행할 수 없음"
+    },
+    {
+      "card_id": "art297.unrestricted_principal",
+      "reason": "주체 무제한 설명만으로 구체적 강간행위나 간접정범 형태를 증명하지 않음"
+    },
+    {
+      "card_id": "art297_sec10.planned_killing_after_rape_no_self_defense",
+      "reason": "강간 피해자의 사후 계획살인에 관한 살인·정당방위 문맥이지 피고인의 강간 성립요건이 아님"
+    },
+    {
+      "card_id": "art297_sec10.self_defense_against_rape",
+      "reason": "피해자의 방어행위 위법성 조각은 별도 정당방위 문제"
+    },
+    {
+      "card_id": "art297_sec10.tongue_biting_self_defense",
+      "reason": "피해자의 혀 절단 반격에 관한 정당방위 사례"
+    },
+    {
+      "card_id": "art297_sec4_1.gender_sensitive_limit",
+      "reason": "성인지 관점에도 증명력 한계가 있다는 증거평가 문맥"
+    },
+    {
+      "card_id": "art297_sec4_1.gender_sensitive_testimony",
+      "reason": "피해자다움을 요구하지 않는 진술 신빙성 평가기준"
+    },
+    {
+      "card_id": "art297_sec4_1.no_retrospective_inference",
+      "reason": "사후 이탈·불충분한 반항만으로 강제성을 부정하지 말라는 증거평가 한계"
+    },
+    {
+      "card_id": "art297_sec4_1.victim_testimony_reliability",
+      "reason": "유일한 직접증거인 피해자 진술의 증명력 판단기준"
+    },
+    {
+      "card_id": "art297_sec9.nonprosecution_not_false_report_proof",
+      "reason": "불기소·무죄만으로 무고를 증명할 수 없다는 절차·증거 문맥"
+    }
+  ],
+  "tracks": [
+    {
+      "track_id": "base",
+      "label": "제297조 강간 기수"
+    }
+  ],
+  "placements": [
+    {
+      "card_id": "art297_sec5.consent_assessment",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "absence_of_consent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "성적 자기결정권 침해 여부에 따른 동의 판단의 일반경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec5.prior_communications_not_consent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "absence_of_consent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "연락·호감 정황만으로 성관계 동의가 되지 않음",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec5.valid_consent",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "absence_of_consent",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "피해자 본인의 유효한 동의는 구성요건 해당성을 차단",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec5.withdrawn_consent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "absence_of_consent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사전 동의를 번복한 뒤에는 동의가 없음",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec9.rape_injury_death",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "aggravated_result",
+      "component_join": "not_applicable",
+      "refers_to_unit": "sexual_offense_injury_or_death",
+      "rationale": "강간상해·치상·살인·치사의 결과가중 연결",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec4_3.attempt_commencement",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "attempt_commencement",
+      "component_join": "not_applicable",
+      "refers_to_unit": "sexual_offense_attempt",
+      "rationale": "최협의 폭행·협박 개시 시 실행착수. 제300조 unit에서 사용",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec4_3.attempt_commencement_context",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "attempt_commencement_standard",
+      "component_join": "not_applicable",
+      "refers_to_unit": "sexual_offense_attempt",
+      "rationale": "언행·행동·주변정황을 종합하는 착수 판단기준",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec4_3.voluntary_abandonment",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "attempt_outcome",
+      "component_join": "not_applicable",
+      "refers_to_unit": "sexual_offense_attempt",
+      "rationale": "자의적 실행중지는 제300조·제26조 중지미수 효과",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec4_2.violence_intercourse_causation",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "causation",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "폭행·협박에 의하여 간음이 이루어진 인과관계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec4_1.direct_violence_threat",
+      "part_id": null,
+      "role": "boundary",
+      "track_id": "base",
+      "component_id": "coercion_attribution",
+      "component_join": "not_applicable",
+      "refers_to_unit": "quasi_sexual_offense",
+      "rationale": "타인이 만든 폭행·협박 상태를 이용했을 뿐이면 직접 강간이 아니라 준강간 경계",
+      "proposition_rewrite": "행위자가 타인이 가한 폭행·협박 상태를 이용하여 피해자를 간음했을 뿐 자신이 폭행·협박을 가하지 않은 경우에는 강간죄가 아니라 준강간죄가 성립할 수 있다."
+    },
+    {
+      "card_id": "art297_sec4_1.force_threat_temporal_gap",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "coercion_timing",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "폭행·협박과 간음 사이 시간간격이 있어도 되는 경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec4_1.force_threat_timing_before_completion",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "coercion_timing",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "폭행·협박이 간음 종료 전까지 존재하면 되는 일반 시간경계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec3_2.spouse_rape_holding",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "coercive_degree",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "혼인 중에도 최협의 폭행·협박이면 강간이 성립하는 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec3_2.spouse_violence_assessment",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "coercive_degree",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "배우자 관계와 혼인생활 정황을 포함한 폭행·협박 정도 판단경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec4_1.extramarital_exposure_threat",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "coercive_degree",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "불륜 폭로 협박의 내용·범위·관계·압박을 종합하는 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec4_1.third_party_or_property_threat",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "coercive_degree",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "제3자 폭행·기물파괴·가족위협으로 피해자 저항의지를 제압한 경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec4_1.threat_alone",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "coercive_degree",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "항거불능·현저한 곤란 정도의 협박만으로도 성립",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec4_2.rape_and_penetration",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "coercive_degree",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "상대방 반항을 불가능·현저히 곤란하게 하는 최협의 폭행·협박 기준",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec4_1.violence_threat_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "coercive_means",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "유형력 행사 또는 공포심을 일으킬 해악고지라는 수단요건",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec9.abduction_for_marriage_rape",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "abduction_for_marriage",
+      "rationale": "결혼목적 약취죄와 강간죄의 실체적 경합",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec9.confinement_rape_attempted_case",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "confinement",
+      "rationale": "동일 협박이 감금과 강간미수 착수에 해당하면 상상적 경합",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec9.continued_confinement_after_rape",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "confinement",
+      "rationale": "강간 종료 뒤 계속된 감금은 실체적 경합",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec9.means_violence_absorption",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "assault_or_threat",
+      "rationale": "강간 수단 폭행·협박은 강간죄에 흡수",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec9.separate_confinement_rape_violence",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "confinement",
+      "rationale": "감금 중 새 강간고의·별도 폭행협박이면 실체적 경합",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec9.theft_rape_concurrence",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "theft",
+      "rationale": "단순 절도 뒤 강간은 실체적 경합",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec6.intent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "intent",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "폭행·협박으로 강간한다는 인식·의사, 미필적 고의 포함",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec6.mistake_of_consent",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "피해자 동의가 있다고 오인하면 강간의 고의를 차단",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297.object-person",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "object_scope",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "성별·연령·혼인·성경험·성교능력과 무관한 사람이라는 객체범위",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec7.continuous_acts_single_offense",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "동일 강제상태·단일계속 범의의 수회 간음은 포괄일죄",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec7.multiple_victims_multiple_offenses",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "피해자별 성적 자기결정권 침해에 따른 수죄",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec7.new_violence_separate_offense",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "강제상태 종료 뒤 새로운 폭행·협박이면 별죄",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297.conduct.violence-threat-rape",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "offense_definition",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "폭행·협박으로 사람을 강간하는 제297조 기본 정의",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec1.rape_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "offense_definition",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "#1과 동일한 기본 구성요건의 추가 provenance",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec9.residence_intrusion_rape",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": "dwelling_intrusion",
+      "rationale": "주거침입강간 특별법 단순일죄",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec9.robbery_rape",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": "robbery",
+      "rationale": "강도 기회의 동일 피해자 강간은 강도강간 단순일죄",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec9.special_rape",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": "special_rape",
+      "rationale": "흉기휴대·2인 이상 합동의 특수강간 가중유형",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec9.special_robbery_rape",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": "special_robbery_rape",
+      "rationale": "특수강도강간 특별법 단순일죄",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec9.special_theft_rape",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": "special_theft_rape",
+      "rationale": "야간주거침입절도·특수절도 뒤 강간의 특별법 가중유형",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec4_4.successive_co_perpetration_negative",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "participation_form",
+      "component_join": "not_applicable",
+      "refers_to_unit": "complicity",
+      "rationale": "기능적 행위지배 없는 후행자의 승계적 공동정범 부정",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec4_4.successive_perpetrator_quasi_rape",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "participation_form",
+      "component_join": "not_applicable",
+      "refers_to_unit": "quasi_sexual_offense",
+      "rationale": "선행자가 만든 상태를 이용한 후행자는 준강간 경계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec4_2.non_vaginal_acts_exception",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "penetration",
+      "component_join": "not_applicable",
+      "refers_to_unit": "quasi_rape",
+      "rationale": "구강·항문성교 등 비질성교는 제297조 강간을 차단하고 유사강간으로 이동",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec4_3.completion",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "penetration",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "성기 삽입·결합 순간 기수이며 완전삽입·사정은 불필요",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec3_4.sex_classification",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "sex_classification",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "성염색체만이 아니라 성귀속감·사회규범·일반인 평가를 종합하는 성별 판단기준",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297_sec3_4.intercourse_opposite_sex",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "sex_pair",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "단독정범의 질성교 구조상 행위주체와 객체가 서로 다른 성일 것",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297.relative_special_act",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "special_statute",
+      "component_join": "not_applicable",
+      "refers_to_unit": "relative_sexual_offense",
+      "rationale": "친족관계 가중 특별법 적용은 성립 후 법조효과",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art297.special-protection-statutes",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "special_statute",
+      "component_join": "not_applicable",
+      "refers_to_unit": "protected_victim_sexual_offense",
+      "rationale": "13세 미만·장애인·아동청소년 특별법은 현재 외부 단위",
+      "proposition_rewrite": null
+    }
+  ],
+  "components": [
+    {
+      "track_id": "base",
+      "component_id": "absence_of_consent",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art297_sec5.consent_assessment",
+        "art297_sec5.prior_communications_not_consent",
+        "art297_sec5.valid_consent",
+        "art297_sec5.withdrawn_consent"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "aggravated_result",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "sexual_offense_injury_or_death"
+      ],
+      "norm_card_ids": [
+        "art297_sec9.rape_injury_death"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "attempt_commencement",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "sexual_offense_attempt"
+      ],
+      "norm_card_ids": [
+        "art297_sec4_3.attempt_commencement"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "attempt_commencement_standard",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "sexual_offense_attempt"
+      ],
+      "norm_card_ids": [
+        "art297_sec4_3.attempt_commencement_context"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "attempt_outcome",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "sexual_offense_attempt"
+      ],
+      "norm_card_ids": [
+        "art297_sec4_3.voluntary_abandonment"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "causation",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art297_sec4_2.violence_intercourse_causation"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "coercion_attribution",
+      "roles": [
+        "boundary"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "quasi_sexual_offense"
+      ],
+      "norm_card_ids": [
+        "art297_sec4_1.direct_violence_threat"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "coercion_timing",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art297_sec4_1.force_threat_temporal_gap",
+        "art297_sec4_1.force_threat_timing_before_completion"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "coercive_degree",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art297_sec3_2.spouse_rape_holding",
+        "art297_sec3_2.spouse_violence_assessment",
+        "art297_sec4_1.extramarital_exposure_threat",
+        "art297_sec4_1.third_party_or_property_threat",
+        "art297_sec4_1.threat_alone",
+        "art297_sec4_2.rape_and_penetration"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "coercive_means",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art297_sec4_1.violence_threat_definition"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "concurrence",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "abduction_for_marriage",
+        "assault_or_threat",
+        "confinement",
+        "theft"
+      ],
+      "norm_card_ids": [
+        "art297_sec9.abduction_for_marriage_rape",
+        "art297_sec9.confinement_rape_attempted_case",
+        "art297_sec9.continued_confinement_after_rape",
+        "art297_sec9.means_violence_absorption",
+        "art297_sec9.separate_confinement_rape_violence",
+        "art297_sec9.theft_rape_concurrence"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "intent",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art297_sec6.intent",
+        "art297_sec6.mistake_of_consent"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "object_scope",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art297.object-person"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "offense_count",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art297_sec7.continuous_acts_single_offense",
+        "art297_sec7.multiple_victims_multiple_offenses",
+        "art297_sec7.new_violence_separate_offense"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "offense_definition",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art297.conduct.violence-threat-rape",
+        "art297_sec1.rape_definition"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "offense_scope",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "dwelling_intrusion",
+        "robbery",
+        "special_rape",
+        "special_robbery_rape",
+        "special_theft_rape"
+      ],
+      "norm_card_ids": [
+        "art297_sec9.residence_intrusion_rape",
+        "art297_sec9.robbery_rape",
+        "art297_sec9.special_rape",
+        "art297_sec9.special_robbery_rape",
+        "art297_sec9.special_theft_rape"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "participation_form",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "complicity",
+        "quasi_sexual_offense"
+      ],
+      "norm_card_ids": [
+        "art297_sec4_4.successive_co_perpetration_negative",
+        "art297_sec4_4.successive_perpetrator_quasi_rape"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "penetration",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [
+        "quasi_rape"
+      ],
+      "norm_card_ids": [
+        "art297_sec4_2.non_vaginal_acts_exception",
+        "art297_sec4_3.completion"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "sex_classification",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art297_sec3_4.sex_classification"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "sex_pair",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art297_sec3_4.intercourse_opposite_sex"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "special_statute",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "protected_victim_sexual_offense",
+        "relative_sexual_offense"
+      ],
+      "norm_card_ids": [
+        "art297.relative_special_act",
+        "art297.special-protection-statutes"
+      ]
+    }
+  ],
+  "stats": {
+    "components": 21,
+    "context_only_placements": 10,
+    "decision_approve": 45,
+    "decision_context_only": 10,
+    "decision_rewrite": 1,
+    "placements": 46,
+    "queue_cards": 56,
+    "unresolved_unit_references": 12
+  }
+}

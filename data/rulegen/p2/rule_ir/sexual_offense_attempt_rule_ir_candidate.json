@@ -1,0 +1,3509 @@
+{
+  "version": "1.1.0",
+  "rule_set_id": "kr.p2.sexual_offense_attempt.native.v1_candidate",
+  "issue_tag": "sexual_offense_attempt",
+  "status": "draft",
+  "legal_review": "pending",
+  "legal_review_questions": [],
+  "source_scope": {
+    "comment_ids": [
+      "raw_001692_제300조_p001",
+      "raw_001692_제300조_p002"
+    ],
+    "target_paths": [
+      "commentary://001692/art300"
+    ]
+  },
+  "norm_card_scope": {
+    "card_set_id": "kr.p2.sexual_offense_attempt.native.norms.v1",
+    "card_ids": [
+      "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation",
+      "art300_x_raw_pdf.commencement_of_execution",
+      "art300_x_raw_pdf.enumerated_offenses_attempts",
+      "art300_x_raw_pdf.other_offenses_exclusion",
+      "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt"
+    ]
+  },
+  "predicates": [
+    {
+      "id": "provable",
+      "kind": "rule",
+      "origin": "system",
+      "role": "input",
+      "definition": "해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "assessment_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
+      "id": "case_assessment_complete",
+      "kind": "rule",
+      "origin": "system",
+      "role": "input",
+      "definition": "사건 라우터가 선택한 평가 묶음이 완결되어 결론 계층의 폐쇄세계 검사를 허용함",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
+      "id": "distinct_entity",
+      "kind": "rule",
+      "origin": "system",
+      "role": "input",
+      "definition": "사건의 entity resolution에서 두 역할이 서로 다른 실체임이 확인됨",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "left_entity_id",
+          "type": "String"
+        },
+        {
+          "name": "right_entity_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
+      "id": "sexual_offense_attempt_case_roles",
+      "kind": "rule",
+      "origin": "system",
+      "role": "input",
+      "definition": "호스트가 predicate offense와 실행착수를 확정한 성범죄 미수의 피고인·피해자 tuple",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "victim_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
+      "id": "sexual_offense_attempt_not_established",
+      "kind": "rule",
+      "origin": "system",
+      "role": "derived",
+      "definition": "증명된 불성립 사유 또는 경계 이동이 존재함",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "norm_card_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
+      "id": "sexual_offense_attempt_undetermined",
+      "kind": "rule",
+      "origin": "system",
+      "role": "derived",
+      "definition": "관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "norm_card_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
+      "id": "sexual_offense_attempt_conflict",
+      "kind": "rule",
+      "origin": "system",
+      "role": "derived",
+      "definition": "같은 카드에 satisfied와 not_satisfied 평가가 모두 증명됨",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "norm_card_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
+      "id": "sexual_offense_attempt_track_not_established",
+      "kind": "rule",
+      "origin": "system",
+      "role": "derived",
+      "definition": "해당 track에만 적용되는 증명된 불성립 사유 또는 경계 이동",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "track_id",
+          "type": "String"
+        },
+        {
+          "name": "norm_card_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
+      "id": "sexual_offense_attempt_track_conflict",
+      "kind": "rule",
+      "origin": "system",
+      "role": "derived",
+      "definition": "해당 track에 적용되는 카드 평가 충돌",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "track_id",
+          "type": "String"
+        },
+        {
+          "name": "norm_card_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
+      "id": "sexual_offense_attempt_track_has_negative",
+      "kind": "rule",
+      "origin": "system",
+      "role": "derived",
+      "definition": "해당 track에 증명된 불성립 사유가 존재함",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "track_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
+      "id": "sexual_offense_attempt_track_has_conflict",
+      "kind": "rule",
+      "origin": "system",
+      "role": "derived",
+      "definition": "해당 track에 증명된 평가 충돌이 존재함",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "track_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
+      "id": "assess_art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation",
+      "kind": "rule",
+      "origin": "commentary",
+      "role": "input",
+      "definition": "이 카드의 사건별 적용 평가: 위 판례의 해석에 따르면 형법 제305조 제2항의 16세 미만 미성년자에 대한 간음·추행죄도 미수범이 처벌되는 것으로 해석할 수 있다.",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "assessment_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "victim_id",
+          "type": "String"
+        },
+        {
+          "name": "status",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [
+        "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "이에 따르면 16세 미        \n             만의 미성년자에  대한 간음·추행죄(형법  제305조 제2항)에 대하여도 미수범이 처        \n             벌되는 것으로  해석할 수 있다.",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "satisfied_art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation",
+      "kind": "rule",
+      "origin": "commentary",
+      "role": "derived",
+      "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 위 판례의 해석에 따르면 형법 제305조 제2항의 16세 미만 미성년자에 대한 간음·추행죄도 미수범이 처벌되는 것으로 해석할 수 있다.",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "victim_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [
+        "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "이에 따르면 16세 미        \n             만의 미성년자에  대한 간음·추행죄(형법  제305조 제2항)에 대하여도 미수범이 처        \n             벌되는 것으로  해석할 수 있다.",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "assess_art300_x_raw_pdf_commencement_of_execution",
+      "kind": "rule",
+      "origin": "commentary",
+      "role": "input",
+      "definition": "이 카드의 사건별 적용 평가: 미수가 성립하려면 실행의 착수가 있어야 한다.",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "assessment_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "victim_id",
+          "type": "String"
+        },
+        {
+          "name": "status",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [
+        "art300_x_raw_pdf.commencement_of_execution"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "미수가 성립하기",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "위해서는  실행의 착수가  있어야 한다.",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "satisfied_art300_x_raw_pdf_commencement_of_execution",
+      "kind": "rule",
+      "origin": "commentary",
+      "role": "derived",
+      "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 미수가 성립하려면 실행의 착수가 있어야 한다.",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "victim_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [
+        "art300_x_raw_pdf.commencement_of_execution"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "미수가 성립하기",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "위해서는  실행의 착수가  있어야 한다.",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "assess_art300_x_raw_pdf_enumerated_offenses_attempts",
+      "kind": "rule",
+      "origin": "commentary",
+      "role": "input",
+      "definition": "이 카드의 사건별 적용 평가: 강간죄, 유사강간죄, 강제추행죄 및 준강간·준유사강간·준강제추행죄의 미수범은 처벌된다.",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "assessment_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "victim_id",
+          "type": "String"
+        },
+        {
+          "name": "status",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [
+        "art300_x_raw_pdf.enumerated_offenses_attempts"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "강간죄(형법 제297조), 유사강간죄(제297조의2), 강제추행죄(제298조), 준강간·준유",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "사강간·준강제추행죄(제299조)의 미수범은",
+          "section_path": "raw_pdf.page_1"
+        }
+      ]
+    },
+    {
+      "id": "satisfied_art300_x_raw_pdf_enumerated_offenses_attempts",
+      "kind": "rule",
+      "origin": "commentary",
+      "role": "derived",
+      "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 강간죄, 유사강간죄, 강제추행죄 및 준강간·준유사강간·준강제추행죄의 미수범은 처벌된다.",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "victim_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [
+        "art300_x_raw_pdf.enumerated_offenses_attempts"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "강간죄(형법 제297조), 유사강간죄(제297조의2), 강제추행죄(제298조), 준강간·준유",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "사강간·준강제추행죄(제299조)의 미수범은",
+          "section_path": "raw_pdf.page_1"
+        }
+      ]
+    },
+    {
+      "id": "assess_art300_x_raw_pdf_other_offenses_exclusion",
+      "kind": "rule",
+      "origin": "commentary",
+      "role": "input",
+      "definition": "이 카드의 사건별 적용 평가: 강간 등 상해·치상죄, 강간 등 살인·치사죄, 미성년자 등에 대한 간음죄 및 업무상 위력 등에 의한 간음죄의 미수범에는 형법 제300조가 적용되지 않는다.",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "assessment_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "victim_id",
+          "type": "String"
+        },
+        {
+          "name": "status",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [
+        "art300_x_raw_pdf.other_offenses_exclusion"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "위 죄 이외에  강간 등  상",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "해·치상죄(제301조), 강간 등 살인·치사죄(제301조의2), 미성년자 등에 대한 간음",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "죄(제302조), 업무상 위력 등에 의한 간음죄(제303조)의 미수범에 대하여는 형법",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "제300조가 적용되지 않는다.",
+          "section_path": "raw_pdf.page_1"
+        }
+      ]
+    },
+    {
+      "id": "satisfied_art300_x_raw_pdf_other_offenses_exclusion",
+      "kind": "rule",
+      "origin": "commentary",
+      "role": "derived",
+      "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 강간 등 상해·치상죄, 강간 등 살인·치사죄, 미성년자 등에 대한 간음죄 및 업무상 위력 등에 의한 간음죄의 미수범에는 형법 제300조가 적용되지 않는다.",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "victim_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [
+        "art300_x_raw_pdf.other_offenses_exclusion"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "위 죄 이외에  강간 등  상",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "해·치상죄(제301조), 강간 등 살인·치사죄(제301조의2), 미성년자 등에 대한 간음",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "죄(제302조), 업무상 위력 등에 의한 간음죄(제303조)의 미수범에 대하여는 형법",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "제300조가 적용되지 않는다.",
+          "section_path": "raw_pdf.page_1"
+        }
+      ]
+    },
+    {
+      "id": "assess_art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt",
+      "kind": "rule",
+      "origin": "commentary",
+      "role": "input",
+      "definition": "이 카드의 사건별 적용 평가: 판례는 구 형법 제305조의 13세 미만 미성년자에 대한 간음·추행죄에 형법 제300조를 적용하여 그 미수범 처벌을 긍정하였다.",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "assessment_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "victim_id",
+          "type": "String"
+        },
+        {
+          "name": "status",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [
+        "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "판례는 13세 미만의 미성년자에",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "대한 간음·추행죄(2020. 5. 19. 법률",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "제17265호로 제305조 제2항이 신설되기 전 구 형법 제305조)에 대하여 이를 긍정하였",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "satisfied_art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt",
+      "kind": "rule",
+      "origin": "commentary",
+      "role": "derived",
+      "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 판례는 구 형법 제305조의 13세 미만 미성년자에 대한 간음·추행죄에 형법 제300조를 적용하여 그 미수범 처벌을 긍정하였다.",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "victim_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [
+        "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "판례는 13세 미만의 미성년자에",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "대한 간음·추행죄(2020. 5. 19. 법률",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "제17265호로 제305조 제2항이 신설되기 전 구 형법 제305조)에 대하여 이를 긍정하였",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt_attempt_commencement_satisfied",
+      "kind": "rule",
+      "origin": "commentary",
+      "role": "derived",
+      "definition": "'commencement' 요건이 충족됨 (attempt track, mandatory_all)",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "victim_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [
+        "art300_x_raw_pdf.commencement_of_execution"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "미수가 성립하기",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "위해서는  실행의 착수가  있어야 한다.",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt_attempt_eligible_predicate_offense_satisfied",
+      "kind": "rule",
+      "origin": "commentary",
+      "role": "derived",
+      "definition": "'eligible_predicate_offense' 요건이 충족됨 (attempt track, mandatory_all)",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "victim_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [
+        "art300_x_raw_pdf.enumerated_offenses_attempts"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "강간죄(형법 제297조), 유사강간죄(제297조의2), 강제추행죄(제298조), 준강간·준유",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "사강간·준강제추행죄(제299조)의 미수범은",
+          "section_path": "raw_pdf.page_1"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt_has_negative",
+      "kind": "rule",
+      "origin": "system",
+      "role": "derived",
+      "definition": "이 unit에 증명된 불성립 사유가 존재함",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
+      "id": "sexual_offense_attempt_has_conflict",
+      "kind": "rule",
+      "origin": "system",
+      "role": "derived",
+      "definition": "이 unit에 증명된 평가 충돌이 존재함",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
+      "id": "sexual_offense_attempt_attempt_elements_satisfied",
+      "kind": "rule",
+      "origin": "system",
+      "role": "derived",
+      "definition": "'attempt' track의 구성요건 component가 모두 충족된 잠정 성립 후보",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "victim_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
+      "id": "sexual_offense_attempt_attempt_established",
+      "kind": "rule",
+      "origin": "system",
+      "role": "derived",
+      "definition": "완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 'attempt' track 확정 성립",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "victim_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    }
+  ],
+  "rules": [
+    {
+      "id": "sexual_offense_attempt.card.art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation.satisfied",
+      "head": {
+        "predicate": "satisfied_art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "victim_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_001"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            },
+            {
+              "kind": "string",
+              "value": "satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_001"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "증명 가능한 평가가 satisfied일 때만 조건으로 승격한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "이에 따르면 16세 미        \n             만의 미성년자에  대한 간음·추행죄(형법  제305조 제2항)에 대하여도 미수범이 처        \n             벌되는 것으로  해석할 수 있다.",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.card.art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation.undetermined",
+      "head": {
+        "predicate": "sexual_offense_attempt_undetermined",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "unknown_001"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            },
+            {
+              "kind": "string",
+              "value": "unknown"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "unknown_001"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "unknown 평가를 결론 계층에 보존한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "이에 따르면 16세 미        \n             만의 미성년자에  대한 간음·추행죄(형법  제305조 제2항)에 대하여도 미수범이 처        \n             벌되는 것으로  해석할 수 있다.",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.card.art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation.conflict",
+      "head": {
+        "predicate": "sexual_offense_attempt_conflict",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "positive_001"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            },
+            {
+              "kind": "string",
+              "value": "satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "assess_art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "negative_001"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "positive_001"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "negative_001"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "같은 카드에 satisfied와 not_satisfied가 모두 증명되면 충돌이다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "이에 따르면 16세 미        \n             만의 미성년자에  대한 간음·추행죄(형법  제305조 제2항)에 대하여도 미수범이 처        \n             벌되는 것으로  해석할 수 있다.",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.card.art300_x_raw_pdf_commencement_of_execution.satisfied",
+      "head": {
+        "predicate": "satisfied_art300_x_raw_pdf_commencement_of_execution",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "victim_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art300_x_raw_pdf_commencement_of_execution",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_002"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            },
+            {
+              "kind": "string",
+              "value": "satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_002"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "증명 가능한 평가가 satisfied일 때만 조건으로 승격한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.commencement_of_execution"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "미수가 성립하기",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "위해서는  실행의 착수가  있어야 한다.",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.card.art300_x_raw_pdf_commencement_of_execution.undetermined",
+      "head": {
+        "predicate": "sexual_offense_attempt_undetermined",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art300_x_raw_pdf.commencement_of_execution"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art300_x_raw_pdf_commencement_of_execution",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "unknown_002"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            },
+            {
+              "kind": "string",
+              "value": "unknown"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "unknown_002"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "unknown 평가를 결론 계층에 보존한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.commencement_of_execution"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "미수가 성립하기",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "위해서는  실행의 착수가  있어야 한다.",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.card.art300_x_raw_pdf_commencement_of_execution.conflict",
+      "head": {
+        "predicate": "sexual_offense_attempt_conflict",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art300_x_raw_pdf.commencement_of_execution"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art300_x_raw_pdf_commencement_of_execution",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "positive_002"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            },
+            {
+              "kind": "string",
+              "value": "satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "assess_art300_x_raw_pdf_commencement_of_execution",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "negative_002"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "positive_002"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "negative_002"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "같은 카드에 satisfied와 not_satisfied가 모두 증명되면 충돌이다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.commencement_of_execution"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "미수가 성립하기",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "위해서는  실행의 착수가  있어야 한다.",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.card.art300_x_raw_pdf_enumerated_offenses_attempts.satisfied",
+      "head": {
+        "predicate": "satisfied_art300_x_raw_pdf_enumerated_offenses_attempts",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "victim_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art300_x_raw_pdf_enumerated_offenses_attempts",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_003"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            },
+            {
+              "kind": "string",
+              "value": "satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_003"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "증명 가능한 평가가 satisfied일 때만 조건으로 승격한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.enumerated_offenses_attempts"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "강간죄(형법 제297조), 유사강간죄(제297조의2), 강제추행죄(제298조), 준강간·준유",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "사강간·준강제추행죄(제299조)의 미수범은",
+          "section_path": "raw_pdf.page_1"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.card.art300_x_raw_pdf_enumerated_offenses_attempts.undetermined",
+      "head": {
+        "predicate": "sexual_offense_attempt_undetermined",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art300_x_raw_pdf.enumerated_offenses_attempts"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art300_x_raw_pdf_enumerated_offenses_attempts",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "unknown_003"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            },
+            {
+              "kind": "string",
+              "value": "unknown"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "unknown_003"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "unknown 평가를 결론 계층에 보존한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.enumerated_offenses_attempts"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "강간죄(형법 제297조), 유사강간죄(제297조의2), 강제추행죄(제298조), 준강간·준유",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "사강간·준강제추행죄(제299조)의 미수범은",
+          "section_path": "raw_pdf.page_1"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.card.art300_x_raw_pdf_enumerated_offenses_attempts.conflict",
+      "head": {
+        "predicate": "sexual_offense_attempt_conflict",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art300_x_raw_pdf.enumerated_offenses_attempts"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art300_x_raw_pdf_enumerated_offenses_attempts",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "positive_003"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            },
+            {
+              "kind": "string",
+              "value": "satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "assess_art300_x_raw_pdf_enumerated_offenses_attempts",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "negative_003"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "positive_003"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "negative_003"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "같은 카드에 satisfied와 not_satisfied가 모두 증명되면 충돌이다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.enumerated_offenses_attempts"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "강간죄(형법 제297조), 유사강간죄(제297조의2), 강제추행죄(제298조), 준강간·준유",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "사강간·준강제추행죄(제299조)의 미수범은",
+          "section_path": "raw_pdf.page_1"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.card.art300_x_raw_pdf_other_offenses_exclusion.satisfied",
+      "head": {
+        "predicate": "satisfied_art300_x_raw_pdf_other_offenses_exclusion",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "victim_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art300_x_raw_pdf_other_offenses_exclusion",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_004"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            },
+            {
+              "kind": "string",
+              "value": "satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_004"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "증명 가능한 평가가 satisfied일 때만 조건으로 승격한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.other_offenses_exclusion"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "위 죄 이외에  강간 등  상",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "해·치상죄(제301조), 강간 등 살인·치사죄(제301조의2), 미성년자 등에 대한 간음",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "죄(제302조), 업무상 위력 등에 의한 간음죄(제303조)의 미수범에 대하여는 형법",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "제300조가 적용되지 않는다.",
+          "section_path": "raw_pdf.page_1"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.card.art300_x_raw_pdf_other_offenses_exclusion.undetermined",
+      "head": {
+        "predicate": "sexual_offense_attempt_undetermined",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art300_x_raw_pdf.other_offenses_exclusion"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art300_x_raw_pdf_other_offenses_exclusion",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "unknown_004"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            },
+            {
+              "kind": "string",
+              "value": "unknown"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "unknown_004"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "unknown 평가를 결론 계층에 보존한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.other_offenses_exclusion"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "위 죄 이외에  강간 등  상",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "해·치상죄(제301조), 강간 등 살인·치사죄(제301조의2), 미성년자 등에 대한 간음",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "죄(제302조), 업무상 위력 등에 의한 간음죄(제303조)의 미수범에 대하여는 형법",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "제300조가 적용되지 않는다.",
+          "section_path": "raw_pdf.page_1"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.card.art300_x_raw_pdf_other_offenses_exclusion.conflict",
+      "head": {
+        "predicate": "sexual_offense_attempt_conflict",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art300_x_raw_pdf.other_offenses_exclusion"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art300_x_raw_pdf_other_offenses_exclusion",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "positive_004"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            },
+            {
+              "kind": "string",
+              "value": "satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "assess_art300_x_raw_pdf_other_offenses_exclusion",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "negative_004"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "positive_004"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "negative_004"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "같은 카드에 satisfied와 not_satisfied가 모두 증명되면 충돌이다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.other_offenses_exclusion"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "위 죄 이외에  강간 등  상",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "해·치상죄(제301조), 강간 등 살인·치사죄(제301조의2), 미성년자 등에 대한 간음",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "죄(제302조), 업무상 위력 등에 의한 간음죄(제303조)의 미수범에 대하여는 형법",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "제300조가 적용되지 않는다.",
+          "section_path": "raw_pdf.page_1"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.card.art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt.satisfied",
+      "head": {
+        "predicate": "satisfied_art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "victim_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_005"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            },
+            {
+              "kind": "string",
+              "value": "satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_005"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "증명 가능한 평가가 satisfied일 때만 조건으로 승격한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "판례는 13세 미만의 미성년자에",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "대한 간음·추행죄(2020. 5. 19. 법률",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "제17265호로 제305조 제2항이 신설되기 전 구 형법 제305조)에 대하여 이를 긍정하였",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.card.art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt.undetermined",
+      "head": {
+        "predicate": "sexual_offense_attempt_undetermined",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "unknown_005"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            },
+            {
+              "kind": "string",
+              "value": "unknown"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "unknown_005"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "unknown 평가를 결론 계층에 보존한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "판례는 13세 미만의 미성년자에",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "대한 간음·추행죄(2020. 5. 19. 법률",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "제17265호로 제305조 제2항이 신설되기 전 구 형법 제305조)에 대하여 이를 긍정하였",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.card.art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt.conflict",
+      "head": {
+        "predicate": "sexual_offense_attempt_conflict",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "positive_005"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            },
+            {
+              "kind": "string",
+              "value": "satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "assess_art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "negative_005"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "positive_005"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "negative_005"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "같은 카드에 satisfied와 not_satisfied가 모두 증명되면 충돌이다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "판례는 13세 미만의 미성년자에",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "대한 간음·추행죄(2020. 5. 19. 법률",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "제17265호로 제305조 제2항이 신설되기 전 구 형법 제305조)에 대하여 이를 긍정하였",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.component.attempt.commencement.all",
+      "head": {
+        "predicate": "sexual_offense_attempt_attempt_commencement_satisfied",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "victim_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art300_x_raw_pdf_commencement_of_execution",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "결합적 요건이므로 모든 카드가 충족되어야 한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.commencement_of_execution"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "미수가 성립하기",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "위해서는  실행의 착수가  있어야 한다.",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.component.attempt.eligible_predicate_offense.all",
+      "head": {
+        "predicate": "sexual_offense_attempt_attempt_eligible_predicate_offense_satisfied",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "victim_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art300_x_raw_pdf_enumerated_offenses_attempts",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "결합적 요건이므로 모든 카드가 충족되어야 한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.enumerated_offenses_attempts"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "강간죄(형법 제297조), 유사강간죄(제297조의2), 강제추행죄(제298조), 준강간·준유",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "사강간·준강제추행죄(제299조)의 미수범은",
+          "section_path": "raw_pdf.page_1"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.track_conflict.attempt.art300_x_raw_pdf_commencement_of_execution",
+      "head": {
+        "predicate": "sexual_offense_attempt_track_conflict",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "attempt"
+          },
+          {
+            "kind": "string",
+            "value": "art300_x_raw_pdf.commencement_of_execution"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "sexual_offense_attempt_conflict",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "string",
+              "value": "art300_x_raw_pdf.commencement_of_execution"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "카드 평가 충돌은 해당 track과 그 상속 track에만 전파한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.commencement_of_execution"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "미수가 성립하기",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "위해서는  실행의 착수가  있어야 한다.",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.track_conflict.attempt.art300_x_raw_pdf_enumerated_offenses_attempts",
+      "head": {
+        "predicate": "sexual_offense_attempt_track_conflict",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "attempt"
+          },
+          {
+            "kind": "string",
+            "value": "art300_x_raw_pdf.enumerated_offenses_attempts"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "sexual_offense_attempt_conflict",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "string",
+              "value": "art300_x_raw_pdf.enumerated_offenses_attempts"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "카드 평가 충돌은 해당 track과 그 상속 track에만 전파한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.enumerated_offenses_attempts"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "강간죄(형법 제297조), 유사강간죄(제297조의2), 강제추행죄(제298조), 준강간·준유",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "사강간·준강제추행죄(제299조)의 미수범은",
+          "section_path": "raw_pdf.page_1"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.track_conflict.attempt.art300_x_raw_pdf_other_offenses_exclusion",
+      "head": {
+        "predicate": "sexual_offense_attempt_track_conflict",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "attempt"
+          },
+          {
+            "kind": "string",
+            "value": "art300_x_raw_pdf.other_offenses_exclusion"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "sexual_offense_attempt_conflict",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "string",
+              "value": "art300_x_raw_pdf.other_offenses_exclusion"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "카드 평가 충돌은 해당 track과 그 상속 track에만 전파한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.other_offenses_exclusion"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "위 죄 이외에  강간 등  상",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "해·치상죄(제301조), 강간 등 살인·치사죄(제301조의2), 미성년자 등에 대한 간음",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "죄(제302조), 업무상 위력 등에 의한 간음죄(제303조)의 미수범에 대하여는 형법",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "제300조가 적용되지 않는다.",
+          "section_path": "raw_pdf.page_1"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.track_blocked.attempt.art300_x_raw_pdf_other_offenses_exclusion",
+      "head": {
+        "predicate": "sexual_offense_attempt_track_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "attempt"
+          },
+          {
+            "kind": "string",
+            "value": "art300_x_raw_pdf.other_offenses_exclusion"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art300_x_raw_pdf_other_offenses_exclusion",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.other_offenses_exclusion"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "위 죄 이외에  강간 등  상",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "해·치상죄(제301조), 강간 등 살인·치사죄(제301조의2), 미성년자 등에 대한 간음",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "죄(제302조), 업무상 위력 등에 의한 간음죄(제303조)의 미수범에 대하여는 형법",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "제300조가 적용되지 않는다.",
+          "section_path": "raw_pdf.page_1"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.summary.has_negative",
+      "head": {
+        "predicate": "sexual_offense_attempt_has_negative",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "sexual_offense_attempt_not_established",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "norm_card_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "불성립 사유의 존재를 2항으로 요약한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation",
+        "art300_x_raw_pdf.commencement_of_execution",
+        "art300_x_raw_pdf.enumerated_offenses_attempts",
+        "art300_x_raw_pdf.other_offenses_exclusion",
+        "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "이에 따르면 16세 미        \n             만의 미성년자에  대한 간음·추행죄(형법  제305조 제2항)에 대하여도 미수범이 처        \n             벌되는 것으로  해석할 수 있다.",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "미수가 성립하기",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "위해서는  실행의 착수가  있어야 한다.",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "강간죄(형법 제297조), 유사강간죄(제297조의2), 강제추행죄(제298조), 준강간·준유",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "사강간·준강제추행죄(제299조)의 미수범은",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "위 죄 이외에  강간 등  상",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "해·치상죄(제301조), 강간 등 살인·치사죄(제301조의2), 미성년자 등에 대한 간음",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "죄(제302조), 업무상 위력 등에 의한 간음죄(제303조)의 미수범에 대하여는 형법",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "제300조가 적용되지 않는다.",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "판례는 13세 미만의 미성년자에",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "대한 간음·추행죄(2020. 5. 19. 법률",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "제17265호로 제305조 제2항이 신설되기 전 구 형법 제305조)에 대하여 이를 긍정하였",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.summary.has_conflict",
+      "head": {
+        "predicate": "sexual_offense_attempt_has_conflict",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "sexual_offense_attempt_conflict",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "norm_card_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "충돌의 존재를 2항으로 요약한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation",
+        "art300_x_raw_pdf.commencement_of_execution",
+        "art300_x_raw_pdf.enumerated_offenses_attempts",
+        "art300_x_raw_pdf.other_offenses_exclusion",
+        "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "이에 따르면 16세 미        \n             만의 미성년자에  대한 간음·추행죄(형법  제305조 제2항)에 대하여도 미수범이 처        \n             벌되는 것으로  해석할 수 있다.",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "미수가 성립하기",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "위해서는  실행의 착수가  있어야 한다.",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "강간죄(형법 제297조), 유사강간죄(제297조의2), 강제추행죄(제298조), 준강간·준유",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "사강간·준강제추행죄(제299조)의 미수범은",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "위 죄 이외에  강간 등  상",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "해·치상죄(제301조), 강간 등 살인·치사죄(제301조의2), 미성년자 등에 대한 간음",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "죄(제302조), 업무상 위력 등에 의한 간음죄(제303조)의 미수범에 대하여는 형법",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "제300조가 적용되지 않는다.",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "판례는 13세 미만의 미성년자에",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "대한 간음·추행죄(2020. 5. 19. 법률",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "제17265호로 제305조 제2항이 신설되기 전 구 형법 제305조)에 대하여 이를 긍정하였",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.summary.canonical_not_established",
+      "head": {
+        "predicate": "sexual_offense_attempt_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "norm_card_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "sexual_offense_attempt_track_not_established",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "track_id"
+            },
+            {
+              "kind": "variable",
+              "value": "norm_card_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "track별 불성립 사유를 canonical unit 보고 관계로 투영한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation",
+        "art300_x_raw_pdf.commencement_of_execution",
+        "art300_x_raw_pdf.enumerated_offenses_attempts",
+        "art300_x_raw_pdf.other_offenses_exclusion",
+        "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "이에 따르면 16세 미        \n             만의 미성년자에  대한 간음·추행죄(형법  제305조 제2항)에 대하여도 미수범이 처        \n             벌되는 것으로  해석할 수 있다.",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "미수가 성립하기",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "위해서는  실행의 착수가  있어야 한다.",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "강간죄(형법 제297조), 유사강간죄(제297조의2), 강제추행죄(제298조), 준강간·준유",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "사강간·준강제추행죄(제299조)의 미수범은",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "위 죄 이외에  강간 등  상",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "해·치상죄(제301조), 강간 등 살인·치사죄(제301조의2), 미성년자 등에 대한 간음",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "죄(제302조), 업무상 위력 등에 의한 간음죄(제303조)의 미수범에 대하여는 형법",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "제300조가 적용되지 않는다.",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "판례는 13세 미만의 미성년자에",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "대한 간음·추행죄(2020. 5. 19. 법률",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "제17265호로 제305조 제2항이 신설되기 전 구 형법 제305조)에 대하여 이를 긍정하였",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.summary.track_has_negative",
+      "head": {
+        "predicate": "sexual_offense_attempt_track_has_negative",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "track_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "sexual_offense_attempt_track_not_established",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "track_id"
+            },
+            {
+              "kind": "variable",
+              "value": "norm_card_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "track별 불성립 사유의 존재를 요약한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation",
+        "art300_x_raw_pdf.commencement_of_execution",
+        "art300_x_raw_pdf.enumerated_offenses_attempts",
+        "art300_x_raw_pdf.other_offenses_exclusion",
+        "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "이에 따르면 16세 미        \n             만의 미성년자에  대한 간음·추행죄(형법  제305조 제2항)에 대하여도 미수범이 처        \n             벌되는 것으로  해석할 수 있다.",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "미수가 성립하기",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "위해서는  실행의 착수가  있어야 한다.",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "강간죄(형법 제297조), 유사강간죄(제297조의2), 강제추행죄(제298조), 준강간·준유",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "사강간·준강제추행죄(제299조)의 미수범은",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "위 죄 이외에  강간 등  상",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "해·치상죄(제301조), 강간 등 살인·치사죄(제301조의2), 미성년자 등에 대한 간음",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "죄(제302조), 업무상 위력 등에 의한 간음죄(제303조)의 미수범에 대하여는 형법",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "제300조가 적용되지 않는다.",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "판례는 13세 미만의 미성년자에",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "대한 간음·추행죄(2020. 5. 19. 법률",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "제17265호로 제305조 제2항이 신설되기 전 구 형법 제305조)에 대하여 이를 긍정하였",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.summary.track_has_conflict",
+      "head": {
+        "predicate": "sexual_offense_attempt_track_has_conflict",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "track_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "sexual_offense_attempt_track_conflict",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "track_id"
+            },
+            {
+              "kind": "variable",
+              "value": "norm_card_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "track별 충돌의 존재를 요약한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation",
+        "art300_x_raw_pdf.commencement_of_execution",
+        "art300_x_raw_pdf.enumerated_offenses_attempts",
+        "art300_x_raw_pdf.other_offenses_exclusion",
+        "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "이에 따르면 16세 미        \n             만의 미성년자에  대한 간음·추행죄(형법  제305조 제2항)에 대하여도 미수범이 처        \n             벌되는 것으로  해석할 수 있다.",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "미수가 성립하기",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "위해서는  실행의 착수가  있어야 한다.",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "강간죄(형법 제297조), 유사강간죄(제297조의2), 강제추행죄(제298조), 준강간·준유",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "사강간·준강제추행죄(제299조)의 미수범은",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "위 죄 이외에  강간 등  상",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "해·치상죄(제301조), 강간 등 살인·치사죄(제301조의2), 미성년자 등에 대한 간음",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "죄(제302조), 업무상 위력 등에 의한 간음죄(제303조)의 미수범에 대하여는 형법",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "제300조가 적용되지 않는다.",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "판례는 13세 미만의 미성년자에",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "대한 간음·추행죄(2020. 5. 19. 법률",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "제17265호로 제305조 제2항이 신설되기 전 구 형법 제305조)에 대하여 이를 긍정하였",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.outcome.attempt.elements_satisfied",
+      "head": {
+        "predicate": "sexual_offense_attempt_attempt_elements_satisfied",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "victim_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "sexual_offense_attempt_attempt_commencement_satisfied",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "sexual_offense_attempt_attempt_eligible_predicate_offense_satisfied",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "'attempt' track의 모든 component를 AND 결합한다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation",
+        "art300_x_raw_pdf.commencement_of_execution",
+        "art300_x_raw_pdf.enumerated_offenses_attempts",
+        "art300_x_raw_pdf.other_offenses_exclusion",
+        "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "이에 따르면 16세 미        \n             만의 미성년자에  대한 간음·추행죄(형법  제305조 제2항)에 대하여도 미수범이 처        \n             벌되는 것으로  해석할 수 있다.",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "미수가 성립하기",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "위해서는  실행의 착수가  있어야 한다.",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "강간죄(형법 제297조), 유사강간죄(제297조의2), 강제추행죄(제298조), 준강간·준유",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "사강간·준강제추행죄(제299조)의 미수범은",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "위 죄 이외에  강간 등  상",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "해·치상죄(제301조), 강간 등 살인·치사죄(제301조의2), 미성년자 등에 대한 간음",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "죄(제302조), 업무상 위력 등에 의한 간음죄(제303조)의 미수범에 대하여는 형법",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "제300조가 적용되지 않는다.",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "판례는 13세 미만의 미성년자에",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "대한 간음·추행죄(2020. 5. 19. 법률",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "제17265호로 제305조 제2항이 신설되기 전 구 형법 제305조)에 대하여 이를 긍정하였",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    },
+    {
+      "id": "sexual_offense_attempt.outcome.attempt.established",
+      "head": {
+        "predicate": "sexual_offense_attempt_attempt_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "victim_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "sexual_offense_attempt_attempt_elements_satisfied",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "case_assessment_complete",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "sexual_offense_attempt_track_has_negative",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "string",
+              "value": "attempt"
+            }
+          ],
+          "negated": true
+        },
+        {
+          "predicate": "sexual_offense_attempt_track_has_conflict",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "string",
+              "value": "attempt"
+            }
+          ],
+          "negated": true
+        }
+      ],
+      "review_notes": "완결 게이트 뒤에서만 부정을 사용해 확정 성립을 낸다.",
+      "norm_card_ids": [
+        "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation",
+        "art300_x_raw_pdf.commencement_of_execution",
+        "art300_x_raw_pdf.enumerated_offenses_attempts",
+        "art300_x_raw_pdf.other_offenses_exclusion",
+        "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "이에 따르면 16세 미        \n             만의 미성년자에  대한 간음·추행죄(형법  제305조 제2항)에 대하여도 미수범이 처        \n             벌되는 것으로  해석할 수 있다.",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "미수가 성립하기",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "위해서는  실행의 착수가  있어야 한다.",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "강간죄(형법 제297조), 유사강간죄(제297조의2), 강제추행죄(제298조), 준강간·준유",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "사강간·준강제추행죄(제299조)의 미수범은",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "위 죄 이외에  강간 등  상",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "해·치상죄(제301조), 강간 등 살인·치사죄(제301조의2), 미성년자 등에 대한 간음",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "죄(제302조), 업무상 위력 등에 의한 간음죄(제303조)의 미수범에 대하여는 형법",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p001",
+          "quote": "제300조가 적용되지 않는다.",
+          "section_path": "raw_pdf.page_1"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "판례는 13세 미만의 미성년자에",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "대한 간음·추행죄(2020. 5. 19. 법률",
+          "section_path": "raw_pdf.page_2"
+        },
+        {
+          "comment_id": "raw_001692_제300조_p002",
+          "quote": "제17265호로 제305조 제2항이 신설되기 전 구 형법 제305조)에 대하여 이를 긍정하였",
+          "section_path": "raw_pdf.page_2"
+        }
+      ]
+    }
+  ],
+  "coverage_gaps": [
+    "predicate_ir_missing: art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation → statutory_sexual_offense",
+    "predicate_ir_missing: art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt → statutory_sexual_offense",
+    "card_metadata_correction: cc_001",
+    "card_metadata_correction: cc_002",
+    "source_quote_repair: art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation::raw_001692_제300조_p002 (ocr_whitespace)"
+  ]
+}

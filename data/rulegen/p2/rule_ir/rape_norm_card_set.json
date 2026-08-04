@@ -1,0 +1,1398 @@
+{
+  "version": "1.1.0",
+  "card_set_id": "kr.p2.rape.native.norms.v1",
+  "issue_tag": "rape",
+  "status": "draft",
+  "legal_review": "pending",
+  "construction": "deterministic_candidate_lift",
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제297조_Ⅰ_0",
+      "comm_001692_제297조_Ⅱ_1",
+      "comm_001692_제297조_Ⅲ.1_2",
+      "comm_001692_제297조_Ⅲ.2_3",
+      "comm_001692_제297조_Ⅲ.2_4",
+      "comm_001692_제297조_Ⅲ.4_6",
+      "comm_001692_제297조_Ⅳ.1_10",
+      "comm_001692_제297조_Ⅳ.1_14",
+      "comm_001692_제297조_Ⅳ.1_8",
+      "comm_001692_제297조_Ⅳ.1_9",
+      "comm_001692_제297조_Ⅳ.2_15",
+      "comm_001692_제297조_Ⅳ.3_16",
+      "comm_001692_제297조_Ⅳ.3_17",
+      "comm_001692_제297조_Ⅳ.4_18",
+      "comm_001692_제297조_Ⅳ_7",
+      "comm_001692_제297조_Ⅴ_19",
+      "comm_001692_제297조_Ⅵ_20",
+      "comm_001692_제297조_Ⅶ_21",
+      "comm_001692_제297조_Ⅸ_24",
+      "comm_001692_제297조_Ⅸ_25",
+      "comm_001692_제297조_Ⅸ_26"
+    ],
+    "target_paths": [
+      "commentary://001692/art297"
+    ]
+  },
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.element.conduct-violence-threat-rape",
+          "request_id": "art297.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art297.conduct.violence-threat-rape",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "강간죄의 행위는 폭행 또는 협박으로 사람을 강간하는 것이다.",
+      "request_ids": [
+        "art297.pass1.001"
+      ],
+      "review_notes": "폭행 또는 협박과 강간으로 구성된 행위 요소를 기록한 카드이며, 개별 사실의 해당 여부는 후속 검토가 필요하다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ_7",
+          "quote": "본죄의 행위는 ‘폭행 또는 협박’으로 사람을 ‘강간’하는 것이다.",
+          "section_path": "Ⅳ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.element.object-person",
+          "request_id": "art297.pass1.001"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "art297.object-person",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "강간죄의 객체는 남녀를 불문한 사람이며, 성년·미성년, 기혼 여부, 음행 상습, 기존 성관계 경험 및 성교능력 유무를 불문한다.",
+      "request_ids": [
+        "art297.pass1.001"
+      ],
+      "review_notes": "객체가 사람인지와 열거된 개인적 사정은 분리 가능한 사실 확인 항목으로 검토한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅲ.1_2",
+          "quote": "본죄의 객체는 ‘사람’이고 남성과 여성을 불문한다.",
+          "section_path": "Ⅲ.1"
+        },
+        {
+          "comment_id": "comm_001692_제297조_Ⅲ.1_2",
+          "quote": "‘사람’인 이상 성년, 률 제11574호) 미성년, 기혼 여부, 음행의 상습 유무, 기존 성관계 경험 유무, 성교능력 유무 등 을 불문한다.",
+          "section_path": "Ⅲ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.exception.relative-special-act",
+          "request_id": "art297.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art297.relative_special_act",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "피해자와 4촌 이내 혈족·인척, 동거 친족 또는 동거 사실상 친족 관계에 있는 자가 범한 경우 성폭력범죄의 처벌 등에 관한 특례법 제5조 제1항이 적용된다고 소개되어 있다.",
+      "request_ids": [
+        "art297.pass1.001"
+      ],
+      "review_notes": "특례법 조문 원문과 적용 요건 및 법정형은 현재 commentary의 보고 범위에서만 확인되므로 검토가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅱ_1",
+          "quote": "피해자와 사이에 4촌 이내의 혈족·인척과 동거하는 친족 또는 동거하는 사실상의 관계에 있는 친족 관계에 있는 자가 본죄를 범하였을 경우에는 법정 형이 더 높은 성폭력범죄의 처벌 등에 관한 특례법 제5조 제1항",
+          "section_path": "Ⅱ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.exception.victim-special-protection-statutes",
+          "request_id": "art297.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art297.special-protection-statutes",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "피해자가 13세 미만자, 신체적·정신적 장애인 또는 아동·청소년인 경우에는 법정형이 더 높은 특별법 규정이 적용된다고 소개되어 있다.",
+      "request_ids": [
+        "art297.pass1.001"
+      ],
+      "review_notes": "특별법 적용 및 법정형 가중을 소개하는 예외 카드이며, 각 특별법 조문의 원문 확인이 필요하다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅲ.1_2",
+          "quote": "다만 피해자가 13세 미만의 사람일 경우에는 법정형이 더 높은 성폭력범죄의 처 벌 등에 관한 특례법 제7조 제1항이",
+          "section_path": "Ⅲ.1"
+        },
+        {
+          "comment_id": "comm_001692_제297조_Ⅲ.1_2",
+          "quote": "그리고 피해자가 ‘신체적인 또는 정신적인 장애가 있는 사람’인 경우에는 법정형이 더 높은 성폭력범죄의 처벌 등에 관한 특례법 제6조 제1항 이 적용될 것이다.",
+          "section_path": "Ⅲ.1"
+        },
+        {
+          "comment_id": "comm_001692_제297조_Ⅲ.1_2",
+          "quote": "또한 피해자가 ‘아동·청",
+          "section_path": "Ⅲ.1"
+        },
+        {
+          "comment_id": "comm_001692_제297조_Ⅲ.1_2",
+          "quote": "(19세 미만의 자. 다만 19세에 도달하는 연도의 1월 1일을 맞이한 자는 제외)",
+          "section_path": "Ⅲ.1"
+        },
+        {
+          "comment_id": "comm_001692_제297조_Ⅲ.1_2",
+          "quote": "우에는 법정형이 더 높은 아동·청소년의 성보호에 관한 법률 제7조 제1항",
+          "section_path": "Ⅲ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.definition.rape",
+          "request_id": "art297.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec1.rape_definition",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "강간죄는 폭행 또는 협박으로 사람을 강간함으로써 성립하는 범죄이다.",
+      "request_ids": [
+        "art297.pass1.001"
+      ],
+      "review_notes": "폭행 또는 협박, 사람, 강간의 개념과 구체적 사실관계 적용 범위는 현재 인용문만으로 확정하지 않는다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅰ_0",
+          "quote": "본죄는 폭행 또는 협박으로 ‘사람’을 강간함으로써 성립하는 범죄이다.",
+          "section_path": "Ⅰ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.spouse-rape-holding",
+          "request_id": "art297.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art297_sec3_2.spouse_rape_holding",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "실질적 부부관계가 유지되는 경우에도 남편이 반항을 불가능하거나 현저히 곤란하게 할 정도의 폭행·협박으로 아내를 간음하면 강간죄가 성립할 수 있다는 전원합의체 판결의 입장이 소개되어 있다.",
+      "request_ids": [
+        "art297.pass1.001"
+      ],
+      "review_notes": "주석이 소개한 전원합의체 판결의 입장이다. 원판례를 사용자 primary precedent index에서 확인하기 전에는 배우자 객체성에 관한 경쟁 견해보다 우선하는 정책으로 확정하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅲ.2_3",
+          "quote": "전 원합의체 판결을 통해 실질적으로 부부관계가 유지된다고 하더라도 남편의 부 인에 대한 강간죄가 성립할 수 있다고 판단하였다.",
+          "section_path": "Ⅲ.2"
+        },
+        {
+          "comment_id": "comm_001692_제297조_Ⅲ.2_4",
+          "quote": "혼인관계가 파탄된 경우뿐만 아니라 혼인관계가 실질적으로 유지되고 있 는 경우에도 남편이 반항을 불가능하게 하거나 현저히 곤란하게 할 정도의 폭행이나 협박을 가하여 아내를 간음한 경우에는 강간죄가 성립한다고 보아야 한다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.spouse-violence-assessment",
+          "request_id": "art297.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art297_sec3_2.spouse_violence_assessment",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "배우자 강간에서 폭행·협박이 반항을 불가능하거나 현저히 곤란하게 할 정도인지 여부는 폭행·협박의 내용·정도, 유형력 행사 경위, 혼인생활 형태, 평소 성행, 성교 당시 및 이후 상황 등을 종합하여 신중히 판단한다.",
+      "request_ids": [
+        "art297.pass1.001"
+      ],
+      "review_notes": "폭행·협박의 정도는 열거 사정을 종합하는 평가 판단을 요구한다. 소개된 판례 기준의 원문 및 적용 범위를 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅲ.2_4",
+          "quote": "그 폭행 또는 협박의 내 용과 정도가 아내의 성적 자기결정권을 본질적으로 침해하는 정도에 이른 것인지 여 부, 남편이 유형력을 행사하게 된 경위, 혼인생활의 형태와 부부의 평소 성행, 성교 당시와 그 후의 상황 등 모든 사정을 종합하여 신중하게 판단하여야 한다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.definition.intercourse-and-opposite-sex",
+          "request_id": "art297.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec3_4.intercourse_opposite_sex",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "강간죄의 간음행위는 남성 성기의 여성 성기 삽입 또는 양 성기의 결합을 의미하므로, 단독정범의 경우 행위주체와 객체는 서로 다른 성이어야 한다는 설명이 제시되어 있다.",
+      "request_ids": [
+        "art297.pass1.001"
+      ],
+      "review_notes": "간음행위 및 단독정범의 행위주체·객체 성별 요건의 적용 범위는 성 분류 기준과 함께 검토가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅲ.4_6",
+          "quote": "본죄의 구성요건인 ‘간음행위’ 는 남성 성기의 여성 성기에 삽입 내지 남성의 성기와 여성의 성기의 결합을 의 미하므로",
+          "section_path": "Ⅲ.4"
+        },
+        {
+          "comment_id": "comm_001692_제297조_Ⅲ.4_6",
+          "quote": "체의 성별에 따라 동일한 성의 사람은 강간의 단독정범의 주체가 될 수 없다.",
+          "section_path": "Ⅲ.4"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.sex-classification",
+          "request_id": "art297.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec3_4.sex_classification",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "강간죄에서 남성과 여성의 구별은 성염색체보다 개인의 성귀속감, 사회적·규범적 성 및 일반인의 평가를 종합하여 판단하는 것이 타당하다는 견해가 제시되어 있다.",
+      "request_ids": [
+        "art297.pass1.001"
+      ],
+      "review_notes": "성귀속감, 사회적·규범적 성 및 일반인의 평가를 종합하는 판단 기준의 구체화가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅲ.4_6",
+          "quote": "남성과 여성의 구별은 발생학적인 성인 성염색체의 구성을 판단인자로 삼 기보다는 개인의 성귀속감을 고려하여 사회적·규범적 성 및 사회 일반인의 평 가를 종합적으로 판단하는 것이 타당하다.",
+          "section_path": "Ⅲ.4"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.element.direct-violence-threat",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec4_1.direct_violence_threat",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "행위자가 타인이 가한 폭행·협박 상태를 이용하여 피해자를 간음했을 뿐 자신이 폭행·협박을 가하지 않은 경우에는 강간죄가 아니라 준강간죄가 성립할 수 있다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "직접 가한 폭행·협박이라는 제297조 수단요건에 관한 설명이다. 타인 행위의 이용관계와 준강간죄 적용은 구체적 사실관계 검토가 필요하다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.1_8",
+          "quote": "폭행·협박은 행위자가 직접 가한 것이어야 하고, 타인이 행한 폭행·협박을 이용 하여 간음했을 때에는 준강간죄가 성립할 수 있다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.extramarital-affair-exposure-threat",
+          "request_id": "art297.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art297_sec4_1.extramarital_exposure_threat",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "유부녀에게 혼인 외 성관계 사실 폭로를 협박하여 간음 또는 추행한 경우, 협박 정도는 폭로의 상대방·범위·방법, 협박 경위, 당사자 신분·사회적 지위와 관계, 당시 및 이후 정황, 심리적 압박 등을 종합하여 판단한다.",
+      "request_ids": [
+        "art297.pass1.001"
+      ],
+      "review_notes": "혼인 외 성관계 폭로 협박 맥락의 제한된 종합판단 기준이다. 폭로 상대방·범위·방법에 관한 구체적 원문 근거는 현 인용 범위에서 확인되지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.1_14",
+          "quote": "히 협박의 내용만으로 그 정도를 단정할 수는 없고, 그 밖에도 협박의 경위, 가 해자 및 피해자의 신분이나 사회적 지위, 피해자와의 관계, 간음 또는 추행 당시 와 그 후의 정황, 그 협박이 피해자에게 미칠 수 있는 심리적 압박의 내용과 정 도 등 모든 사정을 종합하여 신중하게 판단하여야 한다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.causal-link.temporal-gap",
+          "request_id": "art297.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art297_sec4_1.force_threat_temporal_gap",
+      "norm_kind": "causal_link",
+      "polarity": "positive",
+      "proposition": "폭행·협박이 선행된 경우 폭행·협박과 간음 사이에는 시간적 간격이 있을 수 있다.",
+      "request_ids": [
+        "art297.pass1.001"
+      ],
+      "review_notes": "선행 폭행·협박과 간음 사이의 시간 간격을 허용하는 commentary-reported authority다. 인과적 관련성의 구체적 한계는 별도 검토가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.1_10",
+          "quote": "폭행·협박이 선행된 경우 간음과 사이에 시간적 간격이 있을 수 있다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.causal-link.timing-before-completion",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art297_sec4_1.force_threat_timing_before_completion",
+      "norm_kind": "causal_link",
+      "polarity": "positive",
+      "proposition": "폭행·협박은 반드시 간음행위보다 선행할 필요는 없고, 간음행위 종료 전까지 있으면 충분하다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "폭행·협박과 간음 사이의 시간적 관계에 관한 명시적 설명이다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.1_9",
+          "quote": "폭행·협박이 반드시 간음행위보다 선행되어야 하는 것은 아니고 간음행위 종료 전에 있으면 충분하다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.third-party-threat-or-property-destruction",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec4_1.third_party_or_property_threat",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "제3자에 대한 폭행, 피해자 소유 기물 파괴 또는 피해자 가족 위협 등의 방법으로 피해자의 저항 의지를 꺾은 뒤 간음한 경우에도 강간죄가 성립할 수 있다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "피해자 신체에 직접 향하지 않은 행위가 저항 의지를 꺾었는지와 폭행·협박의 정도는 개별적으로 평가해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.1_8",
+          "quote": "피해자 소유의 기물을 파괴하거나 피해자의 가족을 위협하는 등의 방법 으로 피해자의 저항 의지를 꺾은 다음 간음하는 경우에도 강간죄가 성립할 수 있다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.threat-alone",
+          "request_id": "art297.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art297_sec4_1.threat_alone",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "폭행 없이 협박만으로 피해자를 간음한 경우에도 그 협박이 항거를 불가능하게 하거나 현저히 곤란하게 할 정도이면 강간죄가 성립한다.",
+      "request_ids": [
+        "art297.pass1.001"
+      ],
+      "review_notes": "협박만으로도 충족될 수 있다는 좁은 상황의 commentary-reported precedent이다. 협박 정도와 원문 판례를 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.1_14",
+          "quote": "폭행을 수반함이 없이 오직 협박만을 수단으로 피해자를 간음한 경우에도 그 협박의 정도가 항거를 불가능하게 하거나 현저히 곤란하게 할 정도의 것이 면 강간죄가 성립한다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.definition.violence-threat",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec4_1.violence_threat_definition",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "강간죄의 수단인 폭행은 사람의 신체에 대한 유형력 행사 등 일체의 불법적 공격이고, 협박은 일반적으로 사람에게 공포심을 일으킬 수 있는 정도의 해악 고지이다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "폭행·협박의 일반적 개념을 제시한 commentary synthesis이며, 제297조 수단요건 충족 여부의 개별 판단은 별도 검토가 필요하다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.1_8",
+          "quote": "일반적으로 ‘폭행’이란 사람의 신체에 대한 유형력의 행사 등 일체의 불법적인 공격을 말하고, ‘협박’은 (有形力) 일반적으로 보아 사람으로 하여금 공포심을 일으킬 수 있을 정도의 해악을 고 지하는 것을 말한다",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.exception.non-vaginal-sexual-acts",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec4_2.non_vaginal_acts_exception",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "구강성교나 항문성교 등은 강간죄의 간음에 해당하지 않으며, 이 경우 유사강간죄가 성립할 수 있다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "강간죄의 간음 범위에 대한 명시적 제외를 기록하며, 유사강간죄 성립 여부는 해당 구성요건의 별도 검토가 필요하다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.2_15",
+          "quote": "이와 다른 형태의 행위, 구강성교나 항문성교 등은 ‘간음’이라고 할 수 없고 이러한 경우에 는 유사강간죄가 성립할 수 있다.",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.definition.rape-and-penetration",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "standard_input",
+      "id": "art297_sec4_2.rape_and_penetration",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "강간은 폭행·협박으로 상대방 반항을 불가능하거나 현저히 곤란하게 하여 간음하는 것이며, 간음은 다수설상 남성 성기의 여성 성기에 삽입 또는 양 성기의 결합을 말한다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "폭행·협박의 요구 정도와 간음의 범위에 관한 다수설 및 대법원 기준을 별도 확인해야 하며, 사실관계 포섭에는 평가가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.2_15",
+          "quote": "강간이란 폭행·협박에 의하여 상대방의 반항을 불가능하게 하거나 현저히 곤란 하게 하여 그 사람을 간음하는 것을 말한다.",
+          "section_path": "Ⅳ.2"
+        },
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.2_15",
+          "quote": "남성 성기의 여성 성기에 삽입 내지 남성의 성기와 여성의 성기의 결합을 말한다는 것이 다수설이다.",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "variant_group": "art297_sec4_2.rape_violence_and_penetration"
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.causal-link.violence-and-intercourse",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec4_2.violence_intercourse_causation",
+      "norm_kind": "causal_link",
+      "polarity": "positive",
+      "proposition": "강간죄에서는 폭행·협박과 간음 사이에 인과관계가 있어야 하며, 시간적 간격이 있어도 폭행·협박에 의해 간음이 이루어진 것으로 인정되면 성립한다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "시간적 간격만으로 인과관계를 부정하지 않으며, 폭행·협박이 간음에 영향을 미쳤는지는 개별 사실관계에서 평가해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.2_15",
+          "quote": "폭행·협박을 이용하여 상대방의 반항을 불가능하게 하거나 현저히 곤란 하게 하여 간음하는 것을 의미하므로, 폭행·협박과 간음 사이에는 인과관계가 존재하여야 한다.",
+          "section_path": "Ⅳ.2"
+        },
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.2_15",
+          "quote": "폭행·협박과 간음 사이에 어느 정도 시간적 간격이 있더라도, 폭행·협박에 의하 여 간음이 이루어진 것으로 인정될 수 있는 한 본죄가 성립한다.",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.element.attempt-commencement",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec4_3.attempt_commencement",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "강간 수단으로 피해자 반항을 불가능하거나 현저히 곤란하게 할 정도의 폭행·협박이 개시되면 실행의 착수가 인정되며, 속옷을 벗기거나 간음에 나아갈 필요는 없다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "폭행·협박이 반항을 불가능하거나 현저히 곤란하게 할 정도인지의 적용에는 사실관계 평가가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.3_16",
+          "quote": "강간의 수단으로 서 피해자의 반항을 불가능하게 하거나 현저히 곤란하게 할 정도의 폭행·협박 이 개시된 때에 실행의 착수가 있다고 보아야 하고 사람의 속옷을 벗기거나 간 음에 나아가야 하는 것은 아니다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.attempt-commencement-context",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec4_3.attempt_commencement_context",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "강간죄 실행의 착수에 필요한 폭행·협박 정도는 행위자의 언행·행동 및 당시 주변 정황을 종합하여 개별 사안마다 판단한다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "실행의 착수 판단은 행위자의 언행·행동과 주변 정황을 종합하는 개별적 평가를 요구한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.3_16",
+          "quote": "구체적으로 어느 정도의 폭행·협박이 있어야 실행의 착수로 인정할 수 있을 것인지는 일률적으로 말하기 어렵고, 개별적인 사안마다 행위자의 언행이나 행동, 당시의 주변 정황 등을 종합하여 판단할 수밖에 없다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.definition.completion",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art297_sec4_3.completion",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "남성 성기가 여성 성기에 삽입되거나 결합되는 순간 강간죄는 기수가 되며, 완전한 삽입·결합, 성적 만족 또는 사정은 필요하지 않다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "삽입 또는 결합의 발생 여부와 완전한 삽입·결합 또는 사정의 불요를 구분하여 검토한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.3_17",
+          "quote": "남성의 성기가 여성의 성기에 삽입되거나 결합되는 순간 기수가 되고, 성기의 완전한 삽입, 결합이나 행위자의 성적 만족, 사정은 필요하지 않다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.exception.voluntary-abandonment",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec4_3.voluntary_abandonment",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "행위자가 자의로 강간 범행의 실행을 중지한 경우 중지미수가 성립한다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "실행 중지가 자의에 의한 것인지에 대한 사실관계 평가가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.3_17",
+          "quote": "행위자가 자의로 강간 범행의 실행을 중지한 경우에는 ‘중지미수’가 (형법 제26조) 성립한다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.successive-co-perpetration-negative",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art297_sec4_4.successive_co_perpetration_negative",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "선행자와의 공동가공 의사에 기한 기능적 행위지배를 후행자에게 인정할 수 없으면 승계적 공동정범은 성립할 수 없다는 대법원 취지가 소개되어 있다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "소개된 대법원 판시의 원문과 적용된 사실관계를 primary precedent index에서 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.4_18",
+          "quote": "“후행자에 대해서는 선행자와의 공동가공 의사에 기한 기능적 행위지배를 인정할 수 없으므로 승계적 공동정범 이 성립할 수 없다.”는 취지로 판시하고 있다.",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.successive-perpetrator-quasi-rape",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec4_4.successive_perpetrator_quasi_rape",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "선행자의 행위를 이용하여 피해자를 간음한 후행자에게는 준강간죄가 성립할 여지가 있다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "준강간죄 성립 여부는 선행행위 이용, 피해자의 상태, 및 후행자의 인식에 관한 사실평가를 필요로 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.4_18",
+          "quote": "선행자의 행위를 이용하여 피해자를 간음한 후행자에 대해서는 준강간죄가 성립할 여지가 있다.",
+          "section_path": "Ⅳ.4"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.consent-assessment",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec5.consent_assessment",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "성관계 승낙 여부는 행위 경위와 태양, 피해자 연령, 범행 당시 정황 등을 종합해 성적 자유 또는 성적 자기결정권 침해 여부를 기준으로 구체적·개별적으로 판단한다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "열거된 사정을 종합하는 평가적 판단이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅴ_19",
+          "quote": "승낙이 있 었는지 여부는 그 행위의 경위 및 태양, 피해자의 연령, 범행 당시의 정황 등 여 러 사정을 종합적으로 고려하여 그 행위로 인한 피해자의 성적 자유 또는 성적 자기결정권이 침해되었는지를 기준으로 삼아 구체적·개별적으로 판단하여야 한 다.",
+          "section_path": "Ⅴ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.prior-communications-not-consent",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec5.prior_communications_not_consent",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "피해자가 범행 무렵까지 피고인과 전화·문자 연락을 하고 호감을 보인 정황만으로 성관계 승낙 또는 묵인을 인정할 수는 없다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "연락 또는 호감 정황만으로는 승낙을 추론하지 않는 제한이다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅴ_19",
+          "quote": "범행 무렵까지 피해자가 피고인과 수시로 전화 통화나 문자메시지를 주고 받았다거나 그 내용 중에 피해자가 피고인에 대하여 호감을 가진 것으로 인정 할 만한 내용이 있다고 하여 피해자가 피고인과의 성관계를 승낙 내지 묵인하 였다고 볼 수는 없다.",
+          "section_path": "Ⅴ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.exception.valid-consent",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec5.valid_consent",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "피해자 본인의 성관계 승낙은 구성요건 해당성을 조각하며, 친권자 등의 승낙은 강간죄 성립에 영향을 주지 않는다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "본인 승낙의 존재와 범위는 개별 사실관계에서 평가가 필요하다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅴ_19",
+          "quote": "피해자의 승낙은 구성요건 해당성을 조각하는 양해에 해당한다. ‘성관계의 승낙’ 은 본인의 승낙에 한정되고, 친권자 등의 승낙이 있더라도 본죄의 성립에는 지 장이 없다.",
+          "section_path": "Ⅴ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.exception.withdrawn-consent",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec5.withdrawn_consent",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "피해자가 사전에 성관계를 승낙했더라도 동의를 번복하면 승낙이 있다고 볼 수 없다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "사전 승낙과 번복 사실을 구별하여 검토한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅴ_19",
+          "quote": "피해자는 사전에 성관계를 승낙하였다고 하더라도 그 동의를 번복할 수 있고, 승낙을 번복한 경우에는 승낙이 있다고 볼 수 없다.",
+          "section_path": "Ⅴ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.element.intent",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec6.intent",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "강간죄에는 폭행·협박으로 피해자를 강간한다는 인식과 의사가 필요하고, 미필적 고의로도 충분하다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "행위자의 인식·의사 및 미필적 고의 여부는 사실관계에 대한 평가가 필요하다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅵ_20",
+          "quote": "본죄가 성립하기 위해서 폭행·협박으로 피해자를 강간한다는 점에 대한 인식과 의사가 있어야 한다. 고의는 미필적 고의로도 충분하다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.exception.mistake-of-consent",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec6.mistake_of_consent",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "피해자 승낙이 없음에도 승낙이 있다고 오인한 경우 강간죄의 고의가 조각된다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "승낙이 있었다는 오인의 존재와 그 대상은 사실관계에 따라 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅵ_20",
+          "quote": "피해자의 승낙이 없음 에도 있는 것으로 오인한 경우에는 고의가 조각된다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.continuous-acts-inclusive-single-offense",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec7.continuous_acts_single_offense",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "동일한 폭행·협박으로 피해자의 항거불가능 또는 현저한 곤란 상태가 계속되는 상황에서 수회 간음한 경우, 시간적·장소적 근접성과 범의의 단일성·계속성이 인정되면 포괄 일죄가 성립한다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "시간적·장소적 근접성 및 범의의 단일성·계속성은 사안별 평가가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅶ_21",
+          "quote": "동일한 폭행·협박으로 피해자 의 항거가 불가능하거나 현저히 곤란한 상태가 계속되는 상황에서 수회에 걸쳐 간음한 경우, 예를 들면 피해자를 여관에 감금하여 하룻밤 동안 수회 간음한 경우 처럼 시간적·장소적으로 가까워 범의의 단일성과 계속성을 인정할 수 있을 (犯意) 때에는 포괄하여 일죄가 성립한다.",
+          "section_path": "Ⅶ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.element.multiple-victims-multiple-offenses",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art297_sec7.multiple_victims_multiple_offenses",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "피해자가 여러 명이면 동일한 장소에서 동일한 폭행·협박에 의한 경우에도 각 피해자에 따라 수개의 강간죄가 성립한다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "동일 장소와 동일 폭행·협박만으로 복수 피해자에 대한 죄수 성립이 하나로 합쳐지지 않는다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅶ_21",
+          "quote": "피해자가 여러 명인 경우에는 비록 동일한 장소에서 동일 한 폭행·협박에 의한 것이라고 하더라도 각 피해자에 따라 수개의 죄가 성립한다.",
+          "section_path": "Ⅶ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.element.new-violence-separate-offense",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art297_sec7.new_violence_separate_offense",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "항거불능 상태가 종료된 후 다시 폭행·협박을 가하여 간음한 경우 별개의 강간죄가 성립한다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "항거불능 상태의 종료와 새로운 폭행·협박의 존재가 확인된 경우의 죄수 관계를 정리한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅶ_21",
+          "quote": "항거불능의 상태가 종료된 후 다시 폭행·협 박을 가하여 간음한 경우에는 별개의 강간죄가 성립한다.",
+          "section_path": "Ⅶ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.abduction-for-marriage-rape",
+          "request_id": "art297.pass1.003"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec9.abduction_for_marriage_rape",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "결혼을 목적으로 여자를 약취하여 강간한 경우 강간죄와 결혼을 위한 약취죄는 실체적 경합범이 성립한다.",
+      "request_ids": [
+        "art297.pass1.003"
+      ],
+      "review_notes": "결혼 목적의 약취죄 및 강간죄의 각 구성요건 충족 여부를 검토한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅸ_26",
+          "quote": "결혼을 목적으로 여자를 약취하여 강간한 경우에는 본죄와 ‘결혼을 위한 약취죄 ’의 실체적 경합범이 성립한다.",
+          "section_path": "Ⅸ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.confinement-rape-attempted-case",
+          "request_id": "art297.pass1.003"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art297_sec9.confinement_rape_attempted_case",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "피해자가 주행 중인 자동차에서 탈출할 수 없는 상태를 이용하여 약 50km 강제연행한 후 강간하려다 미수에 그친 사안에서, 협박이 감금죄와 강간미수죄의 실행착수에 동시에 해당하면 두 죄는 상상적 경합에 해당한다고 한 판시가 소개되어 있다.",
+      "request_ids": [
+        "art297.pass1.003"
+      ],
+      "review_notes": "댓글에 보고된 특정 판시이다. 사용자 제공 1차 판례 인덱스로 원문 및 사실관계의 동일성을 확인한 뒤 적용해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅸ_25",
+          "quote": "“협박은 감금죄의 실행의 착수임과 동시에 강간미수죄의 실행의 착수이며, 감금죄와 강간미수죄는 하나의 행위에 의하여 실현된 경우로서 형법 제40조의 상상적 경합에 해당한다.”고 판단하였다.",
+          "section_path": "Ⅸ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.continued-confinement-after-rape",
+          "request_id": "art297.pass1.003"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec9.continued_confinement_after_rape",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "감금행위가 강간의 수단에 그치지 않고 강간 범행이 끝난 뒤에도 계속된 경우 감금죄와 강간죄는 실체적 경합범이 성립한다.",
+      "request_ids": [
+        "art297.pass1.003"
+      ],
+      "review_notes": "감금이 강간 종료 후에도 계속되었는지에 대한 사실인정이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅸ_26",
+          "quote": "감금행위가 단순히 강간 범행의 수단이 되는 데 그치지 아니하고 강 간의 범행이 끝난 뒤에도 계속된 경우에는 감금죄와 강간죄는 실체적 경합범이 성립한다.",
+          "section_path": "Ⅸ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.exception.absorption-of-means-violence",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art297_sec9.means_violence_absorption",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "강간죄 수단으로 행해진 폭행·협박은 강간죄에 흡수되어 별도로 폭행죄나 협박죄를 구성하지 않는다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "폭행·협박이 강간죄의 수단으로 행해진 경우에 한정된 흡수 규범이다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅸ_24",
+          "quote": "본죄의 수단으로 행해진 폭행·협박은 본죄가 성립하면 이에 흡수되어 법조경합 의 관계에 있게 되므로, 따로 폭행죄나 협박죄 등을 구성하지 않는다.",
+          "section_path": "Ⅸ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.rape-injury-death",
+          "request_id": "art297.pass1.003"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec9.rape_injury_death",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "강간 범행 과정에서 피해자가 상해를 입으면 강간상해죄나 강간치상죄가, 피해자가 사망하면 강간살인죄나 강간치사죄가 성립한다.",
+      "request_ids": [
+        "art297.pass1.003"
+      ],
+      "review_notes": "상해·사망 결과 및 고의·인과관계에 따라 각 죄명 적용을 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅸ_25",
+          "quote": "강간 범행의 과정에서 피해자가 상해를 입은 경우에는 강간상해죄나 강간치상 죄가 성립하고, 피해자가 사망한 경우에는 강간살인죄나 강간치사 (형법 제301조) 죄가 성립한다.",
+          "section_path": "Ⅸ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.residence-intrusion-rape",
+          "request_id": "art297.pass1.003"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec9.residence_intrusion_rape",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "주거침입죄를 범한 자가 강간죄를 범한 때에는 성폭력범죄의 처벌 등에 관한 특례법상 주거침입강간죄가 단순일죄로 성립하여 가중처벌된다.",
+      "request_ids": [
+        "art297.pass1.003"
+      ],
+      "review_notes": "주거침입죄 및 강간죄의 성립과 특례법상 가중유형 적용을 검토한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅸ_25",
+          "quote": "이제 주거침입죄를 범한 자가 강간죄를 범한 때에는 단순일죄인 성폭력범죄의 처벌 등에 관한 특례법상의 주 거침입강간죄가 성립되어 가중처 (성폭력범죄의 처벌 등에 관한 특례법 제3조 제1항) 벌된다.",
+          "section_path": "Ⅸ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.exception.robbery-rape-single-offense",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art297_sec9.robbery_rape",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "강도죄를 범한 자가 그 기회에 동일 피해자를 강간하면 강도강간죄의 단순일죄가 성립한다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "강도죄와 동일 피해자에 대한 강간이 결합된 경우의 특례 범죄유형이다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅸ_24",
+          "quote": "강도죄를 범한 자가 그 기회에 동일한 피해자를 강간한 경 (형법 제333조) 우에는 강도강간죄의 단순일죄가 성립한다.",
+          "section_path": "Ⅸ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.confinement-separate-rape-violence",
+          "request_id": "art297.pass1.003"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec9.separate_confinement_rape_violence",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "감금 중 강간의 고의가 생겨 별도의 폭행·협박을 통해 강간한 경우 감금죄와 강간죄는 실체적 경합범이 성립한다.",
+      "request_ids": [
+        "art297.pass1.003"
+      ],
+      "review_notes": "감금 당시 강간 고의의 부재와 이후 별도 폭행·협박의 존재를 각각 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅸ_26",
+          "quote": "감금 중 강간의 고의가 생겨 별도의 폭행·협박을 통해 강간한 경 우에는 실체적 경합범이 성립한다.",
+          "section_path": "Ⅸ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.exception.special-rape",
+          "request_id": "art297.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art297_sec9.special_rape",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "흉기 등 위험한 물건을 지니거나 2인 이상이 합동하여 강간한 경우에는 강간죄가 아니라 특수강간죄가 성립하여 가중처벌된다.",
+      "request_ids": [
+        "art297.pass1.002"
+      ],
+      "review_notes": "위험한 물건 소지 또는 2인 이상 합동이라는 가중유형의 적용요건을 별도 확인한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅸ_24",
+          "quote": "‘흉기 그 밖의 위험한 물건을 지니거나 2인 이상이 합동하여’ 강간한 경우에는 본죄가 아니라 [후론 1]에서 살펴볼 성폭력범죄의 처벌 등에 관한 특례법 제4조 제1항의 특수강간죄가 성립하여 가중 처벌된다.",
+          "section_path": "Ⅸ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.special-robbery-rape",
+          "request_id": "art297.pass1.003"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec9.special_robbery_rape",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "특수강도죄를 범한 자가 강간죄를 범한 때에는 성폭력범죄의 처벌 등에 관한 특례법상 특수강도강간죄가 단순일죄로 성립하여 가중처벌된다.",
+      "request_ids": [
+        "art297.pass1.003"
+      ],
+      "review_notes": "특수강도죄 및 강간죄의 성립 여부와 특례법 적용을 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅸ_25",
+          "quote": "특수강도죄를 (제334조) 범한 자가 강간죄를 범한 때에도 단순일죄인 성폭력범죄의 처벌 등에 관한 특 례법상 특수강도강간죄가 성립되 (성폭력범죄의 처벌 등에 관한 특례법 제3조 제2항) 어 가중된 형으로 처벌된다.",
+          "section_path": "Ⅸ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.special-theft-rape",
+          "request_id": "art297.pass1.003"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec9.special_theft_rape",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "야간주거침입절도죄 또는 특수절도죄를 범한 자가 강간죄를 범한 경우 성폭력범죄의 처벌 등에 관한 특례법상 특수절도강간 등의 죄가 단순일죄로 성립하여 가중처벌된다.",
+      "request_ids": [
+        "art297.pass1.003"
+      ],
+      "review_notes": "선행 범죄가 야간주거침입절도죄 또는 특수절도죄에 해당하는지와 특례법상 죄명을 확인한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅸ_25",
+          "quote": "야간주거침입절도죄 또는 (제330조) 특수절도죄를 범한 자가 강간죄를 범한 경우에는 단순일죄인 성폭력범 (제331조) 죄의 처벌 등에 관한 특례법상의 특수절도강간 등의 죄 (성폭력범죄의 처벌 등에 가 성립되어 가중처벌된다.",
+          "section_path": "Ⅸ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art297.standard.theft-rape-real-concurrence",
+          "request_id": "art297.pass1.003"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art297_sec9.theft_rape_concurrence",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "절도죄를 범한 자가 피해자를 강간한 경우 절도죄와 강간죄는 실체적 경합범이 된다.",
+      "request_ids": [
+        "art297.pass1.003"
+      ],
+      "review_notes": "선행 절도와 피해자에 대한 강간의 관계가 해당 서술의 범위에 드는지 검토한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅸ_25",
+          "quote": "절도죄를 범한 자가 그 피해자를 강간한 경우에는 절도죄와 강간죄의 실체적 경합범이 되지만",
+          "section_path": "Ⅸ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "legal_review_questions": [],
+  "coverage_gaps": [
+    "predicate_ir_missing: art297.relative_special_act → relative_sexual_offense",
+    "predicate_ir_missing: art297.special-protection-statutes → protected_victim_sexual_offense",
+    "predicate_ir_missing: art297_sec4_2.non_vaginal_acts_exception → quasi_rape",
+    "predicate_ir_missing: art297_sec4_4.successive_co_perpetration_negative → complicity",
+    "predicate_ir_missing: art297_sec9.abduction_for_marriage_rape → abduction_for_marriage",
+    "predicate_ir_missing: art297_sec9.confinement_rape_attempted_case → confinement",
+    "predicate_ir_missing: art297_sec9.continued_confinement_after_rape → confinement",
+    "predicate_ir_missing: art297_sec9.means_violence_absorption → assault_or_threat",
+    "predicate_ir_missing: art297_sec9.separate_confinement_rape_violence → confinement",
+    "predicate_ir_missing: art297_sec9.special_rape → special_rape",
+    "predicate_ir_missing: art297_sec9.special_robbery_rape → special_robbery_rape",
+    "predicate_ir_missing: art297_sec9.special_theft_rape → special_theft_rape",
+    "context_only: art297.indirect_perpetration",
+    "context_only: art297.unrestricted_principal",
+    "context_only: art297_sec10.planned_killing_after_rape_no_self_defense",
+    "context_only: art297_sec10.self_defense_against_rape",
+    "context_only: art297_sec10.tongue_biting_self_defense",
+    "context_only: art297_sec4_1.gender_sensitive_limit",
+    "context_only: art297_sec4_1.gender_sensitive_testimony",
+    "context_only: art297_sec4_1.no_retrospective_inference",
+    "context_only: art297_sec4_1.victim_testimony_reliability",
+    "context_only: art297_sec9.nonprosecution_not_false_report_proof",
+    "card_metadata_correction: cc_001",
+    "card_metadata_correction: cc_002"
+  ]
+}

@@ -120,7 +120,18 @@ def assert_no_leaked_fields(formatted_input: Dict[str, Any]) -> None:
     Checks both the top-level keys and any nested string content, so a leak cannot hide
     inside a rendered prompt fragment.
     """
-    leaked = sorted(LEAKING_FIELDS & set(formatted_input))
+    def keys(value: Any) -> set[str]:
+        if isinstance(value, dict):
+            return set(value) | {
+                nested
+                for child in value.values()
+                for nested in keys(child)
+            }
+        if isinstance(value, (list, tuple)):
+            return {nested for child in value for nested in keys(child)}
+        return set()
+
+    leaked = sorted(LEAKING_FIELDS & keys(formatted_input))
     if leaked:
         raise InputLeakageError(
             f"formatted input leaks grading/planning annotation: {leaked}"

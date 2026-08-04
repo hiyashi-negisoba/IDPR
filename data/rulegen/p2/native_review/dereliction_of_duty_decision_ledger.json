@@ -1,0 +1,825 @@
+{
+  "version": "1.0.0",
+  "unit_id": "dereliction_of_duty",
+  "law_snapshot": {
+    "as_of_date": "2026-08-03",
+    "effective_source_date": "2026-03-12",
+    "future_snapshot_date": "2026-09-13",
+    "future_snapshot_policy": "separate_snapshot_not_active",
+    "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
+  },
+  "approval_document": "data/rulegen/p2/native_review/dereliction_of_duty_approved_decisions.json",
+  "approval_sha256": "46fda05f934e9fc5551db1e0828f46442a8a3f75aca7ae6f72cc09459b9e09af",
+  "approved_on": "2026-08-04",
+  "status": "ready_for_rule_ir",
+  "problems": [],
+  "unresolved_unit_references": [
+    {
+      "card_id": "art122_sec2_5.instigation_per_public_official",
+      "part_id": null,
+      "refers_to_unit": "complicity",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art122_sec3_3.evidence_destruction_absorption",
+      "part_id": null,
+      "refers_to_unit": "evidence_destruction",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art122_sec3_3.office_abuse_prosecutorial_choice",
+      "part_id": null,
+      "refers_to_unit": "abuse_of_authority",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art122_sec3_3.office_abuse_two_modes_absorption",
+      "part_id": null,
+      "refers_to_unit": "abuse_of_authority",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art122_sec3_5.building_instigation_excludes_dereliction",
+      "part_id": null,
+      "refers_to_unit": "special_dereliction_offense",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art122_sec3_5.dereliction_and_instigation_concurrent_offenses",
+      "part_id": null,
+      "refers_to_unit": "complicity",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art122_sec3_5.human_rights_order_and_dereliction_imaginary_concurrence",
+      "part_id": null,
+      "refers_to_unit": "special_dereliction_offense",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art122_sec4.military_dereliction_requirements",
+      "part_id": null,
+      "refers_to_unit": "special_dereliction_offense",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art122_sec4.military_inadequate_performance_not_sufficient",
+      "part_id": null,
+      "refers_to_unit": "special_dereliction_offense",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art122_sec4.specific_crimes_act_recognition_threshold",
+      "part_id": null,
+      "refers_to_unit": "special_dereliction_offense",
+      "status": "predicate_ir_missing"
+    }
+  ],
+  "excluded_cards": [
+    {
+      "card_id": "art122_sec3_3.indictment_scope_overlapping_offenses",
+      "reason": "공소범위와 현실적 심판대상에 관한 절차법 문맥"
+    }
+  ],
+  "tracks": [
+    {
+      "track_id": "base",
+      "label": "제122조 직무유기"
+    }
+  ],
+  "placements": [
+    {
+      "card_id": "art122_sec3_3.evidence_destruction_absorption",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "absorption",
+      "component_join": "not_applicable",
+      "refers_to_unit": "evidence_destruction",
+      "rationale": "증거인멸 작위범의 흡수",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec3_3.offender_escape_absorption",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "absorption",
+      "component_join": "not_applicable",
+      "refers_to_unit": "harboring_offender",
+      "rationale": "범인도피 작위범의 흡수",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec3_4.deceptive_obstruction_excludes_dereliction",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "absorption",
+      "component_join": "not_applicable",
+      "refers_to_unit": "deceptive_obstruction_of_official_duty",
+      "rationale": "위계공무집행방해 작위범의 흡수",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122.disaster_review_omission",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "정당한 이유 없는 의식적 직무 방임·포기의 일반기준과 승인 사례",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122.disciplinary_demand_objection",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "단순 부실·소홀·절차위반 또는 의식적 포기로 평가되지 않는 사안",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122.disciplinary_partial_measures",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "단순 부실·소홀·절차위반 또는 의식적 포기로 평가되지 않는 사안",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122.election_ballot_nonreport_noninvestigation",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "정당한 이유 없는 의식적 직무 방임·포기의 일반기준과 승인 사례",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122.fugitive_assistance_nonreporting",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "정당한 이유 없는 의식적 직무 방임·포기의 일반기준과 승인 사례",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122.investigation_abandonment_release",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "정당한 이유 없는 의식적 직무 방임·포기의 일반기준과 승인 사례",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122.lost_property_disposal",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "정당한 이유 없는 의식적 직무 방임·포기의 일반기준과 승인 사례",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122.no_report_weekend",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "단순 부실·소홀·절차위반 또는 의식적 포기로 평가되지 않는 사안",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122.officer_sleeping_ready_to_respond",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "단순 부실·소홀·절차위반 또는 의식적 포기로 평가되지 않는 사안",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122.permit_without_review",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "정당한 이유 없는 의식적 직무 방임·포기의 일반기준과 승인 사례",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122.plate_reissuance_duty",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "정당한 이유 없는 의식적 직무 방임·포기의 일반기준과 승인 사례",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122.poor_performance_not_abandonment",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "단순 부실·소홀·절차위반 또는 의식적 포기로 평가되지 않는 사안",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122.prison_officer_tobacco",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "정당한 이유 없는 의식적 직무 방임·포기의 일반기준과 승인 사례",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122.procedural_violation_only",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "단순 부실·소홀·절차위반 또는 의식적 포기로 평가되지 않는 사안",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122.school_violence_response_insufficient",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "단순 부실·소홀·절차위반 또는 의식적 포기로 평가되지 않는 사안",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122.traffic_investigation_abandonment",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "정당한 이유 없는 의식적 직무 방임·포기의 일반기준과 승인 사례",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122.unapproved_delegation_no_supervision",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "정당한 이유 없는 의식적 직무 방임·포기의 일반기준과 승인 사례",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec2_2.conscious_abandonment",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "정당한 이유 없는 의식적 직무 방임·포기의 일반기준과 승인 사례",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec2_2.mere_negligence_or_defective_performance",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "단순 부실·소홀·절차위반 또는 의식적 포기로 평가되지 않는 사안",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec2_2.reporting_crime_within_duty",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "정당한 이유 없는 의식적 직무 방임·포기의 일반기준과 승인 사례",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec2_3.disciplinary_decision_delay_no_offense",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "단순 부실·소홀·절차위반 또는 의식적 포기로 평가되지 않는 사안",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec3_2.farmland_illegal_conversion_inaction",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "정당한 이유 없는 의식적 직무 방임·포기의 일반기준과 승인 사례",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec3_2.false_document_concealment_absorption",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "false_document_concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "false_public_document",
+      "rationale": "허위공문서작성과 흡수 또는 실체적 경합",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec3_2.false_document_farmland_neglect_real_concurrence",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "false_document_concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "false_public_document",
+      "rationale": "허위공문서작성과 흡수 또는 실체적 경합",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec2_5.instigation_per_public_official",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "instigation",
+      "component_join": "not_applicable",
+      "refers_to_unit": "complicity",
+      "rationale": "직무유기 교사와 경합은 공유 총칙 module에서 처리",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec3_5.dereliction_and_instigation_concurrent_offenses",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "instigation",
+      "component_join": "not_applicable",
+      "refers_to_unit": "complicity",
+      "rationale": "직무유기 교사와 경합은 공유 총칙 module에서 처리",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec2_3.intent_conscious_abandonment",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "intent",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "적극적 의식적 방임·포기에 대한 인식",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec2_5.repeated_abandonment_comprehensive_single_offense",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "계속된 위법상태의 포괄일죄",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec3_3.office_abuse_prosecutorial_choice",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "office_abuse",
+      "component_join": "not_applicable",
+      "refers_to_unit": "abuse_of_authority",
+      "rationale": "직권남용죄와 공소·흡수 관계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec3_3.office_abuse_two_modes_absorption",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "office_abuse",
+      "component_join": "not_applicable",
+      "refers_to_unit": "abuse_of_authority",
+      "rationale": "직권남용죄와 공소·흡수 관계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec2_1.definition_criminal_public_official",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "public_official_status",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "형법상 공무원인 진정신분범 주체",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec2_1.exception_sick_leave_official",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "public_official_status",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "구체적 작위의무 없는 병가자·단순노무자·근거 없는 공법인 직원의 주체 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec2_1.exception_simple_laborer_not_official",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "public_official_status",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "구체적 작위의무 없는 병가자·단순노무자·근거 없는 공법인 직원의 주체 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec2_1.offender_public_official",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "public_official_status",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "형법상 공무원인 진정신분범 주체",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec2_1.standard_public_corporation_employee",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "public_official_status",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "구체적 작위의무 없는 병가자·단순노무자·근거 없는 공법인 직원의 주체 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec3_5.building_instigation_excludes_dereliction",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "special_statute",
+      "component_join": "not_applicable",
+      "refers_to_unit": "special_dereliction_offense",
+      "rationale": "건축법·인권옹호·군형법·특가법의 별도 구성요건과 경계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec3_5.human_rights_order_and_dereliction_imaginary_concurrence",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "special_statute",
+      "component_join": "not_applicable",
+      "refers_to_unit": "special_dereliction_offense",
+      "rationale": "건축법·인권옹호·군형법·특가법의 별도 구성요건과 경계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec4.military_dereliction_requirements",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "special_statute",
+      "component_join": "not_applicable",
+      "refers_to_unit": "special_dereliction_offense",
+      "rationale": "건축법·인권옹호·군형법·특가법의 별도 구성요건과 경계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec4.military_inadequate_performance_not_sufficient",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "special_statute",
+      "component_join": "not_applicable",
+      "refers_to_unit": "special_dereliction_offense",
+      "rationale": "건축법·인권옹호·군형법·특가법의 별도 구성요건과 경계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec4.specific_crimes_act_recognition_threshold",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "special_statute",
+      "component_join": "not_applicable",
+      "refers_to_unit": "special_dereliction_offense",
+      "rationale": "건축법·인권옹호·군형법·특가법의 별도 구성요건과 경계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec2_2.abstract_or_derivative_duty",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "specific_original_duty",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "법령·지시명령에 근거한 본래의 구체적 직무",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec2_2.duty_legal_basis",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "specific_original_duty",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "법령·지시명령에 근거한 본래의 구체적 직무",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec2_2.duty_specific_original",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "specific_original_duty",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "법령·지시명령에 근거한 본래의 구체적 직무",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec2_2.unlawful_superior_order",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "specific_original_duty",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "위법하거나 법적 근거 없는 상관명령의 직무의무 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art122_sec1_1.establishment_requirements",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "substantial_wrongfulness",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "국가기능 저해·국민피해 위험과 높은 불법·책임비난 정도",
+      "proposition_rewrite": null
+    }
+  ],
+  "components": [
+    {
+      "track_id": "base",
+      "component_id": "absorption",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "deceptive_obstruction_of_official_duty",
+        "evidence_destruction",
+        "harboring_offender"
+      ],
+      "norm_card_ids": [
+        "art122_sec3_3.evidence_destruction_absorption",
+        "art122_sec3_3.offender_escape_absorption",
+        "art122_sec3_4.deceptive_obstruction_excludes_dereliction"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "conscious_abandonment",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art122.disaster_review_omission",
+        "art122.disciplinary_demand_objection",
+        "art122.disciplinary_partial_measures",
+        "art122.election_ballot_nonreport_noninvestigation",
+        "art122.fugitive_assistance_nonreporting",
+        "art122.investigation_abandonment_release",
+        "art122.lost_property_disposal",
+        "art122.no_report_weekend",
+        "art122.officer_sleeping_ready_to_respond",
+        "art122.permit_without_review",
+        "art122.plate_reissuance_duty",
+        "art122.poor_performance_not_abandonment",
+        "art122.prison_officer_tobacco",
+        "art122.procedural_violation_only",
+        "art122.school_violence_response_insufficient",
+        "art122.traffic_investigation_abandonment",
+        "art122.unapproved_delegation_no_supervision",
+        "art122_sec2_2.conscious_abandonment",
+        "art122_sec2_2.mere_negligence_or_defective_performance",
+        "art122_sec2_2.reporting_crime_within_duty",
+        "art122_sec2_3.disciplinary_decision_delay_no_offense",
+        "art122_sec3_2.farmland_illegal_conversion_inaction"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "false_document_concurrence",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "false_public_document"
+      ],
+      "norm_card_ids": [
+        "art122_sec3_2.false_document_concealment_absorption",
+        "art122_sec3_2.false_document_farmland_neglect_real_concurrence"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "instigation",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "complicity"
+      ],
+      "norm_card_ids": [
+        "art122_sec2_5.instigation_per_public_official",
+        "art122_sec3_5.dereliction_and_instigation_concurrent_offenses"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "intent",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art122_sec2_3.intent_conscious_abandonment"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "offense_count",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art122_sec2_5.repeated_abandonment_comprehensive_single_offense"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "office_abuse",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "abuse_of_authority"
+      ],
+      "norm_card_ids": [
+        "art122_sec3_3.office_abuse_prosecutorial_choice",
+        "art122_sec3_3.office_abuse_two_modes_absorption"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "public_official_status",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art122_sec2_1.definition_criminal_public_official",
+        "art122_sec2_1.exception_sick_leave_official",
+        "art122_sec2_1.exception_simple_laborer_not_official",
+        "art122_sec2_1.offender_public_official",
+        "art122_sec2_1.standard_public_corporation_employee"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "special_statute",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "special_dereliction_offense"
+      ],
+      "norm_card_ids": [
+        "art122_sec3_5.building_instigation_excludes_dereliction",
+        "art122_sec3_5.human_rights_order_and_dereliction_imaginary_concurrence",
+        "art122_sec4.military_dereliction_requirements",
+        "art122_sec4.military_inadequate_performance_not_sufficient",
+        "art122_sec4.specific_crimes_act_recognition_threshold"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "specific_original_duty",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art122_sec2_2.abstract_or_derivative_duty",
+        "art122_sec2_2.duty_legal_basis",
+        "art122_sec2_2.duty_specific_original",
+        "art122_sec2_2.unlawful_superior_order"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "substantial_wrongfulness",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art122_sec1_1.establishment_requirements"
+      ]
+    }
+  ],
+  "stats": {
+    "components": 11,
+    "context_only_placements": 1,
+    "decision_approve": 48,
+    "decision_context_only": 1,
+    "placements": 48,
+    "queue_cards": 49,
+    "unresolved_unit_references": 10
+  }
+}

@@ -1,0 +1,1406 @@
+{
+  "version": "1.0.0",
+  "unit_id": "dwelling_intrusion",
+  "law_snapshot": {
+    "as_of_date": "2026-08-03",
+    "effective_source_date": "2026-03-12",
+    "future_snapshot_date": "2026-09-13",
+    "future_snapshot_policy": "separate_snapshot_not_active",
+    "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
+  },
+  "approval_document": "data/rulegen/p2/native_review/dwelling_intrusion_approved_decisions.json",
+  "approval_sha256": "27e47478ad35041dddc304a6e36374e8bb2dd00339314bd6a9b64e3e81fd2aef",
+  "approved_on": "2026-08-04",
+  "status": "ready_for_rule_ir",
+  "problems": [],
+  "unresolved_unit_references": [],
+  "excluded_cards": [
+    {
+      "card_id": "art319_sec3_1.consent_and_coerced_consent",
+      "reason": "복합 승낙·점유분쟁·정당행위 부정 사례 또는 동기 설명으로 독립 단위사실에서 제외"
+    },
+    {
+      "card_id": "art319_sec3_1.possession_dispute_and_owner_tenant",
+      "reason": "복합 승낙·점유분쟁·정당행위 부정 사례 또는 동기 설명으로 독립 단위사실에서 제외"
+    },
+    {
+      "card_id": "art319_sec5_2.labor_dispute_exclusive_occupation",
+      "reason": "복합 승낙·점유분쟁·정당행위 부정 사례 또는 동기 설명으로 독립 단위사실에서 제외"
+    },
+    {
+      "card_id": "art319_sec5_2.labor_dispute_explicit_denial_entry",
+      "reason": "복합 승낙·점유분쟁·정당행위 부정 사례 또는 동기 설명으로 독립 단위사실에서 제외"
+    },
+    {
+      "card_id": "art319_sec5_2.labor_dispute_plant_occupation",
+      "reason": "복합 승낙·점유분쟁·정당행위 부정 사례 또는 동기 설명으로 독립 단위사실에서 제외"
+    },
+    {
+      "card_id": "art319_sec5_2.right_holder_entry_without_procedure",
+      "reason": "복합 승낙·점유분쟁·정당행위 부정 사례 또는 동기 설명으로 독립 단위사실에서 제외"
+    },
+    {
+      "card_id": "art319_sec5_3.rightless_possessor.peace",
+      "reason": "복합 승낙·점유분쟁·정당행위 부정 사례 또는 동기 설명으로 독립 단위사실에서 제외"
+    },
+    {
+      "card_id": "art319_sec5_3.self_help.right_holder_negative",
+      "reason": "복합 승낙·점유분쟁·정당행위 부정 사례 또는 동기 설명으로 독립 단위사실에서 제외"
+    },
+    {
+      "card_id": "art319_sec7_3.debt_dispute_motive",
+      "reason": "복합 승낙·점유분쟁·정당행위 부정 사례 또는 동기 설명으로 독립 단위사실에서 제외"
+    }
+  ],
+  "tracks": [
+    {
+      "track_id": "intrusion",
+      "label": "제319조 제1항 주거·건조물침입"
+    },
+    {
+      "track_id": "attempt",
+      "label": "주거침입 미수"
+    },
+    {
+      "track_id": "refusal_to_leave",
+      "label": "퇴거불응"
+    }
+  ],
+  "placements": [
+    {
+      "card_id": "art319_sec1_4.partial_body_attempt",
+      "part_id": null,
+      "role": "component",
+      "track_id": "attempt",
+      "component_id": "dangerous_commencement",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 평온 침해에 이르는 현실적 위험이 있는 진입 개시",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_2.attempt_commencement",
+      "part_id": null,
+      "role": "component",
+      "track_id": "attempt",
+      "component_id": "dangerous_commencement",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 평온 침해에 이르는 현실적 위험이 있는 진입 개시",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_2.attempt_construction_site_negative",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "attempt",
+      "component_id": "dangerous_commencement",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "객체 아닌 공사현장 외곽 진입",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_2.attempt_door_opening",
+      "part_id": null,
+      "role": "component",
+      "track_id": "attempt",
+      "component_id": "dangerous_commencement",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 평온 침해에 이르는 현실적 위험이 있는 진입 개시",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_2.completion_minimal_partial_entry_attempt",
+      "part_id": null,
+      "role": "component",
+      "track_id": "attempt",
+      "component_id": "dangerous_commencement",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 평온 침해에 이르는 현실적 위험이 있는 진입 개시",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.bodily_entry_required",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "bodily_entry",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "행위자 신체의 주거 내부 진입",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_2.continuing_offense",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "intrusion",
+      "component_id": "continuation_and_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "계속범·퇴거불응 흡수·확정판결 후 별죄·반복출입 포괄일죄",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_2.no_refusal_to_leave_after_trespass",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "intrusion",
+      "component_id": "continuation_and_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "계속범·퇴거불응 흡수·확정판결 후 별죄·반복출입 포괄일죄",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_2.post_conviction_continued_occupation",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "intrusion",
+      "component_id": "continuation_and_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "계속범·퇴거불응 흡수·확정판결 후 별죄·반복출입 포괄일죄",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec6_1.continuing_offense",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "intrusion",
+      "component_id": "continuation_and_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "계속범·퇴거불응 흡수·확정판결 후 별죄·반복출입 포괄일죄",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec6_1.no_separate_refusal_after_completed_intrusion",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "intrusion",
+      "component_id": "continuation_and_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "계속범·퇴거불응 흡수·확정판결 후 별죄·반복출입 포괄일죄",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec6_1.post_final_conviction_continuance_separate_offense",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "intrusion",
+      "component_id": "continuation_and_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "계속범·퇴거불응 흡수·확정판결 후 별죄·반복출입 포괄일죄",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec6_1.repeat_entry_inclusive_crime",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "intrusion",
+      "component_id": "continuation_and_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "계속범·퇴거불응 흡수·확정판결 후 별죄·반복출입 포괄일죄",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.entry_decision_authority",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "entry_authority",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "출입·체류를 결정하거나 허용할 권한 있는 거주자·관리자·점유자",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.partial_entry_intent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "타인의 주거 평온을 해치는 신체 진입에 대한 고의",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec4.intent_against_resident_will",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "타인의 주거 평온을 해치는 신체 진입에 대한 고의",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec4.intent_factual_peace_entry",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "타인의 주거 평온을 해치는 신체 진입에 대한 고의",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec1_3.co_resident_consent_ordinary_entry",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "공동점유·현실적 승낙·공개장소 통상출입 또는 주관적 반대만 있는 경우",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec1_3.entry_assessment",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적·외형적으로 사실상 평온을 해치는 비정상·강제·기망 출입",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec1_3.partial_body_completed_offense",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적·외형적으로 사실상 평온을 해치는 비정상·강제·기망 출입",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec1_3.restaurant_entry_with_consent",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "공동점유·현실적 승낙·공개장소 통상출입 또는 주관적 반대만 있는 경우",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec1_3.right_holder_entry_unlawful_occupancy",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적·외형적으로 사실상 평온을 해치는 비정상·강제·기망 출입",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_1.common_area_entry_assessment",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적·외형적으로 사실상 평온을 해치는 비정상·강제·기망 출입",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_1.runaway_child_parent_home",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적·외형적으로 사실상 평온을 해치는 비정상·강제·기망 출입",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_1.separated_husband_owned_home",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적·외형적으로 사실상 평온을 해치는 비정상·강제·기망 출입",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_1.unlawful_construction_site_occupancy",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적·외형적으로 사실상 평온을 해치는 비정상·강제·기망 출입",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_2.joint_occupier_entry",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "공동점유·현실적 승낙·공개장소 통상출입 또는 주관적 반대만 있는 경우",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.abnormal_or_forced_entry",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적·외형적으로 사실상 평온을 해치는 비정상·강제·기망 출입",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.apartment_common_areas",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적·외형적으로 사실상 평온을 해치는 비정상·강제·기망 출입",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.apartment_common_door_unauthorized_entry",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적·외형적으로 사실상 평온을 해치는 비정상·강제·기망 출입",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.co_resident_common_space",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "공동점유·현실적 승낙·공개장소 통상출입 또는 주관적 반대만 있는 경우",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.commercial_corridor_implied_consent",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "공동점유·현실적 승낙·공개장소 통상출입 또는 주관적 반대만 있는 경우",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.concealed_device_and_key_entry",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "공동점유·현실적 승낙·공개장소 통상출입 또는 주관적 반대만 있는 경우",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.consenting_current_co_resident",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "공동점유·현실적 승낙·공개장소 통상출입 또는 주관적 반대만 있는 경우",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.external_entry_and_partition_exception",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적·외형적으로 사실상 평온을 해치는 비정상·강제·기망 출입",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.intrusion_factors",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적·외형적으로 사실상 평온을 해치는 비정상·강제·기망 출입",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.intrusion_objective_peace",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적·외형적으로 사실상 평온을 해치는 비정상·강제·기망 출입",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.intrusion_subjective_opposition_insufficient",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "공동점유·현실적 승낙·공개장소 통상출입 또는 주관적 반대만 있는 경우",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.minor_child_consent",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "공동점유·현실적 승낙·공개장소 통상출입 또는 주관적 반대만 있는 경우",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.no_contemporaneous_resistance",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적·외형적으로 사실상 평온을 해치는 비정상·강제·기망 출입",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.open_cityhall_and_commercial_entry",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "공동점유·현실적 승낙·공개장소 통상출입 또는 주관적 반대만 있는 경우",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.open_place_special_prohibition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적·외형적으로 사실상 평온을 해치는 비정상·강제·기망 출입",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.open_public_place_entry",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "공동점유·현실적 승낙·공개장소 통상출입 또는 주관적 반대만 있는 경우",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.restaurant_consented_entry",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "공동점유·현실적 승낙·공개장소 통상출입 또는 주관적 반대만 있는 경우",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.restricted_place_deceptive_entry",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적·외형적으로 사실상 평온을 해치는 비정상·강제·기망 출입",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec3_1.shop_absence_and_protective_order",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "객관적·외형적으로 사실상 평온을 해치는 비정상·강제·기망 출입",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec5_2.labor_dispute_incidental_act",
+      "part_id": null,
+      "role": "waiver",
+      "track_id": "intrusion",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "적법 권한·정당 쟁의·사회상규·긴급피난·정당행위",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec5_2.lawful_authority_entry",
+      "part_id": null,
+      "role": "waiver",
+      "track_id": "intrusion",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "적법 권한·정당 쟁의·사회상규·긴급피난·정당행위",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec5_2.lawful_labor_dispute_entry",
+      "part_id": null,
+      "role": "waiver",
+      "track_id": "intrusion",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "적법 권한·정당 쟁의·사회상규·긴급피난·정당행위",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec5_2.private_arrest_home_entry_affirmative",
+      "part_id": null,
+      "role": "waiver",
+      "track_id": "intrusion",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "적법 권한·정당 쟁의·사회상규·긴급피난·정당행위",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec5_2.socially_acceptable_entry",
+      "part_id": null,
+      "role": "waiver",
+      "track_id": "intrusion",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "적법 권한·정당 쟁의·사회상규·긴급피난·정당행위",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec5_2.water_tank_repair_entry",
+      "part_id": null,
+      "role": "waiver",
+      "track_id": "intrusion",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "적법 권한·정당 쟁의·사회상규·긴급피난·정당행위",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec5_3.justification.emergency_escape",
+      "part_id": null,
+      "role": "waiver",
+      "track_id": "intrusion",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "적법 권한·정당 쟁의·사회상규·긴급피난·정당행위",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec5_3.justification.fire_suppression",
+      "part_id": null,
+      "role": "waiver",
+      "track_id": "intrusion",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "적법 권한·정당 쟁의·사회상규·긴급피난·정당행위",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec5_3.justification.general",
+      "part_id": null,
+      "role": "waiver",
+      "track_id": "intrusion",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "적법 권한·정당 쟁의·사회상규·긴급피난·정당행위",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec6_2.combined_offense_absorption",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "intrusion",
+      "component_id": "property_offense_concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "theft",
+      "rationale": "침입 결합 재산죄의 흡수·경합·착수 연결",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec6_2.daytime_entry_no_night_intrusion_theft",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "intrusion",
+      "component_id": "property_offense_concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "theft",
+      "rationale": "침입 결합 재산죄의 흡수·경합·착수 연결",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec6_2.instrumental_intrusion_real_concurrence",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "intrusion",
+      "component_id": "property_offense_concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "theft",
+      "rationale": "침입 결합 재산죄의 흡수·경합·착수 연결",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec6_2.night_intrusion_theft_attempt_on_entry",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "intrusion",
+      "component_id": "property_offense_concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "theft",
+      "rationale": "침입 결합 재산죄의 흡수·경합·착수 연결",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec6_2.special_theft_entry_absorption",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "intrusion",
+      "component_id": "property_offense_concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "theft",
+      "rationale": "침입 결합 재산죄의 흡수·경합·착수 연결",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec1_3.protected_interest",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 평온이 유지되는 주거·관리건조물·위요지·점유방실",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_1.deceased_victim_possession",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "사자·평온 소멸·비위요지·비건조물·비관리 장소 등 객체 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_1.dwelling_concept_sleeping",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 평온이 유지되는 주거·관리건조물·위요지·점유방실",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_1.enclosed_land_requirements",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 평온이 유지되는 주거·관리건조물·위요지·점유방실",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_1.enforcement_dissipated_peace",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "사자·평온 소멸·비위요지·비건조물·비관리 장소 등 객체 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_1.former_cohabitant_loss_of_control",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 평온이 유지되는 주거·관리건조물·위요지·점유방실",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_1.non_dwelling_occupied_room",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 평온이 유지되는 주거·관리건조물·위요지·점유방실",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_1.seasonally_unused_villa",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 평온이 유지되는 주거·관리건조물·위요지·점유방실",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_1.temporary_dwelling",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 평온이 유지되는 주거·관리건조물·위요지·점유방실",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_1.uncontrolled_adjacent_land",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "사자·평온 소멸·비위요지·비건조물·비관리 장소 등 객체 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_2.aircraft_and_vehicle_exclusion",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "사자·평온 소멸·비위요지·비건조물·비관리 장소 등 객체 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_2.building_structure",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 평온이 유지되는 주거·관리건조물·위요지·점유방실",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_2.construction_site_not_enclosed_land",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "사자·평온 소멸·비위요지·비건조물·비관리 장소 등 객체 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_2.enclosed_land_requirements",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 평온이 유지되는 주거·관리건조물·위요지·점유방실",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_2.incomplete_construction_not_building",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "사자·평온 소멸·비위요지·비건조물·비관리 장소 등 객체 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_2.managed_building_control",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 평온이 유지되는 주거·관리건조물·위요지·점유방실",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_2.management_notice_insufficient",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "사자·평온 소멸·비위요지·비건조물·비관리 장소 등 객체 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_2.public_place_management",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 평온이 유지되는 주거·관리건조물·위요지·점유방실",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_2.unmanaged_empty_house",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "사자·평온 소멸·비위요지·비건조물·비관리 장소 등 객체 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_2.vessel_scale",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "사자·평온 소멸·비위요지·비건조물·비관리 장소 등 객체 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec2_3.occupied_room_building_partition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "사실상 평온이 유지되는 주거·관리건조물·위요지·점유방실",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec7_3.ability_to_leave",
+      "part_id": null,
+      "role": "component",
+      "track_id": "refusal_to_leave",
+      "component_id": "ability_to_leave",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "퇴거의 일반적·개별적 행위가능성",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec7_3.impossible_leaving",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "refusal_to_leave",
+      "component_id": "ability_to_leave",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "객관적·주관적 퇴거불능 또는 합리적 이행시간",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec7_3.time_to_comply",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "refusal_to_leave",
+      "component_id": "ability_to_leave",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "객관적·주관적 퇴거불능 또는 합리적 이행시간",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec7_3.justified_demand",
+      "part_id": null,
+      "role": "component",
+      "track_id": "refusal_to_leave",
+      "component_id": "justified_demand",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "거주자·관리자의 정당한 퇴거요구",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec7_3.lawful_lockout_demand",
+      "part_id": null,
+      "role": "component",
+      "track_id": "refusal_to_leave",
+      "component_id": "justified_demand",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "거주자·관리자의 정당한 퇴거요구",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec7_3.open_place_manager_demand",
+      "part_id": null,
+      "role": "component",
+      "track_id": "refusal_to_leave",
+      "component_id": "justified_demand",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "거주자·관리자의 정당한 퇴거요구",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec7_3.unlawful_lockout_noncompliance",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "refusal_to_leave",
+      "component_id": "justified_demand",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "위법한 직장폐쇄에 기초한 부당한 퇴거요구",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319.refusal_to_leave.enclosed_yard_and_entrance",
+      "part_id": null,
+      "role": "component",
+      "track_id": "refusal_to_leave",
+      "component_id": "lawful_initial_presence_and_place",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "적법 또는 과실로 들어간 보호 장소에서의 체류",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319.refusal_to_leave.lawful_or_mistaken_entry",
+      "part_id": null,
+      "role": "component",
+      "track_id": "refusal_to_leave",
+      "component_id": "lawful_initial_presence_and_place",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "적법 또는 과실로 들어간 보호 장소에서의 체류",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec7_1.refusal_to_leave_elements",
+      "part_id": null,
+      "role": "component",
+      "track_id": "refusal_to_leave",
+      "component_id": "lawful_initial_presence_and_place",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "적법 또는 과실로 들어간 보호 장소에서의 체류",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec7_4.intent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "refusal_to_leave",
+      "component_id": "refusal_intent",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "정당한 요구와 체류 정당성 결여를 알면서 불응하는 고의",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec7_3.lawful_lockout_noncompliance",
+      "part_id": null,
+      "role": "component",
+      "track_id": "refusal_to_leave",
+      "component_id": "unjustified_noncompliance",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "정당한 사유 없이 즉시 퇴거하지 않은 유책한 불응",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec7_3.no_justifiable_reason",
+      "part_id": null,
+      "role": "component",
+      "track_id": "refusal_to_leave",
+      "component_id": "unjustified_noncompliance",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "정당한 사유 없이 즉시 퇴거하지 않은 유책한 불응",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art319_sec7_3.refusal_delay",
+      "part_id": null,
+      "role": "component",
+      "track_id": "refusal_to_leave",
+      "component_id": "unjustified_noncompliance",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "정당한 사유 없이 즉시 퇴거하지 않은 유책한 불응",
+      "proposition_rewrite": null
+    }
+  ],
+  "components": [
+    {
+      "track_id": "attempt",
+      "component_id": "dangerous_commencement",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art319_sec1_4.partial_body_attempt",
+        "art319_sec3_2.attempt_commencement",
+        "art319_sec3_2.attempt_construction_site_negative",
+        "art319_sec3_2.attempt_door_opening",
+        "art319_sec3_2.completion_minimal_partial_entry_attempt"
+      ]
+    },
+    {
+      "track_id": "intrusion",
+      "component_id": "bodily_entry",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art319_sec3_1.bodily_entry_required"
+      ]
+    },
+    {
+      "track_id": "intrusion",
+      "component_id": "continuation_and_count",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art319_sec3_2.continuing_offense",
+        "art319_sec3_2.no_refusal_to_leave_after_trespass",
+        "art319_sec3_2.post_conviction_continued_occupation",
+        "art319_sec6_1.continuing_offense",
+        "art319_sec6_1.no_separate_refusal_after_completed_intrusion",
+        "art319_sec6_1.post_final_conviction_continuance_separate_offense",
+        "art319_sec6_1.repeat_entry_inclusive_crime"
+      ]
+    },
+    {
+      "track_id": "intrusion",
+      "component_id": "entry_authority",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art319_sec3_1.entry_decision_authority"
+      ]
+    },
+    {
+      "track_id": "intrusion",
+      "component_id": "intent",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art319_sec3_1.partial_entry_intent",
+        "art319_sec4.intent_against_resident_will",
+        "art319_sec4.intent_factual_peace_entry"
+      ]
+    },
+    {
+      "track_id": "intrusion",
+      "component_id": "intrusive_entry",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art319_sec1_3.co_resident_consent_ordinary_entry",
+        "art319_sec1_3.entry_assessment",
+        "art319_sec1_3.partial_body_completed_offense",
+        "art319_sec1_3.restaurant_entry_with_consent",
+        "art319_sec1_3.right_holder_entry_unlawful_occupancy",
+        "art319_sec2_1.common_area_entry_assessment",
+        "art319_sec2_1.runaway_child_parent_home",
+        "art319_sec2_1.separated_husband_owned_home",
+        "art319_sec2_1.unlawful_construction_site_occupancy",
+        "art319_sec2_2.joint_occupier_entry",
+        "art319_sec3_1.abnormal_or_forced_entry",
+        "art319_sec3_1.apartment_common_areas",
+        "art319_sec3_1.apartment_common_door_unauthorized_entry",
+        "art319_sec3_1.co_resident_common_space",
+        "art319_sec3_1.commercial_corridor_implied_consent",
+        "art319_sec3_1.concealed_device_and_key_entry",
+        "art319_sec3_1.consenting_current_co_resident",
+        "art319_sec3_1.external_entry_and_partition_exception",
+        "art319_sec3_1.intrusion_factors",
+        "art319_sec3_1.intrusion_objective_peace",
+        "art319_sec3_1.intrusion_subjective_opposition_insufficient",
+        "art319_sec3_1.minor_child_consent",
+        "art319_sec3_1.no_contemporaneous_resistance",
+        "art319_sec3_1.open_cityhall_and_commercial_entry",
+        "art319_sec3_1.open_place_special_prohibition",
+        "art319_sec3_1.open_public_place_entry",
+        "art319_sec3_1.restaurant_consented_entry",
+        "art319_sec3_1.restricted_place_deceptive_entry",
+        "art319_sec3_1.shop_absence_and_protective_order"
+      ]
+    },
+    {
+      "track_id": "intrusion",
+      "component_id": "justification",
+      "roles": [
+        "waiver"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art319_sec5_2.labor_dispute_incidental_act",
+        "art319_sec5_2.lawful_authority_entry",
+        "art319_sec5_2.lawful_labor_dispute_entry",
+        "art319_sec5_2.private_arrest_home_entry_affirmative",
+        "art319_sec5_2.socially_acceptable_entry",
+        "art319_sec5_2.water_tank_repair_entry",
+        "art319_sec5_3.justification.emergency_escape",
+        "art319_sec5_3.justification.fire_suppression",
+        "art319_sec5_3.justification.general"
+      ]
+    },
+    {
+      "track_id": "intrusion",
+      "component_id": "property_offense_concurrence",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "theft"
+      ],
+      "norm_card_ids": [
+        "art319_sec6_2.combined_offense_absorption",
+        "art319_sec6_2.daytime_entry_no_night_intrusion_theft",
+        "art319_sec6_2.instrumental_intrusion_real_concurrence",
+        "art319_sec6_2.night_intrusion_theft_attempt_on_entry",
+        "art319_sec6_2.special_theft_entry_absorption"
+      ]
+    },
+    {
+      "track_id": "intrusion",
+      "component_id": "protected_place_and_peace",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art319_sec1_3.protected_interest",
+        "art319_sec2_1.deceased_victim_possession",
+        "art319_sec2_1.dwelling_concept_sleeping",
+        "art319_sec2_1.enclosed_land_requirements",
+        "art319_sec2_1.enforcement_dissipated_peace",
+        "art319_sec2_1.former_cohabitant_loss_of_control",
+        "art319_sec2_1.non_dwelling_occupied_room",
+        "art319_sec2_1.seasonally_unused_villa",
+        "art319_sec2_1.temporary_dwelling",
+        "art319_sec2_1.uncontrolled_adjacent_land",
+        "art319_sec2_2.aircraft_and_vehicle_exclusion",
+        "art319_sec2_2.building_structure",
+        "art319_sec2_2.construction_site_not_enclosed_land",
+        "art319_sec2_2.enclosed_land_requirements",
+        "art319_sec2_2.incomplete_construction_not_building",
+        "art319_sec2_2.managed_building_control",
+        "art319_sec2_2.management_notice_insufficient",
+        "art319_sec2_2.public_place_management",
+        "art319_sec2_2.unmanaged_empty_house",
+        "art319_sec2_2.vessel_scale",
+        "art319_sec2_3.occupied_room_building_partition"
+      ]
+    },
+    {
+      "track_id": "refusal_to_leave",
+      "component_id": "ability_to_leave",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art319_sec7_3.ability_to_leave",
+        "art319_sec7_3.impossible_leaving",
+        "art319_sec7_3.time_to_comply"
+      ]
+    },
+    {
+      "track_id": "refusal_to_leave",
+      "component_id": "justified_demand",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art319_sec7_3.justified_demand",
+        "art319_sec7_3.lawful_lockout_demand",
+        "art319_sec7_3.open_place_manager_demand",
+        "art319_sec7_3.unlawful_lockout_noncompliance"
+      ]
+    },
+    {
+      "track_id": "refusal_to_leave",
+      "component_id": "lawful_initial_presence_and_place",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art319.refusal_to_leave.enclosed_yard_and_entrance",
+        "art319.refusal_to_leave.lawful_or_mistaken_entry",
+        "art319_sec7_1.refusal_to_leave_elements"
+      ]
+    },
+    {
+      "track_id": "refusal_to_leave",
+      "component_id": "refusal_intent",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art319_sec7_4.intent"
+      ]
+    },
+    {
+      "track_id": "refusal_to_leave",
+      "component_id": "unjustified_noncompliance",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art319_sec7_3.lawful_lockout_noncompliance",
+        "art319_sec7_3.no_justifiable_reason",
+        "art319_sec7_3.refusal_delay"
+      ]
+    }
+  ],
+  "stats": {
+    "components": 14,
+    "context_only_placements": 9,
+    "decision_approve": 95,
+    "decision_context_only": 9,
+    "inherited": 2,
+    "placements": 95,
+    "queue_cards": 104,
+    "unresolved_unit_references": 0
+  }
+}

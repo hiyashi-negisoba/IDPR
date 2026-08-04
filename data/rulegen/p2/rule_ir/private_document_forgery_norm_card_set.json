@@ -1,0 +1,1293 @@
+{
+  "version": "1.1.0",
+  "card_set_id": "kr.p2.private_document_forgery.native.norms.v1",
+  "issue_tag": "private_document_forgery",
+  "status": "draft",
+  "legal_review": "pending",
+  "construction": "deterministic_candidate_lift",
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제231조_Ⅰ_0",
+      "comm_001692_제231조_Ⅱ.1_2",
+      "comm_001692_제231조_Ⅱ.1_3",
+      "comm_001692_제231조_Ⅱ.2_4",
+      "comm_001692_제231조_Ⅲ.1_5",
+      "comm_001692_제231조_Ⅲ.1_6",
+      "comm_001692_제231조_Ⅲ.2_10",
+      "comm_001692_제231조_Ⅲ.2_7",
+      "comm_001692_제231조_Ⅲ.2_8",
+      "comm_001692_제231조_Ⅲ.2_9",
+      "comm_001692_제231조_Ⅲ.3_12",
+      "comm_001692_제231조_Ⅲ.3_13",
+      "comm_001692_제231조_Ⅲ.3_14",
+      "comm_001692_제231조_Ⅳ.1_16",
+      "comm_001692_제231조_Ⅳ.2_17",
+      "comm_001692_제231조_Ⅳ_15",
+      "comm_001692_제231조_Ⅴ_18",
+      "comm_001692_제231조_Ⅵ_19"
+    ],
+    "target_paths": [
+      "commentary://001692/art231"
+    ]
+  },
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.element.object-and-purpose",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art231_sec1.element.object_and_purpose",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "타인의 권리·의무 또는 사실증명에 관한 문서 또는 도화를 행사할 목적으로 위조 또는 변조한 경우 본죄가 성립한다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "제공된 해설 문구에 따른 본죄의 객체·행사목적·위조 또는 변조 요건을 함께 기록한 초안 카드다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅰ_0",
+          "quote": "본죄는 행사할 목적으로 권리·의무 또는 사실증명에 관한 타인의 문서 또는 도 화를 위조 또는 변조하는 경우에 성립한다.",
+          "section_path": "Ⅰ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "statutory_text_in_commentary",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.definition.document-copy",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art231_sec2_1.document_copy",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "전자복사기·모사전송기 등으로 복사한 문서 사본 및 그 재사본은 원본과 동일한 의미를 가지는 문서로서 문서위조죄 및 행사죄의 객체가 될 수 있다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "주석에 인용된 형법 제237조의2의 사본 및 재사본 취급을 정리한 카드다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅱ.1_3",
+          "quote": "형법 제237조의2에 따라 전자복사기, 모사전송기 기타 이와 유사한 기기를 사용 하여 복사한 문서의 사본도 문서원본과 동일한 의미를 가지는 문서로서 이를 다시 복사한 문서의 재사본도 문서위조죄 및 동 행사죄의 객체인 문서에 해당",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.fact-certification-classification",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art231_sec2_1.fact_certification_classification",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "문서가 거래상 중요한 사실을 증명하는 문서인지 여부는 제목만이 아니라 문서 내용, 작성자 의도, 작성의 객관적 상황, 적시사항과 행사예정 상대방의 관계를 종합하여 판단한다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "열거된 사정을 종합하는 평가 기준이므로 기계적으로 결정하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅱ.1_2",
+          "quote": "이에 해당하는지 여부는 문서의 제목만을 고려할 것이 아니라 문서의 내용 과 더불어 문서 작성자의 의도, 그 문서가 작성된 객관적인 상황, 문서에 적시된 사항과 그 행사가 예정된 상대방과의 관계 등을 종합적으로 고려하여 판단하여야 한다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.definition.fact-certification-document",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec2_1.fact_certification_document",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "사실증명에 관한 문서는 권리·의무에 관한 문서 외에 거래상 중요한 사실을 증명하는 문서이며, 사회생활상 모든 사실증명 문서가 아니라 중요한 사실을 증명하는 문서에 한정된다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "거래상 중요한 사실인지의 평가는 별도 사실 판단이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅱ.1_2",
+          "quote": "사실증명에 관한 문서란 권리·의무에 관한 문서 이외의 문서로서 거래상 중요 한 사실을 증명하는 문서이다. 따라서 일반적으로 사회생활에 있어서 사실을 증명하는 모든 문서가 여기에 포함되는 것은 아니며, 중요한 사실을 증명하는 문서에 한한다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.indirectly-related-important-fact-document",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art231_sec2_1.indirectly_related_important_fact_document",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "거래상 중요한 사실을 증명하는 문서에는 직접 법률관계와 간접적으로만 연관되거나 권리·의무 변동에 사실상 영향을 줄 수 있는 의사표시 문서도 포함될 수 있으나, 단순한 개인적·집단적 의견표현에 그쳐서는 안 되고 구체적 권리·의무와의 관련성이 있어야 한다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "간접적 관련성과 구체적 권리·의무 관련성은 문서별 평가가 필요하며, 보고된 판례 근거는 원문 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅱ.1_2",
+          "quote": "거래상 중요한 사실을 증명하는 문서는, 법률관계의 발생·존속·변경·소멸의 전후 과정을 증명하는 것이 주된 취지인 문서뿐만 아니라 직접적인 법률관계에 단지 간 접적으로만 연관된 의사표시 내지 권리·의무의 변동에 사실상으로만 영향을 줄 수 있는 의사표시를 내용으로 하는 문서도 포함될 수 있다.",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제231조_Ⅱ.1_2",
+          "quote": "그러나 문서의 주된 취지 가 단순히 개인적·집단적 의견의 표현에 불과한 것이어서는 안되고, 적어도 실체 법 또는 절차법에서 정한 구체적인 권리·의무와의 관련성이 인정되는 경우이어야 한다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.political-signature-list-excluded",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art231_sec2_1.political_signature_list_excluded",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "허무인 명의 서명부의 주된 취지가 특정 대통령후보자에 대한 정치적 지지의사를 집단적으로 표현하는 데에 불과한 경우, 구체적 권리·의무 문서나 거래상 중요한 사실을 증명하는 문서로 보기 어렵다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "정치적 지지의사 표현을 주된 취지로 한 허무인 명의 서명부에 관한 좁은 보고된 판단이다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅱ.1_3",
+          "quote": "허무인 명의로 작성된 서명부 21장의 주된 취지가 특정한 대통령후보자에 대한 정치적인 지지의사를 집단적 형태로 표 현하고자 한 것일 뿐인 경우는 실체법 또는 절차법에서 정한 구체적인 권리·의무에 관한 문서 내지 거래상 중요한 사실을 중명하는 문서에 해당한다고 보기 어렵다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.definition.right-duty-document",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art231_sec2_1.right_duty_document",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "권리·의무에 관한 문서는 권리·의무의 발생·변경·소멸에 관한 사항을 기재한 문서이다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "권리·의무 문서의 정의를 문서 기재사항 기준으로 정리한 카드다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅱ.1_2",
+          "quote": "권리·의무에 관한 문서란 권리·의무의 발생·변경·소멸에 관한 사항을 기재한 문서를 의미한다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.definition.drawing",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec2_2.drawing_definition_and_artwork_exclusion",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "도화는 상형적 부호로 의사표시 또는 내용을 판단할 수 있도록 기재한 물체이고, 사람의 관념 또는 의사가 화체되어 표현될 것을 요하므로 순수 미술작품으로서의 회화는 도화에 해당하지 않는다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "도화 해당성은 상형적 부호, 의사표시 또는 내용 판단 가능성, 관념 또는 의사의 화체 여부를 기준으로 검토한다. 순수 미술작품으로서의 회화는 명시적으로 제외된다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅱ.2_4",
+          "quote": "도화는 상형적 부호로써 의사표시 또는 내용을 판단할 수 있도록 기재한 물체 를 말한다.",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제231조_Ⅱ.2_4",
+          "quote": "사람의 관념 내지 의사가 화체되어 표현될 것을 요하므로 순수한 미술작품으로서의 회화는 도화에 해당하지 않는다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.authority-determination",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec3_1.authority_determination",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "작성명의인의 작성권한 침해 여부 및 작성권한의 유무는 법규, 계약, 거래관행 및 당사자 의사 등을 고려하여 개별적·구체적으로 판단한다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "작성권한 및 그 침해 여부는 법규, 계약, 거래관행 및 당사자 의사를 사실관계별로 평가해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.1_5",
+          "quote": "위조에 해당하려면 작성명의인의 작성권한이 침해되어야 하는데, 작성권한의 유 무는 법규·계약·거래관행·당사자의 의사 등을 고려하여 개별적·구체적으로 판 단하여야 한다.",
+          "section_path": "Ⅲ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.fictitious-or-deceased-nominee",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art231_sec3_1.fictitious_or_deceased_nominee",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "사문서에서 명의인이 실재하지 않는 허무인이거나 작성일 전에 사망하였더라도, 그러한 문서가 공공의 신용을 해할 위험성이 있으면 본죄가 성립한다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "공공의 신용을 해할 위험성 및 commentary가 보고한 판시의 원문·적용범위를 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.1_6",
+          "quote": "사문서의 경우에도 공문서와 같이 명의인이 실재하지 않는 허무인이거나 또는 문서의 작성일자 전에 이미 사망하 였더라도 그러한 문서 역시 공공의 신용을 해할 위험성이 있으므로 본죄가 성 립한다고 판시함으로써, 위의 어느 경우건 본죄가 성립하게 되었다.",
+          "section_path": "Ⅲ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.definition.forgery",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec3_1.forgery_definition",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "문서위조는 작성권한 없는 자가 타인 명의의 문서를 작성하는 행위이다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "작성권한의 유무는 별도 판단기준 카드에 따라 검토한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.1_5",
+          "quote": "문서위조는 작성권한 없는 자가 타인 명의의 문서를 작성하는 것을 말한다",
+          "section_path": "Ⅲ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.exception.authority-abuse",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec3_2.authority_abuse",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "타인의 대표자·대리자 또는 본인 명의로 문서를 작성할 권한이 있는 자가 그 지위를 남용하여 자기나 제3자의 이익을 위해 문서를 작성하더라도 문서위조죄는 성립하지 않는다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "문서작성 권한의 존재와 대표·대리 지위 남용의 사실관계를 구별하여 검토한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.2_10",
+          "quote": "타인의 대표자 또는 대리자가 그 대표 명의 또는 대리 명의를 써서 또는 직접 본인 명의를 사용하여 문서를 작성할 권한을 가지는 경우에 그 지위를 남용하여 단순히 자기 또는 제3자의 이익을 도모할 목 적으로 마음대로 그 대표자, 대리 명의 또는 직접 본인 명의로 문서를 작성하였 더라도 문서위조죄는 성립하지 않는다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.exception.authorized-document-creation",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec3_2.authorized_creation",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "명의자의 명시적 또는 묵시적 승낙·위임이 있는 경우에는 타인 명의 문서 작성이라도 사문서위조에 해당하지 않는다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "명시적 또는 묵시적 승낙·위임의 존재와 그 범위는 문서작성 경위에 따라 검토한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.2_8",
+          "quote": "전세계약서를 작성하는 데에 그 명의자의 명시적 이거나 묵시적인 승낙(위임)이 있는 경우에는 사문서위조에 해당하지 않는다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.exception.comprehensive-delegation",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec3_2.comprehensive_delegation",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "명의자가 문서작성 관련 사무처리 권한을 포괄적으로 위임하고 작성자가 위임 범위 내에서 그 사무처리를 위해 명의자 명의 문서를 작성·행사한 경우, 개별 문서 작성 승낙이 없더라도 특별한 사정이 없는 한 사문서위조 및 행사죄는 성립하지 않는다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "포괄위임의 존재, 위임 범위 내 작성·행사 여부 및 특별한 사정의 존재를 각각 검토한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.2_8",
+          "quote": "문서명의인이 문서작성자에게 사전에 문서 작성과 관련한 사무처리의 권한 을 포괄적으로 위임함으로써 문서작성자가 위임된 권한의 범위 내에서 그 사무 처리를 위하여 문서명의인 명의의 문서를 작성·행사한 경우에는, 비록 문서작성 자가 문서명의인으로부터 개개 문서의 작성에 관한 승낙을 받지 않았더라도 특 별한 사정이 없는 한 사문서위조 및 위조사문서행사죄는 성립하지 않는다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.document-appearance",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec3_2.document_appearance",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "작성 문서가 일반인으로 하여금 명의인의 권한 내에서 작성된 것으로 믿을 수 있는 정도의 형식과 외관을 갖추면 문서위조죄가 성립한다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "일반인이 권한 있는 작성으로 믿을 수 있는 형식과 외관의 충족 여부는 개별 문서 사정에 대한 평가를 필요로 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.2_7",
+          "quote": "그 작성된 문서가 일반인으로 하여금 당해 명의인의 권한 내에서 작성된 것 이라고 믿을 수 있는 정도의 형식과 외관을 구비하면 성립한다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.excess-of-delegated-authority",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec3_2.excess_of_delegated_authority",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "타인 명의 문서 작성을 위임받았더라도 위임된 권한을 초월하여 내용을 기재함으로써 명의자의 의사에 반하는 사문서를 작성하면 작성권한을 일탈한 것으로 본죄에 해당한다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "위임 범위, 기재 내용 및 명의자의 의사에 반하는지 여부를 개별적으로 평가한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.2_9",
+          "quote": "타인으로부터 그 명의의 문서 작성을 위임받은 경우에도 위임된 권한을 초월하여 내용을 기재함으로써 명의자의 의사에 반하는 사문서를 작성 하는 것은 작성권한을 일탈한 것으로서 본죄에 해당한다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.genuineness-misapprehension",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec3_2.genuineness_misapprehension",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "위조는 일반인에게 타인 명의의 진정한 문서라고 오신하게 할 정도이면 족하며, 그 정도는 문서의 형식·외관, 작성경위, 종류·내용 및 일반거래에서의 기능을 종합하여 판단한다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "진정한 문서라는 오신 가능성은 열거된 사정을 종합하는 평가 판단으로 검토한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.2_7",
+          "quote": "위조는 일반인에게 타인 명의의 진정한 문서 라는 것을 오신케 할 정도이면 그것으로 족하며 그 형식요건 등에 다소 불비한 점이 있더라도 위조죄가 성립한다.",
+          "section_path": "Ⅲ.2"
+        },
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.2_7",
+          "quote": "일반인이 명의자의 진정한 사문서로 오신하 기에 충분한 정도인지 여부는 그 문서의 형식과 외관은 물론 그 문서의 작성경 위, 종류, 내용 및 일반거래에서 그 문서가 가지는 기능 등 여러 가지 사정을 종 합적으로 고려하여 판단한다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.element.no-property-damage-required",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art231_sec3_2.no_property_damage",
+      "norm_kind": "element",
+      "polarity": "negative",
+      "proposition": "문서위조의 성립에 타인에 대한 재산상 손해 발생은 필요하지 않다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "재산상 손해의 발생은 문서위조 성립의 필수요건으로 추가하지 않는다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.2_8",
+          "quote": "즉 위조가 성립하기 위해 타인에게 재산상의 손해가 발 생해야 하는 것은 아니다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.presumed-consent",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec3_2.presumed_consent",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "행위 당시 현실적 승낙이 없더라도 모든 객관적 사정을 종합하여 명의자가 그 사실을 알았다면 당연히 승낙했을 것으로 추정되는 경우 사문서 위·변조죄는 성립하지 않지만, 단순한 기대나 예측만으로 승낙이 추정되는 것은 아니다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "추정승낙은 행위 당시의 객관적 사정에 근거해야 하며, 작성자의 주관적 기대나 예측만으로는 인정하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.2_9",
+          "quote": "행위 당시 명의자의 현실적 승낙은 없었지만 행위 당시의 모든 객관적 사 정을 종합하여 명의자가 행위 당시 그 사실을 알았다면 당연히 승낙했을 것이 라고 추정되는 경우 역시 사문서의 위·변조죄가 성립하지 않는다.",
+          "section_path": "Ⅲ.2"
+        },
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.2_9",
+          "quote": "의자의 명시적 승낙이나 동의가 없다는 것을 알고 있으면서도 명의자가 문서작 성 사실을 알았다면 승낙하였을 것이라고 기대하거나 예측한 것만으로는 그 승 낙이 추정된다고 단정할 수 없다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.alias-name-addition-no-new-evidentiary-force",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art231_sec3_3.alias_name_addition_no_new_evidentiary_force",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "일상거래상 통용된 이름으로 작성된 영수증에서 본명 일부를 덧붙인 행위가 영수증 내용에 영향을 미치지 않아 새로운 증명력을 작출하지 않은 경우 사문서변조죄를 구성하지 않는다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "명칭 추가가 영수증 내용과 증명력에 미친 영향을 평가해야 하며, 보고된 판례의 원문 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.3_14",
+          "quote": "이는 위 영수증의 내용에 영향을 미쳤다고 보이지 않고, 따라서 새로운 증명력을 작출한 것이 아니므로 사문서변조죄를 구성하지 않는다.",
+          "section_path": "Ⅲ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.causal-link.alteration-completion-new-evidentiary-force",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art231_sec3_3.alteration_completion_new_evidentiary_force",
+      "norm_kind": "causal_link",
+      "polarity": "positive",
+      "proposition": "문서의 비본질적 부분을 불법으로 변개하여 일반인으로 하여금 이전과 다른 증명력이 있는 문서로 오신하게 할 상태에 도달하면 변조는 완성되어 기수가 된다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "일반인이 이전과 다른 증명력을 가진 문서로 오신할 상태에 도달했는지 평가해야 하며, 보고된 판례의 원문 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.3_13",
+          "quote": "변조는 문서의 비본질적 부분을 불법으로 변개하여 일반인으로 하여금 이 (變改) 전과는 다른 증명력이 있는 문서로 오신케 할 상태에 도달한 때에 완성되어 기 수에 이른다.",
+          "section_path": "Ⅲ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.definition.alteration",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec3_3.alteration_definition",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "문서변조는 권한 없는 자가 이미 진정하게 성립한 타인 명의 문서의 내용에 동일성을 해하지 않는 정도의 변경을 가하고, 새로운 증명력을 작출하여 공공적 신용을 해할 위험성이 있을 때 성립한다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "변경의 동일성 훼손 여부, 새로운 증명력 및 공공적 신용 침해 위험은 개별 사실관계에 대한 평가를 요구한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.3_12",
+          "quote": "문서의 변조는 권한 없는 자가 이미 진정하게 성립된 타인 명의의 문서내용에 그 동일성을 해하지 않는 정도의 변경을 가하는 것을 말하고, 새로운 증명력을 작출케 하여 공공적 신용을 해할 위험성이 있을 때 성립한다.",
+          "section_path": "Ⅲ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.definition.alteration-method-deletion-addition",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art231_sec3_3.alteration_method_deletion_addition",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "행위자에게 불리한 기존 문자를 삭제하고 유리한 문자를 가필하거나 기입하는 행위도 변조 방법에 포함된다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "삭제 후 가필 또는 기입이라는 행위 유형을 변조 방법으로 분류한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.3_13",
+          "quote": "변조의 방법에는 행위자에게 불리한 기존의 문자를 삭제하고 유리한 문자를 가 필하거나 기입하는 행위도 포함된다.",
+          "section_path": "Ⅲ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.authorized-writer-alteration-no-offense",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art231_sec3_3.authorized_writer_alteration_no_offense",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "부동산 처분권한을 위임받아 매매계약서 작성권한이 있는 사람이 매도인의 대리인 표시를 삽입한 경우, 명의인의 승낙이 없더라도 작성권한 있는 사람의 변경행위에 불과하여 사문서변조죄가 성립하지 않는다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "처분권한 위임 및 매매계약서 작성권한의 존재를 확인해야 하며, 보고된 판례의 원문 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.3_14",
+          "quote": "이는 부동산의 처분권 한을 위임받아 매매계약서 작성 권한 있는 사람이 한 변경행위에 불과하고, 비 록 명의인의 승낙을 받지 않았더라도 사문서변조죄가 성립하는 것은 아니다.",
+          "section_path": "Ⅲ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.concealing-name-not-alteration",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art231_sec3_3.concealing_name_not_alteration",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "재직증명서와 소득세원천징수확인서에서 법인명 부분을 흰색 수정테이프로 가린 행위만으로 일반인이 기존 문서와 다른 새 문서로 오신할 정도에 이르지 않은 경우 사문서변조죄가 성립하지 않는다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "가림 행위가 일반인에게 기존 문서와 다른 새 문서라는 오신을 유발하는지 평가해야 하며, 보고된 판례의 원문 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.3_14",
+          "quote": "‘A’ 부분을 흰색 수정테이프로 가린 행위만으로는 객관적으로 보아 일반인으로 하여금 이를 기존 문서와 다른 새로운 문서로 오신하게 할 정도에 이르렀다고 보기 어려우므로 사문서변조죄가 성립하지 않는다.",
+          "section_path": "Ⅲ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.digital-file-image-not-document",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art231_sec3_3.digital_file_image_not_document",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "컴퓨터 모니터에 실행된 파일의 수정 이미지는 문서에 관한 죄에서 문서에 해당하지 않으며, 이를 변경하여 출력하여도 타인 명의 문서의 존재를 전제로 하는 사문서변조죄는 성립하지 않는다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "수정 대상이 전자파일 이미지인지 및 기존 타인 명의 문서의 존재 여부를 확인하고, 보고된 판례의 원문 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.3_13",
+          "quote": "컴퓨터 모니터에 실행된 경영정상화 이행 계획서 파일의 이 (수정) 미지는 형법상 문서에 관한 죄에서 문서에 해당하지 않고, 그러한 이미지를 변 경하여 출력하였더라도 타인 명의의 문서의 존재를 전제로 하는 사문서변조죄 가 성립하지 않는다.",
+          "section_path": "Ⅲ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.element.alteration-requires-genuine-document",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art231_sec3_3.genuine_document_requirement",
+      "norm_kind": "element",
+      "polarity": "negative",
+      "proposition": "사문서변조죄의 객체는 이미 진정하게 성립한 타인 명의 문서이므로, 그러한 문서가 존재하지 않으면 사문서변조죄는 성립할 수 없고, 미완성 서면에 가필하여 문서를 완성하는 행위는 변조가 아니라 위조이다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "변조의 객체가 이미 진정하게 성립한 타인 명의 문서인지 여부를 별도 요소로 확인한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.3_12",
+          "quote": "변조의 객체는 이미 진정으로 성립된 타인 명의의 문서이다. 따라서 이미 진 정하게 성립된 타인 명의의 문서가 존재하지 않는다면 사문서변조죄가 성립할 수 없다. 또한 미완성의 서면에 가필하여 문서를 완성하는 것은 위조이지 변조 는 아니다.",
+          "section_path": "Ⅲ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.exception-immaterial-character-change",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art231_sec3_3.immaterial_character_change_exception",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "문서 내용에 전혀 영향을 미치지 않을 정도로 문자만 변경한 경우에는 변조죄를 구성하지 않는다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "문자 변경이 문서 내용에 영향을 미쳤는지 평가해야 하며, 보고된 판례의 원문 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.3_13",
+          "quote": "그 내용에 전혀 영향을 미치지 않을 정도로 문자를 변경한 것에 불과한 때 에는 변조죄를 구성하지 않는다.",
+          "section_path": "Ⅲ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.multiple-nominees-contract-alteration",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art231_sec3_3.multiple_nominees_contract_alteration",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "2인 이상이 작성명의인인 문서에서는 각 명의자마다 하나의 문서가 성립하므로, 피고인이 명의자 중 한 사람이어도 다른 명의자와 합의 없이 행사할 목적으로 내용을 변경하면 사문서변조죄가 성립한다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "복수 명의자, 다른 명의자와의 합의 부재 및 행사할 목적을 확인해야 하며, 보고된 판례의 원문 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.3_13",
+          "quote": "부동산 매매계약서와 같이 문서에 2인 이상의 작성명의인이 있는 때에는 각 나) 명의자마다 1개의 문서가 성립되고, 피고인이 명의자의 한사람이더라도 타 명의 자와 합의 없이 행사할 목적으로 문서의 내용을 변경하였을 때에는 사문서변조 죄가 성립한다.",
+          "section_path": "Ⅲ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.element-no-consent-despite-benefit",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art231_sec3_3.no_consent_despite_benefit",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "명의인의 명시적·묵시적 승낙 없이 문서를 변조한 경우, 변조 문서가 명의인에게 유리하고 결과적으로 그 의사에 합치하더라도 사문서변조죄의 구성요건을 충족한다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "명의인의 명시적 또는 묵시적 승낙 유무를 검토해야 하며, 보고된 판례의 원문 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.3_13",
+          "quote": "명의인의 명시적·묵시적 승낙 없이 한 것이면 변조된 문서가 명의인에게 유리하여 결과적으로 그 의사에 합치하더라도 사문 서변조죄의 구성요건을 충족한다.",
+          "section_path": "Ⅲ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.notarized-private-instrument-alteration",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art231_sec3_3.notarized_private_instrument_alteration",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "사서증서 인증서의 인증기재 부분은 공문서이나 사서증서 기재 내용은 그 공문서 인증기재의 내용을 구성하지 않으므로, 사서증서 기재 내용을 일부 변조한 행위는 공문서변조죄가 아니라 사문서변조죄에 해당한다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "변경 대상이 인증기재 부분인지 사서증서 기재 내용인지 구분해야 하며, 보고된 판례의 원문 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.3_13",
+          "quote": "사서증서 인증서 중 인증기재 부분은 공문서에 해당한다고 하겠 으나, 위와 같은 내용의 인증이 있었다고 하여 사서증서의 기재 내용이 공문서 인 인증기재 부분의 내용을 구성하는 것은 아니므로, 사서증서의 기재 내용을 일부 변조한 행위는 공문서변조죄가 아니라 사문서변조죄에 해당한다.",
+          "section_path": "Ⅲ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.post-contract-price-alteration",
+          "request_id": "art231.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art231_sec3_3.post_contract_price_alteration",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "매매계약서 작성 완료 후 매도인 또는 매수인이 상대방 승낙 없이 매매대금 액수나 지급일자 등 내용을 고치면, 그 계약서가 타인 명의 문서에 해당하여 사문서변조죄가 성립한다.",
+      "request_ids": [
+        "art231.pass1.001"
+      ],
+      "review_notes": "계약서 작성 완료, 상대방 승낙 부재 및 변경 내용이 확인되어야 하며, 보고된 판례의 원문 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.3_12",
+          "quote": "매매계약서 작성이 완료된 후 매도인 또는 매수인이 상대방의 승낙 없이 그 매매계약서의 내용 (예컨대, 매매대 을 고치는 행위는 위 매매계약서가 타인 명의의 문서에 해당 금의 액수·지불일자) 하므로 사문서변조죄가 성립한다.",
+          "section_path": "Ⅲ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.alteration-public-confidence-risk",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec3_3.public_confidence_risk",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "변조는 문서에 대한 공공의 신용을 해할 위험성이 있는 정도이면 성립한다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "공공의 신용을 해할 위험성은 사실관계별 평가를 요구한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅲ.3_13",
+          "quote": "변조는 문서에 대한 공공의 신용을 해할 위험성이 있는 정도이면 성립한다.",
+          "section_path": "Ⅲ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.element.purpose-of-use",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec4.purpose_of_use",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "사문서위조·변조죄는 고의 외에 행사할 목적을 요구하는 목적범이다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "행사할 목적의 존재는 개별 사실관계에 대한 평가가 필요하다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅳ_15",
+          "quote": "본죄는 행사할 목적으로 타인의 문서를 위조·변조하는 것이므로 고의 외에 행 사할 목적이 있어야 하는 목적범이다.",
+          "section_path": "Ⅳ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.expected-consent-does-not-negate-intent",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec4_1.expected_consent_does_not_negate_intent",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "명의자의 명시적 승낙이나 동의가 없음을 알면서 명의자가 작성 사실을 알면 승낙할 것이라고 기대하거나 예측한 것만으로 승낙이 추정되지는 않으므로 고의는 인정된다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "명의자의 승낙 부재에 대한 인식과 단순한 승낙 기대·예측을 사실관계에 따라 구별해 평가한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅳ.1_16",
+          "quote": "명의자의 명시적인 승낙이나 동의가 없다는 것을 알고 있으면서도 명의자가 문 서작성 사실을 알았다면 승낙하였을 것이라고 기대하거나 예측한 것만으로는 그 승낙이 추정된다고 단정할 수 없다. 따라서 이 경우에도 고의는 인정된다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.element.intent-awareness-and-realization",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec4_1.intent_awareness_and_realization",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "사문서위조·변조죄의 고의가 성립하려면 타인 명의 문서라는 인식 및 권리·의무 또는 사실증명 문서를 위조 또는 변조한다는 인식과 실현의사가 인정되어야 한다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "고의의 인식 및 실현의사 요건을 별도 평가 입력으로 유지한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅳ.1_16",
+          "quote": "본죄가 성립하려면 타인명의의 문서라는 인식을 하고, 권리·의무 또는 사실증명 에 관한 문서를 위조 또는 변조한다는 인식과 실현의사가 인정되어야 한다.",
+          "section_path": "Ⅳ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.definition.genuine-document-utility-purpose",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec4_2.genuine_document_utility_purpose",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "본래 용법에 따른 진정문서로 사용할 목적이 없더라도 진정문서로서 효용을 갖게 할 목적이 있으면 행사할 목적에는 충분하다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "본래 용법에 따른 사용 목적이 없는 사안에서 진정문서로서의 효용을 갖게 하려는 목적의 인정 여부를 검토한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅳ.2_17",
+          "quote": "본래 의 용법에 따른 진정문서로 사용할 목적이 없더라도 진정문서로서의 효용을 가 지도록 할 목적이 있으면 충분하다.",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.definition.purpose-of-use-broader-than-exercise",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec4_2.purpose_of_use_broader_than_exercise",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "행사할 목적에서의 행사는 위조문서행사죄의 행사와 반드시 같은 의미가 아니므로, 행사라고 할 수 없는 경우에도 행사할 목적이 인정될 수 있다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "구체적 사안에서 행사할 목적을 인정할 수 있는지는 위조문서행사죄의 행사 여부와 구별하여 평가한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅳ.2_17",
+          "quote": "본죄의 행사할 목적에서 ‘행사’는 위조문서행사죄의 ‘행사’와 반드시 같은 의미는 아니므로, 행사라고 할 수 없는 경우에도 행사할 목적이 인정될 수 있다.",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.causal-link.attempt-commencement-incomplete-deception",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec5.attempt_commencement_and_incompletion",
+      "norm_kind": "causal_link",
+      "polarity": "positive",
+      "proposition": "위조·변조 의사를 확정적으로 문서에 표시하면 실행의 착수가 있고, 일반인으로 하여금 진정문서라고 오신할 정도에 이르지 못한 때에는 미수죄가 성립한다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "문서 표시가 확정적인지 및 일반인의 진정문서 오신 가능성에 이르지 못했는지는 사실관계에 대한 평가를 필요로 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅴ_18",
+          "quote": "실행의 착수는 위조·변조 의사를 확정적으로 문서에 표시하는 행위가 있는 때 이고, 일반인으로 하여금 진정문서라고 오신할 정도에 이르지 못한 때에는 미수 죄가 성립한다.",
+          "section_path": "Ⅴ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "statutory_text_in_commentary",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.element.attempt-punishable",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "art231_sec5.attempt_punishable",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "사문서위조·변조죄의 미수범은 처벌된다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "형법 제235조를 인용한 commentary 내 법문 설명에 근거한 미수 처벌 규정이다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅴ_18",
+          "quote": "본죄의 미수범은 처벌한다. (형법 제235조)",
+          "section_path": "Ⅴ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.deceived-nominee-true-content-fraud",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec6.deceived_nominee_true_content_fraud",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "명의인에게 문서 내용을 진실하다고 속여 작성하게 한 뒤 그 문서를 취득한 경우에는 사문서위조·변조죄가 아니라 사기죄를 구성한다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "명의인에게 진실한 내용이라고 속여 작성하게 하고 문서를 취득한 경우에 한정된 사문서위조·변조죄의 배제 설명으로 검토한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅵ_19",
+          "quote": "그 내용을 진실한 것이라고 속여 작성하게 한 다음 그 문서를 취득한 때에는 사기죄를 구성한다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.illiterate-nominee-unknown-content",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec6.illiterate_nominee_unknown_content",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "문맹인 명의인을 이용해 문서를 작성하게 한 경우 명의인이 문서 내용을 모르고 작성하였다면 사문서위조·변조죄가 성립한다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "명의인의 문서 내용 인식 여부는 사실관계에 따라 평가가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅵ_19",
+          "quote": "문맹인 명의인을 이용하여 문서를 작성하게 한 경우 명의인이 문서의 내용을 모르고 문서를 작성한 때에는 본죄가 성립",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.standard.own-document-in-anothers-possession",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art231_sec6.own_document_altered_in_anothers_possession",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "타인의 수중에 있는 자기 명의 문서의 내용을 임의로 변경한 경우에는 문서손괴죄만 성립한다는 것이 통설과 판례이다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "통설과 판례로 보고된 문서손괴죄만 성립한다는 설명은 primary precedent index 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅵ_19",
+          "quote": "타인의 수중에 있는 자기 명의 문서의 내용을 임의로 변경하는 경우 문서손괴죄만 성 립한다는 것이 통설, 판례이다",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art231.exception.seal-forgery-absorbed",
+          "request_id": "art231.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art231_sec6.seal_forgery_absorbed",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "행사할 목적으로 타인의 인장을 위조하고 그 인장으로 타인의 사문서를 위조한 경우 인장위조죄는 사문서위조죄에 흡수되어 별도로 성립하지 않는다.",
+      "request_ids": [
+        "art231.pass1.002"
+      ],
+      "review_notes": "인장위조와 그 인장을 사용한 타인의 사문서위조가 함께 있는 경우에 한정된 흡수 관계로 검토한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제231조_Ⅵ_19",
+          "quote": "행사할 목적으로 타인의 인장을 위조하고 그 위조한 인장을 사용하여 권리·의무 또는 사실증명에 관한 타인의 사문서를 위조한 경우 인장위조죄는 사문서위조죄에 흡수되고 따로 인장위조죄 가 성립하는 것은 아니다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "legal_review_questions": [],
+  "coverage_gaps": [
+    "predicate_ir_missing: art231_sec6.own_document_altered_in_anothers_possession → document_damage",
+    "card_metadata_correction: cc_001",
+    "card_metadata_correction: cc_002"
+  ]
+}

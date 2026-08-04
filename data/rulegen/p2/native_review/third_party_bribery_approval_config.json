@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0", "authority": "delegated_human_legal_review", "unit_id": "third_party_bribery", "approved_on": "2026-08-04",
+  "policy": {"approval": "Delegated normalization on 2026-08-04", "scope": "제130조 제3자뇌물제공", "request": "직무대가와 결부된 부정한 청탁을 독립 요건으로 실행", "attribution": "독립 제3자 귀속은 인정경로, 공무원 직접 귀속과 공동정범 귀속은 bar"},
+  "track_vocabulary": [{"track_id": "base", "label": "제130조 제3자뇌물제공"}],
+  "decision_groups": [
+    {"card_numbers": [1], "decision": "approve", "role": "component", "component_id": "offense_definition", "component_join": "mandatory_all", "track_id": "base", "refers_to_unit": null, "rationale": "공무원의 직무관련 부정청탁과 제3자 공여·요구·약속 기본구조"},
+    {"card_numbers": [3, 4, 5, 6, 8, 9, 11], "decision": "approve", "role": "component", "component_id": "improper_request", "component_join": "alternative_any", "track_id": "base", "refers_to_unit": null, "rationale": "직무집행과 제3자 이익의 대가결부 및 명시·묵시적 부정청탁"},
+    {"card_numbers": [7, 12, 13], "decision": "approve", "role": "bar", "component_id": "improper_request", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": null, "rationale": "대가관계 공통인식 없는 선처기대 또는 사후적 소급평가의 배제"},
+    {"card_numbers": [14, 18, 20, 21, 22, 24, 25, 26, 27, 30, 31, 32, 38], "decision": "approve", "role": "component", "component_id": "independent_third_party_benefit", "component_join": "alternative_any", "track_id": "base", "refers_to_unit": null, "rationale": "자연인·법인·단체 등 독립 제3자에 대한 이익 제공과 직접귀속 부정의 인정경로"},
+    {"card_numbers": [2, 17, 23, 28, 29, 33, 34, 35], "decision": "approve", "role": "bar", "component_id": "independent_third_party_benefit", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": "bribe_receipt", "rationale": "공무원 또는 공동정범에게 경제적·실질적으로 직접 귀속되어 단순수뢰로 이동하는 경계"},
+    {"card_numbers": [15, 16, 19], "decision": "approve", "role": "post_outcome", "component_id": "complicity", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": "complicity", "rationale": "뇌물수수 공동정범의 공모와 귀속효과"},
+    {"card_numbers": [36], "decision": "approve", "role": "post_outcome", "component_id": "office_abuse_concurrence", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": "abuse_of_authority", "rationale": "제3자 계약 강요와 직권남용의 상상적 경합"},
+    {"card_numbers": [37], "decision": "approve", "role": "post_outcome", "component_id": "offense_count", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": null, "rationale": "제3자 상이만으로 범의 단절을 인정하지 않는 죄수효과"},
+    {"card_numbers": [10], "decision": "context_only", "role": "context_only", "rationale": "공소사실 특정 정도에 관한 절차법 문맥"}
+  ], "placement_defaults": [], "proposition_rewrites": {}
+}

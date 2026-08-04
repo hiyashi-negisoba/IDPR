@@ -1,0 +1,967 @@
+{
+  "version": "1.0.0",
+  "authority": "human_legal_review",
+  "unit_id": "intentional_bodily_injury",
+  "approved_on": "2026-08-03",
+  "approval_basis": [
+    "docs/review/p2/intentional_bodily_injury_proposal_01.md",
+    "docs/review/p2/intentional_bodily_injury_proposal_02.md",
+    "docs/review/p2/intentional_bodily_injury_proposal_03.md",
+    "docs/review/p2/intentional_bodily_injury_proposal_04.md"
+  ],
+  "policy": {
+    "duplicate_cards": "같은 법리 카드는 삭제하지 않고 동일 component_id의 복수 provenance로 유지한다",
+    "unresolved_reference": "선언된 unit이 존재하지 않으면 추측하지 않고 predicate_ir_missing으로 보고한다",
+    "inherited_decision": "결정 C로 확정된 선택은 재질문하지 않고 role·join·track만 이 원장에서 정한다",
+    "join_normalisation": "같은 요건을 다른 각도에서 진술한 카드가 한 component에 모이면 alternative_any로 통일한다. 결합 요건이 아니라 인정 경로이기 때문이다"
+  },
+  "track_vocabulary": [
+    {
+      "track_id": "base",
+      "label": "제257조 제1항 상해 기본 구성요건"
+    },
+    {
+      "track_id": "attempt",
+      "label": "제257조 제3항·제258조의2 제3항 미수"
+    },
+    {
+      "track_id": "ancestral",
+      "label": "제257조 제2항 존속상해 가중",
+      "inherits_from": "base"
+    },
+    {
+      "track_id": "special",
+      "label": "제258조의2 특수상해 가중",
+      "inherits_from": "base"
+    },
+    {
+      "track_id": "aggravated_result",
+      "label": "제259조 상해치사",
+      "inherits_from": "base"
+    },
+    {
+      "track_id": "concurrent_offenders",
+      "label": "제263조 동시범 특례. 공유 module 이관 대상",
+      "shared_module_candidate": true
+    }
+  ],
+  "cards": [
+    {
+      "card_id": "art257.cosmetic_pubic_hair_change_case_negative",
+      "decision": "rewrite",
+      "role": "bar",
+      "component_id": "injury_concept",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "proposition_rewrite": "음모의 모근 부분을 남기고 모간 부분만 일부 잘라내어 음모의 전체적인 외관에 변형만 생긴 경우에는 상해가 인정되지 않는다.",
+      "rationale": "메타 래퍼를 제거한다. 외관 변형만으로는 상해가 아니라는 #14와 같은 규칙의 사례 provenance"
+    },
+    {
+      "card_id": "art257.diagnosis_evidentiary_value",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "상해진단서의 증명력은 증거법 영역이며 구성요건 요소가 아니다"
+    },
+    {
+      "card_id": "art257.drug_induced_unconsciousness",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "rationale": "약물 투약으로 건강상태의 불량한 변경과 생활기능의 장애가 생긴 인정 경로"
+    },
+    {
+      "card_id": "art257.external_injury_not_required",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "rationale": "외관상 상처가 없어도 기능장해가 있으면 상해가 인정되는 경로"
+    },
+    {
+      "card_id": "art257.hair_nails_cutting_not_injury",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "injury_concept",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "두발·손톱 등의 절단은 상해가 아니라는 차단규칙"
+    },
+    {
+      "card_id": "art257.hickey_case_negative",
+      "decision": "rewrite",
+      "role": "bar",
+      "component_id": "injury_concept",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "proposition_rewrite": "강간 도중 피해자의 어깨를 입으로 빨아 동전 크기 정도의 반상출혈이 생겼으나 피해자에게 통증이나 자각증상이 없었던 경우에는 상해가 인정되지 않는다.",
+      "rationale": "메타 래퍼를 제거한다. 통증·자각증상이 없는 경미한 흔적의 상해 부정"
+    },
+    {
+      "card_id": "art257.injury_beyond_ordinary_minor_wound",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "rationale": "일상적·합의에 의한 성교에서 통상 생길 수 있는 정도를 넘는 상처라는 인정 경로"
+    },
+    {
+      "card_id": "art257.intangible_methods",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury_conduct",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "rationale": "상해의 수단에 제한이 없으므로 무형적 방법도 실행행위가 된다"
+    },
+    {
+      "card_id": "art257.minor_abrasion_case_negative",
+      "decision": "rewrite",
+      "role": "bar",
+      "component_id": "injury_concept",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "proposition_rewrite": "넘어지면서 팔꿈치 피부가 직경 2cm 정도 벗겨졌으나 병원 치료나 진단서 없이 연고를 바른 후 생활에 지장 없이 2~3일 만에 나은 경우에는 상해가 인정되지 않는다.",
+      "rationale": "메타 래퍼를 제거한다. 치료 없이 단기간 자연치유된 찰과상의 상해 부정"
+    },
+    {
+      "card_id": "art257.minor_injury_exclusion",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "injury_concept",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "극히 경미하여 자연치유되고 일상생활에 지장이 없으면 상해가 아니라는 이 군의 핵심 규칙"
+    },
+    {
+      "card_id": "art257.minor_palm_scratch_case_negative",
+      "decision": "rewrite",
+      "role": "bar",
+      "component_id": "injury_concept",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "proposition_rewrite": "강간이 미수에 그친 과정에서 피해자의 손바닥에 약 2cm의 가벼운 긁힌 상처가 생겼으나 당일 이미 출혈도 통증도 없어진 경우에는 상해가 인정되지 않는다.",
+      "rationale": "메타 래퍼를 제거한다. 당일 통증이 소멸한 경미한 긁힌 상처의 상해 부정"
+    },
+    {
+      "card_id": "art257.omission_injury",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury_conduct",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "rationale": "부작위에 의한 상해 실행행위 경로"
+    },
+    {
+      "card_id": "art257.precedent_health_life_function",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury_concept",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "rationale": "생리적 기능 훼손설. 건강상태의 불량한 변경과 생활기능의 장애라는 상해 개념 정의"
+    },
+    {
+      "card_id": "art257.pubic_hair_appearance_only",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "injury_concept",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "외관 변형만으로는 병리적 악화나 기능장애가 없어 상해가 아니라는 차단규칙"
+    },
+    {
+      "card_id": "art257.rape_functional_impairment_case",
+      "decision": "rewrite",
+      "role": "component",
+      "component_id": "injury_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "proposition_rewrite": "강간으로 인하여 외관상의 상처는 없더라도 보행불능, 수면장해, 식욕감퇴 등의 장해가 야기된 경우에는 상해가 인정된다.",
+      "rationale": "메타 래퍼를 제거한다. 외관 상처 없는 기능장해의 인정 경로"
+    },
+    {
+      "card_id": "art257.sexual_offense_psychiatric_injury_case",
+      "decision": "rewrite",
+      "role": "component",
+      "component_id": "injury_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "proposition_rewrite": "강제추행의 피해자가 그 충격으로 급성 스트레스 반응과 우울장애 증세를 보여 1개월 이상의 정신과적 치료를 요한다는 진단을 받고 실제로 정신과적 치료를 받은 경우에는 상해가 인정된다.",
+      "rationale": "메타 래퍼를 제거한다. 정신적 기능장해의 인정 경로"
+    },
+    {
+      "card_id": "art257.std_infection_case",
+      "decision": "rewrite",
+      "role": "component",
+      "component_id": "injury_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "proposition_rewrite": "피해자가 성병에 감염된 경우에는 상해가 인정된다.",
+      "rationale": "메타 래퍼를 제거한다. 감염에 의한 건강상태 악화의 인정 경로"
+    },
+    {
+      "card_id": "art257.subjective_pain_diagnosis_assessment",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "상해진단서의 증명력 판단 기준이며 증거법 영역이다"
+    },
+    {
+      "card_id": "art257.zolpidem_unconsciousness_case",
+      "decision": "rewrite",
+      "role": "component",
+      "component_id": "injury_indicia",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "proposition_rewrite": "졸피뎀 성분의 수면제가 섞인 커피를 마신 피해자가 곧바로 정신을 잃고 약 4시간 뒤에 깨어난 경우에는 상해가 인정된다.",
+      "rationale": "메타 래퍼를 제거한다. 약물 투여에 의한 의식상실의 인정 경로"
+    },
+    {
+      "card_id": "art257_sec1_1.offense_elements",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "offense_definition",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "rationale": "고의로 사람의 신체를 상해한다는 기본 구성요건"
+    },
+    {
+      "card_id": "art257_sec1_2.animal_not_object",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "object_scope",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "동물은 상해죄의 객체가 아니라는 차단규칙"
+    },
+    {
+      "card_id": "art257_sec1_2.coerced_self_injury_holding",
+      "decision": "rewrite",
+      "role": "component",
+      "component_id": "injury_conduct",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "proposition_rewrite": "피해자를 협박하여 스스로 상처를 입게 한 경우, 행위자에게 상해 결과에 대한 인식이 있고 그 협박의 정도가 피해자의 의사결정의 자유를 상실하게 할 정도이면 상해죄가 성립한다.",
+      "rationale": "메타 래퍼를 제거한다. 협박을 이용해 자상하게 한 실행행위 경로"
+    },
+    {
+      "card_id": "art257_sec1_2.corporation_not_object",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "object_scope",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "법인은 상해죄의 객체가 아니라는 차단규칙"
+    },
+    {
+      "card_id": "art257_sec1_2.corpse_not_object",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "object_scope",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "사체는 상해죄의 객체가 아니라는 차단규칙"
+    },
+    {
+      "card_id": "art257_sec1_2.fetus_not_object",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "object_scope",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "태아는 상해죄의 객체가 아니라는 차단규칙"
+    },
+    {
+      "card_id": "art257_sec1_2.indirect_perpetration_self_injury",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury_conduct",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "rationale": "강요·기망을 이용해 피해자를 도구로 삼는 간접정범 경로"
+    },
+    {
+      "card_id": "art257_sec1_2.object_natural_person_other",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "object_scope",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "rationale": "객체는 자연인인 타인의 신체라는 요건"
+    },
+    {
+      "card_id": "art257_sec1_2.self_injury_not_punishable_principle",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "object_scope",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "자상은 원칙적으로 죄가 되지 않는다는 차단규칙"
+    },
+    {
+      "card_id": "art257_sec1_4.dolus_eventualis_acceptance",
+      "decision": "rewrite",
+      "role": "component",
+      "component_id": "intent",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "proposition_rewrite": "상해의 고의는 미필적 고의로도 충분하므로, 상해의 결과를 의욕하지 않았더라도 그 결과의 발생을 감수·용인하고 폭행에 나아갔다면 상해죄가 성립한다.",
+      "rationale": "추측 어미를 제거한다. 미필적 고의에 의한 고의 인정 경로"
+    },
+    {
+      "card_id": "art257_sec1_4.injury_attempt",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "attempt_result",
+      "component_join": "mandatory_all",
+      "track_id": "attempt",
+      "rationale": "상해 고의로 실행에 착수하였으나 폭행 결과에 그친 경우가 상해미수라는 요건"
+    },
+    {
+      "card_id": "art257_sec1_4.intent_definition",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "intent",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "rationale": "생리적 기능을 해한다는 인식·인용이라는 고의 인정 경로"
+    },
+    {
+      "card_id": "art257_sec1_4.intent_element",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "intent",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "rationale": "주관적 구성요건으로서의 상해 고의. #31과 같은 요건의 provenance"
+    },
+    {
+      "card_id": "art257_sec1_4.intent_only_violence_result",
+      "decision": "approve",
+      "role": "boundary",
+      "component_id": "intent",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "assault_resulting_injury",
+      "rationale": "상해 고의 없이 폭행 고의만 있으면 폭행치상으로 경계가 이동한다"
+    },
+    {
+      "card_id": "art257_sec1_4.object_method_mistake",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "intent",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "객체·방법의 착오는 고의를 조각하지 않는다는 차단규칙"
+    },
+    {
+      "card_id": "art257_sec1_4.unintended_victim",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "intent",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "목적한 사람이 아니어도 고의가 인정된다는 차단규칙. #34와 같은 규칙"
+    },
+    {
+      "card_id": "art257_sec1_5.causation.objective_attribution",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "causation",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "rationale": "합법칙적 조건관계와 객관적 귀속이라는 인과관계 요건"
+    },
+    {
+      "card_id": "art257_sec1_5.causation.result_and_causation",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "causation",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "rationale": "고의행위로 인한 인과관계 있는 상해 결과의 발생"
+    },
+    {
+      "card_id": "art257_sec1_5.causation.tooth_injury_disparity",
+      "decision": "rewrite",
+      "role": "bar",
+      "component_id": "causation",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "proposition_rewrite": "왜소한 중년 부인이 건강한 거구의 남성의 뺨을 두 차례 때린 경우, 원래 병약한 상태의 치아였다는 등의 특별한 사정이 없는 한 구타와 치아 탈구 사이의 인과관계는 인정되지 않는다.",
+      "rationale": "메타 래퍼를 제거한다. 힘의 차이에 비추어 인과관계를 부정하는 차단규칙"
+    },
+    {
+      "card_id": "art257_sec1_6.defensive_force_not_new_attack",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "새로운 적극적 공격이 아닌 방어적 유형력은 위법성이 조각된다"
+    },
+    {
+      "card_id": "art257_sec1_6.disciplinary_injury",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "징계가 상해에 이르면 조각되지 않는다는 조각의 한계이며, 현재 역할 어휘에 자리가 없다"
+    },
+    {
+      "card_id": "art257_sec1_6.insufficient_medical_explanation",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "부정확·불충분한 설명에 기한 승낙은 무효라는 조각의 한계"
+    },
+    {
+      "card_id": "art257_sec1_6.military_detention_beating",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "훈육권·징계권의 범위를 넘은 감금·구타는 위법하다는 조각의 한계"
+    },
+    {
+      "card_id": "art257_sec1_6.military_minor_restraint",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "군 질서 유지 목적의 경미한 유형력은 사회상규에 위배되지 않는다"
+    },
+    {
+      "card_id": "art257_sec1_6.military_unauthorized_punishment_order",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "권한 없는 얼차려 지시는 정당행위가 아니라는 조각의 한계"
+    },
+    {
+      "card_id": "art257_sec1_6.mutual_fight_no_self_defense",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "싸움에 의한 상호 상해는 정당방위로 조각되지 않는다는 조각의 한계"
+    },
+    {
+      "card_id": "art257_sec1_6.old_education_law_corporal_punishment",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "방법·정도가 사회상규에 벗어나지 않는 체벌은 정당행위로 조각된다"
+    },
+    {
+      "card_id": "art257_sec1_6.old_education_law_injurious_corporal_punishment",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "체벌이 상해에 이르면 위법하다는 조각의 한계"
+    },
+    {
+      "card_id": "art257_sec1_6.parental_corporal_punishment",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "친권자의 체벌이 불가피하고 극히 제한된 범위인 경우의 조각 사유"
+    },
+    {
+      "card_id": "art257_sec1_6.passenger_risk_consent",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "운전의 위험을 감수한 동승은 과실상해에 대한 승낙으로 조각된다"
+    },
+    {
+      "card_id": "art257_sec1_6.pre_amendment_teacher_guidance",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "교육상 불가피성과 객관적 타당성을 모두 갖춘 경우에만 허용된다는 조각의 한계"
+    },
+    {
+      "card_id": "art257_sec1_6.self_injury_not_constitutive",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "object_scope",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "자상은 구성요건에 해당하지 않으므로 그에 대한 방조·교사도 벌하지 않는다"
+    },
+    {
+      "card_id": "art257_sec1_6.sport_rules_consent",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "규칙을 지킨 운동경기에 수반된 상해는 승낙에 의해 조각된다"
+    },
+    {
+      "card_id": "art257_sec1_7.assault_absorbed_by_injury",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "상해 고의로 선행한 폭행은 상해죄에 흡수된다"
+    },
+    {
+      "card_id": "art257_sec1_7.different_victims_separate_offenses",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "피해자가 다르면 피해자별로 별개의 상해죄가 성립한다"
+    },
+    {
+      "card_id": "art257_sec1_7.injury_absorbed_by_murder",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "homicide",
+      "rationale": "상해 후 살인에 이른 경우 상해는 살인의 수반행위로 법조경합이 된다"
+    },
+    {
+      "card_id": "art257_sec1_7.personal_legal_interest_count",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "offense_count_standard",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "일신전속적 법익이므로 침해된 법익의 수에 따라 죄가 성립한다는 죄수 기준"
+    },
+    {
+      "card_id": "art257_sec1_7.single_act_multiple_injuries",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "1개의 행위로 수인을 상해한 경우는 상상적 경합이다"
+    },
+    {
+      "card_id": "art257_sec1_7.threat_absorbed_by_injury",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "rationale": "동일 시간·장소에서 같은 피해자에 대한 협박은 상해죄에 흡수된다"
+    },
+    {
+      "card_id": "art257_sec2.ancestral_injury_elements",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "ancestral_relation",
+      "component_join": "mandatory_all",
+      "track_id": "ancestral",
+      "rationale": "자기 또는 배우자의 직계존속이라는 존속상해 가중 요건"
+    },
+    {
+      "card_id": "art257_sec2.legal_ascendant_scope",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "ancestral_relation",
+      "component_join": "mandatory_all",
+      "track_id": "ancestral",
+      "rationale": "배우자·직계존속은 법률상 개념이며 사실상 관계는 포함되지 않는다"
+    },
+    {
+      "card_id": "art257_sec2.registry_entry_without_parentage",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "ancestral_relation",
+      "component_join": "not_applicable",
+      "track_id": "ancestral",
+      "rationale": "가족관계등록부 기재만으로는 법률상 친자관계가 생기지 않는다는 차단규칙"
+    },
+    {
+      "card_id": "art257_sec3.attempted_injury_or_ancestral_injury",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "attempt_punishability",
+      "component_join": "mandatory_all",
+      "track_id": "attempt",
+      "rationale": "상해·존속상해는 수단을 불문하고 미수를 처벌한다"
+    },
+    {
+      "card_id": "art2582_2_sec1.dangerous_object_carriage",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "special_means",
+      "component_join": "alternative_any",
+      "track_id": "special",
+      "rationale": "위험한 물건의 휴대라는 특수상해 수단"
+    },
+    {
+      "card_id": "art2582_2_sec1.group_or_multiple_force",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "special_means",
+      "component_join": "alternative_any",
+      "track_id": "special",
+      "rationale": "단체 또는 다중의 위력이라는 특수상해 수단"
+    },
+    {
+      "card_id": "art2582_2_sec2.favorable_law_change",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "형법 제1조 제2항 경과규정의 적용 문제이며 총칙 영역이다"
+    },
+    {
+      "card_id": "art2582_2_sec2.no_abolition_dangerous_object_injury",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "같은 경과규정의 적용 결과이며 총칙 영역이다"
+    },
+    {
+      "card_id": "art2582_2_sec3.attempt_punishable",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "attempt_punishability",
+      "component_join": "mandatory_all",
+      "track_id": "attempt",
+      "rationale": "특수상해·특수존속상해의 미수를 처벌한다"
+    },
+    {
+      "card_id": "art2582_2_sec3.habitual_offender_aggravation",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "상습범 가중은 제264조이며 현재 51조문 범위 밖이다"
+    },
+    {
+      "card_id": "art2582_2_sec3.qualification_suspension",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "자격정지 병과는 양형 사항이며 성립 결론을 바꾸지 않는다"
+    },
+    {
+      "card_id": "art2582_2_sec3.recidivist_aggravation",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "폭력행위 등 처벌에 관한 법률의 누범 가중이며 특별법 영역이다"
+    },
+    {
+      "card_id": "art259_sec1.basic_offense_and_death",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "death_result",
+      "component_join": "mandatory_all",
+      "track_id": "aggravated_result",
+      "rationale": "사람을 상해하여 사망에 이르게 한다는 상해치사 기본 구성요건"
+    },
+    {
+      "card_id": "art259_sec1.causation_and_foreseeability",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "result_foreseeability",
+      "component_join": "alternative_any",
+      "track_id": "aggravated_result",
+      "rationale": "상해와 사망 사이의 인과관계 및 사망 결과에 대한 예견가능성"
+    },
+    {
+      "card_id": "art259_sec1.intentional_death_murder_exception",
+      "decision": "approve",
+      "role": "boundary",
+      "component_id": "death_intent",
+      "component_join": "not_applicable",
+      "track_id": "aggravated_result",
+      "refers_to_unit": "homicide",
+      "rationale": "사망에 고의가 있으면 상해치사가 아니라 살인죄로 경계가 이동한다"
+    },
+    {
+      "card_id": "art259_sec1.no_injury_intent_classification",
+      "decision": "approve",
+      "role": "boundary",
+      "component_id": "injury_intent",
+      "component_join": "not_applicable",
+      "track_id": "aggravated_result",
+      "refers_to_unit": "assault_resulting_death",
+      "rationale": "폭행 고의뿐이면 폭행치사, 고의가 없으면 과실치사로 경계가 이동한다"
+    },
+    {
+      "card_id": "art259_sec1.result_aggravated_offense",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "death_result",
+      "component_join": "mandatory_all",
+      "track_id": "aggravated_result",
+      "rationale": "상해에 고의가 있고 사망에는 고의가 없는 결과적 가중범 구조"
+    },
+    {
+      "card_id": "art259_sec1_1.causation.evasion_or_surgical_delay_holding",
+      "decision": "rewrite",
+      "role": "component",
+      "component_id": "result_causation",
+      "component_join": "alternative_any",
+      "track_id": "aggravated_result",
+      "proposition_rewrite": "거듭되는 상해행위를 피하려고 도로를 건너 도망가다가 차량에 치여 사망한 경우, 그리고 폭행으로 장파열에 의한 복막염의 상해를 입은 피해자에 대한 의사의 수술 지연이 사망의 공동원인이 된 경우에는 상해와 사망 사이의 인과관계가 인정된다.",
+      "rationale": "메타 래퍼를 제거한다. 개입 사정이 있는 경우의 인과관계 인정 경로"
+    },
+    {
+      "card_id": "art259_sec1_1.causation.indirect_causes",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "result_causation",
+      "component_join": "alternative_any",
+      "track_id": "aggravated_result",
+      "rationale": "간접적 원인이 결합한 경우의 인과관계 인정 경로"
+    },
+    {
+      "card_id": "art259_sec1_1.causation.intervening_act",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "result_causation",
+      "component_join": "alternative_any",
+      "track_id": "aggravated_result",
+      "rationale": "통상 예견할 수 있는 개입행위 또는 직접적·유력한 원인인 경우의 인정 경로"
+    },
+    {
+      "card_id": "art259_sec1_1.causation.medical_condition_treatment",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "result_causation",
+      "component_join": "alternative_any",
+      "track_id": "aggravated_result",
+      "rationale": "지병·합병증·불충분한 치료가 개입한 경우의 인정 경로"
+    },
+    {
+      "card_id": "art259_sec1_1.causation.victim_negligence_no_proximate_cause",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "result_causation",
+      "component_join": "not_applicable",
+      "track_id": "aggravated_result",
+      "rationale": "상해 종료 후 피해자의 부주의가 원인이면 상당인과관계가 부정된다"
+    },
+    {
+      "card_id": "art259_sec1_2.foreseeability_forceful_blow",
+      "decision": "rewrite",
+      "role": "component",
+      "component_id": "result_foreseeability",
+      "component_join": "alternative_any",
+      "track_id": "aggravated_result",
+      "proposition_rewrite": "주먹으로 안면이나 흉부와 같은 인체의 중요한 부위를 두개골 결손 등을 가져올 정도로 강하게 타격하면 정신의 흥분과 혈압의 항진을 초래하여 사망에 이를 수 있다는 것은 누구나 예견할 수 있다.",
+      "rationale": "메타 래퍼를 제거한다. 중요 부위 강타에 의한 예견가능성 인정 경로"
+    },
+    {
+      "card_id": "art259_sec2_1.murder_intent_exception",
+      "decision": "approve",
+      "role": "boundary",
+      "component_id": "death_intent",
+      "component_join": "not_applicable",
+      "track_id": "aggravated_result",
+      "refers_to_unit": "homicide",
+      "rationale": "공동정범 중 1인의 살인 고의는 나머지에게 귀속되지 않는다"
+    },
+    {
+      "card_id": "art259_sec2_3.multiple_victims_concurrence",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "aggravated_result",
+      "rationale": "상해치사죄와 상해죄의 경합범 관계"
+    },
+    {
+      "card_id": "art259_sec2_3.robbery_resulting_death_exclusion",
+      "decision": "approve",
+      "role": "boundary",
+      "component_id": "death_result",
+      "component_join": "not_applicable",
+      "track_id": "aggravated_result",
+      "refers_to_unit": "robbery",
+      "rationale": "강도 중의 상해로 사망한 경우에는 강도치사죄만 성립한다"
+    },
+    {
+      "card_id": "art263.exception.other_result_crimes",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "special_provision_scope",
+      "component_join": "not_applicable",
+      "track_id": "concurrent_offenders",
+      "rationale": "강간치상·강도치상·체포감금치상·방화치상·낙태치상에는 특례를 적용하지 않는다"
+    },
+    {
+      "card_id": "art263.identified_cause_exclusion",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "unidentified_cause",
+      "component_join": "not_applicable",
+      "track_id": "concurrent_offenders",
+      "rationale": "원인행위가 판명되거나 특정인의 폭행이 아님이 증명되면 특례가 적용되지 않는다"
+    },
+    {
+      "card_id": "art263.individual_causation_rebuttal",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "unidentified_cause",
+      "component_join": "not_applicable",
+      "track_id": "concurrent_offenders",
+      "rationale": "개별 인과관계의 부존재를 입증하면 책임에서 벗어난다"
+    },
+    {
+      "card_id": "art263.individual_liability_principle",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "특례가 수정하는 개인책임 원칙의 배경 서술이다"
+    },
+    {
+      "card_id": "art263.simultaneous_offenders_definition",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "simultaneous_offenders",
+      "component_join": "mandatory_all",
+      "track_id": "concurrent_offenders",
+      "rationale": "의사연락 없이 동일 객체에 대하여 개별적으로 범한 동시범의 정의"
+    },
+    {
+      "card_id": "art263.unidentified_causal_act",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "unidentified_cause",
+      "component_join": "mandatory_all",
+      "track_id": "concurrent_offenders",
+      "rationale": "상해의 원인행위가 판명되지 않아야 한다는 요건"
+    },
+    {
+      "card_id": "art263.unidentified_injury_cause_exception",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "special_effect",
+      "component_join": "mandatory_all",
+      "track_id": "concurrent_offenders",
+      "rationale": "미수범이 아니라 공동정범의 예로 처벌한다는 특례의 효과"
+    },
+    {
+      "card_id": "art263_sec3_1.co_perpetration_contact",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "simultaneous_offenders",
+      "component_join": "not_applicable",
+      "track_id": "concurrent_offenders",
+      "rationale": "의사연락이 있어 공동정범이 되면 특례 적용 문제 자체가 생기지 않는다"
+    },
+    {
+      "card_id": "art263_sec3_1.independent_acts",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "simultaneous_offenders",
+      "component_join": "mandatory_all",
+      "track_id": "concurrent_offenders",
+      "rationale": "독립행위가 경합하였을 것이라는 요건"
+    },
+    {
+      "card_id": "art263_sec3_1.no_clear_assault_act",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "simultaneous_offenders",
+      "component_join": "not_applicable",
+      "track_id": "concurrent_offenders",
+      "rationale": "가해행위의 사실 자체가 분명하지 않으면 특례가 적용되지 않는다"
+    },
+    {
+      "card_id": "art263_sec3_1.reported_case_temporal_separation",
+      "decision": "rewrite",
+      "role": "component",
+      "component_id": "simultaneous_offenders",
+      "component_join": "mandatory_all",
+      "proposition_rewrite": "시간적 차이가 있는 독립된 상해행위나 폭행행위가 경합하여 사망의 결과가 일어나고 그 사망의 원인된 행위가 판명되지 않은 경우에도 제263조를 적용하여 공동정범의 예에 의하여 처벌한다.",
+      "track_id": "concurrent_offenders",
+      "rationale": "메타 래퍼를 제거한다. 독립행위 경합 요건이 이시의 경합에도 미친다는 범위 확인"
+    },
+    {
+      "card_id": "art263_sec3_1.reported_case_temporally_separated_death",
+      "decision": "rewrite",
+      "role": "component",
+      "component_id": "simultaneous_offenders",
+      "component_join": "mandatory_all",
+      "proposition_rewrite": "시간적 차이가 있는 독립된 상해행위나 폭행행위가 경합하여 사망의 결과가 일어나고 그 사망의 원인된 행위가 판명되지 않은 경우, 가해행위의 사실이 분명한 자는 동시범 규정에 따라 공동정범의 예에 의하여 처벌한다.",
+      "track_id": "concurrent_offenders",
+      "rationale": "메타 래퍼를 제거한다. #95와 같은 규칙의 판결 provenance"
+    },
+    {
+      "card_id": "art263_sec3_2.injury_result",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury_result_required",
+      "component_join": "mandatory_all",
+      "track_id": "concurrent_offenders",
+      "rationale": "상해의 결과가 발생하여야 하며 폭행에 그치면 적용되지 않는다"
+    },
+    {
+      "card_id": "art263_sec3_2.mixed_intent_injury",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "resulting_offense",
+      "component_join": "not_applicable",
+      "track_id": "concurrent_offenders",
+      "rationale": "폭행 고의와 상해 고의가 섞인 경우 각각 폭행치상과 상해기수가 된다"
+    },
+    {
+      "card_id": "art263_sec4_2.negligent_death_reported_precedent",
+      "decision": "rewrite",
+      "role": "bar",
+      "component_id": "special_provision_scope",
+      "component_join": "not_applicable",
+      "track_id": "concurrent_offenders",
+      "proposition_rewrite": "과실치사가 문제된 사안에는 제263조의 특례를 적용하지 않는다.",
+      "rationale": "메타 래퍼를 제거한다. 과실범에 대한 특례 적용을 차단한다"
+    },
+    {
+      "card_id": "art263_sec5.resulting_offense",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "resulting_offense",
+      "component_join": "not_applicable",
+      "track_id": "concurrent_offenders",
+      "rationale": "경합한 행위가 상해면 상해기수, 폭행이면 폭행치상이 된다"
+    },
+    {
+      "card_id": "art257_sec1_2.prenatal_injury_postnatal_result_negative",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "object_scope",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "inherited_decision_group": "art257_sec1_2.prenatal_injury_postnatal_result",
+      "rationale": "결정 C의 선택에 따라, 침해 당시 객체가 사람이 아닌 태아 상태의 침해는 상해죄를 구성하지 않는다"
+    },
+    {
+      "card_id": "art257.pregnancy_not_injury",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "injury_concept",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "inherited_decision_group": "art257.pregnancy_injury",
+      "rationale": "결정 C의 선택에 따라, 임신은 생리적 기능의 장애가 아니므로 상해가 아니다"
+    },
+    {
+      "card_id": "art257.drug_intangible_method",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury_conduct",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "inherited_decision_group": "art257.drug_method",
+      "rationale": "결정 C의 선택에 따라, 약물 투여는 무형적 방법에 의한 상해 실행행위다"
+    },
+    {
+      "card_id": "art259_sec1_1.second_act.single_offense_holding",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "aggravated_result",
+      "inherited_decision_group": "art259_sec1_1.second_act_liability",
+      "rationale": "결정 C의 선택에 따라, 사망으로 오인한 뒤의 위장 추락까지 포괄하여 하나의 상해치사죄가 성립한다"
+    }
+  ]
+}

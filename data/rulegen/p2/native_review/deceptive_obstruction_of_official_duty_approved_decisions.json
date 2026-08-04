@@ -1,0 +1,519 @@
+{
+  "version": "1.0.0",
+  "authority": "delegated_human_legal_review",
+  "unit_id": "deceptive_obstruction_of_official_duty",
+  "approved_on": "2026-08-04",
+  "approval_basis": [
+    "data/rulegen/p2/native_review/deceptive_obstruction_of_official_duty_approval_config.json"
+  ],
+  "policy": {
+    "approval": "Delegated normalization on 2026-08-04",
+    "scope": "제137조 위계공무집행방해",
+    "causal_chain": "위계·오인·그릇된 행위처분·구체적 현실적 방해를 요구",
+    "falsehood_boundary": "단순 허위진술·신고·금지행위 회피와 불충분한 심사에 기인한 결과는 bar"
+  },
+  "track_vocabulary": [
+    {
+      "track_id": "base",
+      "label": "제137조 위계공무집행방해"
+    }
+  ],
+  "cards": [
+    {
+      "card_id": "art137.blood_evidence_substitution",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "deception",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "오인·착각·부지를 일으키고 이용하는 적극적 위계와 승인 사례"
+    },
+    {
+      "card_id": "art137.fabricated_evidence_undetectable",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "actual_obstruction",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "그릇된 행위·처분과 구체적·현실적인 직무 저지·곤란"
+    },
+    {
+      "card_id": "art137.fabricated_gift_ledger_bribery_investigation",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "deception",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "오인·착각·부지를 일으키고 이용하는 적극적 위계와 승인 사례"
+    },
+    {
+      "card_id": "art137.false_industrial_service_dispatch_approval",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "deception",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "오인·착각·부지를 일으키고 이용하는 적극적 위계와 승인 사례"
+    },
+    {
+      "card_id": "art137.false_medical_certificate_taxi_transfer",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "deception",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "오인·착각·부지를 일으키고 이용하는 적극적 위계와 승인 사례"
+    },
+    {
+      "card_id": "art137.false_notification_lax_review",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "deception",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "단순 허위진술 또는 충분한 심사로 발견 가능한 자료와 정당권능 행사"
+    },
+    {
+      "card_id": "art137.false_report_no_concrete_obstruction_exception",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "actual_obstruction",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "구체적 현실적 방해 또는 위계 인과관계가 없는 사안"
+    },
+    {
+      "card_id": "art137.false_special_naturalization_materials",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "deception",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "오인·착각·부지를 일으키고 이용하는 적극적 위계와 승인 사례"
+    },
+    {
+      "card_id": "art137.false_statement_in_judicial_investigative_proceedings",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "deception",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "단순 허위진술 또는 충분한 심사로 발견 가능한 자료와 정당권능 행사"
+    },
+    {
+      "card_id": "art137.insider_official_deception_approval",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "deception",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "오인·착각·부지를 일으키고 이용하는 적극적 위계와 승인 사례"
+    },
+    {
+      "card_id": "art137.insufficient_investigation_false_statement",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "deception",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "단순 허위진술 또는 충분한 심사로 발견 가능한 자료와 정당권능 행사"
+    },
+    {
+      "card_id": "art137.notification_general_rule",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "official_duty",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "처분 없는 자기완결 신고 또는 무효 규정에 따른 직무"
+    },
+    {
+      "card_id": "art137.notification_substantively_permit_application_exception",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "deception",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "오인·착각·부지를 일으키고 이용하는 적극적 위계와 승인 사례"
+    },
+    {
+      "card_id": "art137.permit_false_application_insufficient_review",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "deception",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "단순 허위진술 또는 충분한 심사로 발견 가능한 자료와 정당권능 행사"
+    },
+    {
+      "card_id": "art137.permit_false_materials_undetectable",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "deception",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "오인·착각·부지를 일으키고 이용하는 적극적 위계와 승인 사례"
+    },
+    {
+      "card_id": "art137.provisional_order_no_concrete_obstruction_exception",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "actual_obstruction",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "구체적 현실적 방해 또는 위계 인과관계가 없는 사안"
+    },
+    {
+      "card_id": "art137.sec5.da.false_taxi_report_intent",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "intent",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "직무집행 방해 고의를 단정하기 어려운 허위신고"
+    },
+    {
+      "card_id": "art137.urine_evidence_substitution",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "deception",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "오인·착각·부지를 일으키고 이용하는 적극적 위계와 승인 사례"
+    },
+    {
+      "card_id": "art137_sec2.unrestricted_subject",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "주체 무제한 일반설명"
+    },
+    {
+      "card_id": "art137_sec3.deception_causing_mistaken_official_act",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "official_duty",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "현재·장래의 권력적·비권력적 적법한 공무집행"
+    },
+    {
+      "card_id": "art137_sec3.duty_includes_future_execution",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "official_duty",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "현재·장래의 권력적·비권력적 적법한 공무집행"
+    },
+    {
+      "card_id": "art137_sec3.non_authoritative_official_activity",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "official_duty",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "현재·장래의 권력적·비권력적 적법한 공무집행"
+    },
+    {
+      "card_id": "art137_sec4_1.definition.deception_causing_mistake",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "deception",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "오인·착각·부지를 일으키고 이용하는 적극적 위계와 승인 사례"
+    },
+    {
+      "card_id": "art137_sec4_1.element.third_party_deception",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "deception",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "오인·착각·부지를 일으키고 이용하는 적극적 위계와 승인 사례"
+    },
+    {
+      "card_id": "art137_sec4_1.exception.false_literacy_guaranty",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "deception",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "단순 허위진술 또는 충분한 심사로 발견 가능한 자료와 정당권능 행사"
+    },
+    {
+      "card_id": "art137_sec4_1.exception.rightful_possession_enforcement_resistance",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "deception",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "단순 허위진술 또는 충분한 심사로 발견 가능한 자료와 정당권능 행사"
+    },
+    {
+      "card_id": "art137_sec4_1.precedent.anonymous_ballot_marking",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "deception",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "오인·착각·부지를 일으키고 이용하는 적극적 위계와 승인 사례"
+    },
+    {
+      "card_id": "art137_sec4_1.precedent.exam_answer_note_delivery",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "deception",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "오인·착각·부지를 일으키고 이용하는 적극적 위계와 승인 사례"
+    },
+    {
+      "card_id": "art137_sec4_1.precedent.exam_question_prior_acquisition",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "deception",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "오인·착각·부지를 일으키고 이용하는 적극적 위계와 승인 사례"
+    },
+    {
+      "card_id": "art137_sec4_1.precedent.false_certificate_exam_qualification",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "deception",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "오인·착각·부지를 일으키고 이용하는 적극적 위계와 승인 사례"
+    },
+    {
+      "card_id": "art137_sec4_3.attorney_visitation_nonlegal_purpose",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "actual_obstruction",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "구체적 현실적 방해 또는 위계 인과관계가 없는 사안"
+    },
+    {
+      "card_id": "art137_sec4_3.attorney_visitation_smuggling",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "deception",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "오인·착각·부지를 일으키고 이용하는 적극적 위계와 승인 사례"
+    },
+    {
+      "card_id": "art137_sec4_3.prison_monitoring_undetectable_deception",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "actual_obstruction",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "그릇된 행위·처분과 구체적·현실적인 직무 저지·곤란"
+    },
+    {
+      "card_id": "art137_sec4_3.prison_tobacco_concealed_body",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "actual_obstruction",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "구체적 현실적 방해 또는 위계 인과관계가 없는 사안"
+    },
+    {
+      "card_id": "art137_sec4_3.prison_tobacco_concealed_book",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "actual_obstruction",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "구체적 현실적 방해 또는 위계 인과관계가 없는 사안"
+    },
+    {
+      "card_id": "art137_sec4_3.prohibited_act_evasion_monitoring",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "actual_obstruction",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "구체적 현실적 방해 또는 위계 인과관계가 없는 사안"
+    },
+    {
+      "card_id": "art137_sec4_4.auction_price_disclosure",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "actual_obstruction",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "구체적 현실적 방해 또는 위계 인과관계가 없는 사안"
+    },
+    {
+      "card_id": "art137_sec4_4.evaluation_committee_list_disclosure",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "actual_obstruction",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "구체적 현실적 방해 또는 위계 인과관계가 없는 사안"
+    },
+    {
+      "card_id": "art137_sec4_4.false_address_service",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "actual_obstruction",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "구체적 현실적 방해 또는 위계 인과관계가 없는 사안"
+    },
+    {
+      "card_id": "art137_sec4_4.false_vehicle_theft_report",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "actual_obstruction",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "구체적 현실적 방해 또는 위계 인과관계가 없는 사안"
+    },
+    {
+      "card_id": "art137_sec4_4.invalid_notice_known_to_official",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "actual_obstruction",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "구체적 현실적 방해 또는 위계 인과관계가 없는 사안"
+    },
+    {
+      "card_id": "art137_sec4_4.invalid_oral_driving_test_rule",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "official_duty",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "처분 없는 자기완결 신고 또는 무효 규정에 따른 직무"
+    },
+    {
+      "card_id": "art137_sec4_4.procurement_evaluator_manipulation",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "deception",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "오인·착각·부지를 일으키고 이용하는 적극적 위계와 승인 사례"
+    },
+    {
+      "card_id": "art137_sec4_4.reported_holding_actual_obstruction",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "actual_obstruction",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "그릇된 행위·처분과 구체적·현실적인 직무 저지·곤란"
+    },
+    {
+      "card_id": "art137_sec4_4.reported_holding_specific_duty_and_method",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "actual_obstruction",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "그릇된 행위·처분과 구체적·현실적인 직무 저지·곤란"
+    },
+    {
+      "card_id": "art137_sec6.certificate_preparation_joint_principal",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "deception",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "오인·착각·부지를 일으키고 이용하는 적극적 위계와 승인 사례"
+    },
+    {
+      "card_id": "art137_sec6.false_report_absorption",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "absorption",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "false_report",
+      "rationale": "위계 수단인 거짓신고 경범죄 흡수"
+    },
+    {
+      "card_id": "art137_sec6.false_report_response_obstruction",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "actual_obstruction",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "그릇된 행위·처분과 구체적·현실적인 직무 저지·곤란"
+    },
+    {
+      "card_id": "art137_sec6.non_suspect_impersonation_exception",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "offender_harboring",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "harboring_offender",
+      "rationale": "비피의자의 계획적 가장은 범인은닉 unit으로 이동"
+    },
+    {
+      "card_id": "art137_sec6.official_misconduct_absorption",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "absorption",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "dereliction_of_duty",
+      "rationale": "작위범인 본죄의 직무유기 흡수"
+    }
+  ]
+}

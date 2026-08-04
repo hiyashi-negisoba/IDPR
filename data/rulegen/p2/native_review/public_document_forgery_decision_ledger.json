@@ -1,0 +1,676 @@
+{
+  "version": "1.0.0",
+  "unit_id": "public_document_forgery",
+  "law_snapshot": {
+    "as_of_date": "2026-08-03",
+    "effective_source_date": "2026-03-12",
+    "future_snapshot_date": "2026-09-13",
+    "future_snapshot_policy": "separate_snapshot_not_active",
+    "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
+  },
+  "approval_document": "data/rulegen/p2/native_review/public_document_forgery_approved_decisions.json",
+  "approval_sha256": "db2163aeb3b040ef29f812b2585c261a0ff56df6eacf10c3453cb7cbfe9bdc92",
+  "approved_on": "2026-08-04",
+  "status": "ready_for_rule_ir",
+  "problems": [],
+  "unresolved_unit_references": [],
+  "excluded_cards": [],
+  "tracks": [
+    {
+      "track_id": "common",
+      "label": "위조·변조 공통 목적"
+    },
+    {
+      "track_id": "forgery",
+      "label": "공문서 위조",
+      "inherits_placements": [
+        {
+          "track_id": "common",
+          "component_ids": [
+            "intent_to_use"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "alteration",
+      "label": "공문서 변조",
+      "inherits_placements": [
+        {
+          "track_id": "common",
+          "component_ids": [
+            "intent_to_use"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "attempt",
+      "label": "공문서 위조·변조 미수"
+    }
+  ],
+  "placements": [
+    {
+      "card_id": "art225_sec4_2.unauthorized-addition-approved-document-intent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "alteration",
+      "component_id": "alteration_intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "적법절차 없이 결재 원문서를 변경한다는 고의",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec4_2.unauthorized-substitution-map-intent",
+      "part_id": null,
+      "role": "component",
+      "track_id": "alteration",
+      "component_id": "alteration_intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "적법절차 없이 결재 원문서를 변경한다는 고의",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225.false_original_not_alteration_object",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "alteration",
+      "component_id": "identity_preserving_change",
+      "component_join": "not_applicable",
+      "refers_to_unit": "public_document_forgery",
+      "rationale": "허위 원본·문서 외 변경·새 문서 작성·새 증명력 없는 변경의 변조 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec3_1.alteration_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "alteration",
+      "component_id": "identity_preserving_change",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "진정 성립한 공문서의 동일성을 해하지 않는 무권한 변경과 새 증명력",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec3_2.alteration_requirements",
+      "part_id": null,
+      "role": "component",
+      "track_id": "alteration",
+      "component_id": "identity_preserving_change",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "진정 성립한 공문서의 동일성을 해하지 않는 무권한 변경과 새 증명력",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec3_2.apparent_official_document",
+      "part_id": null,
+      "role": "component",
+      "track_id": "alteration",
+      "component_id": "identity_preserving_change",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "진정 성립한 공문서의 동일성을 해하지 않는 무권한 변경과 새 증명력",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec3_2.divorce_report_not_confirmation_copy_part",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "alteration",
+      "component_id": "identity_preserving_change",
+      "component_join": "not_applicable",
+      "refers_to_unit": "public_document_forgery",
+      "rationale": "허위 원본·문서 외 변경·새 문서 작성·새 증명력 없는 변경의 변조 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec3_2.id_cover_alteration",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "alteration",
+      "component_id": "identity_preserving_change",
+      "component_join": "not_applicable",
+      "refers_to_unit": "public_document_forgery",
+      "rationale": "허위 원본·문서 외 변경·새 문서 작성·새 증명력 없는 변경의 변조 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec3_2.name_change_new_document_forgery",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "alteration",
+      "component_id": "identity_preserving_change",
+      "component_join": "not_applicable",
+      "refers_to_unit": "public_document_forgery",
+      "rationale": "허위 원본·문서 외 변경·새 문서 작성·새 증명력 없는 변경의 변조 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec3_2.partial_copy_no_new_probative_force",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "alteration",
+      "component_id": "identity_preserving_change",
+      "component_join": "not_applicable",
+      "refers_to_unit": "public_document_forgery",
+      "rationale": "허위 원본·문서 외 변경·새 문서 작성·새 증명력 없는 변경의 변조 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec3_2.replaced_divorce_report",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "alteration",
+      "component_id": "identity_preserving_change",
+      "component_join": "not_applicable",
+      "refers_to_unit": "public_document_forgery",
+      "rationale": "허위 원본·문서 외 변경·새 문서 작성·새 증명력 없는 변경의 변조 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec3_2.seal_certificate_use_purpose",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "alteration",
+      "component_id": "identity_preserving_change",
+      "component_join": "not_applicable",
+      "refers_to_unit": "public_document_forgery",
+      "rationale": "허위 원본·문서 외 변경·새 문서 작성·새 증명력 없는 변경의 변조 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec3_2.unexplained_dotted_lines",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "alteration",
+      "component_id": "identity_preserving_change",
+      "component_join": "not_applicable",
+      "refers_to_unit": "public_document_forgery",
+      "rationale": "허위 원본·문서 외 변경·새 문서 작성·새 증명력 없는 변경의 변조 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec5.attempt_commencement",
+      "part_id": null,
+      "role": "component",
+      "track_id": "attempt",
+      "component_id": "punishable_attempt",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "확정적 문서 표시 착수와 진정문서 오신 수준 미달의 처벌되는 미수",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec5.attempt_document_not_deceptive",
+      "part_id": null,
+      "role": "component",
+      "track_id": "attempt",
+      "component_id": "punishable_attempt",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "확정적 문서 표시 착수와 진정문서 오신 수준 미달의 처벌되는 미수",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec5.attempt_punishable",
+      "part_id": null,
+      "role": "component",
+      "track_id": "attempt",
+      "component_id": "punishable_attempt",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "확정적 문서 표시 착수와 진정문서 오신 수준 미달의 처벌되는 미수",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec5.waste_bag_film_preparation_only",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "attempt",
+      "component_id": "punishable_attempt",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "문안 필름 제작에 그친 준비단계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec4_1.abstract_intent_to_use",
+      "part_id": null,
+      "role": "component",
+      "track_id": "common",
+      "component_id": "intent_to_use",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "위조·변조 문서를 진정한 것처럼 사용하려는 행위 당시 목적",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec4_1.altered_document_use_not_limited",
+      "part_id": null,
+      "role": "component",
+      "track_id": "common",
+      "component_id": "intent_to_use",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "위조·변조 문서를 진정한 것처럼 사용하려는 행위 당시 목적",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec4_1.intent_to_use_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "common",
+      "component_id": "intent_to_use",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "위조·변조 문서를 진정한 것처럼 사용하려는 행위 당시 목적",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec4_1.intent_to_use_requirement",
+      "part_id": null,
+      "role": "component",
+      "track_id": "common",
+      "component_id": "intent_to_use",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "위조·변조 문서를 진정한 것처럼 사용하려는 행위 당시 목적",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec4_1.intent_to_use_time_of_act",
+      "part_id": null,
+      "role": "component",
+      "track_id": "common",
+      "component_id": "intent_to_use",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "위조·변조 문서를 진정한 것처럼 사용하려는 행위 당시 목적",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec4_2.intent-for-forgery",
+      "part_id": null,
+      "role": "component",
+      "track_id": "forgery",
+      "component_id": "forgery_intent",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "무권한 명의모용에 대한 고의",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225.approved_private_document",
+      "part_id": null,
+      "role": "component",
+      "track_id": "forgery",
+      "component_id": "official_document",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "국내 공무소·공무원 명의의 직무상 문서·도화",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225.contractual_delegate_not_official",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "forgery",
+      "component_id": "official_document",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "비공무 주체·중요형식 결여·외국공문서·사적 채무문서",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225.essential_form_defect",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "forgery",
+      "component_id": "official_document",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "비공무 주체·중요형식 결여·외국공문서·사적 채무문서",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225.foreign_official_document",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "forgery",
+      "component_id": "official_document",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "비공무 주체·중요형식 결여·외국공문서·사적 채무문서",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225.inferable_author",
+      "part_id": null,
+      "role": "component",
+      "track_id": "forgery",
+      "component_id": "official_document",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "국내 공무소·공무원 명의의 직무상 문서·도화",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225.minor_form_defect",
+      "part_id": null,
+      "role": "component",
+      "track_id": "forgery",
+      "component_id": "official_document",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "국내 공무소·공무원 명의의 직무상 문서·도화",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225.nonexistent_nominee_document",
+      "part_id": null,
+      "role": "component",
+      "track_id": "forgery",
+      "component_id": "official_document",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "국내 공무소·공무원 명의의 직무상 문서·도화",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225.official_document_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "forgery",
+      "component_id": "official_document",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "국내 공무소·공무원 명의의 직무상 문서·도화",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225.personal_debt_document_not_public",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "forgery",
+      "component_id": "official_document",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "비공무 주체·중요형식 결여·외국공문서·사적 채무문서",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225.private_economic_official_document",
+      "part_id": null,
+      "role": "component",
+      "track_id": "forgery",
+      "component_id": "official_document",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "국내 공무소·공무원 명의의 직무상 문서·도화",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225.private_intent_document",
+      "part_id": null,
+      "role": "component",
+      "track_id": "forgery",
+      "component_id": "official_document",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "국내 공무소·공무원 명의의 직무상 문서·도화",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225.scope_of_document_authority",
+      "part_id": null,
+      "role": "component",
+      "track_id": "forgery",
+      "component_id": "official_document",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "국내 공무소·공무원 명의의 직무상 문서·도화",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec2.official_document_drawing_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "forgery",
+      "component_id": "official_document",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "국내 공무소·공무원 명의의 직무상 문서·도화",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec3_1.assistant_completion_without_approval",
+      "part_id": null,
+      "role": "component",
+      "track_id": "forgery",
+      "component_id": "unauthorized_creation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "작성권한 없이 공무원 명의를 모용한 새로운 문서 작성",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec3_1.author_instruction_or_consent",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "forgery",
+      "component_id": "unauthorized_creation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "명의인의 지시·승낙, 작성권자의 진정작성 또는 비공무원 간접정범 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec3_1.deceived_official_genuine_document",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "forgery",
+      "component_id": "unauthorized_creation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "명의인의 지시·승낙, 작성권자의 진정작성 또는 비공무원 간접정범 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec3_1.deceived_official_no_indirect_perpetration",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "forgery",
+      "component_id": "unauthorized_creation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "명의인의 지시·승낙, 작성권자의 진정작성 또는 비공무원 간접정범 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec3_1.forgery_apparent_authority",
+      "part_id": null,
+      "role": "component",
+      "track_id": "forgery",
+      "component_id": "unauthorized_creation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "작성권한 없이 공무원 명의를 모용한 새로운 문서 작성",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec3_1.forgery_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "forgery",
+      "component_id": "unauthorized_creation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "작성권한 없이 공무원 명의를 모용한 새로운 문서 작성",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art225_sec3_1.new_content_is_forgery",
+      "part_id": null,
+      "role": "component",
+      "track_id": "forgery",
+      "component_id": "unauthorized_creation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "작성권한 없이 공무원 명의를 모용한 새로운 문서 작성",
+      "proposition_rewrite": null
+    }
+  ],
+  "components": [
+    {
+      "track_id": "alteration",
+      "component_id": "alteration_intent",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art225_sec4_2.unauthorized-addition-approved-document-intent",
+        "art225_sec4_2.unauthorized-substitution-map-intent"
+      ]
+    },
+    {
+      "track_id": "alteration",
+      "component_id": "identity_preserving_change",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [
+        "public_document_forgery"
+      ],
+      "norm_card_ids": [
+        "art225.false_original_not_alteration_object",
+        "art225_sec3_1.alteration_definition",
+        "art225_sec3_2.alteration_requirements",
+        "art225_sec3_2.apparent_official_document",
+        "art225_sec3_2.divorce_report_not_confirmation_copy_part",
+        "art225_sec3_2.id_cover_alteration",
+        "art225_sec3_2.name_change_new_document_forgery",
+        "art225_sec3_2.partial_copy_no_new_probative_force",
+        "art225_sec3_2.replaced_divorce_report",
+        "art225_sec3_2.seal_certificate_use_purpose",
+        "art225_sec3_2.unexplained_dotted_lines"
+      ]
+    },
+    {
+      "track_id": "attempt",
+      "component_id": "punishable_attempt",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art225_sec5.attempt_commencement",
+        "art225_sec5.attempt_document_not_deceptive",
+        "art225_sec5.attempt_punishable",
+        "art225_sec5.waste_bag_film_preparation_only"
+      ]
+    },
+    {
+      "track_id": "common",
+      "component_id": "intent_to_use",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art225_sec4_1.abstract_intent_to_use",
+        "art225_sec4_1.altered_document_use_not_limited",
+        "art225_sec4_1.intent_to_use_definition",
+        "art225_sec4_1.intent_to_use_requirement",
+        "art225_sec4_1.intent_to_use_time_of_act"
+      ]
+    },
+    {
+      "track_id": "forgery",
+      "component_id": "forgery_intent",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art225_sec4_2.intent-for-forgery"
+      ]
+    },
+    {
+      "track_id": "forgery",
+      "component_id": "official_document",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art225.approved_private_document",
+        "art225.contractual_delegate_not_official",
+        "art225.essential_form_defect",
+        "art225.foreign_official_document",
+        "art225.inferable_author",
+        "art225.minor_form_defect",
+        "art225.nonexistent_nominee_document",
+        "art225.official_document_definition",
+        "art225.personal_debt_document_not_public",
+        "art225.private_economic_official_document",
+        "art225.private_intent_document",
+        "art225.scope_of_document_authority",
+        "art225_sec2.official_document_drawing_definition"
+      ]
+    },
+    {
+      "track_id": "forgery",
+      "component_id": "unauthorized_creation",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art225_sec3_1.assistant_completion_without_approval",
+        "art225_sec3_1.author_instruction_or_consent",
+        "art225_sec3_1.deceived_official_genuine_document",
+        "art225_sec3_1.deceived_official_no_indirect_perpetration",
+        "art225_sec3_1.forgery_apparent_authority",
+        "art225_sec3_1.forgery_definition",
+        "art225_sec3_1.new_content_is_forgery"
+      ]
+    }
+  ],
+  "stats": {
+    "components": 7,
+    "decision_approve": 43,
+    "placements": 43,
+    "queue_cards": 43,
+    "unresolved_unit_references": 0
+  }
+}
