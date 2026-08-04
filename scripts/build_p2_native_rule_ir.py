@@ -548,7 +548,7 @@ class UnitAssembler:
         """Scope blockers and conflicts to their track, propagating only by inheritance."""
         emitted: set[tuple[str, str, str]] = set()
         for row in placements:
-            if row["role"] not in ("component", "bar", "boundary"):
+            if row["role"] not in ("component", "bar", "boundary", "waiver"):
                 continue
             card_id = row["card_id"]
             card = self.card(card_id)
@@ -566,7 +566,7 @@ class UnitAssembler:
                               string(card_id))],
                         rationale="카드 평가 충돌은 해당 track과 그 상속 track에만 전파한다.",
                         cards=[card])
-                if row["role"] not in ("bar", "boundary"):
+                if row["role"] not in ("bar", "boundary", "waiver"):
                     continue
                 blocked_key = ("blocked", target, card_id)
                 if blocked_key in emitted:

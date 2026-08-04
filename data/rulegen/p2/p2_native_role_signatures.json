@@ -120,6 +120,16 @@
         "applies_to_tracks": ["intentional_injury", "result_aggravated_injury", "death"]
       },
       "tracks": {}
+    },
+    "dereliction_of_duty": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "dereliction_case_roles", "arguments": ["case_id", "defendant_id", "duty_id"], "definition": "직무유기 피고인과 법령·명령상 구체적 본래 직무의 역할 tuple", "applies_to_tracks": ["base"]},
+      "tracks": {}
+    },
+    "official_secret_disclosure": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "official_secret_case_roles", "arguments": ["case_id", "defendant_id", "secret_id", "recipient_id"], "definition": "공무상비밀누설 피고인, 직무상 비밀, 누설 상대방의 역할 tuple", "applies_to_tracks": ["base"]},
+      "tracks": {}
     }
   }
 }

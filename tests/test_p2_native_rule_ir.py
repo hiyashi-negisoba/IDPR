@@ -250,3 +250,14 @@ def test_selective_placement_source_need_not_publish_a_track_outcome() -> None:
     assert "sexual_offense_injury_or_death_common_established" not in predicates
     for track in ("intentional_injury", "result_aggravated_injury", "death"):
         assert f"sexual_offense_injury_or_death_{track}_established" in predicates
+
+
+def test_justification_waiver_blocks_the_offense_track() -> None:
+    rule_ir, _ = UnitAssembler("official_secret_disclosure", None).build()
+    waiver_id = "art127_sec6.statutorily_required_corruption_report"
+    rules = [
+        item for item in rule_ir["rules"]
+        if item["head"]["predicate"] == "official_secret_disclosure_track_not_established"
+    ]
+
+    assert any(waiver_id in item["norm_card_ids"] for item in rules)
