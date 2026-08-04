@@ -9,6 +9,7 @@ section이 있으며 이를 섞어 위장하지 않는다.
   directive를 받는다.
 - 모델은 `rule`과 `application`만 작성한다. 성립·불성립·미확정·충돌 결론은 호스트가
   Scallop directive에서 주입하므로 결론을 새로 쓰거나 뒤집지 않는다.
+- 이 section은 출력의 `symbolic_sections` 배열에만 쓰며 `provisional_conclusion` 필드가 없다.
 - `unknown` predicate를 충족된 사실처럼 보충하지 않고 결론의 한계를 적용에서 설명한다.
 
 # 미지원 총칙 section
@@ -18,6 +19,7 @@ section이 있으며 이를 섞어 위장하지 않는다.
   작성할 수 있다.
 - 이 결론은 symbolic·Scallop 결론이 아니라 **실험용 비기호 판단**이다. RuleIR에서 도출됐다고
   표현하거나 지원 각칙의 Scallop 결론을 변경하는 데 사용하지 않는다.
+- 이 section은 출력의 `general_part_sections` 배열에만 쓴다.
 - 형사소송법·증거법·수사·공판·상소 쟁점은 작성하지 않는다.
 
 # 답안 품질과 오염 방지

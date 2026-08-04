@@ -12,33 +12,49 @@ class NativeHybridAnswerError(ValueError):
 
 
 def hybrid_answer_schema(sections: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
-    section_ids = [str(section["section_id"]) for section in sections]
+    symbolic_ids = [
+        str(section["section_id"])
+        for section in sections
+        if section["authority"] == "rule_ir_scallop"
+    ]
+    general_ids = [
+        str(section["section_id"])
+        for section in sections
+        if section["authority"] == "model_only_general_part_experiment"
+    ]
+
+    def section_array(ids: list[str], *, general: bool) -> dict[str, Any]:
+        properties: dict[str, Any] = {
+            "section_id": {"enum": ids} if ids else {"type": "string"},
+            "rule": {"type": "string", "minLength": 1, "maxLength": 8000},
+            "application": {"type": "string", "minLength": 1, "maxLength": 8000},
+        }
+        required = ["section_id", "rule", "application"]
+        if general:
+            properties["provisional_conclusion"] = {
+                "type": "string", "minLength": 1, "maxLength": 2000
+            }
+            required.append("provisional_conclusion")
+        return {
+            "type": "array",
+            "minItems": len(ids),
+            "maxItems": len(ids),
+            "items": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": required,
+                "properties": properties,
+            },
+        }
+
     return {
         "type": "object",
         "additionalProperties": False,
-        "required": ["version", "sections"],
+        "required": ["version", "symbolic_sections", "general_part_sections"],
         "properties": {
             "version": {"const": "1.0.0"},
-            "sections": {
-                "type": "array",
-                "minItems": len(section_ids),
-                "maxItems": len(section_ids),
-                "items": {
-                    "type": "object",
-                    "additionalProperties": False,
-                    "required": ["section_id", "rule", "application"],
-                    "properties": {
-                        "section_id": {"enum": section_ids},
-                        "rule": {"type": "string", "minLength": 1, "maxLength": 8000},
-                        "application": {
-                            "type": "string", "minLength": 1, "maxLength": 8000
-                        },
-                        "provisional_conclusion": {
-                            "type": "string", "minLength": 1, "maxLength": 2000
-                        },
-                    },
-                },
-            },
+            "symbolic_sections": section_array(symbolic_ids, general=False),
+            "general_part_sections": section_array(general_ids, general=True),
         },
     }
 
@@ -55,23 +71,23 @@ def finalize_hybrid_answer(
     ]
     if errors:
         raise NativeHybridAnswerError("; ".join(errors))
-    for index, (planned, prose) in enumerate(
-        zip(sections, model_payload["sections"], strict=True)
+    planned_symbolic = [
+        str(section["section_id"])
+        for section in sections
+        if section["authority"] == "rule_ir_scallop"
+    ]
+    planned_general = [
+        str(section["section_id"])
+        for section in sections
+        if section["authority"] == "model_only_general_part_experiment"
+    ]
+    for field, expected in (
+        ("symbolic_sections", planned_symbolic),
+        ("general_part_sections", planned_general),
     ):
-        if prose["section_id"] != planned["section_id"]:
-            errors.append(
-                f"sections.{index}.section_id: expected {planned['section_id']!r}"
-            )
-        is_general = planned["authority"] == "model_only_general_part_experiment"
-        has_provisional = "provisional_conclusion" in prose
-        if is_general and not has_provisional:
-            errors.append(
-                f"sections.{index}: model-only general part requires provisional_conclusion"
-            )
-        if not is_general and has_provisional:
-            errors.append(
-                f"sections.{index}: symbolic section cannot provide provisional_conclusion"
-            )
+        actual = [str(item["section_id"]) for item in model_payload[field]]
+        if actual != expected:
+            errors.append(f"{field}: expected ordered section ids {expected}, got {actual}")
     if errors:
         raise NativeHybridAnswerError("; ".join(errors))
     labels = {
@@ -82,7 +98,13 @@ def finalize_hybrid_answer(
         "no_derived_outcome": "RuleIR에서 결론 미도출",
     }
     finalized = []
-    for planned, prose in zip(sections, model_payload["sections"], strict=True):
+    prose_by_id = {
+        str(prose["section_id"]): prose
+        for field in ("symbolic_sections", "general_part_sections")
+        for prose in model_payload[field]
+    }
+    for planned in sections:
+        prose = prose_by_id[str(planned["section_id"])]
         if planned["authority"] == "rule_ir_scallop":
             status = str(planned["symbolic_directive"])
             finalized.append({

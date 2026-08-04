@@ -81,16 +81,20 @@ def test_hybrid_writer_separates_symbolic_and_model_only_conclusions() -> None:
         ],
     }
     schema = hybrid_answer_schema(request["sections"])
-    item = schema["properties"]["sections"]["items"]
-    assert "conclusion" not in item["properties"]
-    assert "provisional_conclusion" in item["properties"]
+    symbolic = schema["properties"]["symbolic_sections"]["items"]
+    general = schema["properties"]["general_part_sections"]["items"]
+    assert "conclusion" not in symbolic["properties"]
+    assert "provisional_conclusion" not in symbolic["properties"]
+    assert "provisional_conclusion" in general["properties"]
     assert "if" not in repr(schema)
     assert "prefixItems" not in repr(schema)
 
     model = {
         "version": "1.0.0",
-        "sections": [
+        "symbolic_sections": [
             {"section_id": "special", "rule": "법리", "application": "적용"},
+        ],
+        "general_part_sections": [
             {
                 "section_id": "general",
                 "rule": "총칙 법리",
@@ -105,6 +109,6 @@ def test_hybrid_writer_separates_symbolic_and_model_only_conclusions() -> None:
     assert answer["sections"][1]["authority"] == "model_only_general_part_experiment"
     assert "비기호 총칙 분석" in render_hybrid_markdown(answer)
 
-    model["sections"][0]["conclusion"] = "불성립"
+    model["symbolic_sections"][0]["conclusion"] = "불성립"
     with pytest.raises(NativeHybridAnswerError):
         finalize_hybrid_answer(request=request, model_payload=model)
