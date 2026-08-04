@@ -4,8 +4,10 @@
   "scope": "offline normalized-core preflight; no model calls",
   "api_calls": 0,
   "prompt_hashes": {
-    "rule_ir_core_issue_select": "bbebcf21c1b5034ff00847a2955517b583199155c921389f70409f54d9307f3e",
-    "rule_ir_core_issue_select_user": "7149269a9528f2310f63a1f342f04b41864f04f3469fd02c8fbafe915251c742",
+    "rule_ir_core_fact_inventory": "49a197fef2438ddd8f3224dab7841b22f1209f5546c6764e19b906ec44348583",
+    "rule_ir_core_fact_inventory_user": "51d0d7501a946960affe2669b7d9eed9b72a278df8af914cfe29e8705d45f504",
+    "rule_ir_core_issue_select": "6ddd6847b08e5c323b2b72e745929a07875ef667ba234e6af2d0cce93e3d3c88",
+    "rule_ir_core_issue_select_user": "f0f50634c66116b48ab5f95ff1679f6e2455a7844397aba276511aa3acc25d62",
     "rule_ir_core_role_bind": "848876bfe95846e85f02fee56da02d51df848bd279cc33999538445d34fbd0a6",
     "rule_ir_core_role_bind_user": "3bb432210f8fad05af4827a0d819aca1c488c7838ab7eb337a2f55fc86acfcb6",
     "rule_ir_core_assess": "203fe8449ce55075fb0c07e7bd5d8fc9e2362903240d13a13bf34a5e7626b24b",
@@ -15,11 +17,18 @@
   },
   "prompts": [
     {
+      "stage": "inventory",
+      "system": "rule_ir_core_fact_inventory",
+      "user": "rule_ir_core_fact_inventory_user",
+      "system_characters": 970,
+      "user_characters": 167
+    },
+    {
       "stage": "selection",
       "system": "rule_ir_core_issue_select",
       "user": "rule_ir_core_issue_select_user",
-      "system_characters": 1357,
-      "user_characters": 164
+      "system_characters": 1122,
+      "user_characters": 205
     },
     {
       "stage": "binding",
@@ -45,6 +54,7 @@
   ],
   "schemas": {
     "stages": [
+      "inventory",
       "selection",
       "binding",
       "assessment",
@@ -52,7 +62,8 @@
     ],
     "unsupported_guidance_keywords_present": [],
     "selection_performs_role_binding": false,
-    "selection_preserves_subject_and_conduct": true,
+    "inventory_precedes_selection": true,
+    "selection_covers_every_inventory_fact": true,
     "track_selection_requires_subject_and_evidence": true
   },
   "predicate_boundary": {

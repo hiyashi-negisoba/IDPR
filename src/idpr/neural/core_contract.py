@@ -14,17 +14,117 @@ class CoreContractError(ValueError):
     pass
 
 
+def core_fact_inventory_schema(*, case_id: str) -> dict[str, Any]:
+    """Extract grounded actors and atomic facts without choosing legal units."""
+
+    actor = {
+        "type": "object", "additionalProperties": False,
+        "required": ["actor_id", "label", "source_quotes"],
+        "properties": {
+            "actor_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_.-]*$"},
+            "label": {"type": "string", "minLength": 1, "maxLength": 120},
+            "source_quotes": {
+                "type": "array", "minItems": 1, "maxItems": 8,
+                "uniqueItems": True,
+                "items": {"type": "string", "minLength": 1},
+            },
+        },
+    }
+    fact = {
+        "type": "object", "additionalProperties": False,
+        "required": [
+            "fact_id", "fact_type", "focus_actor_id", "related_actor_ids",
+            "claim", "source_quotes",
+        ],
+        "properties": {
+            "fact_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_.-]*$"},
+            "fact_type": {
+                "enum": [
+                    "act", "statement", "transfer", "result", "state",
+                    "relationship", "omission",
+                ]
+            },
+            "focus_actor_id": {"type": "string", "minLength": 1},
+            "related_actor_ids": {
+                "type": "array", "maxItems": 12, "uniqueItems": True,
+                "items": {"type": "string", "minLength": 1},
+            },
+            "claim": {"type": "string", "minLength": 1, "maxLength": 800},
+            "source_quotes": {
+                "type": "array", "minItems": 1, "maxItems": 8,
+                "uniqueItems": True,
+                "items": {"type": "string", "minLength": 1},
+            },
+        },
+    }
+    return {
+        "type": "object", "additionalProperties": False,
+        "required": ["version", "case_id", "actors", "facts"],
+        "properties": {
+            "version": {"const": "1.0.0"},
+            "case_id": {"const": case_id},
+            "actors": {"type": "array", "minItems": 1, "maxItems": 32, "items": actor},
+            "facts": {"type": "array", "minItems": 1, "maxItems": 96, "items": fact},
+        },
+    }
+
+
+def validate_core_fact_inventory(
+    payload: Mapping[str, Any], *, case_id: str, case_text: str
+) -> None:
+    errors = [
+        f"{'.'.join(str(x) for x in error.path) or '$'}: {error.message}"
+        for error in Draft202012Validator(
+            core_fact_inventory_schema(case_id=case_id)
+        ).iter_errors(payload)
+    ]
+    actors = payload.get("actors", [])
+    actor_ids = [item.get("actor_id") for item in actors if isinstance(item, Mapping)]
+    if len(actor_ids) != len(set(actor_ids)):
+        errors.append("actor_id values must be unique")
+    known_actors = set(actor_ids)
+    facts = payload.get("facts", [])
+    fact_ids = [item.get("fact_id") for item in facts if isinstance(item, Mapping)]
+    if len(fact_ids) != len(set(fact_ids)):
+        errors.append("fact_id values must be unique")
+    for actor in actors:
+        if not isinstance(actor, Mapping):
+            continue
+        for quote in actor.get("source_quotes", []):
+            if quote not in case_text:
+                errors.append(
+                    f"{actor.get('actor_id')}: actor evidence is not an exact "
+                    f"contiguous substring: {quote!r}"
+                )
+    for fact in facts:
+        if not isinstance(fact, Mapping):
+            continue
+        referenced = [fact.get("focus_actor_id"), *fact.get("related_actor_ids", [])]
+        unknown = [actor_id for actor_id in referenced if actor_id not in known_actors]
+        if unknown:
+            errors.append(f"{fact.get('fact_id')}: unknown actor references {unknown}")
+        for quote in fact.get("source_quotes", []):
+            if quote not in case_text:
+                errors.append(
+                    f"{fact.get('fact_id')}: fact evidence is not an exact "
+                    f"contiguous substring: {quote!r}"
+                )
+    if errors:
+        raise CoreContractError("; ".join(errors))
+
+
 def core_issue_selection_schema(
-    *, case_id: str, unit_ids: Sequence[str]
+    *, case_id: str, unit_ids: Sequence[str], actor_ids: Sequence[str],
+    fact_ids: Sequence[str],
 ) -> dict[str, Any]:
-    """Select issues only; legal role binding deliberately happens later."""
+    """Classify the closed grounded inventory; role binding happens later."""
 
     return {
         "type": "object",
         "additionalProperties": False,
-        "required": ["version", "case_id", "issues"],
+        "required": ["version", "case_id", "issues", "fact_dispositions"],
         "properties": {
-            "version": {"const": "3.0.0"},
+            "version": {"const": "1.0.0"},
             "case_id": {"const": case_id},
             "issues": {
                 "type": "array",
@@ -34,8 +134,8 @@ def core_issue_selection_schema(
                     "type": "object",
                     "additionalProperties": False,
                     "required": [
-                        "issue_id", "unit_id", "reported_label", "subject",
-                        "conduct_claims",
+                        "issue_id", "unit_id", "reported_label",
+                        "subject_actor_id", "fact_ids",
                     ],
                     "properties": {
                         "issue_id": {
@@ -43,36 +143,27 @@ def core_issue_selection_schema(
                         },
                         "unit_id": {"enum": [*unit_ids, "unsupported"]},
                         "reported_label": {"type": "string", "minLength": 1},
-                        "subject": {
-                            "type": "object", "additionalProperties": False,
-                            "required": ["label", "source_quotes"],
-                            "properties": {
-                                "label": {"type": "string", "minLength": 1},
-                                "source_quotes": {
-                                    "type": "array", "minItems": 1, "maxItems": 6,
-                                    "uniqueItems": True,
-                                    "items": {"type": "string", "minLength": 1},
-                                },
-                            },
+                        "subject_actor_id": {"enum": list(actor_ids)},
+                        "fact_ids": {
+                            "type": "array", "minItems": 1, "maxItems": 24,
+                            "uniqueItems": True, "items": {"enum": list(fact_ids)},
                         },
-                        "conduct_claims": {
-                            "type": "array", "minItems": 1, "maxItems": 8,
-                            "items": {
-                                "type": "object", "additionalProperties": False,
-                                "required": ["claim", "source_quotes"],
-                                "properties": {
-                                    "claim": {
-                                        "type": "string", "minLength": 1,
-                                        "maxLength": 800,
-                                    },
-                                    "source_quotes": {
-                                        "type": "array", "minItems": 1,
-                                        "maxItems": 8, "uniqueItems": True,
-                                        "items": {"type": "string", "minLength": 1},
-                                    },
-                                },
-                            },
+                    },
+                },
+            },
+            "fact_dispositions": {
+                "type": "array", "minItems": len(fact_ids), "maxItems": len(fact_ids),
+                "items": {
+                    "type": "object", "additionalProperties": False,
+                    "required": ["fact_id", "disposition", "issue_ids", "reason"],
+                    "properties": {
+                        "fact_id": {"enum": list(fact_ids)},
+                        "disposition": {"enum": ["issue", "background"]},
+                        "issue_ids": {
+                            "type": "array", "maxItems": 16, "uniqueItems": True,
+                            "items": {"type": "string", "minLength": 1},
                         },
+                        "reason": {"type": "string", "minLength": 1, "maxLength": 500},
                     },
                 },
             },
@@ -84,51 +175,62 @@ def validate_core_issue_selection(
     payload: Mapping[str, Any],
     *,
     case_id: str,
-    case_text: str,
     unit_ids: Sequence[str],
+    inventory: Mapping[str, Any],
 ) -> None:
+    actor_ids = [str(item["actor_id"]) for item in inventory["actors"]]
+    fact_ids = [str(item["fact_id"]) for item in inventory["facts"]]
     errors = [
         f"{'.'.join(str(x) for x in error.path) or '$'}: {error.message}"
         for error in Draft202012Validator(
-            core_issue_selection_schema(case_id=case_id, unit_ids=unit_ids)
+            core_issue_selection_schema(
+                case_id=case_id, unit_ids=unit_ids,
+                actor_ids=actor_ids, fact_ids=fact_ids,
+            )
         ).iter_errors(payload)
     ]
     issues = payload.get("issues", [])
     issue_ids = [item.get("issue_id") for item in issues if isinstance(item, Mapping)]
     if len(issue_ids) != len(set(issue_ids)):
         errors.append("issue_id values must be unique")
-    conduct_keys: list[tuple[str, str, tuple[str, ...]]] = []
+    known_issues = set(issue_ids)
+    issue_fact_links: set[tuple[str, str]] = set()
     for item in issues:
         if not isinstance(item, Mapping):
             continue
-        subject = item.get("subject", {})
-        if isinstance(subject, Mapping):
-            for quote in subject.get("source_quotes", []):
-                if quote not in case_text:
-                    errors.append(
-                        f"{item.get('issue_id')}: subject evidence is not an exact "
-                        f"contiguous substring of case text: {quote!r}"
-                    )
-        for conduct in item.get("conduct_claims", []):
-            if not isinstance(conduct, Mapping):
-                continue
-            quotes = tuple(str(quote) for quote in conduct.get("source_quotes", []))
-            for quote in quotes:
-                if quote in case_text:
-                    continue
-                errors.append(
-                    f"{item.get('issue_id')}: conduct evidence is not an exact "
-                    f"contiguous substring of case text: {quote!r}"
-                )
-            conduct_keys.append((
-                str(subject.get("label")), str(item.get("unit_id")), quotes,
-            ))
+        for fact_id in item.get("fact_ids", []):
+            issue_fact_links.add((str(item.get("issue_id")), str(fact_id)))
         if item.get("unit_id") == "unsupported" and str(
             item.get("reported_label", "")
         ).strip().lower() == "unsupported":
             errors.append(f"{item.get('issue_id')}: unsupported requires a descriptive label")
-    if len(conduct_keys) != len(set(conduct_keys)):
-        errors.append("the same subject/unit/conduct quote is assigned to duplicate issues")
+    dispositions = payload.get("fact_dispositions", [])
+    disposition_ids = [
+        item.get("fact_id") for item in dispositions if isinstance(item, Mapping)
+    ]
+    if sorted(disposition_ids) != sorted(fact_ids):
+        errors.append("fact_dispositions must cover every inventory fact exactly once")
+    for item in dispositions:
+        if not isinstance(item, Mapping):
+            continue
+        linked = item.get("issue_ids", [])
+        unknown = [issue_id for issue_id in linked if issue_id not in known_issues]
+        if unknown:
+            errors.append(f"{item.get('fact_id')}: unknown issue links {unknown}")
+        if item.get("disposition") == "issue" and not linked:
+            errors.append(f"{item.get('fact_id')}: issue disposition requires issue_ids")
+        if item.get("disposition") == "background" and linked:
+            errors.append(f"{item.get('fact_id')}: background disposition cannot link issues")
+        for issue_id in linked:
+            if (str(issue_id), str(item.get("fact_id"))) not in issue_fact_links:
+                errors.append(f"{item.get('fact_id')}: disposition link is not reciprocal")
+    disposition_links = {
+        (str(issue_id), str(item.get("fact_id")))
+        for item in dispositions if isinstance(item, Mapping)
+        for issue_id in item.get("issue_ids", [])
+    }
+    if issue_fact_links != disposition_links:
+        errors.append("issue fact links and fact dispositions must be reciprocal")
     if errors:
         raise CoreContractError("; ".join(errors))
 

@@ -25,14 +25,16 @@ from idpr.neural.core_contract import (  # noqa: E402
     binding_track_ids,
     context_packet,
     core_assessment_schema,
+    core_fact_inventory_schema,
     core_issue_selection_schema,
     role_binding_schema,
     selected_track_closure,
     validate_core_assessments,
+    validate_core_fact_inventory,
     validate_core_issue_selection,
     validate_role_binding,
 )
-from idpr.neural.vllm_client import VLLMClient  # noqa: E402
+from idpr.neural.vllm_client import VLLMClient, VLLMClientError  # noqa: E402
 from idpr.prompts import load_prompt, prompt_path  # noqa: E402
 from idpr.rulegen.core_profile import load_core_profiles  # noqa: E402
 from idpr.rulegen.core_runtime import execute_core_unit  # noqa: E402
@@ -40,6 +42,7 @@ from idpr.rulegen.core_runtime import execute_core_unit  # noqa: E402
 
 DEFAULT_CASES = ("kcl_criminal_r14_p1_q2", "kcl_criminal_r12_p1_q2")
 PROMPTS = {
+    "inventory": ("rule_ir_core_fact_inventory", "rule_ir_core_fact_inventory_user"),
     "selection": ("rule_ir_core_issue_select", "rule_ir_core_issue_select_user"),
     "binding": ("rule_ir_core_role_bind", "rule_ir_core_role_bind_user"),
     "assessment": ("rule_ir_core_assess", "rule_ir_core_assess_user"),
@@ -144,15 +147,34 @@ def _call(
     attempts = []
     active: dict[str, Any] = dict(payload)
     for attempt in range(1, 3):
-        output, metadata = client.complete_json(
-            system_prompt=load_prompt(system_name),
-            user_template=load_prompt(user_name),
-            payload=active,
-            schema_name=f"rule_ir_core_{stage}_{attempt}",
-            schema=schema,
-            max_tokens=max_tokens,
-            temperature=0.0,
-        )
+        try:
+            output, metadata = client.complete_json(
+                system_prompt=load_prompt(system_name),
+                user_template=load_prompt(user_name),
+                payload=active,
+                schema_name=f"rule_ir_core_{stage}_{attempt}",
+                schema=schema,
+                max_tokens=max_tokens,
+                temperature=0.0,
+            )
+        except VLLMClientError as error:
+            attempts.append({
+                "attempt": attempt, "metadata": None,
+                "error": str(error), "invalid_output": None,
+            })
+            if attempt == 2:
+                raise CoreStageCallError(stage=stage, attempts=attempts) from error
+            active = {
+                **dict(payload),
+                "generation_retry": {
+                    "instruction": (
+                        "직전 생성은 길이 종료·반복 또는 불완전 JSON으로 실패했다. "
+                        "같은 계약을 간결한 JSON 객체 하나로 처음부터 다시 출력하라."
+                    ),
+                    "host_error": str(error),
+                },
+            }
+            continue
         try:
             validator(output)
         except Exception as error:
@@ -268,17 +290,38 @@ def run_case(
 ) -> dict[str, Any]:
     case_id = str(case["sub_question_id"])
     scoped = scoped_question_text(str(case["question_text"]), str(case["question_prompt"]))
-    selection_request = {
+    inventory_request = {
         "case_id": case_id, "question_text": scoped,
-        "question_prompt": case["question_prompt"], "allowed_units": _catalog(profiles),
+        "question_prompt": case["question_prompt"],
+    }
+    assert_no_leaked_fields(inventory_request)
+    inventory, inventory_attempts = _call(
+        client=client, stage="inventory", payload=inventory_request,
+        schema=core_fact_inventory_schema(case_id=case_id), max_tokens=8192,
+        validator=lambda output: validate_core_fact_inventory(
+            output, case_id=case_id, case_text=scoped
+        ),
+    )
+    _write_json(case_dir / "00_fact_inventory.json", {
+        "request": inventory_request, "output": inventory,
+        "attempts": inventory_attempts,
+    })
+    actor_ids = [str(item["actor_id"]) for item in inventory["actors"]]
+    fact_ids = [str(item["fact_id"]) for item in inventory["facts"]]
+    selection_request = {
+        "case_id": case_id, "question_prompt": case["question_prompt"],
+        "fact_inventory": inventory, "allowed_units": _catalog(profiles),
     }
     assert_no_leaked_fields(selection_request)
     selection, attempts = _call(
         client=client, stage="selection", payload=selection_request,
-        schema=core_issue_selection_schema(case_id=case_id, unit_ids=sorted(profiles)),
+        schema=core_issue_selection_schema(
+            case_id=case_id, unit_ids=sorted(profiles),
+            actor_ids=actor_ids, fact_ids=fact_ids,
+        ),
         max_tokens=4096,
         validator=lambda output: validate_core_issue_selection(
-            output, case_id=case_id, case_text=scoped, unit_ids=sorted(profiles)
+            output, case_id=case_id, unit_ids=sorted(profiles), inventory=inventory
         ),
     )
     _write_json(case_dir / "01_issue_selection.json", {
@@ -288,15 +331,25 @@ def run_case(
     symbolic_sections: list[dict[str, Any]] = []
     unsupported_sections: list[dict[str, Any]] = []
     outcomes: dict[str, Any] = {}
+    actors = {str(item["actor_id"]): item for item in inventory["actors"]}
+    facts = {str(item["fact_id"]): item for item in inventory["facts"]}
     for issue in selection["issues"]:
         issue_id = str(issue["issue_id"])
         unit_id = str(issue["unit_id"])
+        subject = actors[str(issue["subject_actor_id"])]
+        conduct_claims = [
+            {
+                "claim": facts[str(fact_id)]["claim"],
+                "source_quotes": facts[str(fact_id)]["source_quotes"],
+            }
+            for fact_id in issue["fact_ids"]
+        ]
         if unit_id == "unsupported":
             unsupported_sections.append({
                 "section_id": issue_id, "heading": issue["reported_label"],
                 "authority": "model_only_general_part_experiment",
-                "subject": issue["subject"],
-                "conduct_claims": issue["conduct_claims"],
+                "subject": subject,
+                "conduct_claims": conduct_claims,
             })
             continue
         profile = profiles[unit_id]
@@ -308,8 +361,8 @@ def run_case(
             "question_text": scoped,
             "role_contract": profile["role_contract"],
             "role_definitions": profile["role_contract"]["role_definitions"],
-            "subject": issue["subject"],
-            "conduct_claims": issue["conduct_claims"],
+            "subject": subject,
+            "conduct_claims": conduct_claims,
             "track_contracts": _track_contracts(profile),
             "core_predicates": [
                 {"predicate_id": item["predicate_id"], "definition": item["definition"]}
@@ -319,8 +372,8 @@ def run_case(
         binding, binding_attempts = _call(
             client=client, stage="binding", payload=binding_request,
             schema=role_binding_schema(case_id=case_id, issue_id=issue_id, profile=profile),
-            max_tokens=8192,
-            validator=lambda output, p=profile, i=issue_id, s=issue["subject"]: validate_role_binding(
+            max_tokens=4096,
+            validator=lambda output, p=profile, i=issue_id, s=subject: validate_role_binding(
                 output, case_text=scoped, case_id=case_id, issue_id=i, profile=p,
                 subject=s,
             ),

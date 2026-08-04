@@ -18,6 +18,7 @@ from idpr.generation.native_hybrid_answer import hybrid_answer_schema  # noqa: E
 from idpr.neural.core_contract import (  # noqa: E402
     assessment_groups,
     core_assessment_schema,
+    core_fact_inventory_schema,
     core_issue_selection_schema,
     role_binding_schema,
 )
@@ -27,6 +28,7 @@ from scripts.run_rule_ir_core_kcl_e2e import PROMPTS  # noqa: E402
 
 
 REQUIRED = {
+    "inventory": ("actors", "facts", "source_quotes", "죄명", "검색"),
     "selection": ("allowed_units", "검색", "role_bindings", "총칙", "형사소송법"),
     "binding": ("role_contract", "core_predicates", "엔티티", "관계", "track_selections"),
     "assessment": ("전량", "authority_context", "satisfied", "not_satisfied", "unknown"),
@@ -73,8 +75,10 @@ def audit() -> dict[str, Any]:
     fraud_group = assessment_groups(fraud, ["base"], max_predicates=10)[0]
     predicate_ids = [item["predicate_id"] for item in fraud_group["predicates"]]
     schemas = {
+        "inventory": core_fact_inventory_schema(case_id="audit-case"),
         "selection": core_issue_selection_schema(
-            case_id="audit-case", unit_ids=sorted(profiles)
+            case_id="audit-case", unit_ids=sorted(profiles),
+            actor_ids=["actor-1", "actor-2"], fact_ids=["fact-1", "fact-2"],
         ),
         "binding": role_binding_schema(
             case_id="audit-case", issue_id="issue-1", profile=fraud
@@ -95,11 +99,18 @@ def audit() -> dict[str, Any]:
     )
     if incompatible:
         errors.append(f"vLLM guidance-incompatible schema keys: {incompatible}")
+    inventory_fact = schemas["inventory"]["properties"]["facts"]["items"]
+    if not {"focus_actor_id", "claim", "source_quotes"}.issubset(
+        inventory_fact["required"]
+    ):
+        errors.append("fact inventory lacks actor/claim/evidence contract")
     selection_item = schemas["selection"]["properties"]["issues"]["items"]
     if "role_bindings" in selection_item["properties"]:
         errors.append("issue selection still performs legal role binding")
-    if not {"subject", "conduct_claims"}.issubset(selection_item["required"]):
-        errors.append("issue selection does not preserve subject and conduct")
+    if not {"subject_actor_id", "fact_ids"}.issubset(selection_item["required"]):
+        errors.append("issue selection does not reference inventory ids")
+    if "fact_dispositions" not in schemas["selection"]["required"]:
+        errors.append("issue selection lacks complete fact disposition ledger")
     binding_roles = schemas["binding"]["properties"]["role_bindings"]["required"]
     if binding_roles != [
         "defendant_id", "deceived_person_id", "disposer_id",
@@ -125,7 +136,8 @@ def audit() -> dict[str, Any]:
             "stages": list(schemas),
             "unsupported_guidance_keywords_present": incompatible,
             "selection_performs_role_binding": False,
-            "selection_preserves_subject_and_conduct": True,
+            "inventory_precedes_selection": True,
+            "selection_covers_every_inventory_fact": True,
             "track_selection_requires_subject_and_evidence": True,
         },
         "predicate_boundary": {

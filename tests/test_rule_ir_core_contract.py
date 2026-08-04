@@ -8,9 +8,11 @@ from idpr.neural.core_contract import (
     CoreContractError,
     assessment_groups,
     core_issue_selection_schema,
+    core_fact_inventory_schema,
     context_packet,
     role_binding_schema,
     validate_role_binding,
+    validate_core_fact_inventory,
     validate_core_issue_selection,
 )
 from idpr.rulegen.core_profile import load_core_profiles
@@ -22,51 +24,73 @@ def _profiles() -> dict:
     return load_core_profiles()["units"]
 
 
-def test_issue_selection_preserves_subject_and_independent_conduct() -> None:
-    schema = core_issue_selection_schema(case_id="case-1", unit_ids=["fraud"])
+def _inventory() -> dict:
+    return {
+        "version": "1.0.0", "case_id": "case-1",
+        "actors": [
+            {"actor_id": "gap", "label": "甲", "source_quotes": ["甲은"]},
+            {"actor_id": "eul", "label": "乙", "source_quotes": ["乙에게"]},
+        ],
+        "facts": [{
+            "fact_id": "fact-1", "fact_type": "transfer",
+            "focus_actor_id": "gap", "related_actor_ids": ["eul"],
+            "claim": "甲이 乙에게 물건을 이전했다",
+            "source_quotes": ["甲은 물건을 乙에게 주었다"],
+        }],
+    }
+
+
+def test_fact_inventory_separates_normalized_claim_from_exact_evidence() -> None:
+    schema = core_fact_inventory_schema(case_id="case-1")
+    assert "facts" in schema["required"]
+    inventory = _inventory()
+    validate_core_fact_inventory(
+        inventory, case_id="case-1", case_text="甲은 물건을 乙에게 주었다"
+    )
+    inventory["facts"][0]["source_quotes"] = ["甲이 물건을 주었다"]
+    with pytest.raises(CoreContractError, match="fact evidence"):
+        validate_core_fact_inventory(
+            inventory, case_id="case-1", case_text="甲은 물건을 乙에게 주었다"
+        )
+
+
+def test_issue_selection_classifies_every_inventory_fact_by_id() -> None:
+    inventory = _inventory()
+    schema = core_issue_selection_schema(
+        case_id="case-1", unit_ids=["fraud"],
+        actor_ids=["gap", "eul"], fact_ids=["fact-1"],
+    )
     required = schema["properties"]["issues"]["items"]["required"]
-    assert "subject" in required
-    assert "conduct_claims" in required
+    assert {"subject_actor_id", "fact_ids"}.issubset(required)
     payload = {
-        "version": "3.0.0", "case_id": "case-1",
+        "version": "1.0.0", "case_id": "case-1",
         "issues": [{
             "issue_id": "i1", "unit_id": "unsupported",
             "reported_label": "피해자 승낙의 착오",
-            "subject": {"label": "甲", "source_quotes": ["甲은"]},
-            "conduct_claims": [{
-                "claim": "甲이 물건을 가져갔다",
-                "source_quotes": ["물건을 가져갔다"],
-            }],
+            "subject_actor_id": "gap", "fact_ids": ["fact-1"],
+        }],
+        "fact_dispositions": [{
+            "fact_id": "fact-1", "disposition": "issue",
+            "issue_ids": ["i1"], "reason": "총칙 쟁점의 근거",
         }],
     }
     validate_core_issue_selection(
-        payload, case_id="case-1", case_text="甲은 물건을 가져갔다",
-        unit_ids=["fraud"],
+        payload, case_id="case-1", unit_ids=["fraud"], inventory=inventory
     )
-    payload["issues"][0]["reported_label"] = "unsupported"
-    with pytest.raises(CoreContractError, match="descriptive label"):
+    payload["fact_dispositions"][0]["issue_ids"] = []
+    with pytest.raises(CoreContractError, match="requires issue_ids"):
         validate_core_issue_selection(
-            payload, case_id="case-1", case_text="甲은 물건을 가져갔다",
-            unit_ids=["fraud"],
+            payload, case_id="case-1", unit_ids=["fraud"], inventory=inventory
         )
 
 
 def test_issue_selection_error_names_the_non_exact_quote() -> None:
     invalid_quote = "甲이 물건을 가져갔다"
-    payload = {
-        "version": "3.0.0", "case_id": "case-1",
-        "issues": [{
-            "issue_id": "i1", "unit_id": "unsupported", "reported_label": "착오",
-            "subject": {"label": "甲", "source_quotes": ["甲은"]},
-            "conduct_claims": [{
-                "claim": "甲이 재물을 취거했다", "source_quotes": [invalid_quote],
-            }],
-        }],
-    }
+    payload = _inventory()
+    payload["facts"][0]["source_quotes"] = [invalid_quote]
     with pytest.raises(CoreContractError) as exc_info:
-        validate_core_issue_selection(
-            payload, case_id="case-1", case_text="甲은 물건을 가져갔다",
-            unit_ids=["fraud"],
+        validate_core_fact_inventory(
+            payload, case_id="case-1", case_text="甲은 물건을 가져갔다"
         )
     assert repr(invalid_quote) in str(exc_info.value)
 
