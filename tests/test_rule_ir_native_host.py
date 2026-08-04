@@ -11,6 +11,13 @@ from idpr.rulegen.native_host import (
     execute_native_case,
     execute_native_unit,
     predicate_assessment_request,
+    selected_predicate_requests,
+    validate_closed_issue_selection,
+)
+from idpr.generation.native_rule_ir_answer import (
+    NativeGenerationError,
+    build_native_generation_request,
+    finalize_native_answer,
 )
 from idpr.rulegen.registry import build_registry
 from scripts.run_p2_native_scallop_golden import UnitScenarios
@@ -73,6 +80,50 @@ def test_request_loads_every_registered_predicate_and_missing_is_closed() -> Non
         case=case, fact_graph=FACT_GRAPH, unit_id="criminal_procedure"
     )
     assert missing["status"] == "predicate_ir_missing"
+
+
+def test_closed_selection_uses_registry_enum_without_search_or_fallback() -> None:
+    case = {
+        "sub_question_id": "case-1",
+        "question_text": "피고인이 피해자를 폭행하였다.",
+        "question_prompt": "죄책을 검토하라.",
+    }
+    selection = {
+        "version": "1.0.0",
+        "case_id": "case-1",
+        "issues": [
+            {
+                "issue_id": "issue-1",
+                "unit_id": "rape",
+                "source_quote": "피고인이 피해자를 폭행하였다.",
+                "role_candidates": {"defendant_id": "defendant", "victim_id": "victim"},
+            },
+            {
+                "issue_id": "issue-2",
+                "unit_id": "unsupported",
+                "reported_label": "형사소송법상 증거능력",
+                "source_quote": "피고인이 피해자를 폭행하였다.",
+                "role_candidates": {},
+            },
+        ],
+    }
+    result = selected_predicate_requests(
+        case=case, fact_graph=FACT_GRAPH, selection=selection
+    )
+    assert result["selection_mode"] == "closed_registry_enum"
+    assert result["semantic_search_used"] is False
+    assert result["requests"][0]["assessment_request"][
+        "all_registered_predicates_loaded"
+    ] is True
+    assert result["requests"][1]["status"] == "predicate_ir_missing"
+
+    selection["issues"][0]["unit_id"] = "invented_crime"
+    with pytest.raises(NativeHostError):
+        validate_closed_issue_selection(
+            selection,
+            case_id="case-1",
+            question_text=case["question_text"],
+        )
 
 
 @pytest.mark.skipif(not DEFAULT_SCLI.is_file(), reason="pinned scli is not installed")
@@ -150,3 +201,33 @@ def test_shared_module_cannot_run_without_outcome_bridge(tmp_path: Path) -> None
             }],
             work_dir=tmp_path,
         )
+
+
+def test_writer_cannot_override_scallop_conclusion() -> None:
+    report = {
+        "case_id": "case-1",
+        "generation_contract": {
+            "source": "scallop_derivation_only",
+            "conclusion_directives": [{
+                "unit_id": "rape",
+                "symbolic_conclusion": "established",
+                "established_relations": ["rape_base_established"],
+                "evidence": {},
+            }],
+        },
+    }
+    request = build_native_generation_request(
+        case={"question_text": "사건", "question_prompt": "죄책"},
+        native_report=report,
+    )
+    model_payload = {
+        "version": "1.0.0",
+        "sections": [{"unit_id": "rape", "rule": "법리", "application": "적용"}],
+    }
+    answer = finalize_native_answer(request=request, model_payload=model_payload)
+    assert answer["sections"][0]["conclusion"] == "성립"
+    assert answer["conclusion_source"] == "scallop_derivation_only"
+
+    model_payload["sections"][0]["conclusion"] = "불성립"
+    with pytest.raises(NativeGenerationError):
+        finalize_native_answer(request=request, model_payload=model_payload)

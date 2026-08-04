@@ -12,6 +12,8 @@ import json
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
+from jsonschema import Draft202012Validator
+
 from idpr.neural.fact_graph import assessment_facts
 from idpr.neural.issue_assessment import (
     issue_assessment_request,
@@ -20,7 +22,7 @@ from idpr.neural.issue_assessment import (
 from idpr.rulegen.registry import (
     PROJECT_ROOT,
     PredicateIRMissing,
-    RuleIRRegistryEntry,
+    build_registry,
     resolve_unit,
 )
 from idpr.rulegen.scallop_runtime import run_scenario
@@ -31,6 +33,121 @@ DEFAULT_SCLI = PROJECT_ROOT / "tools/scallop/scli-0.2.4-linux-x86_64"
 
 class NativeHostError(ValueError):
     """A closed host contract was violated before symbolic execution."""
+
+
+def closed_issue_selection_schema(
+    *, case_id: str, root: Path = PROJECT_ROOT
+) -> dict[str, Any]:
+    """Return the no-search, registry-enumerated model output grammar."""
+
+    unit_ids = sorted(build_registry(root).keys())
+    return {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "idpr/RuleIRNativeIssueSelection",
+        "type": "object",
+        "additionalProperties": False,
+        "required": ["version", "case_id", "issues"],
+        "properties": {
+            "version": {"const": "1.0.0"},
+            "case_id": {"const": case_id},
+            "issues": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 16,
+                "items": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": [
+                        "issue_id", "unit_id", "source_quote", "role_candidates"
+                    ],
+                    "properties": {
+                        "issue_id": {
+                            "type": "string", "pattern": "^[a-z0-9][a-z0-9_.-]*$"
+                        },
+                        "unit_id": {"enum": [*unit_ids, "unsupported"]},
+                        "reported_label": {"type": "string", "minLength": 1},
+                        "source_quote": {"type": "string", "minLength": 1},
+                        "role_candidates": {
+                            "type": "object",
+                            "additionalProperties": {"type": "string", "minLength": 1},
+                        },
+                    },
+                    "allOf": [{
+                        "if": {"properties": {"unit_id": {"const": "unsupported"}}},
+                        "then": {"required": ["reported_label"]},
+                    }],
+                },
+            },
+        },
+    }
+
+
+def validate_closed_issue_selection(
+    payload: Mapping[str, Any],
+    *,
+    case_id: str,
+    question_text: str,
+    root: Path = PROJECT_ROOT,
+) -> None:
+    """Reject invented units, duplicate issues, and ungrounded issue spotting."""
+
+    schema = closed_issue_selection_schema(case_id=case_id, root=root)
+    errors = [
+        f"{'.'.join(str(part) for part in error.absolute_path) or '$'}: {error.message}"
+        for error in Draft202012Validator(schema).iter_errors(payload)
+    ]
+    issues = payload.get("issues", [])
+    if isinstance(issues, list):
+        ids = [item.get("issue_id") for item in issues if isinstance(item, Mapping)]
+        if len(ids) != len(set(ids)):
+            errors.append("issue_id values must be unique")
+        for item in issues:
+            if isinstance(item, Mapping) and item.get("source_quote") not in question_text:
+                errors.append(f"{item.get('issue_id')}: source_quote is not in case text")
+    if errors:
+        raise NativeHostError("; ".join(errors))
+
+
+def selected_predicate_requests(
+    *,
+    case: Mapping[str, Any],
+    fact_graph: Mapping[str, Any],
+    selection: Mapping[str, Any],
+    root: Path = PROJECT_ROOT,
+) -> dict[str, Any]:
+    """Resolve a closed selection without retrieval or a generic fallback."""
+
+    case_id = str(case.get("sub_question_id", ""))
+    validate_closed_issue_selection(
+        selection,
+        case_id=case_id,
+        question_text=str(case.get("question_text", "")),
+        root=root,
+    )
+    requests = []
+    for issue in selection["issues"]:
+        unit_id = str(issue["unit_id"])
+        if unit_id == "unsupported":
+            requests.append({
+                "issue_id": issue["issue_id"],
+                "unit_id": unit_id,
+                "status": "predicate_ir_missing",
+                "detail": f"No registered RuleIR for {issue['reported_label']}",
+            })
+            continue
+        requests.append({
+            "issue_id": issue["issue_id"],
+            "unit_id": unit_id,
+            "assessment_request": predicate_assessment_request(
+                case=case, fact_graph=fact_graph, unit_id=unit_id, root=root
+            ),
+        })
+    return {
+        "case_id": case_id,
+        "selection_mode": "closed_registry_enum",
+        "semantic_search_used": False,
+        "requests": requests,
+    }
 
 
 def predicate_assessment_request(
