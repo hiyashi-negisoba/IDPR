@@ -50,8 +50,9 @@ predicate, committed SCL, native host, P2 272/272와 property 55/55를 만들었
 
 ## 최종 증거
 
-- 최종 복구 커밋: `0f4ff67af24c02b6bef598cda06d89ff713cf559`
-- 전체 회귀: 617 passed
+- 실제 스모크 대상 복구 커밋: `0f4ff67af24c02b6bef598cda06d89ff713cf559`
+- 주 워크스페이스 활성 merge: `2a1492f`
+- 주 워크스페이스 전체 회귀: 626 passed
 - prompt audit: 3 stages, 0 errors
 - 실제 Gemma 4 26B + Scallop 잡: `219112`, `COMPLETED`, 2분 23초, exit 0
 - 실제 문항: `kcl_criminal_r12_p1_q2`
