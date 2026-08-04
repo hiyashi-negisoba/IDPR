@@ -1,0 +1,75 @@
+{
+  "version": "1.0.0",
+  "status": "pass",
+  "scope": "offline normalized-core preflight; no model calls",
+  "api_calls": 0,
+  "prompt_hashes": {
+    "rule_ir_core_issue_select": "c9276184e9050a441880b7679761387fa6bdb1d3a0d44746b33d831189ddabfd",
+    "rule_ir_core_issue_select_user": "7149269a9528f2310f63a1f342f04b41864f04f3469fd02c8fbafe915251c742",
+    "rule_ir_core_role_bind": "451dc7776d475fb6e3e5c0ac8023a1eb95b1ade88cb82a8ec110936ae6445423",
+    "rule_ir_core_role_bind_user": "3bb432210f8fad05af4827a0d819aca1c488c7838ab7eb337a2f55fc86acfcb6",
+    "rule_ir_core_assess": "5517c3c7e29f5b962d742d4863c40181319d19c436eed59995b4eab7b084a194",
+    "rule_ir_core_assess_user": "2a05e575cec9790d89b1d1782eae7a36e6e5c4defd155d1843b004cb5467c526",
+    "rule_ir_native_hybrid_generate": "1809cbebdc41d933c99004a43c362098aa6ce5c22f89a9d2a41c882820a26bee",
+    "rule_ir_native_hybrid_generate_user": "4bcaee37a132f7675c7792d1732087fa02607b2a893df13a4dba223278bce371"
+  },
+  "prompts": [
+    {
+      "stage": "selection",
+      "system": "rule_ir_core_issue_select",
+      "user": "rule_ir_core_issue_select_user",
+      "system_characters": 643,
+      "user_characters": 164
+    },
+    {
+      "stage": "binding",
+      "system": "rule_ir_core_role_bind",
+      "user": "rule_ir_core_role_bind_user",
+      "system_characters": 674,
+      "user_characters": 155
+    },
+    {
+      "stage": "assessment",
+      "system": "rule_ir_core_assess",
+      "user": "rule_ir_core_assess_user",
+      "system_characters": 713,
+      "user_characters": 169
+    },
+    {
+      "stage": "generation",
+      "system": "rule_ir_native_hybrid_generate",
+      "user": "rule_ir_native_hybrid_generate_user",
+      "system_characters": 1231,
+      "user_characters": 179
+    }
+  ],
+  "schemas": {
+    "stages": [
+      "selection",
+      "binding",
+      "assessment",
+      "generation"
+    ],
+    "unsupported_guidance_keywords_present": [],
+    "selection_performs_role_binding": false
+  },
+  "predicate_boundary": {
+    "units": 36,
+    "detailed_card_predicates": 1652,
+    "core_model_predicates": 245,
+    "fraud": [
+      88,
+      10
+    ],
+    "theft": [
+      66,
+      6
+    ]
+  },
+  "search_contract": {
+    "initial_issue_search": false,
+    "predicate_conditioned_context": true,
+    "context_may_change_predicate_set": false
+  },
+  "errors": []
+}
