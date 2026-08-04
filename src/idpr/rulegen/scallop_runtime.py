@@ -215,6 +215,38 @@ def render_scenario_facts(
     return "\n".join(lines) + "\n"
 
 
+class ScallopScenarioResult(dict):
+    """Dictionary mapping query relations to outputs, preserving proof_dag as metadata attribute."""
+    def __init__(
+        self,
+        *args,
+        proof_dag: dict[str, Any] | None = None,
+        raw_output: str = "",
+        **kwargs,
+    ):
+        super().__init__(*args, **kwargs)
+        self.proof_dag = proof_dag or {}
+        self.raw_output = raw_output
+
+    def __getitem__(self, key: Any) -> Any:
+        if key == "_proof_dag":
+            return self.proof_dag
+        return super().__getitem__(key)
+
+    def get(self, key: Any, default: Any = None) -> Any:
+        # ``dict.get`` bypasses ``__getitem__``, so the proof DAG has to be
+        # surfaced here as well or every ``raw.get("_proof_dag")`` caller
+        # silently receives ``None``.
+        if key == "_proof_dag":
+            return self.proof_dag
+        return super().get(key, default)
+
+    def __contains__(self, key: Any) -> bool:
+        if key == "_proof_dag":
+            return True
+        return super().__contains__(key)
+
+
 def run_scenario(
     *,
     rule_ir: Mapping[str, Any],
@@ -223,7 +255,7 @@ def run_scenario(
     query_relations: Sequence[str],
     scli_path: Path,
     work_dir: Path,
-) -> dict[str, dict[str, Any]]:
+) -> ScallopScenarioResult:
     facts = render_scenario_facts(rule_ir, scenario)
     predicate_ids = {
         predicate["id"] for predicate in rule_ir.get("predicates", [])
@@ -253,13 +285,94 @@ def run_scenario(
             f"{completed.stderr.strip() or completed.stdout.strip()}"
         )
     output = completed.stdout.strip()
-    results: dict[str, dict[str, Any]] = {}
+    relations_tuples = parse_scallop_relations(output)
+    results = ScallopScenarioResult(raw_output=output)
     for relation in query_relations:
+        tuples = relations_tuples.get(relation, set())
+        # ``output`` is deliberately not repeated per relation: it is the same
+        # ``--output-all`` dump for every query and copying it once per query
+        # inflated native reports by hundreds of kilobytes.
         results[relation] = {
-            "nonempty": _query_output_nonempty(output, relation),
-            "output": output,
+            "nonempty": len(tuples) > 0,
+            "proven_tuples": [list(t) for t in sorted(tuples)],
         }
+    proof_dag = extract_proof_dag(rule_ir=rule_ir, relations_tuples=relations_tuples, query_relations=query_relations)
+    results.proof_dag = proof_dag
     return results
+
+
+def parse_scallop_relations(output: str) -> dict[str, set[tuple[str, ...]]]:
+    """Parse all relations and their proven tuples from scli --output-all stdout."""
+
+    results: dict[str, set[tuple[str, ...]]] = {}
+    pattern = re.compile(r"(?m)^\s*([a-zA-Z0-9_]+)\s*:\s*\{(.*?)\}")
+    for match in pattern.finditer(output):
+        rel_name = match.group(1)
+        raw_body = match.group(2).strip()
+        tuples: set[tuple[str, ...]] = set()
+        if raw_body:
+            # Match tuple patterns like ("a", "b") or ("a", "b", "c")
+            tuple_pattern = re.compile(r"\((.*?)\)")
+            for t_match in tuple_pattern.finditer(raw_body):
+                items = [
+                    item.strip().strip('"').strip("'")
+                    for item in t_match.group(1).split(",")
+                    if item.strip()
+                ]
+                if items:
+                    tuples.add(tuple(items))
+        results[rel_name] = tuples
+    return results
+
+
+def extract_proof_dag(
+    *,
+    rule_ir: Mapping[str, Any],
+    relations_tuples: dict[str, set[tuple[str, ...]]],
+    query_relations: Sequence[str],
+) -> dict[str, Any]:
+    """Extract causal proof trace (fired rules, proven tuples, causal antecedents)."""
+
+    proven_relations = {rel for rel, tuples in relations_tuples.items() if tuples}
+    fired_rules: list[str] = []
+    proof_tree: dict[str, list[dict[str, Any]]] = {}
+    # Which requirement stopped a conclusion.  Without this a unit that misses a
+    # single element reports a bare 미확정, and the answer has nothing to say
+    # about why.
+    blocked: dict[str, set[str]] = {}
+
+    for rule_entry in rule_ir.get("rules", []):
+        rule_id = str(rule_entry.get("id", ""))
+        head = rule_entry.get("head", {})
+        head_name = str(head.get("predicate") or head.get("name") or "")
+        body = rule_entry.get("body", [])
+
+        # Rule fires if all positive body atoms are proven relations
+        body_names = [str(atom_entry.get("predicate") or atom_entry.get("name") or "") for atom_entry in body if not atom_entry.get("negated")]
+        if body_names and all(b_name in proven_relations for b_name in body_names):
+            if head_name in proven_relations:
+                fired_rules.append(rule_id)
+                if head_name not in proof_tree:
+                    proof_tree[head_name] = []
+                proof_tree[head_name].append({
+                    "rule_id": rule_id,
+                    "antecedents": body_names,
+                    "description": rule_entry.get("description", ""),
+                })
+        elif head_name.endswith(("_elements_satisfied", "_established")) \
+                and head_name not in proven_relations:
+            missing = [name for name in body_names if name not in proven_relations]
+            if missing:
+                blocked.setdefault(head_name, set()).update(missing)
+
+    return {
+        "fired_rules": sorted(set(fired_rules)),
+        "proven_relations": sorted(proven_relations),
+        "proof_tree": proof_tree,
+        "blocked_conclusions": {
+            head: sorted(names) for head, names in sorted(blocked.items())
+        },
+    }
 
 
 def runtime_version(scli_path: Path) -> str:

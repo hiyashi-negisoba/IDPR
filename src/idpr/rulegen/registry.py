@@ -146,6 +146,21 @@ def load_asset_specs(
     return tuple(specs)
 
 
+def _OPTIONAL_QUERY_RELATIONS(unit_id: str) -> tuple[str, ...]:
+    """Relations a unit reports only when its cards produce them.
+
+    Boundary and waiver rulings were compiled into the SCL but never queried,
+    so "not this offence but that one" reached the answer as a bare 불성립 and
+    the destination offence was lost.  A unit without such cards simply does not
+    declare these predicates, hence the presence check at the call site.
+    """
+    return (
+        f"{unit_id}_refers_to_crime",
+        f"{unit_id}_boundary_shift",
+        f"{unit_id}_requirement_waived",
+    )
+
+
 def build_registry(
     root: Path = PROJECT_ROOT,
     manifest_path: Path = DEFAULT_MANIFEST_PATH,
@@ -174,7 +189,11 @@ def build_registry(
             role_predicate=role_predicate,
             commentary_inputs=_selected_predicates(predicates, selectors["commentary_inputs"]),
             system_inputs=_selected_predicates(predicates, selectors["system_inputs"]),
-            query_relations=spec.query_relations,
+            query_relations=spec.query_relations + tuple(
+                relation
+                for relation in _OPTIONAL_QUERY_RELATIONS(spec.unit_id)
+                if relation in by_id and relation not in spec.query_relations
+            ),
             compiled_scl_path=spec.compiled_scl_path,
             rule_ir_path=spec.rule_ir_path,
             shared_module=spec.shared_module,

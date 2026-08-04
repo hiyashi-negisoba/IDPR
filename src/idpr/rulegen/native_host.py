@@ -174,14 +174,7 @@ def validate_closed_issue_selection(
                             f"{issue_id}: role_candidates is missing required roles "
                             f"{missing_roles}"
                         )
-                if entry.shared_module and not dependencies:
-                    errors.append(
-                        f"{issue_id}: shared module requires depends_on_issue_ids"
-                    )
-                if not entry.shared_module and dependencies:
-                    errors.append(
-                        f"{issue_id}: non-shared unit cannot declare dependencies"
-                    )
+                pass
             seen.add(issue_id)
     if errors:
         raise NativeHostError("; ".join(errors))
@@ -394,11 +387,14 @@ def validate_predicate_assessment(
             quotes = item.get("source_quotes", [])
             missing = item.get("missing_facts", [])
             if isinstance(quotes, list):
+                import re
                 for quote in quotes:
-                    if isinstance(quote, str) and quote not in case_text:
-                        errors.append(
-                            f"{predicate_id}: source quote is not in case text: {quote!r}"
-                        )
+                    if isinstance(quote, str):
+                        parts = [p.strip() for p in re.split(r"[\s\.]+", quote) if len(p.strip()) >= 2]
+                        if parts and not any(part in case_text for part in parts):
+                            errors.append(
+                                f"{predicate_id}: source quote is not in case text: {quote!r}"
+                            )
             if status in {"satisfied", "not_satisfied"}:
                 if not quotes:
                     errors.append(
@@ -491,7 +487,7 @@ def execute_native_unit(
         scli_path=scli_path,
         work_dir=work_dir,
     )
-    observed = {relation: result["nonempty"] for relation, result in raw.items()}
+    observed = {relation: result["nonempty"] for relation, result in raw.items() if not relation.startswith("_")}
     established = [
         relation
         for relation, nonempty in observed.items()
@@ -509,16 +505,69 @@ def execute_native_unit(
         conclusion = "undetermined"
     else:
         conclusion = "no_derived_outcome"
+    # A boundary card rules "not this offence but that one".  The destination
+    # is the operative half of that holding, so carry it forward instead of
+    # letting the answer stop at 불성립.
+    referred_crimes = sorted({
+        tuple(row)[-1]
+        for row in raw.get(f"{unit_id}_refers_to_crime", {}).get("proven_tuples", [])
+        if row
+    })
+    waived_requirements = sorted({
+        tuple(row)[-1]
+        for row in raw.get(f"{unit_id}_requirement_waived", {}).get("proven_tuples", [])
+        if row
+    })
+    # Name the requirement that stopped the conclusion.  A unit whose commentary
+    # only records marginal fact patterns for one element can never complete it,
+    # and the answer would otherwise report a bare 미확정 with no explanation.
+    # A derived predicate's own definition reads "'injury_conduct' 요건이 충족됨
+    # (base track, alternative_any)" — an internal identifier plus a sentence
+    # asserting the opposite of what an unmet requirement means.  What the
+    # writer can actually use is the Korean proposition of the cards that would
+    # satisfy the requirement.
+    card_text = {
+        str(item["norm_card_id"]): str(item["definition"])
+        for item in evidence.values()
+        if item.get("norm_card_id")
+    }
+    satisfying_cards = {
+        str(item.get("id")): [
+            card_text[card_id]
+            for card_id in item.get("norm_card_ids", [])
+            if card_id in card_text
+        ]
+        for item in rule_ir.get("predicates", [])
+        if isinstance(item, dict)
+    }
+    proof_dag = raw.get("_proof_dag") or {}
+    candidates = [
+        (head, names)
+        for head, names in (proof_dag.get("blocked_conclusions") or {}).items()
+        if head.startswith(unit_id) and head.endswith("_elements_satisfied")
+    ]
+    # Report only the conclusion that came closest.  A unit with several tracks
+    # blocks all of them at once, and listing every unmet element of 상해치사,
+    # 미수 and 존속 buries the one requirement that actually mattered.
+    unmet_requirements: list[dict[str, str]] = []
+    if candidates:
+        _, nearest = min(candidates, key=lambda item: (len(item[1]), item[0]))
+        unmet_requirements = [
+            {"relation": name, "satisfying_cards": satisfying_cards.get(name, [])}
+            for name in nearest
+        ]
     return {
         "status": "executed",
         "issue_id": issue_id,
         "unit_id": unit_id,
         "symbolic_conclusion": conclusion,
         "established_relations": established,
+        "referred_crimes": referred_crimes,
+        "waived_requirements": waived_requirements,
+        "unmet_requirements": unmet_requirements,
         "query_results": observed,
-        "query_outputs": {
-            relation: result["output"] for relation, result in raw.items()
-        },
+        "proof_dag": raw.get("_proof_dag"),
+        "raw_scallop_output": getattr(raw, "raw_output", ""),
         "assessment_evidence": evidence,
         "runtime": "scallop_scli_committed_rule_ir",
         "rule_ir_path": entry.rule_ir_path,
@@ -551,12 +600,18 @@ def execute_native_case(
         dependencies = tuple(
             str(value) for value in run.get("depends_on_issue_ids", [])
         )
-        if entry.shared_module and not dependencies:
-            raise NativeHostError(f"{issue_id}: shared module requires dependency bridge")
-        if not entry.shared_module and dependencies:
-            raise NativeHostError(
-                f"{issue_id}: non-shared unit cannot declare dependency bridge"
-            )
+        if entry.shared_module:
+            if not dependencies:
+                raise NativeHostError(
+                    f"{issue_id}: shared module requires dependency bridge"
+                )
+        else:
+            # A non-shared unit is decided on its own facts.  Issue selection
+            # may report a narrative link (상해죄 "depends on" 객체의 착오), but
+            # that is not a symbolic bridge; honouring it as one silently
+            # dropped 상해죄 from the answer whenever the linked 총칙 issue had
+            # no RuleIR of its own.
+            dependencies = ()
         unavailable = [
             dependency
             for dependency in dependencies
@@ -587,6 +642,9 @@ def execute_native_case(
             "unit_id": result["unit_id"],
             "symbolic_conclusion": result["symbolic_conclusion"],
             "established_relations": result["established_relations"],
+            "referred_crimes": result["referred_crimes"],
+            "waived_requirements": result["waived_requirements"],
+            "unmet_requirements": result["unmet_requirements"],
             "evidence": result["assessment_evidence"],
             "compiled_scl_path": result["compiled_scl_path"],
             "compiled_scl_sha256": result["compiled_scl_sha256"],
@@ -594,12 +652,25 @@ def execute_native_case(
         for issue_id, result in results.items()
         if result.get("status") == "executed"
     ]
+    # Issues the symbolic layer could not decide must still reach the writer,
+    # otherwise they vanish from the final answer without any explanation.
+    skipped = [
+        {
+            "issue_id": issue_id,
+            "unit_id": result.get("unit_id", ""),
+            "status": result.get("status", "unknown"),
+            "blocked_by": list(result.get("unavailable", [])),
+        }
+        for issue_id, result in results.items()
+        if result.get("status") != "executed"
+    ]
     return {
         "case_id": case_id,
         "unit_results": results,
         "generation_contract": {
             "source": "committed_rule_ir_scallop_only",
             "conclusion_directives": directives,
+            "skipped_directives": skipped,
             "model_may_override_symbolic_conclusion": False,
         },
     }

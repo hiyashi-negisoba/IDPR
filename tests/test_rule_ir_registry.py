@@ -35,8 +35,15 @@ def test_registry_is_derived_from_manifest_and_rule_ir_assets() -> None:
         payload = json.loads((PROJECT_ROOT / spec.rule_ir_path).read_text(encoding="utf-8"))
         predicate_ids = {item["id"] for item in payload["predicates"]}
         assert entry.role_predicate["id"] == spec.role_predicate
-        assert set(entry.query_relations) == set(spec.query_relations)
+        # The entry adds boundary/waiver reports on top of the manifest's fixed
+        # outcome queries, but only where the unit's cards actually declare them.
+        assert set(spec.query_relations) <= set(entry.query_relations)
         assert set(entry.query_relations) <= predicate_ids
+        for relation in set(entry.query_relations) - set(spec.query_relations):
+            assert relation.startswith(f"{spec.unit_id}_")
+            assert relation.endswith(
+                ("_refers_to_crime", "_boundary_shift", "_requirement_waived")
+            )
         assert entry.article_ids
 
 
