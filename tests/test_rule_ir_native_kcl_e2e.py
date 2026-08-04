@@ -81,11 +81,11 @@ def test_hybrid_writer_separates_symbolic_and_model_only_conclusions() -> None:
         ],
     }
     schema = hybrid_answer_schema(request["sections"])
-    supported = schema["properties"]["sections"]["prefixItems"][0]
-    general = schema["properties"]["sections"]["prefixItems"][1]
-    assert "conclusion" not in supported["properties"]
-    assert "provisional_conclusion" not in supported["properties"]
-    assert "provisional_conclusion" in general["properties"]
+    item = schema["properties"]["sections"]["items"]
+    assert "conclusion" not in item["properties"]
+    assert "provisional_conclusion" in item["properties"]
+    assert "if" not in repr(schema)
+    assert "prefixItems" not in repr(schema)
 
     model = {
         "version": "1.0.0",

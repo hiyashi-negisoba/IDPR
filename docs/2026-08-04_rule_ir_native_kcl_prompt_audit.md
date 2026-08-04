@@ -9,7 +9,7 @@
 | stage | system SHA-256 | user SHA-256 | 계약 문구 |
 |---|---|---|---|
 | `fact_extract` | `e5bc96e1dba3071421ca933825377811b2ff93a69f90a1d4cd329bfc084d59ad` | `41a2a3481a3b7df474032e22fb8003f0da86212570fbed8f3e2c937f90b269fe` | pass |
-| `issue_select` | `cec1f5d9841a5510532d775662adf0fdda7074e60a016ce06a66ae46c76b6e03` | `c1aff928ddba42c5fe7b6327f2525214445bda94c6326180da8327eedbfa49fb` | pass |
+| `issue_select` | `d1eb7136a6a2ceb9a07e8a6e4e5ca835413c81b585ee1cf6f031bb5ee574e797` | `c1aff928ddba42c5fe7b6327f2525214445bda94c6326180da8327eedbfa49fb` | pass |
 | `predicate_assess` | `01b688fc4f258461e07f2ee3251926059311c1fb6745aca09424e30febfa7c25` | `95521d613973fc509e421c34ea0239a3494eaaebe60bc7bd1531bc8ac02b81c2` | pass |
 | `hybrid_generate` | `619172b67280c8ae50fab91b186345c4b16d3c19b594e24dacaa1a6039d78c84` | `4bcaee37a132f7675c7792d1732087fa02607b2a893df13a4dba223278bce371` | pass |
 

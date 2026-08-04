@@ -18,6 +18,7 @@ from idpr.eval.input_formatter import (  # noqa: E402
     LEAKING_FIELDS,
     assert_no_leaked_fields,
 )
+from idpr.generation.native_hybrid_answer import hybrid_answer_schema  # noqa: E402
 from idpr.neural.fact_graph import fact_graph_schema  # noqa: E402
 from idpr.neural.issue_assessment import issue_assessment_schema  # noqa: E402
 from idpr.prompts import INPUT_PLACEHOLDER, load_prompt, prompt_path  # noqa: E402
@@ -93,6 +94,21 @@ def _nested_keys(value: Any) -> set[str]:
         }
     if isinstance(value, list):
         return {nested for child in value for nested in _nested_keys(child)}
+    return set()
+
+
+def _unsupported_guidance_keywords(value: Any) -> set[str]:
+    unsupported = {"if", "then", "else", "prefixItems"}
+    if isinstance(value, Mapping):
+        return (set(value) & unsupported) | {
+            nested
+            for child in value.values()
+            for nested in _unsupported_guidance_keywords(child)
+        }
+    if isinstance(value, list):
+        return {
+            nested for child in value for nested in _unsupported_guidance_keywords(child)
+        }
     return set()
 
 
@@ -176,6 +192,27 @@ def audit() -> dict[str, Any]:
     if required_predicates != predicate_ids:
         errors.append("predicate assessment schema does not preserve complete registry order")
 
+    generation_schema = hybrid_answer_schema([
+        {"section_id": "supported", "authority": "rule_ir_scallop"},
+        {
+            "section_id": "general",
+            "authority": "model_only_general_part_experiment",
+        },
+    ])
+    incompatible = set().union(*(
+        _unsupported_guidance_keywords(schema)
+        for schema in (
+            native_fact_schema,
+            selection_schema,
+            assessment_schema,
+            generation_schema,
+        )
+    ))
+    if incompatible:
+        errors.append(
+            f"runtime schemas use unsupported vLLM guidance keywords: {sorted(incompatible)}"
+        )
+
     # These are intentional experiment boundaries, not silent production behavior.
     warnings.extend([
         "Unsupported general-part sections use model-only legal knowledge and are not symbolic.",
@@ -198,6 +235,7 @@ def audit() -> dict[str, Any]:
             "sample_required_predicates": len(required_predicates),
             "supported_writer_conclusion_field": False,
             "unsupported_general_part_authority": "model_only_general_part_experiment",
+            "unsupported_guidance_keywords_present": sorted(incompatible),
         },
         "errors": errors,
         "warnings": warnings,

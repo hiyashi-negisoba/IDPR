@@ -15,6 +15,7 @@ def test_native_prompt_preflight_passes_without_model_calls() -> None:
     assert report["schemas"]["registered_unit_enum"] == 36
     assert report["schemas"]["semantic_search_outputs_item_bounds"] == [0, 0]
     assert report["schemas"]["supported_writer_conclusion_field"] is False
+    assert report["schemas"]["unsupported_guidance_keywords_present"] == []
     assert render_markdown(report).startswith(
         "# RuleIR-native KCL E2E 사전 프롬프트 감사\n"
     )

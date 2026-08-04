@@ -95,6 +95,7 @@ def test_closed_selection_uses_registry_enum_without_search_or_fallback() -> Non
             {
                 "issue_id": "issue-1",
                 "unit_id": "rape",
+                "reported_label": "강간",
                 "source_quote": "피고인이 피해자를 폭행하였다.",
                 "role_candidates": {"defendant_id": "defendant", "victim_id": "victim"},
             },

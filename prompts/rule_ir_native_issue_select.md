@@ -8,6 +8,7 @@
 - 사건 사실과 질문, 호스트가 제공한 `allowed_units`만 사용한다.
 - `unit_id`는 `allowed_units`에 있는 값 또는 `unsupported`만 출력한다. 비슷한 이름을 만들거나
   조문·죄명을 추측해 새 ID를 만들지 않는다.
+- 모든 issue의 `reported_label`에 사람이 읽을 수 있는 죄명 또는 총칙 쟁점명을 쓴다.
 - embedding, 의미검색, 키워드 검색, article top-k를 수행하거나 요청하지 않는다.
 - 질문이 요구하는 행위자별·행위별 죄책을 빠짐없이 복수 issue로 나눈다. 한 개의 대표 죄명으로
   압축하지 않는다.

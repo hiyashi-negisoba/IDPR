@@ -12,25 +12,7 @@ class NativeHybridAnswerError(ValueError):
 
 
 def hybrid_answer_schema(sections: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
-    items = []
-    for section in sections:
-        properties: dict[str, Any] = {
-            "section_id": {"const": section["section_id"]},
-            "rule": {"type": "string", "minLength": 1, "maxLength": 8000},
-            "application": {"type": "string", "minLength": 1, "maxLength": 8000},
-        }
-        required = ["section_id", "rule", "application"]
-        if section["authority"] == "model_only_general_part_experiment":
-            properties["provisional_conclusion"] = {
-                "type": "string", "minLength": 1, "maxLength": 2000
-            }
-            required.append("provisional_conclusion")
-        items.append({
-            "type": "object",
-            "additionalProperties": False,
-            "required": required,
-            "properties": properties,
-        })
+    section_ids = [str(section["section_id"]) for section in sections]
     return {
         "type": "object",
         "additionalProperties": False,
@@ -39,10 +21,23 @@ def hybrid_answer_schema(sections: Sequence[Mapping[str, Any]]) -> dict[str, Any
             "version": {"const": "1.0.0"},
             "sections": {
                 "type": "array",
-                "minItems": len(items),
-                "maxItems": len(items),
-                "prefixItems": items,
-                "items": False,
+                "minItems": len(section_ids),
+                "maxItems": len(section_ids),
+                "items": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": ["section_id", "rule", "application"],
+                    "properties": {
+                        "section_id": {"enum": section_ids},
+                        "rule": {"type": "string", "minLength": 1, "maxLength": 8000},
+                        "application": {
+                            "type": "string", "minLength": 1, "maxLength": 8000
+                        },
+                        "provisional_conclusion": {
+                            "type": "string", "minLength": 1, "maxLength": 2000
+                        },
+                    },
+                },
             },
         },
     }
@@ -58,6 +53,25 @@ def finalize_hybrid_answer(
             model_payload
         )
     ]
+    if errors:
+        raise NativeHybridAnswerError("; ".join(errors))
+    for index, (planned, prose) in enumerate(
+        zip(sections, model_payload["sections"], strict=True)
+    ):
+        if prose["section_id"] != planned["section_id"]:
+            errors.append(
+                f"sections.{index}.section_id: expected {planned['section_id']!r}"
+            )
+        is_general = planned["authority"] == "model_only_general_part_experiment"
+        has_provisional = "provisional_conclusion" in prose
+        if is_general and not has_provisional:
+            errors.append(
+                f"sections.{index}: model-only general part requires provisional_conclusion"
+            )
+        if not is_general and has_provisional:
+            errors.append(
+                f"sections.{index}: symbolic section cannot provide provisional_conclusion"
+            )
     if errors:
         raise NativeHybridAnswerError("; ".join(errors))
     labels = {

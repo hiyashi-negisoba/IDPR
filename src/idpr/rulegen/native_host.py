@@ -58,7 +58,8 @@ def closed_issue_selection_schema(
                     "type": "object",
                     "additionalProperties": False,
                     "required": [
-                        "issue_id", "unit_id", "source_quote", "role_candidates"
+                        "issue_id", "unit_id", "reported_label", "source_quote",
+                        "role_candidates",
                     ],
                     "properties": {
                         "issue_id": {
@@ -72,10 +73,6 @@ def closed_issue_selection_schema(
                             "additionalProperties": {"type": "string", "minLength": 1},
                         },
                     },
-                    "allOf": [{
-                        "if": {"properties": {"unit_id": {"const": "unsupported"}}},
-                        "then": {"required": ["reported_label"]},
-                    }],
                 },
             },
         },
