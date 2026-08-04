@@ -4,52 +4,52 @@
   "scope": "offline normalized-core preflight; no model calls",
   "api_calls": 0,
   "prompt_hashes": {
-    "rule_ir_core_fact_inventory": "49a197fef2438ddd8f3224dab7841b22f1209f5546c6764e19b906ec44348583",
-    "rule_ir_core_fact_inventory_user": "51d0d7501a946960affe2669b7d9eed9b72a278df8af914cfe29e8705d45f504",
-    "rule_ir_core_issue_select": "c7ef4b0581de44897c17a9b85bfb8c56dbae9abeb29e849fedbfb8deeeaa0ece",
-    "rule_ir_core_issue_select_user": "f0f50634c66116b48ab5f95ff1679f6e2455a7844397aba276511aa3acc25d62",
-    "rule_ir_core_role_bind": "848876bfe95846e85f02fee56da02d51df848bd279cc33999538445d34fbd0a6",
-    "rule_ir_core_role_bind_user": "3bb432210f8fad05af4827a0d819aca1c488c7838ab7eb337a2f55fc86acfcb6",
-    "rule_ir_core_assess": "53700b19c0490d63f23fa4dec5fe9debaadc7169b8937bb1c77ecbf9b9a27a60",
-    "rule_ir_core_assess_user": "2a05e575cec9790d89b1d1782eae7a36e6e5c4defd155d1843b004cb5467c526",
-    "rule_ir_native_hybrid_generate": "083aca46f8ee5ce556ae8b9b13209d8eb5f1efc11a4f2d489b8993a818b6c44d",
-    "rule_ir_native_hybrid_generate_user": "4bcaee37a132f7675c7792d1732087fa02607b2a893df13a4dba223278bce371"
+    "rule_ir_core_fact_inventory": "b7dea10d08aec6bca5a667560e95bd8735b52c9ff40f264314b28b0246dacbb5",
+    "rule_ir_core_fact_inventory_user": "420a8db3f05ba10ea438d074fcccb1b13b810b1d55a68b0df49ad89af7551fb8",
+    "rule_ir_core_issue_select": "89715c0f022d0db3d68ed6e83e7107f7c484e4155943e73c798db386b3f0868c",
+    "rule_ir_core_issue_select_user": "6b8941b3fae8ca3e7d0fcc0d1bda43a75c56efecd17f4c6d04333f06d4ab23b2",
+    "rule_ir_core_role_bind": "2f6bfcd834c4f5d7df3326aafc28d39c1224e8a90181bbde289ce65e1b7c8e6a",
+    "rule_ir_core_role_bind_user": "9d03a01aa16d2b4b13ccfc59667c9fcc566910f10aeeabd3140de45c435b207c",
+    "rule_ir_core_assess": "a416037f0d81233135f6295cbcd25f2b3de422277c683df2e4aa3347e7027c0a",
+    "rule_ir_core_assess_user": "59a7ad22b39a211dbd5938d9d91550c54f26a49966dc4c9bb90e5903ecb3f989",
+    "rule_ir_native_hybrid_generate": "adfa8e48dd5fac412a713adecbb42fd4e405efd7a3b1e4464adcb95b72551202",
+    "rule_ir_native_hybrid_generate_user": "6b00ffc95c27632b66ed171cb522d142df6028fb863f1999f9df2fa878bdcb8f"
   },
   "prompts": [
     {
       "stage": "inventory",
       "system": "rule_ir_core_fact_inventory",
       "user": "rule_ir_core_fact_inventory_user",
-      "system_characters": 970,
-      "user_characters": 167
+      "system_characters": 475,
+      "user_characters": 136
     },
     {
       "stage": "selection",
       "system": "rule_ir_core_issue_select",
       "user": "rule_ir_core_issue_select_user",
-      "system_characters": 1253,
-      "user_characters": 205
+      "system_characters": 485,
+      "user_characters": 129
     },
     {
       "stage": "binding",
       "system": "rule_ir_core_role_bind",
       "user": "rule_ir_core_role_bind_user",
-      "system_characters": 1337,
-      "user_characters": 155
+      "system_characters": 566,
+      "user_characters": 126
     },
     {
       "stage": "assessment",
       "system": "rule_ir_core_assess",
       "user": "rule_ir_core_assess_user",
-      "system_characters": 943,
-      "user_characters": 169
+      "system_characters": 494,
+      "user_characters": 124
     },
     {
       "stage": "generation",
       "system": "rule_ir_native_hybrid_generate",
       "user": "rule_ir_native_hybrid_generate_user",
-      "system_characters": 1351,
-      "user_characters": 179
+      "system_characters": 576,
+      "user_characters": 150
     }
   ],
   "schemas": {
@@ -63,8 +63,9 @@
     "unsupported_guidance_keywords_present": [],
     "selection_performs_role_binding": false,
     "inventory_precedes_selection": true,
-    "selection_covers_every_inventory_fact": true,
-    "track_selection_requires_subject_and_evidence": true
+    "selection_is_question_scoped": true,
+    "redundant_fact_disposition_ledger": false,
+    "track_selection_contract": "track_id_and_reason_only"
   },
   "predicate_boundary": {
     "units": 36,

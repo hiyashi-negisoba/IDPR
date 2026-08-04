@@ -1,5 +1,4 @@
-아래 핵심 predicate 묶음을 빠짐없이 사건 원문에 포섭하라. authority_context는 선택된 predicate의
-해석에만 사용하고, 판단 근거 인용은 사건 원문에서 가져오라.
+현재 issue의 사실과 authority를 고려하여 제공된 predicate 전부의 상태와 이유를 판단하라.
 
 <INPUT_JSON>
 {{INPUT_JSON}}

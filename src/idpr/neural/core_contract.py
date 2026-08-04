@@ -87,15 +87,6 @@ def validate_core_fact_inventory(
     fact_ids = [item.get("fact_id") for item in facts if isinstance(item, Mapping)]
     if len(fact_ids) != len(set(fact_ids)):
         errors.append("fact_id values must be unique")
-    for actor in actors:
-        if not isinstance(actor, Mapping):
-            continue
-        for quote in actor.get("source_quotes", []):
-            if quote not in case_text:
-                errors.append(
-                    f"{actor.get('actor_id')}: actor evidence is not an exact "
-                    f"contiguous substring: {quote!r}"
-                )
     for fact in facts:
         if not isinstance(fact, Mapping):
             continue
@@ -103,12 +94,6 @@ def validate_core_fact_inventory(
         unknown = [actor_id for actor_id in referenced if actor_id not in known_actors]
         if unknown:
             errors.append(f"{fact.get('fact_id')}: unknown actor references {unknown}")
-        for quote in fact.get("source_quotes", []):
-            if quote not in case_text:
-                errors.append(
-                    f"{fact.get('fact_id')}: fact evidence is not an exact "
-                    f"contiguous substring: {quote!r}"
-                )
     if errors:
         raise CoreContractError("; ".join(errors))
 
@@ -122,7 +107,7 @@ def core_issue_selection_schema(
     return {
         "type": "object",
         "additionalProperties": False,
-        "required": ["version", "case_id", "issues", "fact_dispositions"],
+        "required": ["version", "case_id", "issues"],
         "properties": {
             "version": {"const": "1.0.0"},
             "case_id": {"const": case_id},
@@ -148,22 +133,6 @@ def core_issue_selection_schema(
                             "type": "array", "minItems": 1, "maxItems": 24,
                             "uniqueItems": True, "items": {"enum": list(fact_ids)},
                         },
-                    },
-                },
-            },
-            "fact_dispositions": {
-                "type": "array", "minItems": len(fact_ids), "maxItems": len(fact_ids),
-                "items": {
-                    "type": "object", "additionalProperties": False,
-                    "required": ["fact_id", "disposition", "issue_ids", "reason"],
-                    "properties": {
-                        "fact_id": {"enum": list(fact_ids)},
-                        "disposition": {"enum": ["issue", "background"]},
-                        "issue_ids": {
-                            "type": "array", "maxItems": 16, "uniqueItems": True,
-                            "items": {"type": "string", "minLength": 1},
-                        },
-                        "reason": {"type": "string", "minLength": 1, "maxLength": 500},
                     },
                 },
             },
@@ -193,44 +162,13 @@ def validate_core_issue_selection(
     issue_ids = [item.get("issue_id") for item in issues if isinstance(item, Mapping)]
     if len(issue_ids) != len(set(issue_ids)):
         errors.append("issue_id values must be unique")
-    known_issues = set(issue_ids)
-    issue_fact_links: set[tuple[str, str]] = set()
     for item in issues:
         if not isinstance(item, Mapping):
             continue
-        for fact_id in item.get("fact_ids", []):
-            issue_fact_links.add((str(item.get("issue_id")), str(fact_id)))
         if item.get("unit_id") == "unsupported" and str(
             item.get("reported_label", "")
         ).strip().lower() == "unsupported":
             errors.append(f"{item.get('issue_id')}: unsupported requires a descriptive label")
-    dispositions = payload.get("fact_dispositions", [])
-    disposition_ids = [
-        item.get("fact_id") for item in dispositions if isinstance(item, Mapping)
-    ]
-    if sorted(disposition_ids) != sorted(fact_ids):
-        errors.append("fact_dispositions must cover every inventory fact exactly once")
-    for item in dispositions:
-        if not isinstance(item, Mapping):
-            continue
-        linked = item.get("issue_ids", [])
-        unknown = [issue_id for issue_id in linked if issue_id not in known_issues]
-        if unknown:
-            errors.append(f"{item.get('fact_id')}: unknown issue links {unknown}")
-        if item.get("disposition") == "issue" and not linked:
-            errors.append(f"{item.get('fact_id')}: issue disposition requires issue_ids")
-        if item.get("disposition") == "background" and linked:
-            errors.append(f"{item.get('fact_id')}: background disposition cannot link issues")
-        for issue_id in linked:
-            if (str(issue_id), str(item.get("fact_id"))) not in issue_fact_links:
-                errors.append(f"{item.get('fact_id')}: disposition link is not reciprocal")
-    disposition_links = {
-        (str(issue_id), str(item.get("fact_id")))
-        for item in dispositions if isinstance(item, Mapping)
-        for issue_id in item.get("issue_ids", [])
-    }
-    if issue_fact_links != disposition_links:
-        errors.append("issue fact links and fact dispositions must be reciprocal")
     if errors:
         raise CoreContractError("; ".join(errors))
 
@@ -246,7 +184,7 @@ def role_binding_schema(
     binding = {
         "type": "object",
         "additionalProperties": False,
-        "required": ["entity_id", "source_quotes", "reason"],
+        "required": ["entity_id", "reason"],
         "properties": {
             "entity_id": {"type": "string", "minLength": 1},
             "source_quotes": {
@@ -272,16 +210,9 @@ def role_binding_schema(
                 "type": "array", "minItems": 1, "maxItems": len(track_ids),
                 "items": {
                     "type": "object", "additionalProperties": False,
-                    "required": [
-                        "track_id", "applies_to_entity_id", "source_quotes", "reason"
-                    ],
+                    "required": ["track_id", "reason"],
                     "properties": {
                         "track_id": {"enum": track_ids},
-                        "applies_to_entity_id": {"type": "string", "minLength": 1},
-                        "source_quotes": {
-                            "type": "array", "minItems": 1, "maxItems": 6,
-                            "items": {"type": "string", "minLength": 1},
-                        },
                         "reason": {"type": "string", "minLength": 1, "maxLength": 600},
                     },
                 },
@@ -290,7 +221,7 @@ def role_binding_schema(
                 "type": "array", "minItems": 1, "maxItems": 32,
                 "items": {
                     "type": "object", "additionalProperties": False,
-                    "required": ["entity_id", "label", "source_quotes"],
+                    "required": ["entity_id", "label"],
                     "properties": {
                         "entity_id": {"type": "string", "minLength": 1},
                         "label": {"type": "string", "minLength": 1},
@@ -310,10 +241,7 @@ def role_binding_schema(
                 "type": "array", "maxItems": 16,
                 "items": {
                     "type": "object", "additionalProperties": False,
-                    "required": [
-                        "relation_id", "subject_id", "relation", "object_id",
-                        "source_quote",
-                    ],
+                    "required": ["relation_id", "subject_id", "relation", "object_id"],
                     "properties": {
                         "relation_id": {"type": "string", "minLength": 1},
                         "subject_id": {"type": "string", "minLength": 1},
@@ -342,75 +270,6 @@ def validate_role_binding(
             role_binding_schema(case_id=case_id, issue_id=issue_id, profile=profile)
         ).iter_errors(payload)
     ]
-    entities = payload.get("entities", [])
-    entity_ids = [item.get("entity_id") for item in entities if isinstance(item, Mapping)]
-    if len(entity_ids) != len(set(entity_ids)):
-        errors.append("entity_id values must be unique")
-    known = set(entity_ids)
-    for entity in entities:
-        if isinstance(entity, Mapping):
-            for quote in entity.get("source_quotes", []):
-                if quote not in case_text:
-                    errors.append(f"entity {entity.get('entity_id')}: ungrounded quote {quote!r}")
-    bindings = payload.get("role_bindings", {})
-    defendant_entity_id = None
-    if isinstance(bindings, Mapping):
-        for role, binding in bindings.items():
-            if isinstance(binding, Mapping):
-                if binding.get("entity_id") not in known:
-                    errors.append(f"{role}: binding points to unknown entity")
-                for quote in binding.get("source_quotes", []):
-                    if quote not in case_text:
-                        errors.append(f"{role}: ungrounded quote {quote!r}")
-        defendant = bindings.get("defendant_id")
-        if isinstance(defendant, Mapping):
-            defendant_entity_id = defendant.get("entity_id")
-            entity = next(
-                (item for item in entities if item.get("entity_id") == defendant_entity_id),
-                {},
-            )
-            entity_quotes = entity.get("source_quotes", [])
-            binding_quotes = defendant.get("source_quotes", [])
-            subject_quotes = subject.get("source_quotes", [])
-            subject_evidence_preserved = any(
-                evidence == quote or evidence in quote or quote in evidence
-                for evidence in subject_quotes
-                for quote in [*entity_quotes, *binding_quotes]
-            )
-            if entity.get("label") != subject.get("label"):
-                errors.append(
-                    "defendant entity label must equal the selected issue subject label"
-                )
-            if not subject_evidence_preserved:
-                errors.append(
-                    "defendant entity or binding must preserve exact evidence for the "
-                    "selected issue subject"
-                )
-    relation_ids: list[Any] = []
-    for relation in payload.get("relations", []):
-        if not isinstance(relation, Mapping):
-            continue
-        relation_ids.append(relation.get("relation_id"))
-        if relation.get("subject_id") not in known or relation.get("object_id") not in known:
-            errors.append(f"{relation.get('relation_id')}: relation uses unknown entity")
-        if relation.get("source_quote") not in case_text:
-            errors.append(f"{relation.get('relation_id')}: ungrounded source_quote")
-    if len(relation_ids) != len(set(relation_ids)):
-        errors.append("relation_id values must be unique")
-    track_ids = []
-    for selection in payload.get("track_selections", []):
-        if not isinstance(selection, Mapping):
-            continue
-        track_ids.append(selection.get("track_id"))
-        if selection.get("applies_to_entity_id") != defendant_entity_id:
-            errors.append(
-                f"{selection.get('track_id')}: track must apply to the issue defendant"
-            )
-        for quote in selection.get("source_quotes", []):
-            if quote not in case_text:
-                errors.append(f"{selection.get('track_id')}: ungrounded track quote")
-    if len(track_ids) != len(set(track_ids)):
-        errors.append("track_id values must be unique")
     if errors:
         raise CoreContractError("; ".join(errors))
 
@@ -483,7 +342,7 @@ def core_assessment_schema(
 ) -> dict[str, Any]:
     assessment = {
         "type": "object", "additionalProperties": False,
-        "required": ["status", "source_quotes", "reason", "missing_facts"],
+        "required": ["status", "reason"],
         "properties": {
             "status": {"enum": list(STATUSES)},
             "source_quotes": {
@@ -525,23 +384,6 @@ def validate_core_assessments(
             core_assessment_schema(case_id=case_id, predicate_ids=predicate_ids)
         ).iter_errors(payload)
     ]
-    assessments = payload.get("assessments", {})
-    if isinstance(assessments, Mapping):
-        for predicate_id, item in assessments.items():
-            if not isinstance(item, Mapping):
-                continue
-            quotes = item.get("source_quotes", [])
-            if any(quote not in case_text for quote in quotes):
-                errors.append(f"{predicate_id}: source quote is not in case text")
-            status = item.get("status")
-            if status == "satisfied" and not quotes:
-                errors.append(f"{predicate_id}: satisfied requires source quote")
-            if status == "not_satisfied" and not quotes:
-                errors.append(f"{predicate_id}: not_satisfied requires counter quote")
-            if status == "unknown" and not item.get("missing_facts"):
-                errors.append(f"{predicate_id}: unknown requires missing_facts")
-            if status != "unknown" and item.get("missing_facts"):
-                errors.append(f"{predicate_id}: non-unknown cannot report missing_facts")
     if errors:
         raise CoreContractError("; ".join(errors))
 

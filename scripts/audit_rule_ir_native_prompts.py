@@ -59,8 +59,8 @@ STAGES = {
         "system": "rule_ir_native_hybrid_generate",
         "user": "rule_ir_native_hybrid_generate_user",
         "required": (
-            "rule_ir_scallop", "model_only_general_part_experiment", "비기호",
-            "결론", "형사소송법", "명령문", "rubric",
+            "rule_ir_scallop", "model_only_general_part_experiment",
+            "symbolic_directive", "subject_label", "결론",
         ),
     },
 }

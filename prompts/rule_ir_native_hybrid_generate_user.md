@@ -1,5 +1,5 @@
-아래 INPUT_JSON의 section 순서와 권위 경계를 지켜 형법 실체법 답안을 작성하라. 지원 section의
-결론은 쓰지 말고, 미지원 총칙 section의 결론은 실험용 비기호 판단으로만 작성하라.
+질문에 직접 답하도록 각 section의 법리와 포섭을 작성하라. RuleIR section의 결론은
+`symbolic_directive`를 그대로 따른다.
 
 <INPUT_JSON>
 {{INPUT_JSON}}

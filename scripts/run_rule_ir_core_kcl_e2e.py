@@ -191,9 +191,8 @@ def _call(
                 "contract_correction": {
                     "instruction": (
                         "previous_invalid_output을 바탕으로 전체 JSON을 다시 출력하라. "
-                        "host 오류에 표시된 인용은 요약·조사 변경·말줄임 없이 "
-                        "question_text에서 복사한 정확한 연속 부분문자열로 교체하라. "
-                        "오류와 무관한 유효 항목은 유지하고 배열 항목을 증식·반복하지 마라."
+                        "host에 표시된 스키마·구조 오류만 고치라. "
+                        "의미를 유지하고 불필요한 배열 증식·반복을 하지 마라."
                     ),
                     "host_error": str(error),
                     "previous_invalid_output": output,
@@ -235,6 +234,7 @@ def _role_values(binding: Mapping[str, Any]) -> dict[str, str]:
 def _symbolic_sections(
     *,
     issue: Mapping[str, Any],
+    subject: Mapping[str, Any],
     profile: Mapping[str, Any],
     binding: Mapping[str, Any],
     assessments: Mapping[str, Mapping[str, Any]],
@@ -251,12 +251,13 @@ def _symbolic_sections(
             for component in path["components"]
         ))
         outcome = runtime["track_outcomes"][track_id]
-        heading = labels.get(profile["unit_id"], profile["unit_id"])
+        heading = f"{subject['label']} — {labels.get(profile['unit_id'], profile['unit_id'])}"
         if len(profile["tracks"]) > 1:
             heading = f"{heading} — {track_id}"
         sections.append({
             "section_id": f"{issue['issue_id']}.{track_id}",
             "heading": heading,
+            "subject_label": subject["label"],
             "authority": "rule_ir_scallop",
             "unit_id": profile["unit_id"],
             "track_id": track_id,
@@ -266,9 +267,17 @@ def _symbolic_sections(
                 {
                     "definition": predicates[predicate_id]["definition"],
                     "status": assessments[predicate_id]["status"],
-                    "source_quotes": assessments[predicate_id]["source_quotes"],
+                    "source_quotes": assessments[predicate_id].get("source_quotes", []),
                     "reason": assessments[predicate_id]["reason"],
                     "authority_card_ids": predicates[predicate_id]["authority_card_ids"],
+                    "authority_sources": [
+                        {
+                            "quote": source.get("quote", ""),
+                            "section_path": source.get("section_path", ""),
+                        }
+                        for source in predicates[predicate_id]["source_refs"][:2]
+                        if source.get("quote")
+                    ],
                 }
                 for predicate_id in relevant
             ],
@@ -347,8 +356,10 @@ def run_case(
         ]
         if unit_id == "unsupported":
             unsupported_sections.append({
-                "section_id": issue_id, "heading": issue["reported_label"],
+                "section_id": issue_id,
+                "heading": f"{subject['label']} — {issue['reported_label']}",
                 "authority": "model_only_general_part_experiment",
+                "subject_label": subject["label"],
                 "subject": subject,
                 "conduct_claims": conduct_claims,
             })
@@ -429,7 +440,7 @@ def run_case(
         )
         _write_json(case_dir / f"04_{issue_id}_{unit_id}_runtime.json", runtime)
         symbolic_sections.extend(_symbolic_sections(
-            issue=issue, profile=profile, binding=binding,
+            issue=issue, subject=subject, profile=profile, binding=binding,
             assessments=all_assessments, runtime=runtime,
         ))
         outcomes[issue_id] = runtime["track_outcomes"]

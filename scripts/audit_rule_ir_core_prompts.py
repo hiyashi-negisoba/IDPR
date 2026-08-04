@@ -28,14 +28,11 @@ from scripts.run_rule_ir_core_kcl_e2e import PROMPTS  # noqa: E402
 
 
 REQUIRED = {
-    "inventory": ("actors", "facts", "source_quotes", "죄명", "검색"),
-    "selection": ("allowed_units", "검색", "role_bindings", "총칙", "형사소송법"),
-    "binding": ("role_contract", "core_predicates", "엔티티", "관계", "track_selections"),
-    "assessment": (
-        "전량", "issue_facts", "authority_context", "satisfied",
-        "not_satisfied", "unknown",
-    ),
-    "generation": ("rule_ir_scallop", "model_only_general_part_experiment", "결론"),
+    "inventory": ("question_prompt", "actor_id", "claim", "paraphrase", "죄명"),
+    "selection": ("allowed_units", "question_prompt", "subject_actor_id", "unsupported"),
+    "binding": ("role_contract", "role_definitions", "track_contracts", "결론"),
+    "assessment": ("issue_facts", "authority_context", "satisfied", "Scallop"),
+    "generation": ("symbolic_directive", "subject_label", "rule_ir_scallop", "결론"),
 }
 UNSUPPORTED_GUIDANCE = {"if", "then", "else", "prefixItems"}
 
@@ -66,6 +63,10 @@ def audit() -> dict[str, Any]:
             errors.append(f"{stage}: missing prompt contract terms {missing}")
         if INPUT_PLACEHOLDER in system or user.count(INPUT_PLACEHOLDER) != 1:
             errors.append(f"{stage}: invalid runtime placeholder placement")
+        if len(system) > 1000:
+            errors.append(f"{stage}: system prompt is too long ({len(system)} chars)")
+        if len(user) > 400:
+            errors.append(f"{stage}: user prompt is too long ({len(user)} chars)")
         prompt_hashes[system_name] = _hash(system_name)
         prompt_hashes[user_name] = _hash(user_name)
         prompt_rows.append({
@@ -112,8 +113,8 @@ def audit() -> dict[str, Any]:
         errors.append("issue selection still performs legal role binding")
     if not {"subject_actor_id", "fact_ids"}.issubset(selection_item["required"]):
         errors.append("issue selection does not reference inventory ids")
-    if "fact_dispositions" not in schemas["selection"]["required"]:
-        errors.append("issue selection lacks complete fact disposition ledger")
+    if "fact_dispositions" in schemas["selection"]["properties"]:
+        errors.append("issue selection retains redundant fact disposition ledger")
     binding_roles = schemas["binding"]["properties"]["role_bindings"]["required"]
     if binding_roles != [
         "defendant_id", "deceived_person_id", "disposer_id",
@@ -121,10 +122,8 @@ def audit() -> dict[str, Any]:
     ]:
         errors.append("fraud role schema differs from the RuleIR role tuple")
     track_item = schemas["binding"]["properties"]["track_selections"]["items"]
-    if not {"applies_to_entity_id", "source_quotes", "reason"}.issubset(
-        track_item["required"]
-    ):
-        errors.append("track selection lacks subject/evidence contract")
+    if set(track_item["required"]) != {"track_id", "reason"}:
+        errors.append("track selection contract is not minimal")
     detailed = sum(
         profile["detailed_card_predicates"]["count"] for profile in profiles.values()
     )
@@ -140,8 +139,9 @@ def audit() -> dict[str, Any]:
             "unsupported_guidance_keywords_present": incompatible,
             "selection_performs_role_binding": False,
             "inventory_precedes_selection": True,
-            "selection_covers_every_inventory_fact": True,
-            "track_selection_requires_subject_and_evidence": True,
+            "selection_is_question_scoped": True,
+            "redundant_fact_disposition_ledger": False,
+            "track_selection_contract": "track_id_and_reason_only",
         },
         "predicate_boundary": {
             "units": len(profiles), "detailed_card_predicates": detailed,

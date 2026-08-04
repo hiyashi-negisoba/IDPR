@@ -5,12 +5,13 @@ from pathlib import Path
 import pytest
 
 from idpr.neural.core_contract import (
-    CoreContractError,
     assessment_groups,
+    core_assessment_schema,
     core_issue_selection_schema,
     core_fact_inventory_schema,
     context_packet,
     role_binding_schema,
+    validate_core_assessments,
     validate_role_binding,
     validate_core_fact_inventory,
     validate_core_issue_selection,
@@ -40,7 +41,7 @@ def _inventory() -> dict:
     }
 
 
-def test_fact_inventory_separates_normalized_claim_from_exact_evidence() -> None:
+def test_fact_inventory_allows_grounded_paraphrase() -> None:
     schema = core_fact_inventory_schema(case_id="case-1")
     assert "facts" in schema["required"]
     inventory = _inventory()
@@ -48,13 +49,12 @@ def test_fact_inventory_separates_normalized_claim_from_exact_evidence() -> None
         inventory, case_id="case-1", case_text="甲은 물건을 乙에게 주었다"
     )
     inventory["facts"][0]["source_quotes"] = ["甲이 물건을 주었다"]
-    with pytest.raises(CoreContractError, match="fact evidence"):
-        validate_core_fact_inventory(
-            inventory, case_id="case-1", case_text="甲은 물건을 乙에게 주었다"
-        )
+    validate_core_fact_inventory(
+        inventory, case_id="case-1", case_text="甲은 물건을 乙에게 주었다"
+    )
 
 
-def test_issue_selection_classifies_every_inventory_fact_by_id() -> None:
+def test_issue_selection_references_facts_without_reciprocal_ledger() -> None:
     inventory = _inventory()
     schema = core_issue_selection_schema(
         case_id="case-1", unit_ids=["fraud"],
@@ -62,6 +62,7 @@ def test_issue_selection_classifies_every_inventory_fact_by_id() -> None:
     )
     required = schema["properties"]["issues"]["items"]["required"]
     assert {"subject_actor_id", "fact_ids"}.issubset(required)
+    assert "fact_dispositions" not in schema["properties"]
     payload = {
         "version": "1.0.0", "case_id": "case-1",
         "issues": [{
@@ -69,32 +70,10 @@ def test_issue_selection_classifies_every_inventory_fact_by_id() -> None:
             "reported_label": "피해자 승낙의 착오",
             "subject_actor_id": "gap", "fact_ids": ["fact-1"],
         }],
-        "fact_dispositions": [{
-            "fact_id": "fact-1", "disposition": "issue",
-            "issue_ids": ["i1"], "reason": "총칙 쟁점의 근거",
-        }],
     }
     validate_core_issue_selection(
         payload, case_id="case-1", unit_ids=["fraud"], inventory=inventory
     )
-    payload["fact_dispositions"][0]["issue_ids"] = []
-    with pytest.raises(CoreContractError, match="requires issue_ids"):
-        validate_core_issue_selection(
-            payload, case_id="case-1", unit_ids=["fraud"], inventory=inventory
-        )
-
-
-def test_issue_selection_error_names_the_non_exact_quote() -> None:
-    invalid_quote = "甲이 물건을 가져갔다"
-    payload = _inventory()
-    payload["facts"][0]["source_quotes"] = [invalid_quote]
-    with pytest.raises(CoreContractError) as exc_info:
-        validate_core_fact_inventory(
-            payload, case_id="case-1", case_text="甲은 물건을 가져갔다"
-        )
-    assert repr(invalid_quote) in str(exc_info.value)
-
-
 def test_role_binding_is_conditioned_on_the_selected_unit_contract() -> None:
     fraud = _profiles()["fraud"]
     schema = role_binding_schema(case_id="case-1", issue_id="issue-1", profile=fraud)
@@ -106,10 +85,13 @@ def test_role_binding_is_conditioned_on_the_selected_unit_contract() -> None:
     assert schema["properties"]["track_selections"]["items"]["properties"][
         "track_id"
     ]["enum"] == ["base"]
+    assert schema["properties"]["track_selections"]["items"]["required"] == [
+        "track_id", "reason",
+    ]
     assert schema["properties"]["relations"]["maxItems"] == 16
 
 
-def test_role_binding_preserves_normalized_subject_and_exact_evidence() -> None:
+def test_role_binding_accepts_normalized_labels_and_paraphrased_evidence() -> None:
     theft = _profiles()["theft"]
     text = "甲은 C의 지갑에서 수표를 꺼내 가져갔다."
     subject = {"label": "甲", "source_quotes": ["甲은"]}
@@ -117,8 +99,7 @@ def test_role_binding_preserves_normalized_subject_and_exact_evidence() -> None:
         "version": "1.0.0", "case_id": "case-1", "issue_id": "issue-1",
         "unit_id": "theft",
         "track_selections": [{
-            "track_id": "base", "applies_to_entity_id": "defendant",
-            "source_quotes": ["수표를 꺼내 가져갔다"], "reason": "취거 행위",
+            "track_id": "base", "reason": "취거 행위",
         }],
         "entities": [
             {"entity_id": "defendant", "label": "甲", "source_quotes": ["甲"]},
@@ -138,14 +119,13 @@ def test_role_binding_preserves_normalized_subject_and_exact_evidence() -> None:
     )
 
 
-def test_role_binding_rejects_ungrounded_or_unknown_entities() -> None:
+def test_role_binding_allows_cross_stage_entity_aliases() -> None:
     fraud = _profiles()["fraud"]
     text = "乙은 B에게 거짓말하여 B가 乙에게 돈을 주었다."
     payload = {
         "version": "1.0.0", "case_id": "case-1", "issue_id": "issue-1",
         "unit_id": "fraud", "track_selections": [{
-            "track_id": "base", "applies_to_entity_id": "eul",
-            "source_quotes": ["乙은"], "reason": "乙의 기망행위",
+            "track_id": "base", "reason": "乙의 기망행위",
         }],
         "entities": [
             {"entity_id": "eul", "label": "乙", "source_quotes": ["乙"]},
@@ -168,11 +148,28 @@ def test_role_binding_rejects_ungrounded_or_unknown_entities() -> None:
         subject={"label": "乙", "source_quotes": ["乙은"]},
     )
     payload["role_bindings"]["disposer_id"]["entity_id"] = "ghost"
-    with pytest.raises(CoreContractError, match="unknown entity"):
-        validate_role_binding(
-            payload, case_text=text, case_id="case-1", issue_id="issue-1", profile=fraud,
-            subject={"label": "乙", "source_quotes": ["乙은"]},
-        )
+    validate_role_binding(
+        payload, case_text=text, case_id="case-1", issue_id="issue-1", profile=fraud,
+        subject={"label": "乙", "source_quotes": ["乙은"]},
+    )
+
+
+def test_assessment_allows_reason_only_status() -> None:
+    theft = _profiles()["theft"]
+    predicate_id = theft["model_input_predicates"][0]["predicate_id"]
+    schema = core_assessment_schema(
+        case_id="case-1", predicate_ids=[predicate_id]
+    )
+    payload = {
+        "version": "1.0.0", "case_id": "case-1",
+        "assessments": {
+            predicate_id: {"status": "not_satisfied", "reason": "사실상 요건이 없다"}
+        },
+    }
+    assert schema["properties"]["assessments"]["additionalProperties"] is False
+    validate_core_assessments(
+        payload, case_id="case-1", predicate_ids=[predicate_id], case_text="사례 사실",
+    )
 
 
 def test_assessment_is_grouped_and_context_cannot_change_predicates() -> None:

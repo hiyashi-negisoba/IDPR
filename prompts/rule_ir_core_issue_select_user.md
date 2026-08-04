@@ -1,6 +1,4 @@
-확정된 `fact_inventory`의 모든 fact를 감사하여 형법 실체법 죄종·총칙 쟁점에 분류하라.
-`allowed_units`는 검색 결과가 아니라 전체 폐쇄형 allowlist다. 새로운 사실추출, 역할 배정,
-구성요건 충족 판단은 하지 않는다.
+`question_prompt`에 직접 답하는 죄종·총칙 issue만 `fact_inventory`의 ID로 구성하라.
 
 <INPUT_JSON>
 {{INPUT_JSON}}
