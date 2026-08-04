@@ -4,5 +4,5 @@ unit 2 / 시나리오 15 / 통과 **15**
 
 | unit | track | 시나리오 | 통과 |
 |---|---|---:|---:|
-| `obstruction_of_official_duty` | base, official_coercion | 10 | 10 |
-| `deceptive_obstruction_of_official_duty` | base | 5 | 5 |
+| `harboring_offender` | base | 5 | 5 |
+| `perjury` | base, malicious | 10 | 10 |

@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "api_calls": 0,
-  "created_at": "2026-08-04T01:23:09.038665+00:00",
+  "created_at": "2026-08-04T01:26:12.431556+00:00",
   "runtime": {
     "scli": "tools/scallop/scli-0.2.4-linux-x86_64",
     "version": "scli 0.2.4",
@@ -16,208 +16,7 @@
   },
   "units": [
     {
-      "unit": "obstruction_of_official_duty",
-      "tracks": [
-        "base",
-        "official_coercion"
-      ],
-      "scenarios": [
-        {
-          "scenario_id": "base.established",
-          "track": "base",
-          "expected_nonempty": {
-            "obstruction_of_official_duty_base_elements_satisfied": true,
-            "obstruction_of_official_duty_base_established": true,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
-          },
-          "observed_nonempty": {
-            "obstruction_of_official_duty_base_elements_satisfied": true,
-            "obstruction_of_official_duty_base_established": true,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "base.incomplete_blocked",
-          "track": "base",
-          "expected_nonempty": {
-            "obstruction_of_official_duty_base_elements_satisfied": true,
-            "obstruction_of_official_duty_base_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
-          },
-          "observed_nonempty": {
-            "obstruction_of_official_duty_base_elements_satisfied": true,
-            "obstruction_of_official_duty_base_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "base.conflict_blocks",
-          "track": "base",
-          "expected_nonempty": {
-            "obstruction_of_official_duty_base_elements_satisfied": true,
-            "obstruction_of_official_duty_base_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": true
-          },
-          "observed_nonempty": {
-            "obstruction_of_official_duty_base_elements_satisfied": true,
-            "obstruction_of_official_duty_base_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": true
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "base.unknown_blocks",
-          "track": "base",
-          "expected_nonempty": {
-            "obstruction_of_official_duty_base_elements_satisfied": false,
-            "obstruction_of_official_duty_base_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": true,
-            "obstruction_of_official_duty_conflict": false
-          },
-          "observed_nonempty": {
-            "obstruction_of_official_duty_base_elements_satisfied": false,
-            "obstruction_of_official_duty_base_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": true,
-            "obstruction_of_official_duty_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "base.bar_blocks",
-          "track": "base",
-          "expected_nonempty": {
-            "obstruction_of_official_duty_base_elements_satisfied": true,
-            "obstruction_of_official_duty_base_established": false,
-            "obstruction_of_official_duty_not_established": true,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
-          },
-          "observed_nonempty": {
-            "obstruction_of_official_duty_base_elements_satisfied": true,
-            "obstruction_of_official_duty_base_established": false,
-            "obstruction_of_official_duty_not_established": true,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "official_coercion.established",
-          "track": "official_coercion",
-          "expected_nonempty": {
-            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
-            "obstruction_of_official_duty_official_coercion_established": true,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
-          },
-          "observed_nonempty": {
-            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
-            "obstruction_of_official_duty_official_coercion_established": true,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "official_coercion.incomplete_blocked",
-          "track": "official_coercion",
-          "expected_nonempty": {
-            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
-            "obstruction_of_official_duty_official_coercion_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
-          },
-          "observed_nonempty": {
-            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
-            "obstruction_of_official_duty_official_coercion_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "official_coercion.conflict_blocks",
-          "track": "official_coercion",
-          "expected_nonempty": {
-            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
-            "obstruction_of_official_duty_official_coercion_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": true
-          },
-          "observed_nonempty": {
-            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
-            "obstruction_of_official_duty_official_coercion_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": true
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "official_coercion.unknown_blocks",
-          "track": "official_coercion",
-          "expected_nonempty": {
-            "obstruction_of_official_duty_official_coercion_elements_satisfied": false,
-            "obstruction_of_official_duty_official_coercion_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": true,
-            "obstruction_of_official_duty_conflict": false
-          },
-          "observed_nonempty": {
-            "obstruction_of_official_duty_official_coercion_elements_satisfied": false,
-            "obstruction_of_official_duty_official_coercion_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": true,
-            "obstruction_of_official_duty_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "official_coercion.bar_blocks",
-          "track": "official_coercion",
-          "expected_nonempty": {
-            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
-            "obstruction_of_official_duty_official_coercion_established": false,
-            "obstruction_of_official_duty_not_established": true,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
-          },
-          "observed_nonempty": {
-            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
-            "obstruction_of_official_duty_official_coercion_established": false,
-            "obstruction_of_official_duty_not_established": true,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
-          },
-          "passed": true
-        }
-      ],
-      "passed": 10,
-      "total": 10
-    },
-    {
-      "unit": "deceptive_obstruction_of_official_duty",
+      "unit": "harboring_offender",
       "tracks": [
         "base"
       ],
@@ -226,18 +25,18 @@
           "scenario_id": "base.established",
           "track": "base",
           "expected_nonempty": {
-            "deceptive_obstruction_of_official_duty_base_elements_satisfied": true,
-            "deceptive_obstruction_of_official_duty_base_established": true,
-            "deceptive_obstruction_of_official_duty_not_established": false,
-            "deceptive_obstruction_of_official_duty_undetermined": false,
-            "deceptive_obstruction_of_official_duty_conflict": false
+            "harboring_offender_base_elements_satisfied": true,
+            "harboring_offender_base_established": true,
+            "harboring_offender_not_established": false,
+            "harboring_offender_undetermined": false,
+            "harboring_offender_conflict": false
           },
           "observed_nonempty": {
-            "deceptive_obstruction_of_official_duty_base_elements_satisfied": true,
-            "deceptive_obstruction_of_official_duty_base_established": true,
-            "deceptive_obstruction_of_official_duty_not_established": false,
-            "deceptive_obstruction_of_official_duty_undetermined": false,
-            "deceptive_obstruction_of_official_duty_conflict": false
+            "harboring_offender_base_elements_satisfied": true,
+            "harboring_offender_base_established": true,
+            "harboring_offender_not_established": false,
+            "harboring_offender_undetermined": false,
+            "harboring_offender_conflict": false
           },
           "passed": true
         },
@@ -245,18 +44,18 @@
           "scenario_id": "base.incomplete_blocked",
           "track": "base",
           "expected_nonempty": {
-            "deceptive_obstruction_of_official_duty_base_elements_satisfied": true,
-            "deceptive_obstruction_of_official_duty_base_established": false,
-            "deceptive_obstruction_of_official_duty_not_established": false,
-            "deceptive_obstruction_of_official_duty_undetermined": false,
-            "deceptive_obstruction_of_official_duty_conflict": false
+            "harboring_offender_base_elements_satisfied": true,
+            "harboring_offender_base_established": false,
+            "harboring_offender_not_established": false,
+            "harboring_offender_undetermined": false,
+            "harboring_offender_conflict": false
           },
           "observed_nonempty": {
-            "deceptive_obstruction_of_official_duty_base_elements_satisfied": true,
-            "deceptive_obstruction_of_official_duty_base_established": false,
-            "deceptive_obstruction_of_official_duty_not_established": false,
-            "deceptive_obstruction_of_official_duty_undetermined": false,
-            "deceptive_obstruction_of_official_duty_conflict": false
+            "harboring_offender_base_elements_satisfied": true,
+            "harboring_offender_base_established": false,
+            "harboring_offender_not_established": false,
+            "harboring_offender_undetermined": false,
+            "harboring_offender_conflict": false
           },
           "passed": true
         },
@@ -264,18 +63,18 @@
           "scenario_id": "base.conflict_blocks",
           "track": "base",
           "expected_nonempty": {
-            "deceptive_obstruction_of_official_duty_base_elements_satisfied": true,
-            "deceptive_obstruction_of_official_duty_base_established": false,
-            "deceptive_obstruction_of_official_duty_not_established": false,
-            "deceptive_obstruction_of_official_duty_undetermined": false,
-            "deceptive_obstruction_of_official_duty_conflict": true
+            "harboring_offender_base_elements_satisfied": true,
+            "harboring_offender_base_established": false,
+            "harboring_offender_not_established": false,
+            "harboring_offender_undetermined": false,
+            "harboring_offender_conflict": true
           },
           "observed_nonempty": {
-            "deceptive_obstruction_of_official_duty_base_elements_satisfied": true,
-            "deceptive_obstruction_of_official_duty_base_established": false,
-            "deceptive_obstruction_of_official_duty_not_established": false,
-            "deceptive_obstruction_of_official_duty_undetermined": false,
-            "deceptive_obstruction_of_official_duty_conflict": true
+            "harboring_offender_base_elements_satisfied": true,
+            "harboring_offender_base_established": false,
+            "harboring_offender_not_established": false,
+            "harboring_offender_undetermined": false,
+            "harboring_offender_conflict": true
           },
           "passed": true
         },
@@ -283,18 +82,18 @@
           "scenario_id": "base.unknown_blocks",
           "track": "base",
           "expected_nonempty": {
-            "deceptive_obstruction_of_official_duty_base_elements_satisfied": false,
-            "deceptive_obstruction_of_official_duty_base_established": false,
-            "deceptive_obstruction_of_official_duty_not_established": false,
-            "deceptive_obstruction_of_official_duty_undetermined": true,
-            "deceptive_obstruction_of_official_duty_conflict": false
+            "harboring_offender_base_elements_satisfied": false,
+            "harboring_offender_base_established": false,
+            "harboring_offender_not_established": false,
+            "harboring_offender_undetermined": true,
+            "harboring_offender_conflict": false
           },
           "observed_nonempty": {
-            "deceptive_obstruction_of_official_duty_base_elements_satisfied": false,
-            "deceptive_obstruction_of_official_duty_base_established": false,
-            "deceptive_obstruction_of_official_duty_not_established": false,
-            "deceptive_obstruction_of_official_duty_undetermined": true,
-            "deceptive_obstruction_of_official_duty_conflict": false
+            "harboring_offender_base_elements_satisfied": false,
+            "harboring_offender_base_established": false,
+            "harboring_offender_not_established": false,
+            "harboring_offender_undetermined": true,
+            "harboring_offender_conflict": false
           },
           "passed": true
         },
@@ -302,24 +101,225 @@
           "scenario_id": "base.bar_blocks",
           "track": "base",
           "expected_nonempty": {
-            "deceptive_obstruction_of_official_duty_base_elements_satisfied": true,
-            "deceptive_obstruction_of_official_duty_base_established": false,
-            "deceptive_obstruction_of_official_duty_not_established": true,
-            "deceptive_obstruction_of_official_duty_undetermined": false,
-            "deceptive_obstruction_of_official_duty_conflict": false
+            "harboring_offender_base_elements_satisfied": true,
+            "harboring_offender_base_established": false,
+            "harboring_offender_not_established": true,
+            "harboring_offender_undetermined": false,
+            "harboring_offender_conflict": false
           },
           "observed_nonempty": {
-            "deceptive_obstruction_of_official_duty_base_elements_satisfied": true,
-            "deceptive_obstruction_of_official_duty_base_established": false,
-            "deceptive_obstruction_of_official_duty_not_established": true,
-            "deceptive_obstruction_of_official_duty_undetermined": false,
-            "deceptive_obstruction_of_official_duty_conflict": false
+            "harboring_offender_base_elements_satisfied": true,
+            "harboring_offender_base_established": false,
+            "harboring_offender_not_established": true,
+            "harboring_offender_undetermined": false,
+            "harboring_offender_conflict": false
           },
           "passed": true
         }
       ],
       "passed": 5,
       "total": 5
+    },
+    {
+      "unit": "perjury",
+      "tracks": [
+        "base",
+        "malicious"
+      ],
+      "scenarios": [
+        {
+          "scenario_id": "base.established",
+          "track": "base",
+          "expected_nonempty": {
+            "perjury_base_elements_satisfied": true,
+            "perjury_base_established": true,
+            "perjury_not_established": false,
+            "perjury_undetermined": false,
+            "perjury_conflict": false
+          },
+          "observed_nonempty": {
+            "perjury_base_elements_satisfied": true,
+            "perjury_base_established": true,
+            "perjury_not_established": false,
+            "perjury_undetermined": false,
+            "perjury_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "base.incomplete_blocked",
+          "track": "base",
+          "expected_nonempty": {
+            "perjury_base_elements_satisfied": true,
+            "perjury_base_established": false,
+            "perjury_not_established": false,
+            "perjury_undetermined": false,
+            "perjury_conflict": false
+          },
+          "observed_nonempty": {
+            "perjury_base_elements_satisfied": true,
+            "perjury_base_established": false,
+            "perjury_not_established": false,
+            "perjury_undetermined": false,
+            "perjury_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "base.conflict_blocks",
+          "track": "base",
+          "expected_nonempty": {
+            "perjury_base_elements_satisfied": true,
+            "perjury_base_established": false,
+            "perjury_not_established": false,
+            "perjury_undetermined": false,
+            "perjury_conflict": true
+          },
+          "observed_nonempty": {
+            "perjury_base_elements_satisfied": true,
+            "perjury_base_established": false,
+            "perjury_not_established": false,
+            "perjury_undetermined": false,
+            "perjury_conflict": true
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "base.unknown_blocks",
+          "track": "base",
+          "expected_nonempty": {
+            "perjury_base_elements_satisfied": false,
+            "perjury_base_established": false,
+            "perjury_not_established": false,
+            "perjury_undetermined": true,
+            "perjury_conflict": false
+          },
+          "observed_nonempty": {
+            "perjury_base_elements_satisfied": false,
+            "perjury_base_established": false,
+            "perjury_not_established": false,
+            "perjury_undetermined": true,
+            "perjury_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "base.bar_blocks",
+          "track": "base",
+          "expected_nonempty": {
+            "perjury_base_elements_satisfied": true,
+            "perjury_base_established": false,
+            "perjury_not_established": true,
+            "perjury_undetermined": false,
+            "perjury_conflict": false
+          },
+          "observed_nonempty": {
+            "perjury_base_elements_satisfied": true,
+            "perjury_base_established": false,
+            "perjury_not_established": true,
+            "perjury_undetermined": false,
+            "perjury_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "malicious.established",
+          "track": "malicious",
+          "expected_nonempty": {
+            "perjury_malicious_elements_satisfied": true,
+            "perjury_malicious_established": true,
+            "perjury_not_established": false,
+            "perjury_undetermined": false,
+            "perjury_conflict": false
+          },
+          "observed_nonempty": {
+            "perjury_malicious_elements_satisfied": true,
+            "perjury_malicious_established": true,
+            "perjury_not_established": false,
+            "perjury_undetermined": false,
+            "perjury_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "malicious.incomplete_blocked",
+          "track": "malicious",
+          "expected_nonempty": {
+            "perjury_malicious_elements_satisfied": true,
+            "perjury_malicious_established": false,
+            "perjury_not_established": false,
+            "perjury_undetermined": false,
+            "perjury_conflict": false
+          },
+          "observed_nonempty": {
+            "perjury_malicious_elements_satisfied": true,
+            "perjury_malicious_established": false,
+            "perjury_not_established": false,
+            "perjury_undetermined": false,
+            "perjury_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "malicious.conflict_blocks",
+          "track": "malicious",
+          "expected_nonempty": {
+            "perjury_malicious_elements_satisfied": true,
+            "perjury_malicious_established": false,
+            "perjury_not_established": false,
+            "perjury_undetermined": false,
+            "perjury_conflict": true
+          },
+          "observed_nonempty": {
+            "perjury_malicious_elements_satisfied": true,
+            "perjury_malicious_established": false,
+            "perjury_not_established": false,
+            "perjury_undetermined": false,
+            "perjury_conflict": true
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "malicious.unknown_blocks",
+          "track": "malicious",
+          "expected_nonempty": {
+            "perjury_malicious_elements_satisfied": false,
+            "perjury_malicious_established": false,
+            "perjury_not_established": false,
+            "perjury_undetermined": true,
+            "perjury_conflict": false
+          },
+          "observed_nonempty": {
+            "perjury_malicious_elements_satisfied": false,
+            "perjury_malicious_established": false,
+            "perjury_not_established": false,
+            "perjury_undetermined": true,
+            "perjury_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "malicious.bar_blocks",
+          "track": "malicious",
+          "expected_nonempty": {
+            "perjury_malicious_elements_satisfied": true,
+            "perjury_malicious_established": false,
+            "perjury_not_established": true,
+            "perjury_undetermined": false,
+            "perjury_conflict": false
+          },
+          "observed_nonempty": {
+            "perjury_malicious_elements_satisfied": true,
+            "perjury_malicious_established": false,
+            "perjury_not_established": true,
+            "perjury_undetermined": false,
+            "perjury_conflict": false
+          },
+          "passed": true
+        }
+      ],
+      "passed": 10,
+      "total": 10
     }
   ]
 }

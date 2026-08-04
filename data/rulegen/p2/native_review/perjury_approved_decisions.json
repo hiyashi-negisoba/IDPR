@@ -1,0 +1,390 @@
+{
+  "version": "1.0.0",
+  "authority": "delegated_human_legal_review",
+  "unit_id": "perjury",
+  "approved_on": "2026-08-04",
+  "approval_basis": [
+    "data/rulegen/p2/native_review/perjury_approval_config.json"
+  ],
+  "policy": {
+    "approval": "Delegated normalization on 2026-08-04",
+    "tracks": "일반 위증 base와 모해위증 aggravated track",
+    "subject": "법률에 따른 적법한 선서와 증인 지위를 분리",
+    "falsehood": "전체 문맥상 기억에 반하는 구체적 사실진술",
+    "completion": "신문 종료 전 철회·시정은 waiver"
+  },
+  "track_vocabulary": [
+    {
+      "track_id": "base",
+      "label": "제152조 제1항 위증"
+    },
+    {
+      "track_id": "malicious",
+      "label": "제152조 제2항 모해위증",
+      "inherits_from": "base"
+    }
+  ],
+  "cards": [
+    {
+      "card_id": "art152_sec1_1.instigation_or_aiding",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "complicity",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "complicity",
+      "rationale": "자수범의 교사·방조 및 다수 교사 죄수"
+    },
+    {
+      "card_id": "art152_sec1_2.falsehood_assessment",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "false_factual_statement",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "전체 신문 문맥에서 기억에 반하는 구체적 사실진술"
+    },
+    {
+      "card_id": "art152_sec1_2.intent",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "intent",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "선서 증인 지위와 기억 반대 진술에 대한 고의"
+    },
+    {
+      "card_id": "art152_sec1_2.lawful_oath_witness",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "lawful_oath",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "법률상 근거·권한·절차에 따른 유효한 선서"
+    },
+    {
+      "card_id": "art152_sec1_2.malicious_perjury",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "malicious_purpose",
+      "component_join": "alternative_any",
+      "track_id": "malicious",
+      "refers_to_unit": null,
+      "rationale": "피고인·피의자·징계혐의자를 불리하게 할 모해 목적"
+    },
+    {
+      "card_id": "art152_sec1_2.nonstatutory_or_unauthorized_oath",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "lawful_oath",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "무근거·무권한·선서무능력 또는 실질적 증인보호 장애"
+    },
+    {
+      "card_id": "art152_sec1_2.oath_capacity",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "lawful_oath",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "무근거·무권한·선서무능력 또는 실질적 증인보호 장애"
+    },
+    {
+      "card_id": "art152_sec1_2.oath_lawful_procedure",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "lawful_oath",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "법률상 근거·권한·절차에 따른 유효한 선서"
+    },
+    {
+      "card_id": "art152_sec1_2.oath_procedural_defects",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "lawful_oath",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "무근거·무권한·선서무능력 또는 실질적 증인보호 장애"
+    },
+    {
+      "card_id": "art152_sec1_2.oath_refusal_right_notice",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "lawful_oath",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "법률상 근거·권한·절차에 따른 유효한 선서"
+    },
+    {
+      "card_id": "art152_sec1_2.refusal_right_and_perjury",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "lawful_oath",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "법률상 근거·권한·절차에 따른 유효한 선서"
+    },
+    {
+      "card_id": "art152_sec1_2.statement_scope",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "false_factual_statement",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "전체 신문 문맥에서 기억에 반하는 구체적 사실진술"
+    },
+    {
+      "card_id": "art152_sec1_2.witness_status",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "witness_status",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "당사자가 아닌 선서 증인의 자수범 지위"
+    },
+    {
+      "card_id": "art152_sec1_3.attempt_false_testimony_start",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "completion",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "허위진술 시작과 신문 종료 또는 사후선서에 따른 기수"
+    },
+    {
+      "card_id": "art152_sec1_3.completion_examination_end",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "completion",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "허위진술 시작과 신문 종료 또는 사후선서에 따른 기수"
+    },
+    {
+      "card_id": "art152_sec1_3.correction_before_examination_end",
+      "decision": "approve",
+      "role": "waiver",
+      "component_id": "timely_correction",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "동일 신문절차 종료 전 철회·시정"
+    },
+    {
+      "card_id": "art152_sec1_3.correction_through_other_examiner",
+      "decision": "approve",
+      "role": "waiver",
+      "component_id": "timely_correction",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "동일 신문절차 종료 전 철회·시정"
+    },
+    {
+      "card_id": "art152_sec1_3.later_proceeding_correction_no_effect",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "completion",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "허위진술 시작과 신문 종료 또는 사후선서에 따른 기수"
+    },
+    {
+      "card_id": "art152_sec1_3.post_oath_completion",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "completion",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "허위진술 시작과 신문 종료 또는 사후선서에 따른 기수"
+    },
+    {
+      "card_id": "art152_sec1_3.preparation_not_punishable",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "completion",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "법정 허위진술 전 준비에 그친 불가벌 예비"
+    },
+    {
+      "card_id": "art152_sec1_4.instigation_and_aiding_possible",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "complicity",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "complicity",
+      "rationale": "자수범의 교사·방조 및 다수 교사 죄수"
+    },
+    {
+      "card_id": "art152_sec1_4.perjury_self_committed_offense",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "witness_status",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "당사자가 아닌 선서 증인의 자수범 지위"
+    },
+    {
+      "card_id": "art152_sec1_5.perjury_different_dates_same_oath",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "동일 선서·기일의 포괄일죄와 기판력"
+    },
+    {
+      "card_id": "art152_sec1_5.perjury_res_judicata_inclusive_offense",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "동일 선서·기일의 포괄일죄와 기판력"
+    },
+    {
+      "card_id": "art152_sec1_5.separate_instigation_multiple_persons",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "complicity",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "complicity",
+      "rationale": "자수범의 교사·방조 및 다수 교사 죄수"
+    },
+    {
+      "card_id": "art152_sec1_5.single_perjury_same_hearing",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "동일 선서·기일의 포괄일죄와 기판력"
+    },
+    {
+      "card_id": "art152_sec1_6.false_accusation_perjury_concurrence",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "false_accusation_concurrence",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "false_accusation",
+      "rationale": "무고와 위증·모해위증의 실체적 경합"
+    },
+    {
+      "card_id": "art152_sec1_6.malicious_perjury_after_false_accusation",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "false_accusation_concurrence",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "false_accusation",
+      "rationale": "무고와 위증·모해위증의 실체적 경합"
+    },
+    {
+      "card_id": "art152_sec1_6.oath_incompetent_false_testimony_not_evidence_fabrication",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "evidence_destruction",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "evidence_destruction",
+      "rationale": "선서무능력 허위증언 및 위증의 증거인멸 특별관계"
+    },
+    {
+      "card_id": "art152_sec2_1.malicious_perjury_definition",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "malicious_purpose",
+      "component_join": "alternative_any",
+      "track_id": "malicious",
+      "refers_to_unit": null,
+      "rationale": "피고인·피의자·징계혐의자를 불리하게 할 모해 목적"
+    },
+    {
+      "card_id": "art152_sec2_3.noncriminal_case_mohae_exception",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "pending_criminal_or_disciplinary_proceeding",
+      "component_join": "not_applicable",
+      "track_id": "malicious",
+      "refers_to_unit": null,
+      "rationale": "민사·가사·행정 등 비형사·비징계 사건"
+    },
+    {
+      "card_id": "art152_sec2_4.malice_purpose_awareness",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "malicious_purpose",
+      "component_join": "alternative_any",
+      "track_id": "malicious",
+      "refers_to_unit": null,
+      "rationale": "피고인·피의자·징계혐의자를 불리하게 할 모해 목적"
+    },
+    {
+      "card_id": "art152_sec2_4.proceeding_commenced_requirement",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "pending_criminal_or_disciplinary_proceeding",
+      "component_join": "mandatory_all",
+      "track_id": "malicious",
+      "refers_to_unit": null,
+      "rationale": "개시되어 진행 중인 수사·재판·징계절차"
+    },
+    {
+      "card_id": "art152_sec2_6.malicious_perjury.single_offense_same_hearing",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "동일 선서·기일의 포괄일죄와 기판력"
+    },
+    {
+      "card_id": "art152_sec2_7.special_statute_malicious_perjury_exclusion",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "special_statute",
+      "component_join": "not_applicable",
+      "track_id": "malicious",
+      "refers_to_unit": "special_malicious_perjury",
+      "rationale": "국가보안법·테러방지법 특별규정 우선"
+    },
+    {
+      "card_id": "art152_sec1_6.perjury_evidence_destruction_special_relation",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "evidence_destruction",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "evidence_destruction",
+      "rationale": "선서무능력 허위증언 및 위증의 증거인멸 특별관계",
+      "inherited_decision_group": "art152_sec1_6.perjury_evidence_destruction_relation"
+    }
+  ]
+}

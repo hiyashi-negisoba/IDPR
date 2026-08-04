@@ -155,6 +155,16 @@
       "gate": "delegated normalization on 2026-08-04",
       "default": {"predicate": "deceptive_obstruction_case_roles", "arguments": ["case_id", "defendant_id", "official_id", "official_duty_id"], "definition": "위계 행위자, 오인한 공무원, 구체적으로 방해된 직무의 역할 tuple", "applies_to_tracks": ["base"]},
       "tracks": {}
+    },
+    "harboring_offender": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "harboring_offender_case_roles", "arguments": ["case_id", "defendant_id", "offender_id"], "definition": "은닉·도피 원조자와 대상 범인의 역할 tuple", "applies_to_tracks": ["base"]},
+      "tracks": {}
+    },
+    "perjury": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "perjury_case_roles", "arguments": ["case_id", "defendant_id", "proceeding_id", "statement_id"], "definition": "선서 증인, 신문절차, 허위 진술의 역할 tuple", "applies_to_tracks": ["base", "malicious"]},
+      "tracks": {}
     }
   }
 }

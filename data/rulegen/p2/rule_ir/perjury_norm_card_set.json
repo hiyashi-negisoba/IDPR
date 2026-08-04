@@ -1,0 +1,1254 @@
+{
+  "version": "1.1.0",
+  "card_set_id": "kr.p2.perjury.native.norms.v1",
+  "issue_tag": "perjury",
+  "status": "draft",
+  "legal_review": "pending",
+  "construction": "deterministic_candidate_lift",
+  "source_scope": {
+    "comment_ids": [
+      "comm_001692_제152조_Ⅰ.1_0",
+      "comm_001692_제152조_Ⅰ.2_1",
+      "comm_001692_제152조_Ⅰ.2_11",
+      "comm_001692_제152조_Ⅰ.2_13",
+      "comm_001692_제152조_Ⅰ.2_14",
+      "comm_001692_제152조_Ⅰ.2_15",
+      "comm_001692_제152조_Ⅰ.2_16",
+      "comm_001692_제152조_Ⅰ.2_17",
+      "comm_001692_제152조_Ⅰ.2_2",
+      "comm_001692_제152조_Ⅰ.2_22",
+      "comm_001692_제152조_Ⅰ.2_23",
+      "comm_001692_제152조_Ⅰ.2_3",
+      "comm_001692_제152조_Ⅰ.2_4",
+      "comm_001692_제152조_Ⅰ.2_5",
+      "comm_001692_제152조_Ⅰ.3_24",
+      "comm_001692_제152조_Ⅰ.3_25",
+      "comm_001692_제152조_Ⅰ.4_26",
+      "comm_001692_제152조_Ⅰ.5_28",
+      "comm_001692_제152조_Ⅰ.6_29",
+      "comm_001692_제152조_Ⅰ.6_30",
+      "comm_001692_제152조_Ⅱ.1_33",
+      "comm_001692_제152조_Ⅱ.3_35",
+      "comm_001692_제152조_Ⅱ.4_36",
+      "comm_001692_제152조_Ⅱ.6_39",
+      "comm_001692_제152조_Ⅱ.7_40"
+    ],
+    "target_paths": [
+      "commentary://001692/art152"
+    ]
+  },
+  "cards": [
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.element.instigation-or-aiding",
+          "request_id": "art152.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art152_sec1_1.instigation_or_aiding",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "위증죄에는 교사범 또는 종범이 성립할 수 있다.",
+      "request_ids": [
+        "art152.pass1.001"
+      ],
+      "review_notes": "교사범 또는 종범의 성립 가능성에 한정된 관계이며, 공동정범·간접정범에 관한 대립과는 별개다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.1_0",
+          "quote": "위증죄의 경우에 도 교사범 또는 종범은 당연히 성립할 수 있다.",
+          "section_path": "Ⅰ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.standard.immaterial-or-peripheral-false-statement",
+          "request_id": "art152.pass1.001"
+        },
+        {
+          "candidate_id": "art152.standard.falsehood-assessment-whole-testimony",
+          "request_id": "art152.pass1.002"
+        },
+        {
+          "candidate_id": "art152.exception.minor-discrepancy-or-misunderstanding",
+          "request_id": "art152.pass1.002"
+        },
+        {
+          "candidate_id": "art152.exception.evidentiary-admissibility-irrelevant",
+          "request_id": "art152.pass1.002"
+        },
+        {
+          "candidate_id": "art152.exception.later-withdrawal-irrelevant",
+          "request_id": "art152.pass1.002"
+        },
+        {
+          "candidate_id": "art152.exception.invalid-proceeding-irrelevant",
+          "request_id": "art152.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art152_sec1_2.falsehood_assessment",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "증언의 허위성은 단편적 구절이 아니라 신문절차의 증언 전체와 전후 문맥, 신문 취지 및 진술 경위를 종합하여 판단한다. 지엽적 사항의 허위진술도 위증죄가 성립할 수 있으나, 전체 취지가 기억에 일치하고 일부 사소한 차이가 신문취지 오해 또는 착오에 의한 경우에는 위증이 아니다. 증거능력, 사후 소 취하 또는 절차 무효는 원칙적으로 위증죄 성립에 영향을 주지 않는다.",
+      "request_ids": [
+        "art152.pass1.001",
+        "art152.pass1.002"
+      ],
+      "review_notes": "추상적 위험범 성격과 사소한 불일치 예외의 경계를 사례별로 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_22",
+          "quote": "증인의 증언이 허위인지를 판단함에 있어서는 그 증언의 단편적인 구절에 구애 될 것이 아니라 당해 신문절차에 있어서의 증언 전체를 일체로 파악하여 판단 하여야 한다.",
+          "section_path": "Ⅰ.2"
+        },
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_16",
+          "quote": "증인의 진술 내용이 당해 사건의 증명을 필요로 하는 사실에 관한 것인지 (2) 여부나 재판의 결과에 실제로 영향을 미쳤는지 여부는 위증죄 성립과 아무런 관계가 없다. 또 증언의 내용이 기본적인 사항에 관한 것이 아니고 지엽적인 사항에 관한 것이라고 하더라도 그것이 허위 진술인 이상 위증죄가 성립할 수 있다.",
+          "section_path": "Ⅰ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.element.intent-subjective-theory",
+          "request_id": "art152.pass1.002"
+        },
+        {
+          "candidate_id": "art152.exception.mistake-negates-intent",
+          "request_id": "art152.pass1.002"
+        },
+        {
+          "candidate_id": "art152.element.eventual-intent-sufficient",
+          "request_id": "art152.pass1.002"
+        },
+        {
+          "candidate_id": "art152.exception.motive-irrelevant",
+          "request_id": "art152.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art152_sec1_2.intent",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "주관설에 따르면 위증죄의 고의는 자신이 법률에 의하여 선서한 증인이라는 점과 진술이 자신의 기억에 반한다는 점에 대한 인식과 의사로 충분하고, 미필적 고의도 충분하다. 기억에 반한다는 인식 없이 증언했거나 신문 취지를 오해 또는 착각한 경우 고의는 인정되지 않으며, 허위진술의 동기나 목적은 주관적 구성요건 판단에서 문제되지 않는다.",
+      "request_ids": [
+        "art152.pass1.002"
+      ],
+      "review_notes": "허위성 이론의 최종 선택에 따라 고의의 대상과 사실인정 방법을 재검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_23",
+          "quote": "위증죄의 고의는, ⅰ) 자신이 법률에 의하여 선서한 증인이라는 점과 ⅱ) 진 술 내용이 허위라는 점에 대한 인식과 의사이다.",
+          "section_path": "Ⅰ.2"
+        },
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_23",
+          "quote": "증인이 무엇인가 착오에 빠져 자신의 기억에 반한다는 인식 없이 증언한 경 우나 증언 당시 신문의 취지를 오해 또는 착각하고 진술한 경우에는 위증죄 의 고의를 인정할 수 없다.",
+          "section_path": "Ⅰ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.element.lawful-oath-witness",
+          "request_id": "art152.pass1.001"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "art152_sec1_2.lawful_oath_witness",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "위증죄의 주체는 법률에 의하여 선서한 증인이며, 증인이라도 선서하지 않은 경우 위증죄의 주체가 될 수 없다.",
+      "request_ids": [
+        "art152.pass1.001"
+      ],
+      "review_notes": "법률에 의한 선서와 증인 지위는 위증죄 주체 판단의 독립 요건이다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_1",
+          "quote": "위증죄의 주체는 ‘법률에 의하여 선서한 증인’이다. 증인이라도 선서를 하지 않 은 경우에는 이유 여하를 불문하고 위증죄의 주체가 될 수 없다.",
+          "section_path": "Ⅰ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.variant.malicious-perjury",
+          "request_id": "art152.pass1.002"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "standard_input",
+      "id": "art152_sec1_2.malicious_perjury",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "형사사건 또는 징계사건에서 피고인·피의자 또는 징계혐의자를 모해할 목적으로 허위 진술한 경우에는 일반 위증죄가 아니라 모해위증죄가 성립한다.",
+      "request_ids": [
+        "art152.pass1.002"
+      ],
+      "review_notes": "제152조 제2항의 모해 목적 요건 및 일반 위증죄와의 관계는 별도 검토가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_23",
+          "quote": "증인이 형사사건 또는 징계사건에 관하여 피고인 이나 피의자 또는 징계혐의자를 모해할 목적으로 허위의 진술을 한 때에는 형 법 제152조 제1항에 규정된 위증죄가 아니라 같은 조 제2항에 규정된 모해위증 죄가 성립한다.",
+          "section_path": "Ⅰ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.standard.nonstatutory-oath-negative",
+          "request_id": "art152.pass1.001"
+        },
+        {
+          "candidate_id": "art152.standard.oath-invalid-in-nonadversarial-injunction",
+          "request_id": "art152.pass1.002"
+        },
+        {
+          "candidate_id": "art152.element.oath-authorized-body",
+          "request_id": "art152.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art152_sec1_2.nonstatutory_or_unauthorized_oath",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "선서가 법률상 근거 없이 이루어졌거나 증인에게 선서시킬 권한이 없는 기관에 대하여 이루어진 경우, 그 선서는 위증죄 성립요건인 법률에 의한 선서에 해당하지 않아 위증죄가 성립하지 않는다.",
+      "request_ids": [
+        "art152.pass1.001",
+        "art152.pass1.002"
+      ],
+      "review_notes": "심문절차 사건과 선서권한 없는 기관에 관한 보고된 판시를 원전 판례 색인으로 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_1",
+          "quote": "증인이 선서를 하였다고 하더라도, 그 선서가 법률에 근거하지 않은 때에는 (3) 위증죄가 성립하지 않는다.",
+          "section_path": "Ⅰ.2"
+        },
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_2",
+          "quote": "검사나 사법경찰관과 같이 증인으로 하여금 선서하도록 할 권한이 없는 기관에 대하여 선서가 이루어졌다면 그 선서는 위증죄가 성립 하기 위한 ‘법률에 의한 선서’에 해당하지 않는다.",
+          "section_path": "Ⅰ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.standard.oath-incapacity",
+          "request_id": "art152.pass1.002"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art152_sec1_2.oath_capacity",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "선서무능력자가 선서하고 허위진술한 경우 그 선서는 무효이므로 위증죄가 성립하지 않는다.",
+      "request_ids": [
+        "art152.pass1.002"
+      ],
+      "review_notes": "선서무능력 판단의 절차법상 요건과 보고된 판례의 원문을 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_3",
+          "quote": "국내 학설은 위증죄의 성립 을 부정하는 데 견해가 일치한다. 판례 역시 선서무능력자의 선서는 무효라고 보고 있으므로, 같은 입장으로 이해된다.",
+          "section_path": "Ⅰ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.element.oath-lawful-procedure",
+          "request_id": "art152.pass1.001"
+        },
+        {
+          "candidate_id": "art152.definition.law-includes-delegated-regulations",
+          "request_id": "art152.pass1.001"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "art152_sec1_2.oath_lawful_procedure",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "위증죄 성립을 위한 증인의 선서는 법률에 근거하고 법률이 정한 절차에 따라 적법하게 이루어져야 하며, 그 법률에는 법률의 위임에 따라 제정된 명령 등 하위법령이 포함될 수 있다.",
+      "request_ids": [
+        "art152.pass1.001"
+      ],
+      "review_notes": "선서 근거의 법규범 범위와 선서 절차 적법성은 함께 확인한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_1",
+          "quote": "위증죄가 성립하기 위한 증인의 선서는 법률에 근거하여 법률이 정한 절차에 따라 적법하게 이루어져야 한다.",
+          "section_path": "Ⅰ.2"
+        },
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_1",
+          "quote": "선서의 근거가 되는 ‘법률’은 국회의 의결을 거쳐 제정되는 형식적 의미의 법 (1) 률만을 의미하는 것은 아니고, 법률의 위임에 따라 제정된 명령 등 하위법령도 포함될 수 있다.",
+          "section_path": "Ⅰ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.exception.oath-general-authority-procedural-defects",
+          "request_id": "art152.pass1.002"
+        },
+        {
+          "candidate_id": "art152.standard.witness-protection-procedural-violation",
+          "request_id": "art152.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art152_sec1_2.oath_procedural_defects",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "증인에게 선서를 시킬 일반적 권한이 있는 기관에 대한 선서는 관할 위반이나 공소제기 절차 위반만으로 효력이 부정되지 않지만, 법정 증인보호규정 미준수로 증인보호에 사실상 장애가 초래된 경우에는 법률에 의하여 선서한 증인에 해당하지 않는 것이 원칙이다.",
+      "request_ids": [
+        "art152.pass1.002"
+      ],
+      "review_notes": "증인보호에 사실상 장애가 없었던 예외의 판단요소와 적용 범위를 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_2",
+          "quote": "증인에게 선서를 시 킬 일반적 권한이 있는 기관에 대하여 선서가 이루어진 경우에는, 설령 관할 위 반, 공소제기 절차의 법률 규정 위반 등의 흠이 있다고 하더라도 그 선서의 효 력 자체가 부정된다고 볼 수 없다.",
+          "section_path": "Ⅰ.2"
+        },
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_2",
+          "quote": "증인신문절차에서 법률에 규정 된 증인 보호를 위한 규정이 지켜진 것으로 인정되지 않은 경우에는 증인이 허 위의 진술을 하였다고 하더라도 위증죄의 구성요건인 ‘법률에 의하여 선서한 증 인’에 해당하지 아니한다고 보아 이를 위증죄로 처벌할 수 없는 것이 원칙이다.",
+          "section_path": "Ⅰ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.standard.oath-refusal-right-notice-civil",
+          "request_id": "art152.pass1.003"
+        },
+        {
+          "candidate_id": "art152.definition.criminal-oath-refusal-right-notice",
+          "request_id": "art152.pass1.003"
+        },
+        {
+          "candidate_id": "art152.standard.civil-refusal-right-no-notice",
+          "request_id": "art152.pass1.001"
+        },
+        {
+          "candidate_id": "art152.standard.national-assembly-refusal-right-no-notice",
+          "request_id": "art152.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art152_sec1_2.oath_refusal_right_notice",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "민사소송법이 적용 또는 준용되는 재판에서 증인이 선서거부권 또는 증언거부권을 고지받지 않았더라도 선서능력이 있으면 선서는 유효하며, 선서 후 허위진술에 위증죄가 성립할 수 있다. 형사소송법이 적용 또는 준용되는 재판에서 선서 효력 판단에는 선서거부권 고지 여부가 문제되지 않는다.",
+      "request_ids": [
+        "art152.pass1.001",
+        "art152.pass1.003"
+      ],
+      "review_notes": "민사절차, 형사절차 및 국회 증언의 고지의무와 위증 성립요건을 구별하여 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_4",
+          "quote": "민사 소송법 제324조가 적용 또는 준용되는 재판에서 증인이 선서거부권을 고지 받 지 않은 채 선서를 하였다고 하더라도 선서능력을 갖춘 이상 그 선서는 유효하 고, 만약 선서 후 허위진술을 하였다면 위증죄가 성립할 수 있다고 봄이 옳다.",
+          "section_path": "Ⅰ.2"
+        },
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_11",
+          "quote": "민사소송법이 적용 또는 준용되는 재판에서 증인이 증언거부권 을 고지 받지 않았다고 하더라도 선서 후 허위진술을 하였다면 특별한 사정이 없는 한 위증죄가 성립한다고 보아야 한다.",
+          "section_path": "Ⅰ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.exception.refusal-of-oath-no-perjury",
+          "request_id": "art152.pass1.001"
+        },
+        {
+          "candidate_id": "art152.standard.refusal-right-waived-false-testimony",
+          "request_id": "art152.pass1.001"
+        },
+        {
+          "candidate_id": "art152.exception.refusal-right-notice-obstacle",
+          "request_id": "art152.pass1.001"
+        },
+        {
+          "candidate_id": "art152.standard.refusal-right-notice-genuine-volition",
+          "request_id": "art152.pass1.003"
+        },
+        {
+          "candidate_id": "art152.exception.refusal-right-obstacle-no-perjury",
+          "request_id": "art152.pass1.003"
+        },
+        {
+          "candidate_id": "art152.standard.refusal-right-notice-general-negative-special-positive",
+          "request_id": "art152.pass1.003"
+        },
+        {
+          "candidate_id": "art152.standard.cousin-gambling-refusal-right-obstacle",
+          "request_id": "art152.pass1.003"
+        },
+        {
+          "candidate_id": "art152.standard.co-defendant-self-incrimination-refusal-right",
+          "request_id": "art152.pass1.003"
+        },
+        {
+          "candidate_id": "art152.standard.refusal-right-notice-no-practical-infringement",
+          "request_id": "art152.pass1.003"
+        },
+        {
+          "candidate_id": "art152.variant.refusal-right-self-incrimination-categorical",
+          "request_id": "art152.pass1.003"
+        },
+        {
+          "candidate_id": "art152.variant.no-expectability-for-refusal-right-witness",
+          "request_id": "art152.pass1.003"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art152_sec1_2.refusal_right_and_perjury",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "선서거부권자가 선서거부권을 행사하여 선서하지 않은 채 허위진술한 경우 위증죄는 성립하지 않지만, 증언거부권자가 권리 행사를 포기하고 증언하면서 허위진술한 경우 위증죄가 성립할 수 있다. 증언거부권 미고지로 권리 행사에 사실상 장애가 초래된 경우에는 위증죄 성립을 부정하며, 장애 여부는 증언 당시 상황, 거부사유, 권리 인지 여부, 고지되었어도 허위진술했을 정황 및 진정한 의사를 종합하여 판단한다.",
+      "request_ids": [
+        "art152.pass1.001",
+        "art152.pass1.003"
+      ],
+      "review_notes": "자기부죄 우려와 친족 등 타인 처벌 우려의 구별, 기대가능성설 및 사실상 장애 판단기준을 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_15",
+          "quote": "증언거부권이 있는 증인이 증언거부권을 고지받지 못하였고, 이로 말미암아 증언거부권을 행사하는 데 사 실상 장애가 초래되었다고 볼 수 있다면 위증죄가 성립하지 않는다.",
+          "section_path": "Ⅰ.2"
+        },
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_5",
+          "quote": "당해 사건에서 증언 당시 증인이 처한 구체적인 상황, 증언거부 사유의 내용, 증인이 증언거부사유 또는 증언거부권의 존재를 이미 알고 있었는 지 여부, 증언거부권을 고지받았더라도 허위진술을 하였을 것이라고 볼 만한 정 황이 있는지 등을 전체적·종합적으로 고려하여 증인이 침묵하지 아니하고 진술 한 것이 자신의 진정한 의사에 의한 것인지 여부를 기준으로 위증죄의 성립 여 부를 판단하여야 한다.",
+          "section_path": "Ⅰ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.definition.statement-excludes-evaluation",
+          "request_id": "art152.pass1.001"
+        },
+        {
+          "candidate_id": "art152.standard.legal-evaluation-based-on-experience",
+          "request_id": "art152.pass1.001"
+        },
+        {
+          "candidate_id": "art152.element.specific-statement-required",
+          "request_id": "art152.pass1.002"
+        },
+        {
+          "candidate_id": "art152.standard.generic-record-affirmation",
+          "request_id": "art152.pass1.002"
+        },
+        {
+          "candidate_id": "art152.standard.generic-witness-statement-affirmation",
+          "request_id": "art152.pass1.002"
+        },
+        {
+          "candidate_id": "art152.definition.statement-nonverbal-response",
+          "request_id": "art152.pass1.002"
+        },
+        {
+          "candidate_id": "art152.standard.nod-denial-is-statement",
+          "request_id": "art152.pass1.002"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art152_sec1_2.statement_scope",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "위증죄의 진술은 구체적 사실에 관한 진술을 말하며, 단순한 가치판단·평가 또는 경험 사실에 부가된 법률적·주관적 의견의 오류는 진술에 해당하지 않거나 위증죄를 구성하지 않는다. 진술은 언어뿐 아니라 몸짓이나 표정의 답변도 포함할 수 있으나, 조서나 증인진술서 내용이 사실이라는 일반적 확인만으로는 특별한 사정이 없는 한 그 구체적 내용을 반복 진술한 것으로 볼 수 없다.",
+      "request_ids": [
+        "art152.pass1.001",
+        "art152.pass1.002"
+      ],
+      "review_notes": "일반적 서면 확인이 특정 사실의 반복진술에 이르는 특별한 사정은 사실심 판단이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_15",
+          "quote": "증인의 증언 중 가치 판단이나 평가에 관한 부분은 위증죄의 객관적 구성요건인 ‘진술’에 해당하 지 않는다.",
+          "section_path": "Ⅰ.2"
+        },
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_17",
+          "quote": "말에 의한 진술이 일반적인 방법 이겠지만 말에 의하지 않더라도 몸짓이나 표정 등의 방법으로 답변하였다고 볼 수 있다면 진술에 포함될 수 있다.",
+          "section_path": "Ⅰ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.definition.witness-third-party",
+          "request_id": "art152.pass1.001"
+        },
+        {
+          "candidate_id": "art152.standard.co-defendant-non-accomplice",
+          "request_id": "art152.pass1.001"
+        },
+        {
+          "candidate_id": "art152.standard.co-defendant-accomplice-separated-proceedings",
+          "request_id": "art152.pass1.001"
+        },
+        {
+          "candidate_id": "art152.standard.convicted-accomplice-witness",
+          "request_id": "art152.pass1.001"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art152_sec1_2.witness_status",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "위증죄의 증인은 재판절차나 징계절차에서 자신이 경험한 사실을 진술하는 당사자가 아닌 제3자이다. 별개 범죄사실의 공범 아닌 공동피고인은 다른 피고인의 범죄사실에 관하여 증인 지위에 있을 수 있고, 공범인 공동피고인도 절차 분리로 피고인 지위에서 벗어나거나 유죄판결 확정 후 다른 공범 사건에서 증인이 될 수 있다.",
+      "request_ids": [
+        "art152.pass1.001"
+      ],
+      "review_notes": "공범 공동피고인의 증인적격에 관한 학설 대립과 보고된 판례의 적용 범위를 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_13",
+          "quote": "위증죄의 주체가 되는 증인은 재판절차, 징계절차 등에서 자신이 과거에 경 (가) 험한 사실에 관하여 진술하는 사람으로서 당사자가 아닌 제3자를 말한다.",
+          "section_path": "Ⅰ.2"
+        },
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.2_14",
+          "quote": "공범인 공동피고인은 당해 소송절차에 서는 피고인의 지위에 있으므로 다른 공동피고인에 대한 공소사실에 관하여 증 인이 될 수 없으나, 소송절차가 분리되어 피고인의 지위에서 벗어나게 되면 다 른 공동피고인에 대한 공소사실에 관하여 증인이 될 수 있다고 판시",
+          "section_path": "Ⅰ.2"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.element.attempt-false-testimony-start",
+          "request_id": "art152.pass1.003"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "art152_sec1_3.attempt_false_testimony_start",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "위증죄의 실행의 착수는 증인이 허위진술을 시작한 때에 인정된다.",
+      "request_ids": [
+        "art152.pass1.003"
+      ],
+      "review_notes": "허위진술의 시작 시점을 실행의 착수 시점으로 정리한 카드다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.3_24",
+          "quote": "위증죄의 실행의 착수는 증인이 허위의 진술을 시작한 때에 인정된다.",
+          "section_path": "Ⅰ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.element.completion-at-end-of-examination",
+          "request_id": "art152.pass1.003"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "art152_sec1_3.completion_examination_end",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "위증죄는 해당 증인에 대한 신문절차가 종료하여 더 이상 진술을 철회·시정할 수 없게 된 때 기수에 이른다.",
+      "request_ids": [
+        "art152.pass1.003"
+      ],
+      "review_notes": "증인신문절차 종료 및 철회·시정 불가능 시점을 기수 시점으로 정리한 학설 일치 사항이다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.3_24",
+          "quote": "당해 증인에 대한 신문절차가 마쳐졌을 때, 다시 말하면 증인 신문절차가 종료하여 더는 진술을 철회·시정할 수 없게 되었을 때 기수가 된다는 데 학설이 일치한 다.",
+          "section_path": "Ⅰ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.exception.correction-before-examination-end",
+          "request_id": "art152.pass1.003"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "art152_sec1_3.correction_before_examination_end",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "선서한 증인이 허위진술을 하였더라도 신문이 끝나기 전에 이를 철회하거나 시정한 경우 위증죄는 성립하지 않는다.",
+      "request_ids": [
+        "art152.pass1.003"
+      ],
+      "review_notes": "동일 증인신문절차가 종료되기 전의 철회·시정에 관한 명시적 예외다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.3_24",
+          "quote": "선서한 증인이 허 위의 진술을 하였다고 하더라도 신문이 끝나기 전에 그 진술을 철회하거나 시 정한 경우에는 위증죄가 성립하지 않는다고 한다.",
+          "section_path": "Ⅰ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.standard.correction-through-other-examiner",
+          "request_id": "art152.pass1.003"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art152_sec1_3.correction_through_other_examiner",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "동일한 증인신문절차에서 허위진술이 다른 신문자의 질문에 대한 답변을 통해 철회·시정된 경우, 앞선 진술만을 분리하여 위증으로 볼 수 없다.",
+      "request_ids": [
+        "art152.pass1.003"
+      ],
+      "review_notes": "후속 답변이 앞선 허위진술의 철회·시정에 해당하는지는 동일 신문절차 및 답변 내용에 대한 평가가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.3_24",
+          "quote": "진술의 철회·시정은 다른 신문자의 질문에 대한 답변을 통해서도 이루어져도 무방하다",
+          "section_path": "Ⅰ.3"
+        },
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.3_24",
+          "quote": "원고 대리인의 신문 시에 한 증언을 피고 대리인과 재판장 의 신문 시에 철회·시정한 경우 앞의 증언만을 따로 떼어 위증이라고 볼 수 없 다는 것이다.",
+          "section_path": "Ⅰ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.exception.later-proceeding-correction-no-effect",
+          "request_id": "art152.pass1.003"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "deterministic_rule",
+      "id": "art152_sec1_3.later_proceeding_correction_no_effect",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "허위진술이 철회·시정되지 않은 채 증인신문절차가 종료하여 위증죄가 기수에 이른 후 별도 증인신문절차에서 이를 철회·시정하더라도, 이미 종결된 절차에서의 위증죄 성립에는 영향이 없다.",
+      "request_ids": [
+        "art152.pass1.003"
+      ],
+      "review_notes": "별도 증인신문절차에서의 후속 철회·시정은 종전 절차에서 이미 성립한 위증죄에는 영향을 주지 않는다는 소개된 입장이다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.3_24",
+          "quote": "별도의 증인 신청 및 채택 절차를 거쳐 그 증인이 다시 신문을 받는 과정에서 종전 신 문절차에서의 진술을 철회·시정하였다고 하더라도, 이러한 사정은 형법 제153조 가 정한 형의 감면사유에 해당할 수 있을 뿐 이미 종결된 종전 증인 신문절차에 서 행한 위증죄의 성립에 어떠한 영향을 주는 것은 아니다.",
+          "section_path": "Ⅰ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.element.post-oath-completion",
+          "request_id": "art152.pass1.003"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art152_sec1_3.post_oath_completion",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "증인이 신문을 마친 후에 비로소 선서하는 사후선서에서는 선서를 마친 때 위증죄가 기수에 이른다.",
+      "request_ids": [
+        "art152.pass1.003"
+      ],
+      "review_notes": "사후선서의 기수 시점을 선서 완료 시점으로 정리한 카드다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.3_25",
+          "quote": "사후 선서의 경우에는 그 선서를 마쳤을 때 위증죄가 기수에 이르게 된다.",
+          "section_path": "Ⅰ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.exception.preparation-not-punishable",
+          "request_id": "art152.pass1.003"
+        }
+      ],
+      "doctrinal_status": "settled",
+      "formalization": "deterministic_rule",
+      "id": "art152_sec1_3.preparation_not_punishable",
+      "norm_kind": "exception",
+      "polarity": "negative",
+      "proposition": "법정 출석 전에 허위진술 내용을 정리하는 등 위증 준비행위를 하였으나 법정에서 사실대로 진술한 경우, 위증 예비·음모 처벌규정이 없으므로 처벌할 수 없다.",
+      "request_ids": [
+        "art152.pass1.003"
+      ],
+      "review_notes": "준비행위만 있고 법정에서 사실대로 진술한 경우의 명시적 불처벌 범위다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.3_24",
+          "quote": "위증을 위한 준비행위를 하였으나 막상 법정에서는 사 실대로 진술한 경우 위증죄의 예비 또는 음모를 처벌하는 규정이 없으므로 처 벌할 수 없음",
+          "section_path": "Ⅰ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.definition.instigation-and-aiding-possible",
+          "request_id": "art152.pass1.003"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art152_sec1_4.instigation_and_aiding_possible",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "위증죄는 자수범이어서 공동정범이나 간접정범은 성립할 수 없지만, 형법 제33조 본문에 따라 교사범 또는 종범은 성립할 수 있다.",
+      "request_ids": [
+        "art152.pass1.003"
+      ],
+      "review_notes": "교사범 또는 종범의 성립 가능성을 별도로 제시한 commentary synthesis이며, 공동정범 부정 부분은 관련 학설 대립과 함께 검토가 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.4_26",
+          "quote": "위증죄는 자수범이므로 공동정범이나 간접정범은 성립할 수 없으나 형법 제33 조 본문에 따라 교사범 또는 종범은 성립할 수 있다.",
+          "section_path": "Ⅰ.4"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.definition.perjury-self-committed-offense",
+          "request_id": "art152.pass1.003"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art152_sec1_4.perjury_self_committed_offense",
+      "norm_kind": "definition",
+      "polarity": "negative",
+      "proposition": "위증죄는 법률에 따라 선서한 증인이 허위진술을 해야 성립하는 자수범이다.",
+      "request_ids": [
+        "art152.pass1.003"
+      ],
+      "review_notes": "자수범성 및 법률상 선서한 증인의 허위진술 요건을 설명하는 commentary synthesis이다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.4_26",
+          "quote": "위증죄는 ‘법률에 의하여 선서한 증인’이 주체가 되는 신분범일 뿐 아니라 범죄 의 성립을 위해서 그 증인이 허위의 진술을 할 것이 요구되는 자수범이다.",
+          "section_path": "Ⅰ.4"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.standard.perjury-different-dates-same-oath",
+          "request_id": "art152.pass1.004"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art152_sec1_5.perjury_different_dates_same_oath",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "같은 사건·같은 심급에서 서로 다른 변론기일에 허위진술하더라도 최초 선서의 효력이 유지된 상태에서 증언하였다면 1개의 위증죄만 성립한다.",
+      "request_ids": [
+        "art152.pass1.004"
+      ],
+      "review_notes": "최초 선서의 효력 유지 여부와 사건·심급의 동일성은 사실관계 및 보고된 판례 원문으로 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.5_28",
+          "quote": "같은 사건의 같은 심급에서 서로 다른 변론기일에 여러 개의 허위진술을 하더라도 최초에 한 선서의 효력을 유지시킨 후 증언한 이상 1개의 위증죄를 구성함에 그친다.",
+          "section_path": "Ⅰ.5"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.standard.perjury-res-judicata-inclusive-offense",
+          "request_id": "art152.pass1.004"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art152_sec1_5.perjury_res_judicata_inclusive_offense",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "포괄일죄 관계의 위증 일부에 관하여 확정판결이 있으면, 종전 공소사실과 다른 허위진술 부분이라도 그 기판력이 미쳐 후속 위증죄 부분은 면소되어야 한다.",
+      "request_ids": [
+        "art152.pass1.004"
+      ],
+      "review_notes": "포괄일죄 범위와 기판력의 범위를 적용하기 전에 보고된 판례 원문 및 종전 공소사실을 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.5_28",
+          "quote": "종전 사건의 확정판결의 기판력은 당해 사건에도 미치게 되어 당해 사건의 위 증죄 부분은 형사소송법 제326조에 따라 면소되어야 한다.",
+          "section_path": "Ⅰ.5"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.element.separate-instigation-multiple-persons",
+          "request_id": "art152.pass1.004"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art152_sec1_5.separate_instigation_multiple_persons",
+      "norm_kind": "element",
+      "polarity": "positive",
+      "proposition": "하나의 사건에서 여러 사람에게 각각 개별적으로 위증을 교사한 경우 위증교사죄는 경합범이 된다.",
+      "request_ids": [
+        "art152.pass1.004"
+      ],
+      "review_notes": "개별 교사행위와 각 피교사자의 위증이 확인되는 경우에 한정한 죄수 분류 카드다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.5_28",
+          "quote": "하나의 사건이라도 하더라도 여러 사람에 대하여 각각 개별적으로 교사 행위를 하여 위증하게 한 경우에는 위증교사죄의 경합범이 될 것이다.",
+          "section_path": "Ⅰ.5"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.standard.single-perjury-same-hearing",
+          "request_id": "art152.pass1.004"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art152_sec1_5.single_perjury_same_hearing",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "하나의 사건에서 한 번 선서한 증인이 같은 기일에 여러 사실에 관하여 기억에 반하는 허위진술을 계속한 경우 포괄하여 1개의 위증죄가 성립하고, 각 허위진술별 경합범이 되지 않는다.",
+      "request_ids": [
+        "art152.pass1.004"
+      ],
+      "review_notes": "포괄일죄 및 경합범 배제의 보고된 판례 기준에 대한 원문 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.5_28",
+          "quote": "하나의 사건에서 한 번 선서한 증인이 같은 기일에 여러 가지 사실에 관하여 기 억에 반하는 허위의 진술을 한 경우 이는 하나의 범죄의사에 의하여 계속하여 허위의 진술을 한 것으로서 포괄하여 1개의 위증죄를 구성하고, 각 허위 진술마 다 별개의 위증죄가 성립하여 경합범이 되는 것은 아니다.",
+          "section_path": "Ⅰ.5"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.standard.false-accusation-and-perjury",
+          "request_id": "art152.pass1.004"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art152_sec1_6.false_accusation_perjury_concurrence",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "타인에게 형사처분을 받게 할 목적으로 허위신고한 자가 그 사람이 기소된 뒤 증인으로서 신고 내용과 같은 진술을 하면 무고죄와 위증죄가 각각 성립하고 실체적 경합범 관계에 있다.",
+      "request_ids": [
+        "art152.pass1.004"
+      ],
+      "review_notes": "인용문에 괄호로 모해위증죄가 병기되어 있어, 무고죄·위증죄의 실체적 경합범 부분과의 관계를 원문 및 관련 판례로 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.6_29",
+          "quote": "다른 사람으로 하여금 형사처분을 받게 할 목적으로 허위신고를 한 후 그 사람 이 기소되어 재판을 받게 되자 증인으로서 허위신고 내용과 같은 진술을 한 경 우 무고죄와 위증죄가 각각 성립하고 두 죄는 실체적 경합범의 (또는 모해위증죄) 관계에 있다.",
+          "section_path": "Ⅰ.6"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.standard.false-accusation-malicious-perjury",
+          "request_id": "art152.pass1.004"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art152_sec1_6.malicious_perjury_after_false_accusation",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "무고행위자가 증인으로서 허위신고와 같은 허위진술을 하면서 피무고자를 모해할 목적을 가진 경우 대체로 위증죄보다 모해위증죄가 성립하는 것으로 서술되어 있다.",
+      "request_ids": [
+        "art152.pass1.004"
+      ],
+      "review_notes": "모해 목적의 인정은 사실관계 평가가 필요하며, 이 서술이 확정적 판례 기준인지 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.6_29",
+          "quote": "위증 당시 피무고자를 모해하고자 하는 목적을 갖고 있는 경우가 대부분일 것이므로, 대체로 위증죄보다는 모해위증죄가 성립할 것으로 보인다.",
+          "section_path": "Ⅰ.6"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.standard.oath-incompetent-no-evidence-fabrication",
+          "request_id": "art152.pass1.004"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art152_sec1_6.oath_incompetent_false_testimony_not_evidence_fabrication",
+      "norm_kind": "standard",
+      "polarity": "negative",
+      "proposition": "선서무능력자가 범죄현장을 목격한 것처럼 형사법정에서 허위증언하게 하였더라도 증거위조죄에는 해당하지 않는다는 대법원 판시가 소개되어 있다.",
+      "request_ids": [
+        "art152.pass1.004"
+      ],
+      "review_notes": "댓글에 보고된 대법원 판시이므로, 적용 전 사용자 제공 1차 판례 색인에서 판결 원문과 사실관계를 확인해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.6_30",
+          "quote": "선서무능력자로서 범죄 현장을 목격하지도 못한 사람으로 하 여금 형사법정에서 범죄 현장을 목격한 것처럼 허위의 증언을 하도록 하였더라도 증거위조죄에는 해당하지 않는다고 판시하였다.",
+          "section_path": "Ⅰ.6"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_doctrine",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.variant.perjury-evidence-destruction-special-relation",
+          "request_id": "art152.pass1.004"
+        }
+      ],
+      "doctrinal_status": "disputed",
+      "formalization": "context_only",
+      "id": "art152_sec1_6.perjury_evidence_destruction_special_relation",
+      "norm_kind": "variant",
+      "polarity": "positive",
+      "proposition": "위증죄는 증거인멸죄에 대하여 특별관계에 있으므로, 위증죄가 성립하지 않는 경우에도 증거인멸죄는 성립할 수 있다는 견해가 있다.",
+      "request_ids": [
+        "art152.pass1.004"
+      ],
+      "review_notes": "증거인멸죄와의 관계에 관한 경쟁 견해 중 특별관계설이다. 위증죄 불성립 시 증거인멸죄 성립 가능성의 요건을 별도로 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅰ.6_29",
+          "quote": "위증죄가 증거인멸죄에 대하여 법조경합 중 특별관계에 있다는 견해로서, 위증 죄가 성립하지 않는 경우에도 증거인멸죄는 얼마든지 성립할 수 있다고 본다.",
+          "section_path": "Ⅰ.6"
+        }
+      ],
+      "variant_group": "art152_sec1_6.perjury_evidence_destruction_relation"
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.definition.malicious-perjury",
+          "request_id": "art152.pass1.004"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art152_sec2_1.malicious_perjury_definition",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "모해위증죄는 피고인·피의자·징계혐의자를 모해할 목적으로 허위진술한 경우 성립하는 목적범이며, 위증죄의 가중적 구성요건이다.",
+      "request_ids": [
+        "art152.pass1.004"
+      ],
+      "review_notes": "모해 목적 및 허위진술의 사실관계 포섭은 평가적 판단을 필요로 한다. 주체 범위와 관련 쟁점은 현재 source scope에서 확인되지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅱ.1_33",
+          "quote": "피고인이나 피의자 또는 징계혐의자를 모해할 목적으로 허위의 진술을 한 경우에 성립하는 목적범으로서 형법 제152조 제1항에 규정된 위증죄의 가중적 구성요건에 해당한다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.standard.noncriminal-case-ordinary-perjury",
+          "request_id": "art152.pass1.004"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art152_sec2_3.noncriminal_case_mohae_exception",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "민사·가사·행정·비송 등 형사사건이나 징계사건이 아닌 사건에서 법률에 의하여 선서한 증인이 특정 당사자를 불리하게 할 목적으로 허위진술한 경우, 모해위증죄가 아니라 위증죄가 성립한다.",
+      "request_ids": [
+        "art152.pass1.004"
+      ],
+      "review_notes": "사건이 형사사건 또는 징계사건인지와 증인이 법률에 따라 선서하였는지의 확인이 필요하다. 이 카드의 범위에서는 모해 목적이 있어도 비형사·비징계 사건에 관하여 모해위증죄를 적용하지 않는 예외만 다룬다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅱ.3_35",
+          "quote": "민사사건, 가사사건, 행정사건, 비송사건 등과 같이 형사사건이나 징계사건이 아닌 사건에서 법률에 의하여 선서한 증인이 특정 당사자를 불리하게 한다는 목적을 가지고 허위의 진술을 하더라도 모해위증죄가 아닌 위증죄가 성립할 뿐 이다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.standard.malice-purpose-awareness-sufficient",
+          "request_id": "art152.pass1.004"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art152_sec2_4.malice_purpose_awareness",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "모해 목적은 피고인·피의자·징계혐의자에게 불리하게 될 인식만 있으면 충분하고, 그 결과 발생을 희망하거나 모해 목적이 실제로 달성될 필요는 없다.",
+      "request_ids": [
+        "art152.pass1.004"
+      ],
+      "review_notes": "불리하게 될 인식의 존재는 개별 사실관계에 대한 평가가 필요하며, 결과 희망 또는 실제 목적 달성의 부재를 반대사실로 추정하지 않는다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅱ.4_36",
+          "quote": "에게 불리하게 될 것이라는 인식이 있으면 충분하고, 그 결과의 발생까지 희망 할 필요는 없다. 모해의 목적이 실제로 달성되었는지 여부도 모해위증죄의 성립과는 관계가 없다.",
+          "section_path": "Ⅱ.4"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.standard.proceeding-commenced-requirement",
+          "request_id": "art152.pass1.004"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art152_sec2_4.proceeding_commenced_requirement",
+      "norm_kind": "element",
+      "polarity": "negative",
+      "proposition": "모해위증죄는 수사절차·재판절차·징계절차가 개시되어 진행 중인 것을 전제로 하며, 수사절차나 징계절차가 개시되지 않은 단계에서는 성립할 수 없다.",
+      "request_ids": [
+        "art152.pass1.004"
+      ],
+      "review_notes": "절차 개시 및 진행 여부는 별도의 사실 확인으로 열거 가능하나, 재판절차 미개시의 효과는 인용문에서 명시적으로 설명되지 않아 확대하지 않았다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅱ.4_36",
+          "quote": "수사절차나 재판절차 또는 징계절차가 개시되어 진행 중 이라는 사실이 전제되고, 수사절차나 징계절차가 개시되지 않은 단계에서는 모해위증죄가 성립할 수 없다.",
+          "section_path": "Ⅱ.4"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_reported_precedent",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.standard.malicious-perjury-single-offense-same-hearing",
+          "request_id": "art152.pass1.004"
+        }
+      ],
+      "doctrinal_status": "precedent_position",
+      "formalization": "standard_input",
+      "id": "art152_sec2_6.malicious_perjury.single_offense_same_hearing",
+      "norm_kind": "standard",
+      "polarity": "positive",
+      "proposition": "하나의 사건에 관하여 한 번 선서한 증인이 같은 기일에 여러 사실에 관해 기억에 반하는 허위진술을 계속한 경우, 하나의 범죄의사에 따른 계속된 진술로 포괄하여 1개의 모해위증죄가 성립하며 각 진술마다 별개의 모해위증죄가 성립하지 않는다.",
+      "request_ids": [
+        "art152.pass1.004"
+      ],
+      "review_notes": "동일 사건, 한 번의 선서, 같은 기일, 기억에 반하는 허위진술의 계속성 및 하나의 범죄의사 여부를 사실관계에 따라 검토해야 한다. commentary에 보고된 판례이므로 원문 판례 확인이 필요하다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅱ.6_39",
+          "quote": "하나의 사건에 관하여 한 번 선서한 증인이 같은 기일에 여러 가지 사실에 관하여 기억에 반하는 허위의 진술을 한 경우 이는 하나의 범죄의사에 의하여 계속하여 허위의 진술을 한 것으로서 포 괄하여 1개의 모해위증죄가 성립하고, 각 진술마다 여러 개의 모해위증죄가 성 립하는 것은 아니다.",
+          "section_path": "Ⅱ.6"
+        }
+      ],
+      "variant_group": null
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art152.exception.special-statute-excludes-malicious-perjury",
+          "request_id": "art152.pass1.004"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "deterministic_rule",
+      "id": "art152_sec2_7.special_statute_malicious_perjury_exclusion",
+      "norm_kind": "exception",
+      "polarity": "exception",
+      "proposition": "타인에게 형사처분을 받게 할 목적으로 국가보안법상 죄 또는 테러방지법상 죄에 관하여 위증한 경우에는 각 특별법에 따라 처벌되고 모해위증죄는 별도로 성립하지 않는다.",
+      "request_ids": [
+        "art152.pass1.004"
+      ],
+      "review_notes": "국가보안법 및 테러방지법의 열거된 위증 처벌규정이 적용되는 경우 모해위증죄의 별도 성립을 배제하는 예외로 검토한다.",
+      "review_required": false,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제152조_Ⅱ.7_40",
+          "quote": "국가보안법에 규정된 죄에 대하여 위증한 때에는 국가보안법 제12조에 따라, ⅱ) ‘국민보호와 공공안 전을 위한 테러방지법’ 제17조의 죄 (다음부터 ‘테러방지법’이라 한다)(테러단체 구성죄 등)에 대하여 위증을 한 사람은 테러방지법 제18조에 따라 각각 처벌되고, 이 경 우 모해위증죄가 따로 성립하지 않는다.",
+          "section_path": "Ⅱ.7"
+        }
+      ],
+      "variant_group": null
+    }
+  ],
+  "legal_review_questions": [],
+  "coverage_gaps": [
+    "predicate_ir_missing: art152_sec1_1.instigation_or_aiding → complicity",
+    "predicate_ir_missing: art152_sec1_4.instigation_and_aiding_possible → complicity",
+    "predicate_ir_missing: art152_sec1_5.separate_instigation_multiple_persons → complicity",
+    "predicate_ir_missing: art152_sec1_6.false_accusation_perjury_concurrence → false_accusation",
+    "predicate_ir_missing: art152_sec1_6.malicious_perjury_after_false_accusation → false_accusation",
+    "predicate_ir_missing: art152_sec1_6.oath_incompetent_false_testimony_not_evidence_fabrication → evidence_destruction",
+    "predicate_ir_missing: art152_sec2_7.special_statute_malicious_perjury_exclusion → special_malicious_perjury",
+    "predicate_ir_missing: art152_sec1_6.perjury_evidence_destruction_special_relation → evidence_destruction",
+    "card_metadata_correction: cc_001",
+    "card_metadata_correction: cc_002"
+  ]
+}

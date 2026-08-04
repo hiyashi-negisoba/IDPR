@@ -1,0 +1,1626 @@
+// rule_set_id: kr.p2.perjury.native.v1_candidate
+// status: draft
+// legal_review: pending
+// generated_from: validated RuleIR; model output is never executed directly
+
+// provable: 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+// sources: system contract
+// norm_cards: system contract
+type provable(String, String)
+
+// case_assessment_complete: 사건 라우터가 선택한 평가 묶음이 완결되어 결론 계층의 폐쇄세계 검사를 허용함
+// sources: system contract
+// norm_cards: system contract
+type case_assessment_complete(String, String)
+
+// distinct_entity: 사건의 entity resolution에서 두 역할이 서로 다른 실체임이 확인됨
+// sources: system contract
+// norm_cards: system contract
+type distinct_entity(String, String, String)
+
+// perjury_case_roles: 선서 증인, 신문절차, 허위 진술의 역할 tuple
+// sources: system contract
+// norm_cards: system contract
+type perjury_case_roles(String, String, String, String)
+
+// perjury_not_established: 증명된 불성립 사유 또는 경계 이동이 존재함
+// sources: system contract
+// norm_cards: system contract
+type perjury_not_established(String, String, String)
+
+// perjury_undetermined: 관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음
+// sources: system contract
+// norm_cards: system contract
+type perjury_undetermined(String, String, String)
+
+// perjury_conflict: 같은 카드에 satisfied와 not_satisfied 평가가 모두 증명됨
+// sources: system contract
+// norm_cards: system contract
+type perjury_conflict(String, String, String)
+
+// perjury_track_not_established: 해당 track에만 적용되는 증명된 불성립 사유 또는 경계 이동
+// sources: system contract
+// norm_cards: system contract
+type perjury_track_not_established(String, String, String, String)
+
+// perjury_track_conflict: 해당 track에 적용되는 카드 평가 충돌
+// sources: system contract
+// norm_cards: system contract
+type perjury_track_conflict(String, String, String, String)
+
+// perjury_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type perjury_track_has_negative(String, String, String)
+
+// perjury_track_has_conflict: 해당 track에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type perjury_track_has_conflict(String, String, String)
+
+// assess_art152_sec1_1_instigation_or_aiding: 이 카드의 사건별 적용 평가: 위증죄에는 교사범 또는 종범이 성립할 수 있다.
+// sources: comm_001692_제152조_Ⅰ.1_0
+// norm_cards: art152_sec1_1.instigation_or_aiding
+type assess_art152_sec1_1_instigation_or_aiding(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_1_instigation_or_aiding: 증명 가능한 평가에서 다음 조건이 충족됨: 위증죄에는 교사범 또는 종범이 성립할 수 있다.
+// sources: comm_001692_제152조_Ⅰ.1_0
+// norm_cards: art152_sec1_1.instigation_or_aiding
+type satisfied_art152_sec1_1_instigation_or_aiding(String, String, String, String)
+
+// assess_art152_sec1_2_falsehood_assessment: 이 카드의 사건별 적용 평가: 증언의 허위성은 단편적 구절이 아니라 신문절차의 증언 전체와 전후 문맥, 신문 취지 및 진술 경위를 종합하여 판단한다. 지엽적 사항의 허위진술도 위증죄가 성립할 수 있으나, 전체 취지가 기억에 일치하고 일부 사소한 차이가 신문취지 오해 또는 착오에 의한 경우에는 위증이 아니다. 증거능력, 사후 소 취하 또는 절차 무효는 원칙적으로 위증죄 성립에 영향을 주지 않는다.
+// sources: comm_001692_제152조_Ⅰ.2_22, comm_001692_제152조_Ⅰ.2_16
+// norm_cards: art152_sec1_2.falsehood_assessment
+type assess_art152_sec1_2_falsehood_assessment(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_2_falsehood_assessment: 증명 가능한 평가에서 다음 조건이 충족됨: 증언의 허위성은 단편적 구절이 아니라 신문절차의 증언 전체와 전후 문맥, 신문 취지 및 진술 경위를 종합하여 판단한다. 지엽적 사항의 허위진술도 위증죄가 성립할 수 있으나, 전체 취지가 기억에 일치하고 일부 사소한 차이가 신문취지 오해 또는 착오에 의한 경우에는 위증이 아니다. 증거능력, 사후 소 취하 또는 절차 무효는 원칙적으로 위증죄 성립에 영향을 주지 않는다.
+// sources: comm_001692_제152조_Ⅰ.2_22, comm_001692_제152조_Ⅰ.2_16
+// norm_cards: art152_sec1_2.falsehood_assessment
+type satisfied_art152_sec1_2_falsehood_assessment(String, String, String, String)
+
+// assess_art152_sec1_2_intent: 이 카드의 사건별 적용 평가: 주관설에 따르면 위증죄의 고의는 자신이 법률에 의하여 선서한 증인이라는 점과 진술이 자신의 기억에 반한다는 점에 대한 인식과 의사로 충분하고, 미필적 고의도 충분하다. 기억에 반한다는 인식 없이 증언했거나 신문 취지를 오해 또는 착각한 경우 고의는 인정되지 않으며, 허위진술의 동기나 목적은 주관적 구성요건 판단에서 문제되지 않는다.
+// sources: comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_23
+// norm_cards: art152_sec1_2.intent
+type assess_art152_sec1_2_intent(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_2_intent: 증명 가능한 평가에서 다음 조건이 충족됨: 주관설에 따르면 위증죄의 고의는 자신이 법률에 의하여 선서한 증인이라는 점과 진술이 자신의 기억에 반한다는 점에 대한 인식과 의사로 충분하고, 미필적 고의도 충분하다. 기억에 반한다는 인식 없이 증언했거나 신문 취지를 오해 또는 착각한 경우 고의는 인정되지 않으며, 허위진술의 동기나 목적은 주관적 구성요건 판단에서 문제되지 않는다.
+// sources: comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_23
+// norm_cards: art152_sec1_2.intent
+type satisfied_art152_sec1_2_intent(String, String, String, String)
+
+// assess_art152_sec1_2_lawful_oath_witness: 이 카드의 사건별 적용 평가: 위증죄의 주체는 법률에 의하여 선서한 증인이며, 증인이라도 선서하지 않은 경우 위증죄의 주체가 될 수 없다.
+// sources: comm_001692_제152조_Ⅰ.2_1
+// norm_cards: art152_sec1_2.lawful_oath_witness
+type assess_art152_sec1_2_lawful_oath_witness(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_2_lawful_oath_witness: 증명 가능한 평가에서 다음 조건이 충족됨: 위증죄의 주체는 법률에 의하여 선서한 증인이며, 증인이라도 선서하지 않은 경우 위증죄의 주체가 될 수 없다.
+// sources: comm_001692_제152조_Ⅰ.2_1
+// norm_cards: art152_sec1_2.lawful_oath_witness
+type satisfied_art152_sec1_2_lawful_oath_witness(String, String, String, String)
+
+// assess_art152_sec1_2_malicious_perjury: 이 카드의 사건별 적용 평가: 형사사건 또는 징계사건에서 피고인·피의자 또는 징계혐의자를 모해할 목적으로 허위 진술한 경우에는 일반 위증죄가 아니라 모해위증죄가 성립한다.
+// sources: comm_001692_제152조_Ⅰ.2_23
+// norm_cards: art152_sec1_2.malicious_perjury
+type assess_art152_sec1_2_malicious_perjury(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_2_malicious_perjury: 증명 가능한 평가에서 다음 조건이 충족됨: 형사사건 또는 징계사건에서 피고인·피의자 또는 징계혐의자를 모해할 목적으로 허위 진술한 경우에는 일반 위증죄가 아니라 모해위증죄가 성립한다.
+// sources: comm_001692_제152조_Ⅰ.2_23
+// norm_cards: art152_sec1_2.malicious_perjury
+type satisfied_art152_sec1_2_malicious_perjury(String, String, String, String)
+
+// assess_art152_sec1_2_nonstatutory_or_unauthorized_oath: 이 카드의 사건별 적용 평가: 선서가 법률상 근거 없이 이루어졌거나 증인에게 선서시킬 권한이 없는 기관에 대하여 이루어진 경우, 그 선서는 위증죄 성립요건인 법률에 의한 선서에 해당하지 않아 위증죄가 성립하지 않는다.
+// sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2
+// norm_cards: art152_sec1_2.nonstatutory_or_unauthorized_oath
+type assess_art152_sec1_2_nonstatutory_or_unauthorized_oath(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_2_nonstatutory_or_unauthorized_oath: 증명 가능한 평가에서 다음 조건이 충족됨: 선서가 법률상 근거 없이 이루어졌거나 증인에게 선서시킬 권한이 없는 기관에 대하여 이루어진 경우, 그 선서는 위증죄 성립요건인 법률에 의한 선서에 해당하지 않아 위증죄가 성립하지 않는다.
+// sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2
+// norm_cards: art152_sec1_2.nonstatutory_or_unauthorized_oath
+type satisfied_art152_sec1_2_nonstatutory_or_unauthorized_oath(String, String, String, String)
+
+// assess_art152_sec1_2_oath_capacity: 이 카드의 사건별 적용 평가: 선서무능력자가 선서하고 허위진술한 경우 그 선서는 무효이므로 위증죄가 성립하지 않는다.
+// sources: comm_001692_제152조_Ⅰ.2_3
+// norm_cards: art152_sec1_2.oath_capacity
+type assess_art152_sec1_2_oath_capacity(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_2_oath_capacity: 증명 가능한 평가에서 다음 조건이 충족됨: 선서무능력자가 선서하고 허위진술한 경우 그 선서는 무효이므로 위증죄가 성립하지 않는다.
+// sources: comm_001692_제152조_Ⅰ.2_3
+// norm_cards: art152_sec1_2.oath_capacity
+type satisfied_art152_sec1_2_oath_capacity(String, String, String, String)
+
+// assess_art152_sec1_2_oath_lawful_procedure: 이 카드의 사건별 적용 평가: 위증죄 성립을 위한 증인의 선서는 법률에 근거하고 법률이 정한 절차에 따라 적법하게 이루어져야 하며, 그 법률에는 법률의 위임에 따라 제정된 명령 등 하위법령이 포함될 수 있다.
+// sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1
+// norm_cards: art152_sec1_2.oath_lawful_procedure
+type assess_art152_sec1_2_oath_lawful_procedure(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_2_oath_lawful_procedure: 증명 가능한 평가에서 다음 조건이 충족됨: 위증죄 성립을 위한 증인의 선서는 법률에 근거하고 법률이 정한 절차에 따라 적법하게 이루어져야 하며, 그 법률에는 법률의 위임에 따라 제정된 명령 등 하위법령이 포함될 수 있다.
+// sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1
+// norm_cards: art152_sec1_2.oath_lawful_procedure
+type satisfied_art152_sec1_2_oath_lawful_procedure(String, String, String, String)
+
+// assess_art152_sec1_2_oath_procedural_defects: 이 카드의 사건별 적용 평가: 증인에게 선서를 시킬 일반적 권한이 있는 기관에 대한 선서는 관할 위반이나 공소제기 절차 위반만으로 효력이 부정되지 않지만, 법정 증인보호규정 미준수로 증인보호에 사실상 장애가 초래된 경우에는 법률에 의하여 선서한 증인에 해당하지 않는 것이 원칙이다.
+// sources: comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2
+// norm_cards: art152_sec1_2.oath_procedural_defects
+type assess_art152_sec1_2_oath_procedural_defects(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_2_oath_procedural_defects: 증명 가능한 평가에서 다음 조건이 충족됨: 증인에게 선서를 시킬 일반적 권한이 있는 기관에 대한 선서는 관할 위반이나 공소제기 절차 위반만으로 효력이 부정되지 않지만, 법정 증인보호규정 미준수로 증인보호에 사실상 장애가 초래된 경우에는 법률에 의하여 선서한 증인에 해당하지 않는 것이 원칙이다.
+// sources: comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2
+// norm_cards: art152_sec1_2.oath_procedural_defects
+type satisfied_art152_sec1_2_oath_procedural_defects(String, String, String, String)
+
+// assess_art152_sec1_2_oath_refusal_right_notice: 이 카드의 사건별 적용 평가: 민사소송법이 적용 또는 준용되는 재판에서 증인이 선서거부권 또는 증언거부권을 고지받지 않았더라도 선서능력이 있으면 선서는 유효하며, 선서 후 허위진술에 위증죄가 성립할 수 있다. 형사소송법이 적용 또는 준용되는 재판에서 선서 효력 판단에는 선서거부권 고지 여부가 문제되지 않는다.
+// sources: comm_001692_제152조_Ⅰ.2_4, comm_001692_제152조_Ⅰ.2_11
+// norm_cards: art152_sec1_2.oath_refusal_right_notice
+type assess_art152_sec1_2_oath_refusal_right_notice(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_2_oath_refusal_right_notice: 증명 가능한 평가에서 다음 조건이 충족됨: 민사소송법이 적용 또는 준용되는 재판에서 증인이 선서거부권 또는 증언거부권을 고지받지 않았더라도 선서능력이 있으면 선서는 유효하며, 선서 후 허위진술에 위증죄가 성립할 수 있다. 형사소송법이 적용 또는 준용되는 재판에서 선서 효력 판단에는 선서거부권 고지 여부가 문제되지 않는다.
+// sources: comm_001692_제152조_Ⅰ.2_4, comm_001692_제152조_Ⅰ.2_11
+// norm_cards: art152_sec1_2.oath_refusal_right_notice
+type satisfied_art152_sec1_2_oath_refusal_right_notice(String, String, String, String)
+
+// assess_art152_sec1_2_refusal_right_and_perjury: 이 카드의 사건별 적용 평가: 선서거부권자가 선서거부권을 행사하여 선서하지 않은 채 허위진술한 경우 위증죄는 성립하지 않지만, 증언거부권자가 권리 행사를 포기하고 증언하면서 허위진술한 경우 위증죄가 성립할 수 있다. 증언거부권 미고지로 권리 행사에 사실상 장애가 초래된 경우에는 위증죄 성립을 부정하며, 장애 여부는 증언 당시 상황, 거부사유, 권리 인지 여부, 고지되었어도 허위진술했을 정황 및 진정한 의사를 종합하여 판단한다.
+// sources: comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_5
+// norm_cards: art152_sec1_2.refusal_right_and_perjury
+type assess_art152_sec1_2_refusal_right_and_perjury(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_2_refusal_right_and_perjury: 증명 가능한 평가에서 다음 조건이 충족됨: 선서거부권자가 선서거부권을 행사하여 선서하지 않은 채 허위진술한 경우 위증죄는 성립하지 않지만, 증언거부권자가 권리 행사를 포기하고 증언하면서 허위진술한 경우 위증죄가 성립할 수 있다. 증언거부권 미고지로 권리 행사에 사실상 장애가 초래된 경우에는 위증죄 성립을 부정하며, 장애 여부는 증언 당시 상황, 거부사유, 권리 인지 여부, 고지되었어도 허위진술했을 정황 및 진정한 의사를 종합하여 판단한다.
+// sources: comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_5
+// norm_cards: art152_sec1_2.refusal_right_and_perjury
+type satisfied_art152_sec1_2_refusal_right_and_perjury(String, String, String, String)
+
+// assess_art152_sec1_2_statement_scope: 이 카드의 사건별 적용 평가: 위증죄의 진술은 구체적 사실에 관한 진술을 말하며, 단순한 가치판단·평가 또는 경험 사실에 부가된 법률적·주관적 의견의 오류는 진술에 해당하지 않거나 위증죄를 구성하지 않는다. 진술은 언어뿐 아니라 몸짓이나 표정의 답변도 포함할 수 있으나, 조서나 증인진술서 내용이 사실이라는 일반적 확인만으로는 특별한 사정이 없는 한 그 구체적 내용을 반복 진술한 것으로 볼 수 없다.
+// sources: comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_17
+// norm_cards: art152_sec1_2.statement_scope
+type assess_art152_sec1_2_statement_scope(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_2_statement_scope: 증명 가능한 평가에서 다음 조건이 충족됨: 위증죄의 진술은 구체적 사실에 관한 진술을 말하며, 단순한 가치판단·평가 또는 경험 사실에 부가된 법률적·주관적 의견의 오류는 진술에 해당하지 않거나 위증죄를 구성하지 않는다. 진술은 언어뿐 아니라 몸짓이나 표정의 답변도 포함할 수 있으나, 조서나 증인진술서 내용이 사실이라는 일반적 확인만으로는 특별한 사정이 없는 한 그 구체적 내용을 반복 진술한 것으로 볼 수 없다.
+// sources: comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_17
+// norm_cards: art152_sec1_2.statement_scope
+type satisfied_art152_sec1_2_statement_scope(String, String, String, String)
+
+// assess_art152_sec1_2_witness_status: 이 카드의 사건별 적용 평가: 위증죄의 증인은 재판절차나 징계절차에서 자신이 경험한 사실을 진술하는 당사자가 아닌 제3자이다. 별개 범죄사실의 공범 아닌 공동피고인은 다른 피고인의 범죄사실에 관하여 증인 지위에 있을 수 있고, 공범인 공동피고인도 절차 분리로 피고인 지위에서 벗어나거나 유죄판결 확정 후 다른 공범 사건에서 증인이 될 수 있다.
+// sources: comm_001692_제152조_Ⅰ.2_13, comm_001692_제152조_Ⅰ.2_14
+// norm_cards: art152_sec1_2.witness_status
+type assess_art152_sec1_2_witness_status(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_2_witness_status: 증명 가능한 평가에서 다음 조건이 충족됨: 위증죄의 증인은 재판절차나 징계절차에서 자신이 경험한 사실을 진술하는 당사자가 아닌 제3자이다. 별개 범죄사실의 공범 아닌 공동피고인은 다른 피고인의 범죄사실에 관하여 증인 지위에 있을 수 있고, 공범인 공동피고인도 절차 분리로 피고인 지위에서 벗어나거나 유죄판결 확정 후 다른 공범 사건에서 증인이 될 수 있다.
+// sources: comm_001692_제152조_Ⅰ.2_13, comm_001692_제152조_Ⅰ.2_14
+// norm_cards: art152_sec1_2.witness_status
+type satisfied_art152_sec1_2_witness_status(String, String, String, String)
+
+// assess_art152_sec1_3_attempt_false_testimony_start: 이 카드의 사건별 적용 평가: 위증죄의 실행의 착수는 증인이 허위진술을 시작한 때에 인정된다.
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.attempt_false_testimony_start
+type assess_art152_sec1_3_attempt_false_testimony_start(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_3_attempt_false_testimony_start: 증명 가능한 평가에서 다음 조건이 충족됨: 위증죄의 실행의 착수는 증인이 허위진술을 시작한 때에 인정된다.
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.attempt_false_testimony_start
+type satisfied_art152_sec1_3_attempt_false_testimony_start(String, String, String, String)
+
+// assess_art152_sec1_3_completion_examination_end: 이 카드의 사건별 적용 평가: 위증죄는 해당 증인에 대한 신문절차가 종료하여 더 이상 진술을 철회·시정할 수 없게 된 때 기수에 이른다.
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.completion_examination_end
+type assess_art152_sec1_3_completion_examination_end(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_3_completion_examination_end: 증명 가능한 평가에서 다음 조건이 충족됨: 위증죄는 해당 증인에 대한 신문절차가 종료하여 더 이상 진술을 철회·시정할 수 없게 된 때 기수에 이른다.
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.completion_examination_end
+type satisfied_art152_sec1_3_completion_examination_end(String, String, String, String)
+
+// assess_art152_sec1_3_correction_before_examination_end: 이 카드의 사건별 적용 평가: 선서한 증인이 허위진술을 하였더라도 신문이 끝나기 전에 이를 철회하거나 시정한 경우 위증죄는 성립하지 않는다.
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.correction_before_examination_end
+type assess_art152_sec1_3_correction_before_examination_end(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_3_correction_before_examination_end: 증명 가능한 평가에서 다음 조건이 충족됨: 선서한 증인이 허위진술을 하였더라도 신문이 끝나기 전에 이를 철회하거나 시정한 경우 위증죄는 성립하지 않는다.
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.correction_before_examination_end
+type satisfied_art152_sec1_3_correction_before_examination_end(String, String, String, String)
+
+// assess_art152_sec1_3_correction_through_other_examiner: 이 카드의 사건별 적용 평가: 동일한 증인신문절차에서 허위진술이 다른 신문자의 질문에 대한 답변을 통해 철회·시정된 경우, 앞선 진술만을 분리하여 위증으로 볼 수 없다.
+// sources: comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.correction_through_other_examiner
+type assess_art152_sec1_3_correction_through_other_examiner(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_3_correction_through_other_examiner: 증명 가능한 평가에서 다음 조건이 충족됨: 동일한 증인신문절차에서 허위진술이 다른 신문자의 질문에 대한 답변을 통해 철회·시정된 경우, 앞선 진술만을 분리하여 위증으로 볼 수 없다.
+// sources: comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.correction_through_other_examiner
+type satisfied_art152_sec1_3_correction_through_other_examiner(String, String, String, String)
+
+// assess_art152_sec1_3_later_proceeding_correction_no_effect: 이 카드의 사건별 적용 평가: 허위진술이 철회·시정되지 않은 채 증인신문절차가 종료하여 위증죄가 기수에 이른 후 별도 증인신문절차에서 이를 철회·시정하더라도, 이미 종결된 절차에서의 위증죄 성립에는 영향이 없다.
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.later_proceeding_correction_no_effect
+type assess_art152_sec1_3_later_proceeding_correction_no_effect(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_3_later_proceeding_correction_no_effect: 증명 가능한 평가에서 다음 조건이 충족됨: 허위진술이 철회·시정되지 않은 채 증인신문절차가 종료하여 위증죄가 기수에 이른 후 별도 증인신문절차에서 이를 철회·시정하더라도, 이미 종결된 절차에서의 위증죄 성립에는 영향이 없다.
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.later_proceeding_correction_no_effect
+type satisfied_art152_sec1_3_later_proceeding_correction_no_effect(String, String, String, String)
+
+// assess_art152_sec1_3_post_oath_completion: 이 카드의 사건별 적용 평가: 증인이 신문을 마친 후에 비로소 선서하는 사후선서에서는 선서를 마친 때 위증죄가 기수에 이른다.
+// sources: comm_001692_제152조_Ⅰ.3_25
+// norm_cards: art152_sec1_3.post_oath_completion
+type assess_art152_sec1_3_post_oath_completion(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_3_post_oath_completion: 증명 가능한 평가에서 다음 조건이 충족됨: 증인이 신문을 마친 후에 비로소 선서하는 사후선서에서는 선서를 마친 때 위증죄가 기수에 이른다.
+// sources: comm_001692_제152조_Ⅰ.3_25
+// norm_cards: art152_sec1_3.post_oath_completion
+type satisfied_art152_sec1_3_post_oath_completion(String, String, String, String)
+
+// assess_art152_sec1_3_preparation_not_punishable: 이 카드의 사건별 적용 평가: 법정 출석 전에 허위진술 내용을 정리하는 등 위증 준비행위를 하였으나 법정에서 사실대로 진술한 경우, 위증 예비·음모 처벌규정이 없으므로 처벌할 수 없다.
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.preparation_not_punishable
+type assess_art152_sec1_3_preparation_not_punishable(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_3_preparation_not_punishable: 증명 가능한 평가에서 다음 조건이 충족됨: 법정 출석 전에 허위진술 내용을 정리하는 등 위증 준비행위를 하였으나 법정에서 사실대로 진술한 경우, 위증 예비·음모 처벌규정이 없으므로 처벌할 수 없다.
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.preparation_not_punishable
+type satisfied_art152_sec1_3_preparation_not_punishable(String, String, String, String)
+
+// assess_art152_sec1_4_instigation_and_aiding_possible: 이 카드의 사건별 적용 평가: 위증죄는 자수범이어서 공동정범이나 간접정범은 성립할 수 없지만, 형법 제33조 본문에 따라 교사범 또는 종범은 성립할 수 있다.
+// sources: comm_001692_제152조_Ⅰ.4_26
+// norm_cards: art152_sec1_4.instigation_and_aiding_possible
+type assess_art152_sec1_4_instigation_and_aiding_possible(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_4_instigation_and_aiding_possible: 증명 가능한 평가에서 다음 조건이 충족됨: 위증죄는 자수범이어서 공동정범이나 간접정범은 성립할 수 없지만, 형법 제33조 본문에 따라 교사범 또는 종범은 성립할 수 있다.
+// sources: comm_001692_제152조_Ⅰ.4_26
+// norm_cards: art152_sec1_4.instigation_and_aiding_possible
+type satisfied_art152_sec1_4_instigation_and_aiding_possible(String, String, String, String)
+
+// assess_art152_sec1_4_perjury_self_committed_offense: 이 카드의 사건별 적용 평가: 위증죄는 법률에 따라 선서한 증인이 허위진술을 해야 성립하는 자수범이다.
+// sources: comm_001692_제152조_Ⅰ.4_26
+// norm_cards: art152_sec1_4.perjury_self_committed_offense
+type assess_art152_sec1_4_perjury_self_committed_offense(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_4_perjury_self_committed_offense: 증명 가능한 평가에서 다음 조건이 충족됨: 위증죄는 법률에 따라 선서한 증인이 허위진술을 해야 성립하는 자수범이다.
+// sources: comm_001692_제152조_Ⅰ.4_26
+// norm_cards: art152_sec1_4.perjury_self_committed_offense
+type satisfied_art152_sec1_4_perjury_self_committed_offense(String, String, String, String)
+
+// assess_art152_sec1_5_perjury_different_dates_same_oath: 이 카드의 사건별 적용 평가: 같은 사건·같은 심급에서 서로 다른 변론기일에 허위진술하더라도 최초 선서의 효력이 유지된 상태에서 증언하였다면 1개의 위증죄만 성립한다.
+// sources: comm_001692_제152조_Ⅰ.5_28
+// norm_cards: art152_sec1_5.perjury_different_dates_same_oath
+type assess_art152_sec1_5_perjury_different_dates_same_oath(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_5_perjury_different_dates_same_oath: 증명 가능한 평가에서 다음 조건이 충족됨: 같은 사건·같은 심급에서 서로 다른 변론기일에 허위진술하더라도 최초 선서의 효력이 유지된 상태에서 증언하였다면 1개의 위증죄만 성립한다.
+// sources: comm_001692_제152조_Ⅰ.5_28
+// norm_cards: art152_sec1_5.perjury_different_dates_same_oath
+type satisfied_art152_sec1_5_perjury_different_dates_same_oath(String, String, String, String)
+
+// assess_art152_sec1_5_perjury_res_judicata_inclusive_offense: 이 카드의 사건별 적용 평가: 포괄일죄 관계의 위증 일부에 관하여 확정판결이 있으면, 종전 공소사실과 다른 허위진술 부분이라도 그 기판력이 미쳐 후속 위증죄 부분은 면소되어야 한다.
+// sources: comm_001692_제152조_Ⅰ.5_28
+// norm_cards: art152_sec1_5.perjury_res_judicata_inclusive_offense
+type assess_art152_sec1_5_perjury_res_judicata_inclusive_offense(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_5_perjury_res_judicata_inclusive_offense: 증명 가능한 평가에서 다음 조건이 충족됨: 포괄일죄 관계의 위증 일부에 관하여 확정판결이 있으면, 종전 공소사실과 다른 허위진술 부분이라도 그 기판력이 미쳐 후속 위증죄 부분은 면소되어야 한다.
+// sources: comm_001692_제152조_Ⅰ.5_28
+// norm_cards: art152_sec1_5.perjury_res_judicata_inclusive_offense
+type satisfied_art152_sec1_5_perjury_res_judicata_inclusive_offense(String, String, String, String)
+
+// assess_art152_sec1_5_separate_instigation_multiple_persons: 이 카드의 사건별 적용 평가: 하나의 사건에서 여러 사람에게 각각 개별적으로 위증을 교사한 경우 위증교사죄는 경합범이 된다.
+// sources: comm_001692_제152조_Ⅰ.5_28
+// norm_cards: art152_sec1_5.separate_instigation_multiple_persons
+type assess_art152_sec1_5_separate_instigation_multiple_persons(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_5_separate_instigation_multiple_persons: 증명 가능한 평가에서 다음 조건이 충족됨: 하나의 사건에서 여러 사람에게 각각 개별적으로 위증을 교사한 경우 위증교사죄는 경합범이 된다.
+// sources: comm_001692_제152조_Ⅰ.5_28
+// norm_cards: art152_sec1_5.separate_instigation_multiple_persons
+type satisfied_art152_sec1_5_separate_instigation_multiple_persons(String, String, String, String)
+
+// assess_art152_sec1_5_single_perjury_same_hearing: 이 카드의 사건별 적용 평가: 하나의 사건에서 한 번 선서한 증인이 같은 기일에 여러 사실에 관하여 기억에 반하는 허위진술을 계속한 경우 포괄하여 1개의 위증죄가 성립하고, 각 허위진술별 경합범이 되지 않는다.
+// sources: comm_001692_제152조_Ⅰ.5_28
+// norm_cards: art152_sec1_5.single_perjury_same_hearing
+type assess_art152_sec1_5_single_perjury_same_hearing(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_5_single_perjury_same_hearing: 증명 가능한 평가에서 다음 조건이 충족됨: 하나의 사건에서 한 번 선서한 증인이 같은 기일에 여러 사실에 관하여 기억에 반하는 허위진술을 계속한 경우 포괄하여 1개의 위증죄가 성립하고, 각 허위진술별 경합범이 되지 않는다.
+// sources: comm_001692_제152조_Ⅰ.5_28
+// norm_cards: art152_sec1_5.single_perjury_same_hearing
+type satisfied_art152_sec1_5_single_perjury_same_hearing(String, String, String, String)
+
+// assess_art152_sec1_6_false_accusation_perjury_concurrence: 이 카드의 사건별 적용 평가: 타인에게 형사처분을 받게 할 목적으로 허위신고한 자가 그 사람이 기소된 뒤 증인으로서 신고 내용과 같은 진술을 하면 무고죄와 위증죄가 각각 성립하고 실체적 경합범 관계에 있다.
+// sources: comm_001692_제152조_Ⅰ.6_29
+// norm_cards: art152_sec1_6.false_accusation_perjury_concurrence
+type assess_art152_sec1_6_false_accusation_perjury_concurrence(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_6_false_accusation_perjury_concurrence: 증명 가능한 평가에서 다음 조건이 충족됨: 타인에게 형사처분을 받게 할 목적으로 허위신고한 자가 그 사람이 기소된 뒤 증인으로서 신고 내용과 같은 진술을 하면 무고죄와 위증죄가 각각 성립하고 실체적 경합범 관계에 있다.
+// sources: comm_001692_제152조_Ⅰ.6_29
+// norm_cards: art152_sec1_6.false_accusation_perjury_concurrence
+type satisfied_art152_sec1_6_false_accusation_perjury_concurrence(String, String, String, String)
+
+// assess_art152_sec1_6_malicious_perjury_after_false_accusation: 이 카드의 사건별 적용 평가: 무고행위자가 증인으로서 허위신고와 같은 허위진술을 하면서 피무고자를 모해할 목적을 가진 경우 대체로 위증죄보다 모해위증죄가 성립하는 것으로 서술되어 있다.
+// sources: comm_001692_제152조_Ⅰ.6_29
+// norm_cards: art152_sec1_6.malicious_perjury_after_false_accusation
+type assess_art152_sec1_6_malicious_perjury_after_false_accusation(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_6_malicious_perjury_after_false_accusation: 증명 가능한 평가에서 다음 조건이 충족됨: 무고행위자가 증인으로서 허위신고와 같은 허위진술을 하면서 피무고자를 모해할 목적을 가진 경우 대체로 위증죄보다 모해위증죄가 성립하는 것으로 서술되어 있다.
+// sources: comm_001692_제152조_Ⅰ.6_29
+// norm_cards: art152_sec1_6.malicious_perjury_after_false_accusation
+type satisfied_art152_sec1_6_malicious_perjury_after_false_accusation(String, String, String, String)
+
+// assess_art152_sec1_6_oath_incompetent_false_testimony_not_evidence_fabrication: 이 카드의 사건별 적용 평가: 선서무능력자가 범죄현장을 목격한 것처럼 형사법정에서 허위증언하게 하였더라도 증거위조죄에는 해당하지 않는다는 대법원 판시가 소개되어 있다.
+// sources: comm_001692_제152조_Ⅰ.6_30
+// norm_cards: art152_sec1_6.oath_incompetent_false_testimony_not_evidence_fabrication
+type assess_art152_sec1_6_oath_incompetent_false_testimony_not_evidence_fabrication(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_6_oath_incompetent_false_testimony_not_evidence_fabrication: 증명 가능한 평가에서 다음 조건이 충족됨: 선서무능력자가 범죄현장을 목격한 것처럼 형사법정에서 허위증언하게 하였더라도 증거위조죄에는 해당하지 않는다는 대법원 판시가 소개되어 있다.
+// sources: comm_001692_제152조_Ⅰ.6_30
+// norm_cards: art152_sec1_6.oath_incompetent_false_testimony_not_evidence_fabrication
+type satisfied_art152_sec1_6_oath_incompetent_false_testimony_not_evidence_fabrication(String, String, String, String)
+
+// assess_art152_sec1_6_perjury_evidence_destruction_special_relation: 이 카드의 사건별 적용 평가: 위증죄는 증거인멸죄에 대하여 특별관계에 있으므로, 위증죄가 성립하지 않는 경우에도 증거인멸죄는 성립할 수 있다는 견해가 있다.
+// sources: comm_001692_제152조_Ⅰ.6_29
+// norm_cards: art152_sec1_6.perjury_evidence_destruction_special_relation
+type assess_art152_sec1_6_perjury_evidence_destruction_special_relation(String, String, String, String, String, String)
+
+// satisfied_art152_sec1_6_perjury_evidence_destruction_special_relation: 증명 가능한 평가에서 다음 조건이 충족됨: 위증죄는 증거인멸죄에 대하여 특별관계에 있으므로, 위증죄가 성립하지 않는 경우에도 증거인멸죄는 성립할 수 있다는 견해가 있다.
+// sources: comm_001692_제152조_Ⅰ.6_29
+// norm_cards: art152_sec1_6.perjury_evidence_destruction_special_relation
+type satisfied_art152_sec1_6_perjury_evidence_destruction_special_relation(String, String, String, String)
+
+// assess_art152_sec2_1_malicious_perjury_definition: 이 카드의 사건별 적용 평가: 모해위증죄는 피고인·피의자·징계혐의자를 모해할 목적으로 허위진술한 경우 성립하는 목적범이며, 위증죄의 가중적 구성요건이다.
+// sources: comm_001692_제152조_Ⅱ.1_33
+// norm_cards: art152_sec2_1.malicious_perjury_definition
+type assess_art152_sec2_1_malicious_perjury_definition(String, String, String, String, String, String)
+
+// satisfied_art152_sec2_1_malicious_perjury_definition: 증명 가능한 평가에서 다음 조건이 충족됨: 모해위증죄는 피고인·피의자·징계혐의자를 모해할 목적으로 허위진술한 경우 성립하는 목적범이며, 위증죄의 가중적 구성요건이다.
+// sources: comm_001692_제152조_Ⅱ.1_33
+// norm_cards: art152_sec2_1.malicious_perjury_definition
+type satisfied_art152_sec2_1_malicious_perjury_definition(String, String, String, String)
+
+// assess_art152_sec2_3_noncriminal_case_mohae_exception: 이 카드의 사건별 적용 평가: 민사·가사·행정·비송 등 형사사건이나 징계사건이 아닌 사건에서 법률에 의하여 선서한 증인이 특정 당사자를 불리하게 할 목적으로 허위진술한 경우, 모해위증죄가 아니라 위증죄가 성립한다.
+// sources: comm_001692_제152조_Ⅱ.3_35
+// norm_cards: art152_sec2_3.noncriminal_case_mohae_exception
+type assess_art152_sec2_3_noncriminal_case_mohae_exception(String, String, String, String, String, String)
+
+// satisfied_art152_sec2_3_noncriminal_case_mohae_exception: 증명 가능한 평가에서 다음 조건이 충족됨: 민사·가사·행정·비송 등 형사사건이나 징계사건이 아닌 사건에서 법률에 의하여 선서한 증인이 특정 당사자를 불리하게 할 목적으로 허위진술한 경우, 모해위증죄가 아니라 위증죄가 성립한다.
+// sources: comm_001692_제152조_Ⅱ.3_35
+// norm_cards: art152_sec2_3.noncriminal_case_mohae_exception
+type satisfied_art152_sec2_3_noncriminal_case_mohae_exception(String, String, String, String)
+
+// assess_art152_sec2_4_malice_purpose_awareness: 이 카드의 사건별 적용 평가: 모해 목적은 피고인·피의자·징계혐의자에게 불리하게 될 인식만 있으면 충분하고, 그 결과 발생을 희망하거나 모해 목적이 실제로 달성될 필요는 없다.
+// sources: comm_001692_제152조_Ⅱ.4_36
+// norm_cards: art152_sec2_4.malice_purpose_awareness
+type assess_art152_sec2_4_malice_purpose_awareness(String, String, String, String, String, String)
+
+// satisfied_art152_sec2_4_malice_purpose_awareness: 증명 가능한 평가에서 다음 조건이 충족됨: 모해 목적은 피고인·피의자·징계혐의자에게 불리하게 될 인식만 있으면 충분하고, 그 결과 발생을 희망하거나 모해 목적이 실제로 달성될 필요는 없다.
+// sources: comm_001692_제152조_Ⅱ.4_36
+// norm_cards: art152_sec2_4.malice_purpose_awareness
+type satisfied_art152_sec2_4_malice_purpose_awareness(String, String, String, String)
+
+// assess_art152_sec2_4_proceeding_commenced_requirement: 이 카드의 사건별 적용 평가: 모해위증죄는 수사절차·재판절차·징계절차가 개시되어 진행 중인 것을 전제로 하며, 수사절차나 징계절차가 개시되지 않은 단계에서는 성립할 수 없다.
+// sources: comm_001692_제152조_Ⅱ.4_36
+// norm_cards: art152_sec2_4.proceeding_commenced_requirement
+type assess_art152_sec2_4_proceeding_commenced_requirement(String, String, String, String, String, String)
+
+// satisfied_art152_sec2_4_proceeding_commenced_requirement: 증명 가능한 평가에서 다음 조건이 충족됨: 모해위증죄는 수사절차·재판절차·징계절차가 개시되어 진행 중인 것을 전제로 하며, 수사절차나 징계절차가 개시되지 않은 단계에서는 성립할 수 없다.
+// sources: comm_001692_제152조_Ⅱ.4_36
+// norm_cards: art152_sec2_4.proceeding_commenced_requirement
+type satisfied_art152_sec2_4_proceeding_commenced_requirement(String, String, String, String)
+
+// assess_art152_sec2_6_malicious_perjury_single_offense_same_hearing: 이 카드의 사건별 적용 평가: 하나의 사건에 관하여 한 번 선서한 증인이 같은 기일에 여러 사실에 관해 기억에 반하는 허위진술을 계속한 경우, 하나의 범죄의사에 따른 계속된 진술로 포괄하여 1개의 모해위증죄가 성립하며 각 진술마다 별개의 모해위증죄가 성립하지 않는다.
+// sources: comm_001692_제152조_Ⅱ.6_39
+// norm_cards: art152_sec2_6.malicious_perjury.single_offense_same_hearing
+type assess_art152_sec2_6_malicious_perjury_single_offense_same_hearing(String, String, String, String, String, String)
+
+// satisfied_art152_sec2_6_malicious_perjury_single_offense_same_hearing: 증명 가능한 평가에서 다음 조건이 충족됨: 하나의 사건에 관하여 한 번 선서한 증인이 같은 기일에 여러 사실에 관해 기억에 반하는 허위진술을 계속한 경우, 하나의 범죄의사에 따른 계속된 진술로 포괄하여 1개의 모해위증죄가 성립하며 각 진술마다 별개의 모해위증죄가 성립하지 않는다.
+// sources: comm_001692_제152조_Ⅱ.6_39
+// norm_cards: art152_sec2_6.malicious_perjury.single_offense_same_hearing
+type satisfied_art152_sec2_6_malicious_perjury_single_offense_same_hearing(String, String, String, String)
+
+// assess_art152_sec2_7_special_statute_malicious_perjury_exclusion: 이 카드의 사건별 적용 평가: 타인에게 형사처분을 받게 할 목적으로 국가보안법상 죄 또는 테러방지법상 죄에 관하여 위증한 경우에는 각 특별법에 따라 처벌되고 모해위증죄는 별도로 성립하지 않는다.
+// sources: comm_001692_제152조_Ⅱ.7_40
+// norm_cards: art152_sec2_7.special_statute_malicious_perjury_exclusion
+type assess_art152_sec2_7_special_statute_malicious_perjury_exclusion(String, String, String, String, String, String)
+
+// satisfied_art152_sec2_7_special_statute_malicious_perjury_exclusion: 증명 가능한 평가에서 다음 조건이 충족됨: 타인에게 형사처분을 받게 할 목적으로 국가보안법상 죄 또는 테러방지법상 죄에 관하여 위증한 경우에는 각 특별법에 따라 처벌되고 모해위증죄는 별도로 성립하지 않는다.
+// sources: comm_001692_제152조_Ⅱ.7_40
+// norm_cards: art152_sec2_7.special_statute_malicious_perjury_exclusion
+type satisfied_art152_sec2_7_special_statute_malicious_perjury_exclusion(String, String, String, String)
+
+// perjury_base_completion_satisfied: 'completion' 요건이 충족됨 (base track, alternative_any)
+// sources: comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_25
+// norm_cards: art152_sec1_3.attempt_false_testimony_start, art152_sec1_3.completion_examination_end, art152_sec1_3.later_proceeding_correction_no_effect, art152_sec1_3.post_oath_completion
+type perjury_base_completion_satisfied(String, String, String, String)
+
+// perjury_base_false_factual_statement_satisfied: 'false_factual_statement' 요건이 충족됨 (base track, alternative_any)
+// sources: comm_001692_제152조_Ⅰ.2_22, comm_001692_제152조_Ⅰ.2_16, comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_17
+// norm_cards: art152_sec1_2.falsehood_assessment, art152_sec1_2.statement_scope
+type perjury_base_false_factual_statement_satisfied(String, String, String, String)
+
+// perjury_base_intent_satisfied: 'intent' 요건이 충족됨 (base track, mandatory_all)
+// sources: comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_23
+// norm_cards: art152_sec1_2.intent
+type perjury_base_intent_satisfied(String, String, String, String)
+
+// perjury_base_lawful_oath_satisfied: 'lawful_oath' 요건이 충족됨 (base track, alternative_any)
+// sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_4, comm_001692_제152조_Ⅰ.2_11, comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_5
+// norm_cards: art152_sec1_2.lawful_oath_witness, art152_sec1_2.oath_lawful_procedure, art152_sec1_2.oath_refusal_right_notice, art152_sec1_2.refusal_right_and_perjury
+type perjury_base_lawful_oath_satisfied(String, String, String, String)
+
+// perjury_base_witness_status_satisfied: 'witness_status' 요건이 충족됨 (base track, alternative_any)
+// sources: comm_001692_제152조_Ⅰ.2_13, comm_001692_제152조_Ⅰ.2_14, comm_001692_제152조_Ⅰ.4_26
+// norm_cards: art152_sec1_2.witness_status, art152_sec1_4.perjury_self_committed_offense
+type perjury_base_witness_status_satisfied(String, String, String, String)
+
+// perjury_malicious_malicious_purpose_satisfied: 'malicious_purpose' 요건이 충족됨 (malicious track, alternative_any)
+// sources: comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅱ.1_33, comm_001692_제152조_Ⅱ.4_36
+// norm_cards: art152_sec1_2.malicious_perjury, art152_sec2_1.malicious_perjury_definition, art152_sec2_4.malice_purpose_awareness
+type perjury_malicious_malicious_purpose_satisfied(String, String, String, String)
+
+// perjury_malicious_pending_criminal_or_disciplinary_proceeding_satisfied: 'pending_criminal_or_disciplinary_proceeding' 요건이 충족됨 (malicious track, mandatory_all)
+// sources: comm_001692_제152조_Ⅱ.4_36
+// norm_cards: art152_sec2_4.proceeding_commenced_requirement
+type perjury_malicious_pending_criminal_or_disciplinary_proceeding_satisfied(String, String, String, String)
+
+// perjury_has_negative: 이 unit에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type perjury_has_negative(String, String)
+
+// perjury_has_conflict: 이 unit에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type perjury_has_conflict(String, String)
+
+// perjury_base_elements_satisfied: 'base' track의 구성요건 component가 모두 충족된 잠정 성립 후보
+// sources: system contract
+// norm_cards: system contract
+type perjury_base_elements_satisfied(String, String, String, String)
+
+// perjury_base_established: 완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 'base' track 확정 성립
+// sources: system contract
+// norm_cards: system contract
+type perjury_base_established(String, String, String, String)
+
+// perjury_malicious_elements_satisfied: 'base' track의 구성요건을 그대로 충족하고 'malicious' track의 가중 요건이 더해진 잠정 성립 후보
+// sources: system contract
+// norm_cards: system contract
+type perjury_malicious_elements_satisfied(String, String, String, String)
+
+// perjury_malicious_established: 완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 'malicious' track 확정 성립
+// sources: system contract
+// norm_cards: system contract
+type perjury_malicious_established(String, String, String, String)
+
+// rule_id: perjury.card.art152_sec1_1_instigation_or_aiding.satisfied
+// sources: comm_001692_제152조_Ⅰ.1_0
+// norm_cards: art152_sec1_1.instigation_or_aiding
+rel satisfied_art152_sec1_1_instigation_or_aiding(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_1_instigation_or_aiding(case_id, assessment_001, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_001)
+
+// rule_id: perjury.card.art152_sec1_1_instigation_or_aiding.undetermined
+// sources: comm_001692_제152조_Ⅰ.1_0
+// norm_cards: art152_sec1_1.instigation_or_aiding
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_1.instigation_or_aiding") = assess_art152_sec1_1_instigation_or_aiding(case_id, unknown_001, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_001)
+
+// rule_id: perjury.card.art152_sec1_1_instigation_or_aiding.conflict
+// sources: comm_001692_제152조_Ⅰ.1_0
+// norm_cards: art152_sec1_1.instigation_or_aiding
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_1.instigation_or_aiding") = assess_art152_sec1_1_instigation_or_aiding(case_id, positive_001, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_1_instigation_or_aiding(case_id, negative_001, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_001) and
+  provable(case_id, negative_001)
+
+// rule_id: perjury.card.art152_sec1_2_falsehood_assessment.satisfied
+// sources: comm_001692_제152조_Ⅰ.2_22, comm_001692_제152조_Ⅰ.2_16
+// norm_cards: art152_sec1_2.falsehood_assessment
+rel satisfied_art152_sec1_2_falsehood_assessment(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_2_falsehood_assessment(case_id, assessment_002, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_002)
+
+// rule_id: perjury.card.art152_sec1_2_falsehood_assessment.undetermined
+// sources: comm_001692_제152조_Ⅰ.2_22, comm_001692_제152조_Ⅰ.2_16
+// norm_cards: art152_sec1_2.falsehood_assessment
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_2.falsehood_assessment") = assess_art152_sec1_2_falsehood_assessment(case_id, unknown_002, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_002)
+
+// rule_id: perjury.card.art152_sec1_2_falsehood_assessment.conflict
+// sources: comm_001692_제152조_Ⅰ.2_22, comm_001692_제152조_Ⅰ.2_16
+// norm_cards: art152_sec1_2.falsehood_assessment
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_2.falsehood_assessment") = assess_art152_sec1_2_falsehood_assessment(case_id, positive_002, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_2_falsehood_assessment(case_id, negative_002, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_002) and
+  provable(case_id, negative_002)
+
+// rule_id: perjury.card.art152_sec1_2_intent.satisfied
+// sources: comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_23
+// norm_cards: art152_sec1_2.intent
+rel satisfied_art152_sec1_2_intent(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_2_intent(case_id, assessment_003, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_003)
+
+// rule_id: perjury.card.art152_sec1_2_intent.undetermined
+// sources: comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_23
+// norm_cards: art152_sec1_2.intent
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_2.intent") = assess_art152_sec1_2_intent(case_id, unknown_003, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_003)
+
+// rule_id: perjury.card.art152_sec1_2_intent.conflict
+// sources: comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_23
+// norm_cards: art152_sec1_2.intent
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_2.intent") = assess_art152_sec1_2_intent(case_id, positive_003, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_2_intent(case_id, negative_003, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_003) and
+  provable(case_id, negative_003)
+
+// rule_id: perjury.card.art152_sec1_2_lawful_oath_witness.satisfied
+// sources: comm_001692_제152조_Ⅰ.2_1
+// norm_cards: art152_sec1_2.lawful_oath_witness
+rel satisfied_art152_sec1_2_lawful_oath_witness(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_2_lawful_oath_witness(case_id, assessment_004, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_004)
+
+// rule_id: perjury.card.art152_sec1_2_lawful_oath_witness.undetermined
+// sources: comm_001692_제152조_Ⅰ.2_1
+// norm_cards: art152_sec1_2.lawful_oath_witness
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_2.lawful_oath_witness") = assess_art152_sec1_2_lawful_oath_witness(case_id, unknown_004, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_004)
+
+// rule_id: perjury.card.art152_sec1_2_lawful_oath_witness.conflict
+// sources: comm_001692_제152조_Ⅰ.2_1
+// norm_cards: art152_sec1_2.lawful_oath_witness
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_2.lawful_oath_witness") = assess_art152_sec1_2_lawful_oath_witness(case_id, positive_004, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_2_lawful_oath_witness(case_id, negative_004, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_004) and
+  provable(case_id, negative_004)
+
+// rule_id: perjury.card.art152_sec1_2_malicious_perjury.satisfied
+// sources: comm_001692_제152조_Ⅰ.2_23
+// norm_cards: art152_sec1_2.malicious_perjury
+rel satisfied_art152_sec1_2_malicious_perjury(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_2_malicious_perjury(case_id, assessment_005, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_005)
+
+// rule_id: perjury.card.art152_sec1_2_malicious_perjury.undetermined
+// sources: comm_001692_제152조_Ⅰ.2_23
+// norm_cards: art152_sec1_2.malicious_perjury
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_2.malicious_perjury") = assess_art152_sec1_2_malicious_perjury(case_id, unknown_005, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_005)
+
+// rule_id: perjury.card.art152_sec1_2_malicious_perjury.conflict
+// sources: comm_001692_제152조_Ⅰ.2_23
+// norm_cards: art152_sec1_2.malicious_perjury
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_2.malicious_perjury") = assess_art152_sec1_2_malicious_perjury(case_id, positive_005, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_2_malicious_perjury(case_id, negative_005, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_005) and
+  provable(case_id, negative_005)
+
+// rule_id: perjury.card.art152_sec1_2_nonstatutory_or_unauthorized_oath.satisfied
+// sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2
+// norm_cards: art152_sec1_2.nonstatutory_or_unauthorized_oath
+rel satisfied_art152_sec1_2_nonstatutory_or_unauthorized_oath(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_2_nonstatutory_or_unauthorized_oath(case_id, assessment_006, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_006)
+
+// rule_id: perjury.card.art152_sec1_2_nonstatutory_or_unauthorized_oath.undetermined
+// sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2
+// norm_cards: art152_sec1_2.nonstatutory_or_unauthorized_oath
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_2.nonstatutory_or_unauthorized_oath") = assess_art152_sec1_2_nonstatutory_or_unauthorized_oath(case_id, unknown_006, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_006)
+
+// rule_id: perjury.card.art152_sec1_2_nonstatutory_or_unauthorized_oath.conflict
+// sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2
+// norm_cards: art152_sec1_2.nonstatutory_or_unauthorized_oath
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_2.nonstatutory_or_unauthorized_oath") = assess_art152_sec1_2_nonstatutory_or_unauthorized_oath(case_id, positive_006, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_2_nonstatutory_or_unauthorized_oath(case_id, negative_006, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_006) and
+  provable(case_id, negative_006)
+
+// rule_id: perjury.card.art152_sec1_2_oath_capacity.satisfied
+// sources: comm_001692_제152조_Ⅰ.2_3
+// norm_cards: art152_sec1_2.oath_capacity
+rel satisfied_art152_sec1_2_oath_capacity(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_2_oath_capacity(case_id, assessment_007, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_007)
+
+// rule_id: perjury.card.art152_sec1_2_oath_capacity.undetermined
+// sources: comm_001692_제152조_Ⅰ.2_3
+// norm_cards: art152_sec1_2.oath_capacity
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_2.oath_capacity") = assess_art152_sec1_2_oath_capacity(case_id, unknown_007, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_007)
+
+// rule_id: perjury.card.art152_sec1_2_oath_capacity.conflict
+// sources: comm_001692_제152조_Ⅰ.2_3
+// norm_cards: art152_sec1_2.oath_capacity
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_2.oath_capacity") = assess_art152_sec1_2_oath_capacity(case_id, positive_007, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_2_oath_capacity(case_id, negative_007, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_007) and
+  provable(case_id, negative_007)
+
+// rule_id: perjury.card.art152_sec1_2_oath_lawful_procedure.satisfied
+// sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1
+// norm_cards: art152_sec1_2.oath_lawful_procedure
+rel satisfied_art152_sec1_2_oath_lawful_procedure(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_2_oath_lawful_procedure(case_id, assessment_008, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_008)
+
+// rule_id: perjury.card.art152_sec1_2_oath_lawful_procedure.undetermined
+// sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1
+// norm_cards: art152_sec1_2.oath_lawful_procedure
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_2.oath_lawful_procedure") = assess_art152_sec1_2_oath_lawful_procedure(case_id, unknown_008, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_008)
+
+// rule_id: perjury.card.art152_sec1_2_oath_lawful_procedure.conflict
+// sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1
+// norm_cards: art152_sec1_2.oath_lawful_procedure
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_2.oath_lawful_procedure") = assess_art152_sec1_2_oath_lawful_procedure(case_id, positive_008, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_2_oath_lawful_procedure(case_id, negative_008, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_008) and
+  provable(case_id, negative_008)
+
+// rule_id: perjury.card.art152_sec1_2_oath_procedural_defects.satisfied
+// sources: comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2
+// norm_cards: art152_sec1_2.oath_procedural_defects
+rel satisfied_art152_sec1_2_oath_procedural_defects(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_2_oath_procedural_defects(case_id, assessment_009, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_009)
+
+// rule_id: perjury.card.art152_sec1_2_oath_procedural_defects.undetermined
+// sources: comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2
+// norm_cards: art152_sec1_2.oath_procedural_defects
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_2.oath_procedural_defects") = assess_art152_sec1_2_oath_procedural_defects(case_id, unknown_009, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_009)
+
+// rule_id: perjury.card.art152_sec1_2_oath_procedural_defects.conflict
+// sources: comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2
+// norm_cards: art152_sec1_2.oath_procedural_defects
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_2.oath_procedural_defects") = assess_art152_sec1_2_oath_procedural_defects(case_id, positive_009, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_2_oath_procedural_defects(case_id, negative_009, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_009) and
+  provable(case_id, negative_009)
+
+// rule_id: perjury.card.art152_sec1_2_oath_refusal_right_notice.satisfied
+// sources: comm_001692_제152조_Ⅰ.2_4, comm_001692_제152조_Ⅰ.2_11
+// norm_cards: art152_sec1_2.oath_refusal_right_notice
+rel satisfied_art152_sec1_2_oath_refusal_right_notice(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_2_oath_refusal_right_notice(case_id, assessment_010, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_010)
+
+// rule_id: perjury.card.art152_sec1_2_oath_refusal_right_notice.undetermined
+// sources: comm_001692_제152조_Ⅰ.2_4, comm_001692_제152조_Ⅰ.2_11
+// norm_cards: art152_sec1_2.oath_refusal_right_notice
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_2.oath_refusal_right_notice") = assess_art152_sec1_2_oath_refusal_right_notice(case_id, unknown_010, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_010)
+
+// rule_id: perjury.card.art152_sec1_2_oath_refusal_right_notice.conflict
+// sources: comm_001692_제152조_Ⅰ.2_4, comm_001692_제152조_Ⅰ.2_11
+// norm_cards: art152_sec1_2.oath_refusal_right_notice
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_2.oath_refusal_right_notice") = assess_art152_sec1_2_oath_refusal_right_notice(case_id, positive_010, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_2_oath_refusal_right_notice(case_id, negative_010, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_010) and
+  provable(case_id, negative_010)
+
+// rule_id: perjury.card.art152_sec1_2_refusal_right_and_perjury.satisfied
+// sources: comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_5
+// norm_cards: art152_sec1_2.refusal_right_and_perjury
+rel satisfied_art152_sec1_2_refusal_right_and_perjury(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_2_refusal_right_and_perjury(case_id, assessment_011, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_011)
+
+// rule_id: perjury.card.art152_sec1_2_refusal_right_and_perjury.undetermined
+// sources: comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_5
+// norm_cards: art152_sec1_2.refusal_right_and_perjury
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_2.refusal_right_and_perjury") = assess_art152_sec1_2_refusal_right_and_perjury(case_id, unknown_011, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_011)
+
+// rule_id: perjury.card.art152_sec1_2_refusal_right_and_perjury.conflict
+// sources: comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_5
+// norm_cards: art152_sec1_2.refusal_right_and_perjury
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_2.refusal_right_and_perjury") = assess_art152_sec1_2_refusal_right_and_perjury(case_id, positive_011, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_2_refusal_right_and_perjury(case_id, negative_011, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_011) and
+  provable(case_id, negative_011)
+
+// rule_id: perjury.card.art152_sec1_2_statement_scope.satisfied
+// sources: comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_17
+// norm_cards: art152_sec1_2.statement_scope
+rel satisfied_art152_sec1_2_statement_scope(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_2_statement_scope(case_id, assessment_012, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_012)
+
+// rule_id: perjury.card.art152_sec1_2_statement_scope.undetermined
+// sources: comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_17
+// norm_cards: art152_sec1_2.statement_scope
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_2.statement_scope") = assess_art152_sec1_2_statement_scope(case_id, unknown_012, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_012)
+
+// rule_id: perjury.card.art152_sec1_2_statement_scope.conflict
+// sources: comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_17
+// norm_cards: art152_sec1_2.statement_scope
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_2.statement_scope") = assess_art152_sec1_2_statement_scope(case_id, positive_012, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_2_statement_scope(case_id, negative_012, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_012) and
+  provable(case_id, negative_012)
+
+// rule_id: perjury.card.art152_sec1_2_witness_status.satisfied
+// sources: comm_001692_제152조_Ⅰ.2_13, comm_001692_제152조_Ⅰ.2_14
+// norm_cards: art152_sec1_2.witness_status
+rel satisfied_art152_sec1_2_witness_status(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_2_witness_status(case_id, assessment_013, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_013)
+
+// rule_id: perjury.card.art152_sec1_2_witness_status.undetermined
+// sources: comm_001692_제152조_Ⅰ.2_13, comm_001692_제152조_Ⅰ.2_14
+// norm_cards: art152_sec1_2.witness_status
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_2.witness_status") = assess_art152_sec1_2_witness_status(case_id, unknown_013, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_013)
+
+// rule_id: perjury.card.art152_sec1_2_witness_status.conflict
+// sources: comm_001692_제152조_Ⅰ.2_13, comm_001692_제152조_Ⅰ.2_14
+// norm_cards: art152_sec1_2.witness_status
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_2.witness_status") = assess_art152_sec1_2_witness_status(case_id, positive_013, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_2_witness_status(case_id, negative_013, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_013) and
+  provable(case_id, negative_013)
+
+// rule_id: perjury.card.art152_sec1_3_attempt_false_testimony_start.satisfied
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.attempt_false_testimony_start
+rel satisfied_art152_sec1_3_attempt_false_testimony_start(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_3_attempt_false_testimony_start(case_id, assessment_014, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_014)
+
+// rule_id: perjury.card.art152_sec1_3_attempt_false_testimony_start.undetermined
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.attempt_false_testimony_start
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_3.attempt_false_testimony_start") = assess_art152_sec1_3_attempt_false_testimony_start(case_id, unknown_014, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_014)
+
+// rule_id: perjury.card.art152_sec1_3_attempt_false_testimony_start.conflict
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.attempt_false_testimony_start
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_3.attempt_false_testimony_start") = assess_art152_sec1_3_attempt_false_testimony_start(case_id, positive_014, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_3_attempt_false_testimony_start(case_id, negative_014, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_014) and
+  provable(case_id, negative_014)
+
+// rule_id: perjury.card.art152_sec1_3_completion_examination_end.satisfied
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.completion_examination_end
+rel satisfied_art152_sec1_3_completion_examination_end(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_3_completion_examination_end(case_id, assessment_015, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_015)
+
+// rule_id: perjury.card.art152_sec1_3_completion_examination_end.undetermined
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.completion_examination_end
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_3.completion_examination_end") = assess_art152_sec1_3_completion_examination_end(case_id, unknown_015, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_015)
+
+// rule_id: perjury.card.art152_sec1_3_completion_examination_end.conflict
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.completion_examination_end
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_3.completion_examination_end") = assess_art152_sec1_3_completion_examination_end(case_id, positive_015, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_3_completion_examination_end(case_id, negative_015, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_015) and
+  provable(case_id, negative_015)
+
+// rule_id: perjury.card.art152_sec1_3_correction_before_examination_end.satisfied
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.correction_before_examination_end
+rel satisfied_art152_sec1_3_correction_before_examination_end(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_3_correction_before_examination_end(case_id, assessment_016, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_016)
+
+// rule_id: perjury.card.art152_sec1_3_correction_before_examination_end.undetermined
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.correction_before_examination_end
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_3.correction_before_examination_end") = assess_art152_sec1_3_correction_before_examination_end(case_id, unknown_016, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_016)
+
+// rule_id: perjury.card.art152_sec1_3_correction_before_examination_end.conflict
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.correction_before_examination_end
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_3.correction_before_examination_end") = assess_art152_sec1_3_correction_before_examination_end(case_id, positive_016, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_3_correction_before_examination_end(case_id, negative_016, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_016) and
+  provable(case_id, negative_016)
+
+// rule_id: perjury.card.art152_sec1_3_correction_through_other_examiner.satisfied
+// sources: comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.correction_through_other_examiner
+rel satisfied_art152_sec1_3_correction_through_other_examiner(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_3_correction_through_other_examiner(case_id, assessment_017, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_017)
+
+// rule_id: perjury.card.art152_sec1_3_correction_through_other_examiner.undetermined
+// sources: comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.correction_through_other_examiner
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_3.correction_through_other_examiner") = assess_art152_sec1_3_correction_through_other_examiner(case_id, unknown_017, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_017)
+
+// rule_id: perjury.card.art152_sec1_3_correction_through_other_examiner.conflict
+// sources: comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.correction_through_other_examiner
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_3.correction_through_other_examiner") = assess_art152_sec1_3_correction_through_other_examiner(case_id, positive_017, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_3_correction_through_other_examiner(case_id, negative_017, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_017) and
+  provable(case_id, negative_017)
+
+// rule_id: perjury.card.art152_sec1_3_later_proceeding_correction_no_effect.satisfied
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.later_proceeding_correction_no_effect
+rel satisfied_art152_sec1_3_later_proceeding_correction_no_effect(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_3_later_proceeding_correction_no_effect(case_id, assessment_018, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_018)
+
+// rule_id: perjury.card.art152_sec1_3_later_proceeding_correction_no_effect.undetermined
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.later_proceeding_correction_no_effect
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_3.later_proceeding_correction_no_effect") = assess_art152_sec1_3_later_proceeding_correction_no_effect(case_id, unknown_018, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_018)
+
+// rule_id: perjury.card.art152_sec1_3_later_proceeding_correction_no_effect.conflict
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.later_proceeding_correction_no_effect
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_3.later_proceeding_correction_no_effect") = assess_art152_sec1_3_later_proceeding_correction_no_effect(case_id, positive_018, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_3_later_proceeding_correction_no_effect(case_id, negative_018, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_018) and
+  provable(case_id, negative_018)
+
+// rule_id: perjury.card.art152_sec1_3_post_oath_completion.satisfied
+// sources: comm_001692_제152조_Ⅰ.3_25
+// norm_cards: art152_sec1_3.post_oath_completion
+rel satisfied_art152_sec1_3_post_oath_completion(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_3_post_oath_completion(case_id, assessment_019, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_019)
+
+// rule_id: perjury.card.art152_sec1_3_post_oath_completion.undetermined
+// sources: comm_001692_제152조_Ⅰ.3_25
+// norm_cards: art152_sec1_3.post_oath_completion
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_3.post_oath_completion") = assess_art152_sec1_3_post_oath_completion(case_id, unknown_019, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_019)
+
+// rule_id: perjury.card.art152_sec1_3_post_oath_completion.conflict
+// sources: comm_001692_제152조_Ⅰ.3_25
+// norm_cards: art152_sec1_3.post_oath_completion
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_3.post_oath_completion") = assess_art152_sec1_3_post_oath_completion(case_id, positive_019, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_3_post_oath_completion(case_id, negative_019, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_019) and
+  provable(case_id, negative_019)
+
+// rule_id: perjury.card.art152_sec1_3_preparation_not_punishable.satisfied
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.preparation_not_punishable
+rel satisfied_art152_sec1_3_preparation_not_punishable(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_3_preparation_not_punishable(case_id, assessment_020, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_020)
+
+// rule_id: perjury.card.art152_sec1_3_preparation_not_punishable.undetermined
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.preparation_not_punishable
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_3.preparation_not_punishable") = assess_art152_sec1_3_preparation_not_punishable(case_id, unknown_020, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_020)
+
+// rule_id: perjury.card.art152_sec1_3_preparation_not_punishable.conflict
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.preparation_not_punishable
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_3.preparation_not_punishable") = assess_art152_sec1_3_preparation_not_punishable(case_id, positive_020, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_3_preparation_not_punishable(case_id, negative_020, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_020) and
+  provable(case_id, negative_020)
+
+// rule_id: perjury.card.art152_sec1_4_instigation_and_aiding_possible.satisfied
+// sources: comm_001692_제152조_Ⅰ.4_26
+// norm_cards: art152_sec1_4.instigation_and_aiding_possible
+rel satisfied_art152_sec1_4_instigation_and_aiding_possible(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_4_instigation_and_aiding_possible(case_id, assessment_021, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_021)
+
+// rule_id: perjury.card.art152_sec1_4_instigation_and_aiding_possible.undetermined
+// sources: comm_001692_제152조_Ⅰ.4_26
+// norm_cards: art152_sec1_4.instigation_and_aiding_possible
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_4.instigation_and_aiding_possible") = assess_art152_sec1_4_instigation_and_aiding_possible(case_id, unknown_021, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_021)
+
+// rule_id: perjury.card.art152_sec1_4_instigation_and_aiding_possible.conflict
+// sources: comm_001692_제152조_Ⅰ.4_26
+// norm_cards: art152_sec1_4.instigation_and_aiding_possible
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_4.instigation_and_aiding_possible") = assess_art152_sec1_4_instigation_and_aiding_possible(case_id, positive_021, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_4_instigation_and_aiding_possible(case_id, negative_021, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_021) and
+  provable(case_id, negative_021)
+
+// rule_id: perjury.card.art152_sec1_4_perjury_self_committed_offense.satisfied
+// sources: comm_001692_제152조_Ⅰ.4_26
+// norm_cards: art152_sec1_4.perjury_self_committed_offense
+rel satisfied_art152_sec1_4_perjury_self_committed_offense(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_4_perjury_self_committed_offense(case_id, assessment_022, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_022)
+
+// rule_id: perjury.card.art152_sec1_4_perjury_self_committed_offense.undetermined
+// sources: comm_001692_제152조_Ⅰ.4_26
+// norm_cards: art152_sec1_4.perjury_self_committed_offense
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_4.perjury_self_committed_offense") = assess_art152_sec1_4_perjury_self_committed_offense(case_id, unknown_022, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_022)
+
+// rule_id: perjury.card.art152_sec1_4_perjury_self_committed_offense.conflict
+// sources: comm_001692_제152조_Ⅰ.4_26
+// norm_cards: art152_sec1_4.perjury_self_committed_offense
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_4.perjury_self_committed_offense") = assess_art152_sec1_4_perjury_self_committed_offense(case_id, positive_022, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_4_perjury_self_committed_offense(case_id, negative_022, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_022) and
+  provable(case_id, negative_022)
+
+// rule_id: perjury.card.art152_sec1_5_perjury_different_dates_same_oath.satisfied
+// sources: comm_001692_제152조_Ⅰ.5_28
+// norm_cards: art152_sec1_5.perjury_different_dates_same_oath
+rel satisfied_art152_sec1_5_perjury_different_dates_same_oath(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_5_perjury_different_dates_same_oath(case_id, assessment_023, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_023)
+
+// rule_id: perjury.card.art152_sec1_5_perjury_different_dates_same_oath.undetermined
+// sources: comm_001692_제152조_Ⅰ.5_28
+// norm_cards: art152_sec1_5.perjury_different_dates_same_oath
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_5.perjury_different_dates_same_oath") = assess_art152_sec1_5_perjury_different_dates_same_oath(case_id, unknown_023, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_023)
+
+// rule_id: perjury.card.art152_sec1_5_perjury_different_dates_same_oath.conflict
+// sources: comm_001692_제152조_Ⅰ.5_28
+// norm_cards: art152_sec1_5.perjury_different_dates_same_oath
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_5.perjury_different_dates_same_oath") = assess_art152_sec1_5_perjury_different_dates_same_oath(case_id, positive_023, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_5_perjury_different_dates_same_oath(case_id, negative_023, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_023) and
+  provable(case_id, negative_023)
+
+// rule_id: perjury.card.art152_sec1_5_perjury_res_judicata_inclusive_offense.satisfied
+// sources: comm_001692_제152조_Ⅰ.5_28
+// norm_cards: art152_sec1_5.perjury_res_judicata_inclusive_offense
+rel satisfied_art152_sec1_5_perjury_res_judicata_inclusive_offense(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_5_perjury_res_judicata_inclusive_offense(case_id, assessment_024, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_024)
+
+// rule_id: perjury.card.art152_sec1_5_perjury_res_judicata_inclusive_offense.undetermined
+// sources: comm_001692_제152조_Ⅰ.5_28
+// norm_cards: art152_sec1_5.perjury_res_judicata_inclusive_offense
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_5.perjury_res_judicata_inclusive_offense") = assess_art152_sec1_5_perjury_res_judicata_inclusive_offense(case_id, unknown_024, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_024)
+
+// rule_id: perjury.card.art152_sec1_5_perjury_res_judicata_inclusive_offense.conflict
+// sources: comm_001692_제152조_Ⅰ.5_28
+// norm_cards: art152_sec1_5.perjury_res_judicata_inclusive_offense
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_5.perjury_res_judicata_inclusive_offense") = assess_art152_sec1_5_perjury_res_judicata_inclusive_offense(case_id, positive_024, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_5_perjury_res_judicata_inclusive_offense(case_id, negative_024, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_024) and
+  provable(case_id, negative_024)
+
+// rule_id: perjury.card.art152_sec1_5_separate_instigation_multiple_persons.satisfied
+// sources: comm_001692_제152조_Ⅰ.5_28
+// norm_cards: art152_sec1_5.separate_instigation_multiple_persons
+rel satisfied_art152_sec1_5_separate_instigation_multiple_persons(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_5_separate_instigation_multiple_persons(case_id, assessment_025, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_025)
+
+// rule_id: perjury.card.art152_sec1_5_separate_instigation_multiple_persons.undetermined
+// sources: comm_001692_제152조_Ⅰ.5_28
+// norm_cards: art152_sec1_5.separate_instigation_multiple_persons
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_5.separate_instigation_multiple_persons") = assess_art152_sec1_5_separate_instigation_multiple_persons(case_id, unknown_025, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_025)
+
+// rule_id: perjury.card.art152_sec1_5_separate_instigation_multiple_persons.conflict
+// sources: comm_001692_제152조_Ⅰ.5_28
+// norm_cards: art152_sec1_5.separate_instigation_multiple_persons
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_5.separate_instigation_multiple_persons") = assess_art152_sec1_5_separate_instigation_multiple_persons(case_id, positive_025, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_5_separate_instigation_multiple_persons(case_id, negative_025, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_025) and
+  provable(case_id, negative_025)
+
+// rule_id: perjury.card.art152_sec1_5_single_perjury_same_hearing.satisfied
+// sources: comm_001692_제152조_Ⅰ.5_28
+// norm_cards: art152_sec1_5.single_perjury_same_hearing
+rel satisfied_art152_sec1_5_single_perjury_same_hearing(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_5_single_perjury_same_hearing(case_id, assessment_026, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_026)
+
+// rule_id: perjury.card.art152_sec1_5_single_perjury_same_hearing.undetermined
+// sources: comm_001692_제152조_Ⅰ.5_28
+// norm_cards: art152_sec1_5.single_perjury_same_hearing
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_5.single_perjury_same_hearing") = assess_art152_sec1_5_single_perjury_same_hearing(case_id, unknown_026, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_026)
+
+// rule_id: perjury.card.art152_sec1_5_single_perjury_same_hearing.conflict
+// sources: comm_001692_제152조_Ⅰ.5_28
+// norm_cards: art152_sec1_5.single_perjury_same_hearing
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_5.single_perjury_same_hearing") = assess_art152_sec1_5_single_perjury_same_hearing(case_id, positive_026, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_5_single_perjury_same_hearing(case_id, negative_026, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_026) and
+  provable(case_id, negative_026)
+
+// rule_id: perjury.card.art152_sec1_6_false_accusation_perjury_concurrence.satisfied
+// sources: comm_001692_제152조_Ⅰ.6_29
+// norm_cards: art152_sec1_6.false_accusation_perjury_concurrence
+rel satisfied_art152_sec1_6_false_accusation_perjury_concurrence(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_6_false_accusation_perjury_concurrence(case_id, assessment_027, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_027)
+
+// rule_id: perjury.card.art152_sec1_6_false_accusation_perjury_concurrence.undetermined
+// sources: comm_001692_제152조_Ⅰ.6_29
+// norm_cards: art152_sec1_6.false_accusation_perjury_concurrence
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_6.false_accusation_perjury_concurrence") = assess_art152_sec1_6_false_accusation_perjury_concurrence(case_id, unknown_027, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_027)
+
+// rule_id: perjury.card.art152_sec1_6_false_accusation_perjury_concurrence.conflict
+// sources: comm_001692_제152조_Ⅰ.6_29
+// norm_cards: art152_sec1_6.false_accusation_perjury_concurrence
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_6.false_accusation_perjury_concurrence") = assess_art152_sec1_6_false_accusation_perjury_concurrence(case_id, positive_027, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_6_false_accusation_perjury_concurrence(case_id, negative_027, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_027) and
+  provable(case_id, negative_027)
+
+// rule_id: perjury.card.art152_sec1_6_malicious_perjury_after_false_accusation.satisfied
+// sources: comm_001692_제152조_Ⅰ.6_29
+// norm_cards: art152_sec1_6.malicious_perjury_after_false_accusation
+rel satisfied_art152_sec1_6_malicious_perjury_after_false_accusation(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_6_malicious_perjury_after_false_accusation(case_id, assessment_028, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_028)
+
+// rule_id: perjury.card.art152_sec1_6_malicious_perjury_after_false_accusation.undetermined
+// sources: comm_001692_제152조_Ⅰ.6_29
+// norm_cards: art152_sec1_6.malicious_perjury_after_false_accusation
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_6.malicious_perjury_after_false_accusation") = assess_art152_sec1_6_malicious_perjury_after_false_accusation(case_id, unknown_028, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_028)
+
+// rule_id: perjury.card.art152_sec1_6_malicious_perjury_after_false_accusation.conflict
+// sources: comm_001692_제152조_Ⅰ.6_29
+// norm_cards: art152_sec1_6.malicious_perjury_after_false_accusation
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_6.malicious_perjury_after_false_accusation") = assess_art152_sec1_6_malicious_perjury_after_false_accusation(case_id, positive_028, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_6_malicious_perjury_after_false_accusation(case_id, negative_028, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_028) and
+  provable(case_id, negative_028)
+
+// rule_id: perjury.card.art152_sec1_6_oath_incompetent_false_testimony_not_evidence_fabrication.satisfied
+// sources: comm_001692_제152조_Ⅰ.6_30
+// norm_cards: art152_sec1_6.oath_incompetent_false_testimony_not_evidence_fabrication
+rel satisfied_art152_sec1_6_oath_incompetent_false_testimony_not_evidence_fabrication(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_6_oath_incompetent_false_testimony_not_evidence_fabrication(case_id, assessment_029, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_029)
+
+// rule_id: perjury.card.art152_sec1_6_oath_incompetent_false_testimony_not_evidence_fabrication.undetermined
+// sources: comm_001692_제152조_Ⅰ.6_30
+// norm_cards: art152_sec1_6.oath_incompetent_false_testimony_not_evidence_fabrication
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_6.oath_incompetent_false_testimony_not_evidence_fabrication") = assess_art152_sec1_6_oath_incompetent_false_testimony_not_evidence_fabrication(case_id, unknown_029, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_029)
+
+// rule_id: perjury.card.art152_sec1_6_oath_incompetent_false_testimony_not_evidence_fabrication.conflict
+// sources: comm_001692_제152조_Ⅰ.6_30
+// norm_cards: art152_sec1_6.oath_incompetent_false_testimony_not_evidence_fabrication
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_6.oath_incompetent_false_testimony_not_evidence_fabrication") = assess_art152_sec1_6_oath_incompetent_false_testimony_not_evidence_fabrication(case_id, positive_029, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_6_oath_incompetent_false_testimony_not_evidence_fabrication(case_id, negative_029, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_029) and
+  provable(case_id, negative_029)
+
+// rule_id: perjury.card.art152_sec1_6_perjury_evidence_destruction_special_relation.satisfied
+// sources: comm_001692_제152조_Ⅰ.6_29
+// norm_cards: art152_sec1_6.perjury_evidence_destruction_special_relation
+rel satisfied_art152_sec1_6_perjury_evidence_destruction_special_relation(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec1_6_perjury_evidence_destruction_special_relation(case_id, assessment_030, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_030)
+
+// rule_id: perjury.card.art152_sec1_6_perjury_evidence_destruction_special_relation.undetermined
+// sources: comm_001692_제152조_Ⅰ.6_29
+// norm_cards: art152_sec1_6.perjury_evidence_destruction_special_relation
+rel perjury_undetermined(case_id, defendant_id, "art152_sec1_6.perjury_evidence_destruction_special_relation") = assess_art152_sec1_6_perjury_evidence_destruction_special_relation(case_id, unknown_030, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_030)
+
+// rule_id: perjury.card.art152_sec1_6_perjury_evidence_destruction_special_relation.conflict
+// sources: comm_001692_제152조_Ⅰ.6_29
+// norm_cards: art152_sec1_6.perjury_evidence_destruction_special_relation
+rel perjury_conflict(case_id, defendant_id, "art152_sec1_6.perjury_evidence_destruction_special_relation") = assess_art152_sec1_6_perjury_evidence_destruction_special_relation(case_id, positive_030, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec1_6_perjury_evidence_destruction_special_relation(case_id, negative_030, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_030) and
+  provable(case_id, negative_030)
+
+// rule_id: perjury.card.art152_sec2_1_malicious_perjury_definition.satisfied
+// sources: comm_001692_제152조_Ⅱ.1_33
+// norm_cards: art152_sec2_1.malicious_perjury_definition
+rel satisfied_art152_sec2_1_malicious_perjury_definition(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec2_1_malicious_perjury_definition(case_id, assessment_031, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_031)
+
+// rule_id: perjury.card.art152_sec2_1_malicious_perjury_definition.undetermined
+// sources: comm_001692_제152조_Ⅱ.1_33
+// norm_cards: art152_sec2_1.malicious_perjury_definition
+rel perjury_undetermined(case_id, defendant_id, "art152_sec2_1.malicious_perjury_definition") = assess_art152_sec2_1_malicious_perjury_definition(case_id, unknown_031, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_031)
+
+// rule_id: perjury.card.art152_sec2_1_malicious_perjury_definition.conflict
+// sources: comm_001692_제152조_Ⅱ.1_33
+// norm_cards: art152_sec2_1.malicious_perjury_definition
+rel perjury_conflict(case_id, defendant_id, "art152_sec2_1.malicious_perjury_definition") = assess_art152_sec2_1_malicious_perjury_definition(case_id, positive_031, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec2_1_malicious_perjury_definition(case_id, negative_031, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_031) and
+  provable(case_id, negative_031)
+
+// rule_id: perjury.card.art152_sec2_3_noncriminal_case_mohae_exception.satisfied
+// sources: comm_001692_제152조_Ⅱ.3_35
+// norm_cards: art152_sec2_3.noncriminal_case_mohae_exception
+rel satisfied_art152_sec2_3_noncriminal_case_mohae_exception(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec2_3_noncriminal_case_mohae_exception(case_id, assessment_032, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_032)
+
+// rule_id: perjury.card.art152_sec2_3_noncriminal_case_mohae_exception.undetermined
+// sources: comm_001692_제152조_Ⅱ.3_35
+// norm_cards: art152_sec2_3.noncriminal_case_mohae_exception
+rel perjury_undetermined(case_id, defendant_id, "art152_sec2_3.noncriminal_case_mohae_exception") = assess_art152_sec2_3_noncriminal_case_mohae_exception(case_id, unknown_032, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_032)
+
+// rule_id: perjury.card.art152_sec2_3_noncriminal_case_mohae_exception.conflict
+// sources: comm_001692_제152조_Ⅱ.3_35
+// norm_cards: art152_sec2_3.noncriminal_case_mohae_exception
+rel perjury_conflict(case_id, defendant_id, "art152_sec2_3.noncriminal_case_mohae_exception") = assess_art152_sec2_3_noncriminal_case_mohae_exception(case_id, positive_032, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec2_3_noncriminal_case_mohae_exception(case_id, negative_032, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_032) and
+  provable(case_id, negative_032)
+
+// rule_id: perjury.card.art152_sec2_4_malice_purpose_awareness.satisfied
+// sources: comm_001692_제152조_Ⅱ.4_36
+// norm_cards: art152_sec2_4.malice_purpose_awareness
+rel satisfied_art152_sec2_4_malice_purpose_awareness(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec2_4_malice_purpose_awareness(case_id, assessment_033, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_033)
+
+// rule_id: perjury.card.art152_sec2_4_malice_purpose_awareness.undetermined
+// sources: comm_001692_제152조_Ⅱ.4_36
+// norm_cards: art152_sec2_4.malice_purpose_awareness
+rel perjury_undetermined(case_id, defendant_id, "art152_sec2_4.malice_purpose_awareness") = assess_art152_sec2_4_malice_purpose_awareness(case_id, unknown_033, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_033)
+
+// rule_id: perjury.card.art152_sec2_4_malice_purpose_awareness.conflict
+// sources: comm_001692_제152조_Ⅱ.4_36
+// norm_cards: art152_sec2_4.malice_purpose_awareness
+rel perjury_conflict(case_id, defendant_id, "art152_sec2_4.malice_purpose_awareness") = assess_art152_sec2_4_malice_purpose_awareness(case_id, positive_033, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec2_4_malice_purpose_awareness(case_id, negative_033, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_033) and
+  provable(case_id, negative_033)
+
+// rule_id: perjury.card.art152_sec2_4_proceeding_commenced_requirement.satisfied
+// sources: comm_001692_제152조_Ⅱ.4_36
+// norm_cards: art152_sec2_4.proceeding_commenced_requirement
+rel satisfied_art152_sec2_4_proceeding_commenced_requirement(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec2_4_proceeding_commenced_requirement(case_id, assessment_034, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_034)
+
+// rule_id: perjury.card.art152_sec2_4_proceeding_commenced_requirement.undetermined
+// sources: comm_001692_제152조_Ⅱ.4_36
+// norm_cards: art152_sec2_4.proceeding_commenced_requirement
+rel perjury_undetermined(case_id, defendant_id, "art152_sec2_4.proceeding_commenced_requirement") = assess_art152_sec2_4_proceeding_commenced_requirement(case_id, unknown_034, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_034)
+
+// rule_id: perjury.card.art152_sec2_4_proceeding_commenced_requirement.conflict
+// sources: comm_001692_제152조_Ⅱ.4_36
+// norm_cards: art152_sec2_4.proceeding_commenced_requirement
+rel perjury_conflict(case_id, defendant_id, "art152_sec2_4.proceeding_commenced_requirement") = assess_art152_sec2_4_proceeding_commenced_requirement(case_id, positive_034, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec2_4_proceeding_commenced_requirement(case_id, negative_034, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_034) and
+  provable(case_id, negative_034)
+
+// rule_id: perjury.card.art152_sec2_6_malicious_perjury_single_offense_same_hearing.satisfied
+// sources: comm_001692_제152조_Ⅱ.6_39
+// norm_cards: art152_sec2_6.malicious_perjury.single_offense_same_hearing
+rel satisfied_art152_sec2_6_malicious_perjury_single_offense_same_hearing(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec2_6_malicious_perjury_single_offense_same_hearing(case_id, assessment_035, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_035)
+
+// rule_id: perjury.card.art152_sec2_6_malicious_perjury_single_offense_same_hearing.undetermined
+// sources: comm_001692_제152조_Ⅱ.6_39
+// norm_cards: art152_sec2_6.malicious_perjury.single_offense_same_hearing
+rel perjury_undetermined(case_id, defendant_id, "art152_sec2_6.malicious_perjury.single_offense_same_hearing") = assess_art152_sec2_6_malicious_perjury_single_offense_same_hearing(case_id, unknown_035, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_035)
+
+// rule_id: perjury.card.art152_sec2_6_malicious_perjury_single_offense_same_hearing.conflict
+// sources: comm_001692_제152조_Ⅱ.6_39
+// norm_cards: art152_sec2_6.malicious_perjury.single_offense_same_hearing
+rel perjury_conflict(case_id, defendant_id, "art152_sec2_6.malicious_perjury.single_offense_same_hearing") = assess_art152_sec2_6_malicious_perjury_single_offense_same_hearing(case_id, positive_035, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec2_6_malicious_perjury_single_offense_same_hearing(case_id, negative_035, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_035) and
+  provable(case_id, negative_035)
+
+// rule_id: perjury.card.art152_sec2_7_special_statute_malicious_perjury_exclusion.satisfied
+// sources: comm_001692_제152조_Ⅱ.7_40
+// norm_cards: art152_sec2_7.special_statute_malicious_perjury_exclusion
+rel satisfied_art152_sec2_7_special_statute_malicious_perjury_exclusion(case_id, defendant_id, proceeding_id, statement_id) = assess_art152_sec2_7_special_statute_malicious_perjury_exclusion(case_id, assessment_036, defendant_id, proceeding_id, statement_id, "satisfied") and
+  provable(case_id, assessment_036)
+
+// rule_id: perjury.card.art152_sec2_7_special_statute_malicious_perjury_exclusion.undetermined
+// sources: comm_001692_제152조_Ⅱ.7_40
+// norm_cards: art152_sec2_7.special_statute_malicious_perjury_exclusion
+rel perjury_undetermined(case_id, defendant_id, "art152_sec2_7.special_statute_malicious_perjury_exclusion") = assess_art152_sec2_7_special_statute_malicious_perjury_exclusion(case_id, unknown_036, defendant_id, proceeding_id, statement_id, "unknown") and
+  provable(case_id, unknown_036)
+
+// rule_id: perjury.card.art152_sec2_7_special_statute_malicious_perjury_exclusion.conflict
+// sources: comm_001692_제152조_Ⅱ.7_40
+// norm_cards: art152_sec2_7.special_statute_malicious_perjury_exclusion
+rel perjury_conflict(case_id, defendant_id, "art152_sec2_7.special_statute_malicious_perjury_exclusion") = assess_art152_sec2_7_special_statute_malicious_perjury_exclusion(case_id, positive_036, defendant_id, proceeding_id, statement_id, "satisfied") and
+  assess_art152_sec2_7_special_statute_malicious_perjury_exclusion(case_id, negative_036, defendant_id, proceeding_id, statement_id, "not_satisfied") and
+  provable(case_id, positive_036) and
+  provable(case_id, negative_036)
+
+// rule_id: perjury.component.base.completion.art152_sec1_3_attempt_false_testimony_start
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.attempt_false_testimony_start
+rel perjury_base_completion_satisfied(case_id, defendant_id, proceeding_id, statement_id) = satisfied_art152_sec1_3_attempt_false_testimony_start(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.component.base.completion.art152_sec1_3_completion_examination_end
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.completion_examination_end
+rel perjury_base_completion_satisfied(case_id, defendant_id, proceeding_id, statement_id) = satisfied_art152_sec1_3_completion_examination_end(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.component.base.completion.art152_sec1_3_later_proceeding_correction_no_effect
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.later_proceeding_correction_no_effect
+rel perjury_base_completion_satisfied(case_id, defendant_id, proceeding_id, statement_id) = satisfied_art152_sec1_3_later_proceeding_correction_no_effect(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.component.base.completion.art152_sec1_3_post_oath_completion
+// sources: comm_001692_제152조_Ⅰ.3_25
+// norm_cards: art152_sec1_3.post_oath_completion
+rel perjury_base_completion_satisfied(case_id, defendant_id, proceeding_id, statement_id) = satisfied_art152_sec1_3_post_oath_completion(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.component.base.false_factual_statement.art152_sec1_2_falsehood_assessment
+// sources: comm_001692_제152조_Ⅰ.2_22, comm_001692_제152조_Ⅰ.2_16
+// norm_cards: art152_sec1_2.falsehood_assessment
+rel perjury_base_false_factual_statement_satisfied(case_id, defendant_id, proceeding_id, statement_id) = satisfied_art152_sec1_2_falsehood_assessment(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.component.base.false_factual_statement.art152_sec1_2_statement_scope
+// sources: comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_17
+// norm_cards: art152_sec1_2.statement_scope
+rel perjury_base_false_factual_statement_satisfied(case_id, defendant_id, proceeding_id, statement_id) = satisfied_art152_sec1_2_statement_scope(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.component.base.intent.all
+// sources: comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_23
+// norm_cards: art152_sec1_2.intent
+rel perjury_base_intent_satisfied(case_id, defendant_id, proceeding_id, statement_id) = satisfied_art152_sec1_2_intent(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.component.base.lawful_oath.art152_sec1_2_lawful_oath_witness
+// sources: comm_001692_제152조_Ⅰ.2_1
+// norm_cards: art152_sec1_2.lawful_oath_witness
+rel perjury_base_lawful_oath_satisfied(case_id, defendant_id, proceeding_id, statement_id) = satisfied_art152_sec1_2_lawful_oath_witness(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.component.base.lawful_oath.art152_sec1_2_oath_lawful_procedure
+// sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1
+// norm_cards: art152_sec1_2.oath_lawful_procedure
+rel perjury_base_lawful_oath_satisfied(case_id, defendant_id, proceeding_id, statement_id) = satisfied_art152_sec1_2_oath_lawful_procedure(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.component.base.lawful_oath.art152_sec1_2_oath_refusal_right_notice
+// sources: comm_001692_제152조_Ⅰ.2_4, comm_001692_제152조_Ⅰ.2_11
+// norm_cards: art152_sec1_2.oath_refusal_right_notice
+rel perjury_base_lawful_oath_satisfied(case_id, defendant_id, proceeding_id, statement_id) = satisfied_art152_sec1_2_oath_refusal_right_notice(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.component.base.lawful_oath.art152_sec1_2_refusal_right_and_perjury
+// sources: comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_5
+// norm_cards: art152_sec1_2.refusal_right_and_perjury
+rel perjury_base_lawful_oath_satisfied(case_id, defendant_id, proceeding_id, statement_id) = satisfied_art152_sec1_2_refusal_right_and_perjury(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.component.base.witness_status.art152_sec1_2_witness_status
+// sources: comm_001692_제152조_Ⅰ.2_13, comm_001692_제152조_Ⅰ.2_14
+// norm_cards: art152_sec1_2.witness_status
+rel perjury_base_witness_status_satisfied(case_id, defendant_id, proceeding_id, statement_id) = satisfied_art152_sec1_2_witness_status(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.component.base.witness_status.art152_sec1_4_perjury_self_committed_offense
+// sources: comm_001692_제152조_Ⅰ.4_26
+// norm_cards: art152_sec1_4.perjury_self_committed_offense
+rel perjury_base_witness_status_satisfied(case_id, defendant_id, proceeding_id, statement_id) = satisfied_art152_sec1_4_perjury_self_committed_offense(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.component.malicious.malicious_purpose.art152_sec1_2_malicious_perjury
+// sources: comm_001692_제152조_Ⅰ.2_23
+// norm_cards: art152_sec1_2.malicious_perjury
+rel perjury_malicious_malicious_purpose_satisfied(case_id, defendant_id, proceeding_id, statement_id) = satisfied_art152_sec1_2_malicious_perjury(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.component.malicious.malicious_purpose.art152_sec2_1_malicious_perjury_definition
+// sources: comm_001692_제152조_Ⅱ.1_33
+// norm_cards: art152_sec2_1.malicious_perjury_definition
+rel perjury_malicious_malicious_purpose_satisfied(case_id, defendant_id, proceeding_id, statement_id) = satisfied_art152_sec2_1_malicious_perjury_definition(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.component.malicious.malicious_purpose.art152_sec2_4_malice_purpose_awareness
+// sources: comm_001692_제152조_Ⅱ.4_36
+// norm_cards: art152_sec2_4.malice_purpose_awareness
+rel perjury_malicious_malicious_purpose_satisfied(case_id, defendant_id, proceeding_id, statement_id) = satisfied_art152_sec2_4_malice_purpose_awareness(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.component.malicious.pending_criminal_or_disciplinary_proceeding.all
+// sources: comm_001692_제152조_Ⅱ.4_36
+// norm_cards: art152_sec2_4.proceeding_commenced_requirement
+rel perjury_malicious_pending_criminal_or_disciplinary_proceeding_satisfied(case_id, defendant_id, proceeding_id, statement_id) = satisfied_art152_sec2_4_proceeding_commenced_requirement(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.track_conflict.base.art152_sec1_3_attempt_false_testimony_start
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.attempt_false_testimony_start
+rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_3.attempt_false_testimony_start") = perjury_conflict(case_id, defendant_id, "art152_sec1_3.attempt_false_testimony_start")
+
+// rule_id: perjury.track_conflict.malicious.art152_sec1_3_attempt_false_testimony_start
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.attempt_false_testimony_start
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_3.attempt_false_testimony_start") = perjury_conflict(case_id, defendant_id, "art152_sec1_3.attempt_false_testimony_start")
+
+// rule_id: perjury.track_conflict.base.art152_sec1_3_completion_examination_end
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.completion_examination_end
+rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_3.completion_examination_end") = perjury_conflict(case_id, defendant_id, "art152_sec1_3.completion_examination_end")
+
+// rule_id: perjury.track_conflict.malicious.art152_sec1_3_completion_examination_end
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.completion_examination_end
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_3.completion_examination_end") = perjury_conflict(case_id, defendant_id, "art152_sec1_3.completion_examination_end")
+
+// rule_id: perjury.track_conflict.base.art152_sec1_3_later_proceeding_correction_no_effect
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.later_proceeding_correction_no_effect
+rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_3.later_proceeding_correction_no_effect") = perjury_conflict(case_id, defendant_id, "art152_sec1_3.later_proceeding_correction_no_effect")
+
+// rule_id: perjury.track_conflict.malicious.art152_sec1_3_later_proceeding_correction_no_effect
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.later_proceeding_correction_no_effect
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_3.later_proceeding_correction_no_effect") = perjury_conflict(case_id, defendant_id, "art152_sec1_3.later_proceeding_correction_no_effect")
+
+// rule_id: perjury.track_conflict.base.art152_sec1_3_post_oath_completion
+// sources: comm_001692_제152조_Ⅰ.3_25
+// norm_cards: art152_sec1_3.post_oath_completion
+rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_3.post_oath_completion") = perjury_conflict(case_id, defendant_id, "art152_sec1_3.post_oath_completion")
+
+// rule_id: perjury.track_conflict.malicious.art152_sec1_3_post_oath_completion
+// sources: comm_001692_제152조_Ⅰ.3_25
+// norm_cards: art152_sec1_3.post_oath_completion
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_3.post_oath_completion") = perjury_conflict(case_id, defendant_id, "art152_sec1_3.post_oath_completion")
+
+// rule_id: perjury.track_conflict.base.art152_sec1_3_preparation_not_punishable
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.preparation_not_punishable
+rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_3.preparation_not_punishable") = perjury_conflict(case_id, defendant_id, "art152_sec1_3.preparation_not_punishable")
+
+// rule_id: perjury.track_blocked.base.art152_sec1_3_preparation_not_punishable
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.preparation_not_punishable
+rel perjury_track_not_established(case_id, defendant_id, "base", "art152_sec1_3.preparation_not_punishable") = satisfied_art152_sec1_3_preparation_not_punishable(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.track_conflict.malicious.art152_sec1_3_preparation_not_punishable
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.preparation_not_punishable
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_3.preparation_not_punishable") = perjury_conflict(case_id, defendant_id, "art152_sec1_3.preparation_not_punishable")
+
+// rule_id: perjury.track_blocked.malicious.art152_sec1_3_preparation_not_punishable
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.preparation_not_punishable
+rel perjury_track_not_established(case_id, defendant_id, "malicious", "art152_sec1_3.preparation_not_punishable") = satisfied_art152_sec1_3_preparation_not_punishable(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.track_conflict.base.art152_sec1_2_falsehood_assessment
+// sources: comm_001692_제152조_Ⅰ.2_22, comm_001692_제152조_Ⅰ.2_16
+// norm_cards: art152_sec1_2.falsehood_assessment
+rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_2.falsehood_assessment") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.falsehood_assessment")
+
+// rule_id: perjury.track_conflict.malicious.art152_sec1_2_falsehood_assessment
+// sources: comm_001692_제152조_Ⅰ.2_22, comm_001692_제152조_Ⅰ.2_16
+// norm_cards: art152_sec1_2.falsehood_assessment
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_2.falsehood_assessment") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.falsehood_assessment")
+
+// rule_id: perjury.track_conflict.base.art152_sec1_2_statement_scope
+// sources: comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_17
+// norm_cards: art152_sec1_2.statement_scope
+rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_2.statement_scope") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.statement_scope")
+
+// rule_id: perjury.track_conflict.malicious.art152_sec1_2_statement_scope
+// sources: comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_17
+// norm_cards: art152_sec1_2.statement_scope
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_2.statement_scope") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.statement_scope")
+
+// rule_id: perjury.track_conflict.base.art152_sec1_2_intent
+// sources: comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_23
+// norm_cards: art152_sec1_2.intent
+rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_2.intent") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.intent")
+
+// rule_id: perjury.track_conflict.malicious.art152_sec1_2_intent
+// sources: comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_23
+// norm_cards: art152_sec1_2.intent
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_2.intent") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.intent")
+
+// rule_id: perjury.track_conflict.base.art152_sec1_2_lawful_oath_witness
+// sources: comm_001692_제152조_Ⅰ.2_1
+// norm_cards: art152_sec1_2.lawful_oath_witness
+rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_2.lawful_oath_witness") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.lawful_oath_witness")
+
+// rule_id: perjury.track_conflict.malicious.art152_sec1_2_lawful_oath_witness
+// sources: comm_001692_제152조_Ⅰ.2_1
+// norm_cards: art152_sec1_2.lawful_oath_witness
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_2.lawful_oath_witness") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.lawful_oath_witness")
+
+// rule_id: perjury.track_conflict.base.art152_sec1_2_nonstatutory_or_unauthorized_oath
+// sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2
+// norm_cards: art152_sec1_2.nonstatutory_or_unauthorized_oath
+rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_2.nonstatutory_or_unauthorized_oath") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.nonstatutory_or_unauthorized_oath")
+
+// rule_id: perjury.track_blocked.base.art152_sec1_2_nonstatutory_or_unauthorized_oath
+// sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2
+// norm_cards: art152_sec1_2.nonstatutory_or_unauthorized_oath
+rel perjury_track_not_established(case_id, defendant_id, "base", "art152_sec1_2.nonstatutory_or_unauthorized_oath") = satisfied_art152_sec1_2_nonstatutory_or_unauthorized_oath(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.track_conflict.malicious.art152_sec1_2_nonstatutory_or_unauthorized_oath
+// sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2
+// norm_cards: art152_sec1_2.nonstatutory_or_unauthorized_oath
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_2.nonstatutory_or_unauthorized_oath") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.nonstatutory_or_unauthorized_oath")
+
+// rule_id: perjury.track_blocked.malicious.art152_sec1_2_nonstatutory_or_unauthorized_oath
+// sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2
+// norm_cards: art152_sec1_2.nonstatutory_or_unauthorized_oath
+rel perjury_track_not_established(case_id, defendant_id, "malicious", "art152_sec1_2.nonstatutory_or_unauthorized_oath") = satisfied_art152_sec1_2_nonstatutory_or_unauthorized_oath(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.track_conflict.base.art152_sec1_2_oath_capacity
+// sources: comm_001692_제152조_Ⅰ.2_3
+// norm_cards: art152_sec1_2.oath_capacity
+rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_2.oath_capacity") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.oath_capacity")
+
+// rule_id: perjury.track_blocked.base.art152_sec1_2_oath_capacity
+// sources: comm_001692_제152조_Ⅰ.2_3
+// norm_cards: art152_sec1_2.oath_capacity
+rel perjury_track_not_established(case_id, defendant_id, "base", "art152_sec1_2.oath_capacity") = satisfied_art152_sec1_2_oath_capacity(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.track_conflict.malicious.art152_sec1_2_oath_capacity
+// sources: comm_001692_제152조_Ⅰ.2_3
+// norm_cards: art152_sec1_2.oath_capacity
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_2.oath_capacity") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.oath_capacity")
+
+// rule_id: perjury.track_blocked.malicious.art152_sec1_2_oath_capacity
+// sources: comm_001692_제152조_Ⅰ.2_3
+// norm_cards: art152_sec1_2.oath_capacity
+rel perjury_track_not_established(case_id, defendant_id, "malicious", "art152_sec1_2.oath_capacity") = satisfied_art152_sec1_2_oath_capacity(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.track_conflict.base.art152_sec1_2_oath_lawful_procedure
+// sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1
+// norm_cards: art152_sec1_2.oath_lawful_procedure
+rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_2.oath_lawful_procedure") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.oath_lawful_procedure")
+
+// rule_id: perjury.track_conflict.malicious.art152_sec1_2_oath_lawful_procedure
+// sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1
+// norm_cards: art152_sec1_2.oath_lawful_procedure
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_2.oath_lawful_procedure") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.oath_lawful_procedure")
+
+// rule_id: perjury.track_conflict.base.art152_sec1_2_oath_procedural_defects
+// sources: comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2
+// norm_cards: art152_sec1_2.oath_procedural_defects
+rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_2.oath_procedural_defects") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.oath_procedural_defects")
+
+// rule_id: perjury.track_blocked.base.art152_sec1_2_oath_procedural_defects
+// sources: comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2
+// norm_cards: art152_sec1_2.oath_procedural_defects
+rel perjury_track_not_established(case_id, defendant_id, "base", "art152_sec1_2.oath_procedural_defects") = satisfied_art152_sec1_2_oath_procedural_defects(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.track_conflict.malicious.art152_sec1_2_oath_procedural_defects
+// sources: comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2
+// norm_cards: art152_sec1_2.oath_procedural_defects
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_2.oath_procedural_defects") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.oath_procedural_defects")
+
+// rule_id: perjury.track_blocked.malicious.art152_sec1_2_oath_procedural_defects
+// sources: comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2
+// norm_cards: art152_sec1_2.oath_procedural_defects
+rel perjury_track_not_established(case_id, defendant_id, "malicious", "art152_sec1_2.oath_procedural_defects") = satisfied_art152_sec1_2_oath_procedural_defects(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.track_conflict.base.art152_sec1_2_oath_refusal_right_notice
+// sources: comm_001692_제152조_Ⅰ.2_4, comm_001692_제152조_Ⅰ.2_11
+// norm_cards: art152_sec1_2.oath_refusal_right_notice
+rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_2.oath_refusal_right_notice") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.oath_refusal_right_notice")
+
+// rule_id: perjury.track_conflict.malicious.art152_sec1_2_oath_refusal_right_notice
+// sources: comm_001692_제152조_Ⅰ.2_4, comm_001692_제152조_Ⅰ.2_11
+// norm_cards: art152_sec1_2.oath_refusal_right_notice
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_2.oath_refusal_right_notice") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.oath_refusal_right_notice")
+
+// rule_id: perjury.track_conflict.base.art152_sec1_2_refusal_right_and_perjury
+// sources: comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_5
+// norm_cards: art152_sec1_2.refusal_right_and_perjury
+rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_2.refusal_right_and_perjury") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.refusal_right_and_perjury")
+
+// rule_id: perjury.track_conflict.malicious.art152_sec1_2_refusal_right_and_perjury
+// sources: comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_5
+// norm_cards: art152_sec1_2.refusal_right_and_perjury
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_2.refusal_right_and_perjury") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.refusal_right_and_perjury")
+
+// rule_id: perjury.track_conflict.base.art152_sec1_3_correction_before_examination_end
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.correction_before_examination_end
+rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_3.correction_before_examination_end") = perjury_conflict(case_id, defendant_id, "art152_sec1_3.correction_before_examination_end")
+
+// rule_id: perjury.track_blocked.base.art152_sec1_3_correction_before_examination_end
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.correction_before_examination_end
+rel perjury_track_not_established(case_id, defendant_id, "base", "art152_sec1_3.correction_before_examination_end") = satisfied_art152_sec1_3_correction_before_examination_end(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.track_conflict.malicious.art152_sec1_3_correction_before_examination_end
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.correction_before_examination_end
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_3.correction_before_examination_end") = perjury_conflict(case_id, defendant_id, "art152_sec1_3.correction_before_examination_end")
+
+// rule_id: perjury.track_blocked.malicious.art152_sec1_3_correction_before_examination_end
+// sources: comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.correction_before_examination_end
+rel perjury_track_not_established(case_id, defendant_id, "malicious", "art152_sec1_3.correction_before_examination_end") = satisfied_art152_sec1_3_correction_before_examination_end(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.track_conflict.base.art152_sec1_3_correction_through_other_examiner
+// sources: comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.correction_through_other_examiner
+rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_3.correction_through_other_examiner") = perjury_conflict(case_id, defendant_id, "art152_sec1_3.correction_through_other_examiner")
+
+// rule_id: perjury.track_blocked.base.art152_sec1_3_correction_through_other_examiner
+// sources: comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.correction_through_other_examiner
+rel perjury_track_not_established(case_id, defendant_id, "base", "art152_sec1_3.correction_through_other_examiner") = satisfied_art152_sec1_3_correction_through_other_examiner(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.track_conflict.malicious.art152_sec1_3_correction_through_other_examiner
+// sources: comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.correction_through_other_examiner
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_3.correction_through_other_examiner") = perjury_conflict(case_id, defendant_id, "art152_sec1_3.correction_through_other_examiner")
+
+// rule_id: perjury.track_blocked.malicious.art152_sec1_3_correction_through_other_examiner
+// sources: comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24
+// norm_cards: art152_sec1_3.correction_through_other_examiner
+rel perjury_track_not_established(case_id, defendant_id, "malicious", "art152_sec1_3.correction_through_other_examiner") = satisfied_art152_sec1_3_correction_through_other_examiner(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.track_conflict.base.art152_sec1_2_witness_status
+// sources: comm_001692_제152조_Ⅰ.2_13, comm_001692_제152조_Ⅰ.2_14
+// norm_cards: art152_sec1_2.witness_status
+rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_2.witness_status") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.witness_status")
+
+// rule_id: perjury.track_conflict.malicious.art152_sec1_2_witness_status
+// sources: comm_001692_제152조_Ⅰ.2_13, comm_001692_제152조_Ⅰ.2_14
+// norm_cards: art152_sec1_2.witness_status
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_2.witness_status") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.witness_status")
+
+// rule_id: perjury.track_conflict.base.art152_sec1_4_perjury_self_committed_offense
+// sources: comm_001692_제152조_Ⅰ.4_26
+// norm_cards: art152_sec1_4.perjury_self_committed_offense
+rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_4.perjury_self_committed_offense") = perjury_conflict(case_id, defendant_id, "art152_sec1_4.perjury_self_committed_offense")
+
+// rule_id: perjury.track_conflict.malicious.art152_sec1_4_perjury_self_committed_offense
+// sources: comm_001692_제152조_Ⅰ.4_26
+// norm_cards: art152_sec1_4.perjury_self_committed_offense
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_4.perjury_self_committed_offense") = perjury_conflict(case_id, defendant_id, "art152_sec1_4.perjury_self_committed_offense")
+
+// rule_id: perjury.track_conflict.malicious.art152_sec1_2_malicious_perjury
+// sources: comm_001692_제152조_Ⅰ.2_23
+// norm_cards: art152_sec1_2.malicious_perjury
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_2.malicious_perjury") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.malicious_perjury")
+
+// rule_id: perjury.track_conflict.malicious.art152_sec2_1_malicious_perjury_definition
+// sources: comm_001692_제152조_Ⅱ.1_33
+// norm_cards: art152_sec2_1.malicious_perjury_definition
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec2_1.malicious_perjury_definition") = perjury_conflict(case_id, defendant_id, "art152_sec2_1.malicious_perjury_definition")
+
+// rule_id: perjury.track_conflict.malicious.art152_sec2_4_malice_purpose_awareness
+// sources: comm_001692_제152조_Ⅱ.4_36
+// norm_cards: art152_sec2_4.malice_purpose_awareness
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec2_4.malice_purpose_awareness") = perjury_conflict(case_id, defendant_id, "art152_sec2_4.malice_purpose_awareness")
+
+// rule_id: perjury.track_conflict.malicious.art152_sec2_3_noncriminal_case_mohae_exception
+// sources: comm_001692_제152조_Ⅱ.3_35
+// norm_cards: art152_sec2_3.noncriminal_case_mohae_exception
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec2_3.noncriminal_case_mohae_exception") = perjury_conflict(case_id, defendant_id, "art152_sec2_3.noncriminal_case_mohae_exception")
+
+// rule_id: perjury.track_blocked.malicious.art152_sec2_3_noncriminal_case_mohae_exception
+// sources: comm_001692_제152조_Ⅱ.3_35
+// norm_cards: art152_sec2_3.noncriminal_case_mohae_exception
+rel perjury_track_not_established(case_id, defendant_id, "malicious", "art152_sec2_3.noncriminal_case_mohae_exception") = satisfied_art152_sec2_3_noncriminal_case_mohae_exception(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.track_conflict.malicious.art152_sec2_4_proceeding_commenced_requirement
+// sources: comm_001692_제152조_Ⅱ.4_36
+// norm_cards: art152_sec2_4.proceeding_commenced_requirement
+rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec2_4.proceeding_commenced_requirement") = perjury_conflict(case_id, defendant_id, "art152_sec2_4.proceeding_commenced_requirement")
+
+// rule_id: perjury.summary.has_negative
+// sources: comm_001692_제152조_Ⅰ.1_0, comm_001692_제152조_Ⅰ.2_22, comm_001692_제152조_Ⅰ.2_16, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_3, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_4, comm_001692_제152조_Ⅰ.2_11, comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_5, comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_17, comm_001692_제152조_Ⅰ.2_13, comm_001692_제152조_Ⅰ.2_14, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_25, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.4_26, comm_001692_제152조_Ⅰ.4_26, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅰ.6_30, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅱ.1_33, comm_001692_제152조_Ⅱ.3_35, comm_001692_제152조_Ⅱ.4_36, comm_001692_제152조_Ⅱ.4_36, comm_001692_제152조_Ⅱ.6_39, comm_001692_제152조_Ⅱ.7_40
+// norm_cards: art152_sec1_1.instigation_or_aiding, art152_sec1_2.falsehood_assessment, art152_sec1_2.intent, art152_sec1_2.lawful_oath_witness, art152_sec1_2.malicious_perjury, art152_sec1_2.nonstatutory_or_unauthorized_oath, art152_sec1_2.oath_capacity, art152_sec1_2.oath_lawful_procedure, art152_sec1_2.oath_procedural_defects, art152_sec1_2.oath_refusal_right_notice, art152_sec1_2.refusal_right_and_perjury, art152_sec1_2.statement_scope, art152_sec1_2.witness_status, art152_sec1_3.attempt_false_testimony_start, art152_sec1_3.completion_examination_end, art152_sec1_3.correction_before_examination_end, art152_sec1_3.correction_through_other_examiner, art152_sec1_3.later_proceeding_correction_no_effect, art152_sec1_3.post_oath_completion, art152_sec1_3.preparation_not_punishable, art152_sec1_4.instigation_and_aiding_possible, art152_sec1_4.perjury_self_committed_offense, art152_sec1_5.perjury_different_dates_same_oath, art152_sec1_5.perjury_res_judicata_inclusive_offense, art152_sec1_5.separate_instigation_multiple_persons, art152_sec1_5.single_perjury_same_hearing, art152_sec1_6.false_accusation_perjury_concurrence, art152_sec1_6.malicious_perjury_after_false_accusation, art152_sec1_6.oath_incompetent_false_testimony_not_evidence_fabrication, art152_sec1_6.perjury_evidence_destruction_special_relation, art152_sec2_1.malicious_perjury_definition, art152_sec2_3.noncriminal_case_mohae_exception, art152_sec2_4.malice_purpose_awareness, art152_sec2_4.proceeding_commenced_requirement, art152_sec2_6.malicious_perjury.single_offense_same_hearing, art152_sec2_7.special_statute_malicious_perjury_exclusion
+rel perjury_has_negative(case_id, defendant_id) = perjury_not_established(case_id, defendant_id, norm_card_id)
+
+// rule_id: perjury.summary.has_conflict
+// sources: comm_001692_제152조_Ⅰ.1_0, comm_001692_제152조_Ⅰ.2_22, comm_001692_제152조_Ⅰ.2_16, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_3, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_4, comm_001692_제152조_Ⅰ.2_11, comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_5, comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_17, comm_001692_제152조_Ⅰ.2_13, comm_001692_제152조_Ⅰ.2_14, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_25, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.4_26, comm_001692_제152조_Ⅰ.4_26, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅰ.6_30, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅱ.1_33, comm_001692_제152조_Ⅱ.3_35, comm_001692_제152조_Ⅱ.4_36, comm_001692_제152조_Ⅱ.4_36, comm_001692_제152조_Ⅱ.6_39, comm_001692_제152조_Ⅱ.7_40
+// norm_cards: art152_sec1_1.instigation_or_aiding, art152_sec1_2.falsehood_assessment, art152_sec1_2.intent, art152_sec1_2.lawful_oath_witness, art152_sec1_2.malicious_perjury, art152_sec1_2.nonstatutory_or_unauthorized_oath, art152_sec1_2.oath_capacity, art152_sec1_2.oath_lawful_procedure, art152_sec1_2.oath_procedural_defects, art152_sec1_2.oath_refusal_right_notice, art152_sec1_2.refusal_right_and_perjury, art152_sec1_2.statement_scope, art152_sec1_2.witness_status, art152_sec1_3.attempt_false_testimony_start, art152_sec1_3.completion_examination_end, art152_sec1_3.correction_before_examination_end, art152_sec1_3.correction_through_other_examiner, art152_sec1_3.later_proceeding_correction_no_effect, art152_sec1_3.post_oath_completion, art152_sec1_3.preparation_not_punishable, art152_sec1_4.instigation_and_aiding_possible, art152_sec1_4.perjury_self_committed_offense, art152_sec1_5.perjury_different_dates_same_oath, art152_sec1_5.perjury_res_judicata_inclusive_offense, art152_sec1_5.separate_instigation_multiple_persons, art152_sec1_5.single_perjury_same_hearing, art152_sec1_6.false_accusation_perjury_concurrence, art152_sec1_6.malicious_perjury_after_false_accusation, art152_sec1_6.oath_incompetent_false_testimony_not_evidence_fabrication, art152_sec1_6.perjury_evidence_destruction_special_relation, art152_sec2_1.malicious_perjury_definition, art152_sec2_3.noncriminal_case_mohae_exception, art152_sec2_4.malice_purpose_awareness, art152_sec2_4.proceeding_commenced_requirement, art152_sec2_6.malicious_perjury.single_offense_same_hearing, art152_sec2_7.special_statute_malicious_perjury_exclusion
+rel perjury_has_conflict(case_id, defendant_id) = perjury_conflict(case_id, defendant_id, norm_card_id)
+
+// rule_id: perjury.summary.canonical_not_established
+// sources: comm_001692_제152조_Ⅰ.1_0, comm_001692_제152조_Ⅰ.2_22, comm_001692_제152조_Ⅰ.2_16, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_3, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_4, comm_001692_제152조_Ⅰ.2_11, comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_5, comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_17, comm_001692_제152조_Ⅰ.2_13, comm_001692_제152조_Ⅰ.2_14, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_25, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.4_26, comm_001692_제152조_Ⅰ.4_26, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅰ.6_30, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅱ.1_33, comm_001692_제152조_Ⅱ.3_35, comm_001692_제152조_Ⅱ.4_36, comm_001692_제152조_Ⅱ.4_36, comm_001692_제152조_Ⅱ.6_39, comm_001692_제152조_Ⅱ.7_40
+// norm_cards: art152_sec1_1.instigation_or_aiding, art152_sec1_2.falsehood_assessment, art152_sec1_2.intent, art152_sec1_2.lawful_oath_witness, art152_sec1_2.malicious_perjury, art152_sec1_2.nonstatutory_or_unauthorized_oath, art152_sec1_2.oath_capacity, art152_sec1_2.oath_lawful_procedure, art152_sec1_2.oath_procedural_defects, art152_sec1_2.oath_refusal_right_notice, art152_sec1_2.refusal_right_and_perjury, art152_sec1_2.statement_scope, art152_sec1_2.witness_status, art152_sec1_3.attempt_false_testimony_start, art152_sec1_3.completion_examination_end, art152_sec1_3.correction_before_examination_end, art152_sec1_3.correction_through_other_examiner, art152_sec1_3.later_proceeding_correction_no_effect, art152_sec1_3.post_oath_completion, art152_sec1_3.preparation_not_punishable, art152_sec1_4.instigation_and_aiding_possible, art152_sec1_4.perjury_self_committed_offense, art152_sec1_5.perjury_different_dates_same_oath, art152_sec1_5.perjury_res_judicata_inclusive_offense, art152_sec1_5.separate_instigation_multiple_persons, art152_sec1_5.single_perjury_same_hearing, art152_sec1_6.false_accusation_perjury_concurrence, art152_sec1_6.malicious_perjury_after_false_accusation, art152_sec1_6.oath_incompetent_false_testimony_not_evidence_fabrication, art152_sec1_6.perjury_evidence_destruction_special_relation, art152_sec2_1.malicious_perjury_definition, art152_sec2_3.noncriminal_case_mohae_exception, art152_sec2_4.malice_purpose_awareness, art152_sec2_4.proceeding_commenced_requirement, art152_sec2_6.malicious_perjury.single_offense_same_hearing, art152_sec2_7.special_statute_malicious_perjury_exclusion
+rel perjury_not_established(case_id, defendant_id, norm_card_id) = perjury_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: perjury.summary.track_has_negative
+// sources: comm_001692_제152조_Ⅰ.1_0, comm_001692_제152조_Ⅰ.2_22, comm_001692_제152조_Ⅰ.2_16, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_3, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_4, comm_001692_제152조_Ⅰ.2_11, comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_5, comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_17, comm_001692_제152조_Ⅰ.2_13, comm_001692_제152조_Ⅰ.2_14, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_25, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.4_26, comm_001692_제152조_Ⅰ.4_26, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅰ.6_30, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅱ.1_33, comm_001692_제152조_Ⅱ.3_35, comm_001692_제152조_Ⅱ.4_36, comm_001692_제152조_Ⅱ.4_36, comm_001692_제152조_Ⅱ.6_39, comm_001692_제152조_Ⅱ.7_40
+// norm_cards: art152_sec1_1.instigation_or_aiding, art152_sec1_2.falsehood_assessment, art152_sec1_2.intent, art152_sec1_2.lawful_oath_witness, art152_sec1_2.malicious_perjury, art152_sec1_2.nonstatutory_or_unauthorized_oath, art152_sec1_2.oath_capacity, art152_sec1_2.oath_lawful_procedure, art152_sec1_2.oath_procedural_defects, art152_sec1_2.oath_refusal_right_notice, art152_sec1_2.refusal_right_and_perjury, art152_sec1_2.statement_scope, art152_sec1_2.witness_status, art152_sec1_3.attempt_false_testimony_start, art152_sec1_3.completion_examination_end, art152_sec1_3.correction_before_examination_end, art152_sec1_3.correction_through_other_examiner, art152_sec1_3.later_proceeding_correction_no_effect, art152_sec1_3.post_oath_completion, art152_sec1_3.preparation_not_punishable, art152_sec1_4.instigation_and_aiding_possible, art152_sec1_4.perjury_self_committed_offense, art152_sec1_5.perjury_different_dates_same_oath, art152_sec1_5.perjury_res_judicata_inclusive_offense, art152_sec1_5.separate_instigation_multiple_persons, art152_sec1_5.single_perjury_same_hearing, art152_sec1_6.false_accusation_perjury_concurrence, art152_sec1_6.malicious_perjury_after_false_accusation, art152_sec1_6.oath_incompetent_false_testimony_not_evidence_fabrication, art152_sec1_6.perjury_evidence_destruction_special_relation, art152_sec2_1.malicious_perjury_definition, art152_sec2_3.noncriminal_case_mohae_exception, art152_sec2_4.malice_purpose_awareness, art152_sec2_4.proceeding_commenced_requirement, art152_sec2_6.malicious_perjury.single_offense_same_hearing, art152_sec2_7.special_statute_malicious_perjury_exclusion
+rel perjury_track_has_negative(case_id, defendant_id, track_id) = perjury_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: perjury.summary.track_has_conflict
+// sources: comm_001692_제152조_Ⅰ.1_0, comm_001692_제152조_Ⅰ.2_22, comm_001692_제152조_Ⅰ.2_16, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_3, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_4, comm_001692_제152조_Ⅰ.2_11, comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_5, comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_17, comm_001692_제152조_Ⅰ.2_13, comm_001692_제152조_Ⅰ.2_14, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_25, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.4_26, comm_001692_제152조_Ⅰ.4_26, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅰ.6_30, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅱ.1_33, comm_001692_제152조_Ⅱ.3_35, comm_001692_제152조_Ⅱ.4_36, comm_001692_제152조_Ⅱ.4_36, comm_001692_제152조_Ⅱ.6_39, comm_001692_제152조_Ⅱ.7_40
+// norm_cards: art152_sec1_1.instigation_or_aiding, art152_sec1_2.falsehood_assessment, art152_sec1_2.intent, art152_sec1_2.lawful_oath_witness, art152_sec1_2.malicious_perjury, art152_sec1_2.nonstatutory_or_unauthorized_oath, art152_sec1_2.oath_capacity, art152_sec1_2.oath_lawful_procedure, art152_sec1_2.oath_procedural_defects, art152_sec1_2.oath_refusal_right_notice, art152_sec1_2.refusal_right_and_perjury, art152_sec1_2.statement_scope, art152_sec1_2.witness_status, art152_sec1_3.attempt_false_testimony_start, art152_sec1_3.completion_examination_end, art152_sec1_3.correction_before_examination_end, art152_sec1_3.correction_through_other_examiner, art152_sec1_3.later_proceeding_correction_no_effect, art152_sec1_3.post_oath_completion, art152_sec1_3.preparation_not_punishable, art152_sec1_4.instigation_and_aiding_possible, art152_sec1_4.perjury_self_committed_offense, art152_sec1_5.perjury_different_dates_same_oath, art152_sec1_5.perjury_res_judicata_inclusive_offense, art152_sec1_5.separate_instigation_multiple_persons, art152_sec1_5.single_perjury_same_hearing, art152_sec1_6.false_accusation_perjury_concurrence, art152_sec1_6.malicious_perjury_after_false_accusation, art152_sec1_6.oath_incompetent_false_testimony_not_evidence_fabrication, art152_sec1_6.perjury_evidence_destruction_special_relation, art152_sec2_1.malicious_perjury_definition, art152_sec2_3.noncriminal_case_mohae_exception, art152_sec2_4.malice_purpose_awareness, art152_sec2_4.proceeding_commenced_requirement, art152_sec2_6.malicious_perjury.single_offense_same_hearing, art152_sec2_7.special_statute_malicious_perjury_exclusion
+rel perjury_track_has_conflict(case_id, defendant_id, track_id) = perjury_track_conflict(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: perjury.outcome.base.elements_satisfied
+// sources: comm_001692_제152조_Ⅰ.1_0, comm_001692_제152조_Ⅰ.2_22, comm_001692_제152조_Ⅰ.2_16, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_3, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_4, comm_001692_제152조_Ⅰ.2_11, comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_5, comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_17, comm_001692_제152조_Ⅰ.2_13, comm_001692_제152조_Ⅰ.2_14, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_25, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.4_26, comm_001692_제152조_Ⅰ.4_26, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅰ.6_30, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅱ.6_39
+// norm_cards: art152_sec1_1.instigation_or_aiding, art152_sec1_2.falsehood_assessment, art152_sec1_2.intent, art152_sec1_2.lawful_oath_witness, art152_sec1_2.nonstatutory_or_unauthorized_oath, art152_sec1_2.oath_capacity, art152_sec1_2.oath_lawful_procedure, art152_sec1_2.oath_procedural_defects, art152_sec1_2.oath_refusal_right_notice, art152_sec1_2.refusal_right_and_perjury, art152_sec1_2.statement_scope, art152_sec1_2.witness_status, art152_sec1_3.attempt_false_testimony_start, art152_sec1_3.completion_examination_end, art152_sec1_3.correction_before_examination_end, art152_sec1_3.correction_through_other_examiner, art152_sec1_3.later_proceeding_correction_no_effect, art152_sec1_3.post_oath_completion, art152_sec1_3.preparation_not_punishable, art152_sec1_4.instigation_and_aiding_possible, art152_sec1_4.perjury_self_committed_offense, art152_sec1_5.perjury_different_dates_same_oath, art152_sec1_5.perjury_res_judicata_inclusive_offense, art152_sec1_5.separate_instigation_multiple_persons, art152_sec1_5.single_perjury_same_hearing, art152_sec1_6.false_accusation_perjury_concurrence, art152_sec1_6.malicious_perjury_after_false_accusation, art152_sec1_6.oath_incompetent_false_testimony_not_evidence_fabrication, art152_sec1_6.perjury_evidence_destruction_special_relation, art152_sec2_6.malicious_perjury.single_offense_same_hearing
+rel perjury_base_elements_satisfied(case_id, defendant_id, proceeding_id, statement_id) = perjury_base_completion_satisfied(case_id, defendant_id, proceeding_id, statement_id) and
+  perjury_base_false_factual_statement_satisfied(case_id, defendant_id, proceeding_id, statement_id) and
+  perjury_base_intent_satisfied(case_id, defendant_id, proceeding_id, statement_id) and
+  perjury_base_lawful_oath_satisfied(case_id, defendant_id, proceeding_id, statement_id) and
+  perjury_base_witness_status_satisfied(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.outcome.base.established
+// sources: comm_001692_제152조_Ⅰ.1_0, comm_001692_제152조_Ⅰ.2_22, comm_001692_제152조_Ⅰ.2_16, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_3, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_4, comm_001692_제152조_Ⅰ.2_11, comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_5, comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_17, comm_001692_제152조_Ⅰ.2_13, comm_001692_제152조_Ⅰ.2_14, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_25, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.4_26, comm_001692_제152조_Ⅰ.4_26, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅰ.6_30, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅱ.6_39
+// norm_cards: art152_sec1_1.instigation_or_aiding, art152_sec1_2.falsehood_assessment, art152_sec1_2.intent, art152_sec1_2.lawful_oath_witness, art152_sec1_2.nonstatutory_or_unauthorized_oath, art152_sec1_2.oath_capacity, art152_sec1_2.oath_lawful_procedure, art152_sec1_2.oath_procedural_defects, art152_sec1_2.oath_refusal_right_notice, art152_sec1_2.refusal_right_and_perjury, art152_sec1_2.statement_scope, art152_sec1_2.witness_status, art152_sec1_3.attempt_false_testimony_start, art152_sec1_3.completion_examination_end, art152_sec1_3.correction_before_examination_end, art152_sec1_3.correction_through_other_examiner, art152_sec1_3.later_proceeding_correction_no_effect, art152_sec1_3.post_oath_completion, art152_sec1_3.preparation_not_punishable, art152_sec1_4.instigation_and_aiding_possible, art152_sec1_4.perjury_self_committed_offense, art152_sec1_5.perjury_different_dates_same_oath, art152_sec1_5.perjury_res_judicata_inclusive_offense, art152_sec1_5.separate_instigation_multiple_persons, art152_sec1_5.single_perjury_same_hearing, art152_sec1_6.false_accusation_perjury_concurrence, art152_sec1_6.malicious_perjury_after_false_accusation, art152_sec1_6.oath_incompetent_false_testimony_not_evidence_fabrication, art152_sec1_6.perjury_evidence_destruction_special_relation, art152_sec2_6.malicious_perjury.single_offense_same_hearing
+rel perjury_base_established(case_id, defendant_id, proceeding_id, statement_id) = perjury_base_elements_satisfied(case_id, defendant_id, proceeding_id, statement_id) and
+  case_assessment_complete(case_id, defendant_id) and
+  ~perjury_track_has_negative(case_id, defendant_id, "base") and
+  ~perjury_track_has_conflict(case_id, defendant_id, "base")
+
+// rule_id: perjury.outcome.malicious.elements_satisfied
+// sources: comm_001692_제152조_Ⅰ.1_0, comm_001692_제152조_Ⅰ.2_22, comm_001692_제152조_Ⅰ.2_16, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_3, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_4, comm_001692_제152조_Ⅰ.2_11, comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_5, comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_17, comm_001692_제152조_Ⅰ.2_13, comm_001692_제152조_Ⅰ.2_14, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_25, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.4_26, comm_001692_제152조_Ⅰ.4_26, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅰ.6_30, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅱ.1_33, comm_001692_제152조_Ⅱ.3_35, comm_001692_제152조_Ⅱ.4_36, comm_001692_제152조_Ⅱ.4_36, comm_001692_제152조_Ⅱ.6_39, comm_001692_제152조_Ⅱ.7_40
+// norm_cards: art152_sec1_1.instigation_or_aiding, art152_sec1_2.falsehood_assessment, art152_sec1_2.intent, art152_sec1_2.lawful_oath_witness, art152_sec1_2.malicious_perjury, art152_sec1_2.nonstatutory_or_unauthorized_oath, art152_sec1_2.oath_capacity, art152_sec1_2.oath_lawful_procedure, art152_sec1_2.oath_procedural_defects, art152_sec1_2.oath_refusal_right_notice, art152_sec1_2.refusal_right_and_perjury, art152_sec1_2.statement_scope, art152_sec1_2.witness_status, art152_sec1_3.attempt_false_testimony_start, art152_sec1_3.completion_examination_end, art152_sec1_3.correction_before_examination_end, art152_sec1_3.correction_through_other_examiner, art152_sec1_3.later_proceeding_correction_no_effect, art152_sec1_3.post_oath_completion, art152_sec1_3.preparation_not_punishable, art152_sec1_4.instigation_and_aiding_possible, art152_sec1_4.perjury_self_committed_offense, art152_sec1_5.perjury_different_dates_same_oath, art152_sec1_5.perjury_res_judicata_inclusive_offense, art152_sec1_5.separate_instigation_multiple_persons, art152_sec1_5.single_perjury_same_hearing, art152_sec1_6.false_accusation_perjury_concurrence, art152_sec1_6.malicious_perjury_after_false_accusation, art152_sec1_6.oath_incompetent_false_testimony_not_evidence_fabrication, art152_sec1_6.perjury_evidence_destruction_special_relation, art152_sec2_1.malicious_perjury_definition, art152_sec2_3.noncriminal_case_mohae_exception, art152_sec2_4.malice_purpose_awareness, art152_sec2_4.proceeding_commenced_requirement, art152_sec2_6.malicious_perjury.single_offense_same_hearing, art152_sec2_7.special_statute_malicious_perjury_exclusion
+rel perjury_malicious_elements_satisfied(case_id, defendant_id, proceeding_id, statement_id) = perjury_base_elements_satisfied(case_id, defendant_id, proceeding_id, statement_id) and
+  perjury_malicious_malicious_purpose_satisfied(case_id, defendant_id, proceeding_id, statement_id) and
+  perjury_malicious_pending_criminal_or_disciplinary_proceeding_satisfied(case_id, defendant_id, proceeding_id, statement_id)
+
+// rule_id: perjury.outcome.malicious.established
+// sources: comm_001692_제152조_Ⅰ.1_0, comm_001692_제152조_Ⅰ.2_22, comm_001692_제152조_Ⅰ.2_16, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_23, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_3, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_4, comm_001692_제152조_Ⅰ.2_11, comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_5, comm_001692_제152조_Ⅰ.2_15, comm_001692_제152조_Ⅰ.2_17, comm_001692_제152조_Ⅰ.2_13, comm_001692_제152조_Ⅰ.2_14, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_25, comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.4_26, comm_001692_제152조_Ⅰ.4_26, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.5_28, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅰ.6_30, comm_001692_제152조_Ⅰ.6_29, comm_001692_제152조_Ⅱ.1_33, comm_001692_제152조_Ⅱ.3_35, comm_001692_제152조_Ⅱ.4_36, comm_001692_제152조_Ⅱ.4_36, comm_001692_제152조_Ⅱ.6_39, comm_001692_제152조_Ⅱ.7_40
+// norm_cards: art152_sec1_1.instigation_or_aiding, art152_sec1_2.falsehood_assessment, art152_sec1_2.intent, art152_sec1_2.lawful_oath_witness, art152_sec1_2.malicious_perjury, art152_sec1_2.nonstatutory_or_unauthorized_oath, art152_sec1_2.oath_capacity, art152_sec1_2.oath_lawful_procedure, art152_sec1_2.oath_procedural_defects, art152_sec1_2.oath_refusal_right_notice, art152_sec1_2.refusal_right_and_perjury, art152_sec1_2.statement_scope, art152_sec1_2.witness_status, art152_sec1_3.attempt_false_testimony_start, art152_sec1_3.completion_examination_end, art152_sec1_3.correction_before_examination_end, art152_sec1_3.correction_through_other_examiner, art152_sec1_3.later_proceeding_correction_no_effect, art152_sec1_3.post_oath_completion, art152_sec1_3.preparation_not_punishable, art152_sec1_4.instigation_and_aiding_possible, art152_sec1_4.perjury_self_committed_offense, art152_sec1_5.perjury_different_dates_same_oath, art152_sec1_5.perjury_res_judicata_inclusive_offense, art152_sec1_5.separate_instigation_multiple_persons, art152_sec1_5.single_perjury_same_hearing, art152_sec1_6.false_accusation_perjury_concurrence, art152_sec1_6.malicious_perjury_after_false_accusation, art152_sec1_6.oath_incompetent_false_testimony_not_evidence_fabrication, art152_sec1_6.perjury_evidence_destruction_special_relation, art152_sec2_1.malicious_perjury_definition, art152_sec2_3.noncriminal_case_mohae_exception, art152_sec2_4.malice_purpose_awareness, art152_sec2_4.proceeding_commenced_requirement, art152_sec2_6.malicious_perjury.single_offense_same_hearing, art152_sec2_7.special_statute_malicious_perjury_exclusion
+rel perjury_malicious_established(case_id, defendant_id, proceeding_id, statement_id) = perjury_malicious_elements_satisfied(case_id, defendant_id, proceeding_id, statement_id) and
+  case_assessment_complete(case_id, defendant_id) and
+  ~perjury_track_has_negative(case_id, defendant_id, "malicious") and
+  ~perjury_track_has_conflict(case_id, defendant_id, "malicious")
