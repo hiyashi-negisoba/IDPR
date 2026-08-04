@@ -80,6 +80,16 @@
         "applies_to_tracks": ["base"]
       },
       "tracks": {}
+    },
+    "indecent_assault": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {
+        "predicate": "indecent_assault_case_roles",
+        "arguments": ["case_id", "defendant_id", "victim_id"],
+        "definition": "호스트가 확정한 강제추행 사건의 역할 tuple — 피고인과 성적 자기결정권 침해의 객체인 피해자",
+        "applies_to_tracks": ["base"]
+      },
+      "tracks": {}
     }
   }
 }

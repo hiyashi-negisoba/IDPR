@@ -1,0 +1,1226 @@
+// rule_set_id: kr.p2.indecent_assault.native.v1_candidate
+// status: draft
+// legal_review: pending
+// generated_from: validated RuleIR; model output is never executed directly
+
+// provable: 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+// sources: system contract
+// norm_cards: system contract
+type provable(String, String)
+
+// case_assessment_complete: 사건 라우터가 선택한 평가 묶음이 완결되어 결론 계층의 폐쇄세계 검사를 허용함
+// sources: system contract
+// norm_cards: system contract
+type case_assessment_complete(String, String)
+
+// distinct_entity: 사건의 entity resolution에서 두 역할이 서로 다른 실체임이 확인됨
+// sources: system contract
+// norm_cards: system contract
+type distinct_entity(String, String, String)
+
+// indecent_assault_case_roles: 호스트가 확정한 강제추행 사건의 역할 tuple — 피고인과 성적 자기결정권 침해의 객체인 피해자
+// sources: system contract
+// norm_cards: system contract
+type indecent_assault_case_roles(String, String, String)
+
+// indecent_assault_not_established: 증명된 불성립 사유 또는 경계 이동이 존재함
+// sources: system contract
+// norm_cards: system contract
+type indecent_assault_not_established(String, String, String)
+
+// indecent_assault_undetermined: 관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음
+// sources: system contract
+// norm_cards: system contract
+type indecent_assault_undetermined(String, String, String)
+
+// indecent_assault_conflict: 같은 카드에 satisfied와 not_satisfied 평가가 모두 증명됨
+// sources: system contract
+// norm_cards: system contract
+type indecent_assault_conflict(String, String, String)
+
+// indecent_assault_track_not_established: 해당 track에만 적용되는 증명된 불성립 사유 또는 경계 이동
+// sources: system contract
+// norm_cards: system contract
+type indecent_assault_track_not_established(String, String, String, String)
+
+// indecent_assault_track_conflict: 해당 track에 적용되는 카드 평가 충돌
+// sources: system contract
+// norm_cards: system contract
+type indecent_assault_track_conflict(String, String, String, String)
+
+// indecent_assault_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type indecent_assault_track_has_negative(String, String, String)
+
+// indecent_assault_track_has_conflict: 해당 track에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type indecent_assault_track_has_conflict(String, String, String)
+
+// assess_art298_indirect_perpetration_victim_as_instrument: 이 카드의 사건별 적용 평가: 피해자를 도구로 삼아 피해자의 신체를 이용하여 추행행위를 한 경우에도 강제추행죄의 간접정범에 해당할 수 있다.
+// sources: comm_001692_제298조_Ⅱ_1
+// norm_cards: art298.indirect_perpetration.victim_as_instrument
+type assess_art298_indirect_perpetration_victim_as_instrument(String, String, String, String, String)
+
+// satisfied_art298_indirect_perpetration_victim_as_instrument: 증명 가능한 평가에서 다음 조건이 충족됨: 피해자를 도구로 삼아 피해자의 신체를 이용하여 추행행위를 한 경우에도 강제추행죄의 간접정범에 해당할 수 있다.
+// sources: comm_001692_제298조_Ⅱ_1
+// norm_cards: art298.indirect_perpetration.victim_as_instrument
+type satisfied_art298_indirect_perpetration_victim_as_instrument(String, String, String)
+
+// assess_art298_object_person: 이 카드의 사건별 적용 평가: 강제추행죄의 객체는 사람이며, 성별·성년·미성년·기혼 여부를 불문한다.
+// sources: comm_001692_제298조_Ⅱ_1
+// norm_cards: art298.object.person
+type assess_art298_object_person(String, String, String, String, String)
+
+// satisfied_art298_object_person: 증명 가능한 평가에서 다음 조건이 충족됨: 강제추행죄의 객체는 사람이며, 성별·성년·미성년·기혼 여부를 불문한다.
+// sources: comm_001692_제298조_Ⅱ_1
+// norm_cards: art298.object.person
+type satisfied_art298_object_person(String, String, String)
+
+// assess_art298_offense_conduct: 이 카드의 사건별 적용 평가: 강제추행죄는 폭행 또는 협박으로 사람에 대하여 추행을 함으로써 성립하는 범죄이다.
+// sources: comm_001692_제298조_Ⅰ_0
+// norm_cards: art298.offense_conduct
+type assess_art298_offense_conduct(String, String, String, String, String)
+
+// satisfied_art298_offense_conduct: 증명 가능한 평가에서 다음 조건이 충족됨: 강제추행죄는 폭행 또는 협박으로 사람에 대하여 추행을 함으로써 성립하는 범죄이다.
+// sources: comm_001692_제298조_Ⅰ_0
+// norm_cards: art298.offense_conduct
+type satisfied_art298_offense_conduct(String, String, String)
+
+// assess_art298_sec3_1_force_threat_totality_assessment: 이 카드의 사건별 적용 평가: 어떤 행위가 강제추행죄의 폭행 또는 협박에 해당하는지는 목적과 의도, 행위태양·내용, 경위·당시 정황, 당사자 관계 및 상대방 고통 등을 종합하여 판단한다.
+// sources: comm_001692_제298조_Ⅲ.1_5
+// norm_cards: art298_sec3_1.force_threat_totality_assessment
+type assess_art298_sec3_1_force_threat_totality_assessment(String, String, String, String, String)
+
+// satisfied_art298_sec3_1_force_threat_totality_assessment: 증명 가능한 평가에서 다음 조건이 충족됨: 어떤 행위가 강제추행죄의 폭행 또는 협박에 해당하는지는 목적과 의도, 행위태양·내용, 경위·당시 정황, 당사자 관계 및 상대방 고통 등을 종합하여 판단한다.
+// sources: comm_001692_제298조_Ⅲ.1_5
+// norm_cards: art298_sec3_1.force_threat_totality_assessment
+type satisfied_art298_sec3_1_force_threat_totality_assessment(String, String, String)
+
+// assess_art298_sec3_1_surprise_molestation_physical_force: 이 카드의 사건별 적용 평가: 폭행행위 자체가 곧바로 추행행위에 해당하는 기습추행에서는 상대방 의사에 반하는 유형력 행사가 있으면 힘의 대소강약을 불문하여 폭행이 인정된다는 판례 입장이 소개되어 있다.
+// sources: comm_001692_제298조_Ⅲ.1_6
+// norm_cards: art298_sec3_1.surprise_molestation_physical_force
+type assess_art298_sec3_1_surprise_molestation_physical_force(String, String, String, String, String)
+
+// satisfied_art298_sec3_1_surprise_molestation_physical_force: 증명 가능한 평가에서 다음 조건이 충족됨: 폭행행위 자체가 곧바로 추행행위에 해당하는 기습추행에서는 상대방 의사에 반하는 유형력 행사가 있으면 힘의 대소강약을 불문하여 폭행이 인정된다는 판례 입장이 소개되어 있다.
+// sources: comm_001692_제298조_Ⅲ.1_6
+// norm_cards: art298_sec3_1.surprise_molestation_physical_force
+type satisfied_art298_sec3_1_surprise_molestation_physical_force(String, String, String)
+
+// assess_art298_sec3_2_indecent_act_comprehensive_assessment: 이 카드의 사건별 적용 평가: 추행 해당 여부는 피해자의 의사·성별·연령, 행위자와 피해자의 관계, 경위, 구체적 행위태양, 객관적 상황 및 시대의 성적 도덕관념 등을 종합하여 신중히 판단한다.
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_comprehensive_assessment
+type assess_art298_sec3_2_indecent_act_comprehensive_assessment(String, String, String, String, String)
+
+// satisfied_art298_sec3_2_indecent_act_comprehensive_assessment: 증명 가능한 평가에서 다음 조건이 충족됨: 추행 해당 여부는 피해자의 의사·성별·연령, 행위자와 피해자의 관계, 경위, 구체적 행위태양, 객관적 상황 및 시대의 성적 도덕관념 등을 종합하여 신중히 판단한다.
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_comprehensive_assessment
+type satisfied_art298_sec3_2_indecent_act_comprehensive_assessment(String, String, String)
+
+// assess_art298_sec3_2_indecent_act_definition: 이 카드의 사건별 적용 평가: 추행은 객관적으로 일반인에게 성적 수치심 또는 혐오감을 일으키고 선량한 성적 도덕관념에 반하여 피해자의 성적 자유를 침해하는 행위이다.
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_definition
+type assess_art298_sec3_2_indecent_act_definition(String, String, String, String, String)
+
+// satisfied_art298_sec3_2_indecent_act_definition: 증명 가능한 평가에서 다음 조건이 충족됨: 추행은 객관적으로 일반인에게 성적 수치심 또는 혐오감을 일으키고 선량한 성적 도덕관념에 반하여 피해자의 성적 자유를 침해하는 행위이다.
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_definition
+type satisfied_art298_sec3_2_indecent_act_definition(String, String, String)
+
+// assess_art298_sec3_2_indecent_act_no_body_part_distinction: 이 카드의 사건별 적용 평가: 추행 평가는 행위 당시 당사자의 의사·감정·주위사정을 고려하므로 신체 부위에 본질적 차이를 두지 않고, 은밀한 부위가 아니어도 상황에 따라 강제추행죄가 될 수 있다는 견해가 있다.
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_no_body_part_distinction
+type assess_art298_sec3_2_indecent_act_no_body_part_distinction(String, String, String, String, String)
+
+// satisfied_art298_sec3_2_indecent_act_no_body_part_distinction: 증명 가능한 평가에서 다음 조건이 충족됨: 추행 평가는 행위 당시 당사자의 의사·감정·주위사정을 고려하므로 신체 부위에 본질적 차이를 두지 않고, 은밀한 부위가 아니어도 상황에 따라 강제추행죄가 될 수 있다는 견해가 있다.
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_no_body_part_distinction
+type satisfied_art298_sec3_2_indecent_act_no_body_part_distinction(String, String, String)
+
+// assess_art298_sec3_2_indirect_perpetration: 이 카드의 사건별 적용 평가: 강제추행죄는 정범 자신이 직접 범죄를 실행해야만 성립하는 자수범이 아니므로, 처벌되지 않는 타인을 도구로 이용하는 간접정범 형태로도 범할 수 있다.
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.indirect_perpetration
+type assess_art298_sec3_2_indirect_perpetration(String, String, String, String, String)
+
+// satisfied_art298_sec3_2_indirect_perpetration: 증명 가능한 평가에서 다음 조건이 충족됨: 강제추행죄는 정범 자신이 직접 범죄를 실행해야만 성립하는 자수범이 아니므로, 처벌되지 않는 타인을 도구로 이용하는 간접정범 형태로도 범할 수 있다.
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.indirect_perpetration
+type satisfied_art298_sec3_2_indirect_perpetration(String, String, String)
+
+// assess_art298_sec3_2_indirect_perpetration_coerced_self_sexual_acts: 이 카드의 사건별 적용 평가: 피고인이 협박으로 겁먹은 피해자들에게 나체 또는 속옷 상태에서 스스로 촬영하거나 성기에 이물질 삽입 또는 자위를 하게 한 경우 강제추행죄의 간접정범에 해당할 수 있다.
+// sources: comm_001692_제298조_Ⅲ.2_13
+// norm_cards: art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts
+type assess_art298_sec3_2_indirect_perpetration_coerced_self_sexual_acts(String, String, String, String, String)
+
+// satisfied_art298_sec3_2_indirect_perpetration_coerced_self_sexual_acts: 증명 가능한 평가에서 다음 조건이 충족됨: 피고인이 협박으로 겁먹은 피해자들에게 나체 또는 속옷 상태에서 스스로 촬영하거나 성기에 이물질 삽입 또는 자위를 하게 한 경우 강제추행죄의 간접정범에 해당할 수 있다.
+// sources: comm_001692_제298조_Ⅲ.2_13
+// norm_cards: art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts
+type satisfied_art298_sec3_2_indirect_perpetration_coerced_self_sexual_acts(String, String, String)
+
+// assess_art298_sec3_2_no_contact_assessment_factors: 이 카드의 사건별 적용 평가: 신체 접촉 없는 행위가 강제추행에 해당하는지는 피해자의 의사·성별·연령, 당사자 관계, 경위, 구체적 행위태양 및 객관적 상황 등을 종합 고려하여 판단한다.
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_assessment_factors
+type assess_art298_sec3_2_no_contact_assessment_factors(String, String, String, String, String)
+
+// satisfied_art298_sec3_2_no_contact_assessment_factors: 증명 가능한 평가에서 다음 조건이 충족됨: 신체 접촉 없는 행위가 강제추행에 해당하는지는 피해자의 의사·성별·연령, 당사자 관계, 경위, 구체적 행위태양 및 객관적 상황 등을 종합 고려하여 판단한다.
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_assessment_factors
+type satisfied_art298_sec3_2_no_contact_assessment_factors(String, String, String)
+
+// assess_art298_sec3_2_no_contact_elevator_threat_masturbation: 이 카드의 사건별 적용 평가: 폐쇄된 엘리베이터에서 피해자들을 칼로 위협하여 실력적으로 지배한 뒤 자위행위 모습을 보여주고 피하거나 외면할 수 없게 한 경우, 신체 접촉 없이도 강제추행이 인정된 사례가 소개되어 있다.
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_elevator_threat_masturbation
+type assess_art298_sec3_2_no_contact_elevator_threat_masturbation(String, String, String, String, String)
+
+// satisfied_art298_sec3_2_no_contact_elevator_threat_masturbation: 증명 가능한 평가에서 다음 조건이 충족됨: 폐쇄된 엘리베이터에서 피해자들을 칼로 위협하여 실력적으로 지배한 뒤 자위행위 모습을 보여주고 피하거나 외면할 수 없게 한 경우, 신체 접촉 없이도 강제추행이 인정된 사례가 소개되어 있다.
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_elevator_threat_masturbation
+type satisfied_art298_sec3_2_no_contact_elevator_threat_masturbation(String, String, String)
+
+// assess_art298_sec3_2_no_contact_equivalent_infringement: 이 카드의 사건별 적용 평가: 신체 접촉이 없더라도 성적 수치심·혐오감 또는 성적 자기결정권 침해가 신체 접촉이 있는 경우와 동등한 정도라고 평가되면 강제추행죄 성립을 인정할 수 있다.
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_equivalent_infringement
+type assess_art298_sec3_2_no_contact_equivalent_infringement(String, String, String, String, String)
+
+// satisfied_art298_sec3_2_no_contact_equivalent_infringement: 증명 가능한 평가에서 다음 조건이 충족됨: 신체 접촉이 없더라도 성적 수치심·혐오감 또는 성적 자기결정권 침해가 신체 접촉이 있는 경우와 동등한 정도라고 평가되면 강제추행죄 성립을 인정할 수 있다.
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_equivalent_infringement
+type satisfied_art298_sec3_2_no_contact_equivalent_infringement(String, String, String)
+
+// assess_art298_sec3_2_no_contact_kitchen_gesture_not_molestation: 이 카드의 사건별 적용 평가: 중국음식점 주방장이 주방에서 여성 피해자에게 성기 모양을 손으로 만들고 반바지를 벌리며 보여주겠다고 말한 경우에는 신체 접촉 없는 강제추행이 인정되지 않은 사례가 소개되어 있다.
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_kitchen_gesture_not_molestation
+type assess_art298_sec3_2_no_contact_kitchen_gesture_not_molestation(String, String, String, String, String)
+
+// satisfied_art298_sec3_2_no_contact_kitchen_gesture_not_molestation: 증명 가능한 평가에서 다음 조건이 충족됨: 중국음식점 주방장이 주방에서 여성 피해자에게 성기 모양을 손으로 만들고 반바지를 벌리며 보여주겠다고 말한 경우에는 신체 접촉 없는 강제추행이 인정되지 않은 사례가 소개되어 있다.
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_kitchen_gesture_not_molestation
+type satisfied_art298_sec3_2_no_contact_kitchen_gesture_not_molestation(String, String, String)
+
+// assess_art298_sec3_2_no_contact_minor_elevator_exposure: 이 카드의 사건별 적용 평가: 아파트 엘리베이터에서 13세 미만 피해자에게 성기를 꺼내 잡고 움직이며 피해자 쪽으로 다가간 경우, 신체 접촉 없이도 강제추행이 인정된 사례가 소개되어 있다.
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_minor_elevator_exposure
+type assess_art298_sec3_2_no_contact_minor_elevator_exposure(String, String, String, String, String)
+
+// satisfied_art298_sec3_2_no_contact_minor_elevator_exposure: 증명 가능한 평가에서 다음 조건이 충족됨: 아파트 엘리베이터에서 13세 미만 피해자에게 성기를 꺼내 잡고 움직이며 피해자 쪽으로 다가간 경우, 신체 접촉 없이도 강제추행이 인정된 사례가 소개되어 있다.
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_minor_elevator_exposure
+type satisfied_art298_sec3_2_no_contact_minor_elevator_exposure(String, String, String)
+
+// assess_art298_sec3_2_no_contact_urination_toward_victim: 이 카드의 사건별 적용 평가: 피해자 뒤로 다가가 성기를 드러낸 뒤 피해자를 향한 자세에서 피해자의 머리카락 및 옷 위에 소변을 본 경우, 신체 접촉 없이도 강제추행이 인정된 사례가 소개되어 있다.
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_urination_toward_victim
+type assess_art298_sec3_2_no_contact_urination_toward_victim(String, String, String, String, String)
+
+// satisfied_art298_sec3_2_no_contact_urination_toward_victim: 증명 가능한 평가에서 다음 조건이 충족됨: 피해자 뒤로 다가가 성기를 드러낸 뒤 피해자를 향한 자세에서 피해자의 머리카락 및 옷 위에 소변을 본 경우, 신체 접촉 없이도 강제추행이 인정된 사례가 소개되어 있다.
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_urination_toward_victim
+type satisfied_art298_sec3_2_no_contact_urination_toward_victim(String, String, String)
+
+// assess_art298_sec3_2_recent_precedent_nonsexual_sensitive_contact: 이 카드의 사건별 적용 평가: 최근 판례는 추행을 성적으로 민감한 부위 접촉에 한정하지 않고, 성희롱적 언사와의 결합, 피해자의 거부의사 표시, 위력관계 등을 고려하여 신체 부위와 관계없이 성적 자기결정권 침해 여부를 판단하는 경향이 소개되어 있다.
+// sources: comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11
+// norm_cards: art298_sec3_2.recent_precedent_nonsexual_sensitive_contact
+type assess_art298_sec3_2_recent_precedent_nonsexual_sensitive_contact(String, String, String, String, String)
+
+// satisfied_art298_sec3_2_recent_precedent_nonsexual_sensitive_contact: 증명 가능한 평가에서 다음 조건이 충족됨: 최근 판례는 추행을 성적으로 민감한 부위 접촉에 한정하지 않고, 성희롱적 언사와의 결합, 피해자의 거부의사 표시, 위력관계 등을 고려하여 신체 부위와 관계없이 성적 자기결정권 침해 여부를 판단하는 경향이 소개되어 있다.
+// sources: comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11
+// norm_cards: art298_sec3_2.recent_precedent_nonsexual_sensitive_contact
+type satisfied_art298_sec3_2_recent_precedent_nonsexual_sensitive_contact(String, String, String)
+
+// assess_art298_sec3_2_toddler_hand_contact_not_molestation: 이 카드의 사건별 적용 평가: 2세 피해자에게 사탕을 건네며 악수하자고 하여 양손으로 피해자의 손을 잡고, 어머니가 손을 빼내는 과정에서 피고인의 손이 옷 위로 피해자 몸에 잠시 닿은 경우에는 추행을 인정하지 않았다는 판례 사례가 소개되어 있다.
+// sources: comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11
+// norm_cards: art298_sec3_2.toddler_hand_contact_not_molestation
+type assess_art298_sec3_2_toddler_hand_contact_not_molestation(String, String, String, String, String)
+
+// satisfied_art298_sec3_2_toddler_hand_contact_not_molestation: 증명 가능한 평가에서 다음 조건이 충족됨: 2세 피해자에게 사탕을 건네며 악수하자고 하여 양손으로 피해자의 손을 잡고, 어머니가 손을 빼내는 과정에서 피고인의 손이 옷 위로 피해자 몸에 잠시 닿은 경우에는 추행을 인정하지 않았다는 판례 사례가 소개되어 있다.
+// sources: comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11
+// norm_cards: art298_sec3_2.toddler_hand_contact_not_molestation
+type satisfied_art298_sec3_2_toddler_hand_contact_not_molestation(String, String, String)
+
+// assess_art298_sec3_2_victim_actual_awareness_not_required: 이 카드의 사건별 적용 평가: 추행행위는 행위자가 대상자를 상대로 객관적으로 성적 수치심 또는 혐오감을 일으킬 만하고 선량한 성적 도덕관념에 반하는 행위를 실행하면 충분하며, 대상자가 실제로 이를 느끼거나 행위사실을 인식할 필요는 없다.
+// sources: comm_001692_제298조_Ⅲ.2_9
+// norm_cards: art298_sec3_2.victim_actual_awareness_not_required
+type assess_art298_sec3_2_victim_actual_awareness_not_required(String, String, String, String, String)
+
+// satisfied_art298_sec3_2_victim_actual_awareness_not_required: 증명 가능한 평가에서 다음 조건이 충족됨: 추행행위는 행위자가 대상자를 상대로 객관적으로 성적 수치심 또는 혐오감을 일으킬 만하고 선량한 성적 도덕관념에 반하는 행위를 실행하면 충분하며, 대상자가 실제로 이를 느끼거나 행위사실을 인식할 필요는 없다.
+// sources: comm_001692_제298조_Ⅲ.2_9
+// norm_cards: art298_sec3_2.victim_actual_awareness_not_required
+type satisfied_art298_sec3_2_victim_actual_awareness_not_required(String, String, String)
+
+// assess_art298_sec3_3_attempt_commencement: 이 카드의 사건별 적용 평가: 강제추행의 실행 착수는 강제추행 수단인 폭행·협박이 개시된 때에, 기습추행의 경우에는 상대방 의사에 반하는 유형력 행사가 있는 때에 인정된다.
+// sources: comm_001692_제298조_Ⅲ.3_14
+// norm_cards: art298_sec3_3.attempt_commencement
+type assess_art298_sec3_3_attempt_commencement(String, String, String, String, String)
+
+// satisfied_art298_sec3_3_attempt_commencement: 증명 가능한 평가에서 다음 조건이 충족됨: 강제추행의 실행 착수는 강제추행 수단인 폭행·협박이 개시된 때에, 기습추행의 경우에는 상대방 의사에 반하는 유형력 행사가 있는 때에 인정된다.
+// sources: comm_001692_제298조_Ⅲ.3_14
+// norm_cards: art298_sec3_3.attempt_commencement
+type satisfied_art298_sec3_3_attempt_commencement(String, String, String)
+
+// assess_art298_sec3_3_surprise_assault_attempt_hugging: 이 카드의 사건별 적용 평가: 피고인의 팔이 피해자의 몸에 닿지 않았더라도 양팔을 높이 들어 갑자기 뒤에서 껴안으려는 행위는 피해자의 의사에 반하는 유형력 행사로서 폭행행위에 해당하고, 그때 기습추행에 관한 실행의 착수가 있어 강제추행미수죄에 해당한다는 사례가 소개되어 있다.
+// sources: comm_001692_제298조_Ⅲ.3_14
+// norm_cards: art298_sec3_3.surprise_assault_attempt_hugging
+type assess_art298_sec3_3_surprise_assault_attempt_hugging(String, String, String, String, String)
+
+// satisfied_art298_sec3_3_surprise_assault_attempt_hugging: 증명 가능한 평가에서 다음 조건이 충족됨: 피고인의 팔이 피해자의 몸에 닿지 않았더라도 양팔을 높이 들어 갑자기 뒤에서 껴안으려는 행위는 피해자의 의사에 반하는 유형력 행사로서 폭행행위에 해당하고, 그때 기습추행에 관한 실행의 착수가 있어 강제추행미수죄에 해당한다는 사례가 소개되어 있다.
+// sources: comm_001692_제298조_Ⅲ.3_14
+// norm_cards: art298_sec3_3.surprise_assault_attempt_hugging
+type satisfied_art298_sec3_3_surprise_assault_attempt_hugging(String, String, String)
+
+// assess_art298_sec4_intent_awareness_conditional: 이 카드의 사건별 적용 평가: 강제추행죄의 고의는 폭행 또는 협박으로 사람을 추행한다는 인식이며, 미필적 고의로도 충분하다.
+// sources: comm_001692_제298조_Ⅳ_15
+// norm_cards: art298_sec4.intent_awareness_conditional
+type assess_art298_sec4_intent_awareness_conditional(String, String, String, String, String)
+
+// satisfied_art298_sec4_intent_awareness_conditional: 증명 가능한 평가에서 다음 조건이 충족됨: 강제추행죄의 고의는 폭행 또는 협박으로 사람을 추행한다는 인식이며, 미필적 고의로도 충분하다.
+// sources: comm_001692_제298조_Ⅳ_15
+// norm_cards: art298_sec4.intent_awareness_conditional
+type satisfied_art298_sec4_intent_awareness_conditional(String, String, String)
+
+// assess_art298_sec5_consent_after_violence_attempt: 이 카드의 사건별 적용 평가: 강제추행을 위한 폭행·협박 착수 후 피해자가 자유롭고 진정한 의사로 동의한 경우 강제추행미수죄가 성립할 수 있으나, 동의가 폭행·협박으로 강요된 것인지 신중히 판단해야 한다.
+// sources: comm_001692_제298조_Ⅴ_16
+// norm_cards: art298_sec5.consent_after_violence_attempt
+type assess_art298_sec5_consent_after_violence_attempt(String, String, String, String, String)
+
+// satisfied_art298_sec5_consent_after_violence_attempt: 증명 가능한 평가에서 다음 조건이 충족됨: 강제추행을 위한 폭행·협박 착수 후 피해자가 자유롭고 진정한 의사로 동의한 경우 강제추행미수죄가 성립할 수 있으나, 동의가 폭행·협박으로 강요된 것인지 신중히 판단해야 한다.
+// sources: comm_001692_제298조_Ⅴ_16
+// norm_cards: art298_sec5.consent_after_violence_attempt
+type satisfied_art298_sec5_consent_after_violence_attempt(String, String, String)
+
+// assess_art298_sec5_revoked_consent: 이 카드의 사건별 적용 평가: 피해자가 사전에 신체접촉 등을 승낙하였더라도 동의를 번복할 수 있으며, 승낙을 번복한 경우에는 승낙이 있다고 볼 수 없다.
+// sources: comm_001692_제298조_Ⅴ_16
+// norm_cards: art298_sec5.revoked_consent
+type assess_art298_sec5_revoked_consent(String, String, String, String, String)
+
+// satisfied_art298_sec5_revoked_consent: 증명 가능한 평가에서 다음 조건이 충족됨: 피해자가 사전에 신체접촉 등을 승낙하였더라도 동의를 번복할 수 있으며, 승낙을 번복한 경우에는 승낙이 있다고 볼 수 없다.
+// sources: comm_001692_제298조_Ⅴ_16
+// norm_cards: art298_sec5.revoked_consent
+type satisfied_art298_sec5_revoked_consent(String, String, String)
+
+// assess_art298_sec6_multiple_acts_comprehensive_offense: 이 카드의 사건별 적용 평가: 원칙적으로 각 추행행위마다 하나의 범죄가 성립하지만, 각 행위가 시간적·장소적으로 가깝고 범의의 단일성과 계속성이 인정되면 포괄일죄가 성립한다.
+// sources: comm_001692_제298조_Ⅵ_17
+// norm_cards: art298_sec6.multiple_acts_comprehensive_offense
+type assess_art298_sec6_multiple_acts_comprehensive_offense(String, String, String, String, String)
+
+// satisfied_art298_sec6_multiple_acts_comprehensive_offense: 증명 가능한 평가에서 다음 조건이 충족됨: 원칙적으로 각 추행행위마다 하나의 범죄가 성립하지만, 각 행위가 시간적·장소적으로 가깝고 범의의 단일성과 계속성이 인정되면 포괄일죄가 성립한다.
+// sources: comm_001692_제298조_Ⅵ_17
+// norm_cards: art298_sec6.multiple_acts_comprehensive_offense
+type satisfied_art298_sec6_multiple_acts_comprehensive_offense(String, String, String)
+
+// assess_art298_sec6_multiple_victims_multiple_offenses: 이 카드의 사건별 적용 평가: 피해자가 여러 명이면 동일 장소에서 동일한 폭행·협박에 의한 경우라도 피해자별로 수개의 죄가 성립한다.
+// sources: comm_001692_제298조_Ⅵ_17
+// norm_cards: art298_sec6.multiple_victims_multiple_offenses
+type assess_art298_sec6_multiple_victims_multiple_offenses(String, String, String, String, String)
+
+// satisfied_art298_sec6_multiple_victims_multiple_offenses: 증명 가능한 평가에서 다음 조건이 충족됨: 피해자가 여러 명이면 동일 장소에서 동일한 폭행·협박에 의한 경우라도 피해자별로 수개의 죄가 성립한다.
+// sources: comm_001692_제298조_Ⅵ_17
+// norm_cards: art298_sec6.multiple_victims_multiple_offenses
+type satisfied_art298_sec6_multiple_victims_multiple_offenses(String, String, String)
+
+// assess_art298_sec8_forced_undressing_camera_concurrence: 이 카드의 사건별 적용 평가: 피해자를 강제로 옷 벗겨 나체가 되게 한 다음 카메라로 촬영한 행위에는 강제추행죄와 카메라 등을 이용한 촬영죄의 실체적 경합범이 성립한다.
+// sources: comm_001692_제298조_Ⅷ_19
+// norm_cards: art298_sec8.forced_undressing_camera_concurrence
+type assess_art298_sec8_forced_undressing_camera_concurrence(String, String, String, String, String)
+
+// satisfied_art298_sec8_forced_undressing_camera_concurrence: 증명 가능한 평가에서 다음 조건이 충족됨: 피해자를 강제로 옷 벗겨 나체가 되게 한 다음 카메라로 촬영한 행위에는 강제추행죄와 카메라 등을 이용한 촬영죄의 실체적 경합범이 성립한다.
+// sources: comm_001692_제298조_Ⅷ_19
+// norm_cards: art298_sec8.forced_undressing_camera_concurrence
+type satisfied_art298_sec8_forced_undressing_camera_concurrence(String, String, String)
+
+// assess_art298_sec8_forcible_indecency_followed_by_rape: 이 카드의 사건별 적용 평가: 동일 피해자에 대해 강제로 추행한 뒤 이어 강간한 경우에는 포괄하여 강간죄만 성립한다.
+// sources: comm_001692_제298조_Ⅷ_19
+// norm_cards: art298_sec8.forcible_indecency_followed_by_rape
+type assess_art298_sec8_forcible_indecency_followed_by_rape(String, String, String, String, String)
+
+// satisfied_art298_sec8_forcible_indecency_followed_by_rape: 증명 가능한 평가에서 다음 조건이 충족됨: 동일 피해자에 대해 강제로 추행한 뒤 이어 강간한 경우에는 포괄하여 강간죄만 성립한다.
+// sources: comm_001692_제298조_Ⅷ_19
+// norm_cards: art298_sec8.forcible_indecency_followed_by_rape
+type satisfied_art298_sec8_forcible_indecency_followed_by_rape(String, String, String)
+
+// assess_art298_sec8_special_forcible_indecency: 이 카드의 사건별 적용 평가: 흉기 기타 위험한 물건을 지니거나 2인 이상이 합동하여 강제추행한 경우에는 강제추행죄가 아니라 특수강제추행죄가 성립하여 가중처벌된다.
+// sources: comm_001692_제298조_Ⅷ_19
+// norm_cards: art298_sec8.special_forcible_indecency
+type assess_art298_sec8_special_forcible_indecency(String, String, String, String, String)
+
+// satisfied_art298_sec8_special_forcible_indecency: 증명 가능한 평가에서 다음 조건이 충족됨: 흉기 기타 위험한 물건을 지니거나 2인 이상이 합동하여 강제추행한 경우에는 강제추행죄가 아니라 특수강제추행죄가 성립하여 가중처벌된다.
+// sources: comm_001692_제298조_Ⅷ_19
+// norm_cards: art298_sec8.special_forcible_indecency
+type satisfied_art298_sec8_special_forcible_indecency(String, String, String)
+
+// indecent_assault_base_coercive_means_satisfied: 'coercive_means' 요건이 충족됨 (base track, alternative_any)
+// sources: comm_001692_제298조_Ⅲ.1_5, comm_001692_제298조_Ⅲ.1_6, comm_001692_제298조_Ⅴ_16
+// norm_cards: art298_sec3_1.force_threat_totality_assessment, art298_sec3_1.surprise_molestation_physical_force, art298_sec5.revoked_consent
+type indecent_assault_base_coercive_means_satisfied(String, String, String)
+
+// indecent_assault_base_conduct_satisfied: 'conduct' 요건이 충족됨 (base track, alternative_any)
+// sources: comm_001692_제298조_Ⅱ_1, comm_001692_제298조_Ⅰ_0, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_13
+// norm_cards: art298.indirect_perpetration.victim_as_instrument, art298.offense_conduct, art298_sec3_2.indirect_perpetration, art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts
+type indecent_assault_base_conduct_satisfied(String, String, String)
+
+// indecent_assault_base_indecent_act_satisfied: 'indecent_act' 요건이 충족됨 (base track, alternative_any)
+// sources: comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_9
+// norm_cards: art298_sec3_2.indecent_act_comprehensive_assessment, art298_sec3_2.indecent_act_definition, art298_sec3_2.indecent_act_no_body_part_distinction, art298_sec3_2.no_contact_assessment_factors, art298_sec3_2.no_contact_elevator_threat_masturbation, art298_sec3_2.no_contact_equivalent_infringement, art298_sec3_2.no_contact_minor_elevator_exposure, art298_sec3_2.no_contact_urination_toward_victim, art298_sec3_2.recent_precedent_nonsexual_sensitive_contact, art298_sec3_2.victim_actual_awareness_not_required
+type indecent_assault_base_indecent_act_satisfied(String, String, String)
+
+// indecent_assault_base_intent_satisfied: 'intent' 요건이 충족됨 (base track, mandatory_all)
+// sources: comm_001692_제298조_Ⅳ_15
+// norm_cards: art298_sec4.intent_awareness_conditional
+type indecent_assault_base_intent_satisfied(String, String, String)
+
+// indecent_assault_base_object_scope_satisfied: 'object_scope' 요건이 충족됨 (base track, mandatory_all)
+// sources: comm_001692_제298조_Ⅱ_1
+// norm_cards: art298.object.person
+type indecent_assault_base_object_scope_satisfied(String, String, String)
+
+// indecent_assault_has_negative: 이 unit에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type indecent_assault_has_negative(String, String)
+
+// indecent_assault_has_conflict: 이 unit에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type indecent_assault_has_conflict(String, String)
+
+// indecent_assault_base_elements_satisfied: 'base' track의 구성요건 component가 모두 충족된 잠정 성립 후보
+// sources: system contract
+// norm_cards: system contract
+type indecent_assault_base_elements_satisfied(String, String, String)
+
+// indecent_assault_base_established: 완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 'base' track 확정 성립
+// sources: system contract
+// norm_cards: system contract
+type indecent_assault_base_established(String, String, String)
+
+// rule_id: indecent_assault.card.art298_indirect_perpetration_victim_as_instrument.satisfied
+// sources: comm_001692_제298조_Ⅱ_1
+// norm_cards: art298.indirect_perpetration.victim_as_instrument
+rel satisfied_art298_indirect_perpetration_victim_as_instrument(case_id, defendant_id, victim_id) = assess_art298_indirect_perpetration_victim_as_instrument(case_id, assessment_001, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_001)
+
+// rule_id: indecent_assault.card.art298_indirect_perpetration_victim_as_instrument.undetermined
+// sources: comm_001692_제298조_Ⅱ_1
+// norm_cards: art298.indirect_perpetration.victim_as_instrument
+rel indecent_assault_undetermined(case_id, defendant_id, "art298.indirect_perpetration.victim_as_instrument") = assess_art298_indirect_perpetration_victim_as_instrument(case_id, unknown_001, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_001)
+
+// rule_id: indecent_assault.card.art298_indirect_perpetration_victim_as_instrument.conflict
+// sources: comm_001692_제298조_Ⅱ_1
+// norm_cards: art298.indirect_perpetration.victim_as_instrument
+rel indecent_assault_conflict(case_id, defendant_id, "art298.indirect_perpetration.victim_as_instrument") = assess_art298_indirect_perpetration_victim_as_instrument(case_id, positive_001, defendant_id, victim_id, "satisfied") and
+  assess_art298_indirect_perpetration_victim_as_instrument(case_id, negative_001, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_001) and
+  provable(case_id, negative_001)
+
+// rule_id: indecent_assault.card.art298_object_person.satisfied
+// sources: comm_001692_제298조_Ⅱ_1
+// norm_cards: art298.object.person
+rel satisfied_art298_object_person(case_id, defendant_id, victim_id) = assess_art298_object_person(case_id, assessment_002, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_002)
+
+// rule_id: indecent_assault.card.art298_object_person.undetermined
+// sources: comm_001692_제298조_Ⅱ_1
+// norm_cards: art298.object.person
+rel indecent_assault_undetermined(case_id, defendant_id, "art298.object.person") = assess_art298_object_person(case_id, unknown_002, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_002)
+
+// rule_id: indecent_assault.card.art298_object_person.conflict
+// sources: comm_001692_제298조_Ⅱ_1
+// norm_cards: art298.object.person
+rel indecent_assault_conflict(case_id, defendant_id, "art298.object.person") = assess_art298_object_person(case_id, positive_002, defendant_id, victim_id, "satisfied") and
+  assess_art298_object_person(case_id, negative_002, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_002) and
+  provable(case_id, negative_002)
+
+// rule_id: indecent_assault.card.art298_offense_conduct.satisfied
+// sources: comm_001692_제298조_Ⅰ_0
+// norm_cards: art298.offense_conduct
+rel satisfied_art298_offense_conduct(case_id, defendant_id, victim_id) = assess_art298_offense_conduct(case_id, assessment_003, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_003)
+
+// rule_id: indecent_assault.card.art298_offense_conduct.undetermined
+// sources: comm_001692_제298조_Ⅰ_0
+// norm_cards: art298.offense_conduct
+rel indecent_assault_undetermined(case_id, defendant_id, "art298.offense_conduct") = assess_art298_offense_conduct(case_id, unknown_003, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_003)
+
+// rule_id: indecent_assault.card.art298_offense_conduct.conflict
+// sources: comm_001692_제298조_Ⅰ_0
+// norm_cards: art298.offense_conduct
+rel indecent_assault_conflict(case_id, defendant_id, "art298.offense_conduct") = assess_art298_offense_conduct(case_id, positive_003, defendant_id, victim_id, "satisfied") and
+  assess_art298_offense_conduct(case_id, negative_003, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_003) and
+  provable(case_id, negative_003)
+
+// rule_id: indecent_assault.card.art298_sec3_1_force_threat_totality_assessment.satisfied
+// sources: comm_001692_제298조_Ⅲ.1_5
+// norm_cards: art298_sec3_1.force_threat_totality_assessment
+rel satisfied_art298_sec3_1_force_threat_totality_assessment(case_id, defendant_id, victim_id) = assess_art298_sec3_1_force_threat_totality_assessment(case_id, assessment_004, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_004)
+
+// rule_id: indecent_assault.card.art298_sec3_1_force_threat_totality_assessment.undetermined
+// sources: comm_001692_제298조_Ⅲ.1_5
+// norm_cards: art298_sec3_1.force_threat_totality_assessment
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec3_1.force_threat_totality_assessment") = assess_art298_sec3_1_force_threat_totality_assessment(case_id, unknown_004, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_004)
+
+// rule_id: indecent_assault.card.art298_sec3_1_force_threat_totality_assessment.conflict
+// sources: comm_001692_제298조_Ⅲ.1_5
+// norm_cards: art298_sec3_1.force_threat_totality_assessment
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec3_1.force_threat_totality_assessment") = assess_art298_sec3_1_force_threat_totality_assessment(case_id, positive_004, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec3_1_force_threat_totality_assessment(case_id, negative_004, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_004) and
+  provable(case_id, negative_004)
+
+// rule_id: indecent_assault.card.art298_sec3_1_surprise_molestation_physical_force.satisfied
+// sources: comm_001692_제298조_Ⅲ.1_6
+// norm_cards: art298_sec3_1.surprise_molestation_physical_force
+rel satisfied_art298_sec3_1_surprise_molestation_physical_force(case_id, defendant_id, victim_id) = assess_art298_sec3_1_surprise_molestation_physical_force(case_id, assessment_005, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_005)
+
+// rule_id: indecent_assault.card.art298_sec3_1_surprise_molestation_physical_force.undetermined
+// sources: comm_001692_제298조_Ⅲ.1_6
+// norm_cards: art298_sec3_1.surprise_molestation_physical_force
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec3_1.surprise_molestation_physical_force") = assess_art298_sec3_1_surprise_molestation_physical_force(case_id, unknown_005, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_005)
+
+// rule_id: indecent_assault.card.art298_sec3_1_surprise_molestation_physical_force.conflict
+// sources: comm_001692_제298조_Ⅲ.1_6
+// norm_cards: art298_sec3_1.surprise_molestation_physical_force
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec3_1.surprise_molestation_physical_force") = assess_art298_sec3_1_surprise_molestation_physical_force(case_id, positive_005, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec3_1_surprise_molestation_physical_force(case_id, negative_005, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_005) and
+  provable(case_id, negative_005)
+
+// rule_id: indecent_assault.card.art298_sec3_2_indecent_act_comprehensive_assessment.satisfied
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_comprehensive_assessment
+rel satisfied_art298_sec3_2_indecent_act_comprehensive_assessment(case_id, defendant_id, victim_id) = assess_art298_sec3_2_indecent_act_comprehensive_assessment(case_id, assessment_006, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_006)
+
+// rule_id: indecent_assault.card.art298_sec3_2_indecent_act_comprehensive_assessment.undetermined
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_comprehensive_assessment
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec3_2.indecent_act_comprehensive_assessment") = assess_art298_sec3_2_indecent_act_comprehensive_assessment(case_id, unknown_006, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_006)
+
+// rule_id: indecent_assault.card.art298_sec3_2_indecent_act_comprehensive_assessment.conflict
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_comprehensive_assessment
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.indecent_act_comprehensive_assessment") = assess_art298_sec3_2_indecent_act_comprehensive_assessment(case_id, positive_006, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec3_2_indecent_act_comprehensive_assessment(case_id, negative_006, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_006) and
+  provable(case_id, negative_006)
+
+// rule_id: indecent_assault.card.art298_sec3_2_indecent_act_definition.satisfied
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_definition
+rel satisfied_art298_sec3_2_indecent_act_definition(case_id, defendant_id, victim_id) = assess_art298_sec3_2_indecent_act_definition(case_id, assessment_007, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_007)
+
+// rule_id: indecent_assault.card.art298_sec3_2_indecent_act_definition.undetermined
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_definition
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec3_2.indecent_act_definition") = assess_art298_sec3_2_indecent_act_definition(case_id, unknown_007, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_007)
+
+// rule_id: indecent_assault.card.art298_sec3_2_indecent_act_definition.conflict
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_definition
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.indecent_act_definition") = assess_art298_sec3_2_indecent_act_definition(case_id, positive_007, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec3_2_indecent_act_definition(case_id, negative_007, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_007) and
+  provable(case_id, negative_007)
+
+// rule_id: indecent_assault.card.art298_sec3_2_indecent_act_no_body_part_distinction.satisfied
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_no_body_part_distinction
+rel satisfied_art298_sec3_2_indecent_act_no_body_part_distinction(case_id, defendant_id, victim_id) = assess_art298_sec3_2_indecent_act_no_body_part_distinction(case_id, assessment_008, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_008)
+
+// rule_id: indecent_assault.card.art298_sec3_2_indecent_act_no_body_part_distinction.undetermined
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_no_body_part_distinction
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec3_2.indecent_act_no_body_part_distinction") = assess_art298_sec3_2_indecent_act_no_body_part_distinction(case_id, unknown_008, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_008)
+
+// rule_id: indecent_assault.card.art298_sec3_2_indecent_act_no_body_part_distinction.conflict
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_no_body_part_distinction
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.indecent_act_no_body_part_distinction") = assess_art298_sec3_2_indecent_act_no_body_part_distinction(case_id, positive_008, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec3_2_indecent_act_no_body_part_distinction(case_id, negative_008, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_008) and
+  provable(case_id, negative_008)
+
+// rule_id: indecent_assault.card.art298_sec3_2_indirect_perpetration.satisfied
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.indirect_perpetration
+rel satisfied_art298_sec3_2_indirect_perpetration(case_id, defendant_id, victim_id) = assess_art298_sec3_2_indirect_perpetration(case_id, assessment_009, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_009)
+
+// rule_id: indecent_assault.card.art298_sec3_2_indirect_perpetration.undetermined
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.indirect_perpetration
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec3_2.indirect_perpetration") = assess_art298_sec3_2_indirect_perpetration(case_id, unknown_009, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_009)
+
+// rule_id: indecent_assault.card.art298_sec3_2_indirect_perpetration.conflict
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.indirect_perpetration
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.indirect_perpetration") = assess_art298_sec3_2_indirect_perpetration(case_id, positive_009, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec3_2_indirect_perpetration(case_id, negative_009, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_009) and
+  provable(case_id, negative_009)
+
+// rule_id: indecent_assault.card.art298_sec3_2_indirect_perpetration_coerced_self_sexual_acts.satisfied
+// sources: comm_001692_제298조_Ⅲ.2_13
+// norm_cards: art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts
+rel satisfied_art298_sec3_2_indirect_perpetration_coerced_self_sexual_acts(case_id, defendant_id, victim_id) = assess_art298_sec3_2_indirect_perpetration_coerced_self_sexual_acts(case_id, assessment_010, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_010)
+
+// rule_id: indecent_assault.card.art298_sec3_2_indirect_perpetration_coerced_self_sexual_acts.undetermined
+// sources: comm_001692_제298조_Ⅲ.2_13
+// norm_cards: art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts") = assess_art298_sec3_2_indirect_perpetration_coerced_self_sexual_acts(case_id, unknown_010, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_010)
+
+// rule_id: indecent_assault.card.art298_sec3_2_indirect_perpetration_coerced_self_sexual_acts.conflict
+// sources: comm_001692_제298조_Ⅲ.2_13
+// norm_cards: art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts") = assess_art298_sec3_2_indirect_perpetration_coerced_self_sexual_acts(case_id, positive_010, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec3_2_indirect_perpetration_coerced_self_sexual_acts(case_id, negative_010, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_010) and
+  provable(case_id, negative_010)
+
+// rule_id: indecent_assault.card.art298_sec3_2_no_contact_assessment_factors.satisfied
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_assessment_factors
+rel satisfied_art298_sec3_2_no_contact_assessment_factors(case_id, defendant_id, victim_id) = assess_art298_sec3_2_no_contact_assessment_factors(case_id, assessment_011, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_011)
+
+// rule_id: indecent_assault.card.art298_sec3_2_no_contact_assessment_factors.undetermined
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_assessment_factors
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec3_2.no_contact_assessment_factors") = assess_art298_sec3_2_no_contact_assessment_factors(case_id, unknown_011, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_011)
+
+// rule_id: indecent_assault.card.art298_sec3_2_no_contact_assessment_factors.conflict
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_assessment_factors
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.no_contact_assessment_factors") = assess_art298_sec3_2_no_contact_assessment_factors(case_id, positive_011, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec3_2_no_contact_assessment_factors(case_id, negative_011, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_011) and
+  provable(case_id, negative_011)
+
+// rule_id: indecent_assault.card.art298_sec3_2_no_contact_elevator_threat_masturbation.satisfied
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_elevator_threat_masturbation
+rel satisfied_art298_sec3_2_no_contact_elevator_threat_masturbation(case_id, defendant_id, victim_id) = assess_art298_sec3_2_no_contact_elevator_threat_masturbation(case_id, assessment_012, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_012)
+
+// rule_id: indecent_assault.card.art298_sec3_2_no_contact_elevator_threat_masturbation.undetermined
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_elevator_threat_masturbation
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec3_2.no_contact_elevator_threat_masturbation") = assess_art298_sec3_2_no_contact_elevator_threat_masturbation(case_id, unknown_012, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_012)
+
+// rule_id: indecent_assault.card.art298_sec3_2_no_contact_elevator_threat_masturbation.conflict
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_elevator_threat_masturbation
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.no_contact_elevator_threat_masturbation") = assess_art298_sec3_2_no_contact_elevator_threat_masturbation(case_id, positive_012, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec3_2_no_contact_elevator_threat_masturbation(case_id, negative_012, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_012) and
+  provable(case_id, negative_012)
+
+// rule_id: indecent_assault.card.art298_sec3_2_no_contact_equivalent_infringement.satisfied
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_equivalent_infringement
+rel satisfied_art298_sec3_2_no_contact_equivalent_infringement(case_id, defendant_id, victim_id) = assess_art298_sec3_2_no_contact_equivalent_infringement(case_id, assessment_013, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_013)
+
+// rule_id: indecent_assault.card.art298_sec3_2_no_contact_equivalent_infringement.undetermined
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_equivalent_infringement
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec3_2.no_contact_equivalent_infringement") = assess_art298_sec3_2_no_contact_equivalent_infringement(case_id, unknown_013, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_013)
+
+// rule_id: indecent_assault.card.art298_sec3_2_no_contact_equivalent_infringement.conflict
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_equivalent_infringement
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.no_contact_equivalent_infringement") = assess_art298_sec3_2_no_contact_equivalent_infringement(case_id, positive_013, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec3_2_no_contact_equivalent_infringement(case_id, negative_013, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_013) and
+  provable(case_id, negative_013)
+
+// rule_id: indecent_assault.card.art298_sec3_2_no_contact_kitchen_gesture_not_molestation.satisfied
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_kitchen_gesture_not_molestation
+rel satisfied_art298_sec3_2_no_contact_kitchen_gesture_not_molestation(case_id, defendant_id, victim_id) = assess_art298_sec3_2_no_contact_kitchen_gesture_not_molestation(case_id, assessment_014, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_014)
+
+// rule_id: indecent_assault.card.art298_sec3_2_no_contact_kitchen_gesture_not_molestation.undetermined
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_kitchen_gesture_not_molestation
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec3_2.no_contact_kitchen_gesture_not_molestation") = assess_art298_sec3_2_no_contact_kitchen_gesture_not_molestation(case_id, unknown_014, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_014)
+
+// rule_id: indecent_assault.card.art298_sec3_2_no_contact_kitchen_gesture_not_molestation.conflict
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_kitchen_gesture_not_molestation
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.no_contact_kitchen_gesture_not_molestation") = assess_art298_sec3_2_no_contact_kitchen_gesture_not_molestation(case_id, positive_014, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec3_2_no_contact_kitchen_gesture_not_molestation(case_id, negative_014, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_014) and
+  provable(case_id, negative_014)
+
+// rule_id: indecent_assault.card.art298_sec3_2_no_contact_minor_elevator_exposure.satisfied
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_minor_elevator_exposure
+rel satisfied_art298_sec3_2_no_contact_minor_elevator_exposure(case_id, defendant_id, victim_id) = assess_art298_sec3_2_no_contact_minor_elevator_exposure(case_id, assessment_015, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_015)
+
+// rule_id: indecent_assault.card.art298_sec3_2_no_contact_minor_elevator_exposure.undetermined
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_minor_elevator_exposure
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec3_2.no_contact_minor_elevator_exposure") = assess_art298_sec3_2_no_contact_minor_elevator_exposure(case_id, unknown_015, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_015)
+
+// rule_id: indecent_assault.card.art298_sec3_2_no_contact_minor_elevator_exposure.conflict
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_minor_elevator_exposure
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.no_contact_minor_elevator_exposure") = assess_art298_sec3_2_no_contact_minor_elevator_exposure(case_id, positive_015, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec3_2_no_contact_minor_elevator_exposure(case_id, negative_015, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_015) and
+  provable(case_id, negative_015)
+
+// rule_id: indecent_assault.card.art298_sec3_2_no_contact_urination_toward_victim.satisfied
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_urination_toward_victim
+rel satisfied_art298_sec3_2_no_contact_urination_toward_victim(case_id, defendant_id, victim_id) = assess_art298_sec3_2_no_contact_urination_toward_victim(case_id, assessment_016, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_016)
+
+// rule_id: indecent_assault.card.art298_sec3_2_no_contact_urination_toward_victim.undetermined
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_urination_toward_victim
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec3_2.no_contact_urination_toward_victim") = assess_art298_sec3_2_no_contact_urination_toward_victim(case_id, unknown_016, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_016)
+
+// rule_id: indecent_assault.card.art298_sec3_2_no_contact_urination_toward_victim.conflict
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_urination_toward_victim
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.no_contact_urination_toward_victim") = assess_art298_sec3_2_no_contact_urination_toward_victim(case_id, positive_016, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec3_2_no_contact_urination_toward_victim(case_id, negative_016, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_016) and
+  provable(case_id, negative_016)
+
+// rule_id: indecent_assault.card.art298_sec3_2_recent_precedent_nonsexual_sensitive_contact.satisfied
+// sources: comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11
+// norm_cards: art298_sec3_2.recent_precedent_nonsexual_sensitive_contact
+rel satisfied_art298_sec3_2_recent_precedent_nonsexual_sensitive_contact(case_id, defendant_id, victim_id) = assess_art298_sec3_2_recent_precedent_nonsexual_sensitive_contact(case_id, assessment_017, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_017)
+
+// rule_id: indecent_assault.card.art298_sec3_2_recent_precedent_nonsexual_sensitive_contact.undetermined
+// sources: comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11
+// norm_cards: art298_sec3_2.recent_precedent_nonsexual_sensitive_contact
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec3_2.recent_precedent_nonsexual_sensitive_contact") = assess_art298_sec3_2_recent_precedent_nonsexual_sensitive_contact(case_id, unknown_017, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_017)
+
+// rule_id: indecent_assault.card.art298_sec3_2_recent_precedent_nonsexual_sensitive_contact.conflict
+// sources: comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11
+// norm_cards: art298_sec3_2.recent_precedent_nonsexual_sensitive_contact
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.recent_precedent_nonsexual_sensitive_contact") = assess_art298_sec3_2_recent_precedent_nonsexual_sensitive_contact(case_id, positive_017, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec3_2_recent_precedent_nonsexual_sensitive_contact(case_id, negative_017, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_017) and
+  provable(case_id, negative_017)
+
+// rule_id: indecent_assault.card.art298_sec3_2_toddler_hand_contact_not_molestation.satisfied
+// sources: comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11
+// norm_cards: art298_sec3_2.toddler_hand_contact_not_molestation
+rel satisfied_art298_sec3_2_toddler_hand_contact_not_molestation(case_id, defendant_id, victim_id) = assess_art298_sec3_2_toddler_hand_contact_not_molestation(case_id, assessment_018, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_018)
+
+// rule_id: indecent_assault.card.art298_sec3_2_toddler_hand_contact_not_molestation.undetermined
+// sources: comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11
+// norm_cards: art298_sec3_2.toddler_hand_contact_not_molestation
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec3_2.toddler_hand_contact_not_molestation") = assess_art298_sec3_2_toddler_hand_contact_not_molestation(case_id, unknown_018, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_018)
+
+// rule_id: indecent_assault.card.art298_sec3_2_toddler_hand_contact_not_molestation.conflict
+// sources: comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11
+// norm_cards: art298_sec3_2.toddler_hand_contact_not_molestation
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.toddler_hand_contact_not_molestation") = assess_art298_sec3_2_toddler_hand_contact_not_molestation(case_id, positive_018, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec3_2_toddler_hand_contact_not_molestation(case_id, negative_018, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_018) and
+  provable(case_id, negative_018)
+
+// rule_id: indecent_assault.card.art298_sec3_2_victim_actual_awareness_not_required.satisfied
+// sources: comm_001692_제298조_Ⅲ.2_9
+// norm_cards: art298_sec3_2.victim_actual_awareness_not_required
+rel satisfied_art298_sec3_2_victim_actual_awareness_not_required(case_id, defendant_id, victim_id) = assess_art298_sec3_2_victim_actual_awareness_not_required(case_id, assessment_019, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_019)
+
+// rule_id: indecent_assault.card.art298_sec3_2_victim_actual_awareness_not_required.undetermined
+// sources: comm_001692_제298조_Ⅲ.2_9
+// norm_cards: art298_sec3_2.victim_actual_awareness_not_required
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec3_2.victim_actual_awareness_not_required") = assess_art298_sec3_2_victim_actual_awareness_not_required(case_id, unknown_019, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_019)
+
+// rule_id: indecent_assault.card.art298_sec3_2_victim_actual_awareness_not_required.conflict
+// sources: comm_001692_제298조_Ⅲ.2_9
+// norm_cards: art298_sec3_2.victim_actual_awareness_not_required
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.victim_actual_awareness_not_required") = assess_art298_sec3_2_victim_actual_awareness_not_required(case_id, positive_019, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec3_2_victim_actual_awareness_not_required(case_id, negative_019, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_019) and
+  provable(case_id, negative_019)
+
+// rule_id: indecent_assault.card.art298_sec3_3_attempt_commencement.satisfied
+// sources: comm_001692_제298조_Ⅲ.3_14
+// norm_cards: art298_sec3_3.attempt_commencement
+rel satisfied_art298_sec3_3_attempt_commencement(case_id, defendant_id, victim_id) = assess_art298_sec3_3_attempt_commencement(case_id, assessment_020, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_020)
+
+// rule_id: indecent_assault.card.art298_sec3_3_attempt_commencement.undetermined
+// sources: comm_001692_제298조_Ⅲ.3_14
+// norm_cards: art298_sec3_3.attempt_commencement
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec3_3.attempt_commencement") = assess_art298_sec3_3_attempt_commencement(case_id, unknown_020, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_020)
+
+// rule_id: indecent_assault.card.art298_sec3_3_attempt_commencement.conflict
+// sources: comm_001692_제298조_Ⅲ.3_14
+// norm_cards: art298_sec3_3.attempt_commencement
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec3_3.attempt_commencement") = assess_art298_sec3_3_attempt_commencement(case_id, positive_020, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec3_3_attempt_commencement(case_id, negative_020, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_020) and
+  provable(case_id, negative_020)
+
+// rule_id: indecent_assault.card.art298_sec3_3_surprise_assault_attempt_hugging.satisfied
+// sources: comm_001692_제298조_Ⅲ.3_14
+// norm_cards: art298_sec3_3.surprise_assault_attempt_hugging
+rel satisfied_art298_sec3_3_surprise_assault_attempt_hugging(case_id, defendant_id, victim_id) = assess_art298_sec3_3_surprise_assault_attempt_hugging(case_id, assessment_021, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_021)
+
+// rule_id: indecent_assault.card.art298_sec3_3_surprise_assault_attempt_hugging.undetermined
+// sources: comm_001692_제298조_Ⅲ.3_14
+// norm_cards: art298_sec3_3.surprise_assault_attempt_hugging
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec3_3.surprise_assault_attempt_hugging") = assess_art298_sec3_3_surprise_assault_attempt_hugging(case_id, unknown_021, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_021)
+
+// rule_id: indecent_assault.card.art298_sec3_3_surprise_assault_attempt_hugging.conflict
+// sources: comm_001692_제298조_Ⅲ.3_14
+// norm_cards: art298_sec3_3.surprise_assault_attempt_hugging
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec3_3.surprise_assault_attempt_hugging") = assess_art298_sec3_3_surprise_assault_attempt_hugging(case_id, positive_021, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec3_3_surprise_assault_attempt_hugging(case_id, negative_021, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_021) and
+  provable(case_id, negative_021)
+
+// rule_id: indecent_assault.card.art298_sec4_intent_awareness_conditional.satisfied
+// sources: comm_001692_제298조_Ⅳ_15
+// norm_cards: art298_sec4.intent_awareness_conditional
+rel satisfied_art298_sec4_intent_awareness_conditional(case_id, defendant_id, victim_id) = assess_art298_sec4_intent_awareness_conditional(case_id, assessment_022, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_022)
+
+// rule_id: indecent_assault.card.art298_sec4_intent_awareness_conditional.undetermined
+// sources: comm_001692_제298조_Ⅳ_15
+// norm_cards: art298_sec4.intent_awareness_conditional
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec4.intent_awareness_conditional") = assess_art298_sec4_intent_awareness_conditional(case_id, unknown_022, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_022)
+
+// rule_id: indecent_assault.card.art298_sec4_intent_awareness_conditional.conflict
+// sources: comm_001692_제298조_Ⅳ_15
+// norm_cards: art298_sec4.intent_awareness_conditional
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec4.intent_awareness_conditional") = assess_art298_sec4_intent_awareness_conditional(case_id, positive_022, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec4_intent_awareness_conditional(case_id, negative_022, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_022) and
+  provable(case_id, negative_022)
+
+// rule_id: indecent_assault.card.art298_sec5_consent_after_violence_attempt.satisfied
+// sources: comm_001692_제298조_Ⅴ_16
+// norm_cards: art298_sec5.consent_after_violence_attempt
+rel satisfied_art298_sec5_consent_after_violence_attempt(case_id, defendant_id, victim_id) = assess_art298_sec5_consent_after_violence_attempt(case_id, assessment_023, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_023)
+
+// rule_id: indecent_assault.card.art298_sec5_consent_after_violence_attempt.undetermined
+// sources: comm_001692_제298조_Ⅴ_16
+// norm_cards: art298_sec5.consent_after_violence_attempt
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec5.consent_after_violence_attempt") = assess_art298_sec5_consent_after_violence_attempt(case_id, unknown_023, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_023)
+
+// rule_id: indecent_assault.card.art298_sec5_consent_after_violence_attempt.conflict
+// sources: comm_001692_제298조_Ⅴ_16
+// norm_cards: art298_sec5.consent_after_violence_attempt
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec5.consent_after_violence_attempt") = assess_art298_sec5_consent_after_violence_attempt(case_id, positive_023, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec5_consent_after_violence_attempt(case_id, negative_023, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_023) and
+  provable(case_id, negative_023)
+
+// rule_id: indecent_assault.card.art298_sec5_revoked_consent.satisfied
+// sources: comm_001692_제298조_Ⅴ_16
+// norm_cards: art298_sec5.revoked_consent
+rel satisfied_art298_sec5_revoked_consent(case_id, defendant_id, victim_id) = assess_art298_sec5_revoked_consent(case_id, assessment_024, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_024)
+
+// rule_id: indecent_assault.card.art298_sec5_revoked_consent.undetermined
+// sources: comm_001692_제298조_Ⅴ_16
+// norm_cards: art298_sec5.revoked_consent
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec5.revoked_consent") = assess_art298_sec5_revoked_consent(case_id, unknown_024, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_024)
+
+// rule_id: indecent_assault.card.art298_sec5_revoked_consent.conflict
+// sources: comm_001692_제298조_Ⅴ_16
+// norm_cards: art298_sec5.revoked_consent
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec5.revoked_consent") = assess_art298_sec5_revoked_consent(case_id, positive_024, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec5_revoked_consent(case_id, negative_024, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_024) and
+  provable(case_id, negative_024)
+
+// rule_id: indecent_assault.card.art298_sec6_multiple_acts_comprehensive_offense.satisfied
+// sources: comm_001692_제298조_Ⅵ_17
+// norm_cards: art298_sec6.multiple_acts_comprehensive_offense
+rel satisfied_art298_sec6_multiple_acts_comprehensive_offense(case_id, defendant_id, victim_id) = assess_art298_sec6_multiple_acts_comprehensive_offense(case_id, assessment_025, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_025)
+
+// rule_id: indecent_assault.card.art298_sec6_multiple_acts_comprehensive_offense.undetermined
+// sources: comm_001692_제298조_Ⅵ_17
+// norm_cards: art298_sec6.multiple_acts_comprehensive_offense
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec6.multiple_acts_comprehensive_offense") = assess_art298_sec6_multiple_acts_comprehensive_offense(case_id, unknown_025, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_025)
+
+// rule_id: indecent_assault.card.art298_sec6_multiple_acts_comprehensive_offense.conflict
+// sources: comm_001692_제298조_Ⅵ_17
+// norm_cards: art298_sec6.multiple_acts_comprehensive_offense
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec6.multiple_acts_comprehensive_offense") = assess_art298_sec6_multiple_acts_comprehensive_offense(case_id, positive_025, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec6_multiple_acts_comprehensive_offense(case_id, negative_025, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_025) and
+  provable(case_id, negative_025)
+
+// rule_id: indecent_assault.card.art298_sec6_multiple_victims_multiple_offenses.satisfied
+// sources: comm_001692_제298조_Ⅵ_17
+// norm_cards: art298_sec6.multiple_victims_multiple_offenses
+rel satisfied_art298_sec6_multiple_victims_multiple_offenses(case_id, defendant_id, victim_id) = assess_art298_sec6_multiple_victims_multiple_offenses(case_id, assessment_026, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_026)
+
+// rule_id: indecent_assault.card.art298_sec6_multiple_victims_multiple_offenses.undetermined
+// sources: comm_001692_제298조_Ⅵ_17
+// norm_cards: art298_sec6.multiple_victims_multiple_offenses
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec6.multiple_victims_multiple_offenses") = assess_art298_sec6_multiple_victims_multiple_offenses(case_id, unknown_026, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_026)
+
+// rule_id: indecent_assault.card.art298_sec6_multiple_victims_multiple_offenses.conflict
+// sources: comm_001692_제298조_Ⅵ_17
+// norm_cards: art298_sec6.multiple_victims_multiple_offenses
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec6.multiple_victims_multiple_offenses") = assess_art298_sec6_multiple_victims_multiple_offenses(case_id, positive_026, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec6_multiple_victims_multiple_offenses(case_id, negative_026, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_026) and
+  provable(case_id, negative_026)
+
+// rule_id: indecent_assault.card.art298_sec8_forced_undressing_camera_concurrence.satisfied
+// sources: comm_001692_제298조_Ⅷ_19
+// norm_cards: art298_sec8.forced_undressing_camera_concurrence
+rel satisfied_art298_sec8_forced_undressing_camera_concurrence(case_id, defendant_id, victim_id) = assess_art298_sec8_forced_undressing_camera_concurrence(case_id, assessment_027, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_027)
+
+// rule_id: indecent_assault.card.art298_sec8_forced_undressing_camera_concurrence.undetermined
+// sources: comm_001692_제298조_Ⅷ_19
+// norm_cards: art298_sec8.forced_undressing_camera_concurrence
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec8.forced_undressing_camera_concurrence") = assess_art298_sec8_forced_undressing_camera_concurrence(case_id, unknown_027, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_027)
+
+// rule_id: indecent_assault.card.art298_sec8_forced_undressing_camera_concurrence.conflict
+// sources: comm_001692_제298조_Ⅷ_19
+// norm_cards: art298_sec8.forced_undressing_camera_concurrence
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec8.forced_undressing_camera_concurrence") = assess_art298_sec8_forced_undressing_camera_concurrence(case_id, positive_027, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec8_forced_undressing_camera_concurrence(case_id, negative_027, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_027) and
+  provable(case_id, negative_027)
+
+// rule_id: indecent_assault.card.art298_sec8_forcible_indecency_followed_by_rape.satisfied
+// sources: comm_001692_제298조_Ⅷ_19
+// norm_cards: art298_sec8.forcible_indecency_followed_by_rape
+rel satisfied_art298_sec8_forcible_indecency_followed_by_rape(case_id, defendant_id, victim_id) = assess_art298_sec8_forcible_indecency_followed_by_rape(case_id, assessment_028, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_028)
+
+// rule_id: indecent_assault.card.art298_sec8_forcible_indecency_followed_by_rape.undetermined
+// sources: comm_001692_제298조_Ⅷ_19
+// norm_cards: art298_sec8.forcible_indecency_followed_by_rape
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec8.forcible_indecency_followed_by_rape") = assess_art298_sec8_forcible_indecency_followed_by_rape(case_id, unknown_028, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_028)
+
+// rule_id: indecent_assault.card.art298_sec8_forcible_indecency_followed_by_rape.conflict
+// sources: comm_001692_제298조_Ⅷ_19
+// norm_cards: art298_sec8.forcible_indecency_followed_by_rape
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec8.forcible_indecency_followed_by_rape") = assess_art298_sec8_forcible_indecency_followed_by_rape(case_id, positive_028, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec8_forcible_indecency_followed_by_rape(case_id, negative_028, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_028) and
+  provable(case_id, negative_028)
+
+// rule_id: indecent_assault.card.art298_sec8_special_forcible_indecency.satisfied
+// sources: comm_001692_제298조_Ⅷ_19
+// norm_cards: art298_sec8.special_forcible_indecency
+rel satisfied_art298_sec8_special_forcible_indecency(case_id, defendant_id, victim_id) = assess_art298_sec8_special_forcible_indecency(case_id, assessment_029, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_029)
+
+// rule_id: indecent_assault.card.art298_sec8_special_forcible_indecency.undetermined
+// sources: comm_001692_제298조_Ⅷ_19
+// norm_cards: art298_sec8.special_forcible_indecency
+rel indecent_assault_undetermined(case_id, defendant_id, "art298_sec8.special_forcible_indecency") = assess_art298_sec8_special_forcible_indecency(case_id, unknown_029, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_029)
+
+// rule_id: indecent_assault.card.art298_sec8_special_forcible_indecency.conflict
+// sources: comm_001692_제298조_Ⅷ_19
+// norm_cards: art298_sec8.special_forcible_indecency
+rel indecent_assault_conflict(case_id, defendant_id, "art298_sec8.special_forcible_indecency") = assess_art298_sec8_special_forcible_indecency(case_id, positive_029, defendant_id, victim_id, "satisfied") and
+  assess_art298_sec8_special_forcible_indecency(case_id, negative_029, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_029) and
+  provable(case_id, negative_029)
+
+// rule_id: indecent_assault.component.base.coercive_means.art298_sec3_1_force_threat_totality_assessment
+// sources: comm_001692_제298조_Ⅲ.1_5
+// norm_cards: art298_sec3_1.force_threat_totality_assessment
+rel indecent_assault_base_coercive_means_satisfied(case_id, defendant_id, victim_id) = satisfied_art298_sec3_1_force_threat_totality_assessment(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.component.base.coercive_means.art298_sec3_1_surprise_molestation_physical_force
+// sources: comm_001692_제298조_Ⅲ.1_6
+// norm_cards: art298_sec3_1.surprise_molestation_physical_force
+rel indecent_assault_base_coercive_means_satisfied(case_id, defendant_id, victim_id) = satisfied_art298_sec3_1_surprise_molestation_physical_force(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.component.base.coercive_means.art298_sec5_revoked_consent
+// sources: comm_001692_제298조_Ⅴ_16
+// norm_cards: art298_sec5.revoked_consent
+rel indecent_assault_base_coercive_means_satisfied(case_id, defendant_id, victim_id) = satisfied_art298_sec5_revoked_consent(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.component.base.conduct.art298_indirect_perpetration_victim_as_instrument
+// sources: comm_001692_제298조_Ⅱ_1
+// norm_cards: art298.indirect_perpetration.victim_as_instrument
+rel indecent_assault_base_conduct_satisfied(case_id, defendant_id, victim_id) = satisfied_art298_indirect_perpetration_victim_as_instrument(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.component.base.conduct.art298_offense_conduct
+// sources: comm_001692_제298조_Ⅰ_0
+// norm_cards: art298.offense_conduct
+rel indecent_assault_base_conduct_satisfied(case_id, defendant_id, victim_id) = satisfied_art298_offense_conduct(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.component.base.conduct.art298_sec3_2_indirect_perpetration
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.indirect_perpetration
+rel indecent_assault_base_conduct_satisfied(case_id, defendant_id, victim_id) = satisfied_art298_sec3_2_indirect_perpetration(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.component.base.conduct.art298_sec3_2_indirect_perpetration_coerced_self_sexual_acts
+// sources: comm_001692_제298조_Ⅲ.2_13
+// norm_cards: art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts
+rel indecent_assault_base_conduct_satisfied(case_id, defendant_id, victim_id) = satisfied_art298_sec3_2_indirect_perpetration_coerced_self_sexual_acts(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.component.base.indecent_act.art298_sec3_2_indecent_act_comprehensive_assessment
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_comprehensive_assessment
+rel indecent_assault_base_indecent_act_satisfied(case_id, defendant_id, victim_id) = satisfied_art298_sec3_2_indecent_act_comprehensive_assessment(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.component.base.indecent_act.art298_sec3_2_indecent_act_definition
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_definition
+rel indecent_assault_base_indecent_act_satisfied(case_id, defendant_id, victim_id) = satisfied_art298_sec3_2_indecent_act_definition(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.component.base.indecent_act.art298_sec3_2_indecent_act_no_body_part_distinction
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_no_body_part_distinction
+rel indecent_assault_base_indecent_act_satisfied(case_id, defendant_id, victim_id) = satisfied_art298_sec3_2_indecent_act_no_body_part_distinction(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.component.base.indecent_act.art298_sec3_2_no_contact_assessment_factors
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_assessment_factors
+rel indecent_assault_base_indecent_act_satisfied(case_id, defendant_id, victim_id) = satisfied_art298_sec3_2_no_contact_assessment_factors(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.component.base.indecent_act.art298_sec3_2_no_contact_elevator_threat_masturbation
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_elevator_threat_masturbation
+rel indecent_assault_base_indecent_act_satisfied(case_id, defendant_id, victim_id) = satisfied_art298_sec3_2_no_contact_elevator_threat_masturbation(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.component.base.indecent_act.art298_sec3_2_no_contact_equivalent_infringement
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_equivalent_infringement
+rel indecent_assault_base_indecent_act_satisfied(case_id, defendant_id, victim_id) = satisfied_art298_sec3_2_no_contact_equivalent_infringement(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.component.base.indecent_act.art298_sec3_2_no_contact_minor_elevator_exposure
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_minor_elevator_exposure
+rel indecent_assault_base_indecent_act_satisfied(case_id, defendant_id, victim_id) = satisfied_art298_sec3_2_no_contact_minor_elevator_exposure(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.component.base.indecent_act.art298_sec3_2_no_contact_urination_toward_victim
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_urination_toward_victim
+rel indecent_assault_base_indecent_act_satisfied(case_id, defendant_id, victim_id) = satisfied_art298_sec3_2_no_contact_urination_toward_victim(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.component.base.indecent_act.art298_sec3_2_recent_precedent_nonsexual_sensitive_contact
+// sources: comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11
+// norm_cards: art298_sec3_2.recent_precedent_nonsexual_sensitive_contact
+rel indecent_assault_base_indecent_act_satisfied(case_id, defendant_id, victim_id) = satisfied_art298_sec3_2_recent_precedent_nonsexual_sensitive_contact(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.component.base.indecent_act.art298_sec3_2_victim_actual_awareness_not_required
+// sources: comm_001692_제298조_Ⅲ.2_9
+// norm_cards: art298_sec3_2.victim_actual_awareness_not_required
+rel indecent_assault_base_indecent_act_satisfied(case_id, defendant_id, victim_id) = satisfied_art298_sec3_2_victim_actual_awareness_not_required(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.component.base.intent.all
+// sources: comm_001692_제298조_Ⅳ_15
+// norm_cards: art298_sec4.intent_awareness_conditional
+rel indecent_assault_base_intent_satisfied(case_id, defendant_id, victim_id) = satisfied_art298_sec4_intent_awareness_conditional(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.component.base.object_scope.all
+// sources: comm_001692_제298조_Ⅱ_1
+// norm_cards: art298.object.person
+rel indecent_assault_base_object_scope_satisfied(case_id, defendant_id, victim_id) = satisfied_art298_object_person(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.track_conflict.base.art298_sec3_1_force_threat_totality_assessment
+// sources: comm_001692_제298조_Ⅲ.1_5
+// norm_cards: art298_sec3_1.force_threat_totality_assessment
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298_sec3_1.force_threat_totality_assessment") = indecent_assault_conflict(case_id, defendant_id, "art298_sec3_1.force_threat_totality_assessment")
+
+// rule_id: indecent_assault.track_conflict.base.art298_sec3_1_surprise_molestation_physical_force
+// sources: comm_001692_제298조_Ⅲ.1_6
+// norm_cards: art298_sec3_1.surprise_molestation_physical_force
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298_sec3_1.surprise_molestation_physical_force") = indecent_assault_conflict(case_id, defendant_id, "art298_sec3_1.surprise_molestation_physical_force")
+
+// rule_id: indecent_assault.track_conflict.base.art298_sec5_revoked_consent
+// sources: comm_001692_제298조_Ⅴ_16
+// norm_cards: art298_sec5.revoked_consent
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298_sec5.revoked_consent") = indecent_assault_conflict(case_id, defendant_id, "art298_sec5.revoked_consent")
+
+// rule_id: indecent_assault.track_conflict.base.art298_indirect_perpetration_victim_as_instrument
+// sources: comm_001692_제298조_Ⅱ_1
+// norm_cards: art298.indirect_perpetration.victim_as_instrument
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298.indirect_perpetration.victim_as_instrument") = indecent_assault_conflict(case_id, defendant_id, "art298.indirect_perpetration.victim_as_instrument")
+
+// rule_id: indecent_assault.track_conflict.base.art298_offense_conduct
+// sources: comm_001692_제298조_Ⅰ_0
+// norm_cards: art298.offense_conduct
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298.offense_conduct") = indecent_assault_conflict(case_id, defendant_id, "art298.offense_conduct")
+
+// rule_id: indecent_assault.track_conflict.base.art298_sec3_2_indirect_perpetration
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.indirect_perpetration
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298_sec3_2.indirect_perpetration") = indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.indirect_perpetration")
+
+// rule_id: indecent_assault.track_conflict.base.art298_sec3_2_indirect_perpetration_coerced_self_sexual_acts
+// sources: comm_001692_제298조_Ⅲ.2_13
+// norm_cards: art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts") = indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts")
+
+// rule_id: indecent_assault.track_conflict.base.art298_sec3_2_indecent_act_comprehensive_assessment
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_comprehensive_assessment
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298_sec3_2.indecent_act_comprehensive_assessment") = indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.indecent_act_comprehensive_assessment")
+
+// rule_id: indecent_assault.track_conflict.base.art298_sec3_2_indecent_act_definition
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_definition
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298_sec3_2.indecent_act_definition") = indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.indecent_act_definition")
+
+// rule_id: indecent_assault.track_conflict.base.art298_sec3_2_indecent_act_no_body_part_distinction
+// sources: comm_001692_제298조_Ⅲ.2_8
+// norm_cards: art298_sec3_2.indecent_act_no_body_part_distinction
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298_sec3_2.indecent_act_no_body_part_distinction") = indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.indecent_act_no_body_part_distinction")
+
+// rule_id: indecent_assault.track_conflict.base.art298_sec3_2_no_contact_assessment_factors
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_assessment_factors
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298_sec3_2.no_contact_assessment_factors") = indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.no_contact_assessment_factors")
+
+// rule_id: indecent_assault.track_conflict.base.art298_sec3_2_no_contact_elevator_threat_masturbation
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_elevator_threat_masturbation
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298_sec3_2.no_contact_elevator_threat_masturbation") = indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.no_contact_elevator_threat_masturbation")
+
+// rule_id: indecent_assault.track_conflict.base.art298_sec3_2_no_contact_equivalent_infringement
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_equivalent_infringement
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298_sec3_2.no_contact_equivalent_infringement") = indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.no_contact_equivalent_infringement")
+
+// rule_id: indecent_assault.track_conflict.base.art298_sec3_2_no_contact_kitchen_gesture_not_molestation
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_kitchen_gesture_not_molestation
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298_sec3_2.no_contact_kitchen_gesture_not_molestation") = indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.no_contact_kitchen_gesture_not_molestation")
+
+// rule_id: indecent_assault.track_blocked.base.art298_sec3_2_no_contact_kitchen_gesture_not_molestation
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_kitchen_gesture_not_molestation
+rel indecent_assault_track_not_established(case_id, defendant_id, "base", "art298_sec3_2.no_contact_kitchen_gesture_not_molestation") = satisfied_art298_sec3_2_no_contact_kitchen_gesture_not_molestation(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.track_conflict.base.art298_sec3_2_no_contact_minor_elevator_exposure
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_minor_elevator_exposure
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298_sec3_2.no_contact_minor_elevator_exposure") = indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.no_contact_minor_elevator_exposure")
+
+// rule_id: indecent_assault.track_conflict.base.art298_sec3_2_no_contact_urination_toward_victim
+// sources: comm_001692_제298조_Ⅲ.2_12
+// norm_cards: art298_sec3_2.no_contact_urination_toward_victim
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298_sec3_2.no_contact_urination_toward_victim") = indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.no_contact_urination_toward_victim")
+
+// rule_id: indecent_assault.track_conflict.base.art298_sec3_2_recent_precedent_nonsexual_sensitive_contact
+// sources: comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11
+// norm_cards: art298_sec3_2.recent_precedent_nonsexual_sensitive_contact
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298_sec3_2.recent_precedent_nonsexual_sensitive_contact") = indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.recent_precedent_nonsexual_sensitive_contact")
+
+// rule_id: indecent_assault.track_conflict.base.art298_sec3_2_toddler_hand_contact_not_molestation
+// sources: comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11
+// norm_cards: art298_sec3_2.toddler_hand_contact_not_molestation
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298_sec3_2.toddler_hand_contact_not_molestation") = indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.toddler_hand_contact_not_molestation")
+
+// rule_id: indecent_assault.track_blocked.base.art298_sec3_2_toddler_hand_contact_not_molestation
+// sources: comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11
+// norm_cards: art298_sec3_2.toddler_hand_contact_not_molestation
+rel indecent_assault_track_not_established(case_id, defendant_id, "base", "art298_sec3_2.toddler_hand_contact_not_molestation") = satisfied_art298_sec3_2_toddler_hand_contact_not_molestation(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.track_conflict.base.art298_sec3_2_victim_actual_awareness_not_required
+// sources: comm_001692_제298조_Ⅲ.2_9
+// norm_cards: art298_sec3_2.victim_actual_awareness_not_required
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298_sec3_2.victim_actual_awareness_not_required") = indecent_assault_conflict(case_id, defendant_id, "art298_sec3_2.victim_actual_awareness_not_required")
+
+// rule_id: indecent_assault.track_conflict.base.art298_sec4_intent_awareness_conditional
+// sources: comm_001692_제298조_Ⅳ_15
+// norm_cards: art298_sec4.intent_awareness_conditional
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298_sec4.intent_awareness_conditional") = indecent_assault_conflict(case_id, defendant_id, "art298_sec4.intent_awareness_conditional")
+
+// rule_id: indecent_assault.track_conflict.base.art298_object_person
+// sources: comm_001692_제298조_Ⅱ_1
+// norm_cards: art298.object.person
+rel indecent_assault_track_conflict(case_id, defendant_id, "base", "art298.object.person") = indecent_assault_conflict(case_id, defendant_id, "art298.object.person")
+
+// rule_id: indecent_assault.summary.has_negative
+// sources: comm_001692_제298조_Ⅱ_1, comm_001692_제298조_Ⅱ_1, comm_001692_제298조_Ⅰ_0, comm_001692_제298조_Ⅲ.1_5, comm_001692_제298조_Ⅲ.1_6, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_13, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_9, comm_001692_제298조_Ⅲ.3_14, comm_001692_제298조_Ⅲ.3_14, comm_001692_제298조_Ⅳ_15, comm_001692_제298조_Ⅴ_16, comm_001692_제298조_Ⅴ_16, comm_001692_제298조_Ⅵ_17, comm_001692_제298조_Ⅵ_17, comm_001692_제298조_Ⅷ_19, comm_001692_제298조_Ⅷ_19, comm_001692_제298조_Ⅷ_19
+// norm_cards: art298.indirect_perpetration.victim_as_instrument, art298.object.person, art298.offense_conduct, art298_sec3_1.force_threat_totality_assessment, art298_sec3_1.surprise_molestation_physical_force, art298_sec3_2.indecent_act_comprehensive_assessment, art298_sec3_2.indecent_act_definition, art298_sec3_2.indecent_act_no_body_part_distinction, art298_sec3_2.indirect_perpetration, art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts, art298_sec3_2.no_contact_assessment_factors, art298_sec3_2.no_contact_elevator_threat_masturbation, art298_sec3_2.no_contact_equivalent_infringement, art298_sec3_2.no_contact_kitchen_gesture_not_molestation, art298_sec3_2.no_contact_minor_elevator_exposure, art298_sec3_2.no_contact_urination_toward_victim, art298_sec3_2.recent_precedent_nonsexual_sensitive_contact, art298_sec3_2.toddler_hand_contact_not_molestation, art298_sec3_2.victim_actual_awareness_not_required, art298_sec3_3.attempt_commencement, art298_sec3_3.surprise_assault_attempt_hugging, art298_sec4.intent_awareness_conditional, art298_sec5.consent_after_violence_attempt, art298_sec5.revoked_consent, art298_sec6.multiple_acts_comprehensive_offense, art298_sec6.multiple_victims_multiple_offenses, art298_sec8.forced_undressing_camera_concurrence, art298_sec8.forcible_indecency_followed_by_rape, art298_sec8.special_forcible_indecency
+rel indecent_assault_has_negative(case_id, defendant_id) = indecent_assault_not_established(case_id, defendant_id, norm_card_id)
+
+// rule_id: indecent_assault.summary.has_conflict
+// sources: comm_001692_제298조_Ⅱ_1, comm_001692_제298조_Ⅱ_1, comm_001692_제298조_Ⅰ_0, comm_001692_제298조_Ⅲ.1_5, comm_001692_제298조_Ⅲ.1_6, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_13, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_9, comm_001692_제298조_Ⅲ.3_14, comm_001692_제298조_Ⅲ.3_14, comm_001692_제298조_Ⅳ_15, comm_001692_제298조_Ⅴ_16, comm_001692_제298조_Ⅴ_16, comm_001692_제298조_Ⅵ_17, comm_001692_제298조_Ⅵ_17, comm_001692_제298조_Ⅷ_19, comm_001692_제298조_Ⅷ_19, comm_001692_제298조_Ⅷ_19
+// norm_cards: art298.indirect_perpetration.victim_as_instrument, art298.object.person, art298.offense_conduct, art298_sec3_1.force_threat_totality_assessment, art298_sec3_1.surprise_molestation_physical_force, art298_sec3_2.indecent_act_comprehensive_assessment, art298_sec3_2.indecent_act_definition, art298_sec3_2.indecent_act_no_body_part_distinction, art298_sec3_2.indirect_perpetration, art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts, art298_sec3_2.no_contact_assessment_factors, art298_sec3_2.no_contact_elevator_threat_masturbation, art298_sec3_2.no_contact_equivalent_infringement, art298_sec3_2.no_contact_kitchen_gesture_not_molestation, art298_sec3_2.no_contact_minor_elevator_exposure, art298_sec3_2.no_contact_urination_toward_victim, art298_sec3_2.recent_precedent_nonsexual_sensitive_contact, art298_sec3_2.toddler_hand_contact_not_molestation, art298_sec3_2.victim_actual_awareness_not_required, art298_sec3_3.attempt_commencement, art298_sec3_3.surprise_assault_attempt_hugging, art298_sec4.intent_awareness_conditional, art298_sec5.consent_after_violence_attempt, art298_sec5.revoked_consent, art298_sec6.multiple_acts_comprehensive_offense, art298_sec6.multiple_victims_multiple_offenses, art298_sec8.forced_undressing_camera_concurrence, art298_sec8.forcible_indecency_followed_by_rape, art298_sec8.special_forcible_indecency
+rel indecent_assault_has_conflict(case_id, defendant_id) = indecent_assault_conflict(case_id, defendant_id, norm_card_id)
+
+// rule_id: indecent_assault.summary.canonical_not_established
+// sources: comm_001692_제298조_Ⅱ_1, comm_001692_제298조_Ⅱ_1, comm_001692_제298조_Ⅰ_0, comm_001692_제298조_Ⅲ.1_5, comm_001692_제298조_Ⅲ.1_6, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_13, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_9, comm_001692_제298조_Ⅲ.3_14, comm_001692_제298조_Ⅲ.3_14, comm_001692_제298조_Ⅳ_15, comm_001692_제298조_Ⅴ_16, comm_001692_제298조_Ⅴ_16, comm_001692_제298조_Ⅵ_17, comm_001692_제298조_Ⅵ_17, comm_001692_제298조_Ⅷ_19, comm_001692_제298조_Ⅷ_19, comm_001692_제298조_Ⅷ_19
+// norm_cards: art298.indirect_perpetration.victim_as_instrument, art298.object.person, art298.offense_conduct, art298_sec3_1.force_threat_totality_assessment, art298_sec3_1.surprise_molestation_physical_force, art298_sec3_2.indecent_act_comprehensive_assessment, art298_sec3_2.indecent_act_definition, art298_sec3_2.indecent_act_no_body_part_distinction, art298_sec3_2.indirect_perpetration, art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts, art298_sec3_2.no_contact_assessment_factors, art298_sec3_2.no_contact_elevator_threat_masturbation, art298_sec3_2.no_contact_equivalent_infringement, art298_sec3_2.no_contact_kitchen_gesture_not_molestation, art298_sec3_2.no_contact_minor_elevator_exposure, art298_sec3_2.no_contact_urination_toward_victim, art298_sec3_2.recent_precedent_nonsexual_sensitive_contact, art298_sec3_2.toddler_hand_contact_not_molestation, art298_sec3_2.victim_actual_awareness_not_required, art298_sec3_3.attempt_commencement, art298_sec3_3.surprise_assault_attempt_hugging, art298_sec4.intent_awareness_conditional, art298_sec5.consent_after_violence_attempt, art298_sec5.revoked_consent, art298_sec6.multiple_acts_comprehensive_offense, art298_sec6.multiple_victims_multiple_offenses, art298_sec8.forced_undressing_camera_concurrence, art298_sec8.forcible_indecency_followed_by_rape, art298_sec8.special_forcible_indecency
+rel indecent_assault_not_established(case_id, defendant_id, norm_card_id) = indecent_assault_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: indecent_assault.summary.track_has_negative
+// sources: comm_001692_제298조_Ⅱ_1, comm_001692_제298조_Ⅱ_1, comm_001692_제298조_Ⅰ_0, comm_001692_제298조_Ⅲ.1_5, comm_001692_제298조_Ⅲ.1_6, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_13, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_9, comm_001692_제298조_Ⅲ.3_14, comm_001692_제298조_Ⅲ.3_14, comm_001692_제298조_Ⅳ_15, comm_001692_제298조_Ⅴ_16, comm_001692_제298조_Ⅴ_16, comm_001692_제298조_Ⅵ_17, comm_001692_제298조_Ⅵ_17, comm_001692_제298조_Ⅷ_19, comm_001692_제298조_Ⅷ_19, comm_001692_제298조_Ⅷ_19
+// norm_cards: art298.indirect_perpetration.victim_as_instrument, art298.object.person, art298.offense_conduct, art298_sec3_1.force_threat_totality_assessment, art298_sec3_1.surprise_molestation_physical_force, art298_sec3_2.indecent_act_comprehensive_assessment, art298_sec3_2.indecent_act_definition, art298_sec3_2.indecent_act_no_body_part_distinction, art298_sec3_2.indirect_perpetration, art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts, art298_sec3_2.no_contact_assessment_factors, art298_sec3_2.no_contact_elevator_threat_masturbation, art298_sec3_2.no_contact_equivalent_infringement, art298_sec3_2.no_contact_kitchen_gesture_not_molestation, art298_sec3_2.no_contact_minor_elevator_exposure, art298_sec3_2.no_contact_urination_toward_victim, art298_sec3_2.recent_precedent_nonsexual_sensitive_contact, art298_sec3_2.toddler_hand_contact_not_molestation, art298_sec3_2.victim_actual_awareness_not_required, art298_sec3_3.attempt_commencement, art298_sec3_3.surprise_assault_attempt_hugging, art298_sec4.intent_awareness_conditional, art298_sec5.consent_after_violence_attempt, art298_sec5.revoked_consent, art298_sec6.multiple_acts_comprehensive_offense, art298_sec6.multiple_victims_multiple_offenses, art298_sec8.forced_undressing_camera_concurrence, art298_sec8.forcible_indecency_followed_by_rape, art298_sec8.special_forcible_indecency
+rel indecent_assault_track_has_negative(case_id, defendant_id, track_id) = indecent_assault_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: indecent_assault.summary.track_has_conflict
+// sources: comm_001692_제298조_Ⅱ_1, comm_001692_제298조_Ⅱ_1, comm_001692_제298조_Ⅰ_0, comm_001692_제298조_Ⅲ.1_5, comm_001692_제298조_Ⅲ.1_6, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_13, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_9, comm_001692_제298조_Ⅲ.3_14, comm_001692_제298조_Ⅲ.3_14, comm_001692_제298조_Ⅳ_15, comm_001692_제298조_Ⅴ_16, comm_001692_제298조_Ⅴ_16, comm_001692_제298조_Ⅵ_17, comm_001692_제298조_Ⅵ_17, comm_001692_제298조_Ⅷ_19, comm_001692_제298조_Ⅷ_19, comm_001692_제298조_Ⅷ_19
+// norm_cards: art298.indirect_perpetration.victim_as_instrument, art298.object.person, art298.offense_conduct, art298_sec3_1.force_threat_totality_assessment, art298_sec3_1.surprise_molestation_physical_force, art298_sec3_2.indecent_act_comprehensive_assessment, art298_sec3_2.indecent_act_definition, art298_sec3_2.indecent_act_no_body_part_distinction, art298_sec3_2.indirect_perpetration, art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts, art298_sec3_2.no_contact_assessment_factors, art298_sec3_2.no_contact_elevator_threat_masturbation, art298_sec3_2.no_contact_equivalent_infringement, art298_sec3_2.no_contact_kitchen_gesture_not_molestation, art298_sec3_2.no_contact_minor_elevator_exposure, art298_sec3_2.no_contact_urination_toward_victim, art298_sec3_2.recent_precedent_nonsexual_sensitive_contact, art298_sec3_2.toddler_hand_contact_not_molestation, art298_sec3_2.victim_actual_awareness_not_required, art298_sec3_3.attempt_commencement, art298_sec3_3.surprise_assault_attempt_hugging, art298_sec4.intent_awareness_conditional, art298_sec5.consent_after_violence_attempt, art298_sec5.revoked_consent, art298_sec6.multiple_acts_comprehensive_offense, art298_sec6.multiple_victims_multiple_offenses, art298_sec8.forced_undressing_camera_concurrence, art298_sec8.forcible_indecency_followed_by_rape, art298_sec8.special_forcible_indecency
+rel indecent_assault_track_has_conflict(case_id, defendant_id, track_id) = indecent_assault_track_conflict(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: indecent_assault.outcome.base.elements_satisfied
+// sources: comm_001692_제298조_Ⅱ_1, comm_001692_제298조_Ⅱ_1, comm_001692_제298조_Ⅰ_0, comm_001692_제298조_Ⅲ.1_5, comm_001692_제298조_Ⅲ.1_6, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_13, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_9, comm_001692_제298조_Ⅲ.3_14, comm_001692_제298조_Ⅲ.3_14, comm_001692_제298조_Ⅳ_15, comm_001692_제298조_Ⅴ_16, comm_001692_제298조_Ⅴ_16, comm_001692_제298조_Ⅵ_17, comm_001692_제298조_Ⅵ_17, comm_001692_제298조_Ⅷ_19, comm_001692_제298조_Ⅷ_19, comm_001692_제298조_Ⅷ_19
+// norm_cards: art298.indirect_perpetration.victim_as_instrument, art298.object.person, art298.offense_conduct, art298_sec3_1.force_threat_totality_assessment, art298_sec3_1.surprise_molestation_physical_force, art298_sec3_2.indecent_act_comprehensive_assessment, art298_sec3_2.indecent_act_definition, art298_sec3_2.indecent_act_no_body_part_distinction, art298_sec3_2.indirect_perpetration, art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts, art298_sec3_2.no_contact_assessment_factors, art298_sec3_2.no_contact_elevator_threat_masturbation, art298_sec3_2.no_contact_equivalent_infringement, art298_sec3_2.no_contact_kitchen_gesture_not_molestation, art298_sec3_2.no_contact_minor_elevator_exposure, art298_sec3_2.no_contact_urination_toward_victim, art298_sec3_2.recent_precedent_nonsexual_sensitive_contact, art298_sec3_2.toddler_hand_contact_not_molestation, art298_sec3_2.victim_actual_awareness_not_required, art298_sec3_3.attempt_commencement, art298_sec3_3.surprise_assault_attempt_hugging, art298_sec4.intent_awareness_conditional, art298_sec5.consent_after_violence_attempt, art298_sec5.revoked_consent, art298_sec6.multiple_acts_comprehensive_offense, art298_sec6.multiple_victims_multiple_offenses, art298_sec8.forced_undressing_camera_concurrence, art298_sec8.forcible_indecency_followed_by_rape, art298_sec8.special_forcible_indecency
+rel indecent_assault_base_elements_satisfied(case_id, defendant_id, victim_id) = indecent_assault_base_coercive_means_satisfied(case_id, defendant_id, victim_id) and
+  indecent_assault_base_conduct_satisfied(case_id, defendant_id, victim_id) and
+  indecent_assault_base_indecent_act_satisfied(case_id, defendant_id, victim_id) and
+  indecent_assault_base_intent_satisfied(case_id, defendant_id, victim_id) and
+  indecent_assault_base_object_scope_satisfied(case_id, defendant_id, victim_id)
+
+// rule_id: indecent_assault.outcome.base.established
+// sources: comm_001692_제298조_Ⅱ_1, comm_001692_제298조_Ⅱ_1, comm_001692_제298조_Ⅰ_0, comm_001692_제298조_Ⅲ.1_5, comm_001692_제298조_Ⅲ.1_6, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_8, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_13, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_12, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_11, comm_001692_제298조_Ⅲ.2_9, comm_001692_제298조_Ⅲ.3_14, comm_001692_제298조_Ⅲ.3_14, comm_001692_제298조_Ⅳ_15, comm_001692_제298조_Ⅴ_16, comm_001692_제298조_Ⅴ_16, comm_001692_제298조_Ⅵ_17, comm_001692_제298조_Ⅵ_17, comm_001692_제298조_Ⅷ_19, comm_001692_제298조_Ⅷ_19, comm_001692_제298조_Ⅷ_19
+// norm_cards: art298.indirect_perpetration.victim_as_instrument, art298.object.person, art298.offense_conduct, art298_sec3_1.force_threat_totality_assessment, art298_sec3_1.surprise_molestation_physical_force, art298_sec3_2.indecent_act_comprehensive_assessment, art298_sec3_2.indecent_act_definition, art298_sec3_2.indecent_act_no_body_part_distinction, art298_sec3_2.indirect_perpetration, art298_sec3_2.indirect_perpetration_coerced_self_sexual_acts, art298_sec3_2.no_contact_assessment_factors, art298_sec3_2.no_contact_elevator_threat_masturbation, art298_sec3_2.no_contact_equivalent_infringement, art298_sec3_2.no_contact_kitchen_gesture_not_molestation, art298_sec3_2.no_contact_minor_elevator_exposure, art298_sec3_2.no_contact_urination_toward_victim, art298_sec3_2.recent_precedent_nonsexual_sensitive_contact, art298_sec3_2.toddler_hand_contact_not_molestation, art298_sec3_2.victim_actual_awareness_not_required, art298_sec3_3.attempt_commencement, art298_sec3_3.surprise_assault_attempt_hugging, art298_sec4.intent_awareness_conditional, art298_sec5.consent_after_violence_attempt, art298_sec5.revoked_consent, art298_sec6.multiple_acts_comprehensive_offense, art298_sec6.multiple_victims_multiple_offenses, art298_sec8.forced_undressing_camera_concurrence, art298_sec8.forcible_indecency_followed_by_rape, art298_sec8.special_forcible_indecency
+rel indecent_assault_base_established(case_id, defendant_id, victim_id) = indecent_assault_base_elements_satisfied(case_id, defendant_id, victim_id) and
+  case_assessment_complete(case_id, defendant_id) and
+  ~indecent_assault_track_has_negative(case_id, defendant_id, "base") and
+  ~indecent_assault_track_has_conflict(case_id, defendant_id, "base")

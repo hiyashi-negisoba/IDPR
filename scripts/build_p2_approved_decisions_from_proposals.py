@@ -87,13 +87,26 @@ def group_defaults(config: dict[str, Any]) -> dict[int, dict[str, Any]]:
     return result
 
 
+def grouped_decisions(config: dict[str, Any]) -> dict[int, dict[str, Any]]:
+    """Expand compact machine-reviewed card groups into numbered decisions."""
+    result: dict[int, dict[str, Any]] = {}
+    for group in config.get("decision_groups", []):
+        decision = {key: value for key, value in group.items() if key != "card_numbers"}
+        for number in group["card_numbers"]:
+            if number in result:
+                raise ValueError(f"duplicate grouped decision for card number {number}")
+            result[number] = dict(decision)
+    return result
+
+
 def build(config_path: Path) -> dict[str, Any]:
     config = read_json(config_path)
     unit_id = config["unit_id"]
     queue = read_json(QUEUE_DIR / f"{unit_id}_review_queue.json")
     queue_by_number = {index: card for index, card in enumerate(queue["cards"], 1)}
-    proposal_paths = [ROOT / path for path in config["proposal_documents"]]
-    parsed = table_rows(proposal_paths)
+    proposal_documents = config.get("proposal_documents", [])
+    proposal_paths = [ROOT / path for path in proposal_documents]
+    parsed = table_rows(proposal_paths) if proposal_paths else grouped_decisions(config)
     defaults = group_defaults(config)
     rewrites = {int(number): text for number, text in config.get("proposition_rewrites", {}).items()}
 
@@ -108,7 +121,7 @@ def build(config_path: Path) -> dict[str, Any]:
     for number in sorted(parsed):
         source_card = queue_by_number[number]
         row = {**defaults.get(number, {}), **parsed[number]}
-        row.pop("source")
+        row.pop("source", None)
         decision = row["decision"]
         if decision == "context_only":
             row = {"decision": decision, "role": "context_only", "rationale": row["rationale"]}
@@ -126,10 +139,14 @@ def build(config_path: Path) -> dict[str, Any]:
 
     return {
         "version": "1.0.0",
-        "authority": "human_legal_review",
+        "authority": config.get("authority", "human_legal_review"),
         "unit_id": unit_id,
         "approved_on": config["approved_on"],
-        "approval_basis": [*config["proposal_documents"], config["legal_gate"]],
+        "approval_basis": [
+            *proposal_documents,
+            *([config["legal_gate"]] if config.get("legal_gate") else []),
+            str(config_path.relative_to(ROOT)),
+        ],
         "policy": config["policy"],
         "track_vocabulary": config["track_vocabulary"],
         "cards": cards,
