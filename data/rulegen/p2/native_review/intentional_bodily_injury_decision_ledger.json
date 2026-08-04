@@ -37,6 +37,14 @@
       "reason": "상해진단서의 증명력 판단 기준이며 증거법 영역이다"
     },
     {
+      "card_id": "art257_sec1_4.object_method_mistake",
+      "reason": "객체·방법의 착오가 고의를 조각하지 않고 상해죄의 성립을 방해하지 않는다는 확인 법리로, 성립을 막는 카드가 아니다. 현재 역할 어휘에 자리가 없다."
+    },
+    {
+      "card_id": "art257_sec1_4.unintended_victim",
+      "reason": "목적한 사람이 아니어도 상해의 고의가 인정된다는 확인 법리로, 성립을 막는 카드가 아니다. 현재 역할 어휘에 자리가 없다."
+    },
+    {
       "card_id": "art257_sec1_6.disciplinary_injury",
       "reason": "징계가 상해에 이르면 조각되지 않는다는 조각의 한계이며, 현재 역할 어휘에 자리가 없다"
     },
@@ -129,7 +137,8 @@
       "component_join": "not_applicable",
       "refers_to_unit": "homicide",
       "rationale": "사망에 고의가 있으면 상해치사가 아니라 살인죄로 경계가 이동한다",
-      "proposition_rewrite": null
+      "proposition_rewrite": null,
+      "refers_to_label": "살인·존속살해"
     },
     {
       "card_id": "art259_sec2_1.murder_intent_exception",
@@ -140,7 +149,8 @@
       "component_join": "not_applicable",
       "refers_to_unit": "homicide",
       "rationale": "공동정범 중 1인의 살인 고의는 나머지에게 귀속되지 않는다",
-      "proposition_rewrite": null
+      "proposition_rewrite": null,
+      "refers_to_label": "살인·존속살해"
     },
     {
       "card_id": "art259_sec1.basic_offense_and_death",
@@ -173,7 +183,8 @@
       "component_join": "not_applicable",
       "refers_to_unit": "robbery",
       "rationale": "강도 중의 상해로 사망한 경우에는 강도치사죄만 성립한다",
-      "proposition_rewrite": null
+      "proposition_rewrite": null,
+      "refers_to_label": "강도"
     },
     {
       "card_id": "art259_sec1.no_injury_intent_classification",
@@ -184,7 +195,8 @@
       "component_join": "not_applicable",
       "refers_to_unit": "assault_resulting_death",
       "rationale": "폭행 고의뿐이면 폭행치사, 고의가 없으면 과실치사로 경계가 이동한다",
-      "proposition_rewrite": null
+      "proposition_rewrite": null,
+      "refers_to_label": "폭행치사"
     },
     {
       "card_id": "art259_sec1_1.second_act.single_offense_holding",
@@ -690,29 +702,8 @@
       "component_join": "not_applicable",
       "refers_to_unit": "assault_resulting_injury",
       "rationale": "상해 고의 없이 폭행 고의만 있으면 폭행치상으로 경계가 이동한다",
-      "proposition_rewrite": null
-    },
-    {
-      "card_id": "art257_sec1_4.object_method_mistake",
-      "part_id": null,
-      "role": "bar",
-      "track_id": "base",
-      "component_id": "intent",
-      "component_join": "not_applicable",
-      "refers_to_unit": null,
-      "rationale": "객체·방법의 착오는 고의를 조각하지 않는다는 차단규칙",
-      "proposition_rewrite": null
-    },
-    {
-      "card_id": "art257_sec1_4.unintended_victim",
-      "part_id": null,
-      "role": "bar",
-      "track_id": "base",
-      "component_id": "intent",
-      "component_join": "not_applicable",
-      "refers_to_unit": null,
-      "rationale": "목적한 사람이 아니어도 고의가 인정된다는 차단규칙. #34와 같은 규칙",
-      "proposition_rewrite": null
+      "proposition_rewrite": null,
+      "refers_to_label": "폭행치상"
     },
     {
       "card_id": "art257_sec1_6.defensive_force_not_new_attack",

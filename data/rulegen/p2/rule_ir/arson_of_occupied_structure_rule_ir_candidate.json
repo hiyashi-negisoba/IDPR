@@ -50,7 +50,6 @@
       "art164_sec2_1.protected_object",
       "art164_sec2_1.residence_daily_life_place",
       "art164_sec2_1.residence_factual_use",
-      "art164_sec2_1.residence_nonrequired_indicia",
       "art164_sec2_1.residence_temporary_or_seasonal_use",
       "art164_sec2_1.residence_without_actual_presence",
       "art164_sec2_1.sole_offender_home_general_building",
@@ -2334,104 +2333,6 @@
       ]
     },
     {
-      "id": "assess_art164_sec2_1_residence_nonrequired_indicia",
-      "kind": "rule",
-      "origin": "commentary",
-      "role": "input",
-      "definition": "이 카드의 사건별 적용 평가: 주거성 판단에서 지속적 현존, 주거 목적 건축, 동일인의 계속 거주 또는 주민등록은 필수 요건이 아니며, 일상생활 장소인지가 기준이다.",
-      "arguments": [
-        {
-          "name": "case_id",
-          "type": "String"
-        },
-        {
-          "name": "assessment_id",
-          "type": "String"
-        },
-        {
-          "name": "defendant_id",
-          "type": "String"
-        },
-        {
-          "name": "structure_id",
-          "type": "String"
-        },
-        {
-          "name": "occupant_id",
-          "type": "String"
-        },
-        {
-          "name": "status",
-          "type": "String"
-        }
-      ],
-      "norm_card_ids": [
-        "art164_sec2_1.residence_nonrequired_indicia"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "밤낮으로 끊임없이 사람이 현존할 것을 요하지 않고, 주택으로 사용하는 것을 주된 목적으로 하거나 주거로 사용하기 위하여 건조된 것일 필",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "요가 없다. 항상 동일인이 거주할 것을 요하지 않는다. 주민등록이 되어 있을 것",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "을 요하지 않고",
-          "section_path": "Ⅱ.1"
-        }
-      ]
-    },
-    {
-      "id": "satisfied_art164_sec2_1_residence_nonrequired_indicia",
-      "kind": "rule",
-      "origin": "commentary",
-      "role": "derived",
-      "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 주거성 판단에서 지속적 현존, 주거 목적 건축, 동일인의 계속 거주 또는 주민등록은 필수 요건이 아니며, 일상생활 장소인지가 기준이다.",
-      "arguments": [
-        {
-          "name": "case_id",
-          "type": "String"
-        },
-        {
-          "name": "defendant_id",
-          "type": "String"
-        },
-        {
-          "name": "structure_id",
-          "type": "String"
-        },
-        {
-          "name": "occupant_id",
-          "type": "String"
-        }
-      ],
-      "norm_card_ids": [
-        "art164_sec2_1.residence_nonrequired_indicia"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "밤낮으로 끊임없이 사람이 현존할 것을 요하지 않고, 주택으로 사용하는 것을 주된 목적으로 하거나 주거로 사용하기 위하여 건조된 것일 필",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "요가 없다. 항상 동일인이 거주할 것을 요하지 않는다. 주민등록이 되어 있을 것",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "을 요하지 않고",
-          "section_path": "Ⅱ.1"
-        }
-      ]
-    },
-    {
       "id": "assess_art164_sec2_1_residence_temporary_or_seasonal_use",
       "kind": "rule",
       "origin": "commentary",
@@ -3814,6 +3715,75 @@
         {
           "comment_id": "comm_001692_제164조_Ⅱ.1_8",
           "quote": "현주건조물방화죄는 화력이 매개물을 떠나 목적물인 건조물 스스로 연소할 수 있는 상태에 이름으로써 기수가 된다",
+          "section_path": "Ⅱ.1"
+        }
+      ]
+    },
+    {
+      "id": "arson_of_occupied_structure_refers_to_crime",
+      "kind": "rule",
+      "origin": "commentary",
+      "role": "derived",
+      "definition": "이 죄가 아니라 어느 죄로 평가되는지 — 경계획정 카드가 가리키는 죄명",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "crime_name",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [
+        "art164_sec2_1.accomplices_residence_general_building",
+        "art164_sec2_1.derelict_building_not_building_precedent",
+        "art164_sec2_1.residence_factual_use",
+        "art164_sec2_1.sole_offender_home_general_building"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
+          "quote": "범인이 혼자 살고 있는 집",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
+          "quote": "에 방화한 때는 본죄에 해당하지 않고 일반건조물방화죄가 성립한다.",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
+          "quote": "공범이 각자 자신이 살고 있는 건조물에 방화한 때, 공범이 함께 살고 있는 건조물에 방화한 때에는 일반건조물방화죄에 해당한다.",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제164조_Ⅱ.1_4",
+          "quote": "지붕과 문짝, 창문이 없고 담장과 일부 벽체가 붕괴된 철거 대상 건물로서 사실",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제164조_Ⅱ.1_4",
+          "quote": "상 기거·취침에 사용할 수 없는 상태의 폐가는 형법 제164조의 건조물이 아닌 제167조의 물건에 해당한다.",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제164조_Ⅱ.1_3",
+          "quote": "‘사용한다’는 것은 사실적 의미로 해석하여야 한다. 따라서 주인이 주거로 사용",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제164조_Ⅱ.1_3",
+          "quote": "할 것을 포기한 농촌의 폐가나 영업을 중단하고 문을 잠가 둔 호텔은 주거로 사",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제164조_Ⅱ.1_3",
+          "quote": "용하는 건조물이라고 할 수 없다.",
           "section_path": "Ⅱ.1"
         }
       ]
@@ -10999,318 +10969,6 @@
       ]
     },
     {
-      "id": "arson_of_occupied_structure.card.art164_sec2_1_residence_nonrequired_indicia.satisfied",
-      "head": {
-        "predicate": "satisfied_art164_sec2_1_residence_nonrequired_indicia",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "variable",
-            "value": "structure_id"
-          },
-          {
-            "kind": "variable",
-            "value": "occupant_id"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art164_sec2_1_residence_nonrequired_indicia",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "assessment_025"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "structure_id"
-            },
-            {
-              "kind": "variable",
-              "value": "occupant_id"
-            },
-            {
-              "kind": "string",
-              "value": "satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "assessment_025"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "증명 가능한 평가가 satisfied일 때만 조건으로 승격한다.",
-      "norm_card_ids": [
-        "art164_sec2_1.residence_nonrequired_indicia"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "밤낮으로 끊임없이 사람이 현존할 것을 요하지 않고, 주택으로 사용하는 것을 주된 목적으로 하거나 주거로 사용하기 위하여 건조된 것일 필",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "요가 없다. 항상 동일인이 거주할 것을 요하지 않는다. 주민등록이 되어 있을 것",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "을 요하지 않고",
-          "section_path": "Ⅱ.1"
-        }
-      ]
-    },
-    {
-      "id": "arson_of_occupied_structure.card.art164_sec2_1_residence_nonrequired_indicia.undetermined",
-      "head": {
-        "predicate": "arson_of_occupied_structure_undetermined",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art164_sec2_1.residence_nonrequired_indicia"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art164_sec2_1_residence_nonrequired_indicia",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "unknown_025"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "structure_id"
-            },
-            {
-              "kind": "variable",
-              "value": "occupant_id"
-            },
-            {
-              "kind": "string",
-              "value": "unknown"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "unknown_025"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "unknown 평가를 결론 계층에 보존한다.",
-      "norm_card_ids": [
-        "art164_sec2_1.residence_nonrequired_indicia"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "밤낮으로 끊임없이 사람이 현존할 것을 요하지 않고, 주택으로 사용하는 것을 주된 목적으로 하거나 주거로 사용하기 위하여 건조된 것일 필",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "요가 없다. 항상 동일인이 거주할 것을 요하지 않는다. 주민등록이 되어 있을 것",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "을 요하지 않고",
-          "section_path": "Ⅱ.1"
-        }
-      ]
-    },
-    {
-      "id": "arson_of_occupied_structure.card.art164_sec2_1_residence_nonrequired_indicia.conflict",
-      "head": {
-        "predicate": "arson_of_occupied_structure_conflict",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art164_sec2_1.residence_nonrequired_indicia"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art164_sec2_1_residence_nonrequired_indicia",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "positive_025"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "structure_id"
-            },
-            {
-              "kind": "variable",
-              "value": "occupant_id"
-            },
-            {
-              "kind": "string",
-              "value": "satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "assess_art164_sec2_1_residence_nonrequired_indicia",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "negative_025"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "structure_id"
-            },
-            {
-              "kind": "variable",
-              "value": "occupant_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "positive_025"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "negative_025"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "같은 카드에 satisfied와 not_satisfied가 모두 증명되면 충돌이다.",
-      "norm_card_ids": [
-        "art164_sec2_1.residence_nonrequired_indicia"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "밤낮으로 끊임없이 사람이 현존할 것을 요하지 않고, 주택으로 사용하는 것을 주된 목적으로 하거나 주거로 사용하기 위하여 건조된 것일 필",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "요가 없다. 항상 동일인이 거주할 것을 요하지 않는다. 주민등록이 되어 있을 것",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "을 요하지 않고",
-          "section_path": "Ⅱ.1"
-        }
-      ]
-    },
-    {
       "id": "arson_of_occupied_structure.card.art164_sec2_1_residence_temporary_or_seasonal_use.satisfied",
       "head": {
         "predicate": "satisfied_art164_sec2_1_residence_temporary_or_seasonal_use",
@@ -11344,7 +11002,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_026"
+              "value": "assessment_025"
             },
             {
               "kind": "variable",
@@ -11374,7 +11032,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_026"
+              "value": "assessment_025"
             }
           ],
           "negated": false
@@ -11437,7 +11095,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_026"
+              "value": "unknown_025"
             },
             {
               "kind": "variable",
@@ -11467,7 +11125,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_026"
+              "value": "unknown_025"
             }
           ],
           "negated": false
@@ -11530,7 +11188,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_026"
+              "value": "positive_025"
             },
             {
               "kind": "variable",
@@ -11560,7 +11218,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_026"
+              "value": "negative_025"
             },
             {
               "kind": "variable",
@@ -11590,7 +11248,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_026"
+              "value": "positive_025"
             }
           ],
           "negated": false
@@ -11604,7 +11262,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_026"
+              "value": "negative_025"
             }
           ],
           "negated": false
@@ -11671,7 +11329,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_027"
+              "value": "assessment_026"
             },
             {
               "kind": "variable",
@@ -11701,7 +11359,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_027"
+              "value": "assessment_026"
             }
           ],
           "negated": false
@@ -11749,7 +11407,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_027"
+              "value": "unknown_026"
             },
             {
               "kind": "variable",
@@ -11779,7 +11437,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_027"
+              "value": "unknown_026"
             }
           ],
           "negated": false
@@ -11827,7 +11485,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_027"
+              "value": "positive_026"
             },
             {
               "kind": "variable",
@@ -11857,7 +11515,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_027"
+              "value": "negative_026"
             },
             {
               "kind": "variable",
@@ -11887,7 +11545,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_027"
+              "value": "positive_026"
             }
           ],
           "negated": false
@@ -11901,7 +11559,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_027"
+              "value": "negative_026"
             }
           ],
           "negated": false
@@ -11953,7 +11611,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_028"
+              "value": "assessment_027"
             },
             {
               "kind": "variable",
@@ -11983,7 +11641,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_028"
+              "value": "assessment_027"
             }
           ],
           "negated": false
@@ -12036,7 +11694,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_028"
+              "value": "unknown_027"
             },
             {
               "kind": "variable",
@@ -12066,7 +11724,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_028"
+              "value": "unknown_027"
             }
           ],
           "negated": false
@@ -12119,7 +11777,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_028"
+              "value": "positive_027"
             },
             {
               "kind": "variable",
@@ -12149,7 +11807,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_028"
+              "value": "negative_027"
             },
             {
               "kind": "variable",
@@ -12179,7 +11837,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_028"
+              "value": "positive_027"
             }
           ],
           "negated": false
@@ -12193,7 +11851,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_028"
+              "value": "negative_027"
             }
           ],
           "negated": false
@@ -12250,7 +11908,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_029"
+              "value": "assessment_028"
             },
             {
               "kind": "variable",
@@ -12280,7 +11938,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_029"
+              "value": "assessment_028"
             }
           ],
           "negated": false
@@ -12328,7 +11986,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_029"
+              "value": "unknown_028"
             },
             {
               "kind": "variable",
@@ -12358,7 +12016,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_029"
+              "value": "unknown_028"
             }
           ],
           "negated": false
@@ -12406,7 +12064,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_029"
+              "value": "positive_028"
             },
             {
               "kind": "variable",
@@ -12436,7 +12094,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_029"
+              "value": "negative_028"
             },
             {
               "kind": "variable",
@@ -12466,7 +12124,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_029"
+              "value": "positive_028"
             }
           ],
           "negated": false
@@ -12480,7 +12138,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_029"
+              "value": "negative_028"
             }
           ],
           "negated": false
@@ -12532,7 +12190,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_030"
+              "value": "assessment_029"
             },
             {
               "kind": "variable",
@@ -12562,7 +12220,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_030"
+              "value": "assessment_029"
             }
           ],
           "negated": false
@@ -12610,7 +12268,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_030"
+              "value": "unknown_029"
             },
             {
               "kind": "variable",
@@ -12640,7 +12298,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_030"
+              "value": "unknown_029"
             }
           ],
           "negated": false
@@ -12688,7 +12346,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_030"
+              "value": "positive_029"
             },
             {
               "kind": "variable",
@@ -12718,7 +12376,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_030"
+              "value": "negative_029"
             },
             {
               "kind": "variable",
@@ -12748,7 +12406,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_030"
+              "value": "positive_029"
             }
           ],
           "negated": false
@@ -12762,7 +12420,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_030"
+              "value": "negative_029"
             }
           ],
           "negated": false
@@ -12814,7 +12472,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_031"
+              "value": "assessment_030"
             },
             {
               "kind": "variable",
@@ -12844,7 +12502,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_031"
+              "value": "assessment_030"
             }
           ],
           "negated": false
@@ -12892,7 +12550,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_031"
+              "value": "unknown_030"
             },
             {
               "kind": "variable",
@@ -12922,7 +12580,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_031"
+              "value": "unknown_030"
             }
           ],
           "negated": false
@@ -12970,7 +12628,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_031"
+              "value": "positive_030"
             },
             {
               "kind": "variable",
@@ -13000,7 +12658,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_031"
+              "value": "negative_030"
             },
             {
               "kind": "variable",
@@ -13030,7 +12688,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_031"
+              "value": "positive_030"
             }
           ],
           "negated": false
@@ -13044,7 +12702,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_031"
+              "value": "negative_030"
             }
           ],
           "negated": false
@@ -13096,7 +12754,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_032"
+              "value": "assessment_031"
             },
             {
               "kind": "variable",
@@ -13126,7 +12784,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_032"
+              "value": "assessment_031"
             }
           ],
           "negated": false
@@ -13174,7 +12832,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_032"
+              "value": "unknown_031"
             },
             {
               "kind": "variable",
@@ -13204,7 +12862,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_032"
+              "value": "unknown_031"
             }
           ],
           "negated": false
@@ -13252,7 +12910,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_032"
+              "value": "positive_031"
             },
             {
               "kind": "variable",
@@ -13282,7 +12940,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_032"
+              "value": "negative_031"
             },
             {
               "kind": "variable",
@@ -13312,7 +12970,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_032"
+              "value": "positive_031"
             }
           ],
           "negated": false
@@ -13326,7 +12984,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_032"
+              "value": "negative_031"
             }
           ],
           "negated": false
@@ -13378,7 +13036,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_033"
+              "value": "assessment_032"
             },
             {
               "kind": "variable",
@@ -13408,7 +13066,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_033"
+              "value": "assessment_032"
             }
           ],
           "negated": false
@@ -13456,7 +13114,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_033"
+              "value": "unknown_032"
             },
             {
               "kind": "variable",
@@ -13486,7 +13144,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_033"
+              "value": "unknown_032"
             }
           ],
           "negated": false
@@ -13534,7 +13192,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_033"
+              "value": "positive_032"
             },
             {
               "kind": "variable",
@@ -13564,7 +13222,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_033"
+              "value": "negative_032"
             },
             {
               "kind": "variable",
@@ -13594,7 +13252,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_033"
+              "value": "positive_032"
             }
           ],
           "negated": false
@@ -13608,7 +13266,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_033"
+              "value": "negative_032"
             }
           ],
           "negated": false
@@ -13660,7 +13318,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_034"
+              "value": "assessment_033"
             },
             {
               "kind": "variable",
@@ -13690,7 +13348,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_034"
+              "value": "assessment_033"
             }
           ],
           "negated": false
@@ -13738,7 +13396,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_034"
+              "value": "unknown_033"
             },
             {
               "kind": "variable",
@@ -13768,7 +13426,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_034"
+              "value": "unknown_033"
             }
           ],
           "negated": false
@@ -13816,7 +13474,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_034"
+              "value": "positive_033"
             },
             {
               "kind": "variable",
@@ -13846,7 +13504,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_034"
+              "value": "negative_033"
             },
             {
               "kind": "variable",
@@ -13876,7 +13534,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_034"
+              "value": "positive_033"
             }
           ],
           "negated": false
@@ -13890,7 +13548,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_034"
+              "value": "negative_033"
             }
           ],
           "negated": false
@@ -13942,7 +13600,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_035"
+              "value": "assessment_034"
             },
             {
               "kind": "variable",
@@ -13972,7 +13630,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_035"
+              "value": "assessment_034"
             }
           ],
           "negated": false
@@ -14020,7 +13678,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_035"
+              "value": "unknown_034"
             },
             {
               "kind": "variable",
@@ -14050,7 +13708,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_035"
+              "value": "unknown_034"
             }
           ],
           "negated": false
@@ -14098,7 +13756,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_035"
+              "value": "positive_034"
             },
             {
               "kind": "variable",
@@ -14128,7 +13786,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_035"
+              "value": "negative_034"
             },
             {
               "kind": "variable",
@@ -14158,7 +13816,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_035"
+              "value": "positive_034"
             }
           ],
           "negated": false
@@ -14172,7 +13830,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_035"
+              "value": "negative_034"
             }
           ],
           "negated": false
@@ -17017,142 +16675,6 @@
       ]
     },
     {
-      "id": "arson_of_occupied_structure.track_conflict.base.art164_sec2_1_residence_nonrequired_indicia",
-      "head": {
-        "predicate": "arson_of_occupied_structure_track_conflict",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "base"
-          },
-          {
-            "kind": "string",
-            "value": "art164_sec2_1.residence_nonrequired_indicia"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "arson_of_occupied_structure_conflict",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "art164_sec2_1.residence_nonrequired_indicia"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "카드 평가 충돌은 해당 track과 그 상속 track에만 전파한다.",
-      "norm_card_ids": [
-        "art164_sec2_1.residence_nonrequired_indicia"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "밤낮으로 끊임없이 사람이 현존할 것을 요하지 않고, 주택으로 사용하는 것을 주된 목적으로 하거나 주거로 사용하기 위하여 건조된 것일 필",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "요가 없다. 항상 동일인이 거주할 것을 요하지 않는다. 주민등록이 되어 있을 것",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "을 요하지 않고",
-          "section_path": "Ⅱ.1"
-        }
-      ]
-    },
-    {
-      "id": "arson_of_occupied_structure.track_blocked.base.art164_sec2_1_residence_nonrequired_indicia",
-      "head": {
-        "predicate": "arson_of_occupied_structure_track_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "base"
-          },
-          {
-            "kind": "string",
-            "value": "art164_sec2_1.residence_nonrequired_indicia"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "satisfied_art164_sec2_1_residence_nonrequired_indicia",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "structure_id"
-            },
-            {
-              "kind": "variable",
-              "value": "occupant_id"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
-      "norm_card_ids": [
-        "art164_sec2_1.residence_nonrequired_indicia"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "밤낮으로 끊임없이 사람이 현존할 것을 요하지 않고, 주택으로 사용하는 것을 주된 목적으로 하거나 주거로 사용하기 위하여 건조된 것일 필",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "요가 없다. 항상 동일인이 거주할 것을 요하지 않는다. 주민등록이 되어 있을 것",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "을 요하지 않고",
-          "section_path": "Ⅱ.1"
-        }
-      ]
-    },
-    {
       "id": "arson_of_occupied_structure.track_conflict.base.art164_sec2_1_post_killing_arson_precedent",
       "head": {
         "predicate": "arson_of_occupied_structure_track_conflict",
@@ -17575,6 +17097,250 @@
       ]
     },
     {
+      "id": "arson_of_occupied_structure.refers_to_crime.art164_sec2_1_accomplices_residence_general_building.001",
+      "head": {
+        "predicate": "arson_of_occupied_structure_refers_to_crime",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "일반건조물방화"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art164_sec2_1_accomplices_residence_general_building",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "structure_id"
+            },
+            {
+              "kind": "variable",
+              "value": "occupant_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "이 죄의 불성립에 그치지 않고 후속 죄명을 명시해 라우터가 다시 묻지 않게 한다.",
+      "norm_card_ids": [
+        "art164_sec2_1.accomplices_residence_general_building"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
+          "quote": "공범이 각자 자신이 살고 있는 건조물에 방화한 때, 공범이 함께 살고 있는 건조물에 방화한 때에는 일반건조물방화죄에 해당한다.",
+          "section_path": "Ⅱ.1"
+        }
+      ]
+    },
+    {
+      "id": "arson_of_occupied_structure.refers_to_crime.art164_sec2_1_derelict_building_not_building_precedent.002",
+      "head": {
+        "predicate": "arson_of_occupied_structure_refers_to_crime",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "일반물건방화"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art164_sec2_1_derelict_building_not_building_precedent",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "structure_id"
+            },
+            {
+              "kind": "variable",
+              "value": "occupant_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "이 죄의 불성립에 그치지 않고 후속 죄명을 명시해 라우터가 다시 묻지 않게 한다.",
+      "norm_card_ids": [
+        "art164_sec2_1.derelict_building_not_building_precedent"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제164조_Ⅱ.1_4",
+          "quote": "지붕과 문짝, 창문이 없고 담장과 일부 벽체가 붕괴된 철거 대상 건물로서 사실",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제164조_Ⅱ.1_4",
+          "quote": "상 기거·취침에 사용할 수 없는 상태의 폐가는 형법 제164조의 건조물이 아닌 제167조의 물건에 해당한다.",
+          "section_path": "Ⅱ.1"
+        }
+      ]
+    },
+    {
+      "id": "arson_of_occupied_structure.refers_to_crime.art164_sec2_1_residence_factual_use.003",
+      "head": {
+        "predicate": "arson_of_occupied_structure_refers_to_crime",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "일반건조물방화"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art164_sec2_1_residence_factual_use",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "structure_id"
+            },
+            {
+              "kind": "variable",
+              "value": "occupant_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "이 죄의 불성립에 그치지 않고 후속 죄명을 명시해 라우터가 다시 묻지 않게 한다.",
+      "norm_card_ids": [
+        "art164_sec2_1.residence_factual_use"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제164조_Ⅱ.1_3",
+          "quote": "‘사용한다’는 것은 사실적 의미로 해석하여야 한다. 따라서 주인이 주거로 사용",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제164조_Ⅱ.1_3",
+          "quote": "할 것을 포기한 농촌의 폐가나 영업을 중단하고 문을 잠가 둔 호텔은 주거로 사",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제164조_Ⅱ.1_3",
+          "quote": "용하는 건조물이라고 할 수 없다.",
+          "section_path": "Ⅱ.1"
+        }
+      ]
+    },
+    {
+      "id": "arson_of_occupied_structure.refers_to_crime.art164_sec2_1_sole_offender_home_general_building.004",
+      "head": {
+        "predicate": "arson_of_occupied_structure_refers_to_crime",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "일반건조물방화"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art164_sec2_1_sole_offender_home_general_building",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "structure_id"
+            },
+            {
+              "kind": "variable",
+              "value": "occupant_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "이 죄의 불성립에 그치지 않고 후속 죄명을 명시해 라우터가 다시 묻지 않게 한다.",
+      "norm_card_ids": [
+        "art164_sec2_1.sole_offender_home_general_building"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
+          "quote": "범인이 혼자 살고 있는 집",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
+          "quote": "에 방화한 때는 본죄에 해당하지 않고 일반건조물방화죄가 성립한다.",
+          "section_path": "Ⅱ.1"
+        }
+      ]
+    },
+    {
       "id": "arson_of_occupied_structure.summary.has_negative",
       "head": {
         "predicate": "arson_of_occupied_structure_has_negative",
@@ -17636,7 +17402,6 @@
         "art164_sec2_1.protected_object",
         "art164_sec2_1.residence_daily_life_place",
         "art164_sec2_1.residence_factual_use",
-        "art164_sec2_1.residence_nonrequired_indicia",
         "art164_sec2_1.residence_temporary_or_seasonal_use",
         "art164_sec2_1.residence_without_actual_presence",
         "art164_sec2_1.sole_offender_home_general_building",
@@ -17827,21 +17592,6 @@
         {
           "comment_id": "comm_001692_제164조_Ⅱ.1_3",
           "quote": "용하는 건조물이라고 할 수 없다.",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "밤낮으로 끊임없이 사람이 현존할 것을 요하지 않고, 주택으로 사용하는 것을 주된 목적으로 하거나 주거로 사용하기 위하여 건조된 것일 필",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "요가 없다. 항상 동일인이 거주할 것을 요하지 않는다. 주민등록이 되어 있을 것",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "을 요하지 않고",
           "section_path": "Ⅱ.1"
         },
         {
@@ -17978,7 +17728,6 @@
         "art164_sec2_1.protected_object",
         "art164_sec2_1.residence_daily_life_place",
         "art164_sec2_1.residence_factual_use",
-        "art164_sec2_1.residence_nonrequired_indicia",
         "art164_sec2_1.residence_temporary_or_seasonal_use",
         "art164_sec2_1.residence_without_actual_presence",
         "art164_sec2_1.sole_offender_home_general_building",
@@ -18169,21 +17918,6 @@
         {
           "comment_id": "comm_001692_제164조_Ⅱ.1_3",
           "quote": "용하는 건조물이라고 할 수 없다.",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "밤낮으로 끊임없이 사람이 현존할 것을 요하지 않고, 주택으로 사용하는 것을 주된 목적으로 하거나 주거로 사용하기 위하여 건조된 것일 필",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "요가 없다. 항상 동일인이 거주할 것을 요하지 않는다. 주민등록이 되어 있을 것",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "을 요하지 않고",
           "section_path": "Ⅱ.1"
         },
         {
@@ -18328,7 +18062,6 @@
         "art164_sec2_1.protected_object",
         "art164_sec2_1.residence_daily_life_place",
         "art164_sec2_1.residence_factual_use",
-        "art164_sec2_1.residence_nonrequired_indicia",
         "art164_sec2_1.residence_temporary_or_seasonal_use",
         "art164_sec2_1.residence_without_actual_presence",
         "art164_sec2_1.sole_offender_home_general_building",
@@ -18519,21 +18252,6 @@
         {
           "comment_id": "comm_001692_제164조_Ⅱ.1_3",
           "quote": "용하는 건조물이라고 할 수 없다.",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "밤낮으로 끊임없이 사람이 현존할 것을 요하지 않고, 주택으로 사용하는 것을 주된 목적으로 하거나 주거로 사용하기 위하여 건조된 것일 필",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "요가 없다. 항상 동일인이 거주할 것을 요하지 않는다. 주민등록이 되어 있을 것",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "을 요하지 않고",
           "section_path": "Ⅱ.1"
         },
         {
@@ -18678,7 +18396,6 @@
         "art164_sec2_1.protected_object",
         "art164_sec2_1.residence_daily_life_place",
         "art164_sec2_1.residence_factual_use",
-        "art164_sec2_1.residence_nonrequired_indicia",
         "art164_sec2_1.residence_temporary_or_seasonal_use",
         "art164_sec2_1.residence_without_actual_presence",
         "art164_sec2_1.sole_offender_home_general_building",
@@ -18869,21 +18586,6 @@
         {
           "comment_id": "comm_001692_제164조_Ⅱ.1_3",
           "quote": "용하는 건조물이라고 할 수 없다.",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "밤낮으로 끊임없이 사람이 현존할 것을 요하지 않고, 주택으로 사용하는 것을 주된 목적으로 하거나 주거로 사용하기 위하여 건조된 것일 필",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "요가 없다. 항상 동일인이 거주할 것을 요하지 않는다. 주민등록이 되어 있을 것",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "을 요하지 않고",
           "section_path": "Ⅱ.1"
         },
         {
@@ -19028,7 +18730,6 @@
         "art164_sec2_1.protected_object",
         "art164_sec2_1.residence_daily_life_place",
         "art164_sec2_1.residence_factual_use",
-        "art164_sec2_1.residence_nonrequired_indicia",
         "art164_sec2_1.residence_temporary_or_seasonal_use",
         "art164_sec2_1.residence_without_actual_presence",
         "art164_sec2_1.sole_offender_home_general_building",
@@ -19219,21 +18920,6 @@
         {
           "comment_id": "comm_001692_제164조_Ⅱ.1_3",
           "quote": "용하는 건조물이라고 할 수 없다.",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "밤낮으로 끊임없이 사람이 현존할 것을 요하지 않고, 주택으로 사용하는 것을 주된 목적으로 하거나 주거로 사용하기 위하여 건조된 것일 필",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "요가 없다. 항상 동일인이 거주할 것을 요하지 않는다. 주민등록이 되어 있을 것",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "을 요하지 않고",
           "section_path": "Ⅱ.1"
         },
         {
@@ -19547,7 +19233,6 @@
         "art164_sec2_1.protected_object",
         "art164_sec2_1.residence_daily_life_place",
         "art164_sec2_1.residence_factual_use",
-        "art164_sec2_1.residence_nonrequired_indicia",
         "art164_sec2_1.residence_temporary_or_seasonal_use",
         "art164_sec2_1.residence_without_actual_presence",
         "art164_sec2_1.sole_offender_home_general_building",
@@ -19677,21 +19362,6 @@
         {
           "comment_id": "comm_001692_제164조_Ⅱ.1_3",
           "quote": "용하는 건조물이라고 할 수 없다.",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "밤낮으로 끊임없이 사람이 현존할 것을 요하지 않고, 주택으로 사용하는 것을 주된 목적으로 하거나 주거로 사용하기 위하여 건조된 것일 필",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "요가 없다. 항상 동일인이 거주할 것을 요하지 않는다. 주민등록이 되어 있을 것",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "을 요하지 않고",
           "section_path": "Ⅱ.1"
         },
         {
@@ -19849,7 +19519,6 @@
         "art164_sec2_1.protected_object",
         "art164_sec2_1.residence_daily_life_place",
         "art164_sec2_1.residence_factual_use",
-        "art164_sec2_1.residence_nonrequired_indicia",
         "art164_sec2_1.residence_temporary_or_seasonal_use",
         "art164_sec2_1.residence_without_actual_presence",
         "art164_sec2_1.sole_offender_home_general_building",
@@ -19979,21 +19648,6 @@
         {
           "comment_id": "comm_001692_제164조_Ⅱ.1_3",
           "quote": "용하는 건조물이라고 할 수 없다.",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "밤낮으로 끊임없이 사람이 현존할 것을 요하지 않고, 주택으로 사용하는 것을 주된 목적으로 하거나 주거로 사용하기 위하여 건조된 것일 필",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "요가 없다. 항상 동일인이 거주할 것을 요하지 않는다. 주민등록이 되어 있을 것",
-          "section_path": "Ⅱ.1"
-        },
-        {
-          "comment_id": "comm_001692_제164조_Ⅱ.1_2",
-          "quote": "을 요하지 않고",
           "section_path": "Ⅱ.1"
         },
         {
@@ -20621,6 +20275,7 @@
     "context_only: art164.fire_insurance_claim_concurrence",
     "context_only: art164.pre_claim_insurance_fraud_no_attempt",
     "context_only: art164_sec2_1.independent_combustion_ceiling_case",
+    "context_only: art164_sec2_1.residence_nonrequired_indicia",
     "context_only: art164_sec2_2.mental_weakness_serial_arson_case",
     "card_metadata_correction: cc_001",
     "card_metadata_correction: cc_002"

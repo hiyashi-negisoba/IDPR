@@ -573,6 +573,11 @@ type rape_base_sex_classification_satisfied(String, String, String)
 // norm_cards: art297_sec3_4.intercourse_opposite_sex
 type rape_base_sex_pair_satisfied(String, String, String)
 
+// rape_refers_to_crime: 이 죄가 아니라 어느 죄로 평가되는지 — 경계획정 카드가 가리키는 죄명
+// sources: comm_001692_제297조_Ⅳ.1_8
+// norm_cards: art297_sec4_1.direct_violence_threat
+type rape_refers_to_crime(String, String, String)
+
 // rape_has_negative: 이 unit에 증명된 불성립 사유가 존재함
 // sources: system contract
 // norm_cards: system contract
@@ -1752,6 +1757,11 @@ rel rape_track_conflict(case_id, defendant_id, "base", "art297_sec3_4.sex_classi
 // sources: comm_001692_제297조_Ⅲ.4_6, comm_001692_제297조_Ⅲ.4_6
 // norm_cards: art297_sec3_4.intercourse_opposite_sex
 rel rape_track_conflict(case_id, defendant_id, "base", "art297_sec3_4.intercourse_opposite_sex") = rape_conflict(case_id, defendant_id, "art297_sec3_4.intercourse_opposite_sex")
+
+// rule_id: rape.refers_to_crime.art297_sec4_1_direct_violence_threat.001
+// sources: comm_001692_제297조_Ⅳ.1_8
+// norm_cards: art297_sec4_1.direct_violence_threat
+rel rape_refers_to_crime(case_id, defendant_id, "준강간·준강제추행") = satisfied_art297_sec4_1_direct_violence_threat(case_id, defendant_id, victim_id)
 
 // rule_id: rape.summary.has_negative
 // sources: comm_001692_제297조_Ⅳ_7, comm_001692_제297조_Ⅲ.1_2, comm_001692_제297조_Ⅲ.1_2, comm_001692_제297조_Ⅱ_1, comm_001692_제297조_Ⅲ.1_2, comm_001692_제297조_Ⅲ.1_2, comm_001692_제297조_Ⅲ.1_2, comm_001692_제297조_Ⅲ.1_2, comm_001692_제297조_Ⅲ.1_2, comm_001692_제297조_Ⅰ_0, comm_001692_제297조_Ⅲ.2_3, comm_001692_제297조_Ⅲ.2_4, comm_001692_제297조_Ⅲ.2_4, comm_001692_제297조_Ⅲ.4_6, comm_001692_제297조_Ⅲ.4_6, comm_001692_제297조_Ⅲ.4_6, comm_001692_제297조_Ⅳ.1_8, comm_001692_제297조_Ⅳ.1_14, comm_001692_제297조_Ⅳ.1_10, comm_001692_제297조_Ⅳ.1_9, comm_001692_제297조_Ⅳ.1_8, comm_001692_제297조_Ⅳ.1_14, comm_001692_제297조_Ⅳ.1_8, comm_001692_제297조_Ⅳ.2_15, comm_001692_제297조_Ⅳ.2_15, comm_001692_제297조_Ⅳ.2_15, comm_001692_제297조_Ⅳ.2_15, comm_001692_제297조_Ⅳ.2_15, comm_001692_제297조_Ⅳ.3_16, comm_001692_제297조_Ⅳ.3_16, comm_001692_제297조_Ⅳ.3_17, comm_001692_제297조_Ⅳ.3_17, comm_001692_제297조_Ⅳ.4_18, comm_001692_제297조_Ⅳ.4_18, comm_001692_제297조_Ⅴ_19, comm_001692_제297조_Ⅴ_19, comm_001692_제297조_Ⅴ_19, comm_001692_제297조_Ⅴ_19, comm_001692_제297조_Ⅵ_20, comm_001692_제297조_Ⅵ_20, comm_001692_제297조_Ⅶ_21, comm_001692_제297조_Ⅶ_21, comm_001692_제297조_Ⅶ_21, comm_001692_제297조_Ⅸ_26, comm_001692_제297조_Ⅸ_25, comm_001692_제297조_Ⅸ_26, comm_001692_제297조_Ⅸ_24, comm_001692_제297조_Ⅸ_25, comm_001692_제297조_Ⅸ_25, comm_001692_제297조_Ⅸ_24, comm_001692_제297조_Ⅸ_26, comm_001692_제297조_Ⅸ_24, comm_001692_제297조_Ⅸ_25, comm_001692_제297조_Ⅸ_25, comm_001692_제297조_Ⅸ_25

@@ -603,6 +603,44 @@ class UnitAssembler:
                     rationale="저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
                     cards=[card])
 
+    def emit_boundary_referrals(self, placements: list[dict[str, Any]]) -> None:
+        """Name the offence a boundary card hands the case over to.
+
+        A boundary card says "not this offence but that one".  Blocking this
+        unit is only half of that ruling; without the destination the reviewer's
+        ``refers_to_unit`` is compiled away and the answer stops at 불성립.
+        """
+        referred: dict[str, tuple[dict[str, Any], str]] = {}
+        for row in placements:
+            if row["role"] != "boundary":
+                continue
+            # The label is what a reader sees in the finished answer, so a bare
+            # unit id must never reach it.
+            target = row.get("refers_to_label") or row.get("refers_to_unit")
+            if not target or row["card_id"] in referred:
+                continue
+            referred[row["card_id"]] = (self.card(row["card_id"]), str(target))
+        if not referred:
+            return
+        relation = f"{self.unit_id}_refers_to_crime"
+        self.add_predicate(
+            relation,
+            [("case_id", "String"), ("defendant_id", "String"),
+             ("crime_name", "String")],
+            definition="이 죄가 아니라 어느 죄로 평가되는지 — 경계획정 카드가 가리키는 죄명",
+            origin="commentary", role="derived",
+            cards=[card for card, _ in referred.values()])
+        for index, card_id in enumerate(sorted(referred), 1):
+            card, target = referred[card_id]
+            self.add_rule(
+                f"{self.unit_id}.refers_to_crime.{slug(card_id)}.{index:03d}",
+                atom(relation, variable("case_id"), variable("defendant_id"),
+                     string(target)),
+                [atom(self.satisfied_by_card[card_id], *self.actors)],
+                rationale="이 죄의 불성립에 그치지 않고 후속 죄명을 명시해 "
+                          "라우터가 다시 묻지 않게 한다.",
+                cards=[card])
+
     def inherited_elements(self, track: str) -> list[str]:
         """The elements predicate this track inherits, if the reviewer declared one."""
         parent = self.track_parent.get(track)
@@ -827,8 +865,10 @@ class UnitAssembler:
         self.system_predicates()
         self.outcome_predicates()
         satisfied_by_card = self.emit_cards(placements)
+        self.satisfied_by_card = satisfied_by_card
         by_track = self.emit_components(placements, satisfied_by_card)
         self.emit_track_reports(placements, satisfied_by_card)
+        self.emit_boundary_referrals(placements)
         self.emit_conclusions(by_track)
 
         cards = [self.card(card_id) for card_id in sorted(self.used_cards)]

@@ -59,6 +59,10 @@
       "reason": "개별 사체·천정 사례이며 현재 quote만으로 일반 RuleIR 경로를 추가할 필요 없음"
     },
     {
+      "card_id": "art164_sec2_1.residence_nonrequired_indicia",
+      "reason": "주거성 판단에서 특정 징표가 필수가 아니라는 확인 법리로, 주거성을 긍정하는 카드이지 성립을 막는 카드가 아니다. 현재 역할 어휘에 자리가 없다."
+    },
+    {
       "card_id": "art164_sec2_2.mental_weakness_serial_arson_case",
       "reason": "형법 제10조 제2항 심신미약은 총칙 영역이고 현재 51조문 밖. unit outcome을 바꾸지 않음"
     }
@@ -348,7 +352,8 @@
       "component_join": "not_applicable",
       "refers_to_unit": "general_structure_arson",
       "rationale": "범인 단독거주 가옥은 제164조가 아니라 일반건조물방화",
-      "proposition_rewrite": null
+      "proposition_rewrite": null,
+      "refers_to_label": "일반건조물방화"
     },
     {
       "card_id": "art164_sec2_1.present_person",
@@ -370,7 +375,8 @@
       "component_join": "not_applicable",
       "refers_to_unit": "general_structure_arson",
       "rationale": "비범인 현주·현존이 없는 경우 제164조를 배제하고 일반건조물방화로 경계 이동",
-      "proposition_rewrite": null
+      "proposition_rewrite": null,
+      "refers_to_label": "일반건조물방화"
     },
     {
       "card_id": "art164_sec2_1.derelict_building_not_building_precedent",
@@ -381,7 +387,8 @@
       "component_join": "not_applicable",
       "refers_to_unit": "object_arson",
       "rationale": "메타 래퍼를 제거하고 폐가의 구체적 상태가 제164조 건조물에서 배제된다는 규칙으로 한정",
-      "proposition_rewrite": "지붕·문짝·창문이 없고 담장과 일부 벽체가 붕괴되어 기거 또는 취침에 사용할 수 없는 철거 대상 폐가는 제164조의 건조물에 해당하지 않는다."
+      "proposition_rewrite": "지붕·문짝·창문이 없고 담장과 일부 벽체가 붕괴되어 기거 또는 취침에 사용할 수 없는 철거 대상 폐가는 제164조의 건조물에 해당하지 않는다.",
+      "refers_to_label": "일반물건방화"
     },
     {
       "card_id": "art164_sec2_1.building",
@@ -458,18 +465,8 @@
       "component_join": "not_applicable",
       "refers_to_unit": "general_structure_arson",
       "rationale": "사용 포기 폐가·영업중단 호텔은 주거용 건조물이 아니므로 제164조 배제",
-      "proposition_rewrite": null
-    },
-    {
-      "card_id": "art164_sec2_1.residence_nonrequired_indicia",
-      "part_id": null,
-      "role": "bar",
-      "track_id": "base",
-      "component_id": "residence_use",
-      "component_join": "not_applicable",
-      "refers_to_unit": null,
-      "rationale": "지속 현존·주거목적 건축·동일인 거주·주민등록의 부존재만으로 주거성을 부정할 수 없다는 차단규칙",
-      "proposition_rewrite": null
+      "proposition_rewrite": null,
+      "refers_to_label": "일반건조물방화"
     },
     {
       "card_id": "art164_sec2_1.post_killing_arson_precedent",
@@ -634,7 +631,8 @@
       "component_join": "not_applicable",
       "refers_to_unit": "arson_preparation",
       "rationale": "제175조 예비로의 경계 이동. 해당 자산이 없으므로 보고만 한다",
-      "proposition_rewrite": "점화 전 행위는 방화죄의 실행 착수가 아니라 예비로 처벌될 수 있을 뿐이다."
+      "proposition_rewrite": "점화 전 행위는 방화죄의 실행 착수가 아니라 예비로 처벌될 수 있을 뿐이다.",
+      "refers_to_label": "방화예비·음모"
     }
   ],
   "components": [

@@ -4069,6 +4069,37 @@
       ]
     },
     {
+      "id": "rape_refers_to_crime",
+      "kind": "rule",
+      "origin": "commentary",
+      "role": "derived",
+      "definition": "이 죄가 아니라 어느 죄로 평가되는지 — 경계획정 카드가 가리키는 죄명",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "crime_name",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [
+        "art297_sec4_1.direct_violence_threat"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.1_8",
+          "quote": "폭행·협박은 행위자가 직접 가한 것이어야 하고, 타인이 행한 폭행·협박을 이용 하여 간음했을 때에는 준강간죄가 성립할 수 있다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    },
+    {
       "id": "rape_has_negative",
       "kind": "rule",
       "origin": "system",
@@ -18996,6 +19027,58 @@
           "comment_id": "comm_001692_제297조_Ⅲ.4_6",
           "quote": "체의 성별에 따라 동일한 성의 사람은 강간의 단독정범의 주체가 될 수 없다.",
           "section_path": "Ⅲ.4"
+        }
+      ]
+    },
+    {
+      "id": "rape.refers_to_crime.art297_sec4_1_direct_violence_threat.001",
+      "head": {
+        "predicate": "rape_refers_to_crime",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "준강간·준강제추행"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art297_sec4_1_direct_violence_threat",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "이 죄의 불성립에 그치지 않고 후속 죄명을 명시해 라우터가 다시 묻지 않게 한다.",
+      "norm_card_ids": [
+        "art297_sec4_1.direct_violence_threat"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.1_8",
+          "quote": "폭행·협박은 행위자가 직접 가한 것이어야 하고, 타인이 행한 폭행·협박을 이용 하여 간음했을 때에는 준강간죄가 성립할 수 있다.",
+          "section_path": "Ⅳ.1"
         }
       ]
     },

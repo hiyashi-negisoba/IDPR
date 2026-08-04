@@ -21,7 +21,6 @@
       "comm_001692_제257조_Ⅰ.3_8",
       "comm_001692_제257조_Ⅰ.3_9",
       "comm_001692_제257조_Ⅰ.4_18",
-      "comm_001692_제257조_Ⅰ.4_19",
       "comm_001692_제257조_Ⅰ.5_20",
       "comm_001692_제257조_Ⅰ.6_21",
       "comm_001692_제257조_Ⅰ.6_22",
@@ -85,8 +84,6 @@
       "art257_sec1_4.intent_definition",
       "art257_sec1_4.intent_element",
       "art257_sec1_4.intent_only_violence_result",
-      "art257_sec1_4.object_method_mistake",
-      "art257_sec1_4.unintended_victim",
       "art257_sec1_5.causation.objective_attribution",
       "art257_sec1_5.causation.result_and_causation",
       "art257_sec1_5.causation.tooth_injury_disparity",
@@ -2907,146 +2904,6 @@
         {
           "comment_id": "comm_001692_제257조_Ⅰ.4_18",
           "quote": "그러므로 상해의 고의 없이 폭행의 고의로 상해의 결과가 발생하였다면 폭행치 상죄가 성립한다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "assess_art257_sec1_4_object_method_mistake",
-      "kind": "rule",
-      "origin": "commentary",
-      "role": "input",
-      "definition": "이 카드의 사건별 적용 평가: 구성요건 착오 중 구체적 사실의 착오인 객체의 착오나 방법의 착오는 고의를 조각하지 않고 상해죄의 성립을 방해하지 않는다는 것이 판례의 태도이다.",
-      "arguments": [
-        {
-          "name": "case_id",
-          "type": "String"
-        },
-        {
-          "name": "assessment_id",
-          "type": "String"
-        },
-        {
-          "name": "defendant_id",
-          "type": "String"
-        },
-        {
-          "name": "victim_id",
-          "type": "String"
-        },
-        {
-          "name": "status",
-          "type": "String"
-        }
-      ],
-      "norm_card_ids": [
-        "art257_sec1_4.object_method_mistake"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "satisfied_art257_sec1_4_object_method_mistake",
-      "kind": "rule",
-      "origin": "commentary",
-      "role": "derived",
-      "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 구성요건 착오 중 구체적 사실의 착오인 객체의 착오나 방법의 착오는 고의를 조각하지 않고 상해죄의 성립을 방해하지 않는다는 것이 판례의 태도이다.",
-      "arguments": [
-        {
-          "name": "case_id",
-          "type": "String"
-        },
-        {
-          "name": "defendant_id",
-          "type": "String"
-        },
-        {
-          "name": "victim_id",
-          "type": "String"
-        }
-      ],
-      "norm_card_ids": [
-        "art257_sec1_4.object_method_mistake"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "assess_art257_sec1_4_unintended_victim",
-      "kind": "rule",
-      "origin": "commentary",
-      "role": "input",
-      "definition": "이 카드의 사건별 적용 평가: 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고 과실상해죄에 해당한다고 할 수는 없다.",
-      "arguments": [
-        {
-          "name": "case_id",
-          "type": "String"
-        },
-        {
-          "name": "assessment_id",
-          "type": "String"
-        },
-        {
-          "name": "defendant_id",
-          "type": "String"
-        },
-        {
-          "name": "victim_id",
-          "type": "String"
-        },
-        {
-          "name": "status",
-          "type": "String"
-        }
-      ],
-      "norm_card_ids": [
-        "art257_sec1_4.unintended_victim"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "satisfied_art257_sec1_4_unintended_victim",
-      "kind": "rule",
-      "origin": "commentary",
-      "role": "derived",
-      "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고 과실상해죄에 해당한다고 할 수는 없다.",
-      "arguments": [
-        {
-          "name": "case_id",
-          "type": "String"
-        },
-        {
-          "name": "defendant_id",
-          "type": "String"
-        },
-        {
-          "name": "victim_id",
-          "type": "String"
-        }
-      ],
-      "norm_card_ids": [
-        "art257_sec1_4.unintended_victim"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
           "section_path": "Ⅰ.4"
         }
       ]
@@ -6313,6 +6170,61 @@
           "comment_id": "comm_001692_제258조의2_Ⅰ_0",
           "quote": "이 죄는 단체 또는 다중의 위력을 보이거나 위험한 물건을 휴대하여 상해, 존속 상해, 중상해, 존속중상해의 죄를 범함으로써 성립한다.",
           "section_path": "Ⅰ"
+        }
+      ]
+    },
+    {
+      "id": "intentional_bodily_injury_refers_to_crime",
+      "kind": "rule",
+      "origin": "commentary",
+      "role": "derived",
+      "definition": "이 죄가 아니라 어느 죄로 평가되는지 — 경계획정 카드가 가리키는 죄명",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "crime_name",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [
+        "art257_sec1_4.intent_only_violence_result",
+        "art259_sec1.intentional_death_murder_exception",
+        "art259_sec1.no_injury_intent_classification",
+        "art259_sec2_1.murder_intent_exception",
+        "art259_sec2_3.robbery_resulting_death_exclusion"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제259조_Ⅰ_0",
+          "quote": "사망의 결과에 대하여 고의가 있는 때에는 이 죄가 성 립하지 아니하고 살인죄가 성립할 뿐이다.",
+          "section_path": "Ⅰ"
+        },
+        {
+          "comment_id": "comm_001692_제259조_Ⅱ.1_4",
+          "quote": "상해의 공동정범 가운데 1인이 살인의 고의로 사람을 살해한 경우 나머지 사람 들이 상해치사죄의 죄책을 면할 수 없다고 하더라도 살인죄의 책임을 물을 수 는 없다.",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제259조_Ⅱ.3_6",
+          "quote": "강도행위 시에 상해의 고의로써 사람을 상해하여 사망에 이르게 한 경우에는 강도치사죄 가 성립할 뿐이고 별도로 상해치사죄를 구성하지는 않는다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제259조_Ⅰ_0",
+          "quote": "폭행의 고의만 있고 사망의 결과로 결과적 가중범이 되는 경우에는 폭행치사죄가 되고, 폭행이나 상해의 고의가 없 이 사망의 결과가 발생한 경우에는 과실치사죄가 된다.",
+          "section_path": "Ⅰ"
+        },
+        {
+          "comment_id": "comm_001692_제257조_Ⅰ.4_18",
+          "quote": "그러므로 상해의 고의 없이 폭행의 고의로 상해의 결과가 발생하였다면 폭행치 상죄가 성립한다.",
+          "section_path": "Ⅰ.4"
         }
       ]
     },
@@ -15720,530 +15632,6 @@
       ]
     },
     {
-      "id": "intentional_bodily_injury.card.art257_sec1_4_object_method_mistake.satisfied",
-      "head": {
-        "predicate": "satisfied_art257_sec1_4_object_method_mistake",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "variable",
-            "value": "victim_id"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art257_sec1_4_object_method_mistake",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "assessment_035"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            },
-            {
-              "kind": "string",
-              "value": "satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "assessment_035"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "증명 가능한 평가가 satisfied일 때만 조건으로 승격한다.",
-      "norm_card_ids": [
-        "art257_sec1_4.object_method_mistake"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "intentional_bodily_injury.card.art257_sec1_4_object_method_mistake.undetermined",
-      "head": {
-        "predicate": "intentional_bodily_injury_undetermined",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art257_sec1_4.object_method_mistake"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art257_sec1_4_object_method_mistake",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "unknown_035"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            },
-            {
-              "kind": "string",
-              "value": "unknown"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "unknown_035"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "unknown 평가를 결론 계층에 보존한다.",
-      "norm_card_ids": [
-        "art257_sec1_4.object_method_mistake"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "intentional_bodily_injury.card.art257_sec1_4_object_method_mistake.conflict",
-      "head": {
-        "predicate": "intentional_bodily_injury_conflict",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art257_sec1_4.object_method_mistake"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art257_sec1_4_object_method_mistake",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "positive_035"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            },
-            {
-              "kind": "string",
-              "value": "satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "assess_art257_sec1_4_object_method_mistake",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "negative_035"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "positive_035"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "negative_035"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "같은 카드에 satisfied와 not_satisfied가 모두 증명되면 충돌이다.",
-      "norm_card_ids": [
-        "art257_sec1_4.object_method_mistake"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "intentional_bodily_injury.card.art257_sec1_4_unintended_victim.satisfied",
-      "head": {
-        "predicate": "satisfied_art257_sec1_4_unintended_victim",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "variable",
-            "value": "victim_id"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art257_sec1_4_unintended_victim",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "assessment_036"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            },
-            {
-              "kind": "string",
-              "value": "satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "assessment_036"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "증명 가능한 평가가 satisfied일 때만 조건으로 승격한다.",
-      "norm_card_ids": [
-        "art257_sec1_4.unintended_victim"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "intentional_bodily_injury.card.art257_sec1_4_unintended_victim.undetermined",
-      "head": {
-        "predicate": "intentional_bodily_injury_undetermined",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art257_sec1_4.unintended_victim"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art257_sec1_4_unintended_victim",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "unknown_036"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            },
-            {
-              "kind": "string",
-              "value": "unknown"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "unknown_036"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "unknown 평가를 결론 계층에 보존한다.",
-      "norm_card_ids": [
-        "art257_sec1_4.unintended_victim"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "intentional_bodily_injury.card.art257_sec1_4_unintended_victim.conflict",
-      "head": {
-        "predicate": "intentional_bodily_injury_conflict",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art257_sec1_4.unintended_victim"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art257_sec1_4_unintended_victim",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "positive_036"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            },
-            {
-              "kind": "string",
-              "value": "satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "assess_art257_sec1_4_unintended_victim",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "negative_036"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "positive_036"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "negative_036"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "같은 카드에 satisfied와 not_satisfied가 모두 증명되면 충돌이다.",
-      "norm_card_ids": [
-        "art257_sec1_4.unintended_victim"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
       "id": "intentional_bodily_injury.card.art257_sec1_5_causation_objective_attribution.satisfied",
       "head": {
         "predicate": "satisfied_art257_sec1_5_causation_objective_attribution",
@@ -16273,7 +15661,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_037"
+              "value": "assessment_035"
             },
             {
               "kind": "variable",
@@ -16299,7 +15687,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_037"
+              "value": "assessment_035"
             }
           ],
           "negated": false
@@ -16347,7 +15735,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_037"
+              "value": "unknown_035"
             },
             {
               "kind": "variable",
@@ -16373,7 +15761,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_037"
+              "value": "unknown_035"
             }
           ],
           "negated": false
@@ -16421,7 +15809,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_037"
+              "value": "positive_035"
             },
             {
               "kind": "variable",
@@ -16447,7 +15835,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_037"
+              "value": "negative_035"
             },
             {
               "kind": "variable",
@@ -16473,7 +15861,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_037"
+              "value": "positive_035"
             }
           ],
           "negated": false
@@ -16487,7 +15875,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_037"
+              "value": "negative_035"
             }
           ],
           "negated": false
@@ -16535,7 +15923,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_038"
+              "value": "assessment_036"
             },
             {
               "kind": "variable",
@@ -16561,7 +15949,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_038"
+              "value": "assessment_036"
             }
           ],
           "negated": false
@@ -16609,7 +15997,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_038"
+              "value": "unknown_036"
             },
             {
               "kind": "variable",
@@ -16635,7 +16023,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_038"
+              "value": "unknown_036"
             }
           ],
           "negated": false
@@ -16683,7 +16071,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_038"
+              "value": "positive_036"
             },
             {
               "kind": "variable",
@@ -16709,7 +16097,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_038"
+              "value": "negative_036"
             },
             {
               "kind": "variable",
@@ -16735,7 +16123,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_038"
+              "value": "positive_036"
             }
           ],
           "negated": false
@@ -16749,7 +16137,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_038"
+              "value": "negative_036"
             }
           ],
           "negated": false
@@ -16797,7 +16185,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_039"
+              "value": "assessment_037"
             },
             {
               "kind": "variable",
@@ -16823,7 +16211,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_039"
+              "value": "assessment_037"
             }
           ],
           "negated": false
@@ -16871,7 +16259,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_039"
+              "value": "unknown_037"
             },
             {
               "kind": "variable",
@@ -16897,7 +16285,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_039"
+              "value": "unknown_037"
             }
           ],
           "negated": false
@@ -16945,7 +16333,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_039"
+              "value": "positive_037"
             },
             {
               "kind": "variable",
@@ -16971,7 +16359,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_039"
+              "value": "negative_037"
             },
             {
               "kind": "variable",
@@ -16997,7 +16385,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_039"
+              "value": "positive_037"
             }
           ],
           "negated": false
@@ -17011,7 +16399,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_039"
+              "value": "negative_037"
             }
           ],
           "negated": false
@@ -17059,7 +16447,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_040"
+              "value": "assessment_038"
             },
             {
               "kind": "variable",
@@ -17085,7 +16473,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_040"
+              "value": "assessment_038"
             }
           ],
           "negated": false
@@ -17133,7 +16521,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_040"
+              "value": "unknown_038"
             },
             {
               "kind": "variable",
@@ -17159,7 +16547,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_040"
+              "value": "unknown_038"
             }
           ],
           "negated": false
@@ -17207,7 +16595,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_040"
+              "value": "positive_038"
             },
             {
               "kind": "variable",
@@ -17233,7 +16621,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_040"
+              "value": "negative_038"
             },
             {
               "kind": "variable",
@@ -17259,7 +16647,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_040"
+              "value": "positive_038"
             }
           ],
           "negated": false
@@ -17273,7 +16661,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_040"
+              "value": "negative_038"
             }
           ],
           "negated": false
@@ -17321,7 +16709,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_041"
+              "value": "assessment_039"
             },
             {
               "kind": "variable",
@@ -17347,7 +16735,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_041"
+              "value": "assessment_039"
             }
           ],
           "negated": false
@@ -17400,7 +16788,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_041"
+              "value": "unknown_039"
             },
             {
               "kind": "variable",
@@ -17426,7 +16814,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_041"
+              "value": "unknown_039"
             }
           ],
           "negated": false
@@ -17479,7 +16867,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_041"
+              "value": "positive_039"
             },
             {
               "kind": "variable",
@@ -17505,7 +16893,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_041"
+              "value": "negative_039"
             },
             {
               "kind": "variable",
@@ -17531,7 +16919,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_041"
+              "value": "positive_039"
             }
           ],
           "negated": false
@@ -17545,7 +16933,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_041"
+              "value": "negative_039"
             }
           ],
           "negated": false
@@ -17598,7 +16986,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_042"
+              "value": "assessment_040"
             },
             {
               "kind": "variable",
@@ -17624,7 +17012,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_042"
+              "value": "assessment_040"
             }
           ],
           "negated": false
@@ -17672,7 +17060,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_042"
+              "value": "unknown_040"
             },
             {
               "kind": "variable",
@@ -17698,7 +17086,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_042"
+              "value": "unknown_040"
             }
           ],
           "negated": false
@@ -17746,7 +17134,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_042"
+              "value": "positive_040"
             },
             {
               "kind": "variable",
@@ -17772,7 +17160,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_042"
+              "value": "negative_040"
             },
             {
               "kind": "variable",
@@ -17798,7 +17186,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_042"
+              "value": "positive_040"
             }
           ],
           "negated": false
@@ -17812,7 +17200,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_042"
+              "value": "negative_040"
             }
           ],
           "negated": false
@@ -17860,7 +17248,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_043"
+              "value": "assessment_041"
             },
             {
               "kind": "variable",
@@ -17886,7 +17274,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_043"
+              "value": "assessment_041"
             }
           ],
           "negated": false
@@ -17934,7 +17322,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_043"
+              "value": "unknown_041"
             },
             {
               "kind": "variable",
@@ -17960,7 +17348,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_043"
+              "value": "unknown_041"
             }
           ],
           "negated": false
@@ -18008,7 +17396,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_043"
+              "value": "positive_041"
             },
             {
               "kind": "variable",
@@ -18034,7 +17422,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_043"
+              "value": "negative_041"
             },
             {
               "kind": "variable",
@@ -18060,7 +17448,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_043"
+              "value": "positive_041"
             }
           ],
           "negated": false
@@ -18074,7 +17462,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_043"
+              "value": "negative_041"
             }
           ],
           "negated": false
@@ -18122,7 +17510,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_044"
+              "value": "assessment_042"
             },
             {
               "kind": "variable",
@@ -18148,7 +17536,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_044"
+              "value": "assessment_042"
             }
           ],
           "negated": false
@@ -18196,7 +17584,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_044"
+              "value": "unknown_042"
             },
             {
               "kind": "variable",
@@ -18222,7 +17610,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_044"
+              "value": "unknown_042"
             }
           ],
           "negated": false
@@ -18270,7 +17658,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_044"
+              "value": "positive_042"
             },
             {
               "kind": "variable",
@@ -18296,7 +17684,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_044"
+              "value": "negative_042"
             },
             {
               "kind": "variable",
@@ -18322,7 +17710,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_044"
+              "value": "positive_042"
             }
           ],
           "negated": false
@@ -18336,7 +17724,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_044"
+              "value": "negative_042"
             }
           ],
           "negated": false
@@ -18384,7 +17772,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_045"
+              "value": "assessment_043"
             },
             {
               "kind": "variable",
@@ -18410,7 +17798,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_045"
+              "value": "assessment_043"
             }
           ],
           "negated": false
@@ -18458,7 +17846,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_045"
+              "value": "unknown_043"
             },
             {
               "kind": "variable",
@@ -18484,7 +17872,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_045"
+              "value": "unknown_043"
             }
           ],
           "negated": false
@@ -18532,7 +17920,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_045"
+              "value": "positive_043"
             },
             {
               "kind": "variable",
@@ -18558,7 +17946,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_045"
+              "value": "negative_043"
             },
             {
               "kind": "variable",
@@ -18584,7 +17972,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_045"
+              "value": "positive_043"
             }
           ],
           "negated": false
@@ -18598,7 +17986,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_045"
+              "value": "negative_043"
             }
           ],
           "negated": false
@@ -18646,7 +18034,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_046"
+              "value": "assessment_044"
             },
             {
               "kind": "variable",
@@ -18672,7 +18060,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_046"
+              "value": "assessment_044"
             }
           ],
           "negated": false
@@ -18720,7 +18108,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_046"
+              "value": "unknown_044"
             },
             {
               "kind": "variable",
@@ -18746,7 +18134,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_046"
+              "value": "unknown_044"
             }
           ],
           "negated": false
@@ -18794,7 +18182,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_046"
+              "value": "positive_044"
             },
             {
               "kind": "variable",
@@ -18820,7 +18208,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_046"
+              "value": "negative_044"
             },
             {
               "kind": "variable",
@@ -18846,7 +18234,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_046"
+              "value": "positive_044"
             }
           ],
           "negated": false
@@ -18860,7 +18248,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_046"
+              "value": "negative_044"
             }
           ],
           "negated": false
@@ -18908,7 +18296,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_047"
+              "value": "assessment_045"
             },
             {
               "kind": "variable",
@@ -18934,7 +18322,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_047"
+              "value": "assessment_045"
             }
           ],
           "negated": false
@@ -18982,7 +18370,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_047"
+              "value": "unknown_045"
             },
             {
               "kind": "variable",
@@ -19008,7 +18396,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_047"
+              "value": "unknown_045"
             }
           ],
           "negated": false
@@ -19056,7 +18444,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_047"
+              "value": "positive_045"
             },
             {
               "kind": "variable",
@@ -19082,7 +18470,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_047"
+              "value": "negative_045"
             },
             {
               "kind": "variable",
@@ -19108,7 +18496,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_047"
+              "value": "positive_045"
             }
           ],
           "negated": false
@@ -19122,7 +18510,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_047"
+              "value": "negative_045"
             }
           ],
           "negated": false
@@ -19170,7 +18558,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_048"
+              "value": "assessment_046"
             },
             {
               "kind": "variable",
@@ -19196,7 +18584,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_048"
+              "value": "assessment_046"
             }
           ],
           "negated": false
@@ -19244,7 +18632,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_048"
+              "value": "unknown_046"
             },
             {
               "kind": "variable",
@@ -19270,7 +18658,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_048"
+              "value": "unknown_046"
             }
           ],
           "negated": false
@@ -19318,7 +18706,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_048"
+              "value": "positive_046"
             },
             {
               "kind": "variable",
@@ -19344,7 +18732,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_048"
+              "value": "negative_046"
             },
             {
               "kind": "variable",
@@ -19370,7 +18758,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_048"
+              "value": "positive_046"
             }
           ],
           "negated": false
@@ -19384,7 +18772,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_048"
+              "value": "negative_046"
             }
           ],
           "negated": false
@@ -19432,7 +18820,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_049"
+              "value": "assessment_047"
             },
             {
               "kind": "variable",
@@ -19458,7 +18846,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_049"
+              "value": "assessment_047"
             }
           ],
           "negated": false
@@ -19506,7 +18894,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_049"
+              "value": "unknown_047"
             },
             {
               "kind": "variable",
@@ -19532,7 +18920,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_049"
+              "value": "unknown_047"
             }
           ],
           "negated": false
@@ -19580,7 +18968,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_049"
+              "value": "positive_047"
             },
             {
               "kind": "variable",
@@ -19606,7 +18994,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_049"
+              "value": "negative_047"
             },
             {
               "kind": "variable",
@@ -19632,7 +19020,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_049"
+              "value": "positive_047"
             }
           ],
           "negated": false
@@ -19646,7 +19034,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_049"
+              "value": "negative_047"
             }
           ],
           "negated": false
@@ -19694,7 +19082,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_050"
+              "value": "assessment_048"
             },
             {
               "kind": "variable",
@@ -19720,7 +19108,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_050"
+              "value": "assessment_048"
             }
           ],
           "negated": false
@@ -19768,7 +19156,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_050"
+              "value": "unknown_048"
             },
             {
               "kind": "variable",
@@ -19794,7 +19182,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_050"
+              "value": "unknown_048"
             }
           ],
           "negated": false
@@ -19842,7 +19230,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_050"
+              "value": "positive_048"
             },
             {
               "kind": "variable",
@@ -19868,7 +19256,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_050"
+              "value": "negative_048"
             },
             {
               "kind": "variable",
@@ -19894,7 +19282,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_050"
+              "value": "positive_048"
             }
           ],
           "negated": false
@@ -19908,7 +19296,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_050"
+              "value": "negative_048"
             }
           ],
           "negated": false
@@ -19956,7 +19344,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_051"
+              "value": "assessment_049"
             },
             {
               "kind": "variable",
@@ -19982,7 +19370,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_051"
+              "value": "assessment_049"
             }
           ],
           "negated": false
@@ -20030,7 +19418,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_051"
+              "value": "unknown_049"
             },
             {
               "kind": "variable",
@@ -20056,7 +19444,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_051"
+              "value": "unknown_049"
             }
           ],
           "negated": false
@@ -20104,7 +19492,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_051"
+              "value": "positive_049"
             },
             {
               "kind": "variable",
@@ -20130,7 +19518,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_051"
+              "value": "negative_049"
             },
             {
               "kind": "variable",
@@ -20156,7 +19544,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_051"
+              "value": "positive_049"
             }
           ],
           "negated": false
@@ -20170,7 +19558,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_051"
+              "value": "negative_049"
             }
           ],
           "negated": false
@@ -20218,7 +19606,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_052"
+              "value": "assessment_050"
             },
             {
               "kind": "variable",
@@ -20244,7 +19632,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_052"
+              "value": "assessment_050"
             }
           ],
           "negated": false
@@ -20292,7 +19680,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_052"
+              "value": "unknown_050"
             },
             {
               "kind": "variable",
@@ -20318,7 +19706,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_052"
+              "value": "unknown_050"
             }
           ],
           "negated": false
@@ -20366,7 +19754,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_052"
+              "value": "positive_050"
             },
             {
               "kind": "variable",
@@ -20392,7 +19780,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_052"
+              "value": "negative_050"
             },
             {
               "kind": "variable",
@@ -20418,7 +19806,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_052"
+              "value": "positive_050"
             }
           ],
           "negated": false
@@ -20432,7 +19820,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_052"
+              "value": "negative_050"
             }
           ],
           "negated": false
@@ -20480,7 +19868,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_053"
+              "value": "assessment_051"
             },
             {
               "kind": "variable",
@@ -20506,7 +19894,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_053"
+              "value": "assessment_051"
             }
           ],
           "negated": false
@@ -20554,7 +19942,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_053"
+              "value": "unknown_051"
             },
             {
               "kind": "variable",
@@ -20580,7 +19968,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_053"
+              "value": "unknown_051"
             }
           ],
           "negated": false
@@ -20628,7 +20016,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_053"
+              "value": "positive_051"
             },
             {
               "kind": "variable",
@@ -20654,7 +20042,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_053"
+              "value": "negative_051"
             },
             {
               "kind": "variable",
@@ -20680,7 +20068,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_053"
+              "value": "positive_051"
             }
           ],
           "negated": false
@@ -20694,7 +20082,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_053"
+              "value": "negative_051"
             }
           ],
           "negated": false
@@ -20742,7 +20130,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_054"
+              "value": "assessment_052"
             },
             {
               "kind": "variable",
@@ -20768,7 +20156,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_054"
+              "value": "assessment_052"
             }
           ],
           "negated": false
@@ -20816,7 +20204,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_054"
+              "value": "unknown_052"
             },
             {
               "kind": "variable",
@@ -20842,7 +20230,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_054"
+              "value": "unknown_052"
             }
           ],
           "negated": false
@@ -20890,7 +20278,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_054"
+              "value": "positive_052"
             },
             {
               "kind": "variable",
@@ -20916,7 +20304,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_054"
+              "value": "negative_052"
             },
             {
               "kind": "variable",
@@ -20942,7 +20330,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_054"
+              "value": "positive_052"
             }
           ],
           "negated": false
@@ -20956,7 +20344,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_054"
+              "value": "negative_052"
             }
           ],
           "negated": false
@@ -21004,7 +20392,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_055"
+              "value": "assessment_053"
             },
             {
               "kind": "variable",
@@ -21030,7 +20418,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_055"
+              "value": "assessment_053"
             }
           ],
           "negated": false
@@ -21078,7 +20466,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_055"
+              "value": "unknown_053"
             },
             {
               "kind": "variable",
@@ -21104,7 +20492,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_055"
+              "value": "unknown_053"
             }
           ],
           "negated": false
@@ -21152,7 +20540,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_055"
+              "value": "positive_053"
             },
             {
               "kind": "variable",
@@ -21178,7 +20566,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_055"
+              "value": "negative_053"
             },
             {
               "kind": "variable",
@@ -21204,7 +20592,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_055"
+              "value": "positive_053"
             }
           ],
           "negated": false
@@ -21218,7 +20606,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_055"
+              "value": "negative_053"
             }
           ],
           "negated": false
@@ -21266,7 +20654,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_056"
+              "value": "assessment_054"
             },
             {
               "kind": "variable",
@@ -21292,7 +20680,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_056"
+              "value": "assessment_054"
             }
           ],
           "negated": false
@@ -21340,7 +20728,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_056"
+              "value": "unknown_054"
             },
             {
               "kind": "variable",
@@ -21366,7 +20754,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_056"
+              "value": "unknown_054"
             }
           ],
           "negated": false
@@ -21414,7 +20802,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_056"
+              "value": "positive_054"
             },
             {
               "kind": "variable",
@@ -21440,7 +20828,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_056"
+              "value": "negative_054"
             },
             {
               "kind": "variable",
@@ -21466,7 +20854,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_056"
+              "value": "positive_054"
             }
           ],
           "negated": false
@@ -21480,7 +20868,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_056"
+              "value": "negative_054"
             }
           ],
           "negated": false
@@ -21528,7 +20916,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_057"
+              "value": "assessment_055"
             },
             {
               "kind": "variable",
@@ -21554,7 +20942,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_057"
+              "value": "assessment_055"
             }
           ],
           "negated": false
@@ -21602,7 +20990,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_057"
+              "value": "unknown_055"
             },
             {
               "kind": "variable",
@@ -21628,7 +21016,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_057"
+              "value": "unknown_055"
             }
           ],
           "negated": false
@@ -21676,7 +21064,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_057"
+              "value": "positive_055"
             },
             {
               "kind": "variable",
@@ -21702,7 +21090,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_057"
+              "value": "negative_055"
             },
             {
               "kind": "variable",
@@ -21728,7 +21116,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_057"
+              "value": "positive_055"
             }
           ],
           "negated": false
@@ -21742,7 +21130,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_057"
+              "value": "negative_055"
             }
           ],
           "negated": false
@@ -21790,7 +21178,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_058"
+              "value": "assessment_056"
             },
             {
               "kind": "variable",
@@ -21816,7 +21204,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_058"
+              "value": "assessment_056"
             }
           ],
           "negated": false
@@ -21864,7 +21252,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_058"
+              "value": "unknown_056"
             },
             {
               "kind": "variable",
@@ -21890,7 +21278,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_058"
+              "value": "unknown_056"
             }
           ],
           "negated": false
@@ -21938,7 +21326,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_058"
+              "value": "positive_056"
             },
             {
               "kind": "variable",
@@ -21964,7 +21352,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_058"
+              "value": "negative_056"
             },
             {
               "kind": "variable",
@@ -21990,7 +21378,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_058"
+              "value": "positive_056"
             }
           ],
           "negated": false
@@ -22004,7 +21392,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_058"
+              "value": "negative_056"
             }
           ],
           "negated": false
@@ -22052,7 +21440,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_059"
+              "value": "assessment_057"
             },
             {
               "kind": "variable",
@@ -22078,7 +21466,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_059"
+              "value": "assessment_057"
             }
           ],
           "negated": false
@@ -22126,7 +21514,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_059"
+              "value": "unknown_057"
             },
             {
               "kind": "variable",
@@ -22152,7 +21540,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_059"
+              "value": "unknown_057"
             }
           ],
           "negated": false
@@ -22200,7 +21588,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_059"
+              "value": "positive_057"
             },
             {
               "kind": "variable",
@@ -22226,7 +21614,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_059"
+              "value": "negative_057"
             },
             {
               "kind": "variable",
@@ -22252,7 +21640,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_059"
+              "value": "positive_057"
             }
           ],
           "negated": false
@@ -22266,7 +21654,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_059"
+              "value": "negative_057"
             }
           ],
           "negated": false
@@ -22314,7 +21702,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_060"
+              "value": "assessment_058"
             },
             {
               "kind": "variable",
@@ -22340,7 +21728,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_060"
+              "value": "assessment_058"
             }
           ],
           "negated": false
@@ -22388,7 +21776,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_060"
+              "value": "unknown_058"
             },
             {
               "kind": "variable",
@@ -22414,7 +21802,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_060"
+              "value": "unknown_058"
             }
           ],
           "negated": false
@@ -22462,7 +21850,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_060"
+              "value": "positive_058"
             },
             {
               "kind": "variable",
@@ -22488,7 +21876,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_060"
+              "value": "negative_058"
             },
             {
               "kind": "variable",
@@ -22514,7 +21902,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_060"
+              "value": "positive_058"
             }
           ],
           "negated": false
@@ -22528,7 +21916,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_060"
+              "value": "negative_058"
             }
           ],
           "negated": false
@@ -22576,7 +21964,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_061"
+              "value": "assessment_059"
             },
             {
               "kind": "variable",
@@ -22602,7 +21990,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_061"
+              "value": "assessment_059"
             }
           ],
           "negated": false
@@ -22650,7 +22038,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_061"
+              "value": "unknown_059"
             },
             {
               "kind": "variable",
@@ -22676,7 +22064,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_061"
+              "value": "unknown_059"
             }
           ],
           "negated": false
@@ -22724,7 +22112,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_061"
+              "value": "positive_059"
             },
             {
               "kind": "variable",
@@ -22750,7 +22138,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_061"
+              "value": "negative_059"
             },
             {
               "kind": "variable",
@@ -22776,7 +22164,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_061"
+              "value": "positive_059"
             }
           ],
           "negated": false
@@ -22790,7 +22178,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_061"
+              "value": "negative_059"
             }
           ],
           "negated": false
@@ -22838,7 +22226,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_062"
+              "value": "assessment_060"
             },
             {
               "kind": "variable",
@@ -22864,7 +22252,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_062"
+              "value": "assessment_060"
             }
           ],
           "negated": false
@@ -22912,7 +22300,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_062"
+              "value": "unknown_060"
             },
             {
               "kind": "variable",
@@ -22938,7 +22326,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_062"
+              "value": "unknown_060"
             }
           ],
           "negated": false
@@ -22986,7 +22374,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_062"
+              "value": "positive_060"
             },
             {
               "kind": "variable",
@@ -23012,7 +22400,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_062"
+              "value": "negative_060"
             },
             {
               "kind": "variable",
@@ -23038,7 +22426,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_062"
+              "value": "positive_060"
             }
           ],
           "negated": false
@@ -23052,7 +22440,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_062"
+              "value": "negative_060"
             }
           ],
           "negated": false
@@ -23100,7 +22488,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_063"
+              "value": "assessment_061"
             },
             {
               "kind": "variable",
@@ -23126,7 +22514,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_063"
+              "value": "assessment_061"
             }
           ],
           "negated": false
@@ -23174,7 +22562,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_063"
+              "value": "unknown_061"
             },
             {
               "kind": "variable",
@@ -23200,7 +22588,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_063"
+              "value": "unknown_061"
             }
           ],
           "negated": false
@@ -23248,7 +22636,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_063"
+              "value": "positive_061"
             },
             {
               "kind": "variable",
@@ -23274,7 +22662,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_063"
+              "value": "negative_061"
             },
             {
               "kind": "variable",
@@ -23300,7 +22688,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_063"
+              "value": "positive_061"
             }
           ],
           "negated": false
@@ -23314,7 +22702,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_063"
+              "value": "negative_061"
             }
           ],
           "negated": false
@@ -23362,7 +22750,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_064"
+              "value": "assessment_062"
             },
             {
               "kind": "variable",
@@ -23388,7 +22776,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_064"
+              "value": "assessment_062"
             }
           ],
           "negated": false
@@ -23436,7 +22824,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_064"
+              "value": "unknown_062"
             },
             {
               "kind": "variable",
@@ -23462,7 +22850,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_064"
+              "value": "unknown_062"
             }
           ],
           "negated": false
@@ -23510,7 +22898,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_064"
+              "value": "positive_062"
             },
             {
               "kind": "variable",
@@ -23536,7 +22924,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_064"
+              "value": "negative_062"
             },
             {
               "kind": "variable",
@@ -23562,7 +22950,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_064"
+              "value": "positive_062"
             }
           ],
           "negated": false
@@ -23576,7 +22964,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_064"
+              "value": "negative_062"
             }
           ],
           "negated": false
@@ -23624,7 +23012,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_065"
+              "value": "assessment_063"
             },
             {
               "kind": "variable",
@@ -23650,7 +23038,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_065"
+              "value": "assessment_063"
             }
           ],
           "negated": false
@@ -23698,7 +23086,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_065"
+              "value": "unknown_063"
             },
             {
               "kind": "variable",
@@ -23724,7 +23112,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_065"
+              "value": "unknown_063"
             }
           ],
           "negated": false
@@ -23772,7 +23160,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_065"
+              "value": "positive_063"
             },
             {
               "kind": "variable",
@@ -23798,7 +23186,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_065"
+              "value": "negative_063"
             },
             {
               "kind": "variable",
@@ -23824,7 +23212,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_065"
+              "value": "positive_063"
             }
           ],
           "negated": false
@@ -23838,7 +23226,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_065"
+              "value": "negative_063"
             }
           ],
           "negated": false
@@ -23886,7 +23274,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_066"
+              "value": "assessment_064"
             },
             {
               "kind": "variable",
@@ -23912,7 +23300,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_066"
+              "value": "assessment_064"
             }
           ],
           "negated": false
@@ -23960,7 +23348,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_066"
+              "value": "unknown_064"
             },
             {
               "kind": "variable",
@@ -23986,7 +23374,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_066"
+              "value": "unknown_064"
             }
           ],
           "negated": false
@@ -24034,7 +23422,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_066"
+              "value": "positive_064"
             },
             {
               "kind": "variable",
@@ -24060,7 +23448,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_066"
+              "value": "negative_064"
             },
             {
               "kind": "variable",
@@ -24086,7 +23474,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_066"
+              "value": "positive_064"
             }
           ],
           "negated": false
@@ -24100,7 +23488,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_066"
+              "value": "negative_064"
             }
           ],
           "negated": false
@@ -24148,7 +23536,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_067"
+              "value": "assessment_065"
             },
             {
               "kind": "variable",
@@ -24174,7 +23562,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_067"
+              "value": "assessment_065"
             }
           ],
           "negated": false
@@ -24222,7 +23610,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_067"
+              "value": "unknown_065"
             },
             {
               "kind": "variable",
@@ -24248,7 +23636,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_067"
+              "value": "unknown_065"
             }
           ],
           "negated": false
@@ -24296,7 +23684,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_067"
+              "value": "positive_065"
             },
             {
               "kind": "variable",
@@ -24322,7 +23710,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_067"
+              "value": "negative_065"
             },
             {
               "kind": "variable",
@@ -24348,7 +23736,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_067"
+              "value": "positive_065"
             }
           ],
           "negated": false
@@ -24362,7 +23750,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_067"
+              "value": "negative_065"
             }
           ],
           "negated": false
@@ -24410,7 +23798,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_068"
+              "value": "assessment_066"
             },
             {
               "kind": "variable",
@@ -24436,7 +23824,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_068"
+              "value": "assessment_066"
             }
           ],
           "negated": false
@@ -24484,7 +23872,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_068"
+              "value": "unknown_066"
             },
             {
               "kind": "variable",
@@ -24510,7 +23898,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_068"
+              "value": "unknown_066"
             }
           ],
           "negated": false
@@ -24558,7 +23946,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_068"
+              "value": "positive_066"
             },
             {
               "kind": "variable",
@@ -24584,7 +23972,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_068"
+              "value": "negative_066"
             },
             {
               "kind": "variable",
@@ -24610,7 +23998,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_068"
+              "value": "positive_066"
             }
           ],
           "negated": false
@@ -24624,7 +24012,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_068"
+              "value": "negative_066"
             }
           ],
           "negated": false
@@ -24672,7 +24060,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_069"
+              "value": "assessment_067"
             },
             {
               "kind": "variable",
@@ -24698,7 +24086,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_069"
+              "value": "assessment_067"
             }
           ],
           "negated": false
@@ -24751,7 +24139,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_069"
+              "value": "unknown_067"
             },
             {
               "kind": "variable",
@@ -24777,7 +24165,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_069"
+              "value": "unknown_067"
             }
           ],
           "negated": false
@@ -24830,7 +24218,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_069"
+              "value": "positive_067"
             },
             {
               "kind": "variable",
@@ -24856,7 +24244,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_069"
+              "value": "negative_067"
             },
             {
               "kind": "variable",
@@ -24882,7 +24270,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_069"
+              "value": "positive_067"
             }
           ],
           "negated": false
@@ -24896,7 +24284,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_069"
+              "value": "negative_067"
             }
           ],
           "negated": false
@@ -24949,7 +24337,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_070"
+              "value": "assessment_068"
             },
             {
               "kind": "variable",
@@ -24975,7 +24363,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_070"
+              "value": "assessment_068"
             }
           ],
           "negated": false
@@ -25023,7 +24411,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_070"
+              "value": "unknown_068"
             },
             {
               "kind": "variable",
@@ -25049,7 +24437,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_070"
+              "value": "unknown_068"
             }
           ],
           "negated": false
@@ -25097,7 +24485,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_070"
+              "value": "positive_068"
             },
             {
               "kind": "variable",
@@ -25123,7 +24511,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_070"
+              "value": "negative_068"
             },
             {
               "kind": "variable",
@@ -25149,7 +24537,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_070"
+              "value": "positive_068"
             }
           ],
           "negated": false
@@ -25163,7 +24551,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_070"
+              "value": "negative_068"
             }
           ],
           "negated": false
@@ -25211,7 +24599,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_071"
+              "value": "assessment_069"
             },
             {
               "kind": "variable",
@@ -25237,7 +24625,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_071"
+              "value": "assessment_069"
             }
           ],
           "negated": false
@@ -25285,7 +24673,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_071"
+              "value": "unknown_069"
             },
             {
               "kind": "variable",
@@ -25311,7 +24699,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_071"
+              "value": "unknown_069"
             }
           ],
           "negated": false
@@ -25359,7 +24747,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_071"
+              "value": "positive_069"
             },
             {
               "kind": "variable",
@@ -25385,7 +24773,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_071"
+              "value": "negative_069"
             },
             {
               "kind": "variable",
@@ -25411,7 +24799,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_071"
+              "value": "positive_069"
             }
           ],
           "negated": false
@@ -25425,7 +24813,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_071"
+              "value": "negative_069"
             }
           ],
           "negated": false
@@ -25473,7 +24861,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_072"
+              "value": "assessment_070"
             },
             {
               "kind": "variable",
@@ -25499,7 +24887,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_072"
+              "value": "assessment_070"
             }
           ],
           "negated": false
@@ -25547,7 +24935,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_072"
+              "value": "unknown_070"
             },
             {
               "kind": "variable",
@@ -25573,7 +24961,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_072"
+              "value": "unknown_070"
             }
           ],
           "negated": false
@@ -25621,7 +25009,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_072"
+              "value": "positive_070"
             },
             {
               "kind": "variable",
@@ -25647,7 +25035,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_072"
+              "value": "negative_070"
             },
             {
               "kind": "variable",
@@ -25673,7 +25061,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_072"
+              "value": "positive_070"
             }
           ],
           "negated": false
@@ -25687,7 +25075,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_072"
+              "value": "negative_070"
             }
           ],
           "negated": false
@@ -25735,7 +25123,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_073"
+              "value": "assessment_071"
             },
             {
               "kind": "variable",
@@ -25761,7 +25149,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_073"
+              "value": "assessment_071"
             }
           ],
           "negated": false
@@ -25809,7 +25197,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_073"
+              "value": "unknown_071"
             },
             {
               "kind": "variable",
@@ -25835,7 +25223,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_073"
+              "value": "unknown_071"
             }
           ],
           "negated": false
@@ -25883,7 +25271,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_073"
+              "value": "positive_071"
             },
             {
               "kind": "variable",
@@ -25909,7 +25297,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_073"
+              "value": "negative_071"
             },
             {
               "kind": "variable",
@@ -25935,7 +25323,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_073"
+              "value": "positive_071"
             }
           ],
           "negated": false
@@ -25949,7 +25337,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_073"
+              "value": "negative_071"
             }
           ],
           "negated": false
@@ -25997,7 +25385,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_074"
+              "value": "assessment_072"
             },
             {
               "kind": "variable",
@@ -26023,7 +25411,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_074"
+              "value": "assessment_072"
             }
           ],
           "negated": false
@@ -26071,7 +25459,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_074"
+              "value": "unknown_072"
             },
             {
               "kind": "variable",
@@ -26097,7 +25485,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_074"
+              "value": "unknown_072"
             }
           ],
           "negated": false
@@ -26145,7 +25533,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_074"
+              "value": "positive_072"
             },
             {
               "kind": "variable",
@@ -26171,7 +25559,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_074"
+              "value": "negative_072"
             },
             {
               "kind": "variable",
@@ -26197,7 +25585,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_074"
+              "value": "positive_072"
             }
           ],
           "negated": false
@@ -26211,7 +25599,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_074"
+              "value": "negative_072"
             }
           ],
           "negated": false
@@ -38330,902 +37718,6 @@
       ]
     },
     {
-      "id": "intentional_bodily_injury.track_conflict.base.art257_sec1_4_object_method_mistake",
-      "head": {
-        "predicate": "intentional_bodily_injury_track_conflict",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "base"
-          },
-          {
-            "kind": "string",
-            "value": "art257_sec1_4.object_method_mistake"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "intentional_bodily_injury_conflict",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "art257_sec1_4.object_method_mistake"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "카드 평가 충돌은 해당 track과 그 상속 track에만 전파한다.",
-      "norm_card_ids": [
-        "art257_sec1_4.object_method_mistake"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "intentional_bodily_injury.track_blocked.base.art257_sec1_4_object_method_mistake",
-      "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "base"
-          },
-          {
-            "kind": "string",
-            "value": "art257_sec1_4.object_method_mistake"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "satisfied_art257_sec1_4_object_method_mistake",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
-      "norm_card_ids": [
-        "art257_sec1_4.object_method_mistake"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "intentional_bodily_injury.track_conflict.ancestral.art257_sec1_4_object_method_mistake",
-      "head": {
-        "predicate": "intentional_bodily_injury_track_conflict",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "ancestral"
-          },
-          {
-            "kind": "string",
-            "value": "art257_sec1_4.object_method_mistake"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "intentional_bodily_injury_conflict",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "art257_sec1_4.object_method_mistake"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "카드 평가 충돌은 해당 track과 그 상속 track에만 전파한다.",
-      "norm_card_ids": [
-        "art257_sec1_4.object_method_mistake"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "intentional_bodily_injury.track_blocked.ancestral.art257_sec1_4_object_method_mistake",
-      "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "ancestral"
-          },
-          {
-            "kind": "string",
-            "value": "art257_sec1_4.object_method_mistake"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "satisfied_art257_sec1_4_object_method_mistake",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
-      "norm_card_ids": [
-        "art257_sec1_4.object_method_mistake"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "intentional_bodily_injury.track_conflict.special.art257_sec1_4_object_method_mistake",
-      "head": {
-        "predicate": "intentional_bodily_injury_track_conflict",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "special"
-          },
-          {
-            "kind": "string",
-            "value": "art257_sec1_4.object_method_mistake"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "intentional_bodily_injury_conflict",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "art257_sec1_4.object_method_mistake"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "카드 평가 충돌은 해당 track과 그 상속 track에만 전파한다.",
-      "norm_card_ids": [
-        "art257_sec1_4.object_method_mistake"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "intentional_bodily_injury.track_blocked.special.art257_sec1_4_object_method_mistake",
-      "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "special"
-          },
-          {
-            "kind": "string",
-            "value": "art257_sec1_4.object_method_mistake"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "satisfied_art257_sec1_4_object_method_mistake",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
-      "norm_card_ids": [
-        "art257_sec1_4.object_method_mistake"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "intentional_bodily_injury.track_conflict.aggravated_result.art257_sec1_4_object_method_mistake",
-      "head": {
-        "predicate": "intentional_bodily_injury_track_conflict",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "aggravated_result"
-          },
-          {
-            "kind": "string",
-            "value": "art257_sec1_4.object_method_mistake"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "intentional_bodily_injury_conflict",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "art257_sec1_4.object_method_mistake"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "카드 평가 충돌은 해당 track과 그 상속 track에만 전파한다.",
-      "norm_card_ids": [
-        "art257_sec1_4.object_method_mistake"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "intentional_bodily_injury.track_blocked.aggravated_result.art257_sec1_4_object_method_mistake",
-      "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "aggravated_result"
-          },
-          {
-            "kind": "string",
-            "value": "art257_sec1_4.object_method_mistake"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "satisfied_art257_sec1_4_object_method_mistake",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
-      "norm_card_ids": [
-        "art257_sec1_4.object_method_mistake"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "intentional_bodily_injury.track_conflict.base.art257_sec1_4_unintended_victim",
-      "head": {
-        "predicate": "intentional_bodily_injury_track_conflict",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "base"
-          },
-          {
-            "kind": "string",
-            "value": "art257_sec1_4.unintended_victim"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "intentional_bodily_injury_conflict",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "art257_sec1_4.unintended_victim"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "카드 평가 충돌은 해당 track과 그 상속 track에만 전파한다.",
-      "norm_card_ids": [
-        "art257_sec1_4.unintended_victim"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "intentional_bodily_injury.track_blocked.base.art257_sec1_4_unintended_victim",
-      "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "base"
-          },
-          {
-            "kind": "string",
-            "value": "art257_sec1_4.unintended_victim"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "satisfied_art257_sec1_4_unintended_victim",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
-      "norm_card_ids": [
-        "art257_sec1_4.unintended_victim"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "intentional_bodily_injury.track_conflict.ancestral.art257_sec1_4_unintended_victim",
-      "head": {
-        "predicate": "intentional_bodily_injury_track_conflict",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "ancestral"
-          },
-          {
-            "kind": "string",
-            "value": "art257_sec1_4.unintended_victim"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "intentional_bodily_injury_conflict",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "art257_sec1_4.unintended_victim"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "카드 평가 충돌은 해당 track과 그 상속 track에만 전파한다.",
-      "norm_card_ids": [
-        "art257_sec1_4.unintended_victim"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "intentional_bodily_injury.track_blocked.ancestral.art257_sec1_4_unintended_victim",
-      "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "ancestral"
-          },
-          {
-            "kind": "string",
-            "value": "art257_sec1_4.unintended_victim"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "satisfied_art257_sec1_4_unintended_victim",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
-      "norm_card_ids": [
-        "art257_sec1_4.unintended_victim"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "intentional_bodily_injury.track_conflict.special.art257_sec1_4_unintended_victim",
-      "head": {
-        "predicate": "intentional_bodily_injury_track_conflict",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "special"
-          },
-          {
-            "kind": "string",
-            "value": "art257_sec1_4.unintended_victim"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "intentional_bodily_injury_conflict",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "art257_sec1_4.unintended_victim"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "카드 평가 충돌은 해당 track과 그 상속 track에만 전파한다.",
-      "norm_card_ids": [
-        "art257_sec1_4.unintended_victim"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "intentional_bodily_injury.track_blocked.special.art257_sec1_4_unintended_victim",
-      "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "special"
-          },
-          {
-            "kind": "string",
-            "value": "art257_sec1_4.unintended_victim"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "satisfied_art257_sec1_4_unintended_victim",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
-      "norm_card_ids": [
-        "art257_sec1_4.unintended_victim"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "intentional_bodily_injury.track_conflict.aggravated_result.art257_sec1_4_unintended_victim",
-      "head": {
-        "predicate": "intentional_bodily_injury_track_conflict",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "aggravated_result"
-          },
-          {
-            "kind": "string",
-            "value": "art257_sec1_4.unintended_victim"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "intentional_bodily_injury_conflict",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "art257_sec1_4.unintended_victim"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "카드 평가 충돌은 해당 track과 그 상속 track에만 전파한다.",
-      "norm_card_ids": [
-        "art257_sec1_4.unintended_victim"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
-      "id": "intentional_bodily_injury.track_blocked.aggravated_result.art257_sec1_4_unintended_victim",
-      "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "aggravated_result"
-          },
-          {
-            "kind": "string",
-            "value": "art257_sec1_4.unintended_victim"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "satisfied_art257_sec1_4_unintended_victim",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
-      "norm_card_ids": [
-        "art257_sec1_4.unintended_victim"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
-          "section_path": "Ⅰ.4"
-        }
-      ]
-    },
-    {
       "id": "intentional_bodily_injury.track_conflict.base.art257_sec1_6_defensive_force_not_new_attack",
       "head": {
         "predicate": "intentional_bodily_injury_track_conflict",
@@ -45690,6 +44182,266 @@
       ]
     },
     {
+      "id": "intentional_bodily_injury.refers_to_crime.art257_sec1_4_intent_only_violence_result.001",
+      "head": {
+        "predicate": "intentional_bodily_injury_refers_to_crime",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "폭행치상"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art257_sec1_4_intent_only_violence_result",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "이 죄의 불성립에 그치지 않고 후속 죄명을 명시해 라우터가 다시 묻지 않게 한다.",
+      "norm_card_ids": [
+        "art257_sec1_4.intent_only_violence_result"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제257조_Ⅰ.4_18",
+          "quote": "그러므로 상해의 고의 없이 폭행의 고의로 상해의 결과가 발생하였다면 폭행치 상죄가 성립한다.",
+          "section_path": "Ⅰ.4"
+        }
+      ]
+    },
+    {
+      "id": "intentional_bodily_injury.refers_to_crime.art259_sec1_intentional_death_murder_exception.002",
+      "head": {
+        "predicate": "intentional_bodily_injury_refers_to_crime",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "살인·존속살해"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art259_sec1_intentional_death_murder_exception",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "이 죄의 불성립에 그치지 않고 후속 죄명을 명시해 라우터가 다시 묻지 않게 한다.",
+      "norm_card_ids": [
+        "art259_sec1.intentional_death_murder_exception"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제259조_Ⅰ_0",
+          "quote": "사망의 결과에 대하여 고의가 있는 때에는 이 죄가 성 립하지 아니하고 살인죄가 성립할 뿐이다.",
+          "section_path": "Ⅰ"
+        }
+      ]
+    },
+    {
+      "id": "intentional_bodily_injury.refers_to_crime.art259_sec1_no_injury_intent_classification.003",
+      "head": {
+        "predicate": "intentional_bodily_injury_refers_to_crime",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "폭행치사"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art259_sec1_no_injury_intent_classification",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "이 죄의 불성립에 그치지 않고 후속 죄명을 명시해 라우터가 다시 묻지 않게 한다.",
+      "norm_card_ids": [
+        "art259_sec1.no_injury_intent_classification"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제259조_Ⅰ_0",
+          "quote": "폭행의 고의만 있고 사망의 결과로 결과적 가중범이 되는 경우에는 폭행치사죄가 되고, 폭행이나 상해의 고의가 없 이 사망의 결과가 발생한 경우에는 과실치사죄가 된다.",
+          "section_path": "Ⅰ"
+        }
+      ]
+    },
+    {
+      "id": "intentional_bodily_injury.refers_to_crime.art259_sec2_1_murder_intent_exception.004",
+      "head": {
+        "predicate": "intentional_bodily_injury_refers_to_crime",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "살인·존속살해"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art259_sec2_1_murder_intent_exception",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "이 죄의 불성립에 그치지 않고 후속 죄명을 명시해 라우터가 다시 묻지 않게 한다.",
+      "norm_card_ids": [
+        "art259_sec2_1.murder_intent_exception"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제259조_Ⅱ.1_4",
+          "quote": "상해의 공동정범 가운데 1인이 살인의 고의로 사람을 살해한 경우 나머지 사람 들이 상해치사죄의 죄책을 면할 수 없다고 하더라도 살인죄의 책임을 물을 수 는 없다.",
+          "section_path": "Ⅱ.1"
+        }
+      ]
+    },
+    {
+      "id": "intentional_bodily_injury.refers_to_crime.art259_sec2_3_robbery_resulting_death_exclusion.005",
+      "head": {
+        "predicate": "intentional_bodily_injury_refers_to_crime",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "강도"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art259_sec2_3_robbery_resulting_death_exclusion",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "이 죄의 불성립에 그치지 않고 후속 죄명을 명시해 라우터가 다시 묻지 않게 한다.",
+      "norm_card_ids": [
+        "art259_sec2_3.robbery_resulting_death_exclusion"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제259조_Ⅱ.3_6",
+          "quote": "강도행위 시에 상해의 고의로써 사람을 상해하여 사망에 이르게 한 경우에는 강도치사죄 가 성립할 뿐이고 별도로 상해치사죄를 구성하지는 않는다.",
+          "section_path": "Ⅱ.3"
+        }
+      ]
+    },
+    {
       "id": "intentional_bodily_injury.summary.has_negative",
       "head": {
         "predicate": "intentional_bodily_injury_has_negative",
@@ -45761,8 +44513,6 @@
         "art257_sec1_4.intent_definition",
         "art257_sec1_4.intent_element",
         "art257_sec1_4.intent_only_violence_result",
-        "art257_sec1_4.object_method_mistake",
-        "art257_sec1_4.unintended_victim",
         "art257_sec1_5.causation.objective_attribution",
         "art257_sec1_5.causation.result_and_causation",
         "art257_sec1_5.causation.tooth_injury_disparity",
@@ -46046,16 +44796,6 @@
         {
           "comment_id": "comm_001692_제257조_Ⅰ.4_18",
           "quote": "그러므로 상해의 고의 없이 폭행의 고의로 상해의 결과가 발생하였다면 폭행치 상죄가 성립한다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
           "section_path": "Ⅰ.4"
         },
         {
@@ -46327,8 +45067,6 @@
         "art257_sec1_4.intent_definition",
         "art257_sec1_4.intent_element",
         "art257_sec1_4.intent_only_violence_result",
-        "art257_sec1_4.object_method_mistake",
-        "art257_sec1_4.unintended_victim",
         "art257_sec1_5.causation.objective_attribution",
         "art257_sec1_5.causation.result_and_causation",
         "art257_sec1_5.causation.tooth_injury_disparity",
@@ -46612,16 +45350,6 @@
         {
           "comment_id": "comm_001692_제257조_Ⅰ.4_18",
           "quote": "그러므로 상해의 고의 없이 폭행의 고의로 상해의 결과가 발생하였다면 폭행치 상죄가 성립한다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
           "section_path": "Ⅰ.4"
         },
         {
@@ -46901,8 +45629,6 @@
         "art257_sec1_4.intent_definition",
         "art257_sec1_4.intent_element",
         "art257_sec1_4.intent_only_violence_result",
-        "art257_sec1_4.object_method_mistake",
-        "art257_sec1_4.unintended_victim",
         "art257_sec1_5.causation.objective_attribution",
         "art257_sec1_5.causation.result_and_causation",
         "art257_sec1_5.causation.tooth_injury_disparity",
@@ -47186,16 +45912,6 @@
         {
           "comment_id": "comm_001692_제257조_Ⅰ.4_18",
           "quote": "그러므로 상해의 고의 없이 폭행의 고의로 상해의 결과가 발생하였다면 폭행치 상죄가 성립한다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
           "section_path": "Ⅰ.4"
         },
         {
@@ -47475,8 +46191,6 @@
         "art257_sec1_4.intent_definition",
         "art257_sec1_4.intent_element",
         "art257_sec1_4.intent_only_violence_result",
-        "art257_sec1_4.object_method_mistake",
-        "art257_sec1_4.unintended_victim",
         "art257_sec1_5.causation.objective_attribution",
         "art257_sec1_5.causation.result_and_causation",
         "art257_sec1_5.causation.tooth_injury_disparity",
@@ -47760,16 +46474,6 @@
         {
           "comment_id": "comm_001692_제257조_Ⅰ.4_18",
           "quote": "그러므로 상해의 고의 없이 폭행의 고의로 상해의 결과가 발생하였다면 폭행치 상죄가 성립한다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
           "section_path": "Ⅰ.4"
         },
         {
@@ -48049,8 +46753,6 @@
         "art257_sec1_4.intent_definition",
         "art257_sec1_4.intent_element",
         "art257_sec1_4.intent_only_violence_result",
-        "art257_sec1_4.object_method_mistake",
-        "art257_sec1_4.unintended_victim",
         "art257_sec1_5.causation.objective_attribution",
         "art257_sec1_5.causation.result_and_causation",
         "art257_sec1_5.causation.tooth_injury_disparity",
@@ -48334,16 +47036,6 @@
         {
           "comment_id": "comm_001692_제257조_Ⅰ.4_18",
           "quote": "그러므로 상해의 고의 없이 폭행의 고의로 상해의 결과가 발생하였다면 폭행치 상죄가 성립한다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
           "section_path": "Ⅰ.4"
         },
         {
@@ -48726,8 +47418,6 @@
         "art257_sec1_4.intent_definition",
         "art257_sec1_4.intent_element",
         "art257_sec1_4.intent_only_violence_result",
-        "art257_sec1_4.object_method_mistake",
-        "art257_sec1_4.unintended_victim",
         "art257_sec1_5.causation.objective_attribution",
         "art257_sec1_5.causation.result_and_causation",
         "art257_sec1_5.causation.tooth_injury_disparity",
@@ -48984,16 +47674,6 @@
         {
           "comment_id": "comm_001692_제257조_Ⅰ.4_18",
           "quote": "그러므로 상해의 고의 없이 폭행의 고의로 상해의 결과가 발생하였다면 폭행치 상죄가 성립한다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
           "section_path": "Ⅰ.4"
         },
         {
@@ -49208,8 +47888,6 @@
         "art257_sec1_4.intent_definition",
         "art257_sec1_4.intent_element",
         "art257_sec1_4.intent_only_violence_result",
-        "art257_sec1_4.object_method_mistake",
-        "art257_sec1_4.unintended_victim",
         "art257_sec1_5.causation.objective_attribution",
         "art257_sec1_5.causation.result_and_causation",
         "art257_sec1_5.causation.tooth_injury_disparity",
@@ -49466,16 +48144,6 @@
         {
           "comment_id": "comm_001692_제257조_Ⅰ.4_18",
           "quote": "그러므로 상해의 고의 없이 폭행의 고의로 상해의 결과가 발생하였다면 폭행치 상죄가 성립한다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
           "section_path": "Ⅰ.4"
         },
         {
@@ -49854,8 +48522,6 @@
         "art257_sec1_4.intent_definition",
         "art257_sec1_4.intent_element",
         "art257_sec1_4.intent_only_violence_result",
-        "art257_sec1_4.object_method_mistake",
-        "art257_sec1_4.unintended_victim",
         "art257_sec1_5.causation.objective_attribution",
         "art257_sec1_5.causation.result_and_causation",
         "art257_sec1_5.causation.tooth_injury_disparity",
@@ -50115,16 +48781,6 @@
         {
           "comment_id": "comm_001692_제257조_Ⅰ.4_18",
           "quote": "그러므로 상해의 고의 없이 폭행의 고의로 상해의 결과가 발생하였다면 폭행치 상죄가 성립한다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
           "section_path": "Ⅰ.4"
         },
         {
@@ -50354,8 +49010,6 @@
         "art257_sec1_4.intent_definition",
         "art257_sec1_4.intent_element",
         "art257_sec1_4.intent_only_violence_result",
-        "art257_sec1_4.object_method_mistake",
-        "art257_sec1_4.unintended_victim",
         "art257_sec1_5.causation.objective_attribution",
         "art257_sec1_5.causation.result_and_causation",
         "art257_sec1_5.causation.tooth_injury_disparity",
@@ -50618,16 +49272,6 @@
           "section_path": "Ⅰ.4"
         },
         {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
           "comment_id": "comm_001692_제257조_Ⅰ.5_20",
           "quote": "객관적 귀속론에 의하면, 상해행위과 결과 사이에 합법칙적 조건 관계가 있어야 하고, 상해결과를 상해행위에 귀속시킬 수 있어야 한다.",
           "section_path": "Ⅰ.5"
@@ -50822,8 +49466,6 @@
         "art257_sec1_4.intent_definition",
         "art257_sec1_4.intent_element",
         "art257_sec1_4.intent_only_violence_result",
-        "art257_sec1_4.object_method_mistake",
-        "art257_sec1_4.unintended_victim",
         "art257_sec1_5.causation.objective_attribution",
         "art257_sec1_5.causation.result_and_causation",
         "art257_sec1_5.causation.tooth_injury_disparity",
@@ -51082,16 +49724,6 @@
         {
           "comment_id": "comm_001692_제257조_Ⅰ.4_18",
           "quote": "그러므로 상해의 고의 없이 폭행의 고의로 상해의 결과가 발생하였다면 폭행치 상죄가 성립한다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
           "section_path": "Ⅰ.4"
         },
         {
@@ -51311,8 +49943,6 @@
         "art257_sec1_4.intent_definition",
         "art257_sec1_4.intent_element",
         "art257_sec1_4.intent_only_violence_result",
-        "art257_sec1_4.object_method_mistake",
-        "art257_sec1_4.unintended_victim",
         "art257_sec1_5.causation.objective_attribution",
         "art257_sec1_5.causation.result_and_causation",
         "art257_sec1_5.causation.tooth_injury_disparity",
@@ -51571,16 +50201,6 @@
         {
           "comment_id": "comm_001692_제257조_Ⅰ.4_18",
           "quote": "그러므로 상해의 고의 없이 폭행의 고의로 상해의 결과가 발생하였다면 폭행치 상죄가 성립한다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
           "section_path": "Ⅰ.4"
         },
         {
@@ -51804,8 +50424,6 @@
         "art257_sec1_4.intent_definition",
         "art257_sec1_4.intent_element",
         "art257_sec1_4.intent_only_violence_result",
-        "art257_sec1_4.object_method_mistake",
-        "art257_sec1_4.unintended_victim",
         "art257_sec1_5.causation.objective_attribution",
         "art257_sec1_5.causation.result_and_causation",
         "art257_sec1_5.causation.tooth_injury_disparity",
@@ -52077,16 +50695,6 @@
         {
           "comment_id": "comm_001692_제257조_Ⅰ.4_18",
           "quote": "그러므로 상해의 고의 없이 폭행의 고의로 상해의 결과가 발생하였다면 폭행치 상죄가 성립한다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
           "section_path": "Ⅰ.4"
         },
         {
@@ -52381,8 +50989,6 @@
         "art257_sec1_4.intent_definition",
         "art257_sec1_4.intent_element",
         "art257_sec1_4.intent_only_violence_result",
-        "art257_sec1_4.object_method_mistake",
-        "art257_sec1_4.unintended_victim",
         "art257_sec1_5.causation.objective_attribution",
         "art257_sec1_5.causation.result_and_causation",
         "art257_sec1_5.causation.tooth_injury_disparity",
@@ -52657,16 +51263,6 @@
           "section_path": "Ⅰ.4"
         },
         {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "구성요건 착오 중 구체적 사실의 착오로서 이른바 객체의 착오나 방법의 착오 는 고의를 조각하지 않고, 상해죄의 성립을 방해하지 않는다는 것이 판례의 태 도이다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
-          "comment_id": "comm_001692_제257조_Ⅰ.4_19",
-          "quote": "따라서 목적한 사람이 아닌 다른 사람에게 상해를 입혔다고 하더라도 상해의 고의가 인정되고, 과실상해죄에 해당한다고 할 수는 없다.",
-          "section_path": "Ⅰ.4"
-        },
-        {
           "comment_id": "comm_001692_제257조_Ⅰ.5_20",
           "quote": "객관적 귀속론에 의하면, 상해행위과 결과 사이에 합법칙적 조건 관계가 있어야 하고, 상해결과를 상해행위에 귀속시킬 수 있어야 한다.",
           "section_path": "Ⅰ.5"
@@ -52845,6 +51441,8 @@
     "track_deferred: concurrent_offenders::unidentified_cause (3 cards)",
     "context_only: art257.diagnosis_evidentiary_value",
     "context_only: art257.subjective_pain_diagnosis_assessment",
+    "context_only: art257_sec1_4.object_method_mistake",
+    "context_only: art257_sec1_4.unintended_victim",
     "context_only: art257_sec1_6.disciplinary_injury",
     "context_only: art257_sec1_6.insufficient_medical_explanation",
     "context_only: art257_sec1_6.military_detention_beating",
