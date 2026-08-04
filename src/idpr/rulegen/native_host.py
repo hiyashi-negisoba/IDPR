@@ -1,9 +1,10 @@
-"""Registry-native host path from predicate assessment to Scallop conclusions.
+"""Lean registry-native path from raw case text to committed Scallop programs.
 
-The model selects closed unit ids and assesses every registered commentary predicate.
-It never selects cards, emits Scallop code, or writes the legal conclusion.  The host
-loads the whole unit contract, validates grounded evidence, executes the committed SCL,
-and exposes only runtime-derived directives to the writer.
+The neural boundary has two structured responsibilities: select registered units and
+assess every predicate of each selected unit against exact spans of the case text.  The
+host owns the registry, role contract, completeness checks, SCL asset, execution, and
+conclusion.  No retrieval, generic FactGraph, projected rulebase, or model-written
+Scallop program is part of this path.
 """
 
 from __future__ import annotations
@@ -14,33 +15,49 @@ from typing import Any, Mapping, Sequence
 
 from jsonschema import Draft202012Validator
 
-from idpr.neural.fact_graph import assessment_facts
-from idpr.neural.issue_assessment import (
-    issue_assessment_request,
-    validate_issue_assessments,
-)
 from idpr.rulegen.registry import (
     PROJECT_ROOT,
     PredicateIRMissing,
+    RuleIRRegistryEntry,
     build_registry,
     resolve_unit,
 )
-from idpr.rulegen.scallop_runtime import run_scenario
+from idpr.rulegen.scallop_runtime import run_scenario, sha256_file
 
 
 DEFAULT_SCLI = PROJECT_ROOT / "tools/scallop/scli-0.2.4-linux-x86_64"
+ASSESSMENT_STATUSES = frozenset({"satisfied", "not_satisfied", "unknown"})
 
 
 class NativeHostError(ValueError):
     """A closed host contract was violated before symbolic execution."""
 
 
+def closed_unit_catalog(*, root: Path = PROJECT_ROOT) -> list[dict[str, Any]]:
+    """Expose the complete executable allowlist without retrieval or ranking."""
+
+    return [
+        {
+            "unit_id": entry.unit_id,
+            "article_ids": list(entry.article_ids),
+            "role_arguments": [
+                argument["name"]
+                for argument in entry.role_predicate["arguments"]
+                if argument["name"] != "case_id"
+            ],
+            "role_definition": str(entry.role_predicate.get("definition", "")),
+            "shared_module": entry.shared_module,
+        }
+        for entry in build_registry(root).values()
+    ]
+
+
 def closed_issue_selection_schema(
     *, case_id: str, root: Path = PROJECT_ROOT
 ) -> dict[str, Any]:
-    """Return the no-search, registry-enumerated model output grammar."""
+    """Return the registry-enumerated issue-selection grammar."""
 
-    unit_ids = sorted(build_registry(root).keys())
+    unit_ids = sorted(build_registry(root))
     return {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "$id": "idpr/RuleIRNativeIssueSelection",
@@ -53,29 +70,38 @@ def closed_issue_selection_schema(
             "issues": {
                 "type": "array",
                 "minItems": 1,
-                "maxItems": 16,
+                "maxItems": 24,
                 "items": {
                     "type": "object",
                     "additionalProperties": False,
                     "required": [
-                        "issue_id", "unit_id", "source_quote", "role_candidates"
+                        "issue_id",
+                        "unit_id",
+                        "reported_label",
+                        "source_quote",
+                        "role_candidates",
+                        "depends_on_issue_ids",
                     ],
                     "properties": {
                         "issue_id": {
-                            "type": "string", "pattern": "^[a-z0-9][a-z0-9_.-]*$"
+                            "type": "string",
+                            "pattern": "^[a-z0-9][a-z0-9_.-]*$",
                         },
                         "unit_id": {"enum": [*unit_ids, "unsupported"]},
                         "reported_label": {"type": "string", "minLength": 1},
                         "source_quote": {"type": "string", "minLength": 1},
                         "role_candidates": {
                             "type": "object",
-                            "additionalProperties": {"type": "string", "minLength": 1},
+                            "additionalProperties": {
+                                "type": "string",
+                                "minLength": 1,
+                            },
+                        },
+                        "depends_on_issue_ids": {
+                            "type": "array",
+                            "items": {"type": "string"},
                         },
                     },
-                    "allOf": [{
-                        "if": {"properties": {"unit_id": {"const": "unsupported"}}},
-                        "then": {"required": ["reported_label"]},
-                    }],
                 },
             },
         },
@@ -86,24 +112,62 @@ def validate_closed_issue_selection(
     payload: Mapping[str, Any],
     *,
     case_id: str,
-    question_text: str,
+    case_text: str,
     root: Path = PROJECT_ROOT,
 ) -> None:
-    """Reject invented units, duplicate issues, and ungrounded issue spotting."""
+    """Reject invented units, invalid roles, forward dependencies, and fake quotes."""
 
-    schema = closed_issue_selection_schema(case_id=case_id, root=root)
-    errors = [
-        f"{'.'.join(str(part) for part in error.absolute_path) or '$'}: {error.message}"
-        for error in Draft202012Validator(schema).iter_errors(payload)
-    ]
+    errors = _schema_errors(
+        closed_issue_selection_schema(case_id=case_id, root=root), payload
+    )
+    registry = build_registry(root)
     issues = payload.get("issues", [])
     if isinstance(issues, list):
-        ids = [item.get("issue_id") for item in issues if isinstance(item, Mapping)]
-        if len(ids) != len(set(ids)):
+        issue_ids = [
+            item.get("issue_id") for item in issues if isinstance(item, Mapping)
+        ]
+        if len(issue_ids) != len(set(issue_ids)):
             errors.append("issue_id values must be unique")
+        seen: set[str] = set()
         for item in issues:
-            if isinstance(item, Mapping) and item.get("source_quote") not in question_text:
-                errors.append(f"{item.get('issue_id')}: source_quote is not in case text")
+            if not isinstance(item, Mapping):
+                continue
+            issue_id = str(item.get("issue_id", ""))
+            unit_id = str(item.get("unit_id", ""))
+            if item.get("source_quote") not in case_text:
+                errors.append(f"{issue_id}: source_quote is not in case text")
+            dependencies = item.get("depends_on_issue_ids", [])
+            if isinstance(dependencies, list):
+                invalid_dependencies = sorted(set(dependencies) - seen)
+                if invalid_dependencies:
+                    errors.append(
+                        f"{issue_id}: dependencies must reference earlier issues: "
+                        f"{invalid_dependencies}"
+                    )
+            entry = registry.get(unit_id)
+            if entry is not None:
+                allowed_roles = {
+                    argument["name"]
+                    for argument in entry.role_predicate["arguments"]
+                    if argument["name"] != "case_id"
+                }
+                role_candidates = item.get("role_candidates", {})
+                if isinstance(role_candidates, Mapping):
+                    unknown_roles = sorted(set(role_candidates) - allowed_roles)
+                    if unknown_roles:
+                        errors.append(
+                            f"{issue_id}: role_candidates contains unknown roles "
+                            f"{unknown_roles}"
+                        )
+                if entry.shared_module and not dependencies:
+                    errors.append(
+                        f"{issue_id}: shared module requires depends_on_issue_ids"
+                    )
+                if not entry.shared_module and dependencies:
+                    errors.append(
+                        f"{issue_id}: non-shared unit cannot declare dependencies"
+                    )
+            seen.add(issue_id)
     if errors:
         raise NativeHostError("; ".join(errors))
 
@@ -111,37 +175,47 @@ def validate_closed_issue_selection(
 def selected_predicate_requests(
     *,
     case: Mapping[str, Any],
-    fact_graph: Mapping[str, Any],
     selection: Mapping[str, Any],
     root: Path = PROJECT_ROOT,
 ) -> dict[str, Any]:
-    """Resolve a closed selection without retrieval or a generic fallback."""
+    """Resolve a closed selection into complete raw-text predicate requests."""
 
     case_id = str(case.get("sub_question_id", ""))
+    case_text = str(case.get("question_text", ""))
     validate_closed_issue_selection(
         selection,
         case_id=case_id,
-        question_text=str(case.get("question_text", "")),
+        case_text=case_text,
         root=root,
     )
-    requests = []
+    requests: list[dict[str, Any]] = []
     for issue in selection["issues"]:
         unit_id = str(issue["unit_id"])
         if unit_id == "unsupported":
-            requests.append({
+            requests.append(
+                {
+                    "issue_id": issue["issue_id"],
+                    "unit_id": unit_id,
+                    "reported_label": issue["reported_label"],
+                    "status": "predicate_ir_missing",
+                    "detail": "No registered and audited RuleIR asset exists for this unit.",
+                }
+            )
+            continue
+        requests.append(
+            {
                 "issue_id": issue["issue_id"],
                 "unit_id": unit_id,
-                "status": "predicate_ir_missing",
-                "detail": f"No registered RuleIR for {issue['reported_label']}",
-            })
-            continue
-        requests.append({
-            "issue_id": issue["issue_id"],
-            "unit_id": unit_id,
-            "assessment_request": predicate_assessment_request(
-                case=case, fact_graph=fact_graph, unit_id=unit_id, root=root
-            ),
-        })
+                "reported_label": issue["reported_label"],
+                "depends_on_issue_ids": list(issue["depends_on_issue_ids"]),
+                "assessment_request": predicate_assessment_request(
+                    case=case,
+                    issue=issue,
+                    unit_id=unit_id,
+                    root=root,
+                ),
+            }
+        )
     return {
         "case_id": case_id,
         "selection_mode": "closed_registry_enum",
@@ -153,78 +227,204 @@ def selected_predicate_requests(
 def predicate_assessment_request(
     *,
     case: Mapping[str, Any],
-    fact_graph: Mapping[str, Any],
+    issue: Mapping[str, Any],
     unit_id: str,
     root: Path = PROJECT_ROOT,
 ) -> dict[str, Any]:
-    """Load every predicate for one model-selected registered unit."""
+    """Load every registered predicate and the raw case text for one unit."""
 
     entry = resolve_unit(unit_id, root=root)
     if isinstance(entry, PredicateIRMissing):
         return entry.to_dict()
-    issues = []
-    for predicate in entry.commentary_inputs:
-        sources = predicate.get("source_refs", [])
-        rules = [
-            str(source.get("quote"))
-            for source in sources
-            if isinstance(source, Mapping) and source.get("quote")
-        ] or [str(predicate.get("definition", predicate["id"]))]
-        issues.append({
-            "issue_id": predicate["id"],
-            "question": str(predicate.get("definition", predicate["id"])),
-            "rules": rules,
-            "stage_kind": "rule_ir_predicate",
-            "details": [
-                {"id": card_id, "proposition": str(predicate.get("definition", ""))}
-                for card_id in predicate.get("norm_card_ids", [])
+    return {
+        "version": "1.0.0",
+        "case_id": str(case.get("sub_question_id", "")),
+        "case_text": str(case.get("question_text", "")),
+        "question_prompt": str(case.get("question_prompt", "")),
+        "issue": {
+            "issue_id": issue["issue_id"],
+            "reported_label": issue["reported_label"],
+            "source_quote": issue["source_quote"],
+            "role_candidates": dict(issue["role_candidates"]),
+        },
+        "unit_id": unit_id,
+        "role_contract": {
+            "predicate": entry.role_predicate["id"],
+            "arguments": [
+                argument["name"] for argument in entry.role_predicate["arguments"]
             ],
-        })
-    request = issue_assessment_request(case=case, fact_graph=fact_graph, issues=issues)
-    request["unit_id"] = unit_id
-    request["role_contract"] = {
-        "predicate": entry.role_predicate["id"],
-        "arguments": [item["name"] for item in entry.role_predicate["arguments"]],
+            "definition": str(entry.role_predicate.get("definition", "")),
+        },
+        "predicates": [
+            {
+                "predicate_id": predicate["id"],
+                "definition": str(predicate.get("definition", predicate["id"])),
+                "norm_card_ids": list(predicate.get("norm_card_ids", [])),
+                "authority_quotes": [
+                    str(source["quote"])
+                    for source in predicate.get("source_refs", [])
+                    if isinstance(source, Mapping) and source.get("quote")
+                ],
+            }
+            for predicate in entry.commentary_inputs
+        ],
+        "all_registered_predicates_loaded": True,
     }
-    request["query_relations"] = list(entry.query_relations)
-    request["all_registered_predicates_loaded"] = True
-    return request
+
+
+def predicate_assessment_schema(
+    *, case_id: str, issue_id: str, entry: RuleIRRegistryEntry
+) -> dict[str, Any]:
+    """Build a strict grammar containing every predicate and every role."""
+
+    role_names = [
+        argument["name"] for argument in entry.role_predicate["arguments"]
+    ]
+    predicate_ids = [predicate["id"] for predicate in entry.commentary_inputs]
+    assessment = {
+        "type": "object",
+        "additionalProperties": False,
+        "required": ["status", "source_quotes", "missing_facts"],
+        "properties": {
+            "status": {"enum": sorted(ASSESSMENT_STATUSES)},
+            "source_quotes": {
+                "type": "array",
+                "items": {"type": "string", "minLength": 1},
+            },
+            "missing_facts": {
+                "type": "array",
+                "items": {"type": "string", "minLength": 1},
+            },
+        },
+    }
+    return {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "idpr/RuleIRNativePredicateAssessment",
+        "type": "object",
+        "additionalProperties": False,
+        "required": [
+            "version",
+            "case_id",
+            "issue_id",
+            "unit_id",
+            "role_values",
+            "distinct_entities",
+            "assessments",
+        ],
+        "properties": {
+            "version": {"const": "1.0.0"},
+            "case_id": {"const": case_id},
+            "issue_id": {"const": issue_id},
+            "unit_id": {"const": entry.unit_id},
+            "role_values": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": role_names,
+                "properties": {
+                    role_name: (
+                        {"const": case_id}
+                        if role_name == "case_id"
+                        else {"type": "string", "minLength": 1}
+                    )
+                    for role_name in role_names
+                },
+            },
+            "distinct_entities": {
+                "type": "array",
+                "items": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "items": {"type": "string", "minLength": 1},
+                },
+            },
+            "assessments": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": predicate_ids,
+                "properties": {
+                    predicate_id: assessment for predicate_id in predicate_ids
+                },
+            },
+        },
+    }
+
+
+def validate_predicate_assessment(
+    payload: Mapping[str, Any],
+    *,
+    case_id: str,
+    issue_id: str,
+    unit_id: str,
+    case_text: str,
+    root: Path = PROJECT_ROOT,
+) -> None:
+    """Validate exact predicate coverage and evidence directly against the source."""
+
+    entry = resolve_unit(unit_id, root=root)
+    if isinstance(entry, PredicateIRMissing):
+        raise NativeHostError(entry.detail)
+    errors = _schema_errors(
+        predicate_assessment_schema(
+            case_id=case_id, issue_id=issue_id, entry=entry
+        ),
+        payload,
+    )
+    assessments = payload.get("assessments", {})
+    if isinstance(assessments, Mapping):
+        for predicate_id, item in assessments.items():
+            if not isinstance(item, Mapping):
+                continue
+            status = item.get("status")
+            quotes = item.get("source_quotes", [])
+            missing = item.get("missing_facts", [])
+            if isinstance(quotes, list):
+                for quote in quotes:
+                    if isinstance(quote, str) and quote not in case_text:
+                        errors.append(
+                            f"{predicate_id}: source quote is not in case text: {quote!r}"
+                        )
+            if status in {"satisfied", "not_satisfied"}:
+                if not quotes:
+                    errors.append(
+                        f"{predicate_id}: {status} requires at least one source quote"
+                    )
+                if missing:
+                    errors.append(
+                        f"{predicate_id}: {status} cannot declare missing facts"
+                    )
+            elif status == "unknown" and not missing:
+                errors.append(
+                    f"{predicate_id}: unknown requires at least one missing fact"
+                )
+    if errors:
+        raise NativeHostError("; ".join(errors))
 
 
 def execute_native_unit(
     *,
+    issue_id: str,
     unit_id: str,
     case_id: str,
-    role_values: Mapping[str, str],
-    fact_graph: Mapping[str, Any],
+    case_text: str,
     assessment_payload: Mapping[str, Any],
-    distinct_entities: Sequence[Sequence[str]] = (),
     root: Path = PROJECT_ROOT,
     scli_path: Path = DEFAULT_SCLI,
     work_dir: Path,
 ) -> dict[str, Any]:
-    """Validate a complete predicate assessment and run the registered program."""
+    """Run the registered committed SCL after direct raw-text assessment."""
 
     entry = resolve_unit(unit_id, root=root)
     if isinstance(entry, PredicateIRMissing):
         return entry.to_dict()
-    fact_ids = tuple(item["fact_id"] for item in assessment_facts(fact_graph))
-    predicate_ids = tuple(item["id"] for item in entry.commentary_inputs)
-    validate_issue_assessments(
+    validate_predicate_assessment(
         assessment_payload,
         case_id=case_id,
-        issue_ids=predicate_ids,
-        fact_ids=fact_ids,
+        issue_id=issue_id,
+        unit_id=unit_id,
+        case_text=case_text,
+        root=root,
     )
-    expected_roles = [item["name"] for item in entry.role_predicate["arguments"]]
-    unknown_roles = sorted(set(role_values) - set(expected_roles))
-    missing_roles = [name for name in expected_roles if name not in role_values]
-    if unknown_roles or missing_roles or role_values.get("case_id") != case_id:
-        raise NativeHostError(
-            f"{unit_id}: invalid role tuple; missing={missing_roles}, "
-            f"unknown={unknown_roles}, case_id={role_values.get('case_id')!r}"
-        )
-
     card_by_predicate: dict[str, str] = {}
     for predicate in entry.commentary_inputs:
         cards = predicate.get("norm_card_ids", [])
@@ -233,33 +433,41 @@ def execute_native_unit(
                 f"{unit_id}:{predicate['id']} must map to exactly one NormCard"
             )
         card_by_predicate[predicate["id"]] = cards[0]
-    assessments = []
+
+    scenario_assessments = []
     evidence: dict[str, Any] = {}
-    for index, predicate_id in enumerate(predicate_ids, 1):
+    for index, predicate in enumerate(entry.commentary_inputs, 1):
+        predicate_id = predicate["id"]
         item = assessment_payload["assessments"][predicate_id]
-        assessments.append({
-            "assessment_id": f"assessment_{index:04d}",
-            "card_id": card_by_predicate[predicate_id],
-            "status": item["status"],
-            "provable": True,
-        })
+        scenario_assessments.append(
+            {
+                "assessment_id": f"assessment_{index:04d}",
+                "card_id": card_by_predicate[predicate_id],
+                "status": item["status"],
+                "provable": True,
+            }
+        )
         evidence[predicate_id] = {
+            "definition": str(predicate.get("definition", predicate_id)),
             "norm_card_id": card_by_predicate[predicate_id],
             "status": item["status"],
-            "basis_fact_ids": list(item["basis_fact_ids"]),
-            "counter_fact_ids": list(item["counter_fact_ids"]),
+            "source_quotes": list(item["source_quotes"]),
             "missing_facts": list(item["missing_facts"]),
         }
+
     scenario = {
-        "scenario_id": f"{case_id}.{unit_id}",
-        **dict(role_values),
+        "scenario_id": f"{case_id}.{issue_id}",
+        **dict(assessment_payload["role_values"]),
         "selected_card_ids": list(card_by_predicate.values()),
-        "assessments": assessments,
-        "distinct_entities": [list(pair) for pair in distinct_entities],
+        "assessments": scenario_assessments,
+        "distinct_entities": [
+            list(pair) for pair in assessment_payload["distinct_entities"]
+        ],
         "close_case": True,
     }
     rule_ir = json.loads((root / entry.rule_ir_path).read_text(encoding="utf-8"))
-    compiled = (root / entry.compiled_scl_path).read_text(encoding="utf-8")
+    compiled_path = root / entry.compiled_scl_path
+    compiled = compiled_path.read_text(encoding="utf-8")
     raw = run_scenario(
         rule_ir=rule_ir,
         compiled_source=compiled,
@@ -270,91 +478,123 @@ def execute_native_unit(
     )
     observed = {relation: result["nonempty"] for relation, result in raw.items()}
     established = [
-        relation for relation, nonempty in observed.items()
-        if nonempty and relation.endswith("_established")
+        relation
+        for relation, nonempty in observed.items()
+        if nonempty
+        and relation.endswith("_established")
         and not relation.endswith("_not_established")
     ]
     if observed.get(f"{unit_id}_conflict"):
-        status = "conflict"
+        conclusion = "conflict"
     elif established:
-        status = "established"
+        conclusion = "established"
     elif observed.get(f"{unit_id}_not_established"):
-        status = "not_established"
+        conclusion = "not_established"
     elif observed.get(f"{unit_id}_undetermined"):
-        status = "undetermined"
+        conclusion = "undetermined"
     else:
-        status = "no_derived_outcome"
+        conclusion = "no_derived_outcome"
     return {
         "status": "executed",
+        "issue_id": issue_id,
         "unit_id": unit_id,
-        "symbolic_conclusion": status,
+        "symbolic_conclusion": conclusion,
         "established_relations": established,
         "query_results": observed,
+        "query_outputs": {
+            relation: result["output"] for relation, result in raw.items()
+        },
         "assessment_evidence": evidence,
-        "runtime": "scallop_scli",
+        "runtime": "scallop_scli_committed_rule_ir",
+        "rule_ir_path": entry.rule_ir_path,
+        "compiled_scl_path": entry.compiled_scl_path,
+        "compiled_scl_sha256": sha256_file(compiled_path),
     }
 
 
 def execute_native_case(
     *,
     case_id: str,
-    fact_graph: Mapping[str, Any],
+    case_text: str,
     unit_runs: Sequence[Mapping[str, Any]],
     root: Path = PROJECT_ROOT,
     scli_path: Path = DEFAULT_SCLI,
     work_dir: Path,
 ) -> dict[str, Any]:
-    """Execute model-selected units in order, including explicit outcome bridges."""
+    """Execute issues in dependency order and preserve repeated units separately."""
 
     results: dict[str, dict[str, Any]] = {}
     for run in unit_runs:
+        issue_id = str(run["issue_id"])
         unit_id = str(run["unit_id"])
+        if issue_id in results:
+            raise NativeHostError(f"duplicate issue run {issue_id}")
         entry = resolve_unit(unit_id, root=root)
         if isinstance(entry, PredicateIRMissing):
-            results[unit_id] = entry.to_dict()
+            results[issue_id] = {"unit_id": unit_id, **entry.to_dict()}
             continue
-        dependencies = tuple(str(value) for value in run.get("depends_on", []))
+        dependencies = tuple(
+            str(value) for value in run.get("depends_on_issue_ids", [])
+        )
         if entry.shared_module and not dependencies:
-            raise NativeHostError(f"{unit_id}: shared module requires depends_on bridge")
+            raise NativeHostError(f"{issue_id}: shared module requires dependency bridge")
+        if not entry.shared_module and dependencies:
+            raise NativeHostError(
+                f"{issue_id}: non-shared unit cannot declare dependency bridge"
+            )
         unavailable = [
-            dependency for dependency in dependencies
+            dependency
+            for dependency in dependencies
             if results.get(dependency, {}).get("symbolic_conclusion") != "established"
         ]
         if unavailable:
-            results[unit_id] = {
+            results[issue_id] = {
                 "status": "prerequisite_not_established",
+                "issue_id": issue_id,
                 "unit_id": unit_id,
                 "dependencies": list(dependencies),
                 "unavailable": unavailable,
             }
             continue
-        results[unit_id] = execute_native_unit(
+        results[issue_id] = execute_native_unit(
+            issue_id=issue_id,
             unit_id=unit_id,
             case_id=case_id,
-            role_values=run["role_values"],
-            fact_graph=fact_graph,
+            case_text=case_text,
             assessment_payload=run["assessment_payload"],
-            distinct_entities=run.get("distinct_entities", ()),
             root=root,
             scli_path=scli_path,
-            work_dir=work_dir / unit_id,
+            work_dir=work_dir / issue_id,
         )
     directives = [
         {
-            "unit_id": unit_id,
+            "issue_id": issue_id,
+            "unit_id": result["unit_id"],
             "symbolic_conclusion": result["symbolic_conclusion"],
             "established_relations": result["established_relations"],
             "evidence": result["assessment_evidence"],
+            "compiled_scl_path": result["compiled_scl_path"],
+            "compiled_scl_sha256": result["compiled_scl_sha256"],
         }
-        for unit_id, result in results.items()
+        for issue_id, result in results.items()
         if result.get("status") == "executed"
     ]
     return {
         "case_id": case_id,
         "unit_results": results,
         "generation_contract": {
-            "source": "scallop_derivation_only",
+            "source": "committed_rule_ir_scallop_only",
             "conclusion_directives": directives,
             "model_may_override_symbolic_conclusion": False,
         },
     }
+
+
+def _schema_errors(
+    schema: Mapping[str, Any], payload: Mapping[str, Any]
+) -> list[str]:
+    return [
+        f"{'.'.join(str(part) for part in error.absolute_path) or '$'}: "
+        f"{error.message}"
+        for error in Draft202012Validator(schema).iter_errors(payload)
+    ]

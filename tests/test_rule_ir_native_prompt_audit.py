@@ -11,12 +11,12 @@ def test_native_prompt_preflight_passes_without_model_calls() -> None:
     assert report["status"] == "pass"
     assert report["api_calls"] == 0
     assert not report["errors"]
-    assert len(report["prompts"]) == 4
+    assert len(report["prompts"]) == 3
     assert report["schemas"]["registered_unit_enum"] == 36
-    assert report["schemas"]["semantic_search_outputs_max_items"] == 0
-    assert report["schemas"]["supported_writer_conclusion_field"] is False
+    assert report["schemas"]["writer_format"] == "one_plain_markdown_section"
+    assert report["schemas"]["writer_conclusion_field"] is False
     assert render_markdown(report).startswith(
-        "# RuleIR-native KCL E2E 사전 프롬프트 감사\n"
+        "# Lean RuleIR-native KCL 프롬프트 감사\n"
     )
 
 

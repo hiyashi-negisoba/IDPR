@@ -27,8 +27,8 @@ P2 25개는 직무유기, 공무상비밀누설, 수뢰·사전수뢰, 제3자�
 사건 원문
   → 모델: 레지스트리가 만든 폐쇄형 unit enum에서 복수 죄종·쟁점 식별
   → 호스트: 선택 unit의 RuleIR commentary predicate 전량 로드
-  → 모델: predicate별 satisfied / not_satisfied / unknown 및 FactGraph 근거 반환
-  → 호스트: 정확한 predicate 수, 근거 fact id, 역할 tuple 검증
+  → 모델: 사건 원문을 직접 보고 predicate별 satisfied / not_satisfied / unknown 반환
+  → 호스트: 정확한 predicate 수, 원문 부분문자열 근거, 역할 tuple 검증
   → 호스트: 검증된 assessment만 Scallop EDB fact로 직렬화
   → 실제 scli 0.2.4 실행
   → 호스트: established / not_established / undetermined / conflict 도출
@@ -84,13 +84,13 @@ RuleIR/NormCard JSON의 `draft`·`legal_review` 필드는 기존 validator가 �
 - 고정 런타임: `scli 0.2.4`, SHA-256
   `8c5ec86fcdb0dbd55698eff7570ac7396d0b0878e601207f868d61f9d6482b9a`
 
-전체 611개 회귀에는 RuleIR 결정론적 재생성, 계약 검증, registry audit, 기존 fraud/property
+전체 616개 회귀에는 RuleIR 결정론적 재생성, 계약 검증, registry audit, 기존 fraud/property
 runtime, P2 runtime, 폐쇄형 선택, predicate 전량 assessment, 재산죄→공유모듈 bridge,
 writer 결론 고정 테스트가 포함된다.
 
 ## 다음 단계의 정확한 의미
 
-정상화 구현은 완료되었다. 다음 작업은 RuleIR을 더 만드는 일이 아니라 이 경로로 KCL 데이터셋
-실제 모델 추론을 실행하고 V2 피드백에 맞춰 extraction prompt와 답안 형식을 조율하는 평가
-단계다. 그 조율은 registry, predicate completeness, 실제 Scallop 실행, 결론 고정이라는 네
-불변식을 변경하지 않는 범위에서 수행한다.
+정상화 이후 실제 실행 진입점은 `scripts/run_rule_ir_native_lean.py` 하나다. 과거의 issue-search,
+generic FactGraph, 245개 core projection 경로는 비교·사후분석용으로만 남아 있고 이 진입점에서
+import하지 않는다. 이후 데이터셋 평가는 registry, predicate completeness, 실제 committed SCL
+실행, 결론 고정이라는 네 불변식을 변경하지 않는 범위에서 수행한다.

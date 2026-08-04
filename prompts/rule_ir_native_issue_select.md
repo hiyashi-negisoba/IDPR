@@ -19,10 +19,12 @@
 
 - `source_quote`는 사건 원문의 정확한 연속 부분문자열이어야 한다. 문제의 정답이나 법률 결론이
   아니라 그 쟁점을 검토하게 하는 사실을 인용한다.
-- `role_candidates`는 선택한 unit의 `role_arguments`를 참고해 역할명을 key로, FactGraph의
-  `entity_id` 또는 사건 내 대상물을 나타내는 짧고 안정적인 ID를 value로 쓴다.
+- `role_candidates`는 선택한 unit의 `role_arguments`를 참고해 역할명을 key로, 사건 내 사람·
+  행위·대상물을 나타내는 짧고 안정적인 ID를 value로 쓴다.
 - 같은 사람·대상은 같은 ID를 쓰며, 동일인인 역할을 억지로 서로 다른 ID로 만들지 않는다.
 - `case_id`는 호스트가 붙이므로 role 후보에 쓰지 않는다.
+- `depends_on_issue_ids`는 공유 후단 module에서만 사용한다. 반드시 같은 출력 배열에서 앞서
+  나온 기본범 issue를 가리킨다. 독립 unit과 `unsupported` issue에서는 빈 배열이다.
 
 # 오염 방지
 
