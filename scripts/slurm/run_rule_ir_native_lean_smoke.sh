@@ -9,13 +9,8 @@
 
 set -euo pipefail
 
-SUBMIT_ROOT="${IDPR_PROJECT_ROOT:-${SLURM_SUBMIT_DIR:-}}"
-if [ -z "$SUBMIT_ROOT" ]; then
-    echo "set IDPR_PROJECT_ROOT or submit from the repository root" >&2
-    exit 2
-fi
 # shellcheck source=scripts/slurm/_env.sh
-source "$SUBMIT_ROOT/scripts/slurm/_env.sh"
+source "${IDPR_PROJECT_ROOT:-${SLURM_SUBMIT_DIR:-$PWD}}/scripts/slurm/_env.sh"
 
 CASE_ID="${IDPR_CASE_ID:?set IDPR_CASE_ID to one inventory sub_question_id}"
 RUN_DIR="${IDPR_RUN_DIR:-$PROJECT_ROOT/experiments/results/rule_ir_native_lean_smoke_${SLURM_JOB_ID}}"
