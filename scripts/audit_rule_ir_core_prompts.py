@@ -98,7 +98,7 @@ def audit() -> dict[str, Any]:
     selection_item = schemas["selection"]["properties"]["issues"]["items"]
     if "role_bindings" in selection_item["properties"]:
         errors.append("issue selection still performs legal role binding")
-    if not {"subject_quote", "conduct_quotes"}.issubset(selection_item["required"]):
+    if not {"subject", "conduct_claims"}.issubset(selection_item["required"]):
         errors.append("issue selection does not preserve subject and conduct")
     binding_roles = schemas["binding"]["properties"]["role_bindings"]["required"]
     if binding_roles != [

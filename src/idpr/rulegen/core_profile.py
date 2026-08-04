@@ -44,6 +44,8 @@ def build_core_profiles(root: Path = PROJECT_ROOT) -> dict[str, Any]:
     role_vocabulary_path = root / DEFAULT_ROLE_VOCABULARY_PATH
     role_vocabulary = _read_json(role_vocabulary_path)
     role_definitions = role_vocabulary.get("roles", {})
+    common_assignment_rules = role_vocabulary.get("assignment_rules", [])
+    unit_assignment_rules = role_vocabulary.get("unit_assignment_rules", {})
     units: dict[str, Any] = {}
     for unit_id, entry in sorted(build_registry(root).items()):
         rule_ir_path = root / entry.rule_ir_path
@@ -153,6 +155,10 @@ def build_core_profiles(root: Path = PROJECT_ROOT) -> dict[str, Any]:
                     item["name"]: role_definitions[item["name"]]
                     for item in role_arguments if item["name"] != "case_id"
                 },
+                "assignment_rules": [
+                    *common_assignment_rules,
+                    *unit_assignment_rules.get(unit_id, []),
+                ],
             },
             "tracks": sorted(tracks, key=lambda item: item["track_id"]),
             "model_input_predicates": model_inputs,

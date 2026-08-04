@@ -25,15 +25,18 @@ def _profiles() -> dict:
 def test_issue_selection_preserves_subject_and_independent_conduct() -> None:
     schema = core_issue_selection_schema(case_id="case-1", unit_ids=["fraud"])
     required = schema["properties"]["issues"]["items"]["required"]
-    assert "subject_quote" in required
-    assert "conduct_quotes" in required
+    assert "subject" in required
+    assert "conduct_claims" in required
     payload = {
-        "version": "2.0.0", "case_id": "case-1",
+        "version": "3.0.0", "case_id": "case-1",
         "issues": [{
             "issue_id": "i1", "unit_id": "unsupported",
-            "reported_label": "피해자 승낙의 착오", "subject_quote": "甲",
-            "conduct_quotes": ["물건을 가져갔다"],
-            "source_quote": "甲은 물건을 가져갔다",
+            "reported_label": "피해자 승낙의 착오",
+            "subject": {"label": "甲", "source_quotes": ["甲은"]},
+            "conduct_claims": [{
+                "claim": "甲이 물건을 가져갔다",
+                "source_quotes": ["물건을 가져갔다"],
+            }],
         }],
     }
     validate_core_issue_selection(
@@ -51,12 +54,13 @@ def test_issue_selection_preserves_subject_and_independent_conduct() -> None:
 def test_issue_selection_error_names_the_non_exact_quote() -> None:
     invalid_quote = "甲이 물건을 가져갔다"
     payload = {
-        "version": "2.0.0", "case_id": "case-1",
+        "version": "3.0.0", "case_id": "case-1",
         "issues": [{
-            "issue_id": "i1", "unit_id": "unsupported",
-            "reported_label": "피해자 승낙의 착오", "subject_quote": "甲",
-            "conduct_quotes": [invalid_quote],
-            "source_quote": "甲은 물건을 가져갔다",
+            "issue_id": "i1", "unit_id": "unsupported", "reported_label": "착오",
+            "subject": {"label": "甲", "source_quotes": ["甲은"]},
+            "conduct_claims": [{
+                "claim": "甲이 재물을 취거했다", "source_quotes": [invalid_quote],
+            }],
         }],
     }
     with pytest.raises(CoreContractError) as exc_info:
@@ -78,6 +82,35 @@ def test_role_binding_is_conditioned_on_the_selected_unit_contract() -> None:
     assert schema["properties"]["track_selections"]["items"]["properties"][
         "track_id"
     ]["enum"] == ["base"]
+
+
+def test_role_binding_preserves_normalized_subject_and_exact_evidence() -> None:
+    theft = _profiles()["theft"]
+    text = "甲은 C의 지갑에서 수표를 꺼내 가져갔다."
+    subject = {"label": "甲", "source_quotes": ["甲은"]}
+    payload = {
+        "version": "1.0.0", "case_id": "case-1", "issue_id": "issue-1",
+        "unit_id": "theft",
+        "track_selections": [{
+            "track_id": "base", "applies_to_entity_id": "defendant",
+            "source_quotes": ["수표를 꺼내 가져갔다"], "reason": "취거 행위",
+        }],
+        "entities": [
+            {"entity_id": "defendant", "label": "甲", "source_quotes": ["甲"]},
+            {"entity_id": "owner", "label": "C", "source_quotes": ["C"]},
+            {"entity_id": "possessor", "label": "C", "source_quotes": ["C"]},
+        ],
+        "role_bindings": {
+            "defendant_id": {"entity_id": "defendant", "source_quotes": ["甲은"], "reason": "행위자"},
+            "owner_id": {"entity_id": "owner", "source_quotes": ["C"], "reason": "소유자"},
+            "possessor_id": {"entity_id": "possessor", "source_quotes": ["C"], "reason": "점유자"},
+        },
+        "relations": [],
+    }
+    validate_role_binding(
+        payload, case_text=text, case_id="case-1", issue_id="issue-1",
+        profile=theft, subject=subject,
+    )
 
 
 def test_role_binding_rejects_ungrounded_or_unknown_entities() -> None:
@@ -107,13 +140,13 @@ def test_role_binding_rejects_ungrounded_or_unknown_entities() -> None:
     }
     validate_role_binding(
         payload, case_text=text, case_id="case-1", issue_id="issue-1", profile=fraud,
-        subject_quote="乙",
+        subject={"label": "乙", "source_quotes": ["乙은"]},
     )
     payload["role_bindings"]["disposer_id"]["entity_id"] = "ghost"
     with pytest.raises(CoreContractError, match="unknown entity"):
         validate_role_binding(
             payload, case_text=text, case_id="case-1", issue_id="issue-1", profile=fraud,
-            subject_quote="乙",
+            subject={"label": "乙", "source_quotes": ["乙은"]},
         )
 
 

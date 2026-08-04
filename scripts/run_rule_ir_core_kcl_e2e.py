@@ -295,7 +295,8 @@ def run_case(
             unsupported_sections.append({
                 "section_id": issue_id, "heading": issue["reported_label"],
                 "authority": "model_only_general_part_experiment",
-                "source_quote": issue["source_quote"],
+                "subject": issue["subject"],
+                "conduct_claims": issue["conduct_claims"],
             })
             continue
         profile = profiles[unit_id]
@@ -304,11 +305,11 @@ def run_case(
             continue
         binding_request = {
             "case_id": case_id, "issue_id": issue_id, "unit_id": unit_id,
-            "question_text": scoped, "issue_source_quote": issue["source_quote"],
+            "question_text": scoped,
             "role_contract": profile["role_contract"],
             "role_definitions": profile["role_contract"]["role_definitions"],
-            "subject_quote": issue["subject_quote"],
-            "conduct_quotes": issue["conduct_quotes"],
+            "subject": issue["subject"],
+            "conduct_claims": issue["conduct_claims"],
             "track_contracts": _track_contracts(profile),
             "core_predicates": [
                 {"predicate_id": item["predicate_id"], "definition": item["definition"]}
@@ -319,9 +320,9 @@ def run_case(
             client=client, stage="binding", payload=binding_request,
             schema=role_binding_schema(case_id=case_id, issue_id=issue_id, profile=profile),
             max_tokens=8192,
-            validator=lambda output, p=profile, i=issue_id, s=issue["subject_quote"]: validate_role_binding(
+            validator=lambda output, p=profile, i=issue_id, s=issue["subject"]: validate_role_binding(
                 output, case_text=scoped, case_id=case_id, issue_id=i, profile=p,
-                subject_quote=s,
+                subject=s,
             ),
         )
         _write_json(case_dir / f"02_{issue_id}_{unit_id}_binding.json", {

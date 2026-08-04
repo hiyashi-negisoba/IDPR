@@ -24,7 +24,7 @@ def core_issue_selection_schema(
         "additionalProperties": False,
         "required": ["version", "case_id", "issues"],
         "properties": {
-            "version": {"const": "2.0.0"},
+            "version": {"const": "3.0.0"},
             "case_id": {"const": case_id},
             "issues": {
                 "type": "array",
@@ -34,8 +34,8 @@ def core_issue_selection_schema(
                     "type": "object",
                     "additionalProperties": False,
                     "required": [
-                        "issue_id", "unit_id", "reported_label", "subject_quote",
-                        "conduct_quotes", "source_quote",
+                        "issue_id", "unit_id", "reported_label", "subject",
+                        "conduct_claims",
                     ],
                     "properties": {
                         "issue_id": {
@@ -43,13 +43,36 @@ def core_issue_selection_schema(
                         },
                         "unit_id": {"enum": [*unit_ids, "unsupported"]},
                         "reported_label": {"type": "string", "minLength": 1},
-                        "subject_quote": {"type": "string", "minLength": 1},
-                        "conduct_quotes": {
-                            "type": "array", "minItems": 1, "maxItems": 8,
-                            "uniqueItems": True,
-                            "items": {"type": "string", "minLength": 1},
+                        "subject": {
+                            "type": "object", "additionalProperties": False,
+                            "required": ["label", "source_quotes"],
+                            "properties": {
+                                "label": {"type": "string", "minLength": 1},
+                                "source_quotes": {
+                                    "type": "array", "minItems": 1, "maxItems": 6,
+                                    "uniqueItems": True,
+                                    "items": {"type": "string", "minLength": 1},
+                                },
+                            },
                         },
-                        "source_quote": {"type": "string", "minLength": 1},
+                        "conduct_claims": {
+                            "type": "array", "minItems": 1, "maxItems": 8,
+                            "items": {
+                                "type": "object", "additionalProperties": False,
+                                "required": ["claim", "source_quotes"],
+                                "properties": {
+                                    "claim": {
+                                        "type": "string", "minLength": 1,
+                                        "maxLength": 800,
+                                    },
+                                    "source_quotes": {
+                                        "type": "array", "minItems": 1,
+                                        "maxItems": 8, "uniqueItems": True,
+                                        "items": {"type": "string", "minLength": 1},
+                                    },
+                                },
+                            },
+                        },
                     },
                 },
             },
@@ -74,24 +97,31 @@ def validate_core_issue_selection(
     issue_ids = [item.get("issue_id") for item in issues if isinstance(item, Mapping)]
     if len(issue_ids) != len(set(issue_ids)):
         errors.append("issue_id values must be unique")
-    conduct_keys: list[tuple[str, str, str]] = []
+    conduct_keys: list[tuple[str, str, tuple[str, ...]]] = []
     for item in issues:
         if not isinstance(item, Mapping):
             continue
-        for field in ("source_quote", "subject_quote"):
-            if item.get(field) not in case_text:
+        subject = item.get("subject", {})
+        if isinstance(subject, Mapping):
+            for quote in subject.get("source_quotes", []):
+                if quote not in case_text:
+                    errors.append(
+                        f"{item.get('issue_id')}: subject evidence is not an exact "
+                        f"contiguous substring of case text: {quote!r}"
+                    )
+        for conduct in item.get("conduct_claims", []):
+            if not isinstance(conduct, Mapping):
+                continue
+            quotes = tuple(str(quote) for quote in conduct.get("source_quotes", []))
+            for quote in quotes:
+                if quote in case_text:
+                    continue
                 errors.append(
-                    f"{item.get('issue_id')}: {field} is not an exact contiguous "
-                    f"substring of case text: {item.get(field)!r}"
-                )
-        for quote in item.get("conduct_quotes", []):
-            if quote not in case_text:
-                errors.append(
-                    f"{item.get('issue_id')}: conduct quote is not an exact contiguous "
-                    f"substring of case text: {quote!r}"
+                    f"{item.get('issue_id')}: conduct evidence is not an exact "
+                    f"contiguous substring of case text: {quote!r}"
                 )
             conduct_keys.append((
-                str(item.get("subject_quote")), str(item.get("unit_id")), str(quote)
+                str(subject.get("label")), str(item.get("unit_id")), quotes,
             ))
         if item.get("unit_id") == "unsupported" and str(
             item.get("reported_label", "")
@@ -202,7 +232,7 @@ def validate_role_binding(
     case_id: str,
     issue_id: str,
     profile: Mapping[str, Any],
-    subject_quote: str,
+    subject: Mapping[str, Any],
 ) -> None:
     errors = [
         f"{'.'.join(str(x) for x in error.path) or '$'}: {error.message}"
@@ -237,8 +267,23 @@ def validate_role_binding(
                 (item for item in entities if item.get("entity_id") == defendant_entity_id),
                 {},
             )
-            if subject_quote not in entity.get("source_quotes", []):
-                errors.append("defendant entity must preserve the issue subject_quote")
+            entity_quotes = entity.get("source_quotes", [])
+            binding_quotes = defendant.get("source_quotes", [])
+            subject_quotes = subject.get("source_quotes", [])
+            subject_evidence_preserved = any(
+                evidence == quote or evidence in quote or quote in evidence
+                for evidence in subject_quotes
+                for quote in [*entity_quotes, *binding_quotes]
+            )
+            if entity.get("label") != subject.get("label"):
+                errors.append(
+                    "defendant entity label must equal the selected issue subject label"
+                )
+            if not subject_evidence_preserved:
+                errors.append(
+                    "defendant entity or binding must preserve exact evidence for the "
+                    "selected issue subject"
+                )
     relation_ids: list[Any] = []
     for relation in payload.get("relations", []):
         if not isinstance(relation, Mapping):

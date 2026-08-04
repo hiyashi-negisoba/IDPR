@@ -47,3 +47,6 @@ def test_every_role_argument_has_a_legal_meaning_contract() -> None:
     owner = profiles["embezzlement"]["role_contract"]["role_definitions"]["owner_id"]
     assert "최초 출연자" in owner
     assert "동일하다고 추정하지 않는다" in owner
+    rules = profiles["embezzlement"]["role_contract"]["assignment_rules"]
+    assert any("직접 위탁" in rule for rule in rules)
+    assert any("소비대차" in rule for rule in rules)
