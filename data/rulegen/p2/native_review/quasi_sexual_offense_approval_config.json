@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "authority": "delegated_human_legal_review",
+  "unit_id": "quasi_sexual_offense",
+  "approved_on": "2026-08-04",
+  "policy": {
+    "approval": "The human legal expert delegated completion of the normalization work on 2026-08-04",
+    "scope": "제299조 준강간·준유사강간·준강제추행의 공통 구성요건을 base track으로 컴파일한다",
+    "incapacity": "심신상실과 심리적·물리적 항거불능 및 승인 사례를 택일 상태경로로 둔다",
+    "attribution_boundary": "행위자가 약물 투여 등 폭행으로 상태를 직접 만들면 제299조를 차단하고 직접 성범죄 unit으로 이동한다",
+    "stage_and_procedure": "미수·불능미수·예비 및 소추효과는 성립요건과 분리한다"
+  },
+  "track_vocabulary": [{"track_id": "base", "label": "제299조 준강간·준유사강간·준강제추행"}],
+  "decision_groups": [
+    {"card_numbers": [2, 4, 9], "decision": "approve", "role": "component", "component_id": "conduct", "component_join": "alternative_any", "track_id": "base", "refers_to_unit": null, "rationale": "기존 무능력 상태를 이용한 간음·유사간음·추행의 승인된 실행경로"},
+    {"card_numbers": [6], "decision": "approve", "role": "component", "component_id": "object_scope", "component_join": "mandatory_all", "track_id": "base", "refers_to_unit": null, "rationale": "심신상실 또는 항거불능 상태에 있는 사람이라는 객체범위"},
+    {"card_numbers": [7, 10, 11, 12, 13, 14, 15, 18], "decision": "approve", "role": "component", "component_id": "incapacity", "component_join": "alternative_any", "track_id": "base", "refers_to_unit": null, "rationale": "심신상실·항거불능의 정의와 원인·기억·형식적 반응에 관한 택일 인정경로"},
+    {"card_numbers": [8], "decision": "approve", "role": "bar", "component_id": "incapacity", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": "rape", "rationale": "행위자의 약물 투여가 폭행이면 직접 성범죄가 우선하는 제299조 경계"},
+    {"card_numbers": [5], "decision": "approve", "role": "component", "component_id": "use_of_state", "component_join": "mandatory_all", "track_id": "base", "refers_to_unit": null, "rationale": "상태 인식과 그 상태로 성행위가 용이해진 이용관계"},
+    {"card_numbers": [17, 20], "decision": "approve", "role": "component", "component_id": "intent", "component_join": "alternative_any", "track_id": "base", "refers_to_unit": null, "rationale": "상태 및 이용 결과에 대한 확정적 또는 미필적 고의"},
+    {"card_numbers": [19], "decision": "approve", "role": "bar", "component_id": "intent", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": null, "rationale": "자유롭고 진정한 승낙이 있다고 믿은 경우의 고의 차단"},
+    {"card_numbers": [1, 16, 22], "decision": "approve", "role": "post_outcome", "component_id": "attempt_stage", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": "sexual_offense_attempt", "rationale": "실행착수·불능미수·예비 처벌은 shared stage module에서 처리"},
+    {"card_numbers": [21], "decision": "approve", "role": "post_outcome", "component_id": "offense_count", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": null, "rationale": "행위별 죄수는 성립 후 단계에서 처리"},
+    {"card_numbers": [23, 24], "decision": "approve", "role": "post_outcome", "component_id": "prosecution", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": "criminal_procedure", "rationale": "비친고죄와 시간적 적용범위는 절차법 결과로 분리"},
+    {"card_numbers": [26], "decision": "approve", "role": "post_outcome", "component_id": "changed_circumstances", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": "rape", "rationale": "사정변경 뒤 폭행협박 강간의 흡수효과는 outcome bridge에서 처리"},
+    {"card_numbers": [3, 25], "decision": "context_only", "role": "context_only", "rationale": "주체 일반설명 또는 공소장변경·방어권에 관한 증거절차 문맥"}
+  ],
+  "placement_defaults": [],
+  "proposition_rewrites": {}
+}

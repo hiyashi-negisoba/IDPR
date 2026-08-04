@@ -90,6 +90,16 @@
         "applies_to_tracks": ["base"]
       },
       "tracks": {}
+    },
+    "quasi_sexual_offense": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {
+        "predicate": "quasi_sexual_offense_case_roles",
+        "arguments": ["case_id", "defendant_id", "victim_id"],
+        "definition": "호스트가 확정한 준강간·준유사강간·준강제추행 사건의 피고인과 피해자 역할 tuple",
+        "applies_to_tracks": ["base"]
+      },
+      "tracks": {}
     }
   }
 }

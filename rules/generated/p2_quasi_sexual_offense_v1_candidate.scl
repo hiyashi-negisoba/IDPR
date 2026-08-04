@@ -1,0 +1,1036 @@
+// rule_set_id: kr.p2.quasi_sexual_offense.native.v1_candidate
+// status: draft
+// legal_review: pending
+// generated_from: validated RuleIR; model output is never executed directly
+
+// provable: 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+// sources: system contract
+// norm_cards: system contract
+type provable(String, String)
+
+// case_assessment_complete: 사건 라우터가 선택한 평가 묶음이 완결되어 결론 계층의 폐쇄세계 검사를 허용함
+// sources: system contract
+// norm_cards: system contract
+type case_assessment_complete(String, String)
+
+// distinct_entity: 사건의 entity resolution에서 두 역할이 서로 다른 실체임이 확인됨
+// sources: system contract
+// norm_cards: system contract
+type distinct_entity(String, String, String)
+
+// quasi_sexual_offense_case_roles: 호스트가 확정한 준강간·준유사강간·준강제추행 사건의 피고인과 피해자 역할 tuple
+// sources: system contract
+// norm_cards: system contract
+type quasi_sexual_offense_case_roles(String, String, String)
+
+// quasi_sexual_offense_not_established: 증명된 불성립 사유 또는 경계 이동이 존재함
+// sources: system contract
+// norm_cards: system contract
+type quasi_sexual_offense_not_established(String, String, String)
+
+// quasi_sexual_offense_undetermined: 관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음
+// sources: system contract
+// norm_cards: system contract
+type quasi_sexual_offense_undetermined(String, String, String)
+
+// quasi_sexual_offense_conflict: 같은 카드에 satisfied와 not_satisfied 평가가 모두 증명됨
+// sources: system contract
+// norm_cards: system contract
+type quasi_sexual_offense_conflict(String, String, String)
+
+// quasi_sexual_offense_track_not_established: 해당 track에만 적용되는 증명된 불성립 사유 또는 경계 이동
+// sources: system contract
+// norm_cards: system contract
+type quasi_sexual_offense_track_not_established(String, String, String, String)
+
+// quasi_sexual_offense_track_conflict: 해당 track에 적용되는 카드 평가 충돌
+// sources: system contract
+// norm_cards: system contract
+type quasi_sexual_offense_track_conflict(String, String, String, String)
+
+// quasi_sexual_offense_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type quasi_sexual_offense_track_has_negative(String, String, String)
+
+// quasi_sexual_offense_track_has_conflict: 해당 track에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type quasi_sexual_offense_track_has_conflict(String, String, String)
+
+// assess_art299_attempt_commencement: 이 카드의 사건별 적용 평가: 본죄의 실행 착수는 심신상실 또는 항거불능 상태를 이용한 간음·유사간음·추행의 수단이라고 할 수 있는 행동을 개시한 때이다.
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8
+// norm_cards: art299.attempt_commencement
+type assess_art299_attempt_commencement(String, String, String, String, String)
+
+// satisfied_art299_attempt_commencement: 증명 가능한 평가에서 다음 조건이 충족됨: 본죄의 실행 착수는 심신상실 또는 항거불능 상태를 이용한 간음·유사간음·추행의 수단이라고 할 수 있는 행동을 개시한 때이다.
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8
+// norm_cards: art299.attempt_commencement
+type satisfied_art299_attempt_commencement(String, String, String)
+
+// assess_art299_offense_characterization: 이 카드의 사건별 적용 평가: 준강간·준강제추행죄는 사람의 심신상실 또는 항거불능 상태를 이용하여 간음 또는 추행함으로써 성립하는 범죄이다.
+// sources: comm_001692_제299조_Ⅰ_0
+// norm_cards: art299.offense_characterization
+type assess_art299_offense_characterization(String, String, String, String, String)
+
+// satisfied_art299_offense_characterization: 증명 가능한 평가에서 다음 조건이 충족됨: 준강간·준강제추행죄는 사람의 심신상실 또는 항거불능 상태를 이용하여 간음 또는 추행함으로써 성립하는 범죄이다.
+// sources: comm_001692_제299조_Ⅰ_0
+// norm_cards: art299.offense_characterization
+type satisfied_art299_offense_characterization(String, String, String)
+
+// assess_art299_successive_participant_only_art299: 이 카드의 사건별 적용 평가: 타인이 폭행·협박으로 피해자를 항거불능에 빠뜨린 뒤 그 사실을 알고 가담하여 간음·유사간음·추행한 자는, 타인과의 공동가공 의사에 기한 기능적 행위지배를 인정할 수 없으면 강간죄·유사강간죄·강제추행죄는 성립하지 않고 본죄만 성립한다는 견해가 제시된다.
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8
+// norm_cards: art299.successive_participant_only_art299
+type assess_art299_successive_participant_only_art299(String, String, String, String, String)
+
+// satisfied_art299_successive_participant_only_art299: 증명 가능한 평가에서 다음 조건이 충족됨: 타인이 폭행·협박으로 피해자를 항거불능에 빠뜨린 뒤 그 사실을 알고 가담하여 간음·유사간음·추행한 자는, 타인과의 공동가공 의사에 기한 기능적 행위지배를 인정할 수 없으면 강간죄·유사강간죄·강제추행죄는 성립하지 않고 본죄만 성립한다는 견해가 제시된다.
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8
+// norm_cards: art299.successive_participant_only_art299
+type satisfied_art299_successive_participant_only_art299(String, String, String)
+
+// assess_art299_use_awareness_and_facilitation: 이 카드의 사건별 적용 평가: 제299조에서 상태의 이용은 행위자가 피해자의 심신상실 또는 항거불능 상태를 인식하고, 그 상태 때문에 간음 또는 추행이 용이해졌음을 의미한다.
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8
+// norm_cards: art299.use_awareness_and_facilitation
+type assess_art299_use_awareness_and_facilitation(String, String, String, String, String)
+
+// satisfied_art299_use_awareness_and_facilitation: 증명 가능한 평가에서 다음 조건이 충족됨: 제299조에서 상태의 이용은 행위자가 피해자의 심신상실 또는 항거불능 상태를 인식하고, 그 상태 때문에 간음 또는 추행이 용이해졌음을 의미한다.
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8
+// norm_cards: art299.use_awareness_and_facilitation
+type satisfied_art299_use_awareness_and_facilitation(String, String, String)
+
+// assess_art299_sec3_1_object_incapacitated_person: 이 카드의 사건별 적용 평가: 본죄의 객체는 심신상실 또는 항거불능 상태에 있는 사람이며, 사람은 성별을 불문한다.
+// sources: comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.1_2
+// norm_cards: art299_sec3_1.object_incapacitated_person
+type assess_art299_sec3_1_object_incapacitated_person(String, String, String, String, String)
+
+// satisfied_art299_sec3_1_object_incapacitated_person: 증명 가능한 평가에서 다음 조건이 충족됨: 본죄의 객체는 심신상실 또는 항거불능 상태에 있는 사람이며, 사람은 성별을 불문한다.
+// sources: comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.1_2
+// norm_cards: art299_sec3_1.object_incapacitated_person
+type satisfied_art299_sec3_1_object_incapacitated_person(String, String, String)
+
+// assess_art299_sec3_2_blackout_not_dispositive: 이 카드의 사건별 적용 평가: 음주 또는 약물로 성관계 당시 상황을 기억하지 못하는 피해자에 대하여 알코올 블랙아웃 가능성만으로 심신상실 또는 항거불능 상태가 아니라고 단정해서는 안 된다.
+// sources: comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5
+// norm_cards: art299_sec3_2.blackout_not_dispositive
+type assess_art299_sec3_2_blackout_not_dispositive(String, String, String, String, String)
+
+// satisfied_art299_sec3_2_blackout_not_dispositive: 증명 가능한 평가에서 다음 조건이 충족됨: 음주 또는 약물로 성관계 당시 상황을 기억하지 못하는 피해자에 대하여 알코올 블랙아웃 가능성만으로 심신상실 또는 항거불능 상태가 아니라고 단정해서는 안 된다.
+// sources: comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5
+// norm_cards: art299_sec3_2.blackout_not_dispositive
+type satisfied_art299_sec3_2_blackout_not_dispositive(String, String, String)
+
+// assess_art299_sec3_2_drug_administration_violence_exception: 이 카드의 사건별 적용 평가: 간음·추행 목적으로 마취제·수면제 등을 사용하여 피해자를 심신상실 또는 항거불능에 빠뜨린 경우 그 투여가 폭행에 해당할 수 있어 본죄가 아니라 강간죄·유사강간죄 또는 강제추행죄가 성립할 수 있다.
+// sources: comm_001692_제299조_Ⅲ.2_7
+// norm_cards: art299_sec3_2.drug_administration_violence_exception
+type assess_art299_sec3_2_drug_administration_violence_exception(String, String, String, String, String)
+
+// satisfied_art299_sec3_2_drug_administration_violence_exception: 증명 가능한 평가에서 다음 조건이 충족됨: 간음·추행 목적으로 마취제·수면제 등을 사용하여 피해자를 심신상실 또는 항거불능에 빠뜨린 경우 그 투여가 폭행에 해당할 수 있어 본죄가 아니라 강간죄·유사강간죄 또는 강제추행죄가 성립할 수 있다.
+// sources: comm_001692_제299조_Ⅲ.2_7
+// norm_cards: art299_sec3_2.drug_administration_violence_exception
+type satisfied_art299_sec3_2_drug_administration_violence_exception(String, String, String)
+
+// assess_art299_sec3_2_existing_incapacity_used: 이 카드의 사건별 적용 평가: 이미 존재한 심신상실 또는 항거불능 상태를 이용하여 간음·유사간음·추행하면 본죄가 성립한다.
+// sources: comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7
+// norm_cards: art299_sec3_2.existing_incapacity_used
+type assess_art299_sec3_2_existing_incapacity_used(String, String, String, String, String)
+
+// satisfied_art299_sec3_2_existing_incapacity_used: 증명 가능한 평가에서 다음 조건이 충족됨: 이미 존재한 심신상실 또는 항거불능 상태를 이용하여 간음·유사간음·추행하면 본죄가 성립한다.
+// sources: comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7
+// norm_cards: art299_sec3_2.existing_incapacity_used
+type satisfied_art299_sec3_2_existing_incapacity_used(String, String, String)
+
+// assess_art299_sec3_2_incapacity_origin_irrelevant: 이 카드의 사건별 적용 평가: 본죄 성립에서 심신상실 또는 항거불능 상태에 이르게 된 원인은 묻지 않는다.
+// sources: comm_001692_제299조_Ⅲ.2_6
+// norm_cards: art299_sec3_2.incapacity_origin_irrelevant
+type assess_art299_sec3_2_incapacity_origin_irrelevant(String, String, String, String, String)
+
+// satisfied_art299_sec3_2_incapacity_origin_irrelevant: 증명 가능한 평가에서 다음 조건이 충족됨: 본죄 성립에서 심신상실 또는 항거불능 상태에 이르게 된 원인은 묻지 않는다.
+// sources: comm_001692_제299조_Ⅲ.2_6
+// norm_cards: art299_sec3_2.incapacity_origin_irrelevant
+type satisfied_art299_sec3_2_incapacity_origin_irrelevant(String, String, String)
+
+// assess_art299_sec3_2_memory_not_dispositive: 이 카드의 사건별 적용 평가: 피해자가 피해 사실을 기억하더라도 항거불능 상태가 아니라고 단정해서는 안 된다.
+// sources: comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_4
+// norm_cards: art299_sec3_2.memory_not_dispositive
+type assess_art299_sec3_2_memory_not_dispositive(String, String, String, String, String)
+
+// satisfied_art299_sec3_2_memory_not_dispositive: 증명 가능한 평가에서 다음 조건이 충족됨: 피해자가 피해 사실을 기억하더라도 항거불능 상태가 아니라고 단정해서는 안 된다.
+// sources: comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_4
+// norm_cards: art299_sec3_2.memory_not_dispositive
+type satisfied_art299_sec3_2_memory_not_dispositive(String, String, String)
+
+// assess_art299_sec3_2_mental_incapacity_definition: 이 카드의 사건별 적용 평가: 심신상실은 정신기능 장애로 성적 행위에 관한 정상적 판단능력이 없는 상태를 뜻한다.
+// sources: comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.mental_incapacity_definition
+type assess_art299_sec3_2_mental_incapacity_definition(String, String, String, String, String)
+
+// satisfied_art299_sec3_2_mental_incapacity_definition: 증명 가능한 평가에서 다음 조건이 충족됨: 심신상실은 정신기능 장애로 성적 행위에 관한 정상적 판단능력이 없는 상태를 뜻한다.
+// sources: comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.mental_incapacity_definition
+type satisfied_art299_sec3_2_mental_incapacity_definition(String, String, String)
+
+// assess_art299_sec3_2_religious_psychological_resistance: 이 카드의 사건별 적용 평가: 종교지도자의 절대적 권위로 인한 정신적 혼란, 종교적 유익성에 대한 믿음 또는 지옥에 갈 것이라는 맹신 등으로 거절이 절대적으로 불가능하거나 현저히 곤란한 경우 심리적 항거불능이 인정될 수 있다.
+// sources: comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_6
+// norm_cards: art299_sec3_2.religious_psychological_resistance
+type assess_art299_sec3_2_religious_psychological_resistance(String, String, String, String, String)
+
+// satisfied_art299_sec3_2_religious_psychological_resistance: 증명 가능한 평가에서 다음 조건이 충족됨: 종교지도자의 절대적 권위로 인한 정신적 혼란, 종교적 유익성에 대한 믿음 또는 지옥에 갈 것이라는 맹신 등으로 거절이 절대적으로 불가능하거나 현저히 곤란한 경우 심리적 항거불능이 인정될 수 있다.
+// sources: comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_6
+// norm_cards: art299_sec3_2.religious_psychological_resistance
+type satisfied_art299_sec3_2_religious_psychological_resistance(String, String, String)
+
+// assess_art299_sec3_2_resistance_incapacity_definition: 이 카드의 사건별 적용 평가: 항거불능은 심신상실 이외 원인으로 심리적 또는 물리적으로 반항이 절대적으로 불가능하거나 현저히 곤란한 상태를 의미한다.
+// sources: comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.resistance_incapacity_definition
+type assess_art299_sec3_2_resistance_incapacity_definition(String, String, String, String, String)
+
+// satisfied_art299_sec3_2_resistance_incapacity_definition: 증명 가능한 평가에서 다음 조건이 충족됨: 항거불능은 심신상실 이외 원인으로 심리적 또는 물리적으로 반항이 절대적으로 불가능하거나 현저히 곤란한 상태를 의미한다.
+// sources: comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.resistance_incapacity_definition
+type satisfied_art299_sec3_2_resistance_incapacity_definition(String, String, String)
+
+// assess_art299_sec3_2_sleep_or_unconsciousness: 이 카드의 사건별 적용 평가: 피해자가 깊은 잠에 빠졌거나 술·약물 등으로 일시적으로 의식을 잃은 상태는 심신상실 또는 항거불능 상태에 해당할 수 있다.
+// sources: comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.sleep_or_unconsciousness
+type assess_art299_sec3_2_sleep_or_unconsciousness(String, String, String, String, String)
+
+// satisfied_art299_sec3_2_sleep_or_unconsciousness: 증명 가능한 평가에서 다음 조건이 충족됨: 피해자가 깊은 잠에 빠졌거나 술·약물 등으로 일시적으로 의식을 잃은 상태는 심신상실 또는 항거불능 상태에 해당할 수 있다.
+// sources: comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.sleep_or_unconsciousness
+type satisfied_art299_sec3_2_sleep_or_unconsciousness(String, String, String)
+
+// assess_art299_sec5_impossible_attempt_actual_state_absent: 이 카드의 사건별 적용 평가: 피고인이 피해자가 심신상실 또는 항거불능 상태라고 인식하고 그 상태를 이용해 간음할 의사로 간음했으나 실제로 그러한 상태가 없었던 경우, 행위 당시 인식 사정을 기준으로 일반인이 결과 발생 위험성을 인정하면 준강간 불능미수가 성립한다.
+// sources: comm_001692_제299조_Ⅴ_10, comm_001692_제299조_Ⅴ_10
+// norm_cards: art299_sec5.impossible_attempt_actual_state_absent
+type assess_art299_sec5_impossible_attempt_actual_state_absent(String, String, String, String, String)
+
+// satisfied_art299_sec5_impossible_attempt_actual_state_absent: 증명 가능한 평가에서 다음 조건이 충족됨: 피고인이 피해자가 심신상실 또는 항거불능 상태라고 인식하고 그 상태를 이용해 간음할 의사로 간음했으나 실제로 그러한 상태가 없었던 경우, 행위 당시 인식 사정을 기준으로 일반인이 결과 발생 위험성을 인정하면 준강간 불능미수가 성립한다.
+// sources: comm_001692_제299조_Ⅴ_10, comm_001692_제299조_Ⅴ_10
+// norm_cards: art299_sec5.impossible_attempt_actual_state_absent
+type satisfied_art299_sec5_impossible_attempt_actual_state_absent(String, String, String)
+
+// assess_art299_sec6_dolus_eventualis: 이 카드의 사건별 적용 평가: 본죄의 고의는 미필적 고의로도 족하다.
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.dolus_eventualis
+type assess_art299_sec6_dolus_eventualis(String, String, String, String, String)
+
+// satisfied_art299_sec6_dolus_eventualis: 증명 가능한 평가에서 다음 조건이 충족됨: 본죄의 고의는 미필적 고의로도 족하다.
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.dolus_eventualis
+type satisfied_art299_sec6_dolus_eventualis(String, String, String)
+
+// assess_art299_sec6_formal_response_not_consent: 이 카드의 사건별 적용 평가: 피해자가 정신적·육체적으로 정상적인 판단이 불가능한 상황에서 한 형식적인 '괜찮다'는 답변은 피고인과의 성행위에 동의하는 취지의 답변으로 볼 수 없다.
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.formal_response_not_consent
+type assess_art299_sec6_formal_response_not_consent(String, String, String, String, String)
+
+// satisfied_art299_sec6_formal_response_not_consent: 증명 가능한 평가에서 다음 조건이 충족됨: 피해자가 정신적·육체적으로 정상적인 판단이 불가능한 상황에서 한 형식적인 '괜찮다'는 답변은 피고인과의 성행위에 동의하는 취지의 답변으로 볼 수 없다.
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.formal_response_not_consent
+type satisfied_art299_sec6_formal_response_not_consent(String, String, String)
+
+// assess_art299_sec6_genuine_consent_belief: 이 카드의 사건별 적용 평가: 성관계 등에 대하여 피해자의 자유롭고 진정한 의사에 기한 승낙이 있다고 믿었다면 본죄의 고의를 인정하기 어렵다.
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.genuine_consent_belief
+type assess_art299_sec6_genuine_consent_belief(String, String, String, String, String)
+
+// satisfied_art299_sec6_genuine_consent_belief: 증명 가능한 평가에서 다음 조건이 충족됨: 성관계 등에 대하여 피해자의 자유롭고 진정한 의사에 기한 승낙이 있다고 믿었다면 본죄의 고의를 인정하기 어렵다.
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.genuine_consent_belief
+type satisfied_art299_sec6_genuine_consent_belief(String, String, String)
+
+// assess_art299_sec6_intent: 이 카드의 사건별 적용 평가: 본죄의 고의는 피해자의 심신상실 또는 항거불능 상태 및 그 상태를 이용한 구성요건적 결과 발생 가능성을 인식하고 위험을 용인하는 내심의 의사이다.
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.intent
+type assess_art299_sec6_intent(String, String, String, String, String)
+
+// satisfied_art299_sec6_intent: 증명 가능한 평가에서 다음 조건이 충족됨: 본죄의 고의는 피해자의 심신상실 또는 항거불능 상태 및 그 상태를 이용한 구성요건적 결과 발생 가능성을 인식하고 위험을 용인하는 내심의 의사이다.
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.intent
+type satisfied_art299_sec6_intent(String, String, String)
+
+// assess_art299_sec7_changed_circumstances_rape_only: 이 카드의 사건별 적용 평가: 준강간죄의 구성요건이 갖추어진 상태에서 실행에 착수한 뒤 피해자가 깨는 등 사정 변화 후 폭행·협박으로 간음한 경우, 강간죄만 성립한다고 보는 견해가 있다.
+// sources: comm_001692_제299조_Ⅶ_12
+// norm_cards: art299_sec7.changed_circumstances_rape_only
+type assess_art299_sec7_changed_circumstances_rape_only(String, String, String, String, String)
+
+// satisfied_art299_sec7_changed_circumstances_rape_only: 증명 가능한 평가에서 다음 조건이 충족됨: 준강간죄의 구성요건이 갖추어진 상태에서 실행에 착수한 뒤 피해자가 깨는 등 사정 변화 후 폭행·협박으로 간음한 경우, 강간죄만 성립한다고 보는 견해가 있다.
+// sources: comm_001692_제299조_Ⅶ_12
+// norm_cards: art299_sec7.changed_circumstances_rape_only
+type satisfied_art299_sec7_changed_circumstances_rape_only(String, String, String)
+
+// assess_art299_sec7_unit_of_crime_per_act: 이 카드의 사건별 적용 평가: 본죄는 원칙적으로 각 간음행위, 유사간음행위, 추행행위마다 하나의 범죄가 성립한다.
+// sources: comm_001692_제299조_Ⅶ_12
+// norm_cards: art299_sec7.unit_of_crime_per_act
+type assess_art299_sec7_unit_of_crime_per_act(String, String, String, String, String)
+
+// satisfied_art299_sec7_unit_of_crime_per_act: 증명 가능한 평가에서 다음 조건이 충족됨: 본죄는 원칙적으로 각 간음행위, 유사간음행위, 추행행위마다 하나의 범죄가 성립한다.
+// sources: comm_001692_제299조_Ⅶ_12
+// norm_cards: art299_sec7.unit_of_crime_per_act
+type satisfied_art299_sec7_unit_of_crime_per_act(String, String, String)
+
+// assess_art299_sec8_attempt_preparation_punishment: 이 카드의 사건별 적용 평가: 준강간죄의 미수범과 예비·음모범 및 준유사강간·준강제추행죄의 미수범은 처벌한다.
+// sources: comm_001692_제299조_Ⅷ_13
+// norm_cards: art299_sec8.attempt_preparation_punishment
+type assess_art299_sec8_attempt_preparation_punishment(String, String, String, String, String)
+
+// satisfied_art299_sec8_attempt_preparation_punishment: 증명 가능한 평가에서 다음 조건이 충족됨: 준강간죄의 미수범과 예비·음모범 및 준유사강간·준강제추행죄의 미수범은 처벌한다.
+// sources: comm_001692_제299조_Ⅷ_13
+// norm_cards: art299_sec8.attempt_preparation_punishment
+type satisfied_art299_sec8_attempt_preparation_punishment(String, String, String)
+
+// assess_art299_sec8_noncomplaint_prosecution: 이 카드의 사건별 적용 평가: 본죄는 피해자의 고소가 없더라도 공소를 제기하고 처벌할 수 있다.
+// sources: comm_001692_제299조_Ⅷ_13
+// norm_cards: art299_sec8.noncomplaint_prosecution
+type assess_art299_sec8_noncomplaint_prosecution(String, String, String, String, String)
+
+// satisfied_art299_sec8_noncomplaint_prosecution: 증명 가능한 평가에서 다음 조건이 충족됨: 본죄는 피해자의 고소가 없더라도 공소를 제기하고 처벌할 수 있다.
+// sources: comm_001692_제299조_Ⅷ_13
+// norm_cards: art299_sec8.noncomplaint_prosecution
+type satisfied_art299_sec8_noncomplaint_prosecution(String, String, String)
+
+// assess_art299_sec8_noncomplaint_retroactivity: 이 카드의 사건별 적용 평가: 친고죄 폐지는 개정 법률 시행일인 2013년 6월 19일 이후 최초로 저지른 범죄부터 적용된다.
+// sources: comm_001692_제299조_Ⅷ_13
+// norm_cards: art299_sec8.noncomplaint_retroactivity
+type assess_art299_sec8_noncomplaint_retroactivity(String, String, String, String, String)
+
+// satisfied_art299_sec8_noncomplaint_retroactivity: 증명 가능한 평가에서 다음 조건이 충족됨: 친고죄 폐지는 개정 법률 시행일인 2013년 6월 19일 이후 최초로 저지른 범죄부터 적용된다.
+// sources: comm_001692_제299조_Ⅷ_13
+// norm_cards: art299_sec8.noncomplaint_retroactivity
+type satisfied_art299_sec8_noncomplaint_retroactivity(String, String, String)
+
+// quasi_sexual_offense_base_conduct_satisfied: 'conduct' 요건이 충족됨 (base track, alternative_any)
+// sources: comm_001692_제299조_Ⅰ_0, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7
+// norm_cards: art299.offense_characterization, art299.successive_participant_only_art299, art299_sec3_2.existing_incapacity_used
+type quasi_sexual_offense_base_conduct_satisfied(String, String, String)
+
+// quasi_sexual_offense_base_incapacity_satisfied: 'incapacity' 요건이 충족됨 (base track, alternative_any)
+// sources: comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec3_2.blackout_not_dispositive, art299_sec3_2.incapacity_origin_irrelevant, art299_sec3_2.memory_not_dispositive, art299_sec3_2.mental_incapacity_definition, art299_sec3_2.religious_psychological_resistance, art299_sec3_2.resistance_incapacity_definition, art299_sec3_2.sleep_or_unconsciousness, art299_sec6.formal_response_not_consent
+type quasi_sexual_offense_base_incapacity_satisfied(String, String, String)
+
+// quasi_sexual_offense_base_intent_satisfied: 'intent' 요건이 충족됨 (base track, alternative_any)
+// sources: comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.dolus_eventualis, art299_sec6.intent
+type quasi_sexual_offense_base_intent_satisfied(String, String, String)
+
+// quasi_sexual_offense_base_object_scope_satisfied: 'object_scope' 요건이 충족됨 (base track, mandatory_all)
+// sources: comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.1_2
+// norm_cards: art299_sec3_1.object_incapacitated_person
+type quasi_sexual_offense_base_object_scope_satisfied(String, String, String)
+
+// quasi_sexual_offense_base_use_of_state_satisfied: 'use_of_state' 요건이 충족됨 (base track, mandatory_all)
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8
+// norm_cards: art299.use_awareness_and_facilitation
+type quasi_sexual_offense_base_use_of_state_satisfied(String, String, String)
+
+// quasi_sexual_offense_has_negative: 이 unit에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type quasi_sexual_offense_has_negative(String, String)
+
+// quasi_sexual_offense_has_conflict: 이 unit에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type quasi_sexual_offense_has_conflict(String, String)
+
+// quasi_sexual_offense_base_elements_satisfied: 'base' track의 구성요건 component가 모두 충족된 잠정 성립 후보
+// sources: system contract
+// norm_cards: system contract
+type quasi_sexual_offense_base_elements_satisfied(String, String, String)
+
+// quasi_sexual_offense_base_established: 완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 'base' track 확정 성립
+// sources: system contract
+// norm_cards: system contract
+type quasi_sexual_offense_base_established(String, String, String)
+
+// rule_id: quasi_sexual_offense.card.art299_attempt_commencement.satisfied
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8
+// norm_cards: art299.attempt_commencement
+rel satisfied_art299_attempt_commencement(case_id, defendant_id, victim_id) = assess_art299_attempt_commencement(case_id, assessment_001, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_001)
+
+// rule_id: quasi_sexual_offense.card.art299_attempt_commencement.undetermined
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8
+// norm_cards: art299.attempt_commencement
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299.attempt_commencement") = assess_art299_attempt_commencement(case_id, unknown_001, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_001)
+
+// rule_id: quasi_sexual_offense.card.art299_attempt_commencement.conflict
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8
+// norm_cards: art299.attempt_commencement
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299.attempt_commencement") = assess_art299_attempt_commencement(case_id, positive_001, defendant_id, victim_id, "satisfied") and
+  assess_art299_attempt_commencement(case_id, negative_001, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_001) and
+  provable(case_id, negative_001)
+
+// rule_id: quasi_sexual_offense.card.art299_offense_characterization.satisfied
+// sources: comm_001692_제299조_Ⅰ_0
+// norm_cards: art299.offense_characterization
+rel satisfied_art299_offense_characterization(case_id, defendant_id, victim_id) = assess_art299_offense_characterization(case_id, assessment_002, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_002)
+
+// rule_id: quasi_sexual_offense.card.art299_offense_characterization.undetermined
+// sources: comm_001692_제299조_Ⅰ_0
+// norm_cards: art299.offense_characterization
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299.offense_characterization") = assess_art299_offense_characterization(case_id, unknown_002, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_002)
+
+// rule_id: quasi_sexual_offense.card.art299_offense_characterization.conflict
+// sources: comm_001692_제299조_Ⅰ_0
+// norm_cards: art299.offense_characterization
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299.offense_characterization") = assess_art299_offense_characterization(case_id, positive_002, defendant_id, victim_id, "satisfied") and
+  assess_art299_offense_characterization(case_id, negative_002, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_002) and
+  provable(case_id, negative_002)
+
+// rule_id: quasi_sexual_offense.card.art299_successive_participant_only_art299.satisfied
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8
+// norm_cards: art299.successive_participant_only_art299
+rel satisfied_art299_successive_participant_only_art299(case_id, defendant_id, victim_id) = assess_art299_successive_participant_only_art299(case_id, assessment_003, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_003)
+
+// rule_id: quasi_sexual_offense.card.art299_successive_participant_only_art299.undetermined
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8
+// norm_cards: art299.successive_participant_only_art299
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299.successive_participant_only_art299") = assess_art299_successive_participant_only_art299(case_id, unknown_003, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_003)
+
+// rule_id: quasi_sexual_offense.card.art299_successive_participant_only_art299.conflict
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8
+// norm_cards: art299.successive_participant_only_art299
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299.successive_participant_only_art299") = assess_art299_successive_participant_only_art299(case_id, positive_003, defendant_id, victim_id, "satisfied") and
+  assess_art299_successive_participant_only_art299(case_id, negative_003, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_003) and
+  provable(case_id, negative_003)
+
+// rule_id: quasi_sexual_offense.card.art299_use_awareness_and_facilitation.satisfied
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8
+// norm_cards: art299.use_awareness_and_facilitation
+rel satisfied_art299_use_awareness_and_facilitation(case_id, defendant_id, victim_id) = assess_art299_use_awareness_and_facilitation(case_id, assessment_004, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_004)
+
+// rule_id: quasi_sexual_offense.card.art299_use_awareness_and_facilitation.undetermined
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8
+// norm_cards: art299.use_awareness_and_facilitation
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299.use_awareness_and_facilitation") = assess_art299_use_awareness_and_facilitation(case_id, unknown_004, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_004)
+
+// rule_id: quasi_sexual_offense.card.art299_use_awareness_and_facilitation.conflict
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8
+// norm_cards: art299.use_awareness_and_facilitation
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299.use_awareness_and_facilitation") = assess_art299_use_awareness_and_facilitation(case_id, positive_004, defendant_id, victim_id, "satisfied") and
+  assess_art299_use_awareness_and_facilitation(case_id, negative_004, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_004) and
+  provable(case_id, negative_004)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_1_object_incapacitated_person.satisfied
+// sources: comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.1_2
+// norm_cards: art299_sec3_1.object_incapacitated_person
+rel satisfied_art299_sec3_1_object_incapacitated_person(case_id, defendant_id, victim_id) = assess_art299_sec3_1_object_incapacitated_person(case_id, assessment_005, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_005)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_1_object_incapacitated_person.undetermined
+// sources: comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.1_2
+// norm_cards: art299_sec3_1.object_incapacitated_person
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299_sec3_1.object_incapacitated_person") = assess_art299_sec3_1_object_incapacitated_person(case_id, unknown_005, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_005)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_1_object_incapacitated_person.conflict
+// sources: comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.1_2
+// norm_cards: art299_sec3_1.object_incapacitated_person
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec3_1.object_incapacitated_person") = assess_art299_sec3_1_object_incapacitated_person(case_id, positive_005, defendant_id, victim_id, "satisfied") and
+  assess_art299_sec3_1_object_incapacitated_person(case_id, negative_005, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_005) and
+  provable(case_id, negative_005)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_blackout_not_dispositive.satisfied
+// sources: comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5
+// norm_cards: art299_sec3_2.blackout_not_dispositive
+rel satisfied_art299_sec3_2_blackout_not_dispositive(case_id, defendant_id, victim_id) = assess_art299_sec3_2_blackout_not_dispositive(case_id, assessment_006, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_006)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_blackout_not_dispositive.undetermined
+// sources: comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5
+// norm_cards: art299_sec3_2.blackout_not_dispositive
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299_sec3_2.blackout_not_dispositive") = assess_art299_sec3_2_blackout_not_dispositive(case_id, unknown_006, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_006)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_blackout_not_dispositive.conflict
+// sources: comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5
+// norm_cards: art299_sec3_2.blackout_not_dispositive
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec3_2.blackout_not_dispositive") = assess_art299_sec3_2_blackout_not_dispositive(case_id, positive_006, defendant_id, victim_id, "satisfied") and
+  assess_art299_sec3_2_blackout_not_dispositive(case_id, negative_006, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_006) and
+  provable(case_id, negative_006)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_drug_administration_violence_exception.satisfied
+// sources: comm_001692_제299조_Ⅲ.2_7
+// norm_cards: art299_sec3_2.drug_administration_violence_exception
+rel satisfied_art299_sec3_2_drug_administration_violence_exception(case_id, defendant_id, victim_id) = assess_art299_sec3_2_drug_administration_violence_exception(case_id, assessment_007, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_007)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_drug_administration_violence_exception.undetermined
+// sources: comm_001692_제299조_Ⅲ.2_7
+// norm_cards: art299_sec3_2.drug_administration_violence_exception
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299_sec3_2.drug_administration_violence_exception") = assess_art299_sec3_2_drug_administration_violence_exception(case_id, unknown_007, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_007)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_drug_administration_violence_exception.conflict
+// sources: comm_001692_제299조_Ⅲ.2_7
+// norm_cards: art299_sec3_2.drug_administration_violence_exception
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec3_2.drug_administration_violence_exception") = assess_art299_sec3_2_drug_administration_violence_exception(case_id, positive_007, defendant_id, victim_id, "satisfied") and
+  assess_art299_sec3_2_drug_administration_violence_exception(case_id, negative_007, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_007) and
+  provable(case_id, negative_007)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_existing_incapacity_used.satisfied
+// sources: comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7
+// norm_cards: art299_sec3_2.existing_incapacity_used
+rel satisfied_art299_sec3_2_existing_incapacity_used(case_id, defendant_id, victim_id) = assess_art299_sec3_2_existing_incapacity_used(case_id, assessment_008, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_008)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_existing_incapacity_used.undetermined
+// sources: comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7
+// norm_cards: art299_sec3_2.existing_incapacity_used
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299_sec3_2.existing_incapacity_used") = assess_art299_sec3_2_existing_incapacity_used(case_id, unknown_008, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_008)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_existing_incapacity_used.conflict
+// sources: comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7
+// norm_cards: art299_sec3_2.existing_incapacity_used
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec3_2.existing_incapacity_used") = assess_art299_sec3_2_existing_incapacity_used(case_id, positive_008, defendant_id, victim_id, "satisfied") and
+  assess_art299_sec3_2_existing_incapacity_used(case_id, negative_008, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_008) and
+  provable(case_id, negative_008)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_incapacity_origin_irrelevant.satisfied
+// sources: comm_001692_제299조_Ⅲ.2_6
+// norm_cards: art299_sec3_2.incapacity_origin_irrelevant
+rel satisfied_art299_sec3_2_incapacity_origin_irrelevant(case_id, defendant_id, victim_id) = assess_art299_sec3_2_incapacity_origin_irrelevant(case_id, assessment_009, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_009)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_incapacity_origin_irrelevant.undetermined
+// sources: comm_001692_제299조_Ⅲ.2_6
+// norm_cards: art299_sec3_2.incapacity_origin_irrelevant
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299_sec3_2.incapacity_origin_irrelevant") = assess_art299_sec3_2_incapacity_origin_irrelevant(case_id, unknown_009, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_009)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_incapacity_origin_irrelevant.conflict
+// sources: comm_001692_제299조_Ⅲ.2_6
+// norm_cards: art299_sec3_2.incapacity_origin_irrelevant
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec3_2.incapacity_origin_irrelevant") = assess_art299_sec3_2_incapacity_origin_irrelevant(case_id, positive_009, defendant_id, victim_id, "satisfied") and
+  assess_art299_sec3_2_incapacity_origin_irrelevant(case_id, negative_009, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_009) and
+  provable(case_id, negative_009)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_memory_not_dispositive.satisfied
+// sources: comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_4
+// norm_cards: art299_sec3_2.memory_not_dispositive
+rel satisfied_art299_sec3_2_memory_not_dispositive(case_id, defendant_id, victim_id) = assess_art299_sec3_2_memory_not_dispositive(case_id, assessment_010, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_010)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_memory_not_dispositive.undetermined
+// sources: comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_4
+// norm_cards: art299_sec3_2.memory_not_dispositive
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299_sec3_2.memory_not_dispositive") = assess_art299_sec3_2_memory_not_dispositive(case_id, unknown_010, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_010)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_memory_not_dispositive.conflict
+// sources: comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_4
+// norm_cards: art299_sec3_2.memory_not_dispositive
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec3_2.memory_not_dispositive") = assess_art299_sec3_2_memory_not_dispositive(case_id, positive_010, defendant_id, victim_id, "satisfied") and
+  assess_art299_sec3_2_memory_not_dispositive(case_id, negative_010, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_010) and
+  provable(case_id, negative_010)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_mental_incapacity_definition.satisfied
+// sources: comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.mental_incapacity_definition
+rel satisfied_art299_sec3_2_mental_incapacity_definition(case_id, defendant_id, victim_id) = assess_art299_sec3_2_mental_incapacity_definition(case_id, assessment_011, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_011)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_mental_incapacity_definition.undetermined
+// sources: comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.mental_incapacity_definition
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299_sec3_2.mental_incapacity_definition") = assess_art299_sec3_2_mental_incapacity_definition(case_id, unknown_011, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_011)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_mental_incapacity_definition.conflict
+// sources: comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.mental_incapacity_definition
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec3_2.mental_incapacity_definition") = assess_art299_sec3_2_mental_incapacity_definition(case_id, positive_011, defendant_id, victim_id, "satisfied") and
+  assess_art299_sec3_2_mental_incapacity_definition(case_id, negative_011, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_011) and
+  provable(case_id, negative_011)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_religious_psychological_resistance.satisfied
+// sources: comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_6
+// norm_cards: art299_sec3_2.religious_psychological_resistance
+rel satisfied_art299_sec3_2_religious_psychological_resistance(case_id, defendant_id, victim_id) = assess_art299_sec3_2_religious_psychological_resistance(case_id, assessment_012, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_012)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_religious_psychological_resistance.undetermined
+// sources: comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_6
+// norm_cards: art299_sec3_2.religious_psychological_resistance
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299_sec3_2.religious_psychological_resistance") = assess_art299_sec3_2_religious_psychological_resistance(case_id, unknown_012, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_012)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_religious_psychological_resistance.conflict
+// sources: comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_6
+// norm_cards: art299_sec3_2.religious_psychological_resistance
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec3_2.religious_psychological_resistance") = assess_art299_sec3_2_religious_psychological_resistance(case_id, positive_012, defendant_id, victim_id, "satisfied") and
+  assess_art299_sec3_2_religious_psychological_resistance(case_id, negative_012, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_012) and
+  provable(case_id, negative_012)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_resistance_incapacity_definition.satisfied
+// sources: comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.resistance_incapacity_definition
+rel satisfied_art299_sec3_2_resistance_incapacity_definition(case_id, defendant_id, victim_id) = assess_art299_sec3_2_resistance_incapacity_definition(case_id, assessment_013, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_013)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_resistance_incapacity_definition.undetermined
+// sources: comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.resistance_incapacity_definition
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299_sec3_2.resistance_incapacity_definition") = assess_art299_sec3_2_resistance_incapacity_definition(case_id, unknown_013, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_013)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_resistance_incapacity_definition.conflict
+// sources: comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.resistance_incapacity_definition
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec3_2.resistance_incapacity_definition") = assess_art299_sec3_2_resistance_incapacity_definition(case_id, positive_013, defendant_id, victim_id, "satisfied") and
+  assess_art299_sec3_2_resistance_incapacity_definition(case_id, negative_013, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_013) and
+  provable(case_id, negative_013)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_sleep_or_unconsciousness.satisfied
+// sources: comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.sleep_or_unconsciousness
+rel satisfied_art299_sec3_2_sleep_or_unconsciousness(case_id, defendant_id, victim_id) = assess_art299_sec3_2_sleep_or_unconsciousness(case_id, assessment_014, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_014)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_sleep_or_unconsciousness.undetermined
+// sources: comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.sleep_or_unconsciousness
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299_sec3_2.sleep_or_unconsciousness") = assess_art299_sec3_2_sleep_or_unconsciousness(case_id, unknown_014, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_014)
+
+// rule_id: quasi_sexual_offense.card.art299_sec3_2_sleep_or_unconsciousness.conflict
+// sources: comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.sleep_or_unconsciousness
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec3_2.sleep_or_unconsciousness") = assess_art299_sec3_2_sleep_or_unconsciousness(case_id, positive_014, defendant_id, victim_id, "satisfied") and
+  assess_art299_sec3_2_sleep_or_unconsciousness(case_id, negative_014, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_014) and
+  provable(case_id, negative_014)
+
+// rule_id: quasi_sexual_offense.card.art299_sec5_impossible_attempt_actual_state_absent.satisfied
+// sources: comm_001692_제299조_Ⅴ_10, comm_001692_제299조_Ⅴ_10
+// norm_cards: art299_sec5.impossible_attempt_actual_state_absent
+rel satisfied_art299_sec5_impossible_attempt_actual_state_absent(case_id, defendant_id, victim_id) = assess_art299_sec5_impossible_attempt_actual_state_absent(case_id, assessment_015, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_015)
+
+// rule_id: quasi_sexual_offense.card.art299_sec5_impossible_attempt_actual_state_absent.undetermined
+// sources: comm_001692_제299조_Ⅴ_10, comm_001692_제299조_Ⅴ_10
+// norm_cards: art299_sec5.impossible_attempt_actual_state_absent
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299_sec5.impossible_attempt_actual_state_absent") = assess_art299_sec5_impossible_attempt_actual_state_absent(case_id, unknown_015, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_015)
+
+// rule_id: quasi_sexual_offense.card.art299_sec5_impossible_attempt_actual_state_absent.conflict
+// sources: comm_001692_제299조_Ⅴ_10, comm_001692_제299조_Ⅴ_10
+// norm_cards: art299_sec5.impossible_attempt_actual_state_absent
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec5.impossible_attempt_actual_state_absent") = assess_art299_sec5_impossible_attempt_actual_state_absent(case_id, positive_015, defendant_id, victim_id, "satisfied") and
+  assess_art299_sec5_impossible_attempt_actual_state_absent(case_id, negative_015, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_015) and
+  provable(case_id, negative_015)
+
+// rule_id: quasi_sexual_offense.card.art299_sec6_dolus_eventualis.satisfied
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.dolus_eventualis
+rel satisfied_art299_sec6_dolus_eventualis(case_id, defendant_id, victim_id) = assess_art299_sec6_dolus_eventualis(case_id, assessment_016, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_016)
+
+// rule_id: quasi_sexual_offense.card.art299_sec6_dolus_eventualis.undetermined
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.dolus_eventualis
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299_sec6.dolus_eventualis") = assess_art299_sec6_dolus_eventualis(case_id, unknown_016, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_016)
+
+// rule_id: quasi_sexual_offense.card.art299_sec6_dolus_eventualis.conflict
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.dolus_eventualis
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec6.dolus_eventualis") = assess_art299_sec6_dolus_eventualis(case_id, positive_016, defendant_id, victim_id, "satisfied") and
+  assess_art299_sec6_dolus_eventualis(case_id, negative_016, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_016) and
+  provable(case_id, negative_016)
+
+// rule_id: quasi_sexual_offense.card.art299_sec6_formal_response_not_consent.satisfied
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.formal_response_not_consent
+rel satisfied_art299_sec6_formal_response_not_consent(case_id, defendant_id, victim_id) = assess_art299_sec6_formal_response_not_consent(case_id, assessment_017, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_017)
+
+// rule_id: quasi_sexual_offense.card.art299_sec6_formal_response_not_consent.undetermined
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.formal_response_not_consent
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299_sec6.formal_response_not_consent") = assess_art299_sec6_formal_response_not_consent(case_id, unknown_017, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_017)
+
+// rule_id: quasi_sexual_offense.card.art299_sec6_formal_response_not_consent.conflict
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.formal_response_not_consent
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec6.formal_response_not_consent") = assess_art299_sec6_formal_response_not_consent(case_id, positive_017, defendant_id, victim_id, "satisfied") and
+  assess_art299_sec6_formal_response_not_consent(case_id, negative_017, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_017) and
+  provable(case_id, negative_017)
+
+// rule_id: quasi_sexual_offense.card.art299_sec6_genuine_consent_belief.satisfied
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.genuine_consent_belief
+rel satisfied_art299_sec6_genuine_consent_belief(case_id, defendant_id, victim_id) = assess_art299_sec6_genuine_consent_belief(case_id, assessment_018, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_018)
+
+// rule_id: quasi_sexual_offense.card.art299_sec6_genuine_consent_belief.undetermined
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.genuine_consent_belief
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299_sec6.genuine_consent_belief") = assess_art299_sec6_genuine_consent_belief(case_id, unknown_018, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_018)
+
+// rule_id: quasi_sexual_offense.card.art299_sec6_genuine_consent_belief.conflict
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.genuine_consent_belief
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec6.genuine_consent_belief") = assess_art299_sec6_genuine_consent_belief(case_id, positive_018, defendant_id, victim_id, "satisfied") and
+  assess_art299_sec6_genuine_consent_belief(case_id, negative_018, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_018) and
+  provable(case_id, negative_018)
+
+// rule_id: quasi_sexual_offense.card.art299_sec6_intent.satisfied
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.intent
+rel satisfied_art299_sec6_intent(case_id, defendant_id, victim_id) = assess_art299_sec6_intent(case_id, assessment_019, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_019)
+
+// rule_id: quasi_sexual_offense.card.art299_sec6_intent.undetermined
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.intent
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299_sec6.intent") = assess_art299_sec6_intent(case_id, unknown_019, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_019)
+
+// rule_id: quasi_sexual_offense.card.art299_sec6_intent.conflict
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.intent
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec6.intent") = assess_art299_sec6_intent(case_id, positive_019, defendant_id, victim_id, "satisfied") and
+  assess_art299_sec6_intent(case_id, negative_019, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_019) and
+  provable(case_id, negative_019)
+
+// rule_id: quasi_sexual_offense.card.art299_sec7_changed_circumstances_rape_only.satisfied
+// sources: comm_001692_제299조_Ⅶ_12
+// norm_cards: art299_sec7.changed_circumstances_rape_only
+rel satisfied_art299_sec7_changed_circumstances_rape_only(case_id, defendant_id, victim_id) = assess_art299_sec7_changed_circumstances_rape_only(case_id, assessment_020, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_020)
+
+// rule_id: quasi_sexual_offense.card.art299_sec7_changed_circumstances_rape_only.undetermined
+// sources: comm_001692_제299조_Ⅶ_12
+// norm_cards: art299_sec7.changed_circumstances_rape_only
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299_sec7.changed_circumstances_rape_only") = assess_art299_sec7_changed_circumstances_rape_only(case_id, unknown_020, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_020)
+
+// rule_id: quasi_sexual_offense.card.art299_sec7_changed_circumstances_rape_only.conflict
+// sources: comm_001692_제299조_Ⅶ_12
+// norm_cards: art299_sec7.changed_circumstances_rape_only
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec7.changed_circumstances_rape_only") = assess_art299_sec7_changed_circumstances_rape_only(case_id, positive_020, defendant_id, victim_id, "satisfied") and
+  assess_art299_sec7_changed_circumstances_rape_only(case_id, negative_020, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_020) and
+  provable(case_id, negative_020)
+
+// rule_id: quasi_sexual_offense.card.art299_sec7_unit_of_crime_per_act.satisfied
+// sources: comm_001692_제299조_Ⅶ_12
+// norm_cards: art299_sec7.unit_of_crime_per_act
+rel satisfied_art299_sec7_unit_of_crime_per_act(case_id, defendant_id, victim_id) = assess_art299_sec7_unit_of_crime_per_act(case_id, assessment_021, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_021)
+
+// rule_id: quasi_sexual_offense.card.art299_sec7_unit_of_crime_per_act.undetermined
+// sources: comm_001692_제299조_Ⅶ_12
+// norm_cards: art299_sec7.unit_of_crime_per_act
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299_sec7.unit_of_crime_per_act") = assess_art299_sec7_unit_of_crime_per_act(case_id, unknown_021, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_021)
+
+// rule_id: quasi_sexual_offense.card.art299_sec7_unit_of_crime_per_act.conflict
+// sources: comm_001692_제299조_Ⅶ_12
+// norm_cards: art299_sec7.unit_of_crime_per_act
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec7.unit_of_crime_per_act") = assess_art299_sec7_unit_of_crime_per_act(case_id, positive_021, defendant_id, victim_id, "satisfied") and
+  assess_art299_sec7_unit_of_crime_per_act(case_id, negative_021, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_021) and
+  provable(case_id, negative_021)
+
+// rule_id: quasi_sexual_offense.card.art299_sec8_attempt_preparation_punishment.satisfied
+// sources: comm_001692_제299조_Ⅷ_13
+// norm_cards: art299_sec8.attempt_preparation_punishment
+rel satisfied_art299_sec8_attempt_preparation_punishment(case_id, defendant_id, victim_id) = assess_art299_sec8_attempt_preparation_punishment(case_id, assessment_022, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_022)
+
+// rule_id: quasi_sexual_offense.card.art299_sec8_attempt_preparation_punishment.undetermined
+// sources: comm_001692_제299조_Ⅷ_13
+// norm_cards: art299_sec8.attempt_preparation_punishment
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299_sec8.attempt_preparation_punishment") = assess_art299_sec8_attempt_preparation_punishment(case_id, unknown_022, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_022)
+
+// rule_id: quasi_sexual_offense.card.art299_sec8_attempt_preparation_punishment.conflict
+// sources: comm_001692_제299조_Ⅷ_13
+// norm_cards: art299_sec8.attempt_preparation_punishment
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec8.attempt_preparation_punishment") = assess_art299_sec8_attempt_preparation_punishment(case_id, positive_022, defendant_id, victim_id, "satisfied") and
+  assess_art299_sec8_attempt_preparation_punishment(case_id, negative_022, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_022) and
+  provable(case_id, negative_022)
+
+// rule_id: quasi_sexual_offense.card.art299_sec8_noncomplaint_prosecution.satisfied
+// sources: comm_001692_제299조_Ⅷ_13
+// norm_cards: art299_sec8.noncomplaint_prosecution
+rel satisfied_art299_sec8_noncomplaint_prosecution(case_id, defendant_id, victim_id) = assess_art299_sec8_noncomplaint_prosecution(case_id, assessment_023, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_023)
+
+// rule_id: quasi_sexual_offense.card.art299_sec8_noncomplaint_prosecution.undetermined
+// sources: comm_001692_제299조_Ⅷ_13
+// norm_cards: art299_sec8.noncomplaint_prosecution
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299_sec8.noncomplaint_prosecution") = assess_art299_sec8_noncomplaint_prosecution(case_id, unknown_023, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_023)
+
+// rule_id: quasi_sexual_offense.card.art299_sec8_noncomplaint_prosecution.conflict
+// sources: comm_001692_제299조_Ⅷ_13
+// norm_cards: art299_sec8.noncomplaint_prosecution
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec8.noncomplaint_prosecution") = assess_art299_sec8_noncomplaint_prosecution(case_id, positive_023, defendant_id, victim_id, "satisfied") and
+  assess_art299_sec8_noncomplaint_prosecution(case_id, negative_023, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_023) and
+  provable(case_id, negative_023)
+
+// rule_id: quasi_sexual_offense.card.art299_sec8_noncomplaint_retroactivity.satisfied
+// sources: comm_001692_제299조_Ⅷ_13
+// norm_cards: art299_sec8.noncomplaint_retroactivity
+rel satisfied_art299_sec8_noncomplaint_retroactivity(case_id, defendant_id, victim_id) = assess_art299_sec8_noncomplaint_retroactivity(case_id, assessment_024, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_024)
+
+// rule_id: quasi_sexual_offense.card.art299_sec8_noncomplaint_retroactivity.undetermined
+// sources: comm_001692_제299조_Ⅷ_13
+// norm_cards: art299_sec8.noncomplaint_retroactivity
+rel quasi_sexual_offense_undetermined(case_id, defendant_id, "art299_sec8.noncomplaint_retroactivity") = assess_art299_sec8_noncomplaint_retroactivity(case_id, unknown_024, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_024)
+
+// rule_id: quasi_sexual_offense.card.art299_sec8_noncomplaint_retroactivity.conflict
+// sources: comm_001692_제299조_Ⅷ_13
+// norm_cards: art299_sec8.noncomplaint_retroactivity
+rel quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec8.noncomplaint_retroactivity") = assess_art299_sec8_noncomplaint_retroactivity(case_id, positive_024, defendant_id, victim_id, "satisfied") and
+  assess_art299_sec8_noncomplaint_retroactivity(case_id, negative_024, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_024) and
+  provable(case_id, negative_024)
+
+// rule_id: quasi_sexual_offense.component.base.conduct.art299_offense_characterization
+// sources: comm_001692_제299조_Ⅰ_0
+// norm_cards: art299.offense_characterization
+rel quasi_sexual_offense_base_conduct_satisfied(case_id, defendant_id, victim_id) = satisfied_art299_offense_characterization(case_id, defendant_id, victim_id)
+
+// rule_id: quasi_sexual_offense.component.base.conduct.art299_successive_participant_only_art299
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8
+// norm_cards: art299.successive_participant_only_art299
+rel quasi_sexual_offense_base_conduct_satisfied(case_id, defendant_id, victim_id) = satisfied_art299_successive_participant_only_art299(case_id, defendant_id, victim_id)
+
+// rule_id: quasi_sexual_offense.component.base.conduct.art299_sec3_2_existing_incapacity_used
+// sources: comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7
+// norm_cards: art299_sec3_2.existing_incapacity_used
+rel quasi_sexual_offense_base_conduct_satisfied(case_id, defendant_id, victim_id) = satisfied_art299_sec3_2_existing_incapacity_used(case_id, defendant_id, victim_id)
+
+// rule_id: quasi_sexual_offense.component.base.incapacity.art299_sec3_2_blackout_not_dispositive
+// sources: comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5
+// norm_cards: art299_sec3_2.blackout_not_dispositive
+rel quasi_sexual_offense_base_incapacity_satisfied(case_id, defendant_id, victim_id) = satisfied_art299_sec3_2_blackout_not_dispositive(case_id, defendant_id, victim_id)
+
+// rule_id: quasi_sexual_offense.component.base.incapacity.art299_sec3_2_incapacity_origin_irrelevant
+// sources: comm_001692_제299조_Ⅲ.2_6
+// norm_cards: art299_sec3_2.incapacity_origin_irrelevant
+rel quasi_sexual_offense_base_incapacity_satisfied(case_id, defendant_id, victim_id) = satisfied_art299_sec3_2_incapacity_origin_irrelevant(case_id, defendant_id, victim_id)
+
+// rule_id: quasi_sexual_offense.component.base.incapacity.art299_sec3_2_memory_not_dispositive
+// sources: comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_4
+// norm_cards: art299_sec3_2.memory_not_dispositive
+rel quasi_sexual_offense_base_incapacity_satisfied(case_id, defendant_id, victim_id) = satisfied_art299_sec3_2_memory_not_dispositive(case_id, defendant_id, victim_id)
+
+// rule_id: quasi_sexual_offense.component.base.incapacity.art299_sec3_2_mental_incapacity_definition
+// sources: comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.mental_incapacity_definition
+rel quasi_sexual_offense_base_incapacity_satisfied(case_id, defendant_id, victim_id) = satisfied_art299_sec3_2_mental_incapacity_definition(case_id, defendant_id, victim_id)
+
+// rule_id: quasi_sexual_offense.component.base.incapacity.art299_sec3_2_religious_psychological_resistance
+// sources: comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_6
+// norm_cards: art299_sec3_2.religious_psychological_resistance
+rel quasi_sexual_offense_base_incapacity_satisfied(case_id, defendant_id, victim_id) = satisfied_art299_sec3_2_religious_psychological_resistance(case_id, defendant_id, victim_id)
+
+// rule_id: quasi_sexual_offense.component.base.incapacity.art299_sec3_2_resistance_incapacity_definition
+// sources: comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.resistance_incapacity_definition
+rel quasi_sexual_offense_base_incapacity_satisfied(case_id, defendant_id, victim_id) = satisfied_art299_sec3_2_resistance_incapacity_definition(case_id, defendant_id, victim_id)
+
+// rule_id: quasi_sexual_offense.component.base.incapacity.art299_sec3_2_sleep_or_unconsciousness
+// sources: comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.sleep_or_unconsciousness
+rel quasi_sexual_offense_base_incapacity_satisfied(case_id, defendant_id, victim_id) = satisfied_art299_sec3_2_sleep_or_unconsciousness(case_id, defendant_id, victim_id)
+
+// rule_id: quasi_sexual_offense.component.base.incapacity.art299_sec6_formal_response_not_consent
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.formal_response_not_consent
+rel quasi_sexual_offense_base_incapacity_satisfied(case_id, defendant_id, victim_id) = satisfied_art299_sec6_formal_response_not_consent(case_id, defendant_id, victim_id)
+
+// rule_id: quasi_sexual_offense.component.base.intent.art299_sec6_dolus_eventualis
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.dolus_eventualis
+rel quasi_sexual_offense_base_intent_satisfied(case_id, defendant_id, victim_id) = satisfied_art299_sec6_dolus_eventualis(case_id, defendant_id, victim_id)
+
+// rule_id: quasi_sexual_offense.component.base.intent.art299_sec6_intent
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.intent
+rel quasi_sexual_offense_base_intent_satisfied(case_id, defendant_id, victim_id) = satisfied_art299_sec6_intent(case_id, defendant_id, victim_id)
+
+// rule_id: quasi_sexual_offense.component.base.object_scope.all
+// sources: comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.1_2
+// norm_cards: art299_sec3_1.object_incapacitated_person
+rel quasi_sexual_offense_base_object_scope_satisfied(case_id, defendant_id, victim_id) = satisfied_art299_sec3_1_object_incapacitated_person(case_id, defendant_id, victim_id)
+
+// rule_id: quasi_sexual_offense.component.base.use_of_state.all
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8
+// norm_cards: art299.use_awareness_and_facilitation
+rel quasi_sexual_offense_base_use_of_state_satisfied(case_id, defendant_id, victim_id) = satisfied_art299_use_awareness_and_facilitation(case_id, defendant_id, victim_id)
+
+// rule_id: quasi_sexual_offense.track_conflict.base.art299_offense_characterization
+// sources: comm_001692_제299조_Ⅰ_0
+// norm_cards: art299.offense_characterization
+rel quasi_sexual_offense_track_conflict(case_id, defendant_id, "base", "art299.offense_characterization") = quasi_sexual_offense_conflict(case_id, defendant_id, "art299.offense_characterization")
+
+// rule_id: quasi_sexual_offense.track_conflict.base.art299_successive_participant_only_art299
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8
+// norm_cards: art299.successive_participant_only_art299
+rel quasi_sexual_offense_track_conflict(case_id, defendant_id, "base", "art299.successive_participant_only_art299") = quasi_sexual_offense_conflict(case_id, defendant_id, "art299.successive_participant_only_art299")
+
+// rule_id: quasi_sexual_offense.track_conflict.base.art299_sec3_2_existing_incapacity_used
+// sources: comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7
+// norm_cards: art299_sec3_2.existing_incapacity_used
+rel quasi_sexual_offense_track_conflict(case_id, defendant_id, "base", "art299_sec3_2.existing_incapacity_used") = quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec3_2.existing_incapacity_used")
+
+// rule_id: quasi_sexual_offense.track_conflict.base.art299_sec3_2_blackout_not_dispositive
+// sources: comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5
+// norm_cards: art299_sec3_2.blackout_not_dispositive
+rel quasi_sexual_offense_track_conflict(case_id, defendant_id, "base", "art299_sec3_2.blackout_not_dispositive") = quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec3_2.blackout_not_dispositive")
+
+// rule_id: quasi_sexual_offense.track_conflict.base.art299_sec3_2_drug_administration_violence_exception
+// sources: comm_001692_제299조_Ⅲ.2_7
+// norm_cards: art299_sec3_2.drug_administration_violence_exception
+rel quasi_sexual_offense_track_conflict(case_id, defendant_id, "base", "art299_sec3_2.drug_administration_violence_exception") = quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec3_2.drug_administration_violence_exception")
+
+// rule_id: quasi_sexual_offense.track_blocked.base.art299_sec3_2_drug_administration_violence_exception
+// sources: comm_001692_제299조_Ⅲ.2_7
+// norm_cards: art299_sec3_2.drug_administration_violence_exception
+rel quasi_sexual_offense_track_not_established(case_id, defendant_id, "base", "art299_sec3_2.drug_administration_violence_exception") = satisfied_art299_sec3_2_drug_administration_violence_exception(case_id, defendant_id, victim_id)
+
+// rule_id: quasi_sexual_offense.track_conflict.base.art299_sec3_2_incapacity_origin_irrelevant
+// sources: comm_001692_제299조_Ⅲ.2_6
+// norm_cards: art299_sec3_2.incapacity_origin_irrelevant
+rel quasi_sexual_offense_track_conflict(case_id, defendant_id, "base", "art299_sec3_2.incapacity_origin_irrelevant") = quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec3_2.incapacity_origin_irrelevant")
+
+// rule_id: quasi_sexual_offense.track_conflict.base.art299_sec3_2_memory_not_dispositive
+// sources: comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_4
+// norm_cards: art299_sec3_2.memory_not_dispositive
+rel quasi_sexual_offense_track_conflict(case_id, defendant_id, "base", "art299_sec3_2.memory_not_dispositive") = quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec3_2.memory_not_dispositive")
+
+// rule_id: quasi_sexual_offense.track_conflict.base.art299_sec3_2_mental_incapacity_definition
+// sources: comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.mental_incapacity_definition
+rel quasi_sexual_offense_track_conflict(case_id, defendant_id, "base", "art299_sec3_2.mental_incapacity_definition") = quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec3_2.mental_incapacity_definition")
+
+// rule_id: quasi_sexual_offense.track_conflict.base.art299_sec3_2_religious_psychological_resistance
+// sources: comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_6
+// norm_cards: art299_sec3_2.religious_psychological_resistance
+rel quasi_sexual_offense_track_conflict(case_id, defendant_id, "base", "art299_sec3_2.religious_psychological_resistance") = quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec3_2.religious_psychological_resistance")
+
+// rule_id: quasi_sexual_offense.track_conflict.base.art299_sec3_2_resistance_incapacity_definition
+// sources: comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.resistance_incapacity_definition
+rel quasi_sexual_offense_track_conflict(case_id, defendant_id, "base", "art299_sec3_2.resistance_incapacity_definition") = quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec3_2.resistance_incapacity_definition")
+
+// rule_id: quasi_sexual_offense.track_conflict.base.art299_sec3_2_sleep_or_unconsciousness
+// sources: comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3
+// norm_cards: art299_sec3_2.sleep_or_unconsciousness
+rel quasi_sexual_offense_track_conflict(case_id, defendant_id, "base", "art299_sec3_2.sleep_or_unconsciousness") = quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec3_2.sleep_or_unconsciousness")
+
+// rule_id: quasi_sexual_offense.track_conflict.base.art299_sec6_formal_response_not_consent
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.formal_response_not_consent
+rel quasi_sexual_offense_track_conflict(case_id, defendant_id, "base", "art299_sec6.formal_response_not_consent") = quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec6.formal_response_not_consent")
+
+// rule_id: quasi_sexual_offense.track_conflict.base.art299_sec6_dolus_eventualis
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.dolus_eventualis
+rel quasi_sexual_offense_track_conflict(case_id, defendant_id, "base", "art299_sec6.dolus_eventualis") = quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec6.dolus_eventualis")
+
+// rule_id: quasi_sexual_offense.track_conflict.base.art299_sec6_genuine_consent_belief
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.genuine_consent_belief
+rel quasi_sexual_offense_track_conflict(case_id, defendant_id, "base", "art299_sec6.genuine_consent_belief") = quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec6.genuine_consent_belief")
+
+// rule_id: quasi_sexual_offense.track_blocked.base.art299_sec6_genuine_consent_belief
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.genuine_consent_belief
+rel quasi_sexual_offense_track_not_established(case_id, defendant_id, "base", "art299_sec6.genuine_consent_belief") = satisfied_art299_sec6_genuine_consent_belief(case_id, defendant_id, victim_id)
+
+// rule_id: quasi_sexual_offense.track_conflict.base.art299_sec6_intent
+// sources: comm_001692_제299조_Ⅵ_11
+// norm_cards: art299_sec6.intent
+rel quasi_sexual_offense_track_conflict(case_id, defendant_id, "base", "art299_sec6.intent") = quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec6.intent")
+
+// rule_id: quasi_sexual_offense.track_conflict.base.art299_sec3_1_object_incapacitated_person
+// sources: comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.1_2
+// norm_cards: art299_sec3_1.object_incapacitated_person
+rel quasi_sexual_offense_track_conflict(case_id, defendant_id, "base", "art299_sec3_1.object_incapacitated_person") = quasi_sexual_offense_conflict(case_id, defendant_id, "art299_sec3_1.object_incapacitated_person")
+
+// rule_id: quasi_sexual_offense.track_conflict.base.art299_use_awareness_and_facilitation
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8
+// norm_cards: art299.use_awareness_and_facilitation
+rel quasi_sexual_offense_track_conflict(case_id, defendant_id, "base", "art299.use_awareness_and_facilitation") = quasi_sexual_offense_conflict(case_id, defendant_id, "art299.use_awareness_and_facilitation")
+
+// rule_id: quasi_sexual_offense.summary.has_negative
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅰ_0, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅴ_10, comm_001692_제299조_Ⅴ_10, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅶ_12, comm_001692_제299조_Ⅶ_12, comm_001692_제299조_Ⅷ_13, comm_001692_제299조_Ⅷ_13, comm_001692_제299조_Ⅷ_13
+// norm_cards: art299.attempt_commencement, art299.offense_characterization, art299.successive_participant_only_art299, art299.use_awareness_and_facilitation, art299_sec3_1.object_incapacitated_person, art299_sec3_2.blackout_not_dispositive, art299_sec3_2.drug_administration_violence_exception, art299_sec3_2.existing_incapacity_used, art299_sec3_2.incapacity_origin_irrelevant, art299_sec3_2.memory_not_dispositive, art299_sec3_2.mental_incapacity_definition, art299_sec3_2.religious_psychological_resistance, art299_sec3_2.resistance_incapacity_definition, art299_sec3_2.sleep_or_unconsciousness, art299_sec5.impossible_attempt_actual_state_absent, art299_sec6.dolus_eventualis, art299_sec6.formal_response_not_consent, art299_sec6.genuine_consent_belief, art299_sec6.intent, art299_sec7.changed_circumstances_rape_only, art299_sec7.unit_of_crime_per_act, art299_sec8.attempt_preparation_punishment, art299_sec8.noncomplaint_prosecution, art299_sec8.noncomplaint_retroactivity
+rel quasi_sexual_offense_has_negative(case_id, defendant_id) = quasi_sexual_offense_not_established(case_id, defendant_id, norm_card_id)
+
+// rule_id: quasi_sexual_offense.summary.has_conflict
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅰ_0, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅴ_10, comm_001692_제299조_Ⅴ_10, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅶ_12, comm_001692_제299조_Ⅶ_12, comm_001692_제299조_Ⅷ_13, comm_001692_제299조_Ⅷ_13, comm_001692_제299조_Ⅷ_13
+// norm_cards: art299.attempt_commencement, art299.offense_characterization, art299.successive_participant_only_art299, art299.use_awareness_and_facilitation, art299_sec3_1.object_incapacitated_person, art299_sec3_2.blackout_not_dispositive, art299_sec3_2.drug_administration_violence_exception, art299_sec3_2.existing_incapacity_used, art299_sec3_2.incapacity_origin_irrelevant, art299_sec3_2.memory_not_dispositive, art299_sec3_2.mental_incapacity_definition, art299_sec3_2.religious_psychological_resistance, art299_sec3_2.resistance_incapacity_definition, art299_sec3_2.sleep_or_unconsciousness, art299_sec5.impossible_attempt_actual_state_absent, art299_sec6.dolus_eventualis, art299_sec6.formal_response_not_consent, art299_sec6.genuine_consent_belief, art299_sec6.intent, art299_sec7.changed_circumstances_rape_only, art299_sec7.unit_of_crime_per_act, art299_sec8.attempt_preparation_punishment, art299_sec8.noncomplaint_prosecution, art299_sec8.noncomplaint_retroactivity
+rel quasi_sexual_offense_has_conflict(case_id, defendant_id) = quasi_sexual_offense_conflict(case_id, defendant_id, norm_card_id)
+
+// rule_id: quasi_sexual_offense.summary.canonical_not_established
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅰ_0, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅴ_10, comm_001692_제299조_Ⅴ_10, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅶ_12, comm_001692_제299조_Ⅶ_12, comm_001692_제299조_Ⅷ_13, comm_001692_제299조_Ⅷ_13, comm_001692_제299조_Ⅷ_13
+// norm_cards: art299.attempt_commencement, art299.offense_characterization, art299.successive_participant_only_art299, art299.use_awareness_and_facilitation, art299_sec3_1.object_incapacitated_person, art299_sec3_2.blackout_not_dispositive, art299_sec3_2.drug_administration_violence_exception, art299_sec3_2.existing_incapacity_used, art299_sec3_2.incapacity_origin_irrelevant, art299_sec3_2.memory_not_dispositive, art299_sec3_2.mental_incapacity_definition, art299_sec3_2.religious_psychological_resistance, art299_sec3_2.resistance_incapacity_definition, art299_sec3_2.sleep_or_unconsciousness, art299_sec5.impossible_attempt_actual_state_absent, art299_sec6.dolus_eventualis, art299_sec6.formal_response_not_consent, art299_sec6.genuine_consent_belief, art299_sec6.intent, art299_sec7.changed_circumstances_rape_only, art299_sec7.unit_of_crime_per_act, art299_sec8.attempt_preparation_punishment, art299_sec8.noncomplaint_prosecution, art299_sec8.noncomplaint_retroactivity
+rel quasi_sexual_offense_not_established(case_id, defendant_id, norm_card_id) = quasi_sexual_offense_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: quasi_sexual_offense.summary.track_has_negative
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅰ_0, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅴ_10, comm_001692_제299조_Ⅴ_10, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅶ_12, comm_001692_제299조_Ⅶ_12, comm_001692_제299조_Ⅷ_13, comm_001692_제299조_Ⅷ_13, comm_001692_제299조_Ⅷ_13
+// norm_cards: art299.attempt_commencement, art299.offense_characterization, art299.successive_participant_only_art299, art299.use_awareness_and_facilitation, art299_sec3_1.object_incapacitated_person, art299_sec3_2.blackout_not_dispositive, art299_sec3_2.drug_administration_violence_exception, art299_sec3_2.existing_incapacity_used, art299_sec3_2.incapacity_origin_irrelevant, art299_sec3_2.memory_not_dispositive, art299_sec3_2.mental_incapacity_definition, art299_sec3_2.religious_psychological_resistance, art299_sec3_2.resistance_incapacity_definition, art299_sec3_2.sleep_or_unconsciousness, art299_sec5.impossible_attempt_actual_state_absent, art299_sec6.dolus_eventualis, art299_sec6.formal_response_not_consent, art299_sec6.genuine_consent_belief, art299_sec6.intent, art299_sec7.changed_circumstances_rape_only, art299_sec7.unit_of_crime_per_act, art299_sec8.attempt_preparation_punishment, art299_sec8.noncomplaint_prosecution, art299_sec8.noncomplaint_retroactivity
+rel quasi_sexual_offense_track_has_negative(case_id, defendant_id, track_id) = quasi_sexual_offense_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: quasi_sexual_offense.summary.track_has_conflict
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅰ_0, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅴ_10, comm_001692_제299조_Ⅴ_10, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅶ_12, comm_001692_제299조_Ⅶ_12, comm_001692_제299조_Ⅷ_13, comm_001692_제299조_Ⅷ_13, comm_001692_제299조_Ⅷ_13
+// norm_cards: art299.attempt_commencement, art299.offense_characterization, art299.successive_participant_only_art299, art299.use_awareness_and_facilitation, art299_sec3_1.object_incapacitated_person, art299_sec3_2.blackout_not_dispositive, art299_sec3_2.drug_administration_violence_exception, art299_sec3_2.existing_incapacity_used, art299_sec3_2.incapacity_origin_irrelevant, art299_sec3_2.memory_not_dispositive, art299_sec3_2.mental_incapacity_definition, art299_sec3_2.religious_psychological_resistance, art299_sec3_2.resistance_incapacity_definition, art299_sec3_2.sleep_or_unconsciousness, art299_sec5.impossible_attempt_actual_state_absent, art299_sec6.dolus_eventualis, art299_sec6.formal_response_not_consent, art299_sec6.genuine_consent_belief, art299_sec6.intent, art299_sec7.changed_circumstances_rape_only, art299_sec7.unit_of_crime_per_act, art299_sec8.attempt_preparation_punishment, art299_sec8.noncomplaint_prosecution, art299_sec8.noncomplaint_retroactivity
+rel quasi_sexual_offense_track_has_conflict(case_id, defendant_id, track_id) = quasi_sexual_offense_track_conflict(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: quasi_sexual_offense.outcome.base.elements_satisfied
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅰ_0, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅴ_10, comm_001692_제299조_Ⅴ_10, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅶ_12, comm_001692_제299조_Ⅶ_12, comm_001692_제299조_Ⅷ_13, comm_001692_제299조_Ⅷ_13, comm_001692_제299조_Ⅷ_13
+// norm_cards: art299.attempt_commencement, art299.offense_characterization, art299.successive_participant_only_art299, art299.use_awareness_and_facilitation, art299_sec3_1.object_incapacitated_person, art299_sec3_2.blackout_not_dispositive, art299_sec3_2.drug_administration_violence_exception, art299_sec3_2.existing_incapacity_used, art299_sec3_2.incapacity_origin_irrelevant, art299_sec3_2.memory_not_dispositive, art299_sec3_2.mental_incapacity_definition, art299_sec3_2.religious_psychological_resistance, art299_sec3_2.resistance_incapacity_definition, art299_sec3_2.sleep_or_unconsciousness, art299_sec5.impossible_attempt_actual_state_absent, art299_sec6.dolus_eventualis, art299_sec6.formal_response_not_consent, art299_sec6.genuine_consent_belief, art299_sec6.intent, art299_sec7.changed_circumstances_rape_only, art299_sec7.unit_of_crime_per_act, art299_sec8.attempt_preparation_punishment, art299_sec8.noncomplaint_prosecution, art299_sec8.noncomplaint_retroactivity
+rel quasi_sexual_offense_base_elements_satisfied(case_id, defendant_id, victim_id) = quasi_sexual_offense_base_conduct_satisfied(case_id, defendant_id, victim_id) and
+  quasi_sexual_offense_base_incapacity_satisfied(case_id, defendant_id, victim_id) and
+  quasi_sexual_offense_base_intent_satisfied(case_id, defendant_id, victim_id) and
+  quasi_sexual_offense_base_object_scope_satisfied(case_id, defendant_id, victim_id) and
+  quasi_sexual_offense_base_use_of_state_satisfied(case_id, defendant_id, victim_id)
+
+// rule_id: quasi_sexual_offense.outcome.base.established
+// sources: comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅰ_0, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅳ_8, comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.1_2, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_5, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_7, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_4, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_6, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅲ.2_3, comm_001692_제299조_Ⅴ_10, comm_001692_제299조_Ⅴ_10, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅵ_11, comm_001692_제299조_Ⅶ_12, comm_001692_제299조_Ⅶ_12, comm_001692_제299조_Ⅷ_13, comm_001692_제299조_Ⅷ_13, comm_001692_제299조_Ⅷ_13
+// norm_cards: art299.attempt_commencement, art299.offense_characterization, art299.successive_participant_only_art299, art299.use_awareness_and_facilitation, art299_sec3_1.object_incapacitated_person, art299_sec3_2.blackout_not_dispositive, art299_sec3_2.drug_administration_violence_exception, art299_sec3_2.existing_incapacity_used, art299_sec3_2.incapacity_origin_irrelevant, art299_sec3_2.memory_not_dispositive, art299_sec3_2.mental_incapacity_definition, art299_sec3_2.religious_psychological_resistance, art299_sec3_2.resistance_incapacity_definition, art299_sec3_2.sleep_or_unconsciousness, art299_sec5.impossible_attempt_actual_state_absent, art299_sec6.dolus_eventualis, art299_sec6.formal_response_not_consent, art299_sec6.genuine_consent_belief, art299_sec6.intent, art299_sec7.changed_circumstances_rape_only, art299_sec7.unit_of_crime_per_act, art299_sec8.attempt_preparation_punishment, art299_sec8.noncomplaint_prosecution, art299_sec8.noncomplaint_retroactivity
+rel quasi_sexual_offense_base_established(case_id, defendant_id, victim_id) = quasi_sexual_offense_base_elements_satisfied(case_id, defendant_id, victim_id) and
+  case_assessment_complete(case_id, defendant_id) and
+  ~quasi_sexual_offense_track_has_negative(case_id, defendant_id, "base") and
+  ~quasi_sexual_offense_track_has_conflict(case_id, defendant_id, "base")
