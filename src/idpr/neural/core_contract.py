@@ -307,7 +307,7 @@ def role_binding_schema(
                 "properties": {name: binding for name in role_names},
             },
             "relations": {
-                "type": "array", "maxItems": 64,
+                "type": "array", "maxItems": 16,
                 "items": {
                     "type": "object", "additionalProperties": False,
                     "required": [

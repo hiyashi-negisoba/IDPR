@@ -146,7 +146,7 @@ def _call(
     system_name, user_name = PROMPTS[stage]
     attempts = []
     active: dict[str, Any] = dict(payload)
-    for attempt in range(1, 3):
+    for attempt in range(1, 4):
         try:
             output, metadata = client.complete_json(
                 system_prompt=load_prompt(system_name),
@@ -162,7 +162,7 @@ def _call(
                 "attempt": attempt, "metadata": None,
                 "error": str(error), "invalid_output": None,
             })
-            if attempt == 2:
+            if attempt == 3:
                 raise CoreStageCallError(stage=stage, attempts=attempts) from error
             active = {
                 **dict(payload),
@@ -192,7 +192,8 @@ def _call(
                     "instruction": (
                         "previous_invalid_output을 바탕으로 전체 JSON을 다시 출력하라. "
                         "host 오류에 표시된 인용은 요약·조사 변경·말줄임 없이 "
-                        "question_text에서 복사한 정확한 연속 부분문자열로 교체하라."
+                        "question_text에서 복사한 정확한 연속 부분문자열로 교체하라. "
+                        "오류와 무관한 유효 항목은 유지하고 배열 항목을 증식·반복하지 마라."
                     ),
                     "host_error": str(error),
                     "previous_invalid_output": output,
@@ -390,6 +391,7 @@ def run_case(
             request = {
                 "case_id": case_id, "issue_id": issue_id, "unit_id": unit_id,
                 "track_id": group["track_id"], "question_text": scoped,
+                "issue_facts": conduct_claims,
                 "entities": binding["entities"], "role_bindings": binding["role_bindings"],
                 "relations": binding["relations"], "predicates": group["predicates"],
                 "authority_context": context_packet(profile, predicate_ids, max_sources=2),

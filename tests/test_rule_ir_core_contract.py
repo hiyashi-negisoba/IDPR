@@ -106,6 +106,7 @@ def test_role_binding_is_conditioned_on_the_selected_unit_contract() -> None:
     assert schema["properties"]["track_selections"]["items"]["properties"][
         "track_id"
     ]["enum"] == ["base"]
+    assert schema["properties"]["relations"]["maxItems"] == 16
 
 
 def test_role_binding_preserves_normalized_subject_and_exact_evidence() -> None:

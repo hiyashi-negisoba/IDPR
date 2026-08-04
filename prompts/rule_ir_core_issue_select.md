@@ -15,6 +15,9 @@
   허위 표시·재산 이전·취거·소비·전달 등의 fact를 그 issue에 삼키거나 누락하지 않는다.
 - 모든 inventory fact에 대해 `fact_dispositions`를 정확히 하나씩 작성한다. 죄책 쟁점에 쓰인 fact는
   `issue`와 issue_id를, 법적으로 단순 배경인 fact는 `background`와 구체적 이유를 기록한다.
+- 행위자의 인식·착오·동의·목적·약속·부탁 수락처럼 주관적 구성요건 또는 행위 의미를 좌우할 수
+  있는 fact는 관련 각칙 issue에 연결한다. 단순히 독립된 실행행위가 아니라는 이유로 background로
+  보내지 않는다.
 - issue의 `fact_ids`와 fact disposition의 `issue_ids`는 서로 정확히 왕복 참조해야 한다. 하나의
   fact가 여러 쟁점을 뒷받침하면 여러 issue에 연결할 수 있다.
   동일 주체의 동일 행위를 같은 unit으로 중복 issue화하지 않는다.

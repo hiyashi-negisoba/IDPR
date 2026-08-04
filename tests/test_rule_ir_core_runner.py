@@ -40,5 +40,5 @@ def test_stage_call_preserves_exhausted_generation_failures() -> None:
             validator=lambda value: None,
         )
     assert exc_info.value.stage == "inventory"
-    assert len(exc_info.value.attempts) == 2
+    assert len(exc_info.value.attempts) == 3
     assert all(item["invalid_output"] is None for item in exc_info.value.attempts)

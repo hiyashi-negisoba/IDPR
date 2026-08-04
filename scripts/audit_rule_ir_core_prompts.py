@@ -31,7 +31,10 @@ REQUIRED = {
     "inventory": ("actors", "facts", "source_quotes", "죄명", "검색"),
     "selection": ("allowed_units", "검색", "role_bindings", "총칙", "형사소송법"),
     "binding": ("role_contract", "core_predicates", "엔티티", "관계", "track_selections"),
-    "assessment": ("전량", "authority_context", "satisfied", "not_satisfied", "unknown"),
+    "assessment": (
+        "전량", "issue_facts", "authority_context", "satisfied",
+        "not_satisfied", "unknown",
+    ),
     "generation": ("rule_ir_scallop", "model_only_general_part_experiment", "결론"),
 }
 UNSUPPORTED_GUIDANCE = {"if", "then", "else", "prefixItems"}
