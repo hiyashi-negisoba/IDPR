@@ -26,8 +26,9 @@ def _copy_manifest(root: Path) -> None:
 def test_registry_is_derived_from_manifest_and_rule_ir_assets() -> None:
     manifest = load_registry_manifest()
     registry = build_registry()
-    assert set(registry) == {item["unit_id"] for item in manifest["units"]}
-    assert len(registry) == len(manifest["units"])
+    assert set(registry) == {spec.unit_id for spec in load_asset_specs()}
+    assert len(registry) == len(load_asset_specs())
+    assert len(registry) == 36
 
     for spec in load_asset_specs():
         entry = registry[spec.unit_id]

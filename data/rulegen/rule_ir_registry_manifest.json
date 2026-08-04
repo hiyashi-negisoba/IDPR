@@ -9,6 +9,16 @@
     "commentary_inputs": {"origin": "commentary", "role": "input"},
     "system_inputs": {"origin": "system", "role": "input"}
   },
+  "unit_sources": [
+    {
+      "manifest_path": "data/rulegen/p2/p2_native_unit_manifest.json",
+      "role_signatures_path": "data/rulegen/p2/p2_native_role_signatures.json",
+      "rule_ir_path_template": "data/rulegen/p2/rule_ir/{unit_id}_rule_ir_candidate.json",
+      "compiled_scl_path_template": "rules/generated/p2_{unit_id}_v1_candidate.scl",
+      "shared_module_kinds": ["shared_stage_module", "shared_result_module", "shared_punishment_module"],
+      "known_limitations": ["Only approved compiled tracks are executable; every unregistered dependent module resolves to predicate_ir_missing."]
+    }
+  ],
   "units": [
     {
       "unit_id": "fraud",

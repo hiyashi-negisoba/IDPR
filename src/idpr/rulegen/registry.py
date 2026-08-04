@@ -104,6 +104,45 @@ def load_asset_specs(
             shared_module=item["shared_module"],
             known_limitations=tuple(item["known_limitations"]),
         ))
+    for source_index, source in enumerate(manifest.get("unit_sources", [])):
+        if not isinstance(source, dict):
+            raise ValueError(
+                f"{manifest_path}: unit_sources[{source_index}] must be an object"
+            )
+        source_manifest = _read_json(root / source["manifest_path"])
+        role_signatures = _read_json(root / source["role_signatures_path"])
+        signature_units = role_signatures.get("units", {})
+        shared_kinds = set(source.get("shared_module_kinds", []))
+        for unit in source_manifest.get("units", []):
+            unit_id = unit["unit_id"]
+            if unit_id in unit_ids:
+                raise ValueError(f"{manifest_path}: duplicate unit_id {unit_id}")
+            signature = signature_units.get(unit_id, {}).get("default", {})
+            role_predicate = signature.get("predicate")
+            tracks = signature.get("applies_to_tracks", [])
+            if not role_predicate or not tracks:
+                raise ValueError(
+                    f"{source['role_signatures_path']}: incomplete default signature "
+                    f"for {unit_id}"
+                )
+            queries = [
+                f"{unit_id}_not_established",
+                f"{unit_id}_undetermined",
+                f"{unit_id}_conflict",
+                *(f"{unit_id}_{track}_established" for track in tracks),
+            ]
+            unit_ids.add(unit_id)
+            specs.append(RuleIRAssetSpec(
+                unit_id=unit_id,
+                rule_ir_path=source["rule_ir_path_template"].format(unit_id=unit_id),
+                compiled_scl_path=source["compiled_scl_path_template"].format(
+                    unit_id=unit_id
+                ),
+                role_predicate=role_predicate,
+                query_relations=tuple(queries),
+                shared_module=unit.get("kind") in shared_kinds,
+                known_limitations=tuple(source.get("known_limitations", [])),
+            ))
     return tuple(specs)
 
 

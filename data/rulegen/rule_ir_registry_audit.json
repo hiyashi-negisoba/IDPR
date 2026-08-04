@@ -244,6 +244,541 @@
       "rule_ir_path": "data/rulegen/property/rule_ir/occupational_status_rule_ir_candidate.json",
       "system_input_count": 4,
       "unit_id": "occupational_status"
+    },
+    {
+      "article_ids": [
+        "art122"
+      ],
+      "commentary_input_count": 48,
+      "compiled_relation_count": 64,
+      "compiled_scl_path": "rules/generated/p2_dereliction_of_duty_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 116,
+      "query_relations": [
+        "dereliction_of_duty_not_established",
+        "dereliction_of_duty_undetermined",
+        "dereliction_of_duty_conflict",
+        "dereliction_of_duty_base_established"
+      ],
+      "role_predicate": "dereliction_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/dereliction_of_duty_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "dereliction_of_duty"
+    },
+    {
+      "article_ids": [
+        "art127"
+      ],
+      "commentary_input_count": 27,
+      "compiled_relation_count": 43,
+      "compiled_scl_path": "rules/generated/p2_official_secret_disclosure_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 74,
+      "query_relations": [
+        "official_secret_disclosure_not_established",
+        "official_secret_disclosure_undetermined",
+        "official_secret_disclosure_conflict",
+        "official_secret_disclosure_base_established"
+      ],
+      "role_predicate": "official_secret_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/official_secret_disclosure_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "official_secret_disclosure"
+    },
+    {
+      "article_ids": [
+        "art129"
+      ],
+      "commentary_input_count": 49,
+      "compiled_relation_count": 77,
+      "compiled_scl_path": "rules/generated/p2_bribe_receipt_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 130,
+      "query_relations": [
+        "bribe_receipt_not_established",
+        "bribe_receipt_undetermined",
+        "bribe_receipt_conflict",
+        "bribe_receipt_receipt_established",
+        "bribe_receipt_demand_established",
+        "bribe_receipt_promise_established",
+        "bribe_receipt_prior_established"
+      ],
+      "role_predicate": "bribe_receipt_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/bribe_receipt_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "bribe_receipt"
+    },
+    {
+      "article_ids": [
+        "art130"
+      ],
+      "commentary_input_count": 37,
+      "compiled_relation_count": 51,
+      "compiled_scl_path": "rules/generated/p2_third_party_bribery_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 92,
+      "query_relations": [
+        "third_party_bribery_not_established",
+        "third_party_bribery_undetermined",
+        "third_party_bribery_conflict",
+        "third_party_bribery_base_established"
+      ],
+      "role_predicate": "third_party_bribery_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/third_party_bribery_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "third_party_bribery"
+    },
+    {
+      "article_ids": [
+        "art133"
+      ],
+      "commentary_input_count": 22,
+      "compiled_relation_count": 44,
+      "compiled_scl_path": "rules/generated/p2_bribe_giving_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 70,
+      "query_relations": [
+        "bribe_giving_not_established",
+        "bribe_giving_undetermined",
+        "bribe_giving_conflict",
+        "bribe_giving_offering_established",
+        "bribe_giving_delivery_giver_established",
+        "bribe_giving_delivery_recipient_established"
+      ],
+      "role_predicate": "bribe_giving_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/bribe_giving_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "bribe_giving"
+    },
+    {
+      "article_ids": [
+        "art136"
+      ],
+      "commentary_input_count": 52,
+      "compiled_relation_count": 74,
+      "compiled_scl_path": "rules/generated/p2_obstruction_of_official_duty_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 130,
+      "query_relations": [
+        "obstruction_of_official_duty_not_established",
+        "obstruction_of_official_duty_undetermined",
+        "obstruction_of_official_duty_conflict",
+        "obstruction_of_official_duty_base_established",
+        "obstruction_of_official_duty_official_coercion_established"
+      ],
+      "role_predicate": "official_duty_obstruction_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/obstruction_of_official_duty_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "obstruction_of_official_duty"
+    },
+    {
+      "article_ids": [
+        "art137"
+      ],
+      "commentary_input_count": 49,
+      "compiled_relation_count": 63,
+      "compiled_scl_path": "rules/generated/p2_deceptive_obstruction_of_official_duty_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 116,
+      "query_relations": [
+        "deceptive_obstruction_of_official_duty_not_established",
+        "deceptive_obstruction_of_official_duty_undetermined",
+        "deceptive_obstruction_of_official_duty_conflict",
+        "deceptive_obstruction_of_official_duty_base_established"
+      ],
+      "role_predicate": "deceptive_obstruction_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/deceptive_obstruction_of_official_duty_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "deceptive_obstruction_of_official_duty"
+    },
+    {
+      "article_ids": [
+        "art151"
+      ],
+      "commentary_input_count": 54,
+      "compiled_relation_count": 70,
+      "compiled_scl_path": "rules/generated/p2_harboring_offender_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 128,
+      "query_relations": [
+        "harboring_offender_not_established",
+        "harboring_offender_undetermined",
+        "harboring_offender_conflict",
+        "harboring_offender_base_established"
+      ],
+      "role_predicate": "harboring_offender_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/harboring_offender_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "harboring_offender"
+    },
+    {
+      "article_ids": [
+        "art152"
+      ],
+      "commentary_input_count": 36,
+      "compiled_relation_count": 56,
+      "compiled_scl_path": "rules/generated/p2_perjury_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 96,
+      "query_relations": [
+        "perjury_not_established",
+        "perjury_undetermined",
+        "perjury_conflict",
+        "perjury_base_established",
+        "perjury_malicious_established"
+      ],
+      "role_predicate": "perjury_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/perjury_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "perjury"
+    },
+    {
+      "article_ids": [
+        "art164"
+      ],
+      "commentary_input_count": 35,
+      "compiled_relation_count": 63,
+      "compiled_scl_path": "rules/generated/p2_arson_of_occupied_structure_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 102,
+      "query_relations": [
+        "arson_of_occupied_structure_not_established",
+        "arson_of_occupied_structure_undetermined",
+        "arson_of_occupied_structure_conflict",
+        "arson_of_occupied_structure_base_established",
+        "arson_of_occupied_structure_attempt_established",
+        "arson_of_occupied_structure_completed_established"
+      ],
+      "role_predicate": "arson_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/arson_of_occupied_structure_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "arson_of_occupied_structure"
+    },
+    {
+      "article_ids": [
+        "art225"
+      ],
+      "commentary_input_count": 43,
+      "compiled_relation_count": 65,
+      "compiled_scl_path": "rules/generated/p2_public_document_forgery_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 112,
+      "query_relations": [
+        "public_document_forgery_not_established",
+        "public_document_forgery_undetermined",
+        "public_document_forgery_conflict",
+        "public_document_forgery_forgery_established",
+        "public_document_forgery_alteration_established",
+        "public_document_forgery_attempt_established"
+      ],
+      "role_predicate": "public_document_forgery_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/public_document_forgery_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "public_document_forgery"
+    },
+    {
+      "article_ids": [
+        "art227"
+      ],
+      "commentary_input_count": 44,
+      "compiled_relation_count": 59,
+      "compiled_scl_path": "rules/generated/p2_false_public_document_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 107,
+      "query_relations": [
+        "false_public_document_not_established",
+        "false_public_document_undetermined",
+        "false_public_document_conflict",
+        "false_public_document_base_established"
+      ],
+      "role_predicate": "false_public_document_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/false_public_document_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "false_public_document"
+    },
+    {
+      "article_ids": [
+        "art231"
+      ],
+      "commentary_input_count": 44,
+      "compiled_relation_count": 64,
+      "compiled_scl_path": "rules/generated/p2_private_document_forgery_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 112,
+      "query_relations": [
+        "private_document_forgery_not_established",
+        "private_document_forgery_undetermined",
+        "private_document_forgery_conflict",
+        "private_document_forgery_forgery_established",
+        "private_document_forgery_alteration_established",
+        "private_document_forgery_attempt_established"
+      ],
+      "role_predicate": "private_document_forgery_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/private_document_forgery_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "private_document_forgery"
+    },
+    {
+      "article_ids": [
+        "art234"
+      ],
+      "commentary_input_count": 19,
+      "compiled_relation_count": 34,
+      "compiled_scl_path": "rules/generated/p2_use_of_forged_private_document_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 57,
+      "query_relations": [
+        "use_of_forged_private_document_not_established",
+        "use_of_forged_private_document_undetermined",
+        "use_of_forged_private_document_conflict",
+        "use_of_forged_private_document_base_established"
+      ],
+      "role_predicate": "forged_private_document_use_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/use_of_forged_private_document_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "use_of_forged_private_document"
+    },
+    {
+      "article_ids": [
+        "art239"
+      ],
+      "commentary_input_count": 19,
+      "compiled_relation_count": 36,
+      "compiled_scl_path": "rules/generated/p2_seal_forgery_or_misuse_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 59,
+      "query_relations": [
+        "seal_forgery_or_misuse_not_established",
+        "seal_forgery_or_misuse_undetermined",
+        "seal_forgery_or_misuse_conflict",
+        "seal_forgery_or_misuse_creation_or_misuse_established",
+        "seal_forgery_or_misuse_use_established"
+      ],
+      "role_predicate": "seal_forgery_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/seal_forgery_or_misuse_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "seal_forgery_or_misuse"
+    },
+    {
+      "article_ids": [
+        "art250",
+        "art254",
+        "art255"
+      ],
+      "commentary_input_count": 143,
+      "compiled_relation_count": 202,
+      "compiled_scl_path": "rules/generated/p2_homicide_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 349,
+      "query_relations": [
+        "homicide_not_established",
+        "homicide_undetermined",
+        "homicide_conflict",
+        "homicide_base_established",
+        "homicide_omission_established",
+        "homicide_attempt_established",
+        "homicide_voluntary_desistance_established",
+        "homicide_impossible_attempt_established",
+        "homicide_parricide_established",
+        "homicide_preparation_established"
+      ],
+      "role_predicate": "homicide_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/homicide_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "homicide"
+    },
+    {
+      "article_ids": [
+        "art257",
+        "art259",
+        "art263"
+      ],
+      "commentary_input_count": 74,
+      "compiled_relation_count": 107,
+      "compiled_scl_path": "rules/generated/p2_intentional_bodily_injury_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 185,
+      "query_relations": [
+        "intentional_bodily_injury_not_established",
+        "intentional_bodily_injury_undetermined",
+        "intentional_bodily_injury_conflict",
+        "intentional_bodily_injury_base_established",
+        "intentional_bodily_injury_attempt_established",
+        "intentional_bodily_injury_ancestral_established",
+        "intentional_bodily_injury_special_established",
+        "intentional_bodily_injury_aggravated_result_established"
+      ],
+      "role_predicate": "bodily_injury_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/intentional_bodily_injury_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "intentional_bodily_injury"
+    },
+    {
+      "article_ids": [
+        "art267",
+        "art268"
+      ],
+      "commentary_input_count": 80,
+      "compiled_relation_count": 106,
+      "compiled_scl_path": "rules/generated/p2_negligent_bodily_harm_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 190,
+      "query_relations": [
+        "negligent_bodily_harm_not_established",
+        "negligent_bodily_harm_undetermined",
+        "negligent_bodily_harm_conflict",
+        "negligent_bodily_harm_ordinary_established",
+        "negligent_bodily_harm_occupational_established",
+        "negligent_bodily_harm_gross_established"
+      ],
+      "role_predicate": "negligent_bodily_harm_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/negligent_bodily_harm_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "negligent_bodily_harm"
+    },
+    {
+      "article_ids": [
+        "art297"
+      ],
+      "commentary_input_count": 46,
+      "compiled_relation_count": 68,
+      "compiled_scl_path": "rules/generated/p2_rape_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 118,
+      "query_relations": [
+        "rape_not_established",
+        "rape_undetermined",
+        "rape_conflict",
+        "rape_base_established"
+      ],
+      "role_predicate": "rape_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/rape_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "rape"
+    },
+    {
+      "article_ids": [
+        "art298"
+      ],
+      "commentary_input_count": 29,
+      "compiled_relation_count": 45,
+      "compiled_scl_path": "rules/generated/p2_indecent_assault_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 78,
+      "query_relations": [
+        "indecent_assault_not_established",
+        "indecent_assault_undetermined",
+        "indecent_assault_conflict",
+        "indecent_assault_base_established"
+      ],
+      "role_predicate": "indecent_assault_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/indecent_assault_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "indecent_assault"
+    },
+    {
+      "article_ids": [
+        "art299"
+      ],
+      "commentary_input_count": 24,
+      "compiled_relation_count": 40,
+      "compiled_scl_path": "rules/generated/p2_quasi_sexual_offense_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 68,
+      "query_relations": [
+        "quasi_sexual_offense_not_established",
+        "quasi_sexual_offense_undetermined",
+        "quasi_sexual_offense_conflict",
+        "quasi_sexual_offense_base_established"
+      ],
+      "role_predicate": "quasi_sexual_offense_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/quasi_sexual_offense_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "quasi_sexual_offense"
+    },
+    {
+      "article_ids": [
+        "art300"
+      ],
+      "commentary_input_count": 5,
+      "compiled_relation_count": 18,
+      "compiled_scl_path": "rules/generated/p2_sexual_offense_attempt_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 27,
+      "query_relations": [
+        "sexual_offense_attempt_not_established",
+        "sexual_offense_attempt_undetermined",
+        "sexual_offense_attempt_conflict",
+        "sexual_offense_attempt_attempt_established"
+      ],
+      "role_predicate": "sexual_offense_attempt_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/sexual_offense_attempt_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "sexual_offense_attempt"
+    },
+    {
+      "article_ids": [
+        "art301"
+      ],
+      "commentary_input_count": 31,
+      "compiled_relation_count": 53,
+      "compiled_scl_path": "rules/generated/p2_sexual_offense_injury_or_death_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 88,
+      "query_relations": [
+        "sexual_offense_injury_or_death_not_established",
+        "sexual_offense_injury_or_death_undetermined",
+        "sexual_offense_injury_or_death_conflict",
+        "sexual_offense_injury_or_death_intentional_injury_established",
+        "sexual_offense_injury_or_death_result_aggravated_injury_established",
+        "sexual_offense_injury_or_death_death_established"
+      ],
+      "role_predicate": "sexual_offense_result_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/sexual_offense_injury_or_death_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "sexual_offense_injury_or_death"
+    },
+    {
+      "article_ids": [
+        "art319"
+      ],
+      "commentary_input_count": 95,
+      "compiled_relation_count": 121,
+      "compiled_scl_path": "rules/generated/p2_dwelling_intrusion_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 220,
+      "query_relations": [
+        "dwelling_intrusion_not_established",
+        "dwelling_intrusion_undetermined",
+        "dwelling_intrusion_conflict",
+        "dwelling_intrusion_intrusion_established",
+        "dwelling_intrusion_attempt_established",
+        "dwelling_intrusion_refusal_to_leave_established"
+      ],
+      "role_predicate": "dwelling_intrusion_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/dwelling_intrusion_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "dwelling_intrusion"
+    },
+    {
+      "article_ids": [
+        "art344"
+      ],
+      "commentary_input_count": 4,
+      "compiled_relation_count": 17,
+      "compiled_scl_path": "rules/generated/p2_relative_property_crime_exception_v1_candidate.scl",
+      "errors": [],
+      "predicate_count": 25,
+      "query_relations": [
+        "relative_property_crime_exception_not_established",
+        "relative_property_crime_exception_undetermined",
+        "relative_property_crime_exception_conflict",
+        "relative_property_crime_exception_exception_established"
+      ],
+      "role_predicate": "relative_property_exception_case_roles",
+      "rule_ir_path": "data/rulegen/p2/rule_ir/relative_property_crime_exception_rule_ir_candidate.json",
+      "system_input_count": 4,
+      "unit_id": "relative_property_crime_exception"
     }
   ],
   "version": "1.0.0"
