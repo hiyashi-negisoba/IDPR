@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0", "authority": "delegated_human_legal_review", "unit_id": "private_document_forgery", "approved_on": "2026-08-04",
+  "policy": {"approval": "Delegated normalization on 2026-08-04", "tracks": "사문서 위조·변조·미수 분리", "object": "권리의무 또는 거래상 중요한 사실증명 문서", "authority": "명의자 승낙·위임과 추정승낙은 bar", "boundary": "새 문서 완성은 위조, 진정문서 동일성 유지 변경은 변조"},
+  "track_vocabulary": [{"track_id": "common", "label": "사문서 공통 placement"}, {"track_id": "forgery", "label": "사문서 위조", "inherits_placements": [{"track_id": "common", "component_ids": ["protected_document", "intent_and_use_purpose"]}]}, {"track_id": "alteration", "label": "사문서 변조", "inherits_placements": [{"track_id": "common", "component_ids": ["protected_document", "intent_and_use_purpose"]}]}, {"track_id": "attempt", "label": "사문서 위조·변조 미수"}],
+  "decision_groups": [
+    {"card_numbers": [1, 2, 3, 4, 5, 7, 8], "decision": "approve", "role": "component", "component_id": "protected_document", "component_join": "alternative_any", "track_id": "common", "refers_to_unit": null, "rationale": "타인의 권리의무 또는 거래상 중요한 사실증명 문서·도화와 사본"},
+    {"card_numbers": [6], "decision": "approve", "role": "bar", "component_id": "protected_document", "component_join": "not_applicable", "track_id": "common", "refers_to_unit": null, "rationale": "구체적 권리의무와 무관한 정치적 의견표현 문서"},
+    {"card_numbers": [34, 35, 36, 37, 38], "decision": "approve", "role": "component", "component_id": "intent_and_use_purpose", "component_join": "alternative_any", "track_id": "common", "refers_to_unit": null, "rationale": "타인 명의·위변조 인식과 진정문서 효용을 갖게 할 행사 목적"},
+    {"card_numbers": [9, 10, 11, 15, 16, 17, 18, 42], "decision": "approve", "role": "component", "component_id": "unauthorized_creation", "component_join": "alternative_any", "track_id": "forgery", "refers_to_unit": null, "rationale": "작성권한 없이 타인 명의의 진정문서 외관을 갖춘 문서 작성"},
+    {"card_numbers": [12, 13, 14, 19, 41], "decision": "approve", "role": "bar", "component_id": "unauthorized_creation", "component_join": "not_applicable", "track_id": "forgery", "refers_to_unit": "fraud", "rationale": "명의자 승낙·위임·추정승낙 또는 명의인의 진정작성"},
+    {"card_numbers": [21, 22, 23, 29, 30, 31, 32, 33], "decision": "approve", "role": "component", "component_id": "identity_preserving_change", "component_join": "alternative_any", "track_id": "alteration", "refers_to_unit": null, "rationale": "진정한 타인 명의 문서의 동일성을 유지하며 새 증명력을 만드는 무권한 변경"},
+    {"card_numbers": [20, 24, 25, 26, 27, 28], "decision": "approve", "role": "bar", "component_id": "identity_preserving_change", "component_join": "not_applicable", "track_id": "alteration", "refers_to_unit": null, "rationale": "작성권한 있는 변경·문서성 또는 원본 부재·새 증명력 없는 변경"},
+    {"card_numbers": [39, 40], "decision": "approve", "role": "component", "component_id": "punishable_attempt", "component_join": "alternative_any", "track_id": "attempt", "refers_to_unit": null, "rationale": "확정적 문서 표시 착수와 진정문서 오신 수준 미달의 처벌되는 미수"},
+    {"card_numbers": [43], "decision": "approve", "role": "post_outcome", "component_id": "document_damage", "component_join": "not_applicable", "track_id": "alteration", "refers_to_unit": "document_damage", "rationale": "타인 수중 자기 명의 문서 변경은 문서손괴로 이동"},
+    {"card_numbers": [44], "decision": "approve", "role": "post_outcome", "component_id": "seal_absorption", "component_join": "not_applicable", "track_id": "forgery", "refers_to_unit": "seal_forgery_or_misuse", "rationale": "인장위조의 사문서위조 흡수"}
+  ], "placement_defaults": [], "proposition_rewrites": {}
+}

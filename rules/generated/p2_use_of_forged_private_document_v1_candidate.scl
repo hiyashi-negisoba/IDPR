@@ -1,0 +1,860 @@
+// rule_set_id: kr.p2.use_of_forged_private_document.native.v1_candidate
+// status: draft
+// legal_review: pending
+// generated_from: validated RuleIR; model output is never executed directly
+
+// provable: 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+// sources: system contract
+// norm_cards: system contract
+type provable(String, String)
+
+// case_assessment_complete: 사건 라우터가 선택한 평가 묶음이 완결되어 결론 계층의 폐쇄세계 검사를 허용함
+// sources: system contract
+// norm_cards: system contract
+type case_assessment_complete(String, String)
+
+// distinct_entity: 사건의 entity resolution에서 두 역할이 서로 다른 실체임이 확인됨
+// sources: system contract
+// norm_cards: system contract
+type distinct_entity(String, String, String)
+
+// forged_private_document_use_case_roles: 행사자, 위조 등 문서, 인식 가능한 상대방의 역할 tuple
+// sources: system contract
+// norm_cards: system contract
+type forged_private_document_use_case_roles(String, String, String, String)
+
+// use_of_forged_private_document_not_established: 증명된 불성립 사유 또는 경계 이동이 존재함
+// sources: system contract
+// norm_cards: system contract
+type use_of_forged_private_document_not_established(String, String, String)
+
+// use_of_forged_private_document_undetermined: 관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음
+// sources: system contract
+// norm_cards: system contract
+type use_of_forged_private_document_undetermined(String, String, String)
+
+// use_of_forged_private_document_conflict: 같은 카드에 satisfied와 not_satisfied 평가가 모두 증명됨
+// sources: system contract
+// norm_cards: system contract
+type use_of_forged_private_document_conflict(String, String, String)
+
+// use_of_forged_private_document_track_not_established: 해당 track에만 적용되는 증명된 불성립 사유 또는 경계 이동
+// sources: system contract
+// norm_cards: system contract
+type use_of_forged_private_document_track_not_established(String, String, String, String)
+
+// use_of_forged_private_document_track_conflict: 해당 track에 적용되는 카드 평가 충돌
+// sources: system contract
+// norm_cards: system contract
+type use_of_forged_private_document_track_conflict(String, String, String, String)
+
+// use_of_forged_private_document_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type use_of_forged_private_document_track_has_negative(String, String, String)
+
+// use_of_forged_private_document_track_has_conflict: 해당 track에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type use_of_forged_private_document_track_has_conflict(String, String, String)
+
+// assess_art234_attempt_punishable: 이 카드의 사건별 적용 평가: 위조사문서등의 행사죄의 미수범은 처벌된다.
+// sources: comm_001692_제234조_Ⅲ_4
+// norm_cards: art234.attempt_punishable
+type assess_art234_attempt_punishable(String, String, String, String, String, String)
+
+// satisfied_art234_attempt_punishable: 증명 가능한 평가에서 다음 조건이 충족됨: 위조사문서등의 행사죄의 미수범은 처벌된다.
+// sources: comm_001692_제234조_Ⅲ_4
+// norm_cards: art234.attempt_punishable
+type satisfied_art234_attempt_punishable(String, String, String, String)
+
+// assess_art234_completion_by_placement_or_mail_delivery: 이 카드의 사건별 적용 평가: 일반적으로 상대방이 열람할 수 있도록 비치하면 행사의 기수가 되고, 위조문서를 우송한 경우에는 상대방에게 도달한 때 기수가 된다.
+// sources: comm_001692_제234조_Ⅲ_4
+// norm_cards: art234.completion_by_placement_or_mail_delivery
+type assess_art234_completion_by_placement_or_mail_delivery(String, String, String, String, String, String)
+
+// satisfied_art234_completion_by_placement_or_mail_delivery: 증명 가능한 평가에서 다음 조건이 충족됨: 일반적으로 상대방이 열람할 수 있도록 비치하면 행사의 기수가 되고, 위조문서를 우송한 경우에는 상대방에게 도달한 때 기수가 된다.
+// sources: comm_001692_제234조_Ⅲ_4
+// norm_cards: art234.completion_by_placement_or_mail_delivery
+type satisfied_art234_completion_by_placement_or_mail_delivery(String, String, String, String)
+
+// assess_art234_forged_license_possession_and_driving_not_utterance: 이 카드의 사건별 적용 평가: 위조된 운전면허증을 소지하고 자동차를 운전한 것만으로는 행사가 있다고 할 수 없다.
+// sources: comm_001692_제234조_Ⅲ_4
+// norm_cards: art234.forged_license_possession_and_driving_not_utterance
+type assess_art234_forged_license_possession_and_driving_not_utterance(String, String, String, String, String, String)
+
+// satisfied_art234_forged_license_possession_and_driving_not_utterance: 증명 가능한 평가에서 다음 조건이 충족됨: 위조된 운전면허증을 소지하고 자동차를 운전한 것만으로는 행사가 있다고 할 수 없다.
+// sources: comm_001692_제234조_Ⅲ_4
+// norm_cards: art234.forged_license_possession_and_driving_not_utterance
+type satisfied_art234_forged_license_possession_and_driving_not_utterance(String, String, String, String)
+
+// assess_art234_offense_character: 이 카드의 사건별 적용 평가: 위조사문서등의 행사죄는 형법 제231조부터 제233조까지의 죄로 만들어진 문서·도화 또는 전자기록 등 특수매체기록을 행사함으로써 성립하는 범죄이다.
+// sources: comm_001692_제234조_Ⅰ_0
+// norm_cards: art234.offense_character
+type assess_art234_offense_character(String, String, String, String, String, String)
+
+// satisfied_art234_offense_character: 증명 가능한 평가에서 다음 조건이 충족됨: 위조사문서등의 행사죄는 형법 제231조부터 제233조까지의 죄로 만들어진 문서·도화 또는 전자기록 등 특수매체기록을 행사함으로써 성립하는 범죄이다.
+// sources: comm_001692_제234조_Ⅰ_0
+// norm_cards: art234.offense_character
+type satisfied_art234_offense_character(String, String, String, String)
+
+// assess_art234_sec2_1_copies_and_electronic_transmission: 이 카드의 사건별 적용 평가: 위조문서를 기계적으로 복사한 복사본의 제시, 모사전송, 스캐너로 이미지화한 뒤 전송하여 컴퓨터 화면에서 보게 하는 방법도 행사에 해당한다.
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.copies_and_electronic_transmission
+type assess_art234_sec2_1_copies_and_electronic_transmission(String, String, String, String, String, String)
+
+// satisfied_art234_sec2_1_copies_and_electronic_transmission: 증명 가능한 평가에서 다음 조건이 충족됨: 위조문서를 기계적으로 복사한 복사본의 제시, 모사전송, 스캐너로 이미지화한 뒤 전송하여 컴퓨터 화면에서 보게 하는 방법도 행사에 해당한다.
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.copies_and_electronic_transmission
+type satisfied_art234_sec2_1_copies_and_electronic_transmission(String, String, String, String)
+
+// assess_art234_sec2_1_counterparty_interest_and_lack_of_knowledge: 이 카드의 사건별 적용 평가: 행사의 상대방은 문서에 이해관계가 있어야 하며, 위조 등의 사실을 모르는 자여야 한다.
+// sources: comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.counterparty_interest_and_lack_of_knowledge
+type assess_art234_sec2_1_counterparty_interest_and_lack_of_knowledge(String, String, String, String, String, String)
+
+// satisfied_art234_sec2_1_counterparty_interest_and_lack_of_knowledge: 증명 가능한 평가에서 다음 조건이 충족됨: 행사의 상대방은 문서에 이해관계가 있어야 하며, 위조 등의 사실을 모르는 자여야 한다.
+// sources: comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.counterparty_interest_and_lack_of_knowledge
+type satisfied_art234_sec2_1_counterparty_interest_and_lack_of_knowledge(String, String, String, String)
+
+// assess_art234_sec2_1_exercise_of_document: 이 카드의 사건별 적용 평가: 문서의 행사는 위조·변조 또는 자격모용으로 작성된 사문서를 진정하게 작성된 진실한 내용의 문서인 것처럼 사용하는 것이다.
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.exercise_of_document
+type assess_art234_sec2_1_exercise_of_document(String, String, String, String, String, String)
+
+// satisfied_art234_sec2_1_exercise_of_document: 증명 가능한 평가에서 다음 조건이 충족됨: 문서의 행사는 위조·변조 또는 자격모용으로 작성된 사문서를 진정하게 작성된 진실한 내용의 문서인 것처럼 사용하는 것이다.
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.exercise_of_document
+type satisfied_art234_sec2_1_exercise_of_document(String, String, String, String)
+
+// assess_art234_sec2_1_exercise_of_special_media_record: 이 카드의 사건별 적용 평가: 특수매체기록의 행사는 위작·변작된 기록을 진정한 기록으로 정보처리할 수 있는 상태에 두는 것이며, 입력·출력·수정 가능한 상태에 두어도 행사가 된다.
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.exercise_of_special_media_record
+type assess_art234_sec2_1_exercise_of_special_media_record(String, String, String, String, String, String)
+
+// satisfied_art234_sec2_1_exercise_of_special_media_record: 증명 가능한 평가에서 다음 조건이 충족됨: 특수매체기록의 행사는 위작·변작된 기록을 진정한 기록으로 정보처리할 수 있는 상태에 두는 것이며, 입력·출력·수정 가능한 상태에 두어도 행사가 된다.
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.exercise_of_special_media_record
+type satisfied_art234_sec2_1_exercise_of_special_media_record(String, String, String, String)
+
+// assess_art234_sec2_1_indirect_perpetration_tool_holder: 이 카드의 사건별 적용 평가: 간접정범을 통한 위조문서행사에서 도구로 이용된 자라도 문서가 위조된 사실을 모르는 자에게 행사하면 위조문서행사죄가 성립한다.
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.indirect_perpetration_tool_holder
+type assess_art234_sec2_1_indirect_perpetration_tool_holder(String, String, String, String, String, String)
+
+// satisfied_art234_sec2_1_indirect_perpetration_tool_holder: 증명 가능한 평가에서 다음 조건이 충족됨: 간접정범을 통한 위조문서행사에서 도구로 이용된 자라도 문서가 위조된 사실을 모르는 자에게 행사하면 위조문서행사죄가 성립한다.
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.indirect_perpetration_tool_holder
+type satisfied_art234_sec2_1_indirect_perpetration_tool_holder(String, String, String, String)
+
+// assess_art234_sec2_1_methods_of_exercise: 이 카드의 사건별 적용 평가: 제시·교부·송부·비치·열람 등 상대방이 문서 내용의 인식이 가능한 상태에 두는 방법이면 행사 방법에 제한이 없다.
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.methods_of_exercise
+type assess_art234_sec2_1_methods_of_exercise(String, String, String, String, String, String)
+
+// satisfied_art234_sec2_1_methods_of_exercise: 증명 가능한 평가에서 다음 조건이 충족됨: 제시·교부·송부·비치·열람 등 상대방이 문서 내용의 인식이 가능한 상태에 두는 방법이면 행사 방법에 제한이 없다.
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.methods_of_exercise
+type satisfied_art234_sec2_1_methods_of_exercise(String, String, String, String)
+
+// assess_art234_sec2_1_object_covered_documents: 이 카드의 사건별 적용 평가: 행사죄의 객체에는 위조·변조된 사문서·사도화, 자격모용으로 작성된 사문서·사도화, 의사 등이 작성한 허위 진단서 등 및 위작·변작된 전자기록 등 특수매체기록이 포함된다.
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.object_covered_documents
+type assess_art234_sec2_1_object_covered_documents(String, String, String, String, String, String)
+
+// satisfied_art234_sec2_1_object_covered_documents: 증명 가능한 평가에서 다음 조건이 충족됨: 행사죄의 객체에는 위조·변조된 사문서·사도화, 자격모용으로 작성된 사문서·사도화, 의사 등이 작성한 허위 진단서 등 및 위작·변작된 전자기록 등 특수매체기록이 포함된다.
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.object_covered_documents
+type satisfied_art234_sec2_1_object_covered_documents(String, String, String, String)
+
+// assess_art234_sec2_1_possession_before_offer_not_exercise: 이 카드의 사건별 적용 평가: 상대방에게 제공할 기회가 생기면 제공하기 위해 문서를 소지하거나 차량에 싣고 다니는 것, 또는 사자·사환에게 교부한 것만으로는 아직 행사에 해당하지 않는다.
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.possession_before_offer_not_exercise
+type assess_art234_sec2_1_possession_before_offer_not_exercise(String, String, String, String, String, String)
+
+// satisfied_art234_sec2_1_possession_before_offer_not_exercise: 증명 가능한 평가에서 다음 조건이 충족됨: 상대방에게 제공할 기회가 생기면 제공하기 위해 문서를 소지하거나 차량에 싣고 다니는 것, 또는 사자·사환에게 교부한 것만으로는 아직 행사에 해당하지 않는다.
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.possession_before_offer_not_exercise
+type satisfied_art234_sec2_1_possession_before_offer_not_exercise(String, String, String, String)
+
+// assess_art234_sec2_1_presentation_to_knowing_accomplice: 이 카드의 사건별 적용 평가: 문서가 위조·변조·허위작성되었음을 아는 공범자 등에게 문서를 제시하거나 교부하는 경우에는 행사죄가 성립할 여지가 없다.
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.presentation_to_knowing_accomplice
+type assess_art234_sec2_1_presentation_to_knowing_accomplice(String, String, String, String, String, String)
+
+// satisfied_art234_sec2_1_presentation_to_knowing_accomplice: 증명 가능한 평가에서 다음 조건이 충족됨: 문서가 위조·변조·허위작성되었음을 아는 공범자 등에게 문서를 제시하거나 교부하는 경우에는 행사죄가 성립할 여지가 없다.
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.presentation_to_knowing_accomplice
+type satisfied_art234_sec2_1_presentation_to_knowing_accomplice(String, String, String, String)
+
+// assess_art234_sec2_1_transcript_not_exercise: 이 카드의 사건별 적용 평가: 위조·변조·허위작성된 문서 자체인 원본을 직접 사용해야 하므로, 필사본 사용은 행사가 아니다.
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.transcript_not_exercise
+type assess_art234_sec2_1_transcript_not_exercise(String, String, String, String, String, String)
+
+// satisfied_art234_sec2_1_transcript_not_exercise: 증명 가능한 평가에서 다음 조건이 충족됨: 위조·변조·허위작성된 문서 자체인 원본을 직접 사용해야 하므로, 필사본 사용은 행사가 아니다.
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.transcript_not_exercise
+type satisfied_art234_sec2_1_transcript_not_exercise(String, String, String, String)
+
+// assess_art234_sec2_1_use_as_forgery_not_exercise: 이 카드의 사건별 적용 평가: 위조문서를 위조문서로 또는 허위문서를 허위문서로 사용하는 행위는 행사에 해당하지 않는다.
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.use_as_forgery_not_exercise
+type assess_art234_sec2_1_use_as_forgery_not_exercise(String, String, String, String, String, String)
+
+// satisfied_art234_sec2_1_use_as_forgery_not_exercise: 증명 가능한 평가에서 다음 조건이 충족됨: 위조문서를 위조문서로 또는 허위문서를 허위문서로 사용하는 행위는 행사에 해당하지 않는다.
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.use_as_forgery_not_exercise
+type satisfied_art234_sec2_1_use_as_forgery_not_exercise(String, String, String, String)
+
+// assess_art234_sec2_2_intent_no_purpose: 이 카드의 사건별 적용 평가: 위조·변조·위작·변작·작성된 문서 또는 허위작성된 진단서 등에 대한 인식과 이를 행사한다는 고의가 필요하며, 행사할 목적은 구성요건상 필요하지 않다.
+// sources: comm_001692_제234조_Ⅱ.2_3
+// norm_cards: art234_sec2_2.intent_no_purpose
+type assess_art234_sec2_2_intent_no_purpose(String, String, String, String, String, String)
+
+// satisfied_art234_sec2_2_intent_no_purpose: 증명 가능한 평가에서 다음 조건이 충족됨: 위조·변조·위작·변작·작성된 문서 또는 허위작성된 진단서 등에 대한 인식과 이를 행사한다는 고의가 필요하며, 행사할 목적은 구성요건상 필요하지 않다.
+// sources: comm_001692_제234조_Ⅱ.2_3
+// norm_cards: art234_sec2_2.intent_no_purpose
+type satisfied_art234_sec2_2_intent_no_purpose(String, String, String, String)
+
+// assess_art234_sec4_company_agreement_breach_ideal_concurrence: 이 카드의 사건별 적용 평가: 회사 명의 합의서를 임의로 작성·교부한 행위로 인한 사문서위조 및 위조사문서행사죄와, 그로 인한 회사 재산상 손해의 업무상배임죄는 하나의 행위로서 상상적 경합관계에 있다.
+// sources: comm_001692_제234조_Ⅳ_5
+// norm_cards: art234_sec4.company_agreement_breach_ideal_concurrence
+type assess_art234_sec4_company_agreement_breach_ideal_concurrence(String, String, String, String, String, String)
+
+// satisfied_art234_sec4_company_agreement_breach_ideal_concurrence: 증명 가능한 평가에서 다음 조건이 충족됨: 회사 명의 합의서를 임의로 작성·교부한 행위로 인한 사문서위조 및 위조사문서행사죄와, 그로 인한 회사 재산상 손해의 업무상배임죄는 하나의 행위로서 상상적 경합관계에 있다.
+// sources: comm_001692_제234조_Ⅳ_5
+// norm_cards: art234_sec4.company_agreement_breach_ideal_concurrence
+type satisfied_art234_sec4_company_agreement_breach_ideal_concurrence(String, String, String, String)
+
+// assess_art234_sec4_forger_and_exercise_real_concurrence: 이 카드의 사건별 적용 평가: 위조·변조한 사문서를 행사한 경우 다수설과 판례는 사문서위조·변조죄와 행사죄가 실체적 경합관계라고 본다.
+// sources: comm_001692_제234조_Ⅳ_5
+// norm_cards: art234_sec4.forger_and_exercise_real_concurrence
+type assess_art234_sec4_forger_and_exercise_real_concurrence(String, String, String, String, String, String)
+
+// satisfied_art234_sec4_forger_and_exercise_real_concurrence: 증명 가능한 평가에서 다음 조건이 충족됨: 위조·변조한 사문서를 행사한 경우 다수설과 판례는 사문서위조·변조죄와 행사죄가 실체적 경합관계라고 본다.
+// sources: comm_001692_제234조_Ⅳ_5
+// norm_cards: art234_sec4.forger_and_exercise_real_concurrence
+type satisfied_art234_sec4_forger_and_exercise_real_concurrence(String, String, String, String)
+
+// assess_art234_sec4_multiple_documents_ideal_concurrence: 이 카드의 사건별 적용 평가: 수개의 문서를 한꺼번에 행사한 경우 문서 명의인이 서로 달라도 각 행사죄는 상상적 경합관계에 있다.
+// sources: comm_001692_제234조_Ⅳ_5
+// norm_cards: art234_sec4.multiple_documents_ideal_concurrence
+type assess_art234_sec4_multiple_documents_ideal_concurrence(String, String, String, String, String, String)
+
+// satisfied_art234_sec4_multiple_documents_ideal_concurrence: 증명 가능한 평가에서 다음 조건이 충족됨: 수개의 문서를 한꺼번에 행사한 경우 문서 명의인이 서로 달라도 각 행사죄는 상상적 경합관계에 있다.
+// sources: comm_001692_제234조_Ⅳ_5
+// norm_cards: art234_sec4.multiple_documents_ideal_concurrence
+type satisfied_art234_sec4_multiple_documents_ideal_concurrence(String, String, String, String)
+
+// use_of_forged_private_document_base_covered_forged_instrument_satisfied: 'covered_forged_instrument' 요건이 충족됨 (base track, alternative_any)
+// sources: comm_001692_제234조_Ⅰ_0, comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234.offense_character, art234_sec2_1.object_covered_documents
+type use_of_forged_private_document_base_covered_forged_instrument_satisfied(String, String, String, String)
+
+// use_of_forged_private_document_base_exercise_satisfied: 'exercise' 요건이 충족됨 (base track, alternative_any)
+// sources: comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234.completion_by_placement_or_mail_delivery, art234_sec2_1.copies_and_electronic_transmission, art234_sec2_1.exercise_of_document, art234_sec2_1.exercise_of_special_media_record, art234_sec2_1.indirect_perpetration_tool_holder, art234_sec2_1.methods_of_exercise
+type use_of_forged_private_document_base_exercise_satisfied(String, String, String, String)
+
+// use_of_forged_private_document_base_intent_satisfied: 'intent' 요건이 충족됨 (base track, mandatory_all)
+// sources: comm_001692_제234조_Ⅱ.2_3
+// norm_cards: art234_sec2_2.intent_no_purpose
+type use_of_forged_private_document_base_intent_satisfied(String, String, String, String)
+
+// use_of_forged_private_document_base_unaware_interested_counterparty_satisfied: 'unaware_interested_counterparty' 요건이 충족됨 (base track, mandatory_all)
+// sources: comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.counterparty_interest_and_lack_of_knowledge
+type use_of_forged_private_document_base_unaware_interested_counterparty_satisfied(String, String, String, String)
+
+// use_of_forged_private_document_has_negative: 이 unit에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type use_of_forged_private_document_has_negative(String, String)
+
+// use_of_forged_private_document_has_conflict: 이 unit에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type use_of_forged_private_document_has_conflict(String, String)
+
+// use_of_forged_private_document_base_elements_satisfied: 'base' track의 구성요건 component가 모두 충족된 잠정 성립 후보
+// sources: system contract
+// norm_cards: system contract
+type use_of_forged_private_document_base_elements_satisfied(String, String, String, String)
+
+// use_of_forged_private_document_base_established: 완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 'base' track 확정 성립
+// sources: system contract
+// norm_cards: system contract
+type use_of_forged_private_document_base_established(String, String, String, String)
+
+// rule_id: use_of_forged_private_document.card.art234_attempt_punishable.satisfied
+// sources: comm_001692_제234조_Ⅲ_4
+// norm_cards: art234.attempt_punishable
+rel satisfied_art234_attempt_punishable(case_id, defendant_id, document_id, counterparty_id) = assess_art234_attempt_punishable(case_id, assessment_001, defendant_id, document_id, counterparty_id, "satisfied") and
+  provable(case_id, assessment_001)
+
+// rule_id: use_of_forged_private_document.card.art234_attempt_punishable.undetermined
+// sources: comm_001692_제234조_Ⅲ_4
+// norm_cards: art234.attempt_punishable
+rel use_of_forged_private_document_undetermined(case_id, defendant_id, "art234.attempt_punishable") = assess_art234_attempt_punishable(case_id, unknown_001, defendant_id, document_id, counterparty_id, "unknown") and
+  provable(case_id, unknown_001)
+
+// rule_id: use_of_forged_private_document.card.art234_attempt_punishable.conflict
+// sources: comm_001692_제234조_Ⅲ_4
+// norm_cards: art234.attempt_punishable
+rel use_of_forged_private_document_conflict(case_id, defendant_id, "art234.attempt_punishable") = assess_art234_attempt_punishable(case_id, positive_001, defendant_id, document_id, counterparty_id, "satisfied") and
+  assess_art234_attempt_punishable(case_id, negative_001, defendant_id, document_id, counterparty_id, "not_satisfied") and
+  provable(case_id, positive_001) and
+  provable(case_id, negative_001)
+
+// rule_id: use_of_forged_private_document.card.art234_completion_by_placement_or_mail_delivery.satisfied
+// sources: comm_001692_제234조_Ⅲ_4
+// norm_cards: art234.completion_by_placement_or_mail_delivery
+rel satisfied_art234_completion_by_placement_or_mail_delivery(case_id, defendant_id, document_id, counterparty_id) = assess_art234_completion_by_placement_or_mail_delivery(case_id, assessment_002, defendant_id, document_id, counterparty_id, "satisfied") and
+  provable(case_id, assessment_002)
+
+// rule_id: use_of_forged_private_document.card.art234_completion_by_placement_or_mail_delivery.undetermined
+// sources: comm_001692_제234조_Ⅲ_4
+// norm_cards: art234.completion_by_placement_or_mail_delivery
+rel use_of_forged_private_document_undetermined(case_id, defendant_id, "art234.completion_by_placement_or_mail_delivery") = assess_art234_completion_by_placement_or_mail_delivery(case_id, unknown_002, defendant_id, document_id, counterparty_id, "unknown") and
+  provable(case_id, unknown_002)
+
+// rule_id: use_of_forged_private_document.card.art234_completion_by_placement_or_mail_delivery.conflict
+// sources: comm_001692_제234조_Ⅲ_4
+// norm_cards: art234.completion_by_placement_or_mail_delivery
+rel use_of_forged_private_document_conflict(case_id, defendant_id, "art234.completion_by_placement_or_mail_delivery") = assess_art234_completion_by_placement_or_mail_delivery(case_id, positive_002, defendant_id, document_id, counterparty_id, "satisfied") and
+  assess_art234_completion_by_placement_or_mail_delivery(case_id, negative_002, defendant_id, document_id, counterparty_id, "not_satisfied") and
+  provable(case_id, positive_002) and
+  provable(case_id, negative_002)
+
+// rule_id: use_of_forged_private_document.card.art234_forged_license_possession_and_driving_not_utterance.satisfied
+// sources: comm_001692_제234조_Ⅲ_4
+// norm_cards: art234.forged_license_possession_and_driving_not_utterance
+rel satisfied_art234_forged_license_possession_and_driving_not_utterance(case_id, defendant_id, document_id, counterparty_id) = assess_art234_forged_license_possession_and_driving_not_utterance(case_id, assessment_003, defendant_id, document_id, counterparty_id, "satisfied") and
+  provable(case_id, assessment_003)
+
+// rule_id: use_of_forged_private_document.card.art234_forged_license_possession_and_driving_not_utterance.undetermined
+// sources: comm_001692_제234조_Ⅲ_4
+// norm_cards: art234.forged_license_possession_and_driving_not_utterance
+rel use_of_forged_private_document_undetermined(case_id, defendant_id, "art234.forged_license_possession_and_driving_not_utterance") = assess_art234_forged_license_possession_and_driving_not_utterance(case_id, unknown_003, defendant_id, document_id, counterparty_id, "unknown") and
+  provable(case_id, unknown_003)
+
+// rule_id: use_of_forged_private_document.card.art234_forged_license_possession_and_driving_not_utterance.conflict
+// sources: comm_001692_제234조_Ⅲ_4
+// norm_cards: art234.forged_license_possession_and_driving_not_utterance
+rel use_of_forged_private_document_conflict(case_id, defendant_id, "art234.forged_license_possession_and_driving_not_utterance") = assess_art234_forged_license_possession_and_driving_not_utterance(case_id, positive_003, defendant_id, document_id, counterparty_id, "satisfied") and
+  assess_art234_forged_license_possession_and_driving_not_utterance(case_id, negative_003, defendant_id, document_id, counterparty_id, "not_satisfied") and
+  provable(case_id, positive_003) and
+  provable(case_id, negative_003)
+
+// rule_id: use_of_forged_private_document.card.art234_offense_character.satisfied
+// sources: comm_001692_제234조_Ⅰ_0
+// norm_cards: art234.offense_character
+rel satisfied_art234_offense_character(case_id, defendant_id, document_id, counterparty_id) = assess_art234_offense_character(case_id, assessment_004, defendant_id, document_id, counterparty_id, "satisfied") and
+  provable(case_id, assessment_004)
+
+// rule_id: use_of_forged_private_document.card.art234_offense_character.undetermined
+// sources: comm_001692_제234조_Ⅰ_0
+// norm_cards: art234.offense_character
+rel use_of_forged_private_document_undetermined(case_id, defendant_id, "art234.offense_character") = assess_art234_offense_character(case_id, unknown_004, defendant_id, document_id, counterparty_id, "unknown") and
+  provable(case_id, unknown_004)
+
+// rule_id: use_of_forged_private_document.card.art234_offense_character.conflict
+// sources: comm_001692_제234조_Ⅰ_0
+// norm_cards: art234.offense_character
+rel use_of_forged_private_document_conflict(case_id, defendant_id, "art234.offense_character") = assess_art234_offense_character(case_id, positive_004, defendant_id, document_id, counterparty_id, "satisfied") and
+  assess_art234_offense_character(case_id, negative_004, defendant_id, document_id, counterparty_id, "not_satisfied") and
+  provable(case_id, positive_004) and
+  provable(case_id, negative_004)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_copies_and_electronic_transmission.satisfied
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.copies_and_electronic_transmission
+rel satisfied_art234_sec2_1_copies_and_electronic_transmission(case_id, defendant_id, document_id, counterparty_id) = assess_art234_sec2_1_copies_and_electronic_transmission(case_id, assessment_005, defendant_id, document_id, counterparty_id, "satisfied") and
+  provable(case_id, assessment_005)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_copies_and_electronic_transmission.undetermined
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.copies_and_electronic_transmission
+rel use_of_forged_private_document_undetermined(case_id, defendant_id, "art234_sec2_1.copies_and_electronic_transmission") = assess_art234_sec2_1_copies_and_electronic_transmission(case_id, unknown_005, defendant_id, document_id, counterparty_id, "unknown") and
+  provable(case_id, unknown_005)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_copies_and_electronic_transmission.conflict
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.copies_and_electronic_transmission
+rel use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.copies_and_electronic_transmission") = assess_art234_sec2_1_copies_and_electronic_transmission(case_id, positive_005, defendant_id, document_id, counterparty_id, "satisfied") and
+  assess_art234_sec2_1_copies_and_electronic_transmission(case_id, negative_005, defendant_id, document_id, counterparty_id, "not_satisfied") and
+  provable(case_id, positive_005) and
+  provable(case_id, negative_005)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_counterparty_interest_and_lack_of_knowledge.satisfied
+// sources: comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.counterparty_interest_and_lack_of_knowledge
+rel satisfied_art234_sec2_1_counterparty_interest_and_lack_of_knowledge(case_id, defendant_id, document_id, counterparty_id) = assess_art234_sec2_1_counterparty_interest_and_lack_of_knowledge(case_id, assessment_006, defendant_id, document_id, counterparty_id, "satisfied") and
+  provable(case_id, assessment_006)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_counterparty_interest_and_lack_of_knowledge.undetermined
+// sources: comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.counterparty_interest_and_lack_of_knowledge
+rel use_of_forged_private_document_undetermined(case_id, defendant_id, "art234_sec2_1.counterparty_interest_and_lack_of_knowledge") = assess_art234_sec2_1_counterparty_interest_and_lack_of_knowledge(case_id, unknown_006, defendant_id, document_id, counterparty_id, "unknown") and
+  provable(case_id, unknown_006)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_counterparty_interest_and_lack_of_knowledge.conflict
+// sources: comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.counterparty_interest_and_lack_of_knowledge
+rel use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.counterparty_interest_and_lack_of_knowledge") = assess_art234_sec2_1_counterparty_interest_and_lack_of_knowledge(case_id, positive_006, defendant_id, document_id, counterparty_id, "satisfied") and
+  assess_art234_sec2_1_counterparty_interest_and_lack_of_knowledge(case_id, negative_006, defendant_id, document_id, counterparty_id, "not_satisfied") and
+  provable(case_id, positive_006) and
+  provable(case_id, negative_006)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_exercise_of_document.satisfied
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.exercise_of_document
+rel satisfied_art234_sec2_1_exercise_of_document(case_id, defendant_id, document_id, counterparty_id) = assess_art234_sec2_1_exercise_of_document(case_id, assessment_007, defendant_id, document_id, counterparty_id, "satisfied") and
+  provable(case_id, assessment_007)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_exercise_of_document.undetermined
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.exercise_of_document
+rel use_of_forged_private_document_undetermined(case_id, defendant_id, "art234_sec2_1.exercise_of_document") = assess_art234_sec2_1_exercise_of_document(case_id, unknown_007, defendant_id, document_id, counterparty_id, "unknown") and
+  provable(case_id, unknown_007)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_exercise_of_document.conflict
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.exercise_of_document
+rel use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.exercise_of_document") = assess_art234_sec2_1_exercise_of_document(case_id, positive_007, defendant_id, document_id, counterparty_id, "satisfied") and
+  assess_art234_sec2_1_exercise_of_document(case_id, negative_007, defendant_id, document_id, counterparty_id, "not_satisfied") and
+  provable(case_id, positive_007) and
+  provable(case_id, negative_007)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_exercise_of_special_media_record.satisfied
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.exercise_of_special_media_record
+rel satisfied_art234_sec2_1_exercise_of_special_media_record(case_id, defendant_id, document_id, counterparty_id) = assess_art234_sec2_1_exercise_of_special_media_record(case_id, assessment_008, defendant_id, document_id, counterparty_id, "satisfied") and
+  provable(case_id, assessment_008)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_exercise_of_special_media_record.undetermined
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.exercise_of_special_media_record
+rel use_of_forged_private_document_undetermined(case_id, defendant_id, "art234_sec2_1.exercise_of_special_media_record") = assess_art234_sec2_1_exercise_of_special_media_record(case_id, unknown_008, defendant_id, document_id, counterparty_id, "unknown") and
+  provable(case_id, unknown_008)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_exercise_of_special_media_record.conflict
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.exercise_of_special_media_record
+rel use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.exercise_of_special_media_record") = assess_art234_sec2_1_exercise_of_special_media_record(case_id, positive_008, defendant_id, document_id, counterparty_id, "satisfied") and
+  assess_art234_sec2_1_exercise_of_special_media_record(case_id, negative_008, defendant_id, document_id, counterparty_id, "not_satisfied") and
+  provable(case_id, positive_008) and
+  provable(case_id, negative_008)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_indirect_perpetration_tool_holder.satisfied
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.indirect_perpetration_tool_holder
+rel satisfied_art234_sec2_1_indirect_perpetration_tool_holder(case_id, defendant_id, document_id, counterparty_id) = assess_art234_sec2_1_indirect_perpetration_tool_holder(case_id, assessment_009, defendant_id, document_id, counterparty_id, "satisfied") and
+  provable(case_id, assessment_009)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_indirect_perpetration_tool_holder.undetermined
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.indirect_perpetration_tool_holder
+rel use_of_forged_private_document_undetermined(case_id, defendant_id, "art234_sec2_1.indirect_perpetration_tool_holder") = assess_art234_sec2_1_indirect_perpetration_tool_holder(case_id, unknown_009, defendant_id, document_id, counterparty_id, "unknown") and
+  provable(case_id, unknown_009)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_indirect_perpetration_tool_holder.conflict
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.indirect_perpetration_tool_holder
+rel use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.indirect_perpetration_tool_holder") = assess_art234_sec2_1_indirect_perpetration_tool_holder(case_id, positive_009, defendant_id, document_id, counterparty_id, "satisfied") and
+  assess_art234_sec2_1_indirect_perpetration_tool_holder(case_id, negative_009, defendant_id, document_id, counterparty_id, "not_satisfied") and
+  provable(case_id, positive_009) and
+  provable(case_id, negative_009)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_methods_of_exercise.satisfied
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.methods_of_exercise
+rel satisfied_art234_sec2_1_methods_of_exercise(case_id, defendant_id, document_id, counterparty_id) = assess_art234_sec2_1_methods_of_exercise(case_id, assessment_010, defendant_id, document_id, counterparty_id, "satisfied") and
+  provable(case_id, assessment_010)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_methods_of_exercise.undetermined
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.methods_of_exercise
+rel use_of_forged_private_document_undetermined(case_id, defendant_id, "art234_sec2_1.methods_of_exercise") = assess_art234_sec2_1_methods_of_exercise(case_id, unknown_010, defendant_id, document_id, counterparty_id, "unknown") and
+  provable(case_id, unknown_010)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_methods_of_exercise.conflict
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.methods_of_exercise
+rel use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.methods_of_exercise") = assess_art234_sec2_1_methods_of_exercise(case_id, positive_010, defendant_id, document_id, counterparty_id, "satisfied") and
+  assess_art234_sec2_1_methods_of_exercise(case_id, negative_010, defendant_id, document_id, counterparty_id, "not_satisfied") and
+  provable(case_id, positive_010) and
+  provable(case_id, negative_010)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_object_covered_documents.satisfied
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.object_covered_documents
+rel satisfied_art234_sec2_1_object_covered_documents(case_id, defendant_id, document_id, counterparty_id) = assess_art234_sec2_1_object_covered_documents(case_id, assessment_011, defendant_id, document_id, counterparty_id, "satisfied") and
+  provable(case_id, assessment_011)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_object_covered_documents.undetermined
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.object_covered_documents
+rel use_of_forged_private_document_undetermined(case_id, defendant_id, "art234_sec2_1.object_covered_documents") = assess_art234_sec2_1_object_covered_documents(case_id, unknown_011, defendant_id, document_id, counterparty_id, "unknown") and
+  provable(case_id, unknown_011)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_object_covered_documents.conflict
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.object_covered_documents
+rel use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.object_covered_documents") = assess_art234_sec2_1_object_covered_documents(case_id, positive_011, defendant_id, document_id, counterparty_id, "satisfied") and
+  assess_art234_sec2_1_object_covered_documents(case_id, negative_011, defendant_id, document_id, counterparty_id, "not_satisfied") and
+  provable(case_id, positive_011) and
+  provable(case_id, negative_011)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_possession_before_offer_not_exercise.satisfied
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.possession_before_offer_not_exercise
+rel satisfied_art234_sec2_1_possession_before_offer_not_exercise(case_id, defendant_id, document_id, counterparty_id) = assess_art234_sec2_1_possession_before_offer_not_exercise(case_id, assessment_012, defendant_id, document_id, counterparty_id, "satisfied") and
+  provable(case_id, assessment_012)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_possession_before_offer_not_exercise.undetermined
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.possession_before_offer_not_exercise
+rel use_of_forged_private_document_undetermined(case_id, defendant_id, "art234_sec2_1.possession_before_offer_not_exercise") = assess_art234_sec2_1_possession_before_offer_not_exercise(case_id, unknown_012, defendant_id, document_id, counterparty_id, "unknown") and
+  provable(case_id, unknown_012)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_possession_before_offer_not_exercise.conflict
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.possession_before_offer_not_exercise
+rel use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.possession_before_offer_not_exercise") = assess_art234_sec2_1_possession_before_offer_not_exercise(case_id, positive_012, defendant_id, document_id, counterparty_id, "satisfied") and
+  assess_art234_sec2_1_possession_before_offer_not_exercise(case_id, negative_012, defendant_id, document_id, counterparty_id, "not_satisfied") and
+  provable(case_id, positive_012) and
+  provable(case_id, negative_012)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_presentation_to_knowing_accomplice.satisfied
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.presentation_to_knowing_accomplice
+rel satisfied_art234_sec2_1_presentation_to_knowing_accomplice(case_id, defendant_id, document_id, counterparty_id) = assess_art234_sec2_1_presentation_to_knowing_accomplice(case_id, assessment_013, defendant_id, document_id, counterparty_id, "satisfied") and
+  provable(case_id, assessment_013)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_presentation_to_knowing_accomplice.undetermined
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.presentation_to_knowing_accomplice
+rel use_of_forged_private_document_undetermined(case_id, defendant_id, "art234_sec2_1.presentation_to_knowing_accomplice") = assess_art234_sec2_1_presentation_to_knowing_accomplice(case_id, unknown_013, defendant_id, document_id, counterparty_id, "unknown") and
+  provable(case_id, unknown_013)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_presentation_to_knowing_accomplice.conflict
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.presentation_to_knowing_accomplice
+rel use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.presentation_to_knowing_accomplice") = assess_art234_sec2_1_presentation_to_knowing_accomplice(case_id, positive_013, defendant_id, document_id, counterparty_id, "satisfied") and
+  assess_art234_sec2_1_presentation_to_knowing_accomplice(case_id, negative_013, defendant_id, document_id, counterparty_id, "not_satisfied") and
+  provable(case_id, positive_013) and
+  provable(case_id, negative_013)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_transcript_not_exercise.satisfied
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.transcript_not_exercise
+rel satisfied_art234_sec2_1_transcript_not_exercise(case_id, defendant_id, document_id, counterparty_id) = assess_art234_sec2_1_transcript_not_exercise(case_id, assessment_014, defendant_id, document_id, counterparty_id, "satisfied") and
+  provable(case_id, assessment_014)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_transcript_not_exercise.undetermined
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.transcript_not_exercise
+rel use_of_forged_private_document_undetermined(case_id, defendant_id, "art234_sec2_1.transcript_not_exercise") = assess_art234_sec2_1_transcript_not_exercise(case_id, unknown_014, defendant_id, document_id, counterparty_id, "unknown") and
+  provable(case_id, unknown_014)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_transcript_not_exercise.conflict
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.transcript_not_exercise
+rel use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.transcript_not_exercise") = assess_art234_sec2_1_transcript_not_exercise(case_id, positive_014, defendant_id, document_id, counterparty_id, "satisfied") and
+  assess_art234_sec2_1_transcript_not_exercise(case_id, negative_014, defendant_id, document_id, counterparty_id, "not_satisfied") and
+  provable(case_id, positive_014) and
+  provable(case_id, negative_014)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_use_as_forgery_not_exercise.satisfied
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.use_as_forgery_not_exercise
+rel satisfied_art234_sec2_1_use_as_forgery_not_exercise(case_id, defendant_id, document_id, counterparty_id) = assess_art234_sec2_1_use_as_forgery_not_exercise(case_id, assessment_015, defendant_id, document_id, counterparty_id, "satisfied") and
+  provable(case_id, assessment_015)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_use_as_forgery_not_exercise.undetermined
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.use_as_forgery_not_exercise
+rel use_of_forged_private_document_undetermined(case_id, defendant_id, "art234_sec2_1.use_as_forgery_not_exercise") = assess_art234_sec2_1_use_as_forgery_not_exercise(case_id, unknown_015, defendant_id, document_id, counterparty_id, "unknown") and
+  provable(case_id, unknown_015)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_1_use_as_forgery_not_exercise.conflict
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.use_as_forgery_not_exercise
+rel use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.use_as_forgery_not_exercise") = assess_art234_sec2_1_use_as_forgery_not_exercise(case_id, positive_015, defendant_id, document_id, counterparty_id, "satisfied") and
+  assess_art234_sec2_1_use_as_forgery_not_exercise(case_id, negative_015, defendant_id, document_id, counterparty_id, "not_satisfied") and
+  provable(case_id, positive_015) and
+  provable(case_id, negative_015)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_2_intent_no_purpose.satisfied
+// sources: comm_001692_제234조_Ⅱ.2_3
+// norm_cards: art234_sec2_2.intent_no_purpose
+rel satisfied_art234_sec2_2_intent_no_purpose(case_id, defendant_id, document_id, counterparty_id) = assess_art234_sec2_2_intent_no_purpose(case_id, assessment_016, defendant_id, document_id, counterparty_id, "satisfied") and
+  provable(case_id, assessment_016)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_2_intent_no_purpose.undetermined
+// sources: comm_001692_제234조_Ⅱ.2_3
+// norm_cards: art234_sec2_2.intent_no_purpose
+rel use_of_forged_private_document_undetermined(case_id, defendant_id, "art234_sec2_2.intent_no_purpose") = assess_art234_sec2_2_intent_no_purpose(case_id, unknown_016, defendant_id, document_id, counterparty_id, "unknown") and
+  provable(case_id, unknown_016)
+
+// rule_id: use_of_forged_private_document.card.art234_sec2_2_intent_no_purpose.conflict
+// sources: comm_001692_제234조_Ⅱ.2_3
+// norm_cards: art234_sec2_2.intent_no_purpose
+rel use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_2.intent_no_purpose") = assess_art234_sec2_2_intent_no_purpose(case_id, positive_016, defendant_id, document_id, counterparty_id, "satisfied") and
+  assess_art234_sec2_2_intent_no_purpose(case_id, negative_016, defendant_id, document_id, counterparty_id, "not_satisfied") and
+  provable(case_id, positive_016) and
+  provable(case_id, negative_016)
+
+// rule_id: use_of_forged_private_document.card.art234_sec4_company_agreement_breach_ideal_concurrence.satisfied
+// sources: comm_001692_제234조_Ⅳ_5
+// norm_cards: art234_sec4.company_agreement_breach_ideal_concurrence
+rel satisfied_art234_sec4_company_agreement_breach_ideal_concurrence(case_id, defendant_id, document_id, counterparty_id) = assess_art234_sec4_company_agreement_breach_ideal_concurrence(case_id, assessment_017, defendant_id, document_id, counterparty_id, "satisfied") and
+  provable(case_id, assessment_017)
+
+// rule_id: use_of_forged_private_document.card.art234_sec4_company_agreement_breach_ideal_concurrence.undetermined
+// sources: comm_001692_제234조_Ⅳ_5
+// norm_cards: art234_sec4.company_agreement_breach_ideal_concurrence
+rel use_of_forged_private_document_undetermined(case_id, defendant_id, "art234_sec4.company_agreement_breach_ideal_concurrence") = assess_art234_sec4_company_agreement_breach_ideal_concurrence(case_id, unknown_017, defendant_id, document_id, counterparty_id, "unknown") and
+  provable(case_id, unknown_017)
+
+// rule_id: use_of_forged_private_document.card.art234_sec4_company_agreement_breach_ideal_concurrence.conflict
+// sources: comm_001692_제234조_Ⅳ_5
+// norm_cards: art234_sec4.company_agreement_breach_ideal_concurrence
+rel use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec4.company_agreement_breach_ideal_concurrence") = assess_art234_sec4_company_agreement_breach_ideal_concurrence(case_id, positive_017, defendant_id, document_id, counterparty_id, "satisfied") and
+  assess_art234_sec4_company_agreement_breach_ideal_concurrence(case_id, negative_017, defendant_id, document_id, counterparty_id, "not_satisfied") and
+  provable(case_id, positive_017) and
+  provable(case_id, negative_017)
+
+// rule_id: use_of_forged_private_document.card.art234_sec4_forger_and_exercise_real_concurrence.satisfied
+// sources: comm_001692_제234조_Ⅳ_5
+// norm_cards: art234_sec4.forger_and_exercise_real_concurrence
+rel satisfied_art234_sec4_forger_and_exercise_real_concurrence(case_id, defendant_id, document_id, counterparty_id) = assess_art234_sec4_forger_and_exercise_real_concurrence(case_id, assessment_018, defendant_id, document_id, counterparty_id, "satisfied") and
+  provable(case_id, assessment_018)
+
+// rule_id: use_of_forged_private_document.card.art234_sec4_forger_and_exercise_real_concurrence.undetermined
+// sources: comm_001692_제234조_Ⅳ_5
+// norm_cards: art234_sec4.forger_and_exercise_real_concurrence
+rel use_of_forged_private_document_undetermined(case_id, defendant_id, "art234_sec4.forger_and_exercise_real_concurrence") = assess_art234_sec4_forger_and_exercise_real_concurrence(case_id, unknown_018, defendant_id, document_id, counterparty_id, "unknown") and
+  provable(case_id, unknown_018)
+
+// rule_id: use_of_forged_private_document.card.art234_sec4_forger_and_exercise_real_concurrence.conflict
+// sources: comm_001692_제234조_Ⅳ_5
+// norm_cards: art234_sec4.forger_and_exercise_real_concurrence
+rel use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec4.forger_and_exercise_real_concurrence") = assess_art234_sec4_forger_and_exercise_real_concurrence(case_id, positive_018, defendant_id, document_id, counterparty_id, "satisfied") and
+  assess_art234_sec4_forger_and_exercise_real_concurrence(case_id, negative_018, defendant_id, document_id, counterparty_id, "not_satisfied") and
+  provable(case_id, positive_018) and
+  provable(case_id, negative_018)
+
+// rule_id: use_of_forged_private_document.card.art234_sec4_multiple_documents_ideal_concurrence.satisfied
+// sources: comm_001692_제234조_Ⅳ_5
+// norm_cards: art234_sec4.multiple_documents_ideal_concurrence
+rel satisfied_art234_sec4_multiple_documents_ideal_concurrence(case_id, defendant_id, document_id, counterparty_id) = assess_art234_sec4_multiple_documents_ideal_concurrence(case_id, assessment_019, defendant_id, document_id, counterparty_id, "satisfied") and
+  provable(case_id, assessment_019)
+
+// rule_id: use_of_forged_private_document.card.art234_sec4_multiple_documents_ideal_concurrence.undetermined
+// sources: comm_001692_제234조_Ⅳ_5
+// norm_cards: art234_sec4.multiple_documents_ideal_concurrence
+rel use_of_forged_private_document_undetermined(case_id, defendant_id, "art234_sec4.multiple_documents_ideal_concurrence") = assess_art234_sec4_multiple_documents_ideal_concurrence(case_id, unknown_019, defendant_id, document_id, counterparty_id, "unknown") and
+  provable(case_id, unknown_019)
+
+// rule_id: use_of_forged_private_document.card.art234_sec4_multiple_documents_ideal_concurrence.conflict
+// sources: comm_001692_제234조_Ⅳ_5
+// norm_cards: art234_sec4.multiple_documents_ideal_concurrence
+rel use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec4.multiple_documents_ideal_concurrence") = assess_art234_sec4_multiple_documents_ideal_concurrence(case_id, positive_019, defendant_id, document_id, counterparty_id, "satisfied") and
+  assess_art234_sec4_multiple_documents_ideal_concurrence(case_id, negative_019, defendant_id, document_id, counterparty_id, "not_satisfied") and
+  provable(case_id, positive_019) and
+  provable(case_id, negative_019)
+
+// rule_id: use_of_forged_private_document.component.base.covered_forged_instrument.art234_offense_character
+// sources: comm_001692_제234조_Ⅰ_0
+// norm_cards: art234.offense_character
+rel use_of_forged_private_document_base_covered_forged_instrument_satisfied(case_id, defendant_id, document_id, counterparty_id) = satisfied_art234_offense_character(case_id, defendant_id, document_id, counterparty_id)
+
+// rule_id: use_of_forged_private_document.component.base.covered_forged_instrument.art234_sec2_1_object_covered_documents
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.object_covered_documents
+rel use_of_forged_private_document_base_covered_forged_instrument_satisfied(case_id, defendant_id, document_id, counterparty_id) = satisfied_art234_sec2_1_object_covered_documents(case_id, defendant_id, document_id, counterparty_id)
+
+// rule_id: use_of_forged_private_document.component.base.exercise.art234_completion_by_placement_or_mail_delivery
+// sources: comm_001692_제234조_Ⅲ_4
+// norm_cards: art234.completion_by_placement_or_mail_delivery
+rel use_of_forged_private_document_base_exercise_satisfied(case_id, defendant_id, document_id, counterparty_id) = satisfied_art234_completion_by_placement_or_mail_delivery(case_id, defendant_id, document_id, counterparty_id)
+
+// rule_id: use_of_forged_private_document.component.base.exercise.art234_sec2_1_copies_and_electronic_transmission
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.copies_and_electronic_transmission
+rel use_of_forged_private_document_base_exercise_satisfied(case_id, defendant_id, document_id, counterparty_id) = satisfied_art234_sec2_1_copies_and_electronic_transmission(case_id, defendant_id, document_id, counterparty_id)
+
+// rule_id: use_of_forged_private_document.component.base.exercise.art234_sec2_1_exercise_of_document
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.exercise_of_document
+rel use_of_forged_private_document_base_exercise_satisfied(case_id, defendant_id, document_id, counterparty_id) = satisfied_art234_sec2_1_exercise_of_document(case_id, defendant_id, document_id, counterparty_id)
+
+// rule_id: use_of_forged_private_document.component.base.exercise.art234_sec2_1_exercise_of_special_media_record
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.exercise_of_special_media_record
+rel use_of_forged_private_document_base_exercise_satisfied(case_id, defendant_id, document_id, counterparty_id) = satisfied_art234_sec2_1_exercise_of_special_media_record(case_id, defendant_id, document_id, counterparty_id)
+
+// rule_id: use_of_forged_private_document.component.base.exercise.art234_sec2_1_indirect_perpetration_tool_holder
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.indirect_perpetration_tool_holder
+rel use_of_forged_private_document_base_exercise_satisfied(case_id, defendant_id, document_id, counterparty_id) = satisfied_art234_sec2_1_indirect_perpetration_tool_holder(case_id, defendant_id, document_id, counterparty_id)
+
+// rule_id: use_of_forged_private_document.component.base.exercise.art234_sec2_1_methods_of_exercise
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.methods_of_exercise
+rel use_of_forged_private_document_base_exercise_satisfied(case_id, defendant_id, document_id, counterparty_id) = satisfied_art234_sec2_1_methods_of_exercise(case_id, defendant_id, document_id, counterparty_id)
+
+// rule_id: use_of_forged_private_document.component.base.intent.all
+// sources: comm_001692_제234조_Ⅱ.2_3
+// norm_cards: art234_sec2_2.intent_no_purpose
+rel use_of_forged_private_document_base_intent_satisfied(case_id, defendant_id, document_id, counterparty_id) = satisfied_art234_sec2_2_intent_no_purpose(case_id, defendant_id, document_id, counterparty_id)
+
+// rule_id: use_of_forged_private_document.component.base.unaware_interested_counterparty.all
+// sources: comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.counterparty_interest_and_lack_of_knowledge
+rel use_of_forged_private_document_base_unaware_interested_counterparty_satisfied(case_id, defendant_id, document_id, counterparty_id) = satisfied_art234_sec2_1_counterparty_interest_and_lack_of_knowledge(case_id, defendant_id, document_id, counterparty_id)
+
+// rule_id: use_of_forged_private_document.track_conflict.base.art234_offense_character
+// sources: comm_001692_제234조_Ⅰ_0
+// norm_cards: art234.offense_character
+rel use_of_forged_private_document_track_conflict(case_id, defendant_id, "base", "art234.offense_character") = use_of_forged_private_document_conflict(case_id, defendant_id, "art234.offense_character")
+
+// rule_id: use_of_forged_private_document.track_conflict.base.art234_sec2_1_object_covered_documents
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.object_covered_documents
+rel use_of_forged_private_document_track_conflict(case_id, defendant_id, "base", "art234_sec2_1.object_covered_documents") = use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.object_covered_documents")
+
+// rule_id: use_of_forged_private_document.track_conflict.base.art234_completion_by_placement_or_mail_delivery
+// sources: comm_001692_제234조_Ⅲ_4
+// norm_cards: art234.completion_by_placement_or_mail_delivery
+rel use_of_forged_private_document_track_conflict(case_id, defendant_id, "base", "art234.completion_by_placement_or_mail_delivery") = use_of_forged_private_document_conflict(case_id, defendant_id, "art234.completion_by_placement_or_mail_delivery")
+
+// rule_id: use_of_forged_private_document.track_conflict.base.art234_forged_license_possession_and_driving_not_utterance
+// sources: comm_001692_제234조_Ⅲ_4
+// norm_cards: art234.forged_license_possession_and_driving_not_utterance
+rel use_of_forged_private_document_track_conflict(case_id, defendant_id, "base", "art234.forged_license_possession_and_driving_not_utterance") = use_of_forged_private_document_conflict(case_id, defendant_id, "art234.forged_license_possession_and_driving_not_utterance")
+
+// rule_id: use_of_forged_private_document.track_blocked.base.art234_forged_license_possession_and_driving_not_utterance
+// sources: comm_001692_제234조_Ⅲ_4
+// norm_cards: art234.forged_license_possession_and_driving_not_utterance
+rel use_of_forged_private_document_track_not_established(case_id, defendant_id, "base", "art234.forged_license_possession_and_driving_not_utterance") = satisfied_art234_forged_license_possession_and_driving_not_utterance(case_id, defendant_id, document_id, counterparty_id)
+
+// rule_id: use_of_forged_private_document.track_conflict.base.art234_sec2_1_copies_and_electronic_transmission
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.copies_and_electronic_transmission
+rel use_of_forged_private_document_track_conflict(case_id, defendant_id, "base", "art234_sec2_1.copies_and_electronic_transmission") = use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.copies_and_electronic_transmission")
+
+// rule_id: use_of_forged_private_document.track_conflict.base.art234_sec2_1_exercise_of_document
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.exercise_of_document
+rel use_of_forged_private_document_track_conflict(case_id, defendant_id, "base", "art234_sec2_1.exercise_of_document") = use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.exercise_of_document")
+
+// rule_id: use_of_forged_private_document.track_conflict.base.art234_sec2_1_exercise_of_special_media_record
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.exercise_of_special_media_record
+rel use_of_forged_private_document_track_conflict(case_id, defendant_id, "base", "art234_sec2_1.exercise_of_special_media_record") = use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.exercise_of_special_media_record")
+
+// rule_id: use_of_forged_private_document.track_conflict.base.art234_sec2_1_indirect_perpetration_tool_holder
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.indirect_perpetration_tool_holder
+rel use_of_forged_private_document_track_conflict(case_id, defendant_id, "base", "art234_sec2_1.indirect_perpetration_tool_holder") = use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.indirect_perpetration_tool_holder")
+
+// rule_id: use_of_forged_private_document.track_conflict.base.art234_sec2_1_methods_of_exercise
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.methods_of_exercise
+rel use_of_forged_private_document_track_conflict(case_id, defendant_id, "base", "art234_sec2_1.methods_of_exercise") = use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.methods_of_exercise")
+
+// rule_id: use_of_forged_private_document.track_conflict.base.art234_sec2_1_possession_before_offer_not_exercise
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.possession_before_offer_not_exercise
+rel use_of_forged_private_document_track_conflict(case_id, defendant_id, "base", "art234_sec2_1.possession_before_offer_not_exercise") = use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.possession_before_offer_not_exercise")
+
+// rule_id: use_of_forged_private_document.track_blocked.base.art234_sec2_1_possession_before_offer_not_exercise
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.possession_before_offer_not_exercise
+rel use_of_forged_private_document_track_not_established(case_id, defendant_id, "base", "art234_sec2_1.possession_before_offer_not_exercise") = satisfied_art234_sec2_1_possession_before_offer_not_exercise(case_id, defendant_id, document_id, counterparty_id)
+
+// rule_id: use_of_forged_private_document.track_conflict.base.art234_sec2_1_transcript_not_exercise
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.transcript_not_exercise
+rel use_of_forged_private_document_track_conflict(case_id, defendant_id, "base", "art234_sec2_1.transcript_not_exercise") = use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.transcript_not_exercise")
+
+// rule_id: use_of_forged_private_document.track_blocked.base.art234_sec2_1_transcript_not_exercise
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.transcript_not_exercise
+rel use_of_forged_private_document_track_not_established(case_id, defendant_id, "base", "art234_sec2_1.transcript_not_exercise") = satisfied_art234_sec2_1_transcript_not_exercise(case_id, defendant_id, document_id, counterparty_id)
+
+// rule_id: use_of_forged_private_document.track_conflict.base.art234_sec2_1_use_as_forgery_not_exercise
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.use_as_forgery_not_exercise
+rel use_of_forged_private_document_track_conflict(case_id, defendant_id, "base", "art234_sec2_1.use_as_forgery_not_exercise") = use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.use_as_forgery_not_exercise")
+
+// rule_id: use_of_forged_private_document.track_blocked.base.art234_sec2_1_use_as_forgery_not_exercise
+// sources: comm_001692_제234조_Ⅱ.1_1
+// norm_cards: art234_sec2_1.use_as_forgery_not_exercise
+rel use_of_forged_private_document_track_not_established(case_id, defendant_id, "base", "art234_sec2_1.use_as_forgery_not_exercise") = satisfied_art234_sec2_1_use_as_forgery_not_exercise(case_id, defendant_id, document_id, counterparty_id)
+
+// rule_id: use_of_forged_private_document.track_conflict.base.art234_sec2_2_intent_no_purpose
+// sources: comm_001692_제234조_Ⅱ.2_3
+// norm_cards: art234_sec2_2.intent_no_purpose
+rel use_of_forged_private_document_track_conflict(case_id, defendant_id, "base", "art234_sec2_2.intent_no_purpose") = use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_2.intent_no_purpose")
+
+// rule_id: use_of_forged_private_document.track_conflict.base.art234_sec2_1_counterparty_interest_and_lack_of_knowledge
+// sources: comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.counterparty_interest_and_lack_of_knowledge
+rel use_of_forged_private_document_track_conflict(case_id, defendant_id, "base", "art234_sec2_1.counterparty_interest_and_lack_of_knowledge") = use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.counterparty_interest_and_lack_of_knowledge")
+
+// rule_id: use_of_forged_private_document.track_conflict.base.art234_sec2_1_presentation_to_knowing_accomplice
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.presentation_to_knowing_accomplice
+rel use_of_forged_private_document_track_conflict(case_id, defendant_id, "base", "art234_sec2_1.presentation_to_knowing_accomplice") = use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.presentation_to_knowing_accomplice")
+
+// rule_id: use_of_forged_private_document.track_blocked.base.art234_sec2_1_presentation_to_knowing_accomplice
+// sources: comm_001692_제234조_Ⅱ.1_2
+// norm_cards: art234_sec2_1.presentation_to_knowing_accomplice
+rel use_of_forged_private_document_track_not_established(case_id, defendant_id, "base", "art234_sec2_1.presentation_to_knowing_accomplice") = satisfied_art234_sec2_1_presentation_to_knowing_accomplice(case_id, defendant_id, document_id, counterparty_id)
+
+// rule_id: use_of_forged_private_document.summary.has_negative
+// sources: comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅰ_0, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.2_3, comm_001692_제234조_Ⅳ_5, comm_001692_제234조_Ⅳ_5, comm_001692_제234조_Ⅳ_5
+// norm_cards: art234.attempt_punishable, art234.completion_by_placement_or_mail_delivery, art234.forged_license_possession_and_driving_not_utterance, art234.offense_character, art234_sec2_1.copies_and_electronic_transmission, art234_sec2_1.counterparty_interest_and_lack_of_knowledge, art234_sec2_1.exercise_of_document, art234_sec2_1.exercise_of_special_media_record, art234_sec2_1.indirect_perpetration_tool_holder, art234_sec2_1.methods_of_exercise, art234_sec2_1.object_covered_documents, art234_sec2_1.possession_before_offer_not_exercise, art234_sec2_1.presentation_to_knowing_accomplice, art234_sec2_1.transcript_not_exercise, art234_sec2_1.use_as_forgery_not_exercise, art234_sec2_2.intent_no_purpose, art234_sec4.company_agreement_breach_ideal_concurrence, art234_sec4.forger_and_exercise_real_concurrence, art234_sec4.multiple_documents_ideal_concurrence
+rel use_of_forged_private_document_has_negative(case_id, defendant_id) = use_of_forged_private_document_not_established(case_id, defendant_id, norm_card_id)
+
+// rule_id: use_of_forged_private_document.summary.has_conflict
+// sources: comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅰ_0, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.2_3, comm_001692_제234조_Ⅳ_5, comm_001692_제234조_Ⅳ_5, comm_001692_제234조_Ⅳ_5
+// norm_cards: art234.attempt_punishable, art234.completion_by_placement_or_mail_delivery, art234.forged_license_possession_and_driving_not_utterance, art234.offense_character, art234_sec2_1.copies_and_electronic_transmission, art234_sec2_1.counterparty_interest_and_lack_of_knowledge, art234_sec2_1.exercise_of_document, art234_sec2_1.exercise_of_special_media_record, art234_sec2_1.indirect_perpetration_tool_holder, art234_sec2_1.methods_of_exercise, art234_sec2_1.object_covered_documents, art234_sec2_1.possession_before_offer_not_exercise, art234_sec2_1.presentation_to_knowing_accomplice, art234_sec2_1.transcript_not_exercise, art234_sec2_1.use_as_forgery_not_exercise, art234_sec2_2.intent_no_purpose, art234_sec4.company_agreement_breach_ideal_concurrence, art234_sec4.forger_and_exercise_real_concurrence, art234_sec4.multiple_documents_ideal_concurrence
+rel use_of_forged_private_document_has_conflict(case_id, defendant_id) = use_of_forged_private_document_conflict(case_id, defendant_id, norm_card_id)
+
+// rule_id: use_of_forged_private_document.summary.canonical_not_established
+// sources: comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅰ_0, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.2_3, comm_001692_제234조_Ⅳ_5, comm_001692_제234조_Ⅳ_5, comm_001692_제234조_Ⅳ_5
+// norm_cards: art234.attempt_punishable, art234.completion_by_placement_or_mail_delivery, art234.forged_license_possession_and_driving_not_utterance, art234.offense_character, art234_sec2_1.copies_and_electronic_transmission, art234_sec2_1.counterparty_interest_and_lack_of_knowledge, art234_sec2_1.exercise_of_document, art234_sec2_1.exercise_of_special_media_record, art234_sec2_1.indirect_perpetration_tool_holder, art234_sec2_1.methods_of_exercise, art234_sec2_1.object_covered_documents, art234_sec2_1.possession_before_offer_not_exercise, art234_sec2_1.presentation_to_knowing_accomplice, art234_sec2_1.transcript_not_exercise, art234_sec2_1.use_as_forgery_not_exercise, art234_sec2_2.intent_no_purpose, art234_sec4.company_agreement_breach_ideal_concurrence, art234_sec4.forger_and_exercise_real_concurrence, art234_sec4.multiple_documents_ideal_concurrence
+rel use_of_forged_private_document_not_established(case_id, defendant_id, norm_card_id) = use_of_forged_private_document_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: use_of_forged_private_document.summary.track_has_negative
+// sources: comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅰ_0, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.2_3, comm_001692_제234조_Ⅳ_5, comm_001692_제234조_Ⅳ_5, comm_001692_제234조_Ⅳ_5
+// norm_cards: art234.attempt_punishable, art234.completion_by_placement_or_mail_delivery, art234.forged_license_possession_and_driving_not_utterance, art234.offense_character, art234_sec2_1.copies_and_electronic_transmission, art234_sec2_1.counterparty_interest_and_lack_of_knowledge, art234_sec2_1.exercise_of_document, art234_sec2_1.exercise_of_special_media_record, art234_sec2_1.indirect_perpetration_tool_holder, art234_sec2_1.methods_of_exercise, art234_sec2_1.object_covered_documents, art234_sec2_1.possession_before_offer_not_exercise, art234_sec2_1.presentation_to_knowing_accomplice, art234_sec2_1.transcript_not_exercise, art234_sec2_1.use_as_forgery_not_exercise, art234_sec2_2.intent_no_purpose, art234_sec4.company_agreement_breach_ideal_concurrence, art234_sec4.forger_and_exercise_real_concurrence, art234_sec4.multiple_documents_ideal_concurrence
+rel use_of_forged_private_document_track_has_negative(case_id, defendant_id, track_id) = use_of_forged_private_document_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: use_of_forged_private_document.summary.track_has_conflict
+// sources: comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅰ_0, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.2_3, comm_001692_제234조_Ⅳ_5, comm_001692_제234조_Ⅳ_5, comm_001692_제234조_Ⅳ_5
+// norm_cards: art234.attempt_punishable, art234.completion_by_placement_or_mail_delivery, art234.forged_license_possession_and_driving_not_utterance, art234.offense_character, art234_sec2_1.copies_and_electronic_transmission, art234_sec2_1.counterparty_interest_and_lack_of_knowledge, art234_sec2_1.exercise_of_document, art234_sec2_1.exercise_of_special_media_record, art234_sec2_1.indirect_perpetration_tool_holder, art234_sec2_1.methods_of_exercise, art234_sec2_1.object_covered_documents, art234_sec2_1.possession_before_offer_not_exercise, art234_sec2_1.presentation_to_knowing_accomplice, art234_sec2_1.transcript_not_exercise, art234_sec2_1.use_as_forgery_not_exercise, art234_sec2_2.intent_no_purpose, art234_sec4.company_agreement_breach_ideal_concurrence, art234_sec4.forger_and_exercise_real_concurrence, art234_sec4.multiple_documents_ideal_concurrence
+rel use_of_forged_private_document_track_has_conflict(case_id, defendant_id, track_id) = use_of_forged_private_document_track_conflict(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: use_of_forged_private_document.outcome.base.elements_satisfied
+// sources: comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅰ_0, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.2_3, comm_001692_제234조_Ⅳ_5, comm_001692_제234조_Ⅳ_5, comm_001692_제234조_Ⅳ_5
+// norm_cards: art234.attempt_punishable, art234.completion_by_placement_or_mail_delivery, art234.forged_license_possession_and_driving_not_utterance, art234.offense_character, art234_sec2_1.copies_and_electronic_transmission, art234_sec2_1.counterparty_interest_and_lack_of_knowledge, art234_sec2_1.exercise_of_document, art234_sec2_1.exercise_of_special_media_record, art234_sec2_1.indirect_perpetration_tool_holder, art234_sec2_1.methods_of_exercise, art234_sec2_1.object_covered_documents, art234_sec2_1.possession_before_offer_not_exercise, art234_sec2_1.presentation_to_knowing_accomplice, art234_sec2_1.transcript_not_exercise, art234_sec2_1.use_as_forgery_not_exercise, art234_sec2_2.intent_no_purpose, art234_sec4.company_agreement_breach_ideal_concurrence, art234_sec4.forger_and_exercise_real_concurrence, art234_sec4.multiple_documents_ideal_concurrence
+rel use_of_forged_private_document_base_elements_satisfied(case_id, defendant_id, document_id, counterparty_id) = use_of_forged_private_document_base_covered_forged_instrument_satisfied(case_id, defendant_id, document_id, counterparty_id) and
+  use_of_forged_private_document_base_exercise_satisfied(case_id, defendant_id, document_id, counterparty_id) and
+  use_of_forged_private_document_base_intent_satisfied(case_id, defendant_id, document_id, counterparty_id) and
+  use_of_forged_private_document_base_unaware_interested_counterparty_satisfied(case_id, defendant_id, document_id, counterparty_id)
+
+// rule_id: use_of_forged_private_document.outcome.base.established
+// sources: comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅰ_0, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.2_3, comm_001692_제234조_Ⅳ_5, comm_001692_제234조_Ⅳ_5, comm_001692_제234조_Ⅳ_5
+// norm_cards: art234.attempt_punishable, art234.completion_by_placement_or_mail_delivery, art234.forged_license_possession_and_driving_not_utterance, art234.offense_character, art234_sec2_1.copies_and_electronic_transmission, art234_sec2_1.counterparty_interest_and_lack_of_knowledge, art234_sec2_1.exercise_of_document, art234_sec2_1.exercise_of_special_media_record, art234_sec2_1.indirect_perpetration_tool_holder, art234_sec2_1.methods_of_exercise, art234_sec2_1.object_covered_documents, art234_sec2_1.possession_before_offer_not_exercise, art234_sec2_1.presentation_to_knowing_accomplice, art234_sec2_1.transcript_not_exercise, art234_sec2_1.use_as_forgery_not_exercise, art234_sec2_2.intent_no_purpose, art234_sec4.company_agreement_breach_ideal_concurrence, art234_sec4.forger_and_exercise_real_concurrence, art234_sec4.multiple_documents_ideal_concurrence
+rel use_of_forged_private_document_base_established(case_id, defendant_id, document_id, counterparty_id) = use_of_forged_private_document_base_elements_satisfied(case_id, defendant_id, document_id, counterparty_id) and
+  case_assessment_complete(case_id, defendant_id) and
+  ~use_of_forged_private_document_track_has_negative(case_id, defendant_id, "base") and
+  ~use_of_forged_private_document_track_has_conflict(case_id, defendant_id, "base")

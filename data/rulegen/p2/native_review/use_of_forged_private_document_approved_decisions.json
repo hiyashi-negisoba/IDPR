@@ -1,0 +1,231 @@
+{
+  "version": "1.0.0",
+  "authority": "delegated_human_legal_review",
+  "unit_id": "use_of_forged_private_document",
+  "approved_on": "2026-08-04",
+  "approval_basis": [
+    "data/rulegen/p2/native_review/use_of_forged_private_document_approval_config.json"
+  ],
+  "policy": {
+    "approval": "Delegated normalization on 2026-08-04",
+    "scope": "제234조 위조사문서등행사",
+    "exercise": "진정·진실 문서처럼 비인지 이해관계인이 인식 가능한 상태에 둠",
+    "result": "실제 인식·손해는 요구하지 않음"
+  },
+  "track_vocabulary": [
+    {
+      "track_id": "base",
+      "label": "제234조 위조사문서등행사"
+    }
+  ],
+  "cards": [
+    {
+      "card_id": "art234.attempt_punishable",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "attempt",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "행사죄 미수 처벌"
+    },
+    {
+      "card_id": "art234.completion_by_placement_or_mail_delivery",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "exercise",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "진정한 문서처럼 상대방이 인식 가능한 상태에 두는 제시·교부·송부·비치·전송"
+    },
+    {
+      "card_id": "art234.forged_license_possession_and_driving_not_utterance",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "exercise",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "단순 소지·운전·사자 교부·필사본 또는 위조문서임을 밝힌 사용"
+    },
+    {
+      "card_id": "art234.offense_character",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "covered_forged_instrument",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": "private_document_forgery",
+      "rationale": "제231조부터 제233조까지의 위변조 문서·도화·특수매체기록"
+    },
+    {
+      "card_id": "art234_sec2_1.copies_and_electronic_transmission",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "exercise",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "진정한 문서처럼 상대방이 인식 가능한 상태에 두는 제시·교부·송부·비치·전송"
+    },
+    {
+      "card_id": "art234_sec2_1.counterparty_interest_and_lack_of_knowledge",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "unaware_interested_counterparty",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "문서 이해관계가 있고 위조 사실을 모르는 상대방"
+    },
+    {
+      "card_id": "art234_sec2_1.exercise_of_document",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "exercise",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "진정한 문서처럼 상대방이 인식 가능한 상태에 두는 제시·교부·송부·비치·전송"
+    },
+    {
+      "card_id": "art234_sec2_1.exercise_of_special_media_record",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "exercise",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "진정한 문서처럼 상대방이 인식 가능한 상태에 두는 제시·교부·송부·비치·전송"
+    },
+    {
+      "card_id": "art234_sec2_1.indirect_perpetration_tool_holder",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "exercise",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "진정한 문서처럼 상대방이 인식 가능한 상태에 두는 제시·교부·송부·비치·전송"
+    },
+    {
+      "card_id": "art234_sec2_1.methods_of_exercise",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "exercise",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "진정한 문서처럼 상대방이 인식 가능한 상태에 두는 제시·교부·송부·비치·전송"
+    },
+    {
+      "card_id": "art234_sec2_1.no_actual_harm_required",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "실해 불요 또는 주체 무제한의 일반 설명"
+    },
+    {
+      "card_id": "art234_sec2_1.no_actual_recognition_or_harm_risk_required",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "실해 불요 또는 주체 무제한의 일반 설명"
+    },
+    {
+      "card_id": "art234_sec2_1.object_covered_documents",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "covered_forged_instrument",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": "private_document_forgery",
+      "rationale": "제231조부터 제233조까지의 위변조 문서·도화·특수매체기록"
+    },
+    {
+      "card_id": "art234_sec2_1.possession_before_offer_not_exercise",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "exercise",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "단순 소지·운전·사자 교부·필사본 또는 위조문서임을 밝힌 사용"
+    },
+    {
+      "card_id": "art234_sec2_1.presentation_to_knowing_accomplice",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "unaware_interested_counterparty",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "위조 사실을 아는 공범자에 대한 제시"
+    },
+    {
+      "card_id": "art234_sec2_1.transcript_not_exercise",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "exercise",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "단순 소지·운전·사자 교부·필사본 또는 위조문서임을 밝힌 사용"
+    },
+    {
+      "card_id": "art234_sec2_1.unrestricted_principal",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "실해 불요 또는 주체 무제한의 일반 설명"
+    },
+    {
+      "card_id": "art234_sec2_1.use_as_forgery_not_exercise",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "exercise",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "단순 소지·운전·사자 교부·필사본 또는 위조문서임을 밝힌 사용"
+    },
+    {
+      "card_id": "art234_sec2_2.intent_no_purpose",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "intent",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "위조 등 사실의 인식과 행사 고의"
+    },
+    {
+      "card_id": "art234_sec4.company_agreement_breach_ideal_concurrence",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "private_document_forgery",
+      "rationale": "배임·위조변조 및 다수 문서 행사와의 죄수"
+    },
+    {
+      "card_id": "art234_sec4.forger_and_exercise_real_concurrence",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "private_document_forgery",
+      "rationale": "배임·위조변조 및 다수 문서 행사와의 죄수"
+    },
+    {
+      "card_id": "art234_sec4.multiple_documents_ideal_concurrence",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "private_document_forgery",
+      "rationale": "배임·위조변조 및 다수 문서 행사와의 죄수"
+    }
+  ]
+}

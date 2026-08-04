@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0", "authority": "delegated_human_legal_review", "unit_id": "use_of_forged_private_document", "approved_on": "2026-08-04",
+  "policy": {"approval": "Delegated normalization on 2026-08-04", "scope": "제234조 위조사문서등행사", "exercise": "진정·진실 문서처럼 비인지 이해관계인이 인식 가능한 상태에 둠", "result": "실제 인식·손해는 요구하지 않음"},
+  "track_vocabulary": [{"track_id": "base", "label": "제234조 위조사문서등행사"}],
+  "decision_groups": [
+    {"card_numbers": [4, 13], "decision": "approve", "role": "component", "component_id": "covered_forged_instrument", "component_join": "alternative_any", "track_id": "base", "refers_to_unit": "private_document_forgery", "rationale": "제231조부터 제233조까지의 위변조 문서·도화·특수매체기록"},
+    {"card_numbers": [2, 5, 7, 8, 9, 10], "decision": "approve", "role": "component", "component_id": "exercise", "component_join": "alternative_any", "track_id": "base", "refers_to_unit": null, "rationale": "진정한 문서처럼 상대방이 인식 가능한 상태에 두는 제시·교부·송부·비치·전송"},
+    {"card_numbers": [3, 14, 16, 18], "decision": "approve", "role": "bar", "component_id": "exercise", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": null, "rationale": "단순 소지·운전·사자 교부·필사본 또는 위조문서임을 밝힌 사용"},
+    {"card_numbers": [6], "decision": "approve", "role": "component", "component_id": "unaware_interested_counterparty", "component_join": "mandatory_all", "track_id": "base", "refers_to_unit": null, "rationale": "문서 이해관계가 있고 위조 사실을 모르는 상대방"},
+    {"card_numbers": [15], "decision": "approve", "role": "bar", "component_id": "unaware_interested_counterparty", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": null, "rationale": "위조 사실을 아는 공범자에 대한 제시"},
+    {"card_numbers": [19], "decision": "approve", "role": "component", "component_id": "intent", "component_join": "mandatory_all", "track_id": "base", "refers_to_unit": null, "rationale": "위조 등 사실의 인식과 행사 고의"},
+    {"card_numbers": [1], "decision": "approve", "role": "post_outcome", "component_id": "attempt", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": null, "rationale": "행사죄 미수 처벌"},
+    {"card_numbers": [20, 21, 22], "decision": "approve", "role": "post_outcome", "component_id": "concurrence", "component_join": "not_applicable", "track_id": "base", "refers_to_unit": "private_document_forgery", "rationale": "배임·위조변조 및 다수 문서 행사와의 죄수"},
+    {"card_numbers": [11, 12, 17], "decision": "context_only", "role": "context_only", "rationale": "실해 불요 또는 주체 무제한의 일반 설명"}
+  ], "placement_defaults": [], "proposition_rewrites": {}
+}

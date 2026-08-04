@@ -1,0 +1,1948 @@
+// rule_set_id: kr.p2.public_document_forgery.native.v1_candidate
+// status: draft
+// legal_review: pending
+// generated_from: validated RuleIR; model output is never executed directly
+
+// provable: 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+// sources: system contract
+// norm_cards: system contract
+type provable(String, String)
+
+// case_assessment_complete: 사건 라우터가 선택한 평가 묶음이 완결되어 결론 계층의 폐쇄세계 검사를 허용함
+// sources: system contract
+// norm_cards: system contract
+type case_assessment_complete(String, String)
+
+// distinct_entity: 사건의 entity resolution에서 두 역할이 서로 다른 실체임이 확인됨
+// sources: system contract
+// norm_cards: system contract
+type distinct_entity(String, String, String)
+
+// public_document_forgery_case_roles: 행위자, 공문서·공도화, 명의 공무원·공무소의 역할 tuple
+// sources: system contract
+// norm_cards: system contract
+type public_document_forgery_case_roles(String, String, String, String)
+
+// public_document_forgery_not_established: 증명된 불성립 사유 또는 경계 이동이 존재함
+// sources: system contract
+// norm_cards: system contract
+type public_document_forgery_not_established(String, String, String)
+
+// public_document_forgery_undetermined: 관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음
+// sources: system contract
+// norm_cards: system contract
+type public_document_forgery_undetermined(String, String, String)
+
+// public_document_forgery_conflict: 같은 카드에 satisfied와 not_satisfied 평가가 모두 증명됨
+// sources: system contract
+// norm_cards: system contract
+type public_document_forgery_conflict(String, String, String)
+
+// public_document_forgery_track_not_established: 해당 track에만 적용되는 증명된 불성립 사유 또는 경계 이동
+// sources: system contract
+// norm_cards: system contract
+type public_document_forgery_track_not_established(String, String, String, String)
+
+// public_document_forgery_track_conflict: 해당 track에 적용되는 카드 평가 충돌
+// sources: system contract
+// norm_cards: system contract
+type public_document_forgery_track_conflict(String, String, String, String)
+
+// public_document_forgery_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type public_document_forgery_track_has_negative(String, String, String)
+
+// public_document_forgery_track_has_conflict: 해당 track에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type public_document_forgery_track_has_conflict(String, String, String)
+
+// assess_art225_approved_private_document: 이 카드의 사건별 적용 평가: 사문서에 공무소나 공무원이 인준·확인한 경우 그 문서 전체는 공문서로 본다.
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.approved_private_document
+type assess_art225_approved_private_document(String, String, String, String, String, String)
+
+// satisfied_art225_approved_private_document: 증명 가능한 평가에서 다음 조건이 충족됨: 사문서에 공무소나 공무원이 인준·확인한 경우 그 문서 전체는 공문서로 본다.
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.approved_private_document
+type satisfied_art225_approved_private_document(String, String, String, String)
+
+// assess_art225_contractual_delegate_not_official: 이 카드의 사건별 적용 평가: 공무원·공무소가 아닌 자는 계약 등에 따라 공무 관련 업무 일부를 대행하더라도, 법률 또는 특별법상 공무원 등으로 의제되는 경우를 제외하면 공무원 또는 공무소가 될 수 없다.
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.contractual_delegate_not_official
+type assess_art225_contractual_delegate_not_official(String, String, String, String, String, String)
+
+// satisfied_art225_contractual_delegate_not_official: 증명 가능한 평가에서 다음 조건이 충족됨: 공무원·공무소가 아닌 자는 계약 등에 따라 공무 관련 업무 일부를 대행하더라도, 법률 또는 특별법상 공무원 등으로 의제되는 경우를 제외하면 공무원 또는 공무소가 될 수 없다.
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.contractual_delegate_not_official
+type satisfied_art225_contractual_delegate_not_official(String, String, String, String)
+
+// assess_art225_essential_form_defect: 이 카드의 사건별 적용 평가: 법령상 일정 형식이 요구되는 문서가 중요한 형식을 결여한 내용을 표시한 경우 공문서라고 할 수 없다.
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.essential_form_defect
+type assess_art225_essential_form_defect(String, String, String, String, String, String)
+
+// satisfied_art225_essential_form_defect: 증명 가능한 평가에서 다음 조건이 충족됨: 법령상 일정 형식이 요구되는 문서가 중요한 형식을 결여한 내용을 표시한 경우 공문서라고 할 수 없다.
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.essential_form_defect
+type satisfied_art225_essential_form_defect(String, String, String, String)
+
+// assess_art225_false_original_not_alteration_object: 이 카드의 사건별 적용 평가: 이미 허위로 작성된 공문서는 공문서변조죄의 객체가 되지 않는다.
+// sources: comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.2_5
+// norm_cards: art225.false_original_not_alteration_object
+type assess_art225_false_original_not_alteration_object(String, String, String, String, String, String)
+
+// satisfied_art225_false_original_not_alteration_object: 증명 가능한 평가에서 다음 조건이 충족됨: 이미 허위로 작성된 공문서는 공문서변조죄의 객체가 되지 않는다.
+// sources: comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.2_5
+// norm_cards: art225.false_original_not_alteration_object
+type satisfied_art225_false_original_not_alteration_object(String, String, String, String)
+
+// assess_art225_foreign_official_document: 이 카드의 사건별 적용 평가: 우리나라의 공무소·공무원이 작성한 문서가 아닌 외국 공문서는 원칙적으로 본죄의 객체가 될 수 없다.
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.foreign_official_document
+type assess_art225_foreign_official_document(String, String, String, String, String, String)
+
+// satisfied_art225_foreign_official_document: 증명 가능한 평가에서 다음 조건이 충족됨: 우리나라의 공무소·공무원이 작성한 문서가 아닌 외국 공문서는 원칙적으로 본죄의 객체가 될 수 없다.
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.foreign_official_document
+type satisfied_art225_foreign_official_document(String, String, String, String)
+
+// assess_art225_inferable_author: 이 카드의 사건별 적용 평가: 문서상 작성명의인이 명시되지 않아도 문서의 형식·내용 등 자체로 작성자를 추지할 수 있으면 충분하다.
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.inferable_author
+type assess_art225_inferable_author(String, String, String, String, String, String)
+
+// satisfied_art225_inferable_author: 증명 가능한 평가에서 다음 조건이 충족됨: 문서상 작성명의인이 명시되지 않아도 문서의 형식·내용 등 자체로 작성자를 추지할 수 있으면 충분하다.
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.inferable_author
+type satisfied_art225_inferable_author(String, String, String, String)
+
+// assess_art225_minor_form_defect: 이 카드의 사건별 적용 평가: 경미한 형식만 결여한 문서는 공문서로 본다.
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.minor_form_defect
+type assess_art225_minor_form_defect(String, String, String, String, String, String)
+
+// satisfied_art225_minor_form_defect: 증명 가능한 평가에서 다음 조건이 충족됨: 경미한 형식만 결여한 문서는 공문서로 본다.
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.minor_form_defect
+type satisfied_art225_minor_form_defect(String, String, String, String)
+
+// assess_art225_nonexistent_nominee_document: 이 카드의 사건별 적용 평가: 명의자인 공무소 또는 공무원이 실재하지 않아도, 일반인이 실재하는 공무소·공무원이 작성한 것으로 오인할 우려가 있고 문서의 형식·외관상 그렇게 보이면 공문서로 본다.
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.nonexistent_nominee_document
+type assess_art225_nonexistent_nominee_document(String, String, String, String, String, String)
+
+// satisfied_art225_nonexistent_nominee_document: 증명 가능한 평가에서 다음 조건이 충족됨: 명의자인 공무소 또는 공무원이 실재하지 않아도, 일반인이 실재하는 공무소·공무원이 작성한 것으로 오인할 우려가 있고 문서의 형식·외관상 그렇게 보이면 공문서로 본다.
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.nonexistent_nominee_document
+type satisfied_art225_nonexistent_nominee_document(String, String, String, String)
+
+// assess_art225_official_document_definition: 이 카드의 사건별 적용 평가: 공문서는 공무소 또는 공무원이 그 명의로 직무상 작성하는 문서이다.
+// sources: comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.official_document_definition
+type assess_art225_official_document_definition(String, String, String, String, String, String)
+
+// satisfied_art225_official_document_definition: 증명 가능한 평가에서 다음 조건이 충족됨: 공문서는 공무소 또는 공무원이 그 명의로 직무상 작성하는 문서이다.
+// sources: comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.official_document_definition
+type satisfied_art225_official_document_definition(String, String, String, String)
+
+// assess_art225_personal_debt_document_not_public: 이 카드의 사건별 적용 평가: 개인 채무부담의 의사표시 문서는 다른 사정이 없으면 경험칙이나 논리칙상 공적 문서로 볼 수 없다.
+// sources: comm_001692_제225조_Ⅱ.2_5
+// norm_cards: art225.personal_debt_document_not_public
+type assess_art225_personal_debt_document_not_public(String, String, String, String, String, String)
+
+// satisfied_art225_personal_debt_document_not_public: 증명 가능한 평가에서 다음 조건이 충족됨: 개인 채무부담의 의사표시 문서는 다른 사정이 없으면 경험칙이나 논리칙상 공적 문서로 볼 수 없다.
+// sources: comm_001692_제225조_Ⅱ.2_5
+// norm_cards: art225.personal_debt_document_not_public
+type satisfied_art225_personal_debt_document_not_public(String, String, String, String)
+
+// assess_art225_private_economic_official_document: 이 카드의 사건별 적용 평가: 공무소 또는 공무원이 직무상 작성한 문서는 공법상 관계 또는 사법상 관계에 따라 작성되었는지를 불문하고 공문서이다.
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.private_economic_official_document
+type assess_art225_private_economic_official_document(String, String, String, String, String, String)
+
+// satisfied_art225_private_economic_official_document: 증명 가능한 평가에서 다음 조건이 충족됨: 공무소 또는 공무원이 직무상 작성한 문서는 공법상 관계 또는 사법상 관계에 따라 작성되었는지를 불문하고 공문서이다.
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.private_economic_official_document
+type satisfied_art225_private_economic_official_document(String, String, String, String)
+
+// assess_art225_private_intent_document: 이 카드의 사건별 적용 평가: 사인의 의사를 표시한 문서라도 작성명의인이 공무원이면 공문서에 해당한다.
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.private_intent_document
+type assess_art225_private_intent_document(String, String, String, String, String, String)
+
+// satisfied_art225_private_intent_document: 증명 가능한 평가에서 다음 조건이 충족됨: 사인의 의사를 표시한 문서라도 작성명의인이 공무원이면 공문서에 해당한다.
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.private_intent_document
+type satisfied_art225_private_intent_document(String, String, String, String)
+
+// assess_art225_scope_of_document_authority: 이 카드의 사건별 적용 평가: 공무소·공무원의 문서 작성 권한은 법령·내규·관례의 근거와 무관하게 직무집행 범위 안에서 작성되었으면 공문서성을 인정한다.
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.scope_of_document_authority
+type assess_art225_scope_of_document_authority(String, String, String, String, String, String)
+
+// satisfied_art225_scope_of_document_authority: 증명 가능한 평가에서 다음 조건이 충족됨: 공무소·공무원의 문서 작성 권한은 법령·내규·관례의 근거와 무관하게 직무집행 범위 안에서 작성되었으면 공문서성을 인정한다.
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.scope_of_document_authority
+type satisfied_art225_scope_of_document_authority(String, String, String, String)
+
+// assess_art225_sec2_official_document_drawing_definition: 이 카드의 사건별 적용 평가: 공문서·공도화는 공무소 또는 공무원이 그 명의로 권한 내에서 소정의 형식에 따라 작성한 문서·도화이다.
+// sources: comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅱ_1
+// norm_cards: art225_sec2.official_document_drawing_definition
+type assess_art225_sec2_official_document_drawing_definition(String, String, String, String, String, String)
+
+// satisfied_art225_sec2_official_document_drawing_definition: 증명 가능한 평가에서 다음 조건이 충족됨: 공문서·공도화는 공무소 또는 공무원이 그 명의로 권한 내에서 소정의 형식에 따라 작성한 문서·도화이다.
+// sources: comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅱ_1
+// norm_cards: art225_sec2.official_document_drawing_definition
+type satisfied_art225_sec2_official_document_drawing_definition(String, String, String, String)
+
+// assess_art225_sec3_1_alteration_definition: 이 카드의 사건별 적용 평가: 공문서 변조는 유효하게 진정한 공무소 등의 명의 문서가 성립한 뒤 권한 없이 변경을 가하는 것이다.
+// sources: comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.alteration_definition
+type assess_art225_sec3_1_alteration_definition(String, String, String, String, String, String)
+
+// satisfied_art225_sec3_1_alteration_definition: 증명 가능한 평가에서 다음 조건이 충족됨: 공문서 변조는 유효하게 진정한 공무소 등의 명의 문서가 성립한 뒤 권한 없이 변경을 가하는 것이다.
+// sources: comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.alteration_definition
+type satisfied_art225_sec3_1_alteration_definition(String, String, String, String)
+
+// assess_art225_sec3_1_assistant_completion_without_approval: 이 카드의 사건별 적용 평가: 보조공무원이 결재 없이 임의로 허위내용의 공문서를 완성하면 공문서위조죄가 성립한다.
+// sources: comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9
+// norm_cards: art225_sec3_1.assistant_completion_without_approval
+type assess_art225_sec3_1_assistant_completion_without_approval(String, String, String, String, String, String)
+
+// satisfied_art225_sec3_1_assistant_completion_without_approval: 증명 가능한 평가에서 다음 조건이 충족됨: 보조공무원이 결재 없이 임의로 허위내용의 공문서를 완성하면 공문서위조죄가 성립한다.
+// sources: comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9
+// norm_cards: art225_sec3_1.assistant_completion_without_approval
+type satisfied_art225_sec3_1_assistant_completion_without_approval(String, String, String, String)
+
+// assess_art225_sec3_1_author_instruction_or_consent: 이 카드의 사건별 적용 평가: 공문서 작성권자가 직접 서명하지 않고 타인에게 자신의 서명을 대신 하도록 지시하거나 승낙한 경우, 그 타인의 기안문서 작성행위는 공문서위조죄 구성요건 해당성이 조각된다.
+// sources: comm_001692_제225조_Ⅲ.1_9
+// norm_cards: art225_sec3_1.author_instruction_or_consent
+type assess_art225_sec3_1_author_instruction_or_consent(String, String, String, String, String, String)
+
+// satisfied_art225_sec3_1_author_instruction_or_consent: 증명 가능한 평가에서 다음 조건이 충족됨: 공문서 작성권자가 직접 서명하지 않고 타인에게 자신의 서명을 대신 하도록 지시하거나 승낙한 경우, 그 타인의 기안문서 작성행위는 공문서위조죄 구성요건 해당성이 조각된다.
+// sources: comm_001692_제225조_Ⅲ.1_9
+// norm_cards: art225_sec3_1.author_instruction_or_consent
+type satisfied_art225_sec3_1_author_instruction_or_consent(String, String, String, String)
+
+// assess_art225_sec3_1_deceived_official_genuine_document: 이 카드의 사건별 적용 평가: 작성권한 있는 공무원이 문서 기재사항을 인식하고 작성 의사로 서명날인했다면, 타인의 기망으로 허위임을 알지 못했더라도 문서는 진정 성립하며 명의모용이 아니다.
+// sources: comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8
+// norm_cards: art225_sec3_1.deceived_official_genuine_document
+type assess_art225_sec3_1_deceived_official_genuine_document(String, String, String, String, String, String)
+
+// satisfied_art225_sec3_1_deceived_official_genuine_document: 증명 가능한 평가에서 다음 조건이 충족됨: 작성권한 있는 공무원이 문서 기재사항을 인식하고 작성 의사로 서명날인했다면, 타인의 기망으로 허위임을 알지 못했더라도 문서는 진정 성립하며 명의모용이 아니다.
+// sources: comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8
+// norm_cards: art225_sec3_1.deceived_official_genuine_document
+type satisfied_art225_sec3_1_deceived_official_genuine_document(String, String, String, String)
+
+// assess_art225_sec3_1_deceived_official_no_indirect_perpetration: 이 카드의 사건별 적용 평가: 공무원이 아닌 자가 허위 증명원을 제출하여 허위임을 모르는 담당공무원으로부터 같은 내용의 증명서를 발급받은 경우 공문서위조죄의 간접정범으로 처벌할 수 없다.
+// sources: comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8
+// norm_cards: art225_sec3_1.deceived_official_no_indirect_perpetration
+type assess_art225_sec3_1_deceived_official_no_indirect_perpetration(String, String, String, String, String, String)
+
+// satisfied_art225_sec3_1_deceived_official_no_indirect_perpetration: 증명 가능한 평가에서 다음 조건이 충족됨: 공무원이 아닌 자가 허위 증명원을 제출하여 허위임을 모르는 담당공무원으로부터 같은 내용의 증명서를 발급받은 경우 공문서위조죄의 간접정범으로 처벌할 수 없다.
+// sources: comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8
+// norm_cards: art225_sec3_1.deceived_official_no_indirect_perpetration
+type satisfied_art225_sec3_1_deceived_official_no_indirect_perpetration(String, String, String, String)
+
+// assess_art225_sec3_1_forgery_apparent_authority: 이 카드의 사건별 적용 평가: 위조문서가 일반인에게 공무소 또는 공무원의 직무권한 내 작성 문서로 믿게 할 형식·외관을 갖추면, 명의인에게 실제 권한이 없어도 공문서위조죄가 성립한다.
+// sources: comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.forgery_apparent_authority
+type assess_art225_sec3_1_forgery_apparent_authority(String, String, String, String, String, String)
+
+// satisfied_art225_sec3_1_forgery_apparent_authority: 증명 가능한 평가에서 다음 조건이 충족됨: 위조문서가 일반인에게 공무소 또는 공무원의 직무권한 내 작성 문서로 믿게 할 형식·외관을 갖추면, 명의인에게 실제 권한이 없어도 공문서위조죄가 성립한다.
+// sources: comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.forgery_apparent_authority
+type satisfied_art225_sec3_1_forgery_apparent_authority(String, String, String, String)
+
+// assess_art225_sec3_1_forgery_definition: 이 카드의 사건별 적용 평가: 공문서 위조는 작성권한 없는 사람이 공무소 또는 공무원의 명의를 이용하여 문서를 작성하는 것이다.
+// sources: comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.forgery_definition
+type assess_art225_sec3_1_forgery_definition(String, String, String, String, String, String)
+
+// satisfied_art225_sec3_1_forgery_definition: 증명 가능한 평가에서 다음 조건이 충족됨: 공문서 위조는 작성권한 없는 사람이 공무소 또는 공무원의 명의를 이용하여 문서를 작성하는 것이다.
+// sources: comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.forgery_definition
+type satisfied_art225_sec3_1_forgery_definition(String, String, String, String)
+
+// assess_art225_sec3_1_new_content_is_forgery: 이 카드의 사건별 적용 평가: 기존 문서에 가필·변경을 하여 전혀 새로운 내용의 증명을 가지게 한 경우는 변조가 아니라 위조이다.
+// sources: comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.new_content_is_forgery
+type assess_art225_sec3_1_new_content_is_forgery(String, String, String, String, String, String)
+
+// satisfied_art225_sec3_1_new_content_is_forgery: 증명 가능한 평가에서 다음 조건이 충족됨: 기존 문서에 가필·변경을 하여 전혀 새로운 내용의 증명을 가지게 한 경우는 변조가 아니라 위조이다.
+// sources: comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.new_content_is_forgery
+type satisfied_art225_sec3_1_new_content_is_forgery(String, String, String, String)
+
+// assess_art225_sec3_2_alteration_requirements: 이 카드의 사건별 적용 평가: 공문서·공도화 변조죄는 권한 없는 자가 이미 작성된 문서·도화 내용을 동일성을 해하지 않을 정도로 변경하여 새로운 증명력을 만들고 공공적 신용을 해할 위험성이 있을 때 성립한다.
+// sources: comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10
+// norm_cards: art225_sec3_2.alteration_requirements
+type assess_art225_sec3_2_alteration_requirements(String, String, String, String, String, String)
+
+// satisfied_art225_sec3_2_alteration_requirements: 증명 가능한 평가에서 다음 조건이 충족됨: 공문서·공도화 변조죄는 권한 없는 자가 이미 작성된 문서·도화 내용을 동일성을 해하지 않을 정도로 변경하여 새로운 증명력을 만들고 공공적 신용을 해할 위험성이 있을 때 성립한다.
+// sources: comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10
+// norm_cards: art225_sec3_2.alteration_requirements
+type satisfied_art225_sec3_2_alteration_requirements(String, String, String, String)
+
+// assess_art225_sec3_2_apparent_official_document: 이 카드의 사건별 적용 평가: 일반인이 공무원 또는 공무소 권한 내 작성 문서라고 믿을 수 있는지 여부는 문서 형식·외관, 작성 경위, 종류, 내용 및 일반거래상 기능을 종합하여 판단한다.
+// sources: comm_001692_제225조_Ⅲ.2_10
+// norm_cards: art225_sec3_2.apparent_official_document
+type assess_art225_sec3_2_apparent_official_document(String, String, String, String, String, String)
+
+// satisfied_art225_sec3_2_apparent_official_document: 증명 가능한 평가에서 다음 조건이 충족됨: 일반인이 공무원 또는 공무소 권한 내 작성 문서라고 믿을 수 있는지 여부는 문서 형식·외관, 작성 경위, 종류, 내용 및 일반거래상 기능을 종합하여 판단한다.
+// sources: comm_001692_제225조_Ⅲ.2_10
+// norm_cards: art225_sec3_2.apparent_official_document
+type satisfied_art225_sec3_2_apparent_official_document(String, String, String, String)
+
+// assess_art225_sec3_2_divorce_report_not_confirmation_copy_part: 이 카드의 사건별 적용 평가: 이혼의사확인서등본 교부 시 이혼신고서를 뒤에 첨부하여 간인하였다는 사정만으로 이혼신고서가 공문서인 이혼의사확인서등본의 일부가 되는 것은 아니다.
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.divorce_report_not_confirmation_copy_part
+type assess_art225_sec3_2_divorce_report_not_confirmation_copy_part(String, String, String, String, String, String)
+
+// satisfied_art225_sec3_2_divorce_report_not_confirmation_copy_part: 증명 가능한 평가에서 다음 조건이 충족됨: 이혼의사확인서등본 교부 시 이혼신고서를 뒤에 첨부하여 간인하였다는 사정만으로 이혼신고서가 공문서인 이혼의사확인서등본의 일부가 되는 것은 아니다.
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.divorce_report_not_confirmation_copy_part
+type satisfied_art225_sec3_2_divorce_report_not_confirmation_copy_part(String, String, String, String)
+
+// assess_art225_sec3_2_id_cover_alteration: 이 카드의 사건별 적용 평가: 주민등록증 비닐커버 위에 주민등록번호를 덧기재하고 테이프를 붙여 출생연도를 고친 경우, 변경이 공문서 자체에 가해진 것이 아니고 공공의 위험을 초래할 정도의 조잡하지 않은 방법이면 공문서변조죄에 해당하지 않는다.
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.id_cover_alteration
+type assess_art225_sec3_2_id_cover_alteration(String, String, String, String, String, String)
+
+// satisfied_art225_sec3_2_id_cover_alteration: 증명 가능한 평가에서 다음 조건이 충족됨: 주민등록증 비닐커버 위에 주민등록번호를 덧기재하고 테이프를 붙여 출생연도를 고친 경우, 변경이 공문서 자체에 가해진 것이 아니고 공공의 위험을 초래할 정도의 조잡하지 않은 방법이면 공문서변조죄에 해당하지 않는다.
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.id_cover_alteration
+type satisfied_art225_sec3_2_id_cover_alteration(String, String, String, String)
+
+// assess_art225_sec3_2_name_change_new_document_forgery: 이 카드의 사건별 적용 평가: 거주증명서에서 해당자 성명의 중요 부분을 다른 글자로 고쳐 외형상 별개의 자연인을 표시하게 함으로써 전혀 별개의 새로운 공문서를 작성한 경우에는 공문서변조죄가 아니라 공문서위조죄가 성립한다.
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.name_change_new_document_forgery
+type assess_art225_sec3_2_name_change_new_document_forgery(String, String, String, String, String, String)
+
+// satisfied_art225_sec3_2_name_change_new_document_forgery: 증명 가능한 평가에서 다음 조건이 충족됨: 거주증명서에서 해당자 성명의 중요 부분을 다른 글자로 고쳐 외형상 별개의 자연인을 표시하게 함으로써 전혀 별개의 새로운 공문서를 작성한 경우에는 공문서변조죄가 아니라 공문서위조죄가 성립한다.
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.name_change_new_document_forgery
+type satisfied_art225_sec3_2_name_change_new_document_forgery(String, String, String, String)
+
+// assess_art225_sec3_2_partial_copy_no_new_probative_force: 이 카드의 사건별 적용 평가: 내사결과보고서의 표지를 제외하고 건의 부분을 가린 복사본이 다른 문서 일부의 복사일 가능성이 예상되고 원본 전체 내용을 오인하게 할 가능성이 없으면, 기존 공문서에 새로운 증명력을 작출한 것으로 볼 수 없어 공문서변조죄에 해당하지 않는다.
+// sources: comm_001692_제225조_Ⅲ.2_13
+// norm_cards: art225_sec3_2.partial_copy_no_new_probative_force
+type assess_art225_sec3_2_partial_copy_no_new_probative_force(String, String, String, String, String, String)
+
+// satisfied_art225_sec3_2_partial_copy_no_new_probative_force: 증명 가능한 평가에서 다음 조건이 충족됨: 내사결과보고서의 표지를 제외하고 건의 부분을 가린 복사본이 다른 문서 일부의 복사일 가능성이 예상되고 원본 전체 내용을 오인하게 할 가능성이 없으면, 기존 공문서에 새로운 증명력을 작출한 것으로 볼 수 없어 공문서변조죄에 해당하지 않는다.
+// sources: comm_001692_제225조_Ⅲ.2_13
+// norm_cards: art225_sec3_2.partial_copy_no_new_probative_force
+type satisfied_art225_sec3_2_partial_copy_no_new_probative_force(String, String, String, String)
+
+// assess_art225_sec3_2_replaced_divorce_report: 이 카드의 사건별 적용 평가: 당사자가 이혼의사확인서등본과 간인으로 연결된 이혼신고서를 떼어내고 다른 내용의 이혼신고서를 작성하여 함께 호적관서에 제출하더라도, 공문서인 이혼의사확인서등본을 변조하거나 변조된 등본을 행사한 것으로 볼 수 없다.
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.replaced_divorce_report
+type assess_art225_sec3_2_replaced_divorce_report(String, String, String, String, String, String)
+
+// satisfied_art225_sec3_2_replaced_divorce_report: 증명 가능한 평가에서 다음 조건이 충족됨: 당사자가 이혼의사확인서등본과 간인으로 연결된 이혼신고서를 떼어내고 다른 내용의 이혼신고서를 작성하여 함께 호적관서에 제출하더라도, 공문서인 이혼의사확인서등본을 변조하거나 변조된 등본을 행사한 것으로 볼 수 없다.
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.replaced_divorce_report
+type satisfied_art225_sec3_2_replaced_divorce_report(String, String, String, String)
+
+// assess_art225_sec3_2_seal_certificate_use_purpose: 이 카드의 사건별 적용 평가: 현행 인감증명서 발급실무에서 부동산 매수자 등의 경우 외 사용용도란 기재는 증명문구로 증명되는 부분과 관계없어 그 부분의 공문서변조는 문제될 여지가 없다.
+// sources: comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11
+// norm_cards: art225_sec3_2.seal_certificate_use_purpose
+type assess_art225_sec3_2_seal_certificate_use_purpose(String, String, String, String, String, String)
+
+// satisfied_art225_sec3_2_seal_certificate_use_purpose: 증명 가능한 평가에서 다음 조건이 충족됨: 현행 인감증명서 발급실무에서 부동산 매수자 등의 경우 외 사용용도란 기재는 증명문구로 증명되는 부분과 관계없어 그 부분의 공문서변조는 문제될 여지가 없다.
+// sources: comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11
+// norm_cards: art225_sec3_2.seal_certificate_use_purpose
+type satisfied_art225_sec3_2_seal_certificate_use_purpose(String, String, String, String)
+
+// assess_art225_sec3_2_unexplained_dotted_lines: 이 카드의 사건별 적용 평가: 인낙조서에 첨부된 도면 및 사본에 임의로 그은 점선이 본문이나 도면에서 설명되지 않아 특정한 의미 내용이 없는 단순 도형에 그치는 경우, 새로운 증명력이 작출되지 않으므로 공도화변조죄에 해당하지 않는다.
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.unexplained_dotted_lines
+type assess_art225_sec3_2_unexplained_dotted_lines(String, String, String, String, String, String)
+
+// satisfied_art225_sec3_2_unexplained_dotted_lines: 증명 가능한 평가에서 다음 조건이 충족됨: 인낙조서에 첨부된 도면 및 사본에 임의로 그은 점선이 본문이나 도면에서 설명되지 않아 특정한 의미 내용이 없는 단순 도형에 그치는 경우, 새로운 증명력이 작출되지 않으므로 공도화변조죄에 해당하지 않는다.
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.unexplained_dotted_lines
+type satisfied_art225_sec3_2_unexplained_dotted_lines(String, String, String, String)
+
+// assess_art225_sec4_1_abstract_intent_to_use: 이 카드의 사건별 적용 평가: 행사할 목적은 특정된 사실에 관한 것일 필요가 없고 추상적으로 문서를 사용하고자 하는 의도만 있으면 인정된다.
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.abstract_intent_to_use
+type assess_art225_sec4_1_abstract_intent_to_use(String, String, String, String, String, String)
+
+// satisfied_art225_sec4_1_abstract_intent_to_use: 증명 가능한 평가에서 다음 조건이 충족됨: 행사할 목적은 특정된 사실에 관한 것일 필요가 없고 추상적으로 문서를 사용하고자 하는 의도만 있으면 인정된다.
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.abstract_intent_to_use
+type satisfied_art225_sec4_1_abstract_intent_to_use(String, String, String, String)
+
+// assess_art225_sec4_1_altered_document_use_not_limited: 이 카드의 사건별 적용 평가: 공문서변조죄의 행사할 목적은 변조 문서를 진정한 문서처럼 사용하여 상대방에게 문서 진정에 관한 착오를 일으킬 목적이면 충분하고, 변조 전 문서의 본래 용도에 사용할 목적에 한정되지 않는다.
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.altered_document_use_not_limited
+type assess_art225_sec4_1_altered_document_use_not_limited(String, String, String, String, String, String)
+
+// satisfied_art225_sec4_1_altered_document_use_not_limited: 증명 가능한 평가에서 다음 조건이 충족됨: 공문서변조죄의 행사할 목적은 변조 문서를 진정한 문서처럼 사용하여 상대방에게 문서 진정에 관한 착오를 일으킬 목적이면 충분하고, 변조 전 문서의 본래 용도에 사용할 목적에 한정되지 않는다.
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.altered_document_use_not_limited
+type satisfied_art225_sec4_1_altered_document_use_not_limited(String, String, String, String)
+
+// assess_art225_sec4_1_intent_to_use_definition: 이 카드의 사건별 적용 평가: 행사할 목적은 타인으로 하여금 위조·변조된 문서를 진정한 것처럼 오신하게 하는 데 있다.
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_definition
+type assess_art225_sec4_1_intent_to_use_definition(String, String, String, String, String, String)
+
+// satisfied_art225_sec4_1_intent_to_use_definition: 증명 가능한 평가에서 다음 조건이 충족됨: 행사할 목적은 타인으로 하여금 위조·변조된 문서를 진정한 것처럼 오신하게 하는 데 있다.
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_definition
+type satisfied_art225_sec4_1_intent_to_use_definition(String, String, String, String)
+
+// assess_art225_sec4_1_intent_to_use_requirement: 이 카드의 사건별 적용 평가: 공문서등의 위조·변조죄가 성립하려면 행사할 목적을 가지고 공문서를 위조·변조하여야 하며, 이 죄는 목적범이다.
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_requirement
+type assess_art225_sec4_1_intent_to_use_requirement(String, String, String, String, String, String)
+
+// satisfied_art225_sec4_1_intent_to_use_requirement: 증명 가능한 평가에서 다음 조건이 충족됨: 공문서등의 위조·변조죄가 성립하려면 행사할 목적을 가지고 공문서를 위조·변조하여야 하며, 이 죄는 목적범이다.
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_requirement
+type satisfied_art225_sec4_1_intent_to_use_requirement(String, String, String, String)
+
+// assess_art225_sec4_1_intent_to_use_time_of_act: 이 카드의 사건별 적용 평가: 행사할 목적은 행위 당시 존재하여야 한다.
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_time_of_act
+type assess_art225_sec4_1_intent_to_use_time_of_act(String, String, String, String, String, String)
+
+// satisfied_art225_sec4_1_intent_to_use_time_of_act: 증명 가능한 평가에서 다음 조건이 충족됨: 행사할 목적은 행위 당시 존재하여야 한다.
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_time_of_act
+type satisfied_art225_sec4_1_intent_to_use_time_of_act(String, String, String, String)
+
+// assess_art225_sec4_2_intent_for_forgery: 이 카드의 사건별 적용 평가: 본죄의 고의는 작성권한 없는 자가 공무소 또는 공무원 명의의 문서·도화를 작성한다는 사실을 인식하고 용인하는 것을 뜻한다.
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.intent-for-forgery
+type assess_art225_sec4_2_intent_for_forgery(String, String, String, String, String, String)
+
+// satisfied_art225_sec4_2_intent_for_forgery: 증명 가능한 평가에서 다음 조건이 충족됨: 본죄의 고의는 작성권한 없는 자가 공무소 또는 공무원 명의의 문서·도화를 작성한다는 사실을 인식하고 용인하는 것을 뜻한다.
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.intent-for-forgery
+type satisfied_art225_sec4_2_intent_for_forgery(String, String, String, String)
+
+// assess_art225_sec4_2_unauthorized_addition_approved_document_intent: 이 카드의 사건별 적용 평가: 기안담당자가 누락 토지를 사후에 일치시킬 생각으로 재산명세서에 추가 기재하였더라도, 적법한 절차 없이 결재된 원문서에 없는 사항을 임의로 추가한 이상 공문서변조의 범의를 인정하기에 충분하다.
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.unauthorized-addition-approved-document-intent
+type assess_art225_sec4_2_unauthorized_addition_approved_document_intent(String, String, String, String, String, String)
+
+// satisfied_art225_sec4_2_unauthorized_addition_approved_document_intent: 증명 가능한 평가에서 다음 조건이 충족됨: 기안담당자가 누락 토지를 사후에 일치시킬 생각으로 재산명세서에 추가 기재하였더라도, 적법한 절차 없이 결재된 원문서에 없는 사항을 임의로 추가한 이상 공문서변조의 범의를 인정하기에 충분하다.
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.unauthorized-addition-approved-document-intent
+type satisfied_art225_sec4_2_unauthorized_addition_approved_document_intent(String, String, String, String)
+
+// assess_art225_sec4_2_unauthorized_substitution_map_intent: 이 카드의 사건별 적용 평가: 도시계획 담당 공무원이 적법한 절차 없이 당초 도면을 정정도면으로 바꿔치기한 경우, 도면에 간인이 없거나 시장 승인이 예상된다는 사정만으로 공문서변조 및 변조공문서행사의 범의를 부정할 수 없다.
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.unauthorized-substitution-map-intent
+type assess_art225_sec4_2_unauthorized_substitution_map_intent(String, String, String, String, String, String)
+
+// satisfied_art225_sec4_2_unauthorized_substitution_map_intent: 증명 가능한 평가에서 다음 조건이 충족됨: 도시계획 담당 공무원이 적법한 절차 없이 당초 도면을 정정도면으로 바꿔치기한 경우, 도면에 간인이 없거나 시장 승인이 예상된다는 사정만으로 공문서변조 및 변조공문서행사의 범의를 부정할 수 없다.
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.unauthorized-substitution-map-intent
+type satisfied_art225_sec4_2_unauthorized_substitution_map_intent(String, String, String, String)
+
+// assess_art225_sec5_attempt_commencement: 이 카드의 사건별 적용 평가: 위조·변조 의사를 확정적으로 문서에 표시하는 행위가 있으면 실행의 착수가 성립한다.
+// sources: comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_commencement
+type assess_art225_sec5_attempt_commencement(String, String, String, String, String, String)
+
+// satisfied_art225_sec5_attempt_commencement: 증명 가능한 평가에서 다음 조건이 충족됨: 위조·변조 의사를 확정적으로 문서에 표시하는 행위가 있으면 실행의 착수가 성립한다.
+// sources: comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_commencement
+type satisfied_art225_sec5_attempt_commencement(String, String, String, String)
+
+// assess_art225_sec5_attempt_document_not_deceptive: 이 카드의 사건별 적용 평가: 작성된 문서가 일반인이 진정한 것이라고 오신할 정도에 이르지 못한 때에는 미수죄가 성립한다.
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_document_not_deceptive
+type assess_art225_sec5_attempt_document_not_deceptive(String, String, String, String, String, String)
+
+// satisfied_art225_sec5_attempt_document_not_deceptive: 증명 가능한 평가에서 다음 조건이 충족됨: 작성된 문서가 일반인이 진정한 것이라고 오신할 정도에 이르지 못한 때에는 미수죄가 성립한다.
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_document_not_deceptive
+type satisfied_art225_sec5_attempt_document_not_deceptive(String, String, String, String)
+
+// assess_art225_sec5_attempt_punishable: 이 카드의 사건별 적용 평가: 본죄의 미수범은 처벌된다.
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_punishable
+type assess_art225_sec5_attempt_punishable(String, String, String, String, String, String)
+
+// satisfied_art225_sec5_attempt_punishable: 증명 가능한 평가에서 다음 조건이 충족됨: 본죄의 미수범은 처벌된다.
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_punishable
+type satisfied_art225_sec5_attempt_punishable(String, String, String, String)
+
+// assess_art225_sec5_waste_bag_film_preparation_only: 이 카드의 사건별 적용 평가: 종량제 쓰레기봉투에 인쇄할 시장 명의 문안이 새겨진 필름 제조에 그친 경우에는 시장 명의 공문서인 쓰레기봉투 위조의 실행 착수에 이르지 못한 준비단계에 불과하다.
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.waste_bag_film_preparation_only
+type assess_art225_sec5_waste_bag_film_preparation_only(String, String, String, String, String, String)
+
+// satisfied_art225_sec5_waste_bag_film_preparation_only: 증명 가능한 평가에서 다음 조건이 충족됨: 종량제 쓰레기봉투에 인쇄할 시장 명의 문안이 새겨진 필름 제조에 그친 경우에는 시장 명의 공문서인 쓰레기봉투 위조의 실행 착수에 이르지 못한 준비단계에 불과하다.
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.waste_bag_film_preparation_only
+type satisfied_art225_sec5_waste_bag_film_preparation_only(String, String, String, String)
+
+// public_document_forgery_alteration_alteration_intent_satisfied: 'alteration_intent' 요건이 충족됨 (alteration track, alternative_any)
+// sources: comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.unauthorized-addition-approved-document-intent, art225_sec4_2.unauthorized-substitution-map-intent
+type public_document_forgery_alteration_alteration_intent_satisfied(String, String, String, String)
+
+// public_document_forgery_alteration_identity_preserving_change_satisfied: 'identity_preserving_change' 요건이 충족됨 (alteration track, alternative_any)
+// sources: comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10
+// norm_cards: art225_sec3_1.alteration_definition, art225_sec3_2.alteration_requirements, art225_sec3_2.apparent_official_document
+type public_document_forgery_alteration_identity_preserving_change_satisfied(String, String, String, String)
+
+// public_document_forgery_attempt_punishable_attempt_satisfied: 'punishable_attempt' 요건이 충족됨 (attempt track, alternative_any)
+// sources: comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_commencement, art225_sec5.attempt_document_not_deceptive, art225_sec5.attempt_punishable
+type public_document_forgery_attempt_punishable_attempt_satisfied(String, String, String, String)
+
+// public_document_forgery_common_intent_to_use_satisfied: 'intent_to_use' 요건이 충족됨 (common track, alternative_any)
+// sources: comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.abstract_intent_to_use, art225_sec4_1.altered_document_use_not_limited, art225_sec4_1.intent_to_use_definition, art225_sec4_1.intent_to_use_requirement, art225_sec4_1.intent_to_use_time_of_act
+type public_document_forgery_common_intent_to_use_satisfied(String, String, String, String)
+
+// public_document_forgery_forgery_forgery_intent_satisfied: 'forgery_intent' 요건이 충족됨 (forgery track, mandatory_all)
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.intent-for-forgery
+type public_document_forgery_forgery_forgery_intent_satisfied(String, String, String, String)
+
+// public_document_forgery_forgery_official_document_satisfied: 'official_document' 요건이 충족됨 (forgery track, alternative_any)
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅱ_1
+// norm_cards: art225.approved_private_document, art225.inferable_author, art225.minor_form_defect, art225.nonexistent_nominee_document, art225.official_document_definition, art225.private_economic_official_document, art225.private_intent_document, art225.scope_of_document_authority, art225_sec2.official_document_drawing_definition
+type public_document_forgery_forgery_official_document_satisfied(String, String, String, String)
+
+// public_document_forgery_forgery_unauthorized_creation_satisfied: 'unauthorized_creation' 요건이 충족됨 (forgery track, alternative_any)
+// sources: comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.assistant_completion_without_approval, art225_sec3_1.forgery_apparent_authority, art225_sec3_1.forgery_definition, art225_sec3_1.new_content_is_forgery
+type public_document_forgery_forgery_unauthorized_creation_satisfied(String, String, String, String)
+
+// public_document_forgery_has_negative: 이 unit에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type public_document_forgery_has_negative(String, String)
+
+// public_document_forgery_has_conflict: 이 unit에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type public_document_forgery_has_conflict(String, String)
+
+// public_document_forgery_forgery_elements_satisfied: 'forgery' track의 구성요건 component가 모두 충족된 잠정 성립 후보
+// sources: system contract
+// norm_cards: system contract
+type public_document_forgery_forgery_elements_satisfied(String, String, String, String)
+
+// public_document_forgery_forgery_established: 완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 'forgery' track 확정 성립
+// sources: system contract
+// norm_cards: system contract
+type public_document_forgery_forgery_established(String, String, String, String)
+
+// public_document_forgery_alteration_elements_satisfied: 'alteration' track의 구성요건 component가 모두 충족된 잠정 성립 후보
+// sources: system contract
+// norm_cards: system contract
+type public_document_forgery_alteration_elements_satisfied(String, String, String, String)
+
+// public_document_forgery_alteration_established: 완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 'alteration' track 확정 성립
+// sources: system contract
+// norm_cards: system contract
+type public_document_forgery_alteration_established(String, String, String, String)
+
+// public_document_forgery_attempt_elements_satisfied: 'attempt' track의 구성요건 component가 모두 충족된 잠정 성립 후보
+// sources: system contract
+// norm_cards: system contract
+type public_document_forgery_attempt_elements_satisfied(String, String, String, String)
+
+// public_document_forgery_attempt_established: 완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 'attempt' track 확정 성립
+// sources: system contract
+// norm_cards: system contract
+type public_document_forgery_attempt_established(String, String, String, String)
+
+// rule_id: public_document_forgery.card.art225_approved_private_document.satisfied
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.approved_private_document
+rel satisfied_art225_approved_private_document(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_approved_private_document(case_id, assessment_001, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_001)
+
+// rule_id: public_document_forgery.card.art225_approved_private_document.undetermined
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.approved_private_document
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225.approved_private_document") = assess_art225_approved_private_document(case_id, unknown_001, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_001)
+
+// rule_id: public_document_forgery.card.art225_approved_private_document.conflict
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.approved_private_document
+rel public_document_forgery_conflict(case_id, defendant_id, "art225.approved_private_document") = assess_art225_approved_private_document(case_id, positive_001, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_approved_private_document(case_id, negative_001, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_001) and
+  provable(case_id, negative_001)
+
+// rule_id: public_document_forgery.card.art225_contractual_delegate_not_official.satisfied
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.contractual_delegate_not_official
+rel satisfied_art225_contractual_delegate_not_official(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_contractual_delegate_not_official(case_id, assessment_002, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_002)
+
+// rule_id: public_document_forgery.card.art225_contractual_delegate_not_official.undetermined
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.contractual_delegate_not_official
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225.contractual_delegate_not_official") = assess_art225_contractual_delegate_not_official(case_id, unknown_002, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_002)
+
+// rule_id: public_document_forgery.card.art225_contractual_delegate_not_official.conflict
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.contractual_delegate_not_official
+rel public_document_forgery_conflict(case_id, defendant_id, "art225.contractual_delegate_not_official") = assess_art225_contractual_delegate_not_official(case_id, positive_002, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_contractual_delegate_not_official(case_id, negative_002, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_002) and
+  provable(case_id, negative_002)
+
+// rule_id: public_document_forgery.card.art225_essential_form_defect.satisfied
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.essential_form_defect
+rel satisfied_art225_essential_form_defect(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_essential_form_defect(case_id, assessment_003, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_003)
+
+// rule_id: public_document_forgery.card.art225_essential_form_defect.undetermined
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.essential_form_defect
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225.essential_form_defect") = assess_art225_essential_form_defect(case_id, unknown_003, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_003)
+
+// rule_id: public_document_forgery.card.art225_essential_form_defect.conflict
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.essential_form_defect
+rel public_document_forgery_conflict(case_id, defendant_id, "art225.essential_form_defect") = assess_art225_essential_form_defect(case_id, positive_003, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_essential_form_defect(case_id, negative_003, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_003) and
+  provable(case_id, negative_003)
+
+// rule_id: public_document_forgery.card.art225_false_original_not_alteration_object.satisfied
+// sources: comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.2_5
+// norm_cards: art225.false_original_not_alteration_object
+rel satisfied_art225_false_original_not_alteration_object(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_false_original_not_alteration_object(case_id, assessment_004, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_004)
+
+// rule_id: public_document_forgery.card.art225_false_original_not_alteration_object.undetermined
+// sources: comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.2_5
+// norm_cards: art225.false_original_not_alteration_object
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225.false_original_not_alteration_object") = assess_art225_false_original_not_alteration_object(case_id, unknown_004, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_004)
+
+// rule_id: public_document_forgery.card.art225_false_original_not_alteration_object.conflict
+// sources: comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.2_5
+// norm_cards: art225.false_original_not_alteration_object
+rel public_document_forgery_conflict(case_id, defendant_id, "art225.false_original_not_alteration_object") = assess_art225_false_original_not_alteration_object(case_id, positive_004, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_false_original_not_alteration_object(case_id, negative_004, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_004) and
+  provable(case_id, negative_004)
+
+// rule_id: public_document_forgery.card.art225_foreign_official_document.satisfied
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.foreign_official_document
+rel satisfied_art225_foreign_official_document(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_foreign_official_document(case_id, assessment_005, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_005)
+
+// rule_id: public_document_forgery.card.art225_foreign_official_document.undetermined
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.foreign_official_document
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225.foreign_official_document") = assess_art225_foreign_official_document(case_id, unknown_005, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_005)
+
+// rule_id: public_document_forgery.card.art225_foreign_official_document.conflict
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.foreign_official_document
+rel public_document_forgery_conflict(case_id, defendant_id, "art225.foreign_official_document") = assess_art225_foreign_official_document(case_id, positive_005, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_foreign_official_document(case_id, negative_005, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_005) and
+  provable(case_id, negative_005)
+
+// rule_id: public_document_forgery.card.art225_inferable_author.satisfied
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.inferable_author
+rel satisfied_art225_inferable_author(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_inferable_author(case_id, assessment_006, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_006)
+
+// rule_id: public_document_forgery.card.art225_inferable_author.undetermined
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.inferable_author
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225.inferable_author") = assess_art225_inferable_author(case_id, unknown_006, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_006)
+
+// rule_id: public_document_forgery.card.art225_inferable_author.conflict
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.inferable_author
+rel public_document_forgery_conflict(case_id, defendant_id, "art225.inferable_author") = assess_art225_inferable_author(case_id, positive_006, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_inferable_author(case_id, negative_006, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_006) and
+  provable(case_id, negative_006)
+
+// rule_id: public_document_forgery.card.art225_minor_form_defect.satisfied
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.minor_form_defect
+rel satisfied_art225_minor_form_defect(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_minor_form_defect(case_id, assessment_007, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_007)
+
+// rule_id: public_document_forgery.card.art225_minor_form_defect.undetermined
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.minor_form_defect
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225.minor_form_defect") = assess_art225_minor_form_defect(case_id, unknown_007, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_007)
+
+// rule_id: public_document_forgery.card.art225_minor_form_defect.conflict
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.minor_form_defect
+rel public_document_forgery_conflict(case_id, defendant_id, "art225.minor_form_defect") = assess_art225_minor_form_defect(case_id, positive_007, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_minor_form_defect(case_id, negative_007, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_007) and
+  provable(case_id, negative_007)
+
+// rule_id: public_document_forgery.card.art225_nonexistent_nominee_document.satisfied
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.nonexistent_nominee_document
+rel satisfied_art225_nonexistent_nominee_document(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_nonexistent_nominee_document(case_id, assessment_008, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_008)
+
+// rule_id: public_document_forgery.card.art225_nonexistent_nominee_document.undetermined
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.nonexistent_nominee_document
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225.nonexistent_nominee_document") = assess_art225_nonexistent_nominee_document(case_id, unknown_008, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_008)
+
+// rule_id: public_document_forgery.card.art225_nonexistent_nominee_document.conflict
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.nonexistent_nominee_document
+rel public_document_forgery_conflict(case_id, defendant_id, "art225.nonexistent_nominee_document") = assess_art225_nonexistent_nominee_document(case_id, positive_008, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_nonexistent_nominee_document(case_id, negative_008, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_008) and
+  provable(case_id, negative_008)
+
+// rule_id: public_document_forgery.card.art225_official_document_definition.satisfied
+// sources: comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.official_document_definition
+rel satisfied_art225_official_document_definition(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_official_document_definition(case_id, assessment_009, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_009)
+
+// rule_id: public_document_forgery.card.art225_official_document_definition.undetermined
+// sources: comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.official_document_definition
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225.official_document_definition") = assess_art225_official_document_definition(case_id, unknown_009, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_009)
+
+// rule_id: public_document_forgery.card.art225_official_document_definition.conflict
+// sources: comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.official_document_definition
+rel public_document_forgery_conflict(case_id, defendant_id, "art225.official_document_definition") = assess_art225_official_document_definition(case_id, positive_009, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_official_document_definition(case_id, negative_009, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_009) and
+  provable(case_id, negative_009)
+
+// rule_id: public_document_forgery.card.art225_personal_debt_document_not_public.satisfied
+// sources: comm_001692_제225조_Ⅱ.2_5
+// norm_cards: art225.personal_debt_document_not_public
+rel satisfied_art225_personal_debt_document_not_public(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_personal_debt_document_not_public(case_id, assessment_010, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_010)
+
+// rule_id: public_document_forgery.card.art225_personal_debt_document_not_public.undetermined
+// sources: comm_001692_제225조_Ⅱ.2_5
+// norm_cards: art225.personal_debt_document_not_public
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225.personal_debt_document_not_public") = assess_art225_personal_debt_document_not_public(case_id, unknown_010, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_010)
+
+// rule_id: public_document_forgery.card.art225_personal_debt_document_not_public.conflict
+// sources: comm_001692_제225조_Ⅱ.2_5
+// norm_cards: art225.personal_debt_document_not_public
+rel public_document_forgery_conflict(case_id, defendant_id, "art225.personal_debt_document_not_public") = assess_art225_personal_debt_document_not_public(case_id, positive_010, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_personal_debt_document_not_public(case_id, negative_010, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_010) and
+  provable(case_id, negative_010)
+
+// rule_id: public_document_forgery.card.art225_private_economic_official_document.satisfied
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.private_economic_official_document
+rel satisfied_art225_private_economic_official_document(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_private_economic_official_document(case_id, assessment_011, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_011)
+
+// rule_id: public_document_forgery.card.art225_private_economic_official_document.undetermined
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.private_economic_official_document
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225.private_economic_official_document") = assess_art225_private_economic_official_document(case_id, unknown_011, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_011)
+
+// rule_id: public_document_forgery.card.art225_private_economic_official_document.conflict
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.private_economic_official_document
+rel public_document_forgery_conflict(case_id, defendant_id, "art225.private_economic_official_document") = assess_art225_private_economic_official_document(case_id, positive_011, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_private_economic_official_document(case_id, negative_011, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_011) and
+  provable(case_id, negative_011)
+
+// rule_id: public_document_forgery.card.art225_private_intent_document.satisfied
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.private_intent_document
+rel satisfied_art225_private_intent_document(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_private_intent_document(case_id, assessment_012, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_012)
+
+// rule_id: public_document_forgery.card.art225_private_intent_document.undetermined
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.private_intent_document
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225.private_intent_document") = assess_art225_private_intent_document(case_id, unknown_012, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_012)
+
+// rule_id: public_document_forgery.card.art225_private_intent_document.conflict
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.private_intent_document
+rel public_document_forgery_conflict(case_id, defendant_id, "art225.private_intent_document") = assess_art225_private_intent_document(case_id, positive_012, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_private_intent_document(case_id, negative_012, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_012) and
+  provable(case_id, negative_012)
+
+// rule_id: public_document_forgery.card.art225_scope_of_document_authority.satisfied
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.scope_of_document_authority
+rel satisfied_art225_scope_of_document_authority(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_scope_of_document_authority(case_id, assessment_013, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_013)
+
+// rule_id: public_document_forgery.card.art225_scope_of_document_authority.undetermined
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.scope_of_document_authority
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225.scope_of_document_authority") = assess_art225_scope_of_document_authority(case_id, unknown_013, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_013)
+
+// rule_id: public_document_forgery.card.art225_scope_of_document_authority.conflict
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.scope_of_document_authority
+rel public_document_forgery_conflict(case_id, defendant_id, "art225.scope_of_document_authority") = assess_art225_scope_of_document_authority(case_id, positive_013, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_scope_of_document_authority(case_id, negative_013, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_013) and
+  provable(case_id, negative_013)
+
+// rule_id: public_document_forgery.card.art225_sec2_official_document_drawing_definition.satisfied
+// sources: comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅱ_1
+// norm_cards: art225_sec2.official_document_drawing_definition
+rel satisfied_art225_sec2_official_document_drawing_definition(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec2_official_document_drawing_definition(case_id, assessment_014, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_014)
+
+// rule_id: public_document_forgery.card.art225_sec2_official_document_drawing_definition.undetermined
+// sources: comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅱ_1
+// norm_cards: art225_sec2.official_document_drawing_definition
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec2.official_document_drawing_definition") = assess_art225_sec2_official_document_drawing_definition(case_id, unknown_014, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_014)
+
+// rule_id: public_document_forgery.card.art225_sec2_official_document_drawing_definition.conflict
+// sources: comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅱ_1
+// norm_cards: art225_sec2.official_document_drawing_definition
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec2.official_document_drawing_definition") = assess_art225_sec2_official_document_drawing_definition(case_id, positive_014, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec2_official_document_drawing_definition(case_id, negative_014, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_014) and
+  provable(case_id, negative_014)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_alteration_definition.satisfied
+// sources: comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.alteration_definition
+rel satisfied_art225_sec3_1_alteration_definition(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec3_1_alteration_definition(case_id, assessment_015, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_015)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_alteration_definition.undetermined
+// sources: comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.alteration_definition
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec3_1.alteration_definition") = assess_art225_sec3_1_alteration_definition(case_id, unknown_015, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_015)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_alteration_definition.conflict
+// sources: comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.alteration_definition
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_1.alteration_definition") = assess_art225_sec3_1_alteration_definition(case_id, positive_015, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec3_1_alteration_definition(case_id, negative_015, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_015) and
+  provable(case_id, negative_015)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_assistant_completion_without_approval.satisfied
+// sources: comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9
+// norm_cards: art225_sec3_1.assistant_completion_without_approval
+rel satisfied_art225_sec3_1_assistant_completion_without_approval(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec3_1_assistant_completion_without_approval(case_id, assessment_016, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_016)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_assistant_completion_without_approval.undetermined
+// sources: comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9
+// norm_cards: art225_sec3_1.assistant_completion_without_approval
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec3_1.assistant_completion_without_approval") = assess_art225_sec3_1_assistant_completion_without_approval(case_id, unknown_016, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_016)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_assistant_completion_without_approval.conflict
+// sources: comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9
+// norm_cards: art225_sec3_1.assistant_completion_without_approval
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_1.assistant_completion_without_approval") = assess_art225_sec3_1_assistant_completion_without_approval(case_id, positive_016, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec3_1_assistant_completion_without_approval(case_id, negative_016, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_016) and
+  provable(case_id, negative_016)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_author_instruction_or_consent.satisfied
+// sources: comm_001692_제225조_Ⅲ.1_9
+// norm_cards: art225_sec3_1.author_instruction_or_consent
+rel satisfied_art225_sec3_1_author_instruction_or_consent(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec3_1_author_instruction_or_consent(case_id, assessment_017, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_017)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_author_instruction_or_consent.undetermined
+// sources: comm_001692_제225조_Ⅲ.1_9
+// norm_cards: art225_sec3_1.author_instruction_or_consent
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec3_1.author_instruction_or_consent") = assess_art225_sec3_1_author_instruction_or_consent(case_id, unknown_017, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_017)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_author_instruction_or_consent.conflict
+// sources: comm_001692_제225조_Ⅲ.1_9
+// norm_cards: art225_sec3_1.author_instruction_or_consent
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_1.author_instruction_or_consent") = assess_art225_sec3_1_author_instruction_or_consent(case_id, positive_017, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec3_1_author_instruction_or_consent(case_id, negative_017, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_017) and
+  provable(case_id, negative_017)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_deceived_official_genuine_document.satisfied
+// sources: comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8
+// norm_cards: art225_sec3_1.deceived_official_genuine_document
+rel satisfied_art225_sec3_1_deceived_official_genuine_document(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec3_1_deceived_official_genuine_document(case_id, assessment_018, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_018)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_deceived_official_genuine_document.undetermined
+// sources: comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8
+// norm_cards: art225_sec3_1.deceived_official_genuine_document
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec3_1.deceived_official_genuine_document") = assess_art225_sec3_1_deceived_official_genuine_document(case_id, unknown_018, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_018)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_deceived_official_genuine_document.conflict
+// sources: comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8
+// norm_cards: art225_sec3_1.deceived_official_genuine_document
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_1.deceived_official_genuine_document") = assess_art225_sec3_1_deceived_official_genuine_document(case_id, positive_018, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec3_1_deceived_official_genuine_document(case_id, negative_018, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_018) and
+  provable(case_id, negative_018)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_deceived_official_no_indirect_perpetration.satisfied
+// sources: comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8
+// norm_cards: art225_sec3_1.deceived_official_no_indirect_perpetration
+rel satisfied_art225_sec3_1_deceived_official_no_indirect_perpetration(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec3_1_deceived_official_no_indirect_perpetration(case_id, assessment_019, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_019)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_deceived_official_no_indirect_perpetration.undetermined
+// sources: comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8
+// norm_cards: art225_sec3_1.deceived_official_no_indirect_perpetration
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec3_1.deceived_official_no_indirect_perpetration") = assess_art225_sec3_1_deceived_official_no_indirect_perpetration(case_id, unknown_019, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_019)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_deceived_official_no_indirect_perpetration.conflict
+// sources: comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8
+// norm_cards: art225_sec3_1.deceived_official_no_indirect_perpetration
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_1.deceived_official_no_indirect_perpetration") = assess_art225_sec3_1_deceived_official_no_indirect_perpetration(case_id, positive_019, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec3_1_deceived_official_no_indirect_perpetration(case_id, negative_019, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_019) and
+  provable(case_id, negative_019)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_forgery_apparent_authority.satisfied
+// sources: comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.forgery_apparent_authority
+rel satisfied_art225_sec3_1_forgery_apparent_authority(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec3_1_forgery_apparent_authority(case_id, assessment_020, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_020)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_forgery_apparent_authority.undetermined
+// sources: comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.forgery_apparent_authority
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec3_1.forgery_apparent_authority") = assess_art225_sec3_1_forgery_apparent_authority(case_id, unknown_020, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_020)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_forgery_apparent_authority.conflict
+// sources: comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.forgery_apparent_authority
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_1.forgery_apparent_authority") = assess_art225_sec3_1_forgery_apparent_authority(case_id, positive_020, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec3_1_forgery_apparent_authority(case_id, negative_020, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_020) and
+  provable(case_id, negative_020)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_forgery_definition.satisfied
+// sources: comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.forgery_definition
+rel satisfied_art225_sec3_1_forgery_definition(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec3_1_forgery_definition(case_id, assessment_021, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_021)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_forgery_definition.undetermined
+// sources: comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.forgery_definition
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec3_1.forgery_definition") = assess_art225_sec3_1_forgery_definition(case_id, unknown_021, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_021)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_forgery_definition.conflict
+// sources: comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.forgery_definition
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_1.forgery_definition") = assess_art225_sec3_1_forgery_definition(case_id, positive_021, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec3_1_forgery_definition(case_id, negative_021, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_021) and
+  provable(case_id, negative_021)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_new_content_is_forgery.satisfied
+// sources: comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.new_content_is_forgery
+rel satisfied_art225_sec3_1_new_content_is_forgery(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec3_1_new_content_is_forgery(case_id, assessment_022, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_022)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_new_content_is_forgery.undetermined
+// sources: comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.new_content_is_forgery
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec3_1.new_content_is_forgery") = assess_art225_sec3_1_new_content_is_forgery(case_id, unknown_022, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_022)
+
+// rule_id: public_document_forgery.card.art225_sec3_1_new_content_is_forgery.conflict
+// sources: comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.new_content_is_forgery
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_1.new_content_is_forgery") = assess_art225_sec3_1_new_content_is_forgery(case_id, positive_022, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec3_1_new_content_is_forgery(case_id, negative_022, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_022) and
+  provable(case_id, negative_022)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_alteration_requirements.satisfied
+// sources: comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10
+// norm_cards: art225_sec3_2.alteration_requirements
+rel satisfied_art225_sec3_2_alteration_requirements(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec3_2_alteration_requirements(case_id, assessment_023, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_023)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_alteration_requirements.undetermined
+// sources: comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10
+// norm_cards: art225_sec3_2.alteration_requirements
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec3_2.alteration_requirements") = assess_art225_sec3_2_alteration_requirements(case_id, unknown_023, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_023)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_alteration_requirements.conflict
+// sources: comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10
+// norm_cards: art225_sec3_2.alteration_requirements
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_2.alteration_requirements") = assess_art225_sec3_2_alteration_requirements(case_id, positive_023, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec3_2_alteration_requirements(case_id, negative_023, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_023) and
+  provable(case_id, negative_023)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_apparent_official_document.satisfied
+// sources: comm_001692_제225조_Ⅲ.2_10
+// norm_cards: art225_sec3_2.apparent_official_document
+rel satisfied_art225_sec3_2_apparent_official_document(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec3_2_apparent_official_document(case_id, assessment_024, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_024)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_apparent_official_document.undetermined
+// sources: comm_001692_제225조_Ⅲ.2_10
+// norm_cards: art225_sec3_2.apparent_official_document
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec3_2.apparent_official_document") = assess_art225_sec3_2_apparent_official_document(case_id, unknown_024, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_024)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_apparent_official_document.conflict
+// sources: comm_001692_제225조_Ⅲ.2_10
+// norm_cards: art225_sec3_2.apparent_official_document
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_2.apparent_official_document") = assess_art225_sec3_2_apparent_official_document(case_id, positive_024, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec3_2_apparent_official_document(case_id, negative_024, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_024) and
+  provable(case_id, negative_024)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_divorce_report_not_confirmation_copy_part.satisfied
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.divorce_report_not_confirmation_copy_part
+rel satisfied_art225_sec3_2_divorce_report_not_confirmation_copy_part(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec3_2_divorce_report_not_confirmation_copy_part(case_id, assessment_025, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_025)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_divorce_report_not_confirmation_copy_part.undetermined
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.divorce_report_not_confirmation_copy_part
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec3_2.divorce_report_not_confirmation_copy_part") = assess_art225_sec3_2_divorce_report_not_confirmation_copy_part(case_id, unknown_025, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_025)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_divorce_report_not_confirmation_copy_part.conflict
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.divorce_report_not_confirmation_copy_part
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_2.divorce_report_not_confirmation_copy_part") = assess_art225_sec3_2_divorce_report_not_confirmation_copy_part(case_id, positive_025, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec3_2_divorce_report_not_confirmation_copy_part(case_id, negative_025, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_025) and
+  provable(case_id, negative_025)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_id_cover_alteration.satisfied
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.id_cover_alteration
+rel satisfied_art225_sec3_2_id_cover_alteration(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec3_2_id_cover_alteration(case_id, assessment_026, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_026)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_id_cover_alteration.undetermined
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.id_cover_alteration
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec3_2.id_cover_alteration") = assess_art225_sec3_2_id_cover_alteration(case_id, unknown_026, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_026)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_id_cover_alteration.conflict
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.id_cover_alteration
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_2.id_cover_alteration") = assess_art225_sec3_2_id_cover_alteration(case_id, positive_026, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec3_2_id_cover_alteration(case_id, negative_026, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_026) and
+  provable(case_id, negative_026)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_name_change_new_document_forgery.satisfied
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.name_change_new_document_forgery
+rel satisfied_art225_sec3_2_name_change_new_document_forgery(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec3_2_name_change_new_document_forgery(case_id, assessment_027, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_027)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_name_change_new_document_forgery.undetermined
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.name_change_new_document_forgery
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec3_2.name_change_new_document_forgery") = assess_art225_sec3_2_name_change_new_document_forgery(case_id, unknown_027, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_027)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_name_change_new_document_forgery.conflict
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.name_change_new_document_forgery
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_2.name_change_new_document_forgery") = assess_art225_sec3_2_name_change_new_document_forgery(case_id, positive_027, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec3_2_name_change_new_document_forgery(case_id, negative_027, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_027) and
+  provable(case_id, negative_027)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_partial_copy_no_new_probative_force.satisfied
+// sources: comm_001692_제225조_Ⅲ.2_13
+// norm_cards: art225_sec3_2.partial_copy_no_new_probative_force
+rel satisfied_art225_sec3_2_partial_copy_no_new_probative_force(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec3_2_partial_copy_no_new_probative_force(case_id, assessment_028, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_028)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_partial_copy_no_new_probative_force.undetermined
+// sources: comm_001692_제225조_Ⅲ.2_13
+// norm_cards: art225_sec3_2.partial_copy_no_new_probative_force
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec3_2.partial_copy_no_new_probative_force") = assess_art225_sec3_2_partial_copy_no_new_probative_force(case_id, unknown_028, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_028)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_partial_copy_no_new_probative_force.conflict
+// sources: comm_001692_제225조_Ⅲ.2_13
+// norm_cards: art225_sec3_2.partial_copy_no_new_probative_force
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_2.partial_copy_no_new_probative_force") = assess_art225_sec3_2_partial_copy_no_new_probative_force(case_id, positive_028, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec3_2_partial_copy_no_new_probative_force(case_id, negative_028, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_028) and
+  provable(case_id, negative_028)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_replaced_divorce_report.satisfied
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.replaced_divorce_report
+rel satisfied_art225_sec3_2_replaced_divorce_report(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec3_2_replaced_divorce_report(case_id, assessment_029, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_029)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_replaced_divorce_report.undetermined
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.replaced_divorce_report
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec3_2.replaced_divorce_report") = assess_art225_sec3_2_replaced_divorce_report(case_id, unknown_029, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_029)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_replaced_divorce_report.conflict
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.replaced_divorce_report
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_2.replaced_divorce_report") = assess_art225_sec3_2_replaced_divorce_report(case_id, positive_029, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec3_2_replaced_divorce_report(case_id, negative_029, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_029) and
+  provable(case_id, negative_029)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_seal_certificate_use_purpose.satisfied
+// sources: comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11
+// norm_cards: art225_sec3_2.seal_certificate_use_purpose
+rel satisfied_art225_sec3_2_seal_certificate_use_purpose(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec3_2_seal_certificate_use_purpose(case_id, assessment_030, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_030)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_seal_certificate_use_purpose.undetermined
+// sources: comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11
+// norm_cards: art225_sec3_2.seal_certificate_use_purpose
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec3_2.seal_certificate_use_purpose") = assess_art225_sec3_2_seal_certificate_use_purpose(case_id, unknown_030, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_030)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_seal_certificate_use_purpose.conflict
+// sources: comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11
+// norm_cards: art225_sec3_2.seal_certificate_use_purpose
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_2.seal_certificate_use_purpose") = assess_art225_sec3_2_seal_certificate_use_purpose(case_id, positive_030, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec3_2_seal_certificate_use_purpose(case_id, negative_030, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_030) and
+  provable(case_id, negative_030)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_unexplained_dotted_lines.satisfied
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.unexplained_dotted_lines
+rel satisfied_art225_sec3_2_unexplained_dotted_lines(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec3_2_unexplained_dotted_lines(case_id, assessment_031, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_031)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_unexplained_dotted_lines.undetermined
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.unexplained_dotted_lines
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec3_2.unexplained_dotted_lines") = assess_art225_sec3_2_unexplained_dotted_lines(case_id, unknown_031, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_031)
+
+// rule_id: public_document_forgery.card.art225_sec3_2_unexplained_dotted_lines.conflict
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.unexplained_dotted_lines
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_2.unexplained_dotted_lines") = assess_art225_sec3_2_unexplained_dotted_lines(case_id, positive_031, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec3_2_unexplained_dotted_lines(case_id, negative_031, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_031) and
+  provable(case_id, negative_031)
+
+// rule_id: public_document_forgery.card.art225_sec4_1_abstract_intent_to_use.satisfied
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.abstract_intent_to_use
+rel satisfied_art225_sec4_1_abstract_intent_to_use(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec4_1_abstract_intent_to_use(case_id, assessment_032, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_032)
+
+// rule_id: public_document_forgery.card.art225_sec4_1_abstract_intent_to_use.undetermined
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.abstract_intent_to_use
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec4_1.abstract_intent_to_use") = assess_art225_sec4_1_abstract_intent_to_use(case_id, unknown_032, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_032)
+
+// rule_id: public_document_forgery.card.art225_sec4_1_abstract_intent_to_use.conflict
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.abstract_intent_to_use
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_1.abstract_intent_to_use") = assess_art225_sec4_1_abstract_intent_to_use(case_id, positive_032, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec4_1_abstract_intent_to_use(case_id, negative_032, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_032) and
+  provable(case_id, negative_032)
+
+// rule_id: public_document_forgery.card.art225_sec4_1_altered_document_use_not_limited.satisfied
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.altered_document_use_not_limited
+rel satisfied_art225_sec4_1_altered_document_use_not_limited(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec4_1_altered_document_use_not_limited(case_id, assessment_033, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_033)
+
+// rule_id: public_document_forgery.card.art225_sec4_1_altered_document_use_not_limited.undetermined
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.altered_document_use_not_limited
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec4_1.altered_document_use_not_limited") = assess_art225_sec4_1_altered_document_use_not_limited(case_id, unknown_033, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_033)
+
+// rule_id: public_document_forgery.card.art225_sec4_1_altered_document_use_not_limited.conflict
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.altered_document_use_not_limited
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_1.altered_document_use_not_limited") = assess_art225_sec4_1_altered_document_use_not_limited(case_id, positive_033, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec4_1_altered_document_use_not_limited(case_id, negative_033, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_033) and
+  provable(case_id, negative_033)
+
+// rule_id: public_document_forgery.card.art225_sec4_1_intent_to_use_definition.satisfied
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_definition
+rel satisfied_art225_sec4_1_intent_to_use_definition(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec4_1_intent_to_use_definition(case_id, assessment_034, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_034)
+
+// rule_id: public_document_forgery.card.art225_sec4_1_intent_to_use_definition.undetermined
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_definition
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec4_1.intent_to_use_definition") = assess_art225_sec4_1_intent_to_use_definition(case_id, unknown_034, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_034)
+
+// rule_id: public_document_forgery.card.art225_sec4_1_intent_to_use_definition.conflict
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_definition
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_1.intent_to_use_definition") = assess_art225_sec4_1_intent_to_use_definition(case_id, positive_034, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec4_1_intent_to_use_definition(case_id, negative_034, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_034) and
+  provable(case_id, negative_034)
+
+// rule_id: public_document_forgery.card.art225_sec4_1_intent_to_use_requirement.satisfied
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_requirement
+rel satisfied_art225_sec4_1_intent_to_use_requirement(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec4_1_intent_to_use_requirement(case_id, assessment_035, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_035)
+
+// rule_id: public_document_forgery.card.art225_sec4_1_intent_to_use_requirement.undetermined
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_requirement
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec4_1.intent_to_use_requirement") = assess_art225_sec4_1_intent_to_use_requirement(case_id, unknown_035, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_035)
+
+// rule_id: public_document_forgery.card.art225_sec4_1_intent_to_use_requirement.conflict
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_requirement
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_1.intent_to_use_requirement") = assess_art225_sec4_1_intent_to_use_requirement(case_id, positive_035, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec4_1_intent_to_use_requirement(case_id, negative_035, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_035) and
+  provable(case_id, negative_035)
+
+// rule_id: public_document_forgery.card.art225_sec4_1_intent_to_use_time_of_act.satisfied
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_time_of_act
+rel satisfied_art225_sec4_1_intent_to_use_time_of_act(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec4_1_intent_to_use_time_of_act(case_id, assessment_036, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_036)
+
+// rule_id: public_document_forgery.card.art225_sec4_1_intent_to_use_time_of_act.undetermined
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_time_of_act
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec4_1.intent_to_use_time_of_act") = assess_art225_sec4_1_intent_to_use_time_of_act(case_id, unknown_036, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_036)
+
+// rule_id: public_document_forgery.card.art225_sec4_1_intent_to_use_time_of_act.conflict
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_time_of_act
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_1.intent_to_use_time_of_act") = assess_art225_sec4_1_intent_to_use_time_of_act(case_id, positive_036, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec4_1_intent_to_use_time_of_act(case_id, negative_036, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_036) and
+  provable(case_id, negative_036)
+
+// rule_id: public_document_forgery.card.art225_sec4_2_intent_for_forgery.satisfied
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.intent-for-forgery
+rel satisfied_art225_sec4_2_intent_for_forgery(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec4_2_intent_for_forgery(case_id, assessment_037, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_037)
+
+// rule_id: public_document_forgery.card.art225_sec4_2_intent_for_forgery.undetermined
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.intent-for-forgery
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec4_2.intent-for-forgery") = assess_art225_sec4_2_intent_for_forgery(case_id, unknown_037, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_037)
+
+// rule_id: public_document_forgery.card.art225_sec4_2_intent_for_forgery.conflict
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.intent-for-forgery
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_2.intent-for-forgery") = assess_art225_sec4_2_intent_for_forgery(case_id, positive_037, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec4_2_intent_for_forgery(case_id, negative_037, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_037) and
+  provable(case_id, negative_037)
+
+// rule_id: public_document_forgery.card.art225_sec4_2_unauthorized_addition_approved_document_intent.satisfied
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.unauthorized-addition-approved-document-intent
+rel satisfied_art225_sec4_2_unauthorized_addition_approved_document_intent(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec4_2_unauthorized_addition_approved_document_intent(case_id, assessment_038, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_038)
+
+// rule_id: public_document_forgery.card.art225_sec4_2_unauthorized_addition_approved_document_intent.undetermined
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.unauthorized-addition-approved-document-intent
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec4_2.unauthorized-addition-approved-document-intent") = assess_art225_sec4_2_unauthorized_addition_approved_document_intent(case_id, unknown_038, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_038)
+
+// rule_id: public_document_forgery.card.art225_sec4_2_unauthorized_addition_approved_document_intent.conflict
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.unauthorized-addition-approved-document-intent
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_2.unauthorized-addition-approved-document-intent") = assess_art225_sec4_2_unauthorized_addition_approved_document_intent(case_id, positive_038, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec4_2_unauthorized_addition_approved_document_intent(case_id, negative_038, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_038) and
+  provable(case_id, negative_038)
+
+// rule_id: public_document_forgery.card.art225_sec4_2_unauthorized_substitution_map_intent.satisfied
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.unauthorized-substitution-map-intent
+rel satisfied_art225_sec4_2_unauthorized_substitution_map_intent(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec4_2_unauthorized_substitution_map_intent(case_id, assessment_039, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_039)
+
+// rule_id: public_document_forgery.card.art225_sec4_2_unauthorized_substitution_map_intent.undetermined
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.unauthorized-substitution-map-intent
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec4_2.unauthorized-substitution-map-intent") = assess_art225_sec4_2_unauthorized_substitution_map_intent(case_id, unknown_039, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_039)
+
+// rule_id: public_document_forgery.card.art225_sec4_2_unauthorized_substitution_map_intent.conflict
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.unauthorized-substitution-map-intent
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_2.unauthorized-substitution-map-intent") = assess_art225_sec4_2_unauthorized_substitution_map_intent(case_id, positive_039, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec4_2_unauthorized_substitution_map_intent(case_id, negative_039, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_039) and
+  provable(case_id, negative_039)
+
+// rule_id: public_document_forgery.card.art225_sec5_attempt_commencement.satisfied
+// sources: comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_commencement
+rel satisfied_art225_sec5_attempt_commencement(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec5_attempt_commencement(case_id, assessment_040, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_040)
+
+// rule_id: public_document_forgery.card.art225_sec5_attempt_commencement.undetermined
+// sources: comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_commencement
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec5.attempt_commencement") = assess_art225_sec5_attempt_commencement(case_id, unknown_040, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_040)
+
+// rule_id: public_document_forgery.card.art225_sec5_attempt_commencement.conflict
+// sources: comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_commencement
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec5.attempt_commencement") = assess_art225_sec5_attempt_commencement(case_id, positive_040, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec5_attempt_commencement(case_id, negative_040, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_040) and
+  provable(case_id, negative_040)
+
+// rule_id: public_document_forgery.card.art225_sec5_attempt_document_not_deceptive.satisfied
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_document_not_deceptive
+rel satisfied_art225_sec5_attempt_document_not_deceptive(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec5_attempt_document_not_deceptive(case_id, assessment_041, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_041)
+
+// rule_id: public_document_forgery.card.art225_sec5_attempt_document_not_deceptive.undetermined
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_document_not_deceptive
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec5.attempt_document_not_deceptive") = assess_art225_sec5_attempt_document_not_deceptive(case_id, unknown_041, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_041)
+
+// rule_id: public_document_forgery.card.art225_sec5_attempt_document_not_deceptive.conflict
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_document_not_deceptive
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec5.attempt_document_not_deceptive") = assess_art225_sec5_attempt_document_not_deceptive(case_id, positive_041, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec5_attempt_document_not_deceptive(case_id, negative_041, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_041) and
+  provable(case_id, negative_041)
+
+// rule_id: public_document_forgery.card.art225_sec5_attempt_punishable.satisfied
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_punishable
+rel satisfied_art225_sec5_attempt_punishable(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec5_attempt_punishable(case_id, assessment_042, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_042)
+
+// rule_id: public_document_forgery.card.art225_sec5_attempt_punishable.undetermined
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_punishable
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec5.attempt_punishable") = assess_art225_sec5_attempt_punishable(case_id, unknown_042, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_042)
+
+// rule_id: public_document_forgery.card.art225_sec5_attempt_punishable.conflict
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_punishable
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec5.attempt_punishable") = assess_art225_sec5_attempt_punishable(case_id, positive_042, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec5_attempt_punishable(case_id, negative_042, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_042) and
+  provable(case_id, negative_042)
+
+// rule_id: public_document_forgery.card.art225_sec5_waste_bag_film_preparation_only.satisfied
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.waste_bag_film_preparation_only
+rel satisfied_art225_sec5_waste_bag_film_preparation_only(case_id, defendant_id, document_id, nominal_official_id) = assess_art225_sec5_waste_bag_film_preparation_only(case_id, assessment_043, defendant_id, document_id, nominal_official_id, "satisfied") and
+  provable(case_id, assessment_043)
+
+// rule_id: public_document_forgery.card.art225_sec5_waste_bag_film_preparation_only.undetermined
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.waste_bag_film_preparation_only
+rel public_document_forgery_undetermined(case_id, defendant_id, "art225_sec5.waste_bag_film_preparation_only") = assess_art225_sec5_waste_bag_film_preparation_only(case_id, unknown_043, defendant_id, document_id, nominal_official_id, "unknown") and
+  provable(case_id, unknown_043)
+
+// rule_id: public_document_forgery.card.art225_sec5_waste_bag_film_preparation_only.conflict
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.waste_bag_film_preparation_only
+rel public_document_forgery_conflict(case_id, defendant_id, "art225_sec5.waste_bag_film_preparation_only") = assess_art225_sec5_waste_bag_film_preparation_only(case_id, positive_043, defendant_id, document_id, nominal_official_id, "satisfied") and
+  assess_art225_sec5_waste_bag_film_preparation_only(case_id, negative_043, defendant_id, document_id, nominal_official_id, "not_satisfied") and
+  provable(case_id, positive_043) and
+  provable(case_id, negative_043)
+
+// rule_id: public_document_forgery.component.alteration.alteration_intent.art225_sec4_2_unauthorized_addition_approved_document_intent
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.unauthorized-addition-approved-document-intent
+rel public_document_forgery_alteration_alteration_intent_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_sec4_2_unauthorized_addition_approved_document_intent(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.alteration.alteration_intent.art225_sec4_2_unauthorized_substitution_map_intent
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.unauthorized-substitution-map-intent
+rel public_document_forgery_alteration_alteration_intent_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_sec4_2_unauthorized_substitution_map_intent(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.alteration.identity_preserving_change.art225_sec3_1_alteration_definition
+// sources: comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.alteration_definition
+rel public_document_forgery_alteration_identity_preserving_change_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_sec3_1_alteration_definition(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.alteration.identity_preserving_change.art225_sec3_2_alteration_requirements
+// sources: comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10
+// norm_cards: art225_sec3_2.alteration_requirements
+rel public_document_forgery_alteration_identity_preserving_change_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_sec3_2_alteration_requirements(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.alteration.identity_preserving_change.art225_sec3_2_apparent_official_document
+// sources: comm_001692_제225조_Ⅲ.2_10
+// norm_cards: art225_sec3_2.apparent_official_document
+rel public_document_forgery_alteration_identity_preserving_change_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_sec3_2_apparent_official_document(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.attempt.punishable_attempt.art225_sec5_attempt_commencement
+// sources: comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_commencement
+rel public_document_forgery_attempt_punishable_attempt_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_sec5_attempt_commencement(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.attempt.punishable_attempt.art225_sec5_attempt_document_not_deceptive
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_document_not_deceptive
+rel public_document_forgery_attempt_punishable_attempt_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_sec5_attempt_document_not_deceptive(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.attempt.punishable_attempt.art225_sec5_attempt_punishable
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_punishable
+rel public_document_forgery_attempt_punishable_attempt_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_sec5_attempt_punishable(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.common.intent_to_use.art225_sec4_1_abstract_intent_to_use
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.abstract_intent_to_use
+rel public_document_forgery_common_intent_to_use_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_sec4_1_abstract_intent_to_use(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.common.intent_to_use.art225_sec4_1_altered_document_use_not_limited
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.altered_document_use_not_limited
+rel public_document_forgery_common_intent_to_use_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_sec4_1_altered_document_use_not_limited(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.common.intent_to_use.art225_sec4_1_intent_to_use_definition
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_definition
+rel public_document_forgery_common_intent_to_use_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_sec4_1_intent_to_use_definition(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.common.intent_to_use.art225_sec4_1_intent_to_use_requirement
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_requirement
+rel public_document_forgery_common_intent_to_use_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_sec4_1_intent_to_use_requirement(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.common.intent_to_use.art225_sec4_1_intent_to_use_time_of_act
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_time_of_act
+rel public_document_forgery_common_intent_to_use_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_sec4_1_intent_to_use_time_of_act(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.forgery.forgery_intent.all
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.intent-for-forgery
+rel public_document_forgery_forgery_forgery_intent_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_sec4_2_intent_for_forgery(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.forgery.official_document.art225_approved_private_document
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.approved_private_document
+rel public_document_forgery_forgery_official_document_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_approved_private_document(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.forgery.official_document.art225_inferable_author
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.inferable_author
+rel public_document_forgery_forgery_official_document_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_inferable_author(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.forgery.official_document.art225_minor_form_defect
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.minor_form_defect
+rel public_document_forgery_forgery_official_document_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_minor_form_defect(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.forgery.official_document.art225_nonexistent_nominee_document
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.nonexistent_nominee_document
+rel public_document_forgery_forgery_official_document_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_nonexistent_nominee_document(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.forgery.official_document.art225_official_document_definition
+// sources: comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.official_document_definition
+rel public_document_forgery_forgery_official_document_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_official_document_definition(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.forgery.official_document.art225_private_economic_official_document
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.private_economic_official_document
+rel public_document_forgery_forgery_official_document_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_private_economic_official_document(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.forgery.official_document.art225_private_intent_document
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.private_intent_document
+rel public_document_forgery_forgery_official_document_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_private_intent_document(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.forgery.official_document.art225_scope_of_document_authority
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.scope_of_document_authority
+rel public_document_forgery_forgery_official_document_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_scope_of_document_authority(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.forgery.official_document.art225_sec2_official_document_drawing_definition
+// sources: comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅱ_1
+// norm_cards: art225_sec2.official_document_drawing_definition
+rel public_document_forgery_forgery_official_document_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_sec2_official_document_drawing_definition(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.forgery.unauthorized_creation.art225_sec3_1_assistant_completion_without_approval
+// sources: comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9
+// norm_cards: art225_sec3_1.assistant_completion_without_approval
+rel public_document_forgery_forgery_unauthorized_creation_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_sec3_1_assistant_completion_without_approval(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.forgery.unauthorized_creation.art225_sec3_1_forgery_apparent_authority
+// sources: comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.forgery_apparent_authority
+rel public_document_forgery_forgery_unauthorized_creation_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_sec3_1_forgery_apparent_authority(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.forgery.unauthorized_creation.art225_sec3_1_forgery_definition
+// sources: comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.forgery_definition
+rel public_document_forgery_forgery_unauthorized_creation_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_sec3_1_forgery_definition(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.component.forgery.unauthorized_creation.art225_sec3_1_new_content_is_forgery
+// sources: comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.new_content_is_forgery
+rel public_document_forgery_forgery_unauthorized_creation_satisfied(case_id, defendant_id, document_id, nominal_official_id) = satisfied_art225_sec3_1_new_content_is_forgery(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.track_conflict.alteration.art225_sec4_2_unauthorized_addition_approved_document_intent
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.unauthorized-addition-approved-document-intent
+rel public_document_forgery_track_conflict(case_id, defendant_id, "alteration", "art225_sec4_2.unauthorized-addition-approved-document-intent") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_2.unauthorized-addition-approved-document-intent")
+
+// rule_id: public_document_forgery.track_conflict.alteration.art225_sec4_2_unauthorized_substitution_map_intent
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.unauthorized-substitution-map-intent
+rel public_document_forgery_track_conflict(case_id, defendant_id, "alteration", "art225_sec4_2.unauthorized-substitution-map-intent") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_2.unauthorized-substitution-map-intent")
+
+// rule_id: public_document_forgery.track_conflict.alteration.art225_false_original_not_alteration_object
+// sources: comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.2_5
+// norm_cards: art225.false_original_not_alteration_object
+rel public_document_forgery_track_conflict(case_id, defendant_id, "alteration", "art225.false_original_not_alteration_object") = public_document_forgery_conflict(case_id, defendant_id, "art225.false_original_not_alteration_object")
+
+// rule_id: public_document_forgery.track_blocked.alteration.art225_false_original_not_alteration_object
+// sources: comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.2_5
+// norm_cards: art225.false_original_not_alteration_object
+rel public_document_forgery_track_not_established(case_id, defendant_id, "alteration", "art225.false_original_not_alteration_object") = satisfied_art225_false_original_not_alteration_object(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.track_conflict.alteration.art225_sec3_1_alteration_definition
+// sources: comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.alteration_definition
+rel public_document_forgery_track_conflict(case_id, defendant_id, "alteration", "art225_sec3_1.alteration_definition") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_1.alteration_definition")
+
+// rule_id: public_document_forgery.track_conflict.alteration.art225_sec3_2_alteration_requirements
+// sources: comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10
+// norm_cards: art225_sec3_2.alteration_requirements
+rel public_document_forgery_track_conflict(case_id, defendant_id, "alteration", "art225_sec3_2.alteration_requirements") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_2.alteration_requirements")
+
+// rule_id: public_document_forgery.track_conflict.alteration.art225_sec3_2_apparent_official_document
+// sources: comm_001692_제225조_Ⅲ.2_10
+// norm_cards: art225_sec3_2.apparent_official_document
+rel public_document_forgery_track_conflict(case_id, defendant_id, "alteration", "art225_sec3_2.apparent_official_document") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_2.apparent_official_document")
+
+// rule_id: public_document_forgery.track_conflict.alteration.art225_sec3_2_divorce_report_not_confirmation_copy_part
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.divorce_report_not_confirmation_copy_part
+rel public_document_forgery_track_conflict(case_id, defendant_id, "alteration", "art225_sec3_2.divorce_report_not_confirmation_copy_part") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_2.divorce_report_not_confirmation_copy_part")
+
+// rule_id: public_document_forgery.track_blocked.alteration.art225_sec3_2_divorce_report_not_confirmation_copy_part
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.divorce_report_not_confirmation_copy_part
+rel public_document_forgery_track_not_established(case_id, defendant_id, "alteration", "art225_sec3_2.divorce_report_not_confirmation_copy_part") = satisfied_art225_sec3_2_divorce_report_not_confirmation_copy_part(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.track_conflict.alteration.art225_sec3_2_id_cover_alteration
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.id_cover_alteration
+rel public_document_forgery_track_conflict(case_id, defendant_id, "alteration", "art225_sec3_2.id_cover_alteration") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_2.id_cover_alteration")
+
+// rule_id: public_document_forgery.track_blocked.alteration.art225_sec3_2_id_cover_alteration
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.id_cover_alteration
+rel public_document_forgery_track_not_established(case_id, defendant_id, "alteration", "art225_sec3_2.id_cover_alteration") = satisfied_art225_sec3_2_id_cover_alteration(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.track_conflict.alteration.art225_sec3_2_name_change_new_document_forgery
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.name_change_new_document_forgery
+rel public_document_forgery_track_conflict(case_id, defendant_id, "alteration", "art225_sec3_2.name_change_new_document_forgery") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_2.name_change_new_document_forgery")
+
+// rule_id: public_document_forgery.track_blocked.alteration.art225_sec3_2_name_change_new_document_forgery
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.name_change_new_document_forgery
+rel public_document_forgery_track_not_established(case_id, defendant_id, "alteration", "art225_sec3_2.name_change_new_document_forgery") = satisfied_art225_sec3_2_name_change_new_document_forgery(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.track_conflict.alteration.art225_sec3_2_partial_copy_no_new_probative_force
+// sources: comm_001692_제225조_Ⅲ.2_13
+// norm_cards: art225_sec3_2.partial_copy_no_new_probative_force
+rel public_document_forgery_track_conflict(case_id, defendant_id, "alteration", "art225_sec3_2.partial_copy_no_new_probative_force") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_2.partial_copy_no_new_probative_force")
+
+// rule_id: public_document_forgery.track_blocked.alteration.art225_sec3_2_partial_copy_no_new_probative_force
+// sources: comm_001692_제225조_Ⅲ.2_13
+// norm_cards: art225_sec3_2.partial_copy_no_new_probative_force
+rel public_document_forgery_track_not_established(case_id, defendant_id, "alteration", "art225_sec3_2.partial_copy_no_new_probative_force") = satisfied_art225_sec3_2_partial_copy_no_new_probative_force(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.track_conflict.alteration.art225_sec3_2_replaced_divorce_report
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.replaced_divorce_report
+rel public_document_forgery_track_conflict(case_id, defendant_id, "alteration", "art225_sec3_2.replaced_divorce_report") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_2.replaced_divorce_report")
+
+// rule_id: public_document_forgery.track_blocked.alteration.art225_sec3_2_replaced_divorce_report
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.replaced_divorce_report
+rel public_document_forgery_track_not_established(case_id, defendant_id, "alteration", "art225_sec3_2.replaced_divorce_report") = satisfied_art225_sec3_2_replaced_divorce_report(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.track_conflict.alteration.art225_sec3_2_seal_certificate_use_purpose
+// sources: comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11
+// norm_cards: art225_sec3_2.seal_certificate_use_purpose
+rel public_document_forgery_track_conflict(case_id, defendant_id, "alteration", "art225_sec3_2.seal_certificate_use_purpose") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_2.seal_certificate_use_purpose")
+
+// rule_id: public_document_forgery.track_blocked.alteration.art225_sec3_2_seal_certificate_use_purpose
+// sources: comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11
+// norm_cards: art225_sec3_2.seal_certificate_use_purpose
+rel public_document_forgery_track_not_established(case_id, defendant_id, "alteration", "art225_sec3_2.seal_certificate_use_purpose") = satisfied_art225_sec3_2_seal_certificate_use_purpose(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.track_conflict.alteration.art225_sec3_2_unexplained_dotted_lines
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.unexplained_dotted_lines
+rel public_document_forgery_track_conflict(case_id, defendant_id, "alteration", "art225_sec3_2.unexplained_dotted_lines") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_2.unexplained_dotted_lines")
+
+// rule_id: public_document_forgery.track_blocked.alteration.art225_sec3_2_unexplained_dotted_lines
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.unexplained_dotted_lines
+rel public_document_forgery_track_not_established(case_id, defendant_id, "alteration", "art225_sec3_2.unexplained_dotted_lines") = satisfied_art225_sec3_2_unexplained_dotted_lines(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.track_conflict.attempt.art225_sec5_attempt_commencement
+// sources: comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_commencement
+rel public_document_forgery_track_conflict(case_id, defendant_id, "attempt", "art225_sec5.attempt_commencement") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec5.attempt_commencement")
+
+// rule_id: public_document_forgery.track_conflict.attempt.art225_sec5_attempt_document_not_deceptive
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_document_not_deceptive
+rel public_document_forgery_track_conflict(case_id, defendant_id, "attempt", "art225_sec5.attempt_document_not_deceptive") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec5.attempt_document_not_deceptive")
+
+// rule_id: public_document_forgery.track_conflict.attempt.art225_sec5_attempt_punishable
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_punishable
+rel public_document_forgery_track_conflict(case_id, defendant_id, "attempt", "art225_sec5.attempt_punishable") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec5.attempt_punishable")
+
+// rule_id: public_document_forgery.track_conflict.attempt.art225_sec5_waste_bag_film_preparation_only
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.waste_bag_film_preparation_only
+rel public_document_forgery_track_conflict(case_id, defendant_id, "attempt", "art225_sec5.waste_bag_film_preparation_only") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec5.waste_bag_film_preparation_only")
+
+// rule_id: public_document_forgery.track_blocked.attempt.art225_sec5_waste_bag_film_preparation_only
+// sources: comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.waste_bag_film_preparation_only
+rel public_document_forgery_track_not_established(case_id, defendant_id, "attempt", "art225_sec5.waste_bag_film_preparation_only") = satisfied_art225_sec5_waste_bag_film_preparation_only(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_sec4_1_abstract_intent_to_use
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.abstract_intent_to_use
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225_sec4_1.abstract_intent_to_use") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_1.abstract_intent_to_use")
+
+// rule_id: public_document_forgery.track_conflict.alteration.art225_sec4_1_abstract_intent_to_use
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.abstract_intent_to_use
+rel public_document_forgery_track_conflict(case_id, defendant_id, "alteration", "art225_sec4_1.abstract_intent_to_use") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_1.abstract_intent_to_use")
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_sec4_1_altered_document_use_not_limited
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.altered_document_use_not_limited
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225_sec4_1.altered_document_use_not_limited") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_1.altered_document_use_not_limited")
+
+// rule_id: public_document_forgery.track_conflict.alteration.art225_sec4_1_altered_document_use_not_limited
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.altered_document_use_not_limited
+rel public_document_forgery_track_conflict(case_id, defendant_id, "alteration", "art225_sec4_1.altered_document_use_not_limited") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_1.altered_document_use_not_limited")
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_sec4_1_intent_to_use_definition
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_definition
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225_sec4_1.intent_to_use_definition") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_1.intent_to_use_definition")
+
+// rule_id: public_document_forgery.track_conflict.alteration.art225_sec4_1_intent_to_use_definition
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_definition
+rel public_document_forgery_track_conflict(case_id, defendant_id, "alteration", "art225_sec4_1.intent_to_use_definition") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_1.intent_to_use_definition")
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_sec4_1_intent_to_use_requirement
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_requirement
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225_sec4_1.intent_to_use_requirement") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_1.intent_to_use_requirement")
+
+// rule_id: public_document_forgery.track_conflict.alteration.art225_sec4_1_intent_to_use_requirement
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_requirement
+rel public_document_forgery_track_conflict(case_id, defendant_id, "alteration", "art225_sec4_1.intent_to_use_requirement") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_1.intent_to_use_requirement")
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_sec4_1_intent_to_use_time_of_act
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_time_of_act
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225_sec4_1.intent_to_use_time_of_act") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_1.intent_to_use_time_of_act")
+
+// rule_id: public_document_forgery.track_conflict.alteration.art225_sec4_1_intent_to_use_time_of_act
+// sources: comm_001692_제225조_Ⅳ.1_14
+// norm_cards: art225_sec4_1.intent_to_use_time_of_act
+rel public_document_forgery_track_conflict(case_id, defendant_id, "alteration", "art225_sec4_1.intent_to_use_time_of_act") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_1.intent_to_use_time_of_act")
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_sec4_2_intent_for_forgery
+// sources: comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225_sec4_2.intent-for-forgery
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225_sec4_2.intent-for-forgery") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec4_2.intent-for-forgery")
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_approved_private_document
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.approved_private_document
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225.approved_private_document") = public_document_forgery_conflict(case_id, defendant_id, "art225.approved_private_document")
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_contractual_delegate_not_official
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.contractual_delegate_not_official
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225.contractual_delegate_not_official") = public_document_forgery_conflict(case_id, defendant_id, "art225.contractual_delegate_not_official")
+
+// rule_id: public_document_forgery.track_blocked.forgery.art225_contractual_delegate_not_official
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.contractual_delegate_not_official
+rel public_document_forgery_track_not_established(case_id, defendant_id, "forgery", "art225.contractual_delegate_not_official") = satisfied_art225_contractual_delegate_not_official(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_essential_form_defect
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.essential_form_defect
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225.essential_form_defect") = public_document_forgery_conflict(case_id, defendant_id, "art225.essential_form_defect")
+
+// rule_id: public_document_forgery.track_blocked.forgery.art225_essential_form_defect
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.essential_form_defect
+rel public_document_forgery_track_not_established(case_id, defendant_id, "forgery", "art225.essential_form_defect") = satisfied_art225_essential_form_defect(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_foreign_official_document
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.foreign_official_document
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225.foreign_official_document") = public_document_forgery_conflict(case_id, defendant_id, "art225.foreign_official_document")
+
+// rule_id: public_document_forgery.track_blocked.forgery.art225_foreign_official_document
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.foreign_official_document
+rel public_document_forgery_track_not_established(case_id, defendant_id, "forgery", "art225.foreign_official_document") = satisfied_art225_foreign_official_document(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_inferable_author
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.inferable_author
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225.inferable_author") = public_document_forgery_conflict(case_id, defendant_id, "art225.inferable_author")
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_minor_form_defect
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.minor_form_defect
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225.minor_form_defect") = public_document_forgery_conflict(case_id, defendant_id, "art225.minor_form_defect")
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_nonexistent_nominee_document
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.nonexistent_nominee_document
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225.nonexistent_nominee_document") = public_document_forgery_conflict(case_id, defendant_id, "art225.nonexistent_nominee_document")
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_official_document_definition
+// sources: comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.official_document_definition
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225.official_document_definition") = public_document_forgery_conflict(case_id, defendant_id, "art225.official_document_definition")
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_personal_debt_document_not_public
+// sources: comm_001692_제225조_Ⅱ.2_5
+// norm_cards: art225.personal_debt_document_not_public
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225.personal_debt_document_not_public") = public_document_forgery_conflict(case_id, defendant_id, "art225.personal_debt_document_not_public")
+
+// rule_id: public_document_forgery.track_blocked.forgery.art225_personal_debt_document_not_public
+// sources: comm_001692_제225조_Ⅱ.2_5
+// norm_cards: art225.personal_debt_document_not_public
+rel public_document_forgery_track_not_established(case_id, defendant_id, "forgery", "art225.personal_debt_document_not_public") = satisfied_art225_personal_debt_document_not_public(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_private_economic_official_document
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.private_economic_official_document
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225.private_economic_official_document") = public_document_forgery_conflict(case_id, defendant_id, "art225.private_economic_official_document")
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_private_intent_document
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2
+// norm_cards: art225.private_intent_document
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225.private_intent_document") = public_document_forgery_conflict(case_id, defendant_id, "art225.private_intent_document")
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_scope_of_document_authority
+// sources: comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3
+// norm_cards: art225.scope_of_document_authority
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225.scope_of_document_authority") = public_document_forgery_conflict(case_id, defendant_id, "art225.scope_of_document_authority")
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_sec2_official_document_drawing_definition
+// sources: comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅱ_1
+// norm_cards: art225_sec2.official_document_drawing_definition
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225_sec2.official_document_drawing_definition") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec2.official_document_drawing_definition")
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_sec3_1_assistant_completion_without_approval
+// sources: comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9
+// norm_cards: art225_sec3_1.assistant_completion_without_approval
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225_sec3_1.assistant_completion_without_approval") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_1.assistant_completion_without_approval")
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_sec3_1_author_instruction_or_consent
+// sources: comm_001692_제225조_Ⅲ.1_9
+// norm_cards: art225_sec3_1.author_instruction_or_consent
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225_sec3_1.author_instruction_or_consent") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_1.author_instruction_or_consent")
+
+// rule_id: public_document_forgery.track_blocked.forgery.art225_sec3_1_author_instruction_or_consent
+// sources: comm_001692_제225조_Ⅲ.1_9
+// norm_cards: art225_sec3_1.author_instruction_or_consent
+rel public_document_forgery_track_not_established(case_id, defendant_id, "forgery", "art225_sec3_1.author_instruction_or_consent") = satisfied_art225_sec3_1_author_instruction_or_consent(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_sec3_1_deceived_official_genuine_document
+// sources: comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8
+// norm_cards: art225_sec3_1.deceived_official_genuine_document
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225_sec3_1.deceived_official_genuine_document") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_1.deceived_official_genuine_document")
+
+// rule_id: public_document_forgery.track_blocked.forgery.art225_sec3_1_deceived_official_genuine_document
+// sources: comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8
+// norm_cards: art225_sec3_1.deceived_official_genuine_document
+rel public_document_forgery_track_not_established(case_id, defendant_id, "forgery", "art225_sec3_1.deceived_official_genuine_document") = satisfied_art225_sec3_1_deceived_official_genuine_document(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_sec3_1_deceived_official_no_indirect_perpetration
+// sources: comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8
+// norm_cards: art225_sec3_1.deceived_official_no_indirect_perpetration
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225_sec3_1.deceived_official_no_indirect_perpetration") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_1.deceived_official_no_indirect_perpetration")
+
+// rule_id: public_document_forgery.track_blocked.forgery.art225_sec3_1_deceived_official_no_indirect_perpetration
+// sources: comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8
+// norm_cards: art225_sec3_1.deceived_official_no_indirect_perpetration
+rel public_document_forgery_track_not_established(case_id, defendant_id, "forgery", "art225_sec3_1.deceived_official_no_indirect_perpetration") = satisfied_art225_sec3_1_deceived_official_no_indirect_perpetration(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_sec3_1_forgery_apparent_authority
+// sources: comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.forgery_apparent_authority
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225_sec3_1.forgery_apparent_authority") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_1.forgery_apparent_authority")
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_sec3_1_forgery_definition
+// sources: comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.forgery_definition
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225_sec3_1.forgery_definition") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_1.forgery_definition")
+
+// rule_id: public_document_forgery.track_conflict.forgery.art225_sec3_1_new_content_is_forgery
+// sources: comm_001692_제225조_Ⅲ.1_7
+// norm_cards: art225_sec3_1.new_content_is_forgery
+rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225_sec3_1.new_content_is_forgery") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_1.new_content_is_forgery")
+
+// rule_id: public_document_forgery.summary.has_negative
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_13, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16
+// norm_cards: art225.approved_private_document, art225.contractual_delegate_not_official, art225.essential_form_defect, art225.false_original_not_alteration_object, art225.foreign_official_document, art225.inferable_author, art225.minor_form_defect, art225.nonexistent_nominee_document, art225.official_document_definition, art225.personal_debt_document_not_public, art225.private_economic_official_document, art225.private_intent_document, art225.scope_of_document_authority, art225_sec2.official_document_drawing_definition, art225_sec3_1.alteration_definition, art225_sec3_1.assistant_completion_without_approval, art225_sec3_1.author_instruction_or_consent, art225_sec3_1.deceived_official_genuine_document, art225_sec3_1.deceived_official_no_indirect_perpetration, art225_sec3_1.forgery_apparent_authority, art225_sec3_1.forgery_definition, art225_sec3_1.new_content_is_forgery, art225_sec3_2.alteration_requirements, art225_sec3_2.apparent_official_document, art225_sec3_2.divorce_report_not_confirmation_copy_part, art225_sec3_2.id_cover_alteration, art225_sec3_2.name_change_new_document_forgery, art225_sec3_2.partial_copy_no_new_probative_force, art225_sec3_2.replaced_divorce_report, art225_sec3_2.seal_certificate_use_purpose, art225_sec3_2.unexplained_dotted_lines, art225_sec4_1.abstract_intent_to_use, art225_sec4_1.altered_document_use_not_limited, art225_sec4_1.intent_to_use_definition, art225_sec4_1.intent_to_use_requirement, art225_sec4_1.intent_to_use_time_of_act, art225_sec4_2.intent-for-forgery, art225_sec4_2.unauthorized-addition-approved-document-intent, art225_sec4_2.unauthorized-substitution-map-intent, art225_sec5.attempt_commencement, art225_sec5.attempt_document_not_deceptive, art225_sec5.attempt_punishable, art225_sec5.waste_bag_film_preparation_only
+rel public_document_forgery_has_negative(case_id, defendant_id) = public_document_forgery_not_established(case_id, defendant_id, norm_card_id)
+
+// rule_id: public_document_forgery.summary.has_conflict
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_13, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16
+// norm_cards: art225.approved_private_document, art225.contractual_delegate_not_official, art225.essential_form_defect, art225.false_original_not_alteration_object, art225.foreign_official_document, art225.inferable_author, art225.minor_form_defect, art225.nonexistent_nominee_document, art225.official_document_definition, art225.personal_debt_document_not_public, art225.private_economic_official_document, art225.private_intent_document, art225.scope_of_document_authority, art225_sec2.official_document_drawing_definition, art225_sec3_1.alteration_definition, art225_sec3_1.assistant_completion_without_approval, art225_sec3_1.author_instruction_or_consent, art225_sec3_1.deceived_official_genuine_document, art225_sec3_1.deceived_official_no_indirect_perpetration, art225_sec3_1.forgery_apparent_authority, art225_sec3_1.forgery_definition, art225_sec3_1.new_content_is_forgery, art225_sec3_2.alteration_requirements, art225_sec3_2.apparent_official_document, art225_sec3_2.divorce_report_not_confirmation_copy_part, art225_sec3_2.id_cover_alteration, art225_sec3_2.name_change_new_document_forgery, art225_sec3_2.partial_copy_no_new_probative_force, art225_sec3_2.replaced_divorce_report, art225_sec3_2.seal_certificate_use_purpose, art225_sec3_2.unexplained_dotted_lines, art225_sec4_1.abstract_intent_to_use, art225_sec4_1.altered_document_use_not_limited, art225_sec4_1.intent_to_use_definition, art225_sec4_1.intent_to_use_requirement, art225_sec4_1.intent_to_use_time_of_act, art225_sec4_2.intent-for-forgery, art225_sec4_2.unauthorized-addition-approved-document-intent, art225_sec4_2.unauthorized-substitution-map-intent, art225_sec5.attempt_commencement, art225_sec5.attempt_document_not_deceptive, art225_sec5.attempt_punishable, art225_sec5.waste_bag_film_preparation_only
+rel public_document_forgery_has_conflict(case_id, defendant_id) = public_document_forgery_conflict(case_id, defendant_id, norm_card_id)
+
+// rule_id: public_document_forgery.summary.canonical_not_established
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_13, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16
+// norm_cards: art225.approved_private_document, art225.contractual_delegate_not_official, art225.essential_form_defect, art225.false_original_not_alteration_object, art225.foreign_official_document, art225.inferable_author, art225.minor_form_defect, art225.nonexistent_nominee_document, art225.official_document_definition, art225.personal_debt_document_not_public, art225.private_economic_official_document, art225.private_intent_document, art225.scope_of_document_authority, art225_sec2.official_document_drawing_definition, art225_sec3_1.alteration_definition, art225_sec3_1.assistant_completion_without_approval, art225_sec3_1.author_instruction_or_consent, art225_sec3_1.deceived_official_genuine_document, art225_sec3_1.deceived_official_no_indirect_perpetration, art225_sec3_1.forgery_apparent_authority, art225_sec3_1.forgery_definition, art225_sec3_1.new_content_is_forgery, art225_sec3_2.alteration_requirements, art225_sec3_2.apparent_official_document, art225_sec3_2.divorce_report_not_confirmation_copy_part, art225_sec3_2.id_cover_alteration, art225_sec3_2.name_change_new_document_forgery, art225_sec3_2.partial_copy_no_new_probative_force, art225_sec3_2.replaced_divorce_report, art225_sec3_2.seal_certificate_use_purpose, art225_sec3_2.unexplained_dotted_lines, art225_sec4_1.abstract_intent_to_use, art225_sec4_1.altered_document_use_not_limited, art225_sec4_1.intent_to_use_definition, art225_sec4_1.intent_to_use_requirement, art225_sec4_1.intent_to_use_time_of_act, art225_sec4_2.intent-for-forgery, art225_sec4_2.unauthorized-addition-approved-document-intent, art225_sec4_2.unauthorized-substitution-map-intent, art225_sec5.attempt_commencement, art225_sec5.attempt_document_not_deceptive, art225_sec5.attempt_punishable, art225_sec5.waste_bag_film_preparation_only
+rel public_document_forgery_not_established(case_id, defendant_id, norm_card_id) = public_document_forgery_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: public_document_forgery.summary.track_has_negative
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_13, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16
+// norm_cards: art225.approved_private_document, art225.contractual_delegate_not_official, art225.essential_form_defect, art225.false_original_not_alteration_object, art225.foreign_official_document, art225.inferable_author, art225.minor_form_defect, art225.nonexistent_nominee_document, art225.official_document_definition, art225.personal_debt_document_not_public, art225.private_economic_official_document, art225.private_intent_document, art225.scope_of_document_authority, art225_sec2.official_document_drawing_definition, art225_sec3_1.alteration_definition, art225_sec3_1.assistant_completion_without_approval, art225_sec3_1.author_instruction_or_consent, art225_sec3_1.deceived_official_genuine_document, art225_sec3_1.deceived_official_no_indirect_perpetration, art225_sec3_1.forgery_apparent_authority, art225_sec3_1.forgery_definition, art225_sec3_1.new_content_is_forgery, art225_sec3_2.alteration_requirements, art225_sec3_2.apparent_official_document, art225_sec3_2.divorce_report_not_confirmation_copy_part, art225_sec3_2.id_cover_alteration, art225_sec3_2.name_change_new_document_forgery, art225_sec3_2.partial_copy_no_new_probative_force, art225_sec3_2.replaced_divorce_report, art225_sec3_2.seal_certificate_use_purpose, art225_sec3_2.unexplained_dotted_lines, art225_sec4_1.abstract_intent_to_use, art225_sec4_1.altered_document_use_not_limited, art225_sec4_1.intent_to_use_definition, art225_sec4_1.intent_to_use_requirement, art225_sec4_1.intent_to_use_time_of_act, art225_sec4_2.intent-for-forgery, art225_sec4_2.unauthorized-addition-approved-document-intent, art225_sec4_2.unauthorized-substitution-map-intent, art225_sec5.attempt_commencement, art225_sec5.attempt_document_not_deceptive, art225_sec5.attempt_punishable, art225_sec5.waste_bag_film_preparation_only
+rel public_document_forgery_track_has_negative(case_id, defendant_id, track_id) = public_document_forgery_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: public_document_forgery.summary.track_has_conflict
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_13, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16
+// norm_cards: art225.approved_private_document, art225.contractual_delegate_not_official, art225.essential_form_defect, art225.false_original_not_alteration_object, art225.foreign_official_document, art225.inferable_author, art225.minor_form_defect, art225.nonexistent_nominee_document, art225.official_document_definition, art225.personal_debt_document_not_public, art225.private_economic_official_document, art225.private_intent_document, art225.scope_of_document_authority, art225_sec2.official_document_drawing_definition, art225_sec3_1.alteration_definition, art225_sec3_1.assistant_completion_without_approval, art225_sec3_1.author_instruction_or_consent, art225_sec3_1.deceived_official_genuine_document, art225_sec3_1.deceived_official_no_indirect_perpetration, art225_sec3_1.forgery_apparent_authority, art225_sec3_1.forgery_definition, art225_sec3_1.new_content_is_forgery, art225_sec3_2.alteration_requirements, art225_sec3_2.apparent_official_document, art225_sec3_2.divorce_report_not_confirmation_copy_part, art225_sec3_2.id_cover_alteration, art225_sec3_2.name_change_new_document_forgery, art225_sec3_2.partial_copy_no_new_probative_force, art225_sec3_2.replaced_divorce_report, art225_sec3_2.seal_certificate_use_purpose, art225_sec3_2.unexplained_dotted_lines, art225_sec4_1.abstract_intent_to_use, art225_sec4_1.altered_document_use_not_limited, art225_sec4_1.intent_to_use_definition, art225_sec4_1.intent_to_use_requirement, art225_sec4_1.intent_to_use_time_of_act, art225_sec4_2.intent-for-forgery, art225_sec4_2.unauthorized-addition-approved-document-intent, art225_sec4_2.unauthorized-substitution-map-intent, art225_sec5.attempt_commencement, art225_sec5.attempt_document_not_deceptive, art225_sec5.attempt_punishable, art225_sec5.waste_bag_film_preparation_only
+rel public_document_forgery_track_has_conflict(case_id, defendant_id, track_id) = public_document_forgery_track_conflict(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: public_document_forgery.outcome.forgery.elements_satisfied
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225.approved_private_document, art225.contractual_delegate_not_official, art225.essential_form_defect, art225.foreign_official_document, art225.inferable_author, art225.minor_form_defect, art225.nonexistent_nominee_document, art225.official_document_definition, art225.personal_debt_document_not_public, art225.private_economic_official_document, art225.private_intent_document, art225.scope_of_document_authority, art225_sec2.official_document_drawing_definition, art225_sec3_1.assistant_completion_without_approval, art225_sec3_1.author_instruction_or_consent, art225_sec3_1.deceived_official_genuine_document, art225_sec3_1.deceived_official_no_indirect_perpetration, art225_sec3_1.forgery_apparent_authority, art225_sec3_1.forgery_definition, art225_sec3_1.new_content_is_forgery, art225_sec4_1.abstract_intent_to_use, art225_sec4_1.altered_document_use_not_limited, art225_sec4_1.intent_to_use_definition, art225_sec4_1.intent_to_use_requirement, art225_sec4_1.intent_to_use_time_of_act, art225_sec4_2.intent-for-forgery
+rel public_document_forgery_forgery_elements_satisfied(case_id, defendant_id, document_id, nominal_official_id) = public_document_forgery_common_intent_to_use_satisfied(case_id, defendant_id, document_id, nominal_official_id) and
+  public_document_forgery_forgery_forgery_intent_satisfied(case_id, defendant_id, document_id, nominal_official_id) and
+  public_document_forgery_forgery_official_document_satisfied(case_id, defendant_id, document_id, nominal_official_id) and
+  public_document_forgery_forgery_unauthorized_creation_satisfied(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.outcome.forgery.established
+// sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225.approved_private_document, art225.contractual_delegate_not_official, art225.essential_form_defect, art225.foreign_official_document, art225.inferable_author, art225.minor_form_defect, art225.nonexistent_nominee_document, art225.official_document_definition, art225.personal_debt_document_not_public, art225.private_economic_official_document, art225.private_intent_document, art225.scope_of_document_authority, art225_sec2.official_document_drawing_definition, art225_sec3_1.assistant_completion_without_approval, art225_sec3_1.author_instruction_or_consent, art225_sec3_1.deceived_official_genuine_document, art225_sec3_1.deceived_official_no_indirect_perpetration, art225_sec3_1.forgery_apparent_authority, art225_sec3_1.forgery_definition, art225_sec3_1.new_content_is_forgery, art225_sec4_1.abstract_intent_to_use, art225_sec4_1.altered_document_use_not_limited, art225_sec4_1.intent_to_use_definition, art225_sec4_1.intent_to_use_requirement, art225_sec4_1.intent_to_use_time_of_act, art225_sec4_2.intent-for-forgery
+rel public_document_forgery_forgery_established(case_id, defendant_id, document_id, nominal_official_id) = public_document_forgery_forgery_elements_satisfied(case_id, defendant_id, document_id, nominal_official_id) and
+  case_assessment_complete(case_id, defendant_id) and
+  ~public_document_forgery_track_has_negative(case_id, defendant_id, "forgery") and
+  ~public_document_forgery_track_has_conflict(case_id, defendant_id, "forgery")
+
+// rule_id: public_document_forgery.outcome.alteration.elements_satisfied
+// sources: comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_13, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225.false_original_not_alteration_object, art225_sec3_1.alteration_definition, art225_sec3_2.alteration_requirements, art225_sec3_2.apparent_official_document, art225_sec3_2.divorce_report_not_confirmation_copy_part, art225_sec3_2.id_cover_alteration, art225_sec3_2.name_change_new_document_forgery, art225_sec3_2.partial_copy_no_new_probative_force, art225_sec3_2.replaced_divorce_report, art225_sec3_2.seal_certificate_use_purpose, art225_sec3_2.unexplained_dotted_lines, art225_sec4_1.abstract_intent_to_use, art225_sec4_1.altered_document_use_not_limited, art225_sec4_1.intent_to_use_definition, art225_sec4_1.intent_to_use_requirement, art225_sec4_1.intent_to_use_time_of_act, art225_sec4_2.unauthorized-addition-approved-document-intent, art225_sec4_2.unauthorized-substitution-map-intent
+rel public_document_forgery_alteration_elements_satisfied(case_id, defendant_id, document_id, nominal_official_id) = public_document_forgery_common_intent_to_use_satisfied(case_id, defendant_id, document_id, nominal_official_id) and
+  public_document_forgery_alteration_alteration_intent_satisfied(case_id, defendant_id, document_id, nominal_official_id) and
+  public_document_forgery_alteration_identity_preserving_change_satisfied(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.outcome.alteration.established
+// sources: comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_13, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅳ.2_15
+// norm_cards: art225.false_original_not_alteration_object, art225_sec3_1.alteration_definition, art225_sec3_2.alteration_requirements, art225_sec3_2.apparent_official_document, art225_sec3_2.divorce_report_not_confirmation_copy_part, art225_sec3_2.id_cover_alteration, art225_sec3_2.name_change_new_document_forgery, art225_sec3_2.partial_copy_no_new_probative_force, art225_sec3_2.replaced_divorce_report, art225_sec3_2.seal_certificate_use_purpose, art225_sec3_2.unexplained_dotted_lines, art225_sec4_1.abstract_intent_to_use, art225_sec4_1.altered_document_use_not_limited, art225_sec4_1.intent_to_use_definition, art225_sec4_1.intent_to_use_requirement, art225_sec4_1.intent_to_use_time_of_act, art225_sec4_2.unauthorized-addition-approved-document-intent, art225_sec4_2.unauthorized-substitution-map-intent
+rel public_document_forgery_alteration_established(case_id, defendant_id, document_id, nominal_official_id) = public_document_forgery_alteration_elements_satisfied(case_id, defendant_id, document_id, nominal_official_id) and
+  case_assessment_complete(case_id, defendant_id) and
+  ~public_document_forgery_track_has_negative(case_id, defendant_id, "alteration") and
+  ~public_document_forgery_track_has_conflict(case_id, defendant_id, "alteration")
+
+// rule_id: public_document_forgery.outcome.attempt.elements_satisfied
+// sources: comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_commencement, art225_sec5.attempt_document_not_deceptive, art225_sec5.attempt_punishable, art225_sec5.waste_bag_film_preparation_only
+rel public_document_forgery_attempt_elements_satisfied(case_id, defendant_id, document_id, nominal_official_id) = public_document_forgery_attempt_punishable_attempt_satisfied(case_id, defendant_id, document_id, nominal_official_id)
+
+// rule_id: public_document_forgery.outcome.attempt.established
+// sources: comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16
+// norm_cards: art225_sec5.attempt_commencement, art225_sec5.attempt_document_not_deceptive, art225_sec5.attempt_punishable, art225_sec5.waste_bag_film_preparation_only
+rel public_document_forgery_attempt_established(case_id, defendant_id, document_id, nominal_official_id) = public_document_forgery_attempt_elements_satisfied(case_id, defendant_id, document_id, nominal_official_id) and
+  case_assessment_complete(case_id, defendant_id) and
+  ~public_document_forgery_track_has_negative(case_id, defendant_id, "attempt") and
+  ~public_document_forgery_track_has_conflict(case_id, defendant_id, "attempt")

@@ -1,0 +1,342 @@
+{
+  "version": "1.0.0",
+  "unit_id": "seal_forgery_or_misuse",
+  "law_snapshot": {
+    "as_of_date": "2026-08-03",
+    "effective_source_date": "2026-03-12",
+    "future_snapshot_date": "2026-09-13",
+    "future_snapshot_policy": "separate_snapshot_not_active",
+    "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
+  },
+  "approval_document": "data/rulegen/p2/native_review/seal_forgery_or_misuse_approved_decisions.json",
+  "approval_sha256": "2af0f07bea6c6d98ade0a3b3ddcaa28a625bf04c487bc89e80d25ae0483c0e91",
+  "approved_on": "2026-08-04",
+  "status": "ready_for_rule_ir",
+  "problems": [],
+  "unresolved_unit_references": [
+    {
+      "card_id": "art239_sec1_5.foreign_national_overseas_jurisdiction",
+      "part_id": null,
+      "refers_to_unit": "criminal_procedure",
+      "status": "predicate_ir_missing"
+    }
+  ],
+  "excluded_cards": [],
+  "tracks": [
+    {
+      "track_id": "creation_or_misuse",
+      "label": "사인 등 위조·부정사용"
+    },
+    {
+      "track_id": "use",
+      "label": "위조·부정사용 사인 등 행사"
+    }
+  ],
+  "placements": [
+    {
+      "card_id": "art239_sec1_1.offense_formation",
+      "part_id": null,
+      "role": "component",
+      "track_id": "creation_or_misuse",
+      "component_id": "false_manifestation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "특정인의 진정한 인장·서명으로 오신할 무권한 현출 또는 부정사용",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art239_sec1_3.authenticity_mistake_assessment",
+      "part_id": null,
+      "role": "component",
+      "track_id": "creation_or_misuse",
+      "component_id": "false_manifestation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "특정인의 진정한 인장·서명으로 오신할 무권한 현출 또는 부정사용",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art239_sec1_3.authenticity_mistake_threshold",
+      "part_id": null,
+      "role": "component",
+      "track_id": "creation_or_misuse",
+      "component_id": "false_manifestation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "특정인의 진정한 인장·서명으로 오신할 무권한 현출 또는 부정사용",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art239_sec1_3.authorized_manifestation_not_forgery",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "creation_or_misuse",
+      "component_id": "false_manifestation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "명의자 위임·승낙 또는 정당한 자기 직인 권한",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art239_sec1_3.deceived_nominee_manifestation_not_improper_use",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "creation_or_misuse",
+      "component_id": "false_manifestation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "명의자 위임·승낙 또는 정당한 자기 직인 권한",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art239_sec1_3.incomplete_document_signature_forgery",
+      "part_id": null,
+      "role": "component",
+      "track_id": "creation_or_misuse",
+      "component_id": "false_manifestation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "특정인의 진정한 인장·서명으로 오신할 무권한 현출 또는 부정사용",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art239_sec1_3.interrogation_record_incomplete_holding",
+      "part_id": null,
+      "role": "component",
+      "track_id": "creation_or_misuse",
+      "component_id": "false_manifestation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "특정인의 진정한 인장·서명으로 오신할 무권한 현출 또는 부정사용",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art239_sec1_3.union_chairman_seal_authority",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "creation_or_misuse",
+      "component_id": "false_manifestation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "명의자 위임·승낙 또는 정당한 자기 직인 권한",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art239_sec1_4.future_consent_no_purpose_holding",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "creation_or_misuse",
+      "component_id": "intent_and_use_purpose",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "장래 승낙 전제 또는 정당한 대표자·직무대리 인식",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art239_sec1_4.intent_awareness",
+      "part_id": null,
+      "role": "component",
+      "track_id": "creation_or_misuse",
+      "component_id": "intent_and_use_purpose",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "타인 명의 도용 고의와 위법한 행사 목적",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art239_sec1_4.purpose_of_use",
+      "part_id": null,
+      "role": "component",
+      "track_id": "creation_or_misuse",
+      "component_id": "intent_and_use_purpose",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "타인 명의 도용 고의와 위법한 행사 목적",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art239_sec1_4.putative_representative_no_forgery_intent",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "creation_or_misuse",
+      "component_id": "intent_and_use_purpose",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "장래 승낙 전제 또는 정당한 대표자·직무대리 인식",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art239_sec1_4.union_seal_no_illicit_purpose_holding",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "creation_or_misuse",
+      "component_id": "intent_and_use_purpose",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "장래 승낙 전제 또는 정당한 대표자·직무대리 인식",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art239_sec1_2.private_person_scope",
+      "part_id": null,
+      "role": "component",
+      "track_id": "creation_or_misuse",
+      "component_id": "private_person_mark",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "자연인·법인·비법인단체의 인장·서명·기명·기호",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art239_sec1_5.foreign_national_overseas_jurisdiction",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "creation_or_misuse",
+      "component_id": "territorial_jurisdiction",
+      "component_join": "not_applicable",
+      "refers_to_unit": "criminal_procedure",
+      "rationale": "외국인의 국외범 재판권 경계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art239_sec2.delivery_of_forged_seal_not_use",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "use",
+      "component_id": "exposure_or_use",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "위조 인과 자체의 단순 교부",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art239_sec2.exposure_as_use",
+      "part_id": null,
+      "role": "component",
+      "track_id": "use",
+      "component_id": "exposure_or_use",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "위조 인영·인과·서명을 일반인이 열람 가능한 상태에 둔 행사",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art239_sec2.signature_immediate_exposure_holding",
+      "part_id": null,
+      "role": "component",
+      "track_id": "use",
+      "component_id": "exposure_or_use",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "위조 인영·인과·서명을 일반인이 열람 가능한 상태에 둔 행사",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art239_sec2.use_of_forged_private_sign",
+      "part_id": null,
+      "role": "component",
+      "track_id": "use",
+      "component_id": "exposure_or_use",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "위조 인영·인과·서명을 일반인이 열람 가능한 상태에 둔 행사",
+      "proposition_rewrite": null
+    }
+  ],
+  "components": [
+    {
+      "track_id": "creation_or_misuse",
+      "component_id": "false_manifestation",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art239_sec1_1.offense_formation",
+        "art239_sec1_3.authenticity_mistake_assessment",
+        "art239_sec1_3.authenticity_mistake_threshold",
+        "art239_sec1_3.authorized_manifestation_not_forgery",
+        "art239_sec1_3.deceived_nominee_manifestation_not_improper_use",
+        "art239_sec1_3.incomplete_document_signature_forgery",
+        "art239_sec1_3.interrogation_record_incomplete_holding",
+        "art239_sec1_3.union_chairman_seal_authority"
+      ]
+    },
+    {
+      "track_id": "creation_or_misuse",
+      "component_id": "intent_and_use_purpose",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art239_sec1_4.future_consent_no_purpose_holding",
+        "art239_sec1_4.intent_awareness",
+        "art239_sec1_4.purpose_of_use",
+        "art239_sec1_4.putative_representative_no_forgery_intent",
+        "art239_sec1_4.union_seal_no_illicit_purpose_holding"
+      ]
+    },
+    {
+      "track_id": "creation_or_misuse",
+      "component_id": "private_person_mark",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art239_sec1_2.private_person_scope"
+      ]
+    },
+    {
+      "track_id": "creation_or_misuse",
+      "component_id": "territorial_jurisdiction",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "criminal_procedure"
+      ],
+      "norm_card_ids": [
+        "art239_sec1_5.foreign_national_overseas_jurisdiction"
+      ]
+    },
+    {
+      "track_id": "use",
+      "component_id": "exposure_or_use",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art239_sec2.delivery_of_forged_seal_not_use",
+        "art239_sec2.exposure_as_use",
+        "art239_sec2.signature_immediate_exposure_holding",
+        "art239_sec2.use_of_forged_private_sign"
+      ]
+    }
+  ],
+  "stats": {
+    "components": 5,
+    "decision_approve": 19,
+    "placements": 19,
+    "queue_cards": 19,
+    "unresolved_unit_references": 1
+  }
+}

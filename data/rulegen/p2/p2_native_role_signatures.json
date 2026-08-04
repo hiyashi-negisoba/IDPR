@@ -165,6 +165,31 @@
       "gate": "delegated normalization on 2026-08-04",
       "default": {"predicate": "perjury_case_roles", "arguments": ["case_id", "defendant_id", "proceeding_id", "statement_id"], "definition": "선서 증인, 신문절차, 허위 진술의 역할 tuple", "applies_to_tracks": ["base", "malicious"]},
       "tracks": {}
+    },
+    "public_document_forgery": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "public_document_forgery_case_roles", "arguments": ["case_id", "defendant_id", "document_id", "nominal_official_id"], "definition": "행위자, 공문서·공도화, 명의 공무원·공무소의 역할 tuple", "applies_to_tracks": ["forgery", "alteration", "attempt"]},
+      "tracks": {}
+    },
+    "false_public_document": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "false_public_document_case_roles", "arguments": ["case_id", "defendant_id", "document_id", "nominal_official_id"], "definition": "작성권한자 또는 보조공무원, 허위 공문서, 명의인의 역할 tuple", "applies_to_tracks": ["base"]},
+      "tracks": {}
+    },
+    "private_document_forgery": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "private_document_forgery_case_roles", "arguments": ["case_id", "defendant_id", "document_id", "nominal_author_id"], "definition": "행위자, 사문서·사도화, 작성명의인의 역할 tuple", "applies_to_tracks": ["forgery", "alteration", "attempt"]},
+      "tracks": {}
+    },
+    "use_of_forged_private_document": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "forged_private_document_use_case_roles", "arguments": ["case_id", "defendant_id", "document_id", "counterparty_id"], "definition": "행사자, 위조 등 문서, 인식 가능한 상대방의 역할 tuple", "applies_to_tracks": ["base"]},
+      "tracks": {}
+    },
+    "seal_forgery_or_misuse": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "seal_forgery_case_roles", "arguments": ["case_id", "defendant_id", "mark_id", "nominal_holder_id"], "definition": "행위자, 인장·서명 등 표장, 명의인의 역할 tuple", "applies_to_tracks": ["creation_or_misuse", "use"]},
+      "tracks": {}
     }
   }
 }

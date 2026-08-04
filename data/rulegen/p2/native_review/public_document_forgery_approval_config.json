@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0", "authority": "delegated_human_legal_review", "unit_id": "public_document_forgery", "approved_on": "2026-08-04",
+  "policy": {"approval": "Delegated normalization on 2026-08-04", "tracks": "공문서 위조·변조·미수를 분리", "object": "국내 공무소·공무원의 직무상 문서와 공공 신용 위험을 요구", "boundary": "새로운 문서 작성은 위조, 동일성 유지 변경은 변조"},
+  "track_vocabulary": [{"track_id": "common", "label": "위조·변조 공통 목적"}, {"track_id": "forgery", "label": "공문서 위조", "inherits_placements": [{"track_id": "common", "component_ids": ["intent_to_use"]}]}, {"track_id": "alteration", "label": "공문서 변조", "inherits_placements": [{"track_id": "common", "component_ids": ["intent_to_use"]}]}, {"track_id": "attempt", "label": "공문서 위조·변조 미수"}],
+  "decision_groups": [
+    {"card_numbers": [32, 33, 34, 35, 36], "decision": "approve", "role": "component", "component_id": "intent_to_use", "component_join": "alternative_any", "track_id": "common", "refers_to_unit": null, "rationale": "위조·변조 문서를 진정한 것처럼 사용하려는 행위 당시 목적"},
+    {"card_numbers": [1, 6, 7, 8, 9, 11, 12, 13, 14], "decision": "approve", "role": "component", "component_id": "official_document", "component_join": "alternative_any", "track_id": "forgery", "refers_to_unit": null, "rationale": "국내 공무소·공무원 명의의 직무상 문서·도화"},
+    {"card_numbers": [2, 3, 5, 10], "decision": "approve", "role": "bar", "component_id": "official_document", "component_join": "not_applicable", "track_id": "forgery", "refers_to_unit": null, "rationale": "비공무 주체·중요형식 결여·외국공문서·사적 채무문서"},
+    {"card_numbers": [16, 20, 21, 22], "decision": "approve", "role": "component", "component_id": "unauthorized_creation", "component_join": "alternative_any", "track_id": "forgery", "refers_to_unit": null, "rationale": "작성권한 없이 공무원 명의를 모용한 새로운 문서 작성"},
+    {"card_numbers": [17, 18, 19], "decision": "approve", "role": "bar", "component_id": "unauthorized_creation", "component_join": "not_applicable", "track_id": "forgery", "refers_to_unit": null, "rationale": "명의인의 지시·승낙, 작성권자의 진정작성 또는 비공무원 간접정범 배제"},
+    {"card_numbers": [37], "decision": "approve", "role": "component", "component_id": "forgery_intent", "component_join": "mandatory_all", "track_id": "forgery", "refers_to_unit": null, "rationale": "무권한 명의모용에 대한 고의"},
+    {"card_numbers": [15, 23, 24], "decision": "approve", "role": "component", "component_id": "identity_preserving_change", "component_join": "alternative_any", "track_id": "alteration", "refers_to_unit": null, "rationale": "진정 성립한 공문서의 동일성을 해하지 않는 무권한 변경과 새 증명력"},
+    {"card_numbers": [4, 25, 26, 27, 28, 29, 30, 31], "decision": "approve", "role": "bar", "component_id": "identity_preserving_change", "component_join": "not_applicable", "track_id": "alteration", "refers_to_unit": "public_document_forgery", "rationale": "허위 원본·문서 외 변경·새 문서 작성·새 증명력 없는 변경의 변조 배제"},
+    {"card_numbers": [38, 39], "decision": "approve", "role": "component", "component_id": "alteration_intent", "component_join": "alternative_any", "track_id": "alteration", "refers_to_unit": null, "rationale": "적법절차 없이 결재 원문서를 변경한다는 고의"},
+    {"card_numbers": [40, 41, 42], "decision": "approve", "role": "component", "component_id": "punishable_attempt", "component_join": "alternative_any", "track_id": "attempt", "refers_to_unit": null, "rationale": "확정적 문서 표시 착수와 진정문서 오신 수준 미달의 처벌되는 미수"},
+    {"card_numbers": [43], "decision": "approve", "role": "bar", "component_id": "punishable_attempt", "component_join": "not_applicable", "track_id": "attempt", "refers_to_unit": null, "rationale": "문안 필름 제작에 그친 준비단계"}
+  ], "placement_defaults": [], "proposition_rewrites": {}
+}
