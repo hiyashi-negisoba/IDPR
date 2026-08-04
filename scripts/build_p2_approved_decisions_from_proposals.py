@@ -34,6 +34,10 @@ def cells(line: str) -> list[str]:
 def table_rows(paths: list[Path]) -> dict[int, dict[str, Any]]:
     rows: dict[int, dict[str, Any]] = {}
     for path in paths:
+        try:
+            source_path = path.relative_to(ROOT)
+        except ValueError:
+            source_path = path
         for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
             values = cells(line)
             if not values or not values[0].isdigit():
@@ -51,7 +55,7 @@ def table_rows(paths: list[Path]) -> dict[int, dict[str, Any]]:
             row: dict[str, Any] = {
                 "decision": values[decision_at],
                 "rationale": tail[-1] if tail else "",
-                "source": f"{path.relative_to(ROOT)}:{line_number}",
+                "source": f"{source_path}:{line_number}",
             }
             if tail and tail[0] in ROLES:
                 row["role"] = tail[0]
@@ -63,7 +67,10 @@ def table_rows(paths: list[Path]) -> dict[int, dict[str, Any]]:
                         "component_id": component,
                         "component_join": join,
                         "track_id": tail[2],
-                        "refers_to_unit": None if len(tail) == 4 or tail[3] == "-" else tail[3],
+                        "refers_to_unit": (
+                            None if len(tail) == 4 or tail[3] == "-"
+                            else tail[3].strip("`")
+                        ),
                     })
             rows[number] = row
     return rows

@@ -60,6 +60,16 @@
           "reason": "단독 피고인 tuple로는 누가 누구를 교사·방조하거나 공동가공했는지 표현할 수 없어 공유 총칙 module로 이관한다"
         }
       }
+    },
+    "negligent_bodily_harm": {
+      "gate": "docs/review/2026-08-04_negligent_bodily_harm_legal_gate_01.md",
+      "default": {
+        "predicate": "negligent_bodily_harm_case_roles",
+        "arguments": ["case_id", "defendant_id", "victim_id"],
+        "definition": "호스트가 확정한 과실치사·업무상 또는 중과실치사상 사건의 역할 tuple — 피고인과 사망 또는 상해 결과를 입은 피해자",
+        "applies_to_tracks": ["ordinary", "occupational", "gross"]
+      },
+      "tracks": {}
     }
   }
 }

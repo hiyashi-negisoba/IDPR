@@ -179,3 +179,33 @@ def test_homicide_attempt_children_transitively_receive_selective_base_placement
     for child in ("voluntary_desistance", "impossible_attempt"):
         assert assembler.placement_applies_to_track(intent, child)
         assert not assembler.placement_applies_to_track(death, child)
+
+
+NEGLIGENT_BODILY_HARM = "negligent_bodily_harm"
+
+
+def test_negligent_bodily_harm_repairs_quotes_to_exact_source_spans() -> None:
+    assembler = UnitAssembler(NEGLIGENT_BODILY_HARM, None)
+    rule_ir, card_set = assembler.build()
+    commentary = commentary_index(["art267", "art268"])
+
+    assert assembler.source_repairs
+    assert all(item["from"] != item["to"] for item in assembler.source_repairs)
+    for card in card_set["cards"]:
+        for ref in card["source_refs"]:
+            assert ref["quote"] in commentary[ref["comment_id"]]["document_text"]
+
+    program = compile_rule_ir(rule_ir, commentary, card_set)
+    assert "type negligent_bodily_harm_ordinary_established(" in program
+    assert "type negligent_bodily_harm_occupational_established(" in program
+    assert "type negligent_bodily_harm_gross_established(" in program
+
+
+def test_gross_negligence_does_not_inherit_the_occupational_business_status() -> None:
+    rule_ir, _ = UnitAssembler(NEGLIGENT_BODILY_HARM, None).build()
+    gross = next(rule for rule in rule_ir["rules"]
+                 if rule["id"] == f"{NEGLIGENT_BODILY_HARM}.outcome.gross.elements_satisfied")
+    predicates = {item["predicate"] for item in gross["body"]}
+
+    assert f"{NEGLIGENT_BODILY_HARM}_occupational_general_requirements_satisfied" in predicates
+    assert f"{NEGLIGENT_BODILY_HARM}_occupational_business_status_satisfied" not in predicates

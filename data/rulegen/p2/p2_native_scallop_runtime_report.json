@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "api_calls": 0,
-  "created_at": "2026-08-03T16:17:21.215859+00:00",
+  "created_at": "2026-08-04T00:35:38.471256+00:00",
   "runtime": {
     "scli": "tools/scallop/scli-0.2.4-linux-x86_64",
     "version": "scli 0.2.4",
@@ -11,690 +11,306 @@
   "method": "승인 원장의 per-card placement에서 결정론적으로 유도한 시나리오",
   "counts": {
     "units": 1,
-    "scenarios": 35,
-    "passed": 35
+    "scenarios": 15,
+    "passed": 15
   },
   "units": [
     {
-      "unit": "homicide",
+      "unit": "negligent_bodily_harm",
       "tracks": [
-        "base",
-        "omission",
-        "attempt",
-        "voluntary_desistance",
-        "impossible_attempt",
-        "parricide",
-        "preparation"
+        "ordinary",
+        "occupational",
+        "gross"
       ],
       "scenarios": [
         {
-          "scenario_id": "base.established",
-          "track": "base",
+          "scenario_id": "ordinary.established",
+          "track": "ordinary",
           "expected_nonempty": {
-            "homicide_base_elements_satisfied": true,
-            "homicide_base_established": true,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
+            "negligent_bodily_harm_ordinary_elements_satisfied": true,
+            "negligent_bodily_harm_ordinary_established": true,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": false
           },
           "observed_nonempty": {
-            "homicide_base_elements_satisfied": true,
-            "homicide_base_established": true,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
+            "negligent_bodily_harm_ordinary_elements_satisfied": true,
+            "negligent_bodily_harm_ordinary_established": true,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "base.incomplete_blocked",
-          "track": "base",
+          "scenario_id": "ordinary.incomplete_blocked",
+          "track": "ordinary",
           "expected_nonempty": {
-            "homicide_base_elements_satisfied": true,
-            "homicide_base_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
+            "negligent_bodily_harm_ordinary_elements_satisfied": true,
+            "negligent_bodily_harm_ordinary_established": false,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": false
           },
           "observed_nonempty": {
-            "homicide_base_elements_satisfied": true,
-            "homicide_base_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
+            "negligent_bodily_harm_ordinary_elements_satisfied": true,
+            "negligent_bodily_harm_ordinary_established": false,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "base.conflict_blocks",
-          "track": "base",
+          "scenario_id": "ordinary.conflict_blocks",
+          "track": "ordinary",
           "expected_nonempty": {
-            "homicide_base_elements_satisfied": true,
-            "homicide_base_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": true
+            "negligent_bodily_harm_ordinary_elements_satisfied": true,
+            "negligent_bodily_harm_ordinary_established": false,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": true
           },
           "observed_nonempty": {
-            "homicide_base_elements_satisfied": true,
-            "homicide_base_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": true
+            "negligent_bodily_harm_ordinary_elements_satisfied": true,
+            "negligent_bodily_harm_ordinary_established": false,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": true
           },
           "passed": true
         },
         {
-          "scenario_id": "base.unknown_blocks",
-          "track": "base",
+          "scenario_id": "ordinary.unknown_blocks",
+          "track": "ordinary",
           "expected_nonempty": {
-            "homicide_base_elements_satisfied": false,
-            "homicide_base_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": true,
-            "homicide_conflict": false
+            "negligent_bodily_harm_ordinary_elements_satisfied": false,
+            "negligent_bodily_harm_ordinary_established": false,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": true,
+            "negligent_bodily_harm_conflict": false
           },
           "observed_nonempty": {
-            "homicide_base_elements_satisfied": false,
-            "homicide_base_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": true,
-            "homicide_conflict": false
+            "negligent_bodily_harm_ordinary_elements_satisfied": false,
+            "negligent_bodily_harm_ordinary_established": false,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": true,
+            "negligent_bodily_harm_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "base.bar_blocks",
-          "track": "base",
+          "scenario_id": "ordinary.bar_blocks",
+          "track": "ordinary",
           "expected_nonempty": {
-            "homicide_base_elements_satisfied": true,
-            "homicide_base_established": false,
-            "homicide_not_established": true,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
+            "negligent_bodily_harm_ordinary_elements_satisfied": true,
+            "negligent_bodily_harm_ordinary_established": false,
+            "negligent_bodily_harm_not_established": true,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": false
           },
           "observed_nonempty": {
-            "homicide_base_elements_satisfied": true,
-            "homicide_base_established": false,
-            "homicide_not_established": true,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
+            "negligent_bodily_harm_ordinary_elements_satisfied": true,
+            "negligent_bodily_harm_ordinary_established": false,
+            "negligent_bodily_harm_not_established": true,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "omission.established",
-          "track": "omission",
+          "scenario_id": "occupational.established",
+          "track": "occupational",
           "expected_nonempty": {
-            "homicide_omission_elements_satisfied": true,
-            "homicide_omission_established": true,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
+            "negligent_bodily_harm_occupational_elements_satisfied": true,
+            "negligent_bodily_harm_occupational_established": true,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": false
           },
           "observed_nonempty": {
-            "homicide_omission_elements_satisfied": true,
-            "homicide_omission_established": true,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
+            "negligent_bodily_harm_occupational_elements_satisfied": true,
+            "negligent_bodily_harm_occupational_established": true,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "omission.incomplete_blocked",
-          "track": "omission",
+          "scenario_id": "occupational.incomplete_blocked",
+          "track": "occupational",
           "expected_nonempty": {
-            "homicide_omission_elements_satisfied": true,
-            "homicide_omission_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
+            "negligent_bodily_harm_occupational_elements_satisfied": true,
+            "negligent_bodily_harm_occupational_established": false,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": false
           },
           "observed_nonempty": {
-            "homicide_omission_elements_satisfied": true,
-            "homicide_omission_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
+            "negligent_bodily_harm_occupational_elements_satisfied": true,
+            "negligent_bodily_harm_occupational_established": false,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "omission.conflict_blocks",
-          "track": "omission",
+          "scenario_id": "occupational.conflict_blocks",
+          "track": "occupational",
           "expected_nonempty": {
-            "homicide_omission_elements_satisfied": true,
-            "homicide_omission_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": true
+            "negligent_bodily_harm_occupational_elements_satisfied": true,
+            "negligent_bodily_harm_occupational_established": false,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": true
           },
           "observed_nonempty": {
-            "homicide_omission_elements_satisfied": true,
-            "homicide_omission_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": true
+            "negligent_bodily_harm_occupational_elements_satisfied": true,
+            "negligent_bodily_harm_occupational_established": false,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": true
           },
           "passed": true
         },
         {
-          "scenario_id": "omission.unknown_blocks",
-          "track": "omission",
+          "scenario_id": "occupational.unknown_blocks",
+          "track": "occupational",
           "expected_nonempty": {
-            "homicide_omission_elements_satisfied": false,
-            "homicide_omission_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": true,
-            "homicide_conflict": false
+            "negligent_bodily_harm_occupational_elements_satisfied": false,
+            "negligent_bodily_harm_occupational_established": false,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": true,
+            "negligent_bodily_harm_conflict": false
           },
           "observed_nonempty": {
-            "homicide_omission_elements_satisfied": false,
-            "homicide_omission_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": true,
-            "homicide_conflict": false
+            "negligent_bodily_harm_occupational_elements_satisfied": false,
+            "negligent_bodily_harm_occupational_established": false,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": true,
+            "negligent_bodily_harm_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "omission.bar_blocks",
-          "track": "omission",
+          "scenario_id": "occupational.bar_blocks",
+          "track": "occupational",
           "expected_nonempty": {
-            "homicide_omission_elements_satisfied": true,
-            "homicide_omission_established": false,
-            "homicide_not_established": true,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
+            "negligent_bodily_harm_occupational_elements_satisfied": true,
+            "negligent_bodily_harm_occupational_established": false,
+            "negligent_bodily_harm_not_established": true,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": false
           },
           "observed_nonempty": {
-            "homicide_omission_elements_satisfied": true,
-            "homicide_omission_established": false,
-            "homicide_not_established": true,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
+            "negligent_bodily_harm_occupational_elements_satisfied": true,
+            "negligent_bodily_harm_occupational_established": false,
+            "negligent_bodily_harm_not_established": true,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "attempt.established",
-          "track": "attempt",
+          "scenario_id": "gross.established",
+          "track": "gross",
           "expected_nonempty": {
-            "homicide_attempt_elements_satisfied": true,
-            "homicide_attempt_established": true,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
+            "negligent_bodily_harm_gross_elements_satisfied": true,
+            "negligent_bodily_harm_gross_established": true,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": false
           },
           "observed_nonempty": {
-            "homicide_attempt_elements_satisfied": true,
-            "homicide_attempt_established": true,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
+            "negligent_bodily_harm_gross_elements_satisfied": true,
+            "negligent_bodily_harm_gross_established": true,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "attempt.incomplete_blocked",
-          "track": "attempt",
+          "scenario_id": "gross.incomplete_blocked",
+          "track": "gross",
           "expected_nonempty": {
-            "homicide_attempt_elements_satisfied": true,
-            "homicide_attempt_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
+            "negligent_bodily_harm_gross_elements_satisfied": true,
+            "negligent_bodily_harm_gross_established": false,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": false
           },
           "observed_nonempty": {
-            "homicide_attempt_elements_satisfied": true,
-            "homicide_attempt_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
+            "negligent_bodily_harm_gross_elements_satisfied": true,
+            "negligent_bodily_harm_gross_established": false,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "attempt.conflict_blocks",
-          "track": "attempt",
+          "scenario_id": "gross.conflict_blocks",
+          "track": "gross",
           "expected_nonempty": {
-            "homicide_attempt_elements_satisfied": true,
-            "homicide_attempt_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": true
+            "negligent_bodily_harm_gross_elements_satisfied": true,
+            "negligent_bodily_harm_gross_established": false,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": true
           },
           "observed_nonempty": {
-            "homicide_attempt_elements_satisfied": true,
-            "homicide_attempt_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": true
+            "negligent_bodily_harm_gross_elements_satisfied": true,
+            "negligent_bodily_harm_gross_established": false,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": true
           },
           "passed": true
         },
         {
-          "scenario_id": "attempt.unknown_blocks",
-          "track": "attempt",
+          "scenario_id": "gross.unknown_blocks",
+          "track": "gross",
           "expected_nonempty": {
-            "homicide_attempt_elements_satisfied": false,
-            "homicide_attempt_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": true,
-            "homicide_conflict": false
+            "negligent_bodily_harm_gross_elements_satisfied": false,
+            "negligent_bodily_harm_gross_established": false,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": true,
+            "negligent_bodily_harm_conflict": false
           },
           "observed_nonempty": {
-            "homicide_attempt_elements_satisfied": false,
-            "homicide_attempt_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": true,
-            "homicide_conflict": false
+            "negligent_bodily_harm_gross_elements_satisfied": false,
+            "negligent_bodily_harm_gross_established": false,
+            "negligent_bodily_harm_not_established": false,
+            "negligent_bodily_harm_undetermined": true,
+            "negligent_bodily_harm_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "attempt.bar_blocks",
-          "track": "attempt",
+          "scenario_id": "gross.bar_blocks",
+          "track": "gross",
           "expected_nonempty": {
-            "homicide_attempt_elements_satisfied": true,
-            "homicide_attempt_established": false,
-            "homicide_not_established": true,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
+            "negligent_bodily_harm_gross_elements_satisfied": true,
+            "negligent_bodily_harm_gross_established": false,
+            "negligent_bodily_harm_not_established": true,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": false
           },
           "observed_nonempty": {
-            "homicide_attempt_elements_satisfied": true,
-            "homicide_attempt_established": false,
-            "homicide_not_established": true,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "voluntary_desistance.established",
-          "track": "voluntary_desistance",
-          "expected_nonempty": {
-            "homicide_voluntary_desistance_elements_satisfied": true,
-            "homicide_voluntary_desistance_established": true,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "observed_nonempty": {
-            "homicide_voluntary_desistance_elements_satisfied": true,
-            "homicide_voluntary_desistance_established": true,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "voluntary_desistance.incomplete_blocked",
-          "track": "voluntary_desistance",
-          "expected_nonempty": {
-            "homicide_voluntary_desistance_elements_satisfied": true,
-            "homicide_voluntary_desistance_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "observed_nonempty": {
-            "homicide_voluntary_desistance_elements_satisfied": true,
-            "homicide_voluntary_desistance_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "voluntary_desistance.conflict_blocks",
-          "track": "voluntary_desistance",
-          "expected_nonempty": {
-            "homicide_voluntary_desistance_elements_satisfied": true,
-            "homicide_voluntary_desistance_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": true
-          },
-          "observed_nonempty": {
-            "homicide_voluntary_desistance_elements_satisfied": true,
-            "homicide_voluntary_desistance_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": true
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "voluntary_desistance.unknown_blocks",
-          "track": "voluntary_desistance",
-          "expected_nonempty": {
-            "homicide_voluntary_desistance_elements_satisfied": false,
-            "homicide_voluntary_desistance_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": true,
-            "homicide_conflict": false
-          },
-          "observed_nonempty": {
-            "homicide_voluntary_desistance_elements_satisfied": false,
-            "homicide_voluntary_desistance_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": true,
-            "homicide_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "voluntary_desistance.bar_blocks",
-          "track": "voluntary_desistance",
-          "expected_nonempty": {
-            "homicide_voluntary_desistance_elements_satisfied": true,
-            "homicide_voluntary_desistance_established": false,
-            "homicide_not_established": true,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "observed_nonempty": {
-            "homicide_voluntary_desistance_elements_satisfied": true,
-            "homicide_voluntary_desistance_established": false,
-            "homicide_not_established": true,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "impossible_attempt.established",
-          "track": "impossible_attempt",
-          "expected_nonempty": {
-            "homicide_impossible_attempt_elements_satisfied": true,
-            "homicide_impossible_attempt_established": true,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "observed_nonempty": {
-            "homicide_impossible_attempt_elements_satisfied": true,
-            "homicide_impossible_attempt_established": true,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "impossible_attempt.incomplete_blocked",
-          "track": "impossible_attempt",
-          "expected_nonempty": {
-            "homicide_impossible_attempt_elements_satisfied": true,
-            "homicide_impossible_attempt_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "observed_nonempty": {
-            "homicide_impossible_attempt_elements_satisfied": true,
-            "homicide_impossible_attempt_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "impossible_attempt.conflict_blocks",
-          "track": "impossible_attempt",
-          "expected_nonempty": {
-            "homicide_impossible_attempt_elements_satisfied": true,
-            "homicide_impossible_attempt_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": true
-          },
-          "observed_nonempty": {
-            "homicide_impossible_attempt_elements_satisfied": true,
-            "homicide_impossible_attempt_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": true
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "impossible_attempt.unknown_blocks",
-          "track": "impossible_attempt",
-          "expected_nonempty": {
-            "homicide_impossible_attempt_elements_satisfied": false,
-            "homicide_impossible_attempt_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": true,
-            "homicide_conflict": false
-          },
-          "observed_nonempty": {
-            "homicide_impossible_attempt_elements_satisfied": false,
-            "homicide_impossible_attempt_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": true,
-            "homicide_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "impossible_attempt.bar_blocks",
-          "track": "impossible_attempt",
-          "expected_nonempty": {
-            "homicide_impossible_attempt_elements_satisfied": true,
-            "homicide_impossible_attempt_established": false,
-            "homicide_not_established": true,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "observed_nonempty": {
-            "homicide_impossible_attempt_elements_satisfied": true,
-            "homicide_impossible_attempt_established": false,
-            "homicide_not_established": true,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "parricide.established",
-          "track": "parricide",
-          "expected_nonempty": {
-            "homicide_parricide_elements_satisfied": true,
-            "homicide_parricide_established": true,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "observed_nonempty": {
-            "homicide_parricide_elements_satisfied": true,
-            "homicide_parricide_established": true,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "parricide.incomplete_blocked",
-          "track": "parricide",
-          "expected_nonempty": {
-            "homicide_parricide_elements_satisfied": true,
-            "homicide_parricide_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "observed_nonempty": {
-            "homicide_parricide_elements_satisfied": true,
-            "homicide_parricide_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "parricide.conflict_blocks",
-          "track": "parricide",
-          "expected_nonempty": {
-            "homicide_parricide_elements_satisfied": true,
-            "homicide_parricide_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": true
-          },
-          "observed_nonempty": {
-            "homicide_parricide_elements_satisfied": true,
-            "homicide_parricide_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": true
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "parricide.unknown_blocks",
-          "track": "parricide",
-          "expected_nonempty": {
-            "homicide_parricide_elements_satisfied": false,
-            "homicide_parricide_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": true,
-            "homicide_conflict": false
-          },
-          "observed_nonempty": {
-            "homicide_parricide_elements_satisfied": false,
-            "homicide_parricide_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": true,
-            "homicide_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "parricide.bar_blocks",
-          "track": "parricide",
-          "expected_nonempty": {
-            "homicide_parricide_elements_satisfied": true,
-            "homicide_parricide_established": false,
-            "homicide_not_established": true,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "observed_nonempty": {
-            "homicide_parricide_elements_satisfied": true,
-            "homicide_parricide_established": false,
-            "homicide_not_established": true,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "preparation.established",
-          "track": "preparation",
-          "expected_nonempty": {
-            "homicide_preparation_elements_satisfied": true,
-            "homicide_preparation_established": true,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "observed_nonempty": {
-            "homicide_preparation_elements_satisfied": true,
-            "homicide_preparation_established": true,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "preparation.incomplete_blocked",
-          "track": "preparation",
-          "expected_nonempty": {
-            "homicide_preparation_elements_satisfied": true,
-            "homicide_preparation_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "observed_nonempty": {
-            "homicide_preparation_elements_satisfied": true,
-            "homicide_preparation_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "preparation.conflict_blocks",
-          "track": "preparation",
-          "expected_nonempty": {
-            "homicide_preparation_elements_satisfied": true,
-            "homicide_preparation_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": true
-          },
-          "observed_nonempty": {
-            "homicide_preparation_elements_satisfied": true,
-            "homicide_preparation_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": false,
-            "homicide_conflict": true
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "preparation.unknown_blocks",
-          "track": "preparation",
-          "expected_nonempty": {
-            "homicide_preparation_elements_satisfied": false,
-            "homicide_preparation_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": true,
-            "homicide_conflict": false
-          },
-          "observed_nonempty": {
-            "homicide_preparation_elements_satisfied": false,
-            "homicide_preparation_established": false,
-            "homicide_not_established": false,
-            "homicide_undetermined": true,
-            "homicide_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "preparation.bar_blocks",
-          "track": "preparation",
-          "expected_nonempty": {
-            "homicide_preparation_elements_satisfied": true,
-            "homicide_preparation_established": false,
-            "homicide_not_established": true,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
-          },
-          "observed_nonempty": {
-            "homicide_preparation_elements_satisfied": true,
-            "homicide_preparation_established": false,
-            "homicide_not_established": true,
-            "homicide_undetermined": false,
-            "homicide_conflict": false
+            "negligent_bodily_harm_gross_elements_satisfied": true,
+            "negligent_bodily_harm_gross_established": false,
+            "negligent_bodily_harm_not_established": true,
+            "negligent_bodily_harm_undetermined": false,
+            "negligent_bodily_harm_conflict": false
           },
           "passed": true
         }
       ],
-      "passed": 35,
-      "total": 35
+      "passed": 15,
+      "total": 15
     }
   ]
 }

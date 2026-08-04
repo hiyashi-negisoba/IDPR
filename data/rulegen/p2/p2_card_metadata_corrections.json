@@ -16,13 +16,17 @@
       "approved_on": "2026-08-03",
       "ground": "이 명제는 주거로 사용되는 건조물이라는 객체 요건의 정의적 귀결이며 사건별로 평가할 여지가 없다. 승인 원장에서도 현존 부존재를 이유로 한 배제를 막는 차단규칙(bar)으로 판정되었다. 열린 개념을 뜻하는 standard는 오분류다.",
       "contract_effect": "norm_kind=standard는 formalization을 standard_input·policy_variant·context_only로 제한하므로, deterministic_rule을 유지하려면 norm_kind가 definition이어야 한다"
+    },
+    {
+      "correction_id": "cc_002",
+      "card_id": "art268_sec3_2.unlicensed_driving_negligent_injury",
+      "field": "formalization",
+      "from": "deterministic_rule",
+      "to": "standard_input",
+      "approved_on": "2026-08-04",
+      "ground": "무면허운전죄와 업무상과실치사상죄의 실체적 경합은 두 죄의 사건별 성립과 행위 동일성 평가를 전제로 하는 post_outcome 기준이다. G-N01과 G-N05가 이를 post_outcome으로 승인했으므로 사건평가 없이 단독 발화하는 deterministic_rule이 아니다.",
+      "contract_effect": "norm_kind=standard와 승인된 post_outcome 역할에 맞추어 formalization을 standard_input으로 교정한다"
     }
   ],
-  "pending": [
-    {
-      "card_id": "art268_sec3_2.unlicensed_driving_negligent_injury",
-      "issue": "norm_kind=standard인데 formalization=deterministic_rule",
-      "status": "negligent_bodily_harm unit 검수 때 함께 판정한다"
-    }
-  ]
+  "pending": []
 }

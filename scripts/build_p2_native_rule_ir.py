@@ -13,9 +13,12 @@ tuples and card roles all arrive as data.
 from __future__ import annotations
 
 import argparse
+import copy
 import json
+import re
 import sys
 from collections import defaultdict
+from difflib import SequenceMatcher
 from pathlib import Path
 from typing import Any
 
@@ -53,6 +56,7 @@ UNIT_MANIFEST = P2 / "p2_native_unit_manifest.json"
 SOURCE_DIR = P2 / "rule_ir_units"
 REMEDIATED_DIR = P2 / "remediated"
 CARD_CORRECTIONS = P2 / "p2_card_metadata_corrections.json"
+SOURCE_REF_CORRECTIONS = P2 / "p2_source_ref_corrections.json"
 CAMPAIGN = MAIN_ROOT / "data/rulegen/campaign"
 OUT_DIR = P2 / "rule_ir"
 
@@ -120,6 +124,93 @@ def card_catalog() -> tuple[dict[str, dict[str, Any]], list[str]]:
     return cards, apply_corrections(cards)
 
 
+def whitespace_span(quote: str, text: str) -> str | None:
+    """Return the exact source span when only OCR whitespace differs."""
+    target = re.sub(r"\s+", "", quote)
+    offsets = [index for index, char in enumerate(text) if not char.isspace()]
+    dense = "".join(text[index] for index in offsets)
+    start = dense.find(target)
+    if not target or start < 0:
+        return None
+    return text[offsets[start]: offsets[start + len(target) - 1] + 1]
+
+
+def aligned_span(quote: str, text: str, minimum_coverage: float = 0.75) -> str | None:
+    """Restore a bounded exact span when OCR interruptions split a long quote."""
+    offsets = [index for index, char in enumerate(text) if not char.isspace()]
+    dense = "".join(text[index] for index in offsets)
+    target = re.sub(r"\s+", "", quote)
+    blocks = [
+        block
+        for block in SequenceMatcher(None, dense, target, autojunk=False).get_matching_blocks()
+        if block.size >= 4
+    ]
+    if not target or not blocks:
+        return None
+    if sum(block.size for block in blocks) / len(target) < minimum_coverage:
+        return None
+    start = offsets[blocks[0].a]
+    end = offsets[blocks[-1].a + blocks[-1].size - 1] + 1
+    while start > 0 and not text[start - 1].isspace():
+        start -= 1
+    tail = text.find("다.", end - 1)
+    if 0 <= tail <= end + 60:
+        end = tail + 2
+    else:
+        while end < len(text) and not text[end].isspace():
+            end += 1
+    span = text[start:end].strip()
+    return span if len(span) <= 300 else None
+
+
+def repair_source_refs(
+    cards: dict[str, dict[str, Any]],
+    card_ids: set[str],
+    commentary: dict[str, dict[str, Any]],
+) -> list[dict[str, str]]:
+    """Restore exact provenance without editing the reviewed propositions."""
+    overrides: dict[tuple[str, str, str], dict[str, Any]] = {}
+    if SOURCE_REF_CORRECTIONS.is_file():
+        for item in read_json(SOURCE_REF_CORRECTIONS).get("corrections", []):
+            overrides[(item["card_id"], item["comment_id"], item["from"])] = item
+
+    repairs: list[dict[str, str]] = []
+    unrepaired: list[str] = []
+    for card_id in sorted(card_ids):
+        card = copy.deepcopy(cards[card_id])
+        repaired_refs: list[dict[str, Any]] = []
+        for ref in card.get("source_refs", []):
+            text = commentary.get(ref["comment_id"], {}).get("document_text", "")
+            quote = ref["quote"]
+            if quote in text:
+                repaired_refs.append(ref)
+                continue
+            override = overrides.get((card_id, ref["comment_id"], quote))
+            if override is not None:
+                fixed, kind = override["to"], override["correction_id"]
+            else:
+                fixed, kind = whitespace_span(quote, text), "ocr_whitespace"
+                if fixed is None:
+                    fixed, kind = aligned_span(quote, text), "aligned_span"
+            if fixed is None or fixed not in text:
+                unrepaired.append(f"{card_id}:{ref['comment_id']}")
+                repaired_refs.append(ref)
+                continue
+            repaired_refs.append({**ref, "quote": fixed})
+            repairs.append({
+                "card_id": card_id,
+                "comment_id": ref["comment_id"],
+                "kind": kind,
+                "from": quote,
+                "to": fixed,
+            })
+        card["source_refs"] = repaired_refs
+        cards[card_id] = card
+    if unrepaired:
+        raise SystemExit(f"unrepaired source refs: {sorted(unrepaired)}")
+    return repairs
+
+
 class UnitAssembler:
     """One unit's RuleIR, driven entirely by its approved decisions."""
 
@@ -151,12 +242,20 @@ class UnitAssembler:
         if unknown:
             raise SystemExit(f"{unit_id}: tracks outside the declared signature: {unknown}")
 
-        self.catalog, self.corrections = card_catalog()
         manifest = read_json(UNIT_MANIFEST)
         unit = next(item for item in manifest["units"] if item["unit_id"] == unit_id)
         self.articles = list(unit["articles"])
         self.label = unit["label"]
         self.law_snapshot = self.ledger["law_snapshot"]
+        self.catalog, self.corrections = card_catalog()
+        unit_card_ids = {
+            row["card_id"]
+            for row in self.ledger["placements"]
+            if row["track_id"] in self.tracks
+        }
+        self.source_repairs = repair_source_refs(
+            self.catalog, unit_card_ids, commentary_index(self.articles)
+        )
 
         self.actor_arguments = [(name, "String") for name in self.roles]
         self.assessment_arguments = [
@@ -723,6 +822,10 @@ class UnitAssembler:
             f"card_metadata_correction: {correction_id}"
             for correction_id in self.corrections
         )
+        gaps.extend(
+            f"source_quote_repair: {item['card_id']}::{item['comment_id']} ({item['kind']})"
+            for item in self.source_repairs
+        )
         return gaps
 
 
@@ -742,6 +845,13 @@ def main() -> None:
         json.dumps(rule_ir, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     card_set_path.write_text(
         json.dumps(card_set, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    repair_path = args.out_dir / f"{args.unit}_source_quote_repairs.json"
+    repair_path.write_text(json.dumps({
+        "version": "1.0.0",
+        "unit_id": args.unit,
+        "policy": "원문 exact substring을 복원하는 provenance-only 교정; proposition은 변경하지 않는다",
+        "repairs": assembler.source_repairs,
+    }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({
         "unit": args.unit,
         "tracks": list(assembler.tracks),
@@ -749,8 +859,10 @@ def main() -> None:
         "predicates": len(rule_ir["predicates"]),
         "rules": len(rule_ir["rules"]),
         "coverage_gaps": len(rule_ir["coverage_gaps"]),
+        "source_quote_repairs": len(assembler.source_repairs),
         "rule_ir": str(rule_ir_path),
         "norm_card_set": str(card_set_path),
+        "source_quote_repair_ledger": str(repair_path),
     }, ensure_ascii=False))
 
 

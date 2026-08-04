@@ -1,0 +1,1242 @@
+{
+  "version": "1.0.0",
+  "unit_id": "negligent_bodily_harm",
+  "law_snapshot": {
+    "as_of_date": "2026-08-03",
+    "effective_source_date": "2026-03-12",
+    "future_snapshot_date": "2026-09-13",
+    "future_snapshot_policy": "separate_snapshot_not_active",
+    "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
+  },
+  "approval_document": "data/rulegen/p2/native_review/negligent_bodily_harm_approved_decisions.json",
+  "approval_sha256": "678c20f48db5c3466a7d75ee76c218de4e76eccffdd3e10fea95d372950926cf",
+  "approved_on": "2026-08-04",
+  "status": "ready_for_rule_ir",
+  "problems": [],
+  "unresolved_unit_references": [
+    {
+      "card_id": "art267_sec4.death_and_injury_single_negligent_act",
+      "part_id": null,
+      "refers_to_unit": "negligent_bodily_injury",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art268_sec3_2.dangerous_driving_inclusion",
+      "part_id": null,
+      "refers_to_unit": "dangerous_driving",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art268_sec3_2.drunk_driving_negligent_injury",
+      "part_id": null,
+      "refers_to_unit": "drunk_driving",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art268_sec3_2.failure_to_rescue_after_accident",
+      "part_id": null,
+      "refers_to_unit": "failure_to_rescue_after_accident",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art268_sec3_2.hit_and_run_inclusion",
+      "part_id": null,
+      "refers_to_unit": "hit_and_run",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art268_sec3_2.industrial_safety_negligent_death",
+      "part_id": null,
+      "refers_to_unit": "industrial_safety",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art268_sec3_2.safety_duty_complete_overlap",
+      "part_id": null,
+      "refers_to_unit": "safety_regulation_offense",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art268_sec3_2.safety_duty_partial_overlap",
+      "part_id": null,
+      "refers_to_unit": "safety_regulation_offense",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art268_sec3_2.safety_duty_unrelated",
+      "part_id": null,
+      "refers_to_unit": "safety_regulation_offense",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art268_sec3_2.safety_regulation_duty_distinction",
+      "part_id": null,
+      "refers_to_unit": "safety_regulation_offense",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art268_sec3_2.serious_disaster_industrial_safety_negligent_death",
+      "part_id": null,
+      "refers_to_unit": "serious_disaster_industrial_safety",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art268_sec3_2.traffic_special_act_inclusion",
+      "part_id": null,
+      "refers_to_unit": "traffic_special_act",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art268_sec3_2.unlicensed_driving_negligent_injury",
+      "part_id": null,
+      "refers_to_unit": "unlicensed_driving",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art268.illicit_work_excluded",
+      "part_id": null,
+      "refers_to_unit": "negligent_bodily_injury",
+      "status": "predicate_ir_missing"
+    }
+  ],
+  "excluded_cards": [
+    {
+      "card_id": "art268.pedestrian_reliance_limited",
+      "reason": "보행자 사고에서 신뢰원칙이 철저히 적용되지 않는다는 경향 소개만으로 사건별 의무위반을 확정할 수 없음"
+    },
+    {
+      "card_id": "art268.personal_capacity_no_exemption",
+      "reason": "개인적 주의능력 부족이 면책되지 않는다는 규범은 사실상 duty breach 자체가 아님"
+    },
+    {
+      "card_id": "art268.victim_negligence_no_exemption",
+      "reason": "피해자 과실 경합만으로 면책되지 않지만 피고인의 독립된 과실을 대신 증명하지는 않음"
+    },
+    {
+      "card_id": "art268_sec1_1.status_aggravated_offense",
+      "reason": "신분적 가중유형이라는 법적 성격 설명은 별도 사건요건이 아님"
+    },
+    {
+      "card_id": "art268_sec3_2.vehicle_accident_conditional_intent",
+      "reason": "살인·상해 고의를 한 카드로 묶어 단일 boundary로 실행하면 두 경계를 동시에 발화시키므로 라우터 문맥으로 보존"
+    }
+  ],
+  "tracks": [
+    {
+      "track_id": "ordinary",
+      "label": "제267조 과실치사"
+    },
+    {
+      "track_id": "occupational",
+      "label": "제268조 업무상과실치사상",
+      "inherits_placements": [
+        {
+          "track_id": "ordinary",
+          "component_ids": [
+            "absence_of_intent",
+            "pre_person_exclusion"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "gross",
+      "label": "제268조 중과실치사상",
+      "inherits_placements": [
+        {
+          "track_id": "ordinary",
+          "component_ids": [
+            "absence_of_intent",
+            "pre_person_exclusion"
+          ]
+        },
+        {
+          "track_id": "occupational",
+          "component_ids": [
+            "general_requirements",
+            "offense_count",
+            "concurrence",
+            "concurrence_standard"
+          ]
+        }
+      ]
+    }
+  ],
+  "placements": [
+    {
+      "card_id": "art268_sec2_1.gross_negligence_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "gross",
+      "component_id": "gross_degree",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec2_1.gross_negligence_social_notion",
+      "part_id": null,
+      "role": "component",
+      "track_id": "gross",
+      "component_id": "gross_degree",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec2_1.high_risk_situation_gross_negligence",
+      "part_id": null,
+      "role": "component",
+      "track_id": "gross",
+      "component_id": "gross_degree",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec2_1.nonprofessional_dangerous_work_gross_negligence",
+      "part_id": null,
+      "role": "component",
+      "track_id": "gross",
+      "component_id": "gross_degree",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec2_2.candle_in_warehouse",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "gross",
+      "component_id": "gross_degree",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec2_2.cigarette_fire_inn",
+      "part_id": null,
+      "role": "component",
+      "track_id": "gross",
+      "component_id": "gross_degree",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec2_2.cigarette_fire_motel",
+      "part_id": null,
+      "role": "component",
+      "track_id": "gross",
+      "component_id": "gross_degree",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec2_2.gross_negligence_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "gross",
+      "component_id": "gross_degree",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec2_2.landlord_coal_gas_death",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "gross",
+      "component_id": "gross_degree",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec2_2.parking_entrance_collapse",
+      "part_id": null,
+      "role": "component",
+      "track_id": "gross",
+      "component_id": "gross_degree",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec2_2.pesticide_disguised_storage",
+      "part_id": null,
+      "role": "component",
+      "track_id": "gross",
+      "component_id": "gross_degree",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec2_2.pesticide_poisoning_home_treatment",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "gross",
+      "component_id": "gross_degree",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec2_2.prayer_physical_force_death",
+      "part_id": null,
+      "role": "component",
+      "track_id": "gross",
+      "component_id": "gross_degree",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec2_2.russian_roulette_failure_to_stop",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "gross",
+      "component_id": "gross_degree",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec2_2.unextinguished_match_trash",
+      "part_id": null,
+      "role": "component",
+      "track_id": "gross",
+      "component_id": "gross_degree",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec2_2.unqualified_electrician_fire",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "gross",
+      "component_id": "gross_degree",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.business_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "business_status",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.business_no_license_requirement",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "business_status",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.illicit_work_excluded",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "occupational",
+      "component_id": "business_status",
+      "component_join": "not_applicable",
+      "refers_to_unit": "negligent_bodily_injury"
+    },
+    {
+      "card_id": "art268.nonperiodic_owner_not_work",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "occupational",
+      "component_id": "business_status",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.adequate_causation",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "causation",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec3_2.dangerous_driving_inclusion",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "occupational",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "dangerous_driving"
+    },
+    {
+      "card_id": "art268_sec3_2.drunk_driving_negligent_injury",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "occupational",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "drunk_driving"
+    },
+    {
+      "card_id": "art268_sec3_2.failure_to_rescue_after_accident",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "occupational",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "failure_to_rescue_after_accident"
+    },
+    {
+      "card_id": "art268_sec3_2.hit_and_run_inclusion",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "occupational",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "hit_and_run"
+    },
+    {
+      "card_id": "art268_sec3_2.industrial_safety_negligent_death",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "occupational",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "industrial_safety"
+    },
+    {
+      "card_id": "art268_sec3_2.safety_duty_complete_overlap",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "occupational",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "safety_regulation_offense"
+    },
+    {
+      "card_id": "art268_sec3_2.safety_duty_partial_overlap",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "occupational",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "safety_regulation_offense"
+    },
+    {
+      "card_id": "art268_sec3_2.safety_duty_unrelated",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "occupational",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "safety_regulation_offense"
+    },
+    {
+      "card_id": "art268_sec3_2.serious_disaster_industrial_safety_negligent_death",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "occupational",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "serious_disaster_industrial_safety"
+    },
+    {
+      "card_id": "art268_sec3_2.traffic_special_act_inclusion",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "occupational",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "traffic_special_act"
+    },
+    {
+      "card_id": "art268_sec3_2.unlicensed_driving_negligent_injury",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "occupational",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "unlicensed_driving"
+    },
+    {
+      "card_id": "art268_sec3_2.imaginary_concurrence_single_act",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "occupational",
+      "component_id": "concurrence_standard",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec3_2.safety_regulation_duty_distinction",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "occupational",
+      "component_id": "concurrence_standard",
+      "component_join": "not_applicable",
+      "refers_to_unit": "safety_regulation_offense"
+    },
+    {
+      "card_id": "art268.child_near_road_duty",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.crossing_guard_safe_opening",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.crosswalk_green_signal_stop",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.crosswalk_signal_transition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.duty_scope",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.forward_observation",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.industrial_safety_general_duty",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.medical_negligence_test",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.medical_transfer_duty",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.occupational_negligence_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.professional_benchmark",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.rail_engineer_crossing_person",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.rail_worker_reliance",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.red_crosswalk_reliance",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.reliance_known_or_unreliable_other",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.reliance_principle_general",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.road_reliance_principle",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.secondary_rail_accident_prevention",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.ship_collision_other_fault",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.train_signal_confirmation",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.vertical_medical_division_supervision",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec1_1.medical_negligence_professional_benchmark",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec1_1.objective_duty_in_risky_work",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.horizontal_medical_division",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "occupational",
+      "component_id": "duty_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.general_requirements",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "general_requirements",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec1_1.offense_overview",
+      "part_id": null,
+      "role": "component",
+      "track_id": "occupational",
+      "component_id": "occupational_offense",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.multiple_victims_imaginary_concurrence",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "occupational",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.emergency_treatment_risk_balance",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "occupational",
+      "component_id": "permitted_risk",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.medical_allowed_risk",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "occupational",
+      "component_id": "permitted_risk",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268.permitted_risk",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "occupational",
+      "component_id": "permitted_risk",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec1_1.non_punishable_against_victim_intent",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "occupational",
+      "component_id": "prosecution_condition",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art267_sec1.no_intent_to_kill_injure_or_assault",
+      "part_id": null,
+      "role": "component",
+      "track_id": "ordinary",
+      "component_id": "absence_of_intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art268_sec3_2.vehicle_avoidance_effort_negligence",
+      "part_id": null,
+      "role": "component",
+      "track_id": "ordinary",
+      "component_id": "absence_of_intent",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art267_sec2.causal_link.negligent_act_and_result",
+      "part_id": null,
+      "role": "component",
+      "track_id": "ordinary",
+      "component_id": "causation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art267_sec2.causal_link.prank_throwing_at_sea",
+      "part_id": null,
+      "role": "component",
+      "track_id": "ordinary",
+      "component_id": "causation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art267_sec4.death_and_injury_single_negligent_act",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "ordinary",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "negligent_bodily_injury"
+    },
+    {
+      "card_id": "art267_sec1.negligent_homicide_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "ordinary",
+      "component_id": "death_result",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art267_sec2.elements.negligent_breach_and_death",
+      "part_id": null,
+      "role": "component",
+      "track_id": "ordinary",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art267_sec2.standard.bus_driver_instant_wheel_entry",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "ordinary",
+      "component_id": "duty_breach",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art267_sec2.standard.landlord_failure_gas_warning",
+      "part_id": null,
+      "role": "component",
+      "track_id": "ordinary",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art267_sec2.standard.landlord_negligence_assessment_factors",
+      "part_id": null,
+      "role": "component",
+      "track_id": "ordinary",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art267_sec2.standard.landlord_no_negligence_minor_defect",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "ordinary",
+      "component_id": "duty_breach",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art267_sec2.standard.prank_throwing_foreseeability",
+      "part_id": null,
+      "role": "component",
+      "track_id": "ordinary",
+      "component_id": "duty_breach",
+      "component_join": "alternative_any",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art267_sec4.multiple_deaths_single_negligent_act",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "ordinary",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art267_sec2.definition.person_begins_regular_labor",
+      "part_id": null,
+      "role": "component",
+      "track_id": "ordinary",
+      "component_id": "person_begins",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null
+    },
+    {
+      "card_id": "art267_sec2.standard.fetus_before_regular_labor_not_person",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "ordinary",
+      "component_id": "pre_person_exclusion",
+      "component_join": "not_applicable",
+      "refers_to_unit": null
+    }
+  ],
+  "components": [
+    {
+      "track_id": "gross",
+      "component_id": "gross_degree",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art268_sec2_1.gross_negligence_definition",
+        "art268_sec2_1.gross_negligence_social_notion",
+        "art268_sec2_1.high_risk_situation_gross_negligence",
+        "art268_sec2_1.nonprofessional_dangerous_work_gross_negligence",
+        "art268_sec2_2.candle_in_warehouse",
+        "art268_sec2_2.cigarette_fire_inn",
+        "art268_sec2_2.cigarette_fire_motel",
+        "art268_sec2_2.gross_negligence_definition",
+        "art268_sec2_2.landlord_coal_gas_death",
+        "art268_sec2_2.parking_entrance_collapse",
+        "art268_sec2_2.pesticide_disguised_storage",
+        "art268_sec2_2.pesticide_poisoning_home_treatment",
+        "art268_sec2_2.prayer_physical_force_death",
+        "art268_sec2_2.russian_roulette_failure_to_stop",
+        "art268_sec2_2.unextinguished_match_trash",
+        "art268_sec2_2.unqualified_electrician_fire"
+      ]
+    },
+    {
+      "track_id": "occupational",
+      "component_id": "business_status",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [
+        "negligent_bodily_injury"
+      ],
+      "norm_card_ids": [
+        "art268.business_definition",
+        "art268.business_no_license_requirement",
+        "art268.illicit_work_excluded",
+        "art268.nonperiodic_owner_not_work"
+      ]
+    },
+    {
+      "track_id": "occupational",
+      "component_id": "causation",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art268.adequate_causation"
+      ]
+    },
+    {
+      "track_id": "occupational",
+      "component_id": "concurrence",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "dangerous_driving",
+        "drunk_driving",
+        "failure_to_rescue_after_accident",
+        "hit_and_run",
+        "industrial_safety",
+        "safety_regulation_offense",
+        "serious_disaster_industrial_safety",
+        "traffic_special_act",
+        "unlicensed_driving"
+      ],
+      "norm_card_ids": [
+        "art268_sec3_2.dangerous_driving_inclusion",
+        "art268_sec3_2.drunk_driving_negligent_injury",
+        "art268_sec3_2.failure_to_rescue_after_accident",
+        "art268_sec3_2.hit_and_run_inclusion",
+        "art268_sec3_2.industrial_safety_negligent_death",
+        "art268_sec3_2.safety_duty_complete_overlap",
+        "art268_sec3_2.safety_duty_partial_overlap",
+        "art268_sec3_2.safety_duty_unrelated",
+        "art268_sec3_2.serious_disaster_industrial_safety_negligent_death",
+        "art268_sec3_2.traffic_special_act_inclusion",
+        "art268_sec3_2.unlicensed_driving_negligent_injury"
+      ]
+    },
+    {
+      "track_id": "occupational",
+      "component_id": "concurrence_standard",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "safety_regulation_offense"
+      ],
+      "norm_card_ids": [
+        "art268_sec3_2.imaginary_concurrence_single_act",
+        "art268_sec3_2.safety_regulation_duty_distinction"
+      ]
+    },
+    {
+      "track_id": "occupational",
+      "component_id": "duty_breach",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art268.child_near_road_duty",
+        "art268.crossing_guard_safe_opening",
+        "art268.crosswalk_green_signal_stop",
+        "art268.crosswalk_signal_transition",
+        "art268.duty_scope",
+        "art268.forward_observation",
+        "art268.industrial_safety_general_duty",
+        "art268.medical_negligence_test",
+        "art268.medical_transfer_duty",
+        "art268.occupational_negligence_definition",
+        "art268.professional_benchmark",
+        "art268.rail_engineer_crossing_person",
+        "art268.rail_worker_reliance",
+        "art268.red_crosswalk_reliance",
+        "art268.reliance_known_or_unreliable_other",
+        "art268.reliance_principle_general",
+        "art268.road_reliance_principle",
+        "art268.secondary_rail_accident_prevention",
+        "art268.ship_collision_other_fault",
+        "art268.train_signal_confirmation",
+        "art268.vertical_medical_division_supervision",
+        "art268_sec1_1.medical_negligence_professional_benchmark",
+        "art268_sec1_1.objective_duty_in_risky_work"
+      ]
+    },
+    {
+      "track_id": "occupational",
+      "component_id": "duty_scope",
+      "roles": [
+        "bar"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art268.horizontal_medical_division"
+      ]
+    },
+    {
+      "track_id": "occupational",
+      "component_id": "general_requirements",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art268.general_requirements"
+      ]
+    },
+    {
+      "track_id": "occupational",
+      "component_id": "occupational_offense",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art268_sec1_1.offense_overview"
+      ]
+    },
+    {
+      "track_id": "occupational",
+      "component_id": "offense_count",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art268.multiple_victims_imaginary_concurrence"
+      ]
+    },
+    {
+      "track_id": "occupational",
+      "component_id": "permitted_risk",
+      "roles": [
+        "bar"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art268.emergency_treatment_risk_balance",
+        "art268.medical_allowed_risk",
+        "art268.permitted_risk"
+      ]
+    },
+    {
+      "track_id": "occupational",
+      "component_id": "prosecution_condition",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art268_sec1_1.non_punishable_against_victim_intent"
+      ]
+    },
+    {
+      "track_id": "ordinary",
+      "component_id": "absence_of_intent",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art267_sec1.no_intent_to_kill_injure_or_assault",
+        "art268_sec3_2.vehicle_avoidance_effort_negligence"
+      ]
+    },
+    {
+      "track_id": "ordinary",
+      "component_id": "causation",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art267_sec2.causal_link.negligent_act_and_result",
+        "art267_sec2.causal_link.prank_throwing_at_sea"
+      ]
+    },
+    {
+      "track_id": "ordinary",
+      "component_id": "concurrence",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "negligent_bodily_injury"
+      ],
+      "norm_card_ids": [
+        "art267_sec4.death_and_injury_single_negligent_act"
+      ]
+    },
+    {
+      "track_id": "ordinary",
+      "component_id": "death_result",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art267_sec1.negligent_homicide_definition"
+      ]
+    },
+    {
+      "track_id": "ordinary",
+      "component_id": "duty_breach",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art267_sec2.elements.negligent_breach_and_death",
+        "art267_sec2.standard.bus_driver_instant_wheel_entry",
+        "art267_sec2.standard.landlord_failure_gas_warning",
+        "art267_sec2.standard.landlord_negligence_assessment_factors",
+        "art267_sec2.standard.landlord_no_negligence_minor_defect",
+        "art267_sec2.standard.prank_throwing_foreseeability"
+      ]
+    },
+    {
+      "track_id": "ordinary",
+      "component_id": "offense_count",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art267_sec4.multiple_deaths_single_negligent_act"
+      ]
+    },
+    {
+      "track_id": "ordinary",
+      "component_id": "person_begins",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art267_sec2.definition.person_begins_regular_labor"
+      ]
+    },
+    {
+      "track_id": "ordinary",
+      "component_id": "pre_person_exclusion",
+      "roles": [
+        "bar"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art267_sec2.standard.fetus_before_regular_labor_not_person"
+      ]
+    }
+  ],
+  "stats": {
+    "components": 20,
+    "context_only_placements": 5,
+    "decision_approve": 77,
+    "decision_context_only": 5,
+    "decision_rewrite": 3,
+    "inherited": 1,
+    "placements": 80,
+    "queue_cards": 85,
+    "unresolved_unit_references": 14
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "version": "1.0.0",
+  "unit_id": "negligent_bodily_harm",
+  "approved_on": "2026-08-04",
+  "legal_gate": "docs/review/2026-08-04_negligent_bodily_harm_legal_gate_01.md",
+  "proposal_documents": [
+    "docs/review/p2/negligent_bodily_harm_proposal_01.md",
+    "docs/review/p2/negligent_bodily_harm_proposal_02.md",
+    "docs/review/p2/negligent_bodily_harm_proposal_03.md"
+  ],
+  "policy": {
+    "approval": "G-N01~N05 approved by the human legal expert",
+    "track_separation": "ordinary, occupational, gross를 분리하고 gross에 업무자 지위를 상속하지 않는다",
+    "shared_placements": "고의부재·태아배제·제268조 일반요건과 승인된 죄수 placement만 선택 상속한다",
+    "inherited_decision": "결정 C의 불법업무 배제를 occupational business_status bar로 실행한다",
+    "post_outcome": "죄수·소추효과는 보존하되 outcome bridge 전까지 성립 결론에 섞지 않는다",
+    "unresolved_reference": "미지원 제266조·교통·산업안전·중대재해 참조는 predicate_ir_missing으로 보고한다"
+  },
+  "track_vocabulary": [
+    {"track_id": "ordinary", "label": "제267조 과실치사"},
+    {
+      "track_id": "occupational",
+      "label": "제268조 업무상과실치사상",
+      "inherits_placements": [{
+        "track_id": "ordinary",
+        "component_ids": ["absence_of_intent", "pre_person_exclusion"]
+      }]
+    },
+    {
+      "track_id": "gross",
+      "label": "제268조 중과실치사상",
+      "inherits_placements": [
+        {
+          "track_id": "ordinary",
+          "component_ids": ["absence_of_intent", "pre_person_exclusion"]
+        },
+        {
+          "track_id": "occupational",
+          "component_ids": ["general_requirements", "offense_count", "concurrence", "concurrence_standard"]
+        }
+      ]
+    }
+  ],
+  "placement_defaults": [],
+  "proposition_rewrites": {
+    "7": "피해자가 버스 발차 순간 바퀴 밑으로 갑자기 들어가 운전자가 이를 발견하거나 회피할 수 없었던 경우에는 운전자의 과실을 인정할 수 없다.",
+    "25": "형법 제268조의 죄가 성립하려면 과실, 행위자 이외의 다른 사람의 사망 또는 신체상 상해 결과, 그리고 과실과 결과 사이의 인과관계가 충족되어야 한다.",
+    "39": "철도 공사관계자 등이 위험성과 합리적 피양방법을 숙지하고 열차 접근 시 피양하도록 정해져 있으며 달리 피양을 기대할 수 없는 특별한 사정이 없다면, 승무원은 그들이 피양할 것을 신뢰할 수 있다."
+  }
+}
