@@ -84,7 +84,7 @@ RuleIR/NormCard JSON의 `draft`·`legal_review` 필드는 기존 validator가 �
 - 고정 런타임: `scli 0.2.4`, SHA-256
   `8c5ec86fcdb0dbd55698eff7570ac7396d0b0878e601207f868d61f9d6482b9a`
 
-전체 616개 회귀에는 RuleIR 결정론적 재생성, 계약 검증, registry audit, 기존 fraud/property
+전체 617개 회귀에는 RuleIR 결정론적 재생성, 계약 검증, registry audit, 기존 fraud/property
 runtime, P2 runtime, 폐쇄형 선택, predicate 전량 assessment, 재산죄→공유모듈 bridge,
 writer 결론 고정 테스트가 포함된다.
 
