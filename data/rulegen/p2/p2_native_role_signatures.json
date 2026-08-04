@@ -70,6 +70,16 @@
         "applies_to_tracks": ["ordinary", "occupational", "gross"]
       },
       "tracks": {}
+    },
+    "rape": {
+      "gate": "docs/review/2026-08-04_rape_legal_gate_01.md",
+      "default": {
+        "predicate": "rape_case_roles",
+        "arguments": ["case_id", "defendant_id", "victim_id"],
+        "definition": "호스트가 확정한 강간 사건의 역할 tuple — 피고인과 성적 자기결정권 침해의 객체인 피해자",
+        "applies_to_tracks": ["base"]
+      },
+      "tracks": {}
     }
   }
 }

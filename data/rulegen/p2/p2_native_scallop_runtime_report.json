@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "api_calls": 0,
-  "created_at": "2026-08-04T00:35:38.471256+00:00",
+  "created_at": "2026-08-04T00:59:58.858107+00:00",
   "runtime": {
     "scli": "tools/scallop/scli-0.2.4-linux-x86_64",
     "version": "scli 0.2.4",
@@ -11,306 +11,114 @@
   "method": "승인 원장의 per-card placement에서 결정론적으로 유도한 시나리오",
   "counts": {
     "units": 1,
-    "scenarios": 15,
-    "passed": 15
+    "scenarios": 5,
+    "passed": 5
   },
   "units": [
     {
-      "unit": "negligent_bodily_harm",
+      "unit": "rape",
       "tracks": [
-        "ordinary",
-        "occupational",
-        "gross"
+        "base"
       ],
       "scenarios": [
         {
-          "scenario_id": "ordinary.established",
-          "track": "ordinary",
+          "scenario_id": "base.established",
+          "track": "base",
           "expected_nonempty": {
-            "negligent_bodily_harm_ordinary_elements_satisfied": true,
-            "negligent_bodily_harm_ordinary_established": true,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": false
+            "rape_base_elements_satisfied": true,
+            "rape_base_established": true,
+            "rape_not_established": false,
+            "rape_undetermined": false,
+            "rape_conflict": false
           },
           "observed_nonempty": {
-            "negligent_bodily_harm_ordinary_elements_satisfied": true,
-            "negligent_bodily_harm_ordinary_established": true,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": false
+            "rape_base_elements_satisfied": true,
+            "rape_base_established": true,
+            "rape_not_established": false,
+            "rape_undetermined": false,
+            "rape_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "ordinary.incomplete_blocked",
-          "track": "ordinary",
+          "scenario_id": "base.incomplete_blocked",
+          "track": "base",
           "expected_nonempty": {
-            "negligent_bodily_harm_ordinary_elements_satisfied": true,
-            "negligent_bodily_harm_ordinary_established": false,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": false
+            "rape_base_elements_satisfied": true,
+            "rape_base_established": false,
+            "rape_not_established": false,
+            "rape_undetermined": false,
+            "rape_conflict": false
           },
           "observed_nonempty": {
-            "negligent_bodily_harm_ordinary_elements_satisfied": true,
-            "negligent_bodily_harm_ordinary_established": false,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": false
+            "rape_base_elements_satisfied": true,
+            "rape_base_established": false,
+            "rape_not_established": false,
+            "rape_undetermined": false,
+            "rape_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "ordinary.conflict_blocks",
-          "track": "ordinary",
+          "scenario_id": "base.conflict_blocks",
+          "track": "base",
           "expected_nonempty": {
-            "negligent_bodily_harm_ordinary_elements_satisfied": true,
-            "negligent_bodily_harm_ordinary_established": false,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": true
+            "rape_base_elements_satisfied": true,
+            "rape_base_established": false,
+            "rape_not_established": false,
+            "rape_undetermined": false,
+            "rape_conflict": true
           },
           "observed_nonempty": {
-            "negligent_bodily_harm_ordinary_elements_satisfied": true,
-            "negligent_bodily_harm_ordinary_established": false,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": true
+            "rape_base_elements_satisfied": true,
+            "rape_base_established": false,
+            "rape_not_established": false,
+            "rape_undetermined": false,
+            "rape_conflict": true
           },
           "passed": true
         },
         {
-          "scenario_id": "ordinary.unknown_blocks",
-          "track": "ordinary",
+          "scenario_id": "base.unknown_blocks",
+          "track": "base",
           "expected_nonempty": {
-            "negligent_bodily_harm_ordinary_elements_satisfied": false,
-            "negligent_bodily_harm_ordinary_established": false,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": true,
-            "negligent_bodily_harm_conflict": false
+            "rape_base_elements_satisfied": false,
+            "rape_base_established": false,
+            "rape_not_established": false,
+            "rape_undetermined": true,
+            "rape_conflict": false
           },
           "observed_nonempty": {
-            "negligent_bodily_harm_ordinary_elements_satisfied": false,
-            "negligent_bodily_harm_ordinary_established": false,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": true,
-            "negligent_bodily_harm_conflict": false
+            "rape_base_elements_satisfied": false,
+            "rape_base_established": false,
+            "rape_not_established": false,
+            "rape_undetermined": true,
+            "rape_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "ordinary.bar_blocks",
-          "track": "ordinary",
+          "scenario_id": "base.bar_blocks",
+          "track": "base",
           "expected_nonempty": {
-            "negligent_bodily_harm_ordinary_elements_satisfied": true,
-            "negligent_bodily_harm_ordinary_established": false,
-            "negligent_bodily_harm_not_established": true,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": false
+            "rape_base_elements_satisfied": true,
+            "rape_base_established": false,
+            "rape_not_established": true,
+            "rape_undetermined": false,
+            "rape_conflict": false
           },
           "observed_nonempty": {
-            "negligent_bodily_harm_ordinary_elements_satisfied": true,
-            "negligent_bodily_harm_ordinary_established": false,
-            "negligent_bodily_harm_not_established": true,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "occupational.established",
-          "track": "occupational",
-          "expected_nonempty": {
-            "negligent_bodily_harm_occupational_elements_satisfied": true,
-            "negligent_bodily_harm_occupational_established": true,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": false
-          },
-          "observed_nonempty": {
-            "negligent_bodily_harm_occupational_elements_satisfied": true,
-            "negligent_bodily_harm_occupational_established": true,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "occupational.incomplete_blocked",
-          "track": "occupational",
-          "expected_nonempty": {
-            "negligent_bodily_harm_occupational_elements_satisfied": true,
-            "negligent_bodily_harm_occupational_established": false,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": false
-          },
-          "observed_nonempty": {
-            "negligent_bodily_harm_occupational_elements_satisfied": true,
-            "negligent_bodily_harm_occupational_established": false,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "occupational.conflict_blocks",
-          "track": "occupational",
-          "expected_nonempty": {
-            "negligent_bodily_harm_occupational_elements_satisfied": true,
-            "negligent_bodily_harm_occupational_established": false,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": true
-          },
-          "observed_nonempty": {
-            "negligent_bodily_harm_occupational_elements_satisfied": true,
-            "negligent_bodily_harm_occupational_established": false,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": true
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "occupational.unknown_blocks",
-          "track": "occupational",
-          "expected_nonempty": {
-            "negligent_bodily_harm_occupational_elements_satisfied": false,
-            "negligent_bodily_harm_occupational_established": false,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": true,
-            "negligent_bodily_harm_conflict": false
-          },
-          "observed_nonempty": {
-            "negligent_bodily_harm_occupational_elements_satisfied": false,
-            "negligent_bodily_harm_occupational_established": false,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": true,
-            "negligent_bodily_harm_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "occupational.bar_blocks",
-          "track": "occupational",
-          "expected_nonempty": {
-            "negligent_bodily_harm_occupational_elements_satisfied": true,
-            "negligent_bodily_harm_occupational_established": false,
-            "negligent_bodily_harm_not_established": true,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": false
-          },
-          "observed_nonempty": {
-            "negligent_bodily_harm_occupational_elements_satisfied": true,
-            "negligent_bodily_harm_occupational_established": false,
-            "negligent_bodily_harm_not_established": true,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "gross.established",
-          "track": "gross",
-          "expected_nonempty": {
-            "negligent_bodily_harm_gross_elements_satisfied": true,
-            "negligent_bodily_harm_gross_established": true,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": false
-          },
-          "observed_nonempty": {
-            "negligent_bodily_harm_gross_elements_satisfied": true,
-            "negligent_bodily_harm_gross_established": true,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "gross.incomplete_blocked",
-          "track": "gross",
-          "expected_nonempty": {
-            "negligent_bodily_harm_gross_elements_satisfied": true,
-            "negligent_bodily_harm_gross_established": false,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": false
-          },
-          "observed_nonempty": {
-            "negligent_bodily_harm_gross_elements_satisfied": true,
-            "negligent_bodily_harm_gross_established": false,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "gross.conflict_blocks",
-          "track": "gross",
-          "expected_nonempty": {
-            "negligent_bodily_harm_gross_elements_satisfied": true,
-            "negligent_bodily_harm_gross_established": false,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": true
-          },
-          "observed_nonempty": {
-            "negligent_bodily_harm_gross_elements_satisfied": true,
-            "negligent_bodily_harm_gross_established": false,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": true
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "gross.unknown_blocks",
-          "track": "gross",
-          "expected_nonempty": {
-            "negligent_bodily_harm_gross_elements_satisfied": false,
-            "negligent_bodily_harm_gross_established": false,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": true,
-            "negligent_bodily_harm_conflict": false
-          },
-          "observed_nonempty": {
-            "negligent_bodily_harm_gross_elements_satisfied": false,
-            "negligent_bodily_harm_gross_established": false,
-            "negligent_bodily_harm_not_established": false,
-            "negligent_bodily_harm_undetermined": true,
-            "negligent_bodily_harm_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "gross.bar_blocks",
-          "track": "gross",
-          "expected_nonempty": {
-            "negligent_bodily_harm_gross_elements_satisfied": true,
-            "negligent_bodily_harm_gross_established": false,
-            "negligent_bodily_harm_not_established": true,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": false
-          },
-          "observed_nonempty": {
-            "negligent_bodily_harm_gross_elements_satisfied": true,
-            "negligent_bodily_harm_gross_established": false,
-            "negligent_bodily_harm_not_established": true,
-            "negligent_bodily_harm_undetermined": false,
-            "negligent_bodily_harm_conflict": false
+            "rape_base_elements_satisfied": true,
+            "rape_base_established": false,
+            "rape_not_established": true,
+            "rape_undetermined": false,
+            "rape_conflict": false
           },
           "passed": true
         }
       ],
-      "passed": 15,
-      "total": 15
+      "passed": 5,
+      "total": 5
     }
   ]
 }

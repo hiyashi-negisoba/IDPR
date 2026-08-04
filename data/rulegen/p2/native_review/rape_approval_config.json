@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "unit_id": "rape",
+  "approved_on": "2026-08-04",
+  "legal_gate": "docs/review/2026-08-04_rape_legal_gate_01.md",
+  "proposal_documents": [
+    "docs/review/p2/rape_proposal_01.md",
+    "docs/review/p2/rape_proposal_02.md",
+    "docs/review/p2/rape_proposal_03.md"
+  ],
+  "policy": {
+    "approval": "The human legal expert delegated completion of the normalization work on 2026-08-04; G-R01 through G-R05 are adopted as drafted",
+    "track_separation": "제297조 기수만 base로 컴파일하고 제300조 미수는 sexual_offense_attempt shared stage module로 연결한다",
+    "sexual_act_boundary": "질성교와 승인된 성별 판단기준은 제297조에 두고 비질성교는 quasi_rape predicate_ir_missing 경계로 보존한다",
+    "coercion_and_consent": "최협의 폭행협박, 인과관계, 유효한 동의 및 동의 오인 경계를 독립 component와 bar로 실행한다",
+    "post_outcome": "죄수·특별법·결과가중·공범은 성립요건과 분리하여 outcome bridge 입력으로 보존한다",
+    "unresolved_reference": "미등록 특별법·감금·총칙 참조는 가짜 fallback 없이 predicate_ir_missing으로 보고한다"
+  },
+  "track_vocabulary": [
+    {"track_id": "base", "label": "제297조 강간 기수"}
+  ],
+  "placement_defaults": [],
+  "proposition_rewrites": {
+    "15": "행위자가 타인이 가한 폭행·협박 상태를 이용하여 피해자를 간음했을 뿐 자신이 폭행·협박을 가하지 않은 경우에는 강간죄가 아니라 준강간죄가 성립할 수 있다."
+  }
+}
