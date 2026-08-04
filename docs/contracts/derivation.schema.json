@@ -22,7 +22,16 @@
         "properties": {
           "issue": { "type": "string" },
           "conclusion": {
-            "enum": ["established", "not_established", "admissible", "inadmissible"]
+            "enum": [
+              "established",
+              "not_established",
+              "undetermined",
+              "conflict",
+              "no_derived_outcome",
+              "prerequisite_not_established",
+              "admissible",
+              "inadmissible"
+            ]
           }
         }
       }

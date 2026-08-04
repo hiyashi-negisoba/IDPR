@@ -249,7 +249,7 @@ def run_pipeline(
         scli_path=SCLI_PATH,
         work_dir=run_dir / "scallop_programs",
     )
-    observed = {relation: result["nonempty"] for relation, result in results.items()}
+    observed = {relation: result["nonempty"] for relation, result in results.items() if not relation.startswith("_")}
     final_legal_result = legal_result(observed)
     report = {
         "version": "1.0.0",

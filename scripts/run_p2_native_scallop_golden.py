@@ -209,7 +209,7 @@ def run_unit(unit_id: str, scli_path: Path) -> tuple[dict[str, Any], list[str]]:
         except ScallopFactValidationError as exc:
             failures.append(f"{unit_id}:{scenario['scenario_id']} 사실 검증 실패: {exc}")
             continue
-        observed = {relation: result["nonempty"] for relation, result in results.items()}
+        observed = {relation: result["nonempty"] for relation, result in results.items() if not relation.startswith("_")}
         passed = observed == expected
         if not passed:
             failures.append(

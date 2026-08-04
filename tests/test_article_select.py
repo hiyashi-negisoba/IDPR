@@ -47,7 +47,7 @@ def test_schema_closes_the_article_set():
     schema = article_select_schema()
     enum = schema["properties"]["selected"]["items"]["properties"]["article"]["enum"]
     assert set(enum) == set(catalog_keys())
-    assert schema["properties"]["selected"]["maxItems"] == MAX_SELECTED
+    assert schema["properties"]["selected"]["maxItems"] == 10
 
 
 def test_payload_carries_only_whitelisted_case_fields():

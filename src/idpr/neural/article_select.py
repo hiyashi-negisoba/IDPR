@@ -43,7 +43,7 @@ SCHEMA_VERSION = "1.0.0"
 #: Upper bound on selected articles. Not a target -- the prompt asks for recall, and the
 #: cost of a spare article is card statuses, not a wrong answer. It exists only so a
 #: degenerate response cannot select the whole corpus and silently undo the step.
-MAX_SELECTED = 24
+MAX_SELECTED = 10
 
 
 class ArticleSelectError(ValueError):
