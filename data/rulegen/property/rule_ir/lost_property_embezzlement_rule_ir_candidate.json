@@ -192,6 +192,37 @@
       ]
     },
     {
+      "id": "not_satisfied_satisfied_art360_sec1_1_offense_definition",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "owner_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령죄는 유실물·표류물·타인의 점유를 이탈한 재물 또는 매장물을 횡령함으로써 성립한다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅰ.1_0",
+          "quote": "본죄는 유실물, 표류물 또는 타인의 점유를 이탈한 재물이나 매장물을 횡령함으 로써 성립하는 범죄이다.",
+          "section_path": "Ⅰ.1"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec1_1.offense_definition"
+      ]
+    },
+    {
       "id": "assess_art360_sec2_1_subject_unrestricted",
       "arguments": [
         {
@@ -250,6 +281,37 @@
       "role": "derived",
       "origin": "commentary",
       "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 점유이탈물횡령죄의 주체에는 제한이 없다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.1_3",
+          "quote": "본죄의 주체에 관하여는 아무런 제한이 없다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_1.subject.unrestricted"
+      ]
+    },
+    {
+      "id": "not_satisfied_satisfied_art360_sec2_1_subject_unrestricted",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "owner_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령죄의 주체에는 제한이 없다.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제360조_Ⅱ.1_3",
@@ -332,6 +394,37 @@
       ]
     },
     {
+      "id": "not_satisfied_satisfied_art360_sec2_2_lost_possession_property",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "owner_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물이란 원래 점유자의 의사에 기하지 않고 그 점유를 벗어난 타인 소유 재물이다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_4",
+          "quote": "점유이탈물이란 원래 점유자의 의사에 기하지 않고 그의 점유를 벗어난 다른 사람 소유의 재물을 가리킨다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_2.lost_possession_property"
+      ]
+    },
+    {
       "id": "assess_art360_sec2_2_managed_place_property",
       "arguments": [
         {
@@ -390,6 +483,37 @@
       "role": "derived",
       "origin": "commentary",
       "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 타인의 간수·관리 등 실력적 지배가 미치는 장소 안에 방치되거나 유류된 물건은 관리자의 점유에 속하여 점유이탈물이 아니고, 영득 시 절도죄의 객체가 된다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_4",
+          "quote": "타인의 간수나 관리 등 실력적 지배가 미치고 있는 장소 내 (여관, 당구장 또는 PC방 등) 에서 방치되거나 유류된 물건 (이는 그 관리자의 점유에 속한다고 보아야 하므로 점유 , 또 잘못 떨어뜨 이탈물이 아니며 따라서 본죄가 아니라 절도죄의 객체가 될 뿐이다)",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_2.managed_place_property"
+      ]
+    },
+    {
+      "id": "not_satisfied_satisfied_art360_sec2_2_managed_place_property",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "owner_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 타인의 간수·관리 등 실력적 지배가 미치는 장소 안에 방치되거나 유류된 물건은 관리자의 점유에 속하여 점유이탈물이 아니고, 영득 시 절도죄의 객체가 된다.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제360조_Ⅱ.2_4",
@@ -472,6 +596,37 @@
       ]
     },
     {
+      "id": "not_satisfied_satisfied_art360_sec2_2_mistaken_bank_transfer_embezzlement_holding",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "owner_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 자기 은행계좌에 착오로 입금된 금원은 횡령죄의 객체가 되고 점유이탈물횡령죄의 객체가 되지 않는다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_5",
+          "quote": "판 례는 일관하여 횡령죄의 객체가 된다고 본다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_2.mistaken_bank_transfer_embezzlement_holding"
+      ]
+    },
+    {
       "id": "assess_art360_sec2_2_object",
       "arguments": [
         {
@@ -530,6 +685,37 @@
       "role": "derived",
       "origin": "commentary",
       "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 점유이탈물횡령죄의 객체는 타인 소유의 점유이탈물이다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_4",
+          "quote": "본죄의 객체는 타인의 소유인 점유이탈물이다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_2.object"
+      ]
+    },
+    {
+      "id": "not_satisfied_satisfied_art360_sec2_2_object",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "owner_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령죄의 객체는 타인 소유의 점유이탈물이다.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제360조_Ⅱ.2_4",
@@ -622,6 +808,42 @@
       ]
     },
     {
+      "id": "not_satisfied_satisfied_art360_sec2_2_original_possessor_recovery",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "owner_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 원점유자가 물건 소재를 알고 다시 찾을 가능성이 있는 경우에는 타인의 점유가 존속하므로, 이를 영득하면 점유이탈물횡령죄가 아니라 절도죄가 성립한다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_4",
+          "quote": "를 알고 다시 찾을 가능성이 있는 경우에는 타인의 점유가 존속되고 있는 재물에 해 당하므로 이를 영득한 때에는 절도죄가 성립할 뿐이지 본죄는 성립하지 않는다.",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_4",
+          "quote": "원점유자가 물건의 소재",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_2.original_possessor_recovery"
+      ]
+    },
+    {
       "id": "assess_art360_sec2_2_ownerless_property_exclusion",
       "arguments": [
         {
@@ -680,6 +902,37 @@
       "role": "derived",
       "origin": "commentary",
       "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 무주물은 타인 소유의 재물이 아니므로 점유이탈물횡령죄의 객체가 아니다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_4",
+          "quote": "타인 소유의 재물이므로 무 주물은 본죄의 객체가 아니다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_2.ownerless_property_exclusion"
+      ]
+    },
+    {
+      "id": "not_satisfied_satisfied_art360_sec2_2_ownerless_property_exclusion",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "owner_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 무주물은 타인 소유의 재물이 아니므로 점유이탈물횡령죄의 객체가 아니다.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제360조_Ⅱ.2_4",
@@ -762,6 +1015,37 @@
       ]
     },
     {
+      "id": "not_satisfied_satisfied_art360_sec2_2_public_transport_found_property",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "owner_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 운전사나 승무원이 유실물을 현실적으로 발견한 뒤 제3자가 가져가면 운전사·승무원의 점유가 인정되어 절도죄로 처벌된다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_6",
+          "quote": "운전사나 승무원이 유실물을 현실적으로 발견한 후라면 이들에게 점유가 인정 되며 그 후 제3자가 그 물건을 가져가는 행위는 절도죄로 처벌받을 것이다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_2.public_transport_found_property"
+      ]
+    },
+    {
       "id": "assess_art360_sec2_3_completion_external_expression",
       "arguments": [
         {
@@ -820,6 +1104,37 @@
       "role": "derived",
       "origin": "commentary",
       "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 점유이탈물횡령죄는 불법영득의사를 외부에 표현하는 행위로 완성된다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.3_7",
+          "quote": "불법영득의사를 외부에 표현하는 행위에 의하여 완성된다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_3.completion_external_expression"
+      ]
+    },
+    {
+      "id": "not_satisfied_satisfied_art360_sec2_3_completion_external_expression",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "owner_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령죄는 불법영득의사를 외부에 표현하는 행위로 완성된다.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제360조_Ⅱ.3_7",
@@ -902,6 +1217,37 @@
       ]
     },
     {
+      "id": "not_satisfied_satisfied_art360_sec2_3_embezzlement_act",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "owner_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령의 행위는 불법영득의사로 점유이탈물을 자기의 사실상 지배 아래 두는 행위이다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.3_7",
+          "quote": "불법영득의 의사를 가지고 점유이탈물을 자기의 사실상 지배 아래 두는 행위를 말한다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_3.embezzlement_act"
+      ]
+    },
+    {
       "id": "assess_art360_sec2_3_later_appropriation_intent",
       "arguments": [
         {
@@ -960,6 +1306,37 @@
       "role": "derived",
       "origin": "commentary",
       "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 처음에는 불법영득의사 없이 점유이탈물을 습득했더라도, 후에 영득의사를 일으켜 그 표현행위를 하면 그 시점에 기수가 된다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.3_7",
+          "quote": "당초에는 불법영 득의 의사 없이 점유이탈물을 습득한 자가 그 후에 영득의 의사를 일으켜 영득 의사의 표현행위를 하면 그 시점에서 기수가 될 것이다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_3.later_appropriation_intent"
+      ]
+    },
+    {
+      "id": "not_satisfied_satisfied_art360_sec2_3_later_appropriation_intent",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "owner_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 처음에는 불법영득의사 없이 점유이탈물을 습득했더라도, 후에 영득의사를 일으켜 그 표현행위를 하면 그 시점에 기수가 된다.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제360조_Ⅱ.3_7",
@@ -1042,6 +1419,37 @@
       ]
     },
     {
+      "id": "not_satisfied_satisfied_art360_sec2_3_mistake_property_status_punishable",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "owner_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 타인이 점유하는 재물을 점유이탈물로 오인하여 영득한 경우에는 점유이탈물횡령죄로 처벌한다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.3_7",
+          "quote": "본죄로서 처벌되어야 한다는 견해",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_3.mistake_property_status_punishable"
+      ]
+    },
+    {
       "id": "assess_art360_sec2_3_reporting_noncompliance_alone",
       "arguments": [
         {
@@ -1100,6 +1508,37 @@
       "role": "derived",
       "origin": "commentary",
       "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 유실물·표류물·매장물에 관하여 법정 절차를 밟지 않았다는 사정만으로 점유이탈물횡령죄가 성립하는 것은 아니다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.3_7",
+          "quote": "유실물이나 표류물 또는 매장물의 경 우 유실물법이나 수상에서의 수색·구조 등에 관한 법률 등에서 정한 절차를 밟 지 않았다고 하여 이것만으로 본죄가 성립하는 것은 아니다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_3.reporting_noncompliance_alone"
+      ]
+    },
+    {
+      "id": "not_satisfied_satisfied_art360_sec2_3_reporting_noncompliance_alone",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "owner_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 유실물·표류물·매장물에 관하여 법정 절차를 밟지 않았다는 사정만으로 점유이탈물횡령죄가 성립하는 것은 아니다.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제360조_Ⅱ.3_7",
@@ -2300,6 +2739,80 @@
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
     },
     {
+      "id": "lost_property_embezzlement.art360_sec1_1.card.001.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art360_sec1_1_offense_definition",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "owner_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art360_sec1_1_offense_definition",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_001"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_001"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅰ.1_0",
+          "quote": "본죄는 유실물, 표류물 또는 타인의 점유를 이탈한 재물이나 매장물을 횡령함으 로써 성립하는 범죄이다.",
+          "section_path": "Ⅰ.1"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec1_1.offense_definition"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
+    },
+    {
       "id": "lost_property_embezzlement.art360_sec2_1.card.002.satisfied",
       "head": {
         "predicate": "satisfied_art360_sec2_1_subject_unrestricted",
@@ -2560,6 +3073,80 @@
         "art360_sec2_1.subject.unrestricted"
       ],
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
+    },
+    {
+      "id": "lost_property_embezzlement.art360_sec2_1.card.002.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art360_sec2_1_subject_unrestricted",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "owner_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art360_sec2_1_subject_unrestricted",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_002"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_002"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.1_3",
+          "quote": "본죄의 주체에 관하여는 아무런 제한이 없다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_1.subject.unrestricted"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
     },
     {
       "id": "lost_property_embezzlement.art360_sec2_2.card.003.satisfied",
@@ -2824,6 +3411,80 @@
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
     },
     {
+      "id": "lost_property_embezzlement.art360_sec2_2.card.003.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art360_sec2_2_lost_possession_property",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "owner_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art360_sec2_2_lost_possession_property",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_003"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_003"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_4",
+          "quote": "점유이탈물이란 원래 점유자의 의사에 기하지 않고 그의 점유를 벗어난 다른 사람 소유의 재물을 가리킨다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_2.lost_possession_property"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
+    },
+    {
       "id": "lost_property_embezzlement.art360_sec2_2.card.004.satisfied",
       "head": {
         "predicate": "satisfied_art360_sec2_2_managed_place_property",
@@ -3084,6 +3745,80 @@
         "art360_sec2_2.managed_place_property"
       ],
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
+    },
+    {
+      "id": "lost_property_embezzlement.art360_sec2_2.card.004.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art360_sec2_2_managed_place_property",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "owner_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art360_sec2_2_managed_place_property",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_004"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_004"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_4",
+          "quote": "타인의 간수나 관리 등 실력적 지배가 미치고 있는 장소 내 (여관, 당구장 또는 PC방 등) 에서 방치되거나 유류된 물건 (이는 그 관리자의 점유에 속한다고 보아야 하므로 점유 , 또 잘못 떨어뜨 이탈물이 아니며 따라서 본죄가 아니라 절도죄의 객체가 될 뿐이다)",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_2.managed_place_property"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
     },
     {
       "id": "lost_property_embezzlement.art360_sec2_2.card.005.satisfied",
@@ -3348,6 +4083,80 @@
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
     },
     {
+      "id": "lost_property_embezzlement.art360_sec2_2.card.005.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art360_sec2_2_mistaken_bank_transfer_embezzlement_holding",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "owner_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art360_sec2_2_mistaken_bank_transfer_embezzlement_holding",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_005"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_005"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_5",
+          "quote": "판 례는 일관하여 횡령죄의 객체가 된다고 본다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_2.mistaken_bank_transfer_embezzlement_holding"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
+    },
+    {
       "id": "lost_property_embezzlement.art360_sec2_2.card.006.satisfied",
       "head": {
         "predicate": "satisfied_art360_sec2_2_object",
@@ -3608,6 +4417,80 @@
         "art360_sec2_2.object"
       ],
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
+    },
+    {
+      "id": "lost_property_embezzlement.art360_sec2_2.card.006.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art360_sec2_2_object",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "owner_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art360_sec2_2_object",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_006"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_006"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_4",
+          "quote": "본죄의 객체는 타인의 소유인 점유이탈물이다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_2.object"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
     },
     {
       "id": "lost_property_embezzlement.art360_sec2_2.card.007.satisfied",
@@ -3887,6 +4770,85 @@
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
     },
     {
+      "id": "lost_property_embezzlement.art360_sec2_2.card.007.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art360_sec2_2_original_possessor_recovery",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "owner_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art360_sec2_2_original_possessor_recovery",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_007"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_007"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_4",
+          "quote": "를 알고 다시 찾을 가능성이 있는 경우에는 타인의 점유가 존속되고 있는 재물에 해 당하므로 이를 영득한 때에는 절도죄가 성립할 뿐이지 본죄는 성립하지 않는다.",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_4",
+          "quote": "원점유자가 물건의 소재",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_2.original_possessor_recovery"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
+    },
+    {
       "id": "lost_property_embezzlement.art360_sec2_2.card.008.satisfied",
       "head": {
         "predicate": "satisfied_art360_sec2_2_ownerless_property_exclusion",
@@ -4147,6 +5109,80 @@
         "art360_sec2_2.ownerless_property_exclusion"
       ],
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
+    },
+    {
+      "id": "lost_property_embezzlement.art360_sec2_2.card.008.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art360_sec2_2_ownerless_property_exclusion",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "owner_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art360_sec2_2_ownerless_property_exclusion",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_008"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_008"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_4",
+          "quote": "타인 소유의 재물이므로 무 주물은 본죄의 객체가 아니다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_2.ownerless_property_exclusion"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
     },
     {
       "id": "lost_property_embezzlement.art360_sec2_2.card.009.satisfied",
@@ -4411,6 +5447,80 @@
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
     },
     {
+      "id": "lost_property_embezzlement.art360_sec2_2.card.009.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art360_sec2_2_public_transport_found_property",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "owner_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art360_sec2_2_public_transport_found_property",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_009"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_009"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.2_6",
+          "quote": "운전사나 승무원이 유실물을 현실적으로 발견한 후라면 이들에게 점유가 인정 되며 그 후 제3자가 그 물건을 가져가는 행위는 절도죄로 처벌받을 것이다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_2.public_transport_found_property"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
+    },
+    {
       "id": "lost_property_embezzlement.art360_sec2_3.card.010.satisfied",
       "head": {
         "predicate": "satisfied_art360_sec2_3_completion_external_expression",
@@ -4671,6 +5781,80 @@
         "art360_sec2_3.completion_external_expression"
       ],
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
+    },
+    {
+      "id": "lost_property_embezzlement.art360_sec2_3.card.010.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art360_sec2_3_completion_external_expression",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "owner_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art360_sec2_3_completion_external_expression",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_010"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_010"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.3_7",
+          "quote": "불법영득의사를 외부에 표현하는 행위에 의하여 완성된다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_3.completion_external_expression"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
     },
     {
       "id": "lost_property_embezzlement.art360_sec2_3.card.011.satisfied",
@@ -4935,6 +6119,80 @@
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
     },
     {
+      "id": "lost_property_embezzlement.art360_sec2_3.card.011.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art360_sec2_3_embezzlement_act",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "owner_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art360_sec2_3_embezzlement_act",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_011"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_011"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.3_7",
+          "quote": "불법영득의 의사를 가지고 점유이탈물을 자기의 사실상 지배 아래 두는 행위를 말한다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_3.embezzlement_act"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
+    },
+    {
       "id": "lost_property_embezzlement.art360_sec2_3.card.012.satisfied",
       "head": {
         "predicate": "satisfied_art360_sec2_3_later_appropriation_intent",
@@ -5195,6 +6453,80 @@
         "art360_sec2_3.later_appropriation_intent"
       ],
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
+    },
+    {
+      "id": "lost_property_embezzlement.art360_sec2_3.card.012.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art360_sec2_3_later_appropriation_intent",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "owner_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art360_sec2_3_later_appropriation_intent",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_012"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_012"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.3_7",
+          "quote": "당초에는 불법영 득의 의사 없이 점유이탈물을 습득한 자가 그 후에 영득의 의사를 일으켜 영득 의사의 표현행위를 하면 그 시점에서 기수가 될 것이다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_3.later_appropriation_intent"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
     },
     {
       "id": "lost_property_embezzlement.art360_sec2_3.card.013.satisfied",
@@ -5459,6 +6791,80 @@
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
     },
     {
+      "id": "lost_property_embezzlement.art360_sec2_3.card.013.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art360_sec2_3_mistake_property_status_punishable",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "owner_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art360_sec2_3_mistake_property_status_punishable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_013"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_013"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.3_7",
+          "quote": "본죄로서 처벌되어야 한다는 견해",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_3.mistake_property_status_punishable"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
+    },
+    {
       "id": "lost_property_embezzlement.art360_sec2_3.card.014.satisfied",
       "head": {
         "predicate": "satisfied_art360_sec2_3_reporting_noncompliance_alone",
@@ -5719,6 +7125,80 @@
         "art360_sec2_3.reporting_noncompliance_alone"
       ],
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
+    },
+    {
+      "id": "lost_property_embezzlement.art360_sec2_3.card.014.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art360_sec2_3_reporting_noncompliance_alone",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "owner_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art360_sec2_3_reporting_noncompliance_alone",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_014"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_014"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.3_7",
+          "quote": "유실물이나 표류물 또는 매장물의 경 우 유실물법이나 수상에서의 수색·구조 등에 관한 법률 등에서 정한 절차를 밟 지 않았다고 하여 이것만으로 본죄가 성립하는 것은 아니다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_3.reporting_noncompliance_alone"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
     },
     {
       "id": "lost_property_embezzlement.art360_sec1_1.component.lost_property_embezzlement_object_satisfied.01",
@@ -6454,7 +7934,7 @@
       "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
     },
     {
-      "id": "lost_property_embezzlement.art360_sec1_1.mandatory_negative.001",
+      "id": "lost_property_embezzlement.component.l0.mandatory_negative.01",
       "head": {
         "predicate": "lost_property_embezzlement_not_established",
         "arguments": [
@@ -6468,22 +7948,18 @@
           },
           {
             "kind": "string",
-            "value": "art360_sec1_1.offense_definition"
+            "value": "lost_property_embezzlement_object_satisfied"
           }
         ],
         "negated": false
       },
       "body": [
         {
-          "predicate": "assess_art360_sec1_1_offense_definition",
+          "predicate": "not_satisfied_satisfied_art360_sec1_1_offense_definition",
           "arguments": [
             {
               "kind": "variable",
               "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_001"
             },
             {
               "kind": "variable",
@@ -6492,16 +7968,12 @@
             {
               "kind": "variable",
               "value": "owner_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
             }
           ],
           "negated": false
         },
         {
-          "predicate": "provable",
+          "predicate": "not_satisfied_satisfied_art360_sec2_1_subject_unrestricted",
           "arguments": [
             {
               "kind": "variable",
@@ -6509,7 +7981,47 @@
             },
             {
               "kind": "variable",
-              "value": "mandatory_negative_001"
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "not_satisfied_satisfied_art360_sec2_2_lost_possession_property",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "not_satisfied_satisfied_art360_sec2_2_object",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
             }
           ],
           "negated": false
@@ -6520,150 +8032,17 @@
           "comment_id": "comm_001692_제360조_Ⅰ.1_0",
           "quote": "본죄는 유실물, 표류물 또는 타인의 점유를 이탈한 재물이나 매장물을 횡령함으 로써 성립하는 범죄이다.",
           "section_path": "Ⅰ.1"
-        }
-      ],
-      "norm_card_ids": [
-        "art360_sec1_1.offense_definition"
-      ],
-      "review_notes": "필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다."
-    },
-    {
-      "id": "lost_property_embezzlement.art360_sec2_1.mandatory_negative.002",
-      "head": {
-        "predicate": "lost_property_embezzlement_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art360_sec2_1.subject.unrestricted"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art360_sec2_1_subject_unrestricted",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_002"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "owner_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
-            }
-          ],
-          "negated": false
         },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_002"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "source_refs": [
         {
           "comment_id": "comm_001692_제360조_Ⅱ.1_3",
           "quote": "본죄의 주체에 관하여는 아무런 제한이 없다.",
           "section_path": "Ⅱ.1"
-        }
-      ],
-      "norm_card_ids": [
-        "art360_sec2_1.subject.unrestricted"
-      ],
-      "review_notes": "필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다."
-    },
-    {
-      "id": "lost_property_embezzlement.art360_sec2_2.mandatory_negative.003",
-      "head": {
-        "predicate": "lost_property_embezzlement_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art360_sec2_2.lost_possession_property"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art360_sec2_2_lost_possession_property",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_003"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "owner_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
-            }
-          ],
-          "negated": false
         },
         {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_003"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "source_refs": [
+          "comment_id": "comm_001692_제360조_Ⅱ.2_4",
+          "quote": "본죄의 객체는 타인의 소유인 점유이탈물이다.",
+          "section_path": "Ⅱ.2"
+        },
         {
           "comment_id": "comm_001692_제360조_Ⅱ.2_4",
           "quote": "점유이탈물이란 원래 점유자의 의사에 기하지 않고 그의 점유를 벗어난 다른 사람 소유의 재물을 가리킨다.",
@@ -6671,86 +8050,15 @@
         }
       ],
       "norm_card_ids": [
-        "art360_sec2_2.lost_possession_property"
-      ],
-      "review_notes": "필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다."
-    },
-    {
-      "id": "lost_property_embezzlement.art360_sec2_2.mandatory_negative.004",
-      "head": {
-        "predicate": "lost_property_embezzlement_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art360_sec2_2.object"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art360_sec2_2_object",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_004"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "owner_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_004"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제360조_Ⅱ.2_4",
-          "quote": "본죄의 객체는 타인의 소유인 점유이탈물이다.",
-          "section_path": "Ⅱ.2"
-        }
-      ],
-      "norm_card_ids": [
+        "art360_sec1_1.offense_definition",
+        "art360_sec2_1.subject.unrestricted",
+        "art360_sec2_2.lost_possession_property",
         "art360_sec2_2.object"
       ],
-      "review_notes": "필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다."
+      "review_notes": "구성요건 L0에 속한 모든 대안 카드가 명시적으로 not_satisfied일 때만 해당 component 불성립을 도출한다."
     },
     {
-      "id": "lost_property_embezzlement.art360_sec2_3.mandatory_negative.005",
+      "id": "lost_property_embezzlement.component.l1.mandatory_negative.02",
       "head": {
         "predicate": "lost_property_embezzlement_not_established",
         "arguments": [
@@ -6764,22 +8072,18 @@
           },
           {
             "kind": "string",
-            "value": "art360_sec2_3.completion_external_expression"
+            "value": "lost_property_embezzlement_conduct_satisfied"
           }
         ],
         "negated": false
       },
       "body": [
         {
-          "predicate": "assess_art360_sec2_3_completion_external_expression",
+          "predicate": "not_satisfied_satisfied_art360_sec2_3_completion_external_expression",
           "arguments": [
             {
               "kind": "variable",
               "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_005"
             },
             {
               "kind": "variable",
@@ -6788,16 +8092,12 @@
             {
               "kind": "variable",
               "value": "owner_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
             }
           ],
           "negated": false
         },
         {
-          "predicate": "provable",
+          "predicate": "not_satisfied_satisfied_art360_sec2_3_embezzlement_act",
           "arguments": [
             {
               "kind": "variable",
@@ -6805,13 +8105,45 @@
             },
             {
               "kind": "variable",
-              "value": "mandatory_negative_005"
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "not_satisfied_satisfied_art360_sec2_3_mistake_property_status_punishable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
             }
           ],
           "negated": false
         }
       ],
       "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.3_7",
+          "quote": "본죄로서 처벌되어야 한다는 견해",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.3_7",
+          "quote": "불법영득의 의사를 가지고 점유이탈물을 자기의 사실상 지배 아래 두는 행위를 말한다.",
+          "section_path": "Ⅱ.3"
+        },
         {
           "comment_id": "comm_001692_제360조_Ⅱ.3_7",
           "quote": "불법영득의사를 외부에 표현하는 행위에 의하여 완성된다.",
@@ -6819,12 +8151,14 @@
         }
       ],
       "norm_card_ids": [
-        "art360_sec2_3.completion_external_expression"
+        "art360_sec2_3.completion_external_expression",
+        "art360_sec2_3.embezzlement_act",
+        "art360_sec2_3.mistake_property_status_punishable"
       ],
-      "review_notes": "필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다."
+      "review_notes": "구성요건 L1에 속한 모든 대안 카드가 명시적으로 not_satisfied일 때만 해당 component 불성립을 도출한다."
     },
     {
-      "id": "lost_property_embezzlement.art360_sec2_3.mandatory_negative.006",
+      "id": "lost_property_embezzlement.component.l4.mandatory_negative.03",
       "head": {
         "predicate": "lost_property_embezzlement_not_established",
         "arguments": [
@@ -6838,22 +8172,18 @@
           },
           {
             "kind": "string",
-            "value": "art360_sec2_3.embezzlement_act"
+            "value": "lost_property_embezzlement_completion_satisfied"
           }
         ],
         "negated": false
       },
       "body": [
         {
-          "predicate": "assess_art360_sec2_3_embezzlement_act",
+          "predicate": "not_satisfied_satisfied_art360_sec2_3_later_appropriation_intent",
           "arguments": [
             {
               "kind": "variable",
               "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_006"
             },
             {
               "kind": "variable",
@@ -6862,98 +8192,6 @@
             {
               "kind": "variable",
               "value": "owner_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_006"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제360조_Ⅱ.3_7",
-          "quote": "불법영득의 의사를 가지고 점유이탈물을 자기의 사실상 지배 아래 두는 행위를 말한다.",
-          "section_path": "Ⅱ.3"
-        }
-      ],
-      "norm_card_ids": [
-        "art360_sec2_3.embezzlement_act"
-      ],
-      "review_notes": "필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다."
-    },
-    {
-      "id": "lost_property_embezzlement.art360_sec2_3.mandatory_negative.007",
-      "head": {
-        "predicate": "lost_property_embezzlement_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art360_sec2_3.later_appropriation_intent"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art360_sec2_3_later_appropriation_intent",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_007"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "owner_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_007"
             }
           ],
           "negated": false
@@ -6969,81 +8207,7 @@
       "norm_card_ids": [
         "art360_sec2_3.later_appropriation_intent"
       ],
-      "review_notes": "필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다."
-    },
-    {
-      "id": "lost_property_embezzlement.art360_sec2_3.mandatory_negative.008",
-      "head": {
-        "predicate": "lost_property_embezzlement_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art360_sec2_3.mistake_property_status_punishable"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art360_sec2_3_mistake_property_status_punishable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_008"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "owner_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_008"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제360조_Ⅱ.3_7",
-          "quote": "본죄로서 처벌되어야 한다는 견해",
-          "section_path": "Ⅱ.3"
-        }
-      ],
-      "norm_card_ids": [
-        "art360_sec2_3.mistake_property_status_punishable"
-      ],
-      "review_notes": "필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다."
+      "review_notes": "구성요건 L4에 속한 모든 대안 카드가 명시적으로 not_satisfied일 때만 해당 component 불성립을 도출한다."
     },
     {
       "id": "lost_property_embezzlement.core.outcome.elements_satisfied",

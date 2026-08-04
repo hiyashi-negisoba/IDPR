@@ -5,8 +5,8 @@
 ## 전체 구조
 
 - rule_set_id: `kr.property.lost_property_embezzlement.full.v1_candidate`
-- predicate: 45개
-- rule: 77개
+- predicate: 59개
+- rule: 86개
 - NormCard: 14개
 
 ## Predicate
@@ -53,6 +53,13 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art360_sec1_1.offense_definition`
 
+### `not_satisfied_satisfied_art360_sec1_1_offense_definition(case_id: String, defendant_id: String, owner_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령죄는 유실물·표류물·타인의 점유를 이탈한 재물 또는 매장물을 횡령함으로써 성립한다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art360_sec1_1.offense_definition`
+
 ### `assess_art360_sec2_1_subject_unrestricted(case_id: String, assessment_id: String, defendant_id: String, owner_id: String, status: String)`
 
 이 카드의 사건별 적용 평가: 점유이탈물횡령죄의 주체에는 제한이 없다.
@@ -63,6 +70,13 @@
 ### `satisfied_art360_sec2_1_subject_unrestricted(case_id: String, defendant_id: String, owner_id: String)`
 
 증명 가능한 평가에서 다음 조건이 충족됨: 점유이탈물횡령죄의 주체에는 제한이 없다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art360_sec2_1.subject.unrestricted`
+
+### `not_satisfied_satisfied_art360_sec2_1_subject_unrestricted(case_id: String, defendant_id: String, owner_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령죄의 주체에는 제한이 없다.
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art360_sec2_1.subject.unrestricted`
@@ -81,6 +95,13 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art360_sec2_2.lost_possession_property`
 
+### `not_satisfied_satisfied_art360_sec2_2_lost_possession_property(case_id: String, defendant_id: String, owner_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물이란 원래 점유자의 의사에 기하지 않고 그 점유를 벗어난 타인 소유 재물이다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art360_sec2_2.lost_possession_property`
+
 ### `assess_art360_sec2_2_managed_place_property(case_id: String, assessment_id: String, defendant_id: String, owner_id: String, status: String)`
 
 이 카드의 사건별 적용 평가: 타인의 간수·관리 등 실력적 지배가 미치는 장소 안에 방치되거나 유류된 물건은 관리자의 점유에 속하여 점유이탈물이 아니고, 영득 시 절도죄의 객체가 된다.
@@ -91,6 +112,13 @@
 ### `satisfied_art360_sec2_2_managed_place_property(case_id: String, defendant_id: String, owner_id: String)`
 
 증명 가능한 평가에서 다음 조건이 충족됨: 타인의 간수·관리 등 실력적 지배가 미치는 장소 안에 방치되거나 유류된 물건은 관리자의 점유에 속하여 점유이탈물이 아니고, 영득 시 절도죄의 객체가 된다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art360_sec2_2.managed_place_property`
+
+### `not_satisfied_satisfied_art360_sec2_2_managed_place_property(case_id: String, defendant_id: String, owner_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 타인의 간수·관리 등 실력적 지배가 미치는 장소 안에 방치되거나 유류된 물건은 관리자의 점유에 속하여 점유이탈물이 아니고, 영득 시 절도죄의 객체가 된다.
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art360_sec2_2.managed_place_property`
@@ -109,6 +137,13 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art360_sec2_2.mistaken_bank_transfer_embezzlement_holding`
 
+### `not_satisfied_satisfied_art360_sec2_2_mistaken_bank_transfer_embezzlement_holding(case_id: String, defendant_id: String, owner_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 자기 은행계좌에 착오로 입금된 금원은 횡령죄의 객체가 되고 점유이탈물횡령죄의 객체가 되지 않는다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art360_sec2_2.mistaken_bank_transfer_embezzlement_holding`
+
 ### `assess_art360_sec2_2_object(case_id: String, assessment_id: String, defendant_id: String, owner_id: String, status: String)`
 
 이 카드의 사건별 적용 평가: 점유이탈물횡령죄의 객체는 타인 소유의 점유이탈물이다.
@@ -119,6 +154,13 @@
 ### `satisfied_art360_sec2_2_object(case_id: String, defendant_id: String, owner_id: String)`
 
 증명 가능한 평가에서 다음 조건이 충족됨: 점유이탈물횡령죄의 객체는 타인 소유의 점유이탈물이다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art360_sec2_2.object`
+
+### `not_satisfied_satisfied_art360_sec2_2_object(case_id: String, defendant_id: String, owner_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령죄의 객체는 타인 소유의 점유이탈물이다.
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art360_sec2_2.object`
@@ -137,6 +179,13 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art360_sec2_2.original_possessor_recovery`
 
+### `not_satisfied_satisfied_art360_sec2_2_original_possessor_recovery(case_id: String, defendant_id: String, owner_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 원점유자가 물건 소재를 알고 다시 찾을 가능성이 있는 경우에는 타인의 점유가 존속하므로, 이를 영득하면 점유이탈물횡령죄가 아니라 절도죄가 성립한다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art360_sec2_2.original_possessor_recovery`
+
 ### `assess_art360_sec2_2_ownerless_property_exclusion(case_id: String, assessment_id: String, defendant_id: String, owner_id: String, status: String)`
 
 이 카드의 사건별 적용 평가: 무주물은 타인 소유의 재물이 아니므로 점유이탈물횡령죄의 객체가 아니다.
@@ -147,6 +196,13 @@
 ### `satisfied_art360_sec2_2_ownerless_property_exclusion(case_id: String, defendant_id: String, owner_id: String)`
 
 증명 가능한 평가에서 다음 조건이 충족됨: 무주물은 타인 소유의 재물이 아니므로 점유이탈물횡령죄의 객체가 아니다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art360_sec2_2.ownerless_property_exclusion`
+
+### `not_satisfied_satisfied_art360_sec2_2_ownerless_property_exclusion(case_id: String, defendant_id: String, owner_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 무주물은 타인 소유의 재물이 아니므로 점유이탈물횡령죄의 객체가 아니다.
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art360_sec2_2.ownerless_property_exclusion`
@@ -165,6 +221,13 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art360_sec2_2.public_transport_found_property`
 
+### `not_satisfied_satisfied_art360_sec2_2_public_transport_found_property(case_id: String, defendant_id: String, owner_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 운전사나 승무원이 유실물을 현실적으로 발견한 뒤 제3자가 가져가면 운전사·승무원의 점유가 인정되어 절도죄로 처벌된다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art360_sec2_2.public_transport_found_property`
+
 ### `assess_art360_sec2_3_completion_external_expression(case_id: String, assessment_id: String, defendant_id: String, owner_id: String, status: String)`
 
 이 카드의 사건별 적용 평가: 점유이탈물횡령죄는 불법영득의사를 외부에 표현하는 행위로 완성된다.
@@ -175,6 +238,13 @@
 ### `satisfied_art360_sec2_3_completion_external_expression(case_id: String, defendant_id: String, owner_id: String)`
 
 증명 가능한 평가에서 다음 조건이 충족됨: 점유이탈물횡령죄는 불법영득의사를 외부에 표현하는 행위로 완성된다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art360_sec2_3.completion_external_expression`
+
+### `not_satisfied_satisfied_art360_sec2_3_completion_external_expression(case_id: String, defendant_id: String, owner_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령죄는 불법영득의사를 외부에 표현하는 행위로 완성된다.
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art360_sec2_3.completion_external_expression`
@@ -193,6 +263,13 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art360_sec2_3.embezzlement_act`
 
+### `not_satisfied_satisfied_art360_sec2_3_embezzlement_act(case_id: String, defendant_id: String, owner_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령의 행위는 불법영득의사로 점유이탈물을 자기의 사실상 지배 아래 두는 행위이다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art360_sec2_3.embezzlement_act`
+
 ### `assess_art360_sec2_3_later_appropriation_intent(case_id: String, assessment_id: String, defendant_id: String, owner_id: String, status: String)`
 
 이 카드의 사건별 적용 평가: 처음에는 불법영득의사 없이 점유이탈물을 습득했더라도, 후에 영득의사를 일으켜 그 표현행위를 하면 그 시점에 기수가 된다.
@@ -203,6 +280,13 @@
 ### `satisfied_art360_sec2_3_later_appropriation_intent(case_id: String, defendant_id: String, owner_id: String)`
 
 증명 가능한 평가에서 다음 조건이 충족됨: 처음에는 불법영득의사 없이 점유이탈물을 습득했더라도, 후에 영득의사를 일으켜 그 표현행위를 하면 그 시점에 기수가 된다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art360_sec2_3.later_appropriation_intent`
+
+### `not_satisfied_satisfied_art360_sec2_3_later_appropriation_intent(case_id: String, defendant_id: String, owner_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 처음에는 불법영득의사 없이 점유이탈물을 습득했더라도, 후에 영득의사를 일으켜 그 표현행위를 하면 그 시점에 기수가 된다.
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art360_sec2_3.later_appropriation_intent`
@@ -221,6 +305,13 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art360_sec2_3.mistake_property_status_punishable`
 
+### `not_satisfied_satisfied_art360_sec2_3_mistake_property_status_punishable(case_id: String, defendant_id: String, owner_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 타인이 점유하는 재물을 점유이탈물로 오인하여 영득한 경우에는 점유이탈물횡령죄로 처벌한다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art360_sec2_3.mistake_property_status_punishable`
+
 ### `assess_art360_sec2_3_reporting_noncompliance_alone(case_id: String, assessment_id: String, defendant_id: String, owner_id: String, status: String)`
 
 이 카드의 사건별 적용 평가: 유실물·표류물·매장물에 관하여 법정 절차를 밟지 않았다는 사정만으로 점유이탈물횡령죄가 성립하는 것은 아니다.
@@ -231,6 +322,13 @@
 ### `satisfied_art360_sec2_3_reporting_noncompliance_alone(case_id: String, defendant_id: String, owner_id: String)`
 
 증명 가능한 평가에서 다음 조건이 충족됨: 유실물·표류물·매장물에 관하여 법정 절차를 밟지 않았다는 사정만으로 점유이탈물횡령죄가 성립하는 것은 아니다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art360_sec2_3.reporting_noncompliance_alone`
+
+### `not_satisfied_satisfied_art360_sec2_3_reporting_noncompliance_alone(case_id: String, defendant_id: String, owner_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 유실물·표류물·매장물에 관하여 법정 절차를 밟지 않았다는 사정만으로 점유이탈물횡령죄가 성립하는 것은 아니다.
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art360_sec2_3.reporting_noncompliance_alone`
@@ -369,6 +467,19 @@
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
+### `lost_property_embezzlement.art360_sec1_1.card.001.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령죄는 유실물·표류물·타인의 점유를 이탈한 재물 또는 매장물을 횡령함으로써 성립한다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 점유이탈물횡령죄는 유실물·표류물·타인의 점유를 이탈한 재물 또는 매장물을 횡령함으로써 성립한다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art360_sec1_1.offense_definition`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
+
 ### `lost_property_embezzlement.art360_sec2_1.card.002.satisfied`
 
 이 규칙은 **증명 가능한 평가에서 다음 조건이 충족됨: 점유이탈물횡령죄의 주체에는 제한이 없다.**을 도출한다.
@@ -409,6 +520,19 @@
 연결 NormCard: `art360_sec2_1.subject.unrestricted`
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
+
+### `lost_property_embezzlement.art360_sec2_1.card.002.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령죄의 주체에는 제한이 없다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 점유이탈물횡령죄의 주체에는 제한이 없다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art360_sec2_1.subject.unrestricted`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
 
 ### `lost_property_embezzlement.art360_sec2_2.card.003.satisfied`
 
@@ -451,6 +575,19 @@
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
+### `lost_property_embezzlement.art360_sec2_2.card.003.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물이란 원래 점유자의 의사에 기하지 않고 그 점유를 벗어난 타인 소유 재물이다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 점유이탈물이란 원래 점유자의 의사에 기하지 않고 그 점유를 벗어난 타인 소유 재물이다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art360_sec2_2.lost_possession_property`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
+
 ### `lost_property_embezzlement.art360_sec2_2.card.004.satisfied`
 
 이 규칙은 **증명 가능한 평가에서 다음 조건이 충족됨: 타인의 간수·관리 등 실력적 지배가 미치는 장소 안에 방치되거나 유류된 물건은 관리자의 점유에 속하여 점유이탈물이 아니고, 영득 시 절도죄의 객체가 된다.**을 도출한다.
@@ -491,6 +628,19 @@
 연결 NormCard: `art360_sec2_2.managed_place_property`
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
+
+### `lost_property_embezzlement.art360_sec2_2.card.004.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 타인의 간수·관리 등 실력적 지배가 미치는 장소 안에 방치되거나 유류된 물건은 관리자의 점유에 속하여 점유이탈물이 아니고, 영득 시 절도죄의 객체가 된다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 타인의 간수·관리 등 실력적 지배가 미치는 장소 안에 방치되거나 유류된 물건은 관리자의 점유에 속하여 점유이탈물이 아니고, 영득 시 절도죄의 객체가 된다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art360_sec2_2.managed_place_property`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
 
 ### `lost_property_embezzlement.art360_sec2_2.card.005.satisfied`
 
@@ -533,6 +683,19 @@
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
+### `lost_property_embezzlement.art360_sec2_2.card.005.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 자기 은행계좌에 착오로 입금된 금원은 횡령죄의 객체가 되고 점유이탈물횡령죄의 객체가 되지 않는다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 자기 은행계좌에 착오로 입금된 금원은 횡령죄의 객체가 되고 점유이탈물횡령죄의 객체가 되지 않는다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art360_sec2_2.mistaken_bank_transfer_embezzlement_holding`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
+
 ### `lost_property_embezzlement.art360_sec2_2.card.006.satisfied`
 
 이 규칙은 **증명 가능한 평가에서 다음 조건이 충족됨: 점유이탈물횡령죄의 객체는 타인 소유의 점유이탈물이다.**을 도출한다.
@@ -573,6 +736,19 @@
 연결 NormCard: `art360_sec2_2.object`
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
+
+### `lost_property_embezzlement.art360_sec2_2.card.006.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령죄의 객체는 타인 소유의 점유이탈물이다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 점유이탈물횡령죄의 객체는 타인 소유의 점유이탈물이다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art360_sec2_2.object`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
 
 ### `lost_property_embezzlement.art360_sec2_2.card.007.satisfied`
 
@@ -615,6 +791,19 @@
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
+### `lost_property_embezzlement.art360_sec2_2.card.007.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 원점유자가 물건 소재를 알고 다시 찾을 가능성이 있는 경우에는 타인의 점유가 존속하므로, 이를 영득하면 점유이탈물횡령죄가 아니라 절도죄가 성립한다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 원점유자가 물건 소재를 알고 다시 찾을 가능성이 있는 경우에는 타인의 점유가 존속하므로, 이를 영득하면 점유이탈물횡령죄가 아니라 절도죄가 성립한다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art360_sec2_2.original_possessor_recovery`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
+
 ### `lost_property_embezzlement.art360_sec2_2.card.008.satisfied`
 
 이 규칙은 **증명 가능한 평가에서 다음 조건이 충족됨: 무주물은 타인 소유의 재물이 아니므로 점유이탈물횡령죄의 객체가 아니다.**을 도출한다.
@@ -655,6 +844,19 @@
 연결 NormCard: `art360_sec2_2.ownerless_property_exclusion`
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
+
+### `lost_property_embezzlement.art360_sec2_2.card.008.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 무주물은 타인 소유의 재물이 아니므로 점유이탈물횡령죄의 객체가 아니다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 무주물은 타인 소유의 재물이 아니므로 점유이탈물횡령죄의 객체가 아니다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art360_sec2_2.ownerless_property_exclusion`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
 
 ### `lost_property_embezzlement.art360_sec2_2.card.009.satisfied`
 
@@ -697,6 +899,19 @@
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
+### `lost_property_embezzlement.art360_sec2_2.card.009.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 운전사나 승무원이 유실물을 현실적으로 발견한 뒤 제3자가 가져가면 운전사·승무원의 점유가 인정되어 절도죄로 처벌된다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 운전사나 승무원이 유실물을 현실적으로 발견한 뒤 제3자가 가져가면 운전사·승무원의 점유가 인정되어 절도죄로 처벌된다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art360_sec2_2.public_transport_found_property`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
+
 ### `lost_property_embezzlement.art360_sec2_3.card.010.satisfied`
 
 이 규칙은 **증명 가능한 평가에서 다음 조건이 충족됨: 점유이탈물횡령죄는 불법영득의사를 외부에 표현하는 행위로 완성된다.**을 도출한다.
@@ -737,6 +952,19 @@
 연결 NormCard: `art360_sec2_3.completion_external_expression`
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
+
+### `lost_property_embezzlement.art360_sec2_3.card.010.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령죄는 불법영득의사를 외부에 표현하는 행위로 완성된다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 점유이탈물횡령죄는 불법영득의사를 외부에 표현하는 행위로 완성된다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art360_sec2_3.completion_external_expression`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
 
 ### `lost_property_embezzlement.art360_sec2_3.card.011.satisfied`
 
@@ -779,6 +1007,19 @@
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
+### `lost_property_embezzlement.art360_sec2_3.card.011.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령의 행위는 불법영득의사로 점유이탈물을 자기의 사실상 지배 아래 두는 행위이다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 점유이탈물횡령의 행위는 불법영득의사로 점유이탈물을 자기의 사실상 지배 아래 두는 행위이다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art360_sec2_3.embezzlement_act`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
+
 ### `lost_property_embezzlement.art360_sec2_3.card.012.satisfied`
 
 이 규칙은 **증명 가능한 평가에서 다음 조건이 충족됨: 처음에는 불법영득의사 없이 점유이탈물을 습득했더라도, 후에 영득의사를 일으켜 그 표현행위를 하면 그 시점에 기수가 된다.**을 도출한다.
@@ -819,6 +1060,19 @@
 연결 NormCard: `art360_sec2_3.later_appropriation_intent`
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
+
+### `lost_property_embezzlement.art360_sec2_3.card.012.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 처음에는 불법영득의사 없이 점유이탈물을 습득했더라도, 후에 영득의사를 일으켜 그 표현행위를 하면 그 시점에 기수가 된다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 처음에는 불법영득의사 없이 점유이탈물을 습득했더라도, 후에 영득의사를 일으켜 그 표현행위를 하면 그 시점에 기수가 된다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art360_sec2_3.later_appropriation_intent`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
 
 ### `lost_property_embezzlement.art360_sec2_3.card.013.satisfied`
 
@@ -861,6 +1115,19 @@
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
+### `lost_property_embezzlement.art360_sec2_3.card.013.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 타인이 점유하는 재물을 점유이탈물로 오인하여 영득한 경우에는 점유이탈물횡령죄로 처벌한다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 타인이 점유하는 재물을 점유이탈물로 오인하여 영득한 경우에는 점유이탈물횡령죄로 처벌한다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art360_sec2_3.mistake_property_status_punishable`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
+
 ### `lost_property_embezzlement.art360_sec2_3.card.014.satisfied`
 
 이 규칙은 **증명 가능한 평가에서 다음 조건이 충족됨: 유실물·표류물·매장물에 관하여 법정 절차를 밟지 않았다는 사정만으로 점유이탈물횡령죄가 성립하는 것은 아니다.**을 도출한다.
@@ -901,6 +1168,19 @@
 연결 NormCard: `art360_sec2_3.reporting_noncompliance_alone`
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
+
+### `lost_property_embezzlement.art360_sec2_3.card.014.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 유실물·표류물·매장물에 관하여 법정 절차를 밟지 않았다는 사정만으로 점유이탈물횡령죄가 성립하는 것은 아니다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 유실물·표류물·매장물에 관하여 법정 절차를 밟지 않았다는 사정만으로 점유이탈물횡령죄가 성립하는 것은 아니다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art360_sec2_3.reporting_noncompliance_alone`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
 
 ### `lost_property_embezzlement.art360_sec1_1.component.lost_property_embezzlement_object_satisfied.01`
 
@@ -1070,109 +1350,46 @@
 
 검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
 
-### `lost_property_embezzlement.art360_sec1_1.mandatory_negative.001`
+### `lost_property_embezzlement.component.l0.mandatory_negative.01`
 
 이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
 
 필요한 전제:
 
-- 이 카드의 사건별 적용 평가: 점유이탈물횡령죄는 유실물·표류물·타인의 점유를 이탈한 재물 또는 매장물을 횡령함으로써 성립한다.
-- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+- 증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령죄는 유실물·표류물·타인의 점유를 이탈한 재물 또는 매장물을 횡령함으로써 성립한다.
+- 증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령죄의 주체에는 제한이 없다.
+- 증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물이란 원래 점유자의 의사에 기하지 않고 그 점유를 벗어난 타인 소유 재물이다.
+- 증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령죄의 객체는 타인 소유의 점유이탈물이다.
 
-연결 NormCard: `art360_sec1_1.offense_definition`
+연결 NormCard: `art360_sec1_1.offense_definition`, `art360_sec2_1.subject.unrestricted`, `art360_sec2_2.lost_possession_property`, `art360_sec2_2.object`
 
-검토 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
+검토 메모: 구성요건 L0에 속한 모든 대안 카드가 명시적으로 not_satisfied일 때만 해당 component 불성립을 도출한다.
 
-### `lost_property_embezzlement.art360_sec2_1.mandatory_negative.002`
-
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
-
-필요한 전제:
-
-- 이 카드의 사건별 적용 평가: 점유이탈물횡령죄의 주체에는 제한이 없다.
-- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
-
-연결 NormCard: `art360_sec2_1.subject.unrestricted`
-
-검토 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
-
-### `lost_property_embezzlement.art360_sec2_2.mandatory_negative.003`
+### `lost_property_embezzlement.component.l1.mandatory_negative.02`
 
 이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
 
 필요한 전제:
 
-- 이 카드의 사건별 적용 평가: 점유이탈물이란 원래 점유자의 의사에 기하지 않고 그 점유를 벗어난 타인 소유 재물이다.
-- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+- 증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령죄는 불법영득의사를 외부에 표현하는 행위로 완성된다.
+- 증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령의 행위는 불법영득의사로 점유이탈물을 자기의 사실상 지배 아래 두는 행위이다.
+- 증명 가능한 평가에서 다음 조건이 부인됨: 타인이 점유하는 재물을 점유이탈물로 오인하여 영득한 경우에는 점유이탈물횡령죄로 처벌한다.
 
-연결 NormCard: `art360_sec2_2.lost_possession_property`
+연결 NormCard: `art360_sec2_3.completion_external_expression`, `art360_sec2_3.embezzlement_act`, `art360_sec2_3.mistake_property_status_punishable`
 
-검토 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
+검토 메모: 구성요건 L1에 속한 모든 대안 카드가 명시적으로 not_satisfied일 때만 해당 component 불성립을 도출한다.
 
-### `lost_property_embezzlement.art360_sec2_2.mandatory_negative.004`
-
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
-
-필요한 전제:
-
-- 이 카드의 사건별 적용 평가: 점유이탈물횡령죄의 객체는 타인 소유의 점유이탈물이다.
-- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
-
-연결 NormCard: `art360_sec2_2.object`
-
-검토 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
-
-### `lost_property_embezzlement.art360_sec2_3.mandatory_negative.005`
+### `lost_property_embezzlement.component.l4.mandatory_negative.03`
 
 이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
 
 필요한 전제:
 
-- 이 카드의 사건별 적용 평가: 점유이탈물횡령죄는 불법영득의사를 외부에 표현하는 행위로 완성된다.
-- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
-
-연결 NormCard: `art360_sec2_3.completion_external_expression`
-
-검토 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
-
-### `lost_property_embezzlement.art360_sec2_3.mandatory_negative.006`
-
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
-
-필요한 전제:
-
-- 이 카드의 사건별 적용 평가: 점유이탈물횡령의 행위는 불법영득의사로 점유이탈물을 자기의 사실상 지배 아래 두는 행위이다.
-- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
-
-연결 NormCard: `art360_sec2_3.embezzlement_act`
-
-검토 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
-
-### `lost_property_embezzlement.art360_sec2_3.mandatory_negative.007`
-
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
-
-필요한 전제:
-
-- 이 카드의 사건별 적용 평가: 처음에는 불법영득의사 없이 점유이탈물을 습득했더라도, 후에 영득의사를 일으켜 그 표현행위를 하면 그 시점에 기수가 된다.
-- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+- 증명 가능한 평가에서 다음 조건이 부인됨: 처음에는 불법영득의사 없이 점유이탈물을 습득했더라도, 후에 영득의사를 일으켜 그 표현행위를 하면 그 시점에 기수가 된다.
 
 연결 NormCard: `art360_sec2_3.later_appropriation_intent`
 
-검토 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
-
-### `lost_property_embezzlement.art360_sec2_3.mandatory_negative.008`
-
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
-
-필요한 전제:
-
-- 이 카드의 사건별 적용 평가: 타인이 점유하는 재물을 점유이탈물로 오인하여 영득한 경우에는 점유이탈물횡령죄로 처벌한다.
-- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
-
-연결 NormCard: `art360_sec2_3.mistake_property_status_punishable`
-
-검토 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
+검토 메모: 구성요건 L4에 속한 모든 대안 카드가 명시적으로 not_satisfied일 때만 해당 component 불성립을 도출한다.
 
 ### `lost_property_embezzlement.core.outcome.elements_satisfied`
 

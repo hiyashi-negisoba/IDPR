@@ -5,8 +5,8 @@
 ## 전체 구조
 
 - rule_set_id: `kr.property.occupational_status.full.v1_candidate`
-- predicate: 32개
-- rule: 53개
+- predicate: 42개
+- rule: 55개
 - NormCard: 10개
 
 ## Predicate
@@ -53,6 +53,13 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art356.dual_status`
 
+### `not_satisfied_satisfied_art356_dual_status(case_id: String, defendant_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 업무상 횡령 또는 배임죄에는 단순 횡령ㆍ배임죄의 보관자 또는 사무처리자 신분에 더하여 업무자 신분이 요구된다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art356.dual_status`
+
 ### `assess_art356_offense_character(case_id: String, assessment_id: String, defendant_id: String, status: String)`
 
 이 카드의 사건별 적용 평가: 업무상 횡령과 배임죄는 행위자가 보관하는 타인의 물건 또는 처리하는 타인의 사무가 업무상 임무와 연결된 경우 이를 가중처벌하는 범죄이다.
@@ -63,6 +70,13 @@
 ### `satisfied_art356_offense_character(case_id: String, defendant_id: String)`
 
 증명 가능한 평가에서 다음 조건이 충족됨: 업무상 횡령과 배임죄는 행위자가 보관하는 타인의 물건 또는 처리하는 타인의 사무가 업무상 임무와 연결된 경우 이를 가중처벌하는 범죄이다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art356.offense_character`
+
+### `not_satisfied_satisfied_art356_offense_character(case_id: String, defendant_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 업무상 횡령과 배임죄는 행위자가 보관하는 타인의 물건 또는 처리하는 타인의 사무가 업무상 임무와 연결된 경우 이를 가중처벌하는 범죄이다.
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art356.offense_character`
@@ -81,6 +95,13 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art356_sec2_1.business_continuity_status`
 
+### `not_satisfied_satisfied_art356_sec2_1_business_continuity_status(case_id: String, defendant_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 업무에는 계속성과 사회생활상의 지위가 요구된다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art356_sec2_1.business_continuity_status`
+
 ### `assess_art356_sec2_1_business_definition(case_id: String, assessment_id: String, defendant_id: String, status: String)`
 
 이 카드의 사건별 적용 평가: 업무는 사회생활상 지위에 기초하여 반복 또는 계속적으로 행하는 사무이며, 법령ㆍ계약ㆍ관례 또는 사실상 근거 여부를 묻지 않는다.
@@ -91,6 +112,13 @@
 ### `satisfied_art356_sec2_1_business_definition(case_id: String, defendant_id: String)`
 
 증명 가능한 평가에서 다음 조건이 충족됨: 업무는 사회생활상 지위에 기초하여 반복 또는 계속적으로 행하는 사무이며, 법령ㆍ계약ㆍ관례 또는 사실상 근거 여부를 묻지 않는다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art356_sec2_1.business_definition`
+
+### `not_satisfied_satisfied_art356_sec2_1_business_definition(case_id: String, defendant_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 업무는 사회생활상 지위에 기초하여 반복 또는 계속적으로 행하는 사무이며, 법령ㆍ계약ㆍ관례 또는 사실상 근거 여부를 묻지 않는다.
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art356_sec2_1.business_definition`
@@ -109,6 +137,13 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art356_sec2_1.business_no_livelihood_or_formal_office`
 
+### `not_satisfied_satisfied_art356_sec2_1_business_no_livelihood_or_formal_office(case_id: String, defendant_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 업무는 반드시 직무ㆍ직업으로 행해지거나 생활수단일 필요가 없고, 고유 업무인지 겸무인지 또는 사실상 수행되는 사무인지도 불문한다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art356_sec2_1.business_no_livelihood_or_formal_office`
+
 ### `assess_art356_sec2_1_employee_assistant_business_status(case_id: String, assessment_id: String, defendant_id: String, status: String)`
 
 이 카드의 사건별 적용 평가: 다른 업무자에게 고용되거나 보조기관으로 사무를 수행하는 사람도 계속성과 사회생활상 지위를 갖추면 업무자에 해당한다.
@@ -119,6 +154,13 @@
 ### `satisfied_art356_sec2_1_employee_assistant_business_status(case_id: String, defendant_id: String)`
 
 증명 가능한 평가에서 다음 조건이 충족됨: 다른 업무자에게 고용되거나 보조기관으로 사무를 수행하는 사람도 계속성과 사회생활상 지위를 갖추면 업무자에 해당한다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art356_sec2_1.employee_assistant_business_status`
+
+### `not_satisfied_satisfied_art356_sec2_1_employee_assistant_business_status(case_id: String, defendant_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 다른 업무자에게 고용되거나 보조기관으로 사무를 수행하는 사람도 계속성과 사회생활상 지위를 갖추면 업무자에 해당한다.
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art356_sec2_1.employee_assistant_business_status`
@@ -137,6 +179,13 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art356_sec2_1.incidental_business_relation`
 
+### `not_satisfied_satisfied_art356_sec2_1_incidental_business_relation(case_id: String, defendant_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 본래 사무에 부수하여 편의상 수행하는 사무도 업무가 될 수 있으나, 본래 사무와 밀접한 관련성이 있어야 한다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art356_sec2_1.incidental_business_relation`
+
 ### `assess_art356_sec2_2_administrative_illegality(case_id: String, assessment_id: String, defendant_id: String, status: String)`
 
 이 카드의 사건별 적용 평가: 업무 내용 자체가 위법하지 않다면 면허ㆍ인가 미취득과 같은 행정절차상 불법이 있더라도 현재 반복ㆍ계속하여 행하여지는 사무는 업무에 해당한다.
@@ -147,6 +196,13 @@
 ### `satisfied_art356_sec2_2_administrative_illegality(case_id: String, defendant_id: String)`
 
 증명 가능한 평가에서 다음 조건이 충족됨: 업무 내용 자체가 위법하지 않다면 면허ㆍ인가 미취득과 같은 행정절차상 불법이 있더라도 현재 반복ㆍ계속하여 행하여지는 사무는 업무에 해당한다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art356_sec2_2.administrative_illegality`
+
+### `not_satisfied_satisfied_art356_sec2_2_administrative_illegality(case_id: String, defendant_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 업무 내용 자체가 위법하지 않다면 면허ㆍ인가 미취득과 같은 행정절차상 불법이 있더라도 현재 반복ㆍ계속하여 행하여지는 사무는 업무에 해당한다.
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art356_sec2_2.administrative_illegality`
@@ -165,6 +221,13 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art356_sec2_2.illegal_business`
 
+### `not_satisfied_satisfied_art356_sec2_2_illegal_business(case_id: String, defendant_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 사회질서에 반하거나 강행법규에 위반되는 등 법이 절대적으로 금지하는 행위는 업무 의사로 반복하더라도 업무가 되지 못한다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art356_sec2_2.illegal_business`
+
 ### `assess_art356_sec3_3_status_awareness(case_id: String, assessment_id: String, defendant_id: String, status: String)`
 
 이 카드의 사건별 적용 평가: 업무자 지위에 관한 인식은 미필적 인식으로 충분하다.
@@ -175,6 +238,13 @@
 ### `satisfied_art356_sec3_3_status_awareness(case_id: String, defendant_id: String)`
 
 증명 가능한 평가에서 다음 조건이 충족됨: 업무자 지위에 관한 인식은 미필적 인식으로 충분하다.
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art356_sec3_3.status_awareness`
+
+### `not_satisfied_satisfied_art356_sec3_3_status_awareness(case_id: String, defendant_id: String)`
+
+증명 가능한 평가에서 다음 조건이 부인됨: 업무자 지위에 관한 인식은 미필적 인식으로 충분하다.
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art356_sec3_3.status_awareness`
@@ -278,6 +348,19 @@
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
+### `occupational_status.art356.card.001.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 업무상 횡령 또는 배임죄에는 단순 횡령ㆍ배임죄의 보관자 또는 사무처리자 신분에 더하여 업무자 신분이 요구된다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 업무상 횡령 또는 배임죄에는 단순 횡령ㆍ배임죄의 보관자 또는 사무처리자 신분에 더하여 업무자 신분이 요구된다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art356.dual_status`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
+
 ### `occupational_status.art356.card.002.satisfied`
 
 이 규칙은 **증명 가능한 평가에서 다음 조건이 충족됨: 업무상 횡령과 배임죄는 행위자가 보관하는 타인의 물건 또는 처리하는 타인의 사무가 업무상 임무와 연결된 경우 이를 가중처벌하는 범죄이다.**을 도출한다.
@@ -318,6 +401,19 @@
 연결 NormCard: `art356.offense_character`
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
+
+### `occupational_status.art356.card.002.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 업무상 횡령과 배임죄는 행위자가 보관하는 타인의 물건 또는 처리하는 타인의 사무가 업무상 임무와 연결된 경우 이를 가중처벌하는 범죄이다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 업무상 횡령과 배임죄는 행위자가 보관하는 타인의 물건 또는 처리하는 타인의 사무가 업무상 임무와 연결된 경우 이를 가중처벌하는 범죄이다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art356.offense_character`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
 
 ### `occupational_status.art356_sec2_1.card.003.satisfied`
 
@@ -360,6 +456,19 @@
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
+### `occupational_status.art356_sec2_1.card.003.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 업무에는 계속성과 사회생활상의 지위가 요구된다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 업무에는 계속성과 사회생활상의 지위가 요구된다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art356_sec2_1.business_continuity_status`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
+
 ### `occupational_status.art356_sec2_1.card.004.satisfied`
 
 이 규칙은 **증명 가능한 평가에서 다음 조건이 충족됨: 업무는 사회생활상 지위에 기초하여 반복 또는 계속적으로 행하는 사무이며, 법령ㆍ계약ㆍ관례 또는 사실상 근거 여부를 묻지 않는다.**을 도출한다.
@@ -400,6 +509,19 @@
 연결 NormCard: `art356_sec2_1.business_definition`
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
+
+### `occupational_status.art356_sec2_1.card.004.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 업무는 사회생활상 지위에 기초하여 반복 또는 계속적으로 행하는 사무이며, 법령ㆍ계약ㆍ관례 또는 사실상 근거 여부를 묻지 않는다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 업무는 사회생활상 지위에 기초하여 반복 또는 계속적으로 행하는 사무이며, 법령ㆍ계약ㆍ관례 또는 사실상 근거 여부를 묻지 않는다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art356_sec2_1.business_definition`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
 
 ### `occupational_status.art356_sec2_1.card.005.satisfied`
 
@@ -442,6 +564,19 @@
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
+### `occupational_status.art356_sec2_1.card.005.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 업무는 반드시 직무ㆍ직업으로 행해지거나 생활수단일 필요가 없고, 고유 업무인지 겸무인지 또는 사실상 수행되는 사무인지도 불문한다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 업무는 반드시 직무ㆍ직업으로 행해지거나 생활수단일 필요가 없고, 고유 업무인지 겸무인지 또는 사실상 수행되는 사무인지도 불문한다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art356_sec2_1.business_no_livelihood_or_formal_office`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
+
 ### `occupational_status.art356_sec2_1.card.006.satisfied`
 
 이 규칙은 **증명 가능한 평가에서 다음 조건이 충족됨: 다른 업무자에게 고용되거나 보조기관으로 사무를 수행하는 사람도 계속성과 사회생활상 지위를 갖추면 업무자에 해당한다.**을 도출한다.
@@ -482,6 +617,19 @@
 연결 NormCard: `art356_sec2_1.employee_assistant_business_status`
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
+
+### `occupational_status.art356_sec2_1.card.006.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 다른 업무자에게 고용되거나 보조기관으로 사무를 수행하는 사람도 계속성과 사회생활상 지위를 갖추면 업무자에 해당한다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 다른 업무자에게 고용되거나 보조기관으로 사무를 수행하는 사람도 계속성과 사회생활상 지위를 갖추면 업무자에 해당한다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art356_sec2_1.employee_assistant_business_status`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
 
 ### `occupational_status.art356_sec2_1.card.007.satisfied`
 
@@ -524,6 +672,19 @@
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
+### `occupational_status.art356_sec2_1.card.007.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 본래 사무에 부수하여 편의상 수행하는 사무도 업무가 될 수 있으나, 본래 사무와 밀접한 관련성이 있어야 한다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 본래 사무에 부수하여 편의상 수행하는 사무도 업무가 될 수 있으나, 본래 사무와 밀접한 관련성이 있어야 한다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art356_sec2_1.incidental_business_relation`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
+
 ### `occupational_status.art356_sec2_2.card.008.satisfied`
 
 이 규칙은 **증명 가능한 평가에서 다음 조건이 충족됨: 업무 내용 자체가 위법하지 않다면 면허ㆍ인가 미취득과 같은 행정절차상 불법이 있더라도 현재 반복ㆍ계속하여 행하여지는 사무는 업무에 해당한다.**을 도출한다.
@@ -564,6 +725,19 @@
 연결 NormCard: `art356_sec2_2.administrative_illegality`
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
+
+### `occupational_status.art356_sec2_2.card.008.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 업무 내용 자체가 위법하지 않다면 면허ㆍ인가 미취득과 같은 행정절차상 불법이 있더라도 현재 반복ㆍ계속하여 행하여지는 사무는 업무에 해당한다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 업무 내용 자체가 위법하지 않다면 면허ㆍ인가 미취득과 같은 행정절차상 불법이 있더라도 현재 반복ㆍ계속하여 행하여지는 사무는 업무에 해당한다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art356_sec2_2.administrative_illegality`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
 
 ### `occupational_status.art356_sec2_2.card.009.satisfied`
 
@@ -606,6 +780,19 @@
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
 
+### `occupational_status.art356_sec2_2.card.009.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 사회질서에 반하거나 강행법규에 위반되는 등 법이 절대적으로 금지하는 행위는 업무 의사로 반복하더라도 업무가 되지 못한다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 사회질서에 반하거나 강행법규에 위반되는 등 법이 절대적으로 금지하는 행위는 업무 의사로 반복하더라도 업무가 되지 못한다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art356_sec2_2.illegal_business`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
+
 ### `occupational_status.art356_sec3_3.card.010.satisfied`
 
 이 규칙은 **증명 가능한 평가에서 다음 조건이 충족됨: 업무자 지위에 관한 인식은 미필적 인식으로 충분하다.**을 도출한다.
@@ -646,6 +833,19 @@
 연결 NormCard: `art356_sec3_3.status_awareness`
 
 검토 메모: 상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다.
+
+### `occupational_status.art356_sec3_3.card.010.not_satisfied`
+
+이 규칙은 **증명 가능한 평가에서 다음 조건이 부인됨: 업무자 지위에 관한 인식은 미필적 인식으로 충분하다.**을 도출한다.
+
+필요한 전제:
+
+- 이 카드의 사건별 적용 평가: 업무자 지위에 관한 인식은 미필적 인식으로 충분하다.
+- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+
+연결 NormCard: `art356_sec3_3.status_awareness`
+
+검토 메모: 이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다.
 
 ### `occupational_status.art356.component.occupational_status_object_satisfied.01`
 
@@ -767,122 +967,25 @@
 
 검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
 
-### `occupational_status.art356.mandatory_negative.001`
+### `occupational_status.component.l0.mandatory_negative.01`
 
 이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
 
 필요한 전제:
 
-- 이 카드의 사건별 적용 평가: 업무상 횡령 또는 배임죄에는 단순 횡령ㆍ배임죄의 보관자 또는 사무처리자 신분에 더하여 업무자 신분이 요구된다.
-- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+- 증명 가능한 평가에서 다음 조건이 부인됨: 업무상 횡령 또는 배임죄에는 단순 횡령ㆍ배임죄의 보관자 또는 사무처리자 신분에 더하여 업무자 신분이 요구된다.
+- 증명 가능한 평가에서 다음 조건이 부인됨: 업무상 횡령과 배임죄는 행위자가 보관하는 타인의 물건 또는 처리하는 타인의 사무가 업무상 임무와 연결된 경우 이를 가중처벌하는 범죄이다.
+- 증명 가능한 평가에서 다음 조건이 부인됨: 업무에는 계속성과 사회생활상의 지위가 요구된다.
+- 증명 가능한 평가에서 다음 조건이 부인됨: 업무는 사회생활상 지위에 기초하여 반복 또는 계속적으로 행하는 사무이며, 법령ㆍ계약ㆍ관례 또는 사실상 근거 여부를 묻지 않는다.
+- 증명 가능한 평가에서 다음 조건이 부인됨: 업무는 반드시 직무ㆍ직업으로 행해지거나 생활수단일 필요가 없고, 고유 업무인지 겸무인지 또는 사실상 수행되는 사무인지도 불문한다.
+- 증명 가능한 평가에서 다음 조건이 부인됨: 다른 업무자에게 고용되거나 보조기관으로 사무를 수행하는 사람도 계속성과 사회생활상 지위를 갖추면 업무자에 해당한다.
+- 증명 가능한 평가에서 다음 조건이 부인됨: 본래 사무에 부수하여 편의상 수행하는 사무도 업무가 될 수 있으나, 본래 사무와 밀접한 관련성이 있어야 한다.
+- 증명 가능한 평가에서 다음 조건이 부인됨: 업무 내용 자체가 위법하지 않다면 면허ㆍ인가 미취득과 같은 행정절차상 불법이 있더라도 현재 반복ㆍ계속하여 행하여지는 사무는 업무에 해당한다.
+- 증명 가능한 평가에서 다음 조건이 부인됨: 업무자 지위에 관한 인식은 미필적 인식으로 충분하다.
 
-연결 NormCard: `art356.dual_status`
+연결 NormCard: `art356.dual_status`, `art356.offense_character`, `art356_sec2_1.business_continuity_status`, `art356_sec2_1.business_definition`, `art356_sec2_1.business_no_livelihood_or_formal_office`, `art356_sec2_1.employee_assistant_business_status`, `art356_sec2_1.incidental_business_relation`, `art356_sec2_2.administrative_illegality`, `art356_sec3_3.status_awareness`
 
-검토 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
-
-### `occupational_status.art356.mandatory_negative.002`
-
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
-
-필요한 전제:
-
-- 이 카드의 사건별 적용 평가: 업무상 횡령과 배임죄는 행위자가 보관하는 타인의 물건 또는 처리하는 타인의 사무가 업무상 임무와 연결된 경우 이를 가중처벌하는 범죄이다.
-- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
-
-연결 NormCard: `art356.offense_character`
-
-검토 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
-
-### `occupational_status.art356_sec2_1.mandatory_negative.003`
-
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
-
-필요한 전제:
-
-- 이 카드의 사건별 적용 평가: 업무에는 계속성과 사회생활상의 지위가 요구된다.
-- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
-
-연결 NormCard: `art356_sec2_1.business_continuity_status`
-
-검토 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
-
-### `occupational_status.art356_sec2_1.mandatory_negative.004`
-
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
-
-필요한 전제:
-
-- 이 카드의 사건별 적용 평가: 업무는 사회생활상 지위에 기초하여 반복 또는 계속적으로 행하는 사무이며, 법령ㆍ계약ㆍ관례 또는 사실상 근거 여부를 묻지 않는다.
-- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
-
-연결 NormCard: `art356_sec2_1.business_definition`
-
-검토 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
-
-### `occupational_status.art356_sec2_1.mandatory_negative.005`
-
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
-
-필요한 전제:
-
-- 이 카드의 사건별 적용 평가: 업무는 반드시 직무ㆍ직업으로 행해지거나 생활수단일 필요가 없고, 고유 업무인지 겸무인지 또는 사실상 수행되는 사무인지도 불문한다.
-- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
-
-연결 NormCard: `art356_sec2_1.business_no_livelihood_or_formal_office`
-
-검토 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
-
-### `occupational_status.art356_sec2_1.mandatory_negative.006`
-
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
-
-필요한 전제:
-
-- 이 카드의 사건별 적용 평가: 다른 업무자에게 고용되거나 보조기관으로 사무를 수행하는 사람도 계속성과 사회생활상 지위를 갖추면 업무자에 해당한다.
-- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
-
-연결 NormCard: `art356_sec2_1.employee_assistant_business_status`
-
-검토 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
-
-### `occupational_status.art356_sec2_1.mandatory_negative.007`
-
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
-
-필요한 전제:
-
-- 이 카드의 사건별 적용 평가: 본래 사무에 부수하여 편의상 수행하는 사무도 업무가 될 수 있으나, 본래 사무와 밀접한 관련성이 있어야 한다.
-- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
-
-연결 NormCard: `art356_sec2_1.incidental_business_relation`
-
-검토 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
-
-### `occupational_status.art356_sec2_2.mandatory_negative.008`
-
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
-
-필요한 전제:
-
-- 이 카드의 사건별 적용 평가: 업무 내용 자체가 위법하지 않다면 면허ㆍ인가 미취득과 같은 행정절차상 불법이 있더라도 현재 반복ㆍ계속하여 행하여지는 사무는 업무에 해당한다.
-- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
-
-연결 NormCard: `art356_sec2_2.administrative_illegality`
-
-검토 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
-
-### `occupational_status.art356_sec3_3.mandatory_negative.009`
-
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
-
-필요한 전제:
-
-- 이 카드의 사건별 적용 평가: 업무자 지위에 관한 인식은 미필적 인식으로 충분하다.
-- 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
-
-연결 NormCard: `art356_sec3_3.status_awareness`
-
-검토 메모: 필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다.
+검토 메모: 구성요건 L0에 속한 모든 대안 카드가 명시적으로 not_satisfied일 때만 해당 component 불성립을 도출한다.
 
 ### `occupational_status.core.outcome.elements_satisfied`
 

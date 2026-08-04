@@ -33,6 +33,11 @@ type assess_art360_sec1_1_offense_definition(String, String, String, String, Str
 // norm_cards: art360_sec1_1.offense_definition
 type satisfied_art360_sec1_1_offense_definition(String, String, String)
 
+// not_satisfied_satisfied_art360_sec1_1_offense_definition: 증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령죄는 유실물·표류물·타인의 점유를 이탈한 재물 또는 매장물을 횡령함으로써 성립한다.
+// sources: comm_001692_제360조_Ⅰ.1_0
+// norm_cards: art360_sec1_1.offense_definition
+type not_satisfied_satisfied_art360_sec1_1_offense_definition(String, String, String)
+
 // assess_art360_sec2_1_subject_unrestricted: 이 카드의 사건별 적용 평가: 점유이탈물횡령죄의 주체에는 제한이 없다.
 // sources: comm_001692_제360조_Ⅱ.1_3
 // norm_cards: art360_sec2_1.subject.unrestricted
@@ -42,6 +47,11 @@ type assess_art360_sec2_1_subject_unrestricted(String, String, String, String, S
 // sources: comm_001692_제360조_Ⅱ.1_3
 // norm_cards: art360_sec2_1.subject.unrestricted
 type satisfied_art360_sec2_1_subject_unrestricted(String, String, String)
+
+// not_satisfied_satisfied_art360_sec2_1_subject_unrestricted: 증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령죄의 주체에는 제한이 없다.
+// sources: comm_001692_제360조_Ⅱ.1_3
+// norm_cards: art360_sec2_1.subject.unrestricted
+type not_satisfied_satisfied_art360_sec2_1_subject_unrestricted(String, String, String)
 
 // assess_art360_sec2_2_lost_possession_property: 이 카드의 사건별 적용 평가: 점유이탈물이란 원래 점유자의 의사에 기하지 않고 그 점유를 벗어난 타인 소유 재물이다.
 // sources: comm_001692_제360조_Ⅱ.2_4
@@ -53,6 +63,11 @@ type assess_art360_sec2_2_lost_possession_property(String, String, String, Strin
 // norm_cards: art360_sec2_2.lost_possession_property
 type satisfied_art360_sec2_2_lost_possession_property(String, String, String)
 
+// not_satisfied_satisfied_art360_sec2_2_lost_possession_property: 증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물이란 원래 점유자의 의사에 기하지 않고 그 점유를 벗어난 타인 소유 재물이다.
+// sources: comm_001692_제360조_Ⅱ.2_4
+// norm_cards: art360_sec2_2.lost_possession_property
+type not_satisfied_satisfied_art360_sec2_2_lost_possession_property(String, String, String)
+
 // assess_art360_sec2_2_managed_place_property: 이 카드의 사건별 적용 평가: 타인의 간수·관리 등 실력적 지배가 미치는 장소 안에 방치되거나 유류된 물건은 관리자의 점유에 속하여 점유이탈물이 아니고, 영득 시 절도죄의 객체가 된다.
 // sources: comm_001692_제360조_Ⅱ.2_4
 // norm_cards: art360_sec2_2.managed_place_property
@@ -62,6 +77,11 @@ type assess_art360_sec2_2_managed_place_property(String, String, String, String,
 // sources: comm_001692_제360조_Ⅱ.2_4
 // norm_cards: art360_sec2_2.managed_place_property
 type satisfied_art360_sec2_2_managed_place_property(String, String, String)
+
+// not_satisfied_satisfied_art360_sec2_2_managed_place_property: 증명 가능한 평가에서 다음 조건이 부인됨: 타인의 간수·관리 등 실력적 지배가 미치는 장소 안에 방치되거나 유류된 물건은 관리자의 점유에 속하여 점유이탈물이 아니고, 영득 시 절도죄의 객체가 된다.
+// sources: comm_001692_제360조_Ⅱ.2_4
+// norm_cards: art360_sec2_2.managed_place_property
+type not_satisfied_satisfied_art360_sec2_2_managed_place_property(String, String, String)
 
 // assess_art360_sec2_2_mistaken_bank_transfer_embezzlement_holding: 이 카드의 사건별 적용 평가: 자기 은행계좌에 착오로 입금된 금원은 횡령죄의 객체가 되고 점유이탈물횡령죄의 객체가 되지 않는다.
 // sources: comm_001692_제360조_Ⅱ.2_5
@@ -73,6 +93,11 @@ type assess_art360_sec2_2_mistaken_bank_transfer_embezzlement_holding(String, St
 // norm_cards: art360_sec2_2.mistaken_bank_transfer_embezzlement_holding
 type satisfied_art360_sec2_2_mistaken_bank_transfer_embezzlement_holding(String, String, String)
 
+// not_satisfied_satisfied_art360_sec2_2_mistaken_bank_transfer_embezzlement_holding: 증명 가능한 평가에서 다음 조건이 부인됨: 자기 은행계좌에 착오로 입금된 금원은 횡령죄의 객체가 되고 점유이탈물횡령죄의 객체가 되지 않는다.
+// sources: comm_001692_제360조_Ⅱ.2_5
+// norm_cards: art360_sec2_2.mistaken_bank_transfer_embezzlement_holding
+type not_satisfied_satisfied_art360_sec2_2_mistaken_bank_transfer_embezzlement_holding(String, String, String)
+
 // assess_art360_sec2_2_object: 이 카드의 사건별 적용 평가: 점유이탈물횡령죄의 객체는 타인 소유의 점유이탈물이다.
 // sources: comm_001692_제360조_Ⅱ.2_4
 // norm_cards: art360_sec2_2.object
@@ -82,6 +107,11 @@ type assess_art360_sec2_2_object(String, String, String, String, String)
 // sources: comm_001692_제360조_Ⅱ.2_4
 // norm_cards: art360_sec2_2.object
 type satisfied_art360_sec2_2_object(String, String, String)
+
+// not_satisfied_satisfied_art360_sec2_2_object: 증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령죄의 객체는 타인 소유의 점유이탈물이다.
+// sources: comm_001692_제360조_Ⅱ.2_4
+// norm_cards: art360_sec2_2.object
+type not_satisfied_satisfied_art360_sec2_2_object(String, String, String)
 
 // assess_art360_sec2_2_original_possessor_recovery: 이 카드의 사건별 적용 평가: 원점유자가 물건 소재를 알고 다시 찾을 가능성이 있는 경우에는 타인의 점유가 존속하므로, 이를 영득하면 점유이탈물횡령죄가 아니라 절도죄가 성립한다.
 // sources: comm_001692_제360조_Ⅱ.2_4, comm_001692_제360조_Ⅱ.2_4
@@ -93,6 +123,11 @@ type assess_art360_sec2_2_original_possessor_recovery(String, String, String, St
 // norm_cards: art360_sec2_2.original_possessor_recovery
 type satisfied_art360_sec2_2_original_possessor_recovery(String, String, String)
 
+// not_satisfied_satisfied_art360_sec2_2_original_possessor_recovery: 증명 가능한 평가에서 다음 조건이 부인됨: 원점유자가 물건 소재를 알고 다시 찾을 가능성이 있는 경우에는 타인의 점유가 존속하므로, 이를 영득하면 점유이탈물횡령죄가 아니라 절도죄가 성립한다.
+// sources: comm_001692_제360조_Ⅱ.2_4, comm_001692_제360조_Ⅱ.2_4
+// norm_cards: art360_sec2_2.original_possessor_recovery
+type not_satisfied_satisfied_art360_sec2_2_original_possessor_recovery(String, String, String)
+
 // assess_art360_sec2_2_ownerless_property_exclusion: 이 카드의 사건별 적용 평가: 무주물은 타인 소유의 재물이 아니므로 점유이탈물횡령죄의 객체가 아니다.
 // sources: comm_001692_제360조_Ⅱ.2_4
 // norm_cards: art360_sec2_2.ownerless_property_exclusion
@@ -102,6 +137,11 @@ type assess_art360_sec2_2_ownerless_property_exclusion(String, String, String, S
 // sources: comm_001692_제360조_Ⅱ.2_4
 // norm_cards: art360_sec2_2.ownerless_property_exclusion
 type satisfied_art360_sec2_2_ownerless_property_exclusion(String, String, String)
+
+// not_satisfied_satisfied_art360_sec2_2_ownerless_property_exclusion: 증명 가능한 평가에서 다음 조건이 부인됨: 무주물은 타인 소유의 재물이 아니므로 점유이탈물횡령죄의 객체가 아니다.
+// sources: comm_001692_제360조_Ⅱ.2_4
+// norm_cards: art360_sec2_2.ownerless_property_exclusion
+type not_satisfied_satisfied_art360_sec2_2_ownerless_property_exclusion(String, String, String)
 
 // assess_art360_sec2_2_public_transport_found_property: 이 카드의 사건별 적용 평가: 운전사나 승무원이 유실물을 현실적으로 발견한 뒤 제3자가 가져가면 운전사·승무원의 점유가 인정되어 절도죄로 처벌된다.
 // sources: comm_001692_제360조_Ⅱ.2_6
@@ -113,6 +153,11 @@ type assess_art360_sec2_2_public_transport_found_property(String, String, String
 // norm_cards: art360_sec2_2.public_transport_found_property
 type satisfied_art360_sec2_2_public_transport_found_property(String, String, String)
 
+// not_satisfied_satisfied_art360_sec2_2_public_transport_found_property: 증명 가능한 평가에서 다음 조건이 부인됨: 운전사나 승무원이 유실물을 현실적으로 발견한 뒤 제3자가 가져가면 운전사·승무원의 점유가 인정되어 절도죄로 처벌된다.
+// sources: comm_001692_제360조_Ⅱ.2_6
+// norm_cards: art360_sec2_2.public_transport_found_property
+type not_satisfied_satisfied_art360_sec2_2_public_transport_found_property(String, String, String)
+
 // assess_art360_sec2_3_completion_external_expression: 이 카드의 사건별 적용 평가: 점유이탈물횡령죄는 불법영득의사를 외부에 표현하는 행위로 완성된다.
 // sources: comm_001692_제360조_Ⅱ.3_7
 // norm_cards: art360_sec2_3.completion_external_expression
@@ -122,6 +167,11 @@ type assess_art360_sec2_3_completion_external_expression(String, String, String,
 // sources: comm_001692_제360조_Ⅱ.3_7
 // norm_cards: art360_sec2_3.completion_external_expression
 type satisfied_art360_sec2_3_completion_external_expression(String, String, String)
+
+// not_satisfied_satisfied_art360_sec2_3_completion_external_expression: 증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령죄는 불법영득의사를 외부에 표현하는 행위로 완성된다.
+// sources: comm_001692_제360조_Ⅱ.3_7
+// norm_cards: art360_sec2_3.completion_external_expression
+type not_satisfied_satisfied_art360_sec2_3_completion_external_expression(String, String, String)
 
 // assess_art360_sec2_3_embezzlement_act: 이 카드의 사건별 적용 평가: 점유이탈물횡령의 행위는 불법영득의사로 점유이탈물을 자기의 사실상 지배 아래 두는 행위이다.
 // sources: comm_001692_제360조_Ⅱ.3_7
@@ -133,6 +183,11 @@ type assess_art360_sec2_3_embezzlement_act(String, String, String, String, Strin
 // norm_cards: art360_sec2_3.embezzlement_act
 type satisfied_art360_sec2_3_embezzlement_act(String, String, String)
 
+// not_satisfied_satisfied_art360_sec2_3_embezzlement_act: 증명 가능한 평가에서 다음 조건이 부인됨: 점유이탈물횡령의 행위는 불법영득의사로 점유이탈물을 자기의 사실상 지배 아래 두는 행위이다.
+// sources: comm_001692_제360조_Ⅱ.3_7
+// norm_cards: art360_sec2_3.embezzlement_act
+type not_satisfied_satisfied_art360_sec2_3_embezzlement_act(String, String, String)
+
 // assess_art360_sec2_3_later_appropriation_intent: 이 카드의 사건별 적용 평가: 처음에는 불법영득의사 없이 점유이탈물을 습득했더라도, 후에 영득의사를 일으켜 그 표현행위를 하면 그 시점에 기수가 된다.
 // sources: comm_001692_제360조_Ⅱ.3_7
 // norm_cards: art360_sec2_3.later_appropriation_intent
@@ -142,6 +197,11 @@ type assess_art360_sec2_3_later_appropriation_intent(String, String, String, Str
 // sources: comm_001692_제360조_Ⅱ.3_7
 // norm_cards: art360_sec2_3.later_appropriation_intent
 type satisfied_art360_sec2_3_later_appropriation_intent(String, String, String)
+
+// not_satisfied_satisfied_art360_sec2_3_later_appropriation_intent: 증명 가능한 평가에서 다음 조건이 부인됨: 처음에는 불법영득의사 없이 점유이탈물을 습득했더라도, 후에 영득의사를 일으켜 그 표현행위를 하면 그 시점에 기수가 된다.
+// sources: comm_001692_제360조_Ⅱ.3_7
+// norm_cards: art360_sec2_3.later_appropriation_intent
+type not_satisfied_satisfied_art360_sec2_3_later_appropriation_intent(String, String, String)
 
 // assess_art360_sec2_3_mistake_property_status_punishable: 이 카드의 사건별 적용 평가: 타인이 점유하는 재물을 점유이탈물로 오인하여 영득한 경우에는 점유이탈물횡령죄로 처벌한다.
 // sources: comm_001692_제360조_Ⅱ.3_7
@@ -153,6 +213,11 @@ type assess_art360_sec2_3_mistake_property_status_punishable(String, String, Str
 // norm_cards: art360_sec2_3.mistake_property_status_punishable
 type satisfied_art360_sec2_3_mistake_property_status_punishable(String, String, String)
 
+// not_satisfied_satisfied_art360_sec2_3_mistake_property_status_punishable: 증명 가능한 평가에서 다음 조건이 부인됨: 타인이 점유하는 재물을 점유이탈물로 오인하여 영득한 경우에는 점유이탈물횡령죄로 처벌한다.
+// sources: comm_001692_제360조_Ⅱ.3_7
+// norm_cards: art360_sec2_3.mistake_property_status_punishable
+type not_satisfied_satisfied_art360_sec2_3_mistake_property_status_punishable(String, String, String)
+
 // assess_art360_sec2_3_reporting_noncompliance_alone: 이 카드의 사건별 적용 평가: 유실물·표류물·매장물에 관하여 법정 절차를 밟지 않았다는 사정만으로 점유이탈물횡령죄가 성립하는 것은 아니다.
 // sources: comm_001692_제360조_Ⅱ.3_7
 // norm_cards: art360_sec2_3.reporting_noncompliance_alone
@@ -162,6 +227,11 @@ type assess_art360_sec2_3_reporting_noncompliance_alone(String, String, String, 
 // sources: comm_001692_제360조_Ⅱ.3_7
 // norm_cards: art360_sec2_3.reporting_noncompliance_alone
 type satisfied_art360_sec2_3_reporting_noncompliance_alone(String, String, String)
+
+// not_satisfied_satisfied_art360_sec2_3_reporting_noncompliance_alone: 증명 가능한 평가에서 다음 조건이 부인됨: 유실물·표류물·매장물에 관하여 법정 절차를 밟지 않았다는 사정만으로 점유이탈물횡령죄가 성립하는 것은 아니다.
+// sources: comm_001692_제360조_Ⅱ.3_7
+// norm_cards: art360_sec2_3.reporting_noncompliance_alone
+type not_satisfied_satisfied_art360_sec2_3_reporting_noncompliance_alone(String, String, String)
 
 // lost_property_embezzlement_object_satisfied: 객체·적격 요건이 충족됨 — 재물성·타인성·점유·주체 신분
 // sources: comm_001692_제360조_Ⅰ.1_0, comm_001692_제360조_Ⅱ.1_3, comm_001692_제360조_Ⅱ.2_4, comm_001692_제360조_Ⅱ.2_4
@@ -248,6 +318,12 @@ rel lost_property_embezzlement_conflict(case_id, defendant_id, "art360_sec1_1.of
   assess_art360_sec1_1_offense_definition(case_id, negative_001, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_001)
 
+// rule_id: lost_property_embezzlement.art360_sec1_1.card.001.not_satisfied
+// sources: comm_001692_제360조_Ⅰ.1_0
+// norm_cards: art360_sec1_1.offense_definition
+rel not_satisfied_satisfied_art360_sec1_1_offense_definition(case_id, defendant_id, owner_id) = assess_art360_sec1_1_offense_definition(case_id, not_satisfied_001, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_001)
+
 // rule_id: lost_property_embezzlement.art360_sec2_1.card.002.satisfied
 // sources: comm_001692_제360조_Ⅱ.1_3
 // norm_cards: art360_sec2_1.subject.unrestricted
@@ -267,6 +343,12 @@ rel lost_property_embezzlement_conflict(case_id, defendant_id, "art360_sec2_1.su
   provable(case_id, positive_002) and
   assess_art360_sec2_1_subject_unrestricted(case_id, negative_002, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_002)
+
+// rule_id: lost_property_embezzlement.art360_sec2_1.card.002.not_satisfied
+// sources: comm_001692_제360조_Ⅱ.1_3
+// norm_cards: art360_sec2_1.subject.unrestricted
+rel not_satisfied_satisfied_art360_sec2_1_subject_unrestricted(case_id, defendant_id, owner_id) = assess_art360_sec2_1_subject_unrestricted(case_id, not_satisfied_002, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_002)
 
 // rule_id: lost_property_embezzlement.art360_sec2_2.card.003.satisfied
 // sources: comm_001692_제360조_Ⅱ.2_4
@@ -288,6 +370,12 @@ rel lost_property_embezzlement_conflict(case_id, defendant_id, "art360_sec2_2.lo
   assess_art360_sec2_2_lost_possession_property(case_id, negative_003, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_003)
 
+// rule_id: lost_property_embezzlement.art360_sec2_2.card.003.not_satisfied
+// sources: comm_001692_제360조_Ⅱ.2_4
+// norm_cards: art360_sec2_2.lost_possession_property
+rel not_satisfied_satisfied_art360_sec2_2_lost_possession_property(case_id, defendant_id, owner_id) = assess_art360_sec2_2_lost_possession_property(case_id, not_satisfied_003, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_003)
+
 // rule_id: lost_property_embezzlement.art360_sec2_2.card.004.satisfied
 // sources: comm_001692_제360조_Ⅱ.2_4
 // norm_cards: art360_sec2_2.managed_place_property
@@ -307,6 +395,12 @@ rel lost_property_embezzlement_conflict(case_id, defendant_id, "art360_sec2_2.ma
   provable(case_id, positive_004) and
   assess_art360_sec2_2_managed_place_property(case_id, negative_004, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_004)
+
+// rule_id: lost_property_embezzlement.art360_sec2_2.card.004.not_satisfied
+// sources: comm_001692_제360조_Ⅱ.2_4
+// norm_cards: art360_sec2_2.managed_place_property
+rel not_satisfied_satisfied_art360_sec2_2_managed_place_property(case_id, defendant_id, owner_id) = assess_art360_sec2_2_managed_place_property(case_id, not_satisfied_004, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_004)
 
 // rule_id: lost_property_embezzlement.art360_sec2_2.card.005.satisfied
 // sources: comm_001692_제360조_Ⅱ.2_5
@@ -328,6 +422,12 @@ rel lost_property_embezzlement_conflict(case_id, defendant_id, "art360_sec2_2.mi
   assess_art360_sec2_2_mistaken_bank_transfer_embezzlement_holding(case_id, negative_005, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_005)
 
+// rule_id: lost_property_embezzlement.art360_sec2_2.card.005.not_satisfied
+// sources: comm_001692_제360조_Ⅱ.2_5
+// norm_cards: art360_sec2_2.mistaken_bank_transfer_embezzlement_holding
+rel not_satisfied_satisfied_art360_sec2_2_mistaken_bank_transfer_embezzlement_holding(case_id, defendant_id, owner_id) = assess_art360_sec2_2_mistaken_bank_transfer_embezzlement_holding(case_id, not_satisfied_005, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_005)
+
 // rule_id: lost_property_embezzlement.art360_sec2_2.card.006.satisfied
 // sources: comm_001692_제360조_Ⅱ.2_4
 // norm_cards: art360_sec2_2.object
@@ -347,6 +447,12 @@ rel lost_property_embezzlement_conflict(case_id, defendant_id, "art360_sec2_2.ob
   provable(case_id, positive_006) and
   assess_art360_sec2_2_object(case_id, negative_006, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_006)
+
+// rule_id: lost_property_embezzlement.art360_sec2_2.card.006.not_satisfied
+// sources: comm_001692_제360조_Ⅱ.2_4
+// norm_cards: art360_sec2_2.object
+rel not_satisfied_satisfied_art360_sec2_2_object(case_id, defendant_id, owner_id) = assess_art360_sec2_2_object(case_id, not_satisfied_006, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_006)
 
 // rule_id: lost_property_embezzlement.art360_sec2_2.card.007.satisfied
 // sources: comm_001692_제360조_Ⅱ.2_4, comm_001692_제360조_Ⅱ.2_4
@@ -368,6 +474,12 @@ rel lost_property_embezzlement_conflict(case_id, defendant_id, "art360_sec2_2.or
   assess_art360_sec2_2_original_possessor_recovery(case_id, negative_007, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_007)
 
+// rule_id: lost_property_embezzlement.art360_sec2_2.card.007.not_satisfied
+// sources: comm_001692_제360조_Ⅱ.2_4, comm_001692_제360조_Ⅱ.2_4
+// norm_cards: art360_sec2_2.original_possessor_recovery
+rel not_satisfied_satisfied_art360_sec2_2_original_possessor_recovery(case_id, defendant_id, owner_id) = assess_art360_sec2_2_original_possessor_recovery(case_id, not_satisfied_007, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_007)
+
 // rule_id: lost_property_embezzlement.art360_sec2_2.card.008.satisfied
 // sources: comm_001692_제360조_Ⅱ.2_4
 // norm_cards: art360_sec2_2.ownerless_property_exclusion
@@ -387,6 +499,12 @@ rel lost_property_embezzlement_conflict(case_id, defendant_id, "art360_sec2_2.ow
   provable(case_id, positive_008) and
   assess_art360_sec2_2_ownerless_property_exclusion(case_id, negative_008, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_008)
+
+// rule_id: lost_property_embezzlement.art360_sec2_2.card.008.not_satisfied
+// sources: comm_001692_제360조_Ⅱ.2_4
+// norm_cards: art360_sec2_2.ownerless_property_exclusion
+rel not_satisfied_satisfied_art360_sec2_2_ownerless_property_exclusion(case_id, defendant_id, owner_id) = assess_art360_sec2_2_ownerless_property_exclusion(case_id, not_satisfied_008, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_008)
 
 // rule_id: lost_property_embezzlement.art360_sec2_2.card.009.satisfied
 // sources: comm_001692_제360조_Ⅱ.2_6
@@ -408,6 +526,12 @@ rel lost_property_embezzlement_conflict(case_id, defendant_id, "art360_sec2_2.pu
   assess_art360_sec2_2_public_transport_found_property(case_id, negative_009, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_009)
 
+// rule_id: lost_property_embezzlement.art360_sec2_2.card.009.not_satisfied
+// sources: comm_001692_제360조_Ⅱ.2_6
+// norm_cards: art360_sec2_2.public_transport_found_property
+rel not_satisfied_satisfied_art360_sec2_2_public_transport_found_property(case_id, defendant_id, owner_id) = assess_art360_sec2_2_public_transport_found_property(case_id, not_satisfied_009, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_009)
+
 // rule_id: lost_property_embezzlement.art360_sec2_3.card.010.satisfied
 // sources: comm_001692_제360조_Ⅱ.3_7
 // norm_cards: art360_sec2_3.completion_external_expression
@@ -427,6 +551,12 @@ rel lost_property_embezzlement_conflict(case_id, defendant_id, "art360_sec2_3.co
   provable(case_id, positive_010) and
   assess_art360_sec2_3_completion_external_expression(case_id, negative_010, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_010)
+
+// rule_id: lost_property_embezzlement.art360_sec2_3.card.010.not_satisfied
+// sources: comm_001692_제360조_Ⅱ.3_7
+// norm_cards: art360_sec2_3.completion_external_expression
+rel not_satisfied_satisfied_art360_sec2_3_completion_external_expression(case_id, defendant_id, owner_id) = assess_art360_sec2_3_completion_external_expression(case_id, not_satisfied_010, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_010)
 
 // rule_id: lost_property_embezzlement.art360_sec2_3.card.011.satisfied
 // sources: comm_001692_제360조_Ⅱ.3_7
@@ -448,6 +578,12 @@ rel lost_property_embezzlement_conflict(case_id, defendant_id, "art360_sec2_3.em
   assess_art360_sec2_3_embezzlement_act(case_id, negative_011, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_011)
 
+// rule_id: lost_property_embezzlement.art360_sec2_3.card.011.not_satisfied
+// sources: comm_001692_제360조_Ⅱ.3_7
+// norm_cards: art360_sec2_3.embezzlement_act
+rel not_satisfied_satisfied_art360_sec2_3_embezzlement_act(case_id, defendant_id, owner_id) = assess_art360_sec2_3_embezzlement_act(case_id, not_satisfied_011, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_011)
+
 // rule_id: lost_property_embezzlement.art360_sec2_3.card.012.satisfied
 // sources: comm_001692_제360조_Ⅱ.3_7
 // norm_cards: art360_sec2_3.later_appropriation_intent
@@ -467,6 +603,12 @@ rel lost_property_embezzlement_conflict(case_id, defendant_id, "art360_sec2_3.la
   provable(case_id, positive_012) and
   assess_art360_sec2_3_later_appropriation_intent(case_id, negative_012, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_012)
+
+// rule_id: lost_property_embezzlement.art360_sec2_3.card.012.not_satisfied
+// sources: comm_001692_제360조_Ⅱ.3_7
+// norm_cards: art360_sec2_3.later_appropriation_intent
+rel not_satisfied_satisfied_art360_sec2_3_later_appropriation_intent(case_id, defendant_id, owner_id) = assess_art360_sec2_3_later_appropriation_intent(case_id, not_satisfied_012, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_012)
 
 // rule_id: lost_property_embezzlement.art360_sec2_3.card.013.satisfied
 // sources: comm_001692_제360조_Ⅱ.3_7
@@ -488,6 +630,12 @@ rel lost_property_embezzlement_conflict(case_id, defendant_id, "art360_sec2_3.mi
   assess_art360_sec2_3_mistake_property_status_punishable(case_id, negative_013, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_013)
 
+// rule_id: lost_property_embezzlement.art360_sec2_3.card.013.not_satisfied
+// sources: comm_001692_제360조_Ⅱ.3_7
+// norm_cards: art360_sec2_3.mistake_property_status_punishable
+rel not_satisfied_satisfied_art360_sec2_3_mistake_property_status_punishable(case_id, defendant_id, owner_id) = assess_art360_sec2_3_mistake_property_status_punishable(case_id, not_satisfied_013, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_013)
+
 // rule_id: lost_property_embezzlement.art360_sec2_3.card.014.satisfied
 // sources: comm_001692_제360조_Ⅱ.3_7
 // norm_cards: art360_sec2_3.reporting_noncompliance_alone
@@ -507,6 +655,12 @@ rel lost_property_embezzlement_conflict(case_id, defendant_id, "art360_sec2_3.re
   provable(case_id, positive_014) and
   assess_art360_sec2_3_reporting_noncompliance_alone(case_id, negative_014, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_014)
+
+// rule_id: lost_property_embezzlement.art360_sec2_3.card.014.not_satisfied
+// sources: comm_001692_제360조_Ⅱ.3_7
+// norm_cards: art360_sec2_3.reporting_noncompliance_alone
+rel not_satisfied_satisfied_art360_sec2_3_reporting_noncompliance_alone(case_id, defendant_id, owner_id) = assess_art360_sec2_3_reporting_noncompliance_alone(case_id, not_satisfied_014, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_014)
 
 // rule_id: lost_property_embezzlement.art360_sec1_1.component.lost_property_embezzlement_object_satisfied.01
 // sources: comm_001692_제360조_Ⅰ.1_0
@@ -578,53 +732,25 @@ rel lost_property_embezzlement_not_established(case_id, defendant_id, "art360_se
 // norm_cards: art360_sec2_3.reporting_noncompliance_alone
 rel lost_property_embezzlement_not_established(case_id, defendant_id, "art360_sec2_3.reporting_noncompliance_alone") = satisfied_art360_sec2_3_reporting_noncompliance_alone(case_id, defendant_id, owner_id)
 
-// rule_id: lost_property_embezzlement.art360_sec1_1.mandatory_negative.001
-// sources: comm_001692_제360조_Ⅰ.1_0
-// norm_cards: art360_sec1_1.offense_definition
-rel lost_property_embezzlement_not_established(case_id, defendant_id, "art360_sec1_1.offense_definition") = assess_art360_sec1_1_offense_definition(case_id, mandatory_negative_001, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_001)
+// rule_id: lost_property_embezzlement.component.l0.mandatory_negative.01
+// sources: comm_001692_제360조_Ⅰ.1_0, comm_001692_제360조_Ⅱ.1_3, comm_001692_제360조_Ⅱ.2_4, comm_001692_제360조_Ⅱ.2_4
+// norm_cards: art360_sec1_1.offense_definition, art360_sec2_1.subject.unrestricted, art360_sec2_2.lost_possession_property, art360_sec2_2.object
+rel lost_property_embezzlement_not_established(case_id, defendant_id, "lost_property_embezzlement_object_satisfied") = not_satisfied_satisfied_art360_sec1_1_offense_definition(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art360_sec2_1_subject_unrestricted(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art360_sec2_2_lost_possession_property(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art360_sec2_2_object(case_id, defendant_id, owner_id)
 
-// rule_id: lost_property_embezzlement.art360_sec2_1.mandatory_negative.002
-// sources: comm_001692_제360조_Ⅱ.1_3
-// norm_cards: art360_sec2_1.subject.unrestricted
-rel lost_property_embezzlement_not_established(case_id, defendant_id, "art360_sec2_1.subject.unrestricted") = assess_art360_sec2_1_subject_unrestricted(case_id, mandatory_negative_002, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_002)
+// rule_id: lost_property_embezzlement.component.l1.mandatory_negative.02
+// sources: comm_001692_제360조_Ⅱ.3_7, comm_001692_제360조_Ⅱ.3_7, comm_001692_제360조_Ⅱ.3_7
+// norm_cards: art360_sec2_3.completion_external_expression, art360_sec2_3.embezzlement_act, art360_sec2_3.mistake_property_status_punishable
+rel lost_property_embezzlement_not_established(case_id, defendant_id, "lost_property_embezzlement_conduct_satisfied") = not_satisfied_satisfied_art360_sec2_3_completion_external_expression(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art360_sec2_3_embezzlement_act(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art360_sec2_3_mistake_property_status_punishable(case_id, defendant_id, owner_id)
 
-// rule_id: lost_property_embezzlement.art360_sec2_2.mandatory_negative.003
-// sources: comm_001692_제360조_Ⅱ.2_4
-// norm_cards: art360_sec2_2.lost_possession_property
-rel lost_property_embezzlement_not_established(case_id, defendant_id, "art360_sec2_2.lost_possession_property") = assess_art360_sec2_2_lost_possession_property(case_id, mandatory_negative_003, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_003)
-
-// rule_id: lost_property_embezzlement.art360_sec2_2.mandatory_negative.004
-// sources: comm_001692_제360조_Ⅱ.2_4
-// norm_cards: art360_sec2_2.object
-rel lost_property_embezzlement_not_established(case_id, defendant_id, "art360_sec2_2.object") = assess_art360_sec2_2_object(case_id, mandatory_negative_004, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_004)
-
-// rule_id: lost_property_embezzlement.art360_sec2_3.mandatory_negative.005
-// sources: comm_001692_제360조_Ⅱ.3_7
-// norm_cards: art360_sec2_3.completion_external_expression
-rel lost_property_embezzlement_not_established(case_id, defendant_id, "art360_sec2_3.completion_external_expression") = assess_art360_sec2_3_completion_external_expression(case_id, mandatory_negative_005, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_005)
-
-// rule_id: lost_property_embezzlement.art360_sec2_3.mandatory_negative.006
-// sources: comm_001692_제360조_Ⅱ.3_7
-// norm_cards: art360_sec2_3.embezzlement_act
-rel lost_property_embezzlement_not_established(case_id, defendant_id, "art360_sec2_3.embezzlement_act") = assess_art360_sec2_3_embezzlement_act(case_id, mandatory_negative_006, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_006)
-
-// rule_id: lost_property_embezzlement.art360_sec2_3.mandatory_negative.007
+// rule_id: lost_property_embezzlement.component.l4.mandatory_negative.03
 // sources: comm_001692_제360조_Ⅱ.3_7
 // norm_cards: art360_sec2_3.later_appropriation_intent
-rel lost_property_embezzlement_not_established(case_id, defendant_id, "art360_sec2_3.later_appropriation_intent") = assess_art360_sec2_3_later_appropriation_intent(case_id, mandatory_negative_007, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_007)
-
-// rule_id: lost_property_embezzlement.art360_sec2_3.mandatory_negative.008
-// sources: comm_001692_제360조_Ⅱ.3_7
-// norm_cards: art360_sec2_3.mistake_property_status_punishable
-rel lost_property_embezzlement_not_established(case_id, defendant_id, "art360_sec2_3.mistake_property_status_punishable") = assess_art360_sec2_3_mistake_property_status_punishable(case_id, mandatory_negative_008, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_008)
+rel lost_property_embezzlement_not_established(case_id, defendant_id, "lost_property_embezzlement_completion_satisfied") = not_satisfied_satisfied_art360_sec2_3_later_appropriation_intent(case_id, defendant_id, owner_id)
 
 // rule_id: lost_property_embezzlement.core.outcome.elements_satisfied
 // sources: comm_001692_제360조_Ⅰ.1_0, comm_001692_제360조_Ⅱ.1_3, comm_001692_제360조_Ⅱ.2_4, comm_001692_제360조_Ⅱ.2_4, comm_001692_제360조_Ⅱ.3_7, comm_001692_제360조_Ⅱ.3_7, comm_001692_제360조_Ⅱ.3_7, comm_001692_제360조_Ⅱ.3_7

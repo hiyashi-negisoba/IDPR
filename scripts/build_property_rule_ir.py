@@ -313,6 +313,20 @@ class UnitBuilder:
                 [card],
                 "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."))
 
+            not_sat = f"not_satisfied_{index:03d}"
+            self.predicates.append(predicate(
+                f"not_satisfied_{condition_id(card_id)}", self.actor_arguments,
+                kind="rule", role="derived", origin="commentary",
+                definition=f"증명 가능한 평가에서 다음 조건이 부인됨: {card['proposition']}",
+                cards=[card]))
+            self.rules.append(rule(
+                f"{self.unit}.{owner}.card.{index:03d}.not_satisfied",
+                atom(f"not_satisfied_{condition_id(card_id)}", *self.actors),
+                [self.assessment_atom(card_id, "not_satisfied", not_sat),
+                 atom("provable", self.actors[0], variable(not_sat))],
+                [card],
+                "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."))
+
     def assessment_atom(self, card_id: str, status: str, assessment: str) -> dict[str, Any]:
         return atom(input_id(card_id), self.actors[0], variable(assessment),
                     *self.actors[1:], string(status))
@@ -389,16 +403,28 @@ class UnitBuilder:
                 [card],
                 "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."))
 
-        for index, card in enumerate(mandatory, 1):
-            assessment = f"mandatory_negative_{index:03d}"
+
+        for index, level in enumerate(self.active_components(), 1):
+            component_cards = [card for card in self.cards_at(level) if not self.negative_kind(card)]
+            if not component_cards:
+                continue
+            if level in self.track_levels:
+                continue
+
+            comp_id = self.component_id(level)
+            body_atoms = []
+            cards_in_rule = []
+            for card in component_cards:
+                body_atoms.append(atom(f"not_satisfied_{condition_id(card['id'])}", *self.actors))
+                cards_in_rule.append(card)
+
             self.rules.append(rule(
-                f"{self.unit}.{module_slug(card['id'])}.mandatory_negative.{index:03d}",
+                f"{self.unit}.component.{level.lower()}.mandatory_negative.{index:02d}",
                 atom(f"{self.unit}_not_established", self.actors[0], self.actors[1],
-                     string(card["id"])),
-                [self.assessment_atom(card["id"], "not_satisfied", assessment),
-                 atom("provable", self.actors[0], variable(assessment))],
-                [card],
-                "필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다."))
+                     string(comp_id)),
+                body_atoms,
+                cards_in_rule,
+                f"구성요건 {level}에 속한 모든 대안 카드가 명시적으로 not_satisfied일 때만 해당 component 불성립을 도출한다."))
 
         if self.tracks:
             track_component_ids = {self.component_id(level)

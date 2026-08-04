@@ -33,6 +33,11 @@ type assess_art366_alternative_use_property(String, String, String, String, Stri
 // norm_cards: art366.alternative_use_property
 type satisfied_art366_alternative_use_property(String, String, String)
 
+// not_satisfied_satisfied_art366_alternative_use_property: 증명 가능한 평가에서 다음 조건이 부인됨: 본래의 효용가치를 상실하였더라도 다른 용도에 사용할 수 있는 물건은 재물손괴죄의 객체가 될 수 있다.
+// sources: comm_001692_제366조_Ⅲ.1_7
+// norm_cards: art366.alternative_use_property
+type not_satisfied_satisfied_art366_alternative_use_property(String, String, String)
+
 // assess_art366_cloud_provider_delete_record: 이 카드의 사건별 적용 평가: 서비스약정이나 이용약관이 전자기록 변경·삭제 권한을 부여하지 않았는데 인터넷서비스제공자가 고객 동의 없이 고객이 생성·저장한 전자기록을 변경·삭제하여 복구 불능으로 만든 경우 전자기록 등 특수매체기록 손괴죄가 성립할 수 있다.
 // sources: comm_001692_제366조_Ⅲ.1_5
 // norm_cards: art366.cloud_provider_delete_record
@@ -42,6 +47,11 @@ type assess_art366_cloud_provider_delete_record(String, String, String, String, 
 // sources: comm_001692_제366조_Ⅲ.1_5
 // norm_cards: art366.cloud_provider_delete_record
 type satisfied_art366_cloud_provider_delete_record(String, String, String)
+
+// not_satisfied_satisfied_art366_cloud_provider_delete_record: 증명 가능한 평가에서 다음 조건이 부인됨: 서비스약정이나 이용약관이 전자기록 변경·삭제 권한을 부여하지 않았는데 인터넷서비스제공자가 고객 동의 없이 고객이 생성·저장한 전자기록을 변경·삭제하여 복구 불능으로 만든 경우 전자기록 등 특수매체기록 손괴죄가 성립할 수 있다.
+// sources: comm_001692_제366조_Ⅲ.1_5
+// norm_cards: art366.cloud_provider_delete_record
+type not_satisfied_satisfied_art366_cloud_provider_delete_record(String, String, String)
 
 // assess_art366_corpse_exclusion: 이 카드의 사건별 적용 평가: 해부용 사체를 포함한 사체는 제366조의 범행객체인 재물에 해당하지 않는다.
 // sources: comm_001692_제366조_Ⅲ.1_6
@@ -53,6 +63,11 @@ type assess_art366_corpse_exclusion(String, String, String, String, String)
 // norm_cards: art366.corpse_exclusion
 type satisfied_art366_corpse_exclusion(String, String, String)
 
+// not_satisfied_satisfied_art366_corpse_exclusion: 증명 가능한 평가에서 다음 조건이 부인됨: 해부용 사체를 포함한 사체는 제366조의 범행객체인 재물에 해당하지 않는다.
+// sources: comm_001692_제366조_Ⅲ.1_6
+// norm_cards: art366.corpse_exclusion
+type not_satisfied_satisfied_art366_corpse_exclusion(String, String, String)
+
 // assess_art366_document_definition: 이 카드의 사건별 적용 평가: 형법상 문서는 문자 또는 이를 대신할 가독적 부호로 계속적으로 물체상에 기재된 의사 또는 관념의 표시인 원본 또는 사회적 기능과 신용성을 동일시할 수 있는 기계적 복사본으로서, 법률상 또는 사회생활상 주요 사항의 증거가 될 수 있는 것이다.
 // sources: comm_001692_제366조_Ⅲ.1_8
 // norm_cards: art366.document_definition
@@ -62,6 +77,11 @@ type assess_art366_document_definition(String, String, String, String, String)
 // sources: comm_001692_제366조_Ⅲ.1_8
 // norm_cards: art366.document_definition
 type satisfied_art366_document_definition(String, String, String)
+
+// not_satisfied_satisfied_art366_document_definition: 증명 가능한 평가에서 다음 조건이 부인됨: 형법상 문서는 문자 또는 이를 대신할 가독적 부호로 계속적으로 물체상에 기재된 의사 또는 관념의 표시인 원본 또는 사회적 기능과 신용성을 동일시할 수 있는 기계적 복사본으로서, 법률상 또는 사회생활상 주요 사항의 증거가 될 수 있는 것이다.
+// sources: comm_001692_제366조_Ⅲ.1_8
+// norm_cards: art366.document_definition
+type not_satisfied_satisfied_art366_document_definition(String, String, String)
 
 // assess_art366_electronic_record_definition: 이 카드의 사건별 적용 평가: 전자기록은 일정한 물질적 매체에 전자적 또는 자기적 방식으로 저장된 기록을 말한다.
 // sources: comm_001692_제366조_Ⅲ.1_10
@@ -73,6 +93,11 @@ type assess_art366_electronic_record_definition(String, String, String, String, 
 // norm_cards: art366.electronic_record_definition
 type satisfied_art366_electronic_record_definition(String, String, String)
 
+// not_satisfied_satisfied_art366_electronic_record_definition: 증명 가능한 평가에서 다음 조건이 부인됨: 전자기록은 일정한 물질적 매체에 전자적 또는 자기적 방식으로 저장된 기록을 말한다.
+// sources: comm_001692_제366조_Ⅲ.1_10
+// norm_cards: art366.electronic_record_definition
+type not_satisfied_satisfied_art366_electronic_record_definition(String, String, String)
+
 // assess_art366_electronic_record_durability: 이 카드의 사건별 적용 평가: 전자기록 등 특수매체기록은 기록으로서 본질에 맞는 어느 정도의 영속성을 갖추어야 한다.
 // sources: comm_001692_제366조_Ⅲ.1_12
 // norm_cards: art366.electronic_record_durability
@@ -82,6 +107,11 @@ type assess_art366_electronic_record_durability(String, String, String, String, 
 // sources: comm_001692_제366조_Ⅲ.1_12
 // norm_cards: art366.electronic_record_durability
 type satisfied_art366_electronic_record_durability(String, String, String)
+
+// not_satisfied_satisfied_art366_electronic_record_durability: 증명 가능한 평가에서 다음 조건이 부인됨: 전자기록 등 특수매체기록은 기록으로서 본질에 맞는 어느 정도의 영속성을 갖추어야 한다.
+// sources: comm_001692_제366조_Ⅲ.1_12
+// norm_cards: art366.electronic_record_durability
+type not_satisfied_satisfied_art366_electronic_record_durability(String, String, String)
 
 // assess_art366_electronic_record_erasure: 이 카드의 사건별 적용 평가: 매체에 전자적으로 기록된 유용한 정보나 자료를 무단 소거하여 기록 상태를 효용 감소 방향으로 변경한 경우 전자기록손괴죄가 성립한다.
 // sources: comm_001692_제366조_Ⅲ.1_12
@@ -93,6 +123,11 @@ type assess_art366_electronic_record_erasure(String, String, String, String, Str
 // norm_cards: art366.electronic_record_erasure
 type satisfied_art366_electronic_record_erasure(String, String, String)
 
+// not_satisfied_satisfied_art366_electronic_record_erasure: 증명 가능한 평가에서 다음 조건이 부인됨: 매체에 전자적으로 기록된 유용한 정보나 자료를 무단 소거하여 기록 상태를 효용 감소 방향으로 변경한 경우 전자기록손괴죄가 성립한다.
+// sources: comm_001692_제366조_Ⅲ.1_12
+// norm_cards: art366.electronic_record_erasure
+type not_satisfied_satisfied_art366_electronic_record_erasure(String, String, String)
+
 // assess_art366_fact_certification_private_document: 이 카드의 사건별 적용 평가: 현행 형법상 문서손괴죄의 문서에는 권리의무에 관한 문서뿐 아니라 사실증명에 관한 문서도 포함된다.
 // sources: comm_001692_제366조_Ⅲ.1_8
 // norm_cards: art366.fact_certification_private_document
@@ -102,6 +137,11 @@ type assess_art366_fact_certification_private_document(String, String, String, S
 // sources: comm_001692_제366조_Ⅲ.1_8
 // norm_cards: art366.fact_certification_private_document
 type satisfied_art366_fact_certification_private_document(String, String, String)
+
+// not_satisfied_satisfied_art366_fact_certification_private_document: 증명 가능한 평가에서 다음 조건이 부인됨: 현행 형법상 문서손괴죄의 문서에는 권리의무에 관한 문서뿐 아니라 사실증명에 관한 문서도 포함된다.
+// sources: comm_001692_제366조_Ⅲ.1_8
+// norm_cards: art366.fact_certification_private_document
+type not_satisfied_satisfied_art366_fact_certification_private_document(String, String, String)
 
 // assess_art366_medium_damage_property_damage: 이 카드의 사건별 적용 평가: 기록 내용과 별개로 매체 자체를 파손하여 이용가치가 감소한 경우에는 전자기록손괴죄가 아니라 재물손괴죄가 성립한다.
 // sources: comm_001692_제366조_Ⅲ.1_12
@@ -113,6 +153,11 @@ type assess_art366_medium_damage_property_damage(String, String, String, String,
 // norm_cards: art366.medium_damage_property_damage
 type satisfied_art366_medium_damage_property_damage(String, String, String)
 
+// not_satisfied_satisfied_art366_medium_damage_property_damage: 증명 가능한 평가에서 다음 조건이 부인됨: 기록 내용과 별개로 매체 자체를 파손하여 이용가치가 감소한 경우에는 전자기록손괴죄가 아니라 재물손괴죄가 성립한다.
+// sources: comm_001692_제366조_Ⅲ.1_12
+// norm_cards: art366.medium_damage_property_damage
+type not_satisfied_satisfied_art366_medium_damage_property_damage(String, String, String)
+
 // assess_art366_no_utility_property_exclusion: 이 카드의 사건별 적용 평가: 주관적으로나 객관적으로 이용가치 또는 효용이 전혀 없는 물건은 재물성이 인정되지 않을 수 있다.
 // sources: comm_001692_제366조_Ⅲ.1_7
 // norm_cards: art366.no_utility_property_exclusion
@@ -122,6 +167,11 @@ type assess_art366_no_utility_property_exclusion(String, String, String, String,
 // sources: comm_001692_제366조_Ⅲ.1_7
 // norm_cards: art366.no_utility_property_exclusion
 type satisfied_art366_no_utility_property_exclusion(String, String, String)
+
+// not_satisfied_satisfied_art366_no_utility_property_exclusion: 증명 가능한 평가에서 다음 조건이 부인됨: 주관적으로나 객관적으로 이용가치 또는 효용이 전혀 없는 물건은 재물성이 인정되지 않을 수 있다.
+// sources: comm_001692_제366조_Ⅲ.1_7
+// norm_cards: art366.no_utility_property_exclusion
+type not_satisfied_satisfied_art366_no_utility_property_exclusion(String, String, String)
 
 // assess_art366_object_manageable_energy: 이 카드의 사건별 적용 평가: 재물손괴등죄의 범행객체는 유체물인 재물이며, 순수한 유체물이 아니더라도 관리 가능한 동력은 범행객체에 포함된다.
 // sources: comm_001692_제366조_Ⅰ_0
@@ -133,6 +183,11 @@ type assess_art366_object_manageable_energy(String, String, String, String, Stri
 // norm_cards: art366.object_manageable_energy
 type satisfied_art366_object_manageable_energy(String, String, String)
 
+// not_satisfied_satisfied_art366_object_manageable_energy: 증명 가능한 평가에서 다음 조건이 부인됨: 재물손괴등죄의 범행객체는 유체물인 재물이며, 순수한 유체물이 아니더라도 관리 가능한 동력은 범행객체에 포함된다.
+// sources: comm_001692_제366조_Ⅰ_0
+// norm_cards: art366.object_manageable_energy
+type not_satisfied_satisfied_art366_object_manageable_energy(String, String, String)
+
 // assess_art366_other_person_ownership: 이 카드의 사건별 적용 평가: 재물손괴등죄의 객체는 타인 소유물이며, 법인 또는 단체의 대표자가 관리·처분 권한을 갖더라도 법인이나 단체 소유물은 대표자에게 타인의 소유이다.
 // sources: comm_001692_제366조_Ⅲ.1_2
 // norm_cards: art366.other_person_ownership
@@ -142,6 +197,11 @@ type assess_art366_other_person_ownership(String, String, String, String, String
 // sources: comm_001692_제366조_Ⅲ.1_2
 // norm_cards: art366.other_person_ownership
 type satisfied_art366_other_person_ownership(String, String, String)
+
+// not_satisfied_satisfied_art366_other_person_ownership: 증명 가능한 평가에서 다음 조건이 부인됨: 재물손괴등죄의 객체는 타인 소유물이며, 법인 또는 단체의 대표자가 관리·처분 권한을 갖더라도 법인이나 단체 소유물은 대표자에게 타인의 소유이다.
+// sources: comm_001692_제366조_Ⅲ.1_2
+// norm_cards: art366.other_person_ownership
+type not_satisfied_satisfied_art366_other_person_ownership(String, String, String)
 
 // assess_art366_ownerless_property_exclusion: 이 카드의 사건별 적용 평가: 현재 누구의 소유에도 속하지 않는 무주물은 타인성이 인정되지 않아 재물손괴등죄의 범행객체가 될 수 없다.
 // sources: comm_001692_제366조_Ⅲ.1_2
@@ -153,6 +213,11 @@ type assess_art366_ownerless_property_exclusion(String, String, String, String, 
 // norm_cards: art366.ownerless_property_exclusion
 type satisfied_art366_ownerless_property_exclusion(String, String, String)
 
+// not_satisfied_satisfied_art366_ownerless_property_exclusion: 증명 가능한 평가에서 다음 조건이 부인됨: 현재 누구의 소유에도 속하지 않는 무주물은 타인성이 인정되지 않아 재물손괴등죄의 범행객체가 될 수 없다.
+// sources: comm_001692_제366조_Ⅲ.1_2
+// norm_cards: art366.ownerless_property_exclusion
+type not_satisfied_satisfied_art366_ownerless_property_exclusion(String, String, String)
+
 // assess_art366_property_object_definition: 이 카드의 사건별 적용 평가: 재물손괴죄의 재물은 물건의 종류·성격·경제적 가치 또는 교환가치 유무와 관계없이 널리 재산권의 목적이 될 수 있는 일체의 물건이다.
 // sources: comm_001692_제366조_Ⅲ.1_7
 // norm_cards: art366.property_object_definition
@@ -162,6 +227,11 @@ type assess_art366_property_object_definition(String, String, String, String, St
 // sources: comm_001692_제366조_Ⅲ.1_7
 // norm_cards: art366.property_object_definition
 type satisfied_art366_property_object_definition(String, String, String)
+
+// not_satisfied_satisfied_art366_property_object_definition: 증명 가능한 평가에서 다음 조건이 부인됨: 재물손괴죄의 재물은 물건의 종류·성격·경제적 가치 또는 교환가치 유무와 관계없이 널리 재산권의 목적이 될 수 있는 일체의 물건이다.
+// sources: comm_001692_제366조_Ⅲ.1_7
+// norm_cards: art366.property_object_definition
+type not_satisfied_satisfied_art366_property_object_definition(String, String, String)
 
 // assess_art366_public_building_affirmative_view: 이 카드의 사건별 적용 평가: 공용건조물에 대하여 파괴에 이르지 않는 효용침해행위를 한 경우에도 공용건조물은 제366조 건조물손괴죄의 객체에 포함된다.
 // sources: comm_001692_제366조_Ⅲ.1_7
@@ -173,6 +243,11 @@ type assess_art366_public_building_affirmative_view(String, String, String, Stri
 // norm_cards: art366.public_building_affirmative_view
 type satisfied_art366_public_building_affirmative_view(String, String, String)
 
+// not_satisfied_satisfied_art366_public_building_affirmative_view: 증명 가능한 평가에서 다음 조건이 부인됨: 공용건조물에 대하여 파괴에 이르지 않는 효용침해행위를 한 경우에도 공용건조물은 제366조 건조물손괴죄의 객체에 포함된다.
+// sources: comm_001692_제366조_Ⅲ.1_7
+// norm_cards: art366.public_building_affirmative_view
+type not_satisfied_satisfied_art366_public_building_affirmative_view(String, String, String)
+
 // assess_art366_public_document_used_by_office: 이 카드의 사건별 적용 평가: 공문서라도 공무소에서 사용하는 공용서류에 해당하지 않는 한 제366조의 범행객체가 되지만, 공용서류 해당 여부가 객체성 판단의 요건이 된다.
 // sources: comm_001692_제366조_Ⅲ.1_8
 // norm_cards: art366.public_document_used_by_office
@@ -182,6 +257,11 @@ type assess_art366_public_document_used_by_office(String, String, String, String
 // sources: comm_001692_제366조_Ⅲ.1_8
 // norm_cards: art366.public_document_used_by_office
 type satisfied_art366_public_document_used_by_office(String, String, String)
+
+// not_satisfied_satisfied_art366_public_document_used_by_office: 증명 가능한 평가에서 다음 조건이 부인됨: 공문서라도 공무소에서 사용하는 공용서류에 해당하지 않는 한 제366조의 범행객체가 되지만, 공용서류 해당 여부가 객체성 판단의 요건이 된다.
+// sources: comm_001692_제366조_Ⅲ.1_8
+// norm_cards: art366.public_document_used_by_office
+type not_satisfied_satisfied_art366_public_document_used_by_office(String, String, String)
 
 // assess_art366_public_interest_building_non_destruction: 이 카드의 사건별 적용 평가: 타인 소유의 공익건조물을 손상시킨 행위가 파괴의 정도에 이르지 않은 경우에는 제366조의 객체가 될 수 있다.
 // sources: comm_001692_제366조_Ⅲ.1_7
@@ -193,6 +273,11 @@ type assess_art366_public_interest_building_non_destruction(String, String, Stri
 // norm_cards: art366.public_interest_building_non_destruction
 type satisfied_art366_public_interest_building_non_destruction(String, String, String)
 
+// not_satisfied_satisfied_art366_public_interest_building_non_destruction: 증명 가능한 평가에서 다음 조건이 부인됨: 타인 소유의 공익건조물을 손상시킨 행위가 파괴의 정도에 이르지 않은 경우에는 제366조의 객체가 될 수 있다.
+// sources: comm_001692_제366조_Ⅲ.1_7
+// norm_cards: art366.public_interest_building_non_destruction
+type not_satisfied_satisfied_art366_public_interest_building_non_destruction(String, String, String)
+
 // assess_art366_record_medium_information_combination: 이 카드의 사건별 적용 평가: 범행객체인 전자기록 등 특수매체기록은 정보 자체나 정보보존 매체 자체가 아니라, 저장 또는 기록 매체에 정보가 기록되어 매체와 정보가 불가분적으로 결합된 상태를 의미한다.
 // sources: comm_001692_제366조_Ⅲ.1_12
 // norm_cards: art366.record_medium_information_combination
@@ -202,6 +287,11 @@ type assess_art366_record_medium_information_combination(String, String, String,
 // sources: comm_001692_제366조_Ⅲ.1_12
 // norm_cards: art366.record_medium_information_combination
 type satisfied_art366_record_medium_information_combination(String, String, String)
+
+// not_satisfied_satisfied_art366_record_medium_information_combination: 증명 가능한 평가에서 다음 조건이 부인됨: 범행객체인 전자기록 등 특수매체기록은 정보 자체나 정보보존 매체 자체가 아니라, 저장 또는 기록 매체에 정보가 기록되어 매체와 정보가 불가분적으로 결합된 상태를 의미한다.
+// sources: comm_001692_제366조_Ⅲ.1_12
+// norm_cards: art366.record_medium_information_combination
+type not_satisfied_satisfied_art366_record_medium_information_combination(String, String, String)
 
 // assess_art366_separated_human_material: 이 카드의 사건별 적용 평가: 이식용 또는 실험용으로 인체에서 분리된 장기와 배아 등 인체구성물은 재물로서 손괴죄의 범행객체가 된다.
 // sources: comm_001692_제366조_Ⅲ.1_6
@@ -213,6 +303,11 @@ type assess_art366_separated_human_material(String, String, String, String, Stri
 // norm_cards: art366.separated_human_material
 type satisfied_art366_separated_human_material(String, String, String)
 
+// not_satisfied_satisfied_art366_separated_human_material: 증명 가능한 평가에서 다음 조건이 부인됨: 이식용 또는 실험용으로 인체에서 분리된 장기와 배아 등 인체구성물은 재물로서 손괴죄의 범행객체가 된다.
+// sources: comm_001692_제366조_Ⅲ.1_6
+// norm_cards: art366.separated_human_material
+type not_satisfied_satisfied_art366_separated_human_material(String, String, String)
+
 // assess_art366_shared_property_damage: 이 카드의 사건별 적용 평가: 공유는 타인의 소유로 취급되므로, 공유자 한 사람이 다른 공유자가 점유하는 재물을 임의로 손상하면 재물손괴등죄가 성립할 수 있다.
 // sources: comm_001692_제366조_Ⅲ.1_3
 // norm_cards: art366.shared_property_damage
@@ -222,6 +317,11 @@ type assess_art366_shared_property_damage(String, String, String, String, String
 // sources: comm_001692_제366조_Ⅲ.1_3
 // norm_cards: art366.shared_property_damage
 type satisfied_art366_shared_property_damage(String, String, String)
+
+// not_satisfied_satisfied_art366_shared_property_damage: 증명 가능한 평가에서 다음 조건이 부인됨: 공유는 타인의 소유로 취급되므로, 공유자 한 사람이 다른 공유자가 점유하는 재물을 임의로 손상하면 재물손괴등죄가 성립할 수 있다.
+// sources: comm_001692_제366조_Ⅲ.1_3
+// norm_cards: art366.shared_property_damage
+type not_satisfied_satisfied_art366_shared_property_damage(String, String, String)
 
 // assess_art366_special_medium_record_definition: 이 카드의 사건별 적용 평가: 특수매체기록은 전자적·자기적 방식 및 그 밖의 기술적 방식으로 특수매체에 저장된 기록을 말하며, 전자기록은 그 예시에 해당한다.
 // sources: comm_001692_제366조_Ⅲ.1_11
@@ -233,6 +333,11 @@ type assess_art366_special_medium_record_definition(String, String, String, Stri
 // norm_cards: art366.special_medium_record_definition
 type satisfied_art366_special_medium_record_definition(String, String, String)
 
+// not_satisfied_satisfied_art366_special_medium_record_definition: 증명 가능한 평가에서 다음 조건이 부인됨: 특수매체기록은 전자적·자기적 방식 및 그 밖의 기술적 방식으로 특수매체에 저장된 기록을 말하며, 전자기록은 그 예시에 해당한다.
+// sources: comm_001692_제366조_Ⅲ.1_11
+// norm_cards: art366.special_medium_record_definition
+type not_satisfied_satisfied_art366_special_medium_record_definition(String, String, String)
+
 // assess_art366_special_medium_record_limited_view: 이 카드의 사건별 적용 평가: 특수매체기록은 문서 이외의 특수한 방법과 매체에 기록되어 컴퓨터 등 정보처리장치에 사용되는 기록으로 한정하여 해석한다.
 // sources: comm_001692_제366조_Ⅲ.1_11
 // norm_cards: art366.special_medium_record_limited_view
@@ -242,6 +347,11 @@ type assess_art366_special_medium_record_limited_view(String, String, String, St
 // sources: comm_001692_제366조_Ⅲ.1_11
 // norm_cards: art366.special_medium_record_limited_view
 type satisfied_art366_special_medium_record_limited_view(String, String, String)
+
+// not_satisfied_satisfied_art366_special_medium_record_limited_view: 증명 가능한 평가에서 다음 조건이 부인됨: 특수매체기록은 문서 이외의 특수한 방법과 매체에 기록되어 컴퓨터 등 정보처리장치에 사용되는 기록으로 한정하여 해석한다.
+// sources: comm_001692_제366조_Ⅲ.1_11
+// norm_cards: art366.special_medium_record_limited_view
+type not_satisfied_satisfied_art366_special_medium_record_limited_view(String, String, String)
 
 // assess_art366_transmitting_or_processing_information_exclusion: 이 카드의 사건별 적용 평가: 네트워크에서 패킷 형태로 전송 중인 정보나 컴퓨터의 레지스터·캐시·주기억장치 등에 저장되어 처리 중인 정보 또는 중간결과값은 제366조의 범행객체가 아니다.
 // sources: comm_001692_제366조_Ⅲ.1_12
@@ -253,6 +363,11 @@ type assess_art366_transmitting_or_processing_information_exclusion(String, Stri
 // norm_cards: art366.transmitting_or_processing_information_exclusion
 type satisfied_art366_transmitting_or_processing_information_exclusion(String, String, String)
 
+// not_satisfied_satisfied_art366_transmitting_or_processing_information_exclusion: 증명 가능한 평가에서 다음 조건이 부인됨: 네트워크에서 패킷 형태로 전송 중인 정보나 컴퓨터의 레지스터·캐시·주기억장치 등에 저장되어 처리 중인 정보 또는 중간결과값은 제366조의 범행객체가 아니다.
+// sources: comm_001692_제366조_Ⅲ.1_12
+// norm_cards: art366.transmitting_or_processing_information_exclusion
+type not_satisfied_satisfied_art366_transmitting_or_processing_information_exclusion(String, String, String)
+
 // assess_art366_sec3_2_concealment_definition: 이 카드의 사건별 적용 평가: 은닉은 물리적 유형적 훼손이 아니라 객체의 소재를 무형적으로 불명하게 하는 행위로서 손괴와 구별된다.
 // sources: comm_001692_제366조_Ⅲ.2_17
 // norm_cards: art366_sec3_2.concealment_definition
@@ -262,6 +377,11 @@ type assess_art366_sec3_2_concealment_definition(String, String, String, String,
 // sources: comm_001692_제366조_Ⅲ.2_17
 // norm_cards: art366_sec3_2.concealment_definition
 type satisfied_art366_sec3_2_concealment_definition(String, String, String)
+
+// not_satisfied_satisfied_art366_sec3_2_concealment_definition: 증명 가능한 평가에서 다음 조건이 부인됨: 은닉은 물리적 유형적 훼손이 아니라 객체의 소재를 무형적으로 불명하게 하는 행위로서 손괴와 구별된다.
+// sources: comm_001692_제366조_Ⅲ.2_17
+// norm_cards: art366_sec3_2.concealment_definition
+type not_satisfied_satisfied_art366_sec3_2_concealment_definition(String, String, String)
 
 // assess_art366_sec3_2_concealment_no_possession_required: 이 카드의 사건별 적용 평가: 은닉은 반드시 객체를 범인의 점유 또는 지배 아래 둘 것을 요구하지 않으며, 피해자 점유 장소 안에서 문서를 숨겨 발견을 곤란하게 한 경우도 포함된다.
 // sources: comm_001692_제366조_Ⅲ.2_17
@@ -273,6 +393,11 @@ type assess_art366_sec3_2_concealment_no_possession_required(String, String, Str
 // norm_cards: art366_sec3_2.concealment_no_possession_required
 type satisfied_art366_sec3_2_concealment_no_possession_required(String, String, String)
 
+// not_satisfied_satisfied_art366_sec3_2_concealment_no_possession_required: 증명 가능한 평가에서 다음 조건이 부인됨: 은닉은 반드시 객체를 범인의 점유 또는 지배 아래 둘 것을 요구하지 않으며, 피해자 점유 장소 안에서 문서를 숨겨 발견을 곤란하게 한 경우도 포함된다.
+// sources: comm_001692_제366조_Ⅲ.2_17
+// norm_cards: art366_sec3_2.concealment_no_possession_required
+type not_satisfied_satisfied_art366_sec3_2_concealment_no_possession_required(String, String, String)
+
 // assess_art366_sec3_2_concealment_temporary_and_return_intent: 이 카드의 사건별 적용 평가: 은닉죄는 재물이나 문서를 이용할 수 없는 상태에 두면 족하고, 이용 방해 기간의 일시성·영속성이나 장래 반환 의사는 묻지 않는다.
 // sources: comm_001692_제366조_Ⅲ.2_17
 // norm_cards: art366_sec3_2.concealment_temporary_and_return_intent
@@ -282,6 +407,11 @@ type assess_art366_sec3_2_concealment_temporary_and_return_intent(String, String
 // sources: comm_001692_제366조_Ⅲ.2_17
 // norm_cards: art366_sec3_2.concealment_temporary_and_return_intent
 type satisfied_art366_sec3_2_concealment_temporary_and_return_intent(String, String, String)
+
+// not_satisfied_satisfied_art366_sec3_2_concealment_temporary_and_return_intent: 증명 가능한 평가에서 다음 조건이 부인됨: 은닉죄는 재물이나 문서를 이용할 수 없는 상태에 두면 족하고, 이용 방해 기간의 일시성·영속성이나 장래 반환 의사는 묻지 않는다.
+// sources: comm_001692_제366조_Ⅲ.2_17
+// norm_cards: art366_sec3_2.concealment_temporary_and_return_intent
+type not_satisfied_satisfied_art366_sec3_2_concealment_temporary_and_return_intent(String, String, String)
 
 // assess_art366_sec3_2_destruction_definition: 이 카드의 사건별 적용 평가: 손괴는 재물 또는 문서의 전부 또는 일부에 직접 유형력을 행사해 물질적·물리적으로 훼손하여 원래 효용을 멸실 또는 감손시키는 행위이다.
 // sources: comm_001692_제366조_Ⅲ.2_13
@@ -293,6 +423,11 @@ type assess_art366_sec3_2_destruction_definition(String, String, String, String,
 // norm_cards: art366_sec3_2.destruction_definition
 type satisfied_art366_sec3_2_destruction_definition(String, String, String)
 
+// not_satisfied_satisfied_art366_sec3_2_destruction_definition: 증명 가능한 평가에서 다음 조건이 부인됨: 손괴는 재물 또는 문서의 전부 또는 일부에 직접 유형력을 행사해 물질적·물리적으로 훼손하여 원래 효용을 멸실 또는 감손시키는 행위이다.
+// sources: comm_001692_제366조_Ⅲ.2_13
+// norm_cards: art366_sec3_2.destruction_definition
+type not_satisfied_satisfied_art366_sec3_2_destruction_definition(String, String, String)
+
 // assess_art366_sec3_2_destruction_no_irreparable_damage: 이 카드의 사건별 적용 평가: 손괴는 중요한 부분의 훼손이나 물건 자체의 소멸을 요구하지 않으며, 본래 사용목적에 제공할 수 없는 상태가 되면 족하다.
 // sources: comm_001692_제366조_Ⅲ.2_13, comm_001692_제366조_Ⅲ.2_13
 // norm_cards: art366_sec3_2.destruction_no_irreparable_damage
@@ -302,6 +437,11 @@ type assess_art366_sec3_2_destruction_no_irreparable_damage(String, String, Stri
 // sources: comm_001692_제366조_Ⅲ.2_13, comm_001692_제366조_Ⅲ.2_13
 // norm_cards: art366_sec3_2.destruction_no_irreparable_damage
 type satisfied_art366_sec3_2_destruction_no_irreparable_damage(String, String, String)
+
+// not_satisfied_satisfied_art366_sec3_2_destruction_no_irreparable_damage: 증명 가능한 평가에서 다음 조건이 부인됨: 손괴는 중요한 부분의 훼손이나 물건 자체의 소멸을 요구하지 않으며, 본래 사용목적에 제공할 수 없는 상태가 되면 족하다.
+// sources: comm_001692_제366조_Ⅲ.2_13, comm_001692_제366조_Ⅲ.2_13
+// norm_cards: art366_sec3_2.destruction_no_irreparable_damage
+type not_satisfied_satisfied_art366_sec3_2_destruction_no_irreparable_damage(String, String, String)
 
 // assess_art366_sec3_2_document_margin_removal: 이 카드의 사건별 적용 평가: 문서 본문 식별에 영향이 없더라도 여백 제거로 문서 이용의 불편 또는 완전한 외관을 갖춘 문서로서의 효용 저하가 생기면 손괴에 해당한다.
 // sources: comm_001692_제366조_Ⅲ.2_16
@@ -313,6 +453,11 @@ type assess_art366_sec3_2_document_margin_removal(String, String, String, String
 // norm_cards: art366_sec3_2.document_margin_removal
 type satisfied_art366_sec3_2_document_margin_removal(String, String, String)
 
+// not_satisfied_satisfied_art366_sec3_2_document_margin_removal: 증명 가능한 평가에서 다음 조건이 부인됨: 문서 본문 식별에 영향이 없더라도 여백 제거로 문서 이용의 불편 또는 완전한 외관을 갖춘 문서로서의 효용 저하가 생기면 손괴에 해당한다.
+// sources: comm_001692_제366조_Ⅲ.2_16
+// norm_cards: art366_sec3_2.document_margin_removal
+type not_satisfied_satisfied_art366_sec3_2_document_margin_removal(String, String, String)
+
 // assess_art366_sec3_2_document_removal_against_owner_intent: 이 카드의 사건별 적용 평가: 소유자의 의사에 따라 게시 중인 문서를 소유자 의사에 반하여 떼어내 종래 이용상태를 변경하고 그 상태에 따른 이용을 일시적으로 불가능하게 하면 문서손괴죄가 성립할 수 있다.
 // sources: comm_001692_제366조_Ⅲ.2_21, comm_001692_제366조_Ⅲ.2_21
 // norm_cards: art366_sec3_2.document_removal_against_owner_intent
@@ -322,6 +467,11 @@ type assess_art366_sec3_2_document_removal_against_owner_intent(String, String, 
 // sources: comm_001692_제366조_Ⅲ.2_21, comm_001692_제366조_Ⅲ.2_21
 // norm_cards: art366_sec3_2.document_removal_against_owner_intent
 type satisfied_art366_sec3_2_document_removal_against_owner_intent(String, String, String)
+
+// not_satisfied_satisfied_art366_sec3_2_document_removal_against_owner_intent: 증명 가능한 평가에서 다음 조건이 부인됨: 소유자의 의사에 따라 게시 중인 문서를 소유자 의사에 반하여 떼어내 종래 이용상태를 변경하고 그 상태에 따른 이용을 일시적으로 불가능하게 하면 문서손괴죄가 성립할 수 있다.
+// sources: comm_001692_제366조_Ⅲ.2_21, comm_001692_제366조_Ⅲ.2_21
+// norm_cards: art366_sec3_2.document_removal_against_owner_intent
+type not_satisfied_satisfied_art366_sec3_2_document_removal_against_owner_intent(String, String, String)
 
 // assess_art366_sec3_2_document_removal_without_owner_intent: 이 카드의 사건별 적용 평가: 문서의 종래 사용상태가 처음부터 소유자 의사에 반하거나 무관한 특별한 사정이 있고, 그 상태를 제거·변경하였을 뿐 새로 문서 사용에 지장을 초래하지 않으면 기타 방법에 의한 문서손괴죄는 성립하지 않는다.
 // sources: comm_001692_제366조_Ⅲ.2_21
@@ -333,6 +483,11 @@ type assess_art366_sec3_2_document_removal_without_owner_intent(String, String, 
 // norm_cards: art366_sec3_2.document_removal_without_owner_intent
 type satisfied_art366_sec3_2_document_removal_without_owner_intent(String, String, String)
 
+// not_satisfied_satisfied_art366_sec3_2_document_removal_without_owner_intent: 증명 가능한 평가에서 다음 조건이 부인됨: 문서의 종래 사용상태가 처음부터 소유자 의사에 반하거나 무관한 특별한 사정이 있고, 그 상태를 제거·변경하였을 뿐 새로 문서 사용에 지장을 초래하지 않으면 기타 방법에 의한 문서손괴죄는 성립하지 않는다.
+// sources: comm_001692_제366조_Ⅲ.2_21
+// norm_cards: art366_sec3_2.document_removal_without_owner_intent
+type not_satisfied_satisfied_art366_sec3_2_document_removal_without_owner_intent(String, String, String)
+
 // assess_art366_sec3_2_electronic_file_metadata_concealment: 이 카드의 사건별 적용 평가: 전자기록이 저장된 매체에서 파일의 명칭·속성·위치·기록방식 등에 관한 메타데이터를 임의 변경하여 정보의 식별 또는 접근을 곤란하게 하면 은닉에 해당할 수 있다.
 // sources: comm_001692_제366조_Ⅲ.2_18
 // norm_cards: art366_sec3_2.electronic_file_metadata_concealment
@@ -342,6 +497,11 @@ type assess_art366_sec3_2_electronic_file_metadata_concealment(String, String, S
 // sources: comm_001692_제366조_Ⅲ.2_18
 // norm_cards: art366_sec3_2.electronic_file_metadata_concealment
 type satisfied_art366_sec3_2_electronic_file_metadata_concealment(String, String, String)
+
+// not_satisfied_satisfied_art366_sec3_2_electronic_file_metadata_concealment: 증명 가능한 평가에서 다음 조건이 부인됨: 전자기록이 저장된 매체에서 파일의 명칭·속성·위치·기록방식 등에 관한 메타데이터를 임의 변경하여 정보의 식별 또는 접근을 곤란하게 하면 은닉에 해당할 수 있다.
+// sources: comm_001692_제366조_Ⅲ.2_18
+// norm_cards: art366_sec3_2.electronic_file_metadata_concealment
+type not_satisfied_satisfied_art366_sec3_2_electronic_file_metadata_concealment(String, String, String)
 
 // assess_art366_sec3_2_electronic_record_other_methods_definition: 이 카드의 사건별 적용 평가: 전자기록 등 특수매체기록에 대한 기타 방법의 효용침해행위에는 새 프로그램 입력으로 기존 정보를 사용할 수 없게 하거나, 기록을 추가·삭제하거나 다른 정보와 연결하여 정보 내용을 변경하는 경우 등이 포함된다.
 // sources: comm_001692_제366조_Ⅲ.2_22
@@ -353,6 +513,11 @@ type assess_art366_sec3_2_electronic_record_other_methods_definition(String, Str
 // norm_cards: art366_sec3_2.electronic_record_other_methods_definition
 type satisfied_art366_sec3_2_electronic_record_other_methods_definition(String, String, String)
 
+// not_satisfied_satisfied_art366_sec3_2_electronic_record_other_methods_definition: 증명 가능한 평가에서 다음 조건이 부인됨: 전자기록 등 특수매체기록에 대한 기타 방법의 효용침해행위에는 새 프로그램 입력으로 기존 정보를 사용할 수 없게 하거나, 기록을 추가·삭제하거나 다른 정보와 연결하여 정보 내용을 변경하는 경우 등이 포함된다.
+// sources: comm_001692_제366조_Ⅲ.2_22
+// norm_cards: art366_sec3_2.electronic_record_other_methods_definition
+type not_satisfied_satisfied_art366_sec3_2_electronic_record_other_methods_definition(String, String, String)
+
 // assess_art366_sec3_2_electronic_record_power_cutoff_exception: 이 카드의 사건별 적용 평가: 정보처리장치에 연결된 기록매체의 전원 차단은 저장된 기록 자체에 손상이 발생하는 예외적 경우가 아니라면 전자기록손괴죄가 별도로 성립하지 않는다.
 // sources: comm_001692_제366조_Ⅲ.2_22
 // norm_cards: art366_sec3_2.electronic_record_power_cutoff_exception
@@ -362,6 +527,11 @@ type assess_art366_sec3_2_electronic_record_power_cutoff_exception(String, Strin
 // sources: comm_001692_제366조_Ⅲ.2_22
 // norm_cards: art366_sec3_2.electronic_record_power_cutoff_exception
 type satisfied_art366_sec3_2_electronic_record_power_cutoff_exception(String, String, String)
+
+// not_satisfied_satisfied_art366_sec3_2_electronic_record_power_cutoff_exception: 증명 가능한 평가에서 다음 조건이 부인됨: 정보처리장치에 연결된 기록매체의 전원 차단은 저장된 기록 자체에 손상이 발생하는 예외적 경우가 아니라면 전자기록손괴죄가 별도로 성립하지 않는다.
+// sources: comm_001692_제366조_Ⅲ.2_22
+// norm_cards: art366_sec3_2.electronic_record_power_cutoff_exception
+type not_satisfied_satisfied_art366_sec3_2_electronic_record_power_cutoff_exception(String, String, String)
 
 // assess_art366_sec3_2_emotional_use_majority_position: 이 카드의 사건별 적용 평가: 감정상 물건을 본래의 용법에 따라 사용할 수 없게 한 경우도 기타 방법에 의한 효용침해행위에 해당하여 재물손괴죄가 성립한다.
 // sources: comm_001692_제366조_Ⅲ.2_20
@@ -373,6 +543,11 @@ type assess_art366_sec3_2_emotional_use_majority_position(String, String, String
 // norm_cards: art366_sec3_2.emotional_use_majority_position
 type satisfied_art366_sec3_2_emotional_use_majority_position(String, String, String)
 
+// not_satisfied_satisfied_art366_sec3_2_emotional_use_majority_position: 증명 가능한 평가에서 다음 조건이 부인됨: 감정상 물건을 본래의 용법에 따라 사용할 수 없게 한 경우도 기타 방법에 의한 효용침해행위에 해당하여 재물손괴죄가 성립한다.
+// sources: comm_001692_제366조_Ⅲ.2_20
+// norm_cards: art366_sec3_2.emotional_use_majority_position
+type not_satisfied_satisfied_art366_sec3_2_emotional_use_majority_position(String, String, String)
+
 // assess_art366_sec3_2_mere_functional_interference_not_destruction: 이 카드의 사건별 적용 평가: 물건에 변형이나 손상을 가하지 않고 단순히 본래 기능만 훼손한 경우에는 손괴가 되지 않는다.
 // sources: comm_001692_제366조_Ⅲ.2_13
 // norm_cards: art366_sec3_2.mere_functional_interference_not_destruction
@@ -382,6 +557,11 @@ type assess_art366_sec3_2_mere_functional_interference_not_destruction(String, S
 // sources: comm_001692_제366조_Ⅲ.2_13
 // norm_cards: art366_sec3_2.mere_functional_interference_not_destruction
 type satisfied_art366_sec3_2_mere_functional_interference_not_destruction(String, String, String)
+
+// not_satisfied_satisfied_art366_sec3_2_mere_functional_interference_not_destruction: 증명 가능한 평가에서 다음 조건이 부인됨: 물건에 변형이나 손상을 가하지 않고 단순히 본래 기능만 훼손한 경우에는 손괴가 되지 않는다.
+// sources: comm_001692_제366조_Ⅲ.2_13
+// norm_cards: art366_sec3_2.mere_functional_interference_not_destruction
+type not_satisfied_satisfied_art366_sec3_2_mere_functional_interference_not_destruction(String, String, String)
 
 // assess_art366_sec3_2_movement_no_objective_use_value: 이 카드의 사건별 적용 평가: 소유자가 우연히 놓아두거나 방치한 물건을 다른 곳으로 옮겨 즉시 본래 용법대로 사용할 수 없게 한 것만으로는 객관적 이용가치·효용이 인정되지 않아 기타 방법에 의한 효용침해를 인정할 수 없다.
 // sources: comm_001692_제366조_Ⅲ.2_21
@@ -393,6 +573,11 @@ type assess_art366_sec3_2_movement_no_objective_use_value(String, String, String
 // norm_cards: art366_sec3_2.movement_no_objective_use_value
 type satisfied_art366_sec3_2_movement_no_objective_use_value(String, String, String)
 
+// not_satisfied_satisfied_art366_sec3_2_movement_no_objective_use_value: 증명 가능한 평가에서 다음 조건이 부인됨: 소유자가 우연히 놓아두거나 방치한 물건을 다른 곳으로 옮겨 즉시 본래 용법대로 사용할 수 없게 한 것만으로는 객관적 이용가치·효용이 인정되지 않아 기타 방법에 의한 효용침해를 인정할 수 없다.
+// sources: comm_001692_제366조_Ⅲ.2_21
+// norm_cards: art366_sec3_2.movement_no_objective_use_value
+type not_satisfied_satisfied_art366_sec3_2_movement_no_objective_use_value(String, String, String)
+
 // assess_art366_sec3_2_movement_objective_use_value: 이 카드의 사건별 적용 평가: 물건을 설치·부착된 장소나 물건에서 이동·분리한 경우, 그 장소 또는 물건과 범행객체 사이에 객관적으로 구성적 또는 결합적 관계가 있고 설치·부착으로 얻는 이용가치·효용이 인정되면 기타 방법에 의한 손괴죄가 성립할 근거가 된다.
 // sources: comm_001692_제366조_Ⅲ.2_20
 // norm_cards: art366_sec3_2.movement_objective_use_value
@@ -402,6 +587,11 @@ type assess_art366_sec3_2_movement_objective_use_value(String, String, String, S
 // sources: comm_001692_제366조_Ⅲ.2_20
 // norm_cards: art366_sec3_2.movement_objective_use_value
 type satisfied_art366_sec3_2_movement_objective_use_value(String, String, String)
+
+// not_satisfied_satisfied_art366_sec3_2_movement_objective_use_value: 증명 가능한 평가에서 다음 조건이 부인됨: 물건을 설치·부착된 장소나 물건에서 이동·분리한 경우, 그 장소 또는 물건과 범행객체 사이에 객관적으로 구성적 또는 결합적 관계가 있고 설치·부착으로 얻는 이용가치·효용이 인정되면 기타 방법에 의한 손괴죄가 성립할 근거가 된다.
+// sources: comm_001692_제366조_Ⅲ.2_20
+// norm_cards: art366_sec3_2.movement_objective_use_value
+type not_satisfied_satisfied_art366_sec3_2_movement_objective_use_value(String, String, String)
 
 // assess_art366_sec3_2_other_method_efficiency_harm_definition: 이 카드의 사건별 적용 평가: 기타 방법에 의한 효용침해는 손괴·은닉 이외의 방법으로 물건의 이용가치 또는 효용을 해하는 것으로, 본래 용법에 따라 사용할 수 없게 하는 모든 경우를 포함한다.
 // sources: comm_001692_제366조_Ⅲ.2_18, comm_001692_제366조_Ⅲ.2_18
@@ -413,6 +603,11 @@ type assess_art366_sec3_2_other_method_efficiency_harm_definition(String, String
 // norm_cards: art366_sec3_2.other_method_efficiency_harm_definition
 type satisfied_art366_sec3_2_other_method_efficiency_harm_definition(String, String, String)
 
+// not_satisfied_satisfied_art366_sec3_2_other_method_efficiency_harm_definition: 증명 가능한 평가에서 다음 조건이 부인됨: 기타 방법에 의한 효용침해는 손괴·은닉 이외의 방법으로 물건의 이용가치 또는 효용을 해하는 것으로, 본래 용법에 따라 사용할 수 없게 하는 모든 경우를 포함한다.
+// sources: comm_001692_제366조_Ⅲ.2_18, comm_001692_제366조_Ⅲ.2_18
+// norm_cards: art366_sec3_2.other_method_efficiency_harm_definition
+type not_satisfied_satisfied_art366_sec3_2_other_method_efficiency_harm_definition(String, String, String)
+
 // assess_art366_sec3_2_other_method_temporary_unusable: 이 카드의 사건별 적용 평가: 기타 방법에 의한 효용침해에는 물건을 본래 사용목적에 제공할 수 없게 하는 경우뿐 아니라 일시적으로 이용할 수 없게 하는 경우도 포함된다.
 // sources: comm_001692_제366조_Ⅲ.2_18
 // norm_cards: art366_sec3_2.other_method_temporary_unusable
@@ -422,6 +617,11 @@ type assess_art366_sec3_2_other_method_temporary_unusable(String, String, String
 // sources: comm_001692_제366조_Ⅲ.2_18
 // norm_cards: art366_sec3_2.other_method_temporary_unusable
 type satisfied_art366_sec3_2_other_method_temporary_unusable(String, String, String)
+
+// not_satisfied_satisfied_art366_sec3_2_other_method_temporary_unusable: 증명 가능한 평가에서 다음 조건이 부인됨: 기타 방법에 의한 효용침해에는 물건을 본래 사용목적에 제공할 수 없게 하는 경우뿐 아니라 일시적으로 이용할 수 없게 하는 경우도 포함된다.
+// sources: comm_001692_제366조_Ⅲ.2_18
+// norm_cards: art366_sec3_2.other_method_temporary_unusable
+type not_satisfied_satisfied_art366_sec3_2_other_method_temporary_unusable(String, String, String)
 
 // assess_art366_sec3_2_preservation_state_change_view: 이 카드의 사건별 적용 평가: 유형력을 행사하여 소유자의 이익에 반하게 물건의 보존상태를 변경하고 일시적으로 본래 기능을 다할 수 없게 한 경우에도 손괴가 성립한다.
 // sources: comm_001692_제366조_Ⅲ.2_14
@@ -433,6 +633,11 @@ type assess_art366_sec3_2_preservation_state_change_view(String, String, String,
 // norm_cards: art366_sec3_2.preservation_state_change_view
 type satisfied_art366_sec3_2_preservation_state_change_view(String, String, String)
 
+// not_satisfied_satisfied_art366_sec3_2_preservation_state_change_view: 증명 가능한 평가에서 다음 조건이 부인됨: 유형력을 행사하여 소유자의 이익에 반하게 물건의 보존상태를 변경하고 일시적으로 본래 기능을 다할 수 없게 한 경우에도 손괴가 성립한다.
+// sources: comm_001692_제366조_Ⅲ.2_14
+// norm_cards: art366_sec3_2.preservation_state_change_view
+type not_satisfied_satisfied_art366_sec3_2_preservation_state_change_view(String, String, String)
+
 // assess_art366_sec3_2_road_graffiti_totality: 이 카드의 사건별 적용 평가: 포장도로 낙서가 도로 효용을 해하는지는 도로 용도·기능, 노면표시 기능 및 통행·안전 영향, 미관 훼손 정도, 이용자 불쾌감·저항감, 원상회복 난이도·비용, 목적·계속성 및 당시 상황을 종합하여 사회통념에 따라 판단한다.
 // sources: comm_001692_제366조_Ⅲ.2_25, comm_001692_제366조_Ⅲ.2_25
 // norm_cards: art366_sec3_2.road_graffiti_totality
@@ -442,6 +647,11 @@ type assess_art366_sec3_2_road_graffiti_totality(String, String, String, String,
 // sources: comm_001692_제366조_Ⅲ.2_25, comm_001692_제366조_Ⅲ.2_25
 // norm_cards: art366_sec3_2.road_graffiti_totality
 type satisfied_art366_sec3_2_road_graffiti_totality(String, String, String)
+
+// not_satisfied_satisfied_art366_sec3_2_road_graffiti_totality: 증명 가능한 평가에서 다음 조건이 부인됨: 포장도로 낙서가 도로 효용을 해하는지는 도로 용도·기능, 노면표시 기능 및 통행·안전 영향, 미관 훼손 정도, 이용자 불쾌감·저항감, 원상회복 난이도·비용, 목적·계속성 및 당시 상황을 종합하여 사회통념에 따라 판단한다.
+// sources: comm_001692_제366조_Ⅲ.2_25, comm_001692_제366조_Ⅲ.2_25
+// norm_cards: art366_sec3_2.road_graffiti_totality
+type not_satisfied_satisfied_art366_sec3_2_road_graffiti_totality(String, String, String)
 
 // assess_art366_sec3_2_wall_graffiti_functional_efficiency_limit: 이 카드의 사건별 적용 평가: 벽면 낙서는 그로 인하여 건조물의 미관 등 기능적 효용이 현저하게 침해되거나 감소된 경우에 한하여 재물손괴죄가 성립한다.
 // sources: comm_001692_제366조_Ⅲ.2_24
@@ -453,6 +663,11 @@ type assess_art366_sec3_2_wall_graffiti_functional_efficiency_limit(String, Stri
 // norm_cards: art366_sec3_2.wall_graffiti_functional_efficiency_limit
 type satisfied_art366_sec3_2_wall_graffiti_functional_efficiency_limit(String, String, String)
 
+// not_satisfied_satisfied_art366_sec3_2_wall_graffiti_functional_efficiency_limit: 증명 가능한 평가에서 다음 조건이 부인됨: 벽면 낙서는 그로 인하여 건조물의 미관 등 기능적 효용이 현저하게 침해되거나 감소된 경우에 한하여 재물손괴죄가 성립한다.
+// sources: comm_001692_제366조_Ⅲ.2_24
+// norm_cards: art366_sec3_2.wall_graffiti_functional_efficiency_limit
+type not_satisfied_satisfied_art366_sec3_2_wall_graffiti_functional_efficiency_limit(String, String, String)
+
 // assess_art366_sec3_2_wall_graffiti_totality: 이 카드의 사건별 적용 평가: 건조물 벽면 낙서·게시물 부착·오물 투척이 건조물 효용을 해하는지는 건조물 용도와 기능, 채광·통풍·조망 영향, 미관 훼손 정도, 이용자 불쾌감·저항감, 원상회복 난이도·비용, 목적·계속성 및 당시 상황을 종합하여 사회통념에 따라 판단한다.
 // sources: comm_001692_제366조_Ⅲ.2_24
 // norm_cards: art366_sec3_2.wall_graffiti_totality
@@ -462,6 +677,11 @@ type assess_art366_sec3_2_wall_graffiti_totality(String, String, String, String,
 // sources: comm_001692_제366조_Ⅲ.2_24
 // norm_cards: art366_sec3_2.wall_graffiti_totality
 type satisfied_art366_sec3_2_wall_graffiti_totality(String, String, String)
+
+// not_satisfied_satisfied_art366_sec3_2_wall_graffiti_totality: 증명 가능한 평가에서 다음 조건이 부인됨: 건조물 벽면 낙서·게시물 부착·오물 투척이 건조물 효용을 해하는지는 건조물 용도와 기능, 채광·통풍·조망 영향, 미관 훼손 정도, 이용자 불쾌감·저항감, 원상회복 난이도·비용, 목적·계속성 및 당시 상황을 종합하여 사회통념에 따라 판단한다.
+// sources: comm_001692_제366조_Ⅲ.2_24
+// norm_cards: art366_sec3_2.wall_graffiti_totality
+type not_satisfied_satisfied_art366_sec3_2_wall_graffiti_totality(String, String, String)
 
 // assess_art366_sec3_3_completion_efficiency_injury: 이 카드의 사건별 적용 평가: 재물 등의 이용가치 또는 효용의 감소나 훼손 상태가 발생하면 기수에 이른다.
 // sources: comm_001692_제366조_Ⅲ.3_27
@@ -473,6 +693,11 @@ type assess_art366_sec3_3_completion_efficiency_injury(String, String, String, S
 // norm_cards: art366_sec3_3.completion.efficiency_injury
 type satisfied_art366_sec3_3_completion_efficiency_injury(String, String, String)
 
+// not_satisfied_satisfied_art366_sec3_3_completion_efficiency_injury: 증명 가능한 평가에서 다음 조건이 부인됨: 재물 등의 이용가치 또는 효용의 감소나 훼손 상태가 발생하면 기수에 이른다.
+// sources: comm_001692_제366조_Ⅲ.3_27
+// norm_cards: art366_sec3_3.completion.efficiency_injury
+type not_satisfied_satisfied_art366_sec3_3_completion_efficiency_injury(String, String, String)
+
 // assess_art366_sec4_1_intent_absence: 이 카드의 사건별 적용 평가: 범행객체가 타인 소유임을 알지 못하거나 자기 행위로 재물 등의 효용이 침해될 결과를 예견하지 못한 경우에는 고의가 없어 죄가 성립하지 않는다.
 // sources: comm_001692_제366조_Ⅳ.1_28
 // norm_cards: art366_sec4_1.intent_absence
@@ -482,6 +707,11 @@ type assess_art366_sec4_1_intent_absence(String, String, String, String, String)
 // sources: comm_001692_제366조_Ⅳ.1_28
 // norm_cards: art366_sec4_1.intent_absence
 type satisfied_art366_sec4_1_intent_absence(String, String, String)
+
+// not_satisfied_satisfied_art366_sec4_1_intent_absence: 증명 가능한 평가에서 다음 조건이 부인됨: 범행객체가 타인 소유임을 알지 못하거나 자기 행위로 재물 등의 효용이 침해될 결과를 예견하지 못한 경우에는 고의가 없어 죄가 성립하지 않는다.
+// sources: comm_001692_제366조_Ⅳ.1_28
+// norm_cards: art366_sec4_1.intent_absence
+type not_satisfied_satisfied_art366_sec4_1_intent_absence(String, String, String)
 
 // assess_art366_sec4_1_intent_awareness: 이 카드의 사건별 적용 평가: 재물손괴등에는 손괴·은닉·기타 방법으로 타인 소유 재물·문서 또는 타인 지배관리 하 전자기록 등의 이용가치 전부 또는 일부를 침해한다는 인식, 즉 고의가 필요하다.
 // sources: comm_001692_제366조_Ⅳ.1_28
@@ -493,6 +723,11 @@ type assess_art366_sec4_1_intent_awareness(String, String, String, String, Strin
 // norm_cards: art366_sec4_1.intent_awareness
 type satisfied_art366_sec4_1_intent_awareness(String, String, String)
 
+// not_satisfied_satisfied_art366_sec4_1_intent_awareness: 증명 가능한 평가에서 다음 조건이 부인됨: 재물손괴등에는 손괴·은닉·기타 방법으로 타인 소유 재물·문서 또는 타인 지배관리 하 전자기록 등의 이용가치 전부 또는 일부를 침해한다는 인식, 즉 고의가 필요하다.
+// sources: comm_001692_제366조_Ⅳ.1_28
+// norm_cards: art366_sec4_1.intent_awareness
+type not_satisfied_satisfied_art366_sec4_1_intent_awareness(String, String, String)
+
 // assess_art366_sec4_1_intent_conditional_sufficiency: 이 카드의 사건별 적용 평가: 재물손괴의 고의는 계획적 손괴 의도나 적극적 희망까지 필요하지 않고, 소유자 의사에 반하여 재물 효용을 상실하게 한다는 인식으로 충분하며 미필적 고의만으로도 충분하다.
 // sources: comm_001692_제366조_Ⅳ.1_28
 // norm_cards: art366_sec4_1.intent_conditional_sufficiency
@@ -502,6 +737,11 @@ type assess_art366_sec4_1_intent_conditional_sufficiency(String, String, String,
 // sources: comm_001692_제366조_Ⅳ.1_28
 // norm_cards: art366_sec4_1.intent_conditional_sufficiency
 type satisfied_art366_sec4_1_intent_conditional_sufficiency(String, String, String)
+
+// not_satisfied_satisfied_art366_sec4_1_intent_conditional_sufficiency: 증명 가능한 평가에서 다음 조건이 부인됨: 재물손괴의 고의는 계획적 손괴 의도나 적극적 희망까지 필요하지 않고, 소유자 의사에 반하여 재물 효용을 상실하게 한다는 인식으로 충분하며 미필적 고의만으로도 충분하다.
+// sources: comm_001692_제366조_Ⅳ.1_28
+// norm_cards: art366_sec4_1.intent_conditional_sufficiency
+type not_satisfied_satisfied_art366_sec4_1_intent_conditional_sufficiency(String, String, String)
 
 // assess_art366_sec5_2_immediate_self_recovery_assessment: 이 카드의 사건별 적용 평가: 부동산 자력탈환권의 행사가 직시에 이루어졌는지는 물리적 시간뿐 아니라 침탈자의 점유 확립, 법적 안정·평화 침해 및 권리남용 여부를 함께 살펴 판단한다.
 // sources: comm_001692_제366조_Ⅴ.2_34, comm_001692_제366조_Ⅴ.2_34, comm_001692_제366조_Ⅴ.2_34
@@ -513,6 +753,11 @@ type assess_art366_sec5_2_immediate_self_recovery_assessment(String, String, Str
 // norm_cards: art366_sec5_2.immediate_self_recovery_assessment
 type satisfied_art366_sec5_2_immediate_self_recovery_assessment(String, String, String)
 
+// not_satisfied_satisfied_art366_sec5_2_immediate_self_recovery_assessment: 증명 가능한 평가에서 다음 조건이 부인됨: 부동산 자력탈환권의 행사가 직시에 이루어졌는지는 물리적 시간뿐 아니라 침탈자의 점유 확립, 법적 안정·평화 침해 및 권리남용 여부를 함께 살펴 판단한다.
+// sources: comm_001692_제366조_Ⅴ.2_34, comm_001692_제366조_Ⅴ.2_34, comm_001692_제366조_Ⅴ.2_34
+// norm_cards: art366_sec5_2.immediate_self_recovery_assessment
+type not_satisfied_satisfied_art366_sec5_2_immediate_self_recovery_assessment(String, String, String)
+
 // assess_art366_sec5_2_justifiable_act_requirements: 이 카드의 사건별 적용 평가: 정당행위는 동기·목적의 정당성, 수단·방법의 상당성, 법익균형성, 긴급성 및 보충성 등의 요건을 갖춘 경우에 인정된다.
 // sources: comm_001692_제366조_Ⅴ.2_32, comm_001692_제366조_Ⅴ.2_32
 // norm_cards: art366_sec5_2.justifiable_act_requirements
@@ -522,6 +767,11 @@ type assess_art366_sec5_2_justifiable_act_requirements(String, String, String, S
 // sources: comm_001692_제366조_Ⅴ.2_32, comm_001692_제366조_Ⅴ.2_32
 // norm_cards: art366_sec5_2.justifiable_act_requirements
 type satisfied_art366_sec5_2_justifiable_act_requirements(String, String, String)
+
+// not_satisfied_satisfied_art366_sec5_2_justifiable_act_requirements: 증명 가능한 평가에서 다음 조건이 부인됨: 정당행위는 동기·목적의 정당성, 수단·방법의 상당성, 법익균형성, 긴급성 및 보충성 등의 요건을 갖춘 경우에 인정된다.
+// sources: comm_001692_제366조_Ⅴ.2_32, comm_001692_제366조_Ⅴ.2_32
+// norm_cards: art366_sec5_2.justifiable_act_requirements
+type not_satisfied_satisfied_art366_sec5_2_justifiable_act_requirements(String, String, String)
 
 // assess_art366_sec5_2_possession_protection_destruction: 이 카드의 사건별 적용 평가: 부당한 점유침탈을 배제하고 위험발생을 방지하기 위해 자물쇠나 전기선을 절단한 경우, 침해가 과도하지 않아 사회통념상 현저히 타당성을 잃지 않으면 정당행위가 된다.
 // sources: comm_001692_제366조_Ⅴ.2_32, comm_001692_제366조_Ⅴ.2_32
@@ -533,6 +783,11 @@ type assess_art366_sec5_2_possession_protection_destruction(String, String, Stri
 // norm_cards: art366_sec5_2.possession_protection_destruction
 type satisfied_art366_sec5_2_possession_protection_destruction(String, String, String)
 
+// not_satisfied_satisfied_art366_sec5_2_possession_protection_destruction: 증명 가능한 평가에서 다음 조건이 부인됨: 부당한 점유침탈을 배제하고 위험발생을 방지하기 위해 자물쇠나 전기선을 절단한 경우, 침해가 과도하지 않아 사회통념상 현저히 타당성을 잃지 않으면 정당행위가 된다.
+// sources: comm_001692_제366조_Ⅴ.2_32, comm_001692_제366조_Ⅴ.2_32
+// norm_cards: art366_sec5_2.possession_protection_destruction
+type not_satisfied_satisfied_art366_sec5_2_possession_protection_destruction(String, String, String)
+
 // assess_art366_sec5_2_socially_acceptable_act: 이 카드의 사건별 적용 평가: 사회상규에 위배되지 아니하는 행위란 법질서 전체의 정신, 사회윤리 또는 사회통념에 비추어 용인될 수 있는 행위이다.
 // sources: comm_001692_제366조_Ⅴ.2_32
 // norm_cards: art366_sec5_2.socially_acceptable_act
@@ -543,6 +798,11 @@ type assess_art366_sec5_2_socially_acceptable_act(String, String, String, String
 // norm_cards: art366_sec5_2.socially_acceptable_act
 type satisfied_art366_sec5_2_socially_acceptable_act(String, String, String)
 
+// not_satisfied_satisfied_art366_sec5_2_socially_acceptable_act: 증명 가능한 평가에서 다음 조건이 부인됨: 사회상규에 위배되지 아니하는 행위란 법질서 전체의 정신, 사회윤리 또는 사회통념에 비추어 용인될 수 있는 행위이다.
+// sources: comm_001692_제366조_Ⅴ.2_32
+// norm_cards: art366_sec5_2.socially_acceptable_act
+type not_satisfied_satisfied_art366_sec5_2_socially_acceptable_act(String, String, String)
+
 // assess_art366_sec5_5_presumed_consent: 이 카드의 사건별 적용 평가: 추정적 승낙은 현실적 승낙이 없더라도 행위 당시의 모든 객관적 사정에 비추어 피해자가 행위 내용을 알았다면 당연히 승낙하였을 것으로 예견되는 경우를 말한다.
 // sources: comm_001692_제366조_Ⅴ.5_38, comm_001692_제366조_Ⅴ.5_38
 // norm_cards: art366_sec5_5.presumed_consent
@@ -552,6 +812,11 @@ type assess_art366_sec5_5_presumed_consent(String, String, String, String, Strin
 // sources: comm_001692_제366조_Ⅴ.5_38, comm_001692_제366조_Ⅴ.5_38
 // norm_cards: art366_sec5_5.presumed_consent
 type satisfied_art366_sec5_5_presumed_consent(String, String, String)
+
+// not_satisfied_satisfied_art366_sec5_5_presumed_consent: 증명 가능한 평가에서 다음 조건이 부인됨: 추정적 승낙은 현실적 승낙이 없더라도 행위 당시의 모든 객관적 사정에 비추어 피해자가 행위 내용을 알았다면 당연히 승낙하였을 것으로 예견되는 경우를 말한다.
+// sources: comm_001692_제366조_Ⅴ.5_38, comm_001692_제366조_Ⅴ.5_38
+// norm_cards: art366_sec5_5.presumed_consent
+type not_satisfied_satisfied_art366_sec5_5_presumed_consent(String, String, String)
 
 // property_damage_object_satisfied: 객체·적격 요건이 충족됨 — 재물성·타인성·점유·주체 신분
 // sources: comm_001692_제366조_Ⅰ_0, comm_001692_제366조_Ⅲ.1_10, comm_001692_제366조_Ⅲ.1_11, comm_001692_제366조_Ⅲ.1_11, comm_001692_제366조_Ⅲ.1_12, comm_001692_제366조_Ⅲ.1_12, comm_001692_제366조_Ⅲ.1_12, comm_001692_제366조_Ⅲ.1_12, comm_001692_제366조_Ⅲ.1_2, comm_001692_제366조_Ⅲ.1_3, comm_001692_제366조_Ⅲ.1_5, comm_001692_제366조_Ⅲ.1_6, comm_001692_제366조_Ⅲ.1_7, comm_001692_제366조_Ⅲ.1_7, comm_001692_제366조_Ⅲ.1_7, comm_001692_제366조_Ⅲ.1_7, comm_001692_제366조_Ⅲ.1_8, comm_001692_제366조_Ⅲ.1_8
@@ -643,6 +908,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.alternative_use_prop
   assess_art366_alternative_use_property(case_id, negative_001, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_001)
 
+// rule_id: property_damage.art366.card.001.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_7
+// norm_cards: art366.alternative_use_property
+rel not_satisfied_satisfied_art366_alternative_use_property(case_id, defendant_id, owner_id) = assess_art366_alternative_use_property(case_id, not_satisfied_001, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_001)
+
 // rule_id: property_damage.art366.card.002.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_5
 // norm_cards: art366.cloud_provider_delete_record
@@ -662,6 +933,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.cloud_provider_delet
   provable(case_id, positive_002) and
   assess_art366_cloud_provider_delete_record(case_id, negative_002, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_002)
+
+// rule_id: property_damage.art366.card.002.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_5
+// norm_cards: art366.cloud_provider_delete_record
+rel not_satisfied_satisfied_art366_cloud_provider_delete_record(case_id, defendant_id, owner_id) = assess_art366_cloud_provider_delete_record(case_id, not_satisfied_002, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_002)
 
 // rule_id: property_damage.art366.card.003.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_6
@@ -683,6 +960,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.corpse_exclusion") =
   assess_art366_corpse_exclusion(case_id, negative_003, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_003)
 
+// rule_id: property_damage.art366.card.003.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_6
+// norm_cards: art366.corpse_exclusion
+rel not_satisfied_satisfied_art366_corpse_exclusion(case_id, defendant_id, owner_id) = assess_art366_corpse_exclusion(case_id, not_satisfied_003, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_003)
+
 // rule_id: property_damage.art366.card.004.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_8
 // norm_cards: art366.document_definition
@@ -702,6 +985,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.document_definition"
   provable(case_id, positive_004) and
   assess_art366_document_definition(case_id, negative_004, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_004)
+
+// rule_id: property_damage.art366.card.004.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_8
+// norm_cards: art366.document_definition
+rel not_satisfied_satisfied_art366_document_definition(case_id, defendant_id, owner_id) = assess_art366_document_definition(case_id, not_satisfied_004, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_004)
 
 // rule_id: property_damage.art366.card.005.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_10
@@ -723,6 +1012,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.electronic_record_de
   assess_art366_electronic_record_definition(case_id, negative_005, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_005)
 
+// rule_id: property_damage.art366.card.005.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_10
+// norm_cards: art366.electronic_record_definition
+rel not_satisfied_satisfied_art366_electronic_record_definition(case_id, defendant_id, owner_id) = assess_art366_electronic_record_definition(case_id, not_satisfied_005, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_005)
+
 // rule_id: property_damage.art366.card.006.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_12
 // norm_cards: art366.electronic_record_durability
@@ -742,6 +1037,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.electronic_record_du
   provable(case_id, positive_006) and
   assess_art366_electronic_record_durability(case_id, negative_006, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_006)
+
+// rule_id: property_damage.art366.card.006.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_12
+// norm_cards: art366.electronic_record_durability
+rel not_satisfied_satisfied_art366_electronic_record_durability(case_id, defendant_id, owner_id) = assess_art366_electronic_record_durability(case_id, not_satisfied_006, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_006)
 
 // rule_id: property_damage.art366.card.007.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_12
@@ -763,6 +1064,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.electronic_record_er
   assess_art366_electronic_record_erasure(case_id, negative_007, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_007)
 
+// rule_id: property_damage.art366.card.007.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_12
+// norm_cards: art366.electronic_record_erasure
+rel not_satisfied_satisfied_art366_electronic_record_erasure(case_id, defendant_id, owner_id) = assess_art366_electronic_record_erasure(case_id, not_satisfied_007, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_007)
+
 // rule_id: property_damage.art366.card.008.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_8
 // norm_cards: art366.fact_certification_private_document
@@ -782,6 +1089,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.fact_certification_p
   provable(case_id, positive_008) and
   assess_art366_fact_certification_private_document(case_id, negative_008, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_008)
+
+// rule_id: property_damage.art366.card.008.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_8
+// norm_cards: art366.fact_certification_private_document
+rel not_satisfied_satisfied_art366_fact_certification_private_document(case_id, defendant_id, owner_id) = assess_art366_fact_certification_private_document(case_id, not_satisfied_008, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_008)
 
 // rule_id: property_damage.art366.card.009.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_12
@@ -803,6 +1116,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.medium_damage_proper
   assess_art366_medium_damage_property_damage(case_id, negative_009, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_009)
 
+// rule_id: property_damage.art366.card.009.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_12
+// norm_cards: art366.medium_damage_property_damage
+rel not_satisfied_satisfied_art366_medium_damage_property_damage(case_id, defendant_id, owner_id) = assess_art366_medium_damage_property_damage(case_id, not_satisfied_009, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_009)
+
 // rule_id: property_damage.art366.card.010.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_7
 // norm_cards: art366.no_utility_property_exclusion
@@ -822,6 +1141,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.no_utility_property_
   provable(case_id, positive_010) and
   assess_art366_no_utility_property_exclusion(case_id, negative_010, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_010)
+
+// rule_id: property_damage.art366.card.010.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_7
+// norm_cards: art366.no_utility_property_exclusion
+rel not_satisfied_satisfied_art366_no_utility_property_exclusion(case_id, defendant_id, owner_id) = assess_art366_no_utility_property_exclusion(case_id, not_satisfied_010, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_010)
 
 // rule_id: property_damage.art366.card.011.satisfied
 // sources: comm_001692_제366조_Ⅰ_0
@@ -843,6 +1168,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.object_manageable_en
   assess_art366_object_manageable_energy(case_id, negative_011, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_011)
 
+// rule_id: property_damage.art366.card.011.not_satisfied
+// sources: comm_001692_제366조_Ⅰ_0
+// norm_cards: art366.object_manageable_energy
+rel not_satisfied_satisfied_art366_object_manageable_energy(case_id, defendant_id, owner_id) = assess_art366_object_manageable_energy(case_id, not_satisfied_011, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_011)
+
 // rule_id: property_damage.art366.card.012.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_2
 // norm_cards: art366.other_person_ownership
@@ -862,6 +1193,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.other_person_ownersh
   provable(case_id, positive_012) and
   assess_art366_other_person_ownership(case_id, negative_012, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_012)
+
+// rule_id: property_damage.art366.card.012.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_2
+// norm_cards: art366.other_person_ownership
+rel not_satisfied_satisfied_art366_other_person_ownership(case_id, defendant_id, owner_id) = assess_art366_other_person_ownership(case_id, not_satisfied_012, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_012)
 
 // rule_id: property_damage.art366.card.013.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_2
@@ -883,6 +1220,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.ownerless_property_e
   assess_art366_ownerless_property_exclusion(case_id, negative_013, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_013)
 
+// rule_id: property_damage.art366.card.013.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_2
+// norm_cards: art366.ownerless_property_exclusion
+rel not_satisfied_satisfied_art366_ownerless_property_exclusion(case_id, defendant_id, owner_id) = assess_art366_ownerless_property_exclusion(case_id, not_satisfied_013, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_013)
+
 // rule_id: property_damage.art366.card.014.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_7
 // norm_cards: art366.property_object_definition
@@ -902,6 +1245,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.property_object_defi
   provable(case_id, positive_014) and
   assess_art366_property_object_definition(case_id, negative_014, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_014)
+
+// rule_id: property_damage.art366.card.014.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_7
+// norm_cards: art366.property_object_definition
+rel not_satisfied_satisfied_art366_property_object_definition(case_id, defendant_id, owner_id) = assess_art366_property_object_definition(case_id, not_satisfied_014, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_014)
 
 // rule_id: property_damage.art366.card.015.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_7
@@ -923,6 +1272,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.public_building_affi
   assess_art366_public_building_affirmative_view(case_id, negative_015, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_015)
 
+// rule_id: property_damage.art366.card.015.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_7
+// norm_cards: art366.public_building_affirmative_view
+rel not_satisfied_satisfied_art366_public_building_affirmative_view(case_id, defendant_id, owner_id) = assess_art366_public_building_affirmative_view(case_id, not_satisfied_015, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_015)
+
 // rule_id: property_damage.art366.card.016.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_8
 // norm_cards: art366.public_document_used_by_office
@@ -942,6 +1297,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.public_document_used
   provable(case_id, positive_016) and
   assess_art366_public_document_used_by_office(case_id, negative_016, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_016)
+
+// rule_id: property_damage.art366.card.016.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_8
+// norm_cards: art366.public_document_used_by_office
+rel not_satisfied_satisfied_art366_public_document_used_by_office(case_id, defendant_id, owner_id) = assess_art366_public_document_used_by_office(case_id, not_satisfied_016, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_016)
 
 // rule_id: property_damage.art366.card.017.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_7
@@ -963,6 +1324,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.public_interest_buil
   assess_art366_public_interest_building_non_destruction(case_id, negative_017, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_017)
 
+// rule_id: property_damage.art366.card.017.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_7
+// norm_cards: art366.public_interest_building_non_destruction
+rel not_satisfied_satisfied_art366_public_interest_building_non_destruction(case_id, defendant_id, owner_id) = assess_art366_public_interest_building_non_destruction(case_id, not_satisfied_017, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_017)
+
 // rule_id: property_damage.art366.card.018.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_12
 // norm_cards: art366.record_medium_information_combination
@@ -982,6 +1349,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.record_medium_inform
   provable(case_id, positive_018) and
   assess_art366_record_medium_information_combination(case_id, negative_018, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_018)
+
+// rule_id: property_damage.art366.card.018.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_12
+// norm_cards: art366.record_medium_information_combination
+rel not_satisfied_satisfied_art366_record_medium_information_combination(case_id, defendant_id, owner_id) = assess_art366_record_medium_information_combination(case_id, not_satisfied_018, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_018)
 
 // rule_id: property_damage.art366.card.019.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_6
@@ -1003,6 +1376,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.separated_human_mate
   assess_art366_separated_human_material(case_id, negative_019, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_019)
 
+// rule_id: property_damage.art366.card.019.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_6
+// norm_cards: art366.separated_human_material
+rel not_satisfied_satisfied_art366_separated_human_material(case_id, defendant_id, owner_id) = assess_art366_separated_human_material(case_id, not_satisfied_019, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_019)
+
 // rule_id: property_damage.art366.card.020.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_3
 // norm_cards: art366.shared_property_damage
@@ -1022,6 +1401,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.shared_property_dama
   provable(case_id, positive_020) and
   assess_art366_shared_property_damage(case_id, negative_020, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_020)
+
+// rule_id: property_damage.art366.card.020.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_3
+// norm_cards: art366.shared_property_damage
+rel not_satisfied_satisfied_art366_shared_property_damage(case_id, defendant_id, owner_id) = assess_art366_shared_property_damage(case_id, not_satisfied_020, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_020)
 
 // rule_id: property_damage.art366.card.021.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_11
@@ -1043,6 +1428,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.special_medium_recor
   assess_art366_special_medium_record_definition(case_id, negative_021, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_021)
 
+// rule_id: property_damage.art366.card.021.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_11
+// norm_cards: art366.special_medium_record_definition
+rel not_satisfied_satisfied_art366_special_medium_record_definition(case_id, defendant_id, owner_id) = assess_art366_special_medium_record_definition(case_id, not_satisfied_021, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_021)
+
 // rule_id: property_damage.art366.card.022.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_11
 // norm_cards: art366.special_medium_record_limited_view
@@ -1062,6 +1453,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.special_medium_recor
   provable(case_id, positive_022) and
   assess_art366_special_medium_record_limited_view(case_id, negative_022, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_022)
+
+// rule_id: property_damage.art366.card.022.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_11
+// norm_cards: art366.special_medium_record_limited_view
+rel not_satisfied_satisfied_art366_special_medium_record_limited_view(case_id, defendant_id, owner_id) = assess_art366_special_medium_record_limited_view(case_id, not_satisfied_022, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_022)
 
 // rule_id: property_damage.art366.card.023.satisfied
 // sources: comm_001692_제366조_Ⅲ.1_12
@@ -1083,6 +1480,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366.transmitting_or_proc
   assess_art366_transmitting_or_processing_information_exclusion(case_id, negative_023, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_023)
 
+// rule_id: property_damage.art366.card.023.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.1_12
+// norm_cards: art366.transmitting_or_processing_information_exclusion
+rel not_satisfied_satisfied_art366_transmitting_or_processing_information_exclusion(case_id, defendant_id, owner_id) = assess_art366_transmitting_or_processing_information_exclusion(case_id, not_satisfied_023, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_023)
+
 // rule_id: property_damage.art366_sec3_2.card.024.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_17
 // norm_cards: art366_sec3_2.concealment_definition
@@ -1102,6 +1505,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.concealment_d
   provable(case_id, positive_024) and
   assess_art366_sec3_2_concealment_definition(case_id, negative_024, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_024)
+
+// rule_id: property_damage.art366_sec3_2.card.024.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_17
+// norm_cards: art366_sec3_2.concealment_definition
+rel not_satisfied_satisfied_art366_sec3_2_concealment_definition(case_id, defendant_id, owner_id) = assess_art366_sec3_2_concealment_definition(case_id, not_satisfied_024, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_024)
 
 // rule_id: property_damage.art366_sec3_2.card.025.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_17
@@ -1123,6 +1532,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.concealment_n
   assess_art366_sec3_2_concealment_no_possession_required(case_id, negative_025, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_025)
 
+// rule_id: property_damage.art366_sec3_2.card.025.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_17
+// norm_cards: art366_sec3_2.concealment_no_possession_required
+rel not_satisfied_satisfied_art366_sec3_2_concealment_no_possession_required(case_id, defendant_id, owner_id) = assess_art366_sec3_2_concealment_no_possession_required(case_id, not_satisfied_025, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_025)
+
 // rule_id: property_damage.art366_sec3_2.card.026.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_17
 // norm_cards: art366_sec3_2.concealment_temporary_and_return_intent
@@ -1142,6 +1557,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.concealment_t
   provable(case_id, positive_026) and
   assess_art366_sec3_2_concealment_temporary_and_return_intent(case_id, negative_026, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_026)
+
+// rule_id: property_damage.art366_sec3_2.card.026.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_17
+// norm_cards: art366_sec3_2.concealment_temporary_and_return_intent
+rel not_satisfied_satisfied_art366_sec3_2_concealment_temporary_and_return_intent(case_id, defendant_id, owner_id) = assess_art366_sec3_2_concealment_temporary_and_return_intent(case_id, not_satisfied_026, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_026)
 
 // rule_id: property_damage.art366_sec3_2.card.027.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_13
@@ -1163,6 +1584,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.destruction_d
   assess_art366_sec3_2_destruction_definition(case_id, negative_027, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_027)
 
+// rule_id: property_damage.art366_sec3_2.card.027.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_13
+// norm_cards: art366_sec3_2.destruction_definition
+rel not_satisfied_satisfied_art366_sec3_2_destruction_definition(case_id, defendant_id, owner_id) = assess_art366_sec3_2_destruction_definition(case_id, not_satisfied_027, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_027)
+
 // rule_id: property_damage.art366_sec3_2.card.028.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_13, comm_001692_제366조_Ⅲ.2_13
 // norm_cards: art366_sec3_2.destruction_no_irreparable_damage
@@ -1182,6 +1609,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.destruction_n
   provable(case_id, positive_028) and
   assess_art366_sec3_2_destruction_no_irreparable_damage(case_id, negative_028, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_028)
+
+// rule_id: property_damage.art366_sec3_2.card.028.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_13, comm_001692_제366조_Ⅲ.2_13
+// norm_cards: art366_sec3_2.destruction_no_irreparable_damage
+rel not_satisfied_satisfied_art366_sec3_2_destruction_no_irreparable_damage(case_id, defendant_id, owner_id) = assess_art366_sec3_2_destruction_no_irreparable_damage(case_id, not_satisfied_028, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_028)
 
 // rule_id: property_damage.art366_sec3_2.card.029.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_16
@@ -1203,6 +1636,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.document_marg
   assess_art366_sec3_2_document_margin_removal(case_id, negative_029, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_029)
 
+// rule_id: property_damage.art366_sec3_2.card.029.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_16
+// norm_cards: art366_sec3_2.document_margin_removal
+rel not_satisfied_satisfied_art366_sec3_2_document_margin_removal(case_id, defendant_id, owner_id) = assess_art366_sec3_2_document_margin_removal(case_id, not_satisfied_029, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_029)
+
 // rule_id: property_damage.art366_sec3_2.card.030.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_21, comm_001692_제366조_Ⅲ.2_21
 // norm_cards: art366_sec3_2.document_removal_against_owner_intent
@@ -1222,6 +1661,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.document_remo
   provable(case_id, positive_030) and
   assess_art366_sec3_2_document_removal_against_owner_intent(case_id, negative_030, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_030)
+
+// rule_id: property_damage.art366_sec3_2.card.030.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_21, comm_001692_제366조_Ⅲ.2_21
+// norm_cards: art366_sec3_2.document_removal_against_owner_intent
+rel not_satisfied_satisfied_art366_sec3_2_document_removal_against_owner_intent(case_id, defendant_id, owner_id) = assess_art366_sec3_2_document_removal_against_owner_intent(case_id, not_satisfied_030, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_030)
 
 // rule_id: property_damage.art366_sec3_2.card.031.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_21
@@ -1243,6 +1688,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.document_remo
   assess_art366_sec3_2_document_removal_without_owner_intent(case_id, negative_031, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_031)
 
+// rule_id: property_damage.art366_sec3_2.card.031.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_21
+// norm_cards: art366_sec3_2.document_removal_without_owner_intent
+rel not_satisfied_satisfied_art366_sec3_2_document_removal_without_owner_intent(case_id, defendant_id, owner_id) = assess_art366_sec3_2_document_removal_without_owner_intent(case_id, not_satisfied_031, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_031)
+
 // rule_id: property_damage.art366_sec3_2.card.032.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_18
 // norm_cards: art366_sec3_2.electronic_file_metadata_concealment
@@ -1262,6 +1713,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.electronic_fi
   provable(case_id, positive_032) and
   assess_art366_sec3_2_electronic_file_metadata_concealment(case_id, negative_032, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_032)
+
+// rule_id: property_damage.art366_sec3_2.card.032.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_18
+// norm_cards: art366_sec3_2.electronic_file_metadata_concealment
+rel not_satisfied_satisfied_art366_sec3_2_electronic_file_metadata_concealment(case_id, defendant_id, owner_id) = assess_art366_sec3_2_electronic_file_metadata_concealment(case_id, not_satisfied_032, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_032)
 
 // rule_id: property_damage.art366_sec3_2.card.033.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_22
@@ -1283,6 +1740,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.electronic_re
   assess_art366_sec3_2_electronic_record_other_methods_definition(case_id, negative_033, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_033)
 
+// rule_id: property_damage.art366_sec3_2.card.033.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_22
+// norm_cards: art366_sec3_2.electronic_record_other_methods_definition
+rel not_satisfied_satisfied_art366_sec3_2_electronic_record_other_methods_definition(case_id, defendant_id, owner_id) = assess_art366_sec3_2_electronic_record_other_methods_definition(case_id, not_satisfied_033, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_033)
+
 // rule_id: property_damage.art366_sec3_2.card.034.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_22
 // norm_cards: art366_sec3_2.electronic_record_power_cutoff_exception
@@ -1302,6 +1765,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.electronic_re
   provable(case_id, positive_034) and
   assess_art366_sec3_2_electronic_record_power_cutoff_exception(case_id, negative_034, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_034)
+
+// rule_id: property_damage.art366_sec3_2.card.034.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_22
+// norm_cards: art366_sec3_2.electronic_record_power_cutoff_exception
+rel not_satisfied_satisfied_art366_sec3_2_electronic_record_power_cutoff_exception(case_id, defendant_id, owner_id) = assess_art366_sec3_2_electronic_record_power_cutoff_exception(case_id, not_satisfied_034, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_034)
 
 // rule_id: property_damage.art366_sec3_2.card.035.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_20
@@ -1323,6 +1792,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.emotional_use
   assess_art366_sec3_2_emotional_use_majority_position(case_id, negative_035, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_035)
 
+// rule_id: property_damage.art366_sec3_2.card.035.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_20
+// norm_cards: art366_sec3_2.emotional_use_majority_position
+rel not_satisfied_satisfied_art366_sec3_2_emotional_use_majority_position(case_id, defendant_id, owner_id) = assess_art366_sec3_2_emotional_use_majority_position(case_id, not_satisfied_035, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_035)
+
 // rule_id: property_damage.art366_sec3_2.card.036.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_13
 // norm_cards: art366_sec3_2.mere_functional_interference_not_destruction
@@ -1342,6 +1817,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.mere_function
   provable(case_id, positive_036) and
   assess_art366_sec3_2_mere_functional_interference_not_destruction(case_id, negative_036, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_036)
+
+// rule_id: property_damage.art366_sec3_2.card.036.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_13
+// norm_cards: art366_sec3_2.mere_functional_interference_not_destruction
+rel not_satisfied_satisfied_art366_sec3_2_mere_functional_interference_not_destruction(case_id, defendant_id, owner_id) = assess_art366_sec3_2_mere_functional_interference_not_destruction(case_id, not_satisfied_036, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_036)
 
 // rule_id: property_damage.art366_sec3_2.card.037.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_21
@@ -1363,6 +1844,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.movement_no_o
   assess_art366_sec3_2_movement_no_objective_use_value(case_id, negative_037, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_037)
 
+// rule_id: property_damage.art366_sec3_2.card.037.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_21
+// norm_cards: art366_sec3_2.movement_no_objective_use_value
+rel not_satisfied_satisfied_art366_sec3_2_movement_no_objective_use_value(case_id, defendant_id, owner_id) = assess_art366_sec3_2_movement_no_objective_use_value(case_id, not_satisfied_037, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_037)
+
 // rule_id: property_damage.art366_sec3_2.card.038.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_20
 // norm_cards: art366_sec3_2.movement_objective_use_value
@@ -1382,6 +1869,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.movement_obje
   provable(case_id, positive_038) and
   assess_art366_sec3_2_movement_objective_use_value(case_id, negative_038, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_038)
+
+// rule_id: property_damage.art366_sec3_2.card.038.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_20
+// norm_cards: art366_sec3_2.movement_objective_use_value
+rel not_satisfied_satisfied_art366_sec3_2_movement_objective_use_value(case_id, defendant_id, owner_id) = assess_art366_sec3_2_movement_objective_use_value(case_id, not_satisfied_038, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_038)
 
 // rule_id: property_damage.art366_sec3_2.card.039.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_18, comm_001692_제366조_Ⅲ.2_18
@@ -1403,6 +1896,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.other_method_
   assess_art366_sec3_2_other_method_efficiency_harm_definition(case_id, negative_039, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_039)
 
+// rule_id: property_damage.art366_sec3_2.card.039.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_18, comm_001692_제366조_Ⅲ.2_18
+// norm_cards: art366_sec3_2.other_method_efficiency_harm_definition
+rel not_satisfied_satisfied_art366_sec3_2_other_method_efficiency_harm_definition(case_id, defendant_id, owner_id) = assess_art366_sec3_2_other_method_efficiency_harm_definition(case_id, not_satisfied_039, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_039)
+
 // rule_id: property_damage.art366_sec3_2.card.040.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_18
 // norm_cards: art366_sec3_2.other_method_temporary_unusable
@@ -1422,6 +1921,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.other_method_
   provable(case_id, positive_040) and
   assess_art366_sec3_2_other_method_temporary_unusable(case_id, negative_040, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_040)
+
+// rule_id: property_damage.art366_sec3_2.card.040.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_18
+// norm_cards: art366_sec3_2.other_method_temporary_unusable
+rel not_satisfied_satisfied_art366_sec3_2_other_method_temporary_unusable(case_id, defendant_id, owner_id) = assess_art366_sec3_2_other_method_temporary_unusable(case_id, not_satisfied_040, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_040)
 
 // rule_id: property_damage.art366_sec3_2.card.041.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_14
@@ -1443,6 +1948,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.preservation_
   assess_art366_sec3_2_preservation_state_change_view(case_id, negative_041, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_041)
 
+// rule_id: property_damage.art366_sec3_2.card.041.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_14
+// norm_cards: art366_sec3_2.preservation_state_change_view
+rel not_satisfied_satisfied_art366_sec3_2_preservation_state_change_view(case_id, defendant_id, owner_id) = assess_art366_sec3_2_preservation_state_change_view(case_id, not_satisfied_041, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_041)
+
 // rule_id: property_damage.art366_sec3_2.card.042.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_25, comm_001692_제366조_Ⅲ.2_25
 // norm_cards: art366_sec3_2.road_graffiti_totality
@@ -1462,6 +1973,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.road_graffiti
   provable(case_id, positive_042) and
   assess_art366_sec3_2_road_graffiti_totality(case_id, negative_042, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_042)
+
+// rule_id: property_damage.art366_sec3_2.card.042.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_25, comm_001692_제366조_Ⅲ.2_25
+// norm_cards: art366_sec3_2.road_graffiti_totality
+rel not_satisfied_satisfied_art366_sec3_2_road_graffiti_totality(case_id, defendant_id, owner_id) = assess_art366_sec3_2_road_graffiti_totality(case_id, not_satisfied_042, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_042)
 
 // rule_id: property_damage.art366_sec3_2.card.043.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_24
@@ -1483,6 +2000,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.wall_graffiti
   assess_art366_sec3_2_wall_graffiti_functional_efficiency_limit(case_id, negative_043, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_043)
 
+// rule_id: property_damage.art366_sec3_2.card.043.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_24
+// norm_cards: art366_sec3_2.wall_graffiti_functional_efficiency_limit
+rel not_satisfied_satisfied_art366_sec3_2_wall_graffiti_functional_efficiency_limit(case_id, defendant_id, owner_id) = assess_art366_sec3_2_wall_graffiti_functional_efficiency_limit(case_id, not_satisfied_043, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_043)
+
 // rule_id: property_damage.art366_sec3_2.card.044.satisfied
 // sources: comm_001692_제366조_Ⅲ.2_24
 // norm_cards: art366_sec3_2.wall_graffiti_totality
@@ -1502,6 +2025,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_2.wall_graffiti
   provable(case_id, positive_044) and
   assess_art366_sec3_2_wall_graffiti_totality(case_id, negative_044, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_044)
+
+// rule_id: property_damage.art366_sec3_2.card.044.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.2_24
+// norm_cards: art366_sec3_2.wall_graffiti_totality
+rel not_satisfied_satisfied_art366_sec3_2_wall_graffiti_totality(case_id, defendant_id, owner_id) = assess_art366_sec3_2_wall_graffiti_totality(case_id, not_satisfied_044, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_044)
 
 // rule_id: property_damage.art366_sec3_3.card.045.satisfied
 // sources: comm_001692_제366조_Ⅲ.3_27
@@ -1523,6 +2052,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec3_3.completion.ef
   assess_art366_sec3_3_completion_efficiency_injury(case_id, negative_045, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_045)
 
+// rule_id: property_damage.art366_sec3_3.card.045.not_satisfied
+// sources: comm_001692_제366조_Ⅲ.3_27
+// norm_cards: art366_sec3_3.completion.efficiency_injury
+rel not_satisfied_satisfied_art366_sec3_3_completion_efficiency_injury(case_id, defendant_id, owner_id) = assess_art366_sec3_3_completion_efficiency_injury(case_id, not_satisfied_045, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_045)
+
 // rule_id: property_damage.art366_sec4_1.card.046.satisfied
 // sources: comm_001692_제366조_Ⅳ.1_28
 // norm_cards: art366_sec4_1.intent_absence
@@ -1542,6 +2077,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec4_1.intent_absenc
   provable(case_id, positive_046) and
   assess_art366_sec4_1_intent_absence(case_id, negative_046, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_046)
+
+// rule_id: property_damage.art366_sec4_1.card.046.not_satisfied
+// sources: comm_001692_제366조_Ⅳ.1_28
+// norm_cards: art366_sec4_1.intent_absence
+rel not_satisfied_satisfied_art366_sec4_1_intent_absence(case_id, defendant_id, owner_id) = assess_art366_sec4_1_intent_absence(case_id, not_satisfied_046, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_046)
 
 // rule_id: property_damage.art366_sec4_1.card.047.satisfied
 // sources: comm_001692_제366조_Ⅳ.1_28
@@ -1563,6 +2104,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec4_1.intent_awaren
   assess_art366_sec4_1_intent_awareness(case_id, negative_047, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_047)
 
+// rule_id: property_damage.art366_sec4_1.card.047.not_satisfied
+// sources: comm_001692_제366조_Ⅳ.1_28
+// norm_cards: art366_sec4_1.intent_awareness
+rel not_satisfied_satisfied_art366_sec4_1_intent_awareness(case_id, defendant_id, owner_id) = assess_art366_sec4_1_intent_awareness(case_id, not_satisfied_047, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_047)
+
 // rule_id: property_damage.art366_sec4_1.card.048.satisfied
 // sources: comm_001692_제366조_Ⅳ.1_28
 // norm_cards: art366_sec4_1.intent_conditional_sufficiency
@@ -1582,6 +2129,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec4_1.intent_condit
   provable(case_id, positive_048) and
   assess_art366_sec4_1_intent_conditional_sufficiency(case_id, negative_048, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_048)
+
+// rule_id: property_damage.art366_sec4_1.card.048.not_satisfied
+// sources: comm_001692_제366조_Ⅳ.1_28
+// norm_cards: art366_sec4_1.intent_conditional_sufficiency
+rel not_satisfied_satisfied_art366_sec4_1_intent_conditional_sufficiency(case_id, defendant_id, owner_id) = assess_art366_sec4_1_intent_conditional_sufficiency(case_id, not_satisfied_048, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_048)
 
 // rule_id: property_damage.art366_sec5_2.card.049.satisfied
 // sources: comm_001692_제366조_Ⅴ.2_34, comm_001692_제366조_Ⅴ.2_34, comm_001692_제366조_Ⅴ.2_34
@@ -1603,6 +2156,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec5_2.immediate_sel
   assess_art366_sec5_2_immediate_self_recovery_assessment(case_id, negative_049, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_049)
 
+// rule_id: property_damage.art366_sec5_2.card.049.not_satisfied
+// sources: comm_001692_제366조_Ⅴ.2_34, comm_001692_제366조_Ⅴ.2_34, comm_001692_제366조_Ⅴ.2_34
+// norm_cards: art366_sec5_2.immediate_self_recovery_assessment
+rel not_satisfied_satisfied_art366_sec5_2_immediate_self_recovery_assessment(case_id, defendant_id, owner_id) = assess_art366_sec5_2_immediate_self_recovery_assessment(case_id, not_satisfied_049, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_049)
+
 // rule_id: property_damage.art366_sec5_2.card.050.satisfied
 // sources: comm_001692_제366조_Ⅴ.2_32, comm_001692_제366조_Ⅴ.2_32
 // norm_cards: art366_sec5_2.justifiable_act_requirements
@@ -1622,6 +2181,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec5_2.justifiable_a
   provable(case_id, positive_050) and
   assess_art366_sec5_2_justifiable_act_requirements(case_id, negative_050, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_050)
+
+// rule_id: property_damage.art366_sec5_2.card.050.not_satisfied
+// sources: comm_001692_제366조_Ⅴ.2_32, comm_001692_제366조_Ⅴ.2_32
+// norm_cards: art366_sec5_2.justifiable_act_requirements
+rel not_satisfied_satisfied_art366_sec5_2_justifiable_act_requirements(case_id, defendant_id, owner_id) = assess_art366_sec5_2_justifiable_act_requirements(case_id, not_satisfied_050, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_050)
 
 // rule_id: property_damage.art366_sec5_2.card.051.satisfied
 // sources: comm_001692_제366조_Ⅴ.2_32, comm_001692_제366조_Ⅴ.2_32
@@ -1643,6 +2208,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec5_2.possession_pr
   assess_art366_sec5_2_possession_protection_destruction(case_id, negative_051, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_051)
 
+// rule_id: property_damage.art366_sec5_2.card.051.not_satisfied
+// sources: comm_001692_제366조_Ⅴ.2_32, comm_001692_제366조_Ⅴ.2_32
+// norm_cards: art366_sec5_2.possession_protection_destruction
+rel not_satisfied_satisfied_art366_sec5_2_possession_protection_destruction(case_id, defendant_id, owner_id) = assess_art366_sec5_2_possession_protection_destruction(case_id, not_satisfied_051, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_051)
+
 // rule_id: property_damage.art366_sec5_2.card.052.satisfied
 // sources: comm_001692_제366조_Ⅴ.2_32
 // norm_cards: art366_sec5_2.socially_acceptable_act
@@ -1663,6 +2234,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec5_2.socially_acce
   assess_art366_sec5_2_socially_acceptable_act(case_id, negative_052, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_052)
 
+// rule_id: property_damage.art366_sec5_2.card.052.not_satisfied
+// sources: comm_001692_제366조_Ⅴ.2_32
+// norm_cards: art366_sec5_2.socially_acceptable_act
+rel not_satisfied_satisfied_art366_sec5_2_socially_acceptable_act(case_id, defendant_id, owner_id) = assess_art366_sec5_2_socially_acceptable_act(case_id, not_satisfied_052, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_052)
+
 // rule_id: property_damage.art366_sec5_5.card.053.satisfied
 // sources: comm_001692_제366조_Ⅴ.5_38, comm_001692_제366조_Ⅴ.5_38
 // norm_cards: art366_sec5_5.presumed_consent
@@ -1682,6 +2259,12 @@ rel property_damage_conflict(case_id, defendant_id, "art366_sec5_5.presumed_cons
   provable(case_id, positive_053) and
   assess_art366_sec5_5_presumed_consent(case_id, negative_053, defendant_id, owner_id, "not_satisfied") and
   provable(case_id, negative_053)
+
+// rule_id: property_damage.art366_sec5_5.card.053.not_satisfied
+// sources: comm_001692_제366조_Ⅴ.5_38, comm_001692_제366조_Ⅴ.5_38
+// norm_cards: art366_sec5_5.presumed_consent
+rel not_satisfied_satisfied_art366_sec5_5_presumed_consent(case_id, defendant_id, owner_id) = assess_art366_sec5_5_presumed_consent(case_id, not_satisfied_053, defendant_id, owner_id, "not_satisfied") and
+  provable(case_id, not_satisfied_053)
 
 // rule_id: property_damage.art366.component.property_damage_object_satisfied.01
 // sources: comm_001692_제366조_Ⅲ.1_7
@@ -1948,233 +2531,59 @@ rel property_damage_not_established(case_id, defendant_id, "art366_sec5_2.social
 // norm_cards: art366_sec5_5.presumed_consent
 rel property_damage_not_established(case_id, defendant_id, "art366_sec5_5.presumed_consent") = satisfied_art366_sec5_5_presumed_consent(case_id, defendant_id, owner_id)
 
-// rule_id: property_damage.art366.mandatory_negative.001
-// sources: comm_001692_제366조_Ⅲ.1_7
-// norm_cards: art366.alternative_use_property
-rel property_damage_not_established(case_id, defendant_id, "art366.alternative_use_property") = assess_art366_alternative_use_property(case_id, mandatory_negative_001, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_001)
+// rule_id: property_damage.component.l0.mandatory_negative.01
+// sources: comm_001692_제366조_Ⅰ_0, comm_001692_제366조_Ⅲ.1_10, comm_001692_제366조_Ⅲ.1_11, comm_001692_제366조_Ⅲ.1_11, comm_001692_제366조_Ⅲ.1_12, comm_001692_제366조_Ⅲ.1_12, comm_001692_제366조_Ⅲ.1_12, comm_001692_제366조_Ⅲ.1_12, comm_001692_제366조_Ⅲ.1_2, comm_001692_제366조_Ⅲ.1_3, comm_001692_제366조_Ⅲ.1_5, comm_001692_제366조_Ⅲ.1_6, comm_001692_제366조_Ⅲ.1_7, comm_001692_제366조_Ⅲ.1_7, comm_001692_제366조_Ⅲ.1_7, comm_001692_제366조_Ⅲ.1_7, comm_001692_제366조_Ⅲ.1_8, comm_001692_제366조_Ⅲ.1_8
+// norm_cards: art366.alternative_use_property, art366.cloud_provider_delete_record, art366.document_definition, art366.electronic_record_definition, art366.electronic_record_durability, art366.electronic_record_erasure, art366.fact_certification_private_document, art366.medium_damage_property_damage, art366.object_manageable_energy, art366.other_person_ownership, art366.property_object_definition, art366.public_building_affirmative_view, art366.public_interest_building_non_destruction, art366.record_medium_information_combination, art366.separated_human_material, art366.shared_property_damage, art366.special_medium_record_definition, art366.special_medium_record_limited_view
+rel property_damage_not_established(case_id, defendant_id, "property_damage_object_satisfied") = not_satisfied_satisfied_art366_alternative_use_property(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_cloud_provider_delete_record(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_document_definition(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_electronic_record_definition(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_electronic_record_durability(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_electronic_record_erasure(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_fact_certification_private_document(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_medium_damage_property_damage(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_object_manageable_energy(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_other_person_ownership(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_property_object_definition(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_public_building_affirmative_view(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_public_interest_building_non_destruction(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_record_medium_information_combination(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_separated_human_material(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_shared_property_damage(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_special_medium_record_definition(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_special_medium_record_limited_view(case_id, defendant_id, owner_id)
 
-// rule_id: property_damage.art366.mandatory_negative.002
-// sources: comm_001692_제366조_Ⅲ.1_5
-// norm_cards: art366.cloud_provider_delete_record
-rel property_damage_not_established(case_id, defendant_id, "art366.cloud_provider_delete_record") = assess_art366_cloud_provider_delete_record(case_id, mandatory_negative_002, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_002)
+// rule_id: property_damage.component.l1.mandatory_negative.02
+// sources: comm_001692_제366조_Ⅲ.2_13, comm_001692_제366조_Ⅲ.2_13, comm_001692_제366조_Ⅲ.2_13, comm_001692_제366조_Ⅲ.2_14, comm_001692_제366조_Ⅲ.2_16, comm_001692_제366조_Ⅲ.2_17, comm_001692_제366조_Ⅲ.2_17, comm_001692_제366조_Ⅲ.2_17, comm_001692_제366조_Ⅲ.2_18, comm_001692_제366조_Ⅲ.2_18, comm_001692_제366조_Ⅲ.2_18, comm_001692_제366조_Ⅲ.2_18, comm_001692_제366조_Ⅲ.2_20, comm_001692_제366조_Ⅲ.2_20, comm_001692_제366조_Ⅲ.2_21, comm_001692_제366조_Ⅲ.2_21, comm_001692_제366조_Ⅲ.2_22, comm_001692_제366조_Ⅲ.2_24, comm_001692_제366조_Ⅲ.2_24, comm_001692_제366조_Ⅲ.2_25, comm_001692_제366조_Ⅲ.2_25
+// norm_cards: art366_sec3_2.concealment_definition, art366_sec3_2.concealment_no_possession_required, art366_sec3_2.concealment_temporary_and_return_intent, art366_sec3_2.destruction_definition, art366_sec3_2.destruction_no_irreparable_damage, art366_sec3_2.document_margin_removal, art366_sec3_2.document_removal_against_owner_intent, art366_sec3_2.electronic_file_metadata_concealment, art366_sec3_2.electronic_record_other_methods_definition, art366_sec3_2.emotional_use_majority_position, art366_sec3_2.movement_objective_use_value, art366_sec3_2.other_method_efficiency_harm_definition, art366_sec3_2.other_method_temporary_unusable, art366_sec3_2.preservation_state_change_view, art366_sec3_2.road_graffiti_totality, art366_sec3_2.wall_graffiti_functional_efficiency_limit, art366_sec3_2.wall_graffiti_totality
+rel property_damage_not_established(case_id, defendant_id, "property_damage_conduct_satisfied") = not_satisfied_satisfied_art366_sec3_2_concealment_definition(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_sec3_2_concealment_no_possession_required(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_sec3_2_concealment_temporary_and_return_intent(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_sec3_2_destruction_definition(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_sec3_2_destruction_no_irreparable_damage(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_sec3_2_document_margin_removal(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_sec3_2_document_removal_against_owner_intent(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_sec3_2_electronic_file_metadata_concealment(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_sec3_2_electronic_record_other_methods_definition(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_sec3_2_emotional_use_majority_position(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_sec3_2_movement_objective_use_value(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_sec3_2_other_method_efficiency_harm_definition(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_sec3_2_other_method_temporary_unusable(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_sec3_2_preservation_state_change_view(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_sec3_2_road_graffiti_totality(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_sec3_2_wall_graffiti_functional_efficiency_limit(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_sec3_2_wall_graffiti_totality(case_id, defendant_id, owner_id)
 
-// rule_id: property_damage.art366.mandatory_negative.003
-// sources: comm_001692_제366조_Ⅲ.1_8
-// norm_cards: art366.document_definition
-rel property_damage_not_established(case_id, defendant_id, "art366.document_definition") = assess_art366_document_definition(case_id, mandatory_negative_003, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_003)
+// rule_id: property_damage.component.l3.mandatory_negative.03
+// sources: comm_001692_제366조_Ⅳ.1_28, comm_001692_제366조_Ⅳ.1_28
+// norm_cards: art366_sec4_1.intent_awareness, art366_sec4_1.intent_conditional_sufficiency
+rel property_damage_not_established(case_id, defendant_id, "property_damage_intent_satisfied") = not_satisfied_satisfied_art366_sec4_1_intent_awareness(case_id, defendant_id, owner_id) and
+  not_satisfied_satisfied_art366_sec4_1_intent_conditional_sufficiency(case_id, defendant_id, owner_id)
 
-// rule_id: property_damage.art366.mandatory_negative.004
-// sources: comm_001692_제366조_Ⅲ.1_10
-// norm_cards: art366.electronic_record_definition
-rel property_damage_not_established(case_id, defendant_id, "art366.electronic_record_definition") = assess_art366_electronic_record_definition(case_id, mandatory_negative_004, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_004)
-
-// rule_id: property_damage.art366.mandatory_negative.005
-// sources: comm_001692_제366조_Ⅲ.1_12
-// norm_cards: art366.electronic_record_durability
-rel property_damage_not_established(case_id, defendant_id, "art366.electronic_record_durability") = assess_art366_electronic_record_durability(case_id, mandatory_negative_005, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_005)
-
-// rule_id: property_damage.art366.mandatory_negative.006
-// sources: comm_001692_제366조_Ⅲ.1_12
-// norm_cards: art366.electronic_record_erasure
-rel property_damage_not_established(case_id, defendant_id, "art366.electronic_record_erasure") = assess_art366_electronic_record_erasure(case_id, mandatory_negative_006, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_006)
-
-// rule_id: property_damage.art366.mandatory_negative.007
-// sources: comm_001692_제366조_Ⅲ.1_8
-// norm_cards: art366.fact_certification_private_document
-rel property_damage_not_established(case_id, defendant_id, "art366.fact_certification_private_document") = assess_art366_fact_certification_private_document(case_id, mandatory_negative_007, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_007)
-
-// rule_id: property_damage.art366.mandatory_negative.008
-// sources: comm_001692_제366조_Ⅲ.1_12
-// norm_cards: art366.medium_damage_property_damage
-rel property_damage_not_established(case_id, defendant_id, "art366.medium_damage_property_damage") = assess_art366_medium_damage_property_damage(case_id, mandatory_negative_008, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_008)
-
-// rule_id: property_damage.art366.mandatory_negative.009
-// sources: comm_001692_제366조_Ⅰ_0
-// norm_cards: art366.object_manageable_energy
-rel property_damage_not_established(case_id, defendant_id, "art366.object_manageable_energy") = assess_art366_object_manageable_energy(case_id, mandatory_negative_009, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_009)
-
-// rule_id: property_damage.art366.mandatory_negative.010
-// sources: comm_001692_제366조_Ⅲ.1_2
-// norm_cards: art366.other_person_ownership
-rel property_damage_not_established(case_id, defendant_id, "art366.other_person_ownership") = assess_art366_other_person_ownership(case_id, mandatory_negative_010, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_010)
-
-// rule_id: property_damage.art366.mandatory_negative.011
-// sources: comm_001692_제366조_Ⅲ.1_7
-// norm_cards: art366.property_object_definition
-rel property_damage_not_established(case_id, defendant_id, "art366.property_object_definition") = assess_art366_property_object_definition(case_id, mandatory_negative_011, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_011)
-
-// rule_id: property_damage.art366.mandatory_negative.012
-// sources: comm_001692_제366조_Ⅲ.1_7
-// norm_cards: art366.public_building_affirmative_view
-rel property_damage_not_established(case_id, defendant_id, "art366.public_building_affirmative_view") = assess_art366_public_building_affirmative_view(case_id, mandatory_negative_012, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_012)
-
-// rule_id: property_damage.art366.mandatory_negative.013
-// sources: comm_001692_제366조_Ⅲ.1_7
-// norm_cards: art366.public_interest_building_non_destruction
-rel property_damage_not_established(case_id, defendant_id, "art366.public_interest_building_non_destruction") = assess_art366_public_interest_building_non_destruction(case_id, mandatory_negative_013, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_013)
-
-// rule_id: property_damage.art366.mandatory_negative.014
-// sources: comm_001692_제366조_Ⅲ.1_12
-// norm_cards: art366.record_medium_information_combination
-rel property_damage_not_established(case_id, defendant_id, "art366.record_medium_information_combination") = assess_art366_record_medium_information_combination(case_id, mandatory_negative_014, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_014)
-
-// rule_id: property_damage.art366.mandatory_negative.015
-// sources: comm_001692_제366조_Ⅲ.1_6
-// norm_cards: art366.separated_human_material
-rel property_damage_not_established(case_id, defendant_id, "art366.separated_human_material") = assess_art366_separated_human_material(case_id, mandatory_negative_015, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_015)
-
-// rule_id: property_damage.art366.mandatory_negative.016
-// sources: comm_001692_제366조_Ⅲ.1_3
-// norm_cards: art366.shared_property_damage
-rel property_damage_not_established(case_id, defendant_id, "art366.shared_property_damage") = assess_art366_shared_property_damage(case_id, mandatory_negative_016, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_016)
-
-// rule_id: property_damage.art366.mandatory_negative.017
-// sources: comm_001692_제366조_Ⅲ.1_11
-// norm_cards: art366.special_medium_record_definition
-rel property_damage_not_established(case_id, defendant_id, "art366.special_medium_record_definition") = assess_art366_special_medium_record_definition(case_id, mandatory_negative_017, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_017)
-
-// rule_id: property_damage.art366.mandatory_negative.018
-// sources: comm_001692_제366조_Ⅲ.1_11
-// norm_cards: art366.special_medium_record_limited_view
-rel property_damage_not_established(case_id, defendant_id, "art366.special_medium_record_limited_view") = assess_art366_special_medium_record_limited_view(case_id, mandatory_negative_018, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_018)
-
-// rule_id: property_damage.art366_sec3_2.mandatory_negative.019
-// sources: comm_001692_제366조_Ⅲ.2_17
-// norm_cards: art366_sec3_2.concealment_definition
-rel property_damage_not_established(case_id, defendant_id, "art366_sec3_2.concealment_definition") = assess_art366_sec3_2_concealment_definition(case_id, mandatory_negative_019, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_019)
-
-// rule_id: property_damage.art366_sec3_2.mandatory_negative.020
-// sources: comm_001692_제366조_Ⅲ.2_17
-// norm_cards: art366_sec3_2.concealment_no_possession_required
-rel property_damage_not_established(case_id, defendant_id, "art366_sec3_2.concealment_no_possession_required") = assess_art366_sec3_2_concealment_no_possession_required(case_id, mandatory_negative_020, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_020)
-
-// rule_id: property_damage.art366_sec3_2.mandatory_negative.021
-// sources: comm_001692_제366조_Ⅲ.2_17
-// norm_cards: art366_sec3_2.concealment_temporary_and_return_intent
-rel property_damage_not_established(case_id, defendant_id, "art366_sec3_2.concealment_temporary_and_return_intent") = assess_art366_sec3_2_concealment_temporary_and_return_intent(case_id, mandatory_negative_021, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_021)
-
-// rule_id: property_damage.art366_sec3_2.mandatory_negative.022
-// sources: comm_001692_제366조_Ⅲ.2_13
-// norm_cards: art366_sec3_2.destruction_definition
-rel property_damage_not_established(case_id, defendant_id, "art366_sec3_2.destruction_definition") = assess_art366_sec3_2_destruction_definition(case_id, mandatory_negative_022, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_022)
-
-// rule_id: property_damage.art366_sec3_2.mandatory_negative.023
-// sources: comm_001692_제366조_Ⅲ.2_13, comm_001692_제366조_Ⅲ.2_13
-// norm_cards: art366_sec3_2.destruction_no_irreparable_damage
-rel property_damage_not_established(case_id, defendant_id, "art366_sec3_2.destruction_no_irreparable_damage") = assess_art366_sec3_2_destruction_no_irreparable_damage(case_id, mandatory_negative_023, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_023)
-
-// rule_id: property_damage.art366_sec3_2.mandatory_negative.024
-// sources: comm_001692_제366조_Ⅲ.2_16
-// norm_cards: art366_sec3_2.document_margin_removal
-rel property_damage_not_established(case_id, defendant_id, "art366_sec3_2.document_margin_removal") = assess_art366_sec3_2_document_margin_removal(case_id, mandatory_negative_024, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_024)
-
-// rule_id: property_damage.art366_sec3_2.mandatory_negative.025
-// sources: comm_001692_제366조_Ⅲ.2_21, comm_001692_제366조_Ⅲ.2_21
-// norm_cards: art366_sec3_2.document_removal_against_owner_intent
-rel property_damage_not_established(case_id, defendant_id, "art366_sec3_2.document_removal_against_owner_intent") = assess_art366_sec3_2_document_removal_against_owner_intent(case_id, mandatory_negative_025, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_025)
-
-// rule_id: property_damage.art366_sec3_2.mandatory_negative.026
-// sources: comm_001692_제366조_Ⅲ.2_18
-// norm_cards: art366_sec3_2.electronic_file_metadata_concealment
-rel property_damage_not_established(case_id, defendant_id, "art366_sec3_2.electronic_file_metadata_concealment") = assess_art366_sec3_2_electronic_file_metadata_concealment(case_id, mandatory_negative_026, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_026)
-
-// rule_id: property_damage.art366_sec3_2.mandatory_negative.027
-// sources: comm_001692_제366조_Ⅲ.2_22
-// norm_cards: art366_sec3_2.electronic_record_other_methods_definition
-rel property_damage_not_established(case_id, defendant_id, "art366_sec3_2.electronic_record_other_methods_definition") = assess_art366_sec3_2_electronic_record_other_methods_definition(case_id, mandatory_negative_027, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_027)
-
-// rule_id: property_damage.art366_sec3_2.mandatory_negative.028
-// sources: comm_001692_제366조_Ⅲ.2_20
-// norm_cards: art366_sec3_2.emotional_use_majority_position
-rel property_damage_not_established(case_id, defendant_id, "art366_sec3_2.emotional_use_majority_position") = assess_art366_sec3_2_emotional_use_majority_position(case_id, mandatory_negative_028, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_028)
-
-// rule_id: property_damage.art366_sec3_2.mandatory_negative.029
-// sources: comm_001692_제366조_Ⅲ.2_20
-// norm_cards: art366_sec3_2.movement_objective_use_value
-rel property_damage_not_established(case_id, defendant_id, "art366_sec3_2.movement_objective_use_value") = assess_art366_sec3_2_movement_objective_use_value(case_id, mandatory_negative_029, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_029)
-
-// rule_id: property_damage.art366_sec3_2.mandatory_negative.030
-// sources: comm_001692_제366조_Ⅲ.2_18, comm_001692_제366조_Ⅲ.2_18
-// norm_cards: art366_sec3_2.other_method_efficiency_harm_definition
-rel property_damage_not_established(case_id, defendant_id, "art366_sec3_2.other_method_efficiency_harm_definition") = assess_art366_sec3_2_other_method_efficiency_harm_definition(case_id, mandatory_negative_030, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_030)
-
-// rule_id: property_damage.art366_sec3_2.mandatory_negative.031
-// sources: comm_001692_제366조_Ⅲ.2_18
-// norm_cards: art366_sec3_2.other_method_temporary_unusable
-rel property_damage_not_established(case_id, defendant_id, "art366_sec3_2.other_method_temporary_unusable") = assess_art366_sec3_2_other_method_temporary_unusable(case_id, mandatory_negative_031, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_031)
-
-// rule_id: property_damage.art366_sec3_2.mandatory_negative.032
-// sources: comm_001692_제366조_Ⅲ.2_14
-// norm_cards: art366_sec3_2.preservation_state_change_view
-rel property_damage_not_established(case_id, defendant_id, "art366_sec3_2.preservation_state_change_view") = assess_art366_sec3_2_preservation_state_change_view(case_id, mandatory_negative_032, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_032)
-
-// rule_id: property_damage.art366_sec3_2.mandatory_negative.033
-// sources: comm_001692_제366조_Ⅲ.2_25, comm_001692_제366조_Ⅲ.2_25
-// norm_cards: art366_sec3_2.road_graffiti_totality
-rel property_damage_not_established(case_id, defendant_id, "art366_sec3_2.road_graffiti_totality") = assess_art366_sec3_2_road_graffiti_totality(case_id, mandatory_negative_033, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_033)
-
-// rule_id: property_damage.art366_sec3_2.mandatory_negative.034
-// sources: comm_001692_제366조_Ⅲ.2_24
-// norm_cards: art366_sec3_2.wall_graffiti_functional_efficiency_limit
-rel property_damage_not_established(case_id, defendant_id, "art366_sec3_2.wall_graffiti_functional_efficiency_limit") = assess_art366_sec3_2_wall_graffiti_functional_efficiency_limit(case_id, mandatory_negative_034, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_034)
-
-// rule_id: property_damage.art366_sec3_2.mandatory_negative.035
-// sources: comm_001692_제366조_Ⅲ.2_24
-// norm_cards: art366_sec3_2.wall_graffiti_totality
-rel property_damage_not_established(case_id, defendant_id, "art366_sec3_2.wall_graffiti_totality") = assess_art366_sec3_2_wall_graffiti_totality(case_id, mandatory_negative_035, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_035)
-
-// rule_id: property_damage.art366_sec3_3.mandatory_negative.036
+// rule_id: property_damage.component.l4.mandatory_negative.04
 // sources: comm_001692_제366조_Ⅲ.3_27
 // norm_cards: art366_sec3_3.completion.efficiency_injury
-rel property_damage_not_established(case_id, defendant_id, "art366_sec3_3.completion.efficiency_injury") = assess_art366_sec3_3_completion_efficiency_injury(case_id, mandatory_negative_036, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_036)
-
-// rule_id: property_damage.art366_sec4_1.mandatory_negative.037
-// sources: comm_001692_제366조_Ⅳ.1_28
-// norm_cards: art366_sec4_1.intent_awareness
-rel property_damage_not_established(case_id, defendant_id, "art366_sec4_1.intent_awareness") = assess_art366_sec4_1_intent_awareness(case_id, mandatory_negative_037, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_037)
-
-// rule_id: property_damage.art366_sec4_1.mandatory_negative.038
-// sources: comm_001692_제366조_Ⅳ.1_28
-// norm_cards: art366_sec4_1.intent_conditional_sufficiency
-rel property_damage_not_established(case_id, defendant_id, "art366_sec4_1.intent_conditional_sufficiency") = assess_art366_sec4_1_intent_conditional_sufficiency(case_id, mandatory_negative_038, defendant_id, owner_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_038)
+rel property_damage_not_established(case_id, defendant_id, "property_damage_completion_satisfied") = not_satisfied_satisfied_art366_sec3_3_completion_efficiency_injury(case_id, defendant_id, owner_id)
 
 // rule_id: property_damage.core.outcome.elements_satisfied
 // sources: comm_001692_제366조_Ⅰ_0, comm_001692_제366조_Ⅲ.1_10, comm_001692_제366조_Ⅲ.1_11, comm_001692_제366조_Ⅲ.1_11, comm_001692_제366조_Ⅲ.1_12, comm_001692_제366조_Ⅲ.1_12, comm_001692_제366조_Ⅲ.1_12, comm_001692_제366조_Ⅲ.1_12, comm_001692_제366조_Ⅲ.1_2, comm_001692_제366조_Ⅲ.1_3, comm_001692_제366조_Ⅲ.1_5, comm_001692_제366조_Ⅲ.1_6, comm_001692_제366조_Ⅲ.1_7, comm_001692_제366조_Ⅲ.1_7, comm_001692_제366조_Ⅲ.1_7, comm_001692_제366조_Ⅲ.1_7, comm_001692_제366조_Ⅲ.1_8, comm_001692_제366조_Ⅲ.1_8, comm_001692_제366조_Ⅲ.2_13, comm_001692_제366조_Ⅲ.2_13, comm_001692_제366조_Ⅲ.2_13, comm_001692_제366조_Ⅲ.2_14, comm_001692_제366조_Ⅲ.2_16, comm_001692_제366조_Ⅲ.2_17, comm_001692_제366조_Ⅲ.2_17, comm_001692_제366조_Ⅲ.2_17, comm_001692_제366조_Ⅲ.2_18, comm_001692_제366조_Ⅲ.2_18, comm_001692_제366조_Ⅲ.2_18, comm_001692_제366조_Ⅲ.2_18, comm_001692_제366조_Ⅲ.2_20, comm_001692_제366조_Ⅲ.2_20, comm_001692_제366조_Ⅲ.2_21, comm_001692_제366조_Ⅲ.2_21, comm_001692_제366조_Ⅲ.2_22, comm_001692_제366조_Ⅲ.2_24, comm_001692_제366조_Ⅲ.2_24, comm_001692_제366조_Ⅲ.2_25, comm_001692_제366조_Ⅲ.2_25, comm_001692_제366조_Ⅲ.3_27, comm_001692_제366조_Ⅳ.1_28, comm_001692_제366조_Ⅳ.1_28

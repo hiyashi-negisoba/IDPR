@@ -174,6 +174,33 @@
       ]
     },
     {
+      "id": "not_satisfied_satisfied_art356_dual_status",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 업무상 횡령 또는 배임죄에는 단순 횡령ㆍ배임죄의 보관자 또는 사무처리자 신분에 더하여 업무자 신분이 요구된다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅰ_0",
+          "quote": "단순 횡령과 배임죄도 신임관계에 의한 보관자 또는 사무처리자라는 신분을 필 요로 하는 신분범이지만, 업무상 횡령 또는 배임죄는 여기에 다시 업무자라는 신분이 요구된다.",
+          "section_path": "Ⅰ"
+        }
+      ],
+      "norm_card_ids": [
+        "art356.dual_status"
+      ]
+    },
+    {
       "id": "assess_art356_offense_character",
       "arguments": [
         {
@@ -224,6 +251,33 @@
       "role": "derived",
       "origin": "commentary",
       "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 업무상 횡령과 배임죄는 행위자가 보관하는 타인의 물건 또는 처리하는 타인의 사무가 업무상 임무와 연결된 경우 이를 가중처벌하는 범죄이다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅰ_0",
+          "quote": "업무상 횡령과 배임죄는 행위자가 보관하는 타인의 물건 또는 처리하는 타인의 사무가 업무상 임무와 연결되어 있는 경우 이를 가중처벌하는 죄이다.",
+          "section_path": "Ⅰ"
+        }
+      ],
+      "norm_card_ids": [
+        "art356.offense_character"
+      ]
+    },
+    {
+      "id": "not_satisfied_satisfied_art356_offense_character",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 업무상 횡령과 배임죄는 행위자가 보관하는 타인의 물건 또는 처리하는 타인의 사무가 업무상 임무와 연결된 경우 이를 가중처벌하는 범죄이다.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제356조_Ⅰ_0",
@@ -298,6 +352,33 @@
       ]
     },
     {
+      "id": "not_satisfied_satisfied_art356_sec2_1_business_continuity_status",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 업무에는 계속성과 사회생활상의 지위가 요구된다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅱ.1_1",
+          "quote": "계속성과 사회생활상의 지위를 요소로 한다는 점에서 업무상 과실치사상죄에서의 업무와 같다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "norm_card_ids": [
+        "art356_sec2_1.business_continuity_status"
+      ]
+    },
+    {
       "id": "assess_art356_sec2_1_business_definition",
       "arguments": [
         {
@@ -348,6 +429,33 @@
       "role": "derived",
       "origin": "commentary",
       "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 업무는 사회생활상 지위에 기초하여 반복 또는 계속적으로 행하는 사무이며, 법령ㆍ계약ㆍ관례 또는 사실상 근거 여부를 묻지 않는다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅱ.1_1",
+          "quote": "업무란 직업 또는 직무와 같은 것으로 사회생활상의 지위에 기하여 반복 또는 계속적으로 행하는 사무를 말한다. 법령, 계약에 의한 것뿐만 아니라 관례를 좇 거나 사실상의 것이거나를 묻지 않고 같은 행위를 반복할 지위에 따른 사무를 가리키는 것이다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "norm_card_ids": [
+        "art356_sec2_1.business_definition"
+      ]
+    },
+    {
+      "id": "not_satisfied_satisfied_art356_sec2_1_business_definition",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 업무는 사회생활상 지위에 기초하여 반복 또는 계속적으로 행하는 사무이며, 법령ㆍ계약ㆍ관례 또는 사실상 근거 여부를 묻지 않는다.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제356조_Ⅱ.1_1",
@@ -422,6 +530,33 @@
       ]
     },
     {
+      "id": "not_satisfied_satisfied_art356_sec2_1_business_no_livelihood_or_formal_office",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 업무는 반드시 직무ㆍ직업으로 행해지거나 생활수단일 필요가 없고, 고유 업무인지 겸무인지 또는 사실상 수행되는 사무인지도 불문한다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅱ.1_1",
+          "quote": "업무는 반드시 직무나 직업으로 행하여지는 것에 한하지 않고 생활수단일 필요 도 없다. 또 고유의 업무이건 겸무이건 불문하며, 사실상 행하는 사무라도 무방",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "norm_card_ids": [
+        "art356_sec2_1.business_no_livelihood_or_formal_office"
+      ]
+    },
+    {
       "id": "assess_art356_sec2_1_employee_assistant_business_status",
       "arguments": [
         {
@@ -472,6 +607,33 @@
       "role": "derived",
       "origin": "commentary",
       "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 다른 업무자에게 고용되거나 보조기관으로 사무를 수행하는 사람도 계속성과 사회생활상 지위를 갖추면 업무자에 해당한다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅱ.1_1",
+          "quote": "다른 업무자에게 고용되거나 보조기관으로서 사무를 행하는 경우에도 계속성과 사회생활상의 지위를 갖추는 한 업무자에 해당한다 고 보아야 한다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "norm_card_ids": [
+        "art356_sec2_1.employee_assistant_business_status"
+      ]
+    },
+    {
+      "id": "not_satisfied_satisfied_art356_sec2_1_employee_assistant_business_status",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 다른 업무자에게 고용되거나 보조기관으로 사무를 수행하는 사람도 계속성과 사회생활상 지위를 갖추면 업무자에 해당한다.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제356조_Ⅱ.1_1",
@@ -546,6 +708,33 @@
       ]
     },
     {
+      "id": "not_satisfied_satisfied_art356_sec2_1_incidental_business_relation",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 본래 사무에 부수하여 편의상 수행하는 사무도 업무가 될 수 있으나, 본래 사무와 밀접한 관련성이 있어야 한다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅱ.1_1",
+          "quote": "학교장이 정규의 예산 외의 교육비용이나 수학여행비용 및 각종 기부금을 보관 하다가 횡령한 경우와 같이, 본래의 사무는 아니나 편의상 부수적으로 같이 행 하는 사무도 이에 해당한다. 이러한 부수적 사무의 경우는 본래의 사무와 밀접 한 관련성이 있어야 한다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "norm_card_ids": [
+        "art356_sec2_1.incidental_business_relation"
+      ]
+    },
+    {
       "id": "assess_art356_sec2_2_administrative_illegality",
       "arguments": [
         {
@@ -596,6 +785,33 @@
       "role": "derived",
       "origin": "commentary",
       "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 업무 내용 자체가 위법하지 않다면 면허ㆍ인가 미취득과 같은 행정절차상 불법이 있더라도 현재 반복ㆍ계속하여 행하여지는 사무는 업무에 해당한다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅱ.2_2",
+          "quote": "그러나 업무의 내용 자체가 위법하지 않는 한 면허, 인가를 취득하지 못한 경우처럼 행정절차상의 불법이더라도 현재 반복·계속하여 행하 여졌다면 업무에 해당한다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art356_sec2_2.administrative_illegality"
+      ]
+    },
+    {
+      "id": "not_satisfied_satisfied_art356_sec2_2_administrative_illegality",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 업무 내용 자체가 위법하지 않다면 면허ㆍ인가 미취득과 같은 행정절차상 불법이 있더라도 현재 반복ㆍ계속하여 행하여지는 사무는 업무에 해당한다.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제356조_Ⅱ.2_2",
@@ -670,6 +886,33 @@
       ]
     },
     {
+      "id": "not_satisfied_satisfied_art356_sec2_2_illegal_business",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 사회질서에 반하거나 강행법규에 위반되는 등 법이 절대적으로 금지하는 행위는 업무 의사로 반복하더라도 업무가 되지 못한다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅱ.2_2",
+          "quote": "업무는 원칙적으로 적법하여야 한다. 사회질서에 반하거나 강행법규에 위반되는 등 법이 절대적으로 금지하는 행위는 비록 업무의 의사로 반복하더라도 본죄의 업무가 되지 못한다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art356_sec2_2.illegal_business"
+      ]
+    },
+    {
       "id": "assess_art356_sec3_3_status_awareness",
       "arguments": [
         {
@@ -720,6 +963,33 @@
       "role": "derived",
       "origin": "commentary",
       "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 업무자 지위에 관한 인식은 미필적 인식으로 충분하다.",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅲ.3_5",
+          "quote": "업무자의 지위에 관 한 인식도 미필적 인식으로 충분할 것이다.",
+          "section_path": "Ⅲ.3"
+        }
+      ],
+      "norm_card_ids": [
+        "art356_sec3_3.status_awareness"
+      ]
+    },
+    {
+      "id": "not_satisfied_satisfied_art356_sec3_3_status_awareness",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "증명 가능한 평가에서 다음 조건이 부인됨: 업무자 지위에 관한 인식은 미필적 인식으로 충분하다.",
       "source_refs": [
         {
           "comment_id": "comm_001692_제356조_Ⅲ.3_5",
@@ -1510,6 +1780,72 @@
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
     },
     {
+      "id": "occupational_status.art356.card.001.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art356_dual_status",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art356_dual_status",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_001"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_001"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅰ_0",
+          "quote": "단순 횡령과 배임죄도 신임관계에 의한 보관자 또는 사무처리자라는 신분을 필 요로 하는 신분범이지만, 업무상 횡령 또는 배임죄는 여기에 다시 업무자라는 신분이 요구된다.",
+          "section_path": "Ⅰ"
+        }
+      ],
+      "norm_card_ids": [
+        "art356.dual_status"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
+    },
+    {
       "id": "occupational_status.art356.card.002.satisfied",
       "head": {
         "predicate": "satisfied_art356_offense_character",
@@ -1750,6 +2086,72 @@
         "art356.offense_character"
       ],
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
+    },
+    {
+      "id": "occupational_status.art356.card.002.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art356_offense_character",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art356_offense_character",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_002"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_002"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅰ_0",
+          "quote": "업무상 횡령과 배임죄는 행위자가 보관하는 타인의 물건 또는 처리하는 타인의 사무가 업무상 임무와 연결되어 있는 경우 이를 가중처벌하는 죄이다.",
+          "section_path": "Ⅰ"
+        }
+      ],
+      "norm_card_ids": [
+        "art356.offense_character"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
     },
     {
       "id": "occupational_status.art356_sec2_1.card.003.satisfied",
@@ -1994,6 +2396,72 @@
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
     },
     {
+      "id": "occupational_status.art356_sec2_1.card.003.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art356_sec2_1_business_continuity_status",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art356_sec2_1_business_continuity_status",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_003"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_003"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅱ.1_1",
+          "quote": "계속성과 사회생활상의 지위를 요소로 한다는 점에서 업무상 과실치사상죄에서의 업무와 같다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "norm_card_ids": [
+        "art356_sec2_1.business_continuity_status"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
+    },
+    {
       "id": "occupational_status.art356_sec2_1.card.004.satisfied",
       "head": {
         "predicate": "satisfied_art356_sec2_1_business_definition",
@@ -2234,6 +2702,72 @@
         "art356_sec2_1.business_definition"
       ],
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
+    },
+    {
+      "id": "occupational_status.art356_sec2_1.card.004.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art356_sec2_1_business_definition",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art356_sec2_1_business_definition",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_004"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_004"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅱ.1_1",
+          "quote": "업무란 직업 또는 직무와 같은 것으로 사회생활상의 지위에 기하여 반복 또는 계속적으로 행하는 사무를 말한다. 법령, 계약에 의한 것뿐만 아니라 관례를 좇 거나 사실상의 것이거나를 묻지 않고 같은 행위를 반복할 지위에 따른 사무를 가리키는 것이다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "norm_card_ids": [
+        "art356_sec2_1.business_definition"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
     },
     {
       "id": "occupational_status.art356_sec2_1.card.005.satisfied",
@@ -2478,6 +3012,72 @@
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
     },
     {
+      "id": "occupational_status.art356_sec2_1.card.005.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art356_sec2_1_business_no_livelihood_or_formal_office",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art356_sec2_1_business_no_livelihood_or_formal_office",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_005"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_005"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅱ.1_1",
+          "quote": "업무는 반드시 직무나 직업으로 행하여지는 것에 한하지 않고 생활수단일 필요 도 없다. 또 고유의 업무이건 겸무이건 불문하며, 사실상 행하는 사무라도 무방",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "norm_card_ids": [
+        "art356_sec2_1.business_no_livelihood_or_formal_office"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
+    },
+    {
       "id": "occupational_status.art356_sec2_1.card.006.satisfied",
       "head": {
         "predicate": "satisfied_art356_sec2_1_employee_assistant_business_status",
@@ -2718,6 +3318,72 @@
         "art356_sec2_1.employee_assistant_business_status"
       ],
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
+    },
+    {
+      "id": "occupational_status.art356_sec2_1.card.006.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art356_sec2_1_employee_assistant_business_status",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art356_sec2_1_employee_assistant_business_status",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_006"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_006"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅱ.1_1",
+          "quote": "다른 업무자에게 고용되거나 보조기관으로서 사무를 행하는 경우에도 계속성과 사회생활상의 지위를 갖추는 한 업무자에 해당한다 고 보아야 한다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "norm_card_ids": [
+        "art356_sec2_1.employee_assistant_business_status"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
     },
     {
       "id": "occupational_status.art356_sec2_1.card.007.satisfied",
@@ -2962,6 +3628,72 @@
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
     },
     {
+      "id": "occupational_status.art356_sec2_1.card.007.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art356_sec2_1_incidental_business_relation",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art356_sec2_1_incidental_business_relation",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_007"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_007"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅱ.1_1",
+          "quote": "학교장이 정규의 예산 외의 교육비용이나 수학여행비용 및 각종 기부금을 보관 하다가 횡령한 경우와 같이, 본래의 사무는 아니나 편의상 부수적으로 같이 행 하는 사무도 이에 해당한다. 이러한 부수적 사무의 경우는 본래의 사무와 밀접 한 관련성이 있어야 한다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "norm_card_ids": [
+        "art356_sec2_1.incidental_business_relation"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
+    },
+    {
       "id": "occupational_status.art356_sec2_2.card.008.satisfied",
       "head": {
         "predicate": "satisfied_art356_sec2_2_administrative_illegality",
@@ -3202,6 +3934,72 @@
         "art356_sec2_2.administrative_illegality"
       ],
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
+    },
+    {
+      "id": "occupational_status.art356_sec2_2.card.008.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art356_sec2_2_administrative_illegality",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art356_sec2_2_administrative_illegality",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_008"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_008"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅱ.2_2",
+          "quote": "그러나 업무의 내용 자체가 위법하지 않는 한 면허, 인가를 취득하지 못한 경우처럼 행정절차상의 불법이더라도 현재 반복·계속하여 행하 여졌다면 업무에 해당한다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art356_sec2_2.administrative_illegality"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
     },
     {
       "id": "occupational_status.art356_sec2_2.card.009.satisfied",
@@ -3446,6 +4244,72 @@
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
     },
     {
+      "id": "occupational_status.art356_sec2_2.card.009.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art356_sec2_2_illegal_business",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art356_sec2_2_illegal_business",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_009"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_009"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅱ.2_2",
+          "quote": "업무는 원칙적으로 적법하여야 한다. 사회질서에 반하거나 강행법규에 위반되는 등 법이 절대적으로 금지하는 행위는 비록 업무의 의사로 반복하더라도 본죄의 업무가 되지 못한다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art356_sec2_2.illegal_business"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
+    },
+    {
       "id": "occupational_status.art356_sec3_3.card.010.satisfied",
       "head": {
         "predicate": "satisfied_art356_sec3_3_status_awareness",
@@ -3686,6 +4550,72 @@
         "art356_sec3_3.status_awareness"
       ],
       "review_notes": "상반된 두 평가가 모두 provable이면 conflict를 드러내고 임의로 하나를 고르지 않는다."
+    },
+    {
+      "id": "occupational_status.art356_sec3_3.card.010.not_satisfied",
+      "head": {
+        "predicate": "not_satisfied_satisfied_art356_sec3_3_status_awareness",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art356_sec3_3_status_awareness",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_010"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "not_satisfied_010"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제356조_Ⅲ.3_5",
+          "quote": "업무자의 지위에 관 한 인식도 미필적 인식으로 충분할 것이다.",
+          "section_path": "Ⅲ.3"
+        }
+      ],
+      "norm_card_ids": [
+        "art356_sec3_3.status_awareness"
+      ],
+      "review_notes": "이 카드의 사건별 평가가 not_satisfied이고 provable일 때 부정 조건으로 승격한다."
     },
     {
       "id": "occupational_status.art356.component.occupational_status_object_satisfied.01",
@@ -4132,7 +5062,7 @@
       "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
     },
     {
-      "id": "occupational_status.art356.mandatory_negative.001",
+      "id": "occupational_status.component.l0.mandatory_negative.01",
       "head": {
         "predicate": "occupational_status_not_established",
         "arguments": [
@@ -4146,14 +5076,14 @@
           },
           {
             "kind": "string",
-            "value": "art356.dual_status"
+            "value": "occupational_status_object_satisfied"
           }
         ],
         "negated": false
       },
       "body": [
         {
-          "predicate": "assess_art356_dual_status",
+          "predicate": "not_satisfied_satisfied_art356_dual_status",
           "arguments": [
             {
               "kind": "variable",
@@ -4161,21 +5091,13 @@
             },
             {
               "kind": "variable",
-              "value": "mandatory_negative_001"
-            },
-            {
-              "kind": "variable",
               "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
             }
           ],
           "negated": false
         },
         {
-          "predicate": "provable",
+          "predicate": "not_satisfied_satisfied_art356_offense_character",
           "arguments": [
             {
               "kind": "variable",
@@ -4183,7 +5105,105 @@
             },
             {
               "kind": "variable",
-              "value": "mandatory_negative_001"
+              "value": "defendant_id"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "not_satisfied_satisfied_art356_sec2_1_business_continuity_status",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "not_satisfied_satisfied_art356_sec2_1_business_definition",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "not_satisfied_satisfied_art356_sec2_1_business_no_livelihood_or_formal_office",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "not_satisfied_satisfied_art356_sec2_1_employee_assistant_business_status",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "not_satisfied_satisfied_art356_sec2_1_incidental_business_relation",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "not_satisfied_satisfied_art356_sec2_2_administrative_illegality",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "not_satisfied_satisfied_art356_sec3_3_status_awareness",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
             }
           ],
           "negated": false
@@ -4194,562 +5214,42 @@
           "comment_id": "comm_001692_제356조_Ⅰ_0",
           "quote": "단순 횡령과 배임죄도 신임관계에 의한 보관자 또는 사무처리자라는 신분을 필 요로 하는 신분범이지만, 업무상 횡령 또는 배임죄는 여기에 다시 업무자라는 신분이 요구된다.",
           "section_path": "Ⅰ"
-        }
-      ],
-      "norm_card_ids": [
-        "art356.dual_status"
-      ],
-      "review_notes": "필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다."
-    },
-    {
-      "id": "occupational_status.art356.mandatory_negative.002",
-      "head": {
-        "predicate": "occupational_status_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art356.offense_character"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art356_offense_character",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_002"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
-            }
-          ],
-          "negated": false
         },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_002"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "source_refs": [
         {
           "comment_id": "comm_001692_제356조_Ⅰ_0",
           "quote": "업무상 횡령과 배임죄는 행위자가 보관하는 타인의 물건 또는 처리하는 타인의 사무가 업무상 임무와 연결되어 있는 경우 이를 가중처벌하는 죄이다.",
           "section_path": "Ⅰ"
-        }
-      ],
-      "norm_card_ids": [
-        "art356.offense_character"
-      ],
-      "review_notes": "필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다."
-    },
-    {
-      "id": "occupational_status.art356_sec2_1.mandatory_negative.003",
-      "head": {
-        "predicate": "occupational_status_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art356_sec2_1.business_continuity_status"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art356_sec2_1_business_continuity_status",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_003"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
-            }
-          ],
-          "negated": false
         },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_003"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "source_refs": [
         {
           "comment_id": "comm_001692_제356조_Ⅱ.1_1",
           "quote": "계속성과 사회생활상의 지위를 요소로 한다는 점에서 업무상 과실치사상죄에서의 업무와 같다.",
           "section_path": "Ⅱ.1"
-        }
-      ],
-      "norm_card_ids": [
-        "art356_sec2_1.business_continuity_status"
-      ],
-      "review_notes": "필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다."
-    },
-    {
-      "id": "occupational_status.art356_sec2_1.mandatory_negative.004",
-      "head": {
-        "predicate": "occupational_status_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art356_sec2_1.business_definition"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art356_sec2_1_business_definition",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_004"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
-            }
-          ],
-          "negated": false
         },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_004"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제356조_Ⅱ.1_1",
-          "quote": "업무란 직업 또는 직무와 같은 것으로 사회생활상의 지위에 기하여 반복 또는 계속적으로 행하는 사무를 말한다. 법령, 계약에 의한 것뿐만 아니라 관례를 좇 거나 사실상의 것이거나를 묻지 않고 같은 행위를 반복할 지위에 따른 사무를 가리키는 것이다.",
-          "section_path": "Ⅱ.1"
-        }
-      ],
-      "norm_card_ids": [
-        "art356_sec2_1.business_definition"
-      ],
-      "review_notes": "필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다."
-    },
-    {
-      "id": "occupational_status.art356_sec2_1.mandatory_negative.005",
-      "head": {
-        "predicate": "occupational_status_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art356_sec2_1.business_no_livelihood_or_formal_office"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art356_sec2_1_business_no_livelihood_or_formal_office",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_005"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_005"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제356조_Ⅱ.1_1",
-          "quote": "업무는 반드시 직무나 직업으로 행하여지는 것에 한하지 않고 생활수단일 필요 도 없다. 또 고유의 업무이건 겸무이건 불문하며, 사실상 행하는 사무라도 무방",
-          "section_path": "Ⅱ.1"
-        }
-      ],
-      "norm_card_ids": [
-        "art356_sec2_1.business_no_livelihood_or_formal_office"
-      ],
-      "review_notes": "필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다."
-    },
-    {
-      "id": "occupational_status.art356_sec2_1.mandatory_negative.006",
-      "head": {
-        "predicate": "occupational_status_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art356_sec2_1.employee_assistant_business_status"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art356_sec2_1_employee_assistant_business_status",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_006"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_006"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "source_refs": [
         {
           "comment_id": "comm_001692_제356조_Ⅱ.1_1",
           "quote": "다른 업무자에게 고용되거나 보조기관으로서 사무를 행하는 경우에도 계속성과 사회생활상의 지위를 갖추는 한 업무자에 해당한다 고 보아야 한다.",
           "section_path": "Ⅱ.1"
-        }
-      ],
-      "norm_card_ids": [
-        "art356_sec2_1.employee_assistant_business_status"
-      ],
-      "review_notes": "필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다."
-    },
-    {
-      "id": "occupational_status.art356_sec2_1.mandatory_negative.007",
-      "head": {
-        "predicate": "occupational_status_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art356_sec2_1.incidental_business_relation"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art356_sec2_1_incidental_business_relation",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_007"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
-            }
-          ],
-          "negated": false
         },
         {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_007"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "source_refs": [
+          "comment_id": "comm_001692_제356조_Ⅱ.1_1",
+          "quote": "업무는 반드시 직무나 직업으로 행하여지는 것에 한하지 않고 생활수단일 필요 도 없다. 또 고유의 업무이건 겸무이건 불문하며, 사실상 행하는 사무라도 무방",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제356조_Ⅱ.1_1",
+          "quote": "업무란 직업 또는 직무와 같은 것으로 사회생활상의 지위에 기하여 반복 또는 계속적으로 행하는 사무를 말한다. 법령, 계약에 의한 것뿐만 아니라 관례를 좇 거나 사실상의 것이거나를 묻지 않고 같은 행위를 반복할 지위에 따른 사무를 가리키는 것이다.",
+          "section_path": "Ⅱ.1"
+        },
         {
           "comment_id": "comm_001692_제356조_Ⅱ.1_1",
           "quote": "학교장이 정규의 예산 외의 교육비용이나 수학여행비용 및 각종 기부금을 보관 하다가 횡령한 경우와 같이, 본래의 사무는 아니나 편의상 부수적으로 같이 행 하는 사무도 이에 해당한다. 이러한 부수적 사무의 경우는 본래의 사무와 밀접 한 관련성이 있어야 한다.",
           "section_path": "Ⅱ.1"
-        }
-      ],
-      "norm_card_ids": [
-        "art356_sec2_1.incidental_business_relation"
-      ],
-      "review_notes": "필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다."
-    },
-    {
-      "id": "occupational_status.art356_sec2_2.mandatory_negative.008",
-      "head": {
-        "predicate": "occupational_status_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art356_sec2_2.administrative_illegality"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art356_sec2_2_administrative_illegality",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_008"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
-            }
-          ],
-          "negated": false
         },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_008"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "source_refs": [
         {
           "comment_id": "comm_001692_제356조_Ⅱ.2_2",
           "quote": "그러나 업무의 내용 자체가 위법하지 않는 한 면허, 인가를 취득하지 못한 경우처럼 행정절차상의 불법이더라도 현재 반복·계속하여 행하 여졌다면 업무에 해당한다.",
           "section_path": "Ⅱ.2"
-        }
-      ],
-      "norm_card_ids": [
-        "art356_sec2_2.administrative_illegality"
-      ],
-      "review_notes": "필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다."
-    },
-    {
-      "id": "occupational_status.art356_sec3_3.mandatory_negative.009",
-      "head": {
-        "predicate": "occupational_status_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art356_sec3_3.status_awareness"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art356_sec3_3_status_awareness",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_009"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
-            }
-          ],
-          "negated": false
         },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "mandatory_negative_009"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "source_refs": [
         {
           "comment_id": "comm_001692_제356조_Ⅲ.3_5",
           "quote": "업무자의 지위에 관 한 인식도 미필적 인식으로 충분할 것이다.",
@@ -4757,9 +5257,17 @@
         }
       ],
       "norm_card_ids": [
+        "art356.dual_status",
+        "art356.offense_character",
+        "art356_sec2_1.business_continuity_status",
+        "art356_sec2_1.business_definition",
+        "art356_sec2_1.business_no_livelihood_or_formal_office",
+        "art356_sec2_1.employee_assistant_business_status",
+        "art356_sec2_1.incidental_business_relation",
+        "art356_sec2_2.administrative_illegality",
         "art356_sec3_3.status_awareness"
       ],
-      "review_notes": "필수 core 요건이 명시적으로 not_satisfied이면 불성립 사유를 도출한다."
+      "review_notes": "구성요건 L0에 속한 모든 대안 카드가 명시적으로 not_satisfied일 때만 해당 component 불성립을 도출한다."
     },
     {
       "id": "occupational_status.core.outcome.elements_satisfied",

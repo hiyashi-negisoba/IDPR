@@ -33,6 +33,11 @@ type assess_art355_breach_confidential_information(String, String, String, Strin
 // norm_cards: art355.breach.confidential-information
 type satisfied_art355_breach_confidential_information(String, String, String, String)
 
+// not_satisfied_satisfied_art355_breach_confidential_information: 증명 가능한 평가에서 다음 조건이 부인됨: 비밀유지의무를 부담하는 직원이 영업비밀 또는 영업상 주요 자산을 경쟁업체 유출 또는 자기 이익 이용 목적으로 무단 반출하면 반출 시 업무상배임죄가 기수에 이른다. 적법 반출 자료도 퇴사 시 반환·폐기 의무를 위반하면 퇴사 시 기수가 될 수 있다. 다만 특별한 사정이 없는 한 퇴사 후에는 타인의 사무처리자 지위가 없어 별도 업무상배임이 성립하지 않는다.
+// sources: comm_001692_제355조_2항_Ⅲ.2_93, comm_001692_제355조_2항_Ⅲ.2_93, comm_001692_제355조_2항_Ⅲ.2_93
+// norm_cards: art355.breach.confidential-information
+type not_satisfied_satisfied_art355_breach_confidential_information(String, String, String, String)
+
 // assess_art355_breach_duty_definition: 이 카드의 사건별 적용 평가: 배임행위는 구체적 사정에 비추어 법령·계약·신의성실상 기대되는 행위를 하지 않거나 하지 않아야 할 행위를 하여 본인과의 신임관계를 저버리는 행위이다. 단순한 형식적 법령·절차 위반만으로 충분하지 않고, 사무의 내용과 거래유형 및 보호법익을 고려한 경제적·실질적 손해 위험이 평가되어야 하며, 절차 준수만으로 실질적 임무위배가 배제되지는 않는다.
 // sources: comm_001692_제355조_2항_Ⅲ.2_40, comm_001692_제355조_2항_Ⅲ.2_43, comm_001692_제355조_2항_Ⅲ.2_66
 // norm_cards: art355.breach.duty-definition
@@ -42,6 +47,11 @@ type assess_art355_breach_duty_definition(String, String, String, String, String
 // sources: comm_001692_제355조_2항_Ⅲ.2_40, comm_001692_제355조_2항_Ⅲ.2_43, comm_001692_제355조_2항_Ⅲ.2_66
 // norm_cards: art355.breach.duty-definition
 type satisfied_art355_breach_duty_definition(String, String, String, String)
+
+// not_satisfied_satisfied_art355_breach_duty_definition: 증명 가능한 평가에서 다음 조건이 부인됨: 배임행위는 구체적 사정에 비추어 법령·계약·신의성실상 기대되는 행위를 하지 않거나 하지 않아야 할 행위를 하여 본인과의 신임관계를 저버리는 행위이다. 단순한 형식적 법령·절차 위반만으로 충분하지 않고, 사무의 내용과 거래유형 및 보호법익을 고려한 경제적·실질적 손해 위험이 평가되어야 하며, 절차 준수만으로 실질적 임무위배가 배제되지는 않는다.
+// sources: comm_001692_제355조_2항_Ⅲ.2_40, comm_001692_제355조_2항_Ⅲ.2_43, comm_001692_제355조_2항_Ⅲ.2_66
+// norm_cards: art355.breach.duty-definition
+type not_satisfied_satisfied_art355_breach_duty_definition(String, String, String, String)
 
 // assess_art355_breach_invalid_act_risk: 이 카드의 사건별 적용 평가: 배임행위가 법률상 무효라도 경제적 관점에서 본인에게 현실 손해 또는 손해와 같은 정도의 구체적·현실적 위험이 있으면 배임죄가 문제될 수 있다. 반대로 사실상 손해와 법률상 책임 가능성이 명백히 없으면 배임죄는 성립하지 않으며, 추상적 위험만 있는 경우에는 배임미수 가능성이 문제된다.
 // sources: comm_001692_제355조_2항_Ⅲ.2_102, comm_001692_제355조_2항_Ⅲ.2_119, comm_001692_제355조_2항_Ⅲ.2_120
@@ -53,6 +63,11 @@ type assess_art355_breach_invalid_act_risk(String, String, String, String, Strin
 // norm_cards: art355.breach.invalid-act-risk
 type satisfied_art355_breach_invalid_act_risk(String, String, String, String)
 
+// not_satisfied_satisfied_art355_breach_invalid_act_risk: 증명 가능한 평가에서 다음 조건이 부인됨: 배임행위가 법률상 무효라도 경제적 관점에서 본인에게 현실 손해 또는 손해와 같은 정도의 구체적·현실적 위험이 있으면 배임죄가 문제될 수 있다. 반대로 사실상 손해와 법률상 책임 가능성이 명백히 없으면 배임죄는 성립하지 않으며, 추상적 위험만 있는 경우에는 배임미수 가능성이 문제된다.
+// sources: comm_001692_제355조_2항_Ⅲ.2_102, comm_001692_제355조_2항_Ⅲ.2_119, comm_001692_제355조_2항_Ⅲ.2_120
+// norm_cards: art355.breach.invalid-act-risk
+type not_satisfied_satisfied_art355_breach_invalid_act_risk(String, String, String, String)
+
 // assess_art355_breach_other_affairs_processor: 이 카드의 사건별 적용 평가: 배임죄의 주체는 신의성실 원칙상 신임관계에 기초하여 타인의 재산적 이익을 보호·관리하는 것이 전형적·본질적 내용인 타인의 사무처리자에 한정되고, 대외적 대리권이나 포괄적 위탁사무는 반드시 필요하지 않다.
 // sources: comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.1_8
 // norm_cards: art355.breach_other_affairs_processor
@@ -62,6 +77,11 @@ type assess_art355_breach_other_affairs_processor(String, String, String, String
 // sources: comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.1_8
 // norm_cards: art355.breach_other_affairs_processor
 type satisfied_art355_breach_other_affairs_processor(String, String, String, String)
+
+// not_satisfied_satisfied_art355_breach_other_affairs_processor: 증명 가능한 평가에서 다음 조건이 부인됨: 배임죄의 주체는 신의성실 원칙상 신임관계에 기초하여 타인의 재산적 이익을 보호·관리하는 것이 전형적·본질적 내용인 타인의 사무처리자에 한정되고, 대외적 대리권이나 포괄적 위탁사무는 반드시 필요하지 않다.
+// sources: comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.1_8
+// norm_cards: art355.breach_other_affairs_processor
+type not_satisfied_satisfied_art355_breach_other_affairs_processor(String, String, String, String)
 
 // assess_art355_breach_right_transfer_general: 이 카드의 사건별 적용 평가: 매매·교환 등 권리이전계약의 이행채무는 원칙적으로 자기 사무이나, 중도금을 지급받아 계약의 구속력에서 벗어날 수 없는 부동산 매도인은 양수인의 재산적 이익을 보호·관리할 신임관계에 있어 소유권이전의무가 타인의 사무로 인정될 수 있다.
 // sources: comm_001692_제355조_2항_Ⅲ.1_14, comm_001692_제355조_2항_Ⅲ.1_14
@@ -73,6 +93,11 @@ type assess_art355_breach_right_transfer_general(String, String, String, String,
 // norm_cards: art355.breach_right_transfer_general
 type satisfied_art355_breach_right_transfer_general(String, String, String, String)
 
+// not_satisfied_satisfied_art355_breach_right_transfer_general: 증명 가능한 평가에서 다음 조건이 부인됨: 매매·교환 등 권리이전계약의 이행채무는 원칙적으로 자기 사무이나, 중도금을 지급받아 계약의 구속력에서 벗어날 수 없는 부동산 매도인은 양수인의 재산적 이익을 보호·관리할 신임관계에 있어 소유권이전의무가 타인의 사무로 인정될 수 있다.
+// sources: comm_001692_제355조_2항_Ⅲ.1_14, comm_001692_제355조_2항_Ⅲ.1_14
+// norm_cards: art355.breach_right_transfer_general
+type not_satisfied_satisfied_art355_breach_right_transfer_general(String, String, String, String)
+
 // assess_art355_sec1_1_breach_of_trust: 이 카드의 사건별 적용 평가: 배임죄는 타인의 사무를 처리하는 자가 임무위배행위로 재산상 이익을 취득하거나 제3자로 하여금 취득하게 하여 본인에게 손해를 가하는 범죄이다.
 // sources: comm_001692_제355조_2항_Ⅰ.1_0
 // norm_cards: art355_sec1_1.breach_of_trust
@@ -82,6 +107,11 @@ type assess_art355_sec1_1_breach_of_trust(String, String, String, String, String
 // sources: comm_001692_제355조_2항_Ⅰ.1_0
 // norm_cards: art355_sec1_1.breach_of_trust
 type satisfied_art355_sec1_1_breach_of_trust(String, String, String, String)
+
+// not_satisfied_satisfied_art355_sec1_1_breach_of_trust: 증명 가능한 평가에서 다음 조건이 부인됨: 배임죄는 타인의 사무를 처리하는 자가 임무위배행위로 재산상 이익을 취득하거나 제3자로 하여금 취득하게 하여 본인에게 손해를 가하는 범죄이다.
+// sources: comm_001692_제355조_2항_Ⅰ.1_0
+// norm_cards: art355_sec1_1.breach_of_trust
+type not_satisfied_satisfied_art355_sec1_1_breach_of_trust(String, String, String, String)
 
 // assess_art355_sec1_2_breach_of_trust_betrayal_theory: 이 카드의 사건별 적용 평가: 배임죄의 본질은 신의성실의무에 위반하여 타인의 신뢰를 배반하고 재산을 침해하는 데 있다.
 // sources: comm_001692_제355조_2항_Ⅰ.2_1
@@ -93,6 +123,11 @@ type assess_art355_sec1_2_breach_of_trust_betrayal_theory(String, String, String
 // norm_cards: art355_sec1_2.breach_of_trust_betrayal_theory
 type satisfied_art355_sec1_2_breach_of_trust_betrayal_theory(String, String, String, String)
 
+// not_satisfied_satisfied_art355_sec1_2_breach_of_trust_betrayal_theory: 증명 가능한 평가에서 다음 조건이 부인됨: 배임죄의 본질은 신의성실의무에 위반하여 타인의 신뢰를 배반하고 재산을 침해하는 데 있다.
+// sources: comm_001692_제355조_2항_Ⅰ.2_1
+// norm_cards: art355_sec1_2.breach_of_trust_betrayal_theory
+type not_satisfied_satisfied_art355_sec1_2_breach_of_trust_betrayal_theory(String, String, String, String)
+
 // assess_art355_sec1_3_breach_of_trust_case_concrete_risk_of_loss: 이 카드의 사건별 적용 평가: 배임죄의 재산상 손해에는 현실적 손해뿐 아니라 재산상 실해 발생의 위험도 포함되나, 막연한 위험만으로는 부족하고 경제적으로 손해 발생과 같은 정도의 구체적 위험이 있어야 한다.
 // sources: comm_001692_제355조_2항_Ⅰ.3_3, comm_001692_제355조_2항_Ⅰ.3_3
 // norm_cards: art355_sec1_3.breach_of_trust_case_concrete_risk_of_loss
@@ -102,6 +137,11 @@ type assess_art355_sec1_3_breach_of_trust_case_concrete_risk_of_loss(String, Str
 // sources: comm_001692_제355조_2항_Ⅰ.3_3, comm_001692_제355조_2항_Ⅰ.3_3
 // norm_cards: art355_sec1_3.breach_of_trust_case_concrete_risk_of_loss
 type satisfied_art355_sec1_3_breach_of_trust_case_concrete_risk_of_loss(String, String, String, String)
+
+// not_satisfied_satisfied_art355_sec1_3_breach_of_trust_case_concrete_risk_of_loss: 증명 가능한 평가에서 다음 조건이 부인됨: 배임죄의 재산상 손해에는 현실적 손해뿐 아니라 재산상 실해 발생의 위험도 포함되나, 막연한 위험만으로는 부족하고 경제적으로 손해 발생과 같은 정도의 구체적 위험이 있어야 한다.
+// sources: comm_001692_제355조_2항_Ⅰ.3_3, comm_001692_제355조_2항_Ⅰ.3_3
+// norm_cards: art355_sec1_3.breach_of_trust_case_concrete_risk_of_loss
+type not_satisfied_satisfied_art355_sec1_3_breach_of_trust_case_concrete_risk_of_loss(String, String, String, String)
 
 // assess_art355_sec3_breach_of_trust_objective_elements: 이 카드의 사건별 적용 평가: 배임죄의 객관적 구성요건은 타인의 사무를 처리하는 자가 임무위배행위를 하여 재산상 이익을 취득하고 본인에게 재산상 손해를 가하는 것이다.
 // sources: comm_001692_제355조_2항_Ⅲ_7
@@ -113,6 +153,11 @@ type assess_art355_sec3_breach_of_trust_objective_elements(String, String, Strin
 // norm_cards: art355_sec3.breach_of_trust.objective_elements
 type satisfied_art355_sec3_breach_of_trust_objective_elements(String, String, String, String)
 
+// not_satisfied_satisfied_art355_sec3_breach_of_trust_objective_elements: 증명 가능한 평가에서 다음 조건이 부인됨: 배임죄의 객관적 구성요건은 타인의 사무를 처리하는 자가 임무위배행위를 하여 재산상 이익을 취득하고 본인에게 재산상 손해를 가하는 것이다.
+// sources: comm_001692_제355조_2항_Ⅲ_7
+// norm_cards: art355_sec3.breach_of_trust.objective_elements
+type not_satisfied_satisfied_art355_sec3_breach_of_trust_objective_elements(String, String, String, String)
+
 // assess_art355_sec4_1_breach_of_trust_intent_elements: 이 카드의 사건별 적용 평가: 배임의 고의에는 타인의 사무처리자로서 임무위배행위를 하고, 그로 인해 자기 또는 제3자가 이익을 취득하며, 본인에게 손해를 가한다는 점에 관한 인식 또는 의사가 필요하다.
 // sources: comm_001692_제355조_2항_Ⅳ.1_159
 // norm_cards: art355_sec4_1.breach_of_trust_intent_elements
@@ -122,6 +167,11 @@ type assess_art355_sec4_1_breach_of_trust_intent_elements(String, String, String
 // sources: comm_001692_제355조_2항_Ⅳ.1_159
 // norm_cards: art355_sec4_1.breach_of_trust_intent_elements
 type satisfied_art355_sec4_1_breach_of_trust_intent_elements(String, String, String, String)
+
+// not_satisfied_satisfied_art355_sec4_1_breach_of_trust_intent_elements: 증명 가능한 평가에서 다음 조건이 부인됨: 배임의 고의에는 타인의 사무처리자로서 임무위배행위를 하고, 그로 인해 자기 또는 제3자가 이익을 취득하며, 본인에게 손해를 가한다는 점에 관한 인식 또는 의사가 필요하다.
+// sources: comm_001692_제355조_2항_Ⅳ.1_159
+// norm_cards: art355_sec4_1.breach_of_trust_intent_elements
+type not_satisfied_satisfied_art355_sec4_1_breach_of_trust_intent_elements(String, String, String, String)
 
 // assess_art355_sec4_1_breach_of_trust_intent_no_purpose: 이 카드의 사건별 적용 평가: 배임의 범의는 본인 손해 발생 또는 발생 염려 및 자기 또는 제3자의 재산상 이득에 대한 인식으로 충분하며, 본인에게 손해를 가할 의사나 이득을 얻을 목적은 필요하지 않고 미필적 고의로도 충분하다.
 // sources: comm_001692_제355조_2항_Ⅳ.1_159, comm_001692_제355조_2항_Ⅳ.1_159
@@ -133,6 +183,11 @@ type assess_art355_sec4_1_breach_of_trust_intent_no_purpose(String, String, Stri
 // norm_cards: art355_sec4_1.breach_of_trust_intent_no_purpose
 type satisfied_art355_sec4_1_breach_of_trust_intent_no_purpose(String, String, String, String)
 
+// not_satisfied_satisfied_art355_sec4_1_breach_of_trust_intent_no_purpose: 증명 가능한 평가에서 다음 조건이 부인됨: 배임의 범의는 본인 손해 발생 또는 발생 염려 및 자기 또는 제3자의 재산상 이득에 대한 인식으로 충분하며, 본인에게 손해를 가할 의사나 이득을 얻을 목적은 필요하지 않고 미필적 고의로도 충분하다.
+// sources: comm_001692_제355조_2항_Ⅳ.1_159, comm_001692_제355조_2항_Ⅳ.1_159
+// norm_cards: art355_sec4_1.breach_of_trust_intent_no_purpose
+type not_satisfied_satisfied_art355_sec4_1_breach_of_trust_intent_no_purpose(String, String, String, String)
+
 // assess_art355_sec4_1_business_judgment_intent: 이 카드의 사건별 적용 평가: 경영상 판단에서 배임의 고의는 판단 경위·동기, 사업 내용, 경제상황, 손실 및 이익 발생 개연성 등을 고려하여 자기 또는 제3자의 이익 취득 및 본인 손해에 대한 인식 아래 한 의도적 행위가 인정되는 경우에 한하여 인정된다.
 // sources: comm_001692_제355조_2항_Ⅳ.1_161
 // norm_cards: art355_sec4_1.business_judgment_intent
@@ -142,6 +197,11 @@ type assess_art355_sec4_1_business_judgment_intent(String, String, String, Strin
 // sources: comm_001692_제355조_2항_Ⅳ.1_161
 // norm_cards: art355_sec4_1.business_judgment_intent
 type satisfied_art355_sec4_1_business_judgment_intent(String, String, String, String)
+
+// not_satisfied_satisfied_art355_sec4_1_business_judgment_intent: 증명 가능한 평가에서 다음 조건이 부인됨: 경영상 판단에서 배임의 고의는 판단 경위·동기, 사업 내용, 경제상황, 손실 및 이익 발생 개연성 등을 고려하여 자기 또는 제3자의 이익 취득 및 본인 손해에 대한 인식 아래 한 의도적 행위가 인정되는 경우에 한하여 인정된다.
+// sources: comm_001692_제355조_2항_Ⅳ.1_161
+// norm_cards: art355_sec4_1.business_judgment_intent
+type not_satisfied_satisfied_art355_sec4_1_business_judgment_intent(String, String, String, String)
 
 // assess_art355_sec4_1_business_loss_alone_insufficient: 이 카드의 사건별 적용 평가: 경영상 판단에서 위와 같은 인식 없이 본인에게 손해가 발생한 결과만으로 배임 책임을 묻거나, 단순한 주의의무 위반 과실만을 이유로 책임을 물을 수 없다.
 // sources: comm_001692_제355조_2항_Ⅳ.1_161
@@ -153,6 +213,11 @@ type assess_art355_sec4_1_business_loss_alone_insufficient(String, String, Strin
 // norm_cards: art355_sec4_1.business_loss_alone_insufficient
 type satisfied_art355_sec4_1_business_loss_alone_insufficient(String, String, String, String)
 
+// not_satisfied_satisfied_art355_sec4_1_business_loss_alone_insufficient: 증명 가능한 평가에서 다음 조건이 부인됨: 경영상 판단에서 위와 같은 인식 없이 본인에게 손해가 발생한 결과만으로 배임 책임을 묻거나, 단순한 주의의무 위반 과실만을 이유로 책임을 물을 수 없다.
+// sources: comm_001692_제355조_2항_Ⅳ.1_161
+// norm_cards: art355_sec4_1.business_loss_alone_insufficient
+type not_satisfied_satisfied_art355_sec4_1_business_loss_alone_insufficient(String, String, String, String)
+
 // assess_art355_sec4_1_double_sale_unjustified_rescission_intent: 이 카드의 사건별 적용 평가: 매도인이 주장하는 해제사유가 적법하지 않고, 이를 적법한 해제사유로 믿지 않았거나 그 믿음에 정당한 이유가 없으면 배임의 범의가 인정된다.
 // sources: comm_001692_제355조_2항_Ⅳ.1_161
 // norm_cards: art355_sec4_1.double_sale_unjustified_rescission_intent
@@ -162,6 +227,11 @@ type assess_art355_sec4_1_double_sale_unjustified_rescission_intent(String, Stri
 // sources: comm_001692_제355조_2항_Ⅳ.1_161
 // norm_cards: art355_sec4_1.double_sale_unjustified_rescission_intent
 type satisfied_art355_sec4_1_double_sale_unjustified_rescission_intent(String, String, String, String)
+
+// not_satisfied_satisfied_art355_sec4_1_double_sale_unjustified_rescission_intent: 증명 가능한 평가에서 다음 조건이 부인됨: 매도인이 주장하는 해제사유가 적법하지 않고, 이를 적법한 해제사유로 믿지 않았거나 그 믿음에 정당한 이유가 없으면 배임의 범의가 인정된다.
+// sources: comm_001692_제355조_2항_Ⅳ.1_161
+// norm_cards: art355_sec4_1.double_sale_unjustified_rescission_intent
+type not_satisfied_satisfied_art355_sec4_1_double_sale_unjustified_rescission_intent(String, String, String, String)
 
 // assess_art355_sec4_1_no_breach_of_trust_without_awareness: 이 카드의 사건별 적용 평가: 임무에 위배한다는 인식이 없으면 배임죄가 성립할 수 없다.
 // sources: comm_001692_제355조_2항_Ⅳ.1_160
@@ -173,6 +243,11 @@ type assess_art355_sec4_1_no_breach_of_trust_without_awareness(String, String, S
 // norm_cards: art355_sec4_1.no_breach_of_trust_without_awareness
 type satisfied_art355_sec4_1_no_breach_of_trust_without_awareness(String, String, String, String)
 
+// not_satisfied_satisfied_art355_sec4_1_no_breach_of_trust_without_awareness: 증명 가능한 평가에서 다음 조건이 부인됨: 임무에 위배한다는 인식이 없으면 배임죄가 성립할 수 없다.
+// sources: comm_001692_제355조_2항_Ⅳ.1_160
+// norm_cards: art355_sec4_1.no_breach_of_trust_without_awareness
+type not_satisfied_satisfied_art355_sec4_1_no_breach_of_trust_without_awareness(String, String, String, String)
+
 // assess_art355_sec4_1_role_violation_intent: 이 카드의 사건별 적용 평가: 구체적 상황상 법령·계약 또는 신의성실 원칙에 따라 역할·지위에서 당연히 기대되는 행위를 하지 않거나 하지 않아야 할 행위를 하여 자기 또는 제3자의 재산상 이익을 취득시키고 본인에게 손해를 가하면, 그에 관한 고의 또는 불법이득의 의사가 인정된다.
 // sources: comm_001692_제355조_2항_Ⅳ.1_161
 // norm_cards: art355_sec4_1.role_violation_intent
@@ -182,6 +257,11 @@ type assess_art355_sec4_1_role_violation_intent(String, String, String, String, 
 // sources: comm_001692_제355조_2항_Ⅳ.1_161
 // norm_cards: art355_sec4_1.role_violation_intent
 type satisfied_art355_sec4_1_role_violation_intent(String, String, String, String)
+
+// not_satisfied_satisfied_art355_sec4_1_role_violation_intent: 증명 가능한 평가에서 다음 조건이 부인됨: 구체적 상황상 법령·계약 또는 신의성실 원칙에 따라 역할·지위에서 당연히 기대되는 행위를 하지 않거나 하지 않아야 할 행위를 하여 자기 또는 제3자의 재산상 이익을 취득시키고 본인에게 손해를 가하면, 그에 관한 고의 또는 불법이득의 의사가 인정된다.
+// sources: comm_001692_제355조_2항_Ⅳ.1_161
+// norm_cards: art355_sec4_1.role_violation_intent
+type not_satisfied_satisfied_art355_sec4_1_role_violation_intent(String, String, String, String)
 
 // assess_art355_sec4_2_breach_for_principal_no_illicit_gain: 이 카드의 사건별 적용 평가: 본인의 이익을 위하여 사무를 처리한 때에는 불법이득의 의사가 없어 배임죄가 성립하지 않는다.
 // sources: comm_001692_제355조_2항_Ⅳ.2_163
@@ -193,6 +273,11 @@ type assess_art355_sec4_2_breach_for_principal_no_illicit_gain(String, String, S
 // norm_cards: art355_sec4_2.breach_for_principal_no_illicit_gain
 type satisfied_art355_sec4_2_breach_for_principal_no_illicit_gain(String, String, String, String)
 
+// not_satisfied_satisfied_art355_sec4_2_breach_for_principal_no_illicit_gain: 증명 가능한 평가에서 다음 조건이 부인됨: 본인의 이익을 위하여 사무를 처리한 때에는 불법이득의 의사가 없어 배임죄가 성립하지 않는다.
+// sources: comm_001692_제355조_2항_Ⅳ.2_163
+// norm_cards: art355_sec4_2.breach_for_principal_no_illicit_gain
+type not_satisfied_satisfied_art355_sec4_2_breach_for_principal_no_illicit_gain(String, String, String, String)
+
 // assess_art355_sec4_2_breach_illicit_gain_intent: 이 카드의 사건별 적용 평가: 판례상 배임의 불법이득의 의사는 자기 또는 제3자의 이익을 꾀할 목적으로 업무상 임무에 위배된 행위를 하는 의사를 뜻한다.
 // sources: comm_001692_제355조_2항_Ⅳ.2_163
 // norm_cards: art355_sec4_2.breach_illicit_gain_intent
@@ -202,6 +287,11 @@ type assess_art355_sec4_2_breach_illicit_gain_intent(String, String, String, Str
 // sources: comm_001692_제355조_2항_Ⅳ.2_163
 // norm_cards: art355_sec4_2.breach_illicit_gain_intent
 type satisfied_art355_sec4_2_breach_illicit_gain_intent(String, String, String, String)
+
+// not_satisfied_satisfied_art355_sec4_2_breach_illicit_gain_intent: 증명 가능한 평가에서 다음 조건이 부인됨: 판례상 배임의 불법이득의 의사는 자기 또는 제3자의 이익을 꾀할 목적으로 업무상 임무에 위배된 행위를 하는 의사를 뜻한다.
+// sources: comm_001692_제355조_2항_Ⅳ.2_163
+// norm_cards: art355_sec4_2.breach_illicit_gain_intent
+type not_satisfied_satisfied_art355_sec4_2_breach_illicit_gain_intent(String, String, String, String)
 
 // assess_art355_sec4_2_breach_illicit_gain_separate_requirement: 이 카드의 사건별 적용 평가: 배임죄는 이득죄이므로 고의와 별도로 불법이득의 의사가 있어야 한다.
 // sources: comm_001692_제355조_2항_Ⅳ.2_163
@@ -213,6 +303,11 @@ type assess_art355_sec4_2_breach_illicit_gain_separate_requirement(String, Strin
 // norm_cards: art355_sec4_2.breach_illicit_gain_separate_requirement
 type satisfied_art355_sec4_2_breach_illicit_gain_separate_requirement(String, String, String, String)
 
+// not_satisfied_satisfied_art355_sec4_2_breach_illicit_gain_separate_requirement: 증명 가능한 평가에서 다음 조건이 부인됨: 배임죄는 이득죄이므로 고의와 별도로 불법이득의 의사가 있어야 한다.
+// sources: comm_001692_제355조_2항_Ⅳ.2_163
+// norm_cards: art355_sec4_2.breach_illicit_gain_separate_requirement
+type not_satisfied_satisfied_art355_sec4_2_breach_illicit_gain_separate_requirement(String, String, String, String)
+
 // assess_art355_sec4_2_mixed_motives_primary_purpose: 이 카드의 사건별 적용 평가: 본인을 위한 의사와 자기 또는 제3자의 재산상 이득을 위한 의사가 결합된 경우에는 어느 의사가 주된 것인지에 따라 배임죄 성립을 결정하고, 본인을 위한 의사가 부수적이면 배임죄 성립에 영향이 없다.
 // sources: comm_001692_제355조_2항_Ⅳ.2_165
 // norm_cards: art355_sec4_2.mixed_motives_primary_purpose
@@ -222,6 +317,11 @@ type assess_art355_sec4_2_mixed_motives_primary_purpose(String, String, String, 
 // sources: comm_001692_제355조_2항_Ⅳ.2_165
 // norm_cards: art355_sec4_2.mixed_motives_primary_purpose
 type satisfied_art355_sec4_2_mixed_motives_primary_purpose(String, String, String, String)
+
+// not_satisfied_satisfied_art355_sec4_2_mixed_motives_primary_purpose: 증명 가능한 평가에서 다음 조건이 부인됨: 본인을 위한 의사와 자기 또는 제3자의 재산상 이득을 위한 의사가 결합된 경우에는 어느 의사가 주된 것인지에 따라 배임죄 성립을 결정하고, 본인을 위한 의사가 부수적이면 배임죄 성립에 영향이 없다.
+// sources: comm_001692_제355조_2항_Ⅳ.2_165
+// norm_cards: art355_sec4_2.mixed_motives_primary_purpose
+type not_satisfied_satisfied_art355_sec4_2_mixed_motives_primary_purpose(String, String, String, String)
 
 // assess_art355_sec4_2_third_party_benefit_sufficient: 이 카드의 사건별 적용 평가: 행위자 자신이 재산상 이익을 취득할 의사가 없더라도 제3자 등으로 하여금 보상을 받게 할 의사가 있으면 불법이득의 의사가 없다고 볼 수 없다.
 // sources: comm_001692_제355조_2항_Ⅳ.2_164
@@ -233,6 +333,11 @@ type assess_art355_sec4_2_third_party_benefit_sufficient(String, String, String,
 // norm_cards: art355_sec4_2.third_party_benefit_sufficient
 type satisfied_art355_sec4_2_third_party_benefit_sufficient(String, String, String, String)
 
+// not_satisfied_satisfied_art355_sec4_2_third_party_benefit_sufficient: 증명 가능한 평가에서 다음 조건이 부인됨: 행위자 자신이 재산상 이익을 취득할 의사가 없더라도 제3자 등으로 하여금 보상을 받게 할 의사가 있으면 불법이득의 의사가 없다고 볼 수 없다.
+// sources: comm_001692_제355조_2항_Ⅳ.2_164
+// norm_cards: art355_sec4_2.third_party_benefit_sufficient
+type not_satisfied_satisfied_art355_sec4_2_third_party_benefit_sufficient(String, String, String, String)
+
 // assess_art355_sec5_2_assigned_claim_proceeds_embezzlement: 이 카드의 사건별 적용 평가: 채권양도인이 양도 채권을 직접 추심하여 받은 금전을 양수인에게 지급하지 않고 임의 처분한 것은 권리이전계약상 채무불이행에 불과하여 횡령죄가 성립하지 않는다.
 // sources: comm_001692_제355조_2항_Ⅴ.2_167
 // norm_cards: art355_sec5_2.assigned_claim_proceeds_embezzlement
@@ -242,6 +347,11 @@ type assess_art355_sec5_2_assigned_claim_proceeds_embezzlement(String, String, S
 // sources: comm_001692_제355조_2항_Ⅴ.2_167
 // norm_cards: art355_sec5_2.assigned_claim_proceeds_embezzlement
 type satisfied_art355_sec5_2_assigned_claim_proceeds_embezzlement(String, String, String, String)
+
+// not_satisfied_satisfied_art355_sec5_2_assigned_claim_proceeds_embezzlement: 증명 가능한 평가에서 다음 조건이 부인됨: 채권양도인이 양도 채권을 직접 추심하여 받은 금전을 양수인에게 지급하지 않고 임의 처분한 것은 권리이전계약상 채무불이행에 불과하여 횡령죄가 성립하지 않는다.
+// sources: comm_001692_제355조_2항_Ⅴ.2_167
+// norm_cards: art355_sec5_2.assigned_claim_proceeds_embezzlement
+type not_satisfied_satisfied_art355_sec5_2_assigned_claim_proceeds_embezzlement(String, String, String, String)
 
 // assess_art355_sec5_2_individual_delegation_exception: 이 카드의 사건별 적용 평가: 단순 권리이전 또는 담보설정계약을 넘어 위임 등 배임죄상 신임관계를 인정할 개별 요소가 있으면 이를 근거로 사무의 타인성을 인정할 여지가 있다.
 // sources: comm_001692_제355조_2항_Ⅴ.2_183
@@ -253,6 +363,11 @@ type assess_art355_sec5_2_individual_delegation_exception(String, String, String
 // norm_cards: art355_sec5_2.individual_delegation_exception
 type satisfied_art355_sec5_2_individual_delegation_exception(String, String, String, String)
 
+// not_satisfied_satisfied_art355_sec5_2_individual_delegation_exception: 증명 가능한 평가에서 다음 조건이 부인됨: 단순 권리이전 또는 담보설정계약을 넘어 위임 등 배임죄상 신임관계를 인정할 개별 요소가 있으면 이를 근거로 사무의 타인성을 인정할 여지가 있다.
+// sources: comm_001692_제355조_2항_Ⅴ.2_183
+// norm_cards: art355_sec5_2.individual_delegation_exception
+type not_satisfied_satisfied_art355_sec5_2_individual_delegation_exception(String, String, String, String)
+
 // assess_art355_sec5_2_leasehold_transfer: 이 카드의 사건별 적용 평가: 권리이전계약에서 양도인이 부담하는 의무가 양도인 자신의 채무인 경우, 양도인은 배임죄의 타인 사무처리자가 아니므로 그 의무를 이행하지 않아도 배임죄가 성립하지 않는다.
 // sources: comm_001692_제355조_2항_Ⅴ.2_170
 // norm_cards: art355_sec5_2.leasehold_transfer
@@ -262,6 +377,11 @@ type assess_art355_sec5_2_leasehold_transfer(String, String, String, String, Str
 // sources: comm_001692_제355조_2항_Ⅴ.2_170
 // norm_cards: art355_sec5_2.leasehold_transfer
 type satisfied_art355_sec5_2_leasehold_transfer(String, String, String, String)
+
+// not_satisfied_satisfied_art355_sec5_2_leasehold_transfer: 증명 가능한 평가에서 다음 조건이 부인됨: 권리이전계약에서 양도인이 부담하는 의무가 양도인 자신의 채무인 경우, 양도인은 배임죄의 타인 사무처리자가 아니므로 그 의무를 이행하지 않아도 배임죄가 성립하지 않는다.
+// sources: comm_001692_제355조_2항_Ⅴ.2_170
+// norm_cards: art355_sec5_2.leasehold_transfer
+type not_satisfied_satisfied_art355_sec5_2_leasehold_transfer(String, String, String, String)
 
 // assess_art355_sec5_2_movable_sale_double_disposition: 이 카드의 사건별 적용 평가: 동산매매에서 매도인은 매수인에 대한 타인 사무처리자 지위에 있지 않으므로, 목적물을 인도하지 않고 타인에게 처분하여도 배임죄가 성립하지 않는다.
 // sources: comm_001692_제355조_2항_Ⅴ.2_168
@@ -273,6 +393,11 @@ type assess_art355_sec5_2_movable_sale_double_disposition(String, String, String
 // norm_cards: art355_sec5_2.movable_sale_double_disposition
 type satisfied_art355_sec5_2_movable_sale_double_disposition(String, String, String, String)
 
+// not_satisfied_satisfied_art355_sec5_2_movable_sale_double_disposition: 증명 가능한 평가에서 다음 조건이 부인됨: 동산매매에서 매도인은 매수인에 대한 타인 사무처리자 지위에 있지 않으므로, 목적물을 인도하지 않고 타인에게 처분하여도 배임죄가 성립하지 않는다.
+// sources: comm_001692_제355조_2항_Ⅴ.2_168
+// norm_cards: art355_sec5_2.movable_sale_double_disposition
+type not_satisfied_satisfied_art355_sec5_2_movable_sale_double_disposition(String, String, String, String)
+
 // assess_art355_sec5_2_pre_certificate_stock_transfer: 이 카드의 사건별 적용 평가: 주권발행 전 주식 양도인이 제3자 대항요건을 갖추어 줄 채무는 자기 사무이므로, 그 요건을 갖추지 않고 타인에게 처분하여도 배임죄가 성립하지 않는다.
 // sources: comm_001692_제355조_2항_Ⅴ.2_168
 // norm_cards: art355_sec5_2.pre_certificate_stock_transfer
@@ -282,6 +407,11 @@ type assess_art355_sec5_2_pre_certificate_stock_transfer(String, String, String,
 // sources: comm_001692_제355조_2항_Ⅴ.2_168
 // norm_cards: art355_sec5_2.pre_certificate_stock_transfer
 type satisfied_art355_sec5_2_pre_certificate_stock_transfer(String, String, String, String)
+
+// not_satisfied_satisfied_art355_sec5_2_pre_certificate_stock_transfer: 증명 가능한 평가에서 다음 조건이 부인됨: 주권발행 전 주식 양도인이 제3자 대항요건을 갖추어 줄 채무는 자기 사무이므로, 그 요건을 갖추지 않고 타인에게 처분하여도 배임죄가 성립하지 않는다.
+// sources: comm_001692_제355조_2항_Ⅴ.2_168
+// norm_cards: art355_sec5_2.pre_certificate_stock_transfer
+type not_satisfied_satisfied_art355_sec5_2_pre_certificate_stock_transfer(String, String, String, String)
 
 // assess_art355_sec5_2_real_estate_double_sale_majority: 이 카드의 사건별 적용 평가: 부동산 매매계약이 중도금 지급 등으로 본격적인 이행 단계에 이르면, 매도인은 매수인의 재산보전에 협력하여 그 재산적 이익을 보호·관리할 신임관계에 기초한 타인의 사무처리자에 해당한다.
 // sources: comm_001692_제355조_2항_Ⅴ.2_172, comm_001692_제355조_2항_Ⅴ.2_172
@@ -293,6 +423,11 @@ type assess_art355_sec5_2_real_estate_double_sale_majority(String, String, Strin
 // norm_cards: art355_sec5_2.real_estate_double_sale_majority
 type satisfied_art355_sec5_2_real_estate_double_sale_majority(String, String, String, String)
 
+// not_satisfied_satisfied_art355_sec5_2_real_estate_double_sale_majority: 증명 가능한 평가에서 다음 조건이 부인됨: 부동산 매매계약이 중도금 지급 등으로 본격적인 이행 단계에 이르면, 매도인은 매수인의 재산보전에 협력하여 그 재산적 이익을 보호·관리할 신임관계에 기초한 타인의 사무처리자에 해당한다.
+// sources: comm_001692_제355조_2항_Ⅴ.2_172, comm_001692_제355조_2항_Ⅴ.2_172
+// norm_cards: art355_sec5_2.real_estate_double_sale_majority
+type not_satisfied_satisfied_art355_sec5_2_real_estate_double_sale_majority(String, String, String, String)
+
 // assess_art355_sec5_2_real_estate_sale_intermediate_payment: 이 카드의 사건별 적용 평가: 부동산 양도계약에서 중도금 지급 등으로 계약이 본격 이행 단계에 이르면, 계약이 취소·해제되지 않는 한 매도인은 매수인의 재산보전에 협력하는 신임관계에 있으므로 배임죄의 타인 사무처리자에 해당한다.
 // sources: comm_001692_제355조_2항_Ⅴ.2_171
 // norm_cards: art355_sec5_2.real_estate_sale_intermediate_payment
@@ -302,6 +437,11 @@ type assess_art355_sec5_2_real_estate_sale_intermediate_payment(String, String, 
 // sources: comm_001692_제355조_2항_Ⅴ.2_171
 // norm_cards: art355_sec5_2.real_estate_sale_intermediate_payment
 type satisfied_art355_sec5_2_real_estate_sale_intermediate_payment(String, String, String, String)
+
+// not_satisfied_satisfied_art355_sec5_2_real_estate_sale_intermediate_payment: 증명 가능한 평가에서 다음 조건이 부인됨: 부동산 양도계약에서 중도금 지급 등으로 계약이 본격 이행 단계에 이르면, 계약이 취소·해제되지 않는 한 매도인은 매수인의 재산보전에 협력하는 신임관계에 있으므로 배임죄의 타인 사무처리자에 해당한다.
+// sources: comm_001692_제355조_2항_Ⅴ.2_171
+// norm_cards: art355_sec5_2.real_estate_sale_intermediate_payment
+type not_satisfied_satisfied_art355_sec5_2_real_estate_sale_intermediate_payment(String, String, String, String)
 
 // assess_art355_sec5_2_real_estate_transfer_exception: 이 카드의 사건별 적용 평가: 판례는 부동산 양도계약의 소유권이전의무에 대하여 중도금 지급 관행 등 거래 현실의 특수성을 고려하여 예외적으로 타인의 사무성을 인정한다.
 // sources: comm_001692_제355조_2항_Ⅴ.2_183
@@ -313,6 +453,11 @@ type assess_art355_sec5_2_real_estate_transfer_exception(String, String, String,
 // norm_cards: art355_sec5_2.real_estate_transfer_exception
 type satisfied_art355_sec5_2_real_estate_transfer_exception(String, String, String, String)
 
+// not_satisfied_satisfied_art355_sec5_2_real_estate_transfer_exception: 증명 가능한 평가에서 다음 조건이 부인됨: 판례는 부동산 양도계약의 소유권이전의무에 대하여 중도금 지급 관행 등 거래 현실의 특수성을 고려하여 예외적으로 타인의 사무성을 인정한다.
+// sources: comm_001692_제355조_2항_Ⅴ.2_183
+// norm_cards: art355_sec5_2.real_estate_transfer_exception
+type not_satisfied_satisfied_art355_sec5_2_real_estate_transfer_exception(String, String, String, String)
+
 // assess_art355_sec5_2_registered_movable_sale_disposition: 이 카드의 사건별 적용 평가: 자동차 등 권리이전에 등기·등록이 필요한 동산의 매도인도 매수인에 대한 타인 사무처리자가 아니므로 소유권이전등록을 하지 않고 타인에게 처분하여도 배임죄가 성립하지 않는다.
 // sources: comm_001692_제355조_2항_Ⅴ.2_168
 // norm_cards: art355_sec5_2.registered_movable_sale_disposition
@@ -322,6 +467,11 @@ type assess_art355_sec5_2_registered_movable_sale_disposition(String, String, St
 // sources: comm_001692_제355조_2항_Ⅴ.2_168
 // norm_cards: art355_sec5_2.registered_movable_sale_disposition
 type satisfied_art355_sec5_2_registered_movable_sale_disposition(String, String, String, String)
+
+// not_satisfied_satisfied_art355_sec5_2_registered_movable_sale_disposition: 증명 가능한 평가에서 다음 조건이 부인됨: 자동차 등 권리이전에 등기·등록이 필요한 동산의 매도인도 매수인에 대한 타인 사무처리자가 아니므로 소유권이전등록을 하지 않고 타인에게 처분하여도 배임죄가 성립하지 않는다.
+// sources: comm_001692_제355조_2항_Ⅴ.2_168
+// norm_cards: art355_sec5_2.registered_movable_sale_disposition
+type not_satisfied_satisfied_art355_sec5_2_registered_movable_sale_disposition(String, String, String, String)
 
 // assess_art355_sec5_2_right_transfer_ordinary_duty: 이 카드의 사건별 적용 평가: 권리이전계약이나 담보설정계약에서 통상적 계약관계상 급부의무에 불과한 경우에는 배임죄에서의 타인 사무가 아니다.
 // sources: comm_001692_제355조_2항_Ⅴ.2_167
@@ -333,6 +483,11 @@ type assess_art355_sec5_2_right_transfer_ordinary_duty(String, String, String, S
 // norm_cards: art355_sec5_2.right_transfer_ordinary_duty
 type satisfied_art355_sec5_2_right_transfer_ordinary_duty(String, String, String, String)
 
+// not_satisfied_satisfied_art355_sec5_2_right_transfer_ordinary_duty: 증명 가능한 평가에서 다음 조건이 부인됨: 권리이전계약이나 담보설정계약에서 통상적 계약관계상 급부의무에 불과한 경우에는 배임죄에서의 타인 사무가 아니다.
+// sources: comm_001692_제355조_2항_Ⅴ.2_167
+// norm_cards: art355_sec5_2.right_transfer_ordinary_duty
+type not_satisfied_satisfied_art355_sec5_2_right_transfer_ordinary_duty(String, String, String, String)
+
 // assess_art355_sec5_2_trust_relationship_threshold: 이 카드의 사건별 적용 평가: 배임죄의 타인 사무처리자가 되려면 당사자 관계의 전형적·본질적 내용이 통상 계약의 이익대립관계를 넘어 신임관계에 기초하여 타인 재산을 보호·관리하는 데 있어야 한다.
 // sources: comm_001692_제355조_2항_Ⅴ.2_167
 // norm_cards: art355_sec5_2.trust_relationship_threshold
@@ -342,6 +497,11 @@ type assess_art355_sec5_2_trust_relationship_threshold(String, String, String, S
 // sources: comm_001692_제355조_2항_Ⅴ.2_167
 // norm_cards: art355_sec5_2.trust_relationship_threshold
 type satisfied_art355_sec5_2_trust_relationship_threshold(String, String, String, String)
+
+// not_satisfied_satisfied_art355_sec5_2_trust_relationship_threshold: 증명 가능한 평가에서 다음 조건이 부인됨: 배임죄의 타인 사무처리자가 되려면 당사자 관계의 전형적·본질적 내용이 통상 계약의 이익대립관계를 넘어 신임관계에 기초하여 타인 재산을 보호·관리하는 데 있어야 한다.
+// sources: comm_001692_제355조_2항_Ⅴ.2_167
+// norm_cards: art355_sec5_2.trust_relationship_threshold
+type not_satisfied_satisfied_art355_sec5_2_trust_relationship_threshold(String, String, String, String)
 
 // assess_art355_sec9_partnership_victim_breach: 이 카드의 사건별 적용 평가: 상호출자 공동사업 약정이 조합계약에 해당하고 조합원이 분담한 업무를 처리하면서 임무위배로 재산을 이전등기한 경우, 배임 피해자는 개별 조합원이 아니라 동업체인 조합이다.
 // sources: comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215
@@ -353,6 +513,11 @@ type assess_art355_sec9_partnership_victim_breach(String, String, String, String
 // norm_cards: art355_sec9.partnership_victim_breach
 type satisfied_art355_sec9_partnership_victim_breach(String, String, String, String)
 
+// not_satisfied_satisfied_art355_sec9_partnership_victim_breach: 증명 가능한 평가에서 다음 조건이 부인됨: 상호출자 공동사업 약정이 조합계약에 해당하고 조합원이 분담한 업무를 처리하면서 임무위배로 재산을 이전등기한 경우, 배임 피해자는 개별 조합원이 아니라 동업체인 조합이다.
+// sources: comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215
+// norm_cards: art355_sec9.partnership_victim_breach
+type not_satisfied_satisfied_art355_sec9_partnership_victim_breach(String, String, String, String)
+
 // assess_art356_sec3_2_assistant_other_affairs: 이 카드의 사건별 적용 평가: 타인의 사무를 처리하는 자에는 고유 권한으로 처리하는 사람뿐 아니라 보조기관으로서 직접 또는 간접으로 그 처리 사무를 담당하는 사람도 포함된다.
 // sources: comm_001692_제356조_Ⅲ.2_4
 // norm_cards: art356_sec3_2.assistant_other_affairs
@@ -362,6 +527,11 @@ type assess_art356_sec3_2_assistant_other_affairs(String, String, String, String
 // sources: comm_001692_제356조_Ⅲ.2_4
 // norm_cards: art356_sec3_2.assistant_other_affairs
 type satisfied_art356_sec3_2_assistant_other_affairs(String, String, String, String)
+
+// not_satisfied_satisfied_art356_sec3_2_assistant_other_affairs: 증명 가능한 평가에서 다음 조건이 부인됨: 타인의 사무를 처리하는 자에는 고유 권한으로 처리하는 사람뿐 아니라 보조기관으로서 직접 또는 간접으로 그 처리 사무를 담당하는 사람도 포함된다.
+// sources: comm_001692_제356조_Ⅲ.2_4
+// norm_cards: art356_sec3_2.assistant_other_affairs
+type not_satisfied_satisfied_art356_sec3_2_assistant_other_affairs(String, String, String, String)
 
 // assess_art356_sec3_2_business_other_affairs_definition: 이 카드의 사건별 적용 평가: 업무상배임죄에서 업무상 타인의 사무를 처리하는 자는 업무자가 업무 수행으로 타인의 사무를 처리하는 지위에 있는 경우이며, 그 신임관계가 업무상 지위와 결부되어 성립한다.
 // sources: comm_001692_제356조_Ⅲ.2_4
@@ -373,6 +543,11 @@ type assess_art356_sec3_2_business_other_affairs_definition(String, String, Stri
 // norm_cards: art356_sec3_2.business_other_affairs_definition
 type satisfied_art356_sec3_2_business_other_affairs_definition(String, String, String, String)
 
+// not_satisfied_satisfied_art356_sec3_2_business_other_affairs_definition: 증명 가능한 평가에서 다음 조건이 부인됨: 업무상배임죄에서 업무상 타인의 사무를 처리하는 자는 업무자가 업무 수행으로 타인의 사무를 처리하는 지위에 있는 경우이며, 그 신임관계가 업무상 지위와 결부되어 성립한다.
+// sources: comm_001692_제356조_Ⅲ.2_4
+// norm_cards: art356_sec3_2.business_other_affairs_definition
+type not_satisfied_satisfied_art356_sec3_2_business_other_affairs_definition(String, String, String, String)
+
 // assess_art356_sec3_2_other_affairs_origin: 이 카드의 사건별 적용 평가: 업무상 타인의 사무 처리는 업무상 지위에 따라 당연히 사무를 처리하게 된 경우와 업무자에 대한 위임자의 구체적 위임행위로 사무를 처리하게 된 경우 모두에 해당한다.
 // sources: comm_001692_제356조_Ⅲ.2_4
 // norm_cards: art356_sec3_2.other_affairs_origin
@@ -382,6 +557,11 @@ type assess_art356_sec3_2_other_affairs_origin(String, String, String, String, S
 // sources: comm_001692_제356조_Ⅲ.2_4
 // norm_cards: art356_sec3_2.other_affairs_origin
 type satisfied_art356_sec3_2_other_affairs_origin(String, String, String, String)
+
+// not_satisfied_satisfied_art356_sec3_2_other_affairs_origin: 증명 가능한 평가에서 다음 조건이 부인됨: 업무상 타인의 사무 처리는 업무상 지위에 따라 당연히 사무를 처리하게 된 경우와 업무자에 대한 위임자의 구체적 위임행위로 사무를 처리하게 된 경우 모두에 해당한다.
+// sources: comm_001692_제356조_Ⅲ.2_4
+// norm_cards: art356_sec3_2.other_affairs_origin
+type not_satisfied_satisfied_art356_sec3_2_other_affairs_origin(String, String, String, String)
 
 // breach_of_trust_object_satisfied: 객체·적격 요건이 충족됨 — 재물성·타인성·점유·주체 신분
 // sources: comm_001692_제355조_2항_Ⅲ.1_14, comm_001692_제355조_2항_Ⅲ.1_14, comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅴ.2_167, comm_001692_제355조_2항_Ⅴ.2_171, comm_001692_제355조_2항_Ⅴ.2_172, comm_001692_제355조_2항_Ⅴ.2_172, comm_001692_제355조_2항_Ⅴ.2_183
@@ -473,6 +653,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355.breach.confidential-
   assess_art355_breach_confidential_information(case_id, negative_001, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_001)
 
+// rule_id: breach_of_trust.art355.card.001.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅲ.2_93, comm_001692_제355조_2항_Ⅲ.2_93, comm_001692_제355조_2항_Ⅲ.2_93
+// norm_cards: art355.breach.confidential-information
+rel not_satisfied_satisfied_art355_breach_confidential_information(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_breach_confidential_information(case_id, not_satisfied_001, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_001)
+
 // rule_id: breach_of_trust.art355.card.002.satisfied
 // sources: comm_001692_제355조_2항_Ⅲ.2_40, comm_001692_제355조_2항_Ⅲ.2_43, comm_001692_제355조_2항_Ⅲ.2_66
 // norm_cards: art355.breach.duty-definition
@@ -492,6 +678,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355.breach.duty-definiti
   provable(case_id, positive_002) and
   assess_art355_breach_duty_definition(case_id, negative_002, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_002)
+
+// rule_id: breach_of_trust.art355.card.002.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅲ.2_40, comm_001692_제355조_2항_Ⅲ.2_43, comm_001692_제355조_2항_Ⅲ.2_66
+// norm_cards: art355.breach.duty-definition
+rel not_satisfied_satisfied_art355_breach_duty_definition(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_breach_duty_definition(case_id, not_satisfied_002, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_002)
 
 // rule_id: breach_of_trust.art355.card.003.satisfied
 // sources: comm_001692_제355조_2항_Ⅲ.2_102, comm_001692_제355조_2항_Ⅲ.2_119, comm_001692_제355조_2항_Ⅲ.2_120
@@ -513,6 +705,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355.breach.invalid-act-r
   assess_art355_breach_invalid_act_risk(case_id, negative_003, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_003)
 
+// rule_id: breach_of_trust.art355.card.003.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅲ.2_102, comm_001692_제355조_2항_Ⅲ.2_119, comm_001692_제355조_2항_Ⅲ.2_120
+// norm_cards: art355.breach.invalid-act-risk
+rel not_satisfied_satisfied_art355_breach_invalid_act_risk(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_breach_invalid_act_risk(case_id, not_satisfied_003, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_003)
+
 // rule_id: breach_of_trust.art355.card.004.satisfied
 // sources: comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.1_8
 // norm_cards: art355.breach_other_affairs_processor
@@ -532,6 +730,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355.breach_other_affairs
   provable(case_id, positive_004) and
   assess_art355_breach_other_affairs_processor(case_id, negative_004, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_004)
+
+// rule_id: breach_of_trust.art355.card.004.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.1_8
+// norm_cards: art355.breach_other_affairs_processor
+rel not_satisfied_satisfied_art355_breach_other_affairs_processor(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_breach_other_affairs_processor(case_id, not_satisfied_004, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_004)
 
 // rule_id: breach_of_trust.art355.card.005.satisfied
 // sources: comm_001692_제355조_2항_Ⅲ.1_14, comm_001692_제355조_2항_Ⅲ.1_14
@@ -553,6 +757,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355.breach_right_transfe
   assess_art355_breach_right_transfer_general(case_id, negative_005, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_005)
 
+// rule_id: breach_of_trust.art355.card.005.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅲ.1_14, comm_001692_제355조_2항_Ⅲ.1_14
+// norm_cards: art355.breach_right_transfer_general
+rel not_satisfied_satisfied_art355_breach_right_transfer_general(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_breach_right_transfer_general(case_id, not_satisfied_005, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_005)
+
 // rule_id: breach_of_trust.art355_sec1_1.card.006.satisfied
 // sources: comm_001692_제355조_2항_Ⅰ.1_0
 // norm_cards: art355_sec1_1.breach_of_trust
@@ -572,6 +782,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec1_1.breach_of_tru
   provable(case_id, positive_006) and
   assess_art355_sec1_1_breach_of_trust(case_id, negative_006, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_006)
+
+// rule_id: breach_of_trust.art355_sec1_1.card.006.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅰ.1_0
+// norm_cards: art355_sec1_1.breach_of_trust
+rel not_satisfied_satisfied_art355_sec1_1_breach_of_trust(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec1_1_breach_of_trust(case_id, not_satisfied_006, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_006)
 
 // rule_id: breach_of_trust.art355_sec1_2.card.007.satisfied
 // sources: comm_001692_제355조_2항_Ⅰ.2_1
@@ -593,6 +809,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec1_2.breach_of_tru
   assess_art355_sec1_2_breach_of_trust_betrayal_theory(case_id, negative_007, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_007)
 
+// rule_id: breach_of_trust.art355_sec1_2.card.007.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅰ.2_1
+// norm_cards: art355_sec1_2.breach_of_trust_betrayal_theory
+rel not_satisfied_satisfied_art355_sec1_2_breach_of_trust_betrayal_theory(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec1_2_breach_of_trust_betrayal_theory(case_id, not_satisfied_007, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_007)
+
 // rule_id: breach_of_trust.art355_sec1_3.card.008.satisfied
 // sources: comm_001692_제355조_2항_Ⅰ.3_3, comm_001692_제355조_2항_Ⅰ.3_3
 // norm_cards: art355_sec1_3.breach_of_trust_case_concrete_risk_of_loss
@@ -612,6 +834,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec1_3.breach_of_tru
   provable(case_id, positive_008) and
   assess_art355_sec1_3_breach_of_trust_case_concrete_risk_of_loss(case_id, negative_008, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_008)
+
+// rule_id: breach_of_trust.art355_sec1_3.card.008.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅰ.3_3, comm_001692_제355조_2항_Ⅰ.3_3
+// norm_cards: art355_sec1_3.breach_of_trust_case_concrete_risk_of_loss
+rel not_satisfied_satisfied_art355_sec1_3_breach_of_trust_case_concrete_risk_of_loss(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec1_3_breach_of_trust_case_concrete_risk_of_loss(case_id, not_satisfied_008, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_008)
 
 // rule_id: breach_of_trust.art355_sec3.card.009.satisfied
 // sources: comm_001692_제355조_2항_Ⅲ_7
@@ -633,6 +861,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec3.breach_of_trust
   assess_art355_sec3_breach_of_trust_objective_elements(case_id, negative_009, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_009)
 
+// rule_id: breach_of_trust.art355_sec3.card.009.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅲ_7
+// norm_cards: art355_sec3.breach_of_trust.objective_elements
+rel not_satisfied_satisfied_art355_sec3_breach_of_trust_objective_elements(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec3_breach_of_trust_objective_elements(case_id, not_satisfied_009, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_009)
+
 // rule_id: breach_of_trust.art355_sec4_1.card.010.satisfied
 // sources: comm_001692_제355조_2항_Ⅳ.1_159
 // norm_cards: art355_sec4_1.breach_of_trust_intent_elements
@@ -652,6 +886,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec4_1.breach_of_tru
   provable(case_id, positive_010) and
   assess_art355_sec4_1_breach_of_trust_intent_elements(case_id, negative_010, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_010)
+
+// rule_id: breach_of_trust.art355_sec4_1.card.010.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅳ.1_159
+// norm_cards: art355_sec4_1.breach_of_trust_intent_elements
+rel not_satisfied_satisfied_art355_sec4_1_breach_of_trust_intent_elements(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec4_1_breach_of_trust_intent_elements(case_id, not_satisfied_010, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_010)
 
 // rule_id: breach_of_trust.art355_sec4_1.card.011.satisfied
 // sources: comm_001692_제355조_2항_Ⅳ.1_159, comm_001692_제355조_2항_Ⅳ.1_159
@@ -673,6 +913,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec4_1.breach_of_tru
   assess_art355_sec4_1_breach_of_trust_intent_no_purpose(case_id, negative_011, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_011)
 
+// rule_id: breach_of_trust.art355_sec4_1.card.011.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅳ.1_159, comm_001692_제355조_2항_Ⅳ.1_159
+// norm_cards: art355_sec4_1.breach_of_trust_intent_no_purpose
+rel not_satisfied_satisfied_art355_sec4_1_breach_of_trust_intent_no_purpose(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec4_1_breach_of_trust_intent_no_purpose(case_id, not_satisfied_011, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_011)
+
 // rule_id: breach_of_trust.art355_sec4_1.card.012.satisfied
 // sources: comm_001692_제355조_2항_Ⅳ.1_161
 // norm_cards: art355_sec4_1.business_judgment_intent
@@ -692,6 +938,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec4_1.business_judg
   provable(case_id, positive_012) and
   assess_art355_sec4_1_business_judgment_intent(case_id, negative_012, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_012)
+
+// rule_id: breach_of_trust.art355_sec4_1.card.012.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅳ.1_161
+// norm_cards: art355_sec4_1.business_judgment_intent
+rel not_satisfied_satisfied_art355_sec4_1_business_judgment_intent(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec4_1_business_judgment_intent(case_id, not_satisfied_012, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_012)
 
 // rule_id: breach_of_trust.art355_sec4_1.card.013.satisfied
 // sources: comm_001692_제355조_2항_Ⅳ.1_161
@@ -713,6 +965,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec4_1.business_loss
   assess_art355_sec4_1_business_loss_alone_insufficient(case_id, negative_013, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_013)
 
+// rule_id: breach_of_trust.art355_sec4_1.card.013.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅳ.1_161
+// norm_cards: art355_sec4_1.business_loss_alone_insufficient
+rel not_satisfied_satisfied_art355_sec4_1_business_loss_alone_insufficient(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec4_1_business_loss_alone_insufficient(case_id, not_satisfied_013, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_013)
+
 // rule_id: breach_of_trust.art355_sec4_1.card.014.satisfied
 // sources: comm_001692_제355조_2항_Ⅳ.1_161
 // norm_cards: art355_sec4_1.double_sale_unjustified_rescission_intent
@@ -732,6 +990,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec4_1.double_sale_u
   provable(case_id, positive_014) and
   assess_art355_sec4_1_double_sale_unjustified_rescission_intent(case_id, negative_014, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_014)
+
+// rule_id: breach_of_trust.art355_sec4_1.card.014.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅳ.1_161
+// norm_cards: art355_sec4_1.double_sale_unjustified_rescission_intent
+rel not_satisfied_satisfied_art355_sec4_1_double_sale_unjustified_rescission_intent(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec4_1_double_sale_unjustified_rescission_intent(case_id, not_satisfied_014, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_014)
 
 // rule_id: breach_of_trust.art355_sec4_1.card.015.satisfied
 // sources: comm_001692_제355조_2항_Ⅳ.1_160
@@ -753,6 +1017,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec4_1.no_breach_of_
   assess_art355_sec4_1_no_breach_of_trust_without_awareness(case_id, negative_015, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_015)
 
+// rule_id: breach_of_trust.art355_sec4_1.card.015.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅳ.1_160
+// norm_cards: art355_sec4_1.no_breach_of_trust_without_awareness
+rel not_satisfied_satisfied_art355_sec4_1_no_breach_of_trust_without_awareness(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec4_1_no_breach_of_trust_without_awareness(case_id, not_satisfied_015, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_015)
+
 // rule_id: breach_of_trust.art355_sec4_1.card.016.satisfied
 // sources: comm_001692_제355조_2항_Ⅳ.1_161
 // norm_cards: art355_sec4_1.role_violation_intent
@@ -772,6 +1042,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec4_1.role_violatio
   provable(case_id, positive_016) and
   assess_art355_sec4_1_role_violation_intent(case_id, negative_016, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_016)
+
+// rule_id: breach_of_trust.art355_sec4_1.card.016.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅳ.1_161
+// norm_cards: art355_sec4_1.role_violation_intent
+rel not_satisfied_satisfied_art355_sec4_1_role_violation_intent(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec4_1_role_violation_intent(case_id, not_satisfied_016, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_016)
 
 // rule_id: breach_of_trust.art355_sec4_2.card.017.satisfied
 // sources: comm_001692_제355조_2항_Ⅳ.2_163
@@ -793,6 +1069,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec4_2.breach_for_pr
   assess_art355_sec4_2_breach_for_principal_no_illicit_gain(case_id, negative_017, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_017)
 
+// rule_id: breach_of_trust.art355_sec4_2.card.017.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅳ.2_163
+// norm_cards: art355_sec4_2.breach_for_principal_no_illicit_gain
+rel not_satisfied_satisfied_art355_sec4_2_breach_for_principal_no_illicit_gain(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec4_2_breach_for_principal_no_illicit_gain(case_id, not_satisfied_017, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_017)
+
 // rule_id: breach_of_trust.art355_sec4_2.card.018.satisfied
 // sources: comm_001692_제355조_2항_Ⅳ.2_163
 // norm_cards: art355_sec4_2.breach_illicit_gain_intent
@@ -812,6 +1094,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec4_2.breach_illici
   provable(case_id, positive_018) and
   assess_art355_sec4_2_breach_illicit_gain_intent(case_id, negative_018, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_018)
+
+// rule_id: breach_of_trust.art355_sec4_2.card.018.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅳ.2_163
+// norm_cards: art355_sec4_2.breach_illicit_gain_intent
+rel not_satisfied_satisfied_art355_sec4_2_breach_illicit_gain_intent(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec4_2_breach_illicit_gain_intent(case_id, not_satisfied_018, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_018)
 
 // rule_id: breach_of_trust.art355_sec4_2.card.019.satisfied
 // sources: comm_001692_제355조_2항_Ⅳ.2_163
@@ -833,6 +1121,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec4_2.breach_illici
   assess_art355_sec4_2_breach_illicit_gain_separate_requirement(case_id, negative_019, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_019)
 
+// rule_id: breach_of_trust.art355_sec4_2.card.019.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅳ.2_163
+// norm_cards: art355_sec4_2.breach_illicit_gain_separate_requirement
+rel not_satisfied_satisfied_art355_sec4_2_breach_illicit_gain_separate_requirement(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec4_2_breach_illicit_gain_separate_requirement(case_id, not_satisfied_019, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_019)
+
 // rule_id: breach_of_trust.art355_sec4_2.card.020.satisfied
 // sources: comm_001692_제355조_2항_Ⅳ.2_165
 // norm_cards: art355_sec4_2.mixed_motives_primary_purpose
@@ -852,6 +1146,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec4_2.mixed_motives
   provable(case_id, positive_020) and
   assess_art355_sec4_2_mixed_motives_primary_purpose(case_id, negative_020, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_020)
+
+// rule_id: breach_of_trust.art355_sec4_2.card.020.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅳ.2_165
+// norm_cards: art355_sec4_2.mixed_motives_primary_purpose
+rel not_satisfied_satisfied_art355_sec4_2_mixed_motives_primary_purpose(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec4_2_mixed_motives_primary_purpose(case_id, not_satisfied_020, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_020)
 
 // rule_id: breach_of_trust.art355_sec4_2.card.021.satisfied
 // sources: comm_001692_제355조_2항_Ⅳ.2_164
@@ -873,6 +1173,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec4_2.third_party_b
   assess_art355_sec4_2_third_party_benefit_sufficient(case_id, negative_021, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_021)
 
+// rule_id: breach_of_trust.art355_sec4_2.card.021.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅳ.2_164
+// norm_cards: art355_sec4_2.third_party_benefit_sufficient
+rel not_satisfied_satisfied_art355_sec4_2_third_party_benefit_sufficient(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec4_2_third_party_benefit_sufficient(case_id, not_satisfied_021, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_021)
+
 // rule_id: breach_of_trust.art355_sec5_2.card.022.satisfied
 // sources: comm_001692_제355조_2항_Ⅴ.2_167
 // norm_cards: art355_sec5_2.assigned_claim_proceeds_embezzlement
@@ -892,6 +1198,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec5_2.assigned_clai
   provable(case_id, positive_022) and
   assess_art355_sec5_2_assigned_claim_proceeds_embezzlement(case_id, negative_022, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_022)
+
+// rule_id: breach_of_trust.art355_sec5_2.card.022.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅴ.2_167
+// norm_cards: art355_sec5_2.assigned_claim_proceeds_embezzlement
+rel not_satisfied_satisfied_art355_sec5_2_assigned_claim_proceeds_embezzlement(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec5_2_assigned_claim_proceeds_embezzlement(case_id, not_satisfied_022, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_022)
 
 // rule_id: breach_of_trust.art355_sec5_2.card.023.satisfied
 // sources: comm_001692_제355조_2항_Ⅴ.2_183
@@ -913,6 +1225,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec5_2.individual_de
   assess_art355_sec5_2_individual_delegation_exception(case_id, negative_023, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_023)
 
+// rule_id: breach_of_trust.art355_sec5_2.card.023.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅴ.2_183
+// norm_cards: art355_sec5_2.individual_delegation_exception
+rel not_satisfied_satisfied_art355_sec5_2_individual_delegation_exception(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec5_2_individual_delegation_exception(case_id, not_satisfied_023, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_023)
+
 // rule_id: breach_of_trust.art355_sec5_2.card.024.satisfied
 // sources: comm_001692_제355조_2항_Ⅴ.2_170
 // norm_cards: art355_sec5_2.leasehold_transfer
@@ -932,6 +1250,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec5_2.leasehold_tra
   provable(case_id, positive_024) and
   assess_art355_sec5_2_leasehold_transfer(case_id, negative_024, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_024)
+
+// rule_id: breach_of_trust.art355_sec5_2.card.024.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅴ.2_170
+// norm_cards: art355_sec5_2.leasehold_transfer
+rel not_satisfied_satisfied_art355_sec5_2_leasehold_transfer(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec5_2_leasehold_transfer(case_id, not_satisfied_024, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_024)
 
 // rule_id: breach_of_trust.art355_sec5_2.card.025.satisfied
 // sources: comm_001692_제355조_2항_Ⅴ.2_168
@@ -953,6 +1277,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec5_2.movable_sale_
   assess_art355_sec5_2_movable_sale_double_disposition(case_id, negative_025, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_025)
 
+// rule_id: breach_of_trust.art355_sec5_2.card.025.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅴ.2_168
+// norm_cards: art355_sec5_2.movable_sale_double_disposition
+rel not_satisfied_satisfied_art355_sec5_2_movable_sale_double_disposition(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec5_2_movable_sale_double_disposition(case_id, not_satisfied_025, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_025)
+
 // rule_id: breach_of_trust.art355_sec5_2.card.026.satisfied
 // sources: comm_001692_제355조_2항_Ⅴ.2_168
 // norm_cards: art355_sec5_2.pre_certificate_stock_transfer
@@ -972,6 +1302,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec5_2.pre_certifica
   provable(case_id, positive_026) and
   assess_art355_sec5_2_pre_certificate_stock_transfer(case_id, negative_026, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_026)
+
+// rule_id: breach_of_trust.art355_sec5_2.card.026.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅴ.2_168
+// norm_cards: art355_sec5_2.pre_certificate_stock_transfer
+rel not_satisfied_satisfied_art355_sec5_2_pre_certificate_stock_transfer(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec5_2_pre_certificate_stock_transfer(case_id, not_satisfied_026, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_026)
 
 // rule_id: breach_of_trust.art355_sec5_2.card.027.satisfied
 // sources: comm_001692_제355조_2항_Ⅴ.2_172, comm_001692_제355조_2항_Ⅴ.2_172
@@ -993,6 +1329,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec5_2.real_estate_d
   assess_art355_sec5_2_real_estate_double_sale_majority(case_id, negative_027, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_027)
 
+// rule_id: breach_of_trust.art355_sec5_2.card.027.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅴ.2_172, comm_001692_제355조_2항_Ⅴ.2_172
+// norm_cards: art355_sec5_2.real_estate_double_sale_majority
+rel not_satisfied_satisfied_art355_sec5_2_real_estate_double_sale_majority(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec5_2_real_estate_double_sale_majority(case_id, not_satisfied_027, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_027)
+
 // rule_id: breach_of_trust.art355_sec5_2.card.028.satisfied
 // sources: comm_001692_제355조_2항_Ⅴ.2_171
 // norm_cards: art355_sec5_2.real_estate_sale_intermediate_payment
@@ -1012,6 +1354,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec5_2.real_estate_s
   provable(case_id, positive_028) and
   assess_art355_sec5_2_real_estate_sale_intermediate_payment(case_id, negative_028, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_028)
+
+// rule_id: breach_of_trust.art355_sec5_2.card.028.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅴ.2_171
+// norm_cards: art355_sec5_2.real_estate_sale_intermediate_payment
+rel not_satisfied_satisfied_art355_sec5_2_real_estate_sale_intermediate_payment(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec5_2_real_estate_sale_intermediate_payment(case_id, not_satisfied_028, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_028)
 
 // rule_id: breach_of_trust.art355_sec5_2.card.029.satisfied
 // sources: comm_001692_제355조_2항_Ⅴ.2_183
@@ -1033,6 +1381,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec5_2.real_estate_t
   assess_art355_sec5_2_real_estate_transfer_exception(case_id, negative_029, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_029)
 
+// rule_id: breach_of_trust.art355_sec5_2.card.029.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅴ.2_183
+// norm_cards: art355_sec5_2.real_estate_transfer_exception
+rel not_satisfied_satisfied_art355_sec5_2_real_estate_transfer_exception(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec5_2_real_estate_transfer_exception(case_id, not_satisfied_029, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_029)
+
 // rule_id: breach_of_trust.art355_sec5_2.card.030.satisfied
 // sources: comm_001692_제355조_2항_Ⅴ.2_168
 // norm_cards: art355_sec5_2.registered_movable_sale_disposition
@@ -1052,6 +1406,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec5_2.registered_mo
   provable(case_id, positive_030) and
   assess_art355_sec5_2_registered_movable_sale_disposition(case_id, negative_030, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_030)
+
+// rule_id: breach_of_trust.art355_sec5_2.card.030.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅴ.2_168
+// norm_cards: art355_sec5_2.registered_movable_sale_disposition
+rel not_satisfied_satisfied_art355_sec5_2_registered_movable_sale_disposition(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec5_2_registered_movable_sale_disposition(case_id, not_satisfied_030, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_030)
 
 // rule_id: breach_of_trust.art355_sec5_2.card.031.satisfied
 // sources: comm_001692_제355조_2항_Ⅴ.2_167
@@ -1073,6 +1433,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec5_2.right_transfe
   assess_art355_sec5_2_right_transfer_ordinary_duty(case_id, negative_031, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_031)
 
+// rule_id: breach_of_trust.art355_sec5_2.card.031.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅴ.2_167
+// norm_cards: art355_sec5_2.right_transfer_ordinary_duty
+rel not_satisfied_satisfied_art355_sec5_2_right_transfer_ordinary_duty(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec5_2_right_transfer_ordinary_duty(case_id, not_satisfied_031, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_031)
+
 // rule_id: breach_of_trust.art355_sec5_2.card.032.satisfied
 // sources: comm_001692_제355조_2항_Ⅴ.2_167
 // norm_cards: art355_sec5_2.trust_relationship_threshold
@@ -1092,6 +1458,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec5_2.trust_relatio
   provable(case_id, positive_032) and
   assess_art355_sec5_2_trust_relationship_threshold(case_id, negative_032, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_032)
+
+// rule_id: breach_of_trust.art355_sec5_2.card.032.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅴ.2_167
+// norm_cards: art355_sec5_2.trust_relationship_threshold
+rel not_satisfied_satisfied_art355_sec5_2_trust_relationship_threshold(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec5_2_trust_relationship_threshold(case_id, not_satisfied_032, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_032)
 
 // rule_id: breach_of_trust.art355_sec9.card.033.satisfied
 // sources: comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215
@@ -1113,6 +1485,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art355_sec9.partnership_vic
   assess_art355_sec9_partnership_victim_breach(case_id, negative_033, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_033)
 
+// rule_id: breach_of_trust.art355_sec9.card.033.not_satisfied
+// sources: comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215
+// norm_cards: art355_sec9.partnership_victim_breach
+rel not_satisfied_satisfied_art355_sec9_partnership_victim_breach(case_id, defendant_id, principal_id, beneficiary_id) = assess_art355_sec9_partnership_victim_breach(case_id, not_satisfied_033, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_033)
+
 // rule_id: breach_of_trust.art356_sec3_2.card.034.satisfied
 // sources: comm_001692_제356조_Ⅲ.2_4
 // norm_cards: art356_sec3_2.assistant_other_affairs
@@ -1132,6 +1510,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art356_sec3_2.assistant_oth
   provable(case_id, positive_034) and
   assess_art356_sec3_2_assistant_other_affairs(case_id, negative_034, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_034)
+
+// rule_id: breach_of_trust.art356_sec3_2.card.034.not_satisfied
+// sources: comm_001692_제356조_Ⅲ.2_4
+// norm_cards: art356_sec3_2.assistant_other_affairs
+rel not_satisfied_satisfied_art356_sec3_2_assistant_other_affairs(case_id, defendant_id, principal_id, beneficiary_id) = assess_art356_sec3_2_assistant_other_affairs(case_id, not_satisfied_034, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_034)
 
 // rule_id: breach_of_trust.art356_sec3_2.card.035.satisfied
 // sources: comm_001692_제356조_Ⅲ.2_4
@@ -1153,6 +1537,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art356_sec3_2.business_othe
   assess_art356_sec3_2_business_other_affairs_definition(case_id, negative_035, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_035)
 
+// rule_id: breach_of_trust.art356_sec3_2.card.035.not_satisfied
+// sources: comm_001692_제356조_Ⅲ.2_4
+// norm_cards: art356_sec3_2.business_other_affairs_definition
+rel not_satisfied_satisfied_art356_sec3_2_business_other_affairs_definition(case_id, defendant_id, principal_id, beneficiary_id) = assess_art356_sec3_2_business_other_affairs_definition(case_id, not_satisfied_035, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_035)
+
 // rule_id: breach_of_trust.art356_sec3_2.card.036.satisfied
 // sources: comm_001692_제356조_Ⅲ.2_4
 // norm_cards: art356_sec3_2.other_affairs_origin
@@ -1172,6 +1562,12 @@ rel breach_of_trust_conflict(case_id, defendant_id, "art356_sec3_2.other_affairs
   provable(case_id, positive_036) and
   assess_art356_sec3_2_other_affairs_origin(case_id, negative_036, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
   provable(case_id, negative_036)
+
+// rule_id: breach_of_trust.art356_sec3_2.card.036.not_satisfied
+// sources: comm_001692_제356조_Ⅲ.2_4
+// norm_cards: art356_sec3_2.other_affairs_origin
+rel not_satisfied_satisfied_art356_sec3_2_other_affairs_origin(case_id, defendant_id, principal_id, beneficiary_id) = assess_art356_sec3_2_other_affairs_origin(case_id, not_satisfied_036, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
+  provable(case_id, not_satisfied_036)
 
 // rule_id: breach_of_trust.art355.component.breach_of_trust_object_satisfied.01
 // sources: comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.1_8
@@ -1338,149 +1734,49 @@ rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec5_2.regist
 // norm_cards: art355_sec5_2.right_transfer_ordinary_duty
 rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec5_2.right_transfer_ordinary_duty") = satisfied_art355_sec5_2_right_transfer_ordinary_duty(case_id, defendant_id, principal_id, beneficiary_id)
 
-// rule_id: breach_of_trust.art355.mandatory_negative.001
-// sources: comm_001692_제355조_2항_Ⅲ.2_93, comm_001692_제355조_2항_Ⅲ.2_93, comm_001692_제355조_2항_Ⅲ.2_93
-// norm_cards: art355.breach.confidential-information
-rel breach_of_trust_not_established(case_id, defendant_id, "art355.breach.confidential-information") = assess_art355_breach_confidential_information(case_id, mandatory_negative_001, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_001)
+// rule_id: breach_of_trust.component.l0.mandatory_negative.01
+// sources: comm_001692_제355조_2항_Ⅲ.1_14, comm_001692_제355조_2항_Ⅲ.1_14, comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅴ.2_167, comm_001692_제355조_2항_Ⅴ.2_171, comm_001692_제355조_2항_Ⅴ.2_172, comm_001692_제355조_2항_Ⅴ.2_172, comm_001692_제355조_2항_Ⅴ.2_183
+// norm_cards: art355.breach_other_affairs_processor, art355.breach_right_transfer_general, art355_sec5_2.real_estate_double_sale_majority, art355_sec5_2.real_estate_sale_intermediate_payment, art355_sec5_2.real_estate_transfer_exception, art355_sec5_2.trust_relationship_threshold
+rel breach_of_trust_not_established(case_id, defendant_id, "breach_of_trust_object_satisfied") = not_satisfied_satisfied_art355_breach_other_affairs_processor(case_id, defendant_id, principal_id, beneficiary_id) and
+  not_satisfied_satisfied_art355_breach_right_transfer_general(case_id, defendant_id, principal_id, beneficiary_id) and
+  not_satisfied_satisfied_art355_sec5_2_real_estate_double_sale_majority(case_id, defendant_id, principal_id, beneficiary_id) and
+  not_satisfied_satisfied_art355_sec5_2_real_estate_sale_intermediate_payment(case_id, defendant_id, principal_id, beneficiary_id) and
+  not_satisfied_satisfied_art355_sec5_2_real_estate_transfer_exception(case_id, defendant_id, principal_id, beneficiary_id) and
+  not_satisfied_satisfied_art355_sec5_2_trust_relationship_threshold(case_id, defendant_id, principal_id, beneficiary_id)
 
-// rule_id: breach_of_trust.art355.mandatory_negative.002
-// sources: comm_001692_제355조_2항_Ⅲ.2_40, comm_001692_제355조_2항_Ⅲ.2_43, comm_001692_제355조_2항_Ⅲ.2_66
-// norm_cards: art355.breach.duty-definition
-rel breach_of_trust_not_established(case_id, defendant_id, "art355.breach.duty-definition") = assess_art355_breach_duty_definition(case_id, mandatory_negative_002, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_002)
+// rule_id: breach_of_trust.component.l1.mandatory_negative.02
+// sources: comm_001692_제355조_2항_Ⅰ.1_0, comm_001692_제355조_2항_Ⅰ.2_1, comm_001692_제355조_2항_Ⅰ.3_3, comm_001692_제355조_2항_Ⅰ.3_3, comm_001692_제355조_2항_Ⅲ.2_40, comm_001692_제355조_2항_Ⅲ.2_43, comm_001692_제355조_2항_Ⅲ.2_66, comm_001692_제355조_2항_Ⅲ_7, comm_001692_제355조_2항_Ⅴ.2_183, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215
+// norm_cards: art355.breach.duty-definition, art355_sec1_1.breach_of_trust, art355_sec1_2.breach_of_trust_betrayal_theory, art355_sec1_3.breach_of_trust_case_concrete_risk_of_loss, art355_sec3.breach_of_trust.objective_elements, art355_sec5_2.individual_delegation_exception, art355_sec9.partnership_victim_breach
+rel breach_of_trust_not_established(case_id, defendant_id, "breach_of_trust_conduct_satisfied") = not_satisfied_satisfied_art355_breach_duty_definition(case_id, defendant_id, principal_id, beneficiary_id) and
+  not_satisfied_satisfied_art355_sec1_1_breach_of_trust(case_id, defendant_id, principal_id, beneficiary_id) and
+  not_satisfied_satisfied_art355_sec1_2_breach_of_trust_betrayal_theory(case_id, defendant_id, principal_id, beneficiary_id) and
+  not_satisfied_satisfied_art355_sec1_3_breach_of_trust_case_concrete_risk_of_loss(case_id, defendant_id, principal_id, beneficiary_id) and
+  not_satisfied_satisfied_art355_sec3_breach_of_trust_objective_elements(case_id, defendant_id, principal_id, beneficiary_id) and
+  not_satisfied_satisfied_art355_sec5_2_individual_delegation_exception(case_id, defendant_id, principal_id, beneficiary_id) and
+  not_satisfied_satisfied_art355_sec9_partnership_victim_breach(case_id, defendant_id, principal_id, beneficiary_id)
 
-// rule_id: breach_of_trust.art355.mandatory_negative.003
-// sources: comm_001692_제355조_2항_Ⅲ.2_102, comm_001692_제355조_2항_Ⅲ.2_119, comm_001692_제355조_2항_Ⅲ.2_120
-// norm_cards: art355.breach.invalid-act-risk
-rel breach_of_trust_not_established(case_id, defendant_id, "art355.breach.invalid-act-risk") = assess_art355_breach_invalid_act_risk(case_id, mandatory_negative_003, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_003)
+// rule_id: breach_of_trust.component.l3.mandatory_negative.03
+// sources: comm_001692_제355조_2항_Ⅳ.1_159, comm_001692_제355조_2항_Ⅳ.1_159, comm_001692_제355조_2항_Ⅳ.1_159, comm_001692_제355조_2항_Ⅳ.1_161, comm_001692_제355조_2항_Ⅳ.1_161, comm_001692_제355조_2항_Ⅳ.1_161
+// norm_cards: art355_sec4_1.breach_of_trust_intent_elements, art355_sec4_1.breach_of_trust_intent_no_purpose, art355_sec4_1.business_judgment_intent, art355_sec4_1.double_sale_unjustified_rescission_intent, art355_sec4_1.role_violation_intent
+rel breach_of_trust_not_established(case_id, defendant_id, "breach_of_trust_intent_satisfied") = not_satisfied_satisfied_art355_sec4_1_breach_of_trust_intent_elements(case_id, defendant_id, principal_id, beneficiary_id) and
+  not_satisfied_satisfied_art355_sec4_1_breach_of_trust_intent_no_purpose(case_id, defendant_id, principal_id, beneficiary_id) and
+  not_satisfied_satisfied_art355_sec4_1_business_judgment_intent(case_id, defendant_id, principal_id, beneficiary_id) and
+  not_satisfied_satisfied_art355_sec4_1_double_sale_unjustified_rescission_intent(case_id, defendant_id, principal_id, beneficiary_id) and
+  not_satisfied_satisfied_art355_sec4_1_role_violation_intent(case_id, defendant_id, principal_id, beneficiary_id)
 
-// rule_id: breach_of_trust.art355.mandatory_negative.004
-// sources: comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.1_8
-// norm_cards: art355.breach_other_affairs_processor
-rel breach_of_trust_not_established(case_id, defendant_id, "art355.breach_other_affairs_processor") = assess_art355_breach_other_affairs_processor(case_id, mandatory_negative_004, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_004)
+// rule_id: breach_of_trust.component.l3a.mandatory_negative.04
+// sources: comm_001692_제355조_2항_Ⅳ.2_163, comm_001692_제355조_2항_Ⅳ.2_163, comm_001692_제355조_2항_Ⅳ.2_164, comm_001692_제355조_2항_Ⅳ.2_165
+// norm_cards: art355_sec4_2.breach_illicit_gain_intent, art355_sec4_2.breach_illicit_gain_separate_requirement, art355_sec4_2.mixed_motives_primary_purpose, art355_sec4_2.third_party_benefit_sufficient
+rel breach_of_trust_not_established(case_id, defendant_id, "breach_of_trust_appropriation_intent_satisfied") = not_satisfied_satisfied_art355_sec4_2_breach_illicit_gain_intent(case_id, defendant_id, principal_id, beneficiary_id) and
+  not_satisfied_satisfied_art355_sec4_2_breach_illicit_gain_separate_requirement(case_id, defendant_id, principal_id, beneficiary_id) and
+  not_satisfied_satisfied_art355_sec4_2_mixed_motives_primary_purpose(case_id, defendant_id, principal_id, beneficiary_id) and
+  not_satisfied_satisfied_art355_sec4_2_third_party_benefit_sufficient(case_id, defendant_id, principal_id, beneficiary_id)
 
-// rule_id: breach_of_trust.art355.mandatory_negative.005
-// sources: comm_001692_제355조_2항_Ⅲ.1_14, comm_001692_제355조_2항_Ⅲ.1_14
-// norm_cards: art355.breach_right_transfer_general
-rel breach_of_trust_not_established(case_id, defendant_id, "art355.breach_right_transfer_general") = assess_art355_breach_right_transfer_general(case_id, mandatory_negative_005, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_005)
-
-// rule_id: breach_of_trust.art355_sec1_1.mandatory_negative.006
-// sources: comm_001692_제355조_2항_Ⅰ.1_0
-// norm_cards: art355_sec1_1.breach_of_trust
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec1_1.breach_of_trust") = assess_art355_sec1_1_breach_of_trust(case_id, mandatory_negative_006, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_006)
-
-// rule_id: breach_of_trust.art355_sec1_2.mandatory_negative.007
-// sources: comm_001692_제355조_2항_Ⅰ.2_1
-// norm_cards: art355_sec1_2.breach_of_trust_betrayal_theory
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec1_2.breach_of_trust_betrayal_theory") = assess_art355_sec1_2_breach_of_trust_betrayal_theory(case_id, mandatory_negative_007, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_007)
-
-// rule_id: breach_of_trust.art355_sec1_3.mandatory_negative.008
-// sources: comm_001692_제355조_2항_Ⅰ.3_3, comm_001692_제355조_2항_Ⅰ.3_3
-// norm_cards: art355_sec1_3.breach_of_trust_case_concrete_risk_of_loss
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec1_3.breach_of_trust_case_concrete_risk_of_loss") = assess_art355_sec1_3_breach_of_trust_case_concrete_risk_of_loss(case_id, mandatory_negative_008, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_008)
-
-// rule_id: breach_of_trust.art355_sec3.mandatory_negative.009
-// sources: comm_001692_제355조_2항_Ⅲ_7
-// norm_cards: art355_sec3.breach_of_trust.objective_elements
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec3.breach_of_trust.objective_elements") = assess_art355_sec3_breach_of_trust_objective_elements(case_id, mandatory_negative_009, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_009)
-
-// rule_id: breach_of_trust.art355_sec4_1.mandatory_negative.010
-// sources: comm_001692_제355조_2항_Ⅳ.1_159
-// norm_cards: art355_sec4_1.breach_of_trust_intent_elements
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec4_1.breach_of_trust_intent_elements") = assess_art355_sec4_1_breach_of_trust_intent_elements(case_id, mandatory_negative_010, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_010)
-
-// rule_id: breach_of_trust.art355_sec4_1.mandatory_negative.011
-// sources: comm_001692_제355조_2항_Ⅳ.1_159, comm_001692_제355조_2항_Ⅳ.1_159
-// norm_cards: art355_sec4_1.breach_of_trust_intent_no_purpose
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec4_1.breach_of_trust_intent_no_purpose") = assess_art355_sec4_1_breach_of_trust_intent_no_purpose(case_id, mandatory_negative_011, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_011)
-
-// rule_id: breach_of_trust.art355_sec4_1.mandatory_negative.012
-// sources: comm_001692_제355조_2항_Ⅳ.1_161
-// norm_cards: art355_sec4_1.business_judgment_intent
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec4_1.business_judgment_intent") = assess_art355_sec4_1_business_judgment_intent(case_id, mandatory_negative_012, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_012)
-
-// rule_id: breach_of_trust.art355_sec4_1.mandatory_negative.013
-// sources: comm_001692_제355조_2항_Ⅳ.1_161
-// norm_cards: art355_sec4_1.double_sale_unjustified_rescission_intent
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec4_1.double_sale_unjustified_rescission_intent") = assess_art355_sec4_1_double_sale_unjustified_rescission_intent(case_id, mandatory_negative_013, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_013)
-
-// rule_id: breach_of_trust.art355_sec4_1.mandatory_negative.014
-// sources: comm_001692_제355조_2항_Ⅳ.1_161
-// norm_cards: art355_sec4_1.role_violation_intent
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec4_1.role_violation_intent") = assess_art355_sec4_1_role_violation_intent(case_id, mandatory_negative_014, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_014)
-
-// rule_id: breach_of_trust.art355_sec4_2.mandatory_negative.015
-// sources: comm_001692_제355조_2항_Ⅳ.2_163
-// norm_cards: art355_sec4_2.breach_illicit_gain_intent
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec4_2.breach_illicit_gain_intent") = assess_art355_sec4_2_breach_illicit_gain_intent(case_id, mandatory_negative_015, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_015)
-
-// rule_id: breach_of_trust.art355_sec4_2.mandatory_negative.016
-// sources: comm_001692_제355조_2항_Ⅳ.2_163
-// norm_cards: art355_sec4_2.breach_illicit_gain_separate_requirement
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec4_2.breach_illicit_gain_separate_requirement") = assess_art355_sec4_2_breach_illicit_gain_separate_requirement(case_id, mandatory_negative_016, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_016)
-
-// rule_id: breach_of_trust.art355_sec4_2.mandatory_negative.017
-// sources: comm_001692_제355조_2항_Ⅳ.2_165
-// norm_cards: art355_sec4_2.mixed_motives_primary_purpose
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec4_2.mixed_motives_primary_purpose") = assess_art355_sec4_2_mixed_motives_primary_purpose(case_id, mandatory_negative_017, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_017)
-
-// rule_id: breach_of_trust.art355_sec4_2.mandatory_negative.018
-// sources: comm_001692_제355조_2항_Ⅳ.2_164
-// norm_cards: art355_sec4_2.third_party_benefit_sufficient
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec4_2.third_party_benefit_sufficient") = assess_art355_sec4_2_third_party_benefit_sufficient(case_id, mandatory_negative_018, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_018)
-
-// rule_id: breach_of_trust.art355_sec5_2.mandatory_negative.019
-// sources: comm_001692_제355조_2항_Ⅴ.2_183
-// norm_cards: art355_sec5_2.individual_delegation_exception
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec5_2.individual_delegation_exception") = assess_art355_sec5_2_individual_delegation_exception(case_id, mandatory_negative_019, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_019)
-
-// rule_id: breach_of_trust.art355_sec5_2.mandatory_negative.020
-// sources: comm_001692_제355조_2항_Ⅴ.2_172, comm_001692_제355조_2항_Ⅴ.2_172
-// norm_cards: art355_sec5_2.real_estate_double_sale_majority
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec5_2.real_estate_double_sale_majority") = assess_art355_sec5_2_real_estate_double_sale_majority(case_id, mandatory_negative_020, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_020)
-
-// rule_id: breach_of_trust.art355_sec5_2.mandatory_negative.021
-// sources: comm_001692_제355조_2항_Ⅴ.2_171
-// norm_cards: art355_sec5_2.real_estate_sale_intermediate_payment
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec5_2.real_estate_sale_intermediate_payment") = assess_art355_sec5_2_real_estate_sale_intermediate_payment(case_id, mandatory_negative_021, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_021)
-
-// rule_id: breach_of_trust.art355_sec5_2.mandatory_negative.022
-// sources: comm_001692_제355조_2항_Ⅴ.2_183
-// norm_cards: art355_sec5_2.real_estate_transfer_exception
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec5_2.real_estate_transfer_exception") = assess_art355_sec5_2_real_estate_transfer_exception(case_id, mandatory_negative_022, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_022)
-
-// rule_id: breach_of_trust.art355_sec5_2.mandatory_negative.023
-// sources: comm_001692_제355조_2항_Ⅴ.2_167
-// norm_cards: art355_sec5_2.trust_relationship_threshold
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec5_2.trust_relationship_threshold") = assess_art355_sec5_2_trust_relationship_threshold(case_id, mandatory_negative_023, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_023)
-
-// rule_id: breach_of_trust.art355_sec9.mandatory_negative.024
-// sources: comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215
-// norm_cards: art355_sec9.partnership_victim_breach
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec9.partnership_victim_breach") = assess_art355_sec9_partnership_victim_breach(case_id, mandatory_negative_024, defendant_id, principal_id, beneficiary_id, "not_satisfied") and
-  provable(case_id, mandatory_negative_024)
+// rule_id: breach_of_trust.component.l4.mandatory_negative.05
+// sources: comm_001692_제355조_2항_Ⅲ.2_102, comm_001692_제355조_2항_Ⅲ.2_119, comm_001692_제355조_2항_Ⅲ.2_120, comm_001692_제355조_2항_Ⅲ.2_93, comm_001692_제355조_2항_Ⅲ.2_93, comm_001692_제355조_2항_Ⅲ.2_93
+// norm_cards: art355.breach.confidential-information, art355.breach.invalid-act-risk
+rel breach_of_trust_not_established(case_id, defendant_id, "breach_of_trust_completion_satisfied") = not_satisfied_satisfied_art355_breach_confidential_information(case_id, defendant_id, principal_id, beneficiary_id) and
+  not_satisfied_satisfied_art355_breach_invalid_act_risk(case_id, defendant_id, principal_id, beneficiary_id)
 
 // rule_id: breach_of_trust.core.outcome.elements_satisfied
 // sources: comm_001692_제355조_2항_Ⅰ.1_0, comm_001692_제355조_2항_Ⅰ.2_1, comm_001692_제355조_2항_Ⅰ.3_3, comm_001692_제355조_2항_Ⅰ.3_3, comm_001692_제355조_2항_Ⅲ.1_14, comm_001692_제355조_2항_Ⅲ.1_14, comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.1_8, comm_001692_제355조_2항_Ⅲ.2_102, comm_001692_제355조_2항_Ⅲ.2_119, comm_001692_제355조_2항_Ⅲ.2_120, comm_001692_제355조_2항_Ⅲ.2_40, comm_001692_제355조_2항_Ⅲ.2_43, comm_001692_제355조_2항_Ⅲ.2_66, comm_001692_제355조_2항_Ⅲ.2_93, comm_001692_제355조_2항_Ⅲ.2_93, comm_001692_제355조_2항_Ⅲ.2_93, comm_001692_제355조_2항_Ⅲ_7, comm_001692_제355조_2항_Ⅳ.1_159, comm_001692_제355조_2항_Ⅳ.1_159, comm_001692_제355조_2항_Ⅳ.1_159, comm_001692_제355조_2항_Ⅳ.1_161, comm_001692_제355조_2항_Ⅳ.1_161, comm_001692_제355조_2항_Ⅳ.1_161, comm_001692_제355조_2항_Ⅳ.2_163, comm_001692_제355조_2항_Ⅳ.2_163, comm_001692_제355조_2항_Ⅳ.2_164, comm_001692_제355조_2항_Ⅳ.2_165, comm_001692_제355조_2항_Ⅴ.2_167, comm_001692_제355조_2항_Ⅴ.2_171, comm_001692_제355조_2항_Ⅴ.2_172, comm_001692_제355조_2항_Ⅴ.2_172, comm_001692_제355조_2항_Ⅴ.2_183, comm_001692_제355조_2항_Ⅴ.2_183, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215, comm_001692_제355조_2항_Ⅸ_215
