@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the normalized minimal-predicate RuleIR pipeline on KCL cases."""
+"""Run the lean closed-unit → core assessment → Scallop → prose pipeline."""
 
 from __future__ import annotations
 
@@ -15,24 +15,12 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from idpr.eval.input_formatter import assert_no_leaked_fields, scoped_question_text  # noqa: E402
-from idpr.generation.native_hybrid_answer import (  # noqa: E402
-    finalize_hybrid_answer,
-    hybrid_answer_schema,
-    render_hybrid_markdown,
-)
 from idpr.neural.core_contract import (  # noqa: E402
-    assessment_groups,
-    binding_track_ids,
-    context_packet,
-    core_assessment_schema,
-    core_fact_inventory_schema,
     core_issue_selection_schema,
-    role_binding_schema,
-    selected_track_closure,
-    validate_core_assessments,
-    validate_core_fact_inventory,
+    core_unit_analysis_schema,
+    needed_predicate_ids,
     validate_core_issue_selection,
-    validate_role_binding,
+    validate_core_unit_analysis,
 )
 from idpr.neural.vllm_client import VLLMClient, VLLMClientError  # noqa: E402
 from idpr.prompts import load_prompt, prompt_path  # noqa: E402
@@ -41,18 +29,14 @@ from idpr.rulegen.core_runtime import execute_core_unit  # noqa: E402
 
 
 DEFAULT_CASES = ("kcl_criminal_r14_p1_q2", "kcl_criminal_r12_p1_q2")
-PROMPTS = {
-    "inventory": ("rule_ir_core_fact_inventory", "rule_ir_core_fact_inventory_user"),
+JSON_PROMPTS = {
     "selection": ("rule_ir_core_issue_select", "rule_ir_core_issue_select_user"),
-    "binding": ("rule_ir_core_role_bind", "rule_ir_core_role_bind_user"),
-    "assessment": ("rule_ir_core_assess", "rule_ir_core_assess_user"),
-    "generation": ("rule_ir_native_hybrid_generate", "rule_ir_native_hybrid_generate_user"),
+    "analysis": ("rule_ir_core_assess", "rule_ir_core_assess_user"),
 }
+WRITE_PROMPT = ("rule_ir_core_write", "rule_ir_core_write_user")
 
 
 class CoreStageCallError(RuntimeError):
-    """Preserve invalid model outputs when a stage exhausts contract repair."""
-
     def __init__(self, *, stage: str, attempts: list[dict[str, Any]]) -> None:
         self.stage = stage
         self.attempts = attempts
@@ -65,14 +49,17 @@ def _read_json(path: Path) -> dict[str, Any]:
 
 def _write_json(path: Path, payload: Mapping[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
 
 
 def _inventory(path: Path) -> dict[str, dict[str, Any]]:
     return {
         row["sub_question_id"]: row
         for row in (
-            json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()
+            json.loads(line)
+            for line in path.read_text(encoding="utf-8").splitlines()
             if line.strip()
         )
     }
@@ -80,7 +67,9 @@ def _inventory(path: Path) -> dict[str, dict[str, Any]]:
 
 def _labels() -> dict[str, str]:
     labels = {"fraud": "사기"}
-    property_manifest = _read_json(ROOT / "data/rulegen/property/rule_ir_unit_manifest.json")
+    property_manifest = _read_json(
+        ROOT / "data/rulegen/property/rule_ir_unit_manifest.json"
+    )
     labels.update({item["issue_tag"]: item["label"] for item in property_manifest["units"]})
     p2_manifest = _read_json(ROOT / "data/rulegen/p2/p2_native_unit_manifest.json")
     labels.update({item["unit_id"]: item["label"] for item in p2_manifest["units"]})
@@ -94,43 +83,23 @@ def _catalog(profiles: Mapping[str, Any]) -> list[dict[str, Any]]:
             "unit_id": unit_id,
             "label": labels.get(unit_id, unit_id),
             "articles": profile["article_ids"],
-            "role_scope": profile["role_contract"]["definition"],
-            "role_arguments": [
-                item["name"] for item in profile["role_contract"]["arguments"]
-                if item["name"] != "case_id"
-            ],
-            "tracks": [item["track_id"] for item in profile["tracks"]],
-            "shared_module": profile["shared_module"],
         }
         for unit_id, profile in sorted(profiles.items())
     ]
 
 
-def _track_contracts(profile: Mapping[str, Any]) -> list[dict[str, Any]]:
-    predicates = {
-        item["predicate_id"]: item for item in profile["model_input_predicates"]
-    }
+def _predicate_contract(profile: Mapping[str, Any]) -> list[dict[str, Any]]:
     return [
         {
-            "track_id": track["track_id"],
-            "components": [
-                {
-                    "predicate_id": predicate_id,
-                    "definition": predicates[predicate_id]["definition"],
-                    "authority_quotes": [
-                        source["quote"]
-                        for source in predicates[predicate_id]["source_refs"][:2]
-                        if source.get("quote")
-                    ],
-                }
-                for predicate_id in dict.fromkeys(
-                    component
-                    for path in track["paths"]
-                    for component in path["components"]
-                )
+            "predicate_id": item["predicate_id"],
+            "definition": item["definition"],
+            "authority": [
+                source["quote"]
+                for source in item["source_refs"][:2]
+                if source.get("quote")
             ],
         }
-        for track in profile["tracks"]
+        for item in profile["model_input_predicates"]
     ]
 
 
@@ -143,9 +112,11 @@ def _call(
     max_tokens: int,
     validator: Callable[[Mapping[str, Any]], None],
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    system_name, user_name = PROMPTS[stage]
-    attempts = []
-    active: dict[str, Any] = dict(payload)
+    """One structured call plus one semantic repair; transport may retry twice."""
+
+    system_name, user_name = JSON_PROMPTS[stage]
+    attempts: list[dict[str, Any]] = []
+    active = dict(payload)
     for attempt in range(1, 4):
         try:
             output, metadata = client.complete_json(
@@ -158,22 +129,9 @@ def _call(
                 temperature=0.0,
             )
         except VLLMClientError as error:
-            attempts.append({
-                "attempt": attempt, "metadata": None,
-                "error": str(error), "invalid_output": None,
-            })
+            attempts.append({"attempt": attempt, "metadata": None, "error": str(error)})
             if attempt == 3:
                 raise CoreStageCallError(stage=stage, attempts=attempts) from error
-            active = {
-                **dict(payload),
-                "generation_retry": {
-                    "instruction": (
-                        "직전 생성은 길이 종료·반복 또는 불완전 JSON으로 실패했다. "
-                        "같은 계약을 간결한 JSON 객체 하나로 처음부터 다시 출력하라."
-                    ),
-                    "host_error": str(error),
-                },
-            }
             continue
         try:
             validator(output)
@@ -184,18 +142,14 @@ def _call(
                 "error": str(error),
                 "invalid_output": output,
             })
-            if attempt == 2:
+            if any(item.get("invalid_output") is not None for item in attempts[:-1]):
                 raise CoreStageCallError(stage=stage, attempts=attempts) from error
             active = {
                 **dict(payload),
-                "contract_correction": {
-                    "instruction": (
-                        "previous_invalid_output을 바탕으로 전체 JSON을 다시 출력하라. "
-                        "host에 표시된 스키마·구조 오류만 고치라. "
-                        "의미를 유지하고 불필요한 배열 증식·반복을 하지 마라."
-                    ),
-                    "host_error": str(error),
-                    "previous_invalid_output": output,
+                "repair": {
+                    "error": str(error),
+                    "previous_output": output,
+                    "instruction": "내용은 유지하고 표시된 JSON 구조 오류만 고쳐라.",
                 },
             }
             continue
@@ -204,90 +158,91 @@ def _call(
     raise AssertionError("unreachable")
 
 
+def _write_section(
+    *, client: VLLMClient, payload: Mapping[str, Any]
+) -> str:
+    system_name, user_name = WRITE_PROMPT
+    try:
+        text = client.complete_text(
+            system_prompt=load_prompt(system_name),
+            user_template=load_prompt(user_name),
+            payload=payload,
+            max_tokens=2048,
+            temperature=0.0,
+        ).strip()
+    except VLLMClientError as error:
+        raise CoreStageCallError(
+            stage="writing", attempts=[{"attempt": 1, "error": str(error)}]
+        ) from error
+    if not text:
+        raise CoreStageCallError(
+            stage="writing", attempts=[{"attempt": 1, "error": "empty prose"}]
+        )
+    return text
+
+
 def _prompt_hashes() -> dict[str, str]:
-    result = {}
-    for system, user in PROMPTS.values():
-        for name in (system, user):
-            result[name] = hashlib.sha256(prompt_path(name).read_bytes()).hexdigest()
-    return result
+    names = [
+        *(name for pair in JSON_PROMPTS.values() for name in pair),
+        *WRITE_PROMPT,
+    ]
+    return {
+        name: hashlib.sha256(prompt_path(name).read_bytes()).hexdigest()
+        for name in names
+    }
 
 
 def _require_audit(path: Path) -> dict[str, Any]:
     report = _read_json(path)
     if report.get("status") != "pass" or report.get("api_calls") != 0:
-        raise ValueError("normalized core prompt audit did not pass")
+        raise ValueError("lean core prompt audit did not pass")
     if report.get("prompt_hashes") != _prompt_hashes():
-        raise ValueError("normalized core prompts changed after preflight")
+        raise ValueError("lean core prompts changed after preflight")
     return report
 
 
-def _role_values(binding: Mapping[str, Any]) -> dict[str, str]:
+def _conclusion_label(status: str) -> str:
     return {
-        "case_id": str(binding["case_id"]),
-        **{
-            role: str(item["entity_id"])
-            for role, item in binding["role_bindings"].items()
-        },
-    }
+        "established": "성립",
+        "not_established": "불성립",
+        "undetermined": "현재 사실만으로 성립 여부 미확정",
+        "conflict": "predicate 평가 충돌로 결론 유보",
+        "no_derived_outcome": "RuleIR에서 결론 미도출",
+    }[status]
 
 
-def _symbolic_sections(
-    *,
-    issue: Mapping[str, Any],
-    subject: Mapping[str, Any],
-    profile: Mapping[str, Any],
-    binding: Mapping[str, Any],
-    assessments: Mapping[str, Mapping[str, Any]],
-    runtime: Mapping[str, Any],
+def _writer_predicates(
+    *, profile: Mapping[str, Any], analysis: Mapping[str, Any], track_id: str
 ) -> list[dict[str, Any]]:
-    labels = _labels()
-    predicates = {item["predicate_id"]: item for item in profile["model_input_predicates"]}
-    tracks = {item["track_id"]: item for item in profile["tracks"]}
-    sections = []
-    for track_id in binding_track_ids(binding):
-        relevant = list(dict.fromkeys(
-            component
-            for path in tracks[track_id]["paths"]
-            for component in path["components"]
-        ))
-        outcome = runtime["track_outcomes"][track_id]
-        heading = f"{subject['label']} — {labels.get(profile['unit_id'], profile['unit_id'])}"
-        if len(profile["tracks"]) > 1:
-            heading = f"{heading} — {track_id}"
-        sections.append({
-            "section_id": f"{issue['issue_id']}.{track_id}",
-            "heading": heading,
-            "subject_label": subject["label"],
-            "authority": "rule_ir_scallop",
-            "unit_id": profile["unit_id"],
-            "track_id": track_id,
-            "role_bindings": binding["role_bindings"],
-            "relations": binding["relations"],
-            "predicates": [
-                {
-                    "definition": predicates[predicate_id]["definition"],
-                    "status": assessments[predicate_id]["status"],
-                    "source_quotes": assessments[predicate_id].get("source_quotes", []),
-                    "reason": assessments[predicate_id]["reason"],
-                    "authority_card_ids": predicates[predicate_id]["authority_card_ids"],
-                    "authority_sources": [
-                        {
-                            "quote": source.get("quote", ""),
-                            "section_path": source.get("section_path", ""),
-                        }
-                        for source in predicates[predicate_id]["source_refs"][:2]
-                        if source.get("quote")
-                    ],
-                }
-                for predicate_id in relevant
+    by_id = {
+        item["predicate_id"]: item for item in profile["model_input_predicates"]
+    }
+    return [
+        {
+            "법적 판단사항": by_id[predicate_id]["definition"],
+            "판단": {
+                "satisfied": "인정됨",
+                "not_satisfied": "부정됨",
+                "unknown": "사실 부족으로 미확정",
+            }[analysis["assessments"][predicate_id]["status"]],
+            "이유": analysis["assessments"][predicate_id]["reason"],
+            "권위자료": [
+                source["quote"]
+                for source in by_id[predicate_id]["source_refs"][:2]
+                if source.get("quote")
             ],
-            "symbolic_directive": outcome["symbolic_conclusion"],
-            "established_relations": (
-                [outcome["established_relation"]]
-                if outcome["symbolic_conclusion"] == "established" else []
-            ),
-        })
-    return sections
+        }
+        for predicate_id in needed_predicate_ids(profile, [track_id])
+    ]
+
+
+def _render_answer(*, case_id: str, sections: list[dict[str, Any]]) -> str:
+    lines = ["# 형법 사례 답안", ""]
+    for index, section in enumerate(sections, 1):
+        lines.extend([f"## {index}. {section['heading']}", "", section["prose"], ""])
+        if section.get("conclusion"):
+            lines.extend(["### 결론", "", section["conclusion"], ""])
+    return "\n".join(lines).rstrip() + "\n"
 
 
 def run_case(
@@ -296,182 +251,151 @@ def run_case(
     profiles: Mapping[str, Any],
     client: VLLMClient,
     case_dir: Path,
-    max_group: int,
 ) -> dict[str, Any]:
     case_id = str(case["sub_question_id"])
-    scoped = scoped_question_text(str(case["question_text"]), str(case["question_prompt"]))
-    inventory_request = {
-        "case_id": case_id, "question_text": scoped,
-        "question_prompt": case["question_prompt"],
-    }
-    assert_no_leaked_fields(inventory_request)
-    inventory, inventory_attempts = _call(
-        client=client, stage="inventory", payload=inventory_request,
-        schema=core_fact_inventory_schema(case_id=case_id), max_tokens=8192,
-        validator=lambda output: validate_core_fact_inventory(
-            output, case_id=case_id, case_text=scoped
-        ),
-    )
-    _write_json(case_dir / "00_fact_inventory.json", {
-        "request": inventory_request, "output": inventory,
-        "attempts": inventory_attempts,
-    })
-    actor_ids = [str(item["actor_id"]) for item in inventory["actors"]]
-    fact_ids = [str(item["fact_id"]) for item in inventory["facts"]]
+    question_prompt = str(case["question_prompt"])
+    scoped = scoped_question_text(str(case["question_text"]), question_prompt)
     selection_request = {
-        "case_id": case_id, "question_prompt": case["question_prompt"],
-        "fact_inventory": inventory, "allowed_units": _catalog(profiles),
+        "case_id": case_id,
+        "question_text": scoped,
+        "question_prompt": question_prompt,
+        "allowed_units": _catalog(profiles),
     }
     assert_no_leaked_fields(selection_request)
-    selection, attempts = _call(
-        client=client, stage="selection", payload=selection_request,
-        schema=core_issue_selection_schema(
-            case_id=case_id, unit_ids=sorted(profiles),
-            actor_ids=actor_ids, fact_ids=fact_ids,
-        ),
+    selection, selection_attempts = _call(
+        client=client,
+        stage="selection",
+        payload=selection_request,
+        schema=core_issue_selection_schema(case_id=case_id, unit_ids=sorted(profiles)),
         max_tokens=4096,
         validator=lambda output: validate_core_issue_selection(
-            output, case_id=case_id, unit_ids=sorted(profiles), inventory=inventory
+            output, case_id=case_id, unit_ids=sorted(profiles)
         ),
     )
-    _write_json(case_dir / "01_issue_selection.json", {
-        "request": selection_request, "output": selection, "attempts": attempts,
+    _write_json(case_dir / "00_issue_selection.json", {
+        "request": selection_request,
+        "output": selection,
+        "attempts": selection_attempts,
     })
 
-    symbolic_sections: list[dict[str, Any]] = []
-    unsupported_sections: list[dict[str, Any]] = []
+    labels = _labels()
+    sections: list[dict[str, Any]] = []
     outcomes: dict[str, Any] = {}
-    actors = {str(item["actor_id"]): item for item in inventory["actors"]}
-    facts = {str(item["fact_id"]): item for item in inventory["facts"]}
-    for issue in selection["issues"]:
-        issue_id = str(issue["issue_id"])
+    for index, issue in enumerate(selection["issues"], 1):
+        issue_id = f"issue_{index:02d}"
         unit_id = str(issue["unit_id"])
-        subject = actors[str(issue["subject_actor_id"])]
-        conduct_claims = [
-            {
-                "claim": facts[str(fact_id)]["claim"],
-                "source_quotes": facts[str(fact_id)]["source_quotes"],
-            }
-            for fact_id in issue["fact_ids"]
-        ]
         if unit_id == "unsupported":
-            unsupported_sections.append({
-                "section_id": issue_id,
-                "heading": f"{subject['label']} — {issue['reported_label']}",
-                "authority": "model_only_general_part_experiment",
-                "subject_label": subject["label"],
-                "subject": subject,
-                "conduct_claims": conduct_claims,
+            prose_request = {
+                "사건과 질문": scoped,
+                "답변 대상": issue["subject"],
+                "검토 쟁점": issue["issue_label"],
+                "관련 행위": issue["conduct"],
+                "결론 처리": "일반 법률지식에 따라 잠정 결론을 직접 제시",
+            }
+            prose = _write_section(client=client, payload=prose_request)
+            sections.append({
+                "heading": f"{issue['subject']} — {issue['issue_label']}",
+                "prose": prose,
+                "conclusion": None,
+                "authority": "model_only",
             })
+            _write_json(case_dir / f"03_{issue_id}_writing.json", {
+                "request": prose_request, "output": prose
+            })
+            outcomes[issue_id] = {"status": "model_only", "unit_id": unit_id}
             continue
+
         profile = profiles[unit_id]
-        if profile["shared_module"]:
-            outcomes[issue_id] = {"status": "shared_module_bridge_missing", "unit_id": unit_id}
-            continue
-        binding_request = {
-            "case_id": case_id, "issue_id": issue_id, "unit_id": unit_id,
+        analysis_request = {
+            "case_id": case_id,
+            "issue_id": issue_id,
             "question_text": scoped,
+            "question_prompt": question_prompt,
+            "issue": issue,
             "role_contract": profile["role_contract"],
-            "role_definitions": profile["role_contract"]["role_definitions"],
-            "subject": subject,
-            "conduct_claims": conduct_claims,
-            "track_contracts": _track_contracts(profile),
-            "core_predicates": [
-                {"predicate_id": item["predicate_id"], "definition": item["definition"]}
-                for item in profile["model_input_predicates"]
+            "tracks": [
+                {
+                    "track_id": track["track_id"],
+                    "components": [
+                        component
+                        for path in track["paths"]
+                        for component in path["components"]
+                    ],
+                }
+                for track in profile["tracks"]
             ],
+            "predicates": _predicate_contract(profile),
         }
-        binding, binding_attempts = _call(
-            client=client, stage="binding", payload=binding_request,
-            schema=role_binding_schema(case_id=case_id, issue_id=issue_id, profile=profile),
-            max_tokens=4096,
-            validator=lambda output, p=profile, i=issue_id, s=subject: validate_role_binding(
-                output, case_text=scoped, case_id=case_id, issue_id=i, profile=p,
-                subject=s,
+        analysis, analysis_attempts = _call(
+            client=client,
+            stage="analysis",
+            payload=analysis_request,
+            schema=core_unit_analysis_schema(
+                case_id=case_id, issue_id=issue_id, profile=profile
+            ),
+            max_tokens=16384,
+            validator=lambda output, p=profile, i=issue_id: validate_core_unit_analysis(
+                output, case_id=case_id, issue_id=i, profile=p
             ),
         )
-        _write_json(case_dir / f"02_{issue_id}_{unit_id}_binding.json", {
-            "request": binding_request, "output": binding, "attempts": binding_attempts,
+        _write_json(case_dir / f"01_{issue_id}_{unit_id}_analysis.json", {
+            "request": analysis_request,
+            "output": analysis,
+            "attempts": analysis_attempts,
         })
-        all_assessments: dict[str, Any] = {}
-        group_artifacts = []
-        for group in assessment_groups(
-            profile, binding_track_ids(binding), max_predicates=max_group
-        ):
-            predicate_ids = [item["predicate_id"] for item in group["predicates"]]
-            request = {
-                "case_id": case_id, "issue_id": issue_id, "unit_id": unit_id,
-                "track_id": group["track_id"], "question_text": scoped,
-                "issue_facts": conduct_claims,
-                "entities": binding["entities"], "role_bindings": binding["role_bindings"],
-                "relations": binding["relations"], "predicates": group["predicates"],
-                "authority_context": context_packet(profile, predicate_ids, max_sources=2),
-            }
-            assessment, assessment_attempts = _call(
-                client=client, stage="assessment", payload=request,
-                schema=core_assessment_schema(case_id=case_id, predicate_ids=predicate_ids),
-                max_tokens=12288,
-                validator=lambda output, ids=predicate_ids: validate_core_assessments(
-                    output, case_id=case_id, case_text=scoped, predicate_ids=ids
-                ),
-            )
-            all_assessments.update(assessment["assessments"])
-            group_artifacts.append({
-                "group": group, "request": request, "output": assessment,
-                "attempts": assessment_attempts,
-            })
-        needed = {
-            component
-            for track_id in selected_track_closure(profile, binding_track_ids(binding))
-            for path in next(
-                item for item in profile["tracks"] if item["track_id"] == track_id
-            )["paths"]
-            for component in path["components"]
-        }
-        if set(all_assessments) != needed:
-            raise ValueError(f"{issue_id}: incomplete core assessment merge")
-        _write_json(case_dir / f"03_{issue_id}_{unit_id}_assessments.json", {
-            "groups": group_artifacts, "merged_assessments": all_assessments,
-        })
+
+        selected_tracks = [str(item) for item in analysis["selected_tracks"]]
+        needed = needed_predicate_ids(profile, selected_tracks)
         runtime = execute_core_unit(
-            profile=profile, case_id=case_id, role_values=_role_values(binding),
-            selected_tracks=binding_track_ids(binding), assessments=all_assessments,
+            profile=profile,
+            case_id=case_id,
+            role_values={"case_id": case_id, **analysis["role_values"]},
+            selected_tracks=selected_tracks,
+            assessments={key: analysis["assessments"][key] for key in needed},
             work_dir=case_dir / "runtime" / issue_id,
         )
-        _write_json(case_dir / f"04_{issue_id}_{unit_id}_runtime.json", runtime)
-        symbolic_sections.extend(_symbolic_sections(
-            issue=issue, subject=subject, profile=profile, binding=binding,
-            assessments=all_assessments, runtime=runtime,
-        ))
+        _write_json(case_dir / f"02_{issue_id}_{unit_id}_runtime.json", runtime)
         outcomes[issue_id] = runtime["track_outcomes"]
 
-    generation_request = {
-        "case_id": case_id, "question_text": scoped,
-        "question_prompt": case["question_prompt"],
-        "sections": [*symbolic_sections, *unsupported_sections],
-    }
-    generation, generation_attempts = _call(
-        client=client, stage="generation", payload=generation_request,
-        schema=hybrid_answer_schema(generation_request["sections"]),
-        max_tokens=16384,
-        validator=lambda output: finalize_hybrid_answer(
-            request=generation_request, model_payload=output
-        ),
-    )
-    answer = finalize_hybrid_answer(request=generation_request, model_payload=generation)
-    _write_json(case_dir / "05_answer.json", {
-        "request": generation_request, "model_output": generation,
-        "answer": answer, "attempts": generation_attempts,
+        for track_id in selected_tracks:
+            status = runtime["track_outcomes"][track_id]["symbolic_conclusion"]
+            conclusion = _conclusion_label(status)
+            prose_request = {
+                "사건과 질문": scoped,
+                "답변 대상": issue["subject"],
+                "검토 쟁점": issue["issue_label"],
+                "관련 행위": issue["conduct"],
+                "역할": analysis["role_values"],
+                "법리와 사실 판단": _writer_predicates(
+                    profile=profile, analysis=analysis, track_id=track_id
+                ),
+                "호스트가 고정한 결론": conclusion,
+            }
+            prose = _write_section(client=client, payload=prose_request)
+            heading = f"{issue['subject']} — {labels.get(unit_id, issue['issue_label'])}"
+            if len(profile["tracks"]) > 1:
+                heading += f" — {track_id}"
+            sections.append({
+                "heading": heading,
+                "prose": prose,
+                "conclusion": conclusion,
+                "authority": "rule_ir_scallop",
+            })
+            _write_json(case_dir / f"03_{issue_id}_{track_id}_writing.json", {
+                "request": prose_request, "output": prose
+            })
+
+    markdown = _render_answer(case_id=case_id, sections=sections)
+    (case_dir / "04_answer.md").write_text(markdown, encoding="utf-8")
+    _write_json(case_dir / "04_answer.json", {
+        "case_id": case_id, "sections": sections, "markdown": markdown
     })
-    markdown = render_hybrid_markdown(answer)
-    (case_dir / "05_answer.md").write_text(markdown, encoding="utf-8")
     summary = {
         "case_id": case_id,
         "selected_issues": len(selection["issues"]),
-        "symbolic_sections": len(symbolic_sections),
-        "model_only_general_part_sections": len(unsupported_sections),
+        "sections": len(sections),
         "outcomes": outcomes,
-        "answer_path": str(case_dir / "05_answer.md"),
+        "answer_path": str(case_dir / "04_answer.md"),
     }
     _write_json(case_dir / "summary.json", summary)
     return summary
@@ -495,7 +419,6 @@ def main() -> None:
         default=ROOT / "experiments/results/rule_ir_core_kcl_e2e",
     )
     parser.add_argument("--case-id", action="append", default=[])
-    parser.add_argument("--max-group", type=int, default=10)
     args = parser.parse_args()
     audit = _require_audit(args.prompt_audit)
     profiles = load_core_profiles()["units"]
@@ -510,11 +433,10 @@ def main() -> None:
         if case_id not in inventory:
             raise ValueError(f"unknown KCL case: {case_id}")
         print(f"[{index}/{len(case_ids)}] {case_id}", flush=True)
-        case_dir = args.out_dir / case_id
         try:
             summaries.append(run_case(
                 case=inventory[case_id], profiles=profiles, client=client,
-                case_dir=case_dir, max_group=args.max_group,
+                case_dir=args.out_dir / case_id,
             ))
         except CoreStageCallError as error:
             failure = {
@@ -524,15 +446,17 @@ def main() -> None:
                 "error": str(error),
                 "attempts": error.attempts,
             }
-            _write_json(case_dir / f"00_{error.stage}_failure.json", failure)
+            _write_json(args.out_dir / case_id / f"00_{error.stage}_failure.json", failure)
             summaries.append(failure)
     report = {
-        "version": "1.0.0", "pipeline": "rule_ir_core_normalized",
+        "version": "1.0.0",
+        "pipeline": "rule_ir_core_lean",
         "status": (
             "pass" if all(item.get("status") != "contract_failure" for item in summaries)
             else "contract_failure"
         ),
-        "prompt_audit": audit, "cases": summaries,
+        "prompt_audit": audit,
+        "cases": summaries,
     }
     _write_json(args.out_dir / "report.json", report)
     print(json.dumps(report, ensure_ascii=False, indent=2))

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Offline prompt, payload, and schema audit for the normalized core pipeline."""
+"""Offline audit for the lean core RuleIR pipeline."""
 
 from __future__ import annotations
 
@@ -11,28 +11,25 @@ from typing import Any, Mapping
 
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(ROOT))
 
-from idpr.generation.native_hybrid_answer import hybrid_answer_schema  # noqa: E402
 from idpr.neural.core_contract import (  # noqa: E402
-    assessment_groups,
-    core_assessment_schema,
-    core_fact_inventory_schema,
     core_issue_selection_schema,
-    role_binding_schema,
+    core_unit_analysis_schema,
 )
 from idpr.prompts import INPUT_PLACEHOLDER, load_prompt, prompt_path  # noqa: E402
 from idpr.rulegen.core_profile import load_core_profiles  # noqa: E402
-from scripts.run_rule_ir_core_kcl_e2e import PROMPTS  # noqa: E402
+from scripts.run_rule_ir_core_kcl_e2e import (  # noqa: E402
+    JSON_PROMPTS,
+    WRITE_PROMPT,
+)
 
 
 REQUIRED = {
-    "inventory": ("question_prompt", "actor_id", "claim", "paraphrase", "죄명"),
-    "selection": ("allowed_units", "question_prompt", "subject_actor_id", "unsupported"),
-    "binding": ("role_contract", "role_definitions", "track_contracts", "결론"),
-    "assessment": ("issue_facts", "authority_context", "satisfied", "Scallop"),
-    "generation": ("symbolic_directive", "subject_label", "rule_ir_scallop", "결론"),
+    "selection": ("allowed_units", "unsupported", "대상자", "행위"),
+    "analysis": ("role", "track", "predicate", "Scallop"),
+    "writing": ("호스트가 고정한 결론", "법리", "포섭", "Markdown"),
 }
 UNSUPPORTED_GUIDANCE = {"if", "then", "else", "prefixItems"}
 
@@ -52,121 +49,100 @@ def _hash(name: str) -> str:
 
 
 def audit() -> dict[str, Any]:
-    errors = []
-    prompt_hashes = {}
+    errors: list[str] = []
+    prompt_hashes: dict[str, str] = {}
     prompt_rows = []
-    for stage, (system_name, user_name) in PROMPTS.items():
+    prompt_specs = {
+        **JSON_PROMPTS,
+        "writing": WRITE_PROMPT,
+    }
+    for stage, (system_name, user_name) in prompt_specs.items():
         system = load_prompt(system_name)
         user = load_prompt(user_name)
         missing = [token for token in REQUIRED[stage] if token not in system]
         if missing:
-            errors.append(f"{stage}: missing prompt contract terms {missing}")
+            errors.append(f"{stage}: missing prompt terms {missing}")
         if INPUT_PLACEHOLDER in system or user.count(INPUT_PLACEHOLDER) != 1:
             errors.append(f"{stage}: invalid runtime placeholder placement")
-        if len(system) > 1000:
-            errors.append(f"{stage}: system prompt is too long ({len(system)} chars)")
-        if len(user) > 400:
-            errors.append(f"{stage}: user prompt is too long ({len(user)} chars)")
+        if len(system) > 1000 or len(user) > 400:
+            errors.append(f"{stage}: prompt exceeds lean size bound")
         prompt_hashes[system_name] = _hash(system_name)
         prompt_hashes[user_name] = _hash(user_name)
         prompt_rows.append({
-            "stage": stage, "system": system_name, "user": user_name,
-            "system_characters": len(system), "user_characters": len(user),
+            "stage": stage,
+            "system": system_name,
+            "user": user_name,
+            "system_characters": len(system),
+            "user_characters": len(user),
+            "output_mode": "plain_text" if stage == "writing" else "json_schema",
         })
 
     profiles = load_core_profiles()["units"]
     fraud = profiles["fraud"]
-    fraud_group = assessment_groups(fraud, ["base"], max_predicates=10)[0]
-    predicate_ids = [item["predicate_id"] for item in fraud_group["predicates"]]
     schemas = {
-        "inventory": core_fact_inventory_schema(case_id="audit-case"),
         "selection": core_issue_selection_schema(
-            case_id="audit-case", unit_ids=sorted(profiles),
-            actor_ids=["actor-1", "actor-2"], fact_ids=["fact-1", "fact-2"],
+            case_id="audit-case", unit_ids=sorted(profiles)
         ),
-        "binding": role_binding_schema(
-            case_id="audit-case", issue_id="issue-1", profile=fraud
+        "analysis": core_unit_analysis_schema(
+            case_id="audit-case", issue_id="issue-01", profile=fraud
         ),
-        "assessment": core_assessment_schema(
-            case_id="audit-case", predicate_ids=predicate_ids
-        ),
-        "generation": hybrid_answer_schema([
-            {"section_id": "special", "authority": "rule_ir_scallop"},
-            {
-                "section_id": "general",
-                "authority": "model_only_general_part_experiment",
-            },
-        ]),
     }
     incompatible = sorted(
-        UNSUPPORTED_GUIDANCE & set().union(*(_nested_keys(schema) for schema in schemas.values()))
+        UNSUPPORTED_GUIDANCE
+        & set().union(*(_nested_keys(schema) for schema in schemas.values()))
     )
     if incompatible:
         errors.append(f"vLLM guidance-incompatible schema keys: {incompatible}")
-    inventory_fact = schemas["inventory"]["properties"]["facts"]["items"]
-    if not {"focus_actor_id", "claim", "source_quotes"}.issubset(
-        inventory_fact["required"]
-    ):
-        errors.append("fact inventory lacks actor/claim/evidence contract")
-    selection_item = schemas["selection"]["properties"]["issues"]["items"]
-    if "role_bindings" in selection_item["properties"]:
-        errors.append("issue selection still performs legal role binding")
-    if not {"subject_actor_id", "fact_ids"}.issubset(selection_item["required"]):
-        errors.append("issue selection does not reference inventory ids")
-    if "fact_dispositions" in schemas["selection"]["properties"]:
-        errors.append("issue selection retains redundant fact disposition ledger")
-    binding_roles = schemas["binding"]["properties"]["role_bindings"]["required"]
-    if binding_roles != [
-        "defendant_id", "deceived_person_id", "disposer_id",
-        "property_owner_id", "beneficiary_id",
-    ]:
-        errors.append("fraud role schema differs from the RuleIR role tuple")
-    track_item = schemas["binding"]["properties"]["track_selections"]["items"]
-    if set(track_item["required"]) != {"track_id", "reason"}:
-        errors.append("track selection contract is not minimal")
+    analysis_required = set(schemas["analysis"]["required"])
+    if analysis_required != {
+        "case_id", "issue_id", "selected_tracks", "role_values", "assessments"
+    }:
+        errors.append("analysis contract contains unexpected layers")
+    core = sum(len(profile["model_input_predicates"]) for profile in profiles.values())
     detailed = sum(
         profile["detailed_card_predicates"]["count"] for profile in profiles.values()
     )
-    core = sum(len(profile["model_input_predicates"]) for profile in profiles.values())
-    if core >= detailed:
-        errors.append("core projection did not reduce model-facing predicates")
     return {
-        "version": "1.0.0", "status": "pass" if not errors else "fail",
-        "scope": "offline normalized-core preflight; no model calls", "api_calls": 0,
-        "prompt_hashes": prompt_hashes, "prompts": prompt_rows,
-        "schemas": {
-            "stages": list(schemas),
-            "unsupported_guidance_keywords_present": incompatible,
-            "selection_performs_role_binding": False,
-            "inventory_precedes_selection": True,
-            "selection_is_question_scoped": True,
-            "redundant_fact_disposition_ledger": False,
-            "track_selection_contract": "track_id_and_reason_only",
+        "version": "2.0.0",
+        "status": "pass" if not errors else "fail",
+        "scope": "offline lean-core preflight; no model calls",
+        "api_calls": 0,
+        "prompt_hashes": prompt_hashes,
+        "prompts": prompt_rows,
+        "pipeline": {
+            "model_stages": ["closed_issue_selection", "unit_analysis", "section_prose"],
+            "fact_inventory_stage": False,
+            "separate_role_binding_stage": False,
+            "whole_answer_json_stage": False,
+            "writer_output": "plain_text_per_section",
+            "initial_semantic_search": False,
+            "runtime": "scallop_scli_core_projection",
         },
         "predicate_boundary": {
-            "units": len(profiles), "detailed_card_predicates": detailed,
-            "core_model_predicates": core, "fraud": [88, 10], "theft": [66, 6],
+            "units": len(profiles),
+            "detailed_card_predicates": detailed,
+            "core_model_predicates": core,
         },
-        "search_contract": {
-            "initial_issue_search": False,
-            "predicate_conditioned_context": True,
-            "context_may_change_predicate_set": False,
+        "schemas": {
+            "json_stages": list(schemas),
+            "unsupported_guidance_keywords_present": incompatible,
         },
         "errors": errors,
     }
 
 
 def render_markdown(report: Mapping[str, Any]) -> str:
+    pipeline = report["pipeline"]
     boundary = report["predicate_boundary"]
     return "\n".join([
-        "# RuleIR core-normalized KCL 사전 감사", "",
-        f"- 상태: **{report['status']}**", "- 모델/API 호출: 0",
+        "# RuleIR lean-core 사전 감사", "",
+        f"- 상태: **{report['status']}**",
+        "- 모델/API 호출: 0",
+        f"- 모델 단계: {' → '.join(pipeline['model_stages'])}",
+        f"- 전체 답안 JSON 생성: {pipeline['whole_answer_json_stage']}",
+        f"- section writer: {pipeline['writer_output']}",
         f"- 등록 unit: {boundary['units']}",
-        f"- 카드별 모델 입력 제거: {boundary['detailed_card_predicates']}",
-        f"- 핵심 component 모델 입력: {boundary['core_model_predicates']}",
-        "- 최초 쟁점 검색: 사용하지 않음",
-        "- 검색/context 위치: 선택된 predicate 판단 단계",
-        "- context의 predicate 집합 변경: 금지", "",
+        f"- core predicate: {boundary['core_model_predicates']}", "",
         "## 오류", "",
         *(f"- {item}" for item in report["errors"]), "",
     ])
@@ -176,10 +152,15 @@ def main() -> None:
     report = audit()
     target = ROOT / "data/e2e/rule_ir_core/prompt_audit.json"
     target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    target.write_text(
+        json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
     doc = ROOT / "docs/2026-08-04_rule_ir_core_prompt_audit.md"
     doc.write_text(render_markdown(report), encoding="utf-8")
-    print(f"{report['status']}: core={report['predicate_boundary']['core_model_predicates']} errors={len(report['errors'])}")
+    print(
+        f"{report['status']}: stages=3 core={report['predicate_boundary']['core_model_predicates']} "
+        f"errors={len(report['errors'])}"
+    )
     if report["errors"]:
         raise SystemExit(1)
 

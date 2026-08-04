@@ -1,89 +1,66 @@
 {
-  "version": "1.0.0",
+  "version": "2.0.0",
   "status": "pass",
-  "scope": "offline normalized-core preflight; no model calls",
+  "scope": "offline lean-core preflight; no model calls",
   "api_calls": 0,
   "prompt_hashes": {
-    "rule_ir_core_fact_inventory": "b7dea10d08aec6bca5a667560e95bd8735b52c9ff40f264314b28b0246dacbb5",
-    "rule_ir_core_fact_inventory_user": "420a8db3f05ba10ea438d074fcccb1b13b810b1d55a68b0df49ad89af7551fb8",
-    "rule_ir_core_issue_select": "89715c0f022d0db3d68ed6e83e7107f7c484e4155943e73c798db386b3f0868c",
-    "rule_ir_core_issue_select_user": "6b8941b3fae8ca3e7d0fcc0d1bda43a75c56efecd17f4c6d04333f06d4ab23b2",
-    "rule_ir_core_role_bind": "2f6bfcd834c4f5d7df3326aafc28d39c1224e8a90181bbde289ce65e1b7c8e6a",
-    "rule_ir_core_role_bind_user": "9d03a01aa16d2b4b13ccfc59667c9fcc566910f10aeeabd3140de45c435b207c",
-    "rule_ir_core_assess": "a416037f0d81233135f6295cbcd25f2b3de422277c683df2e4aa3347e7027c0a",
-    "rule_ir_core_assess_user": "59a7ad22b39a211dbd5938d9d91550c54f26a49966dc4c9bb90e5903ecb3f989",
-    "rule_ir_native_hybrid_generate": "adfa8e48dd5fac412a713adecbb42fd4e405efd7a3b1e4464adcb95b72551202",
-    "rule_ir_native_hybrid_generate_user": "6b00ffc95c27632b66ed171cb522d142df6028fb863f1999f9df2fa878bdcb8f"
+    "rule_ir_core_issue_select": "0040a3bfd3870e18ac25167508422420fac400421f33fc76088911fc2be353e3",
+    "rule_ir_core_issue_select_user": "e16c6a10349e33c6f012768bf5859c6940bee4496e5f4b521d17c772cce0cbbc",
+    "rule_ir_core_assess": "264e9471f5bfb3bd533e902e49ba6ccc0193923893918a98a94d31835929ff05",
+    "rule_ir_core_assess_user": "cb3b724f8115385a252bcbf89ca708c5a739ba152c8120a760e6f6c514f5ac80",
+    "rule_ir_core_write": "df3a6b390f4eba7bdd86e12117c85ac8f8e94a42851b86c50b6f9175bb741b4e",
+    "rule_ir_core_write_user": "051b23b7379059a9779e5e18c7389dd2f2d534caf5ed95e70fdd1f88f305256c"
   },
   "prompts": [
-    {
-      "stage": "inventory",
-      "system": "rule_ir_core_fact_inventory",
-      "user": "rule_ir_core_fact_inventory_user",
-      "system_characters": 475,
-      "user_characters": 136
-    },
     {
       "stage": "selection",
       "system": "rule_ir_core_issue_select",
       "user": "rule_ir_core_issue_select_user",
-      "system_characters": 485,
-      "user_characters": 129
+      "system_characters": 255,
+      "user_characters": 97,
+      "output_mode": "json_schema"
     },
     {
-      "stage": "binding",
-      "system": "rule_ir_core_role_bind",
-      "user": "rule_ir_core_role_bind_user",
-      "system_characters": 566,
-      "user_characters": 126
-    },
-    {
-      "stage": "assessment",
+      "stage": "analysis",
       "system": "rule_ir_core_assess",
       "user": "rule_ir_core_assess_user",
-      "system_characters": 494,
-      "user_characters": 124
+      "system_characters": 344,
+      "user_characters": 121,
+      "output_mode": "json_schema"
     },
     {
-      "stage": "generation",
-      "system": "rule_ir_native_hybrid_generate",
-      "user": "rule_ir_native_hybrid_generate_user",
-      "system_characters": 576,
-      "user_characters": 150
+      "stage": "writing",
+      "system": "rule_ir_core_write",
+      "user": "rule_ir_core_write_user",
+      "system_characters": 304,
+      "user_characters": 86,
+      "output_mode": "plain_text"
     }
   ],
-  "schemas": {
-    "stages": [
-      "inventory",
-      "selection",
-      "binding",
-      "assessment",
-      "generation"
+  "pipeline": {
+    "model_stages": [
+      "closed_issue_selection",
+      "unit_analysis",
+      "section_prose"
     ],
-    "unsupported_guidance_keywords_present": [],
-    "selection_performs_role_binding": false,
-    "inventory_precedes_selection": true,
-    "selection_is_question_scoped": true,
-    "redundant_fact_disposition_ledger": false,
-    "track_selection_contract": "track_id_and_reason_only"
+    "fact_inventory_stage": false,
+    "separate_role_binding_stage": false,
+    "whole_answer_json_stage": false,
+    "writer_output": "plain_text_per_section",
+    "initial_semantic_search": false,
+    "runtime": "scallop_scli_core_projection"
   },
   "predicate_boundary": {
     "units": 36,
     "detailed_card_predicates": 1652,
-    "core_model_predicates": 245,
-    "fraud": [
-      88,
-      10
-    ],
-    "theft": [
-      66,
-      6
-    ]
+    "core_model_predicates": 245
   },
-  "search_contract": {
-    "initial_issue_search": false,
-    "predicate_conditioned_context": true,
-    "context_may_change_predicate_set": false
+  "schemas": {
+    "json_stages": [
+      "selection",
+      "analysis"
+    ],
+    "unsupported_guidance_keywords_present": []
   },
   "errors": []
 }

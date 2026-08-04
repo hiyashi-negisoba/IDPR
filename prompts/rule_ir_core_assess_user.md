@@ -1,4 +1,4 @@
-현재 issue의 사실과 authority를 고려하여 제공된 predicate 전부의 상태와 이유를 판단하라.
+현재 issue의 role·track을 배정하고 제공된 predicate 전부의 상태와 이유를 판단하라.
 
 <INPUT_JSON>
 {{INPUT_JSON}}

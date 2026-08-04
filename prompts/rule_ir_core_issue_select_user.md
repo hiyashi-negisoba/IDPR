@@ -1,4 +1,4 @@
-`question_prompt`에 직접 답하는 죄종·총칙 issue만 `fact_inventory`의 ID로 구성하라.
+질문에 직접 답하는 죄종·실체법 쟁점과 대상자·행위만 고르라.
 
 <INPUT_JSON>
 {{INPUT_JSON}}

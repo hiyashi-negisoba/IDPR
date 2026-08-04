@@ -1,13 +1,12 @@
-# RuleIR core-normalized KCL 사전 감사
+# RuleIR lean-core 사전 감사
 
 - 상태: **pass**
 - 모델/API 호출: 0
+- 모델 단계: closed_issue_selection → unit_analysis → section_prose
+- 전체 답안 JSON 생성: False
+- section writer: plain_text_per_section
 - 등록 unit: 36
-- 카드별 모델 입력 제거: 1652
-- 핵심 component 모델 입력: 245
-- 최초 쟁점 검색: 사용하지 않음
-- 검색/context 위치: 선택된 predicate 판단 단계
-- context의 predicate 집합 변경: 금지
+- core predicate: 245
 
 ## 오류
 
