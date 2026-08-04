@@ -52,12 +52,15 @@ class UnitScenarios:
     def __init__(self, unit_id: str) -> None:
         self.unit_id = unit_id
         self.rule_ir = read_json(OUT_DIR / f"{unit_id}_rule_ir_candidate.json")
-        self.ledger = read_json(LEDGER_DIR / f"{unit_id}_decision_ledger.json")
+        self.assembler = UnitAssembler(unit_id, None)
+        # Use the execution ledger after approved rewrites/split parts have been
+        # materialized.  The persisted decision ledger deliberately retains the
+        # source card ids, while RuleIR addresses each split part independently.
+        self.ledger = self.assembler.ledger
         self.compiled = (COMPILED / f"p2_{unit_id}_v1_candidate.scl").read_text(
             encoding="utf-8")
         self.parent = {item["track_id"]: item.get("inherits_from")
                        for item in self.ledger["tracks"]}
-        self.assembler = UnitAssembler(unit_id, None)
         role_predicate = next(
             item for item in self.rule_ir["predicates"]
             if item["id"].endswith("_case_roles"))

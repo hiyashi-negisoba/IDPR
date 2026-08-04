@@ -248,6 +248,7 @@ class UnitAssembler:
         self.label = unit["label"]
         self.law_snapshot = self.ledger["law_snapshot"]
         self.catalog, self.corrections = card_catalog()
+        self.materialize_approved_propositions()
         unit_card_ids = {
             row["card_id"]
             for row in self.ledger["placements"]
@@ -271,6 +272,43 @@ class UnitAssembler:
         self.used_cards: set[str] = set()
         self.deferred: list[dict[str, Any]] = []
         self.track_cards: dict[str, list[dict[str, Any]]] = {}
+
+    def materialize_approved_propositions(self) -> None:
+        """Make approved rewrites—and each approved split part—executable cards."""
+        rewritten: dict[str, str] = {}
+        for row in self.ledger["placements"]:
+            original_id = row["card_id"]
+            rewrite = row.get("proposition_rewrite")
+            part_id = row.get("part_id")
+            if part_id:
+                if not rewrite:
+                    raise SystemExit(
+                        f"{self.unit_id}: split {original_id}#{part_id} has no proposition rewrite"
+                    )
+                synthetic_id = f"{original_id}.part.{slug(part_id)}"
+                if synthetic_id in self.catalog:
+                    if self.catalog[synthetic_id]["proposition"] != rewrite:
+                        raise SystemExit(
+                            f"{self.unit_id}: conflicting split rewrites for {synthetic_id}"
+                        )
+                else:
+                    source = copy.deepcopy(self.catalog[original_id])
+                    source["id"] = synthetic_id
+                    source["proposition"] = rewrite
+                    self.catalog[synthetic_id] = source
+                row["source_card_id"] = original_id
+                row["card_id"] = synthetic_id
+                continue
+            if not rewrite:
+                continue
+            previous = rewritten.setdefault(original_id, rewrite)
+            if previous != rewrite:
+                raise SystemExit(
+                    f"{self.unit_id}: conflicting proposition rewrites for {original_id}"
+                )
+            card = copy.deepcopy(self.catalog[original_id])
+            card["proposition"] = rewrite
+            self.catalog[original_id] = card
 
     # ── placements ────────────────────────────────────────────────────
     def placements(self) -> list[dict[str, Any]]:

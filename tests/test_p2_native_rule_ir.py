@@ -23,9 +23,12 @@ def test_only_the_gate_approved_tracks_are_compiled() -> None:
 
 def test_a_bar_card_never_joins_the_element_it_qualifies() -> None:
     """A component may hold a defining card, a bar and a boundary at once."""
-    compiled = set(UnitAssembler(UNIT, None).tracks)
-    ledger = build_ledger(UNIT)
-    rows = [row for row in ledger["placements"] if row["track_id"] in compiled]
+    assembler = UnitAssembler(UNIT, None)
+    compiled = set(assembler.tracks)
+    rows = [
+        row for row in assembler.ledger["placements"]
+        if row["track_id"] in compiled
+    ]
     by_component: dict[tuple[str, str], set[str]] = {}
     for row in rows:
         key = (row["track_id"], row["component_id"])
@@ -209,3 +212,30 @@ def test_gross_negligence_does_not_inherit_the_occupational_business_status() ->
 
     assert f"{NEGLIGENT_BODILY_HARM}_occupational_general_requirements_satisfied" in predicates
     assert f"{NEGLIGENT_BODILY_HARM}_occupational_business_status_satisfied" not in predicates
+
+
+def test_approved_proposition_rewrite_is_the_executed_card_text() -> None:
+    _, card_set = UnitAssembler(NEGLIGENT_BODILY_HARM, None).build()
+    card = next(item for item in card_set["cards"]
+                if item["id"] == "art267_sec2.standard.bus_driver_instant_wheel_entry")
+
+    assert card["proposition"] == (
+        "피해자가 버스 발차 순간 바퀴 밑으로 갑자기 들어가 운전자가 이를 발견하거나 "
+        "회피할 수 없었던 경우에는 운전자의 과실을 인정할 수 없다."
+    )
+
+
+def test_approved_split_parts_become_distinct_executable_cards() -> None:
+    _, card_set = UnitAssembler(UNIT, None).build()
+    parts = {
+        item["id"]: item["proposition"]
+        for item in card_set["cards"]
+        if item["id"].startswith("art164_sec2_1.burning_result.part.")
+    }
+
+    assert parts == {
+        "art164_sec2_1.burning_result.part.burning_definition":
+            "불태움이란 화력에 의하여 건조물 등이 훼손 또는 손괴되는 것을 말한다.",
+        "art164_sec2_1.burning_result.part.completion_on_burning":
+            "불태움의 결과가 발생하면 방화죄는 기수에 이른다.",
+    }

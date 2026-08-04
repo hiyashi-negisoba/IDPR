@@ -38,6 +38,26 @@ type arson_of_occupied_structure_undetermined(String, String, String)
 // norm_cards: system contract
 type arson_of_occupied_structure_conflict(String, String, String)
 
+// arson_of_occupied_structure_track_not_established: 해당 track에만 적용되는 증명된 불성립 사유 또는 경계 이동
+// sources: system contract
+// norm_cards: system contract
+type arson_of_occupied_structure_track_not_established(String, String, String, String)
+
+// arson_of_occupied_structure_track_conflict: 해당 track에 적용되는 카드 평가 충돌
+// sources: system contract
+// norm_cards: system contract
+type arson_of_occupied_structure_track_conflict(String, String, String, String)
+
+// arson_of_occupied_structure_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type arson_of_occupied_structure_track_has_negative(String, String, String)
+
+// arson_of_occupied_structure_track_has_conflict: 해당 track에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type arson_of_occupied_structure_track_has_conflict(String, String, String)
+
 // assess_art164_arson_property_damage_absorption: 이 카드의 사건별 적용 평가: 방화행위로 건조물 등을 손괴한 경우, 그 손괴는 방화의 불가벌적 수반행위로서 법조경합 관계에 따라 방화죄에 흡수된다.
 // sources: comm_001692_제164조_Ⅱ.4_16
 // norm_cards: art164.arson_property_damage_absorption
@@ -98,15 +118,25 @@ type assess_art164_sec2_1_building_integrity(String, String, String, String, Str
 // norm_cards: art164_sec2_1.building_integrity
 type satisfied_art164_sec2_1_building_integrity(String, String, String, String)
 
-// assess_art164_sec2_1_burning_result: 이 카드의 사건별 적용 평가: 불태움은 화력에 의한 건조물 등의 훼손 또는 손괴를 뜻하며, 불태움 결과가 발생하면 방화죄는 기수에 이른다.
+// assess_art164_sec2_1_burning_result_part_burning_definition: 이 카드의 사건별 적용 평가: 불태움이란 화력에 의하여 건조물 등이 훼손 또는 손괴되는 것을 말한다.
 // sources: comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7
-// norm_cards: art164_sec2_1.burning_result
-type assess_art164_sec2_1_burning_result(String, String, String, String, String, String)
+// norm_cards: art164_sec2_1.burning_result.part.burning_definition
+type assess_art164_sec2_1_burning_result_part_burning_definition(String, String, String, String, String, String)
 
-// satisfied_art164_sec2_1_burning_result: 증명 가능한 평가에서 다음 조건이 충족됨: 불태움은 화력에 의한 건조물 등의 훼손 또는 손괴를 뜻하며, 불태움 결과가 발생하면 방화죄는 기수에 이른다.
+// satisfied_art164_sec2_1_burning_result_part_burning_definition: 증명 가능한 평가에서 다음 조건이 충족됨: 불태움이란 화력에 의하여 건조물 등이 훼손 또는 손괴되는 것을 말한다.
 // sources: comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7
-// norm_cards: art164_sec2_1.burning_result
-type satisfied_art164_sec2_1_burning_result(String, String, String, String)
+// norm_cards: art164_sec2_1.burning_result.part.burning_definition
+type satisfied_art164_sec2_1_burning_result_part_burning_definition(String, String, String, String)
+
+// assess_art164_sec2_1_burning_result_part_completion_on_burning: 이 카드의 사건별 적용 평가: 불태움의 결과가 발생하면 방화죄는 기수에 이른다.
+// sources: comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7
+// norm_cards: art164_sec2_1.burning_result.part.completion_on_burning
+type assess_art164_sec2_1_burning_result_part_completion_on_burning(String, String, String, String, String, String)
+
+// satisfied_art164_sec2_1_burning_result_part_completion_on_burning: 증명 가능한 평가에서 다음 조건이 충족됨: 불태움의 결과가 발생하면 방화죄는 기수에 이른다.
+// sources: comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7
+// norm_cards: art164_sec2_1.burning_result.part.completion_on_burning
+type satisfied_art164_sec2_1_burning_result_part_completion_on_burning(String, String, String, String)
 
 // assess_art164_sec2_1_combustion_without_flame: 이 카드의 사건별 적용 평가: 독립연소에서 연소는 반드시 불꽃을 수반할 필요가 없고, 불에 타지 않는 재질도 고온 산화로 열이 주변 발화점에 전달되어 가연 부분 전체에 순차 번지는 상태이면 독립연소 상태가 될 수 있다.
 // sources: comm_001692_제164조_Ⅱ.1_9
@@ -128,12 +158,12 @@ type assess_art164_sec2_1_completion_independent_combustion_variant(String, Stri
 // norm_cards: art164_sec2_1.completion_independent_combustion_variant
 type satisfied_art164_sec2_1_completion_independent_combustion_variant(String, String, String, String)
 
-// assess_art164_sec2_1_derelict_building_not_building_precedent: 이 카드의 사건별 적용 평가: 지붕·문짝·창문이 없고 담장 및 일부 벽체가 붕괴되어 기거·취침에 사용할 수 없는 철거 대상 폐가는 제164조의 건조물이 아니라 물건에 해당한다는 판례가 소개되어 있다.
+// assess_art164_sec2_1_derelict_building_not_building_precedent: 이 카드의 사건별 적용 평가: 지붕·문짝·창문이 없고 담장과 일부 벽체가 붕괴되어 기거 또는 취침에 사용할 수 없는 철거 대상 폐가는 제164조의 건조물에 해당하지 않는다.
 // sources: comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_4
 // norm_cards: art164_sec2_1.derelict_building_not_building_precedent
 type assess_art164_sec2_1_derelict_building_not_building_precedent(String, String, String, String, String, String)
 
-// satisfied_art164_sec2_1_derelict_building_not_building_precedent: 증명 가능한 평가에서 다음 조건이 충족됨: 지붕·문짝·창문이 없고 담장 및 일부 벽체가 붕괴되어 기거·취침에 사용할 수 없는 철거 대상 폐가는 제164조의 건조물이 아니라 물건에 해당한다는 판례가 소개되어 있다.
+// satisfied_art164_sec2_1_derelict_building_not_building_precedent: 증명 가능한 평가에서 다음 조건이 충족됨: 지붕·문짝·창문이 없고 담장과 일부 벽체가 붕괴되어 기거 또는 취침에 사용할 수 없는 철거 대상 폐가는 제164조의 건조물에 해당하지 않는다.
 // sources: comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_4
 // norm_cards: art164_sec2_1.derelict_building_not_building_precedent
 type satisfied_art164_sec2_1_derelict_building_not_building_precedent(String, String, String, String)
@@ -188,15 +218,15 @@ type assess_art164_sec2_1_medium_ignition_attempt(String, String, String, String
 // norm_cards: art164_sec2_1.medium_ignition_attempt
 type satisfied_art164_sec2_1_medium_ignition_attempt(String, String, String, String)
 
-// assess_art164_sec2_1_no_attempt_before_ignition: 이 카드의 사건별 적용 평가: 방화 목적물 또는 그 도화물체에 아직 점화하지 않은 때에는 방화 실행의 착수가 아니라 예비로 처벌될 수 있을 뿐이다.
+// assess_art164_sec2_1_no_attempt_before_ignition_part_no_attempt_before_ignition: 이 카드의 사건별 적용 평가: 방화의 목적물 또는 그 도화물체에 아직 점화하지 않은 때에는 불을 놓은 것에 해당하지 않으므로 방화죄의 실행 착수가 인정되지 않는다.
 // sources: comm_001692_제164조_Ⅱ.1_9
-// norm_cards: art164_sec2_1.no_attempt_before_ignition
-type assess_art164_sec2_1_no_attempt_before_ignition(String, String, String, String, String, String)
+// norm_cards: art164_sec2_1.no_attempt_before_ignition.part.no_attempt_before_ignition
+type assess_art164_sec2_1_no_attempt_before_ignition_part_no_attempt_before_ignition(String, String, String, String, String, String)
 
-// satisfied_art164_sec2_1_no_attempt_before_ignition: 증명 가능한 평가에서 다음 조건이 충족됨: 방화 목적물 또는 그 도화물체에 아직 점화하지 않은 때에는 방화 실행의 착수가 아니라 예비로 처벌될 수 있을 뿐이다.
+// satisfied_art164_sec2_1_no_attempt_before_ignition_part_no_attempt_before_ignition: 증명 가능한 평가에서 다음 조건이 충족됨: 방화의 목적물 또는 그 도화물체에 아직 점화하지 않은 때에는 불을 놓은 것에 해당하지 않으므로 방화죄의 실행 착수가 인정되지 않는다.
 // sources: comm_001692_제164조_Ⅱ.1_9
-// norm_cards: art164_sec2_1.no_attempt_before_ignition
-type satisfied_art164_sec2_1_no_attempt_before_ignition(String, String, String, String)
+// norm_cards: art164_sec2_1.no_attempt_before_ignition.part.no_attempt_before_ignition
+type satisfied_art164_sec2_1_no_attempt_before_ignition_part_no_attempt_before_ignition(String, String, String, String)
 
 // assess_art164_sec2_1_omission_arson: 이 카드의 사건별 적용 평가: 소화하기 쉬운 기존 화력을 방치하여 목적물 연소를 야기하는 부작위에 의한 방화도 가능하다.
 // sources: comm_001692_제164조_Ⅱ.1_6
@@ -238,12 +268,12 @@ type assess_art164_sec2_1_present_person(String, String, String, String, String,
 // norm_cards: art164_sec2_1.present_person
 type satisfied_art164_sec2_1_present_person(String, String, String, String)
 
-// assess_art164_sec2_1_protected_object: 이 카드의 사건별 적용 평가: 현주건조물등방화죄의 객체는 사람이 주거로 사용하거나 사람이 현존하는 건조물, 기차, 전차, 자동차, 선박, 항공기 또는 지하채굴시설이다.
+// assess_art164_sec2_1_protected_object: 이 카드의 사건별 적용 평가: 현주건조물등방화죄의 객체는 건조물, 기차, 전차, 자동차, 선박, 항공기 또는 지하채굴시설이다.
 // sources: comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.protected_object
 type assess_art164_sec2_1_protected_object(String, String, String, String, String, String)
 
-// satisfied_art164_sec2_1_protected_object: 증명 가능한 평가에서 다음 조건이 충족됨: 현주건조물등방화죄의 객체는 사람이 주거로 사용하거나 사람이 현존하는 건조물, 기차, 전차, 자동차, 선박, 항공기 또는 지하채굴시설이다.
+// satisfied_art164_sec2_1_protected_object: 증명 가능한 평가에서 다음 조건이 충족됨: 현주건조물등방화죄의 객체는 건조물, 기차, 전차, 자동차, 선박, 항공기 또는 지하채굴시설이다.
 // sources: comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.protected_object
 type satisfied_art164_sec2_1_protected_object(String, String, String, String)
@@ -430,7 +460,7 @@ type arson_of_occupied_structure_base_residence_use_indicia_satisfied(String, St
 
 // arson_of_occupied_structure_completed_burning_definition_satisfied: 'burning_definition' 요건이 충족됨 (completed track, mandatory_all)
 // sources: comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7
-// norm_cards: art164_sec2_1.burning_result
+// norm_cards: art164_sec2_1.burning_result.part.burning_definition
 type arson_of_occupied_structure_completed_burning_definition_satisfied(String, String, String, String)
 
 // arson_of_occupied_structure_completed_combustion_mode_satisfied: 'combustion_mode' 요건이 충족됨 (completed track, alternative_any)
@@ -440,7 +470,7 @@ type arson_of_occupied_structure_completed_combustion_mode_satisfied(String, Str
 
 // arson_of_occupied_structure_completed_independent_combustion_satisfied: 'independent_combustion' 요건이 충족됨 (completed track, mandatory_all)
 // sources: comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_8
-// norm_cards: art164_sec2_1.burning_result, art164_sec2_1.completion_independent_combustion_variant, art164_sec2_1.independent_combustion_completion_precedent
+// norm_cards: art164_sec2_1.burning_result.part.completion_on_burning, art164_sec2_1.completion_independent_combustion_variant, art164_sec2_1.independent_combustion_completion_precedent
 type arson_of_occupied_structure_completed_independent_combustion_satisfied(String, String, String, String)
 
 // arson_of_occupied_structure_has_negative: 이 unit에 증명된 불성립 사유가 존재함
@@ -603,565 +633,585 @@ rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.b
   provable(case_id, positive_006) and
   provable(case_id, negative_006)
 
-// rule_id: arson_of_occupied_structure.card.art164_sec2_1_burning_result.satisfied
+// rule_id: arson_of_occupied_structure.card.art164_sec2_1_burning_result_part_burning_definition.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7
-// norm_cards: art164_sec2_1.burning_result
-rel satisfied_art164_sec2_1_burning_result(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_burning_result(case_id, assessment_007, defendant_id, structure_id, occupant_id, "satisfied") and
+// norm_cards: art164_sec2_1.burning_result.part.burning_definition
+rel satisfied_art164_sec2_1_burning_result_part_burning_definition(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_burning_result_part_burning_definition(case_id, assessment_007, defendant_id, structure_id, occupant_id, "satisfied") and
   provable(case_id, assessment_007)
 
-// rule_id: arson_of_occupied_structure.card.art164_sec2_1_burning_result.undetermined
+// rule_id: arson_of_occupied_structure.card.art164_sec2_1_burning_result_part_burning_definition.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7
-// norm_cards: art164_sec2_1.burning_result
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.burning_result") = assess_art164_sec2_1_burning_result(case_id, unknown_007, defendant_id, structure_id, occupant_id, "unknown") and
+// norm_cards: art164_sec2_1.burning_result.part.burning_definition
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.burning_result.part.burning_definition") = assess_art164_sec2_1_burning_result_part_burning_definition(case_id, unknown_007, defendant_id, structure_id, occupant_id, "unknown") and
   provable(case_id, unknown_007)
 
-// rule_id: arson_of_occupied_structure.card.art164_sec2_1_burning_result.conflict
+// rule_id: arson_of_occupied_structure.card.art164_sec2_1_burning_result_part_burning_definition.conflict
 // sources: comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7
-// norm_cards: art164_sec2_1.burning_result
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.burning_result") = assess_art164_sec2_1_burning_result(case_id, positive_007, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_burning_result(case_id, negative_007, defendant_id, structure_id, occupant_id, "not_satisfied") and
+// norm_cards: art164_sec2_1.burning_result.part.burning_definition
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.burning_result.part.burning_definition") = assess_art164_sec2_1_burning_result_part_burning_definition(case_id, positive_007, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_burning_result_part_burning_definition(case_id, negative_007, defendant_id, structure_id, occupant_id, "not_satisfied") and
   provable(case_id, positive_007) and
   provable(case_id, negative_007)
+
+// rule_id: arson_of_occupied_structure.card.art164_sec2_1_burning_result_part_completion_on_burning.satisfied
+// sources: comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7
+// norm_cards: art164_sec2_1.burning_result.part.completion_on_burning
+rel satisfied_art164_sec2_1_burning_result_part_completion_on_burning(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_burning_result_part_completion_on_burning(case_id, assessment_008, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_008)
+
+// rule_id: arson_of_occupied_structure.card.art164_sec2_1_burning_result_part_completion_on_burning.undetermined
+// sources: comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7
+// norm_cards: art164_sec2_1.burning_result.part.completion_on_burning
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.burning_result.part.completion_on_burning") = assess_art164_sec2_1_burning_result_part_completion_on_burning(case_id, unknown_008, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_008)
+
+// rule_id: arson_of_occupied_structure.card.art164_sec2_1_burning_result_part_completion_on_burning.conflict
+// sources: comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7
+// norm_cards: art164_sec2_1.burning_result.part.completion_on_burning
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.burning_result.part.completion_on_burning") = assess_art164_sec2_1_burning_result_part_completion_on_burning(case_id, positive_008, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_burning_result_part_completion_on_burning(case_id, negative_008, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_008) and
+  provable(case_id, negative_008)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_combustion_without_flame.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_9
 // norm_cards: art164_sec2_1.combustion_without_flame
-rel satisfied_art164_sec2_1_combustion_without_flame(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_combustion_without_flame(case_id, assessment_008, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_008)
+rel satisfied_art164_sec2_1_combustion_without_flame(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_combustion_without_flame(case_id, assessment_009, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_009)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_combustion_without_flame.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_9
 // norm_cards: art164_sec2_1.combustion_without_flame
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.combustion_without_flame") = assess_art164_sec2_1_combustion_without_flame(case_id, unknown_008, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_008)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.combustion_without_flame") = assess_art164_sec2_1_combustion_without_flame(case_id, unknown_009, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_009)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_combustion_without_flame.conflict
 // sources: comm_001692_제164조_Ⅱ.1_9
 // norm_cards: art164_sec2_1.combustion_without_flame
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.combustion_without_flame") = assess_art164_sec2_1_combustion_without_flame(case_id, positive_008, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_combustion_without_flame(case_id, negative_008, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_008) and
-  provable(case_id, negative_008)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.combustion_without_flame") = assess_art164_sec2_1_combustion_without_flame(case_id, positive_009, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_combustion_without_flame(case_id, negative_009, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_009) and
+  provable(case_id, negative_009)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_completion_independent_combustion_variant.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_7
 // norm_cards: art164_sec2_1.completion_independent_combustion_variant
-rel satisfied_art164_sec2_1_completion_independent_combustion_variant(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_completion_independent_combustion_variant(case_id, assessment_009, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_009)
+rel satisfied_art164_sec2_1_completion_independent_combustion_variant(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_completion_independent_combustion_variant(case_id, assessment_010, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_010)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_completion_independent_combustion_variant.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_7
 // norm_cards: art164_sec2_1.completion_independent_combustion_variant
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.completion_independent_combustion_variant") = assess_art164_sec2_1_completion_independent_combustion_variant(case_id, unknown_009, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_009)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.completion_independent_combustion_variant") = assess_art164_sec2_1_completion_independent_combustion_variant(case_id, unknown_010, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_010)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_completion_independent_combustion_variant.conflict
 // sources: comm_001692_제164조_Ⅱ.1_7
 // norm_cards: art164_sec2_1.completion_independent_combustion_variant
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.completion_independent_combustion_variant") = assess_art164_sec2_1_completion_independent_combustion_variant(case_id, positive_009, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_completion_independent_combustion_variant(case_id, negative_009, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_009) and
-  provable(case_id, negative_009)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.completion_independent_combustion_variant") = assess_art164_sec2_1_completion_independent_combustion_variant(case_id, positive_010, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_completion_independent_combustion_variant(case_id, negative_010, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_010) and
+  provable(case_id, negative_010)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_derelict_building_not_building_precedent.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_4
 // norm_cards: art164_sec2_1.derelict_building_not_building_precedent
-rel satisfied_art164_sec2_1_derelict_building_not_building_precedent(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_derelict_building_not_building_precedent(case_id, assessment_010, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_010)
+rel satisfied_art164_sec2_1_derelict_building_not_building_precedent(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_derelict_building_not_building_precedent(case_id, assessment_011, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_011)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_derelict_building_not_building_precedent.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_4
 // norm_cards: art164_sec2_1.derelict_building_not_building_precedent
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.derelict_building_not_building_precedent") = assess_art164_sec2_1_derelict_building_not_building_precedent(case_id, unknown_010, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_010)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.derelict_building_not_building_precedent") = assess_art164_sec2_1_derelict_building_not_building_precedent(case_id, unknown_011, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_011)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_derelict_building_not_building_precedent.conflict
 // sources: comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_4
 // norm_cards: art164_sec2_1.derelict_building_not_building_precedent
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.derelict_building_not_building_precedent") = assess_art164_sec2_1_derelict_building_not_building_precedent(case_id, positive_010, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_derelict_building_not_building_precedent(case_id, negative_010, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_010) and
-  provable(case_id, negative_010)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.derelict_building_not_building_precedent") = assess_art164_sec2_1_derelict_building_not_building_precedent(case_id, positive_011, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_derelict_building_not_building_precedent(case_id, negative_011, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_011) and
+  provable(case_id, negative_011)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_entry_for_arson_not_attempt.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_9
 // norm_cards: art164_sec2_1.entry_for_arson_not_attempt
-rel satisfied_art164_sec2_1_entry_for_arson_not_attempt(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_entry_for_arson_not_attempt(case_id, assessment_011, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_011)
+rel satisfied_art164_sec2_1_entry_for_arson_not_attempt(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_entry_for_arson_not_attempt(case_id, assessment_012, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_012)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_entry_for_arson_not_attempt.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_9
 // norm_cards: art164_sec2_1.entry_for_arson_not_attempt
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.entry_for_arson_not_attempt") = assess_art164_sec2_1_entry_for_arson_not_attempt(case_id, unknown_011, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_011)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.entry_for_arson_not_attempt") = assess_art164_sec2_1_entry_for_arson_not_attempt(case_id, unknown_012, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_012)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_entry_for_arson_not_attempt.conflict
 // sources: comm_001692_제164조_Ⅱ.1_9
 // norm_cards: art164_sec2_1.entry_for_arson_not_attempt
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.entry_for_arson_not_attempt") = assess_art164_sec2_1_entry_for_arson_not_attempt(case_id, positive_011, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_entry_for_arson_not_attempt(case_id, negative_011, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_011) and
-  provable(case_id, negative_011)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.entry_for_arson_not_attempt") = assess_art164_sec2_1_entry_for_arson_not_attempt(case_id, positive_012, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_entry_for_arson_not_attempt(case_id, negative_012, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_012) and
+  provable(case_id, negative_012)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_extinguished_medium_attempt.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_9
 // norm_cards: art164_sec2_1.extinguished_medium_attempt
-rel satisfied_art164_sec2_1_extinguished_medium_attempt(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_extinguished_medium_attempt(case_id, assessment_012, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_012)
+rel satisfied_art164_sec2_1_extinguished_medium_attempt(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_extinguished_medium_attempt(case_id, assessment_013, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_013)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_extinguished_medium_attempt.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_9
 // norm_cards: art164_sec2_1.extinguished_medium_attempt
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.extinguished_medium_attempt") = assess_art164_sec2_1_extinguished_medium_attempt(case_id, unknown_012, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_012)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.extinguished_medium_attempt") = assess_art164_sec2_1_extinguished_medium_attempt(case_id, unknown_013, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_013)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_extinguished_medium_attempt.conflict
 // sources: comm_001692_제164조_Ⅱ.1_9
 // norm_cards: art164_sec2_1.extinguished_medium_attempt
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.extinguished_medium_attempt") = assess_art164_sec2_1_extinguished_medium_attempt(case_id, positive_012, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_extinguished_medium_attempt(case_id, negative_012, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_012) and
-  provable(case_id, negative_012)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.extinguished_medium_attempt") = assess_art164_sec2_1_extinguished_medium_attempt(case_id, positive_013, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_extinguished_medium_attempt(case_id, negative_013, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_013) and
+  provable(case_id, negative_013)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_independent_combustion_completion_precedent.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_8
 // norm_cards: art164_sec2_1.independent_combustion_completion_precedent
-rel satisfied_art164_sec2_1_independent_combustion_completion_precedent(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_independent_combustion_completion_precedent(case_id, assessment_013, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_013)
+rel satisfied_art164_sec2_1_independent_combustion_completion_precedent(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_independent_combustion_completion_precedent(case_id, assessment_014, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_014)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_independent_combustion_completion_precedent.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_8
 // norm_cards: art164_sec2_1.independent_combustion_completion_precedent
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.independent_combustion_completion_precedent") = assess_art164_sec2_1_independent_combustion_completion_precedent(case_id, unknown_013, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_013)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.independent_combustion_completion_precedent") = assess_art164_sec2_1_independent_combustion_completion_precedent(case_id, unknown_014, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_014)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_independent_combustion_completion_precedent.conflict
 // sources: comm_001692_제164조_Ⅱ.1_8
 // norm_cards: art164_sec2_1.independent_combustion_completion_precedent
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.independent_combustion_completion_precedent") = assess_art164_sec2_1_independent_combustion_completion_precedent(case_id, positive_013, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_independent_combustion_completion_precedent(case_id, negative_013, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_013) and
-  provable(case_id, negative_013)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.independent_combustion_completion_precedent") = assess_art164_sec2_1_independent_combustion_completion_precedent(case_id, positive_014, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_independent_combustion_completion_precedent(case_id, negative_014, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_014) and
+  provable(case_id, negative_014)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_integrated_building_residential_or_presence_character.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3
 // norm_cards: art164_sec2_1.integrated_building_residential_or_presence_character
-rel satisfied_art164_sec2_1_integrated_building_residential_or_presence_character(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_integrated_building_residential_or_presence_character(case_id, assessment_014, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_014)
+rel satisfied_art164_sec2_1_integrated_building_residential_or_presence_character(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_integrated_building_residential_or_presence_character(case_id, assessment_015, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_015)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_integrated_building_residential_or_presence_character.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3
 // norm_cards: art164_sec2_1.integrated_building_residential_or_presence_character
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.integrated_building_residential_or_presence_character") = assess_art164_sec2_1_integrated_building_residential_or_presence_character(case_id, unknown_014, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_014)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.integrated_building_residential_or_presence_character") = assess_art164_sec2_1_integrated_building_residential_or_presence_character(case_id, unknown_015, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_015)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_integrated_building_residential_or_presence_character.conflict
 // sources: comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3
 // norm_cards: art164_sec2_1.integrated_building_residential_or_presence_character
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.integrated_building_residential_or_presence_character") = assess_art164_sec2_1_integrated_building_residential_or_presence_character(case_id, positive_014, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_integrated_building_residential_or_presence_character(case_id, negative_014, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_014) and
-  provable(case_id, negative_014)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.integrated_building_residential_or_presence_character") = assess_art164_sec2_1_integrated_building_residential_or_presence_character(case_id, positive_015, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_integrated_building_residential_or_presence_character(case_id, negative_015, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_015) and
+  provable(case_id, negative_015)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_medium_ignition_attempt.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_9
 // norm_cards: art164_sec2_1.medium_ignition_attempt
-rel satisfied_art164_sec2_1_medium_ignition_attempt(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_medium_ignition_attempt(case_id, assessment_015, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_015)
+rel satisfied_art164_sec2_1_medium_ignition_attempt(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_medium_ignition_attempt(case_id, assessment_016, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_016)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_medium_ignition_attempt.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_9
 // norm_cards: art164_sec2_1.medium_ignition_attempt
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.medium_ignition_attempt") = assess_art164_sec2_1_medium_ignition_attempt(case_id, unknown_015, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_015)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.medium_ignition_attempt") = assess_art164_sec2_1_medium_ignition_attempt(case_id, unknown_016, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_016)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_medium_ignition_attempt.conflict
 // sources: comm_001692_제164조_Ⅱ.1_9
 // norm_cards: art164_sec2_1.medium_ignition_attempt
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.medium_ignition_attempt") = assess_art164_sec2_1_medium_ignition_attempt(case_id, positive_015, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_medium_ignition_attempt(case_id, negative_015, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_015) and
-  provable(case_id, negative_015)
-
-// rule_id: arson_of_occupied_structure.card.art164_sec2_1_no_attempt_before_ignition.satisfied
-// sources: comm_001692_제164조_Ⅱ.1_9
-// norm_cards: art164_sec2_1.no_attempt_before_ignition
-rel satisfied_art164_sec2_1_no_attempt_before_ignition(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_no_attempt_before_ignition(case_id, assessment_016, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_016)
-
-// rule_id: arson_of_occupied_structure.card.art164_sec2_1_no_attempt_before_ignition.undetermined
-// sources: comm_001692_제164조_Ⅱ.1_9
-// norm_cards: art164_sec2_1.no_attempt_before_ignition
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.no_attempt_before_ignition") = assess_art164_sec2_1_no_attempt_before_ignition(case_id, unknown_016, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_016)
-
-// rule_id: arson_of_occupied_structure.card.art164_sec2_1_no_attempt_before_ignition.conflict
-// sources: comm_001692_제164조_Ⅱ.1_9
-// norm_cards: art164_sec2_1.no_attempt_before_ignition
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.no_attempt_before_ignition") = assess_art164_sec2_1_no_attempt_before_ignition(case_id, positive_016, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_no_attempt_before_ignition(case_id, negative_016, defendant_id, structure_id, occupant_id, "not_satisfied") and
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.medium_ignition_attempt") = assess_art164_sec2_1_medium_ignition_attempt(case_id, positive_016, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_medium_ignition_attempt(case_id, negative_016, defendant_id, structure_id, occupant_id, "not_satisfied") and
   provable(case_id, positive_016) and
   provable(case_id, negative_016)
+
+// rule_id: arson_of_occupied_structure.card.art164_sec2_1_no_attempt_before_ignition_part_no_attempt_before_ignition.satisfied
+// sources: comm_001692_제164조_Ⅱ.1_9
+// norm_cards: art164_sec2_1.no_attempt_before_ignition.part.no_attempt_before_ignition
+rel satisfied_art164_sec2_1_no_attempt_before_ignition_part_no_attempt_before_ignition(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_no_attempt_before_ignition_part_no_attempt_before_ignition(case_id, assessment_017, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_017)
+
+// rule_id: arson_of_occupied_structure.card.art164_sec2_1_no_attempt_before_ignition_part_no_attempt_before_ignition.undetermined
+// sources: comm_001692_제164조_Ⅱ.1_9
+// norm_cards: art164_sec2_1.no_attempt_before_ignition.part.no_attempt_before_ignition
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.no_attempt_before_ignition.part.no_attempt_before_ignition") = assess_art164_sec2_1_no_attempt_before_ignition_part_no_attempt_before_ignition(case_id, unknown_017, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_017)
+
+// rule_id: arson_of_occupied_structure.card.art164_sec2_1_no_attempt_before_ignition_part_no_attempt_before_ignition.conflict
+// sources: comm_001692_제164조_Ⅱ.1_9
+// norm_cards: art164_sec2_1.no_attempt_before_ignition.part.no_attempt_before_ignition
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.no_attempt_before_ignition.part.no_attempt_before_ignition") = assess_art164_sec2_1_no_attempt_before_ignition_part_no_attempt_before_ignition(case_id, positive_017, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_no_attempt_before_ignition_part_no_attempt_before_ignition(case_id, negative_017, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_017) and
+  provable(case_id, negative_017)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_omission_arson.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_6
 // norm_cards: art164_sec2_1.omission_arson
-rel satisfied_art164_sec2_1_omission_arson(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_omission_arson(case_id, assessment_017, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_017)
+rel satisfied_art164_sec2_1_omission_arson(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_omission_arson(case_id, assessment_018, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_018)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_omission_arson.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_6
 // norm_cards: art164_sec2_1.omission_arson
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.omission_arson") = assess_art164_sec2_1_omission_arson(case_id, unknown_017, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_017)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.omission_arson") = assess_art164_sec2_1_omission_arson(case_id, unknown_018, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_018)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_omission_arson.conflict
 // sources: comm_001692_제164조_Ⅱ.1_6
 // norm_cards: art164_sec2_1.omission_arson
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.omission_arson") = assess_art164_sec2_1_omission_arson(case_id, positive_017, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_omission_arson(case_id, negative_017, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_017) and
-  provable(case_id, negative_017)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.omission_arson") = assess_art164_sec2_1_omission_arson(case_id, positive_018, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_omission_arson(case_id, negative_018, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_018) and
+  provable(case_id, negative_018)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_person_excludes_offender_and_accomplice.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.person_excludes_offender_and_accomplice
-rel satisfied_art164_sec2_1_person_excludes_offender_and_accomplice(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_person_excludes_offender_and_accomplice(case_id, assessment_018, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_018)
+rel satisfied_art164_sec2_1_person_excludes_offender_and_accomplice(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_person_excludes_offender_and_accomplice(case_id, assessment_019, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_019)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_person_excludes_offender_and_accomplice.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.person_excludes_offender_and_accomplice
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.person_excludes_offender_and_accomplice") = assess_art164_sec2_1_person_excludes_offender_and_accomplice(case_id, unknown_018, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_018)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.person_excludes_offender_and_accomplice") = assess_art164_sec2_1_person_excludes_offender_and_accomplice(case_id, unknown_019, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_019)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_person_excludes_offender_and_accomplice.conflict
 // sources: comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.person_excludes_offender_and_accomplice
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.person_excludes_offender_and_accomplice") = assess_art164_sec2_1_person_excludes_offender_and_accomplice(case_id, positive_018, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_person_excludes_offender_and_accomplice(case_id, negative_018, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_018) and
-  provable(case_id, negative_018)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.person_excludes_offender_and_accomplice") = assess_art164_sec2_1_person_excludes_offender_and_accomplice(case_id, positive_019, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_person_excludes_offender_and_accomplice(case_id, negative_019, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_019) and
+  provable(case_id, negative_019)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_post_killing_arson_precedent.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3
 // norm_cards: art164_sec2_1.post_killing_arson_precedent
-rel satisfied_art164_sec2_1_post_killing_arson_precedent(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_post_killing_arson_precedent(case_id, assessment_019, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_019)
+rel satisfied_art164_sec2_1_post_killing_arson_precedent(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_post_killing_arson_precedent(case_id, assessment_020, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_020)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_post_killing_arson_precedent.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3
 // norm_cards: art164_sec2_1.post_killing_arson_precedent
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.post_killing_arson_precedent") = assess_art164_sec2_1_post_killing_arson_precedent(case_id, unknown_019, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_019)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.post_killing_arson_precedent") = assess_art164_sec2_1_post_killing_arson_precedent(case_id, unknown_020, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_020)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_post_killing_arson_precedent.conflict
 // sources: comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3
 // norm_cards: art164_sec2_1.post_killing_arson_precedent
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.post_killing_arson_precedent") = assess_art164_sec2_1_post_killing_arson_precedent(case_id, positive_019, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_post_killing_arson_precedent(case_id, negative_019, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_019) and
-  provable(case_id, negative_019)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.post_killing_arson_precedent") = assess_art164_sec2_1_post_killing_arson_precedent(case_id, positive_020, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_post_killing_arson_precedent(case_id, negative_020, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_020) and
+  provable(case_id, negative_020)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_present_person.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_3
 // norm_cards: art164_sec2_1.present_person
-rel satisfied_art164_sec2_1_present_person(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_present_person(case_id, assessment_020, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_020)
+rel satisfied_art164_sec2_1_present_person(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_present_person(case_id, assessment_021, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_021)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_present_person.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_3
 // norm_cards: art164_sec2_1.present_person
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.present_person") = assess_art164_sec2_1_present_person(case_id, unknown_020, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_020)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.present_person") = assess_art164_sec2_1_present_person(case_id, unknown_021, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_021)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_present_person.conflict
 // sources: comm_001692_제164조_Ⅱ.1_3
 // norm_cards: art164_sec2_1.present_person
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.present_person") = assess_art164_sec2_1_present_person(case_id, positive_020, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_present_person(case_id, negative_020, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_020) and
-  provable(case_id, negative_020)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.present_person") = assess_art164_sec2_1_present_person(case_id, positive_021, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_present_person(case_id, negative_021, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_021) and
+  provable(case_id, negative_021)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_protected_object.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.protected_object
-rel satisfied_art164_sec2_1_protected_object(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_protected_object(case_id, assessment_021, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_021)
+rel satisfied_art164_sec2_1_protected_object(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_protected_object(case_id, assessment_022, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_022)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_protected_object.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.protected_object
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.protected_object") = assess_art164_sec2_1_protected_object(case_id, unknown_021, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_021)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.protected_object") = assess_art164_sec2_1_protected_object(case_id, unknown_022, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_022)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_protected_object.conflict
 // sources: comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.protected_object
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.protected_object") = assess_art164_sec2_1_protected_object(case_id, positive_021, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_protected_object(case_id, negative_021, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_021) and
-  provable(case_id, negative_021)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.protected_object") = assess_art164_sec2_1_protected_object(case_id, positive_022, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_protected_object(case_id, negative_022, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_022) and
+  provable(case_id, negative_022)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_residence_daily_life_place.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.residence_daily_life_place
-rel satisfied_art164_sec2_1_residence_daily_life_place(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_residence_daily_life_place(case_id, assessment_022, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_022)
+rel satisfied_art164_sec2_1_residence_daily_life_place(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_residence_daily_life_place(case_id, assessment_023, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_023)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_residence_daily_life_place.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.residence_daily_life_place
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.residence_daily_life_place") = assess_art164_sec2_1_residence_daily_life_place(case_id, unknown_022, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_022)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.residence_daily_life_place") = assess_art164_sec2_1_residence_daily_life_place(case_id, unknown_023, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_023)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_residence_daily_life_place.conflict
 // sources: comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.residence_daily_life_place
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.residence_daily_life_place") = assess_art164_sec2_1_residence_daily_life_place(case_id, positive_022, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_residence_daily_life_place(case_id, negative_022, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_022) and
-  provable(case_id, negative_022)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.residence_daily_life_place") = assess_art164_sec2_1_residence_daily_life_place(case_id, positive_023, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_residence_daily_life_place(case_id, negative_023, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_023) and
+  provable(case_id, negative_023)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_residence_factual_use.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3
 // norm_cards: art164_sec2_1.residence_factual_use
-rel satisfied_art164_sec2_1_residence_factual_use(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_residence_factual_use(case_id, assessment_023, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_023)
+rel satisfied_art164_sec2_1_residence_factual_use(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_residence_factual_use(case_id, assessment_024, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_024)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_residence_factual_use.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3
 // norm_cards: art164_sec2_1.residence_factual_use
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.residence_factual_use") = assess_art164_sec2_1_residence_factual_use(case_id, unknown_023, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_023)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.residence_factual_use") = assess_art164_sec2_1_residence_factual_use(case_id, unknown_024, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_024)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_residence_factual_use.conflict
 // sources: comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3
 // norm_cards: art164_sec2_1.residence_factual_use
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.residence_factual_use") = assess_art164_sec2_1_residence_factual_use(case_id, positive_023, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_residence_factual_use(case_id, negative_023, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_023) and
-  provable(case_id, negative_023)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.residence_factual_use") = assess_art164_sec2_1_residence_factual_use(case_id, positive_024, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_residence_factual_use(case_id, negative_024, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_024) and
+  provable(case_id, negative_024)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_residence_nonrequired_indicia.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.residence_nonrequired_indicia
-rel satisfied_art164_sec2_1_residence_nonrequired_indicia(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_residence_nonrequired_indicia(case_id, assessment_024, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_024)
+rel satisfied_art164_sec2_1_residence_nonrequired_indicia(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_residence_nonrequired_indicia(case_id, assessment_025, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_025)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_residence_nonrequired_indicia.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.residence_nonrequired_indicia
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.residence_nonrequired_indicia") = assess_art164_sec2_1_residence_nonrequired_indicia(case_id, unknown_024, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_024)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.residence_nonrequired_indicia") = assess_art164_sec2_1_residence_nonrequired_indicia(case_id, unknown_025, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_025)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_residence_nonrequired_indicia.conflict
 // sources: comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.residence_nonrequired_indicia
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.residence_nonrequired_indicia") = assess_art164_sec2_1_residence_nonrequired_indicia(case_id, positive_024, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_residence_nonrequired_indicia(case_id, negative_024, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_024) and
-  provable(case_id, negative_024)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.residence_nonrequired_indicia") = assess_art164_sec2_1_residence_nonrequired_indicia(case_id, positive_025, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_residence_nonrequired_indicia(case_id, negative_025, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_025) and
+  provable(case_id, negative_025)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_residence_temporary_or_seasonal_use.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3
 // norm_cards: art164_sec2_1.residence_temporary_or_seasonal_use
-rel satisfied_art164_sec2_1_residence_temporary_or_seasonal_use(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_residence_temporary_or_seasonal_use(case_id, assessment_025, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_025)
+rel satisfied_art164_sec2_1_residence_temporary_or_seasonal_use(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_residence_temporary_or_seasonal_use(case_id, assessment_026, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_026)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_residence_temporary_or_seasonal_use.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3
 // norm_cards: art164_sec2_1.residence_temporary_or_seasonal_use
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.residence_temporary_or_seasonal_use") = assess_art164_sec2_1_residence_temporary_or_seasonal_use(case_id, unknown_025, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_025)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.residence_temporary_or_seasonal_use") = assess_art164_sec2_1_residence_temporary_or_seasonal_use(case_id, unknown_026, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_026)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_residence_temporary_or_seasonal_use.conflict
 // sources: comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3
 // norm_cards: art164_sec2_1.residence_temporary_or_seasonal_use
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.residence_temporary_or_seasonal_use") = assess_art164_sec2_1_residence_temporary_or_seasonal_use(case_id, positive_025, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_residence_temporary_or_seasonal_use(case_id, negative_025, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_025) and
-  provable(case_id, negative_025)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.residence_temporary_or_seasonal_use") = assess_art164_sec2_1_residence_temporary_or_seasonal_use(case_id, positive_026, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_residence_temporary_or_seasonal_use(case_id, negative_026, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_026) and
+  provable(case_id, negative_026)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_residence_without_actual_presence.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_3
 // norm_cards: art164_sec2_1.residence_without_actual_presence
-rel satisfied_art164_sec2_1_residence_without_actual_presence(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_residence_without_actual_presence(case_id, assessment_026, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_026)
+rel satisfied_art164_sec2_1_residence_without_actual_presence(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_residence_without_actual_presence(case_id, assessment_027, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_027)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_residence_without_actual_presence.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_3
 // norm_cards: art164_sec2_1.residence_without_actual_presence
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.residence_without_actual_presence") = assess_art164_sec2_1_residence_without_actual_presence(case_id, unknown_026, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_026)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.residence_without_actual_presence") = assess_art164_sec2_1_residence_without_actual_presence(case_id, unknown_027, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_027)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_residence_without_actual_presence.conflict
 // sources: comm_001692_제164조_Ⅱ.1_3
 // norm_cards: art164_sec2_1.residence_without_actual_presence
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.residence_without_actual_presence") = assess_art164_sec2_1_residence_without_actual_presence(case_id, positive_026, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_residence_without_actual_presence(case_id, negative_026, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_026) and
-  provable(case_id, negative_026)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.residence_without_actual_presence") = assess_art164_sec2_1_residence_without_actual_presence(case_id, positive_027, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_residence_without_actual_presence(case_id, negative_027, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_027) and
+  provable(case_id, negative_027)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_sole_offender_home_general_building.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.sole_offender_home_general_building
-rel satisfied_art164_sec2_1_sole_offender_home_general_building(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_sole_offender_home_general_building(case_id, assessment_027, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_027)
+rel satisfied_art164_sec2_1_sole_offender_home_general_building(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_sole_offender_home_general_building(case_id, assessment_028, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_028)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_sole_offender_home_general_building.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.sole_offender_home_general_building
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.sole_offender_home_general_building") = assess_art164_sec2_1_sole_offender_home_general_building(case_id, unknown_027, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_027)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.sole_offender_home_general_building") = assess_art164_sec2_1_sole_offender_home_general_building(case_id, unknown_028, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_028)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_sole_offender_home_general_building.conflict
 // sources: comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.sole_offender_home_general_building
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.sole_offender_home_general_building") = assess_art164_sec2_1_sole_offender_home_general_building(case_id, positive_027, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_sole_offender_home_general_building(case_id, negative_027, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_027) and
-  provable(case_id, negative_027)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.sole_offender_home_general_building") = assess_art164_sec2_1_sole_offender_home_general_building(case_id, positive_028, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_sole_offender_home_general_building(case_id, negative_028, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_028) and
+  provable(case_id, negative_028)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_temporal_residence_or_presence.satisfied
 // sources: comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.temporal_residence_or_presence
-rel satisfied_art164_sec2_1_temporal_residence_or_presence(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_temporal_residence_or_presence(case_id, assessment_028, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_028)
+rel satisfied_art164_sec2_1_temporal_residence_or_presence(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_1_temporal_residence_or_presence(case_id, assessment_029, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_029)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_temporal_residence_or_presence.undetermined
 // sources: comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.temporal_residence_or_presence
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.temporal_residence_or_presence") = assess_art164_sec2_1_temporal_residence_or_presence(case_id, unknown_028, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_028)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_1.temporal_residence_or_presence") = assess_art164_sec2_1_temporal_residence_or_presence(case_id, unknown_029, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_029)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_1_temporal_residence_or_presence.conflict
 // sources: comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.temporal_residence_or_presence
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.temporal_residence_or_presence") = assess_art164_sec2_1_temporal_residence_or_presence(case_id, positive_028, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_1_temporal_residence_or_presence(case_id, negative_028, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_028) and
-  provable(case_id, negative_028)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.temporal_residence_or_presence") = assess_art164_sec2_1_temporal_residence_or_presence(case_id, positive_029, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_1_temporal_residence_or_presence(case_id, negative_029, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_029) and
+  provable(case_id, negative_029)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_3_multiple_buildings_one_act.satisfied
 // sources: comm_001692_제164조_Ⅱ.3_14
 // norm_cards: art164_sec2_3.multiple_buildings_one_act
-rel satisfied_art164_sec2_3_multiple_buildings_one_act(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_3_multiple_buildings_one_act(case_id, assessment_029, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_029)
+rel satisfied_art164_sec2_3_multiple_buildings_one_act(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_3_multiple_buildings_one_act(case_id, assessment_030, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_030)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_3_multiple_buildings_one_act.undetermined
 // sources: comm_001692_제164조_Ⅱ.3_14
 // norm_cards: art164_sec2_3.multiple_buildings_one_act
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_3.multiple_buildings_one_act") = assess_art164_sec2_3_multiple_buildings_one_act(case_id, unknown_029, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_029)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_3.multiple_buildings_one_act") = assess_art164_sec2_3_multiple_buildings_one_act(case_id, unknown_030, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_030)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_3_multiple_buildings_one_act.conflict
 // sources: comm_001692_제164조_Ⅱ.3_14
 // norm_cards: art164_sec2_3.multiple_buildings_one_act
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_3.multiple_buildings_one_act") = assess_art164_sec2_3_multiple_buildings_one_act(case_id, positive_029, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_3_multiple_buildings_one_act(case_id, negative_029, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_029) and
-  provable(case_id, negative_029)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_3.multiple_buildings_one_act") = assess_art164_sec2_3_multiple_buildings_one_act(case_id, positive_030, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_3_multiple_buildings_one_act(case_id, negative_030, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_030) and
+  provable(case_id, negative_030)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_3_multiple_objects_separate_acts_concurrence.satisfied
 // sources: comm_001692_제164조_Ⅱ.3_14
 // norm_cards: art164_sec2_3.multiple_objects_separate_acts_concurrence
-rel satisfied_art164_sec2_3_multiple_objects_separate_acts_concurrence(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_3_multiple_objects_separate_acts_concurrence(case_id, assessment_030, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_030)
+rel satisfied_art164_sec2_3_multiple_objects_separate_acts_concurrence(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_3_multiple_objects_separate_acts_concurrence(case_id, assessment_031, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_031)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_3_multiple_objects_separate_acts_concurrence.undetermined
 // sources: comm_001692_제164조_Ⅱ.3_14
 // norm_cards: art164_sec2_3.multiple_objects_separate_acts_concurrence
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_3.multiple_objects_separate_acts_concurrence") = assess_art164_sec2_3_multiple_objects_separate_acts_concurrence(case_id, unknown_030, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_030)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_3.multiple_objects_separate_acts_concurrence") = assess_art164_sec2_3_multiple_objects_separate_acts_concurrence(case_id, unknown_031, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_031)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_3_multiple_objects_separate_acts_concurrence.conflict
 // sources: comm_001692_제164조_Ⅱ.3_14
 // norm_cards: art164_sec2_3.multiple_objects_separate_acts_concurrence
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_3.multiple_objects_separate_acts_concurrence") = assess_art164_sec2_3_multiple_objects_separate_acts_concurrence(case_id, positive_030, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_3_multiple_objects_separate_acts_concurrence(case_id, negative_030, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_030) and
-  provable(case_id, negative_030)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_3.multiple_objects_separate_acts_concurrence") = assess_art164_sec2_3_multiple_objects_separate_acts_concurrence(case_id, positive_031, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_3_multiple_objects_separate_acts_concurrence(case_id, negative_031, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_031) and
+  provable(case_id, negative_031)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_3_same_area_sequential_arson.satisfied
 // sources: comm_001692_제164조_Ⅱ.3_14
 // norm_cards: art164_sec2_3.same_area_sequential_arson
-rel satisfied_art164_sec2_3_same_area_sequential_arson(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_3_same_area_sequential_arson(case_id, assessment_031, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_031)
+rel satisfied_art164_sec2_3_same_area_sequential_arson(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_3_same_area_sequential_arson(case_id, assessment_032, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_032)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_3_same_area_sequential_arson.undetermined
 // sources: comm_001692_제164조_Ⅱ.3_14
 // norm_cards: art164_sec2_3.same_area_sequential_arson
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_3.same_area_sequential_arson") = assess_art164_sec2_3_same_area_sequential_arson(case_id, unknown_031, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_031)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_3.same_area_sequential_arson") = assess_art164_sec2_3_same_area_sequential_arson(case_id, unknown_032, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_032)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_3_same_area_sequential_arson.conflict
 // sources: comm_001692_제164조_Ⅱ.3_14
 // norm_cards: art164_sec2_3.same_area_sequential_arson
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_3.same_area_sequential_arson") = assess_art164_sec2_3_same_area_sequential_arson(case_id, positive_031, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_3_same_area_sequential_arson(case_id, negative_031, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_031) and
-  provable(case_id, negative_031)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_3.same_area_sequential_arson") = assess_art164_sec2_3_same_area_sequential_arson(case_id, positive_032, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_3_same_area_sequential_arson(case_id, negative_032, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_032) and
+  provable(case_id, negative_032)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_3_sequential_ignition_same_object.satisfied
 // sources: comm_001692_제164조_Ⅱ.3_14
 // norm_cards: art164_sec2_3.sequential_ignition_same_object
-rel satisfied_art164_sec2_3_sequential_ignition_same_object(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_3_sequential_ignition_same_object(case_id, assessment_032, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_032)
+rel satisfied_art164_sec2_3_sequential_ignition_same_object(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_3_sequential_ignition_same_object(case_id, assessment_033, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_033)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_3_sequential_ignition_same_object.undetermined
 // sources: comm_001692_제164조_Ⅱ.3_14
 // norm_cards: art164_sec2_3.sequential_ignition_same_object
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_3.sequential_ignition_same_object") = assess_art164_sec2_3_sequential_ignition_same_object(case_id, unknown_032, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_032)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_3.sequential_ignition_same_object") = assess_art164_sec2_3_sequential_ignition_same_object(case_id, unknown_033, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_033)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_3_sequential_ignition_same_object.conflict
 // sources: comm_001692_제164조_Ⅱ.3_14
 // norm_cards: art164_sec2_3.sequential_ignition_same_object
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_3.sequential_ignition_same_object") = assess_art164_sec2_3_sequential_ignition_same_object(case_id, positive_032, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_3_sequential_ignition_same_object(case_id, negative_032, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_032) and
-  provable(case_id, negative_032)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_3.sequential_ignition_same_object") = assess_art164_sec2_3_sequential_ignition_same_object(case_id, positive_033, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_3_sequential_ignition_same_object(case_id, negative_033, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_033) and
+  provable(case_id, negative_033)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_3_unit_of_offense_public_safety.satisfied
 // sources: comm_001692_제164조_Ⅱ.3_14
 // norm_cards: art164_sec2_3.unit_of_offense_public_safety
-rel satisfied_art164_sec2_3_unit_of_offense_public_safety(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_3_unit_of_offense_public_safety(case_id, assessment_033, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_033)
+rel satisfied_art164_sec2_3_unit_of_offense_public_safety(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec2_3_unit_of_offense_public_safety(case_id, assessment_034, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_034)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_3_unit_of_offense_public_safety.undetermined
 // sources: comm_001692_제164조_Ⅱ.3_14
 // norm_cards: art164_sec2_3.unit_of_offense_public_safety
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_3.unit_of_offense_public_safety") = assess_art164_sec2_3_unit_of_offense_public_safety(case_id, unknown_033, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_033)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec2_3.unit_of_offense_public_safety") = assess_art164_sec2_3_unit_of_offense_public_safety(case_id, unknown_034, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_034)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec2_3_unit_of_offense_public_safety.conflict
 // sources: comm_001692_제164조_Ⅱ.3_14
 // norm_cards: art164_sec2_3.unit_of_offense_public_safety
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_3.unit_of_offense_public_safety") = assess_art164_sec2_3_unit_of_offense_public_safety(case_id, positive_033, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec2_3_unit_of_offense_public_safety(case_id, negative_033, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_033) and
-  provable(case_id, negative_033)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_3.unit_of_offense_public_safety") = assess_art164_sec2_3_unit_of_offense_public_safety(case_id, positive_034, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec2_3_unit_of_offense_public_safety(case_id, negative_034, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_034) and
+  provable(case_id, negative_034)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec3_4_intentional_killing_no_death.satisfied
 // sources: comm_001692_제164조_Ⅲ.4_21
 // norm_cards: art164_sec3_4.intentional_killing_no_death
-rel satisfied_art164_sec3_4_intentional_killing_no_death(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec3_4_intentional_killing_no_death(case_id, assessment_034, defendant_id, structure_id, occupant_id, "satisfied") and
-  provable(case_id, assessment_034)
+rel satisfied_art164_sec3_4_intentional_killing_no_death(case_id, defendant_id, structure_id, occupant_id) = assess_art164_sec3_4_intentional_killing_no_death(case_id, assessment_035, defendant_id, structure_id, occupant_id, "satisfied") and
+  provable(case_id, assessment_035)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec3_4_intentional_killing_no_death.undetermined
 // sources: comm_001692_제164조_Ⅲ.4_21
 // norm_cards: art164_sec3_4.intentional_killing_no_death
-rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec3_4.intentional_killing_no_death") = assess_art164_sec3_4_intentional_killing_no_death(case_id, unknown_034, defendant_id, structure_id, occupant_id, "unknown") and
-  provable(case_id, unknown_034)
+rel arson_of_occupied_structure_undetermined(case_id, defendant_id, "art164_sec3_4.intentional_killing_no_death") = assess_art164_sec3_4_intentional_killing_no_death(case_id, unknown_035, defendant_id, structure_id, occupant_id, "unknown") and
+  provable(case_id, unknown_035)
 
 // rule_id: arson_of_occupied_structure.card.art164_sec3_4_intentional_killing_no_death.conflict
 // sources: comm_001692_제164조_Ⅲ.4_21
 // norm_cards: art164_sec3_4.intentional_killing_no_death
-rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec3_4.intentional_killing_no_death") = assess_art164_sec3_4_intentional_killing_no_death(case_id, positive_034, defendant_id, structure_id, occupant_id, "satisfied") and
-  assess_art164_sec3_4_intentional_killing_no_death(case_id, negative_034, defendant_id, structure_id, occupant_id, "not_satisfied") and
-  provable(case_id, positive_034) and
-  provable(case_id, negative_034)
+rel arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec3_4.intentional_killing_no_death") = assess_art164_sec3_4_intentional_killing_no_death(case_id, positive_035, defendant_id, structure_id, occupant_id, "satisfied") and
+  assess_art164_sec3_4_intentional_killing_no_death(case_id, negative_035, defendant_id, structure_id, occupant_id, "not_satisfied") and
+  provable(case_id, positive_035) and
+  provable(case_id, negative_035)
 
 // rule_id: arson_of_occupied_structure.component.attempt.attempt_commencement.art164_sec2_1_attempt_commencement_ignition
 // sources: comm_001692_제164조_Ⅱ.1_9
@@ -1240,8 +1290,8 @@ rel arson_of_occupied_structure_base_residence_use_indicia_satisfied(case_id, de
 
 // rule_id: arson_of_occupied_structure.component.completed.burning_definition.all
 // sources: comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7
-// norm_cards: art164_sec2_1.burning_result
-rel arson_of_occupied_structure_completed_burning_definition_satisfied(case_id, defendant_id, structure_id, occupant_id) = satisfied_art164_sec2_1_burning_result(case_id, defendant_id, structure_id, occupant_id)
+// norm_cards: art164_sec2_1.burning_result.part.burning_definition
+rel arson_of_occupied_structure_completed_burning_definition_satisfied(case_id, defendant_id, structure_id, occupant_id) = satisfied_art164_sec2_1_burning_result_part_burning_definition(case_id, defendant_id, structure_id, occupant_id)
 
 // rule_id: arson_of_occupied_structure.component.completed.combustion_mode.art164_sec2_1_combustion_without_flame
 // sources: comm_001692_제164조_Ⅱ.1_9
@@ -1250,60 +1300,215 @@ rel arson_of_occupied_structure_completed_combustion_mode_satisfied(case_id, def
 
 // rule_id: arson_of_occupied_structure.component.completed.independent_combustion.all
 // sources: comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_8
-// norm_cards: art164_sec2_1.burning_result, art164_sec2_1.completion_independent_combustion_variant, art164_sec2_1.independent_combustion_completion_precedent
-rel arson_of_occupied_structure_completed_independent_combustion_satisfied(case_id, defendant_id, structure_id, occupant_id) = satisfied_art164_sec2_1_burning_result(case_id, defendant_id, structure_id, occupant_id) and
+// norm_cards: art164_sec2_1.burning_result.part.completion_on_burning, art164_sec2_1.completion_independent_combustion_variant, art164_sec2_1.independent_combustion_completion_precedent
+rel arson_of_occupied_structure_completed_independent_combustion_satisfied(case_id, defendant_id, structure_id, occupant_id) = satisfied_art164_sec2_1_burning_result_part_completion_on_burning(case_id, defendant_id, structure_id, occupant_id) and
   satisfied_art164_sec2_1_completion_independent_combustion_variant(case_id, defendant_id, structure_id, occupant_id) and
   satisfied_art164_sec2_1_independent_combustion_completion_precedent(case_id, defendant_id, structure_id, occupant_id)
 
-// rule_id: arson_of_occupied_structure.blocked.attempt.art164_sec2_1_entry_for_arson_not_attempt
+// rule_id: arson_of_occupied_structure.track_conflict.attempt.art164_sec2_1_attempt_commencement_ignition
+// sources: comm_001692_제164조_Ⅱ.1_9
+// norm_cards: art164_sec2_1.attempt_commencement_ignition
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "attempt", "art164_sec2_1.attempt_commencement_ignition") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.attempt_commencement_ignition")
+
+// rule_id: arson_of_occupied_structure.track_conflict.attempt.art164_sec2_1_entry_for_arson_not_attempt
 // sources: comm_001692_제164조_Ⅱ.1_9
 // norm_cards: art164_sec2_1.entry_for_arson_not_attempt
-rel arson_of_occupied_structure_not_established(case_id, defendant_id, "art164_sec2_1.entry_for_arson_not_attempt") = satisfied_art164_sec2_1_entry_for_arson_not_attempt(case_id, defendant_id, structure_id, occupant_id)
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "attempt", "art164_sec2_1.entry_for_arson_not_attempt") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.entry_for_arson_not_attempt")
 
-// rule_id: arson_of_occupied_structure.blocked.attempt.art164_sec2_1_no_attempt_before_ignition
+// rule_id: arson_of_occupied_structure.track_blocked.attempt.art164_sec2_1_entry_for_arson_not_attempt
 // sources: comm_001692_제164조_Ⅱ.1_9
-// norm_cards: art164_sec2_1.no_attempt_before_ignition
-rel arson_of_occupied_structure_not_established(case_id, defendant_id, "art164_sec2_1.no_attempt_before_ignition") = satisfied_art164_sec2_1_no_attempt_before_ignition(case_id, defendant_id, structure_id, occupant_id)
+// norm_cards: art164_sec2_1.entry_for_arson_not_attempt
+rel arson_of_occupied_structure_track_not_established(case_id, defendant_id, "attempt", "art164_sec2_1.entry_for_arson_not_attempt") = satisfied_art164_sec2_1_entry_for_arson_not_attempt(case_id, defendant_id, structure_id, occupant_id)
 
-// rule_id: arson_of_occupied_structure.blocked.base.art164_sec2_1_sole_offender_home_general_building
+// rule_id: arson_of_occupied_structure.track_conflict.attempt.art164_sec2_1_extinguished_medium_attempt
+// sources: comm_001692_제164조_Ⅱ.1_9
+// norm_cards: art164_sec2_1.extinguished_medium_attempt
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "attempt", "art164_sec2_1.extinguished_medium_attempt") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.extinguished_medium_attempt")
+
+// rule_id: arson_of_occupied_structure.track_conflict.attempt.art164_sec2_1_medium_ignition_attempt
+// sources: comm_001692_제164조_Ⅱ.1_9
+// norm_cards: art164_sec2_1.medium_ignition_attempt
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "attempt", "art164_sec2_1.medium_ignition_attempt") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.medium_ignition_attempt")
+
+// rule_id: arson_of_occupied_structure.track_conflict.attempt.art164_sec2_1_no_attempt_before_ignition_part_no_attempt_before_ignition
+// sources: comm_001692_제164조_Ⅱ.1_9
+// norm_cards: art164_sec2_1.no_attempt_before_ignition.part.no_attempt_before_ignition
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "attempt", "art164_sec2_1.no_attempt_before_ignition.part.no_attempt_before_ignition") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.no_attempt_before_ignition.part.no_attempt_before_ignition")
+
+// rule_id: arson_of_occupied_structure.track_blocked.attempt.art164_sec2_1_no_attempt_before_ignition_part_no_attempt_before_ignition
+// sources: comm_001692_제164조_Ⅱ.1_9
+// norm_cards: art164_sec2_1.no_attempt_before_ignition.part.no_attempt_before_ignition
+rel arson_of_occupied_structure_track_not_established(case_id, defendant_id, "attempt", "art164_sec2_1.no_attempt_before_ignition.part.no_attempt_before_ignition") = satisfied_art164_sec2_1_no_attempt_before_ignition_part_no_attempt_before_ignition(case_id, defendant_id, structure_id, occupant_id)
+
+// rule_id: arson_of_occupied_structure.track_conflict.base.art164_sec2_1_arson_act
+// sources: comm_001692_제164조_Ⅱ.1_6, comm_001692_제164조_Ⅱ.1_6
+// norm_cards: art164_sec2_1.arson_act
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "base", "art164_sec2_1.arson_act") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.arson_act")
+
+// rule_id: arson_of_occupied_structure.track_conflict.base.art164_sec2_1_omission_arson
+// sources: comm_001692_제164조_Ⅱ.1_6
+// norm_cards: art164_sec2_1.omission_arson
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "base", "art164_sec2_1.omission_arson") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.omission_arson")
+
+// rule_id: arson_of_occupied_structure.track_conflict.base.art164_sec2_1_building_integrity
+// sources: comm_001692_제164조_Ⅱ.1_5, comm_001692_제164조_Ⅱ.1_5, comm_001692_제164조_Ⅱ.1_5
+// norm_cards: art164_sec2_1.building_integrity
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "base", "art164_sec2_1.building_integrity") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.building_integrity")
+
+// rule_id: arson_of_occupied_structure.track_conflict.base.art164_sec2_1_person_excludes_offender_and_accomplice
+// sources: comm_001692_제164조_Ⅱ.1_2
+// norm_cards: art164_sec2_1.person_excludes_offender_and_accomplice
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "base", "art164_sec2_1.person_excludes_offender_and_accomplice") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.person_excludes_offender_and_accomplice")
+
+// rule_id: arson_of_occupied_structure.track_conflict.base.art164_sec2_1_sole_offender_home_general_building
 // sources: comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.sole_offender_home_general_building
-rel arson_of_occupied_structure_not_established(case_id, defendant_id, "art164_sec2_1.sole_offender_home_general_building") = satisfied_art164_sec2_1_sole_offender_home_general_building(case_id, defendant_id, structure_id, occupant_id)
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "base", "art164_sec2_1.sole_offender_home_general_building") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.sole_offender_home_general_building")
 
-// rule_id: arson_of_occupied_structure.blocked.base.art164_sec2_1_accomplices_residence_general_building
+// rule_id: arson_of_occupied_structure.track_blocked.base.art164_sec2_1_sole_offender_home_general_building
+// sources: comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2
+// norm_cards: art164_sec2_1.sole_offender_home_general_building
+rel arson_of_occupied_structure_track_not_established(case_id, defendant_id, "base", "art164_sec2_1.sole_offender_home_general_building") = satisfied_art164_sec2_1_sole_offender_home_general_building(case_id, defendant_id, structure_id, occupant_id)
+
+// rule_id: arson_of_occupied_structure.track_conflict.base.art164_sec2_1_present_person
+// sources: comm_001692_제164조_Ⅱ.1_3
+// norm_cards: art164_sec2_1.present_person
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "base", "art164_sec2_1.present_person") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.present_person")
+
+// rule_id: arson_of_occupied_structure.track_conflict.base.art164_sec2_1_accomplices_residence_general_building
 // sources: comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.accomplices_residence_general_building
-rel arson_of_occupied_structure_not_established(case_id, defendant_id, "art164_sec2_1.accomplices_residence_general_building") = satisfied_art164_sec2_1_accomplices_residence_general_building(case_id, defendant_id, structure_id, occupant_id)
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "base", "art164_sec2_1.accomplices_residence_general_building") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.accomplices_residence_general_building")
 
-// rule_id: arson_of_occupied_structure.blocked.base.art164_sec2_1_derelict_building_not_building_precedent
+// rule_id: arson_of_occupied_structure.track_blocked.base.art164_sec2_1_accomplices_residence_general_building
+// sources: comm_001692_제164조_Ⅱ.1_2
+// norm_cards: art164_sec2_1.accomplices_residence_general_building
+rel arson_of_occupied_structure_track_not_established(case_id, defendant_id, "base", "art164_sec2_1.accomplices_residence_general_building") = satisfied_art164_sec2_1_accomplices_residence_general_building(case_id, defendant_id, structure_id, occupant_id)
+
+// rule_id: arson_of_occupied_structure.track_conflict.base.art164_sec2_1_derelict_building_not_building_precedent
 // sources: comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_4
 // norm_cards: art164_sec2_1.derelict_building_not_building_precedent
-rel arson_of_occupied_structure_not_established(case_id, defendant_id, "art164_sec2_1.derelict_building_not_building_precedent") = satisfied_art164_sec2_1_derelict_building_not_building_precedent(case_id, defendant_id, structure_id, occupant_id)
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "base", "art164_sec2_1.derelict_building_not_building_precedent") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.derelict_building_not_building_precedent")
 
-// rule_id: arson_of_occupied_structure.blocked.base.art164_sec2_1_residence_without_actual_presence
+// rule_id: arson_of_occupied_structure.track_blocked.base.art164_sec2_1_derelict_building_not_building_precedent
+// sources: comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_4
+// norm_cards: art164_sec2_1.derelict_building_not_building_precedent
+rel arson_of_occupied_structure_track_not_established(case_id, defendant_id, "base", "art164_sec2_1.derelict_building_not_building_precedent") = satisfied_art164_sec2_1_derelict_building_not_building_precedent(case_id, defendant_id, structure_id, occupant_id)
+
+// rule_id: arson_of_occupied_structure.track_conflict.base.art164_sec2_1_building
+// sources: comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_4
+// norm_cards: art164_sec2_1.building
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "base", "art164_sec2_1.building") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.building")
+
+// rule_id: arson_of_occupied_structure.track_conflict.base.art164_sec2_1_protected_object
+// sources: comm_001692_제164조_Ⅱ.1_2
+// norm_cards: art164_sec2_1.protected_object
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "base", "art164_sec2_1.protected_object") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.protected_object")
+
+// rule_id: arson_of_occupied_structure.track_conflict.base.art164_sec2_1_integrated_building_residential_or_presence_character
+// sources: comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3
+// norm_cards: art164_sec2_1.integrated_building_residential_or_presence_character
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "base", "art164_sec2_1.integrated_building_residential_or_presence_character") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.integrated_building_residential_or_presence_character")
+
+// rule_id: arson_of_occupied_structure.track_conflict.base.art164_sec2_1_residence_without_actual_presence
 // sources: comm_001692_제164조_Ⅱ.1_3
 // norm_cards: art164_sec2_1.residence_without_actual_presence
-rel arson_of_occupied_structure_not_established(case_id, defendant_id, "art164_sec2_1.residence_without_actual_presence") = satisfied_art164_sec2_1_residence_without_actual_presence(case_id, defendant_id, structure_id, occupant_id)
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "base", "art164_sec2_1.residence_without_actual_presence") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.residence_without_actual_presence")
 
-// rule_id: arson_of_occupied_structure.blocked.base.art164_sec2_1_residence_factual_use
+// rule_id: arson_of_occupied_structure.track_blocked.base.art164_sec2_1_residence_without_actual_presence
+// sources: comm_001692_제164조_Ⅱ.1_3
+// norm_cards: art164_sec2_1.residence_without_actual_presence
+rel arson_of_occupied_structure_track_not_established(case_id, defendant_id, "base", "art164_sec2_1.residence_without_actual_presence") = satisfied_art164_sec2_1_residence_without_actual_presence(case_id, defendant_id, structure_id, occupant_id)
+
+// rule_id: arson_of_occupied_structure.track_conflict.base.art164_sec2_1_temporal_residence_or_presence
+// sources: comm_001692_제164조_Ⅱ.1_2
+// norm_cards: art164_sec2_1.temporal_residence_or_presence
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "base", "art164_sec2_1.temporal_residence_or_presence") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.temporal_residence_or_presence")
+
+// rule_id: arson_of_occupied_structure.track_conflict.base.art164_sec2_1_residence_daily_life_place
+// sources: comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2
+// norm_cards: art164_sec2_1.residence_daily_life_place
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "base", "art164_sec2_1.residence_daily_life_place") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.residence_daily_life_place")
+
+// rule_id: arson_of_occupied_structure.track_conflict.base.art164_sec2_1_residence_factual_use
 // sources: comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3
 // norm_cards: art164_sec2_1.residence_factual_use
-rel arson_of_occupied_structure_not_established(case_id, defendant_id, "art164_sec2_1.residence_factual_use") = satisfied_art164_sec2_1_residence_factual_use(case_id, defendant_id, structure_id, occupant_id)
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "base", "art164_sec2_1.residence_factual_use") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.residence_factual_use")
 
-// rule_id: arson_of_occupied_structure.blocked.base.art164_sec2_1_residence_nonrequired_indicia
+// rule_id: arson_of_occupied_structure.track_blocked.base.art164_sec2_1_residence_factual_use
+// sources: comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3
+// norm_cards: art164_sec2_1.residence_factual_use
+rel arson_of_occupied_structure_track_not_established(case_id, defendant_id, "base", "art164_sec2_1.residence_factual_use") = satisfied_art164_sec2_1_residence_factual_use(case_id, defendant_id, structure_id, occupant_id)
+
+// rule_id: arson_of_occupied_structure.track_conflict.base.art164_sec2_1_residence_nonrequired_indicia
 // sources: comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2
 // norm_cards: art164_sec2_1.residence_nonrequired_indicia
-rel arson_of_occupied_structure_not_established(case_id, defendant_id, "art164_sec2_1.residence_nonrequired_indicia") = satisfied_art164_sec2_1_residence_nonrequired_indicia(case_id, defendant_id, structure_id, occupant_id)
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "base", "art164_sec2_1.residence_nonrequired_indicia") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.residence_nonrequired_indicia")
+
+// rule_id: arson_of_occupied_structure.track_blocked.base.art164_sec2_1_residence_nonrequired_indicia
+// sources: comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2
+// norm_cards: art164_sec2_1.residence_nonrequired_indicia
+rel arson_of_occupied_structure_track_not_established(case_id, defendant_id, "base", "art164_sec2_1.residence_nonrequired_indicia") = satisfied_art164_sec2_1_residence_nonrequired_indicia(case_id, defendant_id, structure_id, occupant_id)
+
+// rule_id: arson_of_occupied_structure.track_conflict.base.art164_sec2_1_post_killing_arson_precedent
+// sources: comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3
+// norm_cards: art164_sec2_1.post_killing_arson_precedent
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "base", "art164_sec2_1.post_killing_arson_precedent") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.post_killing_arson_precedent")
+
+// rule_id: arson_of_occupied_structure.track_conflict.base.art164_sec2_1_residence_temporary_or_seasonal_use
+// sources: comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3
+// norm_cards: art164_sec2_1.residence_temporary_or_seasonal_use
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "base", "art164_sec2_1.residence_temporary_or_seasonal_use") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.residence_temporary_or_seasonal_use")
+
+// rule_id: arson_of_occupied_structure.track_conflict.completed.art164_sec2_1_burning_result_part_burning_definition
+// sources: comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7
+// norm_cards: art164_sec2_1.burning_result.part.burning_definition
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "completed", "art164_sec2_1.burning_result.part.burning_definition") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.burning_result.part.burning_definition")
+
+// rule_id: arson_of_occupied_structure.track_conflict.completed.art164_sec2_1_combustion_without_flame
+// sources: comm_001692_제164조_Ⅱ.1_9
+// norm_cards: art164_sec2_1.combustion_without_flame
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "completed", "art164_sec2_1.combustion_without_flame") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.combustion_without_flame")
+
+// rule_id: arson_of_occupied_structure.track_conflict.completed.art164_sec2_1_burning_result_part_completion_on_burning
+// sources: comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7
+// norm_cards: art164_sec2_1.burning_result.part.completion_on_burning
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "completed", "art164_sec2_1.burning_result.part.completion_on_burning") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.burning_result.part.completion_on_burning")
+
+// rule_id: arson_of_occupied_structure.track_conflict.completed.art164_sec2_1_completion_independent_combustion_variant
+// sources: comm_001692_제164조_Ⅱ.1_7
+// norm_cards: art164_sec2_1.completion_independent_combustion_variant
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "completed", "art164_sec2_1.completion_independent_combustion_variant") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.completion_independent_combustion_variant")
+
+// rule_id: arson_of_occupied_structure.track_conflict.completed.art164_sec2_1_independent_combustion_completion_precedent
+// sources: comm_001692_제164조_Ⅱ.1_8
+// norm_cards: art164_sec2_1.independent_combustion_completion_precedent
+rel arson_of_occupied_structure_track_conflict(case_id, defendant_id, "completed", "art164_sec2_1.independent_combustion_completion_precedent") = arson_of_occupied_structure_conflict(case_id, defendant_id, "art164_sec2_1.independent_combustion_completion_precedent")
 
 // rule_id: arson_of_occupied_structure.summary.has_negative
 // sources: comm_001692_제164조_Ⅱ.4_16, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_6, comm_001692_제164조_Ⅱ.1_6, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_5, comm_001692_제164조_Ⅱ.1_5, comm_001692_제164조_Ⅱ.1_5, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_8, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_6, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅲ.4_21
-// norm_cards: art164.arson_property_damage_absorption, art164_sec2_1.accomplices_residence_general_building, art164_sec2_1.arson_act, art164_sec2_1.attempt_commencement_ignition, art164_sec2_1.building, art164_sec2_1.building_integrity, art164_sec2_1.burning_result, art164_sec2_1.combustion_without_flame, art164_sec2_1.completion_independent_combustion_variant, art164_sec2_1.derelict_building_not_building_precedent, art164_sec2_1.entry_for_arson_not_attempt, art164_sec2_1.extinguished_medium_attempt, art164_sec2_1.independent_combustion_completion_precedent, art164_sec2_1.integrated_building_residential_or_presence_character, art164_sec2_1.medium_ignition_attempt, art164_sec2_1.no_attempt_before_ignition, art164_sec2_1.omission_arson, art164_sec2_1.person_excludes_offender_and_accomplice, art164_sec2_1.post_killing_arson_precedent, art164_sec2_1.present_person, art164_sec2_1.protected_object, art164_sec2_1.residence_daily_life_place, art164_sec2_1.residence_factual_use, art164_sec2_1.residence_nonrequired_indicia, art164_sec2_1.residence_temporary_or_seasonal_use, art164_sec2_1.residence_without_actual_presence, art164_sec2_1.sole_offender_home_general_building, art164_sec2_1.temporal_residence_or_presence, art164_sec2_3.multiple_buildings_one_act, art164_sec2_3.multiple_objects_separate_acts_concurrence, art164_sec2_3.same_area_sequential_arson, art164_sec2_3.sequential_ignition_same_object, art164_sec2_3.unit_of_offense_public_safety, art164_sec3_4.intentional_killing_no_death
+// norm_cards: art164.arson_property_damage_absorption, art164_sec2_1.accomplices_residence_general_building, art164_sec2_1.arson_act, art164_sec2_1.attempt_commencement_ignition, art164_sec2_1.building, art164_sec2_1.building_integrity, art164_sec2_1.burning_result.part.burning_definition, art164_sec2_1.burning_result.part.completion_on_burning, art164_sec2_1.combustion_without_flame, art164_sec2_1.completion_independent_combustion_variant, art164_sec2_1.derelict_building_not_building_precedent, art164_sec2_1.entry_for_arson_not_attempt, art164_sec2_1.extinguished_medium_attempt, art164_sec2_1.independent_combustion_completion_precedent, art164_sec2_1.integrated_building_residential_or_presence_character, art164_sec2_1.medium_ignition_attempt, art164_sec2_1.no_attempt_before_ignition.part.no_attempt_before_ignition, art164_sec2_1.omission_arson, art164_sec2_1.person_excludes_offender_and_accomplice, art164_sec2_1.post_killing_arson_precedent, art164_sec2_1.present_person, art164_sec2_1.protected_object, art164_sec2_1.residence_daily_life_place, art164_sec2_1.residence_factual_use, art164_sec2_1.residence_nonrequired_indicia, art164_sec2_1.residence_temporary_or_seasonal_use, art164_sec2_1.residence_without_actual_presence, art164_sec2_1.sole_offender_home_general_building, art164_sec2_1.temporal_residence_or_presence, art164_sec2_3.multiple_buildings_one_act, art164_sec2_3.multiple_objects_separate_acts_concurrence, art164_sec2_3.same_area_sequential_arson, art164_sec2_3.sequential_ignition_same_object, art164_sec2_3.unit_of_offense_public_safety, art164_sec3_4.intentional_killing_no_death
 rel arson_of_occupied_structure_has_negative(case_id, defendant_id) = arson_of_occupied_structure_not_established(case_id, defendant_id, norm_card_id)
 
 // rule_id: arson_of_occupied_structure.summary.has_conflict
 // sources: comm_001692_제164조_Ⅱ.4_16, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_6, comm_001692_제164조_Ⅱ.1_6, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_5, comm_001692_제164조_Ⅱ.1_5, comm_001692_제164조_Ⅱ.1_5, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_8, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_6, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅲ.4_21
-// norm_cards: art164.arson_property_damage_absorption, art164_sec2_1.accomplices_residence_general_building, art164_sec2_1.arson_act, art164_sec2_1.attempt_commencement_ignition, art164_sec2_1.building, art164_sec2_1.building_integrity, art164_sec2_1.burning_result, art164_sec2_1.combustion_without_flame, art164_sec2_1.completion_independent_combustion_variant, art164_sec2_1.derelict_building_not_building_precedent, art164_sec2_1.entry_for_arson_not_attempt, art164_sec2_1.extinguished_medium_attempt, art164_sec2_1.independent_combustion_completion_precedent, art164_sec2_1.integrated_building_residential_or_presence_character, art164_sec2_1.medium_ignition_attempt, art164_sec2_1.no_attempt_before_ignition, art164_sec2_1.omission_arson, art164_sec2_1.person_excludes_offender_and_accomplice, art164_sec2_1.post_killing_arson_precedent, art164_sec2_1.present_person, art164_sec2_1.protected_object, art164_sec2_1.residence_daily_life_place, art164_sec2_1.residence_factual_use, art164_sec2_1.residence_nonrequired_indicia, art164_sec2_1.residence_temporary_or_seasonal_use, art164_sec2_1.residence_without_actual_presence, art164_sec2_1.sole_offender_home_general_building, art164_sec2_1.temporal_residence_or_presence, art164_sec2_3.multiple_buildings_one_act, art164_sec2_3.multiple_objects_separate_acts_concurrence, art164_sec2_3.same_area_sequential_arson, art164_sec2_3.sequential_ignition_same_object, art164_sec2_3.unit_of_offense_public_safety, art164_sec3_4.intentional_killing_no_death
+// norm_cards: art164.arson_property_damage_absorption, art164_sec2_1.accomplices_residence_general_building, art164_sec2_1.arson_act, art164_sec2_1.attempt_commencement_ignition, art164_sec2_1.building, art164_sec2_1.building_integrity, art164_sec2_1.burning_result.part.burning_definition, art164_sec2_1.burning_result.part.completion_on_burning, art164_sec2_1.combustion_without_flame, art164_sec2_1.completion_independent_combustion_variant, art164_sec2_1.derelict_building_not_building_precedent, art164_sec2_1.entry_for_arson_not_attempt, art164_sec2_1.extinguished_medium_attempt, art164_sec2_1.independent_combustion_completion_precedent, art164_sec2_1.integrated_building_residential_or_presence_character, art164_sec2_1.medium_ignition_attempt, art164_sec2_1.no_attempt_before_ignition.part.no_attempt_before_ignition, art164_sec2_1.omission_arson, art164_sec2_1.person_excludes_offender_and_accomplice, art164_sec2_1.post_killing_arson_precedent, art164_sec2_1.present_person, art164_sec2_1.protected_object, art164_sec2_1.residence_daily_life_place, art164_sec2_1.residence_factual_use, art164_sec2_1.residence_nonrequired_indicia, art164_sec2_1.residence_temporary_or_seasonal_use, art164_sec2_1.residence_without_actual_presence, art164_sec2_1.sole_offender_home_general_building, art164_sec2_1.temporal_residence_or_presence, art164_sec2_3.multiple_buildings_one_act, art164_sec2_3.multiple_objects_separate_acts_concurrence, art164_sec2_3.same_area_sequential_arson, art164_sec2_3.sequential_ignition_same_object, art164_sec2_3.unit_of_offense_public_safety, art164_sec3_4.intentional_killing_no_death
 rel arson_of_occupied_structure_has_conflict(case_id, defendant_id) = arson_of_occupied_structure_conflict(case_id, defendant_id, norm_card_id)
+
+// rule_id: arson_of_occupied_structure.summary.canonical_not_established
+// sources: comm_001692_제164조_Ⅱ.4_16, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_6, comm_001692_제164조_Ⅱ.1_6, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_5, comm_001692_제164조_Ⅱ.1_5, comm_001692_제164조_Ⅱ.1_5, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_8, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_6, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅲ.4_21
+// norm_cards: art164.arson_property_damage_absorption, art164_sec2_1.accomplices_residence_general_building, art164_sec2_1.arson_act, art164_sec2_1.attempt_commencement_ignition, art164_sec2_1.building, art164_sec2_1.building_integrity, art164_sec2_1.burning_result.part.burning_definition, art164_sec2_1.burning_result.part.completion_on_burning, art164_sec2_1.combustion_without_flame, art164_sec2_1.completion_independent_combustion_variant, art164_sec2_1.derelict_building_not_building_precedent, art164_sec2_1.entry_for_arson_not_attempt, art164_sec2_1.extinguished_medium_attempt, art164_sec2_1.independent_combustion_completion_precedent, art164_sec2_1.integrated_building_residential_or_presence_character, art164_sec2_1.medium_ignition_attempt, art164_sec2_1.no_attempt_before_ignition.part.no_attempt_before_ignition, art164_sec2_1.omission_arson, art164_sec2_1.person_excludes_offender_and_accomplice, art164_sec2_1.post_killing_arson_precedent, art164_sec2_1.present_person, art164_sec2_1.protected_object, art164_sec2_1.residence_daily_life_place, art164_sec2_1.residence_factual_use, art164_sec2_1.residence_nonrequired_indicia, art164_sec2_1.residence_temporary_or_seasonal_use, art164_sec2_1.residence_without_actual_presence, art164_sec2_1.sole_offender_home_general_building, art164_sec2_1.temporal_residence_or_presence, art164_sec2_3.multiple_buildings_one_act, art164_sec2_3.multiple_objects_separate_acts_concurrence, art164_sec2_3.same_area_sequential_arson, art164_sec2_3.sequential_ignition_same_object, art164_sec2_3.unit_of_offense_public_safety, art164_sec3_4.intentional_killing_no_death
+rel arson_of_occupied_structure_not_established(case_id, defendant_id, norm_card_id) = arson_of_occupied_structure_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: arson_of_occupied_structure.summary.track_has_negative
+// sources: comm_001692_제164조_Ⅱ.4_16, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_6, comm_001692_제164조_Ⅱ.1_6, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_5, comm_001692_제164조_Ⅱ.1_5, comm_001692_제164조_Ⅱ.1_5, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_8, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_6, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅲ.4_21
+// norm_cards: art164.arson_property_damage_absorption, art164_sec2_1.accomplices_residence_general_building, art164_sec2_1.arson_act, art164_sec2_1.attempt_commencement_ignition, art164_sec2_1.building, art164_sec2_1.building_integrity, art164_sec2_1.burning_result.part.burning_definition, art164_sec2_1.burning_result.part.completion_on_burning, art164_sec2_1.combustion_without_flame, art164_sec2_1.completion_independent_combustion_variant, art164_sec2_1.derelict_building_not_building_precedent, art164_sec2_1.entry_for_arson_not_attempt, art164_sec2_1.extinguished_medium_attempt, art164_sec2_1.independent_combustion_completion_precedent, art164_sec2_1.integrated_building_residential_or_presence_character, art164_sec2_1.medium_ignition_attempt, art164_sec2_1.no_attempt_before_ignition.part.no_attempt_before_ignition, art164_sec2_1.omission_arson, art164_sec2_1.person_excludes_offender_and_accomplice, art164_sec2_1.post_killing_arson_precedent, art164_sec2_1.present_person, art164_sec2_1.protected_object, art164_sec2_1.residence_daily_life_place, art164_sec2_1.residence_factual_use, art164_sec2_1.residence_nonrequired_indicia, art164_sec2_1.residence_temporary_or_seasonal_use, art164_sec2_1.residence_without_actual_presence, art164_sec2_1.sole_offender_home_general_building, art164_sec2_1.temporal_residence_or_presence, art164_sec2_3.multiple_buildings_one_act, art164_sec2_3.multiple_objects_separate_acts_concurrence, art164_sec2_3.same_area_sequential_arson, art164_sec2_3.sequential_ignition_same_object, art164_sec2_3.unit_of_offense_public_safety, art164_sec3_4.intentional_killing_no_death
+rel arson_of_occupied_structure_track_has_negative(case_id, defendant_id, track_id) = arson_of_occupied_structure_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: arson_of_occupied_structure.summary.track_has_conflict
+// sources: comm_001692_제164조_Ⅱ.4_16, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_6, comm_001692_제164조_Ⅱ.1_6, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_5, comm_001692_제164조_Ⅱ.1_5, comm_001692_제164조_Ⅱ.1_5, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_8, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_6, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅲ.4_21
+// norm_cards: art164.arson_property_damage_absorption, art164_sec2_1.accomplices_residence_general_building, art164_sec2_1.arson_act, art164_sec2_1.attempt_commencement_ignition, art164_sec2_1.building, art164_sec2_1.building_integrity, art164_sec2_1.burning_result.part.burning_definition, art164_sec2_1.burning_result.part.completion_on_burning, art164_sec2_1.combustion_without_flame, art164_sec2_1.completion_independent_combustion_variant, art164_sec2_1.derelict_building_not_building_precedent, art164_sec2_1.entry_for_arson_not_attempt, art164_sec2_1.extinguished_medium_attempt, art164_sec2_1.independent_combustion_completion_precedent, art164_sec2_1.integrated_building_residential_or_presence_character, art164_sec2_1.medium_ignition_attempt, art164_sec2_1.no_attempt_before_ignition.part.no_attempt_before_ignition, art164_sec2_1.omission_arson, art164_sec2_1.person_excludes_offender_and_accomplice, art164_sec2_1.post_killing_arson_precedent, art164_sec2_1.present_person, art164_sec2_1.protected_object, art164_sec2_1.residence_daily_life_place, art164_sec2_1.residence_factual_use, art164_sec2_1.residence_nonrequired_indicia, art164_sec2_1.residence_temporary_or_seasonal_use, art164_sec2_1.residence_without_actual_presence, art164_sec2_1.sole_offender_home_general_building, art164_sec2_1.temporal_residence_or_presence, art164_sec2_3.multiple_buildings_one_act, art164_sec2_3.multiple_objects_separate_acts_concurrence, art164_sec2_3.same_area_sequential_arson, art164_sec2_3.sequential_ignition_same_object, art164_sec2_3.unit_of_offense_public_safety, art164_sec3_4.intentional_killing_no_death
+rel arson_of_occupied_structure_track_has_conflict(case_id, defendant_id, track_id) = arson_of_occupied_structure_track_conflict(case_id, defendant_id, track_id, norm_card_id)
 
 // rule_id: arson_of_occupied_structure.outcome.base.elements_satisfied
 // sources: comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_6, comm_001692_제164조_Ⅱ.1_6, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_5, comm_001692_제164조_Ⅱ.1_5, comm_001692_제164조_Ⅱ.1_5, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_4, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_6, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_3, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2, comm_001692_제164조_Ⅱ.1_2
@@ -1323,33 +1528,33 @@ rel arson_of_occupied_structure_base_elements_satisfied(case_id, defendant_id, s
 // norm_cards: art164_sec2_1.accomplices_residence_general_building, art164_sec2_1.arson_act, art164_sec2_1.building, art164_sec2_1.building_integrity, art164_sec2_1.derelict_building_not_building_precedent, art164_sec2_1.integrated_building_residential_or_presence_character, art164_sec2_1.omission_arson, art164_sec2_1.person_excludes_offender_and_accomplice, art164_sec2_1.post_killing_arson_precedent, art164_sec2_1.present_person, art164_sec2_1.protected_object, art164_sec2_1.residence_daily_life_place, art164_sec2_1.residence_factual_use, art164_sec2_1.residence_nonrequired_indicia, art164_sec2_1.residence_temporary_or_seasonal_use, art164_sec2_1.residence_without_actual_presence, art164_sec2_1.sole_offender_home_general_building, art164_sec2_1.temporal_residence_or_presence
 rel arson_of_occupied_structure_base_established(case_id, defendant_id, structure_id, occupant_id) = arson_of_occupied_structure_base_elements_satisfied(case_id, defendant_id, structure_id, occupant_id) and
   case_assessment_complete(case_id, defendant_id) and
-  ~arson_of_occupied_structure_has_negative(case_id, defendant_id) and
-  ~arson_of_occupied_structure_has_conflict(case_id, defendant_id)
+  ~arson_of_occupied_structure_track_has_negative(case_id, defendant_id, "base") and
+  ~arson_of_occupied_structure_track_has_conflict(case_id, defendant_id, "base")
 
 // rule_id: arson_of_occupied_structure.outcome.attempt.elements_satisfied
 // sources: comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_9
-// norm_cards: art164_sec2_1.attempt_commencement_ignition, art164_sec2_1.entry_for_arson_not_attempt, art164_sec2_1.extinguished_medium_attempt, art164_sec2_1.medium_ignition_attempt, art164_sec2_1.no_attempt_before_ignition
+// norm_cards: art164_sec2_1.attempt_commencement_ignition, art164_sec2_1.entry_for_arson_not_attempt, art164_sec2_1.extinguished_medium_attempt, art164_sec2_1.medium_ignition_attempt, art164_sec2_1.no_attempt_before_ignition.part.no_attempt_before_ignition
 rel arson_of_occupied_structure_attempt_elements_satisfied(case_id, defendant_id, structure_id, occupant_id) = arson_of_occupied_structure_attempt_attempt_commencement_satisfied(case_id, defendant_id, structure_id, occupant_id)
 
 // rule_id: arson_of_occupied_structure.outcome.attempt.established
 // sources: comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_9
-// norm_cards: art164_sec2_1.attempt_commencement_ignition, art164_sec2_1.entry_for_arson_not_attempt, art164_sec2_1.extinguished_medium_attempt, art164_sec2_1.medium_ignition_attempt, art164_sec2_1.no_attempt_before_ignition
+// norm_cards: art164_sec2_1.attempt_commencement_ignition, art164_sec2_1.entry_for_arson_not_attempt, art164_sec2_1.extinguished_medium_attempt, art164_sec2_1.medium_ignition_attempt, art164_sec2_1.no_attempt_before_ignition.part.no_attempt_before_ignition
 rel arson_of_occupied_structure_attempt_established(case_id, defendant_id, structure_id, occupant_id) = arson_of_occupied_structure_attempt_elements_satisfied(case_id, defendant_id, structure_id, occupant_id) and
   case_assessment_complete(case_id, defendant_id) and
-  ~arson_of_occupied_structure_has_negative(case_id, defendant_id) and
-  ~arson_of_occupied_structure_has_conflict(case_id, defendant_id)
+  ~arson_of_occupied_structure_track_has_negative(case_id, defendant_id, "attempt") and
+  ~arson_of_occupied_structure_track_has_conflict(case_id, defendant_id, "attempt")
 
 // rule_id: arson_of_occupied_structure.outcome.completed.elements_satisfied
 // sources: comm_001692_제164조_Ⅱ.4_16, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_8, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅲ.4_21
-// norm_cards: art164.arson_property_damage_absorption, art164_sec2_1.burning_result, art164_sec2_1.combustion_without_flame, art164_sec2_1.completion_independent_combustion_variant, art164_sec2_1.independent_combustion_completion_precedent, art164_sec2_3.multiple_buildings_one_act, art164_sec2_3.multiple_objects_separate_acts_concurrence, art164_sec2_3.same_area_sequential_arson, art164_sec2_3.sequential_ignition_same_object, art164_sec2_3.unit_of_offense_public_safety, art164_sec3_4.intentional_killing_no_death
+// norm_cards: art164.arson_property_damage_absorption, art164_sec2_1.burning_result.part.burning_definition, art164_sec2_1.burning_result.part.completion_on_burning, art164_sec2_1.combustion_without_flame, art164_sec2_1.completion_independent_combustion_variant, art164_sec2_1.independent_combustion_completion_precedent, art164_sec2_3.multiple_buildings_one_act, art164_sec2_3.multiple_objects_separate_acts_concurrence, art164_sec2_3.same_area_sequential_arson, art164_sec2_3.sequential_ignition_same_object, art164_sec2_3.unit_of_offense_public_safety, art164_sec3_4.intentional_killing_no_death
 rel arson_of_occupied_structure_completed_elements_satisfied(case_id, defendant_id, structure_id, occupant_id) = arson_of_occupied_structure_completed_burning_definition_satisfied(case_id, defendant_id, structure_id, occupant_id) and
   arson_of_occupied_structure_completed_combustion_mode_satisfied(case_id, defendant_id, structure_id, occupant_id) and
   arson_of_occupied_structure_completed_independent_combustion_satisfied(case_id, defendant_id, structure_id, occupant_id)
 
 // rule_id: arson_of_occupied_structure.outcome.completed.established
 // sources: comm_001692_제164조_Ⅱ.4_16, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_9, comm_001692_제164조_Ⅱ.1_7, comm_001692_제164조_Ⅱ.1_8, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅱ.3_14, comm_001692_제164조_Ⅲ.4_21
-// norm_cards: art164.arson_property_damage_absorption, art164_sec2_1.burning_result, art164_sec2_1.combustion_without_flame, art164_sec2_1.completion_independent_combustion_variant, art164_sec2_1.independent_combustion_completion_precedent, art164_sec2_3.multiple_buildings_one_act, art164_sec2_3.multiple_objects_separate_acts_concurrence, art164_sec2_3.same_area_sequential_arson, art164_sec2_3.sequential_ignition_same_object, art164_sec2_3.unit_of_offense_public_safety, art164_sec3_4.intentional_killing_no_death
+// norm_cards: art164.arson_property_damage_absorption, art164_sec2_1.burning_result.part.burning_definition, art164_sec2_1.burning_result.part.completion_on_burning, art164_sec2_1.combustion_without_flame, art164_sec2_1.completion_independent_combustion_variant, art164_sec2_1.independent_combustion_completion_precedent, art164_sec2_3.multiple_buildings_one_act, art164_sec2_3.multiple_objects_separate_acts_concurrence, art164_sec2_3.same_area_sequential_arson, art164_sec2_3.sequential_ignition_same_object, art164_sec2_3.unit_of_offense_public_safety, art164_sec3_4.intentional_killing_no_death
 rel arson_of_occupied_structure_completed_established(case_id, defendant_id, structure_id, occupant_id) = arson_of_occupied_structure_completed_elements_satisfied(case_id, defendant_id, structure_id, occupant_id) and
   case_assessment_complete(case_id, defendant_id) and
-  ~arson_of_occupied_structure_has_negative(case_id, defendant_id) and
-  ~arson_of_occupied_structure_has_conflict(case_id, defendant_id)
+  ~arson_of_occupied_structure_track_has_negative(case_id, defendant_id, "completed") and
+  ~arson_of_occupied_structure_track_has_conflict(case_id, defendant_id, "completed")

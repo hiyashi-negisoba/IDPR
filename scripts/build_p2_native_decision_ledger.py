@@ -184,6 +184,8 @@ def build_ledger(unit_id: str) -> dict[str, Any]:
                 "component_id": placement["component_id"],
                 "component_join": placement["component_join"],
                 "refers_to_unit": placement.get("refers_to_unit"),
+                "rationale": placement.get("rationale"),
+                "proposition_rewrite": placement.get("proposition_rewrite"),
             })
             stats["placements"] += 1
 

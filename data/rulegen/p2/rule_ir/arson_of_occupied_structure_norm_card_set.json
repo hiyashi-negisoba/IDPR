@@ -222,10 +222,43 @@
       ],
       "doctrinal_status": "descriptive",
       "formalization": "standard_input",
-      "id": "art164_sec2_1.burning_result",
+      "id": "art164_sec2_1.burning_result.part.burning_definition",
       "norm_kind": "definition",
       "polarity": "positive",
-      "proposition": "불태움은 화력에 의한 건조물 등의 훼손 또는 손괴를 뜻하며, 불태움 결과가 발생하면 방화죄는 기수에 이른다.",
+      "proposition": "불태움이란 화력에 의하여 건조물 등이 훼손 또는 손괴되는 것을 말한다.",
+      "request_ids": [
+        "art164.pass1.001"
+      ],
+      "review_notes": "기수 판단에 관한 아래 경쟁 견해 및 보고된 판례와 함께 검토해야 한다.",
+      "review_required": true,
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제164조_Ⅱ.1_7",
+          "quote": "‘불태움’이란 일반적으로 화력에 의한 건조물 등의 훼손 내지 손괴를 의미한다.",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제164조_Ⅱ.1_7",
+          "quote": "불태움의 결과가 발생함으로써 본죄는 기수가 된다.",
+          "section_path": "Ⅱ.1"
+        }
+      ],
+      "variant_group": "art164_sec2_1.completion"
+    },
+    {
+      "authority_basis": "commentary_synthesis",
+      "candidate_refs": [
+        {
+          "candidate_id": "art164.definition.burning-result",
+          "request_id": "art164.pass1.001"
+        }
+      ],
+      "doctrinal_status": "descriptive",
+      "formalization": "standard_input",
+      "id": "art164_sec2_1.burning_result.part.completion_on_burning",
+      "norm_kind": "definition",
+      "polarity": "positive",
+      "proposition": "불태움의 결과가 발생하면 방화죄는 기수에 이른다.",
       "request_ids": [
         "art164.pass1.001"
       ],
@@ -314,7 +347,7 @@
       "id": "art164_sec2_1.derelict_building_not_building_precedent",
       "norm_kind": "standard",
       "polarity": "negative",
-      "proposition": "지붕·문짝·창문이 없고 담장 및 일부 벽체가 붕괴되어 기거·취침에 사용할 수 없는 철거 대상 폐가는 제164조의 건조물이 아니라 물건에 해당한다는 판례가 소개되어 있다.",
+      "proposition": "지붕·문짝·창문이 없고 담장과 일부 벽체가 붕괴되어 기거 또는 취침에 사용할 수 없는 철거 대상 폐가는 제164조의 건조물에 해당하지 않는다.",
       "request_ids": [
         "art164.pass1.001"
       ],
@@ -499,10 +532,10 @@
       ],
       "doctrinal_status": "descriptive",
       "formalization": "deterministic_rule",
-      "id": "art164_sec2_1.no_attempt_before_ignition",
+      "id": "art164_sec2_1.no_attempt_before_ignition.part.no_attempt_before_ignition",
       "norm_kind": "exception",
       "polarity": "negative",
-      "proposition": "방화 목적물 또는 그 도화물체에 아직 점화하지 않은 때에는 방화 실행의 착수가 아니라 예비로 처벌될 수 있을 뿐이다.",
+      "proposition": "방화의 목적물 또는 그 도화물체에 아직 점화하지 않은 때에는 불을 놓은 것에 해당하지 않으므로 방화죄의 실행 착수가 인정되지 않는다.",
       "request_ids": [
         "art164.pass1.002"
       ],
@@ -647,7 +680,7 @@
       "id": "art164_sec2_1.protected_object",
       "norm_kind": "definition",
       "polarity": "positive",
-      "proposition": "현주건조물등방화죄의 객체는 사람이 주거로 사용하거나 사람이 현존하는 건조물, 기차, 전차, 자동차, 선박, 항공기 또는 지하채굴시설이다.",
+      "proposition": "현주건조물등방화죄의 객체는 건조물, 기차, 전차, 자동차, 선박, 항공기 또는 지하채굴시설이다.",
       "request_ids": [
         "art164.pass1.001"
       ],
@@ -1092,6 +1125,7 @@
     "context_only: art164.pre_claim_insurance_fraud_no_attempt",
     "context_only: art164_sec2_1.independent_combustion_ceiling_case",
     "context_only: art164_sec2_2.mental_weakness_serial_arson_case",
-    "card_metadata_correction: cc_001"
+    "card_metadata_correction: cc_001",
+    "card_metadata_correction: cc_002"
   ]
 }

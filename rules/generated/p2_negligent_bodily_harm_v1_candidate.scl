@@ -118,12 +118,12 @@ type assess_art267_sec2_elements_negligent_breach_and_death(String, String, Stri
 // norm_cards: art267_sec2.elements.negligent_breach_and_death
 type satisfied_art267_sec2_elements_negligent_breach_and_death(String, String, String)
 
-// assess_art267_sec2_standard_bus_driver_instant_wheel_entry: 이 카드의 사건별 적용 평가: 피해자가 버스 발차 순간 바퀴 밑으로 들어가 운전자가 발견하지 못한 경우에는 운전자의 과실을 인정할 수 없고, 피해자가 더 일찍 들어갔는지가 밝혀지지 않으면 과실 유무를 가릴 수 없다.
+// assess_art267_sec2_standard_bus_driver_instant_wheel_entry: 이 카드의 사건별 적용 평가: 피해자가 버스 발차 순간 바퀴 밑으로 갑자기 들어가 운전자가 이를 발견하거나 회피할 수 없었던 경우에는 운전자의 과실을 인정할 수 없다.
 // sources: comm_001692_제267조_Ⅱ_3, comm_001692_제267조_Ⅱ_3
 // norm_cards: art267_sec2.standard.bus_driver_instant_wheel_entry
 type assess_art267_sec2_standard_bus_driver_instant_wheel_entry(String, String, String, String, String)
 
-// satisfied_art267_sec2_standard_bus_driver_instant_wheel_entry: 증명 가능한 평가에서 다음 조건이 충족됨: 피해자가 버스 발차 순간 바퀴 밑으로 들어가 운전자가 발견하지 못한 경우에는 운전자의 과실을 인정할 수 없고, 피해자가 더 일찍 들어갔는지가 밝혀지지 않으면 과실 유무를 가릴 수 없다.
+// satisfied_art267_sec2_standard_bus_driver_instant_wheel_entry: 증명 가능한 평가에서 다음 조건이 충족됨: 피해자가 버스 발차 순간 바퀴 밑으로 갑자기 들어가 운전자가 이를 발견하거나 회피할 수 없었던 경우에는 운전자의 과실을 인정할 수 없다.
 // sources: comm_001692_제267조_Ⅱ_3, comm_001692_제267조_Ⅱ_3
 // norm_cards: art267_sec2.standard.bus_driver_instant_wheel_entry
 type satisfied_art267_sec2_standard_bus_driver_instant_wheel_entry(String, String, String)
@@ -298,12 +298,12 @@ type assess_art268_forward_observation(String, String, String, String, String)
 // norm_cards: art268.forward_observation
 type satisfied_art268_forward_observation(String, String, String)
 
-// assess_art268_general_requirements: 이 카드의 사건별 적용 평가: 업무상과실치사상죄가 성립하려면 과실, 행위자 이외의 다른 사람의 사망 또는 신체상 상해 결과, 그리고 과실과 결과 사이의 인과관계 등 일반적 요건이 충족되어야 한다.
+// assess_art268_general_requirements: 이 카드의 사건별 적용 평가: 형법 제268조의 죄가 성립하려면 과실, 행위자 이외의 다른 사람의 사망 또는 신체상 상해 결과, 그리고 과실과 결과 사이의 인과관계가 충족되어야 한다.
 // sources: comm_001692_제268조_Ⅰ.2_2, comm_001692_제268조_Ⅰ.2_102
 // norm_cards: art268.general_requirements
 type assess_art268_general_requirements(String, String, String, String, String)
 
-// satisfied_art268_general_requirements: 증명 가능한 평가에서 다음 조건이 충족됨: 업무상과실치사상죄가 성립하려면 과실, 행위자 이외의 다른 사람의 사망 또는 신체상 상해 결과, 그리고 과실과 결과 사이의 인과관계 등 일반적 요건이 충족되어야 한다.
+// satisfied_art268_general_requirements: 증명 가능한 평가에서 다음 조건이 충족됨: 형법 제268조의 죄가 성립하려면 과실, 행위자 이외의 다른 사람의 사망 또는 신체상 상해 결과, 그리고 과실과 결과 사이의 인과관계가 충족되어야 한다.
 // sources: comm_001692_제268조_Ⅰ.2_2, comm_001692_제268조_Ⅰ.2_102
 // norm_cards: art268.general_requirements
 type satisfied_art268_general_requirements(String, String, String)
@@ -428,12 +428,12 @@ type assess_art268_rail_engineer_crossing_person(String, String, String, String,
 // norm_cards: art268.rail_engineer_crossing_person
 type satisfied_art268_rail_engineer_crossing_person(String, String, String)
 
-// assess_art268_rail_worker_reliance: 이 카드의 사건별 적용 평가: 철도 공사관계자 등이 위험성과 합리적 피양방법을 숙지하고 열차접근 시 피양하도록 정해진 경우, 승무원은 특별한 사정이 없으면 그들이 피양조치를 할 것을 신뢰할 수 있다. 다만 관계자가 피양하지 못해 당황한 경우 또는 차량 접근을 알아차리지 못해 위험한 상태임을 쉽게 알 수 있는 경우에는 감속·급정차·서행·파수 등 조치가 필요할 수 있다.
+// assess_art268_rail_worker_reliance: 이 카드의 사건별 적용 평가: 철도 공사관계자 등이 위험성과 합리적 피양방법을 숙지하고 열차 접근 시 피양하도록 정해져 있으며 달리 피양을 기대할 수 없는 특별한 사정이 없다면, 승무원은 그들이 피양할 것을 신뢰할 수 있다.
 // sources: comm_001692_제268조_Ⅰ.2_51, comm_001692_제268조_Ⅰ.2_51, comm_001692_제268조_Ⅰ.2_52
 // norm_cards: art268.rail_worker_reliance
 type assess_art268_rail_worker_reliance(String, String, String, String, String)
 
-// satisfied_art268_rail_worker_reliance: 증명 가능한 평가에서 다음 조건이 충족됨: 철도 공사관계자 등이 위험성과 합리적 피양방법을 숙지하고 열차접근 시 피양하도록 정해진 경우, 승무원은 특별한 사정이 없으면 그들이 피양조치를 할 것을 신뢰할 수 있다. 다만 관계자가 피양하지 못해 당황한 경우 또는 차량 접근을 알아차리지 못해 위험한 상태임을 쉽게 알 수 있는 경우에는 감속·급정차·서행·파수 등 조치가 필요할 수 있다.
+// satisfied_art268_rail_worker_reliance: 증명 가능한 평가에서 다음 조건이 충족됨: 철도 공사관계자 등이 위험성과 합리적 피양방법을 숙지하고 열차 접근 시 피양하도록 정해져 있으며 달리 피양을 기대할 수 없는 특별한 사정이 없다면, 승무원은 그들이 피양할 것을 신뢰할 수 있다.
 // sources: comm_001692_제268조_Ⅰ.2_51, comm_001692_제268조_Ⅰ.2_51, comm_001692_제268조_Ⅰ.2_52
 // norm_cards: art268.rail_worker_reliance
 type satisfied_art268_rail_worker_reliance(String, String, String)
