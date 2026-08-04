@@ -261,3 +261,16 @@ def test_justification_waiver_blocks_the_offense_track() -> None:
     ]
 
     assert any(waiver_id in item["norm_card_ids"] for item in rules)
+
+
+def test_non_ascii_source_card_ids_get_canonical_execution_ids() -> None:
+    rule_ir, card_set = UnitAssembler("third_party_bribery", None).build()
+    ids = {item["id"] for item in card_set["cards"]}
+
+    assert "art130_sec3_ga.controlled_consulting_account" in ids
+    assert not any("가" in card_id for card_id in ids)
+    assert not any(
+        "가" in card_id
+        for rule in rule_ir["rules"]
+        for card_id in rule["norm_card_ids"]
+    )

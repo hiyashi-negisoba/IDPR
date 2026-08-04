@@ -1,0 +1,591 @@
+{
+  "version": "1.0.0",
+  "unit_id": "third_party_bribery",
+  "law_snapshot": {
+    "as_of_date": "2026-08-03",
+    "effective_source_date": "2026-03-12",
+    "future_snapshot_date": "2026-09-13",
+    "future_snapshot_policy": "separate_snapshot_not_active",
+    "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
+  },
+  "approval_document": "data/rulegen/p2/native_review/third_party_bribery_approved_decisions.json",
+  "approval_sha256": "501f3ff14caa0df2102a50606f57d73d72ec323aee180830170e141cddbaca6c",
+  "approved_on": "2026-08-04",
+  "status": "ready_for_rule_ir",
+  "problems": [],
+  "unresolved_unit_references": [
+    {
+      "card_id": "art130_sec3-na.joint-bribery-conspiracy",
+      "part_id": null,
+      "refers_to_unit": "complicity",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art130_sec3-na.joint-bribery-no-specific-amount",
+      "part_id": null,
+      "refers_to_unit": "complicity",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art130_sec3-na.nonofficial-joint-bribery",
+      "part_id": null,
+      "refers_to_unit": "complicity",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art130_sec4_2.contract_demand_imaginary_concurrence",
+      "part_id": null,
+      "refers_to_unit": "abuse_of_authority",
+      "status": "predicate_ir_missing"
+    }
+  ],
+  "excluded_cards": [
+    {
+      "card_id": "art130_sec2_2.indictment_particularity",
+      "reason": "공소사실 특정 정도에 관한 절차법 문맥"
+    }
+  ],
+  "tracks": [
+    {
+      "track_id": "base",
+      "label": "제130조 제3자뇌물제공"
+    }
+  ],
+  "placements": [
+    {
+      "card_id": "art130_sec3-na.joint-bribery-conspiracy",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "complicity",
+      "component_join": "not_applicable",
+      "refers_to_unit": "complicity",
+      "rationale": "뇌물수수 공동정범의 공모와 귀속효과",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3-na.joint-bribery-no-specific-amount",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "complicity",
+      "component_join": "not_applicable",
+      "refers_to_unit": "complicity",
+      "rationale": "뇌물수수 공동정범의 공모와 귀속효과",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3-na.nonofficial-joint-bribery",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "complicity",
+      "component_join": "not_applicable",
+      "refers_to_unit": "complicity",
+      "rationale": "뇌물수수 공동정범의 공모와 귀속효과",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec2_1.exchange_linked_request",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "improper_request",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "직무집행과 제3자 이익의 대가결부 및 명시·묵시적 부정청탁",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec2_1.improper_request_assessment",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "improper_request",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "직무집행과 제3자 이익의 대가결부 및 명시·묵시적 부정청탁",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec2_1.improper_request_scope",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "improper_request",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "직무집행과 제3자 이익의 대가결부 및 명시·묵시적 부정청탁",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec2_2.case_engineering_introduction_conviction",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "improper_request",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "직무집행과 제3자 이익의 대가결부 및 명시·묵시적 부정청탁",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec2_2.case_foundation_contributions_no_exchange",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "improper_request",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "대가관계 공통인식 없는 선처기대 또는 사후적 소급평가의 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec2_2.future_pending_matter",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "improper_request",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "직무집행과 제3자 이익의 대가결부 및 명시·묵시적 부정청탁",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec2_2.implied_request",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "improper_request",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "직무집행과 제3자 이익의 대가결부 및 명시·묵시적 부정청탁",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec2_2.introduction_recommendation_assessment",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "improper_request",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "직무집행과 제3자 이익의 대가결부 및 명시·묵시적 부정청탁",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec2_2.no_implied_request_without_exchange_awareness",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "improper_request",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "대가관계 공통인식 없는 선처기대 또는 사후적 소급평가의 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec2_2.no_retrospective_exchange_link",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "improper_request",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "대가관계 공통인식 없는 선처기대 또는 사후적 소급평가의 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec1.direct_receipt_relationship_exception",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "not_applicable",
+      "refers_to_unit": "bribe_receipt",
+      "rationale": "공무원 또는 공동정범에게 경제적·실질적으로 직접 귀속되어 단순수뢰로 이동하는 경계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3-na.company-legal-service",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "자연인·법인·단체 등 독립 제3자에 대한 이익 제공과 직접귀속 부정의 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3-na.joint-perpetrator-not-third-party",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "not_applicable",
+      "refers_to_unit": "bribe_receipt",
+      "rationale": "공무원 또는 공동정범에게 경제적·실질적으로 직접 귀속되어 단순수뢰로 이동하는 경계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3-na.mountain-club-towel",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "자연인·법인·단체 등 독립 제3자에 대한 이익 제공과 직접귀속 부정의 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3-na.shareholder-indirect-benefit",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "자연인·법인·단체 등 독립 제3자에 대한 이익 제공과 직접귀속 부정의 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3.corporate_attribution_indicia",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "자연인·법인·단체 등 독립 제3자에 대한 이익 제공과 직접귀속 부정의 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3.corporate_benefit_attribution",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "자연인·법인·단체 등 독립 제3자에 대한 이익 제공과 직접귀속 부정의 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3.direct_substantial_interest_exception",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "not_applicable",
+      "refers_to_unit": "bribe_receipt",
+      "rationale": "공무원 또는 공동정범에게 경제적·실질적으로 직접 귀속되어 단순수뢰로 이동하는 경계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3.independent_spouse_business_account",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "자연인·법인·단체 등 독립 제3자에 대한 이익 제공과 직접귀속 부정의 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3.individual_benefit_attribution",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "자연인·법인·단체 등 독립 제3자에 대한 이익 제공과 직접귀속 부정의 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3.lovers_relationship_insufficient",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "자연인·법인·단체 등 독립 제3자에 대한 이익 제공과 직접귀속 부정의 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3.nontraditional_benefit_forms",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "자연인·법인·단체 등 독립 제3자에 대한 이익 제공과 직접귀속 부정의 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3.spouse_delivery_inference",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "not_applicable",
+      "refers_to_unit": "bribe_receipt",
+      "rationale": "공무원 또는 공동정범에게 경제적·실질적으로 직접 귀속되어 단순수뢰로 이동하는 경계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3.spouse_insurance_opportunity",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "not_applicable",
+      "refers_to_unit": "bribe_receipt",
+      "rationale": "공무원 또는 공동정범에게 경제적·실질적으로 직접 귀속되어 단순수뢰로 이동하는 경계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3.third_party_definition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "자연인·법인·단체 등 독립 제3자에 대한 이익 제공과 직접귀속 부정의 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3.third_party_knowledge_not_required",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "자연인·법인·단체 등 독립 제3자에 대한 이익 제공과 직접귀속 부정의 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3.third_party_organizations",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "자연인·법인·단체 등 독립 제3자에 대한 이익 제공과 직접귀속 부정의 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3_가.controlled_consulting_account",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "not_applicable",
+      "refers_to_unit": "bribe_receipt",
+      "rationale": "공무원 또는 공동정범에게 경제적·실질적으로 직접 귀속되어 단순수뢰로 이동하는 경계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3_가.public_official_controlled_company_account",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "not_applicable",
+      "refers_to_unit": "bribe_receipt",
+      "rationale": "공무원 또는 공동정범에게 경제적·실질적으로 직접 귀속되어 단순수뢰로 이동하는 경계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec3_가.redevelopment_manager_corporate_bribe",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "not_applicable",
+      "refers_to_unit": "bribe_receipt",
+      "rationale": "공무원 또는 공동정범에게 경제적·실질적으로 직접 귀속되어 단순수뢰로 이동하는 경계",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec4_2.third_party_receipt_not_required",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "자연인·법인·단체 등 독립 제3자에 대한 이익 제공과 직접귀속 부정의 인정경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec4_2.different_third_party_no_intent_severance",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "제3자 상이만으로 범의 단절을 인정하지 않는 죄수효과",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec1.basic_conduct",
+      "part_id": null,
+      "role": "component",
+      "track_id": "base",
+      "component_id": "offense_definition",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "공무원의 직무관련 부정청탁과 제3자 공여·요구·약속 기본구조",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art130_sec4_2.contract_demand_imaginary_concurrence",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "base",
+      "component_id": "office_abuse_concurrence",
+      "component_join": "not_applicable",
+      "refers_to_unit": "abuse_of_authority",
+      "rationale": "제3자 계약 강요와 직권남용의 상상적 경합",
+      "proposition_rewrite": null
+    }
+  ],
+  "components": [
+    {
+      "track_id": "base",
+      "component_id": "complicity",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "complicity"
+      ],
+      "norm_card_ids": [
+        "art130_sec3-na.joint-bribery-conspiracy",
+        "art130_sec3-na.joint-bribery-no-specific-amount",
+        "art130_sec3-na.nonofficial-joint-bribery"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "improper_request",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art130_sec2_1.exchange_linked_request",
+        "art130_sec2_1.improper_request_assessment",
+        "art130_sec2_1.improper_request_scope",
+        "art130_sec2_2.case_engineering_introduction_conviction",
+        "art130_sec2_2.case_foundation_contributions_no_exchange",
+        "art130_sec2_2.future_pending_matter",
+        "art130_sec2_2.implied_request",
+        "art130_sec2_2.introduction_recommendation_assessment",
+        "art130_sec2_2.no_implied_request_without_exchange_awareness",
+        "art130_sec2_2.no_retrospective_exchange_link"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "independent_third_party_benefit",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [
+        "bribe_receipt"
+      ],
+      "norm_card_ids": [
+        "art130_sec1.direct_receipt_relationship_exception",
+        "art130_sec3-na.company-legal-service",
+        "art130_sec3-na.joint-perpetrator-not-third-party",
+        "art130_sec3-na.mountain-club-towel",
+        "art130_sec3-na.shareholder-indirect-benefit",
+        "art130_sec3.corporate_attribution_indicia",
+        "art130_sec3.corporate_benefit_attribution",
+        "art130_sec3.direct_substantial_interest_exception",
+        "art130_sec3.independent_spouse_business_account",
+        "art130_sec3.individual_benefit_attribution",
+        "art130_sec3.lovers_relationship_insufficient",
+        "art130_sec3.nontraditional_benefit_forms",
+        "art130_sec3.spouse_delivery_inference",
+        "art130_sec3.spouse_insurance_opportunity",
+        "art130_sec3.third_party_definition",
+        "art130_sec3.third_party_knowledge_not_required",
+        "art130_sec3.third_party_organizations",
+        "art130_sec3_가.controlled_consulting_account",
+        "art130_sec3_가.public_official_controlled_company_account",
+        "art130_sec3_가.redevelopment_manager_corporate_bribe",
+        "art130_sec4_2.third_party_receipt_not_required"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "offense_count",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art130_sec4_2.different_third_party_no_intent_severance"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "offense_definition",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art130_sec1.basic_conduct"
+      ]
+    },
+    {
+      "track_id": "base",
+      "component_id": "office_abuse_concurrence",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "abuse_of_authority"
+      ],
+      "norm_card_ids": [
+        "art130_sec4_2.contract_demand_imaginary_concurrence"
+      ]
+    }
+  ],
+  "stats": {
+    "components": 6,
+    "context_only_placements": 1,
+    "decision_approve": 37,
+    "decision_context_only": 1,
+    "placements": 37,
+    "queue_cards": 38,
+    "unresolved_unit_references": 4
+  }
+}

@@ -130,6 +130,21 @@
       "gate": "delegated normalization on 2026-08-04",
       "default": {"predicate": "official_secret_case_roles", "arguments": ["case_id", "defendant_id", "secret_id", "recipient_id"], "definition": "공무상비밀누설 피고인, 직무상 비밀, 누설 상대방의 역할 tuple", "applies_to_tracks": ["base"]},
       "tracks": {}
+    },
+    "bribe_receipt": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "bribe_receipt_case_roles", "arguments": ["case_id", "defendant_id", "benefit_id", "official_duty_id", "giver_id"], "definition": "수뢰자, 뇌물 이익, 관련 공무, 공여자의 역할 tuple", "applies_to_tracks": ["receipt", "demand", "promise", "prior"]},
+      "tracks": {}
+    },
+    "bribe_giving": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "bribe_giving_case_roles", "arguments": ["case_id", "defendant_id", "benefit_id", "official_id", "intermediary_id"], "definition": "증뢰자 또는 전달자, 이익, 상대 공무원, 전달 제3자의 역할 tuple", "applies_to_tracks": ["offering", "delivery_giver", "delivery_recipient"]},
+      "tracks": {}
+    },
+    "third_party_bribery": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "third_party_bribery_case_roles", "arguments": ["case_id", "defendant_id", "benefit_id", "third_party_id", "official_duty_id", "giver_id"], "definition": "공무원, 제3자 이익, 독립 제3자, 관련 직무, 공여자의 역할 tuple", "applies_to_tracks": ["base"]},
+      "tracks": {}
     }
   }
 }

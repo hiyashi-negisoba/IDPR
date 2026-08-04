@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0", "authority": "delegated_human_legal_review", "unit_id": "bribe_giving", "approved_on": "2026-08-04",
+  "policy": {"approval": "Delegated normalization on 2026-08-04", "tracks": "직접 증뢰와 증뢰물 전달의 교부자·취득자를 분리", "completion": "공여의사표시 도달과 제3자 취득 시점을 각 기수경계로 실행", "independence": "공동정범이 아닌 독립 제3자만 전달죄 상대방"},
+  "track_vocabulary": [
+    {"track_id": "common", "label": "증뢰 공통 placement"},
+    {"track_id": "offering", "label": "뇌물공여·약속·의사표시", "inherits_placements": [{"track_id": "common", "component_ids": ["benefit_and_duty_relation"]}]},
+    {"track_id": "delivery_giver", "label": "증뢰물 교부", "inherits_placements": [{"track_id": "common", "component_ids": ["benefit_and_duty_relation", "independent_third_party"]}]},
+    {"track_id": "delivery_recipient", "label": "증뢰물 취득", "inherits_placements": [{"track_id": "common", "component_ids": ["benefit_and_duty_relation", "independent_third_party"]}]}
+  ],
+  "decision_groups": [
+    {"card_numbers": [14, 16, 19], "decision": "approve", "role": "component", "component_id": "benefit_and_duty_relation", "component_join": "alternative_any", "track_id": "common", "refers_to_unit": null, "rationale": "뇌물·금품 객체와 상대 공무원의 직무관련성·대가성"},
+    {"card_numbers": [2, 6, 8, 9, 13, 15, 23, 24], "decision": "approve", "role": "component", "component_id": "offering_conduct", "component_join": "alternative_any", "track_id": "offering", "refers_to_unit": null, "rationale": "약속·공여·도달한 의사표시와 제3자 선지급을 포함한 직접 증뢰 경로"},
+    {"card_numbers": [7], "decision": "approve", "role": "bar", "component_id": "offering_conduct", "component_join": "not_applicable", "track_id": "offering", "refers_to_unit": null, "rationale": "상대방에게 도달하지 않은 불가벌 미수"},
+    {"card_numbers": [11], "decision": "approve", "role": "component", "component_id": "offering_intent", "component_join": "mandatory_all", "track_id": "offering", "refers_to_unit": null, "rationale": "공무원에게 직무대가 뇌물을 제공한다는 고의"},
+    {"card_numbers": [1], "decision": "approve", "role": "component", "component_id": "delivery_by_giver", "component_join": "mandatory_all", "track_id": "delivery_giver", "refers_to_unit": null, "rationale": "증뢰에 제공할 목적으로 독립 제3자에게 금품을 교부"},
+    {"card_numbers": [4], "decision": "approve", "role": "component", "component_id": "independent_third_party", "component_join": "mandatory_all", "track_id": "common", "refers_to_unit": null, "rationale": "증뢰자·수뢰자 공동정범이 아닌 전달 방조자 등 독립 제3자"},
+    {"card_numbers": [10], "decision": "approve", "role": "bar", "component_id": "independent_third_party", "component_join": "not_applicable", "track_id": "common", "refers_to_unit": null, "rationale": "증뢰자와 독립한 제3자가 아닌 경우의 전달죄 배제"},
+    {"card_numbers": [3, 5], "decision": "approve", "role": "component", "component_id": "delivery_receipt", "component_join": "alternative_any", "track_id": "delivery_recipient", "refers_to_unit": null, "rationale": "전달될 금품임을 알면서 사실상 처분권을 취득한 때의 기수"},
+    {"card_numbers": [12], "decision": "approve", "role": "component", "component_id": "delivery_intent", "component_join": "mandatory_all", "track_id": "delivery_recipient", "refers_to_unit": null, "rationale": "증뢰에 제공될 금품이라는 인식"},
+    {"card_numbers": [18, 20], "decision": "approve", "role": "bar", "component_id": "delivery_receipt", "component_join": "not_applicable", "track_id": "delivery_recipient", "refers_to_unit": null, "rationale": "전달 명목·전달 목적이 없는 취득"},
+    {"card_numbers": [17, 21, 22, 25], "decision": "context_only", "role": "context_only", "rationale": "상대방 수뢰죄 독립성, 공소사실 특정, 처분권 또는 주체 일반설명"},
+    {"card_numbers": [26], "decision": "approve", "role": "post_outcome", "component_id": "absorption", "component_join": "not_applicable", "track_id": "delivery_recipient", "refers_to_unit": null, "rationale": "실제 전달 시 전달죄가 제1항 증뢰죄에 흡수"}
+  ], "placement_defaults": [], "proposition_rewrites": {}
+}

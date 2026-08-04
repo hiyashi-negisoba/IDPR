@@ -1,0 +1,1120 @@
+// rule_set_id: kr.p2.bribe_giving.native.v1_candidate
+// status: draft
+// legal_review: pending
+// generated_from: validated RuleIR; model output is never executed directly
+
+// provable: 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+// sources: system contract
+// norm_cards: system contract
+type provable(String, String)
+
+// case_assessment_complete: 사건 라우터가 선택한 평가 묶음이 완결되어 결론 계층의 폐쇄세계 검사를 허용함
+// sources: system contract
+// norm_cards: system contract
+type case_assessment_complete(String, String)
+
+// distinct_entity: 사건의 entity resolution에서 두 역할이 서로 다른 실체임이 확인됨
+// sources: system contract
+// norm_cards: system contract
+type distinct_entity(String, String, String)
+
+// bribe_giving_case_roles: 증뢰자 또는 전달자, 이익, 상대 공무원, 전달 제3자의 역할 tuple
+// sources: system contract
+// norm_cards: system contract
+type bribe_giving_case_roles(String, String, String, String, String)
+
+// bribe_giving_not_established: 증명된 불성립 사유 또는 경계 이동이 존재함
+// sources: system contract
+// norm_cards: system contract
+type bribe_giving_not_established(String, String, String)
+
+// bribe_giving_undetermined: 관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음
+// sources: system contract
+// norm_cards: system contract
+type bribe_giving_undetermined(String, String, String)
+
+// bribe_giving_conflict: 같은 카드에 satisfied와 not_satisfied 평가가 모두 증명됨
+// sources: system contract
+// norm_cards: system contract
+type bribe_giving_conflict(String, String, String)
+
+// bribe_giving_track_not_established: 해당 track에만 적용되는 증명된 불성립 사유 또는 경계 이동
+// sources: system contract
+// norm_cards: system contract
+type bribe_giving_track_not_established(String, String, String, String)
+
+// bribe_giving_track_conflict: 해당 track에 적용되는 카드 평가 충돌
+// sources: system contract
+// norm_cards: system contract
+type bribe_giving_track_conflict(String, String, String, String)
+
+// bribe_giving_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type bribe_giving_track_has_negative(String, String, String)
+
+// bribe_giving_track_has_conflict: 해당 track에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type bribe_giving_track_has_conflict(String, String, String)
+
+// assess_art133_bribery_delivery_offense: 이 카드의 사건별 적용 평가: 증뢰물전달죄는 증뢰행위에 제공할 목적으로 제3자에게 금품을 교부하거나 그 사정을 알면서 교부받음으로써 성립한다.
+// sources: comm_001692_제133조_Ⅰ.1_0
+// norm_cards: art133.bribery_delivery_offense
+type assess_art133_bribery_delivery_offense(String, String, String, String, String, String, String)
+
+// satisfied_art133_bribery_delivery_offense: 증명 가능한 평가에서 다음 조건이 충족됨: 증뢰물전달죄는 증뢰행위에 제공할 목적으로 제3자에게 금품을 교부하거나 그 사정을 알면서 교부받음으로써 성립한다.
+// sources: comm_001692_제133조_Ⅰ.1_0
+// norm_cards: art133.bribery_delivery_offense
+type satisfied_art133_bribery_delivery_offense(String, String, String, String, String)
+
+// assess_art133_bribery_offering_offense: 이 카드의 사건별 적용 평가: 뇌물공여죄는 제129조 내지 제132조에 기재된 뇌물을 약속·공여하거나 공여의 의사를 표시함으로써 성립하는 범죄이다.
+// sources: comm_001692_제133조_Ⅰ.1_0
+// norm_cards: art133.bribery_offering_offense
+type assess_art133_bribery_offering_offense(String, String, String, String, String, String, String)
+
+// satisfied_art133_bribery_offering_offense: 증명 가능한 평가에서 다음 조건이 충족됨: 뇌물공여죄는 제129조 내지 제132조에 기재된 뇌물을 약속·공여하거나 공여의 의사를 표시함으로써 성립하는 범죄이다.
+// sources: comm_001692_제133조_Ⅰ.1_0
+// norm_cards: art133.bribery_offering_offense
+type satisfied_art133_bribery_offering_offense(String, String, String, String, String)
+
+// assess_art133_sec1_2_acquisition: 이 카드의 사건별 적용 평가: 뇌물의 취득은 뇌물에 대한 사실상의 처분권을 획득하는 것을 의미하며, 물건의 법률상 소유권 취득은 필요하지 않다.
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.acquisition
+type assess_art133_sec1_2_acquisition(String, String, String, String, String, String, String)
+
+// satisfied_art133_sec1_2_acquisition: 증명 가능한 평가에서 다음 조건이 충족됨: 뇌물의 취득은 뇌물에 대한 사실상의 처분권을 획득하는 것을 의미하며, 물건의 법률상 소유권 취득은 필요하지 않다.
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.acquisition
+type satisfied_art133_sec1_2_acquisition(String, String, String, String, String)
+
+// assess_art133_sec1_2_aider_as_third_party: 이 카드의 사건별 적용 평가: 수뢰자에 대한 뇌물 전달 취지로 증뢰자로부터 뇌물을 받은 제3자가 증뢰자 또는 수뢰자의 공동정범 정도에 이르지 않는 방조범이면, 그 제3자는 증뢰물전달죄의 제3자에 해당한다.
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.aider_as_third_party
+type assess_art133_sec1_2_aider_as_third_party(String, String, String, String, String, String, String)
+
+// satisfied_art133_sec1_2_aider_as_third_party: 증명 가능한 평가에서 다음 조건이 충족됨: 수뢰자에 대한 뇌물 전달 취지로 증뢰자로부터 뇌물을 받은 제3자가 증뢰자 또는 수뢰자의 공동정범 정도에 이르지 않는 방조범이면, 그 제3자는 증뢰물전달죄의 제3자에 해당한다.
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.aider_as_third_party
+type satisfied_art133_sec1_2_aider_as_third_party(String, String, String, String, String)
+
+// assess_art133_sec1_2_delivery_completed_on_receipt: 이 카드의 사건별 적용 평가: 증뢰물전달죄는 제3자가 전달될 금품임을 알면서 교부받은 때 성립하며, 실제 전달 여부, 전달 의사 여부 또는 증뢰자를 기망한 사실은 성립에 영향을 미치지 않는다.
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.delivery_completed_on_receipt
+type assess_art133_sec1_2_delivery_completed_on_receipt(String, String, String, String, String, String, String)
+
+// satisfied_art133_sec1_2_delivery_completed_on_receipt: 증명 가능한 평가에서 다음 조건이 충족됨: 증뢰물전달죄는 제3자가 전달될 금품임을 알면서 교부받은 때 성립하며, 실제 전달 여부, 전달 의사 여부 또는 증뢰자를 기망한 사실은 성립에 영향을 미치지 않는다.
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.delivery_completed_on_receipt
+type satisfied_art133_sec1_2_delivery_completed_on_receipt(String, String, String, String, String)
+
+// assess_art133_sec1_2_expression_arrival: 이 카드의 사건별 적용 평가: 공여의 의사표시는 상대방에게 도달하여 알 수 있는 상태에 있으면 기수가 되며, 상대방이 현실적으로 인식하지 못하거나 거절하거나 표시 내용대로 수수할 수 없는 상태여도 성립에 영향이 없다.
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.expression_arrival
+type assess_art133_sec1_2_expression_arrival(String, String, String, String, String, String, String)
+
+// satisfied_art133_sec1_2_expression_arrival: 증명 가능한 평가에서 다음 조건이 충족됨: 공여의 의사표시는 상대방에게 도달하여 알 수 있는 상태에 있으면 기수가 되며, 상대방이 현실적으로 인식하지 못하거나 거절하거나 표시 내용대로 수수할 수 없는 상태여도 성립에 영향이 없다.
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.expression_arrival
+type satisfied_art133_sec1_2_expression_arrival(String, String, String, String, String)
+
+// assess_art133_sec1_2_expression_not_arrived: 이 카드의 사건별 적용 평가: 공여의 의사표시가 상대방에게 도달하지 않은 경우에는 미수이나 미수범 처벌규정이 없어 죄가 되지 않는다.
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.expression_not_arrived
+type assess_art133_sec1_2_expression_not_arrived(String, String, String, String, String, String, String)
+
+// satisfied_art133_sec1_2_expression_not_arrived: 증명 가능한 평가에서 다음 조건이 충족됨: 공여의 의사표시가 상대방에게 도달하지 않은 경우에는 미수이나 미수범 처벌규정이 없어 죄가 되지 않는다.
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.expression_not_arrived
+type satisfied_art133_sec1_2_expression_not_arrived(String, String, String, String, String)
+
+// assess_art133_sec1_2_expression_of_offering: 이 카드의 사건별 적용 평가: 공여의 의사표시는 상대방에게 뇌물을 제공하겠다는 의사의 표시이고, 구두·서면, 명시적·묵시적 방법 모두 가능하며 뇌물의 종류·수량·액수를 구체적으로 표시할 필요는 없다.
+// sources: comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.expression_of_offering
+type assess_art133_sec1_2_expression_of_offering(String, String, String, String, String, String, String)
+
+// satisfied_art133_sec1_2_expression_of_offering: 증명 가능한 평가에서 다음 조건이 충족됨: 공여의 의사표시는 상대방에게 뇌물을 제공하겠다는 의사의 표시이고, 구두·서면, 명시적·묵시적 방법 모두 가능하며 뇌물의 종류·수량·액수를 구체적으로 표시할 필요는 없다.
+// sources: comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.expression_of_offering
+type satisfied_art133_sec1_2_expression_of_offering(String, String, String, String, String)
+
+// assess_art133_sec1_2_family_member_recipient: 이 카드의 사건별 적용 평가: 공여 또는 공여의 의사표시의 상대방은 공무원 또는 중재인이지만, 그 처 또는 자녀 등 생활이익을 같이하는 자에게 한 경우에도 죄의 성립에 지장이 없다고 본다.
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.family_member_recipient
+type assess_art133_sec1_2_family_member_recipient(String, String, String, String, String, String, String)
+
+// satisfied_art133_sec1_2_family_member_recipient: 증명 가능한 평가에서 다음 조건이 충족됨: 공여 또는 공여의 의사표시의 상대방은 공무원 또는 중재인이지만, 그 처 또는 자녀 등 생활이익을 같이하는 자에게 한 경우에도 죄의 성립에 지장이 없다고 본다.
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.family_member_recipient
+type satisfied_art133_sec1_2_family_member_recipient(String, String, String, String, String)
+
+// assess_art133_sec1_2_independent_third_party: 이 카드의 사건별 적용 평가: 증뢰물전달죄의 제3자는 증뢰자·수뢰자 등 행위자 또는 그와 공동정범 관계에 있는 자 이외의 자를 뜻하므로, 증뢰자와 독립한 제3자 지위에 있다고 보기 어려운 자에게 전달 목적으로 뇌물을 교부한 경우에는 제3자뇌물교부죄나 제3자뇌물취득죄가 성립하지 않는다.
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.independent_third_party
+type assess_art133_sec1_2_independent_third_party(String, String, String, String, String, String, String)
+
+// satisfied_art133_sec1_2_independent_third_party: 증명 가능한 평가에서 다음 조건이 충족됨: 증뢰물전달죄의 제3자는 증뢰자·수뢰자 등 행위자 또는 그와 공동정범 관계에 있는 자 이외의 자를 뜻하므로, 증뢰자와 독립한 제3자 지위에 있다고 보기 어려운 자에게 전달 목적으로 뇌물을 교부한 경우에는 제3자뇌물교부죄나 제3자뇌물취득죄가 성립하지 않는다.
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.independent_third_party
+type satisfied_art133_sec1_2_independent_third_party(String, String, String, String, String)
+
+// assess_art133_sec1_2_intent_for_bribery_offering: 이 카드의 사건별 적용 평가: 제133조 제1항 증뢰죄의 고의는 공무원이나 중재인에게 뇌물을 약속·공여하거나 공여의 의사표시를 한다는 점에 대한 인식과 의사이고, 미필적 고의로도 충분하다.
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.intent_for_bribery_offering
+type assess_art133_sec1_2_intent_for_bribery_offering(String, String, String, String, String, String, String)
+
+// satisfied_art133_sec1_2_intent_for_bribery_offering: 증명 가능한 평가에서 다음 조건이 충족됨: 제133조 제1항 증뢰죄의 고의는 공무원이나 중재인에게 뇌물을 약속·공여하거나 공여의 의사표시를 한다는 점에 대한 인식과 의사이고, 미필적 고의로도 충분하다.
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.intent_for_bribery_offering
+type satisfied_art133_sec1_2_intent_for_bribery_offering(String, String, String, String, String)
+
+// assess_art133_sec1_2_intent_for_delivery_recipient: 이 카드의 사건별 적용 평가: 증뢰물취득죄는 금품을 교부받는다는 고의 외에 그 금품이 증뢰에 공할 금품이라는 인식도 있어야 하며, 수뢰자에게 전달될 금품임을 알면서 증뢰자로부터 받은 때 성립한다.
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.intent_for_delivery_recipient
+type assess_art133_sec1_2_intent_for_delivery_recipient(String, String, String, String, String, String, String)
+
+// satisfied_art133_sec1_2_intent_for_delivery_recipient: 증명 가능한 평가에서 다음 조건이 충족됨: 증뢰물취득죄는 금품을 교부받는다는 고의 외에 그 금품이 증뢰에 공할 금품이라는 인식도 있어야 하며, 수뢰자에게 전달될 금품임을 알면서 증뢰자로부터 받은 때 성립한다.
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.intent_for_delivery_recipient
+type satisfied_art133_sec1_2_intent_for_delivery_recipient(String, String, String, String, String)
+
+// assess_art133_sec1_2_nonofficial_recipient_at_official_request: 이 카드의 사건별 적용 평가: 공여자가 공무원의 요구에 따라 비공무원에게 뇌물을 공여하고, 공무원과 비공무원이 뇌물수수죄 공동정범 관계이며 공여자가 이를 인식한 경우 공여자에게 뇌물공여죄의 고의가 인정된다.
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.nonofficial_recipient_at_official_request
+type assess_art133_sec1_2_nonofficial_recipient_at_official_request(String, String, String, String, String, String, String)
+
+// satisfied_art133_sec1_2_nonofficial_recipient_at_official_request: 증명 가능한 평가에서 다음 조건이 충족됨: 공여자가 공무원의 요구에 따라 비공무원에게 뇌물을 공여하고, 공무원과 비공무원이 뇌물수수죄 공동정범 관계이며 공여자가 이를 인식한 경우 공여자에게 뇌물공여죄의 고의가 인정된다.
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.nonofficial_recipient_at_official_request
+type satisfied_art133_sec1_2_nonofficial_recipient_at_official_request(String, String, String, String, String)
+
+// assess_art133_sec1_2_object_distinction: 이 카드의 사건별 적용 평가: 제133조 제1항 증뢰죄의 객체는 뇌물이고, 제2항 증뢰물전달죄의 객체는 금품이다.
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.object_distinction
+type assess_art133_sec1_2_object_distinction(String, String, String, String, String, String, String)
+
+// satisfied_art133_sec1_2_object_distinction: 증명 가능한 평가에서 다음 조건이 충족됨: 제133조 제1항 증뢰죄의 객체는 뇌물이고, 제2항 증뢰물전달죄의 객체는 금품이다.
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.object_distinction
+type satisfied_art133_sec1_2_object_distinction(String, String, String, String, String)
+
+// assess_art133_sec1_2_offering: 이 카드의 사건별 적용 평가: 뇌물공여의 공여는 뇌물을 취득하게 하는 것으로, 수수할 수 있는 상태에 두면 충분하고 현실적인 취득은 요구되지 않는다.
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.offering
+type assess_art133_sec1_2_offering(String, String, String, String, String, String, String)
+
+// satisfied_art133_sec1_2_offering: 증명 가능한 평가에서 다음 조건이 충족됨: 뇌물공여의 공여는 뇌물을 취득하게 하는 것으로, 수수할 수 있는 상태에 두면 충분하고 현실적인 취득은 요구되지 않는다.
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.offering
+type satisfied_art133_sec1_2_offering(String, String, String, String, String)
+
+// assess_art133_sec1_2_official_duty_relation_quid_pro_quo: 이 카드의 사건별 적용 평가: 증뢰죄와 증뢰물전달죄의 성립에는 상대방 공무원의 직무와의 관련성 및 대가성이 필요하며, 그 상대방 공무원의 직무를 기준으로 판단한다.
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.official_duty_relation_quid_pro_quo
+type assess_art133_sec1_2_official_duty_relation_quid_pro_quo(String, String, String, String, String, String, String)
+
+// satisfied_art133_sec1_2_official_duty_relation_quid_pro_quo: 증명 가능한 평가에서 다음 조건이 충족됨: 증뢰죄와 증뢰물전달죄의 성립에는 상대방 공무원의 직무와의 관련성 및 대가성이 필요하며, 그 상대방 공무원의 직무를 기준으로 판단한다.
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.official_duty_relation_quid_pro_quo
+type satisfied_art133_sec1_2_official_duty_relation_quid_pro_quo(String, String, String, String, String)
+
+// assess_art133_sec1_2_refused_sponsorship_money: 이 카드의 사건별 적용 평가: 공여자가 제안한 후원금 명목의 금품 제공 의사를 공무원이 거절한 뒤 제3자가 그 금품을 받은 경우, 사회통념상 제3자가 사후에 공무원에게 전달해 주겠다는 명목으로 취득한 것으로 볼 수 없다.
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.refused_sponsorship_money
+type assess_art133_sec1_2_refused_sponsorship_money(String, String, String, String, String, String, String)
+
+// satisfied_art133_sec1_2_refused_sponsorship_money: 증명 가능한 평가에서 다음 조건이 충족됨: 공여자가 제안한 후원금 명목의 금품 제공 의사를 공무원이 거절한 뒤 제3자가 그 금품을 받은 경우, 사회통념상 제3자가 사후에 공무원에게 전달해 주겠다는 명목으로 취득한 것으로 볼 수 없다.
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.refused_sponsorship_money
+type satisfied_art133_sec1_2_refused_sponsorship_money(String, String, String, String, String)
+
+// assess_art133_sec1_2_scope_of_official_duty: 이 카드의 사건별 적용 평가: 직무는 공무원이 지위에 수반하여 공무원으로서 취급하는 일체의 사무로서, 권한에 속한 행위뿐 아니라 밀접한 관계가 있는 경우 및 직무와 관련하여 사실상 처리하는 행위도 포함한다.
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.scope_of_official_duty
+type assess_art133_sec1_2_scope_of_official_duty(String, String, String, String, String, String, String)
+
+// satisfied_art133_sec1_2_scope_of_official_duty: 증명 가능한 평가에서 다음 조건이 충족됨: 직무는 공무원이 지위에 수반하여 공무원으로서 취급하는 일체의 사무로서, 권한에 속한 행위뿐 아니라 밀접한 관계가 있는 경우 및 직무와 관련하여 사실상 처리하는 행위도 포함한다.
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.scope_of_official_duty
+type satisfied_art133_sec1_2_scope_of_official_duty(String, String, String, String, String)
+
+// assess_art133_sec1_2_self_benefit_intermediary: 이 카드의 사건별 적용 평가: 제3자가 자기 이득을 위하여 공무원 사건·사무에 관한 청탁이나 증뢰자와 수뢰자 사이의 중개·알선 명목으로 금품을 수수하는 경우에는 다른 범죄가 성립할 수 있어도 증뢰물전달죄는 성립하지 않는다.
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.self_benefit_intermediary
+type assess_art133_sec1_2_self_benefit_intermediary(String, String, String, String, String, String, String)
+
+// satisfied_art133_sec1_2_self_benefit_intermediary: 증명 가능한 평가에서 다음 조건이 충족됨: 제3자가 자기 이득을 위하여 공무원 사건·사무에 관한 청탁이나 증뢰자와 수뢰자 사이의 중개·알선 명목으로 금품을 수수하는 경우에는 다른 범죄가 성립할 수 있어도 증뢰물전달죄는 성립하지 않는다.
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.self_benefit_intermediary
+type satisfied_art133_sec1_2_self_benefit_intermediary(String, String, String, String, String)
+
+// assess_art133_sec1_2_third_party_advance_payment: 이 카드의 사건별 적용 평가: 제3자가 증뢰자와 의사 합치 아래 증뢰자를 대신하여 자신의 자금으로 수뢰자에게 먼저 지급하고 증뢰자로부터 상환받는 방식으로 공여한 경우에도, 증뢰자를 주체로 하는 증뢰죄가 성립할 수 있다.
+// sources: comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.third_party_advance_payment
+type assess_art133_sec1_2_third_party_advance_payment(String, String, String, String, String, String, String)
+
+// satisfied_art133_sec1_2_third_party_advance_payment: 증명 가능한 평가에서 다음 조건이 충족됨: 제3자가 증뢰자와 의사 합치 아래 증뢰자를 대신하여 자신의 자금으로 수뢰자에게 먼저 지급하고 증뢰자로부터 상환받는 방식으로 공여한 경우에도, 증뢰자를 주체로 하는 증뢰죄가 성립할 수 있다.
+// sources: comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.third_party_advance_payment
+type satisfied_art133_sec1_2_third_party_advance_payment(String, String, String, String, String)
+
+// assess_art133_sec1_2_unilateral_offer: 이 카드의 사건별 적용 평가: 상대방의 수수행위 없이 일방적인 공여의 제공 또는 의사표시에 그친 경우에는 뇌물공여죄가 아니라 뇌물공여의사표시죄에 해당한다.
+// sources: comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.unilateral_offer
+type assess_art133_sec1_2_unilateral_offer(String, String, String, String, String, String, String)
+
+// satisfied_art133_sec1_2_unilateral_offer: 증명 가능한 평가에서 다음 조건이 충족됨: 상대방의 수수행위 없이 일방적인 공여의 제공 또는 의사표시에 그친 경우에는 뇌물공여죄가 아니라 뇌물공여의사표시죄에 해당한다.
+// sources: comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.unilateral_offer
+type satisfied_art133_sec1_2_unilateral_offer(String, String, String, String, String)
+
+// assess_art133_sec1_3_delivery_offense_absorbed: 이 카드의 사건별 적용 평가: 제3자가 증뢰자로부터 교부받은 금품을 그대로 수뢰자에게 전달한 경우, 제133조 제2항의 증뢰물전달죄는 제133조 제1항의 증뢰죄에 흡수되어 증뢰죄 1죄만 성립한다.
+// sources: comm_001692_제133조_Ⅰ.3_6
+// norm_cards: art133_sec1_3.delivery_offense_absorbed
+type assess_art133_sec1_3_delivery_offense_absorbed(String, String, String, String, String, String, String)
+
+// satisfied_art133_sec1_3_delivery_offense_absorbed: 증명 가능한 평가에서 다음 조건이 충족됨: 제3자가 증뢰자로부터 교부받은 금품을 그대로 수뢰자에게 전달한 경우, 제133조 제2항의 증뢰물전달죄는 제133조 제1항의 증뢰죄에 흡수되어 증뢰죄 1죄만 성립한다.
+// sources: comm_001692_제133조_Ⅰ.3_6
+// norm_cards: art133_sec1_3.delivery_offense_absorbed
+type satisfied_art133_sec1_3_delivery_offense_absorbed(String, String, String, String, String)
+
+// bribe_giving_common_benefit_and_duty_relation_satisfied: 'benefit_and_duty_relation' 요건이 충족됨 (common track, alternative_any)
+// sources: comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.object_distinction, art133_sec1_2.official_duty_relation_quid_pro_quo, art133_sec1_2.scope_of_official_duty
+type bribe_giving_common_benefit_and_duty_relation_satisfied(String, String, String, String, String)
+
+// bribe_giving_common_independent_third_party_satisfied: 'independent_third_party' 요건이 충족됨 (common track, mandatory_all)
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.aider_as_third_party
+type bribe_giving_common_independent_third_party_satisfied(String, String, String, String, String)
+
+// bribe_giving_delivery_giver_delivery_by_giver_satisfied: 'delivery_by_giver' 요건이 충족됨 (delivery_giver track, mandatory_all)
+// sources: comm_001692_제133조_Ⅰ.1_0
+// norm_cards: art133.bribery_delivery_offense
+type bribe_giving_delivery_giver_delivery_by_giver_satisfied(String, String, String, String, String)
+
+// bribe_giving_delivery_recipient_delivery_intent_satisfied: 'delivery_intent' 요건이 충족됨 (delivery_recipient track, mandatory_all)
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.intent_for_delivery_recipient
+type bribe_giving_delivery_recipient_delivery_intent_satisfied(String, String, String, String, String)
+
+// bribe_giving_delivery_recipient_delivery_receipt_satisfied: 'delivery_receipt' 요건이 충족됨 (delivery_recipient track, alternative_any)
+// sources: comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.acquisition, art133_sec1_2.delivery_completed_on_receipt
+type bribe_giving_delivery_recipient_delivery_receipt_satisfied(String, String, String, String, String)
+
+// bribe_giving_offering_offering_conduct_satisfied: 'offering_conduct' 요건이 충족됨 (offering track, alternative_any)
+// sources: comm_001692_제133조_Ⅰ.1_0, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133.bribery_offering_offense, art133_sec1_2.expression_arrival, art133_sec1_2.expression_of_offering, art133_sec1_2.family_member_recipient, art133_sec1_2.nonofficial_recipient_at_official_request, art133_sec1_2.offering, art133_sec1_2.third_party_advance_payment, art133_sec1_2.unilateral_offer
+type bribe_giving_offering_offering_conduct_satisfied(String, String, String, String, String)
+
+// bribe_giving_offering_offering_intent_satisfied: 'offering_intent' 요건이 충족됨 (offering track, mandatory_all)
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.intent_for_bribery_offering
+type bribe_giving_offering_offering_intent_satisfied(String, String, String, String, String)
+
+// bribe_giving_has_negative: 이 unit에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type bribe_giving_has_negative(String, String)
+
+// bribe_giving_has_conflict: 이 unit에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type bribe_giving_has_conflict(String, String)
+
+// bribe_giving_offering_elements_satisfied: 'offering' track의 구성요건 component가 모두 충족된 잠정 성립 후보
+// sources: system contract
+// norm_cards: system contract
+type bribe_giving_offering_elements_satisfied(String, String, String, String, String)
+
+// bribe_giving_offering_established: 완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 'offering' track 확정 성립
+// sources: system contract
+// norm_cards: system contract
+type bribe_giving_offering_established(String, String, String, String, String)
+
+// bribe_giving_delivery_giver_elements_satisfied: 'delivery_giver' track의 구성요건 component가 모두 충족된 잠정 성립 후보
+// sources: system contract
+// norm_cards: system contract
+type bribe_giving_delivery_giver_elements_satisfied(String, String, String, String, String)
+
+// bribe_giving_delivery_giver_established: 완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 'delivery_giver' track 확정 성립
+// sources: system contract
+// norm_cards: system contract
+type bribe_giving_delivery_giver_established(String, String, String, String, String)
+
+// bribe_giving_delivery_recipient_elements_satisfied: 'delivery_recipient' track의 구성요건 component가 모두 충족된 잠정 성립 후보
+// sources: system contract
+// norm_cards: system contract
+type bribe_giving_delivery_recipient_elements_satisfied(String, String, String, String, String)
+
+// bribe_giving_delivery_recipient_established: 완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 'delivery_recipient' track 확정 성립
+// sources: system contract
+// norm_cards: system contract
+type bribe_giving_delivery_recipient_established(String, String, String, String, String)
+
+// rule_id: bribe_giving.card.art133_bribery_delivery_offense.satisfied
+// sources: comm_001692_제133조_Ⅰ.1_0
+// norm_cards: art133.bribery_delivery_offense
+rel satisfied_art133_bribery_delivery_offense(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_bribery_delivery_offense(case_id, assessment_001, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_001)
+
+// rule_id: bribe_giving.card.art133_bribery_delivery_offense.undetermined
+// sources: comm_001692_제133조_Ⅰ.1_0
+// norm_cards: art133.bribery_delivery_offense
+rel bribe_giving_undetermined(case_id, defendant_id, "art133.bribery_delivery_offense") = assess_art133_bribery_delivery_offense(case_id, unknown_001, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_001)
+
+// rule_id: bribe_giving.card.art133_bribery_delivery_offense.conflict
+// sources: comm_001692_제133조_Ⅰ.1_0
+// norm_cards: art133.bribery_delivery_offense
+rel bribe_giving_conflict(case_id, defendant_id, "art133.bribery_delivery_offense") = assess_art133_bribery_delivery_offense(case_id, positive_001, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_bribery_delivery_offense(case_id, negative_001, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_001) and
+  provable(case_id, negative_001)
+
+// rule_id: bribe_giving.card.art133_bribery_offering_offense.satisfied
+// sources: comm_001692_제133조_Ⅰ.1_0
+// norm_cards: art133.bribery_offering_offense
+rel satisfied_art133_bribery_offering_offense(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_bribery_offering_offense(case_id, assessment_002, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_002)
+
+// rule_id: bribe_giving.card.art133_bribery_offering_offense.undetermined
+// sources: comm_001692_제133조_Ⅰ.1_0
+// norm_cards: art133.bribery_offering_offense
+rel bribe_giving_undetermined(case_id, defendant_id, "art133.bribery_offering_offense") = assess_art133_bribery_offering_offense(case_id, unknown_002, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_002)
+
+// rule_id: bribe_giving.card.art133_bribery_offering_offense.conflict
+// sources: comm_001692_제133조_Ⅰ.1_0
+// norm_cards: art133.bribery_offering_offense
+rel bribe_giving_conflict(case_id, defendant_id, "art133.bribery_offering_offense") = assess_art133_bribery_offering_offense(case_id, positive_002, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_bribery_offering_offense(case_id, negative_002, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_002) and
+  provable(case_id, negative_002)
+
+// rule_id: bribe_giving.card.art133_sec1_2_acquisition.satisfied
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.acquisition
+rel satisfied_art133_sec1_2_acquisition(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_sec1_2_acquisition(case_id, assessment_003, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_003)
+
+// rule_id: bribe_giving.card.art133_sec1_2_acquisition.undetermined
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.acquisition
+rel bribe_giving_undetermined(case_id, defendant_id, "art133_sec1_2.acquisition") = assess_art133_sec1_2_acquisition(case_id, unknown_003, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_003)
+
+// rule_id: bribe_giving.card.art133_sec1_2_acquisition.conflict
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.acquisition
+rel bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.acquisition") = assess_art133_sec1_2_acquisition(case_id, positive_003, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_sec1_2_acquisition(case_id, negative_003, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_003) and
+  provable(case_id, negative_003)
+
+// rule_id: bribe_giving.card.art133_sec1_2_aider_as_third_party.satisfied
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.aider_as_third_party
+rel satisfied_art133_sec1_2_aider_as_third_party(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_sec1_2_aider_as_third_party(case_id, assessment_004, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_004)
+
+// rule_id: bribe_giving.card.art133_sec1_2_aider_as_third_party.undetermined
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.aider_as_third_party
+rel bribe_giving_undetermined(case_id, defendant_id, "art133_sec1_2.aider_as_third_party") = assess_art133_sec1_2_aider_as_third_party(case_id, unknown_004, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_004)
+
+// rule_id: bribe_giving.card.art133_sec1_2_aider_as_third_party.conflict
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.aider_as_third_party
+rel bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.aider_as_third_party") = assess_art133_sec1_2_aider_as_third_party(case_id, positive_004, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_sec1_2_aider_as_third_party(case_id, negative_004, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_004) and
+  provable(case_id, negative_004)
+
+// rule_id: bribe_giving.card.art133_sec1_2_delivery_completed_on_receipt.satisfied
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.delivery_completed_on_receipt
+rel satisfied_art133_sec1_2_delivery_completed_on_receipt(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_sec1_2_delivery_completed_on_receipt(case_id, assessment_005, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_005)
+
+// rule_id: bribe_giving.card.art133_sec1_2_delivery_completed_on_receipt.undetermined
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.delivery_completed_on_receipt
+rel bribe_giving_undetermined(case_id, defendant_id, "art133_sec1_2.delivery_completed_on_receipt") = assess_art133_sec1_2_delivery_completed_on_receipt(case_id, unknown_005, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_005)
+
+// rule_id: bribe_giving.card.art133_sec1_2_delivery_completed_on_receipt.conflict
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.delivery_completed_on_receipt
+rel bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.delivery_completed_on_receipt") = assess_art133_sec1_2_delivery_completed_on_receipt(case_id, positive_005, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_sec1_2_delivery_completed_on_receipt(case_id, negative_005, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_005) and
+  provable(case_id, negative_005)
+
+// rule_id: bribe_giving.card.art133_sec1_2_expression_arrival.satisfied
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.expression_arrival
+rel satisfied_art133_sec1_2_expression_arrival(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_sec1_2_expression_arrival(case_id, assessment_006, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_006)
+
+// rule_id: bribe_giving.card.art133_sec1_2_expression_arrival.undetermined
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.expression_arrival
+rel bribe_giving_undetermined(case_id, defendant_id, "art133_sec1_2.expression_arrival") = assess_art133_sec1_2_expression_arrival(case_id, unknown_006, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_006)
+
+// rule_id: bribe_giving.card.art133_sec1_2_expression_arrival.conflict
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.expression_arrival
+rel bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.expression_arrival") = assess_art133_sec1_2_expression_arrival(case_id, positive_006, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_sec1_2_expression_arrival(case_id, negative_006, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_006) and
+  provable(case_id, negative_006)
+
+// rule_id: bribe_giving.card.art133_sec1_2_expression_not_arrived.satisfied
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.expression_not_arrived
+rel satisfied_art133_sec1_2_expression_not_arrived(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_sec1_2_expression_not_arrived(case_id, assessment_007, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_007)
+
+// rule_id: bribe_giving.card.art133_sec1_2_expression_not_arrived.undetermined
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.expression_not_arrived
+rel bribe_giving_undetermined(case_id, defendant_id, "art133_sec1_2.expression_not_arrived") = assess_art133_sec1_2_expression_not_arrived(case_id, unknown_007, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_007)
+
+// rule_id: bribe_giving.card.art133_sec1_2_expression_not_arrived.conflict
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.expression_not_arrived
+rel bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.expression_not_arrived") = assess_art133_sec1_2_expression_not_arrived(case_id, positive_007, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_sec1_2_expression_not_arrived(case_id, negative_007, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_007) and
+  provable(case_id, negative_007)
+
+// rule_id: bribe_giving.card.art133_sec1_2_expression_of_offering.satisfied
+// sources: comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.expression_of_offering
+rel satisfied_art133_sec1_2_expression_of_offering(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_sec1_2_expression_of_offering(case_id, assessment_008, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_008)
+
+// rule_id: bribe_giving.card.art133_sec1_2_expression_of_offering.undetermined
+// sources: comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.expression_of_offering
+rel bribe_giving_undetermined(case_id, defendant_id, "art133_sec1_2.expression_of_offering") = assess_art133_sec1_2_expression_of_offering(case_id, unknown_008, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_008)
+
+// rule_id: bribe_giving.card.art133_sec1_2_expression_of_offering.conflict
+// sources: comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.expression_of_offering
+rel bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.expression_of_offering") = assess_art133_sec1_2_expression_of_offering(case_id, positive_008, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_sec1_2_expression_of_offering(case_id, negative_008, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_008) and
+  provable(case_id, negative_008)
+
+// rule_id: bribe_giving.card.art133_sec1_2_family_member_recipient.satisfied
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.family_member_recipient
+rel satisfied_art133_sec1_2_family_member_recipient(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_sec1_2_family_member_recipient(case_id, assessment_009, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_009)
+
+// rule_id: bribe_giving.card.art133_sec1_2_family_member_recipient.undetermined
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.family_member_recipient
+rel bribe_giving_undetermined(case_id, defendant_id, "art133_sec1_2.family_member_recipient") = assess_art133_sec1_2_family_member_recipient(case_id, unknown_009, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_009)
+
+// rule_id: bribe_giving.card.art133_sec1_2_family_member_recipient.conflict
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.family_member_recipient
+rel bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.family_member_recipient") = assess_art133_sec1_2_family_member_recipient(case_id, positive_009, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_sec1_2_family_member_recipient(case_id, negative_009, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_009) and
+  provable(case_id, negative_009)
+
+// rule_id: bribe_giving.card.art133_sec1_2_independent_third_party.satisfied
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.independent_third_party
+rel satisfied_art133_sec1_2_independent_third_party(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_sec1_2_independent_third_party(case_id, assessment_010, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_010)
+
+// rule_id: bribe_giving.card.art133_sec1_2_independent_third_party.undetermined
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.independent_third_party
+rel bribe_giving_undetermined(case_id, defendant_id, "art133_sec1_2.independent_third_party") = assess_art133_sec1_2_independent_third_party(case_id, unknown_010, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_010)
+
+// rule_id: bribe_giving.card.art133_sec1_2_independent_third_party.conflict
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.independent_third_party
+rel bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.independent_third_party") = assess_art133_sec1_2_independent_third_party(case_id, positive_010, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_sec1_2_independent_third_party(case_id, negative_010, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_010) and
+  provable(case_id, negative_010)
+
+// rule_id: bribe_giving.card.art133_sec1_2_intent_for_bribery_offering.satisfied
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.intent_for_bribery_offering
+rel satisfied_art133_sec1_2_intent_for_bribery_offering(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_sec1_2_intent_for_bribery_offering(case_id, assessment_011, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_011)
+
+// rule_id: bribe_giving.card.art133_sec1_2_intent_for_bribery_offering.undetermined
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.intent_for_bribery_offering
+rel bribe_giving_undetermined(case_id, defendant_id, "art133_sec1_2.intent_for_bribery_offering") = assess_art133_sec1_2_intent_for_bribery_offering(case_id, unknown_011, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_011)
+
+// rule_id: bribe_giving.card.art133_sec1_2_intent_for_bribery_offering.conflict
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.intent_for_bribery_offering
+rel bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.intent_for_bribery_offering") = assess_art133_sec1_2_intent_for_bribery_offering(case_id, positive_011, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_sec1_2_intent_for_bribery_offering(case_id, negative_011, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_011) and
+  provable(case_id, negative_011)
+
+// rule_id: bribe_giving.card.art133_sec1_2_intent_for_delivery_recipient.satisfied
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.intent_for_delivery_recipient
+rel satisfied_art133_sec1_2_intent_for_delivery_recipient(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_sec1_2_intent_for_delivery_recipient(case_id, assessment_012, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_012)
+
+// rule_id: bribe_giving.card.art133_sec1_2_intent_for_delivery_recipient.undetermined
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.intent_for_delivery_recipient
+rel bribe_giving_undetermined(case_id, defendant_id, "art133_sec1_2.intent_for_delivery_recipient") = assess_art133_sec1_2_intent_for_delivery_recipient(case_id, unknown_012, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_012)
+
+// rule_id: bribe_giving.card.art133_sec1_2_intent_for_delivery_recipient.conflict
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.intent_for_delivery_recipient
+rel bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.intent_for_delivery_recipient") = assess_art133_sec1_2_intent_for_delivery_recipient(case_id, positive_012, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_sec1_2_intent_for_delivery_recipient(case_id, negative_012, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_012) and
+  provable(case_id, negative_012)
+
+// rule_id: bribe_giving.card.art133_sec1_2_nonofficial_recipient_at_official_request.satisfied
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.nonofficial_recipient_at_official_request
+rel satisfied_art133_sec1_2_nonofficial_recipient_at_official_request(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_sec1_2_nonofficial_recipient_at_official_request(case_id, assessment_013, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_013)
+
+// rule_id: bribe_giving.card.art133_sec1_2_nonofficial_recipient_at_official_request.undetermined
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.nonofficial_recipient_at_official_request
+rel bribe_giving_undetermined(case_id, defendant_id, "art133_sec1_2.nonofficial_recipient_at_official_request") = assess_art133_sec1_2_nonofficial_recipient_at_official_request(case_id, unknown_013, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_013)
+
+// rule_id: bribe_giving.card.art133_sec1_2_nonofficial_recipient_at_official_request.conflict
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.nonofficial_recipient_at_official_request
+rel bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.nonofficial_recipient_at_official_request") = assess_art133_sec1_2_nonofficial_recipient_at_official_request(case_id, positive_013, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_sec1_2_nonofficial_recipient_at_official_request(case_id, negative_013, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_013) and
+  provable(case_id, negative_013)
+
+// rule_id: bribe_giving.card.art133_sec1_2_object_distinction.satisfied
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.object_distinction
+rel satisfied_art133_sec1_2_object_distinction(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_sec1_2_object_distinction(case_id, assessment_014, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_014)
+
+// rule_id: bribe_giving.card.art133_sec1_2_object_distinction.undetermined
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.object_distinction
+rel bribe_giving_undetermined(case_id, defendant_id, "art133_sec1_2.object_distinction") = assess_art133_sec1_2_object_distinction(case_id, unknown_014, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_014)
+
+// rule_id: bribe_giving.card.art133_sec1_2_object_distinction.conflict
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.object_distinction
+rel bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.object_distinction") = assess_art133_sec1_2_object_distinction(case_id, positive_014, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_sec1_2_object_distinction(case_id, negative_014, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_014) and
+  provable(case_id, negative_014)
+
+// rule_id: bribe_giving.card.art133_sec1_2_offering.satisfied
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.offering
+rel satisfied_art133_sec1_2_offering(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_sec1_2_offering(case_id, assessment_015, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_015)
+
+// rule_id: bribe_giving.card.art133_sec1_2_offering.undetermined
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.offering
+rel bribe_giving_undetermined(case_id, defendant_id, "art133_sec1_2.offering") = assess_art133_sec1_2_offering(case_id, unknown_015, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_015)
+
+// rule_id: bribe_giving.card.art133_sec1_2_offering.conflict
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.offering
+rel bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.offering") = assess_art133_sec1_2_offering(case_id, positive_015, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_sec1_2_offering(case_id, negative_015, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_015) and
+  provable(case_id, negative_015)
+
+// rule_id: bribe_giving.card.art133_sec1_2_official_duty_relation_quid_pro_quo.satisfied
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.official_duty_relation_quid_pro_quo
+rel satisfied_art133_sec1_2_official_duty_relation_quid_pro_quo(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_sec1_2_official_duty_relation_quid_pro_quo(case_id, assessment_016, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_016)
+
+// rule_id: bribe_giving.card.art133_sec1_2_official_duty_relation_quid_pro_quo.undetermined
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.official_duty_relation_quid_pro_quo
+rel bribe_giving_undetermined(case_id, defendant_id, "art133_sec1_2.official_duty_relation_quid_pro_quo") = assess_art133_sec1_2_official_duty_relation_quid_pro_quo(case_id, unknown_016, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_016)
+
+// rule_id: bribe_giving.card.art133_sec1_2_official_duty_relation_quid_pro_quo.conflict
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.official_duty_relation_quid_pro_quo
+rel bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.official_duty_relation_quid_pro_quo") = assess_art133_sec1_2_official_duty_relation_quid_pro_quo(case_id, positive_016, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_sec1_2_official_duty_relation_quid_pro_quo(case_id, negative_016, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_016) and
+  provable(case_id, negative_016)
+
+// rule_id: bribe_giving.card.art133_sec1_2_refused_sponsorship_money.satisfied
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.refused_sponsorship_money
+rel satisfied_art133_sec1_2_refused_sponsorship_money(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_sec1_2_refused_sponsorship_money(case_id, assessment_017, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_017)
+
+// rule_id: bribe_giving.card.art133_sec1_2_refused_sponsorship_money.undetermined
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.refused_sponsorship_money
+rel bribe_giving_undetermined(case_id, defendant_id, "art133_sec1_2.refused_sponsorship_money") = assess_art133_sec1_2_refused_sponsorship_money(case_id, unknown_017, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_017)
+
+// rule_id: bribe_giving.card.art133_sec1_2_refused_sponsorship_money.conflict
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.refused_sponsorship_money
+rel bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.refused_sponsorship_money") = assess_art133_sec1_2_refused_sponsorship_money(case_id, positive_017, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_sec1_2_refused_sponsorship_money(case_id, negative_017, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_017) and
+  provable(case_id, negative_017)
+
+// rule_id: bribe_giving.card.art133_sec1_2_scope_of_official_duty.satisfied
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.scope_of_official_duty
+rel satisfied_art133_sec1_2_scope_of_official_duty(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_sec1_2_scope_of_official_duty(case_id, assessment_018, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_018)
+
+// rule_id: bribe_giving.card.art133_sec1_2_scope_of_official_duty.undetermined
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.scope_of_official_duty
+rel bribe_giving_undetermined(case_id, defendant_id, "art133_sec1_2.scope_of_official_duty") = assess_art133_sec1_2_scope_of_official_duty(case_id, unknown_018, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_018)
+
+// rule_id: bribe_giving.card.art133_sec1_2_scope_of_official_duty.conflict
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.scope_of_official_duty
+rel bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.scope_of_official_duty") = assess_art133_sec1_2_scope_of_official_duty(case_id, positive_018, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_sec1_2_scope_of_official_duty(case_id, negative_018, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_018) and
+  provable(case_id, negative_018)
+
+// rule_id: bribe_giving.card.art133_sec1_2_self_benefit_intermediary.satisfied
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.self_benefit_intermediary
+rel satisfied_art133_sec1_2_self_benefit_intermediary(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_sec1_2_self_benefit_intermediary(case_id, assessment_019, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_019)
+
+// rule_id: bribe_giving.card.art133_sec1_2_self_benefit_intermediary.undetermined
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.self_benefit_intermediary
+rel bribe_giving_undetermined(case_id, defendant_id, "art133_sec1_2.self_benefit_intermediary") = assess_art133_sec1_2_self_benefit_intermediary(case_id, unknown_019, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_019)
+
+// rule_id: bribe_giving.card.art133_sec1_2_self_benefit_intermediary.conflict
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.self_benefit_intermediary
+rel bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.self_benefit_intermediary") = assess_art133_sec1_2_self_benefit_intermediary(case_id, positive_019, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_sec1_2_self_benefit_intermediary(case_id, negative_019, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_019) and
+  provable(case_id, negative_019)
+
+// rule_id: bribe_giving.card.art133_sec1_2_third_party_advance_payment.satisfied
+// sources: comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.third_party_advance_payment
+rel satisfied_art133_sec1_2_third_party_advance_payment(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_sec1_2_third_party_advance_payment(case_id, assessment_020, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_020)
+
+// rule_id: bribe_giving.card.art133_sec1_2_third_party_advance_payment.undetermined
+// sources: comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.third_party_advance_payment
+rel bribe_giving_undetermined(case_id, defendant_id, "art133_sec1_2.third_party_advance_payment") = assess_art133_sec1_2_third_party_advance_payment(case_id, unknown_020, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_020)
+
+// rule_id: bribe_giving.card.art133_sec1_2_third_party_advance_payment.conflict
+// sources: comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.third_party_advance_payment
+rel bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.third_party_advance_payment") = assess_art133_sec1_2_third_party_advance_payment(case_id, positive_020, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_sec1_2_third_party_advance_payment(case_id, negative_020, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_020) and
+  provable(case_id, negative_020)
+
+// rule_id: bribe_giving.card.art133_sec1_2_unilateral_offer.satisfied
+// sources: comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.unilateral_offer
+rel satisfied_art133_sec1_2_unilateral_offer(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_sec1_2_unilateral_offer(case_id, assessment_021, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_021)
+
+// rule_id: bribe_giving.card.art133_sec1_2_unilateral_offer.undetermined
+// sources: comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.unilateral_offer
+rel bribe_giving_undetermined(case_id, defendant_id, "art133_sec1_2.unilateral_offer") = assess_art133_sec1_2_unilateral_offer(case_id, unknown_021, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_021)
+
+// rule_id: bribe_giving.card.art133_sec1_2_unilateral_offer.conflict
+// sources: comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.unilateral_offer
+rel bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.unilateral_offer") = assess_art133_sec1_2_unilateral_offer(case_id, positive_021, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_sec1_2_unilateral_offer(case_id, negative_021, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_021) and
+  provable(case_id, negative_021)
+
+// rule_id: bribe_giving.card.art133_sec1_3_delivery_offense_absorbed.satisfied
+// sources: comm_001692_제133조_Ⅰ.3_6
+// norm_cards: art133_sec1_3.delivery_offense_absorbed
+rel satisfied_art133_sec1_3_delivery_offense_absorbed(case_id, defendant_id, benefit_id, official_id, intermediary_id) = assess_art133_sec1_3_delivery_offense_absorbed(case_id, assessment_022, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  provable(case_id, assessment_022)
+
+// rule_id: bribe_giving.card.art133_sec1_3_delivery_offense_absorbed.undetermined
+// sources: comm_001692_제133조_Ⅰ.3_6
+// norm_cards: art133_sec1_3.delivery_offense_absorbed
+rel bribe_giving_undetermined(case_id, defendant_id, "art133_sec1_3.delivery_offense_absorbed") = assess_art133_sec1_3_delivery_offense_absorbed(case_id, unknown_022, defendant_id, benefit_id, official_id, intermediary_id, "unknown") and
+  provable(case_id, unknown_022)
+
+// rule_id: bribe_giving.card.art133_sec1_3_delivery_offense_absorbed.conflict
+// sources: comm_001692_제133조_Ⅰ.3_6
+// norm_cards: art133_sec1_3.delivery_offense_absorbed
+rel bribe_giving_conflict(case_id, defendant_id, "art133_sec1_3.delivery_offense_absorbed") = assess_art133_sec1_3_delivery_offense_absorbed(case_id, positive_022, defendant_id, benefit_id, official_id, intermediary_id, "satisfied") and
+  assess_art133_sec1_3_delivery_offense_absorbed(case_id, negative_022, defendant_id, benefit_id, official_id, intermediary_id, "not_satisfied") and
+  provable(case_id, positive_022) and
+  provable(case_id, negative_022)
+
+// rule_id: bribe_giving.component.common.benefit_and_duty_relation.art133_sec1_2_object_distinction
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.object_distinction
+rel bribe_giving_common_benefit_and_duty_relation_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) = satisfied_art133_sec1_2_object_distinction(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.component.common.benefit_and_duty_relation.art133_sec1_2_official_duty_relation_quid_pro_quo
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.official_duty_relation_quid_pro_quo
+rel bribe_giving_common_benefit_and_duty_relation_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) = satisfied_art133_sec1_2_official_duty_relation_quid_pro_quo(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.component.common.benefit_and_duty_relation.art133_sec1_2_scope_of_official_duty
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.scope_of_official_duty
+rel bribe_giving_common_benefit_and_duty_relation_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) = satisfied_art133_sec1_2_scope_of_official_duty(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.component.common.independent_third_party.all
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.aider_as_third_party
+rel bribe_giving_common_independent_third_party_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) = satisfied_art133_sec1_2_aider_as_third_party(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.component.delivery_giver.delivery_by_giver.all
+// sources: comm_001692_제133조_Ⅰ.1_0
+// norm_cards: art133.bribery_delivery_offense
+rel bribe_giving_delivery_giver_delivery_by_giver_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) = satisfied_art133_bribery_delivery_offense(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.component.delivery_recipient.delivery_intent.all
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.intent_for_delivery_recipient
+rel bribe_giving_delivery_recipient_delivery_intent_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) = satisfied_art133_sec1_2_intent_for_delivery_recipient(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.component.delivery_recipient.delivery_receipt.art133_sec1_2_acquisition
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.acquisition
+rel bribe_giving_delivery_recipient_delivery_receipt_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) = satisfied_art133_sec1_2_acquisition(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.component.delivery_recipient.delivery_receipt.art133_sec1_2_delivery_completed_on_receipt
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.delivery_completed_on_receipt
+rel bribe_giving_delivery_recipient_delivery_receipt_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) = satisfied_art133_sec1_2_delivery_completed_on_receipt(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.component.offering.offering_conduct.art133_bribery_offering_offense
+// sources: comm_001692_제133조_Ⅰ.1_0
+// norm_cards: art133.bribery_offering_offense
+rel bribe_giving_offering_offering_conduct_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) = satisfied_art133_bribery_offering_offense(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.component.offering.offering_conduct.art133_sec1_2_expression_arrival
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.expression_arrival
+rel bribe_giving_offering_offering_conduct_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) = satisfied_art133_sec1_2_expression_arrival(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.component.offering.offering_conduct.art133_sec1_2_expression_of_offering
+// sources: comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.expression_of_offering
+rel bribe_giving_offering_offering_conduct_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) = satisfied_art133_sec1_2_expression_of_offering(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.component.offering.offering_conduct.art133_sec1_2_family_member_recipient
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.family_member_recipient
+rel bribe_giving_offering_offering_conduct_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) = satisfied_art133_sec1_2_family_member_recipient(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.component.offering.offering_conduct.art133_sec1_2_nonofficial_recipient_at_official_request
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.nonofficial_recipient_at_official_request
+rel bribe_giving_offering_offering_conduct_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) = satisfied_art133_sec1_2_nonofficial_recipient_at_official_request(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.component.offering.offering_conduct.art133_sec1_2_offering
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.offering
+rel bribe_giving_offering_offering_conduct_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) = satisfied_art133_sec1_2_offering(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.component.offering.offering_conduct.art133_sec1_2_third_party_advance_payment
+// sources: comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.third_party_advance_payment
+rel bribe_giving_offering_offering_conduct_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) = satisfied_art133_sec1_2_third_party_advance_payment(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.component.offering.offering_conduct.art133_sec1_2_unilateral_offer
+// sources: comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.unilateral_offer
+rel bribe_giving_offering_offering_conduct_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) = satisfied_art133_sec1_2_unilateral_offer(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.component.offering.offering_intent.all
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.intent_for_bribery_offering
+rel bribe_giving_offering_offering_intent_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) = satisfied_art133_sec1_2_intent_for_bribery_offering(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.track_conflict.offering.art133_sec1_2_object_distinction
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.object_distinction
+rel bribe_giving_track_conflict(case_id, defendant_id, "offering", "art133_sec1_2.object_distinction") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.object_distinction")
+
+// rule_id: bribe_giving.track_conflict.delivery_giver.art133_sec1_2_object_distinction
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.object_distinction
+rel bribe_giving_track_conflict(case_id, defendant_id, "delivery_giver", "art133_sec1_2.object_distinction") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.object_distinction")
+
+// rule_id: bribe_giving.track_conflict.delivery_recipient.art133_sec1_2_object_distinction
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.object_distinction
+rel bribe_giving_track_conflict(case_id, defendant_id, "delivery_recipient", "art133_sec1_2.object_distinction") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.object_distinction")
+
+// rule_id: bribe_giving.track_conflict.offering.art133_sec1_2_official_duty_relation_quid_pro_quo
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.official_duty_relation_quid_pro_quo
+rel bribe_giving_track_conflict(case_id, defendant_id, "offering", "art133_sec1_2.official_duty_relation_quid_pro_quo") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.official_duty_relation_quid_pro_quo")
+
+// rule_id: bribe_giving.track_conflict.delivery_giver.art133_sec1_2_official_duty_relation_quid_pro_quo
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.official_duty_relation_quid_pro_quo
+rel bribe_giving_track_conflict(case_id, defendant_id, "delivery_giver", "art133_sec1_2.official_duty_relation_quid_pro_quo") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.official_duty_relation_quid_pro_quo")
+
+// rule_id: bribe_giving.track_conflict.delivery_recipient.art133_sec1_2_official_duty_relation_quid_pro_quo
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.official_duty_relation_quid_pro_quo
+rel bribe_giving_track_conflict(case_id, defendant_id, "delivery_recipient", "art133_sec1_2.official_duty_relation_quid_pro_quo") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.official_duty_relation_quid_pro_quo")
+
+// rule_id: bribe_giving.track_conflict.offering.art133_sec1_2_scope_of_official_duty
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.scope_of_official_duty
+rel bribe_giving_track_conflict(case_id, defendant_id, "offering", "art133_sec1_2.scope_of_official_duty") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.scope_of_official_duty")
+
+// rule_id: bribe_giving.track_conflict.delivery_giver.art133_sec1_2_scope_of_official_duty
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.scope_of_official_duty
+rel bribe_giving_track_conflict(case_id, defendant_id, "delivery_giver", "art133_sec1_2.scope_of_official_duty") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.scope_of_official_duty")
+
+// rule_id: bribe_giving.track_conflict.delivery_recipient.art133_sec1_2_scope_of_official_duty
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.scope_of_official_duty
+rel bribe_giving_track_conflict(case_id, defendant_id, "delivery_recipient", "art133_sec1_2.scope_of_official_duty") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.scope_of_official_duty")
+
+// rule_id: bribe_giving.track_conflict.delivery_giver.art133_sec1_2_aider_as_third_party
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.aider_as_third_party
+rel bribe_giving_track_conflict(case_id, defendant_id, "delivery_giver", "art133_sec1_2.aider_as_third_party") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.aider_as_third_party")
+
+// rule_id: bribe_giving.track_conflict.delivery_recipient.art133_sec1_2_aider_as_third_party
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.aider_as_third_party
+rel bribe_giving_track_conflict(case_id, defendant_id, "delivery_recipient", "art133_sec1_2.aider_as_third_party") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.aider_as_third_party")
+
+// rule_id: bribe_giving.track_conflict.delivery_giver.art133_sec1_2_independent_third_party
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.independent_third_party
+rel bribe_giving_track_conflict(case_id, defendant_id, "delivery_giver", "art133_sec1_2.independent_third_party") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.independent_third_party")
+
+// rule_id: bribe_giving.track_blocked.delivery_giver.art133_sec1_2_independent_third_party
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.independent_third_party
+rel bribe_giving_track_not_established(case_id, defendant_id, "delivery_giver", "art133_sec1_2.independent_third_party") = satisfied_art133_sec1_2_independent_third_party(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.track_conflict.delivery_recipient.art133_sec1_2_independent_third_party
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.independent_third_party
+rel bribe_giving_track_conflict(case_id, defendant_id, "delivery_recipient", "art133_sec1_2.independent_third_party") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.independent_third_party")
+
+// rule_id: bribe_giving.track_blocked.delivery_recipient.art133_sec1_2_independent_third_party
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.independent_third_party
+rel bribe_giving_track_not_established(case_id, defendant_id, "delivery_recipient", "art133_sec1_2.independent_third_party") = satisfied_art133_sec1_2_independent_third_party(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.track_conflict.delivery_giver.art133_bribery_delivery_offense
+// sources: comm_001692_제133조_Ⅰ.1_0
+// norm_cards: art133.bribery_delivery_offense
+rel bribe_giving_track_conflict(case_id, defendant_id, "delivery_giver", "art133.bribery_delivery_offense") = bribe_giving_conflict(case_id, defendant_id, "art133.bribery_delivery_offense")
+
+// rule_id: bribe_giving.track_conflict.delivery_recipient.art133_sec1_2_intent_for_delivery_recipient
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.intent_for_delivery_recipient
+rel bribe_giving_track_conflict(case_id, defendant_id, "delivery_recipient", "art133_sec1_2.intent_for_delivery_recipient") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.intent_for_delivery_recipient")
+
+// rule_id: bribe_giving.track_conflict.delivery_recipient.art133_sec1_2_acquisition
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.acquisition
+rel bribe_giving_track_conflict(case_id, defendant_id, "delivery_recipient", "art133_sec1_2.acquisition") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.acquisition")
+
+// rule_id: bribe_giving.track_conflict.delivery_recipient.art133_sec1_2_delivery_completed_on_receipt
+// sources: comm_001692_제133조_Ⅰ.2_4
+// norm_cards: art133_sec1_2.delivery_completed_on_receipt
+rel bribe_giving_track_conflict(case_id, defendant_id, "delivery_recipient", "art133_sec1_2.delivery_completed_on_receipt") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.delivery_completed_on_receipt")
+
+// rule_id: bribe_giving.track_conflict.delivery_recipient.art133_sec1_2_refused_sponsorship_money
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.refused_sponsorship_money
+rel bribe_giving_track_conflict(case_id, defendant_id, "delivery_recipient", "art133_sec1_2.refused_sponsorship_money") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.refused_sponsorship_money")
+
+// rule_id: bribe_giving.track_blocked.delivery_recipient.art133_sec1_2_refused_sponsorship_money
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.refused_sponsorship_money
+rel bribe_giving_track_not_established(case_id, defendant_id, "delivery_recipient", "art133_sec1_2.refused_sponsorship_money") = satisfied_art133_sec1_2_refused_sponsorship_money(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.track_conflict.delivery_recipient.art133_sec1_2_self_benefit_intermediary
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.self_benefit_intermediary
+rel bribe_giving_track_conflict(case_id, defendant_id, "delivery_recipient", "art133_sec1_2.self_benefit_intermediary") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.self_benefit_intermediary")
+
+// rule_id: bribe_giving.track_blocked.delivery_recipient.art133_sec1_2_self_benefit_intermediary
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.self_benefit_intermediary
+rel bribe_giving_track_not_established(case_id, defendant_id, "delivery_recipient", "art133_sec1_2.self_benefit_intermediary") = satisfied_art133_sec1_2_self_benefit_intermediary(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.track_conflict.offering.art133_bribery_offering_offense
+// sources: comm_001692_제133조_Ⅰ.1_0
+// norm_cards: art133.bribery_offering_offense
+rel bribe_giving_track_conflict(case_id, defendant_id, "offering", "art133.bribery_offering_offense") = bribe_giving_conflict(case_id, defendant_id, "art133.bribery_offering_offense")
+
+// rule_id: bribe_giving.track_conflict.offering.art133_sec1_2_expression_arrival
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.expression_arrival
+rel bribe_giving_track_conflict(case_id, defendant_id, "offering", "art133_sec1_2.expression_arrival") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.expression_arrival")
+
+// rule_id: bribe_giving.track_conflict.offering.art133_sec1_2_expression_not_arrived
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.expression_not_arrived
+rel bribe_giving_track_conflict(case_id, defendant_id, "offering", "art133_sec1_2.expression_not_arrived") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.expression_not_arrived")
+
+// rule_id: bribe_giving.track_blocked.offering.art133_sec1_2_expression_not_arrived
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.expression_not_arrived
+rel bribe_giving_track_not_established(case_id, defendant_id, "offering", "art133_sec1_2.expression_not_arrived") = satisfied_art133_sec1_2_expression_not_arrived(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.track_conflict.offering.art133_sec1_2_expression_of_offering
+// sources: comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.expression_of_offering
+rel bribe_giving_track_conflict(case_id, defendant_id, "offering", "art133_sec1_2.expression_of_offering") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.expression_of_offering")
+
+// rule_id: bribe_giving.track_conflict.offering.art133_sec1_2_family_member_recipient
+// sources: comm_001692_제133조_Ⅰ.2_3
+// norm_cards: art133_sec1_2.family_member_recipient
+rel bribe_giving_track_conflict(case_id, defendant_id, "offering", "art133_sec1_2.family_member_recipient") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.family_member_recipient")
+
+// rule_id: bribe_giving.track_conflict.offering.art133_sec1_2_nonofficial_recipient_at_official_request
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.nonofficial_recipient_at_official_request
+rel bribe_giving_track_conflict(case_id, defendant_id, "offering", "art133_sec1_2.nonofficial_recipient_at_official_request") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.nonofficial_recipient_at_official_request")
+
+// rule_id: bribe_giving.track_conflict.offering.art133_sec1_2_offering
+// sources: comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133_sec1_2.offering
+rel bribe_giving_track_conflict(case_id, defendant_id, "offering", "art133_sec1_2.offering") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.offering")
+
+// rule_id: bribe_giving.track_conflict.offering.art133_sec1_2_third_party_advance_payment
+// sources: comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.third_party_advance_payment
+rel bribe_giving_track_conflict(case_id, defendant_id, "offering", "art133_sec1_2.third_party_advance_payment") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.third_party_advance_payment")
+
+// rule_id: bribe_giving.track_conflict.offering.art133_sec1_2_unilateral_offer
+// sources: comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133_sec1_2.unilateral_offer
+rel bribe_giving_track_conflict(case_id, defendant_id, "offering", "art133_sec1_2.unilateral_offer") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.unilateral_offer")
+
+// rule_id: bribe_giving.track_conflict.offering.art133_sec1_2_intent_for_bribery_offering
+// sources: comm_001692_제133조_Ⅰ.2_5
+// norm_cards: art133_sec1_2.intent_for_bribery_offering
+rel bribe_giving_track_conflict(case_id, defendant_id, "offering", "art133_sec1_2.intent_for_bribery_offering") = bribe_giving_conflict(case_id, defendant_id, "art133_sec1_2.intent_for_bribery_offering")
+
+// rule_id: bribe_giving.summary.has_negative
+// sources: comm_001692_제133조_Ⅰ.1_0, comm_001692_제133조_Ⅰ.1_0, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.3_6
+// norm_cards: art133.bribery_delivery_offense, art133.bribery_offering_offense, art133_sec1_2.acquisition, art133_sec1_2.aider_as_third_party, art133_sec1_2.delivery_completed_on_receipt, art133_sec1_2.expression_arrival, art133_sec1_2.expression_not_arrived, art133_sec1_2.expression_of_offering, art133_sec1_2.family_member_recipient, art133_sec1_2.independent_third_party, art133_sec1_2.intent_for_bribery_offering, art133_sec1_2.intent_for_delivery_recipient, art133_sec1_2.nonofficial_recipient_at_official_request, art133_sec1_2.object_distinction, art133_sec1_2.offering, art133_sec1_2.official_duty_relation_quid_pro_quo, art133_sec1_2.refused_sponsorship_money, art133_sec1_2.scope_of_official_duty, art133_sec1_2.self_benefit_intermediary, art133_sec1_2.third_party_advance_payment, art133_sec1_2.unilateral_offer, art133_sec1_3.delivery_offense_absorbed
+rel bribe_giving_has_negative(case_id, defendant_id) = bribe_giving_not_established(case_id, defendant_id, norm_card_id)
+
+// rule_id: bribe_giving.summary.has_conflict
+// sources: comm_001692_제133조_Ⅰ.1_0, comm_001692_제133조_Ⅰ.1_0, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.3_6
+// norm_cards: art133.bribery_delivery_offense, art133.bribery_offering_offense, art133_sec1_2.acquisition, art133_sec1_2.aider_as_third_party, art133_sec1_2.delivery_completed_on_receipt, art133_sec1_2.expression_arrival, art133_sec1_2.expression_not_arrived, art133_sec1_2.expression_of_offering, art133_sec1_2.family_member_recipient, art133_sec1_2.independent_third_party, art133_sec1_2.intent_for_bribery_offering, art133_sec1_2.intent_for_delivery_recipient, art133_sec1_2.nonofficial_recipient_at_official_request, art133_sec1_2.object_distinction, art133_sec1_2.offering, art133_sec1_2.official_duty_relation_quid_pro_quo, art133_sec1_2.refused_sponsorship_money, art133_sec1_2.scope_of_official_duty, art133_sec1_2.self_benefit_intermediary, art133_sec1_2.third_party_advance_payment, art133_sec1_2.unilateral_offer, art133_sec1_3.delivery_offense_absorbed
+rel bribe_giving_has_conflict(case_id, defendant_id) = bribe_giving_conflict(case_id, defendant_id, norm_card_id)
+
+// rule_id: bribe_giving.summary.canonical_not_established
+// sources: comm_001692_제133조_Ⅰ.1_0, comm_001692_제133조_Ⅰ.1_0, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.3_6
+// norm_cards: art133.bribery_delivery_offense, art133.bribery_offering_offense, art133_sec1_2.acquisition, art133_sec1_2.aider_as_third_party, art133_sec1_2.delivery_completed_on_receipt, art133_sec1_2.expression_arrival, art133_sec1_2.expression_not_arrived, art133_sec1_2.expression_of_offering, art133_sec1_2.family_member_recipient, art133_sec1_2.independent_third_party, art133_sec1_2.intent_for_bribery_offering, art133_sec1_2.intent_for_delivery_recipient, art133_sec1_2.nonofficial_recipient_at_official_request, art133_sec1_2.object_distinction, art133_sec1_2.offering, art133_sec1_2.official_duty_relation_quid_pro_quo, art133_sec1_2.refused_sponsorship_money, art133_sec1_2.scope_of_official_duty, art133_sec1_2.self_benefit_intermediary, art133_sec1_2.third_party_advance_payment, art133_sec1_2.unilateral_offer, art133_sec1_3.delivery_offense_absorbed
+rel bribe_giving_not_established(case_id, defendant_id, norm_card_id) = bribe_giving_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: bribe_giving.summary.track_has_negative
+// sources: comm_001692_제133조_Ⅰ.1_0, comm_001692_제133조_Ⅰ.1_0, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.3_6
+// norm_cards: art133.bribery_delivery_offense, art133.bribery_offering_offense, art133_sec1_2.acquisition, art133_sec1_2.aider_as_third_party, art133_sec1_2.delivery_completed_on_receipt, art133_sec1_2.expression_arrival, art133_sec1_2.expression_not_arrived, art133_sec1_2.expression_of_offering, art133_sec1_2.family_member_recipient, art133_sec1_2.independent_third_party, art133_sec1_2.intent_for_bribery_offering, art133_sec1_2.intent_for_delivery_recipient, art133_sec1_2.nonofficial_recipient_at_official_request, art133_sec1_2.object_distinction, art133_sec1_2.offering, art133_sec1_2.official_duty_relation_quid_pro_quo, art133_sec1_2.refused_sponsorship_money, art133_sec1_2.scope_of_official_duty, art133_sec1_2.self_benefit_intermediary, art133_sec1_2.third_party_advance_payment, art133_sec1_2.unilateral_offer, art133_sec1_3.delivery_offense_absorbed
+rel bribe_giving_track_has_negative(case_id, defendant_id, track_id) = bribe_giving_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: bribe_giving.summary.track_has_conflict
+// sources: comm_001692_제133조_Ⅰ.1_0, comm_001692_제133조_Ⅰ.1_0, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.3_6
+// norm_cards: art133.bribery_delivery_offense, art133.bribery_offering_offense, art133_sec1_2.acquisition, art133_sec1_2.aider_as_third_party, art133_sec1_2.delivery_completed_on_receipt, art133_sec1_2.expression_arrival, art133_sec1_2.expression_not_arrived, art133_sec1_2.expression_of_offering, art133_sec1_2.family_member_recipient, art133_sec1_2.independent_third_party, art133_sec1_2.intent_for_bribery_offering, art133_sec1_2.intent_for_delivery_recipient, art133_sec1_2.nonofficial_recipient_at_official_request, art133_sec1_2.object_distinction, art133_sec1_2.offering, art133_sec1_2.official_duty_relation_quid_pro_quo, art133_sec1_2.refused_sponsorship_money, art133_sec1_2.scope_of_official_duty, art133_sec1_2.self_benefit_intermediary, art133_sec1_2.third_party_advance_payment, art133_sec1_2.unilateral_offer, art133_sec1_3.delivery_offense_absorbed
+rel bribe_giving_track_has_conflict(case_id, defendant_id, track_id) = bribe_giving_track_conflict(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: bribe_giving.outcome.offering.elements_satisfied
+// sources: comm_001692_제133조_Ⅰ.1_0, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133.bribery_offering_offense, art133_sec1_2.expression_arrival, art133_sec1_2.expression_not_arrived, art133_sec1_2.expression_of_offering, art133_sec1_2.family_member_recipient, art133_sec1_2.intent_for_bribery_offering, art133_sec1_2.nonofficial_recipient_at_official_request, art133_sec1_2.object_distinction, art133_sec1_2.offering, art133_sec1_2.official_duty_relation_quid_pro_quo, art133_sec1_2.scope_of_official_duty, art133_sec1_2.third_party_advance_payment, art133_sec1_2.unilateral_offer
+rel bribe_giving_offering_elements_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) = bribe_giving_common_benefit_and_duty_relation_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) and
+  bribe_giving_offering_offering_conduct_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) and
+  bribe_giving_offering_offering_intent_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.outcome.offering.established
+// sources: comm_001692_제133조_Ⅰ.1_0, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_3, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_2, comm_001692_제133조_Ⅰ.2_2
+// norm_cards: art133.bribery_offering_offense, art133_sec1_2.expression_arrival, art133_sec1_2.expression_not_arrived, art133_sec1_2.expression_of_offering, art133_sec1_2.family_member_recipient, art133_sec1_2.intent_for_bribery_offering, art133_sec1_2.nonofficial_recipient_at_official_request, art133_sec1_2.object_distinction, art133_sec1_2.offering, art133_sec1_2.official_duty_relation_quid_pro_quo, art133_sec1_2.scope_of_official_duty, art133_sec1_2.third_party_advance_payment, art133_sec1_2.unilateral_offer
+rel bribe_giving_offering_established(case_id, defendant_id, benefit_id, official_id, intermediary_id) = bribe_giving_offering_elements_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) and
+  case_assessment_complete(case_id, defendant_id) and
+  ~bribe_giving_track_has_negative(case_id, defendant_id, "offering") and
+  ~bribe_giving_track_has_conflict(case_id, defendant_id, "offering")
+
+// rule_id: bribe_giving.outcome.delivery_giver.elements_satisfied
+// sources: comm_001692_제133조_Ⅰ.1_0, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133.bribery_delivery_offense, art133_sec1_2.aider_as_third_party, art133_sec1_2.independent_third_party, art133_sec1_2.object_distinction, art133_sec1_2.official_duty_relation_quid_pro_quo, art133_sec1_2.scope_of_official_duty
+rel bribe_giving_delivery_giver_elements_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) = bribe_giving_common_benefit_and_duty_relation_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) and
+  bribe_giving_common_independent_third_party_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) and
+  bribe_giving_delivery_giver_delivery_by_giver_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.outcome.delivery_giver.established
+// sources: comm_001692_제133조_Ⅰ.1_0, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1
+// norm_cards: art133.bribery_delivery_offense, art133_sec1_2.aider_as_third_party, art133_sec1_2.independent_third_party, art133_sec1_2.object_distinction, art133_sec1_2.official_duty_relation_quid_pro_quo, art133_sec1_2.scope_of_official_duty
+rel bribe_giving_delivery_giver_established(case_id, defendant_id, benefit_id, official_id, intermediary_id) = bribe_giving_delivery_giver_elements_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) and
+  case_assessment_complete(case_id, defendant_id) and
+  ~bribe_giving_track_has_negative(case_id, defendant_id, "delivery_giver") and
+  ~bribe_giving_track_has_conflict(case_id, defendant_id, "delivery_giver")
+
+// rule_id: bribe_giving.outcome.delivery_recipient.elements_satisfied
+// sources: comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.3_6
+// norm_cards: art133_sec1_2.acquisition, art133_sec1_2.aider_as_third_party, art133_sec1_2.delivery_completed_on_receipt, art133_sec1_2.independent_third_party, art133_sec1_2.intent_for_delivery_recipient, art133_sec1_2.object_distinction, art133_sec1_2.official_duty_relation_quid_pro_quo, art133_sec1_2.refused_sponsorship_money, art133_sec1_2.scope_of_official_duty, art133_sec1_2.self_benefit_intermediary, art133_sec1_3.delivery_offense_absorbed
+rel bribe_giving_delivery_recipient_elements_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) = bribe_giving_common_benefit_and_duty_relation_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) and
+  bribe_giving_common_independent_third_party_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) and
+  bribe_giving_delivery_recipient_delivery_intent_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) and
+  bribe_giving_delivery_recipient_delivery_receipt_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id)
+
+// rule_id: bribe_giving.outcome.delivery_recipient.established
+// sources: comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_4, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.2_1, comm_001692_제133조_Ⅰ.2_5, comm_001692_제133조_Ⅰ.3_6
+// norm_cards: art133_sec1_2.acquisition, art133_sec1_2.aider_as_third_party, art133_sec1_2.delivery_completed_on_receipt, art133_sec1_2.independent_third_party, art133_sec1_2.intent_for_delivery_recipient, art133_sec1_2.object_distinction, art133_sec1_2.official_duty_relation_quid_pro_quo, art133_sec1_2.refused_sponsorship_money, art133_sec1_2.scope_of_official_duty, art133_sec1_2.self_benefit_intermediary, art133_sec1_3.delivery_offense_absorbed
+rel bribe_giving_delivery_recipient_established(case_id, defendant_id, benefit_id, official_id, intermediary_id) = bribe_giving_delivery_recipient_elements_satisfied(case_id, defendant_id, benefit_id, official_id, intermediary_id) and
+  case_assessment_complete(case_id, defendant_id) and
+  ~bribe_giving_track_has_negative(case_id, defendant_id, "delivery_recipient") and
+  ~bribe_giving_track_has_conflict(case_id, defendant_id, "delivery_recipient")

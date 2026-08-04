@@ -1,0 +1,32 @@
+{
+  "version": "1.0.0", "authority": "delegated_human_legal_review", "unit_id": "bribe_receipt", "approved_on": "2026-08-04",
+  "policy": {"approval": "Delegated normalization on 2026-08-04", "tracks": "현직 수뢰의 수수·요구·약속과 사전수뢰를 분리", "shared": "현직 주체·직무대가성·뇌물 객체·고의만 현재형 세 track이 선택 상속", "appropriation": "영득의사는 수수 track에만 적용", "prior": "공직취임 개연성·사전 청탁·취임을 독립 요건으로 실행"},
+  "track_vocabulary": [
+    {"track_id": "current_common", "label": "현직 수뢰 공통 placement"},
+    {"track_id": "receipt", "label": "뇌물수수", "inherits_placements": [{"track_id": "current_common", "component_ids": ["current_status", "bribe_and_duty_relation", "intent"]}]},
+    {"track_id": "demand", "label": "뇌물요구", "inherits_placements": [{"track_id": "current_common", "component_ids": ["current_status", "bribe_and_duty_relation", "intent"]}]},
+    {"track_id": "promise", "label": "뇌물약속", "inherits_placements": [{"track_id": "current_common", "component_ids": ["current_status", "bribe_and_duty_relation", "intent"]}]},
+    {"track_id": "prior", "label": "사전수뢰"}
+  ],
+  "decision_groups": [
+    {"card_numbers": [19, 24, 27], "decision": "approve", "role": "component", "component_id": "current_status", "component_join": "alternative_any", "track_id": "current_common", "refers_to_unit": null, "rationale": "현재 공무원 또는 법령상 중재인이라는 주체"},
+    {"card_numbers": [6, 8, 9, 11, 13], "decision": "approve", "role": "component", "component_id": "bribe_and_duty_relation", "component_join": "alternative_any", "track_id": "current_common", "refers_to_unit": null, "rationale": "재산상·무형·불법 이익을 포함한 뇌물과 구체적 직무대가성"},
+    {"card_numbers": [5, 7, 12], "decision": "approve", "role": "bar", "component_id": "bribe_and_duty_relation", "component_join": "not_applicable", "track_id": "current_common", "refers_to_unit": null, "rationale": "직무대가 없는 공갈 또는 공범 취득금 내부분배의 뇌물성 배제"},
+    {"card_numbers": [33], "decision": "approve", "role": "component", "component_id": "intent", "component_join": "mandatory_all", "track_id": "current_common", "refers_to_unit": null, "rationale": "신분·직무관련성·대가관계와 수수·요구·약속에 대한 고의"},
+    {"card_numbers": [15, 17, 18, 20, 23, 28, 37, 39, 40], "decision": "approve", "role": "component", "component_id": "receipt", "component_join": "alternative_any", "track_id": "receipt", "refers_to_unit": null, "rationale": "사실상 처분권·유무형 이익 및 제3자 지급을 포함한 수수 경로"},
+    {"card_numbers": [16, 29, 31, 32, 34, 36], "decision": "approve", "role": "component", "component_id": "appropriation_intent", "component_join": "alternative_any", "track_id": "receipt", "refers_to_unit": null, "rationale": "뇌물성 인식과 영득의사의 인정경로"},
+    {"card_numbers": [30, 35], "decision": "approve", "role": "bar", "component_id": "appropriation_intent", "component_join": "not_applicable", "track_id": "receipt", "refers_to_unit": null, "rationale": "전달 목적 또는 즉시 반환 등 영득의사 부재"},
+    {"card_numbers": [42, 46], "decision": "approve", "role": "bar", "component_id": "receipt", "component_join": "not_applicable", "track_id": "receipt", "refers_to_unit": null, "rationale": "미완료 사업참여 또는 퇴직 후 수수의 수수죄 배제"},
+    {"card_numbers": [21, 38], "decision": "approve", "role": "component", "component_id": "active_demand", "component_join": "alternative_any", "track_id": "demand", "refers_to_unit": null, "rationale": "교부청구와 상대방 인지에 이른 적극적 뇌물요구"},
+    {"card_numbers": [22], "decision": "approve", "role": "bar", "component_id": "active_demand", "component_join": "not_applicable", "track_id": "demand", "refers_to_unit": null, "rationale": "단순 암시·유도에 그친 경우의 요구죄 배제"},
+    {"card_numbers": [25, 26, 41], "decision": "approve", "role": "component", "component_id": "definite_agreement", "component_join": "alternative_any", "track_id": "promise", "refers_to_unit": null, "rationale": "장래 뇌물수수에 관한 확정적 의사합치와 청약 수락"},
+    {"card_numbers": [47], "decision": "approve", "role": "component", "component_id": "prior_offense_definition", "component_join": "mandatory_all", "track_id": "prior", "refers_to_unit": null, "rationale": "사전수뢰의 청탁·수수요구약속·후행 취임 기본구조"},
+    {"card_numbers": [51], "decision": "approve", "role": "component", "component_id": "prior_request", "component_join": "mandatory_all", "track_id": "prior", "refers_to_unit": null, "rationale": "장래 담당 직무행위에 관한 어느 정도 구체적인 사전 청탁"},
+    {"card_numbers": [52], "decision": "approve", "role": "component", "component_id": "prospective_status", "component_join": "mandatory_all", "track_id": "prior", "refers_to_unit": null, "rationale": "공직취임 예정 또는 상당한 개연성"},
+    {"card_numbers": [53], "decision": "approve", "role": "component", "component_id": "prior_intent", "component_join": "mandatory_all", "track_id": "prior", "refers_to_unit": null, "rationale": "장래 신분·담당직무 청탁과 뇌물행위에 대한 고의"},
+    {"card_numbers": [48, 49, 50, 54], "decision": "approve", "role": "bar", "component_id": "prior_offense_definition", "component_join": "not_applicable", "track_id": "prior", "refers_to_unit": "fraud", "rationale": "청탁 구체성·취임 개연성·사전성 결여 또는 허위 공직사칭"},
+    {"card_numbers": [43, 44, 45], "decision": "approve", "role": "post_outcome", "component_id": "offense_count", "component_join": "not_applicable", "track_id": "receipt", "refers_to_unit": null, "rationale": "반복 수뢰의 포괄일죄 또는 실체적 경합"},
+    {"card_numbers": [55], "decision": "approve", "role": "post_outcome", "component_id": "absorption", "component_join": "not_applicable", "track_id": "receipt", "refers_to_unit": null, "rationale": "동일 뇌물의 요구·약속이 후행 수수에 흡수"},
+    {"card_numbers": [1, 2, 3, 4, 10, 14], "decision": "context_only", "role": "context_only", "rationale": "증뢰·공갈·횡령 구별 또는 구체성 낮은 증거·사례 문맥"}
+  ], "placement_defaults": [], "proposition_rewrites": {}
+}

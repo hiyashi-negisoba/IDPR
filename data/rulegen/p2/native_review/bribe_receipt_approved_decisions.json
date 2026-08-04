@@ -1,0 +1,596 @@
+{
+  "version": "1.0.0",
+  "authority": "delegated_human_legal_review",
+  "unit_id": "bribe_receipt",
+  "approved_on": "2026-08-04",
+  "approval_basis": [
+    "data/rulegen/p2/native_review/bribe_receipt_approval_config.json"
+  ],
+  "policy": {
+    "approval": "Delegated normalization on 2026-08-04",
+    "tracks": "현직 수뢰의 수수·요구·약속과 사전수뢰를 분리",
+    "shared": "현직 주체·직무대가성·뇌물 객체·고의만 현재형 세 track이 선택 상속",
+    "appropriation": "영득의사는 수수 track에만 적용",
+    "prior": "공직취임 개연성·사전 청탁·취임을 독립 요건으로 실행"
+  },
+  "track_vocabulary": [
+    {
+      "track_id": "current_common",
+      "label": "현직 수뢰 공통 placement"
+    },
+    {
+      "track_id": "receipt",
+      "label": "뇌물수수",
+      "inherits_placements": [
+        {
+          "track_id": "current_common",
+          "component_ids": [
+            "current_status",
+            "bribe_and_duty_relation",
+            "intent"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "demand",
+      "label": "뇌물요구",
+      "inherits_placements": [
+        {
+          "track_id": "current_common",
+          "component_ids": [
+            "current_status",
+            "bribe_and_duty_relation",
+            "intent"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "promise",
+      "label": "뇌물약속",
+      "inherits_placements": [
+        {
+          "track_id": "current_common",
+          "component_ids": [
+            "current_status",
+            "bribe_and_duty_relation",
+            "intent"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "prior",
+      "label": "사전수뢰"
+    }
+  ],
+  "cards": [
+    {
+      "card_id": "art129.bribery_giving_despite_coercion",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "증뢰·공갈·횡령 구별 또는 구체성 낮은 증거·사례 문맥"
+    },
+    {
+      "card_id": "art129.coercion_independent_bribery_decision",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "증뢰·공갈·횡령 구별 또는 구체성 낮은 증거·사례 문맥"
+    },
+    {
+      "card_id": "art129.contract_payment_bribery_or_embezzlement",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "증뢰·공갈·횡령 구별 또는 구체성 낮은 증거·사례 문맥"
+    },
+    {
+      "card_id": "art129.extortion_provider_not_bribe_giver",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "증뢰·공갈·횡령 구별 또는 구체성 낮은 증거·사례 문맥"
+    },
+    {
+      "card_id": "art129.extortion_without_duty_or_consideration",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "bribe_and_duty_relation",
+      "component_join": "not_applicable",
+      "track_id": "current_common",
+      "refers_to_unit": null,
+      "rationale": "직무대가 없는 공갈 또는 공범 취득금 내부분배의 뇌물성 배제"
+    },
+    {
+      "card_id": "art129.illicit_benefit_as_bribe",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "bribe_and_duty_relation",
+      "component_join": "alternative_any",
+      "track_id": "current_common",
+      "refers_to_unit": null,
+      "rationale": "재산상·무형·불법 이익을 포함한 뇌물과 구체적 직무대가성"
+    },
+    {
+      "card_id": "art129.internal_distribution_of_embezzled_proceeds",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "bribe_and_duty_relation",
+      "component_join": "not_applicable",
+      "track_id": "current_common",
+      "refers_to_unit": null,
+      "rationale": "직무대가 없는 공갈 또는 공범 취득금 내부분배의 뇌물성 배제"
+    },
+    {
+      "card_id": "art129.mixed_bribe_nonofficial_gratuity",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "bribe_and_duty_relation",
+      "component_join": "alternative_any",
+      "track_id": "current_common",
+      "refers_to_unit": null,
+      "rationale": "재산상·무형·불법 이익을 포함한 뇌물과 구체적 직무대가성"
+    },
+    {
+      "card_id": "art129.political_contribution_specific_official_act",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "bribe_and_duty_relation",
+      "component_join": "alternative_any",
+      "track_id": "current_common",
+      "refers_to_unit": null,
+      "rationale": "재산상·무형·불법 이익을 포함한 뇌물과 구체적 직무대가성"
+    },
+    {
+      "card_id": "art129.political_funds_definition",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "증뢰·공갈·횡령 구별 또는 구체성 낮은 증거·사례 문맥"
+    },
+    {
+      "card_id": "art129.political_funds_with_bribery_substance",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "bribe_and_duty_relation",
+      "component_join": "alternative_any",
+      "track_id": "current_common",
+      "refers_to_unit": null,
+      "rationale": "재산상·무형·불법 이익을 포함한 뇌물과 구체적 직무대가성"
+    },
+    {
+      "card_id": "art129.special_fund_internal_distribution_no_bribery",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "bribe_and_duty_relation",
+      "component_join": "not_applicable",
+      "track_id": "current_common",
+      "refers_to_unit": null,
+      "rationale": "직무대가 없는 공갈 또는 공범 취득금 내부분배의 뇌물성 배제"
+    },
+    {
+      "card_id": "art129.tax_investigation_forbearance_bribery",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "bribe_and_duty_relation",
+      "component_join": "alternative_any",
+      "track_id": "current_common",
+      "refers_to_unit": null,
+      "rationale": "재산상·무형·불법 이익을 포함한 뇌물과 구체적 직무대가성"
+    },
+    {
+      "card_id": "art129.voluntary_special_fund_gift",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "증뢰·공갈·횡령 구별 또는 구체성 낮은 증거·사례 문맥"
+    },
+    {
+      "card_id": "art129_sec1.basic_offense",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "receipt",
+      "component_join": "alternative_any",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "사실상 처분권·유무형 이익 및 제3자 지급을 포함한 수수 경로"
+    },
+    {
+      "card_id": "art129_sec1_1.acceptance_awareness_appropriation",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "appropriation_intent",
+      "component_join": "alternative_any",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "뇌물성 인식과 영득의사의 인정경로"
+    },
+    {
+      "card_id": "art129_sec1_1.acceptance_no_legal_title",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "receipt",
+      "component_join": "alternative_any",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "사실상 처분권·유무형 이익 및 제3자 지급을 포함한 수수 경로"
+    },
+    {
+      "card_id": "art129_sec1_1.acceptance_tangible_intangible",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "receipt",
+      "component_join": "alternative_any",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "사실상 처분권·유무형 이익 및 제3자 지급을 포함한 수수 경로"
+    },
+    {
+      "card_id": "art129_sec1_1.arbitrator_statutory_basis",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "current_status",
+      "component_join": "alternative_any",
+      "track_id": "current_common",
+      "refers_to_unit": null,
+      "rationale": "현재 공무원 또는 법령상 중재인이라는 주체"
+    },
+    {
+      "card_id": "art129_sec1_1.car_lease_intangible_benefit",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "receipt",
+      "component_join": "alternative_any",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "사실상 처분권·유무형 이익 및 제3자 지급을 포함한 수수 경로"
+    },
+    {
+      "card_id": "art129_sec1_1.demand",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "active_demand",
+      "component_join": "alternative_any",
+      "track_id": "demand",
+      "refers_to_unit": null,
+      "rationale": "교부청구와 상대방 인지에 이른 적극적 뇌물요구"
+    },
+    {
+      "card_id": "art129_sec1_1.demand_active_intent",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "active_demand",
+      "component_join": "not_applicable",
+      "track_id": "demand",
+      "refers_to_unit": null,
+      "rationale": "단순 암시·유도에 그친 경우의 요구죄 배제"
+    },
+    {
+      "card_id": "art129_sec1_1.indirect_payment",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "receipt",
+      "component_join": "alternative_any",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "사실상 처분권·유무형 이익 및 제3자 지급을 포함한 수수 경로"
+    },
+    {
+      "card_id": "art129_sec1_1.invalid_appointment_official",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "current_status",
+      "component_join": "alternative_any",
+      "track_id": "current_common",
+      "refers_to_unit": null,
+      "rationale": "현재 공무원 또는 법령상 중재인이라는 주체"
+    },
+    {
+      "card_id": "art129_sec1_1.promise",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "definite_agreement",
+      "component_join": "alternative_any",
+      "track_id": "promise",
+      "refers_to_unit": null,
+      "rationale": "장래 뇌물수수에 관한 확정적 의사합치와 청약 수락"
+    },
+    {
+      "card_id": "art129_sec1_1.promise_unknown_amount",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "definite_agreement",
+      "component_join": "alternative_any",
+      "track_id": "promise",
+      "refers_to_unit": null,
+      "rationale": "장래 뇌물수수에 관한 확정적 의사합치와 청약 수락"
+    },
+    {
+      "card_id": "art129_sec1_1.subject_current_official_arbitrator",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "current_status",
+      "component_join": "alternative_any",
+      "track_id": "current_common",
+      "refers_to_unit": null,
+      "rationale": "현재 공무원 또는 법령상 중재인이라는 주체"
+    },
+    {
+      "card_id": "art129_sec1_1.third_party_direct_receipt_equivalence",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "receipt",
+      "component_join": "alternative_any",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "사실상 처분권·유무형 이익 및 제3자 지급을 포함한 수수 경로"
+    },
+    {
+      "card_id": "art129_sec1_2.charitable_appearance_appropriation",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "appropriation_intent",
+      "component_join": "alternative_any",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "뇌물성 인식과 영득의사의 인정경로"
+    },
+    {
+      "card_id": "art129_sec1_2.charitable_transfer_no_appropriation",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "appropriation_intent",
+      "component_join": "not_applicable",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "전달 목적 또는 즉시 반환 등 영득의사 부재"
+    },
+    {
+      "card_id": "art129_sec1_2.determine_appropriation_intent",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "appropriation_intent",
+      "component_join": "alternative_any",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "뇌물성 인식과 영득의사의 인정경로"
+    },
+    {
+      "card_id": "art129_sec1_2.excessive_amount_later_return",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "appropriation_intent",
+      "component_join": "alternative_any",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "뇌물성 인식과 영득의사의 인정경로"
+    },
+    {
+      "card_id": "art129_sec1_2.intent.status_and_quid_pro_quo",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "intent",
+      "component_join": "mandatory_all",
+      "track_id": "current_common",
+      "refers_to_unit": null,
+      "rationale": "신분·직무관련성·대가관계와 수수·요구·약속에 대한 고의"
+    },
+    {
+      "card_id": "art129_sec1_2.later_return_after_appropriation",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "appropriation_intent",
+      "component_join": "alternative_any",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "뇌물성 인식과 영득의사의 인정경로"
+    },
+    {
+      "card_id": "art129_sec1_2.no_appropriation_immediate_return",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "appropriation_intent",
+      "component_join": "not_applicable",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "전달 목적 또는 즉시 반환 등 영득의사 부재"
+    },
+    {
+      "card_id": "art129_sec1_2.requested_bribe_appropriation",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "appropriation_intent",
+      "component_join": "alternative_any",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "뇌물성 인식과 영득의사의 인정경로"
+    },
+    {
+      "card_id": "art129_sec1_4.business_opportunity_completion",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "receipt",
+      "component_join": "alternative_any",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "사실상 처분권·유무형 이익 및 제3자 지급을 포함한 수수 경로"
+    },
+    {
+      "card_id": "art129_sec1_4.demand_completion_upon_awareness",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "active_demand",
+      "component_join": "alternative_any",
+      "track_id": "demand",
+      "refers_to_unit": null,
+      "rationale": "교부청구와 상대방 인지에 이른 적극적 뇌물요구"
+    },
+    {
+      "card_id": "art129_sec1_4.interest_free_loan_completion",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "receipt",
+      "component_join": "alternative_any",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "사실상 처분권·유무형 이익 및 제3자 지급을 포함한 수수 경로"
+    },
+    {
+      "card_id": "art129_sec1_4.post_receipt_check_dishonor",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "receipt",
+      "component_join": "alternative_any",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "사실상 처분권·유무형 이익 및 제3자 지급을 포함한 수수 경로"
+    },
+    {
+      "card_id": "art129_sec1_4.promise_completion_upon_acceptance",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "definite_agreement",
+      "component_join": "alternative_any",
+      "track_id": "promise",
+      "refers_to_unit": null,
+      "rationale": "장래 뇌물수수에 관한 확정적 의사합치와 청약 수락"
+    },
+    {
+      "card_id": "art129_sec1_4.unpurchased_investment_opportunity",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "receipt",
+      "component_join": "not_applicable",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "미완료 사업참여 또는 퇴직 후 수수의 수수죄 배제"
+    },
+    {
+      "card_id": "art129_sec1_5.comprehensive_single_offense",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "반복 수뢰의 포괄일죄 또는 실체적 경합"
+    },
+    {
+      "card_id": "art129_sec1_5.comprehensive_time_interval",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "반복 수뢰의 포괄일죄 또는 실체적 경합"
+    },
+    {
+      "card_id": "art129_sec1_5.different_appraisers_no_comprehensive_offense",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "offense_count",
+      "component_join": "not_applicable",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "반복 수뢰의 포괄일죄 또는 실체적 경합"
+    },
+    {
+      "card_id": "art129_sec1_5.retired_official_no_bribe_receipt",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "receipt",
+      "component_join": "not_applicable",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "미완료 사업참여 또는 퇴직 후 수수의 수수죄 배제"
+    },
+    {
+      "card_id": "art129_sec2_1.prior_bribery_elements",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "prior_offense_definition",
+      "component_join": "mandatory_all",
+      "track_id": "prior",
+      "refers_to_unit": null,
+      "rationale": "사전수뢰의 청탁·수수요구약속·후행 취임 기본구조"
+    },
+    {
+      "card_id": "art129_sec2_2.abstract_business_relocation_request",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "prior_offense_definition",
+      "component_join": "not_applicable",
+      "track_id": "prior",
+      "refers_to_unit": "fraud",
+      "rationale": "청탁 구체성·취임 개연성·사전성 결여 또는 허위 공직사칭"
+    },
+    {
+      "card_id": "art129_sec2_2.application_exam_insufficient",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "prior_offense_definition",
+      "component_join": "not_applicable",
+      "track_id": "prior",
+      "refers_to_unit": "fraud",
+      "rationale": "청탁 구체성·취임 개연성·사전성 결여 또는 허위 공직사칭"
+    },
+    {
+      "card_id": "art129_sec2_2.post_office_request_no_retroaction",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "prior_offense_definition",
+      "component_join": "not_applicable",
+      "track_id": "prior",
+      "refers_to_unit": "fraud",
+      "rationale": "청탁 구체성·취임 개연성·사전성 결여 또는 허위 공직사칭"
+    },
+    {
+      "card_id": "art129_sec2_2.prior_bribery_request_specificity",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "prior_request",
+      "component_join": "mandatory_all",
+      "track_id": "prior",
+      "refers_to_unit": null,
+      "rationale": "장래 담당 직무행위에 관한 어느 정도 구체적인 사전 청탁"
+    },
+    {
+      "card_id": "art129_sec2_2.prospective_official_probability",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "prospective_status",
+      "component_join": "mandatory_all",
+      "track_id": "prior",
+      "refers_to_unit": null,
+      "rationale": "공직취임 예정 또는 상당한 개연성"
+    },
+    {
+      "card_id": "art129_sec2_3.prior_bribery_intent",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "prior_intent",
+      "component_join": "mandatory_all",
+      "track_id": "prior",
+      "refers_to_unit": null,
+      "rationale": "장래 신분·담당직무 청탁과 뇌물행위에 대한 고의"
+    },
+    {
+      "card_id": "art129_sec2_4.false_prospective_official_fraud_only",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "prior_offense_definition",
+      "component_join": "not_applicable",
+      "track_id": "prior",
+      "refers_to_unit": "fraud",
+      "rationale": "청탁 구체성·취임 개연성·사전성 결여 또는 허위 공직사칭"
+    },
+    {
+      "card_id": "art129_sec2_4.sequential_demand_promise_receipt_absorption",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "absorption",
+      "component_join": "not_applicable",
+      "track_id": "receipt",
+      "refers_to_unit": null,
+      "rationale": "동일 뇌물의 요구·약속이 후행 수수에 흡수"
+    }
+  ]
+}

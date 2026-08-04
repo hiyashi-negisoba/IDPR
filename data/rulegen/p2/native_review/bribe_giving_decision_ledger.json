@@ -1,0 +1,461 @@
+{
+  "version": "1.0.0",
+  "unit_id": "bribe_giving",
+  "law_snapshot": {
+    "as_of_date": "2026-08-03",
+    "effective_source_date": "2026-03-12",
+    "future_snapshot_date": "2026-09-13",
+    "future_snapshot_policy": "separate_snapshot_not_active",
+    "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
+  },
+  "approval_document": "data/rulegen/p2/native_review/bribe_giving_approved_decisions.json",
+  "approval_sha256": "a2de8fef99ca7ccb45ab3ee5b2fc9bceb9230782234674c22f8b2393daf09746",
+  "approved_on": "2026-08-04",
+  "status": "ready_for_rule_ir",
+  "problems": [],
+  "unresolved_unit_references": [],
+  "excluded_cards": [
+    {
+      "card_id": "art133_sec1_2.receiver_bribery_not_required",
+      "reason": "상대방 수뢰죄 독립성, 공소사실 특정, 처분권 또는 주체 일반설명"
+    },
+    {
+      "card_id": "art133_sec1_2.specific_duty_authority_allegation",
+      "reason": "상대방 수뢰죄 독립성, 공소사실 특정, 처분권 또는 주체 일반설명"
+    },
+    {
+      "card_id": "art133_sec1_2.substantive_use_disposal_authority",
+      "reason": "상대방 수뢰죄 독립성, 공소사실 특정, 처분권 또는 주체 일반설명"
+    },
+    {
+      "card_id": "art133_sec1_2.unrestricted_offender",
+      "reason": "상대방 수뢰죄 독립성, 공소사실 특정, 처분권 또는 주체 일반설명"
+    }
+  ],
+  "tracks": [
+    {
+      "track_id": "common",
+      "label": "증뢰 공통 placement"
+    },
+    {
+      "track_id": "offering",
+      "label": "뇌물공여·약속·의사표시",
+      "inherits_placements": [
+        {
+          "track_id": "common",
+          "component_ids": [
+            "benefit_and_duty_relation"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "delivery_giver",
+      "label": "증뢰물 교부",
+      "inherits_placements": [
+        {
+          "track_id": "common",
+          "component_ids": [
+            "benefit_and_duty_relation",
+            "independent_third_party"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "delivery_recipient",
+      "label": "증뢰물 취득",
+      "inherits_placements": [
+        {
+          "track_id": "common",
+          "component_ids": [
+            "benefit_and_duty_relation",
+            "independent_third_party"
+          ]
+        }
+      ]
+    }
+  ],
+  "placements": [
+    {
+      "card_id": "art133_sec1_2.object_distinction",
+      "part_id": null,
+      "role": "component",
+      "track_id": "common",
+      "component_id": "benefit_and_duty_relation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "뇌물·금품 객체와 상대 공무원의 직무관련성·대가성",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133_sec1_2.official_duty_relation_quid_pro_quo",
+      "part_id": null,
+      "role": "component",
+      "track_id": "common",
+      "component_id": "benefit_and_duty_relation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "뇌물·금품 객체와 상대 공무원의 직무관련성·대가성",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133_sec1_2.scope_of_official_duty",
+      "part_id": null,
+      "role": "component",
+      "track_id": "common",
+      "component_id": "benefit_and_duty_relation",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "뇌물·금품 객체와 상대 공무원의 직무관련성·대가성",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133_sec1_2.aider_as_third_party",
+      "part_id": null,
+      "role": "component",
+      "track_id": "common",
+      "component_id": "independent_third_party",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "증뢰자·수뢰자 공동정범이 아닌 전달 방조자 등 독립 제3자",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133_sec1_2.independent_third_party",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "common",
+      "component_id": "independent_third_party",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "증뢰자와 독립한 제3자가 아닌 경우의 전달죄 배제",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133.bribery_delivery_offense",
+      "part_id": null,
+      "role": "component",
+      "track_id": "delivery_giver",
+      "component_id": "delivery_by_giver",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "증뢰에 제공할 목적으로 독립 제3자에게 금품을 교부",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133_sec1_3.delivery_offense_absorbed",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "delivery_recipient",
+      "component_id": "absorption",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "실제 전달 시 전달죄가 제1항 증뢰죄에 흡수",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133_sec1_2.intent_for_delivery_recipient",
+      "part_id": null,
+      "role": "component",
+      "track_id": "delivery_recipient",
+      "component_id": "delivery_intent",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "증뢰에 제공될 금품이라는 인식",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133_sec1_2.acquisition",
+      "part_id": null,
+      "role": "component",
+      "track_id": "delivery_recipient",
+      "component_id": "delivery_receipt",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "전달될 금품임을 알면서 사실상 처분권을 취득한 때의 기수",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133_sec1_2.delivery_completed_on_receipt",
+      "part_id": null,
+      "role": "component",
+      "track_id": "delivery_recipient",
+      "component_id": "delivery_receipt",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "전달될 금품임을 알면서 사실상 처분권을 취득한 때의 기수",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133_sec1_2.refused_sponsorship_money",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "delivery_recipient",
+      "component_id": "delivery_receipt",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "전달 명목·전달 목적이 없는 취득",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133_sec1_2.self_benefit_intermediary",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "delivery_recipient",
+      "component_id": "delivery_receipt",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "전달 명목·전달 목적이 없는 취득",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133.bribery_offering_offense",
+      "part_id": null,
+      "role": "component",
+      "track_id": "offering",
+      "component_id": "offering_conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "약속·공여·도달한 의사표시와 제3자 선지급을 포함한 직접 증뢰 경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133_sec1_2.expression_arrival",
+      "part_id": null,
+      "role": "component",
+      "track_id": "offering",
+      "component_id": "offering_conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "약속·공여·도달한 의사표시와 제3자 선지급을 포함한 직접 증뢰 경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133_sec1_2.expression_not_arrived",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "offering",
+      "component_id": "offering_conduct",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "상대방에게 도달하지 않은 불가벌 미수",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133_sec1_2.expression_of_offering",
+      "part_id": null,
+      "role": "component",
+      "track_id": "offering",
+      "component_id": "offering_conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "약속·공여·도달한 의사표시와 제3자 선지급을 포함한 직접 증뢰 경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133_sec1_2.family_member_recipient",
+      "part_id": null,
+      "role": "component",
+      "track_id": "offering",
+      "component_id": "offering_conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "약속·공여·도달한 의사표시와 제3자 선지급을 포함한 직접 증뢰 경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133_sec1_2.nonofficial_recipient_at_official_request",
+      "part_id": null,
+      "role": "component",
+      "track_id": "offering",
+      "component_id": "offering_conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "약속·공여·도달한 의사표시와 제3자 선지급을 포함한 직접 증뢰 경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133_sec1_2.offering",
+      "part_id": null,
+      "role": "component",
+      "track_id": "offering",
+      "component_id": "offering_conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "약속·공여·도달한 의사표시와 제3자 선지급을 포함한 직접 증뢰 경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133_sec1_2.third_party_advance_payment",
+      "part_id": null,
+      "role": "component",
+      "track_id": "offering",
+      "component_id": "offering_conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "약속·공여·도달한 의사표시와 제3자 선지급을 포함한 직접 증뢰 경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133_sec1_2.unilateral_offer",
+      "part_id": null,
+      "role": "component",
+      "track_id": "offering",
+      "component_id": "offering_conduct",
+      "component_join": "alternative_any",
+      "refers_to_unit": null,
+      "rationale": "약속·공여·도달한 의사표시와 제3자 선지급을 포함한 직접 증뢰 경로",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art133_sec1_2.intent_for_bribery_offering",
+      "part_id": null,
+      "role": "component",
+      "track_id": "offering",
+      "component_id": "offering_intent",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "공무원에게 직무대가 뇌물을 제공한다는 고의",
+      "proposition_rewrite": null
+    }
+  ],
+  "components": [
+    {
+      "track_id": "common",
+      "component_id": "benefit_and_duty_relation",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art133_sec1_2.object_distinction",
+        "art133_sec1_2.official_duty_relation_quid_pro_quo",
+        "art133_sec1_2.scope_of_official_duty"
+      ]
+    },
+    {
+      "track_id": "common",
+      "component_id": "independent_third_party",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art133_sec1_2.aider_as_third_party",
+        "art133_sec1_2.independent_third_party"
+      ]
+    },
+    {
+      "track_id": "delivery_giver",
+      "component_id": "delivery_by_giver",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art133.bribery_delivery_offense"
+      ]
+    },
+    {
+      "track_id": "delivery_recipient",
+      "component_id": "absorption",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art133_sec1_3.delivery_offense_absorbed"
+      ]
+    },
+    {
+      "track_id": "delivery_recipient",
+      "component_id": "delivery_intent",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art133_sec1_2.intent_for_delivery_recipient"
+      ]
+    },
+    {
+      "track_id": "delivery_recipient",
+      "component_id": "delivery_receipt",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art133_sec1_2.acquisition",
+        "art133_sec1_2.delivery_completed_on_receipt",
+        "art133_sec1_2.refused_sponsorship_money",
+        "art133_sec1_2.self_benefit_intermediary"
+      ]
+    },
+    {
+      "track_id": "offering",
+      "component_id": "offering_conduct",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "alternative_any"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art133.bribery_offering_offense",
+        "art133_sec1_2.expression_arrival",
+        "art133_sec1_2.expression_not_arrived",
+        "art133_sec1_2.expression_of_offering",
+        "art133_sec1_2.family_member_recipient",
+        "art133_sec1_2.nonofficial_recipient_at_official_request",
+        "art133_sec1_2.offering",
+        "art133_sec1_2.third_party_advance_payment",
+        "art133_sec1_2.unilateral_offer"
+      ]
+    },
+    {
+      "track_id": "offering",
+      "component_id": "offering_intent",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art133_sec1_2.intent_for_bribery_offering"
+      ]
+    }
+  ],
+  "stats": {
+    "components": 8,
+    "context_only_placements": 4,
+    "decision_approve": 22,
+    "decision_context_only": 4,
+    "placements": 22,
+    "queue_cards": 26,
+    "unresolved_unit_references": 0
+  }
+}

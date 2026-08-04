@@ -56,6 +56,7 @@ UNIT_MANIFEST = P2 / "p2_native_unit_manifest.json"
 SOURCE_DIR = P2 / "rule_ir_units"
 REMEDIATED_DIR = P2 / "remediated"
 CARD_CORRECTIONS = P2 / "p2_card_metadata_corrections.json"
+CARD_ID_CORRECTIONS = P2 / "p2_card_id_corrections.json"
 SOURCE_REF_CORRECTIONS = P2 / "p2_source_ref_corrections.json"
 CAMPAIGN = MAIN_ROOT / "data/rulegen/campaign"
 OUT_DIR = P2 / "rule_ir"
@@ -288,8 +289,30 @@ class UnitAssembler:
 
     def materialize_approved_propositions(self) -> None:
         """Make approved rewrites—and each approved split part—executable cards."""
+        id_corrections = {
+            item["from"]: item
+            for item in read_json(CARD_ID_CORRECTIONS).get("corrections", [])
+        } if CARD_ID_CORRECTIONS.is_file() else {}
+        materialized_ids: dict[str, str] = {}
         rewritten: dict[str, str] = {}
         for row in self.ledger["placements"]:
+            source_id = row["card_id"]
+            id_correction = id_corrections.get(source_id)
+            if id_correction:
+                executable_id = id_correction["to"]
+                previous_source = materialized_ids.get(executable_id)
+                if executable_id in self.catalog and previous_source != source_id:
+                    raise SystemExit(
+                        f"{self.unit_id}: corrected card id already exists: {executable_id}"
+                    )
+                if previous_source is None:
+                    card = copy.deepcopy(self.catalog[source_id])
+                    card["id"] = executable_id
+                    self.catalog[executable_id] = card
+                    materialized_ids[executable_id] = source_id
+                    self.corrections.append(id_correction["correction_id"])
+                row["source_card_id"] = source_id
+                row["card_id"] = executable_id
             original_id = row["card_id"]
             rewrite = row.get("proposition_rewrite")
             part_id = row.get("part_id")
