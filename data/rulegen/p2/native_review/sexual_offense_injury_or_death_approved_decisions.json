@@ -1,0 +1,399 @@
+{
+  "version": "1.0.0",
+  "authority": "delegated_human_legal_review",
+  "unit_id": "sexual_offense_injury_or_death",
+  "approved_on": "2026-08-04",
+  "approval_basis": [
+    "data/rulegen/p2/native_review/sexual_offense_injury_or_death_approval_config.json"
+  ],
+  "policy": {
+    "approval": "Delegated normalization on 2026-08-04",
+    "tracks": "상해 고의범, 상해 결과적 가중범, 사망 결과를 분리하고 공통 전제범죄·객체·관련성·상해 placement만 선택 상속한다",
+    "injury": "생리기능 훼손과 승인 사례를 인정경로로, 극히 경미한 손상·모간 절단·원치 않은 임신 자체를 bar로 둔다",
+    "nexus": "성범죄 기회와 시간적·장소적 밀접 관련성을 요구하고 무관한 사정 및 선행 폭행 상해를 차단한다",
+    "post_outcome": "죄수·공범·미수규정·특별법은 결과모듈 성립과 분리한다"
+  },
+  "track_vocabulary": [
+    {
+      "track_id": "common",
+      "label": "제301조 공통 placement 보유 track"
+    },
+    {
+      "track_id": "intentional_injury",
+      "label": "강간등상해",
+      "inherits_placements": [
+        {
+          "track_id": "common",
+          "component_ids": [
+            "predicate_offense",
+            "object_scope",
+            "injury_nexus",
+            "injury"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "result_aggravated_injury",
+      "label": "강간등치상",
+      "inherits_placements": [
+        {
+          "track_id": "common",
+          "component_ids": [
+            "predicate_offense",
+            "object_scope",
+            "injury_nexus",
+            "injury"
+          ]
+        }
+      ]
+    },
+    {
+      "track_id": "death",
+      "label": "강간등치사",
+      "inherits_placements": [
+        {
+          "track_id": "common",
+          "component_ids": [
+            "predicate_offense",
+            "object_scope",
+            "injury_nexus",
+            "injury"
+          ]
+        }
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "card_id": "art301.assault_before_forced_indecency_no_result_injury",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "injury_nexus",
+      "component_join": "not_applicable",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "성범죄 전의 별개 폭행상해 또는 무관한 사정으로 발생한 결과의 배제"
+    },
+    {
+      "card_id": "art301.death_absorbs_injury",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "death_result",
+      "component_join": "mandatory_all",
+      "track_id": "death",
+      "refers_to_unit": null,
+      "rationale": "상해에서 사망으로 이어진 결과와 상해의 흡수"
+    },
+    {
+      "card_id": "art301.no_abandonment_offense_after_rape_injury",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "유기·후행 상해와의 죄수효과는 성립 후 처리"
+    },
+    {
+      "card_id": "art301.post_rape_new_intent_separate_concurrence",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "유기·후행 상해와의 죄수효과는 성립 후 처리"
+    },
+    {
+      "card_id": "art301_sec2.attempt_injury",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "predicate_offense",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "열거 성범죄의 기수 또는 미수라는 주체·전제범죄"
+    },
+    {
+      "card_id": "art301_sec2.object_victim",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "object_scope",
+      "component_join": "mandatory_all",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "전제 성범죄와 결과 피해자가 동일인이라는 객체범위"
+    },
+    {
+      "card_id": "art301_sec2.subject_predicate_offenses",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "predicate_offense",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "열거 성범죄의 기수 또는 미수라는 주체·전제범죄"
+    },
+    {
+      "card_id": "art301_sec3.continuing_criminal_stage",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury_nexus",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "성범죄 실행 또는 그 기회와 시간적·장소적으로 밀접한 상해 원인관계"
+    },
+    {
+      "card_id": "art301_sec3.injury_occasion_categories",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury_nexus",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "성범죄 실행 또는 그 기회와 시간적·장소적으로 밀접한 상해 원인관계"
+    },
+    {
+      "card_id": "art301_sec3.injury_occasion_causation",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury_nexus",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "성범죄 실행 또는 그 기회와 시간적·장소적으로 밀접한 상해 원인관계"
+    },
+    {
+      "card_id": "art301_sec3.post_rape_injury_connection",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury_nexus",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "성범죄 실행 또는 그 기회와 시간적·장소적으로 밀접한 상해 원인관계"
+    },
+    {
+      "card_id": "art301_sec3.result_after_completion",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury_nexus",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "성범죄 실행 또는 그 기회와 시간적·장소적으로 밀접한 상해 원인관계"
+    },
+    {
+      "card_id": "art301_sec3.unrelated_injury_exception",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "injury_nexus",
+      "component_join": "not_applicable",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "성범죄 전의 별개 폭행상해 또는 무관한 사정으로 발생한 결과의 배제"
+    },
+    {
+      "card_id": "art301_sec4_2.delayed_diagnosis_case",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "파기환송 사례, 진단서 증명력 또는 미성년 피해자 경향은 독립 단위사실이 아닌 증거평가 문맥"
+    },
+    {
+      "card_id": "art301_sec4_2.injury_diagnosis_evidence",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "파기환송 사례, 진단서 증명력 또는 미성년 피해자 경향은 독립 단위사실이 아닌 증거평가 문맥"
+    },
+    {
+      "card_id": "art301_sec4_2.minor_injury_exclusion",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "injury",
+      "component_join": "not_applicable",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "극히 경미한 손상, 병리적 변화 없는 모간 절단, 원치 않은 임신 자체의 상해 배제"
+    },
+    {
+      "card_id": "art301_sec4_4.injury_recognition_factors",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "병리적 건강상태 불량 또는 육체적·정신적 생리기능 훼손의 승인된 인정경로"
+    },
+    {
+      "card_id": "art301_sec4_4.minor_broader_injury",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "파기환송 사례, 진단서 증명력 또는 미성년 피해자 경향은 독립 단위사실이 아닌 증거평가 문맥"
+    },
+    {
+      "card_id": "art301_sec4_5.drug_induced_consciousness_impairment",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "병리적 건강상태 불량 또는 육체적·정신적 생리기능 훼손의 승인된 인정경로"
+    },
+    {
+      "card_id": "art301_sec4_5.functional_impairment_injury",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "병리적 건강상태 불량 또는 육체적·정신적 생리기능 훼손의 승인된 인정경로"
+    },
+    {
+      "card_id": "art301_sec4_5.ptsd_as_injury",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "병리적 건강상태 불량 또는 육체적·정신적 생리기능 훼손의 승인된 인정경로"
+    },
+    {
+      "card_id": "art301_sec4_5.ptsd_causation_assessment",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "병리적 건강상태 불량 또는 육체적·정신적 생리기능 훼손의 승인된 인정경로"
+    },
+    {
+      "card_id": "art301_sec4_7.pubic_hair_cutting_not_injury",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "injury",
+      "component_join": "not_applicable",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "극히 경미한 손상, 병리적 변화 없는 모간 절단, 원치 않은 임신 자체의 상해 배제"
+    },
+    {
+      "card_id": "art301_sec4_7.pubic_hair_pulling_injury",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury",
+      "component_join": "alternative_any",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "병리적 건강상태 불량 또는 육체적·정신적 생리기능 훼손의 승인된 인정경로"
+    },
+    {
+      "card_id": "art301_sec5_1.intentional_rape_injury",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "injury_intent",
+      "component_join": "mandatory_all",
+      "track_id": "intentional_injury",
+      "refers_to_unit": null,
+      "rationale": "강간등상해죄에 필요한 상해의 고의"
+    },
+    {
+      "card_id": "art301_sec5_2.fleeing_traffic_injury",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "result_responsibility",
+      "component_join": "alternative_any",
+      "track_id": "result_aggravated_injury",
+      "refers_to_unit": null,
+      "rationale": "상해 결과에 대한 인과관계와 예견가능성을 요구하는 결과적 가중범 경로"
+    },
+    {
+      "card_id": "art301_sec5_2.injury_foreseeability_assessment",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "result_responsibility",
+      "component_join": "alternative_any",
+      "track_id": "result_aggravated_injury",
+      "refers_to_unit": null,
+      "rationale": "상해 결과에 대한 인과관계와 예견가능성을 요구하는 결과적 가중범 경로"
+    },
+    {
+      "card_id": "art301_sec5_2.rape_injury_causation_foreseeability",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "result_responsibility",
+      "component_join": "alternative_any",
+      "track_id": "result_aggravated_injury",
+      "refers_to_unit": null,
+      "rationale": "상해 결과에 대한 인과관계와 예견가능성을 요구하는 결과적 가중범 경로"
+    },
+    {
+      "card_id": "art301_sec5_2.rape_injury_result_aggravation",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "result_responsibility",
+      "component_join": "alternative_any",
+      "track_id": "result_aggravated_injury",
+      "refers_to_unit": null,
+      "rationale": "상해 결과에 대한 인과관계와 예견가능성을 요구하는 결과적 가중범 경로"
+    },
+    {
+      "card_id": "art301_sec6.intentional_injury_conspirator_intent",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "complicity",
+      "component_join": "not_applicable",
+      "track_id": "common",
+      "refers_to_unit": "complicity",
+      "rationale": "공모자의 상해 고의와 실행 전 이탈은 공유 총칙 module로 연결"
+    },
+    {
+      "card_id": "art301_sec6.pre_execution_withdrawal",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "complicity",
+      "component_join": "not_applicable",
+      "track_id": "common",
+      "refers_to_unit": "complicity",
+      "rationale": "공모자의 상해 고의와 실행 전 이탈은 공유 총칙 module로 연결"
+    },
+    {
+      "card_id": "art301_sec7.no_general_attempt_punishment",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "attempt_scope",
+      "component_join": "not_applicable",
+      "track_id": "common",
+      "refers_to_unit": "sexual_offense_attempt",
+      "rationale": "제301조 자체의 일반 미수처벌 부재를 stage module 경계로 보존"
+    },
+    {
+      "card_id": "art301_sec4_6.unwanted_pregnancy_not_injury_holding",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "injury",
+      "component_join": "not_applicable",
+      "track_id": "common",
+      "refers_to_unit": null,
+      "rationale": "극히 경미한 손상, 병리적 변화 없는 모간 절단, 원치 않은 임신 자체의 상해 배제",
+      "inherited_decision_group": "art301_sec4_6.pregnancy_injury"
+    },
+    {
+      "card_id": "art301_sec7.special_rape_injury_completed",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "special_statute",
+      "component_join": "not_applicable",
+      "track_id": "common",
+      "refers_to_unit": "special_sexual_offense_injury",
+      "rationale": "특수강간치상은 미등록 특별법 단위로 연결",
+      "inherited_decision_group": "art301_sec7.special_rape_attempt_result"
+    }
+  ]
+}

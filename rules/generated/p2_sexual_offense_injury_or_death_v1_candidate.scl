@@ -1,0 +1,1630 @@
+// rule_set_id: kr.p2.sexual_offense_injury_or_death.native.v1_candidate
+// status: draft
+// legal_review: pending
+// generated_from: validated RuleIR; model output is never executed directly
+
+// provable: 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+// sources: system contract
+// norm_cards: system contract
+type provable(String, String)
+
+// case_assessment_complete: 사건 라우터가 선택한 평가 묶음이 완결되어 결론 계층의 폐쇄세계 검사를 허용함
+// sources: system contract
+// norm_cards: system contract
+type case_assessment_complete(String, String)
+
+// distinct_entity: 사건의 entity resolution에서 두 역할이 서로 다른 실체임이 확인됨
+// sources: system contract
+// norm_cards: system contract
+type distinct_entity(String, String, String)
+
+// sexual_offense_result_case_roles: 호스트가 전제 성범죄와 상해·사망 결과를 확정한 피고인·동일 피해자 tuple
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_result_case_roles(String, String, String)
+
+// sexual_offense_injury_or_death_not_established: 증명된 불성립 사유 또는 경계 이동이 존재함
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_injury_or_death_not_established(String, String, String)
+
+// sexual_offense_injury_or_death_undetermined: 관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_injury_or_death_undetermined(String, String, String)
+
+// sexual_offense_injury_or_death_conflict: 같은 카드에 satisfied와 not_satisfied 평가가 모두 증명됨
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_injury_or_death_conflict(String, String, String)
+
+// sexual_offense_injury_or_death_track_not_established: 해당 track에만 적용되는 증명된 불성립 사유 또는 경계 이동
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_injury_or_death_track_not_established(String, String, String, String)
+
+// sexual_offense_injury_or_death_track_conflict: 해당 track에 적용되는 카드 평가 충돌
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_injury_or_death_track_conflict(String, String, String, String)
+
+// sexual_offense_injury_or_death_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_injury_or_death_track_has_negative(String, String, String)
+
+// sexual_offense_injury_or_death_track_has_conflict: 해당 track에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_injury_or_death_track_has_conflict(String, String, String)
+
+// assess_art301_assault_before_forced_indecency_no_result_injury: 이 카드의 사건별 적용 평가: 폭행으로 상해를 입힌 다음 강제추행을 한 경우에는 강제추행치상죄가 성립하지 않는다.
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury
+type assess_art301_assault_before_forced_indecency_no_result_injury(String, String, String, String, String)
+
+// satisfied_art301_assault_before_forced_indecency_no_result_injury: 증명 가능한 평가에서 다음 조건이 충족됨: 폭행으로 상해를 입힌 다음 강제추행을 한 경우에는 강제추행치상죄가 성립하지 않는다.
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury
+type satisfied_art301_assault_before_forced_indecency_no_result_injury(String, String, String)
+
+// assess_art301_death_absorbs_injury: 이 카드의 사건별 적용 평가: 강간으로 피해자에게 상해를 입힌 후 그로 인해 사망한 경우 상해는 사망에 흡수되어 강간치사죄만 성립한다.
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.death_absorbs_injury
+type assess_art301_death_absorbs_injury(String, String, String, String, String)
+
+// satisfied_art301_death_absorbs_injury: 증명 가능한 평가에서 다음 조건이 충족됨: 강간으로 피해자에게 상해를 입힌 후 그로 인해 사망한 경우 상해는 사망에 흡수되어 강간치사죄만 성립한다.
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.death_absorbs_injury
+type satisfied_art301_death_absorbs_injury(String, String, String)
+
+// assess_art301_no_abandonment_offense_after_rape_injury: 이 카드의 사건별 적용 평가: 강간치상죄를 범한 자가 실신한 피해자를 구호하지 않고 방치했더라도 포괄적으로 강간치상죄만 구성하고 별도 유기죄는 구성하지 않는다.
+// sources: comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.no_abandonment_offense_after_rape_injury
+type assess_art301_no_abandonment_offense_after_rape_injury(String, String, String, String, String)
+
+// satisfied_art301_no_abandonment_offense_after_rape_injury: 증명 가능한 평가에서 다음 조건이 충족됨: 강간치상죄를 범한 자가 실신한 피해자를 구호하지 않고 방치했더라도 포괄적으로 강간치상죄만 구성하고 별도 유기죄는 구성하지 않는다.
+// sources: comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.no_abandonment_offense_after_rape_injury
+type satisfied_art301_no_abandonment_offense_after_rape_injury(String, String, String)
+
+// assess_art301_post_rape_new_intent_separate_concurrence: 이 카드의 사건별 적용 평가: 강간 등 행위가 종료된 뒤 새로 상해 고의가 생겨 상해한 경우에는 강간 등 죄와 상해죄의 실체적 경합범이 성립한다.
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.post_rape_new_intent_separate_concurrence
+type assess_art301_post_rape_new_intent_separate_concurrence(String, String, String, String, String)
+
+// satisfied_art301_post_rape_new_intent_separate_concurrence: 증명 가능한 평가에서 다음 조건이 충족됨: 강간 등 행위가 종료된 뒤 새로 상해 고의가 생겨 상해한 경우에는 강간 등 죄와 상해죄의 실체적 경합범이 성립한다.
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.post_rape_new_intent_separate_concurrence
+type satisfied_art301_post_rape_new_intent_separate_concurrence(String, String, String)
+
+// assess_art301_sec2_attempt_injury: 이 카드의 사건별 적용 평가: 강간 등이 미수에 그친 경우에도 그 수단이 된 폭행으로 피해자가 상해를 입으면 본죄가 성립하며, 미수가 자의중지인지 실행 미완료인지는 가리지 않는다.
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.attempt_injury
+type assess_art301_sec2_attempt_injury(String, String, String, String, String)
+
+// satisfied_art301_sec2_attempt_injury: 증명 가능한 평가에서 다음 조건이 충족됨: 강간 등이 미수에 그친 경우에도 그 수단이 된 폭행으로 피해자가 상해를 입으면 본죄가 성립하며, 미수가 자의중지인지 실행 미완료인지는 가리지 않는다.
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.attempt_injury
+type satisfied_art301_sec2_attempt_injury(String, String, String)
+
+// assess_art301_sec2_object_victim: 이 카드의 사건별 적용 평가: 본죄의 객체인 사람은 강간 등의 피해자를 의미한다.
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.object_victim
+type assess_art301_sec2_object_victim(String, String, String, String, String)
+
+// satisfied_art301_sec2_object_victim: 증명 가능한 평가에서 다음 조건이 충족됨: 본죄의 객체인 사람은 강간 등의 피해자를 의미한다.
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.object_victim
+type satisfied_art301_sec2_object_victim(String, String, String)
+
+// assess_art301_sec2_subject_predicate_offenses: 이 카드의 사건별 적용 평가: 본죄의 주체는 열거된 강간·유사강간·강제추행·준강간 등 범죄를 범한 자 또는 그 미수에 그친 자이다.
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.subject_predicate_offenses
+type assess_art301_sec2_subject_predicate_offenses(String, String, String, String, String)
+
+// satisfied_art301_sec2_subject_predicate_offenses: 증명 가능한 평가에서 다음 조건이 충족됨: 본죄의 주체는 열거된 강간·유사강간·강제추행·준강간 등 범죄를 범한 자 또는 그 미수에 그친 자이다.
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.subject_predicate_offenses
+type satisfied_art301_sec2_subject_predicate_offenses(String, String, String)
+
+// assess_art301_sec3_continuing_criminal_stage: 이 카드의 사건별 적용 평가: 상해 결과는 강간 등 실행 중, 실행 직후 또는 실행범의 포기 직후로서 사회통념상 범죄행위가 완료되지 않은 단계의 행위로 발생하여야 하며, 강간 등이 기수에 이르기 전 원인행위가 반드시 있어야 하는 것은 아니다.
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.continuing_criminal_stage
+type assess_art301_sec3_continuing_criminal_stage(String, String, String, String, String)
+
+// satisfied_art301_sec3_continuing_criminal_stage: 증명 가능한 평가에서 다음 조건이 충족됨: 상해 결과는 강간 등 실행 중, 실행 직후 또는 실행범의 포기 직후로서 사회통념상 범죄행위가 완료되지 않은 단계의 행위로 발생하여야 하며, 강간 등이 기수에 이르기 전 원인행위가 반드시 있어야 하는 것은 아니다.
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.continuing_criminal_stage
+type satisfied_art301_sec3_continuing_criminal_stage(String, String, String)
+
+// assess_art301_sec3_injury_occasion_categories: 이 카드의 사건별 적용 평가: 강간 등의 기회에 발생한 상해에는 강간 등 자체에 기인한 경우, 그 수단인 폭행으로 발생한 경우 및 강간 등에 수반하여 발생한 경우가 포함된다.
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.injury_occasion_categories
+type assess_art301_sec3_injury_occasion_categories(String, String, String, String, String)
+
+// satisfied_art301_sec3_injury_occasion_categories: 증명 가능한 평가에서 다음 조건이 충족됨: 강간 등의 기회에 발생한 상해에는 강간 등 자체에 기인한 경우, 그 수단인 폭행으로 발생한 경우 및 강간 등에 수반하여 발생한 경우가 포함된다.
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.injury_occasion_categories
+type satisfied_art301_sec3_injury_occasion_categories(String, String, String)
+
+// assess_art301_sec3_injury_occasion_causation: 이 카드의 사건별 적용 평가: 본죄 성립을 위해서는 강간 등의 죄 외에, 강간 등의 기회 또는 시간적·장소적으로 밀접하게 관련된 행위로 발생한 상해 결과가 필요하다.
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.injury_occasion_causation
+type assess_art301_sec3_injury_occasion_causation(String, String, String, String, String)
+
+// satisfied_art301_sec3_injury_occasion_causation: 증명 가능한 평가에서 다음 조건이 충족됨: 본죄 성립을 위해서는 강간 등의 죄 외에, 강간 등의 기회 또는 시간적·장소적으로 밀접하게 관련된 행위로 발생한 상해 결과가 필요하다.
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.injury_occasion_causation
+type satisfied_art301_sec3_injury_occasion_causation(String, String, String)
+
+// assess_art301_sec3_post_rape_injury_connection: 이 카드의 사건별 적용 평가: 강간 후에도 피해자의 심리적 저항불능 상태가 해소되지 않은 상태에서 강간범의 상해행위가 있으면, 시간적·공간적 간격이 있더라도 강간상해죄가 성립할 수 있다.
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.post_rape_injury_connection
+type assess_art301_sec3_post_rape_injury_connection(String, String, String, String, String)
+
+// satisfied_art301_sec3_post_rape_injury_connection: 증명 가능한 평가에서 다음 조건이 충족됨: 강간 후에도 피해자의 심리적 저항불능 상태가 해소되지 않은 상태에서 강간범의 상해행위가 있으면, 시간적·공간적 간격이 있더라도 강간상해죄가 성립할 수 있다.
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.post_rape_injury_connection
+type satisfied_art301_sec3_post_rape_injury_connection(String, String, String)
+
+// assess_art301_sec3_result_after_completion: 이 카드의 사건별 적용 평가: 강간 등이 완료되기 전에 고의 또는 과실에 의한 상해 원인행위가 있으면, 상해 결과가 강간 등의 완료 후 발생하여도 본죄가 성립한다.
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.result_after_completion
+type assess_art301_sec3_result_after_completion(String, String, String, String, String)
+
+// satisfied_art301_sec3_result_after_completion: 증명 가능한 평가에서 다음 조건이 충족됨: 강간 등이 완료되기 전에 고의 또는 과실에 의한 상해 원인행위가 있으면, 상해 결과가 강간 등의 완료 후 발생하여도 본죄가 성립한다.
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.result_after_completion
+type satisfied_art301_sec3_result_after_completion(String, String, String)
+
+// assess_art301_sec3_unrelated_injury_exception: 이 카드의 사건별 적용 평가: 강간 등의 기회가 아닌 다른 사정으로 상해 결과가 발생한 경우 본죄는 성립하지 않는다.
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.unrelated_injury_exception
+type assess_art301_sec3_unrelated_injury_exception(String, String, String, String, String)
+
+// satisfied_art301_sec3_unrelated_injury_exception: 증명 가능한 평가에서 다음 조건이 충족됨: 강간 등의 기회가 아닌 다른 사정으로 상해 결과가 발생한 경우 본죄는 성립하지 않는다.
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.unrelated_injury_exception
+type satisfied_art301_sec3_unrelated_injury_exception(String, String, String)
+
+// assess_art301_sec4_2_minor_injury_exclusion: 이 카드의 사건별 적용 평가: 상처가 극히 경미하여 치료할 필요가 없고, 치료 없이도 일상생활에 아무런 지장이 없으며, 시간이 지나 자연적으로 치유될 수 있는 정도이면 상해에 해당하지 않는다.
+// sources: comm_001692_제301조_Ⅳ.2_4
+// norm_cards: art301_sec4_2.minor_injury_exclusion
+type assess_art301_sec4_2_minor_injury_exclusion(String, String, String, String, String)
+
+// satisfied_art301_sec4_2_minor_injury_exclusion: 증명 가능한 평가에서 다음 조건이 충족됨: 상처가 극히 경미하여 치료할 필요가 없고, 치료 없이도 일상생활에 아무런 지장이 없으며, 시간이 지나 자연적으로 치유될 수 있는 정도이면 상해에 해당하지 않는다.
+// sources: comm_001692_제301조_Ⅳ.2_4
+// norm_cards: art301_sec4_2.minor_injury_exclusion
+type satisfied_art301_sec4_2_minor_injury_exclusion(String, String, String)
+
+// assess_art301_sec4_4_injury_recognition_factors: 이 카드의 사건별 적용 평가: 상해 인정 여부에서는 상처가 일상생활에서 흔히 발생할 수 있는지, 별다른 치료 없이 단기간 내 자연치유되는지, 그리고 피해자가 피해 후 곧바로 상처를 자각하여 의사에게 호소했는지를 고려한다.
+// sources: comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11
+// norm_cards: art301_sec4_4.injury_recognition_factors
+type assess_art301_sec4_4_injury_recognition_factors(String, String, String, String, String)
+
+// satisfied_art301_sec4_4_injury_recognition_factors: 증명 가능한 평가에서 다음 조건이 충족됨: 상해 인정 여부에서는 상처가 일상생활에서 흔히 발생할 수 있는지, 별다른 치료 없이 단기간 내 자연치유되는지, 그리고 피해자가 피해 후 곧바로 상처를 자각하여 의사에게 호소했는지를 고려한다.
+// sources: comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11
+// norm_cards: art301_sec4_4.injury_recognition_factors
+type satisfied_art301_sec4_4_injury_recognition_factors(String, String, String)
+
+// assess_art301_sec4_5_drug_induced_consciousness_impairment: 이 카드의 사건별 적용 평가: 수면유도 약물로 피해자가 일시적 수면 또는 의식불명 상태가 되고 건강상태가 불량하게 변경되거나 생활기능 장애가 초래되면, 외부 상처가 없거나 자연 회복하더라도 상해에 해당한다.
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.drug_induced_consciousness_impairment
+type assess_art301_sec4_5_drug_induced_consciousness_impairment(String, String, String, String, String)
+
+// satisfied_art301_sec4_5_drug_induced_consciousness_impairment: 증명 가능한 평가에서 다음 조건이 충족됨: 수면유도 약물로 피해자가 일시적 수면 또는 의식불명 상태가 되고 건강상태가 불량하게 변경되거나 생활기능 장애가 초래되면, 외부 상처가 없거나 자연 회복하더라도 상해에 해당한다.
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.drug_induced_consciousness_impairment
+type satisfied_art301_sec4_5_drug_induced_consciousness_impairment(String, String, String)
+
+// assess_art301_sec4_5_functional_impairment_injury: 이 카드의 사건별 적용 평가: 외부 상처가 없더라도 육체적·정신적 생리기능 훼손, 예컨대 보행불능·수면장애·식욕감퇴 등의 기능장애가 발생하면 상해로 인정될 수 있다.
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.functional_impairment_injury
+type assess_art301_sec4_5_functional_impairment_injury(String, String, String, String, String)
+
+// satisfied_art301_sec4_5_functional_impairment_injury: 증명 가능한 평가에서 다음 조건이 충족됨: 외부 상처가 없더라도 육체적·정신적 생리기능 훼손, 예컨대 보행불능·수면장애·식욕감퇴 등의 기능장애가 발생하면 상해로 인정될 수 있다.
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.functional_impairment_injury
+type satisfied_art301_sec4_5_functional_impairment_injury(String, String, String)
+
+// assess_art301_sec4_5_ptsd_as_injury: 이 카드의 사건별 적용 평가: 심각한 외상 후 나타나는 외상 후 스트레스 장애도 상해로 인정될 수 있다.
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.ptsd_as_injury
+type assess_art301_sec4_5_ptsd_as_injury(String, String, String, String, String)
+
+// satisfied_art301_sec4_5_ptsd_as_injury: 증명 가능한 평가에서 다음 조건이 충족됨: 심각한 외상 후 나타나는 외상 후 스트레스 장애도 상해로 인정될 수 있다.
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.ptsd_as_injury
+type satisfied_art301_sec4_5_ptsd_as_injury(String, String, String)
+
+// assess_art301_sec4_5_ptsd_causation_assessment: 이 카드의 사건별 적용 평가: 성범죄 후 외상 후 스트레스 장애의 상해 여부 및 인과관계는 피해자가 필연적으로 겪는 정도의 증상인지, 의사 진단·소견, 범행 내용, 구체적 증상, 치료 내용과 경과, 기존 정신과 치료 전력 등을 고려하여 판단한다.
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.ptsd_causation_assessment
+type assess_art301_sec4_5_ptsd_causation_assessment(String, String, String, String, String)
+
+// satisfied_art301_sec4_5_ptsd_causation_assessment: 증명 가능한 평가에서 다음 조건이 충족됨: 성범죄 후 외상 후 스트레스 장애의 상해 여부 및 인과관계는 피해자가 필연적으로 겪는 정도의 증상인지, 의사 진단·소견, 범행 내용, 구체적 증상, 치료 내용과 경과, 기존 정신과 치료 전력 등을 고려하여 판단한다.
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.ptsd_causation_assessment
+type satisfied_art301_sec4_5_ptsd_causation_assessment(String, String, String)
+
+// assess_art301_sec4_6_unwanted_pregnancy_not_injury_holding: 이 카드의 사건별 적용 평가: 대법원은 원하지 않는 임신 그 자체를 상해로 보기 어렵다고 판단한 원심을 수긍하였다.
+// sources: comm_001692_제301조_Ⅳ.6_14
+// norm_cards: art301_sec4_6.unwanted_pregnancy_not_injury_holding
+type assess_art301_sec4_6_unwanted_pregnancy_not_injury_holding(String, String, String, String, String)
+
+// satisfied_art301_sec4_6_unwanted_pregnancy_not_injury_holding: 증명 가능한 평가에서 다음 조건이 충족됨: 대법원은 원하지 않는 임신 그 자체를 상해로 보기 어렵다고 판단한 원심을 수긍하였다.
+// sources: comm_001692_제301조_Ⅳ.6_14
+// norm_cards: art301_sec4_6.unwanted_pregnancy_not_injury_holding
+type satisfied_art301_sec4_6_unwanted_pregnancy_not_injury_holding(String, String, String)
+
+// assess_art301_sec4_7_pubic_hair_cutting_not_injury: 이 카드의 사건별 적용 평가: 음모 모근을 남기고 모간 일부만 잘라 외관 변형이 생긴 경우, 수치심이나 폭행 해당 가능성과 별개로 건강상태의 병리적 불량 변경이나 생활기능 장애가 없으므로 강제추행치상죄의 상해에 해당하지 않는다.
+// sources: comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_7.pubic_hair_cutting_not_injury
+type assess_art301_sec4_7_pubic_hair_cutting_not_injury(String, String, String, String, String)
+
+// satisfied_art301_sec4_7_pubic_hair_cutting_not_injury: 증명 가능한 평가에서 다음 조건이 충족됨: 음모 모근을 남기고 모간 일부만 잘라 외관 변형이 생긴 경우, 수치심이나 폭행 해당 가능성과 별개로 건강상태의 병리적 불량 변경이나 생활기능 장애가 없으므로 강제추행치상죄의 상해에 해당하지 않는다.
+// sources: comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_7.pubic_hair_cutting_not_injury
+type satisfied_art301_sec4_7_pubic_hair_cutting_not_injury(String, String, String)
+
+// assess_art301_sec4_7_pubic_hair_pulling_injury: 이 카드의 사건별 적용 평가: 음모를 잡아당겨 음부 부근에 염증을 발생시키거나 음모를 모근부터 뽑는 경우 상해에 해당한다고 볼 수 있다.
+// sources: comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_7.pubic_hair_pulling_injury
+type assess_art301_sec4_7_pubic_hair_pulling_injury(String, String, String, String, String)
+
+// satisfied_art301_sec4_7_pubic_hair_pulling_injury: 증명 가능한 평가에서 다음 조건이 충족됨: 음모를 잡아당겨 음부 부근에 염증을 발생시키거나 음모를 모근부터 뽑는 경우 상해에 해당한다고 볼 수 있다.
+// sources: comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_7.pubic_hair_pulling_injury
+type satisfied_art301_sec4_7_pubic_hair_pulling_injury(String, String, String)
+
+// assess_art301_sec5_1_intentional_rape_injury: 이 카드의 사건별 적용 평가: 강간 등 상해죄는 강간 등 범행과 상해에 대한 고의가 요구되는 고의범이고, 미필적 고의로도 족하다.
+// sources: comm_001692_제301조_Ⅴ.1_16
+// norm_cards: art301_sec5_1.intentional_rape_injury
+type assess_art301_sec5_1_intentional_rape_injury(String, String, String, String, String)
+
+// satisfied_art301_sec5_1_intentional_rape_injury: 증명 가능한 평가에서 다음 조건이 충족됨: 강간 등 상해죄는 강간 등 범행과 상해에 대한 고의가 요구되는 고의범이고, 미필적 고의로도 족하다.
+// sources: comm_001692_제301조_Ⅴ.1_16
+// norm_cards: art301_sec5_1.intentional_rape_injury
+type satisfied_art301_sec5_1_intentional_rape_injury(String, String, String)
+
+// assess_art301_sec5_2_fleeing_traffic_injury: 이 카드의 사건별 적용 평가: 피해자가 강간 등 범행을 피해 도망가다가 자동차에 치여 상해를 입은 경우 인과관계와 예견가능성이 충분히 인정되어 강간 등 치상죄가 성립한다.
+// sources: comm_001692_제301조_Ⅴ.2_18
+// norm_cards: art301_sec5_2.fleeing_traffic_injury
+type assess_art301_sec5_2_fleeing_traffic_injury(String, String, String, String, String)
+
+// satisfied_art301_sec5_2_fleeing_traffic_injury: 증명 가능한 평가에서 다음 조건이 충족됨: 피해자가 강간 등 범행을 피해 도망가다가 자동차에 치여 상해를 입은 경우 인과관계와 예견가능성이 충분히 인정되어 강간 등 치상죄가 성립한다.
+// sources: comm_001692_제301조_Ⅴ.2_18
+// norm_cards: art301_sec5_2.fleeing_traffic_injury
+type satisfied_art301_sec5_2_fleeing_traffic_injury(String, String, String)
+
+// assess_art301_sec5_2_injury_foreseeability_assessment: 이 카드의 사건별 적용 평가: 상해 결과의 예견가능성은 폭행·협박 정도, 피해자의 나이와 대응상태 등 당시 구체적 상황을 종합하여 엄격히 판단하며, 일반인이 예견하기 어려운 이례적 결과는 인정하기 어렵다.
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.injury_foreseeability_assessment
+type assess_art301_sec5_2_injury_foreseeability_assessment(String, String, String, String, String)
+
+// satisfied_art301_sec5_2_injury_foreseeability_assessment: 증명 가능한 평가에서 다음 조건이 충족됨: 상해 결과의 예견가능성은 폭행·협박 정도, 피해자의 나이와 대응상태 등 당시 구체적 상황을 종합하여 엄격히 판단하며, 일반인이 예견하기 어려운 이례적 결과는 인정하기 어렵다.
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.injury_foreseeability_assessment
+type satisfied_art301_sec5_2_injury_foreseeability_assessment(String, String, String)
+
+// assess_art301_sec5_2_rape_injury_causation_foreseeability: 이 카드의 사건별 적용 평가: 강간 등 치상죄는 강간 등 행위와 상해 결과 사이 인과관계 및 결과발생에 대한 예견가능성을 요한다.
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.rape_injury_causation_foreseeability
+type assess_art301_sec5_2_rape_injury_causation_foreseeability(String, String, String, String, String)
+
+// satisfied_art301_sec5_2_rape_injury_causation_foreseeability: 증명 가능한 평가에서 다음 조건이 충족됨: 강간 등 치상죄는 강간 등 행위와 상해 결과 사이 인과관계 및 결과발생에 대한 예견가능성을 요한다.
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.rape_injury_causation_foreseeability
+type satisfied_art301_sec5_2_rape_injury_causation_foreseeability(String, String, String)
+
+// assess_art301_sec5_2_rape_injury_result_aggravation: 이 카드의 사건별 적용 평가: 강간 등 치상죄는 강간 등 범행의 고의는 필요하지만 상해 결과에 대한 고의는 요구되지 않는 결과적 가중범이다.
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.rape_injury_result_aggravation
+type assess_art301_sec5_2_rape_injury_result_aggravation(String, String, String, String, String)
+
+// satisfied_art301_sec5_2_rape_injury_result_aggravation: 증명 가능한 평가에서 다음 조건이 충족됨: 강간 등 치상죄는 강간 등 범행의 고의는 필요하지만 상해 결과에 대한 고의는 요구되지 않는 결과적 가중범이다.
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.rape_injury_result_aggravation
+type satisfied_art301_sec5_2_rape_injury_result_aggravation(String, String, String)
+
+// assess_art301_sec6_intentional_injury_conspirator_intent: 이 카드의 사건별 적용 평가: 고의범인 강간 등 상해죄에서 공모자에게도 상해에 대한 고의가 필요하므로, 그 고의를 인정하기 어려우면 공동정범으로 처벌할 수 없다.
+// sources: comm_001692_제301조_Ⅵ_19
+// norm_cards: art301_sec6.intentional_injury_conspirator_intent
+type assess_art301_sec6_intentional_injury_conspirator_intent(String, String, String, String, String)
+
+// satisfied_art301_sec6_intentional_injury_conspirator_intent: 증명 가능한 평가에서 다음 조건이 충족됨: 고의범인 강간 등 상해죄에서 공모자에게도 상해에 대한 고의가 필요하므로, 그 고의를 인정하기 어려우면 공동정범으로 처벌할 수 없다.
+// sources: comm_001692_제301조_Ⅵ_19
+// norm_cards: art301_sec6.intentional_injury_conspirator_intent
+type satisfied_art301_sec6_intentional_injury_conspirator_intent(String, String, String)
+
+// assess_art301_sec6_pre_execution_withdrawal: 이 카드의 사건별 적용 평가: 강간 등을 공모한 공범이 다른 공범자의 실행착수 전, 즉 폭행·협박 전 공범관계에서 이탈한 경우 다른 공범자의 행위에 대해 공동정범 책임을 지지 않는다.
+// sources: comm_001692_제301조_Ⅵ_19
+// norm_cards: art301_sec6.pre_execution_withdrawal
+type assess_art301_sec6_pre_execution_withdrawal(String, String, String, String, String)
+
+// satisfied_art301_sec6_pre_execution_withdrawal: 증명 가능한 평가에서 다음 조건이 충족됨: 강간 등을 공모한 공범이 다른 공범자의 실행착수 전, 즉 폭행·협박 전 공범관계에서 이탈한 경우 다른 공범자의 행위에 대해 공동정범 책임을 지지 않는다.
+// sources: comm_001692_제301조_Ⅵ_19
+// norm_cards: art301_sec6.pre_execution_withdrawal
+type satisfied_art301_sec6_pre_execution_withdrawal(String, String, String)
+
+// assess_art301_sec7_no_general_attempt_punishment: 이 카드의 사건별 적용 평가: 형법상 강간 등 상해·치상죄에는 미수범 처벌규정이 없다.
+// sources: comm_001692_제301조_Ⅶ_20
+// norm_cards: art301_sec7.no_general_attempt_punishment
+type assess_art301_sec7_no_general_attempt_punishment(String, String, String, String, String)
+
+// satisfied_art301_sec7_no_general_attempt_punishment: 증명 가능한 평가에서 다음 조건이 충족됨: 형법상 강간 등 상해·치상죄에는 미수범 처벌규정이 없다.
+// sources: comm_001692_제301조_Ⅶ_20
+// norm_cards: art301_sec7.no_general_attempt_punishment
+type satisfied_art301_sec7_no_general_attempt_punishment(String, String, String)
+
+// assess_art301_sec7_special_rape_injury_completed: 이 카드의 사건별 적용 평가: 특수강간이 미수에 그쳤더라도 그로 인해 피해자가 상해를 입으면 특수강간치상죄의 기수범이 성립하고, 미수범 처벌규정은 상해 고의로 상해를 입히려다 미수에 그친 특수강간상해죄 등에 적용된다는 판례 입장이 소개되어 있다.
+// sources: comm_001692_제301조_Ⅶ_21
+// norm_cards: art301_sec7.special_rape_injury_completed
+type assess_art301_sec7_special_rape_injury_completed(String, String, String, String, String)
+
+// satisfied_art301_sec7_special_rape_injury_completed: 증명 가능한 평가에서 다음 조건이 충족됨: 특수강간이 미수에 그쳤더라도 그로 인해 피해자가 상해를 입으면 특수강간치상죄의 기수범이 성립하고, 미수범 처벌규정은 상해 고의로 상해를 입히려다 미수에 그친 특수강간상해죄 등에 적용된다는 판례 입장이 소개되어 있다.
+// sources: comm_001692_제301조_Ⅶ_21
+// norm_cards: art301_sec7.special_rape_injury_completed
+type satisfied_art301_sec7_special_rape_injury_completed(String, String, String)
+
+// sexual_offense_injury_or_death_common_injury_satisfied: 'injury' 요건이 충족됨 (common track, alternative_any)
+// sources: comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_4.injury_recognition_factors, art301_sec4_5.drug_induced_consciousness_impairment, art301_sec4_5.functional_impairment_injury, art301_sec4_5.ptsd_as_injury, art301_sec4_5.ptsd_causation_assessment, art301_sec4_7.pubic_hair_pulling_injury
+type sexual_offense_injury_or_death_common_injury_satisfied(String, String, String)
+
+// sexual_offense_injury_or_death_common_injury_nexus_satisfied: 'injury_nexus' 요건이 충족됨 (common track, alternative_any)
+// sources: comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.continuing_criminal_stage, art301_sec3.injury_occasion_categories, art301_sec3.injury_occasion_causation, art301_sec3.post_rape_injury_connection, art301_sec3.result_after_completion
+type sexual_offense_injury_or_death_common_injury_nexus_satisfied(String, String, String)
+
+// sexual_offense_injury_or_death_common_object_scope_satisfied: 'object_scope' 요건이 충족됨 (common track, mandatory_all)
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.object_victim
+type sexual_offense_injury_or_death_common_object_scope_satisfied(String, String, String)
+
+// sexual_offense_injury_or_death_common_predicate_offense_satisfied: 'predicate_offense' 요건이 충족됨 (common track, alternative_any)
+// sources: comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.attempt_injury, art301_sec2.subject_predicate_offenses
+type sexual_offense_injury_or_death_common_predicate_offense_satisfied(String, String, String)
+
+// sexual_offense_injury_or_death_death_death_result_satisfied: 'death_result' 요건이 충족됨 (death track, mandatory_all)
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.death_absorbs_injury
+type sexual_offense_injury_or_death_death_death_result_satisfied(String, String, String)
+
+// sexual_offense_injury_or_death_intentional_injury_injury_intent_satisfied: 'injury_intent' 요건이 충족됨 (intentional_injury track, mandatory_all)
+// sources: comm_001692_제301조_Ⅴ.1_16
+// norm_cards: art301_sec5_1.intentional_rape_injury
+type sexual_offense_injury_or_death_intentional_injury_injury_intent_satisfied(String, String, String)
+
+// sexual_offense_injury_or_death_result_aggravated_injury_result_responsibility_satisfied: 'result_responsibility' 요건이 충족됨 (result_aggravated_injury track, alternative_any)
+// sources: comm_001692_제301조_Ⅴ.2_18, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.fleeing_traffic_injury, art301_sec5_2.injury_foreseeability_assessment, art301_sec5_2.rape_injury_causation_foreseeability, art301_sec5_2.rape_injury_result_aggravation
+type sexual_offense_injury_or_death_result_aggravated_injury_result_responsibility_satisfied(String, String, String)
+
+// sexual_offense_injury_or_death_has_negative: 이 unit에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_injury_or_death_has_negative(String, String)
+
+// sexual_offense_injury_or_death_has_conflict: 이 unit에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_injury_or_death_has_conflict(String, String)
+
+// sexual_offense_injury_or_death_intentional_injury_elements_satisfied: 'intentional_injury' track의 구성요건 component가 모두 충족된 잠정 성립 후보
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_injury_or_death_intentional_injury_elements_satisfied(String, String, String)
+
+// sexual_offense_injury_or_death_intentional_injury_established: 완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 'intentional_injury' track 확정 성립
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_injury_or_death_intentional_injury_established(String, String, String)
+
+// sexual_offense_injury_or_death_result_aggravated_injury_elements_satisfied: 'result_aggravated_injury' track의 구성요건 component가 모두 충족된 잠정 성립 후보
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_injury_or_death_result_aggravated_injury_elements_satisfied(String, String, String)
+
+// sexual_offense_injury_or_death_result_aggravated_injury_established: 완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 'result_aggravated_injury' track 확정 성립
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_injury_or_death_result_aggravated_injury_established(String, String, String)
+
+// sexual_offense_injury_or_death_death_elements_satisfied: 'death' track의 구성요건 component가 모두 충족된 잠정 성립 후보
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_injury_or_death_death_elements_satisfied(String, String, String)
+
+// sexual_offense_injury_or_death_death_established: 완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 'death' track 확정 성립
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_injury_or_death_death_established(String, String, String)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_assault_before_forced_indecency_no_result_injury.satisfied
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury
+rel satisfied_art301_assault_before_forced_indecency_no_result_injury(case_id, defendant_id, victim_id) = assess_art301_assault_before_forced_indecency_no_result_injury(case_id, assessment_001, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_001)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_assault_before_forced_indecency_no_result_injury.undetermined
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301.assault_before_forced_indecency_no_result_injury") = assess_art301_assault_before_forced_indecency_no_result_injury(case_id, unknown_001, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_001)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_assault_before_forced_indecency_no_result_injury.conflict
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301.assault_before_forced_indecency_no_result_injury") = assess_art301_assault_before_forced_indecency_no_result_injury(case_id, positive_001, defendant_id, victim_id, "satisfied") and
+  assess_art301_assault_before_forced_indecency_no_result_injury(case_id, negative_001, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_001) and
+  provable(case_id, negative_001)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_death_absorbs_injury.satisfied
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.death_absorbs_injury
+rel satisfied_art301_death_absorbs_injury(case_id, defendant_id, victim_id) = assess_art301_death_absorbs_injury(case_id, assessment_002, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_002)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_death_absorbs_injury.undetermined
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.death_absorbs_injury
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301.death_absorbs_injury") = assess_art301_death_absorbs_injury(case_id, unknown_002, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_002)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_death_absorbs_injury.conflict
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.death_absorbs_injury
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301.death_absorbs_injury") = assess_art301_death_absorbs_injury(case_id, positive_002, defendant_id, victim_id, "satisfied") and
+  assess_art301_death_absorbs_injury(case_id, negative_002, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_002) and
+  provable(case_id, negative_002)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_no_abandonment_offense_after_rape_injury.satisfied
+// sources: comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.no_abandonment_offense_after_rape_injury
+rel satisfied_art301_no_abandonment_offense_after_rape_injury(case_id, defendant_id, victim_id) = assess_art301_no_abandonment_offense_after_rape_injury(case_id, assessment_003, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_003)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_no_abandonment_offense_after_rape_injury.undetermined
+// sources: comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.no_abandonment_offense_after_rape_injury
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301.no_abandonment_offense_after_rape_injury") = assess_art301_no_abandonment_offense_after_rape_injury(case_id, unknown_003, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_003)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_no_abandonment_offense_after_rape_injury.conflict
+// sources: comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.no_abandonment_offense_after_rape_injury
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301.no_abandonment_offense_after_rape_injury") = assess_art301_no_abandonment_offense_after_rape_injury(case_id, positive_003, defendant_id, victim_id, "satisfied") and
+  assess_art301_no_abandonment_offense_after_rape_injury(case_id, negative_003, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_003) and
+  provable(case_id, negative_003)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_post_rape_new_intent_separate_concurrence.satisfied
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.post_rape_new_intent_separate_concurrence
+rel satisfied_art301_post_rape_new_intent_separate_concurrence(case_id, defendant_id, victim_id) = assess_art301_post_rape_new_intent_separate_concurrence(case_id, assessment_004, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_004)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_post_rape_new_intent_separate_concurrence.undetermined
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.post_rape_new_intent_separate_concurrence
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301.post_rape_new_intent_separate_concurrence") = assess_art301_post_rape_new_intent_separate_concurrence(case_id, unknown_004, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_004)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_post_rape_new_intent_separate_concurrence.conflict
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.post_rape_new_intent_separate_concurrence
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301.post_rape_new_intent_separate_concurrence") = assess_art301_post_rape_new_intent_separate_concurrence(case_id, positive_004, defendant_id, victim_id, "satisfied") and
+  assess_art301_post_rape_new_intent_separate_concurrence(case_id, negative_004, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_004) and
+  provable(case_id, negative_004)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec2_attempt_injury.satisfied
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.attempt_injury
+rel satisfied_art301_sec2_attempt_injury(case_id, defendant_id, victim_id) = assess_art301_sec2_attempt_injury(case_id, assessment_005, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_005)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec2_attempt_injury.undetermined
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.attempt_injury
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec2.attempt_injury") = assess_art301_sec2_attempt_injury(case_id, unknown_005, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_005)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec2_attempt_injury.conflict
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.attempt_injury
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec2.attempt_injury") = assess_art301_sec2_attempt_injury(case_id, positive_005, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec2_attempt_injury(case_id, negative_005, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_005) and
+  provable(case_id, negative_005)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec2_object_victim.satisfied
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.object_victim
+rel satisfied_art301_sec2_object_victim(case_id, defendant_id, victim_id) = assess_art301_sec2_object_victim(case_id, assessment_006, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_006)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec2_object_victim.undetermined
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.object_victim
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec2.object_victim") = assess_art301_sec2_object_victim(case_id, unknown_006, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_006)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec2_object_victim.conflict
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.object_victim
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec2.object_victim") = assess_art301_sec2_object_victim(case_id, positive_006, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec2_object_victim(case_id, negative_006, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_006) and
+  provable(case_id, negative_006)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec2_subject_predicate_offenses.satisfied
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.subject_predicate_offenses
+rel satisfied_art301_sec2_subject_predicate_offenses(case_id, defendant_id, victim_id) = assess_art301_sec2_subject_predicate_offenses(case_id, assessment_007, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_007)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec2_subject_predicate_offenses.undetermined
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.subject_predicate_offenses
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec2.subject_predicate_offenses") = assess_art301_sec2_subject_predicate_offenses(case_id, unknown_007, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_007)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec2_subject_predicate_offenses.conflict
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.subject_predicate_offenses
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec2.subject_predicate_offenses") = assess_art301_sec2_subject_predicate_offenses(case_id, positive_007, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec2_subject_predicate_offenses(case_id, negative_007, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_007) and
+  provable(case_id, negative_007)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec3_continuing_criminal_stage.satisfied
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.continuing_criminal_stage
+rel satisfied_art301_sec3_continuing_criminal_stage(case_id, defendant_id, victim_id) = assess_art301_sec3_continuing_criminal_stage(case_id, assessment_008, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_008)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec3_continuing_criminal_stage.undetermined
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.continuing_criminal_stage
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec3.continuing_criminal_stage") = assess_art301_sec3_continuing_criminal_stage(case_id, unknown_008, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_008)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec3_continuing_criminal_stage.conflict
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.continuing_criminal_stage
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.continuing_criminal_stage") = assess_art301_sec3_continuing_criminal_stage(case_id, positive_008, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec3_continuing_criminal_stage(case_id, negative_008, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_008) and
+  provable(case_id, negative_008)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec3_injury_occasion_categories.satisfied
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.injury_occasion_categories
+rel satisfied_art301_sec3_injury_occasion_categories(case_id, defendant_id, victim_id) = assess_art301_sec3_injury_occasion_categories(case_id, assessment_009, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_009)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec3_injury_occasion_categories.undetermined
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.injury_occasion_categories
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec3.injury_occasion_categories") = assess_art301_sec3_injury_occasion_categories(case_id, unknown_009, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_009)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec3_injury_occasion_categories.conflict
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.injury_occasion_categories
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.injury_occasion_categories") = assess_art301_sec3_injury_occasion_categories(case_id, positive_009, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec3_injury_occasion_categories(case_id, negative_009, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_009) and
+  provable(case_id, negative_009)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec3_injury_occasion_causation.satisfied
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.injury_occasion_causation
+rel satisfied_art301_sec3_injury_occasion_causation(case_id, defendant_id, victim_id) = assess_art301_sec3_injury_occasion_causation(case_id, assessment_010, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_010)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec3_injury_occasion_causation.undetermined
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.injury_occasion_causation
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec3.injury_occasion_causation") = assess_art301_sec3_injury_occasion_causation(case_id, unknown_010, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_010)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec3_injury_occasion_causation.conflict
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.injury_occasion_causation
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.injury_occasion_causation") = assess_art301_sec3_injury_occasion_causation(case_id, positive_010, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec3_injury_occasion_causation(case_id, negative_010, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_010) and
+  provable(case_id, negative_010)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec3_post_rape_injury_connection.satisfied
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.post_rape_injury_connection
+rel satisfied_art301_sec3_post_rape_injury_connection(case_id, defendant_id, victim_id) = assess_art301_sec3_post_rape_injury_connection(case_id, assessment_011, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_011)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec3_post_rape_injury_connection.undetermined
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.post_rape_injury_connection
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec3.post_rape_injury_connection") = assess_art301_sec3_post_rape_injury_connection(case_id, unknown_011, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_011)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec3_post_rape_injury_connection.conflict
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.post_rape_injury_connection
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.post_rape_injury_connection") = assess_art301_sec3_post_rape_injury_connection(case_id, positive_011, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec3_post_rape_injury_connection(case_id, negative_011, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_011) and
+  provable(case_id, negative_011)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec3_result_after_completion.satisfied
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.result_after_completion
+rel satisfied_art301_sec3_result_after_completion(case_id, defendant_id, victim_id) = assess_art301_sec3_result_after_completion(case_id, assessment_012, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_012)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec3_result_after_completion.undetermined
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.result_after_completion
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec3.result_after_completion") = assess_art301_sec3_result_after_completion(case_id, unknown_012, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_012)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec3_result_after_completion.conflict
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.result_after_completion
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.result_after_completion") = assess_art301_sec3_result_after_completion(case_id, positive_012, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec3_result_after_completion(case_id, negative_012, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_012) and
+  provable(case_id, negative_012)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec3_unrelated_injury_exception.satisfied
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.unrelated_injury_exception
+rel satisfied_art301_sec3_unrelated_injury_exception(case_id, defendant_id, victim_id) = assess_art301_sec3_unrelated_injury_exception(case_id, assessment_013, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_013)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec3_unrelated_injury_exception.undetermined
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.unrelated_injury_exception
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec3.unrelated_injury_exception") = assess_art301_sec3_unrelated_injury_exception(case_id, unknown_013, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_013)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec3_unrelated_injury_exception.conflict
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.unrelated_injury_exception
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.unrelated_injury_exception") = assess_art301_sec3_unrelated_injury_exception(case_id, positive_013, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec3_unrelated_injury_exception(case_id, negative_013, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_013) and
+  provable(case_id, negative_013)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_2_minor_injury_exclusion.satisfied
+// sources: comm_001692_제301조_Ⅳ.2_4
+// norm_cards: art301_sec4_2.minor_injury_exclusion
+rel satisfied_art301_sec4_2_minor_injury_exclusion(case_id, defendant_id, victim_id) = assess_art301_sec4_2_minor_injury_exclusion(case_id, assessment_014, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_014)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_2_minor_injury_exclusion.undetermined
+// sources: comm_001692_제301조_Ⅳ.2_4
+// norm_cards: art301_sec4_2.minor_injury_exclusion
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec4_2.minor_injury_exclusion") = assess_art301_sec4_2_minor_injury_exclusion(case_id, unknown_014, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_014)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_2_minor_injury_exclusion.conflict
+// sources: comm_001692_제301조_Ⅳ.2_4
+// norm_cards: art301_sec4_2.minor_injury_exclusion
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_2.minor_injury_exclusion") = assess_art301_sec4_2_minor_injury_exclusion(case_id, positive_014, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec4_2_minor_injury_exclusion(case_id, negative_014, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_014) and
+  provable(case_id, negative_014)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_4_injury_recognition_factors.satisfied
+// sources: comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11
+// norm_cards: art301_sec4_4.injury_recognition_factors
+rel satisfied_art301_sec4_4_injury_recognition_factors(case_id, defendant_id, victim_id) = assess_art301_sec4_4_injury_recognition_factors(case_id, assessment_015, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_015)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_4_injury_recognition_factors.undetermined
+// sources: comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11
+// norm_cards: art301_sec4_4.injury_recognition_factors
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec4_4.injury_recognition_factors") = assess_art301_sec4_4_injury_recognition_factors(case_id, unknown_015, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_015)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_4_injury_recognition_factors.conflict
+// sources: comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11
+// norm_cards: art301_sec4_4.injury_recognition_factors
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_4.injury_recognition_factors") = assess_art301_sec4_4_injury_recognition_factors(case_id, positive_015, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec4_4_injury_recognition_factors(case_id, negative_015, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_015) and
+  provable(case_id, negative_015)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_5_drug_induced_consciousness_impairment.satisfied
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.drug_induced_consciousness_impairment
+rel satisfied_art301_sec4_5_drug_induced_consciousness_impairment(case_id, defendant_id, victim_id) = assess_art301_sec4_5_drug_induced_consciousness_impairment(case_id, assessment_016, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_016)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_5_drug_induced_consciousness_impairment.undetermined
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.drug_induced_consciousness_impairment
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec4_5.drug_induced_consciousness_impairment") = assess_art301_sec4_5_drug_induced_consciousness_impairment(case_id, unknown_016, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_016)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_5_drug_induced_consciousness_impairment.conflict
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.drug_induced_consciousness_impairment
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_5.drug_induced_consciousness_impairment") = assess_art301_sec4_5_drug_induced_consciousness_impairment(case_id, positive_016, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec4_5_drug_induced_consciousness_impairment(case_id, negative_016, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_016) and
+  provable(case_id, negative_016)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_5_functional_impairment_injury.satisfied
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.functional_impairment_injury
+rel satisfied_art301_sec4_5_functional_impairment_injury(case_id, defendant_id, victim_id) = assess_art301_sec4_5_functional_impairment_injury(case_id, assessment_017, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_017)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_5_functional_impairment_injury.undetermined
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.functional_impairment_injury
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec4_5.functional_impairment_injury") = assess_art301_sec4_5_functional_impairment_injury(case_id, unknown_017, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_017)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_5_functional_impairment_injury.conflict
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.functional_impairment_injury
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_5.functional_impairment_injury") = assess_art301_sec4_5_functional_impairment_injury(case_id, positive_017, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec4_5_functional_impairment_injury(case_id, negative_017, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_017) and
+  provable(case_id, negative_017)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_5_ptsd_as_injury.satisfied
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.ptsd_as_injury
+rel satisfied_art301_sec4_5_ptsd_as_injury(case_id, defendant_id, victim_id) = assess_art301_sec4_5_ptsd_as_injury(case_id, assessment_018, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_018)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_5_ptsd_as_injury.undetermined
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.ptsd_as_injury
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec4_5.ptsd_as_injury") = assess_art301_sec4_5_ptsd_as_injury(case_id, unknown_018, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_018)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_5_ptsd_as_injury.conflict
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.ptsd_as_injury
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_5.ptsd_as_injury") = assess_art301_sec4_5_ptsd_as_injury(case_id, positive_018, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec4_5_ptsd_as_injury(case_id, negative_018, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_018) and
+  provable(case_id, negative_018)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_5_ptsd_causation_assessment.satisfied
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.ptsd_causation_assessment
+rel satisfied_art301_sec4_5_ptsd_causation_assessment(case_id, defendant_id, victim_id) = assess_art301_sec4_5_ptsd_causation_assessment(case_id, assessment_019, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_019)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_5_ptsd_causation_assessment.undetermined
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.ptsd_causation_assessment
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec4_5.ptsd_causation_assessment") = assess_art301_sec4_5_ptsd_causation_assessment(case_id, unknown_019, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_019)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_5_ptsd_causation_assessment.conflict
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.ptsd_causation_assessment
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_5.ptsd_causation_assessment") = assess_art301_sec4_5_ptsd_causation_assessment(case_id, positive_019, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec4_5_ptsd_causation_assessment(case_id, negative_019, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_019) and
+  provable(case_id, negative_019)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_6_unwanted_pregnancy_not_injury_holding.satisfied
+// sources: comm_001692_제301조_Ⅳ.6_14
+// norm_cards: art301_sec4_6.unwanted_pregnancy_not_injury_holding
+rel satisfied_art301_sec4_6_unwanted_pregnancy_not_injury_holding(case_id, defendant_id, victim_id) = assess_art301_sec4_6_unwanted_pregnancy_not_injury_holding(case_id, assessment_020, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_020)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_6_unwanted_pregnancy_not_injury_holding.undetermined
+// sources: comm_001692_제301조_Ⅳ.6_14
+// norm_cards: art301_sec4_6.unwanted_pregnancy_not_injury_holding
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec4_6.unwanted_pregnancy_not_injury_holding") = assess_art301_sec4_6_unwanted_pregnancy_not_injury_holding(case_id, unknown_020, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_020)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_6_unwanted_pregnancy_not_injury_holding.conflict
+// sources: comm_001692_제301조_Ⅳ.6_14
+// norm_cards: art301_sec4_6.unwanted_pregnancy_not_injury_holding
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_6.unwanted_pregnancy_not_injury_holding") = assess_art301_sec4_6_unwanted_pregnancy_not_injury_holding(case_id, positive_020, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec4_6_unwanted_pregnancy_not_injury_holding(case_id, negative_020, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_020) and
+  provable(case_id, negative_020)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_7_pubic_hair_cutting_not_injury.satisfied
+// sources: comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_7.pubic_hair_cutting_not_injury
+rel satisfied_art301_sec4_7_pubic_hair_cutting_not_injury(case_id, defendant_id, victim_id) = assess_art301_sec4_7_pubic_hair_cutting_not_injury(case_id, assessment_021, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_021)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_7_pubic_hair_cutting_not_injury.undetermined
+// sources: comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_7.pubic_hair_cutting_not_injury
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec4_7.pubic_hair_cutting_not_injury") = assess_art301_sec4_7_pubic_hair_cutting_not_injury(case_id, unknown_021, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_021)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_7_pubic_hair_cutting_not_injury.conflict
+// sources: comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_7.pubic_hair_cutting_not_injury
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_7.pubic_hair_cutting_not_injury") = assess_art301_sec4_7_pubic_hair_cutting_not_injury(case_id, positive_021, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec4_7_pubic_hair_cutting_not_injury(case_id, negative_021, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_021) and
+  provable(case_id, negative_021)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_7_pubic_hair_pulling_injury.satisfied
+// sources: comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_7.pubic_hair_pulling_injury
+rel satisfied_art301_sec4_7_pubic_hair_pulling_injury(case_id, defendant_id, victim_id) = assess_art301_sec4_7_pubic_hair_pulling_injury(case_id, assessment_022, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_022)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_7_pubic_hair_pulling_injury.undetermined
+// sources: comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_7.pubic_hair_pulling_injury
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec4_7.pubic_hair_pulling_injury") = assess_art301_sec4_7_pubic_hair_pulling_injury(case_id, unknown_022, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_022)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec4_7_pubic_hair_pulling_injury.conflict
+// sources: comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_7.pubic_hair_pulling_injury
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_7.pubic_hair_pulling_injury") = assess_art301_sec4_7_pubic_hair_pulling_injury(case_id, positive_022, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec4_7_pubic_hair_pulling_injury(case_id, negative_022, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_022) and
+  provable(case_id, negative_022)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec5_1_intentional_rape_injury.satisfied
+// sources: comm_001692_제301조_Ⅴ.1_16
+// norm_cards: art301_sec5_1.intentional_rape_injury
+rel satisfied_art301_sec5_1_intentional_rape_injury(case_id, defendant_id, victim_id) = assess_art301_sec5_1_intentional_rape_injury(case_id, assessment_023, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_023)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec5_1_intentional_rape_injury.undetermined
+// sources: comm_001692_제301조_Ⅴ.1_16
+// norm_cards: art301_sec5_1.intentional_rape_injury
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec5_1.intentional_rape_injury") = assess_art301_sec5_1_intentional_rape_injury(case_id, unknown_023, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_023)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec5_1_intentional_rape_injury.conflict
+// sources: comm_001692_제301조_Ⅴ.1_16
+// norm_cards: art301_sec5_1.intentional_rape_injury
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec5_1.intentional_rape_injury") = assess_art301_sec5_1_intentional_rape_injury(case_id, positive_023, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec5_1_intentional_rape_injury(case_id, negative_023, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_023) and
+  provable(case_id, negative_023)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec5_2_fleeing_traffic_injury.satisfied
+// sources: comm_001692_제301조_Ⅴ.2_18
+// norm_cards: art301_sec5_2.fleeing_traffic_injury
+rel satisfied_art301_sec5_2_fleeing_traffic_injury(case_id, defendant_id, victim_id) = assess_art301_sec5_2_fleeing_traffic_injury(case_id, assessment_024, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_024)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec5_2_fleeing_traffic_injury.undetermined
+// sources: comm_001692_제301조_Ⅴ.2_18
+// norm_cards: art301_sec5_2.fleeing_traffic_injury
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec5_2.fleeing_traffic_injury") = assess_art301_sec5_2_fleeing_traffic_injury(case_id, unknown_024, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_024)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec5_2_fleeing_traffic_injury.conflict
+// sources: comm_001692_제301조_Ⅴ.2_18
+// norm_cards: art301_sec5_2.fleeing_traffic_injury
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec5_2.fleeing_traffic_injury") = assess_art301_sec5_2_fleeing_traffic_injury(case_id, positive_024, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec5_2_fleeing_traffic_injury(case_id, negative_024, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_024) and
+  provable(case_id, negative_024)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec5_2_injury_foreseeability_assessment.satisfied
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.injury_foreseeability_assessment
+rel satisfied_art301_sec5_2_injury_foreseeability_assessment(case_id, defendant_id, victim_id) = assess_art301_sec5_2_injury_foreseeability_assessment(case_id, assessment_025, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_025)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec5_2_injury_foreseeability_assessment.undetermined
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.injury_foreseeability_assessment
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec5_2.injury_foreseeability_assessment") = assess_art301_sec5_2_injury_foreseeability_assessment(case_id, unknown_025, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_025)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec5_2_injury_foreseeability_assessment.conflict
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.injury_foreseeability_assessment
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec5_2.injury_foreseeability_assessment") = assess_art301_sec5_2_injury_foreseeability_assessment(case_id, positive_025, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec5_2_injury_foreseeability_assessment(case_id, negative_025, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_025) and
+  provable(case_id, negative_025)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec5_2_rape_injury_causation_foreseeability.satisfied
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.rape_injury_causation_foreseeability
+rel satisfied_art301_sec5_2_rape_injury_causation_foreseeability(case_id, defendant_id, victim_id) = assess_art301_sec5_2_rape_injury_causation_foreseeability(case_id, assessment_026, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_026)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec5_2_rape_injury_causation_foreseeability.undetermined
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.rape_injury_causation_foreseeability
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec5_2.rape_injury_causation_foreseeability") = assess_art301_sec5_2_rape_injury_causation_foreseeability(case_id, unknown_026, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_026)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec5_2_rape_injury_causation_foreseeability.conflict
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.rape_injury_causation_foreseeability
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec5_2.rape_injury_causation_foreseeability") = assess_art301_sec5_2_rape_injury_causation_foreseeability(case_id, positive_026, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec5_2_rape_injury_causation_foreseeability(case_id, negative_026, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_026) and
+  provable(case_id, negative_026)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec5_2_rape_injury_result_aggravation.satisfied
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.rape_injury_result_aggravation
+rel satisfied_art301_sec5_2_rape_injury_result_aggravation(case_id, defendant_id, victim_id) = assess_art301_sec5_2_rape_injury_result_aggravation(case_id, assessment_027, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_027)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec5_2_rape_injury_result_aggravation.undetermined
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.rape_injury_result_aggravation
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec5_2.rape_injury_result_aggravation") = assess_art301_sec5_2_rape_injury_result_aggravation(case_id, unknown_027, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_027)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec5_2_rape_injury_result_aggravation.conflict
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.rape_injury_result_aggravation
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec5_2.rape_injury_result_aggravation") = assess_art301_sec5_2_rape_injury_result_aggravation(case_id, positive_027, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec5_2_rape_injury_result_aggravation(case_id, negative_027, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_027) and
+  provable(case_id, negative_027)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec6_intentional_injury_conspirator_intent.satisfied
+// sources: comm_001692_제301조_Ⅵ_19
+// norm_cards: art301_sec6.intentional_injury_conspirator_intent
+rel satisfied_art301_sec6_intentional_injury_conspirator_intent(case_id, defendant_id, victim_id) = assess_art301_sec6_intentional_injury_conspirator_intent(case_id, assessment_028, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_028)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec6_intentional_injury_conspirator_intent.undetermined
+// sources: comm_001692_제301조_Ⅵ_19
+// norm_cards: art301_sec6.intentional_injury_conspirator_intent
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec6.intentional_injury_conspirator_intent") = assess_art301_sec6_intentional_injury_conspirator_intent(case_id, unknown_028, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_028)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec6_intentional_injury_conspirator_intent.conflict
+// sources: comm_001692_제301조_Ⅵ_19
+// norm_cards: art301_sec6.intentional_injury_conspirator_intent
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec6.intentional_injury_conspirator_intent") = assess_art301_sec6_intentional_injury_conspirator_intent(case_id, positive_028, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec6_intentional_injury_conspirator_intent(case_id, negative_028, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_028) and
+  provable(case_id, negative_028)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec6_pre_execution_withdrawal.satisfied
+// sources: comm_001692_제301조_Ⅵ_19
+// norm_cards: art301_sec6.pre_execution_withdrawal
+rel satisfied_art301_sec6_pre_execution_withdrawal(case_id, defendant_id, victim_id) = assess_art301_sec6_pre_execution_withdrawal(case_id, assessment_029, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_029)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec6_pre_execution_withdrawal.undetermined
+// sources: comm_001692_제301조_Ⅵ_19
+// norm_cards: art301_sec6.pre_execution_withdrawal
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec6.pre_execution_withdrawal") = assess_art301_sec6_pre_execution_withdrawal(case_id, unknown_029, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_029)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec6_pre_execution_withdrawal.conflict
+// sources: comm_001692_제301조_Ⅵ_19
+// norm_cards: art301_sec6.pre_execution_withdrawal
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec6.pre_execution_withdrawal") = assess_art301_sec6_pre_execution_withdrawal(case_id, positive_029, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec6_pre_execution_withdrawal(case_id, negative_029, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_029) and
+  provable(case_id, negative_029)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec7_no_general_attempt_punishment.satisfied
+// sources: comm_001692_제301조_Ⅶ_20
+// norm_cards: art301_sec7.no_general_attempt_punishment
+rel satisfied_art301_sec7_no_general_attempt_punishment(case_id, defendant_id, victim_id) = assess_art301_sec7_no_general_attempt_punishment(case_id, assessment_030, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_030)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec7_no_general_attempt_punishment.undetermined
+// sources: comm_001692_제301조_Ⅶ_20
+// norm_cards: art301_sec7.no_general_attempt_punishment
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec7.no_general_attempt_punishment") = assess_art301_sec7_no_general_attempt_punishment(case_id, unknown_030, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_030)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec7_no_general_attempt_punishment.conflict
+// sources: comm_001692_제301조_Ⅶ_20
+// norm_cards: art301_sec7.no_general_attempt_punishment
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec7.no_general_attempt_punishment") = assess_art301_sec7_no_general_attempt_punishment(case_id, positive_030, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec7_no_general_attempt_punishment(case_id, negative_030, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_030) and
+  provable(case_id, negative_030)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec7_special_rape_injury_completed.satisfied
+// sources: comm_001692_제301조_Ⅶ_21
+// norm_cards: art301_sec7.special_rape_injury_completed
+rel satisfied_art301_sec7_special_rape_injury_completed(case_id, defendant_id, victim_id) = assess_art301_sec7_special_rape_injury_completed(case_id, assessment_031, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_031)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec7_special_rape_injury_completed.undetermined
+// sources: comm_001692_제301조_Ⅶ_21
+// norm_cards: art301_sec7.special_rape_injury_completed
+rel sexual_offense_injury_or_death_undetermined(case_id, defendant_id, "art301_sec7.special_rape_injury_completed") = assess_art301_sec7_special_rape_injury_completed(case_id, unknown_031, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_031)
+
+// rule_id: sexual_offense_injury_or_death.card.art301_sec7_special_rape_injury_completed.conflict
+// sources: comm_001692_제301조_Ⅶ_21
+// norm_cards: art301_sec7.special_rape_injury_completed
+rel sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec7.special_rape_injury_completed") = assess_art301_sec7_special_rape_injury_completed(case_id, positive_031, defendant_id, victim_id, "satisfied") and
+  assess_art301_sec7_special_rape_injury_completed(case_id, negative_031, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_031) and
+  provable(case_id, negative_031)
+
+// rule_id: sexual_offense_injury_or_death.component.common.injury.art301_sec4_4_injury_recognition_factors
+// sources: comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11
+// norm_cards: art301_sec4_4.injury_recognition_factors
+rel sexual_offense_injury_or_death_common_injury_satisfied(case_id, defendant_id, victim_id) = satisfied_art301_sec4_4_injury_recognition_factors(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.component.common.injury.art301_sec4_5_drug_induced_consciousness_impairment
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.drug_induced_consciousness_impairment
+rel sexual_offense_injury_or_death_common_injury_satisfied(case_id, defendant_id, victim_id) = satisfied_art301_sec4_5_drug_induced_consciousness_impairment(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.component.common.injury.art301_sec4_5_functional_impairment_injury
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.functional_impairment_injury
+rel sexual_offense_injury_or_death_common_injury_satisfied(case_id, defendant_id, victim_id) = satisfied_art301_sec4_5_functional_impairment_injury(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.component.common.injury.art301_sec4_5_ptsd_as_injury
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.ptsd_as_injury
+rel sexual_offense_injury_or_death_common_injury_satisfied(case_id, defendant_id, victim_id) = satisfied_art301_sec4_5_ptsd_as_injury(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.component.common.injury.art301_sec4_5_ptsd_causation_assessment
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.ptsd_causation_assessment
+rel sexual_offense_injury_or_death_common_injury_satisfied(case_id, defendant_id, victim_id) = satisfied_art301_sec4_5_ptsd_causation_assessment(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.component.common.injury.art301_sec4_7_pubic_hair_pulling_injury
+// sources: comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_7.pubic_hair_pulling_injury
+rel sexual_offense_injury_or_death_common_injury_satisfied(case_id, defendant_id, victim_id) = satisfied_art301_sec4_7_pubic_hair_pulling_injury(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.component.common.injury_nexus.art301_sec3_continuing_criminal_stage
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.continuing_criminal_stage
+rel sexual_offense_injury_or_death_common_injury_nexus_satisfied(case_id, defendant_id, victim_id) = satisfied_art301_sec3_continuing_criminal_stage(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.component.common.injury_nexus.art301_sec3_injury_occasion_categories
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.injury_occasion_categories
+rel sexual_offense_injury_or_death_common_injury_nexus_satisfied(case_id, defendant_id, victim_id) = satisfied_art301_sec3_injury_occasion_categories(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.component.common.injury_nexus.art301_sec3_injury_occasion_causation
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.injury_occasion_causation
+rel sexual_offense_injury_or_death_common_injury_nexus_satisfied(case_id, defendant_id, victim_id) = satisfied_art301_sec3_injury_occasion_causation(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.component.common.injury_nexus.art301_sec3_post_rape_injury_connection
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.post_rape_injury_connection
+rel sexual_offense_injury_or_death_common_injury_nexus_satisfied(case_id, defendant_id, victim_id) = satisfied_art301_sec3_post_rape_injury_connection(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.component.common.injury_nexus.art301_sec3_result_after_completion
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.result_after_completion
+rel sexual_offense_injury_or_death_common_injury_nexus_satisfied(case_id, defendant_id, victim_id) = satisfied_art301_sec3_result_after_completion(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.component.common.object_scope.all
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.object_victim
+rel sexual_offense_injury_or_death_common_object_scope_satisfied(case_id, defendant_id, victim_id) = satisfied_art301_sec2_object_victim(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.component.common.predicate_offense.art301_sec2_attempt_injury
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.attempt_injury
+rel sexual_offense_injury_or_death_common_predicate_offense_satisfied(case_id, defendant_id, victim_id) = satisfied_art301_sec2_attempt_injury(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.component.common.predicate_offense.art301_sec2_subject_predicate_offenses
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.subject_predicate_offenses
+rel sexual_offense_injury_or_death_common_predicate_offense_satisfied(case_id, defendant_id, victim_id) = satisfied_art301_sec2_subject_predicate_offenses(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.component.death.death_result.all
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.death_absorbs_injury
+rel sexual_offense_injury_or_death_death_death_result_satisfied(case_id, defendant_id, victim_id) = satisfied_art301_death_absorbs_injury(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.component.intentional_injury.injury_intent.all
+// sources: comm_001692_제301조_Ⅴ.1_16
+// norm_cards: art301_sec5_1.intentional_rape_injury
+rel sexual_offense_injury_or_death_intentional_injury_injury_intent_satisfied(case_id, defendant_id, victim_id) = satisfied_art301_sec5_1_intentional_rape_injury(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.component.result_aggravated_injury.result_responsibility.art301_sec5_2_fleeing_traffic_injury
+// sources: comm_001692_제301조_Ⅴ.2_18
+// norm_cards: art301_sec5_2.fleeing_traffic_injury
+rel sexual_offense_injury_or_death_result_aggravated_injury_result_responsibility_satisfied(case_id, defendant_id, victim_id) = satisfied_art301_sec5_2_fleeing_traffic_injury(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.component.result_aggravated_injury.result_responsibility.art301_sec5_2_injury_foreseeability_assessment
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.injury_foreseeability_assessment
+rel sexual_offense_injury_or_death_result_aggravated_injury_result_responsibility_satisfied(case_id, defendant_id, victim_id) = satisfied_art301_sec5_2_injury_foreseeability_assessment(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.component.result_aggravated_injury.result_responsibility.art301_sec5_2_rape_injury_causation_foreseeability
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.rape_injury_causation_foreseeability
+rel sexual_offense_injury_or_death_result_aggravated_injury_result_responsibility_satisfied(case_id, defendant_id, victim_id) = satisfied_art301_sec5_2_rape_injury_causation_foreseeability(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.component.result_aggravated_injury.result_responsibility.art301_sec5_2_rape_injury_result_aggravation
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.rape_injury_result_aggravation
+rel sexual_offense_injury_or_death_result_aggravated_injury_result_responsibility_satisfied(case_id, defendant_id, victim_id) = satisfied_art301_sec5_2_rape_injury_result_aggravation(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.intentional_injury.art301_sec4_2_minor_injury_exclusion
+// sources: comm_001692_제301조_Ⅳ.2_4
+// norm_cards: art301_sec4_2.minor_injury_exclusion
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "intentional_injury", "art301_sec4_2.minor_injury_exclusion") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_2.minor_injury_exclusion")
+
+// rule_id: sexual_offense_injury_or_death.track_blocked.intentional_injury.art301_sec4_2_minor_injury_exclusion
+// sources: comm_001692_제301조_Ⅳ.2_4
+// norm_cards: art301_sec4_2.minor_injury_exclusion
+rel sexual_offense_injury_or_death_track_not_established(case_id, defendant_id, "intentional_injury", "art301_sec4_2.minor_injury_exclusion") = satisfied_art301_sec4_2_minor_injury_exclusion(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec4_2_minor_injury_exclusion
+// sources: comm_001692_제301조_Ⅳ.2_4
+// norm_cards: art301_sec4_2.minor_injury_exclusion
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec4_2.minor_injury_exclusion") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_2.minor_injury_exclusion")
+
+// rule_id: sexual_offense_injury_or_death.track_blocked.result_aggravated_injury.art301_sec4_2_minor_injury_exclusion
+// sources: comm_001692_제301조_Ⅳ.2_4
+// norm_cards: art301_sec4_2.minor_injury_exclusion
+rel sexual_offense_injury_or_death_track_not_established(case_id, defendant_id, "result_aggravated_injury", "art301_sec4_2.minor_injury_exclusion") = satisfied_art301_sec4_2_minor_injury_exclusion(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.death.art301_sec4_2_minor_injury_exclusion
+// sources: comm_001692_제301조_Ⅳ.2_4
+// norm_cards: art301_sec4_2.minor_injury_exclusion
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "death", "art301_sec4_2.minor_injury_exclusion") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_2.minor_injury_exclusion")
+
+// rule_id: sexual_offense_injury_or_death.track_blocked.death.art301_sec4_2_minor_injury_exclusion
+// sources: comm_001692_제301조_Ⅳ.2_4
+// norm_cards: art301_sec4_2.minor_injury_exclusion
+rel sexual_offense_injury_or_death_track_not_established(case_id, defendant_id, "death", "art301_sec4_2.minor_injury_exclusion") = satisfied_art301_sec4_2_minor_injury_exclusion(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.intentional_injury.art301_sec4_4_injury_recognition_factors
+// sources: comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11
+// norm_cards: art301_sec4_4.injury_recognition_factors
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "intentional_injury", "art301_sec4_4.injury_recognition_factors") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_4.injury_recognition_factors")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec4_4_injury_recognition_factors
+// sources: comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11
+// norm_cards: art301_sec4_4.injury_recognition_factors
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec4_4.injury_recognition_factors") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_4.injury_recognition_factors")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.death.art301_sec4_4_injury_recognition_factors
+// sources: comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11
+// norm_cards: art301_sec4_4.injury_recognition_factors
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "death", "art301_sec4_4.injury_recognition_factors") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_4.injury_recognition_factors")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.intentional_injury.art301_sec4_5_drug_induced_consciousness_impairment
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.drug_induced_consciousness_impairment
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "intentional_injury", "art301_sec4_5.drug_induced_consciousness_impairment") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_5.drug_induced_consciousness_impairment")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec4_5_drug_induced_consciousness_impairment
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.drug_induced_consciousness_impairment
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec4_5.drug_induced_consciousness_impairment") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_5.drug_induced_consciousness_impairment")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.death.art301_sec4_5_drug_induced_consciousness_impairment
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.drug_induced_consciousness_impairment
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "death", "art301_sec4_5.drug_induced_consciousness_impairment") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_5.drug_induced_consciousness_impairment")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.intentional_injury.art301_sec4_5_functional_impairment_injury
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.functional_impairment_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "intentional_injury", "art301_sec4_5.functional_impairment_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_5.functional_impairment_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec4_5_functional_impairment_injury
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.functional_impairment_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec4_5.functional_impairment_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_5.functional_impairment_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.death.art301_sec4_5_functional_impairment_injury
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.functional_impairment_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "death", "art301_sec4_5.functional_impairment_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_5.functional_impairment_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.intentional_injury.art301_sec4_5_ptsd_as_injury
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.ptsd_as_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "intentional_injury", "art301_sec4_5.ptsd_as_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_5.ptsd_as_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec4_5_ptsd_as_injury
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.ptsd_as_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec4_5.ptsd_as_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_5.ptsd_as_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.death.art301_sec4_5_ptsd_as_injury
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.ptsd_as_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "death", "art301_sec4_5.ptsd_as_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_5.ptsd_as_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.intentional_injury.art301_sec4_5_ptsd_causation_assessment
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.ptsd_causation_assessment
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "intentional_injury", "art301_sec4_5.ptsd_causation_assessment") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_5.ptsd_causation_assessment")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec4_5_ptsd_causation_assessment
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.ptsd_causation_assessment
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec4_5.ptsd_causation_assessment") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_5.ptsd_causation_assessment")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.death.art301_sec4_5_ptsd_causation_assessment
+// sources: comm_001692_제301조_Ⅳ.5_12
+// norm_cards: art301_sec4_5.ptsd_causation_assessment
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "death", "art301_sec4_5.ptsd_causation_assessment") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_5.ptsd_causation_assessment")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.intentional_injury.art301_sec4_6_unwanted_pregnancy_not_injury_holding
+// sources: comm_001692_제301조_Ⅳ.6_14
+// norm_cards: art301_sec4_6.unwanted_pregnancy_not_injury_holding
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "intentional_injury", "art301_sec4_6.unwanted_pregnancy_not_injury_holding") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_6.unwanted_pregnancy_not_injury_holding")
+
+// rule_id: sexual_offense_injury_or_death.track_blocked.intentional_injury.art301_sec4_6_unwanted_pregnancy_not_injury_holding
+// sources: comm_001692_제301조_Ⅳ.6_14
+// norm_cards: art301_sec4_6.unwanted_pregnancy_not_injury_holding
+rel sexual_offense_injury_or_death_track_not_established(case_id, defendant_id, "intentional_injury", "art301_sec4_6.unwanted_pregnancy_not_injury_holding") = satisfied_art301_sec4_6_unwanted_pregnancy_not_injury_holding(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec4_6_unwanted_pregnancy_not_injury_holding
+// sources: comm_001692_제301조_Ⅳ.6_14
+// norm_cards: art301_sec4_6.unwanted_pregnancy_not_injury_holding
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec4_6.unwanted_pregnancy_not_injury_holding") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_6.unwanted_pregnancy_not_injury_holding")
+
+// rule_id: sexual_offense_injury_or_death.track_blocked.result_aggravated_injury.art301_sec4_6_unwanted_pregnancy_not_injury_holding
+// sources: comm_001692_제301조_Ⅳ.6_14
+// norm_cards: art301_sec4_6.unwanted_pregnancy_not_injury_holding
+rel sexual_offense_injury_or_death_track_not_established(case_id, defendant_id, "result_aggravated_injury", "art301_sec4_6.unwanted_pregnancy_not_injury_holding") = satisfied_art301_sec4_6_unwanted_pregnancy_not_injury_holding(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.death.art301_sec4_6_unwanted_pregnancy_not_injury_holding
+// sources: comm_001692_제301조_Ⅳ.6_14
+// norm_cards: art301_sec4_6.unwanted_pregnancy_not_injury_holding
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "death", "art301_sec4_6.unwanted_pregnancy_not_injury_holding") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_6.unwanted_pregnancy_not_injury_holding")
+
+// rule_id: sexual_offense_injury_or_death.track_blocked.death.art301_sec4_6_unwanted_pregnancy_not_injury_holding
+// sources: comm_001692_제301조_Ⅳ.6_14
+// norm_cards: art301_sec4_6.unwanted_pregnancy_not_injury_holding
+rel sexual_offense_injury_or_death_track_not_established(case_id, defendant_id, "death", "art301_sec4_6.unwanted_pregnancy_not_injury_holding") = satisfied_art301_sec4_6_unwanted_pregnancy_not_injury_holding(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.intentional_injury.art301_sec4_7_pubic_hair_cutting_not_injury
+// sources: comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_7.pubic_hair_cutting_not_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "intentional_injury", "art301_sec4_7.pubic_hair_cutting_not_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_7.pubic_hair_cutting_not_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_blocked.intentional_injury.art301_sec4_7_pubic_hair_cutting_not_injury
+// sources: comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_7.pubic_hair_cutting_not_injury
+rel sexual_offense_injury_or_death_track_not_established(case_id, defendant_id, "intentional_injury", "art301_sec4_7.pubic_hair_cutting_not_injury") = satisfied_art301_sec4_7_pubic_hair_cutting_not_injury(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec4_7_pubic_hair_cutting_not_injury
+// sources: comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_7.pubic_hair_cutting_not_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec4_7.pubic_hair_cutting_not_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_7.pubic_hair_cutting_not_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_blocked.result_aggravated_injury.art301_sec4_7_pubic_hair_cutting_not_injury
+// sources: comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_7.pubic_hair_cutting_not_injury
+rel sexual_offense_injury_or_death_track_not_established(case_id, defendant_id, "result_aggravated_injury", "art301_sec4_7.pubic_hair_cutting_not_injury") = satisfied_art301_sec4_7_pubic_hair_cutting_not_injury(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.death.art301_sec4_7_pubic_hair_cutting_not_injury
+// sources: comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_7.pubic_hair_cutting_not_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "death", "art301_sec4_7.pubic_hair_cutting_not_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_7.pubic_hair_cutting_not_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_blocked.death.art301_sec4_7_pubic_hair_cutting_not_injury
+// sources: comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_7.pubic_hair_cutting_not_injury
+rel sexual_offense_injury_or_death_track_not_established(case_id, defendant_id, "death", "art301_sec4_7.pubic_hair_cutting_not_injury") = satisfied_art301_sec4_7_pubic_hair_cutting_not_injury(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.intentional_injury.art301_sec4_7_pubic_hair_pulling_injury
+// sources: comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_7.pubic_hair_pulling_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "intentional_injury", "art301_sec4_7.pubic_hair_pulling_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_7.pubic_hair_pulling_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec4_7_pubic_hair_pulling_injury
+// sources: comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_7.pubic_hair_pulling_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec4_7.pubic_hair_pulling_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_7.pubic_hair_pulling_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.death.art301_sec4_7_pubic_hair_pulling_injury
+// sources: comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301_sec4_7.pubic_hair_pulling_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "death", "art301_sec4_7.pubic_hair_pulling_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec4_7.pubic_hair_pulling_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.intentional_injury.art301_assault_before_forced_indecency_no_result_injury
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "intentional_injury", "art301.assault_before_forced_indecency_no_result_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301.assault_before_forced_indecency_no_result_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_blocked.intentional_injury.art301_assault_before_forced_indecency_no_result_injury
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury
+rel sexual_offense_injury_or_death_track_not_established(case_id, defendant_id, "intentional_injury", "art301.assault_before_forced_indecency_no_result_injury") = satisfied_art301_assault_before_forced_indecency_no_result_injury(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_assault_before_forced_indecency_no_result_injury
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301.assault_before_forced_indecency_no_result_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301.assault_before_forced_indecency_no_result_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_blocked.result_aggravated_injury.art301_assault_before_forced_indecency_no_result_injury
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury
+rel sexual_offense_injury_or_death_track_not_established(case_id, defendant_id, "result_aggravated_injury", "art301.assault_before_forced_indecency_no_result_injury") = satisfied_art301_assault_before_forced_indecency_no_result_injury(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.death.art301_assault_before_forced_indecency_no_result_injury
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "death", "art301.assault_before_forced_indecency_no_result_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301.assault_before_forced_indecency_no_result_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_blocked.death.art301_assault_before_forced_indecency_no_result_injury
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury
+rel sexual_offense_injury_or_death_track_not_established(case_id, defendant_id, "death", "art301.assault_before_forced_indecency_no_result_injury") = satisfied_art301_assault_before_forced_indecency_no_result_injury(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.intentional_injury.art301_sec3_continuing_criminal_stage
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.continuing_criminal_stage
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "intentional_injury", "art301_sec3.continuing_criminal_stage") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.continuing_criminal_stage")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec3_continuing_criminal_stage
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.continuing_criminal_stage
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec3.continuing_criminal_stage") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.continuing_criminal_stage")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.death.art301_sec3_continuing_criminal_stage
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.continuing_criminal_stage
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "death", "art301_sec3.continuing_criminal_stage") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.continuing_criminal_stage")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.intentional_injury.art301_sec3_injury_occasion_categories
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.injury_occasion_categories
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "intentional_injury", "art301_sec3.injury_occasion_categories") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.injury_occasion_categories")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec3_injury_occasion_categories
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.injury_occasion_categories
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec3.injury_occasion_categories") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.injury_occasion_categories")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.death.art301_sec3_injury_occasion_categories
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.injury_occasion_categories
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "death", "art301_sec3.injury_occasion_categories") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.injury_occasion_categories")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.intentional_injury.art301_sec3_injury_occasion_causation
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.injury_occasion_causation
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "intentional_injury", "art301_sec3.injury_occasion_causation") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.injury_occasion_causation")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec3_injury_occasion_causation
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.injury_occasion_causation
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec3.injury_occasion_causation") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.injury_occasion_causation")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.death.art301_sec3_injury_occasion_causation
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.injury_occasion_causation
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "death", "art301_sec3.injury_occasion_causation") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.injury_occasion_causation")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.intentional_injury.art301_sec3_post_rape_injury_connection
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.post_rape_injury_connection
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "intentional_injury", "art301_sec3.post_rape_injury_connection") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.post_rape_injury_connection")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec3_post_rape_injury_connection
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.post_rape_injury_connection
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec3.post_rape_injury_connection") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.post_rape_injury_connection")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.death.art301_sec3_post_rape_injury_connection
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.post_rape_injury_connection
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "death", "art301_sec3.post_rape_injury_connection") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.post_rape_injury_connection")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.intentional_injury.art301_sec3_result_after_completion
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.result_after_completion
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "intentional_injury", "art301_sec3.result_after_completion") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.result_after_completion")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec3_result_after_completion
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.result_after_completion
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec3.result_after_completion") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.result_after_completion")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.death.art301_sec3_result_after_completion
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.result_after_completion
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "death", "art301_sec3.result_after_completion") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.result_after_completion")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.intentional_injury.art301_sec3_unrelated_injury_exception
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.unrelated_injury_exception
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "intentional_injury", "art301_sec3.unrelated_injury_exception") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.unrelated_injury_exception")
+
+// rule_id: sexual_offense_injury_or_death.track_blocked.intentional_injury.art301_sec3_unrelated_injury_exception
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.unrelated_injury_exception
+rel sexual_offense_injury_or_death_track_not_established(case_id, defendant_id, "intentional_injury", "art301_sec3.unrelated_injury_exception") = satisfied_art301_sec3_unrelated_injury_exception(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec3_unrelated_injury_exception
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.unrelated_injury_exception
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec3.unrelated_injury_exception") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.unrelated_injury_exception")
+
+// rule_id: sexual_offense_injury_or_death.track_blocked.result_aggravated_injury.art301_sec3_unrelated_injury_exception
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.unrelated_injury_exception
+rel sexual_offense_injury_or_death_track_not_established(case_id, defendant_id, "result_aggravated_injury", "art301_sec3.unrelated_injury_exception") = satisfied_art301_sec3_unrelated_injury_exception(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.death.art301_sec3_unrelated_injury_exception
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.unrelated_injury_exception
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "death", "art301_sec3.unrelated_injury_exception") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec3.unrelated_injury_exception")
+
+// rule_id: sexual_offense_injury_or_death.track_blocked.death.art301_sec3_unrelated_injury_exception
+// sources: comm_001692_제301조_Ⅲ_2
+// norm_cards: art301_sec3.unrelated_injury_exception
+rel sexual_offense_injury_or_death_track_not_established(case_id, defendant_id, "death", "art301_sec3.unrelated_injury_exception") = satisfied_art301_sec3_unrelated_injury_exception(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.intentional_injury.art301_sec2_object_victim
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.object_victim
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "intentional_injury", "art301_sec2.object_victim") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec2.object_victim")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec2_object_victim
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.object_victim
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec2.object_victim") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec2.object_victim")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.death.art301_sec2_object_victim
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.object_victim
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "death", "art301_sec2.object_victim") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec2.object_victim")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.intentional_injury.art301_sec2_attempt_injury
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.attempt_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "intentional_injury", "art301_sec2.attempt_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec2.attempt_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec2_attempt_injury
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.attempt_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec2.attempt_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec2.attempt_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.death.art301_sec2_attempt_injury
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.attempt_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "death", "art301_sec2.attempt_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec2.attempt_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.intentional_injury.art301_sec2_subject_predicate_offenses
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.subject_predicate_offenses
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "intentional_injury", "art301_sec2.subject_predicate_offenses") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec2.subject_predicate_offenses")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec2_subject_predicate_offenses
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.subject_predicate_offenses
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec2.subject_predicate_offenses") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec2.subject_predicate_offenses")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.death.art301_sec2_subject_predicate_offenses
+// sources: comm_001692_제301조_Ⅱ_1
+// norm_cards: art301_sec2.subject_predicate_offenses
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "death", "art301_sec2.subject_predicate_offenses") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec2.subject_predicate_offenses")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.death.art301_death_absorbs_injury
+// sources: comm_001692_제301조_Ⅸ_23
+// norm_cards: art301.death_absorbs_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "death", "art301.death_absorbs_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301.death_absorbs_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.intentional_injury.art301_sec5_1_intentional_rape_injury
+// sources: comm_001692_제301조_Ⅴ.1_16
+// norm_cards: art301_sec5_1.intentional_rape_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "intentional_injury", "art301_sec5_1.intentional_rape_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec5_1.intentional_rape_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec5_2_fleeing_traffic_injury
+// sources: comm_001692_제301조_Ⅴ.2_18
+// norm_cards: art301_sec5_2.fleeing_traffic_injury
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec5_2.fleeing_traffic_injury") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec5_2.fleeing_traffic_injury")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec5_2_injury_foreseeability_assessment
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.injury_foreseeability_assessment
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec5_2.injury_foreseeability_assessment") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec5_2.injury_foreseeability_assessment")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec5_2_rape_injury_causation_foreseeability
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.rape_injury_causation_foreseeability
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec5_2.rape_injury_causation_foreseeability") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec5_2.rape_injury_causation_foreseeability")
+
+// rule_id: sexual_offense_injury_or_death.track_conflict.result_aggravated_injury.art301_sec5_2_rape_injury_result_aggravation
+// sources: comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301_sec5_2.rape_injury_result_aggravation
+rel sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, "result_aggravated_injury", "art301_sec5_2.rape_injury_result_aggravation") = sexual_offense_injury_or_death_conflict(case_id, defendant_id, "art301_sec5_2.rape_injury_result_aggravation")
+
+// rule_id: sexual_offense_injury_or_death.summary.has_negative
+// sources: comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅳ.2_4, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.6_14, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅴ.1_16, comm_001692_제301조_Ⅴ.2_18, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅵ_19, comm_001692_제301조_Ⅵ_19, comm_001692_제301조_Ⅶ_20, comm_001692_제301조_Ⅶ_21
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury, art301.death_absorbs_injury, art301.no_abandonment_offense_after_rape_injury, art301.post_rape_new_intent_separate_concurrence, art301_sec2.attempt_injury, art301_sec2.object_victim, art301_sec2.subject_predicate_offenses, art301_sec3.continuing_criminal_stage, art301_sec3.injury_occasion_categories, art301_sec3.injury_occasion_causation, art301_sec3.post_rape_injury_connection, art301_sec3.result_after_completion, art301_sec3.unrelated_injury_exception, art301_sec4_2.minor_injury_exclusion, art301_sec4_4.injury_recognition_factors, art301_sec4_5.drug_induced_consciousness_impairment, art301_sec4_5.functional_impairment_injury, art301_sec4_5.ptsd_as_injury, art301_sec4_5.ptsd_causation_assessment, art301_sec4_6.unwanted_pregnancy_not_injury_holding, art301_sec4_7.pubic_hair_cutting_not_injury, art301_sec4_7.pubic_hair_pulling_injury, art301_sec5_1.intentional_rape_injury, art301_sec5_2.fleeing_traffic_injury, art301_sec5_2.injury_foreseeability_assessment, art301_sec5_2.rape_injury_causation_foreseeability, art301_sec5_2.rape_injury_result_aggravation, art301_sec6.intentional_injury_conspirator_intent, art301_sec6.pre_execution_withdrawal, art301_sec7.no_general_attempt_punishment, art301_sec7.special_rape_injury_completed
+rel sexual_offense_injury_or_death_has_negative(case_id, defendant_id) = sexual_offense_injury_or_death_not_established(case_id, defendant_id, norm_card_id)
+
+// rule_id: sexual_offense_injury_or_death.summary.has_conflict
+// sources: comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅳ.2_4, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.6_14, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅴ.1_16, comm_001692_제301조_Ⅴ.2_18, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅵ_19, comm_001692_제301조_Ⅵ_19, comm_001692_제301조_Ⅶ_20, comm_001692_제301조_Ⅶ_21
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury, art301.death_absorbs_injury, art301.no_abandonment_offense_after_rape_injury, art301.post_rape_new_intent_separate_concurrence, art301_sec2.attempt_injury, art301_sec2.object_victim, art301_sec2.subject_predicate_offenses, art301_sec3.continuing_criminal_stage, art301_sec3.injury_occasion_categories, art301_sec3.injury_occasion_causation, art301_sec3.post_rape_injury_connection, art301_sec3.result_after_completion, art301_sec3.unrelated_injury_exception, art301_sec4_2.minor_injury_exclusion, art301_sec4_4.injury_recognition_factors, art301_sec4_5.drug_induced_consciousness_impairment, art301_sec4_5.functional_impairment_injury, art301_sec4_5.ptsd_as_injury, art301_sec4_5.ptsd_causation_assessment, art301_sec4_6.unwanted_pregnancy_not_injury_holding, art301_sec4_7.pubic_hair_cutting_not_injury, art301_sec4_7.pubic_hair_pulling_injury, art301_sec5_1.intentional_rape_injury, art301_sec5_2.fleeing_traffic_injury, art301_sec5_2.injury_foreseeability_assessment, art301_sec5_2.rape_injury_causation_foreseeability, art301_sec5_2.rape_injury_result_aggravation, art301_sec6.intentional_injury_conspirator_intent, art301_sec6.pre_execution_withdrawal, art301_sec7.no_general_attempt_punishment, art301_sec7.special_rape_injury_completed
+rel sexual_offense_injury_or_death_has_conflict(case_id, defendant_id) = sexual_offense_injury_or_death_conflict(case_id, defendant_id, norm_card_id)
+
+// rule_id: sexual_offense_injury_or_death.summary.canonical_not_established
+// sources: comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅳ.2_4, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.6_14, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅴ.1_16, comm_001692_제301조_Ⅴ.2_18, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅵ_19, comm_001692_제301조_Ⅵ_19, comm_001692_제301조_Ⅶ_20, comm_001692_제301조_Ⅶ_21
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury, art301.death_absorbs_injury, art301.no_abandonment_offense_after_rape_injury, art301.post_rape_new_intent_separate_concurrence, art301_sec2.attempt_injury, art301_sec2.object_victim, art301_sec2.subject_predicate_offenses, art301_sec3.continuing_criminal_stage, art301_sec3.injury_occasion_categories, art301_sec3.injury_occasion_causation, art301_sec3.post_rape_injury_connection, art301_sec3.result_after_completion, art301_sec3.unrelated_injury_exception, art301_sec4_2.minor_injury_exclusion, art301_sec4_4.injury_recognition_factors, art301_sec4_5.drug_induced_consciousness_impairment, art301_sec4_5.functional_impairment_injury, art301_sec4_5.ptsd_as_injury, art301_sec4_5.ptsd_causation_assessment, art301_sec4_6.unwanted_pregnancy_not_injury_holding, art301_sec4_7.pubic_hair_cutting_not_injury, art301_sec4_7.pubic_hair_pulling_injury, art301_sec5_1.intentional_rape_injury, art301_sec5_2.fleeing_traffic_injury, art301_sec5_2.injury_foreseeability_assessment, art301_sec5_2.rape_injury_causation_foreseeability, art301_sec5_2.rape_injury_result_aggravation, art301_sec6.intentional_injury_conspirator_intent, art301_sec6.pre_execution_withdrawal, art301_sec7.no_general_attempt_punishment, art301_sec7.special_rape_injury_completed
+rel sexual_offense_injury_or_death_not_established(case_id, defendant_id, norm_card_id) = sexual_offense_injury_or_death_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: sexual_offense_injury_or_death.summary.track_has_negative
+// sources: comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅳ.2_4, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.6_14, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅴ.1_16, comm_001692_제301조_Ⅴ.2_18, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅵ_19, comm_001692_제301조_Ⅵ_19, comm_001692_제301조_Ⅶ_20, comm_001692_제301조_Ⅶ_21
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury, art301.death_absorbs_injury, art301.no_abandonment_offense_after_rape_injury, art301.post_rape_new_intent_separate_concurrence, art301_sec2.attempt_injury, art301_sec2.object_victim, art301_sec2.subject_predicate_offenses, art301_sec3.continuing_criminal_stage, art301_sec3.injury_occasion_categories, art301_sec3.injury_occasion_causation, art301_sec3.post_rape_injury_connection, art301_sec3.result_after_completion, art301_sec3.unrelated_injury_exception, art301_sec4_2.minor_injury_exclusion, art301_sec4_4.injury_recognition_factors, art301_sec4_5.drug_induced_consciousness_impairment, art301_sec4_5.functional_impairment_injury, art301_sec4_5.ptsd_as_injury, art301_sec4_5.ptsd_causation_assessment, art301_sec4_6.unwanted_pregnancy_not_injury_holding, art301_sec4_7.pubic_hair_cutting_not_injury, art301_sec4_7.pubic_hair_pulling_injury, art301_sec5_1.intentional_rape_injury, art301_sec5_2.fleeing_traffic_injury, art301_sec5_2.injury_foreseeability_assessment, art301_sec5_2.rape_injury_causation_foreseeability, art301_sec5_2.rape_injury_result_aggravation, art301_sec6.intentional_injury_conspirator_intent, art301_sec6.pre_execution_withdrawal, art301_sec7.no_general_attempt_punishment, art301_sec7.special_rape_injury_completed
+rel sexual_offense_injury_or_death_track_has_negative(case_id, defendant_id, track_id) = sexual_offense_injury_or_death_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: sexual_offense_injury_or_death.summary.track_has_conflict
+// sources: comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅳ.2_4, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.6_14, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅴ.1_16, comm_001692_제301조_Ⅴ.2_18, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅵ_19, comm_001692_제301조_Ⅵ_19, comm_001692_제301조_Ⅶ_20, comm_001692_제301조_Ⅶ_21
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury, art301.death_absorbs_injury, art301.no_abandonment_offense_after_rape_injury, art301.post_rape_new_intent_separate_concurrence, art301_sec2.attempt_injury, art301_sec2.object_victim, art301_sec2.subject_predicate_offenses, art301_sec3.continuing_criminal_stage, art301_sec3.injury_occasion_categories, art301_sec3.injury_occasion_causation, art301_sec3.post_rape_injury_connection, art301_sec3.result_after_completion, art301_sec3.unrelated_injury_exception, art301_sec4_2.minor_injury_exclusion, art301_sec4_4.injury_recognition_factors, art301_sec4_5.drug_induced_consciousness_impairment, art301_sec4_5.functional_impairment_injury, art301_sec4_5.ptsd_as_injury, art301_sec4_5.ptsd_causation_assessment, art301_sec4_6.unwanted_pregnancy_not_injury_holding, art301_sec4_7.pubic_hair_cutting_not_injury, art301_sec4_7.pubic_hair_pulling_injury, art301_sec5_1.intentional_rape_injury, art301_sec5_2.fleeing_traffic_injury, art301_sec5_2.injury_foreseeability_assessment, art301_sec5_2.rape_injury_causation_foreseeability, art301_sec5_2.rape_injury_result_aggravation, art301_sec6.intentional_injury_conspirator_intent, art301_sec6.pre_execution_withdrawal, art301_sec7.no_general_attempt_punishment, art301_sec7.special_rape_injury_completed
+rel sexual_offense_injury_or_death_track_has_conflict(case_id, defendant_id, track_id) = sexual_offense_injury_or_death_track_conflict(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: sexual_offense_injury_or_death.outcome.intentional_injury.elements_satisfied
+// sources: comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅳ.2_4, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.6_14, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅴ.1_16
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury, art301_sec2.attempt_injury, art301_sec2.object_victim, art301_sec2.subject_predicate_offenses, art301_sec3.continuing_criminal_stage, art301_sec3.injury_occasion_categories, art301_sec3.injury_occasion_causation, art301_sec3.post_rape_injury_connection, art301_sec3.result_after_completion, art301_sec3.unrelated_injury_exception, art301_sec4_2.minor_injury_exclusion, art301_sec4_4.injury_recognition_factors, art301_sec4_5.drug_induced_consciousness_impairment, art301_sec4_5.functional_impairment_injury, art301_sec4_5.ptsd_as_injury, art301_sec4_5.ptsd_causation_assessment, art301_sec4_6.unwanted_pregnancy_not_injury_holding, art301_sec4_7.pubic_hair_cutting_not_injury, art301_sec4_7.pubic_hair_pulling_injury, art301_sec5_1.intentional_rape_injury
+rel sexual_offense_injury_or_death_intentional_injury_elements_satisfied(case_id, defendant_id, victim_id) = sexual_offense_injury_or_death_common_predicate_offense_satisfied(case_id, defendant_id, victim_id) and
+  sexual_offense_injury_or_death_common_object_scope_satisfied(case_id, defendant_id, victim_id) and
+  sexual_offense_injury_or_death_common_injury_nexus_satisfied(case_id, defendant_id, victim_id) and
+  sexual_offense_injury_or_death_common_injury_satisfied(case_id, defendant_id, victim_id) and
+  sexual_offense_injury_or_death_intentional_injury_injury_intent_satisfied(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.outcome.intentional_injury.established
+// sources: comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅳ.2_4, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.6_14, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅴ.1_16
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury, art301_sec2.attempt_injury, art301_sec2.object_victim, art301_sec2.subject_predicate_offenses, art301_sec3.continuing_criminal_stage, art301_sec3.injury_occasion_categories, art301_sec3.injury_occasion_causation, art301_sec3.post_rape_injury_connection, art301_sec3.result_after_completion, art301_sec3.unrelated_injury_exception, art301_sec4_2.minor_injury_exclusion, art301_sec4_4.injury_recognition_factors, art301_sec4_5.drug_induced_consciousness_impairment, art301_sec4_5.functional_impairment_injury, art301_sec4_5.ptsd_as_injury, art301_sec4_5.ptsd_causation_assessment, art301_sec4_6.unwanted_pregnancy_not_injury_holding, art301_sec4_7.pubic_hair_cutting_not_injury, art301_sec4_7.pubic_hair_pulling_injury, art301_sec5_1.intentional_rape_injury
+rel sexual_offense_injury_or_death_intentional_injury_established(case_id, defendant_id, victim_id) = sexual_offense_injury_or_death_intentional_injury_elements_satisfied(case_id, defendant_id, victim_id) and
+  case_assessment_complete(case_id, defendant_id) and
+  ~sexual_offense_injury_or_death_track_has_negative(case_id, defendant_id, "intentional_injury") and
+  ~sexual_offense_injury_or_death_track_has_conflict(case_id, defendant_id, "intentional_injury")
+
+// rule_id: sexual_offense_injury_or_death.outcome.result_aggravated_injury.elements_satisfied
+// sources: comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅳ.2_4, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.6_14, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅴ.2_18, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury, art301_sec2.attempt_injury, art301_sec2.object_victim, art301_sec2.subject_predicate_offenses, art301_sec3.continuing_criminal_stage, art301_sec3.injury_occasion_categories, art301_sec3.injury_occasion_causation, art301_sec3.post_rape_injury_connection, art301_sec3.result_after_completion, art301_sec3.unrelated_injury_exception, art301_sec4_2.minor_injury_exclusion, art301_sec4_4.injury_recognition_factors, art301_sec4_5.drug_induced_consciousness_impairment, art301_sec4_5.functional_impairment_injury, art301_sec4_5.ptsd_as_injury, art301_sec4_5.ptsd_causation_assessment, art301_sec4_6.unwanted_pregnancy_not_injury_holding, art301_sec4_7.pubic_hair_cutting_not_injury, art301_sec4_7.pubic_hair_pulling_injury, art301_sec5_2.fleeing_traffic_injury, art301_sec5_2.injury_foreseeability_assessment, art301_sec5_2.rape_injury_causation_foreseeability, art301_sec5_2.rape_injury_result_aggravation
+rel sexual_offense_injury_or_death_result_aggravated_injury_elements_satisfied(case_id, defendant_id, victim_id) = sexual_offense_injury_or_death_common_predicate_offense_satisfied(case_id, defendant_id, victim_id) and
+  sexual_offense_injury_or_death_common_object_scope_satisfied(case_id, defendant_id, victim_id) and
+  sexual_offense_injury_or_death_common_injury_nexus_satisfied(case_id, defendant_id, victim_id) and
+  sexual_offense_injury_or_death_common_injury_satisfied(case_id, defendant_id, victim_id) and
+  sexual_offense_injury_or_death_result_aggravated_injury_result_responsibility_satisfied(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.outcome.result_aggravated_injury.established
+// sources: comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅳ.2_4, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.6_14, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅴ.2_18, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅴ.2_17, comm_001692_제301조_Ⅴ.2_17
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury, art301_sec2.attempt_injury, art301_sec2.object_victim, art301_sec2.subject_predicate_offenses, art301_sec3.continuing_criminal_stage, art301_sec3.injury_occasion_categories, art301_sec3.injury_occasion_causation, art301_sec3.post_rape_injury_connection, art301_sec3.result_after_completion, art301_sec3.unrelated_injury_exception, art301_sec4_2.minor_injury_exclusion, art301_sec4_4.injury_recognition_factors, art301_sec4_5.drug_induced_consciousness_impairment, art301_sec4_5.functional_impairment_injury, art301_sec4_5.ptsd_as_injury, art301_sec4_5.ptsd_causation_assessment, art301_sec4_6.unwanted_pregnancy_not_injury_holding, art301_sec4_7.pubic_hair_cutting_not_injury, art301_sec4_7.pubic_hair_pulling_injury, art301_sec5_2.fleeing_traffic_injury, art301_sec5_2.injury_foreseeability_assessment, art301_sec5_2.rape_injury_causation_foreseeability, art301_sec5_2.rape_injury_result_aggravation
+rel sexual_offense_injury_or_death_result_aggravated_injury_established(case_id, defendant_id, victim_id) = sexual_offense_injury_or_death_result_aggravated_injury_elements_satisfied(case_id, defendant_id, victim_id) and
+  case_assessment_complete(case_id, defendant_id) and
+  ~sexual_offense_injury_or_death_track_has_negative(case_id, defendant_id, "result_aggravated_injury") and
+  ~sexual_offense_injury_or_death_track_has_conflict(case_id, defendant_id, "result_aggravated_injury")
+
+// rule_id: sexual_offense_injury_or_death.outcome.death.elements_satisfied
+// sources: comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅳ.2_4, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.6_14, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury, art301.death_absorbs_injury, art301_sec2.attempt_injury, art301_sec2.object_victim, art301_sec2.subject_predicate_offenses, art301_sec3.continuing_criminal_stage, art301_sec3.injury_occasion_categories, art301_sec3.injury_occasion_causation, art301_sec3.post_rape_injury_connection, art301_sec3.result_after_completion, art301_sec3.unrelated_injury_exception, art301_sec4_2.minor_injury_exclusion, art301_sec4_4.injury_recognition_factors, art301_sec4_5.drug_induced_consciousness_impairment, art301_sec4_5.functional_impairment_injury, art301_sec4_5.ptsd_as_injury, art301_sec4_5.ptsd_causation_assessment, art301_sec4_6.unwanted_pregnancy_not_injury_holding, art301_sec4_7.pubic_hair_cutting_not_injury, art301_sec4_7.pubic_hair_pulling_injury
+rel sexual_offense_injury_or_death_death_elements_satisfied(case_id, defendant_id, victim_id) = sexual_offense_injury_or_death_common_predicate_offense_satisfied(case_id, defendant_id, victim_id) and
+  sexual_offense_injury_or_death_common_object_scope_satisfied(case_id, defendant_id, victim_id) and
+  sexual_offense_injury_or_death_common_injury_nexus_satisfied(case_id, defendant_id, victim_id) and
+  sexual_offense_injury_or_death_common_injury_satisfied(case_id, defendant_id, victim_id) and
+  sexual_offense_injury_or_death_death_death_result_satisfied(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_injury_or_death.outcome.death.established
+// sources: comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅸ_23, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅱ_1, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅲ_2, comm_001692_제301조_Ⅳ.2_4, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.4_11, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.5_12, comm_001692_제301조_Ⅳ.6_14, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15, comm_001692_제301조_Ⅳ.7_15
+// norm_cards: art301.assault_before_forced_indecency_no_result_injury, art301.death_absorbs_injury, art301_sec2.attempt_injury, art301_sec2.object_victim, art301_sec2.subject_predicate_offenses, art301_sec3.continuing_criminal_stage, art301_sec3.injury_occasion_categories, art301_sec3.injury_occasion_causation, art301_sec3.post_rape_injury_connection, art301_sec3.result_after_completion, art301_sec3.unrelated_injury_exception, art301_sec4_2.minor_injury_exclusion, art301_sec4_4.injury_recognition_factors, art301_sec4_5.drug_induced_consciousness_impairment, art301_sec4_5.functional_impairment_injury, art301_sec4_5.ptsd_as_injury, art301_sec4_5.ptsd_causation_assessment, art301_sec4_6.unwanted_pregnancy_not_injury_holding, art301_sec4_7.pubic_hair_cutting_not_injury, art301_sec4_7.pubic_hair_pulling_injury
+rel sexual_offense_injury_or_death_death_established(case_id, defendant_id, victim_id) = sexual_offense_injury_or_death_death_elements_satisfied(case_id, defendant_id, victim_id) and
+  case_assessment_complete(case_id, defendant_id) and
+  ~sexual_offense_injury_or_death_track_has_negative(case_id, defendant_id, "death") and
+  ~sexual_offense_injury_or_death_track_has_conflict(case_id, defendant_id, "death")

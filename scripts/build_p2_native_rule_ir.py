@@ -241,6 +241,19 @@ class UnitAssembler:
         unknown = sorted(set(self.tracks) - set(compiled))
         if unknown:
             raise SystemExit(f"{unit_id}: tracks outside the declared signature: {unknown}")
+        self.placement_tracks = set(self.tracks)
+        pending = list(self.tracks)
+        while pending:
+            target = pending.pop()
+            for inherited in self.track_placement_inheritance.get(target, ()):
+                source = inherited["track_id"]
+                if source not in self.track_parent:
+                    raise SystemExit(
+                        f"{unit_id}: {target} imports placements from undeclared {source}"
+                    )
+                if source not in self.placement_tracks:
+                    self.placement_tracks.add(source)
+                    pending.append(source)
 
         manifest = read_json(UNIT_MANIFEST)
         unit = next(item for item in manifest["units"] if item["unit_id"] == unit_id)
@@ -252,7 +265,7 @@ class UnitAssembler:
         unit_card_ids = {
             row["card_id"]
             for row in self.ledger["placements"]
-            if row["track_id"] in self.tracks
+            if row["track_id"] in self.placement_tracks
         }
         self.source_repairs = repair_source_refs(
             self.catalog, unit_card_ids, commentary_index(self.articles)
@@ -314,10 +327,10 @@ class UnitAssembler:
     def placements(self) -> list[dict[str, Any]]:
         """Per-card placements restricted to the tracks being compiled."""
         for component in self.ledger["components"]:
-            if component["track_id"] not in self.tracks:
+            if component["track_id"] not in self.placement_tracks:
                 self.deferred.append(component)
         return [row for row in self.ledger["placements"]
-                if row["track_id"] in self.tracks]
+                if row["track_id"] in self.placement_tracks]
 
     def card(self, card_id: str) -> dict[str, Any]:
         if card_id not in self.catalog:
@@ -578,9 +591,9 @@ class UnitAssembler:
             inherited.append(f"{self.unit_id}_{parent}_elements_satisfied")
         for item in self.track_placement_inheritance.get(track, ()):
             source = item["track_id"]
-            if source not in self.tracks:
+            if source not in self.placement_tracks:
                 raise SystemExit(
-                    f"{self.unit_id}: {track} inherits placements from uncompiled {source}")
+                    f"{self.unit_id}: {track} inherits unavailable placements from {source}")
             inherited.extend(
                 f"{self.unit_id}_{source}_{component}_satisfied"
                 for component in item["component_ids"]

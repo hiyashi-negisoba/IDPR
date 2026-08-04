@@ -110,6 +110,16 @@
         "applies_to_tracks": ["attempt"]
       },
       "tracks": {}
+    },
+    "sexual_offense_injury_or_death": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {
+        "predicate": "sexual_offense_result_case_roles",
+        "arguments": ["case_id", "defendant_id", "victim_id"],
+        "definition": "호스트가 전제 성범죄와 상해·사망 결과를 확정한 피고인·동일 피해자 tuple",
+        "applies_to_tracks": ["intentional_injury", "result_aggravated_injury", "death"]
+      },
+      "tracks": {}
     }
   }
 }

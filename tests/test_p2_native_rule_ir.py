@@ -239,3 +239,14 @@ def test_approved_split_parts_become_distinct_executable_cards() -> None:
         "art164_sec2_1.burning_result.part.completion_on_burning":
             "불태움의 결과가 발생하면 방화죄는 기수에 이른다.",
     }
+
+
+def test_selective_placement_source_need_not_publish_a_track_outcome() -> None:
+    assembler = UnitAssembler("sexual_offense_injury_or_death", None)
+    rule_ir, _ = assembler.build()
+    predicates = {item["id"] for item in rule_ir["predicates"]}
+
+    assert "sexual_offense_injury_or_death_common_injury_satisfied" in predicates
+    assert "sexual_offense_injury_or_death_common_established" not in predicates
+    for track in ("intentional_injury", "result_aggravated_injury", "death"):
+        assert f"sexual_offense_injury_or_death_{track}_established" in predicates
