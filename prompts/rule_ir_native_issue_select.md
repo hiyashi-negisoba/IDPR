@@ -14,6 +14,8 @@
 - 형법 총칙의 고의·착오·위법성·책임·미수·공범·죄수 쟁점이 중요하지만 독립 등록 unit이
   없으면 `unit_id=unsupported`로 별도 issue를 만들고 `reported_label`에 그 쟁점명을 쓴다.
 - 형사소송법, 증거법, 수사·공판·상소 절차 쟁점은 이번 실험 범위에서 제외한다. 출력하지 않는다.
+- `reported_label`에는 각 쟁점의 실제 한국어 죄명·법률쟁점명을 쓴다. 지원 여부 표지가 아니므로
+  어느 issue에서도 `unsupported`라는 문자열을 label로 쓰지 않는다.
 
 # 근거와 역할
 
@@ -21,10 +23,13 @@
   아니라 그 쟁점을 검토하게 하는 사실을 인용한다.
 - `role_candidates`는 선택한 unit의 `role_arguments`를 참고해 역할명을 key로, 사건 내 사람·
   행위·대상물을 나타내는 짧고 안정적인 ID를 value로 쓴다.
+- 등록 unit의 `role_arguments`는 `case_id`를 제외하고 하나도 빠뜨리지 않으며, 선언되지 않은
+  역할명도 추가하지 않는다.
 - 같은 사람·대상은 같은 ID를 쓰며, 동일인인 역할을 억지로 서로 다른 ID로 만들지 않는다.
 - `case_id`는 호스트가 붙이므로 role 후보에 쓰지 않는다.
 - `depends_on_issue_ids`는 공유 후단 module에서만 사용한다. 반드시 같은 출력 배열에서 앞서
-  나온 기본범 issue를 가리킨다. 독립 unit과 `unsupported` issue에서는 빈 배열이다.
+  나온 기본범 issue를 가리킨다. 독립 unit과 `unit_id=unsupported`인 issue에서는 예외 없이
+  빈 배열이다.
 
 # 오염 방지
 

@@ -67,12 +67,22 @@ def _assessment(unit_id: str, scenario: dict, *, issue_id: str) -> dict:
 
 
 def _issue(issue_id: str, unit_id: str, *, dependencies: list[str] | None = None) -> dict:
+    entry = build_registry().get(unit_id)
+    roles = (
+        {
+            argument["name"]: f"{argument['name']}-1"
+            for argument in entry.role_predicate["arguments"]
+            if argument["name"] != "case_id"
+        }
+        if entry is not None
+        else {}
+    )
     return {
         "issue_id": issue_id,
         "unit_id": unit_id,
-        "reported_label": unit_id,
+        "reported_label": "미지원 쟁점" if unit_id == "unsupported" else unit_id,
         "source_quote": CASE_TEXT,
-        "role_candidates": {},
+        "role_candidates": roles,
         "depends_on_issue_ids": dependencies or [],
     }
 
@@ -128,6 +138,34 @@ def test_closed_selection_uses_registry_enum_and_validates_dependencies() -> Non
             selection,
             case_id="case-1",
             case_text=CASE_TEXT,
+        )
+
+
+def test_closed_selection_rejects_boundary_label_dependency_and_missing_role() -> None:
+    selection = {
+        "version": "1.0.0",
+        "case_id": "case-1",
+        "issues": [_issue("issue-1", "rape")],
+    }
+    selection["issues"][0]["reported_label"] = "unsupported"
+    with pytest.raises(NativeHostError, match="actual Korean legal issue"):
+        validate_closed_issue_selection(
+            selection, case_id="case-1", case_text=CASE_TEXT
+        )
+
+    unsupported = _issue("issue-2", "unsupported", dependencies=["issue-1"])
+    selection["issues"] = [_issue("issue-1", "rape"), unsupported]
+    with pytest.raises(NativeHostError, match="unsupported issue cannot"):
+        validate_closed_issue_selection(
+            selection, case_id="case-1", case_text=CASE_TEXT
+        )
+
+    supported = _issue("issue-1", "rape")
+    supported["role_candidates"].pop(next(iter(supported["role_candidates"])))
+    selection["issues"] = [supported]
+    with pytest.raises(NativeHostError, match="missing required roles"):
+        validate_closed_issue_selection(
+            selection, case_id="case-1", case_text=CASE_TEXT
         )
 
 

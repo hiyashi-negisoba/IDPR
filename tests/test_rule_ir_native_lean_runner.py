@@ -64,7 +64,11 @@ class FakeClient:
                             "unit_id": self.assessment["unit_id"],
                             "reported_label": "검증 대상 죄명",
                             "source_quote": CASE_TEXT,
-                            "role_candidates": {},
+                            "role_candidates": {
+                                key: value
+                                for key, value in self.assessment["role_values"].items()
+                                if key != "case_id"
+                            },
                             "depends_on_issue_ids": [],
                         }
                     ],

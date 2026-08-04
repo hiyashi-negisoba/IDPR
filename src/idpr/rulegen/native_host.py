@@ -134,6 +134,11 @@ def validate_closed_issue_selection(
                 continue
             issue_id = str(item.get("issue_id", ""))
             unit_id = str(item.get("unit_id", ""))
+            reported_label = str(item.get("reported_label", "")).strip()
+            if not reported_label or reported_label.casefold() == "unsupported":
+                errors.append(
+                    f"{issue_id}: reported_label must name the actual Korean legal issue"
+                )
             if item.get("source_quote") not in case_text:
                 errors.append(f"{issue_id}: source_quote is not in case text")
             dependencies = item.get("depends_on_issue_ids", [])
@@ -145,6 +150,10 @@ def validate_closed_issue_selection(
                         f"{invalid_dependencies}"
                     )
             entry = registry.get(unit_id)
+            if unit_id == "unsupported" and dependencies:
+                errors.append(
+                    f"{issue_id}: unsupported issue cannot declare dependencies"
+                )
             if entry is not None:
                 allowed_roles = {
                     argument["name"]
@@ -154,10 +163,16 @@ def validate_closed_issue_selection(
                 role_candidates = item.get("role_candidates", {})
                 if isinstance(role_candidates, Mapping):
                     unknown_roles = sorted(set(role_candidates) - allowed_roles)
+                    missing_roles = sorted(allowed_roles - set(role_candidates))
                     if unknown_roles:
                         errors.append(
                             f"{issue_id}: role_candidates contains unknown roles "
                             f"{unknown_roles}"
+                        )
+                    if missing_roles:
+                        errors.append(
+                            f"{issue_id}: role_candidates is missing required roles "
+                            f"{missing_roles}"
                         )
                 if entry.shared_module and not dependencies:
                     errors.append(
