@@ -48,6 +48,25 @@ def test_issue_selection_preserves_subject_and_independent_conduct() -> None:
         )
 
 
+def test_issue_selection_error_names_the_non_exact_quote() -> None:
+    invalid_quote = "甲이 물건을 가져갔다"
+    payload = {
+        "version": "2.0.0", "case_id": "case-1",
+        "issues": [{
+            "issue_id": "i1", "unit_id": "unsupported",
+            "reported_label": "피해자 승낙의 착오", "subject_quote": "甲",
+            "conduct_quotes": [invalid_quote],
+            "source_quote": "甲은 물건을 가져갔다",
+        }],
+    }
+    with pytest.raises(CoreContractError) as exc_info:
+        validate_core_issue_selection(
+            payload, case_id="case-1", case_text="甲은 물건을 가져갔다",
+            unit_ids=["fraud"],
+        )
+    assert repr(invalid_quote) in str(exc_info.value)
+
+
 def test_role_binding_is_conditioned_on_the_selected_unit_contract() -> None:
     fraud = _profiles()["fraud"]
     schema = role_binding_schema(case_id="case-1", issue_id="issue-1", profile=fraud)

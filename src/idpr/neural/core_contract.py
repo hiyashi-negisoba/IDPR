@@ -80,10 +80,16 @@ def validate_core_issue_selection(
             continue
         for field in ("source_quote", "subject_quote"):
             if item.get(field) not in case_text:
-                errors.append(f"{item.get('issue_id')}: {field} is not in case text")
+                errors.append(
+                    f"{item.get('issue_id')}: {field} is not an exact contiguous "
+                    f"substring of case text: {item.get(field)!r}"
+                )
         for quote in item.get("conduct_quotes", []):
             if quote not in case_text:
-                errors.append(f"{item.get('issue_id')}: conduct quote is not in case text")
+                errors.append(
+                    f"{item.get('issue_id')}: conduct quote is not an exact contiguous "
+                    f"substring of case text: {quote!r}"
+                )
             conduct_keys.append((
                 str(item.get("subject_quote")), str(item.get("unit_id")), str(quote)
             ))

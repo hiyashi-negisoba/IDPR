@@ -47,6 +47,15 @@ PROMPTS = {
 }
 
 
+class CoreStageCallError(RuntimeError):
+    """Preserve invalid model outputs when a stage exhausts contract repair."""
+
+    def __init__(self, *, stage: str, attempts: list[dict[str, Any]]) -> None:
+        self.stage = stage
+        self.attempts = attempts
+        super().__init__(str(attempts[-1]["error"]))
+
+
 def _read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -147,14 +156,24 @@ def _call(
         try:
             validator(output)
         except Exception as error:
-            attempts.append({"attempt": attempt, "metadata": metadata, "error": str(error)})
+            attempts.append({
+                "attempt": attempt,
+                "metadata": metadata,
+                "error": str(error),
+                "invalid_output": output,
+            })
             if attempt == 2:
-                raise
+                raise CoreStageCallError(stage=stage, attempts=attempts) from error
             active = {
                 **dict(payload),
                 "contract_correction": {
-                    "instruction": "전체 JSON을 다시 출력하고 host 오류를 모두 고쳐라.",
+                    "instruction": (
+                        "previous_invalid_output을 바탕으로 전체 JSON을 다시 출력하라. "
+                        "host 오류에 표시된 인용은 요약·조사 변경·말줄임 없이 "
+                        "question_text에서 복사한 정확한 연속 부분문자열로 교체하라."
+                    ),
                     "host_error": str(error),
+                    "previous_invalid_output": output,
                 },
             }
             continue
@@ -424,12 +443,28 @@ def main() -> None:
         if case_id not in inventory:
             raise ValueError(f"unknown KCL case: {case_id}")
         print(f"[{index}/{len(case_ids)}] {case_id}", flush=True)
-        summaries.append(run_case(
-            case=inventory[case_id], profiles=profiles, client=client,
-            case_dir=args.out_dir / case_id, max_group=args.max_group,
-        ))
+        case_dir = args.out_dir / case_id
+        try:
+            summaries.append(run_case(
+                case=inventory[case_id], profiles=profiles, client=client,
+                case_dir=case_dir, max_group=args.max_group,
+            ))
+        except CoreStageCallError as error:
+            failure = {
+                "case_id": case_id,
+                "status": "contract_failure",
+                "failed_stage": error.stage,
+                "error": str(error),
+                "attempts": error.attempts,
+            }
+            _write_json(case_dir / f"00_{error.stage}_failure.json", failure)
+            summaries.append(failure)
     report = {
         "version": "1.0.0", "pipeline": "rule_ir_core_normalized",
+        "status": (
+            "pass" if all(item.get("status") != "contract_failure" for item in summaries)
+            else "contract_failure"
+        ),
         "prompt_audit": audit, "cases": summaries,
     }
     _write_json(args.out_dir / "report.json", report)
