@@ -22,6 +22,7 @@ from idpr.generation.native_hybrid_answer import (  # noqa: E402
 )
 from idpr.neural.core_contract import (  # noqa: E402
     assessment_groups,
+    binding_track_ids,
     context_packet,
     core_assessment_schema,
     core_issue_selection_schema,
@@ -90,6 +91,34 @@ def _catalog(profiles: Mapping[str, Any]) -> list[dict[str, Any]]:
             "shared_module": profile["shared_module"],
         }
         for unit_id, profile in sorted(profiles.items())
+    ]
+
+
+def _track_contracts(profile: Mapping[str, Any]) -> list[dict[str, Any]]:
+    predicates = {
+        item["predicate_id"]: item for item in profile["model_input_predicates"]
+    }
+    return [
+        {
+            "track_id": track["track_id"],
+            "components": [
+                {
+                    "predicate_id": predicate_id,
+                    "definition": predicates[predicate_id]["definition"],
+                    "authority_quotes": [
+                        source["quote"]
+                        for source in predicates[predicate_id]["source_refs"][:2]
+                        if source.get("quote")
+                    ],
+                }
+                for predicate_id in dict.fromkeys(
+                    component
+                    for path in track["paths"]
+                    for component in path["components"]
+                )
+            ],
+        }
+        for track in profile["tracks"]
     ]
 
 
@@ -173,7 +202,7 @@ def _symbolic_sections(
     predicates = {item["predicate_id"]: item for item in profile["model_input_predicates"]}
     tracks = {item["track_id"]: item for item in profile["tracks"]}
     sections = []
-    for track_id in binding["selected_tracks"]:
+    for track_id in binding_track_ids(binding):
         relevant = list(dict.fromkeys(
             component
             for path in tracks[track_id]["paths"]
@@ -258,7 +287,10 @@ def run_case(
             "case_id": case_id, "issue_id": issue_id, "unit_id": unit_id,
             "question_text": scoped, "issue_source_quote": issue["source_quote"],
             "role_contract": profile["role_contract"],
-            "available_tracks": profile["tracks"],
+            "role_definitions": profile["role_contract"]["role_definitions"],
+            "subject_quote": issue["subject_quote"],
+            "conduct_quotes": issue["conduct_quotes"],
+            "track_contracts": _track_contracts(profile),
             "core_predicates": [
                 {"predicate_id": item["predicate_id"], "definition": item["definition"]}
                 for item in profile["model_input_predicates"]
@@ -268,8 +300,9 @@ def run_case(
             client=client, stage="binding", payload=binding_request,
             schema=role_binding_schema(case_id=case_id, issue_id=issue_id, profile=profile),
             max_tokens=8192,
-            validator=lambda output, p=profile, i=issue_id: validate_role_binding(
-                output, case_text=scoped, case_id=case_id, issue_id=i, profile=p
+            validator=lambda output, p=profile, i=issue_id, s=issue["subject_quote"]: validate_role_binding(
+                output, case_text=scoped, case_id=case_id, issue_id=i, profile=p,
+                subject_quote=s,
             ),
         )
         _write_json(case_dir / f"02_{issue_id}_{unit_id}_binding.json", {
@@ -278,7 +311,7 @@ def run_case(
         all_assessments: dict[str, Any] = {}
         group_artifacts = []
         for group in assessment_groups(
-            profile, binding["selected_tracks"], max_predicates=max_group
+            profile, binding_track_ids(binding), max_predicates=max_group
         ):
             predicate_ids = [item["predicate_id"] for item in group["predicates"]]
             request = {
@@ -303,7 +336,7 @@ def run_case(
             })
         needed = {
             component
-            for track_id in selected_track_closure(profile, binding["selected_tracks"])
+            for track_id in selected_track_closure(profile, binding_track_ids(binding))
             for path in next(
                 item for item in profile["tracks"] if item["track_id"] == track_id
             )["paths"]
@@ -316,7 +349,7 @@ def run_case(
         })
         runtime = execute_core_unit(
             profile=profile, case_id=case_id, role_values=_role_values(binding),
-            selected_tracks=binding["selected_tracks"], assessments=all_assessments,
+            selected_tracks=binding_track_ids(binding), assessments=all_assessments,
             work_dir=case_dir / "runtime" / issue_id,
         )
         _write_json(case_dir / f"04_{issue_id}_{unit_id}_runtime.json", runtime)

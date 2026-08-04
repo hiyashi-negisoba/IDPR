@@ -7,9 +7,11 @@ import pytest
 from idpr.neural.core_contract import (
     CoreContractError,
     assessment_groups,
+    core_issue_selection_schema,
     context_packet,
     role_binding_schema,
     validate_role_binding,
+    validate_core_issue_selection,
 )
 from idpr.rulegen.core_profile import load_core_profiles
 from idpr.rulegen.core_runtime import execute_core_unit
@@ -20,6 +22,32 @@ def _profiles() -> dict:
     return load_core_profiles()["units"]
 
 
+def test_issue_selection_preserves_subject_and_independent_conduct() -> None:
+    schema = core_issue_selection_schema(case_id="case-1", unit_ids=["fraud"])
+    required = schema["properties"]["issues"]["items"]["required"]
+    assert "subject_quote" in required
+    assert "conduct_quotes" in required
+    payload = {
+        "version": "2.0.0", "case_id": "case-1",
+        "issues": [{
+            "issue_id": "i1", "unit_id": "unsupported",
+            "reported_label": "피해자 승낙의 착오", "subject_quote": "甲",
+            "conduct_quotes": ["물건을 가져갔다"],
+            "source_quote": "甲은 물건을 가져갔다",
+        }],
+    }
+    validate_core_issue_selection(
+        payload, case_id="case-1", case_text="甲은 물건을 가져갔다",
+        unit_ids=["fraud"],
+    )
+    payload["issues"][0]["reported_label"] = "unsupported"
+    with pytest.raises(CoreContractError, match="descriptive label"):
+        validate_core_issue_selection(
+            payload, case_id="case-1", case_text="甲은 물건을 가져갔다",
+            unit_ids=["fraud"],
+        )
+
+
 def test_role_binding_is_conditioned_on_the_selected_unit_contract() -> None:
     fraud = _profiles()["fraud"]
     schema = role_binding_schema(case_id="case-1", issue_id="issue-1", profile=fraud)
@@ -28,7 +56,9 @@ def test_role_binding_is_conditioned_on_the_selected_unit_contract() -> None:
         "defendant_id", "deceived_person_id", "disposer_id",
         "property_owner_id", "beneficiary_id",
     ]
-    assert schema["properties"]["selected_tracks"]["items"]["enum"] == ["base"]
+    assert schema["properties"]["track_selections"]["items"]["properties"][
+        "track_id"
+    ]["enum"] == ["base"]
 
 
 def test_role_binding_rejects_ungrounded_or_unknown_entities() -> None:
@@ -36,7 +66,10 @@ def test_role_binding_rejects_ungrounded_or_unknown_entities() -> None:
     text = "乙은 B에게 거짓말하여 B가 乙에게 돈을 주었다."
     payload = {
         "version": "1.0.0", "case_id": "case-1", "issue_id": "issue-1",
-        "unit_id": "fraud", "selected_tracks": ["base"],
+        "unit_id": "fraud", "track_selections": [{
+            "track_id": "base", "applies_to_entity_id": "eul",
+            "source_quotes": ["乙은"], "reason": "乙의 기망행위",
+        }],
         "entities": [
             {"entity_id": "eul", "label": "乙", "source_quotes": ["乙"]},
             {"entity_id": "b", "label": "B", "source_quotes": ["B"]},
@@ -54,12 +87,14 @@ def test_role_binding_rejects_ungrounded_or_unknown_entities() -> None:
         }],
     }
     validate_role_binding(
-        payload, case_text=text, case_id="case-1", issue_id="issue-1", profile=fraud
+        payload, case_text=text, case_id="case-1", issue_id="issue-1", profile=fraud,
+        subject_quote="乙",
     )
     payload["role_bindings"]["disposer_id"]["entity_id"] = "ghost"
     with pytest.raises(CoreContractError, match="unknown entity"):
         validate_role_binding(
-            payload, case_text=text, case_id="case-1", issue_id="issue-1", profile=fraud
+            payload, case_text=text, case_id="case-1", issue_id="issue-1", profile=fraud,
+            subject_quote="乙",
         )
 
 

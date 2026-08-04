@@ -28,7 +28,7 @@ from scripts.run_rule_ir_core_kcl_e2e import PROMPTS  # noqa: E402
 
 REQUIRED = {
     "selection": ("allowed_units", "검색", "role_bindings", "총칙", "형사소송법"),
-    "binding": ("role_contract", "core_predicates", "엔티티", "관계", "selected_tracks"),
+    "binding": ("role_contract", "core_predicates", "엔티티", "관계", "track_selections"),
     "assessment": ("전량", "authority_context", "satisfied", "not_satisfied", "unknown"),
     "generation": ("rule_ir_scallop", "model_only_general_part_experiment", "결론"),
 }
@@ -98,12 +98,19 @@ def audit() -> dict[str, Any]:
     selection_item = schemas["selection"]["properties"]["issues"]["items"]
     if "role_bindings" in selection_item["properties"]:
         errors.append("issue selection still performs legal role binding")
+    if not {"subject_quote", "conduct_quotes"}.issubset(selection_item["required"]):
+        errors.append("issue selection does not preserve subject and conduct")
     binding_roles = schemas["binding"]["properties"]["role_bindings"]["required"]
     if binding_roles != [
         "defendant_id", "deceived_person_id", "disposer_id",
         "property_owner_id", "beneficiary_id",
     ]:
         errors.append("fraud role schema differs from the RuleIR role tuple")
+    track_item = schemas["binding"]["properties"]["track_selections"]["items"]
+    if not {"applies_to_entity_id", "source_quotes", "reason"}.issubset(
+        track_item["required"]
+    ):
+        errors.append("track selection lacks subject/evidence contract")
     detailed = sum(
         profile["detailed_card_predicates"]["count"] for profile in profiles.values()
     )
@@ -118,6 +125,8 @@ def audit() -> dict[str, Any]:
             "stages": list(schemas),
             "unsupported_guidance_keywords_present": incompatible,
             "selection_performs_role_binding": False,
+            "selection_preserves_subject_and_conduct": True,
+            "track_selection_requires_subject_and_evidence": True,
         },
         "predicate_boundary": {
             "units": len(profiles), "detailed_card_predicates": detailed,

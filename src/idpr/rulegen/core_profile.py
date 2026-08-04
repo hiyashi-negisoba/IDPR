@@ -15,6 +15,7 @@ from idpr.rulegen.registry import PROJECT_ROOT, build_registry
 
 
 DEFAULT_CORE_PROFILE_PATH = Path("data/rulegen/rule_ir_core_profiles.json")
+DEFAULT_ROLE_VOCABULARY_PATH = Path("data/rulegen/core_role_vocabulary.json")
 
 
 class CoreProfileError(ValueError):
@@ -40,6 +41,9 @@ def _track_id(unit_id: str, relation: str) -> str:
 
 
 def build_core_profiles(root: Path = PROJECT_ROOT) -> dict[str, Any]:
+    role_vocabulary_path = root / DEFAULT_ROLE_VOCABULARY_PATH
+    role_vocabulary = _read_json(role_vocabulary_path)
+    role_definitions = role_vocabulary.get("roles", {})
     units: dict[str, Any] = {}
     for unit_id, entry in sorted(build_registry(root).items()):
         rule_ir_path = root / entry.rule_ir_path
@@ -129,13 +133,26 @@ def build_core_profiles(root: Path = PROJECT_ROOT) -> dict[str, Any]:
                 }.values()),
             })
 
+        role_arguments = [dict(item) for item in entry.role_predicate["arguments"]]
+        missing_role_definitions = sorted(
+            item["name"] for item in role_arguments
+            if item["name"] != "case_id" and item["name"] not in role_definitions
+        )
+        if missing_role_definitions:
+            raise CoreProfileError(
+                f"{unit_id}: role vocabulary missing {missing_role_definitions}"
+            )
         units[unit_id] = {
             "unit_id": unit_id,
             "article_ids": list(entry.article_ids),
             "role_contract": {
                 "predicate": entry.role_predicate["id"],
                 "definition": str(entry.role_predicate.get("definition", "")),
-                "arguments": [dict(item) for item in entry.role_predicate["arguments"]],
+                "arguments": role_arguments,
+                "role_definitions": {
+                    item["name"]: role_definitions[item["name"]]
+                    for item in role_arguments if item["name"] != "case_id"
+                },
             },
             "tracks": sorted(tracks, key=lambda item: item["track_id"]),
             "model_input_predicates": model_inputs,
@@ -156,6 +173,8 @@ def build_core_profiles(root: Path = PROJECT_ROOT) -> dict[str, Any]:
             "derived_relations": "host_and_scallop_only",
             "profile_source": "committed_rule_ir_elements_satisfied_rules",
         },
+        "role_vocabulary_path": str(DEFAULT_ROLE_VOCABULARY_PATH),
+        "role_vocabulary_sha256": _sha256(role_vocabulary_path),
         "units": units,
     }
 
@@ -170,6 +189,9 @@ def load_core_profiles(
     if payload.get("version") != "1.0.0" or not isinstance(payload.get("units"), dict):
         raise CoreProfileError(f"{path}: invalid core profile registry")
     if verify_sources:
+        role_path = root / payload["role_vocabulary_path"]
+        if _sha256(role_path) != payload["role_vocabulary_sha256"]:
+            raise CoreProfileError("core role vocabulary hash drift")
         for unit_id, profile in payload["units"].items():
             source = root / profile["rule_ir_path"]
             if _sha256(source) != profile["rule_ir_sha256"]:

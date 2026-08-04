@@ -34,7 +34,8 @@ def core_issue_selection_schema(
                     "type": "object",
                     "additionalProperties": False,
                     "required": [
-                        "issue_id", "unit_id", "reported_label", "source_quote"
+                        "issue_id", "unit_id", "reported_label", "subject_quote",
+                        "conduct_quotes", "source_quote",
                     ],
                     "properties": {
                         "issue_id": {
@@ -42,6 +43,12 @@ def core_issue_selection_schema(
                         },
                         "unit_id": {"enum": [*unit_ids, "unsupported"]},
                         "reported_label": {"type": "string", "minLength": 1},
+                        "subject_quote": {"type": "string", "minLength": 1},
+                        "conduct_quotes": {
+                            "type": "array", "minItems": 1, "maxItems": 8,
+                            "uniqueItems": True,
+                            "items": {"type": "string", "minLength": 1},
+                        },
                         "source_quote": {"type": "string", "minLength": 1},
                     },
                 },
@@ -67,9 +74,25 @@ def validate_core_issue_selection(
     issue_ids = [item.get("issue_id") for item in issues if isinstance(item, Mapping)]
     if len(issue_ids) != len(set(issue_ids)):
         errors.append("issue_id values must be unique")
+    conduct_keys: list[tuple[str, str, str]] = []
     for item in issues:
-        if isinstance(item, Mapping) and item.get("source_quote") not in case_text:
-            errors.append(f"{item.get('issue_id')}: source_quote is not in case text")
+        if not isinstance(item, Mapping):
+            continue
+        for field in ("source_quote", "subject_quote"):
+            if item.get(field) not in case_text:
+                errors.append(f"{item.get('issue_id')}: {field} is not in case text")
+        for quote in item.get("conduct_quotes", []):
+            if quote not in case_text:
+                errors.append(f"{item.get('issue_id')}: conduct quote is not in case text")
+            conduct_keys.append((
+                str(item.get("subject_quote")), str(item.get("unit_id")), str(quote)
+            ))
+        if item.get("unit_id") == "unsupported" and str(
+            item.get("reported_label", "")
+        ).strip().lower() == "unsupported":
+            errors.append(f"{item.get('issue_id')}: unsupported requires a descriptive label")
+    if len(conduct_keys) != len(set(conduct_keys)):
+        errors.append("the same subject/unit/conduct quote is assigned to duplicate issues")
     if errors:
         raise CoreContractError("; ".join(errors))
 
@@ -99,7 +122,7 @@ def role_binding_schema(
         "type": "object",
         "additionalProperties": False,
         "required": [
-            "version", "case_id", "issue_id", "unit_id", "selected_tracks",
+            "version", "case_id", "issue_id", "unit_id", "track_selections",
             "entities", "role_bindings", "relations",
         ],
         "properties": {
@@ -107,9 +130,23 @@ def role_binding_schema(
             "case_id": {"const": case_id},
             "issue_id": {"const": issue_id},
             "unit_id": {"const": profile["unit_id"]},
-            "selected_tracks": {
+            "track_selections": {
                 "type": "array", "minItems": 1, "maxItems": len(track_ids),
-                "uniqueItems": True, "items": {"enum": track_ids},
+                "items": {
+                    "type": "object", "additionalProperties": False,
+                    "required": [
+                        "track_id", "applies_to_entity_id", "source_quotes", "reason"
+                    ],
+                    "properties": {
+                        "track_id": {"enum": track_ids},
+                        "applies_to_entity_id": {"type": "string", "minLength": 1},
+                        "source_quotes": {
+                            "type": "array", "minItems": 1, "maxItems": 6,
+                            "items": {"type": "string", "minLength": 1},
+                        },
+                        "reason": {"type": "string", "minLength": 1, "maxLength": 600},
+                    },
+                },
             },
             "entities": {
                 "type": "array", "minItems": 1, "maxItems": 32,
@@ -159,6 +196,7 @@ def validate_role_binding(
     case_id: str,
     issue_id: str,
     profile: Mapping[str, Any],
+    subject_quote: str,
 ) -> None:
     errors = [
         f"{'.'.join(str(x) for x in error.path) or '$'}: {error.message}"
@@ -177,6 +215,7 @@ def validate_role_binding(
                 if quote not in case_text:
                     errors.append(f"entity {entity.get('entity_id')}: ungrounded quote {quote!r}")
     bindings = payload.get("role_bindings", {})
+    defendant_entity_id = None
     if isinstance(bindings, Mapping):
         for role, binding in bindings.items():
             if isinstance(binding, Mapping):
@@ -185,6 +224,15 @@ def validate_role_binding(
                 for quote in binding.get("source_quotes", []):
                     if quote not in case_text:
                         errors.append(f"{role}: ungrounded quote {quote!r}")
+        defendant = bindings.get("defendant_id")
+        if isinstance(defendant, Mapping):
+            defendant_entity_id = defendant.get("entity_id")
+            entity = next(
+                (item for item in entities if item.get("entity_id") == defendant_entity_id),
+                {},
+            )
+            if subject_quote not in entity.get("source_quotes", []):
+                errors.append("defendant entity must preserve the issue subject_quote")
     relation_ids: list[Any] = []
     for relation in payload.get("relations", []):
         if not isinstance(relation, Mapping):
@@ -196,8 +244,26 @@ def validate_role_binding(
             errors.append(f"{relation.get('relation_id')}: ungrounded source_quote")
     if len(relation_ids) != len(set(relation_ids)):
         errors.append("relation_id values must be unique")
+    track_ids = []
+    for selection in payload.get("track_selections", []):
+        if not isinstance(selection, Mapping):
+            continue
+        track_ids.append(selection.get("track_id"))
+        if selection.get("applies_to_entity_id") != defendant_entity_id:
+            errors.append(
+                f"{selection.get('track_id')}: track must apply to the issue defendant"
+            )
+        for quote in selection.get("source_quotes", []):
+            if quote not in case_text:
+                errors.append(f"{selection.get('track_id')}: ungrounded track quote")
+    if len(track_ids) != len(set(track_ids)):
+        errors.append("track_id values must be unique")
     if errors:
         raise CoreContractError("; ".join(errors))
+
+
+def binding_track_ids(binding: Mapping[str, Any]) -> tuple[str, ...]:
+    return tuple(str(item["track_id"]) for item in binding["track_selections"])
 
 
 def selected_track_closure(

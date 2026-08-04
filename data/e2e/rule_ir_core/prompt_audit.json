@@ -4,9 +4,9 @@
   "scope": "offline normalized-core preflight; no model calls",
   "api_calls": 0,
   "prompt_hashes": {
-    "rule_ir_core_issue_select": "c9276184e9050a441880b7679761387fa6bdb1d3a0d44746b33d831189ddabfd",
+    "rule_ir_core_issue_select": "234eda5c37dfd2decd6bde1a062bbf17821102373d305bb7b849e5ae299b8397",
     "rule_ir_core_issue_select_user": "7149269a9528f2310f63a1f342f04b41864f04f3469fd02c8fbafe915251c742",
-    "rule_ir_core_role_bind": "451dc7776d475fb6e3e5c0ac8023a1eb95b1ade88cb82a8ec110936ae6445423",
+    "rule_ir_core_role_bind": "3fee8f6c44609e84b643ebf1069b40bbf92ef80779774d0c2afd4609cc0bd761",
     "rule_ir_core_role_bind_user": "3bb432210f8fad05af4827a0d819aca1c488c7838ab7eb337a2f55fc86acfcb6",
     "rule_ir_core_assess": "5517c3c7e29f5b962d742d4863c40181319d19c436eed59995b4eab7b084a194",
     "rule_ir_core_assess_user": "2a05e575cec9790d89b1d1782eae7a36e6e5c4defd155d1843b004cb5467c526",
@@ -18,14 +18,14 @@
       "stage": "selection",
       "system": "rule_ir_core_issue_select",
       "user": "rule_ir_core_issue_select_user",
-      "system_characters": 643,
+      "system_characters": 971,
       "user_characters": 164
     },
     {
       "stage": "binding",
       "system": "rule_ir_core_role_bind",
       "user": "rule_ir_core_role_bind_user",
-      "system_characters": 674,
+      "system_characters": 1017,
       "user_characters": 155
     },
     {
@@ -51,7 +51,9 @@
       "generation"
     ],
     "unsupported_guidance_keywords_present": [],
-    "selection_performs_role_binding": false
+    "selection_performs_role_binding": false,
+    "selection_preserves_subject_and_conduct": true,
+    "track_selection_requires_subject_and_evidence": true
   },
   "predicate_boundary": {
     "units": 36,
