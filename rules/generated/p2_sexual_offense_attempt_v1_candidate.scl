@@ -1,0 +1,308 @@
+// rule_set_id: kr.p2.sexual_offense_attempt.native.v1_candidate
+// status: draft
+// legal_review: pending
+// generated_from: validated RuleIR; model output is never executed directly
+
+// provable: 해당 사건의 평가가 절차·증명 게이트를 통과하여 실체법 규칙에 사용될 수 있음
+// sources: system contract
+// norm_cards: system contract
+type provable(String, String)
+
+// case_assessment_complete: 사건 라우터가 선택한 평가 묶음이 완결되어 결론 계층의 폐쇄세계 검사를 허용함
+// sources: system contract
+// norm_cards: system contract
+type case_assessment_complete(String, String)
+
+// distinct_entity: 사건의 entity resolution에서 두 역할이 서로 다른 실체임이 확인됨
+// sources: system contract
+// norm_cards: system contract
+type distinct_entity(String, String, String)
+
+// sexual_offense_attempt_case_roles: 호스트가 predicate offense와 실행착수를 확정한 성범죄 미수의 피고인·피해자 tuple
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_attempt_case_roles(String, String, String)
+
+// sexual_offense_attempt_not_established: 증명된 불성립 사유 또는 경계 이동이 존재함
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_attempt_not_established(String, String, String)
+
+// sexual_offense_attempt_undetermined: 관련 카드의 평가가 unknown이어서 결론을 확정할 수 없음
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_attempt_undetermined(String, String, String)
+
+// sexual_offense_attempt_conflict: 같은 카드에 satisfied와 not_satisfied 평가가 모두 증명됨
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_attempt_conflict(String, String, String)
+
+// sexual_offense_attempt_track_not_established: 해당 track에만 적용되는 증명된 불성립 사유 또는 경계 이동
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_attempt_track_not_established(String, String, String, String)
+
+// sexual_offense_attempt_track_conflict: 해당 track에 적용되는 카드 평가 충돌
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_attempt_track_conflict(String, String, String, String)
+
+// sexual_offense_attempt_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_attempt_track_has_negative(String, String, String)
+
+// sexual_offense_attempt_track_has_conflict: 해당 track에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_attempt_track_has_conflict(String, String, String)
+
+// assess_art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation: 이 카드의 사건별 적용 평가: 위 판례의 해석에 따르면 형법 제305조 제2항의 16세 미만 미성년자에 대한 간음·추행죄도 미수범이 처벌되는 것으로 해석할 수 있다.
+// sources: raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation
+type assess_art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation(String, String, String, String, String)
+
+// satisfied_art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation: 증명 가능한 평가에서 다음 조건이 충족됨: 위 판례의 해석에 따르면 형법 제305조 제2항의 16세 미만 미성년자에 대한 간음·추행죄도 미수범이 처벌되는 것으로 해석할 수 있다.
+// sources: raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation
+type satisfied_art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation(String, String, String)
+
+// assess_art300_x_raw_pdf_commencement_of_execution: 이 카드의 사건별 적용 평가: 미수가 성립하려면 실행의 착수가 있어야 한다.
+// sources: raw_001692_제300조_p002, raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.commencement_of_execution
+type assess_art300_x_raw_pdf_commencement_of_execution(String, String, String, String, String)
+
+// satisfied_art300_x_raw_pdf_commencement_of_execution: 증명 가능한 평가에서 다음 조건이 충족됨: 미수가 성립하려면 실행의 착수가 있어야 한다.
+// sources: raw_001692_제300조_p002, raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.commencement_of_execution
+type satisfied_art300_x_raw_pdf_commencement_of_execution(String, String, String)
+
+// assess_art300_x_raw_pdf_enumerated_offenses_attempts: 이 카드의 사건별 적용 평가: 강간죄, 유사강간죄, 강제추행죄 및 준강간·준유사강간·준강제추행죄의 미수범은 처벌된다.
+// sources: raw_001692_제300조_p001, raw_001692_제300조_p001
+// norm_cards: art300_x_raw_pdf.enumerated_offenses_attempts
+type assess_art300_x_raw_pdf_enumerated_offenses_attempts(String, String, String, String, String)
+
+// satisfied_art300_x_raw_pdf_enumerated_offenses_attempts: 증명 가능한 평가에서 다음 조건이 충족됨: 강간죄, 유사강간죄, 강제추행죄 및 준강간·준유사강간·준강제추행죄의 미수범은 처벌된다.
+// sources: raw_001692_제300조_p001, raw_001692_제300조_p001
+// norm_cards: art300_x_raw_pdf.enumerated_offenses_attempts
+type satisfied_art300_x_raw_pdf_enumerated_offenses_attempts(String, String, String)
+
+// assess_art300_x_raw_pdf_other_offenses_exclusion: 이 카드의 사건별 적용 평가: 강간 등 상해·치상죄, 강간 등 살인·치사죄, 미성년자 등에 대한 간음죄 및 업무상 위력 등에 의한 간음죄의 미수범에는 형법 제300조가 적용되지 않는다.
+// sources: raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001
+// norm_cards: art300_x_raw_pdf.other_offenses_exclusion
+type assess_art300_x_raw_pdf_other_offenses_exclusion(String, String, String, String, String)
+
+// satisfied_art300_x_raw_pdf_other_offenses_exclusion: 증명 가능한 평가에서 다음 조건이 충족됨: 강간 등 상해·치상죄, 강간 등 살인·치사죄, 미성년자 등에 대한 간음죄 및 업무상 위력 등에 의한 간음죄의 미수범에는 형법 제300조가 적용되지 않는다.
+// sources: raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001
+// norm_cards: art300_x_raw_pdf.other_offenses_exclusion
+type satisfied_art300_x_raw_pdf_other_offenses_exclusion(String, String, String)
+
+// assess_art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt: 이 카드의 사건별 적용 평가: 판례는 구 형법 제305조의 13세 미만 미성년자에 대한 간음·추행죄에 형법 제300조를 적용하여 그 미수범 처벌을 긍정하였다.
+// sources: raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt
+type assess_art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt(String, String, String, String, String)
+
+// satisfied_art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt: 증명 가능한 평가에서 다음 조건이 충족됨: 판례는 구 형법 제305조의 13세 미만 미성년자에 대한 간음·추행죄에 형법 제300조를 적용하여 그 미수범 처벌을 긍정하였다.
+// sources: raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt
+type satisfied_art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt(String, String, String)
+
+// sexual_offense_attempt_attempt_commencement_satisfied: 'commencement' 요건이 충족됨 (attempt track, mandatory_all)
+// sources: raw_001692_제300조_p002, raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.commencement_of_execution
+type sexual_offense_attempt_attempt_commencement_satisfied(String, String, String)
+
+// sexual_offense_attempt_attempt_eligible_predicate_offense_satisfied: 'eligible_predicate_offense' 요건이 충족됨 (attempt track, mandatory_all)
+// sources: raw_001692_제300조_p001, raw_001692_제300조_p001
+// norm_cards: art300_x_raw_pdf.enumerated_offenses_attempts
+type sexual_offense_attempt_attempt_eligible_predicate_offense_satisfied(String, String, String)
+
+// sexual_offense_attempt_has_negative: 이 unit에 증명된 불성립 사유가 존재함
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_attempt_has_negative(String, String)
+
+// sexual_offense_attempt_has_conflict: 이 unit에 증명된 평가 충돌이 존재함
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_attempt_has_conflict(String, String)
+
+// sexual_offense_attempt_attempt_elements_satisfied: 'attempt' track의 구성요건 component가 모두 충족된 잠정 성립 후보
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_attempt_attempt_elements_satisfied(String, String, String)
+
+// sexual_offense_attempt_attempt_established: 완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 'attempt' track 확정 성립
+// sources: system contract
+// norm_cards: system contract
+type sexual_offense_attempt_attempt_established(String, String, String)
+
+// rule_id: sexual_offense_attempt.card.art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation.satisfied
+// sources: raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation
+rel satisfied_art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation(case_id, defendant_id, victim_id) = assess_art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation(case_id, assessment_001, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_001)
+
+// rule_id: sexual_offense_attempt.card.art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation.undetermined
+// sources: raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation
+rel sexual_offense_attempt_undetermined(case_id, defendant_id, "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation") = assess_art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation(case_id, unknown_001, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_001)
+
+// rule_id: sexual_offense_attempt.card.art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation.conflict
+// sources: raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation
+rel sexual_offense_attempt_conflict(case_id, defendant_id, "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation") = assess_art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation(case_id, positive_001, defendant_id, victim_id, "satisfied") and
+  assess_art300_x_raw_pdf_art305_under_sixteen_attempt_interpretation(case_id, negative_001, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_001) and
+  provable(case_id, negative_001)
+
+// rule_id: sexual_offense_attempt.card.art300_x_raw_pdf_commencement_of_execution.satisfied
+// sources: raw_001692_제300조_p002, raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.commencement_of_execution
+rel satisfied_art300_x_raw_pdf_commencement_of_execution(case_id, defendant_id, victim_id) = assess_art300_x_raw_pdf_commencement_of_execution(case_id, assessment_002, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_002)
+
+// rule_id: sexual_offense_attempt.card.art300_x_raw_pdf_commencement_of_execution.undetermined
+// sources: raw_001692_제300조_p002, raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.commencement_of_execution
+rel sexual_offense_attempt_undetermined(case_id, defendant_id, "art300_x_raw_pdf.commencement_of_execution") = assess_art300_x_raw_pdf_commencement_of_execution(case_id, unknown_002, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_002)
+
+// rule_id: sexual_offense_attempt.card.art300_x_raw_pdf_commencement_of_execution.conflict
+// sources: raw_001692_제300조_p002, raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.commencement_of_execution
+rel sexual_offense_attempt_conflict(case_id, defendant_id, "art300_x_raw_pdf.commencement_of_execution") = assess_art300_x_raw_pdf_commencement_of_execution(case_id, positive_002, defendant_id, victim_id, "satisfied") and
+  assess_art300_x_raw_pdf_commencement_of_execution(case_id, negative_002, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_002) and
+  provable(case_id, negative_002)
+
+// rule_id: sexual_offense_attempt.card.art300_x_raw_pdf_enumerated_offenses_attempts.satisfied
+// sources: raw_001692_제300조_p001, raw_001692_제300조_p001
+// norm_cards: art300_x_raw_pdf.enumerated_offenses_attempts
+rel satisfied_art300_x_raw_pdf_enumerated_offenses_attempts(case_id, defendant_id, victim_id) = assess_art300_x_raw_pdf_enumerated_offenses_attempts(case_id, assessment_003, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_003)
+
+// rule_id: sexual_offense_attempt.card.art300_x_raw_pdf_enumerated_offenses_attempts.undetermined
+// sources: raw_001692_제300조_p001, raw_001692_제300조_p001
+// norm_cards: art300_x_raw_pdf.enumerated_offenses_attempts
+rel sexual_offense_attempt_undetermined(case_id, defendant_id, "art300_x_raw_pdf.enumerated_offenses_attempts") = assess_art300_x_raw_pdf_enumerated_offenses_attempts(case_id, unknown_003, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_003)
+
+// rule_id: sexual_offense_attempt.card.art300_x_raw_pdf_enumerated_offenses_attempts.conflict
+// sources: raw_001692_제300조_p001, raw_001692_제300조_p001
+// norm_cards: art300_x_raw_pdf.enumerated_offenses_attempts
+rel sexual_offense_attempt_conflict(case_id, defendant_id, "art300_x_raw_pdf.enumerated_offenses_attempts") = assess_art300_x_raw_pdf_enumerated_offenses_attempts(case_id, positive_003, defendant_id, victim_id, "satisfied") and
+  assess_art300_x_raw_pdf_enumerated_offenses_attempts(case_id, negative_003, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_003) and
+  provable(case_id, negative_003)
+
+// rule_id: sexual_offense_attempt.card.art300_x_raw_pdf_other_offenses_exclusion.satisfied
+// sources: raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001
+// norm_cards: art300_x_raw_pdf.other_offenses_exclusion
+rel satisfied_art300_x_raw_pdf_other_offenses_exclusion(case_id, defendant_id, victim_id) = assess_art300_x_raw_pdf_other_offenses_exclusion(case_id, assessment_004, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_004)
+
+// rule_id: sexual_offense_attempt.card.art300_x_raw_pdf_other_offenses_exclusion.undetermined
+// sources: raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001
+// norm_cards: art300_x_raw_pdf.other_offenses_exclusion
+rel sexual_offense_attempt_undetermined(case_id, defendant_id, "art300_x_raw_pdf.other_offenses_exclusion") = assess_art300_x_raw_pdf_other_offenses_exclusion(case_id, unknown_004, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_004)
+
+// rule_id: sexual_offense_attempt.card.art300_x_raw_pdf_other_offenses_exclusion.conflict
+// sources: raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001
+// norm_cards: art300_x_raw_pdf.other_offenses_exclusion
+rel sexual_offense_attempt_conflict(case_id, defendant_id, "art300_x_raw_pdf.other_offenses_exclusion") = assess_art300_x_raw_pdf_other_offenses_exclusion(case_id, positive_004, defendant_id, victim_id, "satisfied") and
+  assess_art300_x_raw_pdf_other_offenses_exclusion(case_id, negative_004, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_004) and
+  provable(case_id, negative_004)
+
+// rule_id: sexual_offense_attempt.card.art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt.satisfied
+// sources: raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt
+rel satisfied_art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt(case_id, defendant_id, victim_id) = assess_art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt(case_id, assessment_005, defendant_id, victim_id, "satisfied") and
+  provable(case_id, assessment_005)
+
+// rule_id: sexual_offense_attempt.card.art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt.undetermined
+// sources: raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt
+rel sexual_offense_attempt_undetermined(case_id, defendant_id, "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt") = assess_art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt(case_id, unknown_005, defendant_id, victim_id, "unknown") and
+  provable(case_id, unknown_005)
+
+// rule_id: sexual_offense_attempt.card.art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt.conflict
+// sources: raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt
+rel sexual_offense_attempt_conflict(case_id, defendant_id, "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt") = assess_art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt(case_id, positive_005, defendant_id, victim_id, "satisfied") and
+  assess_art300_x_raw_pdf_pre_amendment_art305_under_thirteen_attempt(case_id, negative_005, defendant_id, victim_id, "not_satisfied") and
+  provable(case_id, positive_005) and
+  provable(case_id, negative_005)
+
+// rule_id: sexual_offense_attempt.component.attempt.commencement.all
+// sources: raw_001692_제300조_p002, raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.commencement_of_execution
+rel sexual_offense_attempt_attempt_commencement_satisfied(case_id, defendant_id, victim_id) = satisfied_art300_x_raw_pdf_commencement_of_execution(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_attempt.component.attempt.eligible_predicate_offense.all
+// sources: raw_001692_제300조_p001, raw_001692_제300조_p001
+// norm_cards: art300_x_raw_pdf.enumerated_offenses_attempts
+rel sexual_offense_attempt_attempt_eligible_predicate_offense_satisfied(case_id, defendant_id, victim_id) = satisfied_art300_x_raw_pdf_enumerated_offenses_attempts(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_attempt.track_conflict.attempt.art300_x_raw_pdf_commencement_of_execution
+// sources: raw_001692_제300조_p002, raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.commencement_of_execution
+rel sexual_offense_attempt_track_conflict(case_id, defendant_id, "attempt", "art300_x_raw_pdf.commencement_of_execution") = sexual_offense_attempt_conflict(case_id, defendant_id, "art300_x_raw_pdf.commencement_of_execution")
+
+// rule_id: sexual_offense_attempt.track_conflict.attempt.art300_x_raw_pdf_enumerated_offenses_attempts
+// sources: raw_001692_제300조_p001, raw_001692_제300조_p001
+// norm_cards: art300_x_raw_pdf.enumerated_offenses_attempts
+rel sexual_offense_attempt_track_conflict(case_id, defendant_id, "attempt", "art300_x_raw_pdf.enumerated_offenses_attempts") = sexual_offense_attempt_conflict(case_id, defendant_id, "art300_x_raw_pdf.enumerated_offenses_attempts")
+
+// rule_id: sexual_offense_attempt.track_conflict.attempt.art300_x_raw_pdf_other_offenses_exclusion
+// sources: raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001
+// norm_cards: art300_x_raw_pdf.other_offenses_exclusion
+rel sexual_offense_attempt_track_conflict(case_id, defendant_id, "attempt", "art300_x_raw_pdf.other_offenses_exclusion") = sexual_offense_attempt_conflict(case_id, defendant_id, "art300_x_raw_pdf.other_offenses_exclusion")
+
+// rule_id: sexual_offense_attempt.track_blocked.attempt.art300_x_raw_pdf_other_offenses_exclusion
+// sources: raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001
+// norm_cards: art300_x_raw_pdf.other_offenses_exclusion
+rel sexual_offense_attempt_track_not_established(case_id, defendant_id, "attempt", "art300_x_raw_pdf.other_offenses_exclusion") = satisfied_art300_x_raw_pdf_other_offenses_exclusion(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_attempt.summary.has_negative
+// sources: raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation, art300_x_raw_pdf.commencement_of_execution, art300_x_raw_pdf.enumerated_offenses_attempts, art300_x_raw_pdf.other_offenses_exclusion, art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt
+rel sexual_offense_attempt_has_negative(case_id, defendant_id) = sexual_offense_attempt_not_established(case_id, defendant_id, norm_card_id)
+
+// rule_id: sexual_offense_attempt.summary.has_conflict
+// sources: raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation, art300_x_raw_pdf.commencement_of_execution, art300_x_raw_pdf.enumerated_offenses_attempts, art300_x_raw_pdf.other_offenses_exclusion, art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt
+rel sexual_offense_attempt_has_conflict(case_id, defendant_id) = sexual_offense_attempt_conflict(case_id, defendant_id, norm_card_id)
+
+// rule_id: sexual_offense_attempt.summary.canonical_not_established
+// sources: raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation, art300_x_raw_pdf.commencement_of_execution, art300_x_raw_pdf.enumerated_offenses_attempts, art300_x_raw_pdf.other_offenses_exclusion, art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt
+rel sexual_offense_attempt_not_established(case_id, defendant_id, norm_card_id) = sexual_offense_attempt_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: sexual_offense_attempt.summary.track_has_negative
+// sources: raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation, art300_x_raw_pdf.commencement_of_execution, art300_x_raw_pdf.enumerated_offenses_attempts, art300_x_raw_pdf.other_offenses_exclusion, art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt
+rel sexual_offense_attempt_track_has_negative(case_id, defendant_id, track_id) = sexual_offense_attempt_track_not_established(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: sexual_offense_attempt.summary.track_has_conflict
+// sources: raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation, art300_x_raw_pdf.commencement_of_execution, art300_x_raw_pdf.enumerated_offenses_attempts, art300_x_raw_pdf.other_offenses_exclusion, art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt
+rel sexual_offense_attempt_track_has_conflict(case_id, defendant_id, track_id) = sexual_offense_attempt_track_conflict(case_id, defendant_id, track_id, norm_card_id)
+
+// rule_id: sexual_offense_attempt.outcome.attempt.elements_satisfied
+// sources: raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation, art300_x_raw_pdf.commencement_of_execution, art300_x_raw_pdf.enumerated_offenses_attempts, art300_x_raw_pdf.other_offenses_exclusion, art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt
+rel sexual_offense_attempt_attempt_elements_satisfied(case_id, defendant_id, victim_id) = sexual_offense_attempt_attempt_commencement_satisfied(case_id, defendant_id, victim_id) and
+  sexual_offense_attempt_attempt_eligible_predicate_offense_satisfied(case_id, defendant_id, victim_id)
+
+// rule_id: sexual_offense_attempt.outcome.attempt.established
+// sources: raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p001, raw_001692_제300조_p002, raw_001692_제300조_p002, raw_001692_제300조_p002
+// norm_cards: art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation, art300_x_raw_pdf.commencement_of_execution, art300_x_raw_pdf.enumerated_offenses_attempts, art300_x_raw_pdf.other_offenses_exclusion, art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt
+rel sexual_offense_attempt_attempt_established(case_id, defendant_id, victim_id) = sexual_offense_attempt_attempt_elements_satisfied(case_id, defendant_id, victim_id) and
+  case_assessment_complete(case_id, defendant_id) and
+  ~sexual_offense_attempt_track_has_negative(case_id, defendant_id, "attempt") and
+  ~sexual_offense_attempt_track_has_conflict(case_id, defendant_id, "attempt")

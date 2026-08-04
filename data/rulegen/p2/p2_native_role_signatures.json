@@ -100,6 +100,16 @@
         "applies_to_tracks": ["base"]
       },
       "tracks": {}
+    },
+    "sexual_offense_attempt": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {
+        "predicate": "sexual_offense_attempt_case_roles",
+        "arguments": ["case_id", "defendant_id", "victim_id"],
+        "definition": "호스트가 predicate offense와 실행착수를 확정한 성범죄 미수의 피고인·피해자 tuple",
+        "applies_to_tracks": ["attempt"]
+      },
+      "tracks": {}
     }
   }
 }

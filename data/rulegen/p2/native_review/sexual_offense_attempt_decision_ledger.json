@@ -1,0 +1,150 @@
+{
+  "version": "1.0.0",
+  "unit_id": "sexual_offense_attempt",
+  "law_snapshot": {
+    "as_of_date": "2026-08-03",
+    "effective_source_date": "2026-03-12",
+    "future_snapshot_date": "2026-09-13",
+    "future_snapshot_policy": "separate_snapshot_not_active",
+    "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
+  },
+  "approval_document": "data/rulegen/p2/native_review/sexual_offense_attempt_approved_decisions.json",
+  "approval_sha256": "1e515cd03217926beaa4046473ceef02f8a7fad4492036ff8836eb722b45a1a8",
+  "approved_on": "2026-08-04",
+  "status": "ready_for_rule_ir",
+  "problems": [],
+  "unresolved_unit_references": [
+    {
+      "card_id": "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation",
+      "part_id": null,
+      "refers_to_unit": "statutory_sexual_offense",
+      "status": "predicate_ir_missing"
+    },
+    {
+      "card_id": "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt",
+      "part_id": null,
+      "refers_to_unit": "statutory_sexual_offense",
+      "status": "predicate_ir_missing"
+    }
+  ],
+  "excluded_cards": [],
+  "tracks": [
+    {
+      "track_id": "attempt",
+      "label": "제300조 성범죄 미수"
+    }
+  ],
+  "placements": [
+    {
+      "card_id": "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "attempt",
+      "component_id": "child_victim_extension",
+      "component_join": "not_applicable",
+      "refers_to_unit": "statutory_sexual_offense",
+      "rationale": "제305조 미성년자 간음·추행의 시간적 적용은 미등록 외부 죄종과 연결",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt",
+      "part_id": null,
+      "role": "post_outcome",
+      "track_id": "attempt",
+      "component_id": "child_victim_extension",
+      "component_join": "not_applicable",
+      "refers_to_unit": "statutory_sexual_offense",
+      "rationale": "제305조 미성년자 간음·추행의 시간적 적용은 미등록 외부 죄종과 연결",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art300_x_raw_pdf.commencement_of_execution",
+      "part_id": null,
+      "role": "component",
+      "track_id": "attempt",
+      "component_id": "commencement",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "미수 성립에 필요한 실행착수",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art300_x_raw_pdf.enumerated_offenses_attempts",
+      "part_id": null,
+      "role": "component",
+      "track_id": "attempt",
+      "component_id": "eligible_predicate_offense",
+      "component_join": "mandatory_all",
+      "refers_to_unit": null,
+      "rationale": "제300조가 열거한 강간·유사강간·강제추행·준강간 등 적용대상",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art300_x_raw_pdf.other_offenses_exclusion",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "attempt",
+      "component_id": "eligible_predicate_offense",
+      "component_join": "not_applicable",
+      "refers_to_unit": "sexual_offense_injury_or_death",
+      "rationale": "결과가중범과 비열거 성범죄에 대한 제300조 적용 배제",
+      "proposition_rewrite": null
+    }
+  ],
+  "components": [
+    {
+      "track_id": "attempt",
+      "component_id": "child_victim_extension",
+      "roles": [
+        "post_outcome"
+      ],
+      "joins": [],
+      "refers_to_units": [
+        "statutory_sexual_offense"
+      ],
+      "norm_card_ids": [
+        "art300_x_raw_pdf.art305_under_sixteen_attempt_interpretation",
+        "art300_x_raw_pdf.pre_amendment_art305_under_thirteen_attempt"
+      ]
+    },
+    {
+      "track_id": "attempt",
+      "component_id": "commencement",
+      "roles": [
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [],
+      "norm_card_ids": [
+        "art300_x_raw_pdf.commencement_of_execution"
+      ]
+    },
+    {
+      "track_id": "attempt",
+      "component_id": "eligible_predicate_offense",
+      "roles": [
+        "bar",
+        "component"
+      ],
+      "joins": [
+        "mandatory_all"
+      ],
+      "refers_to_units": [
+        "sexual_offense_injury_or_death"
+      ],
+      "norm_card_ids": [
+        "art300_x_raw_pdf.enumerated_offenses_attempts",
+        "art300_x_raw_pdf.other_offenses_exclusion"
+      ]
+    }
+  ],
+  "stats": {
+    "components": 3,
+    "decision_approve": 5,
+    "placements": 5,
+    "queue_cards": 5,
+    "unresolved_unit_references": 2
+  }
+}

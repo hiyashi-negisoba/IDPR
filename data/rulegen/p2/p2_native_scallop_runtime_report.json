@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "api_calls": 0,
-  "created_at": "2026-08-04T01:05:35.719775+00:00",
+  "created_at": "2026-08-04T01:06:33.465128+00:00",
   "runtime": {
     "scli": "tools/scallop/scli-0.2.4-linux-x86_64",
     "version": "scli 0.2.4",
@@ -16,103 +16,103 @@
   },
   "units": [
     {
-      "unit": "quasi_sexual_offense",
+      "unit": "sexual_offense_attempt",
       "tracks": [
-        "base"
+        "attempt"
       ],
       "scenarios": [
         {
-          "scenario_id": "base.established",
-          "track": "base",
+          "scenario_id": "attempt.established",
+          "track": "attempt",
           "expected_nonempty": {
-            "quasi_sexual_offense_base_elements_satisfied": true,
-            "quasi_sexual_offense_base_established": true,
-            "quasi_sexual_offense_not_established": false,
-            "quasi_sexual_offense_undetermined": false,
-            "quasi_sexual_offense_conflict": false
+            "sexual_offense_attempt_attempt_elements_satisfied": true,
+            "sexual_offense_attempt_attempt_established": true,
+            "sexual_offense_attempt_not_established": false,
+            "sexual_offense_attempt_undetermined": false,
+            "sexual_offense_attempt_conflict": false
           },
           "observed_nonempty": {
-            "quasi_sexual_offense_base_elements_satisfied": true,
-            "quasi_sexual_offense_base_established": true,
-            "quasi_sexual_offense_not_established": false,
-            "quasi_sexual_offense_undetermined": false,
-            "quasi_sexual_offense_conflict": false
+            "sexual_offense_attempt_attempt_elements_satisfied": true,
+            "sexual_offense_attempt_attempt_established": true,
+            "sexual_offense_attempt_not_established": false,
+            "sexual_offense_attempt_undetermined": false,
+            "sexual_offense_attempt_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "base.incomplete_blocked",
-          "track": "base",
+          "scenario_id": "attempt.incomplete_blocked",
+          "track": "attempt",
           "expected_nonempty": {
-            "quasi_sexual_offense_base_elements_satisfied": true,
-            "quasi_sexual_offense_base_established": false,
-            "quasi_sexual_offense_not_established": false,
-            "quasi_sexual_offense_undetermined": false,
-            "quasi_sexual_offense_conflict": false
+            "sexual_offense_attempt_attempt_elements_satisfied": true,
+            "sexual_offense_attempt_attempt_established": false,
+            "sexual_offense_attempt_not_established": false,
+            "sexual_offense_attempt_undetermined": false,
+            "sexual_offense_attempt_conflict": false
           },
           "observed_nonempty": {
-            "quasi_sexual_offense_base_elements_satisfied": true,
-            "quasi_sexual_offense_base_established": false,
-            "quasi_sexual_offense_not_established": false,
-            "quasi_sexual_offense_undetermined": false,
-            "quasi_sexual_offense_conflict": false
+            "sexual_offense_attempt_attempt_elements_satisfied": true,
+            "sexual_offense_attempt_attempt_established": false,
+            "sexual_offense_attempt_not_established": false,
+            "sexual_offense_attempt_undetermined": false,
+            "sexual_offense_attempt_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "base.conflict_blocks",
-          "track": "base",
+          "scenario_id": "attempt.conflict_blocks",
+          "track": "attempt",
           "expected_nonempty": {
-            "quasi_sexual_offense_base_elements_satisfied": true,
-            "quasi_sexual_offense_base_established": false,
-            "quasi_sexual_offense_not_established": false,
-            "quasi_sexual_offense_undetermined": false,
-            "quasi_sexual_offense_conflict": true
+            "sexual_offense_attempt_attempt_elements_satisfied": true,
+            "sexual_offense_attempt_attempt_established": false,
+            "sexual_offense_attempt_not_established": false,
+            "sexual_offense_attempt_undetermined": false,
+            "sexual_offense_attempt_conflict": true
           },
           "observed_nonempty": {
-            "quasi_sexual_offense_base_elements_satisfied": true,
-            "quasi_sexual_offense_base_established": false,
-            "quasi_sexual_offense_not_established": false,
-            "quasi_sexual_offense_undetermined": false,
-            "quasi_sexual_offense_conflict": true
+            "sexual_offense_attempt_attempt_elements_satisfied": true,
+            "sexual_offense_attempt_attempt_established": false,
+            "sexual_offense_attempt_not_established": false,
+            "sexual_offense_attempt_undetermined": false,
+            "sexual_offense_attempt_conflict": true
           },
           "passed": true
         },
         {
-          "scenario_id": "base.unknown_blocks",
-          "track": "base",
+          "scenario_id": "attempt.unknown_blocks",
+          "track": "attempt",
           "expected_nonempty": {
-            "quasi_sexual_offense_base_elements_satisfied": false,
-            "quasi_sexual_offense_base_established": false,
-            "quasi_sexual_offense_not_established": false,
-            "quasi_sexual_offense_undetermined": true,
-            "quasi_sexual_offense_conflict": false
+            "sexual_offense_attempt_attempt_elements_satisfied": false,
+            "sexual_offense_attempt_attempt_established": false,
+            "sexual_offense_attempt_not_established": false,
+            "sexual_offense_attempt_undetermined": true,
+            "sexual_offense_attempt_conflict": false
           },
           "observed_nonempty": {
-            "quasi_sexual_offense_base_elements_satisfied": false,
-            "quasi_sexual_offense_base_established": false,
-            "quasi_sexual_offense_not_established": false,
-            "quasi_sexual_offense_undetermined": true,
-            "quasi_sexual_offense_conflict": false
+            "sexual_offense_attempt_attempt_elements_satisfied": false,
+            "sexual_offense_attempt_attempt_established": false,
+            "sexual_offense_attempt_not_established": false,
+            "sexual_offense_attempt_undetermined": true,
+            "sexual_offense_attempt_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "base.bar_blocks",
-          "track": "base",
+          "scenario_id": "attempt.bar_blocks",
+          "track": "attempt",
           "expected_nonempty": {
-            "quasi_sexual_offense_base_elements_satisfied": true,
-            "quasi_sexual_offense_base_established": false,
-            "quasi_sexual_offense_not_established": true,
-            "quasi_sexual_offense_undetermined": false,
-            "quasi_sexual_offense_conflict": false
+            "sexual_offense_attempt_attempt_elements_satisfied": true,
+            "sexual_offense_attempt_attempt_established": false,
+            "sexual_offense_attempt_not_established": true,
+            "sexual_offense_attempt_undetermined": false,
+            "sexual_offense_attempt_conflict": false
           },
           "observed_nonempty": {
-            "quasi_sexual_offense_base_elements_satisfied": true,
-            "quasi_sexual_offense_base_established": false,
-            "quasi_sexual_offense_not_established": true,
-            "quasi_sexual_offense_undetermined": false,
-            "quasi_sexual_offense_conflict": false
+            "sexual_offense_attempt_attempt_elements_satisfied": true,
+            "sexual_offense_attempt_attempt_established": false,
+            "sexual_offense_attempt_not_established": true,
+            "sexual_offense_attempt_undetermined": false,
+            "sexual_offense_attempt_conflict": false
           },
           "passed": true
         }

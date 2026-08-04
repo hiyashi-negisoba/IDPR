@@ -4,4 +4,4 @@ unit 1 / 시나리오 5 / 통과 **5**
 
 | unit | track | 시나리오 | 통과 |
 |---|---|---:|---:|
-| `quasi_sexual_offense` | base | 5 | 5 |
+| `sexual_offense_attempt` | attempt | 5 | 5 |
