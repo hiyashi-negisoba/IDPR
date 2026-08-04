@@ -127,6 +127,7 @@ def _labels() -> dict[str, str]:
 def _native_fact_schema() -> dict[str, Any]:
     schema = fact_graph_schema()
     for field in ("issue_candidates", "retrieval_queries"):
+        schema["properties"][field]["minItems"] = 0
         schema["properties"][field]["maxItems"] = 0
     return schema
 

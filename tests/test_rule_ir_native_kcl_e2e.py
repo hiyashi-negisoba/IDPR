@@ -34,8 +34,9 @@ def test_runner_refuses_unreviewed_or_changed_prompts(tmp_path: Path) -> None:
 
 def test_native_fact_and_unit_selection_are_search_free_and_closed() -> None:
     schema = _native_fact_schema()
-    assert schema["properties"]["issue_candidates"]["maxItems"] == 0
-    assert schema["properties"]["retrieval_queries"]["maxItems"] == 0
+    for field in ("issue_candidates", "retrieval_queries"):
+        assert schema["properties"][field]["minItems"] == 0
+        assert schema["properties"][field]["maxItems"] == 0
     units = _allowed_units()
     assert len(units) == 36
     assert len({item["unit_id"] for item in units}) == 36

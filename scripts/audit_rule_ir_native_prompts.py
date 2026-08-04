@@ -155,10 +155,16 @@ def audit() -> dict[str, Any]:
 
     native_fact_schema = fact_graph_schema()
     for field in ("issue_candidates", "retrieval_queries"):
+        native_fact_schema["properties"][field]["minItems"] = 0
         native_fact_schema["properties"][field]["maxItems"] = 0
-    if any(native_fact_schema["properties"][field].get("maxItems") != 0 for field in (
-        "issue_candidates", "retrieval_queries"
-    )):
+    if any(
+        (
+            native_fact_schema["properties"][field].get("minItems"),
+            native_fact_schema["properties"][field].get("maxItems"),
+        )
+        != (0, 0)
+        for field in ("issue_candidates", "retrieval_queries")
+    ):
         errors.append("native FactGraph schema does not force search outputs empty")
 
     sample_unit = registry["theft"]
@@ -187,7 +193,7 @@ def audit() -> dict[str, Any]:
         "schemas": {
             "registered_unit_enum": len(registry),
             "unsupported_sentinel": "unsupported",
-            "semantic_search_outputs_max_items": 0,
+            "semantic_search_outputs_item_bounds": [0, 0],
             "sample_unit": "theft",
             "sample_required_predicates": len(required_predicates),
             "supported_writer_conclusion_field": False,
