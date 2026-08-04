@@ -9,7 +9,7 @@ import json
 import subprocess
 import sys
 from pathlib import Path
-from typing import Any, Mapping, Protocol
+from typing import Any, Mapping, Protocol, Sequence
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -105,6 +105,107 @@ def _git_commit() -> str | None:
     if result.returncode != 0:
         return None
     return result.stdout.strip() or None
+
+
+_VERDICT_TEXT = {
+    "established": "성립 (구성요건 충족)",
+    "not_established": "불성립 (구성요건 미충족)",
+    "undetermined": "미확정 (판단에 필요한 사실이 부족)",
+    "conflict": "충돌 (상반된 요건이 동시에 인정)",
+    "no_derived_outcome": "미확정 (도출된 결론 없음)",
+}
+_EVIDENCE_LIMIT = 12
+
+
+def _render_verdict_brief(
+    *,
+    directives: Sequence[Mapping[str, Any]],
+    skipped: Sequence[Mapping[str, Any]],
+    unsupported: Sequence[Mapping[str, Any]],
+    labels: Mapping[str, str],
+) -> str:
+    """Render symbolic results as a Korean brief.
+
+    The writer used to receive the raw contract JSON, which both buried the
+    reason behind a verdict under 88 predicate entries and leaked internal
+    vocabulary (``Scallop``, relation names) into the finished prose.
+    """
+
+    blocks: list[str] = []
+    for directive in directives:
+        issue_id = str(directive["issue_id"])
+        label = labels.get(issue_id) or str(directive["unit_id"])
+        conclusion = str(directive["symbolic_conclusion"])
+        lines = [
+            f"### 죄명: {label}",
+            f"- **확정 결론: {_VERDICT_TEXT.get(conclusion, conclusion)}** "
+            "(이 결론은 검증된 규칙 추론의 산물이므로 반드시 그대로 따른다)",
+        ]
+        referred = [str(name) for name in directive.get("referred_crimes", []) if name]
+        if referred:
+            lines.append(
+                "- **이 죄가 아니라 다음 죄로 평가된다: "
+                + ", ".join(referred)
+                + "** — 이 죄의 불성립으로 끝내지 말고, 넘어간 죄의 성부를 반드시 "
+                "이어서 논증하고 결론까지 내려라."
+            )
+        # ``unmet_requirements`` stays in the report as survey data for the card
+        # gaps it exposes, but it is deliberately kept out of the brief: two
+        # variants of showing it to the writer both scored below the baseline
+        # (7.0 -> 6.5 -> 6.0 on the 27-item rubric).
+        waived = [str(name) for name in directive.get("waived_requirements", []) if name]
+        if waived:
+            lines.append(
+                "- 이 죄의 성립에 요구되지 않는 것으로 확인된 요건(불성립 사유가 아니다): "
+                + ", ".join(waived)
+            )
+        evidence = directive.get("evidence", {}) or {}
+        met = [
+            str(item.get("definition", ""))
+            for item in evidence.values()
+            if item.get("status") == "satisfied"
+        ]
+        denied = [
+            str(item.get("definition", ""))
+            for item in evidence.values()
+            if item.get("status") == "not_satisfied"
+        ]
+        undetermined = [
+            str(item.get("definition", ""))
+            for item in evidence.values()
+            if item.get("status") == "unknown"
+        ]
+        if met:
+            lines.append("- 사실관계상 인정된 요건:")
+            lines += [f"  - {text}" for text in met[:_EVIDENCE_LIMIT]]
+        if denied:
+            lines.append("- 적극적으로 부정된 요건:")
+            lines += [f"  - {text}" for text in denied[:_EVIDENCE_LIMIT]]
+        if undetermined and conclusion != "established":
+            lines.append("- 사실관계만으로 확인되지 않은 요건:")
+            lines += [f"  - {text}" for text in undetermined[:_EVIDENCE_LIMIT]]
+        blocks.append("\n".join(lines))
+
+    autonomous: list[str] = []
+    for item in unsupported:
+        label = (
+            labels.get(str(item.get("issue_id", "")))
+            or str(item.get("reported_label", ""))
+        )
+        if label:
+            autonomous.append(label)
+    for item in skipped:
+        label = labels.get(str(item.get("issue_id", ""))) or str(item.get("unit_id", ""))
+        if label:
+            autonomous.append(label)
+    if autonomous:
+        blocks.append(
+            "### 규칙 추론이 판정하지 않은 쟁점 (전적으로 자율 판단)\n"
+            + "\n".join(f"- {label}" for label in dict.fromkeys(autonomous))
+            + "\n이 쟁점들에는 확정 결론이 없다. 법학 지식으로 직접 학설·판례를 "
+            "동원하여 충실히 논증하고 결론을 내려라."
+        )
+    return "\n\n".join(blocks) if blocks else "(확정된 판정 없음)"
 
 
 def _model_case(raw_case: Mapping[str, Any]) -> dict[str, str]:
@@ -223,37 +324,37 @@ def run_case(
         work_dir=out_dir / "runtime",
     )
     _write_json(out_dir / "03_native_report.json", native_report)
-
-    section_requests = build_native_section_requests(
-        case=case,
-        selection=selection,
-        native_report=native_report,
+    # --- Stage 3: Unified IRAC answer (single LLM call, no host assembly) ---
+    contract = native_report.get("generation_contract", {})
+    labels = {
+        str(issue["issue_id"]): str(issue.get("reported_label", ""))
+        for issue in selection.get("issues", [])
+    }
+    verdict_brief = _render_verdict_brief(
+        directives=contract.get("conclusion_directives", []),
+        skipped=contract.get("skipped_directives", []),
+        unsupported=unsupported,
+        labels=labels,
     )
-    prose_by_issue: dict[str, str] = {}
-    writing_metadata: dict[str, Any] = {}
+
     write_system, write_user = PROMPTS["section_write"]
-    for index, request in enumerate(section_requests, 1):
-        issue_id = str(request["issue_id"])
-        prose = client.complete_text(
-            system_prompt=load_prompt(write_system),
-            user_template=load_prompt(write_user),
-            payload=request,
-            max_tokens=2500,
-            temperature=0.0,
-        ).strip()
-        validate_native_section_prose(prose)
-        prose_by_issue[issue_id] = prose
-        writing_metadata[issue_id] = {"characters": len(prose)}
-        _write_text(out_dir / f"04_section_{index:02d}_{issue_id}.md", prose + "\n")
-
-    answer = finalize_native_answer(
-        section_requests=section_requests,
-        prose_by_issue=prose_by_issue,
-        unsupported_issues=unsupported,
+    user_template = load_prompt(write_user)
+    user_prompt = (
+        user_template
+        .replace("{{CASE_TEXT}}", case_text)
+        .replace("{{QUESTION_PROMPT}}", str(case.get("question_prompt", "")))
+        .replace("{{SYMBOLIC_DIRECTIVES}}", verdict_brief)
     )
-    answer_markdown = render_native_answer(answer)
-    _write_json(out_dir / "05_answer.json", answer)
-    _write_text(out_dir / "05_answer.md", answer_markdown)
+    _write_text(out_dir / "04_write_prompt.md", user_prompt + "\n")
+    answer_markdown = client.complete_text(
+        system_prompt=load_prompt(write_system),
+        user_template=user_prompt,
+        payload={},
+        max_tokens=8000,
+        temperature=0.0,
+    ).strip()
+    writing_metadata = {"characters": len(answer_markdown), "mode": "unified_irac"}
+    _write_text(out_dir / "05_answer.md", answer_markdown + "\n")
 
     manifest = {
         "version": "1.0.0",
@@ -263,7 +364,7 @@ def run_case(
         "neural_stages": [
             "closed_issue_selection",
             "full_predicate_assessment",
-            "one_section_plain_markdown",
+            "unified_irac_answer",
         ],
         "semantic_search_used": False,
         "fact_graph_used": False,
@@ -272,8 +373,8 @@ def run_case(
         "model_calls": {
             "issue_selection": 1,
             "predicate_assessment": len(supported),
-            "section_writing": len(section_requests),
-            "total": 1 + len(supported) + len(section_requests),
+            "section_writing": 1,
+            "total": 2 + len(supported),
         },
         "prompt_hashes": _prompt_hashes(),
         "selection_metadata": selection_metadata,
@@ -288,7 +389,6 @@ def run_case(
         "selection": selection,
         "resolved_requests": resolved,
         "native_report": native_report,
-        "answer": answer,
         "answer_markdown": answer_markdown,
         "manifest": manifest,
     }

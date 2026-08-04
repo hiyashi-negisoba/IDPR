@@ -111,8 +111,14 @@ def test_lean_runner_reaches_committed_scallop_and_host_answer(tmp_path: Path) -
     runtime = result["native_report"]["unit_results"]["issue-1"]
     assert runtime["runtime"] == "scallop_scli_committed_rule_ir"
     assert runtime["symbolic_conclusion"] == "established"
-    assert result["answer"]["sections"][0]["conclusion"] == "성립"
+    assert runtime["proof_dag"], "proof lineage must reach the native report"
     assert (tmp_path / "05_answer.md").is_file()
+
+    # The writer receives a Korean brief, never the engine's own vocabulary.
+    write_prompt = (tmp_path / "04_write_prompt.md").read_text(encoding="utf-8")
+    assert "성립 (구성요건 충족)" in write_prompt
+    assert "Scallop" not in write_prompt
+    assert "symbolic_conclusion" not in write_prompt
 
 
 def test_active_runner_imports_no_retrieval_fact_graph_or_core_runtime() -> None:

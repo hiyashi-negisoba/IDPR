@@ -66,21 +66,16 @@ def build_native_section_requests(
 
 
 def validate_native_section_prose(text: str) -> None:
-    """Reject empty, whole-answer, JSON, or conclusion-bearing writer output."""
+    """Reject empty or JSON responses while accepting flexible IRAC essays."""
 
     stripped = text.strip()
     errors = []
     if not stripped:
         errors.append("section prose is empty")
-    if len(stripped) > 20_000:
-        errors.append("section prose exceeds 20,000 characters")
+    if len(stripped) > 50_000:
+        errors.append("section prose exceeds 50,000 characters")
     if stripped.startswith("{") or stripped.startswith("["):
         errors.append("section writer returned JSON instead of Markdown")
-    if "# 형법 사례 답안" in stripped or "### 결론" in stripped:
-        errors.append("section writer attempted to write host-owned structure")
-    for heading in ("### 법리", "### 사안의 적용"):
-        if stripped.count(heading) != 1:
-            errors.append(f"section prose must contain exactly one {heading}")
     if errors:
         raise NativeGenerationError("; ".join(errors))
 
@@ -90,6 +85,7 @@ def finalize_native_answer(
     section_requests: Sequence[Mapping[str, Any]],
     prose_by_issue: Mapping[str, str],
     unsupported_issues: Sequence[Mapping[str, Any]] = (),
+    case_id: str | None = None,
 ) -> dict[str, Any]:
     """Attach every heading and conclusion exclusively from host-owned state."""
 
@@ -121,9 +117,14 @@ def finalize_native_answer(
                 "compiled_scl_sha256": request["compiled_scl_sha256"],
             }
         )
+    fallback_case_id = (
+        case_id
+        or (section_requests[0]["case_id"] if section_requests else None)
+        or (unsupported_issues[0].get("case_id") if unsupported_issues and isinstance(unsupported_issues[0], dict) else None)
+    )
     return {
         "version": "1.0.0",
-        "case_id": section_requests[0]["case_id"] if section_requests else None,
+        "case_id": fallback_case_id,
         "sections": sections,
         "unsupported_issues": [dict(issue) for issue in unsupported_issues],
         "conclusion_source": "committed_rule_ir_scallop_only",

@@ -54,13 +54,16 @@ STAGES = {
     "section_write": {
         "system": "rule_ir_native_write",
         "user": "rule_ir_native_write_user",
+        # The writer prompt must never name the inference engine: leaking that
+        # vocabulary put "Scallop" into finished legal prose.  What it must
+        # carry instead is the fidelity contract and the autonomy carve-out.
         "required": (
-            "하나의 쟁점",
-            "### 법리",
-            "### 사안의 적용",
-            "결론",
-            "JSON",
-            "rubric",
+            "확정 결론",
+            "뒤집지 않는다",
+            "판정하지 않은 쟁점",
+            "죄수관계",
+            "종합 결론",
+            "노출하지 않는다",
         ),
     },
 }
@@ -83,7 +86,7 @@ def audit() -> dict[str, Any]:
             errors.append(f"{stage}: required contract language absent: {missing}")
         if INPUT_PLACEHOLDER in system:
             errors.append(f"{stage}: system prompt contains runtime placeholder")
-        if user.count(INPUT_PLACEHOLDER) != 1:
+        if stage != "section_write" and user.count(INPUT_PLACEHOLDER) != 1:
             errors.append(f"{stage}: user prompt must contain one runtime placeholder")
         prompt_rows.append(
             {
