@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "api_calls": 0,
-  "created_at": "2026-08-04T01:19:41.249989+00:00",
+  "created_at": "2026-08-04T01:23:09.038665+00:00",
   "runtime": {
     "scli": "tools/scallop/scli-0.2.4-linux-x86_64",
     "version": "scli 0.2.4",
@@ -10,406 +10,214 @@
   "model_output_executed_directly": false,
   "method": "승인 원장의 per-card placement에서 결정론적으로 유도한 시나리오",
   "counts": {
-    "units": 3,
-    "scenarios": 40,
-    "passed": 40
+    "units": 2,
+    "scenarios": 15,
+    "passed": 15
   },
   "units": [
     {
-      "unit": "bribe_receipt",
+      "unit": "obstruction_of_official_duty",
       "tracks": [
-        "receipt",
-        "demand",
-        "promise",
-        "prior"
+        "base",
+        "official_coercion"
       ],
       "scenarios": [
         {
-          "scenario_id": "receipt.established",
-          "track": "receipt",
+          "scenario_id": "base.established",
+          "track": "base",
           "expected_nonempty": {
-            "bribe_receipt_receipt_elements_satisfied": true,
-            "bribe_receipt_receipt_established": true,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
+            "obstruction_of_official_duty_base_elements_satisfied": true,
+            "obstruction_of_official_duty_base_established": true,
+            "obstruction_of_official_duty_not_established": false,
+            "obstruction_of_official_duty_undetermined": false,
+            "obstruction_of_official_duty_conflict": false
           },
           "observed_nonempty": {
-            "bribe_receipt_receipt_elements_satisfied": true,
-            "bribe_receipt_receipt_established": true,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
+            "obstruction_of_official_duty_base_elements_satisfied": true,
+            "obstruction_of_official_duty_base_established": true,
+            "obstruction_of_official_duty_not_established": false,
+            "obstruction_of_official_duty_undetermined": false,
+            "obstruction_of_official_duty_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "receipt.incomplete_blocked",
-          "track": "receipt",
+          "scenario_id": "base.incomplete_blocked",
+          "track": "base",
           "expected_nonempty": {
-            "bribe_receipt_receipt_elements_satisfied": true,
-            "bribe_receipt_receipt_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
+            "obstruction_of_official_duty_base_elements_satisfied": true,
+            "obstruction_of_official_duty_base_established": false,
+            "obstruction_of_official_duty_not_established": false,
+            "obstruction_of_official_duty_undetermined": false,
+            "obstruction_of_official_duty_conflict": false
           },
           "observed_nonempty": {
-            "bribe_receipt_receipt_elements_satisfied": true,
-            "bribe_receipt_receipt_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
+            "obstruction_of_official_duty_base_elements_satisfied": true,
+            "obstruction_of_official_duty_base_established": false,
+            "obstruction_of_official_duty_not_established": false,
+            "obstruction_of_official_duty_undetermined": false,
+            "obstruction_of_official_duty_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "receipt.conflict_blocks",
-          "track": "receipt",
+          "scenario_id": "base.conflict_blocks",
+          "track": "base",
           "expected_nonempty": {
-            "bribe_receipt_receipt_elements_satisfied": true,
-            "bribe_receipt_receipt_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": true
+            "obstruction_of_official_duty_base_elements_satisfied": true,
+            "obstruction_of_official_duty_base_established": false,
+            "obstruction_of_official_duty_not_established": false,
+            "obstruction_of_official_duty_undetermined": false,
+            "obstruction_of_official_duty_conflict": true
           },
           "observed_nonempty": {
-            "bribe_receipt_receipt_elements_satisfied": true,
-            "bribe_receipt_receipt_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": true
+            "obstruction_of_official_duty_base_elements_satisfied": true,
+            "obstruction_of_official_duty_base_established": false,
+            "obstruction_of_official_duty_not_established": false,
+            "obstruction_of_official_duty_undetermined": false,
+            "obstruction_of_official_duty_conflict": true
           },
           "passed": true
         },
         {
-          "scenario_id": "receipt.unknown_blocks",
-          "track": "receipt",
+          "scenario_id": "base.unknown_blocks",
+          "track": "base",
           "expected_nonempty": {
-            "bribe_receipt_receipt_elements_satisfied": false,
-            "bribe_receipt_receipt_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": true,
-            "bribe_receipt_conflict": false
+            "obstruction_of_official_duty_base_elements_satisfied": false,
+            "obstruction_of_official_duty_base_established": false,
+            "obstruction_of_official_duty_not_established": false,
+            "obstruction_of_official_duty_undetermined": true,
+            "obstruction_of_official_duty_conflict": false
           },
           "observed_nonempty": {
-            "bribe_receipt_receipt_elements_satisfied": false,
-            "bribe_receipt_receipt_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": true,
-            "bribe_receipt_conflict": false
+            "obstruction_of_official_duty_base_elements_satisfied": false,
+            "obstruction_of_official_duty_base_established": false,
+            "obstruction_of_official_duty_not_established": false,
+            "obstruction_of_official_duty_undetermined": true,
+            "obstruction_of_official_duty_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "receipt.bar_blocks",
-          "track": "receipt",
+          "scenario_id": "base.bar_blocks",
+          "track": "base",
           "expected_nonempty": {
-            "bribe_receipt_receipt_elements_satisfied": true,
-            "bribe_receipt_receipt_established": false,
-            "bribe_receipt_not_established": true,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
+            "obstruction_of_official_duty_base_elements_satisfied": true,
+            "obstruction_of_official_duty_base_established": false,
+            "obstruction_of_official_duty_not_established": true,
+            "obstruction_of_official_duty_undetermined": false,
+            "obstruction_of_official_duty_conflict": false
           },
           "observed_nonempty": {
-            "bribe_receipt_receipt_elements_satisfied": true,
-            "bribe_receipt_receipt_established": false,
-            "bribe_receipt_not_established": true,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
+            "obstruction_of_official_duty_base_elements_satisfied": true,
+            "obstruction_of_official_duty_base_established": false,
+            "obstruction_of_official_duty_not_established": true,
+            "obstruction_of_official_duty_undetermined": false,
+            "obstruction_of_official_duty_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "demand.established",
-          "track": "demand",
+          "scenario_id": "official_coercion.established",
+          "track": "official_coercion",
           "expected_nonempty": {
-            "bribe_receipt_demand_elements_satisfied": true,
-            "bribe_receipt_demand_established": true,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
+            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
+            "obstruction_of_official_duty_official_coercion_established": true,
+            "obstruction_of_official_duty_not_established": false,
+            "obstruction_of_official_duty_undetermined": false,
+            "obstruction_of_official_duty_conflict": false
           },
           "observed_nonempty": {
-            "bribe_receipt_demand_elements_satisfied": true,
-            "bribe_receipt_demand_established": true,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
+            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
+            "obstruction_of_official_duty_official_coercion_established": true,
+            "obstruction_of_official_duty_not_established": false,
+            "obstruction_of_official_duty_undetermined": false,
+            "obstruction_of_official_duty_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "demand.incomplete_blocked",
-          "track": "demand",
+          "scenario_id": "official_coercion.incomplete_blocked",
+          "track": "official_coercion",
           "expected_nonempty": {
-            "bribe_receipt_demand_elements_satisfied": true,
-            "bribe_receipt_demand_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
+            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
+            "obstruction_of_official_duty_official_coercion_established": false,
+            "obstruction_of_official_duty_not_established": false,
+            "obstruction_of_official_duty_undetermined": false,
+            "obstruction_of_official_duty_conflict": false
           },
           "observed_nonempty": {
-            "bribe_receipt_demand_elements_satisfied": true,
-            "bribe_receipt_demand_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
+            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
+            "obstruction_of_official_duty_official_coercion_established": false,
+            "obstruction_of_official_duty_not_established": false,
+            "obstruction_of_official_duty_undetermined": false,
+            "obstruction_of_official_duty_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "demand.conflict_blocks",
-          "track": "demand",
+          "scenario_id": "official_coercion.conflict_blocks",
+          "track": "official_coercion",
           "expected_nonempty": {
-            "bribe_receipt_demand_elements_satisfied": true,
-            "bribe_receipt_demand_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": true
+            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
+            "obstruction_of_official_duty_official_coercion_established": false,
+            "obstruction_of_official_duty_not_established": false,
+            "obstruction_of_official_duty_undetermined": false,
+            "obstruction_of_official_duty_conflict": true
           },
           "observed_nonempty": {
-            "bribe_receipt_demand_elements_satisfied": true,
-            "bribe_receipt_demand_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": true
+            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
+            "obstruction_of_official_duty_official_coercion_established": false,
+            "obstruction_of_official_duty_not_established": false,
+            "obstruction_of_official_duty_undetermined": false,
+            "obstruction_of_official_duty_conflict": true
           },
           "passed": true
         },
         {
-          "scenario_id": "demand.unknown_blocks",
-          "track": "demand",
+          "scenario_id": "official_coercion.unknown_blocks",
+          "track": "official_coercion",
           "expected_nonempty": {
-            "bribe_receipt_demand_elements_satisfied": false,
-            "bribe_receipt_demand_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": true,
-            "bribe_receipt_conflict": false
+            "obstruction_of_official_duty_official_coercion_elements_satisfied": false,
+            "obstruction_of_official_duty_official_coercion_established": false,
+            "obstruction_of_official_duty_not_established": false,
+            "obstruction_of_official_duty_undetermined": true,
+            "obstruction_of_official_duty_conflict": false
           },
           "observed_nonempty": {
-            "bribe_receipt_demand_elements_satisfied": false,
-            "bribe_receipt_demand_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": true,
-            "bribe_receipt_conflict": false
+            "obstruction_of_official_duty_official_coercion_elements_satisfied": false,
+            "obstruction_of_official_duty_official_coercion_established": false,
+            "obstruction_of_official_duty_not_established": false,
+            "obstruction_of_official_duty_undetermined": true,
+            "obstruction_of_official_duty_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "demand.bar_blocks",
-          "track": "demand",
+          "scenario_id": "official_coercion.bar_blocks",
+          "track": "official_coercion",
           "expected_nonempty": {
-            "bribe_receipt_demand_elements_satisfied": true,
-            "bribe_receipt_demand_established": false,
-            "bribe_receipt_not_established": true,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
+            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
+            "obstruction_of_official_duty_official_coercion_established": false,
+            "obstruction_of_official_duty_not_established": true,
+            "obstruction_of_official_duty_undetermined": false,
+            "obstruction_of_official_duty_conflict": false
           },
           "observed_nonempty": {
-            "bribe_receipt_demand_elements_satisfied": true,
-            "bribe_receipt_demand_established": false,
-            "bribe_receipt_not_established": true,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "promise.established",
-          "track": "promise",
-          "expected_nonempty": {
-            "bribe_receipt_promise_elements_satisfied": true,
-            "bribe_receipt_promise_established": true,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
-          },
-          "observed_nonempty": {
-            "bribe_receipt_promise_elements_satisfied": true,
-            "bribe_receipt_promise_established": true,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "promise.incomplete_blocked",
-          "track": "promise",
-          "expected_nonempty": {
-            "bribe_receipt_promise_elements_satisfied": true,
-            "bribe_receipt_promise_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
-          },
-          "observed_nonempty": {
-            "bribe_receipt_promise_elements_satisfied": true,
-            "bribe_receipt_promise_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "promise.conflict_blocks",
-          "track": "promise",
-          "expected_nonempty": {
-            "bribe_receipt_promise_elements_satisfied": true,
-            "bribe_receipt_promise_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": true
-          },
-          "observed_nonempty": {
-            "bribe_receipt_promise_elements_satisfied": true,
-            "bribe_receipt_promise_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": true
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "promise.unknown_blocks",
-          "track": "promise",
-          "expected_nonempty": {
-            "bribe_receipt_promise_elements_satisfied": false,
-            "bribe_receipt_promise_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": true,
-            "bribe_receipt_conflict": false
-          },
-          "observed_nonempty": {
-            "bribe_receipt_promise_elements_satisfied": false,
-            "bribe_receipt_promise_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": true,
-            "bribe_receipt_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "promise.bar_blocks",
-          "track": "promise",
-          "expected_nonempty": {
-            "bribe_receipt_promise_elements_satisfied": true,
-            "bribe_receipt_promise_established": false,
-            "bribe_receipt_not_established": true,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
-          },
-          "observed_nonempty": {
-            "bribe_receipt_promise_elements_satisfied": true,
-            "bribe_receipt_promise_established": false,
-            "bribe_receipt_not_established": true,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "prior.established",
-          "track": "prior",
-          "expected_nonempty": {
-            "bribe_receipt_prior_elements_satisfied": true,
-            "bribe_receipt_prior_established": true,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
-          },
-          "observed_nonempty": {
-            "bribe_receipt_prior_elements_satisfied": true,
-            "bribe_receipt_prior_established": true,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "prior.incomplete_blocked",
-          "track": "prior",
-          "expected_nonempty": {
-            "bribe_receipt_prior_elements_satisfied": true,
-            "bribe_receipt_prior_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
-          },
-          "observed_nonempty": {
-            "bribe_receipt_prior_elements_satisfied": true,
-            "bribe_receipt_prior_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "prior.conflict_blocks",
-          "track": "prior",
-          "expected_nonempty": {
-            "bribe_receipt_prior_elements_satisfied": true,
-            "bribe_receipt_prior_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": true
-          },
-          "observed_nonempty": {
-            "bribe_receipt_prior_elements_satisfied": true,
-            "bribe_receipt_prior_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": true
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "prior.unknown_blocks",
-          "track": "prior",
-          "expected_nonempty": {
-            "bribe_receipt_prior_elements_satisfied": false,
-            "bribe_receipt_prior_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": true,
-            "bribe_receipt_conflict": false
-          },
-          "observed_nonempty": {
-            "bribe_receipt_prior_elements_satisfied": false,
-            "bribe_receipt_prior_established": false,
-            "bribe_receipt_not_established": false,
-            "bribe_receipt_undetermined": true,
-            "bribe_receipt_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "prior.bar_blocks",
-          "track": "prior",
-          "expected_nonempty": {
-            "bribe_receipt_prior_elements_satisfied": true,
-            "bribe_receipt_prior_established": false,
-            "bribe_receipt_not_established": true,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
-          },
-          "observed_nonempty": {
-            "bribe_receipt_prior_elements_satisfied": true,
-            "bribe_receipt_prior_established": false,
-            "bribe_receipt_not_established": true,
-            "bribe_receipt_undetermined": false,
-            "bribe_receipt_conflict": false
+            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
+            "obstruction_of_official_duty_official_coercion_established": false,
+            "obstruction_of_official_duty_not_established": true,
+            "obstruction_of_official_duty_undetermined": false,
+            "obstruction_of_official_duty_conflict": false
           },
           "passed": true
         }
       ],
-      "passed": 20,
-      "total": 20
+      "passed": 10,
+      "total": 10
     },
     {
-      "unit": "third_party_bribery",
+      "unit": "deceptive_obstruction_of_official_duty",
       "tracks": [
         "base"
       ],
@@ -418,18 +226,18 @@
           "scenario_id": "base.established",
           "track": "base",
           "expected_nonempty": {
-            "third_party_bribery_base_elements_satisfied": true,
-            "third_party_bribery_base_established": true,
-            "third_party_bribery_not_established": false,
-            "third_party_bribery_undetermined": false,
-            "third_party_bribery_conflict": false
+            "deceptive_obstruction_of_official_duty_base_elements_satisfied": true,
+            "deceptive_obstruction_of_official_duty_base_established": true,
+            "deceptive_obstruction_of_official_duty_not_established": false,
+            "deceptive_obstruction_of_official_duty_undetermined": false,
+            "deceptive_obstruction_of_official_duty_conflict": false
           },
           "observed_nonempty": {
-            "third_party_bribery_base_elements_satisfied": true,
-            "third_party_bribery_base_established": true,
-            "third_party_bribery_not_established": false,
-            "third_party_bribery_undetermined": false,
-            "third_party_bribery_conflict": false
+            "deceptive_obstruction_of_official_duty_base_elements_satisfied": true,
+            "deceptive_obstruction_of_official_duty_base_established": true,
+            "deceptive_obstruction_of_official_duty_not_established": false,
+            "deceptive_obstruction_of_official_duty_undetermined": false,
+            "deceptive_obstruction_of_official_duty_conflict": false
           },
           "passed": true
         },
@@ -437,18 +245,18 @@
           "scenario_id": "base.incomplete_blocked",
           "track": "base",
           "expected_nonempty": {
-            "third_party_bribery_base_elements_satisfied": true,
-            "third_party_bribery_base_established": false,
-            "third_party_bribery_not_established": false,
-            "third_party_bribery_undetermined": false,
-            "third_party_bribery_conflict": false
+            "deceptive_obstruction_of_official_duty_base_elements_satisfied": true,
+            "deceptive_obstruction_of_official_duty_base_established": false,
+            "deceptive_obstruction_of_official_duty_not_established": false,
+            "deceptive_obstruction_of_official_duty_undetermined": false,
+            "deceptive_obstruction_of_official_duty_conflict": false
           },
           "observed_nonempty": {
-            "third_party_bribery_base_elements_satisfied": true,
-            "third_party_bribery_base_established": false,
-            "third_party_bribery_not_established": false,
-            "third_party_bribery_undetermined": false,
-            "third_party_bribery_conflict": false
+            "deceptive_obstruction_of_official_duty_base_elements_satisfied": true,
+            "deceptive_obstruction_of_official_duty_base_established": false,
+            "deceptive_obstruction_of_official_duty_not_established": false,
+            "deceptive_obstruction_of_official_duty_undetermined": false,
+            "deceptive_obstruction_of_official_duty_conflict": false
           },
           "passed": true
         },
@@ -456,18 +264,18 @@
           "scenario_id": "base.conflict_blocks",
           "track": "base",
           "expected_nonempty": {
-            "third_party_bribery_base_elements_satisfied": true,
-            "third_party_bribery_base_established": false,
-            "third_party_bribery_not_established": false,
-            "third_party_bribery_undetermined": false,
-            "third_party_bribery_conflict": true
+            "deceptive_obstruction_of_official_duty_base_elements_satisfied": true,
+            "deceptive_obstruction_of_official_duty_base_established": false,
+            "deceptive_obstruction_of_official_duty_not_established": false,
+            "deceptive_obstruction_of_official_duty_undetermined": false,
+            "deceptive_obstruction_of_official_duty_conflict": true
           },
           "observed_nonempty": {
-            "third_party_bribery_base_elements_satisfied": true,
-            "third_party_bribery_base_established": false,
-            "third_party_bribery_not_established": false,
-            "third_party_bribery_undetermined": false,
-            "third_party_bribery_conflict": true
+            "deceptive_obstruction_of_official_duty_base_elements_satisfied": true,
+            "deceptive_obstruction_of_official_duty_base_established": false,
+            "deceptive_obstruction_of_official_duty_not_established": false,
+            "deceptive_obstruction_of_official_duty_undetermined": false,
+            "deceptive_obstruction_of_official_duty_conflict": true
           },
           "passed": true
         },
@@ -475,18 +283,18 @@
           "scenario_id": "base.unknown_blocks",
           "track": "base",
           "expected_nonempty": {
-            "third_party_bribery_base_elements_satisfied": false,
-            "third_party_bribery_base_established": false,
-            "third_party_bribery_not_established": false,
-            "third_party_bribery_undetermined": true,
-            "third_party_bribery_conflict": false
+            "deceptive_obstruction_of_official_duty_base_elements_satisfied": false,
+            "deceptive_obstruction_of_official_duty_base_established": false,
+            "deceptive_obstruction_of_official_duty_not_established": false,
+            "deceptive_obstruction_of_official_duty_undetermined": true,
+            "deceptive_obstruction_of_official_duty_conflict": false
           },
           "observed_nonempty": {
-            "third_party_bribery_base_elements_satisfied": false,
-            "third_party_bribery_base_established": false,
-            "third_party_bribery_not_established": false,
-            "third_party_bribery_undetermined": true,
-            "third_party_bribery_conflict": false
+            "deceptive_obstruction_of_official_duty_base_elements_satisfied": false,
+            "deceptive_obstruction_of_official_duty_base_established": false,
+            "deceptive_obstruction_of_official_duty_not_established": false,
+            "deceptive_obstruction_of_official_duty_undetermined": true,
+            "deceptive_obstruction_of_official_duty_conflict": false
           },
           "passed": true
         },
@@ -494,321 +302,24 @@
           "scenario_id": "base.bar_blocks",
           "track": "base",
           "expected_nonempty": {
-            "third_party_bribery_base_elements_satisfied": true,
-            "third_party_bribery_base_established": false,
-            "third_party_bribery_not_established": true,
-            "third_party_bribery_undetermined": false,
-            "third_party_bribery_conflict": false
+            "deceptive_obstruction_of_official_duty_base_elements_satisfied": true,
+            "deceptive_obstruction_of_official_duty_base_established": false,
+            "deceptive_obstruction_of_official_duty_not_established": true,
+            "deceptive_obstruction_of_official_duty_undetermined": false,
+            "deceptive_obstruction_of_official_duty_conflict": false
           },
           "observed_nonempty": {
-            "third_party_bribery_base_elements_satisfied": true,
-            "third_party_bribery_base_established": false,
-            "third_party_bribery_not_established": true,
-            "third_party_bribery_undetermined": false,
-            "third_party_bribery_conflict": false
+            "deceptive_obstruction_of_official_duty_base_elements_satisfied": true,
+            "deceptive_obstruction_of_official_duty_base_established": false,
+            "deceptive_obstruction_of_official_duty_not_established": true,
+            "deceptive_obstruction_of_official_duty_undetermined": false,
+            "deceptive_obstruction_of_official_duty_conflict": false
           },
           "passed": true
         }
       ],
       "passed": 5,
       "total": 5
-    },
-    {
-      "unit": "bribe_giving",
-      "tracks": [
-        "offering",
-        "delivery_giver",
-        "delivery_recipient"
-      ],
-      "scenarios": [
-        {
-          "scenario_id": "offering.established",
-          "track": "offering",
-          "expected_nonempty": {
-            "bribe_giving_offering_elements_satisfied": true,
-            "bribe_giving_offering_established": true,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": false
-          },
-          "observed_nonempty": {
-            "bribe_giving_offering_elements_satisfied": true,
-            "bribe_giving_offering_established": true,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "offering.incomplete_blocked",
-          "track": "offering",
-          "expected_nonempty": {
-            "bribe_giving_offering_elements_satisfied": true,
-            "bribe_giving_offering_established": false,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": false
-          },
-          "observed_nonempty": {
-            "bribe_giving_offering_elements_satisfied": true,
-            "bribe_giving_offering_established": false,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "offering.conflict_blocks",
-          "track": "offering",
-          "expected_nonempty": {
-            "bribe_giving_offering_elements_satisfied": true,
-            "bribe_giving_offering_established": false,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": true
-          },
-          "observed_nonempty": {
-            "bribe_giving_offering_elements_satisfied": true,
-            "bribe_giving_offering_established": false,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": true
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "offering.unknown_blocks",
-          "track": "offering",
-          "expected_nonempty": {
-            "bribe_giving_offering_elements_satisfied": false,
-            "bribe_giving_offering_established": false,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": true,
-            "bribe_giving_conflict": false
-          },
-          "observed_nonempty": {
-            "bribe_giving_offering_elements_satisfied": false,
-            "bribe_giving_offering_established": false,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": true,
-            "bribe_giving_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "offering.bar_blocks",
-          "track": "offering",
-          "expected_nonempty": {
-            "bribe_giving_offering_elements_satisfied": true,
-            "bribe_giving_offering_established": false,
-            "bribe_giving_not_established": true,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": false
-          },
-          "observed_nonempty": {
-            "bribe_giving_offering_elements_satisfied": true,
-            "bribe_giving_offering_established": false,
-            "bribe_giving_not_established": true,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "delivery_giver.established",
-          "track": "delivery_giver",
-          "expected_nonempty": {
-            "bribe_giving_delivery_giver_elements_satisfied": true,
-            "bribe_giving_delivery_giver_established": true,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": false
-          },
-          "observed_nonempty": {
-            "bribe_giving_delivery_giver_elements_satisfied": true,
-            "bribe_giving_delivery_giver_established": true,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "delivery_giver.incomplete_blocked",
-          "track": "delivery_giver",
-          "expected_nonempty": {
-            "bribe_giving_delivery_giver_elements_satisfied": true,
-            "bribe_giving_delivery_giver_established": false,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": false
-          },
-          "observed_nonempty": {
-            "bribe_giving_delivery_giver_elements_satisfied": true,
-            "bribe_giving_delivery_giver_established": false,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "delivery_giver.conflict_blocks",
-          "track": "delivery_giver",
-          "expected_nonempty": {
-            "bribe_giving_delivery_giver_elements_satisfied": true,
-            "bribe_giving_delivery_giver_established": false,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": true
-          },
-          "observed_nonempty": {
-            "bribe_giving_delivery_giver_elements_satisfied": true,
-            "bribe_giving_delivery_giver_established": false,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": true
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "delivery_giver.unknown_blocks",
-          "track": "delivery_giver",
-          "expected_nonempty": {
-            "bribe_giving_delivery_giver_elements_satisfied": false,
-            "bribe_giving_delivery_giver_established": false,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": true,
-            "bribe_giving_conflict": false
-          },
-          "observed_nonempty": {
-            "bribe_giving_delivery_giver_elements_satisfied": false,
-            "bribe_giving_delivery_giver_established": false,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": true,
-            "bribe_giving_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "delivery_giver.bar_blocks",
-          "track": "delivery_giver",
-          "expected_nonempty": {
-            "bribe_giving_delivery_giver_elements_satisfied": true,
-            "bribe_giving_delivery_giver_established": false,
-            "bribe_giving_not_established": true,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": false
-          },
-          "observed_nonempty": {
-            "bribe_giving_delivery_giver_elements_satisfied": true,
-            "bribe_giving_delivery_giver_established": false,
-            "bribe_giving_not_established": true,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "delivery_recipient.established",
-          "track": "delivery_recipient",
-          "expected_nonempty": {
-            "bribe_giving_delivery_recipient_elements_satisfied": true,
-            "bribe_giving_delivery_recipient_established": true,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": false
-          },
-          "observed_nonempty": {
-            "bribe_giving_delivery_recipient_elements_satisfied": true,
-            "bribe_giving_delivery_recipient_established": true,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "delivery_recipient.incomplete_blocked",
-          "track": "delivery_recipient",
-          "expected_nonempty": {
-            "bribe_giving_delivery_recipient_elements_satisfied": true,
-            "bribe_giving_delivery_recipient_established": false,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": false
-          },
-          "observed_nonempty": {
-            "bribe_giving_delivery_recipient_elements_satisfied": true,
-            "bribe_giving_delivery_recipient_established": false,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "delivery_recipient.conflict_blocks",
-          "track": "delivery_recipient",
-          "expected_nonempty": {
-            "bribe_giving_delivery_recipient_elements_satisfied": true,
-            "bribe_giving_delivery_recipient_established": false,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": true
-          },
-          "observed_nonempty": {
-            "bribe_giving_delivery_recipient_elements_satisfied": true,
-            "bribe_giving_delivery_recipient_established": false,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": true
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "delivery_recipient.unknown_blocks",
-          "track": "delivery_recipient",
-          "expected_nonempty": {
-            "bribe_giving_delivery_recipient_elements_satisfied": false,
-            "bribe_giving_delivery_recipient_established": false,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": true,
-            "bribe_giving_conflict": false
-          },
-          "observed_nonempty": {
-            "bribe_giving_delivery_recipient_elements_satisfied": false,
-            "bribe_giving_delivery_recipient_established": false,
-            "bribe_giving_not_established": false,
-            "bribe_giving_undetermined": true,
-            "bribe_giving_conflict": false
-          },
-          "passed": true
-        },
-        {
-          "scenario_id": "delivery_recipient.bar_blocks",
-          "track": "delivery_recipient",
-          "expected_nonempty": {
-            "bribe_giving_delivery_recipient_elements_satisfied": true,
-            "bribe_giving_delivery_recipient_established": false,
-            "bribe_giving_not_established": true,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": false
-          },
-          "observed_nonempty": {
-            "bribe_giving_delivery_recipient_elements_satisfied": true,
-            "bribe_giving_delivery_recipient_established": false,
-            "bribe_giving_not_established": true,
-            "bribe_giving_undetermined": false,
-            "bribe_giving_conflict": false
-          },
-          "passed": true
-        }
-      ],
-      "passed": 15,
-      "total": 15
     }
   ]
 }

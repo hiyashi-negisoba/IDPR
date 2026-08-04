@@ -1,0 +1,559 @@
+{
+  "version": "1.0.0",
+  "authority": "delegated_human_legal_review",
+  "unit_id": "obstruction_of_official_duty",
+  "approved_on": "2026-08-04",
+  "approval_basis": [
+    "data/rulegen/p2/native_review/obstruction_of_official_duty_approval_config.json"
+  ],
+  "policy": {
+    "approval": "Delegated normalization on 2026-08-04",
+    "tracks": "제136조 1항 공무집행방해와 2항 직무·사직강요를 분리",
+    "lawfulness": "행위 당시 구체적 권한과 중요 방식·절차를 갖춘 적법한 직무집행만 보호",
+    "force": "직간접 유형력·협박과 적극적 행위를 포함하되 소극적 불복종·경미행위는 bar"
+  },
+  "track_vocabulary": [
+    {
+      "track_id": "base",
+      "label": "제136조 제1항 공무집행방해"
+    },
+    {
+      "track_id": "official_coercion",
+      "label": "제136조 제2항 직무·사직강요"
+    }
+  ],
+  "cards": [
+    {
+      "card_id": "art136.intent.conditional_intent",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "intent",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "직무집행 공무원과 폭행협박 사실에 대한 확정적 또는 미필적 고의"
+    },
+    {
+      "card_id": "art136.intent.officer_and_violence_awareness",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "intent",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "직무집행 공무원과 폭행협박 사실에 대한 확정적 또는 미필적 고의"
+    },
+    {
+      "card_id": "art136.intent.taxi_driver_conditional_intent",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "intent",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "직무집행 공무원과 폭행협박 사실에 대한 확정적 또는 미필적 고의"
+    },
+    {
+      "card_id": "art136_sec1.special_offense_displacement",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "special_statute",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "special_official_duty_obstruction",
+      "rationale": "군형법 등 특별 공무집행 보호규정의 우선"
+    },
+    {
+      "card_id": "art136_sec2_1.offense_conduct",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "violence_or_threat",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "공무집행을 방해할 정도의 직간접 유형력 또는 해악고지"
+    },
+    {
+      "card_id": "art136_sec2_1.violence",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "violence_or_threat",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "공무집행을 방해할 정도의 직간접 유형력 또는 해악고지"
+    },
+    {
+      "card_id": "art136_sec2_2.subject.unrestricted",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "주체 무제한 일반설명"
+    },
+    {
+      "card_id": "art136_sec2_3.concrete_authority_requirements",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "lawful_duty_execution",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "법적 전제 없는 권한·위법 체포·먼 장래 직무·비자발적 임의동행"
+    },
+    {
+      "card_id": "art136_sec2_3.duty_execution_scope",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "lawful_duty_execution",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "구체적 권한과 중요 방식·절차를 갖춘 현재 또는 밀접한 준비·휴식 중 직무집행"
+    },
+    {
+      "card_id": "art136_sec2_3.flagrante_arrest_requirements",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "lawful_duty_execution",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "구체적 권한과 중요 방식·절차를 갖춘 현재 또는 밀접한 준비·휴식 중 직무집행"
+    },
+    {
+      "card_id": "art136_sec2_3.flagrante_arrest_unlawfulness",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "lawful_duty_execution",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "법적 전제 없는 권한·위법 체포·먼 장래 직무·비자발적 임의동행"
+    },
+    {
+      "card_id": "art136_sec2_3.future_duty_exception",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "lawful_duty_execution",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "법적 전제 없는 권한·위법 체포·먼 장래 직무·비자발적 임의동행"
+    },
+    {
+      "card_id": "art136_sec2_3.identity_check_no_id_card",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "lawful_duty_execution",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "구체적 권한과 중요 방식·절차를 갖춘 현재 또는 밀접한 준비·휴식 중 직무집행"
+    },
+    {
+      "card_id": "art136_sec2_3.internal_assignment_and_superior_direction",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "lawful_duty_execution",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "구체적 권한과 중요 방식·절차를 갖춘 현재 또는 밀접한 준비·휴식 중 직무집행"
+    },
+    {
+      "card_id": "art136_sec2_3.lawful_performance_prerequisite",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "lawful_duty_execution",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "구체적 권한과 중요 방식·절차를 갖춘 현재 또는 밀접한 준비·휴식 중 직무집행"
+    },
+    {
+      "card_id": "art136_sec2_3.lawful_performance_requirements",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "lawful_duty_execution",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "구체적 권한과 중요 방식·절차를 갖춘 현재 또는 밀접한 준비·휴식 중 직무집행"
+    },
+    {
+      "card_id": "art136_sec2_3.lawfulness_time_of_act",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "lawful_duty_execution",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "구체적 권한과 중요 방식·절차를 갖춘 현재 또는 밀접한 준비·휴식 중 직무집행"
+    },
+    {
+      "card_id": "art136_sec2_3.minor_procedural_violation",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "lawful_duty_execution",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "구체적 권한과 중요 방식·절차를 갖춘 현재 또는 밀접한 준비·휴식 중 직무집행"
+    },
+    {
+      "card_id": "art136_sec2_3.protective_room_exception",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "lawful_duty_execution",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "구체적 권한과 중요 방식·절차를 갖춘 현재 또는 밀접한 준비·휴식 중 직무집행"
+    },
+    {
+      "card_id": "art136_sec2_3.public_official_definition",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "public_official_object",
+      "component_join": "mandatory_all",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "법령상 국내 공무에 종사하는 공무원 객체"
+    },
+    {
+      "card_id": "art136_sec2_3.voluntary_accompaniment",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "lawful_duty_execution",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "법적 전제 없는 권한·위법 체포·먼 장래 직무·비자발적 임의동행"
+    },
+    {
+      "card_id": "art136_sec2_4.abstract_danger_offense",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "violence_or_threat",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "공무집행을 방해할 정도의 직간접 유형력 또는 해악고지"
+    },
+    {
+      "card_id": "art136_sec2_4.active_conduct_requirement",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "violence_or_threat",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "소극적 불복종·공무원 비지향 행위·사전 장애물·자해·부주의 사고"
+    },
+    {
+      "card_id": "art136_sec2_4.active_confinement_or_dog_release",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "violence_or_threat",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "공무집행을 방해할 정도의 직간접 유형력 또는 해악고지"
+    },
+    {
+      "card_id": "art136_sec2_4.assault_against_assistant",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "violence_or_threat",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "공무집행을 방해할 정도의 직간접 유형력 또는 해악고지"
+    },
+    {
+      "card_id": "art136_sec2_4.assault_definition",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "violence_or_threat",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "공무집행을 방해할 정도의 직간접 유형력 또는 해악고지"
+    },
+    {
+      "card_id": "art136_sec2_4.assault_not_against_officer_exception",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "violence_or_threat",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "소극적 불복종·공무원 비지향 행위·사전 장애물·자해·부주의 사고"
+    },
+    {
+      "card_id": "art136_sec2_4.noise_as_assault",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "violence_or_threat",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "공무집행을 방해할 정도의 직간접 유형력 또는 해악고지"
+    },
+    {
+      "card_id": "art136_sec2_4.noise_assault_factors",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "violence_or_threat",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "공무집행을 방해할 정도의 직간접 유형력 또는 해악고지"
+    },
+    {
+      "card_id": "art136_sec2_4.nontrivial_assault_or_threat",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "violence_or_threat",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "공무집행을 방해할 정도의 직간접 유형력 또는 해악고지"
+    },
+    {
+      "card_id": "art136_sec2_4.passive_resistance_not_assault",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "violence_or_threat",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "소극적 불복종·공무원 비지향 행위·사전 장애물·자해·부주의 사고"
+    },
+    {
+      "card_id": "art136_sec2_4.preplaced_obstacles_not_assault",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "violence_or_threat",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "소극적 불복종·공무원 비지향 행위·사전 장애물·자해·부주의 사고"
+    },
+    {
+      "card_id": "art136_sec2_4.self_harm_not_assault_or_threat",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "violence_or_threat",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "소극적 불복종·공무원 비지향 행위·사전 장애물·자해·부주의 사고"
+    },
+    {
+      "card_id": "art136_sec2_4.station_disturbance_as_assault",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "violence_or_threat",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "공무집행을 방해할 정도의 직간접 유형력 또는 해악고지"
+    },
+    {
+      "card_id": "art136_sec2_4.third_party_threat",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "violence_or_threat",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "공무집행을 방해할 정도의 직간접 유형력 또는 해악고지"
+    },
+    {
+      "card_id": "art136_sec2_4.threat_definition",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "violence_or_threat",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "공무집행을 방해할 정도의 직간접 유형력 또는 해악고지"
+    },
+    {
+      "card_id": "art136_sec2_4.threat_objective_factors",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "violence_or_threat",
+      "component_join": "alternative_any",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "공무집행을 방해할 정도의 직간접 유형력 또는 해악고지"
+    },
+    {
+      "card_id": "art136_sec2_4.vehicle_departure_not_assault",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "violence_or_threat",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": null,
+      "rationale": "소극적 불복종·공무원 비지향 행위·사전 장애물·자해·부주의 사고"
+    },
+    {
+      "card_id": "art136_sec2_6.illegal_duty_act.other_offenses",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "unlawful_duty_response",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "assault_or_threat",
+      "rationale": "위법 직무에 대한 폭행협박·정당방위 문제는 외부 unit으로 연결"
+    },
+    {
+      "card_id": "art136_sec2_7.assault_threat_absorption",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "intentional_bodily_injury",
+      "rationale": "폭행협박 흡수, 상해·다수 공무원 죄수 및 업무방해 배제"
+    },
+    {
+      "card_id": "art136_sec2_7.injury_ideal_concurrence",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "intentional_bodily_injury",
+      "rationale": "폭행협박 흡수, 상해·다수 공무원 죄수 및 업무방해 배제"
+    },
+    {
+      "card_id": "art136_sec2_7.military_criminal_act_special_relation",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "special_statute",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "special_official_duty_obstruction",
+      "rationale": "군형법 등 특별 공무집행 보호규정의 우선"
+    },
+    {
+      "card_id": "art136_sec2_7.multiple_officers_same_duty",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "intentional_bodily_injury",
+      "rationale": "폭행협박 흡수, 상해·다수 공무원 죄수 및 업무방해 배제"
+    },
+    {
+      "card_id": "art136_sec2_7.public_duty_not_business_obstruction",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "concurrence",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "intentional_bodily_injury",
+      "rationale": "폭행협박 흡수, 상해·다수 공무원 죄수 및 업무방해 배제"
+    },
+    {
+      "card_id": "art136_sec2_7.special_public_duty_provisions",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "special_statute",
+      "component_join": "not_applicable",
+      "track_id": "base",
+      "refers_to_unit": "special_official_duty_obstruction",
+      "rationale": "군형법 등 특별 공무집행 보호규정의 우선"
+    },
+    {
+      "card_id": "art136_sec3_1.article136_2_offense",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "coercion_definition",
+      "component_join": "mandatory_all",
+      "track_id": "official_coercion",
+      "refers_to_unit": null,
+      "rationale": "직무행위 강요·저지 또는 사직 목적의 폭행협박 기본구조"
+    },
+    {
+      "card_id": "art136_sec3_2.subject_unrestricted",
+      "decision": "context_only",
+      "role": "context_only",
+      "rationale": "주체 무제한 일반설명"
+    },
+    {
+      "card_id": "art136_sec3_3.future_officer_object",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "official_object",
+      "component_join": "mandatory_all",
+      "track_id": "official_coercion",
+      "refers_to_unit": null,
+      "rationale": "장래 직무를 집행할 공무원을 포함한 객체"
+    },
+    {
+      "card_id": "art136_sec3_4.article136_2_purpose",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "specific_purpose",
+      "component_join": "mandatory_all",
+      "track_id": "official_coercion",
+      "refers_to_unit": null,
+      "rationale": "직무상 행위 강요·저지 또는 사직 목적"
+    },
+    {
+      "card_id": "art136_sec3_4.nonofficial_act_coercion",
+      "decision": "approve",
+      "role": "bar",
+      "component_id": "official_act_scope",
+      "component_join": "not_applicable",
+      "track_id": "official_coercion",
+      "refers_to_unit": "coercion",
+      "rationale": "비직무 행위 강요는 제136조 2항을 차단"
+    },
+    {
+      "card_id": "art136_sec3_4.official_act_scope",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "official_act_scope",
+      "component_join": "mandatory_all",
+      "track_id": "official_coercion",
+      "refers_to_unit": null,
+      "rationale": "공무원이 직무상 수행할 수 있는 행위"
+    },
+    {
+      "card_id": "art136_sec3_5.act.violence_or_threat",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "coercive_conduct",
+      "component_join": "alternative_any",
+      "track_id": "official_coercion",
+      "refers_to_unit": null,
+      "rationale": "목적 달성 불필요한 폭행·협박 추상적 위험범"
+    },
+    {
+      "card_id": "art136_sec3_5.completion.abstract_danger",
+      "decision": "approve",
+      "role": "component",
+      "component_id": "coercive_conduct",
+      "component_join": "alternative_any",
+      "track_id": "official_coercion",
+      "refers_to_unit": null,
+      "rationale": "목적 달성 불필요한 폭행·협박 추상적 위험범"
+    },
+    {
+      "card_id": "art136_sec3_6.assault_threat_absorption",
+      "decision": "approve",
+      "role": "post_outcome",
+      "component_id": "absorption",
+      "component_join": "not_applicable",
+      "track_id": "official_coercion",
+      "refers_to_unit": "assault_or_threat",
+      "rationale": "폭행·협박죄 흡수"
+    }
+  ]
+}

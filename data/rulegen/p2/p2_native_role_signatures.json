@@ -145,6 +145,16 @@
       "gate": "delegated normalization on 2026-08-04",
       "default": {"predicate": "third_party_bribery_case_roles", "arguments": ["case_id", "defendant_id", "benefit_id", "third_party_id", "official_duty_id", "giver_id"], "definition": "공무원, 제3자 이익, 독립 제3자, 관련 직무, 공여자의 역할 tuple", "applies_to_tracks": ["base"]},
       "tracks": {}
+    },
+    "obstruction_of_official_duty": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "official_duty_obstruction_case_roles", "arguments": ["case_id", "defendant_id", "official_id", "official_duty_id"], "definition": "행위자, 공무원, 집행 중 또는 강요 대상 직무의 역할 tuple", "applies_to_tracks": ["base", "official_coercion"]},
+      "tracks": {}
+    },
+    "deceptive_obstruction_of_official_duty": {
+      "gate": "delegated normalization on 2026-08-04",
+      "default": {"predicate": "deceptive_obstruction_case_roles", "arguments": ["case_id", "defendant_id", "official_id", "official_duty_id"], "definition": "위계 행위자, 오인한 공무원, 구체적으로 방해된 직무의 역할 tuple", "applies_to_tracks": ["base"]},
+      "tracks": {}
     }
   }
 }
