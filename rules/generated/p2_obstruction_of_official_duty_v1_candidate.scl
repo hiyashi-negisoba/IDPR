@@ -248,16 +248,6 @@ type assess_art136_sec2_3_public_official_definition(String, String, String, Str
 // norm_cards: art136_sec2_3.public_official_definition
 type satisfied_art136_sec2_3_public_official_definition(String, String, String, String)
 
-// assess_art136_sec2_3_voluntary_accompaniment: 이 카드의 사건별 적용 평가: 임의동행은 상대방의 동의 또는 승낙을 요건으로 하고, 상대방은 요구를 거절하거나 동행 후 언제든 경찰관서에서 퇴거할 자유가 있으며, 자발적 의사에 따른 동행임이 객관적으로 명백히 입증되지 않거나 퇴거를 제지하면 적법한 공무집행으로 보기 어렵다.
-// sources: comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_30
-// norm_cards: art136_sec2_3.voluntary_accompaniment
-type assess_art136_sec2_3_voluntary_accompaniment(String, String, String, String, String, String)
-
-// satisfied_art136_sec2_3_voluntary_accompaniment: 증명 가능한 평가에서 다음 조건이 충족됨: 임의동행은 상대방의 동의 또는 승낙을 요건으로 하고, 상대방은 요구를 거절하거나 동행 후 언제든 경찰관서에서 퇴거할 자유가 있으며, 자발적 의사에 따른 동행임이 객관적으로 명백히 입증되지 않거나 퇴거를 제지하면 적법한 공무집행으로 보기 어렵다.
-// sources: comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_30
-// norm_cards: art136_sec2_3.voluntary_accompaniment
-type satisfied_art136_sec2_3_voluntary_accompaniment(String, String, String, String)
-
 // assess_art136_sec2_4_abstract_danger_offense: 이 카드의 사건별 적용 평가: 공무집행방해죄는 추상적 위험범으로서 직무집행 중인 공무원에 대한 폭행 또는 협박이 있으면 성립하며, 구체적 직무방해 결과의 발생은 필요하지 않다.
 // sources: comm_001692_제136조_Ⅱ.4_46
 // norm_cards: art136_sec2_4.abstract_danger_offense
@@ -1033,665 +1023,645 @@ rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_3.
   provable(case_id, positive_019) and
   provable(case_id, negative_019)
 
-// rule_id: obstruction_of_official_duty.card.art136_sec2_3_voluntary_accompaniment.satisfied
-// sources: comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_30
-// norm_cards: art136_sec2_3.voluntary_accompaniment
-rel satisfied_art136_sec2_3_voluntary_accompaniment(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_3_voluntary_accompaniment(case_id, assessment_020, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_020)
-
-// rule_id: obstruction_of_official_duty.card.art136_sec2_3_voluntary_accompaniment.undetermined
-// sources: comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_30
-// norm_cards: art136_sec2_3.voluntary_accompaniment
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_3.voluntary_accompaniment") = assess_art136_sec2_3_voluntary_accompaniment(case_id, unknown_020, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_020)
-
-// rule_id: obstruction_of_official_duty.card.art136_sec2_3_voluntary_accompaniment.conflict
-// sources: comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_30
-// norm_cards: art136_sec2_3.voluntary_accompaniment
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_3.voluntary_accompaniment") = assess_art136_sec2_3_voluntary_accompaniment(case_id, positive_020, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_3_voluntary_accompaniment(case_id, negative_020, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_020) and
-  provable(case_id, negative_020)
-
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_abstract_danger_offense.satisfied
 // sources: comm_001692_제136조_Ⅱ.4_46
 // norm_cards: art136_sec2_4.abstract_danger_offense
-rel satisfied_art136_sec2_4_abstract_danger_offense(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_abstract_danger_offense(case_id, assessment_021, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_021)
+rel satisfied_art136_sec2_4_abstract_danger_offense(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_abstract_danger_offense(case_id, assessment_020, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_020)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_abstract_danger_offense.undetermined
 // sources: comm_001692_제136조_Ⅱ.4_46
 // norm_cards: art136_sec2_4.abstract_danger_offense
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.abstract_danger_offense") = assess_art136_sec2_4_abstract_danger_offense(case_id, unknown_021, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_021)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.abstract_danger_offense") = assess_art136_sec2_4_abstract_danger_offense(case_id, unknown_020, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_020)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_abstract_danger_offense.conflict
 // sources: comm_001692_제136조_Ⅱ.4_46
 // norm_cards: art136_sec2_4.abstract_danger_offense
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.abstract_danger_offense") = assess_art136_sec2_4_abstract_danger_offense(case_id, positive_021, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_4_abstract_danger_offense(case_id, negative_021, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_021) and
-  provable(case_id, negative_021)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.abstract_danger_offense") = assess_art136_sec2_4_abstract_danger_offense(case_id, positive_020, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_4_abstract_danger_offense(case_id, negative_020, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_020) and
+  provable(case_id, negative_020)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_active_conduct_requirement.satisfied
 // sources: comm_001692_제136조_Ⅱ.4_45
 // norm_cards: art136_sec2_4.active_conduct_requirement
-rel satisfied_art136_sec2_4_active_conduct_requirement(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_active_conduct_requirement(case_id, assessment_022, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_022)
+rel satisfied_art136_sec2_4_active_conduct_requirement(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_active_conduct_requirement(case_id, assessment_021, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_021)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_active_conduct_requirement.undetermined
 // sources: comm_001692_제136조_Ⅱ.4_45
 // norm_cards: art136_sec2_4.active_conduct_requirement
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.active_conduct_requirement") = assess_art136_sec2_4_active_conduct_requirement(case_id, unknown_022, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_022)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.active_conduct_requirement") = assess_art136_sec2_4_active_conduct_requirement(case_id, unknown_021, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_021)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_active_conduct_requirement.conflict
 // sources: comm_001692_제136조_Ⅱ.4_45
 // norm_cards: art136_sec2_4.active_conduct_requirement
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.active_conduct_requirement") = assess_art136_sec2_4_active_conduct_requirement(case_id, positive_022, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_4_active_conduct_requirement(case_id, negative_022, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_022) and
-  provable(case_id, negative_022)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.active_conduct_requirement") = assess_art136_sec2_4_active_conduct_requirement(case_id, positive_021, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_4_active_conduct_requirement(case_id, negative_021, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_021) and
+  provable(case_id, negative_021)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_active_confinement_or_dog_release.satisfied
 // sources: comm_001692_제136조_Ⅱ.4_45
 // norm_cards: art136_sec2_4.active_confinement_or_dog_release
-rel satisfied_art136_sec2_4_active_confinement_or_dog_release(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_active_confinement_or_dog_release(case_id, assessment_023, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_023)
+rel satisfied_art136_sec2_4_active_confinement_or_dog_release(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_active_confinement_or_dog_release(case_id, assessment_022, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_022)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_active_confinement_or_dog_release.undetermined
 // sources: comm_001692_제136조_Ⅱ.4_45
 // norm_cards: art136_sec2_4.active_confinement_or_dog_release
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.active_confinement_or_dog_release") = assess_art136_sec2_4_active_confinement_or_dog_release(case_id, unknown_023, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_023)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.active_confinement_or_dog_release") = assess_art136_sec2_4_active_confinement_or_dog_release(case_id, unknown_022, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_022)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_active_confinement_or_dog_release.conflict
 // sources: comm_001692_제136조_Ⅱ.4_45
 // norm_cards: art136_sec2_4.active_confinement_or_dog_release
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.active_confinement_or_dog_release") = assess_art136_sec2_4_active_confinement_or_dog_release(case_id, positive_023, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_4_active_confinement_or_dog_release(case_id, negative_023, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_023) and
-  provable(case_id, negative_023)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.active_confinement_or_dog_release") = assess_art136_sec2_4_active_confinement_or_dog_release(case_id, positive_022, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_4_active_confinement_or_dog_release(case_id, negative_022, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_022) and
+  provable(case_id, negative_022)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_assault_against_assistant.satisfied
 // sources: comm_001692_제136조_Ⅱ.4_41
 // norm_cards: art136_sec2_4.assault_against_assistant
-rel satisfied_art136_sec2_4_assault_against_assistant(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_assault_against_assistant(case_id, assessment_024, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_024)
+rel satisfied_art136_sec2_4_assault_against_assistant(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_assault_against_assistant(case_id, assessment_023, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_023)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_assault_against_assistant.undetermined
 // sources: comm_001692_제136조_Ⅱ.4_41
 // norm_cards: art136_sec2_4.assault_against_assistant
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.assault_against_assistant") = assess_art136_sec2_4_assault_against_assistant(case_id, unknown_024, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_024)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.assault_against_assistant") = assess_art136_sec2_4_assault_against_assistant(case_id, unknown_023, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_023)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_assault_against_assistant.conflict
 // sources: comm_001692_제136조_Ⅱ.4_41
 // norm_cards: art136_sec2_4.assault_against_assistant
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.assault_against_assistant") = assess_art136_sec2_4_assault_against_assistant(case_id, positive_024, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_4_assault_against_assistant(case_id, negative_024, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_024) and
-  provable(case_id, negative_024)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.assault_against_assistant") = assess_art136_sec2_4_assault_against_assistant(case_id, positive_023, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_4_assault_against_assistant(case_id, negative_023, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_023) and
+  provable(case_id, negative_023)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_assault_definition.satisfied
 // sources: comm_001692_제136조_Ⅱ.4_41
 // norm_cards: art136_sec2_4.assault_definition
-rel satisfied_art136_sec2_4_assault_definition(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_assault_definition(case_id, assessment_025, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_025)
+rel satisfied_art136_sec2_4_assault_definition(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_assault_definition(case_id, assessment_024, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_024)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_assault_definition.undetermined
 // sources: comm_001692_제136조_Ⅱ.4_41
 // norm_cards: art136_sec2_4.assault_definition
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.assault_definition") = assess_art136_sec2_4_assault_definition(case_id, unknown_025, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_025)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.assault_definition") = assess_art136_sec2_4_assault_definition(case_id, unknown_024, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_024)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_assault_definition.conflict
 // sources: comm_001692_제136조_Ⅱ.4_41
 // norm_cards: art136_sec2_4.assault_definition
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.assault_definition") = assess_art136_sec2_4_assault_definition(case_id, positive_025, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_4_assault_definition(case_id, negative_025, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_025) and
-  provable(case_id, negative_025)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.assault_definition") = assess_art136_sec2_4_assault_definition(case_id, positive_024, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_4_assault_definition(case_id, negative_024, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_024) and
+  provable(case_id, negative_024)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_assault_not_against_officer_exception.satisfied
 // sources: comm_001692_제136조_Ⅱ.4_41
 // norm_cards: art136_sec2_4.assault_not_against_officer_exception
-rel satisfied_art136_sec2_4_assault_not_against_officer_exception(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_assault_not_against_officer_exception(case_id, assessment_026, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_026)
+rel satisfied_art136_sec2_4_assault_not_against_officer_exception(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_assault_not_against_officer_exception(case_id, assessment_025, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_025)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_assault_not_against_officer_exception.undetermined
 // sources: comm_001692_제136조_Ⅱ.4_41
 // norm_cards: art136_sec2_4.assault_not_against_officer_exception
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.assault_not_against_officer_exception") = assess_art136_sec2_4_assault_not_against_officer_exception(case_id, unknown_026, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_026)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.assault_not_against_officer_exception") = assess_art136_sec2_4_assault_not_against_officer_exception(case_id, unknown_025, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_025)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_assault_not_against_officer_exception.conflict
 // sources: comm_001692_제136조_Ⅱ.4_41
 // norm_cards: art136_sec2_4.assault_not_against_officer_exception
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.assault_not_against_officer_exception") = assess_art136_sec2_4_assault_not_against_officer_exception(case_id, positive_026, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_4_assault_not_against_officer_exception(case_id, negative_026, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_026) and
-  provable(case_id, negative_026)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.assault_not_against_officer_exception") = assess_art136_sec2_4_assault_not_against_officer_exception(case_id, positive_025, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_4_assault_not_against_officer_exception(case_id, negative_025, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_025) and
+  provable(case_id, negative_025)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_noise_as_assault.satisfied
 // sources: comm_001692_제136조_Ⅱ.4_41
 // norm_cards: art136_sec2_4.noise_as_assault
-rel satisfied_art136_sec2_4_noise_as_assault(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_noise_as_assault(case_id, assessment_027, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_027)
+rel satisfied_art136_sec2_4_noise_as_assault(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_noise_as_assault(case_id, assessment_026, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_026)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_noise_as_assault.undetermined
 // sources: comm_001692_제136조_Ⅱ.4_41
 // norm_cards: art136_sec2_4.noise_as_assault
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.noise_as_assault") = assess_art136_sec2_4_noise_as_assault(case_id, unknown_027, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_027)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.noise_as_assault") = assess_art136_sec2_4_noise_as_assault(case_id, unknown_026, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_026)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_noise_as_assault.conflict
 // sources: comm_001692_제136조_Ⅱ.4_41
 // norm_cards: art136_sec2_4.noise_as_assault
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.noise_as_assault") = assess_art136_sec2_4_noise_as_assault(case_id, positive_027, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_4_noise_as_assault(case_id, negative_027, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_027) and
-  provable(case_id, negative_027)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.noise_as_assault") = assess_art136_sec2_4_noise_as_assault(case_id, positive_026, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_4_noise_as_assault(case_id, negative_026, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_026) and
+  provable(case_id, negative_026)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_noise_assault_factors.satisfied
 // sources: comm_001692_제136조_Ⅱ.4_41
 // norm_cards: art136_sec2_4.noise_assault_factors
-rel satisfied_art136_sec2_4_noise_assault_factors(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_noise_assault_factors(case_id, assessment_028, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_028)
+rel satisfied_art136_sec2_4_noise_assault_factors(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_noise_assault_factors(case_id, assessment_027, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_027)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_noise_assault_factors.undetermined
 // sources: comm_001692_제136조_Ⅱ.4_41
 // norm_cards: art136_sec2_4.noise_assault_factors
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.noise_assault_factors") = assess_art136_sec2_4_noise_assault_factors(case_id, unknown_028, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_028)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.noise_assault_factors") = assess_art136_sec2_4_noise_assault_factors(case_id, unknown_027, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_027)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_noise_assault_factors.conflict
 // sources: comm_001692_제136조_Ⅱ.4_41
 // norm_cards: art136_sec2_4.noise_assault_factors
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.noise_assault_factors") = assess_art136_sec2_4_noise_assault_factors(case_id, positive_028, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_4_noise_assault_factors(case_id, negative_028, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_028) and
-  provable(case_id, negative_028)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.noise_assault_factors") = assess_art136_sec2_4_noise_assault_factors(case_id, positive_027, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_4_noise_assault_factors(case_id, negative_027, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_027) and
+  provable(case_id, negative_027)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_nontrivial_assault_or_threat.satisfied
 // sources: comm_001692_제136조_Ⅱ.4_45
 // norm_cards: art136_sec2_4.nontrivial_assault_or_threat
-rel satisfied_art136_sec2_4_nontrivial_assault_or_threat(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_nontrivial_assault_or_threat(case_id, assessment_029, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_029)
+rel satisfied_art136_sec2_4_nontrivial_assault_or_threat(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_nontrivial_assault_or_threat(case_id, assessment_028, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_028)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_nontrivial_assault_or_threat.undetermined
 // sources: comm_001692_제136조_Ⅱ.4_45
 // norm_cards: art136_sec2_4.nontrivial_assault_or_threat
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.nontrivial_assault_or_threat") = assess_art136_sec2_4_nontrivial_assault_or_threat(case_id, unknown_029, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_029)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.nontrivial_assault_or_threat") = assess_art136_sec2_4_nontrivial_assault_or_threat(case_id, unknown_028, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_028)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_nontrivial_assault_or_threat.conflict
 // sources: comm_001692_제136조_Ⅱ.4_45
 // norm_cards: art136_sec2_4.nontrivial_assault_or_threat
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.nontrivial_assault_or_threat") = assess_art136_sec2_4_nontrivial_assault_or_threat(case_id, positive_029, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_4_nontrivial_assault_or_threat(case_id, negative_029, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_029) and
-  provable(case_id, negative_029)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.nontrivial_assault_or_threat") = assess_art136_sec2_4_nontrivial_assault_or_threat(case_id, positive_028, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_4_nontrivial_assault_or_threat(case_id, negative_028, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_028) and
+  provable(case_id, negative_028)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_passive_resistance_not_assault.satisfied
 // sources: comm_001692_제136조_Ⅱ.4_45
 // norm_cards: art136_sec2_4.passive_resistance_not_assault
-rel satisfied_art136_sec2_4_passive_resistance_not_assault(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_passive_resistance_not_assault(case_id, assessment_030, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_030)
+rel satisfied_art136_sec2_4_passive_resistance_not_assault(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_passive_resistance_not_assault(case_id, assessment_029, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_029)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_passive_resistance_not_assault.undetermined
 // sources: comm_001692_제136조_Ⅱ.4_45
 // norm_cards: art136_sec2_4.passive_resistance_not_assault
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.passive_resistance_not_assault") = assess_art136_sec2_4_passive_resistance_not_assault(case_id, unknown_030, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_030)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.passive_resistance_not_assault") = assess_art136_sec2_4_passive_resistance_not_assault(case_id, unknown_029, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_029)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_passive_resistance_not_assault.conflict
 // sources: comm_001692_제136조_Ⅱ.4_45
 // norm_cards: art136_sec2_4.passive_resistance_not_assault
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.passive_resistance_not_assault") = assess_art136_sec2_4_passive_resistance_not_assault(case_id, positive_030, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_4_passive_resistance_not_assault(case_id, negative_030, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_030) and
-  provable(case_id, negative_030)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.passive_resistance_not_assault") = assess_art136_sec2_4_passive_resistance_not_assault(case_id, positive_029, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_4_passive_resistance_not_assault(case_id, negative_029, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_029) and
+  provable(case_id, negative_029)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_preplaced_obstacles_not_assault.satisfied
 // sources: comm_001692_제136조_Ⅱ.4_43
 // norm_cards: art136_sec2_4.preplaced_obstacles_not_assault
-rel satisfied_art136_sec2_4_preplaced_obstacles_not_assault(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_preplaced_obstacles_not_assault(case_id, assessment_031, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_031)
+rel satisfied_art136_sec2_4_preplaced_obstacles_not_assault(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_preplaced_obstacles_not_assault(case_id, assessment_030, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_030)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_preplaced_obstacles_not_assault.undetermined
 // sources: comm_001692_제136조_Ⅱ.4_43
 // norm_cards: art136_sec2_4.preplaced_obstacles_not_assault
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.preplaced_obstacles_not_assault") = assess_art136_sec2_4_preplaced_obstacles_not_assault(case_id, unknown_031, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_031)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.preplaced_obstacles_not_assault") = assess_art136_sec2_4_preplaced_obstacles_not_assault(case_id, unknown_030, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_030)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_preplaced_obstacles_not_assault.conflict
 // sources: comm_001692_제136조_Ⅱ.4_43
 // norm_cards: art136_sec2_4.preplaced_obstacles_not_assault
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.preplaced_obstacles_not_assault") = assess_art136_sec2_4_preplaced_obstacles_not_assault(case_id, positive_031, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_4_preplaced_obstacles_not_assault(case_id, negative_031, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_031) and
-  provable(case_id, negative_031)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.preplaced_obstacles_not_assault") = assess_art136_sec2_4_preplaced_obstacles_not_assault(case_id, positive_030, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_4_preplaced_obstacles_not_assault(case_id, negative_030, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_030) and
+  provable(case_id, negative_030)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_self_harm_not_assault_or_threat.satisfied
 // sources: comm_001692_제136조_Ⅱ.4_42
 // norm_cards: art136_sec2_4.self_harm_not_assault_or_threat
-rel satisfied_art136_sec2_4_self_harm_not_assault_or_threat(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_self_harm_not_assault_or_threat(case_id, assessment_032, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_032)
+rel satisfied_art136_sec2_4_self_harm_not_assault_or_threat(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_self_harm_not_assault_or_threat(case_id, assessment_031, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_031)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_self_harm_not_assault_or_threat.undetermined
 // sources: comm_001692_제136조_Ⅱ.4_42
 // norm_cards: art136_sec2_4.self_harm_not_assault_or_threat
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.self_harm_not_assault_or_threat") = assess_art136_sec2_4_self_harm_not_assault_or_threat(case_id, unknown_032, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_032)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.self_harm_not_assault_or_threat") = assess_art136_sec2_4_self_harm_not_assault_or_threat(case_id, unknown_031, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_031)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_self_harm_not_assault_or_threat.conflict
 // sources: comm_001692_제136조_Ⅱ.4_42
 // norm_cards: art136_sec2_4.self_harm_not_assault_or_threat
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.self_harm_not_assault_or_threat") = assess_art136_sec2_4_self_harm_not_assault_or_threat(case_id, positive_032, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_4_self_harm_not_assault_or_threat(case_id, negative_032, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_032) and
-  provable(case_id, negative_032)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.self_harm_not_assault_or_threat") = assess_art136_sec2_4_self_harm_not_assault_or_threat(case_id, positive_031, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_4_self_harm_not_assault_or_threat(case_id, negative_031, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_031) and
+  provable(case_id, negative_031)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_station_disturbance_as_assault.satisfied
 // sources: comm_001692_제136조_Ⅱ.4_42
 // norm_cards: art136_sec2_4.station_disturbance_as_assault
-rel satisfied_art136_sec2_4_station_disturbance_as_assault(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_station_disturbance_as_assault(case_id, assessment_033, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_033)
+rel satisfied_art136_sec2_4_station_disturbance_as_assault(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_station_disturbance_as_assault(case_id, assessment_032, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_032)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_station_disturbance_as_assault.undetermined
 // sources: comm_001692_제136조_Ⅱ.4_42
 // norm_cards: art136_sec2_4.station_disturbance_as_assault
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.station_disturbance_as_assault") = assess_art136_sec2_4_station_disturbance_as_assault(case_id, unknown_033, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_033)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.station_disturbance_as_assault") = assess_art136_sec2_4_station_disturbance_as_assault(case_id, unknown_032, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_032)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_station_disturbance_as_assault.conflict
 // sources: comm_001692_제136조_Ⅱ.4_42
 // norm_cards: art136_sec2_4.station_disturbance_as_assault
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.station_disturbance_as_assault") = assess_art136_sec2_4_station_disturbance_as_assault(case_id, positive_033, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_4_station_disturbance_as_assault(case_id, negative_033, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_033) and
-  provable(case_id, negative_033)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.station_disturbance_as_assault") = assess_art136_sec2_4_station_disturbance_as_assault(case_id, positive_032, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_4_station_disturbance_as_assault(case_id, negative_032, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_032) and
+  provable(case_id, negative_032)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_third_party_threat.satisfied
 // sources: comm_001692_제136조_Ⅱ.4_43
 // norm_cards: art136_sec2_4.third_party_threat
-rel satisfied_art136_sec2_4_third_party_threat(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_third_party_threat(case_id, assessment_034, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_034)
+rel satisfied_art136_sec2_4_third_party_threat(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_third_party_threat(case_id, assessment_033, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_033)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_third_party_threat.undetermined
 // sources: comm_001692_제136조_Ⅱ.4_43
 // norm_cards: art136_sec2_4.third_party_threat
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.third_party_threat") = assess_art136_sec2_4_third_party_threat(case_id, unknown_034, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_034)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.third_party_threat") = assess_art136_sec2_4_third_party_threat(case_id, unknown_033, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_033)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_third_party_threat.conflict
 // sources: comm_001692_제136조_Ⅱ.4_43
 // norm_cards: art136_sec2_4.third_party_threat
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.third_party_threat") = assess_art136_sec2_4_third_party_threat(case_id, positive_034, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_4_third_party_threat(case_id, negative_034, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_034) and
-  provable(case_id, negative_034)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.third_party_threat") = assess_art136_sec2_4_third_party_threat(case_id, positive_033, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_4_third_party_threat(case_id, negative_033, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_033) and
+  provable(case_id, negative_033)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_threat_definition.satisfied
 // sources: comm_001692_제136조_Ⅱ.4_43
 // norm_cards: art136_sec2_4.threat_definition
-rel satisfied_art136_sec2_4_threat_definition(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_threat_definition(case_id, assessment_035, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_035)
+rel satisfied_art136_sec2_4_threat_definition(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_threat_definition(case_id, assessment_034, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_034)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_threat_definition.undetermined
 // sources: comm_001692_제136조_Ⅱ.4_43
 // norm_cards: art136_sec2_4.threat_definition
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.threat_definition") = assess_art136_sec2_4_threat_definition(case_id, unknown_035, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_035)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.threat_definition") = assess_art136_sec2_4_threat_definition(case_id, unknown_034, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_034)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_threat_definition.conflict
 // sources: comm_001692_제136조_Ⅱ.4_43
 // norm_cards: art136_sec2_4.threat_definition
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.threat_definition") = assess_art136_sec2_4_threat_definition(case_id, positive_035, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_4_threat_definition(case_id, negative_035, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_035) and
-  provable(case_id, negative_035)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.threat_definition") = assess_art136_sec2_4_threat_definition(case_id, positive_034, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_4_threat_definition(case_id, negative_034, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_034) and
+  provable(case_id, negative_034)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_threat_objective_factors.satisfied
 // sources: comm_001692_제136조_Ⅱ.4_43
 // norm_cards: art136_sec2_4.threat_objective_factors
-rel satisfied_art136_sec2_4_threat_objective_factors(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_threat_objective_factors(case_id, assessment_036, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_036)
+rel satisfied_art136_sec2_4_threat_objective_factors(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_threat_objective_factors(case_id, assessment_035, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_035)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_threat_objective_factors.undetermined
 // sources: comm_001692_제136조_Ⅱ.4_43
 // norm_cards: art136_sec2_4.threat_objective_factors
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.threat_objective_factors") = assess_art136_sec2_4_threat_objective_factors(case_id, unknown_036, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_036)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.threat_objective_factors") = assess_art136_sec2_4_threat_objective_factors(case_id, unknown_035, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_035)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_threat_objective_factors.conflict
 // sources: comm_001692_제136조_Ⅱ.4_43
 // norm_cards: art136_sec2_4.threat_objective_factors
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.threat_objective_factors") = assess_art136_sec2_4_threat_objective_factors(case_id, positive_036, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_4_threat_objective_factors(case_id, negative_036, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_036) and
-  provable(case_id, negative_036)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.threat_objective_factors") = assess_art136_sec2_4_threat_objective_factors(case_id, positive_035, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_4_threat_objective_factors(case_id, negative_035, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_035) and
+  provable(case_id, negative_035)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_vehicle_departure_not_assault.satisfied
 // sources: comm_001692_제136조_Ⅱ.4_42
 // norm_cards: art136_sec2_4.vehicle_departure_not_assault
-rel satisfied_art136_sec2_4_vehicle_departure_not_assault(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_vehicle_departure_not_assault(case_id, assessment_037, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_037)
+rel satisfied_art136_sec2_4_vehicle_departure_not_assault(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_4_vehicle_departure_not_assault(case_id, assessment_036, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_036)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_vehicle_departure_not_assault.undetermined
 // sources: comm_001692_제136조_Ⅱ.4_42
 // norm_cards: art136_sec2_4.vehicle_departure_not_assault
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.vehicle_departure_not_assault") = assess_art136_sec2_4_vehicle_departure_not_assault(case_id, unknown_037, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_037)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_4.vehicle_departure_not_assault") = assess_art136_sec2_4_vehicle_departure_not_assault(case_id, unknown_036, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_036)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_4_vehicle_departure_not_assault.conflict
 // sources: comm_001692_제136조_Ⅱ.4_42
 // norm_cards: art136_sec2_4.vehicle_departure_not_assault
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.vehicle_departure_not_assault") = assess_art136_sec2_4_vehicle_departure_not_assault(case_id, positive_037, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_4_vehicle_departure_not_assault(case_id, negative_037, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_037) and
-  provable(case_id, negative_037)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.vehicle_departure_not_assault") = assess_art136_sec2_4_vehicle_departure_not_assault(case_id, positive_036, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_4_vehicle_departure_not_assault(case_id, negative_036, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_036) and
+  provable(case_id, negative_036)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_6_illegal_duty_act_other_offenses.satisfied
 // sources: comm_001692_제136조_Ⅱ.6_49
 // norm_cards: art136_sec2_6.illegal_duty_act.other_offenses
-rel satisfied_art136_sec2_6_illegal_duty_act_other_offenses(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_6_illegal_duty_act_other_offenses(case_id, assessment_038, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_038)
+rel satisfied_art136_sec2_6_illegal_duty_act_other_offenses(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_6_illegal_duty_act_other_offenses(case_id, assessment_037, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_037)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_6_illegal_duty_act_other_offenses.undetermined
 // sources: comm_001692_제136조_Ⅱ.6_49
 // norm_cards: art136_sec2_6.illegal_duty_act.other_offenses
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_6.illegal_duty_act.other_offenses") = assess_art136_sec2_6_illegal_duty_act_other_offenses(case_id, unknown_038, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_038)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_6.illegal_duty_act.other_offenses") = assess_art136_sec2_6_illegal_duty_act_other_offenses(case_id, unknown_037, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_037)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_6_illegal_duty_act_other_offenses.conflict
 // sources: comm_001692_제136조_Ⅱ.6_49
 // norm_cards: art136_sec2_6.illegal_duty_act.other_offenses
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_6.illegal_duty_act.other_offenses") = assess_art136_sec2_6_illegal_duty_act_other_offenses(case_id, positive_038, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_6_illegal_duty_act_other_offenses(case_id, negative_038, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_038) and
-  provable(case_id, negative_038)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_6.illegal_duty_act.other_offenses") = assess_art136_sec2_6_illegal_duty_act_other_offenses(case_id, positive_037, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_6_illegal_duty_act_other_offenses(case_id, negative_037, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_037) and
+  provable(case_id, negative_037)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_7_assault_threat_absorption.satisfied
 // sources: comm_001692_제136조_Ⅱ.7_51
 // norm_cards: art136_sec2_7.assault_threat_absorption
-rel satisfied_art136_sec2_7_assault_threat_absorption(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_7_assault_threat_absorption(case_id, assessment_039, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_039)
+rel satisfied_art136_sec2_7_assault_threat_absorption(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_7_assault_threat_absorption(case_id, assessment_038, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_038)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_7_assault_threat_absorption.undetermined
 // sources: comm_001692_제136조_Ⅱ.7_51
 // norm_cards: art136_sec2_7.assault_threat_absorption
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_7.assault_threat_absorption") = assess_art136_sec2_7_assault_threat_absorption(case_id, unknown_039, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_039)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_7.assault_threat_absorption") = assess_art136_sec2_7_assault_threat_absorption(case_id, unknown_038, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_038)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_7_assault_threat_absorption.conflict
 // sources: comm_001692_제136조_Ⅱ.7_51
 // norm_cards: art136_sec2_7.assault_threat_absorption
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_7.assault_threat_absorption") = assess_art136_sec2_7_assault_threat_absorption(case_id, positive_039, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_7_assault_threat_absorption(case_id, negative_039, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_039) and
-  provable(case_id, negative_039)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_7.assault_threat_absorption") = assess_art136_sec2_7_assault_threat_absorption(case_id, positive_038, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_7_assault_threat_absorption(case_id, negative_038, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_038) and
+  provable(case_id, negative_038)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_7_injury_ideal_concurrence.satisfied
 // sources: comm_001692_제136조_Ⅱ.7_52
 // norm_cards: art136_sec2_7.injury_ideal_concurrence
-rel satisfied_art136_sec2_7_injury_ideal_concurrence(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_7_injury_ideal_concurrence(case_id, assessment_040, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_040)
+rel satisfied_art136_sec2_7_injury_ideal_concurrence(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_7_injury_ideal_concurrence(case_id, assessment_039, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_039)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_7_injury_ideal_concurrence.undetermined
 // sources: comm_001692_제136조_Ⅱ.7_52
 // norm_cards: art136_sec2_7.injury_ideal_concurrence
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_7.injury_ideal_concurrence") = assess_art136_sec2_7_injury_ideal_concurrence(case_id, unknown_040, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_040)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_7.injury_ideal_concurrence") = assess_art136_sec2_7_injury_ideal_concurrence(case_id, unknown_039, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_039)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_7_injury_ideal_concurrence.conflict
 // sources: comm_001692_제136조_Ⅱ.7_52
 // norm_cards: art136_sec2_7.injury_ideal_concurrence
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_7.injury_ideal_concurrence") = assess_art136_sec2_7_injury_ideal_concurrence(case_id, positive_040, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_7_injury_ideal_concurrence(case_id, negative_040, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_040) and
-  provable(case_id, negative_040)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_7.injury_ideal_concurrence") = assess_art136_sec2_7_injury_ideal_concurrence(case_id, positive_039, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_7_injury_ideal_concurrence(case_id, negative_039, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_039) and
+  provable(case_id, negative_039)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_7_military_criminal_act_special_relation.satisfied
 // sources: comm_001692_제136조_Ⅱ.7_53
 // norm_cards: art136_sec2_7.military_criminal_act_special_relation
-rel satisfied_art136_sec2_7_military_criminal_act_special_relation(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_7_military_criminal_act_special_relation(case_id, assessment_041, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_041)
+rel satisfied_art136_sec2_7_military_criminal_act_special_relation(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_7_military_criminal_act_special_relation(case_id, assessment_040, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_040)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_7_military_criminal_act_special_relation.undetermined
 // sources: comm_001692_제136조_Ⅱ.7_53
 // norm_cards: art136_sec2_7.military_criminal_act_special_relation
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_7.military_criminal_act_special_relation") = assess_art136_sec2_7_military_criminal_act_special_relation(case_id, unknown_041, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_041)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_7.military_criminal_act_special_relation") = assess_art136_sec2_7_military_criminal_act_special_relation(case_id, unknown_040, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_040)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_7_military_criminal_act_special_relation.conflict
 // sources: comm_001692_제136조_Ⅱ.7_53
 // norm_cards: art136_sec2_7.military_criminal_act_special_relation
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_7.military_criminal_act_special_relation") = assess_art136_sec2_7_military_criminal_act_special_relation(case_id, positive_041, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_7_military_criminal_act_special_relation(case_id, negative_041, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_041) and
-  provable(case_id, negative_041)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_7.military_criminal_act_special_relation") = assess_art136_sec2_7_military_criminal_act_special_relation(case_id, positive_040, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_7_military_criminal_act_special_relation(case_id, negative_040, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_040) and
+  provable(case_id, negative_040)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_7_multiple_officers_same_duty.satisfied
 // sources: comm_001692_제136조_Ⅱ.7_50
 // norm_cards: art136_sec2_7.multiple_officers_same_duty
-rel satisfied_art136_sec2_7_multiple_officers_same_duty(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_7_multiple_officers_same_duty(case_id, assessment_042, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_042)
+rel satisfied_art136_sec2_7_multiple_officers_same_duty(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_7_multiple_officers_same_duty(case_id, assessment_041, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_041)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_7_multiple_officers_same_duty.undetermined
 // sources: comm_001692_제136조_Ⅱ.7_50
 // norm_cards: art136_sec2_7.multiple_officers_same_duty
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_7.multiple_officers_same_duty") = assess_art136_sec2_7_multiple_officers_same_duty(case_id, unknown_042, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_042)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_7.multiple_officers_same_duty") = assess_art136_sec2_7_multiple_officers_same_duty(case_id, unknown_041, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_041)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_7_multiple_officers_same_duty.conflict
 // sources: comm_001692_제136조_Ⅱ.7_50
 // norm_cards: art136_sec2_7.multiple_officers_same_duty
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_7.multiple_officers_same_duty") = assess_art136_sec2_7_multiple_officers_same_duty(case_id, positive_042, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_7_multiple_officers_same_duty(case_id, negative_042, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_042) and
-  provable(case_id, negative_042)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_7.multiple_officers_same_duty") = assess_art136_sec2_7_multiple_officers_same_duty(case_id, positive_041, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_7_multiple_officers_same_duty(case_id, negative_041, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_041) and
+  provable(case_id, negative_041)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_7_public_duty_not_business_obstruction.satisfied
 // sources: comm_001692_제136조_Ⅱ.7_51
 // norm_cards: art136_sec2_7.public_duty_not_business_obstruction
-rel satisfied_art136_sec2_7_public_duty_not_business_obstruction(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_7_public_duty_not_business_obstruction(case_id, assessment_043, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_043)
+rel satisfied_art136_sec2_7_public_duty_not_business_obstruction(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_7_public_duty_not_business_obstruction(case_id, assessment_042, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_042)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_7_public_duty_not_business_obstruction.undetermined
 // sources: comm_001692_제136조_Ⅱ.7_51
 // norm_cards: art136_sec2_7.public_duty_not_business_obstruction
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_7.public_duty_not_business_obstruction") = assess_art136_sec2_7_public_duty_not_business_obstruction(case_id, unknown_043, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_043)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_7.public_duty_not_business_obstruction") = assess_art136_sec2_7_public_duty_not_business_obstruction(case_id, unknown_042, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_042)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_7_public_duty_not_business_obstruction.conflict
 // sources: comm_001692_제136조_Ⅱ.7_51
 // norm_cards: art136_sec2_7.public_duty_not_business_obstruction
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_7.public_duty_not_business_obstruction") = assess_art136_sec2_7_public_duty_not_business_obstruction(case_id, positive_043, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_7_public_duty_not_business_obstruction(case_id, negative_043, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_043) and
-  provable(case_id, negative_043)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_7.public_duty_not_business_obstruction") = assess_art136_sec2_7_public_duty_not_business_obstruction(case_id, positive_042, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_7_public_duty_not_business_obstruction(case_id, negative_042, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_042) and
+  provable(case_id, negative_042)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_7_special_public_duty_provisions.satisfied
 // sources: comm_001692_제136조_Ⅱ.7_52
 // norm_cards: art136_sec2_7.special_public_duty_provisions
-rel satisfied_art136_sec2_7_special_public_duty_provisions(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_7_special_public_duty_provisions(case_id, assessment_044, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_044)
+rel satisfied_art136_sec2_7_special_public_duty_provisions(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec2_7_special_public_duty_provisions(case_id, assessment_043, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_043)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_7_special_public_duty_provisions.undetermined
 // sources: comm_001692_제136조_Ⅱ.7_52
 // norm_cards: art136_sec2_7.special_public_duty_provisions
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_7.special_public_duty_provisions") = assess_art136_sec2_7_special_public_duty_provisions(case_id, unknown_044, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_044)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec2_7.special_public_duty_provisions") = assess_art136_sec2_7_special_public_duty_provisions(case_id, unknown_043, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_043)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec2_7_special_public_duty_provisions.conflict
 // sources: comm_001692_제136조_Ⅱ.7_52
 // norm_cards: art136_sec2_7.special_public_duty_provisions
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_7.special_public_duty_provisions") = assess_art136_sec2_7_special_public_duty_provisions(case_id, positive_044, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec2_7_special_public_duty_provisions(case_id, negative_044, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_044) and
-  provable(case_id, negative_044)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_7.special_public_duty_provisions") = assess_art136_sec2_7_special_public_duty_provisions(case_id, positive_043, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec2_7_special_public_duty_provisions(case_id, negative_043, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_043) and
+  provable(case_id, negative_043)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_1_article136_2_offense.satisfied
 // sources: comm_001692_제136조_Ⅲ.1_56
 // norm_cards: art136_sec3_1.article136_2_offense
-rel satisfied_art136_sec3_1_article136_2_offense(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec3_1_article136_2_offense(case_id, assessment_045, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_045)
+rel satisfied_art136_sec3_1_article136_2_offense(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec3_1_article136_2_offense(case_id, assessment_044, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_044)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_1_article136_2_offense.undetermined
 // sources: comm_001692_제136조_Ⅲ.1_56
 // norm_cards: art136_sec3_1.article136_2_offense
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec3_1.article136_2_offense") = assess_art136_sec3_1_article136_2_offense(case_id, unknown_045, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_045)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec3_1.article136_2_offense") = assess_art136_sec3_1_article136_2_offense(case_id, unknown_044, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_044)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_1_article136_2_offense.conflict
 // sources: comm_001692_제136조_Ⅲ.1_56
 // norm_cards: art136_sec3_1.article136_2_offense
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec3_1.article136_2_offense") = assess_art136_sec3_1_article136_2_offense(case_id, positive_045, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec3_1_article136_2_offense(case_id, negative_045, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_045) and
-  provable(case_id, negative_045)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec3_1.article136_2_offense") = assess_art136_sec3_1_article136_2_offense(case_id, positive_044, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec3_1_article136_2_offense(case_id, negative_044, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_044) and
+  provable(case_id, negative_044)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_3_future_officer_object.satisfied
 // sources: comm_001692_제136조_Ⅲ.3_58
 // norm_cards: art136_sec3_3.future_officer_object
-rel satisfied_art136_sec3_3_future_officer_object(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec3_3_future_officer_object(case_id, assessment_046, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_046)
+rel satisfied_art136_sec3_3_future_officer_object(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec3_3_future_officer_object(case_id, assessment_045, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_045)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_3_future_officer_object.undetermined
 // sources: comm_001692_제136조_Ⅲ.3_58
 // norm_cards: art136_sec3_3.future_officer_object
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec3_3.future_officer_object") = assess_art136_sec3_3_future_officer_object(case_id, unknown_046, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_046)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec3_3.future_officer_object") = assess_art136_sec3_3_future_officer_object(case_id, unknown_045, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_045)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_3_future_officer_object.conflict
 // sources: comm_001692_제136조_Ⅲ.3_58
 // norm_cards: art136_sec3_3.future_officer_object
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec3_3.future_officer_object") = assess_art136_sec3_3_future_officer_object(case_id, positive_046, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec3_3_future_officer_object(case_id, negative_046, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_046) and
-  provable(case_id, negative_046)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec3_3.future_officer_object") = assess_art136_sec3_3_future_officer_object(case_id, positive_045, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec3_3_future_officer_object(case_id, negative_045, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_045) and
+  provable(case_id, negative_045)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_4_article136_2_purpose.satisfied
 // sources: comm_001692_제136조_Ⅲ.4_59
 // norm_cards: art136_sec3_4.article136_2_purpose
-rel satisfied_art136_sec3_4_article136_2_purpose(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec3_4_article136_2_purpose(case_id, assessment_047, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_047)
+rel satisfied_art136_sec3_4_article136_2_purpose(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec3_4_article136_2_purpose(case_id, assessment_046, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_046)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_4_article136_2_purpose.undetermined
 // sources: comm_001692_제136조_Ⅲ.4_59
 // norm_cards: art136_sec3_4.article136_2_purpose
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec3_4.article136_2_purpose") = assess_art136_sec3_4_article136_2_purpose(case_id, unknown_047, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_047)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec3_4.article136_2_purpose") = assess_art136_sec3_4_article136_2_purpose(case_id, unknown_046, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_046)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_4_article136_2_purpose.conflict
 // sources: comm_001692_제136조_Ⅲ.4_59
 // norm_cards: art136_sec3_4.article136_2_purpose
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec3_4.article136_2_purpose") = assess_art136_sec3_4_article136_2_purpose(case_id, positive_047, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec3_4_article136_2_purpose(case_id, negative_047, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_047) and
-  provable(case_id, negative_047)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec3_4.article136_2_purpose") = assess_art136_sec3_4_article136_2_purpose(case_id, positive_046, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec3_4_article136_2_purpose(case_id, negative_046, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_046) and
+  provable(case_id, negative_046)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_4_nonofficial_act_coercion.satisfied
 // sources: comm_001692_제136조_Ⅲ.4_59
 // norm_cards: art136_sec3_4.nonofficial_act_coercion
-rel satisfied_art136_sec3_4_nonofficial_act_coercion(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec3_4_nonofficial_act_coercion(case_id, assessment_048, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_048)
+rel satisfied_art136_sec3_4_nonofficial_act_coercion(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec3_4_nonofficial_act_coercion(case_id, assessment_047, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_047)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_4_nonofficial_act_coercion.undetermined
 // sources: comm_001692_제136조_Ⅲ.4_59
 // norm_cards: art136_sec3_4.nonofficial_act_coercion
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec3_4.nonofficial_act_coercion") = assess_art136_sec3_4_nonofficial_act_coercion(case_id, unknown_048, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_048)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec3_4.nonofficial_act_coercion") = assess_art136_sec3_4_nonofficial_act_coercion(case_id, unknown_047, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_047)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_4_nonofficial_act_coercion.conflict
 // sources: comm_001692_제136조_Ⅲ.4_59
 // norm_cards: art136_sec3_4.nonofficial_act_coercion
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec3_4.nonofficial_act_coercion") = assess_art136_sec3_4_nonofficial_act_coercion(case_id, positive_048, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec3_4_nonofficial_act_coercion(case_id, negative_048, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_048) and
-  provable(case_id, negative_048)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec3_4.nonofficial_act_coercion") = assess_art136_sec3_4_nonofficial_act_coercion(case_id, positive_047, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec3_4_nonofficial_act_coercion(case_id, negative_047, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_047) and
+  provable(case_id, negative_047)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_4_official_act_scope.satisfied
 // sources: comm_001692_제136조_Ⅲ.4_59
 // norm_cards: art136_sec3_4.official_act_scope
-rel satisfied_art136_sec3_4_official_act_scope(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec3_4_official_act_scope(case_id, assessment_049, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_049)
+rel satisfied_art136_sec3_4_official_act_scope(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec3_4_official_act_scope(case_id, assessment_048, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_048)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_4_official_act_scope.undetermined
 // sources: comm_001692_제136조_Ⅲ.4_59
 // norm_cards: art136_sec3_4.official_act_scope
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec3_4.official_act_scope") = assess_art136_sec3_4_official_act_scope(case_id, unknown_049, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_049)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec3_4.official_act_scope") = assess_art136_sec3_4_official_act_scope(case_id, unknown_048, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_048)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_4_official_act_scope.conflict
 // sources: comm_001692_제136조_Ⅲ.4_59
 // norm_cards: art136_sec3_4.official_act_scope
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec3_4.official_act_scope") = assess_art136_sec3_4_official_act_scope(case_id, positive_049, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec3_4_official_act_scope(case_id, negative_049, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_049) and
-  provable(case_id, negative_049)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec3_4.official_act_scope") = assess_art136_sec3_4_official_act_scope(case_id, positive_048, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec3_4_official_act_scope(case_id, negative_048, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_048) and
+  provable(case_id, negative_048)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_5_act_violence_or_threat.satisfied
 // sources: comm_001692_제136조_Ⅲ.5_61
 // norm_cards: art136_sec3_5.act.violence_or_threat
-rel satisfied_art136_sec3_5_act_violence_or_threat(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec3_5_act_violence_or_threat(case_id, assessment_050, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_050)
+rel satisfied_art136_sec3_5_act_violence_or_threat(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec3_5_act_violence_or_threat(case_id, assessment_049, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_049)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_5_act_violence_or_threat.undetermined
 // sources: comm_001692_제136조_Ⅲ.5_61
 // norm_cards: art136_sec3_5.act.violence_or_threat
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec3_5.act.violence_or_threat") = assess_art136_sec3_5_act_violence_or_threat(case_id, unknown_050, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_050)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec3_5.act.violence_or_threat") = assess_art136_sec3_5_act_violence_or_threat(case_id, unknown_049, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_049)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_5_act_violence_or_threat.conflict
 // sources: comm_001692_제136조_Ⅲ.5_61
 // norm_cards: art136_sec3_5.act.violence_or_threat
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec3_5.act.violence_or_threat") = assess_art136_sec3_5_act_violence_or_threat(case_id, positive_050, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec3_5_act_violence_or_threat(case_id, negative_050, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_050) and
-  provable(case_id, negative_050)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec3_5.act.violence_or_threat") = assess_art136_sec3_5_act_violence_or_threat(case_id, positive_049, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec3_5_act_violence_or_threat(case_id, negative_049, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_049) and
+  provable(case_id, negative_049)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_5_completion_abstract_danger.satisfied
 // sources: comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61
 // norm_cards: art136_sec3_5.completion.abstract_danger
-rel satisfied_art136_sec3_5_completion_abstract_danger(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec3_5_completion_abstract_danger(case_id, assessment_051, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_051)
+rel satisfied_art136_sec3_5_completion_abstract_danger(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec3_5_completion_abstract_danger(case_id, assessment_050, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_050)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_5_completion_abstract_danger.undetermined
 // sources: comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61
 // norm_cards: art136_sec3_5.completion.abstract_danger
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec3_5.completion.abstract_danger") = assess_art136_sec3_5_completion_abstract_danger(case_id, unknown_051, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_051)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec3_5.completion.abstract_danger") = assess_art136_sec3_5_completion_abstract_danger(case_id, unknown_050, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_050)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_5_completion_abstract_danger.conflict
 // sources: comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61
 // norm_cards: art136_sec3_5.completion.abstract_danger
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec3_5.completion.abstract_danger") = assess_art136_sec3_5_completion_abstract_danger(case_id, positive_051, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec3_5_completion_abstract_danger(case_id, negative_051, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_051) and
-  provable(case_id, negative_051)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec3_5.completion.abstract_danger") = assess_art136_sec3_5_completion_abstract_danger(case_id, positive_050, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec3_5_completion_abstract_danger(case_id, negative_050, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_050) and
+  provable(case_id, negative_050)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_6_assault_threat_absorption.satisfied
 // sources: comm_001692_제136조_Ⅲ.6_62
 // norm_cards: art136_sec3_6.assault_threat_absorption
-rel satisfied_art136_sec3_6_assault_threat_absorption(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec3_6_assault_threat_absorption(case_id, assessment_052, defendant_id, official_id, official_duty_id, "satisfied") and
-  provable(case_id, assessment_052)
+rel satisfied_art136_sec3_6_assault_threat_absorption(case_id, defendant_id, official_id, official_duty_id) = assess_art136_sec3_6_assault_threat_absorption(case_id, assessment_051, defendant_id, official_id, official_duty_id, "satisfied") and
+  provable(case_id, assessment_051)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_6_assault_threat_absorption.undetermined
 // sources: comm_001692_제136조_Ⅲ.6_62
 // norm_cards: art136_sec3_6.assault_threat_absorption
-rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec3_6.assault_threat_absorption") = assess_art136_sec3_6_assault_threat_absorption(case_id, unknown_052, defendant_id, official_id, official_duty_id, "unknown") and
-  provable(case_id, unknown_052)
+rel obstruction_of_official_duty_undetermined(case_id, defendant_id, "art136_sec3_6.assault_threat_absorption") = assess_art136_sec3_6_assault_threat_absorption(case_id, unknown_051, defendant_id, official_id, official_duty_id, "unknown") and
+  provable(case_id, unknown_051)
 
 // rule_id: obstruction_of_official_duty.card.art136_sec3_6_assault_threat_absorption.conflict
 // sources: comm_001692_제136조_Ⅲ.6_62
 // norm_cards: art136_sec3_6.assault_threat_absorption
-rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec3_6.assault_threat_absorption") = assess_art136_sec3_6_assault_threat_absorption(case_id, positive_052, defendant_id, official_id, official_duty_id, "satisfied") and
-  assess_art136_sec3_6_assault_threat_absorption(case_id, negative_052, defendant_id, official_id, official_duty_id, "not_satisfied") and
-  provable(case_id, positive_052) and
-  provable(case_id, negative_052)
+rel obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec3_6.assault_threat_absorption") = assess_art136_sec3_6_assault_threat_absorption(case_id, positive_051, defendant_id, official_id, official_duty_id, "satisfied") and
+  assess_art136_sec3_6_assault_threat_absorption(case_id, negative_051, defendant_id, official_id, official_duty_id, "not_satisfied") and
+  provable(case_id, positive_051) and
+  provable(case_id, negative_051)
 
 // rule_id: obstruction_of_official_duty.component.base.intent.art136_intent_conditional_intent
 // sources: comm_001692_제136조_Ⅱ.5_47
@@ -1943,16 +1913,6 @@ rel obstruction_of_official_duty_track_conflict(case_id, defendant_id, "base", "
 // norm_cards: art136_sec2_3.protective_room_exception
 rel obstruction_of_official_duty_track_conflict(case_id, defendant_id, "base", "art136_sec2_3.protective_room_exception") = obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_3.protective_room_exception")
 
-// rule_id: obstruction_of_official_duty.track_conflict.base.art136_sec2_3_voluntary_accompaniment
-// sources: comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_30
-// norm_cards: art136_sec2_3.voluntary_accompaniment
-rel obstruction_of_official_duty_track_conflict(case_id, defendant_id, "base", "art136_sec2_3.voluntary_accompaniment") = obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_3.voluntary_accompaniment")
-
-// rule_id: obstruction_of_official_duty.track_blocked.base.art136_sec2_3_voluntary_accompaniment
-// sources: comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_30
-// norm_cards: art136_sec2_3.voluntary_accompaniment
-rel obstruction_of_official_duty_track_not_established(case_id, defendant_id, "base", "art136_sec2_3.voluntary_accompaniment") = satisfied_art136_sec2_3_voluntary_accompaniment(case_id, defendant_id, official_id, official_duty_id)
-
 // rule_id: obstruction_of_official_duty.track_conflict.base.art136_sec2_3_public_official_definition
 // sources: comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_4
 // norm_cards: art136_sec2_3.public_official_definition
@@ -2124,41 +2084,41 @@ rel obstruction_of_official_duty_track_conflict(case_id, defendant_id, "official
 rel obstruction_of_official_duty_track_conflict(case_id, defendant_id, "official_coercion", "art136_sec3_4.article136_2_purpose") = obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec3_4.article136_2_purpose")
 
 // rule_id: obstruction_of_official_duty.summary.has_negative
-// sources: comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅰ_0, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_5, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_37, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_25, comm_001692_제136조_Ⅱ.3_34, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_18, comm_001692_제136조_Ⅱ.3_29, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_30, comm_001692_제136조_Ⅱ.4_46, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.6_49, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅱ.7_53, comm_001692_제136조_Ⅱ.7_50, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅲ.1_56, comm_001692_제136조_Ⅲ.3_58, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.6_62
-// norm_cards: art136.intent.conditional_intent, art136.intent.officer_and_violence_awareness, art136.intent.taxi_driver_conditional_intent, art136_sec1.special_offense_displacement, art136_sec2_1.offense_conduct, art136_sec2_1.violence, art136_sec2_3.concrete_authority_requirements, art136_sec2_3.duty_execution_scope, art136_sec2_3.flagrante_arrest_requirements, art136_sec2_3.flagrante_arrest_unlawfulness, art136_sec2_3.future_duty_exception, art136_sec2_3.identity_check_no_id_card, art136_sec2_3.internal_assignment_and_superior_direction, art136_sec2_3.lawful_performance_prerequisite, art136_sec2_3.lawful_performance_requirements, art136_sec2_3.lawfulness_time_of_act, art136_sec2_3.minor_procedural_violation, art136_sec2_3.protective_room_exception, art136_sec2_3.public_official_definition, art136_sec2_3.voluntary_accompaniment, art136_sec2_4.abstract_danger_offense, art136_sec2_4.active_conduct_requirement, art136_sec2_4.active_confinement_or_dog_release, art136_sec2_4.assault_against_assistant, art136_sec2_4.assault_definition, art136_sec2_4.assault_not_against_officer_exception, art136_sec2_4.noise_as_assault, art136_sec2_4.noise_assault_factors, art136_sec2_4.nontrivial_assault_or_threat, art136_sec2_4.passive_resistance_not_assault, art136_sec2_4.preplaced_obstacles_not_assault, art136_sec2_4.self_harm_not_assault_or_threat, art136_sec2_4.station_disturbance_as_assault, art136_sec2_4.third_party_threat, art136_sec2_4.threat_definition, art136_sec2_4.threat_objective_factors, art136_sec2_4.vehicle_departure_not_assault, art136_sec2_6.illegal_duty_act.other_offenses, art136_sec2_7.assault_threat_absorption, art136_sec2_7.injury_ideal_concurrence, art136_sec2_7.military_criminal_act_special_relation, art136_sec2_7.multiple_officers_same_duty, art136_sec2_7.public_duty_not_business_obstruction, art136_sec2_7.special_public_duty_provisions, art136_sec3_1.article136_2_offense, art136_sec3_3.future_officer_object, art136_sec3_4.article136_2_purpose, art136_sec3_4.nonofficial_act_coercion, art136_sec3_4.official_act_scope, art136_sec3_5.act.violence_or_threat, art136_sec3_5.completion.abstract_danger, art136_sec3_6.assault_threat_absorption
+// sources: comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅰ_0, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_5, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_37, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_25, comm_001692_제136조_Ⅱ.3_34, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_18, comm_001692_제136조_Ⅱ.3_29, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.4_46, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.6_49, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅱ.7_53, comm_001692_제136조_Ⅱ.7_50, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅲ.1_56, comm_001692_제136조_Ⅲ.3_58, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.6_62
+// norm_cards: art136.intent.conditional_intent, art136.intent.officer_and_violence_awareness, art136.intent.taxi_driver_conditional_intent, art136_sec1.special_offense_displacement, art136_sec2_1.offense_conduct, art136_sec2_1.violence, art136_sec2_3.concrete_authority_requirements, art136_sec2_3.duty_execution_scope, art136_sec2_3.flagrante_arrest_requirements, art136_sec2_3.flagrante_arrest_unlawfulness, art136_sec2_3.future_duty_exception, art136_sec2_3.identity_check_no_id_card, art136_sec2_3.internal_assignment_and_superior_direction, art136_sec2_3.lawful_performance_prerequisite, art136_sec2_3.lawful_performance_requirements, art136_sec2_3.lawfulness_time_of_act, art136_sec2_3.minor_procedural_violation, art136_sec2_3.protective_room_exception, art136_sec2_3.public_official_definition, art136_sec2_4.abstract_danger_offense, art136_sec2_4.active_conduct_requirement, art136_sec2_4.active_confinement_or_dog_release, art136_sec2_4.assault_against_assistant, art136_sec2_4.assault_definition, art136_sec2_4.assault_not_against_officer_exception, art136_sec2_4.noise_as_assault, art136_sec2_4.noise_assault_factors, art136_sec2_4.nontrivial_assault_or_threat, art136_sec2_4.passive_resistance_not_assault, art136_sec2_4.preplaced_obstacles_not_assault, art136_sec2_4.self_harm_not_assault_or_threat, art136_sec2_4.station_disturbance_as_assault, art136_sec2_4.third_party_threat, art136_sec2_4.threat_definition, art136_sec2_4.threat_objective_factors, art136_sec2_4.vehicle_departure_not_assault, art136_sec2_6.illegal_duty_act.other_offenses, art136_sec2_7.assault_threat_absorption, art136_sec2_7.injury_ideal_concurrence, art136_sec2_7.military_criminal_act_special_relation, art136_sec2_7.multiple_officers_same_duty, art136_sec2_7.public_duty_not_business_obstruction, art136_sec2_7.special_public_duty_provisions, art136_sec3_1.article136_2_offense, art136_sec3_3.future_officer_object, art136_sec3_4.article136_2_purpose, art136_sec3_4.nonofficial_act_coercion, art136_sec3_4.official_act_scope, art136_sec3_5.act.violence_or_threat, art136_sec3_5.completion.abstract_danger, art136_sec3_6.assault_threat_absorption
 rel obstruction_of_official_duty_has_negative(case_id, defendant_id) = obstruction_of_official_duty_not_established(case_id, defendant_id, norm_card_id)
 
 // rule_id: obstruction_of_official_duty.summary.has_conflict
-// sources: comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅰ_0, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_5, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_37, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_25, comm_001692_제136조_Ⅱ.3_34, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_18, comm_001692_제136조_Ⅱ.3_29, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_30, comm_001692_제136조_Ⅱ.4_46, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.6_49, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅱ.7_53, comm_001692_제136조_Ⅱ.7_50, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅲ.1_56, comm_001692_제136조_Ⅲ.3_58, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.6_62
-// norm_cards: art136.intent.conditional_intent, art136.intent.officer_and_violence_awareness, art136.intent.taxi_driver_conditional_intent, art136_sec1.special_offense_displacement, art136_sec2_1.offense_conduct, art136_sec2_1.violence, art136_sec2_3.concrete_authority_requirements, art136_sec2_3.duty_execution_scope, art136_sec2_3.flagrante_arrest_requirements, art136_sec2_3.flagrante_arrest_unlawfulness, art136_sec2_3.future_duty_exception, art136_sec2_3.identity_check_no_id_card, art136_sec2_3.internal_assignment_and_superior_direction, art136_sec2_3.lawful_performance_prerequisite, art136_sec2_3.lawful_performance_requirements, art136_sec2_3.lawfulness_time_of_act, art136_sec2_3.minor_procedural_violation, art136_sec2_3.protective_room_exception, art136_sec2_3.public_official_definition, art136_sec2_3.voluntary_accompaniment, art136_sec2_4.abstract_danger_offense, art136_sec2_4.active_conduct_requirement, art136_sec2_4.active_confinement_or_dog_release, art136_sec2_4.assault_against_assistant, art136_sec2_4.assault_definition, art136_sec2_4.assault_not_against_officer_exception, art136_sec2_4.noise_as_assault, art136_sec2_4.noise_assault_factors, art136_sec2_4.nontrivial_assault_or_threat, art136_sec2_4.passive_resistance_not_assault, art136_sec2_4.preplaced_obstacles_not_assault, art136_sec2_4.self_harm_not_assault_or_threat, art136_sec2_4.station_disturbance_as_assault, art136_sec2_4.third_party_threat, art136_sec2_4.threat_definition, art136_sec2_4.threat_objective_factors, art136_sec2_4.vehicle_departure_not_assault, art136_sec2_6.illegal_duty_act.other_offenses, art136_sec2_7.assault_threat_absorption, art136_sec2_7.injury_ideal_concurrence, art136_sec2_7.military_criminal_act_special_relation, art136_sec2_7.multiple_officers_same_duty, art136_sec2_7.public_duty_not_business_obstruction, art136_sec2_7.special_public_duty_provisions, art136_sec3_1.article136_2_offense, art136_sec3_3.future_officer_object, art136_sec3_4.article136_2_purpose, art136_sec3_4.nonofficial_act_coercion, art136_sec3_4.official_act_scope, art136_sec3_5.act.violence_or_threat, art136_sec3_5.completion.abstract_danger, art136_sec3_6.assault_threat_absorption
+// sources: comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅰ_0, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_5, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_37, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_25, comm_001692_제136조_Ⅱ.3_34, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_18, comm_001692_제136조_Ⅱ.3_29, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.4_46, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.6_49, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅱ.7_53, comm_001692_제136조_Ⅱ.7_50, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅲ.1_56, comm_001692_제136조_Ⅲ.3_58, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.6_62
+// norm_cards: art136.intent.conditional_intent, art136.intent.officer_and_violence_awareness, art136.intent.taxi_driver_conditional_intent, art136_sec1.special_offense_displacement, art136_sec2_1.offense_conduct, art136_sec2_1.violence, art136_sec2_3.concrete_authority_requirements, art136_sec2_3.duty_execution_scope, art136_sec2_3.flagrante_arrest_requirements, art136_sec2_3.flagrante_arrest_unlawfulness, art136_sec2_3.future_duty_exception, art136_sec2_3.identity_check_no_id_card, art136_sec2_3.internal_assignment_and_superior_direction, art136_sec2_3.lawful_performance_prerequisite, art136_sec2_3.lawful_performance_requirements, art136_sec2_3.lawfulness_time_of_act, art136_sec2_3.minor_procedural_violation, art136_sec2_3.protective_room_exception, art136_sec2_3.public_official_definition, art136_sec2_4.abstract_danger_offense, art136_sec2_4.active_conduct_requirement, art136_sec2_4.active_confinement_or_dog_release, art136_sec2_4.assault_against_assistant, art136_sec2_4.assault_definition, art136_sec2_4.assault_not_against_officer_exception, art136_sec2_4.noise_as_assault, art136_sec2_4.noise_assault_factors, art136_sec2_4.nontrivial_assault_or_threat, art136_sec2_4.passive_resistance_not_assault, art136_sec2_4.preplaced_obstacles_not_assault, art136_sec2_4.self_harm_not_assault_or_threat, art136_sec2_4.station_disturbance_as_assault, art136_sec2_4.third_party_threat, art136_sec2_4.threat_definition, art136_sec2_4.threat_objective_factors, art136_sec2_4.vehicle_departure_not_assault, art136_sec2_6.illegal_duty_act.other_offenses, art136_sec2_7.assault_threat_absorption, art136_sec2_7.injury_ideal_concurrence, art136_sec2_7.military_criminal_act_special_relation, art136_sec2_7.multiple_officers_same_duty, art136_sec2_7.public_duty_not_business_obstruction, art136_sec2_7.special_public_duty_provisions, art136_sec3_1.article136_2_offense, art136_sec3_3.future_officer_object, art136_sec3_4.article136_2_purpose, art136_sec3_4.nonofficial_act_coercion, art136_sec3_4.official_act_scope, art136_sec3_5.act.violence_or_threat, art136_sec3_5.completion.abstract_danger, art136_sec3_6.assault_threat_absorption
 rel obstruction_of_official_duty_has_conflict(case_id, defendant_id) = obstruction_of_official_duty_conflict(case_id, defendant_id, norm_card_id)
 
 // rule_id: obstruction_of_official_duty.summary.canonical_not_established
-// sources: comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅰ_0, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_5, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_37, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_25, comm_001692_제136조_Ⅱ.3_34, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_18, comm_001692_제136조_Ⅱ.3_29, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_30, comm_001692_제136조_Ⅱ.4_46, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.6_49, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅱ.7_53, comm_001692_제136조_Ⅱ.7_50, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅲ.1_56, comm_001692_제136조_Ⅲ.3_58, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.6_62
-// norm_cards: art136.intent.conditional_intent, art136.intent.officer_and_violence_awareness, art136.intent.taxi_driver_conditional_intent, art136_sec1.special_offense_displacement, art136_sec2_1.offense_conduct, art136_sec2_1.violence, art136_sec2_3.concrete_authority_requirements, art136_sec2_3.duty_execution_scope, art136_sec2_3.flagrante_arrest_requirements, art136_sec2_3.flagrante_arrest_unlawfulness, art136_sec2_3.future_duty_exception, art136_sec2_3.identity_check_no_id_card, art136_sec2_3.internal_assignment_and_superior_direction, art136_sec2_3.lawful_performance_prerequisite, art136_sec2_3.lawful_performance_requirements, art136_sec2_3.lawfulness_time_of_act, art136_sec2_3.minor_procedural_violation, art136_sec2_3.protective_room_exception, art136_sec2_3.public_official_definition, art136_sec2_3.voluntary_accompaniment, art136_sec2_4.abstract_danger_offense, art136_sec2_4.active_conduct_requirement, art136_sec2_4.active_confinement_or_dog_release, art136_sec2_4.assault_against_assistant, art136_sec2_4.assault_definition, art136_sec2_4.assault_not_against_officer_exception, art136_sec2_4.noise_as_assault, art136_sec2_4.noise_assault_factors, art136_sec2_4.nontrivial_assault_or_threat, art136_sec2_4.passive_resistance_not_assault, art136_sec2_4.preplaced_obstacles_not_assault, art136_sec2_4.self_harm_not_assault_or_threat, art136_sec2_4.station_disturbance_as_assault, art136_sec2_4.third_party_threat, art136_sec2_4.threat_definition, art136_sec2_4.threat_objective_factors, art136_sec2_4.vehicle_departure_not_assault, art136_sec2_6.illegal_duty_act.other_offenses, art136_sec2_7.assault_threat_absorption, art136_sec2_7.injury_ideal_concurrence, art136_sec2_7.military_criminal_act_special_relation, art136_sec2_7.multiple_officers_same_duty, art136_sec2_7.public_duty_not_business_obstruction, art136_sec2_7.special_public_duty_provisions, art136_sec3_1.article136_2_offense, art136_sec3_3.future_officer_object, art136_sec3_4.article136_2_purpose, art136_sec3_4.nonofficial_act_coercion, art136_sec3_4.official_act_scope, art136_sec3_5.act.violence_or_threat, art136_sec3_5.completion.abstract_danger, art136_sec3_6.assault_threat_absorption
+// sources: comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅰ_0, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_5, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_37, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_25, comm_001692_제136조_Ⅱ.3_34, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_18, comm_001692_제136조_Ⅱ.3_29, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.4_46, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.6_49, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅱ.7_53, comm_001692_제136조_Ⅱ.7_50, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅲ.1_56, comm_001692_제136조_Ⅲ.3_58, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.6_62
+// norm_cards: art136.intent.conditional_intent, art136.intent.officer_and_violence_awareness, art136.intent.taxi_driver_conditional_intent, art136_sec1.special_offense_displacement, art136_sec2_1.offense_conduct, art136_sec2_1.violence, art136_sec2_3.concrete_authority_requirements, art136_sec2_3.duty_execution_scope, art136_sec2_3.flagrante_arrest_requirements, art136_sec2_3.flagrante_arrest_unlawfulness, art136_sec2_3.future_duty_exception, art136_sec2_3.identity_check_no_id_card, art136_sec2_3.internal_assignment_and_superior_direction, art136_sec2_3.lawful_performance_prerequisite, art136_sec2_3.lawful_performance_requirements, art136_sec2_3.lawfulness_time_of_act, art136_sec2_3.minor_procedural_violation, art136_sec2_3.protective_room_exception, art136_sec2_3.public_official_definition, art136_sec2_4.abstract_danger_offense, art136_sec2_4.active_conduct_requirement, art136_sec2_4.active_confinement_or_dog_release, art136_sec2_4.assault_against_assistant, art136_sec2_4.assault_definition, art136_sec2_4.assault_not_against_officer_exception, art136_sec2_4.noise_as_assault, art136_sec2_4.noise_assault_factors, art136_sec2_4.nontrivial_assault_or_threat, art136_sec2_4.passive_resistance_not_assault, art136_sec2_4.preplaced_obstacles_not_assault, art136_sec2_4.self_harm_not_assault_or_threat, art136_sec2_4.station_disturbance_as_assault, art136_sec2_4.third_party_threat, art136_sec2_4.threat_definition, art136_sec2_4.threat_objective_factors, art136_sec2_4.vehicle_departure_not_assault, art136_sec2_6.illegal_duty_act.other_offenses, art136_sec2_7.assault_threat_absorption, art136_sec2_7.injury_ideal_concurrence, art136_sec2_7.military_criminal_act_special_relation, art136_sec2_7.multiple_officers_same_duty, art136_sec2_7.public_duty_not_business_obstruction, art136_sec2_7.special_public_duty_provisions, art136_sec3_1.article136_2_offense, art136_sec3_3.future_officer_object, art136_sec3_4.article136_2_purpose, art136_sec3_4.nonofficial_act_coercion, art136_sec3_4.official_act_scope, art136_sec3_5.act.violence_or_threat, art136_sec3_5.completion.abstract_danger, art136_sec3_6.assault_threat_absorption
 rel obstruction_of_official_duty_not_established(case_id, defendant_id, norm_card_id) = obstruction_of_official_duty_track_not_established(case_id, defendant_id, track_id, norm_card_id)
 
 // rule_id: obstruction_of_official_duty.summary.track_has_negative
-// sources: comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅰ_0, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_5, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_37, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_25, comm_001692_제136조_Ⅱ.3_34, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_18, comm_001692_제136조_Ⅱ.3_29, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_30, comm_001692_제136조_Ⅱ.4_46, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.6_49, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅱ.7_53, comm_001692_제136조_Ⅱ.7_50, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅲ.1_56, comm_001692_제136조_Ⅲ.3_58, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.6_62
-// norm_cards: art136.intent.conditional_intent, art136.intent.officer_and_violence_awareness, art136.intent.taxi_driver_conditional_intent, art136_sec1.special_offense_displacement, art136_sec2_1.offense_conduct, art136_sec2_1.violence, art136_sec2_3.concrete_authority_requirements, art136_sec2_3.duty_execution_scope, art136_sec2_3.flagrante_arrest_requirements, art136_sec2_3.flagrante_arrest_unlawfulness, art136_sec2_3.future_duty_exception, art136_sec2_3.identity_check_no_id_card, art136_sec2_3.internal_assignment_and_superior_direction, art136_sec2_3.lawful_performance_prerequisite, art136_sec2_3.lawful_performance_requirements, art136_sec2_3.lawfulness_time_of_act, art136_sec2_3.minor_procedural_violation, art136_sec2_3.protective_room_exception, art136_sec2_3.public_official_definition, art136_sec2_3.voluntary_accompaniment, art136_sec2_4.abstract_danger_offense, art136_sec2_4.active_conduct_requirement, art136_sec2_4.active_confinement_or_dog_release, art136_sec2_4.assault_against_assistant, art136_sec2_4.assault_definition, art136_sec2_4.assault_not_against_officer_exception, art136_sec2_4.noise_as_assault, art136_sec2_4.noise_assault_factors, art136_sec2_4.nontrivial_assault_or_threat, art136_sec2_4.passive_resistance_not_assault, art136_sec2_4.preplaced_obstacles_not_assault, art136_sec2_4.self_harm_not_assault_or_threat, art136_sec2_4.station_disturbance_as_assault, art136_sec2_4.third_party_threat, art136_sec2_4.threat_definition, art136_sec2_4.threat_objective_factors, art136_sec2_4.vehicle_departure_not_assault, art136_sec2_6.illegal_duty_act.other_offenses, art136_sec2_7.assault_threat_absorption, art136_sec2_7.injury_ideal_concurrence, art136_sec2_7.military_criminal_act_special_relation, art136_sec2_7.multiple_officers_same_duty, art136_sec2_7.public_duty_not_business_obstruction, art136_sec2_7.special_public_duty_provisions, art136_sec3_1.article136_2_offense, art136_sec3_3.future_officer_object, art136_sec3_4.article136_2_purpose, art136_sec3_4.nonofficial_act_coercion, art136_sec3_4.official_act_scope, art136_sec3_5.act.violence_or_threat, art136_sec3_5.completion.abstract_danger, art136_sec3_6.assault_threat_absorption
+// sources: comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅰ_0, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_5, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_37, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_25, comm_001692_제136조_Ⅱ.3_34, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_18, comm_001692_제136조_Ⅱ.3_29, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.4_46, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.6_49, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅱ.7_53, comm_001692_제136조_Ⅱ.7_50, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅲ.1_56, comm_001692_제136조_Ⅲ.3_58, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.6_62
+// norm_cards: art136.intent.conditional_intent, art136.intent.officer_and_violence_awareness, art136.intent.taxi_driver_conditional_intent, art136_sec1.special_offense_displacement, art136_sec2_1.offense_conduct, art136_sec2_1.violence, art136_sec2_3.concrete_authority_requirements, art136_sec2_3.duty_execution_scope, art136_sec2_3.flagrante_arrest_requirements, art136_sec2_3.flagrante_arrest_unlawfulness, art136_sec2_3.future_duty_exception, art136_sec2_3.identity_check_no_id_card, art136_sec2_3.internal_assignment_and_superior_direction, art136_sec2_3.lawful_performance_prerequisite, art136_sec2_3.lawful_performance_requirements, art136_sec2_3.lawfulness_time_of_act, art136_sec2_3.minor_procedural_violation, art136_sec2_3.protective_room_exception, art136_sec2_3.public_official_definition, art136_sec2_4.abstract_danger_offense, art136_sec2_4.active_conduct_requirement, art136_sec2_4.active_confinement_or_dog_release, art136_sec2_4.assault_against_assistant, art136_sec2_4.assault_definition, art136_sec2_4.assault_not_against_officer_exception, art136_sec2_4.noise_as_assault, art136_sec2_4.noise_assault_factors, art136_sec2_4.nontrivial_assault_or_threat, art136_sec2_4.passive_resistance_not_assault, art136_sec2_4.preplaced_obstacles_not_assault, art136_sec2_4.self_harm_not_assault_or_threat, art136_sec2_4.station_disturbance_as_assault, art136_sec2_4.third_party_threat, art136_sec2_4.threat_definition, art136_sec2_4.threat_objective_factors, art136_sec2_4.vehicle_departure_not_assault, art136_sec2_6.illegal_duty_act.other_offenses, art136_sec2_7.assault_threat_absorption, art136_sec2_7.injury_ideal_concurrence, art136_sec2_7.military_criminal_act_special_relation, art136_sec2_7.multiple_officers_same_duty, art136_sec2_7.public_duty_not_business_obstruction, art136_sec2_7.special_public_duty_provisions, art136_sec3_1.article136_2_offense, art136_sec3_3.future_officer_object, art136_sec3_4.article136_2_purpose, art136_sec3_4.nonofficial_act_coercion, art136_sec3_4.official_act_scope, art136_sec3_5.act.violence_or_threat, art136_sec3_5.completion.abstract_danger, art136_sec3_6.assault_threat_absorption
 rel obstruction_of_official_duty_track_has_negative(case_id, defendant_id, track_id) = obstruction_of_official_duty_track_not_established(case_id, defendant_id, track_id, norm_card_id)
 
 // rule_id: obstruction_of_official_duty.summary.track_has_conflict
-// sources: comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅰ_0, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_5, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_37, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_25, comm_001692_제136조_Ⅱ.3_34, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_18, comm_001692_제136조_Ⅱ.3_29, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_30, comm_001692_제136조_Ⅱ.4_46, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.6_49, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅱ.7_53, comm_001692_제136조_Ⅱ.7_50, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅲ.1_56, comm_001692_제136조_Ⅲ.3_58, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.6_62
-// norm_cards: art136.intent.conditional_intent, art136.intent.officer_and_violence_awareness, art136.intent.taxi_driver_conditional_intent, art136_sec1.special_offense_displacement, art136_sec2_1.offense_conduct, art136_sec2_1.violence, art136_sec2_3.concrete_authority_requirements, art136_sec2_3.duty_execution_scope, art136_sec2_3.flagrante_arrest_requirements, art136_sec2_3.flagrante_arrest_unlawfulness, art136_sec2_3.future_duty_exception, art136_sec2_3.identity_check_no_id_card, art136_sec2_3.internal_assignment_and_superior_direction, art136_sec2_3.lawful_performance_prerequisite, art136_sec2_3.lawful_performance_requirements, art136_sec2_3.lawfulness_time_of_act, art136_sec2_3.minor_procedural_violation, art136_sec2_3.protective_room_exception, art136_sec2_3.public_official_definition, art136_sec2_3.voluntary_accompaniment, art136_sec2_4.abstract_danger_offense, art136_sec2_4.active_conduct_requirement, art136_sec2_4.active_confinement_or_dog_release, art136_sec2_4.assault_against_assistant, art136_sec2_4.assault_definition, art136_sec2_4.assault_not_against_officer_exception, art136_sec2_4.noise_as_assault, art136_sec2_4.noise_assault_factors, art136_sec2_4.nontrivial_assault_or_threat, art136_sec2_4.passive_resistance_not_assault, art136_sec2_4.preplaced_obstacles_not_assault, art136_sec2_4.self_harm_not_assault_or_threat, art136_sec2_4.station_disturbance_as_assault, art136_sec2_4.third_party_threat, art136_sec2_4.threat_definition, art136_sec2_4.threat_objective_factors, art136_sec2_4.vehicle_departure_not_assault, art136_sec2_6.illegal_duty_act.other_offenses, art136_sec2_7.assault_threat_absorption, art136_sec2_7.injury_ideal_concurrence, art136_sec2_7.military_criminal_act_special_relation, art136_sec2_7.multiple_officers_same_duty, art136_sec2_7.public_duty_not_business_obstruction, art136_sec2_7.special_public_duty_provisions, art136_sec3_1.article136_2_offense, art136_sec3_3.future_officer_object, art136_sec3_4.article136_2_purpose, art136_sec3_4.nonofficial_act_coercion, art136_sec3_4.official_act_scope, art136_sec3_5.act.violence_or_threat, art136_sec3_5.completion.abstract_danger, art136_sec3_6.assault_threat_absorption
+// sources: comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅰ_0, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_5, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_37, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_25, comm_001692_제136조_Ⅱ.3_34, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_18, comm_001692_제136조_Ⅱ.3_29, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.4_46, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.6_49, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅱ.7_53, comm_001692_제136조_Ⅱ.7_50, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅲ.1_56, comm_001692_제136조_Ⅲ.3_58, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.4_59, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.5_61, comm_001692_제136조_Ⅲ.6_62
+// norm_cards: art136.intent.conditional_intent, art136.intent.officer_and_violence_awareness, art136.intent.taxi_driver_conditional_intent, art136_sec1.special_offense_displacement, art136_sec2_1.offense_conduct, art136_sec2_1.violence, art136_sec2_3.concrete_authority_requirements, art136_sec2_3.duty_execution_scope, art136_sec2_3.flagrante_arrest_requirements, art136_sec2_3.flagrante_arrest_unlawfulness, art136_sec2_3.future_duty_exception, art136_sec2_3.identity_check_no_id_card, art136_sec2_3.internal_assignment_and_superior_direction, art136_sec2_3.lawful_performance_prerequisite, art136_sec2_3.lawful_performance_requirements, art136_sec2_3.lawfulness_time_of_act, art136_sec2_3.minor_procedural_violation, art136_sec2_3.protective_room_exception, art136_sec2_3.public_official_definition, art136_sec2_4.abstract_danger_offense, art136_sec2_4.active_conduct_requirement, art136_sec2_4.active_confinement_or_dog_release, art136_sec2_4.assault_against_assistant, art136_sec2_4.assault_definition, art136_sec2_4.assault_not_against_officer_exception, art136_sec2_4.noise_as_assault, art136_sec2_4.noise_assault_factors, art136_sec2_4.nontrivial_assault_or_threat, art136_sec2_4.passive_resistance_not_assault, art136_sec2_4.preplaced_obstacles_not_assault, art136_sec2_4.self_harm_not_assault_or_threat, art136_sec2_4.station_disturbance_as_assault, art136_sec2_4.third_party_threat, art136_sec2_4.threat_definition, art136_sec2_4.threat_objective_factors, art136_sec2_4.vehicle_departure_not_assault, art136_sec2_6.illegal_duty_act.other_offenses, art136_sec2_7.assault_threat_absorption, art136_sec2_7.injury_ideal_concurrence, art136_sec2_7.military_criminal_act_special_relation, art136_sec2_7.multiple_officers_same_duty, art136_sec2_7.public_duty_not_business_obstruction, art136_sec2_7.special_public_duty_provisions, art136_sec3_1.article136_2_offense, art136_sec3_3.future_officer_object, art136_sec3_4.article136_2_purpose, art136_sec3_4.nonofficial_act_coercion, art136_sec3_4.official_act_scope, art136_sec3_5.act.violence_or_threat, art136_sec3_5.completion.abstract_danger, art136_sec3_6.assault_threat_absorption
 rel obstruction_of_official_duty_track_has_conflict(case_id, defendant_id, track_id) = obstruction_of_official_duty_track_conflict(case_id, defendant_id, track_id, norm_card_id)
 
 // rule_id: obstruction_of_official_duty.outcome.base.elements_satisfied
-// sources: comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅰ_0, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_5, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_37, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_25, comm_001692_제136조_Ⅱ.3_34, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_18, comm_001692_제136조_Ⅱ.3_29, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_30, comm_001692_제136조_Ⅱ.4_46, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.6_49, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅱ.7_53, comm_001692_제136조_Ⅱ.7_50, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52
-// norm_cards: art136.intent.conditional_intent, art136.intent.officer_and_violence_awareness, art136.intent.taxi_driver_conditional_intent, art136_sec1.special_offense_displacement, art136_sec2_1.offense_conduct, art136_sec2_1.violence, art136_sec2_3.concrete_authority_requirements, art136_sec2_3.duty_execution_scope, art136_sec2_3.flagrante_arrest_requirements, art136_sec2_3.flagrante_arrest_unlawfulness, art136_sec2_3.future_duty_exception, art136_sec2_3.identity_check_no_id_card, art136_sec2_3.internal_assignment_and_superior_direction, art136_sec2_3.lawful_performance_prerequisite, art136_sec2_3.lawful_performance_requirements, art136_sec2_3.lawfulness_time_of_act, art136_sec2_3.minor_procedural_violation, art136_sec2_3.protective_room_exception, art136_sec2_3.public_official_definition, art136_sec2_3.voluntary_accompaniment, art136_sec2_4.abstract_danger_offense, art136_sec2_4.active_conduct_requirement, art136_sec2_4.active_confinement_or_dog_release, art136_sec2_4.assault_against_assistant, art136_sec2_4.assault_definition, art136_sec2_4.assault_not_against_officer_exception, art136_sec2_4.noise_as_assault, art136_sec2_4.noise_assault_factors, art136_sec2_4.nontrivial_assault_or_threat, art136_sec2_4.passive_resistance_not_assault, art136_sec2_4.preplaced_obstacles_not_assault, art136_sec2_4.self_harm_not_assault_or_threat, art136_sec2_4.station_disturbance_as_assault, art136_sec2_4.third_party_threat, art136_sec2_4.threat_definition, art136_sec2_4.threat_objective_factors, art136_sec2_4.vehicle_departure_not_assault, art136_sec2_6.illegal_duty_act.other_offenses, art136_sec2_7.assault_threat_absorption, art136_sec2_7.injury_ideal_concurrence, art136_sec2_7.military_criminal_act_special_relation, art136_sec2_7.multiple_officers_same_duty, art136_sec2_7.public_duty_not_business_obstruction, art136_sec2_7.special_public_duty_provisions
+// sources: comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅰ_0, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_5, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_37, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_25, comm_001692_제136조_Ⅱ.3_34, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_18, comm_001692_제136조_Ⅱ.3_29, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.4_46, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.6_49, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅱ.7_53, comm_001692_제136조_Ⅱ.7_50, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52
+// norm_cards: art136.intent.conditional_intent, art136.intent.officer_and_violence_awareness, art136.intent.taxi_driver_conditional_intent, art136_sec1.special_offense_displacement, art136_sec2_1.offense_conduct, art136_sec2_1.violence, art136_sec2_3.concrete_authority_requirements, art136_sec2_3.duty_execution_scope, art136_sec2_3.flagrante_arrest_requirements, art136_sec2_3.flagrante_arrest_unlawfulness, art136_sec2_3.future_duty_exception, art136_sec2_3.identity_check_no_id_card, art136_sec2_3.internal_assignment_and_superior_direction, art136_sec2_3.lawful_performance_prerequisite, art136_sec2_3.lawful_performance_requirements, art136_sec2_3.lawfulness_time_of_act, art136_sec2_3.minor_procedural_violation, art136_sec2_3.protective_room_exception, art136_sec2_3.public_official_definition, art136_sec2_4.abstract_danger_offense, art136_sec2_4.active_conduct_requirement, art136_sec2_4.active_confinement_or_dog_release, art136_sec2_4.assault_against_assistant, art136_sec2_4.assault_definition, art136_sec2_4.assault_not_against_officer_exception, art136_sec2_4.noise_as_assault, art136_sec2_4.noise_assault_factors, art136_sec2_4.nontrivial_assault_or_threat, art136_sec2_4.passive_resistance_not_assault, art136_sec2_4.preplaced_obstacles_not_assault, art136_sec2_4.self_harm_not_assault_or_threat, art136_sec2_4.station_disturbance_as_assault, art136_sec2_4.third_party_threat, art136_sec2_4.threat_definition, art136_sec2_4.threat_objective_factors, art136_sec2_4.vehicle_departure_not_assault, art136_sec2_6.illegal_duty_act.other_offenses, art136_sec2_7.assault_threat_absorption, art136_sec2_7.injury_ideal_concurrence, art136_sec2_7.military_criminal_act_special_relation, art136_sec2_7.multiple_officers_same_duty, art136_sec2_7.public_duty_not_business_obstruction, art136_sec2_7.special_public_duty_provisions
 rel obstruction_of_official_duty_base_elements_satisfied(case_id, defendant_id, official_id, official_duty_id) = obstruction_of_official_duty_base_intent_satisfied(case_id, defendant_id, official_id, official_duty_id) and
   obstruction_of_official_duty_base_lawful_duty_execution_satisfied(case_id, defendant_id, official_id, official_duty_id) and
   obstruction_of_official_duty_base_public_official_object_satisfied(case_id, defendant_id, official_id, official_duty_id) and
   obstruction_of_official_duty_base_violence_or_threat_satisfied(case_id, defendant_id, official_id, official_duty_id)
 
 // rule_id: obstruction_of_official_duty.outcome.base.established
-// sources: comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅰ_0, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_5, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_37, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_25, comm_001692_제136조_Ⅱ.3_34, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_18, comm_001692_제136조_Ⅱ.3_29, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_20, comm_001692_제136조_Ⅱ.3_30, comm_001692_제136조_Ⅱ.4_46, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.6_49, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅱ.7_53, comm_001692_제136조_Ⅱ.7_50, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52
-// norm_cards: art136.intent.conditional_intent, art136.intent.officer_and_violence_awareness, art136.intent.taxi_driver_conditional_intent, art136_sec1.special_offense_displacement, art136_sec2_1.offense_conduct, art136_sec2_1.violence, art136_sec2_3.concrete_authority_requirements, art136_sec2_3.duty_execution_scope, art136_sec2_3.flagrante_arrest_requirements, art136_sec2_3.flagrante_arrest_unlawfulness, art136_sec2_3.future_duty_exception, art136_sec2_3.identity_check_no_id_card, art136_sec2_3.internal_assignment_and_superior_direction, art136_sec2_3.lawful_performance_prerequisite, art136_sec2_3.lawful_performance_requirements, art136_sec2_3.lawfulness_time_of_act, art136_sec2_3.minor_procedural_violation, art136_sec2_3.protective_room_exception, art136_sec2_3.public_official_definition, art136_sec2_3.voluntary_accompaniment, art136_sec2_4.abstract_danger_offense, art136_sec2_4.active_conduct_requirement, art136_sec2_4.active_confinement_or_dog_release, art136_sec2_4.assault_against_assistant, art136_sec2_4.assault_definition, art136_sec2_4.assault_not_against_officer_exception, art136_sec2_4.noise_as_assault, art136_sec2_4.noise_assault_factors, art136_sec2_4.nontrivial_assault_or_threat, art136_sec2_4.passive_resistance_not_assault, art136_sec2_4.preplaced_obstacles_not_assault, art136_sec2_4.self_harm_not_assault_or_threat, art136_sec2_4.station_disturbance_as_assault, art136_sec2_4.third_party_threat, art136_sec2_4.threat_definition, art136_sec2_4.threat_objective_factors, art136_sec2_4.vehicle_departure_not_assault, art136_sec2_6.illegal_duty_act.other_offenses, art136_sec2_7.assault_threat_absorption, art136_sec2_7.injury_ideal_concurrence, art136_sec2_7.military_criminal_act_special_relation, art136_sec2_7.multiple_officers_same_duty, art136_sec2_7.public_duty_not_business_obstruction, art136_sec2_7.special_public_duty_provisions
+// sources: comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅱ.5_47, comm_001692_제136조_Ⅰ_0, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.1_2, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_14, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_5, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_37, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_16, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_25, comm_001692_제136조_Ⅱ.3_34, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_11, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_36, comm_001692_제136조_Ⅱ.3_10, comm_001692_제136조_Ⅱ.3_28, comm_001692_제136조_Ⅱ.3_9, comm_001692_제136조_Ⅱ.3_18, comm_001692_제136조_Ⅱ.3_29, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.3_4, comm_001692_제136조_Ⅱ.4_46, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_41, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_45, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_43, comm_001692_제136조_Ⅱ.4_42, comm_001692_제136조_Ⅱ.6_49, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52, comm_001692_제136조_Ⅱ.7_53, comm_001692_제136조_Ⅱ.7_50, comm_001692_제136조_Ⅱ.7_51, comm_001692_제136조_Ⅱ.7_52
+// norm_cards: art136.intent.conditional_intent, art136.intent.officer_and_violence_awareness, art136.intent.taxi_driver_conditional_intent, art136_sec1.special_offense_displacement, art136_sec2_1.offense_conduct, art136_sec2_1.violence, art136_sec2_3.concrete_authority_requirements, art136_sec2_3.duty_execution_scope, art136_sec2_3.flagrante_arrest_requirements, art136_sec2_3.flagrante_arrest_unlawfulness, art136_sec2_3.future_duty_exception, art136_sec2_3.identity_check_no_id_card, art136_sec2_3.internal_assignment_and_superior_direction, art136_sec2_3.lawful_performance_prerequisite, art136_sec2_3.lawful_performance_requirements, art136_sec2_3.lawfulness_time_of_act, art136_sec2_3.minor_procedural_violation, art136_sec2_3.protective_room_exception, art136_sec2_3.public_official_definition, art136_sec2_4.abstract_danger_offense, art136_sec2_4.active_conduct_requirement, art136_sec2_4.active_confinement_or_dog_release, art136_sec2_4.assault_against_assistant, art136_sec2_4.assault_definition, art136_sec2_4.assault_not_against_officer_exception, art136_sec2_4.noise_as_assault, art136_sec2_4.noise_assault_factors, art136_sec2_4.nontrivial_assault_or_threat, art136_sec2_4.passive_resistance_not_assault, art136_sec2_4.preplaced_obstacles_not_assault, art136_sec2_4.self_harm_not_assault_or_threat, art136_sec2_4.station_disturbance_as_assault, art136_sec2_4.third_party_threat, art136_sec2_4.threat_definition, art136_sec2_4.threat_objective_factors, art136_sec2_4.vehicle_departure_not_assault, art136_sec2_6.illegal_duty_act.other_offenses, art136_sec2_7.assault_threat_absorption, art136_sec2_7.injury_ideal_concurrence, art136_sec2_7.military_criminal_act_special_relation, art136_sec2_7.multiple_officers_same_duty, art136_sec2_7.public_duty_not_business_obstruction, art136_sec2_7.special_public_duty_provisions
 rel obstruction_of_official_duty_base_established(case_id, defendant_id, official_id, official_duty_id) = obstruction_of_official_duty_base_elements_satisfied(case_id, defendant_id, official_id, official_duty_id) and
   case_assessment_complete(case_id, defendant_id) and
   ~obstruction_of_official_duty_track_has_negative(case_id, defendant_id, "base") and

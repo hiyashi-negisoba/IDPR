@@ -5,7 +5,7 @@
 ## 전체 구조
 
 - rule_set_id: `kr.property.extortion.full.v1_candidate`
-- predicate: 143개
+- predicate: 144개
 - rule: 221개
 - NormCard: 41개
 
@@ -947,7 +947,7 @@
 명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함
 
 - 종류/역할: `rule` / `derived`
-- 연결 NormCard: `art350_sec3.own_property_exception`, `art350_sec4_1.objectively_insufficient_threat`, `art350_sec4_1.robbery_boundary`, `art350_sec4_2.right_exercise_exception`, `art350_sec5_2.fear_causation_required`, `art350_sec5_2.no_fear_attempt`, `art350_sec5_3.complete_suppression_robbery`, `art350_sec6_2.satisfied_consideration_causation_exception`, `art350_sec8_2.permitted_threat_no_extortion`, `art350_sec8_2.right_exercise_total_assessment`
+- 연결 NormCard: `art350_sec3.own_property_exception`, `art350_sec4_1.objectively_insufficient_threat`, `art350_sec4_1.robbery_boundary`, `art350_sec4_2.right_exercise_exception`, `art350_sec5_2.fear_causation_required`, `art350_sec5_2.no_fear_attempt`, `art350_sec5_3.complete_suppression_robbery`, `art350_sec6_2.satisfied_consideration_causation_exception`, `art350_sec8_2.permitted_threat_no_extortion`
 
 ### `extortion_undetermined(case_id: String, defendant_id: String, issue_id: String)`
 
@@ -968,7 +968,7 @@
 해당 피고인에 관해 하나 이상의 명시적 불성립 사유가 존재함
 
 - 종류/역할: `rule` / `derived`
-- 연결 NormCard: `art350_sec3.own_property_exception`, `art350_sec4_1.objectively_insufficient_threat`, `art350_sec4_1.robbery_boundary`, `art350_sec4_2.right_exercise_exception`, `art350_sec5_2.fear_causation_required`, `art350_sec5_2.no_fear_attempt`, `art350_sec5_3.complete_suppression_robbery`, `art350_sec6_2.satisfied_consideration_causation_exception`, `art350_sec8_2.permitted_threat_no_extortion`, `art350_sec8_2.right_exercise_total_assessment`
+- 연결 NormCard: `art350_sec3.own_property_exception`, `art350_sec4_1.objectively_insufficient_threat`, `art350_sec4_1.robbery_boundary`, `art350_sec4_2.right_exercise_exception`, `art350_sec5_2.fear_causation_required`, `art350_sec5_2.no_fear_attempt`, `art350_sec5_3.complete_suppression_robbery`, `art350_sec6_2.satisfied_consideration_causation_exception`, `art350_sec8_2.permitted_threat_no_extortion`
 
 ### `extortion_has_conflict(case_id: String, defendant_id: String)`
 
@@ -984,19 +984,26 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art350_sec1.defective_disposition`, `art350_sec1.extortion_definition`, `art350_sec3.object`, `art350_sec3.possessed_property_object_affirmative`, `art350_sec3.real_estate_object`, `art350_sec4_1.means_threat_or_violence`, `art350_sec4_1.objective_fear_assessment`, `art350_sec4_2.implied_or_indirect_threat`, `art350_sec4_2.third_party_harm_notice`, `art350_sec4_2.threat_definition`, `art350_sec4_2.threat_to_third_party`, `art350_sec4_4.separate_victim_disposition_authority`, `art350_sec4_4.victim_capacity`, `art350_sec5_1.threat_fear_disposition_gain`, `art350_sec5_2.preexisting_fear_maintained`, `art350_sec5_3.delivery_tacit_acquiescence`, `art350_sec5_3.third_party_receipt_relationship`, `art350_sec6_2.consideration_does_not_negate_extortion`, `art350_sec7_1.attempt_threat_notification`, `art350_sec7_2.completion.fear_disposition_causal_link`, `art350_sec7_3.completion.bank_transfer`, `art350_sec7_3.completion.property_and_benefit`, `art350_sec8_1.right_enforcement_method_standard`, `art350_sec8_2.extortion_loss_despite_payment_duty`, `art350_sec8_2.no_right_extortion`, `art350_sec8_2.permissible_range_purpose_means`, `art350_sec8_2.rightful_claim_excessive_method`, `art350_sec9.illicit_gain_intent.required`, `art350_sec9.intent.objective_elements`
 
-### `extortion_requirement_waived(case_id: String, defendant_id: String, issue_id: String)`
+### `extortion_requirement_waived(case_id: String, defendant_id: String, issue_id: String, value: String)`
 
 이 죄의 성립에 요구되지 않는 요건이 확인됨 — 성립을 막지 않는다
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art350_sec4_2.actual_intent_or_feasibility_not_required`, `art350_sec6.no_overall_property_decrease`
 
-### `extortion_boundary_shift(case_id: String, defendant_id: String, issue_id: String)`
+### `extortion_boundary_shift(case_id: String, defendant_id: String, issue_id: String, value: String)`
 
 이 죄가 아니라 다른 죄로 평가되는 경계 사유가 확인됨
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art350_sec4_1.objectively_insufficient_threat`, `art350_sec4_1.robbery_boundary`, `art350_sec5_3.complete_suppression_robbery`
+
+### `extortion_assessment_standard(case_id: String, defendant_id: String, issue_id: String, value: String)`
+
+이 요건을 어떤 기준으로 판단하는지 — 기준일 뿐 충족 여부의 결론이 아니다
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art350_sec8_2.right_exercise_total_assessment`
 
 ### `extortion_refers_to_crime(case_id: String, defendant_id: String, crime_name: String)`
 
@@ -3684,18 +3691,6 @@
 
 검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
 
-### `extortion.art350_sec8_2.bar.010`
-
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
-
-필요한 전제:
-
-- 증명 가능한 평가에서 다음 조건이 충족됨: 권리행사에 수반된 공갈행위의 위법성 조각 여부는 권리행사와 수단행위를 전체적으로 관찰하여, 그 공갈행위가 권리행사의 수단으로 사회통념상 용인될 수 있는지에 따라 판단한다.
-
-연결 NormCard: `art350_sec8_2.right_exercise_total_assessment`
-
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
-
 ### `extortion.component.l0.mandatory_negative.01`
 
 이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
@@ -3804,7 +3799,7 @@
 
 - 명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함
 
-연결 NormCard: `art350_sec3.own_property_exception`, `art350_sec4_1.objectively_insufficient_threat`, `art350_sec4_1.robbery_boundary`, `art350_sec4_2.right_exercise_exception`, `art350_sec5_2.fear_causation_required`, `art350_sec5_2.no_fear_attempt`, `art350_sec5_3.complete_suppression_robbery`, `art350_sec6_2.satisfied_consideration_causation_exception`, `art350_sec8_2.permitted_threat_no_extortion`, `art350_sec8_2.right_exercise_total_assessment`
+연결 NormCard: `art350_sec3.own_property_exception`, `art350_sec4_1.objectively_insufficient_threat`, `art350_sec4_1.robbery_boundary`, `art350_sec4_2.right_exercise_exception`, `art350_sec5_2.fear_causation_required`, `art350_sec5_2.no_fear_attempt`, `art350_sec5_3.complete_suppression_robbery`, `art350_sec6_2.satisfied_consideration_causation_exception`, `art350_sec8_2.permitted_threat_no_extortion`
 
 검토 메모: 명시적 불성립 사유를 최종 결론 계층에서 검사할 2항 relation으로 모은다.
 
@@ -3894,6 +3889,18 @@
 연결 NormCard: `art350_sec5_3.complete_suppression_robbery`
 
 검토 메모: 이 죄의 불성립과 함께 다른 죄로 넘어간다는 신호를 남긴다.
+
+### `extortion.art350_sec8_2.assessment_standard.001`
+
+이 규칙은 **이 요건을 어떤 기준으로 판단하는지 — 기준일 뿐 충족 여부의 결론이 아니다**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 권리행사에 수반된 공갈행위의 위법성 조각 여부는 권리행사와 수단행위를 전체적으로 관찰하여, 그 공갈행위가 권리행사의 수단으로 사회통념상 용인될 수 있는지에 따라 판단한다.
+
+연결 NormCard: `art350_sec8_2.right_exercise_total_assessment`
+
+검토 메모: 판단기준은 결론 계층에 연결하지 않는다. 기준으로 성립을 만들거나 막으면 정의만으로 유·무죄가 갈린다.
 
 ### `extortion.art350_sec4_1.refers_to_crime.001`
 

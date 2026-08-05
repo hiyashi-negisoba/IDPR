@@ -561,7 +561,7 @@ type interference_with_exercise_of_right_established(String, String, String)
 // interference_with_exercise_of_right_requirement_waived: 이 죄의 성립에 요구되지 않는 요건이 확인됨 — 성립을 막지 않는다
 // sources: comm_001692_제323조_Ⅰ.1_0, comm_001692_제323조_Ⅲ_18
 // norm_cards: art323_sec1_1.no_unlawful_appropriation_intent, art323_sec3.no_intent_to_appropriate_required
-type interference_with_exercise_of_right_requirement_waived(String, String, String)
+type interference_with_exercise_of_right_requirement_waived(String, String, String, String)
 
 // property_crime_established: 재산죄 성립을 공유 수정요소(친족상도례·업무자 신분)에 넘기는 브리지
 // sources: comm_001692_제323조_Ⅰ.1_0, comm_001692_제323조_Ⅰ.1_0, comm_001692_제323조_Ⅱ.1_2, comm_001692_제323조_Ⅱ.2_10, comm_001692_제323조_Ⅱ.2_12, comm_001692_제323조_Ⅱ.2_4, comm_001692_제323조_Ⅱ.2_5, comm_001692_제323조_Ⅱ.2_5, comm_001692_제323조_Ⅱ.2_5, comm_001692_제323조_Ⅱ.2_7, comm_001692_제323조_Ⅱ.2_8, comm_001692_제323조_Ⅱ.2_8, comm_001692_제323조_Ⅱ.2_9, comm_001692_제323조_Ⅱ.2_9, comm_001692_제323조_Ⅱ.2_9, comm_001692_제323조_Ⅱ.2_9, comm_001692_제323조_Ⅱ.2_9, comm_001692_제323조_Ⅱ.2_9, comm_001692_제323조_Ⅱ.3_14, comm_001692_제323조_Ⅱ.3_15, comm_001692_제323조_Ⅱ.3_16, comm_001692_제323조_Ⅱ.3_16, comm_001692_제323조_Ⅱ.3_16, comm_001692_제323조_Ⅲ_18, comm_001692_제323조_Ⅲ_18, comm_001692_제323조_Ⅵ.3_23
@@ -1612,12 +1612,12 @@ rel interference_with_exercise_of_right_established(case_id, defendant_id, right
 // rule_id: interference_with_exercise_of_right.art323_sec1_1.requirement_waived.001
 // sources: comm_001692_제323조_Ⅰ.1_0
 // norm_cards: art323_sec1_1.no_unlawful_appropriation_intent
-rel interference_with_exercise_of_right_requirement_waived(case_id, defendant_id, "art323_sec1_1.no_unlawful_appropriation_intent") = satisfied_art323_sec1_1_no_unlawful_appropriation_intent(case_id, defendant_id, right_holder_id)
+rel interference_with_exercise_of_right_requirement_waived(case_id, defendant_id, "art323_sec1_1.no_unlawful_appropriation_intent", "불법영득의사") = satisfied_art323_sec1_1_no_unlawful_appropriation_intent(case_id, defendant_id, right_holder_id)
 
 // rule_id: interference_with_exercise_of_right.art323_sec3.requirement_waived.002
 // sources: comm_001692_제323조_Ⅲ_18
 // norm_cards: art323_sec3.no_intent_to_appropriate_required
-rel interference_with_exercise_of_right_requirement_waived(case_id, defendant_id, "art323_sec3.no_intent_to_appropriate_required") = satisfied_art323_sec3_no_intent_to_appropriate_required(case_id, defendant_id, right_holder_id)
+rel interference_with_exercise_of_right_requirement_waived(case_id, defendant_id, "art323_sec3.no_intent_to_appropriate_required", "영득의사") = satisfied_art323_sec3_no_intent_to_appropriate_required(case_id, defendant_id, right_holder_id)
 
 // rule_id: interference_with_exercise_of_right.core.outcome.bridge
 // sources: comm_001692_제323조_Ⅰ.1_0, comm_001692_제323조_Ⅰ.1_0, comm_001692_제323조_Ⅱ.1_2, comm_001692_제323조_Ⅱ.2_10, comm_001692_제323조_Ⅱ.2_12, comm_001692_제323조_Ⅱ.2_4, comm_001692_제323조_Ⅱ.2_5, comm_001692_제323조_Ⅱ.2_5, comm_001692_제323조_Ⅱ.2_5, comm_001692_제323조_Ⅱ.2_7, comm_001692_제323조_Ⅱ.2_8, comm_001692_제323조_Ⅱ.2_8, comm_001692_제323조_Ⅱ.2_9, comm_001692_제323조_Ⅱ.2_9, comm_001692_제323조_Ⅱ.2_9, comm_001692_제323조_Ⅱ.2_9, comm_001692_제323조_Ⅱ.2_9, comm_001692_제323조_Ⅱ.2_9, comm_001692_제323조_Ⅱ.3_14, comm_001692_제323조_Ⅱ.3_15, comm_001692_제323조_Ⅱ.3_16, comm_001692_제323조_Ⅱ.3_16, comm_001692_제323조_Ⅱ.3_16, comm_001692_제323조_Ⅲ_18, comm_001692_제323조_Ⅲ_18, comm_001692_제323조_Ⅵ.3_23

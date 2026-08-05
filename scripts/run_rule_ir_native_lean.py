@@ -159,6 +159,44 @@ def _render_verdict_brief(
                 "- 이 죄의 성립에 요구되지 않는 것으로 확인된 요건(불성립 사유가 아니다): "
                 + ", ".join(waived)
             )
+        annotations = directive.get("annotations", {}) or {}
+        standards = [str(name) for name in annotations.get("assessment_standard", []) if name]
+        if standards:
+            # The standard tells the reader how the element is measured.  It must
+            # not become a licence to re-decide the element: the verdict above
+            # already owns that, and a model that concludes from a definition has
+            # taken the decision back from the symbolic layer.
+            lines.append(
+                "- 다음 요건에는 판단기준 카드가 적용된다(기준일 뿐 충족 여부의 결론이 아니다. "
+                "기준을 설명하는 데만 쓰고, 이를 근거로 위 확정 결론과 다른 판단을 하지 마라): "
+                + ", ".join(standards)
+            )
+        proofs = [str(name) for name in annotations.get("proof_standard", []) if name]
+        if proofs:
+            lines.append(
+                "- 유죄 인정을 위해 증명이 요구되는 사항(구성요건 자체가 아니다): "
+                + ", ".join(proofs)
+            )
+        subtypes = [str(name) for name in annotations.get("subtype_outcome", []) if name]
+        if subtypes:
+            lines.append(
+                "- 같은 죄 안에서 적용되는 유형: " + ", ".join(subtypes)
+                + " (죄 전체의 성립은 위 확정 결론 그대로다)"
+            )
+        post = [str(name) for name in annotations.get("post_outcome", []) if name]
+        details = [
+            f"{item.get('key')}={item.get('value')}"
+            for item in directive.get("outcome_details", []) or []
+            if item.get("key")
+        ]
+        if post or details:
+            lines.append(
+                "- 구성요건 판단 뒤에 오는 죄수·처벌 효과"
+                + (f" [{', '.join(post)}]" if post else "")
+                + (f": {', '.join(details)}" if details else "")
+                + " — 불가벌적 사후행위는 구성요건 불성립이 아니라 별도 처벌만 배제되는 것이므로 "
+                "그렇게 구분해 서술하라."
+            )
         evidence = directive.get("evidence", {}) or {}
         met = [
             str(item.get("definition", ""))
@@ -258,11 +296,31 @@ def run_case(
         max_tokens=4096,
         temperature=0.0,
     )
-    validate_closed_issue_selection(
+    rejected = validate_closed_issue_selection(
         selection,
         case_id=case_id,
         case_text=case_text,
     )
+    # A rejected issue cannot be run symbolically — its roles or its quote do not
+    # hold up — but it is still a real issue in the case.  Drop it from the
+    # symbolic run and hand it to the writer as an autonomous one, rather than
+    # discarding the whole case along with the issues that were well formed.
+    if rejected:
+        rejected_ids = {item["issue_id"] for item in rejected}
+        selection = {
+            **selection,
+            "issues": [
+                # A dependency on a dropped issue would dangle, so it goes too.
+                {**issue, "depends_on_issue_ids": [
+                    dependency
+                    for dependency in issue.get("depends_on_issue_ids", [])
+                    if dependency not in rejected_ids
+                ]}
+                for issue in selection.get("issues", [])
+                if str(issue.get("issue_id", "")) not in rejected_ids
+            ],
+        }
+        _write_json(out_dir / "01_rejected_issues.json", {"rejected": rejected})
     _write_json(out_dir / "01_issue_selection.json", selection)
 
     registry = build_registry()
@@ -333,7 +391,9 @@ def run_case(
     verdict_brief = _render_verdict_brief(
         directives=contract.get("conclusion_directives", []),
         skipped=contract.get("skipped_directives", []),
-        unsupported=unsupported,
+        # An issue dropped for a malformed selection is still a live issue in
+        # the case; it reaches the writer alongside the ones with no RuleIR.
+        unsupported=[*unsupported, *rejected],
         labels=labels,
     )
 
@@ -382,6 +442,7 @@ def run_case(
         "writing_metadata": writing_metadata,
         "supported_issue_count": len(supported),
         "unsupported_issue_count": len(unsupported),
+        "rejected_issue_count": len(rejected),
         "completed": True,
     }
     _write_json(out_dir / "run_manifest.json", manifest)

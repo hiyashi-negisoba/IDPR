@@ -398,17 +398,6 @@
       "proposition_rewrite": null
     },
     {
-      "card_id": "art319_sec3_1.co_resident_common_space",
-      "part_id": null,
-      "role": "bar",
-      "track_id": "intrusion",
-      "component_id": "intrusive_entry",
-      "component_join": "not_applicable",
-      "refers_to_unit": null,
-      "rationale": "공동점유·현실적 승낙·공개장소 통상출입 또는 주관적 반대만 있는 경우",
-      "proposition_rewrite": null
-    },
-    {
       "card_id": "art319_sec3_1.commercial_corridor_implied_consent",
       "part_id": null,
       "role": "bar",
@@ -1220,7 +1209,6 @@
         "art319_sec3_1.abnormal_or_forced_entry",
         "art319_sec3_1.apartment_common_areas",
         "art319_sec3_1.apartment_common_door_unauthorized_entry",
-        "art319_sec3_1.co_resident_common_space",
         "art319_sec3_1.commercial_corridor_implied_consent",
         "art319_sec3_1.concealed_device_and_key_entry",
         "art319_sec3_1.consenting_current_co_resident",
@@ -1402,5 +1390,11 @@
     "placements": 95,
     "queue_cards": 104,
     "unresolved_unit_references": 0
-  }
+  },
+  "excluded_pending_split": [
+    {
+      "card_id": "art319_sec3_1.co_resident_common_space",
+      "reason": "공동거주자의 불성립과 외부인의 성립이 한 카드에 들어 있다(검수 002 D-02)."
+    }
+  ]
 }

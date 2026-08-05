@@ -6,15 +6,27 @@
 성립 저지가 되는 일이 실제로 일어났다. 그래서 정규식을 걷어내고 138장을 전수 판독해 역할과 근거를
 카드마다 적는다.
 
-역할 넷:
+성립을 막는 역할:
   bar        요건 결여·배제 — 충족되면 이 죄의 성립을 막는다
-  waiver     요건 불요 — 성립을 막지 않는다. 무엇이 면제되는지만 기록한다
-  boundary   이 죄가 아니라 **다른 죄**로 간다 — 불성립 + 후속 죄명(`refers_to`)
-  component  요건 인정 경로 — 긍정 방향 예외·한정·기준이라 구성요건 단계에 든다
+  boundary   이 죄가 아니라 **다른 죄**로 간다 — 불성립 + 후속 죄명(`value`)
 
-`refers_to`는 boundary에만 쓰고, 죄명은 명제에서 문언으로 확인한 것만 적는다. 같은 단위 안의
-유형 전환(강도→준강도, 특수절도→야간주거침입절도)은 다른 죄가 아니므로 boundary로 적지 않고
-bar로 두되 근거에 전환 대상을 남긴다 — 단위 내 유형 배분은 가중 플래그가 할 일이다.
+성립을 만드는 역할:
+  component  요건 인정 경로 — 긍정 방향 예외·한정이라 구성요건 단계에 든다
+
+어느 쪽도 아닌 역할 — 결론 밖에서 보고만 한다(검수 002):
+  waiver              요건 불요 — 성립을 막지 않는다. 무엇이 면제되는지만 기록한다
+  assessment_standard 판단기준·정의 — 요건을 **어떻게 재는지**만 말한다. 기준이 참이라는
+                      이유로 죄가 차단되면 정의만으로 무죄가 난다(배치 001에서 7건 적발)
+  proof_standard      증명·특정 요건 — 유죄 인정의 조건이지 구성요건 자체가 아니다
+  subtype_outcome     같은 죄 안의 의율유형 — 죄 전체의 성립은 유지된다
+  post_outcome        구성요건 판단 뒤의 죄수·처벌 효과. 불가벌적 사후행위는 구성요건
+                      불성립이 아니라 별도 처벌만 배제되는 것이므로 여기 둔다
+
+튜플의 둘째 자리(`value`)는 역할마다 뜻이 다르다 — boundary면 후속 죄명, 보고 역할이면
+답안에 그대로 노출되는 우리말 값(무엇을 재는 기준인지, 무엇이 면제되는지)이다. 이 값이 비면
+카드 ID가 답안에 새기 때문에 보고 역할에는 반드시 적는다. 죄명은 명제에서 문언으로 확인한
+것만 적는다. 같은 단위 안의 유형 전환(강도→준강도, 특수절도→야간주거침입절도)은 다른 죄가
+아니므로 boundary로 적지 않는다.
 """
 
 from __future__ import annotations
@@ -64,13 +76,13 @@ ROLES: dict[str, tuple[str, str | None, str]] = {
 
     # ── 배임수증재 ──────────────────────────────────────────────────────
     "art357_sec1_3.receipt.no_breach_or_loss_requirement": (
-        "waiver", None, "임무위배·손해는 배임수재의 요건이 아니다 — 성립을 막지 않는다."),
+        "waiver", "임무위배·재산상 손해", "임무위배·손해는 배임수재의 요건이 아니다 — 성립을 막지 않는다."),
     "art357_sec3_1.mere_contractual_debt_exclusion": (
         "bar", None, "이익대립 계약상 채무만으로는 타인의 사무가 아니다."),
     "art357_sec3_1.no_status_at_request": (
         "bar", None, "지위 취득 전 청탁은 주체 요건 결여."),
     "art357_sec3_1.subject_no_external_authority": (
-        "waiver", None, "대외적 권한·포괄위탁은 요건이 아니다."),
+        "waiver", "대외적 권한·포괄위탁", "대외적 권한·포괄위탁은 요건이 아니다."),
     "art357_sec3_2.giver_not_necessarily_liable": (
         "component", None, "증재자에게 정당한 청탁이 수재자에게는 부정한 청탁이 될 수 있다는 "
                            "부정성 인정 경로다."),
@@ -85,7 +97,7 @@ ROLES: dict[str, tuple[str, str | None, str]] = {
     "art357_sec3_4.no_acquisition_intent": (
         "bar", None, "취득 의사 결여."),
     "art357_sec3_5.no_corrupt_performance_required": (
-        "waiver", None, "부정행위까지 나아갈 것은 기수 요건이 아니다."),
+        "waiver", "부정행위의 실행", "부정행위까지 나아갈 것은 기수 요건이 아니다."),
     "art357_sec4.giver_view_justification": (
         "bar", None, "증재자 관점에서 부정성이 부정되면 증재죄가 성립하지 않는다."),
     "art357_sec4.giving_to_business_handler": (
@@ -99,10 +111,10 @@ ROLES: dict[str, tuple[str, str | None, str]] = {
     "art355_sec1_2.embezzlement_illegal_appropriation_exclusion": (
         "bar", None, "일시사용·손괴·은닉 의사 또는 위탁자를 위한 의사는 불법영득의사 결여."),
     "art355_sec3_3.deceptive_means_no_fraud": (
-        "waiver", None, "횡령 성립을 막지 않고 사기죄의 별도 성립만 배제한다 — 죄수 판단이므로 "
+        "waiver", "기망수단 사용 시 사기죄의 별도 성립", "횡령 성립을 막지 않고 사기죄의 별도 성립만 배제한다 — 죄수 판단이므로 "
                         "이 단위의 저지 사유가 아니다."),
     "art355_sec3_3.no_property_damage_element": (
-        "waiver", None, "재산상 손해 발생은 횡령의 요건이 아니다."),
+        "waiver", "재산상 손해의 발생", "재산상 손해 발생은 횡령의 요건이 아니다."),
     "art355_sec3_3.simple_destruction_exception": (
         "bar", None, "손괴는 그 자체로 불법영득의사의 표현이 아니다."),
     "art355_sec4_1.discretionary_funds_no_presumption": (
@@ -141,7 +153,7 @@ ROLES: dict[str, tuple[str, str | None, str]] = {
     "art350_sec4_1.robbery_boundary": (
         "boundary", "강도", "반항억압 정도에 이르면 공갈이 아니라 강도다."),
     "art350_sec4_2.actual_intent_or_feasibility_not_required": (
-        "waiver", None, "해악 실현 의사·가능성은 성립에 영향이 없다."),
+        "waiver", "해악 실현의 의사·가능성", "해악 실현 의사·가능성은 성립에 영향이 없다."),
     "art350_sec4_2.right_exercise_exception": (
         "bar", None, "권리행사인 경우 위법성이 조각될 수 있다."),
     "art350_sec5_2.fear_causation_required": (
@@ -152,17 +164,19 @@ ROLES: dict[str, tuple[str, str | None, str]] = {
     "art350_sec5_3.complete_suppression_robbery": (
         "boundary", "강도", "의사가 완전히 억압되면 공갈이 아니라 강도다."),
     "art350_sec6.no_overall_property_decrease": (
-        "waiver", None, "전체 재산의 감소는 요건이 아니다."),
+        "waiver", "전체 재산의 감소", "전체 재산의 감소는 요건이 아니다."),
     "art350_sec6_2.satisfied_consideration_causation_exception": (
         "bar", None, "상당한 대가에 만족한 교부는 인과관계가 부정되어 미수에 그친다."),
     "art350_sec8_2.permitted_threat_no_extortion": (
         "bar", None, "사회통념상 허용 범위의 위협적 언사는 공갈이 아니다."),
     "art350_sec8_2.right_exercise_total_assessment": (
-        "bar", None, "권리행사에 수반된 공갈의 위법성 조각 판단 기준 — 조각이 인정되면 저지한다."),
+        "assessment_standard", "권리행사와 공갈의 한계 판단",
+        "권리행사와 공갈의 한계를 어떻게 재는지에 관한 기준일 뿐, 조각이 인정되었다는 결론이 "
+        "아니다(검수 002 C-02)."),
 
     # ── 권리행사방해 ────────────────────────────────────────────────────
     "art323_sec1_1.no_unlawful_appropriation_intent": (
-        "waiver", None, "불법영득의사는 요건이 아니다."),
+        "waiver", "불법영득의사", "불법영득의사는 요건이 아니다."),
     "art323_sec2_2.coowned_property_excluded": (
         "bar", None, "공유물은 자기 물건이 아니다."),
     "art323_sec2_2.manifestly_no_right_possession_excluded": (
@@ -178,7 +192,7 @@ ROLES: dict[str, tuple[str, str | None, str]] = {
     "art323_sec2_3.consensual_transfer_not_taking": (
         "bar", None, "점유자 의사에 기한 이전은 취거가 아니다."),
     "art323_sec3.no_intent_to_appropriate_required": (
-        "waiver", None, "영득죄가 아니므로 영득의사를 요하지 않는다."),
+        "waiver", "영득의사", "영득죄가 아니므로 영득의사를 요하지 않는다."),
 
     # ── 점유이탈물횡령 ──────────────────────────────────────────────────
     "art360_sec2_2.managed_place_property": (
@@ -225,15 +239,19 @@ ROLES: dict[str, tuple[str, str | None, str]] = {
         "component", None, "낙서는 기능적 효용이 현저히 침해된 경우에 성립한다는 인정 기준이다."),
     "art366_sec4_1.intent_absence": ("bar", None, "고의 결여."),
     "art366_sec5_2.immediate_self_recovery_assessment": (
-        "bar", None, "자력탈환권 행사의 직시성 판단 기준 — 인정되면 위법성이 조각된다."),
+        "assessment_standard", "자력탈환의 직시성 판단",
+        "자력탈환의 직시성을 판단하는 기준이지 직시성이 인정되었다는 결론이 아니다(검수 002 C-02)."),
     "art366_sec5_2.justifiable_act_requirements": (
-        "bar", None, "정당행위 요건 — 충족되면 위법성이 조각된다."),
+        "assessment_standard", "정당행위의 요건",
+        "정당행위의 요건을 열거한 기준이지 그 요건이 충족되었다는 결론이 아니다(검수 002 C-02)."),
     "art366_sec5_2.possession_protection_destruction": (
         "bar", None, "점유 보호를 위한 절단은 정당행위가 된다."),
     "art366_sec5_2.socially_acceptable_act": (
-        "bar", None, "사회상규 불위배 행위의 판단 기준."),
+        "assessment_standard", "사회상규 불위배 판단",
+        "사회상규 불위배를 재는 기준이지 위배되지 않았다는 결론이 아니다(검수 002 C-02)."),
     "art366_sec5_5.presumed_consent": (
-        "bar", None, "추정적 승낙의 판단 기준 — 인정되면 구성요건해당성·위법성이 부정된다."),
+        "assessment_standard", "추정적 승낙의 판단",
+        "추정적 승낙의 판단 기준이지 승낙이 추정된다는 결론이 아니다(검수 002 C-02)."),
 
     # ── 강도류 ──────────────────────────────────────────────────────────
     "art333_sec2_2.incidental_incapacitation_no_robbery": (
@@ -263,16 +281,16 @@ ROLES: dict[str, tuple[str, str | None, str]] = {
     "art333_sec6.no_attempt_without_violence_intimidation_commencement": (
         "bar", None, "폭행·협박에 착수하지 않으면 강도의 착수가 없다."),
     "art333_sec7_1.completion.no_safe_escape_requirement": (
-        "waiver", None, "안전지역 이탈은 기수 요건이 아니다."),
+        "waiver", "안전지역으로의 이탈", "안전지역 이탈은 기수 요건이 아니다."),
     "art333_sec7_1.completion.recovery_does_not_negate": (
-        "waiver", None, "탈환은 기수 인정에 영향이 없다."),
+        "waiver", "탈환되지 않았을 것", "탈환은 기수 인정에 영향이 없다."),
     "art333_sec8.right_exercise_robbery_negative": (
         "boundary", "폭행 또는 협박", "취득할 권리가 있는 이익은 불법한 이익이 아니다(대법원 "
                                   "소극설) — 카드 문언이 후속 죄명(폭행죄·협박죄)을 명시한다."),
     "art334_sec2_1.weapon_awareness_not_required": (
-        "waiver", None, "상대방의 흉기 인식은 요건이 아니다."),
+        "waiver", "상대방의 흉기 인식", "상대방의 흉기 인식은 요건이 아니다."),
     "art334_sec2_1.weapon_direct_use_not_required": (
-        "waiver", None, "흉기의 직접 사용은 요건이 아니다."),
+        "waiver", "흉기의 직접 사용", "흉기의 직접 사용은 요건이 아니다."),
     "art335_sec2.preparation_stage_exclusion": (
         "bar", None, "절취 착수 전 예비단계의 폭행은 준강도가 아니다."),
     "art335_sec2.property_interest_exclusion": (
@@ -281,7 +299,7 @@ ROLES: dict[str, tuple[str, str | None, str]] = {
         "component", None, "배타적 지배 확립 전 폭행은 준강도가 아니라 본래의 강도라는 인정 "
                            "경로다 — 강도 성립을 막지 않는다."),
     "art335_sec3_2.arrest_or_concealment_no_control": (
-        "waiver", None, "체포면탈·흔적인멸 목적에서는 재물 지배 취득이 요건이 아니다."),
+        "waiver", "재물에 대한 사실상 지배의 취득", "체포면탈·흔적인멸 목적에서는 재물 지배 취득이 요건이 아니다."),
     "art335_sec6_1.days_later_no_opportunity": (
         "bar", None, "수일 후의 폭행은 절도의 기회가 아니다."),
     "art335_sec6_2.opportunity_safe_escape_limit": (
@@ -298,11 +316,13 @@ ROLES: dict[str, tuple[str, str | None, str]] = {
     "art338_sec3.opportunity_new_intent_after_completion": (
         "bar", None, "종료 후 새 범의의 살해는 강도의 기회가 아니다."),
     "art338_sec4.robbery_death_attempt_excluded": (
-        "waiver", None, "강도치사죄에 미수범이 없다는 적용범위 규칙이다."),
+        "waiver", "강도치사죄의 미수 처벌", "강도치사죄에 미수범이 없다는 적용범위 규칙이다."),
     "art343_sec1.robbery_scope": (
         "component", None, "예비죄의 '강도' 범위를 정하는 적용범위 규칙(준강도 제외)."),
     "art343_sec3.abandonment_before_execution_denied": (
-        "waiver", None, "중지미수 감면 부정이라 성립 판단에 영향을 주지 않는다."),
+        "post_outcome", "중지미수 감면 불가",
+        "예비·음모죄가 완성된 뒤에는 중지미수 감면을 쓸 수 없다는 사후 법률효과이지 "
+        "성립 판단이 아니다(검수 002 D-07)."),
 
     # ── 절도류 ──────────────────────────────────────────────────────────
     "art329_sec2.theft_exception_ownership_or_self_possession": (
@@ -327,7 +347,7 @@ ROLES: dict[str, tuple[str, str | None, str]] = {
     "art329_sec5_2.use_theft_possession_not_completely_lost": (
         "bar", None, "소지가 상실되지 않고 곧 환원될 상태면 사용절도로 불처벌."),
     "art329_sec6.consent_manifestation": (
-        "waiver", None, "승낙의 표시 방식을 정하는 해석 기준일 뿐 그 자체로 요건을 인정하는 "
+        "waiver", "승낙의 명시적 표시", "승낙의 표시 방식을 정하는 해석 기준일 뿐 그 자체로 요건을 인정하는 "
                        "경로가 아니다 — L6(위법성·책임) 카드라 component로 두면 component_layer가 "
                        "L0~L4만 순회해 어떤 규칙에도 안 걸린다(component 재분해 중 발견). "
                        "waiver로 두어 해석기준 사실만 기록한다."),
@@ -348,7 +368,23 @@ ROLES: dict[str, tuple[str, str | None, str]] = {
         "bar", None, "우발적 동기·경제사정에서 비롯된 경우는 상습성이 부정된다."),
 }
 
-VALID_ROLES = ("bar", "waiver", "boundary", "component")
+# 성립을 막는 역할과 결론 밖에서 보고만 하는 역할을 분리한다.  판단기준·증명요건·
+# 내부 의율유형·죄수효과는 어느 것도 죄의 성부를 결정하지 않는다.
+VALID_ROLES = ("bar", "waiver", "boundary", "component",
+               "assessment_standard", "proof_standard",
+               "subtype_outcome", "post_outcome")
+REPORTING_ROLES = ("waiver", "assessment_standard", "proof_standard",
+                   "subtype_outcome", "post_outcome")
+ROLE_GLOSSARY = {
+    "bar": "요건 결여·배제 — 성립을 막는다",
+    "waiver": "요건 불요 — 성립을 막지 않는다",
+    "boundary": "이 죄가 아니라 다른 죄로 — refers_to에 죄명",
+    "component": "요건 인정 경로 — 구성요건 단계에 든다",
+    "assessment_standard": "판단기준·정의 — 요건을 어떻게 재는지만 말하고 결론을 내지 않는다",
+    "proof_standard": "증명·특정 요건 — 유죄 인정의 조건이지 구성요건 자체가 아니다",
+    "subtype_outcome": "같은 죄 안의 의율유형 — 죄 전체의 성립은 유지된다",
+    "post_outcome": "구성요건 판단 뒤의 죄수·처벌 효과",
+}
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -375,24 +411,27 @@ def main() -> None:
     extra = sorted(set(ROLES) - set(needed))
     if missing or extra:
         raise SystemExit(f"역할 표 불일치\n  누락 {missing}\n  잉여 {extra}")
-    for card_id, (role, refers_to, _) in ROLES.items():
+    for card_id, (role, value, _) in ROLES.items():
         if role not in VALID_ROLES:
             raise SystemExit(f"{card_id}: 알 수 없는 역할 {role}")
-        if (role == "boundary") != bool(refers_to):
-            raise SystemExit(f"{card_id}: boundary만 refers_to를 가진다")
+        if (role == "boundary") != bool(value and role == "boundary"):
+            raise SystemExit(f"{card_id}: boundary는 후속 죄명을 반드시 가진다")
+        # 보고 역할의 값은 답안에 그대로 노출된다. 비워 두면 카드 ID가 새어 나간다.
+        if role in REPORTING_ROLES and not value:
+            raise SystemExit(f"{card_id}: {role}은 답안에 노출할 우리말 값이 필요하다")
+        if role in ("bar", "component") and value:
+            raise SystemExit(f"{card_id}: {role}은 값을 갖지 않는다")
 
     entries = {card_id: {**needed[card_id], "role": role,
-                         "refers_to": refers_to, "rationale": rationale}
-               for card_id, (role, refers_to, rationale) in sorted(ROLES.items())}
+                         "refers_to": value if role == "boundary" else None,
+                         "value": value, "rationale": rationale}
+               for card_id, (role, value, rationale) in sorted(ROLES.items())}
     tally = Counter(entry["role"] for entry in entries.values())
     OUT.write_text(json.dumps({
         "version": "1.0.0", "api_calls": 0,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "method": "138장 전수 판독으로 역할·근거를 카드마다 지정 (정규식 분류 폐기)",
-        "roles": {"bar": "요건 결여·배제 — 성립을 막는다",
-                  "waiver": "요건 불요 — 성립을 막지 않는다",
-                  "boundary": "이 죄가 아니라 다른 죄로 — refers_to에 죄명",
-                  "component": "요건 인정 경로 — 구성요건 단계에 든다"},
+        "roles": ROLE_GLOSSARY,
         "counts": {"cards": len(entries), **dict(sorted(tally.items()))},
         "cards": entries,
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

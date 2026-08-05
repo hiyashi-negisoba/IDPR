@@ -37,14 +37,6 @@
       "reason": "상해진단서의 증명력 판단 기준이며 증거법 영역이다"
     },
     {
-      "card_id": "art257_sec1_4.object_method_mistake",
-      "reason": "객체·방법의 착오가 고의를 조각하지 않고 상해죄의 성립을 방해하지 않는다는 확인 법리로, 성립을 막는 카드가 아니다. 현재 역할 어휘에 자리가 없다."
-    },
-    {
-      "card_id": "art257_sec1_4.unintended_victim",
-      "reason": "목적한 사람이 아니어도 상해의 고의가 인정된다는 확인 법리로, 성립을 막는 카드가 아니다. 현재 역할 어휘에 자리가 없다."
-    },
-    {
       "card_id": "art257_sec1_6.disciplinary_injury",
       "reason": "징계가 상해에 이르면 조각되지 않는다는 조각의 한계이며, 현재 역할 어휘에 자리가 없다"
     },
@@ -1089,6 +1081,32 @@
       "refers_to_unit": null,
       "rationale": "단체 또는 다중의 위력이라는 특수상해 수단",
       "proposition_rewrite": null
+    },
+    {
+      "card_id": "art257_sec1_4.object_method_mistake",
+      "part_id": null,
+      "role": "requirement_waived",
+      "track_id": "base",
+      "component_id": "injury_intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "객체·방법의 착오는 고의를 조각하지 않는다(검수 002 D-06).",
+      "proposition_rewrite": null,
+      "waived_requirement": "identity_match_between_intended_and_actual_victim",
+      "waived_requirement_label": "의도한 객체와 실제 객체의 일치"
+    },
+    {
+      "card_id": "art257_sec1_4.unintended_victim",
+      "part_id": null,
+      "role": "requirement_waived",
+      "track_id": "base",
+      "component_id": "injury_intent",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "목적한 사람이 아닌 자에게 결과가 발생해도 상해의 고의 귀속은 유지된다(검수 002 D-06).",
+      "proposition_rewrite": null,
+      "waived_requirement": "identity_match_between_intended_and_actual_victim",
+      "waived_requirement_label": "의도한 피해자와 실제 피해자의 일치"
     }
   ],
   "components": [

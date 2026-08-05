@@ -159,17 +159,6 @@
       "proposition_rewrite": null
     },
     {
-      "card_id": "art297_sec5.valid_consent",
-      "part_id": null,
-      "role": "bar",
-      "track_id": "base",
-      "component_id": "absence_of_consent",
-      "component_join": "not_applicable",
-      "refers_to_unit": null,
-      "rationale": "피해자 본인의 유효한 동의는 구성요건 해당성을 차단",
-      "proposition_rewrite": null
-    },
-    {
       "card_id": "art297_sec5.withdrawn_consent",
       "part_id": null,
       "role": "component",
@@ -243,9 +232,14 @@
       "component_id": "coercion_attribution",
       "component_join": "not_applicable",
       "refers_to_unit": "quasi_sexual_offense",
-      "rationale": "타인이 만든 폭행·협박 상태를 이용했을 뿐이면 직접 강간이 아니라 준강간 경계",
+      "rationale": "타인이 만든 폭행·협박 상태를 이용했을 뿐이면 직접 강간이 아니라 준강간 경계. 유닛은 준강간·준강제추행 통합 유닛이므로 사건이 간음이 아니라 추행이면 같은 유닛의 준강제추행으로 갈린다. 라벨을 유닛 전체에 고정하지 않고 유형을 함께 남긴다(검수 002 D-05).",
       "proposition_rewrite": "행위자가 타인이 가한 폭행·협박 상태를 이용하여 피해자를 간음했을 뿐 자신이 폭행·협박을 가하지 않은 경우에는 강간죄가 아니라 준강간죄가 성립할 수 있다.",
-      "refers_to_label": "준강간·준강제추행"
+      "refers_to_label": "준강간",
+      "outcome_detail": {
+        "target_unit": "quasi_sexual_offense",
+        "target_subtype": "quasi_rape",
+        "display_label": "준강간"
+      }
     },
     {
       "card_id": "art297_sec4_1.force_threat_temporal_gap",
@@ -659,7 +653,6 @@
       "norm_card_ids": [
         "art297_sec5.consent_assessment",
         "art297_sec5.prior_communications_not_consent",
-        "art297_sec5.valid_consent",
         "art297_sec5.withdrawn_consent"
       ]
     },
@@ -986,5 +979,11 @@
     "placements": 46,
     "queue_cards": 56,
     "unresolved_unit_references": 12
-  }
+  },
+  "excluded_pending_split": [
+    {
+      "card_id": "art297_sec5.valid_consent",
+      "reason": "피해자 승낙(저지)과 친권자 승낙(무영향)을 분리해야 한다(검수 002 D-02)."
+    }
+  ]
 }

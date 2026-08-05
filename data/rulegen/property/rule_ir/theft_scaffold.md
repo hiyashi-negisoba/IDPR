@@ -1516,14 +1516,14 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art329_sec2.theft_object_anothers_property_in_possession`, `art329_sec2_1.co_owned_property_taking`, `art329_sec2_1.inherited_estate_not_ownerless`, `art329_sec2_1.other_person_legal_entity`, `art329_sec2_1.vehicle_internal_ownership_agreement`, `art329_sec2_2.carrier_control_based_possession`, `art329_sec2_2.clerk_subordinate_possession`, `art329_sec2_2.criminal_possession_definition`, `art329_sec2_2.dead_person_possession_continuing`, `art329_sec2_2.dead_person_possession_limited`, `art329_sec2_2.joint_custodian_unilateral_taking`, `art329_sec2_2.possession_assistant_control`, `art329_sec2_2.possession_control_and_intent`, `art329_sec2_2.possession_factual_control_standard`, `art329_sec2_2.possession_intent_definition`, `art329_sec2_2.property_in_managed_place`, `art329_sec2_2.sealed_deposit_entrustment_nature`, `art329_sec2_2.temporary_separation_possession`, `art329_sec2_2.unlawful_possession_protected`, `art329_sec3_1.deceptive_taking_without_delivery`, `art329_sec3_1.taking_transfer_of_control`, `art329_sec3_3.completion.control_and_disposal`, `art329_sec3_3.completion.property_circumstances`, `art329_sec4.intent.conditional_intent_sufficient`, `art329_sec4.intent.general_object_selection`, `art329_sec4.intent.theft_intent_definition`, `art329_sec5_1.unlawful_appropriation_required`, `art329_sec5_2.collateral_taking_unlawful_appropriation`, `art329_sec5_2.use_theft_long_possession_or_abandonment`, `art329_sec5_2.use_theft_value_consumption_or_delayed_return`
 
-### `theft_requirement_waived(case_id: String, defendant_id: String, issue_id: String)`
+### `theft_requirement_waived(case_id: String, defendant_id: String, issue_id: String, value: String)`
 
 이 죄의 성립에 요구되지 않는 요건이 확인됨 — 성립을 막지 않는다
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art329_sec6.consent_manifestation`
 
-### `theft_boundary_shift(case_id: String, defendant_id: String, issue_id: String)`
+### `theft_boundary_shift(case_id: String, defendant_id: String, issue_id: String, value: String)`
 
 이 죄가 아니라 다른 죄로 평가되는 경계 사유가 확인됨
 

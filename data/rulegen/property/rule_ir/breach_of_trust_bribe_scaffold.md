@@ -977,7 +977,7 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art357.protected_interest.integrity`, `art357_sec1_2.third_party_acquisition`, `art357_sec1_3.receipt.required_elements`, `art357_sec1_4.actual_acquisition`, `art357_sec3_1.future_duty_expected`, `art357_sec3_1.status_assessment`, `art357_sec3_1.subject_trust_relationship`, `art357_sec3_1.trust_relationship_sources`, `art357_sec3_2.contract_counterparty_request`, `art357_sec3_2.giver_not_necessarily_liable`, `art357_sec3_2.improper_request_standard`, `art357_sec3_2.improper_solicitation_comprehensive_assessment`, `art357_sec3_2.paid_news_request`, `art357_sec3_2.request_concerning_duty`, `art357_sec3_2.request_consideration_link`, `art357_sec3_2.scope_of_duty`, `art357_sec3_3.account_control_acquisition`, `art357_sec3_3.actual_acquisition_required`, `art357_sec3_3.benefit_consideration_link`, `art357_sec3_3.mixed_consideration_entire_benefit`, `art357_sec3_3.nominal_stock_sale_consideration`, `art357_sec3_3.post_resignation_receipt`, `art357_sec3_3.principal_payment_direct_receipt_equivalent`, `art357_sec3_4.illegal_appropriation_intent_separate`, `art357_sec3_4.intent_elements`, `art357_sec3_5.attempt_majority`, `art357_sec3_5.completion_time`, `art357_sec4.giving_completion_actual_provision`, `art357_sec4.giving_offense_definition`
 
-### `breach_of_trust_bribe_requirement_waived(case_id: String, defendant_id: String, issue_id: String)`
+### `breach_of_trust_bribe_requirement_waived(case_id: String, defendant_id: String, issue_id: String, value: String)`
 
 이 죄의 성립에 요구되지 않는 요건이 확인됨 — 성립을 막지 않는다
 

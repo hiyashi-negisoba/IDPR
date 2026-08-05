@@ -1579,14 +1579,19 @@ type robbery_track_property_satisfied(String, String, String, String, String)
 type robbery_track_benefit_satisfied(String, String, String, String, String)
 
 // robbery_requirement_waived: 이 죄의 성립에 요구되지 않는 요건이 확인됨 — 성립을 막지 않는다
-// sources: comm_001692_제333조_Ⅶ.1_30, comm_001692_제333조_Ⅶ.1_30, comm_001692_제334조_Ⅱ.1_2, comm_001692_제334조_Ⅱ.1_2, comm_001692_제334조_Ⅱ.1_2, comm_001692_제334조_Ⅱ.1_2, comm_001692_제335조_Ⅲ.2_4, comm_001692_제338조_Ⅳ_3, comm_001692_제343조_Ⅲ_5
-// norm_cards: art333_sec7_1.completion.no_safe_escape_requirement, art333_sec7_1.completion.recovery_does_not_negate, art334_sec2_1.weapon_awareness_not_required, art334_sec2_1.weapon_direct_use_not_required, art335_sec3_2.arrest_or_concealment_no_control, art338_sec4.robbery_death_attempt_excluded, art343_sec3.abandonment_before_execution_denied
-type robbery_requirement_waived(String, String, String)
+// sources: comm_001692_제333조_Ⅶ.1_30, comm_001692_제333조_Ⅶ.1_30, comm_001692_제334조_Ⅱ.1_2, comm_001692_제334조_Ⅱ.1_2, comm_001692_제334조_Ⅱ.1_2, comm_001692_제334조_Ⅱ.1_2, comm_001692_제335조_Ⅲ.2_4, comm_001692_제338조_Ⅳ_3
+// norm_cards: art333_sec7_1.completion.no_safe_escape_requirement, art333_sec7_1.completion.recovery_does_not_negate, art334_sec2_1.weapon_awareness_not_required, art334_sec2_1.weapon_direct_use_not_required, art335_sec3_2.arrest_or_concealment_no_control, art338_sec4.robbery_death_attempt_excluded
+type robbery_requirement_waived(String, String, String, String)
 
 // robbery_boundary_shift: 이 죄가 아니라 다른 죄로 평가되는 경계 사유가 확인됨
 // sources: comm_001692_제333조_Ⅱ.3_3, comm_001692_제333조_Ⅱ.3_3, comm_001692_제333조_Ⅲ.3_15, comm_001692_제333조_Ⅷ_32, comm_001692_제338조_Ⅱ_1
 // norm_cards: art333_sec2_3.diversion_or_insult_violence_no_robbery, art333_sec2_3.lesser_threat_extortion, art333_sec3_3.unconsciousness_prior_force_no_causation, art333_sec8.right_exercise_robbery_negative, art338_sec2.debt_evasion_no_robbery
-type robbery_boundary_shift(String, String, String)
+type robbery_boundary_shift(String, String, String, String)
+
+// robbery_post_outcome: 구성요건 판단 뒤에 오는 죄수·처벌 효과
+// sources: comm_001692_제343조_Ⅲ_5
+// norm_cards: art343_sec3.abandonment_before_execution_denied
+type robbery_post_outcome(String, String, String, String)
 
 // robbery_refers_to_crime: 이 죄가 아니라 어느 죄로 평가되는지 — 경계획정 카드가 가리키는 죄명
 // sources: comm_001692_제333조_Ⅱ.3_3, comm_001692_제333조_Ⅱ.3_3, comm_001692_제333조_Ⅲ.3_15, comm_001692_제333조_Ⅷ_32, comm_001692_제338조_Ⅱ_1
@@ -4483,62 +4488,62 @@ rel robbery_established(case_id, defendant_id, coerced_person_id, owner_id, poss
 // rule_id: robbery.art333_sec7_1.requirement_waived.001
 // sources: comm_001692_제333조_Ⅶ.1_30
 // norm_cards: art333_sec7_1.completion.no_safe_escape_requirement
-rel robbery_requirement_waived(case_id, defendant_id, "art333_sec7_1.completion.no_safe_escape_requirement") = satisfied_art333_sec7_1_completion_no_safe_escape_requirement(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+rel robbery_requirement_waived(case_id, defendant_id, "art333_sec7_1.completion.no_safe_escape_requirement", "안전지역으로의 이탈") = satisfied_art333_sec7_1_completion_no_safe_escape_requirement(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
 
 // rule_id: robbery.art333_sec7_1.requirement_waived.002
 // sources: comm_001692_제333조_Ⅶ.1_30
 // norm_cards: art333_sec7_1.completion.recovery_does_not_negate
-rel robbery_requirement_waived(case_id, defendant_id, "art333_sec7_1.completion.recovery_does_not_negate") = satisfied_art333_sec7_1_completion_recovery_does_not_negate(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+rel robbery_requirement_waived(case_id, defendant_id, "art333_sec7_1.completion.recovery_does_not_negate", "탈환되지 않았을 것") = satisfied_art333_sec7_1_completion_recovery_does_not_negate(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
 
 // rule_id: robbery.art334_sec2_1.requirement_waived.003
 // sources: comm_001692_제334조_Ⅱ.1_2, comm_001692_제334조_Ⅱ.1_2
 // norm_cards: art334_sec2_1.weapon_awareness_not_required
-rel robbery_requirement_waived(case_id, defendant_id, "art334_sec2_1.weapon_awareness_not_required") = satisfied_art334_sec2_1_weapon_awareness_not_required(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+rel robbery_requirement_waived(case_id, defendant_id, "art334_sec2_1.weapon_awareness_not_required", "상대방의 흉기 인식") = satisfied_art334_sec2_1_weapon_awareness_not_required(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
 
 // rule_id: robbery.art334_sec2_1.requirement_waived.004
 // sources: comm_001692_제334조_Ⅱ.1_2, comm_001692_제334조_Ⅱ.1_2
 // norm_cards: art334_sec2_1.weapon_direct_use_not_required
-rel robbery_requirement_waived(case_id, defendant_id, "art334_sec2_1.weapon_direct_use_not_required") = satisfied_art334_sec2_1_weapon_direct_use_not_required(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+rel robbery_requirement_waived(case_id, defendant_id, "art334_sec2_1.weapon_direct_use_not_required", "흉기의 직접 사용") = satisfied_art334_sec2_1_weapon_direct_use_not_required(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
 
 // rule_id: robbery.art335_sec3_2.requirement_waived.005
 // sources: comm_001692_제335조_Ⅲ.2_4
 // norm_cards: art335_sec3_2.arrest_or_concealment_no_control
-rel robbery_requirement_waived(case_id, defendant_id, "art335_sec3_2.arrest_or_concealment_no_control") = satisfied_art335_sec3_2_arrest_or_concealment_no_control(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+rel robbery_requirement_waived(case_id, defendant_id, "art335_sec3_2.arrest_or_concealment_no_control", "재물에 대한 사실상 지배의 취득") = satisfied_art335_sec3_2_arrest_or_concealment_no_control(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
 
 // rule_id: robbery.art338_sec4.requirement_waived.006
 // sources: comm_001692_제338조_Ⅳ_3
 // norm_cards: art338_sec4.robbery_death_attempt_excluded
-rel robbery_requirement_waived(case_id, defendant_id, "art338_sec4.robbery_death_attempt_excluded") = satisfied_art338_sec4_robbery_death_attempt_excluded(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
-
-// rule_id: robbery.art343_sec3.requirement_waived.007
-// sources: comm_001692_제343조_Ⅲ_5
-// norm_cards: art343_sec3.abandonment_before_execution_denied
-rel robbery_requirement_waived(case_id, defendant_id, "art343_sec3.abandonment_before_execution_denied") = satisfied_art343_sec3_abandonment_before_execution_denied(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+rel robbery_requirement_waived(case_id, defendant_id, "art338_sec4.robbery_death_attempt_excluded", "강도치사죄의 미수 처벌") = satisfied_art338_sec4_robbery_death_attempt_excluded(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
 
 // rule_id: robbery.art333_sec2_3.boundary_shift.001
 // sources: comm_001692_제333조_Ⅱ.3_3
 // norm_cards: art333_sec2_3.diversion_or_insult_violence_no_robbery
-rel robbery_boundary_shift(case_id, defendant_id, "art333_sec2_3.diversion_or_insult_violence_no_robbery") = satisfied_art333_sec2_3_diversion_or_insult_violence_no_robbery(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+rel robbery_boundary_shift(case_id, defendant_id, "art333_sec2_3.diversion_or_insult_violence_no_robbery", "절도") = satisfied_art333_sec2_3_diversion_or_insult_violence_no_robbery(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
 
 // rule_id: robbery.art333_sec2_3.boundary_shift.002
 // sources: comm_001692_제333조_Ⅱ.3_3
 // norm_cards: art333_sec2_3.lesser_threat_extortion
-rel robbery_boundary_shift(case_id, defendant_id, "art333_sec2_3.lesser_threat_extortion") = satisfied_art333_sec2_3_lesser_threat_extortion(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+rel robbery_boundary_shift(case_id, defendant_id, "art333_sec2_3.lesser_threat_extortion", "공갈") = satisfied_art333_sec2_3_lesser_threat_extortion(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
 
 // rule_id: robbery.art333_sec3_3.boundary_shift.003
 // sources: comm_001692_제333조_Ⅲ.3_15
 // norm_cards: art333_sec3_3.unconsciousness_prior_force_no_causation
-rel robbery_boundary_shift(case_id, defendant_id, "art333_sec3_3.unconsciousness_prior_force_no_causation") = satisfied_art333_sec3_3_unconsciousness_prior_force_no_causation(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+rel robbery_boundary_shift(case_id, defendant_id, "art333_sec3_3.unconsciousness_prior_force_no_causation", "절도") = satisfied_art333_sec3_3_unconsciousness_prior_force_no_causation(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
 
 // rule_id: robbery.art333_sec8.boundary_shift.004
 // sources: comm_001692_제333조_Ⅷ_32
 // norm_cards: art333_sec8.right_exercise_robbery_negative
-rel robbery_boundary_shift(case_id, defendant_id, "art333_sec8.right_exercise_robbery_negative") = satisfied_art333_sec8_right_exercise_robbery_negative(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+rel robbery_boundary_shift(case_id, defendant_id, "art333_sec8.right_exercise_robbery_negative", "폭행 또는 협박") = satisfied_art333_sec8_right_exercise_robbery_negative(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
 
 // rule_id: robbery.art338_sec2.boundary_shift.005
 // sources: comm_001692_제338조_Ⅱ_1
 // norm_cards: art338_sec2.debt_evasion_no_robbery
-rel robbery_boundary_shift(case_id, defendant_id, "art338_sec2.debt_evasion_no_robbery") = satisfied_art338_sec2_debt_evasion_no_robbery(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+rel robbery_boundary_shift(case_id, defendant_id, "art338_sec2.debt_evasion_no_robbery", "살인") = satisfied_art338_sec2_debt_evasion_no_robbery(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art343_sec3.post_outcome.001
+// sources: comm_001692_제343조_Ⅲ_5
+// norm_cards: art343_sec3.abandonment_before_execution_denied
+rel robbery_post_outcome(case_id, defendant_id, "art343_sec3.abandonment_before_execution_denied", "중지미수 감면 불가") = satisfied_art343_sec3_abandonment_before_execution_denied(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
 
 // rule_id: robbery.art333_sec2_3.refers_to_crime.001
 // sources: comm_001692_제333조_Ⅱ.3_3

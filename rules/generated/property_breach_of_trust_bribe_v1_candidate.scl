@@ -696,7 +696,7 @@ type breach_of_trust_bribe_established(String, String, String, String)
 // breach_of_trust_bribe_requirement_waived: 이 죄의 성립에 요구되지 않는 요건이 확인됨 — 성립을 막지 않는다
 // sources: comm_001692_제357조_Ⅰ.3_2, comm_001692_제357조_Ⅲ.1_9, comm_001692_제357조_Ⅲ.5_25
 // norm_cards: art357_sec1_3.receipt.no_breach_or_loss_requirement, art357_sec3_1.subject_no_external_authority, art357_sec3_5.no_corrupt_performance_required
-type breach_of_trust_bribe_requirement_waived(String, String, String)
+type breach_of_trust_bribe_requirement_waived(String, String, String, String)
 
 // property_crime_established: 재산죄 성립을 공유 수정요소(친족상도례·업무자 신분)에 넘기는 브리지
 // sources: comm_001692_제357조_Ⅰ.2_1, comm_001692_제357조_Ⅰ.3_2, comm_001692_제357조_Ⅰ.4_3, comm_001692_제357조_Ⅰ.6_5, comm_001692_제357조_Ⅲ.1_11, comm_001692_제357조_Ⅲ.1_9, comm_001692_제357조_Ⅲ.1_9, comm_001692_제357조_Ⅲ.1_9, comm_001692_제357조_Ⅲ.2_13, comm_001692_제357조_Ⅲ.2_13, comm_001692_제357조_Ⅲ.2_13, comm_001692_제357조_Ⅲ.2_13, comm_001692_제357조_Ⅲ.2_14, comm_001692_제357조_Ⅲ.2_14, comm_001692_제357조_Ⅲ.2_14, comm_001692_제357조_Ⅲ.2_14, comm_001692_제357조_Ⅲ.2_18, comm_001692_제357조_Ⅲ.2_18, comm_001692_제357조_Ⅲ.2_21, comm_001692_제357조_Ⅲ.3_22, comm_001692_제357조_Ⅲ.3_22, comm_001692_제357조_Ⅲ.3_22, comm_001692_제357조_Ⅲ.3_22, comm_001692_제357조_Ⅲ.3_22, comm_001692_제357조_Ⅲ.3_22, comm_001692_제357조_Ⅲ.3_22, comm_001692_제357조_Ⅲ.3_23, comm_001692_제357조_Ⅲ.4_24, comm_001692_제357조_Ⅲ.4_24, comm_001692_제357조_Ⅲ.5_25, comm_001692_제357조_Ⅲ.5_25, comm_001692_제357조_Ⅳ_31, comm_001692_제357조_Ⅳ_31
@@ -2033,17 +2033,17 @@ rel breach_of_trust_bribe_established(case_id, receiver_id, giver_id, principal_
 // rule_id: breach_of_trust_bribe.art357_sec1_3.requirement_waived.001
 // sources: comm_001692_제357조_Ⅰ.3_2
 // norm_cards: art357_sec1_3.receipt.no_breach_or_loss_requirement
-rel breach_of_trust_bribe_requirement_waived(case_id, receiver_id, "art357_sec1_3.receipt.no_breach_or_loss_requirement") = satisfied_art357_sec1_3_receipt_no_breach_or_loss_requirement(case_id, receiver_id, giver_id, principal_id)
+rel breach_of_trust_bribe_requirement_waived(case_id, receiver_id, "art357_sec1_3.receipt.no_breach_or_loss_requirement", "임무위배·재산상 손해") = satisfied_art357_sec1_3_receipt_no_breach_or_loss_requirement(case_id, receiver_id, giver_id, principal_id)
 
 // rule_id: breach_of_trust_bribe.art357_sec3_1.requirement_waived.002
 // sources: comm_001692_제357조_Ⅲ.1_9
 // norm_cards: art357_sec3_1.subject_no_external_authority
-rel breach_of_trust_bribe_requirement_waived(case_id, receiver_id, "art357_sec3_1.subject_no_external_authority") = satisfied_art357_sec3_1_subject_no_external_authority(case_id, receiver_id, giver_id, principal_id)
+rel breach_of_trust_bribe_requirement_waived(case_id, receiver_id, "art357_sec3_1.subject_no_external_authority", "대외적 권한·포괄위탁") = satisfied_art357_sec3_1_subject_no_external_authority(case_id, receiver_id, giver_id, principal_id)
 
 // rule_id: breach_of_trust_bribe.art357_sec3_5.requirement_waived.003
 // sources: comm_001692_제357조_Ⅲ.5_25
 // norm_cards: art357_sec3_5.no_corrupt_performance_required
-rel breach_of_trust_bribe_requirement_waived(case_id, receiver_id, "art357_sec3_5.no_corrupt_performance_required") = satisfied_art357_sec3_5_no_corrupt_performance_required(case_id, receiver_id, giver_id, principal_id)
+rel breach_of_trust_bribe_requirement_waived(case_id, receiver_id, "art357_sec3_5.no_corrupt_performance_required", "부정행위의 실행") = satisfied_art357_sec3_5_no_corrupt_performance_required(case_id, receiver_id, giver_id, principal_id)
 
 // rule_id: breach_of_trust_bribe.core.outcome.bridge
 // sources: comm_001692_제357조_Ⅰ.2_1, comm_001692_제357조_Ⅰ.3_2, comm_001692_제357조_Ⅰ.4_3, comm_001692_제357조_Ⅰ.6_5, comm_001692_제357조_Ⅲ.1_11, comm_001692_제357조_Ⅲ.1_9, comm_001692_제357조_Ⅲ.1_9, comm_001692_제357조_Ⅲ.1_9, comm_001692_제357조_Ⅲ.2_13, comm_001692_제357조_Ⅲ.2_13, comm_001692_제357조_Ⅲ.2_13, comm_001692_제357조_Ⅲ.2_13, comm_001692_제357조_Ⅲ.2_14, comm_001692_제357조_Ⅲ.2_14, comm_001692_제357조_Ⅲ.2_14, comm_001692_제357조_Ⅲ.2_14, comm_001692_제357조_Ⅲ.2_18, comm_001692_제357조_Ⅲ.2_18, comm_001692_제357조_Ⅲ.2_21, comm_001692_제357조_Ⅲ.3_22, comm_001692_제357조_Ⅲ.3_22, comm_001692_제357조_Ⅲ.3_22, comm_001692_제357조_Ⅲ.3_22, comm_001692_제357조_Ⅲ.3_22, comm_001692_제357조_Ⅲ.3_22, comm_001692_제357조_Ⅲ.3_22, comm_001692_제357조_Ⅲ.3_23, comm_001692_제357조_Ⅲ.4_24, comm_001692_제357조_Ⅲ.4_24, comm_001692_제357조_Ⅲ.5_25, comm_001692_제357조_Ⅲ.5_25, comm_001692_제357조_Ⅳ_31, comm_001692_제357조_Ⅳ_31

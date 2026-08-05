@@ -141,29 +141,45 @@ def test_closed_selection_uses_registry_enum_and_validates_dependencies() -> Non
         )
 
 
-def test_closed_selection_rejects_boundary_label_dependency_and_missing_role() -> None:
+def test_closed_selection_demotes_bad_label_dependency_and_missing_role() -> None:
+    """A defective issue is handed back, not thrown — the case keeps its others.
+
+    These three defects used to abort the whole run.  On the 26-item sweep that
+    discarded 15 cases whose remaining issues were well formed, so each defect
+    now names one issue for the writer to argue without symbolic support.
+    """
+
     selection = {
         "version": "1.0.0",
         "case_id": "case-1",
         "issues": [_issue("issue-1", "rape")],
     }
     selection["issues"][0]["reported_label"] = "unsupported"
-    with pytest.raises(NativeHostError, match="actual Korean legal issue"):
-        validate_closed_issue_selection(
-            selection, case_id="case-1", case_text=CASE_TEXT
-        )
+    rejected = validate_closed_issue_selection(
+        selection, case_id="case-1", case_text=CASE_TEXT
+    )
+    assert [item["issue_id"] for item in rejected] == ["issue-1"]
+    assert "죄명" in rejected[0]["reason"]
 
     unsupported = _issue("issue-2", "unsupported", dependencies=["issue-1"])
     selection["issues"] = [_issue("issue-1", "rape"), unsupported]
-    with pytest.raises(NativeHostError, match="unsupported issue cannot"):
-        validate_closed_issue_selection(
-            selection, case_id="case-1", case_text=CASE_TEXT
-        )
+    rejected = validate_closed_issue_selection(
+        selection, case_id="case-1", case_text=CASE_TEXT
+    )
+    # The well-formed issue survives; only the dependent one is dropped.
+    assert [item["issue_id"] for item in rejected] == ["issue-2"]
 
     supported = _issue("issue-1", "rape")
     supported["role_candidates"].pop(next(iter(supported["role_candidates"])))
     selection["issues"] = [supported]
-    with pytest.raises(NativeHostError, match="missing required roles"):
+    rejected = validate_closed_issue_selection(
+        selection, case_id="case-1", case_text=CASE_TEXT
+    )
+    assert "당사자 역할이 빠졌다" in rejected[0]["reason"]
+
+    # A payload that is unusable as a whole still raises.
+    selection["issues"] = [_issue("issue-1", "rape"), _issue("issue-1", "rape")]
+    with pytest.raises(NativeHostError, match="unique"):
         validate_closed_issue_selection(
             selection, case_id="case-1", case_text=CASE_TEXT
         )

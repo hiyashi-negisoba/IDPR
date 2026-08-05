@@ -5,7 +5,7 @@
 ## 전체 구조
 
 - rule_set_id: `kr.property.robbery.full.v1_candidate`
-- predicate: 320개
+- predicate: 321개
 - rule: 526개
 - NormCard: 98개
 
@@ -2216,19 +2216,26 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art333.illegal_cause_debt_evasion_robbery_murder`, `art333_sec4_1.apparent_property_benefit`, `art333_sec4_1.property_benefit`, `art333_sec4_2.debt_evasion_benefit_transfer`, `art333_sec4_2.debt_evasion_disposition_not_required`, `art333_sec7_2.completion_forcible_gain`
 
-### `robbery_requirement_waived(case_id: String, defendant_id: String, issue_id: String)`
+### `robbery_requirement_waived(case_id: String, defendant_id: String, issue_id: String, value: String)`
 
 이 죄의 성립에 요구되지 않는 요건이 확인됨 — 성립을 막지 않는다
 
 - 종류/역할: `rule` / `derived`
-- 연결 NormCard: `art333_sec7_1.completion.no_safe_escape_requirement`, `art333_sec7_1.completion.recovery_does_not_negate`, `art334_sec2_1.weapon_awareness_not_required`, `art334_sec2_1.weapon_direct_use_not_required`, `art335_sec3_2.arrest_or_concealment_no_control`, `art338_sec4.robbery_death_attempt_excluded`, `art343_sec3.abandonment_before_execution_denied`
+- 연결 NormCard: `art333_sec7_1.completion.no_safe_escape_requirement`, `art333_sec7_1.completion.recovery_does_not_negate`, `art334_sec2_1.weapon_awareness_not_required`, `art334_sec2_1.weapon_direct_use_not_required`, `art335_sec3_2.arrest_or_concealment_no_control`, `art338_sec4.robbery_death_attempt_excluded`
 
-### `robbery_boundary_shift(case_id: String, defendant_id: String, issue_id: String)`
+### `robbery_boundary_shift(case_id: String, defendant_id: String, issue_id: String, value: String)`
 
 이 죄가 아니라 다른 죄로 평가되는 경계 사유가 확인됨
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art333_sec2_3.diversion_or_insult_violence_no_robbery`, `art333_sec2_3.lesser_threat_extortion`, `art333_sec3_3.unconsciousness_prior_force_no_causation`, `art333_sec8.right_exercise_robbery_negative`, `art338_sec2.debt_evasion_no_robbery`
+
+### `robbery_post_outcome(case_id: String, defendant_id: String, issue_id: String, value: String)`
+
+구성요건 판단 뒤에 오는 죄수·처벌 효과
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art343_sec3.abandonment_before_execution_denied`
 
 ### `robbery_refers_to_crime(case_id: String, defendant_id: String, crime_name: String)`
 
@@ -8366,18 +8373,6 @@
 
 검토 메모: 요건 불요 규칙이므로 불성립 사유로 쓰지 않고 면제 사실만 기록한다.
 
-### `robbery.art343_sec3.requirement_waived.007`
-
-이 규칙은 **이 죄의 성립에 요구되지 않는 요건이 확인됨 — 성립을 막지 않는다**을 도출한다.
-
-필요한 전제:
-
-- 증명 가능한 평가에서 다음 조건이 충족됨: 예비·음모죄는 예비·음모 행위가 있으면 완성되는 범죄이므로 중지미수가 인정될 여지가 없다.
-
-연결 NormCard: `art343_sec3.abandonment_before_execution_denied`
-
-검토 메모: 요건 불요 규칙이므로 불성립 사유로 쓰지 않고 면제 사실만 기록한다.
-
 ### `robbery.art333_sec2_3.boundary_shift.001`
 
 이 규칙은 **이 죄가 아니라 다른 죄로 평가되는 경계 사유가 확인됨**을 도출한다.
@@ -8437,6 +8432,18 @@
 연결 NormCard: `art338_sec2.debt_evasion_no_robbery`
 
 검토 메모: 이 죄의 불성립과 함께 다른 죄로 넘어간다는 신호를 남긴다.
+
+### `robbery.art343_sec3.post_outcome.001`
+
+이 규칙은 **구성요건 판단 뒤에 오는 죄수·처벌 효과**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 예비·음모죄는 예비·음모 행위가 있으면 완성되는 범죄이므로 중지미수가 인정될 여지가 없다.
+
+연결 NormCard: `art343_sec3.abandonment_before_execution_denied`
+
+검토 메모: 불가벌적 사후행위 등은 구성요건 불성립과 구별해 별도로 기록한다.
 
 ### `robbery.art333_sec2_3.refers_to_crime.001`
 

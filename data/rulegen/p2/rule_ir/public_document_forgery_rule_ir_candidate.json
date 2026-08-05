@@ -4432,6 +4432,41 @@
       ]
     },
     {
+      "id": "public_document_forgery_subtype_outcome",
+      "kind": "rule",
+      "origin": "commentary",
+      "role": "derived",
+      "definition": "같은 죄 안에서 어느 적용유형으로 의율되는지 — 죄 전체의 성립은 유지된다",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "norm_card_id",
+          "type": "String"
+        },
+        {
+          "name": "subtype",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [
+        "art225_sec3_2.name_change_new_document_forgery"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제225조_Ⅲ.2_12",
+          "quote": "거주증명서의 해당자 성명 기재는 위 증명서를 특정하 는 데 극히 중요한 기재이고, 李鳳基와 李永基는 외형상 별개 자연인을 표명한 것이 분명하므로, 이는 위 증명서가 목적하는 특정인 李鳳基의 이름 석자 중 ‘鳳’자를 ‘永’자로 고침으로써 李永基에 대한 거주증명서로서 전연 별개의 새로운 공문서를 작성한 것이므로 공문서변조죄가 아니라 공문서위조죄가 성립한다.",
+          "section_path": "Ⅲ.2"
+        }
+      ]
+    },
+    {
       "id": "public_document_forgery_has_negative",
       "kind": "rule",
       "origin": "system",
@@ -19563,122 +19598,6 @@
       ]
     },
     {
-      "id": "public_document_forgery.track_conflict.alteration.art225_sec3_2_name_change_new_document_forgery",
-      "head": {
-        "predicate": "public_document_forgery_track_conflict",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "alteration"
-          },
-          {
-            "kind": "string",
-            "value": "art225_sec3_2.name_change_new_document_forgery"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "public_document_forgery_conflict",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "art225_sec3_2.name_change_new_document_forgery"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "카드 평가 충돌은 해당 track과 그 상속 track에만 전파한다.",
-      "norm_card_ids": [
-        "art225_sec3_2.name_change_new_document_forgery"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제225조_Ⅲ.2_12",
-          "quote": "거주증명서의 해당자 성명 기재는 위 증명서를 특정하 는 데 극히 중요한 기재이고, 李鳳基와 李永基는 외형상 별개 자연인을 표명한 것이 분명하므로, 이는 위 증명서가 목적하는 특정인 李鳳基의 이름 석자 중 ‘鳳’자를 ‘永’자로 고침으로써 李永基에 대한 거주증명서로서 전연 별개의 새로운 공문서를 작성한 것이므로 공문서변조죄가 아니라 공문서위조죄가 성립한다.",
-          "section_path": "Ⅲ.2"
-        }
-      ]
-    },
-    {
-      "id": "public_document_forgery.track_blocked.alteration.art225_sec3_2_name_change_new_document_forgery",
-      "head": {
-        "predicate": "public_document_forgery_track_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "alteration"
-          },
-          {
-            "kind": "string",
-            "value": "art225_sec3_2.name_change_new_document_forgery"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "satisfied_art225_sec3_2_name_change_new_document_forgery",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "document_id"
-            },
-            {
-              "kind": "variable",
-              "value": "nominal_official_id"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
-      "norm_card_ids": [
-        "art225_sec3_2.name_change_new_document_forgery"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제225조_Ⅲ.2_12",
-          "quote": "거주증명서의 해당자 성명 기재는 위 증명서를 특정하 는 데 극히 중요한 기재이고, 李鳳基와 李永基는 외형상 별개 자연인을 표명한 것이 분명하므로, 이는 위 증명서가 목적하는 특정인 李鳳基의 이름 석자 중 ‘鳳’자를 ‘永’자로 고침으로써 李永基에 대한 거주증명서로서 전연 별개의 새로운 공문서를 작성한 것이므로 공문서변조죄가 아니라 공문서위조죄가 성립한다.",
-          "section_path": "Ⅲ.2"
-        }
-      ]
-    },
-    {
       "id": "public_document_forgery.track_conflict.alteration.art225_sec3_2_partial_copy_no_new_probative_force",
       "head": {
         "predicate": "public_document_forgery_track_conflict",
@@ -22749,6 +22668,66 @@
           "comment_id": "comm_001692_제225조_Ⅲ.1_7",
           "quote": "기존의 문서에 가필·변경을 가함으로써 전혀 새로운 내용의 증명을 가지게 되는 경우는 변조가 아니고 위조가 된다.",
           "section_path": "Ⅲ.1"
+        }
+      ]
+    },
+    {
+      "id": "public_document_forgery.subtype_outcome.art225_sec3_2_name_change_new_document_forgery.001",
+      "head": {
+        "predicate": "public_document_forgery_subtype_outcome",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art225_sec3_2.name_change_new_document_forgery"
+          },
+          {
+            "kind": "string",
+            "value": "변조가 아니라 위조"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art225_sec3_2_name_change_new_document_forgery",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "document_id"
+            },
+            {
+              "kind": "variable",
+              "value": "nominal_official_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "결론 계층 밖의 보고 신호다. 성립·불성립을 만들지 않는다.",
+      "norm_card_ids": [
+        "art225_sec3_2.name_change_new_document_forgery"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제225조_Ⅲ.2_12",
+          "quote": "거주증명서의 해당자 성명 기재는 위 증명서를 특정하 는 데 극히 중요한 기재이고, 李鳳基와 李永基는 외형상 별개 자연인을 표명한 것이 분명하므로, 이는 위 증명서가 목적하는 특정인 李鳳基의 이름 석자 중 ‘鳳’자를 ‘永’자로 고침으로써 李永基에 대한 거주증명서로서 전연 별개의 새로운 공문서를 작성한 것이므로 공문서변조죄가 아니라 공문서위조죄가 성립한다.",
+          "section_path": "Ⅲ.2"
         }
       ]
     },

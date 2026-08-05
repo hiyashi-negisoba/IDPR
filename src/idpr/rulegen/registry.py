@@ -158,6 +158,11 @@ def _OPTIONAL_QUERY_RELATIONS(unit_id: str) -> tuple[str, ...]:
         f"{unit_id}_refers_to_crime",
         f"{unit_id}_boundary_shift",
         f"{unit_id}_requirement_waived",
+        f"{unit_id}_assessment_standard",
+        f"{unit_id}_proof_standard",
+        f"{unit_id}_subtype_outcome",
+        f"{unit_id}_post_outcome",
+        f"{unit_id}_outcome_detail",
     )
 
 
@@ -200,6 +205,45 @@ def build_registry(
             known_limitations=spec.known_limitations,
         )
     return entries
+
+
+EXCEPTION_POLARITY_GATE = Path("data/rulegen/exception_polarity_gate.json")
+
+
+def exception_polarity_warnings(
+    root: Path = PROJECT_ROOT,
+) -> tuple[dict[str, Any], ...]:
+    """Cards whose ``polarity=exception`` hides which way the proposition points.
+
+    The polarity screen that found the 상해죄 inversion never looked at these —
+    ``exception`` answers neither "is this a negative card" nor "is this a
+    positive one", so all 141 passed.  88 of them sit in a role that can defeat
+    an offence.  ``scripts/audit_exception_polarity_cards.py`` keeps the list;
+    this surfaces it wherever the registry is audited so the gap stays visible
+    until a review restores each card's polarity to positive or negative.
+    """
+
+    path = root / EXCEPTION_POLARITY_GATE
+    if not path.is_file():
+        return ()
+    payload = _read_json(path)
+    approved = set(payload.get("approved", []))
+    return tuple(
+        row for row in payload.get("cards", [])
+        if row.get("blocking") and row.get("card_id") not in approved
+    )
+
+
+def exception_polarity_enforced(root: Path = PROJECT_ROOT) -> bool:
+    """Whether an unreviewed card in a blocking role should refuse to run.
+
+    Off by default: locking it today stops 25 of the 36 units, which would take
+    the pipeline down rather than make it safer.  It is turned on once the
+    polarity restoration batch has worked through the list.
+    """
+
+    path = root / EXCEPTION_POLARITY_GATE
+    return bool(path.is_file() and _read_json(path).get("enforce", False))
 
 
 def resolve_unit(
@@ -291,12 +335,24 @@ def audit_rule_ir_assets(
             "errors": unit_errors,
         })
         errors.extend(f"{spec.unit_id}: {item}" for item in unit_errors)
+    # A card whose polarity is ``exception`` sitting in a blocking role is not an
+    # asset error — the SCL is well formed — but it is the shape of defect that
+    # already cost 상해죄 and 방화죄 a conviction, so the audit carries it.
+    pending = exception_polarity_warnings(root)
+    warnings = [
+        f"polarity=exception 카드가 성립을 막는 자리에 있다: "
+        f"{row['unit_id']}/{row['card_id']} ({row['role']})"
+        for row in pending
+    ]
+    if exception_polarity_enforced(root) and pending:
+        errors.extend(warnings)
     return {
         "version": manifest["version"],
         "scope": manifest["scope"],
         "status": "pass" if not errors else "fail",
         "units": report_units,
         "errors": errors,
+        "warnings": warnings,
     }
 
 

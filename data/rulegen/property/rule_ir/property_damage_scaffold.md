@@ -5,7 +5,7 @@
 ## 전체 구조
 
 - rule_set_id: `kr.property.property_damage.full.v1_candidate`
-- predicate: 177개
+- predicate: 178개
 - rule: 276개
 - NormCard: 53개
 
@@ -1192,7 +1192,7 @@
 명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함
 
 - 종류/역할: `rule` / `derived`
-- 연결 NormCard: `art366.corpse_exclusion`, `art366.no_utility_property_exclusion`, `art366.ownerless_property_exclusion`, `art366.public_document_used_by_office`, `art366.transmitting_or_processing_information_exclusion`, `art366_sec3_2.document_removal_without_owner_intent`, `art366_sec3_2.electronic_record_power_cutoff_exception`, `art366_sec3_2.mere_functional_interference_not_destruction`, `art366_sec3_2.movement_no_objective_use_value`, `art366_sec4_1.intent_absence`, `art366_sec5_2.immediate_self_recovery_assessment`, `art366_sec5_2.justifiable_act_requirements`, `art366_sec5_2.possession_protection_destruction`, `art366_sec5_2.socially_acceptable_act`, `art366_sec5_5.presumed_consent`
+- 연결 NormCard: `art366.corpse_exclusion`, `art366.no_utility_property_exclusion`, `art366.ownerless_property_exclusion`, `art366.public_document_used_by_office`, `art366.transmitting_or_processing_information_exclusion`, `art366_sec3_2.document_removal_without_owner_intent`, `art366_sec3_2.electronic_record_power_cutoff_exception`, `art366_sec3_2.mere_functional_interference_not_destruction`, `art366_sec3_2.movement_no_objective_use_value`, `art366_sec4_1.intent_absence`, `art366_sec5_2.possession_protection_destruction`
 
 ### `property_damage_undetermined(case_id: String, defendant_id: String, issue_id: String)`
 
@@ -1213,7 +1213,7 @@
 해당 피고인에 관해 하나 이상의 명시적 불성립 사유가 존재함
 
 - 종류/역할: `rule` / `derived`
-- 연결 NormCard: `art366.corpse_exclusion`, `art366.no_utility_property_exclusion`, `art366.ownerless_property_exclusion`, `art366.public_document_used_by_office`, `art366.transmitting_or_processing_information_exclusion`, `art366_sec3_2.document_removal_without_owner_intent`, `art366_sec3_2.electronic_record_power_cutoff_exception`, `art366_sec3_2.mere_functional_interference_not_destruction`, `art366_sec3_2.movement_no_objective_use_value`, `art366_sec4_1.intent_absence`, `art366_sec5_2.immediate_self_recovery_assessment`, `art366_sec5_2.justifiable_act_requirements`, `art366_sec5_2.possession_protection_destruction`, `art366_sec5_2.socially_acceptable_act`, `art366_sec5_5.presumed_consent`
+- 연결 NormCard: `art366.corpse_exclusion`, `art366.no_utility_property_exclusion`, `art366.ownerless_property_exclusion`, `art366.public_document_used_by_office`, `art366.transmitting_or_processing_information_exclusion`, `art366_sec3_2.document_removal_without_owner_intent`, `art366_sec3_2.electronic_record_power_cutoff_exception`, `art366_sec3_2.mere_functional_interference_not_destruction`, `art366_sec3_2.movement_no_objective_use_value`, `art366_sec4_1.intent_absence`, `art366_sec5_2.possession_protection_destruction`
 
 ### `property_damage_has_conflict(case_id: String, defendant_id: String)`
 
@@ -1229,12 +1229,19 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art366.alternative_use_property`, `art366.cloud_provider_delete_record`, `art366.document_definition`, `art366.electronic_record_definition`, `art366.electronic_record_durability`, `art366.electronic_record_erasure`, `art366.fact_certification_private_document`, `art366.medium_damage_property_damage`, `art366.object_manageable_energy`, `art366.other_person_ownership`, `art366.property_object_definition`, `art366.public_building_affirmative_view`, `art366.public_interest_building_non_destruction`, `art366.record_medium_information_combination`, `art366.separated_human_material`, `art366.shared_property_damage`, `art366.special_medium_record_definition`, `art366.special_medium_record_limited_view`, `art366_sec3_2.concealment_definition`, `art366_sec3_2.concealment_no_possession_required`, `art366_sec3_2.concealment_temporary_and_return_intent`, `art366_sec3_2.destruction_definition`, `art366_sec3_2.destruction_no_irreparable_damage`, `art366_sec3_2.document_margin_removal`, `art366_sec3_2.document_removal_against_owner_intent`, `art366_sec3_2.electronic_file_metadata_concealment`, `art366_sec3_2.electronic_record_other_methods_definition`, `art366_sec3_2.emotional_use_majority_position`, `art366_sec3_2.movement_objective_use_value`, `art366_sec3_2.other_method_efficiency_harm_definition`, `art366_sec3_2.other_method_temporary_unusable`, `art366_sec3_2.preservation_state_change_view`, `art366_sec3_2.road_graffiti_totality`, `art366_sec3_2.wall_graffiti_functional_efficiency_limit`, `art366_sec3_2.wall_graffiti_totality`, `art366_sec3_3.completion.efficiency_injury`, `art366_sec4_1.intent_awareness`, `art366_sec4_1.intent_conditional_sufficiency`
 
-### `property_damage_boundary_shift(case_id: String, defendant_id: String, issue_id: String)`
+### `property_damage_boundary_shift(case_id: String, defendant_id: String, issue_id: String, value: String)`
 
 이 죄가 아니라 다른 죄로 평가되는 경계 사유가 확인됨
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art366.public_document_used_by_office`
+
+### `property_damage_assessment_standard(case_id: String, defendant_id: String, issue_id: String, value: String)`
+
+이 요건을 어떤 기준으로 판단하는지 — 기준일 뿐 충족 여부의 결론이 아니다
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art366_sec5_2.immediate_self_recovery_assessment`, `art366_sec5_2.justifiable_act_requirements`, `art366_sec5_2.socially_acceptable_act`, `art366_sec5_5.presumed_consent`
 
 ### `property_damage_refers_to_crime(case_id: String, defendant_id: String, crime_name: String)`
 
@@ -4696,57 +4703,9 @@
 
 필요한 전제:
 
-- 증명 가능한 평가에서 다음 조건이 충족됨: 부동산 자력탈환권의 행사가 직시에 이루어졌는지는 물리적 시간뿐 아니라 침탈자의 점유 확립, 법적 안정·평화 침해 및 권리남용 여부를 함께 살펴 판단한다.
-
-연결 NormCard: `art366_sec5_2.immediate_self_recovery_assessment`
-
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
-
-### `property_damage.art366_sec5_2.bar.012`
-
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
-
-필요한 전제:
-
-- 증명 가능한 평가에서 다음 조건이 충족됨: 정당행위는 동기·목적의 정당성, 수단·방법의 상당성, 법익균형성, 긴급성 및 보충성 등의 요건을 갖춘 경우에 인정된다.
-
-연결 NormCard: `art366_sec5_2.justifiable_act_requirements`
-
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
-
-### `property_damage.art366_sec5_2.bar.013`
-
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
-
-필요한 전제:
-
 - 증명 가능한 평가에서 다음 조건이 충족됨: 부당한 점유침탈을 배제하고 위험발생을 방지하기 위해 자물쇠나 전기선을 절단한 경우, 침해가 과도하지 않아 사회통념상 현저히 타당성을 잃지 않으면 정당행위가 된다.
 
 연결 NormCard: `art366_sec5_2.possession_protection_destruction`
-
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
-
-### `property_damage.art366_sec5_2.bar.014`
-
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
-
-필요한 전제:
-
-- 증명 가능한 평가에서 다음 조건이 충족됨: 사회상규에 위배되지 아니하는 행위란 법질서 전체의 정신, 사회윤리 또는 사회통념에 비추어 용인될 수 있는 행위이다.
-
-연결 NormCard: `art366_sec5_2.socially_acceptable_act`
-
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
-
-### `property_damage.art366_sec5_5.bar.015`
-
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
-
-필요한 전제:
-
-- 증명 가능한 평가에서 다음 조건이 충족됨: 추정적 승낙은 현실적 승낙이 없더라도 행위 당시의 모든 객관적 사정에 비추어 피해자가 행위 내용을 알았다면 당연히 승낙하였을 것으로 예견되는 경우를 말한다.
-
-연결 NormCard: `art366_sec5_5.presumed_consent`
 
 검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
 
@@ -4855,7 +4814,7 @@
 
 - 명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함
 
-연결 NormCard: `art366.corpse_exclusion`, `art366.no_utility_property_exclusion`, `art366.ownerless_property_exclusion`, `art366.public_document_used_by_office`, `art366.transmitting_or_processing_information_exclusion`, `art366_sec3_2.document_removal_without_owner_intent`, `art366_sec3_2.electronic_record_power_cutoff_exception`, `art366_sec3_2.mere_functional_interference_not_destruction`, `art366_sec3_2.movement_no_objective_use_value`, `art366_sec4_1.intent_absence`, `art366_sec5_2.immediate_self_recovery_assessment`, `art366_sec5_2.justifiable_act_requirements`, `art366_sec5_2.possession_protection_destruction`, `art366_sec5_2.socially_acceptable_act`, `art366_sec5_5.presumed_consent`
+연결 NormCard: `art366.corpse_exclusion`, `art366.no_utility_property_exclusion`, `art366.ownerless_property_exclusion`, `art366.public_document_used_by_office`, `art366.transmitting_or_processing_information_exclusion`, `art366_sec3_2.document_removal_without_owner_intent`, `art366_sec3_2.electronic_record_power_cutoff_exception`, `art366_sec3_2.mere_functional_interference_not_destruction`, `art366_sec3_2.movement_no_objective_use_value`, `art366_sec4_1.intent_absence`, `art366_sec5_2.possession_protection_destruction`
 
 검토 메모: 명시적 불성립 사유를 최종 결론 계층에서 검사할 2항 relation으로 모은다.
 
@@ -4897,6 +4856,54 @@
 연결 NormCard: `art366.public_document_used_by_office`
 
 검토 메모: 이 죄의 불성립과 함께 다른 죄로 넘어간다는 신호를 남긴다.
+
+### `property_damage.art366_sec5_2.assessment_standard.001`
+
+이 규칙은 **이 요건을 어떤 기준으로 판단하는지 — 기준일 뿐 충족 여부의 결론이 아니다**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 부동산 자력탈환권의 행사가 직시에 이루어졌는지는 물리적 시간뿐 아니라 침탈자의 점유 확립, 법적 안정·평화 침해 및 권리남용 여부를 함께 살펴 판단한다.
+
+연결 NormCard: `art366_sec5_2.immediate_self_recovery_assessment`
+
+검토 메모: 판단기준은 결론 계층에 연결하지 않는다. 기준으로 성립을 만들거나 막으면 정의만으로 유·무죄가 갈린다.
+
+### `property_damage.art366_sec5_2.assessment_standard.002`
+
+이 규칙은 **이 요건을 어떤 기준으로 판단하는지 — 기준일 뿐 충족 여부의 결론이 아니다**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 정당행위는 동기·목적의 정당성, 수단·방법의 상당성, 법익균형성, 긴급성 및 보충성 등의 요건을 갖춘 경우에 인정된다.
+
+연결 NormCard: `art366_sec5_2.justifiable_act_requirements`
+
+검토 메모: 판단기준은 결론 계층에 연결하지 않는다. 기준으로 성립을 만들거나 막으면 정의만으로 유·무죄가 갈린다.
+
+### `property_damage.art366_sec5_2.assessment_standard.003`
+
+이 규칙은 **이 요건을 어떤 기준으로 판단하는지 — 기준일 뿐 충족 여부의 결론이 아니다**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 사회상규에 위배되지 아니하는 행위란 법질서 전체의 정신, 사회윤리 또는 사회통념에 비추어 용인될 수 있는 행위이다.
+
+연결 NormCard: `art366_sec5_2.socially_acceptable_act`
+
+검토 메모: 판단기준은 결론 계층에 연결하지 않는다. 기준으로 성립을 만들거나 막으면 정의만으로 유·무죄가 갈린다.
+
+### `property_damage.art366_sec5_5.assessment_standard.004`
+
+이 규칙은 **이 요건을 어떤 기준으로 판단하는지 — 기준일 뿐 충족 여부의 결론이 아니다**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 추정적 승낙은 현실적 승낙이 없더라도 행위 당시의 모든 객관적 사정에 비추어 피해자가 행위 내용을 알았다면 당연히 승낙하였을 것으로 예견되는 경우를 말한다.
+
+연결 NormCard: `art366_sec5_5.presumed_consent`
+
+검토 메모: 판단기준은 결론 계층에 연결하지 않는다. 기준으로 성립을 만들거나 막으면 정의만으로 유·무죄가 갈린다.
 
 ### `property_damage.art366.refers_to_crime.001`
 

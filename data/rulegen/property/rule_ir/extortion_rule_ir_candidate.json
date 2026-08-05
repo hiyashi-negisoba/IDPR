@@ -6087,21 +6087,6 @@
           "comment_id": "comm_001692_제350조_Ⅷ.2_28",
           "quote": "이와 같이 공갈죄가 성립하지 않는 경우에는 수반된 협박행위도 사회통 념상 허용되는 범위 내라고 보아야 하므로, 따로 협박죄도 성립하지 않는다.",
           "section_path": "Ⅷ.2"
-        },
-        {
-          "comment_id": "comm_001692_제350조_Ⅷ.2_29",
-          "quote": "각되는지 여부를 결정하여야 한다.",
-          "section_path": "Ⅷ.2"
-        },
-        {
-          "comment_id": "comm_001692_제350조_Ⅷ.2_29",
-          "quote": "그 권리행사에 속하는 행",
-          "section_path": "Ⅷ.2"
-        },
-        {
-          "comment_id": "comm_001692_제350조_Ⅷ.2_29",
-          "quote": "위와 그 수단에 속하는 공갈행위를 전체적으로 관찰하여 그와 같은 공갈행위를 사회통념상 권리행사의 수단으로서 용인할 수 있는지 여부에 따라 위법성이 조",
-          "section_path": "Ⅷ.2"
         }
       ],
       "norm_card_ids": [
@@ -6113,8 +6098,7 @@
         "art350_sec5_2.no_fear_attempt",
         "art350_sec5_3.complete_suppression_robbery",
         "art350_sec6_2.satisfied_consideration_causation_exception",
-        "art350_sec8_2.permitted_threat_no_extortion",
-        "art350_sec8_2.right_exercise_total_assessment"
+        "art350_sec8_2.permitted_threat_no_extortion"
       ]
     },
     {
@@ -6800,21 +6784,6 @@
           "comment_id": "comm_001692_제350조_Ⅷ.2_28",
           "quote": "이와 같이 공갈죄가 성립하지 않는 경우에는 수반된 협박행위도 사회통 념상 허용되는 범위 내라고 보아야 하므로, 따로 협박죄도 성립하지 않는다.",
           "section_path": "Ⅷ.2"
-        },
-        {
-          "comment_id": "comm_001692_제350조_Ⅷ.2_29",
-          "quote": "각되는지 여부를 결정하여야 한다.",
-          "section_path": "Ⅷ.2"
-        },
-        {
-          "comment_id": "comm_001692_제350조_Ⅷ.2_29",
-          "quote": "그 권리행사에 속하는 행",
-          "section_path": "Ⅷ.2"
-        },
-        {
-          "comment_id": "comm_001692_제350조_Ⅷ.2_29",
-          "quote": "위와 그 수단에 속하는 공갈행위를 전체적으로 관찰하여 그와 같은 공갈행위를 사회통념상 권리행사의 수단으로서 용인할 수 있는지 여부에 따라 위법성이 조",
-          "section_path": "Ⅷ.2"
         }
       ],
       "norm_card_ids": [
@@ -6826,8 +6795,7 @@
         "art350_sec5_2.no_fear_attempt",
         "art350_sec5_3.complete_suppression_robbery",
         "art350_sec6_2.satisfied_consideration_causation_exception",
-        "art350_sec8_2.permitted_threat_no_extortion",
-        "art350_sec8_2.right_exercise_total_assessment"
+        "art350_sec8_2.permitted_threat_no_extortion"
       ]
     },
     {
@@ -7388,6 +7356,10 @@
         {
           "name": "issue_id",
           "type": "String"
+        },
+        {
+          "name": "value",
+          "type": "String"
         }
       ],
       "kind": "rule",
@@ -7425,6 +7397,10 @@
         {
           "name": "issue_id",
           "type": "String"
+        },
+        {
+          "name": "value",
+          "type": "String"
         }
       ],
       "kind": "rule",
@@ -7452,6 +7428,51 @@
         "art350_sec4_1.objectively_insufficient_threat",
         "art350_sec4_1.robbery_boundary",
         "art350_sec5_3.complete_suppression_robbery"
+      ]
+    },
+    {
+      "id": "extortion_assessment_standard",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "issue_id",
+          "type": "String"
+        },
+        {
+          "name": "value",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "이 요건을 어떤 기준으로 판단하는지 — 기준일 뿐 충족 여부의 결론이 아니다",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제350조_Ⅷ.2_29",
+          "quote": "각되는지 여부를 결정하여야 한다.",
+          "section_path": "Ⅷ.2"
+        },
+        {
+          "comment_id": "comm_001692_제350조_Ⅷ.2_29",
+          "quote": "그 권리행사에 속하는 행",
+          "section_path": "Ⅷ.2"
+        },
+        {
+          "comment_id": "comm_001692_제350조_Ⅷ.2_29",
+          "quote": "위와 그 수단에 속하는 공갈행위를 전체적으로 관찰하여 그와 같은 공갈행위를 사회통념상 권리행사의 수단으로서 용인할 수 있는지 여부에 따라 위법성이 조",
+          "section_path": "Ⅷ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art350_sec8_2.right_exercise_total_assessment"
       ]
     },
     {
@@ -26511,76 +26532,6 @@
       "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
     },
     {
-      "id": "extortion.art350_sec8_2.bar.010",
-      "head": {
-        "predicate": "extortion_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art350_sec8_2.right_exercise_total_assessment"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "satisfied_art350_sec8_2_right_exercise_total_assessment",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "coerced_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "disposer_id"
-            },
-            {
-              "kind": "variable",
-              "value": "owner_id"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제350조_Ⅷ.2_29",
-          "quote": "각되는지 여부를 결정하여야 한다.",
-          "section_path": "Ⅷ.2"
-        },
-        {
-          "comment_id": "comm_001692_제350조_Ⅷ.2_29",
-          "quote": "그 권리행사에 속하는 행",
-          "section_path": "Ⅷ.2"
-        },
-        {
-          "comment_id": "comm_001692_제350조_Ⅷ.2_29",
-          "quote": "위와 그 수단에 속하는 공갈행위를 전체적으로 관찰하여 그와 같은 공갈행위를 사회통념상 권리행사의 수단으로서 용인할 수 있는지 여부에 따라 위법성이 조",
-          "section_path": "Ⅷ.2"
-        }
-      ],
-      "norm_card_ids": [
-        "art350_sec8_2.right_exercise_total_assessment"
-      ],
-      "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
-    },
-    {
       "id": "extortion.component.l0.mandatory_negative.01",
       "head": {
         "predicate": "extortion_not_established",
@@ -28129,21 +28080,6 @@
           "comment_id": "comm_001692_제350조_Ⅷ.2_28",
           "quote": "이와 같이 공갈죄가 성립하지 않는 경우에는 수반된 협박행위도 사회통 념상 허용되는 범위 내라고 보아야 하므로, 따로 협박죄도 성립하지 않는다.",
           "section_path": "Ⅷ.2"
-        },
-        {
-          "comment_id": "comm_001692_제350조_Ⅷ.2_29",
-          "quote": "각되는지 여부를 결정하여야 한다.",
-          "section_path": "Ⅷ.2"
-        },
-        {
-          "comment_id": "comm_001692_제350조_Ⅷ.2_29",
-          "quote": "그 권리행사에 속하는 행",
-          "section_path": "Ⅷ.2"
-        },
-        {
-          "comment_id": "comm_001692_제350조_Ⅷ.2_29",
-          "quote": "위와 그 수단에 속하는 공갈행위를 전체적으로 관찰하여 그와 같은 공갈행위를 사회통념상 권리행사의 수단으로서 용인할 수 있는지 여부에 따라 위법성이 조",
-          "section_path": "Ⅷ.2"
         }
       ],
       "norm_card_ids": [
@@ -28155,8 +28091,7 @@
         "art350_sec5_2.no_fear_attempt",
         "art350_sec5_3.complete_suppression_robbery",
         "art350_sec6_2.satisfied_consideration_causation_exception",
-        "art350_sec8_2.permitted_threat_no_extortion",
-        "art350_sec8_2.right_exercise_total_assessment"
+        "art350_sec8_2.permitted_threat_no_extortion"
       ],
       "review_notes": "명시적 불성립 사유를 최종 결론 계층에서 검사할 2항 relation으로 모은다."
     },
@@ -28812,6 +28747,10 @@
           {
             "kind": "string",
             "value": "art350_sec4_2.actual_intent_or_feasibility_not_required"
+          },
+          {
+            "kind": "string",
+            "value": "해악 실현의 의사·가능성"
           }
         ],
         "negated": false
@@ -28872,6 +28811,10 @@
           {
             "kind": "string",
             "value": "art350_sec6.no_overall_property_decrease"
+          },
+          {
+            "kind": "string",
+            "value": "전체 재산의 감소"
           }
         ],
         "negated": false
@@ -28932,6 +28875,10 @@
           {
             "kind": "string",
             "value": "art350_sec4_1.objectively_insufficient_threat"
+          },
+          {
+            "kind": "string",
+            "value": "절도"
           }
         ],
         "negated": false
@@ -28992,6 +28939,10 @@
           {
             "kind": "string",
             "value": "art350_sec4_1.robbery_boundary"
+          },
+          {
+            "kind": "string",
+            "value": "강도"
           }
         ],
         "negated": false
@@ -29052,6 +29003,10 @@
           {
             "kind": "string",
             "value": "art350_sec5_3.complete_suppression_robbery"
+          },
+          {
+            "kind": "string",
+            "value": "강도"
           }
         ],
         "negated": false
@@ -29095,6 +29050,80 @@
         "art350_sec5_3.complete_suppression_robbery"
       ],
       "review_notes": "이 죄의 불성립과 함께 다른 죄로 넘어간다는 신호를 남긴다."
+    },
+    {
+      "id": "extortion.art350_sec8_2.assessment_standard.001",
+      "head": {
+        "predicate": "extortion_assessment_standard",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art350_sec8_2.right_exercise_total_assessment"
+          },
+          {
+            "kind": "string",
+            "value": "권리행사와 공갈의 한계 판단"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art350_sec8_2_right_exercise_total_assessment",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "disposer_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제350조_Ⅷ.2_29",
+          "quote": "각되는지 여부를 결정하여야 한다.",
+          "section_path": "Ⅷ.2"
+        },
+        {
+          "comment_id": "comm_001692_제350조_Ⅷ.2_29",
+          "quote": "그 권리행사에 속하는 행",
+          "section_path": "Ⅷ.2"
+        },
+        {
+          "comment_id": "comm_001692_제350조_Ⅷ.2_29",
+          "quote": "위와 그 수단에 속하는 공갈행위를 전체적으로 관찰하여 그와 같은 공갈행위를 사회통념상 권리행사의 수단으로서 용인할 수 있는지 여부에 따라 위법성이 조",
+          "section_path": "Ⅷ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art350_sec8_2.right_exercise_total_assessment"
+      ],
+      "review_notes": "판단기준은 결론 계층에 연결하지 않는다. 기준으로 성립을 만들거나 막으면 정의만으로 유·무죄가 갈린다."
     },
     {
       "id": "extortion.art350_sec4_1.refers_to_crime.001",

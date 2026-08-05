@@ -114,12 +114,23 @@ def validate_closed_issue_selection(
     case_id: str,
     case_text: str,
     root: Path = PROJECT_ROOT,
-) -> None:
-    """Reject invented units, invalid roles, forward dependencies, and fake quotes."""
+) -> list[dict[str, str]]:
+    """Reject invented units, invalid roles, forward dependencies, and fake quotes.
+
+    A defect in one issue used to abort the whole case, and on a 26-item sweep
+    that lost 15 of them — not because the law was hard but because the router
+    named a role the unit does not take, or paraphrased its own quote.  The
+    other five or six issues in those cases were fine.  So a per-issue defect
+    now demotes that issue: it is returned here and reaches the writer through
+    the same path as an issue the symbolic layer could not decide, to be argued
+    without symbolic support.  Only a payload that is unusable as a whole —
+    schema violations, duplicate issue ids — still raises.
+    """
 
     errors = _schema_errors(
         closed_issue_selection_schema(case_id=case_id, root=root), payload
     )
+    rejected: list[dict[str, str]] = []
     registry = build_registry(root)
     issues = payload.get("issues", [])
     if isinstance(issues, list):
@@ -135,25 +146,21 @@ def validate_closed_issue_selection(
             issue_id = str(item.get("issue_id", ""))
             unit_id = str(item.get("unit_id", ""))
             reported_label = str(item.get("reported_label", "")).strip()
+            faults: list[str] = []
             if not reported_label or reported_label.casefold() == "unsupported":
-                errors.append(
-                    f"{issue_id}: reported_label must name the actual Korean legal issue"
-                )
+                faults.append("쟁점의 죄명이 기재되지 않았다")
             if item.get("source_quote") not in case_text:
-                errors.append(f"{issue_id}: source_quote is not in case text")
+                faults.append("근거로 든 사실관계 인용이 문제 지문에 없다")
             dependencies = item.get("depends_on_issue_ids", [])
             if isinstance(dependencies, list):
                 invalid_dependencies = sorted(set(dependencies) - seen)
                 if invalid_dependencies:
-                    errors.append(
-                        f"{issue_id}: dependencies must reference earlier issues: "
-                        f"{invalid_dependencies}"
+                    faults.append(
+                        f"앞선 쟁점이 아닌 것에 의존한다: {invalid_dependencies}"
                     )
             entry = registry.get(unit_id)
             if unit_id == "unsupported" and dependencies:
-                errors.append(
-                    f"{issue_id}: unsupported issue cannot declare dependencies"
-                )
+                faults.append("적재되지 않은 쟁점이 다른 쟁점에 의존한다")
             if entry is not None:
                 allowed_roles = {
                     argument["name"]
@@ -165,19 +172,24 @@ def validate_closed_issue_selection(
                     unknown_roles = sorted(set(role_candidates) - allowed_roles)
                     missing_roles = sorted(allowed_roles - set(role_candidates))
                     if unknown_roles:
-                        errors.append(
-                            f"{issue_id}: role_candidates contains unknown roles "
-                            f"{unknown_roles}"
+                        faults.append(
+                            f"이 죄가 받지 않는 당사자 역할을 지정했다: {unknown_roles}"
                         )
                     if missing_roles:
-                        errors.append(
-                            f"{issue_id}: role_candidates is missing required roles "
-                            f"{missing_roles}"
+                        faults.append(
+                            f"이 죄에 필요한 당사자 역할이 빠졌다: {missing_roles}"
                         )
-                pass
+            if faults:
+                rejected.append({
+                    "issue_id": issue_id,
+                    "unit_id": unit_id,
+                    "reported_label": reported_label,
+                    "reason": "; ".join(faults),
+                })
             seen.add(issue_id)
     if errors:
         raise NativeHostError("; ".join(errors))
+    return rejected
 
 
 def selected_predicate_requests(
@@ -518,6 +530,23 @@ def execute_native_unit(
         for row in raw.get(f"{unit_id}_requirement_waived", {}).get("proven_tuples", [])
         if row
     })
+    # Roles that report beside the conclusion rather than inside it.  They are
+    # kept apart from ``established_relations`` on purpose: a judging standard
+    # and a post-offence 죄수 effect must reach the reader without either of
+    # them having decided whether the offence stands.
+    annotations = {
+        name: sorted({tuple(row)[-1]
+                      for row in raw.get(f"{unit_id}_{name}", {}).get("proven_tuples", [])
+                      if row})
+        for name in ("assessment_standard", "proof_standard",
+                     "subtype_outcome", "post_outcome")
+    }
+    annotations = {name: values for name, values in annotations.items() if values}
+    outcome_details = sorted({
+        (str(tuple(row)[-2]), str(tuple(row)[-1]))
+        for row in raw.get(f"{unit_id}_outcome_detail", {}).get("proven_tuples", [])
+        if len(tuple(row)) >= 2
+    })
     # Name the requirement that stopped the conclusion.  A unit whose commentary
     # only records marginal fact patterns for one element can never complete it,
     # and the answer would otherwise report a bare 미확정 with no explanation.
@@ -564,6 +593,9 @@ def execute_native_unit(
         "established_relations": established,
         "referred_crimes": referred_crimes,
         "waived_requirements": waived_requirements,
+        "annotations": annotations,
+        "outcome_details": [{"key": key, "value": value}
+                            for key, value in outcome_details],
         "unmet_requirements": unmet_requirements,
         "query_results": observed,
         "proof_dag": raw.get("_proof_dag"),
@@ -644,6 +676,8 @@ def execute_native_case(
             "established_relations": result["established_relations"],
             "referred_crimes": result["referred_crimes"],
             "waived_requirements": result["waived_requirements"],
+            "annotations": result["annotations"],
+            "outcome_details": result["outcome_details"],
             "unmet_requirements": result["unmet_requirements"],
             "evidence": result["assessment_evidence"],
             "compiled_scl_path": result["compiled_scl_path"],

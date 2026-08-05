@@ -49,6 +49,39 @@ def dedupe_refs(cards: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return list(seen.values())
 
 
+# The role vocabulary, split by what a role is allowed to do to the conclusion.
+#
+# Only BLOCKING_ROLES may defeat a track.  Everything in ANNOTATION_ROLES is
+# reported beside the conclusion and never reaches it: a card that merely states
+# how an element is judged, or that a requirement is not needed, must not decide
+# the offence.  Collapsing those two kinds into ``bar`` is what made 상해죄 fail —
+# "객체의 착오는 고의를 조각하지 않는다" was compiled as a reason to acquit.
+BLOCKING_ROLES = ("bar", "boundary", "waiver")
+# role → (relation suffix, 답안에 노출되는 우리말 값의 필드, 기계가 읽는 내부 키의
+# 필드 또는 None, 정의).  The host reads ``tuple(row)[-1]``, so the Korean value
+# is always last: an internal key like ``actual_presence`` must be available for
+# a later 죄수·요건 계산 without ever reaching the reader.
+ANNOTATION_ROLES: dict[str, tuple[str, str, str | None, str]] = {
+    "assessment_standard": (
+        "assessment_standard", "standard_for", None,
+        "이 요건을 어떤 기준으로 판단하는지 — 기준일 뿐 충족 여부의 결론이 아니다"),
+    "requirement_waived": (
+        "requirement_waived", "waived_requirement_label", "waived_requirement",
+        "이 죄의 성립에 요구되지 않는 요건이 확인됨 — 성립을 막지 않는다"),
+    "proof_standard": (
+        "proof_standard", "proves", None,
+        "유죄 인정을 위한 증명·특정 요건 — 구성요건 자체가 아니다"),
+    "subtype_outcome": (
+        "subtype_outcome", "subtype", None,
+        "같은 죄 안에서 어느 적용유형으로 의율되는지 — 죄 전체의 성립은 유지된다"),
+    "post_outcome": (
+        "post_outcome", "outcome_subtype", None,
+        "구성요건 판단 뒤에 오는 죄수·처벌 효과"),
+}
+# Free-form structure that would otherwise be lost in a Korean sentence:
+# 결합범 부정에서 어느 죄가 남는지, 감면사유가 무엇이고 왜 못 쓰는지 등.
+DETAIL_FIELD = "outcome_detail"
+
 P2 = ROOT / "data/rulegen/p2"
 LEDGER_DIR = P2 / "native_review"
 ROLE_SIGNATURES = P2 / "p2_native_role_signatures.json"
@@ -286,6 +319,7 @@ class UnitAssembler:
         self.used_cards: set[str] = set()
         self.deferred: list[dict[str, Any]] = []
         self.track_cards: dict[str, list[dict[str, Any]]] = {}
+        self.unclassified_annotations: list[str] = []
 
     def materialize_approved_propositions(self) -> None:
         """Make approved rewrites—and each approved split part—executable cards."""
@@ -571,7 +605,7 @@ class UnitAssembler:
         """Scope blockers and conflicts to their track, propagating only by inheritance."""
         emitted: set[tuple[str, str, str]] = set()
         for row in placements:
-            if row["role"] not in ("component", "bar", "boundary", "waiver"):
+            if row["role"] not in ("component", *BLOCKING_ROLES):
                 continue
             card_id = row["card_id"]
             card = self.card(card_id)
@@ -589,7 +623,7 @@ class UnitAssembler:
                               string(card_id))],
                         rationale="카드 평가 충돌은 해당 track과 그 상속 track에만 전파한다.",
                         cards=[card])
-                if row["role"] not in ("bar", "boundary", "waiver"):
+                if row["role"] not in BLOCKING_ROLES:
                     continue
                 blocked_key = ("blocked", target, card_id)
                 if blocked_key in emitted:
@@ -602,6 +636,92 @@ class UnitAssembler:
                     [atom(satisfied_by_card[card_id], *self.actors)],
                     rationale="저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
                     cards=[card])
+
+    def emit_annotations(self, placements: list[dict[str, Any]]) -> None:
+        """Report what an annotation card holds without letting it decide the offence.
+
+        These relations sit beside the conclusion, never inside it.  A judging
+        standard (정당방위 상당성, 사회상규) tells the reader how the element is
+        measured; it does not measure it.  A requirement waiver removes a
+        mistaken element from the AND list; it does not establish the offence.
+        Neither may be a ``bar``, and neither may be an OR branch of a component
+        — the first acquits on a definition, the second convicts on one.
+        """
+        grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        for row in placements:
+            if row["role"] not in ANNOTATION_ROLES:
+                continue
+            _, value_argument, _, _ = ANNOTATION_ROLES[row["role"]]
+            if not row.get(value_argument):
+                # The value is what the reader sees, so it has to be the
+                # reviewer's Korean wording.  ``component_id`` is an internal
+                # English identifier ('concurrence', 'offense_count'); falling
+                # back to it would leak the machinery into the answer.  A card
+                # not yet classified stays silent, exactly as it is today.
+                self.unclassified_annotations.append(
+                    f"{row['role']}: {row['card_id']} ({value_argument} 미지정)")
+                continue
+            grouped[row["role"]].append(row)
+        for role, rows in sorted(grouped.items()):
+            suffix, value_argument, key_argument, definition = ANNOTATION_ROLES[role]
+            relation = f"{self.unit_id}_{suffix}"
+            cards = [self.card(row["card_id"]) for row in rows]
+            arguments = [("case_id", "String"), ("defendant_id", "String"),
+                         ("norm_card_id", "String")]
+            if key_argument:
+                arguments.append((key_argument, "String"))
+            arguments.append((value_argument, "String"))
+            self.add_predicate(
+                relation, arguments, definition=definition,
+                origin="commentary", role="derived", cards=cards)
+            for index, row in enumerate(rows, 1):
+                card = self.card(row["card_id"])
+                head_arguments = [variable("case_id"), variable("defendant_id"),
+                                  string(row["card_id"])]
+                if key_argument:
+                    head_arguments.append(string(str(row.get(key_argument) or "")))
+                head_arguments.append(string(str(row[value_argument])))
+                self.add_rule(
+                    f"{self.unit_id}.{suffix}.{slug(row['card_id'])}.{index:03d}",
+                    atom(relation, *head_arguments),
+                    [atom(self.satisfied_by_card[row["card_id"]], *self.actors)],
+                    rationale="결론 계층 밖의 보고 신호다. 성립·불성립을 만들지 않는다.",
+                    cards=[card])
+        self.emit_annotation_details(placements)
+
+    def emit_annotation_details(self, placements: list[dict[str, Any]]) -> None:
+        """Carry the structured payload a Korean sentence alone would lose.
+
+        결합범이 부정되어도 선행 강도죄와 살인죄는 남고 실체적 경합이 된다 —
+        a free-text note cannot be used for a later 죄수 computation, so the
+        reviewer's key/value pairs are emitted as facts.
+        """
+        rows = [row for row in placements if row.get(DETAIL_FIELD)]
+        if not rows:
+            return
+        relation = f"{self.unit_id}_outcome_detail"
+        self.add_predicate(
+            relation,
+            [("case_id", "String"), ("defendant_id", "String"),
+             ("norm_card_id", "String"), ("key", "String"), ("value", "String")],
+            definition="죄수·감면 효과의 구조화된 내역 — 보존되는 죄, 배제되는 결합범, "
+                       "경합 형태, 감면 가부 등",
+            origin="commentary", role="derived",
+            cards=[self.card(row["card_id"]) for row in rows])
+        index = 0
+        for row in rows:
+            card = self.card(row["card_id"])
+            for key, raw_value in sorted(row[DETAIL_FIELD].items()):
+                values = raw_value if isinstance(raw_value, list) else [raw_value]
+                for value in values:
+                    index += 1
+                    self.add_rule(
+                        f"{self.unit_id}.outcome_detail.{slug(row['card_id'])}.{index:03d}",
+                        atom(relation, variable("case_id"), variable("defendant_id"),
+                             string(row["card_id"]), string(str(key)), string(str(value))),
+                        [atom(self.satisfied_by_card[row["card_id"]], *self.actors)],
+                        rationale="죄수 계산에 쓸 수 있도록 자연어가 아닌 사실로 배출한다.",
+                        cards=[card])
 
     def emit_boundary_referrals(self, placements: list[dict[str, Any]]) -> None:
         """Name the offence a boundary card hands the case over to.
@@ -869,6 +989,7 @@ class UnitAssembler:
         by_track = self.emit_components(placements, satisfied_by_card)
         self.emit_track_reports(placements, satisfied_by_card)
         self.emit_boundary_referrals(placements)
+        self.emit_annotations(placements)
         self.emit_conclusions(by_track)
 
         cards = [self.card(card_id) for card_id in sorted(self.used_cards)]
@@ -931,6 +1052,18 @@ class UnitAssembler:
         gaps.extend(
             f"context_only: {item['card_id']}"
             for item in self.ledger["excluded_cards"]
+        )
+        # A card held back because one proposition carries two opposite effects
+        # is not legally wrong, only unsplittable as written.  Recording it apart
+        # from ``excluded_cards`` keeps that difference visible: these come back
+        # once split, the others do not.
+        gaps.extend(
+            f"pending_split: {item['card_id']} ({item.get('reason', '')})".rstrip(" ()")
+            for item in self.ledger.get("excluded_pending_split", [])
+        )
+        gaps.extend(
+            f"unclassified_annotation: {item}"
+            for item in self.unclassified_annotations
         )
         gaps.extend(
             f"card_metadata_correction: {correction_id}"

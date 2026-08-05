@@ -1,0 +1,1148 @@
+{
+  "version": "1.0.0",
+  "created_at": "2026-08-05T08:31:47.677321+00:00",
+  "purpose": "polarity=exception 카드의 역할 배치를 노출하고, 성립을 막는 자리에 앉은 것을 검수 전까지 표시해 둔다",
+  "enforce": false,
+  "approved": [],
+  "counts": {
+    "cards": 141,
+    "blocking": 88,
+    "pending_review": 88,
+    "affected_units": 25,
+    "bar": 68,
+    "boundary": 4,
+    "component": 21,
+    "post_outcome": 32,
+    "waiver": 16
+  },
+  "cards": [
+    {
+      "system": "p2",
+      "unit_id": "bribe_receipt",
+      "card_id": "art129.internal_distribution_of_embezzled_proceeds",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "공동정범들이 범행으로 취득한 돈을 공모에 따라 내부 분배한 것에 그치는 공범자 간 수수행위에는 별도 뇌물죄가 성립하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "bribe_receipt",
+      "card_id": "art129_sec1_2.excessive_amount_later_return",
+      "role": "component",
+      "blocking": false,
+      "proposition": "영득의사로 뇌물을 수령한 이상, 액수가 예상보다 많아 나중에 반환하였더라도 뇌물죄 성립에는 영향이 없다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "bribe_receipt",
+      "card_id": "art129_sec1_2.later_return_after_appropriation",
+      "role": "component",
+      "blocking": false,
+      "proposition": "피고인이 영득의 의사로 뇌물을 수령한 이상, 사후 반환은 뇌물죄 성립에 영향을 미치지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "bribe_receipt",
+      "card_id": "art129_sec1_4.post_receipt_check_dishonor",
+      "role": "component",
+      "blocking": false,
+      "proposition": "뇌물로 공여된 당좌수표가 수수 후 부도되어도 죄의 성립에는 영향이 없다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "bribe_receipt",
+      "card_id": "art129_sec2_2.post_office_request_no_retroaction",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "공무원이 되기 전에 청탁을 받은 사실이 증명되지 않으면, 공무원이 된 후 청탁을 받았더라도 이를 취임 전으로 소급하여 사전수뢰죄가 성립한다고 볼 수 없다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "deceptive_obstruction_of_official_duty",
+      "card_id": "art137.notification_substantively_permit_application_exception",
+      "role": "component",
+      "blocking": false,
+      "proposition": "법령상 신고라는 용어를 사용하더라도 실질적으로 인허가 등 처분의 신청행위와 다름없는 예외적 경우에는 위계에 의한 공무집행방해죄가 성립할 여지가 있다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "deceptive_obstruction_of_official_duty",
+      "card_id": "art137_sec6.false_report_absorption",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "거짓신고가 위계의 수단·방법·태양이 되어 본죄가 성립한 경우, 거짓신고 경범죄는 본죄에 흡수되어 별도로 성립하지 않는다는 대법원 입장이 소개되어 있다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dereliction_of_duty",
+      "card_id": "art122_sec2_2.abstract_or_derivative_duty",
+      "role": "component",
+      "blocking": false,
+      "proposition": "공무원 신분관계에서 인정되는 추상적 의무 및 부수적·파생적 직무는 직무유기죄의 직무에 해당하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dereliction_of_duty",
+      "card_id": "art122_sec2_2.unlawful_superior_order",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "상관의 직무집행 명령이 법령에 근거가 없거나 위법하면 그 명령에 따른 직무집행의무는 인정되지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dereliction_of_duty",
+      "card_id": "art122_sec3_3.evidence_destruction_absorption",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "증거인멸죄만 성립하고 부작위범인 직무유기죄는 따로 성립하지 않는다고 판시되었다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dereliction_of_duty",
+      "card_id": "art122_sec3_3.offender_escape_absorption",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "작위범인 범인도피죄만 성립하고 부작위범인 직무유기죄는 따로 성립하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dereliction_of_duty",
+      "card_id": "art122_sec3_3.office_abuse_two_modes_absorption",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "권리행사방해와 의무 없는 일을 하게 함의 두 행위 태양에 모두 해당하는 것으로 기소된 경우, 권리행사를 방해함으로 인한 직권남용권리행사방해죄만 성립하고 의무 없는 일을 하게 함으로 인한 직권남용권리행사방해죄는 따로 성립하지 않는다고 판시되었다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dereliction_of_duty",
+      "card_id": "art122_sec3_5.building_instigation_excludes_dereliction",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "위법건축물을 예방·단속할 직무상 의무가 있는 읍장이 그 건축을 교사한 경우, 그 직무위배의 위법상태가 건축법위반 교사행위에 내재하면 직무유기죄는 별도로 성립하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dwelling_intrusion",
+      "card_id": "art319_sec2_1.seasonally_unused_villa",
+      "role": "component",
+      "blocking": false,
+      "proposition": "별장은 계절적으로 전혀 사용하지 않는 기간에는 주거가 아니라 건조물에 해당한다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dwelling_intrusion",
+      "card_id": "art319_sec2_2.construction_site_not_enclosed_land",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "공사현장에 현장사무실이나 경비실 외 별도의 건조물이 없고 공사현장이 그 시설들의 이용을 위하여 제공된 토지라고 보기 어려운 경우, 공사현장 출입은 건조물침입죄가 성립할 수 없다는 판례가 소개되어 있다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dwelling_intrusion",
+      "card_id": "art319_sec2_2.incomplete_construction_not_building",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "벽·기둥·지붕·천정 등을 완전히 갖추지 못한 건축 중인 건축물은 건조물에 해당하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dwelling_intrusion",
+      "card_id": "art319_sec2_2.joint_occupier_entry",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "공동관리 중인 건조물에 공동점유자 중 1인이 임의로 출입하였다고 하여 건조물침입죄는 성립하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dwelling_intrusion",
+      "card_id": "art319_sec2_2.unmanaged_empty_house",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "다른 사람이 살지 않고 관리하지 않는 집 또는 그 울타리 안이나 건조물·배·자동차 안에 정당한 이유 없이 들어간 행위는 주거침입죄가 아니라 경범죄처벌법 제3조 제1항 제1호 위반죄에 해당한다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dwelling_intrusion",
+      "card_id": "art319_sec3_1.external_entry_and_partition_exception",
+      "role": "component",
+      "blocking": false,
+      "proposition": "침입은 원칙적으로 외부로부터의 침입에 한정되어 이미 내부에 있는 사람은 퇴거불응죄만 문제되지만, 적법하게 들어간 뒤 독립적으로 구획되고 무상 출입이 가능한 공간이 아닌 다른 공간으로 옮겨가면 침입이 될 수 있다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dwelling_intrusion",
+      "card_id": "art319_sec3_2.no_refusal_to_leave_after_trespass",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "무단침입이 완성된 뒤 퇴거요구에 불응하여도, 적법하게 주거에 들어간 경우를 전제로 하는 퇴거불응죄는 별도로 성립하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dwelling_intrusion",
+      "card_id": "art319_sec5_2.lawful_authority_entry",
+      "role": "waiver",
+      "blocking": true,
+      "proposition": "적법한 권한에 따라 주거에 들어가는 행위는 공법상 또는 사법상 권한인지와 관계없이 위법성이 조각된다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dwelling_intrusion",
+      "card_id": "art319_sec5_2.lawful_labor_dispute_entry",
+      "role": "waiver",
+      "blocking": true,
+      "proposition": "노동조합법상 쟁의행위를 위해 승낙 없이 사업장에 들어가더라도 권리남용에 해당하지 않으면 건조물침입죄가 성립하지 않지만, 쟁의행위 자체가 위법하면 위법성조각의 여지가 없다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dwelling_intrusion",
+      "card_id": "art319_sec5_2.private_arrest_home_entry_affirmative",
+      "role": "waiver",
+      "blocking": true,
+      "proposition": "사인이 현행범인 체포를 위해 타인의 주거에 들어간 행위도 당시의 구체적 사정과 정당행위의 일반적 요건에 따라 위법성조각이 가능하다는 긍정설이 있다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dwelling_intrusion",
+      "card_id": "art319_sec5_2.socially_acceptable_entry",
+      "role": "waiver",
+      "blocking": true,
+      "proposition": "사회상규에 반하지 않는 주거침입은 위법성이 조각된다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dwelling_intrusion",
+      "card_id": "art319_sec5_2.water_tank_repair_entry",
+      "role": "waiver",
+      "blocking": true,
+      "proposition": "물탱크·수도관 밸브의 점검 또는 수리를 위해 반드시 건물의 거실과 부엌을 통과해야 하고 주거 평온을 심하게 침해하지 않는 경우, 특별한 사정이 없으면 해당 출입은 허용되어 사회상규에 위배되지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dwelling_intrusion",
+      "card_id": "art319_sec5_3.justification.emergency_escape",
+      "role": "waiver",
+      "blocking": true,
+      "proposition": "맹견의 추격이나 강도를 피하여 타인의 가옥에 몸을 피한 경우 긴급피난에 해당하여 위법성이 조각된다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dwelling_intrusion",
+      "card_id": "art319_sec5_3.justification.fire_suppression",
+      "role": "waiver",
+      "blocking": true,
+      "proposition": "화재 초기 진화를 위하여 담을 넘어 이웃집에 들어가거나 다른 이웃집 지붕 위로 올라가 물을 뿌린 경우 긴급피난 또는 피해자의 추정적 승낙으로 위법성이 조각될 수 있다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dwelling_intrusion",
+      "card_id": "art319_sec5_3.justification.general",
+      "role": "waiver",
+      "blocking": true,
+      "proposition": "주거침입행위가 정당방위·긴급피난·자구행위 등에 해당하면 위법성이 조각된다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "dwelling_intrusion",
+      "card_id": "art319_sec7_3.impossible_leaving",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "퇴거요구를 받은 사람이 객관적·주관적으로 그 요구에 응할 수 없거나, 퇴거가 인간 일반 또는 행위자 개인에게 실현 불가능하면 퇴거불응죄는 성립하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "false_public_document",
+      "card_id": "art227.recording_statement_as_stated_exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "수사기록·공판기록 작성에서 진술자가 허위 진술한 사실을 알면서도 그 진술대로 조서에 기재한 것은 진술 그대로의 적법한 조서 작성이므로 본죄에 해당하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "harboring_offender",
+      "card_id": "art151_sec2_2.relative_cohabiting_family",
+      "role": "waiver",
+      "blocking": true,
+      "proposition": "범인의 친족 또는 동거의 가족이 범인을 위하여 은닉하거나 도피하게 한 경우에는 친족간 특례로 책임이 조각되어 처벌되지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "harboring_offender",
+      "card_id": "art151_sec2_3.no_attempt_punishment",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "범인도피죄에는 미수범 처벌규정이 없으므로, 범인을 은닉하거나 도피하게 하는 행위가 기수에 이르기 전에 발각된 경우 처벌할 수 없다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "harboring_offender",
+      "card_id": "art151_sec2_4.family_support_social_adequacy",
+      "role": "waiver",
+      "blocking": true,
+      "proposition": "미국으로 도피한 범인의 가족에게 생활비를 지급하거나 범인의 자녀를 미국으로 보내기 위해 공항까지 안내한 행위는 사회적 상당성이 있어 위법성이 조각된다는 대법원 판단이 소개되어 있다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "homicide",
+      "card_id": "art250_sec1_16.excessive_defense_continuous_act",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "현재의 부당한 침해에 대한 최초 방위는 상당하였더라도 침해 계속이 불가능하거나 현저히 곤란해진 뒤 목을 계속 졸라 사망하게 한 경우, 연속된 전후행위를 하나로 보아 과잉방위에 해당할 수 있다는 판례가 소개되어 있다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "homicide",
+      "card_id": "art250_sec1_17.statutory_life_sustaining_treatment_exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "연명의료결정 관련 법률의 요건과 절차에 따라 행해진 연명의료중단시술은 형법 제20조의 법령에 의한 행위로서 위법성이 조각된다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "homicide",
+      "card_id": "art250_sec1_18.severe_impulse_control_disorder_exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "충동조절장애와 같은 성격적 결함이라도 매우 심각하여 본래 의미의 정신병자와 동등하다고 평가할 수 있으면, 그로 인한 범행은 심신장애로 인한 범행으로 본다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "homicide",
+      "card_id": "art250_sec1_20.clothing_damage_absorbed",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "살인행위에 따른 의복 손괴는 불가벌적 수반행위로서 재물손괴죄가 살인죄에 흡수된다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "homicide",
+      "card_id": "art250_sec1_20.corpse_abandonment_separate",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "사람을 살해한 뒤 사체를 다른 장소로 옮겨 유기한 경우 사체유기죄가 별도로 성립하며, 이를 불가벌적 사후행위로 볼 수 없다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "homicide",
+      "card_id": "art250_sec1_20.same_intent_preparation_to_completion",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "동일인을 살해하려는 동일한 의사에서 나온 예비행위 또는 공격행위가 범의 갱신 없이 살인기수에 이른 경우 시간·장소·방법과 무관하게 포괄하여 하나의 살인기수죄가 성립한다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "homicide",
+      "card_id": "art250_sec1_20.same_person_homicide_stages",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "동일인에 대한 살인예비·살인미수·살인기수 및 동일인에 대한 상해·살인은 법조경합 관계이므로 하나의 살인죄만 성립한다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "indecent_assault",
+      "card_id": "art298_sec5.revoked_consent",
+      "role": "component",
+      "blocking": false,
+      "proposition": "피해자가 사전에 신체접촉 등을 승낙하였더라도 동의를 번복할 수 있으며, 승낙을 번복한 경우에는 승낙이 있다고 볼 수 없다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "indecent_assault",
+      "card_id": "art298_sec8.forcible_indecency_followed_by_rape",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "동일 피해자에 대해 강제로 추행한 뒤 이어 강간한 경우에는 포괄하여 강간죄만 성립한다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "indecent_assault",
+      "card_id": "art298_sec8.special_forcible_indecency",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "흉기 기타 위험한 물건을 지니거나 2인 이상이 합동하여 강제추행한 경우에는 강제추행죄가 아니라 특수강제추행죄가 성립하여 가중처벌된다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "intentional_bodily_injury",
+      "card_id": "art257_sec1_6.defensive_force_not_new_attack",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "외관상 상호 싸움처럼 보여도 일방의 위법한 공격에 대항한 유형력 행사가 새로운 적극적 공격으로 평가되지 않고 사회관념상 상당하면 위법성이 조각될 수 있다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "intentional_bodily_injury",
+      "card_id": "art257_sec1_6.parental_corporal_punishment",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "친권자의 체벌은 자녀 보호·교양을 위해 불가피한 경우 극히 제한된 범위에서 사회상규에 반하지 않는 행위로만 허용될 수 있다는 견해가 제시된다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "intentional_bodily_injury",
+      "card_id": "art257_sec1_6.passenger_risk_consent",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "운전 미숙 또는 음주 사실을 알면서 동승하는 등 운전 위험을 감수하고 동승한 경우 과실상해에 대한 승낙으로 위법성이 조각될 수 있다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "intentional_bodily_injury",
+      "card_id": "art257_sec1_6.sport_rules_consent",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "복싱·레슬링·유도 등 상해가 예견되는 운동경기에서 규칙을 지켜 경기한 경우 그에 수반된 상해는 승낙에 의해 위법성이 조각될 수 있다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "intentional_bodily_injury",
+      "card_id": "art259_sec1.intentional_death_murder_exception",
+      "role": "boundary",
+      "blocking": true,
+      "proposition": "사망 결과에 고의가 있으면 상해치사죄는 성립하지 않고 살인죄가 성립한다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "negligent_bodily_harm",
+      "card_id": "art268.emergency_treatment_risk_balance",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "긴급성 때문에 충분한 회피조치를 취할 수 없었던 경우에는 충분한 준비 없이 치료하여 의도하지 않은 결과가 발생하였더라도 의사에게 책임을 물을 수 없을 수 있으며, 긴급 치료의 필요 여부는 긴급 치료의 이익과 충분한 준비 없는 치료의 위험을 비교형량하여 전자의 이익이 큰 경우에 허용된다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "negligent_bodily_harm",
+      "card_id": "art268.horizontal_medical_division",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "의사들이 대등한 지위에서 각자의 의료영역을 나누어 환자 진료 일부를 분담한 경우, 분담받은 다른 의사의 전적인 과실로 발생한 결과에 대해서는 주된 의사의 책임을 인정할 수 없다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "negligent_bodily_harm",
+      "card_id": "art268_sec3_2.dangerous_driving_inclusion",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "음주로 인한 위험운전치사상죄가 성립하면, 형법 제268조의 죄를 범한 것을 내용으로 하는 교통사고처리특례법위반죄는 흡수되어 별죄를 구성하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "negligent_bodily_harm",
+      "card_id": "art268_sec3_2.hit_and_run_inclusion",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "도주차량운전자의 가중처벌죄가 성립하는 경우 업무상과실치사상죄는 그 죄에 포함되어 별죄를 구성하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "negligent_bodily_harm",
+      "card_id": "art268_sec3_2.safety_duty_complete_overlap",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "단속법규상 안전의무가 구체적 주의의무 내용과 완전히 일치하는 경우 단속법규위반죄는 업무상과실치사상죄에 흡수되어 업무상과실치사상죄 1죄만 성립한다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "negligent_bodily_harm",
+      "card_id": "art268_sec3_2.traffic_special_act_inclusion",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "교통사고처리특례법 제3조 제1항의 죄가 성립하는 경우 업무상과실치사상죄는 그 죄에 포함되어 별죄를 구성하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "obstruction_of_official_duty",
+      "card_id": "art136_sec2_3.future_duty_exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "장래의 직무집행을 예상하여 폭행·협박을 가하는 행위나 장래 직무수행만 예상될 뿐 직무수행에 근접하지 않은 상태의 공무원은 공무집행방해죄의 보호대상이 아니며, 직무수행을 위하여 출근 중인 공무원도 이에 해당한다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "obstruction_of_official_duty",
+      "card_id": "art136_sec2_3.protective_room_exception",
+      "role": "component",
+      "blocking": false,
+      "proposition": "영장 없이 경찰 보호실에 유치하는 것은 원칙적으로 위법하나, 정신착란자·주취자·자살기도자 등 응급구호 필요자를 24시간 이내 보호하는 시설로 제한 운영되고 보호조치 요건 및 가족 등에 대한 지체 없는 통지가 충족되는 경우는 제외된다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "obstruction_of_official_duty",
+      "card_id": "art136_sec2_4.assault_not_against_officer_exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "직무집행과 관련된 물건 또는 제3자에 대한 유형력 행사라도 그것이 공무원에게 행하여진 것으로 인정되지 않으면 공무원에 대한 폭행이 아니다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "obstruction_of_official_duty",
+      "card_id": "art136_sec2_7.assault_threat_absorption",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "공무집행방해죄가 성립하면 폭행죄 또는 협박죄는 법조경합으로 흡수되어 별도로 성립하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "obstruction_of_official_duty",
+      "card_id": "art136_sec2_7.military_criminal_act_special_relation",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "직무수행 중인 군인 등에 대한 폭행·협박이 군형법 제60조 제1항의 구성요건을 충족하면, 특별관계에 따라 직무수행자폭행죄만 성립하고 공무집행방해죄는 별도로 성립하지 않는다는 대법원 판단이 소개되어 있다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "obstruction_of_official_duty",
+      "card_id": "art136_sec2_7.special_public_duty_provisions",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "다른 법률이 특수한 공무집행 담당 공무원에 대한 폭행·협박을 처벌하는 규정을 둔 경우, 해당 특별법 위반죄에 공무집행방해죄가 흡수되어 별도로 성립하지 않는다는 견해가 제시되어 있다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "obstruction_of_official_duty",
+      "card_id": "art136_sec3_4.nonofficial_act_coercion",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "공무원의 직무상 행위에 해당하지 않는 행위를 강요할 목적으로 폭행·협박한 경우에는 직무·사직강요죄가 성립하지 않고 강요죄가 성립할 수 있다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "official_secret_disclosure",
+      "card_id": "art127_sec4.disclosure.interofficial_transmission",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "국가기능에 위험이 발생하리라고 볼 만한 특별한 사정이 인정되지 않는 한, 해당 설명에서 전제된 행위는 비밀의 누설에 해당하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "official_secret_disclosure",
+      "card_id": "art127_sec6.statutorily_required_corruption_report",
+      "role": "waiver",
+      "blocking": true,
+      "proposition": "법령에 의한 직무상 비밀이 다른 공직자의 부패행위에 관한 것이어서 수사기관 등에 신고하는 과정에서 누설된 경우에는 법령에 의한 정당행위로 위법성이 조각된다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "official_secret_disclosure",
+      "card_id": "art127_sec7.bribery_disclosure_imaginary_concurrence",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "공무원이 뇌물을 수수하고 그 대가로 비밀을 누설한 경우에는 본죄와 수뢰후부정처사죄가 상상적 경합이 된다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "perjury",
+      "card_id": "art152_sec1_2.nonstatutory_or_unauthorized_oath",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "선서가 법률상 근거 없이 이루어졌거나 증인에게 선서시킬 권한이 없는 기관에 대하여 이루어진 경우, 그 선서는 위증죄 성립요건인 법률에 의한 선서에 해당하지 않아 위증죄가 성립하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "perjury",
+      "card_id": "art152_sec1_2.oath_capacity",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "선서무능력자가 선서하고 허위진술한 경우 그 선서는 무효이므로 위증죄가 성립하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "perjury",
+      "card_id": "art152_sec1_2.oath_procedural_defects",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "증인에게 선서를 시킬 일반적 권한이 있는 기관에 대한 선서는 관할 위반이나 공소제기 절차 위반만으로 효력이 부정되지 않지만, 법정 증인보호규정 미준수로 증인보호에 사실상 장애가 초래된 경우에는 법률에 의하여 선서한 증인에 해당하지 않는 것이 원칙이다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "perjury",
+      "card_id": "art152_sec1_2.refusal_right_and_perjury",
+      "role": "component",
+      "blocking": false,
+      "proposition": "선서거부권자가 선서거부권을 행사하여 선서하지 않은 채 허위진술한 경우 위증죄는 성립하지 않지만, 증언거부권자가 권리 행사를 포기하고 증언하면서 허위진술한 경우 위증죄가 성립할 수 있다. 증언거부권 미고지로 권리 행사에 사실상 장애가 초래된 경우에는 위증죄 성립을 부정하며, 장애 여부는 증언 당시 상황, 거부사유, 권리 인지 여부, 고지되었어도 허위진술했을 정황 및 진정한 의사를 종합하여 판단한다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "perjury",
+      "card_id": "art152_sec1_3.correction_before_examination_end",
+      "role": "waiver",
+      "blocking": true,
+      "proposition": "선서한 증인이 허위진술을 하였더라도 신문이 끝나기 전에 이를 철회하거나 시정한 경우 위증죄는 성립하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "perjury",
+      "card_id": "art152_sec2_3.noncriminal_case_mohae_exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "민사·가사·행정·비송 등 형사사건이나 징계사건이 아닌 사건에서 법률에 의하여 선서한 증인이 특정 당사자를 불리하게 할 목적으로 허위진술한 경우, 모해위증죄가 아니라 위증죄가 성립한다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "perjury",
+      "card_id": "art152_sec2_7.special_statute_malicious_perjury_exclusion",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "타인에게 형사처분을 받게 할 목적으로 국가보안법상 죄 또는 테러방지법상 죄에 관하여 위증한 경우에는 각 특별법에 따라 처벌되고 모해위증죄는 별도로 성립하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "private_document_forgery",
+      "card_id": "art231_sec3_2.authority_abuse",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "타인의 대표자·대리자 또는 본인 명의로 문서를 작성할 권한이 있는 자가 그 지위를 남용하여 자기나 제3자의 이익을 위해 문서를 작성하더라도 문서위조죄는 성립하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "private_document_forgery",
+      "card_id": "art231_sec3_2.authorized_creation",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "명의자의 명시적 또는 묵시적 승낙·위임이 있는 경우에는 타인 명의 문서 작성이라도 사문서위조에 해당하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "private_document_forgery",
+      "card_id": "art231_sec3_2.comprehensive_delegation",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "명의자가 문서작성 관련 사무처리 권한을 포괄적으로 위임하고 작성자가 위임 범위 내에서 그 사무처리를 위해 명의자 명의 문서를 작성·행사한 경우, 개별 문서 작성 승낙이 없더라도 특별한 사정이 없는 한 사문서위조 및 행사죄는 성립하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "private_document_forgery",
+      "card_id": "art231_sec3_3.immaterial_character_change_exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "문서 내용에 전혀 영향을 미치지 않을 정도로 문자만 변경한 경우에는 변조죄를 구성하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "private_document_forgery",
+      "card_id": "art231_sec6.seal_forgery_absorbed",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "행사할 목적으로 타인의 인장을 위조하고 그 인장으로 타인의 사문서를 위조한 경우 인장위조죄는 사문서위조죄에 흡수되어 별도로 성립하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "public_document_forgery",
+      "card_id": "art225_sec3_1.new_content_is_forgery",
+      "role": "component",
+      "blocking": false,
+      "proposition": "기존 문서에 가필·변경을 하여 전혀 새로운 내용의 증명을 가지게 한 경우는 변조가 아니라 위조이다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "quasi_sexual_offense",
+      "card_id": "art299_sec3_2.drug_administration_violence_exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "간음·추행 목적으로 마취제·수면제 등을 사용하여 피해자를 심신상실 또는 항거불능에 빠뜨린 경우 그 투여가 폭행에 해당할 수 있어 본죄가 아니라 강간죄·유사강간죄 또는 강제추행죄가 성립할 수 있다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "quasi_sexual_offense",
+      "card_id": "art299_sec8.noncomplaint_prosecution",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "본죄는 피해자의 고소가 없더라도 공소를 제기하고 처벌할 수 있다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "rape",
+      "card_id": "art297.relative_special_act",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "피해자와 4촌 이내 혈족·인척, 동거 친족 또는 동거 사실상 친족 관계에 있는 자가 범한 경우 성폭력범죄의 처벌 등에 관한 특례법 제5조 제1항이 적용된다고 소개되어 있다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "rape",
+      "card_id": "art297.special-protection-statutes",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "피해자가 13세 미만자, 신체적·정신적 장애인 또는 아동·청소년인 경우에는 법정형이 더 높은 특별법 규정이 적용된다고 소개되어 있다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "rape",
+      "card_id": "art297_sec4_2.non_vaginal_acts_exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "구강성교나 항문성교 등은 강간죄의 간음에 해당하지 않으며, 이 경우 유사강간죄가 성립할 수 있다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "rape",
+      "card_id": "art297_sec4_3.voluntary_abandonment",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "행위자가 자의로 강간 범행의 실행을 중지한 경우 중지미수가 성립한다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "rape",
+      "card_id": "art297_sec9.robbery_rape",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "강도죄를 범한 자가 그 기회에 동일 피해자를 강간하면 강도강간죄의 단순일죄가 성립한다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "rape",
+      "card_id": "art297_sec9.special_rape",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "흉기 등 위험한 물건을 지니거나 2인 이상이 합동하여 강간한 경우에는 강간죄가 아니라 특수강간죄가 성립하여 가중처벌된다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "seal_forgery_or_misuse",
+      "card_id": "art239_sec2.delivery_of_forged_seal_not_use",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "위조된 인과 자체를 타인에게 교부한 것만으로는 위조사인행사죄가 성립하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "sexual_offense_injury_or_death",
+      "card_id": "art301_sec6.pre_execution_withdrawal",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "강간 등을 공모한 공범이 다른 공범자의 실행착수 전, 즉 폭행·협박 전 공범관계에서 이탈한 경우 다른 공범자의 행위에 대해 공동정범 책임을 지지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "third_party_bribery",
+      "card_id": "art130_sec1.direct_receipt_relationship_exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "사회통념상 제3자가 뇌물을 받은 것을 공무원이 직접 받은 것과 같이 평가할 수 있는 관계가 있으면 제3자뇌물제공죄가 아니라 형법 제129조 제1항의 뇌물수수죄가 성립한다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "third_party_bribery",
+      "card_id": "art130_sec3-na.joint-bribery-no-specific-amount",
+      "role": "post_outcome",
+      "blocking": false,
+      "proposition": "뇌물수수 공동정범 성립에는 공범 사이의 금품·이익 규모 또는 구체적 금액에 관한 사전 의사연락이나 인식이 필요하지 않으며, 성립 후 뇌물이 누구에게 실제 귀속되었는지도 이미 성립한 죄에 영향을 미치지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "third_party_bribery",
+      "card_id": "art130_sec3-na.joint-perpetrator-not-third-party",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "공무원과 공동정범 관계의 비공무원은 제3자뇌물수수죄의 제3자가 될 수 없고, 그 비공무원이 뇌물을 받으면 공무원과 함께 뇌물수수죄 공동정범이 성립하며 제3자뇌물수수죄는 성립하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "third_party_bribery",
+      "card_id": "art130_sec3.direct_substantial_interest_exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "행위자와 제3자의 이해관계가 직접적이고 실질적으로 연결되어 행위자가 직접 뇌물을 받은 것처럼 평가되는 경우, 그 상대방은 제3자에 해당하지 않고 단순수뢰죄가 성립한다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "third_party_bribery",
+      "card_id": "art130_sec4_2.third_party_receipt_not_required",
+      "role": "component",
+      "blocking": false,
+      "proposition": "제3자뇌물수수죄에서는 제3자가 실제로 수수하였는지 또는 뇌물성을 알았는지는 문제되지 않으며, 제3자가 수수를 거절하여도 죄가 성립한다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "use_of_forged_private_document",
+      "card_id": "art234_sec2_1.possession_before_offer_not_exercise",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "상대방에게 제공할 기회가 생기면 제공하기 위해 문서를 소지하거나 차량에 싣고 다니는 것, 또는 사자·사환에게 교부한 것만으로는 아직 행사에 해당하지 않는다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "use_of_forged_private_document",
+      "card_id": "art234_sec2_1.presentation_to_knowing_accomplice",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "문서가 위조·변조·허위작성되었음을 아는 공범자 등에게 문서를 제시하거나 교부하는 경우에는 행사죄가 성립할 여지가 없다."
+    },
+    {
+      "system": "p2",
+      "unit_id": "use_of_forged_private_document",
+      "card_id": "art234_sec2_1.use_as_forgery_not_exercise",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "위조문서를 위조문서로 또는 허위문서를 허위문서로 사용하는 행위는 행사에 해당하지 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "breach_of_trust",
+      "card_id": "art355_sec4_1.business_loss_alone_insufficient",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "경영상 판단에서 위와 같은 인식 없이 본인에게 손해가 발생한 결과만으로 배임 책임을 묻거나, 단순한 주의의무 위반 과실만을 이유로 책임을 물을 수 없다."
+    },
+    {
+      "system": "property",
+      "unit_id": "breach_of_trust",
+      "card_id": "art355_sec4_1.no_breach_of_trust_without_awareness",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "임무에 위배한다는 인식이 없으면 배임죄가 성립할 수 없다."
+    },
+    {
+      "system": "property",
+      "unit_id": "breach_of_trust",
+      "card_id": "art355_sec4_2.breach_for_principal_no_illicit_gain",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "본인의 이익을 위하여 사무를 처리한 때에는 불법이득의 의사가 없어 배임죄가 성립하지 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "breach_of_trust",
+      "card_id": "art355_sec5_2.individual_delegation_exception",
+      "role": "component",
+      "blocking": false,
+      "proposition": "단순 권리이전 또는 담보설정계약을 넘어 위임 등 배임죄상 신임관계를 인정할 개별 요소가 있으면 이를 근거로 사무의 타인성을 인정할 여지가 있다."
+    },
+    {
+      "system": "property",
+      "unit_id": "breach_of_trust",
+      "card_id": "art355_sec5_2.real_estate_transfer_exception",
+      "role": "component",
+      "blocking": false,
+      "proposition": "판례는 부동산 양도계약의 소유권이전의무에 대하여 중도금 지급 관행 등 거래 현실의 특수성을 고려하여 예외적으로 타인의 사무성을 인정한다."
+    },
+    {
+      "system": "property",
+      "unit_id": "breach_of_trust_bribe",
+      "card_id": "art357_sec1_3.receipt.no_breach_or_loss_requirement",
+      "role": "waiver",
+      "blocking": true,
+      "proposition": "배임수재죄에서는 임무위배행위 또는 재산상 손해를 가하는 것이 필요하지 않다."
+    },
+    {
+      "system": "property",
+      "unit_id": "breach_of_trust_bribe",
+      "card_id": "art357_sec3_1.subject_no_external_authority",
+      "role": "waiver",
+      "blocking": true,
+      "proposition": "타인의 사무처리자에게 제3자에 대한 대외적 권한이나 포괄적 위탁사무가 요구되지는 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "breach_of_trust_bribe",
+      "card_id": "art357_sec3_2.giver_not_necessarily_liable",
+      "role": "component",
+      "blocking": false,
+      "proposition": "배임수재죄와 배임증재죄가 통상 필요적 공범 관계에 있더라도 수재자와 증재자가 반드시 함께 처벌되어야 하는 것은 아니며, 증재자에게 정당한 업무 청탁이 수재자에게는 부정한 청탁이 될 수 있다."
+    },
+    {
+      "system": "property",
+      "unit_id": "breach_of_trust_bribe",
+      "card_id": "art357_sec3_2.permitted_favor_request",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "직무권한 범위 안에서 편의를 봐 달라는 부탁이나 규정이 허용하는 범위에서 최대한 선처를 바란다는 부탁은 부정한 청탁이 아니다."
+    },
+    {
+      "system": "property",
+      "unit_id": "breach_of_trust_bribe",
+      "card_id": "art357_sec3_3.principal_not_third_party_precedent",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "개정 형법이 적용되는 경우에도 특별한 사정이 없는 한 사무처리를 위임한 타인은 제3자에 포함되지 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "embezzlement",
+      "card_id": "art355_sec1_2.embezzlement_illegal_appropriation_exclusion",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "일시사용·손괴·은닉의 의사로 재물을 처분하거나 위탁자를 위한 의사로 권한을 넘은 경우에는 불법영득의사가 없어 횡령죄가 성립하지 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "embezzlement",
+      "card_id": "art355_sec3_3.deceptive_means_no_fraud",
+      "role": "waiver",
+      "blocking": true,
+      "proposition": "횡령을 실현하기 위해 기망수단을 사용하더라도 재물 이전과 피해자의 재산적 처분행위가 없으므로 횡령죄만 성립하고 사기죄는 별도로 성립하지 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "embezzlement",
+      "card_id": "art355_sec3_3.simple_destruction_exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "보관물을 손괴한 행위는 그 자체로는 불법영득의사의 표현이 아니므로 횡령죄를 구성하지 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "embezzlement",
+      "card_id": "art355_sec4_1.justified_refusal_exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "반환거부에 동시이행항변권·유치권·상계권 행사 등의 정당한 이유가 있으면 불법영득의사가 인정되지 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "embezzlement",
+      "card_id": "art355_sec4_3.organization_representative_litigation_exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "단체 대표자 개인이 당사자인 민·형사사건의 변호사 비용은 원칙적으로 단체 비용으로 지출할 수 없지만, 분쟁의 실질적 이해관계가 단체에 있고 단체 업무와 깊이 관련되며 단체 이익을 위하여 소송수행 또는 고소대응의 특별한 필요성이 있는 경우에는 예외적으로 지출할 수 있다."
+    },
+    {
+      "system": "property",
+      "unit_id": "extortion",
+      "card_id": "art350_sec3.own_property_exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "자기의 재물 또는 재산상 이익에 대해서는 공갈죄가 성립하지 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "extortion",
+      "card_id": "art350_sec4_2.right_exercise_exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "해악 실현이 위법하지 않더라도 외포시켜 불법으로 재산상 이익을 취득하면 공갈죄가 성립할 수 있으나, 행위가 권리행사인 경우에는 위법성이 조각될 수 있다."
+    },
+    {
+      "system": "property",
+      "unit_id": "extortion",
+      "card_id": "art350_sec5_2.no_fear_attempt",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "협박 또는 폭행을 하였으나 상대방이 외포심을 일으키지 않거나 자선심 등 다른 이유로 재물을 교부한 경우에는 공갈미수죄가 성립한다."
+    },
+    {
+      "system": "property",
+      "unit_id": "extortion",
+      "card_id": "art350_sec5_3.complete_suppression_robbery",
+      "role": "boundary",
+      "blocking": true,
+      "proposition": "협박으로 상대방의 의사가 완전히 억압되어 임의성 있는 재물 교부로 평가할 수 없는 경우에는, 외관상 교부 형식이 있어도 강도죄가 성립한다."
+    },
+    {
+      "system": "property",
+      "unit_id": "extortion",
+      "card_id": "art350_sec8_2.permitted_threat_no_extortion",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "채권 실행 또는 손해배상 합의금 수령 등을 위하여 사회통념상 허용 범위의 위협적 언사를 한 경우 공갈죄가 성립하지 않으며, 수반된 협박행위도 별도의 협박죄를 구성하지 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "interference_with_exercise_of_right",
+      "card_id": "art323_sec2_2.coowned_property_excluded",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "자기와 타인의 공유에 속하는 물건은 타인의 물건이므로 권리행사방해죄의 자기 물건에 해당하지 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "interference_with_exercise_of_right",
+      "card_id": "art323_sec2_2.manifestly_no_right_possession_excluded",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "절도범인의 점유처럼 점유할 권리 없는 자의 점유임이 외관상 명백한 경우는 권리행사방해죄의 보호대상인 타인의 점유에 포함되지 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "interference_with_exercise_of_right",
+      "card_id": "art323_sec2_2.nominee_owner_not_subject",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "유효한 명의신탁 관계에서 대외적으로 명의수탁자만 소유자로 취급되는 경우, 명의신탁자는 제3자인 임차인에 대한 관계에서 권리행사방해죄의 주체가 될 수 없다."
+    },
+    {
+      "system": "property",
+      "unit_id": "interference_with_exercise_of_right",
+      "card_id": "art323_sec2_2.official_custody_exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "자기 물건이라도 공무소 보관명령을 받았거나 공무소 명령으로 타인이 관리하는 물건인 경우 권리행사방해죄는 성립하지 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "interference_with_exercise_of_right",
+      "card_id": "art323_sec2_2.prohibited_gold_products_excluded",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "소유와 소지가 모두 금지된 금제품은 권리행사방해죄의 객체가 될 수 없다."
+    },
+    {
+      "system": "property",
+      "unit_id": "interference_with_exercise_of_right",
+      "card_id": "art323_sec2_2.registered_sale_seller_not_subject",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "부동산이나 등록으로 소유권이 이전되는 자동차·중기·건설기계에서는 대금 완납 시까지 매도인에게 소유권을 유보하는 특약이 있어도 등기 또는 등록이 마쳐지면 매수인에게 소유권이 이전되므로 매도인은 권리행사방해죄의 주체가 될 수 없다."
+    },
+    {
+      "system": "property",
+      "unit_id": "lost_property_embezzlement",
+      "card_id": "art360_sec2_3.reporting_noncompliance_alone",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "유실물·표류물·매장물에 관하여 법정 절차를 밟지 않았다는 사정만으로 점유이탈물횡령죄가 성립하는 것은 아니다."
+    },
+    {
+      "system": "property",
+      "unit_id": "occupational_status",
+      "card_id": "art356_sec2_2.administrative_illegality",
+      "role": "component",
+      "blocking": false,
+      "proposition": "업무 내용 자체가 위법하지 않다면 면허ㆍ인가 미취득과 같은 행정절차상 불법이 있더라도 현재 반복ㆍ계속하여 행하여지는 사무는 업무에 해당한다."
+    },
+    {
+      "system": "property",
+      "unit_id": "relative_property_crime_exception",
+      "card_id": "art328_sec4_1.night_burglary_resident_kinship_exception",
+      "role": "component",
+      "blocking": false,
+      "proposition": "야간주거침입절도죄에서 주거자가 피해자이더라도, 친족상도례 적용을 위하여 주거자와 행위자 사이의 친족관계까지 요구되지는 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "relative_property_crime_exception",
+      "card_id": "art328_sec6_3.disabled_victim_abuse_crimes_no_application",
+      "role": "component",
+      "blocking": false,
+      "proposition": "2022년 1월 28일 이후 범하여진 장애인 피해 재산범죄 중 장애인복지법상 장애인학대관련범죄에 해당하는 제355조, 제356조 및 제357조의 횡령·배임 관련 범죄에는 친족상도례가 적용되지 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "relative_property_crime_exception",
+      "card_id": "art328_sec6_3.special_property_crime_no_exclusion",
+      "role": "component",
+      "blocking": false,
+      "proposition": "재산범죄를 가중처벌하는 특별법에서도 형법상 재산범죄의 성질이 유지되는 경우, 친족상도례 배제의 명시적 규정이 없으면 친족상도례가 적용된다."
+    },
+    {
+      "system": "property",
+      "unit_id": "robbery",
+      "card_id": "art333_sec2_2.preexisting_incapacitation_exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "타인의 행위로 이미 피해자가 혼취상태에 빠진 후 이를 이용하여 재물을 탈취한 경우에는 강도죄의 폭행에 해당하지 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "robbery",
+      "card_id": "art333_sec2_3.lesser_threat_extortion",
+      "role": "boundary",
+      "blocking": true,
+      "proposition": "재물탈취 목적의 폭행·협박이 반항억압 정도에 이르지 않고 공포심만 일으켜 피해자가 자신의 의사에 따라 재물을 제공한 경우에는 공갈죄가 성립할 뿐 강도죄는 성립하지 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "robbery",
+      "card_id": "art333_sec2_3.subjective_intent_insufficient",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "객관적으로 반항억압에 이르지 못한 경우에는 범인에게 주관적 반항억압 의사가 있어도 강도죄는 성립하지 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "robbery",
+      "card_id": "art333_sec3_3.completed_theft_quasi_robbery_exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "절도 기수로 범인의 재물에 대한 배타적 지배가 성립한 뒤, 탈환 방지·체포 면탈·증거인멸 목적으로 폭행·협박을 한 경우에는 준강도에 해당한다."
+    },
+    {
+      "system": "property",
+      "unit_id": "robbery",
+      "card_id": "art335_sec2.preparation_stage_exclusion",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "절취행위에 착수하지 않은 단순한 절도 예비단계에서 폭행·협박을 하였더라도 준강도죄에 해당하지 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "robbery",
+      "card_id": "art335_sec2.property_interest_exclusion",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "절도죄의 객체인 재물이 아닌 재산상 이익을 취득하려고 폭행·협박을 한 경우에는 준강도죄가 성립할 수 없다."
+    },
+    {
+      "system": "property",
+      "unit_id": "robbery",
+      "card_id": "art335_sec3_1.pre_control_violence_is_robbery_exception",
+      "role": "component",
+      "blocking": false,
+      "proposition": "재물을 탈취하였더라도 아직 배타적 지배가 확립되지 않은 상태에서 지배 확보를 위하여 폭행·협박을 한 경우는 준강도가 아니라 본래의 강도이다."
+    },
+    {
+      "system": "property",
+      "unit_id": "robbery",
+      "card_id": "art335_sec3_2.arrest_or_concealment_no_control",
+      "role": "waiver",
+      "blocking": true,
+      "proposition": "체포 방지 또는 범죄 흔적 인멸 목적의 경우에는 재물에 대한 지배 취득이 요건이 아니다."
+    },
+    {
+      "system": "property",
+      "unit_id": "robbery",
+      "card_id": "art337_sec3_2.robbery_occasion_ended",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "추적을 벗어난 뒤 현장에서 상당히 떨어진 지점에서 체포면탈 목적으로 상해를 가하거나, 범행 종료 후 상당 기간이 지나 새로 범의를 일으켜 범행한 경우에는 강도의 기회에 한 행위로 보기 어렵다."
+    },
+    {
+      "system": "property",
+      "unit_id": "robbery",
+      "card_id": "art337_sec3_2.trivial_injury_excluded",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "치료가 필요 없이 자연치유되고 일상생활에 아무 지장이 없는 극히 경미한 상처는 강도상해·치상죄의 상해에 해당하지 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "theft",
+      "card_id": "art329_sec2.theft_exception_ownership_or_self_possession",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "자기 소유 재물이 타인 점유 아래 있거나 타인 소유 재물이 자기 점유 아래 있는 경우에는, 권리행사방해죄 또는 횡령죄 성립 여부는 별론으로 하고 절도죄는 성립하지 않는다."
+    },
+    {
+      "system": "property",
+      "unit_id": "theft",
+      "card_id": "art329_sec2_1.inherited_estate_not_ownerless",
+      "role": "component",
+      "blocking": false,
+      "proposition": "피상속인 사망 후 상속인이 없는 상속재산은 국가에 귀속하므로 무주물이 아니다."
+    },
+    {
+      "system": "property",
+      "unit_id": "theft",
+      "card_id": "art329_sec2_2.sole_custodian_coowned_property",
+      "role": "boundary",
+      "blocking": true,
+      "proposition": "공동소유 재물이라도 공동점유가 아니라 공동소유자 중 1인의 단독보관 아래 있으면 그 보관자의 영득은 절도가 아니라 횡령에 해당한다."
+    },
+    {
+      "system": "property",
+      "unit_id": "theft",
+      "card_id": "art331_sec3_1.toy_gun_not_weapon_exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "객관적으로 흉기의 성질을 가져야 하므로 장난감 권총을 흉기처럼 가장한 경우에는 흉기가 아니다."
+    },
+    {
+      "system": "property",
+      "unit_id": "theft",
+      "card_id": "art332_sec1_2.incidental-or-economic-theft-exception",
+      "role": "bar",
+      "blocking": true,
+      "proposition": "수회의 절도 전과 또는 절도행위가 있어도 모두 우발적 동기 또는 급박한 경제사정에서 비롯되어 평소 절도 습성의 발현으로 보기 어려우면 상습범으로 볼 수 없다."
+    }
+  ]
+}

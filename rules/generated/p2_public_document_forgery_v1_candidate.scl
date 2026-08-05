@@ -523,6 +523,11 @@ type public_document_forgery_forgery_official_document_satisfied(String, String,
 // norm_cards: art225_sec3_1.assistant_completion_without_approval, art225_sec3_1.forgery_apparent_authority, art225_sec3_1.forgery_definition, art225_sec3_1.new_content_is_forgery
 type public_document_forgery_forgery_unauthorized_creation_satisfied(String, String, String, String)
 
+// public_document_forgery_subtype_outcome: 같은 죄 안에서 어느 적용유형으로 의율되는지 — 죄 전체의 성립은 유지된다
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.name_change_new_document_forgery
+type public_document_forgery_subtype_outcome(String, String, String, String)
+
 // public_document_forgery_has_negative: 이 unit에 증명된 불성립 사유가 존재함
 // sources: system contract
 // norm_cards: system contract
@@ -1613,16 +1618,6 @@ rel public_document_forgery_track_conflict(case_id, defendant_id, "alteration", 
 // norm_cards: art225_sec3_2.id_cover_alteration
 rel public_document_forgery_track_not_established(case_id, defendant_id, "alteration", "art225_sec3_2.id_cover_alteration") = satisfied_art225_sec3_2_id_cover_alteration(case_id, defendant_id, document_id, nominal_official_id)
 
-// rule_id: public_document_forgery.track_conflict.alteration.art225_sec3_2_name_change_new_document_forgery
-// sources: comm_001692_제225조_Ⅲ.2_12
-// norm_cards: art225_sec3_2.name_change_new_document_forgery
-rel public_document_forgery_track_conflict(case_id, defendant_id, "alteration", "art225_sec3_2.name_change_new_document_forgery") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_2.name_change_new_document_forgery")
-
-// rule_id: public_document_forgery.track_blocked.alteration.art225_sec3_2_name_change_new_document_forgery
-// sources: comm_001692_제225조_Ⅲ.2_12
-// norm_cards: art225_sec3_2.name_change_new_document_forgery
-rel public_document_forgery_track_not_established(case_id, defendant_id, "alteration", "art225_sec3_2.name_change_new_document_forgery") = satisfied_art225_sec3_2_name_change_new_document_forgery(case_id, defendant_id, document_id, nominal_official_id)
-
 // rule_id: public_document_forgery.track_conflict.alteration.art225_sec3_2_partial_copy_no_new_probative_force
 // sources: comm_001692_제225조_Ⅲ.2_13
 // norm_cards: art225_sec3_2.partial_copy_no_new_probative_force
@@ -1877,6 +1872,11 @@ rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "ar
 // sources: comm_001692_제225조_Ⅲ.1_7
 // norm_cards: art225_sec3_1.new_content_is_forgery
 rel public_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art225_sec3_1.new_content_is_forgery") = public_document_forgery_conflict(case_id, defendant_id, "art225_sec3_1.new_content_is_forgery")
+
+// rule_id: public_document_forgery.subtype_outcome.art225_sec3_2_name_change_new_document_forgery.001
+// sources: comm_001692_제225조_Ⅲ.2_12
+// norm_cards: art225_sec3_2.name_change_new_document_forgery
+rel public_document_forgery_subtype_outcome(case_id, defendant_id, "art225_sec3_2.name_change_new_document_forgery", "변조가 아니라 위조") = satisfied_art225_sec3_2_name_change_new_document_forgery(case_id, defendant_id, document_id, nominal_official_id)
 
 // rule_id: public_document_forgery.summary.has_negative
 // sources: comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.2_5, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_2, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ.1_3, comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅱ_1, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_9, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_8, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.1_7, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_10, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_13, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_11, comm_001692_제225조_Ⅲ.2_12, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.1_14, comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅳ.2_15, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16, comm_001692_제225조_Ⅴ_16

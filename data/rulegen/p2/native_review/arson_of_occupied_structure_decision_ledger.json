@@ -59,10 +59,6 @@
       "reason": "개별 사체·천정 사례이며 현재 quote만으로 일반 RuleIR 경로를 추가할 필요 없음"
     },
     {
-      "card_id": "art164_sec2_1.residence_nonrequired_indicia",
-      "reason": "주거성 판단에서 특정 징표가 필수가 아니라는 확인 법리로, 주거성을 긍정하는 카드이지 성립을 막는 카드가 아니다. 현재 역할 어휘에 자리가 없다."
-    },
-    {
       "card_id": "art164_sec2_2.mental_weakness_serial_arson_case",
       "reason": "형법 제10조 제2항 심신미약은 총칙 영역이고 현재 51조문 밖. unit outcome을 바꾸지 않음"
     }
@@ -426,13 +422,15 @@
     {
       "card_id": "art164_sec2_1.residence_without_actual_presence",
       "part_id": null,
-      "role": "bar",
+      "role": "requirement_waived",
       "track_id": "base",
       "component_id": "residence_or_presence",
       "component_join": "not_applicable",
       "refers_to_unit": null,
-      "rationale": "주거형 객체에서 방화 당시 현존 부존재를 이유로 배제할 수 없다는 차단규칙",
-      "proposition_rewrite": null
+      "rationale": "명제는 '주거로 사용되는 건조물은 방화 당시 사람이 실제 현존할 필요가 없다'로, 주거성을 긍정하는 요건불요 법리다. bar로 두어 26문항 실행에서 실제로 제164조를 불성립시켰다(검수 002 D-06).",
+      "proposition_rewrite": null,
+      "waived_requirement": "actual_presence",
+      "waived_requirement_label": "방화 당시 사람의 실제 현존"
     },
     {
       "card_id": "art164_sec2_1.temporal_residence_or_presence",
@@ -633,6 +631,19 @@
       "rationale": "제175조 예비로의 경계 이동. 해당 자산이 없으므로 보고만 한다",
       "proposition_rewrite": "점화 전 행위는 방화죄의 실행 착수가 아니라 예비로 처벌될 수 있을 뿐이다.",
       "refers_to_label": "방화예비·음모"
+    },
+    {
+      "card_id": "art164_sec2_1.residence_nonrequired_indicia",
+      "part_id": null,
+      "role": "requirement_waived",
+      "track_id": "base",
+      "component_id": "residence_scope",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "주거성 판단에서 특정 징표가 필수가 아니라는 확인 법리다. 방화 당시 사람이 실제로 현존할 것은 요건이 아니다(검수 002 D-06).",
+      "proposition_rewrite": null,
+      "waived_requirement": "actual_presence",
+      "waived_requirement_label": "방화 당시 사람의 실제 현존"
     }
   ],
   "components": [

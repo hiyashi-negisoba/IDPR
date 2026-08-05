@@ -403,7 +403,7 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art360_sec1_1.offense_definition`, `art360_sec2_1.subject.unrestricted`, `art360_sec2_2.lost_possession_property`, `art360_sec2_2.object`, `art360_sec2_3.completion_external_expression`, `art360_sec2_3.embezzlement_act`, `art360_sec2_3.later_appropriation_intent`, `art360_sec2_3.mistake_property_status_punishable`
 
-### `lost_property_embezzlement_boundary_shift(case_id: String, defendant_id: String, issue_id: String)`
+### `lost_property_embezzlement_boundary_shift(case_id: String, defendant_id: String, issue_id: String, value: String)`
 
 이 죄가 아니라 다른 죄로 평가되는 경계 사유가 확인됨
 

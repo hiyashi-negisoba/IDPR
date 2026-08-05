@@ -63,7 +63,6 @@
       "art297_sec4_4.successive_perpetrator_quasi_rape",
       "art297_sec5.consent_assessment",
       "art297_sec5.prior_communications_not_consent",
-      "art297_sec5.valid_consent",
       "art297_sec5.withdrawn_consent",
       "art297_sec6.intent",
       "art297_sec6.mistake_of_consent",
@@ -2319,76 +2318,6 @@
       ]
     },
     {
-      "id": "assess_art297_sec5_valid_consent",
-      "kind": "rule",
-      "origin": "commentary",
-      "role": "input",
-      "definition": "이 카드의 사건별 적용 평가: 피해자 본인의 성관계 승낙은 구성요건 해당성을 조각하며, 친권자 등의 승낙은 강간죄 성립에 영향을 주지 않는다.",
-      "arguments": [
-        {
-          "name": "case_id",
-          "type": "String"
-        },
-        {
-          "name": "assessment_id",
-          "type": "String"
-        },
-        {
-          "name": "defendant_id",
-          "type": "String"
-        },
-        {
-          "name": "victim_id",
-          "type": "String"
-        },
-        {
-          "name": "status",
-          "type": "String"
-        }
-      ],
-      "norm_card_ids": [
-        "art297_sec5.valid_consent"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제297조_Ⅴ_19",
-          "quote": "피해자의 승낙은 구성요건 해당성을 조각하는 양해에 해당한다. ‘성관계의 승낙’ 은 본인의 승낙에 한정되고, 친권자 등의 승낙이 있더라도 본죄의 성립에는 지 장이 없다.",
-          "section_path": "Ⅴ"
-        }
-      ]
-    },
-    {
-      "id": "satisfied_art297_sec5_valid_consent",
-      "kind": "rule",
-      "origin": "commentary",
-      "role": "derived",
-      "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 피해자 본인의 성관계 승낙은 구성요건 해당성을 조각하며, 친권자 등의 승낙은 강간죄 성립에 영향을 주지 않는다.",
-      "arguments": [
-        {
-          "name": "case_id",
-          "type": "String"
-        },
-        {
-          "name": "defendant_id",
-          "type": "String"
-        },
-        {
-          "name": "victim_id",
-          "type": "String"
-        }
-      ],
-      "norm_card_ids": [
-        "art297_sec5.valid_consent"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제297조_Ⅴ_19",
-          "quote": "피해자의 승낙은 구성요건 해당성을 조각하는 양해에 해당한다. ‘성관계의 승낙’ 은 본인의 승낙에 한정되고, 친권자 등의 승낙이 있더라도 본죄의 성립에는 지 장이 없다.",
-          "section_path": "Ⅴ"
-        }
-      ]
-    },
-    {
       "id": "assess_art297_sec5_withdrawn_consent",
       "kind": "rule",
       "origin": "commentary",
@@ -4085,6 +4014,45 @@
         },
         {
           "name": "crime_name",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [
+        "art297_sec4_1.direct_violence_threat"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.1_8",
+          "quote": "폭행·협박은 행위자가 직접 가한 것이어야 하고, 타인이 행한 폭행·협박을 이용 하여 간음했을 때에는 준강간죄가 성립할 수 있다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    },
+    {
+      "id": "rape_outcome_detail",
+      "kind": "rule",
+      "origin": "commentary",
+      "role": "derived",
+      "definition": "죄수·감면 효과의 구조화된 내역 — 보존되는 죄, 배제되는 결합범, 경합 형태, 감면 가부 등",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "norm_card_id",
+          "type": "String"
+        },
+        {
+          "name": "key",
+          "type": "String"
+        },
+        {
+          "name": "value",
           "type": "String"
         }
       ],
@@ -11395,268 +11363,6 @@
       ]
     },
     {
-      "id": "rape.card.art297_sec5_valid_consent.satisfied",
-      "head": {
-        "predicate": "satisfied_art297_sec5_valid_consent",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "variable",
-            "value": "victim_id"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art297_sec5_valid_consent",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "assessment_028"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            },
-            {
-              "kind": "string",
-              "value": "satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "assessment_028"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "증명 가능한 평가가 satisfied일 때만 조건으로 승격한다.",
-      "norm_card_ids": [
-        "art297_sec5.valid_consent"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제297조_Ⅴ_19",
-          "quote": "피해자의 승낙은 구성요건 해당성을 조각하는 양해에 해당한다. ‘성관계의 승낙’ 은 본인의 승낙에 한정되고, 친권자 등의 승낙이 있더라도 본죄의 성립에는 지 장이 없다.",
-          "section_path": "Ⅴ"
-        }
-      ]
-    },
-    {
-      "id": "rape.card.art297_sec5_valid_consent.undetermined",
-      "head": {
-        "predicate": "rape_undetermined",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art297_sec5.valid_consent"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art297_sec5_valid_consent",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "unknown_028"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            },
-            {
-              "kind": "string",
-              "value": "unknown"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "unknown_028"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "unknown 평가를 결론 계층에 보존한다.",
-      "norm_card_ids": [
-        "art297_sec5.valid_consent"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제297조_Ⅴ_19",
-          "quote": "피해자의 승낙은 구성요건 해당성을 조각하는 양해에 해당한다. ‘성관계의 승낙’ 은 본인의 승낙에 한정되고, 친권자 등의 승낙이 있더라도 본죄의 성립에는 지 장이 없다.",
-          "section_path": "Ⅴ"
-        }
-      ]
-    },
-    {
-      "id": "rape.card.art297_sec5_valid_consent.conflict",
-      "head": {
-        "predicate": "rape_conflict",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art297_sec5.valid_consent"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art297_sec5_valid_consent",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "positive_028"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            },
-            {
-              "kind": "string",
-              "value": "satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "assess_art297_sec5_valid_consent",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "negative_028"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "positive_028"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "negative_028"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "같은 카드에 satisfied와 not_satisfied가 모두 증명되면 충돌이다.",
-      "norm_card_ids": [
-        "art297_sec5.valid_consent"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제297조_Ⅴ_19",
-          "quote": "피해자의 승낙은 구성요건 해당성을 조각하는 양해에 해당한다. ‘성관계의 승낙’ 은 본인의 승낙에 한정되고, 친권자 등의 승낙이 있더라도 본죄의 성립에는 지 장이 없다.",
-          "section_path": "Ⅴ"
-        }
-      ]
-    },
-    {
       "id": "rape.card.art297_sec5_withdrawn_consent.satisfied",
       "head": {
         "predicate": "satisfied_art297_sec5_withdrawn_consent",
@@ -11686,7 +11392,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_029"
+              "value": "assessment_028"
             },
             {
               "kind": "variable",
@@ -11712,7 +11418,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_029"
+              "value": "assessment_028"
             }
           ],
           "negated": false
@@ -11760,7 +11466,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_029"
+              "value": "unknown_028"
             },
             {
               "kind": "variable",
@@ -11786,7 +11492,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_029"
+              "value": "unknown_028"
             }
           ],
           "negated": false
@@ -11834,7 +11540,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_029"
+              "value": "positive_028"
             },
             {
               "kind": "variable",
@@ -11860,7 +11566,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_029"
+              "value": "negative_028"
             },
             {
               "kind": "variable",
@@ -11886,7 +11592,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_029"
+              "value": "positive_028"
             }
           ],
           "negated": false
@@ -11900,7 +11606,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_029"
+              "value": "negative_028"
             }
           ],
           "negated": false
@@ -11948,7 +11654,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_030"
+              "value": "assessment_029"
             },
             {
               "kind": "variable",
@@ -11974,7 +11680,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_030"
+              "value": "assessment_029"
             }
           ],
           "negated": false
@@ -12022,7 +11728,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_030"
+              "value": "unknown_029"
             },
             {
               "kind": "variable",
@@ -12048,7 +11754,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_030"
+              "value": "unknown_029"
             }
           ],
           "negated": false
@@ -12096,7 +11802,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_030"
+              "value": "positive_029"
             },
             {
               "kind": "variable",
@@ -12122,7 +11828,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_030"
+              "value": "negative_029"
             },
             {
               "kind": "variable",
@@ -12148,7 +11854,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_030"
+              "value": "positive_029"
             }
           ],
           "negated": false
@@ -12162,7 +11868,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_030"
+              "value": "negative_029"
             }
           ],
           "negated": false
@@ -12210,7 +11916,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_031"
+              "value": "assessment_030"
             },
             {
               "kind": "variable",
@@ -12236,7 +11942,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_031"
+              "value": "assessment_030"
             }
           ],
           "negated": false
@@ -12284,7 +11990,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_031"
+              "value": "unknown_030"
             },
             {
               "kind": "variable",
@@ -12310,7 +12016,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_031"
+              "value": "unknown_030"
             }
           ],
           "negated": false
@@ -12358,7 +12064,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_031"
+              "value": "positive_030"
             },
             {
               "kind": "variable",
@@ -12384,7 +12090,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_031"
+              "value": "negative_030"
             },
             {
               "kind": "variable",
@@ -12410,7 +12116,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_031"
+              "value": "positive_030"
             }
           ],
           "negated": false
@@ -12424,7 +12130,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_031"
+              "value": "negative_030"
             }
           ],
           "negated": false
@@ -12472,7 +12178,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_032"
+              "value": "assessment_031"
             },
             {
               "kind": "variable",
@@ -12498,7 +12204,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_032"
+              "value": "assessment_031"
             }
           ],
           "negated": false
@@ -12546,7 +12252,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_032"
+              "value": "unknown_031"
             },
             {
               "kind": "variable",
@@ -12572,7 +12278,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_032"
+              "value": "unknown_031"
             }
           ],
           "negated": false
@@ -12620,7 +12326,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_032"
+              "value": "positive_031"
             },
             {
               "kind": "variable",
@@ -12646,7 +12352,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_032"
+              "value": "negative_031"
             },
             {
               "kind": "variable",
@@ -12672,7 +12378,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_032"
+              "value": "positive_031"
             }
           ],
           "negated": false
@@ -12686,7 +12392,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_032"
+              "value": "negative_031"
             }
           ],
           "negated": false
@@ -12734,7 +12440,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_033"
+              "value": "assessment_032"
             },
             {
               "kind": "variable",
@@ -12760,7 +12466,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_033"
+              "value": "assessment_032"
             }
           ],
           "negated": false
@@ -12808,7 +12514,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_033"
+              "value": "unknown_032"
             },
             {
               "kind": "variable",
@@ -12834,7 +12540,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_033"
+              "value": "unknown_032"
             }
           ],
           "negated": false
@@ -12882,7 +12588,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_033"
+              "value": "positive_032"
             },
             {
               "kind": "variable",
@@ -12908,7 +12614,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_033"
+              "value": "negative_032"
             },
             {
               "kind": "variable",
@@ -12934,7 +12640,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_033"
+              "value": "positive_032"
             }
           ],
           "negated": false
@@ -12948,7 +12654,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_033"
+              "value": "negative_032"
             }
           ],
           "negated": false
@@ -12996,7 +12702,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_034"
+              "value": "assessment_033"
             },
             {
               "kind": "variable",
@@ -13022,7 +12728,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_034"
+              "value": "assessment_033"
             }
           ],
           "negated": false
@@ -13070,7 +12776,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_034"
+              "value": "unknown_033"
             },
             {
               "kind": "variable",
@@ -13096,7 +12802,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_034"
+              "value": "unknown_033"
             }
           ],
           "negated": false
@@ -13144,7 +12850,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_034"
+              "value": "positive_033"
             },
             {
               "kind": "variable",
@@ -13170,7 +12876,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_034"
+              "value": "negative_033"
             },
             {
               "kind": "variable",
@@ -13196,7 +12902,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_034"
+              "value": "positive_033"
             }
           ],
           "negated": false
@@ -13210,7 +12916,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_034"
+              "value": "negative_033"
             }
           ],
           "negated": false
@@ -13258,7 +12964,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_035"
+              "value": "assessment_034"
             },
             {
               "kind": "variable",
@@ -13284,7 +12990,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_035"
+              "value": "assessment_034"
             }
           ],
           "negated": false
@@ -13332,7 +13038,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_035"
+              "value": "unknown_034"
             },
             {
               "kind": "variable",
@@ -13358,7 +13064,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_035"
+              "value": "unknown_034"
             }
           ],
           "negated": false
@@ -13406,7 +13112,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_035"
+              "value": "positive_034"
             },
             {
               "kind": "variable",
@@ -13432,7 +13138,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_035"
+              "value": "negative_034"
             },
             {
               "kind": "variable",
@@ -13458,7 +13164,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_035"
+              "value": "positive_034"
             }
           ],
           "negated": false
@@ -13472,7 +13178,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_035"
+              "value": "negative_034"
             }
           ],
           "negated": false
@@ -13520,7 +13226,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_036"
+              "value": "assessment_035"
             },
             {
               "kind": "variable",
@@ -13546,7 +13252,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_036"
+              "value": "assessment_035"
             }
           ],
           "negated": false
@@ -13594,7 +13300,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_036"
+              "value": "unknown_035"
             },
             {
               "kind": "variable",
@@ -13620,7 +13326,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_036"
+              "value": "unknown_035"
             }
           ],
           "negated": false
@@ -13668,7 +13374,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_036"
+              "value": "positive_035"
             },
             {
               "kind": "variable",
@@ -13694,7 +13400,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_036"
+              "value": "negative_035"
             },
             {
               "kind": "variable",
@@ -13720,7 +13426,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_036"
+              "value": "positive_035"
             }
           ],
           "negated": false
@@ -13734,7 +13440,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_036"
+              "value": "negative_035"
             }
           ],
           "negated": false
@@ -13782,7 +13488,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_037"
+              "value": "assessment_036"
             },
             {
               "kind": "variable",
@@ -13808,7 +13514,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_037"
+              "value": "assessment_036"
             }
           ],
           "negated": false
@@ -13856,7 +13562,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_037"
+              "value": "unknown_036"
             },
             {
               "kind": "variable",
@@ -13882,7 +13588,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_037"
+              "value": "unknown_036"
             }
           ],
           "negated": false
@@ -13930,7 +13636,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_037"
+              "value": "positive_036"
             },
             {
               "kind": "variable",
@@ -13956,7 +13662,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_037"
+              "value": "negative_036"
             },
             {
               "kind": "variable",
@@ -13982,7 +13688,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_037"
+              "value": "positive_036"
             }
           ],
           "negated": false
@@ -13996,7 +13702,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_037"
+              "value": "negative_036"
             }
           ],
           "negated": false
@@ -14044,7 +13750,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_038"
+              "value": "assessment_037"
             },
             {
               "kind": "variable",
@@ -14070,7 +13776,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_038"
+              "value": "assessment_037"
             }
           ],
           "negated": false
@@ -14118,7 +13824,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_038"
+              "value": "unknown_037"
             },
             {
               "kind": "variable",
@@ -14144,7 +13850,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_038"
+              "value": "unknown_037"
             }
           ],
           "negated": false
@@ -14192,7 +13898,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_038"
+              "value": "positive_037"
             },
             {
               "kind": "variable",
@@ -14218,7 +13924,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_038"
+              "value": "negative_037"
             },
             {
               "kind": "variable",
@@ -14244,7 +13950,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_038"
+              "value": "positive_037"
             }
           ],
           "negated": false
@@ -14258,7 +13964,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_038"
+              "value": "negative_037"
             }
           ],
           "negated": false
@@ -14306,7 +14012,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_039"
+              "value": "assessment_038"
             },
             {
               "kind": "variable",
@@ -14332,7 +14038,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_039"
+              "value": "assessment_038"
             }
           ],
           "negated": false
@@ -14380,7 +14086,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_039"
+              "value": "unknown_038"
             },
             {
               "kind": "variable",
@@ -14406,7 +14112,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_039"
+              "value": "unknown_038"
             }
           ],
           "negated": false
@@ -14454,7 +14160,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_039"
+              "value": "positive_038"
             },
             {
               "kind": "variable",
@@ -14480,7 +14186,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_039"
+              "value": "negative_038"
             },
             {
               "kind": "variable",
@@ -14506,7 +14212,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_039"
+              "value": "positive_038"
             }
           ],
           "negated": false
@@ -14520,7 +14226,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_039"
+              "value": "negative_038"
             }
           ],
           "negated": false
@@ -14568,7 +14274,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_040"
+              "value": "assessment_039"
             },
             {
               "kind": "variable",
@@ -14594,7 +14300,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_040"
+              "value": "assessment_039"
             }
           ],
           "negated": false
@@ -14642,7 +14348,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_040"
+              "value": "unknown_039"
             },
             {
               "kind": "variable",
@@ -14668,7 +14374,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_040"
+              "value": "unknown_039"
             }
           ],
           "negated": false
@@ -14716,7 +14422,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_040"
+              "value": "positive_039"
             },
             {
               "kind": "variable",
@@ -14742,7 +14448,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_040"
+              "value": "negative_039"
             },
             {
               "kind": "variable",
@@ -14768,7 +14474,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_040"
+              "value": "positive_039"
             }
           ],
           "negated": false
@@ -14782,7 +14488,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_040"
+              "value": "negative_039"
             }
           ],
           "negated": false
@@ -14830,7 +14536,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_041"
+              "value": "assessment_040"
             },
             {
               "kind": "variable",
@@ -14856,7 +14562,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_041"
+              "value": "assessment_040"
             }
           ],
           "negated": false
@@ -14904,7 +14610,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_041"
+              "value": "unknown_040"
             },
             {
               "kind": "variable",
@@ -14930,7 +14636,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_041"
+              "value": "unknown_040"
             }
           ],
           "negated": false
@@ -14978,7 +14684,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_041"
+              "value": "positive_040"
             },
             {
               "kind": "variable",
@@ -15004,7 +14710,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_041"
+              "value": "negative_040"
             },
             {
               "kind": "variable",
@@ -15030,7 +14736,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_041"
+              "value": "positive_040"
             }
           ],
           "negated": false
@@ -15044,7 +14750,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_041"
+              "value": "negative_040"
             }
           ],
           "negated": false
@@ -15092,7 +14798,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_042"
+              "value": "assessment_041"
             },
             {
               "kind": "variable",
@@ -15118,7 +14824,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_042"
+              "value": "assessment_041"
             }
           ],
           "negated": false
@@ -15166,7 +14872,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_042"
+              "value": "unknown_041"
             },
             {
               "kind": "variable",
@@ -15192,7 +14898,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_042"
+              "value": "unknown_041"
             }
           ],
           "negated": false
@@ -15240,7 +14946,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_042"
+              "value": "positive_041"
             },
             {
               "kind": "variable",
@@ -15266,7 +14972,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_042"
+              "value": "negative_041"
             },
             {
               "kind": "variable",
@@ -15292,7 +14998,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_042"
+              "value": "positive_041"
             }
           ],
           "negated": false
@@ -15306,7 +15012,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_042"
+              "value": "negative_041"
             }
           ],
           "negated": false
@@ -15354,7 +15060,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_043"
+              "value": "assessment_042"
             },
             {
               "kind": "variable",
@@ -15380,7 +15086,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_043"
+              "value": "assessment_042"
             }
           ],
           "negated": false
@@ -15428,7 +15134,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_043"
+              "value": "unknown_042"
             },
             {
               "kind": "variable",
@@ -15454,7 +15160,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_043"
+              "value": "unknown_042"
             }
           ],
           "negated": false
@@ -15502,7 +15208,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_043"
+              "value": "positive_042"
             },
             {
               "kind": "variable",
@@ -15528,7 +15234,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_043"
+              "value": "negative_042"
             },
             {
               "kind": "variable",
@@ -15554,7 +15260,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_043"
+              "value": "positive_042"
             }
           ],
           "negated": false
@@ -15568,7 +15274,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_043"
+              "value": "negative_042"
             }
           ],
           "negated": false
@@ -15616,7 +15322,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_044"
+              "value": "assessment_043"
             },
             {
               "kind": "variable",
@@ -15642,7 +15348,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_044"
+              "value": "assessment_043"
             }
           ],
           "negated": false
@@ -15690,7 +15396,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_044"
+              "value": "unknown_043"
             },
             {
               "kind": "variable",
@@ -15716,7 +15422,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_044"
+              "value": "unknown_043"
             }
           ],
           "negated": false
@@ -15764,7 +15470,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_044"
+              "value": "positive_043"
             },
             {
               "kind": "variable",
@@ -15790,7 +15496,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_044"
+              "value": "negative_043"
             },
             {
               "kind": "variable",
@@ -15816,7 +15522,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_044"
+              "value": "positive_043"
             }
           ],
           "negated": false
@@ -15830,7 +15536,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_044"
+              "value": "negative_043"
             }
           ],
           "negated": false
@@ -15878,7 +15584,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_045"
+              "value": "assessment_044"
             },
             {
               "kind": "variable",
@@ -15904,7 +15610,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_045"
+              "value": "assessment_044"
             }
           ],
           "negated": false
@@ -15952,7 +15658,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_045"
+              "value": "unknown_044"
             },
             {
               "kind": "variable",
@@ -15978,7 +15684,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_045"
+              "value": "unknown_044"
             }
           ],
           "negated": false
@@ -16026,7 +15732,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_045"
+              "value": "positive_044"
             },
             {
               "kind": "variable",
@@ -16052,7 +15758,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_045"
+              "value": "negative_044"
             },
             {
               "kind": "variable",
@@ -16078,7 +15784,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_045"
+              "value": "positive_044"
             }
           ],
           "negated": false
@@ -16092,7 +15798,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_045"
+              "value": "negative_044"
             }
           ],
           "negated": false
@@ -16140,7 +15846,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_046"
+              "value": "assessment_045"
             },
             {
               "kind": "variable",
@@ -16166,7 +15872,7 @@
             },
             {
               "kind": "variable",
-              "value": "assessment_046"
+              "value": "assessment_045"
             }
           ],
           "negated": false
@@ -16214,7 +15920,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_046"
+              "value": "unknown_045"
             },
             {
               "kind": "variable",
@@ -16240,7 +15946,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_046"
+              "value": "unknown_045"
             }
           ],
           "negated": false
@@ -16288,7 +15994,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_046"
+              "value": "positive_045"
             },
             {
               "kind": "variable",
@@ -16314,7 +16020,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_046"
+              "value": "negative_045"
             },
             {
               "kind": "variable",
@@ -16340,7 +16046,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_046"
+              "value": "positive_045"
             }
           ],
           "negated": false
@@ -16354,7 +16060,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_046"
+              "value": "negative_045"
             }
           ],
           "negated": false
@@ -17545,118 +17251,6 @@
         {
           "comment_id": "comm_001692_제297조_Ⅴ_19",
           "quote": "범행 무렵까지 피해자가 피고인과 수시로 전화 통화나 문자메시지를 주고 받았다거나 그 내용 중에 피해자가 피고인에 대하여 호감을 가진 것으로 인정 할 만한 내용이 있다고 하여 피해자가 피고인과의 성관계를 승낙 내지 묵인하 였다고 볼 수는 없다.",
-          "section_path": "Ⅴ"
-        }
-      ]
-    },
-    {
-      "id": "rape.track_conflict.base.art297_sec5_valid_consent",
-      "head": {
-        "predicate": "rape_track_conflict",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "base"
-          },
-          {
-            "kind": "string",
-            "value": "art297_sec5.valid_consent"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "rape_conflict",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "art297_sec5.valid_consent"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "카드 평가 충돌은 해당 track과 그 상속 track에만 전파한다.",
-      "norm_card_ids": [
-        "art297_sec5.valid_consent"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제297조_Ⅴ_19",
-          "quote": "피해자의 승낙은 구성요건 해당성을 조각하는 양해에 해당한다. ‘성관계의 승낙’ 은 본인의 승낙에 한정되고, 친권자 등의 승낙이 있더라도 본죄의 성립에는 지 장이 없다.",
-          "section_path": "Ⅴ"
-        }
-      ]
-    },
-    {
-      "id": "rape.track_blocked.base.art297_sec5_valid_consent",
-      "head": {
-        "predicate": "rape_track_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "base"
-          },
-          {
-            "kind": "string",
-            "value": "art297_sec5.valid_consent"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "satisfied_art297_sec5_valid_consent",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "victim_id"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
-      "norm_card_ids": [
-        "art297_sec5.valid_consent"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제297조_Ⅴ_19",
-          "quote": "피해자의 승낙은 구성요건 해당성을 조각하는 양해에 해당한다. ‘성관계의 승낙’ 은 본인의 승낙에 한정되고, 친권자 등의 승낙이 있더라도 본죄의 성립에는 지 장이 없다.",
           "section_path": "Ⅴ"
         }
       ]
@@ -19045,7 +18639,7 @@
           },
           {
             "kind": "string",
-            "value": "준강간·준강제추행"
+            "value": "준강간"
           }
         ],
         "negated": false
@@ -19071,6 +18665,186 @@
         }
       ],
       "review_notes": "이 죄의 불성립에 그치지 않고 후속 죄명을 명시해 라우터가 다시 묻지 않게 한다.",
+      "norm_card_ids": [
+        "art297_sec4_1.direct_violence_threat"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.1_8",
+          "quote": "폭행·협박은 행위자가 직접 가한 것이어야 하고, 타인이 행한 폭행·협박을 이용 하여 간음했을 때에는 준강간죄가 성립할 수 있다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    },
+    {
+      "id": "rape.outcome_detail.art297_sec4_1_direct_violence_threat.001",
+      "head": {
+        "predicate": "rape_outcome_detail",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art297_sec4_1.direct_violence_threat"
+          },
+          {
+            "kind": "string",
+            "value": "display_label"
+          },
+          {
+            "kind": "string",
+            "value": "준강간"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art297_sec4_1_direct_violence_threat",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "죄수 계산에 쓸 수 있도록 자연어가 아닌 사실로 배출한다.",
+      "norm_card_ids": [
+        "art297_sec4_1.direct_violence_threat"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.1_8",
+          "quote": "폭행·협박은 행위자가 직접 가한 것이어야 하고, 타인이 행한 폭행·협박을 이용 하여 간음했을 때에는 준강간죄가 성립할 수 있다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    },
+    {
+      "id": "rape.outcome_detail.art297_sec4_1_direct_violence_threat.002",
+      "head": {
+        "predicate": "rape_outcome_detail",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art297_sec4_1.direct_violence_threat"
+          },
+          {
+            "kind": "string",
+            "value": "target_subtype"
+          },
+          {
+            "kind": "string",
+            "value": "quasi_rape"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art297_sec4_1_direct_violence_threat",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "죄수 계산에 쓸 수 있도록 자연어가 아닌 사실로 배출한다.",
+      "norm_card_ids": [
+        "art297_sec4_1.direct_violence_threat"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제297조_Ⅳ.1_8",
+          "quote": "폭행·협박은 행위자가 직접 가한 것이어야 하고, 타인이 행한 폭행·협박을 이용 하여 간음했을 때에는 준강간죄가 성립할 수 있다.",
+          "section_path": "Ⅳ.1"
+        }
+      ]
+    },
+    {
+      "id": "rape.outcome_detail.art297_sec4_1_direct_violence_threat.003",
+      "head": {
+        "predicate": "rape_outcome_detail",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art297_sec4_1.direct_violence_threat"
+          },
+          {
+            "kind": "string",
+            "value": "target_unit"
+          },
+          {
+            "kind": "string",
+            "value": "quasi_sexual_offense"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art297_sec4_1_direct_violence_threat",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "victim_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "죄수 계산에 쓸 수 있도록 자연어가 아닌 사실로 배출한다.",
       "norm_card_ids": [
         "art297_sec4_1.direct_violence_threat"
       ],
@@ -19147,7 +18921,6 @@
         "art297_sec4_4.successive_perpetrator_quasi_rape",
         "art297_sec5.consent_assessment",
         "art297_sec5.prior_communications_not_consent",
-        "art297_sec5.valid_consent",
         "art297_sec5.withdrawn_consent",
         "art297_sec6.intent",
         "art297_sec6.mistake_of_consent",
@@ -19346,11 +19119,6 @@
         {
           "comment_id": "comm_001692_제297조_Ⅴ_19",
           "quote": "범행 무렵까지 피해자가 피고인과 수시로 전화 통화나 문자메시지를 주고 받았다거나 그 내용 중에 피해자가 피고인에 대하여 호감을 가진 것으로 인정 할 만한 내용이 있다고 하여 피해자가 피고인과의 성관계를 승낙 내지 묵인하 였다고 볼 수는 없다.",
-          "section_path": "Ⅴ"
-        },
-        {
-          "comment_id": "comm_001692_제297조_Ⅴ_19",
-          "quote": "피해자의 승낙은 구성요건 해당성을 조각하는 양해에 해당한다. ‘성관계의 승낙’ 은 본인의 승낙에 한정되고, 친권자 등의 승낙이 있더라도 본죄의 성립에는 지 장이 없다.",
           "section_path": "Ⅴ"
         },
         {
@@ -19510,7 +19278,6 @@
         "art297_sec4_4.successive_perpetrator_quasi_rape",
         "art297_sec5.consent_assessment",
         "art297_sec5.prior_communications_not_consent",
-        "art297_sec5.valid_consent",
         "art297_sec5.withdrawn_consent",
         "art297_sec6.intent",
         "art297_sec6.mistake_of_consent",
@@ -19709,11 +19476,6 @@
         {
           "comment_id": "comm_001692_제297조_Ⅴ_19",
           "quote": "범행 무렵까지 피해자가 피고인과 수시로 전화 통화나 문자메시지를 주고 받았다거나 그 내용 중에 피해자가 피고인에 대하여 호감을 가진 것으로 인정 할 만한 내용이 있다고 하여 피해자가 피고인과의 성관계를 승낙 내지 묵인하 였다고 볼 수는 없다.",
-          "section_path": "Ⅴ"
-        },
-        {
-          "comment_id": "comm_001692_제297조_Ⅴ_19",
-          "quote": "피해자의 승낙은 구성요건 해당성을 조각하는 양해에 해당한다. ‘성관계의 승낙’ 은 본인의 승낙에 한정되고, 친권자 등의 승낙이 있더라도 본죄의 성립에는 지 장이 없다.",
           "section_path": "Ⅴ"
         },
         {
@@ -19881,7 +19643,6 @@
         "art297_sec4_4.successive_perpetrator_quasi_rape",
         "art297_sec5.consent_assessment",
         "art297_sec5.prior_communications_not_consent",
-        "art297_sec5.valid_consent",
         "art297_sec5.withdrawn_consent",
         "art297_sec6.intent",
         "art297_sec6.mistake_of_consent",
@@ -20080,11 +19841,6 @@
         {
           "comment_id": "comm_001692_제297조_Ⅴ_19",
           "quote": "범행 무렵까지 피해자가 피고인과 수시로 전화 통화나 문자메시지를 주고 받았다거나 그 내용 중에 피해자가 피고인에 대하여 호감을 가진 것으로 인정 할 만한 내용이 있다고 하여 피해자가 피고인과의 성관계를 승낙 내지 묵인하 였다고 볼 수는 없다.",
-          "section_path": "Ⅴ"
-        },
-        {
-          "comment_id": "comm_001692_제297조_Ⅴ_19",
-          "quote": "피해자의 승낙은 구성요건 해당성을 조각하는 양해에 해당한다. ‘성관계의 승낙’ 은 본인의 승낙에 한정되고, 친권자 등의 승낙이 있더라도 본죄의 성립에는 지 장이 없다.",
           "section_path": "Ⅴ"
         },
         {
@@ -20252,7 +20008,6 @@
         "art297_sec4_4.successive_perpetrator_quasi_rape",
         "art297_sec5.consent_assessment",
         "art297_sec5.prior_communications_not_consent",
-        "art297_sec5.valid_consent",
         "art297_sec5.withdrawn_consent",
         "art297_sec6.intent",
         "art297_sec6.mistake_of_consent",
@@ -20451,11 +20206,6 @@
         {
           "comment_id": "comm_001692_제297조_Ⅴ_19",
           "quote": "범행 무렵까지 피해자가 피고인과 수시로 전화 통화나 문자메시지를 주고 받았다거나 그 내용 중에 피해자가 피고인에 대하여 호감을 가진 것으로 인정 할 만한 내용이 있다고 하여 피해자가 피고인과의 성관계를 승낙 내지 묵인하 였다고 볼 수는 없다.",
-          "section_path": "Ⅴ"
-        },
-        {
-          "comment_id": "comm_001692_제297조_Ⅴ_19",
-          "quote": "피해자의 승낙은 구성요건 해당성을 조각하는 양해에 해당한다. ‘성관계의 승낙’ 은 본인의 승낙에 한정되고, 친권자 등의 승낙이 있더라도 본죄의 성립에는 지 장이 없다.",
           "section_path": "Ⅴ"
         },
         {
@@ -20623,7 +20373,6 @@
         "art297_sec4_4.successive_perpetrator_quasi_rape",
         "art297_sec5.consent_assessment",
         "art297_sec5.prior_communications_not_consent",
-        "art297_sec5.valid_consent",
         "art297_sec5.withdrawn_consent",
         "art297_sec6.intent",
         "art297_sec6.mistake_of_consent",
@@ -20822,11 +20571,6 @@
         {
           "comment_id": "comm_001692_제297조_Ⅴ_19",
           "quote": "범행 무렵까지 피해자가 피고인과 수시로 전화 통화나 문자메시지를 주고 받았다거나 그 내용 중에 피해자가 피고인에 대하여 호감을 가진 것으로 인정 할 만한 내용이 있다고 하여 피해자가 피고인과의 성관계를 승낙 내지 묵인하 였다고 볼 수는 없다.",
-          "section_path": "Ⅴ"
-        },
-        {
-          "comment_id": "comm_001692_제297조_Ⅴ_19",
-          "quote": "피해자의 승낙은 구성요건 해당성을 조각하는 양해에 해당한다. ‘성관계의 승낙’ 은 본인의 승낙에 한정되고, 친권자 등의 승낙이 있더라도 본죄의 성립에는 지 장이 없다.",
           "section_path": "Ⅴ"
         },
         {
@@ -21170,7 +20914,6 @@
         "art297_sec4_4.successive_perpetrator_quasi_rape",
         "art297_sec5.consent_assessment",
         "art297_sec5.prior_communications_not_consent",
-        "art297_sec5.valid_consent",
         "art297_sec5.withdrawn_consent",
         "art297_sec6.intent",
         "art297_sec6.mistake_of_consent",
@@ -21369,11 +21112,6 @@
         {
           "comment_id": "comm_001692_제297조_Ⅴ_19",
           "quote": "범행 무렵까지 피해자가 피고인과 수시로 전화 통화나 문자메시지를 주고 받았다거나 그 내용 중에 피해자가 피고인에 대하여 호감을 가진 것으로 인정 할 만한 내용이 있다고 하여 피해자가 피고인과의 성관계를 승낙 내지 묵인하 였다고 볼 수는 없다.",
-          "section_path": "Ⅴ"
-        },
-        {
-          "comment_id": "comm_001692_제297조_Ⅴ_19",
-          "quote": "피해자의 승낙은 구성요건 해당성을 조각하는 양해에 해당한다. ‘성관계의 승낙’ 은 본인의 승낙에 한정되고, 친권자 등의 승낙이 있더라도 본죄의 성립에는 지 장이 없다.",
           "section_path": "Ⅴ"
         },
         {
@@ -21587,7 +21325,6 @@
         "art297_sec4_4.successive_perpetrator_quasi_rape",
         "art297_sec5.consent_assessment",
         "art297_sec5.prior_communications_not_consent",
-        "art297_sec5.valid_consent",
         "art297_sec5.withdrawn_consent",
         "art297_sec6.intent",
         "art297_sec6.mistake_of_consent",
@@ -21790,11 +21527,6 @@
         },
         {
           "comment_id": "comm_001692_제297조_Ⅴ_19",
-          "quote": "피해자의 승낙은 구성요건 해당성을 조각하는 양해에 해당한다. ‘성관계의 승낙’ 은 본인의 승낙에 한정되고, 친권자 등의 승낙이 있더라도 본죄의 성립에는 지 장이 없다.",
-          "section_path": "Ⅴ"
-        },
-        {
-          "comment_id": "comm_001692_제297조_Ⅴ_19",
           "quote": "피해자는 사전에 성관계를 승낙하였다고 하더라도 그 동의를 번복할 수 있고, 승낙을 번복한 경우에는 승낙이 있다고 볼 수 없다.",
           "section_path": "Ⅴ"
         },
@@ -21909,6 +21641,29 @@
     "context_only: art297_sec4_1.no_retrospective_inference",
     "context_only: art297_sec4_1.victim_testimony_reliability",
     "context_only: art297_sec9.nonprosecution_not_false_report_proof",
+    "pending_split: art297_sec5.valid_consent (피해자 승낙(저지)과 친권자 승낙(무영향)을 분리해야 한다(검수 002 D-02).",
+    "unclassified_annotation: post_outcome: art297_sec9.rape_injury_death (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297_sec4_3.attempt_commencement (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297_sec4_3.attempt_commencement_context (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297_sec4_3.voluntary_abandonment (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297_sec9.abduction_for_marriage_rape (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297_sec9.confinement_rape_attempted_case (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297_sec9.continued_confinement_after_rape (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297_sec9.means_violence_absorption (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297_sec9.separate_confinement_rape_violence (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297_sec9.theft_rape_concurrence (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297_sec7.continuous_acts_single_offense (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297_sec7.multiple_victims_multiple_offenses (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297_sec7.new_violence_separate_offense (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297_sec9.residence_intrusion_rape (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297_sec9.robbery_rape (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297_sec9.special_rape (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297_sec9.special_robbery_rape (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297_sec9.special_theft_rape (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297_sec4_4.successive_co_perpetration_negative (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297_sec4_4.successive_perpetrator_quasi_rape (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297.relative_special_act (outcome_subtype 미지정)",
+    "unclassified_annotation: post_outcome: art297.special-protection-statutes (outcome_subtype 미지정)",
     "card_metadata_correction: cc_001",
     "card_metadata_correction: cc_002"
   ]

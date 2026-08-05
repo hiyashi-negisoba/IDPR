@@ -1,20 +1,26 @@
 {
   "version": "1.0.0",
   "api_calls": 0,
-  "created_at": "2026-07-26T14:27:47.884833+00:00",
+  "created_at": "2026-08-05T08:13:22.670122+00:00",
   "method": "138장 전수 판독으로 역할·근거를 카드마다 지정 (정규식 분류 폐기)",
   "roles": {
     "bar": "요건 결여·배제 — 성립을 막는다",
     "waiver": "요건 불요 — 성립을 막지 않는다",
     "boundary": "이 죄가 아니라 다른 죄로 — refers_to에 죄명",
-    "component": "요건 인정 경로 — 구성요건 단계에 든다"
+    "component": "요건 인정 경로 — 구성요건 단계에 든다",
+    "assessment_standard": "판단기준·정의 — 요건을 어떻게 재는지만 말하고 결론을 내지 않는다",
+    "proof_standard": "증명·특정 요건 — 유죄 인정의 조건이지 구성요건 자체가 아니다",
+    "subtype_outcome": "같은 죄 안의 의율유형 — 죄 전체의 성립은 유지된다",
+    "post_outcome": "구성요건 판단 뒤의 죄수·처벌 효과"
   },
   "counts": {
     "cards": 138,
-    "bar": 94,
+    "assessment_standard": 5,
+    "bar": 89,
     "boundary": 15,
     "component": 12,
-    "waiver": 17
+    "post_outcome": 1,
+    "waiver": 16
   },
   "cards": {
     "art323_sec1_1.no_unlawful_appropriation_intent": {
@@ -24,6 +30,7 @@
       "proposition": "권리행사방해죄의 성립에는 불법영득의사가 요구되지 않는다.",
       "role": "waiver",
       "refers_to": null,
+      "value": "불법영득의사",
       "rationale": "불법영득의사는 요건이 아니다."
     },
     "art323_sec2_2.coowned_property_excluded": {
@@ -33,6 +40,7 @@
       "proposition": "자기와 타인의 공유에 속하는 물건은 타인의 물건이므로 권리행사방해죄의 자기 물건에 해당하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "공유물은 자기 물건이 아니다."
     },
     "art323_sec2_2.manifestly_no_right_possession_excluded": {
@@ -42,6 +50,7 @@
       "proposition": "절도범인의 점유처럼 점유할 권리 없는 자의 점유임이 외관상 명백한 경우는 권리행사방해죄의 보호대상인 타인의 점유에 포함되지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "권리 없음이 명백한 점유는 보호대상이 아니다."
     },
     "art323_sec2_2.nominee_owner_not_subject": {
@@ -51,6 +60,7 @@
       "proposition": "유효한 명의신탁 관계에서 대외적으로 명의수탁자만 소유자로 취급되는 경우, 명의신탁자는 제3자인 임차인에 대한 관계에서 권리행사방해죄의 주체가 될 수 없다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "명의신탁자는 주체가 아니다."
     },
     "art323_sec2_2.official_custody_exception": {
@@ -60,6 +70,7 @@
       "proposition": "자기 물건이라도 공무소 보관명령을 받았거나 공무소 명령으로 타인이 관리하는 물건인 경우 권리행사방해죄는 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "공무소 보관명령 물건은 제외된다."
     },
     "art323_sec2_2.prohibited_gold_products_excluded": {
@@ -69,6 +80,7 @@
       "proposition": "소유와 소지가 모두 금지된 금제품은 권리행사방해죄의 객체가 될 수 없다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "금제품은 객체가 아니다."
     },
     "art323_sec2_2.registered_sale_seller_not_subject": {
@@ -78,6 +90,7 @@
       "proposition": "부동산이나 등록으로 소유권이 이전되는 자동차·중기·건설기계에서는 대금 완납 시까지 매도인에게 소유권을 유보하는 특약이 있어도 등기 또는 등록이 마쳐지면 매수인에게 소유권이 이전되므로 매도인은 권리행사방해죄의 주체가 될 수 없다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "등기·등록이 마쳐지면 매도인은 주체가 아니다."
     },
     "art323_sec2_3.consensual_transfer_not_taking": {
@@ -87,6 +100,7 @@
       "proposition": "점유자의 의사 또는 하자 있는 의사에 기하여 점유가 이전된 경우에는 취거에 해당하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "점유자 의사에 기한 이전은 취거가 아니다."
     },
     "art323_sec3.no_intent_to_appropriate_required": {
@@ -96,6 +110,7 @@
       "proposition": "권리행사방해죄는 영득죄가 아니므로 불법영득의 의사를 요하지 않는다.",
       "role": "waiver",
       "refers_to": null,
+      "value": "영득의사",
       "rationale": "영득죄가 아니므로 영득의사를 요하지 않는다."
     },
     "art329_sec2.theft_exception_ownership_or_self_possession": {
@@ -105,6 +120,7 @@
       "proposition": "자기 소유 재물이 타인 점유 아래 있거나 타인 소유 재물이 자기 점유 아래 있는 경우에는, 권리행사방해죄 또는 횡령죄 성립 여부는 별론으로 하고 절도죄는 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "자기 소유·자기 점유 사안은 절도가 아니다. 권리행사방해·횡령 성립은 별론이라 후속 죄명을 단정하지 않는다."
     },
     "art329_sec2_1.inherited_estate_not_ownerless": {
@@ -114,6 +130,7 @@
       "proposition": "피상속인 사망 후 상속인이 없는 상속재산은 국가에 귀속하므로 무주물이 아니다.",
       "role": "component",
       "refers_to": null,
+      "value": null,
       "rationale": "상속재산의 국가 귀속으로 타인성을 인정하는 경로다."
     },
     "art329_sec2_1.ownerless_property_exception": {
@@ -123,6 +140,7 @@
       "proposition": "무주물은 절도죄의 객체가 될 수 없다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "무주물은 객체가 아니다."
     },
     "art329_sec2_2.sole_custodian_coowned_property": {
@@ -132,6 +150,7 @@
       "proposition": "공동소유 재물이라도 공동점유가 아니라 공동소유자 중 1인의 단독보관 아래 있으면 그 보관자의 영득은 절도가 아니라 횡령에 해당한다.",
       "role": "boundary",
       "refers_to": "횡령",
+      "value": "횡령",
       "rationale": "단독보관자의 영득은 절도가 아니라 횡령이다."
     },
     "art329_sec2_2.unfound_transit_lost_property": {
@@ -141,6 +160,7 @@
       "proposition": "고속버스 운전사나 지하철 승무원은 승객이 두고 내린 유실물을 현실적으로 발견하기 전에는 점유를 개시하지 않으므로, 다른 승객이 발견하여 가져가면 절도가 아니라 점유이탈물횡령에 해당한다.",
       "role": "boundary",
       "refers_to": "점유이탈물횡령",
+      "value": "점유이탈물횡령",
       "rationale": "발견 전 유실물의 취거는 점유이탈물횡령이다."
     },
     "art329_sec4.intent.mistake_abandoned_property": {
@@ -150,6 +170,7 @@
       "proposition": "타인이 소유권을 포기하여 버린 물건이라고 오인하여 취득한 경우에는 절도죄의 고의가 인정되지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "포기물로 오인한 취득은 고의가 없다."
     },
     "art329_sec5_1.unlawful_appropriation_required": {
@@ -159,6 +180,7 @@
       "proposition": "절도죄 성립에는 주관적 불법요소로서 불법영득의사가 필요하며, 영득의사가 없으면 점유자의 의사에 반하여 점유를 침해하고 목적물을 자기 또는 제3자의 점유로 옮겨도 절도죄가 되지 않는다.",
       "role": "component",
       "refers_to": null,
+      "value": null,
       "rationale": "불법영득의사를 주관적 요건으로 요구하는 규칙이다."
     },
     "art329_sec5_2.fuel_consumption_incidental_use": {
@@ -168,6 +190,7 @@
       "proposition": "가솔린 등 연료는 일시 사용에 필연적으로 소비되므로, 소비량이 특별히 많은 경우가 아니면 그 소비를 차량의 일시 사용과 별도로 문제 삼지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "일시 사용에 수반된 연료 소비는 별도로 문제 삼지 않는다."
     },
     "art329_sec5_2.use_theft_minor_value_consumption_and_prompt_return": {
@@ -177,6 +200,7 @@
       "proposition": "무단사용으로 인한 가치 소모가 무시할 수 있을 정도로 경미하고 사용 후 곧 반환한 경우에는 소유권 또는 본권 침해 의사를 인정할 수 없어 불법영득의사가 인정되지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "경미한 소모 후 즉시 반환은 영득의사가 없다."
     },
     "art329_sec5_2.use_theft_possession_not_completely_lost": {
@@ -186,6 +210,7 @@
       "proposition": "극히 단시간의 사용으로 재물에 대한 소유자의 소지가 완전히 상실되지 않고 곧 환원될 상태인 경우에만 영득의사가 없어 사용절도로서 처벌되지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "소지가 상실되지 않고 곧 환원될 상태면 사용절도로 불처벌."
     },
     "art329_sec6.consent_manifestation": {
@@ -195,6 +220,7 @@
       "proposition": "절도에서 승낙은 외부적으로 표시되면 명시적·묵시적 여부를 불문하고 추정적 승낙도 가능하다.",
       "role": "waiver",
       "refers_to": null,
+      "value": "승낙의 명시적 표시",
       "rationale": "승낙의 표시 방식을 정하는 해석 기준일 뿐 그 자체로 요건을 인정하는 경로가 아니다 — L6(위법성·책임) 카드라 component로 두면 component_layer가 L0~L4만 순회해 어떤 규칙에도 안 걸린다(component 재분해 중 발견). waiver로 두어 해석기준 사실만 기록한다."
     },
     "art329_sec6.consent_no_taking": {
@@ -204,6 +230,7 @@
       "proposition": "피해자의 승낙이 있는 경우에는 절취에 해당하지 않아 절도죄의 구성요건해당성이 인정되지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "피해자의 승낙이 있으면 절취가 아니다."
     },
     "art330_sec3.restaurant_permitted_entry_no_intrusion": {
@@ -213,6 +240,7 @@
       "proposition": "일반인의 출입이 허용된 음식점에 영업주의 승낙을 받아 통상적인 방법으로 출입한 경우, 범죄 목적이나 영업주가 실제 목적을 알았다면 승낙하지 않았을 사정만으로는 특별한 사정이 없는 한 침입행위가 아니다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "허용된 출입은 침입이 아니어서 야간주거침입절도 가중요건을 채우지 못한다."
     },
     "art331_sec2_2.key-opening-special-theft-exception": {
@@ -222,6 +250,7 @@
       "proposition": "야간에 잠금장치를 훼손하지 않고 열쇠 등으로 통상의 용법에 따라 열고 침입한 경우에는 특수절도죄가 성립하지 않고 야간주거침입절도죄에 해당한다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "열쇠로 통상 방법으로 침입한 경우는 특수절도가 아니다. 야간주거침입절도로 가는 것은 같은 단위의 다른 가중 유형이므로 후속 죄명으로 적지 않는다."
     },
     "art331_sec3_1.toy_gun_not_weapon_exception": {
@@ -231,6 +260,7 @@
       "proposition": "객관적으로 흉기의 성질을 가져야 하므로 장난감 권총을 흉기처럼 가장한 경우에는 흉기가 아니다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "장난감 권총은 흉기가 아니다."
     },
     "art332_sec1_1.different_offense_types": {
@@ -240,6 +270,7 @@
       "proposition": "절도의 상습성은 동종의 절도행위를 반복누행한 습벽에서 인정되므로, 강도·사기와 같이 죄종을 달리하는 범행 경력은 절도 상습성의 근거가 되지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "죄종을 달리하는 경력은 절도 상습성의 근거가 되지 않는다."
     },
     "art332_sec1_2.habituality-not-repetition-alone": {
@@ -249,6 +280,7 @@
       "proposition": "절도의 상습성은 수회의 절도행위 반복만으로 바로 인정되지 않고, 반복누행을 통하여 절도 습벽이 발현된 경우에만 인정된다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "반복만으로는 상습성이 인정되지 않는다."
     },
     "art332_sec1_2.incidental-or-economic-theft-exception": {
@@ -258,6 +290,7 @@
       "proposition": "수회의 절도 전과 또는 절도행위가 있어도 모두 우발적 동기 또는 급박한 경제사정에서 비롯되어 평소 절도 습성의 발현으로 보기 어려우면 상습범으로 볼 수 없다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "우발적 동기·경제사정에서 비롯된 경우는 상습성이 부정된다."
     },
     "art333_sec2_2.incidental_incapacitation_no_robbery": {
@@ -267,6 +300,7 @@
       "proposition": "다른 목적으로 피해자를 혼취상태에 빠뜨린 뒤 우발적으로 재물을 탈취한 경우, 혼취가 재물탈취 방법으로 사용된 것이 아니므로 강도죄가 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "혼취가 탈취 방법이 아니면 강도가 아니다."
     },
     "art333_sec2_2.preexisting_incapacitation_exception": {
@@ -276,6 +310,7 @@
       "proposition": "타인의 행위로 이미 피해자가 혼취상태에 빠진 후 이를 이용하여 재물을 탈취한 경우에는 강도죄의 폭행에 해당하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "타인의 행위로 이미 혼취된 상태의 이용은 강도의 폭행이 아니다."
     },
     "art333_sec2_3.diversion_or_insult_violence_no_robbery": {
@@ -285,6 +320,7 @@
       "proposition": "재물절취 때의 폭행·협박이 단지 주의를 다른 데로 돌리기 위한 것이거나, 탈취 후 모욕적 의사 또는 적개심 표시만을 위한 것이라면 강도죄가 아니라 폭행 또는 협박죄와 절도죄가 성립한다.",
       "role": "boundary",
       "refers_to": "절도",
+      "value": "절도",
       "rationale": "주의 전환·모욕 목적의 폭행이면 절도와 폭행·협박죄가 된다."
     },
     "art333_sec2_3.lesser_threat_extortion": {
@@ -294,6 +330,7 @@
       "proposition": "재물탈취 목적의 폭행·협박이 반항억압 정도에 이르지 않고 공포심만 일으켜 피해자가 자신의 의사에 따라 재물을 제공한 경우에는 공갈죄가 성립할 뿐 강도죄는 성립하지 않는다.",
       "role": "boundary",
       "refers_to": "공갈",
+      "value": "공갈",
       "rationale": "반항억압에 이르지 않고 공포심만 일으켰으면 공갈이다."
     },
     "art333_sec2_3.subjective_intent_insufficient": {
@@ -303,6 +340,7 @@
       "proposition": "객관적으로 반항억압에 이르지 못한 경우에는 범인에게 주관적 반항억압 의사가 있어도 강도죄는 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "객관적으로 반항억압에 이르지 못하면 주관적 의사만으로는 성립하지 않는다."
     },
     "art333_sec3_1.real_estate_as_robbery_property_negative": {
@@ -312,6 +350,7 @@
       "proposition": "부동산은 절도죄·강도죄와 같은 도취죄의 객체인 재물에 해당하지 않으므로, 폭행·협박으로 부동산에 관한 권리를 취득한 경우에는 재물의 강취가 아니라 재산상 이익의 강취로 본다.",
       "role": "component",
       "refers_to": null,
+      "value": null,
       "rationale": "부동산은 재물이 아니지만 그 권리 취득은 재산상 이익의 강취로 포섭하는 객체 판정 경로다 — 성립을 막지 않는다."
     },
     "art333_sec3_2.post_taking_assault_no_robbery": {
@@ -321,6 +360,7 @@
       "proposition": "소지품 탈취 후의 구타가 재물탈취와 관련하여 반항억압, 재물 탈환, 체포면탈 또는 증거인멸에 객관적 효과를 미친 것이 아니라면 강도죄는 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "탈취 후 구타가 강취와 무관하면 강도가 아니다."
     },
     "art333_sec3_2.voluntary_delivery_attempt": {
@@ -330,6 +370,7 @@
       "proposition": "객관적으로 반항억압에 족한 폭행·협박이 있었더라도 피해자가 귀찮음이나 연민으로 반항 의사 억압 없이 재물을 교부한 경우에는 인과관계가 없어 강도미수죄만 성립한다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "반항억압 없는 교부는 강취의 인과관계가 없어 미수에 그친다."
     },
     "art333_sec3_3.completed_theft_quasi_robbery_exception": {
@@ -339,6 +380,7 @@
       "proposition": "절도 기수로 범인의 재물에 대한 배타적 지배가 성립한 뒤, 탈환 방지·체포 면탈·증거인멸 목적으로 폭행·협박을 한 경우에는 준강도에 해당한다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "절도 기수 후의 폭행은 본래의 강도가 아니라 준강도로 간다. 준강도는 같은 단위의 가중 유형이므로 후속 죄명으로 적지 않고 여기서는 본래 강도만 저지한다."
     },
     "art333_sec3_3.unconsciousness_prior_force_no_causation": {
@@ -348,6 +390,7 @@
       "proposition": "재물탈취의 목적 없이 폭행·협박 또는 약물 사용으로 피해자를 심신상실 상태에 빠지게 한 후 우발적으로 재물탈취의 범의가 생긴 경우에는 선행행위와 재물탈취 사이에 인과관계가 없어 강도죄가 성립하지 않으며, 살해 후 사자의 소지품을 취득한 경우에도 살인죄와 절도죄의 경합범이 성립한다.",
       "role": "boundary",
       "refers_to": "절도",
+      "value": "절도",
       "rationale": "탈취 목적 없는 선행행위와 탈취 사이에 인과관계가 없으면 절도다."
     },
     "art333_sec6.no_attempt_insufficient_violence_intimidation": {
@@ -357,6 +400,7 @@
       "proposition": "개시한 폭행·협박이 사회통념상 피해자의 반항을 억압할 만한 정도가 아니면 강도 실행의 착수가 인정되기 어렵다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "폭행·협박의 정도가 부족하면 착수가 인정되지 않는다."
     },
     "art333_sec6.no_attempt_without_violence_intimidation_commencement": {
@@ -366,6 +410,7 @@
       "proposition": "재물탈취에 착수하였더라도 폭행·협박 자체에 착수하지 않으면 강도죄의 실행 착수가 인정되지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "폭행·협박에 착수하지 않으면 강도의 착수가 없다."
     },
     "art333_sec7_1.completion.no_safe_escape_requirement": {
@@ -375,6 +420,7 @@
       "proposition": "재물강취죄의 기수에는 범행현장을 이탈하여 경계망을 돌파하고 안전지역으로 나갈 것이 필요하지 않다.",
       "role": "waiver",
       "refers_to": null,
+      "value": "안전지역으로의 이탈",
       "rationale": "안전지역 이탈은 기수 요건이 아니다."
     },
     "art333_sec7_1.completion.recovery_does_not_negate": {
@@ -384,6 +430,7 @@
       "proposition": "폭행·협박으로 탈취물에 대한 배타적 지배를 취득하였다면, 피해자가 범행현장 가까운 곳에서 이를 다시 탈환하였더라도 강도 기수 인정에는 영향이 없다.",
       "role": "waiver",
       "refers_to": null,
+      "value": "탈환되지 않았을 것",
       "rationale": "탈환은 기수 인정에 영향이 없다."
     },
     "art333_sec8.right_exercise_robbery_negative": {
@@ -393,6 +440,7 @@
       "proposition": "범인에게 취득할 권리가 있는 재산상 이익은 불법한 이익이 아니므로, 이를 폭행·협박으로 취득하여도 강도죄가 아니라 폭행죄 또는 협박죄가 성립한다.",
       "role": "boundary",
       "refers_to": "폭행 또는 협박",
+      "value": "폭행 또는 협박",
       "rationale": "취득할 권리가 있는 이익은 불법한 이익이 아니다(대법원 소극설) — 카드 문언이 후속 죄명(폭행죄·협박죄)을 명시한다."
     },
     "art334_sec2_1.weapon_awareness_not_required": {
@@ -402,6 +450,7 @@
       "proposition": "흉기휴대 특수강도에서는 상대방이 흉기휴대를 인식할 것이 요구되지 않는다.",
       "role": "waiver",
       "refers_to": null,
+      "value": "상대방의 흉기 인식",
       "rationale": "상대방의 흉기 인식은 요건이 아니다."
     },
     "art334_sec2_1.weapon_direct_use_not_required": {
@@ -411,6 +460,7 @@
       "proposition": "흉기휴대 특수강도에서 휴대한 흉기를 피해자에게 제시하거나 겨누는 등 폭행·협박의 방법으로 직접 사용할 필요는 없다.",
       "role": "waiver",
       "refers_to": null,
+      "value": "흉기의 직접 사용",
       "rationale": "흉기의 직접 사용은 요건이 아니다."
     },
     "art335_sec2.preparation_stage_exclusion": {
@@ -420,6 +470,7 @@
       "proposition": "절취행위에 착수하지 않은 단순한 절도 예비단계에서 폭행·협박을 하였더라도 준강도죄에 해당하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "절취 착수 전 예비단계의 폭행은 준강도가 아니다."
     },
     "art335_sec2.property_interest_exclusion": {
@@ -429,6 +480,7 @@
       "proposition": "절도죄의 객체인 재물이 아닌 재산상 이익을 취득하려고 폭행·협박을 한 경우에는 준강도죄가 성립할 수 없다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "재산상 이익 취득 목적의 폭행은 준강도가 아니다."
     },
     "art335_sec3_1.pre_control_violence_is_robbery_exception": {
@@ -438,6 +490,7 @@
       "proposition": "재물을 탈취하였더라도 아직 배타적 지배가 확립되지 않은 상태에서 지배 확보를 위하여 폭행·협박을 한 경우는 준강도가 아니라 본래의 강도이다.",
       "role": "component",
       "refers_to": null,
+      "value": null,
       "rationale": "배타적 지배 확립 전 폭행은 준강도가 아니라 본래의 강도라는 인정 경로다 — 강도 성립을 막지 않는다."
     },
     "art335_sec3_2.arrest_or_concealment_no_control": {
@@ -447,6 +500,7 @@
       "proposition": "체포 방지 또는 범죄 흔적 인멸 목적의 경우에는 재물에 대한 지배 취득이 요건이 아니다.",
       "role": "waiver",
       "refers_to": null,
+      "value": "재물에 대한 사실상 지배의 취득",
       "rationale": "체포면탈·흔적인멸 목적에서는 재물 지배 취득이 요건이 아니다."
     },
     "art335_sec6_1.days_later_no_opportunity": {
@@ -456,6 +510,7 @@
       "proposition": "범행 수일 후 재물탈환 방지 또는 체포 면탈 목적으로 폭행을 한 경우에는 준강도죄가 성립될 수 없다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "수일 후의 폭행은 절도의 기회가 아니다."
     },
     "art335_sec6_2.opportunity_safe_escape_limit": {
@@ -465,6 +520,7 @@
       "proposition": "절도범이 원래 범행현장에서 안전하게 도피하여 더 이상 추적이나 체포위협을 느끼지 않을 정도로 시간적·장소적 경과가 있으면 절도의 기회 계속성을 인정하기 어렵다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "안전한 도피 후에는 기회의 계속성이 인정되지 않는다."
     },
     "art337_sec3.injury_result_violence_intent": {
@@ -474,6 +530,7 @@
       "proposition": "강도치상죄는 강도의 기회에 행한 폭행으로 인한 결과적 가중범이므로, 상해의 고의가 없더라도 적어도 폭행의 고의는 있어야 한다.",
       "role": "component",
       "refers_to": null,
+      "value": null,
       "rationale": "치상죄에도 폭행의 고의는 있어야 한다는 요건 요구 — 가중 플래그의 전제조건이다."
     },
     "art337_sec3_2.robbery_occasion_ended": {
@@ -483,6 +540,7 @@
       "proposition": "추적을 벗어난 뒤 현장에서 상당히 떨어진 지점에서 체포면탈 목적으로 상해를 가하거나, 범행 종료 후 상당 기간이 지나 새로 범의를 일으켜 범행한 경우에는 강도의 기회에 한 행위로 보기 어렵다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "기회가 종료된 뒤의 상해는 가중요건을 채우지 못한다."
     },
     "art337_sec3_2.trivial_injury_excluded": {
@@ -492,6 +550,7 @@
       "proposition": "치료가 필요 없이 자연치유되고 일상생활에 아무 지장이 없는 극히 경미한 상처는 강도상해·치상죄의 상해에 해당하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "극히 경미한 상처는 상해가 아니다."
     },
     "art338_sec2.debt_evasion_no_robbery": {
@@ -501,6 +560,7 @@
       "proposition": "채권자에게 상속인이 있고 채권 존재를 확인할 방법이 확보된 경우, 채무자가 채무면탈 목적으로 채권자를 살해하여도 재산적 이익의 지배를 취득하였다고 보기 어려워 강도가 될 수 없고 단순 살인죄에 그칠 수 있다.",
       "role": "boundary",
       "refers_to": "살인",
+      "value": "살인",
       "rationale": "이익 이전이 인정되지 않으면 강도살인이 아니라 살인죄에 그친다."
     },
     "art338_sec3.opportunity_new_intent_after_completion": {
@@ -510,6 +570,7 @@
       "proposition": "강도 범행이 종료된 뒤 상당한 시간이 경과하여 새로운 범의로 저지른 살해행위는 강도의 기회에 한 행위로 보기 어렵다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "종료 후 새 범의의 살해는 강도의 기회가 아니다."
     },
     "art338_sec4.robbery_death_attempt_excluded": {
@@ -519,6 +580,7 @@
       "proposition": "살인의 고의가 없는 강도치사죄에는 미수범이 인정되지 않는다.",
       "role": "waiver",
       "refers_to": null,
+      "value": "강도치사죄의 미수 처벌",
       "rationale": "강도치사죄에 미수범이 없다는 적용범위 규칙이다."
     },
     "art343_sec1.robbery_scope": {
@@ -528,6 +590,7 @@
       "proposition": "제343조의 ‘강도’에는 단순강도, 특수강도, 약취강도 및 해상강도가 포함되나 준강도는 제외된다.",
       "role": "component",
       "refers_to": null,
+      "value": null,
       "rationale": "예비죄의 '강도' 범위를 정하는 적용범위 규칙(준강도 제외)."
     },
     "art343_sec3.abandonment_before_execution_denied": {
@@ -535,9 +598,10 @@
       "level": "L5",
       "polarity": "negative",
       "proposition": "예비·음모죄는 예비·음모 행위가 있으면 완성되는 범죄이므로 중지미수가 인정될 여지가 없다.",
-      "role": "waiver",
+      "role": "post_outcome",
       "refers_to": null,
-      "rationale": "중지미수 감면 부정이라 성립 판단에 영향을 주지 않는다."
+      "value": "중지미수 감면 불가",
+      "rationale": "예비·음모죄가 완성된 뒤에는 중지미수 감면을 쓸 수 없다는 사후 법률효과이지 성립 판단이 아니다(검수 002 D-07)."
     },
     "art350_sec3.own_property_exception": {
       "unit": "extortion",
@@ -546,6 +610,7 @@
       "proposition": "자기의 재물 또는 재산상 이익에 대해서는 공갈죄가 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "자기 재물·이익은 객체가 아니다."
     },
     "art350_sec4_1.objectively_insufficient_threat": {
@@ -555,6 +620,7 @@
       "proposition": "객관적으로 사람을 외포시키기에 부족한 행위는 상대방이 현실로 외포심을 일으켰더라도 공갈이 아니므로 공갈죄가 성립하지 않고 절도죄가 성립할 여지가 있다.",
       "role": "boundary",
       "refers_to": "절도",
+      "value": "절도",
       "rationale": "외포시키기에 부족한 행위는 공갈이 아니고 절도가 문제된다."
     },
     "art350_sec4_1.robbery_boundary": {
@@ -564,6 +630,7 @@
       "proposition": "협박이나 폭행이 상대방의 반항을 억압할 정도에 이르면 공갈죄가 아니라 강도죄가 성립한다.",
       "role": "boundary",
       "refers_to": "강도",
+      "value": "강도",
       "rationale": "반항억압 정도에 이르면 공갈이 아니라 강도다."
     },
     "art350_sec4_2.actual_intent_or_feasibility_not_required": {
@@ -573,6 +640,7 @@
       "proposition": "행위자가 실제로 해악을 실현할 의사를 가졌는지 또는 해악의 실현이 가능한지는 공갈죄 성립에 영향을 미치지 않는다.",
       "role": "waiver",
       "refers_to": null,
+      "value": "해악 실현의 의사·가능성",
       "rationale": "해악 실현 의사·가능성은 성립에 영향이 없다."
     },
     "art350_sec4_2.right_exercise_exception": {
@@ -582,6 +650,7 @@
       "proposition": "해악 실현이 위법하지 않더라도 외포시켜 불법으로 재산상 이익을 취득하면 공갈죄가 성립할 수 있으나, 행위가 권리행사인 경우에는 위법성이 조각될 수 있다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "권리행사인 경우 위법성이 조각될 수 있다."
     },
     "art350_sec5_2.fear_causation_required": {
@@ -591,6 +660,7 @@
       "proposition": "공갈죄가 성립하려면 협박 또는 폭행과 외포 사이 및 외포와 재산적 처분행위 사이에 인과관계가 있어야 하며, 협박·폭행을 원인으로 하지 않은 외포심에 따른 재산적 처분행위에는 공갈죄가 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "협박·폭행이 원인이 아닌 외포에 의한 처분은 성립하지 않는다."
     },
     "art350_sec5_2.no_fear_attempt": {
@@ -600,6 +670,7 @@
       "proposition": "협박 또는 폭행을 하였으나 상대방이 외포심을 일으키지 않거나 자선심 등 다른 이유로 재물을 교부한 경우에는 공갈미수죄가 성립한다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "외포심이 생기지 않았거나 다른 이유로 교부한 경우는 기수가 아니라 미수다 — 같은 죄의 미수이므로 후속 죄명을 적지 않는다."
     },
     "art350_sec5_3.complete_suppression_robbery": {
@@ -609,6 +680,7 @@
       "proposition": "협박으로 상대방의 의사가 완전히 억압되어 임의성 있는 재물 교부로 평가할 수 없는 경우에는, 외관상 교부 형식이 있어도 강도죄가 성립한다.",
       "role": "boundary",
       "refers_to": "강도",
+      "value": "강도",
       "rationale": "의사가 완전히 억압되면 공갈이 아니라 강도다."
     },
     "art350_sec6.no_overall_property_decrease": {
@@ -618,6 +690,7 @@
       "proposition": "공갈죄에서는 피공갈자의 하자 있는 의사에 기한 재물 교부 자체가 재산상 손해에 해당하므로, 피해자 전체 재산의 감소가 반드시 요구되지는 않는다.",
       "role": "waiver",
       "refers_to": null,
+      "value": "전체 재산의 감소",
       "rationale": "전체 재산의 감소는 요건이 아니다."
     },
     "art350_sec6_2.satisfied_consideration_causation_exception": {
@@ -627,6 +700,7 @@
       "proposition": "폭행·협박을 당한 상대방이 객관적으로 상당한 대가에 주관적으로도 만족하여 재물을 교부한 경우에는 해악의 고지와 처분행위 사이의 인과관계가 부정되어 공갈죄 미수가 성립한다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "상당한 대가에 만족한 교부는 인과관계가 부정되어 미수에 그친다."
     },
     "art350_sec8_2.permitted_threat_no_extortion": {
@@ -636,6 +710,7 @@
       "proposition": "채권 실행 또는 손해배상 합의금 수령 등을 위하여 사회통념상 허용 범위의 위협적 언사를 한 경우 공갈죄가 성립하지 않으며, 수반된 협박행위도 별도의 협박죄를 구성하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "사회통념상 허용 범위의 위협적 언사는 공갈이 아니다."
     },
     "art350_sec8_2.right_exercise_total_assessment": {
@@ -643,9 +718,10 @@
       "level": "L6",
       "polarity": "positive",
       "proposition": "권리행사에 수반된 공갈행위의 위법성 조각 여부는 권리행사와 수단행위를 전체적으로 관찰하여, 그 공갈행위가 권리행사의 수단으로 사회통념상 용인될 수 있는지에 따라 판단한다.",
-      "role": "bar",
+      "role": "assessment_standard",
       "refers_to": null,
-      "rationale": "권리행사에 수반된 공갈의 위법성 조각 판단 기준 — 조각이 인정되면 저지한다."
+      "value": "권리행사와 공갈의 한계 판단",
+      "rationale": "권리행사와 공갈의 한계를 어떻게 재는지에 관한 기준일 뿐, 조각이 인정되었다는 결론이 아니다(검수 002 C-02)."
     },
     "art355.embezzlement.object-excludes-property-interest": {
       "unit": "embezzlement",
@@ -654,6 +730,7 @@
       "proposition": "재물이 아닌 권리·재산상 이익 및 기업비밀·기업정보 자체는 횡령죄의 객체가 될 수 없다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "재물이 아닌 권리·이익·정보는 객체가 아니다."
     },
     "art355.embezzlement_illegal_name_trust": {
@@ -663,6 +740,7 @@
       "proposition": "부동산실명법 위반의 중간생략등기형 또는 2자간 등기명의신탁에서 무효인 명의신탁약정에 기초한 관계는 형법상 보호할 가치 있는 위탁관계가 아니므로, 명의수탁자의 임의 처분에 대하여 명의신탁자 관계의 횡령죄는 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "무효인 명의신탁은 보호할 위탁관계가 아니다."
     },
     "art355_sec1_2.embezzlement_illegal_appropriation_exclusion": {
@@ -672,6 +750,7 @@
       "proposition": "일시사용·손괴·은닉의 의사로 재물을 처분하거나 위탁자를 위한 의사로 권한을 넘은 경우에는 불법영득의사가 없어 횡령죄가 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "일시사용·손괴·은닉 의사 또는 위탁자를 위한 의사는 불법영득의사 결여."
     },
     "art355_sec3_3.deceptive_means_no_fraud": {
@@ -681,6 +760,7 @@
       "proposition": "횡령을 실현하기 위해 기망수단을 사용하더라도 재물 이전과 피해자의 재산적 처분행위가 없으므로 횡령죄만 성립하고 사기죄는 별도로 성립하지 않는다.",
       "role": "waiver",
       "refers_to": null,
+      "value": "기망수단 사용 시 사기죄의 별도 성립",
       "rationale": "횡령 성립을 막지 않고 사기죄의 별도 성립만 배제한다 — 죄수 판단이므로 이 단위의 저지 사유가 아니다."
     },
     "art355_sec3_3.no_property_damage_element": {
@@ -690,6 +770,7 @@
       "proposition": "횡령죄의 성립에 재산상 손해의 발생은 구성요건적 요건으로 필요하지 않다.",
       "role": "waiver",
       "refers_to": null,
+      "value": "재산상 손해의 발생",
       "rationale": "재산상 손해 발생은 횡령의 요건이 아니다."
     },
     "art355_sec3_3.simple_destruction_exception": {
@@ -699,6 +780,7 @@
       "proposition": "보관물을 손괴한 행위는 그 자체로는 불법영득의사의 표현이 아니므로 횡령죄를 구성하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "손괴는 그 자체로 불법영득의사의 표현이 아니다."
     },
     "art355_sec4_1.business_loss_alone_insufficient": {
@@ -708,6 +790,7 @@
       "proposition": "경영상 판단에서 위와 같은 인식 없이 본인에게 손해가 발생한 결과만으로 배임 책임을 묻거나, 단순한 주의의무 위반 과실만을 이유로 책임을 물을 수 없다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "손해 결과나 과실만으로는 책임을 물을 수 없다 — 임무위배 인식 결여로 저지."
     },
     "art355_sec4_1.discretionary_funds_no_presumption": {
@@ -717,6 +800,7 @@
       "proposition": "용도가 추상적으로 정해졌더라도 보관자에게 사용처·시기 등에 광범위한 재량이 있고 사후보고나 증빙제출도 요구되지 않는 보관금은, 사용처 설명 또는 증빙 부재만으로 불법영득의사를 추단할 수 없다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "재량 보관금은 증빙 부재만으로 불법영득의사를 추단할 수 없다."
     },
     "art355_sec4_1.explained_fund_use_no_inference": {
@@ -726,6 +810,7 @@
       "proposition": "엄격한 용도 외 사용 사안이 아니고 피고인이 돈의 행방·사용처에 합리적 설명 및 부합 자료를 제시하면, 특별한 사정이 없는 한 불법영득의사에 의한 횡령을 인정할 수 없다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "합리적 설명·자료가 있으면 불법영득의사를 인정할 수 없다."
     },
     "art355_sec4_1.justified_refusal_exception": {
@@ -735,6 +820,7 @@
       "proposition": "반환거부에 동시이행항변권·유치권·상계권 행사 등의 정당한 이유가 있으면 불법영득의사가 인정되지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "동시이행·유치·상계권 행사는 정당한 반환거부."
     },
     "art355_sec4_1.no_breach_of_trust_without_awareness": {
@@ -744,6 +830,7 @@
       "proposition": "임무에 위배한다는 인식이 없으면 배임죄가 성립할 수 없다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "임무위배 인식이 없으면 성립 부정."
     },
     "art355_sec4_1.representative_corporate_debt_payment": {
@@ -753,6 +840,7 @@
       "proposition": "회사에 개인채권을 가진 대표이사가 회사 보관금으로 자신의 회사 상대 채권을 변제하더라도, 이는 대표이사 권한 내 회사채무 이행행위로 유효하여 불법영득의사가 인정되지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "권한 내 회사채무 이행은 불법영득의사가 없다."
     },
     "art355_sec4_2.breach_for_principal_no_illicit_gain": {
@@ -762,6 +850,7 @@
       "proposition": "본인의 이익을 위하여 사무를 처리한 때에는 불법이득의 의사가 없어 배임죄가 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "본인 이익을 위한 처리는 불법이득의사 결여."
     },
     "art355_sec4_2.mere_destruction_not_appropriation": {
@@ -771,6 +860,7 @@
       "proposition": "단순한 손괴의 의사만으로는 횡령죄의 불법영득의사를 구성하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "손괴 의사만으로는 불법영득의사를 구성하지 않는다."
     },
     "art355_sec4_2.owner_benefit_disposition_no_appropriation": {
@@ -780,6 +870,7 @@
       "proposition": "보관자가 자기 또는 제3자의 이익이 아니라 소유자의 이익을 위하여 처분한 경우에는 특별한 사정이 없는 한 불법영득의사가 인정되지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "소유자 이익을 위한 처분은 불법영득의사가 없다."
     },
     "art355_sec4_3.accounting_only_adjustment": {
@@ -789,6 +880,7 @@
       "proposition": "법인을 위한 경비 지출을 정리하기 위한 허위 직원채용·허위급여 처리, 영업실적을 가장하기 위한 변칙 장부정리, 부외부채 변제를 위한 장부상 급여 인상 등 장부상 정리에 불과한 경우에는 불법영득의사가 인정되지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "장부상 정리에 불과하면 불법영득의사가 없다."
     },
     "art355_sec4_3.fake_capital_no_real_increase": {
@@ -798,6 +890,7 @@
       "proposition": "등기를 위한 가장납입으로 회사 자본이 실질적으로 증가하지 않고 납입·인출 전 과정에서 자본금 변동이 없는 경우에는 불법영득의사를 인정하기 어려워 업무상횡령죄가 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "자본 실질 증가가 없으면 불법영득의사를 인정하기 어렵다."
     },
     "art355_sec4_3.objectively_not_grossly_improper_expenditure": {
@@ -807,6 +900,7 @@
       "proposition": "지출목적에 관한 행위자의 주관적 판단이 객관적으로 심히 부당하지 않다고 사회통념상 인정될 수 있는 경우 불법영득의사가 부정된다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "객관적으로 심히 부당하지 않은 지출은 불법영득의사가 부정된다."
     },
     "art355_sec4_3.organization_representative_litigation_exception": {
@@ -816,6 +910,7 @@
       "proposition": "단체 대표자 개인이 당사자인 민·형사사건의 변호사 비용은 원칙적으로 단체 비용으로 지출할 수 없지만, 분쟁의 실질적 이해관계가 단체에 있고 단체 업무와 깊이 관련되며 단체 이익을 위하여 소송수행 또는 고소대응의 특별한 필요성이 있는 경우에는 예외적으로 지출할 수 있다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "예외 요건을 갖춘 변호사비용 지출은 허용되어 횡령이 아니다."
     },
     "art355_sec4_3.slush_fund_concealment": {
@@ -825,6 +920,7 @@
       "proposition": "비자금이 장부상 일반자금 속에 은닉되어 있거나 회사 재산인 비자금을 차명계좌에 입금·관리하였더라도, 그것만으로 불법영득의사를 인정할 수 없다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "비자금 은닉·차명관리만으로는 불법영득의사를 인정할 수 없다."
     },
     "art355_sec5.retention_lien_no_illicit_intent": {
@@ -834,6 +930,7 @@
       "proposition": "유치권이나 동시이행 항변권 행사로 반환을 거부하는 경우에는 불법영득의사가 인정되지 않아 구성요건해당성이 없다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "유치권·동시이행 항변 행사에 의한 반환거부는 구성요건해당성이 없다."
     },
     "art355_sec5_2.assigned_claim_proceeds_embezzlement": {
@@ -843,6 +940,7 @@
       "proposition": "채권양도인이 양도 채권을 직접 추심하여 받은 금전을 양수인에게 지급하지 않고 임의 처분한 것은 권리이전계약상 채무불이행에 불과하여 횡령죄가 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "채권양도인의 임의처분은 채무불이행에 그쳐 재산죄가 성립하지 않는다."
     },
     "art355_sec5_2.individual_delegation_exception": {
@@ -852,6 +950,7 @@
       "proposition": "단순 권리이전 또는 담보설정계약을 넘어 위임 등 배임죄상 신임관계를 인정할 개별 요소가 있으면 이를 근거로 사무의 타인성을 인정할 여지가 있다.",
       "role": "component",
       "refers_to": null,
+      "value": null,
       "rationale": "신임관계를 인정할 개별 요소가 있으면 사무의 타인성을 인정하는 긍정 방향 경로다."
     },
     "art355_sec5_2.leasehold_transfer": {
@@ -861,6 +960,7 @@
       "proposition": "권리이전계약에서 양도인이 부담하는 의무가 양도인 자신의 채무인 경우, 양도인은 배임죄의 타인 사무처리자가 아니므로 그 의무를 이행하지 않아도 배임죄가 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "자기 채무 이행의무는 타인 사무가 아니다."
     },
     "art355_sec5_2.movable_sale_double_disposition": {
@@ -870,6 +970,7 @@
       "proposition": "동산매매에서 매도인은 매수인에 대한 타인 사무처리자 지위에 있지 않으므로, 목적물을 인도하지 않고 타인에게 처분하여도 배임죄가 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "동산 매도인은 타인 사무처리자가 아니다."
     },
     "art355_sec5_2.pre_certificate_stock_transfer": {
@@ -879,6 +980,7 @@
       "proposition": "주권발행 전 주식 양도인이 제3자 대항요건을 갖추어 줄 채무는 자기 사무이므로, 그 요건을 갖추지 않고 타인에게 처분하여도 배임죄가 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "대항요건 구비 채무는 자기 사무다."
     },
     "art355_sec5_2.real_estate_transfer_exception": {
@@ -888,6 +990,7 @@
       "proposition": "판례는 부동산 양도계약의 소유권이전의무에 대하여 중도금 지급 관행 등 거래 현실의 특수성을 고려하여 예외적으로 타인의 사무성을 인정한다.",
       "role": "component",
       "refers_to": null,
+      "value": null,
       "rationale": "부동산 양도의 소유권이전의무에 예외적으로 타인 사무성을 인정하는 긍정 경로다(중도금 지급 관행)."
     },
     "art355_sec5_2.registered_movable_sale_disposition": {
@@ -897,6 +1000,7 @@
       "proposition": "자동차 등 권리이전에 등기·등록이 필요한 동산의 매도인도 매수인에 대한 타인 사무처리자가 아니므로 소유권이전등록을 하지 않고 타인에게 처분하여도 배임죄가 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "등록 이전 의무자도 타인 사무처리자가 아니다."
     },
     "art355_sec5_2.right_transfer_ordinary_duty": {
@@ -906,6 +1010,7 @@
       "proposition": "권리이전계약이나 담보설정계약에서 통상적 계약관계상 급부의무에 불과한 경우에는 배임죄에서의 타인 사무가 아니다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "통상 계약상 급부의무는 타인 사무가 아니다."
     },
     "art356_sec2_2.administrative_illegality": {
@@ -915,6 +1020,7 @@
       "proposition": "업무 내용 자체가 위법하지 않다면 면허ㆍ인가 미취득과 같은 행정절차상 불법이 있더라도 현재 반복ㆍ계속하여 행하여지는 사무는 업무에 해당한다.",
       "role": "component",
       "refers_to": null,
+      "value": null,
       "rationale": "행정절차상 불법이 있어도 업무성을 인정하는 긍정 경로다."
     },
     "art356_sec2_2.illegal_business": {
@@ -924,6 +1030,7 @@
       "proposition": "사회질서에 반하거나 강행법규에 위반되는 등 법이 절대적으로 금지하는 행위는 업무 의사로 반복하더라도 업무가 되지 못한다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "법이 절대적으로 금지하는 행위는 업무가 되지 못한다."
     },
     "art356_sec2_2.unrelated_possession": {
@@ -933,6 +1040,7 @@
       "proposition": "일정한 업무에 종사하더라도 그 업무와 무관하게 타인의 재물을 보관하게 된 경우에는 업무상횡령죄가 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "업무와 무관한 보관은 업무상횡령의 가중요건을 채우지 못한다. 단순횡령 성립은 별론이고 이 단위의 가중 판정에서만 저지한다."
     },
     "art357_sec1_3.receipt.no_breach_or_loss_requirement": {
@@ -942,6 +1050,7 @@
       "proposition": "배임수재죄에서는 임무위배행위 또는 재산상 손해를 가하는 것이 필요하지 않다.",
       "role": "waiver",
       "refers_to": null,
+      "value": "임무위배·재산상 손해",
       "rationale": "임무위배·손해는 배임수재의 요건이 아니다 — 성립을 막지 않는다."
     },
     "art357_sec3_1.mere_contractual_debt_exclusion": {
@@ -951,6 +1060,7 @@
       "proposition": "통상의 민사상 계약에서 이익이 대립하는 관계에 따른 채무를 부담하는 것만으로는 타인의 사무에 해당하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "이익대립 계약상 채무만으로는 타인의 사무가 아니다."
     },
     "art357_sec3_1.no_status_at_request": {
@@ -960,6 +1070,7 @@
       "proposition": "원칙적으로 타인의 사무처리자 지위를 취득하기 전에 부정한 청탁을 받은 경우에는 배임수재죄의 주체에 해당하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "지위 취득 전 청탁은 주체 요건 결여."
     },
     "art357_sec3_1.subject_no_external_authority": {
@@ -969,6 +1080,7 @@
       "proposition": "타인의 사무처리자에게 제3자에 대한 대외적 권한이나 포괄적 위탁사무가 요구되지는 않는다.",
       "role": "waiver",
       "refers_to": null,
+      "value": "대외적 권한·포괄위탁",
       "rationale": "대외적 권한·포괄위탁은 요건이 아니다."
     },
     "art357_sec3_2.giver_not_necessarily_liable": {
@@ -978,6 +1090,7 @@
       "proposition": "배임수재죄와 배임증재죄가 통상 필요적 공범 관계에 있더라도 수재자와 증재자가 반드시 함께 처벌되어야 하는 것은 아니며, 증재자에게 정당한 업무 청탁이 수재자에게는 부정한 청탁이 될 수 있다.",
       "role": "component",
       "refers_to": null,
+      "value": null,
       "rationale": "증재자에게 정당한 청탁이 수재자에게는 부정한 청탁이 될 수 있다는 부정성 인정 경로다."
     },
     "art357_sec3_2.permitted_favor_request": {
@@ -987,6 +1100,7 @@
       "proposition": "직무권한 범위 안에서 편의를 봐 달라는 부탁이나 규정이 허용하는 범위에서 최대한 선처를 바란다는 부탁은 부정한 청탁이 아니다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "직무권한 내 편의·허용 범위 선처 부탁은 부정한 청탁이 아니다."
     },
     "art357_sec3_2.self_rights_protection_not_improper": {
@@ -996,6 +1110,7 @@
       "proposition": "자신의 권리를 확보하기 위한 행위는 부정한 청탁에 해당하지 않을 수 있다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "자기 권리 확보 행위는 부정한 청탁이 아닐 수 있다."
     },
     "art357_sec3_3.principal_not_third_party_precedent": {
@@ -1005,6 +1120,7 @@
       "proposition": "개정 형법이 적용되는 경우에도 특별한 사정이 없는 한 사무처리를 위임한 타인은 제3자에 포함되지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "위임한 본인은 제3자가 아니므로 제3자 취득 요건이 결여된다."
     },
     "art357_sec3_3.unrelated_payment_no_offense": {
@@ -1014,6 +1130,7 @@
       "proposition": "부정한 청탁이 있었더라도 이를 받아들이지 않고 청탁과 관계없이 돈을 받은 경우에는 배임수재죄가 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "청탁과 무관한 수령은 성립하지 않는다."
     },
     "art357_sec3_4.no_acquisition_intent": {
@@ -1023,6 +1140,7 @@
       "proposition": "취득할 의사 없이 보관 목적으로 받거나 특별한 사정으로 일시 수령 후 즉시 반환하는 등 취득 의사를 인정하기 어려운 경우에는 영득의 의사가 없어 배임수재죄가 성립할 수 없다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "취득 의사 결여."
     },
     "art357_sec3_5.no_corrupt_performance_required": {
@@ -1032,6 +1150,7 @@
       "proposition": "배임수재죄의 기수에는 청탁에 상응하는 부정행위 또는 배임행위까지 나아갈 것이 요구되지 않는다.",
       "role": "waiver",
       "refers_to": null,
+      "value": "부정행위의 실행",
       "rationale": "부정행위까지 나아갈 것은 기수 요건이 아니다."
     },
     "art357_sec4.giver_view_justification": {
@@ -1041,6 +1160,7 @@
       "proposition": "수재자에게는 부정한 청탁이라도 증재자 입장에서는 부정한 청탁으로 볼 수 없는 사정이 있으면 배임증재죄가 성립하지 않을 수 있으며, 정당한 업무·더 큰 손실 회피·권리 확보 등으로 사회상규나 신의칙에 위배되지 않는 경우가 예시된다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "증재자 관점에서 부정성이 부정되면 증재죄가 성립하지 않는다."
     },
     "art357_sec4.giving_to_business_handler": {
@@ -1050,6 +1170,7 @@
       "proposition": "배임증재죄의 공여는 타인의 사무처리자에게 할 것을 요하므로, 사무처리자가 아닌 자에게 교부한 경우에는 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "사무처리자가 아닌 자에 대한 공여는 성립하지 않는다."
     },
     "art360_sec2_2.managed_place_property": {
@@ -1059,6 +1180,7 @@
       "proposition": "타인의 간수·관리 등 실력적 지배가 미치는 장소 안에 방치되거나 유류된 물건은 관리자의 점유에 속하여 점유이탈물이 아니고, 영득 시 절도죄의 객체가 된다.",
       "role": "boundary",
       "refers_to": "절도",
+      "value": "절도",
       "rationale": "관리 장소 내 물건은 점유이탈물이 아니고 절도의 객체다."
     },
     "art360_sec2_2.mistaken_bank_transfer_embezzlement_holding": {
@@ -1068,6 +1190,7 @@
       "proposition": "자기 은행계좌에 착오로 입금된 금원은 횡령죄의 객체가 되고 점유이탈물횡령죄의 객체가 되지 않는다.",
       "role": "boundary",
       "refers_to": "횡령",
+      "value": "횡령",
       "rationale": "착오 입금 금원은 횡령의 객체이고 점유이탈물이 아니다."
     },
     "art360_sec2_2.original_possessor_recovery": {
@@ -1077,6 +1200,7 @@
       "proposition": "원점유자가 물건 소재를 알고 다시 찾을 가능성이 있는 경우에는 타인의 점유가 존속하므로, 이를 영득하면 점유이탈물횡령죄가 아니라 절도죄가 성립한다.",
       "role": "boundary",
       "refers_to": "절도",
+      "value": "절도",
       "rationale": "원점유자의 점유가 존속하면 절도가 성립한다."
     },
     "art360_sec2_2.ownerless_property_exclusion": {
@@ -1086,6 +1210,7 @@
       "proposition": "무주물은 타인 소유의 재물이 아니므로 점유이탈물횡령죄의 객체가 아니다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "무주물은 타인 소유가 아니다."
     },
     "art360_sec2_2.public_transport_found_property": {
@@ -1095,6 +1220,7 @@
       "proposition": "운전사나 승무원이 유실물을 현실적으로 발견한 뒤 제3자가 가져가면 운전사·승무원의 점유가 인정되어 절도죄로 처벌된다.",
       "role": "boundary",
       "refers_to": "절도",
+      "value": "절도",
       "rationale": "승무원의 점유가 인정되면 절도로 처벌된다."
     },
     "art360_sec2_3.reporting_noncompliance_alone": {
@@ -1104,6 +1230,7 @@
       "proposition": "유실물·표류물·매장물에 관하여 법정 절차를 밟지 않았다는 사정만으로 점유이탈물횡령죄가 성립하는 것은 아니다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "법정 절차 미이행만으로는 성립하지 않는다."
     },
     "art366.corpse_exclusion": {
@@ -1113,6 +1240,7 @@
       "proposition": "해부용 사체를 포함한 사체는 제366조의 범행객체인 재물에 해당하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "사체는 제366조의 객체가 아니다."
     },
     "art366.no_utility_property_exclusion": {
@@ -1122,6 +1250,7 @@
       "proposition": "주관적으로나 객관적으로 이용가치 또는 효용이 전혀 없는 물건은 재물성이 인정되지 않을 수 있다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "이용가치·효용이 전혀 없으면 재물성이 부정될 수 있다."
     },
     "art366.ownerless_property_exclusion": {
@@ -1131,6 +1260,7 @@
       "proposition": "현재 누구의 소유에도 속하지 않는 무주물은 타인성이 인정되지 않아 재물손괴등죄의 범행객체가 될 수 없다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "무주물은 타인성이 없다."
     },
     "art366.public_document_used_by_office": {
@@ -1140,6 +1270,7 @@
       "proposition": "공문서라도 공무소에서 사용하는 공용서류에 해당하지 않는 한 제366조의 범행객체가 되지만, 공용서류 해당 여부가 객체성 판단의 요건이 된다.",
       "role": "boundary",
       "refers_to": "공용서류무효(제141조)",
+      "value": "공용서류무효(제141조)",
       "rationale": "공용서류는 제366조 객체에서 빠지고 제141조가 별도로 규율한다 — 다른 조문으로의 전환이라 boundary가 bar보다 정확하다."
     },
     "art366.special_medium_record_limited_view": {
@@ -1149,6 +1280,7 @@
       "proposition": "특수매체기록은 문서 이외의 특수한 방법과 매체에 기록되어 컴퓨터 등 정보처리장치에 사용되는 기록으로 한정하여 해석한다.",
       "role": "component",
       "refers_to": null,
+      "value": null,
       "rationale": "특수매체기록의 범위를 한정하는 객체 판정 기준이다."
     },
     "art366.transmitting_or_processing_information_exclusion": {
@@ -1158,6 +1290,7 @@
       "proposition": "네트워크에서 패킷 형태로 전송 중인 정보나 컴퓨터의 레지스터·캐시·주기억장치 등에 저장되어 처리 중인 정보 또는 중간결과값은 제366조의 범행객체가 아니다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "전송·처리 중 정보는 객체가 아니다."
     },
     "art366_sec3_2.document_removal_without_owner_intent": {
@@ -1167,6 +1300,7 @@
       "proposition": "문서의 종래 사용상태가 처음부터 소유자 의사에 반하거나 무관한 특별한 사정이 있고, 그 상태를 제거·변경하였을 뿐 새로 문서 사용에 지장을 초래하지 않으면 기타 방법에 의한 문서손괴죄는 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "새로운 사용 지장이 없으면 문서손괴가 아니다."
     },
     "art366_sec3_2.electronic_record_power_cutoff_exception": {
@@ -1176,6 +1310,7 @@
       "proposition": "정보처리장치에 연결된 기록매체의 전원 차단은 저장된 기록 자체에 손상이 발생하는 예외적 경우가 아니라면 전자기록손괴죄가 별도로 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "전원 차단은 기록 손상이 없으면 별도 성립하지 않는다."
     },
     "art366_sec3_2.mere_functional_interference_not_destruction": {
@@ -1185,6 +1320,7 @@
       "proposition": "물건에 변형이나 손상을 가하지 않고 단순히 본래 기능만 훼손한 경우에는 손괴가 되지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "변형·손상 없는 기능 훼손은 손괴가 아니다."
     },
     "art366_sec3_2.movement_no_objective_use_value": {
@@ -1194,6 +1330,7 @@
       "proposition": "소유자가 우연히 놓아두거나 방치한 물건을 다른 곳으로 옮겨 즉시 본래 용법대로 사용할 수 없게 한 것만으로는 객관적 이용가치·효용이 인정되지 않아 기타 방법에 의한 효용침해를 인정할 수 없다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "객관적 이용가치가 없으면 효용침해를 인정할 수 없다."
     },
     "art366_sec3_2.wall_graffiti_functional_efficiency_limit": {
@@ -1203,6 +1340,7 @@
       "proposition": "벽면 낙서는 그로 인하여 건조물의 미관 등 기능적 효용이 현저하게 침해되거나 감소된 경우에 한하여 재물손괴죄가 성립한다.",
       "role": "component",
       "refers_to": null,
+      "value": null,
       "rationale": "낙서는 기능적 효용이 현저히 침해된 경우에 성립한다는 인정 기준이다."
     },
     "art366_sec4_1.intent_absence": {
@@ -1212,6 +1350,7 @@
       "proposition": "범행객체가 타인 소유임을 알지 못하거나 자기 행위로 재물 등의 효용이 침해될 결과를 예견하지 못한 경우에는 고의가 없어 죄가 성립하지 않는다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "고의 결여."
     },
     "art366_sec5_2.immediate_self_recovery_assessment": {
@@ -1219,18 +1358,20 @@
       "level": "L6",
       "polarity": "positive",
       "proposition": "부동산 자력탈환권의 행사가 직시에 이루어졌는지는 물리적 시간뿐 아니라 침탈자의 점유 확립, 법적 안정·평화 침해 및 권리남용 여부를 함께 살펴 판단한다.",
-      "role": "bar",
+      "role": "assessment_standard",
       "refers_to": null,
-      "rationale": "자력탈환권 행사의 직시성 판단 기준 — 인정되면 위법성이 조각된다."
+      "value": "자력탈환의 직시성 판단",
+      "rationale": "자력탈환의 직시성을 판단하는 기준이지 직시성이 인정되었다는 결론이 아니다(검수 002 C-02)."
     },
     "art366_sec5_2.justifiable_act_requirements": {
       "unit": "property_damage",
       "level": "L6",
       "polarity": "positive",
       "proposition": "정당행위는 동기·목적의 정당성, 수단·방법의 상당성, 법익균형성, 긴급성 및 보충성 등의 요건을 갖춘 경우에 인정된다.",
-      "role": "bar",
+      "role": "assessment_standard",
       "refers_to": null,
-      "rationale": "정당행위 요건 — 충족되면 위법성이 조각된다."
+      "value": "정당행위의 요건",
+      "rationale": "정당행위의 요건을 열거한 기준이지 그 요건이 충족되었다는 결론이 아니다(검수 002 C-02)."
     },
     "art366_sec5_2.possession_protection_destruction": {
       "unit": "property_damage",
@@ -1239,6 +1380,7 @@
       "proposition": "부당한 점유침탈을 배제하고 위험발생을 방지하기 위해 자물쇠나 전기선을 절단한 경우, 침해가 과도하지 않아 사회통념상 현저히 타당성을 잃지 않으면 정당행위가 된다.",
       "role": "bar",
       "refers_to": null,
+      "value": null,
       "rationale": "점유 보호를 위한 절단은 정당행위가 된다."
     },
     "art366_sec5_2.socially_acceptable_act": {
@@ -1246,18 +1388,20 @@
       "level": "L6",
       "polarity": "positive",
       "proposition": "사회상규에 위배되지 아니하는 행위란 법질서 전체의 정신, 사회윤리 또는 사회통념에 비추어 용인될 수 있는 행위이다.",
-      "role": "bar",
+      "role": "assessment_standard",
       "refers_to": null,
-      "rationale": "사회상규 불위배 행위의 판단 기준."
+      "value": "사회상규 불위배 판단",
+      "rationale": "사회상규 불위배를 재는 기준이지 위배되지 않았다는 결론이 아니다(검수 002 C-02)."
     },
     "art366_sec5_5.presumed_consent": {
       "unit": "property_damage",
       "level": "L6",
       "polarity": "positive",
       "proposition": "추정적 승낙은 현실적 승낙이 없더라도 행위 당시의 모든 객관적 사정에 비추어 피해자가 행위 내용을 알았다면 당연히 승낙하였을 것으로 예견되는 경우를 말한다.",
-      "role": "bar",
+      "role": "assessment_standard",
       "refers_to": null,
-      "rationale": "추정적 승낙의 판단 기준 — 인정되면 구성요건해당성·위법성이 부정된다."
+      "value": "추정적 승낙의 판단",
+      "rationale": "추정적 승낙의 판단 기준이지 승낙이 추정된다는 결론이 아니다(검수 002 C-02)."
     }
   }
 }

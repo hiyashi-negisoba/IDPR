@@ -282,17 +282,6 @@
       "proposition_rewrite": null
     },
     {
-      "card_id": "art136_sec2_3.voluntary_accompaniment",
-      "part_id": null,
-      "role": "bar",
-      "track_id": "base",
-      "component_id": "lawful_duty_execution",
-      "component_join": "not_applicable",
-      "refers_to_unit": null,
-      "rationale": "법적 전제 없는 권한·위법 체포·먼 장래 직무·비자발적 임의동행",
-      "proposition_rewrite": null
-    },
-    {
       "card_id": "art136_sec2_3.public_official_definition",
       "part_id": null,
       "role": "component",
@@ -702,8 +691,7 @@
         "art136_sec2_3.lawful_performance_requirements",
         "art136_sec2_3.lawfulness_time_of_act",
         "art136_sec2_3.minor_procedural_violation",
-        "art136_sec2_3.protective_room_exception",
-        "art136_sec2_3.voluntary_accompaniment"
+        "art136_sec2_3.protective_room_exception"
       ]
     },
     {
@@ -881,5 +869,11 @@
     "placements": 52,
     "queue_cards": 54,
     "unresolved_unit_references": 6
-  }
+  },
+  "excluded_pending_split": [
+    {
+      "card_id": "art136_sec2_3.voluntary_accompaniment",
+      "reason": "임의동행의 적법성 판단기준과 위법한 동행의 구체적 결과가 한 카드에 혼재한다(검수 002 D-01)."
+    }
+  ]
 }

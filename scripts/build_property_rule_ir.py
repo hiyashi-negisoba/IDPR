@@ -523,6 +523,20 @@ class UnitBuilder:
             ("boundary", "boundary_shift",
              "이 죄가 아니라 다른 죄로 평가되는 경계 사유가 확인됨",
              "이 죄의 불성립과 함께 다른 죄로 넘어간다는 신호를 남긴다."),
+            ("assessment_standard", "assessment_standard",
+             "이 요건을 어떤 기준으로 판단하는지 — 기준일 뿐 충족 여부의 결론이 아니다",
+             "판단기준은 결론 계층에 연결하지 않는다. 기준으로 성립을 만들거나 막으면 "
+             "정의만으로 유·무죄가 갈린다."),
+            ("proof_standard", "proof_standard",
+             "유죄 인정을 위한 증명·특정 요건 — 구성요건 자체가 아니다",
+             "증명요건을 구성요건에 넣으면 '증명이 필요하다는 법리가 참'이라는 이유로 "
+             "요건이 인정되는 역전이 생긴다."),
+            ("subtype_outcome", "subtype_outcome",
+             "같은 죄 안에서 어느 적용유형으로 의율되는지 — 죄 전체의 성립은 유지된다",
+             "내부 의율유형이므로 죄의 성부를 바꾸지 않는다."),
+            ("post_outcome", "post_outcome",
+             "구성요건 판단 뒤에 오는 죄수·처벌 효과",
+             "불가벌적 사후행위 등은 구성요건 불성립과 구별해 별도로 기록한다."),
         ):
             members = self.cards_of_kind(kind)
             if not members:
@@ -530,13 +544,17 @@ class UnitBuilder:
             relation = f"{self.unit}_{suffix}"
             self.predicates.append(predicate(
                 relation, [("case_id", "String"), ("defendant_id", "String"),
-                           ("issue_id", "String")],
+                           ("issue_id", "String"), ("value", "String")],
                 kind="rule", role="derived", origin="commentary",
                 definition=definition, cards=members))
             for index, card in enumerate(members, 1):
+                # 답안에 나가는 것은 마지막 인수다. 카드 ID를 그 자리에 두면 내부
+                # 식별자가 그대로 노출되므로 검수자가 적은 우리말 값을 쓴다.
+                value = self.card_roles[card["id"]]["value"]
                 self.rules.append(rule(
                     f"{self.unit}.{module_slug(card['id'])}.{suffix}.{index:03d}",
-                    atom(relation, self.actors[0], self.actors[1], string(card["id"])),
+                    atom(relation, self.actors[0], self.actors[1],
+                         string(card["id"]), string(str(value))),
                     [atom(condition_id(card["id"]), *self.actors)],
                     [card], note))
 

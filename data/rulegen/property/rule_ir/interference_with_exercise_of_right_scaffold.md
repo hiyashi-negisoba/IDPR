@@ -788,7 +788,7 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art323.forced_execution_evasion_scope`, `art323_sec1_1.abstract_danger_offense`, `art323_sec1_1.conduct_and_object`, `art323_sec2_1.subject_genuine_status_offense`, `art323_sec2_2.corporate_system_records_other`, `art323_sec2_2.electronic_records`, `art323_sec2_2.joint_possession_object`, `art323_sec2_2.nonpossessory_claim_precedent`, `art323_sec2_2.possession_actual_control`, `art323_sec2_2.property_movables_real_estate`, `art323_sec2_2.protected_possession_potential_value`, `art323_sec2_2.rescinded_sale_recovery`, `art323_sec2_2.retained_title_sale`, `art323_sec2_2.rightful_possession_definition`, `art323_sec2_2.self_property_owner`, `art323_sec2_2.title_transfer_criteria`, `art323_sec2_3.concealment`, `art323_sec2_3.destruction`, `art323_sec2_3.risk_to_right_exercise`, `art323_sec2_3.taking`, `art323_sec3.conditional_intent_sufficient`, `art323_sec3.subjective_awareness`
 
-### `interference_with_exercise_of_right_requirement_waived(case_id: String, defendant_id: String, issue_id: String)`
+### `interference_with_exercise_of_right_requirement_waived(case_id: String, defendant_id: String, issue_id: String, value: String)`
 
 이 죄의 성립에 요구되지 않는 요건이 확인됨 — 성립을 막지 않는다
 

@@ -1046,7 +1046,7 @@ type embezzlement_established(String, String, String, String)
 // embezzlement_requirement_waived: 이 죄의 성립에 요구되지 않는 요건이 확인됨 — 성립을 막지 않는다
 // sources: comm_001692_제355조_1항_Ⅲ.3_76, comm_001692_제355조_1항_Ⅲ.3_84
 // norm_cards: art355_sec3_3.deceptive_means_no_fraud, art355_sec3_3.no_property_damage_element
-type embezzlement_requirement_waived(String, String, String)
+type embezzlement_requirement_waived(String, String, String, String)
 
 // embezzlement_aggravation: 가중유형 플래그 — 기본범 성립 위에 얹히고, 꺼지면 기본범으로 남는다
 // sources: comm_001692_제356조_Ⅱ.2_2, comm_001692_제356조_Ⅲ.1_3, comm_001692_제356조_Ⅲ.1_3, comm_001692_제356조_Ⅲ.1_3
@@ -3109,12 +3109,12 @@ rel embezzlement_established(case_id, defendant_id, entrustor_id, owner_id) = em
 // rule_id: embezzlement.art355_sec3_3.requirement_waived.001
 // sources: comm_001692_제355조_1항_Ⅲ.3_76
 // norm_cards: art355_sec3_3.deceptive_means_no_fraud
-rel embezzlement_requirement_waived(case_id, defendant_id, "art355_sec3_3.deceptive_means_no_fraud") = satisfied_art355_sec3_3_deceptive_means_no_fraud(case_id, defendant_id, entrustor_id, owner_id)
+rel embezzlement_requirement_waived(case_id, defendant_id, "art355_sec3_3.deceptive_means_no_fraud", "기망수단 사용 시 사기죄의 별도 성립") = satisfied_art355_sec3_3_deceptive_means_no_fraud(case_id, defendant_id, entrustor_id, owner_id)
 
 // rule_id: embezzlement.art355_sec3_3.requirement_waived.002
 // sources: comm_001692_제355조_1항_Ⅲ.3_84
 // norm_cards: art355_sec3_3.no_property_damage_element
-rel embezzlement_requirement_waived(case_id, defendant_id, "art355_sec3_3.no_property_damage_element") = satisfied_art355_sec3_3_no_property_damage_element(case_id, defendant_id, entrustor_id, owner_id)
+rel embezzlement_requirement_waived(case_id, defendant_id, "art355_sec3_3.no_property_damage_element", "재산상 손해의 발생") = satisfied_art355_sec3_3_no_property_damage_element(case_id, defendant_id, entrustor_id, owner_id)
 
 // rule_id: embezzlement.aggravation.occupational.001
 // sources: comm_001692_제356조_Ⅲ.1_3

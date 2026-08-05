@@ -15873,6 +15873,10 @@
         {
           "name": "issue_id",
           "type": "String"
+        },
+        {
+          "name": "value",
+          "type": "String"
         }
       ],
       "kind": "rule",
@@ -15919,11 +15923,6 @@
           "comment_id": "comm_001692_제338조_Ⅳ_3",
           "quote": "살인의 고의가 없는 강도치 사죄의 미수범이 인정되지 않음은 강도치상죄의 경우와 같다.",
           "section_path": "Ⅳ"
-        },
-        {
-          "comment_id": "comm_001692_제343조_Ⅲ_5",
-          "quote": "예비·음모죄는 예비·음모의 행위가 있으면 완성되는 성질의 죄이므로 중지미수 의 개념을 인정할 여지가 없다고 본다.",
-          "section_path": "Ⅲ"
         }
       ],
       "norm_card_ids": [
@@ -15932,8 +15931,7 @@
         "art334_sec2_1.weapon_awareness_not_required",
         "art334_sec2_1.weapon_direct_use_not_required",
         "art335_sec3_2.arrest_or_concealment_no_control",
-        "art338_sec4.robbery_death_attempt_excluded",
-        "art343_sec3.abandonment_before_execution_denied"
+        "art338_sec4.robbery_death_attempt_excluded"
       ]
     },
     {
@@ -15949,6 +15947,10 @@
         },
         {
           "name": "issue_id",
+          "type": "String"
+        },
+        {
+          "name": "value",
           "type": "String"
         }
       ],
@@ -15989,6 +15991,41 @@
         "art333_sec3_3.unconsciousness_prior_force_no_causation",
         "art333_sec8.right_exercise_robbery_negative",
         "art338_sec2.debt_evasion_no_robbery"
+      ]
+    },
+    {
+      "id": "robbery_post_outcome",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "issue_id",
+          "type": "String"
+        },
+        {
+          "name": "value",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "구성요건 판단 뒤에 오는 죄수·처벌 효과",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제343조_Ⅲ_5",
+          "quote": "예비·음모죄는 예비·음모의 행위가 있으면 완성되는 성질의 죄이므로 중지미수 의 개념을 인정할 여지가 없다고 본다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "norm_card_ids": [
+        "art343_sec3.abandonment_before_execution_denied"
       ]
     },
     {
@@ -61012,6 +61049,10 @@
           {
             "kind": "string",
             "value": "art333_sec7_1.completion.no_safe_escape_requirement"
+          },
+          {
+            "kind": "string",
+            "value": "안전지역으로의 이탈"
           }
         ],
         "negated": false
@@ -61072,6 +61113,10 @@
           {
             "kind": "string",
             "value": "art333_sec7_1.completion.recovery_does_not_negate"
+          },
+          {
+            "kind": "string",
+            "value": "탈환되지 않았을 것"
           }
         ],
         "negated": false
@@ -61132,6 +61177,10 @@
           {
             "kind": "string",
             "value": "art334_sec2_1.weapon_awareness_not_required"
+          },
+          {
+            "kind": "string",
+            "value": "상대방의 흉기 인식"
           }
         ],
         "negated": false
@@ -61197,6 +61246,10 @@
           {
             "kind": "string",
             "value": "art334_sec2_1.weapon_direct_use_not_required"
+          },
+          {
+            "kind": "string",
+            "value": "흉기의 직접 사용"
           }
         ],
         "negated": false
@@ -61262,6 +61315,10 @@
           {
             "kind": "string",
             "value": "art335_sec3_2.arrest_or_concealment_no_control"
+          },
+          {
+            "kind": "string",
+            "value": "재물에 대한 사실상 지배의 취득"
           }
         ],
         "negated": false
@@ -61322,6 +61379,10 @@
           {
             "kind": "string",
             "value": "art338_sec4.robbery_death_attempt_excluded"
+          },
+          {
+            "kind": "string",
+            "value": "강도치사죄의 미수 처벌"
           }
         ],
         "negated": false
@@ -61367,66 +61428,6 @@
       "review_notes": "요건 불요 규칙이므로 불성립 사유로 쓰지 않고 면제 사실만 기록한다."
     },
     {
-      "id": "robbery.art343_sec3.requirement_waived.007",
-      "head": {
-        "predicate": "robbery_requirement_waived",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art343_sec3.abandonment_before_execution_denied"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "satisfied_art343_sec3_abandonment_before_execution_denied",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "coerced_person_id"
-            },
-            {
-              "kind": "variable",
-              "value": "owner_id"
-            },
-            {
-              "kind": "variable",
-              "value": "possessor_id"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제343조_Ⅲ_5",
-          "quote": "예비·음모죄는 예비·음모의 행위가 있으면 완성되는 성질의 죄이므로 중지미수 의 개념을 인정할 여지가 없다고 본다.",
-          "section_path": "Ⅲ"
-        }
-      ],
-      "norm_card_ids": [
-        "art343_sec3.abandonment_before_execution_denied"
-      ],
-      "review_notes": "요건 불요 규칙이므로 불성립 사유로 쓰지 않고 면제 사실만 기록한다."
-    },
-    {
       "id": "robbery.art333_sec2_3.boundary_shift.001",
       "head": {
         "predicate": "robbery_boundary_shift",
@@ -61442,6 +61443,10 @@
           {
             "kind": "string",
             "value": "art333_sec2_3.diversion_or_insult_violence_no_robbery"
+          },
+          {
+            "kind": "string",
+            "value": "절도"
           }
         ],
         "negated": false
@@ -61502,6 +61507,10 @@
           {
             "kind": "string",
             "value": "art333_sec2_3.lesser_threat_extortion"
+          },
+          {
+            "kind": "string",
+            "value": "공갈"
           }
         ],
         "negated": false
@@ -61562,6 +61571,10 @@
           {
             "kind": "string",
             "value": "art333_sec3_3.unconsciousness_prior_force_no_causation"
+          },
+          {
+            "kind": "string",
+            "value": "절도"
           }
         ],
         "negated": false
@@ -61622,6 +61635,10 @@
           {
             "kind": "string",
             "value": "art333_sec8.right_exercise_robbery_negative"
+          },
+          {
+            "kind": "string",
+            "value": "폭행 또는 협박"
           }
         ],
         "negated": false
@@ -61682,6 +61699,10 @@
           {
             "kind": "string",
             "value": "art338_sec2.debt_evasion_no_robbery"
+          },
+          {
+            "kind": "string",
+            "value": "살인"
           }
         ],
         "negated": false
@@ -61725,6 +61746,70 @@
         "art338_sec2.debt_evasion_no_robbery"
       ],
       "review_notes": "이 죄의 불성립과 함께 다른 죄로 넘어간다는 신호를 남긴다."
+    },
+    {
+      "id": "robbery.art343_sec3.post_outcome.001",
+      "head": {
+        "predicate": "robbery_post_outcome",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art343_sec3.abandonment_before_execution_denied"
+          },
+          {
+            "kind": "string",
+            "value": "중지미수 감면 불가"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art343_sec3_abandonment_before_execution_denied",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제343조_Ⅲ_5",
+          "quote": "예비·음모죄는 예비·음모의 행위가 있으면 완성되는 성질의 죄이므로 중지미수 의 개념을 인정할 여지가 없다고 본다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "norm_card_ids": [
+        "art343_sec3.abandonment_before_execution_denied"
+      ],
+      "review_notes": "불가벌적 사후행위 등은 구성요건 불성립과 구별해 별도로 기록한다."
     },
     {
       "id": "robbery.art333_sec2_3.refers_to_crime.001",
