@@ -15938,6 +15938,690 @@
       ]
     },
     {
+      "id": "robbery_property_not_established",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "issue_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "'property' track에 국한된 명시적 불성립 사유가 존재함",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.2_2",
+          "quote": "후자의 경 우에는 혼취가 재물탈취의 방법으로 시용된 것이 아니므로 강도죄의 폭행 (施⽤) 에 해당한다고 보기 어렵다. 따라서 후자의 경우 우발적으로 피해자의 혼미상태 를 이용하여 탈취하더라도 강도죄는 성립하지 않는다.",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_3",
+          "quote": "그것이 단지 피해자의 주의를 일시 다른 데에 돌려 그 사 이에 재물을 취거할 목적으로 행하여진 것으로서 상대방의 반항을 억압할 정도 의 것이 되지 못한 때 또는 재물탈취 후 피해자의 저항 배제나 범죄의 흔적 인 멸 등의 목적 없이 다만 피해자에 대한 모욕적 의사나 적개심을 표시할 목적으 로 폭행·협박을 가한 때는 폭행 또는 협박죄와 절도죄의 두 죄가 성립할 뿐이고 강도죄를 구성하지 않는다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.2_12",
+          "quote": "항을 억압할 만한 폭행·협박이 있었음에도 피해자가 전혀 반항 의사가 억압된 바 없이 단지 귀찮은 생각에서 또는 연민의 정에서 재물을 교부한 경우에는 재 물의 점유탈취는 피해자의 임의의사에 의한 것이고 폭행·협박으로 인하여 반항 이 억압된 결과가 아니므로 인과관계가 없는 것이므로 강도미수죄만이 성립할 뿐이다.",
+          "section_path": "Ⅲ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.2_13",
+          "quote": "이런 폭행행위가 재물탈취와 관련하여 피해자의 반항을 억압하거나 재물의 탈환, 체포면탈 또는 범죄의 흔적 인멸 등에 객관적으로 효과를 미친 경우가 아닌 한 강도죄가 성립한다고 볼 수 없다.",
+          "section_path": "Ⅲ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_15",
+          "quote": "위와 같은 논리는 사람을 살해한 후 비로소 재물탈취의 범의가 생겨 사자의 소 지품을 취득한 경우에도 동일하게 적용될 수 있는 것으로서 위 경우에도 역시 강도죄가 성립되지 않으며 살인죄와 절도죄의 경합범으로 보아야 한다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "폭행·협박에 착수하였다고 하여도 그것이 사회통념상 피해자의 반항을 억압할 만한 것이 못 될 때에는 강도의 착수가 있다고 보기 어려움은 물론이다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "폭행·협박을 예기하면서 재물탈취에 착수하였다 하여도 폭행·협박 자체에 착수 하지 않는 한 강도죄의 착수가 있었다고 볼 수 없다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅷ_32",
+          "quote": "범인이 피해자로부터 취득할 권리가 있는 재산상의 이익은 불법의 이익 이 아니므로 이를 폭행·협박의 방법에 의하여 탈취하더라도 강도죄를 구성하지 않고 폭행죄나 협박죄가 될 뿐이라는 견해가 있다.",
+          "section_path": "Ⅷ"
+        },
+        {
+          "comment_id": "comm_001692_제335조_Ⅵ.1_10",
+          "quote": "범행 수일 후 피해자에게 발각되어 재물탈환을 방지할 목적으로 폭행을 가 한다거나 또는 절도범이 범행 수일 후 체포하러 온 경찰관에 대하여 체포를 면 하고자 폭행을 가한 경우에는 준강도죄가 성립될 수 없다.",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제335조_Ⅵ.2_12",
+          "quote": "절도범의 폭행·협박이 원래의 절도 범행현 장으로부터 안전하게 도피하여 더는 추적이나 어떠한 체포위협도 느끼지 아니 할 정도로 시간적, 장소적 경과가 있었다면 절도 기회의 계속성을 인정하기 어 려운 경우가 많을 것이다.",
+          "section_path": "Ⅵ.2"
+        },
+        {
+          "comment_id": "comm_001692_제338조_Ⅱ_1",
+          "quote": "채권자의 상속인이 존재하고 그 채권의 존재를 확인할 방법이 확보된 경 우에는 채권자를 살해하였다 한들 일시적으로 채권자의 추급을 면한 것에 불과 하고 채권자로부터 재산적 이익의 지배를 취득하였다고 보기 어려우 (또는 이전) 므로 강도가 될 수 없고, 단순한 살인죄에 불과하다고 볼 수도 있다.",
+          "section_path": "Ⅱ"
+        },
+        {
+          "comment_id": "comm_001692_제338조_Ⅲ_2",
+          "quote": "그러나 범행이 일단 종료된 후 상당한 시간이 경과된 뒤에 새로운 범의가 생겨 저지른 살해행위는 강도의 기회에 행한 것이라고 보기 어렵다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec2_2.incidental_incapacitation_no_robbery",
+        "art333_sec2_3.diversion_or_insult_violence_no_robbery",
+        "art333_sec3_2.post_taking_assault_no_robbery",
+        "art333_sec3_2.voluntary_delivery_attempt",
+        "art333_sec3_3.unconsciousness_prior_force_no_causation",
+        "art333_sec6.no_attempt_insufficient_violence_intimidation",
+        "art333_sec6.no_attempt_without_violence_intimidation_commencement",
+        "art333_sec8.right_exercise_robbery_negative",
+        "art335_sec6_1.days_later_no_opportunity",
+        "art335_sec6_2.opportunity_safe_escape_limit",
+        "art338_sec2.debt_evasion_no_robbery",
+        "art338_sec3.opportunity_new_intent_after_completion"
+      ]
+    },
+    {
+      "id": "robbery_property_has_negative",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "'property' track에 국한된 불성립 사유의 존재를 2항으로 요약함",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.2_2",
+          "quote": "후자의 경 우에는 혼취가 재물탈취의 방법으로 시용된 것이 아니므로 강도죄의 폭행 (施⽤) 에 해당한다고 보기 어렵다. 따라서 후자의 경우 우발적으로 피해자의 혼미상태 를 이용하여 탈취하더라도 강도죄는 성립하지 않는다.",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_3",
+          "quote": "그것이 단지 피해자의 주의를 일시 다른 데에 돌려 그 사 이에 재물을 취거할 목적으로 행하여진 것으로서 상대방의 반항을 억압할 정도 의 것이 되지 못한 때 또는 재물탈취 후 피해자의 저항 배제나 범죄의 흔적 인 멸 등의 목적 없이 다만 피해자에 대한 모욕적 의사나 적개심을 표시할 목적으 로 폭행·협박을 가한 때는 폭행 또는 협박죄와 절도죄의 두 죄가 성립할 뿐이고 강도죄를 구성하지 않는다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.2_12",
+          "quote": "항을 억압할 만한 폭행·협박이 있었음에도 피해자가 전혀 반항 의사가 억압된 바 없이 단지 귀찮은 생각에서 또는 연민의 정에서 재물을 교부한 경우에는 재 물의 점유탈취는 피해자의 임의의사에 의한 것이고 폭행·협박으로 인하여 반항 이 억압된 결과가 아니므로 인과관계가 없는 것이므로 강도미수죄만이 성립할 뿐이다.",
+          "section_path": "Ⅲ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.2_13",
+          "quote": "이런 폭행행위가 재물탈취와 관련하여 피해자의 반항을 억압하거나 재물의 탈환, 체포면탈 또는 범죄의 흔적 인멸 등에 객관적으로 효과를 미친 경우가 아닌 한 강도죄가 성립한다고 볼 수 없다.",
+          "section_path": "Ⅲ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_15",
+          "quote": "위와 같은 논리는 사람을 살해한 후 비로소 재물탈취의 범의가 생겨 사자의 소 지품을 취득한 경우에도 동일하게 적용될 수 있는 것으로서 위 경우에도 역시 강도죄가 성립되지 않으며 살인죄와 절도죄의 경합범으로 보아야 한다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "폭행·협박에 착수하였다고 하여도 그것이 사회통념상 피해자의 반항을 억압할 만한 것이 못 될 때에는 강도의 착수가 있다고 보기 어려움은 물론이다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "폭행·협박을 예기하면서 재물탈취에 착수하였다 하여도 폭행·협박 자체에 착수 하지 않는 한 강도죄의 착수가 있었다고 볼 수 없다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅷ_32",
+          "quote": "범인이 피해자로부터 취득할 권리가 있는 재산상의 이익은 불법의 이익 이 아니므로 이를 폭행·협박의 방법에 의하여 탈취하더라도 강도죄를 구성하지 않고 폭행죄나 협박죄가 될 뿐이라는 견해가 있다.",
+          "section_path": "Ⅷ"
+        },
+        {
+          "comment_id": "comm_001692_제335조_Ⅵ.1_10",
+          "quote": "범행 수일 후 피해자에게 발각되어 재물탈환을 방지할 목적으로 폭행을 가 한다거나 또는 절도범이 범행 수일 후 체포하러 온 경찰관에 대하여 체포를 면 하고자 폭행을 가한 경우에는 준강도죄가 성립될 수 없다.",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제335조_Ⅵ.2_12",
+          "quote": "절도범의 폭행·협박이 원래의 절도 범행현 장으로부터 안전하게 도피하여 더는 추적이나 어떠한 체포위협도 느끼지 아니 할 정도로 시간적, 장소적 경과가 있었다면 절도 기회의 계속성을 인정하기 어 려운 경우가 많을 것이다.",
+          "section_path": "Ⅵ.2"
+        },
+        {
+          "comment_id": "comm_001692_제338조_Ⅱ_1",
+          "quote": "채권자의 상속인이 존재하고 그 채권의 존재를 확인할 방법이 확보된 경 우에는 채권자를 살해하였다 한들 일시적으로 채권자의 추급을 면한 것에 불과 하고 채권자로부터 재산적 이익의 지배를 취득하였다고 보기 어려우 (또는 이전) 므로 강도가 될 수 없고, 단순한 살인죄에 불과하다고 볼 수도 있다.",
+          "section_path": "Ⅱ"
+        },
+        {
+          "comment_id": "comm_001692_제338조_Ⅲ_2",
+          "quote": "그러나 범행이 일단 종료된 후 상당한 시간이 경과된 뒤에 새로운 범의가 생겨 저지른 살해행위는 강도의 기회에 행한 것이라고 보기 어렵다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec2_2.incidental_incapacitation_no_robbery",
+        "art333_sec2_3.diversion_or_insult_violence_no_robbery",
+        "art333_sec3_2.post_taking_assault_no_robbery",
+        "art333_sec3_2.voluntary_delivery_attempt",
+        "art333_sec3_3.unconsciousness_prior_force_no_causation",
+        "art333_sec6.no_attempt_insufficient_violence_intimidation",
+        "art333_sec6.no_attempt_without_violence_intimidation_commencement",
+        "art333_sec8.right_exercise_robbery_negative",
+        "art335_sec6_1.days_later_no_opportunity",
+        "art335_sec6_2.opportunity_safe_escape_limit",
+        "art338_sec2.debt_evasion_no_robbery",
+        "art338_sec3.opportunity_new_intent_after_completion"
+      ]
+    },
+    {
+      "id": "robbery_property_established",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "coerced_person_id",
+          "type": "String"
+        },
+        {
+          "name": "owner_id",
+          "type": "String"
+        },
+        {
+          "name": "possessor_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "완결 게이트 뒤에 'property' track의 불성립 사유와 충돌이 모두 없는 확정 성립",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.1_1",
+          "quote": "강도죄에서 폭행·협박은 재물탈취 283조) 의 방법으로 행하여지는 점에서 폭행죄·협박죄를 구성하는 폭행·협박과는 달리 상대방의 반항을 억압할 정도의 것이어야 하고",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.1_1",
+          "quote": "혼취나 상해, 살인 등 사람의 반항을 억압할 정도의 인신에 대한 공격행위는 비록 폭행죄에 서의 폭행의 개념에 미달하거나 초과하는 것이라도 강도죄의 폭행에 해당한다.",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.2_2",
+          "quote": "약물을 피해자에게 유효한 약제 인 것처럼 속여 스스로 복용케 한 경우나 재물탈취의 목적으로 졸음에 빠지게 하기 위하여 신경안정제를 탄 우유를 마시게 하거나 중독성 있는 약품을 탄 주 스를 마시게 하는 경우에도 강도죄의 폭행에 포함된다.",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_3",
+          "quote": "당해 범 행의 시각, 장소, 범인 및 피해자의 성별, 연령, 체력, 기타 구체적인 사정을 고 려하여 피해자에게 행사된 폭행·협박이 위와 같은 구체적 사정 아래에서 객관 적으로 일반인의 반항을 억압할 정도의 것인가 아닌가를 판단한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_4",
+          "quote": "일반인이 피해자가 당한 사정 아래에서 용이하게 완구권 총임을 간파할 수 없거나 또는 범인이 권총이나 칼을 소지한 것으로 오인한 것이 보통이라고 인정될 경우에는 반항을 억압할 정도의 협박이라고 보아야 한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_4",
+          "quote": "폭행·협박이 객관적으로 반항을 억압할 정도의 외관을 갖춘 이상 실제로는 가 해 능력이 없는 경우에도 강도죄가 성립한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_6",
+          "quote": "결국 흉기를 겨누거나 제시하는 행위 자체만으로 반항을 억압함에 족한 정도의 폭행·협박이라고 단정할 수는 없고 흉기를 겨누거나 제시할 당시 범인 의 언동, 피해자의 나이, 성별 및 범행시간과 장소 등 구체적 사정에 비추어 반 항억압의 정도인지를 판단할 수밖에 없으나",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_8",
+          "quote": "결국 위와 같은 사안은 기대되는 피해자의 반항을 억압하여 불가능하게 할 정도의 급격한 공격을 가한 경우에 해당하는 것으로서 단순히 피해자의 주의를 일시 돌리기 위한 것과는 다른 것이므로 피해자의 반항을 억압함에 족한 폭행을 방 법으로 재물을 탈취한 것에 해당한다고 보아야 한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.4_9",
+          "quote": "‘재물탈취의 목적수행에 장애 가 되는 자’이기만 하면 재물의 소유자·점유자나 재물을 보호할 지위에 있는 자 가 아니더라도 강도죄에서 폭행·협박의 상대방이 될 수 있다고 봄이 타당하 다.",
+          "section_path": "Ⅱ.4"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_14",
+          "quote": "당초에는 강도의 범의 없이 절도에 착수한 후 피해자의 저항에 부닥쳐 폭행·협박으로 이를 제압하고 재물탈취를 수행하거 나 또는 탈취한 재물의 점유확보를 위하여 폭행·협박을 사용한 경우",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_14",
+          "quote": "범인이 부녀를 강간할 목적으로 폭행·협박에 의하여 반항을 제압한 후 비로 소 소지품 탈취의 범의가 생겨 이를 탈취한 경우에 판례는 강도죄의 성립을 인 정하고 있다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_14",
+          "quote": "폭행·협박은 범의가 생기기 전후를 통하여 계속된 상태와 같아 전체적·실질적으로 단일한 재물탈취 의 범의의 실현행위로 평가할 수 있는 경우이므로 포괄하여 강도 일죄로 봄이 타당하다. 따라서 이와 같은 폭행으로 상해의 결과가 발생한 경우에는 강도상해 죄의 일죄만이 성립한다고 보아야 한다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_14",
+          "quote": "피해자를 강간한 후 피해자가 공포심으로 항거불능상태에 빠져있음을 이용하여 금품을 강탈하는 경우는 물론, 강간 피해자가 범인으로부터 폭행·협박을 받던 중 범인에게 범행 중지와 자발적 퇴거를 간청하면서 제공한 금품을 수령한 경 우에도 강도가 된다고 본다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ_10",
+          "quote": "강취란 위에서 본 바와 같은 피해자의 반항을 억압함에 족한 폭행·협박의 방법 으로 피해자로부터 그 의사에 반하여 재물의 점유를 탈취하여 자기 또는 제3자 의 지배로 이전하는 것을 말한다.",
+          "section_path": "Ⅲ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅴ_26",
+          "quote": "강도죄가 성립하려면 불법영득 또는 불법이득의 의사가 있어야 한다.",
+          "section_path": "Ⅴ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅴ_26",
+          "quote": "피고인과 피해자의 관계, 채무의 종류와 액수, 폭 행에 이르게 된 경위, 폭행의 정도와 방법, 폭행 이후의 정황 등 범행 전후의 객 관적인 사정을 종합하여 불법이득의사가 있었는지를 판단할 수밖에 없다",
+          "section_path": "Ⅴ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "강도행위의 실행의 착수 시기는 재물탈취 또는 재산상의 불법이득을 목적으로 피해자의 반항을 억압할만한 폭행·협박을 개시한 때이다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "사회통념 상 피해자의 반항을 억압할만한 폭행·협박을 가한 이상 현실적으로 피해자의 반항을 억압하지 못하고 따라서 재물탈취나 재산상 불법이득의 목적을 이루지 못한 경우에도 강도미수죄가 성립한다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "일단 폭행·협박에 의하여 피해자를 제압한 후 비로소 재물탈취 또는 재산상 이 익 취득의 범의가 생긴 때 (폭행·협박으로 조성된 피해자의 지속된 공포상태를 이용하 에는 그 범의가 생긴 시점을 실행의 착수 시기로 여 재물을 취득한 경우를 말한다) 보아야 한다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "채무면탈을 위한 채권자의 살해행위가 강도죄를 구성하는 경우 에는 살해행위에 착수한 때에 강도살인죄의 착수가 있다고 본다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec2_1.robbery_violence_incapacitating_attack",
+        "art333_sec2_1.violence_threat_resistance_suppression",
+        "art333_sec2_2.drug_induced_incapacitation_violence",
+        "art333_sec2_3.apparent_capacity_threat",
+        "art333_sec2_3.objective_resistance_suppression",
+        "art333_sec2_3.snatching_forceful_attack",
+        "art333_sec2_3.weapon_presentation_context",
+        "art333_sec2_4.target_person_obstructing_taking",
+        "art333_sec3.forcible_taking",
+        "art333_sec3_3.continuing_force_after_theft_intent",
+        "art333_sec3_3.continuing_force_single_robbery",
+        "art333_sec3_3.rape_fear_state_property_provision",
+        "art333_sec3_3.rape_force_subsequent_taking_precedent",
+        "art333_sec5.determine_illegal_benefit_intent",
+        "art333_sec5.illegal_benefit_intent",
+        "art333_sec6.attempt_commencement_violence_intimidation",
+        "art333_sec6.attempt_debt_evasion_killing",
+        "art333_sec6.attempt_intent_arising_after_subjugation",
+        "art333_sec6.attempt_unattained_objective"
+      ]
+    },
+    {
+      "id": "robbery_benefit_not_established",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "issue_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "'benefit' track에 국한된 명시적 불성립 사유가 존재함",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.2_2",
+          "quote": "후자의 경 우에는 혼취가 재물탈취의 방법으로 시용된 것이 아니므로 강도죄의 폭행 (施⽤) 에 해당한다고 보기 어렵다. 따라서 후자의 경우 우발적으로 피해자의 혼미상태 를 이용하여 탈취하더라도 강도죄는 성립하지 않는다.",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_3",
+          "quote": "그것이 단지 피해자의 주의를 일시 다른 데에 돌려 그 사 이에 재물을 취거할 목적으로 행하여진 것으로서 상대방의 반항을 억압할 정도 의 것이 되지 못한 때 또는 재물탈취 후 피해자의 저항 배제나 범죄의 흔적 인 멸 등의 목적 없이 다만 피해자에 대한 모욕적 의사나 적개심을 표시할 목적으 로 폭행·협박을 가한 때는 폭행 또는 협박죄와 절도죄의 두 죄가 성립할 뿐이고 강도죄를 구성하지 않는다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.2_12",
+          "quote": "항을 억압할 만한 폭행·협박이 있었음에도 피해자가 전혀 반항 의사가 억압된 바 없이 단지 귀찮은 생각에서 또는 연민의 정에서 재물을 교부한 경우에는 재 물의 점유탈취는 피해자의 임의의사에 의한 것이고 폭행·협박으로 인하여 반항 이 억압된 결과가 아니므로 인과관계가 없는 것이므로 강도미수죄만이 성립할 뿐이다.",
+          "section_path": "Ⅲ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.2_13",
+          "quote": "이런 폭행행위가 재물탈취와 관련하여 피해자의 반항을 억압하거나 재물의 탈환, 체포면탈 또는 범죄의 흔적 인멸 등에 객관적으로 효과를 미친 경우가 아닌 한 강도죄가 성립한다고 볼 수 없다.",
+          "section_path": "Ⅲ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_15",
+          "quote": "위와 같은 논리는 사람을 살해한 후 비로소 재물탈취의 범의가 생겨 사자의 소 지품을 취득한 경우에도 동일하게 적용될 수 있는 것으로서 위 경우에도 역시 강도죄가 성립되지 않으며 살인죄와 절도죄의 경합범으로 보아야 한다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "폭행·협박에 착수하였다고 하여도 그것이 사회통념상 피해자의 반항을 억압할 만한 것이 못 될 때에는 강도의 착수가 있다고 보기 어려움은 물론이다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "폭행·협박을 예기하면서 재물탈취에 착수하였다 하여도 폭행·협박 자체에 착수 하지 않는 한 강도죄의 착수가 있었다고 볼 수 없다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅷ_32",
+          "quote": "범인이 피해자로부터 취득할 권리가 있는 재산상의 이익은 불법의 이익 이 아니므로 이를 폭행·협박의 방법에 의하여 탈취하더라도 강도죄를 구성하지 않고 폭행죄나 협박죄가 될 뿐이라는 견해가 있다.",
+          "section_path": "Ⅷ"
+        },
+        {
+          "comment_id": "comm_001692_제335조_Ⅵ.1_10",
+          "quote": "범행 수일 후 피해자에게 발각되어 재물탈환을 방지할 목적으로 폭행을 가 한다거나 또는 절도범이 범행 수일 후 체포하러 온 경찰관에 대하여 체포를 면 하고자 폭행을 가한 경우에는 준강도죄가 성립될 수 없다.",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제335조_Ⅵ.2_12",
+          "quote": "절도범의 폭행·협박이 원래의 절도 범행현 장으로부터 안전하게 도피하여 더는 추적이나 어떠한 체포위협도 느끼지 아니 할 정도로 시간적, 장소적 경과가 있었다면 절도 기회의 계속성을 인정하기 어 려운 경우가 많을 것이다.",
+          "section_path": "Ⅵ.2"
+        },
+        {
+          "comment_id": "comm_001692_제338조_Ⅱ_1",
+          "quote": "채권자의 상속인이 존재하고 그 채권의 존재를 확인할 방법이 확보된 경 우에는 채권자를 살해하였다 한들 일시적으로 채권자의 추급을 면한 것에 불과 하고 채권자로부터 재산적 이익의 지배를 취득하였다고 보기 어려우 (또는 이전) 므로 강도가 될 수 없고, 단순한 살인죄에 불과하다고 볼 수도 있다.",
+          "section_path": "Ⅱ"
+        },
+        {
+          "comment_id": "comm_001692_제338조_Ⅲ_2",
+          "quote": "그러나 범행이 일단 종료된 후 상당한 시간이 경과된 뒤에 새로운 범의가 생겨 저지른 살해행위는 강도의 기회에 행한 것이라고 보기 어렵다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec2_2.incidental_incapacitation_no_robbery",
+        "art333_sec2_3.diversion_or_insult_violence_no_robbery",
+        "art333_sec3_2.post_taking_assault_no_robbery",
+        "art333_sec3_2.voluntary_delivery_attempt",
+        "art333_sec3_3.unconsciousness_prior_force_no_causation",
+        "art333_sec6.no_attempt_insufficient_violence_intimidation",
+        "art333_sec6.no_attempt_without_violence_intimidation_commencement",
+        "art333_sec8.right_exercise_robbery_negative",
+        "art335_sec6_1.days_later_no_opportunity",
+        "art335_sec6_2.opportunity_safe_escape_limit",
+        "art338_sec2.debt_evasion_no_robbery",
+        "art338_sec3.opportunity_new_intent_after_completion"
+      ]
+    },
+    {
+      "id": "robbery_benefit_has_negative",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "'benefit' track에 국한된 불성립 사유의 존재를 2항으로 요약함",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.2_2",
+          "quote": "후자의 경 우에는 혼취가 재물탈취의 방법으로 시용된 것이 아니므로 강도죄의 폭행 (施⽤) 에 해당한다고 보기 어렵다. 따라서 후자의 경우 우발적으로 피해자의 혼미상태 를 이용하여 탈취하더라도 강도죄는 성립하지 않는다.",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_3",
+          "quote": "그것이 단지 피해자의 주의를 일시 다른 데에 돌려 그 사 이에 재물을 취거할 목적으로 행하여진 것으로서 상대방의 반항을 억압할 정도 의 것이 되지 못한 때 또는 재물탈취 후 피해자의 저항 배제나 범죄의 흔적 인 멸 등의 목적 없이 다만 피해자에 대한 모욕적 의사나 적개심을 표시할 목적으 로 폭행·협박을 가한 때는 폭행 또는 협박죄와 절도죄의 두 죄가 성립할 뿐이고 강도죄를 구성하지 않는다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.2_12",
+          "quote": "항을 억압할 만한 폭행·협박이 있었음에도 피해자가 전혀 반항 의사가 억압된 바 없이 단지 귀찮은 생각에서 또는 연민의 정에서 재물을 교부한 경우에는 재 물의 점유탈취는 피해자의 임의의사에 의한 것이고 폭행·협박으로 인하여 반항 이 억압된 결과가 아니므로 인과관계가 없는 것이므로 강도미수죄만이 성립할 뿐이다.",
+          "section_path": "Ⅲ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.2_13",
+          "quote": "이런 폭행행위가 재물탈취와 관련하여 피해자의 반항을 억압하거나 재물의 탈환, 체포면탈 또는 범죄의 흔적 인멸 등에 객관적으로 효과를 미친 경우가 아닌 한 강도죄가 성립한다고 볼 수 없다.",
+          "section_path": "Ⅲ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_15",
+          "quote": "위와 같은 논리는 사람을 살해한 후 비로소 재물탈취의 범의가 생겨 사자의 소 지품을 취득한 경우에도 동일하게 적용될 수 있는 것으로서 위 경우에도 역시 강도죄가 성립되지 않으며 살인죄와 절도죄의 경합범으로 보아야 한다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "폭행·협박에 착수하였다고 하여도 그것이 사회통념상 피해자의 반항을 억압할 만한 것이 못 될 때에는 강도의 착수가 있다고 보기 어려움은 물론이다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "폭행·협박을 예기하면서 재물탈취에 착수하였다 하여도 폭행·협박 자체에 착수 하지 않는 한 강도죄의 착수가 있었다고 볼 수 없다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅷ_32",
+          "quote": "범인이 피해자로부터 취득할 권리가 있는 재산상의 이익은 불법의 이익 이 아니므로 이를 폭행·협박의 방법에 의하여 탈취하더라도 강도죄를 구성하지 않고 폭행죄나 협박죄가 될 뿐이라는 견해가 있다.",
+          "section_path": "Ⅷ"
+        },
+        {
+          "comment_id": "comm_001692_제335조_Ⅵ.1_10",
+          "quote": "범행 수일 후 피해자에게 발각되어 재물탈환을 방지할 목적으로 폭행을 가 한다거나 또는 절도범이 범행 수일 후 체포하러 온 경찰관에 대하여 체포를 면 하고자 폭행을 가한 경우에는 준강도죄가 성립될 수 없다.",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제335조_Ⅵ.2_12",
+          "quote": "절도범의 폭행·협박이 원래의 절도 범행현 장으로부터 안전하게 도피하여 더는 추적이나 어떠한 체포위협도 느끼지 아니 할 정도로 시간적, 장소적 경과가 있었다면 절도 기회의 계속성을 인정하기 어 려운 경우가 많을 것이다.",
+          "section_path": "Ⅵ.2"
+        },
+        {
+          "comment_id": "comm_001692_제338조_Ⅱ_1",
+          "quote": "채권자의 상속인이 존재하고 그 채권의 존재를 확인할 방법이 확보된 경 우에는 채권자를 살해하였다 한들 일시적으로 채권자의 추급을 면한 것에 불과 하고 채권자로부터 재산적 이익의 지배를 취득하였다고 보기 어려우 (또는 이전) 므로 강도가 될 수 없고, 단순한 살인죄에 불과하다고 볼 수도 있다.",
+          "section_path": "Ⅱ"
+        },
+        {
+          "comment_id": "comm_001692_제338조_Ⅲ_2",
+          "quote": "그러나 범행이 일단 종료된 후 상당한 시간이 경과된 뒤에 새로운 범의가 생겨 저지른 살해행위는 강도의 기회에 행한 것이라고 보기 어렵다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec2_2.incidental_incapacitation_no_robbery",
+        "art333_sec2_3.diversion_or_insult_violence_no_robbery",
+        "art333_sec3_2.post_taking_assault_no_robbery",
+        "art333_sec3_2.voluntary_delivery_attempt",
+        "art333_sec3_3.unconsciousness_prior_force_no_causation",
+        "art333_sec6.no_attempt_insufficient_violence_intimidation",
+        "art333_sec6.no_attempt_without_violence_intimidation_commencement",
+        "art333_sec8.right_exercise_robbery_negative",
+        "art335_sec6_1.days_later_no_opportunity",
+        "art335_sec6_2.opportunity_safe_escape_limit",
+        "art338_sec2.debt_evasion_no_robbery",
+        "art338_sec3.opportunity_new_intent_after_completion"
+      ]
+    },
+    {
+      "id": "robbery_benefit_established",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "coerced_person_id",
+          "type": "String"
+        },
+        {
+          "name": "owner_id",
+          "type": "String"
+        },
+        {
+          "name": "possessor_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "완결 게이트 뒤에 'benefit' track의 불성립 사유와 충돌이 모두 없는 확정 성립",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.1_1",
+          "quote": "강도죄에서 폭행·협박은 재물탈취 283조) 의 방법으로 행하여지는 점에서 폭행죄·협박죄를 구성하는 폭행·협박과는 달리 상대방의 반항을 억압할 정도의 것이어야 하고",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.1_1",
+          "quote": "혼취나 상해, 살인 등 사람의 반항을 억압할 정도의 인신에 대한 공격행위는 비록 폭행죄에 서의 폭행의 개념에 미달하거나 초과하는 것이라도 강도죄의 폭행에 해당한다.",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.2_2",
+          "quote": "약물을 피해자에게 유효한 약제 인 것처럼 속여 스스로 복용케 한 경우나 재물탈취의 목적으로 졸음에 빠지게 하기 위하여 신경안정제를 탄 우유를 마시게 하거나 중독성 있는 약품을 탄 주 스를 마시게 하는 경우에도 강도죄의 폭행에 포함된다.",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_3",
+          "quote": "당해 범 행의 시각, 장소, 범인 및 피해자의 성별, 연령, 체력, 기타 구체적인 사정을 고 려하여 피해자에게 행사된 폭행·협박이 위와 같은 구체적 사정 아래에서 객관 적으로 일반인의 반항을 억압할 정도의 것인가 아닌가를 판단한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_4",
+          "quote": "일반인이 피해자가 당한 사정 아래에서 용이하게 완구권 총임을 간파할 수 없거나 또는 범인이 권총이나 칼을 소지한 것으로 오인한 것이 보통이라고 인정될 경우에는 반항을 억압할 정도의 협박이라고 보아야 한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_4",
+          "quote": "폭행·협박이 객관적으로 반항을 억압할 정도의 외관을 갖춘 이상 실제로는 가 해 능력이 없는 경우에도 강도죄가 성립한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_6",
+          "quote": "결국 흉기를 겨누거나 제시하는 행위 자체만으로 반항을 억압함에 족한 정도의 폭행·협박이라고 단정할 수는 없고 흉기를 겨누거나 제시할 당시 범인 의 언동, 피해자의 나이, 성별 및 범행시간과 장소 등 구체적 사정에 비추어 반 항억압의 정도인지를 판단할 수밖에 없으나",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_8",
+          "quote": "결국 위와 같은 사안은 기대되는 피해자의 반항을 억압하여 불가능하게 할 정도의 급격한 공격을 가한 경우에 해당하는 것으로서 단순히 피해자의 주의를 일시 돌리기 위한 것과는 다른 것이므로 피해자의 반항을 억압함에 족한 폭행을 방 법으로 재물을 탈취한 것에 해당한다고 보아야 한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.4_9",
+          "quote": "‘재물탈취의 목적수행에 장애 가 되는 자’이기만 하면 재물의 소유자·점유자나 재물을 보호할 지위에 있는 자 가 아니더라도 강도죄에서 폭행·협박의 상대방이 될 수 있다고 봄이 타당하 다.",
+          "section_path": "Ⅱ.4"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_14",
+          "quote": "당초에는 강도의 범의 없이 절도에 착수한 후 피해자의 저항에 부닥쳐 폭행·협박으로 이를 제압하고 재물탈취를 수행하거 나 또는 탈취한 재물의 점유확보를 위하여 폭행·협박을 사용한 경우",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_14",
+          "quote": "범인이 부녀를 강간할 목적으로 폭행·협박에 의하여 반항을 제압한 후 비로 소 소지품 탈취의 범의가 생겨 이를 탈취한 경우에 판례는 강도죄의 성립을 인 정하고 있다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_14",
+          "quote": "폭행·협박은 범의가 생기기 전후를 통하여 계속된 상태와 같아 전체적·실질적으로 단일한 재물탈취 의 범의의 실현행위로 평가할 수 있는 경우이므로 포괄하여 강도 일죄로 봄이 타당하다. 따라서 이와 같은 폭행으로 상해의 결과가 발생한 경우에는 강도상해 죄의 일죄만이 성립한다고 보아야 한다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_14",
+          "quote": "피해자를 강간한 후 피해자가 공포심으로 항거불능상태에 빠져있음을 이용하여 금품을 강탈하는 경우는 물론, 강간 피해자가 범인으로부터 폭행·협박을 받던 중 범인에게 범행 중지와 자발적 퇴거를 간청하면서 제공한 금품을 수령한 경 우에도 강도가 된다고 본다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ_10",
+          "quote": "강취란 위에서 본 바와 같은 피해자의 반항을 억압함에 족한 폭행·협박의 방법 으로 피해자로부터 그 의사에 반하여 재물의 점유를 탈취하여 자기 또는 제3자 의 지배로 이전하는 것을 말한다.",
+          "section_path": "Ⅲ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅴ_26",
+          "quote": "강도죄가 성립하려면 불법영득 또는 불법이득의 의사가 있어야 한다.",
+          "section_path": "Ⅴ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅴ_26",
+          "quote": "피고인과 피해자의 관계, 채무의 종류와 액수, 폭 행에 이르게 된 경위, 폭행의 정도와 방법, 폭행 이후의 정황 등 범행 전후의 객 관적인 사정을 종합하여 불법이득의사가 있었는지를 판단할 수밖에 없다",
+          "section_path": "Ⅴ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "강도행위의 실행의 착수 시기는 재물탈취 또는 재산상의 불법이득을 목적으로 피해자의 반항을 억압할만한 폭행·협박을 개시한 때이다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "사회통념 상 피해자의 반항을 억압할만한 폭행·협박을 가한 이상 현실적으로 피해자의 반항을 억압하지 못하고 따라서 재물탈취나 재산상 불법이득의 목적을 이루지 못한 경우에도 강도미수죄가 성립한다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "일단 폭행·협박에 의하여 피해자를 제압한 후 비로소 재물탈취 또는 재산상 이 익 취득의 범의가 생긴 때 (폭행·협박으로 조성된 피해자의 지속된 공포상태를 이용하 에는 그 범의가 생긴 시점을 실행의 착수 시기로 여 재물을 취득한 경우를 말한다) 보아야 한다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "채무면탈을 위한 채권자의 살해행위가 강도죄를 구성하는 경우 에는 살해행위에 착수한 때에 강도살인죄의 착수가 있다고 본다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec2_1.robbery_violence_incapacitating_attack",
+        "art333_sec2_1.violence_threat_resistance_suppression",
+        "art333_sec2_2.drug_induced_incapacitation_violence",
+        "art333_sec2_3.apparent_capacity_threat",
+        "art333_sec2_3.objective_resistance_suppression",
+        "art333_sec2_3.snatching_forceful_attack",
+        "art333_sec2_3.weapon_presentation_context",
+        "art333_sec2_4.target_person_obstructing_taking",
+        "art333_sec3.forcible_taking",
+        "art333_sec3_3.continuing_force_after_theft_intent",
+        "art333_sec3_3.continuing_force_single_robbery",
+        "art333_sec3_3.rape_fear_state_property_provision",
+        "art333_sec3_3.rape_force_subsequent_taking_precedent",
+        "art333_sec5.determine_illegal_benefit_intent",
+        "art333_sec5.illegal_benefit_intent",
+        "art333_sec6.attempt_commencement_violence_intimidation",
+        "art333_sec6.attempt_debt_evasion_killing",
+        "art333_sec6.attempt_intent_arising_after_subjugation",
+        "art333_sec6.attempt_unattained_objective"
+      ]
+    },
+    {
       "id": "robbery_requirement_waived",
       "arguments": [
         {
@@ -16084,6 +16768,10 @@
         },
         {
           "name": "issue_id",
+          "type": "String"
+        },
+        {
+          "name": "outcome_subtype",
           "type": "String"
         },
         {
@@ -60889,9 +61577,843 @@
       "review_notes": "카드·결론 충돌을 최종 결론 계층에서 검사할 2항 relation으로 모은다."
     },
     {
-      "id": "robbery.core.outcome.established",
+      "id": "robbery.art333_sec2_2.track_bar.property.001",
       "head": {
-        "predicate": "robbery_established",
+        "predicate": "robbery_property_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art333_sec2_2.incidental_incapacitation_no_robbery"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art333_sec2_2_incidental_incapacitation_no_robbery",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.2_2",
+          "quote": "후자의 경 우에는 혼취가 재물탈취의 방법으로 시용된 것이 아니므로 강도죄의 폭행 (施⽤) 에 해당한다고 보기 어렵다. 따라서 후자의 경우 우발적으로 피해자의 혼미상태 를 이용하여 탈취하더라도 강도죄는 성립하지 않는다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec2_2.incidental_incapacitation_no_robbery"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art333_sec2_3.track_bar.property.002",
+      "head": {
+        "predicate": "robbery_property_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art333_sec2_3.diversion_or_insult_violence_no_robbery"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art333_sec2_3_diversion_or_insult_violence_no_robbery",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_3",
+          "quote": "그것이 단지 피해자의 주의를 일시 다른 데에 돌려 그 사 이에 재물을 취거할 목적으로 행하여진 것으로서 상대방의 반항을 억압할 정도 의 것이 되지 못한 때 또는 재물탈취 후 피해자의 저항 배제나 범죄의 흔적 인 멸 등의 목적 없이 다만 피해자에 대한 모욕적 의사나 적개심을 표시할 목적으 로 폭행·협박을 가한 때는 폭행 또는 협박죄와 절도죄의 두 죄가 성립할 뿐이고 강도죄를 구성하지 않는다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec2_3.diversion_or_insult_violence_no_robbery"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art333_sec3_2.track_bar.property.003",
+      "head": {
+        "predicate": "robbery_property_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art333_sec3_2.post_taking_assault_no_robbery"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art333_sec3_2_post_taking_assault_no_robbery",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.2_13",
+          "quote": "이런 폭행행위가 재물탈취와 관련하여 피해자의 반항을 억압하거나 재물의 탈환, 체포면탈 또는 범죄의 흔적 인멸 등에 객관적으로 효과를 미친 경우가 아닌 한 강도죄가 성립한다고 볼 수 없다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec3_2.post_taking_assault_no_robbery"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art333_sec3_2.track_bar.property.004",
+      "head": {
+        "predicate": "robbery_property_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art333_sec3_2.voluntary_delivery_attempt"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art333_sec3_2_voluntary_delivery_attempt",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.2_12",
+          "quote": "항을 억압할 만한 폭행·협박이 있었음에도 피해자가 전혀 반항 의사가 억압된 바 없이 단지 귀찮은 생각에서 또는 연민의 정에서 재물을 교부한 경우에는 재 물의 점유탈취는 피해자의 임의의사에 의한 것이고 폭행·협박으로 인하여 반항 이 억압된 결과가 아니므로 인과관계가 없는 것이므로 강도미수죄만이 성립할 뿐이다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec3_2.voluntary_delivery_attempt"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art333_sec3_3.track_bar.property.005",
+      "head": {
+        "predicate": "robbery_property_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art333_sec3_3.unconsciousness_prior_force_no_causation"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art333_sec3_3_unconsciousness_prior_force_no_causation",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_15",
+          "quote": "위와 같은 논리는 사람을 살해한 후 비로소 재물탈취의 범의가 생겨 사자의 소 지품을 취득한 경우에도 동일하게 적용될 수 있는 것으로서 위 경우에도 역시 강도죄가 성립되지 않으며 살인죄와 절도죄의 경합범으로 보아야 한다.",
+          "section_path": "Ⅲ.3"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec3_3.unconsciousness_prior_force_no_causation"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art333_sec6.track_bar.property.006",
+      "head": {
+        "predicate": "robbery_property_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art333_sec6.no_attempt_insufficient_violence_intimidation"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art333_sec6_no_attempt_insufficient_violence_intimidation",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "폭행·협박에 착수하였다고 하여도 그것이 사회통념상 피해자의 반항을 억압할 만한 것이 못 될 때에는 강도의 착수가 있다고 보기 어려움은 물론이다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec6.no_attempt_insufficient_violence_intimidation"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art333_sec6.track_bar.property.007",
+      "head": {
+        "predicate": "robbery_property_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art333_sec6.no_attempt_without_violence_intimidation_commencement"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art333_sec6_no_attempt_without_violence_intimidation_commencement",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "폭행·협박을 예기하면서 재물탈취에 착수하였다 하여도 폭행·협박 자체에 착수 하지 않는 한 강도죄의 착수가 있었다고 볼 수 없다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec6.no_attempt_without_violence_intimidation_commencement"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art333_sec8.track_bar.property.008",
+      "head": {
+        "predicate": "robbery_property_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art333_sec8.right_exercise_robbery_negative"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art333_sec8_right_exercise_robbery_negative",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅷ_32",
+          "quote": "범인이 피해자로부터 취득할 권리가 있는 재산상의 이익은 불법의 이익 이 아니므로 이를 폭행·협박의 방법에 의하여 탈취하더라도 강도죄를 구성하지 않고 폭행죄나 협박죄가 될 뿐이라는 견해가 있다.",
+          "section_path": "Ⅷ"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec8.right_exercise_robbery_negative"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art335_sec6_1.track_bar.property.009",
+      "head": {
+        "predicate": "robbery_property_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art335_sec6_1.days_later_no_opportunity"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art335_sec6_1_days_later_no_opportunity",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제335조_Ⅵ.1_10",
+          "quote": "범행 수일 후 피해자에게 발각되어 재물탈환을 방지할 목적으로 폭행을 가 한다거나 또는 절도범이 범행 수일 후 체포하러 온 경찰관에 대하여 체포를 면 하고자 폭행을 가한 경우에는 준강도죄가 성립될 수 없다.",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "norm_card_ids": [
+        "art335_sec6_1.days_later_no_opportunity"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art335_sec6_2.track_bar.property.010",
+      "head": {
+        "predicate": "robbery_property_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art335_sec6_2.opportunity_safe_escape_limit"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art335_sec6_2_opportunity_safe_escape_limit",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제335조_Ⅵ.2_12",
+          "quote": "절도범의 폭행·협박이 원래의 절도 범행현 장으로부터 안전하게 도피하여 더는 추적이나 어떠한 체포위협도 느끼지 아니 할 정도로 시간적, 장소적 경과가 있었다면 절도 기회의 계속성을 인정하기 어 려운 경우가 많을 것이다.",
+          "section_path": "Ⅵ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art335_sec6_2.opportunity_safe_escape_limit"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art338_sec2.track_bar.property.011",
+      "head": {
+        "predicate": "robbery_property_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art338_sec2.debt_evasion_no_robbery"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art338_sec2_debt_evasion_no_robbery",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제338조_Ⅱ_1",
+          "quote": "채권자의 상속인이 존재하고 그 채권의 존재를 확인할 방법이 확보된 경 우에는 채권자를 살해하였다 한들 일시적으로 채권자의 추급을 면한 것에 불과 하고 채권자로부터 재산적 이익의 지배를 취득하였다고 보기 어려우 (또는 이전) 므로 강도가 될 수 없고, 단순한 살인죄에 불과하다고 볼 수도 있다.",
+          "section_path": "Ⅱ"
+        }
+      ],
+      "norm_card_ids": [
+        "art338_sec2.debt_evasion_no_robbery"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art338_sec3.track_bar.property.012",
+      "head": {
+        "predicate": "robbery_property_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art338_sec3.opportunity_new_intent_after_completion"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art338_sec3_opportunity_new_intent_after_completion",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제338조_Ⅲ_2",
+          "quote": "그러나 범행이 일단 종료된 후 상당한 시간이 경과된 뒤에 새로운 범의가 생겨 저지른 살해행위는 강도의 기회에 행한 것이라고 보기 어렵다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "norm_card_ids": [
+        "art338_sec3.opportunity_new_intent_after_completion"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.property.has_negative",
+      "head": {
+        "predicate": "robbery_property_has_negative",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "robbery_property_not_established",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "negative_issue_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.2_2",
+          "quote": "후자의 경 우에는 혼취가 재물탈취의 방법으로 시용된 것이 아니므로 강도죄의 폭행 (施⽤) 에 해당한다고 보기 어렵다. 따라서 후자의 경우 우발적으로 피해자의 혼미상태 를 이용하여 탈취하더라도 강도죄는 성립하지 않는다.",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_3",
+          "quote": "그것이 단지 피해자의 주의를 일시 다른 데에 돌려 그 사 이에 재물을 취거할 목적으로 행하여진 것으로서 상대방의 반항을 억압할 정도 의 것이 되지 못한 때 또는 재물탈취 후 피해자의 저항 배제나 범죄의 흔적 인 멸 등의 목적 없이 다만 피해자에 대한 모욕적 의사나 적개심을 표시할 목적으 로 폭행·협박을 가한 때는 폭행 또는 협박죄와 절도죄의 두 죄가 성립할 뿐이고 강도죄를 구성하지 않는다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.2_12",
+          "quote": "항을 억압할 만한 폭행·협박이 있었음에도 피해자가 전혀 반항 의사가 억압된 바 없이 단지 귀찮은 생각에서 또는 연민의 정에서 재물을 교부한 경우에는 재 물의 점유탈취는 피해자의 임의의사에 의한 것이고 폭행·협박으로 인하여 반항 이 억압된 결과가 아니므로 인과관계가 없는 것이므로 강도미수죄만이 성립할 뿐이다.",
+          "section_path": "Ⅲ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.2_13",
+          "quote": "이런 폭행행위가 재물탈취와 관련하여 피해자의 반항을 억압하거나 재물의 탈환, 체포면탈 또는 범죄의 흔적 인멸 등에 객관적으로 효과를 미친 경우가 아닌 한 강도죄가 성립한다고 볼 수 없다.",
+          "section_path": "Ⅲ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_15",
+          "quote": "위와 같은 논리는 사람을 살해한 후 비로소 재물탈취의 범의가 생겨 사자의 소 지품을 취득한 경우에도 동일하게 적용될 수 있는 것으로서 위 경우에도 역시 강도죄가 성립되지 않으며 살인죄와 절도죄의 경합범으로 보아야 한다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "폭행·협박에 착수하였다고 하여도 그것이 사회통념상 피해자의 반항을 억압할 만한 것이 못 될 때에는 강도의 착수가 있다고 보기 어려움은 물론이다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "폭행·협박을 예기하면서 재물탈취에 착수하였다 하여도 폭행·협박 자체에 착수 하지 않는 한 강도죄의 착수가 있었다고 볼 수 없다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅷ_32",
+          "quote": "범인이 피해자로부터 취득할 권리가 있는 재산상의 이익은 불법의 이익 이 아니므로 이를 폭행·협박의 방법에 의하여 탈취하더라도 강도죄를 구성하지 않고 폭행죄나 협박죄가 될 뿐이라는 견해가 있다.",
+          "section_path": "Ⅷ"
+        },
+        {
+          "comment_id": "comm_001692_제335조_Ⅵ.1_10",
+          "quote": "범행 수일 후 피해자에게 발각되어 재물탈환을 방지할 목적으로 폭행을 가 한다거나 또는 절도범이 범행 수일 후 체포하러 온 경찰관에 대하여 체포를 면 하고자 폭행을 가한 경우에는 준강도죄가 성립될 수 없다.",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제335조_Ⅵ.2_12",
+          "quote": "절도범의 폭행·협박이 원래의 절도 범행현 장으로부터 안전하게 도피하여 더는 추적이나 어떠한 체포위협도 느끼지 아니 할 정도로 시간적, 장소적 경과가 있었다면 절도 기회의 계속성을 인정하기 어 려운 경우가 많을 것이다.",
+          "section_path": "Ⅵ.2"
+        },
+        {
+          "comment_id": "comm_001692_제338조_Ⅱ_1",
+          "quote": "채권자의 상속인이 존재하고 그 채권의 존재를 확인할 방법이 확보된 경 우에는 채권자를 살해하였다 한들 일시적으로 채권자의 추급을 면한 것에 불과 하고 채권자로부터 재산적 이익의 지배를 취득하였다고 보기 어려우 (또는 이전) 므로 강도가 될 수 없고, 단순한 살인죄에 불과하다고 볼 수도 있다.",
+          "section_path": "Ⅱ"
+        },
+        {
+          "comment_id": "comm_001692_제338조_Ⅲ_2",
+          "quote": "그러나 범행이 일단 종료된 후 상당한 시간이 경과된 뒤에 새로운 범의가 생겨 저지른 살해행위는 강도의 기회에 행한 것이라고 보기 어렵다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec2_2.incidental_incapacitation_no_robbery",
+        "art333_sec2_3.diversion_or_insult_violence_no_robbery",
+        "art333_sec3_2.post_taking_assault_no_robbery",
+        "art333_sec3_2.voluntary_delivery_attempt",
+        "art333_sec3_3.unconsciousness_prior_force_no_causation",
+        "art333_sec6.no_attempt_insufficient_violence_intimidation",
+        "art333_sec6.no_attempt_without_violence_intimidation_commencement",
+        "art333_sec8.right_exercise_robbery_negative",
+        "art335_sec6_1.days_later_no_opportunity",
+        "art335_sec6_2.opportunity_safe_escape_limit",
+        "art338_sec2.debt_evasion_no_robbery",
+        "art338_sec3.opportunity_new_intent_after_completion"
+      ],
+      "review_notes": "'property' track에 국한된 불성립 사유를 완결 게이트가 검사할 2항 relation으로 모은다."
+    },
+    {
+      "id": "robbery.outcome.property.established",
+      "head": {
+        "predicate": "robbery_property_established",
         "arguments": [
           {
             "kind": "variable",
@@ -60918,7 +62440,7 @@
       },
       "body": [
         {
-          "predicate": "robbery_elements_satisfied",
+          "predicate": "robbery_track_property_satisfied",
           "arguments": [
             {
               "kind": "variable",
@@ -60958,7 +62480,7 @@
           "negated": false
         },
         {
-          "predicate": "robbery_has_negative",
+          "predicate": "robbery_property_has_negative",
           "arguments": [
             {
               "kind": "variable",
@@ -61109,7 +62631,1426 @@
         "art333_sec6.attempt_intent_arising_after_subjugation",
         "art333_sec6.attempt_unattained_objective"
       ],
-      "review_notes": "라우터가 선택한 사건 평가 묶음이 완결된 뒤, 성립 후보에 명시적 불성립 사유와 충돌이 모두 없을 때만 확정 성립을 출력한다. 이 두 부정은 완결 게이트 뒤 최종 층에서만 쓴다."
+      "review_notes": "'property' track의 component가 모두 충족되고, 완결 게이트 뒤 이 track 전용 불성립 사유와 사건 전체의 충돌이 모두 없을 때만 이 track의 확정 성립을 낸다."
+    },
+    {
+      "id": "robbery.core.outcome.established.union.property",
+      "head": {
+        "predicate": "robbery_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "coerced_person_id"
+          },
+          {
+            "kind": "variable",
+            "value": "owner_id"
+          },
+          {
+            "kind": "variable",
+            "value": "possessor_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "robbery_property_established",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.1_1",
+          "quote": "강도죄에서 폭행·협박은 재물탈취 283조) 의 방법으로 행하여지는 점에서 폭행죄·협박죄를 구성하는 폭행·협박과는 달리 상대방의 반항을 억압할 정도의 것이어야 하고",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.1_1",
+          "quote": "혼취나 상해, 살인 등 사람의 반항을 억압할 정도의 인신에 대한 공격행위는 비록 폭행죄에 서의 폭행의 개념에 미달하거나 초과하는 것이라도 강도죄의 폭행에 해당한다.",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.2_2",
+          "quote": "약물을 피해자에게 유효한 약제 인 것처럼 속여 스스로 복용케 한 경우나 재물탈취의 목적으로 졸음에 빠지게 하기 위하여 신경안정제를 탄 우유를 마시게 하거나 중독성 있는 약품을 탄 주 스를 마시게 하는 경우에도 강도죄의 폭행에 포함된다.",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_3",
+          "quote": "당해 범 행의 시각, 장소, 범인 및 피해자의 성별, 연령, 체력, 기타 구체적인 사정을 고 려하여 피해자에게 행사된 폭행·협박이 위와 같은 구체적 사정 아래에서 객관 적으로 일반인의 반항을 억압할 정도의 것인가 아닌가를 판단한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_4",
+          "quote": "일반인이 피해자가 당한 사정 아래에서 용이하게 완구권 총임을 간파할 수 없거나 또는 범인이 권총이나 칼을 소지한 것으로 오인한 것이 보통이라고 인정될 경우에는 반항을 억압할 정도의 협박이라고 보아야 한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_4",
+          "quote": "폭행·협박이 객관적으로 반항을 억압할 정도의 외관을 갖춘 이상 실제로는 가 해 능력이 없는 경우에도 강도죄가 성립한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_6",
+          "quote": "결국 흉기를 겨누거나 제시하는 행위 자체만으로 반항을 억압함에 족한 정도의 폭행·협박이라고 단정할 수는 없고 흉기를 겨누거나 제시할 당시 범인 의 언동, 피해자의 나이, 성별 및 범행시간과 장소 등 구체적 사정에 비추어 반 항억압의 정도인지를 판단할 수밖에 없으나",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_8",
+          "quote": "결국 위와 같은 사안은 기대되는 피해자의 반항을 억압하여 불가능하게 할 정도의 급격한 공격을 가한 경우에 해당하는 것으로서 단순히 피해자의 주의를 일시 돌리기 위한 것과는 다른 것이므로 피해자의 반항을 억압함에 족한 폭행을 방 법으로 재물을 탈취한 것에 해당한다고 보아야 한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.4_9",
+          "quote": "‘재물탈취의 목적수행에 장애 가 되는 자’이기만 하면 재물의 소유자·점유자나 재물을 보호할 지위에 있는 자 가 아니더라도 강도죄에서 폭행·협박의 상대방이 될 수 있다고 봄이 타당하 다.",
+          "section_path": "Ⅱ.4"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_14",
+          "quote": "당초에는 강도의 범의 없이 절도에 착수한 후 피해자의 저항에 부닥쳐 폭행·협박으로 이를 제압하고 재물탈취를 수행하거 나 또는 탈취한 재물의 점유확보를 위하여 폭행·협박을 사용한 경우",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_14",
+          "quote": "범인이 부녀를 강간할 목적으로 폭행·협박에 의하여 반항을 제압한 후 비로 소 소지품 탈취의 범의가 생겨 이를 탈취한 경우에 판례는 강도죄의 성립을 인 정하고 있다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_14",
+          "quote": "폭행·협박은 범의가 생기기 전후를 통하여 계속된 상태와 같아 전체적·실질적으로 단일한 재물탈취 의 범의의 실현행위로 평가할 수 있는 경우이므로 포괄하여 강도 일죄로 봄이 타당하다. 따라서 이와 같은 폭행으로 상해의 결과가 발생한 경우에는 강도상해 죄의 일죄만이 성립한다고 보아야 한다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_14",
+          "quote": "피해자를 강간한 후 피해자가 공포심으로 항거불능상태에 빠져있음을 이용하여 금품을 강탈하는 경우는 물론, 강간 피해자가 범인으로부터 폭행·협박을 받던 중 범인에게 범행 중지와 자발적 퇴거를 간청하면서 제공한 금품을 수령한 경 우에도 강도가 된다고 본다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ_10",
+          "quote": "강취란 위에서 본 바와 같은 피해자의 반항을 억압함에 족한 폭행·협박의 방법 으로 피해자로부터 그 의사에 반하여 재물의 점유를 탈취하여 자기 또는 제3자 의 지배로 이전하는 것을 말한다.",
+          "section_path": "Ⅲ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅴ_26",
+          "quote": "강도죄가 성립하려면 불법영득 또는 불법이득의 의사가 있어야 한다.",
+          "section_path": "Ⅴ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅴ_26",
+          "quote": "피고인과 피해자의 관계, 채무의 종류와 액수, 폭 행에 이르게 된 경위, 폭행의 정도와 방법, 폭행 이후의 정황 등 범행 전후의 객 관적인 사정을 종합하여 불법이득의사가 있었는지를 판단할 수밖에 없다",
+          "section_path": "Ⅴ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "강도행위의 실행의 착수 시기는 재물탈취 또는 재산상의 불법이득을 목적으로 피해자의 반항을 억압할만한 폭행·협박을 개시한 때이다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "사회통념 상 피해자의 반항을 억압할만한 폭행·협박을 가한 이상 현실적으로 피해자의 반항을 억압하지 못하고 따라서 재물탈취나 재산상 불법이득의 목적을 이루지 못한 경우에도 강도미수죄가 성립한다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "일단 폭행·협박에 의하여 피해자를 제압한 후 비로소 재물탈취 또는 재산상 이 익 취득의 범의가 생긴 때 (폭행·협박으로 조성된 피해자의 지속된 공포상태를 이용하 에는 그 범의가 생긴 시점을 실행의 착수 시기로 여 재물을 취득한 경우를 말한다) 보아야 한다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "채무면탈을 위한 채권자의 살해행위가 강도죄를 구성하는 경우 에는 살해행위에 착수한 때에 강도살인죄의 착수가 있다고 본다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec2_1.robbery_violence_incapacitating_attack",
+        "art333_sec2_1.violence_threat_resistance_suppression",
+        "art333_sec2_2.drug_induced_incapacitation_violence",
+        "art333_sec2_3.apparent_capacity_threat",
+        "art333_sec2_3.objective_resistance_suppression",
+        "art333_sec2_3.snatching_forceful_attack",
+        "art333_sec2_3.weapon_presentation_context",
+        "art333_sec2_4.target_person_obstructing_taking",
+        "art333_sec3.forcible_taking",
+        "art333_sec3_3.continuing_force_after_theft_intent",
+        "art333_sec3_3.continuing_force_single_robbery",
+        "art333_sec3_3.rape_fear_state_property_provision",
+        "art333_sec3_3.rape_force_subsequent_taking_precedent",
+        "art333_sec5.determine_illegal_benefit_intent",
+        "art333_sec5.illegal_benefit_intent",
+        "art333_sec6.attempt_commencement_violence_intimidation",
+        "art333_sec6.attempt_debt_evasion_killing",
+        "art333_sec6.attempt_intent_arising_after_subjugation",
+        "art333_sec6.attempt_unattained_objective"
+      ],
+      "review_notes": "'property' track의 확정 성립을 죄명 전체의 확정 성립으로 합친다(순수 OR, 부정 없음)."
+    },
+    {
+      "id": "robbery.art333_sec2_2.track_bar.benefit.001",
+      "head": {
+        "predicate": "robbery_benefit_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art333_sec2_2.incidental_incapacitation_no_robbery"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art333_sec2_2_incidental_incapacitation_no_robbery",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.2_2",
+          "quote": "후자의 경 우에는 혼취가 재물탈취의 방법으로 시용된 것이 아니므로 강도죄의 폭행 (施⽤) 에 해당한다고 보기 어렵다. 따라서 후자의 경우 우발적으로 피해자의 혼미상태 를 이용하여 탈취하더라도 강도죄는 성립하지 않는다.",
+          "section_path": "Ⅱ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec2_2.incidental_incapacitation_no_robbery"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art333_sec2_3.track_bar.benefit.002",
+      "head": {
+        "predicate": "robbery_benefit_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art333_sec2_3.diversion_or_insult_violence_no_robbery"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art333_sec2_3_diversion_or_insult_violence_no_robbery",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_3",
+          "quote": "그것이 단지 피해자의 주의를 일시 다른 데에 돌려 그 사 이에 재물을 취거할 목적으로 행하여진 것으로서 상대방의 반항을 억압할 정도 의 것이 되지 못한 때 또는 재물탈취 후 피해자의 저항 배제나 범죄의 흔적 인 멸 등의 목적 없이 다만 피해자에 대한 모욕적 의사나 적개심을 표시할 목적으 로 폭행·협박을 가한 때는 폭행 또는 협박죄와 절도죄의 두 죄가 성립할 뿐이고 강도죄를 구성하지 않는다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec2_3.diversion_or_insult_violence_no_robbery"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art333_sec3_2.track_bar.benefit.003",
+      "head": {
+        "predicate": "robbery_benefit_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art333_sec3_2.post_taking_assault_no_robbery"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art333_sec3_2_post_taking_assault_no_robbery",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.2_13",
+          "quote": "이런 폭행행위가 재물탈취와 관련하여 피해자의 반항을 억압하거나 재물의 탈환, 체포면탈 또는 범죄의 흔적 인멸 등에 객관적으로 효과를 미친 경우가 아닌 한 강도죄가 성립한다고 볼 수 없다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec3_2.post_taking_assault_no_robbery"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art333_sec3_2.track_bar.benefit.004",
+      "head": {
+        "predicate": "robbery_benefit_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art333_sec3_2.voluntary_delivery_attempt"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art333_sec3_2_voluntary_delivery_attempt",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.2_12",
+          "quote": "항을 억압할 만한 폭행·협박이 있었음에도 피해자가 전혀 반항 의사가 억압된 바 없이 단지 귀찮은 생각에서 또는 연민의 정에서 재물을 교부한 경우에는 재 물의 점유탈취는 피해자의 임의의사에 의한 것이고 폭행·협박으로 인하여 반항 이 억압된 결과가 아니므로 인과관계가 없는 것이므로 강도미수죄만이 성립할 뿐이다.",
+          "section_path": "Ⅲ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec3_2.voluntary_delivery_attempt"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art333_sec3_3.track_bar.benefit.005",
+      "head": {
+        "predicate": "robbery_benefit_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art333_sec3_3.unconsciousness_prior_force_no_causation"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art333_sec3_3_unconsciousness_prior_force_no_causation",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_15",
+          "quote": "위와 같은 논리는 사람을 살해한 후 비로소 재물탈취의 범의가 생겨 사자의 소 지품을 취득한 경우에도 동일하게 적용될 수 있는 것으로서 위 경우에도 역시 강도죄가 성립되지 않으며 살인죄와 절도죄의 경합범으로 보아야 한다.",
+          "section_path": "Ⅲ.3"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec3_3.unconsciousness_prior_force_no_causation"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art333_sec6.track_bar.benefit.006",
+      "head": {
+        "predicate": "robbery_benefit_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art333_sec6.no_attempt_insufficient_violence_intimidation"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art333_sec6_no_attempt_insufficient_violence_intimidation",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "폭행·협박에 착수하였다고 하여도 그것이 사회통념상 피해자의 반항을 억압할 만한 것이 못 될 때에는 강도의 착수가 있다고 보기 어려움은 물론이다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec6.no_attempt_insufficient_violence_intimidation"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art333_sec6.track_bar.benefit.007",
+      "head": {
+        "predicate": "robbery_benefit_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art333_sec6.no_attempt_without_violence_intimidation_commencement"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art333_sec6_no_attempt_without_violence_intimidation_commencement",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "폭행·협박을 예기하면서 재물탈취에 착수하였다 하여도 폭행·협박 자체에 착수 하지 않는 한 강도죄의 착수가 있었다고 볼 수 없다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec6.no_attempt_without_violence_intimidation_commencement"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art333_sec8.track_bar.benefit.008",
+      "head": {
+        "predicate": "robbery_benefit_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art333_sec8.right_exercise_robbery_negative"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art333_sec8_right_exercise_robbery_negative",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅷ_32",
+          "quote": "범인이 피해자로부터 취득할 권리가 있는 재산상의 이익은 불법의 이익 이 아니므로 이를 폭행·협박의 방법에 의하여 탈취하더라도 강도죄를 구성하지 않고 폭행죄나 협박죄가 될 뿐이라는 견해가 있다.",
+          "section_path": "Ⅷ"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec8.right_exercise_robbery_negative"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art335_sec6_1.track_bar.benefit.009",
+      "head": {
+        "predicate": "robbery_benefit_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art335_sec6_1.days_later_no_opportunity"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art335_sec6_1_days_later_no_opportunity",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제335조_Ⅵ.1_10",
+          "quote": "범행 수일 후 피해자에게 발각되어 재물탈환을 방지할 목적으로 폭행을 가 한다거나 또는 절도범이 범행 수일 후 체포하러 온 경찰관에 대하여 체포를 면 하고자 폭행을 가한 경우에는 준강도죄가 성립될 수 없다.",
+          "section_path": "Ⅵ.1"
+        }
+      ],
+      "norm_card_ids": [
+        "art335_sec6_1.days_later_no_opportunity"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art335_sec6_2.track_bar.benefit.010",
+      "head": {
+        "predicate": "robbery_benefit_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art335_sec6_2.opportunity_safe_escape_limit"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art335_sec6_2_opportunity_safe_escape_limit",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제335조_Ⅵ.2_12",
+          "quote": "절도범의 폭행·협박이 원래의 절도 범행현 장으로부터 안전하게 도피하여 더는 추적이나 어떠한 체포위협도 느끼지 아니 할 정도로 시간적, 장소적 경과가 있었다면 절도 기회의 계속성을 인정하기 어 려운 경우가 많을 것이다.",
+          "section_path": "Ⅵ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art335_sec6_2.opportunity_safe_escape_limit"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art338_sec2.track_bar.benefit.011",
+      "head": {
+        "predicate": "robbery_benefit_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art338_sec2.debt_evasion_no_robbery"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art338_sec2_debt_evasion_no_robbery",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제338조_Ⅱ_1",
+          "quote": "채권자의 상속인이 존재하고 그 채권의 존재를 확인할 방법이 확보된 경 우에는 채권자를 살해하였다 한들 일시적으로 채권자의 추급을 면한 것에 불과 하고 채권자로부터 재산적 이익의 지배를 취득하였다고 보기 어려우 (또는 이전) 므로 강도가 될 수 없고, 단순한 살인죄에 불과하다고 볼 수도 있다.",
+          "section_path": "Ⅱ"
+        }
+      ],
+      "norm_card_ids": [
+        "art338_sec2.debt_evasion_no_robbery"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.art338_sec3.track_bar.benefit.012",
+      "head": {
+        "predicate": "robbery_benefit_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art338_sec3.opportunity_new_intent_after_completion"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art338_sec3_opportunity_new_intent_after_completion",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제338조_Ⅲ_2",
+          "quote": "그러나 범행이 일단 종료된 후 상당한 시간이 경과된 뒤에 새로운 범의가 생겨 저지른 살해행위는 강도의 기회에 행한 것이라고 보기 어렵다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "norm_card_ids": [
+        "art338_sec3.opportunity_new_intent_after_completion"
+      ],
+      "review_notes": "이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다."
+    },
+    {
+      "id": "robbery.benefit.has_negative",
+      "head": {
+        "predicate": "robbery_benefit_has_negative",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "robbery_benefit_not_established",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "negative_issue_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.2_2",
+          "quote": "후자의 경 우에는 혼취가 재물탈취의 방법으로 시용된 것이 아니므로 강도죄의 폭행 (施⽤) 에 해당한다고 보기 어렵다. 따라서 후자의 경우 우발적으로 피해자의 혼미상태 를 이용하여 탈취하더라도 강도죄는 성립하지 않는다.",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_3",
+          "quote": "그것이 단지 피해자의 주의를 일시 다른 데에 돌려 그 사 이에 재물을 취거할 목적으로 행하여진 것으로서 상대방의 반항을 억압할 정도 의 것이 되지 못한 때 또는 재물탈취 후 피해자의 저항 배제나 범죄의 흔적 인 멸 등의 목적 없이 다만 피해자에 대한 모욕적 의사나 적개심을 표시할 목적으 로 폭행·협박을 가한 때는 폭행 또는 협박죄와 절도죄의 두 죄가 성립할 뿐이고 강도죄를 구성하지 않는다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.2_12",
+          "quote": "항을 억압할 만한 폭행·협박이 있었음에도 피해자가 전혀 반항 의사가 억압된 바 없이 단지 귀찮은 생각에서 또는 연민의 정에서 재물을 교부한 경우에는 재 물의 점유탈취는 피해자의 임의의사에 의한 것이고 폭행·협박으로 인하여 반항 이 억압된 결과가 아니므로 인과관계가 없는 것이므로 강도미수죄만이 성립할 뿐이다.",
+          "section_path": "Ⅲ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.2_13",
+          "quote": "이런 폭행행위가 재물탈취와 관련하여 피해자의 반항을 억압하거나 재물의 탈환, 체포면탈 또는 범죄의 흔적 인멸 등에 객관적으로 효과를 미친 경우가 아닌 한 강도죄가 성립한다고 볼 수 없다.",
+          "section_path": "Ⅲ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_15",
+          "quote": "위와 같은 논리는 사람을 살해한 후 비로소 재물탈취의 범의가 생겨 사자의 소 지품을 취득한 경우에도 동일하게 적용될 수 있는 것으로서 위 경우에도 역시 강도죄가 성립되지 않으며 살인죄와 절도죄의 경합범으로 보아야 한다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "폭행·협박에 착수하였다고 하여도 그것이 사회통념상 피해자의 반항을 억압할 만한 것이 못 될 때에는 강도의 착수가 있다고 보기 어려움은 물론이다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "폭행·협박을 예기하면서 재물탈취에 착수하였다 하여도 폭행·협박 자체에 착수 하지 않는 한 강도죄의 착수가 있었다고 볼 수 없다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅷ_32",
+          "quote": "범인이 피해자로부터 취득할 권리가 있는 재산상의 이익은 불법의 이익 이 아니므로 이를 폭행·협박의 방법에 의하여 탈취하더라도 강도죄를 구성하지 않고 폭행죄나 협박죄가 될 뿐이라는 견해가 있다.",
+          "section_path": "Ⅷ"
+        },
+        {
+          "comment_id": "comm_001692_제335조_Ⅵ.1_10",
+          "quote": "범행 수일 후 피해자에게 발각되어 재물탈환을 방지할 목적으로 폭행을 가 한다거나 또는 절도범이 범행 수일 후 체포하러 온 경찰관에 대하여 체포를 면 하고자 폭행을 가한 경우에는 준강도죄가 성립될 수 없다.",
+          "section_path": "Ⅵ.1"
+        },
+        {
+          "comment_id": "comm_001692_제335조_Ⅵ.2_12",
+          "quote": "절도범의 폭행·협박이 원래의 절도 범행현 장으로부터 안전하게 도피하여 더는 추적이나 어떠한 체포위협도 느끼지 아니 할 정도로 시간적, 장소적 경과가 있었다면 절도 기회의 계속성을 인정하기 어 려운 경우가 많을 것이다.",
+          "section_path": "Ⅵ.2"
+        },
+        {
+          "comment_id": "comm_001692_제338조_Ⅱ_1",
+          "quote": "채권자의 상속인이 존재하고 그 채권의 존재를 확인할 방법이 확보된 경 우에는 채권자를 살해하였다 한들 일시적으로 채권자의 추급을 면한 것에 불과 하고 채권자로부터 재산적 이익의 지배를 취득하였다고 보기 어려우 (또는 이전) 므로 강도가 될 수 없고, 단순한 살인죄에 불과하다고 볼 수도 있다.",
+          "section_path": "Ⅱ"
+        },
+        {
+          "comment_id": "comm_001692_제338조_Ⅲ_2",
+          "quote": "그러나 범행이 일단 종료된 후 상당한 시간이 경과된 뒤에 새로운 범의가 생겨 저지른 살해행위는 강도의 기회에 행한 것이라고 보기 어렵다.",
+          "section_path": "Ⅲ"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec2_2.incidental_incapacitation_no_robbery",
+        "art333_sec2_3.diversion_or_insult_violence_no_robbery",
+        "art333_sec3_2.post_taking_assault_no_robbery",
+        "art333_sec3_2.voluntary_delivery_attempt",
+        "art333_sec3_3.unconsciousness_prior_force_no_causation",
+        "art333_sec6.no_attempt_insufficient_violence_intimidation",
+        "art333_sec6.no_attempt_without_violence_intimidation_commencement",
+        "art333_sec8.right_exercise_robbery_negative",
+        "art335_sec6_1.days_later_no_opportunity",
+        "art335_sec6_2.opportunity_safe_escape_limit",
+        "art338_sec2.debt_evasion_no_robbery",
+        "art338_sec3.opportunity_new_intent_after_completion"
+      ],
+      "review_notes": "'benefit' track에 국한된 불성립 사유를 완결 게이트가 검사할 2항 relation으로 모은다."
+    },
+    {
+      "id": "robbery.outcome.benefit.established",
+      "head": {
+        "predicate": "robbery_benefit_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "coerced_person_id"
+          },
+          {
+            "kind": "variable",
+            "value": "owner_id"
+          },
+          {
+            "kind": "variable",
+            "value": "possessor_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "robbery_track_benefit_satisfied",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "case_assessment_complete",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "robbery_benefit_has_negative",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            }
+          ],
+          "negated": true
+        },
+        {
+          "predicate": "robbery_has_conflict",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            }
+          ],
+          "negated": true
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.1_1",
+          "quote": "강도죄에서 폭행·협박은 재물탈취 283조) 의 방법으로 행하여지는 점에서 폭행죄·협박죄를 구성하는 폭행·협박과는 달리 상대방의 반항을 억압할 정도의 것이어야 하고",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.1_1",
+          "quote": "혼취나 상해, 살인 등 사람의 반항을 억압할 정도의 인신에 대한 공격행위는 비록 폭행죄에 서의 폭행의 개념에 미달하거나 초과하는 것이라도 강도죄의 폭행에 해당한다.",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.2_2",
+          "quote": "약물을 피해자에게 유효한 약제 인 것처럼 속여 스스로 복용케 한 경우나 재물탈취의 목적으로 졸음에 빠지게 하기 위하여 신경안정제를 탄 우유를 마시게 하거나 중독성 있는 약품을 탄 주 스를 마시게 하는 경우에도 강도죄의 폭행에 포함된다.",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_3",
+          "quote": "당해 범 행의 시각, 장소, 범인 및 피해자의 성별, 연령, 체력, 기타 구체적인 사정을 고 려하여 피해자에게 행사된 폭행·협박이 위와 같은 구체적 사정 아래에서 객관 적으로 일반인의 반항을 억압할 정도의 것인가 아닌가를 판단한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_4",
+          "quote": "일반인이 피해자가 당한 사정 아래에서 용이하게 완구권 총임을 간파할 수 없거나 또는 범인이 권총이나 칼을 소지한 것으로 오인한 것이 보통이라고 인정될 경우에는 반항을 억압할 정도의 협박이라고 보아야 한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_4",
+          "quote": "폭행·협박이 객관적으로 반항을 억압할 정도의 외관을 갖춘 이상 실제로는 가 해 능력이 없는 경우에도 강도죄가 성립한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_6",
+          "quote": "결국 흉기를 겨누거나 제시하는 행위 자체만으로 반항을 억압함에 족한 정도의 폭행·협박이라고 단정할 수는 없고 흉기를 겨누거나 제시할 당시 범인 의 언동, 피해자의 나이, 성별 및 범행시간과 장소 등 구체적 사정에 비추어 반 항억압의 정도인지를 판단할 수밖에 없으나",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_8",
+          "quote": "결국 위와 같은 사안은 기대되는 피해자의 반항을 억압하여 불가능하게 할 정도의 급격한 공격을 가한 경우에 해당하는 것으로서 단순히 피해자의 주의를 일시 돌리기 위한 것과는 다른 것이므로 피해자의 반항을 억압함에 족한 폭행을 방 법으로 재물을 탈취한 것에 해당한다고 보아야 한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.4_9",
+          "quote": "‘재물탈취의 목적수행에 장애 가 되는 자’이기만 하면 재물의 소유자·점유자나 재물을 보호할 지위에 있는 자 가 아니더라도 강도죄에서 폭행·협박의 상대방이 될 수 있다고 봄이 타당하 다.",
+          "section_path": "Ⅱ.4"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_14",
+          "quote": "당초에는 강도의 범의 없이 절도에 착수한 후 피해자의 저항에 부닥쳐 폭행·협박으로 이를 제압하고 재물탈취를 수행하거 나 또는 탈취한 재물의 점유확보를 위하여 폭행·협박을 사용한 경우",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_14",
+          "quote": "범인이 부녀를 강간할 목적으로 폭행·협박에 의하여 반항을 제압한 후 비로 소 소지품 탈취의 범의가 생겨 이를 탈취한 경우에 판례는 강도죄의 성립을 인 정하고 있다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_14",
+          "quote": "폭행·협박은 범의가 생기기 전후를 통하여 계속된 상태와 같아 전체적·실질적으로 단일한 재물탈취 의 범의의 실현행위로 평가할 수 있는 경우이므로 포괄하여 강도 일죄로 봄이 타당하다. 따라서 이와 같은 폭행으로 상해의 결과가 발생한 경우에는 강도상해 죄의 일죄만이 성립한다고 보아야 한다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_14",
+          "quote": "피해자를 강간한 후 피해자가 공포심으로 항거불능상태에 빠져있음을 이용하여 금품을 강탈하는 경우는 물론, 강간 피해자가 범인으로부터 폭행·협박을 받던 중 범인에게 범행 중지와 자발적 퇴거를 간청하면서 제공한 금품을 수령한 경 우에도 강도가 된다고 본다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ_10",
+          "quote": "강취란 위에서 본 바와 같은 피해자의 반항을 억압함에 족한 폭행·협박의 방법 으로 피해자로부터 그 의사에 반하여 재물의 점유를 탈취하여 자기 또는 제3자 의 지배로 이전하는 것을 말한다.",
+          "section_path": "Ⅲ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅴ_26",
+          "quote": "강도죄가 성립하려면 불법영득 또는 불법이득의 의사가 있어야 한다.",
+          "section_path": "Ⅴ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅴ_26",
+          "quote": "피고인과 피해자의 관계, 채무의 종류와 액수, 폭 행에 이르게 된 경위, 폭행의 정도와 방법, 폭행 이후의 정황 등 범행 전후의 객 관적인 사정을 종합하여 불법이득의사가 있었는지를 판단할 수밖에 없다",
+          "section_path": "Ⅴ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "강도행위의 실행의 착수 시기는 재물탈취 또는 재산상의 불법이득을 목적으로 피해자의 반항을 억압할만한 폭행·협박을 개시한 때이다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "사회통념 상 피해자의 반항을 억압할만한 폭행·협박을 가한 이상 현실적으로 피해자의 반항을 억압하지 못하고 따라서 재물탈취나 재산상 불법이득의 목적을 이루지 못한 경우에도 강도미수죄가 성립한다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "일단 폭행·협박에 의하여 피해자를 제압한 후 비로소 재물탈취 또는 재산상 이 익 취득의 범의가 생긴 때 (폭행·협박으로 조성된 피해자의 지속된 공포상태를 이용하 에는 그 범의가 생긴 시점을 실행의 착수 시기로 여 재물을 취득한 경우를 말한다) 보아야 한다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "채무면탈을 위한 채권자의 살해행위가 강도죄를 구성하는 경우 에는 살해행위에 착수한 때에 강도살인죄의 착수가 있다고 본다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec2_1.robbery_violence_incapacitating_attack",
+        "art333_sec2_1.violence_threat_resistance_suppression",
+        "art333_sec2_2.drug_induced_incapacitation_violence",
+        "art333_sec2_3.apparent_capacity_threat",
+        "art333_sec2_3.objective_resistance_suppression",
+        "art333_sec2_3.snatching_forceful_attack",
+        "art333_sec2_3.weapon_presentation_context",
+        "art333_sec2_4.target_person_obstructing_taking",
+        "art333_sec3.forcible_taking",
+        "art333_sec3_3.continuing_force_after_theft_intent",
+        "art333_sec3_3.continuing_force_single_robbery",
+        "art333_sec3_3.rape_fear_state_property_provision",
+        "art333_sec3_3.rape_force_subsequent_taking_precedent",
+        "art333_sec5.determine_illegal_benefit_intent",
+        "art333_sec5.illegal_benefit_intent",
+        "art333_sec6.attempt_commencement_violence_intimidation",
+        "art333_sec6.attempt_debt_evasion_killing",
+        "art333_sec6.attempt_intent_arising_after_subjugation",
+        "art333_sec6.attempt_unattained_objective"
+      ],
+      "review_notes": "'benefit' track의 component가 모두 충족되고, 완결 게이트 뒤 이 track 전용 불성립 사유와 사건 전체의 충돌이 모두 없을 때만 이 track의 확정 성립을 낸다."
+    },
+    {
+      "id": "robbery.core.outcome.established.union.benefit",
+      "head": {
+        "predicate": "robbery_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "coerced_person_id"
+          },
+          {
+            "kind": "variable",
+            "value": "owner_id"
+          },
+          {
+            "kind": "variable",
+            "value": "possessor_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "robbery_benefit_established",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "coerced_person_id"
+            },
+            {
+              "kind": "variable",
+              "value": "owner_id"
+            },
+            {
+              "kind": "variable",
+              "value": "possessor_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.1_1",
+          "quote": "강도죄에서 폭행·협박은 재물탈취 283조) 의 방법으로 행하여지는 점에서 폭행죄·협박죄를 구성하는 폭행·협박과는 달리 상대방의 반항을 억압할 정도의 것이어야 하고",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.1_1",
+          "quote": "혼취나 상해, 살인 등 사람의 반항을 억압할 정도의 인신에 대한 공격행위는 비록 폭행죄에 서의 폭행의 개념에 미달하거나 초과하는 것이라도 강도죄의 폭행에 해당한다.",
+          "section_path": "Ⅱ.1"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.2_2",
+          "quote": "약물을 피해자에게 유효한 약제 인 것처럼 속여 스스로 복용케 한 경우나 재물탈취의 목적으로 졸음에 빠지게 하기 위하여 신경안정제를 탄 우유를 마시게 하거나 중독성 있는 약품을 탄 주 스를 마시게 하는 경우에도 강도죄의 폭행에 포함된다.",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_3",
+          "quote": "당해 범 행의 시각, 장소, 범인 및 피해자의 성별, 연령, 체력, 기타 구체적인 사정을 고 려하여 피해자에게 행사된 폭행·협박이 위와 같은 구체적 사정 아래에서 객관 적으로 일반인의 반항을 억압할 정도의 것인가 아닌가를 판단한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_4",
+          "quote": "일반인이 피해자가 당한 사정 아래에서 용이하게 완구권 총임을 간파할 수 없거나 또는 범인이 권총이나 칼을 소지한 것으로 오인한 것이 보통이라고 인정될 경우에는 반항을 억압할 정도의 협박이라고 보아야 한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_4",
+          "quote": "폭행·협박이 객관적으로 반항을 억압할 정도의 외관을 갖춘 이상 실제로는 가 해 능력이 없는 경우에도 강도죄가 성립한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_6",
+          "quote": "결국 흉기를 겨누거나 제시하는 행위 자체만으로 반항을 억압함에 족한 정도의 폭행·협박이라고 단정할 수는 없고 흉기를 겨누거나 제시할 당시 범인 의 언동, 피해자의 나이, 성별 및 범행시간과 장소 등 구체적 사정에 비추어 반 항억압의 정도인지를 판단할 수밖에 없으나",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.3_8",
+          "quote": "결국 위와 같은 사안은 기대되는 피해자의 반항을 억압하여 불가능하게 할 정도의 급격한 공격을 가한 경우에 해당하는 것으로서 단순히 피해자의 주의를 일시 돌리기 위한 것과는 다른 것이므로 피해자의 반항을 억압함에 족한 폭행을 방 법으로 재물을 탈취한 것에 해당한다고 보아야 한다.",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅱ.4_9",
+          "quote": "‘재물탈취의 목적수행에 장애 가 되는 자’이기만 하면 재물의 소유자·점유자나 재물을 보호할 지위에 있는 자 가 아니더라도 강도죄에서 폭행·협박의 상대방이 될 수 있다고 봄이 타당하 다.",
+          "section_path": "Ⅱ.4"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_14",
+          "quote": "당초에는 강도의 범의 없이 절도에 착수한 후 피해자의 저항에 부닥쳐 폭행·협박으로 이를 제압하고 재물탈취를 수행하거 나 또는 탈취한 재물의 점유확보를 위하여 폭행·협박을 사용한 경우",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_14",
+          "quote": "범인이 부녀를 강간할 목적으로 폭행·협박에 의하여 반항을 제압한 후 비로 소 소지품 탈취의 범의가 생겨 이를 탈취한 경우에 판례는 강도죄의 성립을 인 정하고 있다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_14",
+          "quote": "폭행·협박은 범의가 생기기 전후를 통하여 계속된 상태와 같아 전체적·실질적으로 단일한 재물탈취 의 범의의 실현행위로 평가할 수 있는 경우이므로 포괄하여 강도 일죄로 봄이 타당하다. 따라서 이와 같은 폭행으로 상해의 결과가 발생한 경우에는 강도상해 죄의 일죄만이 성립한다고 보아야 한다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ.3_14",
+          "quote": "피해자를 강간한 후 피해자가 공포심으로 항거불능상태에 빠져있음을 이용하여 금품을 강탈하는 경우는 물론, 강간 피해자가 범인으로부터 폭행·협박을 받던 중 범인에게 범행 중지와 자발적 퇴거를 간청하면서 제공한 금품을 수령한 경 우에도 강도가 된다고 본다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅲ_10",
+          "quote": "강취란 위에서 본 바와 같은 피해자의 반항을 억압함에 족한 폭행·협박의 방법 으로 피해자로부터 그 의사에 반하여 재물의 점유를 탈취하여 자기 또는 제3자 의 지배로 이전하는 것을 말한다.",
+          "section_path": "Ⅲ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅴ_26",
+          "quote": "강도죄가 성립하려면 불법영득 또는 불법이득의 의사가 있어야 한다.",
+          "section_path": "Ⅴ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅴ_26",
+          "quote": "피고인과 피해자의 관계, 채무의 종류와 액수, 폭 행에 이르게 된 경위, 폭행의 정도와 방법, 폭행 이후의 정황 등 범행 전후의 객 관적인 사정을 종합하여 불법이득의사가 있었는지를 판단할 수밖에 없다",
+          "section_path": "Ⅴ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "강도행위의 실행의 착수 시기는 재물탈취 또는 재산상의 불법이득을 목적으로 피해자의 반항을 억압할만한 폭행·협박을 개시한 때이다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "사회통념 상 피해자의 반항을 억압할만한 폭행·협박을 가한 이상 현실적으로 피해자의 반항을 억압하지 못하고 따라서 재물탈취나 재산상 불법이득의 목적을 이루지 못한 경우에도 강도미수죄가 성립한다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "일단 폭행·협박에 의하여 피해자를 제압한 후 비로소 재물탈취 또는 재산상 이 익 취득의 범의가 생긴 때 (폭행·협박으로 조성된 피해자의 지속된 공포상태를 이용하 에는 그 범의가 생긴 시점을 실행의 착수 시기로 여 재물을 취득한 경우를 말한다) 보아야 한다.",
+          "section_path": "Ⅵ"
+        },
+        {
+          "comment_id": "comm_001692_제333조_Ⅵ_28",
+          "quote": "채무면탈을 위한 채권자의 살해행위가 강도죄를 구성하는 경우 에는 살해행위에 착수한 때에 강도살인죄의 착수가 있다고 본다.",
+          "section_path": "Ⅵ"
+        }
+      ],
+      "norm_card_ids": [
+        "art333_sec2_1.robbery_violence_incapacitating_attack",
+        "art333_sec2_1.violence_threat_resistance_suppression",
+        "art333_sec2_2.drug_induced_incapacitation_violence",
+        "art333_sec2_3.apparent_capacity_threat",
+        "art333_sec2_3.objective_resistance_suppression",
+        "art333_sec2_3.snatching_forceful_attack",
+        "art333_sec2_3.weapon_presentation_context",
+        "art333_sec2_4.target_person_obstructing_taking",
+        "art333_sec3.forcible_taking",
+        "art333_sec3_3.continuing_force_after_theft_intent",
+        "art333_sec3_3.continuing_force_single_robbery",
+        "art333_sec3_3.rape_fear_state_property_provision",
+        "art333_sec3_3.rape_force_subsequent_taking_precedent",
+        "art333_sec5.determine_illegal_benefit_intent",
+        "art333_sec5.illegal_benefit_intent",
+        "art333_sec6.attempt_commencement_violence_intimidation",
+        "art333_sec6.attempt_debt_evasion_killing",
+        "art333_sec6.attempt_intent_arising_after_subjugation",
+        "art333_sec6.attempt_unattained_objective"
+      ],
+      "review_notes": "'benefit' track의 확정 성립을 죄명 전체의 확정 성립으로 합친다(순수 OR, 부정 없음)."
     },
     {
       "id": "robbery.art333_sec7_1.requirement_waived.001",
@@ -61841,6 +64782,10 @@
           {
             "kind": "string",
             "value": "art343_sec3.abandonment_before_execution_denied"
+          },
+          {
+            "kind": "string",
+            "value": "mitigation_unavailable"
           },
           {
             "kind": "string",

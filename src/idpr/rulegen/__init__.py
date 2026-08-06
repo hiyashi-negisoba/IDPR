@@ -5,7 +5,7 @@ from __future__ import annotations
 import copy
 import json
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from difflib import SequenceMatcher
 from functools import lru_cache
 from pathlib import Path
@@ -884,9 +884,18 @@ class RuleIRGenerationProfile:
     established_predicate: str
     same_variable_head_indices: tuple[tuple[int, int], ...] = ()
     same_variable_message: str = ""
+    # A unit whose 행위태양 run in parallel (강도의 재물강취/이득강취, 장물의 취득·보관 등)
+    # cannot gate establishment through one shared negation: a bar that only concerns one
+    # track must not cost the others theirs.  Each entry names an *additional* rule id that
+    # may carry negation, mapped to the exact predicates it may negate — mirroring
+    # ``outcome_rule_id``/``final_negation`` but per track.  A unit with no parallel tracks
+    # leaves this empty and keeps the single-rule contract unchanged (검수 003).
+    track_outcome_rules: Mapping[str, frozenset[str]] = field(default_factory=dict)
 
     @classmethod
-    def for_crime(cls, issue_tag: str, actor_roles: Sequence[str]) -> "RuleIRGenerationProfile":
+    def for_crime(
+        cls, issue_tag: str, actor_roles: Sequence[str], *, tracks: Sequence[str] = (),
+    ) -> "RuleIRGenerationProfile":
         """죄명 단위의 표준 프로필 — 역할 슬롯만 주면 나머지는 규약으로 정해진다."""
 
         established = tuple(["case_id", *actor_roles])
@@ -904,6 +913,11 @@ class RuleIRGenerationProfile:
             final_negation=frozenset({f"{issue_tag}_has_negative",
                                       f"{issue_tag}_has_conflict"}),
             established_predicate=f"{issue_tag}_established",
+            track_outcome_rules={
+                f"{issue_tag}.outcome.{track}.established": frozenset(
+                    {f"{issue_tag}_{track}_has_negative", f"{issue_tag}_has_conflict"})
+                for track in tracks
+            },
         )
 
 
@@ -1088,17 +1102,22 @@ def validate_full_rule_ir_generation(
             if atom.get("negated", False)
         }
         if negated_predicates:
-            allowed_final_negation = set(profile.final_negation)
             positive_predicates = {
                 atom.get("predicate", "")
                 for atom in body
                 if not atom.get("negated", False)
             }
-            if rule.get("id") != profile.outcome_rule_id:
+            rule_id = rule.get("id")
+            if rule_id == profile.outcome_rule_id:
+                allowed_final_negation = set(profile.final_negation)
+            elif rule_id in profile.track_outcome_rules:
+                allowed_final_negation = set(profile.track_outcome_rules[rule_id])
+            else:
                 errors.append(
                     f"rules[{rule_index}] uses negation outside the final outcome stratum"
                 )
-            if negated_predicates != allowed_final_negation:
+                allowed_final_negation = None
+            if allowed_final_negation is not None and negated_predicates != allowed_final_negation:
                 errors.append(
                     f"rules[{rule_index}] must negate exactly the closed negative and "
                     "conflict summaries"

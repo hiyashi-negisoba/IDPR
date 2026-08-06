@@ -22,7 +22,11 @@ from idpr.rulegen.registry import (
     build_registry,
     resolve_unit,
 )
-from idpr.rulegen.scallop_runtime import run_scenario, sha256_file
+from idpr.rulegen.scallop_runtime import (
+    ScallopFactValidationError,
+    run_scenario,
+    sha256_file,
+)
 
 
 DEFAULT_SCLI = PROJECT_ROOT / "tools/scallop/scli-0.2.4-linux-x86_64"
@@ -53,9 +57,16 @@ def closed_unit_catalog(*, root: Path = PROJECT_ROOT) -> list[dict[str, Any]]:
 
 
 def closed_issue_selection_schema(
-    *, case_id: str, root: Path = PROJECT_ROOT
+    *, case_id: str, root: Path = PROJECT_ROOT, min_items: int = 1
 ) -> dict[str, Any]:
-    """Return the registry-enumerated issue-selection grammar."""
+    """Return the registry-enumerated issue-selection grammar.
+
+    ``min_items`` is 1 for the model's raw output — it must always name at
+    least one issue. It is 0 when the same schema re-validates a selection
+    after per-issue rejection has already filtered it: every issue in the
+    case can legitimately end up rejected, and that is a degraded case, not
+    a payload unusable as a whole.
+    """
 
     unit_ids = sorted(build_registry(root))
     return {
@@ -69,7 +80,7 @@ def closed_issue_selection_schema(
             "case_id": {"const": case_id},
             "issues": {
                 "type": "array",
-                "minItems": 1,
+                "minItems": min_items,
                 "maxItems": 24,
                 "items": {
                     "type": "object",
@@ -114,6 +125,7 @@ def validate_closed_issue_selection(
     case_id: str,
     case_text: str,
     root: Path = PROJECT_ROOT,
+    min_items: int = 1,
 ) -> list[dict[str, str]]:
     """Reject invented units, invalid roles, forward dependencies, and fake quotes.
 
@@ -128,7 +140,8 @@ def validate_closed_issue_selection(
     """
 
     errors = _schema_errors(
-        closed_issue_selection_schema(case_id=case_id, root=root), payload
+        closed_issue_selection_schema(case_id=case_id, root=root, min_items=min_items),
+        payload,
     )
     rejected: list[dict[str, str]] = []
     registry = build_registry(root)
@@ -219,11 +232,15 @@ def selected_predicate_requests(
 
     case_id = str(case.get("sub_question_id", ""))
     case_text = str(case.get("question_text", ""))
+    # The caller already ran validate_closed_issue_selection on the model's raw
+    # output and stripped every issue that failed it; an empty result here is
+    # a case where all issues were rejected, not a malformed payload.
     validate_closed_issue_selection(
         selection,
         case_id=case_id,
         case_text=case_text,
         root=root,
+        min_items=0,
     )
     requests: list[dict[str, Any]] = []
     for issue in selection["issues"]:
@@ -660,9 +677,17 @@ def execute_native_case(
         )
         if entry.shared_module:
             if not dependencies:
-                raise NativeHostError(
-                    f"{issue_id}: shared module requires dependency bridge"
-                )
+                # The model selected a bridge-only unit (e.g. a shared 미수/죄수
+                # module) as if it stood on its own, with nothing for it to
+                # bridge from. That is a defect in this one issue's selection,
+                # not grounds to discard every other issue the case ran fine —
+                # same per-issue degradation as a rejected issue selection.
+                results[issue_id] = {
+                    "status": "shared_module_missing_dependency",
+                    "issue_id": issue_id,
+                    "unit_id": unit_id,
+                }
+                continue
         else:
             # A non-shared unit is decided on its own facts.  Issue selection
             # may report a narrative link (상해죄 "depends on" 객체의 착오), but
@@ -684,16 +709,28 @@ def execute_native_case(
                 "unavailable": unavailable,
             }
             continue
-        results[issue_id] = execute_native_unit(
-            issue_id=issue_id,
-            unit_id=unit_id,
-            case_id=case_id,
-            case_text=case_text,
-            assessment_payload=run["assessment_payload"],
-            root=root,
-            scli_path=scli_path,
-            work_dir=work_dir / issue_id,
-        )
+        try:
+            results[issue_id] = execute_native_unit(
+                issue_id=issue_id,
+                unit_id=unit_id,
+                case_id=case_id,
+                case_text=case_text,
+                assessment_payload=run["assessment_payload"],
+                root=root,
+                scli_path=scli_path,
+                work_dir=work_dir / issue_id,
+            )
+        except (NativeHostError, ScallopFactValidationError) as exc:
+            # The assessment passed its own contract but produced facts the
+            # committed Scallop program cannot run on (e.g. entity ids outside
+            # the actor tuple). That is a defect in this one issue's symbolic
+            # execution, not grounds to discard every other issue in the case.
+            results[issue_id] = {
+                "status": "symbolic_execution_failed",
+                "issue_id": issue_id,
+                "unit_id": unit_id,
+                "reason": str(exc),
+            }
     directives = [
         {
             "issue_id": issue_id,

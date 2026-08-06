@@ -1583,6 +1583,36 @@ type robbery_track_property_satisfied(String, String, String, String, String)
 // norm_cards: art333.illegal_cause_debt_evasion_robbery_murder, art333_sec4_1.apparent_property_benefit, art333_sec4_1.property_benefit, art333_sec4_2.debt_evasion_benefit_transfer, art333_sec4_2.debt_evasion_disposition_not_required, art333_sec7_2.completion_forcible_gain
 type robbery_track_benefit_satisfied(String, String, String, String, String)
 
+// robbery_property_not_established: 'property' track에 국한된 명시적 불성립 사유가 존재함
+// sources: comm_001692_제333조_Ⅱ.2_2, comm_001692_제333조_Ⅱ.3_3, comm_001692_제333조_Ⅲ.2_12, comm_001692_제333조_Ⅲ.2_13, comm_001692_제333조_Ⅲ.3_15, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅷ_32, comm_001692_제335조_Ⅵ.1_10, comm_001692_제335조_Ⅵ.2_12, comm_001692_제338조_Ⅱ_1, comm_001692_제338조_Ⅲ_2
+// norm_cards: art333_sec2_2.incidental_incapacitation_no_robbery, art333_sec2_3.diversion_or_insult_violence_no_robbery, art333_sec3_2.post_taking_assault_no_robbery, art333_sec3_2.voluntary_delivery_attempt, art333_sec3_3.unconsciousness_prior_force_no_causation, art333_sec6.no_attempt_insufficient_violence_intimidation, art333_sec6.no_attempt_without_violence_intimidation_commencement, art333_sec8.right_exercise_robbery_negative, art335_sec6_1.days_later_no_opportunity, art335_sec6_2.opportunity_safe_escape_limit, art338_sec2.debt_evasion_no_robbery, art338_sec3.opportunity_new_intent_after_completion
+type robbery_property_not_established(String, String, String)
+
+// robbery_property_has_negative: 'property' track에 국한된 불성립 사유의 존재를 2항으로 요약함
+// sources: comm_001692_제333조_Ⅱ.2_2, comm_001692_제333조_Ⅱ.3_3, comm_001692_제333조_Ⅲ.2_12, comm_001692_제333조_Ⅲ.2_13, comm_001692_제333조_Ⅲ.3_15, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅷ_32, comm_001692_제335조_Ⅵ.1_10, comm_001692_제335조_Ⅵ.2_12, comm_001692_제338조_Ⅱ_1, comm_001692_제338조_Ⅲ_2
+// norm_cards: art333_sec2_2.incidental_incapacitation_no_robbery, art333_sec2_3.diversion_or_insult_violence_no_robbery, art333_sec3_2.post_taking_assault_no_robbery, art333_sec3_2.voluntary_delivery_attempt, art333_sec3_3.unconsciousness_prior_force_no_causation, art333_sec6.no_attempt_insufficient_violence_intimidation, art333_sec6.no_attempt_without_violence_intimidation_commencement, art333_sec8.right_exercise_robbery_negative, art335_sec6_1.days_later_no_opportunity, art335_sec6_2.opportunity_safe_escape_limit, art338_sec2.debt_evasion_no_robbery, art338_sec3.opportunity_new_intent_after_completion
+type robbery_property_has_negative(String, String)
+
+// robbery_property_established: 완결 게이트 뒤에 'property' track의 불성립 사유와 충돌이 모두 없는 확정 성립
+// sources: comm_001692_제333조_Ⅱ.1_1, comm_001692_제333조_Ⅱ.1_1, comm_001692_제333조_Ⅱ.2_2, comm_001692_제333조_Ⅱ.3_3, comm_001692_제333조_Ⅱ.3_4, comm_001692_제333조_Ⅱ.3_4, comm_001692_제333조_Ⅱ.3_6, comm_001692_제333조_Ⅱ.3_8, comm_001692_제333조_Ⅱ.4_9, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ_10, comm_001692_제333조_Ⅴ_26, comm_001692_제333조_Ⅴ_26, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28
+// norm_cards: art333_sec2_1.robbery_violence_incapacitating_attack, art333_sec2_1.violence_threat_resistance_suppression, art333_sec2_2.drug_induced_incapacitation_violence, art333_sec2_3.apparent_capacity_threat, art333_sec2_3.objective_resistance_suppression, art333_sec2_3.snatching_forceful_attack, art333_sec2_3.weapon_presentation_context, art333_sec2_4.target_person_obstructing_taking, art333_sec3.forcible_taking, art333_sec3_3.continuing_force_after_theft_intent, art333_sec3_3.continuing_force_single_robbery, art333_sec3_3.rape_fear_state_property_provision, art333_sec3_3.rape_force_subsequent_taking_precedent, art333_sec5.determine_illegal_benefit_intent, art333_sec5.illegal_benefit_intent, art333_sec6.attempt_commencement_violence_intimidation, art333_sec6.attempt_debt_evasion_killing, art333_sec6.attempt_intent_arising_after_subjugation, art333_sec6.attempt_unattained_objective
+type robbery_property_established(String, String, String, String, String)
+
+// robbery_benefit_not_established: 'benefit' track에 국한된 명시적 불성립 사유가 존재함
+// sources: comm_001692_제333조_Ⅱ.2_2, comm_001692_제333조_Ⅱ.3_3, comm_001692_제333조_Ⅲ.2_12, comm_001692_제333조_Ⅲ.2_13, comm_001692_제333조_Ⅲ.3_15, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅷ_32, comm_001692_제335조_Ⅵ.1_10, comm_001692_제335조_Ⅵ.2_12, comm_001692_제338조_Ⅱ_1, comm_001692_제338조_Ⅲ_2
+// norm_cards: art333_sec2_2.incidental_incapacitation_no_robbery, art333_sec2_3.diversion_or_insult_violence_no_robbery, art333_sec3_2.post_taking_assault_no_robbery, art333_sec3_2.voluntary_delivery_attempt, art333_sec3_3.unconsciousness_prior_force_no_causation, art333_sec6.no_attempt_insufficient_violence_intimidation, art333_sec6.no_attempt_without_violence_intimidation_commencement, art333_sec8.right_exercise_robbery_negative, art335_sec6_1.days_later_no_opportunity, art335_sec6_2.opportunity_safe_escape_limit, art338_sec2.debt_evasion_no_robbery, art338_sec3.opportunity_new_intent_after_completion
+type robbery_benefit_not_established(String, String, String)
+
+// robbery_benefit_has_negative: 'benefit' track에 국한된 불성립 사유의 존재를 2항으로 요약함
+// sources: comm_001692_제333조_Ⅱ.2_2, comm_001692_제333조_Ⅱ.3_3, comm_001692_제333조_Ⅲ.2_12, comm_001692_제333조_Ⅲ.2_13, comm_001692_제333조_Ⅲ.3_15, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅷ_32, comm_001692_제335조_Ⅵ.1_10, comm_001692_제335조_Ⅵ.2_12, comm_001692_제338조_Ⅱ_1, comm_001692_제338조_Ⅲ_2
+// norm_cards: art333_sec2_2.incidental_incapacitation_no_robbery, art333_sec2_3.diversion_or_insult_violence_no_robbery, art333_sec3_2.post_taking_assault_no_robbery, art333_sec3_2.voluntary_delivery_attempt, art333_sec3_3.unconsciousness_prior_force_no_causation, art333_sec6.no_attempt_insufficient_violence_intimidation, art333_sec6.no_attempt_without_violence_intimidation_commencement, art333_sec8.right_exercise_robbery_negative, art335_sec6_1.days_later_no_opportunity, art335_sec6_2.opportunity_safe_escape_limit, art338_sec2.debt_evasion_no_robbery, art338_sec3.opportunity_new_intent_after_completion
+type robbery_benefit_has_negative(String, String)
+
+// robbery_benefit_established: 완결 게이트 뒤에 'benefit' track의 불성립 사유와 충돌이 모두 없는 확정 성립
+// sources: comm_001692_제333조_Ⅱ.1_1, comm_001692_제333조_Ⅱ.1_1, comm_001692_제333조_Ⅱ.2_2, comm_001692_제333조_Ⅱ.3_3, comm_001692_제333조_Ⅱ.3_4, comm_001692_제333조_Ⅱ.3_4, comm_001692_제333조_Ⅱ.3_6, comm_001692_제333조_Ⅱ.3_8, comm_001692_제333조_Ⅱ.4_9, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ_10, comm_001692_제333조_Ⅴ_26, comm_001692_제333조_Ⅴ_26, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28
+// norm_cards: art333_sec2_1.robbery_violence_incapacitating_attack, art333_sec2_1.violence_threat_resistance_suppression, art333_sec2_2.drug_induced_incapacitation_violence, art333_sec2_3.apparent_capacity_threat, art333_sec2_3.objective_resistance_suppression, art333_sec2_3.snatching_forceful_attack, art333_sec2_3.weapon_presentation_context, art333_sec2_4.target_person_obstructing_taking, art333_sec3.forcible_taking, art333_sec3_3.continuing_force_after_theft_intent, art333_sec3_3.continuing_force_single_robbery, art333_sec3_3.rape_fear_state_property_provision, art333_sec3_3.rape_force_subsequent_taking_precedent, art333_sec5.determine_illegal_benefit_intent, art333_sec5.illegal_benefit_intent, art333_sec6.attempt_commencement_violence_intimidation, art333_sec6.attempt_debt_evasion_killing, art333_sec6.attempt_intent_arising_after_subjugation, art333_sec6.attempt_unattained_objective
+type robbery_benefit_established(String, String, String, String, String)
+
 // robbery_requirement_waived: 이 죄의 성립에 요구되지 않는 요건이 확인됨 — 성립을 막지 않는다
 // sources: comm_001692_제333조_Ⅶ.1_30, comm_001692_제333조_Ⅶ.1_30, comm_001692_제334조_Ⅱ.1_2, comm_001692_제334조_Ⅱ.1_2, comm_001692_제334조_Ⅱ.1_2, comm_001692_제334조_Ⅱ.1_2, comm_001692_제335조_Ⅲ.2_4, comm_001692_제338조_Ⅳ_3
 // norm_cards: art333_sec7_1.completion.no_safe_escape_requirement, art333_sec7_1.completion.recovery_does_not_negate, art334_sec2_1.weapon_awareness_not_required, art334_sec2_1.weapon_direct_use_not_required, art335_sec3_2.arrest_or_concealment_no_control, art338_sec4.robbery_death_attempt_excluded
@@ -1596,7 +1626,7 @@ type robbery_boundary_shift(String, String, String, String)
 // robbery_post_outcome: 구성요건 판단 뒤에 오는 죄수·처벌 효과
 // sources: comm_001692_제343조_Ⅲ_5
 // norm_cards: art343_sec3.abandonment_before_execution_denied
-type robbery_post_outcome(String, String, String, String)
+type robbery_post_outcome(String, String, String, String, String)
 
 // robbery_refers_to_crime: 이 죄가 아니라 어느 죄로 평가되는지 — 경계획정 카드가 가리키는 죄명
 // sources: comm_001692_제333조_Ⅱ.3_3, comm_001692_제333조_Ⅱ.3_3, comm_001692_제333조_Ⅲ.3_15, comm_001692_제333조_Ⅷ_32, comm_001692_제338조_Ⅱ_1
@@ -4482,13 +4512,161 @@ rel robbery_has_negative(case_id, defendant_id) = robbery_not_established(case_i
 // norm_cards: art333.illegal_cause_debt_evasion_robbery_murder, art333_sec2_1.robbery_violence_incapacitating_attack, art333_sec2_1.violence_threat_resistance_suppression, art333_sec2_2.drug_induced_incapacitation_violence, art333_sec2_2.incidental_incapacitation_no_robbery, art333_sec2_2.preexisting_incapacitation_exception, art333_sec2_3.apparent_capacity_threat, art333_sec2_3.diversion_or_insult_violence_no_robbery, art333_sec2_3.lesser_threat_extortion, art333_sec2_3.objective_resistance_suppression, art333_sec2_3.snatching_forceful_attack, art333_sec2_3.subjective_intent_insufficient, art333_sec2_3.weapon_presentation_context, art333_sec2_4.target_person_obstructing_taking, art333_sec3.forcible_taking, art333_sec3_1.real_estate_as_robbery_property_negative, art333_sec3_2.post_taking_assault_no_robbery, art333_sec3_2.voluntary_delivery_attempt, art333_sec3_3.completed_theft_quasi_robbery_exception, art333_sec3_3.continuing_force_after_theft_intent, art333_sec3_3.continuing_force_single_robbery, art333_sec3_3.rape_fear_state_property_provision, art333_sec3_3.rape_force_subsequent_taking_precedent, art333_sec3_3.unconsciousness_prior_force_no_causation, art333_sec4_1.apparent_property_benefit, art333_sec4_1.property_benefit, art333_sec4_2.debt_evasion_benefit_transfer, art333_sec4_2.debt_evasion_disposition_not_required, art333_sec5.determine_illegal_benefit_intent, art333_sec5.illegal_benefit_intent, art333_sec6.attempt_commencement_violence_intimidation, art333_sec6.attempt_debt_evasion_killing, art333_sec6.attempt_intent_arising_after_subjugation, art333_sec6.attempt_unattained_objective, art333_sec6.no_attempt_insufficient_violence_intimidation, art333_sec6.no_attempt_without_violence_intimidation_commencement, art333_sec7_1.completion.exclusive_control_transfer, art333_sec7_1.completion.exclusive_control_within_victim_domain, art333_sec7_1.completion.no_safe_escape_requirement, art333_sec7_1.completion.recovery_does_not_negate, art333_sec7_2.completion_forcible_gain, art333_sec8.right_exercise_robbery_negative, art334_sec1.nighttime_home_intrusion_robbery_aggravated_combination, art334_sec1.nighttime_robbery_damage_irrelevant, art334_sec2_1.weapon_awareness_not_required, art334_sec2_1.weapon_carried_fists_used, art334_sec2_1.weapon_direct_use_not_required, art334_sec3.daytime_weapon_or_joint_robbery_attempt_on_violence_threat, art334_sec3.nighttime_home_intrusion_attempt_on_intrusion, art335_sec1.aggravated_robbery_offenses_apply, art335_sec2.actor_thief, art335_sec2.preparation_stage_exclusion, art335_sec2.property_interest_exclusion, art335_sec3.special_purpose, art335_sec3_1.pre_control_violence_is_robbery_exception, art335_sec3_1.recapture_opponent_need_not_act, art335_sec3_1.recapture_resistance_after_exclusive_control, art335_sec3_2.anticipated_arrest_violence, art335_sec3_2.arrest_or_concealment_no_control, art335_sec3_2.escape_arrest_accomplice, art335_sec3_3.concealing_crime_traces, art335_sec3_4.purpose_achievement_irrelevant, art335_sec4.objective_capacity, art335_sec4.police_officer_general_person_standard, art335_sec4.violence_resistance_threshold, art335_sec5.violence_threat_target, art335_sec6_1.days_later_no_opportunity, art335_sec6_1.opportunity_temporal_spatial_proximity, art335_sec6_2.opportunity_definition, art335_sec6_2.opportunity_pursuit_or_uncertain_custody, art335_sec6_2.opportunity_safe_escape_limit, art335_sec7.attempt_punishable, art335_sec7_1.attempt_theft_act_standard, art335_sec7_1.supreme_court_completion_by_theft, art335_sec8.weapon_acquired_during_violence.reported_precedent, art337_sec2.subject_robber_and_attempted_robber, art337_sec3.injury_result_violence_intent, art337_sec3_2.injury_concrete_victim_condition, art337_sec3_2.injury_threshold, art337_sec3_2.robbery_occasion_ended, art337_sec3_2.trivial_injury_excluded, art337_sec4.completion_injury_result, art338_sec1.robbery_death_result_aggravated, art338_sec1.robbery_murder_intent, art338_sec2.debt_evasion_no_robbery, art338_sec2.debt_evasion_robbery, art338_sec3.delayed_death_no_effect, art338_sec3.opportunity_immediate_flight_killing, art338_sec3.opportunity_new_intent_after_completion, art338_sec4.murder_completion_controls_attempt, art338_sec4.robbery_death_attempt_excluded, art338_sec4.robbery_murder_attempt, art343_sec1.robbery_scope, art343_sec2.preparation_definition, art343_sec2_1.contingent_intent_sufficient_precedent, art343_sec2_2.preparation_examples, art343_sec2_3.home_invasion_robbery_departure, art343_sec3.abandonment_before_execution_denied
 rel robbery_has_conflict(case_id, defendant_id) = robbery_conflict(case_id, defendant_id, conflict_issue_id)
 
-// rule_id: robbery.core.outcome.established
+// rule_id: robbery.art333_sec2_2.track_bar.property.001
+// sources: comm_001692_제333조_Ⅱ.2_2
+// norm_cards: art333_sec2_2.incidental_incapacitation_no_robbery
+rel robbery_property_not_established(case_id, defendant_id, "art333_sec2_2.incidental_incapacitation_no_robbery") = satisfied_art333_sec2_2_incidental_incapacitation_no_robbery(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art333_sec2_3.track_bar.property.002
+// sources: comm_001692_제333조_Ⅱ.3_3
+// norm_cards: art333_sec2_3.diversion_or_insult_violence_no_robbery
+rel robbery_property_not_established(case_id, defendant_id, "art333_sec2_3.diversion_or_insult_violence_no_robbery") = satisfied_art333_sec2_3_diversion_or_insult_violence_no_robbery(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art333_sec3_2.track_bar.property.003
+// sources: comm_001692_제333조_Ⅲ.2_13
+// norm_cards: art333_sec3_2.post_taking_assault_no_robbery
+rel robbery_property_not_established(case_id, defendant_id, "art333_sec3_2.post_taking_assault_no_robbery") = satisfied_art333_sec3_2_post_taking_assault_no_robbery(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art333_sec3_2.track_bar.property.004
+// sources: comm_001692_제333조_Ⅲ.2_12
+// norm_cards: art333_sec3_2.voluntary_delivery_attempt
+rel robbery_property_not_established(case_id, defendant_id, "art333_sec3_2.voluntary_delivery_attempt") = satisfied_art333_sec3_2_voluntary_delivery_attempt(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art333_sec3_3.track_bar.property.005
+// sources: comm_001692_제333조_Ⅲ.3_15
+// norm_cards: art333_sec3_3.unconsciousness_prior_force_no_causation
+rel robbery_property_not_established(case_id, defendant_id, "art333_sec3_3.unconsciousness_prior_force_no_causation") = satisfied_art333_sec3_3_unconsciousness_prior_force_no_causation(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art333_sec6.track_bar.property.006
+// sources: comm_001692_제333조_Ⅵ_28
+// norm_cards: art333_sec6.no_attempt_insufficient_violence_intimidation
+rel robbery_property_not_established(case_id, defendant_id, "art333_sec6.no_attempt_insufficient_violence_intimidation") = satisfied_art333_sec6_no_attempt_insufficient_violence_intimidation(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art333_sec6.track_bar.property.007
+// sources: comm_001692_제333조_Ⅵ_28
+// norm_cards: art333_sec6.no_attempt_without_violence_intimidation_commencement
+rel robbery_property_not_established(case_id, defendant_id, "art333_sec6.no_attempt_without_violence_intimidation_commencement") = satisfied_art333_sec6_no_attempt_without_violence_intimidation_commencement(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art333_sec8.track_bar.property.008
+// sources: comm_001692_제333조_Ⅷ_32
+// norm_cards: art333_sec8.right_exercise_robbery_negative
+rel robbery_property_not_established(case_id, defendant_id, "art333_sec8.right_exercise_robbery_negative") = satisfied_art333_sec8_right_exercise_robbery_negative(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art335_sec6_1.track_bar.property.009
+// sources: comm_001692_제335조_Ⅵ.1_10
+// norm_cards: art335_sec6_1.days_later_no_opportunity
+rel robbery_property_not_established(case_id, defendant_id, "art335_sec6_1.days_later_no_opportunity") = satisfied_art335_sec6_1_days_later_no_opportunity(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art335_sec6_2.track_bar.property.010
+// sources: comm_001692_제335조_Ⅵ.2_12
+// norm_cards: art335_sec6_2.opportunity_safe_escape_limit
+rel robbery_property_not_established(case_id, defendant_id, "art335_sec6_2.opportunity_safe_escape_limit") = satisfied_art335_sec6_2_opportunity_safe_escape_limit(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art338_sec2.track_bar.property.011
+// sources: comm_001692_제338조_Ⅱ_1
+// norm_cards: art338_sec2.debt_evasion_no_robbery
+rel robbery_property_not_established(case_id, defendant_id, "art338_sec2.debt_evasion_no_robbery") = satisfied_art338_sec2_debt_evasion_no_robbery(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art338_sec3.track_bar.property.012
+// sources: comm_001692_제338조_Ⅲ_2
+// norm_cards: art338_sec3.opportunity_new_intent_after_completion
+rel robbery_property_not_established(case_id, defendant_id, "art338_sec3.opportunity_new_intent_after_completion") = satisfied_art338_sec3_opportunity_new_intent_after_completion(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.property.has_negative
+// sources: comm_001692_제333조_Ⅱ.2_2, comm_001692_제333조_Ⅱ.3_3, comm_001692_제333조_Ⅲ.2_12, comm_001692_제333조_Ⅲ.2_13, comm_001692_제333조_Ⅲ.3_15, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅷ_32, comm_001692_제335조_Ⅵ.1_10, comm_001692_제335조_Ⅵ.2_12, comm_001692_제338조_Ⅱ_1, comm_001692_제338조_Ⅲ_2
+// norm_cards: art333_sec2_2.incidental_incapacitation_no_robbery, art333_sec2_3.diversion_or_insult_violence_no_robbery, art333_sec3_2.post_taking_assault_no_robbery, art333_sec3_2.voluntary_delivery_attempt, art333_sec3_3.unconsciousness_prior_force_no_causation, art333_sec6.no_attempt_insufficient_violence_intimidation, art333_sec6.no_attempt_without_violence_intimidation_commencement, art333_sec8.right_exercise_robbery_negative, art335_sec6_1.days_later_no_opportunity, art335_sec6_2.opportunity_safe_escape_limit, art338_sec2.debt_evasion_no_robbery, art338_sec3.opportunity_new_intent_after_completion
+rel robbery_property_has_negative(case_id, defendant_id) = robbery_property_not_established(case_id, defendant_id, negative_issue_id)
+
+// rule_id: robbery.outcome.property.established
 // sources: comm_001692_제333조_Ⅱ.1_1, comm_001692_제333조_Ⅱ.1_1, comm_001692_제333조_Ⅱ.2_2, comm_001692_제333조_Ⅱ.3_3, comm_001692_제333조_Ⅱ.3_4, comm_001692_제333조_Ⅱ.3_4, comm_001692_제333조_Ⅱ.3_6, comm_001692_제333조_Ⅱ.3_8, comm_001692_제333조_Ⅱ.4_9, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ_10, comm_001692_제333조_Ⅴ_26, comm_001692_제333조_Ⅴ_26, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28
 // norm_cards: art333_sec2_1.robbery_violence_incapacitating_attack, art333_sec2_1.violence_threat_resistance_suppression, art333_sec2_2.drug_induced_incapacitation_violence, art333_sec2_3.apparent_capacity_threat, art333_sec2_3.objective_resistance_suppression, art333_sec2_3.snatching_forceful_attack, art333_sec2_3.weapon_presentation_context, art333_sec2_4.target_person_obstructing_taking, art333_sec3.forcible_taking, art333_sec3_3.continuing_force_after_theft_intent, art333_sec3_3.continuing_force_single_robbery, art333_sec3_3.rape_fear_state_property_provision, art333_sec3_3.rape_force_subsequent_taking_precedent, art333_sec5.determine_illegal_benefit_intent, art333_sec5.illegal_benefit_intent, art333_sec6.attempt_commencement_violence_intimidation, art333_sec6.attempt_debt_evasion_killing, art333_sec6.attempt_intent_arising_after_subjugation, art333_sec6.attempt_unattained_objective
-rel robbery_established(case_id, defendant_id, coerced_person_id, owner_id, possessor_id) = robbery_elements_satisfied(case_id, defendant_id, coerced_person_id, owner_id, possessor_id) and
+rel robbery_property_established(case_id, defendant_id, coerced_person_id, owner_id, possessor_id) = robbery_track_property_satisfied(case_id, defendant_id, coerced_person_id, owner_id, possessor_id) and
   case_assessment_complete(case_id, defendant_id) and
-  ~robbery_has_negative(case_id, defendant_id) and
+  ~robbery_property_has_negative(case_id, defendant_id) and
   ~robbery_has_conflict(case_id, defendant_id)
+
+// rule_id: robbery.core.outcome.established.union.property
+// sources: comm_001692_제333조_Ⅱ.1_1, comm_001692_제333조_Ⅱ.1_1, comm_001692_제333조_Ⅱ.2_2, comm_001692_제333조_Ⅱ.3_3, comm_001692_제333조_Ⅱ.3_4, comm_001692_제333조_Ⅱ.3_4, comm_001692_제333조_Ⅱ.3_6, comm_001692_제333조_Ⅱ.3_8, comm_001692_제333조_Ⅱ.4_9, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ_10, comm_001692_제333조_Ⅴ_26, comm_001692_제333조_Ⅴ_26, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28
+// norm_cards: art333_sec2_1.robbery_violence_incapacitating_attack, art333_sec2_1.violence_threat_resistance_suppression, art333_sec2_2.drug_induced_incapacitation_violence, art333_sec2_3.apparent_capacity_threat, art333_sec2_3.objective_resistance_suppression, art333_sec2_3.snatching_forceful_attack, art333_sec2_3.weapon_presentation_context, art333_sec2_4.target_person_obstructing_taking, art333_sec3.forcible_taking, art333_sec3_3.continuing_force_after_theft_intent, art333_sec3_3.continuing_force_single_robbery, art333_sec3_3.rape_fear_state_property_provision, art333_sec3_3.rape_force_subsequent_taking_precedent, art333_sec5.determine_illegal_benefit_intent, art333_sec5.illegal_benefit_intent, art333_sec6.attempt_commencement_violence_intimidation, art333_sec6.attempt_debt_evasion_killing, art333_sec6.attempt_intent_arising_after_subjugation, art333_sec6.attempt_unattained_objective
+rel robbery_established(case_id, defendant_id, coerced_person_id, owner_id, possessor_id) = robbery_property_established(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art333_sec2_2.track_bar.benefit.001
+// sources: comm_001692_제333조_Ⅱ.2_2
+// norm_cards: art333_sec2_2.incidental_incapacitation_no_robbery
+rel robbery_benefit_not_established(case_id, defendant_id, "art333_sec2_2.incidental_incapacitation_no_robbery") = satisfied_art333_sec2_2_incidental_incapacitation_no_robbery(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art333_sec2_3.track_bar.benefit.002
+// sources: comm_001692_제333조_Ⅱ.3_3
+// norm_cards: art333_sec2_3.diversion_or_insult_violence_no_robbery
+rel robbery_benefit_not_established(case_id, defendant_id, "art333_sec2_3.diversion_or_insult_violence_no_robbery") = satisfied_art333_sec2_3_diversion_or_insult_violence_no_robbery(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art333_sec3_2.track_bar.benefit.003
+// sources: comm_001692_제333조_Ⅲ.2_13
+// norm_cards: art333_sec3_2.post_taking_assault_no_robbery
+rel robbery_benefit_not_established(case_id, defendant_id, "art333_sec3_2.post_taking_assault_no_robbery") = satisfied_art333_sec3_2_post_taking_assault_no_robbery(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art333_sec3_2.track_bar.benefit.004
+// sources: comm_001692_제333조_Ⅲ.2_12
+// norm_cards: art333_sec3_2.voluntary_delivery_attempt
+rel robbery_benefit_not_established(case_id, defendant_id, "art333_sec3_2.voluntary_delivery_attempt") = satisfied_art333_sec3_2_voluntary_delivery_attempt(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art333_sec3_3.track_bar.benefit.005
+// sources: comm_001692_제333조_Ⅲ.3_15
+// norm_cards: art333_sec3_3.unconsciousness_prior_force_no_causation
+rel robbery_benefit_not_established(case_id, defendant_id, "art333_sec3_3.unconsciousness_prior_force_no_causation") = satisfied_art333_sec3_3_unconsciousness_prior_force_no_causation(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art333_sec6.track_bar.benefit.006
+// sources: comm_001692_제333조_Ⅵ_28
+// norm_cards: art333_sec6.no_attempt_insufficient_violence_intimidation
+rel robbery_benefit_not_established(case_id, defendant_id, "art333_sec6.no_attempt_insufficient_violence_intimidation") = satisfied_art333_sec6_no_attempt_insufficient_violence_intimidation(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art333_sec6.track_bar.benefit.007
+// sources: comm_001692_제333조_Ⅵ_28
+// norm_cards: art333_sec6.no_attempt_without_violence_intimidation_commencement
+rel robbery_benefit_not_established(case_id, defendant_id, "art333_sec6.no_attempt_without_violence_intimidation_commencement") = satisfied_art333_sec6_no_attempt_without_violence_intimidation_commencement(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art333_sec8.track_bar.benefit.008
+// sources: comm_001692_제333조_Ⅷ_32
+// norm_cards: art333_sec8.right_exercise_robbery_negative
+rel robbery_benefit_not_established(case_id, defendant_id, "art333_sec8.right_exercise_robbery_negative") = satisfied_art333_sec8_right_exercise_robbery_negative(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art335_sec6_1.track_bar.benefit.009
+// sources: comm_001692_제335조_Ⅵ.1_10
+// norm_cards: art335_sec6_1.days_later_no_opportunity
+rel robbery_benefit_not_established(case_id, defendant_id, "art335_sec6_1.days_later_no_opportunity") = satisfied_art335_sec6_1_days_later_no_opportunity(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art335_sec6_2.track_bar.benefit.010
+// sources: comm_001692_제335조_Ⅵ.2_12
+// norm_cards: art335_sec6_2.opportunity_safe_escape_limit
+rel robbery_benefit_not_established(case_id, defendant_id, "art335_sec6_2.opportunity_safe_escape_limit") = satisfied_art335_sec6_2_opportunity_safe_escape_limit(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art338_sec2.track_bar.benefit.011
+// sources: comm_001692_제338조_Ⅱ_1
+// norm_cards: art338_sec2.debt_evasion_no_robbery
+rel robbery_benefit_not_established(case_id, defendant_id, "art338_sec2.debt_evasion_no_robbery") = satisfied_art338_sec2_debt_evasion_no_robbery(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.art338_sec3.track_bar.benefit.012
+// sources: comm_001692_제338조_Ⅲ_2
+// norm_cards: art338_sec3.opportunity_new_intent_after_completion
+rel robbery_benefit_not_established(case_id, defendant_id, "art338_sec3.opportunity_new_intent_after_completion") = satisfied_art338_sec3_opportunity_new_intent_after_completion(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+
+// rule_id: robbery.benefit.has_negative
+// sources: comm_001692_제333조_Ⅱ.2_2, comm_001692_제333조_Ⅱ.3_3, comm_001692_제333조_Ⅲ.2_12, comm_001692_제333조_Ⅲ.2_13, comm_001692_제333조_Ⅲ.3_15, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅷ_32, comm_001692_제335조_Ⅵ.1_10, comm_001692_제335조_Ⅵ.2_12, comm_001692_제338조_Ⅱ_1, comm_001692_제338조_Ⅲ_2
+// norm_cards: art333_sec2_2.incidental_incapacitation_no_robbery, art333_sec2_3.diversion_or_insult_violence_no_robbery, art333_sec3_2.post_taking_assault_no_robbery, art333_sec3_2.voluntary_delivery_attempt, art333_sec3_3.unconsciousness_prior_force_no_causation, art333_sec6.no_attempt_insufficient_violence_intimidation, art333_sec6.no_attempt_without_violence_intimidation_commencement, art333_sec8.right_exercise_robbery_negative, art335_sec6_1.days_later_no_opportunity, art335_sec6_2.opportunity_safe_escape_limit, art338_sec2.debt_evasion_no_robbery, art338_sec3.opportunity_new_intent_after_completion
+rel robbery_benefit_has_negative(case_id, defendant_id) = robbery_benefit_not_established(case_id, defendant_id, negative_issue_id)
+
+// rule_id: robbery.outcome.benefit.established
+// sources: comm_001692_제333조_Ⅱ.1_1, comm_001692_제333조_Ⅱ.1_1, comm_001692_제333조_Ⅱ.2_2, comm_001692_제333조_Ⅱ.3_3, comm_001692_제333조_Ⅱ.3_4, comm_001692_제333조_Ⅱ.3_4, comm_001692_제333조_Ⅱ.3_6, comm_001692_제333조_Ⅱ.3_8, comm_001692_제333조_Ⅱ.4_9, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ_10, comm_001692_제333조_Ⅴ_26, comm_001692_제333조_Ⅴ_26, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28
+// norm_cards: art333_sec2_1.robbery_violence_incapacitating_attack, art333_sec2_1.violence_threat_resistance_suppression, art333_sec2_2.drug_induced_incapacitation_violence, art333_sec2_3.apparent_capacity_threat, art333_sec2_3.objective_resistance_suppression, art333_sec2_3.snatching_forceful_attack, art333_sec2_3.weapon_presentation_context, art333_sec2_4.target_person_obstructing_taking, art333_sec3.forcible_taking, art333_sec3_3.continuing_force_after_theft_intent, art333_sec3_3.continuing_force_single_robbery, art333_sec3_3.rape_fear_state_property_provision, art333_sec3_3.rape_force_subsequent_taking_precedent, art333_sec5.determine_illegal_benefit_intent, art333_sec5.illegal_benefit_intent, art333_sec6.attempt_commencement_violence_intimidation, art333_sec6.attempt_debt_evasion_killing, art333_sec6.attempt_intent_arising_after_subjugation, art333_sec6.attempt_unattained_objective
+rel robbery_benefit_established(case_id, defendant_id, coerced_person_id, owner_id, possessor_id) = robbery_track_benefit_satisfied(case_id, defendant_id, coerced_person_id, owner_id, possessor_id) and
+  case_assessment_complete(case_id, defendant_id) and
+  ~robbery_benefit_has_negative(case_id, defendant_id) and
+  ~robbery_has_conflict(case_id, defendant_id)
+
+// rule_id: robbery.core.outcome.established.union.benefit
+// sources: comm_001692_제333조_Ⅱ.1_1, comm_001692_제333조_Ⅱ.1_1, comm_001692_제333조_Ⅱ.2_2, comm_001692_제333조_Ⅱ.3_3, comm_001692_제333조_Ⅱ.3_4, comm_001692_제333조_Ⅱ.3_4, comm_001692_제333조_Ⅱ.3_6, comm_001692_제333조_Ⅱ.3_8, comm_001692_제333조_Ⅱ.4_9, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ.3_14, comm_001692_제333조_Ⅲ_10, comm_001692_제333조_Ⅴ_26, comm_001692_제333조_Ⅴ_26, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28, comm_001692_제333조_Ⅵ_28
+// norm_cards: art333_sec2_1.robbery_violence_incapacitating_attack, art333_sec2_1.violence_threat_resistance_suppression, art333_sec2_2.drug_induced_incapacitation_violence, art333_sec2_3.apparent_capacity_threat, art333_sec2_3.objective_resistance_suppression, art333_sec2_3.snatching_forceful_attack, art333_sec2_3.weapon_presentation_context, art333_sec2_4.target_person_obstructing_taking, art333_sec3.forcible_taking, art333_sec3_3.continuing_force_after_theft_intent, art333_sec3_3.continuing_force_single_robbery, art333_sec3_3.rape_fear_state_property_provision, art333_sec3_3.rape_force_subsequent_taking_precedent, art333_sec5.determine_illegal_benefit_intent, art333_sec5.illegal_benefit_intent, art333_sec6.attempt_commencement_violence_intimidation, art333_sec6.attempt_debt_evasion_killing, art333_sec6.attempt_intent_arising_after_subjugation, art333_sec6.attempt_unattained_objective
+rel robbery_established(case_id, defendant_id, coerced_person_id, owner_id, possessor_id) = robbery_benefit_established(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
 
 // rule_id: robbery.art333_sec7_1.requirement_waived.001
 // sources: comm_001692_제333조_Ⅶ.1_30
@@ -4548,7 +4726,7 @@ rel robbery_boundary_shift(case_id, defendant_id, "art338_sec2.debt_evasion_no_r
 // rule_id: robbery.art343_sec3.post_outcome.001
 // sources: comm_001692_제343조_Ⅲ_5
 // norm_cards: art343_sec3.abandonment_before_execution_denied
-rel robbery_post_outcome(case_id, defendant_id, "art343_sec3.abandonment_before_execution_denied", "중지미수 감면 불가") = satisfied_art343_sec3_abandonment_before_execution_denied(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
+rel robbery_post_outcome(case_id, defendant_id, "art343_sec3.abandonment_before_execution_denied", "mitigation_unavailable", "중지미수 감면 불가") = satisfied_art343_sec3_abandonment_before_execution_denied(case_id, defendant_id, coerced_person_id, owner_id, possessor_id)
 
 // rule_id: robbery.art333_sec2_3.refers_to_crime.001
 // sources: comm_001692_제333조_Ⅱ.3_3

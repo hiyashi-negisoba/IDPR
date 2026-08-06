@@ -5,8 +5,8 @@
 ## 전체 구조
 
 - rule_set_id: `kr.property.robbery.full.v1_candidate`
-- predicate: 322개
-- rule: 526개
+- predicate: 328개
+- rule: 555개
 - NormCard: 98개
 
 ## Predicate
@@ -2223,6 +2223,48 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art333.illegal_cause_debt_evasion_robbery_murder`, `art333_sec4_1.apparent_property_benefit`, `art333_sec4_1.property_benefit`, `art333_sec4_2.debt_evasion_benefit_transfer`, `art333_sec4_2.debt_evasion_disposition_not_required`, `art333_sec7_2.completion_forcible_gain`
 
+### `robbery_property_not_established(case_id: String, defendant_id: String, issue_id: String)`
+
+'property' track에 국한된 명시적 불성립 사유가 존재함
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art333_sec2_2.incidental_incapacitation_no_robbery`, `art333_sec2_3.diversion_or_insult_violence_no_robbery`, `art333_sec3_2.post_taking_assault_no_robbery`, `art333_sec3_2.voluntary_delivery_attempt`, `art333_sec3_3.unconsciousness_prior_force_no_causation`, `art333_sec6.no_attempt_insufficient_violence_intimidation`, `art333_sec6.no_attempt_without_violence_intimidation_commencement`, `art333_sec8.right_exercise_robbery_negative`, `art335_sec6_1.days_later_no_opportunity`, `art335_sec6_2.opportunity_safe_escape_limit`, `art338_sec2.debt_evasion_no_robbery`, `art338_sec3.opportunity_new_intent_after_completion`
+
+### `robbery_property_has_negative(case_id: String, defendant_id: String)`
+
+'property' track에 국한된 불성립 사유의 존재를 2항으로 요약함
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art333_sec2_2.incidental_incapacitation_no_robbery`, `art333_sec2_3.diversion_or_insult_violence_no_robbery`, `art333_sec3_2.post_taking_assault_no_robbery`, `art333_sec3_2.voluntary_delivery_attempt`, `art333_sec3_3.unconsciousness_prior_force_no_causation`, `art333_sec6.no_attempt_insufficient_violence_intimidation`, `art333_sec6.no_attempt_without_violence_intimidation_commencement`, `art333_sec8.right_exercise_robbery_negative`, `art335_sec6_1.days_later_no_opportunity`, `art335_sec6_2.opportunity_safe_escape_limit`, `art338_sec2.debt_evasion_no_robbery`, `art338_sec3.opportunity_new_intent_after_completion`
+
+### `robbery_property_established(case_id: String, defendant_id: String, coerced_person_id: String, owner_id: String, possessor_id: String)`
+
+완결 게이트 뒤에 'property' track의 불성립 사유와 충돌이 모두 없는 확정 성립
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art333_sec2_1.robbery_violence_incapacitating_attack`, `art333_sec2_1.violence_threat_resistance_suppression`, `art333_sec2_2.drug_induced_incapacitation_violence`, `art333_sec2_3.apparent_capacity_threat`, `art333_sec2_3.objective_resistance_suppression`, `art333_sec2_3.snatching_forceful_attack`, `art333_sec2_3.weapon_presentation_context`, `art333_sec2_4.target_person_obstructing_taking`, `art333_sec3.forcible_taking`, `art333_sec3_3.continuing_force_after_theft_intent`, `art333_sec3_3.continuing_force_single_robbery`, `art333_sec3_3.rape_fear_state_property_provision`, `art333_sec3_3.rape_force_subsequent_taking_precedent`, `art333_sec5.determine_illegal_benefit_intent`, `art333_sec5.illegal_benefit_intent`, `art333_sec6.attempt_commencement_violence_intimidation`, `art333_sec6.attempt_debt_evasion_killing`, `art333_sec6.attempt_intent_arising_after_subjugation`, `art333_sec6.attempt_unattained_objective`
+
+### `robbery_benefit_not_established(case_id: String, defendant_id: String, issue_id: String)`
+
+'benefit' track에 국한된 명시적 불성립 사유가 존재함
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art333_sec2_2.incidental_incapacitation_no_robbery`, `art333_sec2_3.diversion_or_insult_violence_no_robbery`, `art333_sec3_2.post_taking_assault_no_robbery`, `art333_sec3_2.voluntary_delivery_attempt`, `art333_sec3_3.unconsciousness_prior_force_no_causation`, `art333_sec6.no_attempt_insufficient_violence_intimidation`, `art333_sec6.no_attempt_without_violence_intimidation_commencement`, `art333_sec8.right_exercise_robbery_negative`, `art335_sec6_1.days_later_no_opportunity`, `art335_sec6_2.opportunity_safe_escape_limit`, `art338_sec2.debt_evasion_no_robbery`, `art338_sec3.opportunity_new_intent_after_completion`
+
+### `robbery_benefit_has_negative(case_id: String, defendant_id: String)`
+
+'benefit' track에 국한된 불성립 사유의 존재를 2항으로 요약함
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art333_sec2_2.incidental_incapacitation_no_robbery`, `art333_sec2_3.diversion_or_insult_violence_no_robbery`, `art333_sec3_2.post_taking_assault_no_robbery`, `art333_sec3_2.voluntary_delivery_attempt`, `art333_sec3_3.unconsciousness_prior_force_no_causation`, `art333_sec6.no_attempt_insufficient_violence_intimidation`, `art333_sec6.no_attempt_without_violence_intimidation_commencement`, `art333_sec8.right_exercise_robbery_negative`, `art335_sec6_1.days_later_no_opportunity`, `art335_sec6_2.opportunity_safe_escape_limit`, `art338_sec2.debt_evasion_no_robbery`, `art338_sec3.opportunity_new_intent_after_completion`
+
+### `robbery_benefit_established(case_id: String, defendant_id: String, coerced_person_id: String, owner_id: String, possessor_id: String)`
+
+완결 게이트 뒤에 'benefit' track의 불성립 사유와 충돌이 모두 없는 확정 성립
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art333_sec2_1.robbery_violence_incapacitating_attack`, `art333_sec2_1.violence_threat_resistance_suppression`, `art333_sec2_2.drug_induced_incapacitation_violence`, `art333_sec2_3.apparent_capacity_threat`, `art333_sec2_3.objective_resistance_suppression`, `art333_sec2_3.snatching_forceful_attack`, `art333_sec2_3.weapon_presentation_context`, `art333_sec2_4.target_person_obstructing_taking`, `art333_sec3.forcible_taking`, `art333_sec3_3.continuing_force_after_theft_intent`, `art333_sec3_3.continuing_force_single_robbery`, `art333_sec3_3.rape_fear_state_property_provision`, `art333_sec3_3.rape_force_subsequent_taking_precedent`, `art333_sec5.determine_illegal_benefit_intent`, `art333_sec5.illegal_benefit_intent`, `art333_sec6.attempt_commencement_violence_intimidation`, `art333_sec6.attempt_debt_evasion_killing`, `art333_sec6.attempt_intent_arising_after_subjugation`, `art333_sec6.attempt_unattained_objective`
+
 ### `robbery_requirement_waived(case_id: String, defendant_id: String, issue_id: String, value: String)`
 
 이 죄의 성립에 요구되지 않는 요건이 확인됨 — 성립을 막지 않는다
@@ -2237,7 +2279,7 @@
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art333_sec2_3.diversion_or_insult_violence_no_robbery`, `art333_sec2_3.lesser_threat_extortion`, `art333_sec3_3.unconsciousness_prior_force_no_causation`, `art333_sec8.right_exercise_robbery_negative`, `art338_sec2.debt_evasion_no_robbery`
 
-### `robbery_post_outcome(case_id: String, defendant_id: String, issue_id: String, value: String)`
+### `robbery_post_outcome(case_id: String, defendant_id: String, issue_id: String, outcome_subtype: String, value: String)`
 
 구성요건 판단 뒤에 오는 죄수·처벌 효과
 
@@ -8293,20 +8335,371 @@
 
 검토 메모: 카드·결론 충돌을 최종 결론 계층에서 검사할 2항 relation으로 모은다.
 
-### `robbery.core.outcome.established`
+### `robbery.art333_sec2_2.track_bar.property.001`
+
+이 규칙은 **'property' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 다른 목적으로 피해자를 혼취상태에 빠뜨린 뒤 우발적으로 재물을 탈취한 경우, 혼취가 재물탈취 방법으로 사용된 것이 아니므로 강도죄가 성립하지 않는다.
+
+연결 NormCard: `art333_sec2_2.incidental_incapacitation_no_robbery`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다.
+
+### `robbery.art333_sec2_3.track_bar.property.002`
+
+이 규칙은 **'property' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 재물절취 때의 폭행·협박이 단지 주의를 다른 데로 돌리기 위한 것이거나, 탈취 후 모욕적 의사 또는 적개심 표시만을 위한 것이라면 강도죄가 아니라 폭행 또는 협박죄와 절도죄가 성립한다.
+
+연결 NormCard: `art333_sec2_3.diversion_or_insult_violence_no_robbery`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다.
+
+### `robbery.art333_sec3_2.track_bar.property.003`
+
+이 규칙은 **'property' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 소지품 탈취 후의 구타가 재물탈취와 관련하여 반항억압, 재물 탈환, 체포면탈 또는 증거인멸에 객관적 효과를 미친 것이 아니라면 강도죄는 성립하지 않는다.
+
+연결 NormCard: `art333_sec3_2.post_taking_assault_no_robbery`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다.
+
+### `robbery.art333_sec3_2.track_bar.property.004`
+
+이 규칙은 **'property' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 객관적으로 반항억압에 족한 폭행·협박이 있었더라도 피해자가 귀찮음이나 연민으로 반항 의사 억압 없이 재물을 교부한 경우에는 인과관계가 없어 강도미수죄만 성립한다.
+
+연결 NormCard: `art333_sec3_2.voluntary_delivery_attempt`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다.
+
+### `robbery.art333_sec3_3.track_bar.property.005`
+
+이 규칙은 **'property' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 재물탈취의 목적 없이 폭행·협박 또는 약물 사용으로 피해자를 심신상실 상태에 빠지게 한 후 우발적으로 재물탈취의 범의가 생긴 경우에는 선행행위와 재물탈취 사이에 인과관계가 없어 강도죄가 성립하지 않으며, 살해 후 사자의 소지품을 취득한 경우에도 살인죄와 절도죄의 경합범이 성립한다.
+
+연결 NormCard: `art333_sec3_3.unconsciousness_prior_force_no_causation`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다.
+
+### `robbery.art333_sec6.track_bar.property.006`
+
+이 규칙은 **'property' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 개시한 폭행·협박이 사회통념상 피해자의 반항을 억압할 만한 정도가 아니면 강도 실행의 착수가 인정되기 어렵다.
+
+연결 NormCard: `art333_sec6.no_attempt_insufficient_violence_intimidation`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다.
+
+### `robbery.art333_sec6.track_bar.property.007`
+
+이 규칙은 **'property' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 재물탈취에 착수하였더라도 폭행·협박 자체에 착수하지 않으면 강도죄의 실행 착수가 인정되지 않는다.
+
+연결 NormCard: `art333_sec6.no_attempt_without_violence_intimidation_commencement`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다.
+
+### `robbery.art333_sec8.track_bar.property.008`
+
+이 규칙은 **'property' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 범인에게 취득할 권리가 있는 재산상 이익은 불법한 이익이 아니므로, 이를 폭행·협박으로 취득하여도 강도죄가 아니라 폭행죄 또는 협박죄가 성립한다.
+
+연결 NormCard: `art333_sec8.right_exercise_robbery_negative`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다.
+
+### `robbery.art335_sec6_1.track_bar.property.009`
+
+이 규칙은 **'property' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 범행 수일 후 재물탈환 방지 또는 체포 면탈 목적으로 폭행을 한 경우에는 준강도죄가 성립될 수 없다.
+
+연결 NormCard: `art335_sec6_1.days_later_no_opportunity`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다.
+
+### `robbery.art335_sec6_2.track_bar.property.010`
+
+이 규칙은 **'property' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 절도범이 원래 범행현장에서 안전하게 도피하여 더 이상 추적이나 체포위협을 느끼지 않을 정도로 시간적·장소적 경과가 있으면 절도의 기회 계속성을 인정하기 어렵다.
+
+연결 NormCard: `art335_sec6_2.opportunity_safe_escape_limit`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다.
+
+### `robbery.art338_sec2.track_bar.property.011`
+
+이 규칙은 **'property' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 채권자에게 상속인이 있고 채권 존재를 확인할 방법이 확보된 경우, 채무자가 채무면탈 목적으로 채권자를 살해하여도 재산적 이익의 지배를 취득하였다고 보기 어려워 강도가 될 수 없고 단순 살인죄에 그칠 수 있다.
+
+연결 NormCard: `art338_sec2.debt_evasion_no_robbery`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다.
+
+### `robbery.art338_sec3.track_bar.property.012`
+
+이 규칙은 **'property' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 강도 범행이 종료된 뒤 상당한 시간이 경과하여 새로운 범의로 저지른 살해행위는 강도의 기회에 한 행위로 보기 어렵다.
+
+연결 NormCard: `art338_sec3.opportunity_new_intent_after_completion`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'property' track에서 성립을 부정한다.
+
+### `robbery.property.has_negative`
+
+이 규칙은 **'property' track에 국한된 불성립 사유의 존재를 2항으로 요약함**을 도출한다.
+
+필요한 전제:
+
+- 'property' track에 국한된 명시적 불성립 사유가 존재함
+
+연결 NormCard: `art333_sec2_2.incidental_incapacitation_no_robbery`, `art333_sec2_3.diversion_or_insult_violence_no_robbery`, `art333_sec3_2.post_taking_assault_no_robbery`, `art333_sec3_2.voluntary_delivery_attempt`, `art333_sec3_3.unconsciousness_prior_force_no_causation`, `art333_sec6.no_attempt_insufficient_violence_intimidation`, `art333_sec6.no_attempt_without_violence_intimidation_commencement`, `art333_sec8.right_exercise_robbery_negative`, `art335_sec6_1.days_later_no_opportunity`, `art335_sec6_2.opportunity_safe_escape_limit`, `art338_sec2.debt_evasion_no_robbery`, `art338_sec3.opportunity_new_intent_after_completion`
+
+검토 메모: 'property' track에 국한된 불성립 사유를 완결 게이트가 검사할 2항 relation으로 모은다.
+
+### `robbery.outcome.property.established`
+
+이 규칙은 **완결 게이트 뒤에 'property' track의 불성립 사유와 충돌이 모두 없는 확정 성립**을 도출한다.
+
+필요한 전제:
+
+- 대안적 실행형태 'property' 트랙의 component가 공유 component와 함께 모두 충족됨
+- 라우터가 선택한 사건 평가 묶음이 유한하고 완결됨 — 이 게이트 뒤 최종 결론 층에서만 부정을 쓴다
+- 'property' track에 국한된 불성립 사유의 존재를 2항으로 요약함
+- 해당 피고인에 관해 하나 이상의 상충 평가가 존재함
+
+연결 NormCard: `art333_sec2_1.robbery_violence_incapacitating_attack`, `art333_sec2_1.violence_threat_resistance_suppression`, `art333_sec2_2.drug_induced_incapacitation_violence`, `art333_sec2_3.apparent_capacity_threat`, `art333_sec2_3.objective_resistance_suppression`, `art333_sec2_3.snatching_forceful_attack`, `art333_sec2_3.weapon_presentation_context`, `art333_sec2_4.target_person_obstructing_taking`, `art333_sec3.forcible_taking`, `art333_sec3_3.continuing_force_after_theft_intent`, `art333_sec3_3.continuing_force_single_robbery`, `art333_sec3_3.rape_fear_state_property_provision`, `art333_sec3_3.rape_force_subsequent_taking_precedent`, `art333_sec5.determine_illegal_benefit_intent`, `art333_sec5.illegal_benefit_intent`, `art333_sec6.attempt_commencement_violence_intimidation`, `art333_sec6.attempt_debt_evasion_killing`, `art333_sec6.attempt_intent_arising_after_subjugation`, `art333_sec6.attempt_unattained_objective`
+
+검토 메모: 'property' track의 component가 모두 충족되고, 완결 게이트 뒤 이 track 전용 불성립 사유와 사건 전체의 충돌이 모두 없을 때만 이 track의 확정 성립을 낸다.
+
+### `robbery.core.outcome.established.union.property`
 
 이 규칙은 **완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 확정 성립**을 도출한다.
 
 필요한 전제:
 
-- 구성요건 component가 모두 충족됨(부정을 쓰지 않는 층)
+- 완결 게이트 뒤에 'property' track의 불성립 사유와 충돌이 모두 없는 확정 성립
+
+연결 NormCard: `art333_sec2_1.robbery_violence_incapacitating_attack`, `art333_sec2_1.violence_threat_resistance_suppression`, `art333_sec2_2.drug_induced_incapacitation_violence`, `art333_sec2_3.apparent_capacity_threat`, `art333_sec2_3.objective_resistance_suppression`, `art333_sec2_3.snatching_forceful_attack`, `art333_sec2_3.weapon_presentation_context`, `art333_sec2_4.target_person_obstructing_taking`, `art333_sec3.forcible_taking`, `art333_sec3_3.continuing_force_after_theft_intent`, `art333_sec3_3.continuing_force_single_robbery`, `art333_sec3_3.rape_fear_state_property_provision`, `art333_sec3_3.rape_force_subsequent_taking_precedent`, `art333_sec5.determine_illegal_benefit_intent`, `art333_sec5.illegal_benefit_intent`, `art333_sec6.attempt_commencement_violence_intimidation`, `art333_sec6.attempt_debt_evasion_killing`, `art333_sec6.attempt_intent_arising_after_subjugation`, `art333_sec6.attempt_unattained_objective`
+
+검토 메모: 'property' track의 확정 성립을 죄명 전체의 확정 성립으로 합친다(순수 OR, 부정 없음).
+
+### `robbery.art333_sec2_2.track_bar.benefit.001`
+
+이 규칙은 **'benefit' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 다른 목적으로 피해자를 혼취상태에 빠뜨린 뒤 우발적으로 재물을 탈취한 경우, 혼취가 재물탈취 방법으로 사용된 것이 아니므로 강도죄가 성립하지 않는다.
+
+연결 NormCard: `art333_sec2_2.incidental_incapacitation_no_robbery`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다.
+
+### `robbery.art333_sec2_3.track_bar.benefit.002`
+
+이 규칙은 **'benefit' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 재물절취 때의 폭행·협박이 단지 주의를 다른 데로 돌리기 위한 것이거나, 탈취 후 모욕적 의사 또는 적개심 표시만을 위한 것이라면 강도죄가 아니라 폭행 또는 협박죄와 절도죄가 성립한다.
+
+연결 NormCard: `art333_sec2_3.diversion_or_insult_violence_no_robbery`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다.
+
+### `robbery.art333_sec3_2.track_bar.benefit.003`
+
+이 규칙은 **'benefit' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 소지품 탈취 후의 구타가 재물탈취와 관련하여 반항억압, 재물 탈환, 체포면탈 또는 증거인멸에 객관적 효과를 미친 것이 아니라면 강도죄는 성립하지 않는다.
+
+연결 NormCard: `art333_sec3_2.post_taking_assault_no_robbery`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다.
+
+### `robbery.art333_sec3_2.track_bar.benefit.004`
+
+이 규칙은 **'benefit' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 객관적으로 반항억압에 족한 폭행·협박이 있었더라도 피해자가 귀찮음이나 연민으로 반항 의사 억압 없이 재물을 교부한 경우에는 인과관계가 없어 강도미수죄만 성립한다.
+
+연결 NormCard: `art333_sec3_2.voluntary_delivery_attempt`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다.
+
+### `robbery.art333_sec3_3.track_bar.benefit.005`
+
+이 규칙은 **'benefit' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 재물탈취의 목적 없이 폭행·협박 또는 약물 사용으로 피해자를 심신상실 상태에 빠지게 한 후 우발적으로 재물탈취의 범의가 생긴 경우에는 선행행위와 재물탈취 사이에 인과관계가 없어 강도죄가 성립하지 않으며, 살해 후 사자의 소지품을 취득한 경우에도 살인죄와 절도죄의 경합범이 성립한다.
+
+연결 NormCard: `art333_sec3_3.unconsciousness_prior_force_no_causation`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다.
+
+### `robbery.art333_sec6.track_bar.benefit.006`
+
+이 규칙은 **'benefit' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 개시한 폭행·협박이 사회통념상 피해자의 반항을 억압할 만한 정도가 아니면 강도 실행의 착수가 인정되기 어렵다.
+
+연결 NormCard: `art333_sec6.no_attempt_insufficient_violence_intimidation`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다.
+
+### `robbery.art333_sec6.track_bar.benefit.007`
+
+이 규칙은 **'benefit' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 재물탈취에 착수하였더라도 폭행·협박 자체에 착수하지 않으면 강도죄의 실행 착수가 인정되지 않는다.
+
+연결 NormCard: `art333_sec6.no_attempt_without_violence_intimidation_commencement`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다.
+
+### `robbery.art333_sec8.track_bar.benefit.008`
+
+이 규칙은 **'benefit' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 범인에게 취득할 권리가 있는 재산상 이익은 불법한 이익이 아니므로, 이를 폭행·협박으로 취득하여도 강도죄가 아니라 폭행죄 또는 협박죄가 성립한다.
+
+연결 NormCard: `art333_sec8.right_exercise_robbery_negative`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다.
+
+### `robbery.art335_sec6_1.track_bar.benefit.009`
+
+이 규칙은 **'benefit' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 범행 수일 후 재물탈환 방지 또는 체포 면탈 목적으로 폭행을 한 경우에는 준강도죄가 성립될 수 없다.
+
+연결 NormCard: `art335_sec6_1.days_later_no_opportunity`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다.
+
+### `robbery.art335_sec6_2.track_bar.benefit.010`
+
+이 규칙은 **'benefit' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 절도범이 원래 범행현장에서 안전하게 도피하여 더 이상 추적이나 체포위협을 느끼지 않을 정도로 시간적·장소적 경과가 있으면 절도의 기회 계속성을 인정하기 어렵다.
+
+연결 NormCard: `art335_sec6_2.opportunity_safe_escape_limit`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다.
+
+### `robbery.art338_sec2.track_bar.benefit.011`
+
+이 규칙은 **'benefit' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 채권자에게 상속인이 있고 채권 존재를 확인할 방법이 확보된 경우, 채무자가 채무면탈 목적으로 채권자를 살해하여도 재산적 이익의 지배를 취득하였다고 보기 어려워 강도가 될 수 없고 단순 살인죄에 그칠 수 있다.
+
+연결 NormCard: `art338_sec2.debt_evasion_no_robbery`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다.
+
+### `robbery.art338_sec3.track_bar.benefit.012`
+
+이 규칙은 **'benefit' track에 국한된 명시적 불성립 사유가 존재함**을 도출한다.
+
+필요한 전제:
+
+- 증명 가능한 평가에서 다음 조건이 충족됨: 강도 범행이 종료된 뒤 상당한 시간이 경과하여 새로운 범의로 저지른 살해행위는 강도의 기회에 한 행위로 보기 어렵다.
+
+연결 NormCard: `art338_sec3.opportunity_new_intent_after_completion`
+
+검토 메모: 이 카드의 부정·배제 조건이 충족되면 'benefit' track에서 성립을 부정한다.
+
+### `robbery.benefit.has_negative`
+
+이 규칙은 **'benefit' track에 국한된 불성립 사유의 존재를 2항으로 요약함**을 도출한다.
+
+필요한 전제:
+
+- 'benefit' track에 국한된 명시적 불성립 사유가 존재함
+
+연결 NormCard: `art333_sec2_2.incidental_incapacitation_no_robbery`, `art333_sec2_3.diversion_or_insult_violence_no_robbery`, `art333_sec3_2.post_taking_assault_no_robbery`, `art333_sec3_2.voluntary_delivery_attempt`, `art333_sec3_3.unconsciousness_prior_force_no_causation`, `art333_sec6.no_attempt_insufficient_violence_intimidation`, `art333_sec6.no_attempt_without_violence_intimidation_commencement`, `art333_sec8.right_exercise_robbery_negative`, `art335_sec6_1.days_later_no_opportunity`, `art335_sec6_2.opportunity_safe_escape_limit`, `art338_sec2.debt_evasion_no_robbery`, `art338_sec3.opportunity_new_intent_after_completion`
+
+검토 메모: 'benefit' track에 국한된 불성립 사유를 완결 게이트가 검사할 2항 relation으로 모은다.
+
+### `robbery.outcome.benefit.established`
+
+이 규칙은 **완결 게이트 뒤에 'benefit' track의 불성립 사유와 충돌이 모두 없는 확정 성립**을 도출한다.
+
+필요한 전제:
+
+- 대안적 실행형태 'benefit' 트랙의 component가 공유 component와 함께 모두 충족됨
 - 라우터가 선택한 사건 평가 묶음이 유한하고 완결됨 — 이 게이트 뒤 최종 결론 층에서만 부정을 쓴다
-- 해당 피고인에 관해 하나 이상의 명시적 불성립 사유가 존재함
+- 'benefit' track에 국한된 불성립 사유의 존재를 2항으로 요약함
 - 해당 피고인에 관해 하나 이상의 상충 평가가 존재함
 
 연결 NormCard: `art333_sec2_1.robbery_violence_incapacitating_attack`, `art333_sec2_1.violence_threat_resistance_suppression`, `art333_sec2_2.drug_induced_incapacitation_violence`, `art333_sec2_3.apparent_capacity_threat`, `art333_sec2_3.objective_resistance_suppression`, `art333_sec2_3.snatching_forceful_attack`, `art333_sec2_3.weapon_presentation_context`, `art333_sec2_4.target_person_obstructing_taking`, `art333_sec3.forcible_taking`, `art333_sec3_3.continuing_force_after_theft_intent`, `art333_sec3_3.continuing_force_single_robbery`, `art333_sec3_3.rape_fear_state_property_provision`, `art333_sec3_3.rape_force_subsequent_taking_precedent`, `art333_sec5.determine_illegal_benefit_intent`, `art333_sec5.illegal_benefit_intent`, `art333_sec6.attempt_commencement_violence_intimidation`, `art333_sec6.attempt_debt_evasion_killing`, `art333_sec6.attempt_intent_arising_after_subjugation`, `art333_sec6.attempt_unattained_objective`
 
-검토 메모: 라우터가 선택한 사건 평가 묶음이 완결된 뒤, 성립 후보에 명시적 불성립 사유와 충돌이 모두 없을 때만 확정 성립을 출력한다. 이 두 부정은 완결 게이트 뒤 최종 층에서만 쓴다.
+검토 메모: 'benefit' track의 component가 모두 충족되고, 완결 게이트 뒤 이 track 전용 불성립 사유와 사건 전체의 충돌이 모두 없을 때만 이 track의 확정 성립을 낸다.
+
+### `robbery.core.outcome.established.union.benefit`
+
+이 규칙은 **완결 게이트 뒤에 불성립 사유와 충돌이 모두 없는 확정 성립**을 도출한다.
+
+필요한 전제:
+
+- 완결 게이트 뒤에 'benefit' track의 불성립 사유와 충돌이 모두 없는 확정 성립
+
+연결 NormCard: `art333_sec2_1.robbery_violence_incapacitating_attack`, `art333_sec2_1.violence_threat_resistance_suppression`, `art333_sec2_2.drug_induced_incapacitation_violence`, `art333_sec2_3.apparent_capacity_threat`, `art333_sec2_3.objective_resistance_suppression`, `art333_sec2_3.snatching_forceful_attack`, `art333_sec2_3.weapon_presentation_context`, `art333_sec2_4.target_person_obstructing_taking`, `art333_sec3.forcible_taking`, `art333_sec3_3.continuing_force_after_theft_intent`, `art333_sec3_3.continuing_force_single_robbery`, `art333_sec3_3.rape_fear_state_property_provision`, `art333_sec3_3.rape_force_subsequent_taking_precedent`, `art333_sec5.determine_illegal_benefit_intent`, `art333_sec5.illegal_benefit_intent`, `art333_sec6.attempt_commencement_violence_intimidation`, `art333_sec6.attempt_debt_evasion_killing`, `art333_sec6.attempt_intent_arising_after_subjugation`, `art333_sec6.attempt_unattained_objective`
+
+검토 메모: 'benefit' track의 확정 성립을 죄명 전체의 확정 성립으로 합친다(순수 OR, 부정 없음).
 
 ### `robbery.art333_sec7_1.requirement_waived.001`
 

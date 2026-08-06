@@ -185,6 +185,33 @@ def test_closed_selection_demotes_bad_label_dependency_and_missing_role() -> Non
         )
 
 
+def test_selected_predicate_requests_tolerates_every_issue_rejected() -> None:
+    """A case where per-issue rejection empties ``issues`` is a degraded case,
+    not a malformed payload.
+
+    219740 crashed two cases this way: the raw selection had issues, but every
+    one of them failed the role/quote contract, and ``selected_predicate_requests``
+    re-ran the same schema — with its ``minItems: 1`` for raw model output —
+    against the now-empty, already-filtered selection.
+    """
+
+    case = {
+        "sub_question_id": "case-1",
+        "question_text": CASE_TEXT,
+        "question_prompt": "죄책을 검토하라.",
+    }
+    filtered = {"version": "1.0.0", "case_id": "case-1", "issues": []}
+    result = selected_predicate_requests(case=case, selection=filtered)
+    assert result["requests"] == []
+
+    # The model's raw output must still name at least one issue — this path
+    # is unchanged.
+    with pytest.raises(NativeHostError, match="non-empty"):
+        validate_closed_issue_selection(
+            filtered, case_id="case-1", case_text=CASE_TEXT
+        )
+
+
 def test_direct_assessment_requires_exact_source_quotes() -> None:
     scenario = UnitScenarios("rape").build()[0]
     payload = _assessment("rape", scenario, issue_id="issue-1")
@@ -220,6 +247,51 @@ def test_host_executes_committed_nonproperty_rule_ir(tmp_path: Path) -> None:
     assert len(result["compiled_scl_sha256"]) == 64
     assert result["symbolic_conclusion"] == "established"
     assert "rape_base_established" in result["established_relations"]
+
+
+@pytest.mark.skipif(not DEFAULT_SCLI.is_file(), reason="pinned scli is not installed")
+def test_execute_native_case_degrades_single_symbolic_execution_failure(
+    tmp_path: Path,
+) -> None:
+    """A Scallop-fact-level defect in one issue must not discard its siblings.
+
+    ``distinct_entities`` naming an id outside the actor tuple passes
+    ``validate_predicate_assessment``'s own quote/missing-facts contract but
+    fails later, at scenario rendering — a case in the 219740 sweep hit
+    exactly this and lost every issue, not just the broken one.
+    """
+
+    scenario = UnitScenarios("rape").build()[0]
+    good = _assessment("rape", scenario, issue_id="issue-1")
+    bad = _assessment("rape", scenario, issue_id="issue-2")
+    bad["distinct_entities"] = [[bad["role_values"]["defendant_id"], "no-such-entity"]]
+
+    report = execute_native_case(
+        case_id="case-1",
+        case_text=CASE_TEXT,
+        unit_runs=[
+            {
+                "issue_id": "issue-1",
+                "unit_id": "rape",
+                "depends_on_issue_ids": [],
+                "assessment_payload": good,
+            },
+            {
+                "issue_id": "issue-2",
+                "unit_id": "rape",
+                "depends_on_issue_ids": [],
+                "assessment_payload": bad,
+            },
+        ],
+        work_dir=tmp_path,
+    )
+
+    contract = report["generation_contract"]
+    assert {d["issue_id"] for d in contract["conclusion_directives"]} == {"issue-1"}
+    assert report["unit_results"]["issue-2"]["status"] == "symbolic_execution_failed"
+    assert any(
+        item["issue_id"] == "issue-2" for item in contract["skipped_directives"]
+    )
 
 
 @pytest.mark.skipif(not DEFAULT_SCLI.is_file(), reason="pinned scli is not installed")
@@ -260,25 +332,42 @@ def test_property_outcome_bridges_into_shared_module(tmp_path: Path) -> None:
     assert contract["model_may_override_symbolic_conclusion"] is False
 
 
-def test_shared_module_cannot_run_without_outcome_bridge(tmp_path: Path) -> None:
+def test_shared_module_without_dependency_degrades_instead_of_crashing(
+    tmp_path: Path,
+) -> None:
+    """A shared module selected with no dependency has nothing to bridge from,
+    but that must demote only this one issue, not the whole case.
+
+    219774's remaining failure (after the other three per-issue defects were
+    fixed) was exactly this: the model selected a bridge-only unit as if it
+    stood on its own, and the host used to raise out of the case loop for it.
+    """
+
     relative = UnitScenarios("relative_property_crime_exception").build()[0]
-    with pytest.raises(NativeHostError, match="requires dependency bridge"):
-        execute_native_case(
-            case_id="case-1",
-            case_text=CASE_TEXT,
-            unit_runs=[
-                {
-                    "issue_id": "issue-relative",
-                    "unit_id": "relative_property_crime_exception",
-                    "assessment_payload": _assessment(
-                        "relative_property_crime_exception",
-                        relative,
-                        issue_id="issue-relative",
-                    ),
-                }
-            ],
-            work_dir=tmp_path,
-        )
+    report = execute_native_case(
+        case_id="case-1",
+        case_text=CASE_TEXT,
+        unit_runs=[
+            {
+                "issue_id": "issue-relative",
+                "unit_id": "relative_property_crime_exception",
+                "assessment_payload": _assessment(
+                    "relative_property_crime_exception",
+                    relative,
+                    issue_id="issue-relative",
+                ),
+            }
+        ],
+        work_dir=tmp_path,
+    )
+    assert (
+        report["unit_results"]["issue-relative"]["status"]
+        == "shared_module_missing_dependency"
+    )
+    assert any(
+        item["issue_id"] == "issue-relative"
+        for item in report["generation_contract"]["skipped_directives"]
+    )
 
 
 def test_section_writer_cannot_supply_host_conclusion() -> None:

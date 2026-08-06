@@ -127,6 +127,30 @@ def quarantined_cards(unit: str) -> set[str]:
         and row["card_id"] not in approved
     }
 
+# 저지 카드가 무엇을 막는지 — 원장의 ``effect_scope``. 기본값이 track인 것은 지금까지의
+# 동작이 그러했기 때문이고(공유 레벨 카드는 모든 track에 공통이라 결과가 그대로다),
+# 장물죄처럼 행위태양이 병렬로 놓인 죄에서는 취득 경로의 요건 결여가 보관·운반·알선까지
+# 함께 죽이면 안 된다(검수 003). 이 조립기의 track은 카드 레벨로만 결정되므로
+# ``track``과 ``component``는 같은 결과로 수렴한다 — track 전용 레벨 자체가 이미 그
+# track만의 요건 집합이라 더 좁힐 대상이 없다. ``unit``이면 track 전용 레벨에 있어도
+# 죄 전체를 막는다.
+EFFECT_SCOPES = ("unit", "track", "component")
+DEFAULT_EFFECT_SCOPE = "track"
+
+# 학설 대립 카드의 상태. `variant`는 역할이 아니라 **선택 상태**다 — 채택되지 않은 견해가
+# 결론을 만들거나 막으면 룰베이스가 학설 하나를 몰래 확정해 버린다(검수 002 E-04, 003).
+SELECTED_VARIANT_STATES = ("selected", "authority_default", "policy_selected")
+VARIANT_STATES = (*SELECTED_VARIANT_STATES, "unselected", "rejected")
+DEFAULT_VARIANT_STATE = "selected"
+
+# post_outcome은 자유문장 하나가 아니라 죄수 효과의 종류를 구조화한다(검수 002 F-02) —
+# 자연어 값만 있으면 다음 사건의 유사 판단이 문자열 비교에 의존하게 된다.
+POST_OUTCOME_SUBTYPES = (
+    "absorption", "nonpunishable_post_offense", "real_concurrence",
+    "imaginary_concurrence", "inclusive_offense", "procedural_reclassification",
+    "mitigation_unavailable",
+)
+
 # 가중 조문 → 플래그 kind (preflight AGGRAVATION과 같은 열거)
 ARTICLE_AGGRAVATION: dict[str, str] = {
     "art330": "nighttime_residential",
@@ -182,7 +206,12 @@ class UnitBuilder:
         self.card_roles = card_roles if card_roles is not None \
             else read_json(CARD_ROLES)["cards"]
         self.card_set = card_set
-        self.cards = card_set["cards"]
+        all_cards = card_set["cards"]
+        self.check_variant_exclusivity(all_cards)
+        self.variant_views = [card for card in all_cards
+                              if self.variant_status(card) == "unselected"]
+        self.cards = [card for card in all_cards
+                     if self.variant_status(card) in SELECTED_VARIANT_STATES]
         self.cards_by_id = {card["id"]: card for card in self.cards}
         self.roles = ACTOR_ROLES[unit]
         self.actor_arguments = [(name, "String") for name in ("case_id", *self.roles)]
@@ -203,6 +232,10 @@ class UnitBuilder:
         self.predicates: list[dict[str, Any]] = []
         self.rules: list[dict[str, Any]] = []
         self.quarantined = quarantined_cards(unit)
+        # track이 있는데 그 track 전용 레벨에 positive component 카드가 하나도 없는
+        # 경우(장물죄 양도·알선처럼 정의 카드만 있고 실행행위를 인정하는 component가
+        # 아직 없는 경우) — outcome_layer가 채운다.
+        self.incomplete_tracks: list[str] = []
 
     # ── 분류 ───────────────────────────────────────────────────────────
     def cards_at(self, level: str) -> list[dict[str, Any]]:
@@ -212,25 +245,87 @@ class UnitBuilder:
         """카드의 규칙 내 역할 — 명시 표에서 읽는다. 표에 없으면 조립을 중단한다.
 
         `component`는 요건 인정 경로이므로 positive 카드와 같이 취급한다(빈 문자열).
+
+        LEVEL(구성요건 몇 단계인지)과 역할은 서로 다른 결정이다(검수 004 J-06).
+        예전에는 LEVEL이 `BAR_LEVEL`일 때만 명시 표를 봤는데, 이러면 positive
+        polarity인 판단기준·정의 카드(예: 장물죄의 `transfer.definition`)가 표에
+        올라 있어도 LEVEL이 BAR_LEVEL이 아니면 조용히 component로 취급된다. 지금은
+        표에 실제로 올라 있으면 LEVEL과 무관하게 그 역할을 따른다 — negative·exception
+        polarity인데 표에 없는 경우만 조립을 중단한다(표 등록 누락을 잡는 안전장치는
+        유지, LEVEL 의존만 제거).
         """
 
-        needs_role = (card["polarity"] in ("negative", "exception")
-                      or self.levels.get(card["id"]) == BAR_LEVEL)
-        if not needs_role:
-            return ""
         entry = self.card_roles.get(card["id"])
-        if entry is None:
+        if entry is not None:
+            role = entry["role"]
+            return "" if role == "component" else role
+        if card["polarity"] in ("negative", "exception"):
             raise SystemExit(
                 f"{card['id']}의 역할이 지정되지 않았다 — "
                 "scripts/build_rule_ir_card_roles.py에 추가해야 한다")
-        role = entry["role"]
-        return "" if role == "component" else role
+        return ""
 
     def bar_cards(self) -> list[dict[str, Any]]:
         """성립을 막는 카드 — 순수 저지형과 경계획정형만. 요건불요·검토필요는 뺀다."""
 
         return [card for card in self.cards
                 if self.negative_kind(card) in ("bar", "boundary")]
+
+    def variant_status(self, card: dict[str, Any]) -> str:
+        entry = self.card_roles.get(card["id"], {})
+        state = entry.get("variant_status", DEFAULT_VARIANT_STATE)
+        if state not in VARIANT_STATES:
+            raise SystemExit(
+                f"{self.unit}: {card['id']} has unknown variant_status {state!r}")
+        return state
+
+    def check_variant_exclusivity(self, cards: list[dict[str, Any]]) -> None:
+        """한 견해 그룹에서 채택은 하나만 — 둘이면 룰베이스가 학설을 두 번 확정한다."""
+
+        adopted: dict[str, list[str]] = defaultdict(list)
+        for card in cards:
+            entry = self.card_roles.get(card["id"], {})
+            state = entry.get("variant_status", DEFAULT_VARIANT_STATE)
+            if state not in VARIANT_STATES:
+                raise SystemExit(
+                    f"{self.unit}: {card['id']} has unknown variant_status {state!r}")
+            group = entry.get("variant_group")
+            if group and state in SELECTED_VARIANT_STATES:
+                adopted[str(group)].append(card["id"])
+        conflicts = {group: ids for group, ids in adopted.items() if len(ids) > 1}
+        if conflicts:
+            raise SystemExit(
+                f"{self.unit}: 상호 배타적인 견해가 함께 채택되었다: {conflicts}")
+
+    def effect_scope(self, card: dict[str, Any]) -> str:
+        entry = self.card_roles.get(card["id"], {})
+        scope = entry.get("effect_scope", DEFAULT_EFFECT_SCOPE)
+        if scope not in EFFECT_SCOPES:
+            raise SystemExit(
+                f"{self.unit}: {card['id']} has unknown effect_scope {scope!r}")
+        return scope
+
+    def track_scoped_bars(self) -> dict[str, list[dict[str, Any]]]:
+        """저지 카드가 실제로 막는 track만 — track 전용 레벨에 있고 unit 범위가 아닌 카드.
+
+        강도의 재물강취/이득강취처럼 행위태양이 병렬인 단위에서, 한 track 전용 요건의
+        결여가 다른 track까지 죽이면 안 된다(검수 003). 공유 레벨의 카드는 모든 track에
+        공통이므로 여기 대상이 아니다 — 기존 ``{unit}_not_established`` 경로가 그대로
+        모든 track에 영향을 준다. 검수 전 격리된(quarantined) 카드는 애초에 결론에
+        닿지 않으므로 어느 track도 막지 않는다.
+        """
+
+        by_track: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        for card in self.bar_cards():
+            if card["id"] in self.quarantined:
+                continue
+            level = self.levels.get(card["id"])
+            if level not in self.track_levels or self.effect_scope(card) == "unit":
+                continue
+            for name, levels in self.tracks.items():
+                if level in levels:
+                    by_track[name].append(card)
+        return dict(by_track)
 
     def cards_of_kind(self, kind: str) -> list[dict[str, Any]]:
         return [card for card in self.cards if self.negative_kind(card) == kind]
@@ -484,19 +579,29 @@ class UnitBuilder:
                     kind="rule", role="derived", origin="commentary",
                     definition=f"대안적 실행형태 '{track_name}' 트랙의 component가 공유 "
                               "component와 함께 모두 충족됨", cards=track_cards))
-                self.rules.append(rule(
-                    f"{self.unit}.core.outcome.track.{track_name}",
-                    atom(track_pred, *self.actors),
-                    [atom(component, *self.actors) for component in shared + track_components],
-                    track_cards,
-                    f"공유 component와 '{track_name}' 트랙 전용 component를 AND 결합한다."))
-                self.rules.append(rule(
-                    f"{self.unit}.core.outcome.elements_satisfied.{track_name}",
-                    atom(elements, *self.actors),
-                    [atom(track_pred, *self.actors)],
-                    track_cards,
-                    f"'{track_name}' 트랙이 충족되면 구성요건 전체가 충족된 것으로 본다"
-                    "(대안적 실행형태이므로 트랙끼리는 OR)."))
+                if track_components:
+                    self.rules.append(rule(
+                        f"{self.unit}.core.outcome.track.{track_name}",
+                        atom(track_pred, *self.actors),
+                        [atom(component, *self.actors) for component in shared + track_components],
+                        track_cards,
+                        f"공유 component와 '{track_name}' 트랙 전용 component를 AND 결합한다."))
+                    self.rules.append(rule(
+                        f"{self.unit}.core.outcome.elements_satisfied.{track_name}",
+                        atom(elements, *self.actors),
+                        [atom(track_pred, *self.actors)],
+                        track_cards,
+                        f"'{track_name}' 트랙이 충족되면 구성요건 전체가 충족된 것으로 본다"
+                        "(대안적 실행형태이므로 트랙끼리는 OR)."))
+                else:
+                    # 이 트랙 전용 레벨에 positive component가 하나도 없다. 공유
+                    # component만으로 track_pred를 도출하면 실행행위 사실 없이 성립이
+                    # 나온다 — 그래서 이 트랙에는 아예 긍정 도출 규칙을 컴파일하지
+                    # 않는다. track_pred는 선언만 되고 영원히 비어 있는 relation이
+                    # 되므로 이 트랙의 established는 구조적으로 도출 불가하다.
+                    # track-scoped bar(track_scoped_bars)는 이 predicate와 무관하게
+                    # 독립적으로 동작하므로 그 경로의 불성립 판정은 그대로 유지된다.
+                    self.incomplete_tracks.append(track_name)
             names = list(track_predicates)
             for i in range(len(names)):
                 for j in range(i + 1, len(names)):
@@ -534,18 +639,107 @@ class UnitBuilder:
             self.cards,
             "카드·결론 충돌을 최종 결론 계층에서 검사할 2항 relation으로 모은다."))
 
-        self.rules.append(rule(
-            f"{self.unit}.core.outcome.established",
-            atom(f"{self.unit}_established", *self.actors),
-            [atom(elements, *self.actors),
-             atom("case_assessment_complete", self.actors[0], self.actors[1]),
-             atom(f"{self.unit}_has_negative", self.actors[0], self.actors[1],
-                  negated=True),
-             atom(f"{self.unit}_has_conflict", self.actors[0], self.actors[1],
-                  negated=True)],
-            mandatory,
-            "라우터가 선택한 사건 평가 묶음이 완결된 뒤, 성립 후보에 명시적 불성립 사유와 충돌이 "
-            "모두 없을 때만 확정 성립을 출력한다. 이 두 부정은 완결 게이트 뒤 최종 층에서만 쓴다."))
+        if self.tracks:
+            # 단일 완결 게이트로 묶으면 한 track 전용 저지 카드가 다른 track까지 막는다
+            # (검수 003). track마다 자기 몫의 불성립·자기 몫의 부정만 쓰는 게이트를 두고,
+            # 그 결과를 순수 OR(부정 없음)로 합쳐 기존 ``{unit}_established`` 관계를
+            # 그대로 유지한다.
+            self.track_established_layer(track_predicates, mandatory)
+        else:
+            self.rules.append(rule(
+                f"{self.unit}.core.outcome.established",
+                atom(f"{self.unit}_established", *self.actors),
+                [atom(elements, *self.actors),
+                 atom("case_assessment_complete", self.actors[0], self.actors[1]),
+                 atom(f"{self.unit}_has_negative", self.actors[0], self.actors[1],
+                      negated=True),
+                 atom(f"{self.unit}_has_conflict", self.actors[0], self.actors[1],
+                      negated=True)],
+                mandatory,
+                "라우터가 선택한 사건 평가 묶음이 완결된 뒤, 성립 후보에 명시적 불성립 사유와 "
+                "충돌이 모두 없을 때만 확정 성립을 출력한다. 이 두 부정은 완결 게이트 뒤 최종 "
+                "층에서만 쓴다."))
+
+    def track_established_layer(
+        self, track_predicates: dict[str, str], mandatory: list[dict[str, Any]],
+    ) -> None:
+        """track별 완결 게이트 — track 전용 저지 카드가 다른 track까지 막지 않게 한다.
+
+        ``{unit}_has_conflict``는 track을 나누지 않는다 — 카드 평가 자체의 모순은 어느
+        track이 그 요건을 필요로 하는지와 무관한 데이터 결함이므로, track별로 봐주지
+        않고 사건 전체를 보류한다(검수 003이 요구한 것은 저지 카드의 track 스코프이지
+        충돌의 스코프가 아니다).
+        """
+
+        scoped = self.track_scoped_bars()
+        for track_name, track_pred in track_predicates.items():
+            not_established = f"{self.unit}_{track_name}_not_established"
+            has_negative = f"{self.unit}_{track_name}_has_negative"
+            established = f"{self.unit}_{track_name}_established"
+            relevant_bars = [
+                card for card in self.bar_cards()
+                if card["id"] not in self.quarantined
+                and (self.levels.get(card["id"]) not in self.track_levels
+                     or card in scoped.get(track_name, []))
+            ]
+            self.predicates.extend([
+                predicate(
+                    not_established,
+                    [("case_id", "String"), ("defendant_id", "String"),
+                     ("issue_id", "String")],
+                    kind="rule", role="derived", origin="commentary",
+                    definition=f"'{track_name}' track에 국한된 명시적 불성립 사유가 존재함",
+                    cards=relevant_bars or mandatory),
+                predicate(
+                    has_negative, [("case_id", "String"), ("defendant_id", "String")],
+                    kind="rule", role="derived", origin="commentary",
+                    definition=f"'{track_name}' track에 국한된 불성립 사유의 존재를 2항으로 "
+                              "요약함",
+                    cards=relevant_bars or mandatory),
+                predicate(
+                    established, self.actor_arguments,
+                    kind="rule", role="derived", origin="commentary",
+                    definition=f"완결 게이트 뒤에 '{track_name}' track의 불성립 사유와 "
+                              "충돌이 모두 없는 확정 성립",
+                    cards=mandatory),
+            ])
+            for index, card in enumerate(relevant_bars, 1):
+                self.rules.append(rule(
+                    f"{self.unit}.{module_slug(card['id'])}.track_bar."
+                    f"{track_name}.{index:03d}",
+                    atom(not_established, self.actors[0], self.actors[1],
+                         string(card["id"])),
+                    [atom(condition_id(card["id"]), *self.actors)],
+                    [card],
+                    f"이 카드의 부정·배제 조건이 충족되면 '{track_name}' track에서 성립을 "
+                    "부정한다."))
+            self.rules.append(rule(
+                f"{self.unit}.{track_name}.has_negative",
+                atom(has_negative, self.actors[0], self.actors[1]),
+                [atom(not_established, self.actors[0], self.actors[1],
+                      variable("negative_issue_id"))],
+                relevant_bars or mandatory,
+                f"'{track_name}' track에 국한된 불성립 사유를 완결 게이트가 검사할 2항 "
+                "relation으로 모은다."))
+            self.rules.append(rule(
+                f"{self.unit}.outcome.{track_name}.established",
+                atom(established, *self.actors),
+                [atom(track_pred, *self.actors),
+                 atom("case_assessment_complete", self.actors[0], self.actors[1]),
+                 atom(has_negative, self.actors[0], self.actors[1], negated=True),
+                 atom(f"{self.unit}_has_conflict", self.actors[0], self.actors[1],
+                      negated=True)],
+                mandatory,
+                f"'{track_name}' track의 component가 모두 충족되고, 완결 게이트 뒤 이 "
+                "track 전용 불성립 사유와 사건 전체의 충돌이 모두 없을 때만 이 track의 "
+                "확정 성립을 낸다."))
+            self.rules.append(rule(
+                f"{self.unit}.core.outcome.established.union.{track_name}",
+                atom(f"{self.unit}_established", *self.actors),
+                [atom(established, *self.actors)],
+                mandatory,
+                f"'{track_name}' track의 확정 성립을 죄명 전체의 확정 성립으로 합친다"
+                "(순수 OR, 부정 없음)."))
 
     def annotation_layer(self) -> None:
         """요건불요·경계획정 카드를 결론 밖 신호로 배출한다.
@@ -555,45 +749,66 @@ class UnitBuilder:
         불성립과 따로 드러나야 한다(사기 RuleIR이 미해결로 남긴 항목).
         """
 
-        for kind, suffix, definition, note in (
+        for kind, suffix, definition, note, subtype_field in (
             ("waiver", "requirement_waived",
              "이 죄의 성립에 요구되지 않는 요건이 확인됨 — 성립을 막지 않는다",
-             "요건 불요 규칙이므로 불성립 사유로 쓰지 않고 면제 사실만 기록한다."),
+             "요건 불요 규칙이므로 불성립 사유로 쓰지 않고 면제 사실만 기록한다.", None),
             ("boundary", "boundary_shift",
              "이 죄가 아니라 다른 죄로 평가되는 경계 사유가 확인됨",
-             "이 죄의 불성립과 함께 다른 죄로 넘어간다는 신호를 남긴다."),
+             "이 죄의 불성립과 함께 다른 죄로 넘어간다는 신호를 남긴다.", None),
             ("assessment_standard", "assessment_standard",
              "이 요건을 어떤 기준으로 판단하는지 — 기준일 뿐 충족 여부의 결론이 아니다",
              "판단기준은 결론 계층에 연결하지 않는다. 기준으로 성립을 만들거나 막으면 "
-             "정의만으로 유·무죄가 갈린다."),
+             "정의만으로 유·무죄가 갈린다.", None),
+            ("evidentiary_standard", "evidentiary_standard",
+             "판례 사례형 증거판단 — assessment_standard의 subtype. 기준일 뿐 결론이 아니다",
+             "사실관계가 일부 유사하다는 이유로 다른 사건에 그대로 적용해 요건을 인정·부정하면 "
+             "안 된다. 그 사례가 왜 그렇게 판단됐는지 기준으로만 제공한다.", None),
             ("proof_standard", "proof_standard",
              "유죄 인정을 위한 증명·특정 요건 — 구성요건 자체가 아니다",
              "증명요건을 구성요건에 넣으면 '증명이 필요하다는 법리가 참'이라는 이유로 "
-             "요건이 인정되는 역전이 생긴다."),
+             "요건이 인정되는 역전이 생긴다.", None),
             ("subtype_outcome", "subtype_outcome",
              "같은 죄 안에서 어느 적용유형으로 의율되는지 — 죄 전체의 성립은 유지된다",
-             "내부 의율유형이므로 죄의 성부를 바꾸지 않는다."),
+             "내부 의율유형이므로 죄의 성부를 바꾸지 않는다.", None),
             ("post_outcome", "post_outcome",
              "구성요건 판단 뒤에 오는 죄수·처벌 효과",
-             "불가벌적 사후행위 등은 구성요건 불성립과 구별해 별도로 기록한다."),
+             "불가벌적 사후행위 등은 구성요건 불성립과 구별해 별도로 기록한다.",
+             "outcome_subtype"),
+            ("procedural_outcome", "procedural_outcome",
+             "실체법 구성요건이 아니라 공소장변경 없이 인정 가능한 죄명 범위 등 절차법 효과",
+             "공소사실 동일성 범위의 문제이므로 구성요건 성부와 섞지 않는다.", None),
         ):
             members = self.cards_of_kind(kind)
             if not members:
                 continue
             relation = f"{self.unit}_{suffix}"
+            arguments = [("case_id", "String"), ("defendant_id", "String"),
+                        ("issue_id", "String")]
+            if subtype_field:
+                arguments.append((subtype_field, "String"))
+            arguments.append(("value", "String"))
             self.predicates.append(predicate(
-                relation, [("case_id", "String"), ("defendant_id", "String"),
-                           ("issue_id", "String"), ("value", "String")],
+                relation, arguments,
                 kind="rule", role="derived", origin="commentary",
                 definition=definition, cards=members))
             for index, card in enumerate(members, 1):
                 # 답안에 나가는 것은 마지막 인수다. 카드 ID를 그 자리에 두면 내부
                 # 식별자가 그대로 노출되므로 검수자가 적은 우리말 값을 쓴다.
-                value = self.card_roles[card["id"]]["value"]
+                entry = self.card_roles[card["id"]]
+                value = entry["value"]
+                head_args = [self.actors[0], self.actors[1], string(card["id"])]
+                if subtype_field:
+                    subtype = entry[subtype_field]
+                    if kind == "post_outcome" and subtype not in POST_OUTCOME_SUBTYPES:
+                        raise SystemExit(
+                            f"{self.unit}: {card['id']} has unknown {subtype_field} "
+                            f"{subtype!r}")
+                    head_args.append(string(str(subtype)))
+                head_args.append(string(str(value)))
                 self.rules.append(rule(
                     f"{self.unit}.{module_slug(card['id'])}.{suffix}.{index:03d}",
-                    atom(relation, self.actors[0], self.actors[1],
-                         string(card["id"]), string(str(value))),
+                    atom(relation, *head_args),
                     [atom(condition_id(card["id"]), *self.actors)],
                     [card], note))
 
@@ -690,7 +905,17 @@ class UnitBuilder:
                 "경계획정 카드가 가리키는 후속 죄명을 술어 인수로 옮길지 검토해야 한다.",
                 "가중 플래그의 전제조건을 조문별로 더 좁힐지 검토해야 한다.",
             ],
-            "coverage_gaps": self.card_set["coverage_gaps"],
+            "coverage_gaps": [
+                *self.card_set["coverage_gaps"],
+                *(f"variant_unselected: {card['id']}"
+                  f" (group={self.card_roles.get(card['id'], {}).get('variant_group') or '미지정'})"
+                  for card in sorted(self.variant_views, key=lambda item: item["id"])),
+                *(f"track_positive_path_missing: {track_name}"
+                  " (component 카드 없이 정의만 있음 — 이 track은 established를 "
+                  "도출할 수 없고, 승인된 track-scoped bar가 발화한 경우에만 "
+                  "not_established가 나온다)"
+                  for track_name in sorted(self.incomplete_tracks)),
+            ],
         }
 
 
@@ -711,7 +936,8 @@ def main() -> None:
             commentary.update(chunks)
 
         rule_ir = UnitBuilder(unit, card_set, phase_rows).build()
-        profile = RuleIRGenerationProfile.for_crime(unit, ACTOR_ROLES[unit])
+        profile = RuleIRGenerationProfile.for_crime(
+            unit, ACTOR_ROLES[unit], tracks=tuple(UNIT_TRACKS.get(unit, {})))
         errors: list[str] = []
         try:
             validate_full_rule_ir_generation(rule_ir, commentary, card_set, profile)

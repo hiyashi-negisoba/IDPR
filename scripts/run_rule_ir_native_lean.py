@@ -31,6 +31,7 @@ from idpr.neural.vllm_client import VLLMClient  # noqa: E402
 from idpr.prompts import load_prompt, prompt_path  # noqa: E402
 from idpr.rulegen.native_host import (  # noqa: E402
     DEFAULT_SCLI,
+    NativeHostError,
     closed_issue_selection_schema,
     closed_unit_catalog,
     execute_native_case,
@@ -333,7 +334,6 @@ def run_case(
                 if str(issue.get("issue_id", "")) not in rejected_ids
             ],
         }
-        _write_json(out_dir / "01_rejected_issues.json", {"rejected": rejected})
     _write_json(out_dir / "01_issue_selection.json", selection)
 
     registry = build_registry()
@@ -367,17 +367,35 @@ def run_case(
             max_tokens=16_384,
             temperature=0.0,
         )
-        validate_predicate_assessment(
-            assessment,
-            case_id=case_id,
-            issue_id=issue_id,
-            unit_id=unit_id,
-            case_text=case_text,
-        )
         _write_json(
             out_dir / f"02_assessment_{index:02d}_{issue_id}.json", assessment
         )
         assessment_metadata[issue_id] = metadata
+        try:
+            validate_predicate_assessment(
+                assessment,
+                case_id=case_id,
+                issue_id=issue_id,
+                unit_id=unit_id,
+                case_text=case_text,
+            )
+        except NativeHostError as exc:
+            # The model's predicate assessment for this one issue violated the
+            # quote/missing-facts contract (e.g. declared not_satisfied with no
+            # source quote). That is a defect in this issue, not grounds to
+            # discard every other issue the case selected fine — same
+            # per-issue degradation as a rejected issue selection.
+            rejected.append({
+                "issue_id": issue_id,
+                "unit_id": unit_id,
+                "reported_label": str(request.get("reported_label", "")),
+                "issue_status": "contract_degraded",
+                "symbolic_verdict": "unavailable",
+                "generation_mode": "nonbinding_fallback",
+                "degraded_reason": ["predicate_assessment_invalid"],
+                "reason": str(exc),
+            })
+            continue
         unit_runs.append(
             {
                 "issue_id": issue_id,
@@ -386,6 +404,9 @@ def run_case(
                 "assessment_payload": assessment,
             }
         )
+
+    if rejected:
+        _write_json(out_dir / "01_rejected_issues.json", {"rejected": rejected})
 
     native_report = execute_native_case(
         case_id=case_id,

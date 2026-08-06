@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "api_calls": 0,
-  "created_at": "2026-08-05T08:13:22.670122+00:00",
+  "created_at": "2026-08-06T03:48:48.757667+00:00",
   "method": "138장 전수 판독으로 역할·근거를 카드마다 지정 (정규식 분류 폐기)",
   "roles": {
     "bar": "요건 결여·배제 — 성립을 막는다",
@@ -9,9 +9,11 @@
     "boundary": "이 죄가 아니라 다른 죄로 — refers_to에 죄명",
     "component": "요건 인정 경로 — 구성요건 단계에 든다",
     "assessment_standard": "판단기준·정의 — 요건을 어떻게 재는지만 말하고 결론을 내지 않는다",
+    "evidentiary_standard": "판례 사례형 증거판단 — assessment_standard의 subtype, 그 사례가 왜 그렇게 판단됐는지 기준으로만 제공한다",
     "proof_standard": "증명·특정 요건 — 유죄 인정의 조건이지 구성요건 자체가 아니다",
     "subtype_outcome": "같은 죄 안의 의율유형 — 죄 전체의 성립은 유지된다",
-    "post_outcome": "구성요건 판단 뒤의 죄수·처벌 효과"
+    "post_outcome": "구성요건 판단 뒤의 죄수·처벌 효과",
+    "procedural_outcome": "실체법 구성요건이 아니라 공소장변경 없이 인정 가능한 죄명 범위 등 절차법 효과"
   },
   "counts": {
     "cards": 138,
@@ -601,7 +603,8 @@
       "role": "post_outcome",
       "refers_to": null,
       "value": "중지미수 감면 불가",
-      "rationale": "예비·음모죄가 완성된 뒤에는 중지미수 감면을 쓸 수 없다는 사후 법률효과이지 성립 판단이 아니다(검수 002 D-07)."
+      "rationale": "예비·음모죄가 완성된 뒤에는 중지미수 감면을 쓸 수 없다는 사후 법률효과이지 성립 판단이 아니다(검수 002 D-07).",
+      "outcome_subtype": "mitigation_unavailable"
     },
     "art350_sec3.own_property_exception": {
       "unit": "extortion",

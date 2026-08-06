@@ -7,6 +7,13 @@
       "from": "9a3895183f43cd883579b9d1a8c7951c6bc124708d974cd5258b28e75e5b3bc3",
       "reason": "재산죄 11단위에 같은 계약을 걸기 위해 검증기의 사기 전용 식별자(fraud_established·fraud_case_roles·fraud.core.outcome.established)를 RuleIRGenerationProfile 파라미터로 뽑았다. 기본값이 사기 그대로여서 사기 계약의 동작은 불변이고, 사기 RuleIR 후보는 이 변경 전에 이미 생성·검증됐다. artifact 게이트가 '검토 후 변경'을 정확히 잡아냈으므로 사유를 남기고 재해시한다.",
       "to": "1d7731b7dc8a697555b397ec26c6c6183a4b9833cce9ed2f4f2d16eab6874cef"
+    },
+    {
+      "artifact": "src/idpr/rulegen/__init__.py",
+      "at": "2026-08-06T01:14:09.892047+00:00",
+      "from": "1d7731b7dc8a697555b397ec26c6c6183a4b9833cce9ed2f4f2d16eab6874cef",
+      "reason": "강도처럼 행위태양이 병렬(track)인 재산죄 단위에서 track 전용 저지 카드가 무관한 track까지 막던 문제(검수 003)를 고치려면 track마다 자기 몫만 부정하는 완결 게이트가 필요했다. 기존 계약은 negation을 단일 `{unit}.core.outcome.established` 규칙 하나로만 제한했으므로, RuleIRGenerationProfile에 `track_outcome_rules`(추가로 허용되는 negation 규칙 id → 허용 negation 술어 집합)를 얹어 이를 일반화했다. `for_crime()`의 `tracks` 인자를 안 주면(기본값 `()`) `track_outcome_rules`가 비어 있어 기존 동작과 완전히 동일하고, FRAUD_GENERATION_PROFILE은 이 인자를 쓰지 않으므로 사기 계약은 불변이다 — 사기 RuleIR 후보는 이 변경 전에 이미 생성·검증됐다. artifact 게이트가 '검토 후 변경'을 정확히 잡아냈으므로 사유를 남기고 재해시한다.",
+      "to": "74cbfa91aa9d0785d67bd20829ad014a280dd36deca4ebbb167f064e9fe38d73"
     }
   ],
   "artifacts": {
@@ -18,7 +25,7 @@
     "docs/contracts/rule_ir.schema.json": "7be4edc668aa23d5620269027809c1137a8c610f769c73780da4149809f21363",
     "prompts/rulegen_merge_rule_ir.md": "6e5e25a3035b0c352808b054d47ca720543d96882992205c1173dd465d9bcb55",
     "rules/exemplars/fraud_rule_ir_generation_fewshot.scl": "078602c1d17b4667a49abcc38e956a724952286d09ba7835b8478a2df848e02c",
-    "src/idpr/rulegen/__init__.py": "1d7731b7dc8a697555b397ec26c6c6183a4b9833cce9ed2f4f2d16eab6874cef"
+    "src/idpr/rulegen/__init__.py": "74cbfa91aa9d0785d67bd20829ad014a280dd36deca4ebbb167f064e9fe38d73"
   },
   "execution_limits": {
     "max_concurrency": 1,

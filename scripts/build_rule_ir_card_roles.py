@@ -41,6 +41,8 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from scripts.build_property_rule_ir import POST_OUTCOME_SUBTYPES  # noqa: E402
+
 PROP = ROOT / "data/rulegen/property"
 UNITS = PROP / "rule_ir_units"
 PHASE_MAP = PROP / "rule_ir_phase_map.json"
@@ -368,13 +370,21 @@ ROLES: dict[str, tuple[str, str | None, str]] = {
         "bar", None, "우발적 동기·경제사정에서 비롯된 경우는 상습성이 부정된다."),
 }
 
+# post_outcome 카드는 자유문장이 아니라 죄수 효과의 종류를 구조화한다(검수 002 F-02) —
+# POST_OUTCOME_SUBTYPES(build_property_rule_ir)의 7종 중 하나. role이 "post_outcome"인
+# 카드는 반드시 여기 등록해야 한다.
+OUTCOME_SUBTYPES: dict[str, str] = {
+    "art343_sec3.abandonment_before_execution_denied": "mitigation_unavailable",
+}
+
 # 성립을 막는 역할과 결론 밖에서 보고만 하는 역할을 분리한다.  판단기준·증명요건·
 # 내부 의율유형·죄수효과는 어느 것도 죄의 성부를 결정하지 않는다.
 VALID_ROLES = ("bar", "waiver", "boundary", "component",
-               "assessment_standard", "proof_standard",
-               "subtype_outcome", "post_outcome")
-REPORTING_ROLES = ("waiver", "assessment_standard", "proof_standard",
-                   "subtype_outcome", "post_outcome")
+               "assessment_standard", "evidentiary_standard", "proof_standard",
+               "subtype_outcome", "post_outcome", "procedural_outcome")
+REPORTING_ROLES = ("waiver", "assessment_standard", "evidentiary_standard",
+                   "proof_standard", "subtype_outcome", "post_outcome",
+                   "procedural_outcome")
 # 학설 대립 카드는 채택 상태가 따로 있다. 미채택 견해가 결론을 만들거나 막으면
 # 룰베이스가 학설 하나를 몰래 확정한 것이 된다(검수 003).
 SELECTED_VARIANT_STATES = ("selected", "authority_default", "policy_selected")
@@ -386,9 +396,13 @@ ROLE_GLOSSARY = {
     "boundary": "이 죄가 아니라 다른 죄로 — refers_to에 죄명",
     "component": "요건 인정 경로 — 구성요건 단계에 든다",
     "assessment_standard": "판단기준·정의 — 요건을 어떻게 재는지만 말하고 결론을 내지 않는다",
+    "evidentiary_standard": "판례 사례형 증거판단 — assessment_standard의 subtype, "
+                            "그 사례가 왜 그렇게 판단됐는지 기준으로만 제공한다",
     "proof_standard": "증명·특정 요건 — 유죄 인정의 조건이지 구성요건 자체가 아니다",
     "subtype_outcome": "같은 죄 안의 의율유형 — 죄 전체의 성립은 유지된다",
     "post_outcome": "구성요건 판단 뒤의 죄수·처벌 효과",
+    "procedural_outcome": "실체법 구성요건이 아니라 공소장변경 없이 인정 가능한 죄명 범위 등 "
+                          "절차법 효과",
 }
 
 
@@ -399,23 +413,29 @@ def read_json(path: Path) -> dict[str, Any]:
 def main() -> None:
     phase_rows = read_json(PHASE_MAP)["rows"]
     levels = {row["card_id"]: row["level"] for row in phase_rows}
-    needed: dict[str, dict[str, Any]] = {}
+    # LEVEL(구성요건 몇 단계인지)과 역할 지정 필요 여부는 서로 다른 결정이다(검수 004
+    # J-06) — positive polarity인 판단기준·정의 카드도 역할 표에 오를 수 있으므로,
+    # "표에 반드시 있어야 하는 카드"(negative·exception polarity)와 "역할 표 자체가
+    # 가리키는 실제 카드 전체"(all_cards, 오탈자·유령 카드 검사용)를 분리한다.
+    all_cards: dict[str, dict[str, Any]] = {}
+    mandatory: set[str] = set()
     for path in sorted(UNITS.glob("*.json")):
         payload = read_json(path)
         unit = payload["issue_tag"]
         if unit == "relative_property_crime_exception":
             continue
         for card in payload["cards"]:
-            if card["polarity"] in ("negative", "exception") \
-                    or levels.get(card["id"]) == "L6":
-                needed[card["id"]] = {"unit": unit, "level": levels.get(card["id"]),
-                                      "polarity": card["polarity"],
-                                      "proposition": card["proposition"]}
+            all_cards[card["id"]] = {"unit": unit, "level": levels.get(card["id"]),
+                                     "polarity": card["polarity"],
+                                     "proposition": card["proposition"]}
+            if card["polarity"] in ("negative", "exception"):
+                mandatory.add(card["id"])
 
-    missing = sorted(set(needed) - set(ROLES))
-    extra = sorted(set(ROLES) - set(needed))
+    missing = sorted(mandatory - set(ROLES))
+    extra = sorted(set(ROLES) - set(all_cards))
     if missing or extra:
-        raise SystemExit(f"역할 표 불일치\n  누락 {missing}\n  잉여 {extra}")
+        raise SystemExit(f"역할 표 불일치\n  누락(negative/exception인데 미등록) {missing}\n"
+                          f"  잉여(존재하지 않는 카드) {extra}")
     for card_id, (role, value, _) in ROLES.items():
         if role not in VALID_ROLES:
             raise SystemExit(f"{card_id}: 알 수 없는 역할 {role}")
@@ -427,9 +447,22 @@ def main() -> None:
         if role in ("bar", "component") and value:
             raise SystemExit(f"{card_id}: {role}은 값을 갖지 않는다")
 
-    entries = {card_id: {**needed[card_id], "role": role,
+    post_outcome_ids = {card_id for card_id, (role, _, _) in ROLES.items()
+                        if role == "post_outcome"}
+    subtype_missing = sorted(post_outcome_ids - set(OUTCOME_SUBTYPES))
+    subtype_extra = sorted(set(OUTCOME_SUBTYPES) - post_outcome_ids)
+    if subtype_missing or subtype_extra:
+        raise SystemExit(
+            f"outcome_subtype 표 불일치\n  누락 {subtype_missing}\n  잉여 {subtype_extra}")
+    for card_id, subtype in OUTCOME_SUBTYPES.items():
+        if subtype not in POST_OUTCOME_SUBTYPES:
+            raise SystemExit(f"{card_id}: 알 수 없는 outcome_subtype {subtype!r}")
+
+    entries = {card_id: {**all_cards[card_id], "role": role,
                          "refers_to": value if role == "boundary" else None,
-                         "value": value, "rationale": rationale}
+                         "value": value, "rationale": rationale,
+                         **({"outcome_subtype": OUTCOME_SUBTYPES[card_id]}
+                            if role == "post_outcome" else {})}
                for card_id, (role, value, rationale) in sorted(ROLES.items())}
     tally = Counter(entry["role"] for entry in entries.values())
     OUT.write_text(json.dumps({
