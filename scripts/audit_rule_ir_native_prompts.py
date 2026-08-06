@@ -33,6 +33,25 @@ STAGES = {
             "source_quote",
             "결론",
             "rubric",
+            # The five routing-extension arrays (docs/handoff/CURRENT.md
+            # "라우팅 출력 확장") and the precision guard that keeps the router
+            # from branching every uncertainty instead of only the ones that
+            # change applicable doctrine or final outcome.
+            "required_subissues",
+            "conclusion_sensitive_facts",
+            "unresolved_branch_points",
+            "alternative_legal_routes",
+            "required_issue_labels",
+            "적용되는 법리나",
+            # The unsupported-selection procedure (docs/handoff/CURRENT.md
+            # "라우팅 정확도" — bribe_giving's role_definition never says
+            # "증뢰물전달죄" and the router still passed over it) and the two
+            # diagnostic-only fields that make a routing miss distinguishable
+            # from a genuine coverage gap after the fact.
+            "역할 tuple만 서술하더라도",
+            "legal_labels",
+            "closest_allowed_unit_ids",
+            "unsupported_reason",
         ),
     },
     "predicate_assess": {
@@ -132,6 +151,29 @@ def audit() -> dict[str, Any]:
     ]["enum"]
     if enum != sorted(registry) + ["unsupported"]:
         errors.append("closed selection enum differs from the audited registry")
+
+    # The prompt tells the model to always emit these five arrays; if the
+    # schema stopped requiring (or defining) one, the guided-decoding grammar
+    # would silently stop enforcing what the prompt promises.
+    routing_extension_fields = {
+        "required_subissues",
+        "conclusion_sensitive_facts",
+        "unresolved_branch_points",
+        "alternative_legal_routes",
+        "required_issue_labels",
+    }
+    missing_required = routing_extension_fields - set(selection_schema["required"])
+    missing_properties = routing_extension_fields - set(selection_schema["properties"])
+    if missing_required:
+        errors.append(
+            f"issue selection schema does not require routing-extension fields: "
+            f"{sorted(missing_required)}"
+        )
+    if missing_properties:
+        errors.append(
+            f"issue selection schema does not define routing-extension fields: "
+            f"{sorted(missing_properties)}"
+        )
 
     sample_entry = next(iter(registry.values()))
     assessment_schema = predicate_assessment_schema(

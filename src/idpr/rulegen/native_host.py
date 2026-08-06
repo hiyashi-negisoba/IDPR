@@ -73,6 +73,23 @@ def normalize_assessment_status(status: str) -> str:
         raise NativeHostError(f"unrecognized assessment status: {status!r}") from None
 
 
+# role_definition (from data/rulegen/p2/p2_native_role_signatures.json) only
+# describes the role-tuple shape ("증뢰자 또는 전달자, 이익, 상대 공무원, 전달
+# 제3자의 역할 tuple"), never the Korean crime name outright. A router matching
+# reported_label against the catalog by name can fail to connect a case fact
+# pattern to a unit whose role_definition never says the doctrine's name, even
+# though every element of that doctrine is fully carded under it — confirmed
+# for bribe_giving, whose role_definition never says "증뢰물전달죄" even though
+# assess_art133_sec1_2_* cards cover it completely (job 220007 r14_p1_q2,
+# docs/handoff/CURRENT.md "라우팅 정확도"). This is populated only where a
+# routing miss has actually confirmed the gap — do not backfill every unit
+# speculatively; extend it as the routing regression set below surfaces more.
+_LEGAL_LABELS: dict[str, tuple[str, ...]] = {
+    "bribe_giving": ("뇌물공여죄", "증뢰물전달죄", "증뢰물취득죄"),
+    "third_party_bribery": ("제3자뇌물제공죄", "제3자뇌물요구죄", "제3자뇌물수수죄"),
+}
+
+
 def closed_unit_catalog(*, root: Path = PROJECT_ROOT) -> list[dict[str, Any]]:
     """Expose the complete executable allowlist without retrieval or ranking."""
 
@@ -86,6 +103,7 @@ def closed_unit_catalog(*, root: Path = PROJECT_ROOT) -> list[dict[str, Any]]:
                 if argument["name"] != "case_id"
             ],
             "role_definition": str(entry.role_predicate.get("definition", "")),
+            "legal_labels": list(_LEGAL_LABELS.get(entry.unit_id, ())),
             "shared_module": entry.shared_module,
         }
         for entry in build_registry(root).values()
@@ -105,12 +123,22 @@ def closed_issue_selection_schema(
     """
 
     unit_ids = sorted(build_registry(root))
+    unit_id_enum = {"enum": [*unit_ids, "unsupported"]}
     return {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "$id": "idpr/RuleIRNativeIssueSelection",
         "type": "object",
         "additionalProperties": False,
-        "required": ["version", "case_id", "issues"],
+        "required": [
+            "version",
+            "case_id",
+            "issues",
+            "required_subissues",
+            "conclusion_sensitive_facts",
+            "unresolved_branch_points",
+            "alternative_legal_routes",
+            "required_issue_labels",
+        ],
         "properties": {
             "version": {"const": "1.0.0"},
             "case_id": {"const": case_id},
@@ -128,13 +156,15 @@ def closed_issue_selection_schema(
                         "source_quote",
                         "role_candidates",
                         "depends_on_issue_ids",
+                        "closest_allowed_unit_ids",
+                        "unsupported_reason",
                     ],
                     "properties": {
                         "issue_id": {
                             "type": "string",
                             "pattern": "^[a-z0-9][a-z0-9_.-]*$",
                         },
-                        "unit_id": {"enum": [*unit_ids, "unsupported"]},
+                        "unit_id": unit_id_enum,
                         "reported_label": {"type": "string", "minLength": 1},
                         "source_quote": {"type": "string", "minLength": 1},
                         "role_candidates": {
@@ -148,6 +178,154 @@ def closed_issue_selection_schema(
                             "type": "array",
                             "items": {"type": "string"},
                         },
+                        # Diagnostic-only routing trace — the host's symbolic
+                        # execution, writer input, and evaluation never read
+                        # these two fields. Populated only when unit_id is
+                        # "unsupported" (validate_closed_issue_selection
+                        # enforces the contract in both directions: non-empty
+                        # unsupported_reason and a real candidate list when
+                        # unsupported, both empty otherwise — kept in Python
+                        # rather than JSON Schema if/then, which the guidance
+                        # backend does not support, see ASSESSMENT_STATUSES
+                        # note above). A non-empty closest_allowed_unit_ids next
+                        # to unit_id="unsupported" is a routing-accuracy defect
+                        # (a real candidate was seen and passed over); an empty
+                        # one is either a genuine coverage gap or a catalog/
+                        # prompt comprehension problem — see
+                        # docs/handoff/CURRENT.md "라우팅 정확도".
+                        "closest_allowed_unit_ids": {
+                            "type": "array",
+                            "maxItems": 3,
+                            "uniqueItems": True,
+                            "items": {"enum": unit_ids},
+                        },
+                        "unsupported_reason": {"type": "string"},
+                    },
+                },
+            },
+            # The following five arrays let the router declare structure that a
+            # flat issue list cannot: which sub-issues a selected issue pulls in,
+            # which facts change the applicable doctrine, which unresolved facts
+            # must keep an alternative reading of the *same* issue alive, which
+            # issues are mutually exclusive alternatives, and which issue must
+            # keep its precise legal label rather than being generalized to its
+            # parent category (docs/handoff/CURRENT.md "라우팅 출력 확장",
+            # diagnosis #1/#2/#3/#5/#6/#7).
+            #
+            # Every relationship here is expressed as an issue_id, never a
+            # unit_id: the same unit_id can legitimately appear on several
+            # issues (different actors, different acts), and several issues can
+            # legitimately be unit_id="unsupported" — a unit_id reference could
+            # not tell those apart, but an issue_id always resolves to exactly
+            # one entry in ``issues``. Every issue_id named here (other than
+            # ``unsupported``-tolerant fields, which there are none of anymore)
+            # still has to appear as its own entry in ``issues`` — these fields
+            # do not materialize new issues by themselves, they only let a
+            # later pass (assess_routing_completeness) detect when the router
+            # named a requirement it did not fulfil, the same "degrade and log,
+            # never silently patch" discipline the per-issue rejection path
+            # already follows.
+            "required_subissues": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": [
+                        "parent_issue_id",
+                        "subissue_issue_id",
+                        "trigger_source_quote",
+                        "reason",
+                    ],
+                    "properties": {
+                        "parent_issue_id": {"type": "string"},
+                        "subissue_issue_id": {"type": "string"},
+                        "trigger_source_quote": {"type": "string", "minLength": 1},
+                        "reason": {"type": "string", "minLength": 1},
+                    },
+                },
+            },
+            "conclusion_sensitive_facts": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": ["fact_source_quote", "affects_issue_ids", "reason"],
+                    "properties": {
+                        "fact_source_quote": {"type": "string", "minLength": 1},
+                        "affects_issue_ids": {
+                            "type": "array",
+                            "minItems": 1,
+                            "items": {"type": "string"},
+                        },
+                        "reason": {"type": "string", "minLength": 1},
+                    },
+                },
+            },
+            # A fact staying unresolved does not always require a different
+            # unit — the same issue (e.g. a single 특수강도치사 charge) can
+            # resolve to different objective-attribution outcomes depending on
+            # how one fact (ordinary negligence vs. an independent, serious
+            # medical error) is read. ``branch_conditions`` names those
+            # readings in prose; it is not a set of units to route.
+            "unresolved_branch_points": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": [
+                        "branch_trigger_quote",
+                        "affects_issue_ids",
+                        "branch_conditions",
+                        "reason",
+                    ],
+                    "properties": {
+                        "branch_trigger_quote": {"type": "string", "minLength": 1},
+                        "affects_issue_ids": {
+                            "type": "array",
+                            "minItems": 1,
+                            "items": {"type": "string"},
+                        },
+                        "branch_conditions": {
+                            "type": "array",
+                            "minItems": 2,
+                            "items": {"type": "string", "minLength": 1},
+                        },
+                        "reason": {"type": "string", "minLength": 1},
+                    },
+                },
+            },
+            "alternative_legal_routes": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": [
+                        "primary_issue_id",
+                        "alternative_issue_id",
+                        "condition",
+                        "reason",
+                    ],
+                    "properties": {
+                        "primary_issue_id": {"type": "string"},
+                        "alternative_issue_id": {"type": "string"},
+                        "condition": {"type": "string", "minLength": 1},
+                        "reason": {"type": "string", "minLength": 1},
+                    },
+                },
+            },
+            # Named "labels", not "conclusions" — the router never decides a
+            # verdict; this only preserves the precise charge/doctrine name
+            # (e.g. "특수강도(흉기휴대)") against being generalized to its
+            # parent category (e.g. "강도") on the way to the writer.
+            "required_issue_labels": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": ["issue_id", "exact_label"],
+                    "properties": {
+                        "issue_id": {"type": "string"},
+                        "exact_label": {"type": "string", "minLength": 1},
                     },
                 },
             },
@@ -217,6 +395,30 @@ def validate_closed_issue_selection(
                     "missing_dependency",
                     "적재되지 않은 쟁점이 다른 쟁점에 의존한다",
                 ))
+            # closest_allowed_unit_ids/unsupported_reason are diagnostic-only
+            # (never read by symbolic execution, the writer, or evaluation),
+            # but the contract runs both directions: unsupported must explain
+            # itself, and a supported issue must not carry unsupported's
+            # diagnostic trace (docs/handoff/CURRENT.md "라우팅 정확도").
+            closest_candidates = item.get("closest_allowed_unit_ids", [])
+            unsupported_reason = str(item.get("unsupported_reason", "")).strip()
+            if unit_id == "unsupported":
+                if not unsupported_reason:
+                    faults.append((
+                        "missing_unsupported_reason",
+                        "unsupported를 선택했는데 unsupported_reason이 비어 있다",
+                    ))
+            else:
+                if isinstance(closest_candidates, list) and closest_candidates:
+                    faults.append((
+                        "unsupported_diagnostic_leak",
+                        "지원 unit을 선택했는데도 closest_allowed_unit_ids를 채웠다",
+                    ))
+                if unsupported_reason:
+                    faults.append((
+                        "unsupported_diagnostic_leak",
+                        "지원 unit을 선택했는데도 unsupported_reason을 채웠다",
+                    ))
             if entry is not None:
                 allowed_roles = {
                     argument["name"]
@@ -256,6 +458,163 @@ def validate_closed_issue_selection(
     if errors:
         raise NativeHostError("; ".join(errors))
     return rejected
+
+
+def assess_routing_completeness(selection: Mapping[str, Any]) -> dict[str, Any]:
+    """Cross-check the router's declared sub-issue/branch/alternative structure.
+
+    ``required_subissues`` and ``alternative_legal_routes`` let the router
+    *name* a doctrine it believes is required without the host guessing at
+    role_candidates on its behalf — the router still has to add that doctrine
+    as its own sibling entry in ``issues`` and reference it here by issue_id
+    (never by unit_id: the same unit_id can recur across several issues, and
+    several issues can share unit_id="unsupported", so only an issue_id
+    resolves unambiguously). This function only measures whether the router
+    followed through. An issue_id named here but absent from ``issues`` is a
+    live routing gap (docs/handoff/CURRENT.md diagnosis #1/#2: required cards
+    silently dropped, upstream cards not auto-expanding downstream). Gaps are
+    returned for logging and later analysis, never used to fail the case and
+    never silently patched — the same discipline
+    ``validate_closed_issue_selection`` already applies to a defective issue.
+
+    ``unresolved_branch_points`` names alternative factual *readings* of the
+    same already-routed issue(s) (``branch_conditions``, prose) rather than
+    alternative units to route, so it only needs its ``affects_issue_ids``
+    references checked, not a materialization gap.
+
+    Call this on the *final* (post-rejection-filtering) selection, since a
+    subissue/alternative that only survived as a since-rejected issue is,
+    correctly, still a gap.
+    """
+
+    issues = [item for item in selection.get("issues", []) if isinstance(item, Mapping)]
+    issue_ids = {str(item.get("issue_id", "")) for item in issues}
+
+    gaps: list[dict[str, Any]] = []
+
+    def _dangling(field: str, ref: Any, record: Mapping[str, Any]) -> bool:
+        if str(ref) and str(ref) not in issue_ids:
+            gaps.append(
+                {
+                    "gap_type": "dangling_issue_reference",
+                    "field": field,
+                    "value": ref,
+                    "record": dict(record),
+                }
+            )
+            return True
+        return False
+
+    for record in selection.get("required_subissues", []):
+        if not isinstance(record, Mapping):
+            continue
+        if _dangling("parent_issue_id", record.get("parent_issue_id"), record):
+            continue
+        subissue_issue_id = str(record.get("subissue_issue_id", ""))
+        if subissue_issue_id not in issue_ids:
+            gaps.append(
+                {
+                    "gap_type": "required_subissue_missing",
+                    "parent_issue_id": record.get("parent_issue_id"),
+                    "subissue_issue_id": subissue_issue_id,
+                    "reason": record.get("reason"),
+                }
+            )
+
+    for record in selection.get("alternative_legal_routes", []):
+        if not isinstance(record, Mapping):
+            continue
+        if _dangling("primary_issue_id", record.get("primary_issue_id"), record):
+            continue
+        alternative_issue_id = str(record.get("alternative_issue_id", ""))
+        if alternative_issue_id not in issue_ids:
+            gaps.append(
+                {
+                    "gap_type": "alternative_route_missing",
+                    "primary_issue_id": record.get("primary_issue_id"),
+                    "alternative_issue_id": alternative_issue_id,
+                    "reason": record.get("reason"),
+                }
+            )
+
+    for record in selection.get("unresolved_branch_points", []):
+        if not isinstance(record, Mapping):
+            continue
+        affects = record.get("affects_issue_ids", [])
+        if isinstance(affects, list):
+            for ref in affects:
+                _dangling("affects_issue_ids", ref, record)
+
+    for record in selection.get("conclusion_sensitive_facts", []):
+        if not isinstance(record, Mapping):
+            continue
+        affects = record.get("affects_issue_ids", [])
+        if isinstance(affects, list):
+            for ref in affects:
+                _dangling("affects_issue_ids", ref, record)
+
+    exact_labels: dict[str, str] = {}
+    for record in selection.get("required_issue_labels", []):
+        if not isinstance(record, Mapping):
+            continue
+        issue_id = str(record.get("issue_id", ""))
+        label = str(record.get("exact_label", "")).strip()
+        if _dangling("issue_id", issue_id, record):
+            continue
+        if label:
+            exact_labels[issue_id] = label
+
+    return {
+        "gaps": gaps,
+        "exact_labels": exact_labels,
+        "required_subissues": list(selection.get("required_subissues", [])),
+        "conclusion_sensitive_facts": list(selection.get("conclusion_sensitive_facts", [])),
+        "unresolved_branch_points": list(selection.get("unresolved_branch_points", [])),
+        "alternative_legal_routes": list(selection.get("alternative_legal_routes", [])),
+    }
+
+
+def diagnose_unsupported_issues(selection: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """Split ``unsupported`` issues into routing misses vs. genuine coverage gaps.
+
+    Every issue carries a diagnostic-only ``closest_allowed_unit_ids``/
+    ``unsupported_reason`` pair (schema, not an execution contract — nothing
+    downstream reads it to change what runs). This turns that trace into one
+    finding per ``unsupported`` issue:
+
+    - ``likely_routing_miss`` (``closest_allowed_unit_ids`` non-empty): the
+      router itself named a real registered candidate and still declined it —
+      this is a routing-accuracy defect (job 220007 r14_p1_q2: ``bribe_giving``
+      fully carded the fact pattern and was still passed over), not a rule-base
+      gap. Adding more RuleIR coverage will not fix it.
+    - otherwise: either a genuine coverage gap (no candidate exists) or the
+      catalog/prompt failed to surface a real candidate at all — these are the
+      cases worth checking the catalog's ``role_definition``/``legal_labels``
+      for (docs/handoff/CURRENT.md "라우팅 정확도").
+
+    This never changes execution — it is read-only trace for the routing
+    regression set, same as ``assess_routing_completeness``'s gaps.
+    """
+
+    findings: list[dict[str, Any]] = []
+    for item in selection.get("issues", []):
+        if not isinstance(item, Mapping) or str(item.get("unit_id", "")) != "unsupported":
+            continue
+        closest = [
+            str(unit_id)
+            for unit_id in item.get("closest_allowed_unit_ids", [])
+            if isinstance(unit_id, str)
+        ]
+        findings.append(
+            {
+                "issue_id": str(item.get("issue_id", "")),
+                "reported_label": str(item.get("reported_label", "")),
+                "closest_allowed_unit_ids": closest,
+                "unsupported_reason": str(item.get("unsupported_reason", "")),
+                "likely_routing_miss": bool(closest),
+            }
+        )
+    return findings
 
 
 def selected_predicate_requests(

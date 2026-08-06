@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -14,8 +15,12 @@ from idpr.generation.native_rule_ir_answer import (
 from idpr.rulegen.native_host import (
     DEFAULT_SCLI,
     NativeHostError,
+    assess_routing_completeness,
     check_verdict_consistency,
     classify_symbolic_trust,
+    closed_issue_selection_schema,
+    closed_unit_catalog,
+    diagnose_unsupported_issues,
     execute_native_case,
     execute_native_unit,
     normalize_assessment_status,
@@ -103,7 +108,32 @@ def _issue(issue_id: str, unit_id: str, *, dependencies: list[str] | None = None
         "source_quote": CASE_TEXT,
         "role_candidates": roles,
         "depends_on_issue_ids": dependencies or [],
+        "closest_allowed_unit_ids": [],
+        "unsupported_reason": "테스트 픽스처: 등록된 unit 없음" if unit_id == "unsupported" else "",
     }
+
+
+# The five routing-extension arrays are unconditionally required by the
+# schema (docs/handoff/CURRENT.md "라우팅 출력 확장") so the router always has
+# to think about them, but most fixtures below have nothing to declare.
+_EMPTY_ROUTING_EXTENSIONS = {
+    "required_subissues": [],
+    "conclusion_sensitive_facts": [],
+    "unresolved_branch_points": [],
+    "alternative_legal_routes": [],
+    "required_issue_labels": [],
+}
+
+
+def _selection(issues: list[dict], **extensions: Any) -> dict:
+    payload: dict[str, Any] = {
+        "version": "1.0.0",
+        "case_id": "case-1",
+        "issues": issues,
+        **_EMPTY_ROUTING_EXTENSIONS,
+    }
+    payload.update(extensions)
+    return payload
 
 
 def test_request_loads_every_registered_predicate_without_fact_graph() -> None:
@@ -135,14 +165,12 @@ def test_closed_selection_uses_registry_enum_and_validates_dependencies() -> Non
         "question_text": CASE_TEXT,
         "question_prompt": "죄책을 검토하라.",
     }
-    selection = {
-        "version": "1.0.0",
-        "case_id": "case-1",
-        "issues": [
+    selection = _selection(
+        [
             _issue("issue-1", "rape"),
             _issue("issue-2", "unsupported"),
-        ],
-    }
+        ]
+    )
     result = selected_predicate_requests(case=case, selection=selection)
     assert result["selection_mode"] == "closed_registry_enum"
     assert result["semantic_search_used"] is False
@@ -168,11 +196,7 @@ def test_closed_selection_demotes_bad_label_dependency_and_missing_role() -> Non
     now names one issue for the writer to argue without symbolic support.
     """
 
-    selection = {
-        "version": "1.0.0",
-        "case_id": "case-1",
-        "issues": [_issue("issue-1", "rape")],
-    }
+    selection = _selection([_issue("issue-1", "rape")])
     selection["issues"][0]["reported_label"] = "unsupported"
     rejected = validate_closed_issue_selection(
         selection, case_id="case-1", case_text=CASE_TEXT
@@ -219,7 +243,7 @@ def test_selected_predicate_requests_tolerates_every_issue_rejected() -> None:
         "question_text": CASE_TEXT,
         "question_prompt": "죄책을 검토하라.",
     }
-    filtered = {"version": "1.0.0", "case_id": "case-1", "issues": []}
+    filtered = _selection([])
     result = selected_predicate_requests(case=case, selection=filtered)
     assert result["requests"] == []
 
@@ -625,3 +649,203 @@ def test_verdict_manifest_parse_strip_and_consistency_check() -> None:
         ],
     )
     assert missing == [{"issue_id": "issue-1", "expected": "established", "stated": "missing"}]
+
+
+def test_issue_selection_schema_requires_five_routing_extension_fields() -> None:
+    """The router always has to think about the five extension arrays.
+
+    They can legitimately be empty, but a payload that omits one of them
+    outright must fail validation the same way an omitted ``issues`` key
+    would — this is what forces the guided-decoding grammar to always emit
+    them (docs/handoff/CURRENT.md "라우팅 출력 확장").
+    """
+
+    schema = closed_issue_selection_schema(case_id="case-1")
+    assert set(schema["required"]) >= {
+        "required_subissues",
+        "conclusion_sensitive_facts",
+        "unresolved_branch_points",
+        "alternative_legal_routes",
+        "required_issue_labels",
+    }
+
+    incomplete = _selection([_issue("issue-1", "rape")])
+    del incomplete["required_subissues"]
+    with pytest.raises(NativeHostError):
+        validate_closed_issue_selection(
+            incomplete, case_id="case-1", case_text=CASE_TEXT
+        )
+
+
+def test_assess_routing_completeness_flags_missing_required_subissue() -> None:
+    """A subissue named but never routed as its own issue is a live gap.
+
+    This is the router promising a doctrine (e.g. 263조 동시범 특례 once
+    causation goes unresolved) and then dropping it — diagnosis #1/#2 in
+    docs/handoff/CURRENT.md. The relationship is expressed by issue_id, not
+    unit_id, because the same unit_id can recur across several issues.
+    """
+
+    selection = _selection(
+        [_issue("issue-1", "rape")],
+        required_subissues=[
+            {
+                "parent_issue_id": "issue-1",
+                "subissue_issue_id": "issue-2",
+                "trigger_source_quote": CASE_TEXT,
+                "reason": "협박을 수반한 재산 취득 여부를 별도로 검토해야 한다",
+            }
+        ],
+    )
+    report = assess_routing_completeness(selection)
+    assert report["gaps"] == [
+        {
+            "gap_type": "required_subissue_missing",
+            "parent_issue_id": "issue-1",
+            "subissue_issue_id": "issue-2",
+            "reason": "협박을 수반한 재산 취득 여부를 별도로 검토해야 한다",
+        }
+    ]
+
+
+def test_assess_routing_completeness_accepts_fulfilled_subissue_and_labels() -> None:
+    """No gap when the named subissue was actually routed, and
+    ``required_issue_labels`` surfaces as an exact-label override."""
+
+    selection = _selection(
+        [_issue("issue-1", "rape"), _issue("issue-2", "extortion")],
+        required_subissues=[
+            {
+                "parent_issue_id": "issue-1",
+                "subissue_issue_id": "issue-2",
+                "trigger_source_quote": CASE_TEXT,
+                "reason": "협박을 수반한 재산 취득 여부를 별도로 검토해야 한다",
+            }
+        ],
+        required_issue_labels=[
+            {"issue_id": "issue-2", "exact_label": "공갈죄(재산상 이익 취득)"}
+        ],
+    )
+    report = assess_routing_completeness(selection)
+    assert report["gaps"] == []
+    assert report["exact_labels"] == {"issue-2": "공갈죄(재산상 이익 취득)"}
+
+
+def test_assess_routing_completeness_flags_dangling_issue_reference() -> None:
+    """A reference to an issue_id that was never selected (or was dropped by
+    per-issue rejection) is a payload defect, not silently ignored."""
+
+    selection = _selection(
+        [_issue("issue-1", "rape")],
+        alternative_legal_routes=[
+            {
+                "primary_issue_id": "issue-does-not-exist",
+                "alternative_issue_id": "issue-2",
+                "condition": "협박의 정도가 낮게 인정되는 경우",
+                "reason": "폭행·협박의 정도에 따라 강간이 아니라 공갈로 평가될 수 있다",
+            }
+        ],
+    )
+    report = assess_routing_completeness(selection)
+    assert report["gaps"] == [
+        {
+            "gap_type": "dangling_issue_reference",
+            "field": "primary_issue_id",
+            "value": "issue-does-not-exist",
+            "record": selection["alternative_legal_routes"][0],
+        }
+    ]
+
+
+def test_assess_routing_completeness_flags_missing_branch_issue_reference() -> None:
+    """An unresolved-fact branch names factual *readings* of an already-routed
+    issue (``branch_conditions``, prose) — not separate units — but its
+    ``affects_issue_ids`` still has to reference a real issue."""
+
+    selection = _selection(
+        [_issue("issue-1", "fraud")],
+        unresolved_branch_points=[
+            {
+                "branch_trigger_quote": CASE_TEXT,
+                "affects_issue_ids": ["issue-1", "issue-does-not-exist"],
+                "branch_conditions": [
+                    "통상적인 치료상 과실로 평가되는 경우",
+                    "독립적인 중대한 의료과오로 평가되는 경우",
+                ],
+                "reason": "평가에 따라 사망 결과의 객관적 귀속 여부가 달라진다",
+            }
+        ],
+    )
+    report = assess_routing_completeness(selection)
+    assert report["gaps"] == [
+        {
+            "gap_type": "dangling_issue_reference",
+            "field": "affects_issue_ids",
+            "value": "issue-does-not-exist",
+            "record": selection["unresolved_branch_points"][0],
+        }
+    ]
+
+
+def test_diagnose_unsupported_issues_flags_named_candidate_as_routing_miss() -> None:
+    """A ``closest_allowed_unit_ids`` next to unit_id="unsupported" means the
+    router itself saw a real candidate and still declined it — a routing
+    defect, not a coverage gap (job 220007 r14_p1_q2: ``bribe_giving`` was
+    fully carded for 증뢰물전달 and still passed over)."""
+
+    selection = _selection(
+        [
+            {
+                "issue_id": "issue-1",
+                "unit_id": "unsupported",
+                "reported_label": "뇌물공여의 간접정범 또는 전달",
+                "source_quote": CASE_TEXT,
+                "role_candidates": {},
+                "depends_on_issue_ids": [],
+                "closest_allowed_unit_ids": ["bribe_giving"],
+                "unsupported_reason": "명칭이 정확히 일치하지 않아 확신할 수 없었다",
+            },
+            _issue("issue-2", "rape"),
+        ]
+    )
+    findings = diagnose_unsupported_issues(selection)
+    assert findings == [
+        {
+            "issue_id": "issue-1",
+            "reported_label": "뇌물공여의 간접정범 또는 전달",
+            "closest_allowed_unit_ids": ["bribe_giving"],
+            "unsupported_reason": "명칭이 정확히 일치하지 않아 확신할 수 없었다",
+            "likely_routing_miss": True,
+        }
+    ]
+
+
+def test_diagnose_unsupported_issues_treats_empty_candidates_as_true_gap() -> None:
+    """No candidate named at all is either a genuine coverage gap or a
+    catalog/prompt comprehension failure — not flagged as a routing miss."""
+
+    selection = _selection(
+        [
+            {
+                "issue_id": "issue-1",
+                "unit_id": "unsupported",
+                "reported_label": "중지미수",
+                "source_quote": CASE_TEXT,
+                "role_candidates": {},
+                "depends_on_issue_ids": [],
+                "closest_allowed_unit_ids": [],
+                "unsupported_reason": "형법 총칙 미수 감면 법리를 표현하는 unit이 없다",
+            }
+        ]
+    )
+    findings = diagnose_unsupported_issues(selection)
+    assert findings[0]["likely_routing_miss"] is False
+
+
+def test_catalog_exposes_verified_legal_labels_for_confirmed_routing_misses() -> None:
+    """``legal_labels`` is populated only for units a real routing miss
+    confirmed need it — not backfilled speculatively across the registry."""
+
+    catalog = {entry["unit_id"]: entry for entry in closed_unit_catalog()}
+    assert "증뢰물전달죄" in catalog["bribe_giving"]["legal_labels"]
+    assert catalog["rape"]["legal_labels"] == []

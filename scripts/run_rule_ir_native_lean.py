@@ -32,9 +32,11 @@ from idpr.prompts import load_prompt, prompt_path  # noqa: E402
 from idpr.rulegen.native_host import (  # noqa: E402
     DEFAULT_SCLI,
     NativeHostError,
+    assess_routing_completeness,
     check_verdict_consistency,
     closed_issue_selection_schema,
     closed_unit_catalog,
+    diagnose_unsupported_issues,
     execute_native_case,
     predicate_assessment_schema,
     selected_predicate_requests,
@@ -309,6 +311,84 @@ def _render_verdict_brief(
     return "\n\n".join(blocks) if blocks else "(확정된 판정 없음)"
 
 
+def _render_routing_context_block(
+    *,
+    routing_completeness: Mapping[str, Any],
+    labels: Mapping[str, str],
+) -> str | None:
+    """Surface the router's declared subissue/branch/alternative/label structure.
+
+    This does not re-run routing or add a second model call — the single
+    issue-selection call already declared this structure; this only turns it
+    into an explicit checklist so the writer keeps a conditional branch open,
+    reaches for an alternative doctrine when a fact stays unresolved, and does
+    not generalize a specific charge into its parent category (see
+    docs/handoff/CURRENT.md diagnosis #3/#5/#6/#7).
+    """
+
+    def _label(issue_id: Any) -> str:
+        return labels.get(str(issue_id), str(issue_id))
+
+    lines: list[str] = []
+
+    subissues = routing_completeness.get("required_subissues", [])
+    if subissues:
+        lines.append("### 다음 하위 쟁점을 별도로 반드시 논증하라")
+        for record in subissues:
+            parent = _label(record.get("parent_issue_id"))
+            lines.append(f"- {parent}과 관련해: {record.get('reason', '')}")
+
+    facts = routing_completeness.get("conclusion_sensitive_facts", [])
+    if facts:
+        lines.append(
+            "### 다음 사실관계는 그 인정 여부에 따라 결론이 달라진다 — "
+            "인정되는 경우와 인정되지 않는 경우를 모두 검토하고 각각 결론까지 내려라"
+        )
+        for record in facts:
+            quote = record.get("fact_source_quote", "")
+            affected = ", ".join(
+                _label(issue_id) for issue_id in record.get("affects_issue_ids", [])
+            )
+            lines.append(f"- \"{quote}\" (관련 쟁점: {affected}) — {record.get('reason', '')}")
+
+    branches = routing_completeness.get("unresolved_branch_points", [])
+    if branches:
+        lines.append(
+            "### 다음 사실은 아직 확정되지 않았다 — 그 판단에 따라 갈리는 "
+            "경우의 수를 모두 검토하고 각각의 결론까지 내려라"
+        )
+        for record in branches:
+            quote = record.get("branch_trigger_quote", "")
+            affected = ", ".join(
+                _label(issue_id) for issue_id in record.get("affects_issue_ids", [])
+            )
+            conditions = "; ".join(record.get("branch_conditions", []))
+            lines.append(
+                f"- \"{quote}\" (관련 쟁점: {affected}) — 가능한 경우: {conditions} "
+                f"— {record.get('reason', '')}"
+            )
+
+    alternatives = routing_completeness.get("alternative_legal_routes", [])
+    if alternatives:
+        lines.append("### 다음 쟁점은 사실관계에 따라 다른 죄로 대체 적용될 수 있다")
+        for record in alternatives:
+            primary = _label(record.get("primary_issue_id"))
+            lines.append(
+                f"- {primary}: {record.get('condition', '')} — {record.get('reason', '')}"
+            )
+
+    exact_labels = routing_completeness.get("exact_labels", {})
+    if exact_labels:
+        lines.append(
+            "### 다음 쟁점의 정확한 죄명·유형을 그대로 표기하라 "
+            "(더 일반적인 명칭으로 단순화하지 마라)"
+        )
+        for issue_id, label in exact_labels.items():
+            lines.append(f"- {_label(issue_id)} → **{label}**")
+
+    return "\n\n".join(lines) if lines else None
+
+
 def _model_case(raw_case: Mapping[str, Any]) -> dict[str, str]:
     payload = {
         key: raw_case[key]
@@ -384,6 +464,14 @@ def run_case(
             ],
         }
     _write_json(out_dir / "01_issue_selection.json", selection)
+    routing_completeness = assess_routing_completeness(selection)
+    _write_json(out_dir / "01b_routing_completeness.json", routing_completeness)
+    unsupported_diagnostics = diagnose_unsupported_issues(selection)
+    if unsupported_diagnostics:
+        _write_json(
+            out_dir / "01c_unsupported_diagnostics.json",
+            {"unsupported_issues": unsupported_diagnostics},
+        )
 
     registry = build_registry()
     resolved = selected_predicate_requests(case=case, selection=selection)
@@ -471,6 +559,16 @@ def run_case(
         str(issue["issue_id"]): str(issue.get("reported_label", ""))
         for issue in selection.get("issues", [])
     }
+    # The router's own required_conclusions overrides the generic reported_label
+    # with the precise charge name it declared — this is what stops "특수강도"
+    # from surfacing as plain "강도" once it reaches the writer (diagnosis #5).
+    labels.update(
+        {
+            issue_id: label
+            for issue_id, label in routing_completeness["exact_labels"].items()
+            if label
+        }
+    )
     directives = contract.get("conclusion_directives", [])
     verdict_brief = _render_verdict_brief(
         directives=directives,
@@ -481,6 +579,11 @@ def run_case(
         invalid=[*contract.get("skipped_directives", []), *rejected],
         labels=labels,
     )
+    routing_context = _render_routing_context_block(
+        routing_completeness=routing_completeness, labels=labels
+    )
+    if routing_context:
+        verdict_brief = f"{verdict_brief}\n\n{routing_context}"
 
     write_system, write_user = PROMPTS["section_write"]
     user_template = load_prompt(write_user)
@@ -543,6 +646,10 @@ def run_case(
         "unsupported_issue_count": len(unsupported),
         "rejected_issue_count": len(rejected),
         "verdict_contradiction_count": len(verdict_contradictions),
+        "routing_gap_count": len(routing_completeness["gaps"]),
+        "unsupported_routing_miss_count": sum(
+            1 for item in unsupported_diagnostics if item["likely_routing_miss"]
+        ),
         "completed": True,
     }
     _write_json(out_dir / "run_manifest.json", manifest)
@@ -552,6 +659,8 @@ def run_case(
         "native_report": native_report,
         "answer_markdown": answer_markdown,
         "verdict_contradictions": verdict_contradictions,
+        "routing_completeness": routing_completeness,
+        "unsupported_diagnostics": unsupported_diagnostics,
         "manifest": manifest,
     }
 

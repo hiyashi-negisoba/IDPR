@@ -8,6 +8,14 @@
 복귀한다.** 26문항 Gemini 채점(아래)을 사용자가 직접 검토한 뒤 "말이 안 된다"고 판단,
 FOL 답안 하나를 반례로 지목했다. 다음 세션은 여기서 시작할 것.
 
+**다음 세션 시작점 (2026-08-06 갱신)**: 4단계(라우팅 출력 확장)는 완료됐고, 그
+직후 사용자 지시로 **5단계(rule-base 범위 보완)보다 라우팅 정확도 문제를
+먼저** 다뤘다 — 상세는 아래 "라우팅 정확도 — third_party_bribery 오진단
+정정 + 진단 필드 도입 + 회귀 배치" 절 참고. 그 절 끝의 결론이 다음 시작점이다:
+**base unit이 실제로 부합하는데도 참여형태(간접정범/공동정범 등) 불확실성을
+이유로 `unsupported`를 고르는 패턴**을 프롬프트에서 명시적으로 막는 수정이
+미착수 상태로 남아 있다.
+
 ### 26문항 채점 결과 (job 219790, `gemini/gemini-2.5-flash`)
 
 `/data5/jaehoonjeong/IDPR/.cache/phase3_judge_219779/summary.json` (method
@@ -313,6 +321,188 @@ mtime을 job 시작 시각과 대조할 것.
 `unresolved_branch_points`/`alternative_legal_routes`/`required_conclusions`
 반환) 참고. 1~3단계(술어평가 4-state, trust_status, 강제지시 분기)는 API
 실행까지 검증 완료됐으니 여기서부터.
+
+### 4단계 구현 완료 (이번 세션) — 라우팅 출력 확장, API 스모크는 GPU 대기 중
+
+`closed_issue_selection_schema()`(`src/idpr/rulegen/native_host.py`)에 `issues`
+외 다섯 개 배열을 전부 **무조건 필수**로 추가했다: `required_subissues`,
+`conclusion_sensitive_facts`, `unresolved_branch_points`,
+`alternative_legal_routes`, `required_issue_labels`(원래 이름
+`required_conclusions`였으나 검수에서 지적받아 개명 — 아래 참고). 값은 매번
+빈 배열이라도 키 자체는 항상 나와야 한다 — `inference_rationale`에 썼던 것과
+같은 "무조건 필수 키 + 내용은 Python 쪽에서 조건부 검사" 패턴이다.
+
+**1차 구현 후 사용자 검수에서 세 가지 지적을 받아 설치 전에 수정**:
+
+1. **관계는 `unit_id`가 아니라 `issue_id`로만 참조한다.** 1차안은
+   `subissue_unit_id`/`branch_unit_ids`/`alternative_unit_id`처럼 unit_id로
+   연결했는데, 같은 unit_id가 서로 다른 행위자·행위에 여러 번 등장할 수 있고
+   `unit_id=unsupported`인 issue도 한 사건에 여러 개 있을 수 있어 unit_id로는
+   어느 issue를 가리키는지 특정할 수 없다는 지적. `subissue_issue_id`/
+   `alternative_issue_id`로 개명하고, 호스트가 참조된 issue의 `unit_id`를
+   조회하는 방식으로 바꿨다.
+2. **`unresolved_branch_points`는 서로 다른 unit 두 개를 요구하면 안 된다.**
+   같은 unit(예: 특수강도치사) 안에서도 사실 판단(예: 의료과실이 통상적
+   과실인지 독립적 중대 과오인지)에 따라 결론이 갈릴 수 있기 때문. 구조를
+   `branch_unit_ids`(unit 2개 이상)에서 `affects_issue_ids` + `branch_conditions`
+   (갈릴 수 있는 사실 판단을 서술한 문장, 2개 이상)로 교체 — 새 unit을
+   요구하지 않고 이미 라우팅된 같은 issue의 조건부 분기를 서술한다.
+3. **`required_conclusions`라는 이름이 "라우팅 단계는 결론을 내리지 않는다"는
+   앞부분 규칙과 충돌한다.** 실제 의미는 결론이 아니라 정확한 법적 명칭 보존이므로
+   `required_issue_labels`로 개명.
+
+호스트에 `assess_routing_completeness()`(신규 함수)를 추가해 이 다섯 배열이
+실제로 `issues`에 반영됐는지 대조한다 — 라우터가 하위쟁점/대안을 "이름만
+적고" `issues`에 별도 항목으로 안 넣으면 `gap_type`이 붙은 기록으로 남는다
+(`required_subissue_missing`/`alternative_route_missing`/
+`dangling_issue_reference`). 케이스를 실패시키거나 자동으로 채워 넣지 않는다
+— 기존 `01_rejected_issues.json`과 같은 "강등·기록만, 조용히 패치하지 않는다"
+원칙. `scripts/run_rule_ir_native_lean.py`가 이 결과를 `01b_routing_completeness.json`
+으로 저장하고, `required_issue_labels`는 writer에게 넘기는 죄명 라벨을
+정확한 명칭으로 덮어쓰며(`특수강도`가 `강도`로 뭉개지는 것 방지), 나머지
+네 배열은 새 "하위쟁점/분기/대안/정확한 죄명" 체크리스트 절로 렌더링돼
+`04_write_prompt.md`에 추가된다. **두 번째 라우팅 호출은 없다** — M5 3콜
+아키텍처([[m5-standard-architecture]] 참고)를 유지하기 위해 분기의 양쪽
+unit 모두 같은 라우팅 호출 한 번 안에서 `issues`에 등재돼야 한다는 전제다.
+
+프롬프트 승인 게이트에 따라 스키마·코드를 먼저 구현하고 전문을 채팅으로
+제시해 위 세 가지 수정 지시를 받은 뒤에만 `prompts/rule_ir_native_issue_select.md`
+에 새 절("하위 쟁점·분기·대안·정확한 죄명")을 설치했다. `scripts/audit_rule_ir_native_prompts.py`
+에 다섯 필드가 schema의 `required`와 `properties`에 모두 있는지 검사하는
+로직과 새 계약 문구(다섯 필드명 + precision guard 문구 "적용되는 법리나")를
+추가 — 감사 통과 확인(`pass: 3 stages, 0 errors`). 신규 유닛테스트 5건
+(`tests/test_rule_ir_native_host.py`) 통과, 기존 두 파일 타깃 재실행에서
+회귀 없음 확인. **아직 실제 API/vLLM 실행으로는 검증 못함** — job 220007
+(r10_p1_q1_ga + r14_p1_q2, `scripts/slurm/run_rule_ir_native_lean_batch.sh`,
+로컬 vLLM gemma, `IDPR_HF_HOME` 명시)을 제출했으나 GPU 자원 부족으로
+`PD (Resources)` 대기 중 — 완료되면 다섯 필드가 실제 guided-decoding 출력에서
+스키마대로 채워지는지, `assess_routing_completeness`가 실제 gap을 잡아내는지
+확인 필요. 전체 pytest 스위트도 이번 리네임 반영 후 재실행 중(직전 확인 시점
+기준 642 passed / 11 failed, 전부 문서화된 기존 결함 — 리네임 이후 재확인은
+다음 세션 또는 잡 완료 후 결과 참고).
+
+**다음 세션(또는 잡 220007 완료 시) 할 일**: (1) job 220007 결과로 다섯 배열이
+실제로 채워지는지, precision guard(모든 불확실성이 아니라 결론이 갈리는
+지점만)가 지켜지는지, `01b_routing_completeness.json`의 `gaps`가 r10/r14에서
+실제로 뭘 잡아내는지 확인. (2) 문제없으면 5단계(rule-base 범위 보완)로 진행.
+
+### job 220007 스모크 결과 (같은 세션, GPU 대기 후 완료) — 구조는 작동, 정확도는 별개 문제
+
+2건 모두 성공(`cases=2 failed=0`). 확인된 것:
+
+- **precision guard가 실제로 지켜졌다.** 두 사례 모두 다섯 배열을 과다하게
+  채우지 않았다(r10: `conclusion_sensitive_facts` 1건 + `alternative_legal_routes`
+  1건만, 나머지 0건; r14: 다섯 배열 전부 0건). 우려했던 "모든 불확실성을
+  분기"하는 과다분기는 관찰되지 않았다.
+- **`unresolved_branch_points`/`unsupported` role_candidates 규칙은 정상
+  준수**됐다 — r10의 `unit_id=unsupported` issue(`issue_6`, "강도치상")가
+  `role_candidates: {}`, `depends_on_issue_ids: []`로 정확히 비어 있다.
+- **`assess_routing_completeness`가 실제 gap을 잡아냈다.** r10에서
+  `conclusion_sensitive_facts`가 `affects_issue_ids: ["issue_4"]`를 참조했는데,
+  issue_4(강간미수)는 `source_quote`가 원문에 없어(`quote_not_grounded`)
+  per-issue 강등으로 이미 `issues`에서 빠진 상태였다. 라우터가 참조를
+  갱신하지 않아 생긴 진짜 dangling reference를 정확히 잡아 `01b_routing_completeness.json`
+  의 `gaps`에 기록했다 — 설계 의도대로 동작.
+- **`alternative_legal_routes`가 실제 법리 신호를 실어 날랐다.** r10에서
+  "강도(issue_3) 폭행과 상해의 인과관계가 단절되면 강도치상이 아니라 강도+상해
+  경합범"이라는 대안을 issue_5(상해)로 정확히 연결했고, writer가 이걸 받아
+  최종 답안에서 "재물 탈취 의사가 없었으므로 강도치상 불성립 → 강간치상 검토"로
+  실제로 활용해 이전 세션 진단(자기모순·헤지형 서술)보다 더 정확한 결론에
+  도달했다(`05_answer.md`).
+- **라우팅 정확도 자체는 이번 단계로 고쳐지지 않는다 — 예상된 결과.** r14에서
+  `third_party_bribery`(증뢰물전달죄)가 활성 레지스트리에 있는데도 issue_2/
+  issue_3이 여전히 `unit_id: unsupported`로 나왔다(문서화된 기존 결함 재현).
+  다섯 배열 중 어느 것도 이 결함을 스스로 감지하거나 우회하지 못했다 —
+  `required_subissues`/`alternative_legal_routes`는 라우터가 최소한 issue_id로
+  "이게 필요하다"는 걸 알고 있을 때만 신호를 만든다. 애초에 유닛을 잘못
+  판단(활성 유닛을 unsupported로 오분류)하는 문제는 구조 확장이 아니라
+  라우터 자체의 유닛 판별 정확도 문제이므로 별도로 다뤄야 한다. writer는
+  기존과 같이 "뇌물공여의 전달자"라는 개념을 즉석 창작했다.
+
+**결론**: 4단계 구조(스키마·검증·writer 배선)는 설계대로 작동하고 실제로
+답안 품질에 기여하는 사례(r10)를 만들어냈다. 다만 이 구조는 "라우터가 이미
+알고 있는 관계"를 명시화하는 것이지 "라우터가 애초에 틀리게 고른 유닛"을
+고치지 못한다 — r14의 유닛 누락은 5단계(rule-base 범위 보완)가 아니라 라우팅
+정확도 자체의 문제로, 별도 이슈로 남겨둔다. **정정(같은 세션 후속 조사)**: 아래
+절에서 밝혀지듯 실제 누락 대상은 `third_party_bribery`가 아니라 `bribe_giving`
+이었다 — 사용자 지시로 다시 판 결과 확인.
+
+### 라우팅 정확도 — third_party_bribery 오진단 정정 + 진단 필드 도입 + 회귀 배치 (같은 세션, 사용자 지시)
+
+**사용자 결정: rule-base 범위 보완(5단계)보다 라우팅 정확도(활성 unit을
+`unsupported`로 잘못 보내는 문제)를 먼저 고친다.** 이유: 카드를 더 추가해도
+라우터가 그 카드를 고르지 않으면 그 사례는 계속 실행되지 않는다 — "진짜
+미지원"과 "지원되는데 라우터가 놓침"을 섞으면 논문에서 서로 다른 실패
+유형을 하나로 잘못 계상하게 된다.
+
+**오진단 발견**: job 220007에서 `third_party_bribery`가 라우팅 정확도 문제의
+사례로 지목됐으나, 등록 카드(`assess_art130_*`)를 직접 열어보니 전부 "공무원이
+직무에 관하여 제3자에게 뇌물을 공여하게 하는" 제130조 제3자뇌물제공죄만
+다룬다 — 사인(乙)이 사인(丙)에게 공무원(P1)에게 전달할 돈을 맡긴 r14의
+사실관계와는 아예 다른 범죄다. 실제로 정확히 맞는 유닛은 `bribe_giving`
+(제133조) — `assess_art133_sec1_2_*` 카드 세트가 증뢰물전달죄(제133조 제2항)
+요건(교부·인식·독립된 제3자·완성시점 등)을 전부 담고 있고, role_predicate에
+`intermediary_id`(전달자 역할)까지 이미 있다. 라우터가 이 유닛도 놓쳤다 — 즉
+진짜 라우팅 누락은 있었지만 대상이 바뀐다.
+
+**진단 필드 추가** (`native_host.py`): 각 issue에 `closest_allowed_unit_ids`
+(최종 선택 전 비교한 후보, 최대 3개, `unsupported`가 아닐 때는 반드시 빈 배열)
+`unsupported_reason`(선택 이유, `unsupported`일 때만 채움) 두 필드를
+스키마에 무조건 필수로 추가하고, `validate_closed_issue_selection`이 양방향
+계약(unsupported면 이유 필수, 아니면 두 필드 다 비어 있어야 함)을 강제한다.
+호스트의 symbolic execution·writer 입력·평가에는 이 두 필드를 전혀 쓰지
+않는다 — 순수 진단 trace. `diagnose_unsupported_issues()`가 이 trace로
+"라우터가 실제 후보를 이름 붙이고도 거부함(`likely_routing_miss`)" 여부를
+계산해 `01c_unsupported_diagnostics.json`으로 남긴다.
+
+**catalog에 `legal_labels` 추가**: `closed_unit_catalog()`가 각 unit의
+`role_definition`(예: `bribe_giving`="증뢰자 또는 전달자, 이익, 상대 공무원,
+전달 제3자의 역할 tuple")이 죄명 자체(증뢰물전달죄)를 전혀 언급하지 않는다는
+사실을 확인 — 이게 라우터가 이름으로 매칭 못 하는 근본 원인 중 하나로
+보인다. 확인된 두 유닛(`bribe_giving`, `third_party_bribery`)에만 검증된
+법률명을 채워 넣었다 — 36개 유닛 전체를 추측으로 채우지 않는다.
+
+**프롬프트 개정**: `rule_ir_native_issue_select.md`에 "unsupported 판단
+절차와 진단 근거" 절 신설 — (1) `allowed_units` 전부를 `role_definition`·
+`legal_labels`와 사실관계 대조 (2) 죄명이 문자 그대로 안 적혀 있어도 행위·
+대상·상대방 구조가 부합하면 선택 (3) 대조를 마친 뒤에도 안 맞으면
+`unsupported` — 라는 3단계 절차와 위 두 진단 필드의 채움 규칙을 명시. 감사
+스크립트(`audit_rule_ir_native_prompts.py`)에 계약 문구 검사와 5개 확장
+배열의 schema `required`/`properties` 존재 검사를 추가, 통과 확인. 전체
+스위트 재확인: **645 passed, 11 failed**(전부 기존 문서화된 결함, 회귀 없음).
+
+**회귀 배치 결과 (job 220070, 6사례: r10_p1_q1_ga·r11_p1_q1·r12_p1_q1·
+r13_p1_q1·r14_p1_q1·r14_p1_q2, `scripts/summarize_routing_regression.py`)**:
+
+- **자동 지표(`unsupported_false_positive_rate` 등)는 신뢰할 수 없다.** 새
+  프롬프트가 "unsupported를 고르면 후보를 반드시 적으라"고 지시하므로 모델이
+  거의 항상 후보를 채운다 — `closest_allowed_unit_ids` 비어있지 않음 = 실제
+  라우팅 누락이 아니다. 강도치상/강도상해(결합범 unit 자체가 없음), 살인교사·
+  공모관계(레지스트리에 `declared_not_compiled`로 이미 문서화된 진짜 공백)도
+  전부 후보를 채운 채 정당하게 `unsupported`로 남았다. 12건 중 9건을
+  `likely_routing_miss=True`로 잘못 표시했다 — 이 숫자 자체를 논문 지표로 쓰면
+  안 된다.
+- **손으로 읽었을 때는 지표보다 훨씬 값진 것이 나왔다.** 두 건이 진짜 라우팅
+  누락으로 확인됐고, **둘 다 같은 실패 모양**을 보였다: 모델이
+  `closest_allowed_unit_ids`에 정확히 맞는 unit을 스스로 짚어내고도, 참여형태·
+  분류 문제를 이유로 그 unit을 통째로 버렸다.
+  - r12_p1_q1 "사문서위조": 후보 `['private_document_forgery']`(정확히 맞음,
+    art231/232), 이유 "명확히 매칭되지 않음"(근거 없는 회피).
+  - r14_p1_q2 issue_2(뇌물공여): 후보에 `bribe_giving`이 **이번에 처음
+    등장**(legal_labels 추가가 recall 자체는 실제로 개선시켰다는 증거) — 그런데도
+    "乙의 행위가 丙을 도구로 한 간접정범인지... 구체적 죄명 분류를 위해
+    unsupported로 처리함"이라며 회피. `known_target_recall`에서 여전히
+    `bribe_giving`이 `issues`에 없음(found: false) — 최종 선택 단계는 아직
+    못 고쳤다.
+- **결론**: 이번 세션 수정은 recall 단계(후보를 찾아내는 것)는 개선했지만
+  decision 단계(찾은 후보를 실제로 쓰는 것)는 아직이다. 다음 수정은 더
+  구체적이어야 한다 — "참여형태·가담정도(간접정범/공동정범 등)가 불확실하다는
+  이유로 이미 부합하는 base unit 선택을 보류하지 마라. base unit은 선택하고
+  그 불확실성은 `required_subissues`나 writer 체크리스트로 넘겨라"는 지시를
+  추가해야 할 것으로 보인다. **미착수 — 다음 세션 시작점.**
+- 산출물: `experiments/results/rule_ir_native_lean_routing_regression/`(6사례
+  전체), `.cache/routing_expansion_smoke/regression_summary.json`(위 지표·
+  사례별 원본 trace).
 
 **이번 세션에 새로 만들었지만 아직 안 쓰는 것**: SKI-ML 게이트웨이 경유 Sonnet
 클라이언트(`src/idpr/neural/skiml_litellm_client.py`,

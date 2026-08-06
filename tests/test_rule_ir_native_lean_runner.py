@@ -16,6 +16,17 @@ from scripts.run_rule_ir_native_lean import ROOT, run_case
 
 CASE_TEXT = "피고인이 피해자에게 행위하였다."
 
+# The five routing-extension arrays are unconditionally required by the
+# schema (docs/handoff/CURRENT.md "라우팅 출력 확장"); these fakes have
+# nothing to declare.
+_EMPTY_ROUTING_EXTENSIONS: dict[str, Any] = {
+    "required_subissues": [],
+    "conclusion_sensitive_facts": [],
+    "unresolved_branch_points": [],
+    "alternative_legal_routes": [],
+    "required_issue_labels": [],
+}
+
 # Golden scenarios speak the legacy 3-state Scallop vocabulary; the live
 # predicate_assessment schema speaks the 4-state evidentiary-basis grammar
 # (see native_host.ASSESSMENT_STATUSES). Translated here, at the test boundary.
@@ -83,8 +94,11 @@ class FakeClient:
                                 if key != "case_id"
                             },
                             "depends_on_issue_ids": [],
+                            "closest_allowed_unit_ids": [],
+                            "unsupported_reason": "",
                         }
                     ],
+                    **_EMPTY_ROUTING_EXTENSIONS,
                 },
                 {"usage": {"prompt_tokens": 1, "completion_tokens": 1}},
             )
@@ -165,6 +179,8 @@ class TwoIssueFakeClient:
                 if key != "case_id"
             },
             "depends_on_issue_ids": [],
+            "closest_allowed_unit_ids": [],
+            "unsupported_reason": "",
         }
 
     def complete_json(self, **kwargs: Any) -> tuple[dict[str, Any], dict[str, Any]]:
@@ -180,6 +196,7 @@ class TwoIssueFakeClient:
                         self._issue_entry("issue-1", self.good),
                         self._issue_entry("issue-2", self.bad),
                     ],
+                    **_EMPTY_ROUTING_EXTENSIONS,
                 },
                 usage,
             )
