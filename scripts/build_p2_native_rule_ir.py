@@ -57,6 +57,19 @@ def dedupe_refs(cards: list[dict[str, Any]]) -> list[dict[str, Any]]:
 # the offence.  Collapsing those two kinds into ``bar`` is what made 상해죄 fail —
 # "객체의 착오는 고의를 조각하지 않는다" was compiled as a reason to acquit.
 BLOCKING_ROLES = ("bar", "boundary", "waiver")
+# 저지 카드가 무엇을 막는지 — 원장의 ``effect_scope``.  기본값이 track인 것은 지금까지의
+# 동작이 그러했기 때문이고, 장물죄처럼 행위태양이 병렬로 놓인 죄에서는 취득 경로의 요건
+# 결여가 보관·운반·알선까지 함께 죽이면 안 된다(검수 003). ``component``면 그 요건만,
+# ``unit``이면 track 상속과 무관하게 죄 전체를 막는다.
+EFFECT_SCOPES = ("unit", "track", "component")
+DEFAULT_EFFECT_SCOPE = "track"
+
+# 학설 대립 카드의 상태.  `variant`는 역할이 아니라 **선택 상태**다 — 어느 견해를 채택했는지는
+# 카드가 무슨 일을 하는지와 다른 축이고, 채택되지 않은 견해가 결론을 만들거나 막으면
+# 룰베이스가 학설 하나를 몰래 확정해 버린다(검수 002 E-04, 003).
+SELECTED_VARIANT_STATES = ("selected", "authority_default", "policy_selected")
+VARIANT_STATES = (*SELECTED_VARIANT_STATES, "unselected", "rejected")
+DEFAULT_VARIANT_STATE = "selected"
 # role → (relation suffix, 답안에 노출되는 우리말 값의 필드, 기계가 읽는 내부 키의
 # 필드 또는 None, 정의).  The host reads ``tuple(row)[-1]``, so the Korean value
 # is always last: an internal key like ``actual_presence`` must be available for
@@ -91,7 +104,32 @@ REMEDIATED_DIR = P2 / "remediated"
 CARD_CORRECTIONS = P2 / "p2_card_metadata_corrections.json"
 CARD_ID_CORRECTIONS = P2 / "p2_card_id_corrections.json"
 SOURCE_REF_CORRECTIONS = P2 / "p2_source_ref_corrections.json"
+EXCEPTION_GATE = ROOT / "data/rulegen/exception_polarity_gate.json"
 CAMPAIGN = MAIN_ROOT / "data/rulegen/campaign"
+
+
+def quarantined_cards(unit_id: str) -> set[str]:
+    """Cards whose blocking effect is held back until their polarity is reviewed.
+
+    ``polarity=exception`` says nothing about which way the proposition points,
+    and 88 such cards sit in roles that can defeat an offence.  Locking the whole
+    unit would stop 25 of 36 units, so instead the card is still evaluated and
+    still reported — only its effect on the verdict is withheld.  That keeps an
+    unreviewed card from acquitting on a definition without taking the unit
+    offline (검수 003 I).
+    """
+
+    if not EXCEPTION_GATE.is_file():
+        return set()
+    payload = read_json(EXCEPTION_GATE)
+    approved = set(payload.get("approved", []))
+    return {
+        str(row["card_id"])
+        for row in payload.get("cards", [])
+        if row.get("blocking")
+        and row.get("unit_id") == unit_id
+        and row["card_id"] not in approved
+    }
 OUT_DIR = P2 / "rule_ir"
 
 
@@ -320,6 +358,9 @@ class UnitAssembler:
         self.deferred: list[dict[str, Any]] = []
         self.track_cards: dict[str, list[dict[str, Any]]] = {}
         self.unclassified_annotations: list[str] = []
+        self.quarantined = quarantined_cards(unit_id)
+        self.quarantined_fired: set[str] = set()
+        self.variant_views: list[dict[str, Any]] = []
 
     def materialize_approved_propositions(self) -> None:
         """Make approved rewrites—and each approved split part—executable cards."""
@@ -382,12 +423,44 @@ class UnitAssembler:
 
     # ── placements ────────────────────────────────────────────────────
     def placements(self) -> list[dict[str, Any]]:
-        """Per-card placements restricted to the tracks being compiled."""
+        """Per-card placements restricted to the tracks being compiled.
+
+        A card whose 학설 has not been adopted is filtered out here rather than
+        given a weaker role: ``unselected`` reaches the reader as one view among
+        several and ``rejected`` leaves the executable assets entirely.  Only an
+        adopted view may reach a conclusion relation.
+        """
         for component in self.ledger["components"]:
             if component["track_id"] not in self.placement_tracks:
                 self.deferred.append(component)
-        return [row for row in self.ledger["placements"]
+        rows = [row for row in self.ledger["placements"]
                 if row["track_id"] in self.placement_tracks]
+        self.check_variant_exclusivity(rows)
+        self.variant_views = [
+            row for row in rows
+            if row.get("variant_status", DEFAULT_VARIANT_STATE) == "unselected"
+        ]
+        return [
+            row for row in rows
+            if row.get("variant_status", DEFAULT_VARIANT_STATE)
+            in SELECTED_VARIANT_STATES
+        ]
+
+    def check_variant_exclusivity(self, rows: list[dict[str, Any]]) -> None:
+        """One adopted view per 견해 group — two would decide the offence twice."""
+        adopted: dict[str, list[str]] = defaultdict(list)
+        for row in rows:
+            state = row.get("variant_status", DEFAULT_VARIANT_STATE)
+            if state not in VARIANT_STATES:
+                raise SystemExit(
+                    f"{self.unit_id}: {row['card_id']} has unknown variant_status {state!r}")
+            group = row.get("variant_group")
+            if group and state in SELECTED_VARIANT_STATES:
+                adopted[str(group)].append(row["card_id"])
+        conflicts = {group: ids for group, ids in adopted.items() if len(ids) > 1}
+        if conflicts:
+            raise SystemExit(
+                f"{self.unit_id}: 상호 배타적인 견해가 함께 채택되었다: {conflicts}")
 
     def card(self, card_id: str) -> dict[str, Any]:
         if card_id not in self.catalog:
@@ -599,8 +672,58 @@ class UnitAssembler:
                     return True
         return False
 
+    def blocked_tracks(
+        self, row: dict[str, Any], by_track: dict[str, list[str]]
+    ) -> list[str]:
+        """Which tracks a blocking card actually defeats, per its declared scope.
+
+        Today every track the placement reaches is defeated, whether or not that
+        track needs the requirement the card is about.  For an offence whose
+        행위태양 are parallel — 장물의 취득·양도·운반·보관·알선 — that is wrong:
+        취득 경로의 요건 결여가 보관죄까지 불성립시킨다.  A ``component`` scope
+        defeats only the tracks whose element conjunction actually contains that
+        component, so the other 행위태양 keep running (검수 003).
+        """
+
+        reachable = [target for target in self.tracks
+                     if self.placement_applies_to_track(row, target)]
+        scope = row.get("effect_scope", DEFAULT_EFFECT_SCOPE)
+        if scope not in EFFECT_SCOPES:
+            raise SystemExit(
+                f"{self.unit_id}: {row['card_id']} has unknown effect_scope {scope!r}")
+        if scope == "unit":
+            return list(self.tracks)
+        if scope == "track":
+            return reachable
+        component = row.get("effect_target") or row["component_id"]
+        wanted = f"{self.unit_id}_{row['track_id']}_{component}_satisfied"
+        return [target for target in reachable
+                if wanted in self.element_conjunction(target, by_track)]
+
+    def element_conjunction(
+        self, track: str, by_track: dict[str, list[str]]
+    ) -> set[str]:
+        """Every component predicate a track's ``elements_satisfied`` requires."""
+        names: set[str] = set(by_track.get(track, []))
+        cursor = self.track_parent.get(track)
+        seen = {track}
+        while cursor and cursor not in seen:
+            seen.add(cursor)
+            names.update(by_track.get(cursor, []))
+            cursor = self.track_parent.get(cursor)
+        for ancestor in seen:
+            for item in self.track_placement_inheritance.get(ancestor, ()):
+                names.update(
+                    f"{self.unit_id}_{item['track_id']}_{component}_satisfied"
+                    for component in item["component_ids"]
+                )
+        return names
+
     def emit_track_reports(
-        self, placements: list[dict[str, Any]], satisfied_by_card: dict[str, str]
+        self,
+        placements: list[dict[str, Any]],
+        satisfied_by_card: dict[str, str],
+        by_track: dict[str, list[str]],
     ) -> None:
         """Scope blockers and conflicts to their track, propagating only by inheritance."""
         emitted: set[tuple[str, str, str]] = set()
@@ -609,6 +732,8 @@ class UnitAssembler:
                 continue
             card_id = row["card_id"]
             card = self.card(card_id)
+            blocked = (set(self.blocked_tracks(row, by_track))
+                       if row["role"] in BLOCKING_ROLES else set())
             for target in self.tracks:
                 if not self.placement_applies_to_track(row, target):
                     continue
@@ -623,12 +748,24 @@ class UnitAssembler:
                               string(card_id))],
                         rationale="카드 평가 충돌은 해당 track과 그 상속 track에만 전파한다.",
                         cards=[card])
-                if row["role"] not in BLOCKING_ROLES:
+                if row["role"] not in BLOCKING_ROLES or target not in blocked:
                     continue
                 blocked_key = ("blocked", target, card_id)
                 if blocked_key in emitted:
                     continue
                 emitted.add(blocked_key)
+                if card_id in self.quarantined:
+                    # 평가도 하고 기록도 남기지만 결론에는 닿지 않는다.
+                    self.quarantined_fired.add(card_id)
+                    self.add_rule(
+                        f"{self.unit_id}.quarantined.{target}.{slug(card_id)}",
+                        atom(self.quarantined_effect, variable("case_id"),
+                             variable("defendant_id"), string(card_id), string(target)),
+                        [atom(satisfied_by_card[card_id], *self.actors)],
+                        rationale="극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 "
+                                  "않고 격리해 기록만 한다.",
+                        cards=[card])
+                    continue
                 self.add_rule(
                     f"{self.unit_id}.track_blocked.{target}.{slug(card_id)}",
                     atom(self.track_not_established, variable("case_id"),
@@ -926,6 +1063,10 @@ class UnitAssembler:
         return f"{self.unit_id}_has_conflict"
 
     @property
+    def quarantined_effect(self) -> str:
+        return f"{self.unit_id}_quarantined_effect"
+
+    @property
     def track_not_established(self) -> str:
         return f"{self.unit_id}_track_not_established"
 
@@ -969,6 +1110,14 @@ class UnitAssembler:
             self.track_conflict, track_report_arguments,
             definition="해당 track에 적용되는 카드 평가 충돌",
             origin="system", role="derived")
+        if self.quarantined:
+            self.add_predicate(
+                self.quarantined_effect,
+                [("case_id", "String"), ("defendant_id", "String"),
+                 ("norm_card_id", "String"), ("would_block_track", "String")],
+                definition="극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — "
+                           "평가는 되었으나 성립·불성립을 만들지 않는다",
+                origin="system", role="derived")
         self.add_predicate(
             self.track_has_negative,
             [("case_id", "String"), ("defendant_id", "String"), ("track_id", "String")],
@@ -987,7 +1136,7 @@ class UnitAssembler:
         satisfied_by_card = self.emit_cards(placements)
         self.satisfied_by_card = satisfied_by_card
         by_track = self.emit_components(placements, satisfied_by_card)
-        self.emit_track_reports(placements, satisfied_by_card)
+        self.emit_track_reports(placements, satisfied_by_card, by_track)
         self.emit_boundary_referrals(placements)
         self.emit_annotations(placements)
         self.emit_conclusions(by_track)
@@ -1064,6 +1213,17 @@ class UnitAssembler:
         gaps.extend(
             f"unclassified_annotation: {item}"
             for item in self.unclassified_annotations
+        )
+        gaps.extend(
+            f"quarantined_exception_polarity: {card_id}"
+            for card_id in sorted(self.quarantined_fired)
+        )
+        # 미채택 견해는 규칙에 들어가지 않지만 사라진 것도 아니다 — 무엇이 빠져 있는지
+        # 남겨야 나중에 견해를 채택할 때 무엇을 되살릴지 알 수 있다.
+        gaps.extend(
+            f"variant_unselected: {row['card_id']}"
+            f" (group={row.get('variant_group') or '미지정'})"
+            for row in sorted(self.variant_views, key=lambda item: item["card_id"])
         )
         gaps.extend(
             f"card_metadata_correction: {correction_id}"

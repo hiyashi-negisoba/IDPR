@@ -623,6 +623,11 @@ type breach_of_trust_has_conflict(String, String)
 // norm_cards: art355.breach.confidential-information, art355.breach.duty-definition, art355.breach.invalid-act-risk, art355.breach_other_affairs_processor, art355.breach_right_transfer_general, art355_sec1_1.breach_of_trust, art355_sec1_2.breach_of_trust_betrayal_theory, art355_sec1_3.breach_of_trust_case_concrete_risk_of_loss, art355_sec3.breach_of_trust.objective_elements, art355_sec4_1.breach_of_trust_intent_elements, art355_sec4_1.breach_of_trust_intent_no_purpose, art355_sec4_1.business_judgment_intent, art355_sec4_1.double_sale_unjustified_rescission_intent, art355_sec4_1.role_violation_intent, art355_sec4_2.breach_illicit_gain_intent, art355_sec4_2.breach_illicit_gain_separate_requirement, art355_sec4_2.mixed_motives_primary_purpose, art355_sec4_2.third_party_benefit_sufficient, art355_sec5_2.individual_delegation_exception, art355_sec5_2.real_estate_double_sale_majority, art355_sec5_2.real_estate_sale_intermediate_payment, art355_sec5_2.real_estate_transfer_exception, art355_sec5_2.trust_relationship_threshold, art355_sec9.partnership_victim_breach
 type breach_of_trust_established(String, String, String, String)
 
+// breach_of_trust_quarantined_effect: 극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+// sources: comm_001692_제355조_2항_Ⅳ.1_160, comm_001692_제355조_2항_Ⅳ.1_161, comm_001692_제355조_2항_Ⅳ.2_163
+// norm_cards: art355_sec4_1.business_loss_alone_insufficient, art355_sec4_1.no_breach_of_trust_without_awareness, art355_sec4_2.breach_for_principal_no_illicit_gain
+type breach_of_trust_quarantined_effect(String, String, String)
+
 // breach_of_trust_aggravation: 가중유형 플래그 — 기본범 성립 위에 얹히고, 꺼지면 기본범으로 남는다
 // sources: comm_001692_제356조_Ⅲ.2_4, comm_001692_제356조_Ⅲ.2_4, comm_001692_제356조_Ⅲ.2_4
 // norm_cards: art356_sec3_2.assistant_other_affairs, art356_sec3_2.business_other_affairs_definition, art356_sec3_2.other_affairs_origin
@@ -1692,17 +1697,17 @@ rel breach_of_trust_completion_satisfied(case_id, defendant_id, principal_id, be
 // rule_id: breach_of_trust.art355_sec4_1.bar.001
 // sources: comm_001692_제355조_2항_Ⅳ.1_161
 // norm_cards: art355_sec4_1.business_loss_alone_insufficient
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec4_1.business_loss_alone_insufficient") = satisfied_art355_sec4_1_business_loss_alone_insufficient(case_id, defendant_id, principal_id, beneficiary_id)
+rel breach_of_trust_quarantined_effect(case_id, defendant_id, "art355_sec4_1.business_loss_alone_insufficient") = satisfied_art355_sec4_1_business_loss_alone_insufficient(case_id, defendant_id, principal_id, beneficiary_id)
 
 // rule_id: breach_of_trust.art355_sec4_1.bar.002
 // sources: comm_001692_제355조_2항_Ⅳ.1_160
 // norm_cards: art355_sec4_1.no_breach_of_trust_without_awareness
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec4_1.no_breach_of_trust_without_awareness") = satisfied_art355_sec4_1_no_breach_of_trust_without_awareness(case_id, defendant_id, principal_id, beneficiary_id)
+rel breach_of_trust_quarantined_effect(case_id, defendant_id, "art355_sec4_1.no_breach_of_trust_without_awareness") = satisfied_art355_sec4_1_no_breach_of_trust_without_awareness(case_id, defendant_id, principal_id, beneficiary_id)
 
 // rule_id: breach_of_trust.art355_sec4_2.bar.003
 // sources: comm_001692_제355조_2항_Ⅳ.2_163
 // norm_cards: art355_sec4_2.breach_for_principal_no_illicit_gain
-rel breach_of_trust_not_established(case_id, defendant_id, "art355_sec4_2.breach_for_principal_no_illicit_gain") = satisfied_art355_sec4_2_breach_for_principal_no_illicit_gain(case_id, defendant_id, principal_id, beneficiary_id)
+rel breach_of_trust_quarantined_effect(case_id, defendant_id, "art355_sec4_2.breach_for_principal_no_illicit_gain") = satisfied_art355_sec4_2_breach_for_principal_no_illicit_gain(case_id, defendant_id, principal_id, beneficiary_id)
 
 // rule_id: breach_of_trust.art355_sec5_2.bar.004
 // sources: comm_001692_제355조_2항_Ⅴ.2_167

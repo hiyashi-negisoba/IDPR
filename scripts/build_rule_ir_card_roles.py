@@ -375,6 +375,11 @@ VALID_ROLES = ("bar", "waiver", "boundary", "component",
                "subtype_outcome", "post_outcome")
 REPORTING_ROLES = ("waiver", "assessment_standard", "proof_standard",
                    "subtype_outcome", "post_outcome")
+# 학설 대립 카드는 채택 상태가 따로 있다. 미채택 견해가 결론을 만들거나 막으면
+# 룰베이스가 학설 하나를 몰래 확정한 것이 된다(검수 003).
+SELECTED_VARIANT_STATES = ("selected", "authority_default", "policy_selected")
+VARIANT_STATES = (*SELECTED_VARIANT_STATES, "unselected", "rejected")
+DEFAULT_VARIANT_STATE = "selected"
 ROLE_GLOSSARY = {
     "bar": "요건 결여·배제 — 성립을 막는다",
     "waiver": "요건 불요 — 성립을 막지 않는다",

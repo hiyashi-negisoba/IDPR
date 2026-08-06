@@ -48,6 +48,11 @@ type obstruction_of_official_duty_track_not_established(String, String, String, 
 // norm_cards: system contract
 type obstruction_of_official_duty_track_conflict(String, String, String, String)
 
+// obstruction_of_official_duty_quarantined_effect: 극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+// sources: system contract
+// norm_cards: system contract
+type obstruction_of_official_duty_quarantined_effect(String, String, String, String)
+
 // obstruction_of_official_duty_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
 // sources: system contract
 // norm_cards: system contract
@@ -1873,10 +1878,10 @@ rel obstruction_of_official_duty_track_not_established(case_id, defendant_id, "b
 // norm_cards: art136_sec2_3.future_duty_exception
 rel obstruction_of_official_duty_track_conflict(case_id, defendant_id, "base", "art136_sec2_3.future_duty_exception") = obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_3.future_duty_exception")
 
-// rule_id: obstruction_of_official_duty.track_blocked.base.art136_sec2_3_future_duty_exception
+// rule_id: obstruction_of_official_duty.quarantined.base.art136_sec2_3_future_duty_exception
 // sources: comm_001692_제136조_Ⅱ.3_6, comm_001692_제136조_Ⅱ.3_9
 // norm_cards: art136_sec2_3.future_duty_exception
-rel obstruction_of_official_duty_track_not_established(case_id, defendant_id, "base", "art136_sec2_3.future_duty_exception") = satisfied_art136_sec2_3_future_duty_exception(case_id, defendant_id, official_id, official_duty_id)
+rel obstruction_of_official_duty_quarantined_effect(case_id, defendant_id, "art136_sec2_3.future_duty_exception", "base") = satisfied_art136_sec2_3_future_duty_exception(case_id, defendant_id, official_id, official_duty_id)
 
 // rule_id: obstruction_of_official_duty.track_conflict.base.art136_sec2_3_identity_check_no_id_card
 // sources: comm_001692_제136조_Ⅱ.3_25, comm_001692_제136조_Ⅱ.3_34
@@ -1963,10 +1968,10 @@ rel obstruction_of_official_duty_track_conflict(case_id, defendant_id, "base", "
 // norm_cards: art136_sec2_4.assault_not_against_officer_exception
 rel obstruction_of_official_duty_track_conflict(case_id, defendant_id, "base", "art136_sec2_4.assault_not_against_officer_exception") = obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec2_4.assault_not_against_officer_exception")
 
-// rule_id: obstruction_of_official_duty.track_blocked.base.art136_sec2_4_assault_not_against_officer_exception
+// rule_id: obstruction_of_official_duty.quarantined.base.art136_sec2_4_assault_not_against_officer_exception
 // sources: comm_001692_제136조_Ⅱ.4_41
 // norm_cards: art136_sec2_4.assault_not_against_officer_exception
-rel obstruction_of_official_duty_track_not_established(case_id, defendant_id, "base", "art136_sec2_4.assault_not_against_officer_exception") = satisfied_art136_sec2_4_assault_not_against_officer_exception(case_id, defendant_id, official_id, official_duty_id)
+rel obstruction_of_official_duty_quarantined_effect(case_id, defendant_id, "art136_sec2_4.assault_not_against_officer_exception", "base") = satisfied_art136_sec2_4_assault_not_against_officer_exception(case_id, defendant_id, official_id, official_duty_id)
 
 // rule_id: obstruction_of_official_duty.track_conflict.base.art136_sec2_4_noise_as_assault
 // sources: comm_001692_제136조_Ⅱ.4_41
@@ -2063,10 +2068,10 @@ rel obstruction_of_official_duty_track_conflict(case_id, defendant_id, "official
 // norm_cards: art136_sec3_4.nonofficial_act_coercion
 rel obstruction_of_official_duty_track_conflict(case_id, defendant_id, "official_coercion", "art136_sec3_4.nonofficial_act_coercion") = obstruction_of_official_duty_conflict(case_id, defendant_id, "art136_sec3_4.nonofficial_act_coercion")
 
-// rule_id: obstruction_of_official_duty.track_blocked.official_coercion.art136_sec3_4_nonofficial_act_coercion
+// rule_id: obstruction_of_official_duty.quarantined.official_coercion.art136_sec3_4_nonofficial_act_coercion
 // sources: comm_001692_제136조_Ⅲ.4_59
 // norm_cards: art136_sec3_4.nonofficial_act_coercion
-rel obstruction_of_official_duty_track_not_established(case_id, defendant_id, "official_coercion", "art136_sec3_4.nonofficial_act_coercion") = satisfied_art136_sec3_4_nonofficial_act_coercion(case_id, defendant_id, official_id, official_duty_id)
+rel obstruction_of_official_duty_quarantined_effect(case_id, defendant_id, "art136_sec3_4.nonofficial_act_coercion", "official_coercion") = satisfied_art136_sec3_4_nonofficial_act_coercion(case_id, defendant_id, official_id, official_duty_id)
 
 // rule_id: obstruction_of_official_duty.track_conflict.official_coercion.art136_sec3_4_official_act_scope
 // sources: comm_001692_제136조_Ⅲ.4_59

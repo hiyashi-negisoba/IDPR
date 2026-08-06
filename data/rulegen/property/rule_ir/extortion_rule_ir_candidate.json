@@ -7343,6 +7343,61 @@
       ]
     },
     {
+      "id": "extortion_quarantined_effect",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "issue_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제350조_Ⅲ_2",
+          "quote": "자기의 재물 또는 재산상의 이익에 대하여는 공갈죄가 성립하지 않고, 권리행사방해죄 가 가능할 뿐이다.",
+          "section_path": "Ⅲ"
+        },
+        {
+          "comment_id": "comm_001692_제350조_Ⅳ.2_5",
+          "quote": "고지된 해악의 실현이 반드시 위법할 것을 요하지 않는다. 따라서 공갈의 수 단으로서 고지된 해악의 실현이 위법하지 않더라도 이를 고지하여 외포하게 함 으로써 불법으로 재산상의 이익을 취득한 경우에는 공갈죄가 성립한다. 다만 행위가 권리행사인 경우에는 위법성이 조각될 수 있다.",
+          "section_path": "Ⅳ.2"
+        },
+        {
+          "comment_id": "comm_001692_제350조_Ⅴ.2_13",
+          "quote": "협박 또는 폭행을 하였으나 상대방이 외포심을 일으키지 않고 또는 자선심 등의 다른 이 유로 재물을 교부하였다면 공갈에 의하여 재물을 교부한 것이 아니므로, 공갈미 수죄가 성립한다.",
+          "section_path": "Ⅴ.2"
+        },
+        {
+          "comment_id": "comm_001692_제350조_Ⅴ.3_14",
+          "quote": "협박에 의하여 상대방의 의사가 완전히 억압된 경우에는 외관상 교부의 외관을 가졌다 고 하더라도 상대방의 임의성 있는 재물의 교부가 있었다고 평가할 수 없으므 로, 강도죄가 성립한다.",
+          "section_path": "Ⅴ.3"
+        },
+        {
+          "comment_id": "comm_001692_제350조_Ⅷ.2_28",
+          "quote": "이와 같이 공갈죄가 성립하지 않는 경우에는 수반된 협박행위도 사회통 념상 허용되는 범위 내라고 보아야 하므로, 따로 협박죄도 성립하지 않는다.",
+          "section_path": "Ⅷ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art350_sec3.own_property_exception",
+        "art350_sec4_2.right_exercise_exception",
+        "art350_sec5_2.no_fear_attempt",
+        "art350_sec5_3.complete_suppression_robbery",
+        "art350_sec8_2.permitted_threat_no_extortion"
+      ]
+    },
+    {
       "id": "extortion_requirement_waived",
       "arguments": [
         {
@@ -25994,7 +26049,7 @@
     {
       "id": "extortion.art350_sec3.bar.001",
       "head": {
-        "predicate": "extortion_not_established",
+        "predicate": "extortion_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -26049,7 +26104,7 @@
       "norm_card_ids": [
         "art350_sec3.own_property_exception"
       ],
-      "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다."
     },
     {
       "id": "extortion.art350_sec4_1.bar.002",
@@ -26174,7 +26229,7 @@
     {
       "id": "extortion.art350_sec4_2.bar.004",
       "head": {
-        "predicate": "extortion_not_established",
+        "predicate": "extortion_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -26229,7 +26284,7 @@
       "norm_card_ids": [
         "art350_sec4_2.right_exercise_exception"
       ],
-      "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다."
     },
     {
       "id": "extortion.art350_sec5_2.bar.005",
@@ -26294,7 +26349,7 @@
     {
       "id": "extortion.art350_sec5_2.bar.006",
       "head": {
-        "predicate": "extortion_not_established",
+        "predicate": "extortion_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -26349,12 +26404,12 @@
       "norm_card_ids": [
         "art350_sec5_2.no_fear_attempt"
       ],
-      "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다."
     },
     {
       "id": "extortion.art350_sec5_3.bar.007",
       "head": {
-        "predicate": "extortion_not_established",
+        "predicate": "extortion_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -26409,7 +26464,7 @@
       "norm_card_ids": [
         "art350_sec5_3.complete_suppression_robbery"
       ],
-      "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다."
     },
     {
       "id": "extortion.art350_sec6_2.bar.008",
@@ -26474,7 +26529,7 @@
     {
       "id": "extortion.art350_sec8_2.bar.009",
       "head": {
-        "predicate": "extortion_not_established",
+        "predicate": "extortion_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -26529,7 +26584,7 @@
       "norm_card_ids": [
         "art350_sec8_2.permitted_threat_no_extortion"
       ],
-      "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다."
     },
     {
       "id": "extortion.component.l0.mandatory_negative.01",

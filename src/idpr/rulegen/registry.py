@@ -163,6 +163,7 @@ def _OPTIONAL_QUERY_RELATIONS(unit_id: str) -> tuple[str, ...]:
         f"{unit_id}_subtype_outcome",
         f"{unit_id}_post_outcome",
         f"{unit_id}_outcome_detail",
+        f"{unit_id}_quarantined_effect",
     )
 
 

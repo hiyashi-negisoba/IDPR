@@ -48,6 +48,11 @@ type intentional_bodily_injury_track_not_established(String, String, String, Str
 // norm_cards: system contract
 type intentional_bodily_injury_track_conflict(String, String, String, String)
 
+// intentional_bodily_injury_quarantined_effect: 극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+// sources: system contract
+// norm_cards: system contract
+type intentional_bodily_injury_quarantined_effect(String, String, String, String)
+
 // intentional_bodily_injury_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
 // sources: system contract
 // norm_cards: system contract
@@ -2582,10 +2587,10 @@ rel intentional_bodily_injury_special_special_means_satisfied(case_id, defendant
 // norm_cards: art259_sec1.intentional_death_murder_exception
 rel intentional_bodily_injury_track_conflict(case_id, defendant_id, "aggravated_result", "art259_sec1.intentional_death_murder_exception") = intentional_bodily_injury_conflict(case_id, defendant_id, "art259_sec1.intentional_death_murder_exception")
 
-// rule_id: intentional_bodily_injury.track_blocked.aggravated_result.art259_sec1_intentional_death_murder_exception
+// rule_id: intentional_bodily_injury.quarantined.aggravated_result.art259_sec1_intentional_death_murder_exception
 // sources: comm_001692_제259조_Ⅰ_0
 // norm_cards: art259_sec1.intentional_death_murder_exception
-rel intentional_bodily_injury_track_not_established(case_id, defendant_id, "aggravated_result", "art259_sec1.intentional_death_murder_exception") = satisfied_art259_sec1_intentional_death_murder_exception(case_id, defendant_id, victim_id)
+rel intentional_bodily_injury_quarantined_effect(case_id, defendant_id, "art259_sec1.intentional_death_murder_exception", "aggravated_result") = satisfied_art259_sec1_intentional_death_murder_exception(case_id, defendant_id, victim_id)
 
 // rule_id: intentional_bodily_injury.track_conflict.aggravated_result.art259_sec2_1_murder_intent_exception
 // sources: comm_001692_제259조_Ⅱ.1_4
@@ -3467,40 +3472,40 @@ rel intentional_bodily_injury_track_not_established(case_id, defendant_id, "aggr
 // norm_cards: art257_sec1_6.defensive_force_not_new_attack
 rel intentional_bodily_injury_track_conflict(case_id, defendant_id, "base", "art257_sec1_6.defensive_force_not_new_attack") = intentional_bodily_injury_conflict(case_id, defendant_id, "art257_sec1_6.defensive_force_not_new_attack")
 
-// rule_id: intentional_bodily_injury.track_blocked.base.art257_sec1_6_defensive_force_not_new_attack
+// rule_id: intentional_bodily_injury.quarantined.base.art257_sec1_6_defensive_force_not_new_attack
 // sources: comm_001692_제257조_Ⅰ.6_21
 // norm_cards: art257_sec1_6.defensive_force_not_new_attack
-rel intentional_bodily_injury_track_not_established(case_id, defendant_id, "base", "art257_sec1_6.defensive_force_not_new_attack") = satisfied_art257_sec1_6_defensive_force_not_new_attack(case_id, defendant_id, victim_id)
+rel intentional_bodily_injury_quarantined_effect(case_id, defendant_id, "art257_sec1_6.defensive_force_not_new_attack", "base") = satisfied_art257_sec1_6_defensive_force_not_new_attack(case_id, defendant_id, victim_id)
 
 // rule_id: intentional_bodily_injury.track_conflict.ancestral.art257_sec1_6_defensive_force_not_new_attack
 // sources: comm_001692_제257조_Ⅰ.6_21
 // norm_cards: art257_sec1_6.defensive_force_not_new_attack
 rel intentional_bodily_injury_track_conflict(case_id, defendant_id, "ancestral", "art257_sec1_6.defensive_force_not_new_attack") = intentional_bodily_injury_conflict(case_id, defendant_id, "art257_sec1_6.defensive_force_not_new_attack")
 
-// rule_id: intentional_bodily_injury.track_blocked.ancestral.art257_sec1_6_defensive_force_not_new_attack
+// rule_id: intentional_bodily_injury.quarantined.ancestral.art257_sec1_6_defensive_force_not_new_attack
 // sources: comm_001692_제257조_Ⅰ.6_21
 // norm_cards: art257_sec1_6.defensive_force_not_new_attack
-rel intentional_bodily_injury_track_not_established(case_id, defendant_id, "ancestral", "art257_sec1_6.defensive_force_not_new_attack") = satisfied_art257_sec1_6_defensive_force_not_new_attack(case_id, defendant_id, victim_id)
+rel intentional_bodily_injury_quarantined_effect(case_id, defendant_id, "art257_sec1_6.defensive_force_not_new_attack", "ancestral") = satisfied_art257_sec1_6_defensive_force_not_new_attack(case_id, defendant_id, victim_id)
 
 // rule_id: intentional_bodily_injury.track_conflict.special.art257_sec1_6_defensive_force_not_new_attack
 // sources: comm_001692_제257조_Ⅰ.6_21
 // norm_cards: art257_sec1_6.defensive_force_not_new_attack
 rel intentional_bodily_injury_track_conflict(case_id, defendant_id, "special", "art257_sec1_6.defensive_force_not_new_attack") = intentional_bodily_injury_conflict(case_id, defendant_id, "art257_sec1_6.defensive_force_not_new_attack")
 
-// rule_id: intentional_bodily_injury.track_blocked.special.art257_sec1_6_defensive_force_not_new_attack
+// rule_id: intentional_bodily_injury.quarantined.special.art257_sec1_6_defensive_force_not_new_attack
 // sources: comm_001692_제257조_Ⅰ.6_21
 // norm_cards: art257_sec1_6.defensive_force_not_new_attack
-rel intentional_bodily_injury_track_not_established(case_id, defendant_id, "special", "art257_sec1_6.defensive_force_not_new_attack") = satisfied_art257_sec1_6_defensive_force_not_new_attack(case_id, defendant_id, victim_id)
+rel intentional_bodily_injury_quarantined_effect(case_id, defendant_id, "art257_sec1_6.defensive_force_not_new_attack", "special") = satisfied_art257_sec1_6_defensive_force_not_new_attack(case_id, defendant_id, victim_id)
 
 // rule_id: intentional_bodily_injury.track_conflict.aggravated_result.art257_sec1_6_defensive_force_not_new_attack
 // sources: comm_001692_제257조_Ⅰ.6_21
 // norm_cards: art257_sec1_6.defensive_force_not_new_attack
 rel intentional_bodily_injury_track_conflict(case_id, defendant_id, "aggravated_result", "art257_sec1_6.defensive_force_not_new_attack") = intentional_bodily_injury_conflict(case_id, defendant_id, "art257_sec1_6.defensive_force_not_new_attack")
 
-// rule_id: intentional_bodily_injury.track_blocked.aggravated_result.art257_sec1_6_defensive_force_not_new_attack
+// rule_id: intentional_bodily_injury.quarantined.aggravated_result.art257_sec1_6_defensive_force_not_new_attack
 // sources: comm_001692_제257조_Ⅰ.6_21
 // norm_cards: art257_sec1_6.defensive_force_not_new_attack
-rel intentional_bodily_injury_track_not_established(case_id, defendant_id, "aggravated_result", "art257_sec1_6.defensive_force_not_new_attack") = satisfied_art257_sec1_6_defensive_force_not_new_attack(case_id, defendant_id, victim_id)
+rel intentional_bodily_injury_quarantined_effect(case_id, defendant_id, "art257_sec1_6.defensive_force_not_new_attack", "aggravated_result") = satisfied_art257_sec1_6_defensive_force_not_new_attack(case_id, defendant_id, victim_id)
 
 // rule_id: intentional_bodily_injury.track_conflict.base.art257_sec1_6_military_minor_restraint
 // sources: comm_001692_제257조_Ⅰ.6_28, comm_001692_제257조_Ⅰ.6_28
@@ -3587,120 +3592,120 @@ rel intentional_bodily_injury_track_not_established(case_id, defendant_id, "aggr
 // norm_cards: art257_sec1_6.parental_corporal_punishment
 rel intentional_bodily_injury_track_conflict(case_id, defendant_id, "base", "art257_sec1_6.parental_corporal_punishment") = intentional_bodily_injury_conflict(case_id, defendant_id, "art257_sec1_6.parental_corporal_punishment")
 
-// rule_id: intentional_bodily_injury.track_blocked.base.art257_sec1_6_parental_corporal_punishment
+// rule_id: intentional_bodily_injury.quarantined.base.art257_sec1_6_parental_corporal_punishment
 // sources: comm_001692_제257조_Ⅰ.6_27
 // norm_cards: art257_sec1_6.parental_corporal_punishment
-rel intentional_bodily_injury_track_not_established(case_id, defendant_id, "base", "art257_sec1_6.parental_corporal_punishment") = satisfied_art257_sec1_6_parental_corporal_punishment(case_id, defendant_id, victim_id)
+rel intentional_bodily_injury_quarantined_effect(case_id, defendant_id, "art257_sec1_6.parental_corporal_punishment", "base") = satisfied_art257_sec1_6_parental_corporal_punishment(case_id, defendant_id, victim_id)
 
 // rule_id: intentional_bodily_injury.track_conflict.ancestral.art257_sec1_6_parental_corporal_punishment
 // sources: comm_001692_제257조_Ⅰ.6_27
 // norm_cards: art257_sec1_6.parental_corporal_punishment
 rel intentional_bodily_injury_track_conflict(case_id, defendant_id, "ancestral", "art257_sec1_6.parental_corporal_punishment") = intentional_bodily_injury_conflict(case_id, defendant_id, "art257_sec1_6.parental_corporal_punishment")
 
-// rule_id: intentional_bodily_injury.track_blocked.ancestral.art257_sec1_6_parental_corporal_punishment
+// rule_id: intentional_bodily_injury.quarantined.ancestral.art257_sec1_6_parental_corporal_punishment
 // sources: comm_001692_제257조_Ⅰ.6_27
 // norm_cards: art257_sec1_6.parental_corporal_punishment
-rel intentional_bodily_injury_track_not_established(case_id, defendant_id, "ancestral", "art257_sec1_6.parental_corporal_punishment") = satisfied_art257_sec1_6_parental_corporal_punishment(case_id, defendant_id, victim_id)
+rel intentional_bodily_injury_quarantined_effect(case_id, defendant_id, "art257_sec1_6.parental_corporal_punishment", "ancestral") = satisfied_art257_sec1_6_parental_corporal_punishment(case_id, defendant_id, victim_id)
 
 // rule_id: intentional_bodily_injury.track_conflict.special.art257_sec1_6_parental_corporal_punishment
 // sources: comm_001692_제257조_Ⅰ.6_27
 // norm_cards: art257_sec1_6.parental_corporal_punishment
 rel intentional_bodily_injury_track_conflict(case_id, defendant_id, "special", "art257_sec1_6.parental_corporal_punishment") = intentional_bodily_injury_conflict(case_id, defendant_id, "art257_sec1_6.parental_corporal_punishment")
 
-// rule_id: intentional_bodily_injury.track_blocked.special.art257_sec1_6_parental_corporal_punishment
+// rule_id: intentional_bodily_injury.quarantined.special.art257_sec1_6_parental_corporal_punishment
 // sources: comm_001692_제257조_Ⅰ.6_27
 // norm_cards: art257_sec1_6.parental_corporal_punishment
-rel intentional_bodily_injury_track_not_established(case_id, defendant_id, "special", "art257_sec1_6.parental_corporal_punishment") = satisfied_art257_sec1_6_parental_corporal_punishment(case_id, defendant_id, victim_id)
+rel intentional_bodily_injury_quarantined_effect(case_id, defendant_id, "art257_sec1_6.parental_corporal_punishment", "special") = satisfied_art257_sec1_6_parental_corporal_punishment(case_id, defendant_id, victim_id)
 
 // rule_id: intentional_bodily_injury.track_conflict.aggravated_result.art257_sec1_6_parental_corporal_punishment
 // sources: comm_001692_제257조_Ⅰ.6_27
 // norm_cards: art257_sec1_6.parental_corporal_punishment
 rel intentional_bodily_injury_track_conflict(case_id, defendant_id, "aggravated_result", "art257_sec1_6.parental_corporal_punishment") = intentional_bodily_injury_conflict(case_id, defendant_id, "art257_sec1_6.parental_corporal_punishment")
 
-// rule_id: intentional_bodily_injury.track_blocked.aggravated_result.art257_sec1_6_parental_corporal_punishment
+// rule_id: intentional_bodily_injury.quarantined.aggravated_result.art257_sec1_6_parental_corporal_punishment
 // sources: comm_001692_제257조_Ⅰ.6_27
 // norm_cards: art257_sec1_6.parental_corporal_punishment
-rel intentional_bodily_injury_track_not_established(case_id, defendant_id, "aggravated_result", "art257_sec1_6.parental_corporal_punishment") = satisfied_art257_sec1_6_parental_corporal_punishment(case_id, defendant_id, victim_id)
+rel intentional_bodily_injury_quarantined_effect(case_id, defendant_id, "art257_sec1_6.parental_corporal_punishment", "aggravated_result") = satisfied_art257_sec1_6_parental_corporal_punishment(case_id, defendant_id, victim_id)
 
 // rule_id: intentional_bodily_injury.track_conflict.base.art257_sec1_6_passenger_risk_consent
 // sources: comm_001692_제257조_Ⅰ.6_24
 // norm_cards: art257_sec1_6.passenger_risk_consent
 rel intentional_bodily_injury_track_conflict(case_id, defendant_id, "base", "art257_sec1_6.passenger_risk_consent") = intentional_bodily_injury_conflict(case_id, defendant_id, "art257_sec1_6.passenger_risk_consent")
 
-// rule_id: intentional_bodily_injury.track_blocked.base.art257_sec1_6_passenger_risk_consent
+// rule_id: intentional_bodily_injury.quarantined.base.art257_sec1_6_passenger_risk_consent
 // sources: comm_001692_제257조_Ⅰ.6_24
 // norm_cards: art257_sec1_6.passenger_risk_consent
-rel intentional_bodily_injury_track_not_established(case_id, defendant_id, "base", "art257_sec1_6.passenger_risk_consent") = satisfied_art257_sec1_6_passenger_risk_consent(case_id, defendant_id, victim_id)
+rel intentional_bodily_injury_quarantined_effect(case_id, defendant_id, "art257_sec1_6.passenger_risk_consent", "base") = satisfied_art257_sec1_6_passenger_risk_consent(case_id, defendant_id, victim_id)
 
 // rule_id: intentional_bodily_injury.track_conflict.ancestral.art257_sec1_6_passenger_risk_consent
 // sources: comm_001692_제257조_Ⅰ.6_24
 // norm_cards: art257_sec1_6.passenger_risk_consent
 rel intentional_bodily_injury_track_conflict(case_id, defendant_id, "ancestral", "art257_sec1_6.passenger_risk_consent") = intentional_bodily_injury_conflict(case_id, defendant_id, "art257_sec1_6.passenger_risk_consent")
 
-// rule_id: intentional_bodily_injury.track_blocked.ancestral.art257_sec1_6_passenger_risk_consent
+// rule_id: intentional_bodily_injury.quarantined.ancestral.art257_sec1_6_passenger_risk_consent
 // sources: comm_001692_제257조_Ⅰ.6_24
 // norm_cards: art257_sec1_6.passenger_risk_consent
-rel intentional_bodily_injury_track_not_established(case_id, defendant_id, "ancestral", "art257_sec1_6.passenger_risk_consent") = satisfied_art257_sec1_6_passenger_risk_consent(case_id, defendant_id, victim_id)
+rel intentional_bodily_injury_quarantined_effect(case_id, defendant_id, "art257_sec1_6.passenger_risk_consent", "ancestral") = satisfied_art257_sec1_6_passenger_risk_consent(case_id, defendant_id, victim_id)
 
 // rule_id: intentional_bodily_injury.track_conflict.special.art257_sec1_6_passenger_risk_consent
 // sources: comm_001692_제257조_Ⅰ.6_24
 // norm_cards: art257_sec1_6.passenger_risk_consent
 rel intentional_bodily_injury_track_conflict(case_id, defendant_id, "special", "art257_sec1_6.passenger_risk_consent") = intentional_bodily_injury_conflict(case_id, defendant_id, "art257_sec1_6.passenger_risk_consent")
 
-// rule_id: intentional_bodily_injury.track_blocked.special.art257_sec1_6_passenger_risk_consent
+// rule_id: intentional_bodily_injury.quarantined.special.art257_sec1_6_passenger_risk_consent
 // sources: comm_001692_제257조_Ⅰ.6_24
 // norm_cards: art257_sec1_6.passenger_risk_consent
-rel intentional_bodily_injury_track_not_established(case_id, defendant_id, "special", "art257_sec1_6.passenger_risk_consent") = satisfied_art257_sec1_6_passenger_risk_consent(case_id, defendant_id, victim_id)
+rel intentional_bodily_injury_quarantined_effect(case_id, defendant_id, "art257_sec1_6.passenger_risk_consent", "special") = satisfied_art257_sec1_6_passenger_risk_consent(case_id, defendant_id, victim_id)
 
 // rule_id: intentional_bodily_injury.track_conflict.aggravated_result.art257_sec1_6_passenger_risk_consent
 // sources: comm_001692_제257조_Ⅰ.6_24
 // norm_cards: art257_sec1_6.passenger_risk_consent
 rel intentional_bodily_injury_track_conflict(case_id, defendant_id, "aggravated_result", "art257_sec1_6.passenger_risk_consent") = intentional_bodily_injury_conflict(case_id, defendant_id, "art257_sec1_6.passenger_risk_consent")
 
-// rule_id: intentional_bodily_injury.track_blocked.aggravated_result.art257_sec1_6_passenger_risk_consent
+// rule_id: intentional_bodily_injury.quarantined.aggravated_result.art257_sec1_6_passenger_risk_consent
 // sources: comm_001692_제257조_Ⅰ.6_24
 // norm_cards: art257_sec1_6.passenger_risk_consent
-rel intentional_bodily_injury_track_not_established(case_id, defendant_id, "aggravated_result", "art257_sec1_6.passenger_risk_consent") = satisfied_art257_sec1_6_passenger_risk_consent(case_id, defendant_id, victim_id)
+rel intentional_bodily_injury_quarantined_effect(case_id, defendant_id, "art257_sec1_6.passenger_risk_consent", "aggravated_result") = satisfied_art257_sec1_6_passenger_risk_consent(case_id, defendant_id, victim_id)
 
 // rule_id: intentional_bodily_injury.track_conflict.base.art257_sec1_6_sport_rules_consent
 // sources: comm_001692_제257조_Ⅰ.6_24
 // norm_cards: art257_sec1_6.sport_rules_consent
 rel intentional_bodily_injury_track_conflict(case_id, defendant_id, "base", "art257_sec1_6.sport_rules_consent") = intentional_bodily_injury_conflict(case_id, defendant_id, "art257_sec1_6.sport_rules_consent")
 
-// rule_id: intentional_bodily_injury.track_blocked.base.art257_sec1_6_sport_rules_consent
+// rule_id: intentional_bodily_injury.quarantined.base.art257_sec1_6_sport_rules_consent
 // sources: comm_001692_제257조_Ⅰ.6_24
 // norm_cards: art257_sec1_6.sport_rules_consent
-rel intentional_bodily_injury_track_not_established(case_id, defendant_id, "base", "art257_sec1_6.sport_rules_consent") = satisfied_art257_sec1_6_sport_rules_consent(case_id, defendant_id, victim_id)
+rel intentional_bodily_injury_quarantined_effect(case_id, defendant_id, "art257_sec1_6.sport_rules_consent", "base") = satisfied_art257_sec1_6_sport_rules_consent(case_id, defendant_id, victim_id)
 
 // rule_id: intentional_bodily_injury.track_conflict.ancestral.art257_sec1_6_sport_rules_consent
 // sources: comm_001692_제257조_Ⅰ.6_24
 // norm_cards: art257_sec1_6.sport_rules_consent
 rel intentional_bodily_injury_track_conflict(case_id, defendant_id, "ancestral", "art257_sec1_6.sport_rules_consent") = intentional_bodily_injury_conflict(case_id, defendant_id, "art257_sec1_6.sport_rules_consent")
 
-// rule_id: intentional_bodily_injury.track_blocked.ancestral.art257_sec1_6_sport_rules_consent
+// rule_id: intentional_bodily_injury.quarantined.ancestral.art257_sec1_6_sport_rules_consent
 // sources: comm_001692_제257조_Ⅰ.6_24
 // norm_cards: art257_sec1_6.sport_rules_consent
-rel intentional_bodily_injury_track_not_established(case_id, defendant_id, "ancestral", "art257_sec1_6.sport_rules_consent") = satisfied_art257_sec1_6_sport_rules_consent(case_id, defendant_id, victim_id)
+rel intentional_bodily_injury_quarantined_effect(case_id, defendant_id, "art257_sec1_6.sport_rules_consent", "ancestral") = satisfied_art257_sec1_6_sport_rules_consent(case_id, defendant_id, victim_id)
 
 // rule_id: intentional_bodily_injury.track_conflict.special.art257_sec1_6_sport_rules_consent
 // sources: comm_001692_제257조_Ⅰ.6_24
 // norm_cards: art257_sec1_6.sport_rules_consent
 rel intentional_bodily_injury_track_conflict(case_id, defendant_id, "special", "art257_sec1_6.sport_rules_consent") = intentional_bodily_injury_conflict(case_id, defendant_id, "art257_sec1_6.sport_rules_consent")
 
-// rule_id: intentional_bodily_injury.track_blocked.special.art257_sec1_6_sport_rules_consent
+// rule_id: intentional_bodily_injury.quarantined.special.art257_sec1_6_sport_rules_consent
 // sources: comm_001692_제257조_Ⅰ.6_24
 // norm_cards: art257_sec1_6.sport_rules_consent
-rel intentional_bodily_injury_track_not_established(case_id, defendant_id, "special", "art257_sec1_6.sport_rules_consent") = satisfied_art257_sec1_6_sport_rules_consent(case_id, defendant_id, victim_id)
+rel intentional_bodily_injury_quarantined_effect(case_id, defendant_id, "art257_sec1_6.sport_rules_consent", "special") = satisfied_art257_sec1_6_sport_rules_consent(case_id, defendant_id, victim_id)
 
 // rule_id: intentional_bodily_injury.track_conflict.aggravated_result.art257_sec1_6_sport_rules_consent
 // sources: comm_001692_제257조_Ⅰ.6_24
 // norm_cards: art257_sec1_6.sport_rules_consent
 rel intentional_bodily_injury_track_conflict(case_id, defendant_id, "aggravated_result", "art257_sec1_6.sport_rules_consent") = intentional_bodily_injury_conflict(case_id, defendant_id, "art257_sec1_6.sport_rules_consent")
 
-// rule_id: intentional_bodily_injury.track_blocked.aggravated_result.art257_sec1_6_sport_rules_consent
+// rule_id: intentional_bodily_injury.quarantined.aggravated_result.art257_sec1_6_sport_rules_consent
 // sources: comm_001692_제257조_Ⅰ.6_24
 // norm_cards: art257_sec1_6.sport_rules_consent
-rel intentional_bodily_injury_track_not_established(case_id, defendant_id, "aggravated_result", "art257_sec1_6.sport_rules_consent") = satisfied_art257_sec1_6_sport_rules_consent(case_id, defendant_id, victim_id)
+rel intentional_bodily_injury_quarantined_effect(case_id, defendant_id, "art257_sec1_6.sport_rules_consent", "aggravated_result") = satisfied_art257_sec1_6_sport_rules_consent(case_id, defendant_id, victim_id)
 
 // rule_id: intentional_bodily_injury.track_conflict.base.art257_sec1_2_animal_not_object
 // sources: comm_001692_제257조_Ⅰ.2_1

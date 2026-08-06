@@ -291,6 +291,33 @@
       "source_refs": []
     },
     {
+      "id": "perjury_quarantined_effect",
+      "kind": "rule",
+      "origin": "system",
+      "role": "derived",
+      "definition": "극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "norm_card_id",
+          "type": "String"
+        },
+        {
+          "name": "would_block_track",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
       "id": "perjury_track_has_negative",
       "kind": "rule",
       "origin": "system",
@@ -16309,9 +16336,9 @@
       ]
     },
     {
-      "id": "perjury.track_blocked.base.art152_sec1_2_nonstatutory_or_unauthorized_oath",
+      "id": "perjury.quarantined.base.art152_sec1_2_nonstatutory_or_unauthorized_oath",
       "head": {
-        "predicate": "perjury_track_not_established",
+        "predicate": "perjury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -16323,11 +16350,11 @@
           },
           {
             "kind": "string",
-            "value": "base"
+            "value": "art152_sec1_2.nonstatutory_or_unauthorized_oath"
           },
           {
             "kind": "string",
-            "value": "art152_sec1_2.nonstatutory_or_unauthorized_oath"
+            "value": "base"
           }
         ],
         "negated": false
@@ -16356,7 +16383,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art152_sec1_2.nonstatutory_or_unauthorized_oath"
       ],
@@ -16435,9 +16462,9 @@
       ]
     },
     {
-      "id": "perjury.track_blocked.malicious.art152_sec1_2_nonstatutory_or_unauthorized_oath",
+      "id": "perjury.quarantined.malicious.art152_sec1_2_nonstatutory_or_unauthorized_oath",
       "head": {
-        "predicate": "perjury_track_not_established",
+        "predicate": "perjury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -16449,11 +16476,11 @@
           },
           {
             "kind": "string",
-            "value": "malicious"
+            "value": "art152_sec1_2.nonstatutory_or_unauthorized_oath"
           },
           {
             "kind": "string",
-            "value": "art152_sec1_2.nonstatutory_or_unauthorized_oath"
+            "value": "malicious"
           }
         ],
         "negated": false
@@ -16482,7 +16509,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art152_sec1_2.nonstatutory_or_unauthorized_oath"
       ],
@@ -16556,9 +16583,9 @@
       ]
     },
     {
-      "id": "perjury.track_blocked.base.art152_sec1_2_oath_capacity",
+      "id": "perjury.quarantined.base.art152_sec1_2_oath_capacity",
       "head": {
-        "predicate": "perjury_track_not_established",
+        "predicate": "perjury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -16570,11 +16597,11 @@
           },
           {
             "kind": "string",
-            "value": "base"
+            "value": "art152_sec1_2.oath_capacity"
           },
           {
             "kind": "string",
-            "value": "art152_sec1_2.oath_capacity"
+            "value": "base"
           }
         ],
         "negated": false
@@ -16603,7 +16630,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art152_sec1_2.oath_capacity"
       ],
@@ -16672,9 +16699,9 @@
       ]
     },
     {
-      "id": "perjury.track_blocked.malicious.art152_sec1_2_oath_capacity",
+      "id": "perjury.quarantined.malicious.art152_sec1_2_oath_capacity",
       "head": {
-        "predicate": "perjury_track_not_established",
+        "predicate": "perjury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -16686,11 +16713,11 @@
           },
           {
             "kind": "string",
-            "value": "malicious"
+            "value": "art152_sec1_2.oath_capacity"
           },
           {
             "kind": "string",
-            "value": "art152_sec1_2.oath_capacity"
+            "value": "malicious"
           }
         ],
         "negated": false
@@ -16719,7 +16746,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art152_sec1_2.oath_capacity"
       ],
@@ -16915,9 +16942,9 @@
       ]
     },
     {
-      "id": "perjury.track_blocked.base.art152_sec1_2_oath_procedural_defects",
+      "id": "perjury.quarantined.base.art152_sec1_2_oath_procedural_defects",
       "head": {
-        "predicate": "perjury_track_not_established",
+        "predicate": "perjury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -16929,11 +16956,11 @@
           },
           {
             "kind": "string",
-            "value": "base"
+            "value": "art152_sec1_2.oath_procedural_defects"
           },
           {
             "kind": "string",
-            "value": "art152_sec1_2.oath_procedural_defects"
+            "value": "base"
           }
         ],
         "negated": false
@@ -16962,7 +16989,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art152_sec1_2.oath_procedural_defects"
       ],
@@ -17041,9 +17068,9 @@
       ]
     },
     {
-      "id": "perjury.track_blocked.malicious.art152_sec1_2_oath_procedural_defects",
+      "id": "perjury.quarantined.malicious.art152_sec1_2_oath_procedural_defects",
       "head": {
-        "predicate": "perjury_track_not_established",
+        "predicate": "perjury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -17055,11 +17082,11 @@
           },
           {
             "kind": "string",
-            "value": "malicious"
+            "value": "art152_sec1_2.oath_procedural_defects"
           },
           {
             "kind": "string",
-            "value": "art152_sec1_2.oath_procedural_defects"
+            "value": "malicious"
           }
         ],
         "negated": false
@@ -17088,7 +17115,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art152_sec1_2.oath_procedural_defects"
       ],
@@ -17406,9 +17433,9 @@
       ]
     },
     {
-      "id": "perjury.track_blocked.base.art152_sec1_3_correction_before_examination_end",
+      "id": "perjury.quarantined.base.art152_sec1_3_correction_before_examination_end",
       "head": {
-        "predicate": "perjury_track_not_established",
+        "predicate": "perjury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -17420,11 +17447,11 @@
           },
           {
             "kind": "string",
-            "value": "base"
+            "value": "art152_sec1_3.correction_before_examination_end"
           },
           {
             "kind": "string",
-            "value": "art152_sec1_3.correction_before_examination_end"
+            "value": "base"
           }
         ],
         "negated": false
@@ -17453,7 +17480,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art152_sec1_3.correction_before_examination_end"
       ],
@@ -17522,9 +17549,9 @@
       ]
     },
     {
-      "id": "perjury.track_blocked.malicious.art152_sec1_3_correction_before_examination_end",
+      "id": "perjury.quarantined.malicious.art152_sec1_3_correction_before_examination_end",
       "head": {
-        "predicate": "perjury_track_not_established",
+        "predicate": "perjury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -17536,11 +17563,11 @@
           },
           {
             "kind": "string",
-            "value": "malicious"
+            "value": "art152_sec1_3.correction_before_examination_end"
           },
           {
             "kind": "string",
-            "value": "art152_sec1_3.correction_before_examination_end"
+            "value": "malicious"
           }
         ],
         "negated": false
@@ -17569,7 +17596,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art152_sec1_3.correction_before_examination_end"
       ],
@@ -18292,9 +18319,9 @@
       ]
     },
     {
-      "id": "perjury.track_blocked.malicious.art152_sec2_3_noncriminal_case_mohae_exception",
+      "id": "perjury.quarantined.malicious.art152_sec2_3_noncriminal_case_mohae_exception",
       "head": {
-        "predicate": "perjury_track_not_established",
+        "predicate": "perjury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -18306,11 +18333,11 @@
           },
           {
             "kind": "string",
-            "value": "malicious"
+            "value": "art152_sec2_3.noncriminal_case_mohae_exception"
           },
           {
             "kind": "string",
-            "value": "art152_sec2_3.noncriminal_case_mohae_exception"
+            "value": "malicious"
           }
         ],
         "negated": false
@@ -18339,7 +18366,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art152_sec2_3.noncriminal_case_mohae_exception"
       ],
@@ -21433,6 +21460,11 @@
     "unclassified_annotation: post_outcome: art152_sec1_5.single_perjury_same_hearing (outcome_subtype 미지정)",
     "unclassified_annotation: post_outcome: art152_sec2_6.malicious_perjury.single_offense_same_hearing (outcome_subtype 미지정)",
     "unclassified_annotation: post_outcome: art152_sec2_7.special_statute_malicious_perjury_exclusion (outcome_subtype 미지정)",
+    "quarantined_exception_polarity: art152_sec1_2.nonstatutory_or_unauthorized_oath",
+    "quarantined_exception_polarity: art152_sec1_2.oath_capacity",
+    "quarantined_exception_polarity: art152_sec1_2.oath_procedural_defects",
+    "quarantined_exception_polarity: art152_sec1_3.correction_before_examination_end",
+    "quarantined_exception_polarity: art152_sec2_3.noncriminal_case_mohae_exception",
     "card_metadata_correction: cc_001",
     "card_metadata_correction: cc_002"
   ]

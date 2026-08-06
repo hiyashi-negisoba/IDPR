@@ -5,7 +5,7 @@
 ## 전체 구조
 
 - rule_set_id: `kr.property.robbery.full.v1_candidate`
-- predicate: 321개
+- predicate: 322개
 - rule: 526개
 - NormCard: 98개
 
@@ -2201,6 +2201,13 @@
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art333_sec2_1.robbery_violence_incapacitating_attack`, `art333_sec2_1.violence_threat_resistance_suppression`, `art333_sec2_2.drug_induced_incapacitation_violence`, `art333_sec2_3.apparent_capacity_threat`, `art333_sec2_3.objective_resistance_suppression`, `art333_sec2_3.snatching_forceful_attack`, `art333_sec2_3.weapon_presentation_context`, `art333_sec2_4.target_person_obstructing_taking`, `art333_sec3.forcible_taking`, `art333_sec3_3.continuing_force_after_theft_intent`, `art333_sec3_3.continuing_force_single_robbery`, `art333_sec3_3.rape_fear_state_property_provision`, `art333_sec3_3.rape_force_subsequent_taking_precedent`, `art333_sec5.determine_illegal_benefit_intent`, `art333_sec5.illegal_benefit_intent`, `art333_sec6.attempt_commencement_violence_intimidation`, `art333_sec6.attempt_debt_evasion_killing`, `art333_sec6.attempt_intent_arising_after_subjugation`, `art333_sec6.attempt_unattained_objective`
+
+### `robbery_quarantined_effect(case_id: String, defendant_id: String, issue_id: String)`
+
+극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art333_sec2_2.preexisting_incapacitation_exception`, `art333_sec2_3.lesser_threat_extortion`, `art333_sec2_3.subjective_intent_insufficient`, `art333_sec3_3.completed_theft_quasi_robbery_exception`, `art335_sec2.preparation_stage_exclusion`, `art335_sec2.property_interest_exclusion`, `art337_sec3_2.robbery_occasion_ended`, `art337_sec3_2.trivial_injury_excluded`
 
 ### `robbery_track_property_satisfied(case_id: String, defendant_id: String, coerced_person_id: String, owner_id: String, possessor_id: String)`
 
@@ -7902,7 +7909,7 @@
 
 ### `robbery.art333_sec2_2.bar.002`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -7910,7 +7917,7 @@
 
 연결 NormCard: `art333_sec2_2.preexisting_incapacitation_exception`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `robbery.art333_sec2_3.bar.003`
 
@@ -7926,7 +7933,7 @@
 
 ### `robbery.art333_sec2_3.bar.004`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -7934,11 +7941,11 @@
 
 연결 NormCard: `art333_sec2_3.lesser_threat_extortion`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `robbery.art333_sec2_3.bar.005`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -7946,7 +7953,7 @@
 
 연결 NormCard: `art333_sec2_3.subjective_intent_insufficient`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `robbery.art333_sec3_2.bar.006`
 
@@ -7974,7 +7981,7 @@
 
 ### `robbery.art333_sec3_3.bar.008`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -7982,7 +7989,7 @@
 
 연결 NormCard: `art333_sec3_3.completed_theft_quasi_robbery_exception`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `robbery.art333_sec3_3.bar.009`
 
@@ -8034,7 +8041,7 @@
 
 ### `robbery.art335_sec2.bar.013`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -8042,11 +8049,11 @@
 
 연결 NormCard: `art335_sec2.preparation_stage_exclusion`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `robbery.art335_sec2.bar.014`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -8054,7 +8061,7 @@
 
 연결 NormCard: `art335_sec2.property_interest_exclusion`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `robbery.art335_sec6_1.bar.015`
 
@@ -8082,7 +8089,7 @@
 
 ### `robbery.art337_sec3_2.bar.017`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -8090,11 +8097,11 @@
 
 연결 NormCard: `art337_sec3_2.robbery_occasion_ended`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `robbery.art337_sec3_2.bar.018`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -8102,7 +8109,7 @@
 
 연결 NormCard: `art337_sec3_2.trivial_injury_excluded`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `robbery.art338_sec2.bar.019`
 

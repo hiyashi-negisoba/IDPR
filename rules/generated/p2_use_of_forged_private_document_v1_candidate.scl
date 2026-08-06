@@ -48,6 +48,11 @@ type use_of_forged_private_document_track_not_established(String, String, String
 // norm_cards: system contract
 type use_of_forged_private_document_track_conflict(String, String, String, String)
 
+// use_of_forged_private_document_quarantined_effect: 극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+// sources: system contract
+// norm_cards: system contract
+type use_of_forged_private_document_quarantined_effect(String, String, String, String)
+
 // use_of_forged_private_document_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
 // sources: system contract
 // norm_cards: system contract
@@ -773,10 +778,10 @@ rel use_of_forged_private_document_track_conflict(case_id, defendant_id, "base",
 // norm_cards: art234_sec2_1.possession_before_offer_not_exercise
 rel use_of_forged_private_document_track_conflict(case_id, defendant_id, "base", "art234_sec2_1.possession_before_offer_not_exercise") = use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.possession_before_offer_not_exercise")
 
-// rule_id: use_of_forged_private_document.track_blocked.base.art234_sec2_1_possession_before_offer_not_exercise
+// rule_id: use_of_forged_private_document.quarantined.base.art234_sec2_1_possession_before_offer_not_exercise
 // sources: comm_001692_제234조_Ⅱ.1_1
 // norm_cards: art234_sec2_1.possession_before_offer_not_exercise
-rel use_of_forged_private_document_track_not_established(case_id, defendant_id, "base", "art234_sec2_1.possession_before_offer_not_exercise") = satisfied_art234_sec2_1_possession_before_offer_not_exercise(case_id, defendant_id, document_id, counterparty_id)
+rel use_of_forged_private_document_quarantined_effect(case_id, defendant_id, "art234_sec2_1.possession_before_offer_not_exercise", "base") = satisfied_art234_sec2_1_possession_before_offer_not_exercise(case_id, defendant_id, document_id, counterparty_id)
 
 // rule_id: use_of_forged_private_document.track_conflict.base.art234_sec2_1_transcript_not_exercise
 // sources: comm_001692_제234조_Ⅱ.1_2
@@ -793,10 +798,10 @@ rel use_of_forged_private_document_track_not_established(case_id, defendant_id, 
 // norm_cards: art234_sec2_1.use_as_forgery_not_exercise
 rel use_of_forged_private_document_track_conflict(case_id, defendant_id, "base", "art234_sec2_1.use_as_forgery_not_exercise") = use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.use_as_forgery_not_exercise")
 
-// rule_id: use_of_forged_private_document.track_blocked.base.art234_sec2_1_use_as_forgery_not_exercise
+// rule_id: use_of_forged_private_document.quarantined.base.art234_sec2_1_use_as_forgery_not_exercise
 // sources: comm_001692_제234조_Ⅱ.1_1
 // norm_cards: art234_sec2_1.use_as_forgery_not_exercise
-rel use_of_forged_private_document_track_not_established(case_id, defendant_id, "base", "art234_sec2_1.use_as_forgery_not_exercise") = satisfied_art234_sec2_1_use_as_forgery_not_exercise(case_id, defendant_id, document_id, counterparty_id)
+rel use_of_forged_private_document_quarantined_effect(case_id, defendant_id, "art234_sec2_1.use_as_forgery_not_exercise", "base") = satisfied_art234_sec2_1_use_as_forgery_not_exercise(case_id, defendant_id, document_id, counterparty_id)
 
 // rule_id: use_of_forged_private_document.track_conflict.base.art234_sec2_2_intent_no_purpose
 // sources: comm_001692_제234조_Ⅱ.2_3
@@ -813,10 +818,10 @@ rel use_of_forged_private_document_track_conflict(case_id, defendant_id, "base",
 // norm_cards: art234_sec2_1.presentation_to_knowing_accomplice
 rel use_of_forged_private_document_track_conflict(case_id, defendant_id, "base", "art234_sec2_1.presentation_to_knowing_accomplice") = use_of_forged_private_document_conflict(case_id, defendant_id, "art234_sec2_1.presentation_to_knowing_accomplice")
 
-// rule_id: use_of_forged_private_document.track_blocked.base.art234_sec2_1_presentation_to_knowing_accomplice
+// rule_id: use_of_forged_private_document.quarantined.base.art234_sec2_1_presentation_to_knowing_accomplice
 // sources: comm_001692_제234조_Ⅱ.1_2
 // norm_cards: art234_sec2_1.presentation_to_knowing_accomplice
-rel use_of_forged_private_document_track_not_established(case_id, defendant_id, "base", "art234_sec2_1.presentation_to_knowing_accomplice") = satisfied_art234_sec2_1_presentation_to_knowing_accomplice(case_id, defendant_id, document_id, counterparty_id)
+rel use_of_forged_private_document_quarantined_effect(case_id, defendant_id, "art234_sec2_1.presentation_to_knowing_accomplice", "base") = satisfied_art234_sec2_1_presentation_to_knowing_accomplice(case_id, defendant_id, document_id, counterparty_id)
 
 // rule_id: use_of_forged_private_document.summary.has_negative
 // sources: comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅲ_4, comm_001692_제234조_Ⅰ_0, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_2, comm_001692_제234조_Ⅱ.1_1, comm_001692_제234조_Ⅱ.2_3, comm_001692_제234조_Ⅳ_5, comm_001692_제234조_Ⅳ_5, comm_001692_제234조_Ⅳ_5

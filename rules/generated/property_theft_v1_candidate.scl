@@ -1078,6 +1078,11 @@ type theft_has_conflict(String, String)
 // norm_cards: art329_sec2.theft_object_anothers_property_in_possession, art329_sec2_1.co_owned_property_taking, art329_sec2_1.inherited_estate_not_ownerless, art329_sec2_1.other_person_legal_entity, art329_sec2_1.vehicle_internal_ownership_agreement, art329_sec2_2.carrier_control_based_possession, art329_sec2_2.clerk_subordinate_possession, art329_sec2_2.criminal_possession_definition, art329_sec2_2.dead_person_possession_continuing, art329_sec2_2.dead_person_possession_limited, art329_sec2_2.joint_custodian_unilateral_taking, art329_sec2_2.possession_assistant_control, art329_sec2_2.possession_control_and_intent, art329_sec2_2.possession_factual_control_standard, art329_sec2_2.possession_intent_definition, art329_sec2_2.property_in_managed_place, art329_sec2_2.sealed_deposit_entrustment_nature, art329_sec2_2.temporary_separation_possession, art329_sec2_2.unlawful_possession_protected, art329_sec3_1.deceptive_taking_without_delivery, art329_sec3_1.taking_transfer_of_control, art329_sec3_3.completion.control_and_disposal, art329_sec3_3.completion.property_circumstances, art329_sec4.intent.conditional_intent_sufficient, art329_sec4.intent.general_object_selection, art329_sec4.intent.theft_intent_definition, art329_sec5_1.unlawful_appropriation_required, art329_sec5_2.collateral_taking_unlawful_appropriation, art329_sec5_2.use_theft_long_possession_or_abandonment, art329_sec5_2.use_theft_value_consumption_or_delayed_return
 type theft_established(String, String, String, String)
 
+// theft_quarantined_effect: 극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+// sources: comm_001692_제329조_Ⅱ.2_11, comm_001692_제329조_Ⅱ_1, comm_001692_제331조_Ⅲ.1_6, comm_001692_제332조_Ⅰ.2_2
+// norm_cards: art329_sec2.theft_exception_ownership_or_self_possession, art329_sec2_2.sole_custodian_coowned_property, art331_sec3_1.toy_gun_not_weapon_exception, art332_sec1_2.incidental-or-economic-theft-exception
+type theft_quarantined_effect(String, String, String)
+
 // theft_requirement_waived: 이 죄의 성립에 요구되지 않는 요건이 확인됨 — 성립을 막지 않는다
 // sources: comm_001692_제329조_Ⅵ_29
 // norm_cards: art329_sec6.consent_manifestation
@@ -2972,7 +2977,7 @@ rel theft_completion_satisfied(case_id, defendant_id, owner_id, possessor_id) = 
 // rule_id: theft.art329_sec2.bar.001
 // sources: comm_001692_제329조_Ⅱ_1
 // norm_cards: art329_sec2.theft_exception_ownership_or_self_possession
-rel theft_not_established(case_id, defendant_id, "art329_sec2.theft_exception_ownership_or_self_possession") = satisfied_art329_sec2_theft_exception_ownership_or_self_possession(case_id, defendant_id, owner_id, possessor_id)
+rel theft_quarantined_effect(case_id, defendant_id, "art329_sec2.theft_exception_ownership_or_self_possession") = satisfied_art329_sec2_theft_exception_ownership_or_self_possession(case_id, defendant_id, owner_id, possessor_id)
 
 // rule_id: theft.art329_sec2_1.bar.002
 // sources: comm_001692_제329조_Ⅱ.1_3
@@ -2982,7 +2987,7 @@ rel theft_not_established(case_id, defendant_id, "art329_sec2_1.ownerless_proper
 // rule_id: theft.art329_sec2_2.bar.003
 // sources: comm_001692_제329조_Ⅱ.2_11
 // norm_cards: art329_sec2_2.sole_custodian_coowned_property
-rel theft_not_established(case_id, defendant_id, "art329_sec2_2.sole_custodian_coowned_property") = satisfied_art329_sec2_2_sole_custodian_coowned_property(case_id, defendant_id, owner_id, possessor_id)
+rel theft_quarantined_effect(case_id, defendant_id, "art329_sec2_2.sole_custodian_coowned_property") = satisfied_art329_sec2_2_sole_custodian_coowned_property(case_id, defendant_id, owner_id, possessor_id)
 
 // rule_id: theft.art329_sec2_2.bar.004
 // sources: comm_001692_제329조_Ⅱ.2_6
@@ -3027,7 +3032,7 @@ rel theft_not_established(case_id, defendant_id, "art331_sec2_2.key-opening-spec
 // rule_id: theft.art331_sec3_1.bar.012
 // sources: comm_001692_제331조_Ⅲ.1_6
 // norm_cards: art331_sec3_1.toy_gun_not_weapon_exception
-rel theft_not_established(case_id, defendant_id, "art331_sec3_1.toy_gun_not_weapon_exception") = satisfied_art331_sec3_1_toy_gun_not_weapon_exception(case_id, defendant_id, owner_id, possessor_id)
+rel theft_quarantined_effect(case_id, defendant_id, "art331_sec3_1.toy_gun_not_weapon_exception") = satisfied_art331_sec3_1_toy_gun_not_weapon_exception(case_id, defendant_id, owner_id, possessor_id)
 
 // rule_id: theft.art332_sec1_1.bar.013
 // sources: comm_001692_제332조_Ⅰ.1_1
@@ -3042,7 +3047,7 @@ rel theft_not_established(case_id, defendant_id, "art332_sec1_2.habituality-not-
 // rule_id: theft.art332_sec1_2.bar.015
 // sources: comm_001692_제332조_Ⅰ.2_2
 // norm_cards: art332_sec1_2.incidental-or-economic-theft-exception
-rel theft_not_established(case_id, defendant_id, "art332_sec1_2.incidental-or-economic-theft-exception") = satisfied_art332_sec1_2_incidental_or_economic_theft_exception(case_id, defendant_id, owner_id, possessor_id)
+rel theft_quarantined_effect(case_id, defendant_id, "art332_sec1_2.incidental-or-economic-theft-exception") = satisfied_art332_sec1_2_incidental_or_economic_theft_exception(case_id, defendant_id, owner_id, possessor_id)
 
 // rule_id: theft.component.l0o.mandatory_negative.01
 // sources: comm_001692_제329조_Ⅱ.1_2, comm_001692_제329조_Ⅱ.1_2, comm_001692_제329조_Ⅱ.1_2, comm_001692_제329조_Ⅱ.1_3, comm_001692_제329조_Ⅱ.1_3, comm_001692_제329조_Ⅱ_1

@@ -10717,6 +10717,55 @@
       ]
     },
     {
+      "id": "theft_quarantined_effect",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "issue_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제329조_Ⅱ.2_11",
+          "quote": "공동소유의 재물이라도 공동점유 아래에 있 지 않고 공동소유자 중 1인이 단독으로 보관하고 있는 경우에는 그 보관자의 영 득행위는 절도가 아니라 횡령에 해당함은 물론이다.",
+          "section_path": "Ⅱ.2"
+        },
+        {
+          "comment_id": "comm_001692_제329조_Ⅱ_1",
+          "quote": "따라서 자기 소유의 재물로서 타 인의 점유 아래 있거나 타인 소유의 재물이라도 자기의 점유 아래 있는 것에 대 하여는 권리행사방해죄 또는 횡령죄가 성립함은 별론으로 하고 절도죄는 성립 되지 않는다.",
+          "section_path": "Ⅱ"
+        },
+        {
+          "comment_id": "comm_001692_제331조_Ⅲ.1_6",
+          "quote": "한편 객관적으로 흉기의 성질을 가지는 것이어야 하므로 예컨대 장난감 권총을 흉기 와 같이 가장한 경우에는 흉기라고 할 수 없다.",
+          "section_path": "Ⅲ.1"
+        },
+        {
+          "comment_id": "comm_001692_제332조_Ⅰ.2_2",
+          "quote": "그것이 모두 우발적인 동기에서 또는 경제적 사정이 급박한 나머지 범행한 것으로서 범인이 평소에 가지고 있는 절도 습성의 발현이라고 보기 어려울 때 는 상습범으로 볼 수 없다.",
+          "section_path": "Ⅰ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art329_sec2.theft_exception_ownership_or_self_possession",
+        "art329_sec2_2.sole_custodian_coowned_property",
+        "art331_sec3_1.toy_gun_not_weapon_exception",
+        "art332_sec1_2.incidental-or-economic-theft-exception"
+      ]
+    },
+    {
       "id": "theft_requirement_waived",
       "arguments": [
         {
@@ -37612,7 +37661,7 @@
     {
       "id": "theft.art329_sec2.bar.001",
       "head": {
-        "predicate": "theft_not_established",
+        "predicate": "theft_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -37663,7 +37712,7 @@
       "norm_card_ids": [
         "art329_sec2.theft_exception_ownership_or_self_possession"
       ],
-      "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다."
     },
     {
       "id": "theft.art329_sec2_1.bar.002",
@@ -37724,7 +37773,7 @@
     {
       "id": "theft.art329_sec2_2.bar.003",
       "head": {
-        "predicate": "theft_not_established",
+        "predicate": "theft_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -37775,7 +37824,7 @@
       "norm_card_ids": [
         "art329_sec2_2.sole_custodian_coowned_property"
       ],
-      "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다."
     },
     {
       "id": "theft.art329_sec2_2.bar.004",
@@ -38248,7 +38297,7 @@
     {
       "id": "theft.art331_sec3_1.bar.012",
       "head": {
-        "predicate": "theft_not_established",
+        "predicate": "theft_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -38299,7 +38348,7 @@
       "norm_card_ids": [
         "art331_sec3_1.toy_gun_not_weapon_exception"
       ],
-      "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다."
     },
     {
       "id": "theft.art332_sec1_1.bar.013",
@@ -38416,7 +38465,7 @@
     {
       "id": "theft.art332_sec1_2.bar.015",
       "head": {
-        "predicate": "theft_not_established",
+        "predicate": "theft_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -38467,7 +38516,7 @@
       "norm_card_ids": [
         "art332_sec1_2.incidental-or-economic-theft-exception"
       ],
-      "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다."
     },
     {
       "id": "theft.component.l0o.mandatory_negative.01",

@@ -1043,6 +1043,11 @@ type embezzlement_has_conflict(String, String)
 // norm_cards: art355.embezzlement.document-embodied-right, art355.embezzlement.object-identification, art355.embezzlement.object-other-property, art355.embezzlement.other-person, art355.embezzlement_custody, art355.embezzlement_protectable_entrustment, art355_sec1_1.simple_embezzlement, art355_sec1_2.embezzlement_illegal_appropriation_theory, art355_sec2_1.embezzlement_object_property, art355_sec3_3.authority_excess_theory, art355_sec3_3.company_funds_advance_loan, art355_sec3_3.company_funds_private_use, art355_sec3_3.completion_expression_theory, art355_sec3_3.coownership_whole_property, art355_sec3_3.embezzlement_act, art355_sec3_3.invalid_disposition_majority, art355_sec3_3.legal_disposition, art355_sec3_3.money_fungibles_consumed_amount, art355_sec3_3.objective_manifestation, art355_sec3_3.omission_embezzlement, art355_sec3_3.partnership_joint_property_whole_amount, art355_sec3_3.purpose_limited_money_setoff, art355_sec3_3.refusal_equivalent_to_embezzlement, art355_sec3_3.refusal_to_return, art355_sec4_1.embezzlement_intent_objective_elements, art355_sec4_1.eventual_intent_elements, art355_sec4_1.eventual_intent_inference, art355_sec4_1.illegal_appropriation_intent_definition, art355_sec4_1.illegal_appropriation_intent_ownerlike_disposition, art355_sec4_1.repayment_intent_no_exclusion, art355_sec4_1.temporary_company_fund_objective_assessment_view, art355_sec4_2.embezzlement_illicit_appropriation, art355_sec4_2.restricted_funds_off_purpose_embezzlement, art355_sec4_2.temporary_use_against_entrustment, art355_sec4_2.third_party_appropriation, art355_sec4_3.budget_diversion_restricted, art355_sec4_3.business_expense_personal_or_excessive, art355_sec4_3.fake_capital_real_increase_assessment, art355_sec4_3.restricted_budget_assessment, art355_sec4_3.slush_fund_definition, art355_sec4_3.slush_fund_formation_personal_appropriation, art355_sec4_3.slush_fund_purpose_assessment
 type embezzlement_established(String, String, String, String)
 
+// embezzlement_quarantined_effect: 극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+// sources: comm_001692_제355조_1항_Ⅰ.2_1, comm_001692_제355조_1항_Ⅲ.3_75, comm_001692_제355조_1항_Ⅳ.1_93, comm_001692_제355조_1항_Ⅳ.3_108
+// norm_cards: art355_sec1_2.embezzlement_illegal_appropriation_exclusion, art355_sec3_3.simple_destruction_exception, art355_sec4_1.justified_refusal_exception, art355_sec4_3.organization_representative_litigation_exception
+type embezzlement_quarantined_effect(String, String, String)
+
 // embezzlement_requirement_waived: 이 죄의 성립에 요구되지 않는 요건이 확인됨 — 성립을 막지 않는다
 // sources: comm_001692_제355조_1항_Ⅲ.3_76, comm_001692_제355조_1항_Ⅲ.3_84
 // norm_cards: art355_sec3_3.deceptive_means_no_fraud, art355_sec3_3.no_property_damage_element
@@ -2945,12 +2950,12 @@ rel embezzlement_not_established(case_id, defendant_id, "art355.embezzlement_ill
 // rule_id: embezzlement.art355_sec1_2.bar.003
 // sources: comm_001692_제355조_1항_Ⅰ.2_1
 // norm_cards: art355_sec1_2.embezzlement_illegal_appropriation_exclusion
-rel embezzlement_not_established(case_id, defendant_id, "art355_sec1_2.embezzlement_illegal_appropriation_exclusion") = satisfied_art355_sec1_2_embezzlement_illegal_appropriation_exclusion(case_id, defendant_id, entrustor_id, owner_id)
+rel embezzlement_quarantined_effect(case_id, defendant_id, "art355_sec1_2.embezzlement_illegal_appropriation_exclusion") = satisfied_art355_sec1_2_embezzlement_illegal_appropriation_exclusion(case_id, defendant_id, entrustor_id, owner_id)
 
 // rule_id: embezzlement.art355_sec3_3.bar.004
 // sources: comm_001692_제355조_1항_Ⅲ.3_75
 // norm_cards: art355_sec3_3.simple_destruction_exception
-rel embezzlement_not_established(case_id, defendant_id, "art355_sec3_3.simple_destruction_exception") = satisfied_art355_sec3_3_simple_destruction_exception(case_id, defendant_id, entrustor_id, owner_id)
+rel embezzlement_quarantined_effect(case_id, defendant_id, "art355_sec3_3.simple_destruction_exception") = satisfied_art355_sec3_3_simple_destruction_exception(case_id, defendant_id, entrustor_id, owner_id)
 
 // rule_id: embezzlement.art355_sec4_1.bar.005
 // sources: comm_001692_제355조_1항_Ⅳ.1_93
@@ -2965,7 +2970,7 @@ rel embezzlement_not_established(case_id, defendant_id, "art355_sec4_1.explained
 // rule_id: embezzlement.art355_sec4_1.bar.007
 // sources: comm_001692_제355조_1항_Ⅳ.1_93
 // norm_cards: art355_sec4_1.justified_refusal_exception
-rel embezzlement_not_established(case_id, defendant_id, "art355_sec4_1.justified_refusal_exception") = satisfied_art355_sec4_1_justified_refusal_exception(case_id, defendant_id, entrustor_id, owner_id)
+rel embezzlement_quarantined_effect(case_id, defendant_id, "art355_sec4_1.justified_refusal_exception") = satisfied_art355_sec4_1_justified_refusal_exception(case_id, defendant_id, entrustor_id, owner_id)
 
 // rule_id: embezzlement.art355_sec4_1.bar.008
 // sources: comm_001692_제355조_1항_Ⅳ.1_95
@@ -3000,7 +3005,7 @@ rel embezzlement_not_established(case_id, defendant_id, "art355_sec4_3.objective
 // rule_id: embezzlement.art355_sec4_3.bar.014
 // sources: comm_001692_제355조_1항_Ⅳ.3_108
 // norm_cards: art355_sec4_3.organization_representative_litigation_exception
-rel embezzlement_not_established(case_id, defendant_id, "art355_sec4_3.organization_representative_litigation_exception") = satisfied_art355_sec4_3_organization_representative_litigation_exception(case_id, defendant_id, entrustor_id, owner_id)
+rel embezzlement_quarantined_effect(case_id, defendant_id, "art355_sec4_3.organization_representative_litigation_exception") = satisfied_art355_sec4_3_organization_representative_litigation_exception(case_id, defendant_id, entrustor_id, owner_id)
 
 // rule_id: embezzlement.art355_sec4_3.bar.015
 // sources: comm_001692_제355조_1항_Ⅳ.3_105

@@ -283,6 +283,11 @@ type lost_property_embezzlement_has_conflict(String, String)
 // norm_cards: art360_sec1_1.offense_definition, art360_sec2_1.subject.unrestricted, art360_sec2_2.lost_possession_property, art360_sec2_2.object, art360_sec2_3.completion_external_expression, art360_sec2_3.embezzlement_act, art360_sec2_3.later_appropriation_intent, art360_sec2_3.mistake_property_status_punishable
 type lost_property_embezzlement_established(String, String, String)
 
+// lost_property_embezzlement_quarantined_effect: 극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+// sources: comm_001692_제360조_Ⅱ.3_7
+// norm_cards: art360_sec2_3.reporting_noncompliance_alone
+type lost_property_embezzlement_quarantined_effect(String, String, String)
+
 // lost_property_embezzlement_boundary_shift: 이 죄가 아니라 다른 죄로 평가되는 경계 사유가 확인됨
 // sources: comm_001692_제360조_Ⅱ.2_4, comm_001692_제360조_Ⅱ.2_4, comm_001692_제360조_Ⅱ.2_4, comm_001692_제360조_Ⅱ.2_5, comm_001692_제360조_Ⅱ.2_6
 // norm_cards: art360_sec2_2.managed_place_property, art360_sec2_2.mistaken_bank_transfer_embezzlement_holding, art360_sec2_2.original_possessor_recovery, art360_sec2_2.public_transport_found_property
@@ -730,7 +735,7 @@ rel lost_property_embezzlement_not_established(case_id, defendant_id, "art360_se
 // rule_id: lost_property_embezzlement.art360_sec2_3.bar.006
 // sources: comm_001692_제360조_Ⅱ.3_7
 // norm_cards: art360_sec2_3.reporting_noncompliance_alone
-rel lost_property_embezzlement_not_established(case_id, defendant_id, "art360_sec2_3.reporting_noncompliance_alone") = satisfied_art360_sec2_3_reporting_noncompliance_alone(case_id, defendant_id, owner_id)
+rel lost_property_embezzlement_quarantined_effect(case_id, defendant_id, "art360_sec2_3.reporting_noncompliance_alone") = satisfied_art360_sec2_3_reporting_noncompliance_alone(case_id, defendant_id, owner_id)
 
 // rule_id: lost_property_embezzlement.component.l0.mandatory_negative.01
 // sources: comm_001692_제360조_Ⅰ.1_0, comm_001692_제360조_Ⅱ.1_3, comm_001692_제360조_Ⅱ.2_4, comm_001692_제360조_Ⅱ.2_4

@@ -48,6 +48,11 @@ type seal_forgery_or_misuse_track_not_established(String, String, String, String
 // norm_cards: system contract
 type seal_forgery_or_misuse_track_conflict(String, String, String, String)
 
+// seal_forgery_or_misuse_quarantined_effect: 극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+// sources: system contract
+// norm_cards: system contract
+type seal_forgery_or_misuse_quarantined_effect(String, String, String, String)
+
 // seal_forgery_or_misuse_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
 // sources: system contract
 // norm_cards: system contract
@@ -838,10 +843,10 @@ rel seal_forgery_or_misuse_track_conflict(case_id, defendant_id, "creation_or_mi
 // norm_cards: art239_sec2.delivery_of_forged_seal_not_use
 rel seal_forgery_or_misuse_track_conflict(case_id, defendant_id, "use", "art239_sec2.delivery_of_forged_seal_not_use") = seal_forgery_or_misuse_conflict(case_id, defendant_id, "art239_sec2.delivery_of_forged_seal_not_use")
 
-// rule_id: seal_forgery_or_misuse.track_blocked.use.art239_sec2_delivery_of_forged_seal_not_use
+// rule_id: seal_forgery_or_misuse.quarantined.use.art239_sec2_delivery_of_forged_seal_not_use
 // sources: comm_001692_제239조_Ⅱ_6
 // norm_cards: art239_sec2.delivery_of_forged_seal_not_use
-rel seal_forgery_or_misuse_track_not_established(case_id, defendant_id, "use", "art239_sec2.delivery_of_forged_seal_not_use") = satisfied_art239_sec2_delivery_of_forged_seal_not_use(case_id, defendant_id, mark_id, nominal_holder_id)
+rel seal_forgery_or_misuse_quarantined_effect(case_id, defendant_id, "art239_sec2.delivery_of_forged_seal_not_use", "use") = satisfied_art239_sec2_delivery_of_forged_seal_not_use(case_id, defendant_id, mark_id, nominal_holder_id)
 
 // rule_id: seal_forgery_or_misuse.track_conflict.use.art239_sec2_exposure_as_use
 // sources: comm_001692_제239조_Ⅱ_6

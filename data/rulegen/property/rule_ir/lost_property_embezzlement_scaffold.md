@@ -5,7 +5,7 @@
 ## 전체 구조
 
 - rule_set_id: `kr.property.lost_property_embezzlement.full.v1_candidate`
-- predicate: 59개
+- predicate: 60개
 - rule: 86개
 - NormCard: 14개
 
@@ -402,6 +402,13 @@
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art360_sec1_1.offense_definition`, `art360_sec2_1.subject.unrestricted`, `art360_sec2_2.lost_possession_property`, `art360_sec2_2.object`, `art360_sec2_3.completion_external_expression`, `art360_sec2_3.embezzlement_act`, `art360_sec2_3.later_appropriation_intent`, `art360_sec2_3.mistake_property_status_punishable`
+
+### `lost_property_embezzlement_quarantined_effect(case_id: String, defendant_id: String, issue_id: String)`
+
+극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art360_sec2_3.reporting_noncompliance_alone`
 
 ### `lost_property_embezzlement_boundary_shift(case_id: String, defendant_id: String, issue_id: String, value: String)`
 
@@ -1340,7 +1347,7 @@
 
 ### `lost_property_embezzlement.art360_sec2_3.bar.006`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -1348,7 +1355,7 @@
 
 연결 NormCard: `art360_sec2_3.reporting_noncompliance_alone`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `lost_property_embezzlement.component.l0.mandatory_negative.01`
 

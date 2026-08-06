@@ -5,7 +5,7 @@
 ## 전체 구조
 
 - rule_set_id: `kr.property.interference_with_exercise_of_right.full.v1_candidate`
-- predicate: 113개
+- predicate: 114개
 - rule: 168개
 - NormCard: 32개
 
@@ -787,6 +787,13 @@
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art323.forced_execution_evasion_scope`, `art323_sec1_1.abstract_danger_offense`, `art323_sec1_1.conduct_and_object`, `art323_sec2_1.subject_genuine_status_offense`, `art323_sec2_2.corporate_system_records_other`, `art323_sec2_2.electronic_records`, `art323_sec2_2.joint_possession_object`, `art323_sec2_2.nonpossessory_claim_precedent`, `art323_sec2_2.possession_actual_control`, `art323_sec2_2.property_movables_real_estate`, `art323_sec2_2.protected_possession_potential_value`, `art323_sec2_2.rescinded_sale_recovery`, `art323_sec2_2.retained_title_sale`, `art323_sec2_2.rightful_possession_definition`, `art323_sec2_2.self_property_owner`, `art323_sec2_2.title_transfer_criteria`, `art323_sec2_3.concealment`, `art323_sec2_3.destruction`, `art323_sec2_3.risk_to_right_exercise`, `art323_sec2_3.taking`, `art323_sec3.conditional_intent_sufficient`, `art323_sec3.subjective_awareness`
+
+### `interference_with_exercise_of_right_quarantined_effect(case_id: String, defendant_id: String, issue_id: String)`
+
+극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art323_sec2_2.coowned_property_excluded`, `art323_sec2_2.manifestly_no_right_possession_excluded`, `art323_sec2_2.nominee_owner_not_subject`, `art323_sec2_2.official_custody_exception`, `art323_sec2_2.prohibited_gold_products_excluded`, `art323_sec2_2.registered_sale_seller_not_subject`
 
 ### `interference_with_exercise_of_right_requirement_waived(case_id: String, defendant_id: String, issue_id: String, value: String)`
 
@@ -2798,7 +2805,7 @@
 
 ### `interference_with_exercise_of_right.art323_sec2_2.bar.001`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -2806,11 +2813,11 @@
 
 연결 NormCard: `art323_sec2_2.coowned_property_excluded`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `interference_with_exercise_of_right.art323_sec2_2.bar.002`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -2818,11 +2825,11 @@
 
 연결 NormCard: `art323_sec2_2.manifestly_no_right_possession_excluded`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `interference_with_exercise_of_right.art323_sec2_2.bar.003`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -2830,11 +2837,11 @@
 
 연결 NormCard: `art323_sec2_2.nominee_owner_not_subject`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `interference_with_exercise_of_right.art323_sec2_2.bar.004`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -2842,11 +2849,11 @@
 
 연결 NormCard: `art323_sec2_2.official_custody_exception`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `interference_with_exercise_of_right.art323_sec2_2.bar.005`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -2854,11 +2861,11 @@
 
 연결 NormCard: `art323_sec2_2.prohibited_gold_products_excluded`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `interference_with_exercise_of_right.art323_sec2_2.bar.006`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -2866,7 +2873,7 @@
 
 연결 NormCard: `art323_sec2_2.registered_sale_seller_not_subject`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `interference_with_exercise_of_right.art323_sec2_3.bar.007`
 

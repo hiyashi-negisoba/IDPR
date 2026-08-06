@@ -292,6 +292,33 @@
       "source_refs": []
     },
     {
+      "id": "private_document_forgery_quarantined_effect",
+      "kind": "rule",
+      "origin": "system",
+      "role": "derived",
+      "definition": "극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "norm_card_id",
+          "type": "String"
+        },
+        {
+          "name": "would_block_track",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
       "id": "private_document_forgery_track_has_negative",
       "kind": "rule",
       "origin": "system",
@@ -19439,9 +19466,9 @@
       ]
     },
     {
-      "id": "private_document_forgery.track_blocked.alteration.art231_sec3_3_immaterial_character_change_exception",
+      "id": "private_document_forgery.quarantined.alteration.art231_sec3_3_immaterial_character_change_exception",
       "head": {
-        "predicate": "private_document_forgery_track_not_established",
+        "predicate": "private_document_forgery_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -19453,11 +19480,11 @@
           },
           {
             "kind": "string",
-            "value": "alteration"
+            "value": "art231_sec3_3.immaterial_character_change_exception"
           },
           {
             "kind": "string",
-            "value": "art231_sec3_3.immaterial_character_change_exception"
+            "value": "alteration"
           }
         ],
         "negated": false
@@ -19486,7 +19513,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art231_sec3_3.immaterial_character_change_exception"
       ],
@@ -21711,9 +21738,9 @@
       ]
     },
     {
-      "id": "private_document_forgery.track_blocked.forgery.art231_sec3_2_authority_abuse",
+      "id": "private_document_forgery.quarantined.forgery.art231_sec3_2_authority_abuse",
       "head": {
-        "predicate": "private_document_forgery_track_not_established",
+        "predicate": "private_document_forgery_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -21725,11 +21752,11 @@
           },
           {
             "kind": "string",
-            "value": "forgery"
+            "value": "art231_sec3_2.authority_abuse"
           },
           {
             "kind": "string",
-            "value": "art231_sec3_2.authority_abuse"
+            "value": "forgery"
           }
         ],
         "negated": false
@@ -21758,7 +21785,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art231_sec3_2.authority_abuse"
       ],
@@ -21827,9 +21854,9 @@
       ]
     },
     {
-      "id": "private_document_forgery.track_blocked.forgery.art231_sec3_2_authorized_creation",
+      "id": "private_document_forgery.quarantined.forgery.art231_sec3_2_authorized_creation",
       "head": {
-        "predicate": "private_document_forgery_track_not_established",
+        "predicate": "private_document_forgery_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -21841,11 +21868,11 @@
           },
           {
             "kind": "string",
-            "value": "forgery"
+            "value": "art231_sec3_2.authorized_creation"
           },
           {
             "kind": "string",
-            "value": "art231_sec3_2.authorized_creation"
+            "value": "forgery"
           }
         ],
         "negated": false
@@ -21874,7 +21901,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art231_sec3_2.authorized_creation"
       ],
@@ -21943,9 +21970,9 @@
       ]
     },
     {
-      "id": "private_document_forgery.track_blocked.forgery.art231_sec3_2_comprehensive_delegation",
+      "id": "private_document_forgery.quarantined.forgery.art231_sec3_2_comprehensive_delegation",
       "head": {
-        "predicate": "private_document_forgery_track_not_established",
+        "predicate": "private_document_forgery_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -21957,11 +21984,11 @@
           },
           {
             "kind": "string",
-            "value": "forgery"
+            "value": "art231_sec3_2.comprehensive_delegation"
           },
           {
             "kind": "string",
-            "value": "art231_sec3_2.comprehensive_delegation"
+            "value": "forgery"
           }
         ],
         "negated": false
@@ -21990,7 +22017,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art231_sec3_2.comprehensive_delegation"
       ],
@@ -25494,6 +25521,10 @@
     "predicate_ir_missing: art231_sec6.own_document_altered_in_anothers_possession → document_damage",
     "unclassified_annotation: post_outcome: art231_sec6.own_document_altered_in_anothers_possession (outcome_subtype 미지정)",
     "unclassified_annotation: post_outcome: art231_sec6.seal_forgery_absorbed (outcome_subtype 미지정)",
+    "quarantined_exception_polarity: art231_sec3_2.authority_abuse",
+    "quarantined_exception_polarity: art231_sec3_2.authorized_creation",
+    "quarantined_exception_polarity: art231_sec3_2.comprehensive_delegation",
+    "quarantined_exception_polarity: art231_sec3_3.immaterial_character_change_exception",
     "card_metadata_correction: cc_001",
     "card_metadata_correction: cc_002"
   ]

@@ -698,6 +698,11 @@ type extortion_has_conflict(String, String)
 // norm_cards: art350_sec1.defective_disposition, art350_sec1.extortion_definition, art350_sec3.object, art350_sec3.possessed_property_object_affirmative, art350_sec3.real_estate_object, art350_sec4_1.means_threat_or_violence, art350_sec4_1.objective_fear_assessment, art350_sec4_2.implied_or_indirect_threat, art350_sec4_2.third_party_harm_notice, art350_sec4_2.threat_definition, art350_sec4_2.threat_to_third_party, art350_sec4_4.separate_victim_disposition_authority, art350_sec4_4.victim_capacity, art350_sec5_1.threat_fear_disposition_gain, art350_sec5_2.preexisting_fear_maintained, art350_sec5_3.delivery_tacit_acquiescence, art350_sec5_3.third_party_receipt_relationship, art350_sec6_2.consideration_does_not_negate_extortion, art350_sec7_1.attempt_threat_notification, art350_sec7_2.completion.fear_disposition_causal_link, art350_sec7_3.completion.bank_transfer, art350_sec7_3.completion.property_and_benefit, art350_sec8_1.right_enforcement_method_standard, art350_sec8_2.extortion_loss_despite_payment_duty, art350_sec8_2.no_right_extortion, art350_sec8_2.permissible_range_purpose_means, art350_sec8_2.rightful_claim_excessive_method, art350_sec9.illicit_gain_intent.required, art350_sec9.intent.objective_elements
 type extortion_established(String, String, String, String, String)
 
+// extortion_quarantined_effect: 극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+// sources: comm_001692_제350조_Ⅲ_2, comm_001692_제350조_Ⅳ.2_5, comm_001692_제350조_Ⅴ.2_13, comm_001692_제350조_Ⅴ.3_14, comm_001692_제350조_Ⅷ.2_28
+// norm_cards: art350_sec3.own_property_exception, art350_sec4_2.right_exercise_exception, art350_sec5_2.no_fear_attempt, art350_sec5_3.complete_suppression_robbery, art350_sec8_2.permitted_threat_no_extortion
+type extortion_quarantined_effect(String, String, String)
+
 // extortion_requirement_waived: 이 죄의 성립에 요구되지 않는 요건이 확인됨 — 성립을 막지 않는다
 // sources: comm_001692_제350조_Ⅳ.2_5, comm_001692_제350조_Ⅵ_16
 // norm_cards: art350_sec4_2.actual_intent_or_feasibility_not_required, art350_sec6.no_overall_property_decrease
@@ -1937,7 +1942,7 @@ rel extortion_completion_satisfied(case_id, defendant_id, coerced_person_id, dis
 // rule_id: extortion.art350_sec3.bar.001
 // sources: comm_001692_제350조_Ⅲ_2
 // norm_cards: art350_sec3.own_property_exception
-rel extortion_not_established(case_id, defendant_id, "art350_sec3.own_property_exception") = satisfied_art350_sec3_own_property_exception(case_id, defendant_id, coerced_person_id, disposer_id, owner_id)
+rel extortion_quarantined_effect(case_id, defendant_id, "art350_sec3.own_property_exception") = satisfied_art350_sec3_own_property_exception(case_id, defendant_id, coerced_person_id, disposer_id, owner_id)
 
 // rule_id: extortion.art350_sec4_1.bar.002
 // sources: comm_001692_제350조_Ⅳ.1_3
@@ -1952,7 +1957,7 @@ rel extortion_not_established(case_id, defendant_id, "art350_sec4_1.robbery_boun
 // rule_id: extortion.art350_sec4_2.bar.004
 // sources: comm_001692_제350조_Ⅳ.2_5
 // norm_cards: art350_sec4_2.right_exercise_exception
-rel extortion_not_established(case_id, defendant_id, "art350_sec4_2.right_exercise_exception") = satisfied_art350_sec4_2_right_exercise_exception(case_id, defendant_id, coerced_person_id, disposer_id, owner_id)
+rel extortion_quarantined_effect(case_id, defendant_id, "art350_sec4_2.right_exercise_exception") = satisfied_art350_sec4_2_right_exercise_exception(case_id, defendant_id, coerced_person_id, disposer_id, owner_id)
 
 // rule_id: extortion.art350_sec5_2.bar.005
 // sources: comm_001692_제350조_Ⅴ.2_13
@@ -1962,12 +1967,12 @@ rel extortion_not_established(case_id, defendant_id, "art350_sec5_2.fear_causati
 // rule_id: extortion.art350_sec5_2.bar.006
 // sources: comm_001692_제350조_Ⅴ.2_13
 // norm_cards: art350_sec5_2.no_fear_attempt
-rel extortion_not_established(case_id, defendant_id, "art350_sec5_2.no_fear_attempt") = satisfied_art350_sec5_2_no_fear_attempt(case_id, defendant_id, coerced_person_id, disposer_id, owner_id)
+rel extortion_quarantined_effect(case_id, defendant_id, "art350_sec5_2.no_fear_attempt") = satisfied_art350_sec5_2_no_fear_attempt(case_id, defendant_id, coerced_person_id, disposer_id, owner_id)
 
 // rule_id: extortion.art350_sec5_3.bar.007
 // sources: comm_001692_제350조_Ⅴ.3_14
 // norm_cards: art350_sec5_3.complete_suppression_robbery
-rel extortion_not_established(case_id, defendant_id, "art350_sec5_3.complete_suppression_robbery") = satisfied_art350_sec5_3_complete_suppression_robbery(case_id, defendant_id, coerced_person_id, disposer_id, owner_id)
+rel extortion_quarantined_effect(case_id, defendant_id, "art350_sec5_3.complete_suppression_robbery") = satisfied_art350_sec5_3_complete_suppression_robbery(case_id, defendant_id, coerced_person_id, disposer_id, owner_id)
 
 // rule_id: extortion.art350_sec6_2.bar.008
 // sources: comm_001692_제350조_Ⅵ.2_18
@@ -1977,7 +1982,7 @@ rel extortion_not_established(case_id, defendant_id, "art350_sec6_2.satisfied_co
 // rule_id: extortion.art350_sec8_2.bar.009
 // sources: comm_001692_제350조_Ⅷ.2_28
 // norm_cards: art350_sec8_2.permitted_threat_no_extortion
-rel extortion_not_established(case_id, defendant_id, "art350_sec8_2.permitted_threat_no_extortion") = satisfied_art350_sec8_2_permitted_threat_no_extortion(case_id, defendant_id, coerced_person_id, disposer_id, owner_id)
+rel extortion_quarantined_effect(case_id, defendant_id, "art350_sec8_2.permitted_threat_no_extortion") = satisfied_art350_sec8_2_permitted_threat_no_extortion(case_id, defendant_id, coerced_person_id, disposer_id, owner_id)
 
 // rule_id: extortion.component.l0.mandatory_negative.01
 // sources: comm_001692_제350조_Ⅲ_2, comm_001692_제350조_Ⅲ_2, comm_001692_제350조_Ⅲ_2, comm_001692_제350조_Ⅷ.2_26, comm_001692_제350조_Ⅷ.2_29, comm_001692_제350조_Ⅷ.2_29

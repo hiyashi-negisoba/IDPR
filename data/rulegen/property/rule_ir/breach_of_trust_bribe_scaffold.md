@@ -5,7 +5,7 @@
 ## 전체 구조
 
 - rule_set_id: `kr.property.breach_of_trust_bribe.full.v1_candidate`
-- predicate: 140개
+- predicate: 141개
 - rule: 214개
 - NormCard: 41개
 
@@ -976,6 +976,13 @@
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art357.protected_interest.integrity`, `art357_sec1_2.third_party_acquisition`, `art357_sec1_3.receipt.required_elements`, `art357_sec1_4.actual_acquisition`, `art357_sec3_1.future_duty_expected`, `art357_sec3_1.status_assessment`, `art357_sec3_1.subject_trust_relationship`, `art357_sec3_1.trust_relationship_sources`, `art357_sec3_2.contract_counterparty_request`, `art357_sec3_2.giver_not_necessarily_liable`, `art357_sec3_2.improper_request_standard`, `art357_sec3_2.improper_solicitation_comprehensive_assessment`, `art357_sec3_2.paid_news_request`, `art357_sec3_2.request_concerning_duty`, `art357_sec3_2.request_consideration_link`, `art357_sec3_2.scope_of_duty`, `art357_sec3_3.account_control_acquisition`, `art357_sec3_3.actual_acquisition_required`, `art357_sec3_3.benefit_consideration_link`, `art357_sec3_3.mixed_consideration_entire_benefit`, `art357_sec3_3.nominal_stock_sale_consideration`, `art357_sec3_3.post_resignation_receipt`, `art357_sec3_3.principal_payment_direct_receipt_equivalent`, `art357_sec3_4.illegal_appropriation_intent_separate`, `art357_sec3_4.intent_elements`, `art357_sec3_5.attempt_majority`, `art357_sec3_5.completion_time`, `art357_sec4.giving_completion_actual_provision`, `art357_sec4.giving_offense_definition`
+
+### `breach_of_trust_bribe_quarantined_effect(case_id: String, defendant_id: String, issue_id: String)`
+
+극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art357_sec3_2.permitted_favor_request`, `art357_sec3_3.principal_not_third_party_precedent`
 
 ### `breach_of_trust_bribe_requirement_waived(case_id: String, defendant_id: String, issue_id: String, value: String)`
 
@@ -3581,7 +3588,7 @@
 
 ### `breach_of_trust_bribe.art357_sec3_2.bar.003`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -3589,7 +3596,7 @@
 
 연결 NormCard: `art357_sec3_2.permitted_favor_request`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `breach_of_trust_bribe.art357_sec3_2.bar.004`
 
@@ -3605,7 +3612,7 @@
 
 ### `breach_of_trust_bribe.art357_sec3_3.bar.005`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -3613,7 +3620,7 @@
 
 연결 NormCard: `art357_sec3_3.principal_not_third_party_precedent`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `breach_of_trust_bribe.art357_sec3_3.bar.006`
 

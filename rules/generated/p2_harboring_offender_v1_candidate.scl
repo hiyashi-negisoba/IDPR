@@ -48,6 +48,11 @@ type harboring_offender_track_not_established(String, String, String, String)
 // norm_cards: system contract
 type harboring_offender_track_conflict(String, String, String, String)
 
+// harboring_offender_quarantined_effect: 극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+// sources: system contract
+// norm_cards: system contract
+type harboring_offender_quarantined_effect(String, String, String, String)
+
 // harboring_offender_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
 // sources: system contract
 // norm_cards: system contract
@@ -2103,10 +2108,10 @@ rel harboring_offender_track_not_established(case_id, defendant_id, "base", "art
 // norm_cards: art151_sec2_2.relative_cohabiting_family
 rel harboring_offender_track_conflict(case_id, defendant_id, "base", "art151_sec2_2.relative_cohabiting_family") = harboring_offender_conflict(case_id, defendant_id, "art151_sec2_2.relative_cohabiting_family")
 
-// rule_id: harboring_offender.track_blocked.base.art151_sec2_2_relative_cohabiting_family
+// rule_id: harboring_offender.quarantined.base.art151_sec2_2_relative_cohabiting_family
 // sources: comm_001692_제151조_Ⅱ.2_2
 // norm_cards: art151_sec2_2.relative_cohabiting_family
-rel harboring_offender_track_not_established(case_id, defendant_id, "base", "art151_sec2_2.relative_cohabiting_family") = satisfied_art151_sec2_2_relative_cohabiting_family(case_id, defendant_id, offender_id)
+rel harboring_offender_quarantined_effect(case_id, defendant_id, "art151_sec2_2.relative_cohabiting_family", "base") = satisfied_art151_sec2_2_relative_cohabiting_family(case_id, defendant_id, offender_id)
 
 // rule_id: harboring_offender.track_conflict.base.art151_sec2_2_supporting_fugitive_family
 // sources: comm_001692_제151조_Ⅱ.2_16
@@ -2123,10 +2128,10 @@ rel harboring_offender_track_not_established(case_id, defendant_id, "base", "art
 // norm_cards: art151_sec2_4.family_support_social_adequacy
 rel harboring_offender_track_conflict(case_id, defendant_id, "base", "art151_sec2_4.family_support_social_adequacy") = harboring_offender_conflict(case_id, defendant_id, "art151_sec2_4.family_support_social_adequacy")
 
-// rule_id: harboring_offender.track_blocked.base.art151_sec2_4_family_support_social_adequacy
+// rule_id: harboring_offender.quarantined.base.art151_sec2_4_family_support_social_adequacy
 // sources: comm_001692_제151조_Ⅱ.4_24
 // norm_cards: art151_sec2_4.family_support_social_adequacy
-rel harboring_offender_track_not_established(case_id, defendant_id, "base", "art151_sec2_4.family_support_social_adequacy") = satisfied_art151_sec2_4_family_support_social_adequacy(case_id, defendant_id, offender_id)
+rel harboring_offender_quarantined_effect(case_id, defendant_id, "art151_sec2_4.family_support_social_adequacy", "base") = satisfied_art151_sec2_4_family_support_social_adequacy(case_id, defendant_id, offender_id)
 
 // rule_id: harboring_offender.track_conflict.base.art151_sec2_2_self_concealment
 // sources: comm_001692_제151조_Ⅱ.2_2, comm_001692_제151조_Ⅱ.2_2

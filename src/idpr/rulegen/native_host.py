@@ -146,21 +146,28 @@ def validate_closed_issue_selection(
             issue_id = str(item.get("issue_id", ""))
             unit_id = str(item.get("unit_id", ""))
             reported_label = str(item.get("reported_label", "")).strip()
-            faults: list[str] = []
+            # (degraded_reason 코드, 사람이 읽을 사유).  The code is what a later
+            # analysis groups by; a free sentence alone cannot be counted.
+            faults: list[tuple[str, str]] = []
             if not reported_label or reported_label.casefold() == "unsupported":
-                faults.append("쟁점의 죄명이 기재되지 않았다")
+                faults.append(("missing_label", "쟁점의 죄명이 기재되지 않았다"))
             if item.get("source_quote") not in case_text:
-                faults.append("근거로 든 사실관계 인용이 문제 지문에 없다")
+                faults.append(
+                    ("quote_not_grounded", "근거로 든 사실관계 인용이 문제 지문에 없다"))
             dependencies = item.get("depends_on_issue_ids", [])
             if isinstance(dependencies, list):
                 invalid_dependencies = sorted(set(dependencies) - seen)
                 if invalid_dependencies:
-                    faults.append(
-                        f"앞선 쟁점이 아닌 것에 의존한다: {invalid_dependencies}"
-                    )
+                    faults.append((
+                        "missing_dependency",
+                        f"앞선 쟁점이 아닌 것에 의존한다: {invalid_dependencies}",
+                    ))
             entry = registry.get(unit_id)
             if unit_id == "unsupported" and dependencies:
-                faults.append("적재되지 않은 쟁점이 다른 쟁점에 의존한다")
+                faults.append((
+                    "missing_dependency",
+                    "적재되지 않은 쟁점이 다른 쟁점에 의존한다",
+                ))
             if entry is not None:
                 allowed_roles = {
                     argument["name"]
@@ -172,19 +179,29 @@ def validate_closed_issue_selection(
                     unknown_roles = sorted(set(role_candidates) - allowed_roles)
                     missing_roles = sorted(allowed_roles - set(role_candidates))
                     if unknown_roles:
-                        faults.append(
-                            f"이 죄가 받지 않는 당사자 역할을 지정했다: {unknown_roles}"
-                        )
+                        faults.append((
+                            "unsupported_role",
+                            f"이 죄가 받지 않는 당사자 역할을 지정했다: {unknown_roles}",
+                        ))
                     if missing_roles:
-                        faults.append(
-                            f"이 죄에 필요한 당사자 역할이 빠졌다: {missing_roles}"
-                        )
+                        faults.append((
+                            "missing_required_role",
+                            f"이 죄에 필요한 당사자 역할이 빠졌다: {missing_roles}",
+                        ))
             if faults:
                 rejected.append({
                     "issue_id": issue_id,
                     "unit_id": unit_id,
                     "reported_label": reported_label,
-                    "reason": "; ".join(faults),
+                    # The writer must not present a degraded issue's reasoning as
+                    # though the symbolic layer stood behind it.
+                    "issue_status": "contract_degraded",
+                    "symbolic_verdict": "unavailable",
+                    "generation_mode": "nonbinding_fallback",
+                    "degraded_reason": sorted({code for code, _ in faults}),
+                    "reason": "; ".join(text for _, text in faults),
+                    # 원문을 남겨야 어느 역할·어느 인용이 틀렸는지 나중에 확인할 수 있다.
+                    "reported_selection": dict(item),
                 })
             seen.add(issue_id)
     if errors:
@@ -547,6 +564,14 @@ def execute_native_unit(
         for row in raw.get(f"{unit_id}_outcome_detail", {}).get("proven_tuples", [])
         if len(tuple(row)) >= 2
     })
+    # A card whose polarity was never reviewed still gets evaluated; what is held
+    # back is its effect on the verdict.  Recording which ones fired is how the
+    # review queue learns what to look at first (검수 003 I, 우선순위 1번).
+    quarantined_fired = sorted({
+        str(tuple(row)[2]) if len(tuple(row)) > 2 else str(tuple(row)[-1])
+        for row in raw.get(f"{unit_id}_quarantined_effect", {}).get("proven_tuples", [])
+        if row
+    })
     # Name the requirement that stopped the conclusion.  A unit whose commentary
     # only records marginal fact patterns for one element can never complete it,
     # and the answer would otherwise report a bare 미확정 with no explanation.
@@ -596,6 +621,7 @@ def execute_native_unit(
         "annotations": annotations,
         "outcome_details": [{"key": key, "value": value}
                             for key, value in outcome_details],
+        "quarantined_effect_cards": quarantined_fired,
         "unmet_requirements": unmet_requirements,
         "query_results": observed,
         "proof_dag": raw.get("_proof_dag"),

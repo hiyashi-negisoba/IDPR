@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+from typing import Any
+
+import pytest
+
 from scripts.build_p2_native_decision_ledger import build_ledger
 from scripts.build_p2_native_rule_ir import UnitAssembler, commentary_index
 
@@ -252,13 +256,22 @@ def test_selective_placement_source_need_not_publish_a_track_outcome() -> None:
         assert f"sexual_offense_injury_or_death_{track}_established" in predicates
 
 
-def test_justification_waiver_blocks_the_offense_track() -> None:
-    rule_ir, _ = UnitAssembler("official_secret_disclosure", None).build()
+def test_justification_waiver_reaches_a_blocking_head() -> None:
+    """위법성 조각 카드는 결론 계층에 닿되, 극성 미검수면 격리 relation으로 간다.
+
+    이 카드는 ``polarity=exception``이라 어느 방향의 명제인지 필드만으로는 알 수 없다.
+    검수 003 I에 따라 검수 전까지는 저지 효과를 결론에서 떼어 놓고 격리해 기록만 하며,
+    승인 목록에 오르면 다시 ``track_not_established``로 간다.
+    """
+
+    assembler = UnitAssembler("official_secret_disclosure", None)
+    rule_ir, _ = assembler.build()
     waiver_id = "art127_sec6.statutorily_required_corruption_report"
-    rules = [
-        item for item in rule_ir["rules"]
-        if item["head"]["predicate"] == "official_secret_disclosure_track_not_established"
-    ]
+    head = ("official_secret_disclosure_quarantined_effect"
+            if waiver_id in assembler.quarantined
+            else "official_secret_disclosure_track_not_established")
+    rules = [item for item in rule_ir["rules"]
+             if item["head"]["predicate"] == head]
 
     assert any(waiver_id in item["norm_card_ids"] for item in rules)
 
@@ -274,3 +287,76 @@ def test_non_ascii_source_card_ids_get_canonical_execution_ids() -> None:
         for rule in rule_ir["rules"]
         for card_id in rule["norm_card_ids"]
     )
+
+
+def _blocking_placement(unit_id: str) -> tuple[Any, dict[str, Any]]:
+    """A live bar in a multi-track unit, with its assembler."""
+    assembler = UnitAssembler(unit_id, None)
+    for row in assembler.ledger["placements"]:
+        if row["role"] == "bar" and len(assembler.tracks) > 1:
+            return assembler, row
+    raise AssertionError(f"{unit_id}: no bar placement to scope")
+
+
+def test_component_scope_blocks_only_tracks_that_need_the_component() -> None:
+    """장물의 취득 경로가 막혀도 보관·운반죄까지 죽어서는 안 된다.
+
+    A bar defaults to defeating every track its placement reaches.  Declaring
+    ``effect_scope: component`` narrows that to the tracks whose element
+    conjunction actually contains the named component, which is what an offence
+    with parallel 행위태양 needs (검수 003).
+    """
+
+    assembler, row = _blocking_placement("homicide")
+    placements = assembler.placements()
+    satisfied = assembler.emit_cards(placements)
+    assembler.satisfied_by_card = satisfied
+    by_track = assembler.emit_components(placements, satisfied)
+
+    wide = assembler.blocked_tracks({**row, "effect_scope": "track"}, by_track)
+    narrow = assembler.blocked_tracks(
+        {**row, "effect_scope": "component",
+         "effect_target": row["component_id"]}, by_track)
+    everything = assembler.blocked_tracks({**row, "effect_scope": "unit"}, by_track)
+
+    assert set(narrow) <= set(wide) <= set(everything)
+    assert set(everything) == set(assembler.tracks)
+    # The component's own track always needs it, so narrowing never empties.
+    assert row["track_id"] in narrow
+
+
+def test_unadopted_view_never_reaches_a_conclusion() -> None:
+    """미채택 견해는 규칙에서 빠지되 사라지지는 않는다."""
+
+    assembler, row = _blocking_placement("homicide")
+    baseline = {item["card_id"] for item in assembler.placements()}
+
+    shelved = UnitAssembler("homicide", None)
+    for item in shelved.ledger["placements"]:
+        if item["card_id"] == row["card_id"]:
+            item["variant_status"] = "unselected"
+    compiled = {item["card_id"] for item in shelved.placements()}
+
+    assert row["card_id"] in baseline
+    assert row["card_id"] not in compiled
+    assert [item["card_id"] for item in shelved.variant_views] == [row["card_id"]]
+
+    dropped = UnitAssembler("homicide", None)
+    for item in dropped.ledger["placements"]:
+        if item["card_id"] == row["card_id"]:
+            item["variant_status"] = "rejected"
+    assert row["card_id"] not in {item["card_id"] for item in dropped.placements()}
+    assert dropped.variant_views == []
+
+
+def test_two_adopted_views_in_one_group_are_refused() -> None:
+    """같은 견해 그룹에서 둘을 함께 채택하면 룰베이스가 학설을 두 번 확정한다."""
+
+    assembler = UnitAssembler("homicide", None)
+    rows = [row for row in assembler.ledger["placements"]][:2]
+    for row in rows:
+        row["variant_group"] = "test_group"
+        row["variant_status"] = "authority_default"
+
+    with pytest.raises(SystemExit, match="상호 배타적인 견해"):
+        assembler.placements()

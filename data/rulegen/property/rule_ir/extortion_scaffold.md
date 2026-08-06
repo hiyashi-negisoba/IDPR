@@ -5,7 +5,7 @@
 ## 전체 구조
 
 - rule_set_id: `kr.property.extortion.full.v1_candidate`
-- predicate: 144개
+- predicate: 145개
 - rule: 221개
 - NormCard: 41개
 
@@ -983,6 +983,13 @@
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art350_sec1.defective_disposition`, `art350_sec1.extortion_definition`, `art350_sec3.object`, `art350_sec3.possessed_property_object_affirmative`, `art350_sec3.real_estate_object`, `art350_sec4_1.means_threat_or_violence`, `art350_sec4_1.objective_fear_assessment`, `art350_sec4_2.implied_or_indirect_threat`, `art350_sec4_2.third_party_harm_notice`, `art350_sec4_2.threat_definition`, `art350_sec4_2.threat_to_third_party`, `art350_sec4_4.separate_victim_disposition_authority`, `art350_sec4_4.victim_capacity`, `art350_sec5_1.threat_fear_disposition_gain`, `art350_sec5_2.preexisting_fear_maintained`, `art350_sec5_3.delivery_tacit_acquiescence`, `art350_sec5_3.third_party_receipt_relationship`, `art350_sec6_2.consideration_does_not_negate_extortion`, `art350_sec7_1.attempt_threat_notification`, `art350_sec7_2.completion.fear_disposition_causal_link`, `art350_sec7_3.completion.bank_transfer`, `art350_sec7_3.completion.property_and_benefit`, `art350_sec8_1.right_enforcement_method_standard`, `art350_sec8_2.extortion_loss_despite_payment_duty`, `art350_sec8_2.no_right_extortion`, `art350_sec8_2.permissible_range_purpose_means`, `art350_sec8_2.rightful_claim_excessive_method`, `art350_sec9.illicit_gain_intent.required`, `art350_sec9.intent.objective_elements`
+
+### `extortion_quarantined_effect(case_id: String, defendant_id: String, issue_id: String)`
+
+극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art350_sec3.own_property_exception`, `art350_sec4_2.right_exercise_exception`, `art350_sec5_2.no_fear_attempt`, `art350_sec5_3.complete_suppression_robbery`, `art350_sec8_2.permitted_threat_no_extortion`
 
 ### `extortion_requirement_waived(case_id: String, defendant_id: String, issue_id: String, value: String)`
 
@@ -3585,7 +3592,7 @@
 
 ### `extortion.art350_sec3.bar.001`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -3593,7 +3600,7 @@
 
 연결 NormCard: `art350_sec3.own_property_exception`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `extortion.art350_sec4_1.bar.002`
 
@@ -3621,7 +3628,7 @@
 
 ### `extortion.art350_sec4_2.bar.004`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -3629,7 +3636,7 @@
 
 연결 NormCard: `art350_sec4_2.right_exercise_exception`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `extortion.art350_sec5_2.bar.005`
 
@@ -3645,7 +3652,7 @@
 
 ### `extortion.art350_sec5_2.bar.006`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -3653,11 +3660,11 @@
 
 연결 NormCard: `art350_sec5_2.no_fear_attempt`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `extortion.art350_sec5_3.bar.007`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -3665,7 +3672,7 @@
 
 연결 NormCard: `art350_sec5_3.complete_suppression_robbery`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `extortion.art350_sec6_2.bar.008`
 
@@ -3681,7 +3688,7 @@
 
 ### `extortion.art350_sec8_2.bar.009`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -3689,7 +3696,7 @@
 
 연결 NormCard: `art350_sec8_2.permitted_threat_no_extortion`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `extortion.component.l0.mandatory_negative.01`
 

@@ -309,6 +309,33 @@
       "source_refs": []
     },
     {
+      "id": "bribe_receipt_quarantined_effect",
+      "kind": "rule",
+      "origin": "system",
+      "role": "derived",
+      "definition": "극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "norm_card_id",
+          "type": "String"
+        },
+        {
+          "name": "would_block_track",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
       "id": "bribe_receipt_track_has_negative",
       "kind": "rule",
       "origin": "system",
@@ -23264,9 +23291,9 @@
       ]
     },
     {
-      "id": "bribe_receipt.track_blocked.receipt.art129_internal_distribution_of_embezzled_proceeds",
+      "id": "bribe_receipt.quarantined.receipt.art129_internal_distribution_of_embezzled_proceeds",
       "head": {
-        "predicate": "bribe_receipt_track_not_established",
+        "predicate": "bribe_receipt_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -23278,11 +23305,11 @@
           },
           {
             "kind": "string",
-            "value": "receipt"
+            "value": "art129.internal_distribution_of_embezzled_proceeds"
           },
           {
             "kind": "string",
-            "value": "art129.internal_distribution_of_embezzled_proceeds"
+            "value": "receipt"
           }
         ],
         "negated": false
@@ -23315,7 +23342,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art129.internal_distribution_of_embezzled_proceeds"
       ],
@@ -23384,9 +23411,9 @@
       ]
     },
     {
-      "id": "bribe_receipt.track_blocked.demand.art129_internal_distribution_of_embezzled_proceeds",
+      "id": "bribe_receipt.quarantined.demand.art129_internal_distribution_of_embezzled_proceeds",
       "head": {
-        "predicate": "bribe_receipt_track_not_established",
+        "predicate": "bribe_receipt_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -23398,11 +23425,11 @@
           },
           {
             "kind": "string",
-            "value": "demand"
+            "value": "art129.internal_distribution_of_embezzled_proceeds"
           },
           {
             "kind": "string",
-            "value": "art129.internal_distribution_of_embezzled_proceeds"
+            "value": "demand"
           }
         ],
         "negated": false
@@ -23435,7 +23462,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art129.internal_distribution_of_embezzled_proceeds"
       ],
@@ -23504,9 +23531,9 @@
       ]
     },
     {
-      "id": "bribe_receipt.track_blocked.promise.art129_internal_distribution_of_embezzled_proceeds",
+      "id": "bribe_receipt.quarantined.promise.art129_internal_distribution_of_embezzled_proceeds",
       "head": {
-        "predicate": "bribe_receipt_track_not_established",
+        "predicate": "bribe_receipt_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -23518,11 +23545,11 @@
           },
           {
             "kind": "string",
-            "value": "promise"
+            "value": "art129.internal_distribution_of_embezzled_proceeds"
           },
           {
             "kind": "string",
-            "value": "art129.internal_distribution_of_embezzled_proceeds"
+            "value": "promise"
           }
         ],
         "negated": false
@@ -23555,7 +23582,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art129.internal_distribution_of_embezzled_proceeds"
       ],
@@ -25927,9 +25954,9 @@
       ]
     },
     {
-      "id": "bribe_receipt.track_blocked.prior.art129_sec2_2_post_office_request_no_retroaction",
+      "id": "bribe_receipt.quarantined.prior.art129_sec2_2_post_office_request_no_retroaction",
       "head": {
-        "predicate": "bribe_receipt_track_not_established",
+        "predicate": "bribe_receipt_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -25941,11 +25968,11 @@
           },
           {
             "kind": "string",
-            "value": "prior"
+            "value": "art129_sec2_2.post_office_request_no_retroaction"
           },
           {
             "kind": "string",
-            "value": "art129_sec2_2.post_office_request_no_retroaction"
+            "value": "prior"
           }
         ],
         "negated": false
@@ -25978,7 +26005,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art129_sec2_2.post_office_request_no_retroaction"
       ],
@@ -31611,6 +31638,8 @@
     "unclassified_annotation: post_outcome: art129_sec1_5.comprehensive_single_offense (outcome_subtype 미지정)",
     "unclassified_annotation: post_outcome: art129_sec1_5.comprehensive_time_interval (outcome_subtype 미지정)",
     "unclassified_annotation: post_outcome: art129_sec1_5.different_appraisers_no_comprehensive_offense (outcome_subtype 미지정)",
+    "quarantined_exception_polarity: art129.internal_distribution_of_embezzled_proceeds",
+    "quarantined_exception_polarity: art129_sec2_2.post_office_request_no_retroaction",
     "card_metadata_correction: cc_001",
     "card_metadata_correction: cc_002"
   ]

@@ -5,7 +5,7 @@
 ## 전체 구조
 
 - rule_set_id: `kr.property.breach_of_trust.full.v1_candidate`
-- predicate: 126개
+- predicate: 127개
 - rule: 190개
 - NormCard: 36개
 
@@ -878,6 +878,13 @@
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art355.breach.confidential-information`, `art355.breach.duty-definition`, `art355.breach.invalid-act-risk`, `art355.breach_other_affairs_processor`, `art355.breach_right_transfer_general`, `art355_sec1_1.breach_of_trust`, `art355_sec1_2.breach_of_trust_betrayal_theory`, `art355_sec1_3.breach_of_trust_case_concrete_risk_of_loss`, `art355_sec3.breach_of_trust.objective_elements`, `art355_sec4_1.breach_of_trust_intent_elements`, `art355_sec4_1.breach_of_trust_intent_no_purpose`, `art355_sec4_1.business_judgment_intent`, `art355_sec4_1.double_sale_unjustified_rescission_intent`, `art355_sec4_1.role_violation_intent`, `art355_sec4_2.breach_illicit_gain_intent`, `art355_sec4_2.breach_illicit_gain_separate_requirement`, `art355_sec4_2.mixed_motives_primary_purpose`, `art355_sec4_2.third_party_benefit_sufficient`, `art355_sec5_2.individual_delegation_exception`, `art355_sec5_2.real_estate_double_sale_majority`, `art355_sec5_2.real_estate_sale_intermediate_payment`, `art355_sec5_2.real_estate_transfer_exception`, `art355_sec5_2.trust_relationship_threshold`, `art355_sec9.partnership_victim_breach`
+
+### `breach_of_trust_quarantined_effect(case_id: String, defendant_id: String, issue_id: String)`
+
+극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art355_sec4_1.business_loss_alone_insufficient`, `art355_sec4_1.no_breach_of_trust_without_awareness`, `art355_sec4_2.breach_for_principal_no_illicit_gain`
 
 ### `breach_of_trust_aggravation(case_id: String, defendant_id: String, kind: String)`
 
@@ -3129,7 +3136,7 @@
 
 ### `breach_of_trust.art355_sec4_1.bar.001`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -3137,11 +3144,11 @@
 
 연결 NormCard: `art355_sec4_1.business_loss_alone_insufficient`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `breach_of_trust.art355_sec4_1.bar.002`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -3149,11 +3156,11 @@
 
 연결 NormCard: `art355_sec4_1.no_breach_of_trust_without_awareness`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `breach_of_trust.art355_sec4_2.bar.003`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -3161,7 +3168,7 @@
 
 연결 NormCard: `art355_sec4_2.breach_for_principal_no_illicit_gain`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `breach_of_trust.art355_sec5_2.bar.004`
 

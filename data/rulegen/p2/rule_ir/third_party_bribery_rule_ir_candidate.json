@@ -287,6 +287,33 @@
       "source_refs": []
     },
     {
+      "id": "third_party_bribery_quarantined_effect",
+      "kind": "rule",
+      "origin": "system",
+      "role": "derived",
+      "definition": "극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "norm_card_id",
+          "type": "String"
+        },
+        {
+          "name": "would_block_track",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
       "id": "third_party_bribery_track_has_negative",
       "kind": "rule",
       "origin": "system",
@@ -18548,9 +18575,9 @@
       ]
     },
     {
-      "id": "third_party_bribery.track_blocked.base.art130_sec1_direct_receipt_relationship_exception",
+      "id": "third_party_bribery.quarantined.base.art130_sec1_direct_receipt_relationship_exception",
       "head": {
-        "predicate": "third_party_bribery_track_not_established",
+        "predicate": "third_party_bribery_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -18562,11 +18589,11 @@
           },
           {
             "kind": "string",
-            "value": "base"
+            "value": "art130_sec1.direct_receipt_relationship_exception"
           },
           {
             "kind": "string",
-            "value": "art130_sec1.direct_receipt_relationship_exception"
+            "value": "base"
           }
         ],
         "negated": false
@@ -18603,7 +18630,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art130_sec1.direct_receipt_relationship_exception"
       ],
@@ -18728,9 +18755,9 @@
       ]
     },
     {
-      "id": "third_party_bribery.track_blocked.base.art130_sec3_na_joint_perpetrator_not_third_party",
+      "id": "third_party_bribery.quarantined.base.art130_sec3_na_joint_perpetrator_not_third_party",
       "head": {
-        "predicate": "third_party_bribery_track_not_established",
+        "predicate": "third_party_bribery_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -18742,11 +18769,11 @@
           },
           {
             "kind": "string",
-            "value": "base"
+            "value": "art130_sec3-na.joint-perpetrator-not-third-party"
           },
           {
             "kind": "string",
-            "value": "art130_sec3-na.joint-perpetrator-not-third-party"
+            "value": "base"
           }
         ],
         "negated": false
@@ -18783,7 +18810,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art130_sec3-na.joint-perpetrator-not-third-party"
       ],
@@ -19081,9 +19108,9 @@
       ]
     },
     {
-      "id": "third_party_bribery.track_blocked.base.art130_sec3_direct_substantial_interest_exception",
+      "id": "third_party_bribery.quarantined.base.art130_sec3_direct_substantial_interest_exception",
       "head": {
-        "predicate": "third_party_bribery_track_not_established",
+        "predicate": "third_party_bribery_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -19095,11 +19122,11 @@
           },
           {
             "kind": "string",
-            "value": "base"
+            "value": "art130_sec3.direct_substantial_interest_exception"
           },
           {
             "kind": "string",
-            "value": "art130_sec3.direct_substantial_interest_exception"
+            "value": "base"
           }
         ],
         "negated": false
@@ -19136,7 +19163,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art130_sec3.direct_substantial_interest_exception"
       ],
@@ -22392,6 +22419,9 @@
     "unclassified_annotation: post_outcome: art130_sec3-na.nonofficial-joint-bribery (outcome_subtype 미지정)",
     "unclassified_annotation: post_outcome: art130_sec4_2.different_third_party_no_intent_severance (outcome_subtype 미지정)",
     "unclassified_annotation: post_outcome: art130_sec4_2.contract_demand_imaginary_concurrence (outcome_subtype 미지정)",
+    "quarantined_exception_polarity: art130_sec1.direct_receipt_relationship_exception",
+    "quarantined_exception_polarity: art130_sec3-na.joint-perpetrator-not-third-party",
+    "quarantined_exception_polarity: art130_sec3.direct_substantial_interest_exception",
     "card_metadata_correction: cc_001",
     "card_metadata_correction: cc_002",
     "card_metadata_correction: cid_001",

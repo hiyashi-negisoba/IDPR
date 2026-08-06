@@ -48,6 +48,11 @@ type dwelling_intrusion_track_not_established(String, String, String, String)
 // norm_cards: system contract
 type dwelling_intrusion_track_conflict(String, String, String, String)
 
+// dwelling_intrusion_quarantined_effect: 극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+// sources: system contract
+// norm_cards: system contract
+type dwelling_intrusion_quarantined_effect(String, String, String, String)
+
 // dwelling_intrusion_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
 // sources: system contract
 // norm_cards: system contract
@@ -3333,10 +3338,10 @@ rel dwelling_intrusion_track_conflict(case_id, defendant_id, "intrusion", "art31
 // norm_cards: art319_sec2_2.joint_occupier_entry
 rel dwelling_intrusion_track_conflict(case_id, defendant_id, "intrusion", "art319_sec2_2.joint_occupier_entry") = dwelling_intrusion_conflict(case_id, defendant_id, "art319_sec2_2.joint_occupier_entry")
 
-// rule_id: dwelling_intrusion.track_blocked.intrusion.art319_sec2_2_joint_occupier_entry
+// rule_id: dwelling_intrusion.quarantined.intrusion.art319_sec2_2_joint_occupier_entry
 // sources: comm_001692_제319조_Ⅱ.2_14
 // norm_cards: art319_sec2_2.joint_occupier_entry
-rel dwelling_intrusion_track_not_established(case_id, defendant_id, "intrusion", "art319_sec2_2.joint_occupier_entry") = satisfied_art319_sec2_2_joint_occupier_entry(case_id, defendant_id, place_id, occupant_id)
+rel dwelling_intrusion_quarantined_effect(case_id, defendant_id, "art319_sec2_2.joint_occupier_entry", "intrusion") = satisfied_art319_sec2_2_joint_occupier_entry(case_id, defendant_id, place_id, occupant_id)
 
 // rule_id: dwelling_intrusion.track_conflict.intrusion.art319_sec3_1_abnormal_or_forced_entry
 // sources: comm_001692_제319조_Ⅲ.1_21, comm_001692_제319조_Ⅲ.1_21
@@ -3483,80 +3488,80 @@ rel dwelling_intrusion_track_not_established(case_id, defendant_id, "intrusion",
 // norm_cards: art319_sec5_2.lawful_authority_entry
 rel dwelling_intrusion_track_conflict(case_id, defendant_id, "intrusion", "art319_sec5_2.lawful_authority_entry") = dwelling_intrusion_conflict(case_id, defendant_id, "art319_sec5_2.lawful_authority_entry")
 
-// rule_id: dwelling_intrusion.track_blocked.intrusion.art319_sec5_2_lawful_authority_entry
+// rule_id: dwelling_intrusion.quarantined.intrusion.art319_sec5_2_lawful_authority_entry
 // sources: comm_001692_제319조_Ⅴ.2_46
 // norm_cards: art319_sec5_2.lawful_authority_entry
-rel dwelling_intrusion_track_not_established(case_id, defendant_id, "intrusion", "art319_sec5_2.lawful_authority_entry") = satisfied_art319_sec5_2_lawful_authority_entry(case_id, defendant_id, place_id, occupant_id)
+rel dwelling_intrusion_quarantined_effect(case_id, defendant_id, "art319_sec5_2.lawful_authority_entry", "intrusion") = satisfied_art319_sec5_2_lawful_authority_entry(case_id, defendant_id, place_id, occupant_id)
 
 // rule_id: dwelling_intrusion.track_conflict.intrusion.art319_sec5_2_lawful_labor_dispute_entry
 // sources: comm_001692_제319조_Ⅴ.2_48, comm_001692_제319조_Ⅴ.2_48
 // norm_cards: art319_sec5_2.lawful_labor_dispute_entry
 rel dwelling_intrusion_track_conflict(case_id, defendant_id, "intrusion", "art319_sec5_2.lawful_labor_dispute_entry") = dwelling_intrusion_conflict(case_id, defendant_id, "art319_sec5_2.lawful_labor_dispute_entry")
 
-// rule_id: dwelling_intrusion.track_blocked.intrusion.art319_sec5_2_lawful_labor_dispute_entry
+// rule_id: dwelling_intrusion.quarantined.intrusion.art319_sec5_2_lawful_labor_dispute_entry
 // sources: comm_001692_제319조_Ⅴ.2_48, comm_001692_제319조_Ⅴ.2_48
 // norm_cards: art319_sec5_2.lawful_labor_dispute_entry
-rel dwelling_intrusion_track_not_established(case_id, defendant_id, "intrusion", "art319_sec5_2.lawful_labor_dispute_entry") = satisfied_art319_sec5_2_lawful_labor_dispute_entry(case_id, defendant_id, place_id, occupant_id)
+rel dwelling_intrusion_quarantined_effect(case_id, defendant_id, "art319_sec5_2.lawful_labor_dispute_entry", "intrusion") = satisfied_art319_sec5_2_lawful_labor_dispute_entry(case_id, defendant_id, place_id, occupant_id)
 
 // rule_id: dwelling_intrusion.track_conflict.intrusion.art319_sec5_2_private_arrest_home_entry_affirmative
 // sources: comm_001692_제319조_Ⅴ.2_46, comm_001692_제319조_Ⅴ.2_46
 // norm_cards: art319_sec5_2.private_arrest_home_entry_affirmative
 rel dwelling_intrusion_track_conflict(case_id, defendant_id, "intrusion", "art319_sec5_2.private_arrest_home_entry_affirmative") = dwelling_intrusion_conflict(case_id, defendant_id, "art319_sec5_2.private_arrest_home_entry_affirmative")
 
-// rule_id: dwelling_intrusion.track_blocked.intrusion.art319_sec5_2_private_arrest_home_entry_affirmative
+// rule_id: dwelling_intrusion.quarantined.intrusion.art319_sec5_2_private_arrest_home_entry_affirmative
 // sources: comm_001692_제319조_Ⅴ.2_46, comm_001692_제319조_Ⅴ.2_46
 // norm_cards: art319_sec5_2.private_arrest_home_entry_affirmative
-rel dwelling_intrusion_track_not_established(case_id, defendant_id, "intrusion", "art319_sec5_2.private_arrest_home_entry_affirmative") = satisfied_art319_sec5_2_private_arrest_home_entry_affirmative(case_id, defendant_id, place_id, occupant_id)
+rel dwelling_intrusion_quarantined_effect(case_id, defendant_id, "art319_sec5_2.private_arrest_home_entry_affirmative", "intrusion") = satisfied_art319_sec5_2_private_arrest_home_entry_affirmative(case_id, defendant_id, place_id, occupant_id)
 
 // rule_id: dwelling_intrusion.track_conflict.intrusion.art319_sec5_2_socially_acceptable_entry
 // sources: comm_001692_제319조_Ⅴ.2_46
 // norm_cards: art319_sec5_2.socially_acceptable_entry
 rel dwelling_intrusion_track_conflict(case_id, defendant_id, "intrusion", "art319_sec5_2.socially_acceptable_entry") = dwelling_intrusion_conflict(case_id, defendant_id, "art319_sec5_2.socially_acceptable_entry")
 
-// rule_id: dwelling_intrusion.track_blocked.intrusion.art319_sec5_2_socially_acceptable_entry
+// rule_id: dwelling_intrusion.quarantined.intrusion.art319_sec5_2_socially_acceptable_entry
 // sources: comm_001692_제319조_Ⅴ.2_46
 // norm_cards: art319_sec5_2.socially_acceptable_entry
-rel dwelling_intrusion_track_not_established(case_id, defendant_id, "intrusion", "art319_sec5_2.socially_acceptable_entry") = satisfied_art319_sec5_2_socially_acceptable_entry(case_id, defendant_id, place_id, occupant_id)
+rel dwelling_intrusion_quarantined_effect(case_id, defendant_id, "art319_sec5_2.socially_acceptable_entry", "intrusion") = satisfied_art319_sec5_2_socially_acceptable_entry(case_id, defendant_id, place_id, occupant_id)
 
 // rule_id: dwelling_intrusion.track_conflict.intrusion.art319_sec5_2_water_tank_repair_entry
 // sources: comm_001692_제319조_Ⅴ.2_47, comm_001692_제319조_Ⅴ.2_47, comm_001692_제319조_Ⅴ.2_47
 // norm_cards: art319_sec5_2.water_tank_repair_entry
 rel dwelling_intrusion_track_conflict(case_id, defendant_id, "intrusion", "art319_sec5_2.water_tank_repair_entry") = dwelling_intrusion_conflict(case_id, defendant_id, "art319_sec5_2.water_tank_repair_entry")
 
-// rule_id: dwelling_intrusion.track_blocked.intrusion.art319_sec5_2_water_tank_repair_entry
+// rule_id: dwelling_intrusion.quarantined.intrusion.art319_sec5_2_water_tank_repair_entry
 // sources: comm_001692_제319조_Ⅴ.2_47, comm_001692_제319조_Ⅴ.2_47, comm_001692_제319조_Ⅴ.2_47
 // norm_cards: art319_sec5_2.water_tank_repair_entry
-rel dwelling_intrusion_track_not_established(case_id, defendant_id, "intrusion", "art319_sec5_2.water_tank_repair_entry") = satisfied_art319_sec5_2_water_tank_repair_entry(case_id, defendant_id, place_id, occupant_id)
+rel dwelling_intrusion_quarantined_effect(case_id, defendant_id, "art319_sec5_2.water_tank_repair_entry", "intrusion") = satisfied_art319_sec5_2_water_tank_repair_entry(case_id, defendant_id, place_id, occupant_id)
 
 // rule_id: dwelling_intrusion.track_conflict.intrusion.art319_sec5_3_justification_emergency_escape
 // sources: comm_001692_제319조_Ⅴ.3_50
 // norm_cards: art319_sec5_3.justification.emergency_escape
 rel dwelling_intrusion_track_conflict(case_id, defendant_id, "intrusion", "art319_sec5_3.justification.emergency_escape") = dwelling_intrusion_conflict(case_id, defendant_id, "art319_sec5_3.justification.emergency_escape")
 
-// rule_id: dwelling_intrusion.track_blocked.intrusion.art319_sec5_3_justification_emergency_escape
+// rule_id: dwelling_intrusion.quarantined.intrusion.art319_sec5_3_justification_emergency_escape
 // sources: comm_001692_제319조_Ⅴ.3_50
 // norm_cards: art319_sec5_3.justification.emergency_escape
-rel dwelling_intrusion_track_not_established(case_id, defendant_id, "intrusion", "art319_sec5_3.justification.emergency_escape") = satisfied_art319_sec5_3_justification_emergency_escape(case_id, defendant_id, place_id, occupant_id)
+rel dwelling_intrusion_quarantined_effect(case_id, defendant_id, "art319_sec5_3.justification.emergency_escape", "intrusion") = satisfied_art319_sec5_3_justification_emergency_escape(case_id, defendant_id, place_id, occupant_id)
 
 // rule_id: dwelling_intrusion.track_conflict.intrusion.art319_sec5_3_justification_fire_suppression
 // sources: comm_001692_제319조_Ⅴ.3_50
 // norm_cards: art319_sec5_3.justification.fire_suppression
 rel dwelling_intrusion_track_conflict(case_id, defendant_id, "intrusion", "art319_sec5_3.justification.fire_suppression") = dwelling_intrusion_conflict(case_id, defendant_id, "art319_sec5_3.justification.fire_suppression")
 
-// rule_id: dwelling_intrusion.track_blocked.intrusion.art319_sec5_3_justification_fire_suppression
+// rule_id: dwelling_intrusion.quarantined.intrusion.art319_sec5_3_justification_fire_suppression
 // sources: comm_001692_제319조_Ⅴ.3_50
 // norm_cards: art319_sec5_3.justification.fire_suppression
-rel dwelling_intrusion_track_not_established(case_id, defendant_id, "intrusion", "art319_sec5_3.justification.fire_suppression") = satisfied_art319_sec5_3_justification_fire_suppression(case_id, defendant_id, place_id, occupant_id)
+rel dwelling_intrusion_quarantined_effect(case_id, defendant_id, "art319_sec5_3.justification.fire_suppression", "intrusion") = satisfied_art319_sec5_3_justification_fire_suppression(case_id, defendant_id, place_id, occupant_id)
 
 // rule_id: dwelling_intrusion.track_conflict.intrusion.art319_sec5_3_justification_general
 // sources: comm_001692_제319조_Ⅴ.3_50
 // norm_cards: art319_sec5_3.justification.general
 rel dwelling_intrusion_track_conflict(case_id, defendant_id, "intrusion", "art319_sec5_3.justification.general") = dwelling_intrusion_conflict(case_id, defendant_id, "art319_sec5_3.justification.general")
 
-// rule_id: dwelling_intrusion.track_blocked.intrusion.art319_sec5_3_justification_general
+// rule_id: dwelling_intrusion.quarantined.intrusion.art319_sec5_3_justification_general
 // sources: comm_001692_제319조_Ⅴ.3_50
 // norm_cards: art319_sec5_3.justification.general
-rel dwelling_intrusion_track_not_established(case_id, defendant_id, "intrusion", "art319_sec5_3.justification.general") = satisfied_art319_sec5_3_justification_general(case_id, defendant_id, place_id, occupant_id)
+rel dwelling_intrusion_quarantined_effect(case_id, defendant_id, "art319_sec5_3.justification.general", "intrusion") = satisfied_art319_sec5_3_justification_general(case_id, defendant_id, place_id, occupant_id)
 
 // rule_id: dwelling_intrusion.track_conflict.intrusion.art319_sec1_3_protected_interest
 // sources: comm_001692_제319조_Ⅰ.3_5, comm_001692_제319조_Ⅰ.3_5
@@ -3643,10 +3648,10 @@ rel dwelling_intrusion_track_conflict(case_id, defendant_id, "intrusion", "art31
 // norm_cards: art319_sec2_2.construction_site_not_enclosed_land
 rel dwelling_intrusion_track_conflict(case_id, defendant_id, "intrusion", "art319_sec2_2.construction_site_not_enclosed_land") = dwelling_intrusion_conflict(case_id, defendant_id, "art319_sec2_2.construction_site_not_enclosed_land")
 
-// rule_id: dwelling_intrusion.track_blocked.intrusion.art319_sec2_2_construction_site_not_enclosed_land
+// rule_id: dwelling_intrusion.quarantined.intrusion.art319_sec2_2_construction_site_not_enclosed_land
 // sources: comm_001692_제319조_Ⅱ.2_16
 // norm_cards: art319_sec2_2.construction_site_not_enclosed_land
-rel dwelling_intrusion_track_not_established(case_id, defendant_id, "intrusion", "art319_sec2_2.construction_site_not_enclosed_land") = satisfied_art319_sec2_2_construction_site_not_enclosed_land(case_id, defendant_id, place_id, occupant_id)
+rel dwelling_intrusion_quarantined_effect(case_id, defendant_id, "art319_sec2_2.construction_site_not_enclosed_land", "intrusion") = satisfied_art319_sec2_2_construction_site_not_enclosed_land(case_id, defendant_id, place_id, occupant_id)
 
 // rule_id: dwelling_intrusion.track_conflict.intrusion.art319_sec2_2_enclosed_land_requirements
 // sources: comm_001692_제319조_Ⅱ.2_16
@@ -3658,10 +3663,10 @@ rel dwelling_intrusion_track_conflict(case_id, defendant_id, "intrusion", "art31
 // norm_cards: art319_sec2_2.incomplete_construction_not_building
 rel dwelling_intrusion_track_conflict(case_id, defendant_id, "intrusion", "art319_sec2_2.incomplete_construction_not_building") = dwelling_intrusion_conflict(case_id, defendant_id, "art319_sec2_2.incomplete_construction_not_building")
 
-// rule_id: dwelling_intrusion.track_blocked.intrusion.art319_sec2_2_incomplete_construction_not_building
+// rule_id: dwelling_intrusion.quarantined.intrusion.art319_sec2_2_incomplete_construction_not_building
 // sources: comm_001692_제319조_Ⅱ.2_15
 // norm_cards: art319_sec2_2.incomplete_construction_not_building
-rel dwelling_intrusion_track_not_established(case_id, defendant_id, "intrusion", "art319_sec2_2.incomplete_construction_not_building") = satisfied_art319_sec2_2_incomplete_construction_not_building(case_id, defendant_id, place_id, occupant_id)
+rel dwelling_intrusion_quarantined_effect(case_id, defendant_id, "art319_sec2_2.incomplete_construction_not_building", "intrusion") = satisfied_art319_sec2_2_incomplete_construction_not_building(case_id, defendant_id, place_id, occupant_id)
 
 // rule_id: dwelling_intrusion.track_conflict.intrusion.art319_sec2_2_managed_building_control
 // sources: comm_001692_제319조_Ⅱ.2_14
@@ -3688,10 +3693,10 @@ rel dwelling_intrusion_track_conflict(case_id, defendant_id, "intrusion", "art31
 // norm_cards: art319_sec2_2.unmanaged_empty_house
 rel dwelling_intrusion_track_conflict(case_id, defendant_id, "intrusion", "art319_sec2_2.unmanaged_empty_house") = dwelling_intrusion_conflict(case_id, defendant_id, "art319_sec2_2.unmanaged_empty_house")
 
-// rule_id: dwelling_intrusion.track_blocked.intrusion.art319_sec2_2_unmanaged_empty_house
+// rule_id: dwelling_intrusion.quarantined.intrusion.art319_sec2_2_unmanaged_empty_house
 // sources: comm_001692_제319조_Ⅱ.2_14
 // norm_cards: art319_sec2_2.unmanaged_empty_house
-rel dwelling_intrusion_track_not_established(case_id, defendant_id, "intrusion", "art319_sec2_2.unmanaged_empty_house") = satisfied_art319_sec2_2_unmanaged_empty_house(case_id, defendant_id, place_id, occupant_id)
+rel dwelling_intrusion_quarantined_effect(case_id, defendant_id, "art319_sec2_2.unmanaged_empty_house", "intrusion") = satisfied_art319_sec2_2_unmanaged_empty_house(case_id, defendant_id, place_id, occupant_id)
 
 // rule_id: dwelling_intrusion.track_conflict.intrusion.art319_sec2_2_vessel_scale
 // sources: comm_001692_제319조_Ⅱ.2_16
@@ -3718,10 +3723,10 @@ rel dwelling_intrusion_track_conflict(case_id, defendant_id, "refusal_to_leave",
 // norm_cards: art319_sec7_3.impossible_leaving
 rel dwelling_intrusion_track_conflict(case_id, defendant_id, "refusal_to_leave", "art319_sec7_3.impossible_leaving") = dwelling_intrusion_conflict(case_id, defendant_id, "art319_sec7_3.impossible_leaving")
 
-// rule_id: dwelling_intrusion.track_blocked.refusal_to_leave.art319_sec7_3_impossible_leaving
+// rule_id: dwelling_intrusion.quarantined.refusal_to_leave.art319_sec7_3_impossible_leaving
 // sources: comm_001692_제319조_Ⅶ.3_60
 // norm_cards: art319_sec7_3.impossible_leaving
-rel dwelling_intrusion_track_not_established(case_id, defendant_id, "refusal_to_leave", "art319_sec7_3.impossible_leaving") = satisfied_art319_sec7_3_impossible_leaving(case_id, defendant_id, place_id, occupant_id)
+rel dwelling_intrusion_quarantined_effect(case_id, defendant_id, "art319_sec7_3.impossible_leaving", "refusal_to_leave") = satisfied_art319_sec7_3_impossible_leaving(case_id, defendant_id, place_id, occupant_id)
 
 // rule_id: dwelling_intrusion.track_conflict.refusal_to_leave.art319_sec7_3_time_to_comply
 // sources: comm_001692_제319조_Ⅶ.3_60

@@ -48,6 +48,11 @@ type false_public_document_track_not_established(String, String, String, String)
 // norm_cards: system contract
 type false_public_document_track_conflict(String, String, String, String)
 
+// false_public_document_quarantined_effect: 극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+// sources: system contract
+// norm_cards: system contract
+type false_public_document_quarantined_effect(String, String, String, String)
+
 // false_public_document_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
 // sources: system contract
 // norm_cards: system contract
@@ -1588,10 +1593,10 @@ rel false_public_document_track_conflict(case_id, defendant_id, "base", "art227.
 // norm_cards: art227.recording_statement_as_stated_exception
 rel false_public_document_track_conflict(case_id, defendant_id, "base", "art227.recording_statement_as_stated_exception") = false_public_document_conflict(case_id, defendant_id, "art227.recording_statement_as_stated_exception")
 
-// rule_id: false_public_document.track_blocked.base.art227_recording_statement_as_stated_exception
+// rule_id: false_public_document.quarantined.base.art227_recording_statement_as_stated_exception
 // sources: comm_001692_제227조_Ⅲ.1_4
 // norm_cards: art227.recording_statement_as_stated_exception
-rel false_public_document_track_not_established(case_id, defendant_id, "base", "art227.recording_statement_as_stated_exception") = satisfied_art227_recording_statement_as_stated_exception(case_id, defendant_id, document_id, nominal_official_id)
+rel false_public_document_quarantined_effect(case_id, defendant_id, "art227.recording_statement_as_stated_exception", "base") = satisfied_art227_recording_statement_as_stated_exception(case_id, defendant_id, document_id, nominal_official_id)
 
 // rule_id: false_public_document.track_conflict.base.art227_sec1_offense_concept
 // sources: comm_001692_제227조_Ⅰ_0

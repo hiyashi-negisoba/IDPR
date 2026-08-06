@@ -10565,6 +10565,55 @@
       ]
     },
     {
+      "id": "embezzlement_quarantined_effect",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "issue_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제355조_1항_Ⅰ.2_1",
+          "quote": "일시사 용이나 손괴 또는 은닉의 의사로 재물을 처분하거나 위탁자를 위하는 의사로 권한을 넘는 행위를 한 때에는 횡령죄가 성립하지 않는다.",
+          "section_path": "Ⅰ.2"
+        },
+        {
+          "comment_id": "comm_001692_제355조_1항_Ⅲ.3_75",
+          "quote": "목적물에 대한 단순한 손괴행위는 불법영득의 의사의 표현이라 고 보기 어려우므로 횡령에 해당하지 않는다.",
+          "section_path": "Ⅲ.3"
+        },
+        {
+          "comment_id": "comm_001692_제355조_1항_Ⅳ.1_93",
+          "quote": "반환 거부에 정당한 이유가 있어 이를 반환 (동시이행의 항변권, 유치권, 상계권 행사 등) 하지 아니하였다면 불법영득의사가 있다 할 수 없다.",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제355조_1항_Ⅳ.3_108",
+          "quote": "예외적으로 분쟁에 대한 실질적인 이해관 계는 단체에게 있으나 법적인 이유로 그 대표자의 지위에 있는 개인이 소송 기타 법 적 절차의 당사자가 되었다거나 대표자로서 단체를 위해 적법하게 행한 직무행위 또 는 대표자의 지위에 있음으로 말미암아 의무적으로 행한 행위 등과 관련하여 분쟁이 발생한 경우와 같이, 당해 법적 분쟁이 단체와 업무적인 관련이 깊고 당시의 제반 사 정에 비추어 단체의 이익을 위하여 소송을 수행하거나 고소에 대응하여야 할 특별한 필요성이 있는 경우에 한하여 단체의 비용으로 변호사 선임료를 지출할 수 있다.",
+          "section_path": "Ⅳ.3"
+        }
+      ],
+      "norm_card_ids": [
+        "art355_sec1_2.embezzlement_illegal_appropriation_exclusion",
+        "art355_sec3_3.simple_destruction_exception",
+        "art355_sec4_1.justified_refusal_exception",
+        "art355_sec4_3.organization_representative_litigation_exception"
+      ]
+    },
+    {
       "id": "embezzlement_requirement_waived",
       "arguments": [
         {
@@ -37327,7 +37376,7 @@
     {
       "id": "embezzlement.art355_sec1_2.bar.003",
       "head": {
-        "predicate": "embezzlement_not_established",
+        "predicate": "embezzlement_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -37378,12 +37427,12 @@
       "norm_card_ids": [
         "art355_sec1_2.embezzlement_illegal_appropriation_exclusion"
       ],
-      "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다."
     },
     {
       "id": "embezzlement.art355_sec3_3.bar.004",
       "head": {
-        "predicate": "embezzlement_not_established",
+        "predicate": "embezzlement_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -37434,7 +37483,7 @@
       "norm_card_ids": [
         "art355_sec3_3.simple_destruction_exception"
       ],
-      "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다."
     },
     {
       "id": "embezzlement.art355_sec4_1.bar.005",
@@ -37551,7 +37600,7 @@
     {
       "id": "embezzlement.art355_sec4_1.bar.007",
       "head": {
-        "predicate": "embezzlement_not_established",
+        "predicate": "embezzlement_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -37602,7 +37651,7 @@
       "norm_card_ids": [
         "art355_sec4_1.justified_refusal_exception"
       ],
-      "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다."
     },
     {
       "id": "embezzlement.art355_sec4_1.bar.008",
@@ -37943,7 +37992,7 @@
     {
       "id": "embezzlement.art355_sec4_3.bar.014",
       "head": {
-        "predicate": "embezzlement_not_established",
+        "predicate": "embezzlement_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -37994,7 +38043,7 @@
       "norm_card_ids": [
         "art355_sec4_3.organization_representative_litigation_exception"
       ],
-      "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다."
     },
     {
       "id": "embezzlement.art355_sec4_3.bar.015",

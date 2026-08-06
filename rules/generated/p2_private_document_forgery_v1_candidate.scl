@@ -48,6 +48,11 @@ type private_document_forgery_track_not_established(String, String, String, Stri
 // norm_cards: system contract
 type private_document_forgery_track_conflict(String, String, String, String)
 
+// private_document_forgery_quarantined_effect: 극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+// sources: system contract
+// norm_cards: system contract
+type private_document_forgery_quarantined_effect(String, String, String, String)
+
 // private_document_forgery_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
 // sources: system contract
 // norm_cards: system contract
@@ -1663,10 +1668,10 @@ rel private_document_forgery_track_not_established(case_id, defendant_id, "alter
 // norm_cards: art231_sec3_3.immaterial_character_change_exception
 rel private_document_forgery_track_conflict(case_id, defendant_id, "alteration", "art231_sec3_3.immaterial_character_change_exception") = private_document_forgery_conflict(case_id, defendant_id, "art231_sec3_3.immaterial_character_change_exception")
 
-// rule_id: private_document_forgery.track_blocked.alteration.art231_sec3_3_immaterial_character_change_exception
+// rule_id: private_document_forgery.quarantined.alteration.art231_sec3_3_immaterial_character_change_exception
 // sources: comm_001692_제231조_Ⅲ.3_13
 // norm_cards: art231_sec3_3.immaterial_character_change_exception
-rel private_document_forgery_track_not_established(case_id, defendant_id, "alteration", "art231_sec3_3.immaterial_character_change_exception") = satisfied_art231_sec3_3_immaterial_character_change_exception(case_id, defendant_id, document_id, nominal_author_id)
+rel private_document_forgery_quarantined_effect(case_id, defendant_id, "art231_sec3_3.immaterial_character_change_exception", "alteration") = satisfied_art231_sec3_3_immaterial_character_change_exception(case_id, defendant_id, document_id, nominal_author_id)
 
 // rule_id: private_document_forgery.track_conflict.alteration.art231_sec3_3_multiple_nominees_contract_alteration
 // sources: comm_001692_제231조_Ⅲ.3_13
@@ -1863,30 +1868,30 @@ rel private_document_forgery_track_conflict(case_id, defendant_id, "forgery", "a
 // norm_cards: art231_sec3_2.authority_abuse
 rel private_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art231_sec3_2.authority_abuse") = private_document_forgery_conflict(case_id, defendant_id, "art231_sec3_2.authority_abuse")
 
-// rule_id: private_document_forgery.track_blocked.forgery.art231_sec3_2_authority_abuse
+// rule_id: private_document_forgery.quarantined.forgery.art231_sec3_2_authority_abuse
 // sources: comm_001692_제231조_Ⅲ.2_10
 // norm_cards: art231_sec3_2.authority_abuse
-rel private_document_forgery_track_not_established(case_id, defendant_id, "forgery", "art231_sec3_2.authority_abuse") = satisfied_art231_sec3_2_authority_abuse(case_id, defendant_id, document_id, nominal_author_id)
+rel private_document_forgery_quarantined_effect(case_id, defendant_id, "art231_sec3_2.authority_abuse", "forgery") = satisfied_art231_sec3_2_authority_abuse(case_id, defendant_id, document_id, nominal_author_id)
 
 // rule_id: private_document_forgery.track_conflict.forgery.art231_sec3_2_authorized_creation
 // sources: comm_001692_제231조_Ⅲ.2_8
 // norm_cards: art231_sec3_2.authorized_creation
 rel private_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art231_sec3_2.authorized_creation") = private_document_forgery_conflict(case_id, defendant_id, "art231_sec3_2.authorized_creation")
 
-// rule_id: private_document_forgery.track_blocked.forgery.art231_sec3_2_authorized_creation
+// rule_id: private_document_forgery.quarantined.forgery.art231_sec3_2_authorized_creation
 // sources: comm_001692_제231조_Ⅲ.2_8
 // norm_cards: art231_sec3_2.authorized_creation
-rel private_document_forgery_track_not_established(case_id, defendant_id, "forgery", "art231_sec3_2.authorized_creation") = satisfied_art231_sec3_2_authorized_creation(case_id, defendant_id, document_id, nominal_author_id)
+rel private_document_forgery_quarantined_effect(case_id, defendant_id, "art231_sec3_2.authorized_creation", "forgery") = satisfied_art231_sec3_2_authorized_creation(case_id, defendant_id, document_id, nominal_author_id)
 
 // rule_id: private_document_forgery.track_conflict.forgery.art231_sec3_2_comprehensive_delegation
 // sources: comm_001692_제231조_Ⅲ.2_8
 // norm_cards: art231_sec3_2.comprehensive_delegation
 rel private_document_forgery_track_conflict(case_id, defendant_id, "forgery", "art231_sec3_2.comprehensive_delegation") = private_document_forgery_conflict(case_id, defendant_id, "art231_sec3_2.comprehensive_delegation")
 
-// rule_id: private_document_forgery.track_blocked.forgery.art231_sec3_2_comprehensive_delegation
+// rule_id: private_document_forgery.quarantined.forgery.art231_sec3_2_comprehensive_delegation
 // sources: comm_001692_제231조_Ⅲ.2_8
 // norm_cards: art231_sec3_2.comprehensive_delegation
-rel private_document_forgery_track_not_established(case_id, defendant_id, "forgery", "art231_sec3_2.comprehensive_delegation") = satisfied_art231_sec3_2_comprehensive_delegation(case_id, defendant_id, document_id, nominal_author_id)
+rel private_document_forgery_quarantined_effect(case_id, defendant_id, "art231_sec3_2.comprehensive_delegation", "forgery") = satisfied_art231_sec3_2_comprehensive_delegation(case_id, defendant_id, document_id, nominal_author_id)
 
 // rule_id: private_document_forgery.track_conflict.forgery.art231_sec3_2_document_appearance
 // sources: comm_001692_제231조_Ⅲ.2_7

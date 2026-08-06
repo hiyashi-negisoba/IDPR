@@ -44,7 +44,7 @@ def test_registry_is_derived_from_manifest_and_rule_ir_assets() -> None:
             assert relation.endswith(
                 ("_refers_to_crime", "_boundary_shift", "_requirement_waived",
                  "_assessment_standard", "_proof_standard", "_subtype_outcome",
-                 "_post_outcome", "_outcome_detail")
+                 "_post_outcome", "_outcome_detail", "_quarantined_effect")
             )
         assert entry.article_ids
 

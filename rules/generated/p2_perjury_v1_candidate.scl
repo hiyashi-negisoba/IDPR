@@ -48,6 +48,11 @@ type perjury_track_not_established(String, String, String, String)
 // norm_cards: system contract
 type perjury_track_conflict(String, String, String, String)
 
+// perjury_quarantined_effect: 극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+// sources: system contract
+// norm_cards: system contract
+type perjury_quarantined_effect(String, String, String, String)
+
 // perjury_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
 // sources: system contract
 // norm_cards: system contract
@@ -1393,40 +1398,40 @@ rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_2.la
 // norm_cards: art152_sec1_2.nonstatutory_or_unauthorized_oath
 rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_2.nonstatutory_or_unauthorized_oath") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.nonstatutory_or_unauthorized_oath")
 
-// rule_id: perjury.track_blocked.base.art152_sec1_2_nonstatutory_or_unauthorized_oath
+// rule_id: perjury.quarantined.base.art152_sec1_2_nonstatutory_or_unauthorized_oath
 // sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2
 // norm_cards: art152_sec1_2.nonstatutory_or_unauthorized_oath
-rel perjury_track_not_established(case_id, defendant_id, "base", "art152_sec1_2.nonstatutory_or_unauthorized_oath") = satisfied_art152_sec1_2_nonstatutory_or_unauthorized_oath(case_id, defendant_id, proceeding_id, statement_id)
+rel perjury_quarantined_effect(case_id, defendant_id, "art152_sec1_2.nonstatutory_or_unauthorized_oath", "base") = satisfied_art152_sec1_2_nonstatutory_or_unauthorized_oath(case_id, defendant_id, proceeding_id, statement_id)
 
 // rule_id: perjury.track_conflict.malicious.art152_sec1_2_nonstatutory_or_unauthorized_oath
 // sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2
 // norm_cards: art152_sec1_2.nonstatutory_or_unauthorized_oath
 rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_2.nonstatutory_or_unauthorized_oath") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.nonstatutory_or_unauthorized_oath")
 
-// rule_id: perjury.track_blocked.malicious.art152_sec1_2_nonstatutory_or_unauthorized_oath
+// rule_id: perjury.quarantined.malicious.art152_sec1_2_nonstatutory_or_unauthorized_oath
 // sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_2
 // norm_cards: art152_sec1_2.nonstatutory_or_unauthorized_oath
-rel perjury_track_not_established(case_id, defendant_id, "malicious", "art152_sec1_2.nonstatutory_or_unauthorized_oath") = satisfied_art152_sec1_2_nonstatutory_or_unauthorized_oath(case_id, defendant_id, proceeding_id, statement_id)
+rel perjury_quarantined_effect(case_id, defendant_id, "art152_sec1_2.nonstatutory_or_unauthorized_oath", "malicious") = satisfied_art152_sec1_2_nonstatutory_or_unauthorized_oath(case_id, defendant_id, proceeding_id, statement_id)
 
 // rule_id: perjury.track_conflict.base.art152_sec1_2_oath_capacity
 // sources: comm_001692_제152조_Ⅰ.2_3
 // norm_cards: art152_sec1_2.oath_capacity
 rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_2.oath_capacity") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.oath_capacity")
 
-// rule_id: perjury.track_blocked.base.art152_sec1_2_oath_capacity
+// rule_id: perjury.quarantined.base.art152_sec1_2_oath_capacity
 // sources: comm_001692_제152조_Ⅰ.2_3
 // norm_cards: art152_sec1_2.oath_capacity
-rel perjury_track_not_established(case_id, defendant_id, "base", "art152_sec1_2.oath_capacity") = satisfied_art152_sec1_2_oath_capacity(case_id, defendant_id, proceeding_id, statement_id)
+rel perjury_quarantined_effect(case_id, defendant_id, "art152_sec1_2.oath_capacity", "base") = satisfied_art152_sec1_2_oath_capacity(case_id, defendant_id, proceeding_id, statement_id)
 
 // rule_id: perjury.track_conflict.malicious.art152_sec1_2_oath_capacity
 // sources: comm_001692_제152조_Ⅰ.2_3
 // norm_cards: art152_sec1_2.oath_capacity
 rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_2.oath_capacity") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.oath_capacity")
 
-// rule_id: perjury.track_blocked.malicious.art152_sec1_2_oath_capacity
+// rule_id: perjury.quarantined.malicious.art152_sec1_2_oath_capacity
 // sources: comm_001692_제152조_Ⅰ.2_3
 // norm_cards: art152_sec1_2.oath_capacity
-rel perjury_track_not_established(case_id, defendant_id, "malicious", "art152_sec1_2.oath_capacity") = satisfied_art152_sec1_2_oath_capacity(case_id, defendant_id, proceeding_id, statement_id)
+rel perjury_quarantined_effect(case_id, defendant_id, "art152_sec1_2.oath_capacity", "malicious") = satisfied_art152_sec1_2_oath_capacity(case_id, defendant_id, proceeding_id, statement_id)
 
 // rule_id: perjury.track_conflict.base.art152_sec1_2_oath_lawful_procedure
 // sources: comm_001692_제152조_Ⅰ.2_1, comm_001692_제152조_Ⅰ.2_1
@@ -1443,20 +1448,20 @@ rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_2.oa
 // norm_cards: art152_sec1_2.oath_procedural_defects
 rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_2.oath_procedural_defects") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.oath_procedural_defects")
 
-// rule_id: perjury.track_blocked.base.art152_sec1_2_oath_procedural_defects
+// rule_id: perjury.quarantined.base.art152_sec1_2_oath_procedural_defects
 // sources: comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2
 // norm_cards: art152_sec1_2.oath_procedural_defects
-rel perjury_track_not_established(case_id, defendant_id, "base", "art152_sec1_2.oath_procedural_defects") = satisfied_art152_sec1_2_oath_procedural_defects(case_id, defendant_id, proceeding_id, statement_id)
+rel perjury_quarantined_effect(case_id, defendant_id, "art152_sec1_2.oath_procedural_defects", "base") = satisfied_art152_sec1_2_oath_procedural_defects(case_id, defendant_id, proceeding_id, statement_id)
 
 // rule_id: perjury.track_conflict.malicious.art152_sec1_2_oath_procedural_defects
 // sources: comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2
 // norm_cards: art152_sec1_2.oath_procedural_defects
 rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_2.oath_procedural_defects") = perjury_conflict(case_id, defendant_id, "art152_sec1_2.oath_procedural_defects")
 
-// rule_id: perjury.track_blocked.malicious.art152_sec1_2_oath_procedural_defects
+// rule_id: perjury.quarantined.malicious.art152_sec1_2_oath_procedural_defects
 // sources: comm_001692_제152조_Ⅰ.2_2, comm_001692_제152조_Ⅰ.2_2
 // norm_cards: art152_sec1_2.oath_procedural_defects
-rel perjury_track_not_established(case_id, defendant_id, "malicious", "art152_sec1_2.oath_procedural_defects") = satisfied_art152_sec1_2_oath_procedural_defects(case_id, defendant_id, proceeding_id, statement_id)
+rel perjury_quarantined_effect(case_id, defendant_id, "art152_sec1_2.oath_procedural_defects", "malicious") = satisfied_art152_sec1_2_oath_procedural_defects(case_id, defendant_id, proceeding_id, statement_id)
 
 // rule_id: perjury.track_conflict.base.art152_sec1_2_oath_refusal_right_notice
 // sources: comm_001692_제152조_Ⅰ.2_4, comm_001692_제152조_Ⅰ.2_11
@@ -1483,20 +1488,20 @@ rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_2.re
 // norm_cards: art152_sec1_3.correction_before_examination_end
 rel perjury_track_conflict(case_id, defendant_id, "base", "art152_sec1_3.correction_before_examination_end") = perjury_conflict(case_id, defendant_id, "art152_sec1_3.correction_before_examination_end")
 
-// rule_id: perjury.track_blocked.base.art152_sec1_3_correction_before_examination_end
+// rule_id: perjury.quarantined.base.art152_sec1_3_correction_before_examination_end
 // sources: comm_001692_제152조_Ⅰ.3_24
 // norm_cards: art152_sec1_3.correction_before_examination_end
-rel perjury_track_not_established(case_id, defendant_id, "base", "art152_sec1_3.correction_before_examination_end") = satisfied_art152_sec1_3_correction_before_examination_end(case_id, defendant_id, proceeding_id, statement_id)
+rel perjury_quarantined_effect(case_id, defendant_id, "art152_sec1_3.correction_before_examination_end", "base") = satisfied_art152_sec1_3_correction_before_examination_end(case_id, defendant_id, proceeding_id, statement_id)
 
 // rule_id: perjury.track_conflict.malicious.art152_sec1_3_correction_before_examination_end
 // sources: comm_001692_제152조_Ⅰ.3_24
 // norm_cards: art152_sec1_3.correction_before_examination_end
 rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec1_3.correction_before_examination_end") = perjury_conflict(case_id, defendant_id, "art152_sec1_3.correction_before_examination_end")
 
-// rule_id: perjury.track_blocked.malicious.art152_sec1_3_correction_before_examination_end
+// rule_id: perjury.quarantined.malicious.art152_sec1_3_correction_before_examination_end
 // sources: comm_001692_제152조_Ⅰ.3_24
 // norm_cards: art152_sec1_3.correction_before_examination_end
-rel perjury_track_not_established(case_id, defendant_id, "malicious", "art152_sec1_3.correction_before_examination_end") = satisfied_art152_sec1_3_correction_before_examination_end(case_id, defendant_id, proceeding_id, statement_id)
+rel perjury_quarantined_effect(case_id, defendant_id, "art152_sec1_3.correction_before_examination_end", "malicious") = satisfied_art152_sec1_3_correction_before_examination_end(case_id, defendant_id, proceeding_id, statement_id)
 
 // rule_id: perjury.track_conflict.base.art152_sec1_3_correction_through_other_examiner
 // sources: comm_001692_제152조_Ⅰ.3_24, comm_001692_제152조_Ⅰ.3_24
@@ -1558,10 +1563,10 @@ rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec2_4.ma
 // norm_cards: art152_sec2_3.noncriminal_case_mohae_exception
 rel perjury_track_conflict(case_id, defendant_id, "malicious", "art152_sec2_3.noncriminal_case_mohae_exception") = perjury_conflict(case_id, defendant_id, "art152_sec2_3.noncriminal_case_mohae_exception")
 
-// rule_id: perjury.track_blocked.malicious.art152_sec2_3_noncriminal_case_mohae_exception
+// rule_id: perjury.quarantined.malicious.art152_sec2_3_noncriminal_case_mohae_exception
 // sources: comm_001692_제152조_Ⅱ.3_35
 // norm_cards: art152_sec2_3.noncriminal_case_mohae_exception
-rel perjury_track_not_established(case_id, defendant_id, "malicious", "art152_sec2_3.noncriminal_case_mohae_exception") = satisfied_art152_sec2_3_noncriminal_case_mohae_exception(case_id, defendant_id, proceeding_id, statement_id)
+rel perjury_quarantined_effect(case_id, defendant_id, "art152_sec2_3.noncriminal_case_mohae_exception", "malicious") = satisfied_art152_sec2_3_noncriminal_case_mohae_exception(case_id, defendant_id, proceeding_id, statement_id)
 
 // rule_id: perjury.track_conflict.malicious.art152_sec2_4_proceeding_commenced_requirement
 // sources: comm_001692_제152조_Ⅱ.4_36

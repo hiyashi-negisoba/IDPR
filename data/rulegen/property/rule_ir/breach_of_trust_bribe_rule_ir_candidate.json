@@ -6660,6 +6660,43 @@
       ]
     },
     {
+      "id": "breach_of_trust_bribe_quarantined_effect",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "issue_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제357조_Ⅲ.2_14",
+          "quote": "직무를 처리함에 있어서 직무권한범위 안에서 편의를 보아달라고 부탁하거나, 규정이 허용하는 범위 내에서 최대한 선처를 바란다는 내용의 부탁은 부정한 청탁이라고 할 수 없 다.",
+          "section_path": "Ⅲ.2"
+        },
+        {
+          "comment_id": "comm_001692_제357조_Ⅲ.3_23",
+          "quote": "개정 형법이 적용되는 경우에 도 ‘제3자’에는 다른 특별한 사정이 없는 한 사무처리를 위임한 타인은 포함되지 않는다고 판시하였다.",
+          "section_path": "Ⅲ.3"
+        }
+      ],
+      "norm_card_ids": [
+        "art357_sec3_2.permitted_favor_request",
+        "art357_sec3_3.principal_not_third_party_precedent"
+      ]
+    },
+    {
       "id": "breach_of_trust_bribe_requirement_waived",
       "arguments": [
         {
@@ -23834,7 +23871,7 @@
     {
       "id": "breach_of_trust_bribe.art357_sec3_2.bar.003",
       "head": {
-        "predicate": "breach_of_trust_bribe_not_established",
+        "predicate": "breach_of_trust_bribe_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -23885,7 +23922,7 @@
       "norm_card_ids": [
         "art357_sec3_2.permitted_favor_request"
       ],
-      "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다."
     },
     {
       "id": "breach_of_trust_bribe.art357_sec3_2.bar.004",
@@ -23946,7 +23983,7 @@
     {
       "id": "breach_of_trust_bribe.art357_sec3_3.bar.005",
       "head": {
-        "predicate": "breach_of_trust_bribe_not_established",
+        "predicate": "breach_of_trust_bribe_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -23997,7 +24034,7 @@
       "norm_card_ids": [
         "art357_sec3_3.principal_not_third_party_precedent"
       ],
-      "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다."
     },
     {
       "id": "breach_of_trust_bribe.art357_sec3_3.bar.006",

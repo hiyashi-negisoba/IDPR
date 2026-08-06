@@ -336,6 +336,33 @@
       "source_refs": []
     },
     {
+      "id": "intentional_bodily_injury_quarantined_effect",
+      "kind": "rule",
+      "origin": "system",
+      "role": "derived",
+      "definition": "극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "norm_card_id",
+          "type": "String"
+        },
+        {
+          "name": "would_block_track",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
       "id": "intentional_bodily_injury_track_has_negative",
       "kind": "rule",
       "origin": "system",
@@ -28124,9 +28151,9 @@
       ]
     },
     {
-      "id": "intentional_bodily_injury.track_blocked.aggravated_result.art259_sec1_intentional_death_murder_exception",
+      "id": "intentional_bodily_injury.quarantined.aggravated_result.art259_sec1_intentional_death_murder_exception",
       "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
+        "predicate": "intentional_bodily_injury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -28138,11 +28165,11 @@
           },
           {
             "kind": "string",
-            "value": "aggravated_result"
+            "value": "art259_sec1.intentional_death_murder_exception"
           },
           {
             "kind": "string",
-            "value": "art259_sec1.intentional_death_murder_exception"
+            "value": "aggravated_result"
           }
         ],
         "negated": false
@@ -28167,7 +28194,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art259_sec1.intentional_death_murder_exception"
       ],
@@ -38486,9 +38513,9 @@
       ]
     },
     {
-      "id": "intentional_bodily_injury.track_blocked.base.art257_sec1_6_defensive_force_not_new_attack",
+      "id": "intentional_bodily_injury.quarantined.base.art257_sec1_6_defensive_force_not_new_attack",
       "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
+        "predicate": "intentional_bodily_injury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -38500,11 +38527,11 @@
           },
           {
             "kind": "string",
-            "value": "base"
+            "value": "art257_sec1_6.defensive_force_not_new_attack"
           },
           {
             "kind": "string",
-            "value": "art257_sec1_6.defensive_force_not_new_attack"
+            "value": "base"
           }
         ],
         "negated": false
@@ -38529,7 +38556,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art257_sec1_6.defensive_force_not_new_attack"
       ],
@@ -38598,9 +38625,9 @@
       ]
     },
     {
-      "id": "intentional_bodily_injury.track_blocked.ancestral.art257_sec1_6_defensive_force_not_new_attack",
+      "id": "intentional_bodily_injury.quarantined.ancestral.art257_sec1_6_defensive_force_not_new_attack",
       "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
+        "predicate": "intentional_bodily_injury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -38612,11 +38639,11 @@
           },
           {
             "kind": "string",
-            "value": "ancestral"
+            "value": "art257_sec1_6.defensive_force_not_new_attack"
           },
           {
             "kind": "string",
-            "value": "art257_sec1_6.defensive_force_not_new_attack"
+            "value": "ancestral"
           }
         ],
         "negated": false
@@ -38641,7 +38668,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art257_sec1_6.defensive_force_not_new_attack"
       ],
@@ -38710,9 +38737,9 @@
       ]
     },
     {
-      "id": "intentional_bodily_injury.track_blocked.special.art257_sec1_6_defensive_force_not_new_attack",
+      "id": "intentional_bodily_injury.quarantined.special.art257_sec1_6_defensive_force_not_new_attack",
       "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
+        "predicate": "intentional_bodily_injury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -38724,11 +38751,11 @@
           },
           {
             "kind": "string",
-            "value": "special"
+            "value": "art257_sec1_6.defensive_force_not_new_attack"
           },
           {
             "kind": "string",
-            "value": "art257_sec1_6.defensive_force_not_new_attack"
+            "value": "special"
           }
         ],
         "negated": false
@@ -38753,7 +38780,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art257_sec1_6.defensive_force_not_new_attack"
       ],
@@ -38822,9 +38849,9 @@
       ]
     },
     {
-      "id": "intentional_bodily_injury.track_blocked.aggravated_result.art257_sec1_6_defensive_force_not_new_attack",
+      "id": "intentional_bodily_injury.quarantined.aggravated_result.art257_sec1_6_defensive_force_not_new_attack",
       "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
+        "predicate": "intentional_bodily_injury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -38836,11 +38863,11 @@
           },
           {
             "kind": "string",
-            "value": "aggravated_result"
+            "value": "art257_sec1_6.defensive_force_not_new_attack"
           },
           {
             "kind": "string",
-            "value": "art257_sec1_6.defensive_force_not_new_attack"
+            "value": "aggravated_result"
           }
         ],
         "negated": false
@@ -38865,7 +38892,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art257_sec1_6.defensive_force_not_new_attack"
       ],
@@ -39870,9 +39897,9 @@
       ]
     },
     {
-      "id": "intentional_bodily_injury.track_blocked.base.art257_sec1_6_parental_corporal_punishment",
+      "id": "intentional_bodily_injury.quarantined.base.art257_sec1_6_parental_corporal_punishment",
       "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
+        "predicate": "intentional_bodily_injury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -39884,11 +39911,11 @@
           },
           {
             "kind": "string",
-            "value": "base"
+            "value": "art257_sec1_6.parental_corporal_punishment"
           },
           {
             "kind": "string",
-            "value": "art257_sec1_6.parental_corporal_punishment"
+            "value": "base"
           }
         ],
         "negated": false
@@ -39913,7 +39940,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art257_sec1_6.parental_corporal_punishment"
       ],
@@ -39982,9 +40009,9 @@
       ]
     },
     {
-      "id": "intentional_bodily_injury.track_blocked.ancestral.art257_sec1_6_parental_corporal_punishment",
+      "id": "intentional_bodily_injury.quarantined.ancestral.art257_sec1_6_parental_corporal_punishment",
       "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
+        "predicate": "intentional_bodily_injury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -39996,11 +40023,11 @@
           },
           {
             "kind": "string",
-            "value": "ancestral"
+            "value": "art257_sec1_6.parental_corporal_punishment"
           },
           {
             "kind": "string",
-            "value": "art257_sec1_6.parental_corporal_punishment"
+            "value": "ancestral"
           }
         ],
         "negated": false
@@ -40025,7 +40052,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art257_sec1_6.parental_corporal_punishment"
       ],
@@ -40094,9 +40121,9 @@
       ]
     },
     {
-      "id": "intentional_bodily_injury.track_blocked.special.art257_sec1_6_parental_corporal_punishment",
+      "id": "intentional_bodily_injury.quarantined.special.art257_sec1_6_parental_corporal_punishment",
       "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
+        "predicate": "intentional_bodily_injury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -40108,11 +40135,11 @@
           },
           {
             "kind": "string",
-            "value": "special"
+            "value": "art257_sec1_6.parental_corporal_punishment"
           },
           {
             "kind": "string",
-            "value": "art257_sec1_6.parental_corporal_punishment"
+            "value": "special"
           }
         ],
         "negated": false
@@ -40137,7 +40164,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art257_sec1_6.parental_corporal_punishment"
       ],
@@ -40206,9 +40233,9 @@
       ]
     },
     {
-      "id": "intentional_bodily_injury.track_blocked.aggravated_result.art257_sec1_6_parental_corporal_punishment",
+      "id": "intentional_bodily_injury.quarantined.aggravated_result.art257_sec1_6_parental_corporal_punishment",
       "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
+        "predicate": "intentional_bodily_injury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -40220,11 +40247,11 @@
           },
           {
             "kind": "string",
-            "value": "aggravated_result"
+            "value": "art257_sec1_6.parental_corporal_punishment"
           },
           {
             "kind": "string",
-            "value": "art257_sec1_6.parental_corporal_punishment"
+            "value": "aggravated_result"
           }
         ],
         "negated": false
@@ -40249,7 +40276,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art257_sec1_6.parental_corporal_punishment"
       ],
@@ -40318,9 +40345,9 @@
       ]
     },
     {
-      "id": "intentional_bodily_injury.track_blocked.base.art257_sec1_6_passenger_risk_consent",
+      "id": "intentional_bodily_injury.quarantined.base.art257_sec1_6_passenger_risk_consent",
       "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
+        "predicate": "intentional_bodily_injury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -40332,11 +40359,11 @@
           },
           {
             "kind": "string",
-            "value": "base"
+            "value": "art257_sec1_6.passenger_risk_consent"
           },
           {
             "kind": "string",
-            "value": "art257_sec1_6.passenger_risk_consent"
+            "value": "base"
           }
         ],
         "negated": false
@@ -40361,7 +40388,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art257_sec1_6.passenger_risk_consent"
       ],
@@ -40430,9 +40457,9 @@
       ]
     },
     {
-      "id": "intentional_bodily_injury.track_blocked.ancestral.art257_sec1_6_passenger_risk_consent",
+      "id": "intentional_bodily_injury.quarantined.ancestral.art257_sec1_6_passenger_risk_consent",
       "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
+        "predicate": "intentional_bodily_injury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -40444,11 +40471,11 @@
           },
           {
             "kind": "string",
-            "value": "ancestral"
+            "value": "art257_sec1_6.passenger_risk_consent"
           },
           {
             "kind": "string",
-            "value": "art257_sec1_6.passenger_risk_consent"
+            "value": "ancestral"
           }
         ],
         "negated": false
@@ -40473,7 +40500,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art257_sec1_6.passenger_risk_consent"
       ],
@@ -40542,9 +40569,9 @@
       ]
     },
     {
-      "id": "intentional_bodily_injury.track_blocked.special.art257_sec1_6_passenger_risk_consent",
+      "id": "intentional_bodily_injury.quarantined.special.art257_sec1_6_passenger_risk_consent",
       "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
+        "predicate": "intentional_bodily_injury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -40556,11 +40583,11 @@
           },
           {
             "kind": "string",
-            "value": "special"
+            "value": "art257_sec1_6.passenger_risk_consent"
           },
           {
             "kind": "string",
-            "value": "art257_sec1_6.passenger_risk_consent"
+            "value": "special"
           }
         ],
         "negated": false
@@ -40585,7 +40612,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art257_sec1_6.passenger_risk_consent"
       ],
@@ -40654,9 +40681,9 @@
       ]
     },
     {
-      "id": "intentional_bodily_injury.track_blocked.aggravated_result.art257_sec1_6_passenger_risk_consent",
+      "id": "intentional_bodily_injury.quarantined.aggravated_result.art257_sec1_6_passenger_risk_consent",
       "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
+        "predicate": "intentional_bodily_injury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -40668,11 +40695,11 @@
           },
           {
             "kind": "string",
-            "value": "aggravated_result"
+            "value": "art257_sec1_6.passenger_risk_consent"
           },
           {
             "kind": "string",
-            "value": "art257_sec1_6.passenger_risk_consent"
+            "value": "aggravated_result"
           }
         ],
         "negated": false
@@ -40697,7 +40724,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art257_sec1_6.passenger_risk_consent"
       ],
@@ -40766,9 +40793,9 @@
       ]
     },
     {
-      "id": "intentional_bodily_injury.track_blocked.base.art257_sec1_6_sport_rules_consent",
+      "id": "intentional_bodily_injury.quarantined.base.art257_sec1_6_sport_rules_consent",
       "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
+        "predicate": "intentional_bodily_injury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -40780,11 +40807,11 @@
           },
           {
             "kind": "string",
-            "value": "base"
+            "value": "art257_sec1_6.sport_rules_consent"
           },
           {
             "kind": "string",
-            "value": "art257_sec1_6.sport_rules_consent"
+            "value": "base"
           }
         ],
         "negated": false
@@ -40809,7 +40836,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art257_sec1_6.sport_rules_consent"
       ],
@@ -40878,9 +40905,9 @@
       ]
     },
     {
-      "id": "intentional_bodily_injury.track_blocked.ancestral.art257_sec1_6_sport_rules_consent",
+      "id": "intentional_bodily_injury.quarantined.ancestral.art257_sec1_6_sport_rules_consent",
       "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
+        "predicate": "intentional_bodily_injury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -40892,11 +40919,11 @@
           },
           {
             "kind": "string",
-            "value": "ancestral"
+            "value": "art257_sec1_6.sport_rules_consent"
           },
           {
             "kind": "string",
-            "value": "art257_sec1_6.sport_rules_consent"
+            "value": "ancestral"
           }
         ],
         "negated": false
@@ -40921,7 +40948,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art257_sec1_6.sport_rules_consent"
       ],
@@ -40990,9 +41017,9 @@
       ]
     },
     {
-      "id": "intentional_bodily_injury.track_blocked.special.art257_sec1_6_sport_rules_consent",
+      "id": "intentional_bodily_injury.quarantined.special.art257_sec1_6_sport_rules_consent",
       "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
+        "predicate": "intentional_bodily_injury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -41004,11 +41031,11 @@
           },
           {
             "kind": "string",
-            "value": "special"
+            "value": "art257_sec1_6.sport_rules_consent"
           },
           {
             "kind": "string",
-            "value": "art257_sec1_6.sport_rules_consent"
+            "value": "special"
           }
         ],
         "negated": false
@@ -41033,7 +41060,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art257_sec1_6.sport_rules_consent"
       ],
@@ -41102,9 +41129,9 @@
       ]
     },
     {
-      "id": "intentional_bodily_injury.track_blocked.aggravated_result.art257_sec1_6_sport_rules_consent",
+      "id": "intentional_bodily_injury.quarantined.aggravated_result.art257_sec1_6_sport_rules_consent",
       "head": {
-        "predicate": "intentional_bodily_injury_track_not_established",
+        "predicate": "intentional_bodily_injury_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -41116,11 +41143,11 @@
           },
           {
             "kind": "string",
-            "value": "aggravated_result"
+            "value": "art257_sec1_6.sport_rules_consent"
           },
           {
             "kind": "string",
-            "value": "art257_sec1_6.sport_rules_consent"
+            "value": "aggravated_result"
           }
         ],
         "negated": false
@@ -41145,7 +41172,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art257_sec1_6.sport_rules_consent"
       ],
@@ -52450,6 +52477,11 @@
     "unclassified_annotation: post_outcome: art257_sec1_7.different_victims_separate_offenses (outcome_subtype 미지정)",
     "unclassified_annotation: post_outcome: art257_sec1_7.single_act_multiple_injuries (outcome_subtype 미지정)",
     "unclassified_annotation: post_outcome: art257_sec1_7.personal_legal_interest_count (outcome_subtype 미지정)",
+    "quarantined_exception_polarity: art257_sec1_6.defensive_force_not_new_attack",
+    "quarantined_exception_polarity: art257_sec1_6.parental_corporal_punishment",
+    "quarantined_exception_polarity: art257_sec1_6.passenger_risk_consent",
+    "quarantined_exception_polarity: art257_sec1_6.sport_rules_consent",
+    "quarantined_exception_polarity: art259_sec1.intentional_death_murder_exception",
     "card_metadata_correction: cc_001",
     "card_metadata_correction: cc_002"
   ]

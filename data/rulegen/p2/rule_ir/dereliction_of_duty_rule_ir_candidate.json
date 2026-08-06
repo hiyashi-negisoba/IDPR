@@ -294,6 +294,33 @@
       "source_refs": []
     },
     {
+      "id": "dereliction_of_duty_quarantined_effect",
+      "kind": "rule",
+      "origin": "system",
+      "role": "derived",
+      "definition": "극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "norm_card_id",
+          "type": "String"
+        },
+        {
+          "name": "would_block_track",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
       "id": "dereliction_of_duty_track_has_negative",
       "kind": "rule",
       "origin": "system",
@@ -21306,9 +21333,9 @@
       ]
     },
     {
-      "id": "dereliction_of_duty.track_blocked.base.art122_sec2_2_unlawful_superior_order",
+      "id": "dereliction_of_duty.quarantined.base.art122_sec2_2_unlawful_superior_order",
       "head": {
-        "predicate": "dereliction_of_duty_track_not_established",
+        "predicate": "dereliction_of_duty_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -21320,11 +21347,11 @@
           },
           {
             "kind": "string",
-            "value": "base"
+            "value": "art122_sec2_2.unlawful_superior_order"
           },
           {
             "kind": "string",
-            "value": "art122_sec2_2.unlawful_superior_order"
+            "value": "base"
           }
         ],
         "negated": false
@@ -21349,7 +21376,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art122_sec2_2.unlawful_superior_order"
       ],
@@ -25089,6 +25116,7 @@
     "unclassified_annotation: post_outcome: art122_sec4.military_dereliction_requirements (outcome_subtype 미지정)",
     "unclassified_annotation: post_outcome: art122_sec4.military_inadequate_performance_not_sufficient (outcome_subtype 미지정)",
     "unclassified_annotation: post_outcome: art122_sec4.specific_crimes_act_recognition_threshold (outcome_subtype 미지정)",
+    "quarantined_exception_polarity: art122_sec2_2.unlawful_superior_order",
     "card_metadata_correction: cc_001",
     "card_metadata_correction: cc_002",
     "source_quote_repair: art122_sec3_3.offender_escape_absorption::comm_001692_제122조_Ⅲ.3_20 (ocr_whitespace)"

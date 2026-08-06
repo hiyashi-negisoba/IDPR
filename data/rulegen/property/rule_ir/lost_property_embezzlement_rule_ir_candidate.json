@@ -2286,6 +2286,37 @@
       ]
     },
     {
+      "id": "lost_property_embezzlement_quarantined_effect",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "issue_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제360조_Ⅱ.3_7",
+          "quote": "유실물이나 표류물 또는 매장물의 경 우 유실물법이나 수상에서의 수색·구조 등에 관한 법률 등에서 정한 절차를 밟 지 않았다고 하여 이것만으로 본죄가 성립하는 것은 아니다.",
+          "section_path": "Ⅱ.3"
+        }
+      ],
+      "norm_card_ids": [
+        "art360_sec2_3.reporting_noncompliance_alone"
+      ]
+    },
+    {
       "id": "lost_property_embezzlement_boundary_shift",
       "arguments": [
         {
@@ -7888,7 +7919,7 @@
     {
       "id": "lost_property_embezzlement.art360_sec2_3.bar.006",
       "head": {
-        "predicate": "lost_property_embezzlement_not_established",
+        "predicate": "lost_property_embezzlement_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -7935,7 +7966,7 @@
       "norm_card_ids": [
         "art360_sec2_3.reporting_noncompliance_alone"
       ],
-      "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다."
     },
     {
       "id": "lost_property_embezzlement.component.l0.mandatory_negative.01",

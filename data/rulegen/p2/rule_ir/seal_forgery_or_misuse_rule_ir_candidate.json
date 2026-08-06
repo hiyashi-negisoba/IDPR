@@ -255,6 +255,33 @@
       "source_refs": []
     },
     {
+      "id": "seal_forgery_or_misuse_quarantined_effect",
+      "kind": "rule",
+      "origin": "system",
+      "role": "derived",
+      "definition": "극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "norm_card_id",
+          "type": "String"
+        },
+        {
+          "name": "would_block_track",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
       "id": "seal_forgery_or_misuse_track_has_negative",
       "kind": "rule",
       "origin": "system",
@@ -9331,9 +9358,9 @@
       ]
     },
     {
-      "id": "seal_forgery_or_misuse.track_blocked.use.art239_sec2_delivery_of_forged_seal_not_use",
+      "id": "seal_forgery_or_misuse.quarantined.use.art239_sec2_delivery_of_forged_seal_not_use",
       "head": {
-        "predicate": "seal_forgery_or_misuse_track_not_established",
+        "predicate": "seal_forgery_or_misuse_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -9345,11 +9372,11 @@
           },
           {
             "kind": "string",
-            "value": "use"
+            "value": "art239_sec2.delivery_of_forged_seal_not_use"
           },
           {
             "kind": "string",
-            "value": "art239_sec2.delivery_of_forged_seal_not_use"
+            "value": "use"
           }
         ],
         "negated": false
@@ -9378,7 +9405,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art239_sec2.delivery_of_forged_seal_not_use"
       ],
@@ -10954,6 +10981,7 @@
   "coverage_gaps": [
     "predicate_ir_missing: art239_sec1_5.foreign_national_overseas_jurisdiction → criminal_procedure",
     "unclassified_annotation: post_outcome: art239_sec1_5.foreign_national_overseas_jurisdiction (outcome_subtype 미지정)",
+    "quarantined_exception_polarity: art239_sec2.delivery_of_forged_seal_not_use",
     "card_metadata_correction: cc_001",
     "card_metadata_correction: cc_002"
   ]

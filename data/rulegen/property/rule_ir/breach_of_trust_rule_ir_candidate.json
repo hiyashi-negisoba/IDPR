@@ -6511,6 +6511,49 @@
       ]
     },
     {
+      "id": "breach_of_trust_quarantined_effect",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "issue_id",
+          "type": "String"
+        }
+      ],
+      "kind": "rule",
+      "role": "derived",
+      "origin": "commentary",
+      "definition": "극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다",
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제355조_2항_Ⅳ.1_160",
+          "quote": "임무에 위배한다는 인식이 없었을 때에는 배임죄가 성립할 수 없다.",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제355조_2항_Ⅳ.1_161",
+          "quote": "그러한 인식이 없는데도 본인에게 손해가 발생하 였다는 결과만으로 책임을 묻거나 단순히 주의의무를 소홀히 한 과실이 있다는 이유 로 책임을 물어서는 아니 된다.",
+          "section_path": "Ⅳ.1"
+        },
+        {
+          "comment_id": "comm_001692_제355조_2항_Ⅳ.2_163",
+          "quote": "본인의 이익을 위하여 사무를 처리한 때에는 불법이득의 의사가 없으므로 배임죄는 성립하지 않는다.",
+          "section_path": "Ⅳ.2"
+        }
+      ],
+      "norm_card_ids": [
+        "art355_sec4_1.business_loss_alone_insufficient",
+        "art355_sec4_1.no_breach_of_trust_without_awareness",
+        "art355_sec4_2.breach_for_principal_no_illicit_gain"
+      ]
+    },
+    {
       "id": "breach_of_trust_aggravation",
       "arguments": [
         {
@@ -21789,7 +21832,7 @@
     {
       "id": "breach_of_trust.art355_sec4_1.bar.001",
       "head": {
-        "predicate": "breach_of_trust_not_established",
+        "predicate": "breach_of_trust_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -21840,12 +21883,12 @@
       "norm_card_ids": [
         "art355_sec4_1.business_loss_alone_insufficient"
       ],
-      "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다."
     },
     {
       "id": "breach_of_trust.art355_sec4_1.bar.002",
       "head": {
-        "predicate": "breach_of_trust_not_established",
+        "predicate": "breach_of_trust_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -21896,12 +21939,12 @@
       "norm_card_ids": [
         "art355_sec4_1.no_breach_of_trust_without_awareness"
       ],
-      "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다."
     },
     {
       "id": "breach_of_trust.art355_sec4_2.bar.003",
       "head": {
-        "predicate": "breach_of_trust_not_established",
+        "predicate": "breach_of_trust_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -21952,7 +21995,7 @@
       "norm_card_ids": [
         "art355_sec4_2.breach_for_principal_no_illicit_gain"
       ],
-      "review_notes": "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다."
     },
     {
       "id": "breach_of_trust.art355_sec5_2.bar.004",

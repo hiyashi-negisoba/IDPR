@@ -373,6 +373,33 @@
       "source_refs": []
     },
     {
+      "id": "dwelling_intrusion_quarantined_effect",
+      "kind": "rule",
+      "origin": "system",
+      "role": "derived",
+      "definition": "극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "norm_card_id",
+          "type": "String"
+        },
+        {
+          "name": "would_block_track",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
       "id": "dwelling_intrusion_track_has_negative",
       "kind": "rule",
       "origin": "system",
@@ -40664,9 +40691,9 @@
       ]
     },
     {
-      "id": "dwelling_intrusion.track_blocked.intrusion.art319_sec2_2_joint_occupier_entry",
+      "id": "dwelling_intrusion.quarantined.intrusion.art319_sec2_2_joint_occupier_entry",
       "head": {
-        "predicate": "dwelling_intrusion_track_not_established",
+        "predicate": "dwelling_intrusion_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -40678,11 +40705,11 @@
           },
           {
             "kind": "string",
-            "value": "intrusion"
+            "value": "art319_sec2_2.joint_occupier_entry"
           },
           {
             "kind": "string",
-            "value": "art319_sec2_2.joint_occupier_entry"
+            "value": "intrusion"
           }
         ],
         "negated": false
@@ -40711,7 +40738,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art319_sec2_2.joint_occupier_entry"
       ],
@@ -42534,9 +42561,9 @@
       ]
     },
     {
-      "id": "dwelling_intrusion.track_blocked.intrusion.art319_sec5_2_lawful_authority_entry",
+      "id": "dwelling_intrusion.quarantined.intrusion.art319_sec5_2_lawful_authority_entry",
       "head": {
-        "predicate": "dwelling_intrusion_track_not_established",
+        "predicate": "dwelling_intrusion_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -42548,11 +42575,11 @@
           },
           {
             "kind": "string",
-            "value": "intrusion"
+            "value": "art319_sec5_2.lawful_authority_entry"
           },
           {
             "kind": "string",
-            "value": "art319_sec5_2.lawful_authority_entry"
+            "value": "intrusion"
           }
         ],
         "negated": false
@@ -42581,7 +42608,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art319_sec5_2.lawful_authority_entry"
       ],
@@ -42655,9 +42682,9 @@
       ]
     },
     {
-      "id": "dwelling_intrusion.track_blocked.intrusion.art319_sec5_2_lawful_labor_dispute_entry",
+      "id": "dwelling_intrusion.quarantined.intrusion.art319_sec5_2_lawful_labor_dispute_entry",
       "head": {
-        "predicate": "dwelling_intrusion_track_not_established",
+        "predicate": "dwelling_intrusion_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -42669,11 +42696,11 @@
           },
           {
             "kind": "string",
-            "value": "intrusion"
+            "value": "art319_sec5_2.lawful_labor_dispute_entry"
           },
           {
             "kind": "string",
-            "value": "art319_sec5_2.lawful_labor_dispute_entry"
+            "value": "intrusion"
           }
         ],
         "negated": false
@@ -42702,7 +42729,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art319_sec5_2.lawful_labor_dispute_entry"
       ],
@@ -42781,9 +42808,9 @@
       ]
     },
     {
-      "id": "dwelling_intrusion.track_blocked.intrusion.art319_sec5_2_private_arrest_home_entry_affirmative",
+      "id": "dwelling_intrusion.quarantined.intrusion.art319_sec5_2_private_arrest_home_entry_affirmative",
       "head": {
-        "predicate": "dwelling_intrusion_track_not_established",
+        "predicate": "dwelling_intrusion_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -42795,11 +42822,11 @@
           },
           {
             "kind": "string",
-            "value": "intrusion"
+            "value": "art319_sec5_2.private_arrest_home_entry_affirmative"
           },
           {
             "kind": "string",
-            "value": "art319_sec5_2.private_arrest_home_entry_affirmative"
+            "value": "intrusion"
           }
         ],
         "negated": false
@@ -42828,7 +42855,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art319_sec5_2.private_arrest_home_entry_affirmative"
       ],
@@ -42902,9 +42929,9 @@
       ]
     },
     {
-      "id": "dwelling_intrusion.track_blocked.intrusion.art319_sec5_2_socially_acceptable_entry",
+      "id": "dwelling_intrusion.quarantined.intrusion.art319_sec5_2_socially_acceptable_entry",
       "head": {
-        "predicate": "dwelling_intrusion_track_not_established",
+        "predicate": "dwelling_intrusion_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -42916,11 +42943,11 @@
           },
           {
             "kind": "string",
-            "value": "intrusion"
+            "value": "art319_sec5_2.socially_acceptable_entry"
           },
           {
             "kind": "string",
-            "value": "art319_sec5_2.socially_acceptable_entry"
+            "value": "intrusion"
           }
         ],
         "negated": false
@@ -42949,7 +42976,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art319_sec5_2.socially_acceptable_entry"
       ],
@@ -43028,9 +43055,9 @@
       ]
     },
     {
-      "id": "dwelling_intrusion.track_blocked.intrusion.art319_sec5_2_water_tank_repair_entry",
+      "id": "dwelling_intrusion.quarantined.intrusion.art319_sec5_2_water_tank_repair_entry",
       "head": {
-        "predicate": "dwelling_intrusion_track_not_established",
+        "predicate": "dwelling_intrusion_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -43042,11 +43069,11 @@
           },
           {
             "kind": "string",
-            "value": "intrusion"
+            "value": "art319_sec5_2.water_tank_repair_entry"
           },
           {
             "kind": "string",
-            "value": "art319_sec5_2.water_tank_repair_entry"
+            "value": "intrusion"
           }
         ],
         "negated": false
@@ -43075,7 +43102,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art319_sec5_2.water_tank_repair_entry"
       ],
@@ -43154,9 +43181,9 @@
       ]
     },
     {
-      "id": "dwelling_intrusion.track_blocked.intrusion.art319_sec5_3_justification_emergency_escape",
+      "id": "dwelling_intrusion.quarantined.intrusion.art319_sec5_3_justification_emergency_escape",
       "head": {
-        "predicate": "dwelling_intrusion_track_not_established",
+        "predicate": "dwelling_intrusion_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -43168,11 +43195,11 @@
           },
           {
             "kind": "string",
-            "value": "intrusion"
+            "value": "art319_sec5_3.justification.emergency_escape"
           },
           {
             "kind": "string",
-            "value": "art319_sec5_3.justification.emergency_escape"
+            "value": "intrusion"
           }
         ],
         "negated": false
@@ -43201,7 +43228,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art319_sec5_3.justification.emergency_escape"
       ],
@@ -43270,9 +43297,9 @@
       ]
     },
     {
-      "id": "dwelling_intrusion.track_blocked.intrusion.art319_sec5_3_justification_fire_suppression",
+      "id": "dwelling_intrusion.quarantined.intrusion.art319_sec5_3_justification_fire_suppression",
       "head": {
-        "predicate": "dwelling_intrusion_track_not_established",
+        "predicate": "dwelling_intrusion_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -43284,11 +43311,11 @@
           },
           {
             "kind": "string",
-            "value": "intrusion"
+            "value": "art319_sec5_3.justification.fire_suppression"
           },
           {
             "kind": "string",
-            "value": "art319_sec5_3.justification.fire_suppression"
+            "value": "intrusion"
           }
         ],
         "negated": false
@@ -43317,7 +43344,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art319_sec5_3.justification.fire_suppression"
       ],
@@ -43386,9 +43413,9 @@
       ]
     },
     {
-      "id": "dwelling_intrusion.track_blocked.intrusion.art319_sec5_3_justification_general",
+      "id": "dwelling_intrusion.quarantined.intrusion.art319_sec5_3_justification_general",
       "head": {
-        "predicate": "dwelling_intrusion_track_not_established",
+        "predicate": "dwelling_intrusion_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -43400,11 +43427,11 @@
           },
           {
             "kind": "string",
-            "value": "intrusion"
+            "value": "art319_sec5_3.justification.general"
           },
           {
             "kind": "string",
-            "value": "art319_sec5_3.justification.general"
+            "value": "intrusion"
           }
         ],
         "negated": false
@@ -43433,7 +43460,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art319_sec5_3.justification.general"
       ],
@@ -44429,9 +44456,9 @@
       ]
     },
     {
-      "id": "dwelling_intrusion.track_blocked.intrusion.art319_sec2_2_construction_site_not_enclosed_land",
+      "id": "dwelling_intrusion.quarantined.intrusion.art319_sec2_2_construction_site_not_enclosed_land",
       "head": {
-        "predicate": "dwelling_intrusion_track_not_established",
+        "predicate": "dwelling_intrusion_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -44443,11 +44470,11 @@
           },
           {
             "kind": "string",
-            "value": "intrusion"
+            "value": "art319_sec2_2.construction_site_not_enclosed_land"
           },
           {
             "kind": "string",
-            "value": "art319_sec2_2.construction_site_not_enclosed_land"
+            "value": "intrusion"
           }
         ],
         "negated": false
@@ -44476,7 +44503,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art319_sec2_2.construction_site_not_enclosed_land"
       ],
@@ -44601,9 +44628,9 @@
       ]
     },
     {
-      "id": "dwelling_intrusion.track_blocked.intrusion.art319_sec2_2_incomplete_construction_not_building",
+      "id": "dwelling_intrusion.quarantined.intrusion.art319_sec2_2_incomplete_construction_not_building",
       "head": {
-        "predicate": "dwelling_intrusion_track_not_established",
+        "predicate": "dwelling_intrusion_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -44615,11 +44642,11 @@
           },
           {
             "kind": "string",
-            "value": "intrusion"
+            "value": "art319_sec2_2.incomplete_construction_not_building"
           },
           {
             "kind": "string",
-            "value": "art319_sec2_2.incomplete_construction_not_building"
+            "value": "intrusion"
           }
         ],
         "negated": false
@@ -44648,7 +44675,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art319_sec2_2.incomplete_construction_not_building"
       ],
@@ -44945,9 +44972,9 @@
       ]
     },
     {
-      "id": "dwelling_intrusion.track_blocked.intrusion.art319_sec2_2_unmanaged_empty_house",
+      "id": "dwelling_intrusion.quarantined.intrusion.art319_sec2_2_unmanaged_empty_house",
       "head": {
-        "predicate": "dwelling_intrusion_track_not_established",
+        "predicate": "dwelling_intrusion_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -44959,11 +44986,11 @@
           },
           {
             "kind": "string",
-            "value": "intrusion"
+            "value": "art319_sec2_2.unmanaged_empty_house"
           },
           {
             "kind": "string",
-            "value": "art319_sec2_2.unmanaged_empty_house"
+            "value": "intrusion"
           }
         ],
         "negated": false
@@ -44992,7 +45019,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art319_sec2_2.unmanaged_empty_house"
       ],
@@ -45289,9 +45316,9 @@
       ]
     },
     {
-      "id": "dwelling_intrusion.track_blocked.refusal_to_leave.art319_sec7_3_impossible_leaving",
+      "id": "dwelling_intrusion.quarantined.refusal_to_leave.art319_sec7_3_impossible_leaving",
       "head": {
-        "predicate": "dwelling_intrusion_track_not_established",
+        "predicate": "dwelling_intrusion_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -45303,11 +45330,11 @@
           },
           {
             "kind": "string",
-            "value": "refusal_to_leave"
+            "value": "art319_sec7_3.impossible_leaving"
           },
           {
             "kind": "string",
-            "value": "art319_sec7_3.impossible_leaving"
+            "value": "refusal_to_leave"
           }
         ],
         "negated": false
@@ -45336,7 +45363,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art319_sec7_3.impossible_leaving"
       ],
@@ -52466,6 +52493,19 @@
     "unclassified_annotation: post_outcome: art319_sec6_2.instrumental_intrusion_real_concurrence (outcome_subtype 미지정)",
     "unclassified_annotation: post_outcome: art319_sec6_2.night_intrusion_theft_attempt_on_entry (outcome_subtype 미지정)",
     "unclassified_annotation: post_outcome: art319_sec6_2.special_theft_entry_absorption (outcome_subtype 미지정)",
+    "quarantined_exception_polarity: art319_sec2_2.construction_site_not_enclosed_land",
+    "quarantined_exception_polarity: art319_sec2_2.incomplete_construction_not_building",
+    "quarantined_exception_polarity: art319_sec2_2.joint_occupier_entry",
+    "quarantined_exception_polarity: art319_sec2_2.unmanaged_empty_house",
+    "quarantined_exception_polarity: art319_sec5_2.lawful_authority_entry",
+    "quarantined_exception_polarity: art319_sec5_2.lawful_labor_dispute_entry",
+    "quarantined_exception_polarity: art319_sec5_2.private_arrest_home_entry_affirmative",
+    "quarantined_exception_polarity: art319_sec5_2.socially_acceptable_entry",
+    "quarantined_exception_polarity: art319_sec5_2.water_tank_repair_entry",
+    "quarantined_exception_polarity: art319_sec5_3.justification.emergency_escape",
+    "quarantined_exception_polarity: art319_sec5_3.justification.fire_suppression",
+    "quarantined_exception_polarity: art319_sec5_3.justification.general",
+    "quarantined_exception_polarity: art319_sec7_3.impossible_leaving",
     "card_metadata_correction: cc_001",
     "card_metadata_correction: cc_002",
     "source_quote_repair: art319_sec3_1.concealed_device_and_key_entry::comm_001692_제319조_Ⅲ.1_37 (ocr_whitespace)",

@@ -225,12 +225,18 @@ def _render_verdict_brief(
         blocks.append("\n".join(lines))
 
     autonomous: list[str] = []
+    degraded: list[str] = []
     for item in unsupported:
         label = (
             labels.get(str(item.get("issue_id", "")))
             or str(item.get("reported_label", ""))
         )
-        if label:
+        if not label:
+            continue
+        # 규칙이 아예 없는 쟁점과, 규칙은 있는데 계약 결함으로 못 돌린 쟁점은 다르다.
+        if item.get("issue_status") == "contract_degraded":
+            degraded.append(label)
+        else:
             autonomous.append(label)
     for item in skipped:
         label = labels.get(str(item.get("issue_id", ""))) or str(item.get("unit_id", ""))
@@ -242,6 +248,13 @@ def _render_verdict_brief(
             + "\n".join(f"- {label}" for label in dict.fromkeys(autonomous))
             + "\n이 쟁점들에는 확정 결론이 없다. 법학 지식으로 직접 학설·판례를 "
             "동원하여 충실히 논증하고 결론을 내려라."
+        )
+    if degraded:
+        blocks.append(
+            "### 규칙 추론을 돌리지 못한 쟁점 (잠정 분석)\n"
+            + "\n".join(f"- {label}" for label in dict.fromkeys(degraded))
+            + "\n이 쟁점들은 검증된 판정이 없다. 논증은 하되 위 확정 결론들과 같은 "
+            "무게로 단정하지 말고, 잠정적 검토임이 드러나게 서술하라."
         )
     return "\n\n".join(blocks) if blocks else "(확정된 판정 없음)"
 

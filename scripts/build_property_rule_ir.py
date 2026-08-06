@@ -104,6 +104,28 @@ UNIT_TRACKS: dict[str, dict[str, tuple[str, ...]]] = {
 # 사기 조립기의 `BAR_CARD_IDS`가 손으로 열거된 목록이었던 것과 같은 자리다. 이 자리를 명제 문언
 # 정규식으로 채우면 법리 판정이 문자열 매칭으로 결정되고 그것이 그대로 규칙 구조에 박힌다.
 CARD_ROLES = ROOT / "data/rulegen/property/rule_ir_card_roles.json"
+EXCEPTION_GATE = ROOT / "data/rulegen/exception_polarity_gate.json"
+
+
+def quarantined_cards(unit: str) -> set[str]:
+    """저지 효과를 결론에서 떼어 둘 카드 — `polarity=exception` 미검수분.
+
+    `exception`은 명제가 어느 방향인지 말해 주지 않는데 88장이 성립을 막는 자리에 있다.
+    유닛을 잠그면 36개 중 25개가 멈추므로, 카드는 그대로 평가·기록하고 결론에 닿는
+    선만 끊는다(검수 003 I).
+    """
+
+    if not EXCEPTION_GATE.is_file():
+        return set()
+    payload = read_json(EXCEPTION_GATE)
+    approved = set(payload.get("approved", []))
+    return {
+        str(row["card_id"])
+        for row in payload.get("cards", [])
+        if row.get("blocking")
+        and row.get("unit_id") == unit
+        and row["card_id"] not in approved
+    }
 
 # 가중 조문 → 플래그 kind (preflight AGGRAVATION과 같은 열거)
 ARTICLE_AGGRAVATION: dict[str, str] = {
@@ -180,6 +202,7 @@ class UnitBuilder:
         self.track_levels = {level for levels in self.tracks.values() for level in levels}
         self.predicates: list[dict[str, Any]] = []
         self.rules: list[dict[str, Any]] = []
+        self.quarantined = quarantined_cards(unit)
 
     # ── 분류 ───────────────────────────────────────────────────────────
     def cards_at(self, level: str) -> list[dict[str, Any]]:
@@ -394,14 +417,30 @@ class UnitBuilder:
                       cards=mandatory),
         ])
 
+        quarantined = [card for card in bars if card["id"] in self.quarantined]
+        if quarantined:
+            # 평가와 기록은 그대로 두고 결론 연결만 끊는다 — 유닛을 멈추지 않으면서
+            # 극성 미검수 카드가 유·무죄를 뒤집는 것만 막는다(검수 003 I).
+            self.predicates.append(predicate(
+                f"{self.unit}_quarantined_effect",
+                [("case_id", "String"), ("defendant_id", "String"),
+                 ("issue_id", "String")],
+                kind="rule", role="derived", origin="commentary",
+                definition="극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — "
+                           "평가는 되었으나 성립·불성립을 만들지 않는다",
+                cards=quarantined))
         for index, card in enumerate(bars, 1):
+            head = (f"{self.unit}_quarantined_effect" if card["id"] in self.quarantined
+                    else f"{self.unit}_not_established")
+            note = ("극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 "
+                    "기록만 한다."
+                    if card["id"] in self.quarantined else
+                    "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.")
             self.rules.append(rule(
                 f"{self.unit}.{module_slug(card['id'])}.bar.{index:03d}",
-                atom(f"{self.unit}_not_established", self.actors[0], self.actors[1],
-                     string(card["id"])),
+                atom(head, self.actors[0], self.actors[1], string(card["id"])),
                 [atom(condition_id(card["id"]), *self.actors)],
-                [card],
-                "이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다."))
+                [card], note))
 
 
         for index, level in enumerate(self.active_components(), 1):

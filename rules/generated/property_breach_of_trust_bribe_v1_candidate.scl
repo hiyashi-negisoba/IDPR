@@ -693,6 +693,11 @@ type breach_of_trust_bribe_has_conflict(String, String)
 // norm_cards: art357.protected_interest.integrity, art357_sec1_2.third_party_acquisition, art357_sec1_3.receipt.required_elements, art357_sec1_4.actual_acquisition, art357_sec3_1.future_duty_expected, art357_sec3_1.status_assessment, art357_sec3_1.subject_trust_relationship, art357_sec3_1.trust_relationship_sources, art357_sec3_2.contract_counterparty_request, art357_sec3_2.giver_not_necessarily_liable, art357_sec3_2.improper_request_standard, art357_sec3_2.improper_solicitation_comprehensive_assessment, art357_sec3_2.paid_news_request, art357_sec3_2.request_concerning_duty, art357_sec3_2.request_consideration_link, art357_sec3_2.scope_of_duty, art357_sec3_3.account_control_acquisition, art357_sec3_3.actual_acquisition_required, art357_sec3_3.benefit_consideration_link, art357_sec3_3.mixed_consideration_entire_benefit, art357_sec3_3.nominal_stock_sale_consideration, art357_sec3_3.post_resignation_receipt, art357_sec3_3.principal_payment_direct_receipt_equivalent, art357_sec3_4.illegal_appropriation_intent_separate, art357_sec3_4.intent_elements, art357_sec3_5.attempt_majority, art357_sec3_5.completion_time, art357_sec4.giving_completion_actual_provision, art357_sec4.giving_offense_definition
 type breach_of_trust_bribe_established(String, String, String, String)
 
+// breach_of_trust_bribe_quarantined_effect: 극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+// sources: comm_001692_제357조_Ⅲ.2_14, comm_001692_제357조_Ⅲ.3_23
+// norm_cards: art357_sec3_2.permitted_favor_request, art357_sec3_3.principal_not_third_party_precedent
+type breach_of_trust_bribe_quarantined_effect(String, String, String)
+
 // breach_of_trust_bribe_requirement_waived: 이 죄의 성립에 요구되지 않는 요건이 확인됨 — 성립을 막지 않는다
 // sources: comm_001692_제357조_Ⅰ.3_2, comm_001692_제357조_Ⅲ.1_9, comm_001692_제357조_Ⅲ.5_25
 // norm_cards: art357_sec1_3.receipt.no_breach_or_loss_requirement, art357_sec3_1.subject_no_external_authority, art357_sec3_5.no_corrupt_performance_required
@@ -1927,7 +1932,7 @@ rel breach_of_trust_bribe_not_established(case_id, receiver_id, "art357_sec3_1.n
 // rule_id: breach_of_trust_bribe.art357_sec3_2.bar.003
 // sources: comm_001692_제357조_Ⅲ.2_14
 // norm_cards: art357_sec3_2.permitted_favor_request
-rel breach_of_trust_bribe_not_established(case_id, receiver_id, "art357_sec3_2.permitted_favor_request") = satisfied_art357_sec3_2_permitted_favor_request(case_id, receiver_id, giver_id, principal_id)
+rel breach_of_trust_bribe_quarantined_effect(case_id, receiver_id, "art357_sec3_2.permitted_favor_request") = satisfied_art357_sec3_2_permitted_favor_request(case_id, receiver_id, giver_id, principal_id)
 
 // rule_id: breach_of_trust_bribe.art357_sec3_2.bar.004
 // sources: comm_001692_제357조_Ⅲ.2_19
@@ -1937,7 +1942,7 @@ rel breach_of_trust_bribe_not_established(case_id, receiver_id, "art357_sec3_2.s
 // rule_id: breach_of_trust_bribe.art357_sec3_3.bar.005
 // sources: comm_001692_제357조_Ⅲ.3_23
 // norm_cards: art357_sec3_3.principal_not_third_party_precedent
-rel breach_of_trust_bribe_not_established(case_id, receiver_id, "art357_sec3_3.principal_not_third_party_precedent") = satisfied_art357_sec3_3_principal_not_third_party_precedent(case_id, receiver_id, giver_id, principal_id)
+rel breach_of_trust_bribe_quarantined_effect(case_id, receiver_id, "art357_sec3_3.principal_not_third_party_precedent") = satisfied_art357_sec3_3_principal_not_third_party_precedent(case_id, receiver_id, giver_id, principal_id)
 
 // rule_id: breach_of_trust_bribe.art357_sec3_3.bar.006
 // sources: comm_001692_제357조_Ⅲ.3_22

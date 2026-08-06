@@ -5,7 +5,7 @@
 ## 전체 구조
 
 - rule_set_id: `kr.property.embezzlement.full.v1_candidate`
-- predicate: 211개
+- predicate: 212개
 - rule: 331개
 - NormCard: 64개
 
@@ -1466,6 +1466,13 @@
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art355.embezzlement.document-embodied-right`, `art355.embezzlement.object-identification`, `art355.embezzlement.object-other-property`, `art355.embezzlement.other-person`, `art355.embezzlement_custody`, `art355.embezzlement_protectable_entrustment`, `art355_sec1_1.simple_embezzlement`, `art355_sec1_2.embezzlement_illegal_appropriation_theory`, `art355_sec2_1.embezzlement_object_property`, `art355_sec3_3.authority_excess_theory`, `art355_sec3_3.company_funds_advance_loan`, `art355_sec3_3.company_funds_private_use`, `art355_sec3_3.completion_expression_theory`, `art355_sec3_3.coownership_whole_property`, `art355_sec3_3.embezzlement_act`, `art355_sec3_3.invalid_disposition_majority`, `art355_sec3_3.legal_disposition`, `art355_sec3_3.money_fungibles_consumed_amount`, `art355_sec3_3.objective_manifestation`, `art355_sec3_3.omission_embezzlement`, `art355_sec3_3.partnership_joint_property_whole_amount`, `art355_sec3_3.purpose_limited_money_setoff`, `art355_sec3_3.refusal_equivalent_to_embezzlement`, `art355_sec3_3.refusal_to_return`, `art355_sec4_1.embezzlement_intent_objective_elements`, `art355_sec4_1.eventual_intent_elements`, `art355_sec4_1.eventual_intent_inference`, `art355_sec4_1.illegal_appropriation_intent_definition`, `art355_sec4_1.illegal_appropriation_intent_ownerlike_disposition`, `art355_sec4_1.repayment_intent_no_exclusion`, `art355_sec4_1.temporary_company_fund_objective_assessment_view`, `art355_sec4_2.embezzlement_illicit_appropriation`, `art355_sec4_2.restricted_funds_off_purpose_embezzlement`, `art355_sec4_2.temporary_use_against_entrustment`, `art355_sec4_2.third_party_appropriation`, `art355_sec4_3.budget_diversion_restricted`, `art355_sec4_3.business_expense_personal_or_excessive`, `art355_sec4_3.fake_capital_real_increase_assessment`, `art355_sec4_3.restricted_budget_assessment`, `art355_sec4_3.slush_fund_definition`, `art355_sec4_3.slush_fund_formation_personal_appropriation`, `art355_sec4_3.slush_fund_purpose_assessment`
+
+### `embezzlement_quarantined_effect(case_id: String, defendant_id: String, issue_id: String)`
+
+극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art355_sec1_2.embezzlement_illegal_appropriation_exclusion`, `art355_sec3_3.simple_destruction_exception`, `art355_sec4_1.justified_refusal_exception`, `art355_sec4_3.organization_representative_litigation_exception`
 
 ### `embezzlement_requirement_waived(case_id: String, defendant_id: String, issue_id: String, value: String)`
 
@@ -5476,7 +5483,7 @@
 
 ### `embezzlement.art355_sec1_2.bar.003`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -5484,11 +5491,11 @@
 
 연결 NormCard: `art355_sec1_2.embezzlement_illegal_appropriation_exclusion`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `embezzlement.art355_sec3_3.bar.004`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -5496,7 +5503,7 @@
 
 연결 NormCard: `art355_sec3_3.simple_destruction_exception`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `embezzlement.art355_sec4_1.bar.005`
 
@@ -5524,7 +5531,7 @@
 
 ### `embezzlement.art355_sec4_1.bar.007`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -5532,7 +5539,7 @@
 
 연결 NormCard: `art355_sec4_1.justified_refusal_exception`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `embezzlement.art355_sec4_1.bar.008`
 
@@ -5608,7 +5615,7 @@
 
 ### `embezzlement.art355_sec4_3.bar.014`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -5616,7 +5623,7 @@
 
 연결 NormCard: `art355_sec4_3.organization_representative_litigation_exception`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `embezzlement.art355_sec4_3.bar.015`
 

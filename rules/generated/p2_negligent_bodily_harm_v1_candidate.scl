@@ -48,6 +48,11 @@ type negligent_bodily_harm_track_not_established(String, String, String, String)
 // norm_cards: system contract
 type negligent_bodily_harm_track_conflict(String, String, String, String)
 
+// negligent_bodily_harm_quarantined_effect: 극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+// sources: system contract
+// norm_cards: system contract
+type negligent_bodily_harm_quarantined_effect(String, String, String, String)
+
 // negligent_bodily_harm_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
 // sources: system contract
 // norm_cards: system contract
@@ -3058,10 +3063,10 @@ rel negligent_bodily_harm_track_conflict(case_id, defendant_id, "occupational", 
 // norm_cards: art268.horizontal_medical_division
 rel negligent_bodily_harm_track_conflict(case_id, defendant_id, "occupational", "art268.horizontal_medical_division") = negligent_bodily_harm_conflict(case_id, defendant_id, "art268.horizontal_medical_division")
 
-// rule_id: negligent_bodily_harm.track_blocked.occupational.art268_horizontal_medical_division
+// rule_id: negligent_bodily_harm.quarantined.occupational.art268_horizontal_medical_division
 // sources: comm_001692_제268조_Ⅰ.2_16, comm_001692_제268조_Ⅰ.2_69
 // norm_cards: art268.horizontal_medical_division
-rel negligent_bodily_harm_track_not_established(case_id, defendant_id, "occupational", "art268.horizontal_medical_division") = satisfied_art268_horizontal_medical_division(case_id, defendant_id, victim_id)
+rel negligent_bodily_harm_quarantined_effect(case_id, defendant_id, "art268.horizontal_medical_division", "occupational") = satisfied_art268_horizontal_medical_division(case_id, defendant_id, victim_id)
 
 // rule_id: negligent_bodily_harm.track_conflict.occupational.art268_general_requirements
 // sources: comm_001692_제268조_Ⅰ.2_2, comm_001692_제268조_Ⅰ.2_102
@@ -3083,10 +3088,10 @@ rel negligent_bodily_harm_track_conflict(case_id, defendant_id, "occupational", 
 // norm_cards: art268.emergency_treatment_risk_balance
 rel negligent_bodily_harm_track_conflict(case_id, defendant_id, "occupational", "art268.emergency_treatment_risk_balance") = negligent_bodily_harm_conflict(case_id, defendant_id, "art268.emergency_treatment_risk_balance")
 
-// rule_id: negligent_bodily_harm.track_blocked.occupational.art268_emergency_treatment_risk_balance
+// rule_id: negligent_bodily_harm.quarantined.occupational.art268_emergency_treatment_risk_balance
 // sources: comm_001692_제268조_Ⅰ.2_68, comm_001692_제268조_Ⅰ.2_68
 // norm_cards: art268.emergency_treatment_risk_balance
-rel negligent_bodily_harm_track_not_established(case_id, defendant_id, "occupational", "art268.emergency_treatment_risk_balance") = satisfied_art268_emergency_treatment_risk_balance(case_id, defendant_id, victim_id)
+rel negligent_bodily_harm_quarantined_effect(case_id, defendant_id, "art268.emergency_treatment_risk_balance", "occupational") = satisfied_art268_emergency_treatment_risk_balance(case_id, defendant_id, victim_id)
 
 // rule_id: negligent_bodily_harm.track_conflict.occupational.art268_medical_allowed_risk
 // sources: comm_001692_제268조_Ⅰ.2_63, comm_001692_제268조_Ⅰ.2_63

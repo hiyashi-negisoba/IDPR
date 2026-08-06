@@ -5,7 +5,7 @@
 ## 전체 구조
 
 - rule_set_id: `kr.property.theft.full.v1_candidate`
-- predicate: 220개
+- predicate: 221개
 - rule: 351개
 - NormCard: 66개
 
@@ -1515,6 +1515,13 @@
 
 - 종류/역할: `rule` / `derived`
 - 연결 NormCard: `art329_sec2.theft_object_anothers_property_in_possession`, `art329_sec2_1.co_owned_property_taking`, `art329_sec2_1.inherited_estate_not_ownerless`, `art329_sec2_1.other_person_legal_entity`, `art329_sec2_1.vehicle_internal_ownership_agreement`, `art329_sec2_2.carrier_control_based_possession`, `art329_sec2_2.clerk_subordinate_possession`, `art329_sec2_2.criminal_possession_definition`, `art329_sec2_2.dead_person_possession_continuing`, `art329_sec2_2.dead_person_possession_limited`, `art329_sec2_2.joint_custodian_unilateral_taking`, `art329_sec2_2.possession_assistant_control`, `art329_sec2_2.possession_control_and_intent`, `art329_sec2_2.possession_factual_control_standard`, `art329_sec2_2.possession_intent_definition`, `art329_sec2_2.property_in_managed_place`, `art329_sec2_2.sealed_deposit_entrustment_nature`, `art329_sec2_2.temporary_separation_possession`, `art329_sec2_2.unlawful_possession_protected`, `art329_sec3_1.deceptive_taking_without_delivery`, `art329_sec3_1.taking_transfer_of_control`, `art329_sec3_3.completion.control_and_disposal`, `art329_sec3_3.completion.property_circumstances`, `art329_sec4.intent.conditional_intent_sufficient`, `art329_sec4.intent.general_object_selection`, `art329_sec4.intent.theft_intent_definition`, `art329_sec5_1.unlawful_appropriation_required`, `art329_sec5_2.collateral_taking_unlawful_appropriation`, `art329_sec5_2.use_theft_long_possession_or_abandonment`, `art329_sec5_2.use_theft_value_consumption_or_delayed_return`
+
+### `theft_quarantined_effect(case_id: String, defendant_id: String, issue_id: String)`
+
+극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+
+- 종류/역할: `rule` / `derived`
+- 연결 NormCard: `art329_sec2.theft_exception_ownership_or_self_possession`, `art329_sec2_2.sole_custodian_coowned_property`, `art331_sec3_1.toy_gun_not_weapon_exception`, `art332_sec1_2.incidental-or-economic-theft-exception`
 
 ### `theft_requirement_waived(case_id: String, defendant_id: String, issue_id: String, value: String)`
 
@@ -5479,7 +5486,7 @@
 
 ### `theft.art329_sec2.bar.001`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -5487,7 +5494,7 @@
 
 연결 NormCard: `art329_sec2.theft_exception_ownership_or_self_possession`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `theft.art329_sec2_1.bar.002`
 
@@ -5503,7 +5510,7 @@
 
 ### `theft.art329_sec2_2.bar.003`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -5511,7 +5518,7 @@
 
 연결 NormCard: `art329_sec2_2.sole_custodian_coowned_property`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `theft.art329_sec2_2.bar.004`
 
@@ -5611,7 +5618,7 @@
 
 ### `theft.art331_sec3_1.bar.012`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -5619,7 +5626,7 @@
 
 연결 NormCard: `art331_sec3_1.toy_gun_not_weapon_exception`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `theft.art332_sec1_1.bar.013`
 
@@ -5647,7 +5654,7 @@
 
 ### `theft.art332_sec1_2.bar.015`
 
-이 규칙은 **명시적으로 증명된 불성립 사유 또는 필수요건 부정이 존재함**을 도출한다.
+이 규칙은 **극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다**을 도출한다.
 
 필요한 전제:
 
@@ -5655,7 +5662,7 @@
 
 연결 NormCard: `art332_sec1_2.incidental-or-economic-theft-exception`
 
-검토 메모: 이 카드의 부정·배제 조건이 충족되면 해당 쟁점에서 성립을 부정한다.
+검토 메모: 극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.
 
 ### `theft.component.l0o.mandatory_negative.01`
 

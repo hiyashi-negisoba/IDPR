@@ -558,6 +558,11 @@ type interference_with_exercise_of_right_has_conflict(String, String)
 // norm_cards: art323.forced_execution_evasion_scope, art323_sec1_1.abstract_danger_offense, art323_sec1_1.conduct_and_object, art323_sec2_1.subject_genuine_status_offense, art323_sec2_2.corporate_system_records_other, art323_sec2_2.electronic_records, art323_sec2_2.joint_possession_object, art323_sec2_2.nonpossessory_claim_precedent, art323_sec2_2.possession_actual_control, art323_sec2_2.property_movables_real_estate, art323_sec2_2.protected_possession_potential_value, art323_sec2_2.rescinded_sale_recovery, art323_sec2_2.retained_title_sale, art323_sec2_2.rightful_possession_definition, art323_sec2_2.self_property_owner, art323_sec2_2.title_transfer_criteria, art323_sec2_3.concealment, art323_sec2_3.destruction, art323_sec2_3.risk_to_right_exercise, art323_sec2_3.taking, art323_sec3.conditional_intent_sufficient, art323_sec3.subjective_awareness
 type interference_with_exercise_of_right_established(String, String, String)
 
+// interference_with_exercise_of_right_quarantined_effect: 극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+// sources: comm_001692_제323조_Ⅱ.2_10, comm_001692_제323조_Ⅱ.2_4, comm_001692_제323조_Ⅱ.2_5, comm_001692_제323조_Ⅱ.2_5, comm_001692_제323조_Ⅱ.2_5, comm_001692_제323조_Ⅱ.2_7, comm_001692_제323조_Ⅱ.2_7
+// norm_cards: art323_sec2_2.coowned_property_excluded, art323_sec2_2.manifestly_no_right_possession_excluded, art323_sec2_2.nominee_owner_not_subject, art323_sec2_2.official_custody_exception, art323_sec2_2.prohibited_gold_products_excluded, art323_sec2_2.registered_sale_seller_not_subject
+type interference_with_exercise_of_right_quarantined_effect(String, String, String)
+
 // interference_with_exercise_of_right_requirement_waived: 이 죄의 성립에 요구되지 않는 요건이 확인됨 — 성립을 막지 않는다
 // sources: comm_001692_제323조_Ⅰ.1_0, comm_001692_제323조_Ⅲ_18
 // norm_cards: art323_sec1_1.no_unlawful_appropriation_intent, art323_sec3.no_intent_to_appropriate_required
@@ -1513,32 +1518,32 @@ rel interference_with_exercise_of_right_intent_satisfied(case_id, defendant_id, 
 // rule_id: interference_with_exercise_of_right.art323_sec2_2.bar.001
 // sources: comm_001692_제323조_Ⅱ.2_4
 // norm_cards: art323_sec2_2.coowned_property_excluded
-rel interference_with_exercise_of_right_not_established(case_id, defendant_id, "art323_sec2_2.coowned_property_excluded") = satisfied_art323_sec2_2_coowned_property_excluded(case_id, defendant_id, right_holder_id)
+rel interference_with_exercise_of_right_quarantined_effect(case_id, defendant_id, "art323_sec2_2.coowned_property_excluded") = satisfied_art323_sec2_2_coowned_property_excluded(case_id, defendant_id, right_holder_id)
 
 // rule_id: interference_with_exercise_of_right.art323_sec2_2.bar.002
 // sources: comm_001692_제323조_Ⅱ.2_10
 // norm_cards: art323_sec2_2.manifestly_no_right_possession_excluded
-rel interference_with_exercise_of_right_not_established(case_id, defendant_id, "art323_sec2_2.manifestly_no_right_possession_excluded") = satisfied_art323_sec2_2_manifestly_no_right_possession_excluded(case_id, defendant_id, right_holder_id)
+rel interference_with_exercise_of_right_quarantined_effect(case_id, defendant_id, "art323_sec2_2.manifestly_no_right_possession_excluded") = satisfied_art323_sec2_2_manifestly_no_right_possession_excluded(case_id, defendant_id, right_holder_id)
 
 // rule_id: interference_with_exercise_of_right.art323_sec2_2.bar.003
 // sources: comm_001692_제323조_Ⅱ.2_7
 // norm_cards: art323_sec2_2.nominee_owner_not_subject
-rel interference_with_exercise_of_right_not_established(case_id, defendant_id, "art323_sec2_2.nominee_owner_not_subject") = satisfied_art323_sec2_2_nominee_owner_not_subject(case_id, defendant_id, right_holder_id)
+rel interference_with_exercise_of_right_quarantined_effect(case_id, defendant_id, "art323_sec2_2.nominee_owner_not_subject") = satisfied_art323_sec2_2_nominee_owner_not_subject(case_id, defendant_id, right_holder_id)
 
 // rule_id: interference_with_exercise_of_right.art323_sec2_2.bar.004
 // sources: comm_001692_제323조_Ⅱ.2_5, comm_001692_제323조_Ⅱ.2_5
 // norm_cards: art323_sec2_2.official_custody_exception
-rel interference_with_exercise_of_right_not_established(case_id, defendant_id, "art323_sec2_2.official_custody_exception") = satisfied_art323_sec2_2_official_custody_exception(case_id, defendant_id, right_holder_id)
+rel interference_with_exercise_of_right_quarantined_effect(case_id, defendant_id, "art323_sec2_2.official_custody_exception") = satisfied_art323_sec2_2_official_custody_exception(case_id, defendant_id, right_holder_id)
 
 // rule_id: interference_with_exercise_of_right.art323_sec2_2.bar.005
 // sources: comm_001692_제323조_Ⅱ.2_5
 // norm_cards: art323_sec2_2.prohibited_gold_products_excluded
-rel interference_with_exercise_of_right_not_established(case_id, defendant_id, "art323_sec2_2.prohibited_gold_products_excluded") = satisfied_art323_sec2_2_prohibited_gold_products_excluded(case_id, defendant_id, right_holder_id)
+rel interference_with_exercise_of_right_quarantined_effect(case_id, defendant_id, "art323_sec2_2.prohibited_gold_products_excluded") = satisfied_art323_sec2_2_prohibited_gold_products_excluded(case_id, defendant_id, right_holder_id)
 
 // rule_id: interference_with_exercise_of_right.art323_sec2_2.bar.006
 // sources: comm_001692_제323조_Ⅱ.2_7
 // norm_cards: art323_sec2_2.registered_sale_seller_not_subject
-rel interference_with_exercise_of_right_not_established(case_id, defendant_id, "art323_sec2_2.registered_sale_seller_not_subject") = satisfied_art323_sec2_2_registered_sale_seller_not_subject(case_id, defendant_id, right_holder_id)
+rel interference_with_exercise_of_right_quarantined_effect(case_id, defendant_id, "art323_sec2_2.registered_sale_seller_not_subject") = satisfied_art323_sec2_2_registered_sale_seller_not_subject(case_id, defendant_id, right_holder_id)
 
 // rule_id: interference_with_exercise_of_right.art323_sec2_3.bar.007
 // sources: comm_001692_제323조_Ⅱ.3_14

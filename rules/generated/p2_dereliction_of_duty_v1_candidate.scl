@@ -48,6 +48,11 @@ type dereliction_of_duty_track_not_established(String, String, String, String)
 // norm_cards: system contract
 type dereliction_of_duty_track_conflict(String, String, String, String)
 
+// dereliction_of_duty_quarantined_effect: 극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다
+// sources: system contract
+// norm_cards: system contract
+type dereliction_of_duty_quarantined_effect(String, String, String, String)
+
 // dereliction_of_duty_track_has_negative: 해당 track에 증명된 불성립 사유가 존재함
 // sources: system contract
 // norm_cards: system contract
@@ -1863,10 +1868,10 @@ rel dereliction_of_duty_track_conflict(case_id, defendant_id, "base", "art122_se
 // norm_cards: art122_sec2_2.unlawful_superior_order
 rel dereliction_of_duty_track_conflict(case_id, defendant_id, "base", "art122_sec2_2.unlawful_superior_order") = dereliction_of_duty_conflict(case_id, defendant_id, "art122_sec2_2.unlawful_superior_order")
 
-// rule_id: dereliction_of_duty.track_blocked.base.art122_sec2_2_unlawful_superior_order
+// rule_id: dereliction_of_duty.quarantined.base.art122_sec2_2_unlawful_superior_order
 // sources: comm_001692_제122조_Ⅱ.2_6
 // norm_cards: art122_sec2_2.unlawful_superior_order
-rel dereliction_of_duty_track_not_established(case_id, defendant_id, "base", "art122_sec2_2.unlawful_superior_order") = satisfied_art122_sec2_2_unlawful_superior_order(case_id, defendant_id, duty_id)
+rel dereliction_of_duty_quarantined_effect(case_id, defendant_id, "art122_sec2_2.unlawful_superior_order", "base") = satisfied_art122_sec2_2_unlawful_superior_order(case_id, defendant_id, duty_id)
 
 // rule_id: dereliction_of_duty.track_conflict.base.art122_sec1_1_establishment_requirements
 // sources: comm_001692_제122조_Ⅰ.1_1, comm_001692_제122조_Ⅰ.1_1, comm_001692_제122조_Ⅰ.1_1, comm_001692_제122조_Ⅰ.1_1, comm_001692_제122조_Ⅰ.1_1, comm_001692_제122조_Ⅰ.1_1

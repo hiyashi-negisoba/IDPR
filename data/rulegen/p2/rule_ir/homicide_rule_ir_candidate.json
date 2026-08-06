@@ -427,6 +427,33 @@
       "source_refs": []
     },
     {
+      "id": "homicide_quarantined_effect",
+      "kind": "rule",
+      "origin": "system",
+      "role": "derived",
+      "definition": "극성이 검수되지 않아 저지 효과를 결론에서 격리한 카드 — 평가는 되었으나 성립·불성립을 만들지 않는다",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "norm_card_id",
+          "type": "String"
+        },
+        {
+          "name": "would_block_track",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [],
+      "source_refs": []
+    },
+    {
       "id": "homicide_track_has_negative",
       "kind": "rule",
       "origin": "system",
@@ -58910,9 +58937,9 @@
       ]
     },
     {
-      "id": "homicide.track_blocked.base.art250_sec1_17_statutory_life_sustaining_treatment_exception",
+      "id": "homicide.quarantined.base.art250_sec1_17_statutory_life_sustaining_treatment_exception",
       "head": {
-        "predicate": "homicide_track_not_established",
+        "predicate": "homicide_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -58924,11 +58951,11 @@
           },
           {
             "kind": "string",
-            "value": "base"
+            "value": "art250_sec1_17.statutory_life_sustaining_treatment_exception"
           },
           {
             "kind": "string",
-            "value": "art250_sec1_17.statutory_life_sustaining_treatment_exception"
+            "value": "base"
           }
         ],
         "negated": false
@@ -58953,7 +58980,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art250_sec1_17.statutory_life_sustaining_treatment_exception"
       ],
@@ -59032,9 +59059,9 @@
       ]
     },
     {
-      "id": "homicide.track_blocked.omission.art250_sec1_17_statutory_life_sustaining_treatment_exception",
+      "id": "homicide.quarantined.omission.art250_sec1_17_statutory_life_sustaining_treatment_exception",
       "head": {
-        "predicate": "homicide_track_not_established",
+        "predicate": "homicide_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -59046,11 +59073,11 @@
           },
           {
             "kind": "string",
-            "value": "omission"
+            "value": "art250_sec1_17.statutory_life_sustaining_treatment_exception"
           },
           {
             "kind": "string",
-            "value": "art250_sec1_17.statutory_life_sustaining_treatment_exception"
+            "value": "omission"
           }
         ],
         "negated": false
@@ -59075,7 +59102,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art250_sec1_17.statutory_life_sustaining_treatment_exception"
       ],
@@ -59154,9 +59181,9 @@
       ]
     },
     {
-      "id": "homicide.track_blocked.attempt.art250_sec1_17_statutory_life_sustaining_treatment_exception",
+      "id": "homicide.quarantined.attempt.art250_sec1_17_statutory_life_sustaining_treatment_exception",
       "head": {
-        "predicate": "homicide_track_not_established",
+        "predicate": "homicide_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -59168,11 +59195,11 @@
           },
           {
             "kind": "string",
-            "value": "attempt"
+            "value": "art250_sec1_17.statutory_life_sustaining_treatment_exception"
           },
           {
             "kind": "string",
-            "value": "art250_sec1_17.statutory_life_sustaining_treatment_exception"
+            "value": "attempt"
           }
         ],
         "negated": false
@@ -59197,7 +59224,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art250_sec1_17.statutory_life_sustaining_treatment_exception"
       ],
@@ -59276,9 +59303,9 @@
       ]
     },
     {
-      "id": "homicide.track_blocked.voluntary_desistance.art250_sec1_17_statutory_life_sustaining_treatment_exception",
+      "id": "homicide.quarantined.voluntary_desistance.art250_sec1_17_statutory_life_sustaining_treatment_exception",
       "head": {
-        "predicate": "homicide_track_not_established",
+        "predicate": "homicide_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -59290,11 +59317,11 @@
           },
           {
             "kind": "string",
-            "value": "voluntary_desistance"
+            "value": "art250_sec1_17.statutory_life_sustaining_treatment_exception"
           },
           {
             "kind": "string",
-            "value": "art250_sec1_17.statutory_life_sustaining_treatment_exception"
+            "value": "voluntary_desistance"
           }
         ],
         "negated": false
@@ -59319,7 +59346,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art250_sec1_17.statutory_life_sustaining_treatment_exception"
       ],
@@ -59398,9 +59425,9 @@
       ]
     },
     {
-      "id": "homicide.track_blocked.impossible_attempt.art250_sec1_17_statutory_life_sustaining_treatment_exception",
+      "id": "homicide.quarantined.impossible_attempt.art250_sec1_17_statutory_life_sustaining_treatment_exception",
       "head": {
-        "predicate": "homicide_track_not_established",
+        "predicate": "homicide_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -59412,11 +59439,11 @@
           },
           {
             "kind": "string",
-            "value": "impossible_attempt"
+            "value": "art250_sec1_17.statutory_life_sustaining_treatment_exception"
           },
           {
             "kind": "string",
-            "value": "art250_sec1_17.statutory_life_sustaining_treatment_exception"
+            "value": "impossible_attempt"
           }
         ],
         "negated": false
@@ -59441,7 +59468,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art250_sec1_17.statutory_life_sustaining_treatment_exception"
       ],
@@ -59520,9 +59547,9 @@
       ]
     },
     {
-      "id": "homicide.track_blocked.parricide.art250_sec1_17_statutory_life_sustaining_treatment_exception",
+      "id": "homicide.quarantined.parricide.art250_sec1_17_statutory_life_sustaining_treatment_exception",
       "head": {
-        "predicate": "homicide_track_not_established",
+        "predicate": "homicide_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -59534,11 +59561,11 @@
           },
           {
             "kind": "string",
-            "value": "parricide"
+            "value": "art250_sec1_17.statutory_life_sustaining_treatment_exception"
           },
           {
             "kind": "string",
-            "value": "art250_sec1_17.statutory_life_sustaining_treatment_exception"
+            "value": "parricide"
           }
         ],
         "negated": false
@@ -59563,7 +59590,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art250_sec1_17.statutory_life_sustaining_treatment_exception"
       ],
@@ -60054,9 +60081,9 @@
       ]
     },
     {
-      "id": "homicide.track_blocked.base.art250_sec1_18_severe_impulse_control_disorder_exception",
+      "id": "homicide.quarantined.base.art250_sec1_18_severe_impulse_control_disorder_exception",
       "head": {
-        "predicate": "homicide_track_not_established",
+        "predicate": "homicide_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -60068,11 +60095,11 @@
           },
           {
             "kind": "string",
-            "value": "base"
+            "value": "art250_sec1_18.severe_impulse_control_disorder_exception"
           },
           {
             "kind": "string",
-            "value": "art250_sec1_18.severe_impulse_control_disorder_exception"
+            "value": "base"
           }
         ],
         "negated": false
@@ -60097,7 +60124,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art250_sec1_18.severe_impulse_control_disorder_exception"
       ],
@@ -60166,9 +60193,9 @@
       ]
     },
     {
-      "id": "homicide.track_blocked.omission.art250_sec1_18_severe_impulse_control_disorder_exception",
+      "id": "homicide.quarantined.omission.art250_sec1_18_severe_impulse_control_disorder_exception",
       "head": {
-        "predicate": "homicide_track_not_established",
+        "predicate": "homicide_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -60180,11 +60207,11 @@
           },
           {
             "kind": "string",
-            "value": "omission"
+            "value": "art250_sec1_18.severe_impulse_control_disorder_exception"
           },
           {
             "kind": "string",
-            "value": "art250_sec1_18.severe_impulse_control_disorder_exception"
+            "value": "omission"
           }
         ],
         "negated": false
@@ -60209,7 +60236,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art250_sec1_18.severe_impulse_control_disorder_exception"
       ],
@@ -60278,9 +60305,9 @@
       ]
     },
     {
-      "id": "homicide.track_blocked.attempt.art250_sec1_18_severe_impulse_control_disorder_exception",
+      "id": "homicide.quarantined.attempt.art250_sec1_18_severe_impulse_control_disorder_exception",
       "head": {
-        "predicate": "homicide_track_not_established",
+        "predicate": "homicide_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -60292,11 +60319,11 @@
           },
           {
             "kind": "string",
-            "value": "attempt"
+            "value": "art250_sec1_18.severe_impulse_control_disorder_exception"
           },
           {
             "kind": "string",
-            "value": "art250_sec1_18.severe_impulse_control_disorder_exception"
+            "value": "attempt"
           }
         ],
         "negated": false
@@ -60321,7 +60348,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art250_sec1_18.severe_impulse_control_disorder_exception"
       ],
@@ -60390,9 +60417,9 @@
       ]
     },
     {
-      "id": "homicide.track_blocked.voluntary_desistance.art250_sec1_18_severe_impulse_control_disorder_exception",
+      "id": "homicide.quarantined.voluntary_desistance.art250_sec1_18_severe_impulse_control_disorder_exception",
       "head": {
-        "predicate": "homicide_track_not_established",
+        "predicate": "homicide_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -60404,11 +60431,11 @@
           },
           {
             "kind": "string",
-            "value": "voluntary_desistance"
+            "value": "art250_sec1_18.severe_impulse_control_disorder_exception"
           },
           {
             "kind": "string",
-            "value": "art250_sec1_18.severe_impulse_control_disorder_exception"
+            "value": "voluntary_desistance"
           }
         ],
         "negated": false
@@ -60433,7 +60460,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art250_sec1_18.severe_impulse_control_disorder_exception"
       ],
@@ -60502,9 +60529,9 @@
       ]
     },
     {
-      "id": "homicide.track_blocked.impossible_attempt.art250_sec1_18_severe_impulse_control_disorder_exception",
+      "id": "homicide.quarantined.impossible_attempt.art250_sec1_18_severe_impulse_control_disorder_exception",
       "head": {
-        "predicate": "homicide_track_not_established",
+        "predicate": "homicide_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -60516,11 +60543,11 @@
           },
           {
             "kind": "string",
-            "value": "impossible_attempt"
+            "value": "art250_sec1_18.severe_impulse_control_disorder_exception"
           },
           {
             "kind": "string",
-            "value": "art250_sec1_18.severe_impulse_control_disorder_exception"
+            "value": "impossible_attempt"
           }
         ],
         "negated": false
@@ -60545,7 +60572,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art250_sec1_18.severe_impulse_control_disorder_exception"
       ],
@@ -60614,9 +60641,9 @@
       ]
     },
     {
-      "id": "homicide.track_blocked.parricide.art250_sec1_18_severe_impulse_control_disorder_exception",
+      "id": "homicide.quarantined.parricide.art250_sec1_18_severe_impulse_control_disorder_exception",
       "head": {
-        "predicate": "homicide_track_not_established",
+        "predicate": "homicide_quarantined_effect",
         "arguments": [
           {
             "kind": "variable",
@@ -60628,11 +60655,11 @@
           },
           {
             "kind": "string",
-            "value": "parricide"
+            "value": "art250_sec1_18.severe_impulse_control_disorder_exception"
           },
           {
             "kind": "string",
-            "value": "art250_sec1_18.severe_impulse_control_disorder_exception"
+            "value": "parricide"
           }
         ],
         "negated": false
@@ -60657,7 +60684,7 @@
           "negated": false
         }
       ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "review_notes": "극성이 검수되지 않은 카드라 저지 효과를 결론에 연결하지 않고 격리해 기록만 한다.",
       "norm_card_ids": [
         "art250_sec1_18.severe_impulse_control_disorder_exception"
       ],
@@ -93708,6 +93735,8 @@
     "unclassified_annotation: post_outcome: art255_sec6.attempt_or_completion_absorption (outcome_subtype 미지정)",
     "unclassified_annotation: post_outcome: art255_sec6.multiple_preparations_single_offense (outcome_subtype 미지정)",
     "unclassified_annotation: post_outcome: art255_sec4.preparation_desistance_doctrinal_variants (outcome_subtype 미지정)",
+    "quarantined_exception_polarity: art250_sec1_17.statutory_life_sustaining_treatment_exception",
+    "quarantined_exception_polarity: art250_sec1_18.severe_impulse_control_disorder_exception",
     "card_metadata_correction: cc_001",
     "card_metadata_correction: cc_002"
   ]
