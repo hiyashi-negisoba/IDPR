@@ -253,50 +253,66 @@ unsupported/invalid) 부여 3) 생성 강제 지시와 충돌 처리 4) 라우�
   repair를 넣을지는 별도 결정.
 - 4단계(라우팅/하위쟁점 확장) 이후는 미착수.
 
-### 다음 세션 시작점 — job 219900 재제출부터
+### 이번 세션 완료 — predassess 스모크 검증 통과 (job 219900 재제출부터 시작해 완결)
 
-**job 219900은 실패했다 (코드 문제 아님).** vLLM 엔진 초기화 중 HuggingFace Hub
-다운로드가 `RuntimeError: Internal error: Internal Writer Error: Background writer
-channel closed`로 끊겨 `Engine core initialization failed`로 죽었다 — Xet
-다운로드 백엔드의 일시적 네트워크 문제로 보이며 native_host.py/프롬프트 변경과
-무관하다. 다음 세션은 **동일 커맨드로 재제출부터**:
+**job 219900은 실패했다 (코드 문제 아님).** vLLM 엔진 초기화 중 `IDPR_HF_HOME`을
+안 넘긴 채 제출해 `HF_HOME`이 홈 디렉터리 기본 경로(비어있음/불완전)로 새고,
+거기서 실시간 재다운로드를 시도하다 `RuntimeError: Internal error: Internal
+Writer Error: Background writer channel closed`로 끊겨 죽었다. 진짜 캐시는
+`/data5/jaehoonjeong/.cache/huggingface`(49G, 완전함, `~/.bashrc`의 `HF_HOME`이
+가리키는 곳)에 있었다 — `scripts/slurm/_env.sh`는 `IDPR_HF_HOME`이 명시적으로
+안 오면 기본 폴백 없이 그냥 넘어가므로, 이후 이 모델을 쓰는 모든 sbatch 제출은
+`IDPR_HF_HOME=/data5/jaehoonjeong/.cache/huggingface`를 반드시 명시해야 한다.
 
-```
-sbatch --export=ALL,\
-IDPR_CASE_LIST=/data5/jaehoonjeong/IDPR/.cache/rule_ir_native_sonnet_smoke/case_list.txt,\
-IDPR_RUN_DIR=/data5/jaehoonjeong/IDPR/experiments/results/rule_ir_native_lean_predassess_smoke,\
-IDPR_PYTHON=/data5/jaehoonjeong/miniconda3/envs/inv_ass_env/bin/python,\
-IDPR_VLLM_BIN=/data5/jaehoonjeong/miniconda3/envs/inv_ass_env/bin/vllm \
-    scripts/slurm/run_rule_ir_native_lean_batch.sh
-```
+재제출(219978) 이후 실제 API 실행으로만 드러나는 버그를 2개 발견·수정했다
+(둘 다 지난 세션의 1~3단계 구현이 "스키마/유닛 테스트만 통과, 실제 API로는
+미실행"이라고 남겨뒀던 그 구멍):
 
-(케이스 리스트 파일은 이미 만들어져 있음: r10_p1_q1_ga, r14_p1_q2, r10_p2_q1,
-r12_p2_q1_da, r10_p1_q2, r14_p2_q2 6건.) `IDPR_PYTHON`/`IDPR_VLLM_BIN`을
-`inv_ass_env` 절대경로로 명시해야 한다 — conda 비활성 상태로 그냥 제출하면
-`python: command not found`로 즉시 죽는다(이번 세션에서 한 번 겪음).
+1. **스키마 `if`/`then`은 vLLM guidance backend가 미지원** (job 219978, 6/6
+   전부 `Grammar error: Unimplemented keys: ["if","then"]`로 즉시 실패) —
+   `inference_rationale` 조건부 필수화를 JSON Schema `if`/`then`으로 구현한
+   게 생성 요청 자체를 막았다. `native_host.py`의 `predicate_assessment_schema()`
+   에서 `if`/`then` 제거, `inference_rationale`을 무조건 `required`로(단
+   `minLength` 없이, 빈 문자열 허용) 바꿔 grammar가 키 존재는 강제하되 내용은
+   강제하지 않게 하고, "`inferentially_supported`면 비어있으면 안 된다"는
+   조건은 `validate_predicate_assessment()`의 Python 쪽 상태별 체크로 옮겼다.
+2. **`genuinely_unresolved`의 `missing_facts` 누락이 쟁점 전체를 폐기** (job
+   219989 재제출 직후, r14_p1_q2 사기 88개 술어 중 44개가 `missing_facts`를
+   비운 채 `genuinely_unresolved`로만 남아 쟁점 전체가 `predicate_assessment_invalid`
+   로 강등). 비운 술어 대부분이 이 사건과 무관한 경계/예외 법리(광고 기망,
+   공익목적 예외, 삼각사기 판례 등) — 판정 자체는 맞고 `missing_facts` 생성
+   계약만 깨진 사례(사용자 분류상 B 유형)로 확인. `prompts/rule_ir_native_predicate_assess.md`
+   에 "이 predicate가 사건과 무관해 보이더라도 `missing_facts`를 비우지 말고
+   어떤 사실이 추가로 확인돼야 하는지 적으라"는 한 줄만 추가. 단독 재실행
+   (job 219993, `r14_p1_q2` 1건)으로 검증: 44개 전부 `missing_facts` 채워짐,
+   `issue_1`(사기)이 더 이상 강등되지 않고 `not_established`+`verified`로
+   정상 실행. 구조적 완화(`assessment_validity` 필드 분리)는 이 한 줄로
+   불필요해졌다 — 도입 안 함.
 
-재제출해 완료되면:
+6-case 배치(job 219992, gemma 백본)는 최종 **6/6 성공**. 종료조건 확인:
+**추론 가능한 술어는 `inferentially_supported`로 판정되고, 실제 불확정
+술어는 쟁점을 폐기하지 않은 채 provisional/verified 경로로 정상 전달된다.**
+(**목표를 `established`+`verified`로 두지 않았다** — 사용자 지시: 그렇게
+튜닝하면 과다추론으로 precision을 깎는다. `r14_p1_q2` 사기의 최종 결론은
+여전히 `not_established`이고, 그 결론 자체가 골드와 맞는지는 이번 스모크
+범위 밖.)
 
-1. **`sacct -j <새 잡ID>`로 완료 여부 확인.** 성공 시 결과는
-   `experiments/results/rule_ir_native_lean_predassess_smoke/{case_id}/` 6개
-   (`kcl_criminal_r10_p1_q1_ga`, `r14_p1_q2`, `r10_p2_q1`, `r12_p2_q1_da`,
-   `r10_p1_q2`, `r14_p2_q2` — 앞 둘은 job 219779와 동일 사례로 직접 대조 가능,
-   나머지 4개는 사기/횡령 계열 고의 대조 2건 + 인과관계 대조 2건). 로그:
-   `logs/ruleir_native_batch_219900.{out,err}`.
-2. **백본은 원래대로 로컬 vLLM `google/gemma-4-26B-A4B-it`** — job 219779와
-   동일 조건이라 직접 비교 가능. (세션 중간에 IDPR 생성 백본 자체를 Sonnet으로
-   바꿔 제출했다가 사용자 지적으로 40초 만에 취소한 해프닝 있음 — IDPR 생성
-   백본에 API 모델을 쓰는 일은 앞으로도 없어야 한다.)
-3. 확인할 것(사용자 지시, 답안 점수보다 먼저): `02_assessment_*.json`의
-   `raw_status`/`normalized_status`, `03_native_report.json`의
-   `trust_status`, `05_answer_raw.md`의 `VERDICT_MANIFEST`와
-   `06_verdict_consistency.json`(있다면) 대조. 특히 r14_p1_q2의 사기 쟁점이
-   이번엔 `established`+`verified`로 뜨는지, r10_p1_q1_ga의 주거침입/강간치상이
-   `verified`로 뜨는지.
-4. 문제없으면 **26문항 전체**를 같은 파이프라인(gemma 백본)으로 재실행해
-   원본 job 219779 출력과 비교(사용자 지시). 이것도 아직 새 judge 없이 raw
-   출력·trust_status 비교 목적으로 하는 것 — 재채점은 6단계(judge 재설계) 이후.
-5. 그다음 4~6단계(라우팅/하위쟁점 확장, 룰베이스 범위 보완, judge 재설계)로.
+**사고 기록 — RUN_DIR 재사용 함정**: 같은 `IDPR_RUN_DIR`로 여러 job을 연달아
+제출하면 실패한 이전 job이 남긴 `01_rejected_issues.json` 등이 안 지워진 채
+남아 최신 성공 결과와 섞여 보인다. 이번 세션에서 `r10_p2_q1`의 사기 쟁점이
+실제로는(fresh `03_native_report.json` 기준) 정상 실행됐는데, 이전 job의
+잔존 `01_rejected_issues.json`(mtime이 새 job 시작 시각보다 이전) 때문에
+한 번 강등된 것으로 오판할 뻔했다. 다음에 이 디렉터리를 다시 볼 때 파일
+mtime을 job 시작 시각과 대조할 것.
+
+**사용자 결정: 26문항 전체 재실행은 생략(필수 아님).** 원래 계획된 4번
+(전체 재실행·219779 비교)은 건너뛰고 바로 아래 4~6단계로 진행한다.
+
+**다음 세션 시작점: 4단계 — 라우팅 출력 확장.** 이 문서 맨 위 "다음 세션 작업
+순서" 목록의 2번(`required_subissues`/`conclusion_sensitive_facts`/
+`unresolved_branch_points`/`alternative_legal_routes`/`required_conclusions`
+반환) 참고. 1~3단계(술어평가 4-state, trust_status, 강제지시 분기)는 API
+실행까지 검증 완료됐으니 여기서부터.
 
 **이번 세션에 새로 만들었지만 아직 안 쓰는 것**: SKI-ML 게이트웨이 경유 Sonnet
 클라이언트(`src/idpr/neural/skiml_litellm_client.py`,

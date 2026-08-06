@@ -374,7 +374,12 @@ def predicate_assessment_schema(
     assessment = {
         "type": "object",
         "additionalProperties": False,
-        "required": ["status", "source_quotes", "missing_facts"],
+        "required": [
+            "status",
+            "source_quotes",
+            "missing_facts",
+            "inference_rationale",
+        ],
         "properties": {
             "status": {"enum": sorted(ASSESSMENT_STATUSES)},
             "source_quotes": {
@@ -385,22 +390,24 @@ def predicate_assessment_schema(
                 "type": "array",
                 "items": {"type": "string", "minLength": 1},
             },
-            "inference_rationale": {"type": "string", "minLength": 1},
+            # No minLength: this key has to be unconditionally required so the
+            # guidance backend's structured-output grammar forces the model to
+            # emit it (that grammar has no if/then to require it only for
+            # inferentially_supported, see note below), but every other status
+            # legitimately has nothing to say here, so empty string must be
+            # valid at the schema level. Non-emptiness for
+            # inferentially_supported is enforced in
+            # validate_predicate_assessment() instead.
+            "inference_rationale": {"type": "string"},
         },
         # inferentially_supported is the one status that draws a conclusion the
         # case text never states outright; without a mandatory rationale field
         # there is nothing later to audit *why* an inference was drawn, and no
         # way to tell an intent inferred from clear conduct apart from one the
-        # assessor talked itself into.
-        "if": {"properties": {"status": {"const": "inferentially_supported"}}},
-        "then": {
-            "required": [
-                "status",
-                "source_quotes",
-                "missing_facts",
-                "inference_rationale",
-            ]
-        },
+        # assessor talked itself into. This has to be enforced in
+        # validate_predicate_assessment() rather than a JSON Schema if/then here:
+        # vLLM's guidance structured-output backend rejects if/then with
+        # "Grammar error: Unimplemented keys" (job 219978, 2026-08-06).
     }
     return {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -499,6 +506,12 @@ def validate_predicate_assessment(
                 if missing:
                     errors.append(
                         f"{predicate_id}: {status} cannot declare missing facts"
+                    )
+            if status == "inferentially_supported":
+                rationale = item.get("inference_rationale", "")
+                if not isinstance(rationale, str) or not rationale.strip():
+                    errors.append(
+                        f"{predicate_id}: inferentially_supported requires inference_rationale"
                     )
             elif status == "genuinely_unresolved" and not missing:
                 errors.append(

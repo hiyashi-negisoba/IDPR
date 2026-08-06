@@ -27,7 +27,10 @@
   원문 부분문자열을 `source_quotes`에 하나 이상 쓴다.
 - `genuinely_unresolved`: `case_text`의 행위·정황을 전부 살펴도 명시적 서술도, 정황상
   다른 해석의 여지 없는 추론도, 반대 사실도 없다. 필요한 구체적 사람·행위·인식·결과 사실을
-  `missing_facts`에 하나 이상 쓴다.
+  `missing_facts`에 하나 이상 쓴다. 이 predicate가 다루는 사안 유형 자체가 이 사건과
+  무관해 보이더라도 `missing_facts`를 비워두지 않는다 — 그 predicate를 판단하려면
+  사건 사실 중 어떤 구체적 사실이 추가로 확인돼야 하는지를 적는다(예: "사건 사실에
+  광고·표시를 통한 기망 여부가 서술되지 않음"). "해당 없음"처럼 판단 결과만 적지 않는다.
 - "문장으로 직접 서술되어 있지 않다"는 사실 그 자체는 `genuinely_unresolved`의 근거가
   아니다. 정황상 다른 해석의 여지가 없다면 `inferentially_supported`를 쓴다 —
   `inferentially_supported`를 확신이 낮다는 이유로 `genuinely_unresolved`로 낮추지 않는다.

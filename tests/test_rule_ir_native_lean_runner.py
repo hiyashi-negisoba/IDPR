@@ -39,6 +39,7 @@ def _assessment(unit_id: str, scenario: dict[str, Any]) -> dict[str, Any]:
             "status": status,
             "source_quotes": [CASE_TEXT] if legacy_status != "unknown" else [],
             "missing_facts": ["판단에 필요한 구체적 사실"] if legacy_status == "unknown" else [],
+            "inference_rationale": "",
         }
     roles = {
         argument["name"]: scenario[argument["name"]]

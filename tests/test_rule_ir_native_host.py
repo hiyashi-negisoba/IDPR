@@ -72,6 +72,7 @@ def _assessment(unit_id: str, scenario: dict, *, issue_id: str) -> dict:
             "status": status,
             "source_quotes": [CASE_TEXT] if legacy_status != "unknown" else [],
             "missing_facts": ["판단에 필요한 구체적 사실"] if legacy_status == "unknown" else [],
+            "inference_rationale": "",
         }
     return {
         "version": "1.0.0",
