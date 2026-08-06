@@ -16,10 +16,21 @@ FOL 답안 하나를 반례로 지목했다. 다음 세션은 여기서 시작�
 (rule-base 범위 보완)로 이동한다(사용자 지시).**
 
 **5단계 후보 — 출처 등급을 나눠서 볼 것 (아래 "sealed-59 오염 정책" 절 참고)**:
-- **A등급(정당, 바로 착수 가능): 살인교사·공모관계.** `declared_not_compiled`로
+- **A등급(범위 제외, 9월로 이관): 살인교사·공모관계.** `declared_not_compiled`로
   2026-08-04자 `docs/review/2026-08-04_homicide_legal_gate_01.md` 등에 이번 세션 전에
-  이미 문서화된 공백 — sealed case를 읽어서 발견한 게 아니다.
-- **B등급(공백 자체는 정당, 우선순위 근거만 오염): 강도상해·강도치상 결합범.**
+  이미 문서화된 공백 — sealed case를 읽어서 발견한 게 아니라 출처 자체는 정당했다.
+  다만 조사 결과 이건 살인 단일 unit 카드 몇 장으로 끝나는 게 아니라 **형법 총칙
+  공범(30~34조: 공동정범/교사/방조) 자체를 다루는 shared module 설계**가 필요한
+  작업임이 드러났다(같은 파일의 `intentional_bodily_injury.concurrent_offenders`,
+  제263조 동시범 특례도 같은 이유로 `declared_not_compiled` — 공범 총칙 문제는
+  살인 하나에 국한되지 않는다). **사용자 결정(2026-08-06): 총칙 쟁점·절차법은
+  8/11 NLLP 스코프가 아니다. 9월 프로젝트로 이관, 이번엔 손대지 않는다.** 별도
+  코드 변경 불필요 — `rule_ir_native_issue_select.md`가 이미 "독립 등록 unit이
+  없으면 `unit_id=unsupported`로 별도 issue를 만들고 writer가 자율 논증"하도록
+  설계돼 있어, 이 쟁점들은 계속 그 기존 경로(모델의 자유 서술)로 처리된다 —
+  이번 결정은 "만들지 않는다"는 것이지 "답안에서 빠진다"는 게 아니다.
+- **B등급(8/11 스코프 내, 유일한 활성 후보): 강도상해·강도치상 결합범.** 총칙이
+  아니라 각칙(강도죄) unit의 결과적 가중 트랙이므로 위 이관 대상이 아니다.
   `data/rulegen/property/rule_ir_units/robbery.json`에 art337/338 norm card가 이미
   추출돼 있고, `data/rulegen/rule_ir_registry_manifest.json`의 `robbery` unit
   `query_relations`엔 `robbery_established/not_established/...`만 있고 상해·사망
