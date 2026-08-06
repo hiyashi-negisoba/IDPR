@@ -600,6 +600,65 @@ r13_p1_q1·r14_p1_q1·r14_p1_q2, `scripts/summarize_routing_regression.py`)**:
 Anthropic 네이티브 인증 경로로 새서 401). **judge 백본 교체(6단계) 전까지는
 쓰지 않는다** — IDPR 생성 파이프라인에는 절대 쓰지 않는다.
 
+### judge 재설계 6단계 + 61개 전체 재평가 착수 (같은 세션 후속, 2026-08-07)
+
+**judge 프롬프트/하니스 변경 (전부 커밋 완료)**:
+- `prompts/phase3_kcl_pointwise_judge.md` Consistency 절에 순환논증 방지 규칙
+  추가(`c4d4e69`) — 형식논리(Z3/FOL/Scallop 등)가 결론과 같은 명제를 전제로
+  먼저 넣고 그 전제 성립을 결론 검증인 것처럼 재서술하면 4점 불가. FOL
+  r10_p1_q1_ga 답안(dev case)으로 Sonnet 스모크 테스트: consistency
+  85.96(Gemini 구버전 평균) 상당의 사례가 새 judge+백본에서는 0.5/4점대로
+  나오고, 위반 사유가 실제 Z3 `s.add(...)` 코드를 인용해 대조하기 시작함.
+- Coverage에 `partially_met`(0.5) 추가(`bacd211`) — schema, 프롬프트,
+  `rubric.py`(`Verdict` "P", `apply_safeguards`/`score_answer`를 0/0.5/1
+  float로 일반화, 근거인용·조문게이트 세이프가드는 O와 동일 적용),
+  `phase3_judge.py`. sp_qwen 원본은 순수 이진이라 포팅 대상이 아니라 IDPR
+  신규 확장.
+- `scripts/run_phase3_llm_judge.py`에 `--backend {gemini,sonnet}` 추가(`7537d68`,
+  `e70c744`) — sonnet은 기존 범용 `LLMGateway`(SKI-ML/LiteLLM,
+  `custom_llm_provider="openai"`)를 그대로 재사용, 새 클라이언트 없음.
+  `LLMGateway.transport` 클래스 속성 추가로 "이미 채점됨" 재사용 판정이
+  백본별로 정확히 갈림(Gemini 결과가 Sonnet 전환 시 자동으로 재채점 대상이
+  됨). 스모크(FOL×r10) 실제 API로 end-to-end 검증 완료, `partially_met`가
+  실제 채점에서 살아있게 쓰임을 확인.
+
+**5단계 스코프 조정(`913a404`)**: 살인교사·공모관계(총칙 공범)가 shared
+module 설계를 요구하는 큰 작업임이 드러나 9월 프로젝트로 이관 — 사용자
+결정. 절차법도 마찬가지로 이번 스코프 아님(`data/rulegen/procedure/`엔
+스코프 견적만 있고 카드 코퍼스 없음, 착수 전 상태 확인함). 8/11 스코프에는
+손대지 않는다 — 기존 설계(`unit_id=unsupported` → writer 자율 논증)로 계속
+처리.
+
+**재평가 대상 확정: 26개도 sealed-59도 아니라 61개 전체.** 사용자 결정
+순서: 처음엔 26개(실체법 전용 curated set, job 219779) 제안 → sealed-59로
+돌리면 26 중 24개는 자동 커버된다는 지적 → **아예 61개(sealed-59 + dev
+case 2개) 전체를 풀기로 최종 결정**. dev case를 이 재평가에 포함하는 것도
+이번 세션 명시적 사용자 결정 — 평소의 "디버깅만 dev case, 채점은 sealed"
+구분과 다르게, 이번 61개 전체 평가는 예외로 취급.
+
+**진행 중인 job 2개(2026-08-07 제출)**:
+1. **job 220075** (`scripts/slurm/run_phase3_llm_judge_sonnet.sh`) — 기존
+   baseline 7개(idpr_nsn 제외 — 기존 산출물이 59개뿐이라 61개 계약을 못
+   채움) 산출물을 새 judge 프롬프트 + `anthropic/claude-sonnet-4-6`로
+   재채점. `--reasoning-effort low --max-tokens 16384`(terra/sol 기존
+   비용통제 관행 그대로 적용 — 사용자가 토큰비용 절감 요청). 출력:
+   `experiments/results/phase3_judge_sonnet/`.
+2. **job 220076** (`scripts/slurm/run_rule_ir_native_lean_batch.sh`,
+   `IDPR_CASE_LIST=.cache/rule_ir_native_lean_61/case_list.txt`) — IDPR
+   자체 답안을 현재 코드 버전(4단계 라우팅 확장까지 반영, decision-avoidance
+   버그는 미해결 채로)으로 61개 전체 재생성. 완료 후 결과 경로는
+   `IDPR_RUN_DIR=experiments/results/rule_ir_native_lean_61_<제출일>`.
+
+**220076 완료 후 남은 작업(다음 세션 또는 job 완료 후)**: idpr_nsn만 별도로
+`run_phase3_llm_judge_sonnet.sh`와 같은 설정(backend=sonnet, 61개, 새
+프롬프트)으로 채점 — 새로 생성된 61개 답안을 baseline judge 산출물과 합쳐야
+전체 8-method 비교표가 완성된다. 이 답안을 `data/eval/phase3_method_outputs.json`의
+`idpr_nsn` 경로에 연결하거나 별도 methods manifest로 채점할지 결정 필요.
+
+**사용자 방침(진행 중 확인)**: 기존 baseline 산출물 중 일부는 파이프라인
+오류로 답안이 잘려서 일부만 남아있는 게 있음 — 이건 그대로 두고 판정
+결과에서 자연스럽게 페널티로 반영되게 둔다. 별도로 고치거나 제외하지 않음.
+
 ---
 
 ## 이 세션에 반영된 것 (커밋 대상, 미완료 항목은 아래 "장물죄" 절 참고)
