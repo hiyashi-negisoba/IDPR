@@ -52,6 +52,11 @@ STAGES = {
             "legal_labels",
             "closest_allowed_unit_ids",
             "unsupported_reason",
+            # Job 220070's regression batch found the router naming the
+            # correct unit in closest_allowed_unit_ids and still discarding
+            # it over indirect/joint-principal uncertainty (docs/handoff/
+            # CURRENT.md "라우팅 정확도" 회귀 배치 결과) — this line is the fix.
+            "참여형태·가담정도",
         ),
     },
     "predicate_assess": {
