@@ -10,6 +10,7 @@ Scallop program is part of this path.
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -30,11 +31,46 @@ from idpr.rulegen.scallop_runtime import (
 
 
 DEFAULT_SCLI = PROJECT_ROOT / "tools/scallop/scli-0.2.4-linux-x86_64"
-ASSESSMENT_STATUSES = frozenset({"satisfied", "not_satisfied", "unknown"})
+# A 3-state {satisfied, not_satisfied, unknown} grammar let the assessor collapse
+# every inferential element (intent, foreseeability, causation) into "unknown"
+# whenever the case text lacked a sentence naming the mental state outright — which
+# is always, since exam fact patterns narrate conduct, not inner states (see r10/r14
+# in docs/handoff/CURRENT.md). Splitting "satisfied" into an explicit and an
+# inferential path forces the model to notice the difference instead of defaulting
+# past it; both normalize to the same Scallop fact, so the split costs nothing
+# downstream.
+ASSESSMENT_STATUSES = frozenset(
+    {
+        "explicitly_supported",
+        "inferentially_supported",
+        "contradicted",
+        "genuinely_unresolved",
+    }
+)
+_ASSESSMENT_STATUS_NORMALIZATION = {
+    "explicitly_supported": "satisfied",
+    "inferentially_supported": "satisfied",
+    "contradicted": "not_satisfied",
+    "genuinely_unresolved": "unknown",
+}
 
 
 class NativeHostError(ValueError):
     """A closed host contract was violated before symbolic execution."""
+
+
+def normalize_assessment_status(status: str) -> str:
+    """Collapse the 4-state evidentiary-basis grammar to the 3-state Scallop fact.
+
+    Scallop and every legacy consumer of ``evidence[...]['status']`` only know
+    satisfied/not_satisfied/unknown; the explicit/inferential distinction exists to
+    change what the assessor writes, not what the symbolic layer runs on.
+    """
+
+    try:
+        return _ASSESSMENT_STATUS_NORMALIZATION[status]
+    except KeyError:
+        raise NativeHostError(f"unrecognized assessment status: {status!r}") from None
 
 
 def closed_unit_catalog(*, root: Path = PROJECT_ROOT) -> list[dict[str, Any]]:
@@ -349,6 +385,21 @@ def predicate_assessment_schema(
                 "type": "array",
                 "items": {"type": "string", "minLength": 1},
             },
+            "inference_rationale": {"type": "string", "minLength": 1},
+        },
+        # inferentially_supported is the one status that draws a conclusion the
+        # case text never states outright; without a mandatory rationale field
+        # there is nothing later to audit *why* an inference was drawn, and no
+        # way to tell an intent inferred from clear conduct apart from one the
+        # assessor talked itself into.
+        "if": {"properties": {"status": {"const": "inferentially_supported"}}},
+        "then": {
+            "required": [
+                "status",
+                "source_quotes",
+                "missing_facts",
+                "inference_rationale",
+            ]
         },
     }
     return {
@@ -433,7 +484,6 @@ def validate_predicate_assessment(
             quotes = item.get("source_quotes", [])
             missing = item.get("missing_facts", [])
             if isinstance(quotes, list):
-                import re
                 for quote in quotes:
                     if isinstance(quote, str):
                         parts = [p.strip() for p in re.split(r"[\s\.]+", quote) if len(p.strip()) >= 2]
@@ -441,7 +491,7 @@ def validate_predicate_assessment(
                             errors.append(
                                 f"{predicate_id}: source quote is not in case text: {quote!r}"
                             )
-            if status in {"satisfied", "not_satisfied"}:
+            if status in {"explicitly_supported", "inferentially_supported", "contradicted"}:
                 if not quotes:
                     errors.append(
                         f"{predicate_id}: {status} requires at least one source quote"
@@ -450,9 +500,9 @@ def validate_predicate_assessment(
                     errors.append(
                         f"{predicate_id}: {status} cannot declare missing facts"
                     )
-            elif status == "unknown" and not missing:
+            elif status == "genuinely_unresolved" and not missing:
                 errors.append(
-                    f"{predicate_id}: unknown requires at least one missing fact"
+                    f"{predicate_id}: genuinely_unresolved requires at least one missing fact"
                 )
     if errors:
         raise NativeHostError("; ".join(errors))
@@ -496,18 +546,26 @@ def execute_native_unit(
     for index, predicate in enumerate(entry.commentary_inputs, 1):
         predicate_id = predicate["id"]
         item = assessment_payload["assessments"][predicate_id]
+        normalized_status = normalize_assessment_status(item["status"])
         scenario_assessments.append(
             {
                 "assessment_id": f"assessment_{index:04d}",
                 "card_id": card_by_predicate[predicate_id],
-                "status": item["status"],
+                "status": normalized_status,
                 "provable": True,
             }
         )
         evidence[predicate_id] = {
             "definition": str(predicate.get("definition", predicate_id)),
             "norm_card_id": card_by_predicate[predicate_id],
-            "status": item["status"],
+            # Both the 4-state claim the assessor actually made and what it
+            # collapses to for Scallop are kept, on purpose: if a rerun's
+            # outcome changes, this is what lets later analysis tell whether
+            # the change came from a plain new fact or from now allowing an
+            # inference that wasn't allowed before.
+            "raw_status": item["status"],
+            "normalized_status": normalized_status,
+            "inference_rationale": item.get("inference_rationale", ""),
             "source_quotes": list(item["source_quotes"]),
             "missing_facts": list(item["missing_facts"]),
         }
@@ -651,6 +709,106 @@ def execute_native_unit(
     }
 
 
+# A unit result's own ``status``/``symbolic_conclusion`` already say everything the
+# writer needs to know about how much weight a conclusion deserves; this is just
+# naming that distinction so the write-stage prompt can stop giving every executed
+# result — established, not_established, or undetermined alike — the same
+# "반드시 그대로 따른다" force (docs/handoff/CURRENT.md, r14 사기/횡령 사례).
+_PROVISIONAL_CONCLUSIONS = frozenset({"undetermined", "conflict", "no_derived_outcome"})
+_DECISIVE_CONCLUSIONS = frozenset({"established", "not_established"})
+
+
+def _collect_critical_predicates(
+    proof_dag: Mapping[str, Any] | None, start_relations: Sequence[str]
+) -> set[str]:
+    """Walk the Scallop proof tree from a fired relation down to its ``assess_*`` leaves.
+
+    Every registered predicate for a unit is assessed regardless of whether the
+    facts implicate it at all — that is the completeness contract in
+    prompts/rule_ir_native_predicate_assess.md — so a unit with dozens of
+    predicates usually has several that are legitimately
+    ``genuinely_unresolved`` and have nothing to do with why a given conclusion
+    fired. Only the predicates the derivation actually used are verdict-critical.
+    """
+
+    proof_tree = (proof_dag or {}).get("proof_tree") or {}
+    critical: set[str] = set()
+    seen: set[str] = set()
+
+    def visit(relation: str) -> None:
+        if relation in seen:
+            return
+        seen.add(relation)
+        entries = proof_tree.get(relation)
+        if entries is None:
+            if relation.startswith("assess_"):
+                critical.add(relation)
+            return
+        for entry in entries:
+            for antecedent in entry.get("antecedents", []):
+                visit(str(antecedent))
+
+    for relation in start_relations:
+        visit(relation)
+    return critical
+
+
+def _is_cleanly_derived(result: Mapping[str, Any], relation: str) -> bool:
+    """True if no predicate the derivation of ``relation`` actually used was left unresolved."""
+
+    critical = _collect_critical_predicates(result.get("proof_dag"), [relation])
+    if not critical:
+        # No traceable proof structure reached this relation — this is a gap in
+        # what the committed Scallop program records, not evidence of cleanliness.
+        return False
+    evidence = result.get("assessment_evidence") or {}
+    return not any(
+        evidence.get(predicate_id, {}).get("raw_status") == "genuinely_unresolved"
+        for predicate_id in critical
+    )
+
+
+def classify_symbolic_trust(result: Mapping[str, Any]) -> str:
+    """Rate how much weight a unit's outcome deserves in the generation prompt.
+
+    - ``verified``: executed to a decisive established/not_established, and at
+      least one derivation of it used no predicate that was left
+      ``genuinely_unresolved``. Allowing ``inferentially_supported`` predicates
+      is not by itself disqualifying — normalized, they carry the same weight
+      as an explicit quote — but a conclusion that only goes through on the
+      back of an unresolved element cannot be trusted just because Scallop
+      happened to fire it; some RuleIR cards gate on "not proven otherwise"
+      rather than requiring an affirmative fact, so an unresolved predicate can
+      silently pass.
+    - ``provisional``: executed, but a required element stayed unresolved
+      (undetermined/conflict/no_derived_outcome), or a decisive conclusion did
+      fire but not through a cleanly-derived path — a legitimate open
+      question, not a broken pipeline.
+    - ``unsupported``: no registered RuleIR exists for the unit at all — a
+      coverage gap, not a pipeline defect.
+    - ``invalid``: the run never produced a real answer for any other reason — a
+      missing dependency or a symbolic-execution failure. This carries no legal
+      signal at all and must not be handed to the writer as if it did.
+    """
+
+    if result.get("status") == "predicate_ir_missing":
+        return "unsupported"
+    if result.get("status") != "executed":
+        return "invalid"
+    conclusion = result.get("symbolic_conclusion")
+    if conclusion not in _DECISIVE_CONCLUSIONS:
+        return "provisional"
+    if conclusion == "established":
+        clean = any(
+            _is_cleanly_derived(result, relation)
+            for relation in result.get("established_relations") or []
+        )
+    else:
+        unit_id = str(result.get("unit_id", ""))
+        clean = _is_cleanly_derived(result, f"{unit_id}_not_established")
+    return "verified" if clean else "provisional"
+
+
 def execute_native_case(
     *,
     case_id: str,
@@ -736,6 +894,7 @@ def execute_native_case(
             "issue_id": issue_id,
             "unit_id": result["unit_id"],
             "symbolic_conclusion": result["symbolic_conclusion"],
+            "trust_status": classify_symbolic_trust(result),
             "established_relations": result["established_relations"],
             "referred_crimes": result["referred_crimes"],
             "waived_requirements": result["waived_requirements"],
@@ -756,6 +915,7 @@ def execute_native_case(
             "issue_id": issue_id,
             "unit_id": result.get("unit_id", ""),
             "status": result.get("status", "unknown"),
+            "trust_status": classify_symbolic_trust(result),
             "blocked_by": list(result.get("unavailable", [])),
         }
         for issue_id, result in results.items()
@@ -771,6 +931,68 @@ def execute_native_case(
             "model_may_override_symbolic_conclusion": False,
         },
     }
+
+
+_VERDICT_MANIFEST_PATTERN = re.compile(r"<!--\s*VERDICT_MANIFEST(.*?)-->", re.DOTALL)
+_CHECKABLE_CONCLUSIONS = frozenset({"established", "not_established"})
+
+
+def parse_verdict_manifest(answer_markdown: str) -> dict[str, str]:
+    """Read the writer's own stated verdict per issue from its trailing comment.
+
+    The legal prose above is free-form and unparseable by design; this comment
+    block is the one part of the writer's output that is a contract, not an essay.
+    """
+
+    match = _VERDICT_MANIFEST_PATTERN.search(answer_markdown)
+    if not match:
+        return {}
+    verdicts: dict[str, str] = {}
+    for line in match.group(1).strip().splitlines():
+        line = line.strip()
+        if not line or ":" not in line:
+            continue
+        issue_id, verdict = line.split(":", 1)
+        verdicts[issue_id.strip()] = verdict.strip()
+    return verdicts
+
+
+def strip_verdict_manifest(answer_markdown: str) -> str:
+    """Remove the machine trailer before the prose reaches a reader or a judge."""
+
+    stripped = _VERDICT_MANIFEST_PATTERN.sub("", answer_markdown)
+    return stripped.rstrip() + "\n"
+
+
+def check_verdict_consistency(
+    *, answer_markdown: str, directives: Sequence[Mapping[str, Any]]
+) -> list[dict[str, str]]:
+    """Flag every ``verified`` directive the writer's own stated verdict contradicts.
+
+    ``generation_contract.model_may_override_symbolic_conclusion`` has said False
+    since this field existed, but nothing ever checked it — a writer could silently
+    disagree with a verified conclusion (or, as in the r14 사기 사례 in
+    docs/handoff/CURRENT.md, assert one conclusion in its own reasoning and then
+    state the opposite one) and no one would know without reading the prose by
+    hand. This does not correct or regenerate anything; it only records the
+    mismatch so a case with one is not mistaken for a clean run.
+    """
+
+    stated = parse_verdict_manifest(answer_markdown)
+    contradictions: list[dict[str, str]] = []
+    for directive in directives:
+        if directive.get("trust_status") != "verified":
+            continue
+        expected = str(directive.get("symbolic_conclusion"))
+        if expected not in _CHECKABLE_CONCLUSIONS:
+            continue
+        issue_id = str(directive["issue_id"])
+        actual = stated.get(issue_id, "missing")
+        if actual != expected:
+            contradictions.append(
+                {"issue_id": issue_id, "expected": expected, "stated": actual}
+            )
+    return contradictions
 
 
 def _schema_errors(

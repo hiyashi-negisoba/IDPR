@@ -9,8 +9,8 @@
 | stage | system SHA-256 | user SHA-256 | 계약 문구 |
 |---|---|---|---|
 | `issue_select` | `a4955e7bdca52a92ac0359d3fcc83bc9c5c94e829b5d72b664f034c7aa679f8c` | `c1aff928ddba42c5fe7b6327f2525214445bda94c6326180da8327eedbfa49fb` | pass |
-| `predicate_assess` | `fb4cc49f7b1026b97f2b2a6aae0a47b8003e499190687bc231ed61e58dd50bef` | `f360b2d08bcf062dcac97696b5849d7c9635bbd04f25eb59252e67f2b79568b2` | pass |
-| `section_write` | `2f8d22af6b6dffe733a8128c6c6bef3dcb2b48ebe23e398728e3ac2fa69d8642` | `e7a3ca08b2fe519973b176dd058135041dda95fa8cef5cdbefbcb807348a1680` | pass |
+| `predicate_assess` | `71f566062a78cc3dd03e66a19d27da002e4a4f9e342a4e1104a394300a53c1f7` | `f360b2d08bcf062dcac97696b5849d7c9635bbd04f25eb59252e67f2b79568b2` | pass |
+| `section_write` | `48c7b60b4975ba89ffc38780a88717a46a81d54fadbf01e3b98bfa265a85afdf` | `e7a3ca08b2fe519973b176dd058135041dda95fa8cef5cdbefbcb807348a1680` | pass |
 
 ## 불변식
 

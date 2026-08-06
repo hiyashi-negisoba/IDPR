@@ -32,11 +32,13 @@ from idpr.prompts import load_prompt, prompt_path  # noqa: E402
 from idpr.rulegen.native_host import (  # noqa: E402
     DEFAULT_SCLI,
     NativeHostError,
+    check_verdict_consistency,
     closed_issue_selection_schema,
     closed_unit_catalog,
     execute_native_case,
     predicate_assessment_schema,
     selected_predicate_requests,
+    strip_verdict_manifest,
     validate_closed_issue_selection,
     validate_predicate_assessment,
 )
@@ -118,144 +120,191 @@ _VERDICT_TEXT = {
 _EVIDENCE_LIMIT = 12
 
 
+def _render_directive_block(
+    directive: Mapping[str, Any], *, label: str, tier: str
+) -> str:
+    """Render one executed issue's Scallop result as a Korean brief block.
+
+    ``tier`` is "verified" (established/not_established from a clean derivation —
+    follow it absolutely) or "provisional" (undetermined/conflict/no_derived_outcome
+    — a required element stayed unresolved, so this is a leaning, not a verdict).
+    Collapsing both into one "반드시 그대로 따른다" instruction is what let a wrong
+    ``not_established`` from a single mis-assessed predicate reach the answer with
+    the same absolute force as a clean one (docs/handoff/CURRENT.md, r14 사기 사례).
+    """
+
+    issue_id = str(directive["issue_id"])
+    conclusion = str(directive["symbolic_conclusion"])
+    verdict_text = _VERDICT_TEXT.get(conclusion, conclusion)
+    if tier == "verified":
+        lines = [
+            f"### 죄명: {label} [issue_id: {issue_id}]",
+            f"- **확정 결론: {verdict_text}** "
+            "(이 결론은 검증된 규칙 추론의 산물이므로 반드시 그대로 따른다)",
+        ]
+    else:
+        lines = [
+            f"### 죄명: {label} [issue_id: {issue_id}] (잠정 결론)",
+            f"- **잠정 결론: {verdict_text}** (규칙 추론이 일부 요건을 확정하지 못해 "
+            "나온 잠정적 결과다. 이 결론을 기본 방향으로 삼되, 사실관계상 다른 결론이 "
+            "분명히 타당하다면 근거를 밝혀 대안을 논증하고 그 대안을 결론으로 삼아도 된다)",
+        ]
+    _append_directive_detail(lines, directive, conclusion)
+    return "\n".join(lines)
+
+
+def _append_directive_detail(
+    lines: list[str], directive: Mapping[str, Any], conclusion: str
+) -> None:
+    """Append the referred-crime/waiver/annotation/evidence detail shared by both tiers."""
+
+    referred = [str(name) for name in directive.get("referred_crimes", []) if name]
+    if referred:
+        lines.append(
+            "- **이 죄가 아니라 다음 죄로 평가된다: "
+            + ", ".join(referred)
+            + "** — 이 죄의 불성립으로 끝내지 말고, 넘어간 죄의 성부를 반드시 "
+            "이어서 논증하고 결론까지 내려라."
+        )
+    # ``unmet_requirements`` stays in the report as survey data for the card
+    # gaps it exposes, but it is deliberately kept out of the brief: two
+    # variants of showing it to the writer both scored below the baseline
+    # (7.0 -> 6.5 -> 6.0 on the 27-item rubric).
+    waived = [str(name) for name in directive.get("waived_requirements", []) if name]
+    if waived:
+        lines.append(
+            "- 이 죄의 성립에 요구되지 않는 것으로 확인된 요건(불성립 사유가 아니다): "
+            + ", ".join(waived)
+        )
+    annotations = directive.get("annotations", {}) or {}
+    standards = [str(name) for name in annotations.get("assessment_standard", []) if name]
+    if standards:
+        # The standard tells the reader how the element is measured.  It must
+        # not become a licence to re-decide the element: the verdict above
+        # already owns that, and a model that concludes from a definition has
+        # taken the decision back from the symbolic layer.
+        lines.append(
+            "- 다음 요건에는 판단기준 카드가 적용된다(기준일 뿐 충족 여부의 결론이 아니다. "
+            "기준을 설명하는 데만 쓰고, 이를 근거로 위 결론과 다른 판단을 하지 마라): "
+            + ", ".join(standards)
+        )
+    proofs = [str(name) for name in annotations.get("proof_standard", []) if name]
+    if proofs:
+        lines.append(
+            "- 유죄 인정을 위해 증명이 요구되는 사항(구성요건 자체가 아니다): "
+            + ", ".join(proofs)
+        )
+    subtypes = [str(name) for name in annotations.get("subtype_outcome", []) if name]
+    if subtypes:
+        lines.append(
+            "- 같은 죄 안에서 적용되는 유형: " + ", ".join(subtypes)
+            + " (죄 전체의 성립 여부는 위 결론 그대로다)"
+        )
+    post = [str(name) for name in annotations.get("post_outcome", []) if name]
+    details = [
+        f"{item.get('key')}={item.get('value')}"
+        for item in directive.get("outcome_details", []) or []
+        if item.get("key")
+    ]
+    if post or details:
+        lines.append(
+            "- 구성요건 판단 뒤에 오는 죄수·처벌 효과"
+            + (f" [{', '.join(post)}]" if post else "")
+            + (f": {', '.join(details)}" if details else "")
+            + " — 불가벌적 사후행위는 구성요건 불성립이 아니라 별도 처벌만 배제되는 것이므로 "
+            "그렇게 구분해 서술하라."
+        )
+    evidence = directive.get("evidence", {}) or {}
+    met = [
+        str(item.get("definition", ""))
+        for item in evidence.values()
+        if item.get("normalized_status") == "satisfied"
+    ]
+    denied = [
+        str(item.get("definition", ""))
+        for item in evidence.values()
+        if item.get("normalized_status") == "not_satisfied"
+    ]
+    undetermined = [
+        str(item.get("definition", ""))
+        for item in evidence.values()
+        if item.get("normalized_status") == "unknown"
+    ]
+    if met:
+        lines.append("- 사실관계상 인정된 요건:")
+        lines += [f"  - {text}" for text in met[:_EVIDENCE_LIMIT]]
+    if denied:
+        lines.append("- 적극적으로 부정된 요건:")
+        lines += [f"  - {text}" for text in denied[:_EVIDENCE_LIMIT]]
+    if undetermined and conclusion != "established":
+        lines.append("- 사실관계만으로 확인되지 않은 요건:")
+        lines += [f"  - {text}" for text in undetermined[:_EVIDENCE_LIMIT]]
+
+
 def _render_verdict_brief(
     *,
     directives: Sequence[Mapping[str, Any]],
-    skipped: Sequence[Mapping[str, Any]],
     unsupported: Sequence[Mapping[str, Any]],
+    invalid: Sequence[Mapping[str, Any]],
     labels: Mapping[str, str],
 ) -> str:
-    """Render symbolic results as a Korean brief.
+    """Render symbolic results as a Korean brief, tiered by how much they deserve.
 
-    The writer used to receive the raw contract JSON, which both buried the
-    reason behind a verdict under 88 predicate entries and leaked internal
-    vocabulary (``Scallop``, relation names) into the finished prose.
+    Four tiers, not two: ``verified``/``provisional`` executed conclusions each
+    get their own directive block (see ``_render_directive_block``); ``unsupported``
+    (no registered RuleIR for the unit at all) and ``invalid`` (routing/assessment
+    contract violations, missing shared-module dependencies, symbolic execution
+    failures) are both handed to the writer as pure autonomous reasoning, but kept
+    in separate sections so a coverage gap and a pipeline defect are not read as
+    the same kind of finding when this brief is inspected later.
     """
 
     blocks: list[str] = []
     for directive in directives:
         issue_id = str(directive["issue_id"])
         label = labels.get(issue_id) or str(directive["unit_id"])
-        conclusion = str(directive["symbolic_conclusion"])
-        lines = [
-            f"### 죄명: {label}",
-            f"- **확정 결론: {_VERDICT_TEXT.get(conclusion, conclusion)}** "
-            "(이 결론은 검증된 규칙 추론의 산물이므로 반드시 그대로 따른다)",
-        ]
-        referred = [str(name) for name in directive.get("referred_crimes", []) if name]
-        if referred:
-            lines.append(
-                "- **이 죄가 아니라 다음 죄로 평가된다: "
-                + ", ".join(referred)
-                + "** — 이 죄의 불성립으로 끝내지 말고, 넘어간 죄의 성부를 반드시 "
-                "이어서 논증하고 결론까지 내려라."
-            )
-        # ``unmet_requirements`` stays in the report as survey data for the card
-        # gaps it exposes, but it is deliberately kept out of the brief: two
-        # variants of showing it to the writer both scored below the baseline
-        # (7.0 -> 6.5 -> 6.0 on the 27-item rubric).
-        waived = [str(name) for name in directive.get("waived_requirements", []) if name]
-        if waived:
-            lines.append(
-                "- 이 죄의 성립에 요구되지 않는 것으로 확인된 요건(불성립 사유가 아니다): "
-                + ", ".join(waived)
-            )
-        annotations = directive.get("annotations", {}) or {}
-        standards = [str(name) for name in annotations.get("assessment_standard", []) if name]
-        if standards:
-            # The standard tells the reader how the element is measured.  It must
-            # not become a licence to re-decide the element: the verdict above
-            # already owns that, and a model that concludes from a definition has
-            # taken the decision back from the symbolic layer.
-            lines.append(
-                "- 다음 요건에는 판단기준 카드가 적용된다(기준일 뿐 충족 여부의 결론이 아니다. "
-                "기준을 설명하는 데만 쓰고, 이를 근거로 위 확정 결론과 다른 판단을 하지 마라): "
-                + ", ".join(standards)
-            )
-        proofs = [str(name) for name in annotations.get("proof_standard", []) if name]
-        if proofs:
-            lines.append(
-                "- 유죄 인정을 위해 증명이 요구되는 사항(구성요건 자체가 아니다): "
-                + ", ".join(proofs)
-            )
-        subtypes = [str(name) for name in annotations.get("subtype_outcome", []) if name]
-        if subtypes:
-            lines.append(
-                "- 같은 죄 안에서 적용되는 유형: " + ", ".join(subtypes)
-                + " (죄 전체의 성립은 위 확정 결론 그대로다)"
-            )
-        post = [str(name) for name in annotations.get("post_outcome", []) if name]
-        details = [
-            f"{item.get('key')}={item.get('value')}"
-            for item in directive.get("outcome_details", []) or []
-            if item.get("key")
-        ]
-        if post or details:
-            lines.append(
-                "- 구성요건 판단 뒤에 오는 죄수·처벌 효과"
-                + (f" [{', '.join(post)}]" if post else "")
-                + (f": {', '.join(details)}" if details else "")
-                + " — 불가벌적 사후행위는 구성요건 불성립이 아니라 별도 처벌만 배제되는 것이므로 "
-                "그렇게 구분해 서술하라."
-            )
-        evidence = directive.get("evidence", {}) or {}
-        met = [
-            str(item.get("definition", ""))
-            for item in evidence.values()
-            if item.get("status") == "satisfied"
-        ]
-        denied = [
-            str(item.get("definition", ""))
-            for item in evidence.values()
-            if item.get("status") == "not_satisfied"
-        ]
-        undetermined = [
-            str(item.get("definition", ""))
-            for item in evidence.values()
-            if item.get("status") == "unknown"
-        ]
-        if met:
-            lines.append("- 사실관계상 인정된 요건:")
-            lines += [f"  - {text}" for text in met[:_EVIDENCE_LIMIT]]
-        if denied:
-            lines.append("- 적극적으로 부정된 요건:")
-            lines += [f"  - {text}" for text in denied[:_EVIDENCE_LIMIT]]
-        if undetermined and conclusion != "established":
-            lines.append("- 사실관계만으로 확인되지 않은 요건:")
-            lines += [f"  - {text}" for text in undetermined[:_EVIDENCE_LIMIT]]
-        blocks.append("\n".join(lines))
+        tier = directive.get("trust_status", "verified")
+        if tier not in ("verified", "provisional"):
+            # execute_native_case only ever puts executed results in
+            # conclusion_directives, and classify_symbolic_trust only rates those
+            # "verified" or "provisional" — this branch should be unreachable.
+            continue
+        blocks.append(_render_directive_block(directive, label=label, tier=tier))
 
-    autonomous: list[str] = []
-    degraded: list[str] = []
-    for item in unsupported:
-        label = (
-            labels.get(str(item.get("issue_id", "")))
+    unsupported_labels = dict.fromkeys(
+        label
+        for item in unsupported
+        if (
+            label := labels.get(str(item.get("issue_id", "")))
             or str(item.get("reported_label", ""))
         )
-        if not label:
-            continue
-        # 규칙이 아예 없는 쟁점과, 규칙은 있는데 계약 결함으로 못 돌린 쟁점은 다르다.
-        if item.get("issue_status") == "contract_degraded":
-            degraded.append(label)
-        else:
-            autonomous.append(label)
-    for item in skipped:
-        label = labels.get(str(item.get("issue_id", ""))) or str(item.get("unit_id", ""))
-        if label:
-            autonomous.append(label)
-    if autonomous:
+    )
+    if unsupported_labels:
         blocks.append(
-            "### 규칙 추론이 판정하지 않은 쟁점 (전적으로 자율 판단)\n"
-            + "\n".join(f"- {label}" for label in dict.fromkeys(autonomous))
-            + "\n이 쟁점들에는 확정 결론이 없다. 법학 지식으로 직접 학설·판례를 "
-            "동원하여 충실히 논증하고 결론을 내려라."
+            "### 규칙베이스 범위 밖 쟁점 (전적으로 자율 판단)\n"
+            + "\n".join(f"- {label}" for label in unsupported_labels)
+            + "\n이 쟁점들에 대응하는 규칙이 아직 등록되어 있지 않다. 확정 결론도 잠정 "
+            "결론도 없다. 법학 지식으로 직접 학설·판례를 동원하여 충실히 논증하고 "
+            "결론을 내려라."
         )
-    if degraded:
+
+    invalid_labels = dict.fromkeys(
+        label
+        for item in invalid
+        if (
+            label := labels.get(str(item.get("issue_id", "")))
+            or str(item.get("reported_label", ""))
+            or str(item.get("unit_id", ""))
+        )
+    )
+    if invalid_labels:
         blocks.append(
-            "### 규칙 추론을 돌리지 못한 쟁점 (잠정 분석)\n"
-            + "\n".join(f"- {label}" for label in dict.fromkeys(degraded))
-            + "\n이 쟁점들은 검증된 판정이 없다. 논증은 하되 위 확정 결론들과 같은 "
-            "무게로 단정하지 말고, 잠정적 검토임이 드러나게 서술하라."
+            "### 규칙 추론이 완료되지 못한 쟁점 (전적으로 자율 판단)\n"
+            + "\n".join(f"- {label}" for label in invalid_labels)
+            + "\n이 쟁점들은 시스템 내부에서 규칙 추론이 완료되지 못했다 — 그 실패 자체는 "
+            "결론에 대해 아무것도 말해주지 않는다. 확정 결론도 잠정 결론도 없다고 보고, "
+            "법학 지식으로 직접 학설·판례를 동원하여 처음부터 충실히 논증하고 결론을 "
+            "내려라."
         )
     return "\n\n".join(blocks) if blocks else "(확정된 판정 없음)"
 
@@ -422,12 +471,14 @@ def run_case(
         str(issue["issue_id"]): str(issue.get("reported_label", ""))
         for issue in selection.get("issues", [])
     }
+    directives = contract.get("conclusion_directives", [])
     verdict_brief = _render_verdict_brief(
-        directives=contract.get("conclusion_directives", []),
-        skipped=contract.get("skipped_directives", []),
-        # An issue dropped for a malformed selection is still a live issue in
-        # the case; it reaches the writer alongside the ones with no RuleIR.
-        unsupported=[*unsupported, *rejected],
+        directives=directives,
+        unsupported=unsupported,
+        # A malformed selection or a broken symbolic run both carry zero legal
+        # signal, so they are folded into one autonomous-reasoning tier — see
+        # classify_symbolic_trust and the "invalid" docstring on it.
+        invalid=[*contract.get("skipped_directives", []), *rejected],
         labels=labels,
     )
 
@@ -440,15 +491,29 @@ def run_case(
         .replace("{{SYMBOLIC_DIRECTIVES}}", verdict_brief)
     )
     _write_text(out_dir / "04_write_prompt.md", user_prompt + "\n")
-    answer_markdown = client.complete_text(
+    answer_raw = client.complete_text(
         system_prompt=load_prompt(write_system),
         user_template=user_prompt,
         payload={},
         max_tokens=8000,
         temperature=0.0,
     ).strip()
+    # The writer's own VERDICT_MANIFEST trailer is a machine contract, not part of
+    # the graded prose (see prompts/rule_ir_native_write.md rule 6) — it must never
+    # reach a reader or a judge, but it is exactly what lets us catch the writer
+    # silently disagreeing with a verified conclusion instead of just asserting it.
+    verdict_contradictions = check_verdict_consistency(
+        answer_markdown=answer_raw, directives=directives
+    )
+    answer_markdown = strip_verdict_manifest(answer_raw)
     writing_metadata = {"characters": len(answer_markdown), "mode": "unified_irac"}
+    _write_text(out_dir / "05_answer_raw.md", answer_raw + "\n")
     _write_text(out_dir / "05_answer.md", answer_markdown + "\n")
+    if verdict_contradictions:
+        _write_json(
+            out_dir / "06_verdict_consistency.json",
+            {"contradictions": verdict_contradictions},
+        )
 
     manifest = {
         "version": "1.0.0",
@@ -477,6 +542,7 @@ def run_case(
         "supported_issue_count": len(supported),
         "unsupported_issue_count": len(unsupported),
         "rejected_issue_count": len(rejected),
+        "verdict_contradiction_count": len(verdict_contradictions),
         "completed": True,
     }
     _write_json(out_dir / "run_manifest.json", manifest)
@@ -485,6 +551,7 @@ def run_case(
         "resolved_requests": resolved,
         "native_report": native_report,
         "answer_markdown": answer_markdown,
+        "verdict_contradictions": verdict_contradictions,
         "manifest": manifest,
     }
 

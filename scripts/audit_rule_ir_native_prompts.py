@@ -43,9 +43,19 @@ STAGES = {
             "전체",
             "생략",
             "top-k",
-            "satisfied",
-            "not_satisfied",
-            "unknown",
+            "explicitly_supported",
+            "inferentially_supported",
+            "contradicted",
+            "genuinely_unresolved",
+            # The 4-state grammar exists specifically so inferential elements
+            # (intent, causation, foreseeability) stop defaulting to unknown —
+            # docs/handoff/CURRENT.md r10/r14. Losing this instruction silently
+            # would reopen exactly that failure mode.
+            "내심적·규범적 요건의 추론",
+            # Without a mandatory rationale, an inference can't be audited after
+            # the fact — this is what lets a review tell apart "inferred from
+            # clear conduct" from "the assessor talked itself into it".
+            "inference_rationale",
             "source_quotes",
             "Scallop",
             "rubric",
@@ -56,14 +66,18 @@ STAGES = {
         "user": "rule_ir_native_write_user",
         # The writer prompt must never name the inference engine: leaking that
         # vocabulary put "Scallop" into finished legal prose.  What it must
-        # carry instead is the fidelity contract and the autonomy carve-out.
+        # carry instead is the fidelity contract, the tiered-trust carve-outs,
+        # and the verdict-manifest trailer that makes self-contradiction
+        # detectable (docs/handoff/CURRENT.md, r14 사기 자기모순 사례).
         "required": (
             "확정 결론",
             "뒤집지 않는다",
-            "판정하지 않은 쟁점",
+            "잠정 결론",
+            "규칙베이스 범위 밖",
             "죄수관계",
             "종합 결론",
             "노출하지 않는다",
+            "VERDICT_MANIFEST",
         ),
     },
 }

@@ -16,6 +16,15 @@ from scripts.run_rule_ir_native_lean import ROOT, run_case
 
 CASE_TEXT = "피고인이 피해자에게 행위하였다."
 
+# Golden scenarios speak the legacy 3-state Scallop vocabulary; the live
+# predicate_assessment schema speaks the 4-state evidentiary-basis grammar
+# (see native_host.ASSESSMENT_STATUSES). Translated here, at the test boundary.
+_LEGACY_TO_ASSESSMENT_STATUS = {
+    "satisfied": "explicitly_supported",
+    "not_satisfied": "contradicted",
+    "unknown": "genuinely_unresolved",
+}
+
 
 def _assessment(unit_id: str, scenario: dict[str, Any]) -> dict[str, Any]:
     entry = build_registry()[unit_id]
@@ -24,11 +33,12 @@ def _assessment(unit_id: str, scenario: dict[str, Any]) -> dict[str, Any]:
     }
     assessments = {}
     for predicate in entry.commentary_inputs:
-        status = status_by_card.get(predicate["norm_card_ids"][0], "unknown")
+        legacy_status = status_by_card.get(predicate["norm_card_ids"][0], "unknown")
+        status = _LEGACY_TO_ASSESSMENT_STATUS[legacy_status]
         assessments[predicate["id"]] = {
             "status": status,
-            "source_quotes": [CASE_TEXT] if status != "unknown" else [],
-            "missing_facts": ["판단에 필요한 구체적 사실"] if status == "unknown" else [],
+            "source_quotes": [CASE_TEXT] if legacy_status != "unknown" else [],
+            "missing_facts": ["판단에 필요한 구체적 사실"] if legacy_status == "unknown" else [],
         }
     roles = {
         argument["name"]: scenario[argument["name"]]
@@ -83,7 +93,10 @@ class FakeClient:
 
     def complete_text(self, **kwargs: Any) -> str:
         self.text_calls += 1
-        return "### 법리\n\n법리 설명\n\n### 사안의 적용\n\n사실 적용"
+        return (
+            "### 법리\n\n법리 설명\n\n### 사안의 적용\n\n사실 적용"
+            "\n\n<!--VERDICT_MANIFEST\nissue-1: established\n-->"
+        )
 
 
 @pytest.mark.skipif(not DEFAULT_SCLI.is_file(), reason="pinned scli is not installed")
@@ -118,9 +131,17 @@ def test_lean_runner_reaches_committed_scallop_and_host_answer(tmp_path: Path) -
 
     # The writer receives a Korean brief, never the engine's own vocabulary.
     write_prompt = (tmp_path / "04_write_prompt.md").read_text(encoding="utf-8")
-    assert "성립 (구성요건 충족)" in write_prompt
+    assert "확정 결론: 성립 (구성요건 충족)" in write_prompt
     assert "Scallop" not in write_prompt
     assert "symbolic_conclusion" not in write_prompt
+
+    # The writer's machine trailer is stripped before the graded answer is
+    # written, and a verdict matching the verified directive is not a
+    # contradiction.
+    answer = (tmp_path / "05_answer.md").read_text(encoding="utf-8")
+    assert "VERDICT_MANIFEST" not in answer
+    assert result["verdict_contradictions"] == []
+    assert not (tmp_path / "06_verdict_consistency.json").exists()
 
 
 class TwoIssueFakeClient:
@@ -166,7 +187,10 @@ class TwoIssueFakeClient:
         return assessment, usage
 
     def complete_text(self, **kwargs: Any) -> str:
-        return "### 법리\n\n법리 설명\n\n### 사안의 적용\n\n사실 적용"
+        return (
+            "### 법리\n\n법리 설명\n\n### 사안의 적용\n\n사실 적용"
+            "\n\n<!--VERDICT_MANIFEST\nissue-1: established\n-->"
+        )
 
 
 @pytest.mark.skipif(not DEFAULT_SCLI.is_file(), reason="pinned scli is not installed")
@@ -176,7 +200,7 @@ def test_lean_runner_degrades_single_bad_predicate_assessment_not_whole_case(
     """One issue's contract-violating assessment must not discard the case.
 
     219740 lost cases like this: a single predicate assessment declaring
-    ``not_satisfied`` with no source quote raised out of the per-issue loop
+    ``contradicted`` with no source quote raised out of the per-issue loop
     and killed every other issue the case had selected, including well-formed
     ones. The fix demotes only the offending issue, the same way a bad issue
     *selection* was already demoted.
@@ -190,7 +214,7 @@ def test_lean_runner_degrades_single_bad_predicate_assessment_not_whole_case(
     bad["issue_id"] = "issue-2"
     predicate_id = next(iter(bad["assessments"]))
     bad["assessments"][predicate_id] = {
-        "status": "not_satisfied",
+        "status": "contradicted",
         "source_quotes": [],
         "missing_facts": [],
     }
