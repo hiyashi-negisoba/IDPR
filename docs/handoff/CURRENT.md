@@ -504,6 +504,45 @@ r13_p1_q1·r14_p1_q1·r14_p1_q2, `scripts/summarize_routing_regression.py`)**:
   전체), `.cache/routing_expansion_smoke/regression_summary.json`(위 지표·
   사례별 원본 trace).
 
+### decision 단계 프롬프트 수정 시도 — 2회 실패, 롤백 (다음 세션, 사용자 지시)
+
+위 절 마지막에 미착수로 남겨둔 "참여형태 불확실성을 이유로 이미 부합하는 base unit
+선택을 보류하지 마라"는 수정을 시도했으나, **두 번 다 실패해 롤백했다.**
+
+1. **1차 시도(negative carve-out, commit `7b7656f`)**: "참여형태(직접정범/간접정범/
+   공동정범 등)의 확정 여부는 unsupported 사유가 아니다"라는 4번째 절차를 추가.
+   job 220071(같은 6사례 재실행, `rule_ir_native_lean_routing_regression_v2`)로 검증:
+   `bribe_giving`/`private_document_forgery` 둘 다 여전히 `found: false`(전혀 무변화,
+   unsupported 총계도 12→13으로 사실상 동일). `unsupported_reason` 원문 대조 결과, 모델이
+   금지된 표현("간접정범인지... 구체적 죄명 분류를 위해")만 피하고 **똑같은 결론을 다른
+   말("행위 유형을 가장 정확히 특정할 수 있는 단독 unit이 부족함")로 재포장**했다.
+2. **2차 시도(affirmative rule + 회피 사유 금지 목록, commit `e913783`)**: "구조 부합
+   판정을 내린 후보는 반드시 선택한다"는 단정 규칙으로 교체하고, 그때까지 관찰된 회피
+   표현 4종(참여형태 불확실, 단독 unit 아님, 결합 구조 특정 필요, 완전 포괄 못함)을
+   명시적으로 금지. job 220074(`rule_ir_native_lean_routing_regression_v3`)로 재검증:
+   **역시 무변화** — 두 known-target 다시 `found: false`, `unsupported_reason`이 세
+   번째 다른 표현("전달을 부탁한 주체로서의 성격이 강하고... 결합된 구조를 표현할
+   적절한 unit이 부족함")으로 또 우회.
+3. **사용자 결정: 강하게 강제해도 안 되면 롤백하고 다음 단계로.** `git revert -n
+   e913783 7b7656f`로 두 커밋을 되돌려 `prompts/rule_ir_native_issue_select.md`/
+   `scripts/audit_rule_ir_native_prompts.py`를 job 220070 시점 상태로 복원(감사·테스트
+   재확인 완료, 회귀 없음). 산출물은 보존:
+   `experiments/results/rule_ir_native_lean_routing_regression_v2/`,
+   `..._v3/`, `.cache/routing_expansion_smoke/regression_summary_v{2,3}.json`.
+
+**결론(중요, 다음 세션에 이 문제를 다시 열 때 참고)**: 이 특정 회피 패턴(구조가
+부합한다고 스스로 서술해놓고도 완벽한 사실관계 일치를 요구하며 unsupported로
+후퇴)은 **프롬프트 문구 수정만으로는 안 뚫린다** — 세 번(220070/220071/220074)
+연속으로 같은 두 사례에서 매번 다른 표현으로 같은 결론을 냈다. 이건 26B 로컬
+모델의 특정 문구 회피가 아니라 더 근본적인 결정 휴리스틱으로 보인다. 다음에
+다시 시도한다면 프롬프트 문구가 아니라 **구조적 게이트**(예: `closest_allowed_unit_ids`가
+비어있지 않은 채 `unit_id=unsupported`가 나오면 그 자체를 계약 위반으로 강등하거나,
+1차 host-side 재검증 콜을 추가)를 고려할 것 — M5 3콜 원칙 이탈이므로 별도 승인 필요.
+
+**다음 세션 시작점: 5단계 — rule-base 범위 보완.** job 220070에서 이미 확인된 진짜
+공백(강도치상/강도상해 결합범 unit 부재, 살인교사·공모관계 `declared_not_compiled`)이
+1순위 후보.
+
 **이번 세션에 새로 만들었지만 아직 안 쓰는 것**: SKI-ML 게이트웨이 경유 Sonnet
 클라이언트(`src/idpr/neural/skiml_litellm_client.py`,
 `scripts/run_rule_ir_native_lean_sonnet.py`,

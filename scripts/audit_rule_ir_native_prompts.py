@@ -52,14 +52,6 @@ STAGES = {
             "legal_labels",
             "closest_allowed_unit_ids",
             "unsupported_reason",
-            # Job 220070/220071's regression batches found the router naming
-            # the correct unit in closest_allowed_unit_ids and still
-            # discarding it — first over indirect/joint-principal
-            # uncertainty, then (once that excuse was banned) over an
-            # equally vague "not a standalone/precise enough unit" excuse
-            # (docs/handoff/CURRENT.md "라우팅 정확도"). This bans the excuse
-            # category, not just one phrasing of it.
-            "사후적 이유로",
         ),
     },
     "predicate_assess": {
