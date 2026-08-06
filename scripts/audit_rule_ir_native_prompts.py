@@ -52,11 +52,14 @@ STAGES = {
             "legal_labels",
             "closest_allowed_unit_ids",
             "unsupported_reason",
-            # Job 220070's regression batch found the router naming the
-            # correct unit in closest_allowed_unit_ids and still discarding
-            # it over indirect/joint-principal uncertainty (docs/handoff/
-            # CURRENT.md "라우팅 정확도" 회귀 배치 결과) — this line is the fix.
-            "참여형태·가담정도",
+            # Job 220070/220071's regression batches found the router naming
+            # the correct unit in closest_allowed_unit_ids and still
+            # discarding it — first over indirect/joint-principal
+            # uncertainty, then (once that excuse was banned) over an
+            # equally vague "not a standalone/precise enough unit" excuse
+            # (docs/handoff/CURRENT.md "라우팅 정확도"). This bans the excuse
+            # category, not just one phrasing of it.
+            "사후적 이유로",
         ),
     },
     "predicate_assess": {
