@@ -253,12 +253,31 @@ unsupported/invalid) 부여 3) 생성 강제 지시와 충돌 처리 4) 라우�
   repair를 넣을지는 별도 결정.
 - 4단계(라우팅/하위쟁점 확장) 이후는 미착수.
 
-### 다음 세션 시작점 — job 219900 결과부터 확인
+### 다음 세션 시작점 — job 219900 재제출부터
 
-이번 세션 마지막에 소규모 검증 재실행을 **제출까지만 하고 세션을 마감**한다.
-다음 세션은 여기서 시작:
+**job 219900은 실패했다 (코드 문제 아님).** vLLM 엔진 초기화 중 HuggingFace Hub
+다운로드가 `RuntimeError: Internal error: Internal Writer Error: Background writer
+channel closed`로 끊겨 `Engine core initialization failed`로 죽었다 — Xet
+다운로드 백엔드의 일시적 네트워크 문제로 보이며 native_host.py/프롬프트 변경과
+무관하다. 다음 세션은 **동일 커맨드로 재제출부터**:
 
-1. **`sacct -j 219900`로 완료 여부 확인.** 성공 시 결과는
+```
+sbatch --export=ALL,\
+IDPR_CASE_LIST=/data5/jaehoonjeong/IDPR/.cache/rule_ir_native_sonnet_smoke/case_list.txt,\
+IDPR_RUN_DIR=/data5/jaehoonjeong/IDPR/experiments/results/rule_ir_native_lean_predassess_smoke,\
+IDPR_PYTHON=/data5/jaehoonjeong/miniconda3/envs/inv_ass_env/bin/python,\
+IDPR_VLLM_BIN=/data5/jaehoonjeong/miniconda3/envs/inv_ass_env/bin/vllm \
+    scripts/slurm/run_rule_ir_native_lean_batch.sh
+```
+
+(케이스 리스트 파일은 이미 만들어져 있음: r10_p1_q1_ga, r14_p1_q2, r10_p2_q1,
+r12_p2_q1_da, r10_p1_q2, r14_p2_q2 6건.) `IDPR_PYTHON`/`IDPR_VLLM_BIN`을
+`inv_ass_env` 절대경로로 명시해야 한다 — conda 비활성 상태로 그냥 제출하면
+`python: command not found`로 즉시 죽는다(이번 세션에서 한 번 겪음).
+
+재제출해 완료되면:
+
+1. **`sacct -j <새 잡ID>`로 완료 여부 확인.** 성공 시 결과는
    `experiments/results/rule_ir_native_lean_predassess_smoke/{case_id}/` 6개
    (`kcl_criminal_r10_p1_q1_ga`, `r14_p1_q2`, `r10_p2_q1`, `r12_p2_q1_da`,
    `r10_p1_q2`, `r14_p2_q2` — 앞 둘은 job 219779와 동일 사례로 직접 대조 가능,
