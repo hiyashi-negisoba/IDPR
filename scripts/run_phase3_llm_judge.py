@@ -121,7 +121,7 @@ def _contract_errors(validator: Draft202012Validator, output: Any) -> list[str]:
 
 async def _score_one(
     *,
-    gateway: GeminiNativeGateway,
+    gateway: GeminiNativeGateway | LLMGateway,
     validator: Draft202012Validator,
     system_prompt: str,
     protocol: Mapping[str, Any],
@@ -132,7 +132,7 @@ async def _score_one(
     rubric_set: Any,
     answer: str,
     max_tokens: int,
-    temperature: float,
+    temperature: float | None,
     reasoning_effort: str | None,
     contract_attempts: int,
 ) -> dict[str, Any]:
@@ -337,6 +337,19 @@ async def _run(args: argparse.Namespace) -> None:
         # contract-repair retry loop covers the rest.
         gateway = LLMGateway(config)
 
+    # Anthropic rejects any temperature other than 1 while extended thinking
+    # (reasoning_effort) is on ("temperature may only be set to 1 when
+    # thinking is enabled"); Gemini has no such restriction. Drop temperature
+    # entirely for that combination so litellm omits it and Anthropic's
+    # thinking-mode default applies, instead of sending the CLI's 0.0.
+    effective_temperature = args.temperature
+    if (
+        args.backend == "sonnet"
+        and args.reasoning_effort
+        and args.reasoning_effort != "none"
+    ):
+        effective_temperature = None
+
     print(
         json.dumps(
             {
@@ -367,7 +380,7 @@ async def _run(args: argparse.Namespace) -> None:
                     rubric_set=rubric_sets[case_id],
                     answer=answers[method_id][case_id],
                     max_tokens=args.max_tokens,
-                    temperature=args.temperature,
+                    temperature=effective_temperature,
                     reasoning_effort=args.reasoning_effort,
                     contract_attempts=args.contract_attempts,
                 )
