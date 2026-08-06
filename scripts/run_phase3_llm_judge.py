@@ -35,7 +35,7 @@ from idpr.eval.phase3_judge import (  # noqa: E402
     sha256_file,
 )
 from idpr.eval.rubric import load_rubric_sets  # noqa: E402
-from idpr.llm import GatewayConfig, JSONCompletionJob  # noqa: E402
+from idpr.llm import GatewayConfig, JSONCompletionJob, LLMGateway  # noqa: E402
 from idpr.llm.gemini_native import GeminiNativeGateway  # noqa: E402
 
 
@@ -294,6 +294,9 @@ async def _run(args: argparse.Namespace) -> None:
     if args.limit:
         jobs = jobs[: args.limit]
 
+    active_transport = (
+        GeminiNativeGateway.transport if args.backend == "gemini" else LLMGateway.transport
+    )
     if args.overwrite:
         existing: dict[tuple[str, str], dict[str, Any]] = {}
     else:
@@ -303,8 +306,7 @@ async def _run(args: argparse.Namespace) -> None:
         for job in jobs
         if not (
             existing.get(job, {}).get("status") == "ok"
-            and existing.get(job, {}).get("transport")
-            == GeminiNativeGateway.transport
+            and existing.get(job, {}).get("transport") == active_transport
         )
     ]
 
@@ -319,13 +321,21 @@ async def _run(args: argparse.Namespace) -> None:
         max_retries=args.api_retries,
         use_json_response_format=True,
     )
-    safety_settings = _gemini_safety_settings(args.gemini_safety_threshold)
-    gateway = GeminiNativeGateway(
-        config,
-        model=args.model,
-        safety_settings=safety_settings,
-        response_json_schema=schema,
-    )
+    gateway: GeminiNativeGateway | LLMGateway
+    if args.backend == "gemini":
+        safety_settings = _gemini_safety_settings(args.gemini_safety_threshold)
+        gateway = GeminiNativeGateway(
+            config,
+            model=args.model,
+            safety_settings=safety_settings,
+            response_json_schema=schema,
+        )
+    else:
+        # LLMGateway has no native structured-output enforcement (unlike
+        # Gemini's responseJsonSchema); the schema is already embedded in
+        # system_prompt above ("# 강제 JSON Schema"), and _score_one's
+        # contract-repair retry loop covers the rest.
+        gateway = LLMGateway(config)
 
     print(
         json.dumps(
@@ -450,7 +460,8 @@ async def _run(args: argparse.Namespace) -> None:
         "max_tokens": args.max_tokens,
         "contract_attempts": args.contract_attempts,
         "api_retries": args.api_retries,
-        "gemini_safety_settings": safety_settings,
+        "backend": args.backend,
+        "gemini_safety_settings": safety_settings if args.backend == "gemini" else None,
         "source_sha256": source_hashes,
         "output_sha256": sha256_file(args.out),
         "summary_sha256": sha256_file(args.summary),
@@ -462,6 +473,13 @@ async def _run(args: argparse.Namespace) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model", required=True)
+    parser.add_argument(
+        "--backend",
+        choices=("gemini", "sonnet"),
+        default="gemini",
+        help="sonnet routes through the SKI-ML LiteLLM gateway (LLMGateway) instead"
+        " of Gemini's native API; --model should then be e.g. anthropic/claude-sonnet-4-6",
+    )
     parser.add_argument("--env-file", type=Path, default=PROJECT_ROOT / ".env")
     parser.add_argument(
         "--rubric-inventory",

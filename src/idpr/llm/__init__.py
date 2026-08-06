@@ -118,6 +118,8 @@ class JSONCompletionResult:
 class LLMGateway:
     """Call LiteLLM asynchronously while caching parsed JSON responses."""
 
+    transport = "litellm_skiml_gateway"
+
     def __init__(
         self,
         config: GatewayConfig,
