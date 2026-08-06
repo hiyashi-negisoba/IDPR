@@ -19,7 +19,7 @@
         "required": ["index", "status", "answer_quote", "rationale"],
         "properties": {
           "index": {"type": "integer", "minimum": 1},
-          "status": {"type": "string", "enum": ["met", "not_met"]},
+          "status": {"type": "string", "enum": ["met", "partially_met", "not_met"]},
           "answer_quote": {"type": "string"},
           "rationale": {"type": "string", "minLength": 1}
         }

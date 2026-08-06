@@ -143,17 +143,19 @@ def reduce_judge_output(
 ) -> dict[str, Any]:
     """Apply evidence safeguards and reduce one structured judge response."""
 
+    status_to_verdict = {"met": "O", "partially_met": "P", "not_met": "X"}
+    status_to_weight = {"met": 1.0, "partially_met": 0.5, "not_met": 0.0}
     rubric_assessments = list(output["rubric_assessments"])
     _validate_rubric_indices(rubric_assessments, len(rubric_set))
     verdicts = [
         Verdict(
             index=int(item["index"]),
-            verdict="O" if item["status"] == "met" else "X",
+            verdict=status_to_verdict[str(item["status"])],
             quote=str(item["answer_quote"]),
         )
         for item in rubric_assessments
     ]
-    raw_binary = [1 if item["status"] == "met" else 0 for item in rubric_assessments]
+    raw_binary = [status_to_weight[str(item["status"])] for item in rubric_assessments]
     binary = apply_safeguards(verdicts, answer=answer, rubrics=rubric_set.rubrics)
     coverage = score_answer(binary, rubric_set.item_types)
 

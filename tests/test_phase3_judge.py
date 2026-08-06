@@ -145,6 +145,26 @@ def test_reduce_judge_output_applies_all_safeguards() -> None:
     }
 
 
+def test_reduce_judge_output_partially_met_scores_half_credit() -> None:
+    answer = (
+        "형법 제347조에 따라 기망과 처분행위가 인정되므로 사기죄가 성립한다. "
+        "절도죄도 성립한다. 그러나 종합하면 사기죄는 성립하지 않는다."
+    )
+    output = _judge_output()
+    output["rubric_assessments"][1] = {
+        "index": 2,
+        "status": "partially_met",
+        "answer_quote": "절도죄도 성립한다. 그러나 종합하면 사기죄는 성립하지 않는다.",
+        "rationale": "절도죄를 언급했으나 불성립 결론과 반대로 서술했다.",
+    }
+    reduced = reduce_judge_output(
+        output=output, answer=answer, rubric_set=_rubric_set(), protocol=PROTOCOL
+    )
+    assert reduced["coverage"]["binary"] == [1, 0.5]
+    assert reduced["coverage"]["rubric_score"] == 0.75
+    assert reduced["safeguards"]["rubric_met_downgrades"] == 0
+
+
 def test_reduce_rejects_claim_quote_absent_from_answer() -> None:
     output = _judge_output()
     output["claims"][0]["answer_quote"] = "실제 답안에는 없는 명제"

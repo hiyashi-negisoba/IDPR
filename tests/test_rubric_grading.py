@@ -111,6 +111,23 @@ def test_apply_safeguards_missing_verdict_defaults_zero():
     assert apply_safeguards([], answer=answer, rubrics=rubrics) == [0, 0, 0]
 
 
+def test_apply_safeguards_partial_credit_weight_and_hallucination_downgrade():
+    rubrics = ["기망행위를 논하는지", "편취 고의를 논하는지"]
+    answer = "甲은 A를 기망하여 재물을 편취하였다."
+    verdicts = [
+        Verdict(1, "P", "甲은 A를 기망하여 재물을 편취하였다."),  # real quote -> 0.5
+        Verdict(2, "P", "답안에 없는 지어낸 근거 문장이다."),  # fake quote -> 0
+    ]
+    assert apply_safeguards(verdicts, answer=answer, rubrics=rubrics) == [0.5, 0]
+
+
+def test_apply_safeguards_partial_credit_article_gate():
+    rubrics = ["사기죄의 제347조를 명시하여 적시하는지"]
+    answer_no_art = "甲은 A를 기망하여 재물을 편취하였으므로 사기죄가 성립한다."
+    v = [Verdict(1, "P", "甲은 A를 기망하여 재물을 편취하였으므로 사기죄가 성립한다.")]
+    assert apply_safeguards(v, answer=answer_no_art, rubrics=rubrics) == [0]
+
+
 def test_parse_free_text_verdicts():
     out = "1 | O | 근거: 어떤 문장\n2 | X | 근거: 없음\n3 | o | 다른 문장"
     parsed = parse_free_text_verdicts(out)
@@ -135,6 +152,16 @@ def test_score_answer_recall_by_type():
 def test_score_answer_empty_rubric():
     out = score_answer([], [])
     assert out["total"] == 0 and out["rubric_score"] is None
+
+
+def test_score_answer_partial_credit_weights_recall():
+    binary = [1, 0.5, 1, 0.5]
+    types = ["issue", "issue", "rule", "conclusion"]
+    out = score_answer(binary, types)
+    assert out["satisfied"] == 3.0
+    assert out["rubric_score"] == 0.75
+    assert out["issue_spotting_recall"] == 0.75  # (1 + 0.5) of 2 issue items
+    assert out["recall_by_type"]["conclusion"] == 0.5
 
 
 # --------------------------------------------------------------------------- #

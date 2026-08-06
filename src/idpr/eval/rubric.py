@@ -5,15 +5,20 @@ Ports the *settled* judge design from the sibling project sp_qwen
 IDPR evaluation layer, adapted to IDPR conventions:
 
   - Judge protocol: **one call per question** — a method's long-form answer plus
-    that question's full rubric → per-item O/X with a verbatim answer quote.
-  - Hallucination block: an O is only accepted when the judge cites answer text
-    that *actually exists* in the answer (fake O → downgraded to X).
+    that question's full rubric → per-item O/P/X with a verbatim answer quote.
+    ``P`` (partial credit, weight 0.5) is an IDPR extension past sp_qwen's
+    strictly binary O/X design (user-confirmed 2026-08-06): a rubric item whose
+    doctrine is stated correctly but whose application is incomplete, or where
+    only some of several required elements are covered.
+  - Hallucination block: an O or P is only accepted when the judge cites answer
+    text that *actually exists* in the answer (fake O/P → downgraded to X).
   - Article gate: an article-number requirement is enforced only when the rubric
     item asks for citing a specific article; substantive-reasoning items accept
     semantically equivalent phrasing.
-  - Normalization: satisfied rubric items / total (0..1 per question), the 변시
-    checklist convention. Split by rubric-item type for §8.1 sub-metrics
-    (issue-spotting recall, rule statement, application, conclusion).
+  - Normalization: satisfied-weight rubric items / total (0..1 per question,
+    where a P item contributes 0.5), the 변시 checklist convention. Split by
+    rubric-item type for §8.1 sub-metrics (issue-spotting recall, rule
+    statement, application, conclusion).
 
 This module ships the **pure, decision-independent core** only: rubric loading,
 item typing, verdict safeguards, and scoring. The concrete model-calling judge
@@ -191,34 +196,40 @@ def _answer_articles(answer: str) -> tuple[set[tuple[str, str | None]], set[str]
     return pairs, {jo for jo, _ in pairs}
 
 
+_VERDICT_WEIGHTS = {"O": 1.0, "P": 0.5, "X": 0.0}
+
+
 @dataclass(frozen=True)
 class Verdict:
     """A judge's per-item ruling before safeguards: index is 1-based."""
 
     index: int
-    verdict: str  # "O" / "X"
+    verdict: str  # "O" (met) / "P" (partially_met, weight 0.5) / "X" (not_met)
     quote: str = ""
 
 
 def apply_safeguards(
     verdicts: Sequence[Verdict], *, answer: str, rubrics: Sequence[str]
-) -> list[int]:
-    """Turn raw judge verdicts into a 0/1 list of length ``len(rubrics)``.
+) -> list[float]:
+    """Turn raw judge verdicts into a 0/0.5/1 list of length ``len(rubrics)``.
 
-    (a) An O survives only if its quote really exists in the answer.
-    (b) Article gate: when a rubric item demands a *specific article*, an O is
-        void unless the answer actually cites that article (with branch number).
-    Missing verdicts default to 0. Ports ``parse_verdicts`` from judge.py.
+    (a) An O or P survives only if its quote really exists in the answer.
+    (b) Article gate: when a rubric item demands a *specific article*, an O or P
+        is void unless the answer actually cites that article (with branch
+        number). Missing verdicts default to 0. Ports ``parse_verdicts`` from
+        judge.py, extended with the ``P`` partial-credit weight.
     """
     answer_norm = _norm_ws(answer)
     ans_pairs, ans_jos = _answer_articles(answer)
-    by_index: dict[int, int] = {}
+    by_index: dict[int, float] = {}
     for v in verdicts:
-        ok = v.verdict.upper() == "O" and quote_in_answer(v.quote, answer_norm)
-        by_index[v.index] = 1 if ok else 0
-    result: list[int] = []
+        verdict_upper = v.verdict.upper()
+        weight = _VERDICT_WEIGHTS.get(verdict_upper, 0.0)
+        ok = weight > 0 and quote_in_answer(v.quote, answer_norm)
+        by_index[v.index] = weight if ok else 0.0
+    result: list[float] = []
     for i, rubric in enumerate(rubrics):
-        value = by_index.get(i + 1, 0)
+        value = by_index.get(i + 1, 0.0)
         if value:
             rub = str(rubric)
             art = _P_ART_NUM.search(rub)
@@ -250,20 +261,21 @@ def parse_free_text_verdicts(out: str) -> list[Verdict]:
 # --------------------------------------------------------------------------- #
 # Scoring → §8.1 metrics for one (answer, rubric set) pair.
 # --------------------------------------------------------------------------- #
-def score_answer(binary: Sequence[int], item_types: Sequence[str]) -> dict[str, Any]:
-    """Aggregate a 0/1 verdict list into §8.1 quality metrics for one answer.
+def score_answer(binary: Sequence[float], item_types: Sequence[str]) -> dict[str, Any]:
+    """Aggregate a 0/0.5/1 verdict list into §8.1 quality metrics for one answer.
 
-    ``rubric_score`` = satisfied / total (vari; issue-spotting checklist).
-    Per-type recall gives issue-spotting recall, rule-statement, application,
-    conclusion sub-scores. ``binary`` and ``item_types`` are aligned per item.
+    ``rubric_score`` = satisfied / total (vari; issue-spotting checklist), where
+    a partially-met (``P``, weight 0.5) item contributes half a point. Per-type
+    recall gives issue-spotting recall, rule-statement, application, conclusion
+    sub-scores. ``binary`` and ``item_types`` are aligned per item.
     """
     total = len(binary)
-    satisfied = int(sum(binary))
+    satisfied = float(sum(binary))
     by_type_total: Counter[str] = Counter(item_types)
-    by_type_hit: Counter[str] = Counter()
+    by_type_hit: dict[str, float] = {kind: 0.0 for kind in by_type_total}
     for value, kind in zip(binary, item_types):
         if value:
-            by_type_hit[kind] += 1
+            by_type_hit[kind] += value
     recall_by_type = {
         kind: (by_type_hit[kind] / by_type_total[kind]) if by_type_total[kind] else None
         for kind in RUBRIC_TYPES
