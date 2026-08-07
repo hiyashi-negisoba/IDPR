@@ -2,6 +2,386 @@
 
 기준: 2026-08-07 · 브랜치 `antigravity-0804`
 
+## Consistency/coverage 저하 포렌식 + 구조 버그 2건 수정 (2026-08-07, 새 세션)
+
+바로 아래 "라우팅 decision-avoidance 버그" 절이 남긴 4가지 "다음 세션 판단용 이슈"
+중 1번(consistency 자기모순)·4번(coverage "쟁점은 잡았는데 결론 반대")을 파고들어
+**두 개의 서로 다른 구조적 Scallop 컴파일 버그를 확정·수정**했다. 3번(narrow
+hallucination)은 후처리 스크립트까지 만들었으나 대기 상태.
+
+### 포렌식 방법과 결론 — "모델 강제-불이행" 아니라 상위 단계 결함
+
+consistency 최저점 3건(`r11_p2_q1_da`, `r12_p2_q1_da`, `r13_p1_q3`)을 `03_native_report.json`
+(symbolic_conclusion/trust_status) → predicate assessment evidence → 컴파일된 `.scl`
+룰 정의까지 코드 레벨로 직접 대조. **3건 다 "모델이 강제 지시를 어긴 것"이 아니라
+강제 지시 자체가 상위 단계 결함으로 틀린 값을 만들어놓고 모델에게 그대로 따르라고
+시킨 것**이었다 — writer는 스스로 논증하면 매번 정답을 냈다가 지시 때문에 뒤집혔다.
+
+- **r13_p1_q3(丁의 살인미수)**: **Scallop 구조 버그.** `homicide_attempt_elements_satisfied`가
+  미수 전용 요건(실행착수·미수처벌)뿐 아니라 base(기수) 전용 요건인
+  `homicide_base_person_ends_satisfied`(사망의 법적 확정)까지 그대로 상속하고 있어,
+  피해자가 생존한 진짜 미수 사안에서 `homicide_attempt_established`가 정의상 영원히
+  발화 불가능했다. predicate assessment는 정확했다(실행착수·미수처벌 전부 satisfied).
+- **r11_p2_q1_da(준강간)**: assess 단계 카드 오적용. `assess_art299_sec3_1_object_incapacitated_person`
+  (피해자가 실제 심신상실 상태였다)를 근거 인용문 "C와 함께 술을 마시던 중"만으로
+  `explicitly_supported` 처리 — 사실관계 본문은 "C는 반항 불가능할 정도로 취하지
+  않았다"고 명시.
+- **r12_p2_q1_da(사문서행사죄)**: assess 단계 카드 오적용. `art234.forged_license_
+  possession_and_driving_not_utterance`("위조 운전면허증 소지·운전은 행사 아님" —
+  이 사건과 무관한 판례) 카드를 "주민센터 담당 직원에게 제출하여"라는, 운전면허·운전과
+  전혀 무관한 인용문으로 satisfied 처리해 bar 발화 → 전체 불성립.
+
+### 26개(실체법 전용) 세트 전체로 영향 범위 산정
+
+`trust_status=verified` 지시 42건(26개 세트) 전부를 위와 같은 방식으로 대조.
+
+| 버킷 | 건수 | 유닛 | 성격 |
+|---|---|---|---|
+| A. 구조(Scallop 컴파일) 버그 | 6/42 | homicide 4, obstruction_of_official_duty 2 | 확정, **이번 세션에 수정** |
+| B. 프롬프트/assess 오적용 | 7/42 | use_of_forged_private_document 2, harboring_offender 3, intentional_bodily_injury 1, quasi_sexual_offense 1 | 확정, 미착수 — 다음 세션 대상 |
+| C. 기존에 이미 알려진/보류된 결함 | 4/42 | robbery 4 | B등급(강도상해 결합범 트랙 부재), 신규 아님 |
+| D. 미확정 | 4/42 | fraud 3, theft 1 | 핵심요건 unresolved — 진짜 불명확 사실관계인지 assess 저평가인지 미판정 |
+| 미검증(문제없어 보임) | ~21/42 | — | 개별 확인 안 함 |
+
+**A(구조) 신규 발견 — obstruction_of_official_duty**: `art136_sec2_4.active_conduct_requirement`
+카드가 소스 norm card set에는 `polarity: positive`로 등록돼 있는데, 검수 원장
+(`obstruction_of_official_duty_approved_decisions.json`)엔 `role: bar`로 배선돼 있어
+모델이 "적극적 폭행이 있었다"고 정확히 판정할수록 오히려 `track_not_established`가
+발화해 불성립으로 뒤집혔다. 같은 component(`violence_or_threat`)에 이미 사실유형별
+bar 카드 5장(`passive_resistance_not_assault`/`preplaced_obstacles_not_assault`/
+`self_harm_not_assault_or_threat`/`vehicle_departure_not_assault`/
+`assault_not_against_officer_exception`)이 정확한 극성으로 존재해 이 카드는 그
+일반원칙의 중복 재진술일 뿐이었다.
+
+**B(프롬프트) 쪽 새 패턴**: harboring_offender 한 사례(`r10_p2_q2`)에서 **21개 bar
+카드가 동시에 satisfied로 발화**했는데, 다수가 자기 rationale에서 "이건 아니다"라고
+쓰면서도(예: `omission_concealment_general_citizen` rationale="부작위가 아니라
+적극적 작위") status는 satisfied로 남겼다. negative-polarity 카드의 assess
+프롬프트가 "이 카드 내용이 사건과 관련은 있다"와 "이 카드의 좁은 요건이 실제로
+충족된다"를 구분 못 시키고 있다는 뜻 — 개별 카드 문제가 아니라 assess 프롬프트
+설계 문제로 보인다.
+
+### 구조 버그 2건 수정 완료 (이번 세션)
+
+**homicide**: `data/rulegen/p2/native_review/homicide_approved_decisions.json`의
+`track_vocabulary` → `attempt` track `inherits_placements`에서 `"person_ends"`
+제거(`death_result`는 원래부터 미포함이라 그대로). `voluntary_desistance`/
+`impossible_attempt`는 `inherits_from: attempt` 체인이라 자동으로 같이 고쳐졌다.
+이 원장은 `authority: human_legal_review`(2026-08-04 승인)인데, 원 승인 문서
+(`docs/review/2026-08-04_homicide_legal_gate_01.md` G-H02)는 attempt를 "상속: -"
+(추가 상속 없음)로 표만 적었을 뿐 person_ends 포함을 명시한 적이 없다 — 기술
+구현 단계에서 생긴 전사 오류로 판단, 승인 취지를 벗어나지 않는다고 보고 수정.
+
+**obstruction_of_official_duty**: `obstruction_of_official_duty_approved_decisions.json`의
+`art136_sec2_4.active_conduct_requirement` 카드 `role`을 `bar` → `context_only`로 변경
+(위 5개 bar 카드가 이미 같은 내용을 올바른 극성으로 구현하므로 컴파일에서 완전히
+제외해도 정보 손실 없음).
+
+**재빌드**: 두 유닛 다 `build_p2_native_decision_ledger.py` → `build_p2_native_rule_ir.py`
+→ `build_p2_native_scallop.py` 체인으로 재생성(미니콘다 `base` env, 시스템
+`/usr/bin/python3`은 `dataclass(slots=True)`가 3.10+ 전용이라 실패 — 반드시
+`/data5/jaehoonjeong/miniconda3/bin/python3` 사용). 컴파일된 `.scl`에서 버그 패턴
+소멸 확인(`homicide_attempt_elements_satisfied`에서 `person_ends` 사라짐,
+`active_conduct_requirement`가 obstruction `.scl`에 아예 안 나옴).
+
+**검증(sealed-59 안 건드림)**: `scripts/run_p2_native_scallop_golden.py` — 승인
+원장의 per-card placement에서 직접 유도한 합성 시나리오(실제 시험 문제 아님)로
+검증하는 기존 스크립트. **homicide 35/35 통과**, **obstruction_of_official_duty
+9/10 통과**(실패 1건 `official_coercion.bar_blocks`은 수정 전 원본에서도 동일하게
+실패함을 git stash로 직접 재현·확인 — **내 수정과 무관한 기존 결함**, 다른 bar 카드
+`art136_sec3_4.nonofficial_act_coercion` 문제로 보임, 다음에 열 후보로만 기록).
+전체 pytest: **653 passed, 11 failed** — 실패 11건 전부 기존 문서화된 결함(재산죄
+golden `card_conflict_blocks` 10건 + `test_section_writer_cannot_supply_host_conclusion`)
+그대로, 회귀 없음.
+
+### narrow hallucination 후처리 — 스크립트는 만들었으나 효과는 제한적, 대기
+
+`scripts/check_article_citation_consistency.py`(신규) — 각 유닛의 `source_scope.
+target_paths`에서 등록 조문을 뽑아, 답안이 인용한 조문이 라우팅된 유닛의 등록
+범위 밖(+총칙 1~86조 아님)이면 플래그. 26개 답안 전체에 실행.
+
+**실측 결과가 기대만큼 깨끗하지 않다.** 지난 세션이 "조문 번호 인용 실수라 기계적
+검증으로 상당수 잡힐 가능성"이라 낙관했던 6건의 `statutory_error` 중 **딱 1건만
+순수 번호 오타로 확인**(`r10_p1_q1_ga`: 강간미수에 제300조 대신 제302조 인용 —
+스크립트가 정확히 잡음). 나머지 5건은 조문 항 구분(제164조 1항/2항), 총칙 조문이라
+애초에 범위 밖 판정이 안 되는 경우(제30조), 유닛 범위 안에 있는 다른 카드를 못 골라
+쓴 경우(제331조 제2항 vs 제329조), 조문 자체가 아니라 통째로 누락된 경우(제263조),
+조문이 아니라 판례 취지 왜곡(fabricated_case) — 전부 실제 법리 판단을 요구해 기계적
+치환으로 안 잡힌다. `narrow_hallucination_score_macro` 실측 -0.5(26개, 총
+severity 13) → 위 1건만 고치면 -0.462로 소폭 개선에 그친다. **자동 치환은
+안 함**(위양성 다수 — 정당한 대안죄명 논의를 오탐하는 경우 많음, 예:
+`r10_p2_q2`의 "제347조" 플래그는 사기를 검토했다가 배제한 정당한 논증일 수 있음).
+사람이 훑어볼 후보 생성 용도로만 사용. **다음 조치 안 함 — 위 A/B 버그를 고치면
+부수적으로 줄어들 걸로 보고 대기.**
+
+### 다음 세션 시작점 — assess 프롬프트 대대적 작업 (준비만, 미착수)
+
+B버킷(7건, 4개 유닛)이 전부 같은 성격의 결함이다: negative-polarity(bar) 카드의
+assess 판정이 "이 카드가 사건과 관련 있어 보인다"와 "이 카드가 정의하는 좁은
+예외/배제 요건이 실제로 충족된다"를 구분 못 한다. 손대야 할 범위:
+
+1. **harboring_offender 최우선** — 한 사례에서 21개 bar가 동시 발화, 다수가 자기
+   rationale과 모순(스스로 "아니다"라고 쓰고 satisfied). 카드 하나가 아니라
+   유닛 전체의 bar 카드 assess 결과를 다시 훑어야 할 가능성.
+2. **use_of_forged_private_document** — `forged_license_possession_and_driving_not_utterance`
+   카드(운전면허 관련, 이 유닛의 실제 사실관계 대부분과 무관)가 반복적으로
+   오발화(`r12_p1_q1`, `r12_p2_q1_da` 둘 다). 카드 자체가 이 유닛에 있을 필요가
+   있는지부터 재검토.
+3. **intentional_bodily_injury** — `art257.minor_injury_exclusion`(경미상해 제외)가
+   "3주 치료 요하는 상해"에도 발화, rationale은 "경미한 상처로 보기 어렵다"고 반대로
+   서술.
+4. **quasi_sexual_offense** — r11_p2_q1_da와 같은 패턴(약한 인용문으로 positive
+   요건 과다 인정) 재확인 필요.
+5. **fraud/theft(D버킷, 4건)** — 핵심요건이 genuinely_unresolved로 남는 것 자체가
+   맞는지(사실관계상 정말 불명확) 저평가 버그인지 사례별로 먼저 판정한 뒤 B와
+   같은 트랙으로 볼지 결정.
+
+원장을 한 카드씩 손으로 고치는 homicide/obstruction 방식과 달리, 이건 카드 개별
+문제가 아니라 **assess 프롬프트(`prompts/rule_ir_native_predicate_assess.md`)의
+negative-polarity 카드 판정 지침 자체**를 다시 설계해야 할 가능성이 높다 — 프롬프트
+승인 게이트 대상이므로 착수 전 설계안을 먼저 제시할 것. 착수 전 규모를 한 번 더
+정량화할 것(현재 26개 세트 기준 7/42=17%로 추정했지만 harboring_offender처럼 한
+사례에서 21개가 몰려 나온 사례가 더 있는지 61개 전체로도 확인 필요할 수 있음).
+
+## 라우팅 decision-avoidance 버그 — 근본원인 특정 + 해결 (2026-08-07, 이번 세션)
+
+**결론: 버그는 해결됐다 — 회피가 아니라 JSON 필드 순서 문제였다.** 아래 "다음 세션
+시작점" 절이 다음 과제로 남겨둔 그 버그(모델이 `closest_allowed_unit_ids`에 정확한
+후보를 스스로 적어놓고도 `unit_id=unsupported`를 고집하는 현상, 자유문구 수정
+시도 3회 모두 실패·롤백)를 이번 세션에 해결했다. 지금부터 61개 전체 재생성+
+재평가로 실제 coverage/precision 개선을 실측하는 중이다 — 진행 중인 job은 이 절
+끝에 기록.
+
+**2단계 방어선으로 접근했다:**
+
+1. **Tier 1 (구조적 게이트, 안전망으로 유지)**: `native_host.py`에 닫힌 enum
+   `unsupported_basis`(`no_matching_unit` / `participation_form_or_classification_
+   uncertainty_only` / `not_applicable`) 추가 + `apply_routing_overrides()` —
+   후보가 정확히 1개이고 참여형태 불확실성만이 이유일 때 host가 그 후보로
+   자동 승격(role_candidates 완전성 검증을 통과해야만). dev case 스모크(job
+   220254)에서 안전성은 확인(오탐 없음, 회귀 없음)했지만 **표적 사례(r14_p1_q2의
+   `bribe_giving`)는 못 고쳤다** — 모델이 `unsupported_basis`를 `no_matching_unit`
+   으로 잘못 골랐고(자기 `unsupported_reason` 문장은 "bribe_giving을 선택해야
+   함"이라고 쓰면서), `role_candidates`도 비웠다.
+2. **근본원인 진단**: `idpr.neural.vllm_client.VLLMClient.complete_json`이
+   성공 경로에서 `reasoning_content`를 버리고 있던 것을 고쳐 캡처했다(job
+   220279/220284). 결과: **이 호출엔 사고 단계 자체가 없었다** — `--reasoning-
+   parser gemma4`가 서버에 켜져 있어도 이 호출은 `chat_template_kwargs`로
+   thinking을 요청하지 않으므로 `message["reasoning"]`이 완전히 빈 값이었다.
+   즉 모델이 숨은 사고 과정에서 먼저 결론을 내리고 감추는 게 아니라, **생각할
+   기회 자체가 없었다** — 스키마의 per-issue 필드 순서(`issue_id → unit_id →
+   ... → closest_allowed_unit_ids → unsupported_reason → unsupported_basis`)에서
+   `unit_id`가 두 번째로 나오는 토큰이라, 자기회귀 생성상 모델은 이 쟁점에 대해
+   비교 문장을 한 글자도 쓰기 전에 `unit_id`를 이미 확정한다. `unsupported_reason`
+   에 나중에 옳은 결론("bribe_giving을 선택해야 함")을 써도 이미 지나간 토큰은
+   못 바꾼다 — 이게 자유문구 프롬프트 수정 3회가 매번 다른 표현으로 똑같이
+   실패한 이유다(프롬프트는 생성 시작 *전* 텍스트라 이 순서 문제를 못 건드림).
+3. **근본 수정**: `closed_issue_selection_schema`에 새 필드
+   `candidate_fit_notes`(자유 텍스트, 모든 issue에서 필수)를 `unit_id` **앞**에
+   추가 — guided decoding 하에서 키 생성 순서가 스키마 property 선언 순서와
+   정확히 일치함을 raw JSON 출력으로 직접 확인한 뒤(job 220284) 반영했다.
+   `prompts/rule_ir_native_issue_select.md`에 "unit_id를 정하기 전에
+   candidate_fit_notes를 먼저 쓴다"는 도입문 + 필드 설명 추가(승인 게이트
+   준수, 전문 제시 후 설치). `scripts/audit_rule_ir_native_prompts.py` 계약
+   문구 검사 추가, 테스트 픽스처 갱신, 전체 스위트 653 passed/11 failed(기존
+   문서화 결함과 동일, 회귀 없음) 재확인.
+
+**검증 (job 220292, dev case 2개, 재배열된 스키마)**: `r14_p1_q2`의 `issue_2`가
+**자체적으로** `bribe_giving`을 정확히 선택(override 메커니즘 발동 없이 근본
+수정만으로 해결) — `candidate_fit_notes`가 "...bribe_giving unit의 role_definition
+...과 부합한다"를 먼저 쓰고 그 뒤 `unit_id`가 따라옴. `role_candidates` 4개 전부
+정확히 채워짐 → symbolic execution 정상 실행(`established`) → **최종 답안이
+처음으로 정확한 법리(증뢰물전달죄, 제133조 제2항)를 냄** — 이전 4번의 시도(자유
+문구 3회 + Tier 1 enum)에서 매번 나오던 "일반 뇌물공여죄 방조/공동정범" 즉석
+창작 오답이 사라졌다. 같은 사례의 `issue_3`(횡령)도 부수적으로 함께 고쳐짐.
+`r10_p1_q1_ga`는 회귀 없음(issue_6 강도치상은 여전히 정확하게 `unsupported`/
+`no_matching_unit` — 진짜 커버리지 공백, 후보 2개 다 실제로 안 맞음).
+
+**일반화 판단(사용자 질문에 대한 답)**: 근본원인이 이 사례 특정이 아니라 모든
+issue에 공통되는 생성 순서 구조이므로 낙관적으로 볼 근거가 있다 — 같은 사례
+안에서 issue_3(횡령)도 같이 고쳐진 게 그 증거다. 다만 n=2 dev case만 확인된
+상태라 61개 전체로 실측이 필요 — 그래서 바로 61개 전체 재생성+재평가로
+넘어간다.
+
+**61개 전체 재생성+재평가 완료 (2026-08-07, 같은 세션)**: sealed-59 오염
+정책상 이 검증 자체는 디버깅이 아니라 최종 재평가이므로 sealed-59 전체를
+다시 썼다(이전 61개 전체 재평가 때와 동일한 예외). SLURM
+`--dependency=afterok`로 3단 체인 제출: 1) job 220293 `run_rule_ir_native_lean_batch.sh`
+로 61개 전체를 candidate_fit_notes 반영 코드로 재생성(61/61 성공) 2) job
+220294, 신규 `scripts/collect_rule_ir_native_lean_outputs.py`(이번에 작성 —
+이전 세션엔 이 collector가 스크립트로 안 남고 즉석으로 처리됐던 구멍)로
+run_dir → outputs.jsonl 변환, `data/eval/phase3_method_outputs.json`에
+`idpr_nsn_lean_61_routing_fix` 등록 3) job 220295, `run_phase3_llm_judge.py`
+(`--backend sonnet`, 새 judge 프롬프트, 61개 계약)로 재평가 — 1차 61/58건
+(3건 API 오류로 실패: r13_p1_q3/r14_p1_q3/r14_p1_q5_2), `--overwrite` 없이
+동일 명령 재제출(job 220445)해 기존 58건은 그대로 두고 실패 3건만 재시도 →
+61/61 완결.
+
+**서브셋 재구성 — `proc_kw` 정규식은 폐기, 정확한 카테고리 필드로 교체**: 지난
+세션이 "28개 proc_kw 정규식 밀도<=10% 필터"라고 적었던 걸 재구성 시도했으나
+직접 짠 키워드 목록으로는 전 사례가 4% 미만이라 필터링 효과가 전혀 없었다.
+대신 `data/inventory/kcl_criminal_v1_draft.jsonl`에 이미 정확한 카테고리
+필드 `legal_area`(`substantive`/`procedure`/`mixed`)가 있다는 걸 발견 —
+`legal_area=="substantive"`가 job 219779 캐시에서 뽑은 26-curated 세트와
+**정확히 일치**(집합 동등, 오차 없음), `substantive`+`mixed`가 정확히 28건.
+`scripts/summarize_phase3_substantive_law_subsets.py`(이번에 작성)가 이
+필드로 61/59/28/26 네 서브셋을 나누고, judge의 `aggregate_records`를 그대로
+재사용해 이미 나온 `judgments.jsonl`에서 새 judge 호출 없이 서브셋별 macro/
+micro 지표를 재계산한다.
+
+**결과 — coverage와 precision이 둘 다 개선, 트레이드오프 없음**:
+
+| method | 28개 cov | 28개 prec | 26개 cov | 26개 prec |
+|---|---|---|---|---|
+| chain_of_thought | 0.212 | 0.510 | 0.211 | 0.522 |
+| **idpr_nsn_lean_61_routing_fix (이번)** | **0.199 (2위)** | **0.550 (1위)** | **0.209 (2위, 거의 동률)** | **0.582 (1위)** |
+| idpr_nsn_lean_61 (지난 세션, 버그 있던 버전) | 0.168 | 0.524 | 0.179 | 0.560 |
+| acal | 0.161 | 0.443 | 0.168 | 0.456 |
+| legal_chain_reasoner | 0.157 | 0.455 | 0.166 | 0.476 |
+| vanilla_zero_shot | 0.139 | 0.449 | 0.151 | 0.478 |
+| standard_rag | 0.138 | 0.476 | 0.149 | 0.503 |
+| leprec | 0.131 | 0.412 | 0.140 | 0.435 |
+| fol_autoformalizer_solver | 0.094 | 0.371 | 0.101 | 0.394 |
+
+나머지 7개 baseline은 이번 세션에 재채점하지 않았다 — IDPR 자체 생성만
+바뀌었고 judge/backend는 지난 세션과 동일해서 그 숫자는 그대로 유효.
+coverage 28개 0.168→0.199(+18%)/26개 0.179→0.209(+17%, 1위 chain_of_thought
+0.211과 거의 동률), precision 28개 0.524→0.550(+5%)/26개 0.560→0.582(+4%,
+이미 1위였던 격차를 더 벌림). "과다 커밋으로 precision을 깎을 수 있다"는
+우려(위 일반화 판단 절)는 실측 결과 나타나지 않았다.
+
+**라우팅 통계 (61개 전체, 226개 issue)**: unsupported 30.1%(68/226), 그 중
+67개가 `no_matching_unit`(진짜 커버리지 공백 — 9월 이관 대상 총칙 공범 등),
+1개만 `participation_form_or_classification_uncertainty_only`인데
+`closest_allowed_unit_ids`가 0개(후보 자체가 없음, 마찬가지로 진짜 공백)라
+승격 대상이 아니었다. **`apply_routing_overrides` 발동 0건** — 61개 전체에서
+이번 개선은 전부 `candidate_fit_notes` 자체가 만든 것이고 Tier 1(구조적
+게이트)은 이번 배치에서 안전망으로만 남아 있었다(오탐 위험 없음, 동시에
+실효도 없었음). 답안 길이 평균 2961자(최단 1600~최장 4626자) — 붕괴 없음.
+
+**교차 검증 — 알려진 두 라우팅 회피 사례가 61개 전체에서도 둘 다 자체
+해결됨**: `r14_p1_q2` issue_2(bribe_giving, dev case 스모크에서 이미 확인)
+외에, **`r12_p1_q1`의 issue_2/issue_3(사문서위조/위조사문서행사)도 자체적으로
+`private_document_forgery`/`use_of_forged_private_document`로 정확히 라우팅**
+됐다 — 이건 job 220070/220071/220074에서 자유문구 수정 3회로도 못 고쳤던
+바로 그 사문서위조 사례다. 서로 다른 두 사례가 독립적으로 고쳐진 게 일반화
+근거로 뒷받침된다.
+
+**남은 진짜 공백(이번엔 손대지 않음)**: B등급(강도상해·강도치상 결합범 unit
+부재, `r10_p1_q1_ga`의 issue_6이 계속 `unsupported`로 남는 원인) — 사용자
+판단: 특정 sealed case를 겨냥한 카드 추가라 "치팅"에 가까울 위험이 있어
+보류, 필요하면 art337/338 코퍼스·판례만 참고해서 착수([[sept-general-part-
+restructure-design]]과는 별개 트랙, 각칙 결과적 가중범 문제). 9월 형총
+재구조화(구성요건/위법성/책임 3단 분리)는 사용자가 별도 설계 중, 착수 안 함.
+
+### 이번 세션에 발견, 착수는 안 함 — 다음 세션 판단용 이슈 4건
+
+61개 결과를 사용자와 같이 훑어보다 발견. 전부 **기록만, 이번 세션엔 수정하지
+않는다.**
+
+1. **Consistency 하락(0.833→0.731, 26개 기준)은 judge 오독이 아니라 진짜
+   자기모순이다.** 최저점(1점) 3건(`r11_p2_q1_da`, `r12_p2_q1_da`,
+   `r13_p1_q3`) 전부 같은 패턴: 모델이 스스로 "성립한다"고 옳게 쓴 문장 바로
+   옆에 "확정 결론의 지시에 따라 불성립"이라며 뒤집는다(`r13_p1_q3` 예:
+   "B가 생존하였으므로 살인미수죄가 성립한다... 확정 결론의 지시에 따라
+   살인미수죄는 불성립하는 것으로 결론 내린다"). 호스트의
+   `check_verdict_consistency()`는 이 세 건 전부 통과시켰다(`06_verdict_
+   consistency.json` 미생성) — 그 함수는 답안 끝 `VERDICT_MANIFEST` 트레일러가
+   `verified` 상징 결론과 일치하는지만 보고, **트레일러에 도달하기 전 본문에서
+   모델이 스스로 반대 결론을 먼저 서술했는지는 안 본다.** 이번 세션에 라우팅이
+   더 많은 unit을 정확히 잡으면서 `verified`(반드시 그대로 따른다) 등급
+   issue가 늘었을 것이고, 그만큼 이 노출 표면도 늘었을 가능성이 있다 — 인과
+   관계는 추정, 확인 안 함. 기존에 이미 미결정으로 남겨둔 "자기모순 발견 시
+   정책(현재는 기록만)"이 실제로 대가를 치른 사례. 다음에 다시 열 때: 트레일러
+   일치 여부가 아니라 **본문 전체에서 강제 지시와 반대되는 서술이 등장하는지**
+   검사하는 쪽으로 검증기를 확장할지, 아니면 writer 프롬프트에 "강제 지시와
+   다른 결론에 먼저 도달했더라도 그 과정을 답안에 노출하지 말라"는 지시를
+   추가할지 판단 필요.
+   **규모를 텍스트 매칭으로 무료 정량화**(`확정.{0,4}(결론|판정)` 정규식으로
+   답안 본문·judge 인용문 대조, 새 API 호출 없음): 26개 중 4점 미만(감점)
+   18건 중 이 마커가 judge 인용문에 실제로 들어간 건 **정확히 3건 — 전부
+   최저점(1점) 사례**. 나머지 15건은 이 패턴과 무관한 별개의 논증 오류
+   (예: `r14_p1_q1`의 "살인교사 불성립"이라 해놓고 다음 문단에서 존속살해
+   교사 책임을 인정하는 논리 비약, `r11_p1_q1`의 준강도/공갈미수 관련
+   법리 오적용). 이 3건만 회복돼도(1점→3~4점 추정) consistency_macro가
+   0.731→~0.80 근처까지 오를 걸로 추산 — legal_chain_reasoner(0.933),
+   standard_rag(0.885)보단 낮지만 최하위는 벗어나는 규모. 실제로 다른
+   점수를 얻으려면 (a) 답안을 고쳐 재생성 후 재채점 또는 (b) judge의
+   consistency 채점기준 자체를 수정 후 재채점 — 둘 다 새 API 비용 발생,
+   이번 세션엔 안 함.
+2. **hallucination_score_macro라는 이름이 실제 측정 내용과 어긋난다.** 26개
+   IDPR 답안의 사건 44건을 종류별로 까보니 `doctrinal_error`(법리 오적용)
+   34건(77%), `statutory_error`(조문오기) 6건, `other` 3건, `fabricated_case`
+   (허위 판례) **1건**, `nonexistent_offense`(없는 죄 창작) **0건**. 즉 지금
+   이름이 암시하는 "지어낸 것"(없는 판례·없는 죄)은 26개 중 1건뿐이고, 나머지
+   압도적 다수는 일반적인 법리 실수다 — 사실상 precision/rubric 정확도와
+   개념이 겹치는 별도 지표를 "hallucination"이라는 이름으로 부르고 있다.
+3. **좁은 정의(조문오기+허위판례만)로 재채점하면 IDPR 순위가 뒤집힌다.**
+   신규 `scripts/compute_narrow_hallucination_score.py`(이번에 작성, 기존
+   judgments.jsonl 재사용 — 새 API 호출 없음)로 8개 방법 전부 `statutory_error`
+   +`fabricated_case`만 남겨 재계산:
+
+   | method | narrow score(0=최선) | free_rate | 사건수 |
+   |---|---|---|---|
+   | fol_autoformalizer_solver | 0.00 | 100%(25/25) | 0 |
+   | standard_rag | -0.231 | 84.6% | 4 |
+   | chain_of_thought | -0.269 | 84.6% | 4 |
+   | vanilla_zero_shot | -0.292 | 83.3%(24) | 4 |
+   | acal | -0.385 | 76.9% | 6 |
+   | **idpr_nsn_lean_61_routing_fix** | **-0.500** | 76.9% | **7** |
+   | leprec | -0.538 | 76.9% | 7 |
+   | legal_chain_reasoner | -0.654 | 80.8% | 10 |
+
+   넓은 지표에서 IDPR이 상위권(공동 2위)으로 보였던 건 doctrinal_error가
+   적어서였고, 좁은 지표(조문오기·허위판례)에서는 8개 중 **6위**로 떨어진다
+   (표본 26개, 사건 수 4~10건대라 순위는 크게 신뢰 구간이 넓다는 점은 감안).
+   IDPR의 narrow 사건 7건 중 6건이 `statutory_error`(조문 번호 오인용:
+   미수범 조문 제300조 대신 제302조, 합동절도 제331조 제2항 대신 단순절도
+   제329조, 현주건조물방화 제164조 제1항 대신 제2항, 합동범을 공동정범 조항
+   제30조로 오인 등), 1건이 `fabricated_case`(동산 이중양도 배임죄 판례 취지를
+   반대로 서술). **전부 조문 번호 인용 실수**라는 공통점 — 각 RuleIR unit이
+   이미 `article_ids`를 갖고 있으니, writer가 인용한 조문을 그 unit의 등록된
+   `article_ids`와 대조하는 기계적 검증(또는 자동 치환) 정도로 상당수가 잡힐
+   가능성이 있다. 다음 세션 판단용 후보.
+4. **coverage 채점의 공정성은 확인 완료 — 부당한 채점은 없었다.** 사용자
+   요청으로 26개 전체 rubric item 735개 중 "judge가 답안에서 관련 문구를
+   찾았는데도 not_met" 처리한 65건(오독 가능성이 가장 높은 부류) 전부를
+   직접 읽었다. 65건 전부 진짜 실체법 불일치였다 — judge의 인용문·설명이
+   답안 내용과 정확히 일치했고, IDPR이 그 쟁점을 다루긴 했는데 정반대
+   결론(성립↔불성립, 미수↔기수, 실체적 경합↔상상적 경합, 단순절도↔특수절도,
+   교사범↔공동정범 등)을 낸 경우들이었다. **다만 이 과정에서 새 패턴을
+   발견**: 이 65건은 "쟁점을 놓친 것"(라우팅 문제, 이번 세션에 고침)이
+   아니라 "쟁점은 잡았는데 결론이 반대로 나온 것"이다 — 전체 735개 rubric
+   item의 8.8%. 이건 라우팅도 writer의 부수쟁점 서술 밀도도 아닌 **술어평가/
+   규칙베이스 정확성**(symbolic 결론 또는 모델 자율판단이 어느 방향으로
+   떨어지는가) 문제로 보이고, 이번 세션엔 손대지 않은 영역이다. 일부(`r12_
+   p2_q1_da` idx19, `r14_p1_q2` idx5·18)는 위 1번(자기모순) 사례와 겹친다 —
+   `verified` 강제 지시가 하필 틀린 결론이었던 경우라, 1번을 고치면
+   consistency와 coverage가 동시에 개선될 여지가 있다.
+
+### 채점 비용 절감 — 앞으로 judge는 26개(실체법 전용)가 기본 (2026-08-07, 사용자 결정)
+
+**사용자 결정: "앞으로는 채점도 이 26개 셋으로만 하게 해줘" — API 비용
+절감.** 절차법 33개는 IDPR이 원래 다루지 않는 스코프라 채점할 이유가 없다는
+게 이미 확인된 사실([[idpr-paper-deadline]], 위 "방법론 결함 발견·정정"
+절)이므로, 61개를 채점한 뒤 사후에 26/28로 잘라보는 대신 **처음부터 26개만
+judge에 보낸다** — API 호출 수를 61/26≈2.3배 줄인다.
+
+구현: `scripts/run_phase3_llm_judge.py`에 `--case-id-file`(신규) 추가 — 파일의
+줄마다 하나씩 `--case-id`로 취급, 26개를 매번 손으로 나열하지 않아도 됨.
+`scripts/slurm/run_phase3_llm_judge_sonnet.sh`/`run_phase3_llm_judge_sonnet_idpr.sh`
+가 기본으로 `.cache/phase3_substantive_law_case_lists/curated_26.txt`를
+쓰도록 변경(둘 다 `IDPR_JUDGE_CASE_LIST` 환경변수로 다른 목록 지정 가능,
+필요하면 61개 전체도 여전히 가능). 출력 경로도 `phase3_judge_sonnet_26/`
+등으로 새로 분리 — 기존 61개 전체 산출물(`phase3_judge_sonnet/`,
+`phase3_judge_sonnet_idpr_routing_fix/` 등)은 그대로 보존, 절대 덮어쓰지
+않는다(`--overwrite`가 `--out` 파일 전체를 선택된 case만으로 다시 쓰므로,
+26개 파일로 `--overwrite`하면서 기존 61개 파일 경로를 그대로 쓰면 나머지
+35개 결과가 통째로 사라진다 — 그래서 반드시 출력 경로를 분리했다). IDPR
+쪽 스크립트는 `IDPR_JUDGE_METHOD_ID` 필수 지정으로 바꿔 매 세션 새 산출물
+method-id를 하드코딩하지 않게 했다(예:
+`IDPR_JUDGE_METHOD_ID=idpr_nsn_lean_61_routing_fix sbatch ...`).
+
 ## 지금 최우선 — 평가(judge)와 라우팅 구조 문제
 
 **사용자 결정: 장물죄 원장 적재 작업은 잠시 보류. 이 문제부터 해결하고 원래 궤도로

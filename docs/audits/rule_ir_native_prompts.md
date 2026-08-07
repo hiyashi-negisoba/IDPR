@@ -8,7 +8,7 @@
 
 | stage | system SHA-256 | user SHA-256 | 계약 문구 |
 |---|---|---|---|
-| `issue_select` | `9f84d95ba7317ed80729ba48f17ed3bcd3c1cbb3a957eb32960057d0f373be9f` | `c1aff928ddba42c5fe7b6327f2525214445bda94c6326180da8327eedbfa49fb` | pass |
+| `issue_select` | `884f90a226bc77145f7ed4f7f64160e8d0a2ff49b7526f24a571efbfe0749895` | `c1aff928ddba42c5fe7b6327f2525214445bda94c6326180da8327eedbfa49fb` | pass |
 | `predicate_assess` | `ca0aa4af1badbc21ec72c08fbbc0cc1e7d1a595d5de36aa79233888fd7ea019c` | `f360b2d08bcf062dcac97696b5849d7c9635bbd04f25eb59252e67f2b79568b2` | pass |
 | `section_write` | `5a5d00fe629de13f351ec7c92069c56acdb739462b4076ef5eef75a11e80be98` | `e7a3ca08b2fe519973b176dd058135041dda95fa8cef5cdbefbcb807348a1680` | pass |
 

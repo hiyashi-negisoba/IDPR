@@ -32,6 +32,7 @@ from idpr.prompts import load_prompt, prompt_path  # noqa: E402
 from idpr.rulegen.native_host import (  # noqa: E402
     DEFAULT_SCLI,
     NativeHostError,
+    apply_routing_overrides,
     assess_routing_completeness,
     check_verdict_consistency,
     closed_issue_selection_schema,
@@ -315,6 +316,7 @@ def _render_routing_context_block(
     *,
     routing_completeness: Mapping[str, Any],
     labels: Mapping[str, str],
+    routing_overrides: Sequence[Mapping[str, Any]] = (),
 ) -> str | None:
     """Surface the router's declared subissue/branch/alternative/label structure.
 
@@ -324,12 +326,33 @@ def _render_routing_context_block(
     reaches for an alternative doctrine when a fact stays unresolved, and does
     not generalize a specific charge into its parent category (see
     docs/handoff/CURRENT.md diagnosis #3/#5/#6/#7).
+
+    ``routing_overrides`` (from ``apply_routing_overrides``) are issues the
+    router itself declined only over participation form/classification and
+    that the host then promoted to the exact unit the router had already
+    named. The base charge is now argued as settled by the symbolic layer
+    like any other routed issue — but the participation-form doubt the router
+    raised must not disappear just because the host resolved which charge
+    applies; it is preserved here so the writer still argues it explicitly.
     """
 
     def _label(issue_id: Any) -> str:
         return labels.get(str(issue_id), str(issue_id))
 
     lines: list[str] = []
+
+    if routing_overrides:
+        lines.append(
+            "### 다음 쟁점은 기본 성립 여부가 확정됐으나 참여형태는 별도로 논증하라"
+        )
+        for record in routing_overrides:
+            label = _label(record.get("issue_id"))
+            lines.append(
+                f"- {label}: 기본 죄책의 성립 여부는 확정됐다. 다만 "
+                f"{record.get('unsupported_reason', '')} — 이 참여형태(직접정범/"
+                "간접정범/공동정범/교사/방조 등) 또는 세부 분류는 아직 불확정이므로 "
+                "답안에서 별도로 논증하고 결론을 내려라."
+            )
 
     subissues = routing_completeness.get("required_subissues", [])
     if subissues:
@@ -463,7 +486,18 @@ def run_case(
                 if str(issue.get("issue_id", "")) not in rejected_ids
             ],
         }
+    # A participation-form-only decline of a candidate the router itself named
+    # is not a coverage gap — promote it before the issue ever reaches the
+    # writer as "unsupported", so 01_issue_selection.json already reflects the
+    # corrected routing (docs/handoff/CURRENT.md "decision 단계 프롬프트 수정
+    # 시도" — three prompt-only fixes failed, this replaces them).
+    selection, routing_overrides = apply_routing_overrides(selection)
     _write_json(out_dir / "01_issue_selection.json", selection)
+    if routing_overrides:
+        _write_json(
+            out_dir / "01d_routing_overrides.json",
+            {"overrides": routing_overrides},
+        )
     routing_completeness = assess_routing_completeness(selection)
     _write_json(out_dir / "01b_routing_completeness.json", routing_completeness)
     unsupported_diagnostics = diagnose_unsupported_issues(selection)
@@ -580,7 +614,9 @@ def run_case(
         labels=labels,
     )
     routing_context = _render_routing_context_block(
-        routing_completeness=routing_completeness, labels=labels
+        routing_completeness=routing_completeness,
+        labels=labels,
+        routing_overrides=routing_overrides,
     )
     if routing_context:
         verdict_brief = f"{verdict_brief}\n\n{routing_context}"

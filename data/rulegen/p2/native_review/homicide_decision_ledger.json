@@ -9,7 +9,7 @@
     "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
   },
   "approval_document": "data/rulegen/p2/native_review/homicide_approved_decisions.json",
-  "approval_sha256": "a2cae14c6d7d1c1d362a2c40466dcb20bfc91a8505ba89d965424480c1d16380",
+  "approval_sha256": "6c27c44e6e5dcabacf6261e58fa26f8c9e2788c7f41b857b586b43a139961c85",
   "approved_on": "2026-08-04",
   "status": "ready_for_rule_ir",
   "problems": [],
@@ -75,10 +75,6 @@
     {
       "card_id": "art250_sec1_16.stabbing_after_assault",
       "reason": "폭행·협박을 받았어도 칼로 자상하면 한도 초과 — 조각의 한계"
-    },
-    {
-      "card_id": "art250_sec1_17.direct_active_euthanasia_negative",
-      "reason": "결정 C 선택(적극적 안락사 부정설). 조각의 한계이므로 자리가 없음"
     },
     {
       "card_id": "art250_sec1_17.supreme_court_active_euthanasia",
@@ -163,10 +159,6 @@
     {
       "card_id": "art250_sec1_21.death_penalty_special_circumstances_explicit",
       "reason": "사형 선고 시 특별한 사정을 명시해야 한다는 판시 방법"
-    },
-    {
-      "card_id": "art250_sec1_21.death_penalty_special_circumstances_majority",
-      "reason": "결정 C 선택(사형 정당화 특별사정의 전원합의체 다수의견). 양형 기준"
     },
     {
       "card_id": "art250_sec1_21.death_penalty_thorough_inquiry",
@@ -319,6 +311,14 @@
     {
       "card_id": "art254.electronic_device_attachment",
       "reason": "전자장치 부착명령은 특별법 영역이며 성립 결론과 무관"
+    },
+    {
+      "card_id": "art250_sec1_17.direct_active_euthanasia_negative",
+      "reason": "결정 C 선택(적극적 안락사 부정설). 조각의 한계이므로 자리가 없음"
+    },
+    {
+      "card_id": "art250_sec1_21.death_penalty_special_circumstances_majority",
+      "reason": "결정 C 선택(사형 정당화 특별사정의 전원합의체 다수의견). 양형 기준"
     }
   ],
   "tracks": [
@@ -357,7 +357,6 @@
             "object_scope",
             "person_begins",
             "person_begins_basis",
-            "person_ends",
             "killing_method",
             "murder_intent",
             "murder_intent_indicia",
@@ -486,6 +485,17 @@
       "proposition_rewrite": null
     },
     {
+      "card_id": "art250_sec1_14.time_gap",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "causation",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "사망까지 수일·수개월이 걸렸다는 사정만으로는 인과관계를 부정할 수 없음",
+      "proposition_rewrite": null
+    },
+    {
       "card_id": "art250_sec1_14.actual_course_difference",
       "part_id": null,
       "role": "component",
@@ -607,6 +617,17 @@
       "proposition_rewrite": null
     },
     {
+      "card_id": "art250_sec1_15.method_error_precedent",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "intent_error",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "메타 래퍼 제거. 방법의 착오는 살인의 범의 성립을 방해하지 않음",
+      "proposition_rewrite": "방법의 착오는 살인의 고의 성립을 방해하지 않는다."
+    },
+    {
       "card_id": "art250_sec1_15.object_error",
       "part_id": null,
       "role": "bar",
@@ -618,28 +639,37 @@
       "proposition_rewrite": null
     },
     {
-      "card_id": "art250_sec1_16.mutual_fight_excessive_weapon",
+      "card_id": "art250_sec1_16.defensive_counterattack",
       "part_id": null,
-      "role": "assessment_standard",
+      "role": "bar",
       "track_id": "base",
       "component_id": "justification",
       "component_join": "not_applicable",
       "refers_to_unit": null,
-      "rationale": "정당방위가 허용될 수 있다는 가능성만 말하고 반격의 필요성·상당성까지 결론짓지 않는다(검수 002 D-01).",
-      "proposition_rewrite": "격투 중 상대방이 통상 예상 범위를 넘어 살인의 흉기 등을 사용하는 경우 그 공격은 부당한 침해에 해당하여 정당방위가 허용될 수 있다.",
-      "standard_for": "싸움 중 반격의 정당방위 허용 여부"
+      "rationale": "반격방어도 방어행위에 포함되나 상당한 이유를 요함",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art250_sec1_16.mutual_fight_excessive_weapon",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "메타 래퍼 제거. 격투 중 예상 범위를 넘는 흉기 사용은 부당한 침해",
+      "proposition_rewrite": "격투 중 상대방이 통상 예상 범위를 넘어 살인의 흉기 등을 사용하는 경우 그 공격은 부당한 침해에 해당하여 정당방위가 허용될 수 있다."
     },
     {
       "card_id": "art250_sec1_16.self_defense_social_adequacy",
       "part_id": null,
-      "role": "assessment_standard",
+      "role": "bar",
       "track_id": "base",
       "component_id": "justification",
       "component_join": "not_applicable",
       "refers_to_unit": null,
-      "rationale": "정당방위 상당성을 재는 기준일 뿐 상당성이 인정되었다는 결론이 아니다(검수 002 C-02).",
-      "proposition_rewrite": null,
-      "standard_for": "정당방위 상당성"
+      "rationale": "법익의 종류·정도, 침해 방법·완급을 참작한 사회적 상당성",
+      "proposition_rewrite": null
     },
     {
       "card_id": "art250_sec1_16.victim_consent",
@@ -650,32 +680,40 @@
       "component_join": "not_applicable",
       "refers_to_unit": "consent_homicide",
       "rationale": "피해자 승낙은 위법성을 조각하지 않고 제252조로 경계가 이동",
-      "proposition_rewrite": null,
-      "refers_to_label": "촉탁·승낙살인"
+      "proposition_rewrite": null
     },
     {
       "card_id": "art250_sec1_17.advance_directive_life_sustaining_treatment",
       "part_id": null,
-      "role": "assessment_standard",
+      "role": "bar",
       "track_id": "base",
       "component_id": "justification",
       "component_join": "not_applicable",
       "refers_to_unit": null,
-      "rationale": "사전의료지시의 효력 판단기준이지 적법한 치료중단의 전체 요건이 충족되었다는 결론이 아니다(검수 002 D-01).",
-      "proposition_rewrite": null,
-      "standard_for": "사전의료지시의 효력"
+      "rationale": "사전의료지시가 있고 의사 변경의 특별사정이 없는 경우",
+      "proposition_rewrite": null
+    },
+    {
+      "card_id": "art250_sec1_17.life_sustaining_treatment_withdrawal",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "justification",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "회복불가능한 사망 단계에서 자기결정권 행사가 인정되면 중단 허용",
+      "proposition_rewrite": null
     },
     {
       "card_id": "art250_sec1_17.presumed_will_life_sustaining_treatment",
       "part_id": null,
-      "role": "assessment_standard",
+      "role": "bar",
       "track_id": "base",
       "component_id": "justification",
       "component_join": "not_applicable",
       "refers_to_unit": null,
-      "rationale": "환자 의사 추정에 관한 중간요건이지 살인죄 차단의 완결결론이 아니다(검수 002 D-01).",
-      "proposition_rewrite": null,
-      "standard_for": "환자 의사의 추정"
+      "rationale": "사전의료지시가 없어도 추정적 의사가 인정되는 경우",
+      "proposition_rewrite": null
     },
     {
       "card_id": "art250_sec1_17.statutory_life_sustaining_treatment_exception",
@@ -713,14 +751,13 @@
     {
       "card_id": "art250_sec1_18.mental_disorder_requirements",
       "part_id": null,
-      "role": "assessment_standard",
+      "role": "bar",
       "track_id": "base",
       "component_id": "mental_incapacity",
       "component_join": "not_applicable",
       "refers_to_unit": null,
-      "rationale": "심신장애의 판단구조를 설명할 뿐 심신상실·심신미약이 인정되었다는 결론이 아니다(검수 002 C-02).",
-      "proposition_rewrite": null,
-      "standard_for": "심신장애 판단"
+      "rationale": "생물학적 요소와 심리학적 요소를 모두 갖춘 심신장애",
+      "proposition_rewrite": null
     },
     {
       "card_id": "art250_sec1_18.severe_impulse_control_disorder_exception",
@@ -786,8 +823,7 @@
       "component_join": "not_applicable",
       "refers_to_unit": "intentional_bodily_injury",
       "rationale": "살인 고의가 없으면 과실치사·상해치사·폭행치사",
-      "proposition_rewrite": null,
-      "refers_to_label": "상해·특수상해·상해치사"
+      "proposition_rewrite": null
     },
     {
       "card_id": "art250_sec1_15.single_punch_kick_no_murder_intent",
@@ -798,8 +834,7 @@
       "component_join": "not_applicable",
       "refers_to_unit": "intentional_bodily_injury",
       "rationale": "메타 래퍼 제거. 복부 1회 타격·추락 사망은 상해치사로 경계 이동",
-      "proposition_rewrite": "경찰관을 피하려고 피해자의 복부를 한 차례 때리고 발로 차 차량에서 추락시켜 사망하게 한 사실만으로 살해 결의를 인정할 수 없으므로 살인죄가 아니라 상해치사죄의 경계로 이동한다.",
-      "refers_to_label": "상해·특수상해·상해치사"
+      "proposition_rewrite": "경찰관을 피하려고 피해자의 복부를 한 차례 때리고 발로 차 차량에서 추락시켜 사망하게 한 사실만으로 살해 결의를 인정할 수 없으므로 살인죄가 아니라 상해치사죄의 경계로 이동한다."
     },
     {
       "card_id": "art250_sec1_15.vehicle_hammer_attack_acquittal",
@@ -1151,8 +1186,7 @@
       "component_join": "not_applicable",
       "refers_to_unit": "arson_of_occupied_structure",
       "rationale": "살해 목적 현주건조물방화 사망은 방화치사죄로 의율",
-      "proposition_rewrite": null,
-      "refers_to_label": "현주건조물등방화"
+      "proposition_rewrite": null
     },
     {
       "card_id": "art250_sec1_20.debt_evasion_no_robbery_murder",
@@ -1163,28 +1197,18 @@
       "component_join": "not_applicable",
       "refers_to_unit": "robbery",
       "rationale": "채무 면탈 살해라도 이익 지배 이전이 없으면 살인죄만 성립",
-      "proposition_rewrite": null,
-      "refers_to_label": "강도"
+      "proposition_rewrite": null
     },
     {
       "card_id": "art250_sec1_20.murder_after_completed_robbery_or_rape",
       "part_id": null,
-      "role": "post_outcome",
+      "role": "boundary",
       "track_id": "base",
       "component_id": "offense_scope",
       "component_join": "not_applicable",
-      "refers_to_unit": null,
-      "rationale": "살인죄를 부정하거나 강도죄로 이동시키는 카드가 아니라, 결합범만 부정하고 독립 살인죄와 선행 강도·강간죄가 실체적 경합으로 남는다는 죄수효과다(검수 002 D-03).",
-      "proposition_rewrite": null,
-      "outcome_subtype": "실체적 경합",
-      "outcome_detail": {
-        "preserved_units": [
-          "살인죄",
-          "선행 강도죄 또는 강간죄"
-        ],
-        "excluded_combined_offense": "강도살인죄·강간살인죄 등 결합범",
-        "concurrence_type": "real_concurrence"
-      }
+      "refers_to_unit": "robbery",
+      "rationale": "선행 범죄 완료 후의 살해는 결합범이 아니라 실체적 경합",
+      "proposition_rewrite": null
     },
     {
       "card_id": "art250_sec1_20.robbery_concealment_not_retaliatory",
@@ -1195,8 +1219,7 @@
       "component_join": "not_applicable",
       "refers_to_unit": "robbery",
       "rationale": "은폐 목적 살해는 보복목적 살인이 아니라 강도살인",
-      "proposition_rewrite": null,
-      "refers_to_label": "강도"
+      "proposition_rewrite": null
     },
     {
       "card_id": "art250_sec1_3.cesarean_no_labor_precedent",
@@ -2231,32 +2254,6 @@
       "refers_to_unit": null,
       "rationale": "중지가 사회통념상 범죄 완수의 장애 사정에 의한 것이 아닐 것",
       "proposition_rewrite": null
-    },
-    {
-      "card_id": "art250_sec1_14.time_gap",
-      "part_id": null,
-      "role": "requirement_waived",
-      "track_id": "base",
-      "component_id": "causation",
-      "component_join": "not_applicable",
-      "refers_to_unit": null,
-      "rationale": "인과관계가 인정되는 한 시간적 간격이 고의나 인과관계를 당연히 조각하지 않는다(검수 002 D-06).",
-      "proposition_rewrite": null,
-      "waived_requirement": "temporal_immediacy",
-      "waived_requirement_label": "행위와 결과 사이의 시간적 근접성"
-    },
-    {
-      "card_id": "art250_sec1_15.method_error_precedent",
-      "part_id": null,
-      "role": "requirement_waived",
-      "track_id": "base",
-      "component_id": "intent",
-      "component_join": "not_applicable",
-      "refers_to_unit": null,
-      "rationale": "방법의 착오는 살인의 고의를 조각하지 않는다(검수 002 D-06).",
-      "proposition_rewrite": null,
-      "waived_requirement": "exact_method_match",
-      "waived_requirement_label": "의도한 방법과 실제 방법의 일치"
     }
   ],
   "components": [
@@ -2434,10 +2431,12 @@
         "consent_homicide"
       ],
       "norm_card_ids": [
+        "art250_sec1_16.defensive_counterattack",
         "art250_sec1_16.mutual_fight_excessive_weapon",
         "art250_sec1_16.self_defense_social_adequacy",
         "art250_sec1_16.victim_consent",
         "art250_sec1_17.advance_directive_life_sustaining_treatment",
+        "art250_sec1_17.life_sustaining_treatment_withdrawal",
         "art250_sec1_17.presumed_will_life_sustaining_treatment",
         "art250_sec1_17.statutory_life_sustaining_treatment_exception"
       ]
@@ -3242,15 +3241,5 @@
     "placements": 169,
     "queue_cards": 242,
     "unresolved_unit_references": 2
-  },
-  "excluded_pending_split": [
-    {
-      "card_id": "art250_sec1_17.life_sustaining_treatment_withdrawal",
-      "reason": "신중히 판단해야 한다는 기준과 최종 허용 가능성이 한 카드에 섞여 있다(검수 002 D-01)."
-    },
-    {
-      "card_id": "art250_sec1_16.defensive_counterattack",
-      "reason": "정당방위 기준 부분과 위법성 조각 결과 부분을 분리해야 한다(검수 002 D-02)."
-    }
-  ]
+  }
 }

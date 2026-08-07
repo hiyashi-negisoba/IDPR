@@ -1,11 +1,16 @@
 #!/bin/bash
-# 61문항(sealed-59 + 승인된 dev case 2개) 전체에 대해, 이미 생성돼 있는 7개
+# 26문항(실체법 전용 curated 서브셋, legal_area=="substantive")에 대해 7개
 # baseline 산출물을 anthropic/claude-sonnet-4-6로 재채점한다 — Consistency
 # 순환논증 방지 규칙과 Coverage partially_met(0.5)를 반영한 새 judge
-# 프롬프트로. idpr_nsn(IDPR 자체)은 여기 없다 — 기존 산출물이 59개뿐이라
-# (dev case 2개 없음) 61개 계약을 못 채운다. 로컬 재생성이 61개로 끝나면
-# idpr_nsn만 별도로 채점한다. 기존 run_phase3_llm_judge.sh(Gemini)와 동일한
-# CPU-only 원격 API 자원.
+# 프롬프트로. idpr_nsn(IDPR 자체)은 여기 없다.
+#
+# 2026-08-07 사용자 결정: 61개 전체가 아니라 26개만 기본으로 채점한다(API
+# 비용 절감 — 절차법 33개는 IDPR이 원래 다루지 않는 스코프라 채점할 이유가
+# 없다, docs/handoff/CURRENT.md "방법론 결함 발견·정정"). 61개 전체(또는 다른
+# 서브셋)가 필요하면 IDPR_JUDGE_CASE_LIST로 다른 case-id 목록 파일을 넘길 것 —
+# 그 경우 --out 등 출력 경로도 다르게 지정해 기존 26개 전용 산출물을 덮어쓰지
+# 않도록 할 것. 기존 run_phase3_llm_judge.sh(Gemini)와 동일한 CPU-only 원격
+# API 자원.
 #
 # 제출 예:
 #   sbatch scripts/slurm/run_phase3_llm_judge_sonnet.sh
@@ -31,7 +36,9 @@ if [ ! -x "$JUDGE_PYTHON" ]; then
     exit 2
 fi
 
-echo "=== Phase-3 Sonnet judge start (61-case, baselines only): $(date) ==="
+JUDGE_CASE_LIST="${IDPR_JUDGE_CASE_LIST:-$PROJECT_ROOT/.cache/phase3_substantive_law_case_lists/curated_26.txt}"
+
+echo "=== Phase-3 Sonnet judge start (case-list=$JUDGE_CASE_LIST, baselines only): $(date) ==="
 echo "job=${SLURM_JOB_ID:-NA} host=$(hostname) cpus=${SLURM_CPUS_PER_TASK:-NA} mem=16G gpu=none walltime=12h"
 echo "commit=$(git rev-parse HEAD)"
 
@@ -40,6 +47,7 @@ echo "commit=$(git rev-parse HEAD)"
     --backend sonnet \
     --sealed-inventory data/inventory/kcl_criminal_v1_draft.jsonl \
     --expected-cases 61 \
+    --case-id-file "$JUDGE_CASE_LIST" \
     --method-id vanilla_zero_shot \
     --method-id chain_of_thought \
     --method-id standard_rag \
@@ -53,10 +61,10 @@ echo "commit=$(git rev-parse HEAD)"
     --reasoning-effort low \
     --contract-attempts 3 \
     --api-retries 2 \
-    --out experiments/results/phase3_judge_sonnet/judgments.jsonl \
-    --summary experiments/results/phase3_judge_sonnet/summary.json \
-    --manifest experiments/results/phase3_judge_sonnet/manifest.json \
-    --cache-dir .cache/phase3_judge_sonnet \
+    --out experiments/results/phase3_judge_sonnet_26/judgments.jsonl \
+    --summary experiments/results/phase3_judge_sonnet_26/summary.json \
+    --manifest experiments/results/phase3_judge_sonnet_26/manifest.json \
+    --cache-dir .cache/phase3_judge_sonnet_26 \
     --overwrite
 
 echo "=== Phase-3 Sonnet judge end: $(date) ==="

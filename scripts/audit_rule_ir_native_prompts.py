@@ -52,6 +52,21 @@ STAGES = {
             "legal_labels",
             "closest_allowed_unit_ids",
             "unsupported_reason",
+            # unsupported_basis (docs/handoff/CURRENT.md "decision 단계 프롬프트
+            # 수정 시도" — three free-text-only fixes reworded the same
+            # avoidance three times) replaces a hedge with a closed claim the
+            # host can act on: naming this exact value is what makes a
+            # participation-form-only decline promotable instead of just
+            # another unsupported issue.
+            "unsupported_basis",
+            "participation_form_or_classification_uncertainty_only",
+            # candidate_fit_notes (docs/handoff/CURRENT.md routing-override
+            # investigation, job 220284): unit_id was the second JSON key
+            # emitted with an empty reasoning_content channel, so the model
+            # committed to it with zero comparison tokens for that issue.
+            # This field, ordered before unit_id in the schema, forces the
+            # 1~3단계 comparison onto the token sequence first.
+            "candidate_fit_notes",
         ),
     },
     "predicate_assess": {

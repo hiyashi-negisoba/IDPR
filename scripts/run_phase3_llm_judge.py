@@ -552,6 +552,15 @@ def main() -> None:
     )
     parser.add_argument("--method-id", action="append", default=[])
     parser.add_argument("--case-id", action="append", default=[])
+    parser.add_argument(
+        "--case-id-file",
+        type=Path,
+        help=(
+            "newline-separated sub_question_ids, merged into --case-id — lets a "
+            "reusable subset (e.g. .cache/phase3_substantive_law_case_lists/"
+            "curated_26.txt) be selected without repeating --case-id 26 times"
+        ),
+    )
     parser.add_argument("--exclude-case-id", action="append", default=[])
     parser.add_argument("--expected-cases", type=int, default=59)
     parser.add_argument("--limit", type=int)
@@ -575,6 +584,12 @@ def main() -> None:
     parser.add_argument("--bootstrap-seed", type=int, default=20260803)
     parser.add_argument("--overwrite", action="store_true")
     args = parser.parse_args()
+    if args.case_id_file:
+        args.case_id = list(args.case_id) + [
+            line.strip()
+            for line in args.case_id_file.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        ]
     for name in ("expected_cases", "concurrency", "max_tokens", "contract_attempts"):
         if getattr(args, name) < 1:
             parser.error(f"--{name.replace('_', '-')} must be positive")

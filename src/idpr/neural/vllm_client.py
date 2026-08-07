@@ -102,11 +102,30 @@ class VLLMClient:
             raise VLLMClientError("vLLM structured output must be a JSON object")
         if not isinstance(output, dict):
             raise VLLMClientError("vLLM structured output must be a JSON object")
+        # Diagnostic-only: the gemma4 reasoning parser emits an open-ended
+        # thinking phase before the schema-constrained JSON. Whether a
+        # per-issue decision (e.g. unit_id="unsupported") was already fixed
+        # before that thinking phase, or fixed within it, is only answerable
+        # by reading this text — capturing it costs nothing and was
+        # previously discarded on the success path (only surfaced in the
+        # malformed-JSON error branch above).
+        # Confirmed empty for the issue-selection call with no
+        # chat_template_kwargs thinking flag set (docs/handoff/CURRENT.md
+        # routing-override investigation, job 220284): the gemma4 reasoning
+        # parser has a "reasoning" key to fill, but nothing was generated
+        # into it — there is no hidden thinking phase preceding the
+        # schema-constrained JSON for this call. Kept for future calls that
+        # might set the thinking flag; costs nothing when the model leaves it
+        # empty.
+        reasoning_content = choice.get("message", {}).get(
+            "reasoning_content"
+        ) or choice.get("message", {}).get("reasoning")
         metadata = {
             "id": response_payload.get("id"),
             "model": response_payload.get("model"),
             "usage": response_payload.get("usage", {}),
             "finish_reason": choice.get("finish_reason"),
+            "reasoning_content": reasoning_content,
         }
         return output, metadata
 

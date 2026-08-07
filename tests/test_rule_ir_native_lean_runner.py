@@ -93,9 +93,11 @@ class FakeClient:
                                 for key, value in self.assessment["role_values"].items()
                                 if key != "case_id"
                             },
+                            "candidate_fit_notes": "테스트 픽스처: 대조 결과",
                             "depends_on_issue_ids": [],
                             "closest_allowed_unit_ids": [],
                             "unsupported_reason": "",
+                            "unsupported_basis": "not_applicable",
                         }
                     ],
                     **_EMPTY_ROUTING_EXTENSIONS,
@@ -178,9 +180,11 @@ class TwoIssueFakeClient:
                 for key, value in assessment["role_values"].items()
                 if key != "case_id"
             },
+            "candidate_fit_notes": "테스트 픽스처: 대조 결과",
             "depends_on_issue_ids": [],
             "closest_allowed_unit_ids": [],
             "unsupported_reason": "",
+            "unsupported_basis": "not_applicable",
         }
 
     def complete_json(self, **kwargs: Any) -> tuple[dict[str, Any], dict[str, Any]]:

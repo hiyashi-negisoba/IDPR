@@ -55,6 +55,16 @@ _ASSESSMENT_STATUS_NORMALIZATION = {
 }
 
 
+UNSUPPORTED_BASIS_VALUES = frozenset(
+    {
+        "not_applicable",
+        "no_matching_unit",
+        "participation_form_or_classification_uncertainty_only",
+    }
+)
+PARTICIPATION_FORM_BASIS = "participation_form_or_classification_uncertainty_only"
+
+
 class NativeHostError(ValueError):
     """A closed host contract was violated before symbolic execution."""
 
@@ -151,22 +161,48 @@ def closed_issue_selection_schema(
                     "additionalProperties": False,
                     "required": [
                         "issue_id",
-                        "unit_id",
                         "reported_label",
                         "source_quote",
+                        "candidate_fit_notes",
+                        "unit_id",
                         "role_candidates",
                         "depends_on_issue_ids",
                         "closest_allowed_unit_ids",
                         "unsupported_reason",
+                        "unsupported_basis",
                     ],
                     "properties": {
                         "issue_id": {
                             "type": "string",
                             "pattern": "^[a-z0-9][a-z0-9_.-]*$",
                         },
-                        "unit_id": unit_id_enum,
                         "reported_label": {"type": "string", "minLength": 1},
                         "source_quote": {"type": "string", "minLength": 1},
+                        # Generated *before* unit_id — key order in this dict is
+                        # generation order under guided decoding (confirmed:
+                        # 01_issue_selection.json field order matches this
+                        # dict's declaration order exactly, job 220284). Before
+                        # this field existed, unit_id was the second key
+                        # emitted, so the model committed to it with zero
+                        # comparison tokens in context; unsupported_reason/
+                        # unsupported_basis then had to be generated *after*
+                        # that commitment, conditioned on it. That is the
+                        # mechanism behind the r14_p1_q2 bribe_giving miss: its
+                        # own unsupported_reason wrote "bribe_giving을 선택해야
+                        # 함" while unit_id, already fixed two fields earlier,
+                        # still said "unsupported" (docs/handoff/CURRENT.md
+                        # routing-override investigation, job 220254). Diagnosed
+                        # by capturing reasoning_content (idpr.neural.vllm_client)
+                        # and confirming it was empty for this call — no hidden
+                        # thinking phase preceded the JSON, so the JSON's own key
+                        # order *is* the only sequence the model reasons in.
+                        # candidate_fit_notes forces the comparison against
+                        # allowed_units onto the token sequence ahead of
+                        # unit_id, for every issue (not just ones that end up
+                        # unsupported), so unit_id is now conditioned on
+                        # generated comparison tokens instead of preceding them.
+                        "candidate_fit_notes": {"type": "string", "minLength": 1},
+                        "unit_id": unit_id_enum,
                         "role_candidates": {
                             "type": "object",
                             "additionalProperties": {
@@ -178,11 +214,12 @@ def closed_issue_selection_schema(
                             "type": "array",
                             "items": {"type": "string"},
                         },
-                        # Diagnostic-only routing trace — the host's symbolic
-                        # execution, writer input, and evaluation never read
-                        # these two fields. Populated only when unit_id is
-                        # "unsupported" (validate_closed_issue_selection
-                        # enforces the contract in both directions: non-empty
+                        # closest_allowed_unit_ids/unsupported_reason are
+                        # diagnostic-only routing trace — the host's symbolic
+                        # execution and evaluation never read them. Populated
+                        # only when unit_id is "unsupported"
+                        # (validate_closed_issue_selection enforces the
+                        # contract in both directions: non-empty
                         # unsupported_reason and a real candidate list when
                         # unsupported, both empty otherwise — kept in Python
                         # rather than JSON Schema if/then, which the guidance
@@ -193,6 +230,29 @@ def closed_issue_selection_schema(
                         # one is either a genuine coverage gap or a catalog/
                         # prompt comprehension problem — see
                         # docs/handoff/CURRENT.md "라우팅 정확도".
+                        #
+                        # unsupported_basis is NOT diagnostic-only: it is read
+                        # by apply_routing_overrides. Three prompt-worded
+                        # revisions to make the router commit to a candidate
+                        # it already named (docs/handoff/CURRENT.md "decision
+                        # 단계 프롬프트 수정 시도") all failed the same way —
+                        # the model rephrased the same avoidance each time in
+                        # free text. A closed enum cannot be reworded around:
+                        # to pick "no_matching_unit" the model has to claim
+                        # the candidate's role_definition/legal_labels
+                        # genuinely do not cover this fact pattern, not just
+                        # gesture at unease. "participation_form_or_
+                        # classification_uncertainty_only" means the
+                        # candidate's substantive elements are satisfied and
+                        # only the participation form (direct/indirect
+                        # perpetrator, co-principal, instigator/accessory) or
+                        # a sub-classification within the same unit is
+                        # unresolved — exactly the doubt legal doctrine treats
+                        # as an issue to argue, not a reason to withhold the
+                        # base charge. "not_applicable" is the only value
+                        # allowed when unit_id != "unsupported" (mirrors the
+                        # closest_allowed_unit_ids/unsupported_reason leak
+                        # check).
                         "closest_allowed_unit_ids": {
                             "type": "array",
                             "maxItems": 3,
@@ -200,6 +260,13 @@ def closed_issue_selection_schema(
                             "items": {"enum": unit_ids},
                         },
                         "unsupported_reason": {"type": "string"},
+                        "unsupported_basis": {
+                            "enum": [
+                                "not_applicable",
+                                "no_matching_unit",
+                                "participation_form_or_classification_uncertainty_only",
+                            ]
+                        },
                     },
                 },
             },
@@ -402,11 +469,17 @@ def validate_closed_issue_selection(
             # diagnostic trace (docs/handoff/CURRENT.md "라우팅 정확도").
             closest_candidates = item.get("closest_allowed_unit_ids", [])
             unsupported_reason = str(item.get("unsupported_reason", "")).strip()
+            unsupported_basis = str(item.get("unsupported_basis", "")).strip()
             if unit_id == "unsupported":
                 if not unsupported_reason:
                     faults.append((
                         "missing_unsupported_reason",
                         "unsupported를 선택했는데 unsupported_reason이 비어 있다",
+                    ))
+                if unsupported_basis not in UNSUPPORTED_BASIS_VALUES - {"not_applicable"}:
+                    faults.append((
+                        "missing_unsupported_basis",
+                        "unsupported를 선택했는데 unsupported_basis가 not_applicable이거나 비어 있다",
                     ))
             else:
                 if isinstance(closest_candidates, list) and closest_candidates:
@@ -419,6 +492,50 @@ def validate_closed_issue_selection(
                         "unsupported_diagnostic_leak",
                         "지원 unit을 선택했는데도 unsupported_reason을 채웠다",
                     ))
+                if unsupported_basis and unsupported_basis != "not_applicable":
+                    faults.append((
+                        "unsupported_diagnostic_leak",
+                        "지원 unit을 선택했는데도 unsupported_basis를 not_applicable이 아닌 값으로 채웠다",
+                    ))
+            # A participation-form-only issue names exactly one real candidate
+            # it believes already covers the substance — apply_routing_overrides
+            # promotes it to that candidate's unit_id, so it must carry that
+            # candidate's role_candidates now, not the empty {} unsupported
+            # issues otherwise carry (docs/handoff/CURRENT.md "decision 단계
+            # 프롬프트 수정 시도" — three free-text-only fixes failed because
+            # the model could reword its way around a rule with no
+            # verifiable side effect; this makes the claim load-bearing:
+            # claiming this basis without the roles to back it up degrades
+            # the issue instead of promoting it).
+            if (
+                unit_id == "unsupported"
+                and unsupported_basis == PARTICIPATION_FORM_BASIS
+                and isinstance(closest_candidates, list)
+                and len(closest_candidates) == 1
+            ):
+                candidate_entry = registry.get(closest_candidates[0])
+                if candidate_entry is not None:
+                    candidate_roles = {
+                        argument["name"]
+                        for argument in candidate_entry.role_predicate["arguments"]
+                        if argument["name"] != "case_id"
+                    }
+                    role_candidates = item.get("role_candidates", {})
+                    if isinstance(role_candidates, Mapping):
+                        unknown_roles = sorted(set(role_candidates) - candidate_roles)
+                        missing_roles = sorted(candidate_roles - set(role_candidates))
+                        if unknown_roles:
+                            faults.append((
+                                "unsupported_role",
+                                f"참여형태 불확실 후보({closest_candidates[0]})가 받지 않는 "
+                                f"당사자 역할을 지정했다: {unknown_roles}",
+                            ))
+                        if missing_roles:
+                            faults.append((
+                                "missing_required_role",
+                                f"참여형태 불확실 후보({closest_candidates[0]})에 필요한 "
+                                f"당사자 역할이 빠졌다: {missing_roles}",
+                            ))
             if entry is not None:
                 allowed_roles = {
                     argument["name"]
@@ -458,6 +575,81 @@ def validate_closed_issue_selection(
     if errors:
         raise NativeHostError("; ".join(errors))
     return rejected
+
+
+def apply_routing_overrides(
+    selection: Mapping[str, Any],
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Promote a router-named candidate the model declined only over participation form.
+
+    Three prompt-worded attempts to stop the router from naming the exact
+    right unit in ``closest_allowed_unit_ids`` and then still writing
+    ``unit_id="unsupported"`` all failed the same way (job 220070/220071/
+    220074, docs/handoff/CURRENT.md "decision 단계 프롬프트 수정 시도 — 2회
+    실패, 롤백"): free text has no verifiable side effect, so the model
+    reworded the same avoidance three different ways. ``unsupported_basis``
+    replaces that free-text hedge with a closed claim the host can act on:
+    declaring ``participation_form_or_classification_uncertainty_only`` with
+    exactly one candidate only survives ``validate_closed_issue_selection``
+    if ``role_candidates`` already resolves against that candidate's role
+    schema — so by the time an issue reaches here, the claim is already
+    backed by usable role data, not just a label.
+
+    Call this on the post-rejection-filtered selection (a role mismatch for
+    the sole candidate already demoted the issue to ``contract_degraded``
+    upstream, so it will not appear here as an override candidate).
+
+    Never fires for ``no_matching_unit`` (a genuine coverage gap, e.g.
+    강도상해/강도치상 결합범 — no unit exists to promote to) or for zero or
+    more than one candidate (nothing to promote to, or genuinely ambiguous
+    — this only resolves the case the model itself narrowed to exactly one).
+    Those issues pass through unit_id="unsupported" unchanged and still
+    reach the writer as autonomous reasoning via ``_render_verdict_brief``'s
+    unsupported tier. The residual participation-form doubt this overrides
+    is not discarded — the caller is expected to carry the returned override
+    records into the writer's checklist (docs/handoff/CURRENT.md "라우팅
+    출력 확장") so the answer still argues direct/indirect perpetrator,
+    co-principal, etc. explicitly rather than presenting the promoted charge
+    as if participation form were never in question.
+    """
+
+    overrides: list[dict[str, Any]] = []
+    promoted_issues: list[Any] = []
+    for item in selection.get("issues", []):
+        if not isinstance(item, Mapping):
+            promoted_issues.append(item)
+            continue
+        unit_id = str(item.get("unit_id", ""))
+        basis = str(item.get("unsupported_basis", ""))
+        closest = item.get("closest_allowed_unit_ids", [])
+        eligible = (
+            unit_id == "unsupported"
+            and basis == PARTICIPATION_FORM_BASIS
+            and isinstance(closest, list)
+            and len(closest) == 1
+        )
+        if not eligible:
+            promoted_issues.append(item)
+            continue
+        promoted_unit_id = str(closest[0])
+        overrides.append(
+            {
+                "issue_id": str(item.get("issue_id", "")),
+                "reported_label": str(item.get("reported_label", "")),
+                "promoted_unit_id": promoted_unit_id,
+                "unsupported_reason": str(item.get("unsupported_reason", "")),
+            }
+        )
+        promoted_issues.append(
+            {
+                **item,
+                "unit_id": promoted_unit_id,
+                "closest_allowed_unit_ids": [],
+                "unsupported_reason": "",
+                "unsupported_basis": "not_applicable",
+            }
+        )
+    return {**selection, "issues": promoted_issues}, overrides
 
 
 def assess_routing_completeness(selection: Mapping[str, Any]) -> dict[str, Any]:

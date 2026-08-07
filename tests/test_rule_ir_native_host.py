@@ -15,6 +15,7 @@ from idpr.generation.native_rule_ir_answer import (
 from idpr.rulegen.native_host import (
     DEFAULT_SCLI,
     NativeHostError,
+    apply_routing_overrides,
     assess_routing_completeness,
     check_verdict_consistency,
     classify_symbolic_trust,
@@ -90,7 +91,15 @@ def _assessment(unit_id: str, scenario: dict, *, issue_id: str) -> dict:
     }
 
 
-def _issue(issue_id: str, unit_id: str, *, dependencies: list[str] | None = None) -> dict:
+def _issue(
+    issue_id: str,
+    unit_id: str,
+    *,
+    dependencies: list[str] | None = None,
+    closest_allowed_unit_ids: list[str] | None = None,
+    unsupported_basis: str | None = None,
+    role_candidates: dict[str, str] | None = None,
+) -> dict:
     entry = build_registry().get(unit_id)
     roles = (
         {
@@ -101,15 +110,21 @@ def _issue(issue_id: str, unit_id: str, *, dependencies: list[str] | None = None
         if entry is not None
         else {}
     )
+    if role_candidates is not None:
+        roles = role_candidates
+    if unsupported_basis is None:
+        unsupported_basis = "no_matching_unit" if unit_id == "unsupported" else "not_applicable"
     return {
         "issue_id": issue_id,
         "unit_id": unit_id,
         "reported_label": "미지원 쟁점" if unit_id == "unsupported" else unit_id,
         "source_quote": CASE_TEXT,
+        "candidate_fit_notes": "테스트 픽스처: 대조 결과",
         "role_candidates": roles,
         "depends_on_issue_ids": dependencies or [],
-        "closest_allowed_unit_ids": [],
+        "closest_allowed_unit_ids": closest_allowed_unit_ids or [],
         "unsupported_reason": "테스트 픽스처: 등록된 unit 없음" if unit_id == "unsupported" else "",
+        "unsupported_basis": unsupported_basis,
     }
 
 
@@ -226,6 +241,128 @@ def test_closed_selection_demotes_bad_label_dependency_and_missing_role() -> Non
         validate_closed_issue_selection(
             selection, case_id="case-1", case_text=CASE_TEXT
         )
+
+
+def test_unsupported_basis_leak_check_runs_both_directions() -> None:
+    """``unsupported_basis`` mirrors the closest_allowed_unit_ids/unsupported_reason
+    leak contract: real answer for unit_id="unsupported", "not_applicable"
+    otherwise — a free-text hedge could be reworded around (docs/handoff/
+    CURRENT.md "decision 단계 프롬프트 수정 시도", three failed attempts); a
+    closed enum with an enforced-both-ways contract cannot be."""
+
+    missing_basis = _issue("issue-1", "unsupported", unsupported_basis="not_applicable")
+    rejected = validate_closed_issue_selection(
+        _selection([missing_basis]), case_id="case-1", case_text=CASE_TEXT
+    )
+    assert rejected and "missing_unsupported_basis" in rejected[0]["degraded_reason"]
+
+    leaked_basis = _issue(
+        "issue-1", "rape", unsupported_basis="no_matching_unit"
+    )
+    rejected = validate_closed_issue_selection(
+        _selection([leaked_basis]), case_id="case-1", case_text=CASE_TEXT
+    )
+    assert rejected and "unsupported_diagnostic_leak" in rejected[0]["degraded_reason"]
+
+
+def test_participation_form_basis_requires_candidate_roles_to_resolve() -> None:
+    """Claiming participation_form_or_classification_uncertainty_only with an
+    empty (or wrong) role_candidates degrades the issue instead of promoting
+    it — the claim only survives if it is already backed by usable role data
+    for the one candidate it names."""
+
+    empty_roles = _issue(
+        "issue-1",
+        "unsupported",
+        closest_allowed_unit_ids=["private_document_forgery"],
+        unsupported_basis="participation_form_or_classification_uncertainty_only",
+    )
+    rejected = validate_closed_issue_selection(
+        _selection([empty_roles]), case_id="case-1", case_text=CASE_TEXT
+    )
+    assert rejected and "missing_required_role" in rejected[0]["degraded_reason"]
+
+    filled_roles = _issue(
+        "issue-1",
+        "unsupported",
+        closest_allowed_unit_ids=["private_document_forgery"],
+        unsupported_basis="participation_form_or_classification_uncertainty_only",
+        role_candidates={
+            "defendant_id": "defendant_id-1",
+            "document_id": "document_id-1",
+            "nominal_author_id": "nominal_author_id-1",
+        },
+    )
+    rejected = validate_closed_issue_selection(
+        _selection([filled_roles]), case_id="case-1", case_text=CASE_TEXT
+    )
+    assert rejected == []
+
+
+def test_apply_routing_overrides_promotes_single_participation_form_candidate() -> None:
+    """The router named exactly the right unit in ``closest_allowed_unit_ids``
+    and still wrote unit_id="unsupported" over participation form alone — the
+    host promotes it rather than relying on a fourth prompt-wording attempt
+    (docs/handoff/CURRENT.md: three tries at this in free text all failed the
+    same way, job 220070/220071/220074)."""
+
+    issue = _issue(
+        "issue-1",
+        "unsupported",
+        closest_allowed_unit_ids=["private_document_forgery"],
+        unsupported_basis="participation_form_or_classification_uncertainty_only",
+        role_candidates={
+            "defendant_id": "defendant_id-1",
+            "document_id": "document_id-1",
+            "nominal_author_id": "nominal_author_id-1",
+        },
+    )
+    issue["unsupported_reason"] = "직접정범인지 간접정범인지 불확실함"
+    promoted, overrides = apply_routing_overrides(_selection([issue]))
+    assert overrides == [
+        {
+            "issue_id": "issue-1",
+            "reported_label": "미지원 쟁점",
+            "promoted_unit_id": "private_document_forgery",
+            "unsupported_reason": "직접정범인지 간접정범인지 불확실함",
+        }
+    ]
+    promoted_issue = promoted["issues"][0]
+    assert promoted_issue["unit_id"] == "private_document_forgery"
+    assert promoted_issue["closest_allowed_unit_ids"] == []
+    assert promoted_issue["unsupported_reason"] == ""
+    assert promoted_issue["unsupported_basis"] == "not_applicable"
+    # The promoted issue must itself still clear the ordinary contract (its
+    # role_candidates already had to, to survive validation upstream — this
+    # confirms selected_predicate_requests's second validation pass will not
+    # re-reject what was just promoted).
+    assert (
+        validate_closed_issue_selection(promoted, case_id="case-1", case_text=CASE_TEXT)
+        == []
+    )
+
+
+def test_apply_routing_overrides_leaves_genuine_gaps_and_ambiguous_candidates_alone() -> None:
+    """A genuine coverage gap (``no_matching_unit``) and an unresolved
+    multi-candidate decline (2-3 names) are not promotable — the model itself
+    never narrowed either to one applicable unit, so there is nothing safe to
+    promote to (docs/handoff/CURRENT.md: 강도상해/강도치상 결합범 and 살인교사
+    both correctly stayed unsupported in job 220070 after naming candidates
+    that do not actually cover the fact pattern)."""
+
+    genuine_gap = _issue(
+        "issue-1", "unsupported", unsupported_basis="no_matching_unit"
+    )
+    ambiguous = _issue(
+        "issue-2",
+        "unsupported",
+        closest_allowed_unit_ids=["rape", "indecent_assault"],
+        unsupported_basis="participation_form_or_classification_uncertainty_only",
+    )
+    promoted, overrides = apply_routing_overrides(_selection([genuine_gap, ambiguous]))
+    assert overrides == []
+    assert promoted["issues"][0]["unit_id"] == "unsupported"
+    assert promoted["issues"][1]["unit_id"] == "unsupported"
 
 
 def test_selected_predicate_requests_tolerates_every_issue_rejected() -> None:

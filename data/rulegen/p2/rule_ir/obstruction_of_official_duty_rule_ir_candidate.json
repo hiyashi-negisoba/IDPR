@@ -14,9 +14,11 @@
       "comm_001692_제136조_Ⅱ.3_14",
       "comm_001692_제136조_Ⅱ.3_16",
       "comm_001692_제136조_Ⅱ.3_18",
+      "comm_001692_제136조_Ⅱ.3_20",
       "comm_001692_제136조_Ⅱ.3_25",
       "comm_001692_제136조_Ⅱ.3_28",
       "comm_001692_제136조_Ⅱ.3_29",
+      "comm_001692_제136조_Ⅱ.3_30",
       "comm_001692_제136조_Ⅱ.3_34",
       "comm_001692_제136조_Ⅱ.3_36",
       "comm_001692_제136조_Ⅱ.3_37",
@@ -67,8 +69,8 @@
       "art136_sec2_3.minor_procedural_violation",
       "art136_sec2_3.protective_room_exception",
       "art136_sec2_3.public_official_definition",
+      "art136_sec2_3.voluntary_accompaniment",
       "art136_sec2_4.abstract_danger_offense",
-      "art136_sec2_4.active_conduct_requirement",
       "art136_sec2_4.active_confinement_or_dog_release",
       "art136_sec2_4.assault_against_assistant",
       "art136_sec2_4.assault_definition",
@@ -2039,6 +2041,104 @@
       ]
     },
     {
+      "id": "assess_art136_sec2_3_voluntary_accompaniment",
+      "kind": "rule",
+      "origin": "commentary",
+      "role": "input",
+      "definition": "이 카드의 사건별 적용 평가: 임의동행은 상대방의 동의 또는 승낙을 요건으로 하고, 상대방은 요구를 거절하거나 동행 후 언제든 경찰관서에서 퇴거할 자유가 있으며, 자발적 의사에 따른 동행임이 객관적으로 명백히 입증되지 않거나 퇴거를 제지하면 적법한 공무집행으로 보기 어렵다.",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "assessment_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "official_id",
+          "type": "String"
+        },
+        {
+          "name": "official_duty_id",
+          "type": "String"
+        },
+        {
+          "name": "status",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [
+        "art136_sec2_3.voluntary_accompaniment"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "임의동행은 상대방의 동의 또는 승낙을 그 요건으로 하는 것이므로 경찰관",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "으로부터 임의동행 요구를 받은 경우 상대방은 이를 거절할 수 있을 뿐만 아니 라 임의동행 후 언제든지 경찰관서에서 퇴거할 자유가 있고",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_30",
+          "quote": "오로지 피의자의 자발적인 의사에 의하여 수사관서 등에의 동행이 이루어졌음이 객관적인 사정 에 의하여 명백하게 입증된 경우에 한하여, 비로소 그 적법성을 인정하여야 한",
+          "section_path": "Ⅱ.3"
+        }
+      ]
+    },
+    {
+      "id": "satisfied_art136_sec2_3_voluntary_accompaniment",
+      "kind": "rule",
+      "origin": "commentary",
+      "role": "derived",
+      "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 임의동행은 상대방의 동의 또는 승낙을 요건으로 하고, 상대방은 요구를 거절하거나 동행 후 언제든 경찰관서에서 퇴거할 자유가 있으며, 자발적 의사에 따른 동행임이 객관적으로 명백히 입증되지 않거나 퇴거를 제지하면 적법한 공무집행으로 보기 어렵다.",
+      "arguments": [
+        {
+          "name": "case_id",
+          "type": "String"
+        },
+        {
+          "name": "defendant_id",
+          "type": "String"
+        },
+        {
+          "name": "official_id",
+          "type": "String"
+        },
+        {
+          "name": "official_duty_id",
+          "type": "String"
+        }
+      ],
+      "norm_card_ids": [
+        "art136_sec2_3.voluntary_accompaniment"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "임의동행은 상대방의 동의 또는 승낙을 그 요건으로 하는 것이므로 경찰관",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "으로부터 임의동행 요구를 받은 경우 상대방은 이를 거절할 수 있을 뿐만 아니 라 임의동행 후 언제든지 경찰관서에서 퇴거할 자유가 있고",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_30",
+          "quote": "오로지 피의자의 자발적인 의사에 의하여 수사관서 등에의 동행이 이루어졌음이 객관적인 사정 에 의하여 명백하게 입증된 경우에 한하여, 비로소 그 적법성을 인정하여야 한",
+          "section_path": "Ⅱ.3"
+        }
+      ]
+    },
+    {
       "id": "assess_art136_sec2_4_abstract_danger_offense",
       "kind": "rule",
       "origin": "commentary",
@@ -2112,84 +2212,6 @@
         {
           "comment_id": "comm_001692_제136조_Ⅱ.4_46",
           "quote": "본죄 는 추상적 위험범으로서 공무원에 대한 폭행이나 협박을 하면 곧바로 기수에 이르 고 폭행이나 협박으로 인하여 공무방해의 결과나 그 구체적 위험이 발생할 것을 요 하지 아니한다고 보아야 한다.",
-          "section_path": "Ⅱ.4"
-        }
-      ]
-    },
-    {
-      "id": "assess_art136_sec2_4_active_conduct_requirement",
-      "kind": "rule",
-      "origin": "commentary",
-      "role": "input",
-      "definition": "이 카드의 사건별 적용 평가: 공무집행방해죄의 폭행·협박은 적극적 행위에 의하여야 하며, 소극적 거동이나 불복종은 폭행·협박에 해당하지 않는다.",
-      "arguments": [
-        {
-          "name": "case_id",
-          "type": "String"
-        },
-        {
-          "name": "assessment_id",
-          "type": "String"
-        },
-        {
-          "name": "defendant_id",
-          "type": "String"
-        },
-        {
-          "name": "official_id",
-          "type": "String"
-        },
-        {
-          "name": "official_duty_id",
-          "type": "String"
-        },
-        {
-          "name": "status",
-          "type": "String"
-        }
-      ],
-      "norm_card_ids": [
-        "art136_sec2_4.active_conduct_requirement"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_45",
-          "quote": "본죄의 폭행·협박은 적극적인 행위에 의할 것을 요한다. 소극적인 거동이나 불 복종은 폭행·협박에 해당하지 아니한다.",
-          "section_path": "Ⅱ.4"
-        }
-      ]
-    },
-    {
-      "id": "satisfied_art136_sec2_4_active_conduct_requirement",
-      "kind": "rule",
-      "origin": "commentary",
-      "role": "derived",
-      "definition": "증명 가능한 평가에서 다음 조건이 충족됨: 공무집행방해죄의 폭행·협박은 적극적 행위에 의하여야 하며, 소극적 거동이나 불복종은 폭행·협박에 해당하지 않는다.",
-      "arguments": [
-        {
-          "name": "case_id",
-          "type": "String"
-        },
-        {
-          "name": "defendant_id",
-          "type": "String"
-        },
-        {
-          "name": "official_id",
-          "type": "String"
-        },
-        {
-          "name": "official_duty_id",
-          "type": "String"
-        }
-      ],
-      "norm_card_ids": [
-        "art136_sec2_4.active_conduct_requirement"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_45",
-          "quote": "본죄의 폭행·협박은 적극적인 행위에 의할 것을 요한다. 소극적인 거동이나 불 복종은 폭행·협박에 해당하지 아니한다.",
           "section_path": "Ⅱ.4"
         }
       ]
@@ -10829,9 +10851,9 @@
       ]
     },
     {
-      "id": "obstruction_of_official_duty.card.art136_sec2_4_abstract_danger_offense.satisfied",
+      "id": "obstruction_of_official_duty.card.art136_sec2_3_voluntary_accompaniment.satisfied",
       "head": {
-        "predicate": "satisfied_art136_sec2_4_abstract_danger_offense",
+        "predicate": "satisfied_art136_sec2_3_voluntary_accompaniment",
         "arguments": [
           {
             "kind": "variable",
@@ -10854,7 +10876,7 @@
       },
       "body": [
         {
-          "predicate": "assess_art136_sec2_4_abstract_danger_offense",
+          "predicate": "assess_art136_sec2_3_voluntary_accompaniment",
           "arguments": [
             {
               "kind": "variable",
@@ -10893,6 +10915,318 @@
             {
               "kind": "variable",
               "value": "assessment_020"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "증명 가능한 평가가 satisfied일 때만 조건으로 승격한다.",
+      "norm_card_ids": [
+        "art136_sec2_3.voluntary_accompaniment"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "임의동행은 상대방의 동의 또는 승낙을 그 요건으로 하는 것이므로 경찰관",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "으로부터 임의동행 요구를 받은 경우 상대방은 이를 거절할 수 있을 뿐만 아니 라 임의동행 후 언제든지 경찰관서에서 퇴거할 자유가 있고",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_30",
+          "quote": "오로지 피의자의 자발적인 의사에 의하여 수사관서 등에의 동행이 이루어졌음이 객관적인 사정 에 의하여 명백하게 입증된 경우에 한하여, 비로소 그 적법성을 인정하여야 한",
+          "section_path": "Ⅱ.3"
+        }
+      ]
+    },
+    {
+      "id": "obstruction_of_official_duty.card.art136_sec2_3_voluntary_accompaniment.undetermined",
+      "head": {
+        "predicate": "obstruction_of_official_duty_undetermined",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art136_sec2_3.voluntary_accompaniment"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art136_sec2_3_voluntary_accompaniment",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "unknown_020"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "official_id"
+            },
+            {
+              "kind": "variable",
+              "value": "official_duty_id"
+            },
+            {
+              "kind": "string",
+              "value": "unknown"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "unknown_020"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "unknown 평가를 결론 계층에 보존한다.",
+      "norm_card_ids": [
+        "art136_sec2_3.voluntary_accompaniment"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "임의동행은 상대방의 동의 또는 승낙을 그 요건으로 하는 것이므로 경찰관",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "으로부터 임의동행 요구를 받은 경우 상대방은 이를 거절할 수 있을 뿐만 아니 라 임의동행 후 언제든지 경찰관서에서 퇴거할 자유가 있고",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_30",
+          "quote": "오로지 피의자의 자발적인 의사에 의하여 수사관서 등에의 동행이 이루어졌음이 객관적인 사정 에 의하여 명백하게 입증된 경우에 한하여, 비로소 그 적법성을 인정하여야 한",
+          "section_path": "Ⅱ.3"
+        }
+      ]
+    },
+    {
+      "id": "obstruction_of_official_duty.card.art136_sec2_3_voluntary_accompaniment.conflict",
+      "head": {
+        "predicate": "obstruction_of_official_duty_conflict",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "art136_sec2_3.voluntary_accompaniment"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art136_sec2_3_voluntary_accompaniment",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "positive_020"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "official_id"
+            },
+            {
+              "kind": "variable",
+              "value": "official_duty_id"
+            },
+            {
+              "kind": "string",
+              "value": "satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "assess_art136_sec2_3_voluntary_accompaniment",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "negative_020"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "official_id"
+            },
+            {
+              "kind": "variable",
+              "value": "official_duty_id"
+            },
+            {
+              "kind": "string",
+              "value": "not_satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "positive_020"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "negative_020"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "같은 카드에 satisfied와 not_satisfied가 모두 증명되면 충돌이다.",
+      "norm_card_ids": [
+        "art136_sec2_3.voluntary_accompaniment"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "임의동행은 상대방의 동의 또는 승낙을 그 요건으로 하는 것이므로 경찰관",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "으로부터 임의동행 요구를 받은 경우 상대방은 이를 거절할 수 있을 뿐만 아니 라 임의동행 후 언제든지 경찰관서에서 퇴거할 자유가 있고",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_30",
+          "quote": "오로지 피의자의 자발적인 의사에 의하여 수사관서 등에의 동행이 이루어졌음이 객관적인 사정 에 의하여 명백하게 입증된 경우에 한하여, 비로소 그 적법성을 인정하여야 한",
+          "section_path": "Ⅱ.3"
+        }
+      ]
+    },
+    {
+      "id": "obstruction_of_official_duty.card.art136_sec2_4_abstract_danger_offense.satisfied",
+      "head": {
+        "predicate": "satisfied_art136_sec2_4_abstract_danger_offense",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "variable",
+            "value": "official_id"
+          },
+          {
+            "kind": "variable",
+            "value": "official_duty_id"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "assess_art136_sec2_4_abstract_danger_offense",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_021"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "official_id"
+            },
+            {
+              "kind": "variable",
+              "value": "official_duty_id"
+            },
+            {
+              "kind": "string",
+              "value": "satisfied"
+            }
+          ],
+          "negated": false
+        },
+        {
+          "predicate": "provable",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "assessment_021"
             }
           ],
           "negated": false
@@ -10940,7 +11274,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_020"
+              "value": "unknown_021"
             },
             {
               "kind": "variable",
@@ -10970,7 +11304,7 @@
             },
             {
               "kind": "variable",
-              "value": "unknown_020"
+              "value": "unknown_021"
             }
           ],
           "negated": false
@@ -11018,7 +11352,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_020"
+              "value": "positive_021"
             },
             {
               "kind": "variable",
@@ -11048,7 +11382,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_020"
+              "value": "negative_021"
             },
             {
               "kind": "variable",
@@ -11078,7 +11412,7 @@
             },
             {
               "kind": "variable",
-              "value": "positive_020"
+              "value": "positive_021"
             }
           ],
           "negated": false
@@ -11092,7 +11426,7 @@
             },
             {
               "kind": "variable",
-              "value": "negative_020"
+              "value": "negative_021"
             }
           ],
           "negated": false
@@ -11106,288 +11440,6 @@
         {
           "comment_id": "comm_001692_제136조_Ⅱ.4_46",
           "quote": "본죄 는 추상적 위험범으로서 공무원에 대한 폭행이나 협박을 하면 곧바로 기수에 이르 고 폭행이나 협박으로 인하여 공무방해의 결과나 그 구체적 위험이 발생할 것을 요 하지 아니한다고 보아야 한다.",
-          "section_path": "Ⅱ.4"
-        }
-      ]
-    },
-    {
-      "id": "obstruction_of_official_duty.card.art136_sec2_4_active_conduct_requirement.satisfied",
-      "head": {
-        "predicate": "satisfied_art136_sec2_4_active_conduct_requirement",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "variable",
-            "value": "official_id"
-          },
-          {
-            "kind": "variable",
-            "value": "official_duty_id"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art136_sec2_4_active_conduct_requirement",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "assessment_021"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "official_id"
-            },
-            {
-              "kind": "variable",
-              "value": "official_duty_id"
-            },
-            {
-              "kind": "string",
-              "value": "satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "assessment_021"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "증명 가능한 평가가 satisfied일 때만 조건으로 승격한다.",
-      "norm_card_ids": [
-        "art136_sec2_4.active_conduct_requirement"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_45",
-          "quote": "본죄의 폭행·협박은 적극적인 행위에 의할 것을 요한다. 소극적인 거동이나 불 복종은 폭행·협박에 해당하지 아니한다.",
-          "section_path": "Ⅱ.4"
-        }
-      ]
-    },
-    {
-      "id": "obstruction_of_official_duty.card.art136_sec2_4_active_conduct_requirement.undetermined",
-      "head": {
-        "predicate": "obstruction_of_official_duty_undetermined",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art136_sec2_4.active_conduct_requirement"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art136_sec2_4_active_conduct_requirement",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "unknown_021"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "official_id"
-            },
-            {
-              "kind": "variable",
-              "value": "official_duty_id"
-            },
-            {
-              "kind": "string",
-              "value": "unknown"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "unknown_021"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "unknown 평가를 결론 계층에 보존한다.",
-      "norm_card_ids": [
-        "art136_sec2_4.active_conduct_requirement"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_45",
-          "quote": "본죄의 폭행·협박은 적극적인 행위에 의할 것을 요한다. 소극적인 거동이나 불 복종은 폭행·협박에 해당하지 아니한다.",
-          "section_path": "Ⅱ.4"
-        }
-      ]
-    },
-    {
-      "id": "obstruction_of_official_duty.card.art136_sec2_4_active_conduct_requirement.conflict",
-      "head": {
-        "predicate": "obstruction_of_official_duty_conflict",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "art136_sec2_4.active_conduct_requirement"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "assess_art136_sec2_4_active_conduct_requirement",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "positive_021"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "official_id"
-            },
-            {
-              "kind": "variable",
-              "value": "official_duty_id"
-            },
-            {
-              "kind": "string",
-              "value": "satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "assess_art136_sec2_4_active_conduct_requirement",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "negative_021"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "official_id"
-            },
-            {
-              "kind": "variable",
-              "value": "official_duty_id"
-            },
-            {
-              "kind": "string",
-              "value": "not_satisfied"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "positive_021"
-            }
-          ],
-          "negated": false
-        },
-        {
-          "predicate": "provable",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "negative_021"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "같은 카드에 satisfied와 not_satisfied가 모두 증명되면 충돌이다.",
-      "norm_card_ids": [
-        "art136_sec2_4.active_conduct_requirement"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_45",
-          "quote": "본죄의 폭행·협박은 적극적인 행위에 의할 것을 요한다. 소극적인 거동이나 불 복종은 폭행·협박에 해당하지 아니한다.",
           "section_path": "Ⅱ.4"
         }
       ]
@@ -22978,6 +23030,142 @@
       ]
     },
     {
+      "id": "obstruction_of_official_duty.track_conflict.base.art136_sec2_3_voluntary_accompaniment",
+      "head": {
+        "predicate": "obstruction_of_official_duty_track_conflict",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "base"
+          },
+          {
+            "kind": "string",
+            "value": "art136_sec2_3.voluntary_accompaniment"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "obstruction_of_official_duty_conflict",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "string",
+              "value": "art136_sec2_3.voluntary_accompaniment"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "카드 평가 충돌은 해당 track과 그 상속 track에만 전파한다.",
+      "norm_card_ids": [
+        "art136_sec2_3.voluntary_accompaniment"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "임의동행은 상대방의 동의 또는 승낙을 그 요건으로 하는 것이므로 경찰관",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "으로부터 임의동행 요구를 받은 경우 상대방은 이를 거절할 수 있을 뿐만 아니 라 임의동행 후 언제든지 경찰관서에서 퇴거할 자유가 있고",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_30",
+          "quote": "오로지 피의자의 자발적인 의사에 의하여 수사관서 등에의 동행이 이루어졌음이 객관적인 사정 에 의하여 명백하게 입증된 경우에 한하여, 비로소 그 적법성을 인정하여야 한",
+          "section_path": "Ⅱ.3"
+        }
+      ]
+    },
+    {
+      "id": "obstruction_of_official_duty.track_blocked.base.art136_sec2_3_voluntary_accompaniment",
+      "head": {
+        "predicate": "obstruction_of_official_duty_track_not_established",
+        "arguments": [
+          {
+            "kind": "variable",
+            "value": "case_id"
+          },
+          {
+            "kind": "variable",
+            "value": "defendant_id"
+          },
+          {
+            "kind": "string",
+            "value": "base"
+          },
+          {
+            "kind": "string",
+            "value": "art136_sec2_3.voluntary_accompaniment"
+          }
+        ],
+        "negated": false
+      },
+      "body": [
+        {
+          "predicate": "satisfied_art136_sec2_3_voluntary_accompaniment",
+          "arguments": [
+            {
+              "kind": "variable",
+              "value": "case_id"
+            },
+            {
+              "kind": "variable",
+              "value": "defendant_id"
+            },
+            {
+              "kind": "variable",
+              "value": "official_id"
+            },
+            {
+              "kind": "variable",
+              "value": "official_duty_id"
+            }
+          ],
+          "negated": false
+        }
+      ],
+      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
+      "norm_card_ids": [
+        "art136_sec2_3.voluntary_accompaniment"
+      ],
+      "source_refs": [
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "임의동행은 상대방의 동의 또는 승낙을 그 요건으로 하는 것이므로 경찰관",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "으로부터 임의동행 요구를 받은 경우 상대방은 이를 거절할 수 있을 뿐만 아니 라 임의동행 후 언제든지 경찰관서에서 퇴거할 자유가 있고",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_30",
+          "quote": "오로지 피의자의 자발적인 의사에 의하여 수사관서 등에의 동행이 이루어졌음이 객관적인 사정 에 의하여 명백하게 입증된 경우에 한하여, 비로소 그 적법성을 인정하여야 한",
+          "section_path": "Ⅱ.3"
+        }
+      ]
+    },
+    {
       "id": "obstruction_of_official_duty.track_conflict.base.art136_sec2_3_public_official_definition",
       "head": {
         "predicate": "obstruction_of_official_duty_track_conflict",
@@ -23202,122 +23390,6 @@
         {
           "comment_id": "comm_001692_제136조_Ⅱ.4_46",
           "quote": "본죄 는 추상적 위험범으로서 공무원에 대한 폭행이나 협박을 하면 곧바로 기수에 이르 고 폭행이나 협박으로 인하여 공무방해의 결과나 그 구체적 위험이 발생할 것을 요 하지 아니한다고 보아야 한다.",
-          "section_path": "Ⅱ.4"
-        }
-      ]
-    },
-    {
-      "id": "obstruction_of_official_duty.track_conflict.base.art136_sec2_4_active_conduct_requirement",
-      "head": {
-        "predicate": "obstruction_of_official_duty_track_conflict",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "base"
-          },
-          {
-            "kind": "string",
-            "value": "art136_sec2_4.active_conduct_requirement"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "obstruction_of_official_duty_conflict",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "string",
-              "value": "art136_sec2_4.active_conduct_requirement"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "카드 평가 충돌은 해당 track과 그 상속 track에만 전파한다.",
-      "norm_card_ids": [
-        "art136_sec2_4.active_conduct_requirement"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_45",
-          "quote": "본죄의 폭행·협박은 적극적인 행위에 의할 것을 요한다. 소극적인 거동이나 불 복종은 폭행·협박에 해당하지 아니한다.",
-          "section_path": "Ⅱ.4"
-        }
-      ]
-    },
-    {
-      "id": "obstruction_of_official_duty.track_blocked.base.art136_sec2_4_active_conduct_requirement",
-      "head": {
-        "predicate": "obstruction_of_official_duty_track_not_established",
-        "arguments": [
-          {
-            "kind": "variable",
-            "value": "case_id"
-          },
-          {
-            "kind": "variable",
-            "value": "defendant_id"
-          },
-          {
-            "kind": "string",
-            "value": "base"
-          },
-          {
-            "kind": "string",
-            "value": "art136_sec2_4.active_conduct_requirement"
-          }
-        ],
-        "negated": false
-      },
-      "body": [
-        {
-          "predicate": "satisfied_art136_sec2_4_active_conduct_requirement",
-          "arguments": [
-            {
-              "kind": "variable",
-              "value": "case_id"
-            },
-            {
-              "kind": "variable",
-              "value": "defendant_id"
-            },
-            {
-              "kind": "variable",
-              "value": "official_id"
-            },
-            {
-              "kind": "variable",
-              "value": "official_duty_id"
-            }
-          ],
-          "negated": false
-        }
-      ],
-      "review_notes": "저지·경계 카드는 해당 track과 그 상속 track만 막는다.",
-      "norm_card_ids": [
-        "art136_sec2_4.active_conduct_requirement"
-      ],
-      "source_refs": [
-        {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_45",
-          "quote": "본죄의 폭행·협박은 적극적인 행위에 의할 것을 요한다. 소극적인 거동이나 불 복종은 폭행·협박에 해당하지 아니한다.",
           "section_path": "Ⅱ.4"
         }
       ]
@@ -24976,8 +25048,8 @@
         "art136_sec2_3.minor_procedural_violation",
         "art136_sec2_3.protective_room_exception",
         "art136_sec2_3.public_official_definition",
+        "art136_sec2_3.voluntary_accompaniment",
         "art136_sec2_4.abstract_danger_offense",
-        "art136_sec2_4.active_conduct_requirement",
         "art136_sec2_4.active_confinement_or_dog_release",
         "art136_sec2_4.assault_against_assistant",
         "art136_sec2_4.assault_definition",
@@ -25191,13 +25263,23 @@
           "section_path": "Ⅱ.3"
         },
         {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_46",
-          "quote": "본죄 는 추상적 위험범으로서 공무원에 대한 폭행이나 협박을 하면 곧바로 기수에 이르 고 폭행이나 협박으로 인하여 공무방해의 결과나 그 구체적 위험이 발생할 것을 요 하지 아니한다고 보아야 한다.",
-          "section_path": "Ⅱ.4"
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "임의동행은 상대방의 동의 또는 승낙을 그 요건으로 하는 것이므로 경찰관",
+          "section_path": "Ⅱ.3"
         },
         {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_45",
-          "quote": "본죄의 폭행·협박은 적극적인 행위에 의할 것을 요한다. 소극적인 거동이나 불 복종은 폭행·협박에 해당하지 아니한다.",
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "으로부터 임의동행 요구를 받은 경우 상대방은 이를 거절할 수 있을 뿐만 아니 라 임의동행 후 언제든지 경찰관서에서 퇴거할 자유가 있고",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_30",
+          "quote": "오로지 피의자의 자발적인 의사에 의하여 수사관서 등에의 동행이 이루어졌음이 객관적인 사정 에 의하여 명백하게 입증된 경우에 한하여, 비로소 그 적법성을 인정하여야 한",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.4_46",
+          "quote": "본죄 는 추상적 위험범으로서 공무원에 대한 폭행이나 협박을 하면 곧바로 기수에 이르 고 폭행이나 협박으로 인하여 공무방해의 결과나 그 구체적 위험이 발생할 것을 요 하지 아니한다고 보아야 한다.",
           "section_path": "Ⅱ.4"
         },
         {
@@ -25414,8 +25496,8 @@
         "art136_sec2_3.minor_procedural_violation",
         "art136_sec2_3.protective_room_exception",
         "art136_sec2_3.public_official_definition",
+        "art136_sec2_3.voluntary_accompaniment",
         "art136_sec2_4.abstract_danger_offense",
-        "art136_sec2_4.active_conduct_requirement",
         "art136_sec2_4.active_confinement_or_dog_release",
         "art136_sec2_4.assault_against_assistant",
         "art136_sec2_4.assault_definition",
@@ -25629,13 +25711,23 @@
           "section_path": "Ⅱ.3"
         },
         {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_46",
-          "quote": "본죄 는 추상적 위험범으로서 공무원에 대한 폭행이나 협박을 하면 곧바로 기수에 이르 고 폭행이나 협박으로 인하여 공무방해의 결과나 그 구체적 위험이 발생할 것을 요 하지 아니한다고 보아야 한다.",
-          "section_path": "Ⅱ.4"
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "임의동행은 상대방의 동의 또는 승낙을 그 요건으로 하는 것이므로 경찰관",
+          "section_path": "Ⅱ.3"
         },
         {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_45",
-          "quote": "본죄의 폭행·협박은 적극적인 행위에 의할 것을 요한다. 소극적인 거동이나 불 복종은 폭행·협박에 해당하지 아니한다.",
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "으로부터 임의동행 요구를 받은 경우 상대방은 이를 거절할 수 있을 뿐만 아니 라 임의동행 후 언제든지 경찰관서에서 퇴거할 자유가 있고",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_30",
+          "quote": "오로지 피의자의 자발적인 의사에 의하여 수사관서 등에의 동행이 이루어졌음이 객관적인 사정 에 의하여 명백하게 입증된 경우에 한하여, 비로소 그 적법성을 인정하여야 한",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.4_46",
+          "quote": "본죄 는 추상적 위험범으로서 공무원에 대한 폭행이나 협박을 하면 곧바로 기수에 이르 고 폭행이나 협박으로 인하여 공무방해의 결과나 그 구체적 위험이 발생할 것을 요 하지 아니한다고 보아야 한다.",
           "section_path": "Ⅱ.4"
         },
         {
@@ -25860,8 +25952,8 @@
         "art136_sec2_3.minor_procedural_violation",
         "art136_sec2_3.protective_room_exception",
         "art136_sec2_3.public_official_definition",
+        "art136_sec2_3.voluntary_accompaniment",
         "art136_sec2_4.abstract_danger_offense",
-        "art136_sec2_4.active_conduct_requirement",
         "art136_sec2_4.active_confinement_or_dog_release",
         "art136_sec2_4.assault_against_assistant",
         "art136_sec2_4.assault_definition",
@@ -26075,13 +26167,23 @@
           "section_path": "Ⅱ.3"
         },
         {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_46",
-          "quote": "본죄 는 추상적 위험범으로서 공무원에 대한 폭행이나 협박을 하면 곧바로 기수에 이르 고 폭행이나 협박으로 인하여 공무방해의 결과나 그 구체적 위험이 발생할 것을 요 하지 아니한다고 보아야 한다.",
-          "section_path": "Ⅱ.4"
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "임의동행은 상대방의 동의 또는 승낙을 그 요건으로 하는 것이므로 경찰관",
+          "section_path": "Ⅱ.3"
         },
         {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_45",
-          "quote": "본죄의 폭행·협박은 적극적인 행위에 의할 것을 요한다. 소극적인 거동이나 불 복종은 폭행·협박에 해당하지 아니한다.",
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "으로부터 임의동행 요구를 받은 경우 상대방은 이를 거절할 수 있을 뿐만 아니 라 임의동행 후 언제든지 경찰관서에서 퇴거할 자유가 있고",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_30",
+          "quote": "오로지 피의자의 자발적인 의사에 의하여 수사관서 등에의 동행이 이루어졌음이 객관적인 사정 에 의하여 명백하게 입증된 경우에 한하여, 비로소 그 적법성을 인정하여야 한",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.4_46",
+          "quote": "본죄 는 추상적 위험범으로서 공무원에 대한 폭행이나 협박을 하면 곧바로 기수에 이르 고 폭행이나 협박으로 인하여 공무방해의 결과나 그 구체적 위험이 발생할 것을 요 하지 아니한다고 보아야 한다.",
           "section_path": "Ⅱ.4"
         },
         {
@@ -26306,8 +26408,8 @@
         "art136_sec2_3.minor_procedural_violation",
         "art136_sec2_3.protective_room_exception",
         "art136_sec2_3.public_official_definition",
+        "art136_sec2_3.voluntary_accompaniment",
         "art136_sec2_4.abstract_danger_offense",
-        "art136_sec2_4.active_conduct_requirement",
         "art136_sec2_4.active_confinement_or_dog_release",
         "art136_sec2_4.assault_against_assistant",
         "art136_sec2_4.assault_definition",
@@ -26521,13 +26623,23 @@
           "section_path": "Ⅱ.3"
         },
         {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_46",
-          "quote": "본죄 는 추상적 위험범으로서 공무원에 대한 폭행이나 협박을 하면 곧바로 기수에 이르 고 폭행이나 협박으로 인하여 공무방해의 결과나 그 구체적 위험이 발생할 것을 요 하지 아니한다고 보아야 한다.",
-          "section_path": "Ⅱ.4"
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "임의동행은 상대방의 동의 또는 승낙을 그 요건으로 하는 것이므로 경찰관",
+          "section_path": "Ⅱ.3"
         },
         {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_45",
-          "quote": "본죄의 폭행·협박은 적극적인 행위에 의할 것을 요한다. 소극적인 거동이나 불 복종은 폭행·협박에 해당하지 아니한다.",
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "으로부터 임의동행 요구를 받은 경우 상대방은 이를 거절할 수 있을 뿐만 아니 라 임의동행 후 언제든지 경찰관서에서 퇴거할 자유가 있고",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_30",
+          "quote": "오로지 피의자의 자발적인 의사에 의하여 수사관서 등에의 동행이 이루어졌음이 객관적인 사정 에 의하여 명백하게 입증된 경우에 한하여, 비로소 그 적법성을 인정하여야 한",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.4_46",
+          "quote": "본죄 는 추상적 위험범으로서 공무원에 대한 폭행이나 협박을 하면 곧바로 기수에 이르 고 폭행이나 협박으로 인하여 공무방해의 결과나 그 구체적 위험이 발생할 것을 요 하지 아니한다고 보아야 한다.",
           "section_path": "Ⅱ.4"
         },
         {
@@ -26752,8 +26864,8 @@
         "art136_sec2_3.minor_procedural_violation",
         "art136_sec2_3.protective_room_exception",
         "art136_sec2_3.public_official_definition",
+        "art136_sec2_3.voluntary_accompaniment",
         "art136_sec2_4.abstract_danger_offense",
-        "art136_sec2_4.active_conduct_requirement",
         "art136_sec2_4.active_confinement_or_dog_release",
         "art136_sec2_4.assault_against_assistant",
         "art136_sec2_4.assault_definition",
@@ -26967,13 +27079,23 @@
           "section_path": "Ⅱ.3"
         },
         {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_46",
-          "quote": "본죄 는 추상적 위험범으로서 공무원에 대한 폭행이나 협박을 하면 곧바로 기수에 이르 고 폭행이나 협박으로 인하여 공무방해의 결과나 그 구체적 위험이 발생할 것을 요 하지 아니한다고 보아야 한다.",
-          "section_path": "Ⅱ.4"
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "임의동행은 상대방의 동의 또는 승낙을 그 요건으로 하는 것이므로 경찰관",
+          "section_path": "Ⅱ.3"
         },
         {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_45",
-          "quote": "본죄의 폭행·협박은 적극적인 행위에 의할 것을 요한다. 소극적인 거동이나 불 복종은 폭행·협박에 해당하지 아니한다.",
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "으로부터 임의동행 요구를 받은 경우 상대방은 이를 거절할 수 있을 뿐만 아니 라 임의동행 후 언제든지 경찰관서에서 퇴거할 자유가 있고",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_30",
+          "quote": "오로지 피의자의 자발적인 의사에 의하여 수사관서 등에의 동행이 이루어졌음이 객관적인 사정 에 의하여 명백하게 입증된 경우에 한하여, 비로소 그 적법성을 인정하여야 한",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.4_46",
+          "quote": "본죄 는 추상적 위험범으로서 공무원에 대한 폭행이나 협박을 하면 곧바로 기수에 이르 고 폭행이나 협박으로 인하여 공무방해의 결과나 그 구체적 위험이 발생할 것을 요 하지 아니한다고 보아야 한다.",
           "section_path": "Ⅱ.4"
         },
         {
@@ -27268,8 +27390,8 @@
         "art136_sec2_3.minor_procedural_violation",
         "art136_sec2_3.protective_room_exception",
         "art136_sec2_3.public_official_definition",
+        "art136_sec2_3.voluntary_accompaniment",
         "art136_sec2_4.abstract_danger_offense",
-        "art136_sec2_4.active_conduct_requirement",
         "art136_sec2_4.active_confinement_or_dog_release",
         "art136_sec2_4.assault_against_assistant",
         "art136_sec2_4.assault_definition",
@@ -27475,13 +27597,23 @@
           "section_path": "Ⅱ.3"
         },
         {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_46",
-          "quote": "본죄 는 추상적 위험범으로서 공무원에 대한 폭행이나 협박을 하면 곧바로 기수에 이르 고 폭행이나 협박으로 인하여 공무방해의 결과나 그 구체적 위험이 발생할 것을 요 하지 아니한다고 보아야 한다.",
-          "section_path": "Ⅱ.4"
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "임의동행은 상대방의 동의 또는 승낙을 그 요건으로 하는 것이므로 경찰관",
+          "section_path": "Ⅱ.3"
         },
         {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_45",
-          "quote": "본죄의 폭행·협박은 적극적인 행위에 의할 것을 요한다. 소극적인 거동이나 불 복종은 폭행·협박에 해당하지 아니한다.",
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "으로부터 임의동행 요구를 받은 경우 상대방은 이를 거절할 수 있을 뿐만 아니 라 임의동행 후 언제든지 경찰관서에서 퇴거할 자유가 있고",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_30",
+          "quote": "오로지 피의자의 자발적인 의사에 의하여 수사관서 등에의 동행이 이루어졌음이 객관적인 사정 에 의하여 명백하게 입증된 경우에 한하여, 비로소 그 적법성을 인정하여야 한",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.4_46",
+          "quote": "본죄 는 추상적 위험범으로서 공무원에 대한 폭행이나 협박을 하면 곧바로 기수에 이르 고 폭행이나 협박으로 인하여 공무방해의 결과나 그 구체적 위험이 발생할 것을 요 하지 아니한다고 보아야 한다.",
           "section_path": "Ⅱ.4"
         },
         {
@@ -27715,8 +27847,8 @@
         "art136_sec2_3.minor_procedural_violation",
         "art136_sec2_3.protective_room_exception",
         "art136_sec2_3.public_official_definition",
+        "art136_sec2_3.voluntary_accompaniment",
         "art136_sec2_4.abstract_danger_offense",
-        "art136_sec2_4.active_conduct_requirement",
         "art136_sec2_4.active_confinement_or_dog_release",
         "art136_sec2_4.assault_against_assistant",
         "art136_sec2_4.assault_definition",
@@ -27922,13 +28054,23 @@
           "section_path": "Ⅱ.3"
         },
         {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_46",
-          "quote": "본죄 는 추상적 위험범으로서 공무원에 대한 폭행이나 협박을 하면 곧바로 기수에 이르 고 폭행이나 협박으로 인하여 공무방해의 결과나 그 구체적 위험이 발생할 것을 요 하지 아니한다고 보아야 한다.",
-          "section_path": "Ⅱ.4"
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "임의동행은 상대방의 동의 또는 승낙을 그 요건으로 하는 것이므로 경찰관",
+          "section_path": "Ⅱ.3"
         },
         {
-          "comment_id": "comm_001692_제136조_Ⅱ.4_45",
-          "quote": "본죄의 폭행·협박은 적극적인 행위에 의할 것을 요한다. 소극적인 거동이나 불 복종은 폭행·협박에 해당하지 아니한다.",
+          "comment_id": "comm_001692_제136조_Ⅱ.3_20",
+          "quote": "으로부터 임의동행 요구를 받은 경우 상대방은 이를 거절할 수 있을 뿐만 아니 라 임의동행 후 언제든지 경찰관서에서 퇴거할 자유가 있고",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.3_30",
+          "quote": "오로지 피의자의 자발적인 의사에 의하여 수사관서 등에의 동행이 이루어졌음이 객관적인 사정 에 의하여 명백하게 입증된 경우에 한하여, 비로소 그 적법성을 인정하여야 한",
+          "section_path": "Ⅱ.3"
+        },
+        {
+          "comment_id": "comm_001692_제136조_Ⅱ.4_46",
+          "quote": "본죄 는 추상적 위험범으로서 공무원에 대한 폭행이나 협박을 하면 곧바로 기수에 이르 고 폭행이나 협박으로 인하여 공무방해의 결과나 그 구체적 위험이 발생할 것을 요 하지 아니한다고 보아야 한다.",
           "section_path": "Ⅱ.4"
         },
         {
@@ -28404,8 +28546,8 @@
     "predicate_ir_missing: art136_sec3_4.nonofficial_act_coercion → coercion",
     "predicate_ir_missing: art136_sec3_6.assault_threat_absorption → assault_or_threat",
     "context_only: art136_sec2_2.subject.unrestricted",
+    "context_only: art136_sec2_4.active_conduct_requirement",
     "context_only: art136_sec3_2.subject_unrestricted",
-    "pending_split: art136_sec2_3.voluntary_accompaniment (임의동행의 적법성 판단기준과 위법한 동행의 구체적 결과가 한 카드에 혼재한다(검수 002 D-01).",
     "unclassified_annotation: post_outcome: art136_sec2_7.assault_threat_absorption (outcome_subtype 미지정)",
     "unclassified_annotation: post_outcome: art136_sec2_7.injury_ideal_concurrence (outcome_subtype 미지정)",
     "unclassified_annotation: post_outcome: art136_sec2_7.multiple_officers_same_duty (outcome_subtype 미지정)",
@@ -28420,6 +28562,8 @@
     "quarantined_exception_polarity: art136_sec3_4.nonofficial_act_coercion",
     "card_metadata_correction: cc_001",
     "card_metadata_correction: cc_002",
-    "source_quote_repair: art136_sec2_3.identity_check_no_id_card::comm_001692_제136조_Ⅱ.3_34 (ocr_whitespace)"
+    "source_quote_repair: art136_sec2_3.identity_check_no_id_card::comm_001692_제136조_Ⅱ.3_34 (ocr_whitespace)",
+    "source_quote_repair: art136_sec2_3.voluntary_accompaniment::comm_001692_제136조_Ⅱ.3_20 (aligned_span)",
+    "source_quote_repair: art136_sec2_3.voluntary_accompaniment::comm_001692_제136조_Ⅱ.3_30 (ocr_whitespace)"
   ]
 }

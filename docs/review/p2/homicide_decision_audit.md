@@ -2,7 +2,7 @@
 
 - status: `ready_for_rule_ir`
 - approval: `data/rulegen/p2/native_review/homicide_approved_decisions.json`
-- approval SHA-256: `a2cae14c6d7d1c1d362a2c40466dcb20bfc91a8505ba89d965424480c1d16380`
+- approval SHA-256: `6c27c44e6e5dcabacf6261e58fa26f8c9e2788c7f41b857b586b43a139961c85`
 - law snapshot: `kr_criminal_act_effective_2026-08-03`
 - queue cards: 242
 - components: 62

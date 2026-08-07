@@ -17,11 +17,17 @@
 - `reported_label`에는 각 쟁점의 실제 한국어 죄명·법률쟁점명을 쓴다. 지원 여부 표지가 아니므로
   어느 issue에서도 `unsupported`라는 문자열을 label로 쓰지 않는다.
 
-# unsupported 판단 절차와 진단 근거
+# 대조와 unsupported 판단 절차
+
+각 issue마다 `unit_id`를 정하기 **전에** `candidate_fit_notes`를 먼저 쓴다. 이 순서
+자체가 규칙이다 — 대조를 문장으로 먼저 쓰지 않고 바로 `unit_id`를 고르면, 그 다음에
+`closest_allowed_unit_ids`/`unsupported_reason`에 아무리 정확한 비교를 적어도 이미
+정한 `unit_id`를 바꿀 수 없다.
 
 `unit_id=unsupported`는 그 쟁점의 이름과 완전히 같은 이름의 unit이 없다는 이유만으로
 선택하지 않는다. `unit_id`는 영문 식별자이므로 한국 법률 용어와 문자 그대로 일치하지
-않는 경우가 정상이다. 다음 절차를 모두 거친 뒤에만 `unsupported`를 선택한다.
+않는 경우가 정상이다. `candidate_fit_notes`에 다음 절차를 모두 적어 거친 뒤에만
+`unsupported`를 선택한다.
 
 1. `allowed_units`를 전부 확인한다. 각 unit의 `role_definition`과 `legal_labels`가
    제공된 경우 이를 사실관계가 요구하는 행위유형과 당사자 관계에 대조한다.
@@ -31,7 +37,11 @@
 3. 위 대조를 마친 뒤에도 어느 unit도 해당 쟁점의 법적 행위유형을 표현하지 못하는
    경우에만 `unsupported`를 선택한다.
 
-이 판단 과정은 다음 두 필드에 기록한다. 두 필드는 진단용이다. 호스트의 symbolic
+`candidate_fit_notes`: 위 1~3단계 대조를 실제로 수행한 문장으로 적는다. 지원 unit을
+선택하는 경우에도 그 unit이 왜 부합하는지 한두 문장으로 적는다 — 이 필드는 모든
+issue에서 채워야 하며, 대조 결과가 `unit_id`보다 먼저 나와야 한다.
+
+이 판단 과정은 다음 두 필드에도 기록한다. 두 필드는 진단용이다. 호스트의 symbolic
 execution과 writer 입력과 평가에는 사용하지 않는다.
 
 - `closest_allowed_unit_ids`: `unit_id=unsupported`인 경우 마지막까지 비교한 후보
@@ -41,6 +51,16 @@ execution과 writer 입력과 평가에는 사용하지 않는다.
 - `unsupported_reason`: `unit_id=unsupported`인 경우 후보 unit으로도 해당 쟁점을
   표현할 수 없었던 이유를 한두 문장으로 적는다. 지원 unit을 선택한 경우에는 빈
   문자열로 둔다.
+- `unsupported_basis`: `unit_id=unsupported`인 경우 다음 두 값 중 하나를 반드시 고른다.
+  지원 unit을 선택한 경우에는 `not_applicable`로 둔다.
+  - `no_matching_unit`: 위 1~3단계 대조를 마쳤는데도 `allowed_units` 중 어느 unit도
+    이 쟁점의 실체적 요건(행위유형·대상·상대방 구조)을 충족하지 못한다.
+  - `participation_form_or_classification_uncertainty_only`: `closest_allowed_unit_ids`에
+    적은 후보가 이 쟁점의 실체적 요건은 이미 충족하고, 남은 의문이 오직 참여형태
+    (직접정범/간접정범/공동정범/교사/방조 등)나 그 unit 내부의 세부 분류뿐이다.
+    참여형태·가담정도가 불확실하다는 사정만으로는 `unsupported`를 선택할 근거가
+    되지 않는다 — 그 불확실성은 답안에서 논증할 쟁점이지, 쟁점 자체를 회피할
+    이유가 아니다.
 
 # 근거와 역할
 
@@ -55,8 +75,13 @@ execution과 writer 입력과 평가에는 사용하지 않는다.
 - `depends_on_issue_ids`는 공유 후단 module에서만 사용한다. 반드시 같은 출력 배열에서 앞서
   나온 기본범 issue를 가리킨다. 독립 unit과 `unit_id=unsupported`인 issue에서는 예외 없이
   빈 배열이다.
-- `unit_id=unsupported`인 issue의 `role_candidates`는 빈 객체 `{}`로 두고
-  `depends_on_issue_ids`도 빈 배열로 둔다.
+- `unit_id=unsupported`이고 `unsupported_basis`가 `no_matching_unit`이거나
+  `closest_allowed_unit_ids`가 정확히 1개가 아닌 경우, `role_candidates`는 빈 객체
+  `{}`로 두고 `depends_on_issue_ids`도 빈 배열로 둔다.
+- `unsupported_basis`가 `participation_form_or_classification_uncertainty_only`이고
+  `closest_allowed_unit_ids`가 정확히 1개인 경우에는, 그 후보 unit을 실제로 선택한
+  것처럼 그 unit의 `role_arguments`를 빠짐없이 `role_candidates`에 채운다
+  (`depends_on_issue_ids`는 여전히 빈 배열이다).
 
 # 하위 쟁점·분기·대안·정확한 죄명 (다섯 개의 추가 배열)
 

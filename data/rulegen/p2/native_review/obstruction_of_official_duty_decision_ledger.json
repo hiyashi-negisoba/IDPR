@@ -9,7 +9,7 @@
     "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
   },
   "approval_document": "data/rulegen/p2/native_review/obstruction_of_official_duty_approved_decisions.json",
-  "approval_sha256": "c7f38b1ea88e010de8fb8e5685609a4b329c841656a0be01f7b5be2de3cf9018",
+  "approval_sha256": "0d19f43eac61487f2875bc88103270e8e00a6e560b67875a0cedbd522d65538a",
   "approved_on": "2026-08-04",
   "status": "ready_for_rule_ir",
   "problems": [],
@@ -55,6 +55,10 @@
     {
       "card_id": "art136_sec2_2.subject.unrestricted",
       "reason": "주체 무제한 일반설명"
+    },
+    {
+      "card_id": "art136_sec2_4.active_conduct_requirement",
+      "reason": "일반 원칙(적극적 행위 요건) 재진술 — 같은 component에 이미 사실관계별 bar 카드 5장(passive_resistance_not_assault/preplaced_obstacles_not_assault/self_harm_not_assault_or_threat/vehicle_departure_not_assault/assault_not_against_officer_exception)이 이 원칙을 각각 구체적 사실유형으로 정확히 구현하고 있어 이 카드가 별도 bar일 필요가 없음. 이 카드는 satisfied=적극적 행위가 '있었다'는 뜻인데 bar로 배선되면 폭행이 실제로 인정될수록 오히려 불성립으로 뒤집히는 극성 역전 버그였다(2026-08-07 발견, docs/handoff/CURRENT.md)."
     },
     {
       "card_id": "art136_sec3_2.subject_unrestricted",
@@ -282,6 +286,17 @@
       "proposition_rewrite": null
     },
     {
+      "card_id": "art136_sec2_3.voluntary_accompaniment",
+      "part_id": null,
+      "role": "bar",
+      "track_id": "base",
+      "component_id": "lawful_duty_execution",
+      "component_join": "not_applicable",
+      "refers_to_unit": null,
+      "rationale": "법적 전제 없는 권한·위법 체포·먼 장래 직무·비자발적 임의동행",
+      "proposition_rewrite": null
+    },
+    {
       "card_id": "art136_sec2_3.public_official_definition",
       "part_id": null,
       "role": "component",
@@ -367,17 +382,6 @@
       "component_join": "alternative_any",
       "refers_to_unit": null,
       "rationale": "공무집행을 방해할 정도의 직간접 유형력 또는 해악고지",
-      "proposition_rewrite": null
-    },
-    {
-      "card_id": "art136_sec2_4.active_conduct_requirement",
-      "part_id": null,
-      "role": "bar",
-      "track_id": "base",
-      "component_id": "violence_or_threat",
-      "component_join": "not_applicable",
-      "refers_to_unit": null,
-      "rationale": "소극적 불복종·공무원 비지향 행위·사전 장애물·자해·부주의 사고",
       "proposition_rewrite": null
     },
     {
@@ -691,7 +695,8 @@
         "art136_sec2_3.lawful_performance_requirements",
         "art136_sec2_3.lawfulness_time_of_act",
         "art136_sec2_3.minor_procedural_violation",
-        "art136_sec2_3.protective_room_exception"
+        "art136_sec2_3.protective_room_exception",
+        "art136_sec2_3.voluntary_accompaniment"
       ]
     },
     {
@@ -753,7 +758,6 @@
         "art136_sec2_1.offense_conduct",
         "art136_sec2_1.violence",
         "art136_sec2_4.abstract_danger_offense",
-        "art136_sec2_4.active_conduct_requirement",
         "art136_sec2_4.active_confinement_or_dog_release",
         "art136_sec2_4.assault_against_assistant",
         "art136_sec2_4.assault_definition",
@@ -863,17 +867,11 @@
   ],
   "stats": {
     "components": 13,
-    "context_only_placements": 2,
+    "context_only_placements": 3,
     "decision_approve": 52,
     "decision_context_only": 2,
-    "placements": 52,
+    "placements": 51,
     "queue_cards": 54,
     "unresolved_unit_references": 6
-  },
-  "excluded_pending_split": [
-    {
-      "card_id": "art136_sec2_3.voluntary_accompaniment",
-      "reason": "임의동행의 적법성 판단기준과 위법한 동행의 구체적 결과가 한 카드에 혼재한다(검수 002 D-01)."
-    }
-  ]
+  }
 }
