@@ -75,10 +75,10 @@ def _assessment(unit_id: str, scenario: dict, *, issue_id: str) -> dict:
         legacy_status = status_by_card.get(card_id, "unknown")
         status = _LEGACY_TO_ASSESSMENT_STATUS[legacy_status]
         assessments[predicate["id"]] = {
+            "assessment_rationale": "골든 시나리오 픽스처 근거",
             "status": status,
             "source_quotes": [CASE_TEXT] if legacy_status != "unknown" else [],
             "missing_facts": ["판단에 필요한 구체적 사실"] if legacy_status == "unknown" else [],
-            "inference_rationale": "",
         }
     return {
         "version": "1.0.0",
@@ -397,6 +397,7 @@ def test_direct_assessment_requires_exact_source_quotes() -> None:
     payload = _assessment("rape", scenario, issue_id="issue-1")
     predicate_id = next(iter(payload["assessments"]))
     payload["assessments"][predicate_id] = {
+        "assessment_rationale": "테스트 근거",
         "status": "explicitly_supported",
         "source_quotes": ["원문에 없는 문장"],
         "missing_facts": [],
@@ -411,18 +412,24 @@ def test_direct_assessment_requires_exact_source_quotes() -> None:
         )
 
 
-def test_inferentially_supported_requires_inference_rationale() -> None:
-    """Without a mandatory rationale, an inference can't be audited afterward."""
+def test_every_status_requires_assessment_rationale() -> None:
+    """assessment_rationale precedes status in the schema and is required for
+
+    every status, not just inferentially_supported — the model has to reason
+    before it commits to a verdict (docs/handoff/CURRENT.md B-bucket bar-card
+    fix), not just for the one status that used to carry the old
+    inference_rationale requirement.
+    """
 
     scenario = UnitScenarios("rape").build()[0]
     payload = _assessment("rape", scenario, issue_id="issue-1")
     predicate_id = next(iter(payload["assessments"]))
     payload["assessments"][predicate_id] = {
-        "status": "inferentially_supported",
+        "status": "explicitly_supported",
         "source_quotes": [CASE_TEXT],
         "missing_facts": [],
     }
-    with pytest.raises(NativeHostError, match="inference_rationale"):
+    with pytest.raises(NativeHostError, match="assessment_rationale"):
         validate_predicate_assessment(
             payload,
             case_id="case-1",
@@ -431,7 +438,7 @@ def test_inferentially_supported_requires_inference_rationale() -> None:
             case_text=CASE_TEXT,
         )
 
-    payload["assessments"][predicate_id]["inference_rationale"] = (
+    payload["assessments"][predicate_id]["assessment_rationale"] = (
         "행위·정황상 다른 해석의 여지가 없어 추론함"
     )
     validate_predicate_assessment(

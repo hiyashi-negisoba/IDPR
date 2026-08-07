@@ -47,10 +47,10 @@ def _assessment(unit_id: str, scenario: dict[str, Any]) -> dict[str, Any]:
         legacy_status = status_by_card.get(predicate["norm_card_ids"][0], "unknown")
         status = _LEGACY_TO_ASSESSMENT_STATUS[legacy_status]
         assessments[predicate["id"]] = {
+            "assessment_rationale": "골든 시나리오 픽스처 근거",
             "status": status,
             "source_quotes": [CASE_TEXT] if legacy_status != "unknown" else [],
             "missing_facts": ["판단에 필요한 구체적 사실"] if legacy_status == "unknown" else [],
-            "inference_rationale": "",
         }
     roles = {
         argument["name"]: scenario[argument["name"]]

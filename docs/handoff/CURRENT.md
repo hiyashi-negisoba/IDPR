@@ -2,6 +2,149 @@
 
 기준: 2026-08-07 · 브랜치 `antigravity-0804`
 
+## assess 프롬프트 bar/boundary/waiver 극성 버그 수정 — A+B+C 성공 확정 (2026-08-07, 새 세션)
+
+바로 아래 "Consistency/coverage 저하 포렌식" 절이 남긴 B버킷(negative-polarity
+카드 오적용, harboring_offender 최우선)을 이번 세션에 고쳤다. **결론: 성공,
+freeze.** 다음 세션은 이 프롬프트를 또 건드리지 말고 아래 "다음 트랙"으로
+진행할 것.
+
+### 세 가지 변경 (전부 설치·재빌드·pytest 통과 완료)
+
+**A — 스키마 필드 순서**: `native_host.py`의 `predicate_assessment_schema()`에서
+`status`가 `assessment_rationale`(구 `inference_rationale`)보다 먼저 나오던
+걸 뒤집었다. guided decoding은 property 선언 순서대로 토큰을 생성하므로,
+모델이 근거를 한 글자도 안 쓰고 `status`부터 확정하던 게 원인 — 같은 세션
+앞부분에서 고친 라우팅 버그(`candidate_fit_notes`를 `unit_id` 앞으로)와 동일
+메커니즘. `assessment_rationale`을 전 predicate·전 status 필수(빈 문자열
+불가)로 승격.
+
+**B — card_role 배선**: 카드의 극성(`bar`/`boundary`/`waiver`/`component`/
+`assessment_standard`/`requirement_waived`/`proof_standard`/`subtype_outcome`/
+`post_outcome`)이 원장(`*_approved_decisions.json`)에만 있고 RuleIR predicate로
+컴파일되며 사라지던 걸, `scripts/build_p2_native_rule_ir.py`의
+`card_predicates()`/`emit_cards()`에서 `add_predicate(..., card_role=...)`로
+보존해 `native_host.py`의 `predicate_assessment_request()`가 모델 payload에
+포함하도록 배선했다. **p2-native 25개 유닛에만 적용** — fraud/property 11개
+유닛은 별도 생성 스크립트라 이번엔 안 건드림(아래 "다음 트랙" 참고).
+`docs/contracts/rule_ir.schema.json`의 `$defs.predicate`에 `card_role` optional
+필드 추가(재산죄 파이프라인의 `fraud_rule_ir_generation_prep_manifest.json`
+artifact-hash 게이트가 이 스키마 파일도 감시하고 있어서, 순수 additive 변경임을
+사유로 남기고 `artifact_rehash_log`에 재해시 — 사기 계약 자체는 불변).
+
+**C — 프롬프트 재작성**: `prompts/rule_ir_native_predicate_assess.md`에
+"먼저 쓰고 나서 정한다"(A 반영) 절과 "card_role" 절 신설. 핵심 불변식(사용자
+확정 문구): **"각 predicate의 사실관계 대조 기준과 증명 수준은 card_role과
+무관하게 동일하다"** — bar라서 기준을 더 까다롭게 적용하는 게 아니라 bar
+predicate의 정의 자체가 좁게 쓰여 있으니 그 정의를 정확히 대조한다는 뜻.
+`bar`/`boundary`/`waiver` 셋 다 satisfied면 track을 defeat하는 동일 권한을
+가짐(waiver도 blocking — 정당방위·사회상규 등 법적 성격은 다르지만 defeat력은
+bar와 동일, `build_p2_native_rule_ir.py`의 `BLOCKING_ROLES` 참고). **다른
+predicate와의 동시 satisfied를 금지하는 문구는 넣지 않음** — component와
+bar/boundary/waiver가 반대 방향 법적 효과를 가진다는 이유만으로 동시satisfied를
+막으면 predicate assessment가 symbolic outcome을 미리 알고 사실판단을 왜곡하는
+outcome leakage가 된다(사용자 지적). 승인 게이트 준수, 전문 검토 후 설치.
+
+### 26개(curated_26.txt) before/after 재검증 — 방법론과 결과
+
+**중요한 용어 구분(사용자 지시)**: `scripts/check_assess_self_contradiction.py`
+(신규, API 호출 0건)는 card_role 기반 negation-proximity 정규식 휴리스틱이라
+**heuristic candidates**(자동 플래그)와 **confirmed contradictions**(직접
+판독해 확정한 것)를 분리해서만 보고한다 — 휴리스틱 출력 자체를 "자기모순율"로
+부르면 안 됨. before(오늘 이전 61개 산출물 중 겹치는 26개, 옛 필드명
+`inference_rationale`)과 after(오늘 A/B/C 적용 후 26개 재생성, 25/26 성공·
+1개는 JSON truncation으로 생성 자체 실패)를 **같은 26개 케이스**로만 비교.
+
+| | before | after |
+|---|---|---|
+| heuristic candidates | 19 | 28 |
+| confirmed contradictions(직접 판독) | 11 | 8 |
+| heuristic false positives | 8 | 20 |
+| symbolic-writer inconsistencies(`06_verdict_consistency.json`, 기존 무료 산출물) | 0 | 2 |
+
+confirmed를 trust_status로 쪼개면: before는 11/11이 전부 `verified`. after는
+`verified` 3건(homicide `method_error_precedent`×2, bribe_giving
+`independent_third_party`×1) + `rejected`(`contract_degraded`, host 검증기가
+이미 걸러 writer에 안 감) 5건(전부 `r14_p1_q2`/fraud 한 이슈에 몰림) — `verified`
+confirmed가 **11→3, 73% 감소**. `provisional`은 두 run 다 0건.
+
+원래 동기가 된 `r10_p2_q2`/harboring_offender 직접 대조: before는 제가 읽은
+9개 bar/waiver 전부 확정 모순(`omission_concealment_general_citizen`
+"부작위가 아니라 적극적 작위"인데 satisfied, `relative_cohabiting_family`
+"친족이나 동거 가족이 아니다"인데 satisfied 등 — CURRENT.md 원 기록과 정확히
+일치). after는 같은 케이스·같은 issue에서 satisfied된 predicate 17개 전부
+`component`(15)/`post_outcome`(2)뿐, **bar/boundary/waiver는 0건** — 결론도
+`established`로 정상.
+
+**최종 판정(사용자 확정)**:
+- A+B+C → **성공**. 다만 "파이프라인 전체 문제 해결"이 아니라 "assessment
+  polarity 버그를 상당 부분 고쳤다"로 범위를 한정한다.
+- harboring_offender blocking polarity bug → **fixed**.
+- p2-native 일반 blocking polarity bug → **substantially mitigated**.
+- 잔여 p2-native 오류 → predicate-specific defect backlog(아래).
+- fraud/property blocking polarity → **별개의 미해결 파이프라인 이슈**(card_role
+  미배선). fraud 5건을 "A+B+C 실패"의 근거로 넣지 않는다 — 이번 fix의 핵심
+  입력(card_role) 자체가 그 파이프라인에 안 들어갔으므로 동일 조건의 after가
+  아니다. 오히려 card_role 있는/없는 두 파이프라인의 confirmed 격차(p2-native
+  3건 vs fraud/property 5건, 둘 다 candidates 기준으로도 22 vs 6로 fraud 쪽이
+  훨씬 많음)가 card_role 가설을 뒷받침하는 좋은 진단 근거가 됐다.
+
+### symbolic-writer inconsistency 2건 — 직접 읽어 분류 완료(사용자 지시)
+
+두 건 다 `06_verdict_consistency.json`은 "symbolic-writer inconsistency"로만
+부르고 **"writer error"라고 부르지 않는다** — 1번처럼 symbolic이 틀리고
+writer가 맞을 수 있기 때문(사용자 지적).
+
+1. **`r11_p2_q1_da`/quasi_sexual_offense issue_1** — **기존 predicate
+   assessment defect**(오늘 A/B/C 이전부터 있던 별개 버그,
+   `assess_art299_sec3_1_object_incapacitated_person` 과다충족). symbolic
+   verdict(`established`, verified)가 잘못됐고, writer가 본문에서 "C는
+   반항 불가능할 정도로 취하지 않았다"는 사실관계를 스스로 논증해 정확하게
+   `not_established`로 거부했다. **A/B/C로 인한 writer regression 아님.**
+2. **`r14_p2_q1`/obstruction_of_official_duty issue_6** — **writer
+   completeness defect**. 답안 전문(2,611자)에 "공무집행방해"/"공무원"/
+   "체포"/"경찰관"이 단 한 번도 안 나옴 — issue_6 본문 논의가 통째로
+   누락됐는데 `VERDICT_MANIFEST` 트레일러에는 `not_established`가 기계적으로
+   채워짐. **verified-directive refusal이 아니라 body-manifest coverage
+   mismatch** — 5개 이슈(절도·절도미수·상해·강도·공무집행방해)를 한 답안에
+   담아야 했는데 하나가 빠진 것. 다음에 열 때 참고할 별도 후보로 기록만.
+
+### 다음 트랙 (프롬프트는 또 건드리지 말 것)
+
+1. **fraud/property 11개 유닛 card_role 배선** — 별도 생성 스크립트
+   (`build_fraud_full_rule_ir_candidate.py` 등)에 A/B와 같은 원리로 card_role을
+   태워야 함. `card_role` 있음/없음 두 파이프라인의 confirmed 격차가 이미
+   증거이므로 우선순위 높음. 배선 후엔 다시 26개(또는 D버킷 사례)로 before/after
+   재검증할 것 — 이번 26개 after 수치와 섞지 말 것(동일 조건 비교 아님).
+2. **predicate-specific defect backlog**(국소 조사, 프롬프트 재설계 아님):
+   - `homicide.assess_art250_sec1_15_method_error_precedent`(bar) — rationale이
+     "이 사건은 방법의 착오가 아니라 객체의 착오"라고 쓰면서도 satisfied.
+   - `bribe_giving.assess_art133_sec1_2_independent_third_party`(bar) —
+     rationale이 "독립된 제3자에 해당한다"(bar의 부정 조건 미충족 방향)라고
+     쓰면서도 satisfied.
+3. **부수 발견 — `exception_polarity_gate.json` quarantine**:
+   harboring_offender의 `art151_sec2_2.relative_cohabiting_family`/
+   `art151_sec2_4.family_support_social_adequacy`(둘 다 waiver, "친족특례"
+   계열)가 극성 미검수로 quarantine 상태라 satisfied돼도 컴파일된 결론에
+   영향을 못 준다(`build_p2_native_rule_ir.py`의 `quarantined_cards()`).
+   이번 세션 dev case 설계 중 우연히 발견 — 이번 fix와 무관, 검수 백로그로만
+   기록.
+4. **1/26 생성 실패**(`kcl_criminal_r12_p1_q1`, JSON truncation): predicate당
+   `assessment_rationale` 필드가 늘면서 큰 유닛(theft/robbery 등, predicate
+   90개 이상)의 출력 토큰이 늘어난 게 원인일 가능성 — 자기모순과 무관, 기록만.
+
+### 운영 메모(재발 방지용 코드 수정, 이번 세션)
+
+- `scripts/run_rule_ir_native_lean.py`의 `_git_commit()`이 compute 노드에
+  `git` 자체가 없을 때(`FileNotFoundError`, non-zero exit과 다른 케이스)
+  전체 케이스를 실패시키던 것을 fail-soft로 수정 — provenance 메타데이터만
+  `null`, 케이스 결과물은 그대로 저장됨.
+- `scripts/slurm/run_rule_ir_native_lean_batch.sh`에 `IDPR_INVENTORY`
+  env var 추가 — 합성 dev case를 실제 시험 인벤토리에 안 섞고 별도 jsonl로
+  돌릴 수 있음(`.cache/dev_case_lists/harboring_offender_regression.jsonl`).
+- sbatch 환경변수 3종(`IDPR_HF_HOME`/`IDPR_PYTHON`/`IDPR_VLLM_BIN`) 필수 —
+  [[sbatch-must-set-idpr-hf-home]] 메모리에 이번에 반영.
+
 ## Consistency/coverage 저하 포렌식 + 구조 버그 2건 수정 (2026-08-07, 새 세션)
 
 바로 아래 "라우팅 decision-avoidance 버그" 절이 남긴 4가지 "다음 세션 판단용 이슈"

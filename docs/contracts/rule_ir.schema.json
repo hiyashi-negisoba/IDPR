@@ -149,6 +149,20 @@
           "type": "array",
           "items": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]*$" },
           "uniqueItems": true
+        },
+        "card_role": {
+          "enum": [
+            "bar",
+            "boundary",
+            "waiver",
+            "component",
+            "assessment_standard",
+            "requirement_waived",
+            "proof_standard",
+            "subtype_outcome",
+            "post_outcome",
+            null
+          ]
         }
       }
     },

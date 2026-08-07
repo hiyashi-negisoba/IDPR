@@ -101,13 +101,20 @@ def _prompt_hashes() -> dict[str, str]:
 
 
 def _git_commit() -> str | None:
-    result = subprocess.run(
-        ["git", "rev-parse", "HEAD"],
-        cwd=ROOT,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
+    # Compute nodes running this under sbatch often have no `git` on PATH at
+    # all (not just a non-git-repo failure), which raises before returncode
+    # is even set — provenance metadata missing is not worth losing an
+    # otherwise-complete case run over.
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except FileNotFoundError:
+        return None
     if result.returncode != 0:
         return None
     return result.stdout.strip() or None

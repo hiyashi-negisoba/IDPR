@@ -900,6 +900,7 @@ def predicate_assessment_request(
             {
                 "predicate_id": predicate["id"],
                 "definition": str(predicate.get("definition", predicate["id"])),
+                "card_role": predicate.get("card_role"),
                 "norm_card_ids": list(predicate.get("norm_card_ids", [])),
                 "authority_quotes": [
                     str(source["quote"])
@@ -926,12 +927,22 @@ def predicate_assessment_schema(
         "type": "object",
         "additionalProperties": False,
         "required": [
+            "assessment_rationale",
             "status",
             "source_quotes",
             "missing_facts",
-            "inference_rationale",
         ],
         "properties": {
+            # Declared first: under guided decoding, key generation order follows
+            # property declaration order, so this has to precede "status" or the
+            # model commits to a verdict before writing a single token of
+            # reasoning — the same generation-order bug fixed for
+            # closed_issue_selection_schema's candidate_fit_notes (docs/handoff/
+            # CURRENT.md, job 220284). Unlike the old inference_rationale, this is
+            # required non-empty for every status, not just inferentially_
+            # supported: a bar/boundary card needs the same "compare definition
+            # against case text first" discipline as an inferential element does.
+            "assessment_rationale": {"type": "string", "minLength": 1},
             "status": {"enum": sorted(ASSESSMENT_STATUSES)},
             "source_quotes": {
                 "type": "array",
@@ -941,24 +952,7 @@ def predicate_assessment_schema(
                 "type": "array",
                 "items": {"type": "string", "minLength": 1},
             },
-            # No minLength: this key has to be unconditionally required so the
-            # guidance backend's structured-output grammar forces the model to
-            # emit it (that grammar has no if/then to require it only for
-            # inferentially_supported, see note below), but every other status
-            # legitimately has nothing to say here, so empty string must be
-            # valid at the schema level. Non-emptiness for
-            # inferentially_supported is enforced in
-            # validate_predicate_assessment() instead.
-            "inference_rationale": {"type": "string"},
         },
-        # inferentially_supported is the one status that draws a conclusion the
-        # case text never states outright; without a mandatory rationale field
-        # there is nothing later to audit *why* an inference was drawn, and no
-        # way to tell an intent inferred from clear conduct apart from one the
-        # assessor talked itself into. This has to be enforced in
-        # validate_predicate_assessment() rather than a JSON Schema if/then here:
-        # vLLM's guidance structured-output backend rejects if/then with
-        # "Grammar error: Unimplemented keys" (job 219978, 2026-08-06).
     }
     return {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -1058,13 +1052,10 @@ def validate_predicate_assessment(
                     errors.append(
                         f"{predicate_id}: {status} cannot declare missing facts"
                     )
-            if status == "inferentially_supported":
-                rationale = item.get("inference_rationale", "")
-                if not isinstance(rationale, str) or not rationale.strip():
-                    errors.append(
-                        f"{predicate_id}: inferentially_supported requires inference_rationale"
-                    )
-            elif status == "genuinely_unresolved" and not missing:
+            # assessment_rationale non-emptiness is already enforced for every
+            # status by the schema's minLength (it precedes "status" in
+            # generation order — see predicate_assessment_schema).
+            if status == "genuinely_unresolved" and not missing:
                 errors.append(
                     f"{predicate_id}: genuinely_unresolved requires at least one missing fact"
                 )
@@ -1129,7 +1120,7 @@ def execute_native_unit(
             # inference that wasn't allowed before.
             "raw_status": item["status"],
             "normalized_status": normalized_status,
-            "inference_rationale": item.get("inference_rationale", ""),
+            "assessment_rationale": item.get("assessment_rationale", ""),
             "source_quotes": list(item["source_quotes"]),
             "missing_facts": list(item["missing_facts"]),
         }

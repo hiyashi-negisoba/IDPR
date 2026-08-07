@@ -86,10 +86,20 @@ STAGES = {
             # docs/handoff/CURRENT.md r10/r14. Losing this instruction silently
             # would reopen exactly that failure mode.
             "내심적·규범적 요건의 추론",
-            # Without a mandatory rationale, an inference can't be audited after
-            # the fact — this is what lets a review tell apart "inferred from
-            # clear conduct" from "the assessor talked itself into it".
-            "inference_rationale",
+            # assessment_rationale (renamed from inference_rationale, docs/handoff/
+            # CURRENT.md B-bucket bar-card fix) has to precede "status" in the
+            # schema so the model reasons before it commits to a verdict — the
+            # same generation-order fix as candidate_fit_notes above. Losing this
+            # instruction reopens the self-contradicting rationale/status pairs.
+            "assessment_rationale",
+            "먼저 나온다",
+            # card_role tells the assessor which predicates are bar/boundary/
+            # waiver (all three defeat the track — docs/handoff/CURRENT.md
+            # B-bucket) without changing the fact-matching standard itself.
+            # Losing this instruction is what let topically-similar-but-narrower
+            # bar cards fire on mere thematic overlap.
+            "card_role",
+            "무관하게",
             "source_quotes",
             "Scallop",
             "rubric",

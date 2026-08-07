@@ -14,6 +14,13 @@
       "from": "1d7731b7dc8a697555b397ec26c6c6183a4b9833cce9ed2f4f2d16eab6874cef",
       "reason": "강도처럼 행위태양이 병렬(track)인 재산죄 단위에서 track 전용 저지 카드가 무관한 track까지 막던 문제(검수 003)를 고치려면 track마다 자기 몫만 부정하는 완결 게이트가 필요했다. 기존 계약은 negation을 단일 `{unit}.core.outcome.established` 규칙 하나로만 제한했으므로, RuleIRGenerationProfile에 `track_outcome_rules`(추가로 허용되는 negation 규칙 id → 허용 negation 술어 집합)를 얹어 이를 일반화했다. `for_crime()`의 `tracks` 인자를 안 주면(기본값 `()`) `track_outcome_rules`가 비어 있어 기존 동작과 완전히 동일하고, FRAUD_GENERATION_PROFILE은 이 인자를 쓰지 않으므로 사기 계약은 불변이다 — 사기 RuleIR 후보는 이 변경 전에 이미 생성·검증됐다. artifact 게이트가 '검토 후 변경'을 정확히 잡아냈으므로 사유를 남기고 재해시한다.",
       "to": "74cbfa91aa9d0785d67bd20829ad014a280dd36deca4ebbb167f064e9fe38d73"
+    },
+    {
+      "artifact": "docs/contracts/rule_ir.schema.json",
+      "at": "2026-08-07T11:17:42.952747+00:00",
+      "from": "7be4edc668aa23d5620269027809c1137a8c610f769c73780da4149809f21363",
+      "reason": "p2-native predicate assessment의 bar/boundary/waiver 카드 오발화 수정(docs/handoff/CURRENT.md B-bucket)을 위해 `$defs.predicate`에 선택적 필드 `card_role`(bar/boundary/waiver/component/assessment_standard/requirement_waived/proof_standard/subtype_outcome/post_outcome/null)을 추가했다. required 목록에는 넣지 않은 순수 additive 변경이라 이 필드가 없는 기존 predicate(사기 등 재산죄 RuleIR 포함)는 그대로 유효하고, 사기 계약·검증 로직은 이 필드를 참조하지 않는다. 사기 RuleIR 후보는 이 변경 전에 이미 생성·검증됐다. artifact 게이트가 '검토 후 변경'을 정확히 잡아냈으므로 사유를 남기고 재해시한다.",
+      "to": "332c804828c835303ec554aba7f3f619b3868f51e9adea9c1bfaf1de25ddce93"
     }
   ],
   "artifacts": {
@@ -22,7 +29,7 @@
     "data/rulegen/fraud/fraud_full_rule_ir_generation_request.json": "d521bb10aaefd72fd60974607bb2f3334febb4899d5761bb3735fdff1ee3fae7",
     "data/rulegen/fraud/fraud_rule_ir_generation_fewshot.json": "6301ef50ce9ba05d6492cecb71f28c0f5e60c2e922d8a5b4b9a15a46a1ee3b6f",
     "docs/contracts/norm_card_set.schema.json": "3a1d2f3cefae30afb56a4e947d935cd81f09a09d2feca6e64b141a014374f12d",
-    "docs/contracts/rule_ir.schema.json": "7be4edc668aa23d5620269027809c1137a8c610f769c73780da4149809f21363",
+    "docs/contracts/rule_ir.schema.json": "332c804828c835303ec554aba7f3f619b3868f51e9adea9c1bfaf1de25ddce93",
     "prompts/rulegen_merge_rule_ir.md": "6e5e25a3035b0c352808b054d47ca720543d96882992205c1173dd465d9bcb55",
     "rules/exemplars/fraud_rule_ir_generation_fewshot.scl": "078602c1d17b4667a49abcc38e956a724952286d09ba7835b8478a2df848e02c",
     "src/idpr/rulegen/__init__.py": "74cbfa91aa9d0785d67bd20829ad014a280dd36deca4ebbb167f064e9fe38d73"

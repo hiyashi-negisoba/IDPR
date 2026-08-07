@@ -21,6 +21,10 @@ CASE_LIST="${IDPR_CASE_LIST:?set IDPR_CASE_LIST to a file of inventory sub_quest
 RUN_DIR="${IDPR_RUN_DIR:-$PROJECT_ROOT/experiments/results/rule_ir_native_lean_batch_${SLURM_JOB_ID}}"
 SERVER_DIR="${IDPR_SERVER_DIR:-$PROJECT_ROOT/.cache/rule_ir_native_lean_server/${SLURM_JOB_ID}}"
 SCLI_PATH="${IDPR_SCLI:-$PROJECT_ROOT/tools/scallop/scli-0.2.4-linux-x86_64}"
+# Defaults to the real exam inventory; set IDPR_INVENTORY to point at a
+# synthetic regression-test jsonl (sealed-59 policy: keep synthetic dev cases
+# out of the real inventory rather than injecting rows into it).
+INVENTORY_PATH="${IDPR_INVENTORY:-$PROJECT_ROOT/data/inventory/kcl_criminal_v1_draft.jsonl}"
 
 export TOKENIZERS_PARALLELISM=false
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
@@ -107,6 +111,7 @@ while read -r CASE_ID; do
         --base-url "http://127.0.0.1:${PORT}" \
         --model "$SERVED_MODEL" \
         --case-id "$CASE_ID" \
+        --inventory "$INVENTORY_PATH" \
         --out-dir "$RUN_DIR" \
         --scli "$SCLI_PATH"; then
         printf '%s\tok\n' "$CASE_ID" >> "$STATUS_LOG"

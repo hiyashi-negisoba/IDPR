@@ -477,6 +477,7 @@ class UnitAssembler:
         origin: str,
         role: str,
         cards: list[dict[str, Any]] | None = None,
+        card_role: str | None = None,
     ) -> str:
         if predicate_id in self.seen_predicates:
             return predicate_id
@@ -492,6 +493,14 @@ class UnitAssembler:
             "arguments": [{"name": name, "type": kind} for name, kind in arguments],
             "norm_card_ids": sorted({card["id"] for card in cards}),
             "source_refs": refs,
+            # Ledger polarity (bar/boundary/component/waiver/post_outcome/
+            # context_only, see build_rule_ir_card_roles.py) for the single card
+            # this assess_* predicate evaluates. Kept separate from the "role"
+            # key above (which means input/derived here, not card polarity) so
+            # the native assess call can tell a narrow exclusion card apart from
+            # an affirmative element (docs/handoff/CURRENT.md, B-bucket bar-card
+            # over-firing).
+            "card_role": card_role,
         })
         return predicate_id
 
@@ -538,12 +547,15 @@ class UnitAssembler:
             definition=self.signature["definition"],
             origin="system", role="input")
 
-    def card_predicates(self, card: dict[str, Any]) -> tuple[str, str]:
+    def card_predicates(
+        self, card: dict[str, Any], *, card_role: str | None = None
+    ) -> tuple[str, str]:
         name = slug(card["id"])
         assess = self.add_predicate(
             f"assess_{name}", self.assessment_arguments,
             definition=f"이 카드의 사건별 적용 평가: {card['proposition']}",
-            origin="commentary", role="input", cards=[card])
+            origin="commentary", role="input", cards=[card],
+            card_role=card_role)
         satisfied = self.add_predicate(
             f"satisfied_{name}", self.actor_arguments,
             definition=f"증명 가능한 평가에서 다음 조건이 충족됨: {card['proposition']}",
@@ -562,11 +574,14 @@ class UnitAssembler:
     def emit_cards(self, placements: list[dict[str, Any]]) -> dict[str, str]:
         """Per-card input, condition, undetermined and conflict rules."""
         satisfied_by_card: dict[str, str] = {}
+        role_by_card_id = {row["card_id"]: row["role"] for row in placements}
         card_ids = sorted({row["card_id"] for row in placements})
         for index, card_id in enumerate(card_ids, start=1):
             card = self.card(card_id)
             self.used_cards.add(card_id)
-            assess, satisfied = self.card_predicates(card)
+            assess, satisfied = self.card_predicates(
+                card, card_role=role_by_card_id.get(card_id)
+            )
             tag = f"{index:03d}"
             self.add_rule(
                 f"{self.unit_id}.card.{slug(card_id)}.satisfied",
