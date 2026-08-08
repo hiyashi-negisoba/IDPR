@@ -1,23 +1,19 @@
 {
-  "$id": "idpr/v2/ExportedComponentDef",
-  "description": "v2.1.0 section 9.3, PROJECT — the serialized result of projecting a named export out of a structured definition (e.g. PROJECT(injury, result) -> injury_result). PROJECT itself is a mechanical structural-reuse utility, not a legal constructor, but section 22 lists ExportedComponentDef as its own Definition Layer object, so the projection result is recorded explicitly here rather than left implicit — this preserves provenance (section 18) back to the offense and export key it came from.",
+  "$id": "https://schemas.idpr.local/v2/ExportedComponentDef",
+  "description": "v2.1.0 section 9.3, PROJECT — a definition-time reference to a named export declared on a source offense (e.g. PROJECT(injury, result) refers to injury's exports.result). PROJECT itself is a mechanical structural-reuse utility, not a legal constructor. 2026-08-08 review: this object only records source_offense + export_key, i.e. exactly what a human author writes and what COMPOSE component lists point at. The concrete predicate/expression id that export_key actually resolves to (what an earlier draft called 'resolved_ref') is compiler-computed the same way DerivedOffenseDef.flattened_elements is (see derived_offense_def.schema.json) — it belongs to the compiled IR produced by step 4 (QUALIFY/COMPOSE compiler), not to this Definition Layer object, so authoring it here would create a second, potentially stale source of truth for the same fact.",
   "type": "object",
-  "required": ["id", "source_offense", "export_key", "resolved_ref"],
+  "required": ["id", "source_offense", "export_key"],
   "additionalProperties": false,
   "properties": {
-    "id": { "$ref": "idpr/v2/common#/$defs/id" },
+    "id": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
     "source_offense": {
-      "$ref": "idpr/v2/common#/$defs/id",
-      "description": "The OffenseDef (or DerivedOffenseDef) id this was projected from."
+      "$ref": "https://schemas.idpr.local/v2/common#/$defs/id",
+      "description": "The OffenseDef (or DerivedOffenseDef) id this projects from."
     },
     "export_key": {
       "type": "string",
       "minLength": 1,
-      "description": "The key under the source offense's 'exports' map, e.g. 'result'. Not restricted to fixed_slot_name because an offense may export a named sub-expression rather than a whole slot."
-    },
-    "resolved_ref": {
-      "$ref": "idpr/v2/common#/$defs/id",
-      "description": "The concrete predicate/expression id this export resolves to at the source offense. section 7's example: offense injury { exports { result: injury_result } } -> resolved_ref is 'injury_result'."
+      "description": "The key under the source offense's 'exports' map, e.g. 'result'. Not restricted to fixed_slot_name because an offense may export a named sub-expression rather than a whole slot. The compiler resolves source_offense + export_key to a concrete predicate/expression id at compile time (step 4) — that resolved id is compiled-IR output, MUST NOT be independently authored in this Definition Layer YAML."
     }
   }
 }

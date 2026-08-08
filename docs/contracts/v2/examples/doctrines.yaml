@@ -11,3 +11,16 @@
   effect:
     effect: DEFEAT
     stage: unlawfulness
+
+# 2026-08-08 addition: exercises the MODIFY effect's revised typed shape
+# (modifier_ref, not a free-text 'modification' string -- see common.schema.json).
+- id: doctrine.diminished_capacity
+  stage: culpability
+  requires:
+    op: ref
+    ref: legal_element.diminished_capacity
+  effect:
+    effect: MODIFY
+    stage: culpability
+    modifier_ref: modifier.culpability.diminished
+    note: "형법 제10조 제2항 심신미약 (예시)"

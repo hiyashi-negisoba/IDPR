@@ -46,3 +46,33 @@
       ref: legal_element.appropriation_intent
   qualifiers:
     - qualifier.occupational_status
+
+# 2026-08-08 addition: section 20.1 (진정신분범, true status offense). Unlike
+# occupational_embezzlement (a base status-neutral offense.embezzlement QUALIFY-ed
+# with occupational_status), here the status requirement is a constitutive element
+# of the base OffenseDef itself -- subject is not optional/added later, the offense
+# does not exist without it. Exercises elements.subject carrying a status_requirement
+# directly, not via QUALIFY.
+- id: offense.bribery_taking
+  identity:
+    name: "수뢰죄 (예시)"
+    statutory_refs: ["형법 제129조 제1항 (예시)"]
+  elements:
+    subject:
+      op: ref
+      ref: ground_fact.public_official_status
+    conduct:
+      op: ref
+      ref: ground_fact.bribe_receipt
+
+# 2026-08-08 addition: section 20.4 (composite offense + statutory nexus) fixture
+# support -- second component offense composed with offense.robbery in
+# derived_offense.robbery_rape (derived_offenses.yaml).
+- id: offense.rape
+  identity:
+    name: "강간죄 (예시)"
+    statutory_refs: ["형법 제297조 (예시)"]
+  elements:
+    conduct:
+      op: ref
+      ref: ground_fact.forcible_intercourse

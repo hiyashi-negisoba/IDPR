@@ -1,7 +1,10 @@
 # Fixture validating ParticipationPolicyDef against participation_policy_def.schema.json.
 # Covers section 20.6 (공동정범) and 20.7 (교사범).
-- id: participation_policy.robbery
-  offense: offense.robbery
+# 2026-08-08 review: ParticipationPolicyDef is offense-agnostic shared General Part
+# doctrine now, not keyed to a single offense id -- this fixture stands for "the
+# default participation policy", and offense.robbery uses it unmodified (no
+# participation_constraints needed in offenses.yaml for this example).
+- id: participation_policy.standard
   modes:
     principal:
       basis: direct

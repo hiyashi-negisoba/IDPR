@@ -1,11 +1,11 @@
 {
-  "$id": "idpr/v2/LegalElementDef",
+  "$id": "https://schemas.idpr.local/v2/LegalElementDef",
   "description": "v2.1.0 section 5.2 — a proposition that requires evaluation against a legal standard (Call 3 vocabulary). Distinct from GroundFactDef: this needs a legal_standard and authority_refs, and is typically grounded by one or more GroundFactDef instances rather than read off the case text directly.",
   "type": "object",
   "required": ["id", "arguments", "canonical_meaning", "legal_standard", "authority_refs"],
   "additionalProperties": false,
   "properties": {
-    "id": { "$ref": "idpr/v2/common#/$defs/id" },
+    "id": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
     "arguments": {
       "type": "array",
       "items": {
@@ -25,8 +25,8 @@
     },
     "grounded_by": {
       "type": "array",
-      "items": { "$ref": "idpr/v2/common#/$defs/id" },
-      "description": "GroundFactDef (or other LegalElementDef) ids whose Assessment feeds this element's evaluation. Optional — some elements are assessed directly from case text without a declared factual substrate."
+      "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+      "description": "GroundFactDef ids whose Assessment feeds this element's evaluation. Optional — some elements are assessed directly from case text without a declared factual substrate. 2026-08-08 review: an earlier draft also allowed 'or other LegalElementDef' here, but no fixture ever exercised evaluative-on-evaluative grounding — retracted from the baseline rather than left as an untested standing allowance. If a real case later needs a LegalElementDef grounded by another LegalElementDef, that is a deliberate future addition (reopen this field), not something this baseline should silently permit."
     },
     "legal_standard": {
       "type": "string",
@@ -35,7 +35,7 @@
     },
     "authority_refs": {
       "type": "array",
-      "items": { "$ref": "idpr/v2/common#/$defs/authority_ref" }
+      "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/authority_ref" }
     }
   }
 }

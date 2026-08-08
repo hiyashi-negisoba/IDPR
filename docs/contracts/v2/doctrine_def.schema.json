@@ -1,20 +1,20 @@
 {
-  "$id": "idpr/v2/DoctrineDef",
+  "$id": "https://schemas.idpr.local/v2/DoctrineDef",
   "description": "v2.1.0 section 11 — the first Definition Layer object that produces a legal effect. Doctrines are the only place stage_effect (DEFEAT/MODIFY/EXEMPT) is attached at definition time; everything upstream of this (GroundFactDef/LegalElementDef/ElementBundleDef) is pure fact/evaluation with no legal consequence of its own.",
   "type": "object",
   "required": ["id", "stage", "requires", "effect"],
   "additionalProperties": false,
   "properties": {
-    "id": { "$ref": "idpr/v2/common#/$defs/id" },
+    "id": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
     "stage": {
       "enum": ["unlawfulness", "culpability", "punishability"],
       "description": "Must match effect.stage's legal target. 'elements' is excluded here (section 12.1) — a doctrine cannot attach at the Elements stage, only defeat/modify/exempt what comes after it."
     },
     "requires": {
-      "$ref": "idpr/v2/common#/$defs/element_expression",
+      "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression",
       "description": "Section 11's self_defense example shows a flat list (current_unlawful_attack, defensive_act, proportionality) — the implicit-ALL degenerate case of this grammar, same convention as ElementBundleDef.requires."
     },
-    "effect": { "$ref": "idpr/v2/common#/$defs/stage_effect" }
+    "effect": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/stage_effect" }
   },
   "allOf": [
     {

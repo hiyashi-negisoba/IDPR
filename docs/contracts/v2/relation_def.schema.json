@@ -1,11 +1,11 @@
 {
-  "$id": "idpr/v2/RelationDef",
+  "$id": "https://schemas.idpr.local/v2/RelationDef",
   "description": "v2.1.0 section 10 — a first-class typed relation between two entity/event types, used by COMPOSE (section 9.2) to require more than naive Boolean conjunction between components.",
   "type": "object",
   "required": ["id", "left_type", "right_type", "evaluation"],
   "additionalProperties": false,
   "properties": {
-    "id": { "$ref": "idpr/v2/common#/$defs/id" },
+    "id": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
     "left_type": {
       "type": "string",
       "minLength": 1,
@@ -13,7 +13,7 @@
     },
     "right_type": { "type": "string", "minLength": 1 },
     "evaluation": {
-      "$ref": "idpr/v2/common#/$defs/relation_evaluation",
+      "$ref": "https://schemas.idpr.local/v2/common#/$defs/relation_evaluation",
       "description": "structural (section 10.1, e.g. same_actor/temporal_order) -> resolved by the symbolic runtime from entity/event binding. evaluative (section 10.2, e.g. causal_nexus/foreseeability) -> routed to neural LegalElementAssessment, i.e. this field is what decides neural workload for the relation."
     }
   }

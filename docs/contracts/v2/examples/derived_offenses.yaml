@@ -24,11 +24,11 @@
   derivation:
     kind: compose
     components:
-      - {kind: offense, ref: offense.robbery}
-      - {kind: primitive, ref: primitive.aggravated_result_attribution}
-      - {kind: exported_component, ref: exported_component.injury_result}
+      - {kind: offense, ref: offense.robbery, local_key: base_robbery}
+      - {kind: primitive, ref: primitive.aggravated_result_attribution, local_key: result_attribution, slot: causation}
+      - {kind: exported_component, ref: exported_component.injury_result, local_key: aggravated_result, slot: result}
     relations:
-      - relation.causal_nexus
+      - {relation: relation.causal_nexus, left: base_robbery, right: aggravated_result}
   flattened_elements:
     object:
       op: ref
@@ -47,3 +47,32 @@
     causation:
       op: ref
       ref: legal_element.aggravated_result_attribution
+
+# 2026-08-08 addition: section 20.4 (composite offense + statutory nexus). Distinct
+# from robbery_causing_injury above: that COMPOSE combines one offense with a
+# primitive + an exported_component (aggravated-result composition, chained by a
+# causal_nexus relation). This one composes two full, independently complete
+# OffenseDef components (robbery, rape) joined not by causation but by occasion
+# identity (relation.occasion_identity) -- the statutory nexus ("강도의 기회에")
+# that makes 강도강간죄 a single composite offense rather than two separate crimes.
+- id: derived_offense.robbery_rape
+  derivation:
+    kind: compose
+    components:
+      - {kind: offense, ref: offense.robbery, local_key: robbery_part}
+      - {kind: offense, ref: offense.rape, local_key: rape_part}
+    relations:
+      - {relation: relation.occasion_identity, left: robbery_part, right: rape_part}
+  flattened_elements:
+    object:
+      op: ref
+      ref: ground_fact.property_taking
+    conduct:
+      op: all
+      args:
+        - {op: ref, ref: ground_fact.property_taking}
+        - {op: ref, ref: legal_element.robbery_level_violence}
+        - {op: ref, ref: ground_fact.forcible_intercourse}
+    mental:
+      op: ref
+      ref: legal_element.appropriation_intent

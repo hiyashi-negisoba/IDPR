@@ -70,3 +70,36 @@
   canonical_meaning: "행위자가 실행의 착수에 이르렀다."
   source_refs:
     - {comment_id: "v2_example_001", section_path: "worked-example", quote: "행위자가 실행의 착수에 이르렀다."}
+
+# 2026-08-08 addition: section 20.1 (진정신분범) fixture support.
+- id: ground_fact.public_official_status
+  arguments:
+    - {name: actor, type: entity}
+  canonical_meaning: "행위자가 공무원의 지위에 있다."
+  source_refs:
+    - {comment_id: "v2_example_001", section_path: "worked-example", quote: "행위자가 공무원의 지위에 있다."}
+
+- id: ground_fact.bribe_receipt
+  arguments:
+    - {name: actor, type: entity}
+    - {name: benefit, type: entity}
+  canonical_meaning: "공무원이 직무에 관하여 뇌물을 수수하였다."
+  source_refs:
+    - {comment_id: "v2_example_001", section_path: "worked-example", quote: "공무원이 직무에 관하여 뇌물을 수수하였다."}
+
+# 2026-08-08 addition: section 20.4 (composite offense + statutory nexus) fixture support.
+- id: ground_fact.forcible_intercourse
+  arguments:
+    - {name: actor, type: entity}
+    - {name: victim, type: entity}
+  canonical_meaning: "행위자가 피해자를 폭행 또는 협박하여 간음하였다."
+  source_refs:
+    - {comment_id: "v2_example_001", section_path: "worked-example", quote: "행위자가 피해자를 폭행 또는 협박하여 간음하였다."}
+
+# 2026-08-08 addition: MODIFY effect fixture support (doctrine.diminished_capacity).
+- id: ground_fact.mental_capacity_impairment
+  arguments:
+    - {name: actor, type: entity}
+  canonical_meaning: "행위자에게 정신적 장애로 인한 사물변별능력 또는 의사결정능력의 미약이 있었다."
+  source_refs:
+    - {comment_id: "v2_example_001", section_path: "worked-example", quote: "행위자에게 정신적 장애로 인한 사물변별능력 또는 의사결정능력의 미약이 있었다."}

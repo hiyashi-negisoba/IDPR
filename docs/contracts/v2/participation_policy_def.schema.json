@@ -1,12 +1,11 @@
 {
-  "$id": "idpr/v2/ParticipationPolicyDef",
-  "description": "v2.1.0 section 22 lists ParticipationPolicyDef as a Definition Layer object, but section 15 only spells out the runtime ParticipationResult type (15.4) and the general mode/basis distinctions (15.1-15.3). JUDGMENT CALL (flagged for review): modeled here as the definition-time counterpart of 15.4 — for each participation mode available on an offense, it declares the attribution/dependency basis and, for derivative modes, the typed conclusion_type the principal must have reached (section 15.3/15.4's 'Instigation requires OffenseRealization<X>, not LiabilityResult<X>' point). The runtime type checker (step 2) is what actually raises the TYPE ERROR shown in section 15.4 when the required conclusion is unavailable; this schema only records what to check.",
+  "$id": "https://schemas.idpr.local/v2/ParticipationPolicyDef",
+  "description": "v2.1.0 section 22 lists ParticipationPolicyDef as a Definition Layer object, but section 15 only spells out the runtime ParticipationResult type (15.4) and the general mode/basis distinctions (15.1-15.3). REVISED JUDGMENT CALL (2026-08-08 review): participation structure (principal/co_principal/instigator/aider and their basis) is shared General Part doctrine, not something that should be re-declared per offense -- an earlier draft keyed this to a single 'offense' id, which risked every OffenseDef growing its own copy of the same co-principal/instigator structure instead of sharing one. This schema now declares participation modes as a standalone, offense-agnostic policy; an offense that needs to restrict or reshape the default only does so via OffenseDef.participation_constraints (offense_def.schema.json), which stays empty for the ordinary case.",
   "type": "object",
-  "required": ["id", "offense", "modes"],
+  "required": ["id", "modes"],
   "additionalProperties": false,
   "properties": {
-    "id": { "$ref": "idpr/v2/common#/$defs/id" },
-    "offense": { "$ref": "idpr/v2/common#/$defs/id", "description": "OffenseDef id this policy governs." },
+    "id": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
     "modes": {
       "type": "object",
       "additionalProperties": false,
@@ -36,8 +35,8 @@
         "basis": { "const": "attribution" },
         "attributable_slots": {
           "type": "array",
-          "items": { "$ref": "idpr/v2/common#/$defs/fixed_slot_name" },
-          "description": "Which of this offense's elements slots can be satisfied via ATTRIBUTE(other co-principal's conduct) rather than this actor's own conduct — section 15.2's example attributes property_taking(by=乙) to 甲 and violence(by=甲) to 乙, both under 'conduct'."
+          "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/fixed_slot_name" },
+          "description": "Which fixed slots can be satisfied via ATTRIBUTE(other co-principal's conduct) rather than this actor's own conduct -- section 15.2's example attributes property_taking(by=乙) to 甲 and violence(by=甲) to 乙, both under 'conduct'. Default here (no offense pinned) lists the slots this generally applies to; an offense that needs a narrower set overrides it in OffenseDef.participation_constraints."
         }
       }
     },
@@ -48,8 +47,8 @@
       "properties": {
         "basis": { "const": "derivative" },
         "requires_conclusion": {
-          "$ref": "idpr/v2/common#/$defs/conclusion_type",
-          "description": "Section 15.3: the principal's personal culpability defenses do not defeat this dependency, so the required level is typically offense_realization, not offense_establishment or liability_result — but this is left offense-specific rather than hardcoded, since section 15 does not universally mandate one level for every derivative mode."
+          "const": "offense_realization",
+          "description": "Pinned, not a free choice among conclusion_type's three values. Section 15.3 is explicit that the principal's personal culpability defenses do not defeat the instigator/aider dependency, i.e. the required level is offense_realization, never offense_establishment or liability_result -- letting an author freely pick liability_result here would let a definition silently encode the exact TYPE ERROR section 15.4 exists to catch, and the type checker (step 2) would then have nothing structurally wrong to reject. If a genuine counter-example ever needs a different level, that is a v2.1.0 grammar change (open a new Open Question), not a value an author chooses per-offense."
         }
       }
     }

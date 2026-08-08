@@ -1,5 +1,5 @@
 {
-  "$id": "idpr/v2/common",
+  "$id": "https://schemas.idpr.local/v2/common",
   "description": "Shared $defs for the IDPR v2.1.0 Definition Layer schemas. Every docs/contracts/v2/*.schema.json file $refs into this one instead of redefining these shapes. This file has no top-level 'type' of its own — it is only a $defs library.",
   "$defs": {
     "id": {
@@ -142,15 +142,18 @@
     },
     "modify_effect": {
       "type": "object",
-      "required": ["effect", "stage", "modification"],
+      "required": ["effect", "stage", "modifier_ref"],
       "additionalProperties": false,
       "properties": {
         "effect": { "const": "MODIFY" },
         "stage": { "enum": ["culpability", "punishability"] },
-        "modification": {
+        "modifier_ref": {
+          "$ref": "#/$defs/id",
+          "description": "Reference to a modifier kind, e.g. 'modifier.culpability.diminished'. Open Question #4 (v2.1.0 section 25) — the full typed MODIFY payload taxonomy (ModifierDef with its own shape/parameters) is not yet designed, but the id itself must be a symbolic reference, not prose: 2026-08-08 review found that a free-text 'modification' field would leave the symbolic runtime with no way to interpret MODIFY<S, \"책임이 다소 줄어듦\">-style values, defeating the whole point of a typed effect algebra. Human-readable explanation belongs in 'note' instead."
+        },
+        "note": {
           "type": "string",
-          "minLength": 1,
-          "description": "Free text for now. Open Question #4 (v2.1.0 section 25) — the typed MODIFY payload taxonomy is not yet designed."
+          "description": "Free-text explanation for readers (e.g. statutory citation or rationale). Never consumed by the symbolic runtime — only modifier_ref is."
         }
       }
     },
@@ -181,6 +184,20 @@
     "participation_basis": {
       "enum": ["direct", "attribution", "derivative"],
       "description": "v2.1.0 section 15.4."
+    },
+
+    "local_key": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$",
+      "description": "2026-08-08 review — a name scoped to ONE derivation's COMPOSE components array, never a globally dereferenceable id. Exists so relation_binding.left/right can address 'this particular occurrence of a component in this composition' without conflating that with 'which global object this is' (component_ref.ref). Uniqueness within one derivation's components array is a Type checker (step 2) obligation, not something this structural schema can express."
+    },
+
+    "placement_map": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "$ref": "#/$defs/id" },
+      "additionalProperties": { "$ref": "#/$defs/fixed_slot_name" },
+      "description": "2026-08-08 review — maps every leaf-ref id in an ElementBundleDef's own `requires` tree to the offense slot it contributes to. A bundle can combine predicates belonging to different slots (e.g. duty_of_care -> circumstance, avoidability -> conduct), so this is a map, not a single slot — that is the whole point of a *shared* element module. Used by derived_offense_def.schema.json's component_ref (kind=bundle) and offense_def.schema.json's element_modules entries alike. Keys are id-shaped (same pattern as $defs/id) but the schema can't cross-check them against the referenced bundle's actual leaf-refs — that exact-coverage check (no missing, no extra) is a Type checker (step 2) obligation."
     }
   }
 }

@@ -1,11 +1,11 @@
 {
-  "$id": "idpr/v2/OffenseDef",
+  "$id": "https://schemas.idpr.local/v2/OffenseDef",
   "description": "v2.1.0 sections 6 and 22 — a base criminal offense expressed as typed fixed slots rather than a monolithic article unit.",
   "type": "object",
   "required": ["id", "identity", "elements"],
   "additionalProperties": false,
   "properties": {
-    "id": { "$ref": "idpr/v2/common#/$defs/id" },
+    "id": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
     "identity": {
       "type": "object",
       "required": ["name"],
@@ -23,34 +23,57 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "subject": { "$ref": "idpr/v2/common#/$defs/element_expression" },
-        "object": { "$ref": "idpr/v2/common#/$defs/element_expression" },
-        "conduct": { "$ref": "idpr/v2/common#/$defs/element_expression" },
-        "circumstance": { "$ref": "idpr/v2/common#/$defs/element_expression" },
-        "result": { "$ref": "idpr/v2/common#/$defs/element_expression" },
-        "causation": { "$ref": "idpr/v2/common#/$defs/element_expression" },
-        "mental": { "$ref": "idpr/v2/common#/$defs/element_expression" }
+        "subject": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" },
+        "object": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" },
+        "conduct": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" },
+        "circumstance": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" },
+        "result": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" },
+        "causation": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" },
+        "mental": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" }
       },
       "description": "All seven fixed slots (section 6) are optional here — not every offense uses every slot (e.g. a conduct-only offense may omit causation/result). Absence means the slot is not part of this offense's constitutive elements, not that it is trivially satisfied."
     },
     "element_modules": {
       "type": "array",
-      "items": { "$ref": "idpr/v2/common#/$defs/id" },
-      "description": "ElementBundleDef ids used inside this offense's elements (section 7). Listed here for discoverability/dependency tracking even though the actual reference lives inside the element_expression tree via op:ref."
+      "items": {
+        "type": "object",
+        "required": ["ref", "placement"],
+        "additionalProperties": false,
+        "properties": {
+          "ref": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id", "description": "ElementBundleDef id." },
+          "placement": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/placement_map" }
+        }
+      },
+      "description": "Section 7, Shared Element Modules — executable attachment, not a discoverability list. 2026-08-08 review: an earlier draft made this a bare array of bundle ids, leaving no way to say how a listed bundle's predicates attach to this offense's slots (op:ref-into-a-bundle was retracted as an element_expression leaf target — bundles are consumed via this mechanism or via a DerivedOffenseDef's COMPOSE, never as a bare expression leaf). Each entry now names a bundle and maps every one of that bundle's own leaf-refs to the slot it contributes to — identical mechanism to a COMPOSE component_ref with kind=bundle (derived_offense_def.schema.json). This offense's TRUE per-slot requirement is elements.<slot> combined with every element_modules entry's contribution to <slot>, not elements.<slot> alone — enforced by the Type checker (step 2), not this structural schema."
     },
     "exports": {
       "type": "object",
-      "additionalProperties": { "$ref": "idpr/v2/common#/$defs/id" },
+      "additionalProperties": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
       "description": "Named export map for PROJECT (section 9.3), e.g. { \"result\": \"injury_result\" }. Keys are free-form export names, not restricted to fixed_slot_name, matching ExportedComponentDef.export_key."
     },
     "qualifiers": {
       "type": "array",
-      "items": { "$ref": "idpr/v2/common#/$defs/id" },
+      "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
       "description": "QualifierDef ids that may legitimately QUALIFY this offense (e.g. embezzlement listing occupational_status). This is a menu of applicable qualifiers declared at the base offense, not an application — QUALIFY itself happens in DerivedOffenseDef."
     },
-    "composition_metadata": {
+    "participation_constraints": {
       "type": "object",
-      "description": "Reserved for compiler bookkeeping. Deliberately untyped/open at this stage — v2.1.0 section 22 lists the field name but does not specify contents, and no compiler exists yet to define what it needs (step 4, QUALIFY/COMPOSE compiler, comes later in the section-26 implementation order)."
+      "additionalProperties": false,
+      "minProperties": 1,
+      "description": "2026-08-08 review: ParticipationPolicyDef (participation_policy_def.schema.json) is now a shared, offense-agnostic General Part definition of principal/co_principal/instigator/aider — most offenses need nothing here. This field exists only for the offense that genuinely deviates from the default (e.g. a personal/own-hand offense where co_principal-by-attribution does not apply, or an offense that attributes a narrower set of slots than the default policy). Absent or omitted means 'no deviation, use the shared policy as-is'.",
+      "properties": {
+        "disabled_modes": {
+          "type": "array",
+          "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/participation_mode" },
+          "minItems": 1,
+          "description": "Modes from the shared ParticipationPolicyDef that do not apply to this offense at all (e.g. an own-hand offense excluding co_principal)."
+        },
+        "attributable_slots": {
+          "type": "array",
+          "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/fixed_slot_name" },
+          "description": "Overrides the shared policy's co_principal.attributable_slots for this offense only, when this offense's ATTRIBUTE-eligible slots are narrower or wider than the default."
+        }
+      }
     }
   }
 }

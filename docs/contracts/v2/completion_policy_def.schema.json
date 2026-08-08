@@ -1,12 +1,12 @@
 {
-  "$id": "idpr/v2/CompletionPolicyDef",
+  "$id": "https://schemas.idpr.local/v2/CompletionPolicyDef",
   "description": "v2.1.0 section 14 — Completion as an orthogonal runtime axis. Attaches to an OffenseDef and declares, per form, what extra condition (beyond the base offense's own elements) that form requires and whether/how it is punishable. Section 14.2's OffenseFormInstance<offense, form> is produced by combining this policy with case assessments at runtime (step 7, later) — this schema only covers the definition-time policy, not the runtime resolution.",
   "type": "object",
   "required": ["id", "offense", "forms"],
   "additionalProperties": false,
   "properties": {
-    "id": { "$ref": "idpr/v2/common#/$defs/id" },
-    "offense": { "$ref": "idpr/v2/common#/$defs/id", "description": "OffenseDef id this policy governs." },
+    "id": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+    "offense": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id", "description": "OffenseDef id this policy governs." },
     "forms": {
       "type": "object",
       "additionalProperties": false,
@@ -28,7 +28,7 @@
       "additionalProperties": false,
       "properties": {
         "requires": {
-          "$ref": "idpr/v2/common#/$defs/element_expression",
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression",
           "description": "Extra condition specific to this form (e.g. attempt requires an 실행의 착수 predicate), evaluated in addition to — never instead of — the base offense elements that remain relevant to this form. Section 14 explicitly rejects the 'completed offense failed -> attach attempt label' pattern; this field is what a real attempt-specific requirement (not a base-elements fallback) looks like."
         },
         "punishable": { "type": "boolean" },

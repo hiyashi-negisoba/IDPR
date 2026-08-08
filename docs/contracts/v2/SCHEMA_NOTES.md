@@ -13,10 +13,13 @@
 - `docs/contracts/v2/common.schema.json` — 다른 모든 스키마가 `$ref`로 끌어쓰는
   공유 `$defs`(element_expression 트리, DEFEAT/MODIFY/EXEMPT effect algebra, stage
   enum, source_ref/authority_ref, participation enum 등). 각 파일의 `$id`는
-  `idpr/v2/<Name>` 형태이고, cross-file `$ref`는 파일명이 아니라 이 `$id`를
-  기준으로 한다(예: `"$ref": "idpr/v2/common#/$defs/id"`) — validator에 각
-  스키마를 `$id`로 등록해야 relative resolve가 된다. 실제 등록/검증 예시는
-  아래 "검증" 절 참고.
+  **absolute URI** `https://schemas.idpr.local/v2/<Name>` 형태이고(2026-08-08
+  재검토로 상대 경로 `idpr/v2/<Name>`에서 전환 — 아래 "확정 B" 참고),
+  cross-file `$ref`는 파일명이 아니라 이 `$id`를 기준으로 한다(예:
+  `"$ref": "https://schemas.idpr.local/v2/common#/$defs/id"`) — 실제로
+  네트워크에서 fetch하지 않고, validator가 이 URI를 로컬 스키마 파일에
+  매핑하는 registry/store로 등록해야 relative resolve가 된다. 실제 등록/검증
+  예시는 아래 "검증" 절 참고.
 - `docs/contracts/v2/examples/*.yaml` — 사람이 직접 저작하는 실제 정의 파일은
   **YAML**(사용자 결정, JSON보다 중첩된 ALL/ANY/QUALIFY/COMPOSE 구조를 읽고 쓰기
   편함). 확장자만 다를 뿐 파싱하면 JSON Schema와 동일한 구조이므로 스키마
@@ -48,26 +51,122 @@
    `derivation`이 이미 컴포넌트를 id로 참조하므로 그 자체가 provenance path다.
    `flattened_elements`는 컴파일러(step 4)가 `derivation`에서 재생성하는 산출물로
    취급 — 두 필드가 독립된 진실 소스가 아니다.
-5. **`ParticipationPolicyDef`의 모양.** 22절이 이 이름만 나열하고 15절은 런타임
-   객체(`ParticipationResult`, 15.4)만 상세히 설명한다. 15.4의 typed dependency
-   개념("교사는 `OffenseRealization<X>`을 요구하지 `LiabilityResult<X>`를
-   요구하지 않는다")을 정의 시점 정책으로 그대로 옮겨
-   `{id, offense, modes: {principal, co_principal, instigator, aider}}`로
-   설계 — `instigator`/`aider`는 `requires_conclusion`(offense_realization /
-   offense_establishment / liability_result 중 하나)을 명시해야 하고, 실제
-   타입체크(15.4의 TYPE ERROR)는 이후 step 2(Type checker)가 수행한다.
+5. **`ParticipationPolicyDef`의 모양.** ~~22절이 이 이름만 나열하고 15절은
+   런타임 객체(`ParticipationResult`, 15.4)만 상세히 설명한다. 15.4의 typed
+   dependency 개념을 정의 시점 정책으로 그대로 옮겨
+   `{id, offense, modes: {...}}`로 설계했었다.~~ **2026-08-08 재검토로 뒤집힘 —
+   아래 "2026-08-08 재검토" 절 참고.** 이제 `{id, modes}`(offense 필드 없음, 공유
+   General Part 정의)이고, `requires_conclusion`은 자유 enum이 아니라
+   `offense_realization` 고정.
 6. **provisional로 남긴 필드(문서가 스스로 미해결이라고 밝힌 부분, 25절)**:
-   `authority_ref.authority_basis` enum(open question #10), `MODIFY.modification`을
-   자유 문자열로(open question #4), `CompletionPolicyDef`의
-   `punishability_note`를 자유 문자열로(open question #5). 전부 스키마
-   설명(description)에 어느 open question에 걸려 있는지 명시해뒀다.
+   `authority_ref.authority_basis` enum(open question #10, 여전히 provisional
+   — 아래 재검토에서 유지 결정), ~~`MODIFY.modification`을 자유 문자열로~~
+   **2026-08-08 재검토로 `modifier_ref`(참조) + `note`(설명)로 분리** (open
+   question #4), `CompletionPolicyDef`의 `punishability_note`를 자유 문자열로
+   (open question #5, 재검토에서 그대로 유지 — 이유는 아래).
 7. **`DoctrineDef.stage`와 `effect.stage` 일치 강제.** 문서엔 명시적 언급이
    없지만 12절 stage별 effect 표(DEFEAT는 unlawfulness/culpability만, MODIFY는
    culpability/punishability만, EXEMPT는 punishability만)를 실제로 지키게
    `if/then`으로 스키마 레벨에서 강제했다.
 8. **`OffenseDef.composition_metadata`는 의도적으로 미확정(빈 object 허용).**
-   22절이 필드 이름만 나열, 아직 컴파일러가 없어 실제로 뭐가 필요한지 모른다 —
-   억지로 타입을 지어내지 않았다.
+   ~~22절이 필드 이름만 나열, 아직 컴파일러가 없어 실제로 뭐가 필요한지 모른다 —
+   억지로 타입을 지어내지 않았다.~~ **2026-08-08 재검토로 필드 자체를 스키마에서
+   제거** — 아래 참고.
+
+## 2026-08-08 재검토 (Type checker 착수 전 4개 수정 + 3개 명시적 확정)
+
+사용자가 이 문서를 검토하고 Type checker(section 26 순서 2번)로 넘어가기 전에
+아래 4개를 고치고 3개를 명시적으로 확정하기로 결정. 근거는 각 항목에 남긴다.
+전부 `docs/contracts/v2/*.schema.json` + `docs/contracts/v2/examples/*.yaml`에
+반영 완료, 재검증 통과(아래 "검증" 절 갱신본 참고).
+
+### 수정 1 — `ParticipationPolicyDef`를 offense-keyed에서 shared/global로
+
+기존 `{id, offense, modes}`는 범죄마다 공범구조를 반복 연결하게 만들어, 애초
+"공범론을 shared General Part structure로 둔다"는 의도와 어긋난다. 지금은
+`{id, modes}`(offense 필드 없음)로 바꾸고, 정말 특정 범죄가 공범형태에 제한을
+갖는 경우에만 `OffenseDef.participation_constraints`(옵션, `disabled_modes`/
+`attributable_slots` 두 필드만)로 좁게 override하게 했다. 보통의 범죄는 아무
+것도 안 씀 — `examples/participation_policies.yaml`의
+`participation_policy.standard`가 이 기본 정책이고, `offense.robbery`는
+override 없이 그대로 쓴다.
+
+또한 `derivative_mode.requires_conclusion`을 `conclusion_type`(3개 값 중
+자유 선택) enum에서 **`offense_realization` const로 고정**했다. 15.3이 명시하는
+"교사/방조는 정범의 개인적 책임조각과 무관하게 offense_realization만 요구한다"는
+불변식을 type checker가 나중에 검증할 대상이 아니라, definition language
+자체에서 틀리게 쓸 수 없게 만드는 쪽을 택했다 — 자유 enum으로 뒀으면
+`instigator requires liability_result`처럼 15.4가 TYPE ERROR로 잡아야 할
+바로 그 실수를 스키마가 "정상 definition"으로 승인해버렸을 것이다. 실제
+反례가 나오면 이건 그때 가서 v2.1.0 grammar 변경(새 open question)으로 다룬다.
+
+### 수정 2 — `MODIFY.modification`(자유 문자열) → `modifier_ref` + `note`
+
+`MODIFY<S, "책임이 다소 줄어듦">`류가 구조적으로 valid하면 symbolic runtime이
+해석할 방법이 없다 — DEFEAT/MODIFY/EXEMPT를 executable typed effect로 만들려던
+목적 자체를 깨뜨린다. `common.schema.json`의 `modify_effect`를
+`{effect, stage, modifier_ref, note?}`로 바꿨다 — `modifier_ref`는
+`modifier.culpability.diminished` 같은 symbolic id(다른 id들과 동일한
+`$defs/id` 패턴), `note`는 사람이 읽을 설명(예: 법조문 인용)이고 런타임은
+`note`를 절대 소비하지 않는다. `ModifierDef`의 세부 타입(파라미터 등)은 여전히
+Open Question #4로 남겨둔다 — 지금 고정한 건 "MODIFY는 참조를 갖는다"는 것뿐,
+그 참조가 가리키는 대상의 스키마는 아직 안 만들었다.
+`examples/doctrines.yaml`에 `doctrine.diminished_capacity`(심신미약, 형법
+제10조 제2항)를 새로 추가해 이 모양을 실제로 exercising한다 — 이전 fixture
+세트엔 MODIFY 사례가 아예 없었다.
+
+### 수정 3 — `ExportedComponentDef.resolved_ref` 제거 (컴파일 IR 전용으로)
+
+`source_offense` + `export_key`가 실제 source of truth이고, `resolved_ref`는
+`DerivedOffenseDef.flattened_elements`와 같은 성격의 컴파일러 산출물(캐시)이다.
+Definition YAML에 사람이 `resolved_ref`까지 손으로 쓰게 두면 캐시가 사실상
+두 번째 진실 소스가 된다. `exported_component_def.schema.json`에서
+`resolved_ref` 필드를 완전히 제거했다(옵션으로 남기지 않고 아예 뺌 — 있으면
+`additionalProperties: false`가 거부한다, 아래 부정 케이스 확인). 해당 값은
+step 4(QUALIFY/COMPOSE compiler)가 만드는 Compiled IR에만 존재하게 된다.
+`examples/exported_components.yaml`에서 `resolved_ref: ground_fact.injury_occurred`
+줄 삭제.
+
+### 수정 4 — `OffenseDef.composition_metadata` 제거
+
+이미 스키마상 required는 아니었지만(선택 필드), `type: object`에
+`additionalProperties`/`properties` 제약이 전혀 없어 다른 곳의 엄격한 스타일과
+어긋났고 어차피 fixture 12개 어디에도 쓰인 적이 없었다 — 컴파일러가 소비하지
+않는 placeholder를 스키마에 남겨둘 이유가 없어 필드 자체를 제거했다. 나중에
+semantics가 정해지는 버전(컴파일러 설계 시점)에서 다시 추가한다.
+
+### 확정 A — `element_expression`은 canonical schema에서 문법이 하나뿐임을 재확인
+
+7절/11절의 flat-list 예시("implicit ALL")를 JSON Schema 레벨에서 별도 array
+branch로 받아주는 게 아니라, YAML 저작 시에도 항상 `{op: all, args: [...]}`
+트리 형태로 쓰게 되어 있다는 걸 재확인했다(`element_bundle_def.schema.json`,
+`doctrine_def.schema.json` 등 어디에도 flat-array oneOf branch가 없음).
+`common.schema.json#/$defs/element_expression`의 `oneOf`는 ref/all/any/not/one_of
+5개뿐 — canonical AST는 이미 단일 문법이다. 향후 사람이 편의상
+`requires: [a, b, c]` 같은 shorthand를 쓰고 싶다면 그건 **저작 단계의 normalize
+전처리**(YAML 파싱 후 canonical AST로 변환, JSON Schema 검증은 변환 결과에만
+적용)로 처리하고, JSON Schema 자체에 두 번째 문법 branch를 추가하지 않는다 —
+컴파일러(step 4)가 두 AST 형태를 처리할 필요가 없도록.
+
+### 확정 B — `$id`를 absolute URI로 전환
+
+`idpr/v2/<Name>` 형태였던 모든 `$id`/cross-file `$ref`를
+`https://schemas.idpr.local/v2/<Name>` 형태로 바꿨다(예:
+`https://schemas.idpr.local/v2/common#/$defs/id`). 실제로 네트워크 fetch는
+하지 않고, validator가 이 절대 URI를 로컬 스키마 파일에 매핑하는 registry/store를
+그대로 쓴다(검증 스크립트에서는 `jsonschema.RefResolver(store=...)`로 구현).
+Draft 2020-12 reference resolution이 상대 `$id` 조합에서 나중에 꼬이는 걸
+미리 피하기 위함 — 13개 스키마 파일 전체에 일괄 적용.
+
+### 확정 C — `authority_basis` enum은 provisional 유지, semantics 미확정 상태로 고정
+
+재검토 결과 지금 컴파일러/타입체커가 `authority_basis` 값에 따라 다른 실행을
+하지 않으므로(citation 표시용 metadata) 굳이 스키마를 더 열어두거나 잠글
+필요는 없다고 판단 — enum 자체는 그대로 두되(이미 `description`에 "Open
+Question #10, provisional" 명시가 되어 있었음), **이 값이 metadata 수준을
+벗어나 compiler semantics에 영향을 주게 되는 순간(예: authority_basis에 따라
+weight/우선순위가 갈리는 설계가 생기면) 반드시 별도 설계 절을 먼저 연다**는
+원칙만 이 문서에 명시적으로 기록해둔다. 스키마 변경 없음.
 
 ## v1과의 핵심 차이 — 구조로 강제됨
 
@@ -80,21 +179,93 @@ unexpected)`로 막혔다. v1에서 반복된 극성 버그의 재발을 스키�
 
 ## 검증
 
-`docs/contracts/v2/examples/*.yaml` 12개 파일, 26개 인스턴스 전부 대응하는
-스키마에 대해 `jsonschema`(Draft 2020-12)로 검증 통과. section 20의 validation
-case 중 20.2(부진정신분범, QUALIFY), 20.3(결과적 가중범, COMPOSE), 20.5(미수범,
-CompletionPolicy), 20.6/20.7(공동정범/교사범, ParticipationPolicy)을 실제
-fixture로 exercising한다(20.1/20.4는 이번 fixture 세트엔 없음 — 필요시 추가).
+`docs/contracts/v2/examples/*.yaml` 12개 파일, **36개 인스턴스**(2026-08-08
+재검토 전 26개 + 10개 추가: 20.1/20.4 fixture 5개 신규 predicate + 20.1/20.4
+본체 2개 + MODIFY fixture용 predicate 2개 + `doctrine.diminished_capacity`
+1개) 전부 대응하는 스키마에 대해 `jsonschema`(Draft 2020-12, `RefResolver` +
+absolute `$id` store)로 검증 통과. section 20의 validation case 중
+**20.1(진정신분범, `offense.bribery_taking`의 `elements.subject`가
+QUALIFY 없이 base offense 자체에 status requirement를 바로 갖는 경우)**,
+20.2(부진정신분범, QUALIFY), 20.3(결과적 가중범, COMPOSE), **20.4(composite
+offense + statutory nexus, `derived_offense.robbery_rape` — 두 개의 완결된
+OffenseDef를 causal_nexus가 아닌 `relation.occasion_identity`로 묶는 COMPOSE)**,
+20.5(미수범, CompletionPolicy), 20.6/20.7(공동정범/교사범, ParticipationPolicy)을
+실제 fixture로 exercising한다 — **20.1/20.4 모두 이번에 추가 완료**.
 
-부정 케이스 3개로 스키마가 실제로 뭔가를 거부하는지도 확인:
+부정 케이스로 스키마가 실제로 뭔가를 거부하는지도 확인(총 8개, 기존 3개 +
+2026-08-08 재검토분 5개):
 - `DoctrineDef`에 v1식 `role: "bar"` 필드 추가 → 거부(`additionalProperties: false`).
 - `DoctrineDef.stage="unlawfulness"`인데 `effect.stage="punishability"` →
   거부(if/then 일치 강제).
 - `OffenseDef`에 v1식 `card_role: "bar"` 필드 추가 → 거부.
+- `DoctrineDef` MODIFY effect에 옛 자유 문자열 `modification` 필드 → 거부
+  (`modifier_ref`로 교체됐으므로).
+- `ExportedComponentDef`에 손저작 `resolved_ref` → 거부(스키마에서 제거됨).
+- `ParticipationPolicyDef`에 옛 `offense` 필드 → 거부(shared/global 모양으로
+  교체됨).
+- `ParticipationPolicyDef`의 `instigator`가 `requires_conclusion:
+  liability_result`를 선택 → 거부(`offense_realization` const로 고정).
+- `OffenseDef`에 제거된 `composition_metadata` 필드 → 거부.
+
+## 2026-08-08 Type checker 설계 중 발견된 추가 스키마 결함 (5차 수정)
+
+Type checker(section 26 순서 2번) 설계를 시작하자마자 스키마가 아직 완전하지
+않다는 게 드러났다 — 검토가 총 5라운드 거쳐 아래 5개를 확정했다. 전부
+`docs/contracts/v2/*.schema.json` + `examples/derived_offenses.yaml`에 반영,
+재검증 통과(36개 인스턴스 그대로, 부정 케이스 스키마 레벨 11개 추가 확인).
+
+1. **`component_ref`에 `local_key` 필수 추가 + kind별 placement 분리.** `COMPOSE`의
+   `primitive`/`bundle`/`exported_component` 컴포넌트가 `flattened_elements`의
+   어느 slot으로 가는지 기록할 방법이 없었다. `primitive`/`exported_component`는
+   단일 predicate/expression으로 귀결되므로 `slot`(단수) 하나면 충분하지만,
+   `ElementBundleDef`는 여러 predicate를 combine한 tree라 slot 하나로 못 박으면
+   틀리다 — `placement`(맵: bundle 자신의 leaf-ref → slot)로 분리했다.
+   `common.schema.json#/$defs/placement_map` 신설, `offense`-kind 컴포넌트는
+   둘 다 금지(자기 slot 구조를 이미 가짐).
+2. **`local_key`는 composition-local, `relation_binding`은 그걸로 참조.**
+   처음엔 `relations`를 `RelationDef` id 평문 배열로 뒀는데 "어떤 두 컴포넌트를
+   잇는 relation인지" 기록이 없었다. 1차 수정은 endpoint를 컴포넌트의 전역
+   `ref`로 걸었는데, 이건 "이 조합 안에서 어느 occurrence인지"(composition-local
+   개념)를 "전역적으로 어떤 객체인지"(global id)와 섞는 실수였다 — `component_ref`에
+   `local_key`(이 derivation의 `components` 배열 안에서만 유효한 이름, 전역
+   dereference 대상 아님)를 신설하고 `relations`를
+   `[{relation, left, right}]`(`left`/`right`는 `local_key`) 형태로 재구성했다.
+3. **`OffenseDef.element_modules`에 실행 의미 부여.** `element_expression` leaf가
+   `ElementBundleDef`를 직접 가리키는 경로(`op:ref`)를 폐기하면서(4번 참고)
+   `element_modules`가 "이 bundle을 쓴다"는 정보만 있고 "이 bundle의 predicate들이
+   이 offense의 어느 slot에 어떻게 붙는지"를 말할 방법이 없는 죽은 metadata가
+   될 뻔했다 — v2.1.0 7절의 "shared element module"(negligence_bundle 등) 설계
+   의도를 살리려면 이건 안 됨. `COMPOSE`의 bundle-placement 메커니즘을 그대로
+   재사용해 `element_modules`를 `[{ref, placement}]`로 재정의했다 — base
+   `OffenseDef`의 실제 slot 요건은 이제 `elements.<slot>`과
+   `element_modules[].placement`가 그 slot에 기여하는 부분의 **결합**이다.
+   현재 fixture 어디서도 `element_modules`를 안 쓰고 있어 마이그레이션 대상은
+   없음 — 실 사용 예시는 legally-forced 조작 없이 Type checker 테스트(합성
+   fixture)에서 다루기로 결정.
+4. **`ExportedComponentDef`는 완전히 resolve 가능 — compiler-only 아님.**
+   `resolved_ref`를 스키마에서 뺀 의미(직전 재검토, "compiler가 만드는 캐시라
+   사람이 authoring하면 안 됨")를 "그래서 Definition Layer에서는 알 수 없다"로
+   잘못 해석한 순간이 있었다 — 틀렸다. `ExportedComponentDef{source_offense,
+   export_key}` + `OffenseDef.exports[export_key]`만 있으면 결정론적으로
+   resolve된다. 이 자체는 스키마 변경이 아니라 Type checker(`registry.py`의
+   `resolve_export`)가 그 사실을 실제로 활용하도록 설계를 고친 것.
+5. **`element_expression` leaf 허용 kind, `grounded_by` 허용 kind 축소.**
+   `element_expression` leaf는 `GroundFactDef | LegalElementDef`만(`ElementBundleDef`는
+   `COMPOSE`/`element_modules`를 통해서만 쓰임), `LegalElementDef.grounded_by`는
+   `GroundFactDef`만 — 둘 다 어느 fixture도 실제로 쓴 적 없는 미검증
+   allowance였어서 baseline에서 뺐다. 실제로 필요해지면 그때 다시 연다.
 
 ## 다음 단계
 
-section 26 순서의 2번, Type checker. 이 스키마가 잡아주는 건 구조(모양)뿐이고,
-15.4의 typed dependency 검증("instigation requires `OffenseRealization<X>`인데
-`ElementsResult<X>`만 있으면 TYPE ERROR") 같은 **의미 타입체크**는 별도 코드가
-필요하다 — 그게 다음 단계다.
+section 26 순서의 2번, Type checker — 위 스키마 addendum이 끝났으니 이제
+`src/idpr/v2/` 패키지 구현에 들어간다. 15.4의 typed dependency 검증 같은
+**의미 타입체크**는 6개 축(reference/operator/stage-effect/export/participation/
+derivation typing)으로 나눠 구현 — 상세 설계는 승인된 계획서
+(`/home/jaehoonjeong/.claude/plans/modular-seeking-glade.md`, 2026-08-08) 참고.
+특히 axis 2(operator typing)는 `flattened_elements`를 leaf-ref superset이
+아니라 `derivation`을 재귀적으로 replay한 canonical expression과의 **의미
+동등성**으로 검증한다 — `flattened_elements`는 최종 top-level 비교(actual
+side)에서만 읽고, 다른 entry의 기대값을 계산할 때는 (그 entry가
+`DerivedOffenseDef`이더라도) 항상 그 entry 자신의 `derivation`을 재귀적으로
+다시 replay한다. 저장된 `flattened_elements`를 "다른 계산의 입력"으로 쓰는
+순간 "derivation = source of truth" 원칙이 깨지기 때문.

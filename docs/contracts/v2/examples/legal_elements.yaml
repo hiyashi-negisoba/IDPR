@@ -37,3 +37,13 @@
   legal_standard: "결과에 대한 예견가능성과 상당인과관계가 인정되는지 여부"
   authority_refs:
     - {authority_basis: commentary_synthesis, citation: "v2 예시용 가상 인용"}
+
+# 2026-08-08 addition: MODIFY effect fixture support (doctrine.diminished_capacity).
+- id: legal_element.diminished_capacity
+  arguments:
+    - {name: actor, type: entity}
+  canonical_meaning: "행위자가 심신미약 상태에 있었다."
+  grounded_by: [ground_fact.mental_capacity_impairment]
+  legal_standard: "사물을 변별할 능력이나 의사를 결정할 능력이 미약한 상태였는지 여부"
+  authority_refs:
+    - {authority_basis: statute_text, citation: "형법 제10조 제2항 (예시)"}

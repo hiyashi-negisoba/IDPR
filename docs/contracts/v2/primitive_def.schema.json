@@ -1,13 +1,13 @@
 {
-  "$id": "idpr/v2/PrimitiveDef",
+  "$id": "https://schemas.idpr.local/v2/PrimitiveDef",
   "description": "v2.1.0 section 9.2 lists PrimitiveDef as one of the four ComponentDef union members ('ComponentDef := PrimitiveDef | ElementBundleDef | ExportedComponentDef | OffenseDef') but does not otherwise specify its shape. JUDGMENT CALL (flagged for review): modeled here as a bare, kind-tagged reference to a single GroundFactDef or LegalElementDef — the 'atomic predicate' case of ComponentDef, as opposed to a bundle/exported-component/whole-offense. This lets COMPOSE's components list (section 9.2) mix atomic predicates with bundles/offenses without a separate untagged-reference convention.",
   "type": "object",
   "required": ["id", "ref", "ref_kind"],
   "additionalProperties": false,
   "properties": {
-    "id": { "$ref": "idpr/v2/common#/$defs/id" },
+    "id": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
     "ref": {
-      "$ref": "idpr/v2/common#/$defs/id",
+      "$ref": "https://schemas.idpr.local/v2/common#/$defs/id",
       "description": "Id of the referenced GroundFactDef or LegalElementDef."
     },
     "ref_kind": {

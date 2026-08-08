@@ -3,3 +3,15 @@
   left_type: event
   right_type: event
   evaluation: evaluative
+
+# 2026-08-08 addition: section 20.4 (composite offense + statutory nexus) fixture
+# support. Distinct from causal_nexus: this is not "did A cause B" between two
+# events, but "did conduct A and conduct B happen within one continuous criminal
+# occasion" (기회의 동일성) -- the statutory nexus that makes 강도강간죄 one composite
+# offense rather than two unrelated offenses. Still evaluative, since occasion
+# identity is a normative judgment, not something the symbolic runtime can resolve
+# from entity/event binding alone.
+- id: relation.occasion_identity
+  left_type: conduct
+  right_type: conduct
+  evaluation: evaluative
