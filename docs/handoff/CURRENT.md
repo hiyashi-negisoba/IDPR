@@ -2,6 +2,205 @@
 
 기준: 2026-08-08 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
+## Step 5 (Relation evaluator) 완료 — v2.1.0 실행 의미론 종료, `tests/test_v2_*.py` 총 131개 (2026-08-08, 같은 세션)
+
+26절 구현 순서 5번 "Relation evaluator"를 끝냈다. **이로써 v2.1.0 트랙이 끝난다 — 다음 세션
+시작점은 6번 "Runtime stage objects"이고, 그 지점부터 v2.2.0(case-time runtime)이다.** 승인된
+구현 계획서는
+[`/home/jaehoonjeong/.claude/plans/resilient-stirring-pancake.md`](file:///home/jaehoonjeong/.claude/plans/resilient-stirring-pancake.md)
+(사용자가 4라운드에 걸쳐 정정·조건부 승인한 끝에 확정).
+
+**스키마 변경 있음(6차 addendum)** — Step 2에서 "DEFERRED BY DESIGN"으로 유예했던
+relation 타입 검증을 이번에 닫았다. 상세 근거는
+[`docs/contracts/v2/SCHEMA_NOTES.md`](../contracts/v2/SCHEMA_NOTES.md)의
+"Step 5(Relation evaluator) 착수 시 스키마 수정 (6차 수정)" 절.
+
+### 사용자가 확정한 Step 5의 경계 — v2.1과 v2.2가 갈리는 지점
+
+Step 5는 좁은 relation lookup 하나로 끝나지 않는다. **v2.1.0이 완결되어야 하는 것은
+"truth value가 주어지면 끝까지 실행 가능한 typed legal program"이다**:
+
+```text
+predicate truths + relation truths + CompiledOffense  →  TRUE / FALSE / UNKNOWN
+```
+
+그 truths 자체를 사건에서 *생산*하는 것(structural relation을 CaseGraph에서 resolve,
+evaluative relation을 neural assessment로 라우팅)과 actor/offense별 stage 결과로 조직하는 것이
+v2.2.0이다. 그래서 `ElementsState`/`OffenseRealization` 같은 stage object는 **의도적으로 만들지
+않았다** — `relations.py`는 bare `TruthValue`만 반환한다.
+
+### 핵심 설계 결정: semantic type을 정의 객체가 아니라 relation binding이 선언한다
+
+Step 2/Step 4가 두 번 "vocabulary가 없어서 못 한다"고 미뤘던 relation lowering인데, 실제로
+부족했던 건 vocabulary가 아니라 **타입을 어디에 붙일지에 대한 모델**이었다. 기존 fixture 두
+개가 "정의 객체당 고정 타입 하나" 설계를 바로 반증한다 — 같은 `offense.robbery`가
+`causal_nexus`에서는 **event**로, `occasion_identity`에서는 **conduct**로 쓰이고 둘 다 법적으로
+옳다(인과관계는 사건 사이, 기회의 동일성은 행위 사이). → `relation_binding`이
+`left_view`/`right_view`를 명시적으로 저작하고, structured(offense)는 relation-scoped
+projection으로, atomic(ground_fact/legal_element)은 자기 `semantic_sort`로 검사한다. 상세는
+SCHEMA_NOTES 6차 addendum. `semantic_types: [conduct, event]`처럼 집합을 주는 대안은 타입
+시스템을 약화시켜서(무엇이든 통과) 사용자가 명시적으로 기각했다.
+
+### 신규/변경 파일
+
+- **`src/idpr/v2/checks/relation_types.py`(신규, axis 7)** — relation lowering.
+  endpoint마다 **두 조건을 독립적으로** 검사(한쪽 통과가 다른 쪽을 면제하지 않음):
+  (A) `binding.left_view == RelationDef.left_type`, (B) 그 endpoint가 실제로 그 view를 제공
+  가능한가. Finding 코드 3개: `relation_view_type_mismatch`,
+  `relation_view_unsupported_by_component_kind`, `relation_endpoint_untyped`.
+  `checks/__init__.py`의 `run_type_checks`에 7번째 축으로 편입(6축 → 7축).
+- **`src/idpr/v2/relations.py`(신규)** — `RelationInstanceKey`, `iter_relation_instances`,
+  `evaluate_relation`, `evaluate_compiled_offense`.
+- `src/idpr/v2/compile.py` — `CompiledRelationBinding`에 `left_view`/`right_view` 추가(계산
+  없이 통과) + 방어적 `relation_binding_missing_view` Finding.
+- `src/idpr/v2/evaluate.py` — `_fold_all` → 공개 `fold_all`(로직 변경 없음).
+
+### 설계 정정 (사용자가 ExitPlanMode 리뷰에서 지적, 전부 반영 — 재발굴 방지용 기록)
+
+1. **`None = permissive` typing은 lowering contract 위반이었다.** 초안은 leaf-kind
+   (primitive/exported_component/bundle)에 "검사할 typing이 없으면 통과"를 뒀는데, 이건 위
+   조건 (B)를 통째로 포기하는 것 — `exported_component + view="whatever"`가 PASS가 된다.
+   → atomic predicate에 `semantic_sort`를 도입해 실제로 검사하고, 선언이 없으면 통과가 아니라
+   `relation_endpoint_untyped`로 **보고**한다. 회귀 테스트:
+   `test_atomic_endpoint_without_semantic_sort_is_untyped_not_silently_accepted`.
+2. **relation truth 키가 nested 재사용에서 충돌했다(실제 버그).** 초안 키는
+   `(defining offense id, relation, left local_key, right local_key)`였는데, 같은 `DerivedX`를
+   한 COMPOSE 안에서 `left_x`/`right_x` 두 번 쓰면 두 occurrence의 내부 relation이 **같은 키로
+   붕괴**한다 — 공급된 truth 하나가 두 occurrence 모두를 대답해버린다. Step 4가 local_key
+   occurrence를 그렇게 공들여 보존한 걸 Step 5에서 되잃는 셈. → `RelationInstanceKey`에
+   **전체 occurrence path**(top-level id + 거쳐온 local_key 연쇄)를 넣었다. 회귀 테스트:
+   `test_same_definition_reused_under_two_local_keys_gets_two_distinct_keys`.
+   (이 path는 **definition-occurrence identity 전용**이다 — case/actor namespacing은 Step 6+.)
+3. **nested offense를 통째로 재평가하면 slots 이중 평가.** `D2 = COMPOSE(D1, C)` 컴파일 후
+   `D2.slots`는 이미 `D1.slots`를 흡수했으므로 nested를 `evaluate_compiled_offense`로 다시
+   부르면 그 slots를 두 번 본다(3치 ALL이 idempotent라 값은 안 틀리지만 구조가 틀림). 잃으면
+   안 되는 건 nested의 **relation obligation**이지 slots가 아니었다. → **slots는 top-level에서
+   한 번, relations만 재귀**. 회귀 테스트:
+   `test_slots_are_evaluated_exactly_once_never_again_per_nested_component`.
+4. **compile 실패 entry는 skip(중복 diagnostics 방지).** axis 7이 compile findings를 다시
+   forward하면 axis 2(operators)와 같은 진단이 `run_type_checks()` 출력에 두 번 뜬다. compile
+   실패의 소유권은 compiler/operator axis에 남긴다. 회귀 테스트:
+   `test_compile_failure_is_skipped_not_re_reported`.
+5. **`compile_offense()`의 standalone crash-safety를 새 필드에도 유지.** view 누락 시 `KeyError`가
+   아니라 Finding + 전체 엔트리 무효화(Step 4의 "성공한 CompiledOffense는 절대 부분적이지
+   않음" 불변식 그대로 확장). 회귀 테스트:
+   `test_relation_binding_missing_view_returns_findings_not_raise`.
+6. **3치 ALL fold를 복제하지 않는다.** `evaluate.py`의 `_fold_all`을 공개 `fold_all`로 승격해
+   `evaluate()`와 `evaluate_compiled_offense()`가 공유 — `evaluate.py`가 3치 Boolean semantics의
+   유일한 소스로 남는다.
+
+### 용어 경계 (모듈 docstring에도 명시)
+
+`evaluate_relation()`은 "이 사건에서 causal_nexus가 성립하는가"를 **계산하지 않는다** — 이미
+공급된 relation truth를 lookup할 뿐이고, 없으면 `UNKNOWN`(4.3 invariant). 실제 판정은 v2.2.0
+(structural은 CaseGraph resolve, evaluative는 neural assessment).
+
+### Step 6(v2.2.0) 착수 방향 — runtime identity는 기존 키를 뜯어고치는 게 아니라 한 층 위에 씌운다
+
+Step 5가 남긴 identity 경계를 Step 6 시작 전에 명시적으로 못박아둔다:
+
+```text
+v2.1 RelationInstanceKey
+    = definition occurrence identity          (top-level offense id + local_key 연쇄)
+
+v2.2 Runtime identity
+    = case / actor / offense-instance namespace
+      + definition occurrence identity        (위 키를 그대로 품는다)
+```
+
+즉 Step 6에서 `RelationInstanceKey`를 **수정하지 말 것** — 이 키는 "이 정의 트리 안의 어느
+relation occurrence인가"라는 질문에 이미 정확히 답하고 있고, 그 답은 사건이 무엇이든 변하지
+않는다. 사건마다 달라지는 건 "누구에 대해, 어느 offense instance에 대해 이 정의를 적용하는가"
+이므로, runtime 키는 `(case, actor, offense_instance) + RelationInstanceKey` 형태로 **감싸는**
+방향이 맞다. 지금 키에 case/actor 필드를 끼워넣으면 definition layer가 case를 알게 되어
+v2.1/v2.2 분리가 그 지점에서 깨진다.
+
+`tests/test_v2_check_relation_types.py`(10개) + `tests/test_v2_relations.py`(15개) +
+`test_v2_compile.py` 2개 추가 = 기존 104 + 27 → **총 131개 전부 통과**
+(`/data5/jaehoonjeong/miniconda3/bin/python`, 미니콘다 base 환경). 실제 36개 인스턴스 corpus는
+7축 전부 0 findings. 위 정정 1~3은 **mutation 검증**도 했다 — 각 버그를 코드에 일부러 되살렸을
+때 해당 회귀 테스트가 실제로 실패하는 것을 확인(테스트가 형식만 갖춘 게 아님).
+
+## Step 4 (QUALIFY / COMPOSE compiler) 완료 — `src/idpr/v2/compile.py` + 12개 테스트 통과, `tests/test_v2_*.py` 총 104개 (2026-08-08, 같은 세션)
+
+26절 구현 순서 4번 "QUALIFY / COMPOSE compiler"를 끝냈다. ~~다음 세션 시작점은 이제 5번
+"Relation evaluator"다.~~ **5번도 같은 세션에서 완료됨 — 문서 최상단 "Step 5 완료" 절 참고.**
+승인된 구현 계획서는
+[`/home/jaehoonjeong/.claude/plans/curious-meandering-unicorn.md`](file:///home/jaehoonjeong/.claude/plans/curious-meandering-unicorn.md)
+(사용자가 4라운드에 걸쳐 정정한 끝에 확정 — 아래 "설계 정정" 절 참고).
+
+**스키마 변경 없음** — `*.schema.json`을 건드리지 않았다. `SCHEMA_NOTES.md`는 Step 2 완료 시점의
+"compiler/relation evaluator(4/5) 설계 시점에 다시 열 것"이라는 표기만 "5(Relation evaluator)
+설계 시점에 다시 열 것"으로 갱신(4번은 끝났고 다시 열지 않기로 확정했으므로) — 아래 참고.
+
+### 핵심 발견: Type checker의 `replay_slot`은 검증 전용이었지, 공개 컴파일 산출물이 아니었다
+
+axis 2(`checks/operators.py`)는 이미 QUALIFY/COMPOSE의 slot 값을 authored data로부터 재귀
+계산하는 `replay_slot`을 갖고 있었지만, 이건 "저장된 `flattened_elements`가 맞는지 검증"만 하는
+내부 헬퍼였다. 반면 COMPOSE의 `derivation.relations`(local_key로 두 컴포넌트를 잇는 배열)는
+axis 1(`checks/references.py`)이 구조(local_key 존재/self-loop 금지)만 확인할 뿐, 그 local_key가
+실제로 "무엇"을 가리키는지 resolve하는 코드는 어디에도 없었다 — 이게 이번 단계의 진짜 신규
+작업이었다.
+
+### `src/idpr/v2/compile.py` (신규 모듈)
+
+`replay_slot`류 로직 전체를 `checks/operators.py`에서 옮겨와 `compile_offense(registry, ref) ->
+CompiledOffense | list[Finding] | DerivationCycle | None`로 공개했다. `checks/operators.py`는
+이제 이 함수를 호출해 `flattened_elements`와 비교만 하는 얇은 wrapper로 축소됨(Finding 코드/
+조건은 기존과 동일 — 기존 92개 테스트가 전부 그대로 통과해 무회귀를 확인했다).
+
+산출물 타입 3개:
+- `CompiledComponentInstance{local_key, component_kind, resolved_kind, source_ref,
+  compiled_content}` — COMPOSE의 컴포넌트 한 occurrence.
+- `CompiledRelationBinding{relation_ref, left, right}` — `left`/`right`가 global ref가 아니라
+  위 instance 객체 자체를 가리킨다.
+- `CompiledOffense{id, slots, components, relations}` — `slots`만으로 완결되지 않는다: `CompiledOffense
+  = Slots + Required Relation Bindings`, 절대 `Slots`만으로 취급하지 말 것(dataclass docstring에
+  못박음, 나중에 runtime 코드가 `.relations`를 조용히 무시하는 걸 방지하려는 목적).
+
+### 설계 정정 (사용자가 ExitPlanMode 리뷰에서 4라운드에 걸쳐 지적, 전부 반영 완료)
+
+1. **local_key를 곧바로 global ref로 축약하면 안 됨.** local_key는 "이 composition 안의 특정
+   component *occurrence*"를 식별하려고 만든 것 — 같은 ref(예: `offense.robbery`)가 서로 다른
+   local_key로 두 번 들어와도 컴파일러가 이를 하나로 collapse하면 relation이 다시 구분 불가능해
+   진다. → `CompiledComponentInstance`가 local_key당 하나씩 독립 생성되고, relation binding도
+   instance 객체 자체를 참조(global ref 비교 아님). 회귀 테스트:
+   `test_duplicate_ref_different_local_keys_stay_distinct_instances`.
+2. **저작 시점 컴포넌트 범주(`component.kind`)와 실제 resolve된 정의 객체 kind를 섞지 않음.**
+   `component_kind="offense"`가 실제로는 `OffenseDef` 또는 `DerivedOffenseDef` 둘 중 하나로
+   resolve될 수 있으므로 `resolved_kind` 필드로 분리. 회귀 테스트:
+   `test_component_kind_vs_resolved_kind_and_nested_compose_not_flattened`(중첩 COMPOSE가 부모
+   레벨로 flatten되지 않는 것도 같은 테스트에서 확인).
+3. **성공한 `CompiledOffense`는 절대 부분적이지 않음.** 컴포넌트/relation binding 하나라도
+   실패하면 전체 엔트리가 `list[Finding]`(또는 cycle이면 `DerivationCycle`)을 반환 — "일부
+   slot만 비고 나머지는 정상" 같은 반쯤 유효한 산출물은 없음. `Finding`/`DerivationCycle`은
+   `CompiledComponentInstance.compiled_content` 안에 절대 들어가지 않음. 회귀 테스트:
+   `test_one_broken_component_fails_the_whole_entry_never_a_partial_compiled_offense`.
+4. **bundle-kind 컴포넌트가 relation의 endpoint여도 컴파일 단계에서 거부하지 않음.**
+   `RelationDef.left_type`/`right_type`이 실제로 bound된 endpoint와 맞는지 검사하는 "relation
+   lowering"은 3계층 분리(Compiler → Type checking/lowering → Relation evaluator)의 2번째
+   층이며, 이번 단계 스코프가 아니다 — 여전히 어떤 컴포넌트도 그 필드와 비교할 semantic type을
+   선언하지 않으므로(vocabulary 자체가 없음) **Step 5(Relation evaluator)로 명시적 재이관**.
+   회귀 테스트: `test_bundle_as_relation_endpoint_compiles_without_type_validation`.
+5. **방어적 체크 2개 추가**(compile.py가 axis 1 없이 단독 호출될 수 있으므로): (a) 같은
+   local_key가 두 번 쓰이면 조용히 덮어쓰지 않고 `Finding("duplicate_local_key", ...)`, (b)
+   `relation_ref`가 존재하고 `RelationDef`로 resolve되는지 구조적으로만 확인(타입 호환성 아님)
+   하고 아니면 `Finding("relation_ref_unresolved", ...)`. 회귀 테스트:
+   `test_duplicate_local_key_is_rejected_not_silently_overwritten`,
+   `test_relation_ref_must_resolve_to_a_relation`,
+   `test_malformed_relation_binding_returns_findings_not_raise`.
+
+### 3계층 분리 (Step 5 경계 — 재발굴 방지용으로 명시적으로 기록)
+
+1. **Compiler(이번 단계, 완료)**: local_key → `CompiledComponentInstance` 보존. 거부 없음.
+2. **Type checking / relation lowering(스코프 아님, 아직 미착수)**: `RelationDef.left_type`/
+   `right_type`이 실제로 bound된 endpoint의 kind와 맞는지 검사 — semantic type vocabulary가
+   아직 없어서 못 함.
+3. **Relation evaluator(Step 5)**: 실제 relation semantics 수행.
+
+`tests/test_v2_compile.py`(12개 테스트, `/data5/jaehoonjeong/miniconda3/bin/python` 미니콘다
+base 환경) + 기존 92개 = `tests/test_v2_*.py` 총 **104개 전부 통과**.
+
 ## Step 3 (Expression evaluator) 완료 — `src/idpr/v2/evaluate.py` + 23개 테스트 통과 (2026-08-08, 같은 세션)
 
 26절 구현 순서 3번 "Expression evaluator"를 끝냈다. **다음 세션 시작점은 이제 4번
@@ -114,8 +313,11 @@ memoized + cycle-safe)한다 — 계획서 라운드 4/5/6이 이 지점의 실�
   일치 검증** — `local_key` 덕분에 relation이 "어느 두 컴포넌트를 잇는지"는
   이제 정확히 알지만, 어느 component(`GroundFactDef`/`OffenseDef`/
   `ExportedComponentDef` 등)도 `RelationDef.left_type`/`right_type`과 비교할
-  semantic type 자체를 선언하지 않는다. → **compiler/relation evaluator
-  (26절 순서 4/5) 설계 시점에 다시 열 것.**
+  semantic type 자체를 선언하지 않는다. → ~~2026-08-08 Step 4 완료 시점에 재확인: 여전히 못
+  함(vocabulary 부재), relation evaluator(26절 순서 5)로 재이관 확정.~~ **종료됨 — 2026-08-08
+  Step 5에서 닫혔다. 부족했던 건 vocabulary가 아니라 "타입을 어디에 붙일지"였다(정의 객체가
+  아니라 relation binding이 선언): 문서 최상단 "Step 5 완료" 절 + SCHEMA_NOTES 6차 addendum
+  참고. 이 항목은 더 이상 열린 유예가 아니다.**
 - **`modifier_ref` → 실제 `ModifierDef` 존재 확인** — `ModifierDef` 객체
   자체가 아직 설계되지 않았음(Open Question #4, v2.1.0 문서 25절). 지금은
   `modifier_ref` 재사용 시 stage 일관성만 self-consistency로 검사. →
@@ -247,20 +449,22 @@ role이 neural assessment에 노출되며 판단이 뒤집히는 문제, 이번 
 obstruction/harboring_offender 등에서 손으로 하나씩 잡던 바로 그 패턴)의 근본 원인을
 아키텍처 레벨에서 차단하려는 설계다.
 
-### 구현 순서 (26절) — 1~3번 완료, 지금은 4번부터
+### 구현 순서 (26절) — 1~5번 완료(v2.1.0 종료), 지금은 6번부터(v2.2.0 시작)
 
 v2.1.0 문서 26절 "Proposed Implementation Boundary"의 권장 순서를 그대로 따른다.
-**1번(Definition schema), 2번(Type checker), 3번(Expression evaluator) 완료 — 위 "Step 3
-완료"/"Step 2 완료"/"Step 1 완료" 절과 `docs/contracts/v2/SCHEMA_NOTES.md` 참고. 다음은
-4번(QUALIFY / COMPOSE compiler)부터.**
+**1~5번 완료 — 위 "Step 5 완료"~"Step 1 완료" 절과 `docs/contracts/v2/SCHEMA_NOTES.md` 참고.
+5번에서 v2.1.0 트랙이 끝났고(주어진 truth value로 끝까지 실행 가능한 typed legal program),
+6번부터는 v2.2.0 case-time runtime이다 — 착수 전
+[`docs/v2_plan/IDPR_v2.2.0_DECISION_RUNTIME_PROPOSAL.md`](../v2_plan/IDPR_v2.2.0_DECISION_RUNTIME_PROPOSAL.md)를
+다시 열 것.**
 
 ```text
 1. Definition schema   [완료]
 2. Type checker         [완료]
 3. Expression evaluator [완료]
-4. QUALIFY / COMPOSE compiler   ← 다음 시작점
-5. Relation evaluator
-6. Runtime stage objects
+4. QUALIFY / COMPOSE compiler   [완료]
+5. Relation evaluator   [완료]  ← 여기까지 v2.1.0
+6. Runtime stage objects   ← 다음 시작점 (여기부터 v2.2.0)
 7. Completion resolution
 8. Participation / attribution
 9. Scallop compilation
