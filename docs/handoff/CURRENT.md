@@ -2,6 +2,57 @@
 
 기준: 2026-08-08 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
+## Step 3 (Expression evaluator) 완료 — `src/idpr/v2/evaluate.py` + 23개 테스트 통과 (2026-08-08, 같은 세션)
+
+26절 구현 순서 3번 "Expression evaluator"를 끝냈다. **다음 세션 시작점은 이제 4번
+"QUALIFY / COMPOSE compiler"다.** 승인된 구현 계획서는
+[`/home/jaehoonjeong/.claude/plans/polished-conjuring-turing.md`](file:///home/jaehoonjeong/.claude/plans/polished-conjuring-turing.md).
+
+**스키마 변경 없음** — step 2(5차 addendum)와 달리 이번 단계는 `element_expression`
+문법을 건드리지 않았다. `SCHEMA_NOTES.md` 업데이트 없음.
+
+`src/idpr/v2/evaluate.py`: `TruthValue = Literal["TRUE","FALSE","UNKNOWN"]` +
+`evaluate(expr: CanonicalExpr, truths: Mapping[str, TruthValue]) -> TruthValue`.
+`expressions.py`의 `CanonicalExpr`(step 2에서 이미 구현된 canonicalize 출력)를 그대로
+입력으로 받는다 — 두 번째 tree-walker를 새로 만들지 않고 step 2가 이미 세운 계약
+(`replay_slot`이 `CanonicalExpr`를 반환, `check_operators`가 비교 전 `canonicalize` 호출)을
+재사용. `None`(빈 slot) → `TRUE`(vacuous truth), 누락된 ref → `UNKNOWN`(4.3 invariant —
+missing evidence is not negation). ALL/ANY/NOT은 v2.2.0 문서 12절의 3치 진리표를 그대로
+구현.
+
+**ONE_OF의 3치 의미론 — 문서에 없어 이번에 확정한 설계 결정** (v2.1.0/v2.2.0 어디에도
+ONE_OF의 truth table이 없음, 사용자에게 명시적으로 질의 후 확정):
+
+```text
+true_count = TRUE인 자식 수
+unknown_count = UNKNOWN인 자식 수
+
+true_count >= 2      → FALSE   (이미 2개 이상 참이면 어떤 completion으로도 못 고침)
+unknown_count == 0   → true_count == 1이면 TRUE, 아니면 FALSE
+그 외                 → UNKNOWN
+```
+
+ALL/ANY/NOT과 동일한 원리("모든 completion에서 같은 결론이면 확정, 아니면 UNKNOWN")를
+ONE_OF의 "정확히 하나"(8.3절) 명제에 그대로 적용한 것 — "자식 중 UNKNOWN이 하나라도 있으면
+무조건 UNKNOWN"이라는 더 무딘 규칙보다 정밀함(예: `ONE_OF(TRUE, TRUE, UNKNOWN)`은 이미 2개
+참이라 세 번째 값과 무관하게 `FALSE`로 확정).
+
+**중요한 경계 — truth-functional, leaf-joint 아님**: 이 completion은 각 자식의 *이미
+평가된* `TruthValue`에 대한 completion이지, 그 자식들이 참조하는 leaf ref 자체에 대한 joint
+completion이 아니다. `evaluate()`는 각 자식을 독립적으로 평가한 뒤 그 결과값만 보고 fold한다
+— 형제 자식들이 같은 leaf ref를 공유하는지 들여다보지 않는다(ALL/ANY/NOT도 동일한 원칙).
+결과: `ONE_OF(A, NOT(A))`에서 `A = UNKNOWN`이면 `UNKNOWN`으로 평가된다(leaf-joint 분석을
+했다면 `A`의 모든 completion에서 `A`/`NOT(A)` 중 정확히 하나가 참이므로 `TRUE`라고 판단했을
+것과 다름). 사용자가 직접 지정한 경계이며, `test_v2_evaluate.py::
+test_one_of_is_truth_functional_not_leaf_joint`로 회귀 고정.
+
+`tests/test_v2_evaluate.py`(23개 테스트, `/data5/jaehoonjeong/miniconda3/bin/python`
+미니콘다 base 환경) — ALL/ANY/NOT 진리표, ONE_OF 6가지 조합 + 계획서의
+`ONE_OF(A, ONE_OF(B,C))` vs `ONE_OF(A,B,C)` 반례를 evaluation 레벨에서 재확인, 위 경계
+회귀 테스트, 누락 ref 기본값, 빈 slot vacuous truth, `canonicalize`의 ALL/ANY flatten이
+evaluate 결과를 바꾸지 않음(flatten-safety), nested mixed-operator 통합 테스트. 전체
+`tests/test_v2_*.py` 92개 전부 통과(기존 69 + 신규 23).
+
 ## Step 2 (Type checker) 완료 — 스키마 addendum 5차 수정 + `src/idpr/v2/` 구현 + 69개 테스트 통과 (2026-08-08, 같은 세션)
 
 26절 구현 순서 2번 "Type checker"를 끝냈다. **다음 세션 시작점은 이제 3번
@@ -196,17 +247,18 @@ role이 neural assessment에 노출되며 판단이 뒤집히는 문제, 이번 
 obstruction/harboring_offender 등에서 손으로 하나씩 잡던 바로 그 패턴)의 근본 원인을
 아키텍처 레벨에서 차단하려는 설계다.
 
-### 구현 순서 (26절) — 1번 완료, 지금은 2번부터
+### 구현 순서 (26절) — 1~3번 완료, 지금은 4번부터
 
 v2.1.0 문서 26절 "Proposed Implementation Boundary"의 권장 순서를 그대로 따른다.
-**1번(Definition schema)은 완료 — 위 "Step 1 완료" 절과 `docs/contracts/v2/
-SCHEMA_NOTES.md` 참고. 다음은 2번(Type checker)부터.**
+**1번(Definition schema), 2번(Type checker), 3번(Expression evaluator) 완료 — 위 "Step 3
+완료"/"Step 2 완료"/"Step 1 완료" 절과 `docs/contracts/v2/SCHEMA_NOTES.md` 참고. 다음은
+4번(QUALIFY / COMPOSE compiler)부터.**
 
 ```text
-1. Definition schema   ← 여기부터 시작
-2. Type checker
-3. Expression evaluator
-4. QUALIFY / COMPOSE compiler
+1. Definition schema   [완료]
+2. Type checker         [완료]
+3. Expression evaluator [완료]
+4. QUALIFY / COMPOSE compiler   ← 다음 시작점
 5. Relation evaluator
 6. Runtime stage objects
 7. Completion resolution
