@@ -2,6 +2,143 @@
 
 기준: 2026-08-08 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
+## Step 6B (Completion) 완료 — form 추상화 폐기, 7차 addendum, `tests/test_v2_*.py` 총 203개 (2026-08-08, 같은 세션)
+
+**6B의 blocker였던 "form selection semantics"는 풀린 게 아니라 폐기됐다.** 사용자 결정으로
+`FormProgram`/`OffenseFormKey` 추상화 자체를 걷어내고 Completion을 원안 구조로 되돌렸다. 승인된
+계획서는
+[`/home/jaehoonjeong/.claude/plans/wobbly-forging-hennessy.md`](file:///home/jaehoonjeong/.claude/plans/wobbly-forging-hennessy.md)
+(ExitPlanMode 리뷰에서 2건 정정 후 승인 — 아래 "승인 시 정정" 절).
+
+**이건 신규 설계가 아니라 원안 복귀다.** v2.1.0 §14.2가 이미
+`CompletionResult { form: completed|attempted|...|unresolved, decisive_conditions, provenance }`
+라는 **도출되는 typed legal result**로 쓰고 있었고, selectable-program 층은 그 위에 나중에
+얹힌 것이었다. **다음 세션 시작점은 Step 6C(Participation / Attribution)다.**
+
+### 왜 form 층이 unsound했는가 (재발굴 방지)
+
+미수 program에는 결과·인과 obligation이 없으므로 **기수 사건에서도 attempt program이 통과한다.**
+따라서 selection 규칙이 tie를 깨야 하는데, 자연스러운 규칙("completed 먼저 보고 실패하면
+attempt")이 정확히 §14가 금지한 `기수 실패 → attempt 라벨 부착` 패턴이다. 즉 form selection은
+어렵게 푸는 문제가 아니라 **만들지 말았어야 할 문제**였다.
+
+대체 설계: 각 state가 **자기 도출조건 `when`을 저작**하고, 상태는 조건들의 **집합**에서 도출된다.
+
+```text
+T = { s : when_s = TRUE },  U = { s : when_s = UNKNOWN }
+
+|T| == 1          →  그 s              (U 무관 — 확정이 미확정을 이긴다)
+|T| >= 2          →  unresolved        (조건 중첩 = 저작 결함, provenance 기록, 승자 안 뽑음)
+|T| == 0, U != ∅  →  unresolved
+|T| == 0, U == ∅  →  not_applicable
+```
+
+`attempted.when`은 `completed`의 평가 *결과*를 읽지 않는다(둘 다 case truths만 본다) — fallback이
+안 쓰이는 게 아니라 **표현 불가능**하다. 코드 어디에도 순서가 없고,
+`test_derivation_is_symmetric_under_declaration_order`가 선언 순서 무관을 기계적으로 고정한다.
+
+### 스키마 7차 addendum (`completion_policy_def.schema.json` 전면 개편)
+
+`forms` → **`states`** 개칭(`attempt` → `attempted`). 개칭 이유는 스타일이 아니라 `form`이라는
+단어가 남으면 "선택 가능한 프로그램 집합"이라는 폐기된 독법이 데이터에 살아남기 때문. 필드:
+
+| 필드 | 의미 |
+|---|---|
+| `when`(신규, 필수) | 이 state의 도출조건. leaf는 ground_fact/legal_element뿐 — Completion이 Elements보다 **먼저** 오므로 slot 결과 참조는 순환. |
+| `suspends`(신규) | 이 state에서 obligation이 *존재하지 않는* slot. fold에서 **제외**, TRUE 치환 아님. |
+| `relations`(신규) | relation 처분 `{relation, left, right, path?, disposition}`. |
+| `punishable`(기존) | 형태의 문제. Punishability stage의 EXEMPT(효과의 문제)와 별개. |
+| `requires`(기존) | 이 state가 **추가**하는 obligation. |
+
+**기존 description 두 문장이 실제로 모순이라 교정**: (1) `requires`의 `"in addition to — never
+instead of — the base offense elements"`는 `suspends`와 정면 충돌, (2) `forms`의 "punishable:false
+말고 키를 생략하라"는 이제 둘이 다른 뜻(키 생략 = 그 법적 상태 자체가 없음 / punishable:false =
+도출되지만 불벌 → **Completion에서 즉시 종료**). 상세는 `SCHEMA_NOTES.md` 7차 수정 절.
+
+### 승인 시 정정 (계획서 초안 2건, 사용자가 ExitPlanMode에서 지적)
+
+1. **v2.1 `evaluate_compiled_offense`를 건드리지 않는다.** 초안은 여기에 keyword-only
+   `suspended_slots`/`relation_dispositions`를 달려 했는데, 그러면 같은 의미론이 두 군데 생기고
+   정의 층이 case-time 개념(completion state)을 알게 된다. → completion semantics는 runtime
+   `_iter_obligations` **한 곳에만** 산다. 따라오는 결과: 6A의
+   `test_elements_truth_matches_evaluate_compiled_offense`는 두 경로 fold 일치를 고정하는데
+   suspension이 있으면 **의도적으로 달라진다** → `completed` 범위로 축소하고 "일반 불변식이
+   아니다"를 docstring에 명시(조용히 삭제하지 않음).
+2. **axis 8의 affectedness 자동 추론 폐기.** 초안의 leaf_refs 교집합 방식은 relation endpoint가
+   Step 5에서 확정한 **relation-scoped view**라 leaf 집합과 대응 보장이 없다. → 규칙 단순화:
+   `suspends`가 비면 처분 저작 불필요, 비어 있지 않으면 **그 offense의 relation instance 전건**에
+   `retain|suspend` 명시. corpus가 bounded라 부담이 작고, 법적 판단을 사람이 했다는 증거가
+   relation마다 남는다.
+
+   정정 2가 옳았다는 실증이 fixture에 있다: **강도살인미수는 result+causation을 suspend하지만
+   `occasion_identity`는 RETAIN이다**(강도의 기회에 살해행위가 있었을 것은 미수에서도 요구됨).
+   자동 추론이었다면 정확히 반대 답을 냈다.
+
+### 신규/변경 파일
+
+- **`src/idpr/v2/runtime/completion.py`(신규)** — `CompletionState`(7치) /
+  `CompletionCandidateOutcome`(§14.2 `decisive_conditions`) / `CompletionResult` /
+  `resolve_completion` / `completion_policy_for`. `__post_init__` 불변식: 도출되지 않은
+  state(`unresolved`/`not_applicable`)는 program(punishable·suspends·requires·dispositions)을
+  **못 들고 다닌다**.
+- **`src/idpr/v2/checks/completion.py`(신규, axis 8)** — 7축 → **8축**. Finding 9종. 유일하게
+  남은 구조 탐지는 `completion_unsupported_slot_suspension`(suspended slot에 독립 복수 component
+  contribution → **거부**, 강도강간미수 conduct가 그 사례)이고 그것도 아무것도 결정하지 않는다.
+  일반 조건 중첩은 정적으로 판정 안 함(결정불가능) — 완전 동일 `when`만 잡고 나머지는 런타임
+  `unresolved`.
+- `runtime/identity.py` — `OffenseFormKey` **삭제**. 런타임 identity는
+  `OffenseInstanceKey(case, actor, offense_ref, occurrence_id)` 하나뿐.
+- `runtime/stages.py` — `FormProgram`/`completed_program()` 삭제,
+  `FormRequirementObligation` → `CompletionRequirementObligation(state)`, 결론 3종 +
+  `LiabilityEvaluation`의 `form_key` → `instance`, `LiabilityEvaluation.completion` 필드 추가
+  (completion은 legal judgement이므로 trace에 남는다), `decisive_stage`에 `"completion"` 허용
+  (단 `STAGE_NAMES`에는 없음 — Completion은 orthogonal axis이지 5번째 stage가 아님).
+- `runtime/pipeline.py` — `program: FormProgram` → `completion: CompletionResult`,
+  `_reject_unimplemented_form` 삭제, 진입 분기 3종(unresolved / not_applicable /
+  `punishable is False` → 4 stage 전부 `not_reached`, `decisive_stage="completion"`).
+- `checks/references.py` — `states.*.when` / `states.*.requires` / `relations[].relation` 참조 검사.
+- fixture **36 → 43 인스턴스**: `offense.homicide` + `derived_offense.robbery_homicide`(강도살인,
+  결합범이고 미수 명문 제342조 — 결과적가중범 `robbery_causing_injury`와 달리 미수가 인정되므로
+  이쪽에 policy를 붙였다) + ground_fact 2 + legal_element 2 + completion_policy 2.
+
+### 검증
+
+`tests/test_v2_runtime_completion.py`(13) + `tests/test_v2_check_completion.py`(12) 신규 +
+기존 178 갱신 = **총 203개 전부 통과**(`/data5/jaehoonjeong/miniconda3/bin/python`, 미니콘다
+base). 43개 인스턴스 corpus **8축 전부 0 findings**.
+
+**mutation 검증 3건** — 각 버그를 되살렸을 때 해당 회귀 테스트가 실제로 실패함을 확인:
+(a) `|T|>=2`에 우선순위 tie-break 부활 → `test_two_true_conditions_yield_unresolved_never_a_priority_winner`
+실패, (b) suspended slot을 TRUE 치환 →
+`test_suspended_slot_is_dropped_from_the_fold_not_rewritten_to_true` 실패, (c) 미선언 relation을
+조용한 `retain` 기본값으로 → axis 8 테스트 2건 실패.
+
+폐기된 추상화를 검증하던 3개 테스트는 의도적으로 제거/교체했다(`OffenseFormKey` 래핑,
+`FormProgram` 2건, `test_non_completed_form_program_is_rejected_until_6b` — 마지막 것은 6B가
+실제 semantics를 넣었으므로 가드의 존재이유가 사라짐).
+
+**무관한 기존 실패 1건**: `tests/test_property_rule_ir.py::test_scallop_golden_scenarios[theft]`.
+v1 자산(`idpr.rulegen` + `scripts.*`)만 쓰고 `idpr.v2`를 import하지 않으며, `src/idpr/v2/` 밖에서
+`idpr.v2`를 import하는 코드는 레포에 없다(grep 확인). 이번 변경과 무관하다고 판단하지만
+**clean tree에서 직접 재현 확인은 못 했다**(스태시 후 재실행이 타임아웃).
+
+### 6C 착수 시 주의
+
+실행 순서는 그대로 `ATTRIBUTE → Completion → Elements`(v2.2.0 §18, pipeline docstring에 명시).
+`resolve_completion(policy, compiled, instance, truths)` 시그니처가 이미 instance/truths를 받으므로
+6C에서 attributed view를 넘기는 확장이 가능하다 — **지금 그 인자를 미리 달아두지 않았다**(6A 정정
+#10과 같은 원칙: 받아놓고 무시하는 인자를 만들지 않는다).
+
+### 미해결 (의도적, 6B 범위 밖)
+
+- §14.2의 `applicable_effects`(미수 감경 등) — Open Question #5(양형 포함 범위) 미확정이라 지금
+  필드를 만들면 죽은 필드가 된다. `punishability_note`(자유 텍스트)만 유지.
+- **occurrence-scoped suspension** — `suspends`는 flattened slot 전체를 없앤다. COMPOSE의 한 slot에
+  독립 복수 component가 기여하면(강도강간의 `conduct`) 지금은 axis 8이 **거부**한다. 강도강간미수를
+  실제로 표현하려면 이 기능이 필요하고, 그때 별도 설계 대상이다.
+- `when`의 착수 predicate가 `requires`에도 다시 나타나는 중복 — 런타임상 no-op이지만 구조적으로는
+  옳다(`when`=도출조건, `requires`=그 상태의 obligation). fixture 주석에 근거를 남겼다.
+
 ## Step 6A (Runtime semantics) 완료 — v2.2.0 착수, `tests/test_v2_*.py` 총 178개 (2026-08-08, 새 세션)
 
 v2.2.0 case-time runtime의 첫 단계를 끝냈다. **다음 세션 시작점은 Step 6B(Completion)이고, 착수
@@ -20,8 +157,8 @@ v2.1.0 26절의 6·7·8이 runtime semantics 하나의 umbrella로 묶였다. �
 
 ```text
 Step 6A  Runtime identity / truths / stages / effects   [완료]
-Step 6B  Completion                                     ← 다음 시작점
-Step 6C  Participation / Attribution
+Step 6B  Completion                                     [완료 — 문서 최상단 절 참고]
+Step 6C  Participation / Attribution                    ← 다음 시작점
 Step 7   Closure / Probe compiler
 Step 8   Call 1 (router) 이후 뉴럴 단계
 ```
@@ -89,7 +226,13 @@ Step 8   Call 1 (router) 이후 뉴럴 단계
     "받아놓고 무시하는 인자"다. → **6A에서 그 함수를 아예 손대지 않고**, pipeline이 비-completed
     program을 `NotImplementedError`로 **거부**한다(무시 아님).
 
-### 6B 착수 전 blocker — form *선택* 의미론이 아직 없다
+### 6B 착수 전 blocker — form *선택* 의미론이 아직 없다 [해소됨 — 문제 자체가 폐기]
+
+> **이 절은 역사적 기록이다.** 아래에서 "6B 착수 전에 설계·승인받아야 한다"고 예고한 form
+> selection semantics는 설계된 게 아니라 **폐기됐다** — `FormProgram`/`OffenseFormKey` 추상화를
+> 걷어내니 문제가 함께 사라졌다. 문서 최상단 "Step 6B 완료" 절 참고. 아래 "relation은 slot
+> topology에서 자동 유도하지 않는다"는 결론은 유효하지만, 그 구현 방식(affectedness 구조 탐지)은
+> 더 단순한 규칙으로 대체됐다(`suspends`가 있으면 relation 전건 명시).
 
 6A/계획서가 정의한 건 전부 `FormProgram` = **"이 form을 선택했다면 무엇을 평가하는가"**다.
 **"어느 form을 선택하는가"는 미정이고, 이걸 닫기 전에 6B 구현에 들어가면 안 된다.**
