@@ -2,6 +2,146 @@
 
 기준: 2026-08-08 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
+## Step 6A (Runtime semantics) 완료 — v2.2.0 착수, `tests/test_v2_*.py` 총 178개 (2026-08-08, 새 세션)
+
+v2.2.0 case-time runtime의 첫 단계를 끝냈다. **다음 세션 시작점은 Step 6B(Completion)이고, 착수
+전에 닫아야 할 설계가 하나 남아 있다(아래 "6B 착수 전 blocker").** 승인된 계획서는
+[`/home/jaehoonjeong/.claude/plans/radiant-doodling-flute.md`](file:///home/jaehoonjeong/.claude/plans/radiant-doodling-flute.md)
+(사용자가 **5라운드**에 걸쳐 정정한 끝에 확정 — 아래 "설계 정정" 절이 그 기록).
+
+**스키마 변경 없음.** `*.schema.json`을 하나도 건드리지 않았다. 6B가 필요로 하는 7차 addendum
+(`completion_policy_def.schema.json`의 `suspends` / `relations`)은 **아직 저작하지 않았고 별도
+승인 대상**이다.
+
+### 단계 번호 재정의 (이전 문서의 "6·7·8"을 대체)
+
+v2.1.0 26절의 6·7·8이 runtime semantics 하나의 umbrella로 묶였다. 이전 절들이 "Step 7"을 두 뜻
+(Completion / closure·probe)으로 쓰고 있었으므로 여기서 통일한다:
+
+```text
+Step 6A  Runtime identity / truths / stages / effects   [완료]
+Step 6B  Completion                                     ← 다음 시작점
+Step 6C  Participation / Attribution
+Step 7   Closure / Probe compiler
+Step 8   Call 1 (router) 이후 뉴럴 단계
+```
+
+### 신규/변경 파일
+
+- **`src/idpr/v2/runtime/`(신규 패키지)** — case-time 층. 층 방향 규칙: `runtime`이 `idpr.v2`를
+  import하고 **역방향은 절대 없다**(`test_definition_layer_never_imports_the_runtime`이
+  `src/idpr/v2/*.py`를 실제로 스캔해 기계적으로 강제).
+  - `identity.py` — `OffenseInstanceKey(case, actor, offense_ref, occurrence_id)` /
+    `OffenseFormKey(instance, form)` / `RuntimeRelationKey(instance, RelationInstanceKey)`.
+  - `truths.py` — `CaseTruths` + lazy read-only view 2개. v2.1 함수가 지금 받는 타입 그대로 넘겨
+    시그니처 변경을 피한다.
+  - `stages.py` — state literal 4종 + `GateState` + `AppliedEffect` + `StageResult` +
+    Obligation 3종 + `FormProgram` + 결론 3종 + `LiabilityEvaluation`.
+  - `effects.py` — `ActiveDoctrineRefs` / `resolve_stage` / `StageEffectError`.
+  - `pipeline.py` — `resolve_liability(...) -> LiabilityEvaluation`.
+- `src/idpr/v2/evaluate.py` — `_fold_any` → 공개 `fold_any` 승격(로직 변경 없음). Step 5가
+  `fold_all`을 승격한 것과 같은 근거: 3치 의미론의 소스는 이 파일 하나로 유지.
+
+### 설계 정정 (사용자가 5라운드에 걸쳐 지적, 전부 반영 — 재발굴 방지용 기록)
+
+1. **doctrine을 stage별 전역 pool로 소비하면 거의 모든 사건이 `unresolved`로 붕괴한다.** 초안은
+   `registry.by_kind["doctrine"]`을 stage로만 필터해 전부 평가했는데, 절도 사건에서 정당방위·
+   긴급피난·인적처벌면제까지 평가되고 미probe doctrine의 `requires`는 대부분 UNKNOWN이라
+   Unlawfulness가 `unresolved`가 된다. → 런타임은 `ActiveDoctrineRefs`를 **받는다**(Step 7의
+   closure가 생산할 자리; 6A에서는 호출자가 명시 공급). `DoctrineDef`를 `OffenseDef`에
+   hard-link하지 않는 것과 case-time에 전부 평가하는 것은 **별개 문제**다.
+2. **stage 상태는 doctrine 개별이 아니라 pool 전체의 fold다.** `self_defense=TRUE,
+   necessity=UNKNOWN`이 `unresolved`가 되면 안 된다 — 확정된 DEFEAT는 다른 justification의
+   미해결과 무관하게 stage를 종결시킨다. 정확히 3치 ANY라 `fold_any`를 재사용.
+3. **`legal_state`와 `gate_state`는 다른 질문이다.** MODIFY가 UNKNOWN이면 실제 상태는
+   "preserved 또는 diminished 중 모름"이지 `preserved`가 아니다 — `preserved`로 적으면 symbolic
+   runtime이 실제보다 강한 법적 결론을 낸다. 반면 §13.2가 둘 다 establishment를 인정하므로
+   gate는 통과한다. → 두 필드로 분리. DEFEAT/EXEMPT의 UNKNOWN은 결론을 바꾸므로 gate도 막는다.
+4. **`StageResult`의 불변식은 타입이 아니라 `__post_init__`이 강제한다.** `S | None` 선언만으론
+   `StageResult("evaluated", None, None)`이 그대로 생성돼 불변식이 주석으로만 남는다. 3항 동치
+   (`not_reached ⇔ legal_state is None ⇔ gate_state is None`) + `not_reached`면 `effects=()`까지
+   검사한다(도달 안 한 stage에 effect가 남으면 그건 hypothetical이고 v2.2.0 §24 위반).
+5. **`form`을 `OffenseInstanceKey`에 넣으면 순환이 생긴다.** 미수 여부를 판단하려면 truths를 먼저
+   읽어야 하는데 그 truths의 키에 이미 form이 들어 있게 된다. 같은 사실을 form별로 두 벌 저장하는
+   문제도 있다. → **`OffenseInstanceKey`(사실 층) / `OffenseFormKey`(프로그램 선택 층) 2층 분리.**
+   relation truth도 base instance에 붙는다(`causal_nexus` 성립 여부는 form과 무관한 명제이고,
+   그 form이 그걸 요구하는지는 CompletionPolicy의 일).
+6. **`occurrence_id`가 없으면 같은 사건·같은 actor·같은 죄종 두 번이 한 키로 충돌한다.**
+   죄수론(Open Q #6) 이전에 case-time fact attribution 자체가 두 occurrence를 구별해야 한다.
+7. **`decisive_element`는 relation 실패를 가리킬 수 없다.** predicate 전부 TRUE인데
+   `causal_nexus`가 FALSE면 Elements는 failed인데 FALSE leaf가 없다. → `decisive_obligation`으로
+   일반화. **단 `PredicateObligation(ref)`는 계산 불가능** — `NOT(A)` with `A=TRUE`,
+   `ONE_OF(A,B)` with 둘 다 TRUE도 FALSE leaf 없이 FALSE다. `evaluate()`는 최종 TruthValue만
+   반환하므로 pipeline이 tree를 다시 걷는 건 두 번째 evaluator이고 unsound. → 실제 union은
+   `SlotObligation | RelationObligation | FormRequirementObligation`. predicate 수준 provenance가
+   필요해지면 정식 `evaluate_with_trace()`를 따로 만든다.
+8. **`OffenseRealization`을 실패한 경우에도 만들면 "실현되지 않은 실현"이 생긴다.** 이름이 곧 법적
+   명제인 층에서 §4.5의 구분이 무너진다. → **evaluation trace와 legal conclusion을 타입으로 분리**:
+   `LiabilityEvaluation`은 항상 존재하고, `OffenseRealization`/`OffenseEstablishment`/
+   `LiabilityResult`는 각자의 gate가 실제로 통과했을 때만 생성된다. `decisive_stage`도
+   `str | None`(완주한 path엔 결정적 실패 stage가 없음).
+9. **`FormProgram`이 `CompletionPolicy.punishable`을 흘리면 법률지식이 컴파일에서 증발한다.**
+   미수·예비 처벌규정 유무를 런타임이 나중에 다시 알아내야 한다. → 필드로 보존.
+   **Punishability stage의 EXEMPT와 다른 것이다**: `punishable`은 이 미완성 *형태*가 애초에
+   처벌 가능한 법적 형태인가(형태의 문제), EXEMPT는 성립한 죄에 면제가 있는가(효과의 문제).
+10. **아직 구현 안 된 optional 인자를 미리 달지 않는다.** 초안은 `evaluate_compiled_offense`에
+    `suspended_slots`/`relation_dispositions`를 6A에 달고 semantics는 6B에서 채우려 했는데, 그건
+    "받아놓고 무시하는 인자"다. → **6A에서 그 함수를 아예 손대지 않고**, pipeline이 비-completed
+    program을 `NotImplementedError`로 **거부**한다(무시 아님).
+
+### 6B 착수 전 blocker — form *선택* 의미론이 아직 없다
+
+6A/계획서가 정의한 건 전부 `FormProgram` = **"이 form을 선택했다면 무엇을 평가하는가"**다.
+**"어느 form을 선택하는가"는 미정이고, 이걸 닫기 전에 6B 구현에 들어가면 안 된다.**
+
+문제가 드러나는 지점: 기수 사건에서도 attempt program이 통과한다(결과·인과 obligation이 없으므로).
+
+```text
+Form evaluation semantics   선택된 form에서 무엇을 평가하는가   [정의됨]
+Form selection semantics    어느 form을 선택하는가              [미정]
+```
+
+`"completed 먼저 검사하고 실패하면 attempt"` 같은 순서를 런타임 코드에 숨기면 §14가 금지한
+"기수 실패 → attempt 라벨 부착" 패턴이 구현 디테일로 되살아난다. 필요하면 `CompletionPolicyDef`가
+priority / exclusion / guard를 **명시적으로 저작**해야 한다. → **6B는 `CompletionPolicy 7차
+addendum + form selection`을 먼저 설계·승인받고 시작한다.**
+
+또 6B 구현 시 확정된 것 두 가지(계획서에 상세):
+- **relation은 slot topology에서 자동 유도하지 않는다.** compiler는 relation이 suspend된 obligation에
+  영향받는지 **구조 탐지만** 하고, affected relation은 form policy가 `retain|suspend`를 명시하지
+  않으면 컴파일/타입체크 실패(unaffected는 retain 기본). 결과범 미수에서 result만 suspend되는데
+  `causal_nexus`는 사라져야 하므로 "양 endpoint suspended" 휴리스틱은 불건전. → axis 8
+  `checks/completion_forms.py` 신설 예정(최종 acceptance는 7축이 아니라 **8축** 0 findings).
+- **애매하면 조용히 실행하지 말고 거부한다.** suspended slot에 독립적인 복수 component
+  contribution이 있어 전체 suspend를 안전하게 정당화 못 하면 unsupported Finding. 원칙 한 줄:
+  컴파일러는 구조 탐지까지만 하고 법적 판단은 자동으로 하지 않는다.
+
+### 병행 트랙 — Criminal-Law Definition Population (승인됨, 미착수)
+
+계획서 Track 2가 승인됐다. 요지만(상세는 계획서):
+- `card_catalog_v2.json` 1848장을 `function`×`form`으로 갈라 **저작 대상 ~496장**
+  (canonical_element 201 / exception 197 / stage 77 / defeater 17 / participation 4, 전부
+  abstract_rule), `application_standard`+`precedent_pattern` 729장은 새 predicate가 아니라
+  `LegalElementDef.legal_standard` 본문 재료로 **흡수**, concurrence 136(죄수론)은 보류,
+  narrative+skeleton_meta 360은 폐기.
+- 카드 51개 조문은 전부 각칙이고 **총칙 카드는 0장**. 카드 공백 = KCL eval 공백이라 각칙 251조문
+  전면 확장은 채점 신호를 늘리지 않는다. 구조 stress 유형은 art339(강도강간)만 결손.
+- **형소(5,373 chunk)는 범위 밖** — 시간이 아니라 스키마 부재(v2 stage 대수가 실체법 전용).
+- 실적재는 `data/v2/definitions/`에 두고 `docs/contracts/v2/examples/`(스키마 fixture 36개)는
+  동결. `load_definitions(definitions_dir=...)`가 이미 파라미터화돼 있어 loader 신규 구현 불필요.
+- 저작은 predicate-first 2패스, **검수 게이트는 predicate 사전 먼저**.
+
+### 검증
+
+`tests/test_v2_runtime_{identity,truths,stages,effects,pipeline}.py` 47개 신규 + 기존 131개 =
+**총 178개 전부 통과**(`/data5/jaehoonjeong/miniconda3/bin/python`, 미니콘다 base). 기존 131개
+무회귀가 "v2.1 public behavior에 breaking change 없음"의 실증이다.
+
+위 정정 중 7건은 **mutation 검증**도 했다 — 각 버그를 코드에 일부러 되살렸을 때 해당 회귀
+테스트가 실제로 실패하는 것을 확인(정정 1·2·3·4·7·8·10). `test_elements_truth_matches_evaluate_compiled_offense`는
+intent×relation 9조합 전부에서 v2.1 `evaluate_compiled_offense`와 일치함을 확인해, 의무별 개별
+평가가 두 번째 의미론이 아니라 decisive obligation 지목용일 뿐임을 고정한다.
+
 ## Step 5 (Relation evaluator) 완료 — v2.1.0 실행 의미론 종료, `tests/test_v2_*.py` 총 131개 (2026-08-08, 같은 세션)
 
 26절 구현 순서 5번 "Relation evaluator"를 끝냈다. **이로써 v2.1.0 트랙이 끝난다 — 다음 세션
@@ -464,13 +604,17 @@ v2.1.0 문서 26절 "Proposed Implementation Boundary"의 권장 순서를 그�
 3. Expression evaluator [완료]
 4. QUALIFY / COMPOSE compiler   [완료]
 5. Relation evaluator   [완료]  ← 여기까지 v2.1.0
-6. Runtime stage objects   ← 다음 시작점 (여기부터 v2.2.0)
-7. Completion resolution
-8. Participation / attribution
+6. Runtime stage objects   [완료 — Step 6A]  (여기부터 v2.2.0)
+7. Completion resolution   [= Step 6B, 다음 시작점]
+8. Participation / attribution   [= Step 6C]
 9. Scallop compilation
 10. Neural grounding adapters
 11. Writer integration
 ```
+
+**주의**: 위 26절 원본 번호는 이제 문서 최상단의 6A/6B/6C · Step 7(closure·probe) · Step 8(Call 1)
+체계로 대체됐다. 6·7·8이 runtime semantics 하나로 묶였고, "Step 7"이라는 이름은 이제
+closure/probe compiler를 뜻한다 — 이 표의 7번(Completion)과 혼동하지 말 것.
 
 **1번 "Definition schema"의 구체 내용**: 22절 "Proposed v2.1.0 Object Inventory"에 나열된
 Definition Layer 객체들(`GroundFactDef`, `LegalElementDef`, `PrimitiveDef`,
