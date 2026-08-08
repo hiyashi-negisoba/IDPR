@@ -46,7 +46,7 @@ def evaluate(expr: CanonicalExpr, truths: Mapping[str, TruthValue]) -> TruthValu
     if op == "all":
         return fold_all(evaluate(child, truths) for child in payload)
     if op == "any":
-        return _fold_any(evaluate(child, truths) for child in payload)
+        return fold_any(evaluate(child, truths) for child in payload)
     if op == "one_of":
         return _fold_one_of(evaluate(child, truths) for child in payload)
     if op == "not":
@@ -71,7 +71,16 @@ def fold_all(values: Iterable[TruthValue]) -> TruthValue:
     return UNKNOWN
 
 
-def _fold_any(values: Iterable[TruthValue]) -> TruthValue:
+def fold_any(values: Iterable[TruthValue]) -> TruthValue:
+    """Three-valued disjunction over an arbitrary sequence of already-evaluated TruthValues.
+
+    Public for the same reason and by the same rule as fold_all: a layer above needs this fold over
+    things that are not element_expression children, and must not reimplement the truth table. Here
+    that layer is the runtime's doctrine pool -- "is this stage defeated?" is exactly ANY over each
+    active doctrine's own requires-truth (runtime/effects.py). Reimplementing it there is how
+    "self_defense=TRUE but necessity=UNKNOWN -> unresolved" bugs get written: a confirmed TRUE must
+    win over any number of UNKNOWNs, which is precisely what this fold already says.
+    """
     values = list(values)
     if any(value == TRUE for value in values):
         return TRUE
