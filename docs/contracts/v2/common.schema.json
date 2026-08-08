@@ -1,0 +1,186 @@
+{
+  "$id": "idpr/v2/common",
+  "description": "Shared $defs for the IDPR v2.1.0 Definition Layer schemas. Every docs/contracts/v2/*.schema.json file $refs into this one instead of redefining these shapes. This file has no top-level 'type' of its own — it is only a $defs library.",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.-]*$",
+      "description": "Snake_case dotted identifier, same convention as v1's docs/contracts/rule_ir.schema.json predicate/rule ids."
+    },
+
+    "fixed_slot_name": {
+      "enum": ["subject", "object", "conduct", "circumstance", "result", "causation", "mental"],
+      "description": "v2.1.0 section 6, Fixed Offense Slots."
+    },
+
+    "stage": {
+      "enum": ["elements", "unlawfulness", "culpability", "punishability"],
+      "description": "v2.1.0 section 12, Stage Type System."
+    },
+
+    "source_ref": {
+      "type": "object",
+      "required": ["comment_id", "section_path", "quote"],
+      "additionalProperties": false,
+      "properties": {
+        "comment_id": { "type": "string", "minLength": 1 },
+        "section_path": { "type": "string", "minLength": 1 },
+        "quote": { "type": "string", "minLength": 1, "maxLength": 300 }
+      },
+      "description": "Same shape as v1's rule_ir.schema.json $defs.source_ref, reused unchanged for provenance."
+    },
+
+    "authority_ref": {
+      "type": "object",
+      "required": ["authority_basis", "citation"],
+      "additionalProperties": false,
+      "properties": {
+        "authority_basis": {
+          "enum": [
+            "statute_text",
+            "judicial_precedent",
+            "commentary_reported_precedent",
+            "commentary_synthesis",
+            "academic_theory"
+          ],
+          "description": "Provisional enum, carried over from v1 norm_card_set authority_basis values plus statute_text/judicial_precedent/academic_theory added for v2. Open Question #10 (v2.1.0 section 25) — the full authority/provenance schema is not yet finalized; this is a first cut for schema-validation purposes."
+        },
+        "citation": { "type": "string", "minLength": 1 },
+        "note": { "type": "string" }
+      }
+    },
+
+    "element_expression": {
+      "description": "v2.1.0 section 8, Element Expression Grammar. Recursive tree: a leaf 'ref' node, or ALL/ANY/NOT/ONE_OF combining sub-expressions. Used uniformly wherever the design doc's prose shows either a full expression tree (OffenseDef slots) or a flat conjunctive list (ElementBundleDef.requires, DoctrineDef.requires examples) — this schema treats the flat-list examples as the implicit-ALL degenerate case of the same grammar, so there is exactly one requirement grammar across the whole Definition Layer.",
+      "oneOf": [
+        { "$ref": "#/$defs/element_ref_expr" },
+        { "$ref": "#/$defs/all_expr" },
+        { "$ref": "#/$defs/any_expr" },
+        { "$ref": "#/$defs/not_expr" },
+        { "$ref": "#/$defs/one_of_expr" }
+      ]
+    },
+    "element_ref_expr": {
+      "type": "object",
+      "required": ["op", "ref"],
+      "additionalProperties": false,
+      "properties": {
+        "op": { "const": "ref" },
+        "ref": { "$ref": "#/$defs/id" }
+      }
+    },
+    "all_expr": {
+      "type": "object",
+      "required": ["op", "args"],
+      "additionalProperties": false,
+      "properties": {
+        "op": { "const": "all" },
+        "args": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "$ref": "#/$defs/element_expression" }
+        }
+      }
+    },
+    "any_expr": {
+      "type": "object",
+      "required": ["op", "args"],
+      "additionalProperties": false,
+      "properties": {
+        "op": { "const": "any" },
+        "args": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "$ref": "#/$defs/element_expression" }
+        }
+      }
+    },
+    "not_expr": {
+      "type": "object",
+      "required": ["op", "arg"],
+      "additionalProperties": false,
+      "properties": {
+        "op": { "const": "not" },
+        "arg": { "$ref": "#/$defs/element_expression" }
+      },
+      "description": "v2.1.0 section 8.4 / 4.3 — strong negation only. NOT never converts unresolved/missing evidence into satisfaction; that is a runtime-evaluation invariant enforced by the type checker (step 2), not something this structural schema can check."
+    },
+    "one_of_expr": {
+      "type": "object",
+      "required": ["op", "args"],
+      "additionalProperties": false,
+      "properties": {
+        "op": { "const": "one_of" },
+        "args": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "$ref": "#/$defs/element_expression" }
+        }
+      },
+      "description": "v2.1.0 section 8.3 — restricted operator, exactly-one-of mutually exclusive legal alternatives. Not a default-choice operator."
+    },
+
+    "stage_effect": {
+      "description": "v2.1.0 section 11 / 17.4, runtime legal effect algebra. BAR is deliberately not a member (section 11: 'BAR는 v2.1.0 core operator로 두지 않는다').",
+      "oneOf": [
+        { "$ref": "#/$defs/defeat_effect" },
+        { "$ref": "#/$defs/modify_effect" },
+        { "$ref": "#/$defs/exempt_effect" }
+      ]
+    },
+    "defeat_effect": {
+      "type": "object",
+      "required": ["effect", "stage"],
+      "additionalProperties": false,
+      "properties": {
+        "effect": { "const": "DEFEAT" },
+        "stage": {
+          "enum": ["unlawfulness", "culpability"],
+          "description": "Section 12.1: Elements is an aggregation result, not a stage a doctrine effect defeats — so 'elements' is intentionally excluded here."
+        }
+      }
+    },
+    "modify_effect": {
+      "type": "object",
+      "required": ["effect", "stage", "modification"],
+      "additionalProperties": false,
+      "properties": {
+        "effect": { "const": "MODIFY" },
+        "stage": { "enum": ["culpability", "punishability"] },
+        "modification": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Free text for now. Open Question #4 (v2.1.0 section 25) — the typed MODIFY payload taxonomy is not yet designed."
+        }
+      }
+    },
+    "exempt_effect": {
+      "type": "object",
+      "required": ["effect", "stage"],
+      "additionalProperties": false,
+      "properties": {
+        "effect": { "const": "EXEMPT" },
+        "stage": { "const": "punishability" }
+      }
+    },
+
+    "relation_evaluation": {
+      "enum": ["structural", "evaluative"],
+      "description": "v2.1.0 section 10.1/10.2 — determines whether the runtime evaluates this relation symbolically or routes it to neural LegalElementAssessment."
+    },
+
+    "conclusion_type": {
+      "enum": ["offense_realization", "offense_establishment", "liability_result"],
+      "description": "v2.1.0 section 13, Intermediate Legal Conclusions — the three typed conclusion levels a derivative-participation dependency (section 15.3/15.4) can require."
+    },
+
+    "participation_mode": {
+      "enum": ["principal", "co_principal", "instigator", "aider"],
+      "description": "v2.1.0 section 15.1."
+    },
+    "participation_basis": {
+      "enum": ["direct", "attribution", "derivative"],
+      "description": "v2.1.0 section 15.4."
+    }
+  }
+}

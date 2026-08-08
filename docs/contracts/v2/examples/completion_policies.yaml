@@ -1,0 +1,14 @@
+# Fixture validating CompletionPolicyDef against completion_policy_def.schema.json.
+# Covers section 20.5 (미수범) -- attempt is a form-specific extra requirement, not a
+# fallback attached after base elements fail.
+- id: completion_policy.robbery
+  offense: offense.robbery
+  forms:
+    completed:
+      punishable: true
+    attempt:
+      requires:
+        op: ref
+        ref: ground_fact.attempt_commencement
+      punishable: true
+      punishability_note: "형법 제342조 미수범 처벌 (예시)"

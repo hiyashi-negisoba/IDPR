@@ -1,0 +1,72 @@
+# Hand-authored fixture validating GroundFactDef against ground_fact_def.schema.json.
+# Content is illustrative only (no legal review) -- see docs/v2_plan/IDPR_v2.1.0_DESIGN_PROPOSAL.md
+# section 20 for which validation cases this fixture set is exercising.
+- id: ground_fact.property_taking
+  arguments:
+    - {name: actor, type: entity}
+    - {name: victim, type: entity}
+    - {name: property, type: entity}
+  canonical_meaning: "행위자가 피해자의 재물을 취거하였다."
+  source_refs:
+    - {comment_id: "v2_example_001", section_path: "worked-example", quote: "행위자가 피해자의 재물을 취거하였다."}
+
+- id: ground_fact.violence_used
+  arguments:
+    - {name: actor, type: entity}
+    - {name: victim, type: entity}
+  canonical_meaning: "행위자가 피해자에게 폭행을 가하였다."
+  source_refs:
+    - {comment_id: "v2_example_001", section_path: "worked-example", quote: "행위자가 피해자에게 폭행을 가하였다."}
+
+- id: ground_fact.injury_occurred
+  arguments:
+    - {name: victim, type: entity}
+  canonical_meaning: "피해자에게 상해의 결과가 발생하였다."
+  source_refs:
+    - {comment_id: "v2_example_001", section_path: "worked-example", quote: "피해자에게 상해의 결과가 발생하였다."}
+
+- id: ground_fact.entrustment_relation
+  arguments:
+    - {name: actor, type: entity}
+    - {name: owner, type: entity}
+    - {name: property, type: entity}
+  canonical_meaning: "행위자가 소유자로부터 재물의 보관을 위탁받았다."
+  source_refs:
+    - {comment_id: "v2_example_001", section_path: "worked-example", quote: "행위자가 소유자로부터 재물의 보관을 위탁받았다."}
+
+- id: ground_fact.appropriation_conduct
+  arguments:
+    - {name: actor, type: entity}
+    - {name: property, type: entity}
+  canonical_meaning: "행위자가 위탁받은 재물을 자기 소유물처럼 처분하였다."
+  source_refs:
+    - {comment_id: "v2_example_001", section_path: "worked-example", quote: "행위자가 위탁받은 재물을 자기 소유물처럼 처분하였다."}
+
+- id: ground_fact.occupational_status
+  arguments:
+    - {name: actor, type: entity}
+  canonical_meaning: "행위자가 업무상 타인의 재물을 보관하는 지위에 있다."
+  source_refs:
+    - {comment_id: "v2_example_001", section_path: "worked-example", quote: "행위자가 업무상 타인의 재물을 보관하는 지위에 있다."}
+
+- id: ground_fact.current_attack
+  arguments:
+    - {name: attacker, type: entity}
+    - {name: defender, type: entity}
+  canonical_meaning: "공격자의 현재의 부당한 침해가 존재하였다."
+  source_refs:
+    - {comment_id: "v2_example_001", section_path: "worked-example", quote: "공격자의 현재의 부당한 침해가 존재하였다."}
+
+- id: ground_fact.defensive_conduct
+  arguments:
+    - {name: defender, type: entity}
+  canonical_meaning: "방어자가 방어 행위를 하였다."
+  source_refs:
+    - {comment_id: "v2_example_001", section_path: "worked-example", quote: "방어자가 방어 행위를 하였다."}
+
+- id: ground_fact.attempt_commencement
+  arguments:
+    - {name: actor, type: entity}
+  canonical_meaning: "행위자가 실행의 착수에 이르렀다."
+  source_refs:
+    - {comment_id: "v2_example_001", section_path: "worked-example", quote: "행위자가 실행의 착수에 이르렀다."}

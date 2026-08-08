@@ -1,0 +1,23 @@
+{
+  "$id": "idpr/v2/ExportedComponentDef",
+  "description": "v2.1.0 section 9.3, PROJECT — the serialized result of projecting a named export out of a structured definition (e.g. PROJECT(injury, result) -> injury_result). PROJECT itself is a mechanical structural-reuse utility, not a legal constructor, but section 22 lists ExportedComponentDef as its own Definition Layer object, so the projection result is recorded explicitly here rather than left implicit — this preserves provenance (section 18) back to the offense and export key it came from.",
+  "type": "object",
+  "required": ["id", "source_offense", "export_key", "resolved_ref"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "$ref": "idpr/v2/common#/$defs/id" },
+    "source_offense": {
+      "$ref": "idpr/v2/common#/$defs/id",
+      "description": "The OffenseDef (or DerivedOffenseDef) id this was projected from."
+    },
+    "export_key": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The key under the source offense's 'exports' map, e.g. 'result'. Not restricted to fixed_slot_name because an offense may export a named sub-expression rather than a whole slot."
+    },
+    "resolved_ref": {
+      "$ref": "idpr/v2/common#/$defs/id",
+      "description": "The concrete predicate/expression id this export resolves to at the source offense. section 7's example: offense injury { exports { result: injury_result } } -> resolved_ref is 'injury_result'."
+    }
+  }
+}

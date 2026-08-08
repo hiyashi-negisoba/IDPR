@@ -1,0 +1,6 @@
+# Fixture validating ExportedComponentDef against exported_component_def.schema.json.
+# Corresponds to section 9.3's PROJECT(injury, result) -> injury_result worked example.
+- id: exported_component.injury_result
+  source_offense: offense.injury
+  export_key: result
+  resolved_ref: ground_fact.injury_occurred

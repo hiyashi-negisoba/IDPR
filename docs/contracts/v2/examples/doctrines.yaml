@@ -1,0 +1,13 @@
+# Fixture validating DoctrineDef against doctrine_def.schema.json.
+# Corresponds to section 11's self_defense worked example.
+- id: doctrine.self_defense
+  stage: unlawfulness
+  requires:
+    op: all
+    args:
+      - {op: ref, ref: ground_fact.current_attack}
+      - {op: ref, ref: ground_fact.defensive_conduct}
+      - {op: ref, ref: legal_element.proportionality}
+  effect:
+    effect: DEFEAT
+    stage: unlawfulness

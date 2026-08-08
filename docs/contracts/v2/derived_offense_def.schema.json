@@ -1,0 +1,73 @@
+{
+  "$id": "idpr/v2/DerivedOffenseDef",
+  "description": "v2.1.0 sections 9.1/9.2/18 — an offense produced by QUALIFY or COMPOSE. The 'derivation' field IS the provenance path (section 18 requires the compiler preserve it rather than only keeping a flattened element set) since it references its inputs by id instead of inlining their content.",
+  "type": "object",
+  "required": ["id", "derivation", "flattened_elements"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "$ref": "idpr/v2/common#/$defs/id" },
+    "derivation": {
+      "oneOf": [
+        { "$ref": "#/$defs/qualify_derivation" },
+        { "$ref": "#/$defs/compose_derivation" }
+      ]
+    },
+    "flattened_elements": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "subject": { "$ref": "idpr/v2/common#/$defs/element_expression" },
+        "object": { "$ref": "idpr/v2/common#/$defs/element_expression" },
+        "conduct": { "$ref": "idpr/v2/common#/$defs/element_expression" },
+        "circumstance": { "$ref": "idpr/v2/common#/$defs/element_expression" },
+        "result": { "$ref": "idpr/v2/common#/$defs/element_expression" },
+        "causation": { "$ref": "idpr/v2/common#/$defs/element_expression" },
+        "mental": { "$ref": "idpr/v2/common#/$defs/element_expression" }
+      },
+      "description": "Same shape as OffenseDef.elements — the materialized slot set after applying the qualifier/compose derivation. This is a cache of the derivation's effect, not a second source of truth; the compiler (step 4) must regenerate it from 'derivation', never hand-author it independently."
+    }
+  },
+  "$defs": {
+    "qualify_derivation": {
+      "type": "object",
+      "required": ["kind", "base", "qualifier"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "const": "qualify" },
+        "base": { "$ref": "idpr/v2/common#/$defs/id", "description": "OffenseDef id." },
+        "qualifier": { "$ref": "idpr/v2/common#/$defs/id", "description": "QualifierDef id." }
+      }
+    },
+    "compose_derivation": {
+      "type": "object",
+      "required": ["kind", "components", "relations"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "const": "compose" },
+        "components": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "$ref": "#/$defs/component_ref" }
+        },
+        "relations": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "idpr/v2/common#/$defs/id" },
+          "description": "RelationDef ids the composition requires (e.g. causal_nexus, statutory_nexus). Section 9.2: COMPOSE is not naive Boolean conjunction — the relation list is what distinguishes it from AND."
+        }
+      }
+    },
+    "component_ref": {
+      "type": "object",
+      "required": ["kind", "ref"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": ["primitive", "bundle", "exported_component", "offense"],
+          "description": "Which ComponentDef union member (section 9.2) this points to."
+        },
+        "ref": { "$ref": "idpr/v2/common#/$defs/id" }
+      }
+    }
+  }
+}

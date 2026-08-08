@@ -2,6 +2,44 @@
 
 기준: 2026-08-08 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
+## Step 1 (Definition schema) 완료 — JSON Schema 12개 + YAML fixture 26개 검증 통과 (2026-08-08, 같은 세션)
+
+26절 구현 순서 1번 "Definition schema"를 끝냈다. **다음 세션 시작점은 이제 2번
+"Type checker"다.**
+
+- `docs/contracts/v2/common.schema.json` + Definition Layer 객체별 스키마 12개
+  (`ground_fact_def`/`legal_element_def`/`primitive_def`/`element_bundle_def`/
+  `exported_component_def`/`offense_def`/`derived_offense_def`/`doctrine_def`/
+  `qualifier_def`/`relation_def`/`completion_policy_def`/`participation_policy_def`
+  `.schema.json`) 작성 완료. JSON Schema(draft 2020-12)로 구조 검증, `$id`
+  기준 cross-file `$ref`.
+- 사람이 직접 저작하는 정의 파일은 **YAML**(사용자 결정) — 스키마 파일 자체는
+  JSON Schema 그대로.
+- `docs/contracts/v2/examples/*.yaml` 12개 파일·26개 인스턴스로 `jsonschema`
+  검증 통과. section 20 validation case 중 20.2(부진정신분범)/20.3(결과적
+  가중범)/20.5(미수범)/20.6·20.7(공동정범·교사범)을 실제 fixture로 exercising.
+  부정 케이스 3개(v1식 `role`/`card_role` 필드 삽입, DoctrineDef stage/effect.stage
+  불일치)도 실제로 거부되는 것 확인 — 특히 `role: "bar"`를 아무 v2 스키마에
+  넣어도 `additionalProperties: false`가 구조적으로 막는다는 게 핵심 검증
+  포인트(v1 극성 버그 재발 방지가 이번 개편의 목적이었으므로).
+- 문서에 문법이 없어 이번에 확정한 판단 8가지(`PrimitiveDef`/`ExportedComponentDef`/
+  `ParticipationPolicyDef` 모양, `element_expression`을 모든 요건 자리에 통일해서
+  쓰기로 한 것 등) 전부 **[`docs/contracts/v2/SCHEMA_NOTES.md`](../contracts/v2/SCHEMA_NOTES.md)에
+  근거와 함께 기록** — 다음 세션 시작 전에 검토할 것. 사용자가 다르게 정하고
+  싶은 항목이 있으면 여기서부터 뒤집으면 된다.
+
+### 다음 세션 시작점 — Type checker (26절 2번)
+
+`docs/contracts/v2/*.schema.json`이 잡아주는 건 **구조(모양)뿐**이다. 아직
+검증되지 않은 것: 15.4가 요구하는 typed dependency 체크("교사는
+`OffenseRealization<X>`을 요구하는데 실제로는 `ElementsResult<X>`만 있으면
+TYPE ERROR"), `NOT`이 unresolved/missing evidence를 satisfaction으로 바꾸지
+않는다는 4.3의 invariant, id 참조 무결성(예: `OffenseDef.qualifiers`에 적힌
+id가 실제 존재하는 `QualifierDef`인지) 등 — 전부 구조 스키마가 아니라 별도
+Python 코드가 담당해야 하는 **의미 타입체크**다. `src/idpr/v2/`(신규 패키지,
+v1 코드는 그대로 둔다) 아래에 구현할 것으로 예상되나 구체 설계는 다음 세션
+시작 시 `SCHEMA_NOTES.md`를 먼저 검토한 뒤 진행.
+
 ## v2 킥오프 — v1 동결, DSL 대개편 착수 (2026-08-08, 새 세션)
 
 **사용자 결정: v1(article/unit-centric RuleIR)을 reproducible baseline으로 동결하고,
@@ -41,9 +79,11 @@ role이 neural assessment에 노출되며 판단이 뒤집히는 문제, 이번 
 obstruction/harboring_offender 등에서 손으로 하나씩 잡던 바로 그 패턴)의 근본 원인을
 아키텍처 레벨에서 차단하려는 설계다.
 
-### 다음 세션 시작점 — Definition schema 설계 (사용자 확정)
+### 구현 순서 (26절) — 1번 완료, 지금은 2번부터
 
 v2.1.0 문서 26절 "Proposed Implementation Boundary"의 권장 순서를 그대로 따른다.
+**1번(Definition schema)은 완료 — 위 "Step 1 완료" 절과 `docs/contracts/v2/
+SCHEMA_NOTES.md` 참고. 다음은 2번(Type checker)부터.**
 
 ```text
 1. Definition schema   ← 여기부터 시작

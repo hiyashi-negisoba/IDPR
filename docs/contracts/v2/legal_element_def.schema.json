@@ -1,0 +1,41 @@
+{
+  "$id": "idpr/v2/LegalElementDef",
+  "description": "v2.1.0 section 5.2 — a proposition that requires evaluation against a legal standard (Call 3 vocabulary). Distinct from GroundFactDef: this needs a legal_standard and authority_refs, and is typically grounded by one or more GroundFactDef instances rather than read off the case text directly.",
+  "type": "object",
+  "required": ["id", "arguments", "canonical_meaning", "legal_standard", "authority_refs"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "$ref": "idpr/v2/common#/$defs/id" },
+    "arguments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+          "type": { "enum": ["entity", "string", "boolean"] }
+        }
+      }
+    },
+    "canonical_meaning": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Positive truth-condition sentence, e.g. 'robbery_level_threat(actor, victim)' -> '행위자가 반항을 억압할 정도의 폭행·협박을 가하였다.' Section 4.2 — canonical positive form, never a bar/waiver/absence-style negative predicate."
+    },
+    "grounded_by": {
+      "type": "array",
+      "items": { "$ref": "idpr/v2/common#/$defs/id" },
+      "description": "GroundFactDef (or other LegalElementDef) ids whose Assessment feeds this element's evaluation. Optional — some elements are assessed directly from case text without a declared factual substrate."
+    },
+    "legal_standard": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The evaluative standard Call 3 applies, e.g. '사회통념상 반항을 억압할 정도의 폭행·협박인지 여부'. This is prose guidance for the neural assessor, not a symbolic rule — the symbolic layer only ever sees the resulting Assessment.evidence_state (runtime layer, out of scope for this schema)."
+    },
+    "authority_refs": {
+      "type": "array",
+      "items": { "$ref": "idpr/v2/common#/$defs/authority_ref" }
+    }
+  }
+}

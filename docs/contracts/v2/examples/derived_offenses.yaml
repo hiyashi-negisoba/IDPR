@@ -1,0 +1,49 @@
+# Fixture validating DerivedOffenseDef against derived_offense_def.schema.json.
+# Covers section 20.2 (부진정신분범, via QUALIFY) and 20.3 (결과적 가중범, via COMPOSE).
+
+- id: derived_offense.occupational_embezzlement
+  derivation:
+    kind: qualify
+    base: offense.embezzlement
+    qualifier: qualifier.occupational_status
+  flattened_elements:
+    subject:
+      op: ref
+      ref: ground_fact.occupational_status
+    object:
+      op: ref
+      ref: ground_fact.entrustment_relation
+    conduct:
+      op: ref
+      ref: ground_fact.appropriation_conduct
+    mental:
+      op: ref
+      ref: legal_element.appropriation_intent
+
+- id: derived_offense.robbery_causing_injury
+  derivation:
+    kind: compose
+    components:
+      - {kind: offense, ref: offense.robbery}
+      - {kind: primitive, ref: primitive.aggravated_result_attribution}
+      - {kind: exported_component, ref: exported_component.injury_result}
+    relations:
+      - relation.causal_nexus
+  flattened_elements:
+    object:
+      op: ref
+      ref: ground_fact.property_taking
+    conduct:
+      op: all
+      args:
+        - {op: ref, ref: ground_fact.property_taking}
+        - {op: ref, ref: legal_element.robbery_level_violence}
+    mental:
+      op: ref
+      ref: legal_element.appropriation_intent
+    result:
+      op: ref
+      ref: ground_fact.injury_occurred
+    causation:
+      op: ref
+      ref: legal_element.aggravated_result_attribution

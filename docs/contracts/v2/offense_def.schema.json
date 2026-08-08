@@ -1,0 +1,56 @@
+{
+  "$id": "idpr/v2/OffenseDef",
+  "description": "v2.1.0 sections 6 and 22 — a base criminal offense expressed as typed fixed slots rather than a monolithic article unit.",
+  "type": "object",
+  "required": ["id", "identity", "elements"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "$ref": "idpr/v2/common#/$defs/id" },
+    "identity": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "description": "Human-readable offense name, e.g. '사기죄'." },
+        "statutory_refs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "e.g. ['형법 제347조 제1항']. Open Question #13 (v2.1.0 section 25) — final article-to-doctrine mapping is a separate legal-review step; this field only records the reference, it does not carry legal effect."
+        }
+      }
+    },
+    "elements": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "subject": { "$ref": "idpr/v2/common#/$defs/element_expression" },
+        "object": { "$ref": "idpr/v2/common#/$defs/element_expression" },
+        "conduct": { "$ref": "idpr/v2/common#/$defs/element_expression" },
+        "circumstance": { "$ref": "idpr/v2/common#/$defs/element_expression" },
+        "result": { "$ref": "idpr/v2/common#/$defs/element_expression" },
+        "causation": { "$ref": "idpr/v2/common#/$defs/element_expression" },
+        "mental": { "$ref": "idpr/v2/common#/$defs/element_expression" }
+      },
+      "description": "All seven fixed slots (section 6) are optional here — not every offense uses every slot (e.g. a conduct-only offense may omit causation/result). Absence means the slot is not part of this offense's constitutive elements, not that it is trivially satisfied."
+    },
+    "element_modules": {
+      "type": "array",
+      "items": { "$ref": "idpr/v2/common#/$defs/id" },
+      "description": "ElementBundleDef ids used inside this offense's elements (section 7). Listed here for discoverability/dependency tracking even though the actual reference lives inside the element_expression tree via op:ref."
+    },
+    "exports": {
+      "type": "object",
+      "additionalProperties": { "$ref": "idpr/v2/common#/$defs/id" },
+      "description": "Named export map for PROJECT (section 9.3), e.g. { \"result\": \"injury_result\" }. Keys are free-form export names, not restricted to fixed_slot_name, matching ExportedComponentDef.export_key."
+    },
+    "qualifiers": {
+      "type": "array",
+      "items": { "$ref": "idpr/v2/common#/$defs/id" },
+      "description": "QualifierDef ids that may legitimately QUALIFY this offense (e.g. embezzlement listing occupational_status). This is a menu of applicable qualifiers declared at the base offense, not an application — QUALIFY itself happens in DerivedOffenseDef."
+    },
+    "composition_metadata": {
+      "type": "object",
+      "description": "Reserved for compiler bookkeeping. Deliberately untyped/open at this stage — v2.1.0 section 22 lists the field name but does not specify contents, and no compiler exists yet to define what it needs (step 4, QUALIFY/COMPOSE compiler, comes later in the section-26 implementation order)."
+    }
+  }
+}

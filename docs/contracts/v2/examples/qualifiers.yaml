@@ -1,0 +1,8 @@
+# Fixture validating QualifierDef against qualifier_def.schema.json.
+# Corresponds to section 9.1's QUALIFY(embezzlement, occupational_status) -> occupational_embezzlement.
+- id: qualifier.occupational_status
+  description: "부진정신분범 가중 신분요건 (예시)"
+  additions:
+    subject:
+      op: ref
+      ref: ground_fact.occupational_status

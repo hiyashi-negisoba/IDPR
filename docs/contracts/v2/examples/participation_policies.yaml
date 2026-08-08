@@ -1,0 +1,16 @@
+# Fixture validating ParticipationPolicyDef against participation_policy_def.schema.json.
+# Covers section 20.6 (공동정범) and 20.7 (교사범).
+- id: participation_policy.robbery
+  offense: offense.robbery
+  modes:
+    principal:
+      basis: direct
+    co_principal:
+      basis: attribution
+      attributable_slots: [conduct]
+    instigator:
+      basis: derivative
+      requires_conclusion: offense_realization
+    aider:
+      basis: derivative
+      requires_conclusion: offense_realization

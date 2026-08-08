@@ -1,0 +1,57 @@
+{
+  "$id": "idpr/v2/ParticipationPolicyDef",
+  "description": "v2.1.0 section 22 lists ParticipationPolicyDef as a Definition Layer object, but section 15 only spells out the runtime ParticipationResult type (15.4) and the general mode/basis distinctions (15.1-15.3). JUDGMENT CALL (flagged for review): modeled here as the definition-time counterpart of 15.4 — for each participation mode available on an offense, it declares the attribution/dependency basis and, for derivative modes, the typed conclusion_type the principal must have reached (section 15.3/15.4's 'Instigation requires OffenseRealization<X>, not LiabilityResult<X>' point). The runtime type checker (step 2) is what actually raises the TYPE ERROR shown in section 15.4 when the required conclusion is unavailable; this schema only records what to check.",
+  "type": "object",
+  "required": ["id", "offense", "modes"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "$ref": "idpr/v2/common#/$defs/id" },
+    "offense": { "$ref": "idpr/v2/common#/$defs/id", "description": "OffenseDef id this policy governs." },
+    "modes": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "principal": { "$ref": "#/$defs/direct_mode" },
+        "co_principal": { "$ref": "#/$defs/attribution_mode" },
+        "instigator": { "$ref": "#/$defs/derivative_mode" },
+        "aider": { "$ref": "#/$defs/derivative_mode" }
+      }
+    }
+  },
+  "$defs": {
+    "direct_mode": {
+      "type": "object",
+      "required": ["basis"],
+      "additionalProperties": false,
+      "properties": {
+        "basis": { "const": "direct" }
+      }
+    },
+    "attribution_mode": {
+      "type": "object",
+      "required": ["basis"],
+      "additionalProperties": false,
+      "properties": {
+        "basis": { "const": "attribution" },
+        "attributable_slots": {
+          "type": "array",
+          "items": { "$ref": "idpr/v2/common#/$defs/fixed_slot_name" },
+          "description": "Which of this offense's elements slots can be satisfied via ATTRIBUTE(other co-principal's conduct) rather than this actor's own conduct — section 15.2's example attributes property_taking(by=乙) to 甲 and violence(by=甲) to 乙, both under 'conduct'."
+        }
+      }
+    },
+    "derivative_mode": {
+      "type": "object",
+      "required": ["basis", "requires_conclusion"],
+      "additionalProperties": false,
+      "properties": {
+        "basis": { "const": "derivative" },
+        "requires_conclusion": {
+          "$ref": "idpr/v2/common#/$defs/conclusion_type",
+          "description": "Section 15.3: the principal's personal culpability defenses do not defeat this dependency, so the required level is typically offense_realization, not offense_establishment or liability_result — but this is left offense-specific rather than hardcoded, since section 15 does not universally mandate one level for every derivative mode."
+        }
+      }
+    }
+  }
+}

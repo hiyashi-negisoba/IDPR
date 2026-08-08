@@ -1,0 +1,9 @@
+# Fixture validating ElementBundleDef against element_bundle_def.schema.json.
+# Not wired into any offense in this fixture set -- exists only to validate the schema shape.
+- id: bundle.robbery_conduct_bundle
+  description: "강도죄 행위 요건 묶음 (예시, section 7 스타일)"
+  requires:
+    op: all
+    args:
+      - {op: ref, ref: ground_fact.property_taking}
+      - {op: ref, ref: legal_element.robbery_level_violence}

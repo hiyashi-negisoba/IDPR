@@ -1,0 +1,48 @@
+# Fixture validating OffenseDef against offense_def.schema.json.
+- id: offense.robbery
+  identity:
+    name: "강도죄 (예시)"
+    statutory_refs: ["형법 제333조 (예시)"]
+  elements:
+    object:
+      op: ref
+      ref: ground_fact.property_taking
+    conduct:
+      op: all
+      args:
+        - {op: ref, ref: ground_fact.property_taking}
+        - {op: ref, ref: legal_element.robbery_level_violence}
+    mental:
+      op: ref
+      ref: legal_element.appropriation_intent
+
+- id: offense.injury
+  identity:
+    name: "상해죄 (예시)"
+    statutory_refs: ["형법 제257조 (예시)"]
+  elements:
+    conduct:
+      op: ref
+      ref: ground_fact.violence_used
+    result:
+      op: ref
+      ref: ground_fact.injury_occurred
+  exports:
+    result: ground_fact.injury_occurred
+
+- id: offense.embezzlement
+  identity:
+    name: "횡령죄 (예시)"
+    statutory_refs: ["형법 제355조 제1항 (예시)"]
+  elements:
+    object:
+      op: ref
+      ref: ground_fact.entrustment_relation
+    conduct:
+      op: ref
+      ref: ground_fact.appropriation_conduct
+    mental:
+      op: ref
+      ref: legal_element.appropriation_intent
+  qualifiers:
+    - qualifier.occupational_status

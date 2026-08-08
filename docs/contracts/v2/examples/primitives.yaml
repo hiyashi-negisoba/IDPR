@@ -1,0 +1,9 @@
+# Fixture validating PrimitiveDef against primitive_def.schema.json.
+# This is the bare-reference wrapper used inside DerivedOffenseDef COMPOSE component lists
+# (see derived_offenses.yaml) -- NOT what element_expression.ref points to inside OffenseDef
+# slots, which reference ground_fact.*/legal_element.* ids directly. Composing a whole
+# OffenseDef into COMPOSE uses component_ref{kind: offense} directly, with no PrimitiveDef
+# wrapper needed -- so offense.robbery does not get a primitive.* entry here.
+- id: primitive.aggravated_result_attribution
+  ref: legal_element.aggravated_result_attribution
+  ref_kind: legal_element

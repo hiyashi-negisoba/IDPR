@@ -1,0 +1,26 @@
+{
+  "$id": "idpr/v2/QualifierDef",
+  "description": "v2.1.0 section 9.1 — typed slot patches applied by QUALIFY to derive a variant offense while preserving its identity (e.g. QUALIFY(embezzlement, occupational_status) -> occupational_embezzlement).",
+  "type": "object",
+  "required": ["id", "additions"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "$ref": "idpr/v2/common#/$defs/id" },
+    "description": { "type": "string" },
+    "additions": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "subject": { "$ref": "idpr/v2/common#/$defs/element_expression" },
+        "object": { "$ref": "idpr/v2/common#/$defs/element_expression" },
+        "conduct": { "$ref": "idpr/v2/common#/$defs/element_expression" },
+        "circumstance": { "$ref": "idpr/v2/common#/$defs/element_expression" },
+        "result": { "$ref": "idpr/v2/common#/$defs/element_expression" },
+        "causation": { "$ref": "idpr/v2/common#/$defs/element_expression" },
+        "mental": { "$ref": "idpr/v2/common#/$defs/element_expression" }
+      },
+      "description": "Section 9.1: every slot is optional here (unlike OffenseDef.elements, which just happens to also make all slots optional) — a qualifier patches only the slots it adds to, and applying it ANDs the addition onto the base offense's existing expression for that slot (compiler behavior, step 4)."
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$id": "idpr/v2/ElementBundleDef",
+  "description": "v2.1.0 section 7, Shared Element Modules — a reusable module combining several predicates into one named requirement (e.g. negligence_bundle, omission_bundle), so complex recurring doctrine does not get re-derived per offense.",
+  "type": "object",
+  "required": ["id", "requires"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "$ref": "idpr/v2/common#/$defs/id" },
+    "description": { "type": "string" },
+    "requires": {
+      "$ref": "idpr/v2/common#/$defs/element_expression",
+      "description": "Section 7's examples (negligence_bundle, omission_bundle) show a flat conjunctive list — that is the implicit-ALL degenerate case of this same element_expression grammar (see common.schema.json), not a separate simpler grammar."
+    }
+  }
+}

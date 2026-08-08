@@ -1,0 +1,39 @@
+# Fixture validating LegalElementDef against legal_element_def.schema.json. Illustrative only.
+- id: legal_element.appropriation_intent
+  arguments:
+    - {name: actor, type: entity}
+    - {name: property, type: entity}
+  canonical_meaning: "행위자에게 재물에 대한 불법영득의사가 인정된다."
+  grounded_by: [ground_fact.appropriation_conduct]
+  legal_standard: "권리자를 배제하고 경제적 용법에 따라 이용·처분할 의사가 있는지 여부"
+  authority_refs:
+    - {authority_basis: commentary_synthesis, citation: "v2 예시용 가상 인용"}
+
+- id: legal_element.robbery_level_violence
+  arguments:
+    - {name: actor, type: entity}
+    - {name: victim, type: entity}
+  canonical_meaning: "행위자가 반항을 억압할 정도의 폭행을 가하였다."
+  grounded_by: [ground_fact.violence_used]
+  legal_standard: "사회통념상 피해자의 반항을 억압할 정도에 이르렀는지 여부"
+  authority_refs:
+    - {authority_basis: judicial_precedent, citation: "v2 예시용 가상 인용"}
+
+- id: legal_element.proportionality
+  arguments:
+    - {name: defender, type: entity}
+  canonical_meaning: "방어 행위가 침해에 비하여 상당한 정도였다."
+  grounded_by: [ground_fact.defensive_conduct]
+  legal_standard: "침해의 정도와 방어행위의 정도를 비교하여 상당성이 인정되는지 여부"
+  authority_refs:
+    - {authority_basis: statute_text, citation: "형법 제21조 제1항 (예시)"}
+
+- id: legal_element.aggravated_result_attribution
+  arguments:
+    - {name: event, type: entity}
+    - {name: result, type: entity}
+  canonical_meaning: "중한 결과가 기본범죄 행위에 상당인과관계로 귀속된다."
+  grounded_by: [ground_fact.injury_occurred]
+  legal_standard: "결과에 대한 예견가능성과 상당인과관계가 인정되는지 여부"
+  authority_refs:
+    - {authority_basis: commentary_synthesis, citation: "v2 예시용 가상 인용"}
