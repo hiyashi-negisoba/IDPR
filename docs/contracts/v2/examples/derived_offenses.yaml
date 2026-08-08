@@ -28,7 +28,11 @@
       - {kind: primitive, ref: primitive.aggravated_result_attribution, local_key: result_attribution, slot: causation}
       - {kind: exported_component, ref: exported_component.injury_result, local_key: aggravated_result, slot: result}
     relations:
-      - {relation: relation.causal_nexus, left: base_robbery, right: aggravated_result}
+      # left_view/right_view (Step 5 addendum): causal_nexus is event x event, and both endpoints
+      # are used here through their event aspect -- the robbery as the causing event, the exported
+      # injury result as the caused one.
+      - {relation: relation.causal_nexus, left: base_robbery, right: aggravated_result,
+         left_view: event, right_view: event}
   flattened_elements:
     object:
       op: ref
@@ -62,7 +66,12 @@
       - {kind: offense, ref: offense.robbery, local_key: robbery_part}
       - {kind: offense, ref: offense.rape, local_key: rape_part}
     relations:
-      - {relation: relation.occasion_identity, left: robbery_part, right: rape_part}
+      # Same offense.robbery that robbery_causing_injury above binds as an *event* endpoint is
+      # bound here as a *conduct* endpoint -- occasion identity (기회의 동일성) relates the two
+      # courses of conduct, not two events. This pair is exactly why the view is authored per
+      # relation binding instead of declared once on OffenseDef.
+      - {relation: relation.occasion_identity, left: robbery_part, right: rape_part,
+         left_view: conduct, right_view: conduct}
   flattened_elements:
     object:
       op: ref

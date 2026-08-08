@@ -97,12 +97,22 @@
     },
     "relation_binding": {
       "type": "object",
-      "required": ["relation", "left", "right"],
+      "required": ["relation", "left", "right", "left_view", "right_view"],
       "additionalProperties": false,
       "properties": {
         "relation": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id", "description": "RelationDef id — still a global reference, unaffected by the local_key change below." },
         "left": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key", "description": "Must equal one of this same derivation's components[].local_key. A Type checker obligation — JSON Schema can't cross-reference sibling array items." },
-        "right": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key", "description": "Must equal a DIFFERENT one of this same derivation's components[].local_key (left != right, also a Type checker obligation)." }
+        "right": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key", "description": "Must equal a DIFFERENT one of this same derivation's components[].local_key (left != right, also a Type checker obligation)." },
+        "left_view": {
+          "type": "string",
+          "minLength": 1,
+          "description": "2026-08-08 Step 5 addendum — the semantic view (projection) through which THIS relation uses the component occurrence named by 'left'. Deliberately authored per binding rather than declared once on the component: the same offense occurrence legitimately participates in different relations through different aspects (offense.robbery is a 'conduct' endpoint of relation.occasion_identity but an 'event' endpoint of relation.causal_nexus), so a fixed intrinsic semantic type on OffenseDef would have to reject one of those. Never inferred from RelationDef.left_type — that would be a hidden compiler heuristic; Step 5 lowering instead CHECKS this declared view against RelationDef.left_type and against what the endpoint can actually provide."
+        },
+        "right_view": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Same as left_view, for the component occurrence named by 'right'; checked against RelationDef.right_type."
+        }
       }
     }
   }

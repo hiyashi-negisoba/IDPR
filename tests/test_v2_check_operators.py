@@ -357,7 +357,7 @@ def test_replay_uses_inner_derivation_not_corrupted_flattened_cache() -> None:
                 {"kind": "offense", "ref": "derived_offense.synthetic_inner", "local_key": "inner"},
                 {"kind": "offense", "ref": "offense.rape", "local_key": "rape_part"},
             ],
-            "relations": [{"relation": "relation.occasion_identity", "left": "inner", "right": "rape_part"}],
+            "relations": [{"relation": "relation.occasion_identity", "left": "inner", "right": "rape_part", "left_view": "conduct", "right_view": "conduct"}],
         },
         "flattened_elements": {
             "subject": {"op": "ref", "ref": "ground_fact.occupational_status"},
@@ -396,7 +396,7 @@ def test_check_operators_terminates_on_cyclic_composition_without_axis_six() -> 
                 {"kind": "offense", "ref": "offense.robbery", "local_key": "base"},
                 {"kind": "offense", "ref": "derived_offense.synthetic_cycle_b", "local_key": "b"},
             ],
-            "relations": [{"relation": "relation.occasion_identity", "left": "base", "right": "b"}],
+            "relations": [{"relation": "relation.occasion_identity", "left": "base", "right": "b", "left_view": "conduct", "right_view": "conduct"}],
         },
         "flattened_elements": {},
     }
@@ -408,7 +408,7 @@ def test_check_operators_terminates_on_cyclic_composition_without_axis_six() -> 
                 {"kind": "offense", "ref": "offense.robbery", "local_key": "base"},
                 {"kind": "offense", "ref": "derived_offense.synthetic_cycle_a", "local_key": "a"},
             ],
-            "relations": [{"relation": "relation.occasion_identity", "left": "base", "right": "a"}],
+            "relations": [{"relation": "relation.occasion_identity", "left": "base", "right": "a", "left_view": "conduct", "right_view": "conduct"}],
         },
         "flattened_elements": {},
     }
@@ -435,7 +435,7 @@ def test_dangling_compose_component_ref_does_not_crash() -> None:
                 {"kind": "exported_component", "ref": "exported_component.does_not_exist", "local_key": "e", "slot": "result"},
                 {"kind": "bundle", "ref": "bundle.does_not_exist", "local_key": "b", "placement": {"ground_fact.x": "circumstance"}},
             ],
-            "relations": [{"relation": "relation.does_not_exist", "left": "a", "right": "p"}],
+            "relations": [{"relation": "relation.does_not_exist", "left": "a", "right": "p", "left_view": "conduct", "right_view": "conduct"}],
         },
         "flattened_elements": {"conduct": {"op": "ref", "ref": "ground_fact.x"}},
     }

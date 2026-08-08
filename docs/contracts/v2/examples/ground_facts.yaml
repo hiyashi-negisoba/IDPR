@@ -22,6 +22,10 @@
   arguments:
     - {name: victim, type: entity}
   canonical_meaning: "피해자에게 상해의 결과가 발생하였다."
+  # Step 5 addendum: reached as a relation endpoint via
+  # exported_component.injury_result -> offense.injury.exports.result, so it needs a declared
+  # sort for relation lowering to check causal_nexus's right_type=event against.
+  semantic_sort: event
   source_refs:
     - {comment_id: "v2_example_001", section_path: "worked-example", quote: "피해자에게 상해의 결과가 발생하였다."}
 

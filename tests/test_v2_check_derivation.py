@@ -30,7 +30,7 @@ def test_two_derived_offenses_composing_each_other_is_a_cycle() -> None:
                 {"kind": "offense", "ref": "offense.robbery", "local_key": "base"},
                 {"kind": "offense", "ref": "derived_offense.synthetic_cycle_b", "local_key": "b"},
             ],
-            "relations": [{"relation": "relation.occasion_identity", "left": "base", "right": "b"}],
+            "relations": [{"relation": "relation.occasion_identity", "left": "base", "right": "b", "left_view": "conduct", "right_view": "conduct"}],
         },
         "flattened_elements": {},
     }
@@ -42,7 +42,7 @@ def test_two_derived_offenses_composing_each_other_is_a_cycle() -> None:
                 {"kind": "offense", "ref": "offense.robbery", "local_key": "base"},
                 {"kind": "offense", "ref": "derived_offense.synthetic_cycle_a", "local_key": "a"},
             ],
-            "relations": [{"relation": "relation.occasion_identity", "left": "base", "right": "a"}],
+            "relations": [{"relation": "relation.occasion_identity", "left": "base", "right": "a", "left_view": "conduct", "right_view": "conduct"}],
         },
         "flattened_elements": {},
     }
@@ -63,7 +63,7 @@ def test_self_composing_derived_offense_is_a_length_one_cycle() -> None:
                 {"kind": "offense", "ref": "offense.robbery", "local_key": "base"},
                 {"kind": "offense", "ref": "derived_offense.synthetic_self_cycle", "local_key": "self"},
             ],
-            "relations": [{"relation": "relation.occasion_identity", "left": "base", "right": "self"}],
+            "relations": [{"relation": "relation.occasion_identity", "left": "base", "right": "self", "left_view": "conduct", "right_view": "conduct"}],
         },
         "flattened_elements": {},
     }
@@ -84,7 +84,7 @@ def test_legitimate_chain_without_back_edge_is_not_flagged() -> None:
                 {"kind": "offense", "ref": "offense.rape", "local_key": "rape_part"},
                 {"kind": "offense", "ref": "derived_offense.robbery_causing_injury", "local_key": "b"},
             ],
-            "relations": [{"relation": "relation.occasion_identity", "left": "rape_part", "right": "b"}],
+            "relations": [{"relation": "relation.occasion_identity", "left": "rape_part", "right": "b", "left_view": "conduct", "right_view": "conduct"}],
         },
         "flattened_elements": {},
     }

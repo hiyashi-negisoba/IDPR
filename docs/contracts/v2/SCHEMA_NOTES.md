@@ -269,3 +269,87 @@ side)에서만 읽고, 다른 entry의 기대값을 계산할 때는 (그 entry�
 `DerivedOffenseDef`이더라도) 항상 그 entry 자신의 `derivation`을 재귀적으로
 다시 replay한다. 저장된 `flattened_elements`를 "다른 계산의 입력"으로 쓰는
 순간 "derivation = source of truth" 원칙이 깨지기 때문.
+
+**(위 절은 역사적 기록 — Type checker는 이미 완료됐고, 그 axis 2의 replay 로직은
+2026-08-08 Step 4(QUALIFY / COMPOSE compiler, `src/idpr/v2/compile.py`)로 옮겨져
+공개 API `compile_offense()`가 됐다. Step 4는 이번 문서의 스키마(`*.schema.json`)를
+전혀 건드리지 않았다 — `docs/handoff/CURRENT.md`의 "Step 4 완료" 절 참고.)**
+
+## 2026-08-08 Step 5(Relation evaluator) 착수 시 스키마 수정 (6차 수정)
+
+Step 2에서 "**DEFERRED BY DESIGN**"으로 유예했던 항목 —
+`RelationDef.left_type`/`right_type` ↔ bound component의 semantic type 일치 검증 —
+을 이번에 닫았다. Step 4 완료 시점에도 "vocabulary 부재로 여전히 못 함"이라
+판단했었으나, 실제로 부족했던 건 vocabulary가 아니라 **타입을 어디에 붙일
+것인가에 대한 모델**이었다.
+
+### 왜 정의 객체에 고정 semantic type을 붙이면 안 되는가 (핵심)
+
+가장 자연스러운 첫 설계는 각 정의 객체에 intrinsic type 하나를 주는 것이다.
+그런데 기존 fixture 두 개가 이걸 바로 반증한다 — 같은 `offense.robbery`가:
+
+- `derived_offense.robbery_causing_injury`에서 `relation.causal_nexus`
+  (event × event)의 **left = event**로,
+- `derived_offense.robbery_rape`에서 `relation.occasion_identity`
+  (conduct × conduct)의 **left = conduct**로
+
+쓰인다. 둘 다 법적으로 올바른 저작이다(인과관계는 사건 사이의 관계, 기회의
+동일성은 행위 사이의 관계). `OffenseDef`에 고정 타입 하나를 박으면 이 중 하나는
+반드시 거부된다. 반대로 `semantic_types: [conduct, event]`처럼 집합을 주는 건
+타입 시스템을 약화시키는 방향이라 채택하지 않았다(어떤 조합이든 통과하게 됨).
+
+→ 채택: **relation-scoped typed endpoint projection**. 타입은 정의 객체가 아니라
+**relation binding이 선언**한다.
+
+```text
+global definition  →  local component occurrence  →  typed relation endpoint
+   offense.robbery         robbery_part                 .as(conduct)
+   offense.robbery         base_robbery                 .as(event)
+```
+
+### 수정 1 — `relation_binding`에 `left_view`/`right_view` 필수 추가
+
+`derived_offense_def.schema.json`의 `$defs/relation_binding`이 이제
+`{relation, left, right, left_view, right_view}`. `left_type`/`right_type`과 같은
+자유 문자열 vocabulary를 공유한다.
+
+**view를 `RelationDef.left_type`에서 추론하지 않는다**는 게 중요한 제약이다 —
+추론하면 "view가 relation type과 일치하는가"라는 검사가 항상 참이 되어(vacuous)
+검사 자체가 무의미해진다. 저작이 명시하고, Step 5가 검사한다.
+
+### 수정 2 — `GroundFactDef`/`LegalElementDef`에 옵션 `semantic_sort` 추가
+
+Structured/atomic을 다르게 다룬다. `OffenseDef`와 달리 **atomic predicate는 진짜로
+고유한 sort 하나를 갖는다** — `ground_fact.injury_occurred`는 event다. 그래서:
+
+```text
+Offense / DerivedOffense  → intrinsic type 없음 → relation-scoped view
+                             (현재 지원: conduct / event)
+Primitive                 → 감싼 predicate의 semantic_sort를 따라감
+ExportedComponent         → resolve_export 대상 predicate의 semantic_sort를 따라감
+GroundFact / LegalElement → semantic_sort를 직접 선언
+ElementBundle             → 단일 endpoint sort 없음 → baseline에서 항상 unsupported
+```
+
+`semantic_sort`는 optional이다(실제로 relation endpoint에 도달하는 predicate만
+채우면 됨). 다만 **미선언을 "통과"로 처리하지 않는다** — 선언이 없으면
+`relation_endpoint_untyped`로 명시적으로 보고한다. 미검증 allowance를 조용히
+남겨두지 않는다는 5차 수정 때와 같은 원칙.
+
+`ElementBundleDef`가 relation endpoint인 경우 Step 4(compiler)는 여전히 그
+occurrence를 **보존**하고, Step 5(lowering)에서 거부한다 — 계층이 다르므로 Step 4의
+"거부 없음" 결정과 충돌하지 않는다.
+
+### fixture 변경
+
+- `derived_offenses.yaml`: 두 relation binding에 view 추가(위 event/conduct 대비 사례
+  그대로).
+- `ground_facts.yaml`: `ground_fact.injury_occurred`에 `semantic_sort: event`
+  (`exported_component.injury_result` → `offense.injury.exports.result` 경로로
+  relation endpoint에 도달하는 유일한 predicate).
+
+인스턴스 수는 36개 그대로. 검증 통과.
+
+**이로써 Step 2의 "DEFERRED BY DESIGN" 2개 중 첫 번째는 종료.** 남은 하나
+(`modifier_ref` → 실제 `ModifierDef` 존재 확인)는 `ModifierDef` 객체 자체가 아직
+설계되지 않았으므로(Open Question #4) 여전히 열려 있다.

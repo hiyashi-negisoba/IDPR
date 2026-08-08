@@ -56,7 +56,7 @@ def test_compose_offense_component_with_slot_rejected() -> None:
                 {"kind": "offense", "ref": "offense.a", "local_key": "a", "slot": "conduct"},
                 {"kind": "offense", "ref": "offense.b", "local_key": "b"},
             ],
-            "relations": [{"relation": "relation.x", "left": "a", "right": "b"}],
+            "relations": [{"relation": "relation.x", "left": "a", "right": "b", "left_view": "conduct", "right_view": "conduct"}],
         },
         "flattened_elements": {},
     }
@@ -72,7 +72,7 @@ def test_compose_primitive_component_missing_slot_rejected() -> None:
                 {"kind": "offense", "ref": "offense.a", "local_key": "a"},
                 {"kind": "primitive", "ref": "primitive.p", "local_key": "p"},
             ],
-            "relations": [{"relation": "relation.x", "left": "a", "right": "p"}],
+            "relations": [{"relation": "relation.x", "left": "a", "right": "p", "left_view": "conduct", "right_view": "conduct"}],
         },
         "flattened_elements": {},
     }
@@ -88,7 +88,7 @@ def test_compose_bundle_component_missing_placement_rejected() -> None:
                 {"kind": "offense", "ref": "offense.a", "local_key": "a"},
                 {"kind": "bundle", "ref": "bundle.b", "local_key": "b"},
             ],
-            "relations": [{"relation": "relation.x", "left": "a", "right": "b"}],
+            "relations": [{"relation": "relation.x", "left": "a", "right": "b", "left_view": "conduct", "right_view": "conduct"}],
         },
         "flattened_elements": {},
     }

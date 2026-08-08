@@ -44,7 +44,7 @@ def evaluate(expr: CanonicalExpr, truths: Mapping[str, TruthValue]) -> TruthValu
     if op == "ref":
         return truths.get(payload, UNKNOWN)
     if op == "all":
-        return _fold_all(evaluate(child, truths) for child in payload)
+        return fold_all(evaluate(child, truths) for child in payload)
     if op == "any":
         return _fold_any(evaluate(child, truths) for child in payload)
     if op == "one_of":
@@ -54,7 +54,15 @@ def evaluate(expr: CanonicalExpr, truths: Mapping[str, TruthValue]) -> TruthValu
     raise ValueError(f"unknown canonical op {op!r}")
 
 
-def _fold_all(values: Iterable[TruthValue]) -> TruthValue:
+def fold_all(values: Iterable[TruthValue]) -> TruthValue:
+    """Three-valued conjunction over an arbitrary sequence of already-evaluated TruthValues.
+
+    Public (unlike its ANY/ONE_OF/NOT siblings) because conjunction is the one fold other layers
+    legitimately need over things that are not element_expression children: step 5's
+    relations.evaluate_compiled_offense() ANDs slot results with relation obligations. This module
+    stays the single source of truth for three-valued Boolean semantics -- callers reuse this rather
+    than reimplementing the truth table.
+    """
     values = list(values)
     if any(value == FALSE for value in values):
         return FALSE

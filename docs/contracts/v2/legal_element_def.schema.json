@@ -36,6 +36,11 @@
     "authority_refs": {
       "type": "array",
       "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/authority_ref" }
+    },
+    "semantic_sort": {
+      "type": "string",
+      "minLength": 1,
+      "description": "2026-08-08 Step 5 addendum — same meaning as GroundFactDef.semantic_sort: this atomic predicate's intrinsic semantic sort, used by Step 5 relation lowering when a PrimitiveDef wrapping this element (or this element itself) lands on a relation endpoint. Optional for the same reason."
     }
   }
 }
