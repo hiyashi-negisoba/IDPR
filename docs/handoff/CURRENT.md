@@ -2,6 +2,113 @@
 
 기준: 2026-08-08 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
+## Step 2 (Type checker) 완료 — 스키마 addendum 5차 수정 + `src/idpr/v2/` 구현 + 69개 테스트 통과 (2026-08-08, 같은 세션)
+
+26절 구현 순서 2번 "Type checker"를 끝냈다. **다음 세션 시작점은 이제 3번
+"Expression evaluator"다.** 승인된 구현 계획서는
+[`/home/jaehoonjeong/.claude/plans/modular-seeking-glade.md`](file:///home/jaehoonjeong/.claude/plans/modular-seeking-glade.md)
+(총 6라운드 조건부 승인 끝에 확정), 스키마 근거는
+[`docs/contracts/v2/SCHEMA_NOTES.md`](../contracts/v2/SCHEMA_NOTES.md)의
+"Type checker 설계 중 발견된 추가 스키마 결함" 절.
+
+### 스키마 addendum (Phase 0, 5차 수정)
+
+Type checker 설계를 시작하자마자 스키마 자체에 5개 결함이 더 있다는 게
+드러나 5라운드 재검토 끝에 확정, 전부 반영·재검증 완료(36개 인스턴스 그대로,
+부정 케이스 11개 신규 확인):
+
+- `component_ref`에 composition-local `local_key` 필수 추가, `slot`(단수,
+  primitive/exported_component)과 `placement`(맵, bundle — 여러 predicate를
+  여러 slot에 나눠 붙일 수 있어야 하므로)를 kind별로 분리.
+- `compose.relations`를 bare id 배열에서 `[{relation, left, right}]`(left/right는
+  `local_key`)로 재구성 — 어떤 두 컴포넌트를 잇는 relation인지 이제 명시적.
+- `OffenseDef.element_modules`를 `[{ref, placement}]`로 재정의 — bare id
+  목록(죽은 metadata)이 아니라 실제 실행 의미를 갖는 attachment로.
+- `ExportedComponentDef`는 `source_offense.exports[export_key]`로 완전히
+  resolve 가능함을 재확인(compiler-only 아님) — Type checker가 이걸 활용하는
+  공용 `resolve_export` 리졸버를 `registry.py`에 둔다.
+- `element_expression` leaf 허용 kind(`ground_fact|legal_element`만)와
+  `LegalElementDef.grounded_by` 허용 kind(`ground_fact`만)를 미검증
+  allowance 제거로 축소.
+
+### `src/idpr/v2/` 구현 (Phase 1)
+
+`schema.py`(referencing.Registry 기반 구조 검증), `expressions.py`(element_expression
+tree walk + canonicalize/combine_all), `registry.py`(스키마 검증 + id 인덱스 +
+`resolve_export`), `findings.py`(`Finding`/`TypeCheckError`), `checks/`
+아래 6개 축(`references`/`operators`/`stage_effect`/`exports`/`participation`/
+`derivation`). `tests/test_v2_*.py` 9개 파일, **69개 테스트 전부 통과**
+(미니콘다 base 환경, `/data5/jaehoonjeong/miniconda3/bin/python` — `.venv`
+아님). 실제 36개 인스턴스 corpus는 6축 전부 0 findings.
+
+axis 2(operator typing)의 핵심 불변식: `flattened_elements`는 최종
+top-level 비교(`check_operators`의 actual side, `operators.py` 단 한 줄)에서만
+읽고, 다른 entry의 기대값을 계산할 때는 (그 entry가 `DerivedOffenseDef`이더라도)
+항상 그 entry 자신의 `derivation`을 재귀적으로 다시 replay(`replay_slot`,
+memoized + cycle-safe)한다 — 계획서 라운드 4/5/6이 이 지점의 실수를 세 번
+교정했고, 구현 중 `grep flattened_elements src/idpr/v2/`로 재확인함(읽는
+곳은 `operators.py`의 actual-side 한 줄과 `references.py`가 그 필드 자체의
+참조 무결성을 구조적으로 검사하는 한 곳, 총 두 곳뿐 — 후자는 axis1의
+독립적인 관심사라 불변식 위반이 아님).
+
+**구현 중 실제로 잡힌 버그**: COMPOSE의 `kind=primitive` 컴포넌트를 replay할
+때 처음엔 `PrimitiveDef` 자신의 id를 그대로 leaf ref로 썼는데, 실제로는 그
+`PrimitiveDef.ref`(감싸고 있는 실제 predicate)로 resolve해야 했다 — 스키마
+상으로는 멀쩡하지만 실행 의미가 틀린 전형적 사례, Type checker가 정확히
+이런 걸 compiler 이전에 잡으려고 존재하는 단계라는 걸 보여주는 사례.
+
+### DEFERRED BY DESIGN (버그 아님, 의도적 유예 — 나중에 재발견하지 말 것)
+
+- **`RelationDef.left_type`/`right_type` ↔ bound component의 semantic type
+  일치 검증** — `local_key` 덕분에 relation이 "어느 두 컴포넌트를 잇는지"는
+  이제 정확히 알지만, 어느 component(`GroundFactDef`/`OffenseDef`/
+  `ExportedComponentDef` 등)도 `RelationDef.left_type`/`right_type`과 비교할
+  semantic type 자체를 선언하지 않는다. → **compiler/relation evaluator
+  (26절 순서 4/5) 설계 시점에 다시 열 것.**
+- **`modifier_ref` → 실제 `ModifierDef` 존재 확인** — `ModifierDef` 객체
+  자체가 아직 설계되지 않았음(Open Question #4, v2.1.0 문서 25절). 지금은
+  `modifier_ref` 재사용 시 stage 일관성만 self-consistency로 검사. →
+  **`ModifierDef` 설계 시점에 다시 열 것.**
+
+이 둘은 스키마 결함이 아니라 "아직 그 대상 객체/타입 vocabulary가 존재하지
+않아서" 생기는 자연스러운 경계다.
+
+## Step 1 스키마 재검토 반영 완료 — 4개 수정 + 3개 확정 + fixture 26→36개 (2026-08-08, 새 세션)
+
+사용자가 `SCHEMA_NOTES.md`를 검토하고 Type checker(2번) 착수 전에 고칠 지점을
+지적 — 전부 반영 완료, 재검증 통과. 상세 근거는
+[`docs/contracts/v2/SCHEMA_NOTES.md`](../contracts/v2/SCHEMA_NOTES.md)의
+"2026-08-08 재검토" 절.
+
+- **수정 1**: `ParticipationPolicyDef`를 offense-keyed(`{id, offense, modes}`)에서
+  shared/global(`{id, modes}`)로 바꿈 — 공범론은 범죄마다 반복 연결하는 게 아니라
+  General Part로 공유. offense별 제한이 필요할 때만
+  `OffenseDef.participation_constraints`(옵션)로 좁게 override. 또한
+  `derivative_mode.requires_conclusion`을 자유 enum(3택1)에서
+  `offense_realization` const로 고정 — 15.3의 typed dependency 불변식을
+  type checker가 아니라 definition language 자체에서 틀리게 쓸 수 없게 함.
+- **수정 2**: `MODIFY.modification`(자유 문자열) → `modifier_ref`(symbolic id) +
+  `note`(설명, 런타임 비소비)로 분리. 자유 문자열 MODIFY는 symbolic runtime이
+  해석 불가능해서 effect algebra의 목적 자체를 깼기 때문.
+- **수정 3**: `ExportedComponentDef.resolved_ref` 필드 완전 제거 — 이건
+  `DerivedOffenseDef.flattened_elements`와 같은 성격의 컴파일러 캐시라 Definition
+  YAML에 사람이 손으로 쓰면 두 번째 진실 소스가 생김. Compiled IR(step 4) 전용.
+- **수정 4**: `OffenseDef.composition_metadata` 필드 제거 — 컴파일러 미존재,
+  fixture 어디에도 안 쓰임, placeholder를 스키마에 남겨둘 이유 없음.
+- **확정 A**: `element_expression`은 canonical schema에서 이미 문법이 하나뿐임을
+  재확인(flat-list "implicit ALL"은 JSON Schema branch가 아니라 저작 단계
+  normalize로만 처리하기로).
+- **확정 B**: 전체 13개 스키마 파일의 `$id`/`$ref`를 `idpr/v2/<Name>`에서
+  `https://schemas.idpr.local/v2/<Name>` absolute URI로 전환.
+- **확정 C**: `authority_basis` enum은 provisional 유지 — compiler semantics에
+  영향을 주게 되는 순간 별도 설계 절을 먼저 연다는 원칙만 기록, 스키마 변경 없음.
+- **fixture**: section 20.1(진정신분범, `offense.bribery_taking`)과
+  20.4(composite offense + statutory nexus, `derived_offense.robbery_rape` +
+  `relation.occasion_identity`)를 신규 추가. MODIFY의 새 모양을 실제로
+  exercising하는 `doctrine.diminished_capacity`도 추가(이전엔 MODIFY fixture가
+  전무했음). 결과 26 → **36개 인스턴스**, 검증 통과. 부정 케이스도 3개 →
+  **8개**로 확장(새 필드 모양들이 실제로 옛 값을 거부하는지 확인).
+
 ## Step 1 (Definition schema) 완료 — JSON Schema 12개 + YAML fixture 26개 검증 통과 (2026-08-08, 같은 세션)
 
 26절 구현 순서 1번 "Definition schema"를 끝냈다. **다음 세션 시작점은 이제 2번
@@ -25,20 +132,30 @@
 - 문서에 문법이 없어 이번에 확정한 판단 8가지(`PrimitiveDef`/`ExportedComponentDef`/
   `ParticipationPolicyDef` 모양, `element_expression`을 모든 요건 자리에 통일해서
   쓰기로 한 것 등) 전부 **[`docs/contracts/v2/SCHEMA_NOTES.md`](../contracts/v2/SCHEMA_NOTES.md)에
-  근거와 함께 기록** — 다음 세션 시작 전에 검토할 것. 사용자가 다르게 정하고
-  싶은 항목이 있으면 여기서부터 뒤집으면 된다.
+  근거와 함께 기록**. ~~다음 세션 시작 전에 검토할 것.~~ **이 검토는 끝났다 —
+  위 "Step 1 스키마 재검토 반영 완료" 절 참고. `SCHEMA_NOTES.md`는 더 이상
+  열린 검토 대상이 아니라 확정된 기록.**
 
-### 다음 세션 시작점 — Type checker (26절 2번)
+### 다음 세션 시작점 — Type checker (26절 2번) [완료됨 — 위 "Step 2 완료" 절 참고]
+
+**이 절은 역사적 기록이다. 여기서 예고한 Type checker는 같은 세션 안에서
+바로 이어서 구현 완료됨 — 다음 세션 시작점은 이제 3번 Expression evaluator
+(문서 최상단 절 참고).**
 
 `docs/contracts/v2/*.schema.json`이 잡아주는 건 **구조(모양)뿐**이다. 아직
 검증되지 않은 것: 15.4가 요구하는 typed dependency 체크("교사는
 `OffenseRealization<X>`을 요구하는데 실제로는 `ElementsResult<X>`만 있으면
-TYPE ERROR"), `NOT`이 unresolved/missing evidence를 satisfaction으로 바꾸지
-않는다는 4.3의 invariant, id 참조 무결성(예: `OffenseDef.qualifiers`에 적힌
-id가 실제 존재하는 `QualifierDef`인지) 등 — 전부 구조 스키마가 아니라 별도
-Python 코드가 담당해야 하는 **의미 타입체크**다. `src/idpr/v2/`(신규 패키지,
-v1 코드는 그대로 둔다) 아래에 구현할 것으로 예상되나 구체 설계는 다음 세션
-시작 시 `SCHEMA_NOTES.md`를 먼저 검토한 뒤 진행.
+TYPE ERROR" — participation_policy_def.schema.json이 `requires_conclusion`을
+`offense_realization` const로 고정해뒀지만, 실제 사건에서 정범이 도달한 게
+`OffenseRealization`인지 아닌지 판정하는 건 여전히 type checker의 일), `NOT`이
+unresolved/missing evidence를 satisfaction으로 바꾸지 않는다는 4.3의 invariant,
+id 참조 무결성(예: `OffenseDef.qualifiers`에 적힌 id가 실제 존재하는
+`QualifierDef`인지, `ExportedComponentDef.export_key`가 `source_offense`의
+`exports` 맵에 실제 존재하는지 등) 등 — 전부 구조 스키마가 아니라 별도 Python
+코드가 담당해야 하는 **의미 타입체크**다. `src/idpr/v2/`(신규 패키지, v1
+코드는 그대로 둔다) 아래에 구현할 것으로 예상. **스키마 재검토가 끝났으므로
+다음 세션은 SCHEMA_NOTES.md를 다시 검토할 필요 없이 바로 Type checker 설계에
+착수하면 된다.**
 
 ## v2 킥오프 — v1 동결, DSL 대개편 착수 (2026-08-08, 새 세션)
 
