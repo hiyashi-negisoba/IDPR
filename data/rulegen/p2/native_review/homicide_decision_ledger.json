@@ -9,7 +9,7 @@
     "law_snapshot_id": "kr_criminal_act_effective_2026-08-03"
   },
   "approval_document": "data/rulegen/p2/native_review/homicide_approved_decisions.json",
-  "approval_sha256": "6c27c44e6e5dcabacf6261e58fa26f8c9e2788c7f41b857b586b43a139961c85",
+  "approval_sha256": "cdc4d51f018df24e4a77ca8743113fe1a54a482f3d242fb11b9cf39e4c119f82",
   "approved_on": "2026-08-04",
   "status": "ready_for_rule_ir",
   "problems": [],
@@ -47,6 +47,14 @@
     {
       "card_id": "art250_sec1_12.insufficient_pesticide_further_inquiry",
       "reason": "치사량을 더 심리해야 한다는 심리 지침이며 사실심리 영역"
+    },
+    {
+      "card_id": "art250_sec1_15.method_error_precedent",
+      "reason": "메타 래퍼 제거. 방법의 착오는 살인의 범의 성립을 방해하지 않음. role을 bar에서 context_only로 정정 (2026-08-07) — 이 카드의 명제 자체가 \"방법의 착오는 고의 성립을 방해하지 않는다\"는 긍정 판례이므로, satisfied가 track을 막는 bar로 컴파일되면 정확한 판정일수록 살인을 전부 불성립시키는 정반대 결과가 나온다. 이 명제를 부정(고의를 방해한다)하는 반대 카드가 코퍼스에 없어 대체할 bar가 없으므로 obstruction_of_official_duty의 active_conduct_requirement와 동일하게 context_only로 격리한다."
+    },
+    {
+      "card_id": "art250_sec1_15.object_error",
+      "reason": "구체적 사실의 착오 중 객체의 착오는 고의 성립에 영향이 없음. role을 bar에서 context_only로 정정 (2026-08-07) — method_error_precedent와 동일한 구조적 사유(긍정 판례 명제가 bar로 컴파일되어 satisfied가 track을 막는 역전)."
     },
     {
       "card_id": "art250_sec1_16.child_danger_alternatives",
@@ -614,28 +622,6 @@
       "component_join": "not_applicable",
       "refers_to_unit": null,
       "rationale": "적법행위의 기대가능성이 없으면 책임을 물을 수 없음",
-      "proposition_rewrite": null
-    },
-    {
-      "card_id": "art250_sec1_15.method_error_precedent",
-      "part_id": null,
-      "role": "bar",
-      "track_id": "base",
-      "component_id": "intent_error",
-      "component_join": "not_applicable",
-      "refers_to_unit": null,
-      "rationale": "메타 래퍼 제거. 방법의 착오는 살인의 범의 성립을 방해하지 않음",
-      "proposition_rewrite": "방법의 착오는 살인의 고의 성립을 방해하지 않는다."
-    },
-    {
-      "card_id": "art250_sec1_15.object_error",
-      "part_id": null,
-      "role": "bar",
-      "track_id": "base",
-      "component_id": "intent_error",
-      "component_join": "not_applicable",
-      "refers_to_unit": null,
-      "rationale": "구체적 사실의 착오 중 객체의 착오는 고의 성립에 영향이 없음",
       "proposition_rewrite": null
     },
     {
@@ -2408,19 +2394,6 @@
     },
     {
       "track_id": "base",
-      "component_id": "intent_error",
-      "roles": [
-        "bar"
-      ],
-      "joins": [],
-      "refers_to_units": [],
-      "norm_card_ids": [
-        "art250_sec1_15.method_error_precedent",
-        "art250_sec1_15.object_error"
-      ]
-    },
-    {
-      "track_id": "base",
       "component_id": "justification",
       "roles": [
         "bar",
@@ -3232,13 +3205,13 @@
     }
   ],
   "stats": {
-    "components": 62,
-    "context_only_placements": 73,
+    "components": 61,
+    "context_only_placements": 75,
     "decision_approve": 131,
     "decision_context_only": 73,
     "decision_rewrite": 38,
     "inherited": 13,
-    "placements": 169,
+    "placements": 167,
     "queue_cards": 242,
     "unresolved_unit_references": 2
   }

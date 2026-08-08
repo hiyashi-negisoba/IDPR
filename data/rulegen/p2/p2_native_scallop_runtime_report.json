@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "api_calls": 0,
-  "created_at": "2026-08-07T08:57:28.918546+00:00",
+  "created_at": "2026-08-07T14:12:46.367724+00:00",
   "runtime": {
     "scli": "tools/scallop/scli-0.2.4-linux-x86_64",
     "version": "scli 0.2.4",
@@ -11,33 +11,38 @@
   "method": "승인 원장의 per-card placement에서 결정론적으로 유도한 시나리오",
   "counts": {
     "units": 1,
-    "scenarios": 10,
-    "passed": 9
+    "scenarios": 35,
+    "passed": 35
   },
   "units": [
     {
-      "unit": "obstruction_of_official_duty",
+      "unit": "homicide",
       "tracks": [
         "base",
-        "official_coercion"
+        "omission",
+        "attempt",
+        "voluntary_desistance",
+        "impossible_attempt",
+        "parricide",
+        "preparation"
       ],
       "scenarios": [
         {
           "scenario_id": "base.established",
           "track": "base",
           "expected_nonempty": {
-            "obstruction_of_official_duty_base_elements_satisfied": true,
-            "obstruction_of_official_duty_base_established": true,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
+            "homicide_base_elements_satisfied": true,
+            "homicide_base_established": true,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
           },
           "observed_nonempty": {
-            "obstruction_of_official_duty_base_elements_satisfied": true,
-            "obstruction_of_official_duty_base_established": true,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
+            "homicide_base_elements_satisfied": true,
+            "homicide_base_established": true,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
           },
           "passed": true
         },
@@ -45,18 +50,18 @@
           "scenario_id": "base.incomplete_blocked",
           "track": "base",
           "expected_nonempty": {
-            "obstruction_of_official_duty_base_elements_satisfied": true,
-            "obstruction_of_official_duty_base_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
+            "homicide_base_elements_satisfied": true,
+            "homicide_base_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
           },
           "observed_nonempty": {
-            "obstruction_of_official_duty_base_elements_satisfied": true,
-            "obstruction_of_official_duty_base_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
+            "homicide_base_elements_satisfied": true,
+            "homicide_base_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
           },
           "passed": true
         },
@@ -64,18 +69,18 @@
           "scenario_id": "base.conflict_blocks",
           "track": "base",
           "expected_nonempty": {
-            "obstruction_of_official_duty_base_elements_satisfied": true,
-            "obstruction_of_official_duty_base_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": true
+            "homicide_base_elements_satisfied": true,
+            "homicide_base_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": true
           },
           "observed_nonempty": {
-            "obstruction_of_official_duty_base_elements_satisfied": true,
-            "obstruction_of_official_duty_base_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": true
+            "homicide_base_elements_satisfied": true,
+            "homicide_base_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": true
           },
           "passed": true
         },
@@ -83,18 +88,18 @@
           "scenario_id": "base.unknown_blocks",
           "track": "base",
           "expected_nonempty": {
-            "obstruction_of_official_duty_base_elements_satisfied": false,
-            "obstruction_of_official_duty_base_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": true,
-            "obstruction_of_official_duty_conflict": false
+            "homicide_base_elements_satisfied": false,
+            "homicide_base_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": true,
+            "homicide_conflict": false
           },
           "observed_nonempty": {
-            "obstruction_of_official_duty_base_elements_satisfied": false,
-            "obstruction_of_official_duty_base_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": true,
-            "obstruction_of_official_duty_conflict": false
+            "homicide_base_elements_satisfied": false,
+            "homicide_base_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": true,
+            "homicide_conflict": false
           },
           "passed": true
         },
@@ -102,119 +107,594 @@
           "scenario_id": "base.bar_blocks",
           "track": "base",
           "expected_nonempty": {
-            "obstruction_of_official_duty_base_elements_satisfied": true,
-            "obstruction_of_official_duty_base_established": false,
-            "obstruction_of_official_duty_not_established": true,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
+            "homicide_base_elements_satisfied": true,
+            "homicide_base_established": false,
+            "homicide_not_established": true,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
           },
           "observed_nonempty": {
-            "obstruction_of_official_duty_base_elements_satisfied": true,
-            "obstruction_of_official_duty_base_established": false,
-            "obstruction_of_official_duty_not_established": true,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
+            "homicide_base_elements_satisfied": true,
+            "homicide_base_established": false,
+            "homicide_not_established": true,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "official_coercion.established",
-          "track": "official_coercion",
+          "scenario_id": "omission.established",
+          "track": "omission",
           "expected_nonempty": {
-            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
-            "obstruction_of_official_duty_official_coercion_established": true,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
+            "homicide_omission_elements_satisfied": true,
+            "homicide_omission_established": true,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
           },
           "observed_nonempty": {
-            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
-            "obstruction_of_official_duty_official_coercion_established": true,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
+            "homicide_omission_elements_satisfied": true,
+            "homicide_omission_established": true,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "official_coercion.incomplete_blocked",
-          "track": "official_coercion",
+          "scenario_id": "omission.incomplete_blocked",
+          "track": "omission",
           "expected_nonempty": {
-            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
-            "obstruction_of_official_duty_official_coercion_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
+            "homicide_omission_elements_satisfied": true,
+            "homicide_omission_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
           },
           "observed_nonempty": {
-            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
-            "obstruction_of_official_duty_official_coercion_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
+            "homicide_omission_elements_satisfied": true,
+            "homicide_omission_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "official_coercion.conflict_blocks",
-          "track": "official_coercion",
+          "scenario_id": "omission.conflict_blocks",
+          "track": "omission",
           "expected_nonempty": {
-            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
-            "obstruction_of_official_duty_official_coercion_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": true
+            "homicide_omission_elements_satisfied": true,
+            "homicide_omission_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": true
           },
           "observed_nonempty": {
-            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
-            "obstruction_of_official_duty_official_coercion_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": true
+            "homicide_omission_elements_satisfied": true,
+            "homicide_omission_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": true
           },
           "passed": true
         },
         {
-          "scenario_id": "official_coercion.unknown_blocks",
-          "track": "official_coercion",
+          "scenario_id": "omission.unknown_blocks",
+          "track": "omission",
           "expected_nonempty": {
-            "obstruction_of_official_duty_official_coercion_elements_satisfied": false,
-            "obstruction_of_official_duty_official_coercion_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": true,
-            "obstruction_of_official_duty_conflict": false
+            "homicide_omission_elements_satisfied": false,
+            "homicide_omission_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": true,
+            "homicide_conflict": false
           },
           "observed_nonempty": {
-            "obstruction_of_official_duty_official_coercion_elements_satisfied": false,
-            "obstruction_of_official_duty_official_coercion_established": false,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": true,
-            "obstruction_of_official_duty_conflict": false
+            "homicide_omission_elements_satisfied": false,
+            "homicide_omission_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": true,
+            "homicide_conflict": false
           },
           "passed": true
         },
         {
-          "scenario_id": "official_coercion.bar_blocks",
-          "track": "official_coercion",
+          "scenario_id": "omission.bar_blocks",
+          "track": "omission",
           "expected_nonempty": {
-            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
-            "obstruction_of_official_duty_official_coercion_established": false,
-            "obstruction_of_official_duty_not_established": true,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
+            "homicide_omission_elements_satisfied": true,
+            "homicide_omission_established": false,
+            "homicide_not_established": true,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
           },
           "observed_nonempty": {
-            "obstruction_of_official_duty_official_coercion_elements_satisfied": true,
-            "obstruction_of_official_duty_official_coercion_established": true,
-            "obstruction_of_official_duty_not_established": false,
-            "obstruction_of_official_duty_undetermined": false,
-            "obstruction_of_official_duty_conflict": false
+            "homicide_omission_elements_satisfied": true,
+            "homicide_omission_established": false,
+            "homicide_not_established": true,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
           },
-          "passed": false
+          "passed": true
+        },
+        {
+          "scenario_id": "attempt.established",
+          "track": "attempt",
+          "expected_nonempty": {
+            "homicide_attempt_elements_satisfied": true,
+            "homicide_attempt_established": true,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "observed_nonempty": {
+            "homicide_attempt_elements_satisfied": true,
+            "homicide_attempt_established": true,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "attempt.incomplete_blocked",
+          "track": "attempt",
+          "expected_nonempty": {
+            "homicide_attempt_elements_satisfied": true,
+            "homicide_attempt_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "observed_nonempty": {
+            "homicide_attempt_elements_satisfied": true,
+            "homicide_attempt_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "attempt.conflict_blocks",
+          "track": "attempt",
+          "expected_nonempty": {
+            "homicide_attempt_elements_satisfied": true,
+            "homicide_attempt_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": true
+          },
+          "observed_nonempty": {
+            "homicide_attempt_elements_satisfied": true,
+            "homicide_attempt_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": true
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "attempt.unknown_blocks",
+          "track": "attempt",
+          "expected_nonempty": {
+            "homicide_attempt_elements_satisfied": false,
+            "homicide_attempt_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": true,
+            "homicide_conflict": false
+          },
+          "observed_nonempty": {
+            "homicide_attempt_elements_satisfied": false,
+            "homicide_attempt_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": true,
+            "homicide_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "attempt.bar_blocks",
+          "track": "attempt",
+          "expected_nonempty": {
+            "homicide_attempt_elements_satisfied": true,
+            "homicide_attempt_established": false,
+            "homicide_not_established": true,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "observed_nonempty": {
+            "homicide_attempt_elements_satisfied": true,
+            "homicide_attempt_established": false,
+            "homicide_not_established": true,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "voluntary_desistance.established",
+          "track": "voluntary_desistance",
+          "expected_nonempty": {
+            "homicide_voluntary_desistance_elements_satisfied": true,
+            "homicide_voluntary_desistance_established": true,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "observed_nonempty": {
+            "homicide_voluntary_desistance_elements_satisfied": true,
+            "homicide_voluntary_desistance_established": true,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "voluntary_desistance.incomplete_blocked",
+          "track": "voluntary_desistance",
+          "expected_nonempty": {
+            "homicide_voluntary_desistance_elements_satisfied": true,
+            "homicide_voluntary_desistance_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "observed_nonempty": {
+            "homicide_voluntary_desistance_elements_satisfied": true,
+            "homicide_voluntary_desistance_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "voluntary_desistance.conflict_blocks",
+          "track": "voluntary_desistance",
+          "expected_nonempty": {
+            "homicide_voluntary_desistance_elements_satisfied": true,
+            "homicide_voluntary_desistance_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": true
+          },
+          "observed_nonempty": {
+            "homicide_voluntary_desistance_elements_satisfied": true,
+            "homicide_voluntary_desistance_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": true
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "voluntary_desistance.unknown_blocks",
+          "track": "voluntary_desistance",
+          "expected_nonempty": {
+            "homicide_voluntary_desistance_elements_satisfied": false,
+            "homicide_voluntary_desistance_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": true,
+            "homicide_conflict": false
+          },
+          "observed_nonempty": {
+            "homicide_voluntary_desistance_elements_satisfied": false,
+            "homicide_voluntary_desistance_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": true,
+            "homicide_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "voluntary_desistance.bar_blocks",
+          "track": "voluntary_desistance",
+          "expected_nonempty": {
+            "homicide_voluntary_desistance_elements_satisfied": true,
+            "homicide_voluntary_desistance_established": false,
+            "homicide_not_established": true,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "observed_nonempty": {
+            "homicide_voluntary_desistance_elements_satisfied": true,
+            "homicide_voluntary_desistance_established": false,
+            "homicide_not_established": true,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "impossible_attempt.established",
+          "track": "impossible_attempt",
+          "expected_nonempty": {
+            "homicide_impossible_attempt_elements_satisfied": true,
+            "homicide_impossible_attempt_established": true,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "observed_nonempty": {
+            "homicide_impossible_attempt_elements_satisfied": true,
+            "homicide_impossible_attempt_established": true,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "impossible_attempt.incomplete_blocked",
+          "track": "impossible_attempt",
+          "expected_nonempty": {
+            "homicide_impossible_attempt_elements_satisfied": true,
+            "homicide_impossible_attempt_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "observed_nonempty": {
+            "homicide_impossible_attempt_elements_satisfied": true,
+            "homicide_impossible_attempt_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "impossible_attempt.conflict_blocks",
+          "track": "impossible_attempt",
+          "expected_nonempty": {
+            "homicide_impossible_attempt_elements_satisfied": true,
+            "homicide_impossible_attempt_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": true
+          },
+          "observed_nonempty": {
+            "homicide_impossible_attempt_elements_satisfied": true,
+            "homicide_impossible_attempt_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": true
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "impossible_attempt.unknown_blocks",
+          "track": "impossible_attempt",
+          "expected_nonempty": {
+            "homicide_impossible_attempt_elements_satisfied": false,
+            "homicide_impossible_attempt_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": true,
+            "homicide_conflict": false
+          },
+          "observed_nonempty": {
+            "homicide_impossible_attempt_elements_satisfied": false,
+            "homicide_impossible_attempt_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": true,
+            "homicide_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "impossible_attempt.bar_blocks",
+          "track": "impossible_attempt",
+          "expected_nonempty": {
+            "homicide_impossible_attempt_elements_satisfied": true,
+            "homicide_impossible_attempt_established": false,
+            "homicide_not_established": true,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "observed_nonempty": {
+            "homicide_impossible_attempt_elements_satisfied": true,
+            "homicide_impossible_attempt_established": false,
+            "homicide_not_established": true,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "parricide.established",
+          "track": "parricide",
+          "expected_nonempty": {
+            "homicide_parricide_elements_satisfied": true,
+            "homicide_parricide_established": true,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "observed_nonempty": {
+            "homicide_parricide_elements_satisfied": true,
+            "homicide_parricide_established": true,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "parricide.incomplete_blocked",
+          "track": "parricide",
+          "expected_nonempty": {
+            "homicide_parricide_elements_satisfied": true,
+            "homicide_parricide_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "observed_nonempty": {
+            "homicide_parricide_elements_satisfied": true,
+            "homicide_parricide_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "parricide.conflict_blocks",
+          "track": "parricide",
+          "expected_nonempty": {
+            "homicide_parricide_elements_satisfied": true,
+            "homicide_parricide_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": true
+          },
+          "observed_nonempty": {
+            "homicide_parricide_elements_satisfied": true,
+            "homicide_parricide_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": true
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "parricide.unknown_blocks",
+          "track": "parricide",
+          "expected_nonempty": {
+            "homicide_parricide_elements_satisfied": false,
+            "homicide_parricide_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": true,
+            "homicide_conflict": false
+          },
+          "observed_nonempty": {
+            "homicide_parricide_elements_satisfied": false,
+            "homicide_parricide_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": true,
+            "homicide_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "parricide.bar_blocks",
+          "track": "parricide",
+          "expected_nonempty": {
+            "homicide_parricide_elements_satisfied": true,
+            "homicide_parricide_established": false,
+            "homicide_not_established": true,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "observed_nonempty": {
+            "homicide_parricide_elements_satisfied": true,
+            "homicide_parricide_established": false,
+            "homicide_not_established": true,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "preparation.established",
+          "track": "preparation",
+          "expected_nonempty": {
+            "homicide_preparation_elements_satisfied": true,
+            "homicide_preparation_established": true,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "observed_nonempty": {
+            "homicide_preparation_elements_satisfied": true,
+            "homicide_preparation_established": true,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "preparation.incomplete_blocked",
+          "track": "preparation",
+          "expected_nonempty": {
+            "homicide_preparation_elements_satisfied": true,
+            "homicide_preparation_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "observed_nonempty": {
+            "homicide_preparation_elements_satisfied": true,
+            "homicide_preparation_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "preparation.conflict_blocks",
+          "track": "preparation",
+          "expected_nonempty": {
+            "homicide_preparation_elements_satisfied": true,
+            "homicide_preparation_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": true
+          },
+          "observed_nonempty": {
+            "homicide_preparation_elements_satisfied": true,
+            "homicide_preparation_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": false,
+            "homicide_conflict": true
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "preparation.unknown_blocks",
+          "track": "preparation",
+          "expected_nonempty": {
+            "homicide_preparation_elements_satisfied": false,
+            "homicide_preparation_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": true,
+            "homicide_conflict": false
+          },
+          "observed_nonempty": {
+            "homicide_preparation_elements_satisfied": false,
+            "homicide_preparation_established": false,
+            "homicide_not_established": false,
+            "homicide_undetermined": true,
+            "homicide_conflict": false
+          },
+          "passed": true
+        },
+        {
+          "scenario_id": "preparation.bar_blocks",
+          "track": "preparation",
+          "expected_nonempty": {
+            "homicide_preparation_elements_satisfied": true,
+            "homicide_preparation_established": false,
+            "homicide_not_established": true,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "observed_nonempty": {
+            "homicide_preparation_elements_satisfied": true,
+            "homicide_preparation_established": false,
+            "homicide_not_established": true,
+            "homicide_undetermined": false,
+            "homicide_conflict": false
+          },
+          "passed": true
         }
       ],
-      "passed": 9,
-      "total": 10
+      "passed": 35,
+      "total": 35
     }
   ]
 }

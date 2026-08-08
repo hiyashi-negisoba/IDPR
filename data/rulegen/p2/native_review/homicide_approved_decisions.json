@@ -632,8 +632,8 @@
     {
       "card_id": "art250_sec1_15.method_error_precedent",
       "decision": "rewrite",
-      "rationale": "메타 래퍼 제거. 방법의 착오는 살인의 범의 성립을 방해하지 않음",
-      "role": "bar",
+      "rationale": "메타 래퍼 제거. 방법의 착오는 살인의 범의 성립을 방해하지 않음. role을 bar에서 context_only로 정정 (2026-08-07) — 이 카드의 명제 자체가 \"방법의 착오는 고의 성립을 방해하지 않는다\"는 긍정 판례이므로, satisfied가 track을 막는 bar로 컴파일되면 정확한 판정일수록 살인을 전부 불성립시키는 정반대 결과가 나온다. 이 명제를 부정(고의를 방해한다)하는 반대 카드가 코퍼스에 없어 대체할 bar가 없으므로 obstruction_of_official_duty의 active_conduct_requirement와 동일하게 context_only로 격리한다.",
+      "role": "context_only",
       "component_id": "intent_error",
       "component_join": "not_applicable",
       "track_id": "base",
@@ -694,8 +694,8 @@
     {
       "card_id": "art250_sec1_15.object_error",
       "decision": "approve",
-      "rationale": "구체적 사실의 착오 중 객체의 착오는 고의 성립에 영향이 없음",
-      "role": "bar",
+      "rationale": "구체적 사실의 착오 중 객체의 착오는 고의 성립에 영향이 없음. role을 bar에서 context_only로 정정 (2026-08-07) — method_error_precedent와 동일한 구조적 사유(긍정 판례 명제가 bar로 컴파일되어 satisfied가 track을 막는 역전).",
+      "role": "context_only",
       "component_id": "intent_error",
       "component_join": "not_applicable",
       "track_id": "base",

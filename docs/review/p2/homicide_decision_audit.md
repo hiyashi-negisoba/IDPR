@@ -2,11 +2,11 @@
 
 - status: `ready_for_rule_ir`
 - approval: `data/rulegen/p2/native_review/homicide_approved_decisions.json`
-- approval SHA-256: `6c27c44e6e5dcabacf6261e58fa26f8c9e2788c7f41b857b586b43a139961c85`
+- approval SHA-256: `cdc4d51f018df24e4a77ca8743113fe1a54a482f3d242fb11b9cf39e4c119f82`
 - law snapshot: `kr_criminal_act_effective_2026-08-03`
 - queue cards: 242
-- components: 62
-- context_only 제외: 73
+- components: 61
+- context_only 제외: 75
 - 미해결 unit 참조: 2
 
 승인된 판정만 RuleIR 입력이 된다. 미해결 참조는 추측하지 않고 `predicate_ir_missing`으로 보고한다.
@@ -34,7 +34,6 @@
 | `base` | `death_result` | component | mandatory_all | 1 | - |
 | `base` | `excessive_defense` | post_outcome |  | 1 | - |
 | `base` | `expectability` | bar |  | 1 | - |
-| `base` | `intent_error` | bar |  | 2 | - |
 | `base` | `justification` | bar, boundary |  | 8 | consent_homicide |
 | `base` | `killing_conduct` | component | mandatory_all | 1 | - |
 | `base` | `killing_method` | component | alternative_any | 1 | - |
@@ -94,6 +93,8 @@
 - `art250.parricide.status_offense`: 부진정신분범이라는 성격 규정. 효과는 #240·#241이 담고 있다
 - `art250_sec1_1.ordinary_murder_victim`: 보통살인·존속살해의 구분 서술이며 track 어휘가 이미 담고 있음
 - `art250_sec1_12.insufficient_pesticide_further_inquiry`: 치사량을 더 심리해야 한다는 심리 지침이며 사실심리 영역
+- `art250_sec1_15.method_error_precedent`: 메타 래퍼 제거. 방법의 착오는 살인의 범의 성립을 방해하지 않음. role을 bar에서 context_only로 정정 (2026-08-07) — 이 카드의 명제 자체가 "방법의 착오는 고의 성립을 방해하지 않는다"는 긍정 판례이므로, satisfied가 track을 막는 bar로 컴파일되면 정확한 판정일수록 살인을 전부 불성립시키는 정반대 결과가 나온다. 이 명제를 부정(고의를 방해한다)하는 반대 카드가 코퍼스에 없어 대체할 bar가 없으므로 obstruction_of_official_duty의 active_conduct_requirement와 동일하게 context_only로 격리한다.
+- `art250_sec1_15.object_error`: 구체적 사실의 착오 중 객체의 착오는 고의 성립에 영향이 없음. role을 bar에서 context_only로 정정 (2026-08-07) — method_error_precedent와 동일한 구조적 사유(긍정 판례 명제가 bar로 컴파일되어 satisfied가 track을 막는 역전).
 - `art250_sec1_16.child_danger_alternatives`: 위급하지 않고 비치명적 수단이 있었으면 과잉방위 부정 — 조각의 한계
 - `art250_sec1_16.defense_ends_after_subdual`: 침해 종료 후 제압된 침입자에 대한 폭행 — 조각의 한계
 - `art250_sec1_16.domestic_violence_killing`: 지속적 가정폭력이 있어도 회피 가능하면 부정 — 조각의 한계
