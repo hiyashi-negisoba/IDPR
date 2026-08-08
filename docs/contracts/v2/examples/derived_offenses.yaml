@@ -85,3 +85,41 @@
     mental:
       op: ref
       ref: legal_element.appropriation_intent
+
+# 2026-08-08 addition: 7th addendum (Completion) fixture support -- 강도살인죄, a 결합범
+# whose attempt is expressly punishable (형법 제342조), unlike the 결과적 가중범 above
+# (robbery_causing_injury), for which 미수 is not recognised. That difference is why this
+# composition, not that one, carries a CompletionPolicy with a `suspends` state.
+#
+# It is also the fixture that shows why relation dispositions are authored rather than
+# inferred: 강도살인미수 suspends result+causation, yet relation.occasion_identity must be
+# RETAINED -- 살인의 실행행위가 강도의 기회에 이루어졌을 것은 미수에서도 그대로 요구된다.
+# A rule that suspended relations touching a suspended slot would get this exactly wrong.
+- id: derived_offense.robbery_homicide
+  derivation:
+    kind: compose
+    components:
+      - {kind: offense, ref: offense.robbery, local_key: robbery_part}
+      - {kind: offense, ref: offense.homicide, local_key: homicide_part}
+    relations:
+      - {relation: relation.occasion_identity, left: robbery_part, right: homicide_part,
+         left_view: conduct, right_view: conduct}
+  flattened_elements:
+    object:
+      op: ref
+      ref: ground_fact.property_taking
+    conduct:
+      op: all
+      args:
+        - {op: ref, ref: ground_fact.property_taking}
+        - {op: ref, ref: legal_element.robbery_level_violence}
+        - {op: ref, ref: ground_fact.killing_conduct}
+    mental:
+      op: ref
+      ref: legal_element.appropriation_intent
+    result:
+      op: ref
+      ref: ground_fact.death_of_victim
+    causation:
+      op: ref
+      ref: legal_element.death_causation

@@ -76,3 +76,22 @@
     conduct:
       op: ref
       ref: ground_fact.forcible_intercourse
+
+# 2026-08-08 addition: 7th addendum (Completion) fixture support. A result crime whose
+# result/causation obligations are the ones an attempt suspends -- the fixture set had
+# no such offense that was also a COMPOSE component (offense.injury reaches the parent
+# only through an exported_component).
+- id: offense.homicide
+  identity:
+    name: "살인죄 (예시)"
+    statutory_refs: ["형법 제250조 제1항 (예시)"]
+  elements:
+    conduct:
+      op: ref
+      ref: ground_fact.killing_conduct
+    result:
+      op: ref
+      ref: ground_fact.death_of_victim
+    causation:
+      op: ref
+      ref: legal_element.death_causation

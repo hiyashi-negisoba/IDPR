@@ -1,14 +1,74 @@
 # Fixture validating CompletionPolicyDef against completion_policy_def.schema.json.
-# Covers section 20.5 (미수범) -- attempt is a form-specific extra requirement, not a
-# fallback attached after base elements fail.
-- id: completion_policy.robbery
-  offense: offense.robbery
-  forms:
+# Rewritten for the 7th addendum (2026-08-08): Completion is a legal judgement DERIVED from
+# case truths, not a menu of programs one of which gets selected. Every state therefore carries
+# its own `when`, and no state is reachable as a fallback from another state's failure.
+
+# 상해죄. No relations on offense.injury, so no relation dispositions are authored -- a state
+# that suspends slots still needs none when the offense has no relation obligations at all.
+#
+# The 착수 predicate appearing in BOTH `when` and `requires` is intended, not redundancy to be
+# factored out: `when` answers "is this case in the attempted state?", `requires` states what the
+# attempted program obligates. Drop it from `requires` and the executable program for 미수 would
+# no longer contain 실행의 착수 as an obligation at all.
+- id: completion_policy.injury
+  offense: offense.injury
+  states:
     completed:
+      when: {op: ref, ref: ground_fact.injury_occurred}
       punishable: true
-    attempt:
-      requires:
-        op: ref
-        ref: ground_fact.attempt_commencement
+
+    # 상해미수 (형법 제257조 제3항). Suspends the result obligation -- it does not rewrite a
+    # FALSE result into TRUE. The third conjunct is what keeps this state disjoint from
+    # impossible_attempt below; exclusivity is authored, never resolved by ranking at runtime.
+    attempted:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: ground_fact.attempt_commencement}
+          - {op: not, arg: {op: ref, ref: ground_fact.injury_occurred}}
+          - {op: not, arg: {op: ref, ref: legal_element.impossibility_without_danger}}
       punishable: true
-      punishability_note: "형법 제342조 미수범 처벌 (예시)"
+      suspends: [result]
+      requires: {op: ref, ref: ground_fact.attempt_commencement}
+
+    # 불능범 (형법 제27조 반대해석) -- 결과 발생이 불가능하고 위험성도 없는 경우. Declared
+    # rather than omitted precisely because it IS a derivable legal state: the case genuinely is
+    # an impossible attempt, and naming it is what lets the pipeline stop at Completion instead
+    # of silently producing no conclusion. Omitting the key would mean the state does not exist
+    # for this offense at all, which is a different statement.
+    impossible_attempt:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: ground_fact.attempt_commencement}
+          - {op: not, arg: {op: ref, ref: ground_fact.injury_occurred}}
+          - {op: ref, ref: legal_element.impossibility_without_danger}
+      punishable: false
+      suspends: [result]
+      requires: {op: ref, ref: ground_fact.attempt_commencement}
+      punishability_note: "위험성이 부정되면 불능범으로 불벌 (예시)"
+
+# 강도살인죄 (형법 제338조), 미수 처벌 O (제342조). The relation-disposition fixture: `attempted`
+# suspends result+causation, so every relation instance of this offense must be disposed of
+# explicitly -- and the correct disposition here is RETAIN, since 강도의 기회에 살해행위가
+#이루어졌을 것은 미수에서도 그대로 요구된다. An "affected slots imply suspended relations"
+# inference would have produced the opposite answer.
+- id: completion_policy.robbery_homicide
+  offense: derived_offense.robbery_homicide
+  states:
+    completed:
+      when: {op: ref, ref: ground_fact.death_of_victim}
+      punishable: true
+
+    attempted:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: ground_fact.attempt_commencement}
+          - {op: not, arg: {op: ref, ref: ground_fact.death_of_victim}}
+      punishable: true
+      suspends: [result, causation]
+      relations:
+        - {relation: relation.occasion_identity, left: robbery_part, right: homicide_part,
+           disposition: retain}
+      requires: {op: ref, ref: ground_fact.attempt_commencement}

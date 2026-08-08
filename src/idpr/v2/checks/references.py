@@ -219,9 +219,14 @@ def _check_qualifier(registry: DefinitionRegistry, entry: DefinitionEntry) -> li
 def _check_completion_policy(registry: DefinitionRegistry, entry: DefinitionEntry) -> list[Finding]:
     findings: list[Finding] = []
     findings.extend(_check_ref(registry, entry, "offense", entry.payload["offense"], frozenset({"offense", "derived_offense"})))
-    for form_name, form in (entry.payload.get("forms") or {}).items():
-        if "requires" in form:
-            findings.extend(_check_expression(registry, entry, f"forms.{form_name}.requires", form["requires"]))
+    for state_name, state in (entry.payload.get("states") or {}).items():
+        # `when` is checked like any other expression: its leaves are ordinary predicate refs, and
+        # they must be, since Completion runs before Elements and cannot read slot results.
+        findings.extend(_check_expression(registry, entry, f"states.{state_name}.when", state.get("when")))
+        if "requires" in state:
+            findings.extend(_check_expression(registry, entry, f"states.{state_name}.requires", state["requires"]))
+        for index, disposition in enumerate(state.get("relations") or ()):
+            findings.extend(_check_ref(registry, entry, f"states.{state_name}.relations[{index}].relation", disposition["relation"], frozenset({"relation"})))
     return findings
 
 

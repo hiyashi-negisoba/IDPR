@@ -353,3 +353,145 @@ occurrence를 **보존**하고, Step 5(lowering)에서 거부한다 — 계층�
 **이로써 Step 2의 "DEFERRED BY DESIGN" 2개 중 첫 번째는 종료.** 남은 하나
 (`modifier_ref` → 실제 `ModifierDef` 존재 확인)는 `ModifierDef` 객체 자체가 아직
 설계되지 않았으므로(Open Question #4) 여전히 열려 있다.
+
+---
+
+## 2026-08-08 Step 6B(Completion) 착수 시 스키마 수정 (7차 수정)
+
+`completion_policy_def.schema.json` 전면 개편. 이번 수정은 필드 추가가 아니라
+**추상화 되돌리기**다.
+
+### 배경 — 무엇이 잘못됐었나
+
+Step 6A 이후 미수 semantics를 구체화하는 과정에서 `FormProgram` / `OffenseFormKey` /
+form guard·priority·selection이라는 **별도 mini-framework**가 생겼고, 그 결과
+"어느 form을 선택하는가"(form selection semantics)라는 미해결 문제가 6B의 blocker로
+남았다. 기수 사건에서도 attempt program이 통과하기 때문이다(결과·인과 obligation이
+없으므로).
+
+사용자 결정: **그 추상화 자체를 폐기한다.** 이건 신규 설계가 아니라 **원안 복귀**다 —
+v2.1.0 §14.2가 이미 `CompletionResult { form: completed|attempted|...|unresolved,
+decisive_conditions, provenance }`라는 **도출되는 typed legal result**로 쓰고 있었고,
+selectable-program 층은 그 위에 나중에 얹힌 것이었다. 그 층을 걷어내면 form selection
+문제도 함께 사라진다.
+
+```text
+(폐기)  어느 form을 어떻게 select하는가?
+(확정)  CompletionPolicyDef가 case truths로부터 CompletionResult를
+        어떤 typed symbolic rule로 도출하는가?
+```
+
+### 수정 1 — `forms` → `states`, 그리고 `when` 필수화
+
+각 completion state가 **자기 도출조건 `when`**을 명시 저작한다. 런타임은 선언된 모든
+조건을 3치로 평가하고 결과 **집합**으로 state를 도출한다(순서·스케줄러·fallback 없음):
+
+```text
+T = { s : when_s = TRUE },  U = { s : when_s = UNKNOWN }
+
+|T| == 1          →  그 s              (U 무관 — 확정이 미확정을 이긴다)
+|T| >= 2          →  unresolved        (조건 중첩 = 저작 결함, provenance에 기록)
+|T| == 0, U != ∅  →  unresolved
+|T| == 0, U == ∅  →  not_applicable
+```
+
+`|T|==1`이 U와 무관하게 종결하는 근거는 Step 6A 정정 #2와 같은 3치 원리다("확정된
+결론은 다른 조건의 미해결과 무관하게 종결시킨다"). 순서가 아니라 *확정 > 미확정*이므로
+hidden priority가 아니다.
+
+`"기수 실패 → attempt"` 패턴이 **구조적으로 불가능**해지는 지점: `attempted.when`은
+`completed`의 평가 *결과*를 보지 않는다. 두 조건 모두 case truths만 본다.
+
+`forms` → `states` 개칭은 스타일이 아니다. `form`이라는 단어가 남아 있으면 "선택
+가능한 프로그램 집합"이라는 폐기된 독법이 데이터 안에 살아남는다. 상태값도 §14.2에
+맞춰 `attempt` → `attempted`.
+
+**`when`의 leaf는 ground_fact/legal_element뿐**(문법의 기존 제약 그대로, 신규 leaf 종류
+없음). 파이프라인이 `ATTRIBUTE → Completion → Elements`이므로 Completion 조건이 Elements
+slot 결과를 참조하면 순환이다. 따라서 결과범 미수 조건은 slot이 아니라 그 slot이
+참조하는 predicate를 직접 부정한다:
+
+```yaml
+attempted:
+  when: {op: all, args: [{op: ref, ref: legal_element.execution_commencement},
+                         {op: not, arg: {op: ref, ref: ground_fact.death_of_victim}}]}
+```
+
+`completed`도 명시 저작한다 — "나머지 전부"라는 암묵 기본값이 곧 hidden priority다.
+
+### 수정 2 — `suspends` 신규 (미수가 표현 가능해지는 지점)
+
+초안의 "form별 `requires`는 base elements에 **추가**된다"는 살인미수에서 즉시 깨졌다:
+
+```text
+ALL(base elements[death=FALSE], attempt requires) → FALSE   → 미수 영원히 성립 불가
+```
+
+미수의 구성요건은 기수에 뭘 더한 게 아니라 **결과·인과 의무가 애초에 없는** 별개
+프로그램이다. `suspends: [fixed_slot_name]`이 그 부재를 저작한다. 런타임은 해당 slot을
+fold에서 **제외**하며 TRUE로 치환하지 않는다 — evaluator의 "빈 slot → vacuous TRUE"
+경로와도 구분된다. **FALSE를 TRUE로 조작하지 않는다**는 원칙이 여기서 지켜진다.
+
+법률지식이 런타임 코드가 아니라 정의에 사는 것도 같은 이유다.
+
+### 수정 3 — `relations` 신규: affectedness를 자동 추론하지 않는다
+
+내 초안("양 endpoint 기여가 전부 suspended slot 안이면 자동 suspend", 이후 "leaf_refs
+교집합으로 affected 판정")은 **둘 다 기각됐다.** 결과범 미수에서는 result 쪽만
+suspend되고 conduct 쪽은 살아 있는데 `causal_nexus`는 그럼에도 사라져야 한다 — slot
+위상으로 유도되지 않는다. leaf 교집합 방식도 relation endpoint가 Step 5에서 확정한
+**relation-scoped view**라 leaf 집합과 정확히 대응한다는 보장이 없다.
+
+확정된 규칙(단순화):
+
+```text
+state.suspends 가 비어 있음        →  relation 처분 저작 불필요 (전부 retain)
+state.suspends 가 비어 있지 않음   →  그 offense의 relation instance 전건에 대해
+                                      retain | suspend 명시. 하나라도 빠지면 Finding.
+```
+
+corpus가 bounded라 전건 명시의 저작 부담은 작고, "영향받는가"라는 법적 판단을 **사람이
+했다는 증거가 relation마다 남는다.** 식별 모양은 `compose.relations`와 같은
+`{relation, left, right}` + nested occurrence용 `path`이고, 체커는 이를 Step 5의
+`relations.iter_relation_instances()` 산출과 대조해 resolve한다(신규 탐색 로직 없음).
+
+> **Relation은 first-class legal obligation이다. 미완성 state에서 그 relation이
+> 살아남는지는 slot topology의 부산물이 아니라 CompletionPolicy semantics의 일부다.**
+
+### 수정 4 — 기존 description 두 문장 교정 (실제 모순이었음)
+
+1. `requires`의 **"in addition to — never instead of — the base offense elements"** —
+   `suspends`와 정면 모순. 역할 분담으로 재작성: **`suspends`가 빼고 `requires`가
+   더한다.** 이 문장이 남아 있었다면 스키마가 스스로를 반박한다.
+2. `forms`의 **"punishable:false로 넣지 말고 키를 아예 생략하라"** — 이제 둘이 다른 뜻:
+
+```text
+키 생략           이 죄에 그 법적 상태 자체가 인정되지 않는다   (도출 불가)
+punishable:false  상태로는 도출되지만 처벌되지 않는다
+                  (위험성 없는 불능미수, 예비 불벌)            (도출 후 즉시 종료)
+```
+
+`punishable=False`면 pipeline은 Elements 이전에 종료한다(4개 stage 전부 `not_reached`,
+`decisive_stage="completion"`). 처벌 불가능한 법적 형태에 대해 구성요건해당성·위법성을
+계산하는 건 v2.2.0 §24가 금지한 hypothetical reasoning이다.
+
+### 만들지 않은 것
+
+§14.2의 `applicable_effects`(미수 감경 등)는 이번 범위 밖 — Open Question #5(양형 포함
+범위)가 미확정이라 지금 필드를 만들면 "받아놓고 무시하는 필드"가 된다(6A 정정 #10과
+같은 이유). `punishability_note`(자유 텍스트) 유지.
+
+### 코드 쪽 경계 (같이 확정)
+
+- **v2.1 `evaluate_compiled_offense`는 건드리지 않는다.** completion semantics는 runtime
+  `_iter_obligations` 한 곳에만 산다. v2.1에 `suspended_slots`를 달면 같은 의미론이 두
+  군데 생기고, 정의 층이 case-time 개념(completion state)을 알게 되어 층 분리가 그
+  지점에서 깨진다.
+- 폐기: `FormProgram`, `OffenseFormKey`, form `guard`/`priority`/`refines`,
+  form-selection engine, `selected/ambiguous/no_match` state machine.
+  `FormRequirementObligation` → `CompletionRequirementObligation`.
+- 유지: `OffenseInstanceKey`(= case+actor+offense_ref+occurrence_id), `CaseTruths`,
+  `StageResult`, doctrine/effect semantics, `LiabilityEvaluation`. **completion state는
+  instance의 identity가 아니라 그 instance에 대한 법적 판단 결과**이므로 키에 들어가지
+  않는다.
+- 타입체크 축이 하나 늘어난다: **axis 8** `checks/completion.py`(7축 → 8축).

@@ -5,7 +5,7 @@ from __future__ import annotations
 import pathlib
 
 from idpr.v2.relations import RelationInstanceKey
-from idpr.v2.runtime.identity import OffenseFormKey, OffenseInstanceKey, RuntimeRelationKey
+from idpr.v2.runtime.identity import OffenseInstanceKey, RuntimeRelationKey
 
 _SRC = pathlib.Path(__file__).resolve().parents[1] / "src/idpr/v2"
 
@@ -47,21 +47,12 @@ def test_same_actor_same_offense_two_occurrences_stay_distinct():
     assert len({first, second}) == 2
 
 
-def test_offense_form_key_wraps_instance_not_replaces_it():
-    """Two forms of one instance share the instance identity that facts are keyed by."""
-    instance = _instance()
-    completed = OffenseFormKey(instance=instance, form="completed")
-    attempt = OffenseFormKey(instance=instance, form="attempt")
+def test_instance_key_has_no_form_or_completion_field():
+    """Guards the circularity fix AND the 7th addendum's removal of the form layer.
 
-    assert completed.instance == attempt.instance == instance
-    assert completed != attempt
-
-
-def test_instance_key_has_no_form_field():
-    """Guards the circularity fix: facts must be storable before any form is chosen.
-
-    Putting `form` on the fact-bearing key would require truths to decide the form while the
-    truths' own key already named it.
+    Facts must be storable before any completion judgement exists, since deriving that judgement
+    reads them. A completion state is concluded ABOUT an occurrence; it does not identify one, so
+    it belongs in `LiabilityEvaluation.completion`, not here.
     """
     assert "form" not in OffenseInstanceKey.__dataclass_fields__
     assert set(OffenseInstanceKey.__dataclass_fields__) == {

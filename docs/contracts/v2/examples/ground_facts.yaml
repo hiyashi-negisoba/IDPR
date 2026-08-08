@@ -107,3 +107,21 @@
   canonical_meaning: "행위자에게 정신적 장애로 인한 사물변별능력 또는 의사결정능력의 미약이 있었다."
   source_refs:
     - {comment_id: "v2_example_001", section_path: "worked-example", quote: "행위자에게 정신적 장애로 인한 사물변별능력 또는 의사결정능력의 미약이 있었다."}
+
+# 2026-08-08 addition: 7th addendum (Completion) fixture support -- offense.homicide,
+# composed into derived_offense.robbery_homicide, whose attempted state suspends the
+# result/causation obligations.
+- id: ground_fact.killing_conduct
+  arguments:
+    - {name: actor, type: entity}
+    - {name: victim, type: entity}
+  canonical_meaning: "행위자가 피해자를 살해하는 행위를 하였다."
+  source_refs:
+    - {comment_id: "v2_example_001", section_path: "worked-example", quote: "행위자가 피해자를 살해하는 행위를 하였다."}
+
+- id: ground_fact.death_of_victim
+  arguments:
+    - {name: victim, type: entity}
+  canonical_meaning: "피해자가 사망하였다."
+  source_refs:
+    - {comment_id: "v2_example_001", section_path: "worked-example", quote: "피해자가 사망하였다."}

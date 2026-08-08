@@ -14,15 +14,15 @@ realization of the offense, are we applying this definition?" -- so runtime keys
 case/actor fields *into* `RelationInstanceKey` would make the definition layer know about cases and
 break the v2.1/v2.2 split exactly there.
 
-Two layers, not one (this was a real design error in the first draft):
+One layer, not two. An earlier draft added an `OffenseFormKey(instance, form)` above this key so
+that Completion could "select a program"; the 7th addendum removed that abstraction entirely.
+Completion state is **not part of an instance's identity** -- it is a legal judgement ABOUT the
+instance, derived from the instance's own truths (`runtime.completion.CompletionResult`). Putting
+it in the key would be circular (you need the truths to derive the state, but the truths' key
+would already carry the state) and would store the same facts once per state.
 
-    OffenseInstanceKey   facts attach here.        NO form field.
-    OffenseFormKey       program selection.        Produced by Completion (step 6B).
-
-Putting `form` in the fact-bearing key creates a circular dependency -- you need truths
-(death=FALSE, commencement=TRUE, ...) to decide the form, but the truths' own key would already
-contain the form -- and it would store the same facts twice, once per form. `form` is not a
-namespace for facts; it selects which program those facts are run against.
+So there is exactly one instance key here, facts attach to it, and the completion judgement lives
+in the evaluation result alongside the stage results.
 """
 
 from __future__ import annotations
@@ -53,26 +53,14 @@ class OffenseInstanceKey:
 
 
 @dataclass(frozen=True)
-class OffenseFormKey:
-    """Which completion form's program is being run for an instance.
-
-    Wraps `OffenseInstanceKey` rather than extending it, so facts (keyed by the instance) stay
-    shared across every form that instance is evaluated under. Step 6B (Completion) produces these;
-    step 6A only ever constructs the "completed" one.
-    """
-
-    instance: OffenseInstanceKey
-    form: str
-
-
-@dataclass(frozen=True)
 class RuntimeRelationKey:
     """A relation obligation at a definite place in a definite case.
 
     `definition_key` is embedded verbatim -- never re-derived, never flattened into strings. Keyed
-    on the base instance, not on a form: whether `causal_nexus` in fact holds is a proposition about
-    the case and does not depend on which completion form is being evaluated. Whether a given form
-    still *requires* that relation is CompletionPolicy's job (step 6B), not the truth store's.
+    on the instance alone: whether `causal_nexus` in fact holds is a proposition about the case and
+    does not depend on the offense's completion state. Whether a given completion state still
+    *requires* that relation is CompletionPolicy's job (`runtime.completion`), not the truth
+    store's.
     """
 
     instance: OffenseInstanceKey

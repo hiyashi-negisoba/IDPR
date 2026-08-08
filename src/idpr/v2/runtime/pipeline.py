@@ -1,16 +1,29 @@
-"""Stage execution for one actor/offense occurrence (build-order step 6A).
+"""Stage execution for one actor/offense occurrence (build-order steps 6A + 6B).
 
-    Elements -> Unlawfulness -> [OffenseRealization] -> Culpability
-             -> [OffenseEstablishment] -> Punishability -> [LiabilityResult]
+    Completion -> Elements -> Unlawfulness -> [OffenseRealization] -> Culpability
+               -> [OffenseEstablishment] -> Punishability -> [LiabilityResult]
 
 Once a gate does not pass, the remaining stages are `not_reached` and are NOT speculatively
 evaluated (v2.2.0 section 24: alternative reasoning is a generation-layer operation, never a
 symbolic execution mode). "Does not pass" covers `unresolved` as well as `fails` -- an unresolved
 Unlawfulness does not license reasoning about culpability.
 
+Completion sits ahead of the chain rather than inside it (section 14: it is an orthogonal axis).
+It decides *which obligations exist* before Elements decides whether they are met, which is what
+makes 미수 expressible without the forbidden `completed failed -> attach attempt label` move. Three
+completion outcomes stop the run before Elements, all for the same reason: there is no honest
+program to evaluate.
+
+    unresolved       which obligations exist is unknown -- evaluating anyway would pick one
+                     reading of the law and present it as the answer
+    not_applicable   no completion state obtains, so this offense has no shape here at all
+    punishable=False the state obtains but is not a punishable legal shape (불능범, 예비 불벌);
+                     computing 구성요건해당성 for it is exactly the hypothetical reasoning
+                     section 24 keeps out of symbolic state
+
 Execution order note for step 6C, fixed here so it does not get rediscovered: ATTRIBUTE precedes
 Completion, which precedes Elements (v2.2.0 section 18). Co-principal attribution can change which
-form is even reached, so it cannot be applied afterwards. File order (completion before
+completion state is derived, so it cannot be applied afterwards. File order (completion before
 participation) is unrelated to execution order.
 """
 
@@ -23,10 +36,11 @@ from idpr.v2.evaluate import FALSE, TRUE, evaluate, fold_all
 from idpr.v2.expressions import SLOT_NAMES
 from idpr.v2.registry import DefinitionRegistry
 from idpr.v2.relations import evaluate_relation, iter_relation_instances
+from idpr.v2.runtime.completion import CompletionResult
 from idpr.v2.runtime.effects import ActiveDoctrineRefs, resolve_stage
-from idpr.v2.runtime.identity import OffenseFormKey, OffenseInstanceKey, RuntimeRelationKey
+from idpr.v2.runtime.identity import OffenseInstanceKey, RuntimeRelationKey
 from idpr.v2.runtime.stages import (
-    FormProgram,
+    CompletionRequirementObligation,
     LiabilityEvaluation,
     LiabilityResult,
     Obligation,
@@ -48,22 +62,28 @@ def resolve_liability(
     registry: DefinitionRegistry,
     compiled: CompiledOffense,
     instance: OffenseInstanceKey,
-    program: FormProgram,
+    completion: CompletionResult,
     active: ActiveDoctrineRefs,
     truths: CaseTruths,
 ) -> LiabilityEvaluation:
-    """Run one instance/form to a `LiabilityEvaluation`.
+    """Run one instance to a `LiabilityEvaluation`, under an already-derived completion judgement.
+
+    `completion` is an input, not something computed here: deriving it is `completion.
+    resolve_completion()`'s job, and in step 6C attribution will run before that derivation
+    (section 18). Passing it in keeps the "who did what" and "what does the law require" decisions
+    outside the stage machinery.
 
     Assumes an already type-checked registry and a successfully compiled offense, exactly as
     `evaluate.evaluate()` and `relations.evaluate_compiled_offense()` do.
     """
-    _reject_unimplemented_form(program)
-    form_key = OffenseFormKey(instance=instance, form=program.form)
+    if completion.state in ("unresolved", "not_applicable") or completion.punishable is False:
+        return _stopped(instance, completion, "completion", elements=not_reached())
 
-    elements, decisive_obligation = _resolve_elements(compiled, instance, truths)
+    elements, decisive_obligation = _resolve_elements(compiled, instance, completion, truths)
     if elements.gate_state != "passes":
         return _stopped(
-            form_key,
+            instance,
+            completion,
             "elements",
             elements=elements,
             decisive_obligation=decisive_obligation,
@@ -71,16 +91,19 @@ def resolve_liability(
 
     unlawfulness = resolve_stage("unlawfulness", active, registry, instance, truths)
     if unlawfulness.gate_state != "passes":
-        return _stopped(form_key, "unlawfulness", elements=elements, unlawfulness=unlawfulness)
+        return _stopped(
+            instance, completion, "unlawfulness", elements=elements, unlawfulness=unlawfulness
+        )
 
     realization = OffenseRealization(
-        form_key=form_key, elements=elements, unlawfulness=unlawfulness
+        instance=instance, elements=elements, unlawfulness=unlawfulness
     )
 
     culpability = resolve_stage("culpability", active, registry, instance, truths)
     if culpability.gate_state != "passes":
         return _stopped(
-            form_key,
+            instance,
+            completion,
             "culpability",
             elements=elements,
             unlawfulness=unlawfulness,
@@ -89,13 +112,14 @@ def resolve_liability(
         )
 
     establishment = OffenseEstablishment(
-        form_key=form_key, realization=realization, culpability=culpability
+        instance=instance, realization=realization, culpability=culpability
     )
 
     punishability = resolve_stage("punishability", active, registry, instance, truths)
     if punishability.gate_state != "passes":
         return _stopped(
-            form_key,
+            instance,
+            completion,
             "punishability",
             elements=elements,
             unlawfulness=unlawfulness,
@@ -106,7 +130,8 @@ def resolve_liability(
         )
 
     return LiabilityEvaluation(
-        form_key=form_key,
+        instance=instance,
+        completion=completion,
         elements=elements,
         unlawfulness=unlawfulness,
         culpability=culpability,
@@ -114,14 +139,15 @@ def resolve_liability(
         realization=realization,
         establishment=establishment,
         liability_result=LiabilityResult(
-            form_key=form_key, establishment=establishment, punishability=punishability
+            instance=instance, establishment=establishment, punishability=punishability
         ),
         decisive_stage=None,
     )
 
 
 def _stopped(
-    form_key: OffenseFormKey,
+    instance: OffenseInstanceKey,
+    completion: CompletionResult,
     decisive_stage: str,
     *,
     elements: StageResult,
@@ -140,7 +166,8 @@ def _stopped(
     """
     stopper = punishability or culpability or unlawfulness
     return LiabilityEvaluation(
-        form_key=form_key,
+        instance=instance,
+        completion=completion,
         elements=elements,
         unlawfulness=unlawfulness or not_reached(),
         culpability=culpability or not_reached(),
@@ -154,39 +181,27 @@ def _stopped(
     )
 
 
-def _reject_unimplemented_form(program: FormProgram) -> None:
-    """Refuse a form whose semantics step 6B has not landed yet, rather than ignoring the fields.
-
-    Accepting `suspended_slots` and evaluating every slot anyway would be the worst outcome: the
-    caller believes a suspension took effect and gets a wrong answer with no signal.
-    """
-    if (
-        program.form != "completed"
-        or program.suspended_slots
-        or program.relation_dispositions
-        or program.extra is not None
-    ):
-        raise NotImplementedError(
-            f"form program {program.form!r} needs completion semantics (build-order step 6B); "
-            "step 6A evaluates the completed form only and will not silently ignore "
-            "suspended_slots / relation_dispositions / extra"
-        )
-
-
 def _resolve_elements(
-    compiled: CompiledOffense, instance: OffenseInstanceKey, truths: CaseTruths
+    compiled: CompiledOffense,
+    instance: OffenseInstanceKey,
+    completion: CompletionResult,
+    truths: CaseTruths,
 ) -> tuple[StageResult, Obligation | None]:
     """Elements as an aggregation over individually-recorded obligations.
 
-    The fold is `fold_all` over exactly the same multiset of truths that
+    With no suspensions the fold is `fold_all` over exactly the same multiset of truths that
     `relations.evaluate_compiled_offense()` folds, so the resulting TruthValue is identical (a
-    regression test pins that). Obligations are evaluated one by one only so a decisive one can be
-    named -- not to re-derive the semantics.
+    regression test pins that for the completed state). Obligations are evaluated one by one only
+    so a decisive one can be named -- not to re-derive the semantics.
+
+    Under a suspending completion state the two deliberately diverge, and that divergence is the
+    whole point: `evaluate_compiled_offense` is v2.1, it knows nothing about cases or completion,
+    and it must stay that way. Completion semantics live here and nowhere else.
 
     Elements carries no `effects`: section 12.1 keeps doctrines off this stage entirely, and the
     schema's DoctrineDef stage enum has no `elements` member.
     """
-    outcomes = tuple(_iter_obligations(compiled, instance, truths))
+    outcomes = tuple(_iter_obligations(compiled, instance, completion, truths))
     elements_truth = fold_all(outcome.truth for outcome in outcomes)
     failed = [outcome.obligation for outcome in outcomes if outcome.truth == FALSE]
 
@@ -200,22 +215,41 @@ def _resolve_elements(
 
 
 def _iter_obligations(
-    compiled: CompiledOffense, instance: OffenseInstanceKey, truths: CaseTruths
+    compiled: CompiledOffense,
+    instance: OffenseInstanceKey,
+    completion: CompletionResult,
+    truths: CaseTruths,
 ) -> Iterator[ObligationOutcome]:
+    """The obligations this completion state actually imposes.
+
+    A suspended slot or relation is DROPPED from the iteration, not yielded as TRUE. The difference
+    is not cosmetic: substituting TRUE would rewrite a FALSE result into a satisfied element, which
+    is the exact move section 14 forbids, and it would also be indistinguishable from the
+    evaluator's genuine vacuous-truth case (an un-authored, empty slot).
+    """
     predicate_view = truths.predicate_view(instance)
     relation_view = truths.relation_view(instance)
 
     for slot in SLOT_NAMES:
+        if slot in completion.suspended_slots:
+            continue
         yield ObligationOutcome(
             obligation=SlotObligation(slot=slot),
             truth=evaluate(compiled.slots.get(slot), predicate_view),
         )
     for key, _binding in iter_relation_instances(compiled):
+        if completion.relation_dispositions.get(key) == "suspend":
+            continue
         yield ObligationOutcome(
             obligation=RelationObligation(
                 key=RuntimeRelationKey(instance=instance, definition_key=key)
             ),
             truth=evaluate_relation(key, relation_view),
+        )
+    if completion.additional_requirements is not None:
+        yield ObligationOutcome(
+            obligation=CompletionRequirementObligation(state=completion.state),
+            truth=evaluate(completion.additional_requirements, predicate_view),
         )
 
 

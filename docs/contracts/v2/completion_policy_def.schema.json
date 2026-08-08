@@ -1,40 +1,77 @@
 {
   "$id": "https://schemas.idpr.local/v2/CompletionPolicyDef",
-  "description": "v2.1.0 section 14 — Completion as an orthogonal runtime axis. Attaches to an OffenseDef and declares, per form, what extra condition (beyond the base offense's own elements) that form requires and whether/how it is punishable. Section 14.2's OffenseFormInstance<offense, form> is produced by combining this policy with case assessments at runtime (step 7, later) — this schema only covers the definition-time policy, not the runtime resolution.",
+  "description": "v2.1.0 section 14 — Completion as an orthogonal runtime axis. Attaches to an OffenseDef and declares, per completion STATE, (a) the condition under which the case is in that state, (b) whether that state is a punishable legal shape at all, and (c) how the offense's obligations differ in it. 2026-08-08 7th addendum reframed this file: it is NOT a menu of selectable programs. Completion is a legal judgement about one offense instance, derived symbolically from case truths — CompletionPolicyDef + case truths -> CompletionResult (section 14.2). There is no form-selection engine, no priority order, and no 'completed failed -> attach attempt label' fallback: every state carries its own explicit `when`, and the runtime derives the state from the set of conditions that hold. See docs/contracts/v2/SCHEMA_NOTES.md, '7차 수정'.",
   "type": "object",
-  "required": ["id", "offense", "forms"],
+  "required": ["id", "offense", "states"],
   "additionalProperties": false,
   "properties": {
     "id": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
     "offense": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id", "description": "OffenseDef id this policy governs." },
-    "forms": {
+    "states": {
       "type": "object",
       "additionalProperties": false,
       "minProperties": 1,
       "properties": {
-        "completed": { "$ref": "#/$defs/form_policy" },
-        "attempt": { "$ref": "#/$defs/form_policy" },
-        "preparation": { "$ref": "#/$defs/form_policy" },
-        "abandoned_attempt": { "$ref": "#/$defs/form_policy" },
-        "impossible_attempt": { "$ref": "#/$defs/form_policy" }
+        "completed": { "$ref": "#/$defs/state_policy" },
+        "attempted": { "$ref": "#/$defs/state_policy" },
+        "preparation": { "$ref": "#/$defs/state_policy" },
+        "abandoned_attempt": { "$ref": "#/$defs/state_policy" },
+        "impossible_attempt": { "$ref": "#/$defs/state_policy" }
       },
-      "description": "Section 14.1 lists these five forms without per-form field detail beyond 'punishability와 필요한 legal conditions를 정의한다' — each present key opts that form in for this offense; a form key that is absent is simply not available (e.g. an offense with no attempt-punishment provision omits 'attempt' entirely, rather than including it with punishable:false)."
+      "description": "The completion states section 14.2 lists, keyed by state name. Named `states`, not `forms`: 'form' invited reading these as interchangeable programs one of which gets selected, which is exactly the abstraction the 7th addendum removed. Omitting a key and declaring it with punishable:false are DIFFERENT statements — omitted means this offense has no such legal state at all (it can never be derived), while punishable:false means the state IS derivable and nameable but carries no punishment (위험성 없는 불능미수, 예비 불벌). The runtime needs the second one to terminate honestly at Completion instead of silently producing nothing."
     }
   },
   "$defs": {
-    "form_policy": {
+    "state_policy": {
       "type": "object",
-      "required": ["punishable"],
+      "required": ["when", "punishable"],
       "additionalProperties": false,
       "properties": {
+        "when": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression",
+          "description": "The condition under which the case IS in this completion state. Mandatory for every declared state including `completed` — an implicit 'whatever is left over' default would be a hidden priority order, which section 14 forbids. Leaves are ground_fact/legal_element refs (the grammar's existing restriction), never offense slots: the pipeline runs ATTRIBUTE -> Completion -> Elements, so a condition reading an Elements result would be circular. A result-crime attempt therefore names the same predicate the result slot uses, negated — ALL(execution_commencement, NOT(death_of_victim)) — rather than referring to the slot. Conditions are meant to be mutually exclusive; overlap is an authoring defect that the runtime reports as `unresolved` with provenance, never resolves by ranking."
+        },
+        "punishable": {
+          "type": "boolean",
+          "description": "Whether this completion state is a punishable legal shape at all (형태의 문제). NOT the same question as the Punishability stage's EXEMPT effect (효과의 문제: an established offense carrying an exemption). Carried into CompletionResult so the compiled program never loses the legal knowledge that e.g. this offense has no attempt-punishment provision; a false value stops the pipeline at Completion rather than evaluating Elements for a shape that cannot be punished."
+        },
+        "suspends": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/fixed_slot_name" },
+          "description": "Fixed slots whose obligation DOES NOT EXIST in this state. Absent/empty = the completed shape, every slot obligated. This is what makes 미수 expressible without lying: an attempt is not the completed offense with death rewritten to TRUE, it is a program in which the result and causation obligations are absent. The runtime drops these slots from the fold entirely — it never substitutes TRUE, so this is also distinct from the evaluator's 'empty slot -> vacuous TRUE' path. Typical: attempted/impossible_attempt/abandoned_attempt -> [result, causation]; preparation -> [conduct, result, causation], with the preparatory act supplied by that state's `requires`. `completed` must not declare any."
+        },
+        "relations": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/relation_disposition" },
+          "description": "Explicit disposition of this offense's relation obligations in this state. Required to cover EVERY relation instance of the offense whenever `suspends` is non-empty, and unnecessary otherwise (a state that suspends nothing retains everything). The compiler does not infer which relations are 'affected' by a suspension: slot topology does not determine it (in a result-crime attempt only the result side is suspended, yet causal_nexus must still disappear), and an inference rule that got it wrong would silently execute a wrong program. Requiring the author to dispose of each relation leaves evidence that a human made that legal judgement. Type checker axis 8 (checks/completion.py) enforces the coverage."
+        },
         "requires": {
           "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression",
-          "description": "Extra condition specific to this form (e.g. attempt requires an 실행의 착수 predicate), evaluated in addition to — never instead of — the base offense elements that remain relevant to this form. Section 14 explicitly rejects the 'completed offense failed -> attach attempt label' pattern; this field is what a real attempt-specific requirement (not a base-elements fallback) looks like."
+          "description": "An obligation this state ADDS to the offense's remaining slot obligations (e.g. 실행의 착수 for an attempt, the preparatory act for preparation). Complements `suspends`, which is what removes obligations — before the 7th addendum this field's description claimed extras were added 'never instead of' the base elements, which contradicted `suspends` and is why 미수 was inexpressible. Division of labour: `suspends` subtracts, `requires` adds, and neither ever rewrites a FALSE into a TRUE."
         },
-        "punishable": { "type": "boolean" },
         "punishability_note": {
           "type": "string",
-          "description": "Free text for now. Open Question #5 (v2.1.0 section 25) — how far sentencing/punishment modification goes is undecided; this is a placeholder, not a typed effect."
+          "description": "Free text for now. Open Question #5 (v2.1.0 section 25) — how far sentencing/punishment modification goes is undecided; this is a placeholder, not a typed effect. Section 14.2's `applicable_effects` is deliberately not modelled yet for the same reason."
+        }
+      }
+    },
+    "relation_disposition": {
+      "type": "object",
+      "required": ["relation", "left", "right", "disposition"],
+      "additionalProperties": false,
+      "properties": {
+        "relation": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id", "description": "RelationDef id, same as derived_offense_def.schema.json's relation_binding.relation." },
+        "left": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key" },
+        "right": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key" },
+        "path": {
+          "type": "array",
+          "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key" },
+          "description": "The local_key chain from the top-level offense down to the derivation that owns this relation binding, empty/absent for the offense's own relations. Together with relation/left/right this reconstructs relations.RelationInstanceKey.occurrence_path, so that two occurrences of the same nested definition get disposed of separately rather than one disposition silently answering for both (the collision Step 5 fixed). Axis 8 resolves these against relations.iter_relation_instances() output — no new traversal logic."
+        },
+        "disposition": {
+          "enum": ["retain", "suspend"],
+          "description": "retain = this relation obligation still holds in this state; suspend = it does not exist in this state (the runtime drops it from the fold, exactly as with a suspended slot). There is no third 'infer' value and no default: the whole point is that this is authored, not derived."
         }
       }
     }

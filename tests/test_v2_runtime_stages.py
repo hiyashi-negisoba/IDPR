@@ -7,10 +7,12 @@ import pytest
 from idpr.v2.evaluate import TRUE, UNKNOWN
 from idpr.v2.runtime.stages import (
     AppliedEffect,
+    CompletionRequirementObligation,
     CulpabilityState,
-    FormProgram,
+    Obligation,
+    RelationObligation,
+    SlotObligation,
     StageResult,
-    completed_program,
     not_reached,
 )
 
@@ -83,23 +85,19 @@ def test_evaluated_stage_may_carry_unknown_effects():
     assert stage.effects[0].truth == UNKNOWN
 
 
-def test_completed_program_is_the_only_6a_shape():
-    program = completed_program()
+def test_obligation_union_is_exactly_the_three_units_the_evaluator_can_answer():
+    """Deliberately no `PredicateObligation(ref)`.
 
-    assert program.form == "completed"
-    assert program.punishable is True
-    assert program.suspended_slots == frozenset()
-    assert program.extra is None
-    assert program.relation_dispositions == {}
-
-
-def test_form_program_carries_punishability_of_the_form():
-    """CompletionPolicy.punishable must survive compilation into the executable program.
-
-    Distinct from the Punishability stage's EXEMPT: this says whether the incomplete *form* is a
-    punishable legal shape at all, not whether an established offense is exempted.
+    `evaluate()` returns one TruthValue and an expression can be FALSE with no FALSE leaf in it
+    (`NOT(A)` with A=TRUE, `ONE_OF(A, B)` with both TRUE), so a "decisive leaf" would require a
+    second, unsound evaluator in the pipeline. These three are what the existing evaluator can name
+    honestly. `CompletionRequirementObligation` replaced the earlier `FormRequirementObligation`
+    when the form abstraction was removed -- the obligation it names now belongs to a completion
+    STATE, not to a selected program.
     """
-    program = FormProgram(form="preparation", punishable=False)
-
-    assert program.punishable is False
-    assert "punishable" in FormProgram.__dataclass_fields__
+    assert set(Obligation.__args__) == {
+        SlotObligation,
+        RelationObligation,
+        CompletionRequirementObligation,
+    }
+    assert set(CompletionRequirementObligation.__dataclass_fields__) == {"state"}

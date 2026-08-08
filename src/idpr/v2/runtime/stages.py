@@ -21,12 +21,11 @@ Three separations are load-bearing here, and each one was a bug in an earlier dr
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Generic, Literal, Mapping, TypeVar
+from typing import Generic, Literal, TypeVar
 
 from idpr.v2.evaluate import TruthValue
-from idpr.v2.expressions import CanonicalExpr
-from idpr.v2.relations import RelationInstanceKey
-from idpr.v2.runtime.identity import OffenseFormKey, RuntimeRelationKey
+from idpr.v2.runtime.completion import CompletionResult
+from idpr.v2.runtime.identity import OffenseInstanceKey, RuntimeRelationKey
 
 ElementsState = Literal["satisfied", "failed", "unresolved"]
 UnlawfulnessState = Literal["preserved", "defeated", "unresolved"]
@@ -63,18 +62,18 @@ class RelationObligation:
 
 
 @dataclass(frozen=True)
-class FormRequirementObligation:
-    """A completion form's own extra requirement evaluated FALSE (e.g. attempt's 실행의 착수).
+class CompletionRequirementObligation:
+    """A completion state's own `requires` evaluated FALSE (e.g. an attempt's 실행의 착수).
 
-    Unused in step 6A -- the completed form has no extra requirement -- but declared now because
-    step 6B's Elements program is `active slots + form requirement + retained relations`, so a
-    failure that is neither a slot nor a relation is reachable the moment attempt exists.
+    The Elements program is `active slots + retained relations + this state's requirement`, so a
+    failure that is neither a slot nor a relation becomes reachable as soon as any state authors
+    `requires`.
     """
 
-    form: str
+    state: str
 
 
-Obligation = SlotObligation | RelationObligation | FormRequirementObligation
+Obligation = SlotObligation | RelationObligation | CompletionRequirementObligation
 """Deliberately NOT `PredicateObligation(ref)`. `evaluate()` returns one TruthValue, and an
 expression can be FALSE with no FALSE leaf anywhere in it -- `NOT(A)` with `A=TRUE`, or
 `ONE_OF(A, B)` with both TRUE. Walking the tree again in the pipeline to guess a "decisive leaf"
@@ -156,55 +155,6 @@ def not_reached() -> StageResult:
 
 
 # --------------------------------------------------------------------------------------------
-# Completion program (type only in 6A -- semantics land in 6B)
-# --------------------------------------------------------------------------------------------
-
-
-@dataclass(frozen=True)
-class FormProgram:
-    """The executable legal program for one completion form.
-
-    Section 14's point, made concrete: an attempt is not "the completed offense plus extras". It is
-    a program in which the result and causation obligations *do not exist*. Suspension removes an
-    obligation from the fold; it never rewrites a FALSE into a TRUE.
-
-    Declared in 6A, consumed in 6B. The pipeline rejects any non-completed value rather than
-    accepting and ignoring it.
-    """
-
-    form: str
-
-    punishable: bool
-    """From `CompletionPolicyDef.forms[form].punishable`. Carried here so the compiled program does
-    not silently drop it -- otherwise the runtime would have to rediscover whether an offense has an
-    attempt/preparation punishment provision at all. NOT the same question as the Punishability
-    stage's EXEMPT: this asks whether this incomplete *form* is a punishable legal shape, while the
-    stage asks whether an established offense carries an exemption or modification."""
-
-    suspended_slots: frozenset[str] = frozenset()
-    extra: CanonicalExpr = None
-    """`CompletionPolicyDef.forms[form].requires` -- the form's own requirement (attempt's 착수),
-    added to the fold, never replacing base obligations."""
-
-    relation_dispositions: Mapping[RelationInstanceKey, Literal["retain", "suspend"]] = (
-        None  # type: ignore[assignment]
-    )
-    """Explicit per-relation disposition. A relation affected by a suspended obligation must be
-    declared `retain` or `suspend` by the policy -- there is no safe default, since slot topology
-    does not determine it (in a result-crime attempt only the result side is suspended, yet
-    `causal_nexus` must still disappear). Unaffected relations are retained without declaration."""
-
-    def __post_init__(self) -> None:
-        if self.relation_dispositions is None:
-            object.__setattr__(self, "relation_dispositions", {})
-
-
-def completed_program() -> FormProgram:
-    """The only program step 6A evaluates."""
-    return FormProgram(form="completed", punishable=True)
-
-
-# --------------------------------------------------------------------------------------------
 # Legal conclusions -- constructed only when the corresponding gate actually passed
 # --------------------------------------------------------------------------------------------
 
@@ -213,7 +163,7 @@ def completed_program() -> FormProgram:
 class OffenseRealization:
     """Section 4.5: Elements satisfied AND Unlawfulness preserved. Exists only when true."""
 
-    form_key: OffenseFormKey
+    instance: OffenseInstanceKey
     elements: StageResult[ElementsState]
     unlawfulness: StageResult[UnlawfulnessState]
 
@@ -222,7 +172,7 @@ class OffenseRealization:
 class OffenseEstablishment:
     """Section 4.5: Realization AND culpability legally sufficient. Exists only when true."""
 
-    form_key: OffenseFormKey
+    instance: OffenseInstanceKey
     realization: OffenseRealization
     culpability: StageResult[CulpabilityState]
 
@@ -231,21 +181,27 @@ class OffenseEstablishment:
 class LiabilityResult:
     """Section 4.5: Establishment AND a punishability assessment. Exists only when true."""
 
-    form_key: OffenseFormKey
+    instance: OffenseInstanceKey
     establishment: OffenseEstablishment
     punishability: StageResult[PunishabilityState]
 
 
 @dataclass(frozen=True)
 class LiabilityEvaluation:
-    """The always-present trace of one instance/form evaluation.
+    """The always-present trace of one instance's evaluation.
 
     Every stage is here whether reached or not; the three conclusions above are here only if their
     gate passed. That keeps the legal ontology (what was concluded) out of the runtime trace (what
     was computed).
+
+    `completion` is likewise always present. It is a legal judgement about this instance, so it
+    belongs in the trace next to the stages -- not in the instance key, which identifies the
+    offense occurrence itself and does not change with what the evidence shows about its
+    completion.
     """
 
-    form_key: OffenseFormKey
+    instance: OffenseInstanceKey
+    completion: CompletionResult
 
     elements: StageResult[ElementsState]
     unlawfulness: StageResult[UnlawfulnessState]
@@ -257,8 +213,11 @@ class LiabilityEvaluation:
     liability_result: LiabilityResult | None = None
 
     decisive_stage: str | None = None
-    """The first stage whose gate did not pass. `None` on a path that ran to the end -- a fully
-    successful evaluation has no stage that decisively stopped it."""
+    """The first stage whose gate did not pass, or `"completion"` when the run stopped before any
+    stage was reached (unresolved / not_applicable / non-punishable completion state). `None` on a
+    path that ran to the end -- a fully successful evaluation has no stage that decisively stopped
+    it. Note `"completion"` is deliberately not in `STAGE_NAMES`: Completion is an orthogonal axis
+    (section 14), not a fifth stage in the Elements->Punishability chain."""
 
     decisive_obligation: Obligation | None = None
     decisive_doctrine: str | None = None

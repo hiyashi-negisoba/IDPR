@@ -1,4 +1,4 @@
-"""The v2 Definition Layer Type checker: 7 independent semantic axes over a DefinitionRegistry.
+"""The v2 Definition Layer Type checker: 8 independent semantic axes over a DefinitionRegistry.
 
 Each axis module is independently callable (imports only registry/findings/expressions/compile,
 never another axis module) -- no axis assumes another has already run.
@@ -6,6 +6,7 @@ never another axis module) -- no axis assumes another has already run.
 
 from __future__ import annotations
 
+from idpr.v2.checks.completion import check_completion
 from idpr.v2.checks.derivation import check_derivation_graph
 from idpr.v2.checks.exports import check_exports
 from idpr.v2.checks.operators import check_operators
@@ -18,7 +19,7 @@ from idpr.v2.registry import DefinitionRegistry
 
 
 def run_type_checks(registry: DefinitionRegistry) -> list[Finding]:
-    """Never raises -- collects findings from all 7 axes, in axis order."""
+    """Never raises -- collects findings from all 8 axes, in axis order."""
     findings: list[Finding] = []
     findings.extend(check_references(registry))
     findings.extend(check_operators(registry))
@@ -27,6 +28,7 @@ def run_type_checks(registry: DefinitionRegistry) -> list[Finding]:
     findings.extend(check_exports(registry))
     findings.extend(check_participation(registry))
     findings.extend(check_derivation_graph(registry))
+    findings.extend(check_completion(registry))
     return findings
 
 

@@ -47,3 +47,26 @@
   legal_standard: "사물을 변별할 능력이나 의사를 결정할 능력이 미약한 상태였는지 여부"
   authority_refs:
     - {authority_basis: statute_text, citation: "형법 제10조 제2항 (예시)"}
+
+# 2026-08-08 addition: 7th addendum (Completion) fixture support.
+- id: legal_element.death_causation
+  arguments:
+    - {name: conduct, type: entity}
+    - {name: result, type: entity}
+  canonical_meaning: "사망의 결과가 살해 행위에 인과적으로 귀속된다."
+  grounded_by: [ground_fact.death_of_victim]
+  legal_standard: "행위와 결과 사이에 상당인과관계가 인정되는지 여부"
+  authority_refs:
+    - {authority_basis: commentary_synthesis, citation: "v2 예시용 가상 인용"}
+
+# Distinguishes 불능미수(위험성 O, 처벌) from 불능범(위험성 X, 불벌). It is what makes
+# completion_policy.injury's `attempted` and `impossible_attempt` conditions mutually
+# exclusive by construction rather than by a priority order.
+- id: legal_element.impossibility_without_danger
+  arguments:
+    - {name: actor, type: entity}
+  canonical_meaning: "수단 또는 대상의 착오로 결과 발생이 불가능하고 위험성도 인정되지 않는다."
+  grounded_by: [ground_fact.attempt_commencement]
+  legal_standard: "행위 당시 행위자가 인식한 사정을 기초로 일반인의 관점에서 결과 발생의 위험성이 인정되는지 여부"
+  authority_refs:
+    - {authority_basis: statute_text, citation: "형법 제27조 (예시)"}
