@@ -1,11 +1,142 @@
 # Current handoff
 
-기준: 2026-08-08 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
+기준: 2026-08-09 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
+
+## 다음 트랙 — Rulebase 실적재 (2026-08-09, 새 세션)
+
+**사용자 결정: Step 7(Closure/Probe compiler) 진입 전에 실제 rulebase를 전체 적재하고, 그
+registry 위에서 Step 7을 시작한다.** fixture 수준 최소 슬라이스로 Step 7을 찔끔 돌리는 대신,
+이번 트랙에서 형총·형각을 전부 실적재까지 끝낸다는 게 사용자의 명시적 지시.
+
+```text
+Step 6C 완료(위 절)
+    ↓
+15개 조문 파일럿(각칙 7 + 총칙 8) — predicate 사전 형식·저작 방식 검수      [완료, 아래 절]
+    ↓
+같은 방식을 최종 범위로 확장 — 각칙 51개 조문 전체 + 총칙 선별 범위 전체     ← 다음 세션 시작점
+    ↓
+predicate 사전 전체 검수(게이트 ①의 확장판)
+    ↓
+2패스로 data/v2/definitions/ 전체 조립
+    ↓
+전체 registry 정합성 검수(8축 0 findings + compile_offense 전건 성공)
+    ↓
+Step 7 (Closure / Probe compiler)
+```
+
+이 트랙 자체는 새로 계획한 게 아니라 6A 승인 계획서
+[`radiant-doodling-flute.md`](file:///home/jaehoonjeong/.claude/plans/radiant-doodling-flute.md)의
+"Track 2 — Criminal-Law Definition Population"(이미 승인됨, `docs/handoff/CURRENT.md` 구
+"병행 트랙" 절에도 요지가 남아 있음)을 그대로 착수하는 것 — 저장 위치(`data/v2/definitions/`,
+`docs/contracts/v2/examples/`의 스키마 fixture 36개와 분리), 형각/형총 저작 파이프라인이 갈리는
+이유(카드 유무), predicate-first 2패스 + 검수 게이트 2단계, 완료 기준(8축 0 findings + compile
+전건 성공 + `resolve_liability` 구조 유형별 1 path 완주 + Step 7이 실제 probe를 뽑아내는 것까지)
+전부 그 문서에 상세히 있다 — 착수 전에 그 절을 다시 열 것.
+
+### 착수 전 에셋 감사 (이번 세션에 코드베이스 직접 확인, 문서 재탐색 없이 가정하지 말 것)
+
+**형각(각칙) — 재료 준비됨:**
+- `data/rulebase/card_catalog_v2.json` — 카드 1848장, 51개 조문, `function`(canonical_element
+  201/exception 250/stage 111/defeater 45/participation 16/application_standard
+  729/narrative 246/concurrence 136/skeleton_meta 114)·`form`·`runtime`·`gate_effect` 축 완비.
+  Track 2 계획서가 말하는 "저작 대상 ~496장"(canonical_element+exception+stage+defeater+
+  participation, abstract_rule만)이 정확히 이 파일에서 뽑힌다.
+- `data/rulebase/article_catalog.json` — 51개 조문의 번호+죄명 **레이블 카탈로그**(조문 전문이
+  아님 — "원문"이 조문 전체 텍스트를 뜻한다면 이 파일은 그 용도가 아니고, 별도로 더 찾아야 함).
+- 형각 주석서: `/data5/jaehoonjeong/sp_qwen/data/serve/commentary_chunks/docs.parquet`
+  (`law_id=001692`) — **4,011 chunks, 251개 조문, 전부 article_no≥87(각칙)**. 형소법
+  (`law_id=001671`, 5,373 chunks, 571개 조문)과 `law_id` 컬럼으로 완전히 분리돼 있고 교차 오염
+  없음(둘 다 직접 확인 — 초반에 "오염"이라고 잘못 짚었던 건 article 번호만 보고 law_id를 안 봐서
+  생긴 내 실수였고, 사용자가 정정: 애초부터 형소법·형각은 별도 트랙으로 적재되고 있다).
+- `scripts/extend_commentary_bundle.py` — 기존 형각 주석서 보강 도구(API 0회, 원천 parquet에서
+  누락 조문 chunk를 뽑는 경로). Track 2의 "총칙 쪽은 `--no-cards` 모드로 같은 스크립트에 붙인다"
+  계획이 재사용을 전제하는 그 경로.
+
+**형총(총칙) — 2026-08-09 사용자가 원천 자료 전달, 확보 완료:**
+- `/home/jaehoonjeong/data/sp/data/processed/Ontology/형법총칙/` — 조문별 파일 86개(제1조~
+  제86조, 총칙 전 범위) × `{chunks,sections}.jsonl` 2종 = 172개 파일, **총 1,164 chunks**.
+  `chunks.jsonl` 레코드 필드가 기존 형각 corpus(`comm_id`/`law_id=001692`/`article_no`/
+  `section_path`/`section_title`/`text`)와 동일 스키마 — `work_id: "케이스노트_형법총칙"`.
+  내용 직접 확인(제30조 [공동정범] chunk few개 열람) — 진짜 형법 총칙 해설이 맞음(이전에
+  `sp_qwen` corpus에서 0건이었던 것과 대조). `sections.jsonl`은 조문별 절 구조(`section_path`/
+  `level`/`title`)만 담아 Track 2 계획서가 예정한 "총칙은 카드 없이 `section_path`/
+  `section_title` 단위로 저작 워크시트를 만든다" 방식과 그대로 맞아떨어진다.
+- 같은 상위 폴더(`.../Ontology/`)에 `형법각칙/`(조문 파일 310개, 4,011 chunks — chunk 수가
+  기존 `sp_qwen` 각칙 corpus와 정확히 일치해 같은 원천의 재노출로 보임, 신규 자료 아님)과
+  `형사소송법/`(607개 조문, 5,373 chunks — 역시 기존 수치와 일치, 범위밖 유지)도 함께 있음.
+  `_report.json`이 전체 소스(1,003 문서·10,548 chunks·12,654 sections·12,431 cases) 파싱
+  메타데이터를 담고 있고, 각칙 쪽 일부 조문(제89·94·96·97·99·100·101조 등, 미수·예비음모류
+  단문 조항)은 `n_chunk=0` outlier로 명시적으로 표시돼 있음 — 저작 시 빈 조문으로 처리할 것.
+- **아직 IDPR 레포 안으로 옮겨지지 않은 외부 경로**다(`/home/jaehoonjeong/data/sp/...`,
+  `IDPR/data/` 밖). Track 2 착수 시 `data/v2/definitions/` 저작으로 가기 전에 이 경로를 어떻게
+  끌어올지(그대로 참조 vs `data/raw/`류로 복사/ingest) 첫 결정 사항.
+
+**위 인프라는 같은 세션 안에서 만들어졌다 — 아래 "15개 조문 파일럿 완료" 절 참고.**
+`data/v2/definitions/`는 여전히 없음(의도적 — 2패스 조립은 predicate 사전 전체 검수 후).
+
+### 15개 조문 파일럿 완료 — Gate ① 통과 (2026-08-09, 같은 세션)
+
+**착수 전 승인된 세션 계획서**: [`mossy-doodling-breeze.md`](file:///home/jaehoonjeong/.claude/plans/mossy-doodling-breeze.md)
+(ExitPlanMode 리뷰에서 4라운드 정정 후 승인 — Band 분석·35-36조 재분류·게이트 문구 정정 등).
+이 계획서가 **최종 Rulebase 적재 범위**(각칙 51개 조문 전체, 총칙 86개 조문을 분석해
+Band A-core/A-hold/B/C로 선별)와 이번 세션 스코프(그 중 15개 조문 pilot)를 구분해서
+확정해뒀다 — 다음 세션에서 범위를 다시 협상할 필요 없이 그대로 확장하면 된다.
+
+**신규 코드**: `scripts/v2_migration_worksheet.py`(읽기 전용 추출, API 0회). 두 모드
+(각칙 기본 / 총칙 `--no-cards`), 형법총칙 원천은 `IDPR_GENERAL_PART_ONTOLOGY_ROOT`
+env var로 참조(기본값 `/home/jaehoonjeong/data/sp/data/processed/Ontology/형법총칙`,
+파일 복사 없음 — `extend_commentary_bundle.py`의 기존 관행을 그대로 따름). 각칙 모드는
+정본+보강 주석서 번들을 `art333`↔`제333조` 변환 후 머지하고, 카드 섹션과 조문 주석
+섹션을 분리해 카드마다 chunk를 반복 삽입하지 않는다(스크립트가 관련성을 자동 판정하지
+않는다는 원칙). 출력: `data/v2/worksheets/{각칙,총칙}/{article}.md`(15개 파일, 산출물이
+아니라 저작 재료이므로 `data/v2/definitions/`와 분리).
+
+**실행 범위**: 각칙 재산죄 core 7개 조문(329·333·347·350·355·357·366) + 총칙 우선순위
+8개 조문(10·21·25·26·27·30·31·32, 전부 계획서의 Band A-core — v2.2.0 runtime 축에
+직접 대응하는 구간). 카운트 대조(카드 수·art333 보강번들 chunk 포함 여부)로 검증 완료.
+
+**Predicate 사전 v0 → v1 → v2, 3라운드 검수**(전부 `data/v2/worksheets/predicate_
+dictionary_draft_v{0,1,2}.md`에 보존, 이력 추적용 — 서로 덮어쓰지 않음):
+- v0: 119장 카드(각칙) + 조문 절 구조(총칙)에서 predicate 후보 초안, 7개 검수 포인트 제시
+- v1: 법률 검수 반영(횡령 manifestation 분리, 사기·공갈 처분행위 공유, 강도/공갈 권리행사
+  분리 확정, `result_not_occurred`/`commencement_of_execution` 재정리, 심신미약 임의적
+  감경 수정, 오상방위 HOLD) + 신규 발견 3건(ground_fact 4개 legal_element로 재분류,
+  `duty_of_other_affairs` 355/357 분리, 준강도류 재분류 표시)
+- v2(최종): CompletionPolicy의 `punishable`을 case-time expression처럼 쓴 오류 수정
+  (사건마다 달라지는 조건은 state를 나누고 `when`에 둔다), 횡령
+  `entrustment_relationship`/`custody_of_anothers_property` 동의어 삭제를 되돌려 둘 다
+  보존(조합은 기존 `ElementExpression`), canonical_meaning 기준 전체 typing pass(8개
+  후보 중 7개 ground_fact→legal_element 재분류)
+
+**이번 3라운드 전체에서 스키마·runtime에 신규 type/effect/state가 하나도 추가되지
+않았다** — 전부 기존 v2.2 DSL(`ElementExpression`/`DoctrineDef.requires`/
+`CompletionPolicyDef.{when,punishable,punishability_note}`/`RelationDef`/
+`DerivedOffenseDef`) 안에서 재배치됐다. 이게 게이트 ①이 확인하려던 것이고, 15개 조문
+파일럿에서 실증됐다는 게 사용자의 최종 판정(v1 피드백 문서: "Gate ①의 방향을 충족한다").
+
+**HOLD로 이월된 미확정 항목**(다음 라운드에서 반복 사례가 쌓이면 재검토, 지금은 손대지
+않음): 오상방위·오상과잉방위의 법률효과 variant, `disposer_identity_match`의
+`RelationDef` 표현 가능성, 준강도류(`quasi_robbery`/`complete_suppression_becomes_
+robbery`)의 Doctrine vs `DerivedOffenseDef` 분류, 강도 재산상 이익 취득의 별도
+legal_element 필요 여부, ALIC 3요소(`foreseeable_risk_at_self_induction` 등)의 합성
+방식, ALIC의 `offense_committed_in_resulting_impairment`가 `LegalElementDef`로
+충분한지 vs `RelationDef` binding이 필요한지, `instigator_intent`/`aiding_intent`류
+경계(→ v2에서 legal_element로 이미 재분류했으나 2패스 실제 저작 시 재확인).
+
+**다음 세션 시작점**: 같은 predicate-first 방법론(워크시트 생성 → predicate 후보 제안 →
+검수 → 수정)을 최종 범위로 확장한다 — 각칙 나머지 44개 조문 + 총칙 Band A-core 나머지
+18개 조문 + 35-36조(누범, architecture-compatibility 검수 대상). Band A-hold(1-8조)·
+Band B의 37-40조(경합범)·Band C(41-86조)는 계획서가 이미 스코프 아웃을 확정해둬서
+다시 정독할 필요 없다(계획서 "형법총칙 corpus 전수 분석" 절 참고). predicate 사전이
+그 최종 범위 전체를 커버하고 다시 검수를 통과해야 2패스 조립(`data/v2/definitions/`
+실제 저작)에 들어간다 — 15개 파일럿의 게이트 ① 통과가 트랙 전체의 완료를 뜻하지
+않는다.
 
 ## Step 6C (Participation / Attribution) 완료 — 8차 addendum, `tests/test_v2_*.py` 총 228개 (2026-08-08, 새 세션)
 
-v2.2.0 case-time runtime의 세 번째 단계를 끝냈다. **다음 세션 시작점은 Step 7(Closure / Probe
-compiler)이다.** 승인된 계획서는
+v2.2.0 case-time runtime의 세 번째 단계를 끝냈다. ~~다음 세션 시작점은 Step 7(Closure / Probe
+compiler)이다.~~ **정정(2026-08-09): Step 7 진입 전에 rulebase 실적재 트랙이 먼저다 — 문서
+최상단 "다음 트랙 — Rulebase 실적재" 절 참고.** 승인된 계획서는
 [`/home/jaehoonjeong/.claude/plans/linked-foraging-rivest.md`](file:///home/jaehoonjeong/.claude/plans/linked-foraging-rivest.md)
 (ExitPlanMode 리뷰에서 2건 정정 후 승인 — 아래 "승인 시 정정" 절).
 
