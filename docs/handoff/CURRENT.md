@@ -2,7 +2,92 @@
 
 기준: 2026-08-09 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
-## 각칙 배치⑩ 완료(1라운드), 배치⑪이 다음 시작점 (2026-08-09, 같은 세션)
+## 각칙 배치⑪ 완료(2라운드), 배치⑫가 다음 시작점 (2026-08-09, 같은 세션)
+
+`data/v2/worksheets/predicate_dictionary_ext_batch11_v{0,1,2}.md`에 이력 보존.
+**v0→v1→v2, 2라운드**(배치⑧과 같은 급) — 이번 배치는 predicate 저작 원칙 위반(재발)
+1건과 **source coverage 누락 1건·실정법 변경 미반영 1건**이라는, 이전 배치들과는 다른
+종류의 오류 두 가지가 함께 나왔다는 점이 특징이다.
+
+**배치⑪ 대상**: 319(주거침입·퇴거불응)/323(권리행사방해)/328(친족간의 범행) 주거·
+권리행사군. 319는 각칙 predicate 사전에서 처음으로 **한 조문 안에 작위범(주거침입)과
+진정부작위범(퇴거불응)이 별개 OffenseDef로 병존**하는 사례, 323은 처음으로 **판례가
+명시하는 진정신분범**(자기 물건 소유자만 정범) 사례, 328은 카드가 조문 핵심 규정
+자체를 담고 있지 않아 원문에서 직접 authoring해야 했던 사례다.
+
+**v1에서 사용자가 지적한 오류 3건**:
+- **positive-predicate + `NOT()` 원칙 재위반** — 퇴거불응 Elements에
+  `legal_element.no_justifiable_reason_for_refusal`을 만들고 self-check에서
+  "사실을 긍정 서술한 이름이라 괜찮다"고 잘못 정당화(문법적 긍정문 여부가 아니라
+  "다른 positive predicate의 논리적 부정인가"를 먼저 확인했어야 함, 배치⑦
+  `self_benefit_purpose` 패턴 재위반) — `legal_element.justifiable_reason_for_
+  refusal`(있다) + Elements에서 `NOT()`으로 정정.
+- **319 CompletionPolicy 저작 시 322조(미수범, 51개 조문 워크시트 목록 밖)를 "범위
+  밖이라 참조 안 함"으로 넘긴 source coverage 누락** — 300조 사례(그 자체가 51개
+  목록에 포함된 독립 참조 조문)와 혼동한 것. target offense가 319인 이상 그
+  governing provision(322조)은 목록 소속 여부와 무관하게 열람 대상이라는 원칙을
+  재확인(배치⑧이 239조 저작 시 238조를 열람한 것과 같은 이유) — 원본 corpus를
+  `law_id=001692`로 직접 열람해(형사소송법 322조와 article_no 문자열이 겹치므로
+  law_id 구분 필수) 확인한 결과, 주거침입은 `attempted.punishable = true` 확정,
+  퇴거불응은 미수 성립 가능성 자체에 학설대립(긍정설=부진정거동범, 부정설=진정
+  부작위범+거동범·즉시기수)이 있어 HOLD로 이월.
+- **328조를 구법(형면제 EXEMPT) 전제로 저작 — 2025.12.31. 개정법 미반영.** v0는
+  328조 1항을 여전히 Punishability EXEMPT doctrine으로 저작하고 헌재 헌법불합치
+  결정(2024.6.27., 개선입법 시한 2025.12.31.)에 따른 "적용중지" 상태만 HOLD로
+  남겼는데, **그 개선입법이 이미 2025.12.31.자로 시행되어 328조는 더 이상 형면제
+  구조가 아니다** — 종전 1항의 일률적 형면제 폐지, 2항(먼 친족 친고죄) 삭제, 현행
+  328조는 "친족 간이면 고소가 있어야 공소제기 가능"이라는 단일 소추조건(친고죄)
+  구조로 개편됨(사용자가 현재 실정법 상태를 직접 확인해 지적). `doctrine.close_
+  kin_property_offense_exemption`과 관련 게이팅 predicate 전부 삭제, 328조 전체를
+  36조·소추조건과 같은 이유로 predicate 사전 population 대상에서 제외(procedure
+  scope 밖, HOLD 아님 — 애초에 대상 아님)로 재분류. "323조는 328이 준용 안 됨"
+  이라 쓴 서술도 반대로 정정(328은 같은 장 323에 직접 적용, 준용은 다른 장의
+  344·354·361·365조 쪽) — **배치⑦(151조)이 근거로 인용한 "328조와 동일 계보"
+  비교는 이제 역사적으로만 정확**(151조 자체의 EXEMPT 결론은 이번 개정과 무관하게
+  유효, 151조 파일은 확정 문서라 직접 고치지 않음 — 이 사실만 기록으로 남긴다).
+
+v2는 HOLD 문구 하나만 좁혔다 — 배치④에서 이미 삭제 확정된 `result_not_occurred`를
+HOLD 서술에서 다시 언급한 것을 삭제하고, "322조는 미수 처벌의 법적 근거만 확정,
+attempted state 자체의 성립 여부(학설대립)와 punishable=true는 긍정설을 전제로 한
+조건부 결론"이라고 순서를 명확히 했다.
+
+**최종 확정 predicate**: 319 A-1(주거침입) `dwelling_or_managed_premises_object`/
+`trespass_entry`/`legal_element.intent`(13조 재사용), A-2(퇴거불응) `retreat_demand_
+by_authorized_person`/`justifiable_reason_for_refusal`(+`NOT()`)/`ability_to_comply_
+with_retreat_demand`/`failure_to_comply_without_delay`/`legal_element.intent`(13조
+재사용) + 323 `own_property_object`/`third_party_possession_or_right_object`/
+`taking_conduct`/`concealment_conduct`/`damage_conduct`/`obstruction_of_right_
+exercise`/`legal_element.intent`(13조 재사용) — 366조 `utility_impairment`와는
+canonical_meaning을 공유하지 않는다고 확정(판례 문언이 "유사"라고만 함, self-check6).
+328은 predicate·doctrine 없음(procedure scope 밖으로 확정). 신규 스키마·DSL primitive
+없음.
+
+**architecture-compatibility 신규 발견 1건**(기존 33조 단서·34조·151조·263조·257·298조
+간접정범·250조·301조·299조 목록에 추가): **art323 소유자 아닌 자의 가담 ↔ 33조 본문
+공동정범 gap** — 배치⑤ v1 정정1이 이미 원칙적으로 확인한 "attributable_slots로 신분
+predicate를 전이시키면 안 된다"는 결론의 구체 offense 사례(2017도4578: 정범인 소유자가
+무죄면 비신분자는 단독으로도 공동정범 성립 불가). 순수 구조 선택 문제 2건도 이월:
+art319 계절적 미사용 별장의 "주거→건조물" 서브타입 재분류, art319 퇴거불응 미수 성립
+가능 여부(322조, 위 정정 반영본).
+
+### 다음 세션 시작점 — 배치⑫ 절도·강도 나머지 (330·331·332·334·335·337·338·342·343·344·356·360조)
+
+328·344 친족관계는 이미 소추조건(procedure scope 밖)으로 확정됐으므로 330조(야간주거
+침입절도) 저작 시 "주거자-행위자 관계엔 친족관계 불요"라는 카드를 다시 확인할 필요
+없이 바로 그렇게 적용하면 된다. 344조 저작 시 328조 인용 부분도 predicate 사전에
+반영하지 않고 소추조건 참고로만 authoring 메모에 남긴다. 제출 전 self-check
+체크리스트(배치⑦ 7항목 + 배치⑧ 4항목 + 배치⑨·⑩·⑪이 실증한 원칙 — 인과관계 이층
+모델, fixture predicate 맹신 금지, ATTRIBUTE는 conduct 전용, 공유 ElementBundleDef
+불변, GroundFact/LegalElement typing은 canonical_meaning의 평가성 여부로 판단,
+cross-offense transition 서술 금지, 관련 RelationDef는 서로 다른 suspend/RETAIN 축을
+가지면 별도 유지, 미수 불처벌은 punishable=false로 표현, **positive-predicate 판정은
+이름의 문법이 아니라 "다른 predicate의 논리적 부정인가"로 검사, target offense의
+governing provision은 51개 조문 목록 소속 여부와 무관하게 열람 대상, 조문 해석 시
+현재 실정법(개정·헌재결정 반영) 상태를 원천 corpus 시점에 의존하지 말고 확인**)을
+함께 적용할 것. 워크시트 편집은 항상 새 버전 파일에.
+
+## 각칙 배치⑩ 완료(1라운드), 배치⑪이 다음 시작점 (~~2026-08-09, 같은 세션~~ 완료 —
+문서 최상단 절 참고, 다음은 배치⑫)
 
 `data/v2/worksheets/predicate_dictionary_ext_batch10_v{0,1}.md`에 이력 보존.
 **v0→v1, 1라운드**(배치⑨의 4라운드보다 라운드 수는 적지만 지적 내용은 architecture
@@ -83,15 +168,8 @@ death-agnostic causation 패턴을 착수 시점부터 기본값으로 적용했
 `v1.md`를 별도 파일로 분리하고 `v0.md`는 원본으로 복원 — 배치⑦-⑨가 실제로 지켜온
 "버전마다 새 파일" 관행을 이번에 처음 어겼다가 바로 정정.
 
-### 다음 세션 시작점 — 배치⑪ 주거·권리행사 (319·323·328조)
-
-제출 전 self-check 체크리스트 7항목(배치⑦) + 4항목(배치⑧) + 배치⑨·⑩이 실증한 원칙
-(인과관계 이층 모델, fixture predicate 맹신 금지, ATTRIBUTE는 conduct 전용, 공유
-ElementBundleDef 불변, GroundFact/LegalElement typing은 canonical_meaning의 평가성
-여부로 판단, cross-offense transition 서술 금지는 predicate 간 관계 서술에도 적용,
-관련 RelationDef는 서로 다른 suspend/RETAIN 축을 가지면 별도 유지, 미수 불처벌은
-punishable=false로 표현하고 completion state 자체를 지우지 않는다)을 함께 적용할
-것. **워크시트 편집은 항상 새 버전 파일에**(v0 최종본을 직접 고치지 않는다).
+### ~~다음 세션 시작점 — 배치⑪ 주거·권리행사 (319·323·328조)~~ [배치⑪ 완료 —
+문서 최상단 절 참고, 다음은 배치⑫]
 
 ## 각칙 배치⑨ 완료(4라운드), 배치⑩이 다음 시작점 (~~2026-08-09, 같은 세션~~ 완료 —
 문서 최상단 절 참고, 다음은 배치⑪)
