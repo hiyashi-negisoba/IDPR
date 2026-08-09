@@ -2,7 +2,99 @@
 
 기준: 2026-08-09 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
-## 각칙 배치⑨ 완료(4라운드), 배치⑩이 다음 시작점 (2026-08-09, 같은 세션)
+## 각칙 배치⑩ 완료(1라운드), 배치⑪이 다음 시작점 (2026-08-09, 같은 세션)
+
+`data/v2/worksheets/predicate_dictionary_ext_batch10_v{0,1}.md`에 이력 보존.
+**v0→v1, 1라운드**(배치⑨의 4라운드보다 라운드 수는 적지만 지적 내용은 architecture
+drift 다수 포함 — 원칙 재적용 누락이 아니라 이미 확정된 DSL 계약을 새 조문에 대입할 때
+그 계약 자체를 조용히 어기는 종류의 오류가 나왔다는 점에서 배치⑧의
+`shared-predicate-canonical-meaning-is-immutable` 발견과 같은 급).
+
+**배치⑩ 대상**: 297(강간)/298(강제추행)/299(준강간·준강제추행) 강간·추행군 + 300
+(강간등의 미수범, 참조 전용·독자 predicate 없음) + 301(강간등 상해·치상, 가중결과군).
+이 배치가 처음 다루는 법익(성적 자유)이었고, 배치⑨가 확립한 인과관계 이층 모델·
+death-agnostic causation 패턴을 착수 시점부터 기본값으로 적용했다는 점은 v0에서부터
+잘 됐다 — v1에서 지적된 7건은 전부 그 이후 세부 설계 단계의 오류였다.
+
+**v1에서 사용자가 지적한 오류 7건**(전부 기존에 확정된 원칙·설계의 재적용 누락 —
+신규 원칙 아님):
+- **canonical_meaning에 구성요건 평가가 들어 있으면 GroundFact가 아니다** —
+  `coercive_conduct`("폭행 또는 협박에 해당한다")·`indecent_act`("성적 자유를
+  침해하는 추행인가")를 GroundFact로 잘못 적었다가 LegalElement로 정정 — 배치⑦
+  정정6(`violence_or_threat_against_official`)과 정확히 같은 typing 오류의 재발.
+- **cross-offense transition 서술 금지 원칙을 297/298→299 관계에도 지켰어야
+  했다** — `directness_of_coercion_by_offender`가 FALSE면 "그러므로 299가
+  성립한다"처럼 읽히게 썼던 걸, "297/298 Elements가 그 자체로 불성립할 뿐이고
+  299는 자신의 Elements(`mental_incapacity_or_physical_helplessness_status`+
+  `exploitation_of_incapacity`+성적 행위 conduct)를 독립적으로 충족해야 성립하는
+  별개 offense"로 정정 — self-check2(cross-offense 전환 서술 금지)를 doctrine
+  생성뿐 아니라 predicate 간 관계 서술에도 일관되게 적용해야 했다.
+- **전역 `intent` 재사용 원칙을 새 조문의 "인식" 요건에도 지켜야 한다** —
+  `exploitation_of_incapacity`에 "상태를 인식하고"를 얹어 awareness와 이용관계를
+  한 predicate에 섞었다가, awareness는 별도 predicate를 만들지 않고
+  `legal_element.intent`(총칙13조)가 그대로 포괄하도록 분리 — exploitation_of_
+  incapacity는 순수 객관적 이용관계만 남긴다.
+- **299 예비·음모(305조의3)의 conduct 갈래 제한(간음에만 적용, 추행·유사간음
+  불가)은 authoring 메모로 처리하기엔 부족하다** — `PREPARATION_OR_CONSPIRACY.
+  punishable`이 고정 bool인데 예비 단계엔 아직 conduct 자체가 없어 "conduct
+  갈래에서만 when"이라는 표현이 성립하지 않을 수 있음을 확인 — 2-pass concrete
+  authoring 확인사항(HOLD)으로 승격, 후보 두 개(A. 준강간/준강제추행 별도
+  OffenseDef 분리, B. 예비 단계 predicate에 목적 대상 명시)만 제시.
+- **배치⑨ v1이 이미 결정한 `injury_occurred`→`injury_result` 재분류를 새 배치가
+  따라가지 않았다** — 301에서 옛 이름을 그대로 썼다가 정정. 또한 base offense의
+  `legal_element.intent`(강간·추행 등에 대한 고의)와 상해에 대한 고의를 같은
+  predicate id로 쓰면 구별이 안 된다는 지적으로 `legal_element.injury_intent`를
+  별도 heightened legal_element로 분리.
+- **`relation.causal_nexus`와 `relation.occasion_identity`(6B 강도살인미수
+  fixture 재사용)를 하나로 합치면 안 된다** — "강간등의 기회" 요건을 causal_nexus의
+  legal_standard로 흡수했다가, 이건 6B가 확정한 "causation은 base가 미수일 때
+  suspend될 수 있어도 occasion_identity는 RETAIN한다"는 구분 자체를 표현 불가능하게
+  만드는 오류라는 지적으로 두 obligation을 별도 유지하도록 정정 — 이번 배치의
+  가장 큰 architecture drift.
+- **미수 불처벌은 completion state 삭제가 아니라 `punishable = false`로
+  표현한다** — 301에 "attempted state를 두지 않는다"고 썼다가, 133①(배치⑦)이
+  이미 확정한 "미수 불처벌 ≠ completion state 부재" 원칙과 충돌한다는 지적으로
+  정정(state는 유지하고 `punishable = false`만 적용, 300조 서술도 함께 수정).
+
+**최종 확정 predicate**: 공유 `legal_element.natural_person_victim_status`(배치⑨
+재사용, 정의 불변)·`coercive_conduct`/`directness_of_coercion_by_offender`/
+`coercion_induced_sexual_act_causation`(297·298 공유, death-agnostic 패턴) +
+297 `coercion_sufficiency_for_rape`/`vaginal_intercourse_conduct` + 298
+`coercion_sufficiency_for_forcible_indecency`/`indecent_act` + 299
+`mental_incapacity_or_physical_helplessness_status`/`exploitation_of_incapacity`
+(297/298 directness와 구조적으로 대응하되 독립 평가) + 301 `injury_result`(배치⑨
+재분류 반영)/`injury_intent`(신규)/`causal_nexus`·`occasion_identity`(6B 재사용,
+별도 유지) — 이번 배치도 신규 스키마·DSL primitive 없음, 전부 기존 `LegalElementDef`/
+`GroundFactDef`/25-27조/6C ATTRIBUTE/8차 addendum/6B occasion_identity 메커니즘/
+133① punishable 설계 안에서 표현된다.
+
+**architecture-compatibility 신규 발견 1건**(기존 목록에 추가, predicate 사전으로
+해결하지 않고 2패스 착수 전 확인 목록으로 이월): **art298 피해자를 도구로 삼은
+간접정범 ↔ 34조 gap** — 배치⑨ 257(자상 강요·기망 간접정범)과 **동일 유형**의 두
+번째 사례(신규 종류 아님).
+
+**HOLD로 이월된 구조 결정 2건**(architecture gap이 아니라 순수 구조 선택 문제 —
+2패스 실제 저작 시 확정): (1) 301의 결합범(고의 상해)+결과적가중범(과실 치상) 병존을
+별도 DerivedOffenseDef 2개로 할지 단일 DerivedOffenseDef 내 두 갈래로 할지, (2) 299
+예비·음모의 conduct 갈래 제한 표현 방법(위 두 후보 A/B).
+
+**세션 진행 방식 관련 정정 1건**: v0 최종본에 직접 Edit을 반복 가했다가(버전 파일이
+갈리지 않고, 같은 파일 반복 편집 때문에 매번 승인 요청이 뜨는 부작용) 사용자 지적으로
+`v1.md`를 별도 파일로 분리하고 `v0.md`는 원본으로 복원 — 배치⑦-⑨가 실제로 지켜온
+"버전마다 새 파일" 관행을 이번에 처음 어겼다가 바로 정정.
+
+### 다음 세션 시작점 — 배치⑪ 주거·권리행사 (319·323·328조)
+
+제출 전 self-check 체크리스트 7항목(배치⑦) + 4항목(배치⑧) + 배치⑨·⑩이 실증한 원칙
+(인과관계 이층 모델, fixture predicate 맹신 금지, ATTRIBUTE는 conduct 전용, 공유
+ElementBundleDef 불변, GroundFact/LegalElement typing은 canonical_meaning의 평가성
+여부로 판단, cross-offense transition 서술 금지는 predicate 간 관계 서술에도 적용,
+관련 RelationDef는 서로 다른 suspend/RETAIN 축을 가지면 별도 유지, 미수 불처벌은
+punishable=false로 표현하고 completion state 자체를 지우지 않는다)을 함께 적용할
+것. **워크시트 편집은 항상 새 버전 파일에**(v0 최종본을 직접 고치지 않는다).
+
+## 각칙 배치⑨ 완료(4라운드), 배치⑩이 다음 시작점 (~~2026-08-09, 같은 세션~~ 완료 —
+문서 최상단 절 참고, 다음은 배치⑪)
 
 `data/v2/worksheets/predicate_dictionary_ext_batch09_v{0,1,2,3}.md`에 이력 보존.
 **v0→v1→v2→v3, 4라운드**(배치⑦과 같은 급 — 이번엔 새로운 오류 종류가 아니라 이
@@ -71,11 +163,8 @@ multiple_force`/`dangerous_object_carriage`(전역 재사용 후보) + 268 신�
 배치도 신규 스키마·DSL primitive 없음(기존 `LegalElementDef`/`ElementBundleDef`/
 `RelationDef`/8차 addendum `derivative_mode.requires`로 전부 표현).
 
-### 다음 세션 시작점 — 배치⑩ 성적 자유 (297·298·299·300·301조)
-
-제출 전 self-check 체크리스트 7항목(배치⑦) + 4항목(배치⑧, 공유 predicate 정의 불변
-등) + 이번 배치가 실증한 원칙(인과관계 이층 모델, fixture predicate 맹신 금지, ATTRIBUTE는
-conduct 전용, 공유 ElementBundleDef 불변)을 함께 적용할 것.
+### ~~다음 세션 시작점 — 배치⑩ 성적 자유 (297·298·299·300·301조)~~ [배치⑩ 완료 —
+문서 최상단 절 참고, 다음은 배치⑪]
 
 ## 각칙 배치⑧ 완료(2라운드), 배치⑨가 다음 시작점 (~~2026-08-09, 같은 세션~~ 완료 —
 문서 최상단 절 참고, 다음은 배치⑩)
