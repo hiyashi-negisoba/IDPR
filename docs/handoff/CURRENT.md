@@ -2,6 +2,57 @@
 
 기준: 2026-08-09 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
+## 각칙 배치⑧ 완료(2라운드), 배치⑨가 다음 시작점 (2026-08-09, 같은 세션)
+
+`data/v2/worksheets/predicate_dictionary_ext_batch08_v{0,1,2}.md`에 이력 보존.
+**v0→v1→v2, 2라운드**(배치⑦의 4라운드보다 단축 — 배치⑦ 종료 시 남긴
+[`predicate-authoring-self-check-checklist`](메모리)를 제출 전에 실제로 대입한 결과, v0
+자체 검증에서 227의 doctrine 오분류 후보를 스스로 표시해두는 등 효과는 있었으나, 새로운
+종류의 오류(아래)가 1건 나와 v1이 필요했다).
+
+**배치⑧ 대상**: 164(현주건조물등방화·치사상) 단독의 방화군 + 225(공문서위조·변조)/
+227(허위공문서작성)/231(사문서위조·변조)/234(위조사문서행사)/239(사인등의 위조·부정사용)
+문서죄군. 문서죄군은 재산죄 pilot 이후 처음 다루는 "문서에 관한 죄" 범주라 선례가 없어,
+위조(유형위조)/변조/허위작성(무형위조)/행사 4개 행위태양을 predicate 층에서 분리·공유하는
+게 이번 배치의 핵심 구조 결정이었다.
+
+**v1에서 사용자가 지적한 신규 오류 패턴(체크리스트 7항목에 없던 것, 메모리
+[`shared-predicate-canonical-meaning-is-immutable`]에 별도 기록)**:
+- **공유 predicate(전역 정의) 재사용 시 canonical_meaning을 조문별로 재정의하면 안 된다**
+  — v0가 `commencement_of_execution`/`legal_element.intent`(총칙13조, 이미 파일럿·배치②
+  에서 확정된 전역 정의)를 "164에 맞게 특화"라며 조문 고유 사실관계를 정의 필드에 써넣은
+  것이 오류. 조문 고유 사실관계는 정의가 아니라 그 조문 절의 authoring 메모로만 남긴다.
+- **HOLD와 source-resolution 미완료는 다르다** — 239조 "부정사용" 카드가 없어 v0가 HOLD로
+  끝냈는데, 239 주석이 238조(51개 워크시트 범위 밖)를 명시 참조하고 있었으므로 원본
+  parquet에서 238조를 직접 열람해 정의를 확정(`legal_element.improper_use_of_genuine_
+  seal`)했다 — 카드→원문→원문이 참조하는 다른 조문까지 확인하는 게 이 방법론의 3단계임을
+  재확인.
+- **predicate 재사용 가능성을 없는 schema typing 문제로 격상하지 않는다** — `forgery_
+  without_authority`의 225·231·239 교차 재사용을 "arguments를 entity로 다형화해야 하는지"
+  같은 가상의 구조 문제로 만들 필요 없이 "동일한 법적 판단인가"만 확인하면 충분.
+- **다른 predicate가 이미 결론을 구조적으로 만들어내면 doctrine을 별도로 만들지 않는다** —
+  227의 간접정범 불성립을 doctrine으로 표에 올렸던 v0 후보는 `official_with_writing_
+  authority=FALSE`가 이미 Elements 불성립을 만들어내므로 삭제.
+
+**최종 확정 predicate**: 방화군은 `arson_target_status`/`burning_result` 신규 + 기존
+`commencement_of_execution`/`legal_element.intent`/`aggravated_result_attribution`(강도
+치상·강도살인과 동일 COMPOSE 패턴) 재사용, 164 치사상의 교사·방조 예견가능성은 8차
+addendum `derivative_mode.requires`로 이미 커버됨을 확인(신규 스키마 불필요), 공동정범
+예견가능성은 gap 아님으로 잠정 결론(각자 자기 case truths로 개별 평가, 2패스 재확인).
+문서죄군은 `forgery_without_authority`/`alteration_of_genuine_document`/`content_
+falsity_by_authorized_official`/`purpose_to_use_as_genuine`/`utterance_conduct`/
+`improper_use_of_genuine_seal` + `public_document_object`(225·227 공유)/`private_
+document_object`/`legal_element.seal_or_signature_object`로 확정 — 이번 배치도 신규
+스키마·DSL primitive 없음.
+
+### 다음 세션 시작점 — 배치⑨ 생명·신체 (250·254·255·257·259·263·267·268·2582_2조)
+
+art263(동시범 특례)은 배치② 19조 predicate와 연결되는 별도 Participation compatibility
+검토 대상이라는 점 기존대로 유지(아래 배치⑦ 절 "다음 세션 시작점"에 이미 명시돼 있던 내용).
+제출 전 self-check 체크리스트 7항목 + 이번에 추가된 4항목(공유 predicate 정의 불변,
+HOLD/source-resolution 구분, schema typing 과잉확장 금지, 구조적으로 이미 커버된 결론은
+doctrine 재생성 금지)을 함께 적용할 것.
+
 ## 각칙 배치⑦ 완료(4라운드), 배치⑧이 다음 시작점 (2026-08-09, 새 세션)
 
 **각칙(카드+원문 병존)의 첫 배치.** 총칙 배치①-⑥과 재료 성격이 달라 먼저 "카드 vs 원문 중
@@ -53,12 +104,8 @@ CompletionPolicy exact-one)은 이미 총칙 배치에서 확정돼 있었는데
   architecture gap 아님, 죄수·시효 등 후속 scope). 최종 표에 HOLD로 명시, 34조와 함께
   2-pass 착수 전 확인 목록에 유지.
 
-### 다음 세션 시작점 — 배치⑧ 방화·문서 (164·225·227·231·234·239조)
-
-워크시트는 이미 있음(`data/v2/worksheets/각칙/{article}.md`). 배치⑦과 같은 카드 1차 방식으로
-바로 v0 착수. 제출 전 위 self-check 체크리스트 6항목(카드 분해/doctrine 자격/긍정형 이름/
-ONE_OF 배타성/CompletionPolicy 반례 대입/일반원칙 서술 전 인접 대조/stage-설명 일치)을 직접
-적용해볼 것 — 배치⑦처럼 3라운드 추가 정정을 반복하지 않는 게 목표.
+### ~~다음 세션 시작점 — 배치⑧ 방화·문서 (164·225·227·231·234·239조)~~ [배치⑧ 완료 —
+문서 최상단 절 참고, 다음은 배치⑨]
 
 배치⑨(생명·신체, 250·254·255·257·259·263·267·268·2582_2조)의 art263(동시범 특례)은 배치②
 19조 predicate와 연결되는 별도 Participation compatibility 검토 대상이라는 점 기존대로 유지.
