@@ -2,7 +2,83 @@
 
 기준: 2026-08-09 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
-## 각칙 배치⑧ 완료(2라운드), 배치⑨가 다음 시작점 (2026-08-09, 같은 세션)
+## 각칙 배치⑨ 완료(4라운드), 배치⑩이 다음 시작점 (2026-08-09, 같은 세션)
+
+`data/v2/worksheets/predicate_dictionary_ext_batch09_v{0,1,2,3}.md`에 이력 보존.
+**v0→v1→v2→v3, 4라운드**(배치⑦과 같은 급 — 이번엔 새로운 오류 종류가 아니라 이
+트랙에서 처음으로 fixture 예시 predicate·기존 확정 배치(④)의 typing을 잘못
+재사용/누락한 오류가 반복됐다).
+
+**배치⑨ 대상**: 250(살인·존속살해)/254(미수범)/255(예비·음모) 살인군 +
+257(상해·존속상해)/259(상해치사)/263(동시범 특례)/258의2(특수상해) 상해·치사군 +
+267(과실치사)/268(업무상과실·중과실치사상) 과실치사상군. 이 트랙이 처음으로
+`docs/contracts/v2/examples/*.yaml` 스키마 검증용 fixture("(예시)")와 실제 조문
+저작이 맞물리는 배치였다.
+
+**v1·v2·v3에서 사용자가 지적한 오류(전부 기존 원칙의 재적용 누락, 신규 원칙 아님)**:
+- **인과관계는 두 층으로 존재한다** — 단일 base OffenseDef 내부(conduct→result)는
+  `elements.causation`의 `LegalElementDef`, COMPOSE된 `DerivedOffenseDef` 컴포넌트
+  간(base↔가중결과)은 `RelationDef`(`relation.causal_nexus`). v0가 이 구분 없이
+  fixture의 `legal_element.death_causation`을 250·259·267·268에 그대로 재사용하려다
+  지적받음. 스키마 확인 결과(`offense_def.schema.json`에 `relations` 필드 없음,
+  `derived_offense_def.schema.json`의 `derivation`에만 존재) `OffenseDef.relations`
+  신설 같은 schema addendum은 불필요 — 현재 DSL이 이미 이 모델을 표현한다는 게
+  사용자의 확정 판단. 다만 `death_causation`(fixture, "사망"·"살해행위"에 이미
+  한정된 정의)을 그대로 재사용하면 268(결과가 `ANY(사망, 상해)`로 분기)의 상해
+  분기를 표현 못 해 **신규 `legal_element.result_causation`(death-agnostic)을
+  정의**, 250·267·268이 이걸 공유하고 `death_causation`은 정의를 그대로 둔 채(canonical
+  meaning 불변 원칙) 미사용으로 남겼다.
+- **배치④가 이미 확정한 typing·미해결 판단을 재확인 없이 새로 바꾸면 안 된다** —
+  255의 `preparatory_conduct`/`conspiracy_agreement`를 `ground_fact`로 잘못
+  적었다가(배치④ 확정은 `legal_element`) 정정, "예비죄 종범 불성립"을 32조
+  legal_standard로 흡수 가능하다고 썼다가(배치④ v1이 이미 "offense 단위
+  `ParticipationPolicyDef`가 Completion state별 mode on/off를 지원 못 해 텍스트로
+  흡수 불가"라고 정정해둔 것과 충돌) 2패스 compatibility 확인사항으로 되돌렸다.
+- **fixture predicate 이름을 real typing 근거로 그대로 쓰지 않는다** — `ground_fact.
+  injury_occurred`(fixture)가 실제로는 "찰과상 인정 여부"·"모발절단은 상해 아님" 같은
+  법적 포섭판단을 담고 있어 `legal_element`로 재분류(2패스에서 `injury_result`로
+  개명 예정), `violence_used`는 "폭행" 한정 이름이 257 실제 범위(폭행 아닌 방법도
+  포함)보다 좁아 결정 보류.
+- **ATTRIBUTE는 conduct 전용, mental state는 actor-specific** — 250 강도살인
+  공동정범의 "살인 부분 고의 공동" 카드를 "6C ATTRIBUTE와 일치"라고 썼다가, 고의
+  같은 actor-specific mental state를 `fold_any`로 병합하면 A의 고의가 B에게
+  전이되는 오류가 생긴다는 지적으로 "conduct만 ATTRIBUTE, intent는 각자 자기
+  CaseTruths로 개별 평가"로 정정(164 배치⑧ 공동정범 예견가능성 원칙과 동일선상).
+- **공유 `ElementBundleDef`는 offense별로 변형하지 않는다** — 268의 업무상과실·중과실
+  가중요건을 "`negligence_bundle`에 추가"라고 썼다가(불변성 원칙 위반), offense-level
+  `ALL(bundle.negligence_bundle, ANY(occupational_duty_of_care, gross_negligence))`로
+  병렬 결합하도록 정정.
+
+**architecture-compatibility 신규 발견 2건**(기존 33조 단서·34조·art263↔19조 목록에
+추가, predicate 사전으로 해결하지 않고 2패스 착수 전 확인 목록으로 이월):
+- **art257 강요·기망에 의한 자상 간접정범 ↔ 34조 gap** — 34조가 미해결로 남긴
+  "간접정범은 방향이 반대"(정범 성공이 아니라 피이용자 불처벌이 조건) 문제의 첫
+  구체 offense 사례.
+- **art250 비신분자의 존속살해 가담 ↔ 33조 단서(책임개별화)** — 가담자별로 다른
+  offense_ref 결과(가중신분 있는 자=존속살해, 없는 자=보통살인)가 나와야 하는 구조.
+- (기존 art263↔19조 항목도 이번에 "검토 예고"에서 "실제 착수"로 전환, 배치④의
+  "예비죄 종범 불성립 ↔ offense 단위 ParticipationPolicyDef" 항목도 재확인되어
+  4번째로 편입.)
+
+**최종 확정 predicate**: 공유 `legal_element.natural_person_victim_status`(250·257
+공유, 자연인·타인·생존)·`legal_element.result_causation`(250·267·268 공유, 신규) +
+250 존속살해 `lineal_ascendant_of_self_or_spouse_status`/`awareness_of_lineal_
+ascendant_status` + 255 살인예비 고유 `specific_victim_identified` + 257 간접정범
+authoring 메모 + 259는 배치⑧ 164·fixture `robbery_causing_injury`와 동일 COMPOSE
+패턴(신규 구조 없음) + 263 Elements는 19조 전량 재사용 + 258의2 신규 `group_or_
+multiple_force`/`dangerous_object_carriage`(전역 재사용 후보) + 268 신규
+`occupational_duty_of_care`/`gross_negligence`(negligence_bundle과 병렬 결합) — 이번
+배치도 신규 스키마·DSL primitive 없음(기존 `LegalElementDef`/`ElementBundleDef`/
+`RelationDef`/8차 addendum `derivative_mode.requires`로 전부 표현).
+
+### 다음 세션 시작점 — 배치⑩ 성적 자유 (297·298·299·300·301조)
+
+제출 전 self-check 체크리스트 7항목(배치⑦) + 4항목(배치⑧, 공유 predicate 정의 불변
+등) + 이번 배치가 실증한 원칙(인과관계 이층 모델, fixture predicate 맹신 금지, ATTRIBUTE는
+conduct 전용, 공유 ElementBundleDef 불변)을 함께 적용할 것.
+
+## 각칙 배치⑧ 완료(2라운드), 배치⑨가 다음 시작점 (~~2026-08-09, 같은 세션~~ 완료 —
+문서 최상단 절 참고, 다음은 배치⑩)
 
 `data/v2/worksheets/predicate_dictionary_ext_batch08_v{0,1,2}.md`에 이력 보존.
 **v0→v1→v2, 2라운드**(배치⑦의 4라운드보다 단축 — 배치⑦ 종료 시 남긴
