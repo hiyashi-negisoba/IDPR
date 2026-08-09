@@ -1,0 +1,584 @@
+# Predicate 사전 전체 통합 검수 게이트 — Master v0
+
+이 문서는 총칙 28개 조문(9-36) + 각칙 52개 조문(재산죄 core 7 + 배치⑦-⑫ 44 + art339
+1, `data/rulebase/article_catalog.json` 51개 + art339 별도)에 걸쳐 14개 series·
+33라운드로 진행된 predicate 1-pass 저작을 하나로 통합한 것이다. 배치별 내용을 다시
+검수받는 게 아니라(이미 v0→...→최종본으로 각각 승인됨), **통합 시점에만 드러나는
+문제**(배치 간 id 충돌, canonical_meaning drift, 흩어진 HOLD의 중복 계상)를 잡는 게
+목적이다. 승인되면 "predicate 사전 전체 통합 검수 게이트 통과"이고, 그 다음 트랙은
+`data/v2/definitions/` 2-pass 실제 조립이다.
+
+방법론: 각 series의 v0(전체 초안)부터 최종본까지 전체 revision chain을 순서대로
+적용해 최종 상태를 복원(Explore 서브에이전트 3개, 총칙/각칙⑦-⑨+art339/각칙⑩-⑫로
+분담), 그 결과를 이 문서에서 병합·교차감사했다.
+
+---
+
+## 1. 커버리지 체크리스트 (80개 조문)
+
+### 1-A. 총칙 (28개, 9-36조)
+
+| 조문 | 확정 series/버전 | 비고 |
+|---|---|---|
+| 9 | batch01 | |
+| 10 | draft(v0-v2) + **batch01_v1 소급 재작성** | ALIC 구조 전면 대체, 최종본은 batch01_v1 |
+| 11 | batch01 | |
+| 12 | batch01(v0→v1) | |
+| 13 | batch02 | |
+| 14 | batch02(v0→v1) | `negligence_bundle` 4분해 |
+| 15 | batch02(v0→v1→v2) | `mistake_bundle` 구조 미확정(2-pass 이월) |
+| 16 | batch01 | |
+| 17 | batch02 | 신규 predicate 없음 |
+| 18 | batch02(v0→v1→v2) | |
+| 19 | batch02(v0→v1→v2) | v0의 "architecture gap" 오판을 v1이 철회 |
+| 20 | batch03(v0→v1) | |
+| 21 | draft(v0→v2) | |
+| 22 | batch03(v0→v1→v2) | |
+| 23 | batch03(v0→v1) | |
+| 24 | batch03(v0→v1) | |
+| 25 | draft(v0→v2) | |
+| 26 | draft(v0→v2) | |
+| 27 | draft(v0→v2) | |
+| 28 | batch04(v0→v2) | |
+| 29 | batch04 | 신규 predicate 없음 |
+| 30 | draft(v0→v1) | |
+| 31 | draft(v0→v2) | |
+| 32 | draft(v0→v2) | |
+| 33 | batch05(v0→v3) | 본문·특수문제=확정, 단서=orchestration 확인(HOLD, 아래 C-33b) |
+| 34 | batch05(v0→v3) | `supervisory_relationship` 1개만 확정, mode/구조 2-pass 이월(HOLD, 아래 C-34) |
+| 35 | batch06(v0→v1) | |
+| 36 | batch06 | **population 대상 아님**(순수 절차 조문, HOLD 아님 — 애초에 대상 밖) |
+
+### 1-B. 각칙 (52개 = 재산죄 core 7 + 배치⑦-⑫ 44 + art339 1)
+
+| 조문 | 확정 series/버전 | 비고 |
+|---|---|---|
+| 329 절도 | draft(v0→v2) | |
+| 333 강도 | draft(v0→v2) | |
+| 347 사기 | draft(v0→v2) | |
+| 350 공갈 | draft(v0→v2) | |
+| 355 횡령·배임 | draft(v0→v2) | |
+| 357 배임수재·증재 | draft(v0→v2) | |
+| 366 재물손괴 | draft(v0→v2) | |
+| 122 직무유기 | batch07(v1) | |
+| 127 공무상비밀누설 | batch07(v1) | |
+| 129 수뢰·사전수뢰 | batch07(v1→v3) | |
+| 130 제3자뇌물제공 | batch07(v1→v2) | |
+| 133 뇌물공여·증뢰물전달 | batch07(v3) | ①②**별도 OffenseDef 2개** 확정 |
+| 136 공무집행방해 | batch07(v1) | |
+| 137 위계공무집행방해 | batch07(v0) | |
+| 151 범인은닉·도피 | batch07(v3) | `offender_status_of_object` HOLD(아래 C-151) |
+| 152 위증·모해위증 | batch07(v1→v2) | |
+| 164 현주건조물등방화·치사상 | batch08(v0→v1) | |
+| 225 공문서위조·변조 | batch08(v0→v1) | |
+| 227 허위공문서작성 | batch08(v1) | |
+| 231 사문서위조·변조 | batch08(v0) | |
+| 234 위조사문서행사 | batch08(v1) | |
+| 239 사인등의 위조·부정사용 | batch08(v1) | 238조 원문 직접 열람으로 확정 |
+| 250 살인·존속살해 | batch09(v1→v2) | 33조 단서 HOLD 구체 사례(아래 C-33b) |
+| 254 살인의 미수범 | batch09(v0) | 독자 predicate 없음 |
+| 255 살인의 예비·음모 | batch09(v1) | |
+| 257 상해·존속상해 | batch09(v1) | 34조 gap 구체 사례(아래 C-34), `injury_result` 명칭 표류(아래 §3-2) |
+| 259 상해치사 | batch09(v0→v2) | |
+| 263 동시범 | batch09(v0) | 19조 participation compatibility(아래 C-263) |
+| 267 과실치사 | batch09(v2) | |
+| 268 업무상과실·중과실치사상 | batch09(v1) | |
+| 258의2 특수상해 | batch09(v0) | QUALIFY 대상 258(중상해)은 80개 목표 밖 — 아래 §1-C |
+| 297 강간 | batch10(v1) | |
+| 298 강제추행 | batch10(v1) | 34조 gap 구체 사례(아래 C-34) |
+| 299 준강간·준강제추행 | batch10(v1) | 예비음모 conduct 갈래 HOLD(아래 B) |
+| 300 강간등의 미수범 | batch10(v1) | 독자 predicate 없음(참조 전용) |
+| 301 강간등 상해·치상 | batch10(v1) | 결합범 구조 HOLD(아래 B) |
+| 319 주거침입·퇴거불응 | batch11(v3) | 별장 subtype·퇴거불응 미수 HOLD(아래 B) |
+| 323 권리행사방해 | batch11(v3) | 33조 본문 gap 구체 사례(아래 C-33a), `taking_conduct` 근접충돌(아래 §3-2) |
+| 328 친족간의 범행 | batch11(v1) | **population 대상 아님**(2025.12.31. 개선입법, 순수 소추조건) |
+| 330 야간주거침입절도 | batch12(v1→v4) | |
+| 331 특수절도 | batch12(v1→v4) | `dangerous_weapon_carriage` 재사용 확인(아래 A) |
+| 332 상습절도 | batch12(v0→v4) | |
+| 334 특수강도 | batch12(v1→v4) | 신규 predicate 없음 |
+| 335 준강도 | batch12(v0→v4) | `occasion_identity` 재사용 확인(아래 A) |
+| 337 강도상해·치상 | batch12(v0→v4) | 337/338 구조 선택 HOLD(아래 B) |
+| 338 강도살인·치사 | batch12(v0→v4) | 위와 동일 |
+| 342 절도·강도의 미수범 | batch12(v0) | 독자 predicate 없음(참조 전용) |
+| 343 강도의 예비·음모 | batch12(v0→v1) | |
+| 344 친족간의 범행 준용 | batch12(v1) | **population 대상 아님**(328과 동일 사유) |
+| 356 업무상횡령·배임 | batch12(v0→v1) | QUALIFY 2개(횡령/배임) 분리 |
+| 360 점유이탈물횡령 | batch12(v0→v4) | `property_of_another` 재사용 확인(아래 A) |
+| 339 강도강간 | art339(v0→v4) | CompletionPolicy active HOLD(아래 C-339), 신규 predicate 0건 |
+
+**검산**: 총칙 28 + 각칙 52 = **80**. 빠지거나 두 번 배정된 조문 **없음**(그룹별
+자체 감사 + 그룹 간 교차 확인 완료). Population 대상 아님으로 확정된 조문은
+**36·328·344 세 건**(전부 "HOLD 아님, 애초에 대상 밖"으로 원문에 명시).
+
+### 1-C. 부수 커버리지 의존성(HOLD 아님, 기록용)
+- **258의2(특수상해)의 QUALIFY 대상 base offense 4개 중 258(상해·존속상해의
+  가중형인 중상해·존속중상해)는 80개 목표 밖** — 258 자체가 아직 어느 배치에서도
+  저작되지 않았다. 258의2가 최종 조립되려면 2-pass 착수 시 258 저작이 선행되거나
+  범위에 추가돼야 한다.
+- **300조·342조는 population 대상이지만 독자 predicate가 없다** — 각각 297·298·
+  299·301(300) / 329~341조(342)의 CompletionPolicy 적용범위(attempted 처벌 근거)만
+  제공하는 참조 전용 조문. 커버리지 결손 아님, HOLD 아님.
+
+---
+
+## 2. Predicate ID 마스터 인벤토리
+
+id별 canonical_meaning은 최종 확정본 기준 요약. "외부 재사용"은 이번 80개 조문
+그룹 밖(총칙 전역 predicate 또는 `docs/contracts/v2/examples/` fixture)에서 정의된
+것을 가리킨다.
+
+### 2.1 총칙 전역 재사용 predicate (여러 category에 걸쳐 재사용)
+
+| id | canonical_meaning | 출처 | 이 범위 안 재사용처 |
+|---|---|---|---|
+| `legal_element.intent` | 객관적 구성요건요소 인식+실현 용인(고의) | 13조 | 전 범위(각칙 전체 offense의 기본 고의) |
+| `legal_element.commencement_of_execution` | 구성요건적 행위를 직접 개시함(실행의 착수) | 25조 | 164, 225, 231, 250, 339(D-1 HOLD 원인) 등 |
+| `bundle.negligence_bundle` | `ALL(duty_of_care, foreseeability, avoidability, breach_of_duty)` | 14조 | 267, 268 |
+| `bundle.omission_bundle` | `ALL(duty_to_act, possibility_to_act, failure_to_act, equivalence_to_commission)` | 18조 | 22조 `conflict_of_duties_defeat`의 전제 |
+| `bundle.mistake_bundle`(미확정) | `ALL(perceived_fact, actual_fact, mistake_within_same_construct)` | 15조 | — (2-pass 실증 후 확정, 실패 시 (C)로 승격) |
+| `legal_element.preparatory_conduct` | 목적한 범죄를 위한 물적 준비행위 | 28조 | 255, 343 |
+| `legal_element.conspiracy_agreement` | 2인 이상 특정 범죄 실행 합의+실질적 위험성 | 28조 | 255, 343 |
+| `legal_element.purpose_to_commit_target_offense` | 준비·합의가 특정 범죄 실현 목적으로 이루어짐 | 28조 | 255, 343 |
+| `relation.causal_nexus` | base 수단행위와 가중결과 사이 (상당)인과관계(COMPOSE 컴포넌트 간) | 외부(robbery_causing_injury/homicide fixture) | 259, 301, 337, 338 (339는 검토 후 미사용) |
+| `relation.occasion_identity` | 본범 실행행위와 시간적·장소적으로 근접한 기회 | 외부(6B 강도살인미수 fixture) | 301, 335(A그룹 HOLD), 337, 338, 339(337·338 경유 재사용) |
+| `primitive.aggravated_result_attribution` | 결과적가중범 귀속(예견가능성+상당인과관계) | 외부(fixture) | 164, 259, 301, 337, 338 |
+| `legal_element.natural_person_victim_status` | 출생 후 사망하지 않은 자연인, 타인 | 배치⑨(250) | 257, 297, 298, 299 |
+
+### 2.2 책임능력·책임조각 (9-12·16조)
+
+| id | type | canonical_meaning | 출처 |
+|---|---|---|---|
+| `ground_fact.actor_age_under_14_at_act_time` | ground_fact | 행위 당시 만 14세 미만 | 9 |
+| `doctrine.juvenile_defeat` | doctrine | 형사미성년자 불벌(DEFEAT) | 9 |
+| `legal_element.discrimination_capacity` | legal_element | 사물변별능력 | 10 |
+| `legal_element.control_capacity` | legal_element | 변별에 따른 행위제어능력 | 10 |
+| `legal_element.self_induced_disorder` | legal_element | 심신장애를 유책하게 자초함 | 10(batch01_v1 소급) |
+| `doctrine.insanity_defeat` | doctrine | 책임무능력 → 책임조각(DEFEAT) | 10 |
+| `doctrine.diminished_capacity_modify` | doctrine | 한정책임능력 → 임의적 감경(MODIFY), `NOT(self_induced_disorder)` | 10 |
+| `legal_element.deaf_mute_status` | legal_element | 농아자(청각+언어기능 모두 결여) | 11 |
+| `doctrine.deaf_mute_mandatory_reduction` | doctrine | 필요적 감경(MODIFY) | 11 |
+| `ground_fact.coerced_act_performed` | ground_fact | 강제상태 하 특정 행위(raw factual linkage) | 12 |
+| `legal_element.irresistible_coercion` | legal_element | 저항불가능한 폭력/방어불가능한 협박 | 12 |
+| `legal_element.self_induced_coercion` | legal_element | 강제상태를 유책하게 자초 | 12(v1, 긍정형+NOT) |
+| `doctrine.coerced_act_defeat` | doctrine | `ALL(irresistible_coercion, coerced_act_performed, NOT(self_induced_coercion))` → DEFEAT | 12 |
+| `legal_element.awareness_of_illegality_lacking` | legal_element | 위법성 불인식 | 16 |
+| `legal_element.justifiable_ground_for_mistake` | legal_element | 불인식에 정당한 이유(회피불가능) | 16 |
+| `doctrine.mistake_of_law_defeat` | doctrine | 위법성 착오 → 책임조각(DEFEAT) | 16 |
+
+### 2.3 고의·과실·착오·인과관계·부작위·동시범 (13-19조)
+
+| id | type | canonical_meaning | 출처 |
+|---|---|---|---|
+| `legal_element.duty_of_care` | legal_element | 객관적 주의의무 | 14 |
+| `legal_element.foreseeability` | legal_element | 결과 예견가능성 | 14 |
+| `legal_element.avoidability` | legal_element | 결과 회피가능성 | 14 |
+| `legal_element.breach_of_duty` | legal_element | 주의의무 위반 | 14 |
+| `ground_fact.perceived_fact` / `ground_fact.actual_fact` | ground_fact | 인식한 사실 / 실제 발생 사실 | 15 |
+| `legal_element.mistake_within_same_construct` | legal_element | 법정적 부합(동일 구성요건 내 착오) | 15 |
+| `legal_element.foreseeability_of_aggravated_result` | legal_element | 중한 결과 예견가능성(결과적가중범 전용) | 15(80개 범위 안 실사용처 없음, 배치 대상 밖 조문에서 공유 예정) |
+| `ground_fact.means_or_object_defect` | ground_fact | 수단·대상 착오로 결과발생 애초 불가능 | 27(불능범) — 15조 착오와 별개 |
+| `legal_element.duty_to_act` | legal_element | 보증인적 지위(작위의무) | 18 |
+| `ground_fact.possibility_to_act` / `ground_fact.failure_to_act` | ground_fact | 행위가능성 / 부작위 | 18 |
+| `legal_element.equivalence_to_commission` | legal_element | 작위와의 동가치성 | 18 |
+| `legal_element.concurrent_independent_acts` | legal_element | 의사연락 없는 각자의 별개 실행행위 | 19 |
+| `legal_element.same_object_of_result` | legal_element | 동일 객체에 결과 발생 | 19 |
+| `legal_element.causal_origin_unascertained` | legal_element | 원인행위 판명 불능(법원이 확정하는 법적 상태) | 19 |
+
+### 2.4 위법성조각 (20-24조)
+
+| id | type | canonical_meaning | 출처 |
+|---|---|---|---|
+| `legal_element.act_pursuant_to_law` / `act_due_to_legitimate_business` | legal_element | 법령에 의한 행위 / 정당업무행위 | 20 |
+| `legal_element.act_not_against_social_norms` | legal_element | 사회상규 부적합성 없음(5요소 종합) | 20 |
+| `doctrine.justifiable_act_defeat` | doctrine | `ANY(위 3개)` → DEFEAT | 20 |
+| `legal_element.infringement_situation` / `defensive_act` / `reasonable_grounds` | legal_element | 침해상황/방위행위/상당성 | 21 |
+| `doctrine.self_defense` | doctrine | 정당방위 DEFEAT | 21 |
+| `doctrine.excessive_defense` | doctrine | 과잉방위(감면/불벌, 구체 stage 2-pass 미확정) | 21 |
+| `legal_element.imminent_danger` / `act_to_avert_danger` / `necessity_of_avoidance` | legal_element | 위난/피난행위/상당성 | 22 |
+| `legal_element.duty_bound_to_endure_danger` | legal_element | 위난감수의무자 | 22 |
+| `legal_element.conflicting_legal_duties` / `higher_or_equal_duty_performed` | legal_element | 의무충돌/상위·동등의무 이행 | 22 |
+| `doctrine.necessity_defeat` / `excessive_necessity` / `conflict_of_duties_defeat` | doctrine | 긴급피난 DEFEAT / 과잉피난(21조 구조 복제 예정) / 의무충돌 DEFEAT | 22 |
+| `legal_element.claim_unpreservable_by_legal_process` / `act_to_prevent_unenforceability` / `necessity_of_self_help` | legal_element | 청구권보전불능/방지행위/상당성 | 23 |
+| `doctrine.self_help_defeat` / `excessive_self_help` | doctrine | 자구행위 DEFEAT / 과잉자구행위(21조 MODIFY만 준용) | 23 |
+| `legal_element.valid_consent_by_disposer` / `harm_caused_pursuant_to_consent` | legal_element | 유효한 승낙/승낙범위 내 침해 | 24 |
+| `legal_element.presumed_consent` / `actual_consent_unobtainable` | legal_element | 추정적 승낙/현실적 승낙 불가능 | 24 |
+| `legal_element.statutory_bar_on_consent` / `consent_based_act_not_against_social_norms` | legal_element | 특례규정 없음/사회상규 부합(두 doctrine 공유) | 24 |
+| `doctrine.victim_consent_defeat` / `presumed_consent_defeat` | doctrine | 승낙 DEFEAT(현실적/추정적) | 24 |
+
+### 2.5 미수론 (25-29조)
+
+| id | type | canonical_meaning | 출처 |
+|---|---|---|---|
+| `legal_element.voluntary_cessation_or_prevention` | legal_element | 자의에 의한 중지·결과방지(중지범) | 26 |
+| `legal_element.dangerousness` | legal_element | 불능미수의 위험성 | 27 |
+| `legal_element.voluntary_surrender_before_execution` | legal_element | 실행 전 자수(31조 연결 여부 미확인, 아래 B) | 28 |
+| `PREPARATION_OR_CONSPIRACY`(CompletionPolicy state) | state | `when=ALL(ANY(preparatory_conduct,conspiracy_agreement),NOT(commencement_of_execution))`, `requires=purpose_to_commit_target_offense` | 28 |
+
+(preparatory_conduct/conspiracy_agreement/purpose_to_commit_target_offense는 §2.1 전역표 참고)
+
+### 2.6 공범론 (30-34조)
+
+| id | type | canonical_meaning | 출처 |
+|---|---|---|---|
+| `legal_element.joint_execution_intent` / `joint_execution_conduct` | legal_element | 공동가공 의사/기능적 행위지배 | 30 |
+| `legal_element.instigator_intent` | legal_element | 교사의 고의 | 31 |
+| `legal_element.aiding_intent` | legal_element | 방조의 고의 | 32 |
+| `legal_element.supervisory_relationship` | legal_element | 피이용자에 대한 지휘·감독 관계 | 34(핵심 predicate만 확정, mode/구조는 2-pass, C-34 참고) |
+
+(33조·34조 자체의 architecture-compatibility는 아래 §4 (C)-33a/33b/34 참고. 신규
+predicate가 이 범위에서 추가되지 않음 — 33조는 참조·논의만.)
+
+### 2.7 누범 (35-36조)
+
+| id | type | canonical_meaning | 출처 |
+|---|---|---|---|
+| `ground_fact.prior_sentence_of_imprisonment_or_greater` | ground_fact | 전범 금고 이상 형 선고 | 35 |
+| `ground_fact.prior_sentence_execution_completed_or_exempted` | ground_fact | 전범 형집행 종료·면제 | 35 |
+| `legal_element.prior_sentence_still_effective` | legal_element | 전범 형선고 효력 유지 | 35 |
+| `legal_element.subsequent_offense_within_recidivism_period` | legal_element | 3년 이내 후범 | 35 |
+| `doctrine.recidivism_modify` | doctrine | 누범 가중(Punishability MODIFY, 필요적) | 35 |
+
+(36조는 population 대상 아님 — §1-A 참고. 35조 architecture gap은 이미 해소
+확정됐으므로 §4 HOLD 목록에 올리지 않는다 — 계획 승인 사항.)
+
+### 2.8 재산죄 (pilot 7 + 배치⑫ 절도·강도·횡령군)
+
+| id | type | canonical_meaning | 출처 | 재사용 |
+|---|---|---|---|---|
+| `legal_element.unlawful_appropriation_intent` | legal_element | 불법영득의사 | 329(pilot) | 333, 355, 330, 331, 332, 334, 335, 356, 360 |
+| `legal_element.possession` | legal_element | 사실상 지배+점유의사 | 329 | — |
+| `ground_fact.taking_conduct` | ground_fact | 타인 점유 재물을 점유자 의사에 반해 자기 점유로 옮김 | 329 | 330, 335 등(**323의 `legal_element.taking_conduct`와 근접 충돌 — 아래 §3-2**) |
+| `legal_element.robbery_level_violence` | legal_element | 반항억압 정도의 폭행·협박 | 333(pilot) | 334, 335, 337 |
+| `legal_element.deception` | legal_element | 기망→착오 | 347 | — |
+| `relation.deception_error_disposition_causal_nexus` | relation | 기망→착오→처분 인과관계 | 347 | — |
+| `legal_element.fear_inducement` | legal_element | 협박에 의한 외포심 | 350 | — |
+| `legal_element.property_disposition` | legal_element | 처분행위 | 347·350 공유(pilot) | — |
+| `legal_element.disposition_authority`(미확정) | legal_element | 처분권한(RelationDef 표현 가능성 미확정, 2-pass 이월) | 347·350(pilot) | — |
+| `legal_element.duty_of_other_affairs` | legal_element | 타인 사무 처리자 지위 | 355·357(pilot) | 356 |
+| `legal_element.entrustment_relationship` | legal_element | 위탁관계 | 355(pilot) | — |
+| `legal_element.custody_of_anothers_property` | legal_element | 타인 재물 보관자 지위 | 355(pilot) | — |
+| `legal_element.embezzlement_manifestation` | legal_element | 불법영득의사의 객관적 표현 | 355(pilot) | 356, 360(재사용 확인 대상, 아래 A) |
+| `legal_element.improper_solicitation` | legal_element | 부정한 청탁 | 357(pilot) | — |
+| `legal_element.utility_impairment` | legal_element | 효용침해(손괴) | 366(pilot) | — |
+| `legal_element.object_ownership_other` | legal_element | 타인 소유물 | 366(pilot) | 360과 재사용 확인 대상(아래 A) |
+| `doctrine.quasi_robbery` | doctrine(→**335 DerivedOffenseDef로 확정**) | 절도 기수 후 탈환방지 등 목적 폭행·협박 | pilot v1 HOLD → 배치⑫에서 해소 | — |
+| `doctrine.complete_suppression_becomes_robbery` | doctrine | 의사완전억압 시 강도죄 | pilot(350) | — |
+| `legal_element.valid_claim_exists` / `claim_scope` / `means_socially_acceptable` | legal_element | 유효채권/권리범위/수단상당성 | pilot(333·350 권리행사) | — |
+| `legal_element.nighttime_entry` | legal_element | 일몰~일출 사이 침입(시점-내장형) | 330 | 331①, 334 |
+| `legal_element.damage_to_entry_barrier` | legal_element | 문·담 등 물리적 훼손 | 331① | — |
+| `legal_element.dangerous_weapon_carriage` | legal_element | 흉기(살상·파괴용 또는 준하는 위험성) 소지 | 331② | 334(재사용 확인 대상, 아래 A) |
+| `legal_element.joint_commission_by_two_or_more` | legal_element | 2인 이상 현장적 협동 | 331② | 334 |
+| `legal_element.habitual_theft_propensity` | legal_element | 상습 절도 습벽 | 332 | — |
+| `legal_element.purpose_to_resist_recapture` / `purpose_to_avoid_arrest` / `purpose_to_conceal_evidence` | legal_element | 탈환항거/체포면탈/증거인멸 목적 | 335 | — |
+| `legal_element.injury_result`(§3-2 명칭 표류 참고) | legal_element | 상해 결과 | 257(배치⑨) | 301, 337 |
+| `legal_element.injury_intent` | legal_element | 상해에 대한 별도 고의 | 301(배치⑩) | 337 |
+| `legal_element.homicide_intent` | legal_element | 사망 결과에 대한 별도 고의 | 338 | — |
+| `legal_element.business_status` | legal_element | 업무상 재물보관·사무처리자 | 356 | — |
+| `legal_element.property_of_another` | legal_element | 타인 소유 재물 | 360 | 재사용 확인 대상(아래 A) |
+| `legal_element.lost_or_stray_property_status` | legal_element | 유실물·표류물 등 점유이탈 재물 | 360 | — |
+
+(334는 신규 predicate 없음 — 319·330·331·333 재사용 조합. 337·338의 나머지
+predicate는 §2.1·§2.11 재사용. 342·343은 §2.5·§2.1 재사용, 343의
+`purpose_to_commit_target_offense`만 28조 재사용.)
+
+### 2.9 공무원·사법 (122·127·129·130·133·136·137·151·152조)
+
+| id | type | canonical_meaning | 출처 | 재사용 |
+|---|---|---|---|---|
+| `legal_element.public_official_status` | legal_element | 공무원 지위 | 122 | — |
+| `legal_element.duty_has_concrete_lawful_basis` | legal_element | 구체적 법적 근거 있는 직무의무 | 122 | (136의 `lawful_performance_of_duty`와 판단기준 유사하나 actor 방향이 반대라 의도적 분리 유지) |
+| `legal_element.concrete_risk_at_time_of_conduct` | legal_element | 행위시 구체적 위험성 | 122 | — |
+| `legal_element.duty_abandonment_conduct` / `conscious_abandonment_intent` | legal_element | 직무 방임·포기 / 의식적 방임 고의 | 122 | — |
+| `legal_element.current_or_former_public_official` | legal_element | 현직·전직 공무원 | 127 | — |
+| `legal_element.job_related_secret_worthy_of_protection` | legal_element | 직무상 보호가치 비밀 | 127 | — |
+| `legal_element.disclosure_conduct` | legal_element | 구체적 누설(관공서 간 정상전달 제외 흡수) | 127 | — |
+| `doctrine.corruption_report_justified_act` | doctrine | 부패신고 누설 정당행위(DEFEAT) | 127 | — |
+| `legal_element.official_or_arbitrator_status` / `job_relatedness` / `quid_pro_quo` / `solicitation_received` | legal_element | 공무원·중재인/직무관련성/대가관계/청탁 | 129 | 130, 133 |
+| `ground_fact.bribe_acceptance` / `bribe_request` / `bribe_promise` | ground_fact | 수수/요구/약속 | 129 | `bribe_promise`는 133①의 `completed.when`에도 결합 |
+| `legal_element.appropriation_intent_of_bribe` | legal_element | 뇌물 영득의사 | 129 | — |
+| `legal_element.prospective_official_probability` | legal_element | 장래 공무원 개연성(사전수뢰) | 129 | — |
+| `ground_fact.solicitation_received_before_appointment_timing` | ground_fact | 취임 전 청탁 수령 시점 | 129 | — |
+| `legal_element.solicitation_impropriety` | legal_element | 부정한 청탁(130 강화 요건) | 130 | — |
+| `ground_fact.third_party_benefit_causation` / `_demand` / `_promise` | ground_fact | 제3자 공여 하게함/요구/약속 | 130 | — |
+| `ground_fact.bribe_offer_expression_made` / `_arrived` | ground_fact | 공여 의사표시 발신/도달 | 133① | — |
+| `ground_fact.intermediary_delivery_receipt_conduct` | ground_fact | 증뢰물 현실 교부수령 | 133② | — |
+| `legal_element.self_benefit_purpose` | legal_element | 제3자 자기이득 목적 수수(+`NOT()`) | 133② | — |
+| `legal_element.lawful_performance_of_duty` | legal_element | 적법한 직무집행 | 136 | — |
+| `legal_element.violence_or_threat_against_official` | legal_element | 공무원에 대한 폭행·협박 | 136 | — |
+| `legal_element.purpose_of_coercing_duty_or_resignation` | legal_element | 직무강요·사직목적(136②) | 136 | — |
+| `legal_element.deceptive_scheme_conduct` | legal_element | 위계에 의한 공무집행방해 | 137 | — |
+| `ground_fact.concealment_or_escape_conduct` | ground_fact | 은닉·도피(작위·부작위) | 151 | — |
+| `legal_element.act_directed_at_another_offender` | legal_element | 타인 지향 은닉·도피 | 151 | — |
+| `legal_element.omission_requires_guarantor_status` | legal_element | 부작위 도피의 보증인 지위 | 151 | — |
+| `doctrine.relative_cohabiting_family_exemption` | doctrine | 친족비호 처벌면제(**Punishability EXEMPT**) | 151 | — |
+| `legal_element.for_the_offenders_benefit` | legal_element | 범인 본인 이익 목적 | 151 | — |
+| `legal_element.offender_status_of_object`(**HOLD**) | legal_element | 대상자의 죄질(벌금 이상) — cross-actor dependency | 151 | 아래 §4 (C)-151 |
+| `legal_element.witness_took_lawful_oath` | legal_element | 적법 선서 증인 | 152 | — |
+| `ground_fact.false_testimony_conduct` | ground_fact | 허위진술 | 152 | — |
+| `ground_fact.correction_before_examination_end` | ground_fact | 신문종료 전 철회·시정 | 152 | — |
+| `ground_fact.examination_ended` / `post_oath_completed` | ground_fact | 완료시점(사전/사후선서형) | 152 | — |
+| `legal_element.purpose_to_prejudice_specific_party` | legal_element | 모해 목적 | 152 | — |
+| `legal_element.proceeding_commenced` | legal_element | 형사·징계절차 개시 중 | 152 | — |
+
+### 2.10 방화·문서 (164·225·227·231·234·239조)
+
+| id | type | canonical_meaning | 출처 | 재사용 |
+|---|---|---|---|---|
+| `legal_element.arson_target_status` | legal_element | 현주·현존 건조물 등 객체 | 164 | — |
+| `legal_element.burning_result` | legal_element | 독립연소 결과 | 164 | — |
+| `legal_element.forgery_without_authority` | legal_element | 권한 없는 명의사용 작성·현출 | 225 | 231, 239 |
+| `legal_element.alteration_of_genuine_document` | legal_element | 진정문서 내용 변경 | 225 | 231 |
+| `legal_element.purpose_to_use_as_genuine` | legal_element | 진정한 것처럼 사용할 목적 | 225 | 227, 231, 239 |
+| `legal_element.utterance_conduct` | legal_element | 행사(정을 모르는 자 대상 현출) | 225 | 234, 239 |
+| `legal_element.public_document_object` | legal_element | 공문서 객체 | 225 | 227 |
+| `legal_element.official_with_writing_authority` | legal_element | 작성권한 있는 공무원 | 227 | — |
+| `legal_element.content_falsity_by_authorized_official` | legal_element | 권한자의 허위기재 | 227 | — |
+| `legal_element.private_document_object` | legal_element | 사문서 객체 | 231 | — |
+| `legal_element.seal_or_signature_object` | legal_element | 인장·서명·기명·기호 | 239 | — |
+| `legal_element.improper_use_of_genuine_seal` | legal_element | 진정 인장의 권한 없는/범위 초과 사용 | 239(238조 원문 직접 확인) | — |
+
+### 2.11 생명·신체 (250·254·255·257·259·263·267·268·258의2조)
+
+| id | type | canonical_meaning | 출처 | 재사용 |
+|---|---|---|---|---|
+| `ground_fact.killing_conduct` | ground_fact | 살해행위(수단불문) | 250 | — |
+| `ground_fact.death_of_victim` | ground_fact | 사망 결과 | 250 | 259, 267, 268, 338(외부재사용) |
+| `legal_element.result_causation` | legal_element | (death-agnostic 신규) 행위-결과 상당인과관계 | 250 | 267, 268 |
+| `legal_element.lineal_ascendant_of_self_or_spouse_status` | legal_element | 자기·배우자 직계존속 | 250 | 257 |
+| `legal_element.awareness_of_lineal_ascendant_status` | legal_element | 존속 인식 | 250 | — |
+| `legal_element.specific_victim_identified` | legal_element | 살해대상 구체적 확정(예비) | 255 | — |
+| `legal_element.injury_result`(구 `injury_occurred`, §3-2 참고) | legal_element | 상해 결과(생리적 기능 훼손) | 257 | 301, 337 |
+| `ground_fact.violence_used`(**미확정**) | ground_fact | 상해 수단(유형력/기타 방법) — 이름이 범위보다 좁음, 미확정 유지 | 257 | — |
+| `legal_element.concurrent_independent_acts` / `same_object_of_result` / `causal_origin_unascertained` | legal_element | (19조 재사용) | 외부 | 263 |
+| `legal_element.group_or_multiple_force` / `dangerous_object_carriage` | legal_element | 단체·다중 위력 / 위험한 물건 휴대 | 258의2 | `dangerous_object_carriage`는 331 `dangerous_weapon_carriage`와 재사용 확인 대상(아래 A) |
+| `legal_element.occupational_duty_of_care` | legal_element | 업무상 가중 주의의무 | 268 | — |
+| `legal_element.gross_negligence` | legal_element | 현저한 주의의무 위반 정도 | 268 | — |
+
+### 2.12 성적 자유 (297·298·299·300·301조)
+
+| id | type | canonical_meaning | 출처 | 재사용 |
+|---|---|---|---|---|
+| `legal_element.coercive_conduct` | legal_element | 폭행·협박 | 297·298 공유 | — |
+| `legal_element.directness_of_coercion_by_offender` | legal_element | 행위자 본인 직접 가함 | 297·298 공유 | — |
+| `legal_element.coercion_induced_sexual_act_causation` | legal_element | 폭행·협박→성적행위 인과(death-agnostic 패턴) | 297·298 공유 | — |
+| `legal_element.coercion_sufficiency_for_rape` | legal_element | 항거불능/현저곤란 정도 | 297 | — |
+| `ground_fact.vaginal_intercourse_conduct` | ground_fact | 성기 삽입·결합 | 297 | 299 |
+| `legal_element.coercion_sufficiency_for_forcible_indecency` | legal_element | 낮은 기준(2018도13877 전합) | 298 | — |
+| `legal_element.indecent_act` | legal_element | 성적 자유 침해 추행 | 298 | 299 |
+| `legal_element.mental_incapacity_or_physical_helplessness_status` | legal_element | 심신상실·항거불능 상태 | 299 | — |
+| `legal_element.exploitation_of_incapacity` | legal_element | 그 상태를 이용(객관적 이용관계만) | 299 | — |
+
+### 2.13 주거·권리행사 (319·323조)
+
+| id | type | canonical_meaning | 출처 |
+|---|---|---|---|
+| `legal_element.dwelling_or_managed_premises_object` | legal_element | 주거·관리 건조물 등 | 319 |
+| `legal_element.trespass_entry` | legal_element | 평온을 해하는 침입 | 319 |
+| `legal_element.retreat_demand_by_authorized_person` / `justifiable_reason_for_refusal`(+NOT) / `ability_to_comply_with_retreat_demand` / `failure_to_comply_without_delay` | legal_element | 퇴거요구/정당사유/이행가능성/지체 없는 불이행 | 319(퇴거불응) |
+| `legal_element.own_property_object` / `third_party_possession_or_right_object` | legal_element | 자기소유물/타인점유·권리객체 | 323 |
+| `legal_element.taking_conduct`(§3-2 근접충돌 참고) | legal_element | 자기소유물 취거(불법영득의사 불요) | 323 |
+| `legal_element.concealment_conduct` / `damage_conduct` | legal_element | 은닉/손괴 | 323 |
+| `legal_element.obstruction_of_right_exercise` | legal_element | 권리행사방해 우려 | 323 |
+
+### 2.14 art339 강도강간
+
+신규 predicate **0건**. 확정된 건 전부 재사용 조합:
+- robbery-side candidate refs: `offense.robbery[333/334/335]`(population 대상), `[336]`은 coverage 참조만
+- rape_part: `offense.rape[297]`(component ref)
+- `relation.occasion_identity`(337·338 경유 재사용)
+
+CompletionPolicy는 **active HOLD**(§4 (C)-339 참고).
+
+---
+
+## 3. 이상 징후 감사 결과
+
+### 3-1. 같은 id가 두 번 "신규" 선언된 사례
+**0건.** 80개 조문·14개 series 전체에서 확인.
+
+### 3-2. 이번 통합 과정에서 새로 포착한 문제 2건
+
+**① `legal_element.injury_result` 명칭 표류.** 배치⑨(257) 워크시트 최종본은
+`injury_occurred`(fixture 이름)를 legal_element로 재분류하면서 "2-pass에서
+`injury_result`로 개명 예정"이라고만 적어뒀는데, 그 이름을 실제로 바꾸지 않은
+채로 배치⑩(301)·배치⑫(337)가 이미 `injury_result`라는 **바뀐 이름을 전제로**
+재사용을 확정해버렸다. 즉 정의 원본 파일(배치⑨)과 소비하는 파일(배치⑩·⑫)의
+문자열이 서로 다르다 — 내용 충돌은 아니지만(같은 predicate를 가리키는 것은
+분명함), 2-pass에서 `data/v2/definitions/`에 실제 id 문자열을 적을 때 어느
+쪽 표기가 canonical인지 지금 확정해야 한다. **제안: `legal_element.injury_result`로
+통일**(배치⑩·⑫가 이미 이 이름으로 재사용을 확정했으므로), 배치⑨ 워크시트
+자체는 이력 보존 원칙상 고치지 않고 이 마스터 문서에 canonical 이름만 기록한다.
+
+**② `taking_conduct` 근접 충돌.** 배치⑪(323)의 `legal_element.taking_conduct`
+("자기 소유물을 점유자 의사에 반해 취거, 불법영득의사 불요")와 재산죄 pilot(329)의
+`ground_fact.taking_conduct`("타인 점유 재물을 자기 점유로 옮김")는 전체 id
+문자열(prefix 포함)이 달라 엄밀한 "중복 선언"은 아니지만, 접두사만 다르고
+이름이 완전히 같아 2-pass 저작·리뷰 시 혼동 위험이 크다(둘 다 "취거"라는 같은
+한국어 동사를 가리키지만 객체·불법영득의사 요건이 반대). 어느 워크시트도 이
+근접을 서로 인지하지 못한 채 확정했다. **제안: 2-pass 착수 전 323측 id를
+`legal_element.taking_of_own_property_conduct` 등으로 개명**해 혼동을 없앤다
+(329측은 재산죄 pilot에서 이미 여러 조문이 재사용 중이라 그대로 둔다).
+
+### 3-3. canonical_meaning drift로 확정된 위반 사례
+**0건.** 재정의를 시도했다가 같은 라운드 안에서 즉시 철회된 사례(`commencement_
+of_execution`의 조문별 특화 시도, `legal_element.intent`의 offense-specific
+재정의 시도)는 있으나 최종 상태에는 drift가 남지 않았다. `death_causation`
+(fixture)을 재사용하려다 canonical_meaning이 너무 좁아 재사용을 포기하고
+`result_causation`을 신규로 만든 사례는 **원칙이 정확히 작동한 사례**로 기록.
+
+### 3-4. v0에서 있었다가 최종본에서 삭제된 predicate
+80개 조문 전체에서 확인된 삭제 목록은 부록(§6)에 조문별로 정리했다. 공통 패턴
+3가지로 요약된다: (a) cross-offense 전환·구성요건 불해당을 doctrine으로 만들었다가
+legal_element negative 조건으로 재분류(가장 빈발, 8건 이상), (b) 부정형
+predicate를 긍정형+`NOT()`으로 재선언(3건), (c) 개정법/제도 변경 반영으로
+구조 자체가 소멸(328조 친족상도례 개선입법 1건).
+
+---
+
+## 4. 통합 HOLD / 2-pass 확인 목록
+
+### (A) predicate/relation 재사용 확인 — 이번 게이트에서 판정 시도
+
+| # | 항목 | canonical_meaning 대조 | 제안 판정(사용자 확인 필요) |
+|---|---|---|---|
+| A-1 | 331 `dangerous_weapon_carriage`(흉기) ↔ 258의2 `dangerous_object_carriage`(위험한 물건) | "흉기"는 판례상 "위험한 물건"의 부분집합으로 이해되는 것이 통설·판례(위험한 물건이 더 넓은 개념 — 예: 깨진 병·자동차 등은 '위험한 물건'이나 통상 '흉기'라 부르지 않음) | **별도 유지**(재사용 안 함) — 정의역이 다르므로 331은 좁은 개념(흉기), 258의2는 넓은 개념(위험한 물건)으로 각자 확정 |
+| A-2 | 335 `occasion_identity`("절도의 기회") ↔ 337·338 `occasion_identity`("강도의 기회") | 둘 다 "본범 실행행위와 시간적·장소적 근접성(현장성)"이라는 동일한 심사기준을 쓴다 — base offense가 절도냐 강도냐의 차이는 판단대상이지 판단기준의 차이가 아님 | **재사용 확정** — canonical_meaning을 "본범(base offense) 실행행위와 시간적·장소적으로 근접한 기회"로 일반화해 335·337·338·339가 공유 |
+| A-3 | 360 `property_of_another` ↔ 366 `object_ownership_other` | 둘 다 민법상 소유권 귀속(무주물 제외)이라는 동일한 법적 판단 | **재사용 확정** — 360이 366의 정의를 그대로 재사용(또는 공통 id로 통합, 2-pass에서 어느 조문 명의로 canonical화할지만 결정) |
+| A-4 | `embezzlement_manifestation`을 355(원 출처)·356·360이 공유 | 세 조문 모두 "불법영득의사의 객관적 표현행위"로 동일 | **재사용 확정** — 정의 불변 원칙대로 355 정의 그대로 356·360 재사용 |
+
+**A그룹 전체가 판정되면 2-pass 착수 전 HOLD로 남는 predicate/relation 재사용
+문제는 0건이 된다.** 단, A-1·A-2·A-3·A-4 전부 이 문서(v0)에서 내가 제안한
+판정이므로, 사용자 검수에서 반려되면 해당 항목만 HOLD로 되돌린다.
+
+### (B) 순수 구조 선택 — 2-pass 저작 시점 결정 대상 (predicate 사전 문제 아님)
+
+1. **301/337/338 결합범(고의)+결과적가중범(과실) 병존** — 별도 `DerivedOffenseDef`
+   2개 vs 단일 definition 내부 두 갈래. (301이 원 출처, 337·338이 3·4번째 사례로
+   추가된 동일 구조 선택 — 세 번 따로 세지 않는다.)
+2. **299 예비·음모(305조의3)의 conduct 갈래 제한** — 준강간에만 적용, 추행·유사간음
+   불가를 `PREPARATION_OR_CONSPIRACY.punishable`(고정 bool)로 표현 못 함. 후보:
+   (A) 준강간/준강제추행 별도 OffenseDef 분리, (B) 예비 단계 predicate에 목적
+   대상 명시.
+3. **art319 계절적 미사용 별장의 "주거→건조물" subtype 재분류** — 단일
+   `dwelling_or_managed_premises_object`의 legal_standard로 표현 가능한지,
+   서브타입 분리가 필요한지.
+4. **art319 퇴거불응(2항) attempted state 성립 여부** — 322조가 미수처벌의
+   법적 근거는 제공(확정)하나, 퇴거불응 자체에 attempted state가 성립하는지는
+   학설대립(긍정설: 부진정거동범, `punishable=true` / 부정설: 진정부작위범·
+   즉시기수, attempted state 자체를 두지 않음).
+5. `bundle.mistake_bundle`(15조)이 `ElementBundleDef`로 실제 표현 가능한지 —
+   2-pass 실증, 실패 시 (C)로 승격.
+6. `legal_element.disposer_identity_match`/`disposition_authority`(347·350
+   처분권한)의 `RelationDef` 표현 가능성 — pilot부터 미확정 이월.
+7. 마이너 cross-check(블로킹 아님): `voluntary_surrender_before_execution`(28)과
+   31조(교사받은자 불착수 특례)의 연결 여부 / `art137_sec6.non_suspect_
+   impersonation_exception`(137)과 151조 사실관계 중복 여부 / `avoidability`
+   (negligence_bundle)와 `result_causation`의 경계 정리.
+
+### (C) architecture-compatibility — 코드 확인 필요, predicate 사전으로 못 닫음
+
+| # | axis | concrete 사례 | 문제 성격 |
+|---|---|---|---|
+| C-33a | 33조 **본문**/신분범 공동정범 | art323(소유자 아닌 자 가담) | co-principal ATTRIBUTE에서 actor-specific 신분 status를 다른 actor에게 전이하면 안 됨(status attribution/participation) |
+| C-33b | 33조 **단서**/책임 개별화 | art250(비신분자 존속살해 가담) | principal offense A ≠ accessory offense B(cross-offense derivative target/orchestration) |
+| C-34 | 34조 간접정범 | art257(자상 강요·기망), art298(피해자를 도구로) | `principal_realization_truth`가 "정범 성공"을 조건으로 하나 간접정범은 "피이용자 불처벌"이 조건 — 방향이 반대 |
+| C-151 | 151조 `offender_status_of_object` | (151 자체) | 다른 actor의 법적 상태(벌금 이상 죄)를 참조하는 cross-actor symbolic dependency |
+| C-263 | 263조 동시범 특례 ↔ 19조 | (263 자체) | "공동정범의 예에 의한다"는 법률상 의제(원인불명 시 처벌효과만 동일)이지 6C `apply_attribution`(실제 공동가공 의사 전제)이 아님 |
+| C-339 | art339 CompletionPolicy | (339 자신) | D-1: component별 `commencement_of_execution` 구별 불가 / D-2: component별 slot suspension 불가 — **339 자신의 2-pass assembly 확정 전에만** 해소, 다른 조문 2-pass의 전제조건 아님 |
+
+**35-36조는 이 목록에서 제외한다** — art35는 기존 Punishability MODIFY effect로
+표현 가능함이 이미 검수로 확정됐고(architecture gap 해소됨), 남은 `modifier_ref`
+저작 convention은 (B)에도 올리지 않는 2-pass 저작 메모 수준이다. art36은 절차법
+조문으로 scope-out이 이미 확정됐다(§1-A).
+
+### Non-blocking watch (HOLD도 architecture gap도 아님, 감시 항목)
+
+- **art339의 COMPOSE(offense, offense) element-leaf 재사용 충돌 메커니즘** —
+  `compile.py`의 `_compile_compose`가 local_key 네임스페이스 없이 slot을
+  ALL-결합하는 구조가 코드로 실재 확인됐으나(repro), 339의 확정 predicate
+  세트(robbery mental=`unlawful_appropriation_intent`, rape mental=`legal_
+  element.intent`)는 겹치는 id가 없어 미발동. 향후 다른 조문에서 같은
+  COMPOSE(offense, offense) 패턴을 쓸 때(예: 337·338의 로버리사이드 구조
+  선택과 무관하게 완전한 offense 2개를 합성하는 사례) 슬롯별 id 겹침을 매번
+  확인할 것.
+
+---
+
+## 5. 게이트 판정 요청
+
+이 v0이 승인되면:
+1. `docs/handoff/CURRENT.md`에 게이트 통과 기록 + 2-pass(`data/v2/definitions/`
+   실제 조립) 시작점을 남긴다.
+2. §4 (A)그룹의 4개 제안 판정이 확정되어 A그룹 HOLD가 0건이 된다.
+3. §3-2의 명칭 표류·근접 충돌 2건은 2-pass 착수 시 실제 id 문자열 확정에 반영한다
+   (기존 워크시트 파일 자체는 이력 보존을 위해 고치지 않는다).
+4. (B) 구조 선택 7건 + (C) architecture-compatibility 6건은 목록만 확정하고,
+   해소는 2-pass 저작 시점(C는 코드 조사 포함)으로 넘긴다.
+
+---
+
+## 6. 부록 — 삭제된 predicate 전체 목록 (조문 순)
+
+<details>
+<summary>펼치기 — 80개 조문에서 v0 이후 삭제·폐기된 predicate 전체(삭제 이유 포함)</summary>
+
+**총칙**
+- `ground_fact.criminal_realization_intent`(25조) — 미완성 상태를 predicate로
+  역수입하지 않고 각 offense 고유 고의·목적 요소 재사용으로 방향 전환
+- `ground_fact.result_not_occurred`(25조) — 개념이 너무 넓어 각 죄의
+  `CompletionPolicy.states.*.when`이 직접 미완성 조건을 표현하도록 변경
+- `doctrine.actio_libera_in_causa_exception`(10조) — "exception의 exception"
+  패턴 대신 `self_induced_disorder`+`NOT()` gating으로 흡수(12조 패턴 소급)
+- `legal_element.coercion_not_self_induced`(12조) — 부정형 predicate 이름
+  금지 원칙 위반, 긍정형+`NOT()`으로 대체
+- `legal_element.consent_not_against_social_norms`(24조) — 추정적 승낙에
+  안 맞는 표현이라 일반화·개명
+- `legal_element.agent_unpunished_or_negligent`(34조) — symbolic runtime이
+  이미 계산 가능한 법적 결론을 LegalElement로 잘못 승격
+- `doctrine.right_exercise_defense`(재산죄 pilot) — 강도(구성요건 부정)와
+  공갈(위법성조각)을 하나의 DoctrineDef로 합칠 수 없어 조문별 구조로 대체
+- `ground_fact.disposer_identity_match`(재산죄 pilot) — `disposition_authority`
+  후보로 대체 제시됐으나 끝내 미확정(위 (B)-6 참고)
+- `PREPARATION`/`CONSPIRACY`(28조 2-state 분리안) — exact-one 규칙 위반,
+  단일 `PREPARATION_OR_CONSPIRACY`로 병합
+- `doctrine.concurrent_causation_default_attempt`(19조) — 별도 doctrine이
+  아니라 기존 CompletionPolicy state로 표현 가능함이 확인됨
+
+**각칙**
+- `doctrine.third_party_recharacterized_as_direct_bribery`(130) — cross-offense
+  경계는 doctrine 아님
+- `doctrine.illegal_duty_act_reduces_to_general_offense`(136) — 동일 이유
+- `doctrine.self_benefit_intermediary_excludes_delivery_offense`(133) —
+  Elements negative 조건 → 긍정형 legal_element로 재분류
+- `doctrine.self_concealment_not_an_offense`(151) — 구성요건 해당성 없음은
+  애초에 doctrine 자격 없음
+- `doctrine.interofficial_transmission_not_disclosure`(127) — negative 조건
+  → `disclosure_conduct`에 흡수
+- `doctrine.mohae_requires_criminal_or_disciplinary_case`(152) — QUALIFY의
+  자연스러운 결과, 별도 doctrine 불필요
+- `doctrine.concrete_risk_required_for_subject`(122) — Elements 흠결로 재분류
+- `doctrine.nonofficial_cannot_be_indirect_perpetrator_of_status_offense`(227)
+  — 진정신분범 요건 자체가 이미 커버
+- `ground_fact.seal_or_signature_object`(239) — legal_element로 재분류
+- `ground_fact.coercive_conduct`/`indecent_act_conduct`(297·298) — 구성요건
+  평가 포함 → legal_element로 재분류
+- `ground_fact.injury_occurred`(301) — 배치⑨ 재분류를 뒤늦게 반영(→`injury_result`)
+- 301 "attempted state 자체를 두지 않는다"(v0 설계) — 미수불처벌은 `punishable=
+  false`로 표현하는 133① 원칙 재적용
+- `legal_element.no_justifiable_reason_for_refusal`(319) — 부정형 → 긍정형+NOT
+- `doctrine.close_kin_property_offense_exemption`(328) — 2025.12.31. 개선입법
+  시행으로 구조 자체 소멸
+- `ground_fact.disabled_victim_abuse_property_crime_status`/`legal_element.
+  kinship_status_within_statutory_range`(328) — 위 doctrine 삭제에 연동
+- `legal_element.nighttime`(330, 시점-비종속형) — `nighttime_entry`(시점-내장형)로 교체
+- 337/338 v1의 구체 완성 공식(variant별) — 301 HOLD 선결 오류, 고의 없는
+  강도치사 봉쇄 버그
+- 335 Elements의 `taking_conduct` 직접 요구(v1) — 절도미수+폭행 사건 봉쇄 오류
+- 335/337/338의 `causal_nexus`/`occasion_identity`를 `elements.requires`에
+  포함 — Elements/Relation 층위 혼동 재발
+- 343 목적요건 `legal_element.intent` 사용 — 13조 고의를 목적으로 조용히
+  재정의, `purpose_to_commit_target_offense`로 대체
+- `356.base_offense=ANY(횡령,배임)` 단일구조 — 서로 다른 죄종 identity를
+  하나로 뭉갬, QUALIFY 2개로 분리
+
+</details>
