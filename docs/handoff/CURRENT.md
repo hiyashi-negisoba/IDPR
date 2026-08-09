@@ -2,7 +2,71 @@
 
 기준: 2026-08-09 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
-## 각칙 배치⑫ 완료(4라운드), art339가 다음 시작점 (2026-08-09, 같은 세션)
+## art339 강도강간 predicate 1-pass 완료(CompletionPolicy는 active HOLD), 통합 검수
+게이트가 다음 시작점 (2026-08-09, 같은 세션)
+
+`data/v2/worksheets/predicate_dictionary_ext_art339_v{0,1,2,3,4}.md`에 이력 보존.
+카드 없이 원본 주석서(`law_id=001692`, 제339조 9개 chunk)만으로 authoring한 51개
+조문 중 유일한 예외 사례 — predicate vocabulary는 1-pass에서 확정됐지만
+CompletionPolicy 구조는 **active HOLD**로 남겨둔 채로 마무리한다(첫 조문 검수 라운드
+안에서 architecture-compatibility가 active HOLD로 확정된 유일한 사례).
+
+**v0→v1→v2→v3→v4, 4라운드.** v0가 스키마 fixture(`docs/contracts/v2/examples/
+derived_offenses.yaml`의 `derived_offense.robbery_rape`, 2026-08-08 addition)를
+근거로 성급하게 확정한 것들을 v1이 세 갈래로 되돌렸고(completion selector가
+causation predicate이면 안 됨/offense-ref union 문법 남용/component leaf 수동
+나열 금지), v2에서 `attempted.suspends` 복원과 함께 "COMPOSE(offense, offense)의
+element-leaf 재사용 충돌" 메커니즘을 컴파일러 코드 직접 열람 + repro 스크립트로
+실증했으나 "339 자체는 미발동"이라는 결론을 냈는데, v3에서 그 결론이 틀렸음을
+`completion.py`/`pipeline.py`까지 추가로 읽어 확인 — `commencement_of_execution`
+충돌(D-1)과 COMPLETED state의 슬롯 누출(D-2)이 339에서 **실제로 발동**한다는 걸
+반례와 함께 확정했다. v4는 이미 배치⑫에서 해소된 335조 F-5-1을 다시 "관련 HOLD"로
+잘못 소환한 것과 "2-pass 착수 전 반드시 해소"라는 과잉 범위 표현 두 곳만 좁혔다.
+
+**최종 확정 predicate**: A(주체) `base_offense` candidate 목록(333/334/335,
+336은 coverage 참조만 — G-1 재사용 패턴), B(강간 요소) `rape_part = offense.
+rape[297]`(component ref, 배치⑩ predicate 수동 나열 안 함), C(강도의 기회)
+`relation.occasion_identity`(G절 재사용, F-3-1 HOLD와 무관 — "강도의 기회" 문언이
+G와 동일). **신규 predicate 0건, 신규 스키마 0건** — 배치⑦-⑫ 전체를 통틀어 가장
+낮은 신규성. 카드 없는 예외 조문이 오히려 predicate 사전의 재사용 밀도를 검증하는
+사례가 됐다.
+
+**art339 CompletionPolicy는 active HOLD로 이월(339 자신의 2-pass assembly 확정
+전에만 반드시 해소 — 다른 조문 2-pass의 전제조건 아님)**:
+- **D-1 — component별 `commencement_of_execution` 구별 불가(실제 발동 확인).**
+  robbery_part·rape_part가 각자의 CompletionPolicy에서 같은 25조 predicate를
+  쓰는데, `completion.py`의 `resolve_completion()`이 `when` 절을 339라는 단일
+  top-level `OffenseInstanceKey`로 스코프된 flat predicate view에 대해서만
+  평가한다 — "강도만 착수, 강간은 미착수"인 사건이 339의 미수로 오판될 수 있다.
+- **D-2 — component별 slot suspension 불가, robbery 미수+rape 기수 = 339 기수
+  (원문 Ⅴ)를 표현할 방법이 없다(실제 발동 확인).** `pipeline.py`의
+  `_iter_obligations()`가 suspend 안 된 `SLOT_NAMES` 전부를 COMPOSE로 이미 병합된
+  전체 표현식으로 평가하는데, `object`/`conduct` 슬롯에 robbery의 `property_
+  taking`과 rape의 `natural_person_victim_status`/`coercive_conduct`가 함께
+  들어있어 한쪽만 suspend할 방법이 없다.
+- (future-watch로 별도 유지) COMPOSE(offense, offense)의 element-leaf 재사용
+  충돌 메커니즘 자체는 존재 확인됐으나(repro), 339의 실제 predicate 세트(robbery
+  mental=`unlawful_appropriation_intent`, rape mental=`legal_element.intent`)는
+  겹치는 id가 없어 미발동.
+- (기존 유지) robbery-side COMPOSE 구조(component ref 여러 개 vs 공통 base 재사용)
+  — 337·338의 기존 구조 선택 확인사항과 함께 2-pass에서 검토.
+- 335조 F-5-1(배치⑫에서 이미 해소)은 339와 계열이 다르므로(335는
+  `compose(offense, offense)`가 아니라 단일 offense 구조) 관련 HOLD로 재소환하지
+  않는다 — v4에서 확정.
+
+해소 방식(component-scoped 네임스페이스를 compile.py/completion.py에 신설할지, 이
+COMPOSE 패턴 자체를 다른 방식으로 재설계할지)은 지금 설계하지 않는다 — 339의 2-pass
+착수 시점에 기존 구조로 우회 가능한지부터 먼저 확인하고 그때 결정한다.
+
+### 다음 세션 시작점 — predicate 사전 전체 통합 검수 게이트
+
+각칙 51개 조문 + art339 전체가 끝났다. 다음은 predicate 사전 전체(각칙 + 총칙 34개
+조문)에 대한 최종 통합 검수 게이트 — 통과하면 2패스로 `data/v2/definitions/` 실제
+조립 착수(art339 D-1·D-2는 그 중 art339 자신의 assembly 확정 전에만 먼저 해소).
+게이트 범위·방식은 아직 착수 전이라 다음 세션에서 확정할 것.
+
+## ~~각칙 배치⑫ 완료(4라운드), art339가 다음 시작점 (2026-08-09, 같은 세션)~~
+[art339 완료 — 문서 최상단 절 참고, 다음은 통합 검수 게이트]
 
 `data/v2/worksheets/predicate_dictionary_ext_batch12_v{0,1,2,3,4}.md`에 이력 보존.
 **v0→v1→v2→v3→v4, 4라운드**(배치⑦·⑨와 같은 급) — 이번 배치는 12개 조문 전부가
@@ -91,15 +155,8 @@ manifestation` 355/356/360 공유 여부. (B) 순수 구조 선택 1건 — 301/
 통합, 신규 항목 아님). 기존 architecture-compatibility 목록(33조 단서·34조 등)에는
 이번 배치가 아무것도 추가하지 않는다.
 
-### 다음 세션 시작점 — art339 강도강간 (카드 없음, 51개 조문 중 유일한 예외)
-
-마스터플랜이 정의한 각칙 최종 범위(51개 조문)에서 배치⑦-⑫가 다루지 않은 마지막
-하나다 — 워크시트 스크립트 대상이 아니므로(카드 자체가 없음) 원본 주석서를 직접
-열람해 predicate를 authoring해야 한다. 337·338(G절)이 이미 확정한 "강도(333/
-334/335/336)+상해/살인" COMPOSE 패턴을 그대로 재사용해 "강도+간음" 구조로
-확장할 수 있을 것으로 예상되나, 실제 열람 전에는 확정하지 않는다. art339 완료
-후 각칙 51개 조문 + art339 전체가 끝나면 **predicate 사전 전체(각칙 + 총칙 34개
-조문)에 대한 최종 통합 검수 게이트**로 넘어간다.
+### ~~다음 세션 시작점 — art339 강도강간 (카드 없음, 51개 조문 중 유일한 예외)~~
+[art339 완료 — 문서 최상단 절 참고, 다음은 통합 검수 게이트]
 
 ## ~~각칙 배치⑪ 완료(2라운드), 배치⑫가 다음 시작점 (2026-08-09, 같은 세션)~~ [배치⑫ 완료 — 문서 최상단 절 참고, 다음은 art339]
 
