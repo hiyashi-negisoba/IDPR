@@ -2,7 +2,106 @@
 
 기준: 2026-08-09 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
-## 각칙 배치⑪ 완료(2라운드), 배치⑫가 다음 시작점 (2026-08-09, 같은 세션)
+## 각칙 배치⑫ 완료(4라운드), art339가 다음 시작점 (2026-08-09, 같은 세션)
+
+`data/v2/worksheets/predicate_dictionary_ext_batch12_v{0,1,2,3,4}.md`에 이력 보존.
+**v0→v1→v2→v3→v4, 4라운드**(배치⑦·⑨와 같은 급) — 이번 배치는 12개 조문 전부가
+재산죄 pilot(329 절도·333 강도·355 횡령)의 가중유형·결합범·참조조문이라 신규
+legal_element보다 **base offense를 어떻게 `DerivedOffenseDef`로 조립하는가**가
+핵심 쟁점이었고, 네 라운드가 서로 다른 종류의 오류를 드러냈다는 점이 특징이다.
+
+**배치⑫ 대상**: 330(야간주거침입절도)/331(특수절도)/332(상습절도) 절도
+가중유형군 + 334(특수강도) 강도 가중유형군 + 335(준강도, 절도→강도 결합) +
+337(강도상해·치상)/338(강도살인·치사) 강도 결합범군 + 342(미수범)/343(예비·
+음모) 참조조문 + 344(친족간의 범행 준용) + 356(업무상횡령·배임)/360(점유이탈물
+횡령) 횡령 가중·독립유형군.
+
+**v1에서 사용자가 지적한 오류 9건**(전부 기존 배치가 이미 확정한 DSL 원칙·
+실정법 상태로부터의 재적용 누락 — 신규 원칙 아님): 331조 1항 `nighttime` 삭제가
+조문 명문(원문 소제목 "손괴 후 **야간주거침입절도**")과 배치⑪ Ⅳ.2 오독의 결과였음
+(복원), 344절이 배치⑪ **v0**(검수 전 초안)을 근거로 폐기된 `close_kin_property_
+offense_exemption`을 되살림(배치⑪ 최종본은 328조를 procedure scope 밖으로 이미
+재분류 — v3 재확인 원칙에 정면 위배), 343 목적요건에 13조 `intent`를 조용히
+재정의(배치④ 확정 `purpose_to_commit_target_offense` 재사용), 330·331·334
+CompletionPolicy에 `NOT(...)` 누락으로 exact-one 겹침 재발(배치⑨·⑩ 원칙), 존재
+하지 않는 `AT` 시점결합 연산자 사용(단일 `nighttime_entry` legal_element로 해소),
+335 `doctrine.quasi_robbery`(pilot v1 HOLD)를 `DerivedOffenseDef`로 확정, 335
+목적 predicate에 객관적 상태를 mental predicate 정의 안에 혼입, 337·338에서
+base 내부 인과관계(`result_causation`)와 COMPOSE 인과관계(`relation.causal_
+nexus`)가 재혼동(배치⑨ 이층모델), 356을 `ANY(횡령,배임)` 하나로 뭉뚱그려 서로
+다른 죄종 identity를 합침(QUALIFY 2개로 분리).
+
+**v2에서 지적된 오류 2건** — **정정 자체가 만드는 부작용을 반례로 재검증하지
+않은 것**이 공통 원인(self-check5 정정 직후 미재적용): 335 Elements가 `taking_
+conduct`를 직접 요구해 절도미수+폭행·협박(준강도미수) 자체가 봉쇄됨(Elements는
+`commencement_of_execution`만, `taking_conduct`는 Completion selector로),
+`338.COMPLETED.when = ALL(death_of_victim, homicide_intent)`가 고의 없는
+강도치사를 원천 차단하는 실질 버그(301의 미해결 "결합범/결과적가중범 병존
+구조" HOLD를 predicate 사전 단계에서 암묵적으로 선결한 것이 근본 원인이라
+CompletionPolicy 구체 공식 자체를 301과 함께 2-pass로 이월).
+
+**v3에서 지적된 오류 3건** — **Relation을 Elements.requires에 leaf처럼 섞는
+층위 혼동의 재발**(배치⑨·⑩ "causal_nexus/occasion_identity는 Elements가 아니라
+`DerivedOffenseDef`의 별도 obligation" 원칙, predicate id의 `relation.` 네임스페이스
+접두 자체가 이미 층위를 명시하고 있었는데도 무시): 335·337·338 모두
+`elements.requires`에서 `causal_nexus`/`occasion_identity`를 분리해 별도
+`relations` 필드로, 360 친족상도례 준용 조문을 344→361로 정정(횡령·배임죄군
+355~360조 준용은 361조, 절도죄군 329~332조 준용이 344조), 최종 요약의
+"architecture-compatibility 2건"이 과대평가(진짜 gap 아니라 2-pass predicate
+재사용 확인일 뿐 — 배치⑪ v3의 (A)/(B) 분류 관행 재적용).
+
+**v4에서 지적된 오류 1건** — **원칙 선언과 바로 다음 문단의 실제 표기가
+어긋난 자기모순**(이전 라운드들과 다른 새로운 오류 계열): 정정11이 "predicate만
+확정하고 CompletionPolicy 조립은 301과 함께 2-pass로 미룬다"고 선언해놓고 바로
+아래 `ANY(injury_intent, aggravated_result_attribution)`으로 이미 조립해버려 –
+337·338을 공통 predicate/branch별 predicate 목록으로만 나열하고 `ALL`/`ANY`
+조립 자체를 하지 않는 것으로 정정. HOLD 목록에서 J-2-1·J-2-2도 "구조 선택"이
+아니라 D-2-1·F-3-1과 같은 "predicate 재사용 확인"으로 재분류.
+
+**최종 확정 predicate**: 330 `nighttime_entry`(신규)+319/329 재사용, 331①
+`damage_to_entry_barrier`(신규)+330 재사용, 331② `dangerous_weapon_carriage`/
+`joint_commission_by_two_or_more`(신규)+329 재사용, 332 `habitual_theft_
+propensity`(신규)+329/330/331 재사용, 334 331②/319/333 재사용 조합, 335
+`purpose_to_resist_recapture`/`purpose_to_avoid_arrest`/`purpose_to_conceal_
+evidence`(신규, 재물탈환 갈래만 `taking_conduct`와 결합)+`robbery_level_
+violence`(333 재사용)+`occasion_identity`(6B 재사용, relations), 337
+`injury_result`/`injury_intent`(배치⑨·⑩ 재사용)+`aggravated_result_
+attribution`(배치⑧ 재사용)+`causal_nexus`/`occasion_identity`(relations), 338
+`death_of_victim`(배치⑨ 재사용)+`homicide_intent`(신규)+동일 relations, 343
+`purpose_to_commit_target_offense`(배치④ 재사용), 356
+`occupational_embezzlement`/`occupational_breach_of_trust`(QUALIFY 2개
+분리)+`business_status`(신규), 360 `property_of_another`/`lost_or_stray_
+property_status`(신규)+`embezzlement_manifestation`(355 재사용 후보) — 이번
+배치도 신규 스키마·DSL primitive 없음(확정, 4라운드 전부 기존 `LegalElementDef`/
+`GroundFactDef`/`DerivedOffenseDef`(COMPOSE·QUALIFY)/`RelationDef`/`primitive.
+aggravated_result_attribution`/25조 Completion predicate 안에서 재배치).
+
+**344조(친족간의 범행)는 328조와 동일하게 population 대상 아님**으로 확정
+(procedure scope 밖) — 강도죄군(333·334·335·337·338)에는 애초에 준용되지 않음.
+360조의 친족상도례 준용 근거는 361조(횡령·배임죄군 전용, 51개 조문 범위 밖)이며
+역시 population 대상 아님.
+
+**HOLD/2-pass 확인 목록 최종**(v4): (A) predicate/relation 재사용 확인 4건 —
+331 `dangerous_weapon_carriage`↔배치⑨ 258의2 `dangerous_object_carriage`, 335
+`occasion_identity`("절도의 기회")↔337·338`occasion_identity`("강도의 기회"),
+360 `property_of_another`↔366 `object_ownership_other`, 360 `embezzlement_
+manifestation` 355/356/360 공유 여부. (B) 순수 구조 선택 1건 — 301/337/338
+고의형/결과적가중형을 별도 `DerivedOffenseDef` 2개로 할지 단일 definition 내부
+두 갈래로 할지(배치⑩ 301이 이미 남긴 HOLD에 337·338이 세 번째·네 번째 사례로
+통합, 신규 항목 아님). 기존 architecture-compatibility 목록(33조 단서·34조 등)에는
+이번 배치가 아무것도 추가하지 않는다.
+
+### 다음 세션 시작점 — art339 강도강간 (카드 없음, 51개 조문 중 유일한 예외)
+
+마스터플랜이 정의한 각칙 최종 범위(51개 조문)에서 배치⑦-⑫가 다루지 않은 마지막
+하나다 — 워크시트 스크립트 대상이 아니므로(카드 자체가 없음) 원본 주석서를 직접
+열람해 predicate를 authoring해야 한다. 337·338(G절)이 이미 확정한 "강도(333/
+334/335/336)+상해/살인" COMPOSE 패턴을 그대로 재사용해 "강도+간음" 구조로
+확장할 수 있을 것으로 예상되나, 실제 열람 전에는 확정하지 않는다. art339 완료
+후 각칙 51개 조문 + art339 전체가 끝나면 **predicate 사전 전체(각칙 + 총칙 34개
+조문)에 대한 최종 통합 검수 게이트**로 넘어간다.
+
+## ~~각칙 배치⑪ 완료(2라운드), 배치⑫가 다음 시작점 (2026-08-09, 같은 세션)~~ [배치⑫ 완료 — 문서 최상단 절 참고, 다음은 art339]
 
 `data/v2/worksheets/predicate_dictionary_ext_batch11_v{0,1,2,3}.md`에 이력 보존.
 **v0→v1→v2→v3, 2라운드+명칭 정정 1건**(내용 수정은 v0→v1 1라운드, v2·v3은 각각 HOLD
@@ -78,21 +177,7 @@ predicate를 전이시키면 안 된다"는 결론의 구체 offense 사례(2017
 art319 계절적 미사용 별장의 "주거→건조물" 서브타입 재분류, art319 퇴거불응 미수 성립
 가능 여부(322조, 위 정정 반영본).
 
-### 다음 세션 시작점 — 배치⑫ 절도·강도 나머지 (330·331·332·334·335·337·338·342·343·344·356·360조)
-
-328·344 친족관계는 이미 소추조건(procedure scope 밖)으로 확정됐으므로 330조(야간주거
-침입절도) 저작 시 "주거자-행위자 관계엔 친족관계 불요"라는 카드를 다시 확인할 필요
-없이 바로 그렇게 적용하면 된다. 344조 저작 시 328조 인용 부분도 predicate 사전에
-반영하지 않고 소추조건 참고로만 authoring 메모에 남긴다. 제출 전 self-check
-체크리스트(배치⑦ 7항목 + 배치⑧ 4항목 + 배치⑨·⑩·⑪이 실증한 원칙 — 인과관계 이층
-모델, fixture predicate 맹신 금지, ATTRIBUTE는 conduct 전용, 공유 ElementBundleDef
-불변, GroundFact/LegalElement typing은 canonical_meaning의 평가성 여부로 판단,
-cross-offense transition 서술 금지, 관련 RelationDef는 서로 다른 suspend/RETAIN 축을
-가지면 별도 유지, 미수 불처벌은 punishable=false로 표현, **positive-predicate 판정은
-이름의 문법이 아니라 "다른 predicate의 논리적 부정인가"로 검사, target offense의
-governing provision은 51개 조문 목록 소속 여부와 무관하게 열람 대상, 조문 해석 시
-현재 실정법(개정·헌재결정 반영) 상태를 원천 corpus 시점에 의존하지 말고 확인**)을
-함께 적용할 것. 워크시트 편집은 항상 새 버전 파일에.
+### ~~다음 세션 시작점 — 배치⑫ 절도·강도 나머지 (330·331·332·334·335·337·338·342·343·344·356·360조)~~ [배치⑫ 완료 — 문서 최상단 절 참고, 다음은 art339]
 
 ## 각칙 배치⑩ 완료(1라운드), 배치⑪이 다음 시작점 (~~2026-08-09, 같은 세션~~ 완료 —
 문서 최상단 절 참고, 다음은 배치⑫)
