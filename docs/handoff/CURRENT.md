@@ -2,6 +2,67 @@
 
 기준: 2026-08-09 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
+## 각칙 배치⑦ 완료(4라운드), 배치⑧이 다음 시작점 (2026-08-09, 새 세션)
+
+**각칙(카드+원문 병존)의 첫 배치.** 총칙 배치①-⑥과 재료 성격이 달라 먼저 "카드 vs 원문 중
+뭘 1차 재료로 쓸지" 검토부터 시작 — 결론은 15개 pilot이 이미 실증한 방식(카드 1차, 원문은
+모호할 때만 보조) 그대로 확장. 표본 조사로 원문 주석이 카드보다 4~25배 크다는 것 확인
+(art355는 카드 57줄/전체 1465줄 — 96%가 주석), 카드가 판례·통설에서 이미 뽑아낸 명제
+단위라 predicate 후보 추출에 직접 대응한다는 근거로 확정.
+
+`data/v2/worksheets/predicate_dictionary_ext_batch07_v{0,1,2,3}.md`에 이력 보존. **v0→v1→v2→v3,
+4라운드**(총칙 배치는 대부분 1-2라운드에 수렴) — 원인과 재발 방지 체크리스트를
+[`predicate-authoring-self-check-checklist`](메모리, `~/.claude/projects/.../memory/`)에 기록:
+원칙(positive+NOT, `DoctrineDef`는 Elements 확정 이후에만, `ONE_OF`는 배타성 증명 후에만,
+CompletionPolicy exact-one)은 이미 총칙 배치에서 확정돼 있었는데도, 각칙 배치의 predicate
+밀도가 훨씬 높아(조문당 5-10+ leaf, 조문 간 공유·행위태양 분기·completion 분기가 얽힘)
+매 항목 재검증(반례 대입, 인접 조문 대조)을 생략해 같은 종류 오류가 반복됐다 — 다음
+배치(⑧-⑫)부터 그 체크리스트를 제출 전 자체 점검에 실제로 적용할 것.
+
+**배치⑦ 최종 확정 내용(v3 기준, 122·127·129·130·133·136·137·151·152조)**:
+- 카드 문장 안의 AND/OR·mental/conduct 합성을 분해(예: 뇌물 행위태양 수수/요구/약속/공여/
+  의사표시 5종을 별도 leaf로, 직무관련성과 대가관계를 별도 leaf로) — 이 분해가 부수적으로
+  "129 청탁 vs 130 부정한 청탁" 요건 강도 차이도 조합만으로 해소.
+- **133조 ①(뇌물공여죄)/②(증뢰물전달죄)는 별도 `OffenseDef` 2개** — 객체·행위자 위치가
+  달라 `DerivedOffenseDef` 아님. 대조로 152 위증/모해위증은 반대로 진짜 QUALIFY 관계임을
+  확인(목적+절차요건이 위증 완성 위에 얹히는 구조).
+- **133① 한정**으로 conduct 갈래(약속/공여/의사표시)를 Elements가 아니라 CompletionPolicy
+  `states.completed.when`/`states.attempted.when`+`punishable=false`로 재배치(의사표시
+  도달 여부로 완성/미완성이 갈리므로) — 이건 133①에 국한된 판단이지 일반원칙 아님(130의
+  `third_party_benefit_*`는 completion 차이가 없어 Elements의 `ANY`로 충분, 대조 사례로 문서화).
+  `attempted.when`에 `NOT(bribe_promise), NOT(bribe_giving)`을 추가해 completed와의 겹침
+  제거(6B exact-one 재확인).
+- "다른 죄로 전환/구성요건 불해당"을 doctrine으로 만들지 않는다는 원칙을 배치 전체에 재적용해
+  동종 오류 5건 추가 발견(self_benefit_intermediary, self_concealment, interofficial_
+  transmission, mohae_requires, concrete_risk_required) — 전부 legal_element 재분류 또는
+  삭제. 대조로 진짜 doctrine 2건(127 정당행위 DEFEAT, 151 친족특례)은 유지하되, **151
+  친족특례는 Culpability DEFEAT가 아니라 Punishability EXEMPT로 확정**(328조 친족상도례와
+  같은 계보의 인적 처벌조각사유 — "범죄는 완성되나 처벌만 면제"라는 설명 문장 자체가
+  EXEMPT를 가리켰는데 v1이 stage 라벨은 DEFEAT로 잘못 적어둔 자기모순이었음).
+- 총칙 13조 전역 `legal_element.intent` 재사용 원칙을 129/130/133/136/151에 확장 적용(offense
+  마다 intent를 재정의하지 않음), 122 `conscious_abandonment_intent`·152 `purpose_to_
+  prejudice_specific_party`·129 `appropriation_intent_of_bribe`(영득의사)만 판례가 명시적으로
+  heightened 요건을 요구하는 예외로 유지.
+- GroundFact→LegalElement typing pass 7건(공무원 신분·적법 선서 등 법적 지위 판정은 legal_
+  element), `correction_before_examination_end`(152, 철회·시정)는 반대로 규범적 판단이
+  약해 GroundFact로 재확인.
+- **architecture-compatibility 후보 1건**: 151조 `offender_status_of_object`("상대방이
+  벌금 이상 형에 해당하는 죄를 범한 사람")가 raw fact가 아니라 **다른 actor의 법적 상태**를
+  묻는 것 — 배치⑤ 34조와 같은 급의 cross-actor symbolic dependency 문제. v0가 잘못 올렸던
+  계속범(繼續犯) 후보는 철회(현 runtime이 "기수 이후 지속기간"을 계산하는 시스템이 아니므로
+  architecture gap 아님, 죄수·시효 등 후속 scope). 최종 표에 HOLD로 명시, 34조와 함께
+  2-pass 착수 전 확인 목록에 유지.
+
+### 다음 세션 시작점 — 배치⑧ 방화·문서 (164·225·227·231·234·239조)
+
+워크시트는 이미 있음(`data/v2/worksheets/각칙/{article}.md`). 배치⑦과 같은 카드 1차 방식으로
+바로 v0 착수. 제출 전 위 self-check 체크리스트 6항목(카드 분해/doctrine 자격/긍정형 이름/
+ONE_OF 배타성/CompletionPolicy 반례 대입/일반원칙 서술 전 인접 대조/stage-설명 일치)을 직접
+적용해볼 것 — 배치⑦처럼 3라운드 추가 정정을 반복하지 않는 게 목표.
+
+배치⑨(생명·신체, 250·254·255·257·259·263·267·268·2582_2조)의 art263(동시범 특례)은 배치②
+19조 predicate와 연결되는 별도 Participation compatibility 검토 대상이라는 점 기존대로 유지.
+
 ## 총칙 predicate 사전 확장 완료, 각칙 배치가 다음 시작점 (2026-08-09, 같은 세션 계속)
 
 15개 조문 pilot(아래 "15개 조문 파일럿 완료" 절) 이후, **같은 predicate-first 방법론을
@@ -59,7 +120,7 @@
    끝났다.** 10·21·25·26·27·30·31·32조(pilot 8개)까지 합치면 총칙 34개 조문 중
    architecture-compatibility 검토가 필요한 33조 단서·34조를 제외하고 전부 확정.
 
-### 다음 세션 시작점 — 각칙 배치 ⑦-⑫ + art339
+### ~~다음 세션 시작점 — 각칙 배치 ⑦-⑫ + art339~~ [배치⑦ 완료 — 문서 최상단 절 참고, 다음은 배치⑧]
 
 마스터플랜(mossy-doodling-breeze.md)이 정의한 최종 범위 중 남은 건 **각칙 44개 조문**
 (재산죄 core 7개는 pilot에서 이미 확정)뿐이다. 사용자와 합의한 법익/죄종 카테고리별
