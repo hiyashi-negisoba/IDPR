@@ -2,6 +2,93 @@
 
 기준: 2026-08-09 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
+## 총칙 predicate 사전 확장 완료, 각칙 배치가 다음 시작점 (2026-08-09, 같은 세션 계속)
+
+15개 조문 pilot(아래 "15개 조문 파일럿 완료" 절) 이후, **같은 predicate-first 방법론을
+총칙 Band A-core + Band B(35-36조) 전체로 확장하는 작업을 이번 세션에서 끝냈다.**
+각칙은 아직 손대지 않았다 — 다음 세션 시작점은 **각칙 배치**다.
+
+### 이번 세션에 한 일
+
+1. **워크시트 생성**(기계적, API 0회): `scripts/v2_migration_worksheet.py`를 각칙 나머지
+   44개 조문(51개 전체 - pilot 7개) + 총칙 나머지 20개 조문(Band A-core 18개 + 35·36조)에
+   대해 실행. 카드 합계 496장 검산 완료. 출력은 `data/v2/worksheets/{각칙,총칙}/`에 51+28
+   파일로 이미 있음(pilot의 15개 포함).
+2. **총칙 predicate 사전을 법익/카테고리별 6개 배치로 확장** — 각 배치는
+   `data/v2/worksheets/predicate_dictionary_ext_batch0{1..6}_v{N}.md`에 v0(초안)부터
+   최종 확정본까지 이력 보존(15개 pilot의 v0→v1→v2 관행 그대로). **배치①-⑥ 전부 사용자
+   승인 완료**:
+   - 배치①(9·11·12·16조, 책임능력·책임조각) — `_v1.md` 확정. 10조 ALIC을 별도 exception
+     doctrine에서 `requires`의 `NOT()` gating으로 소급 정정(12조 자초강제와 구조 통일).
+   - 배치②(13·14·15·17·18·19조, 고의·과실·착오·인과관계·부작위·동시범) — `_v2.md` 확정.
+     **`ElementBundleDef`(negligence_bundle/omission_bundle) 최초 실사용** — 스키마는
+     Step 2/4부터 있었으나 fixture 어디서도 안 쓰이고 있었음. `mistake_bundle`은 구조
+     후보로만 남기고 2패스에서 실증 확정. 19조는 "runtime UNKNOWN"과 "원인 판명 불능
+     (법원이 확정하는 legal_element)"을 혼동했던 오류를 정정해 architecture gap이
+     아님으로 재분류(마스터플랜 원래 분류가 맞았음).
+   - 배치③(20·22·23·24조, 위법성조각사유) — `_v2.md` 확정. "과잉" doctrine(과잉피난·
+     과잉자구행위)을 Unlawfulness DEFEAT가 아니라 21조 `excessive_defense`와 같은
+     downstream MODIFY/EXEMPT 구조로 정정. 21조 자체의 stage도 아직 미확정이라는 점을
+     발견(2패스에서 21·22·23조 함께 결정).
+   - 배치④(28·29조, 예비음모·미수범 처벌원칙) — `_v2.md` 확정. `PREPARATION_OR_
+     CONSPIRACY` 단일 CompletionPolicy state, 목적 요건은 `when`이 아니라 `requires`로.
+     2패스 시 `suspends`/`relation_dispositions` 저작 의무 명시.
+   - 배치⑤(33·34조, 공범과 신분·간접정범) — `_v3.md` 확정. **이 트랙 전체에서 가장 중요한
+     발견**: 33조 본문(구성적 신분)의 교사·방조 경로는 기존 `resolve_derivative_liability`로
+     이미 지원되지만, 공동정범 경로는 `attributable_slots`로 신분 predicate 진실값을
+     전이시키면 semantic contamination이라 compatibility 확인 대상. 33조 단서(책임개별화)는
+     `resolve_derivative_liability`의 `principal`/`instance`가 파라미터상 독립이라
+     cross-offense derivative가 core 차원에서는 가능해 보임(orchestrator 확인만 남음).
+     **34조(간접정범)는 실제 gap**: `principal_realization_truth`가 "정범 성공"을
+     조건으로 하는데 간접정범은 "피이용자 불처벌"을 조건으로 해 방향이 반대 —
+     `OffenseRealization`이 Culpability 이전(Elements+Unlawfulness)에 결정된다는 점까지
+     반영해 케이스를 4갈래(책임무능력/고의결여/위법성조각/과실범)로 분해, 필요한 건 새
+     participation mode가 아니라 "다른 actor의 stage별 결과 + predicate-level 원인 +
+     다른 offense_ref 결과까지 선택적으로 참조하는 symbolic dependency"일 가능성.
+   - 배치⑥(35·36조, 누범) — `_v1.md` 확정. 35조는 Punishability stage의 기존 `MODIFY`
+     effect로 표현 가능(architecture gap 아님 — 마스터플랜의 "검수 필요"가 긍정적으로
+     해소된 유일한 조문). 자유텍스트 설명은 `DoctrineDef`가 아니라 `modify_effect.note`
+     필드(스키마에 이미 있음, `modifier_ref`는 Open Question #4 미해결이라 값은 2패스로
+     이월)에 넣는다고 정정. "후범의 법정형이 offense_ref에 구조화 데이터로 내재한다"는
+     확인되지 않은 주장도 철회 — `statutory_refs`는 인용 문자열일 뿐 법적 효과가 없고,
+     이 DSL에 구조화된 법정형 메타데이터 자체가 없다(저작 시 적용범위 제한으로 처리).
+     36조는 순수 형사소송 절차 조문이라 predicate 사전 범위 밖으로 명시 분류(HOLD 아님,
+     애초에 대상이 아님) — 이 DSL의 Punishability가 구체적 형량 계산기가 아니라
+     법적 상태만 다룬다는 점과 정확히 부합.
+3. **총칙 26개 Band A-core 조문(9-34) + Band B의 35-36조 predicate 후보 제시가 전부
+   끝났다.** 10·21·25·26·27·30·31·32조(pilot 8개)까지 합치면 총칙 34개 조문 중
+   architecture-compatibility 검토가 필요한 33조 단서·34조를 제외하고 전부 확정.
+
+### 다음 세션 시작점 — 각칙 배치 ⑦-⑫ + art339
+
+마스터플랜(mossy-doodling-breeze.md)이 정의한 최종 범위 중 남은 건 **각칙 44개 조문**
+(재산죄 core 7개는 pilot에서 이미 확정)뿐이다. 사용자와 합의한 법익/죄종 카테고리별
+배치 순서:
+
+```text
+배치⑦  공무원·사법 범죄     122·127·129·130·133·136·137·151·152조 (9개)
+배치⑧  방화·문서            164·225·227·231·234·239조 (6개)
+배치⑨  생명·신체            250·254·255·257·259·263·267·268·2582_2조 (9개)
+        — art263(동시범 특례)은 배치②에서 이미 만든 총칙 19조 predicate와
+          연결, 33/34조와 같은 "Participation compatibility 검토" 그룹으로
+          다룰 것(배치② v2 정정 4 참고, 총칙 19조 본문 자체는 gap 아니지만
+          263조 특례는 별도 검토 대상으로 이월돼 있음)
+배치⑩  성적 자유            297·298·299·300·301조 (5개)
+배치⑪  주거·권리행사        319·323·328조 (3개)
+배치⑫  절도·강도 나머지     330·331·332·334·335·337·338·342·343·344·356·360조 (12개)
+art339 강도강간(카드 없음, 51개 조문 중 유일) — 워크시트 스크립트 대상 아님, 주석서
+        직접 열람해서 사람이 저작
+```
+
+워크시트는 이미 다 만들어져 있다(`data/v2/worksheets/각칙/{article}.md`) — 배치⑦부터
+바로 predicate 후보 초안 작성에 들어가면 된다. 각 배치는 총칙과 같은 v0→v1→...
+검수 사이클을 거친다.
+
+**그 다음(각칙까지 끝난 뒤)**: predicate 사전 전체(각칙 51개 + art339 + 총칙 34개)에
+대한 최종 통합 검수 게이트 → 통과하면 2패스로 `data/v2/definitions/` 실제 조립 시작.
+33조 단서·34조의 architecture-compatibility 이슈는 2패스 착수 전에(또는 착수 초반에)
+실제로 코드를 만들어보며 확정해야 한다 — predicate 사전만으로는 못 닫는다.
+
 ## 다음 트랙 — Rulebase 실적재 (2026-08-09, 새 세션)
 
 **사용자 결정: Step 7(Closure/Probe compiler) 진입 전에 실제 rulebase를 전체 적재하고, 그
