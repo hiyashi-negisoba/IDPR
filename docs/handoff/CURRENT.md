@@ -2,6 +2,107 @@
 
 기준: 2026-08-08 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
+## Step 6C (Participation / Attribution) 완료 — 8차 addendum, `tests/test_v2_*.py` 총 228개 (2026-08-08, 새 세션)
+
+v2.2.0 case-time runtime의 세 번째 단계를 끝냈다. **다음 세션 시작점은 Step 7(Closure / Probe
+compiler)이다.** 승인된 계획서는
+[`/home/jaehoonjeong/.claude/plans/linked-foraging-rivest.md`](file:///home/jaehoonjeong/.claude/plans/linked-foraging-rivest.md)
+(ExitPlanMode 리뷰에서 2건 정정 후 승인 — 아래 "승인 시 정정" 절).
+
+Definition Layer(스키마 + axis 5)는 이미 구축돼 있었다 — 이번 단계는 순수하게 runtime
+(`src/idpr/v2/runtime/participation.py` 신규)이었고, 스키마는 발견된 공백 하나(아래)만 8차
+addendum으로 메꿨다.
+
+### 런타임 계약 — 사용자가 직접 확정한 4가지
+
+1. **공동정범 ATTRIBUTE는 slot-scoped, predicate-level이다.** `attributable_slots`가 가리키는
+   slot이 참조하는 leaf predicate ref만, 상대 공동정범의 truth와 `fold_any`(3치 OR)로 병합한다.
+   slot-truth 통째 대입이 아니다 — ATTRIBUTE → Completion → Elements 순서(v2.2.0 §18)를 그대로
+   유지하기 위해 predicate 층에서 처리.
+2. **attribution은 새 `CaseTruths`를 만든다, 새 view 타입을 만들지 않는다.** `apply_attribution()`이
+   `CaseTruths` → `CaseTruths`. `resolve_completion()`/`.predicate_view()` 시그니처 불변 — 원본은
+   손대지 않는다.
+3. **교사·방조는 정범의 `CompiledOffense`를 재평가하지 않는다.** accessory의 Elements =
+   `principal_realization_truth(principal)`(3치) AND 자체 `requires`(8차 addendum). 그 이후
+   (Unlawfulness→Culpability→Punishability)는 direct/co-principal 경로와 **완전히 동일한 코드**를
+   재사용 — 별도 accessory engine 없음.
+4. **`principal_dependency`는 정범의 기존 StageResult를 읽는 3치 판정**이지 새 예외 계층이 아니다.
+   확정 존재→TRUE, 확정 불성립→FALSE, 정범 자체가 unresolved→UNKNOWN. §15.4의 "TYPE ERROR"는
+   `requires_conclusion`이 이미 const로 고정돼 있어 저작 단계에서 구조적으로 불가능 — 런타임 대응
+   불필요.
+
+### 스키마 8차 addendum — `derivative_mode.requires` 신규, **필수**
+
+`participation_policy_def.schema.json`의 `derivative_mode`(교사/방조)에 `basis`/`requires_conclusion`
+뿐이고 교사·방조 **자신의** 요건(교사의 고의, 방조행위 존재 등)을 저작할 필드가 없었다 — 6C 설계
+중 발견, SCHEMA_NOTES/양쪽 설계문서/CURRENT.md/fixture 어디에도 언급 없음을 확인 완료. `requires`
+(element_expression)를 추가했고, `completion_policy_def.schema.json`의 `states.*.requires`와 달리
+**필수**로 뒀다 — optional이면 교사/방조 mode가 `requires` 없이 저작 가능해지고, 그러면 런타임
+Elements가 principal_realization_truth 하나만으로 satisfied가 되어 정범 성공 사실만으로 책임이
+성립해버린다(§15.3의 derivative liability 취지 붕괴). 사용자가 계획서 검토 중 직접 지적해 확정.
+상세 근거는 `SCHEMA_NOTES.md` 8차 수정 절.
+
+### 승인 시 정정 (계획서 초안 2건, 사용자가 ExitPlanMode에서 지적)
+
+1. **`LiabilityEvaluation.completion`을 `CompletionResult | None`으로.** 초안은 derivative 경로에서도
+   `principal.completion`을 그대로 복제해 넣으려 했는데, 이건 accessory가 자기 completion 판단을
+   가진 것처럼 기록을 왜곡한다 — derivative 경로는 Completion 자체를 거치지 않는다(결정 #3). →
+   derivative 경로는 `completion=None`. 정범의 completion이 필요하면 `principal.completion`으로
+   이미 접근 가능, 복제하지 않는다.
+2. **`derivative_mode.requires`를 optional이 아니라 required로.** 위 8차 addendum 절 참고 — 사용자가
+   초안 검토 중 직접 지적.
+
+### 신규/변경 파일
+
+- **`src/idpr/v2/runtime/participation.py`(신규)** — `apply_attribution`(ATTRIBUTE, co-principal),
+  `principal_realization_truth`(3치 판정), `resolve_derivative_liability`(교사/방조).
+  `resolve_derivative_liability`가 `pipeline.resolve_from_elements()`를 직접 재사용해 Unlawfulness
+  이후를 재구현하지 않는다.
+- **`src/idpr/v2/participation.py`(신규, Definition Layer)** — `participation_policy_for`
+  (`completion_policy_for` 미러), `effective_attributable_slots`(`checks/participation.py`에
+  inline돼 있던 로직을 승격 — Step 4가 `replay_slot`을 `compile.py`로 승격한 것과 같은 전례).
+  `checks/participation.py`는 이제 이 함수를 호출하는 얇은 wrapper.
+- `src/idpr/v2/expressions.py` — `canonical_leaf_refs`(canonical tuple form 전용 leaf walker,
+  기존 `leaf_refs`는 raw dict form용 — `compiled.slots[...]`는 이미 canonical이라 attribution이
+  기존 `leaf_refs`를 쓰면 항상 빈 집합을 얻는다).
+- `src/idpr/v2/runtime/pipeline.py` — `resolve_liability`의 elements-gate-check 이후 전체를
+  `resolve_from_elements(...)`로 추출(행위 변경 없음), `runtime/participation.py`가 두 번째
+  호출자가 되므로 `ELEMENTS_STATE`/`ELEMENTS_GATE`/`decisive_obligation`을 공개로 승격(Step 5의
+  `_fold_all → fold_all` 승격과 같은 전례). `_stopped`의 `completion` 파라미터도
+  `CompletionResult | None`로 확장.
+- `src/idpr/v2/runtime/stages.py` — `ParticipationDependencyObligation`/
+  `ParticipationRequirementObligation` 신규(`Obligation` union에 편입, 3종 → 5종),
+  `LiabilityEvaluation.completion`을 `CompletionResult | None`으로 확장.
+- `src/idpr/v2/checks/references.py` — `_check_participation_policy` 신규(axis 1,
+  `modes.{instigator,aider}.requires`의 leaf가 ground_fact/legal_element인지 검사, 기존
+  `completion_policy`의 `states.*.requires` 패턴과 동일). `_HANDLERS`에 `participation_policy` 편입.
+- fixture **43 → 45 인스턴스**: `ground_fact.instigation_conduct`/`ground_fact.aiding_conduct`
+  신규 + `participation_policies.yaml`의 instigator/aider 양쪽에 `requires` 추가. 부정 케이스 1개
+  추가(`requires` 없는 `derivative_mode` 거부 확인, `tests/test_v2_schema.py`).
+
+### 검증
+
+`tests/test_v2_runtime_participation.py`(20개) 신규 + 기존 208개 갱신
+(`test_v2_runtime_stages.py`의 Obligation union 카운트 3→5, `test_v2_expressions.py`에
+`canonical_leaf_refs` 4개, `test_v2_schema.py`에 8차 addendum 부정/긍정 케이스 2개, corpus 카운트
+43→45 갱신 2곳) = **총 228개 전부 통과**(`/data5/jaehoonjeong/miniconda3/bin/python`, 미니콘다
+base). 45개 인스턴스 corpus **8축 전부 0 findings**(`test_real_corpus_is_fully_type_clean`).
+
+**mutation 검증 3건** — 각 버그를 되살렸을 때 해당 회귀 테스트가 실제로 실패함을 확인:
+(a) `principal_realization_truth`를 항상 TRUE로 하드코딩 → 9개 테스트 실패(3치 판정 관련 전부),
+(b) `apply_attribution`의 `fold_any`를 단순 override로 교체 → attribution end-to-end 테스트 2건
+실패, (c) `derivative_mode.requires`를 스키마에서 다시 optional로 → 8차 addendum 부정 케이스
+테스트 실패. 전부 확인 후 원상복구.
+
+### 미해결 (의도적, 6C 범위 밖)
+
+- **어느 actor가 어느 mode인지 결정하는 오케스트레이터는 만들지 않았다.** case 사실에서 "누가
+  누구와 공동했는가/누가 누구를 교사했는가"를 판단하는 건 6A의 `ActiveDoctrineRefs`와 같은 이유로
+  step 7/8(closure/probe)의 일 — 호출자가 명시 공급.
+- **직접교사(간접정범 아님 — 교사자를 다시 교사)** 등 chained participation은 코드가 우연히
+  허용하지만(`principal_realization_truth`가 `principal.completion is None`일 때도 폴백하도록
+  설계됨) 명시적으로 테스트하지 않았다.
+
 ## Step 6B (Completion) 완료 — form 추상화 폐기, 7차 addendum, `tests/test_v2_*.py` 총 203개 (2026-08-08, 같은 세션)
 
 **6B의 blocker였던 "form selection semantics"는 풀린 게 아니라 폐기됐다.** 사용자 결정으로
@@ -13,7 +114,8 @@
 **이건 신규 설계가 아니라 원안 복귀다.** v2.1.0 §14.2가 이미
 `CompletionResult { form: completed|attempted|...|unresolved, decisive_conditions, provenance }`
 라는 **도출되는 typed legal result**로 쓰고 있었고, selectable-program 층은 그 위에 나중에
-얹힌 것이었다. **다음 세션 시작점은 Step 6C(Participation / Attribution)다.**
+얹힌 것이었다. ~~다음 세션 시작점은 Step 6C(Participation / Attribution)다.~~ **6C도 같은
+브랜치에서 완료됨 — 문서 최상단 "Step 6C 완료" 절 참고.**
 
 ### 왜 form 층이 unsound했는가 (재발굴 방지)
 
@@ -158,8 +260,8 @@ v2.1.0 26절의 6·7·8이 runtime semantics 하나의 umbrella로 묶였다. �
 ```text
 Step 6A  Runtime identity / truths / stages / effects   [완료]
 Step 6B  Completion                                     [완료 — 문서 최상단 절 참고]
-Step 6C  Participation / Attribution                    ← 다음 시작점
-Step 7   Closure / Probe compiler
+Step 6C  Participation / Attribution                    [완료 — 문서 최상단 절 참고]
+Step 7   Closure / Probe compiler                       ← 다음 시작점
 Step 8   Call 1 (router) 이후 뉴럴 단계
 ```
 
@@ -748,8 +850,8 @@ v2.1.0 문서 26절 "Proposed Implementation Boundary"의 권장 순서를 그�
 4. QUALIFY / COMPOSE compiler   [완료]
 5. Relation evaluator   [완료]  ← 여기까지 v2.1.0
 6. Runtime stage objects   [완료 — Step 6A]  (여기부터 v2.2.0)
-7. Completion resolution   [= Step 6B, 다음 시작점]
-8. Participation / attribution   [= Step 6C]
+7. Completion resolution   [= Step 6B, 완료]
+8. Participation / attribution   [= Step 6C, 완료]
 9. Scallop compilation
 10. Neural grounding adapters
 11. Writer integration
