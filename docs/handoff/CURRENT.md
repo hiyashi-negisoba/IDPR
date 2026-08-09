@@ -4,8 +4,9 @@
 
 ## 각칙 배치⑪ 완료(2라운드), 배치⑫가 다음 시작점 (2026-08-09, 같은 세션)
 
-`data/v2/worksheets/predicate_dictionary_ext_batch11_v{0,1,2}.md`에 이력 보존.
-**v0→v1→v2, 2라운드**(배치⑧과 같은 급) — 이번 배치는 predicate 저작 원칙 위반(재발)
+`data/v2/worksheets/predicate_dictionary_ext_batch11_v{0,1,2,3}.md`에 이력 보존.
+**v0→v1→v2→v3, 2라운드+명칭 정정 1건**(내용 수정은 v0→v1 1라운드, v2·v3은 각각 HOLD
+문구·종합 목록 이름만 좁힌 소규모 정정) — 이번 배치는 predicate 저작 원칙 위반(재발)
 1건과 **source coverage 누락 1건·실정법 변경 미반영 1건**이라는, 이전 배치들과는 다른
 종류의 오류 두 가지가 함께 나왔다는 점이 특징이다.
 
@@ -49,7 +50,14 @@
 v2는 HOLD 문구 하나만 좁혔다 — 배치④에서 이미 삭제 확정된 `result_not_occurred`를
 HOLD 서술에서 다시 언급한 것을 삭제하고, "322조는 미수 처벌의 법적 근거만 확정,
 attempted state 자체의 성립 여부(학설대립)와 punishable=true는 긍정설을 전제로 한
-조건부 결론"이라고 순서를 명확히 했다.
+조건부 결론"이라고 순서를 명확히 했다. v3은 내용이 아니라 **분류 명칭**만 정정했다 —
+v0-v2가 이번 배치의 확인 대상 3건을 매번 "HOLD/architecture-compatibility"라는 하나의
+이름으로 종합해, 진짜 gap(art323 33조 본문 공동정범) 1건과 순수 구조/학설 선택(art319
+별장 서브타입, art319 퇴거불응 미수) 2건이 마치 전부 새 architecture gap인 것처럼
+읽혔다 — 본문 각 절에서는 이미 구분해 서술해뒀는데 종합 단계에서 라벨이 뭉뚱그려진
+것. 종합 목록 제목을 "HOLD/architecture-compatibility"에서 **"HOLD / 2-pass 확인
+목록"**으로 바꾸고 내부를 (A)architecture-compatibility/(B)순수 구조·학설 선택으로
+재구분했다.
 
 **최종 확정 predicate**: 319 A-1(주거침입) `dwelling_or_managed_premises_object`/
 `trespass_entry`/`legal_element.intent`(13조 재사용), A-2(퇴거불응) `retreat_demand_
