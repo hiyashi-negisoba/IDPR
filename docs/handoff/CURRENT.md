@@ -1,6 +1,35 @@
 # Current handoff
 
-기준: 2026-08-09 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
+기준: 2026-08-10 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
+
+## Predicate 사전 전체 통합 Gate① 통과 — 2-pass assembly가 다음 시작점
+
+`predicate_dictionary_master_v0→v1→v2→v3`의 사용자 검수가 v3에서 통과했다.
+각칙 52개(기존 card-catalog 51개 + card 없는 art339)와 총칙 28개의 evaluation
+coverage는 **80개로 동결**됐고, 빠짐·중복 배정은 없다. 36·328·344조는 기존 확정대로
+population 대상 밖이다.
+
+v2에서 발견한 258의2 dependency 결손도 Gate① 안에서 닫았다.
+`data/v2/worksheets/predicate_dictionary_ext_art258_v0.md`가 258 중상해·존속중상해를
+supporting dependency로 최소 1-pass 저작했고, 신규 id
+`legal_element.serious_injury_result`(생명위험 또는 불구·불치·난치 질병)을 확정했다.
+258은 evaluation population에 추가하지 않으므로 80개 숫자는 변하지 않지만, 258의2
+QUALIFY 4갈래의 predicate vocabulary는 이제 전부 Gate① 전에 존재한다.
+
+**canonical Gate① 산출물**:
+
+- `data/v2/worksheets/predicate_dictionary_master_v3.md` — coverage·전체 ID inventory·통합 HOLD의 승인본
+- `data/v2/worksheets/predicate_dictionary_ext_art258_v0.md` — 258 supporting dependency 최소 저작
+- 기존 14개 series와 각 v0→최종 revision chain은 이력으로 보존하며 수정하지 않는다.
+
+**다음 세션 첫 작업 — 2-pass 실제 assembly**:
+
+1. `data/v2/definitions/`의 authoring 단위·build order를 schema/compiler 계약과 대조해 확정한 뒤 YAML 조립을 시작한다. Gate①에서 동결한 predicate id/canonical_meaning을 새로 저작하거나 바꾸지 않는다.
+2. (A) predicate/relation 재사용 HOLD는 0건으로 닫혔다. (B) 9건은 해당 조문의 assembly 시 구조 선택으로, (C) 6건은 해당 code path 확인으로 처리한다.
+3. art339 D-1/D-2는 **art339 자신의** assembly 확정 전에만 해소한다. 다른 조문 assembly의 선행조건이 아니다. 258은 supporting dependency로만 assembly하며 evaluation population에는 넣지 않는다.
+
+이번 Gate①의 문서 검증은 `git diff --check`로 통과했다. 아래 이전 art339·배치별 기록은
+이력·근거 보존용이며, 현재 시작점은 위 2-pass assembly다.
 
 ## art339 강도강간 predicate 1-pass 완료(CompletionPolicy는 active HOLD), 통합 검수
 게이트가 다음 시작점 (2026-08-09, 같은 세션)
