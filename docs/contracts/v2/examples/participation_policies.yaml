@@ -4,6 +4,8 @@
 # doctrine now, not keyed to a single offense id -- this fixture stands for "the
 # default participation policy", and offense.robbery uses it unmodified (no
 # participation_constraints needed in offenses.yaml for this example).
+# 2026-08-08 (8th addendum, step 6C): instigator/aider now require their own `requires`
+# expression, evaluated against the participant's own truths -- not the principal's.
 - id: participation_policy.standard
   modes:
     principal:
@@ -14,6 +16,8 @@
     instigator:
       basis: derivative
       requires_conclusion: offense_realization
+      requires: {op: ref, ref: ground_fact.instigation_conduct}
     aider:
       basis: derivative
       requires_conclusion: offense_realization
+      requires: {op: ref, ref: ground_fact.aiding_conduct}

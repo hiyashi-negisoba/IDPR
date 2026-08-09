@@ -39,6 +39,27 @@ def test_slot_leaf_refs_fills_all_seven_slots() -> None:
     assert result["mental"] == frozenset()
 
 
+def test_canonical_leaf_refs_of_none_is_empty() -> None:
+    assert expressions.canonical_leaf_refs(None) == frozenset()
+
+
+def test_canonical_leaf_refs_walks_all_any_not_one_of() -> None:
+    # step 6C: compiled.slots[...] is already CanonicalExpr by the time attribution reads it, so
+    # this must walk the tuple form -- leaf_refs()/iter_leaf_refs() walk the raw dict form instead.
+    tree = _all(_any(REF_A, REF_B), _not(REF_C), _one_of(REF_A, REF_B))
+    canon = expressions.canonicalize(tree)
+    assert expressions.canonical_leaf_refs(canon) == {"ground_fact.a", "ground_fact.b", "ground_fact.c"}
+
+
+def test_canonical_leaf_refs_matches_raw_leaf_refs_after_canonicalize() -> None:
+    for tree in (
+        _all(REF_A, _any(REF_B, REF_C)),
+        _one_of(REF_A, _not(REF_B)),
+        REF_A,
+    ):
+        assert expressions.canonical_leaf_refs(expressions.canonicalize(tree)) == expressions.leaf_refs(tree)
+
+
 def test_all_is_commutative() -> None:
     assert expressions.canonicalize(_all(REF_A, REF_B)) == expressions.canonicalize(_all(REF_B, REF_A))
 

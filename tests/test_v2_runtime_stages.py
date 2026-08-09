@@ -10,6 +10,8 @@ from idpr.v2.runtime.stages import (
     CompletionRequirementObligation,
     CulpabilityState,
     Obligation,
+    ParticipationDependencyObligation,
+    ParticipationRequirementObligation,
     RelationObligation,
     SlotObligation,
     StageResult,
@@ -85,19 +87,26 @@ def test_evaluated_stage_may_carry_unknown_effects():
     assert stage.effects[0].truth == UNKNOWN
 
 
-def test_obligation_union_is_exactly_the_three_units_the_evaluator_can_answer():
+def test_obligation_union_is_exactly_the_five_units_the_evaluator_can_answer():
     """Deliberately no `PredicateObligation(ref)`.
 
     `evaluate()` returns one TruthValue and an expression can be FALSE with no FALSE leaf in it
     (`NOT(A)` with A=TRUE, `ONE_OF(A, B)` with both TRUE), so a "decisive leaf" would require a
-    second, unsound evaluator in the pipeline. These three are what the existing evaluator can name
+    second, unsound evaluator in the pipeline. These five are what the existing evaluator can name
     honestly. `CompletionRequirementObligation` replaced the earlier `FormRequirementObligation`
     when the form abstraction was removed -- the obligation it names now belongs to a completion
-    STATE, not to a selected program.
+    STATE, not to a selected program. `ParticipationDependencyObligation`/
+    `ParticipationRequirementObligation` (step 6C) name the two obligations a derivative
+    participant's (instigator/aider) Elements folds -- principal-realization gate and own
+    `requires`, never a re-evaluation of the principal's `CompiledOffense`.
     """
     assert set(Obligation.__args__) == {
         SlotObligation,
         RelationObligation,
         CompletionRequirementObligation,
+        ParticipationDependencyObligation,
+        ParticipationRequirementObligation,
     }
     assert set(CompletionRequirementObligation.__dataclass_fields__) == {"state"}
+    assert set(ParticipationDependencyObligation.__dataclass_fields__) == {"mode"}
+    assert set(ParticipationRequirementObligation.__dataclass_fields__) == {"mode"}

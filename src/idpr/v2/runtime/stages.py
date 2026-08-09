@@ -73,11 +73,33 @@ class CompletionRequirementObligation:
     state: str
 
 
-Obligation = SlotObligation | RelationObligation | CompletionRequirementObligation
+@dataclass(frozen=True)
+class ParticipationDependencyObligation:
+    """Step 6C: the typed principal-realization gate a derivative participant's (instigator/aider)
+    Elements starts from -- `principal_realization_truth()` in `runtime/participation.py`."""
+
+    mode: Literal["instigator", "aider"]
+
+
+@dataclass(frozen=True)
+class ParticipationRequirementObligation:
+    """Step 6C: a derivative mode's own `requires` (8th schema addendum on `derivative_mode`),
+    evaluated against the participant's OWN truths -- never the principal's."""
+
+    mode: Literal["instigator", "aider"]
+
+
+Obligation = (
+    SlotObligation
+    | RelationObligation
+    | CompletionRequirementObligation
+    | ParticipationDependencyObligation
+    | ParticipationRequirementObligation
+)
 """Deliberately NOT `PredicateObligation(ref)`. `evaluate()` returns one TruthValue, and an
 expression can be FALSE with no FALSE leaf anywhere in it -- `NOT(A)` with `A=TRUE`, or
 `ONE_OF(A, B)` with both TRUE. Walking the tree again in the pipeline to guess a "decisive leaf"
-would be a second, unsound evaluator. These three units are exactly what the existing evaluator can
+would be a second, unsound evaluator. These five units are exactly what the existing evaluator can
 answer honestly. Predicate-level provenance, if ever needed, means a real `evaluate_with_trace()`,
 not a heuristic here."""
 
@@ -194,14 +216,21 @@ class LiabilityEvaluation:
     gate passed. That keeps the legal ontology (what was concluded) out of the runtime trace (what
     was computed).
 
-    `completion` is likewise always present. It is a legal judgement about this instance, so it
-    belongs in the trace next to the stages -- not in the instance key, which identifies the
-    offense occurrence itself and does not change with what the evidence shows about its
-    completion.
+    `completion` is a legal judgement about this instance, so it belongs in the trace next to the
+    stages -- not in the instance key, which identifies the offense occurrence itself and does not
+    change with what the evidence shows about its completion.
+
+    `completion` is present as a *field* on every evaluation, but its value is `None` specifically
+    for derivative-participation instances (step 6C, `runtime/participation.py`): instigators/
+    aiders never derive a completion judgement of their own (decision #3 -- Completion is skipped
+    entirely for them, in favor of a principal-realization + own-requirement Elements gate), so
+    storing the principal's `CompletionResult` here would misrepresent the record as if the
+    accessory had one. The principal's own completion is already reachable via the principal's own
+    `LiabilityEvaluation.completion` if ever needed.
     """
 
     instance: OffenseInstanceKey
-    completion: CompletionResult
+    completion: CompletionResult | None
 
     elements: StageResult[ElementsState]
     unlawfulness: StageResult[UnlawfulnessState]

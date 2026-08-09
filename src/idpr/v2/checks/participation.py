@@ -14,6 +14,7 @@ here. What IS checkable at this layer:
 
 from __future__ import annotations
 
+from idpr.v2 import participation
 from idpr.v2.findings import Finding
 from idpr.v2.registry import DefinitionRegistry
 
@@ -33,7 +34,7 @@ def check_participation(registry: DefinitionRegistry) -> list[Finding]:
                 f"more than one ParticipationPolicyDef exists: {ids}",
             ))
 
-    policy = policies[0] if len(policies) == 1 else None
+    policy = participation.participation_policy_for(registry)
 
     if policy is None:
         for entry in offenses:
@@ -56,17 +57,18 @@ def check_participation(registry: DefinitionRegistry) -> list[Finding]:
                 ))
 
         if "co_principal" in disabled_modes:
-            effective_attributable_slots: list[str] = []
             field_path = "participation_constraints.disabled_modes"
         elif constraints.get("attributable_slots") is not None:
-            effective_attributable_slots = constraints["attributable_slots"]
             field_path = "participation_constraints.attributable_slots"
         elif "co_principal" in modes:
-            effective_attributable_slots = modes["co_principal"].get("attributable_slots") or []
             field_path = f"<inherited from {policy.id}.modes.co_principal.attributable_slots>"
         else:
-            effective_attributable_slots = []
             field_path = ""
+
+        # Single source for the actual slot list: idpr.v2.participation, also used by
+        # runtime/participation.py's ATTRIBUTE view merge (decision #1). `field_path` above stays
+        # local -- it's Finding-message presentation, not shared semantics.
+        effective_attributable_slots = participation.effective_attributable_slots(policy, entry)
 
         elements = entry.payload.get("elements") or {}
         for slot in effective_attributable_slots:

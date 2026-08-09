@@ -230,6 +230,17 @@ def _check_completion_policy(registry: DefinitionRegistry, entry: DefinitionEntr
     return findings
 
 
+def _check_participation_policy(registry: DefinitionRegistry, entry: DefinitionEntry) -> list[Finding]:
+    """8th addendum: `modes.instigator/aider.requires`'s leaves must be ground_fact/legal_element,
+    same as completion_policy's `states.*.requires` above. `principal`/`co_principal` modes have no
+    `requires` field in the schema at all, so this loop only ever fires for derivative modes."""
+    findings: list[Finding] = []
+    for mode_name, mode in (entry.payload.get("modes") or {}).items():
+        if "requires" in mode:
+            findings.extend(_check_expression(registry, entry, f"modes.{mode_name}.requires", mode["requires"]))
+    return findings
+
+
 _HANDLERS = {
     "legal_element": _check_legal_element,
     "primitive": _check_primitive,
@@ -240,4 +251,5 @@ _HANDLERS = {
     "doctrine": _check_doctrine,
     "qualifier": _check_qualifier,
     "completion_policy": _check_completion_policy,
+    "participation_policy": _check_participation_policy,
 }

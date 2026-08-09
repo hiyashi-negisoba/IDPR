@@ -42,13 +42,17 @@
     },
     "derivative_mode": {
       "type": "object",
-      "required": ["basis", "requires_conclusion"],
+      "required": ["basis", "requires_conclusion", "requires"],
       "additionalProperties": false,
       "properties": {
         "basis": { "const": "derivative" },
         "requires_conclusion": {
           "const": "offense_realization",
           "description": "Pinned, not a free choice among conclusion_type's three values. Section 15.3 is explicit that the principal's personal culpability defenses do not defeat the instigator/aider dependency, i.e. the required level is offense_realization, never offense_establishment or liability_result -- letting an author freely pick liability_result here would let a definition silently encode the exact TYPE ERROR section 15.4 exists to catch, and the type checker (step 2) would then have nothing structurally wrong to reject. If a genuine counter-example ever needs a different level, that is a v2.1.0 grammar change (open a new Open Question), not a value an author chooses per-offense."
+        },
+        "requires": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression",
+          "description": "8th schema addendum (2026-08-08, step 6C): the derivative participant's OWN requirement (e.g. 교사의 고의, 방조행위 존재) -- evaluated against the participant's own case truths, never the principal's. Required, not optional, unlike most addenda in this project: `requires_conclusion` only pins WHICH typed principal state the mode depends on, it says nothing about the participant's own act/intent, so an instigator/aider mode with no `requires` would let case-time Elements be satisfied by the principal's OffenseRealization alone -- an accessory liable purely because the principal succeeded, with nothing authored about the accessory's own conduct. Mirrors completion_policy_def.schema.json's states.*.requires (same grammar, same leaf-kind restriction to ground_fact/legal_element)."
         }
       }
     }

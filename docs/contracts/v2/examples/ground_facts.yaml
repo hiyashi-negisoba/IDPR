@@ -125,3 +125,22 @@
   canonical_meaning: "피해자가 사망하였다."
   source_refs:
     - {comment_id: "v2_example_001", section_path: "worked-example", quote: "피해자가 사망하였다."}
+
+# 2026-08-08 addition: 8th addendum (Participation) fixture support --
+# participation_policy.standard's derivative modes (instigator/aider), each now requiring its
+# own predicate distinct from the principal's conduct.
+- id: ground_fact.instigation_conduct
+  arguments:
+    - {name: actor, type: entity}
+    - {name: principal, type: entity}
+  canonical_meaning: "행위자가 타인으로 하여금 범죄 실행을 결의하게 하는 행위를 하였다."
+  source_refs:
+    - {comment_id: "v2_example_001", section_path: "worked-example", quote: "행위자가 타인으로 하여금 범죄 실행을 결의하게 하는 행위를 하였다."}
+
+- id: ground_fact.aiding_conduct
+  arguments:
+    - {name: actor, type: entity}
+    - {name: principal, type: entity}
+  canonical_meaning: "행위자가 정범의 범죄 실행을 용이하게 하는 행위를 하였다."
+  source_refs:
+    - {comment_id: "v2_example_001", section_path: "worked-example", quote: "행위자가 정범의 범죄 실행을 용이하게 하는 행위를 하였다."}

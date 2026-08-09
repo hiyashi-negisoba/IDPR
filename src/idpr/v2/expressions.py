@@ -63,6 +63,26 @@ def slot_leaf_refs(elements: Mapping[str, Any]) -> dict[str, frozenset[str]]:
     return {slot: leaf_refs(elements.get(slot)) for slot in SLOT_NAMES}
 
 
+def canonical_leaf_refs(expr: CanonicalExpr) -> frozenset[str]:
+    """Leaf predicate refs of an already-canonicalized expression.
+
+    Sibling to `leaf_refs()`, which walks the pre-canonicalize raw dict form. `compiled.slots[...]`
+    (compile.py) is already canonical by the time runtime attribution needs its leaves, so
+    `leaf_refs()` would walk the wrong shape and silently return nothing."""
+    if expr is None:
+        return frozenset()
+    op, payload = expr
+    if op == "ref":
+        return frozenset({payload})
+    if op in ("all", "any"):
+        return frozenset().union(*(canonical_leaf_refs(child) for child in payload))
+    if op == "one_of":
+        return frozenset().union(*(canonical_leaf_refs(child) for child in payload))
+    if op == "not":
+        return canonical_leaf_refs(payload)
+    raise ValueError(f"unknown canonical op {op!r}")
+
+
 def canonicalize(expr: Mapping[str, Any] | None) -> CanonicalExpr:
     if expr is None:
         return None

@@ -495,3 +495,60 @@ punishable:false  상태로는 도출되지만 처벌되지 않는다
   instance의 identity가 아니라 그 instance에 대한 법적 판단 결과**이므로 키에 들어가지
   않는다.
 - 타입체크 축이 하나 늘어난다: **axis 8** `checks/completion.py`(7축 → 8축).
+
+## 2026-08-08 Step 6C(Participation/Attribution) 착수 시 스키마 수정 (8차 수정)
+
+### 배경 — 무엇이 비어 있었나
+
+`participation_policy_def.schema.json`의 `derivative_mode`(교사/방조)는 `basis`(const
+`derivative`)와 `requires_conclusion`(const `offense_realization`)만 갖고 있었다.
+`requires_conclusion`은 정범 쪽 어느 typed conclusion에 종속하는지만 고정할 뿐 —
+교사자·방조자 **자신의** 요건(교사의 고의, 방조행위 존재 등)을 저작할 필드가 없었다.
+6C 런타임 설계 중(교사·방조 Elements = principal realization + 자체 요건) 발견됐고,
+`SCHEMA_NOTES.md`/v2.1.0·v2.2.0 설계문서/`CURRENT.md`/fixture 어디에도 이 공백이
+이미 논의되거나 해결된 적이 없음을 확인 완료(Explore 재확인).
+
+### 수정 — `derivative_mode`에 `requires` 신규, **필수**
+
+`completion_policy_def.schema.json`의 `states.*.requires`와 동일한 `element_expression`
+grammar를 그대로 재사용해 `derivative_mode`에 추가했다. `properties`뿐 아니라
+`required`에도 넣어 **필수** 필드로 만들었다 — 이 프로젝트의 다른 addendum 대부분이
+optional로 열어둔 것과 다른 결정이다. 이유: optional이면 `requires`를 안 쓴 교사/방조
+mode가 authoring 가능해지고, 그러면 런타임 Elements가 principal_realization_truth
+하나만으로 satisfied가 되어버린다 — 정범이 성공했다는 사실만으로 교사자/방조자 자신의
+행위·고의 요건 없이 책임이 성립하는 셈이라 §15.3의 "derivative liability" 취지 자체가
+무너진다. 사용자가 계획서 검토 중 직접 지적해 확정.
+
+### fixture 변경
+
+`participation_policies.yaml`의 `instigator`/`aider` 두 mode 모두 `requires`가
+필수가 되는 순간 스키마 위반이 되므로 둘 다 갱신 — `ground_facts.yaml`에
+`ground_fact.instigation_conduct`(교사행위)/`ground_fact.aiding_conduct`(방조행위)
+2개 신규, 각 mode의 `requires`가 참조. 부정 케이스 1개 추가(`requires` 없는
+`derivative_mode`가 거부되는지).
+
+### 코드 쪽 경계 (같이 확정, `runtime/participation.py` 신규)
+
+- **ATTRIBUTE(co-principal)는 predicate-level view merge다**, slot-truth 대입이 아니다.
+  `attributable_slots`가 가리키는 slot들의 leaf predicate ref만 골라 상대 co-principal의
+  truth와 `fold_any`(3치 OR)로 합친다 — ATTRIBUTE → Completion → Elements 순서(v2.2.0
+  §18)를 그대로 유지하기 위해 predicate 층에서 처리, `CaseTruths`는 새로 만들고 원본은
+  손대지 않는다(`apply_attribution()`이 새 `CaseTruths` 반환, `resolve_completion()`/
+  `.predicate_view()` 시그니처 불변).
+- **교사·방조는 정범의 `CompiledOffense`를 재평가하지 않는다.** Elements =
+  `principal_realization_truth(principal)`(3치, 새 exception 계층 없음 — 정범 쪽 기존
+  StageResult를 읽기만 함) AND 자체 `requires`. 그 이후(Unlawfulness→Culpability→
+  Punishability)는 `pipeline.resolve_from_elements()`로 direct/co-principal 경로와
+  **완전히 동일한 코드**를 재사용 — 별도 accessory engine 없음.
+- **`LiabilityEvaluation.completion`은 `CompletionResult | None`으로 확장.** derivative
+  경로는 Completion 자체를 거치지 않으므로 `None`. 정범의 completion이 필요하면
+  `principal.completion`으로 이미 접근 가능 — 복제하지 않는다(사용자가 초안 정정).
+- §15.4의 "TYPE ERROR"(`requires_conclusion`이 잘못된 conclusion을 요구)는 이제 저작
+  단계에서 구조적으로 불가능(const 고정) — 런타임에 대응하는 예외 타입 없음.
+- 공유 로직 추출: `checks/participation.py`에 inline돼 있던 `effective_attributable_
+  slots` 계산을 `src/idpr/v2/participation.py`(신규, definition-layer)로 승격 —
+  `relations.py`/`compile.py`가 이미 쓰는 "checks와 runtime이 같은 소스 공유" 패턴.
+  `expressions.py`에 `canonical_leaf_refs`(canonical tuple form 전용 leaf walker, 기존
+  `leaf_refs`는 raw dict form용) 신규.
+- 타입체크 축 변화 없음(8축 그대로) — `checks/references.py`에 `participation_policy`용
+  핸들러만 추가(axis 1, 기존 `completion_policy`의 `states.*.requires` 패턴과 동일).

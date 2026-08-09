@@ -54,8 +54,12 @@ from idpr.v2.runtime.stages import (
 )
 from idpr.v2.runtime.truths import CaseTruths
 
-_ELEMENTS_STATE = {TRUE: "satisfied", FALSE: "failed"}
-_ELEMENTS_GATE = {TRUE: "passes", FALSE: "fails"}
+ELEMENTS_STATE = {TRUE: "satisfied", FALSE: "failed"}
+ELEMENTS_GATE = {TRUE: "passes", FALSE: "fails"}
+"""Public since step 6C: `runtime/participation.py`'s derivative Elements builder
+(`_resolve_derivative_elements`) needs the same TruthValue -> legal/gate state mapping this module
+already uses for the direct/co-principal path's Elements. Same promotion precedent as
+`evaluate._fold_all` -> `fold_all` when a second caller needed it (Step 5)."""
 
 
 def resolve_liability(
@@ -69,9 +73,10 @@ def resolve_liability(
     """Run one instance to a `LiabilityEvaluation`, under an already-derived completion judgement.
 
     `completion` is an input, not something computed here: deriving it is `completion.
-    resolve_completion()`'s job, and in step 6C attribution will run before that derivation
-    (section 18). Passing it in keeps the "who did what" and "what does the law require" decisions
-    outside the stage machinery.
+    resolve_completion()`'s job, and (step 6C) co-principal attribution runs before that derivation
+    (section 18) by producing a new `CaseTruths` for `resolve_completion()` to read -- see
+    `runtime/participation.py`. Passing it in keeps the "who did what" and "what does the law
+    require" decisions outside the stage machinery.
 
     Assumes an already type-checked registry and a successfully compiled offense, exactly as
     `evaluate.evaluate()` and `relations.evaluate_compiled_offense()` do.
@@ -80,6 +85,31 @@ def resolve_liability(
         return _stopped(instance, completion, "completion", elements=not_reached())
 
     elements, decisive_obligation = _resolve_elements(compiled, instance, completion, truths)
+    return resolve_from_elements(
+        registry, active, instance, completion, truths, elements, decisive_obligation
+    )
+
+
+def resolve_from_elements(
+    registry: DefinitionRegistry,
+    active: ActiveDoctrineRefs,
+    instance: OffenseInstanceKey,
+    completion: CompletionResult | None,
+    truths: CaseTruths,
+    elements: StageResult,
+    decisive_obligation: Obligation | None,
+) -> LiabilityEvaluation:
+    """The one place Unlawfulness -> Culpability -> Punishability runs, given an already-computed
+    Elements stage.
+
+    Two callers, step 6C: the direct/co-principal path (`resolve_liability` above, `elements` built
+    from slot+relation obligations, `completion` always a real `CompletionResult`) and the
+    derivative-participation path (`runtime.participation.resolve_derivative_liability`, `elements`
+    built from a principal-dependency + own-requirement obligation pair, `completion` always
+    `None` -- accessories never derive one). `completion` is never branched on here, only threaded
+    through to `_stopped()`/the final `LiabilityEvaluation` -- accepting `None` is a pure type
+    widening, not a logic change.
+    """
     if elements.gate_state != "passes":
         return _stopped(
             instance,
@@ -147,7 +177,7 @@ def resolve_liability(
 
 def _stopped(
     instance: OffenseInstanceKey,
-    completion: CompletionResult,
+    completion: CompletionResult | None,
     decisive_stage: str,
     *,
     elements: StageResult,
@@ -207,11 +237,11 @@ def _resolve_elements(
 
     stage = StageResult(
         evaluation_state="evaluated",
-        legal_state=_ELEMENTS_STATE.get(elements_truth, "unresolved"),
-        gate_state=_ELEMENTS_GATE.get(elements_truth, "unresolved"),
+        legal_state=ELEMENTS_STATE.get(elements_truth, "unresolved"),
+        gate_state=ELEMENTS_GATE.get(elements_truth, "unresolved"),
         provenance=outcomes,
     )
-    return stage, _decisive_obligation(failed)
+    return stage, decisive_obligation(failed)
 
 
 def _iter_obligations(
@@ -253,11 +283,15 @@ def _iter_obligations(
         )
 
 
-def _decisive_obligation(failed: list[Obligation]) -> Obligation | None:
+def decisive_obligation(failed: list[Obligation]) -> Obligation | None:
     """Exactly one FALSE obligation names itself; several name none.
 
     No ranking is introduced to break the tie (v2.2.0 section 14 keeps semantic scheduling out of
     the runtime). Every failure stays in `provenance` either way.
+
+    Public since step 6C: `runtime/participation.py`'s derivative Elements builder folds exactly
+    two obligations (principal-dependency, own-requirement) and needs the same "exactly one FALSE
+    names itself" rule -- same promotion precedent as `ELEMENTS_STATE`/`ELEMENTS_GATE` above.
     """
     return failed[0] if len(failed) == 1 else None
 

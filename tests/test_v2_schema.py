@@ -105,6 +105,33 @@ def test_element_modules_entry_missing_placement_rejected() -> None:
     assert schema_errors("offense", payload) != []
 
 
+def test_derivative_mode_without_requires_rejected() -> None:
+    # 8th addendum (step 6C): derivative_mode.requires is required, not optional -- an
+    # instigator/aider mode with no own requirement would let case-time Elements be satisfied by
+    # the principal's realization alone.
+    payload = {
+        "id": "participation_policy.x",
+        "modes": {
+            "instigator": {"basis": "derivative", "requires_conclusion": "offense_realization"},
+        },
+    }
+    assert schema_errors("participation_policy", payload) != []
+
+
+def test_derivative_mode_with_requires_accepted() -> None:
+    payload = {
+        "id": "participation_policy.x",
+        "modes": {
+            "instigator": {
+                "basis": "derivative",
+                "requires_conclusion": "offense_realization",
+                "requires": {"op": "ref", "ref": "ground_fact.a"},
+            },
+        },
+    }
+    assert schema_errors("participation_policy", payload) == []
+
+
 def test_element_modules_new_shape_accepted() -> None:
     payload = {
         "id": "offense.x",

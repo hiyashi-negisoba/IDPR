@@ -10,9 +10,10 @@ from idpr.v2.registry import (
 )
 
 
-def test_real_corpus_loads_43_entries_12_kinds(tmp_path) -> None:
+def test_real_corpus_loads_45_entries_12_kinds(tmp_path) -> None:
+    # 43 -> 45 (step 6C, 8th addendum): ground_fact.instigation_conduct + ground_fact.aiding_conduct.
     registry = load_definitions()
-    assert len(registry.by_id) == 43
+    assert len(registry.by_id) == 45
     assert len(registry.by_kind) == 12
 
 
