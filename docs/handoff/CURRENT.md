@@ -2,16 +2,16 @@
 
 기준: 2026-08-10 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
-## Next-session checkpoint — Step 8 Call 1 amended final rerun pending
+## Next-session checkpoint — Step 8 Call 1 frozen; Call 2 contract/prompt review next
 
 - **Current boundary:** Phase 5.1 assembly와 **Phase 6 whole-registry audit** 뒤,
   승인된 Step 7 Closure / Probe compiler를 완료했고, Step 8 Call 1의 closed
   router/closure/artifact/report 구현과 prompt 검수를 마쳤다. 26건 1차와 prompt
   self-check 2차를 실행했고, 2차 raw artifact의 duplicate만 stable-unique한 offline
   counterfactual도 완료했다. 26건의 reviewed closed-catalog DefinitionRef gold annotation을
-  추가해 article→DefinitionRef 자동 투영 문제를 evaluation contract에서 제거했다. 최종
-  amended rerun은 이 gold와 stable-unique normalized seed를 기준으로 실행한다. 새 predicate·범용
-  framework·추론 기반 HOLD 해소는 여전히 승인된 scope 밖이다.
+  추가해 article→DefinitionRef 자동 투영 문제를 evaluation contract에서 제거했고, final
+  amended rerun을 완료했다. Call 1은 cap=10으로 frozen이며 Call 2 GroundFact contract/prompt
+  review가 다음 단계다. 새 predicate·범용 framework·추론 기반 HOLD 해소는 여전히 승인된 scope 밖이다.
 - **Art.339 coverage:** `robbery_rape` (333), `special_robbery_rape` (334),
   `quasi_robbery_rape` (335)를 각각 별도 COMPOSE/CompletionPolicy로 적재했다. 336은
   coverage reference only다.
@@ -34,7 +34,7 @@
   HOLD도 임의로 다시 열지 않는다.
 - **Step 8 amendment:** `idpr.v2.routing`은 loaded registry에서만 63개 closed
   offense/derived-offense catalog와 ordered `seeds` schema를 만든다. raw output은
-  JSON shape·1–15·canonical ref를 hard-validate한다. valid repeated canonical refs만
+  JSON shape·1–10·canonical ref를 hard-validate한다. valid repeated canonical refs만
   explicit stable-unique(first occurrence)로 `normalized_seeds`에 투영하며 raw array,
   duplicate refs, normalization flag를 artifact에 함께 보존한다. `uniqueItems`는 vLLM
   generation hint일 뿐 host hard-failure 근거가 아니다. Step 7과 10-vs-15 measurement는
@@ -43,15 +43,16 @@
   artifact와 CPU-only report를 `experiments/`에 남긴다. failure가 있어도 26행과 report는
   남지만 `FAILED`/invalid calibration은 Call 1 승인을 막는다. source·prompt·registry·case-list·gold
   parquet hash, DefinitionRef-gold hash와 model/vLLM settings도 manifest에 고정한다.
-- **Step 8 pilot evidence:** vLLM service host job 221593의 2차 request는 raw contract
-  기준 23 valid/3 duplicate(`offense.injury`) rows여서 `FAILED`였다. 별도 diagnostic
-  stable-unique report는 26/26 measurable, hard failure 0, 45/60 direct-identity survival,
-  and no additional recovery를 보였지만 원 run을 소급 VALID로 바꾸지 않는다. Direct
-  `OffenseDef.identity` projection은 `derived_offense.fraud` 등 derived coverage를
-  under-project하므로 이 수치는 freeze metric이 아니다. Final rerun metric은
-  `data/eval/v2_call1_definition_gold_draft.json`의 reviewed DefinitionRef gold에 의한
-  **closed-catalog DefinitionRef recall**이며, 명시된 special-law/out-of-catalog row는
-  denominator 밖으로 별도 보고한다. Detailed contract and current gate are in
+- **Step 8 frozen evidence:** vLLM service host job 221593의 final amended request
+  `20260810T114334Z-c34e5b6d62ce`는 26/26 router rows valid, hard failure 0이었다.
+  Reviewed DefinitionRef gold의 **closed-catalog DefinitionRef recall**은 raw 57/86
+  (66.28%), closure 68/86 (79.07%)로 closure recovery가 11개였다. 명시된
+  special-law/out-of-catalog 1행은 denominator 밖으로 보고한다. 15-cap artifact의
+  prefix10/full15 audit은 gold additional recovery 0, topology failure 0, beyond-prefix10
+  structural delta 2/26(모두 annotation gold 밖)을 확인해 cap=10을 freeze했다. Daemon이
+  시작 시 읽은 구형 report invocation은 실패 기록을 남겼지만, 동일 성공 artifact에 현재
+  evaluator를 적용한 final report는 `SUCCEEDED`/valid이며 infra incident로만 보존한다.
+  Detailed contract and current gate are in
   [`STEP8_CALL1_PLAN.md`](../../data/v2/definitions/STEP8_CALL1_PLAN.md)에 있다.
 
 ## 2-pass assembly 착수 — 첫 production slice 완료

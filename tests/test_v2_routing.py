@@ -69,6 +69,7 @@ def test_schema_has_closed_enum_unique_items_and_pilot_budget() -> None:
     seeds = router_schema(catalog)["properties"]["seeds"]
     assert seeds["uniqueItems"] is True
     assert seeds["minItems"] == 1
+    assert MAX_SEEDS_PER_CASE == 10
     assert seeds["maxItems"] == MAX_SEEDS_PER_CASE
     assert set(seeds["items"]["enum"]) == {entry.definition_id for entry in catalog}
 

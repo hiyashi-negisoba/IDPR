@@ -2,8 +2,9 @@
 
 The router sees case text and a catalog generated from the loaded Definition
 Layer.  It returns an ordered seed list only; it never extracts case facts or
-assigns legal effects.  The order is preserved because the pilot compares the
-first ten emitted candidates with the full fifteen-candidate budget.
+assigns legal effects.  The completed pilot preserved rank to compare its first
+ten candidates with the 15-cap calibration budget; production Call 1 is frozen
+at ten normalized candidates.
 """
 
 from __future__ import annotations
@@ -14,7 +15,7 @@ from typing import Any, Iterable, Mapping, Sequence
 from idpr.v2.registry import DefinitionRegistry
 
 
-MAX_SEEDS_PER_CASE = 15
+MAX_SEEDS_PER_CASE = 10
 _OFFENSE_KINDS = frozenset({"offense", "derived_offense"})
 
 
@@ -133,7 +134,7 @@ def validate_router_output(
 ) -> tuple[str, ...]:
     """Hard-validate and preserve the exact model-emitted seed order.
 
-    This validates JSON shape, the 1--15 raw output limit, strings, and closed
+    This validates JSON shape, the 1--10 raw output limit, strings, and closed
     offense membership.  It intentionally permits repeated *valid* refs; call
     :func:`normalize_router_seeds` is the explicit, auditable next stage.
     """

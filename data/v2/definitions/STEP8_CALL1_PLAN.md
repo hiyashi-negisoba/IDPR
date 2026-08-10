@@ -1,7 +1,7 @@
 # Step 8 — Call 1 neural-to-symbolic router pilot
 
-Status: **stable-unique contract amendment approved; derived-gold projection
-audit pending before the final amended rerun** (2026-08-10).
+Status: **Call 1 frozen at cap=10; Call 2 contract/prompt review is next**
+(2026-08-10).
 
 This is the bounded follow-on to the completed Step 7 Closure / Probe compiler.
 It does not change the 293-object production registry, the sealed Gate① sources,
@@ -29,8 +29,8 @@ metadata.
 The structured contract has no actor, event, fact-span, confidence, rationale,
 doctrine, legal-element, participation-mode, or verdict field.  Case text may,
 of course, describe actors and events; the restriction is on the router's
-structured interface.  The raw output list is ordered and contains 1–15 closed
-refs.  Its schema still declares `uniqueItems: true` as a generation hint, but
+structured interface.  The production raw output list is ordered and contains
+1–10 closed refs.  Its schema still declares `uniqueItems: true` as a generation hint, but
 host correctness does not depend on a structured-output backend enforcing it.
 The host first hard-validates JSON shape, raw count, strings, and canonical
 offense membership.  Malformed, empty, over-limit, unknown, and non-offense
@@ -46,8 +46,9 @@ raw_seeds → stable_unique(first occurrence) → normalized_seeds → Step 7
 This is not silent deduplication.  The artifact retains `raw_seeds`,
 `normalized_seeds`, `duplicate_refs`, and `normalization_applied`; the raw model
 response remains intact.  Repetition is occurrence-level behavior with no new
-Definition-level seed information, so downstream compilation and ordered
-10-vs-15 measurement use `normalized_seeds`.
+Definition-level seed information, so downstream compilation uses
+`normalized_seeds`.  The completed pilot retains its original ordered 15-cap
+responses only as calibration evidence for the frozen 10-cap choice.
 
 ## Execution and audit
 
@@ -56,7 +57,8 @@ Definition-level seed information, so downstream compilation and ordered
 hard-validates and normalizes the response before invoking `compile_closure()` and
 `compile_candidate_offenses()`.  It records all five Step 7 classification
 collections, occurrence-preserving frontiers, candidate compilation, raw model
-response, usage, and source/prompt/registry/case-list/gold-parquet hashes under
+response, usage, and source/prompt/registry/case-list/gold-parquet/
+DefinitionRef-gold hashes under
 ignored `experiments/`.  The manifest also pins the model snapshot/revision and
 sampling/vLLM settings.
 It requires explicit `--prompt-approved`; no first model execution is authorised
@@ -91,12 +93,26 @@ additional_recovery = survives(full15) and not survives(prefix10)
 ```
 
 There is no padding for a response shorter than ten normalized seeds.  Raw seed
-count remains a model-behavior diagnostic only.  The runner always
-finishes all 26 artifact rows and the report always includes failure rows.  If a
-router contract or transport failure occurs, the report sets
-`run_status = FAILED` and `calibration_valid = false`; artifacts remain available
-for diagnosis but Call 1 cannot be approved.  After the first run,
-the report must be reviewed for seed/closure survival, miss classes, frontier
-size, and `additional_recovery`; only one prompt/cap calibration is permitted
-before choosing a frozen cap of 10 or 15.  Call 2 remains blocked until that
-choice is explicitly recorded.
+count remains a model-behavior diagnostic only.  The runner always finishes all
+26 artifact rows and the report always includes failure rows.  If a router
+contract or transport failure occurs, the report sets `run_status = FAILED` and
+`calibration_valid = false`; artifacts remain available for diagnosis but Call 1
+cannot be approved.
+
+## Frozen result and next boundary
+
+The final amended 26-case artifact has 26/26 valid router rows and a valid
+DefinitionRef report.  It records raw survival 57/86 (66.28%), closure survival
+68/86 (79.07%), and eleven closure recoveries.  The 15-cap calibration had no
+gold `additional_recovery`; its two beyond-prefix10 rows added only
+annotation-gold-external candidate/frontier paths.  The post-run topology audit
+found no selected-entrypoint closure failure (15 direct-only router misses and
+three missed closure-entrypoint router misses).  Therefore the operational
+schema/validator cap is frozen at **10**; no cap-decision rerun is authorized.
+
+The prompt, model/configuration, stable-unique normalization, ordered canonical
+DefinitionRef output, and Step 7 connection are frozen.  Call 2 GroundFact
+grounding may now begin its separate contract and prompt review.  It may ground
+only Step 7 frontier facts as TRUE/FALSE/UNKNOWN and use FALSE for
+path-local impossibility pruning; it may not decide offenses, legal elements,
+doctrines, participation, or legal effects.
