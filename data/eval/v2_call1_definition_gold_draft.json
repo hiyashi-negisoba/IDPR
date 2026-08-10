@@ -1,0 +1,168 @@
+{
+  "schema_version": "v0",
+  "status": "draft_assistant_annotation_pending_human_legal_review",
+  "purpose": "Step 8 Call 1 evaluation-only DefinitionRef gold for the fixed 26-case KCL substantive cohort.",
+  "label_policy": {
+    "positive_scope": "Closed catalog DefinitionRefs that the reviewed rubric requires the answer to examine, including ultimately rejected offense theories.",
+    "negative_scope": "Special-law, out-of-catalog, and completion-only issues receive a scope note and do not create an invented DefinitionRef label.",
+    "seed_level": "Definition type, never actor, victim, event, mode, or occurrence. A derived offense is labelled when the rubric's legal issue is that derived offense."
+  },
+  "cases": [
+    {
+      "case_id": "kcl_criminal_r10_p1_q1_ga",
+      "source_article_gold": ["art297", "art298", "art301", "art319"],
+      "gold_definition_refs": ["derived_offense.rape_causing_injury_by_aggravated_result", "offense.dwelling_intrusion", "offense.forcible_indecency", "offense.rape"],
+      "scope_notes": ["The rubric's dwelling-intrusion rape/injury sexual-special-law form has no exact standalone DefinitionRef; the available rape injury derived ref, rape, and dwelling-intrusion refs are retained."]
+    },
+    {
+      "case_id": "kcl_criminal_r10_p1_q2",
+      "source_article_gold": ["art257", "art259"],
+      "gold_definition_refs": ["derived_offense.injury_causing_death", "offense.injury"],
+      "scope_notes": ["Includes the base injury path because the rubric separately tests Article 263 / injury-attempt consequences."]
+    },
+    {
+      "case_id": "kcl_criminal_r10_p1_q3_ga",
+      "source_article_gold": ["art122", "art129", "art133", "art151", "art355"],
+      "gold_definition_refs": ["offense.bribe_delivery_receipt", "offense.bribe_giving", "offense.bribery_taking", "offense.dereliction_of_duty", "offense.embezzlement", "offense.harboring_or_escape"],
+      "scope_notes": ["Includes theories the rubric ultimately rejects (bribe giving, embezzlement, dereliction) because Call 1 is a candidate router."]
+    },
+    {
+      "case_id": "kcl_criminal_r10_p2_q1",
+      "source_article_gold": ["art257", "art347", "art355"],
+      "gold_definition_refs": ["derived_offense.fraud", "offense.embezzlement", "offense.injury"],
+      "scope_notes": ["장물보관죄 is outside the closed catalog."]
+    },
+    {
+      "case_id": "kcl_criminal_r10_p2_q2",
+      "source_article_gold": ["art151", "art333", "art334", "art343", "art355"],
+      "gold_definition_refs": ["derived_offense.special_robbery", "offense.breach_of_trust", "offense.harboring_or_escape", "offense.robbery"],
+      "scope_notes": ["The Article 343 preparation issue has no separate DefinitionRef; offense.robbery is its closed-catalog target."]
+    },
+    {
+      "case_id": "kcl_criminal_r10_p2_q3",
+      "source_article_gold": [],
+      "gold_definition_refs": ["offense.occupational_or_gross_negligence_injury_or_homicide"],
+      "scope_notes": ["The rubric names a traffic special-law occupational-negligent death issue; this is the available closed-catalog general counterpart."]
+    },
+    {
+      "case_id": "kcl_criminal_r11_p1_q1",
+      "source_article_gold": ["art257", "art329", "art331", "art335", "art337", "art350"],
+      "gold_definition_refs": ["derived_offense.quasi_robbery", "derived_offense.robbery_causing_injury_by_aggravated_result", "derived_offense.special_theft", "offense.extortion", "offense.injury", "offense.theft"],
+      "scope_notes": ["Out-of-catalog stolen-property and Sexual Violence Act issues are not labelled."]
+    },
+    {
+      "case_id": "kcl_criminal_r11_p2_q1_ga",
+      "source_article_gold": ["art129", "art133"],
+      "gold_definition_refs": ["offense.bribe_giving", "offense.bribery_taking"],
+      "scope_notes": []
+    },
+    {
+      "case_id": "kcl_criminal_r11_p2_q1_na",
+      "source_article_gold": ["art122", "art136", "art137", "art225", "art227"],
+      "gold_definition_refs": ["offense.deceptive_obstruction_of_official_duty", "offense.dereliction_of_duty", "offense.false_public_document_creation", "offense.public_document_forgery"],
+      "scope_notes": ["Public-document forgery is retained because the rubric expressly distinguishes and rejects it against false-public-document creation."]
+    },
+    {
+      "case_id": "kcl_criminal_r11_p2_q1_da",
+      "source_article_gold": ["art299"],
+      "gold_definition_refs": ["offense.quasi_rape"],
+      "scope_notes": ["Attempt/impossibility is a CompletionPolicy concern, not a second seed."]
+    },
+    {
+      "case_id": "kcl_criminal_r12_p1_q1",
+      "source_article_gold": ["art231"],
+      "gold_definition_refs": ["offense.private_document_forgery"],
+      "scope_notes": ["Information-network defamation is outside the catalog; private-document forgery is retained although the rubric concludes it is not established."]
+    },
+    {
+      "case_id": "kcl_criminal_r12_p1_q2",
+      "source_article_gold": ["art329"],
+      "gold_definition_refs": ["offense.theft"],
+      "scope_notes": []
+    },
+    {
+      "case_id": "kcl_criminal_r12_p1_q3",
+      "source_article_gold": ["art329", "art356", "art357"],
+      "gold_definition_refs": ["derived_offense.occupational_breach_of_trust", "offense.theft"],
+      "scope_notes": ["Article 357 breach-of-trust receipt has no closed DefinitionRef."]
+    },
+    {
+      "case_id": "kcl_criminal_r12_p1_q4",
+      "source_article_gold": ["art127", "art136", "art151", "art152"],
+      "gold_definition_refs": ["offense.deceptive_obstruction_of_official_duty", "offense.harboring_or_escape", "offense.official_secret_disclosure", "offense.perjury"],
+      "scope_notes": ["Deceptive obstruction and harboring/escape are retained although the rubric's final conclusions reject them."]
+    },
+    {
+      "case_id": "kcl_criminal_r12_p2_q1_ga",
+      "source_article_gold": ["art250", "art319", "art329", "art330"],
+      "gold_definition_refs": ["derived_offense.nighttime_dwelling_theft", "offense.ancestral_homicide", "offense.dwelling_intrusion", "offense.homicide", "offense.theft"],
+      "scope_notes": ["Both homicide and ancestral-homicide paths are rubric issues; Article 330 is represented by the derived nighttime-dwelling-theft ref."]
+    },
+    {
+      "case_id": "kcl_criminal_r12_p2_q1_na",
+      "source_article_gold": ["art250", "art255"],
+      "gold_definition_refs": ["offense.homicide"],
+      "scope_notes": ["Preparation, aiding of preparation, and attempt state do not create separate closed seeds."]
+    },
+    {
+      "case_id": "kcl_criminal_r12_p2_q1_da",
+      "source_article_gold": ["art225", "art227", "art231", "art234", "art239", "art329", "art347", "art360"],
+      "gold_definition_refs": ["derived_offense.fraud", "offense.false_public_document_creation", "offense.lost_property_embezzlement", "offense.private_document_forgery", "offense.public_document_forgery", "offense.seal_forgery_or_misuse", "offense.theft", "offense.use_of_forged_private_document"],
+      "scope_notes": ["Document-offense alternatives that the rubric rejects remain candidate labels; fraud is retained for the resident-center deception issue."]
+    },
+    {
+      "case_id": "kcl_criminal_r13_p1_q1",
+      "source_article_gold": ["art319", "art329", "art331", "art335", "art337"],
+      "gold_definition_refs": ["derived_offense.quasi_robbery", "derived_offense.robbery_causing_injury_by_aggravated_result", "derived_offense.special_theft", "offense.dwelling_intrusion", "offense.theft"],
+      "scope_notes": ["Attempt/impossibility belongs to completion evaluation; joint residence intrusion is represented by dwelling intrusion."]
+    },
+    {
+      "case_id": "kcl_criminal_r13_p1_q3",
+      "source_article_gold": ["art250"],
+      "gold_definition_refs": ["offense.homicide"],
+      "scope_notes": ["Attempt, abandonment, and co-principal questions use the homicide seed; communications secrecy is outside the catalog."]
+    },
+    {
+      "case_id": "kcl_criminal_r13_p2_q1",
+      "source_article_gold": ["art136", "art151", "art234", "art257", "art2582_2", "art329", "art331", "art347"],
+      "gold_definition_refs": ["derived_offense.fraud", "derived_offense.special_injury", "derived_offense.special_theft", "offense.deceptive_obstruction_of_official_duty", "offense.harboring_or_escape", "offense.obstruction_of_official_duty", "offense.theft", "offense.use_of_forged_private_document"],
+      "scope_notes": ["The catalog lacks a dedicated special-obstruction-causing-injury and credit-card offense; their nearest ordinary catalog targets are kept only where the rubric independently tests them."]
+    },
+    {
+      "case_id": "kcl_criminal_r14_p1_q1",
+      "source_article_gold": ["art164", "art250", "art257", "art319"],
+      "gold_definition_refs": ["derived_offense.arson_causing_death", "offense.ancestral_homicide", "offense.arson_of_occupied_structure", "offense.dwelling_intrusion", "offense.homicide"],
+      "scope_notes": ["Arson-causing-death is retained as a rejected result-aggravated theory; attempted homicide is represented by homicide/ancestral-homicide seeds plus completion policy."]
+    },
+    {
+      "case_id": "kcl_criminal_r14_p1_q2",
+      "source_article_gold": ["art133", "art347", "art355"],
+      "gold_definition_refs": ["derived_offense.fraud", "offense.bribe_delivery_receipt", "offense.bribe_giving", "offense.embezzlement"],
+      "scope_notes": ["Embezzlement and bribe giving are retained despite the rubric's ultimately negative conclusions."]
+    },
+    {
+      "case_id": "kcl_criminal_r14_p1_q3",
+      "source_article_gold": ["art323"],
+      "gold_definition_refs": ["offense.obstruction_of_right_exercise"],
+      "scope_notes": []
+    },
+    {
+      "case_id": "kcl_criminal_r14_p2_q1",
+      "source_article_gold": ["art329", "art331", "art335", "art337"],
+      "gold_definition_refs": ["derived_offense.quasi_robbery", "derived_offense.robbery_causing_injury_by_aggravated_result", "derived_offense.special_theft", "offense.theft"],
+      "scope_notes": ["Possible negligent-injury liability is outside the article gold/catalog question and is not a label."]
+    },
+    {
+      "case_id": "kcl_criminal_r14_p2_q2",
+      "source_article_gold": ["art334", "art337", "art338"],
+      "gold_definition_refs": ["derived_offense.robbery_causing_death_by_aggravated_result", "derived_offense.robbery_causing_injury_by_aggravated_result", "derived_offense.special_robbery"],
+      "scope_notes": ["The special-robbery attempt issue is represented by special robbery plus completion policy."]
+    },
+    {
+      "case_id": "kcl_criminal_r14_p2_q4",
+      "source_article_gold": ["art136"],
+      "gold_definition_refs": ["offense.obstruction_of_official_duty"],
+      "scope_notes": ["Ordinary assault is outside the closed catalog; the obstruction theory is retained although the rubric concludes it is not established."]
+    }
+  ]
+}
