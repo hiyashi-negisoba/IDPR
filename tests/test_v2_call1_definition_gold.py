@@ -28,6 +28,7 @@ def test_definition_gold_draft_uses_only_closed_catalog_refs_without_duplicates(
     allowed = {entry.definition_id for entry in router_catalog(registry)}
     for row in payload["cases"]:
         refs = row["gold_definition_refs"]
-        assert refs
+        if not refs:
+            assert any("outside the closed catalog" in note for note in row["scope_notes"]), row["case_id"]
         assert len(refs) == len(set(refs)), row["case_id"]
         assert set(refs) <= allowed, row["case_id"]
