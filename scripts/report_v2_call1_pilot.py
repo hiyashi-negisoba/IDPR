@@ -85,7 +85,11 @@ def main() -> None:
         row = indexed[case_id]
         rendered = {
             "sub_question_id": case_id,
-            "seeds": list(row.get("seeds") or ()),
+            "raw_seeds": list(row.get("raw_seeds") or row.get("seeds") or ()),
+            "normalized_seeds": list(row.get("normalized_seeds") or row.get("seeds") or ()),
+            "duplicate_refs": list(row.get("duplicate_refs") or ()),
+            "normalization_applied": bool(row.get("normalization_applied", False)),
+            "seeds": list(row.get("normalized_seeds") or row.get("seeds") or ()),
             "closure": row.get("closure") or {},
         }
         if row.get("error"):
@@ -93,7 +97,7 @@ def main() -> None:
         else:
             rendered["calibration"] = case_calibration(
                 registry,
-                seeds=tuple(row["seeds"]),
+                seeds=tuple(rendered["normalized_seeds"]),
                 gold_articles=gold[case_id].articles,
                 mapped_refs_by_article=mapped_refs,
             )
@@ -110,9 +114,11 @@ def main() -> None:
         "summary": summarize_calibrations(report_rows),
         "cases": report_rows,
         "metric_contract": {
-            "raw_success": "mapped_refs(article) intersects router seeds",
+            "raw_success": "mapped_refs(article) intersects normalized_seeds",
             "closure_success": "mapped_refs(article) intersects candidate_offense_refs",
             "additional_recovery": "full15 survives while prefix10 does not",
+            "seed_count": "normalized_seeds; raw_seed_count is model-behavior diagnostic only",
+            "normalization": "stable unique canonical refs, preserving first occurrence order",
             "attempt_gold": "excluded; CompletionPolicy represents attempts in v2",
         },
     }

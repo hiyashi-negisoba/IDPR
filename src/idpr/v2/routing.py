@@ -27,6 +27,25 @@ class RouterContractError(ValueError):
 
 
 @dataclass(frozen=True)
+class RouterSeedNormalization:
+    """Auditable stable-unique projection of a valid raw router seed array.
+
+    Call 1 seeds name Definition types, not case-time offense occurrences.  A
+    later occurrence of an already valid canonical ref therefore adds no seed
+    information.  The raw array remains available for model-behavior audit;
+    downstream closure and ranked-cap measurement use ``normalized_seeds``.
+    """
+
+    raw_seeds: tuple[str, ...]
+    normalized_seeds: tuple[str, ...]
+    duplicate_refs: tuple[str, ...]
+
+    @property
+    def normalization_applied(self) -> bool:
+        return bool(self.duplicate_refs)
+
+
+@dataclass(frozen=True)
 class RouterCatalogEntry:
     """One Definition Layer candidate shown to the router.
 
@@ -76,7 +95,12 @@ def router_catalog(registry: DefinitionRegistry) -> tuple[RouterCatalogEntry, ..
 
 
 def router_schema(catalog: Iterable[RouterCatalogEntry]) -> dict[str, Any]:
-    """JSON Schema for an ordered, non-duplicated closed seed list."""
+    """JSON Schema for an ordered closed seed list.
+
+    ``uniqueItems`` remains a generation hint.  Host semantics do not rely on
+    every vLLM structured-output backend enforcing it: valid duplicate refs are
+    recorded and normalized explicitly below.
+    """
     ids = [entry.definition_id for entry in catalog]
     return {
         "type": "object",
@@ -107,11 +131,11 @@ def router_request_payload(
 def validate_router_output(
     payload: Mapping[str, Any], *, catalog: Iterable[RouterCatalogEntry]
 ) -> tuple[str, ...]:
-    """Validate and preserve the exact model-emitted seed order.
+    """Hard-validate and preserve the exact model-emitted seed order.
 
-    Duplicate entries are a hard failure, even though JSON Schema guided
-    decoding also declares ``uniqueItems``.  Silently deduplicating would alter
-    both candidate rank and the ten-vs-fifteen pilot measurement.
+    This validates JSON shape, the 1--15 raw output limit, strings, and closed
+    offense membership.  It intentionally permits repeated *valid* refs; call
+    :func:`normalize_router_seeds` is the explicit, auditable next stage.
     """
     errors: list[str] = []
     unexpected = sorted(set(payload) - {"seeds"})
@@ -131,17 +155,12 @@ def validate_router_output(
         errors.append(f"seeds must contain at most {MAX_SEEDS_PER_CASE} definition ids")
 
     allowed = {entry.definition_id for entry in catalog}
-    seen: set[str] = set()
     seeds: list[str] = []
     for index, seed in enumerate(raw_seeds):
         where = f"seeds[{index}]"
         if not isinstance(seed, str):
             errors.append(f"{where} must be a string")
             continue
-        if seed in seen:
-            errors.append(f"{where} duplicates earlier seed {seed!r}")
-            continue
-        seen.add(seed)
         if seed not in allowed:
             errors.append(f"{where} is not a closed offense definition id: {seed!r}")
             continue
@@ -152,10 +171,35 @@ def validate_router_output(
     return tuple(seeds)
 
 
+def normalize_router_seeds(raw_seeds: Sequence[str]) -> RouterSeedNormalization:
+    """Stable-unique valid canonical refs without hiding the raw output.
+
+    The caller must first use :func:`validate_router_output`; malformed,
+    unknown, and non-offense values never reach this function as repairs.
+    """
+    seen: set[str] = set()
+    normalized: list[str] = []
+    duplicates: list[str] = []
+    for seed in raw_seeds:
+        if seed in seen:
+            if seed not in duplicates:
+                duplicates.append(seed)
+            continue
+        seen.add(seed)
+        normalized.append(seed)
+    return RouterSeedNormalization(
+        raw_seeds=tuple(raw_seeds),
+        normalized_seeds=tuple(normalized),
+        duplicate_refs=tuple(duplicates),
+    )
+
+
 __all__ = [
     "MAX_SEEDS_PER_CASE",
     "RouterCatalogEntry",
     "RouterContractError",
+    "RouterSeedNormalization",
+    "normalize_router_seeds",
     "router_catalog",
     "router_request_payload",
     "router_schema",

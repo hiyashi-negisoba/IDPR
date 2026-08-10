@@ -1,7 +1,7 @@
 # Step 8 — Call 1 neural-to-symbolic router pilot
 
-Status: **implementation complete; prompt review required before the first model
-run** (2026-08-10).
+Status: **stable-unique contract amendment approved; derived-gold projection
+audit pending before the final amended rerun** (2026-08-10).
 
 This is the bounded follow-on to the completed Step 7 Closure / Probe compiler.
 It does not change the 293-object production registry, the sealed Gate① sources,
@@ -29,17 +29,31 @@ metadata.
 The structured contract has no actor, event, fact-span, confidence, rationale,
 doctrine, legal-element, participation-mode, or verdict field.  Case text may,
 of course, describe actors and events; the restriction is on the router's
-structured interface.  The output list is ordered, contains 1–15 closed refs,
-and declares `uniqueItems: true`.  Duplicate refs are a validation failure, not
-a host-side deduplication: preserving the model-emitted rank/count is necessary
-for the 10-vs-15 measurement.  The raw response remains in the artifact on any
-failure.
+structured interface.  The raw output list is ordered and contains 1–15 closed
+refs.  Its schema still declares `uniqueItems: true` as a generation hint, but
+host correctness does not depend on a structured-output backend enforcing it.
+The host first hard-validates JSON shape, raw count, strings, and canonical
+offense membership.  Malformed, empty, over-limit, unknown, and non-offense
+refs remain failures.
+
+Only after validation, repeated canonical refs are explicitly normalized by
+stable first occurrence:
+
+```text
+raw_seeds → stable_unique(first occurrence) → normalized_seeds → Step 7
+```
+
+This is not silent deduplication.  The artifact retains `raw_seeds`,
+`normalized_seeds`, `duplicate_refs`, and `normalization_applied`; the raw model
+response remains intact.  Repetition is occurrence-level behavior with no new
+Definition-level seed information, so downstream compilation and ordered
+10-vs-15 measurement use `normalized_seeds`.
 
 ## Execution and audit
 
 `scripts/run_v2_call1_pilot.py` accepts exactly the 26 IDs in
 `data/eval/kcl_substantive_case_ids.txt`, calls the approved router prompt, then
-validates the response and invokes `compile_closure()` and
+hard-validates and normalizes the response before invoking `compile_closure()` and
 `compile_candidate_offenses()`.  It records all five Step 7 classification
 collections, occurrence-preserving frontiers, candidate compilation, raw model
 response, usage, and source/prompt/registry/case-list/gold-parquet hashes under
@@ -49,13 +63,16 @@ It requires explicit `--prompt-approved`; no first model execution is authorised
 until the prompt is separately reviewed.
 
 `scripts/report_v2_call1_pilot.py` reads that artifact and uses the reviewed
-rubric article gold without attempt-article expansion.  Article projection uses
-only authored `OffenseDef.identity.statutory_refs`:
+rubric article gold without attempt-article expansion.  Its original
+identity-only article projection is known to under-project derived offenses
+(for example Article 347 / `derived_offense.fraud`); derived-gold projection
+must be audited before the final rerun's survival rates are used for a freeze.
+The direct authored-identity projection is:
 
 ```text
 gold article a → mapped_refs(a)
 
-raw success     iff mapped_refs(a) ∩ router_seeds != ∅
+raw success     iff mapped_refs(a) ∩ normalized_seeds != ∅
 closure success iff mapped_refs(a) ∩ candidate_offense_refs != ∅
 ```
 
@@ -67,12 +84,13 @@ over-crediting remain auditable.  Empty projections are reported as
 For ordered calibration:
 
 ```text
-prefix10 = seeds[:10]
-full15   = seeds[:15]
+prefix10 = normalized_seeds[:10]
+full15   = normalized_seeds[:15]
 additional_recovery = survives(full15) and not survives(prefix10)
 ```
 
-There is no padding for a response shorter than ten seeds.  The runner always
+There is no padding for a response shorter than ten normalized seeds.  Raw seed
+count remains a model-behavior diagnostic only.  The runner always
 finishes all 26 artifact rows and the report always includes failure rows.  If a
 router contract or transport failure occurs, the report sets
 `run_status = FAILED` and `calibration_valid = false`; artifacts remain available

@@ -26,6 +26,7 @@ from idpr.v2.closure import ClosureError, compile_candidate_offenses, compile_cl
 from idpr.v2.registry import KIND_TO_EXAMPLE_FILE, load_definitions  # noqa: E402
 from idpr.v2.routing import (  # noqa: E402
     RouterContractError,
+    normalize_router_seeds,
     router_catalog,
     router_request_payload,
     router_schema,
@@ -205,6 +206,7 @@ def main() -> None:
     manifest_path = args.out.with_suffix(".manifest.json")
     manifest_path.write_text(json.dumps({
         "step": "v2_call1_router_pilot",
+        "seed_normalization": "stable_unique_first_occurrence_after_raw_contract_validation",
         "git_commit": _git_commit(),
         "source_fingerprint": _source_fingerprint(),
         "model": args.model,
@@ -252,11 +254,17 @@ def main() -> None:
                     temperature=args.temperature,
                     user_template=user_prompt,
                 )
-                seeds = validate_router_output(output, catalog=catalog)
+                raw_seeds = validate_router_output(output, catalog=catalog)
+                normalization = normalize_router_seeds(raw_seeds)
+                seeds = normalization.normalized_seeds
                 closure = compile_closure(registry, seeds)
                 compiled = dict(compile_candidate_offenses(registry, closure))
                 row.update({
                     "raw_response": output,
+                    "raw_seeds": list(normalization.raw_seeds),
+                    "normalized_seeds": list(normalization.normalized_seeds),
+                    "duplicate_refs": list(normalization.duplicate_refs),
+                    "normalization_applied": normalization.normalization_applied,
                     "seeds": list(seeds),
                     "usage": metadata.get("usage", {}),
                     "model_response": {
@@ -267,7 +275,7 @@ def main() -> None:
                     "closure": _closure_payload(closure, compiled),
                 })
                 succeeded += 1
-                status = f"ok ({len(seeds)} seeds)"
+                status = f"ok ({len(seeds)} normalized seeds)"
             except (RouterContractError, ClosureError, VLLMClientError) as error:
                 row.update({
                     "raw_response": output,

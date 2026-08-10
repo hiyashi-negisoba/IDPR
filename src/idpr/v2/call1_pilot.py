@@ -99,6 +99,7 @@ def summarize_calibrations(rows: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
     """Aggregate only reportable article paths; retain failed rows separately."""
     counters: Counter[str] = Counter()
     seed_counts: list[int] = []
+    raw_seed_counts: list[int] = []
     frontier_counts: list[int] = []
     probe_counts: list[int] = []
     for row in rows:
@@ -106,6 +107,7 @@ def summarize_calibrations(rows: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
             counters["failed_cases"] += 1
             continue
         seed_counts.append(len(row.get("seeds") or ()))
+        raw_seed_counts.append(len(row.get("raw_seeds") or row.get("seeds") or ()))
         closure = row.get("closure") or {}
         frontier_counts.append(int(closure.get("ground_fact_frontier_count", 0) or 0))
         probe_counts.append(int(closure.get("probe_count", 0) or 0))
@@ -141,6 +143,7 @@ def summarize_calibrations(rows: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
             round(counters["closure_successes"] / mapped, 4) if mapped else None
         ),
         "seed_count": distribution(seed_counts),
+        "raw_seed_count": distribution(raw_seed_counts),
         "ground_fact_frontier_count": distribution(frontier_counts),
         "probe_count": distribution(probe_counts),
     }

@@ -15,6 +15,7 @@ from idpr.v2.registry import load_definitions
 from idpr.v2.routing import (
     MAX_SEEDS_PER_CASE,
     RouterContractError,
+    normalize_router_seeds,
     router_catalog,
     router_request_payload,
     router_schema,
@@ -79,15 +80,19 @@ def test_request_contains_only_case_text_and_closed_catalog() -> None:
     }
 
 
-def test_validator_preserves_order_and_rejects_duplicate_instead_of_deduplicating() -> None:
+def test_raw_validation_preserves_duplicates_then_explicit_normalization_keeps_first_rank() -> None:
     catalog = _catalog()
     assert validate_router_output(
         {"seeds": ["offense.robbery", "offense.injury"]}, catalog=catalog
     ) == ("offense.robbery", "offense.injury")
-    with pytest.raises(RouterContractError, match="duplicates earlier"):
-        validate_router_output(
-            {"seeds": ["offense.robbery", "offense.injury", "offense.robbery"]}, catalog=catalog
-        )
+    raw = validate_router_output(
+        {"seeds": ["offense.robbery", "offense.injury", "offense.robbery"]}, catalog=catalog
+    )
+    normalization = normalize_router_seeds(raw)
+    assert normalization.raw_seeds == raw
+    assert normalization.normalized_seeds == ("offense.robbery", "offense.injury")
+    assert normalization.duplicate_refs == ("offense.robbery",)
+    assert normalization.normalization_applied is True
 
 
 @pytest.mark.parametrize(
@@ -162,3 +167,4 @@ def test_summary_separates_out_of_registry_and_additional_recovery() -> None:
     assert summary["out_of_registry_articles"] == 1
     assert summary["raw_survival_rate"] == 1.0
     assert summary["closure_survival_rate"] == 1.0
+    assert summary["raw_seed_count"]["mean"] == 1.0
