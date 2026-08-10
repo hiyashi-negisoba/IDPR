@@ -157,6 +157,14 @@ def _check_offense(registry: DefinitionRegistry, entry: DefinitionEntry) -> list
             ref,
             frozenset({"legal_element"}),
         ))
+    statutory_deeming = (entry.payload.get("participation_constraints") or {}).get("statutory_deeming")
+    if statutory_deeming is not None:
+        findings.extend(_check_expression(
+            registry,
+            entry,
+            "participation_constraints.statutory_deeming.requires",
+            statutory_deeming["requires"],
+        ))
     return findings
 
 
@@ -215,7 +223,17 @@ def _check_derived_offense(registry: DefinitionRegistry, entry: DefinitionEntry)
 
 
 def _check_doctrine(registry: DefinitionRegistry, entry: DefinitionEntry) -> list[Finding]:
-    return _check_expression(registry, entry, "requires", entry.payload["requires"])
+    findings = _check_expression(registry, entry, "requires", entry.payload["requires"])
+    offense_scope = entry.payload.get("offense_scope")
+    if offense_scope is not None:
+        findings.extend(_check_ref(
+            registry,
+            entry,
+            "offense_scope",
+            offense_scope,
+            frozenset({"offense", "derived_offense"}),
+        ))
+    return findings
 
 
 def _check_qualifier(registry: DefinitionRegistry, entry: DefinitionEntry) -> list[Finding]:

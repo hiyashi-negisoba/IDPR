@@ -2,19 +2,32 @@
 
 기준: 2026-08-10 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
-## Next-session checkpoint — Phase 5.1 PASS
+## Next-session checkpoint — Step 7 COMPLETE; Step 8 Call 1 pilot
 
-- **Current boundary:** Phase 5.1의 최소 architecture/runtime 변경과 영향 production
-  assembly가 승인·완료됐다. **Phase 6 whole-registry audit는 아직 시작하지 않았다.**
+- **Current boundary:** Phase 5.1 assembly와 **Phase 6 whole-registry audit** 뒤,
+  승인된 Step 7 Closure / Probe compiler를 완료했다. 다음 승인 범위는 **Step 8 Call 1
+  pilot**이다. 새 predicate·범용 framework·추론 기반 HOLD 해소는 여전히 승인된 scope
+  밖이다.
 - **Art.339 coverage:** `robbery_rape` (333), `special_robbery_rape` (334),
   `quasi_robbery_rape` (335)를 각각 별도 COMPOSE/CompletionPolicy로 적재했다. 336은
   coverage reference only다.
-- **Guards carried forward:** Master v3는 sealed source, evaluation coverage는 80,
-  C-33b는 Step 7 caller-orchestration, C-34 production policy는 HOLD다.
-- **Verified handoff baseline:** production 293 objects, eight-axis type check 0
-  findings, 63/63 offense·derived-offense compile, `tests/test_v2_*.py` 236 passed.
-- **Next authorized work:** Phase 6 final coverage/integrity audit only. Phase 5.1의
-  설계·production assembly를 다시 열지 않는다.
+- **Step 7 slice:** `idpr.v2.closure`가 QUALIFY/COMPOSE closure·reverse offense
+  probes·occurrence-preserving Call 2 frontier와 five classified outputs를 registry에서만
+  유도한다. deferred legal evaluation은 독립 branch가 아니라 각 item의
+  `deferred_refs`에만 남긴다. mandatory offense만 active이며 probe 발견은 compiled
+  candidate일 뿐이다. probe가 살아난 뒤 caller가 명시한 conditional activation만
+  C-33b가 받아 기존 derivative resolver로 넘긴다.
+- **Verified checkpoint:** production 293 objects, eight-axis type check 0
+  findings, 63/63 offense·derived-offense compile, `tests/test_v2_*.py` 252 passed;
+  Gate① source는 sealed이고 coverage는 80(258 supporting dependency, 36·328·344
+  population 제외)으로 유지됐다.
+- **Approved data change:** `offense.injury`만 Art.263 statutory-deeming의 세
+  legal-element requirement를 opt-in했다. Article 263 runtime은 surviving probe 뒤에만
+  호출되며 attribution/new mode/offense-263 identity는 없다.
+- **Retained boundary:** relative/cohabiting-family doctrine은 frozen condition
+  expression이 없어 `offense_scope` schema/compiler support만 있고 production에는 새
+  doctrine을 쓰지 않았다. C-34 production policy와 Article 10/B-5/B-9/recidivism
+  HOLD도 임의로 다시 열지 않는다.
 
 ## 2-pass assembly 착수 — 첫 production slice 완료
 

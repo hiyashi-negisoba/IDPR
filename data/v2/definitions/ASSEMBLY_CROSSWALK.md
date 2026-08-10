@@ -1,6 +1,6 @@
 # Gate① inventory → production assembly crosswalk
 
-Status: **Phase 5.1 PASS — Phase 6 may begin on instruction** (2026-08-10).
+Status: **Phase 6 PASS — final coverage/integrity audit complete** (2026-08-10).
 
 This is the working ledger for the Phase 1 feedback point defined in
 [`ASSEMBLY_PLAN.md`](ASSEMBLY_PLAN.md). The canonical sources remain the sealed
@@ -35,21 +35,21 @@ does not redefine a canonical predicate ID or meaning.
 | Owner YAML | Loaded | Canonical scope currently present |
 |---|---:|---|
 | `ground_facts.yaml` | 29 | Phase 2–3 facts and P3-E01 `injury_conduct` |
-| `legal_elements.yaml` | 156 | Phase 2–4 leaves, including B-6, the frozen 301/337/338 intent leaves, and result-attribution |
+| `legal_elements.yaml` | 157 | Phase 2–4 leaves, including B-6, the frozen 301/337/338 intent leaves, result-attribution, and the Article 151 linked-status leaf |
 | `element_bundles.yaml` | 5 | Negligence, omission, the 335 purpose component, and two structural non-intent branch guards |
 | `primitives.yaml` | 8 | Phase 4 COMPOSE components, including the Master-canonical result-attribution wrapper |
 | `relations.yaml` | 3 | Shared relations plus 347's deception→disposition nexus |
-| `offenses.yaml` | 37 | Phase 3 base offenses plus B-6 extortion |
+| `offenses.yaml` | 38 | Phase 3 base offenses plus B-6 extortion and Article 151 harboring/escape |
 | `qualifiers.yaml` | 7 | 258/258의2 and property/356 qualification patches |
 | `exported_components.yaml` | 4 | Existing injury/death result and conduct PROJECT endpoints for result-aggravated COMPOSE |
-| `derived_offenses.yaml` | 22 | 258/258의2, B-6 fraud, property variants, intentional branches, and all Master-listed result-aggravated consumers |
-| `completion_policies.yaml` | 1 | 319① entry; 319② intentionally omits an attempted state |
+| `derived_offenses.yaml` | 25 | 258/258의2, B-6 fraud, property variants, intentional branches, all Master-listed result-aggravated consumers, and the three Article 339 variants |
+| `completion_policies.yaml` | 4 | 319① entry plus one checked component-local policy for each Article 339 variant; 319② intentionally omits an attempted state |
 | `doctrines.yaml` | 12 | Existing Phase 2 doctrines; B-9 remains HOLD |
-| `participation_policies.yaml` | 0 | Phase 5 confirms that no existing policy can lawfully finalise C-33a/C-34; remains unauthored |
+| `participation_policies.yaml` | 1 | `participation_policy.standard` supports the approved C-33a offence-local status path; no indirect-principal production policy is authored |
 
-The current **284** production objects are unchanged by Phase 5. They have
-passed schema loading and all eight type-check axes. Phase 5 adds code-path
-evidence only; it does not use a synthetic probe as production assembly.
+The current **293** production objects have passed schema loading and all eight
+type-check axes. Phase 5.1 adds only the approved minimum production assembly;
+a synthetic probe remains evidence only, never a production definition.
 
 ## Canonical owner ledger
 
@@ -71,13 +71,13 @@ evidence only; it does not use a synthetic probe as production assembly.
 | 2.4 | `doctrine.excessive_defense`, `doctrine.excessive_necessity`, `doctrine.excessive_self_help` | `doctrines.yaml` | HOLD P2-F03 / B-9 | Master §2.4 and batch03 v2 |
 | 2.5 | `legal_element.voluntary_cessation_or_prevention`, `legal_element.dangerousness`, `legal_element.voluntary_surrender_before_execution` | `legal_elements.yaml` | **loaded / 2** | Master §2.5 rows |
 | 2.5 | `PREPARATION_OR_CONSPIRACY` state label | `completion_policies.yaml` | queued / 4; not a standalone Definition Layer ID | Master §2.5 row; P1-F02 |
-| 2.6 | `legal_element.joint_execution_intent`, `legal_element.joint_execution_conduct`, `legal_element.instigator_intent`, `legal_element.aiding_intent`, `legal_element.supervisory_relationship` | `legal_elements.yaml` | **loaded / 2**; no participation policy is authored | Master §2.6 rows; Phase 5 keeps C-33a/C-34 HOLDs after code-path verification |
+| 2.6 | `legal_element.joint_execution_intent`, `legal_element.joint_execution_conduct`, `legal_element.instigator_intent`, `legal_element.aiding_intent`, `legal_element.supervisory_relationship` | `legal_elements.yaml` | **loaded / 2**; `participation_policy.standard` is loaded / 5.1, but no indirect-principal policy is authored | Master §2.6 rows; the C-34 production-policy HOLD remains intact |
 | 2.7 | `ground_fact.prior_sentence_of_imprisonment_or_greater`, `ground_fact.prior_sentence_execution_completed_or_exempted`, `legal_element.prior_sentence_still_effective`, `legal_element.subsequent_offense_within_recidivism_period` | facts/elements | **loaded / 2** | Master §2.7 rows |
 | 2.7 | `doctrine.recidivism_modify` | `doctrines.yaml` | HOLD P2-F04 / modifier classification | Master §2.7 and batch06 v1 |
 | 2.8 | Loaded property facts/elements for 329/333/355(1)/356/360/366 and the shared `injury_result`; `object_ownership_other` is the sole art360 ownership reference | facts/elements | **loaded / 3**; A-3/A-4 reuse preserved | Master §2.8 rows; `injury_result` has one owner despite its §2.11 reuse row |
 | 2.8 | `legal_element.disposition_authority` and the 355(2) breach-of-trust conduct/result dependency | `legal_elements.yaml` / offenses/derived offenses | **loaded / 3–4**; P3-E02 and B-6 resolved without a substitute predicate | Master §2.8 and §4 B-6 |
 | 2.9 | All listed public-official and judicial facts/elements other than C-151; compact groups resolve as `ground_fact.third_party_benefit_causation`, `ground_fact.third_party_benefit_demand`, `ground_fact.third_party_benefit_promise`; `ground_fact.bribe_offer_expression_made`, `ground_fact.bribe_offer_expression_arrived`; and `ground_fact.examination_ended`, `ground_fact.post_oath_completed` | facts/elements | **loaded / 3**; exact-spelling normalisation complete | Master §2.9 rows and batch07 v2/v3 |
-| 2.9 | `legal_element.offender_status_of_object` | `legal_elements.yaml` | HOLD C-151 / 5; no cross-instance symbolic dependency exists | Master §2.9 and §4 C-151 |
+| 2.9 | `legal_element.offender_status_of_object` | `legal_elements.yaml` | **loaded / 5.1**; its only production truth source is the caller-supplied linked qualifying liability result | Master §2.9 and §4 C-151 |
 | 2.10 | All listed arson/document `legal_element.*` entries | `legal_elements.yaml` | **loaded / 3** | Master §2.10 rows |
 | 2.11 | `ground_fact.killing_conduct`, `ground_fact.death_of_victim` | `ground_facts.yaml` | **loaded / 3** | Master §2.11 rows |
 | P3-E01 | `ground_fact.injury_conduct` | `ground_facts.yaml` | **loaded / 3**; replaces unfit `violence_used` only through the recorded erratum | P3-E01; Master v3 remains sealed |
@@ -85,7 +85,7 @@ evidence only; it does not use a synthetic probe as production assembly.
 | 2.11 | `offense.aggravated_injury[258(1)-(2)]`, `offense.aggravated_ancestral_injury[258(3)]`, and 258의2 four base branches | `qualifiers.yaml` / `derived_offenses.yaml` | **loaded / 4**; P4-F04 records the direct-OffenseDef QUALIFY adaptation | Master §2.11 and art258 extension |
 | 2.12 | All listed sexual-freedom facts/elements | facts/elements | **loaded / 3** | Master §2.12 rows |
 | 2.13 | All listed dwelling/right-exercise `legal_element.*` entries | `legal_elements.yaml` / `completion_policies.yaml` | 319① **loaded / 4**; B-3 closed and 319② omits an attempted state (B-4 closed) | Master §2.13 rows |
-| 2.14 | No new predicate; `offense.robbery[333/334/335]`, `offense.rape[297]`, and `relation.occasion_identity` are references | offenses/relations/completion | queued / 3–5; C-339 HOLD | Master §2.14 and §4 C-339 |
+| 2.14 | No new predicate; `offense.robbery[333/334/335]`, `offense.rape[297]`, and `relation.occasion_identity` are references | offenses/relations/completion | **loaded / 5.1**; three separate 339 COMPOSE variants and checked CompletionPolicies, while 336 remains coverage-only | Master §2.14 and §4 C-339 |
 
 ## Phase 1 feedback record
 
@@ -293,3 +293,47 @@ therefore remains empty.
 **Stop point:** **Phase 5.1 PASS.** The affected production assembly now covers
 the sealed Art.339 333/334/335 candidate set without an offense-ref union or a
 new abstraction. Phase 6 whole-registry audit may begin on instruction.
+
+## Phase 6 completion record — whole-registry audit
+
+Phase 6 audits the complete production registry as assembled at the Phase 5.1
+checkpoint. It does not reopen predicate authoring, expand coverage, or turn a
+recorded HOLD into an inferred production definition.
+
+| Audit item | Result |
+|---|---|
+| Registry shape and schema loading | All 12 required YAML kind files load as lists into one duplicate-free registry of **293** objects: 29 ground facts, 157 legal elements, 5 bundles, 8 primitives, 3 relations, 12 doctrines, 1 participation policy, 38 base offenses, 7 qualifiers, 4 exported components, 25 derived offenses, and 4 completion policies. |
+| Eight-axis integrity | `load_definitions(data/v2/definitions)` succeeds and `run_type_checks()` reports **0 findings** on references, operators, relation types, stage/effect, exports, participation, derivation, and completion. |
+| Whole offense compile | Every base and derived offense compiles to a complete `CompiledOffense`: **63/63**, with no finding list, cycle, or unresolved result. |
+| Runtime regression | `tests/test_v2_*.py` reports **236 passed**. This includes the focused C-33a non-propagating status, C-151 linked qualification, C-263 statutory deeming, C-34 runtime-only differentiation, and all three Article 339 component-local completion paths. |
+| Gate① and coverage | Master v3 and the Article 258 extension are byte-identical to the Gate① completion checkpoint. Their frozen checklist remains **28 General Part + 52 Special Part = 80**; 36, 328, and 344 remain outside the population, and 258 remains a supporting dependency only. |
+| Exclusion and scope guard | The three deleted Gate① names are absent from production. The production YAML has no delta from the Phase 5.1 checkpoint; this phase records audit evidence only. |
+| Remaining approved boundaries | C-33b remains the Step 7 caller-orchestration item. C-34 has tested runtime support but no production indirect-principal policy. The recorded Article 10 diminished-capacity, B-5 mistake-bundle, B-9 excessive-doctrine, and recidivism-modifier holds remain absent rather than being silently filled. |
+
+**Stop point:** **Phase 6 PASS.** Final coverage and registry integrity are
+verified. The assembly plan is complete; later work must begin from an explicit
+new scope (including the retained Step 7 and HOLD boundaries), not by reopening
+this audit.
+
+## Step 7 completion checkpoint — Closure / Probe compiler
+
+The explicit post-Phase-6 Step 7 scope has begun without reopening production
+predicate authoring. `idpr.v2.closure` derives its mandatory core, offense,
+doctrine, completion, and participation probes directly from the loaded
+registry. Each item owns its deferred legal references and its
+occurrence-preserving GroundFact frontier; deferred evaluation is not an
+additional emitted branch category.
+
+| Step 7 item | Checkpoint result |
+|---|---|
+| Structural closure and frontier | QUALIFY base/qualifier and nested COMPOSE components/relations are traced from the seed. A direct seed has root occurrence path `()`; GroundFact deduplication retains distinct component local-key/source-path occurrences. Legal elements and relations remain deferred, while a legal element's existing `grounded_by` facts enter the Call 2 frontier. |
+| Conditional probes | Reverse derived-offense edges remain `offense_probe`s rather than mandatory expansion. Completion and shared-participation conditions are emitted as probe data without choosing a state, mode, actor, or verdict. |
+| Doctrine scope contract | Optional `DoctrineDef.offense_scope` is schema-loaded and type-checked as `offense` or `derived_offense`; it filters candidate eligibility by mandatory closure only. No production doctrine was added: the proposed relative/cohabiting-family consumer still lacks a frozen condition expression, so Step 7 does not invent it. |
+| Article 263 | `offense.injury` is the sole `statutory_deeming` opt-in, with exactly `concurrent_independent_acts`, `same_object_of_result`, and `causal_origin_unascertained`. Its participation probe delegates only after survival to the existing dedicated runtime, never attribution, a new mode, or `offense_ref=263`. |
+| Activation vocabulary | Mandatory structural offenses are active. A discovered `offense_probe` is only a compilable candidate, never an active branch. Only later probe survival lets a caller present it as conditionally active; the adapter rejects any such ref that Step 7 did not discover. |
+| C-33b | The orchestration adapter independently validates caller-selected principal and target refs as mandatory-active or explicitly conditionally active survivors, and as compiled candidates, then preserves their distinct refs through `resolve_derivative_liability()`. No structural principal→target edge is added. |
+| Verification | Focused Step 7 tests plus `tests/test_v2_*.py` report **252 passed**. The registry remains **293** objects, eight-axis checking has **0 findings**, **63/63** offenses compile, and production source drift is absent. |
+
+**Stop point:** **Step 7 COMPLETE.** Step 8 Call 1 pilot may begin from this
+checkpoint. This is not authorization to create missing doctrine predicates or
+reopen the recorded C-34/Article 10/B-5/B-9/recidivism HOLDs.

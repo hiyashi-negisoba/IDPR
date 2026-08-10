@@ -66,7 +66,7 @@ facts + legal elements
 | 4 | `QualifierDef`, `DerivedOffenseDef`, relations, and `CompletionPolicyDef`; assemble 258 then all four 258-2 branches | Compiler replay equals each derived offense's flattened cache; B-group choice logged at its statute | Review B-group structural choices before/after their affected assembly |
 | 5 | C-group code-path verification, then only the validated affected assembly | C-33/C-34 participation finalised only after this verification | Review C-group results and the Article 339 approach |
 | 5.1 | Proven architecture gaps only: minimum contract/runtime change, focused regression, then affected assembly | No generic framework; each change is tied to C-33a, C-34, C-151, C-263, or C-339 | **PASS.** Art.339 covers the frozen 333/334/335 robbery-side candidates; Phase 6 may begin on instruction |
-| 6 | Whole-registry audit | 8-axis 0 findings, every offense compiles, targeted runtime paths pass, coverage stays 80 | Final coverage/integrity review |
+| 6 | Whole-registry audit | **PASS:** 293 objects, 8-axis 0 findings, 63/63 offenses compile, `tests/test_v2_*.py` 236 passed, coverage stays 80 | Final coverage/integrity review recorded in `ASSEMBLY_CROSSWALK.md` |
 
 ## Participation HOLD rule (approved)
 
@@ -93,5 +93,18 @@ offense identity and C-34 remains runtime-only by approval. Art.339 is now
 assembled separately for the sealed robbery-side candidates 333 (`robbery`),
 334 (`special_robbery`), and 335 (`quasi_robbery`); 336 remains a coverage
 reference only. The implementation record is in
-[`ARCHITECTURE_PLAN.md`](ARCHITECTURE_PLAN.md). **Phase 5.1 PASS:** Phase 6 may
-begin on instruction.
+[`ARCHITECTURE_PLAN.md`](ARCHITECTURE_PLAN.md). **Phase 5.1 and Phase 6 PASS:**
+the complete production registry is audited. Further work requires an explicit
+new scope and retains the documented Step 7/HOLD boundaries.
+
+## Post-assembly checkpoint — Step 7 COMPLETE
+
+The approved Closure / Probe compiler scope is complete. Mandatory structural
+closure is active; a reverse branch found as a probe is only a compilable
+candidate, and becomes conditionally active only after later factual survival.
+The full result, C-33b caller boundary, Article 263 probe delegation, and the
+remaining doctrine/HOLD boundary are recorded in
+[`STEP7_PLAN.md`](STEP7_PLAN.md) and `ASSEMBLY_CROSSWALK.md`. Verification is
+293 registry objects, eight-axis **0 findings**, **63/63** compiles,
+`tests/test_v2_*.py` **252 passed**, and no production source drift. The next
+authorized scope is the Step 8 Call 1 pilot.

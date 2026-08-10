@@ -79,6 +79,17 @@
           "uniqueItems": true,
           "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
           "description": "Phase 5.1, Article 33 only: existing actor-specific status leaves that a co-principal may satisfy through a CoPrincipalConstitutiveStatusObligation. They are never added to attributable_slots and never OR-merged into the target's CaseTruths. The participation runtime supplies the obligation truth only while evaluating this offense's Elements."
+        },
+        "statutory_deeming": {
+          "type": "object",
+          "required": ["requires"],
+          "additionalProperties": false,
+          "properties": {
+            "requires": {
+              "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression",
+              "description": "Step 7 Article 263 opt-in: the independently authored statutory-deeming condition emitted as a participation probe. It neither adds an ordinary participation mode nor creates a new offense identity."
+            }
+          }
         }
       }
     }

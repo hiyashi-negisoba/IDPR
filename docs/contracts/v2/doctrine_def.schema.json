@@ -14,6 +14,10 @@
       "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression",
       "description": "Section 11's self_defense example shows a flat list (current_unlawful_attack, defensive_act, proportionality) — the implicit-ALL degenerate case of this grammar, same convention as ElementBundleDef.requires."
     },
+    "offense_scope": {
+      "$ref": "https://schemas.idpr.local/v2/common#/$defs/id",
+      "description": "Step 7 optional candidate-scope only. When present, Closure / Probe emits this doctrine only if the scoped OffenseDef or DerivedOffenseDef appears in mandatory structural closure. It neither activates the doctrine nor changes the truth/effect of requires."
+    },
     "effect": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/stage_effect" }
   },
   "allOf": [

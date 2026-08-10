@@ -168,3 +168,24 @@ def test_one_of_duplicate_branch_reported() -> None:
     registry = _mutate(load_definitions(), "offense", "offense.robbery", mutate)
     findings = check_references(registry)
     assert "duplicate_one_of_branch" in _codes(findings)
+
+
+def test_doctrine_offense_scope_requires_an_offense_family_ref() -> None:
+    registry = _mutate(
+        load_definitions(), "doctrine", "doctrine.self_defense",
+        lambda p: p.__setitem__("offense_scope", "ground_fact.property_taking"),
+    )
+    findings = [f for f in check_references(registry) if f.field_path == "offense_scope"]
+    assert len(findings) == 1
+    assert findings[0].code == "kind_mismatch"
+
+
+def test_statutory_deeming_requires_an_expression_with_predicate_refs() -> None:
+    registry = _mutate(
+        load_definitions(), "offense", "offense.injury",
+        lambda p: p.__setitem__("participation_constraints", {
+            "statutory_deeming": {"requires": {"op": "ref", "ref": "offense.robbery"}},
+        }),
+    )
+    findings = check_references(registry)
+    assert "kind_mismatch" in _codes(findings)

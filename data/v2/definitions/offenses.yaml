@@ -275,6 +275,14 @@
 
 - id: offense.injury
   identity: {name: "상해죄", statutory_refs: ["형법 제257조 제1항"]}
+  participation_constraints:
+    statutory_deeming:
+      requires:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.concurrent_independent_acts}
+          - {op: ref, ref: legal_element.same_object_of_result}
+          - {op: ref, ref: legal_element.causal_origin_unascertained}
   elements:
     object: {op: ref, ref: legal_element.natural_person_victim_status}
     conduct: {op: ref, ref: ground_fact.injury_conduct}

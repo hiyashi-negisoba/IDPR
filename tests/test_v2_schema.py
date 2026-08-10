@@ -140,3 +140,25 @@ def test_element_modules_new_shape_accepted() -> None:
         "element_modules": [{"ref": "bundle.b", "placement": {"ground_fact.x": "conduct"}}],
     }
     assert schema_errors("offense", payload) == []
+
+
+def test_step7_optional_scope_and_statutory_deeming_shapes_are_accepted() -> None:
+    doctrine = {
+        "id": "doctrine.scoped",
+        "stage": "punishability",
+        "offense_scope": "offense.injury",
+        "requires": {"op": "ref", "ref": "ground_fact.a"},
+        "effect": {"effect": "EXEMPT", "stage": "punishability"},
+    }
+    offense = {
+        "id": "offense.x",
+        "identity": {"name": "x"},
+        "elements": {},
+        "participation_constraints": {
+            "statutory_deeming": {
+                "requires": {"op": "ref", "ref": "legal_element.a"},
+            },
+        },
+    }
+    assert schema_errors("doctrine", doctrine) == []
+    assert schema_errors("offense", offense) == []
