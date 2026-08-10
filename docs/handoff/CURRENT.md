@@ -2,12 +2,13 @@
 
 기준: 2026-08-10 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
-## Next-session checkpoint — Step 7 COMPLETE; Step 8 Call 1 pilot
+## Next-session checkpoint — Step 8 Call 1 router implemented; prompt review pending
 
 - **Current boundary:** Phase 5.1 assembly와 **Phase 6 whole-registry audit** 뒤,
-  승인된 Step 7 Closure / Probe compiler를 완료했다. 다음 승인 범위는 **Step 8 Call 1
-  pilot**이다. 새 predicate·범용 framework·추론 기반 HOLD 해소는 여전히 승인된 scope
-  밖이다.
+  승인된 Step 7 Closure / Probe compiler를 완료했고, Step 8 Call 1의 closed
+  router/closure/artifact/report 구현도 완료했다. 첫 26건 모델 실행은 새 router prompt의
+  별도 검수·승인 뒤에만 가능하다. 새 predicate·범용 framework·추론 기반 HOLD 해소는
+  여전히 승인된 scope 밖이다.
 - **Art.339 coverage:** `robbery_rape` (333), `special_robbery_rape` (334),
   `quasi_robbery_rape` (335)를 각각 별도 COMPOSE/CompletionPolicy로 적재했다. 336은
   coverage reference only다.
@@ -28,6 +29,15 @@
   expression이 없어 `offense_scope` schema/compiler support만 있고 production에는 새
   doctrine을 쓰지 않았다. C-34 production policy와 Article 10/B-5/B-9/recidivism
   HOLD도 임의로 다시 열지 않는다.
+- **Step 8 implementation:** `idpr.v2.routing`은 loaded registry에서만 63개 closed
+  offense/derived-offense catalog와 ordered `seeds` schema를 만든다. output은 seeds만
+  가지며 1–15 unique refs여야 한다; duplicate는 rank/count를 바꾸지 않도록 silent dedup가
+  아니라 contract failure다. runner는 `--prompt-approved` 없이는 모델을 호출하지 않고,
+  26-case artifact와 CPU-only article→DefinitionRef survival report를 `experiments/`에
+  남긴다. failure가 있어도 26행과 report는 남지만, report는 `FAILED`/invalid calibration을
+  기록해 Call 1 승인을 막는다. source·prompt·registry·case-list·gold parquet hash와
+  model/vLLM settings도 manifest에 고정한다. 상세 계약은
+  [`STEP8_CALL1_PLAN.md`](../../data/v2/definitions/STEP8_CALL1_PLAN.md)에 있다.
 
 ## 2-pass assembly 착수 — 첫 production slice 완료
 
