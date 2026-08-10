@@ -1,0 +1,645 @@
+- id: derived_offense.aggravated_injury
+  derivation:
+    kind: qualify
+    base: offense.injury
+    qualifier: qualifier.serious_injury_result
+  flattened_elements:
+    object: {op: ref, ref: legal_element.natural_person_victim_status}
+    conduct: {op: ref, ref: ground_fact.injury_conduct}
+    result:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.injury_result}
+        - {op: ref, ref: legal_element.serious_injury_result}
+    mental: {op: ref, ref: legal_element.intent}
+
+- id: derived_offense.aggravated_ancestral_injury
+  derivation:
+    kind: qualify
+    base: offense.ancestral_injury
+    qualifier: qualifier.serious_injury_result
+  flattened_elements:
+    object:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.natural_person_victim_status}
+        - {op: ref, ref: legal_element.lineal_ascendant_of_self_or_spouse_status}
+    conduct: {op: ref, ref: ground_fact.injury_conduct}
+    result:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.injury_result}
+        - {op: ref, ref: legal_element.serious_injury_result}
+    mental:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.intent}
+        - {op: ref, ref: legal_element.awareness_of_lineal_ascendant_status}
+
+- id: derived_offense.fraud
+  derivation:
+    kind: compose
+    components:
+      - {kind: primitive, ref: primitive.deception, local_key: deception, slot: conduct}
+      - {kind: primitive, ref: primitive.property_disposition, local_key: disposition, slot: circumstance}
+      - {kind: primitive, ref: primitive.disposition_authority, local_key: authority, slot: circumstance}
+      - {kind: primitive, ref: primitive.unlawful_appropriation_intent, local_key: appropriation_intent, slot: mental}
+    relations:
+      - {relation: relation.deception_error_disposition_causal_nexus, left: deception, right: disposition, left_view: event, right_view: event}
+  flattened_elements:
+    conduct: {op: ref, ref: legal_element.deception}
+    circumstance:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.property_disposition}
+        - {op: ref, ref: legal_element.disposition_authority}
+    mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
+
+- id: derived_offense.special_injury
+  derivation:
+    kind: qualify
+    base: offense.injury
+    qualifier: qualifier.special_injury_method
+  flattened_elements:
+    object: {op: ref, ref: legal_element.natural_person_victim_status}
+    conduct: {op: ref, ref: ground_fact.injury_conduct}
+    circumstance:
+      op: any
+      args:
+        - {op: ref, ref: legal_element.group_or_multiple_force}
+        - {op: ref, ref: legal_element.dangerous_object_carriage}
+    result: {op: ref, ref: legal_element.injury_result}
+    mental: {op: ref, ref: legal_element.intent}
+
+- id: derived_offense.special_ancestral_injury
+  derivation:
+    kind: qualify
+    base: offense.ancestral_injury
+    qualifier: qualifier.special_injury_method
+  flattened_elements:
+    object:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.natural_person_victim_status}
+        - {op: ref, ref: legal_element.lineal_ascendant_of_self_or_spouse_status}
+    conduct: {op: ref, ref: ground_fact.injury_conduct}
+    circumstance:
+      op: any
+      args:
+        - {op: ref, ref: legal_element.group_or_multiple_force}
+        - {op: ref, ref: legal_element.dangerous_object_carriage}
+    result: {op: ref, ref: legal_element.injury_result}
+    mental:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.intent}
+        - {op: ref, ref: legal_element.awareness_of_lineal_ascendant_status}
+
+- id: derived_offense.special_aggravated_injury
+  derivation:
+    kind: qualify
+    base: offense.injury
+    qualifier: qualifier.serious_special_injury_method
+  flattened_elements:
+    object: {op: ref, ref: legal_element.natural_person_victim_status}
+    conduct: {op: ref, ref: ground_fact.injury_conduct}
+    circumstance:
+      op: any
+      args:
+        - {op: ref, ref: legal_element.group_or_multiple_force}
+        - {op: ref, ref: legal_element.dangerous_object_carriage}
+    result:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.injury_result}
+        - {op: ref, ref: legal_element.serious_injury_result}
+    mental: {op: ref, ref: legal_element.intent}
+
+- id: derived_offense.special_aggravated_ancestral_injury
+  derivation:
+    kind: qualify
+    base: offense.ancestral_injury
+    qualifier: qualifier.serious_special_injury_method
+  flattened_elements:
+    object:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.natural_person_victim_status}
+        - {op: ref, ref: legal_element.lineal_ascendant_of_self_or_spouse_status}
+    conduct: {op: ref, ref: ground_fact.injury_conduct}
+    circumstance:
+      op: any
+      args:
+        - {op: ref, ref: legal_element.group_or_multiple_force}
+        - {op: ref, ref: legal_element.dangerous_object_carriage}
+    result:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.injury_result}
+        - {op: ref, ref: legal_element.serious_injury_result}
+    mental:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.intent}
+        - {op: ref, ref: legal_element.awareness_of_lineal_ascendant_status}
+
+- id: derived_offense.robbery_rape
+  derivation:
+    kind: compose
+    components:
+      - {kind: offense, ref: offense.robbery, local_key: robbery_part}
+      - {kind: offense, ref: offense.rape, local_key: rape_part}
+    relations:
+      - {relation: relation.occasion_identity, left: robbery_part, right: rape_part, left_view: conduct, right_view: conduct}
+  flattened_elements:
+    object:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.possession}
+        - {op: ref, ref: legal_element.natural_person_victim_status}
+    conduct:
+      op: all
+      args:
+        -
+          op: all
+          args:
+            - {op: ref, ref: ground_fact.taking_conduct}
+            - {op: ref, ref: legal_element.robbery_level_violence}
+        -
+          op: all
+          args:
+            - {op: ref, ref: legal_element.coercive_conduct}
+            - {op: ref, ref: ground_fact.vaginal_intercourse_conduct}
+    circumstance:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.directness_of_coercion_by_offender}
+        - {op: ref, ref: legal_element.coercion_sufficiency_for_rape}
+    causation: {op: ref, ref: legal_element.coercion_induced_sexual_act_causation}
+    mental:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.unlawful_appropriation_intent}
+        - {op: ref, ref: legal_element.intent}
+
+- id: derived_offense.special_robbery_rape
+  derivation:
+    kind: compose
+    components:
+      - {kind: offense, ref: derived_offense.special_robbery, local_key: robbery_part}
+      - {kind: offense, ref: offense.rape, local_key: rape_part}
+    relations:
+      - {relation: relation.occasion_identity, left: robbery_part, right: rape_part, left_view: conduct, right_view: conduct}
+  flattened_elements:
+    object:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.possession}
+        - {op: ref, ref: legal_element.natural_person_victim_status}
+    conduct:
+      op: all
+      args:
+        -
+          op: all
+          args:
+            - {op: ref, ref: ground_fact.taking_conduct}
+            - {op: ref, ref: legal_element.robbery_level_violence}
+        -
+          op: all
+          args:
+            - {op: ref, ref: legal_element.coercive_conduct}
+            - {op: ref, ref: ground_fact.vaginal_intercourse_conduct}
+    circumstance:
+      op: all
+      args:
+        -
+          op: any
+          args:
+            - {op: ref, ref: legal_element.nighttime_entry}
+            - {op: ref, ref: legal_element.dangerous_weapon_carriage}
+            - {op: ref, ref: legal_element.joint_commission_by_two_or_more}
+        - {op: ref, ref: legal_element.directness_of_coercion_by_offender}
+        - {op: ref, ref: legal_element.coercion_sufficiency_for_rape}
+    causation: {op: ref, ref: legal_element.coercion_induced_sexual_act_causation}
+    mental:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.unlawful_appropriation_intent}
+        - {op: ref, ref: legal_element.intent}
+
+- id: derived_offense.quasi_robbery_rape
+  derivation:
+    kind: compose
+    components:
+      - {kind: offense, ref: derived_offense.quasi_robbery, local_key: robbery_part}
+      - {kind: offense, ref: offense.rape, local_key: rape_part}
+    relations:
+      - {relation: relation.occasion_identity, left: robbery_part, right: rape_part, left_view: conduct, right_view: conduct}
+  flattened_elements:
+    object:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.possession}
+        - {op: ref, ref: legal_element.natural_person_victim_status}
+    conduct:
+      op: all
+      args:
+        -
+          op: all
+          args:
+            - {op: ref, ref: ground_fact.taking_conduct}
+            - {op: ref, ref: legal_element.robbery_level_violence}
+        -
+          op: all
+          args:
+            - {op: ref, ref: legal_element.coercive_conduct}
+            - {op: ref, ref: ground_fact.vaginal_intercourse_conduct}
+    circumstance:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.directness_of_coercion_by_offender}
+        - {op: ref, ref: legal_element.coercion_sufficiency_for_rape}
+    causation: {op: ref, ref: legal_element.coercion_induced_sexual_act_causation}
+    mental:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.unlawful_appropriation_intent}
+        -
+          op: any
+          args:
+            - {op: ref, ref: legal_element.purpose_to_resist_recapture}
+            - {op: ref, ref: legal_element.purpose_to_avoid_arrest}
+            - {op: ref, ref: legal_element.purpose_to_conceal_evidence}
+        - {op: ref, ref: legal_element.intent}
+
+- id: derived_offense.rape_causing_intentional_injury
+  derivation:
+    kind: compose
+    components:
+      - {kind: offense, ref: offense.rape, local_key: rape_part}
+      - {kind: offense, ref: offense.injury, local_key: injury_part}
+      - {kind: primitive, ref: primitive.injury_intent, local_key: injury_intent, slot: mental}
+    relations:
+      - {relation: relation.causal_nexus, left: rape_part, right: injury_part, left_view: event, right_view: event}
+      - {relation: relation.occasion_identity, left: rape_part, right: injury_part, left_view: conduct, right_view: conduct}
+  flattened_elements:
+    object:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.natural_person_victim_status}
+        - {op: ref, ref: legal_element.natural_person_victim_status}
+    conduct:
+      op: all
+      args:
+        - {op: all, args: [{op: ref, ref: legal_element.coercive_conduct}, {op: ref, ref: ground_fact.vaginal_intercourse_conduct}]}
+        - {op: ref, ref: ground_fact.injury_conduct}
+    circumstance:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.directness_of_coercion_by_offender}
+        - {op: ref, ref: legal_element.coercion_sufficiency_for_rape}
+    causation: {op: ref, ref: legal_element.coercion_induced_sexual_act_causation}
+    result: {op: ref, ref: legal_element.injury_result}
+    mental:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.intent}
+        - {op: ref, ref: legal_element.intent}
+        - {op: ref, ref: legal_element.injury_intent}
+
+- id: derived_offense.robbery_causing_intentional_injury
+  derivation:
+    kind: compose
+    components:
+      - {kind: offense, ref: offense.robbery, local_key: robbery_part}
+      - {kind: offense, ref: offense.injury, local_key: injury_part}
+      - {kind: primitive, ref: primitive.injury_intent, local_key: injury_intent, slot: mental}
+    relations:
+      - {relation: relation.causal_nexus, left: robbery_part, right: injury_part, left_view: event, right_view: event}
+      - {relation: relation.occasion_identity, left: robbery_part, right: injury_part, left_view: conduct, right_view: conduct}
+  flattened_elements:
+    object:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.possession}
+        - {op: ref, ref: legal_element.natural_person_victim_status}
+    conduct:
+      op: all
+      args:
+        - {op: all, args: [{op: ref, ref: ground_fact.taking_conduct}, {op: ref, ref: legal_element.robbery_level_violence}]}
+        - {op: ref, ref: ground_fact.injury_conduct}
+    result: {op: ref, ref: legal_element.injury_result}
+    mental:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.unlawful_appropriation_intent}
+        - {op: ref, ref: legal_element.intent}
+        - {op: ref, ref: legal_element.injury_intent}
+
+- id: derived_offense.robbery_causing_intentional_homicide
+  derivation:
+    kind: compose
+    components:
+      - {kind: offense, ref: offense.robbery, local_key: robbery_part}
+      - {kind: offense, ref: offense.homicide, local_key: homicide_part}
+      - {kind: primitive, ref: primitive.homicide_intent, local_key: homicide_intent, slot: mental}
+    relations:
+      - {relation: relation.causal_nexus, left: robbery_part, right: homicide_part, left_view: event, right_view: event}
+      - {relation: relation.occasion_identity, left: robbery_part, right: homicide_part, left_view: conduct, right_view: conduct}
+  flattened_elements:
+    object:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.possession}
+        - {op: ref, ref: legal_element.natural_person_victim_status}
+    conduct:
+      op: all
+      args:
+        - {op: all, args: [{op: ref, ref: ground_fact.taking_conduct}, {op: ref, ref: legal_element.robbery_level_violence}]}
+        - {op: ref, ref: ground_fact.killing_conduct}
+    result: {op: ref, ref: ground_fact.death_of_victim}
+    causation: {op: ref, ref: legal_element.result_causation}
+    mental:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.unlawful_appropriation_intent}
+        - {op: ref, ref: legal_element.intent}
+        - {op: ref, ref: legal_element.homicide_intent}
+
+- id: derived_offense.nighttime_dwelling_theft
+  derivation:
+    kind: qualify
+    base: offense.theft
+    qualifier: qualifier.nighttime_dwelling_theft
+  flattened_elements:
+    object: {op: ref, ref: legal_element.possession}
+    conduct: {op: ref, ref: ground_fact.taking_conduct}
+    circumstance: {op: ref, ref: legal_element.nighttime_entry}
+    mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
+
+- id: derived_offense.special_theft
+  derivation:
+    kind: qualify
+    base: offense.theft
+    qualifier: qualifier.special_theft_circumstances
+  flattened_elements:
+    object: {op: ref, ref: legal_element.possession}
+    conduct: {op: ref, ref: ground_fact.taking_conduct}
+    circumstance:
+      op: any
+      args:
+        - op: all
+          args:
+            - {op: ref, ref: legal_element.nighttime_entry}
+            - {op: ref, ref: legal_element.damage_to_entry_barrier}
+        - {op: ref, ref: legal_element.dangerous_weapon_carriage}
+        - {op: ref, ref: legal_element.joint_commission_by_two_or_more}
+    mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
+
+- id: derived_offense.special_robbery
+  derivation:
+    kind: qualify
+    base: offense.robbery
+    qualifier: qualifier.special_robbery_circumstances
+  flattened_elements:
+    object: {op: ref, ref: legal_element.possession}
+    conduct:
+      op: all
+      args:
+        - {op: ref, ref: ground_fact.taking_conduct}
+        - {op: ref, ref: legal_element.robbery_level_violence}
+    circumstance:
+      op: any
+      args:
+        - {op: ref, ref: legal_element.nighttime_entry}
+        - {op: ref, ref: legal_element.dangerous_weapon_carriage}
+        - {op: ref, ref: legal_element.joint_commission_by_two_or_more}
+    mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
+
+- id: derived_offense.occupational_embezzlement
+  derivation:
+    kind: qualify
+    base: offense.embezzlement
+    qualifier: qualifier.occupational_status
+  flattened_elements:
+    subject: {op: ref, ref: legal_element.business_status}
+    object: {op: ref, ref: legal_element.custody_of_anothers_property}
+    circumstance: {op: ref, ref: legal_element.entrustment_relationship}
+    conduct: {op: ref, ref: legal_element.embezzlement_manifestation}
+    mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
+
+- id: derived_offense.occupational_breach_of_trust
+  derivation:
+    kind: qualify
+    base: offense.breach_of_trust
+    qualifier: qualifier.occupational_status
+  flattened_elements:
+    subject:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.duty_of_other_affairs}
+        - {op: ref, ref: legal_element.business_status}
+    conduct: {op: ref, ref: legal_element.breach_of_trust_conduct}
+    result: {op: ref, ref: legal_element.property_loss_or_concrete_risk}
+    mental: {op: ref, ref: legal_element.intent}
+
+- id: derived_offense.quasi_robbery
+  derivation:
+    kind: compose
+    components:
+      - {kind: offense, ref: offense.theft, local_key: theft_part}
+      - {kind: primitive, ref: primitive.robbery_level_violence, local_key: violence, slot: conduct}
+      - kind: bundle
+        ref: bundle.quasi_robbery_purpose
+        local_key: quasi_robbery_purpose
+        placement:
+          legal_element.purpose_to_resist_recapture: mental
+          legal_element.purpose_to_avoid_arrest: mental
+          legal_element.purpose_to_conceal_evidence: mental
+    relations:
+      - {relation: relation.occasion_identity, left: theft_part, right: violence, left_view: conduct, right_view: conduct}
+  flattened_elements:
+    object: {op: ref, ref: legal_element.possession}
+    conduct:
+      op: all
+      args:
+        - {op: ref, ref: ground_fact.taking_conduct}
+        - {op: ref, ref: legal_element.robbery_level_violence}
+    mental:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.unlawful_appropriation_intent}
+        - op: any
+          args:
+            - {op: ref, ref: legal_element.purpose_to_resist_recapture}
+            - {op: ref, ref: legal_element.purpose_to_avoid_arrest}
+            - {op: ref, ref: legal_element.purpose_to_conceal_evidence}
+
+- id: derived_offense.arson_causing_injury
+  derivation:
+    kind: compose
+    components:
+      - {kind: offense, ref: offense.arson_of_occupied_structure, local_key: arson_part}
+      - {kind: primitive, ref: primitive.aggravated_result_attribution, local_key: result_attribution, slot: causation}
+      - {kind: exported_component, ref: exported_component.injury_result, local_key: aggravated_result, slot: result}
+    relations:
+      - {relation: relation.causal_nexus, left: arson_part, right: aggravated_result, left_view: event, right_view: event}
+  flattened_elements:
+    object: {op: ref, ref: legal_element.arson_target_status}
+    result:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.burning_result}
+        - {op: ref, ref: legal_element.injury_result}
+    causation: {op: ref, ref: legal_element.aggravated_result_attribution}
+    mental: {op: ref, ref: legal_element.intent}
+
+- id: derived_offense.arson_causing_death
+  derivation:
+    kind: compose
+    components:
+      - {kind: offense, ref: offense.arson_of_occupied_structure, local_key: arson_part}
+      - {kind: primitive, ref: primitive.aggravated_result_attribution, local_key: result_attribution, slot: causation}
+      - {kind: exported_component, ref: exported_component.death_of_victim, local_key: aggravated_result, slot: result}
+    relations:
+      - {relation: relation.causal_nexus, left: arson_part, right: aggravated_result, left_view: event, right_view: event}
+  flattened_elements:
+    object: {op: ref, ref: legal_element.arson_target_status}
+    result:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.burning_result}
+        - {op: ref, ref: ground_fact.death_of_victim}
+    causation: {op: ref, ref: legal_element.aggravated_result_attribution}
+    mental: {op: ref, ref: legal_element.intent}
+
+- id: derived_offense.injury_causing_death
+  derivation:
+    kind: compose
+    components:
+      - {kind: offense, ref: offense.injury, local_key: injury_part}
+      - {kind: primitive, ref: primitive.aggravated_result_attribution, local_key: result_attribution, slot: causation}
+      - {kind: exported_component, ref: exported_component.death_of_victim, local_key: aggravated_result, slot: result}
+      - kind: bundle
+        ref: bundle.nonintentional_homicide_result
+        local_key: no_homicide_intent
+        placement: {legal_element.homicide_intent: mental}
+    relations:
+      - {relation: relation.causal_nexus, left: injury_part, right: aggravated_result, left_view: event, right_view: event}
+  flattened_elements:
+    object: {op: ref, ref: legal_element.natural_person_victim_status}
+    conduct: {op: ref, ref: ground_fact.injury_conduct}
+    result:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.injury_result}
+        - {op: ref, ref: ground_fact.death_of_victim}
+    causation: {op: ref, ref: legal_element.aggravated_result_attribution}
+    mental:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.intent}
+        - op: not
+          arg: {op: ref, ref: legal_element.homicide_intent}
+
+- id: derived_offense.rape_causing_injury_by_aggravated_result
+  derivation:
+    kind: compose
+    components:
+      - {kind: offense, ref: offense.rape, local_key: rape_part}
+      - {kind: primitive, ref: primitive.aggravated_result_attribution, local_key: result_attribution, slot: causation}
+      - {kind: exported_component, ref: exported_component.injury_conduct, local_key: injury_conduct, slot: conduct}
+      - {kind: exported_component, ref: exported_component.injury_result, local_key: aggravated_result, slot: result}
+      - kind: bundle
+        ref: bundle.nonintentional_injury_result
+        local_key: no_injury_intent
+        placement: {legal_element.injury_intent: mental}
+    relations:
+      - {relation: relation.causal_nexus, left: rape_part, right: aggravated_result, left_view: event, right_view: event}
+      - {relation: relation.occasion_identity, left: rape_part, right: injury_conduct, left_view: conduct, right_view: conduct}
+  flattened_elements:
+    object: {op: ref, ref: legal_element.natural_person_victim_status}
+    conduct:
+      op: all
+      args:
+        - {op: all, args: [{op: ref, ref: legal_element.coercive_conduct}, {op: ref, ref: ground_fact.vaginal_intercourse_conduct}]}
+        - {op: ref, ref: ground_fact.injury_conduct}
+    circumstance:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.directness_of_coercion_by_offender}
+        - {op: ref, ref: legal_element.coercion_sufficiency_for_rape}
+    causation:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.coercion_induced_sexual_act_causation}
+        - {op: ref, ref: legal_element.aggravated_result_attribution}
+    result: {op: ref, ref: legal_element.injury_result}
+    mental:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.intent}
+        - op: not
+          arg: {op: ref, ref: legal_element.injury_intent}
+
+- id: derived_offense.robbery_causing_injury_by_aggravated_result
+  derivation:
+    kind: compose
+    components:
+      - {kind: offense, ref: offense.robbery, local_key: robbery_part}
+      - {kind: primitive, ref: primitive.aggravated_result_attribution, local_key: result_attribution, slot: causation}
+      - {kind: exported_component, ref: exported_component.injury_conduct, local_key: injury_conduct, slot: conduct}
+      - {kind: exported_component, ref: exported_component.injury_result, local_key: aggravated_result, slot: result}
+      - kind: bundle
+        ref: bundle.nonintentional_injury_result
+        local_key: no_injury_intent
+        placement: {legal_element.injury_intent: mental}
+    relations:
+      - {relation: relation.causal_nexus, left: robbery_part, right: aggravated_result, left_view: event, right_view: event}
+      - {relation: relation.occasion_identity, left: robbery_part, right: injury_conduct, left_view: conduct, right_view: conduct}
+  flattened_elements:
+    object: {op: ref, ref: legal_element.possession}
+    conduct:
+      op: all
+      args:
+        - {op: all, args: [{op: ref, ref: ground_fact.taking_conduct}, {op: ref, ref: legal_element.robbery_level_violence}]}
+        - {op: ref, ref: ground_fact.injury_conduct}
+    result: {op: ref, ref: legal_element.injury_result}
+    causation: {op: ref, ref: legal_element.aggravated_result_attribution}
+    mental:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.unlawful_appropriation_intent}
+        - op: not
+          arg: {op: ref, ref: legal_element.injury_intent}
+
+- id: derived_offense.robbery_causing_death_by_aggravated_result
+  derivation:
+    kind: compose
+    components:
+      - {kind: offense, ref: offense.robbery, local_key: robbery_part}
+      - {kind: primitive, ref: primitive.aggravated_result_attribution, local_key: result_attribution, slot: causation}
+      - {kind: exported_component, ref: exported_component.killing_conduct, local_key: killing_conduct, slot: conduct}
+      - {kind: exported_component, ref: exported_component.death_of_victim, local_key: aggravated_result, slot: result}
+      - kind: bundle
+        ref: bundle.nonintentional_homicide_result
+        local_key: no_homicide_intent
+        placement: {legal_element.homicide_intent: mental}
+    relations:
+      - {relation: relation.causal_nexus, left: robbery_part, right: aggravated_result, left_view: event, right_view: event}
+      - {relation: relation.occasion_identity, left: robbery_part, right: killing_conduct, left_view: conduct, right_view: conduct}
+  flattened_elements:
+    object: {op: ref, ref: legal_element.possession}
+    conduct:
+      op: all
+      args:
+        - {op: all, args: [{op: ref, ref: ground_fact.taking_conduct}, {op: ref, ref: legal_element.robbery_level_violence}]}
+        - {op: ref, ref: ground_fact.killing_conduct}
+    result: {op: ref, ref: ground_fact.death_of_victim}
+    causation: {op: ref, ref: legal_element.aggravated_result_attribution}
+    mental:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.unlawful_appropriation_intent}
+        - op: not
+          arg: {op: ref, ref: legal_element.homicide_intent}

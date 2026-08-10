@@ -7,14 +7,19 @@ import pytest
 from idpr.v2.evaluate import TRUE, UNKNOWN
 from idpr.v2.runtime.stages import (
     AppliedEffect,
+    Article151OffenderStatusObligation,
+    ComponentSlotObligation,
+    CoPrincipalConstitutiveStatusObligation,
     CompletionRequirementObligation,
     CulpabilityState,
+    IndirectPrincipalDependencyObligation,
     Obligation,
     ParticipationDependencyObligation,
     ParticipationRequirementObligation,
     RelationObligation,
     SlotObligation,
     StageResult,
+    StatutoryDeemingObligation,
     not_reached,
 )
 
@@ -87,18 +92,19 @@ def test_evaluated_stage_may_carry_unknown_effects():
     assert stage.effects[0].truth == UNKNOWN
 
 
-def test_obligation_union_is_exactly_the_five_units_the_evaluator_can_answer():
+def test_obligation_union_contains_only_explicitly_evaluable_runtime_units():
     """Deliberately no `PredicateObligation(ref)`.
 
     `evaluate()` returns one TruthValue and an expression can be FALSE with no FALSE leaf in it
     (`NOT(A)` with A=TRUE, `ONE_OF(A, B)` with both TRUE), so a "decisive leaf" would require a
-    second, unsound evaluator in the pipeline. These five are what the existing evaluator can name
+    second, unsound evaluator in the pipeline. The original five are what the evaluator can name
     honestly. `CompletionRequirementObligation` replaced the earlier `FormRequirementObligation`
     when the form abstraction was removed -- the obligation it names now belongs to a completion
     STATE, not to a selected program. `ParticipationDependencyObligation`/
     `ParticipationRequirementObligation` (step 6C) name the two obligations a derivative
     participant's (instigator/aider) Elements folds -- principal-realization gate and own
-    `requires`, never a re-evaluation of the principal's `CompiledOffense`.
+    `requires`, never a re-evaluation of the principal's `CompiledOffense`. Phase 5.1 adds five
+    concrete obligations (Articles 33, 151, 263, 34, and 339); none is a generic predicate trace.
     """
     assert set(Obligation.__args__) == {
         SlotObligation,
@@ -106,7 +112,13 @@ def test_obligation_union_is_exactly_the_five_units_the_evaluator_can_answer():
         CompletionRequirementObligation,
         ParticipationDependencyObligation,
         ParticipationRequirementObligation,
+        CoPrincipalConstitutiveStatusObligation,
+        Article151OffenderStatusObligation,
+        StatutoryDeemingObligation,
+        IndirectPrincipalDependencyObligation,
+        ComponentSlotObligation,
     }
     assert set(CompletionRequirementObligation.__dataclass_fields__) == {"state"}
     assert set(ParticipationDependencyObligation.__dataclass_fields__) == {"mode"}
     assert set(ParticipationRequirementObligation.__dataclass_fields__) == {"mode"}
+    IndirectPrincipalDependencyObligation,

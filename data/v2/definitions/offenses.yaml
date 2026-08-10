@@ -1,0 +1,409 @@
+- id: offense.theft
+  identity: {name: "절도죄", statutory_refs: ["형법 제329조"]}
+  elements:
+    object: {op: ref, ref: legal_element.possession}
+    conduct: {op: ref, ref: ground_fact.taking_conduct}
+    mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
+
+- id: offense.robbery
+  identity: {name: "강도죄", statutory_refs: ["형법 제333조"]}
+  elements:
+    object: {op: ref, ref: legal_element.possession}
+    conduct:
+      op: all
+      args:
+        - {op: ref, ref: ground_fact.taking_conduct}
+        - {op: ref, ref: legal_element.robbery_level_violence}
+    mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
+
+- id: offense.embezzlement
+  identity: {name: "횡령죄", statutory_refs: ["형법 제355조 제1항"]}
+  elements:
+    object: {op: ref, ref: legal_element.custody_of_anothers_property}
+    circumstance: {op: ref, ref: legal_element.entrustment_relationship}
+    conduct: {op: ref, ref: legal_element.embezzlement_manifestation}
+    mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
+
+- id: offense.property_damage
+  identity: {name: "재물손괴죄", statutory_refs: ["형법 제366조"]}
+  elements:
+    object: {op: ref, ref: legal_element.object_ownership_other}
+    conduct: {op: ref, ref: legal_element.utility_impairment}
+
+- id: offense.lost_property_embezzlement
+  identity: {name: "점유이탈물횡령죄", statutory_refs: ["형법 제360조"]}
+  elements:
+    object:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.lost_or_stray_property_status}
+        - {op: ref, ref: legal_element.object_ownership_other}
+    conduct: {op: ref, ref: legal_element.embezzlement_manifestation}
+    mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
+
+- id: offense.extortion
+  identity: {name: "공갈죄", statutory_refs: ["형법 제350조 제1항"]}
+  elements:
+    conduct: {op: ref, ref: legal_element.fear_inducement}
+    circumstance:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.property_disposition}
+        - {op: ref, ref: legal_element.disposition_authority}
+    mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
+
+- id: offense.dereliction_of_duty
+  identity: {name: "직무유기죄", statutory_refs: ["형법 제122조"]}
+  elements:
+    subject: {op: ref, ref: legal_element.public_official_status}
+    circumstance:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.duty_has_concrete_lawful_basis}
+        - {op: ref, ref: legal_element.concrete_risk_at_time_of_conduct}
+    conduct: {op: ref, ref: legal_element.duty_abandonment_conduct}
+    mental: {op: ref, ref: legal_element.conscious_abandonment_intent}
+
+- id: offense.official_secret_disclosure
+  identity: {name: "공무상비밀누설죄", statutory_refs: ["형법 제127조"]}
+  elements:
+    subject: {op: ref, ref: legal_element.current_or_former_public_official}
+    object: {op: ref, ref: legal_element.job_related_secret_worthy_of_protection}
+    conduct: {op: ref, ref: legal_element.disclosure_conduct}
+
+- id: offense.bribery_taking
+  identity: {name: "수뢰죄", statutory_refs: ["형법 제129조 제1항"]}
+  elements:
+    subject: {op: ref, ref: legal_element.official_or_arbitrator_status}
+    circumstance:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.job_relatedness}
+        - {op: ref, ref: legal_element.quid_pro_quo}
+    conduct:
+      op: any
+      args:
+        - {op: ref, ref: ground_fact.bribe_acceptance}
+        - {op: ref, ref: ground_fact.bribe_request}
+        - {op: ref, ref: ground_fact.bribe_promise}
+    mental: {op: ref, ref: legal_element.appropriation_intent_of_bribe}
+
+- id: offense.prospective_bribery_taking
+  identity: {name: "사전수뢰죄", statutory_refs: ["형법 제129조 제2항"]}
+  elements:
+    subject: {op: ref, ref: legal_element.prospective_official_probability}
+    conduct:
+      op: any
+      args:
+        - {op: ref, ref: ground_fact.bribe_acceptance}
+        - {op: ref, ref: ground_fact.bribe_request}
+        - {op: ref, ref: ground_fact.bribe_promise}
+    mental: {op: ref, ref: legal_element.appropriation_intent_of_bribe}
+
+- id: offense.third_party_bribery
+  identity: {name: "제3자뇌물제공죄", statutory_refs: ["형법 제130조"]}
+  elements:
+    subject: {op: ref, ref: legal_element.official_or_arbitrator_status}
+    circumstance:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.job_relatedness}
+        - {op: ref, ref: legal_element.solicitation_received}
+        - {op: ref, ref: legal_element.solicitation_impropriety}
+    conduct:
+      op: any
+      args:
+        - {op: ref, ref: ground_fact.third_party_benefit_causation}
+        - {op: ref, ref: ground_fact.third_party_benefit_demand}
+        - {op: ref, ref: ground_fact.third_party_benefit_promise}
+
+- id: offense.bribe_giving
+  identity: {name: "뇌물공여죄", statutory_refs: ["형법 제133조 제1항"]}
+  elements:
+    conduct:
+      op: any
+      args:
+        - {op: ref, ref: ground_fact.bribe_acceptance}
+        - {op: ref, ref: ground_fact.bribe_promise}
+        - {op: ref, ref: ground_fact.bribe_offer_expression_arrived}
+
+- id: offense.bribe_delivery_receipt
+  identity: {name: "증뢰물전달죄", statutory_refs: ["형법 제133조 제2항"]}
+  elements:
+    conduct: {op: ref, ref: ground_fact.intermediary_delivery_receipt_conduct}
+    mental:
+      op: not
+      arg: {op: ref, ref: legal_element.self_benefit_purpose}
+
+- id: offense.obstruction_of_official_duty
+  identity: {name: "공무집행방해죄", statutory_refs: ["형법 제136조 제1항"]}
+  elements:
+    subject: {op: ref, ref: legal_element.lawful_performance_of_duty}
+    conduct: {op: ref, ref: legal_element.violence_or_threat_against_official}
+
+- id: offense.coercion_of_official_duty_or_resignation
+  identity: {name: "직무·사직강요죄", statutory_refs: ["형법 제136조 제2항"]}
+  elements:
+    conduct: {op: ref, ref: legal_element.violence_or_threat_against_official}
+    mental: {op: ref, ref: legal_element.purpose_of_coercing_duty_or_resignation}
+
+- id: offense.deceptive_obstruction_of_official_duty
+  identity: {name: "위계공무집행방해죄", statutory_refs: ["형법 제137조"]}
+  elements:
+    conduct: {op: ref, ref: legal_element.deceptive_scheme_conduct}
+
+- id: offense.perjury
+  identity: {name: "위증죄", statutory_refs: ["형법 제152조 제1항"]}
+  elements:
+    subject: {op: ref, ref: legal_element.witness_took_lawful_oath}
+    circumstance: {op: ref, ref: legal_element.proceeding_commenced}
+    conduct: {op: ref, ref: ground_fact.false_testimony_conduct}
+
+- id: offense.arson_of_occupied_structure
+  identity: {name: "현주건조물등방화죄", statutory_refs: ["형법 제164조 제1항"]}
+  elements:
+    object: {op: ref, ref: legal_element.arson_target_status}
+    result: {op: ref, ref: legal_element.burning_result}
+    mental: {op: ref, ref: legal_element.intent}
+
+- id: offense.public_document_forgery
+  identity: {name: "공문서위조·변조죄", statutory_refs: ["형법 제225조"]}
+  elements:
+    object: {op: ref, ref: legal_element.public_document_object}
+    conduct:
+      op: any
+      args:
+        - {op: ref, ref: legal_element.forgery_without_authority}
+        - {op: ref, ref: legal_element.alteration_of_genuine_document}
+    mental: {op: ref, ref: legal_element.purpose_to_use_as_genuine}
+
+- id: offense.false_public_document_creation
+  identity: {name: "허위공문서작성죄", statutory_refs: ["형법 제227조"]}
+  elements:
+    subject: {op: ref, ref: legal_element.official_with_writing_authority}
+    object: {op: ref, ref: legal_element.public_document_object}
+    conduct: {op: ref, ref: legal_element.content_falsity_by_authorized_official}
+    mental: {op: ref, ref: legal_element.purpose_to_use_as_genuine}
+
+- id: offense.private_document_forgery
+  identity: {name: "사문서위조·변조죄", statutory_refs: ["형법 제231조"]}
+  elements:
+    object: {op: ref, ref: legal_element.private_document_object}
+    conduct:
+      op: any
+      args:
+        - {op: ref, ref: legal_element.forgery_without_authority}
+        - {op: ref, ref: legal_element.alteration_of_genuine_document}
+    mental: {op: ref, ref: legal_element.purpose_to_use_as_genuine}
+
+- id: offense.use_of_forged_private_document
+  identity: {name: "위조사문서행사죄", statutory_refs: ["형법 제234조"]}
+  elements:
+    object: {op: ref, ref: legal_element.private_document_object}
+    conduct: {op: ref, ref: legal_element.utterance_conduct}
+
+- id: offense.seal_forgery_or_misuse
+  identity: {name: "사인등의위조·부정사용죄", statutory_refs: ["형법 제239조"]}
+  elements:
+    object: {op: ref, ref: legal_element.seal_or_signature_object}
+    conduct:
+      op: any
+      args:
+        - {op: ref, ref: legal_element.forgery_without_authority}
+        - {op: ref, ref: legal_element.improper_use_of_genuine_seal}
+    mental: {op: ref, ref: legal_element.purpose_to_use_as_genuine}
+
+- id: offense.homicide
+  identity: {name: "살인죄", statutory_refs: ["형법 제250조 제1항"]}
+  elements:
+    object: {op: ref, ref: legal_element.natural_person_victim_status}
+    conduct: {op: ref, ref: ground_fact.killing_conduct}
+    result: {op: ref, ref: ground_fact.death_of_victim}
+    causation: {op: ref, ref: legal_element.result_causation}
+    mental: {op: ref, ref: legal_element.intent}
+  exports:
+    conduct: ground_fact.killing_conduct
+    result: ground_fact.death_of_victim
+
+- id: offense.ancestral_homicide
+  identity: {name: "존속살해죄", statutory_refs: ["형법 제250조 제2항"]}
+  elements:
+    object: {op: ref, ref: legal_element.lineal_ascendant_of_self_or_spouse_status}
+    conduct: {op: ref, ref: ground_fact.killing_conduct}
+    result: {op: ref, ref: ground_fact.death_of_victim}
+    causation: {op: ref, ref: legal_element.result_causation}
+    mental:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.intent}
+        - {op: ref, ref: legal_element.awareness_of_lineal_ascendant_status}
+
+- id: offense.negligent_homicide
+  identity: {name: "과실치사죄", statutory_refs: ["형법 제267조"]}
+  elements:
+    result: {op: ref, ref: ground_fact.death_of_victim}
+    causation: {op: ref, ref: legal_element.result_causation}
+  element_modules:
+    - ref: bundle.negligence_bundle
+      placement:
+        legal_element.duty_of_care: circumstance
+        legal_element.foreseeability: mental
+        legal_element.avoidability: conduct
+        legal_element.breach_of_duty: conduct
+
+- id: offense.occupational_or_gross_negligence_injury_or_homicide
+  identity: {name: "업무상과실·중과실치사상죄", statutory_refs: ["형법 제268조"]}
+  elements:
+    circumstance:
+      op: any
+      args:
+        - {op: ref, ref: legal_element.occupational_duty_of_care}
+        - {op: ref, ref: legal_element.gross_negligence}
+    result:
+      op: any
+      args:
+        - {op: ref, ref: ground_fact.death_of_victim}
+        - {op: ref, ref: legal_element.injury_result}
+    causation: {op: ref, ref: legal_element.result_causation}
+  element_modules:
+    - ref: bundle.negligence_bundle
+      placement:
+        legal_element.duty_of_care: circumstance
+        legal_element.foreseeability: mental
+        legal_element.avoidability: conduct
+        legal_element.breach_of_duty: conduct
+
+- id: offense.injury
+  identity: {name: "상해죄", statutory_refs: ["형법 제257조 제1항"]}
+  elements:
+    object: {op: ref, ref: legal_element.natural_person_victim_status}
+    conduct: {op: ref, ref: ground_fact.injury_conduct}
+    result: {op: ref, ref: legal_element.injury_result}
+    mental: {op: ref, ref: legal_element.intent}
+  exports:
+    conduct: ground_fact.injury_conduct
+    result: legal_element.injury_result
+  qualifiers: [qualifier.serious_injury_result]
+
+- id: offense.ancestral_injury
+  identity: {name: "존속상해죄", statutory_refs: ["형법 제257조 제2항"]}
+  elements:
+    object:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.natural_person_victim_status}
+        - {op: ref, ref: legal_element.lineal_ascendant_of_self_or_spouse_status}
+    conduct: {op: ref, ref: ground_fact.injury_conduct}
+    result: {op: ref, ref: legal_element.injury_result}
+    mental:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.intent}
+        - {op: ref, ref: legal_element.awareness_of_lineal_ascendant_status}
+  qualifiers: [qualifier.serious_injury_result]
+
+- id: offense.breach_of_trust
+  identity: {name: "배임죄", statutory_refs: ["형법 제355조 제2항"]}
+  elements:
+    subject: {op: ref, ref: legal_element.duty_of_other_affairs}
+    conduct: {op: ref, ref: legal_element.breach_of_trust_conduct}
+    result: {op: ref, ref: legal_element.property_loss_or_concrete_risk}
+    mental: {op: ref, ref: legal_element.intent}
+
+- id: offense.rape
+  identity: {name: "강간죄", statutory_refs: ["형법 제297조"]}
+  elements:
+    object: {op: ref, ref: legal_element.natural_person_victim_status}
+    conduct:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.coercive_conduct}
+        - {op: ref, ref: ground_fact.vaginal_intercourse_conduct}
+    causation: {op: ref, ref: legal_element.coercion_induced_sexual_act_causation}
+    circumstance:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.directness_of_coercion_by_offender}
+        - {op: ref, ref: legal_element.coercion_sufficiency_for_rape}
+    mental: {op: ref, ref: legal_element.intent}
+
+- id: offense.forcible_indecency
+  identity: {name: "강제추행죄", statutory_refs: ["형법 제298조"]}
+  elements:
+    object: {op: ref, ref: legal_element.natural_person_victim_status}
+    conduct:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.coercive_conduct}
+        - {op: ref, ref: legal_element.indecent_act}
+    causation: {op: ref, ref: legal_element.coercion_induced_sexual_act_causation}
+    circumstance:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.directness_of_coercion_by_offender}
+        - {op: ref, ref: legal_element.coercion_sufficiency_for_forcible_indecency}
+    mental: {op: ref, ref: legal_element.intent}
+
+- id: offense.quasi_rape
+  identity: {name: "준강간죄", statutory_refs: ["형법 제299조"]}
+  elements:
+    object: {op: ref, ref: legal_element.mental_incapacity_or_physical_helplessness_status}
+    conduct: {op: ref, ref: ground_fact.vaginal_intercourse_conduct}
+    circumstance: {op: ref, ref: legal_element.exploitation_of_incapacity}
+    mental: {op: ref, ref: legal_element.intent}
+
+- id: offense.quasi_forcible_indecency
+  identity: {name: "준강제추행죄", statutory_refs: ["형법 제299조"]}
+  elements:
+    object: {op: ref, ref: legal_element.mental_incapacity_or_physical_helplessness_status}
+    conduct: {op: ref, ref: legal_element.indecent_act}
+    circumstance: {op: ref, ref: legal_element.exploitation_of_incapacity}
+    mental: {op: ref, ref: legal_element.intent}
+
+- id: offense.dwelling_intrusion
+  identity: {name: "주거침입죄", statutory_refs: ["형법 제319조 제1항"]}
+  elements:
+    object: {op: ref, ref: legal_element.dwelling_or_managed_premises_object}
+    conduct: {op: ref, ref: legal_element.trespass_entry}
+
+- id: offense.refusal_to_leave
+  identity: {name: "퇴거불응죄", statutory_refs: ["형법 제319조 제2항"]}
+  elements:
+    object: {op: ref, ref: legal_element.dwelling_or_managed_premises_object}
+    circumstance:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.retreat_demand_by_authorized_person}
+        - {op: ref, ref: legal_element.ability_to_comply_with_retreat_demand}
+        - op: not
+          arg: {op: ref, ref: legal_element.justifiable_reason_for_refusal}
+    conduct: {op: ref, ref: legal_element.failure_to_comply_without_delay}
+
+- id: offense.obstruction_of_right_exercise
+  identity: {name: "권리행사방해죄", statutory_refs: ["형법 제323조"]}
+  participation_constraints:
+    attributable_slots: [conduct]
+    constitutive_status_refs: [legal_element.own_property_object]
+  elements:
+    subject: {op: ref, ref: legal_element.own_property_object}
+    object: {op: ref, ref: legal_element.third_party_possession_or_right_object}
+    conduct:
+      op: any
+      args:
+        - {op: ref, ref: legal_element.taking_of_own_property_conduct}
+        - {op: ref, ref: legal_element.concealment_conduct}
+        - {op: ref, ref: legal_element.damage_conduct}
+    result: {op: ref, ref: legal_element.obstruction_of_right_exercise}
+
+- id: offense.harboring_or_escape
+  identity: {name: "범인은닉·도피죄", statutory_refs: ["형법 제151조 제1항"]}
+  elements:
+    object: {op: ref, ref: legal_element.offender_status_of_object}
+    circumstance:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.act_directed_at_another_offender}
+        - {op: ref, ref: legal_element.omission_requires_guarantor_status}
+        - {op: ref, ref: legal_element.for_the_offenders_benefit}
+    conduct: {op: ref, ref: ground_fact.concealment_or_escape_conduct}
+    mental: {op: ref, ref: legal_element.intent}

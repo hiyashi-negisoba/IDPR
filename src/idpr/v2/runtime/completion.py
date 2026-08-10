@@ -74,6 +74,8 @@ class CompletionCandidateOutcome:
 
     state: str
     truth: TruthValue
+    component_instance: OffenseInstanceKey | None = None
+    """The component predicate view used by `when_component`, if this state has one."""
 
 
 @dataclass(frozen=True)
@@ -95,6 +97,13 @@ class CompletionResult:
     """Slots whose obligation does not exist in this state. The runtime drops them from the fold --
     it never substitutes TRUE, so a FALSE result is never laundered into a satisfied element."""
 
+    component_suspended_slots: Mapping[str, frozenset[str]] = field(default_factory=dict)
+    """Article 339-only removals keyed by top-level component local_key.
+
+    Unlike `suspended_slots`, these remove only that occurrence's contribution while retaining
+    sibling contributions to the same flattened slot.
+    """
+
     relation_dispositions: Mapping[RelationInstanceKey, RelationDisposition] = field(
         default_factory=dict
     )
@@ -104,6 +113,9 @@ class CompletionResult:
 
     additional_requirements: CanonicalExpr = None
     """This state's own `requires`, canonicalized. Added to the fold; never replaces anything."""
+
+    additional_requirements_instance: OffenseInstanceKey | None = None
+    """The direct component view for `requires` when the state has `when_component`."""
 
     provenance: tuple[CompletionCandidateOutcome, ...] = ()
 
@@ -119,15 +131,19 @@ class CompletionResult:
             carried = (
                 self.punishable is not None
                 or self.suspended_slots
+                or self.component_suspended_slots
                 or self.relation_dispositions
                 or self.additional_requirements is not None
+                or self.additional_requirements_instance is not None
             )
             if carried:
                 raise ValueError(
                     f"CompletionResult invariant violated: state={self.state!r} carries a program "
                     f"(punishable={self.punishable!r}, suspended_slots={set(self.suspended_slots)!r}, "
+                    f"component_suspended_slots={dict(self.component_suspended_slots)!r}, "
                     f"relation_dispositions={dict(self.relation_dispositions)!r}, "
-                    f"additional_requirements={self.additional_requirements!r}) -- no state was "
+                    f"additional_requirements={self.additional_requirements!r}, "
+                    f"additional_requirements_instance={self.additional_requirements_instance!r}) -- no state was "
                     "derived, so there are no obligations to suspend or add"
                 )
         elif self.punishable is None:
@@ -171,12 +187,8 @@ def resolve_completion(
         return CompletionResult(state="completed", punishable=True)
 
     states = policy.payload["states"]
-    predicate_view = truths.predicate_view(instance)
     outcomes = tuple(
-        CompletionCandidateOutcome(
-            state=name,
-            truth=evaluate(expressions.canonicalize(states[name]["when"]), predicate_view),
-        )
+        _resolve_candidate(states[name], name, compiled, instance, truths)
         for name in DERIVABLE_STATES
         if name in states
     )
@@ -186,14 +198,79 @@ def resolve_completion(
         return CompletionResult(state=state, provenance=outcomes)
 
     policy_for_state = states[state]
+    candidate = next(outcome for outcome in outcomes if outcome.state == state)
     return CompletionResult(
         state=state,
         punishable=policy_for_state["punishable"],
         suspended_slots=frozenset(policy_for_state.get("suspends") or ()),
+        component_suspended_slots=_resolve_component_suspensions(policy_for_state),
         relation_dispositions=_resolve_dispositions(compiled, policy_for_state),
         additional_requirements=expressions.canonicalize(policy_for_state.get("requires")),
+        additional_requirements_instance=candidate.component_instance,
         provenance=outcomes,
     )
+
+
+def component_instance_for(
+    compiled: CompiledOffense,
+    instance: OffenseInstanceKey,
+    local_key: str,
+    offense_ref: str,
+) -> OffenseInstanceKey:
+    """Reuse OffenseInstanceKey for the one approved component occurrence namespace.
+
+    This is deliberately restricted to an offense-family component (an OffenseDef or existing
+    DerivedOffenseDef).  The completion checker rejects other shapes before runtime; the
+    ValueError remains a defensive boundary for callers that bypass type checking.
+    """
+    component = next((item for item in compiled.components if item.local_key == local_key), None)
+    if (
+        component is None
+        or component.component_kind != "offense"
+        or component.resolved_kind not in ("offense", "derived_offense")
+        or component.source_ref != offense_ref
+    ):
+        raise ValueError(
+            f"component scope ({local_key!r}, {offense_ref!r}) is not an offense-family component "
+            f"of {compiled.id!r}"
+        )
+    return OffenseInstanceKey(
+        case_id=instance.case_id,
+        actor_id=instance.actor_id,
+        offense_ref=offense_ref,
+        occurrence_id=instance.occurrence_id,
+    )
+
+
+def _resolve_candidate(
+    state_policy: Mapping[str, object],
+    state: str,
+    compiled: CompiledOffense,
+    instance: OffenseInstanceKey,
+    truths: CaseTruths,
+) -> CompletionCandidateOutcome:
+    scope = state_policy.get("when_component")
+    component_instance = None
+    if scope:
+        component_instance = component_instance_for(
+            compiled, instance, scope["local_key"], scope["offense"]
+        )
+        predicate_view = truths.predicate_view(component_instance)
+    else:
+        predicate_view = truths.predicate_view(instance)
+    return CompletionCandidateOutcome(
+        state=state,
+        truth=evaluate(expressions.canonicalize(state_policy["when"]), predicate_view),
+        component_instance=component_instance,
+    )
+
+
+def _resolve_component_suspensions(state_policy: Mapping[str, object]) -> dict[str, frozenset[str]]:
+    """Turn authored Art.339 component suspensions into the runtime's local-key map."""
+    return {
+        item["local_key"]: frozenset(item["slots"])
+        for item in state_policy.get("component_suspends") or ()
+    }
 
 
 def _derive_state(outcomes: tuple[CompletionCandidateOutcome, ...]) -> CompletionState:
@@ -258,6 +335,7 @@ __all__ = [
     "DERIVABLE_STATES",
     "CompletionCandidateOutcome",
     "CompletionResult",
+    "component_instance_for",
     "CompletionState",
     "RelationDisposition",
     "completion_policy_for",

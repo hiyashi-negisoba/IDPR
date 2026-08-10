@@ -25,6 +25,8 @@ from idpr.v2.runtime import pipeline
 from idpr.v2.runtime.effects import ActiveDoctrineRefs
 from idpr.v2.runtime.identity import OffenseInstanceKey
 from idpr.v2.runtime.stages import (
+    CoPrincipalConstitutiveStatusObligation,
+    IndirectPrincipalDependencyObligation,
     LiabilityEvaluation,
     Obligation,
     ObligationOutcome,
@@ -80,6 +82,61 @@ def apply_attribution(
         values.extend(truths.predicate.get((source, ref), UNKNOWN) for source in sources)
         new_predicate[(target, ref)] = fold_any(values)
     return CaseTruths(predicate=new_predicate, relation=truths.relation)
+
+
+def resolve_co_principal_liability(
+    registry: DefinitionRegistry,
+    compiled: CompiledOffense,
+    offense_ref: str,
+    target: OffenseInstanceKey,
+    sources: Iterable[OffenseInstanceKey],
+    completion,
+    active: ActiveDoctrineRefs,
+    truths: CaseTruths,
+) -> LiabilityEvaluation:
+    """Resolve a co-principal without turning an actor-specific status into a target fact.
+
+    Conduct attribution remains the existing ATTRIBUTE transformation.  Article 33's explicit
+    `constitutive_status_refs`, if any, instead get their Elements value from one obligation per
+    frozen ref.  The returned evaluation therefore sees the legal effect in its slot expression,
+    while both the input and the attributed `CaseTruths` retain the target's own status truth.
+    """
+    policy = participation.participation_policy_for(registry)
+    offense = registry.get(offense_ref)
+    sources = tuple(sources)
+    attributed_truths = apply_attribution(registry, compiled, offense_ref, target, sources, truths)
+    if policy is None or offense is None:
+        return pipeline.resolve_liability(
+            registry, compiled, target, completion, active, attributed_truths
+        )
+
+    overrides: dict[str, TruthValue] = {}
+    outcomes: list[ObligationOutcome] = []
+    for ref in participation.constitutive_status_refs(offense):
+        candidates = (target, *sources)
+        values = tuple(truths.predicate.get((candidate, ref), UNKNOWN) for candidate in candidates)
+        satisfying = tuple(
+            candidate for candidate, value in zip(candidates, values, strict=True) if value == TRUE
+        )
+        truth = fold_any(values)
+        overrides[ref] = truth
+        outcomes.append(ObligationOutcome(
+            obligation=CoPrincipalConstitutiveStatusObligation(
+                ref=ref, satisfying_instances=satisfying
+            ),
+            truth=truth,
+        ))
+
+    return pipeline.resolve_liability(
+        registry,
+        compiled,
+        target,
+        completion,
+        active,
+        attributed_truths,
+        element_truth_overrides=overrides,
+        element_provenance=tuple(outcomes),
+    )
 
 
 def principal_realization_truth(principal: LiabilityEvaluation) -> TruthValue:
@@ -150,6 +207,88 @@ def resolve_derivative_liability(
     )
 
 
+def indirect_principal_dependency_truth(
+    utilised: LiabilityEvaluation,
+    negligence_evaluation: LiabilityEvaluation | None = None,
+) -> tuple[TruthValue, str]:
+    """Article 34's concrete, direction-reversed dependency classification.
+
+    This is intentionally not `NOT(principal_realization_truth(...))`: a confirmed Elements
+    failure, Unlawfulness defeat, Culpability defeat, and a realised different negligence offense
+    have distinct legal provenance.  `negligence_evaluation` is caller-selected; this runtime
+    never infers negligence from an offense id or asks a model to classify it.
+    """
+    if negligence_evaluation is not None:
+        if negligence_evaluation.instance.offense_ref == utilised.instance.offense_ref:
+            return UNKNOWN, "negligence_outcome_not_a_different_offense"
+        if negligence_evaluation.liability_result is not None:
+            return TRUE, "different_negligence_offense"
+        return UNKNOWN, "different_negligence_outcome_unresolved"
+    if utilised.elements.gate_state == "fails":
+        return TRUE, "target_elements_failure"
+    if utilised.unlawfulness.gate_state == "fails":
+        return TRUE, "unlawfulness_defeat"
+    if utilised.culpability.gate_state == "fails":
+        return TRUE, "culpability_defeat_after_realization"
+    if utilised.punishability.gate_state == "fails":
+        return TRUE, "punishability_defeat"
+    if utilised.liability_result is not None:
+        return FALSE, "utilised_actor_liable"
+    return UNKNOWN, "utilised_actor_outcome_unresolved"
+
+
+def resolve_indirect_principal_liability(
+    registry: DefinitionRegistry,
+    policy: DefinitionEntry,
+    mode: DerivativeMode,
+    utilised: LiabilityEvaluation,
+    instance: OffenseInstanceKey,
+    active: ActiveDoctrineRefs,
+    truths: CaseTruths,
+    *,
+    negligence_evaluation: LiabilityEvaluation | None = None,
+) -> LiabilityEvaluation:
+    """Run the Article 34-only indirect-principal path.
+
+    The existing instigator/aider `requires` expression supplies the user's own conduct/intent,
+    but this does not call `resolve_derivative_liability()` and does not depend on a positive
+    principal realization.  No production policy is authored by this function; it is a runtime
+    capability until the separate general utilization-condition source is frozen.
+    """
+    mode_payload = policy.payload["modes"][mode]
+    dependency_truth, reason = indirect_principal_dependency_truth(
+        utilised, negligence_evaluation
+    )
+    predicate_view = truths.predicate_view(instance)
+    outcomes = (
+        ObligationOutcome(
+            obligation=IndirectPrincipalDependencyObligation(reason=reason),
+            truth=dependency_truth,
+        ),
+        ObligationOutcome(
+            obligation=ParticipationRequirementObligation(mode=mode),
+            truth=evaluate(expressions.canonicalize(mode_payload["requires"]), predicate_view),
+        ),
+    )
+    truth = fold_all(outcome.truth for outcome in outcomes)
+    failed = [outcome.obligation for outcome in outcomes if outcome.truth == FALSE]
+    elements = StageResult(
+        evaluation_state="evaluated",
+        legal_state=pipeline.ELEMENTS_STATE.get(truth, "unresolved"),
+        gate_state=pipeline.ELEMENTS_GATE.get(truth, "unresolved"),
+        provenance=outcomes,
+    )
+    return pipeline.resolve_from_elements(
+        registry,
+        active,
+        instance,
+        None,
+        truths,
+        elements,
+        pipeline.decisive_obligation(failed),
+    )
+
+
 def _resolve_derivative_elements(
     policy: DefinitionEntry,
     mode: DerivativeMode,
@@ -187,6 +326,9 @@ def _resolve_derivative_elements(
 __all__ = [
     "DerivativeMode",
     "apply_attribution",
+    "resolve_co_principal_liability",
     "principal_realization_truth",
     "resolve_derivative_liability",
+    "indirect_principal_dependency_truth",
+    "resolve_indirect_principal_liability",
 ]

@@ -147,6 +147,16 @@ def _check_offense(registry: DefinitionRegistry, entry: DefinitionEntry) -> list
         findings.extend(_check_ref(registry, entry, f"exports.{key}", ref, _EXPRESSION_LEAF_KINDS))
     for index, module in enumerate(entry.payload.get("element_modules") or []):
         findings.extend(_check_bundle_attachment(registry, entry, f"element_modules[{index}]", module))
+    for index, ref in enumerate(
+        (entry.payload.get("participation_constraints") or {}).get("constitutive_status_refs") or ()
+    ):
+        findings.extend(_check_ref(
+            registry,
+            entry,
+            f"participation_constraints.constitutive_status_refs[{index}]",
+            ref,
+            frozenset({"legal_element"}),
+        ))
     return findings
 
 

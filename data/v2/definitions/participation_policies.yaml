@@ -1,0 +1,13 @@
+- id: participation_policy.standard
+  modes:
+    principal: {basis: direct}
+    co_principal:
+      basis: attribution
+    instigator:
+      basis: derivative
+      requires_conclusion: offense_realization
+      requires: {op: ref, ref: legal_element.instigator_intent}
+    aider:
+      basis: derivative
+      requires_conclusion: offense_realization
+      requires: {op: ref, ref: legal_element.aiding_intent}

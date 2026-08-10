@@ -45,4 +45,14 @@ def effective_attributable_slots(policy: DefinitionEntry, offense: DefinitionEnt
     return frozenset()
 
 
-__all__ = ["participation_policy_for", "effective_attributable_slots"]
+def constitutive_status_refs(offense: DefinitionEntry) -> frozenset[str]:
+    """Article 33-only status leaves whose Elements truth comes from a co-principal obligation.
+
+    There is deliberately no shared-policy default: every affected offense opts in with its own
+    frozen status leaf, and all other co-principal cases keep ordinary attribution semantics.
+    """
+    constraints = offense.payload.get("participation_constraints") or {}
+    return frozenset(constraints.get("constitutive_status_refs") or ())
+
+
+__all__ = ["participation_policy_for", "effective_attributable_slots", "constitutive_status_refs"]

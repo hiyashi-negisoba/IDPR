@@ -1,0 +1,1001 @@
+# Gate① first assembly slice: Criminal Act arts. 9, 11, 12, and 16.
+# No predicate ID or canonical meaning is newly authored here.
+
+- id: legal_element.deaf_mute_status
+  arguments:
+    - {name: actor, type: entity}
+  canonical_meaning: "농아자(청각+언어기능 모두 결여)"
+  legal_standard: "청각기능과 언어기능을 동시에 구비하지 못한 사람에 해당하는지 여부"
+  authority_refs:
+    - authority_basis: statute_text
+      citation: "형법 제11조"
+    - authority_basis: commentary_reported_precedent
+      citation: "케이스노트 형법총칙 제11조 Ⅱ.1 (2009도10176 등)"
+
+- id: legal_element.discrimination_capacity
+  arguments:
+    - {name: actor, type: entity}
+  canonical_meaning: "사물변별능력"
+  legal_standard: "행위 당시 정신적 장애와 제반 사정을 고려하여 사물의 의미와 위법성을 변별할 능력이 있었는지 여부"
+  authority_refs:
+    - authority_basis: statute_text
+      citation: "형법 제10조 제1항·제2항"
+    - authority_basis: commentary_reported_precedent
+      citation: "케이스노트 형법총칙 제10조 Ⅱ.1 (2006도7900 등)"
+
+- id: legal_element.control_capacity
+  arguments:
+    - {name: actor, type: entity}
+  canonical_meaning: "변별에 따른 행위제어능력"
+  legal_standard: "행위 당시 정신적 장애와 제반 사정을 고려하여 변별에 따라 행위를 통제할 능력이 있었는지 여부"
+  authority_refs:
+    - authority_basis: statute_text
+      citation: "형법 제10조 제1항·제2항"
+    - authority_basis: commentary_reported_precedent
+      citation: "케이스노트 형법총칙 제10조 Ⅱ.1 (2006도7900 등)"
+
+- id: legal_element.self_induced_disorder
+  arguments:
+    - {name: actor, type: entity}
+  canonical_meaning: "심신장애를 유책하게 자초함"
+  legal_standard: "행위자가 심신장애 상태를 자의로, 자신의 책임으로 초래하였는지 여부"
+  authority_refs:
+    - authority_basis: statute_text
+      citation: "형법 제10조 제3항"
+    - authority_basis: commentary_synthesis
+      citation: "predicate_dictionary_ext_batch01_v1.md 정정 3"
+
+- id: legal_element.irresistible_coercion
+  arguments:
+    - {name: actor, type: entity}
+  canonical_meaning: "저항불가능한 폭력/방어불가능한 협박"
+  legal_standard: "폭력·협박의 강도와 성질, 강요자와 피강요자의 관계, 강요 당시 상황을 종합하여 저항 또는 방어가 불가능했는지 판단"
+  authority_refs:
+    - authority_basis: statute_text
+      citation: "형법 제12조"
+    - authority_basis: commentary_reported_precedent
+      citation: "케이스노트 형법총칙 제12조 Ⅱ.1 (2003도5124 등)"
+
+- id: legal_element.self_induced_coercion
+  arguments:
+    - {name: actor, type: entity}
+  canonical_meaning: "강제상태를 유책하게 자초"
+  legal_standard: "행위자가 강제상태를 자신의 책임으로 초래했는지 여부"
+  authority_refs:
+    - authority_basis: commentary_synthesis
+      citation: "케이스노트 형법총칙 제12조 Ⅱ.1"
+
+- id: legal_element.awareness_of_illegality_lacking
+  arguments:
+    - {name: actor, type: entity}
+    - {name: act, type: entity}
+  canonical_meaning: "위법성 불인식"
+  legal_standard: "단순한 법률의 부지가 아닌, 행위자가 자신의 특수한 사정에서 행위가 법령에 의하여 허용되어 죄가 되지 않는다고 오인하였는지 여부"
+  authority_refs:
+    - authority_basis: statute_text
+      citation: "형법 제16조"
+    - authority_basis: commentary_reported_precedent
+      citation: "케이스노트 형법총칙 제16조 Ⅱ.2"
+
+- id: legal_element.justifiable_ground_for_mistake
+  arguments:
+    - {name: actor, type: entity}
+    - {name: act, type: entity}
+  canonical_meaning: "불인식에 정당한 이유(회피불가능)"
+  legal_standard: "행위자가 위법성 인식의 가능성을 회피하기 위하여 심사숙고·조회 의무 등 진지한 노력을 다하였음에도 오인을 회피할 수 없었는지 여부"
+  authority_refs:
+    - authority_basis: statute_text
+      citation: "형법 제16조"
+    - authority_basis: commentary_reported_precedent
+      citation: "케이스노트 형법총칙 제16조 Ⅲ.1-Ⅲ.3"
+
+- id: legal_element.intent
+  arguments: [{name: actor, type: entity}, {name: act, type: entity}]
+  canonical_meaning: "객관적 구성요건요소 인식+실현 용인(고의)"
+  legal_standard: "행위자가 구성요건적 사실을 인식하고 그 실현을 의욕하거나 용인하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제13조"}]
+
+- id: legal_element.commencement_of_execution
+  arguments: [{name: actor, type: entity}, {name: act, type: entity}]
+  canonical_meaning: "구성요건적 행위를 직접 개시함(실행의 착수)"
+  legal_standard: "범죄구성요건의 실현에 직접 관련된 행위를 개시하여 법익침해의 구체적 위험이 발생하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제25조 제1항"}]
+
+- id: legal_element.preparatory_conduct
+  arguments: [{name: actor, type: entity}, {name: act, type: entity}]
+  canonical_meaning: "목적한 범죄를 위한 물적 준비행위"
+  legal_standard: "특정 범죄의 실행을 위한 외부적·물적 준비행위에 해당하는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제28조"}]
+
+- id: legal_element.conspiracy_agreement
+  arguments: [{name: actor, type: entity}, {name: act, type: entity}]
+  canonical_meaning: "2인 이상 특정 범죄 실행 합의+실질적 위험성"
+  legal_standard: "둘 이상의 사람이 특정 범죄의 실행을 합의하고 그 합의가 실질적 위험성을 갖는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제28조"}]
+
+- id: legal_element.purpose_to_commit_target_offense
+  arguments: [{name: actor, type: entity}, {name: offense, type: entity}]
+  canonical_meaning: "준비·합의가 특정 범죄 실현 목적으로 이루어짐"
+  legal_standard: "준비 또는 합의가 특정 목적범죄의 실현을 지향한 것인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제28조"}]
+
+- id: legal_element.natural_person_victim_status
+  arguments: [{name: victim, type: entity}]
+  canonical_meaning: "출생 후 사망하지 않은 자연인, 타인"
+  legal_standard: "보호법익의 주체가 출생 후 사망하지 않은 타인의 자연인인지 여부"
+  authority_refs: [{authority_basis: commentary_synthesis, citation: "predicate_dictionary_master_v3.md §2.1 (배치⑨ 250조 재사용)"}]
+
+- id: legal_element.duty_of_care
+  arguments: [{name: actor, type: entity}, {name: act, type: entity}]
+  canonical_meaning: "객관적 주의의무"
+  legal_standard: "행위 당시 일반인 또는 해당 분야의 행위자에게 요구되는 결과회피를 위한 객관적 주의의무가 있었는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제14조"}]
+
+- id: legal_element.foreseeability
+  arguments: [{name: actor, type: entity}, {name: result, type: entity}]
+  canonical_meaning: "결과 예견가능성"
+  legal_standard: "행위 당시 결과 발생을 예견할 수 있었는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제14조"}]
+
+- id: legal_element.avoidability
+  arguments: [{name: actor, type: entity}, {name: result, type: entity}]
+  canonical_meaning: "결과 회피가능성"
+  legal_standard: "적절한 주의행위로 결과 발생을 회피할 수 있었는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제14조"}]
+
+- id: legal_element.breach_of_duty
+  arguments: [{name: actor, type: entity}, {name: act, type: entity}]
+  canonical_meaning: "주의의무 위반"
+  legal_standard: "행위자가 요구되는 객관적 주의의무를 위반하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제14조"}]
+
+- id: legal_element.mistake_within_same_construct
+  arguments: [{name: perceived, type: entity}, {name: actual, type: entity}]
+  canonical_meaning: "법정적 부합(동일 구성요건 내 착오)"
+  legal_standard: "인식한 사실과 실제 발생한 사실이 동일한 구성요건의 범위에서 법정적으로 부합하는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제15조"}]
+
+- id: legal_element.foreseeability_of_aggravated_result
+  arguments: [{name: actor, type: entity}, {name: result, type: entity}]
+  canonical_meaning: "중한 결과 예견가능성(결과적가중범 전용)"
+  legal_standard: "기본행위 당시 중한 결과의 발생을 예견할 수 있었는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제15조 제2항"}]
+
+- id: legal_element.aggravated_result_attribution
+  arguments: [{name: event, type: entity}, {name: result, type: entity}]
+  canonical_meaning: "중한 결과가 기본범죄 행위에 상당인과관계로 귀속된다."
+  legal_standard: "결과에 대한 예견가능성과 상당인과관계가 인정되는지 여부"
+  authority_refs:
+    - {authority_basis: commentary_synthesis, citation: "Gate① Master v3 §2.1이 canonicalize한 외부 fixture supporting dependency; 제164조·제259조·제301조·제337조·제338조"}
+
+- id: legal_element.duty_to_act
+  arguments: [{name: actor, type: entity}, {name: result, type: entity}]
+  canonical_meaning: "보증인적 지위(작위의무)"
+  legal_standard: "법령·계약·선행행위·조리 등에 따라 결과발생을 방지할 보증인적 작위의무가 있었는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제18조"}]
+
+- id: legal_element.equivalence_to_commission
+  arguments: [{name: act, type: entity}, {name: result, type: entity}]
+  canonical_meaning: "작위와의 동가치성"
+  legal_standard: "부작위에 의한 결과실현이 해당 구성요건의 작위에 의한 실현과 동등하게 평가되는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제18조"}]
+
+- id: legal_element.concurrent_independent_acts
+  arguments: [{name: actor, type: entity}, {name: act, type: entity}]
+  canonical_meaning: "의사연락 없는 각자의 별개 실행행위"
+  legal_standard: "둘 이상의 사람이 의사연락 없이 각자 별개의 구성요건적 실행행위를 하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제19조"}]
+
+- id: legal_element.same_object_of_result
+  arguments: [{name: result, type: entity}]
+  canonical_meaning: "동일 객체에 결과 발생"
+  legal_standard: "각 독립행위가 사회적·규범적 의미에서 동일한 객체에 결과를 발생시켰는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제19조"}]
+
+- id: legal_element.causal_origin_unascertained
+  arguments: [{name: result, type: entity}]
+  canonical_meaning: "원인행위 판명 불능(법원이 확정하는 법적 상태)"
+  legal_standard: "충분한 심리 후에도 결과 발생의 원인이 된 행위가 어느 것인지 판명되지 않았는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제19조"}]
+
+- id: legal_element.act_pursuant_to_law
+  arguments: [{name: actor, type: entity}, {name: act, type: entity}]
+  canonical_meaning: "법령에 의한 행위"
+  legal_standard: "행위가 법령의 근거와 그 한도 안에서 이루어졌는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제20조"}]
+
+- id: legal_element.act_due_to_legitimate_business
+  arguments: [{name: actor, type: entity}, {name: act, type: entity}]
+  canonical_meaning: "정당업무행위"
+  legal_standard: "사회상규에 비추어 정당한 업무 수행의 범위 안에서 이루어진 행위인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제20조"}]
+
+- id: legal_element.act_not_against_social_norms
+  arguments: [{name: act, type: entity}]
+  canonical_meaning: "사회상규 부적합성 없음(5요소 종합)"
+  legal_standard: "행위의 동기·목적·수단·방법·법익침해 정도·긴급성 등을 종합하여 사회상규에 위배되지 않는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제20조"}]
+
+- id: legal_element.infringement_situation
+  arguments: [{name: actor, type: entity}, {name: interest, type: entity}]
+  canonical_meaning: "침해상황"
+  legal_standard: "현재의 부당한 법익침해가 존재하는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제21조 제1항"}]
+
+- id: legal_element.defensive_act
+  arguments: [{name: actor, type: entity}, {name: act, type: entity}]
+  canonical_meaning: "방위행위"
+  legal_standard: "행위가 자기 또는 타인의 법익에 대한 침해를 방위하기 위한 것인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제21조 제1항"}]
+
+- id: legal_element.reasonable_grounds
+  arguments: [{name: act, type: entity}]
+  canonical_meaning: "상당성"
+  legal_standard: "침해의 정도와 방위수단을 비교하여 방위행위가 상당한지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제21조 제1항; 제22조 제1항; 제23조 제1항"}]
+
+- id: legal_element.imminent_danger
+  arguments: [{name: actor, type: entity}, {name: interest, type: entity}]
+  canonical_meaning: "위난"
+  legal_standard: "자기 또는 타인의 법익에 대한 현재의 위난이 존재하는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제22조 제1항"}]
+
+- id: legal_element.act_to_avert_danger
+  arguments: [{name: actor, type: entity}, {name: act, type: entity}]
+  canonical_meaning: "피난행위"
+  legal_standard: "행위가 위난을 피하기 위한 것인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제22조 제1항"}]
+
+- id: legal_element.necessity_of_avoidance
+  arguments: [{name: act, type: entity}]
+  canonical_meaning: "상당성"
+  legal_standard: "위난 회피를 위하여 필요한 상당한 방법인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제22조 제1항"}]
+
+- id: legal_element.duty_bound_to_endure_danger
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "위난감수의무자"
+  legal_standard: "직무 또는 특별한 관계로 인하여 위난을 피하지 않을 의무가 있는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제22조 제2항"}]
+
+- id: legal_element.conflicting_legal_duties
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "의무충돌"
+  legal_standard: "동시에 이행할 수 없는 둘 이상의 법적 의무가 충돌하는지 여부"
+  authority_refs: [{authority_basis: commentary_synthesis, citation: "predicate_dictionary_master_v3.md §2.4 (형법 제22조)"}]
+
+- id: legal_element.higher_or_equal_duty_performed
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "상위·동등의무 이행"
+  legal_standard: "충돌한 의무 가운데 상위 또는 동등한 의무를 이행하였는지 여부"
+  authority_refs: [{authority_basis: commentary_synthesis, citation: "predicate_dictionary_master_v3.md §2.4 (형법 제22조)"}]
+
+- id: legal_element.claim_unpreservable_by_legal_process
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "청구권보전불능"
+  legal_standard: "청구권을 보전하기 위하여 법정절차에 의할 수 없거나 현저히 곤란한 사정이 있는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제23조 제1항"}]
+
+- id: legal_element.act_to_prevent_unenforceability
+  arguments: [{name: actor, type: entity}, {name: act, type: entity}]
+  canonical_meaning: "방지행위"
+  legal_standard: "행위가 청구권의 보전불능 또는 그 집행불능을 피하기 위한 것인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제23조 제1항"}]
+
+- id: legal_element.necessity_of_self_help
+  arguments: [{name: act, type: entity}]
+  canonical_meaning: "상당성"
+  legal_standard: "청구권 보전을 위한 자구행위가 상당한 범위 안에 있는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제23조 제1항"}]
+
+- id: legal_element.valid_consent_by_disposer
+  arguments: [{name: disposer, type: entity}, {name: interest, type: entity}]
+  canonical_meaning: "유효한 승낙"
+  legal_standard: "법익주체 또는 처분권자가 유효하게 승낙하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제24조"}]
+
+- id: legal_element.harm_caused_pursuant_to_consent
+  arguments: [{name: act, type: entity}, {name: interest, type: entity}]
+  canonical_meaning: "승낙범위 내 침해"
+  legal_standard: "법익침해가 승낙된 범위 안에서 이루어졌는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제24조"}]
+
+- id: legal_element.presumed_consent
+  arguments: [{name: disposer, type: entity}, {name: act, type: entity}]
+  canonical_meaning: "추정적 승낙"
+  legal_standard: "상황상 법익주체가 알았더라면 승낙하였을 것이라고 추정할 수 있는지 여부"
+  authority_refs: [{authority_basis: commentary_synthesis, citation: "predicate_dictionary_master_v3.md §2.4 (형법 제24조)"}]
+
+- id: legal_element.actual_consent_unobtainable
+  arguments: [{name: disposer, type: entity}]
+  canonical_meaning: "현실적 승낙 불가능"
+  legal_standard: "행위 시점에 현실적 승낙을 얻는 것이 불가능하거나 현저히 곤란했는지 여부"
+  authority_refs: [{authority_basis: commentary_synthesis, citation: "predicate_dictionary_master_v3.md §2.4 (형법 제24조)"}]
+
+- id: legal_element.statutory_bar_on_consent
+  arguments: [{name: interest, type: entity}]
+  canonical_meaning: "특례규정 없음"
+  legal_standard: "해당 법익에 관하여 승낙의 효력을 배제하는 특별법규가 없는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제24조"}]
+
+- id: legal_element.consent_based_act_not_against_social_norms
+  arguments: [{name: act, type: entity}]
+  canonical_meaning: "사회상규 부합(두 doctrine 공유)"
+  legal_standard: "현실적 또는 추정적 승낙을 기초로 한 법익침해가 사회상규에 반하지 않는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제24조"}]
+
+- id: legal_element.voluntary_cessation_or_prevention
+  arguments: [{name: actor, type: entity}, {name: act, type: entity}]
+  canonical_meaning: "자의에 의한 중지·결과방지(중지범)"
+  legal_standard: "행위자가 외부 장애가 아닌 자의로 실행을 중지하거나 결과 발생을 방지하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제26조"}]
+
+- id: legal_element.dangerousness
+  arguments: [{name: act, type: entity}]
+  canonical_meaning: "불능미수의 위험성"
+  legal_standard: "수단 또는 대상의 착오가 있더라도 행위가 법익침해의 구체적 위험성을 가졌는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제27조"}]
+
+- id: legal_element.voluntary_surrender_before_execution
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "실행 전 자수(31조 연결 여부 미확인, 아래 B-7)"
+  legal_standard: "실행에 착수하기 전에 자의로 수사기관에 신고하여 자수하였는지 여부"
+  authority_refs: [{authority_basis: commentary_synthesis, citation: "predicate_dictionary_master_v3.md §2.5 (형법 제28조)"}]
+
+- id: legal_element.joint_execution_intent
+  arguments: [{name: actor, type: entity}, {name: offense, type: entity}]
+  canonical_meaning: "공동가공 의사/기능적 행위지배"
+  legal_standard: "타인과 공동으로 범죄를 실현하려는 의사와 기능적 행위지배가 인정되는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제30조"}]
+
+- id: legal_element.joint_execution_conduct
+  arguments: [{name: actor, type: entity}, {name: act, type: entity}]
+  canonical_meaning: "공동가공 의사/기능적 행위지배"
+  legal_standard: "공동의 범행계획 아래 기능적으로 행위를 분담하여 범행을 지배하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제30조"}]
+
+- id: legal_element.instigator_intent
+  arguments: [{name: actor, type: entity}, {name: offense, type: entity}]
+  canonical_meaning: "교사의 고의"
+  legal_standard: "타인에게 특정 범죄의 실행결의를 발생시키려는 고의가 있었는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제31조"}]
+
+- id: legal_element.aiding_intent
+  arguments: [{name: actor, type: entity}, {name: offense, type: entity}]
+  canonical_meaning: "방조의 고의"
+  legal_standard: "타인의 범죄 실행을 용이하게 하려는 고의가 있었는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제32조"}]
+
+- id: legal_element.supervisory_relationship
+  arguments: [{name: actor, type: entity}, {name: agent, type: entity}]
+  canonical_meaning: "피이용자에 대한 지휘·감독 관계"
+  legal_standard: "이용자가 피이용자에 대하여 범행을 지휘·감독할 관계에 있었는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제34조"}]
+
+- id: legal_element.prior_sentence_still_effective
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "전범 형선고 효력 유지"
+  legal_standard: "전범의 금고 이상 형 선고가 실효·일반사면 등으로 효력을 잃지 않았는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제35조 제1항"}]
+
+- id: legal_element.subsequent_offense_within_recidivism_period
+  arguments: [{name: actor, type: entity}, {name: offense, type: entity}]
+  canonical_meaning: "3년 이내 후범"
+  legal_standard: "전범 형집행 종료 또는 면제 후 3년 이내에 후범을 범하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제35조 제1항"}]
+
+- id: legal_element.unlawful_appropriation_intent
+  arguments: [{name: actor, type: entity}, {name: property, type: entity}]
+  canonical_meaning: "불법영득의사"
+  legal_standard: "권리자를 배제하고 재물을 경제적 용법에 따라 이용·처분하려는 의사가 있는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제329조"}]
+
+- id: legal_element.possession
+  arguments: [{name: possessor, type: entity}, {name: property, type: entity}]
+  canonical_meaning: "사실상 지배+점유의사"
+  legal_standard: "재물에 대한 사실상 지배와 점유의사가 인정되는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제329조"}]
+
+- id: legal_element.robbery_level_violence
+  arguments: [{name: actor, type: entity}, {name: victim, type: entity}]
+  canonical_meaning: "반항억압 정도의 폭행·협박"
+  semantic_sort: conduct
+  legal_standard: "폭행 또는 협박이 피해자의 반항을 억압하거나 현저히 곤란하게 할 정도인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제333조"}]
+
+- id: legal_element.deception
+  arguments: [{name: actor, type: entity}, {name: victim, type: entity}]
+  canonical_meaning: "기망→착오"
+  semantic_sort: event
+  legal_standard: "상대방을 착오에 빠뜨릴 기망행위가 있었는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제347조 제1항"}]
+
+- id: legal_element.fear_inducement
+  arguments: [{name: actor, type: entity}, {name: victim, type: entity}]
+  canonical_meaning: "협박에 의한 외포심"
+  legal_standard: "협박으로 상대방에게 외포심을 일으켰는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제350조 제1항"}]
+
+- id: legal_element.property_disposition
+  arguments: [{name: disposer, type: entity}, {name: property, type: entity}]
+  canonical_meaning: "처분행위"
+  semantic_sort: event
+  legal_standard: "착오 또는 외포심에 기초하여 재산상 처분행위가 이루어졌는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제347조 제1항; 제350조 제1항"}]
+
+- id: legal_element.disposition_authority
+  arguments: [{name: disposer, type: entity}, {name: property, type: entity}]
+  canonical_meaning: "처분권한"
+  legal_standard: "처분자가 해당 재물 또는 재산상 이익을 유효하게 처분할 권한이 있는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제347조 제1항; 제350조 제1항"}]
+
+- id: legal_element.duty_of_other_affairs
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "타인 사무 처리자 지위"
+  legal_standard: "타인의 사무를 처리하는 지위에 있는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제355조 제2항; 제357조 제1항"}]
+
+- id: legal_element.entrustment_relationship
+  arguments: [{name: actor, type: entity}, {name: property, type: entity}]
+  canonical_meaning: "위탁관계"
+  legal_standard: "재물 보관의 기초가 되는 위탁관계가 있는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제355조 제1항"}]
+
+- id: legal_element.custody_of_anothers_property
+  arguments: [{name: actor, type: entity}, {name: property, type: entity}]
+  canonical_meaning: "타인 재물 보관자 지위"
+  legal_standard: "타인의 재물을 보관하는 자의 지위에 있는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제355조 제1항"}]
+
+- id: legal_element.embezzlement_manifestation
+  arguments: [{name: actor, type: entity}, {name: property, type: entity}]
+  canonical_meaning: "불법영득의사의 객관적 표현"
+  legal_standard: "보관재물에 관한 불법영득의사가 외부적으로 표현되었는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제355조 제1항"}]
+
+- id: legal_element.improper_solicitation
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "부정한 청탁"
+  legal_standard: "임무에 관하여 부정한 청탁이 있었는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제357조 제1항"}]
+
+- id: legal_element.utility_impairment
+  arguments: [{name: property, type: entity}]
+  canonical_meaning: "효용침해(손괴)"
+  legal_standard: "재물의 효용을 해하거나 은닉하여 이용가치를 침해했는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제366조"}]
+
+- id: legal_element.object_ownership_other
+  arguments: [{name: property, type: entity}]
+  canonical_meaning: "타인 소유물(무주물 제외, 민법상 소유권 귀속 판단)"
+  legal_standard: "무주물이 아닌 타인의 소유물인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제366조"}]
+
+- id: legal_element.valid_claim_exists
+  arguments: [{name: actor, type: entity}, {name: claim, type: entity}]
+  canonical_meaning: "유효채권"
+  legal_standard: "행위자에게 유효한 채권 또는 권리가 존재하는지 여부"
+  authority_refs: [{authority_basis: commentary_synthesis, citation: "predicate_dictionary_master_v3.md §2.8"}]
+
+- id: legal_element.claim_scope
+  arguments: [{name: claim, type: entity}]
+  canonical_meaning: "권리범위"
+  legal_standard: "행위가 유효한 채권 또는 권리의 범위 안에 있는지 여부"
+  authority_refs: [{authority_basis: commentary_synthesis, citation: "predicate_dictionary_master_v3.md §2.8"}]
+
+- id: legal_element.means_socially_acceptable
+  arguments: [{name: act, type: entity}]
+  canonical_meaning: "수단상당성"
+  legal_standard: "권리행사의 수단과 방법이 사회통념상 상당한지 여부"
+  authority_refs: [{authority_basis: commentary_synthesis, citation: "predicate_dictionary_master_v3.md §2.8"}]
+
+- id: legal_element.nighttime_entry
+  arguments: [{name: actor, type: entity}, {name: premises, type: entity}]
+  canonical_meaning: "일몰~일출 사이 침입(시점-내장형)"
+  legal_standard: "일몰부터 일출까지의 야간에 주거 등에 침입하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제330조"}]
+
+- id: legal_element.damage_to_entry_barrier
+  arguments: [{name: actor, type: entity}, {name: barrier, type: entity}]
+  canonical_meaning: "문·담 등 물리적 훼손"
+  legal_standard: "문·담 등 건조물의 일부를 손괴하고 침입하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제331조 제1항"}]
+
+- id: legal_element.dangerous_weapon_carriage
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "흉기(살상·파괴용 또는 준하는 위험성) 소지"
+  legal_standard: "살상·파괴용이거나 그에 준하는 위험성이 있는 흉기를 휴대하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제331조 제2항"}]
+
+- id: legal_element.joint_commission_by_two_or_more
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "2인 이상 현장적 협동"
+  legal_standard: "둘 이상이 현장에서 시간적·장소적으로 협동하여 범행하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제331조 제2항"}]
+
+- id: legal_element.habitual_theft_propensity
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "상습 절도 습벽"
+  legal_standard: "절도 범행을 반복할 습벽이 인정되는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제332조"}]
+
+- id: legal_element.purpose_to_resist_recapture
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "탈환항거 목적"
+  legal_standard: "재물의 탈환에 항거할 목적이 있었는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제335조"}]
+
+- id: legal_element.purpose_to_avoid_arrest
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "체포면탈 목적"
+  legal_standard: "체포를 면할 목적이 있었는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제335조"}]
+
+- id: legal_element.purpose_to_conceal_evidence
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "증거인멸 목적"
+  legal_standard: "죄적을 인멸할 목적이 있었는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제335조"}]
+
+- id: legal_element.business_status
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "업무상 재물보관·사무처리자"
+  legal_standard: "업무상 타인의 재물을 보관하거나 사무를 처리하는 지위인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제356조"}]
+
+- id: legal_element.lost_or_stray_property_status
+  arguments: [{name: property, type: entity}]
+  canonical_meaning: "유실물·표류물 등 점유이탈 재물"
+  legal_standard: "유실물·표류물 또는 타인의 점유를 이탈한 재물인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제360조"}]
+
+- id: legal_element.public_official_status
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "공무원 지위"
+  legal_standard: "형법상 공무원에 해당하는 지위인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제122조"}]
+
+- id: legal_element.duty_has_concrete_lawful_basis
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "구체적 법적 근거 있는 직무의무"
+  legal_standard: "방임·포기의 대상인 직무의무가 구체적 법적 근거를 가지는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제122조"}]
+
+- id: legal_element.concrete_risk_at_time_of_conduct
+  arguments: [{name: act, type: entity}]
+  canonical_meaning: "행위시 구체적 위험성"
+  legal_standard: "직무 방임·포기 시점에 구체적 위험이 발생하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제122조"}]
+
+- id: legal_element.duty_abandonment_conduct
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "직무 방임·포기"
+  legal_standard: "정당한 이유 없이 직무의 수행을 방임하거나 포기하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제122조"}]
+
+- id: legal_element.conscious_abandonment_intent
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "의식적 방임 고의"
+  legal_standard: "직무의 방임·포기를 인식하고 의도하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제122조"}]
+
+- id: legal_element.current_or_former_public_official
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "현직·전직 공무원"
+  legal_standard: "현재 또는 과거에 공무원이었던 사람인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제127조"}]
+
+- id: legal_element.job_related_secret_worthy_of_protection
+  arguments: [{name: secret, type: entity}]
+  canonical_meaning: "직무상 보호가치 비밀"
+  legal_standard: "직무상 알게 된 사항으로서 보호할 가치가 있는 비밀인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제127조"}]
+
+- id: legal_element.disclosure_conduct
+  arguments: [{name: actor, type: entity}, {name: secret, type: entity}]
+  canonical_meaning: "구체적 누설(관공서 간 정상전달 제외 흡수)"
+  legal_standard: "보호가치 있는 직무상 비밀을 구체적으로 누설하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제127조"}]
+
+- id: legal_element.official_or_arbitrator_status
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "공무원·중재인"
+  legal_standard: "공무원 또는 중재인에 해당하는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제129조"}]
+
+- id: legal_element.job_relatedness
+  arguments: [{name: actor, type: entity}, {name: matter, type: entity}]
+  canonical_meaning: "직무관련성"
+  legal_standard: "뇌물과 공무원 또는 중재인의 직무 사이에 관련성이 있는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제129조"}]
+
+- id: legal_element.quid_pro_quo
+  arguments: [{name: bribe, type: entity}]
+  canonical_meaning: "대가관계"
+  legal_standard: "뇌물이 직무행위에 대한 대가라는 관계가 인정되는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제129조"}]
+
+- id: legal_element.solicitation_received
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "청탁"
+  legal_standard: "직무에 관하여 청탁을 받은 사실이 있는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제130조"}]
+
+- id: legal_element.appropriation_intent_of_bribe
+  arguments: [{name: actor, type: entity}, {name: bribe, type: entity}]
+  canonical_meaning: "뇌물 영득의사"
+  legal_standard: "뇌물을 자기 또는 제3자의 이익으로 취득하려는 의사가 있는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제129조"}]
+
+- id: legal_element.prospective_official_probability
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "장래 공무원 개연성(사전수뢰)"
+  legal_standard: "장래 공무원이 될 개연성이 있는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제129조 제2항"}]
+
+- id: legal_element.solicitation_impropriety
+  arguments: [{name: solicitation, type: entity}]
+  canonical_meaning: "부정한 청탁(130 강화 요건)"
+  legal_standard: "청탁이 직무의 공정성을 해하는 부정한 청탁인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제130조"}]
+
+- id: legal_element.self_benefit_purpose
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "제3자 자기이득 목적 수수(+NOT())"
+  legal_standard: "증뢰물의 전달·수령이 자기의 이익을 위한 것인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제133조 제2항"}]
+
+- id: legal_element.lawful_performance_of_duty
+  arguments: [{name: official, type: entity}]
+  canonical_meaning: "적법한 직무집행"
+  legal_standard: "공무원의 직무집행이 적법한 것인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제136조 제1항"}]
+
+- id: legal_element.violence_or_threat_against_official
+  arguments: [{name: actor, type: entity}, {name: official, type: entity}]
+  canonical_meaning: "공무원에 대한 폭행·협박"
+  legal_standard: "공무원에 대하여 폭행 또는 협박을 가하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제136조"}]
+
+- id: legal_element.purpose_of_coercing_duty_or_resignation
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "직무강요·사직목적(136②)"
+  legal_standard: "공무원에게 직무상 행위를 하게 하거나 사직하게 할 목적이 있었는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제136조 제2항"}]
+
+- id: legal_element.deceptive_scheme_conduct
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "위계에 의한 공무집행방해"
+  legal_standard: "위계로써 공무원의 직무집행을 방해하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제137조"}]
+
+- id: legal_element.act_directed_at_another_offender
+  arguments: [{name: offender, type: entity}]
+  canonical_meaning: "타인 지향 은닉·도피"
+  legal_standard: "은닉 또는 도피 행위의 대상이 행위자 자신이 아닌 타인 범인인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제151조"}]
+
+- id: legal_element.omission_requires_guarantor_status
+  arguments: [{name: actor, type: entity}, {name: offender, type: entity}]
+  canonical_meaning: "부작위 도피의 보증인 지위"
+  legal_standard: "부작위로 범인의 도피를 도운 경우 방지의무를 지는 보증인 지위가 있는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제151조"}]
+
+- id: legal_element.for_the_offenders_benefit
+  arguments: [{name: actor, type: entity}, {name: offender, type: entity}]
+  canonical_meaning: "범인 본인 이익 목적"
+  legal_standard: "은닉·도피 행위가 범인 본인의 이익을 위한 것인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제151조"}]
+
+- id: legal_element.offender_status_of_object
+  arguments: [{name: offender, type: entity}]
+  canonical_meaning: "대상자의 죄질(벌금 이상)"
+  legal_standard: "대상자가 벌금 이상의 형에 해당하는 죄를 범한 사람인지 여부는 caller가 명시한 linked OffenseInstanceKey의 qualifying liability result로만 판단하며, 해당 입력이 없으면 미확정으로 둔다"
+  authority_refs:
+    - authority_basis: statute_text
+      citation: "형법 제151조 제1항"
+    - authority_basis: commentary_synthesis
+      citation: "predicate_dictionary_master_v3.md §2.9 / Phase 5.1 C-151"
+
+- id: legal_element.witness_took_lawful_oath
+  arguments: [{name: witness, type: entity}]
+  canonical_meaning: "적법 선서 증인"
+  legal_standard: "증인이 법률에 따른 적법한 선서를 하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제152조"}]
+
+- id: legal_element.purpose_to_prejudice_specific_party
+  arguments: [{name: witness, type: entity}]
+  canonical_meaning: "모해 목적"
+  legal_standard: "특정인에게 불이익을 줄 목적이 있었는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제152조 제2항"}]
+
+- id: legal_element.proceeding_commenced
+  arguments: [{name: proceeding, type: entity}]
+  canonical_meaning: "형사·징계절차 개시 중"
+  legal_standard: "형사 또는 징계절차가 개시되어 있는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제152조"}]
+
+- id: legal_element.arson_target_status
+  arguments: [{name: structure, type: entity}]
+  canonical_meaning: "현주·현존 건조물 등 객체"
+  legal_standard: "사람이 주거로 사용하거나 사람이 현존하는 건조물 등에 해당하는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제164조 제1항"}]
+
+- id: legal_element.burning_result
+  arguments: [{name: structure, type: entity}]
+  canonical_meaning: "독립연소 결과"
+  legal_standard: "불길이 매개물 없이 독립하여 연소를 계속할 상태에 이르렀는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제164조"}]
+
+- id: legal_element.forgery_without_authority
+  arguments: [{name: actor, type: entity}, {name: document, type: entity}]
+  canonical_meaning: "권한 없는 명의사용 작성·현출"
+  legal_standard: "권한 없이 타인의 명의를 사용하여 문서·도화 또는 인장 등을 작성·현출하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제225조; 제231조; 제239조"}]
+
+- id: legal_element.alteration_of_genuine_document
+  arguments: [{name: document, type: entity}]
+  canonical_meaning: "진정문서 내용 변경"
+  legal_standard: "진정하게 성립한 문서의 내용을 권한 없이 변경하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제225조; 제231조"}]
+
+- id: legal_element.purpose_to_use_as_genuine
+  arguments: [{name: actor, type: entity}, {name: document, type: entity}]
+  canonical_meaning: "진정한 것처럼 사용할 목적"
+  legal_standard: "위조·변조 또는 허위문서를 진정한 것처럼 행사할 목적이 있었는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제225조; 제227조; 제231조; 제239조"}]
+
+- id: legal_element.utterance_conduct
+  arguments: [{name: actor, type: entity}, {name: document, type: entity}]
+  canonical_meaning: "행사(정을 모르는 자 대상 현출)"
+  legal_standard: "상대방이 진정을 모르는 상태에서 문서·인장 등을 현출하여 사용하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제234조; 제239조"}]
+
+- id: legal_element.public_document_object
+  arguments: [{name: document, type: entity}]
+  canonical_meaning: "공문서 객체"
+  legal_standard: "공무원 또는 공무소 명의의 공문서·도화인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제225조; 제227조"}]
+
+- id: legal_element.official_with_writing_authority
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "작성권한 있는 공무원"
+  legal_standard: "문서 작성권한이 있는 공무원인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제227조"}]
+
+- id: legal_element.content_falsity_by_authorized_official
+  arguments: [{name: document, type: entity}]
+  canonical_meaning: "권한자의 허위기재"
+  legal_standard: "작성권한 있는 공무원이 직무상 문서에 허위 사실을 기재하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제227조"}]
+
+- id: legal_element.private_document_object
+  arguments: [{name: document, type: entity}]
+  canonical_meaning: "사문서 객체"
+  legal_standard: "권리·의무 또는 사실증명에 관한 사문서·도화인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제231조"}]
+
+- id: legal_element.seal_or_signature_object
+  arguments: [{name: seal, type: entity}]
+  canonical_meaning: "인장·서명·기명·기호"
+  legal_standard: "타인의 인장·서명·기명 또는 기호에 해당하는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제239조"}]
+
+- id: legal_element.improper_use_of_genuine_seal
+  arguments: [{name: actor, type: entity}, {name: seal, type: entity}]
+  canonical_meaning: "진정 인장의 권한 없는/범위 초과 사용"
+  legal_standard: "진정한 인장 등을 권한 없이 또는 허용 범위를 넘어 사용하였는지 여부"
+  authority_refs: [{authority_basis: commentary_synthesis, citation: "형법 제238조 Ⅰ.3·Ⅱ.2 (제239조 참조 지시)"}]
+
+- id: legal_element.result_causation
+  arguments: [{name: act, type: entity}, {name: result, type: entity}]
+  canonical_meaning: "(death-agnostic 신규) 행위-결과 상당인과관계"
+  legal_standard: "현재 offense instance의 구성요건적 결과와 행위 사이에 상당인과관계가 있는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제250조; 제267조; 제268조"}]
+
+- id: legal_element.lineal_ascendant_of_self_or_spouse_status
+  arguments: [{name: victim, type: entity}]
+  canonical_meaning: "자기·배우자 직계존속"
+  legal_standard: "피해자가 자기 또는 배우자의 직계존속인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제250조 제2항; 제257조 제2항; 제258조 제3항"}]
+
+- id: legal_element.awareness_of_lineal_ascendant_status
+  arguments: [{name: actor, type: entity}, {name: victim, type: entity}]
+  canonical_meaning: "존속 인식"
+  legal_standard: "행위자가 피해자의 직계존속 신분을 인식하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제250조 제2항; 제258조 제3항"}]
+
+- id: legal_element.specific_victim_identified
+  arguments: [{name: actor, type: entity}, {name: victim, type: entity}]
+  canonical_meaning: "살해대상 구체적 확정(예비)"
+  legal_standard: "예비·음모의 대상이 되는 살해 피해자가 구체적으로 특정되었는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제255조"}]
+
+- id: legal_element.injury_result
+  arguments: [{name: victim, type: entity}]
+  canonical_meaning: "상해 결과(생리적 기능 훼손)"
+  semantic_sort: event
+  legal_standard: "신체의 완전성 또는 생리적 기능을 훼손하는 상해 결과가 발생하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제257조"}]
+
+- id: legal_element.group_or_multiple_force
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "단체·다중 위력"
+  legal_standard: "단체 또는 다중의 위력을 보이거나 그에 가담하여 범행하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제258조의2"}]
+
+- id: legal_element.injury_intent
+  arguments: [{name: actor, type: entity}, {name: victim, type: entity}]
+  canonical_meaning: "상해에 대한 별도 고의"
+  legal_standard: "상해 결과의 발생을 인식하고 이를 의욕하거나 용인하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제301조; 제337조"}]
+
+- id: legal_element.homicide_intent
+  arguments: [{name: actor, type: entity}, {name: victim, type: entity}]
+  canonical_meaning: "사망 결과에 대한 별도 고의"
+  legal_standard: "사망 결과의 발생을 인식하고 이를 의욕하거나 용인하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제338조"}]
+
+- id: legal_element.dangerous_object_carriage
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "위험한 물건 휴대"
+  legal_standard: "위험한 물건을 휴대하여 범행하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제258조의2"}]
+
+- id: legal_element.serious_injury_result
+  arguments: [{name: victim, type: entity}]
+  canonical_meaning: "257의 상해로 생명위험이 발생했거나 불구 또는 불치·난치 질병에 이른 제258조상 중상해 결과"
+  legal_standard: "생명에 대한 위험, 불구 또는 불치·난치 질병에 이른 중상해 결과인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제258조 제1항·제2항"}]
+
+- id: legal_element.occupational_duty_of_care
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "업무상 가중 주의의무"
+  legal_standard: "업무의 성질상 특별히 요구되는 주의의무가 있는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제268조"}]
+
+- id: legal_element.gross_negligence
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "현저한 주의의무 위반 정도"
+  legal_standard: "주의의무 위반이 현저하여 중대한 과실에 해당하는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제268조"}]
+
+- id: legal_element.coercive_conduct
+  arguments: [{name: actor, type: entity}, {name: victim, type: entity}]
+  canonical_meaning: "폭행·협박"
+  legal_standard: "피해자에 대하여 폭행 또는 협박을 가하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제297조; 제298조"}]
+
+- id: legal_element.directness_of_coercion_by_offender
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "행위자 본인 직접 가함"
+  legal_standard: "폭행·협박을 행위자 본인이 직접 가하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제297조; 제298조"}]
+
+- id: legal_element.coercion_induced_sexual_act_causation
+  arguments: [{name: coercion, type: entity}, {name: sexual_act, type: entity}]
+  canonical_meaning: "폭행·협박→성적행위 인과(death-agnostic 패턴)"
+  legal_standard: "폭행·협박과 간음 또는 추행 사이에 인과관계가 있는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제297조; 제298조"}]
+
+- id: legal_element.coercion_sufficiency_for_rape
+  arguments: [{name: coercion, type: entity}]
+  canonical_meaning: "항거불능/현저곤란 정도"
+  legal_standard: "폭행·협박이 피해자의 항거를 불가능하게 하거나 현저히 곤란하게 할 정도인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제297조"}]
+
+- id: legal_element.coercion_sufficiency_for_forcible_indecency
+  arguments: [{name: coercion, type: entity}]
+  canonical_meaning: "낮은 기준(2018도13877 전합)"
+  legal_standard: "폭행·협박이 추행의 수단으로서 피해자의 성적 자유를 침해할 정도인지 여부"
+  authority_refs: [{authority_basis: commentary_reported_precedent, citation: "대법원 2018도13877 전원합의체"}]
+
+- id: legal_element.indecent_act
+  arguments: [{name: actor, type: entity}, {name: victim, type: entity}]
+  canonical_meaning: "성적 자유 침해 추행"
+  legal_standard: "객관적으로 일반인의 성적 수치심을 해하고 피해자의 성적 자유를 침해하는 추행인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제298조; 제299조"}]
+
+- id: legal_element.mental_incapacity_or_physical_helplessness_status
+  arguments: [{name: victim, type: entity}]
+  canonical_meaning: "심신상실·항거불능 상태"
+  legal_standard: "피해자가 심신상실 또는 항거불능의 상태에 있었는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제299조"}]
+
+- id: legal_element.exploitation_of_incapacity
+  arguments: [{name: actor, type: entity}, {name: victim, type: entity}]
+  canonical_meaning: "그 상태를 이용(객관적 이용관계만)"
+  legal_standard: "행위가 피해자의 심신상실 또는 항거불능 상태를 이용한 것인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제299조"}]
+
+- id: legal_element.dwelling_or_managed_premises_object
+  arguments: [{name: premises, type: entity}]
+  canonical_meaning: "주거·관리 건조물 등"
+  legal_standard: "사람의 주거·관리하는 건조물·선박 또는 점유하는 방실에 해당하는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제319조"}]
+
+- id: legal_element.trespass_entry
+  arguments: [{name: actor, type: entity}, {name: premises, type: entity}]
+  canonical_meaning: "평온을 해하는 침입"
+  legal_standard: "주거 등의 사실상 평온을 해치는 방법으로 침입하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제319조 제1항"}]
+
+- id: legal_element.retreat_demand_by_authorized_person
+  arguments: [{name: actor, type: entity}, {name: premises, type: entity}]
+  canonical_meaning: "퇴거요구"
+  legal_standard: "주거자·관리자 또는 점유자로부터 퇴거요구를 받았는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제319조 제2항"}]
+
+- id: legal_element.justifiable_reason_for_refusal
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "정당사유"
+  legal_standard: "퇴거요구에 따르지 않을 정당한 사유가 있는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제319조 제2항"}]
+
+- id: legal_element.ability_to_comply_with_retreat_demand
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "이행가능성"
+  legal_standard: "퇴거요구를 현실적으로 이행할 수 있었는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제319조 제2항"}]
+
+- id: legal_element.failure_to_comply_without_delay
+  arguments: [{name: actor, type: entity}]
+  canonical_meaning: "지체 없는 불이행"
+  legal_standard: "정당한 사유 없이 지체 없이 퇴거요구에 응하지 않았는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제319조 제2항"}]
+
+- id: legal_element.own_property_object
+  arguments: [{name: actor, type: entity}, {name: property, type: entity}]
+  canonical_meaning: "자기소유물"
+  legal_standard: "재물이 행위자 자신의 소유인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제323조"}]
+
+- id: legal_element.third_party_possession_or_right_object
+  arguments: [{name: property, type: entity}]
+  canonical_meaning: "타인점유·권리객체"
+  legal_standard: "타인이 점유하거나 타인의 권리의 목적이 된 물건인지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제323조"}]
+
+- id: legal_element.taking_of_own_property_conduct
+  arguments: [{name: actor, type: entity}, {name: property, type: entity}]
+  canonical_meaning: "자기소유물 취거(불법영득의사 불요)"
+  legal_standard: "자기 소유물을 취거하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제323조"}]
+
+- id: legal_element.concealment_conduct
+  arguments: [{name: actor, type: entity}, {name: property, type: entity}]
+  canonical_meaning: "은닉"
+  legal_standard: "물건을 은닉하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제323조"}]
+
+- id: legal_element.damage_conduct
+  arguments: [{name: actor, type: entity}, {name: property, type: entity}]
+  canonical_meaning: "손괴"
+  legal_standard: "물건을 손괴하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제323조"}]
+
+- id: legal_element.obstruction_of_right_exercise
+  arguments: [{name: property, type: entity}]
+  canonical_meaning: "권리행사방해 우려"
+  legal_standard: "타인의 점유 또는 권리행사를 방해할 우려가 발생하였는지 여부"
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제323조"}]
+
+- id: legal_element.breach_of_trust_conduct
+  arguments: [{name: actor, type: entity}, {name: principal, type: entity}]
+  canonical_meaning: "임무위배로 재산상 이익을 취득하거나 제3자로 하여금 취득하게 한 행위"
+  legal_standard: "타인의 사무처리자가 그 임무에 위배하여 자기 또는 제3자에게 재산상 이익을 취득하게 한 행위인지 여부"
+  authority_refs:
+    - authority_basis: statute_text
+      citation: "형법 제355조 제2항"
+    - authority_basis: commentary_synthesis
+      citation: "케이스노트 형법각칙 제355조 제2항 Ⅰ.1; art355_sec3.breach_of_trust.objective_elements"
+
+- id: legal_element.property_loss_or_concrete_risk
+  arguments: [{name: principal, type: entity}]
+  canonical_meaning: "본인에게 재산상 손해 또는 그에 준하는 구체적·현실적 손해 위험 발생"
+  legal_standard: "본인에게 현실 재산상 손해 또는 경제적으로 손해 발생과 같은 정도의 구체적·현실적 위험이 발생하였는지 여부"
+  authority_refs:
+    - authority_basis: statute_text
+      citation: "형법 제355조 제2항"
+    - authority_basis: commentary_synthesis
+      citation: "케이스노트 형법각칙 제355조 제2항 Ⅰ.1; art355_sec1_3.breach_of_trust_case_concrete_risk_of_loss"

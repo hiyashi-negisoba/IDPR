@@ -72,6 +72,13 @@
           "type": "array",
           "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/fixed_slot_name" },
           "description": "Overrides the shared policy's co_principal.attributable_slots for this offense only, when this offense's ATTRIBUTE-eligible slots are narrower or wider than the default."
+        },
+        "constitutive_status_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+          "description": "Phase 5.1, Article 33 only: existing actor-specific status leaves that a co-principal may satisfy through a CoPrincipalConstitutiveStatusObligation. They are never added to attributable_slots and never OR-merged into the target's CaseTruths. The participation runtime supplies the obligation truth only while evaluating this offense's Elements."
         }
       }
     }

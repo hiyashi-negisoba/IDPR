@@ -31,6 +31,10 @@
           "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression",
           "description": "The condition under which the case IS in this completion state. Mandatory for every declared state including `completed` — an implicit 'whatever is left over' default would be a hidden priority order, which section 14 forbids. Leaves are ground_fact/legal_element refs (the grammar's existing restriction), never offense slots: the pipeline runs ATTRIBUTE -> Completion -> Elements, so a condition reading an Elements result would be circular. A result-crime attempt therefore names the same predicate the result slot uses, negated — ALL(execution_commencement, NOT(death_of_victim)) — rather than referring to the slot. Conditions are meant to be mutually exclusive; overlap is an authoring defect that the runtime reports as `unresolved` with provenance, never resolves by ranking."
         },
+        "when_component": {
+          "$ref": "#/$defs/component_scope",
+          "description": "Phase 5.1 Article 339 only: evaluate this state's existing `when` expression against the named offense-family component occurrence rather than the top-level composed-offense predicate view. The completion checker verifies that the local key/ref pair exists on the governed Art. 339 COMPOSE offense."
+        },
         "punishable": {
           "type": "boolean",
           "description": "Whether this completion state is a punishable legal shape at all (형태의 문제). NOT the same question as the Punishability stage's EXEMPT effect (효과의 문제: an established offense carrying an exemption). Carried into CompletionResult so the compiled program never loses the legal knowledge that e.g. this offense has no attempt-punishment provision; a false value stops the pipeline at Completion rather than evaluating Elements for a shape that cannot be punished."
@@ -40,6 +44,11 @@
           "uniqueItems": true,
           "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/fixed_slot_name" },
           "description": "Fixed slots whose obligation DOES NOT EXIST in this state. Absent/empty = the completed shape, every slot obligated. This is what makes 미수 expressible without lying: an attempt is not the completed offense with death rewritten to TRUE, it is a program in which the result and causation obligations are absent. The runtime drops these slots from the fold entirely — it never substitutes TRUE, so this is also distinct from the evaluator's 'empty slot -> vacuous TRUE' path. Typical: attempted/impossible_attempt/abandoned_attempt -> [result, causation]; preparation -> [conduct, result, causation], with the preparatory act supplied by that state's `requires`. `completed` must not declare any."
+        },
+        "component_suspends": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/component_suspension" },
+          "description": "Phase 5.1 Article 339 only: remove named slot contributions from one offense-family component occurrence, without removing sibling component contributions to that same top-level slot. This is not a general slot-suspension replacement."
         },
         "relations": {
           "type": "array",
@@ -72,6 +81,30 @@
         "disposition": {
           "enum": ["retain", "suspend"],
           "description": "retain = this relation obligation still holds in this state; suspend = it does not exist in this state (the runtime drops it from the fold, exactly as with a suspended slot). There is no third 'infer' value and no default: the whole point is that this is authored, not derived."
+        }
+      }
+    },
+    "component_scope": {
+      "type": "object",
+      "required": ["local_key", "offense"],
+      "additionalProperties": false,
+      "properties": {
+        "local_key": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key" },
+        "offense": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" }
+      }
+    },
+    "component_suspension": {
+      "type": "object",
+      "required": ["local_key", "offense", "slots"],
+      "additionalProperties": false,
+      "properties": {
+        "local_key": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key" },
+        "offense": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+        "slots": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/fixed_slot_name" }
         }
       }
     }

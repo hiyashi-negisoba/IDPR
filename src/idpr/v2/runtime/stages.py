@@ -55,6 +55,14 @@ class SlotObligation:
 
 
 @dataclass(frozen=True)
+class ComponentSlotObligation:
+    """One direct COMPOSE component's contribution to a fixed slot (Article 339 only)."""
+
+    local_key: str
+    slot: str
+
+
+@dataclass(frozen=True)
 class RelationObligation:
     """One relation obligation evaluated FALSE. Keyed at runtime (case-scoped)."""
 
@@ -89,12 +97,47 @@ class ParticipationRequirementObligation:
     mode: Literal["instigator", "aider"]
 
 
+@dataclass(frozen=True)
+class CoPrincipalConstitutiveStatusObligation:
+    """Article 33 status effect without changing the target actor's truth."""
+
+    ref: str
+    satisfying_instances: tuple[OffenseInstanceKey, ...]
+
+
+@dataclass(frozen=True)
+class Article151OffenderStatusObligation:
+    """Caller-supplied qualifying linked result for Article 151's status leaf."""
+
+    linked_instance: OffenseInstanceKey | None
+    qualification_provenance: str | None
+
+
+@dataclass(frozen=True)
+class StatutoryDeemingObligation:
+    """Article 263's deemed effect, distinct from actual co-principal attribution."""
+
+    underlying_instance: OffenseInstanceKey
+
+
+@dataclass(frozen=True)
+class IndirectPrincipalDependencyObligation:
+    """Article 34's direction-reversed dependency on the utilised actor's outcome."""
+
+    reason: str
+
+
 Obligation = (
     SlotObligation
+    | ComponentSlotObligation
     | RelationObligation
     | CompletionRequirementObligation
     | ParticipationDependencyObligation
     | ParticipationRequirementObligation
+    | CoPrincipalConstitutiveStatusObligation
+    | Article151OffenderStatusObligation
+    | StatutoryDeemingObligation
+    | IndirectPrincipalDependencyObligation
 )
 """Deliberately NOT `PredicateObligation(ref)`. `evaluate()` returns one TruthValue, and an
 expression can be FALSE with no FALSE leaf anywhere in it -- `NOT(A)` with `A=TRUE`, or

@@ -1,0 +1,56 @@
+- id: qualifier.serious_injury_result
+  description: "형법 제258조 제1·2항의 중상해 결과 가중"
+  additions:
+    result: {op: ref, ref: legal_element.serious_injury_result}
+
+- id: qualifier.special_injury_method
+  description: "형법 제258조의2의 단체·다중 위력 또는 위험한 물건 가중"
+  additions:
+    circumstance:
+      op: any
+      args:
+        - {op: ref, ref: legal_element.group_or_multiple_force}
+        - {op: ref, ref: legal_element.dangerous_object_carriage}
+
+- id: qualifier.serious_special_injury_method
+  description: "제258조 중상해 결과와 제258조의2 수단 가중의 단일 QUALIFY patch"
+  additions:
+    circumstance:
+      op: any
+      args:
+        - {op: ref, ref: legal_element.group_or_multiple_force}
+        - {op: ref, ref: legal_element.dangerous_object_carriage}
+    result: {op: ref, ref: legal_element.serious_injury_result}
+
+- id: qualifier.nighttime_dwelling_theft
+  description: "형법 제330조의 야간주거침입절도 가중"
+  additions:
+    circumstance: {op: ref, ref: legal_element.nighttime_entry}
+
+- id: qualifier.special_theft_circumstances
+  description: "형법 제331조 제1·2항의 특수절도 가중 사유"
+  additions:
+    circumstance:
+      op: any
+      args:
+        - op: all
+          args:
+            - {op: ref, ref: legal_element.nighttime_entry}
+            - {op: ref, ref: legal_element.damage_to_entry_barrier}
+        - {op: ref, ref: legal_element.dangerous_weapon_carriage}
+        - {op: ref, ref: legal_element.joint_commission_by_two_or_more}
+
+- id: qualifier.special_robbery_circumstances
+  description: "형법 제334조 제1·2항의 특수강도 가중 사유"
+  additions:
+    circumstance:
+      op: any
+      args:
+        - {op: ref, ref: legal_element.nighttime_entry}
+        - {op: ref, ref: legal_element.dangerous_weapon_carriage}
+        - {op: ref, ref: legal_element.joint_commission_by_two_or_more}
+
+- id: qualifier.occupational_status
+  description: "형법 제356조의 업무상 가중 신분"
+  additions:
+    subject: {op: ref, ref: legal_element.business_status}

@@ -15,6 +15,7 @@ here. What IS checkable at this layer:
 from __future__ import annotations
 
 from idpr.v2 import participation
+from idpr.v2 import expressions
 from idpr.v2.findings import Finding
 from idpr.v2.registry import DefinitionRegistry
 
@@ -77,4 +78,25 @@ def check_participation(registry: DefinitionRegistry) -> list[Finding]:
                     _AXIS, "attributable_slot_not_declared", entry.id, field_path,
                     f"slot {slot!r} is not declared in this offense's own elements",
                 ))
+
+        status_refs = participation.constitutive_status_refs(entry)
+        if status_refs and "co_principal" not in modes:
+            findings.append(Finding(
+                _AXIS, "constitutive_status_without_co_principal", entry.id,
+                "participation_constraints.constitutive_status_refs",
+                "constitutive status refs require the shared policy to declare co_principal",
+            ))
+        if status_refs and "co_principal" in disabled_modes:
+            findings.append(Finding(
+                _AXIS, "constitutive_status_co_principal_disabled", entry.id,
+                "participation_constraints",
+                "constitutive status refs cannot coexist with co_principal disabled for the offense",
+            ))
+        subject_leaves = expressions.leaf_refs(elements.get("subject"))
+        for ref in status_refs - subject_leaves:
+            findings.append(Finding(
+                _AXIS, "constitutive_status_not_subject_leaf", entry.id,
+                "participation_constraints.constitutive_status_refs",
+                f"{ref!r} is not a leaf of this offense's subject element",
+            ))
     return findings

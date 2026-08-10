@@ -1,0 +1,123 @@
+# Gate① first assembly slice: Criminal Act arts. 9, 11, 12, and 16.
+
+- id: doctrine.juvenile_defeat
+  stage: culpability
+  requires: {op: ref, ref: ground_fact.actor_age_under_14_at_act_time}
+  effect: {effect: DEFEAT, stage: culpability}
+
+- id: doctrine.insanity_defeat
+  stage: culpability
+  requires:
+    op: all
+    args:
+      - op: not
+        arg: {op: ref, ref: legal_element.discrimination_capacity}
+      - op: not
+        arg: {op: ref, ref: legal_element.control_capacity}
+      - op: not
+        arg: {op: ref, ref: legal_element.self_induced_disorder}
+  effect: {effect: DEFEAT, stage: culpability}
+
+- id: doctrine.deaf_mute_mandatory_reduction
+  stage: culpability
+  requires: {op: ref, ref: legal_element.deaf_mute_status}
+  effect:
+    effect: MODIFY
+    stage: culpability
+    modifier_ref: modifier.culpability.deaf_mute_mandatory_reduction
+    note: "형법 제11조의 필요적 감경"
+
+- id: doctrine.coerced_act_defeat
+  stage: culpability
+  requires:
+    op: all
+    args:
+      - {op: ref, ref: legal_element.irresistible_coercion}
+      - {op: ref, ref: ground_fact.coerced_act_performed}
+      - op: not
+        arg: {op: ref, ref: legal_element.self_induced_coercion}
+  effect: {effect: DEFEAT, stage: culpability}
+
+- id: doctrine.mistake_of_law_defeat
+  stage: culpability
+  requires:
+    op: all
+    args:
+      - {op: ref, ref: legal_element.awareness_of_illegality_lacking}
+      - {op: ref, ref: legal_element.justifiable_ground_for_mistake}
+  effect: {effect: DEFEAT, stage: culpability}
+
+- id: doctrine.justifiable_act_defeat
+  stage: unlawfulness
+  requires:
+    op: any
+    args:
+      - {op: ref, ref: legal_element.act_pursuant_to_law}
+      - {op: ref, ref: legal_element.act_due_to_legitimate_business}
+      - {op: ref, ref: legal_element.act_not_against_social_norms}
+  effect: {effect: DEFEAT, stage: unlawfulness}
+
+- id: doctrine.self_defense
+  stage: unlawfulness
+  requires:
+    op: all
+    args:
+      - {op: ref, ref: legal_element.infringement_situation}
+      - {op: ref, ref: legal_element.defensive_act}
+      - {op: ref, ref: legal_element.reasonable_grounds}
+  effect: {effect: DEFEAT, stage: unlawfulness}
+
+- id: doctrine.necessity_defeat
+  stage: unlawfulness
+  requires:
+    op: all
+    args:
+      - {op: ref, ref: legal_element.imminent_danger}
+      - {op: ref, ref: legal_element.act_to_avert_danger}
+      - {op: ref, ref: legal_element.necessity_of_avoidance}
+      - op: not
+        arg: {op: ref, ref: legal_element.duty_bound_to_endure_danger}
+  effect: {effect: DEFEAT, stage: unlawfulness}
+
+- id: doctrine.conflict_of_duties_defeat
+  stage: unlawfulness
+  requires:
+    op: all
+    args:
+      - {op: ref, ref: legal_element.conflicting_legal_duties}
+      - {op: ref, ref: legal_element.higher_or_equal_duty_performed}
+  effect: {effect: DEFEAT, stage: unlawfulness}
+
+- id: doctrine.self_help_defeat
+  stage: unlawfulness
+  requires:
+    op: all
+    args:
+      - {op: ref, ref: legal_element.claim_unpreservable_by_legal_process}
+      - {op: ref, ref: legal_element.act_to_prevent_unenforceability}
+      - {op: ref, ref: legal_element.necessity_of_self_help}
+  effect: {effect: DEFEAT, stage: unlawfulness}
+
+- id: doctrine.victim_consent_defeat
+  stage: unlawfulness
+  requires:
+    op: all
+    args:
+      - {op: ref, ref: legal_element.valid_consent_by_disposer}
+      - {op: ref, ref: legal_element.harm_caused_pursuant_to_consent}
+      - op: not
+        arg: {op: ref, ref: legal_element.statutory_bar_on_consent}
+      - {op: ref, ref: legal_element.consent_based_act_not_against_social_norms}
+  effect: {effect: DEFEAT, stage: unlawfulness}
+
+- id: doctrine.presumed_consent_defeat
+  stage: unlawfulness
+  requires:
+    op: all
+    args:
+      - {op: ref, ref: legal_element.presumed_consent}
+      - {op: ref, ref: legal_element.actual_consent_unobtainable}
+      - op: not
+        arg: {op: ref, ref: legal_element.statutory_bar_on_consent}
+      - {op: ref, ref: legal_element.consent_based_act_not_against_social_norms}
+  effect: {effect: DEFEAT, stage: unlawfulness}

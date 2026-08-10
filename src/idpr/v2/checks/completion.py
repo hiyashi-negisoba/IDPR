@@ -37,6 +37,12 @@ from idpr.v2.relations import iter_relation_instances
 
 _AXIS = "completion"
 
+_ART339_OFFENSES = frozenset({
+    "derived_offense.robbery_rape",
+    "derived_offense.special_robbery_rape",
+    "derived_offense.quasi_robbery_rape",
+})
+
 DERIVABLE_STATES: tuple[str, ...] = (
     "completed",
     "attempted",
@@ -134,7 +140,88 @@ def _check_state(
                     "than silently running a program that drops the other components too",
                 ))
 
-    findings.extend(_check_relation_dispositions(entry, name, state, compiled, bool(suspends)))
+    findings.extend(_check_component_scopes(entry, name, state, compiled, offense_entry))
+    findings.extend(_check_relation_dispositions(
+        entry, name, state, compiled, bool(suspends or state.get("component_suspends"))
+    ))
+    return findings
+
+
+def _check_component_scopes(
+    entry: DefinitionEntry,
+    name: str,
+    state: Mapping[str, object],
+    compiled: CompiledOffense,
+    offense_entry: DefinitionEntry | None,
+) -> list[Finding]:
+    """The deliberately narrow Article 339 completion extension.
+
+    A local key has legal meaning only inside the governed Art.339 COMPOSE derivation.  This checker
+    refuses all other placements rather than turning the field into a reusable component-program
+    language.
+    """
+    when_scope = state.get("when_component")
+    suspensions = tuple(state.get("component_suspends") or ())
+    if not when_scope and not suspensions:
+        return []
+
+    findings: list[Finding] = []
+    if entry.payload["offense"] not in _ART339_OFFENSES:
+        return [Finding(
+            _AXIS, "component_completion_scope_not_art339", entry.id, f"states.{name}",
+            "component-local completion is restricted to the three Article 339 robbery-side variants",
+        )]
+
+    derivation = (offense_entry.payload.get("derivation") or {}) if offense_entry else {}
+    if derivation.get("kind") != "compose":
+        return [Finding(
+            _AXIS, "component_completion_scope_not_direct_compose", entry.id, f"states.{name}",
+            "component-local completion requires a direct COMPOSE derivation",
+        )]
+
+    offense_components = {
+        component.local_key: component
+        for component in compiled.components
+        if component.component_kind == "offense"
+        and component.resolved_kind in ("offense", "derived_offense")
+    }
+    if len(offense_components) != len(compiled.components):
+        findings.append(Finding(
+            _AXIS, "component_completion_scope_not_direct_compose", entry.id, f"states.{name}",
+            "every top-level component must be an offense-family component",
+        ))
+
+    def validate(scope: Mapping[str, object], field_path: str):
+        component = offense_components.get(scope["local_key"])
+        if component is None or component.source_ref != scope["offense"]:
+            findings.append(Finding(
+                _AXIS, "component_completion_scope_unresolved", entry.id, field_path,
+                f"({scope['local_key']!r}, {scope['offense']!r}) is not an offense-family component",
+            ))
+        return component
+
+    if when_scope:
+        validate(when_scope, f"states.{name}.when_component")
+
+    seen_local_keys: set[str] = set()
+    for index, suspension in enumerate(suspensions):
+        path = f"states.{name}.component_suspends[{index}]"
+        component = validate(suspension, path)
+        local_key = suspension["local_key"]
+        if local_key in seen_local_keys:
+            findings.append(Finding(
+                _AXIS, "component_suspension_duplicate_local_key", entry.id, path,
+                f"{local_key!r} is suspended more than once in the same completion state",
+            ))
+        seen_local_keys.add(local_key)
+        if component is None:
+            continue
+        for slot in suspension["slots"]:
+            if component.compiled_content.slots.get(slot) is None:
+                findings.append(Finding(
+                    _AXIS, "component_suspension_unauthored_slot", entry.id, f"{path}.slots",
+                    f"{slot!r} has no contribution from {local_key!r}",
+                ))
     return findings
 
 

@@ -1,0 +1,15 @@
+- id: exported_component.injury_conduct
+  source_offense: offense.injury
+  export_key: conduct
+
+- id: exported_component.injury_result
+  source_offense: offense.injury
+  export_key: result
+
+- id: exported_component.killing_conduct
+  source_offense: offense.homicide
+  export_key: conduct
+
+- id: exported_component.death_of_victim
+  source_offense: offense.homicide
+  export_key: result

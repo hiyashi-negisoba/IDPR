@@ -29,18 +29,19 @@ participation) is unrelated to execution order.
 
 from __future__ import annotations
 
-from typing import Iterator
+from typing import Iterator, Mapping
 
 from idpr.v2.compile import CompiledOffense
-from idpr.v2.evaluate import FALSE, TRUE, evaluate, fold_all
+from idpr.v2.evaluate import FALSE, TRUE, TruthValue, evaluate, fold_all
 from idpr.v2.expressions import SLOT_NAMES
 from idpr.v2.registry import DefinitionRegistry
 from idpr.v2.relations import evaluate_relation, iter_relation_instances
-from idpr.v2.runtime.completion import CompletionResult
+from idpr.v2.runtime.completion import CompletionResult, component_instance_for
 from idpr.v2.runtime.effects import ActiveDoctrineRefs, resolve_stage
 from idpr.v2.runtime.identity import OffenseInstanceKey, RuntimeRelationKey
 from idpr.v2.runtime.stages import (
     CompletionRequirementObligation,
+    ComponentSlotObligation,
     LiabilityEvaluation,
     LiabilityResult,
     Obligation,
@@ -62,6 +63,30 @@ already uses for the direct/co-principal path's Elements. Same promotion precede
 `evaluate._fold_all` -> `fold_all` when a second caller needed it (Step 5)."""
 
 
+class _PredicateViewWithOverrides(Mapping[str, TruthValue]):
+    """A case view with a narrowly scoped symbolic Elements source substitution.
+
+    CaseTruths stays immutable.  The only callers are Article 33's constitutive-status
+    obligation and Article 151's linked-offender result; they provide the override and its
+    matching provenance explicitly to `resolve_liability()`.
+    """
+
+    def __init__(self, base: Mapping[str, TruthValue], overrides: Mapping[str, TruthValue]) -> None:
+        self._base = base
+        self._overrides = overrides
+
+    def __getitem__(self, ref: str) -> TruthValue:
+        if ref in self._overrides:
+            return self._overrides[ref]
+        return self._base[ref]
+
+    def __iter__(self) -> Iterator[str]:
+        return iter(set(self._base) | set(self._overrides))
+
+    def __len__(self) -> int:
+        return len(set(self._base) | set(self._overrides))
+
+
 def resolve_liability(
     registry: DefinitionRegistry,
     compiled: CompiledOffense,
@@ -69,6 +94,9 @@ def resolve_liability(
     completion: CompletionResult,
     active: ActiveDoctrineRefs,
     truths: CaseTruths,
+    *,
+    element_truth_overrides: Mapping[str, TruthValue] | None = None,
+    element_provenance: tuple[ObligationOutcome, ...] = (),
 ) -> LiabilityEvaluation:
     """Run one instance to a `LiabilityEvaluation`, under an already-derived completion judgement.
 
@@ -84,7 +112,14 @@ def resolve_liability(
     if completion.state in ("unresolved", "not_applicable") or completion.punishable is False:
         return _stopped(instance, completion, "completion", elements=not_reached())
 
-    elements, decisive_obligation = _resolve_elements(compiled, instance, completion, truths)
+    elements, decisive_obligation = _resolve_elements(
+        compiled,
+        instance,
+        completion,
+        truths,
+        element_truth_overrides=element_truth_overrides,
+        element_provenance=element_provenance,
+    )
     return resolve_from_elements(
         registry, active, instance, completion, truths, elements, decisive_obligation
     )
@@ -216,6 +251,9 @@ def _resolve_elements(
     instance: OffenseInstanceKey,
     completion: CompletionResult,
     truths: CaseTruths,
+    *,
+    element_truth_overrides: Mapping[str, TruthValue] | None = None,
+    element_provenance: tuple[ObligationOutcome, ...] = (),
 ) -> tuple[StageResult, Obligation | None]:
     """Elements as an aggregation over individually-recorded obligations.
 
@@ -231,7 +269,16 @@ def _resolve_elements(
     Elements carries no `effects`: section 12.1 keeps doctrines off this stage entirely, and the
     schema's DoctrineDef stage enum has no `elements` member.
     """
-    outcomes = tuple(_iter_obligations(compiled, instance, completion, truths))
+    outcomes = tuple(
+        _iter_obligations(
+            compiled,
+            instance,
+            completion,
+            truths,
+            element_truth_overrides=element_truth_overrides,
+            element_provenance=element_provenance,
+        )
+    )
     elements_truth = fold_all(outcome.truth for outcome in outcomes)
     failed = [outcome.obligation for outcome in outcomes if outcome.truth == FALSE]
 
@@ -249,6 +296,9 @@ def _iter_obligations(
     instance: OffenseInstanceKey,
     completion: CompletionResult,
     truths: CaseTruths,
+    *,
+    element_truth_overrides: Mapping[str, TruthValue] | None = None,
+    element_provenance: tuple[ObligationOutcome, ...] = (),
 ) -> Iterator[ObligationOutcome]:
     """The obligations this completion state actually imposes.
 
@@ -257,16 +307,23 @@ def _iter_obligations(
     is the exact move section 14 forbids, and it would also be indistinguishable from the
     evaluator's genuine vacuous-truth case (an un-authored, empty slot).
     """
-    predicate_view = truths.predicate_view(instance)
+    predicate_view: Mapping[str, TruthValue] = truths.predicate_view(instance)
+    if element_truth_overrides:
+        predicate_view = _PredicateViewWithOverrides(predicate_view, element_truth_overrides)
     relation_view = truths.relation_view(instance)
 
-    for slot in SLOT_NAMES:
-        if slot in completion.suspended_slots:
-            continue
-        yield ObligationOutcome(
-            obligation=SlotObligation(slot=slot),
-            truth=evaluate(compiled.slots.get(slot), predicate_view),
-        )
+    yield from element_provenance
+
+    if completion.component_suspended_slots:
+        yield from _iter_component_scoped_slot_obligations(compiled, instance, completion, truths)
+    else:
+        for slot in SLOT_NAMES:
+            if slot in completion.suspended_slots:
+                continue
+            yield ObligationOutcome(
+                obligation=SlotObligation(slot=slot),
+                truth=evaluate(compiled.slots.get(slot), predicate_view),
+            )
     for key, _binding in iter_relation_instances(compiled):
         if completion.relation_dispositions.get(key) == "suspend":
             continue
@@ -277,10 +334,50 @@ def _iter_obligations(
             truth=evaluate_relation(key, relation_view),
         )
     if completion.additional_requirements is not None:
+        requirement_view: Mapping[str, TruthValue] = predicate_view
+        if completion.additional_requirements_instance is not None:
+            requirement_view = truths.predicate_view(completion.additional_requirements_instance)
         yield ObligationOutcome(
             obligation=CompletionRequirementObligation(state=completion.state),
-            truth=evaluate(completion.additional_requirements, predicate_view),
+            truth=evaluate(completion.additional_requirements, requirement_view),
         )
+
+
+def _iter_component_scoped_slot_obligations(
+    compiled: CompiledOffense,
+    instance: OffenseInstanceKey,
+    completion: CompletionResult,
+    truths: CaseTruths,
+) -> Iterator[ObligationOutcome]:
+    """Evaluate offense-family component contributions separately when Article 339 suspends one.
+
+    The normal path intentionally evaluates merged top-level slots once.  This branch is narrower:
+    it is reachable only through a checked component suspension and reads each offense-family
+    component's
+    existing OffenseInstanceKey predicate view.  No component truth store or general nested
+    completion framework is introduced.
+    """
+    for component in compiled.components:
+        if (
+            component.component_kind != "offense"
+            or component.resolved_kind not in ("offense", "derived_offense")
+        ):
+            raise ValueError(
+                "component-scoped completion requires offense-family components; "
+                f"found {component.local_key!r} on {compiled.id!r}"
+            )
+        component_instance = component_instance_for(
+            compiled, instance, component.local_key, component.source_ref
+        )
+        predicate_view = truths.predicate_view(component_instance)
+        suspended = completion.component_suspended_slots.get(component.local_key, frozenset())
+        for slot in SLOT_NAMES:
+            if slot in completion.suspended_slots or slot in suspended:
+                continue
+            yield ObligationOutcome(
+                obligation=ComponentSlotObligation(local_key=component.local_key, slot=slot),
+                truth=evaluate(component.compiled_content.slots.get(slot), predicate_view),
+            )
 
 
 def decisive_obligation(failed: list[Obligation]) -> Obligation | None:

@@ -1,0 +1,202 @@
+# Gate① first assembly slice: Criminal Act arts. 9, 11, 12, and 16.
+# Canonical IDs/meanings are transcribed from predicate_dictionary_master_v3.md,
+# except the Phase 1 canonical erratum recorded in ASSEMBLY_CROSSWALK.md (Article 10).
+
+- id: ground_fact.actor_age_under_14_at_act_time
+  arguments:
+    - {name: actor, type: entity}
+  canonical_meaning: "행위 당시 만 14세 미만"
+  source_refs:
+    - comment_id: "comm_001692_제9조_Ⅱ.1_2"
+      section_path: "Ⅱ.1"
+      quote: "범행 당시에 아직 형사책임연령인 14세가 되지 아니한 형사미성년자인 경우 처벌할 수 없다."
+
+- id: ground_fact.coerced_act_performed
+  arguments:
+    - {name: actor, type: entity}
+    - {name: act, type: entity}
+  canonical_meaning: "강제상태 하 특정 행위(raw factual linkage)"
+  source_refs:
+    - comment_id: "comm_001692_제12조_Ⅱ.1_1"
+      section_path: "Ⅱ.1"
+      quote: "강요라 함은 피강요자가 자유스런 의사결정을 하지 못하게 하면서 특정한 행위를 하게 하는 것을 말한다."
+
+- id: ground_fact.mental_disorder_at_act_time
+  arguments:
+    - {name: actor, type: entity}
+  canonical_meaning: "행위 당시 정신적 장애 상태에 있었다"
+  source_refs:
+    - comment_id: "comm_001692_제10조_Ⅱ.2_3"
+      section_path: "Ⅱ.2"
+      quote: "책임능력 판단의 생물학적 요소인 정신장애의 판단은 의학적 기준에 의한다."
+
+- id: ground_fact.perceived_fact
+  arguments:
+    - {name: actor, type: entity}
+    - {name: fact, type: entity}
+  canonical_meaning: "인식한 사실"
+  source_refs:
+    - comment_id: "comm_001692_제15조_1항_Ⅰ.1_0"
+      section_path: "Ⅰ.1"
+      quote: "착오란 행위의 주관적 측면과 객관적 측면의 불일치라고 할 수 있다."
+
+- id: ground_fact.actual_fact
+  arguments:
+    - {name: fact, type: entity}
+  canonical_meaning: "실제 발생 사실"
+  source_refs:
+    - comment_id: "comm_001692_제15조_1항_Ⅰ.1_0"
+      section_path: "Ⅰ.1"
+      quote: "행위자가 인식·의욕한 내용과 객관적으로 발생한 내용이 일치하지 않는 경우를 총칭한다."
+
+- id: ground_fact.means_or_object_defect
+  arguments:
+    - {name: act, type: entity}
+    - {name: object, type: entity}
+  canonical_meaning: "수단·대상 착오로 결과발생 애초 불가능"
+  source_refs:
+    - comment_id: "comm_001692_제27조_Ⅲ.2_5"
+      section_path: "Ⅲ.2"
+      quote: "불능미수에 해당하기 위해서는 결과발생이 불가능한 것, 즉 범죄가 기수에 이를 수 없어야 한다."
+
+- id: ground_fact.possibility_to_act
+  arguments:
+    - {name: actor, type: entity}
+    - {name: act, type: entity}
+  canonical_meaning: "행위가능성"
+  source_refs:
+    - comment_id: "comm_001692_제18조_Ⅰ.1_0"
+      section_path: "Ⅰ.1"
+      quote: "부작위범은 결과발생을 방지할 수 있는 행위의 가능성과 필요성에 관한 규범적 판단이 필연적으로 수반된다."
+
+- id: ground_fact.failure_to_act
+  arguments:
+    - {name: actor, type: entity}
+    - {name: act, type: entity}
+  canonical_meaning: "부작위"
+  source_refs:
+    - comment_id: "comm_001692_제18조_Ⅰ.1_0"
+      section_path: "Ⅰ.1"
+      quote: "여기서의 부작위는 아무것도 하지 않는 단순한 무위가 아니라 법규범이 명령한 행위를 소극적으로 하지 않는 것을 말한다."
+
+- id: ground_fact.prior_sentence_of_imprisonment_or_greater
+  arguments:
+    - {name: actor, type: entity}
+  canonical_meaning: "전범 금고 이상 형 선고"
+  source_refs:
+    - comment_id: "comm_001692_제35조_Ⅰ.1_1"
+      section_path: "Ⅰ.1"
+      quote: "전범의 형은 금고 이상의 형일 것을 요한다."
+
+- id: ground_fact.prior_sentence_execution_completed_or_exempted
+  arguments:
+    - {name: actor, type: entity}
+  canonical_meaning: "전범 형집행 종료·면제"
+  source_refs:
+    - comment_id: "comm_001692_제35조_Ⅰ.1_2"
+      section_path: "Ⅰ.1"
+      quote: "선고된 금고 이상의 형은 집행이 종료되었거나 집행을 면제받았을 것을 요한다."
+
+- id: ground_fact.taking_conduct
+  arguments: [{name: actor, type: entity}, {name: property, type: entity}]
+  canonical_meaning: "타인 점유 재물을 점유자 의사에 반해 자기 점유로 옮김"
+  source_refs:
+    - comment_id: "comm_001692_제329조_Ⅰ.1_0"
+      section_path: "Ⅰ.1"
+      quote: "절도죄는 타인의 재물을 절취함으로써 성립한다."
+
+- id: ground_fact.bribe_acceptance
+  arguments: [{name: actor, type: entity}, {name: bribe, type: entity}]
+  canonical_meaning: "수수"
+  source_refs: [{comment_id: "comm_001692_제129조_Ⅰ_0", section_path: "Ⅰ", quote: "수뢰죄는 공무원 또는 중재인이 그 직무에 관하여 뇌물을 수수, 요구 또는 약속한 때에 성립한다."}]
+
+- id: ground_fact.bribe_request
+  arguments: [{name: actor, type: entity}, {name: bribe, type: entity}]
+  canonical_meaning: "요구"
+  source_refs: [{comment_id: "comm_001692_제129조_Ⅰ_0", section_path: "Ⅰ", quote: "수뢰죄는 공무원 또는 중재인이 그 직무에 관하여 뇌물을 수수, 요구 또는 약속한 때에 성립한다."}]
+
+- id: ground_fact.bribe_promise
+  arguments: [{name: actor, type: entity}, {name: bribe, type: entity}]
+  canonical_meaning: "약속"
+  source_refs: [{comment_id: "comm_001692_제129조_Ⅰ_0", section_path: "Ⅰ", quote: "수뢰죄는 공무원 또는 중재인이 그 직무에 관하여 뇌물을 수수, 요구 또는 약속한 때에 성립한다."}]
+
+- id: ground_fact.third_party_benefit_causation
+  arguments: [{name: actor, type: entity}, {name: bribe, type: entity}]
+  canonical_meaning: "제3자 공여 하게함"
+  source_refs: [{comment_id: "comm_001692_제130조_Ⅰ_0", section_path: "Ⅰ", quote: "제3자에게 뇌물을 공여하게 하거나 공여를 요구 또는 약속하면 성립한다."}]
+
+- id: ground_fact.third_party_benefit_demand
+  arguments: [{name: actor, type: entity}, {name: bribe, type: entity}]
+  canonical_meaning: "제3자 공여 요구"
+  source_refs: [{comment_id: "comm_001692_제130조_Ⅰ_0", section_path: "Ⅰ", quote: "제3자에게 뇌물을 공여하게 하거나 공여를 요구 또는 약속하면 성립한다."}]
+
+- id: ground_fact.third_party_benefit_promise
+  arguments: [{name: actor, type: entity}, {name: bribe, type: entity}]
+  canonical_meaning: "제3자 공여 약속"
+  source_refs: [{comment_id: "comm_001692_제130조_Ⅰ_0", section_path: "Ⅰ", quote: "제3자에게 뇌물을 공여하게 하거나 공여를 요구 또는 약속하면 성립한다."}]
+
+- id: ground_fact.bribe_offer_expression_made
+  arguments: [{name: actor, type: entity}, {name: bribe, type: entity}]
+  canonical_meaning: "공여 의사표시 발신"
+  source_refs: [{comment_id: "comm_001692_제133조_Ⅰ.1_0", section_path: "Ⅰ.1", quote: "뇌물을 약속, 공여 또는 공여의 의사를 표시함으로써 성립하는 범죄이다."}]
+
+- id: ground_fact.bribe_offer_expression_arrived
+  arguments: [{name: actor, type: entity}, {name: bribe, type: entity}]
+  canonical_meaning: "공여 의사표시 도달"
+  source_refs: [{comment_id: "comm_001692_제133조_Ⅰ.1_0", section_path: "Ⅰ.1", quote: "뇌물을 약속, 공여 또는 공여의 의사를 표시함으로써 성립하는 범죄이다."}]
+
+- id: ground_fact.intermediary_delivery_receipt_conduct
+  arguments: [{name: actor, type: entity}, {name: bribe, type: entity}]
+  canonical_meaning: "증뢰물 현실 교부수령"
+  source_refs: [{comment_id: "comm_001692_제133조_Ⅰ.1_0", section_path: "Ⅰ.1", quote: "제3자에게 금품을 교부하거나 그 정을 알면서 교부를 받음으로써 성립한다."}]
+
+- id: ground_fact.concealment_or_escape_conduct
+  arguments: [{name: actor, type: entity}, {name: offender, type: entity}]
+  canonical_meaning: "은닉·도피(작위·부작위)"
+  source_refs: [{comment_id: "comm_001692_제151조_Ⅰ_0", section_path: "Ⅰ", quote: "범인은닉·도피죄에 관한 규정을 두고 있다."}]
+
+- id: ground_fact.false_testimony_conduct
+  arguments: [{name: witness, type: entity}, {name: testimony, type: entity}]
+  canonical_meaning: "허위진술"
+  source_refs: [{comment_id: "comm_001692_제152조_Ⅰ.1_0", section_path: "Ⅰ.1", quote: "위증죄는 선서한 증인이 스스로 허위의 진술을 한 때에만 성립한다."}]
+
+- id: ground_fact.correction_before_examination_end
+  arguments: [{name: witness, type: entity}]
+  canonical_meaning: "신문종료 전 철회·시정"
+  source_refs: [{comment_id: "comm_001692_제152조_Ⅰ.1_0", section_path: "Ⅰ.1", quote: "위증죄는 선서한 증인이 스스로 허위의 진술을 한 때에만 성립한다."}]
+
+- id: ground_fact.examination_ended
+  arguments: [{name: witness, type: entity}]
+  canonical_meaning: "완료시점(사전/사후선서형)"
+  source_refs: [{comment_id: "comm_001692_제152조_Ⅰ.1_0", section_path: "Ⅰ.1", quote: "위증죄는 선서한 증인이 스스로 허위의 진술을 한 때에만 성립한다."}]
+
+- id: ground_fact.post_oath_completed
+  arguments: [{name: witness, type: entity}]
+  canonical_meaning: "완료시점(사전/사후선서형)"
+  source_refs: [{comment_id: "comm_001692_제152조_Ⅰ.1_0", section_path: "Ⅰ.1", quote: "위증죄는 선서한 증인이 스스로 허위의 진술을 한 때에만 성립한다."}]
+
+- id: ground_fact.killing_conduct
+  arguments: [{name: actor, type: entity}, {name: victim, type: entity}]
+  canonical_meaning: "살해행위(수단불문)"
+  semantic_sort: conduct
+  source_refs: [{comment_id: "comm_001692_제250조_Ⅰ.1_0", section_path: "Ⅰ.1", quote: "살인죄는 사람을 살해함으로써 성립한다."}]
+
+- id: ground_fact.death_of_victim
+  arguments: [{name: victim, type: entity}]
+  canonical_meaning: "사망 결과"
+  semantic_sort: event
+  source_refs: [{comment_id: "comm_001692_제250조_Ⅰ.1_0", section_path: "Ⅰ.1", quote: "살인죄는 사람을 살해함으로써 성립한다."}]
+
+- id: ground_fact.vaginal_intercourse_conduct
+  arguments: [{name: actor, type: entity}, {name: victim, type: entity}]
+  canonical_meaning: "성기 삽입·결합"
+  source_refs: [{comment_id: "comm_001692_제297조_Ⅰ.1_0", section_path: "Ⅰ.1", quote: "강간죄의 간음은 성기의 삽입 또는 결합을 의미한다."}]
+
+- id: ground_fact.injury_conduct
+  arguments: [{name: actor, type: entity}, {name: victim, type: entity}]
+  canonical_meaning: "상해의 수단이 되는 유형력 또는 그 밖의 방법을 사용"
+  semantic_sort: conduct
+  source_refs:
+    - comment_id: "comm_001692_제257조_Ⅰ.1_0"
+      section_path: "Ⅰ.1"
+      quote: "상해죄는 고의로 사람의 신체를 상해함으로써 성립한다."

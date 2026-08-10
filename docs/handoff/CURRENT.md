@@ -2,6 +2,155 @@
 
 기준: 2026-08-10 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
+## Next-session checkpoint — Phase 5.1 PASS
+
+- **Current boundary:** Phase 5.1의 최소 architecture/runtime 변경과 영향 production
+  assembly가 승인·완료됐다. **Phase 6 whole-registry audit는 아직 시작하지 않았다.**
+- **Art.339 coverage:** `robbery_rape` (333), `special_robbery_rape` (334),
+  `quasi_robbery_rape` (335)를 각각 별도 COMPOSE/CompletionPolicy로 적재했다. 336은
+  coverage reference only다.
+- **Guards carried forward:** Master v3는 sealed source, evaluation coverage는 80,
+  C-33b는 Step 7 caller-orchestration, C-34 production policy는 HOLD다.
+- **Verified handoff baseline:** production 293 objects, eight-axis type check 0
+  findings, 63/63 offense·derived-offense compile, `tests/test_v2_*.py` 236 passed.
+- **Next authorized work:** Phase 6 final coverage/integrity audit only. Phase 5.1의
+  설계·production assembly를 다시 열지 않는다.
+
+## 2-pass assembly 착수 — 첫 production slice 완료
+
+`data/v2/definitions/`를 실제 Definition Layer registry로 만들었다. fixture가 있는
+`docs/contracts/v2/examples/`는 변경하지 않았다. authoring unit은 조문별 파일이 아니라
+12 kind별 YAML list(`registry.py::KIND_TO_EXAMPLE_FILE`)이며, 파일은 비어 있어도 모두
+존재해야 한다. loader의 파일 순서는 build order가 아니며 flat registry를 만든 뒤
+전건 type-check한다. 실제 의존성 순서는 아래로 확정했다.
+
+승인된 전체 실행 단계와 review/HOLD 경계는
+[`data/v2/definitions/ASSEMBLY_PLAN.md`](../../data/v2/definitions/ASSEMBLY_PLAN.md)에
+영구 기록했다. 특히 단계 2의 participation은 C-33/C-34 관련 mode·constraint·attribution을
+확정하지 않고 HOLD로 남기며, 단계 5 code-path 검증 뒤에만 최종화한다.
+**모든 phase 종료 시** YAML diff·검증결과·HOLD 변동을 기록하고 피드백을 받는다.
+따라서 피드백 시점은 단계 1(범위·10조 불일치), 단계 2(총칙 구조·HOLD), 단계 3(각칙
+base slot/reuse), 단계 4 전후(B그룹 구조 선택), 단계 5(C그룹 코드 검증·art339 접근),
+단계 6(최종 coverage/정합성)이다.
+단계 1의 진행 중 inventory↔production 대응표와 피드백 기록은
+[`data/v2/definitions/ASSEMBLY_CROSSWALK.md`](../../data/v2/definitions/ASSEMBLY_CROSSWALK.md)에
+유지한다.
+
+**Phase 1 완료·승인 — 10조 canonical erratum:** 사용자가
+`ground_fact.mental_disorder_at_act_time`을 기존 10조 1-pass ID의 canonical erratum으로
+확정했다. **Master v3는 Gate① 승인본으로 in-place 수정하지 않고 보존**하며, erratum은
+`ASSEMBLY_CROSSWALK.md`에 기록하고 `ground_facts.yaml`에만 적재했다. `insanity_defeat`
+는 batch01_v1 최종 ALIC 재작성대로 `NOT(self_induced_disorder)` gating을 사용한다.
+심신미약의 “능력 미약” 조건은 batch01_v1이 별도 canonical predicate/expression을 확정하지
+않았으므로 mental-disorder fact로 추론하지 않고 Phase 2 HOLD로 남긴다. evaluation coverage는
+**80** 그대로다.
+
+**Phase 2 완료 — 피드백 대기:** 총칙의 확정 항목을 production YAML에 조립하여 현재
+82 objects(ground facts 10, legal elements 56, bundles 2, relations 2, doctrines 12)다.
+`load_definitions`와 8축 type-check는 0 findings, `tests/test_v2_*.py`는 228 passed,
+`git diff --check`도 통과했다. `diminished_capacity_modify`, B-9 과잉 doctrine 세 건,
+`recidivism_modify`의 modifier reference, `aggravated_result_attribution` fixture
+supporting-dependency source trace, `mistake_bundle`의 소비 offense 실증은 각각 기록된
+HOLD다. `aggravated_result_attribution`은 production에 없다는 이유만으로 schema gap으로
+올리지 않으며, Phase 4 전에 fixture leaf `legal_element.aggravated_result_attribution`의
+canonical meaning/source와 production 재사용 가능성을 먼저 대조한다. C-33/C-34 때문에
+`participation_policies.yaml`은 비어 있다. 상세 근거와 다음 단계 전 피드백 항목은
+[`ASSEMBLY_CROSSWALK.md`](../../data/v2/definitions/ASSEMBLY_CROSSWALK.md)의
+“Phase 2 feedback record”에 있다.
+
+**Phase 3 완료·피드백 반영:** 각칙 base-family를 끝까지 조립하고 P3 feedback을 반영했다.
+현재 **236 objects**(ground facts 29, legal elements 152, bundles 2, relations 2, doctrines 12,
+base offenses 36, qualifier 1, derived offenses 2)이며,
+8축 type-check 0 findings, `tests/test_v2_*.py` 228 passed, `git diff --check`를 통과했다.
+파생 offense·qualifier·export·completion·participation은 앞당겨 저작하지 않았다.
+
+P3-E01은 `violence_used`를 “유형력 또는 그 밖의 방법”을 포괄하는
+`ground_fact.injury_conduct`로 바로잡아 257·258 supporting chain을 조립했다. P3-E02는
+355② 배임의 기존 frozen ID 부재를 inventory erratum으로 기록하고 최소 두 leaf를 보충해
+`breach_of_trust` base를 완료했다. Master v3는 두 경우 모두 수정하지 않았다. B-6의 347·350은
+base `OffenseDef`로만 실패했으므로 Phase 4에서 기존 COMPOSE를 재시험한 뒤에만 C 승격을
+판정한다. C-151은 유지하고, 319 Completion은 Phase 4로 남긴다. 전체 slot/reuse 근거는
+[`ASSEMBLY_CROSSWALK.md`](../../data/v2/definitions/ASSEMBLY_CROSSWALK.md)의
+“Phase 3 feedback record”에 기록했다.
+
+**Phase 4 완료·피드백 반영:** B-6 existing-COMPOSE 시험은 성공했다.
+347은 `derived_offense.fraud`에서 기망·처분행위 사이의 동결된 relation obligation을
+보존하고, 350은 별도 동결 relation이 없으므로 `disposition_authority`를 legal element로
+직접 사용한다. 258의2 네 갈래, 301·337·338의 고의형 COMPOSE, 330·331·334·335·356
+파생 구조와 319① CompletionPolicy까지 적재했다. P4-F02 provenance trace 결과,
+`aggravated_result_attribution`은 fixture-only 잔재가 아니라 batch08/09/10/12를 거쳐
+Master v3가 의도적으로 canonicalize한 supporting dependency로 확인됐다. 따라서 원래
+leaf→PrimitiveDef와 기존 결과 PROJECT를 저작해 164·259·301·337·338의 결과적 가중
+갈래까지 조립했다. 현재 **284 objects**, 8축 0 findings, 59 offense/derived-offense
+compile 성공, `tests/test_v2_*.py` 228 passed다.
+
+P4-F01~F05는 닫았고, 319②는 attempted state를 아예 생략했다(`punishable: false`
+아님). P4-F06/B-5와 P4-F07/B-9·10조 심신미약·누범 modifier HOLD는 그대로 유지한다.
+그 근거는 [`ASSEMBLY_CROSSWALK.md`](../../data/v2/definitions/ASSEMBLY_CROSSWALK.md)의
+“Phase 4 feedback record”에 남겼다. C-33/C-34 participation과 모든 Phase 5 C-group은
+아직 저작하지 않았다. Master v3는 계속 sealed source이며 diff가 없다.
+
+**Phase 5 완료·C-group 코드 검증 피드백 대기:** production YAML은 **284 objects** 그대로
+유지했다. C-33a는 `apply_attribution()`에 status slot을 넣으면 비신분자의 status truth가
+실제로 TRUE로 병합되는 semantic contamination임을 재현했다. C-33b는 서로 다른
+`offense_ref`의 `resolve_derivative_liability()` 호출 자체는 core가 허용하지만, 이를 만드는
+production orchestrator가 없음을 확인했다. C-34는 indirect mode가 schema에 없고 기존
+derivative path가 필요한 stage-sensitive cross-actor 상태를 읽을 수 없다. C-151과 C-263도
+각각 cross-instance offense result와 statutory deemed-participation 경로가 없어 유지 HOLD다.
+
+art339 D-1은 Completion `when`에 component-local selector가 없어서, D-2는 두 conduct
+component 중 하나만 suspend하려는 정책을 checker가 실제 거부해서 확인됐다. 따라서 339
+YAML은 쓰지 않았다. C-33/C-34 participation, C-151/263 affected offense, 339 모두 다음
+피드백 전까지 비어 있다. 상세 probe 결과와 선택 지점은
+[`ASSEMBLY_CROSSWALK.md`](../../data/v2/definitions/ASSEMBLY_CROSSWALK.md)의
+“Phase 5 feedback record”에 기록했다.
+
+**Phase 5 PASS·Phase 5.1 설계 경계:** Phase 5 결과는 C-33a·C-34·C-151·C-263의
+architecture change와 art339 전용 Completion change가 실제로 필요함을 확정했다.
+C-33b만은 6C core가 이미 cross-offense derivative target을 지원하므로 architecture
+HOLD에서 제외하고 Step 7 caller-orchestration 요구사항으로 이관했다. 따라서 다음은
+Phase 6 audit가 아니라 각 failure에 한정된 최소 변경 설계·구현이다. 범용 framework나 새
+predicate는 만들지 않는다. Art.151의 caller-supplied qualifying input 및 Art.34의
+runtime-only 선구현 제약을 포함한 승인 설계는
+[`ARCHITECTURE_PLAN.md`](../../data/v2/definitions/ARCHITECTURE_PLAN.md)에 기록했다.
+
+**Phase 5.1 PASS:** 승인된 최소 변경만 구현했다. C-33a는 art323의
+신분 leaf를 `CaseTruths`에 전파하지 않고 Elements obligation으로 결합했고, C-151은
+caller-supplied qualifying linked evaluation을 `offender_status_of_object`의 유일한 truth
+source로 삼아 범인은닉·도피 base를 조립했다. C-263은 별도 263 offense identity 없이
+기존 상해 offense에 statutory-deeming provenance를 붙이며, C-34는 runtime/test까지만
+추가하고 production policy를 HOLD로 유지한다. art339는 기존 `OffenseInstanceKey`를
+component occurrence에 재사용하는 Completion 확장으로 333 `robbery`, 334
+`special_robbery`, 335 `quasi_robbery` 각각과 rape를 COMPOSE한 세 Art.339 variant 및
+각 CompletionPolicy를 조립했다. 336은 coverage reference only로 유지한다. production은
+**293 objects**, 8축 0 findings, **63/63** compile, v2 tests **236 passed**다. C-33b는
+여전히 Step 7 caller-orchestration 항목이며 C-34 production policy도 HOLD다.
+**Phase 6 whole-registry audit는 이제 지시가 있으면 시작할 수 있다.**
+
+```text
+ground_facts + legal_elements
+  → bundles/primitives/relations/qualifiers
+  → doctrines + participation policies + base offenses
+  → exported components → derived offenses → completion policies
+```
+
+첫 slice는 구조 HOLD/C-compatibility와 독립적인 총칙 **9·11·12·16조**다.
+`ground_facts.yaml` 2건, `legal_elements.yaml` 5건, `doctrines.yaml` 4건을 Gate①의
+동결 ID/canonical meaning 그대로 적재했다. 12조는 `self_induced_coercion`의 긍정형
+predicate + `NOT()` gating을 그대로 사용했다. 빈 나머지 9 kind YAML은 다음 slice의
+동일 registry 자리이며 완결 선언이 아니다.
+
+검증: production directory를 `load_definitions(Path("data/v2/definitions"))`로 load한
+뒤 **8축 type check 0 findings**, 기존 `tests/test_v2_*.py` **228 passed**, `git diff
+--check` 통과.
+
+**다음 slice 전 명시적 경계**: 10조는 이번 slice에 넣지 않았다. master v3의 동결
+inventory에는 `mental_disorder_at_act_time`이 없는데, 기존 draft/배치 이력에는 그
+ground fact가 있어 10조의 두 doctrine을 완결하려면 그 ID의 Gate① canonical status를
+먼저 대조해야 한다. 이를 새 predicate로 보충하지 않는다. 258은 여전히 258의2를 위한
+supporting dependency로 다음 생명·신체 slice에서 조립하며 evaluation coverage는 **80**을
+유지한다. art339 D-1/D-2는 art339 assembly 직전까지 건드리지 않는다.
+
 ## Predicate 사전 전체 통합 Gate① 통과 — 2-pass assembly가 다음 시작점
 
 `predicate_dictionary_master_v0→v1→v2→v3`의 사용자 검수가 v3에서 통과했다.

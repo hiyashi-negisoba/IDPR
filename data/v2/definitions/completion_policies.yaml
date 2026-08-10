@@ -1,0 +1,96 @@
+- id: completion_policy.dwelling_intrusion
+  offense: offense.dwelling_intrusion
+  states:
+    completed:
+      when: {op: ref, ref: legal_element.trespass_entry}
+      punishable: true
+    attempted:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - op: not
+            arg: {op: ref, ref: legal_element.trespass_entry}
+      punishable: true
+      suspends: [conduct]
+      requires: {op: ref, ref: legal_element.commencement_of_execution}
+
+- id: completion_policy.robbery_rape
+  offense: derived_offense.robbery_rape
+  states:
+    completed:
+      when: {op: ref, ref: ground_fact.vaginal_intercourse_conduct}
+      when_component: {local_key: rape_part, offense: offense.rape}
+      punishable: true
+      component_suspends:
+        - {local_key: robbery_part, offense: offense.robbery, slots: [object, conduct, mental]}
+      relations:
+        - {relation: relation.occasion_identity, left: robbery_part, right: rape_part, disposition: retain}
+    attempted:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - op: not
+            arg: {op: ref, ref: ground_fact.vaginal_intercourse_conduct}
+      when_component: {local_key: rape_part, offense: offense.rape}
+      punishable: true
+      component_suspends:
+        - {local_key: rape_part, offense: offense.rape, slots: [conduct, causation]}
+      relations:
+        - {relation: relation.occasion_identity, left: robbery_part, right: rape_part, disposition: retain}
+      requires: {op: ref, ref: legal_element.commencement_of_execution}
+
+- id: completion_policy.special_robbery_rape
+  offense: derived_offense.special_robbery_rape
+  states:
+    completed:
+      when: {op: ref, ref: ground_fact.vaginal_intercourse_conduct}
+      when_component: {local_key: rape_part, offense: offense.rape}
+      punishable: true
+      component_suspends:
+        - {local_key: robbery_part, offense: derived_offense.special_robbery, slots: [object, conduct, circumstance, mental]}
+      relations:
+        - {relation: relation.occasion_identity, left: robbery_part, right: rape_part, disposition: retain}
+    attempted:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - op: not
+            arg: {op: ref, ref: ground_fact.vaginal_intercourse_conduct}
+      when_component: {local_key: rape_part, offense: offense.rape}
+      punishable: true
+      component_suspends:
+        - {local_key: rape_part, offense: offense.rape, slots: [conduct, causation]}
+      relations:
+        - {relation: relation.occasion_identity, left: robbery_part, right: rape_part, disposition: retain}
+      requires: {op: ref, ref: legal_element.commencement_of_execution}
+
+- id: completion_policy.quasi_robbery_rape
+  offense: derived_offense.quasi_robbery_rape
+  states:
+    completed:
+      when: {op: ref, ref: ground_fact.vaginal_intercourse_conduct}
+      when_component: {local_key: rape_part, offense: offense.rape}
+      punishable: true
+      component_suspends:
+        - {local_key: robbery_part, offense: derived_offense.quasi_robbery, slots: [object, conduct, mental]}
+      relations:
+        - {relation: relation.occasion_identity, left: robbery_part, right: rape_part, disposition: retain}
+        - {path: [robbery_part], relation: relation.occasion_identity, left: theft_part, right: violence, disposition: suspend}
+    attempted:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - op: not
+            arg: {op: ref, ref: ground_fact.vaginal_intercourse_conduct}
+      when_component: {local_key: rape_part, offense: offense.rape}
+      punishable: true
+      component_suspends:
+        - {local_key: rape_part, offense: offense.rape, slots: [conduct, causation]}
+      relations:
+        - {relation: relation.occasion_identity, left: robbery_part, right: rape_part, disposition: retain}
+        - {path: [robbery_part], relation: relation.occasion_identity, left: theft_part, right: violence, disposition: retain}
+      requires: {op: ref, ref: legal_element.commencement_of_execution}
