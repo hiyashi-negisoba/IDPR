@@ -95,6 +95,50 @@ def case_calibration(
     }
 
 
+def case_definition_calibration(
+    registry: DefinitionRegistry,
+    *,
+    seeds: Sequence[str],
+    gold_definition_refs: Sequence[str],
+) -> dict[str, Any]:
+    """Measure DefinitionRef gold against an ordered normalized router output.
+
+    The Call 1 evaluation contract is DefinitionRef-level.  Completion states
+    such as attempt/preparation are not separate router labels: they are
+    resolved later from the selected offense and grounded facts.
+    """
+    ordered_seeds = tuple(seeds)
+    full_closure = compile_closure(registry, ordered_seeds)
+    prefix_seeds = ordered_seeds[:10]
+    prefix_closure = compile_closure(registry, prefix_seeds)
+    full_candidates = frozenset(full_closure.candidate_offense_refs)
+    prefix_candidates = frozenset(prefix_closure.candidate_offense_refs)
+
+    refs: list[dict[str, Any]] = []
+    for definition_ref in gold_definition_refs:
+        raw_success = definition_ref in ordered_seeds
+        closure_success = definition_ref in full_candidates
+        prefix_success = definition_ref in prefix_candidates
+        refs.append({
+            "definition_ref": definition_ref,
+            "status": "survives" if closure_success else "router_or_closure_miss",
+            "raw_success": raw_success,
+            "closure_success": closure_success,
+            "prefix10_closure_success": prefix_success,
+            "additional_recovery": closure_success and not prefix_success,
+        })
+
+    return {
+        "seeds": list(ordered_seeds),
+        "prefix10": list(prefix_seeds),
+        "full15": list(ordered_seeds[:15]),
+        "mandatory_offense_refs": sorted(full_closure.mandatory_offense_refs),
+        "candidate_offense_refs": sorted(full_candidates),
+        "prefix10_candidate_offense_refs": sorted(prefix_candidates),
+        "gold_definition_refs": refs,
+    }
+
+
 def summarize_calibrations(rows: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
     """Aggregate only reportable article paths; retain failed rows separately."""
     counters: Counter[str] = Counter()
@@ -149,4 +193,65 @@ def summarize_calibrations(rows: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
     }
 
 
-__all__ = ["article_definition_refs", "case_calibration", "summarize_calibrations"]
+def summarize_definition_calibrations(rows: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
+    """Aggregate the approved closed-catalog DefinitionRef metric."""
+    counters: Counter[str] = Counter()
+    seed_counts: list[int] = []
+    raw_seed_counts: list[int] = []
+    frontier_counts: list[int] = []
+    probe_counts: list[int] = []
+    for row in rows:
+        if row.get("error"):
+            counters["failed_cases"] += 1
+            continue
+        gold = row.get("gold") or {}
+        if not gold.get("gold_definition_refs"):
+            counters["out_of_scope_cases"] += 1
+            continue
+        seed_counts.append(len(row.get("seeds") or ()))
+        raw_seed_counts.append(len(row.get("raw_seeds") or row.get("seeds") or ()))
+        closure = row.get("closure") or {}
+        frontier_counts.append(int(closure.get("ground_fact_frontier_count", 0) or 0))
+        probe_counts.append(int(closure.get("probe_count", 0) or 0))
+        calibration = row.get("calibration") or {}
+        for gold_ref in calibration.get("gold_definition_refs") or ():
+            counters["in_scope_gold_definition_refs"] += 1
+            if gold_ref.get("raw_success"):
+                counters["raw_successes"] += 1
+            if gold_ref.get("closure_success"):
+                counters["closure_successes"] += 1
+            if gold_ref.get("additional_recovery"):
+                counters["additional_recovery"] += 1
+            if not gold_ref.get("closure_success"):
+                counters["router_or_closure_misses"] += 1
+
+    def distribution(values: Sequence[int]) -> dict[str, float | int | None]:
+        if not values:
+            return {"min": None, "max": None, "mean": None}
+        return {
+            "min": min(values),
+            "max": max(values),
+            "mean": round(sum(values) / len(values), 2),
+        }
+
+    denominator = counters["in_scope_gold_definition_refs"]
+    return {
+        **dict(sorted(counters.items())),
+        "raw_survival_rate": round(counters["raw_successes"] / denominator, 4) if denominator else None,
+        "closure_survival_rate": (
+            round(counters["closure_successes"] / denominator, 4) if denominator else None
+        ),
+        "seed_count": distribution(seed_counts),
+        "raw_seed_count": distribution(raw_seed_counts),
+        "ground_fact_frontier_count": distribution(frontier_counts),
+        "probe_count": distribution(probe_counts),
+    }
+
+
+__all__ = [
+    "article_definition_refs",
+    "case_calibration",
+    "case_definition_calibration",
+    "summarize_calibrations",
+    "summarize_definition_calibrations",
+]

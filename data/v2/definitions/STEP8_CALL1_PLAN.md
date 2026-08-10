@@ -63,23 +63,24 @@ It requires explicit `--prompt-approved`; no first model execution is authorised
 until the prompt is separately reviewed.
 
 `scripts/report_v2_call1_pilot.py` reads that artifact and uses the reviewed
-rubric article gold without attempt-article expansion.  Its original
-identity-only article projection is known to under-project derived offenses
-(for example Article 347 / `derived_offense.fraud`); derived-gold projection
-must be audited before the final rerun's survival rates are used for a freeze.
-The direct authored-identity projection is:
+26-case closed-catalog DefinitionRef gold annotation in
+`data/eval/v2_call1_definition_gold_draft.json`.  KCL rubric article gold is
+retained there as source context, but is not automatically projected: an
+identity-only article projection under-represents derived offenses (for example
+Article 347 / `derived_offense.fraud`).  The final metric is:
 
 ```text
-gold article a → mapped_refs(a)
+gold DefinitionRef d
 
-raw success     iff mapped_refs(a) ∩ normalized_seeds != ∅
-closure success iff mapped_refs(a) ∩ candidate_offense_refs != ∅
+raw success     iff d ∈ normalized_seeds
+closure success iff d ∈ candidate_offense_refs
 ```
 
-One surviving ref is sufficient for article-level survival.  The complete
-`mapped_refs(a)` list is retained per case so same-article ambiguity and possible
-over-crediting remain auditable.  Empty projections are reported as
-`out_of_registry`, not as router misses.
+This is **closed-catalog DefinitionRef recall**.  A reviewed special-law or
+otherwise out-of-catalog row has an explicit empty gold list plus scope note;
+it is reported as out of scope and excluded from the recall denominator.
+Attempt and preparation are not separate Call 1 labels: later completion/fact
+assessment resolves them from the selected offense.
 
 For ordered calibration:
 

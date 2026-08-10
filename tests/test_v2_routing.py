@@ -9,7 +9,9 @@ import pytest
 from idpr.v2.call1_pilot import (
     article_definition_refs,
     case_calibration,
+    case_definition_calibration,
     summarize_calibrations,
+    summarize_definition_calibrations,
 )
 from idpr.v2.registry import load_definitions
 from idpr.v2.routing import (
@@ -168,3 +170,45 @@ def test_summary_separates_out_of_registry_and_additional_recovery() -> None:
     assert summary["raw_survival_rate"] == 1.0
     assert summary["closure_survival_rate"] == 1.0
     assert summary["raw_seed_count"]["mean"] == 1.0
+
+
+def test_definition_calibration_uses_approved_refs_and_ordered_prefix() -> None:
+    registry = _registry()
+    seeds = (
+        "offense.theft", "offense.robbery", "offense.embezzlement", "offense.property_damage",
+        "offense.lost_property_embezzlement", "offense.extortion", "offense.dereliction_of_duty",
+        "offense.official_secret_disclosure", "offense.bribery_taking", "offense.perjury",
+        "offense.injury",
+    )
+    result = case_definition_calibration(
+        registry,
+        seeds=seeds,
+        gold_definition_refs=("offense.injury",),
+    )
+    gold = result["gold_definition_refs"][0]
+    assert gold["raw_success"] is True
+    assert gold["closure_success"] is True
+    assert gold["prefix10_closure_success"] is False
+    assert gold["additional_recovery"] is True
+    assert result["prefix10"] == list(seeds[:10])
+    assert result["full15"] == list(seeds)
+
+
+def test_definition_summary_keeps_explicit_out_of_scope_cases_out_of_denominator() -> None:
+    summary = summarize_definition_calibrations([
+        {
+            "seeds": ["offense.injury"],
+            "closure": {"ground_fact_frontier_count": 3, "probe_count": 2},
+            "gold": {"gold_definition_refs": ["offense.injury"]},
+            "calibration": {"gold_definition_refs": [{
+                "raw_success": True,
+                "closure_success": True,
+                "additional_recovery": False,
+            }]},
+        },
+        {"seeds": ["offense.theft"], "gold": {"gold_definition_refs": []}},
+    ])
+    assert summary["in_scope_gold_definition_refs"] == 1
+    assert summary["out_of_scope_cases"] == 1
+    assert summary["raw_survival_rate"] == 1.0
+    assert summary["closure_survival_rate"] == 1.0

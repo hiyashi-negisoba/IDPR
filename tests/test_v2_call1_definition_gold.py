@@ -18,7 +18,7 @@ def test_definition_gold_draft_is_exactly_the_closed_26_case_cohort() -> None:
     expected_cases = [
         line.strip() for line in CASE_LIST.read_text(encoding="utf-8").splitlines() if line.strip()
     ]
-    assert payload["status"] == "draft_assistant_annotation_pending_human_legal_review"
+    assert payload["status"] == "approved_user_reviewed_for_step8_call1_v0"
     assert listed_cases == expected_cases
 
 

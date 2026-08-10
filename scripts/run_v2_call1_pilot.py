@@ -37,6 +37,7 @@ from idpr.v2.routing import (  # noqa: E402
 DEFAULT_DEFINITIONS = ROOT / "data/v2/definitions"
 DEFAULT_INVENTORY = ROOT / "data/inventory/kcl_criminal_v1_draft.jsonl"
 DEFAULT_CASE_LIST = ROOT / "data/eval/kcl_substantive_case_ids.txt"
+DEFAULT_DEFINITION_GOLD = ROOT / "data/eval/v2_call1_definition_gold_draft.json"
 DEFAULT_OUT = ROOT / "experiments/v2_call1_pilot/router_output.jsonl"
 PROMPTS = ("v2_call1_router", "v2_call1_router_user")
 SOURCE_FILES = (
@@ -166,6 +167,7 @@ def main() -> None:
     parser.add_argument("--definitions-dir", type=Path, default=DEFAULT_DEFINITIONS)
     parser.add_argument("--inventory", type=Path, default=DEFAULT_INVENTORY)
     parser.add_argument("--case-list", type=Path, default=DEFAULT_CASE_LIST)
+    parser.add_argument("--definition-gold", type=Path, default=DEFAULT_DEFINITION_GOLD)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--gold-parquet", type=Path, required=True)
     parser.add_argument("--model-snapshot", type=Path, required=True)
@@ -190,6 +192,8 @@ def main() -> None:
         parser.error("--prompt-approved is required before a Call 1 model run")
     if not args.gold_parquet.is_file():
         parser.error(f"--gold-parquet does not exist: {args.gold_parquet}")
+    if not args.definition_gold.is_file():
+        parser.error(f"--definition-gold does not exist: {args.definition_gold}")
     if not args.model_snapshot.is_dir():
         parser.error(f"--model-snapshot does not exist: {args.model_snapshot}")
 
@@ -228,6 +232,8 @@ def main() -> None:
         "inventory_sha256": _sha256_file(args.inventory),
         "gold_parquet": str(args.gold_parquet),
         "gold_parquet_sha256": _sha256_file(args.gold_parquet),
+        "definition_gold": str(args.definition_gold),
+        "definition_gold_sha256": _sha256_file(args.definition_gold),
         "prompts": {name: _sha256_file(prompt_path(name)) for name in PROMPTS},
         "catalog_definition_ids": [entry.definition_id for entry in catalog],
         "case_ids": list(case_ids),

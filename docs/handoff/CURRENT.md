@@ -2,14 +2,16 @@
 
 기준: 2026-08-10 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
-## Next-session checkpoint — Step 8 Call 1 normalization amendment; projection audit pending
+## Next-session checkpoint — Step 8 Call 1 amended final rerun pending
 
 - **Current boundary:** Phase 5.1 assembly와 **Phase 6 whole-registry audit** 뒤,
   승인된 Step 7 Closure / Probe compiler를 완료했고, Step 8 Call 1의 closed
   router/closure/artifact/report 구현과 prompt 검수를 마쳤다. 26건 1차와 prompt
   self-check 2차를 실행했고, 2차 raw artifact의 duplicate만 stable-unique한 offline
-  counterfactual도 완료했다. 최종 amended rerun은 derived-gold projection audit 뒤에만
-  가능하다. 새 predicate·범용 framework·추론 기반 HOLD 해소는 여전히 승인된 scope 밖이다.
+  counterfactual도 완료했다. 26건의 reviewed closed-catalog DefinitionRef gold annotation을
+  추가해 article→DefinitionRef 자동 투영 문제를 evaluation contract에서 제거했다. 최종
+  amended rerun은 이 gold와 stable-unique normalized seed를 기준으로 실행한다. 새 predicate·범용
+  framework·추론 기반 HOLD 해소는 여전히 승인된 scope 밖이다.
 - **Art.339 coverage:** `robbery_rape` (333), `special_robbery_rape` (334),
   `quasi_robbery_rape` (335)를 각각 별도 COMPOSE/CompletionPolicy로 적재했다. 336은
   coverage reference only다.
@@ -40,14 +42,16 @@
   hard failure다. runner는 `--prompt-approved` 없이는 모델을 호출하지 않고, 26-case
   artifact와 CPU-only report를 `experiments/`에 남긴다. failure가 있어도 26행과 report는
   남지만 `FAILED`/invalid calibration은 Call 1 승인을 막는다. source·prompt·registry·case-list·gold
-  parquet hash와 model/vLLM settings도 manifest에 고정한다.
+  parquet hash, DefinitionRef-gold hash와 model/vLLM settings도 manifest에 고정한다.
 - **Step 8 pilot evidence:** vLLM service host job 221593의 2차 request는 raw contract
   기준 23 valid/3 duplicate(`offense.injury`) rows여서 `FAILED`였다. 별도 diagnostic
   stable-unique report는 26/26 measurable, hard failure 0, 45/60 direct-identity survival,
   and no additional recovery를 보였지만 원 run을 소급 VALID로 바꾸지 않는다. Direct
   `OffenseDef.identity` projection은 `derived_offense.fraud` 등 derived coverage를
-  under-project하므로 이 수치는 freeze metric이 아니다. Detailed contract and current
-  gate are in
+  under-project하므로 이 수치는 freeze metric이 아니다. Final rerun metric은
+  `data/eval/v2_call1_definition_gold_draft.json`의 reviewed DefinitionRef gold에 의한
+  **closed-catalog DefinitionRef recall**이며, 명시된 special-law/out-of-catalog row는
+  denominator 밖으로 별도 보고한다. Detailed contract and current gate are in
   [`STEP8_CALL1_PLAN.md`](../../data/v2/definitions/STEP8_CALL1_PLAN.md)에 있다.
 
 ## 2-pass assembly 착수 — 첫 production slice 완료
