@@ -1,6 +1,59 @@
 # Current handoff
 
+> **최신 checkpoint (2026-08-11):** 이 문서 아래에는 이전 세션 기록이 누적되어 있어
+> 현재 상태와 충돌하는 숫자와 계획이 포함돼 있다. 다음 작업자는 먼저
+> [`NEXT_SESSION.md`](NEXT_SESSION.md)를 읽는다. 현재 시작점은 새 global closed-option
+> participation 계약의 real-Gemma smoke이며, 기존 `call2_full`과 `call2_full_v3`는
+> acceptance artifact가 아니다. 오프라인 기준은 84 passed / 6 skipped, 최신 planner는
+> 26 cases, predicate 5,182, relation 423, participation 719, audit errors 0이다.
+
 기준: 2026-08-11 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
+
+## 2026-08-11 test reset and pipeline rebuild
+
+- 요청에 따라 기존 `tests/` 전체(추적 테스트 87개와 미추적 테스트·캐시 포함)를 삭제했다.
+  과거 `252/293/338 passed` 기록은 현재 acceptance evidence가 아니다.
+- 새 검증 체계는 `docs/testing/V2_TEST_STRATEGY.md`의 Gate A/B/C로 재구성했다.
+  현재 Gate A는 새 테스트 69개가 통과했고, job 221593의 실제 Gemma Gate B는 2개가
+  통과했다.
+- 일반 Call 2 payload에서 전체 `question_text`를 제거했다. 한 physical request에는
+  정확히 한 gold occurrence의 `source_text`와 동일 actor/occurrence target만 들어간다.
+  target order를 보존하면서 occurrence 경계를 넘지 않도록 shard한다.
+- 실제 Gemma 회귀에서 기존 실패 지문은 `[vaginal_intercourse=FALSE,
+  bribe_acceptance=UNKNOWN, taking=UNKNOWN, injury_conduct=TRUE]`를 반환했다.
+- `r14_p1_q3` gold span은 해당 (3) 문단의 소유·임대·요청·실행 사실을 모두 포함하도록
+  바로잡았고, 관련 positive/negative Gemma gate도 통과했다.
+- 새 gate에서 별도 구조 결함도 확인했다. Scallop DSL/backend에는 participation mode,
+  `derivative_links`, `co_principal_sources`가 있지만 현재 26-case planner/runner는 이를
+  생성하거나 전달하지 않는다. 따라서 participation 사실관계를 프롬프트가 직접행위처럼
+  처리하게 만들어서는 안 되며, 이 caller binding 경계가 해결되기 전 full run은 금지한다.
+
+## 2026-08-11 KCL-26 gold factual identity — Call 2/Scallop factual gate FAIL
+
+- G0, direct-anchor, Unified Call 1 grounding, entity catalog, model-generated occurrence path와
+  관련 실험 산출물을 rollback했다. Call 1은 routing-only 26/26 성공 artifact를 사용한다.
+- `gold_occurrences.jsonl`에 26문항/66 factual occurrences를 수동 작성했고,
+  `gold_article263_pairs.jsonl`에는 caller pair 1개만 기록했다. loader는 factual-only field,
+  exact unique source substring, sequential `gocc` ID, pair reference를 hard-validate한다.
+- gold occurrence × actor × Step 7 candidates planner는 top-level 1,021, assessment instance
+  1,067, Call 2 target 6,496개를 생성했다. offline reproducibility/collision audit은 26/26,
+  collision 0으로 통과했다.
+- job `221593` Gemma full Call 2는 compact ordered truth-array grammar로 115 physical requests,
+  6,496 general targets를 완료했다. Article263 pair truth 6개를 합쳐 CaseTruths는 6,502개다.
+  length/order/extra/missing/unique-key audit은 errors 0이다.
+- Scallop은 26/26, exact planner instance 1,067개를 실행했다. 그러나 factual/legal acceptance는
+  **FAIL**이다. CaseTruths 분포는 TRUE 3,318 / FALSE 642 / UNKNOWN 2,542이고, 성립 instance
+  290개 중 rubric candidate 범위 밖 성립이 204개(70.3%), 22/26문항에서 발생했다.
+  예: `r14_p1_q3`은 권리행사방해 문항인데 존속살해·방화·뇌물공여가 성립하고 정작
+  권리행사방해는 성립하지 않았다.
+- 직접 원인은 일반 Call 2가 focal gold `source_text`뿐 아니라 전체 `question_text`를 보고,
+  다른 사실관계 문단의 행위·결과를 focal occurrence로 가져온 것이다. `r10_p1_q1_ga`의
+  성적 행위 occurrence에서 bribe acceptance/taking/dangerous weapon까지 TRUE가 나온다.
+- Call 3는 이 과잉 symbolic conclusion을 반복하다 3번째 문항에서 max-token 종료됐으며
+  acceptance artifact로 사용하지 않는다. 문항별 간접 대조는
+  `experiments/v2_gold_restart_26/SYMBOLIC_RUBRIC_AUDIT.md`에 있다.
+- 검증: gold/planner/Call2 focused 및 전체 `tests/test_v2_*.py` **338 passed**, 관련 Ruff 통과.
+  기존 미커밋 `vllm_client.py`/fraud test 변경은 수정하지 않았다.
 
 ## Next-session checkpoint — Scallop symbolic backend frozen; Call 2 selected predicate assessment next
 
@@ -17,6 +70,50 @@
   host-supplied `OffenseInstanceKey`만 받아 `(instance_key, predicate_ref) ->
   TRUE | FALSE | UNKNOWN`을 내고, host exact-key validation 뒤 `CaseTruths`로만
   연결한다. offense/instance를 새로 선택하거나 Call 1·Step 7을 다시 열지 않는다.
+- **현재 세션 기록:** selected-predicate의 최소 wire contract 초안을
+  [`STEP8_CALL2_SELECTED_PREDICATE_CONTRACT.md`](../../data/v2/definitions/STEP8_CALL2_SELECTED_PREDICATE_CONTRACT.md)에
+  추가했고, audit finding 5건을 반영했다. selected substage는 instance-bound
+  `GroundFactDef | LegalElementDef`를 stable-first로 선택하며 factual v0의 unbound
+  observation은 `CaseTruths`로 복사하지 않는다. model-resolvable instance invariant,
+  offense/derived-offense kind, 대칭 TRUE/FALSE, no-op cardinality를 명시했다. relation과
+  caller-owned participation/doctrine/statutory plan은 predicate response에 섞지 않고,
+  actual E2E 전 별도 completion gate로 기록했다. revision-induced audit 1건으로,
+  GroundFact `arguments`는 case-bound value가 아닌 definition-time signature이며
+  non-instance argument는 fixed instance scope 안에서 existential이라는 규칙을 추가했다.
+  selected-predicate contract은 final audit을 통과해 freeze했으나, host design package의
+  “existing instance-plan source” 전제는 실제 upstream producer가 없다는 gap으로
+  reopen됐다. 그 source boundary를
+  [`STEP8_CALL2_EVALUATION_INSTANCE_PLANNER_CONTRACT.md`](../../data/v2/definitions/STEP8_CALL2_EVALUATION_INSTANCE_PLANNER_CONTRACT.md)에
+  deterministic planner 초안으로 분리했다. planner는 question의 report-target과
+  case-text evaluation/support actor universe를 분리하고, 후자 × top10 Step 7 candidate
+  및 Step3 component predicate scope를 법적 applicability 판단 없이 materialize한다. full
+  audit의 F1–F4에 따라 report-target/evaluation-support actor universe를 분리하고,
+  Step3 component predicate scope, single-`o1` cohort admissibility, Call2 target
+  cardinality/budget evidence를 planner acceptance gate에 추가했다. planner contract은
+  승인됐고, host-only planner implementation과 focused tests(4 passed), generated 26-case
+  plan, offline reproducibility audit(26/26, errors 0)까지 완료했다. 그러나
+  `kcl_criminal_r10_p1_q1_ga`의 `(甲, offense.injury, o1)`가 A와 B에 대한 별도 폭행
+  occurrence를 합칠 수 있어 single-occurrence admissibility audit에서 cohort가
+  **REJECTED**됐다. 자세한 근거는
+  [`single_occurrence_admissibility.audit.md`](../../experiments/v2_call2_evaluation_instance_planner/single_occurrence_admissibility.audit.md)에
+  있다. 따라서 generated plan은 acceptance되지 않았으며 Call2 host implementation,
+  prompt/runner, model call은 아직 승인되지 않았다. 26-case 전체
+  [`multi-occurrence violation inventory`](../../experiments/v2_call2_evaluation_instance_planner/multi_occurrence_violation_inventory.md)는
+  완료됐으며 8개 row/3개 collision family를 확인했다. 후속
+  [`collision-route audit`](../../data/v2/definitions/STEP8_CALL2_COLLISION_ROUTE_AUDIT.md)는
+  generic occurrence-discrimination/regex producer를 **REJECT**했다. 이 audit은
+  **PASS/FREEZE**다. r10은 Article 263 dedicated caller route, r12/r14는
+  whole-question factual-scope leakage와 expanded candidate 문제로 분류됐다. 후속 `[A]`
+  [`sub-question factual-scope/evaluation-universe source audit`](../../data/v2/definitions/STEP8_CALL2_SUBQUESTION_FACTUAL_SCOPE_SOURCE_AUDIT.md)는
+  5개 row의 benchmark structural source 부재를, `[B]`
+  [`Article 263 caller-plan source audit`](../../data/v2/definitions/STEP8_CALL2_ARTICLE263_CALLER_PLAN_SOURCE_AUDIT.md)는
+  existing underlying injury target source 부재를 확인했다. 두 audit은 manual scope/map
+  방향을 **REJECT**하는 negative evidence로 보존한다. 다음 review unit은
+  [`general occurrence grounding contract`](../../data/v2/definitions/STEP8_GENERAL_OCCURRENCE_GROUNDING_CONTRACT.md)다:
+  neural factual occurrence universe가 host sentence-span ID를 만들고, 그 위에서
+  occurrence-aware instance planner와 Article 263 dedicated route가 작동한다. 그 전에는
+  수동 `o2`, regex/parser/map, event 선택, Call2 occurrence inference, budget/sharding
+  설계를 시작하지 않는다.
 - **이후 순서:** 실제 사건 E2E(Neural→CaseTruths→Scallop→`LiabilityResult`, Call 3 제외)
   → 사건별 `LiabilityResult`/provenance 법률·구조 검증 → Call 3 writer의 non-overturn
   contract → 26개 전체 평가. LLM 문장 품질 검토는 symbolic IR 검증 뒤다.

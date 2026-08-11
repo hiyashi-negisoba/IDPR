@@ -18,8 +18,8 @@ from __future__ import annotations
 import re
 import subprocess
 from collections import defaultdict
+from collections.abc import Iterable, Mapping, Sequence
 from pathlib import Path
-from typing import Iterable, Mapping, Sequence
 
 from idpr.rulebase.facts import FACT_PREDICATES, validate_fact
 
@@ -223,6 +223,84 @@ def run_program(
         )
     return {
         relation: parse_query_output(completed.stdout, relation)
+        for relation in query_relations
+    }
+
+
+def parse_probabilistic_query_output(
+    output: str, relation: str
+) -> tuple[tuple[float, tuple[str, ...]], ...]:
+    """Parse a tagged Scallop relation without treating its tags as legal truth."""
+    match = re.search(
+        rf"(?ms)^\s*{re.escape(relation)}\s*:\s*\{{(.*?)\}}\s*$", output
+    )
+    if match is None:
+        raise ScallopError(f"probabilistic query {relation} is missing: {output!r}")
+    body = match.group(1).strip()
+    if not body:
+        return ()
+    tagged = re.compile(r"([0-9eE+.-]+)::\(([^)]*)\)")
+    rows: list[tuple[float, tuple[str, ...]]] = []
+    for probability, inner in tagged.findall(body):
+        value = float(probability)
+        if not 0.0 <= value <= 1.0:
+            raise ScallopError(f"invalid probability for {relation}: {value!r}")
+        rows.append((value, tuple(_ELEMENT_RE.findall(inner))))
+    if not rows:
+        raise ScallopError(f"cannot parse probabilistic query {relation}: {output!r}")
+    return tuple(rows)
+
+
+def run_probabilistic_program(
+    program: str,
+    query_relations: Sequence[str],
+    work_dir: Path,
+    *,
+    name: str = "probabilistic_program",
+    provenance: str = "topkproofs",
+    top_k: int = 3,
+    scli_path: Path | None = None,
+    timeout: int = 300,
+) -> Mapping[str, tuple[tuple[float, tuple[str, ...]], ...]]:
+    """Run an explicitly experimental tagged program beside the unit provenance path."""
+    if provenance not in {"topkproofs", "minmaxprob", "addmultprob"}:
+        raise ScallopError(f"unsupported probabilistic provenance: {provenance!r}")
+    if top_k <= 0:
+        raise ScallopError("top_k must be positive")
+    executable = scli_path or DEFAULT_SCLI
+    if not executable.is_file():
+        raise ScallopError(f"scli not found at {executable}")
+    undeclared = sorted(
+        relation
+        for relation in query_relations
+        if not re.search(rf"^query\s+{re.escape(relation)}\s*$", program, re.MULTILINE)
+    )
+    if undeclared:
+        raise ScallopError(f"relations requested but not declared as queries: {undeclared}")
+    work_dir.mkdir(parents=True, exist_ok=True)
+    program_path = work_dir / f"{name}.scl"
+    program_path.write_text(program, encoding="utf-8")
+    completed = subprocess.run(
+        [
+            str(executable),
+            "--provenance",
+            provenance,
+            "--top-k",
+            str(top_k),
+            str(program_path),
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=timeout,
+    )
+    if completed.returncode != 0:
+        raise ScallopError(
+            f"probabilistic scli failed on {name}: "
+            f"{completed.stderr.strip() or completed.stdout.strip()}"
+        )
+    return {
+        relation: parse_probabilistic_query_output(completed.stdout, relation)
         for relation in query_relations
     }
 

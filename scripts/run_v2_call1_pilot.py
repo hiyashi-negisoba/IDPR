@@ -12,19 +12,19 @@ import hashlib
 import json
 import subprocess
 import sys
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Any, Iterable
-
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from idpr.eval.input_formatter import assert_no_leaked_fields  # noqa: E402
-from idpr.neural.vllm_client import VLLMClient, VLLMClientError  # noqa: E402
-from idpr.prompts import load_prompt, prompt_path  # noqa: E402
-from idpr.v2.closure import ClosureError, compile_candidate_offenses, compile_closure  # noqa: E402
-from idpr.v2.registry import KIND_TO_EXAMPLE_FILE, load_definitions  # noqa: E402
-from idpr.v2.routing import (  # noqa: E402
+from idpr.eval.input_formatter import assert_no_leaked_fields
+from idpr.neural.vllm_client import VLLMClient, VLLMClientError
+from idpr.prompts import load_prompt, prompt_path
+from idpr.v2.closure import ClosureError, compile_candidate_offenses, compile_closure
+from idpr.v2.registry import KIND_TO_EXAMPLE_FILE, load_definitions
+from idpr.v2.routing import (
     MAX_SEEDS_PER_CASE,
     RouterContractError,
     normalize_router_seeds,
@@ -33,7 +33,6 @@ from idpr.v2.routing import (  # noqa: E402
     router_schema,
     validate_router_output,
 )
-
 
 DEFAULT_DEFINITIONS = ROOT / "data/v2/definitions"
 DEFAULT_INVENTORY = ROOT / "data/inventory/kcl_criminal_v1_draft.jsonl"
@@ -246,9 +245,11 @@ def main() -> None:
         for index, record in enumerate(records, start=1):
             case_id = str(record["sub_question_id"])
             payload = router_request_payload(
-                case_text=str(record["question_text"]), catalog=catalog
+                question_prompt=str(record["question_prompt"]),
+                case_text=str(record["question_text"]),
+                catalog=catalog,
             )
-            assert set(payload) == {"case_text", "offense_catalog"}
+            assert set(payload) == {"question_prompt", "case_text", "offense_catalog"}
             assert_no_leaked_fields(payload)
             row: dict[str, Any] = {"sub_question_id": case_id}
             output: dict[str, Any] | None = None

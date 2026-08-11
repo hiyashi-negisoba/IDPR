@@ -161,6 +161,8 @@
 
 - id: offense.arson_of_occupied_structure
   identity: {name: "현주건조물등방화죄", statutory_refs: ["형법 제164조 제1항"]}
+  participation_constraints:
+    attributable_slots: [result]
   elements:
     object: {op: ref, ref: legal_element.arson_target_status}
     result: {op: ref, ref: legal_element.burning_result}
@@ -240,6 +242,8 @@
 
 - id: offense.negligent_homicide
   identity: {name: "과실치사죄", statutory_refs: ["형법 제267조"]}
+  participation_constraints:
+    attributable_slots: [causation, result]
   elements:
     result: {op: ref, ref: ground_fact.death_of_victim}
     causation: {op: ref, ref: legal_element.result_causation}
@@ -253,6 +257,8 @@
 
 - id: offense.occupational_or_gross_negligence_injury_or_homicide
   identity: {name: "업무상과실·중과실치사상죄", statutory_refs: ["형법 제268조"]}
+  participation_constraints:
+    attributable_slots: [causation, result]
   elements:
     circumstance:
       op: any

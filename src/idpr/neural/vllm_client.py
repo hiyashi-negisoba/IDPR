@@ -32,6 +32,7 @@ class VLLMClient:
         temperature: float = 0.0,
         top_p: float | None = None,
         top_k: int | None = None,
+        seed: int | None = None,
         chat_template_kwargs: dict[str, Any] | None = None,
         user_template: str | None = None,
     ) -> tuple[dict[str, Any], dict[str, Any]]:
@@ -45,6 +46,7 @@ class VLLMClient:
             temperature=temperature,
             top_p=top_p,
             top_k=top_k,
+            seed=seed,
             chat_template_kwargs=chat_template_kwargs,
             user_template=user_template,
         )
@@ -203,6 +205,7 @@ def build_chat_request(
     temperature: float = 0.0,
     top_p: float | None = None,
     top_k: int | None = None,
+    seed: int | None = None,
     chat_template_kwargs: dict[str, Any] | None = None,
     user_template: str | None = None,
 ) -> dict[str, Any]:
@@ -236,6 +239,8 @@ def build_chat_request(
         req["top_p"] = top_p
     if top_k is not None:
         req["top_k"] = top_k
+    if seed is not None:
+        req["seed"] = seed
     if chat_template_kwargs is not None:
         req["chat_template_kwargs"] = chat_template_kwargs
     return req
@@ -259,4 +264,3 @@ def vllm_compatible_schema(schema: Mapping[str, Any] | None) -> dict[str, Any]:
 
     visit(result)
     return result
-

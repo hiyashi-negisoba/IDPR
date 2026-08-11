@@ -9,11 +9,11 @@ at ten normalized candidates.
 
 from __future__ import annotations
 
+from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
-from typing import Any, Iterable, Mapping, Sequence
+from typing import Any
 
 from idpr.v2.registry import DefinitionRegistry
-
 
 MAX_SEEDS_PER_CASE = 10
 _OFFENSE_KINDS = frozenset({"offense", "derived_offense"})
@@ -114,16 +114,19 @@ def router_schema(catalog: Iterable[RouterCatalogEntry]) -> dict[str, Any]:
                 "maxItems": MAX_SEEDS_PER_CASE,
                 "uniqueItems": True,
                 "items": {"type": "string", "enum": ids},
-            }
+            },
         },
     }
 
 
 def router_request_payload(
-    *, case_text: str, catalog: Iterable[RouterCatalogEntry]
+    *, question_prompt: str, case_text: str, catalog: Iterable[RouterCatalogEntry]
 ) -> dict[str, Any]:
-    """The complete model input: raw case text and the closed definition catalog."""
+    """The exact sub-question, its raw case text, and the closed definition catalog."""
+    if not question_prompt.strip():
+        raise RouterContractError(["question_prompt must be a non-empty string"])
     return {
+        "question_prompt": question_prompt,
         "case_text": case_text,
         "offense_catalog": [entry.as_dict() for entry in catalog],
     }
