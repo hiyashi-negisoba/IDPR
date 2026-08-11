@@ -1,8 +1,29 @@
 # Current handoff
 
-기준: 2026-08-10 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
+기준: 2026-08-11 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 
-## Next-session checkpoint — Step 8 Call 1 frozen; Call 2 contract/prompt review next
+## Next-session checkpoint — Scallop symbolic backend frozen; Call 2 selected predicate assessment next
+
+- **Scallop backend freeze:** Step 8 v2 Scallop Steps 1–4, generic Step 5
+  liability chain, 그리고 Article 263 dedicated backend-completion gate까지
+  native parity·typed adapter·non-speculative `not_reached`를 검증하고 동결했다.
+  Step 5는 existing `LiabilityEvaluation`/`LiabilityResult`만 재구성하며, Article 263은
+  기존 `StatutoryDeemingObligation`만 추가한다. 새 participation mode, `offense_ref=263`,
+  attribution, Definition Layer 변경은 없다. 상세 계약은
+  [`STEP8_V2_SCALLOP_STEP5_PLAN.md`](../../data/v2/definitions/STEP8_V2_SCALLOP_STEP5_PLAN.md)와
+  [`STEP8_V2_SCALLOP_ARTICLE263_CONTRACT.md`](../../data/v2/definitions/STEP8_V2_SCALLOP_ARTICLE263_CONTRACT.md)에 있다.
+- **다음 작업은 Call 2 selected predicate assessment뿐이다.** 동결된 factual grounding
+  v0는 그대로 유지한다. Call 2는 `case_text` + Step 7 closure가 선택한 predicate ref +
+  host-supplied `OffenseInstanceKey`만 받아 `(instance_key, predicate_ref) ->
+  TRUE | FALSE | UNKNOWN`을 내고, host exact-key validation 뒤 `CaseTruths`로만
+  연결한다. offense/instance를 새로 선택하거나 Call 1·Step 7을 다시 열지 않는다.
+- **이후 순서:** 실제 사건 E2E(Neural→CaseTruths→Scallop→`LiabilityResult`, Call 3 제외)
+  → 사건별 `LiabilityResult`/provenance 법률·구조 검증 → Call 3 writer의 non-overturn
+  contract → 26개 전체 평가. LLM 문장 품질 검토는 symbolic IR 검증 뒤다.
+- **검증 evidence:** Article 263는 statutory `TRUE/FALSE/UNKNOWN`, completion-stop,
+  Unlawfulness/Culpability active-doctrine stop, Python resolver 금지 경로를 dedicated
+  Python runtime과 field-by-field 비교했다. focused backend/Article 263/Step 7 suite와
+  Ruff·`py_compile`이 통과했다.
 
 - **Current boundary:** Phase 5.1 assembly와 **Phase 6 whole-registry audit** 뒤,
   승인된 Step 7 Closure / Probe compiler를 완료했고, Step 8 Call 1의 closed
