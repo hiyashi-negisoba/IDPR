@@ -1,0 +1,1030 @@
+{
+  "summary": {
+    "call2_artifact": "experiments/v2_call15_directscope_26_causal/call2_v9_doctrine_increment/grounding_output_additive_delta.jsonl",
+    "cases": 26,
+    "cases_affected": 10,
+    "by_marker": {
+      "CROSS_INSTANCE_GROUND_FACT_CONFLICT": 4,
+      "CROSS_INSTANCE_LEGAL_ELEMENT_CONFLICT": 10,
+      "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE": 22
+    },
+    "hard_conflicts": 2,
+    "repaired": false
+  },
+  "findings": [
+    {
+      "marker": "CROSS_INSTANCE_GROUND_FACT_CONFLICT",
+      "case_id": "kcl_criminal_r10_p1_q1_ga",
+      "actor_id": "甲",
+      "predicate_ref": "ground_fact.vaginal_intercourse_conduct",
+      "truths": [
+        "FALSE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.rape_causing_injury_by_aggravated_result",
+          "occurrence_id": "binding:004",
+          "factual_episode_id": "factual_episode:002",
+          "truth": "FALSE"
+        },
+        {
+          "offense_ref": "offense.rape",
+          "occurrence_id": "binding:002",
+          "factual_episode_id": "factual_episode:002",
+          "truth": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_CONFLICT",
+      "case_id": "kcl_criminal_r10_p1_q1_ga",
+      "actor_id": "甲",
+      "predicate_ref": "legal_element.coercion_sufficiency_for_rape",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.rape_causing_injury_by_aggravated_result",
+          "occurrence_id": "binding:004",
+          "factual_episode_id": "factual_episode:002",
+          "truth": "TRUE"
+        },
+        {
+          "offense_ref": "offense.rape",
+          "occurrence_id": "binding:002",
+          "factual_episode_id": "factual_episode:002",
+          "truth": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_GROUND_FACT_CONFLICT",
+      "case_id": "kcl_criminal_r10_p1_q2",
+      "actor_id": "乙",
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "truths": [
+        "FALSE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "offense.homicide",
+          "occurrence_id": "binding:004",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.injury",
+          "occurrence_id": "binding:002",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "FALSE"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_GROUND_FACT_CONFLICT",
+      "case_id": "kcl_criminal_r10_p1_q2",
+      "actor_id": "甲",
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "truths": [
+        "FALSE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "offense.homicide",
+          "occurrence_id": "binding:003",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.injury",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "FALSE"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r10_p1_q2",
+      "actor_id": "甲",
+      "predicate_ref": "legal_element.intent",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.injury_causing_death",
+          "occurrence_id": "derived_binding:001",
+          "factual_episode_id": "?",
+          "truth": "TRUE"
+        },
+        {
+          "offense_ref": "offense.homicide",
+          "occurrence_id": "binding:003",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.injury",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_CONFLICT",
+      "case_id": "kcl_criminal_r10_p1_q3_ga",
+      "actor_id": "丁",
+      "predicate_ref": "legal_element.self_benefit_purpose",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "offense.bribe_delivery_receipt",
+          "occurrence_id": "binding:003",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "TRUE"
+        },
+        {
+          "offense_ref": "offense.bribe_delivery_receipt",
+          "occurrence_id": "binding:004",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r11_p1_q1",
+      "actor_id": "乙",
+      "predicate_ref": "ground_fact.taking_conduct",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.robbery_causing_injury_by_aggravated_result",
+          "occurrence_id": "derived_binding:001",
+          "factual_episode_id": "?",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.robbery",
+          "occurrence_id": "binding:004",
+          "factual_episode_id": "factual_episode:005",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.theft",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:004",
+          "truth": "TRUE"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r11_p1_q1",
+      "actor_id": "乙",
+      "predicate_ref": "legal_element.possession",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.robbery_causing_injury_by_aggravated_result",
+          "occurrence_id": "derived_binding:001",
+          "factual_episode_id": "?",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.robbery",
+          "occurrence_id": "binding:004",
+          "factual_episode_id": "factual_episode:005",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.theft",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:004",
+          "truth": "TRUE"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r11_p1_q1",
+      "actor_id": "乙",
+      "predicate_ref": "legal_element.unlawful_appropriation_intent",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.robbery_causing_injury_by_aggravated_result",
+          "occurrence_id": "derived_binding:001",
+          "factual_episode_id": "?",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.robbery",
+          "occurrence_id": "binding:004",
+          "factual_episode_id": "factual_episode:005",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.theft",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:004",
+          "truth": "TRUE"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_CONFLICT",
+      "case_id": "kcl_criminal_r11_p2_q1_na",
+      "actor_id": "乙",
+      "predicate_ref": "legal_element.purpose_to_use_as_genuine",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "offense.false_public_document_creation",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.public_document_forgery",
+          "occurrence_id": "binding:002",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "TRUE"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_CONFLICT",
+      "case_id": "kcl_criminal_r12_p2_q1_ga",
+      "actor_id": "乙",
+      "predicate_ref": "legal_element.dangerousness",
+      "truths": [
+        "FALSE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "offense.ancestral_homicide",
+          "occurrence_id": "binding:002",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.homicide",
+          "occurrence_id": "binding:004",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "FALSE"
+        },
+        {
+          "offense_ref": "offense.theft",
+          "occurrence_id": "binding:006",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_CONFLICT",
+      "case_id": "kcl_criminal_r12_p2_q1_ga",
+      "actor_id": "乙",
+      "predicate_ref": "legal_element.voluntary_cessation_or_prevention",
+      "truths": [
+        "FALSE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "offense.ancestral_homicide",
+          "occurrence_id": "binding:002",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.homicide",
+          "occurrence_id": "binding:004",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "FALSE"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_CONFLICT",
+      "case_id": "kcl_criminal_r12_p2_q1_ga",
+      "actor_id": "甲",
+      "predicate_ref": "legal_element.dangerousness",
+      "truths": [
+        "FALSE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "offense.ancestral_homicide",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.homicide",
+          "occurrence_id": "binding:003",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "FALSE"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_CONFLICT",
+      "case_id": "kcl_criminal_r12_p2_q1_ga",
+      "actor_id": "甲",
+      "predicate_ref": "legal_element.result_causation",
+      "truths": [
+        "FALSE",
+        "TRUE"
+      ],
+      "hard_conflict": true,
+      "observations": [
+        {
+          "offense_ref": "offense.ancestral_homicide",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "FALSE"
+        },
+        {
+          "offense_ref": "offense.homicide",
+          "occurrence_id": "binding:003",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "TRUE"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_CONFLICT",
+      "case_id": "kcl_criminal_r12_p2_q1_ga",
+      "actor_id": "甲",
+      "predicate_ref": "legal_element.voluntary_cessation_or_prevention",
+      "truths": [
+        "FALSE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "offense.ancestral_homicide",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.homicide",
+          "occurrence_id": "binding:003",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "FALSE"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r13_p1_q1",
+      "actor_id": "丙",
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "truths": [
+        "FALSE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.special_theft",
+          "occurrence_id": "derived_binding:003",
+          "factual_episode_id": "?",
+          "truth": "FALSE"
+        },
+        {
+          "offense_ref": "offense.theft",
+          "occurrence_id": "binding:002",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r13_p1_q1",
+      "actor_id": "丙",
+      "predicate_ref": "legal_element.commencement_of_execution",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.special_theft",
+          "occurrence_id": "derived_binding:003",
+          "factual_episode_id": "?",
+          "truth": "TRUE"
+        },
+        {
+          "offense_ref": "offense.dwelling_intrusion",
+          "occurrence_id": "binding:005",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.theft",
+          "occurrence_id": "binding:002",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r13_p1_q1",
+      "actor_id": "丙",
+      "predicate_ref": "legal_element.dangerousness",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.special_theft",
+          "occurrence_id": "derived_binding:003",
+          "factual_episode_id": "?",
+          "truth": "TRUE"
+        },
+        {
+          "offense_ref": "offense.theft",
+          "occurrence_id": "binding:002",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r13_p1_q1",
+      "actor_id": "丙",
+      "predicate_ref": "legal_element.unlawful_appropriation_intent",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.special_theft",
+          "occurrence_id": "derived_binding:003",
+          "factual_episode_id": "?",
+          "truth": "TRUE"
+        },
+        {
+          "offense_ref": "offense.theft",
+          "occurrence_id": "binding:002",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r13_p1_q1",
+      "actor_id": "乙",
+      "predicate_ref": "legal_element.unlawful_appropriation_intent",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.special_theft",
+          "occurrence_id": "derived_binding:004",
+          "factual_episode_id": "?",
+          "truth": "TRUE"
+        },
+        {
+          "offense_ref": "offense.theft",
+          "occurrence_id": "binding:003",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r13_p1_q1",
+      "actor_id": "甲",
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "truths": [
+        "FALSE",
+        "TRUE"
+      ],
+      "hard_conflict": true,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.special_theft",
+          "occurrence_id": "derived_binding:002",
+          "factual_episode_id": "?",
+          "truth": "FALSE"
+        },
+        {
+          "offense_ref": "offense.injury",
+          "occurrence_id": "binding:007",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "FALSE"
+        },
+        {
+          "offense_ref": "offense.theft",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "TRUE"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r13_p1_q1",
+      "actor_id": "甲",
+      "predicate_ref": "ground_fact.taking_conduct",
+      "truths": [
+        "FALSE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.quasi_robbery",
+          "occurrence_id": "derived_binding:001",
+          "factual_episode_id": "?",
+          "truth": "FALSE"
+        },
+        {
+          "offense_ref": "derived_offense.special_theft",
+          "occurrence_id": "derived_binding:002",
+          "factual_episode_id": "?",
+          "truth": "FALSE"
+        },
+        {
+          "offense_ref": "offense.theft",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r13_p1_q1",
+      "actor_id": "甲",
+      "predicate_ref": "legal_element.dangerousness",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.special_theft",
+          "occurrence_id": "derived_binding:002",
+          "factual_episode_id": "?",
+          "truth": "TRUE"
+        },
+        {
+          "offense_ref": "offense.injury",
+          "occurrence_id": "binding:007",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.theft",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r13_p1_q1",
+      "actor_id": "甲",
+      "predicate_ref": "legal_element.unlawful_appropriation_intent",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.quasi_robbery",
+          "occurrence_id": "derived_binding:001",
+          "factual_episode_id": "?",
+          "truth": "TRUE"
+        },
+        {
+          "offense_ref": "derived_offense.special_theft",
+          "occurrence_id": "derived_binding:002",
+          "factual_episode_id": "?",
+          "truth": "TRUE"
+        },
+        {
+          "offense_ref": "offense.theft",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r13_p2_q1",
+      "actor_id": "乙",
+      "predicate_ref": "legal_element.unlawful_appropriation_intent",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.special_theft",
+          "occurrence_id": "derived_binding:002",
+          "factual_episode_id": "?",
+          "truth": "TRUE"
+        },
+        {
+          "offense_ref": "offense.theft",
+          "occurrence_id": "binding:002",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r13_p2_q1",
+      "actor_id": "甲",
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "truths": [
+        "FALSE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.special_theft",
+          "occurrence_id": "derived_binding:001",
+          "factual_episode_id": "?",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.injury",
+          "occurrence_id": "binding:003",
+          "factual_episode_id": "factual_episode:006",
+          "truth": "FALSE"
+        },
+        {
+          "offense_ref": "offense.theft",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r13_p2_q1",
+      "actor_id": "甲",
+      "predicate_ref": "legal_element.commencement_of_execution",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.special_theft",
+          "occurrence_id": "derived_binding:001",
+          "factual_episode_id": "?",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.injury",
+          "occurrence_id": "binding:003",
+          "factual_episode_id": "factual_episode:006",
+          "truth": "TRUE"
+        },
+        {
+          "offense_ref": "offense.theft",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "TRUE"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r13_p2_q1",
+      "actor_id": "甲",
+      "predicate_ref": "legal_element.unlawful_appropriation_intent",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.special_theft",
+          "occurrence_id": "derived_binding:001",
+          "factual_episode_id": "?",
+          "truth": "TRUE"
+        },
+        {
+          "offense_ref": "offense.theft",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r14_p2_q1",
+      "actor_id": "乙",
+      "predicate_ref": "ground_fact.taking_conduct",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.quasi_robbery",
+          "occurrence_id": "binding:003",
+          "factual_episode_id": "factual_episode:002",
+          "truth": "TRUE"
+        },
+        {
+          "offense_ref": "derived_offense.robbery_causing_injury_by_aggravated_result",
+          "occurrence_id": "derived_binding:001",
+          "factual_episode_id": "?",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "derived_offense.robbery_causing_intentional_injury",
+          "occurrence_id": "binding:004",
+          "factual_episode_id": "factual_episode:002",
+          "truth": "TRUE"
+        },
+        {
+          "offense_ref": "offense.theft",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r14_p2_q1",
+      "actor_id": "乙",
+      "predicate_ref": "legal_element.injury_intent",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.robbery_causing_injury_by_aggravated_result",
+          "occurrence_id": "derived_binding:001",
+          "factual_episode_id": "?",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "derived_offense.robbery_causing_intentional_injury",
+          "occurrence_id": "binding:004",
+          "factual_episode_id": "factual_episode:002",
+          "truth": "TRUE"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_CONFLICT",
+      "case_id": "kcl_criminal_r14_p2_q1",
+      "actor_id": "乙",
+      "predicate_ref": "legal_element.natural_person_victim_status",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.robbery_causing_intentional_injury",
+          "occurrence_id": "binding:004",
+          "factual_episode_id": "factual_episode:002",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.injury",
+          "occurrence_id": "binding:002",
+          "factual_episode_id": "factual_episode:002",
+          "truth": "TRUE"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r14_p2_q1",
+      "actor_id": "乙",
+      "predicate_ref": "legal_element.possession",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.quasi_robbery",
+          "occurrence_id": "binding:003",
+          "factual_episode_id": "factual_episode:002",
+          "truth": "TRUE"
+        },
+        {
+          "offense_ref": "derived_offense.robbery_causing_injury_by_aggravated_result",
+          "occurrence_id": "derived_binding:001",
+          "factual_episode_id": "?",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "derived_offense.robbery_causing_intentional_injury",
+          "occurrence_id": "binding:004",
+          "factual_episode_id": "factual_episode:002",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.theft",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r14_p2_q1",
+      "actor_id": "乙",
+      "predicate_ref": "legal_element.robbery_level_violence",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.quasi_robbery",
+          "occurrence_id": "binding:003",
+          "factual_episode_id": "factual_episode:002",
+          "truth": "TRUE"
+        },
+        {
+          "offense_ref": "derived_offense.robbery_causing_injury_by_aggravated_result",
+          "occurrence_id": "derived_binding:001",
+          "factual_episode_id": "?",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "derived_offense.robbery_causing_intentional_injury",
+          "occurrence_id": "binding:004",
+          "factual_episode_id": "factual_episode:002",
+          "truth": "TRUE"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_DIVERGENCE",
+      "case_id": "kcl_criminal_r14_p2_q1",
+      "actor_id": "乙",
+      "predicate_ref": "legal_element.unlawful_appropriation_intent",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.quasi_robbery",
+          "occurrence_id": "binding:003",
+          "factual_episode_id": "factual_episode:002",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "derived_offense.robbery_causing_injury_by_aggravated_result",
+          "occurrence_id": "derived_binding:001",
+          "factual_episode_id": "?",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "derived_offense.robbery_causing_intentional_injury",
+          "occurrence_id": "binding:004",
+          "factual_episode_id": "factual_episode:002",
+          "truth": "TRUE"
+        },
+        {
+          "offense_ref": "offense.theft",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_GROUND_FACT_CONFLICT",
+      "case_id": "kcl_criminal_r14_p2_q2",
+      "actor_id": "乙",
+      "predicate_ref": "ground_fact.taking_conduct",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.robbery_causing_death_by_aggravated_result",
+          "occurrence_id": "binding:003",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "TRUE"
+        },
+        {
+          "offense_ref": "offense.robbery",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "marker": "CROSS_INSTANCE_LEGAL_ELEMENT_CONFLICT",
+      "case_id": "kcl_criminal_r14_p2_q2",
+      "actor_id": "乙",
+      "predicate_ref": "legal_element.robbery_level_violence",
+      "truths": [
+        "TRUE",
+        "UNKNOWN"
+      ],
+      "hard_conflict": false,
+      "observations": [
+        {
+          "offense_ref": "derived_offense.robbery_causing_death_by_aggravated_result",
+          "occurrence_id": "binding:003",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "UNKNOWN"
+        },
+        {
+          "offense_ref": "offense.robbery",
+          "occurrence_id": "binding:001",
+          "factual_episode_id": "factual_episode:001",
+          "truth": "TRUE"
+        }
+      ]
+    }
+  ]
+}
