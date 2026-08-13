@@ -197,6 +197,47 @@ def _indirect_dependency(value: dict[str, Any]) -> IndirectPrincipalDependency:
     )
 
 
+PARTICIPATION_PLAN_STEP = "v2_factual_participation_plan"
+
+
+def require_participation_plan_lineage(
+    plan_path: Path, *, allow_non_participation_plan: bool = False
+) -> dict[str, Any]:
+    """정본 E2E는 참가 병합을 거친 plan만 받는다. 다른 plan이면 hard-fail한다.
+
+    2026-08-13에 실제로 났던 회귀다. `evaluation_instance_plan.jsonl`을 넘겼더니 참가 instance가
+    통째로 빠졌고, `r11_p1_q1`의 excess finding 1건과 `r14_p1_q1`의 甲 방화 instance가 함께
+    사라진 결과가 **아무 오류 없이** 나왔다. 조용히 다른 답을 내는 실행 인자는 사람의 주의로
+    막을 것이 아니라 계약으로 막아야 한다.
+
+    확인은 두 겹이다. 옆에 있는 manifest의 `step`이 1차이고, manifest가 없으면 참가 빌더만
+    쓰는 행 필드로 2차 확인한다. 진단용으로 다른 plan을 넣어야 하면 명시적 플래그로만 열린다.
+    """
+    manifest_path = plan_path.with_suffix(".manifest.json")
+    if manifest_path.exists():
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        step = str(manifest.get("step", ""))
+        if step == PARTICIPATION_PLAN_STEP:
+            return {"plan_lineage": "MANIFEST_MATCHED", "plan_step": step}
+        if not allow_non_participation_plan:
+            raise ValueError(
+                f"{plan_path}: canonical E2E requires a {PARTICIPATION_PLAN_STEP} artifact, "
+                f"got step {step!r}; pass --allow-non-participation-plan for a diagnostic run"
+            )
+        return {"plan_lineage": "OVERRIDDEN", "plan_step": step}
+    first = next(
+        (line for line in plan_path.read_text(encoding="utf-8").splitlines() if line), None
+    )
+    if first is not None and "factual_interaction_count" in json.loads(first):
+        return {"plan_lineage": "ROW_FIELD_MATCHED", "plan_step": PARTICIPATION_PLAN_STEP}
+    if not allow_non_participation_plan:
+        raise ValueError(
+            f"{plan_path}: no manifest and no participation-plan row fields; this is not a "
+            f"{PARTICIPATION_PLAN_STEP} artifact"
+        )
+    return {"plan_lineage": "OVERRIDDEN", "plan_step": None}
+
+
 def _episode_order(plan_path: Path) -> dict[str, tuple[str, ...]]:
     """`{case: factual episode 순서}`. 초과가 "정범의 실행에서 이어지는 범위"를 계산할 때 쓴다."""
     output: dict[str, tuple[str, ...]] = {}
@@ -288,6 +329,11 @@ def main() -> None:
         default=ROOT / "data/v2/concurrence_rules.yaml",
     )
     parser.add_argument(
+        "--allow-non-participation-plan",
+        action="store_true",
+        help="diagnostic escape from the participation-plan lineage guard",
+    )
+    parser.add_argument(
         "--concurrence-condition-assessments",
         type=Path,
         help="pair carrier artifact from run_v2_absorption_condition_pairs.py",
@@ -304,6 +350,16 @@ def main() -> None:
         if line
     ]
     registry = load_definitions(args.definitions)
+    plan_lineage = (
+        require_participation_plan_lineage(
+            args.plan,
+            allow_non_participation_plan=args.allow_non_participation_plan,
+        )
+        if args.plan
+        else {}
+    )
+    if plan_lineage:
+        print(f"plan lineage: {plan_lineage}")
     provenance_by_case = _instance_provenance(args.plan) if args.plan else {}
     episode_order_by_case = _episode_order(args.plan) if args.plan else {}
     concurrence_rules = (

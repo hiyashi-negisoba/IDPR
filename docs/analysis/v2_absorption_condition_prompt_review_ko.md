@@ -161,8 +161,11 @@ TRUE다. 어느 쪽이든 **최종 liability는 변하지 않는다.** 그 문�
 부정으로 읽어 FALSE로 밀 여지가 있었고 이 사안은 정확히 그 부재가 쟁점이었다. 바뀐 문구는 현출과
 비현출 추론을 양방향으로 막았고 모델은 UNKNOWN을 냈다.
 
-관통은 `condition_truths`가 `resolve_concurrence`에 도착하는 데까지 live로 확인됐다. 흡수 발화
-자체는 발화하지 않았고 그 이유는 조건이 아니라 **두 위조죄가 모두 elements에서 멈추기 때문**이다.
+관통은 `condition_truths`가 `resolve_concurrence`에 도착하는 데까지 live로 확인됐다. 흡수는
+발화하지 않았고, 여기에는 **서로 독립된 blocker가 둘** 있다. 현재 run에서 직접 막은 것은
+resolution 시점의 `both_instances_established = false`이며(두 위조죄가 모두 elements에서 멈춘다),
+그와 별개로 condition도 UNKNOWN이므로 **양쪽 offense가 성립했더라도 absorption은 확정되지 않고**
+양쪽 유지 + unresolved가 됐을 것이다.
 즉 reducer 분기(TRUE -> 흡수)는 unit test가 지고 live 데이터가 지지 않는다. 이 구분이 출력에서
 보이도록 E2E에 `concurrence_condition_truths` 블록을 추가했다(도착한 truth + 두 instance 성립
 여부). 상세는 `experiments/.../absorption_e2e_v12/audit.md`.
