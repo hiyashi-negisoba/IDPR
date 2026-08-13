@@ -1,7 +1,22 @@
 # 착오·제33조 단서·공범의 초과 스키마 설계안
 
-각 항목 끝에 `> 검수:` 로 판정해 주시면 됩니다. YAML 저작은 스키마 확정 후에 합니다.
-지금 저작하면 스키마 검증에서 전부 거부되므로 순서를 바꿀 수 없습니다.
+**상태: 2026-08-13 검수 완료, 저작 반영됨 (커밋 `4db8117`).**
+
+7개 판정 결과와 실제 저작물은 아래와 같다. 문서 안의 `> 검수:` 질문은 이력으로 남긴다.
+
+| 검수 | 판정 | 저작물 |
+|---|---|---|
+| ①-a 부합설 고정 | 고정 (법정적 부합설) | `mistake_policy.korean_law_concrete_fact` |
+| ①-b 교체 축 | 유지, authored profile로 | `profile: korean_law` |
+| ①-c 위전착 stage | culpability | `doctrine.mistaken_justifying_circumstance` |
+| ②-a 제33조 단서 효과 | 가중죄 realization 자체 생성 | `aggravating_status_participation` |
+| ②-b co_principal | 포함 | `applies_to_modes` 3개 |
+| ③-a derivation만으로 질적 판정 | **금지** | `qualitative.condition` const + `UNRESOLVED_EXCESS_RELATION` |
+| ③-b 양적 초과 효과 | 일률 적용 금지 | `result_aggravated` 예견가능성 branch |
+
+③의 두 수정은 관행이 아니라 **스키마가 구조적으로 강제**한다. `qualitative.condition`을
+`no_derivation_between_offenses`로 저작하려 하면 스키마 검증에서 거부되고, 그 부정
+케이스를 테스트로 고정했다.
 
 ## 0. 왜 기존 축에 못 얹는가
 
