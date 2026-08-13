@@ -764,3 +764,52 @@ additive delta merge.
 
 `r14_p2_q1`의 elements unresolved는 doctrine 때문에 뚫지 않는다. 원인(구성요건 predicate 6개
 UNKNOWN)만 audit에 남겼다.
+
+---
+
+## 2026-08-13 (3) 흡수 condition 채널 -- 관통 완료, freeze
+
+`runtime/concurrence_condition.py` + `scripts/build_v2_concurrence_condition_pairs.py` +
+`scripts/run_v2_absorption_condition_pairs.py`. Article 263과 같은 pair carrier이며 ordinary
+predicate Call 2에 얹지 않는다.
+
+### 조건 저작에서 확정된 원칙
+
+**각 neural target은 자기 몫의 atomic proposition 하나만 판단한다.** 초안 조건("권한 없이
+현출되거나 부정사용된 인영")은 두 명제를 지고 있었고 그중 하나는 흡수되는 쪽 instance의
+element였다. 해소 시점에 그 instance가 established라는 사실이 이미 권한 없는 위조·부정사용을
+보장하므로, 조건이 지는 것은 관계 하나뿐이다.
+
+- `condition.unauthorized_seal_impression_is_constituent_part_of_document` (subtype-neutral).
+  `offense.seal_forgery_or_misuse`가 위조와 부정사용을 한 정의에 담으므로 조건이 그 구별을
+  다시 지지 않는다.
+- `condition_statement`/`legal_standard`를 규칙에 저작하고 loader가 요구한다. `condition.*`는
+  registry definition이 아니라 규칙이 지고 가는 문자열이다.
+- `actor_constraint`(rule-level, loader가 명시 저작 요구). host-global invariant로 박지 않는다.
+- 프롬프트 음성 사례는 **부재를 부정으로 읽는 경로를 열지 않도록** 저작한다. "원문이 현출 여부를
+  밝히지 않으면 제작·보유 사실만으로 현출 또는 비현출을 추론하지 않는다."
+
+### 실행 결과 (`absorption_e2e_v12`)
+
+pair 후보 1건(`r12_p2_q1_da` 甲, binding:004 -> binding:002), 모델 UNKNOWN, 계약 위반 0.
+`condition_truths`가 `resolve_concurrence`까지 live로 도착했다. 흡수는 발화하지 않았고 독립된
+blocker가 둘이다 -- 이번 run을 직접 막은 것은 establishment 부재(두 위조죄 모두 elements 정지),
+그와 별개로 condition이 UNKNOWN이라 성립했더라도 확정되지 않았을 것이다. reducer 분기는 unit
+test가 지고 live 데이터가 지지 않는다. E2E 출력의 `concurrence_condition_truths` +
+`both_instances_established`가 "도착 안 함"과 "도착했으나 법적 전제 미충족"을 구별한다.
+
+### lineage guard (신규)
+
+정본 E2E는 `--plan`에 참가 병합 plan만 받는다(`require_participation_plan_lineage`).
+`evaluation_instance_plan.jsonl`을 넘기면 참가 instance가 조용히 빠져 **오류 없이 다른 답**이
+나온다. manifest step 1차, 행 필드 2차, `--allow-non-participation-plan`이 유일한 탈출구.
+
+### 현재 상태 -- substantive reasoning E2E는 닫혔다
+
+Call 1 / 1.5 / 1.5-P / 1.5-D, Call 2 atomic assessment, 참가(성능 gap 알려짐), 간접정범, 기수,
+착오(일부 표현 공백), §33, 초과, doctrine activation, 경합·흡수, final responsibility -- 전부
+관통. 더 이상 법리를 붙이는 단계가 아니다.
+
+### 다음
+
+정본 결과 -> Final Responsibility 정리 -> **AnswerPlan -> Call 3 -> 26문항 full E2E**.
