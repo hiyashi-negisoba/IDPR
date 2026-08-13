@@ -1,0 +1,67 @@
+# 알려진 표현 공백. 각 항목은 "아직 표현할 수 없다"는 사실이지 법적 부정이 아니다.
+#
+# 이 파일이 존재하는 이유: 공백을 코드 주석이나 감사 문서에만 적어 두면 나중에 그 공백이
+# 메워졌을 때 아무도 모른다. `tests/test_representation_gaps.py`가 각 항목이 여전히 공백인지
+# 확인하므로, 누군가 폭행죄나 장물죄를 저작하면 테스트가 실패하면서 여기를 갱신하라고
+# 알려 준다. 공백은 조용히 사라져서도 안 되고 조용히 남아서도 안 된다.
+
+version: 1
+
+gaps:
+  - id: gap.intended_object_identity
+    kind: factual_representation
+    marker: UNRESOLVED_MISTAKE_BINDING
+    blocks:
+      - mistake_policy.korean_law_concrete_fact
+    summary: >-
+      구성요건적 착오를 판단하려면 "행위자가 향한 대상"과 "결과가 실제로 발생한 대상"이
+      각각 사실로 결박되어야 하는데, 현재 binding에는 그 구분이 없다.
+    why_not_reinterpreted: >-
+      Call 1.5의 `factual_targets`를 intended_object로 읽으면 안 된다. 그 필드의 계약은 훨씬
+      넓어서 상대방, 수령자, 관련 participant까지 들어간다. 그것을 "행위자가 의도한 대상"으로
+      재해석하면 host가 원문에 없는 의미를 만들어내게 된다. 2026-08-13 검수에서 명시적으로
+      승인 거부되었다.
+    future_design: >-
+      필드 의미를 바꾸지 말고 아주 좁은 factual representation 두 개를 새로 결박한다.
+      `directed_action_target`(행위가 향한 대상)과 `actual_result_bearer`(결과를 입은 대상)를
+      각각 사실로 뽑고, 둘이 다르다는 것만 host가 structural하게 계산해
+      `relation.intended_object_divergence`를 만든다.
+    # `legal_element.object_misidentification`도 이 공백의 하류다. 별도로 열 수 없다.
+    # 객체의 착오와 방법의 착오를 가르려면 "목표한 대상"이 먼저 확정되어야 하는데, 그것
+    # 없이 Call 2에 물으면 모델이 identity를 스스로 지어내 답하게 된다. 그것은 factual_targets를
+    # 재해석하지 않기로 한 결정을 우회해 같은 일을 모델에게 시키는 것이다.
+    also_blocks_neural_target: legal_element.object_misidentification
+    affects_kcl26: 9
+
+  - id: gap.assault_offense_family
+    kind: unauthored_offense_family
+    marker: UNRESOLVED_EXCESS_RELATION
+    missing_articles: ["형법 제260조", "형법 제261조", "형법 제262조"]
+    # 저작되면 테스트가 실패하도록 exact ref를 적어 둔다.
+    absent_offense_refs:
+      - offense.assault
+      - offense.special_assault
+      - derived_offense.assault_causing_injury_or_death
+    summary: >-
+      폭행죄·특수폭행죄·폭행치사상죄가 v2에 없다. 각칙 워크시트가 art259에서 art263으로
+      건너뛰면서 세 조문이 통째로 빠졌다.
+    consequence: >-
+      `r11_p1_q1`의 질적 초과(교사한 절도를 넘어 폭행치상이 실현된 사안)를 판정할 수 없다.
+      pair의 한 축이 없으므로 저작된 incompatible pair에 넣지 못하고, 검수 ③-a에 따라
+      derivation 부재만으로 질적 초과라고 판정하지도 않는다. 따라서 미해결로 남는다.
+
+  - id: gap.stolen_property_offense_family
+    kind: unauthored_offense_family
+    marker: UNRESOLVED_ABSORPTION_PAIR
+    missing_articles: ["형법 제362조"]
+    absent_offense_refs:
+      - offense.stolen_property_acquisition
+      - offense.stolen_property_custody
+    summary: >-
+      장물취득죄·장물보관죄가 v2에 없다. 2026-08-06에 장물죄 트랙이 보류된 이후 그대로다.
+      카드는 이미 존재한다.
+    consequence: >-
+      `r10_p2_q1`의 불가벌적 사후행위(장물보관죄 성립 후 횡령)를 흡수 규칙으로 저작할 수
+      없다. `r13_p2_q1`은 반대로 현재 상태가 정답이다 -- 본범의 장물취득죄 불성립은
+      후보가 아예 생기지 않는 것으로 충족되고, 절취 카드 사용 사기죄가 불가벌적
+      사후행위가 아니라는 결론도 흡수 규칙 부재가 그대로 정답이다.
