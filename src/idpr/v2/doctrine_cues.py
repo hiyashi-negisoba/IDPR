@@ -21,6 +21,22 @@ import yaml
 ACTOR_SCOPE = "actor"
 EPISODE_SCOPE = "episode"
 _SCOPES = frozenset({ACTOR_SCOPE, EPISODE_SCOPE})
+
+ACTING_SUBJECT = "acting_subject"
+RESPONDING_ACTOR = "responding_actor"
+
+SUBJECT_INSTRUCTIONS: Mapping[str, str] = {
+    ACTING_SUBJECT: "이 단서가 서술하는 사람을 그대로 넣는다.",
+    RESPONDING_ACTOR: (
+        "이 단서는 상대방이나 상황을 서술한다. 그 사정에 대응하여 행위한 사람을 넣는다."
+    ),
+}
+"""저작된 subject_role에서 렌더링되는 지시문. 모델에게는 이 문장만 나간다.
+
+단서가 서술하는 사람과 doctrine이 붙는 사람이 늘 같지 않다 -- "피해자가 허락하였다"는
+피해자를 서술하지만 그 승낙으로 죄책이 영향받는 사람은 행위자다. 그 귀속 규칙을 모델의
+자유해석에 맡기지 않고 저작에서 가져온다.
+"""
 _TRUTHS = frozenset({"TRUE", "FALSE", "UNKNOWN"})
 
 APPROVED_STATUSES = frozenset({"approved", "awaiting_final_read"})
@@ -39,8 +55,13 @@ class DoctrineCueError(ValueError):
 class DoctrineCue:
     cue_id: str
     scope: str
+    subject_role: str
     factual_cue: str
     raises: tuple[str, ...]
+
+    @property
+    def subject_instruction(self) -> str:
+        return SUBJECT_INSTRUCTIONS[self.subject_role]
 
     @property
     def is_actor_scoped(self) -> bool:
@@ -67,12 +88,19 @@ def load_doctrine_cues(path: Path) -> tuple[DoctrineCue, ...]:
         scope = str(entry.get("scope", ""))
         if scope not in _SCOPES:
             raise DoctrineCueError(f"{entry.get('id')!r}: scope must be one of {sorted(_SCOPES)}")
+        subject_role = str(entry.get("subject_role", ""))
+        if subject_role not in SUBJECT_INSTRUCTIONS:
+            raise DoctrineCueError(
+                f"{entry.get('id')!r}: subject_role must be one of "
+                f"{sorted(SUBJECT_INSTRUCTIONS)}"
+            )
         raises = tuple(str(value) for value in entry.get("raises") or ())
         if not raises:
             raise DoctrineCueError(f"{entry.get('id')!r}: a cue that raises nothing is dead weight")
         cue = DoctrineCue(
             cue_id=str(entry["id"]),
             scope=scope,
+            subject_role=subject_role,
             factual_cue=str(entry["factual_cue"]),
             raises=raises,
         )
@@ -123,7 +151,12 @@ def cue_request_payload(
         "episode_text": episode_text,
         "actor_labels": list(actor_labels),
         "cues": [
-            {"cue_id": cue.cue_id, "factual_cue": cue.factual_cue} for cue in cues
+            {
+                "cue_id": cue.cue_id,
+                "factual_cue": cue.factual_cue,
+                "subject_instruction": cue.subject_instruction,
+            }
+            for cue in cues
         ],
     }
 
@@ -243,7 +276,10 @@ def validate_cue_output(
 
 
 __all__ = [
+    "ACTING_SUBJECT",
     "ACTOR_SCOPE",
+    "RESPONDING_ACTOR",
+    "SUBJECT_INSTRUCTIONS",
     "APPROVED_STATUSES",
     "EPISODE_SCOPE",
     "DoctrineCue",

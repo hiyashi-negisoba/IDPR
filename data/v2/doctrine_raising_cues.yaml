@@ -24,6 +24,18 @@
 #   별개 범행까지 번진다. 그래서 지속적 정신상태와 일시적 상태를 두 cue로 분리했다.
 #   actor scope cue를 다른 episode에 투영할 때 host는 관찰된 episode와 평가되는 episode를
 #   분리해 provenance로 보존한다.
+#
+# `subject_role` (2026-08-13 검수 신설):
+#   단서가 서술하는 사람과 doctrine이 붙는 사람이 늘 같지는 않다. "피해자가 허락하였다"는
+#   피해자를 서술하지만 그 승낙으로 죄책이 영향받는 사람은 행위자다. 그 귀속 규칙을 모델의
+#   자유해석에 맡기지 않고 여기에 저작한다.
+#
+#   - `acting_subject`    단서가 서술하는 사람이 곧 subject다.
+#   - `responding_actor`  단서는 상대방이나 상황을 서술하고, subject는 그 사정에 대응하여
+#                         행위한 사람이다.
+#
+#   payload에는 role 토큰이 아니라 그 role에서 렌더링한 지시문 한 줄만 나간다. doctrine과
+#   scope는 여전히 모델에게 보이지 않는다.
 
 version: 2
 status: awaiting_final_read
@@ -31,41 +43,49 @@ status: awaiting_final_read
 #   - competing_duty / legal_or_occupational_basis 문구를 좁혔다.
 #   - actor_mental_condition 을 지속적/일시적 두 cue로 분리했다.
 #   - 위전착(mistaken_justifying_circumstance) cue를 신설했다.
+#   - cue별 subject_role을 저작해 subject 귀속을 모델 해석에서 뺐다.
 # 남은 게이트는 이 수정본과 Call 1.5-D 프롬프트 전문의 최종 열람이다.
 
 cues:
   - id: cue.actor_age_stated
+    subject_role: acting_subject
     scope: actor
     factual_cue: "행위자의 나이 또는 출생 시점이 사건 사실에 적혀 있다"
     raises: [doctrine.juvenile_defeat]
 
   - id: cue.actor_persistent_mental_disorder_stated
+    subject_role: acting_subject
     scope: actor
     factual_cue: "행위자가 정신질환이나 정신적 장애를 가지고 있다는 사실이 적혀 있다"
     raises: [doctrine.insanity_defeat]
 
   - id: cue.actor_transient_intoxication_stated
+    subject_role: acting_subject
     scope: episode
     # 지속적 정신상태와 분리한다. 일시적 상태는 그 episode의 사실이다.
     factual_cue: "행위자가 그 행위 당시 음주, 약물 복용 등으로 일시적으로 취하거나 정상적이지 않은 상태였다는 사실이 적혀 있다"
     raises: [doctrine.insanity_defeat]
 
   - id: cue.actor_hearing_or_speech_impairment_stated
+    subject_role: acting_subject
     scope: actor
     factual_cue: "행위자가 듣거나 말하는 기능을 갖추지 못하였다는 사실이 적혀 있다"
     raises: [doctrine.deaf_mute_mandatory_reduction]
 
   - id: cue.coercion_against_actor_stated
+    subject_role: acting_subject
     scope: episode
     factual_cue: "행위자가 다른 사람의 폭력이나 협박을 받고 그 행위를 하였다는 사실이 적혀 있다"
     raises: [doctrine.coerced_act_defeat]
 
   - id: cue.actor_belief_of_permission_stated
+    subject_role: acting_subject
     scope: episode
     factual_cue: "행위자가 자기 행위가 허용된다고 믿었다는 사정, 또는 그렇게 믿을 만한 안내·질의·회신이 있었다는 사실이 적혀 있다"
     raises: [doctrine.mistake_of_law_defeat]
 
   - id: cue.legal_or_occupational_basis_stated
+    subject_role: acting_subject
     scope: episode
     # 좁힘(2026-08-13). 공무원·직업인의 등장 자체로는 TRUE가 아니다. 문제된 행위가 특정
     # 근거에 따라 행해졌다고 연결하여 서술되었는지를 묻는다.
@@ -73,16 +93,19 @@ cues:
     raises: [doctrine.justifiable_act_defeat]
 
   - id: cue.prior_force_by_other_stated
+    subject_role: responding_actor
     scope: episode
     factual_cue: "상대방이 먼저 행위자나 제3자에게 유형력을 행사하거나 위해를 가하였다는 사실이 적혀 있다"
     raises: [doctrine.self_defense]
 
   - id: cue.imminent_danger_stated
+    subject_role: responding_actor
     scope: episode
     factual_cue: "사람의 생명·신체나 재산에 급박한 위험 또는 재난이 있었다는 사실이 적혀 있다"
     raises: [doctrine.necessity_defeat]
 
   - id: cue.competing_duty_stated
+    subject_role: acting_subject
     scope: episode
     # 좁힘(2026-08-13). 단순히 다른 요구가 있었다는 사실이 아니라, 같은 시점에 이행이
     # 요구되는 둘 이상의 구체적 의무가 함께 서술된 경우로 한정한다. 법적 의미의 의무 충돌
@@ -91,21 +114,25 @@ cues:
     raises: [doctrine.conflict_of_duties_defeat]
 
   - id: cue.claim_enforcement_obstacle_stated
+    subject_role: acting_subject
     scope: episode
     factual_cue: "행위자가 자기 권리나 청구권을 가지고 있고, 그것을 나중에 실현하기 어려워질 사정이 있었다는 사실이 적혀 있다"
     raises: [doctrine.self_help_defeat]
 
   - id: cue.victim_permission_stated
+    subject_role: responding_actor
     scope: episode
     factual_cue: "피해자가 그 행위를 허락하거나 동의하였다는 사실이 적혀 있다"
     raises: [doctrine.victim_consent_defeat]
 
   - id: cue.victim_permission_unobtainable_stated
+    subject_role: responding_actor
     scope: episode
     factual_cue: "피해자가 부재하거나 의식이 없는 등 그 자리에서 허락을 받을 수 없는 상황이었다는 사실이 적혀 있다"
     raises: [doctrine.presumed_consent_defeat]
 
   - id: cue.justifying_premise_belief_mismatch_stated
+    subject_role: acting_subject
     scope: episode
     # 신설(2026-08-13). 위전착에 단서가 없어 구조적으로 영원히 raised되지 않던 것을 닫는다.
     # 모델은 인식과 실제 사실관계의 불일치가 적혀 있는지만 탐지한다. 그것이 위법성조각사유의
