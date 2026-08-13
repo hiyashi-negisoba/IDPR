@@ -70,6 +70,14 @@ def main() -> None:
     parser.add_argument("--call2-artifact", type=Path, required=True)
     parser.add_argument("--issue-bindings", type=Path, required=True)
     parser.add_argument(
+        "--plan-artifact",
+        type=Path,
+        help=(
+            "Step 8 planner JSONL; extends the GroundFact conflict guard's episode "
+            "identity to derived bindings absent from --issue-bindings"
+        ),
+    )
+    parser.add_argument(
         "--inventory", type=Path, default=ROOT / "data/inventory/kcl_criminal_v1_draft.jsonl"
     )
     parser.add_argument("--definitions", type=Path, default=ROOT / "data/v2/definitions")
@@ -90,6 +98,7 @@ def main() -> None:
     e2e = _rows(args.e2e_results)
     call2 = _rows(args.call2_artifact)
     bindings = _rows(args.issue_bindings)
+    plans = _rows(args.plan_artifact) if args.plan_artifact else {}
     inventory = _inventory(args.inventory)
     gaps = _representation_gaps(args.representation_gaps)
     cue_catalogue = yaml.safe_load(args.offense_labels.read_text(encoding="utf-8")) or {}
@@ -125,6 +134,7 @@ def main() -> None:
                     registry=registry,
                     offense_labels=offense_labels,
                     representation_gaps=gaps,
+                    plan_row=plans.get(case_id),
                 )
                 analysis = serialize_analysis(plan)
                 open_points = serialize_open_points(plan)
@@ -153,6 +163,7 @@ def main() -> None:
         "e2e_results": str(args.e2e_results),
         "call2_artifact": str(args.call2_artifact),
         "issue_bindings": str(args.issue_bindings),
+        "plan_artifact": str(args.plan_artifact) if args.plan_artifact else None,
         "cases_requested": len(case_ids),
         "cases_written": written,
         "failures": [{"case_id": case_id, "error": error} for case_id, error in failures],

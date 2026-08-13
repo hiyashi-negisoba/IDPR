@@ -408,6 +408,80 @@ def _participation_route(
     )
 
 
+def _ground_fact_episode_map(
+    binding_row: Mapping[str, Any],
+    plan_row: Mapping[str, Any] | None,
+) -> dict[str, str]:
+    """occurrence_id -> factual_episode_id, the identity Call 2 canonicalizes GroundFacts on.
+
+    A real Call 1.5 binding carries its episode directly on itself in `binding_row`.  A
+    binding the planner derived (a `derived_binding:*` occurrence_id) has no entry there;
+    its episode only exists in the planner's `InstanceProvenance`, which is why `plan_row`
+    is accepted and, where given, is authoritative -- it is exactly what generated the Call 2
+    request. An occurrence absent from both stays unmapped rather than guessed.
+    """
+    mapping: dict[str, str] = {}
+    for seed in binding_row.get("seed_results") or []:
+        for binding in seed.get("bindings") or []:
+            binding_id = binding.get("binding_id")
+            episode_id = binding.get("factual_episode_id")
+            if binding_id and episode_id:
+                mapping[str(binding_id)] = str(episode_id)
+    if plan_row:
+        for entry in plan_row.get("instance_provenance") or []:
+            occurrence_id = (entry.get("instance_key") or {}).get("occurrence_id")
+            episode_id = entry.get("factual_episode_id")
+            if occurrence_id and episode_id:
+                mapping[str(occurrence_id)] = str(episode_id)
+    return mapping
+
+
+def _check_ground_fact_canonicalization(
+    registry: DefinitionRegistry,
+    assessments: Sequence[Mapping[str, Any]],
+    episode_by_occurrence: Mapping[str, str],
+) -> None:
+    """Refuse a plan built on a GroundFact that disagrees with itself about one episode.
+
+    This is a corruption detector, not a repair path.  A well-formed Call 2 artifact cannot
+    trip it, because occurrence-level GroundFact canonicalization already asks each
+    (case, actor, factual_episode, ground_predicate) once and projects the single answer to
+    every consuming offense instance.  Firing here means that guarantee did not hold for the
+    artifact the plan was built from -- an older run, or a defect in a newer one -- and the
+    plan does not get to pick a side by majority, polarity, or UNKNOWN downgrade.  An
+    occurrence this guard cannot place in an episode is not evidence either way, so it is
+    skipped rather than treated as a conflict.
+    """
+    seen: dict[tuple[str, str, str, str], tuple[str, str]] = {}
+    conflicts: list[str] = []
+    for row in assessments:
+        predicate_ref = str(row.get("predicate_ref", ""))
+        if not predicate_ref or registry.kind_of(predicate_ref) != "ground_fact":
+            continue
+        instance = row.get("instance_key") or {}
+        occurrence_id = str(instance.get("occurrence_id", ""))
+        episode_id = episode_by_occurrence.get(occurrence_id)
+        if episode_id is None:
+            continue
+        case_id = str(instance.get("case_id", ""))
+        actor_id = str(instance.get("actor_id", ""))
+        truth = str(row.get("truth", ""))
+        key = (case_id, actor_id, episode_id, predicate_ref)
+        if key in seen:
+            prior_truth, prior_occurrence = seen[key]
+            if prior_truth != truth:
+                conflicts.append(
+                    f"{predicate_ref} @ {episode_id} ({actor_id}): "
+                    f"{prior_occurrence}={prior_truth} vs {occurrence_id}={truth}"
+                )
+        else:
+            seen[key] = (truth, occurrence_id)
+    if conflicts:
+        raise AnswerPlanError(
+            "CROSS_INSTANCE_GROUND_FACT_CONFLICT: " + "; ".join(sorted(conflicts))
+        )
+
+
 def build_answer_plan(
     *,
     case_id: str,
@@ -421,13 +495,15 @@ def build_answer_plan(
     representation_gaps: Sequence[str] = (),
     contested_points: Mapping[str, Sequence[ContestedPoint]] | None = None,
     rule_statements: Mapping[str, Sequence[RuleStatement]] | None = None,
+    plan_row: Mapping[str, Any] | None = None,
 ) -> AnswerPlan:
     """Assemble one case's plan from the three canonical artifacts.
 
     ``contested_points`` and ``rule_statements`` are injected by the caller keyed on
     ``issue_id`` so their provenance is decided outside this projection.  Nothing is
     invented here when they are absent -- an empty slot means the answer simply will not
-    be prompted for that discussion.
+    be prompted for that discussion.  ``plan_row`` is the optional Step 8 planner artifact
+    row; it extends the GroundFact conflict guard's episode identity to derived bindings.
     """
     contested_points = contested_points or {}
     rule_statements = rule_statements or {}
@@ -442,6 +518,9 @@ def build_answer_plan(
         instance_ref(i) for i in final.get("attribution_withheld_instances") or []
     )
     assessments = call2_row.get("assessments") or []
+    _check_ground_fact_canonicalization(
+        registry, assessments, _ground_fact_episode_map(binding_row, plan_row)
+    )
 
     issues: list[AnchoredIssue] = []
     for entry in e2e_row.get("liability_results") or []:
