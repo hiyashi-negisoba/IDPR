@@ -706,3 +706,61 @@ active doctrine 0의 dead loop를 닫는 경로를 설계 검수까지 마치고
 
 freeze 유지: §33 probe wiring, participation prompt/model tuning, live Call 2 재실행,
 optional excess foreseeability probe, co_principal unreachable mode(marker 보존).
+
+## 2026-08-13 Call 1.5-D doctrine activation: 실행과 첫 active doctrine
+
+**active doctrine 0이 처음으로 깨졌다(1건).** 정본 audit는
+`experiments/v2_call15_directscope_26_causal/doctrine_e2e_v11/audit.md`다.
+
+관통 확인 범위는 `cue TRUE -> RaisedDoctrine -> doctrine leaf Call 2 target -> leaf truth ->
+active doctrine`까지다. 그 다음(stage effect -> liability)은 `r14_p2_q1` 乙의 elements가
+unresolved라 unlawfulness가 not_reached이기 때문에 실행되지 않았다. 이것은 doctrine handoff
+결함이 아니라 stage ordering이 정상 작동한 결과이므로 doctrine 축은 여기서 사실상 freeze한다.
+KCL-26의 우연한 predicate truth가 elements를 통과해 주어야만 architecture를 승인할 이유는 없다.
+
+### 실행 결과
+
+- Call 1.5-D v4: 43/43 episode, cue 13개, **UNKNOWN 0**, TRUE 10건.
+- raised doctrine 9건(6종). `NOT_MATERIALIZED` 5건 -- 전부 피해자이거나 해당 episode에 instance가
+  없는 행위자다. identity gate가 실제로 일한다.
+- Δ Call 2 target **19** (게이트 300). 534 -> 553.
+- Scallop: active doctrine 1, established 19 유지(변화 없음, trace로 설명됨).
+- `candidate_doctrine_refs` 26문항 합계 **325 -> 9**.
+
+### 두 번의 실패에서 확정된 것
+
+1. **guided-decoding schema에 식별자를 `const`로 못 박는다.** 1차 실행은 43/43이 계약 위반으로
+   떨어졌고 원인이 전부 하나였다 -- 모델이 `factual_episode:001`을 `:001`로 되돌려 주었다.
+2. **exact-substring 검증은 canonical 문자열 하나로 통일한다.** prompt와 검증이 같은 문자열을
+   본다(`canonical_episode_text`). 모델 출력의 개행만 고쳐 통과시키는 repair는 하지 않는다.
+   원본 fragment span은 별도로 보존한다.
+
+### cue 카탈로그 v4에서 확정된 경계
+
+- 위전착 cue는 **철회**했다(`raising_status: representation_gap`). 두 번 좁혔는데도 사람의
+  동일성 착오를 잡았고 실제로 target 8개를 열었다. `gap.justifying_premise_vs_object_identity`로
+  남겼다. 테스트는 "제기 경로 **또는** 명시된 표현 공백"을 요구한다 -- 절대조건이 아니다.
+- coercion cue는 문구를 더 조이지 않고 **downstream materialization gate**로 막는다. 주체가 이
+  사건의 법적 instance를 가진 행위자가 아니면 leaf를 열지 않는다. 텍스트 의미의 재판단이 아니라
+  identity check이므로 compiler의 일이다.
+
+### additive delta merge (신규 계약)
+
+case 단위 교체는 부적절하다. target 19개를 추가하려고 문항 전체를 다시 물으면 무관한 predicate가
+stochastic drift로 뒤집힌다(이번에 8개, liability 2건 회귀). 정본은
+`scripts/merge_v2_call2_additive_delta.py`이며 append-only다: baseline key overwrite 금지, delta는
+baseline에 없던 key만, delta 내 중복 hard-fail, truth마다 `source_run` provenance, 두 run의
+model/prompt/evidence-mode fingerprint 비교(baseline manifest 부재 시 명시적 플래그와 기록).
+
+무결성: 22문항 bit-identical, 신규 19, overwrite/삭제/flip 0.
+
+### 다음 세션
+
+**흡수 condition assessment 채널.** 인장위조 규칙은 승인됐으나 조건
+(`condition.forged_seal_impression_is_a_constituent_part_of_the_document`)을 물을 곳이 없어 후보가
+열려도 UNKNOWN이다. Call 2 target 추가이므로 프롬프트 승인 게이트에 걸린다. 이번 doctrine
+경로에서 만든 것들을 그대로 재사용할 수 있다 -- authored 조건 -> target materialize ->
+additive delta merge.
+
+`r14_p2_q1`의 elements unresolved는 doctrine 때문에 뚫지 않는다. 원인(구성요건 predicate 6개
+UNKNOWN)만 audit에 남겼다.
