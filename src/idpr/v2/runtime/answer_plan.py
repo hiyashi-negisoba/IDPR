@@ -141,6 +141,10 @@ class AnchoredIssue:
     blocking: tuple[Finding, ...]
     doctrines: tuple[Mapping[str, Any], ...]
     contested_points: tuple[ContestedPoint, ...]
+    #: True when a stage gate actually failed in the run.  This is the symbolic fact the
+    #: no-acquittal-from-UNKNOWN contract is about; the predicate lists cannot stand in for
+    #: it, because a gate can fail on a relation obligation that is not a predicate at all.
+    gate_failed: bool = False
     absorbed_into: str | None = None
     absorption_relation: str | None = None
     absorption_reason: str | None = None
@@ -149,7 +153,7 @@ class AnchoredIssue:
 
 @dataclass(frozen=True, slots=True)
 class FinalResponsibility:
-    retained: tuple[str, ...]
+    retained: tuple[Mapping[str, str], ...]
     absorbed: tuple[Mapping[str, Any], ...]
     imaginative_pairs: tuple[Mapping[str, Any], ...]
     excess_attributions: tuple[Mapping[str, Any], ...]
@@ -333,6 +337,13 @@ def _findings_for_instance(
     return tuple(satisfied), tuple(failed), tuple(blocking)
 
 
+def _gate_failed(result: Mapping[str, Any]) -> bool:
+    return any(
+        (result.get(stage) or {}).get("gate_state") == "fails"
+        for stage in ("elements", "unlawfulness", "culpability", "punishability")
+    )
+
+
 def _final_state(
     result: Mapping[str, Any],
     ref: str,
@@ -349,11 +360,12 @@ def _final_state(
         return ESTABLISHED
     # An instance whose decisive stage never resolved is not an acquittal.  UNKNOWN is not
     # FALSE, and the writer must be able to tell the two apart.
-    for stage_name in ("elements", "unlawfulness", "culpability", "punishability"):
-        stage = result.get(stage_name) or {}
-        if stage.get("gate_state") == "fails":
-            return NOT_ESTABLISHED
-    return UNRESOLVED if has_blocking else NOT_ESTABLISHED
+    if _gate_failed(result):
+        return NOT_ESTABLISHED
+    # Nothing decided against this instance and nothing established it either.  Falling
+    # through to "not established" here would turn every instance the run simply never
+    # reached into an acquittal -- the exact conversion the contract exists to prevent.
+    return UNRESOLVED
 
 
 def _episode_quotes(binding_row: Mapping[str, Any], occurrence_id: str) -> tuple[str, ...]:
@@ -459,6 +471,7 @@ def build_answer_plan(
             blocking=blocking,
             doctrines=tuple(_doctrines_for(e2e_row, ref)),
             contested_points=tuple(contested_points.get(ref, ())),
+            gate_failed=_gate_failed(result),
         )
         issues.append(issue)
 
@@ -470,13 +483,24 @@ def build_answer_plan(
         anchored_issues=tuple(issues),
         final_responsibility=FinalResponsibility(
             retained=tuple(
-                offense_label(registry, str(i.get("offense_ref", "")), offense_labels)
+                {
+                    "actor": str(i.get("actor_id", "")),
+                    "offense": offense_label(
+                        registry, str(i.get("offense_ref", "")), offense_labels
+                    ),
+                }
                 for i in final.get("retained_instances") or []
             ),
             absorbed=tuple(_absorption_records(registry, absorbed_records, offense_labels)),
-            imaginative_pairs=tuple(final.get("imaginative_concurrence_pairs") or []),
-            excess_attributions=tuple(final.get("excess_attributions") or []),
-            status_redirections=tuple(final.get("status_redirections") or []),
+            imaginative_pairs=tuple(
+                _pair_records(registry, final.get("imaginative_concurrence_pairs") or [], offense_labels)
+            ),
+            excess_attributions=tuple(
+                _excess_records(registry, final.get("excess_attributions") or [], offense_labels)
+            ),
+            status_redirections=tuple(
+                _redirection_records(registry, final.get("status_redirections") or [], offense_labels)
+            ),
         ),
         representation_gaps=tuple(representation_gaps),
         unmapped_instances=(),
@@ -542,6 +566,77 @@ def _absorption_records(
     return out
 
 
+def _excess_records(
+    registry: DefinitionRegistry,
+    records: Sequence[Mapping[str, Any]],
+    offense_labels: Mapping[str, str] | None,
+) -> list[Mapping[str, Any]]:
+    """Say who is not answerable for what, in offence names rather than in refs."""
+    out: list[Mapping[str, Any]] = []
+    for record in records:
+        accessory = record.get("accessory_instance") or {}
+        out.append(
+            {
+                "actor": str(accessory.get("actor_id", "")),
+                "accessory_offense": offense_label(
+                    registry, str(accessory.get("offense_ref", "")), offense_labels
+                ),
+                "excess_offense": offense_label(
+                    registry, str(record.get("excess_offense_ref", "")), offense_labels
+                ),
+                "effect": str(record.get("effect", "")),
+            }
+        )
+    return out
+
+
+def _pair_records(
+    registry: DefinitionRegistry,
+    records: Sequence[Mapping[str, Any]],
+    offense_labels: Mapping[str, str] | None,
+) -> list[Mapping[str, Any]]:
+    out: list[Mapping[str, Any]] = []
+    for record in records:
+        first = record.get("first") or record.get("left") or {}
+        second = record.get("second") or record.get("right") or {}
+        out.append(
+            {
+                "first_offense": offense_label(
+                    registry, str(first.get("offense_ref", "")), offense_labels
+                ),
+                "second_offense": offense_label(
+                    registry, str(second.get("offense_ref", "")), offense_labels
+                ),
+            }
+        )
+    return out
+
+
+def _redirection_records(
+    registry: DefinitionRegistry,
+    records: Sequence[Mapping[str, Any]],
+    offense_labels: Mapping[str, str] | None,
+) -> list[Mapping[str, Any]]:
+    """Article 33 proviso: the participant answers under a different offence."""
+    out: list[Mapping[str, Any]] = []
+    for record in records:
+        instance = record.get("instance") or record.get("participant_instance") or {}
+        out.append(
+            {
+                "actor": str(instance.get("actor_id", "")),
+                "from_offense": offense_label(
+                    registry, str(instance.get("offense_ref", "")), offense_labels
+                ),
+                "to_offense": offense_label(
+                    registry, str(record.get("redirected_offense_ref", "")), offense_labels
+                )
+                if record.get("redirected_offense_ref")
+                else None,
+            }
+        )
+    return out
+
+
 def _discussion_order(
     issues: Sequence[AnchoredIssue], absorbed_records: Sequence[Mapping[str, Any]]
 ) -> list[str]:
@@ -574,10 +669,10 @@ def check_contracts(plan: AnswerPlan) -> None:
     for issue in plan.anchored_issues:
         if issue.participation is not None and not issue.participation.mode:
             raise AnswerPlanError(f"{issue.issue_id}: participation without a mode")
-        if issue.blocking and not issue.failed and issue.final_state == NOT_ESTABLISHED:
-            # An element the run decided against is a real acquittal even while other
-            # elements stayed open.  What must never happen is the reverse: nothing
-            # decided against the instance, yet the plan reports it as not established.
+        if issue.final_state == NOT_ESTABLISHED and not issue.gate_failed:
+            # The run deciding against an instance is what makes an acquittal sayable.  A
+            # gate can fail on a relation obligation rather than on a predicate, so the
+            # predicate lists are not evidence either way -- only the gate is.
             raise AnswerPlanError(
                 f"{issue.issue_id}: unresolved elements reported as not established"
             )
@@ -621,6 +716,13 @@ _STATE_PROSE = {
     ABSORBED: "따로 성립하지 않는다. 다른 죄에 흡수된다.",
 }
 
+#: Participation modes in the words a Korean criminal-law answer uses for them.
+_MODE_PROSE = {
+    "co_principal": "공동정범",
+    "instigator": "교사범",
+    "aider": "방조범",
+}
+
 _COMPLETION_PROSE = {
     "completed": "기수",
     "attempt": "미수",
@@ -662,7 +764,8 @@ def _serialize_issue(position: int, issue: AnchoredIssue) -> list[str]:
     if issue.not_attributable_reason:
         lines.append(f"        귀속되지 않는 이유: {issue.not_attributable_reason}")
     if issue.participation is not None:
-        lines.append(f"    가담 형태: {issue.participation.mode}")
+        mode = issue.participation.mode
+        lines.append(f"    가담 형태: {_MODE_PROSE.get(mode, mode)}")
         if issue.participation.principal_actor:
             lines.append(f"        정범: {issue.participation.principal_actor}")
         if issue.participation.principal_offense:
@@ -713,7 +816,13 @@ def _serialize_findings(title: str, findings: Sequence[Finding]) -> list[str]:
 def _serialize_final(final: FinalResponsibility) -> list[str]:
     lines = ["최종 죄책"]
     if final.retained:
-        lines.append(f"    남는 죄: {', '.join(final.retained)}")
+        # Grouped by actor: two actors answering for theft is not one conclusion said
+        # twice, and an answer that loses the actor loses the conclusion.
+        by_actor: dict[str, list[str]] = {}
+        for record in final.retained:
+            by_actor.setdefault(record["actor"], []).append(record["offense"])
+        for actor, offenses in by_actor.items():
+            lines.append(f"    {actor}: {', '.join(offenses)}")
     else:
         lines.append("    성립이 확정된 죄가 없다.")
     for record in final.absorbed:
@@ -725,11 +834,21 @@ def _serialize_final(final: FinalResponsibility) -> list[str]:
         if record.get("condition_statement"):
             lines.append(f"        흡수 근거: {record['condition_statement']}")
     for pair in final.imaginative_pairs:
-        lines.append(f"    상상적 경합: {pair}")
+        lines.append(
+            f"    {pair['first_offense']}와 {pair['second_offense']}는 상상적 경합 관계다."
+        )
     for attribution in final.excess_attributions:
-        lines.append(f"    초과로 귀속되지 않는 부분: {attribution}")
+        lines.append(
+            f"    {attribution['actor']}의 {attribution['accessory_offense']} 가담 범위를 "
+            f"넘는 {attribution['excess_offense']} 부분은 그에게 귀속되지 않는다."
+        )
     for redirection in final.status_redirections:
-        lines.append(f"    신분에 따른 처리: {redirection}")
+        target = redirection.get("to_offense")
+        if target:
+            lines.append(
+                f"    {redirection['actor']}는 신분에 따라 {redirection['from_offense']}가 "
+                f"아니라 {target}의 죄책을 진다."
+            )
     return lines
 
 
